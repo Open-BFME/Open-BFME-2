@@ -20,29 +20,29 @@ extern int TheBfmeSetupGlobal007F26A0;
 int TheBfmeSetupGlobal007F26A0;
 
 // ?bfmeSetupPair_007E9860@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_007E9860(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_007E9860(BfmeSetupRecord *record, int accountNameValue)
 {
-	int value = TheBfmeSetupGlobal007E9860;
+	int transactionValue = TheBfmeSetupGlobal007E9860;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("name", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("name", accountNameValue);
 }
 
 // ?bfmeSetupPair_007F26A0@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_007F26A0(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_007F26A0(BfmeSetupRecord *record, int reporterCount)
 {
-	int value = TheBfmeSetupGlobal007F26A0;
+	int transactionValue = TheBfmeSetupGlobal007F26A0;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x72616E6B;					// 'rank'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWriteAlt("numberOfReporters", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWriteAlt("numberOfReporters", reporterCount);
 }
 
 // Three more 'acct' setup pairs, identical in code to bfmeSetupPair_007E9860
@@ -54,48 +54,48 @@ void __stdcall bfmeSetupPair_007F26A0(BfmeSetupRecord *record, int second)
 int TheBfmeSetupGlobal00656490;
 
 // ?bfmeSetupPair_00656490@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_00656490(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_00656490(BfmeSetupRecord *record, int accountNameValue)
 {
-	int value = TheBfmeSetupGlobal00656490;
+	int transactionValue = TheBfmeSetupGlobal00656490;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("name", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("name", accountNameValue);
 }
 
 // TheBfmeSetupGlobal006564D0: VA 0x00e09f34 (zero-filled .bss).
 int TheBfmeSetupGlobal006564D0;
 
 // ?bfmeSetupPair_006564D0@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_006564D0(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_006564D0(BfmeSetupRecord *record, int accountNameValue)
 {
-	int value = TheBfmeSetupGlobal006564D0;
+	int transactionValue = TheBfmeSetupGlobal006564D0;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("name", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("name", accountNameValue);
 }
 
 // TheBfmeSetupGlobal00656550: VA 0x00e09f1c (zero-filled .bss).
 int TheBfmeSetupGlobal00656550;
 
 // ?bfmeSetupPair_00656550@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_00656550(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_00656550(BfmeSetupRecord *record, int accountNameValue)
 {
-	int value = TheBfmeSetupGlobal00656550;
+	int transactionValue = TheBfmeSetupGlobal00656550;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("name", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("name", accountNameValue);
 }
 
 // Three more builders of the same shape, each over its own TXN global (zero-filled
@@ -105,46 +105,46 @@ void __stdcall bfmeSetupPair_00656550(BfmeSetupRecord *record, int second)
 int TheBfmeSetupGlobal00656510;
 
 // ?bfmeSetupPair_00656510@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_00656510(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_00656510(BfmeSetupRecord *record, int emailValue)
 {
-	int value = TheBfmeSetupGlobal00656510;
+	int transactionValue = TheBfmeSetupGlobal00656510;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("email", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("email", emailValue);
 }
 
 // TheBfmeSetupGlobal0065F1D0: VA 0x00e0a064 (zero-filled .bss).
 int TheBfmeSetupGlobal0065F1D0;
 
 // ?bfmeSetupPair_0065F1D0@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_0065F1D0(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_0065F1D0(BfmeSetupRecord *record, int sessionID)
 {
-	int value = TheBfmeSetupGlobal0065F1D0;
+	int transactionValue = TheBfmeSetupGlobal0065F1D0;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x72616E6B;					// 'rank'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("sessionId", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("sessionId", sessionID);
 }
 
 // TheBfmeSetupGlobal0065F210: VA 0x00e0a070 (zero-filled .bss).
 int TheBfmeSetupGlobal0065F210;
 
 // ?bfmeSetupPair_0065F210@@YGXPAUBfmeSetupRecord@@H@Z
-void __stdcall bfmeSetupPair_0065F210(BfmeSetupRecord *record, int second)
+void __stdcall bfmeSetupPair_0065F210(BfmeSetupRecord *record, int sessionID)
 {
-	int value = TheBfmeSetupGlobal0065F210;
+	int transactionValue = TheBfmeSetupGlobal0065F210;
 
 	record->bfmeBegin();
 
 	record->m_bfmeTag = 0x72616E6B;					// 'rank'
 
-	record->bfmeWrite("TXN", value);
-	record->bfmeWrite("sessionId", second);
+	record->bfmeWrite("TXN", transactionValue);
+	record->bfmeWrite("sessionId", sessionID);
 }

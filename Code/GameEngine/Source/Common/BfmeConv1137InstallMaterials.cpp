@@ -11,15 +11,15 @@
 class WWMath
 {
 public:
-	static __forceinline float Sqrt(float val)
+	static __forceinline float Sqrt(float radicand)
 	{
-		float retval;
+		float squareRoot;
 		__asm {
-			fld [val]
+			fld [radicand]
 			fsqrt
-			fstp [retval]
+			fstp [squareRoot]
 		}
-		return retval;
+		return squareRoot;
 	}
 };
 typedef DWORD D3DRENDERSTATETYPE;
@@ -69,17 +69,17 @@ class Matrix4
 {
 public:
 	__forceinline Matrix4() {}
-	__forceinline Matrix4(const Matrix4 &matrix4)
+	__forceinline Matrix4(const Matrix4 &sourceMatrix)
 	{
-		Row[0] = matrix4.Row[0]; Row[1] = matrix4.Row[1]; Row[2] = matrix4.Row[2]; Row[3] = matrix4.Row[3];
+		Row[0] = sourceMatrix.Row[0]; Row[1] = sourceMatrix.Row[1]; Row[2] = sourceMatrix.Row[2]; Row[3] = sourceMatrix.Row[3];
 	}
-	__forceinline Matrix4(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
+	__forceinline Matrix4(const Vector4 &row0, const Vector4 &row1, const Vector4 &row2, const Vector4 &row3)
 	{
-		Init(vector4, r1, r2, r3);
+		Init(row0, row1, row2, row3);
 	}
-	__forceinline void Init(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
+	__forceinline void Init(const Vector4 &row0, const Vector4 &row1, const Vector4 &row2, const Vector4 &row3)
 	{
-		Row[0] = vector4; Row[1] = r1; Row[2] = r2; Row[3] = r3;
+		Row[0] = row0; Row[1] = row1; Row[2] = row2; Row[3] = row3;
 	}
 	__forceinline void Make_Identity()
 	{
@@ -239,10 +239,10 @@ public:
 
 	static __forceinline void Set_Material(const VertexMaterialClass *material)
 	{
-		VertexMaterialClass *vertexMaterial = const_cast<VertexMaterialClass *>(material);
-		if (vertexMaterial) vertexMaterial->Add_Ref();
+		VertexMaterialClass *newMaterial = const_cast<VertexMaterialClass *>(material);
+		if (newMaterial) newMaterial->Add_Ref();
 		if (render_state.material) render_state.material->Release_Ref();
-		render_state.material = vertexMaterial;
+		render_state.material = newMaterial;
 		render_state_changed |= MATERIAL_CHANGED;
 		if (WW3D::Is_Snapshot_Activated()) {}
 	}
@@ -308,36 +308,36 @@ public:
 		number_of_DX8_calls++;
 		texture_changes++;
 	}
-	static __forceinline void Get_Transform(DWORD transform, Matrix4 &matrix4)
+	static __forceinline void Get_Transform(DWORD transformType, Matrix4 &outputMatrix)
 	{
-		D3DXMATRIX mat;
-		switch ((int)transform) {
+		D3DXMATRIX deviceTransform;
+		switch ((int)transformType) {
 		case 256:
-			if (render_state_changed & (1 << 18)) matrix4.Make_Identity();
-			else matrix4 = render_state.world.Transpose();
+			if (render_state_changed & (1 << 18)) outputMatrix.Make_Identity();
+			else outputMatrix = render_state.world.Transpose();
 			break;
 		case 2:
-			if (render_state_changed & (1 << 19)) matrix4.Make_Identity();
-			else matrix4 = render_state.view.Transpose();
+			if (render_state_changed & (1 << 19)) outputMatrix.Make_Identity();
+			else outputMatrix = render_state.view.Transpose();
 			break;
 		default:
-			_Get_D3D_Device8()->GetTransform(transform, &mat);
+			_Get_D3D_Device8()->GetTransform(transformType, &deviceTransform);
 			number_of_DX8_calls++;
-			matrix4 = *(Matrix4 *)&mat;
-			matrix4 = matrix4.Transpose();
+			outputMatrix = *(Matrix4 *)&deviceTransform;
+			outputMatrix = outputMatrix.Transpose();
 			break;
 		}
 	}
-	static __forceinline void _Get_DX8_Transform(DWORD transform, Matrix4 &matrix4)
+	static __forceinline void _Get_DX8_Transform(DWORD transformType, Matrix4 &outputMatrix)
 	{
-		Get_Transform(transform, matrix4);
-		matrix4 = matrix4.Transpose();
+		Get_Transform(transformType, outputMatrix);
+		outputMatrix = outputMatrix.Transpose();
 	}
-	static __forceinline void SetMatrix(unsigned state, const D3DXMATRIX &d3DXMATRIX)
+	static __forceinline void SetMatrix(unsigned state, const D3DXMATRIX &matrix)
 	{
 		if (WW3D::Is_Snapshot_Activated()) {}
 		++matrix_changes;
-		_Get_D3D_Device8()->SetTransform(state, &d3DXMATRIX);
+		_Get_D3D_Device8()->SetTransform(state, &matrix);
 		++number_of_DX8_calls;
 	}
 
@@ -473,14 +473,14 @@ public:
 	mutable int m_E4;
 };
 
-static __forceinline const BFME2TextureRef &AsRef(const RefCountPtr<TextureClass> &t)
+static __forceinline const BFME2TextureRef &AsRef(const RefCountPtr<TextureClass> &texture)
 {
-	return reinterpret_cast<const BFME2TextureRef &>(t);
+	return reinterpret_cast<const BFME2TextureRef &>(texture);
 }
 
 #define CLOUD ((CloudFields *)TheCloudEffectManager)
 
-static inline void SetU(D3DXMATRIX &d3DXMATRIX, float x, float y) { d3DXMATRIX.m[3][1] = y; d3DXMATRIX.m[3][0] = x; }
+static inline void SetU(D3DXMATRIX &matrix, float translationX, float translationY) { matrix.m[3][1] = translationY; matrix.m[3][0] = translationX; }
 void BfmeB1137::Install_Materials(void) const
 {
 	if (!g_Va00DB47EC || !TheGlobalWeatherSystem)
@@ -488,10 +488,10 @@ void BfmeB1137::Install_Materials(void) const
 
 	DX8Wrapper::Invalidate_Cached_Render_States();
 	ShaderClass::ShaderDirty = true;
-	VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
-	DX8Wrapper::Set_Material(vmat);
-	if (vmat)
-		vmat->Release_Ref();
+	VertexMaterialClass *presetMaterial = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+	DX8Wrapper::Set_Material(presetMaterial);
+	if (presetMaterial)
+		presetMaterial->Release_Ref();
 	DX8Wrapper::Apply_Render_State_Changes();
 
 	if (g_Va00DB47EC == 1)
@@ -577,85 +577,85 @@ void BfmeB1137::Install_Materials(void) const
 		DX8Wrapper::_Get_DX8_Transform(2, view);
 		D3DXMatrixInverse(&inv, &det, reinterpret_cast<D3DXMATRIX *>(&view));
 
-		D3DXMATRIX drift;
-		D3DXMatrixIdentity(&drift);
+		D3DXMATRIX driftTransform;
+		D3DXMatrixIdentity(&driftTransform);
 		WorldHeightMap *map = TheTerrainRenderObject->map;
 		int width = map->width;
 		int height = map->height;
-		bool sameFrame = false;
-		int frame = ((GameLogicView *)TheGameLogic)->m_frame;
-		if (m_E4 == frame)
-			sameFrame = true;
-		m_E4 = frame;
-		if (!sameFrame)
+		bool alreadyUpdatedThisFrame = false;
+		int currentFrame = ((GameLogicView *)TheGameLogic)->m_frame;
+		if (m_E4 == currentFrame)
+			alreadyUpdatedThisFrame = true;
+		m_E4 = currentFrame;
+		if (!alreadyUpdatedThisFrame)
 			m_38 += ((Rva00214D4A *)TheCloudEffectManager)->rva00214D4A();
 		if (m_38 > 1.0f)
 			m_38 = 1.0f;
-		float diagonal = WWMath::Sqrt((float)(height * height + width * width));
-		drift.m[3][0] -= diagonal * m_38 * 10.0f;
+		float mapDiagonal = WWMath::Sqrt((float)(height * height + width * width));
+		driftTransform.m[3][0] -= mapDiagonal * m_38 * 10.0f;
 
-		float fw = (float)width;
-		float fh = (float)height;
-		float sx = fw * 10.0f;
-		float sy = fh * 10.0f;
-		double hx;
-		float hy;
-		D3DXMATRIX rot;
-		D3DXMATRIX center;
-		D3DXMATRIX shift;
-		D3DXMATRIX uncenter;
-		D3DXMATRIX partial;
-		D3DXMATRIX scaled;
-		D3DXMATRIX world;
+		float mapWidthFloat = (float)width;
+		float mapHeightFloat = (float)height;
+		float worldWidth = mapWidthFloat * 10.0f;
+		float worldHeight = mapHeightFloat * 10.0f;
+		double halfWorldWidth;
+		float halfWorldHeight;
+		D3DXMATRIX rotationTransform;
+		D3DXMATRIX centerTranslation;
+		D3DXMATRIX shiftTransform;
+		D3DXMATRIX negativeCenterTranslation;
+		D3DXMATRIX centeredRotation;
+		D3DXMATRIX scaledWorldTransform;
+		D3DXMATRIX worldTransform;
 		D3DXMATRIX scroll;
 		D3DXMATRIX scale;
-		D3DXMatrixScaling(&scale, 1.0f / sx, 1.0f / sy, 1.0f);
-		D3DXMatrixRotationZ(&rot, CLOUD->m_rotation);
-		hx = sx * 0.5f;
-		hy = sy * 0.5f;
-		D3DXMatrixTranslation(&center, hx, hy, 0.0f);
-		D3DXMatrixTranslation(&shift, diagonal * 5.0f, 0.0f, 0.0f);
-		D3DXMatrixIdentity(&uncenter);
-		uncenter.m[3][0] = sx * -0.5f;
-		uncenter.m[3][1] = sy * -0.5f;
+		D3DXMatrixScaling(&scale, 1.0f / worldWidth, 1.0f / worldHeight, 1.0f);
+		D3DXMatrixRotationZ(&rotationTransform, CLOUD->m_rotation);
+		halfWorldWidth = worldWidth * 0.5f;
+		halfWorldHeight = worldHeight * 0.5f;
+		D3DXMatrixTranslation(&centerTranslation, halfWorldWidth, halfWorldHeight, 0.0f);
+		D3DXMatrixTranslation(&shiftTransform, mapDiagonal * 5.0f, 0.0f, 0.0f);
+		D3DXMatrixIdentity(&negativeCenterTranslation);
+		negativeCenterTranslation.m[3][0] = worldWidth * -0.5f;
+		negativeCenterTranslation.m[3][1] = worldHeight * -0.5f;
 
-		partial = uncenter * rot * center;
-		world = partial * shift * drift;
-		scaled = world * scale;
-		*reinterpret_cast<D3DXMATRIX *>(&view) = inv * scaled;
+		centeredRotation = negativeCenterTranslation * rotationTransform * centerTranslation;
+		worldTransform = centeredRotation * shiftTransform * driftTransform;
+		scaledWorldTransform = worldTransform * scale;
+		*reinterpret_cast<D3DXMATRIX *>(&view) = inv * scaledWorldTransform;
 		DX8Wrapper::SetMatrix(0x12, *reinterpret_cast<D3DXMATRIX *>(&view));
 
-		float cx = fw * 0.5f;
-		cx *= 10.0f;
-		float cy = fh * 0.5f;
-		cy *= 10.0f;
-		m_94 = world;
-		D3DXMatrixInverse(&world, &det, &world);
-		D3DXVECTOR3 corner;
-		corner.x = cx;
-		corner.y = cy;
-		corner.z = 0.0f;
-		D3DXVECTOR4 out;
-		rva0062AF56D3DXVec3Transform(&out, &corner, &world);
-		m_6C.x = out.x;
-		m_6C.y = out.y;
-		m_6C.z = out.z;
-		m_78.x = world.m[0][0];
-		m_78.y = world.m[0][1];
-		m_78.z = world.m[0][2];
+		float centerX = mapWidthFloat * 0.5f;
+		centerX *= 10.0f;
+		float centerY = mapHeightFloat * 0.5f;
+		centerY *= 10.0f;
+		m_94 = worldTransform;
+		D3DXMatrixInverse(&worldTransform, &det, &worldTransform);
+		D3DXVECTOR3 centerPoint;
+		centerPoint.x = centerX;
+		centerPoint.y = centerY;
+		centerPoint.z = 0.0f;
+		D3DXVECTOR4 transformedCenter;
+		rva0062AF56D3DXVec3Transform(&transformedCenter, &centerPoint, &worldTransform);
+		m_6C.x = transformedCenter.x;
+		m_6C.y = transformedCenter.y;
+		m_6C.z = transformedCenter.z;
+		m_78.x = worldTransform.m[0][0];
+		m_78.y = worldTransform.m[0][1];
+		m_78.z = worldTransform.m[0][2];
 		rva0062AF50D3DXPlaneFromPointNormal(&m_84, &m_6C, &m_78);
 
 		int last = m_44;
 		m_44 = WW3D::SyncTime;
 		int elapsed = m_44 - last;
-		if (sameFrame)
+		if (alreadyUpdatedThisFrame)
 			elapsed = 0;
 		{
 		Rva00094DD3Val wind;
 		((Rva00094DD3 *)TheCloudEffectManager)->rva00094DD3(&wind);
-		float fe = (float)elapsed;
-		m_4C += wind.x * fe * 0.002f;
-		m_50 += wind.y * fe * 0.002f;
+		float elapsedSyncTicksFloat = (float)elapsed;
+		m_4C += wind.x * elapsedSyncTicksFloat * 0.002f;
+		m_50 += wind.y * elapsedSyncTicksFloat * 0.002f;
 		}
 		while (m_4C > 1.0f)
 			m_4C -= 1.0f;
@@ -673,23 +673,23 @@ void BfmeB1137::Install_Materials(void) const
 
 		if (m_6A)
 		{
-			m_D4 = hx;
-			m_D8 = hy;
-			D3DXMATRIX toOrigin;
-			D3DXMatrixTranslation(&toOrigin, 0.0f - m_D4, 0.0f - m_D8, 0.0f);
-			D3DXMATRIX toHalf;
-			D3DXMatrixTranslation(&toHalf, 0.5f, 0.5f, 0.0f);
-			float radius = CLOUD->getM28() + m_3C * 0.1f + 0.15000000596046448 * m_3C * m_3C;
-			m_40 = radius;
+			m_D4 = halfWorldWidth;
+			m_D8 = halfWorldHeight;
+			D3DXMATRIX originTranslation;
+			D3DXMatrixTranslation(&originTranslation, 0.0f - m_D4, 0.0f - m_D8, 0.0f);
+			D3DXMATRIX textureCenterTranslation;
+			D3DXMatrixTranslation(&textureCenterTranslation, 0.5f, 0.5f, 0.0f);
+			float cloudRadius = CLOUD->getM28() + m_3C * 0.1f + 0.15000000596046448 * m_3C * m_3C;
+			m_40 = cloudRadius;
 			if (!m_68)
 			{
-				if (radius > 100.0f)
+				if (cloudRadius > 100.0f)
 					m_40 = 100.0f;
-				else if (!sameFrame)
+				else if (!alreadyUpdatedThisFrame)
 				{
-					float growth = CLOUD->getM2C();
-					const float &r = m_3C;
-					m_3C = r + growth;
+					float growthIncrement = CLOUD->getM2C();
+					const float &growthAccumulator = m_3C;
+					m_3C = growthAccumulator + growthIncrement;
 				}
 			}
 			float worldTexelWidth = m_40;
@@ -697,7 +697,7 @@ void BfmeB1137::Install_Materials(void) const
 			float widthScale = 1.0f / (worldTexelWidth * 128.0f);
 			float heightScale = 1.0f / (worldTexelHeight * 128.0f);
 			D3DXMatrixScaling(&scale, widthScale, heightScale, 1);
-			*reinterpret_cast<D3DXMATRIX *>(&view) = inv * toOrigin * scale * toHalf;
+			*reinterpret_cast<D3DXMATRIX *>(&view) = inv * originTranslation * scale * textureCenterTranslation;
 			DX8Wrapper::SetMatrix(0x13, *reinterpret_cast<D3DXMATRIX *>(&view));
 			m_E0 = m_40 * 64.0f;
 		}
@@ -773,16 +773,16 @@ void BfmeB1137::Install_Materials(void) const
 		DX8Wrapper::Set_DX8_Render_State(14, 0);
 		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 1, 1);
 		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 4, 1);
-		CloudFields *cloud = CLOUD;
+		CloudFields *cloudSettings = CLOUD;
 		DX8Wrapper::Set_DX8_Render_State(15, 1);
-		DX8Wrapper::Set_DX8_Render_State(24, cloud->m_C4);
+		DX8Wrapper::Set_DX8_Render_State(24, cloudSettings->m_C4);
 		DX8Wrapper::Set_DX8_Render_State(25, 7);
 		DX8Wrapper::Set_DX8_Render_State(26, 1);
 		{
-		RGBColor color;
-		color.red = color.green = color.blue = (float)cloud->m_C4 * (1.0f / 255.0f);
-		unsigned c = color.getAsInt();
-		DX8Wrapper::Set_DX8_Render_State(60, c | 0xFF000000);
+		RGBColor renderColor;
+		renderColor.red = renderColor.green = renderColor.blue = (float)cloudSettings->m_C4 * (1.0f / 255.0f);
+		unsigned packedRenderColor = renderColor.getAsInt();
+		DX8Wrapper::Set_DX8_Render_State(60, packedRenderColor | 0xFF000000);
 		}
 		DX8Wrapper::Set_DX8_Render_State(27, 1);
 		DX8Wrapper::Set_DX8_Render_State(19, 1);

@@ -121,21 +121,21 @@ struct Rva004609B0Mapped
 typedef _STL::hash_map<AsciiString, Rva004609B0Mapped, rts::hash<AsciiString>,
 	_STL::equal_to<AsciiString> > BfmeSJAValueHash;
 
-void bfmeLoadSJA(void *slot, void *p, char *out)
+void bfmeLoadSJA(void *tableStorage, void *owner, char *unusedOutput)
 {
-	BfmeSJAValueHash *table = (BfmeSJAValueHash *)slot;
-	BfmeSJAValueHash::iterator eraseIt;
-	BfmeSJAValueHash::iterator it = table->begin();
-	while (it != table->end())
+	BfmeSJAValueHash *valueTable = (BfmeSJAValueHash *)tableStorage;
+	BfmeSJAValueHash::iterator entryToErase;
+	BfmeSJAValueHash::iterator entryIterator = valueTable->begin();
+	while (entryIterator != valueTable->end())
 	{
-		if (*(void **)(it->second.m_body + 4) == p)
+		if (*(void **)(entryIterator->second.m_body + 4) == owner)
 		{
-			eraseIt = it++;
-			table->erase( eraseIt );
+			entryToErase = entryIterator++;
+			valueTable->erase( entryToErase );
 		}
 		else
 		{
-			++it;
+			++entryIterator;
 		}
 	}
 }
@@ -170,13 +170,13 @@ void Rva00411336(void *slot, void *owner, char *out);
 // The three global declarations use their existing providers' exact spellings.
 // The byte at &v is the empty callback object's storage; no call reads its value.
 // Keep the established opaque caller name rather than promoting the donor label.
-void Rva00411E80(int value)
+void Rva00411E80(int ownerAddress)
 {
-    char v;
-    void *owner = reinterpret_cast<void *>(value);
-    Rva00411336(&g_Va00E0300C, owner, &v);
-    Rva00411336(&g_Va00E02FF8, owner, &v);
-    bfmeLoadSJA(AptComponentWindowDataTableStorage, owner, &v);
+    char cleanupContext;
+    void *owner = reinterpret_cast<void *>(ownerAddress);
+    Rva00411336(&g_Va00E0300C, owner, &cleanupContext);
+    Rva00411336(&g_Va00E02FF8, owner, &cleanupContext);
+    bfmeLoadSJA(AptComponentWindowDataTableStorage, owner, &cleanupContext);
     g_rva00E02FC0Bits &= ~1;
 }
 
@@ -192,23 +192,23 @@ public:
 // node+8 and its owner at +4; the original mapped class identity stays opaque.
 // The target delegates deletion to 0x4FC957, which ignores its receiver,
 // invokes a non-deleting virtual destructor and frees the returned pointer.
-void Rva00411336(void *slot, void *owner, char *out)
+void Rva00411336(void *tableStorage, void *owner, char *deletionContext)
 {
-    BfmeSJAHash *table = static_cast<BfmeSJAHash *>(slot);
-    BfmeSJAHash::iterator eraseIt;
-    BfmeSJAHash::iterator it = table->begin();
-    while (it != table->end())
+    BfmeSJAHash *ownerTable = static_cast<BfmeSJAHash *>(tableStorage);
+    BfmeSJAHash::iterator entryToErase;
+    BfmeSJAHash::iterator entryIterator = ownerTable->begin();
+    while (entryIterator != ownerTable->end())
     {
-        if (it->second->m_owner == owner)
+        if (entryIterator->second->m_owner == owner)
         {
-            eraseIt = it++;
-            BfmeSJAHash::value_type *entry = &*eraseIt;
-            Rva00460A70Mapped *mapped = entry->second;
-            reinterpret_cast<Rva004FC957Delete *>(out)->rva004FC957(mapped);
-            table->erase(eraseIt);
+            entryToErase = entryIterator++;
+            BfmeSJAHash::value_type *erasedEntry = &*entryToErase;
+            Rva00460A70Mapped *mappedObject = erasedEntry->second;
+            reinterpret_cast<Rva004FC957Delete *>(deletionContext)->rva004FC957(mappedObject);
+            ownerTable->erase(entryToErase);
         }
         else
-            ++it;
+            ++entryIterator;
     }
 }
 

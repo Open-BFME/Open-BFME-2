@@ -9,16 +9,16 @@ public:
 class BfmeC1050
 {
 public:
-	void bfmeGo1050C(int a, int b, int c, int d, int e);
-	void bfmeGo009F26D0(int a, int b, int c, int d);
+	void bfmeGo1050C(int positionAddress, int b, int radiusBits, int distanceType, int filtersAddress);
+	void bfmeGo009F26D0(int positionAddress, int b, int radiusBits, int distanceType);
 
 	char m_bfmePad[0x10]; // BFME2 target at 0x625390 loads this pointer at +0x10.
 	PartitionManagerImpl *m_bfmeP;
 };
 
-void BfmeC1050::bfmeGo1050C(int a, int b, int c, int d, int e)
+void BfmeC1050::bfmeGo1050C(int positionAddress, int b, int radiusBits, int distanceType, int filtersAddress)
 {
-	m_bfmeP->GetClosestObject(a, *(const float *)&c, b, d, e);
+	m_bfmeP->GetClosestObject(positionAddress, *(const float *)&radiusBits, b, distanceType, filtersAddress);
 }
 
 struct Coord3D;
@@ -34,19 +34,19 @@ class PartitionManager
 	PartitionManagerImpl *m_impl;
 
 public:
-	Object *getClosestObject(const Coord3D *pos, float radius, int distType,
+	Object *getClosestObject(const Coord3D *position, float radius, int distanceType,
 		Rva000421C8 *filters);
 };
 
-Object *PartitionManager::getClosestObject(const Coord3D *pos, float radius, int distType,
+Object *PartitionManager::getClosestObject(const Coord3D *position, float radius, int distanceType,
 	Rva000421C8 *filters)
 {
-	return (Object *)m_impl->GetClosestObject((int)pos, radius, 0, distType, (int)filters);
+	return (Object *)m_impl->GetClosestObject((int)position, radius, 0, distanceType, (int)filters);
 }
 
-void BfmeC1050::bfmeGo009F26D0(int a, int b, int c, int d)
+void BfmeC1050::bfmeGo009F26D0(int positionAddress, int b, int radiusBits, int distanceType)
 {
-	m_bfmeP->GetClosestObject(a, *(const float *)&c, b, d, 0);
+	m_bfmeP->GetClosestObject(positionAddress, *(const float *)&radiusBits, b, distanceType, 0);
 }
 
 // 0x0013C740 is GridEnvironmentMapperClass(const INIClass &, const char *, unsigned),

@@ -41,17 +41,17 @@ bool Gen_0074B410::bfmeBitA(int x, int y) const
 		return false;
 	}
 
-	const int index = self->m_stride * y + (x >> 3);
-	if ((unsigned)index >= self->m_bits.size())
+	const int byteIndex = self->m_stride * y + (x >> 3);
+	if ((unsigned)byteIndex >= self->m_bits.size())
 	{
 		return false;
 	}
 
 	int mask = 1;
 	mask <<= x & 7;
-	unsigned char value = self->m_bits[index];
-	bool result = (value & mask) != 0;
-	return result;
+	unsigned char packedBits = self->m_bits[byteIndex];
+	bool bitIsSet = (packedBits & mask) != 0;
+	return bitIsSet;
 }
 
 class Gen_0074BA50
@@ -76,17 +76,17 @@ bool Gen_0074BA50::bfmeBitA(int x, int y) const
 		return false;
 	}
 
-	const int index = self->m_stride * y + (x >> 3);
-	if ((unsigned)index >= self->m_bits.size())
+	const int byteIndex = self->m_stride * y + (x >> 3);
+	if ((unsigned)byteIndex >= self->m_bits.size())
 	{
 		return false;
 	}
 
 	int mask = 1;
 	mask <<= x & 7;
-	unsigned char value = self->m_bits[index];
-	bool result = (value & mask) != 0;
-	return result;
+	unsigned char packedBits = self->m_bits[byteIndex];
+	bool bitIsSet = (packedBits & mask) != 0;
+	return bitIsSet;
 }
 
 
@@ -114,15 +114,15 @@ bool Gen_0074BB30::bfmeBitA(int x, int y) const
 		return false;
 	}
 
-	const int index = self->m_stride * y + (x >> 3);
-	if ((unsigned)index >= self->m_bits.size())
+	const int byteIndex = self->m_stride * y + (x >> 3);
+	if ((unsigned)byteIndex >= self->m_bits.size())
 	{
 		return false;
 	}
 
 	int mask = 1;
 	mask <<= x & 7;
-	unsigned char value = self->m_bits[index];
-	bool result = (value & mask) != 0;
-	return result;
+	unsigned char packedBits = self->m_bits[byteIndex];
+	bool bitIsSet = (packedBits & mask) != 0;
+	return bitIsSet;
 }

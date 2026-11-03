@@ -32,41 +32,41 @@ void __cdecl UpdateView3D(AptView3D *obj, const char *params);
 // Inference: namespace-scope AptComponents (cdecl, no this) rather than a class static; bytes cannot tell.
 // Evidence: callers at 0x004120E4 with void-star plus char-star plus caller-cleaned 8B; strings _light _frame= _AnimMode plus "%d=%f,%f,%f" plus IAT _strnicmp sscanf atoi isdigit; rowed StringBase compare set releaseBuffer plus pin Rva004128F0GetParam; vtable offsets +0x10 int-float-float-float plus +0x14 int-AsciiString.
 
-void __cdecl AptComponents::UpdateView3D(AptView3D *obj, const char *params)
+void __cdecl AptComponents::UpdateView3D(AptView3D *view3D, const char *parameterString)
 {
-	if (obj == 0)
+	if (view3D == 0)
 		return;
-	if (params == 0)
+	if (parameterString == 0)
 		return;
-	if (*params == 0)
+	if (*parameterString == 0)
 		return;
-	AsciiString &stored = *(AsciiString *)((char *)obj + 8);
-	if (((StringBase<char> &)stored).compare(params) == 0)
+	AsciiString &storedParameters = *(AsciiString *)((char *)view3D + 8);
+	if (((StringBase<char> &)storedParameters).compare(parameterString) == 0)
 		return;
-	((StringBase<char> &)stored).set(params);
-	const char *s = params;
+	((StringBase<char> &)storedParameters).set(parameterString);
+	const char *parameterCursor = parameterString;
 	for (;;) {
-		if (_strnicmp(s, "_light", 6) == 0 && isdigit(s[6])) {
-			const char *lightParameters = s + 6;
-			s = lightParameters;
+		if (_strnicmp(parameterCursor, "_light", 6) == 0 && isdigit(parameterCursor[6])) {
+			const char *lightParameters = parameterCursor + 6;
+			parameterCursor = lightParameters;
 			int lightIndex = 0;
 			float lightX = 1.0f;
 			float lightY = 1.0f;
 			float lightZ = 1.0f;
-			sscanf(s, "%d=%f,%f,%f", &lightIndex, &lightX, &lightY, &lightZ);
-			obj->SetLight(lightIndex, lightX, lightY, lightZ);
-		} else if (_strnicmp(s, "_frame=", 7) == 0) {
-			AsciiString mode;
-			Rva004128F0GetParam(params, "_AnimMode", mode);
-			int frame = atoi(s + 7);
-			obj->SetFrame(frame, mode);
+			sscanf(parameterCursor, "%d=%f,%f,%f", &lightIndex, &lightX, &lightY, &lightZ);
+			view3D->SetLight(lightIndex, lightX, lightY, lightZ);
+		} else if (_strnicmp(parameterCursor, "_frame=", 7) == 0) {
+			AsciiString animationMode;
+			Rva004128F0GetParam(parameterString, "_AnimMode", animationMode);
+			int frameNumber = atoi(parameterCursor + 7);
+			view3D->SetFrame(frameNumber, animationMode);
 		}
-		while (*s) {
-			char c = *s++;
-			if (c == '&')
+		while (*parameterCursor) {
+			char character = *parameterCursor++;
+			if (character == '&')
 				break;
 		}
-		if (*s == 0)
+		if (*parameterCursor == 0)
 			return;
 	}
 }

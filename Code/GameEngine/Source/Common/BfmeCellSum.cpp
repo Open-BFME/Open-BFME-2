@@ -27,12 +27,12 @@ class BfmeCellFD;
 class Gen_008F7CD0
 {
 public:
-	int bfmeCellSum(const BfmePointFD *point, int index,
-		unsigned int mask) const;
+	int bfmeCellSum(const BfmePointFD *point, int valueIndex,
+		unsigned int selectionMask) const;
 	BfmeCellFD *bfmeAt(int x, int y) const;
 	int bfmeCellX(Real value) const;
 	int bfmeCellY(Real value) const;
-	void rva0073BC60(int mask, int index, BfmeCellOut *out) const;
+	void rva0073BC60(int selectionMask, int valueIndex, BfmeCellOut *bestPosition) const;
 
 private:
 	char m_bfmeHead[4];					// +0x00
@@ -47,40 +47,40 @@ private:
 };
 
 // ?bfmeCellSum@Gen_008F7CD0@@QBEHPBUBfmePointFD@@HI@Z
-int Gen_008F7CD0::bfmeCellSum(const BfmePointFD *point, int index,
-	unsigned int mask) const
+int Gen_008F7CD0::bfmeCellSum(const BfmePointFD *point, int valueIndex,
+	unsigned int selectionMask) const
 {
-	if (mask == 0)
+	if (selectionMask == 0)
 		return 0;
 
-	if (index < 0 || index >= 3)
+	if (valueIndex < 0 || valueIndex >= 3)
 		return 0;
 
-	mask &= 0xfffff;
+	selectionMask &= 0xfffff;
 
 	BfmeCellFD *cell = bfmeAt(bfmeCellX(point->x), bfmeCellY(point->y));
 
 	if (cell == 0)
 		return 0;
 
-	int total = 0;
-	if (mask != 0)
+	int valueSum = 0;
+	if (selectionMask != 0)
 	{
-		unsigned short *words = (unsigned short *)((char *)cell
-			+ index * 2 + 6);
+		unsigned short *selectedValue = (unsigned short *)((char *)cell
+			+ valueIndex * 2 + 6);
 
 		do
 		{
-			if ((mask & 1) != 0)
-				total += *words;
+			if ((selectionMask & 1) != 0)
+				valueSum += *selectedValue;
 
-			mask >>= 1;
-			words += 4;
+			selectionMask >>= 1;
+			selectedValue += 4;
 		}
-		while (mask != 0);
+		while (selectionMask != 0);
 	}
 
-	return total;
+	return valueSum;
 }
 
 // Retail 0x0073BC60, 262 bytes: the cell with the largest index-masked
@@ -93,39 +93,39 @@ int Gen_008F7CD0::bfmeCellSum(const BfmePointFD *point, int index,
 // neighbour 0x00739800. The result z is an integer zero store, as in
 // GetNearestGroupWithValue (the SSE region default would zero it via xorps).
 // ?rva0073BC60@Gen_008F7CD0@@QBEXHHPAUBfmeCellOut@@@Z
-void Gen_008F7CD0::rva0073BC60(int mask, int index, BfmeCellOut *out) const
+void Gen_008F7CD0::rva0073BC60(int selectionMask, int valueIndex, BfmeCellOut *bestPosition) const
 {
-	if (mask == 0)
+	if (selectionMask == 0)
 		return;
-	if (index < 0 || index >= 3)
+	if (valueIndex < 0 || valueIndex >= 3)
 		return;
-	mask &= 0xFFFFF;
+	selectionMask &= 0xFFFFF;
 	const char *bestCell = (const char *)m_bfmeCells;
-	const char *finish = (const char *)m_bfmeCells + m_bfmeHeight * m_bfmeWidth * 0xA8;
-	unsigned int best = 0;
-	for (const char *cell = (const char *)m_bfmeCells; cell != finish; cell += 0xA8)
+	const char *cellsEnd = (const char *)m_bfmeCells + m_bfmeHeight * m_bfmeWidth * 0xA8;
+	unsigned int bestValueSum = 0;
+	for (const char *cell = (const char *)m_bfmeCells; cell != cellsEnd; cell += 0xA8)
 	{
-		unsigned int total = 0;
-		unsigned int m = (unsigned int)mask;
-		if (m != 0)
+		unsigned int cellValueSum = 0;
+		unsigned int remainingMask = (unsigned int)selectionMask;
+		if (remainingMask != 0)
 		{
-			const unsigned short *words = (const unsigned short *)(cell + index * 2 + 6);
+			const unsigned short *selectedValue = (const unsigned short *)(cell + valueIndex * 2 + 6);
 			do
 			{
-				if ((m & 1) != 0)
-					total += *words;
-				m >>= 1;
-				words += 4;
-			} while (m != 0);
+				if ((remainingMask & 1) != 0)
+					cellValueSum += *selectedValue;
+				remainingMask >>= 1;
+				selectedValue += 4;
+			} while (remainingMask != 0);
 		}
-		if (total > best)
+		if (cellValueSum > bestValueSum)
 		{
 			bestCell = cell;
-			best = total;
+			bestValueSum = cellValueSum;
 		}
 	}
-	unsigned int row = (unsigned int)((bestCell - (const char *)m_bfmeCells) / 0xA8);
-	out->x = (Real)(row % (unsigned int)m_bfmeWidth) * m_bfmeStep;
-	out->y = (Real)(row / (unsigned int)m_bfmeWidth) * m_bfmeStep;
-	*(int *)&out->z = 0;
+	unsigned int cellIndex = (unsigned int)((bestCell - (const char *)m_bfmeCells) / 0xA8);
+	bestPosition->x = (Real)(cellIndex % (unsigned int)m_bfmeWidth) * m_bfmeStep;
+	bestPosition->y = (Real)(cellIndex / (unsigned int)m_bfmeWidth) * m_bfmeStep;
+	*(int *)&bestPosition->z = 0;
 }

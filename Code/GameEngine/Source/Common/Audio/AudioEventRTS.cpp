@@ -60,7 +60,7 @@ class Rva002D9BDC
 	float m_64;
 
 public:
-	void rva002D9BDC(float lo, float hi);
+	void rva002D9BDC(float minimum, float maximum);
 };
 
 class Rva002D9C2F
@@ -1289,12 +1289,12 @@ void AudioEventRTS::generateFilename(void)
 	if (!m_filenameDirty || !m_eventInfo)
 		return;
 
-	bool firstTime = !m_filenameGenerated;
+	bool isFirstGeneration = !m_filenameGenerated;
 	m_filenameGenerated = true;
 	m_filenameDirty = false;
 
-	bool bare = (m_eventInfo->m_control >> 6) & 1;
-	if (bare)
+	bool omitFilenameAffixes = (m_eventInfo->m_control >> 6) & 1;
+	if (omitFilenameAffixes)
 		m_filenameToLoad.clear();
 	else
 		m_filenameToLoad = *AudioEventRTS::generateFilenamePrefix(m_eventInfo->m_soundType);
@@ -1305,48 +1305,48 @@ void AudioEventRTS::generateFilename(void)
 		return;
 	}
 
-	const WeightedSoundRange *sounds = m_eventInfo->getSounds();
+	const WeightedSoundRange *soundChoices = m_eventInfo->getSounds();
 	unsigned int totalWeight = m_eventInfo->m_soundsTotalWeight;
-	if (totalWeight == 0 || sounds->empty())
+	if (totalWeight == 0 || soundChoices->empty())
 	{
 		m_filenameToLoad = AsciiString::TheEmptyString;
 		return;
 	}
 
-	int which;
+	int selectedSoundIndex;
 	if ((m_eventInfo->m_control & 2) == 0 && !m_sequential)
 	{
-		if (sounds->size() > 1)
+		if (soundChoices->size() > 1)
 		{
-			if (firstTime)
+			if (isFirstGeneration)
 				m_playingAudioIndex = m_eventInfo->m_lastPlayedIndex;
 			do
 			{
-				which = getRandomSoundIndexByWeight(totalWeight, sounds);
-			} while (which == m_playingAudioIndex);
-			if (firstTime)
-				m_eventInfo->m_lastPlayedIndex = which;
+				selectedSoundIndex = getRandomSoundIndexByWeight(totalWeight, soundChoices);
+			} while (selectedSoundIndex == m_playingAudioIndex);
+			if (isFirstGeneration)
+				m_eventInfo->m_lastPlayedIndex = selectedSoundIndex;
 		}
 		else
 		{
-			which = 0;
+			selectedSoundIndex = 0;
 		}
 
-		if (which == -1)
+		if (selectedSoundIndex == -1)
 		{
 			m_filenameToLoad = AsciiString::TheEmptyString;
 			return;
 		}
-		m_playingAudioIndex = which;
+		m_playingAudioIndex = selectedSoundIndex;
 	}
 	else
 	{
-		which = (++m_playingAudioIndex) % sounds->size();
+		selectedSoundIndex = (++m_playingAudioIndex) % soundChoices->size();
 	}
 
-	const WeightedSound *soundArray = sounds->m_begin;
-	m_filenameToLoad.concat(soundArray[which].m_name);
-	if (!bare)
+	const WeightedSound *weightedSounds = soundChoices->m_begin;
+	m_filenameToLoad.concat(weightedSounds[selectedSoundIndex].m_name);
+	if (!omitFilenameAffixes)
 		m_filenameToLoad.concat(Rva002DA398Get(retainAudioType(peekEventInfo()->m_soundType)));
 }
 
@@ -1401,24 +1401,24 @@ void AudioEventRTS::generatePlayInfo(void)
 	m_pitchShift = GetGameAudioRandomValueReal(m_eventInfo->m_pitchShiftMin * 0.01f + 1.0f, m_eventInfo->m_pitchShiftMax * 0.01f + 1.0f, AUDIO_EVENT_RTS_FILE, 0x243);
 	m_volumeShift = GetGameAudioRandomValueReal(m_eventInfo->m_volumeShift + 1.0f, 1.0f, AUDIO_EVENT_RTS_FILE, 0x244);
 
-	bool bare = (m_eventInfo->m_control >> 6) & 1;
+	bool omitFilenameAffixes = (m_eventInfo->m_control >> 6) & 1;
 	if (m_eventInfo->m_soundType == AT_SoundEffect)
 	{
 		m_portionToPlayNext = PP_Attack;
 		unsigned attackWeight = m_eventInfo->m_attackTotalWeight;
-		int which = getRandomSoundIndexByWeight(attackWeight, m_eventInfo->getAttackSounds());
-		if (which >= 0)
+		int selectedSoundIndex = getRandomSoundIndexByWeight(attackWeight, m_eventInfo->getAttackSounds());
+		if (selectedSoundIndex >= 0)
 		{
-			if (bare)
+			if (omitFilenameAffixes)
 			{
 				const WeightedSound *soundArray = m_eventInfo->getAttackSounds()->m_begin;
-				m_attackName = soundArray[which].m_name;
+				m_attackName = soundArray[selectedSoundIndex].m_name;
 			}
 			else
 			{
 				m_attackName = *AudioEventRTS::generateFilenamePrefix(m_eventInfo->m_soundType);
 				const WeightedSound *soundArray = m_eventInfo->getAttackSounds()->m_begin;
-				m_attackName.concat(soundArray[which].m_name);
+				m_attackName.concat(soundArray[selectedSoundIndex].m_name);
 				m_attackName.concat(Rva002DA398Get(retainAudioType(peekEventInfo()->m_soundType)));
 			}
 		}
@@ -1430,19 +1430,19 @@ void AudioEventRTS::generatePlayInfo(void)
 				m_portionToPlayNext = m_eventInfo->getDecaySounds()->empty() ? PP_Done : PP_Decay;
 		}
 		unsigned decayWeight = m_eventInfo->m_decayTotalWeight;
-		which = getRandomSoundIndexByWeight(decayWeight, m_eventInfo->getDecaySounds());
-		if (which >= 0)
+		selectedSoundIndex = getRandomSoundIndexByWeight(decayWeight, m_eventInfo->getDecaySounds());
+		if (selectedSoundIndex >= 0)
 		{
-			if (bare)
+			if (omitFilenameAffixes)
 			{
 				const WeightedSound *soundArray = m_eventInfo->getDecaySounds()->m_begin;
-				m_decayName = soundArray[which].m_name;
+				m_decayName = soundArray[selectedSoundIndex].m_name;
 			}
 			else
 			{
 				m_decayName = *AudioEventRTS::generateFilenamePrefix(m_eventInfo->m_soundType);
 				const WeightedSound *soundArray = m_eventInfo->getDecaySounds()->m_begin;
-				m_decayName.concat(soundArray[which].m_name);
+				m_decayName.concat(soundArray[selectedSoundIndex].m_name);
 				m_decayName.concat(Rva002DA398Get(retainAudioType(peekEventInfo()->m_soundType)));
 			}
 		}
@@ -1455,47 +1455,47 @@ void AudioEventRTS::generatePlayInfo(void)
 
 void AudioEventRTS::internalXfer(Xfer *xfer, const void *version)
 {
- BfmeAudioEventPrefix136 &event = *(BfmeAudioEventPrefix136 *)this;
+ BfmeAudioEventPrefix136 &eventData = *(BfmeAudioEventPrefix136 *)this;
  AsciiString name(*(const AsciiString *)((Rva002D9AC3 *)this)->rva002D9AC3());
  (*xfer == name);
  if (xfer->IsLoading()) {
   if (name.isEmpty())
-   ((Rva000A8C9B *)&event.m_pool08)->clear();
+   ((Rva000A8C9B *)&eventData.m_pool08)->clear();
   else
-   *(OpaqueRefElement4 *)&event.m_pool08 = TheAudio->a75(&name);
+   *(OpaqueRefElement4 *)&eventData.m_pool08 = TheAudio->a75(&name);
  }
- char owner = (char)event.m_int38;
+ char owner = (char)eventData.m_int38;
  (*xfer == owner);
- event.m_int38 = owner;
- switch (event.m_int38) {
- case 0: (*xfer == reinterpret_cast<Coord3DBase &>(event.m_position)); break;
- case 1: XferDrawableID(xfer, &event.m_int34); break;
- case 2: XferObjectID(xfer, (ObjectID *)&event.m_int34); break;
- case 3: XferLivingWorldUniqueID(xfer, &event.m_int34); break;
- case 4: XferLivingWorldArmyID(xfer, &event.m_int34); break;
- case 5: Rva004E075FGet((Rva004E075FObj *)xfer, (int)&event.m_int34); break;
+ eventData.m_int38 = owner;
+ switch (eventData.m_int38) {
+ case 0: (*xfer == reinterpret_cast<Coord3DBase &>(eventData.m_position)); break;
+ case 1: XferDrawableID(xfer, &eventData.m_int34); break;
+ case 2: XferObjectID(xfer, (ObjectID *)&eventData.m_int34); break;
+ case 3: XferLivingWorldUniqueID(xfer, &eventData.m_int34); break;
+ case 4: XferLivingWorldArmyID(xfer, &eventData.m_int34); break;
+ case 5: Rva004E075FGet((Rva004E075FObj *)xfer, (int)&eventData.m_int34); break;
  }
- const unsigned char *v = (const unsigned char *)version;
- if (v[1] >= 2) (*xfer == reinterpret_cast<bool &>(event.m_b48));
- (*xfer == reinterpret_cast<bool &>(event.m_b49));
- if (v[1] < 5) { unsigned char obsolete = 0; (*xfer == reinterpret_cast<bool &>(obsolete)); }
- (*xfer == reinterpret_cast<bool &>(event.m_b4A));
- (*xfer == event.m_int6C);
- if (v[1] >= 4) XferLivingWorldPlayerID(xfer, &event.m_int70);
- (*xfer == reinterpret_cast<bool &>(event.m_b4C));
- char logical = (char)event.m_int30;
+ const unsigned char *versionBytes = (const unsigned char *)version;
+ if (versionBytes[1] >= 2) (*xfer == reinterpret_cast<bool &>(eventData.m_b48));
+ (*xfer == reinterpret_cast<bool &>(eventData.m_b49));
+ if (versionBytes[1] < 5) { unsigned char obsoleteFlag = 0; (*xfer == reinterpret_cast<bool &>(obsoleteFlag)); }
+ (*xfer == reinterpret_cast<bool &>(eventData.m_b4A));
+ (*xfer == eventData.m_int6C);
+ if (versionBytes[1] >= 4) XferLivingWorldPlayerID(xfer, &eventData.m_int70);
+ (*xfer == reinterpret_cast<bool &>(eventData.m_b4C));
+ char logical = (char)eventData.m_int30;
  (*xfer == logical);
- event.m_int30 = logical;
- char portion = (char)event.m_int78;
- (*xfer == portion);
- event.m_int78 = portion;
- (*xfer == event.m_string84);
- (*xfer == event.m_int7C);
- (*xfer == event.m_f2C);
- if (v[1] >= 3) (*xfer == event.m_int80);
- if (v[1] >= 6) {
-  (*xfer == event.m_int14);
-  TheAudio->a103(xfer, &event.m_pool10);
+ eventData.m_int30 = logical;
+ char playbackPortion = (char)eventData.m_int78;
+ (*xfer == playbackPortion);
+ eventData.m_int78 = playbackPortion;
+ (*xfer == eventData.m_string84);
+ (*xfer == eventData.m_int7C);
+ (*xfer == eventData.m_f2C);
+ if (versionBytes[1] >= 3) (*xfer == eventData.m_int80);
+ if (versionBytes[1] >= 6) {
+  (*xfer == eventData.m_int14);
+  TheAudio->a103(xfer, &eventData.m_pool10);
  }
 }
 
@@ -1527,9 +1527,9 @@ bool Rva002D9608::rva002D9608()
 
 // Native boundary2D97D6-2D982A. Six owned members default-initialize before
 // the shared259B initializer; native ret8 consumes reference and the value stored at +0x30.
-BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &opaqueRefElement4, int value30)
+BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &eventReference, int value30)
 {
-    rva002D96D3(opaqueRefElement4);
+    rva002D96D3(eventReference);
     m_int30 = value30;
 }
 
@@ -1548,9 +1548,9 @@ BfmePoolRef10 &Rva002D9AD4::rva002D9AD4(const BfmePoolRef10 &other)
 	return m_pool = other;
 }
 
-void Rva002D9BDC::rva002D9BDC(float lo, float hi)
+void Rva002D9BDC::rva002D9BDC(float minimum, float maximum)
 {
-	m_64 = clamp(lo, m_64, hi);
+	m_64 = clamp(minimum, m_64, maximum);
 }
 
 OpaqueRefElement4 &Rva002D9C2F::rva002D9C2F(const OpaqueRefElement4 &other)
@@ -1624,104 +1624,104 @@ void Rva002D9F9FOwner::rva002D9F9F(Rva002D9F9FArg *a)
 	if (a->v03())
 		return;
 	// Pair occupies the dead arg slot at [ebp+8]; int filler forces placement.
-	int t;
-	((unsigned char *)&t)[0] = 1;
-	((unsigned char *)&t)[1] = 6;
-	a->v10(&t);
-	((AudioEventRTS *)this)->internalXfer((Xfer *)a, &t);
+	int versionPair;
+	((unsigned char *)&versionPair)[0] = 1;
+	((unsigned char *)&versionPair)[1] = 6;
+	a->v10(&versionPair);
+	((AudioEventRTS *)this)->internalXfer((Xfer *)a, &versionPair);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva002DA414.cpp
 
 void *Rva002DA414::rva002DA414()
 {
-	Object *obj;
+	Object *ownerObject;
 	if (m_type38 == 2) {
-		obj = TheGameLogic->findObjectByID(m_id34);
+		ownerObject = TheGameLogic->findObjectByID(m_id34);
 	} else if (m_type38 == 1) {
-		ClientHolder *holder = ((ClientFrameSubsystem *)TheGameClient)->rva040(m_id34);
-		if (holder == 0)
+		ClientHolder *drawableHolder = ((ClientFrameSubsystem *)TheGameClient)->rva040(m_id34);
+		if (drawableHolder == 0)
 			return m_ptr6C;
-		obj = holder->m_objFC;
+		ownerObject = drawableHolder->m_objFC;
 	} else {
 		return m_ptr6C;
 	}
-	if (obj == 0)
+	if (ownerObject == 0)
 		return m_ptr6C;
-	Player *player = obj->getControllingPlayer();
-	return player->m_ptr54;
+	Player *controllingPlayer = ownerObject->getControllingPlayer();
+	return controllingPlayer->m_ptr54;
 }
 
 // ---- from Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerConstructors.cpp
 
-BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &ref, ObjectID id) {
- rva002D96D3(ref);
- m_int34=id;
+BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &eventReference, ObjectID objectID) {
+ rva002D96D3(eventReference);
+ m_int34=objectID;
  m_int30=0;
- if(id) m_int38=2;
+ if(objectID) m_int38=2;
  else m_int34=0;
- bool valid;
- rva002DA1CC(valid);
+ bool positionValid;
+ rva002DA1CC(positionValid);
 }
 
-BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &ref, DrawableID id) {
- rva002D96D3(ref);
- m_int34=id;
+BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &eventReference, DrawableID drawableID) {
+ rva002D96D3(eventReference);
+ m_int34=drawableID;
  m_int30=0;
- if(id) m_int38=1;
+ if(drawableID) m_int38=1;
  else m_int34=0;
- bool valid;
- rva002DA1CC(valid);
+ bool positionValid;
+ rva002DA1CC(positionValid);
 }
 
 // ---- from Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerCtorTag4.cpp
 
-Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &ref, int id)
+Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &eventReference, int armyID)
 {
-	BfmeAudioEventPrefix136 *self = (BfmeAudioEventPrefix136 *)this;
-	self->rva002D96D3(ref);
-	self->m_int34 = id;
-	self->m_int30 = 1;
-	if (id)
-		self->m_int38 = 4;
+	BfmeAudioEventPrefix136 *eventData = (BfmeAudioEventPrefix136 *)this;
+	eventData->rva002D96D3(eventReference);
+	eventData->m_int34 = armyID;
+	eventData->m_int30 = 1;
+	if (armyID)
+		eventData->m_int38 = 4;
 	else
-		self->m_int34 = 0;
-	bool valid;
-	self->rva002DA1CC(valid);
+		eventData->m_int34 = 0;
+	bool positionValid;
+	eventData->rva002DA1CC(positionValid);
 }
 
 // Native 0x002DA555..0x002DA5D3: same vtable and 0x88-byte member layout
 // as the tag-4 sibling above. All stores and calls are identical except the
 // nonzero-ID owner tag at +0x38 is 3. Both use initializer 0x002D96D3 and
 // position worker 0x002DA1CC; no application owner-kind identity is asserted.
-Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &ref, Rva002DA555Id id)
+Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &eventReference, Rva002DA555Id clickableObjectID)
 {
-	BfmeAudioEventPrefix136 *self = (BfmeAudioEventPrefix136 *)this;
-	self->rva002D96D3(ref);
-	self->m_int34 = id;
-	self->m_int30 = 1;
-	if (id)
-		self->m_int38 = 3;
+	BfmeAudioEventPrefix136 *eventData = (BfmeAudioEventPrefix136 *)this;
+	eventData->rva002D96D3(eventReference);
+	eventData->m_int34 = clickableObjectID;
+	eventData->m_int30 = 1;
+	if (clickableObjectID)
+		eventData->m_int38 = 3;
 	else
-		self->m_int34 = 0;
-	bool valid;
-	self->rva002DA1CC(valid);
+		eventData->m_int34 = 0;
+	bool positionValid;
+	eventData->rva002DA1CC(positionValid);
 }
 
 // ---- from Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerCtorTag5.cpp
 
-Rva002DA651::Rva002DA651(const OpaqueRefElement4 &ref, int id)
+Rva002DA651::Rva002DA651(const OpaqueRefElement4 &eventReference, int id)
 {
-	BfmeAudioEventPrefix136 *self = (BfmeAudioEventPrefix136 *)this;
-	self->rva002D96D3(ref);
-	self->m_int34 = id;
-	self->m_int30 = 1;
+	BfmeAudioEventPrefix136 *eventData = (BfmeAudioEventPrefix136 *)this;
+	eventData->rva002D96D3(eventReference);
+	eventData->m_int34 = id;
+	eventData->m_int30 = 1;
 	if (id)
-		self->m_int38 = 5;
+		eventData->m_int38 = 5;
 	else
-		self->m_int34 = 0;
-	bool valid;
-	self->rva002DA1CC(valid);
+		eventData->m_int34 = 0;
+	bool positionValid;
+	eventData->rva002DA1CC(positionValid);
 }
 
 // ---- from Code/GameEngine/Source/Common/AudioEventRTS_generateFilenamePrefix.cpp
@@ -1753,10 +1753,10 @@ const AsciiString *AudioEventRTS::generateFilenamePrefix(int audioTypeToPlay)
 
 // Existing105B position overload at2D982A; use the canonical136-byte layout.
 
-BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &opaqueRefElement4, const BfmeEventPositionView &pos, int value30)
+BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &eventReference, const BfmeEventPositionView &eventPosition, int value30)
 {
-	rva002D96D3(opaqueRefElement4);
-	m_position = pos;
+	rva002D96D3(eventReference);
+	m_position = eventPosition;
 	m_int38 = 0;
 	m_int30 = value30;
 	m_b48 = 1;
@@ -1896,17 +1896,17 @@ double Rva002DA0CF::rva002DA0CF()
 {
 	switch (m_38) {
 	case 1: {
-		ClientHolder *drawable = ((ClientFrameSubsystem *)TheGameClient)->rva040((ObjectID)m_34);
-		if (drawable != 0 && drawable->m_44A == 0)
+		ClientHolder *drawableHolder = ((ClientFrameSubsystem *)TheGameClient)->rva040((ObjectID)m_34);
+		if (drawableHolder != 0 && drawableHolder->m_44A == 0)
 			return BfmeZeroRange;
 		break;
 	}
 	case 2: {
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)m_34);
-		if (obj != 0) {
-			unsigned int v = *(unsigned int *)((char *)obj + 0x98) >> 0x14;
-			unsigned char b = (unsigned char)~(unsigned char)v;
-			if ((b & 1) == 0)
+		Object *ownerObject = TheGameLogic->findObjectByID((ObjectID)m_34);
+		if (ownerObject != 0) {
+			unsigned int shiftedObjectFlags = *(unsigned int *)((char *)ownerObject + 0x98) >> 0x14;
+			unsigned char invertedObjectFlags = (unsigned char)~(unsigned char)shiftedObjectFlags;
+			if ((invertedObjectFlags & 1) == 0)
 				return BfmeZeroRange;
 		}
 		break;
@@ -1938,16 +1938,16 @@ double Rva002DA0CF::rva002DA0CF()
 
 float Rva002DA153::rva002DA153()
 {
-	int t = m_38 - 1;
-	if (t != 0)
+	int ownerTypeCase = m_38 - 1;
+	if (ownerTypeCase != 0)
 	{
-		t = t - 1;
-		if (t == 0)
+		ownerTypeCase = ownerTypeCase - 1;
+		if (ownerTypeCase == 0)
 		{
-			Object *obj = TheGameLogic->findObjectByID(m_34);
-			if (obj != 0)
+			Object *ownerObject = TheGameLogic->findObjectByID(m_34);
+			if (ownerObject != 0)
 			{
-				unsigned int objectFlags = (unsigned int)obj->m_98;
+				unsigned int objectFlags = (unsigned int)ownerObject->m_98;
 				objectFlags >>= 0x14;
 				unsigned char invertedFlags = (unsigned char)objectFlags;
 				invertedFlags = (unsigned char)~invertedFlags;
@@ -1958,10 +1958,10 @@ float Rva002DA153::rva002DA153()
 	}
 	else
 	{
-		ClientHolder *drawable = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->rva040(m_34);
-		if (drawable != 0)
+		ClientHolder *drawableHolder = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->rva040(m_34);
+		if (drawableHolder != 0)
 		{
-			if (drawable->m_44A == 0)
+			if (drawableHolder->m_44A == 0)
 				return 0.0f;
 		}
 	}
@@ -1986,22 +1986,22 @@ float Rva002DA153::rva002DA153()
 // The case3..5 receiver identities remain unasserted. Existing global providers
 // bind the observed DF EF10/18 storage without adding new singleton spellings.
 
-BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &valid) {
+BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &positionValid) {
  switch(m_int38) {
  case 1: {
-  Drawable *draw=TheGameClient->findDrawableByID(m_int34);
-  if(draw) {m_b48=1;m_position=*(const BfmeEventPositionView*)draw->getPosition();}
+  Drawable *ownerDrawable=TheGameClient->findDrawableByID(m_int34);
+  if(ownerDrawable) {m_b48=1;m_position=*(const BfmeEventPositionView*)ownerDrawable->getPosition();}
   break;
  }
  case 2: {
-  Object *obj=TheGameLogic->findObjectByID((ObjectID)m_int34);
-  if(obj) {m_b48=1;m_position=obj->position;}
+  Object *ownerObject=TheGameLogic->findObjectByID((ObjectID)m_int34);
+  if(ownerObject) {m_b48=1;m_position=ownerObject->position;}
   break;
  }
  case 3:
   if(((Rva002D3627Host *)TheLivingWorld)) {
-   Rva003FA835 *window=(Rva003FA835*)((LivingWorld *)((Rva002D3627Host *)TheLivingWorld))->FindClickableObject((void*)m_int34);
-   if(window) {m_b48=1;m_position=window->rva003FA835();}
+   Rva003FA835 *clickableObject=(Rva003FA835*)((LivingWorld *)((Rva002D3627Host *)TheLivingWorld))->FindClickableObject((void*)m_int34);
+   if(clickableObject) {m_b48=1;m_position=clickableObject->rva003FA835();}
   }
   break;
  case 4:
@@ -2017,8 +2017,8 @@ BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &valid) {
   }
   break;
  }
- if(m_b48) {valid=true;return m_position;}
- valid=false;
+ if(m_b48) {positionValid=true;return m_position;}
+ positionValid=false;
  return BfmeEventPositionView(0,0,0);
 }
 
@@ -2033,15 +2033,15 @@ BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &valid) {
 // releaseBuffer 0x00036410; TheEmptyString 0x009E0878; g_00BBD3EC;
 // TheAudio 0x009FE6E8 with virtual at +0x134; callers 0x002DA7FA 0x002DA9D2.
 
-AsciiString Rva002DA398Get(int n)
+AsciiString Rva002DA398Get(int audioType)
 {
-	AsciiString tmp = AsciiString::TheEmptyString;
-	if (n == 2) {
-		((StringBase<char> *)&tmp)->set(g_00BBD3EC);
-		((StringBase<char> *)&tmp)->concat(
+	AsciiString filenameSuffix = AsciiString::TheEmptyString;
+	if (audioType == 2) {
+		((StringBase<char> *)&filenameSuffix)->set(g_00BBD3EC);
+		((StringBase<char> *)&filenameSuffix)->concat(
 			*(const StringBase<char> *)&TheAudio->slot134()->m_str);
 	}
-	return tmp;
+	return filenameSuffix;
 }
 
 // Retail's data references in this unit's matched rows land on globals defined

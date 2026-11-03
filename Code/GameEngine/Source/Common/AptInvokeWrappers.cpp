@@ -29,9 +29,9 @@ AsciiString __cdecl Rva00222834Get(int value);
 
 // ?Rva002D4531Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABH@Z @0x002D4531 99B
 // one int argument through the rowed Rva00222834Get.
-int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg)
+int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *functionName, const int &argumentValue)
 {
-	return target->invoke(owner, name, 1, Rva002162CFStr(Rva00222834Get(arg)), 0, 0, 0, 0);
+	return target->invoke(owner, functionName, 1, Rva002162CFStr(Rva00222834Get(argumentValue)), 0, 0, 0, 0);
 }
 
 // ?rva00522A91@AptSkirmish@@QAEXXZ @0x00522A91 107B: close the profile popup.
@@ -43,7 +43,7 @@ class AptSkirmish
 public:
 	void rva00522A91();
 	void rva00521841();
-	int rva00523178(int msg, unsigned int key, unsigned int state);
+	int rva00523178(int messageType, unsigned int key, unsigned int state);
 	// Follow-ups on the same panel, rowed in AptSkirmishCallbacks.cpp:
 	// 0x00521770, 0x00521B56, 0x005229D3.
 	void OnProfilePopupCancel(const char *unused);
@@ -58,9 +58,9 @@ private:
 	bool m_busy;				// +0x6C2
 };
 
-int AptSkirmish::rva00523178(int msg, unsigned int key, unsigned int state)
+int AptSkirmish::rva00523178(int messageType, unsigned int key, unsigned int state)
 {
-	if (msg != 0x15)
+	if (messageType != 0x15)
 		return 0;
 	switch ((unsigned char)key)
 	{
@@ -131,14 +131,14 @@ static inline const char *Rva005252CDPass(const char *text)
 // 107B: a two-argument call through the level-scoped rva00222B19 (level,
 // prefix, name), an int via the rowed Rva00222834Get and a string held by
 // reference.
-int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &text)
+int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *functionName, const int &valueArgument, const char *const &text)
 {
-	return target->rva00222B19(level, prefix, name, 2, Rva002162CFStr(Rva00222834Get(a)), (void *)Rva005252CDPass(text), 0, 0, 0);
+	return target->rva00222B19(level, prefix, functionName, 2, Rva002162CFStr(Rva00222834Get(valueArgument)), (void *)Rva005252CDPass(text), 0, 0, 0);
 }
 
 // ?Rva002D3409Invoke@@YAHPAVRva00222A8BTarget@@PAXPBDABQBD@Z @0x002D3409 33B:
 // the one-string member: the string held by reference passes straight through.
-int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &text)
+int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *functionName, const char *const &text)
 {
-	return target->invoke(owner, name, 1, Rva005252CDPass(text), 0, 0, 0, 0);
+	return target->invoke(owner, functionName, 1, Rva005252CDPass(text), 0, 0, 0, 0);
 }

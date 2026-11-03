@@ -57,14 +57,14 @@ struct ListNode
 class BfmeC986
 {
 public:
-	void bfmeGo986C(int a, int b, int c, int d);
+	void bfmeGo986C(int a, int commandSource, int adjustGroundPath, int d);
 	char bfmeReady986C();
 	void bfmePrep986C();
 	char rva0036D3A3(int a, int b);
 	void bfmeSend986C(int a, int b, int c, int d, int e);
-	char privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int attackMove, int, int adjustGroundPath);
-	void groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath);
-	void groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath);
+	char privateGatherAndMoveInFormationToPosition(int destinationPosition, int commandSource, int attackMove, int, int adjustGroundPath);
+	void groupGatherAndMoveInFormationToPosition(int destinationPosition, int commandSource, int c, int adjustGroundPath);
+	void groupGatherAndAttackInFormationToPosition(int destinationPosition, int commandSource, int c, int adjustGroundPath);
 	void rva00372B09(int a, int b, int c);
 
 private:
@@ -74,62 +74,62 @@ private:
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv986.cpp
 
-void BfmeC986::bfmeGo986C(int a, int b, int c, int d)
+void BfmeC986::bfmeGo986C(int a, int commandSource, int adjustGroundPath, int d)
 {
 	if (!bfmeReady986C())
 		return;
 
 	bfmePrep986C();
-	bfmeSend986C(a, b, 0, c, d);
+	bfmeSend986C(a, commandSource, 0, adjustGroundPath, d);
 }
 
-char BfmeC986::privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int attackMove, int, int adjustGroundPath)
+char BfmeC986::privateGatherAndMoveInFormationToPosition(int destinationPosition, int commandSource, int attackMove, int, int adjustGroundPath)
 {
 	if (bfmeReady986C()) {
-		char any = 0;
-		for (ListNode *node = m_head->m_next; node != m_head; node = node->m_next) {
-			Object *obj = node->m_obj;
-			if (obj == 0)
+		char hasFormationUnit = 0;
+		for (ListNode *unitNode = m_head->m_next; unitNode != m_head; unitNode = unitNode->m_next) {
+			Object *unitObject = unitNode->m_obj;
+			if (unitObject == 0)
 				continue;
-			const Rva0028AC4EEntry *entry = obj->rva0028AC4E();
-			if (entry == 0)
+			const Rva0028AC4EEntry *unitEntry = unitObject->rva0028AC4E();
+			if (unitEntry == 0)
 				continue;
-			if (entry->m_04->m_78 == 0)
+			if (unitEntry->m_04->m_78 == 0)
 				continue;
-			any = 1;
+			hasFormationUnit = 1;
 		}
-		if (!any)
+		if (!hasFormationUnit)
 			return 0;
 		bfmePrep986C();
-		if (!rva0036D3A3(pos, cmdSource))
+		if (!rva0036D3A3(destinationPosition, commandSource))
 			return 0;
-		((AIGroup *)this)->createFormation(cmdSource, attackMove);
-		bfmeSend986C(pos, cmdSource, attackMove, adjustGroundPath, 0);
+		((AIGroup *)this)->createFormation(commandSource, attackMove);
+		bfmeSend986C(destinationPosition, commandSource, attackMove, adjustGroundPath, 0);
 	}
 	return 1;
 }
 
-void BfmeC986::groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath)
+void BfmeC986::groupGatherAndMoveInFormationToPosition(int destinationPosition, int commandSource, int c, int adjustGroundPath)
 {
-	if (privateGatherAndMoveInFormationToPosition(pos, cmdSource, 0, c, adjustGroundPath))
+	if (privateGatherAndMoveInFormationToPosition(destinationPosition, commandSource, 0, c, adjustGroundPath))
 		return;
-	Rva00372571Params params;
-	params.m_14 |= -1;
-	params.m_pos = (const Coord3D *)pos;
-	params.m_04 = false;
-	params.m_08 = 0;
-	params.m_0C = 0;
-	params.m_10 = 0;
-	params.m_18 = 0;
-	params.m_1C = false;
-	((AIGroup *)this)->groupMoveToPosition(&params, cmdSource);
+	Rva00372571Params moveParameters;
+	moveParameters.m_14 |= -1;
+	moveParameters.m_pos = (const Coord3D *)destinationPosition;
+	moveParameters.m_04 = false;
+	moveParameters.m_08 = 0;
+	moveParameters.m_0C = 0;
+	moveParameters.m_10 = 0;
+	moveParameters.m_18 = 0;
+	moveParameters.m_1C = false;
+	((AIGroup *)this)->groupMoveToPosition(&moveParameters, commandSource);
 }
 
-void BfmeC986::groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath)
+void BfmeC986::groupGatherAndAttackInFormationToPosition(int destinationPosition, int commandSource, int c, int adjustGroundPath)
 {
-	if (privateGatherAndMoveInFormationToPosition(pos, cmdSource, 1, c, adjustGroundPath))
+	if (privateGatherAndMoveInFormationToPosition(destinationPosition, commandSource, 1, c, adjustGroundPath))
 		return;
-	rva00372B09(pos, 0x7FFFFFFF, cmdSource);
+	rva00372B09(destinationPosition, 0x7FFFFFFF, commandSource);
 }
 
 // Each retail call in this body reads an address the ledger already carries

@@ -151,15 +151,15 @@ const char *__cdecl AptUtils::SkipLevelN(const char *path)
 	if (strncmp(path, "_level", 6) != 0)
 		goto ret_path;
 	path += 6;
-	char c = *path;
-	if (c == 0)
+	char currentChar = *path;
+	if (currentChar == 0)
 		goto ret_path;
 loop:
-	if (c == '/' || c == '.')
+	if (currentChar == '/' || currentChar == '.')
 		goto found;
 	path++;
-	c = *path;
-	if (c != 0)
+	currentChar = *path;
+	if (currentChar != 0)
 		goto loop;
 found:
 	if (*path == 0)
@@ -173,9 +173,9 @@ int __cdecl AptUtils::LevelIndexFromTarget(const char *path)
 {
 	if (path == 0)
 		return -1;
-	int level;
-	if (sscanf(path, "_level%d", &level) == 1)
-		return level;
+	int levelIndex;
+	if (sscanf(path, "_level%d", &levelIndex) == 1)
+		return levelIndex;
 	return -1;
 }
 
@@ -222,14 +222,14 @@ int Rva00412AF3(const char *parameters)
 
 // ?Rva00412B94@@YAXPBVCoord2D@@0PBD1@Z
 void Rva00412B94(const Coord2D *origin, const Coord2D *size,
-                 const char *path, const char *parameters)
+                 const char *imagePath, const char *imageParameters)
 {
-    const Image *image = reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->FindRenderImage(path, parameters);
-    if (image)
+    const Image *renderImage = reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->FindRenderImage(imagePath, imageParameters);
+    if (renderImage)
     {
         reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3(
-            const_cast<Image *>(image), origin->x, origin->y, size->x + origin->x,
-            size->y + origin->y, -1, Rva00412AF3(parameters));
+            const_cast<Image *>(renderImage), origin->x, origin->y, size->x + origin->x,
+            size->y + origin->y, -1, Rva00412AF3(imageParameters));
     }
 }
 
@@ -247,31 +247,31 @@ void Rva00412B94(const Coord2D *origin, const Coord2D *size,
 
 // ?Rva00412BFF@@YAXPBVCoord2D@@0PBD1@Z
 void Rva00412BFF(const Coord2D *origin, const Coord2D *size,
-                 const char *path, const char *parameters)
+                 const char *imagePath, const char *imageParameters)
 {
-    RadialClockResult result;
+    RadialClockResult radialClock;
     reinterpret_cast<Rva00223BF6 *>(reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager))
-        ->rva00223BF6(&result, path, parameters);
-    if (result.fraction >= 0.0f && result.fraction < 1.0f)
+        ->rva00223BF6(&radialClock, imagePath, imageParameters);
+    if (radialClock.fraction >= 0.0f && radialClock.fraction < 1.0f)
     {
         static const Image *overlay1 =
             TheMappedImageCollection->findImageByName(AsciiString("RadialClockOverlay1"));
         static const Image *overlay2 =
             TheMappedImageCollection->findImageByName(AsciiString("RadialClockOverlay2"));
 
-        int color = TheGlobalData->m_colorA;
+        int overlayColor = TheGlobalData->m_colorA;
         if (ThePlayerList && ThePlayerListClock->m_local && ThePlayerListClock->m_local->m_record
             && ThePlayerListClock->m_local->m_record->m_flag)
-            color = TheGlobalData->m_colorB;
+            overlayColor = TheGlobalData->m_colorB;
 
-        if (overlay1 && result.image)
+        if (overlay1 && radialClock.image)
             reinterpret_cast<Rva000A4826 *>(TheDisplay)->rva000A48C4(
                 (int)overlay1, origin->x, origin->y, size->x + origin->x,
-                size->y + origin->y, result.fraction * 100.0f, (int)result.image);
+                size->y + origin->y, radialClock.fraction * 100.0f, (int)radialClock.image);
         if (overlay2)
             reinterpret_cast<Rva000A4826 *>(TheDisplay)->rva000A48C4(
                 (int)overlay2, origin->x, origin->y, size->x + origin->x,
-                size->y + origin->y, result.fraction * 100.0f, color);
+                size->y + origin->y, radialClock.fraction * 100.0f, overlayColor);
     }
 }
 
@@ -287,17 +287,17 @@ void Rva00412BFF(const Coord2D *origin, const Coord2D *size,
 
 AsciiString AptUtils::SlashPath2DotPath(const char *path)
 {
-	char buf[32768];
+	char convertedPath[32768];
 	if (path == 0)
 		path = (char *)"";
 	if (*path == '/')
 		path++;
-	strncpy(buf, path, 0x7fff);
-	for (char *p = buf; *p != 0; p++) {
+	strncpy(convertedPath, path, 0x7fff);
+	for (char *p = convertedPath; *p != 0; p++) {
 		if (*p == '/')
 			*p = '.';
 	}
-	AsciiString tmp(buf);
+	AsciiString tmp(convertedPath);
 	return tmp;
 }
 
@@ -308,17 +308,17 @@ AsciiString AptUtils::SlashPath2DotPath(const char *path)
 
 AsciiString AptUtils::DotPath2SlashPath(const char *path)
 {
-	char buf[32768];
+	char convertedPath[32768];
 	if (path == 0)
 		path = (char *)"";
 	if (*path == '.')
 		path++;
-	strncpy(buf, path, 0x7fff);
-	for (char *p = buf; *p != 0; p++) {
+	strncpy(convertedPath, path, 0x7fff);
+	for (char *p = convertedPath; *p != 0; p++) {
 		if (*p == '.')
 			*p = '/';
 	}
-	AsciiString tmp(buf);
+	AsciiString tmp(convertedPath);
 	return tmp;
 }
 

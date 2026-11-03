@@ -172,7 +172,7 @@ public:
 extern AudioManager *TheAudio;
 
 // WorldBuilder TranslateAudioProperties, WB VA 0x00ED7010 (callgraph lead, score 5.0).
-void TranslateAudioProperties(Dict *props, Drawable *draw, ThingTemplate *thingTemplate, bool *forceOff,
+void TranslateAudioProperties(Dict *properties, Drawable *drawable, ThingTemplate *thingTemplate, bool *forceOff,
 	Rva000A8C9B *customInfo, bool *soundEnabled)
 {
 	*forceOff = false;
@@ -181,72 +181,72 @@ void TranslateAudioProperties(Dict *props, Drawable *draw, ThingTemplate *thingT
 
 	if (!TheAudio)
 		return;
-	if (!props)
+	if (!properties)
 		return;
 
 	bool soundEnabledExists;
-	*soundEnabled = props->getBool(TheKey_objectSoundAmbientEnabled.key(), &soundEnabledExists);
+	*soundEnabled = properties->getBool(TheKey_objectSoundAmbientEnabled.key(), &soundEnabledExists);
 
-	bool exists;
-	AsciiString valStr = props->getAsciiString(TheKey_objectSoundAmbient.key(), &exists);
-	if (exists)
+	bool propertyExists;
+	AsciiString ambientSoundName = properties->getAsciiString(TheKey_objectSoundAmbient.key(), &propertyExists);
+	if (propertyExists)
 	{
-		if (valStr.isEmpty())
+		if (ambientSoundName.isEmpty())
 		{
 			*forceOff = true;
 			*soundEnabled = false;
 			return;
 		}
 
-		AudioEventInfoRef found = TheAudio->findAudioEventInfo(valStr);
-		if (found.referent)
-			customInfo->rva000A8CE5(new Rva004333C0(*found.get(), 0));
+		AudioEventInfoRef eventInfoRef = TheAudio->findAudioEventInfo(ambientSoundName);
+		if (eventInfoRef.referent)
+			customInfo->rva000A8CE5(new Rva004333C0(*eventInfoRef.get(), 0));
 	}
 
 	if (!*forceOff)
 	{
-		bool valBool = props->getBool(TheKey_objectSoundAmbientCustomized.key(), &exists);
-		if (exists && valBool)
+		bool valBool = properties->getBool(TheKey_objectSoundAmbientCustomized.key(), &propertyExists);
+		if (propertyExists && valBool)
 		{
 			if (!customInfo->m_ptr)
 			{
 				AudioEventInfoRef base;
-				if (!draw && !thingTemplate)
+				if (!drawable && !thingTemplate)
 					return;
-				if (draw)
-					base = draw->rva0027682F().m_info;
+				if (drawable)
+					base = drawable->rva0027682F().m_info;
 				else
 					base = ((Rva00239435 *)thingTemplate)->rva00239435(0x25).m_info;
-				Rva001DA2D5 *info = base.get();
-				if (info)
-					customInfo->rva000A8CE5(new Rva004333C0(*info, 0));
+				Rva001DA2D5 *baseEventInfo = base.get();
+				if (baseEventInfo)
+					customInfo->rva000A8CE5(new Rva004333C0(*baseEventInfo, 0));
 			}
 
 			if (customInfo->m_ptr && customInfo->m_ptr->m_b0 != 5)
 			{
-				valBool = props->getBool(TheKey_objectSoundAmbientLooping.key(), &exists);
-				if (exists)
+				valBool = properties->getBool(TheKey_objectSoundAmbientLooping.key(), &propertyExists);
+				if (propertyExists)
 					customInfo->m_ptr->overrideLoopFlag(valBool);
 
-				float valReal = props->getReal(TheKey_objectSoundAmbientMinVolume.key(), &exists);
-				if (exists)
-					customInfo->m_ptr->overrideMinVolume(valReal);
+				float realProperty = properties->getReal(TheKey_objectSoundAmbientMinVolume.key(), &propertyExists);
+				if (propertyExists)
+					customInfo->m_ptr->overrideMinVolume(realProperty);
 
-				valReal = props->getReal(TheKey_objectSoundAmbientVolume.key(), &exists);
-				if (exists)
-					customInfo->m_ptr->overrideVolume(valReal);
+				realProperty = properties->getReal(TheKey_objectSoundAmbientVolume.key(), &propertyExists);
+				if (propertyExists)
+					customInfo->m_ptr->overrideVolume(realProperty);
 
-				valReal = props->getReal(TheKey_objectSoundAmbientMinRange.key(), &exists);
-				if (exists)
-					customInfo->m_ptr->overrideMinRange(valReal);
+				realProperty = properties->getReal(TheKey_objectSoundAmbientMinRange.key(), &propertyExists);
+				if (propertyExists)
+					customInfo->m_ptr->overrideMinRange(realProperty);
 
-				valReal = props->getReal(TheKey_objectSoundAmbientMaxRange.key(), &exists);
-				if (exists)
-					customInfo->m_ptr->overrideMaxRange(valReal);
+				realProperty = properties->getReal(TheKey_objectSoundAmbientMaxRange.key(), &propertyExists);
+				if (propertyExists)
+					customInfo->m_ptr->overrideMaxRange(realProperty);
 
-				int valInt = props->getInt(TheKey_objectSoundAmbientPriority.key(), &exists);
-				if (exists)
-					customInfo->m_ptr->overridePriority(valInt);
+				int priority = properties->getInt(TheKey_objectSoundAmbientPriority.key(), &propertyExists);
+				if (propertyExists)
+					customInfo->m_ptr->overridePriority(priority);
 			}
 		}
 	}
@@ -260,10 +260,10 @@ void TranslateAudioProperties(Dict *props, Drawable *draw, ThingTemplate *thingT
 		else
 		{
 			AudioEventInfoRef base;
-			if (draw || thingTemplate)
+			if (drawable || thingTemplate)
 			{
-				if (draw)
-					base = draw->rva0027682F().m_info;
+				if (drawable)
+					base = drawable->rva0027682F().m_info;
 				else
 					base = ((Rva00239435 *)thingTemplate)->rva00239435(0x25).m_info;
 			}

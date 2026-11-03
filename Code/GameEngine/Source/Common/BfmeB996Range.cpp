@@ -32,7 +32,7 @@ class Rva00106C79Holder
 {
 public:
 	bool rva00106C79(int a1, int a2);
-	bool rva00106970(int a1, int a2);
+	bool rva00106970(int recordOutputAddress, int a2);
 private:
 	char m_pad00[8];
 	int m_08;
@@ -84,8 +84,8 @@ public:
 class BfmeB996
 {
 public:
-	char movePair( int *output, int *first, unsigned int *second, unsigned int limit );
-	bool sendIfState7(BfmePkt996 *pkt);
+	char movePair( int *recordOutput, int *recordTag, unsigned int *recordSize, unsigned int bufferCapacity );
+	bool sendIfState7(BfmePkt996 *packet);
 private:
 	char m_bfmePad[4]; // +0x00
 	BfmeDev996 *m_dev; // +0x04
@@ -139,12 +139,12 @@ private:
 class BfmeB996Range
 {
 public:
-	char checkRange( int first, unsigned int *second, char *stop );
-	bool rva001068D1( int first, unsigned int *second, char *third );
+	char checkRange( int tagAddress, unsigned int *recordSize, char *stopReading );
+	bool rva001068D1( int tagAddress, unsigned int *recordSize, char *stopReading );
 	void rva0010690D();
-	bool rva00106781( void **firstOut, int *first, unsigned int *second, char *stop, bool mode );
-	bool rva0010694B( void **firstOut, int *first, unsigned int *second );
-	int rva00106BC9( int target, int *maximum );
+	bool rva00106781( void **recordOutput, int *recordTag, unsigned int *recordSize, char *stop, bool readPayload );
+	bool rva0010694B( void **recordOutput, int *recordTag, unsigned int *recordSize );
+	int rva00106BC9( int targetTag, int *maximumRecordSize );
 	char rva00106A5C();
 	char m_pad00[0x4];
 private:
@@ -186,8 +186,8 @@ class BfmeDev996Range;
 class Rva00106AC9
 {
 public:
-	Rva00106AC9(const char *path, int mode, bool flag);
-	bool rva00106AC9(const char *path, int mode, bool flag);
+	Rva00106AC9(const char *path, int openMode, bool validateRecords);
+	bool rva00106AC9(const char *path, int openMode, bool validateRecords);
 private:
 	AsciiString m_path;
 	File *m_file;
@@ -284,31 +284,31 @@ public:
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
 
-char BfmeB996Range::checkRange( int first, unsigned int *second, char *stop )
+char BfmeB996Range::checkRange( int tagAddress, unsigned int *recordSize, char *stopReading )
 {
-	int firstClass = m_dev->classify( first, 4 );
-	*stop = 0;
+	int firstClass = m_dev->classify( tagAddress, 4 );
+	*stopReading = 0;
 	if ( firstClass != 4 ) {
 		if ( firstClass != 0 ) {
-			*stop = 1;
+			*stopReading = 1;
 		}
 		return 0;
 	}
 
-	int secondClass = m_dev->classify( (int)second, 4 );
+	int secondClass = m_dev->classify( (int)recordSize, 4 );
 	unsigned int remaining = m_limit - m_dev->cursor();
-	if ( secondClass == 4 && *second >= 8 && *second - 8 <= remaining ) {
+	if ( secondClass == 4 && *recordSize >= 8 && *recordSize - 8 <= remaining ) {
 		return 1;
 	}
-	*stop = 1;
+	*stopReading = 1;
 	return 0;
 }
 
-bool BfmeB996Range::rva001068D1( int first, unsigned int *second, char *third )
+bool BfmeB996Range::rva001068D1( int tagAddress, unsigned int *recordSize, char *stopReading )
 {
 	if ( m_kind == 6 ) {
-		if ( checkRange( first, second, third ) != 0 ) {
-			if ( *third == 0 ) {
+		if ( checkRange( tagAddress, recordSize, stopReading ) != 0 ) {
+			if ( *stopReading == 0 ) {
 				m_dev->v5( -8, 1 );
 				return true;
 			}
@@ -341,17 +341,17 @@ void BfmeB996Range::rva0010690D()
 
 #pragma optimize("y", off)
 
-bool BfmeB996Range::rva0010694B( void **firstOut, int *first, unsigned int *second )
+bool BfmeB996Range::rva0010694B( void **recordOutput, int *recordTag, unsigned int *recordSize )
 {
 	if ( m_kind == 6 ) {
-		return rva00106781( firstOut, first, second, ((char *)&second) + 3, true );
+		return rva00106781( recordOutput, recordTag, recordSize, ((char *)&recordSize) + 3, true );
 	}
 	return false;
 }
 
 #pragma optimize("y", on)
 
-bool Rva00106C79Holder::rva00106970(int a1, int target)
+bool Rva00106C79Holder::rva00106970(int recordOutputAddress, int targetTag)
 {
 	if (m_08 == 6) {
 		Rva00106970RangeView *range = (Rva00106970RangeView *)this;
@@ -364,7 +364,7 @@ scan_range:
 		if (stop != 0) {
 			return false;
 		}
-		if (first == target) {
+		if (first == targetTag) {
 			goto found;
 		}
 		{
@@ -379,13 +379,13 @@ read_range:
 		if (((BfmeB996Range *)this)->checkRange((int)&first, &second, &stop)) {
 			goto scan_range;
 		}
-		if (stop != 0 || first != target) {
+		if (stop != 0 || first != targetTag) {
 			return false;
 		}
 
 found:
 		range->m_dev->v5(-8, 1);
-		if (((BfmeB996Range *)this)->rva0010694B((void **)a1, &first, &second)) {
+		if (((BfmeB996Range *)this)->rva0010694B((void **)recordOutputAddress, &first, &second)) {
 			return true;
 		}
 	}
@@ -396,7 +396,7 @@ found:
 // Rva007E3770BfmeB996ScanCount.cpp Rva007E3770 (same +4 dev/+8 kind, +0x30
 // available/cursor, (int)&first pattern, target/max/count/max2 shape).
 // invokeForMode row 0x00106A06 shares layout and slot 0x14.
-int BfmeB996Range::rva00106BC9( int target, int *maximum )
+int BfmeB996Range::rva00106BC9( int targetTag, int *maximumRecordSize )
 {
 	if ( m_kind == 6 ) {
 		int count = 0;
@@ -409,15 +409,15 @@ int BfmeB996Range::rva00106BC9( int target, int *maximum )
 			do {
 				if ( stop )
 					goto fail;
-				if ( target == 0 ) {
+				if ( targetTag == 0 ) {
 					++count;
-				} else if ( first == target ) {
-					if ( *maximum < second )
-						*maximum = second;
+				} else if ( first == targetTag ) {
+					if ( *maximumRecordSize < second )
+						*maximumRecordSize = second;
 					++count;
 				}
-				if ( *maximum < second )
-					*maximum = second;
+				if ( *maximumRecordSize < second )
+					*maximumRecordSize = second;
 				rva0010690D();
 			} while ( rva001068D1( (int)&first, &second, &stop ) );
 		}
@@ -432,23 +432,23 @@ fail:
 	}
 }
 
-bool BfmeB996Range::rva00106781( void **firstOut, int *first, unsigned int *second, char *stop, bool mode )
+bool BfmeB996Range::rva00106781( void **recordOutput, int *recordTag, unsigned int *recordSize, char *stop, bool readPayload )
 {
 	*stop = 0;
-	*firstOut = 0;
-	if ( checkRange( (int)first, second, stop ) ) {
-		if ( mode ) {
-			void *body = Rva0009072BAlloc( *first, *second );
-			*firstOut = body;
+	*recordOutput = 0;
+	if ( checkRange( (int)recordTag, recordSize, stop ) ) {
+		if ( readPayload ) {
+			void *body = Rva0009072BAlloc( *recordTag, *recordSize );
+			*recordOutput = body;
 			// equal-arm (stop ? E : E): constant-wrap-class lever (structural inference) that puts the add before the push
-			if ( m_dev->classify( (stop ? ((int)body + 8) : ((int)body + 8)), *second - 8 ) != *second - 8 ) {
-				Rva00090714Free( firstOut );
+			if ( m_dev->classify( (stop ? ((int)body + 8) : ((int)body + 8)), *recordSize - 8 ) != *recordSize - 8 ) {
+				Rva00090714Free( recordOutput );
 				goto fail;
 			}
 		} else {
-			if ( m_dev->cursor() + (int)(*second - 8) > m_limit )
+			if ( m_dev->cursor() + (int)(*recordSize - 8) > m_limit )
 				goto fail;
-			m_dev->v5( *second - 8, 1 );
+			m_dev->v5( *recordSize - 8, 1 );
 		}
 		return true;
 fail:
@@ -459,21 +459,21 @@ fail:
 
 // ---- from Code/GameEngine/Source/Common/Rva007E3080MovePair.cpp
 
-char BfmeB996::movePair( int *output, int *first,
-	unsigned int *second, unsigned int limit )
+char BfmeB996::movePair( int *recordOutput, int *recordTag,
+	unsigned int *recordSize, unsigned int bufferCapacity )
 {
 	char stop = 0;
-	if ( !reinterpret_cast<BfmeB996Range *>(this)->checkRange( (int)first, second, &stop ) ||
-		stop || *second > limit ) {
+	if ( !reinterpret_cast<BfmeB996Range *>(this)->checkRange( (int)recordTag, recordSize, &stop ) ||
+		stop || *recordSize > bufferCapacity ) {
 		return 0;
 	}
-	int firstValue = *first;
-	int *destination = output;
+	int firstValue = *recordTag;
+	int *destination = recordOutput;
 	destination[ 0 ] = firstValue;
-	destination[ 1 ] = *second;
+	destination[ 1 ] = *recordSize;
 	BfmeDev996 *dev = m_dev;
-	return dev->classify( (int)( destination + 2 ), *second - 8 ) ==
-		*second - 8;
+	return dev->classify( (int)( destination + 2 ), *recordSize - 8 ) ==
+		*recordSize - 8;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva00106874Host.cpp
@@ -542,11 +542,11 @@ __forceinline const char *GetStr00106AC9(const AsciiString &asciiString)
 // Native branch at 106B52 skips the probe when flag is false; its success
 // branch and false-flag branch share the invokeForMode call at 106B71.
 // Combining the predicate preserves that join and its ECX reload under /Os.
-bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
+bool Rva00106AC9::rva00106AC9(const char *path, int openMode, bool validateRecords)
 {
 	bool done = false;
 	((StringBase<char> &)m_path).set(path);
-	if (mode == 1) {
+	if (openMode == 1) {
 		const char *p = GetStr00106AC9(m_path);
 		if (!TheFileSystem->doesFileExist(p)) {
 			m_mode = 5;
@@ -558,7 +558,7 @@ bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
 			m_size = sz;
 			m_mode = 6;
 			if (sz >= 8) {
-                if (flag && !((BfmeB996Range *)this)->rva00106A5C()) {
+                if (validateRecords && !((BfmeB996Range *)this)->rva00106A5C()) {
                     m_mode = 3;
                     ((Rva00106874Host *)this)->rva00106874();
                 } else {
@@ -569,7 +569,7 @@ bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
 				m_mode = 3;
 			}
 		}
-	} else if (mode == 2) {
+	} else if (openMode == 2) {
 		const char *p = GetStr00106AC9(m_path);
 		File *file = TheFileSystem->openFile(p, 0x5a, 0);
 		m_file = file;
@@ -586,10 +586,10 @@ bool Rva00106AC9::rva00106AC9(const char *path, int mode, bool flag)
 // Its calls prove the StringBase(path, 1) initialization and loader binding;
 // target stores establish file=0, mode=4, size=0 before the load.
 // /EHsc preserves the native member-cleanup region on constructor failure.
-Rva00106AC9::Rva00106AC9(const char *path, int mode, bool flag)
+Rva00106AC9::Rva00106AC9(const char *path, int openMode, bool validateRecords)
     : m_path(path, 1), m_file(0), m_mode(4), m_size(0)
 {
-    rva00106AC9(path, mode, flag);
+    rva00106AC9(path, openMode, validateRecords);
 }
 
 // ---- from Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
@@ -614,12 +614,12 @@ void Rva007E3410Object::invokeForMode(void)
 
 // ---- from Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp
 
-bool BfmeB996::sendIfState7(BfmePkt996 *pkt)
+bool BfmeB996::sendIfState7(BfmePkt996 *packet)
 {
 	if (m_bfmeKind == 7)
 	{
 		BfmeDev996 *dev = m_dev;
-		BfmePkt996 *p = pkt;
+		BfmePkt996 *p = packet;
 		int want = p->m_size;
 		int got = dev->send(p, want);
 		return got == p->m_size;

@@ -69,11 +69,11 @@ public:
 };
 }
 
-void __cdecl Rva00542B61Parse(INI *ini, void *formal, void *instance, void *a4)
+void __cdecl Rva00542B61Parse(INI *ini, void *unusedFormal, void *armorEntry, void *unusedParseData)
 {
 	INIException exception;
-	ini->initFromINI(instance, g_autoResolveArmorFieldParse);
-	if (*(void **)instance == 0)
+	ini->initFromINI(armorEntry, g_autoResolveArmorFieldParse);
+	if (*(void **)armorEntry == 0)
 	{
 		rva002f681_fill(&exception, 8, "AutoResolveArmor entry in Object block: Armor name MUST be specified");
 		_CxxThrowException(&exception, (const _s__ThrowInfo *)&rva00542B61ThrowInfoAnchor);
@@ -84,11 +84,11 @@ void __cdecl Rva00542B61Parse(INI *ini, void *formal, void *instance, void *a4)
 // 0x005429D7, push_back rowed 0x00542AEA into vector at a3, then parse the new
 // tail element (finish-0x104) via rowed 0x00542B61. Evidence: packet
 // disassembly, callees all rowed, twin 0x00542B24 same shape.
-void __cdecl Rva00542BA1Parse(INI *ini, void *formal, void *vecPtr, void *a4)
+void __cdecl Rva00542BA1Parse(INI *ini, void *unusedFormal, void *armorEntries, void *unusedParseData)
 {
-	Rva005429D7 armor;
-	((_STL::vector<BfmeFixedObject260, _STL::allocator<BfmeFixedObject260> > *)vecPtr)->push_back(*(const BfmeFixedObject260 *)(const void *)armor.rva005429D7());
-	Rva00542B61Parse(ini, formal, (char *)*(void **)((char *)vecPtr + 4) - 0x104, a4);
+	Rva005429D7 defaultArmor;
+	((_STL::vector<BfmeFixedObject260, _STL::allocator<BfmeFixedObject260> > *)armorEntries)->push_back(*(const BfmeFixedObject260 *)(const void *)defaultArmor.rva005429D7());
+	Rva00542B61Parse(ini, unusedFormal, (char *)*(void **)((char *)armorEntries + 4) - 0x104, unusedParseData);
 }
 
 // ?Rva00542997Parse@@YAXPAVINI@@PAX11@Z, retail 0x00542997, 64 bytes.
@@ -97,11 +97,11 @@ void __cdecl Rva00542BA1Parse(INI *ini, void *formal, void *vecPtr, void *a4)
 // code 8 with retail literal "AutoResolveWeapon entry in Object block: Weapon
 // name MUST be specified" (string_xrefs.tsv). Evidence: packet disassembly,
 // caller 0x00542B56 (4 __cdecl args), prev/next flags, sibling armor parser.
-void __cdecl Rva00542997Parse(INI *ini, void *formal, void *instance, void *a4)
+void __cdecl Rva00542997Parse(INI *ini, void *unusedFormal, void *weaponEntry, void *unusedParseData)
 {
 	INIException exception;
-	ini->initFromINI(instance, g_autoResolveWeaponFieldParse);
-	if (*(void **)instance == 0)
+	ini->initFromINI(weaponEntry, g_autoResolveWeaponFieldParse);
+	if (*(void **)weaponEntry == 0)
 	{
 		rva002f681_fill(&exception, 8, "AutoResolveWeapon entry in Object block: Weapon name MUST be specified");
 		_CxxThrowException(&exception, (const _s__ThrowInfo *)&rva00542B61ThrowInfoAnchor);
@@ -112,9 +112,9 @@ void __cdecl Rva00542997Parse(INI *ini, void *formal, void *instance, void *a4)
 // record via rowed 0x005429D7, push_back rowed 0x00542AEA into vector at a3,
 // then parse the new tail element (finish-0x104) via rowed 0x00542997.
 // Evidence: chain packet (calls landed 0x00542997), callees all rowed.
-void __cdecl Rva00542B24Parse(INI *ini, void *formal, void *vecPtr, void *a4)
+void __cdecl Rva00542B24Parse(INI *ini, void *unusedFormal, void *weaponEntries, void *unusedParseData)
 {
-	Rva005429D7 weapon;
-	((_STL::vector<BfmeFixedObject260, _STL::allocator<BfmeFixedObject260> > *)vecPtr)->push_back(*(const BfmeFixedObject260 *)(const void *)weapon.rva005429D7());
-	Rva00542997Parse(ini, formal, (char *)*(void **)((char *)vecPtr + 4) - 0x104, a4);
+	Rva005429D7 defaultWeapon;
+	((_STL::vector<BfmeFixedObject260, _STL::allocator<BfmeFixedObject260> > *)weaponEntries)->push_back(*(const BfmeFixedObject260 *)(const void *)defaultWeapon.rva005429D7());
+	Rva00542997Parse(ini, unusedFormal, (char *)*(void **)((char *)weaponEntries + 4) - 0x104, unusedParseData);
 }

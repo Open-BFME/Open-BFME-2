@@ -23,16 +23,16 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 UnicodeString __cdecl Rva005B2376Describe(void *power, const AsciiString &unused, const AsciiString &fallback);
 UnicodeString __cdecl Rva005B2446Describe(void *power);
 
-void __cdecl Rva005B23D7HeroPowersDescription(void *power, const AsciiString &unused, const AsciiString &fallback)
+void __cdecl Rva005B23D7HeroPowersDescription(void *powerButton, const AsciiString &unused, const AsciiString &fallback)
 {
-	UnicodeString text = Rva005B2376Describe(power, unused, fallback);
-	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:HeroPowersDescription"), text, true);
+	UnicodeString descriptionText = Rva005B2376Describe(powerButton, unused, fallback);
+	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:HeroPowersDescription"), descriptionText, true);
 }
 
-void __cdecl Rva005B24CDHeroPowerText(void *power, const char *prefix, int index)
+void __cdecl Rva005B24CDHeroPowerText(void *power, const char *widgetPrefix, int index)
 {
 	AsciiString key;
-	key.format("APT:%s_%d", prefix, index + 1);
+	key.format("APT:%s_%d", widgetPrefix, index + 1);
 	g_bfmeAptWindowManager->bfmeSetText(key, Rva005B2446Describe(power), false);
 }
 
@@ -66,32 +66,32 @@ public:
 	void rva002239E2(const AsciiString &key, const Image *image);
 };
 
-bool __cdecl rva005B2295(const CommandButton *button, const char *prefix, int index, int page)
+bool __cdecl rva005B2295(const CommandButton *button, const char *widgetPrefix, int index, int pageIndex)
 {
 	AsciiString key;
 	++index;
-	if (page >= 0)
-		key.format("%s_%d_%d", prefix, index, ++page);
+	if (pageIndex >= 0)
+		key.format("%s_%d_%d", widgetPrefix, index, ++pageIndex);
 	else
-		key.format("%s_%d", prefix, index);
-	bool changed = false;
+		key.format("%s_%d", widgetPrefix, index);
+	bool imageChanged = false;
 	if (button != NULL)
 	{
-		const Image *image = button->rva0035B19E();
-		if (image == NULL)
-			image = TheMappedImageCollection->findImageByName(AsciiString("CircleRed_42x42"));
-		if (((Rva00223A9F *)g_bfmeAptWindowManager)->rva00223A9F(&key) != image)
+		const Image *buttonImage = button->rva0035B19E();
+		if (buttonImage == NULL)
+			buttonImage = TheMappedImageCollection->findImageByName(AsciiString("CircleRed_42x42"));
+		if (((Rva00223A9F *)g_bfmeAptWindowManager)->rva00223A9F(&key) != buttonImage)
 		{
-			((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(key, image);
-			changed = true;
+			((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(key, buttonImage);
+			imageChanged = true;
 		}
 	}
 	else
 	{
 		((Rva00223A94 *)g_bfmeAptWindowManager)->rva00223A94(&key);
-		changed = true;
+		imageChanged = true;
 	}
-	return changed;
+	return imageChanged;
 }
 
 // ?rva005B9378@Rva005B9378@@QAEXHABVUnicodeString@@@Z @0x005B9378 178B: one
@@ -131,12 +131,12 @@ extern GameTextInterface *TheGameText;
 // CommandButton getter 0x0035B26F), else for the caller's fallback label,
 // else L" ". The early push of 0 is fetch's exists argument, evaluated
 // before the label. WorldBuilder's twin 0x0157F520 is unnamed.
-UnicodeString __cdecl Rva005B2376Describe(void *power, const AsciiString &unused, const AsciiString &fallback)
+UnicodeString __cdecl Rva005B2376Describe(void *powerButton, const AsciiString &unused, const AsciiString &fallbackTextKey)
 {
-	if (power != NULL)
-		return TheGameText->fetch(((const CommandButton *)power)->rva0035B26F());
-	if (!fallback.isEmpty())
-		return TheGameText->fetch(fallback);
+	if (powerButton != NULL)
+		return TheGameText->fetch(((const CommandButton *)powerButton)->rva0035B26F());
+	if (!fallbackTextKey.isEmpty())
+		return TheGameText->fetch(fallbackTextKey);
 	return UnicodeString((const unsigned short *)L" ");
 }
 
@@ -237,23 +237,23 @@ static inline bool Rva00513497IsEmpty(const UnicodeString &unicodeString)
 class Rva00513497
 {
 public:
-	void rva00513497(int slot, UnicodeString name);
+	void rva00513497(int playerSlot, UnicodeString playerName);
 };
 
-void Rva00513497::rva00513497(int slot, UnicodeString name)
+void Rva00513497::rva00513497(int playerSlot, UnicodeString playerName)
 {
 	AsciiString key;
-	key.format("DisconnectScreen::PlayerName%d", slot);
-	if (Rva00513497IsEmpty(name))
+	key.format("DisconnectScreen::PlayerName%d", playerSlot);
+	if (Rva00513497IsEmpty(playerName))
 	{
 		g_bfmeAptWindowManager->bfmeSetText(key, UnicodeString(L" "), false);
-		((Rva00513040 *)this)->rva00513040(slot, 0);
+		((Rva00513040 *)this)->rva00513040(playerSlot, 0);
 	}
 	else
 	{
-		g_bfmeAptWindowManager->bfmeSetText(key, name, false);
-		((AptDisconnectScreen *)this)->rva00512CE9(slot, false);
-		((Rva00513040 *)this)->rva00513040(slot, 100);
+		g_bfmeAptWindowManager->bfmeSetText(key, playerName, false);
+		((AptDisconnectScreen *)this)->rva00512CE9(playerSlot, false);
+		((Rva00513040 *)this)->rva00513040(playerSlot, 100);
 	}
 }
 
@@ -296,24 +296,24 @@ void Rva0057F538::rva0057F538(UnicodeString message)
 class Rva0051C2E2
 {
 public:
-	void rva0051C2E2(int *row, const AsciiString &label, int bonus);
+	void rva0051C2E2(int *outputRow, const AsciiString &bonusTextKey, int bonus);
 };
 
-void Rva0051C2E2::rva0051C2E2(int *row, const AsciiString &label, int bonus)
+void Rva0051C2E2::rva0051C2E2(int *outputRow, const AsciiString &bonusTextKey, int bonus)
 {
 	AsciiString key;
-	key.format("APT:ScoreRegionBonus%d", *row);
+	key.format("APT:ScoreRegionBonus%d", *outputRow);
 	if (bonus > 0)
 	{
-		UnicodeString text;
-		text.format(TheGameText->fetchFormat(label, 0), bonus);
-		g_bfmeAptWindowManager->bfmeSetText(key, text, false);
-		++*row;
+		UnicodeString bonusText;
+		bonusText.format(TheGameText->fetchFormat(bonusTextKey, 0), bonus);
+		g_bfmeAptWindowManager->bfmeSetText(key, bonusText, false);
+		++*outputRow;
 	}
 	else if (bonus < 0)
 	{
 		g_bfmeAptWindowManager->bfmeSetText(key, UnicodeString(L" "), false);
-		++*row;
+		++*outputRow;
 	}
 }
 
@@ -326,26 +326,26 @@ void Rva0051C2E2::rva0051C2E2(int *row, const AsciiString &label, int bonus)
 class AptFileTransferPopup
 {
 public:
-	void ProcessProgress(int player, int percent, UnicodeString text);
+	void ProcessProgress(int playerIndex, int completionPercent, UnicodeString statusText);
 private:
 	char m_pad00[0x5C];
 	int m_slots[8];				// +0x5C
 };
 
-void AptFileTransferPopup::ProcessProgress(int player, int percent, UnicodeString text)
+void AptFileTransferPopup::ProcessProgress(int playerIndex, int completionPercent, UnicodeString statusText)
 {
-	if (player < 0 || player >= 8)
+	if (playerIndex < 0 || playerIndex >= 8)
 		return;
-	int slot = m_slots[player];
-	if (slot == -1)
+	int displaySlot = m_slots[playerIndex];
+	if (displaySlot == -1)
 		return;
 	AsciiString key;
-	key.format("FileTransfer::Status%d", slot);
-	g_bfmeAptWindowManager->bfmeSetText(key, text, false);
+	key.format("FileTransfer::Status%d", displaySlot);
+	g_bfmeAptWindowManager->bfmeSetText(key, statusText, false);
 	char slotText[64];
 	char percentText[64];
-	sprintf(slotText, "%d", slot);
-	sprintf(percentText, "%d", percent);
+	sprintf(slotText, "%d", displaySlot);
+	sprintf(percentText, "%d", completionPercent);
 	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke((void *)13, "SetBarTo", 2, slotText, percentText, 0, 0, 0);
 }
 
@@ -425,7 +425,7 @@ Rva00582FC1::~Rva00582FC1()
 class AptLoadScreen
 {
 public:
-	virtual void processProgress(int slot, int percent);
+	virtual void processProgress(int playerSlot, int completionPercent);
 private:
 	char m_pad04[0x8C - 4];
 	void *m_owner;				// +0x8C
@@ -433,11 +433,11 @@ private:
 	int m_ids[1];				// +0xB0
 };
 
-void AptLoadScreen::processProgress(int slot, int percent)
+void AptLoadScreen::processProgress(int playerSlot, int completionPercent)
 {
 	char idText[64];
 	char percentText[64];
-	sprintf(idText, "%d", m_ids[slot]);
-	sprintf(percentText, "%d", percent);
+	sprintf(idText, "%d", m_ids[playerSlot]);
+	sprintf(percentText, "%d", completionPercent);
 	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_owner, "SetBarTo", 2, idText, percentText, 0, 0, 0);
 }

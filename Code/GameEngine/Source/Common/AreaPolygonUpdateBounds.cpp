@@ -24,14 +24,14 @@ public:
 	MathCoord2D() {}
 	// Keep inline copies without emitting a competing standalone constructor.
 	__declspec(dllimport) __forceinline MathCoord2D(const MathCoord2D &that) : x(that.x), y(that.y) {}
-	MathCoord2D(float ix, float iy) : x(ix), y(iy) {}
+	MathCoord2D(float initialX, float initialY) : x(initialX), y(initialY) {}
 	~MathCoord2D() {}
-	float Dot(const MathCoord2D &mathCoord2D) const { return y * mathCoord2D.y + x * mathCoord2D.x; }
+	float Dot(const MathCoord2D &otherVector) const { return y * otherVector.y + x * otherVector.x; }
 	MathCoord2D &operator*=(float s) { x *= s; y *= s; return *this; }
 	MathCoord2D &operator+=(const MathCoord2D &c) { x += c.x; y += c.y; return *this; }
 	__forceinline float GetLengthSqrd() const { return y * y + x * x; }
 	__forceinline float GetLength() const { return (float)sqrt(GetLengthSqrd()); }
-	__forceinline void Normalize() { float inv = 1.0f / GetLength(); x *= inv; y *= inv; }
+	__forceinline void Normalize() { float inverseLength = 1.0f / GetLength(); x *= inverseLength; y *= inverseLength; }
 	float x;
 	float y;
 };
@@ -62,28 +62,28 @@ void AreaPolygonBase::rva0030B3D1()
 	float halfHeight = (m_bounds.hi.y - m_bounds.lo.y) / 2.0f;
 	m_radius = sqrt(halfHeight * halfHeight + halfWidth * halfWidth);
 
-	float minDistSqr = FLT_MAX;
+	float minimumDistanceSquared = FLT_MAX;
 	MathCoord2D center((m_bounds.lo.x + m_bounds.hi.x) * 0.5f, (m_bounds.lo.y + m_bounds.hi.y) * 0.5f);
 	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator prev = (const MathCoord2D *)m_points.end() - 1;
 	for (it = (const MathCoord2D *)m_points.begin(); it != end; prev = it, ++it)
 	{
 		MathCoord2D toCenter = center - *it;
-		float distSqr = toCenter.GetLengthSqrd();
-		if (distSqr < minDistSqr)
-			minDistSqr = distSqr;
+		float distanceSquared = toCenter.GetLengthSqrd();
+		if (distanceSquared < minimumDistanceSquared)
+			minimumDistanceSquared = distanceSquared;
 
 		MathCoord2D edge(prev->x - it->x, prev->y - it->y);
 		edge.Normalize();
-		float along = edge.Dot(toCenter);
-		edge *= along;
+		float projectionDistance = edge.Dot(toCenter);
+		edge *= projectionDistance;
 		edge += *it;
 
-		distSqr = toCenter.GetLengthSqrd();
-		if (distSqr < minDistSqr)
-			minDistSqr = distSqr;
+		distanceSquared = toCenter.GetLengthSqrd();
+		if (distanceSquared < minimumDistanceSquared)
+			minimumDistanceSquared = distanceSquared;
 	}
 
-	m_innerRadius = sqrt(minDistSqr) - 0.1f;
+	m_innerRadius = sqrt(minimumDistanceSquared) - 0.1f;
 	if (m_innerRadius < 0.0f)
 		m_innerRadius = 0.0f;
 	m_dirty = false;

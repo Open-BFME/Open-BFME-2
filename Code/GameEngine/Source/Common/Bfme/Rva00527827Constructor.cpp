@@ -66,7 +66,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 template <class T> class AptRef : public Rva00579E47
 {
 public:
-	AptRef(const DelegateDesc &desc) : Rva00579E47(desc) {}
+	AptRef(const DelegateDesc &delegateBinding) : Rva00579E47(delegateBinding) {}
 	AptRef(const AptRef &other);
 	~AptRef()
 	{
@@ -105,7 +105,7 @@ private:
 class Rva00527827 : public Rva00527827Base
 {
 public:
-	Rva00527827(int arg, const AsciiString &name);
+	Rva00527827(int movieLevel, const AsciiString &name);
 	virtual ~Rva00527827();
 	void rva00527827(int a, const float *b, int c, int d);
 	__declspec(noinline) AsciiString rva00527B03();
@@ -119,16 +119,16 @@ private:
 	Rva004F6966 m_1C;
 };
 
-Rva00527827::Rva00527827(int arg, const AsciiString &name)
-	: m_04(arg),
+Rva00527827::Rva00527827(int movieLevel, const AsciiString &name)
+	: m_04(movieLevel),
 	  m_name(name),
 	  m_0C(0),
 	  m_10(0),
 	  m_14(0),
 	  m_18(-1)
 {
-	AsciiString movie = rva00527B03();
-	reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddCustomRender(movie + "_Content",
+	AsciiString moviePath = rva00527B03();
+	reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddCustomRender(moviePath + "_Content",
 		AptRef<AptCustomRender>(MakeDelegate(this, &Rva00527827::rva00527827)));
 }
 
@@ -140,20 +140,20 @@ Rva00527827::Rva00527827(int arg, const AsciiString &name)
 struct Rva00527B03Arguments {
     char separator;
     const AsciiString *name;
-    Rva00527B03Arguments(const char &a,const AsciiString &asciiString):separator(a),name(&asciiString) {}
+    Rva00527B03Arguments(const char &separatorCharacter,const AsciiString &nameString):separator(separatorCharacter),name(&nameString) {}
 };
 AsciiString &Rva0052798FAppend(AsciiString &,const char *);
-static __forceinline void Rva00527B03Append(AsciiString &text,Rva00527B03Arguments value)
+static __forceinline void Rva00527B03Append(AsciiString &text,Rva00527B03Arguments appendArguments)
 {
-    Rva0052798FAppend(text,reinterpret_cast<const char *>(&value));
+    Rva0052798FAppend(text,reinterpret_cast<const char *>(&appendArguments));
 }
 // ?rva00527B03@Rva00527827@@QAE?AVAsciiString@@XZ
 AsciiString Rva00527827::rva00527B03()
 {
-    AsciiString text;
-    text.format("_level%d",m_04);
-    Rva00527B03Append(text,Rva00527B03Arguments('.',m_name));
-    return text;
+    AsciiString moviePath;
+    moviePath.format("_level%d",m_04);
+    Rva00527B03Append(moviePath,Rva00527B03Arguments('.',m_name));
+    return moviePath;
 }
 
 struct Rva00527B81Node
@@ -165,16 +165,16 @@ struct Rva00527B81Node
 class Rva00527B81
 {
 public:
-	int rva00527B81(char *dst);
+	int rva00527B81(char *outputBuffer);
 private:
 	void *m_vtable;
 	Rva00527B81Node *m_node;
 };
 
 // ?rva00527B81@Rva00527B81@@QAEHPAD@Z @0x00527B81 (25B)
-int Rva00527B81::rva00527B81(char *dst)
+int Rva00527B81::rva00527B81(char *outputBuffer)
 {
 	Rva00527B81Node *node = m_node;
-	*dst = node->m_char;
-	return node->m_ref.write(dst + 1) + 1;
+	*outputBuffer = node->m_char;
+	return node->m_ref.write(outputBuffer + 1) + 1;
 }

@@ -388,30 +388,30 @@ void Rva004E583D::rva004E583D()
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/Rva0048E730LayoutRange_Rva004e5867.cpp
 
-Rva0048E730Layout layoutRva0048E730( Rva0048E730Element **first,
-	Rva0048E730Element **last, Rva0048E730Layout layout )
+Rva0048E730Layout layoutRva0048E730( Rva0048E730Element **elementsBegin,
+	Rva0048E730Element **elementsEnd, Rva0048E730Layout layout )
 {
-	while( first != last ) {
-		layout( *first );
-		++first;
+	while( elementsBegin != elementsEnd ) {
+		layout( *elementsBegin );
+		++elementsBegin;
 	}
 	return layout;
 }
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E588DFill.cpp
 
-void __cdecl Rva004E588DFill(int *out, Rva004E588DNode **first, Rva004E588DNode **last, int acc, int stamp)
+void __cdecl Rva004E588DFill(int *layoutResult, Rva004E588DNode **nodesBegin, Rva004E588DNode **nodesEnd, int offset, int stamp)
 {
-	Rva004E588DNode **p = first;
-	while (p != last) {
+	Rva004E588DNode **p = nodesBegin;
+	while (p != nodesEnd) {
 		Rva004E588DNode *node = *p;
-		node->m_10 = acc;
-		acc += node->m_0C;
+		node->m_10 = offset;
+		offset += node->m_0C;
 		node->m_14 = stamp;
 		++p;
 	}
-	out[1] = stamp;
-	out[0] = acc;
+	layoutResult[1] = stamp;
+	layoutResult[0] = offset;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004E58EDStrRelease.cpp
@@ -439,8 +439,8 @@ void *Rva004E5821::rva004E58F5(unsigned int flags)
 
 void Rva004E592C::rva004E592C(Rva004E592CPair *pair)
 {
-	int out[2];
-	Rva004E588DFill(out, m_first, m_last, pair->m_0, pair->m_4);
+	int layoutResult[2];
+	Rva004E588DFill(layoutResult, m_first, m_last, pair->m_0, pair->m_4);
 }
 
 void Rva004E5911::rva004E5911(Rva0048E730Layout layout)
@@ -450,11 +450,11 @@ void Rva004E5911::rva004E5911(Rva0048E730Layout layout)
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E59AEFunc.cpp
 
-void __cdecl Rva004E59AEFunc(FuncType *out, Rva004E59AE **first, Rva004E59AE **last, FuncType func)
+void __cdecl Rva004E59AEFunc(FuncType *functionOutput, Rva004E59AE **elementsBegin, Rva004E59AE **elementsEnd, FuncType memberFunction)
 {
-	for (; first != last; ++first)
-		((*first)->*func)();
-	*out = func;
+	for (; elementsBegin != elementsEnd; ++elementsBegin)
+		((*elementsBegin)->*memberFunction)();
+	*functionOutput = memberFunction;
 }
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva004E5CB0Delete.cpp

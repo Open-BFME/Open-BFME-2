@@ -156,16 +156,16 @@ struct BFMEScorchEntry
 #define MAX_SCORCH_VERTEX 8194
 #define MAX_SCORCH_INDEX 49164
 #define BFME_MAP_XY_FACTOR 10.0f
-static inline Real bfmeFloorD(Real f) 
+static inline Real bfmeFloorD(Real value) 
 {
- double d = floor(f);
- return (Real)d;
+ double roundedValue = floor(value);
+ return (Real)roundedValue;
  
 }
-static inline Real bfmeCeilD(Real f) 
+static inline Real bfmeCeilD(Real value) 
 {
- double d = ceil(f);
- return (Real)d;
+ double roundedValue = ceil(value);
+ return (Real)roundedValue;
  
 }
 class BaseHeightMapRenderObjClass
@@ -246,20 +246,20 @@ void BaseHeightMapRenderObjClass::updateScorches()
  diffuse |= (Int)shadeB;
  Int borderSize = m_map->m_border;
  IndexBufferClass::WriteLockClass lockIdxBuffer(m_indexScorch, 0);
- UnsignedShort *curIb = lockIdxBuffer.Get_Index_Array();
+ UnsignedShort *indexCursor = lockIdxBuffer.Get_Index_Array();
  VertexBufferClass::WriteLockClass lockVtxBuffer(m_vertexScorch, 0);
- VertexFormatXYZDUV1 *curVb = (VertexFormatXYZDUV1 *)lockVtxBuffer.Get_Vertex_Array();
- Int curScorch;
- for (curScorch = m_numScorches - 1; curScorch >= 0; curScorch--) 
+ VertexFormatXYZDUV1 *vertexCursor = (VertexFormatXYZDUV1 *)lockVtxBuffer.Get_Vertex_Array();
+ Int scorchIndex;
+ for (scorchIndex = m_numScorches - 1; scorchIndex >= 0; scorchIndex--) 
  {
-  UnsignedByte flag = m_scorches[curScorch].flag;
+  UnsignedByte flag = m_scorches[scorchIndex].flag;
   if (flag) 
   {
    continue;
    
   }
   m_scorchesInBuffer++;
-  Int type = m_scorches[curScorch].scorchType;
+  Int type = m_scorches[scorchIndex].scorchType;
   if (type < 0 || type >= SCORCH_MARKS_IN_TEXTURE) 
   {
    type = 0;
@@ -267,46 +267,46 @@ void BaseHeightMapRenderObjClass::updateScorches()
   }
   Real uOffset = (type % SCORCH_PER_ROW) * (1.0f / (SCORCH_PER_ROW));
   Real vOffset = (type / SCORCH_PER_ROW) * (1.0f / (SCORCH_PER_ROW));
-  Real radius = m_scorches[curScorch].radius;
-  Vector3 loc = m_scorches[curScorch].location;
-  Int minX = WWMath::Float_To_Long(bfmeFloorD((loc.X - radius) * (1.0f / BFME_MAP_XY_FACTOR)));
+  Real radius = m_scorches[scorchIndex].radius;
+  Vector3 scorchPosition = m_scorches[scorchIndex].location;
+  Int minX = WWMath::Float_To_Long(bfmeFloorD((scorchPosition.X - radius) * (1.0f / BFME_MAP_XY_FACTOR)));
   minX--;
-  Int minY = WWMath::Float_To_Long(bfmeFloorD((loc.Y - radius) * (1.0f / BFME_MAP_XY_FACTOR)));
+  Int minY = WWMath::Float_To_Long(bfmeFloorD((scorchPosition.Y - radius) * (1.0f / BFME_MAP_XY_FACTOR)));
   minY--;
   if (minX < -borderSize) minX = -borderSize;
   if (minY < -borderSize) minY = -borderSize;
-  Int maxX = WWMath::Float_To_Long(bfmeCeilD((loc.X + radius) * (1.0f / BFME_MAP_XY_FACTOR)));
+  Int maxX = WWMath::Float_To_Long(bfmeCeilD((scorchPosition.X + radius) * (1.0f / BFME_MAP_XY_FACTOR)));
   maxX++;
-  Int maxY = WWMath::Float_To_Long(bfmeCeilD((loc.Y + radius) * (1.0f / BFME_MAP_XY_FACTOR)));
+  Int maxY = WWMath::Float_To_Long(bfmeCeilD((scorchPosition.Y + radius) * (1.0f / BFME_MAP_XY_FACTOR)));
   maxY++;
   if (maxX > m_map->m_xExtent - borderSize) { Int extent = m_map->m_xExtent; maxX = extent - borderSize; }
   if (maxY > m_map->m_yExtent - borderSize) { Int extent = m_map->m_yExtent; maxY = extent - borderSize; }
-  Int startVertex = m_curNumScorchVertices;
+  Int firstScorchVertex = m_curNumScorchVertices;
   Real width = (1 ? (maxX - minX - 1) * BFME_MAP_XY_FACTOR : (maxX - minX - 1) * BFME_MAP_XY_FACTOR);
   Real height = (maxY - minY - 1) * BFME_MAP_XY_FACTOR;
-  Real left = minX * BFME_MAP_XY_FACTOR;
-  Real top = minY * BFME_MAP_XY_FACTOR;
-  Int yOffset = maxX - minX;
-  Int i, j;
+  Real worldLeft = minX * BFME_MAP_XY_FACTOR;
+  Real worldTop = minY * BFME_MAP_XY_FACTOR;
+  Int verticesPerRow = maxX - minX;
+  Int columnIndex, j;
   for (j = minY; j < maxY; j++) 
   {
    Real Y = j * BFME_MAP_XY_FACTOR;
-   for (i = minX; i < maxX; i++) 
+   for (columnIndex = minX; columnIndex < maxX; columnIndex++) 
    {
     if (m_curNumScorchVertices >= MAX_SCORCH_VERTEX) 
     {
-     m_curNumScorchVertices = startVertex;
+     m_curNumScorchVertices = firstScorchVertex;
      return;
      
     }
-    Real X = i * BFME_MAP_XY_FACTOR;
-    curVb->diffuse = diffuse;
-    curVb->u1 = (X - left) / width * (1.0f / (SCORCH_PER_ROW)) + uOffset;
-    curVb->v1 = (Y - top) / height * (1.0f / (SCORCH_PER_ROW)) + vOffset;
-    curVb->x = X;
-    curVb->y = Y;
-    curVb->z = m_map->rva0006653B(i + borderSize, j + borderSize) * 0.0390625f + 1.0f;
-    curVb++;
+    Real X = columnIndex * BFME_MAP_XY_FACTOR;
+    vertexCursor->diffuse = diffuse;
+    vertexCursor->u1 = (X - worldLeft) / width * (1.0f / (SCORCH_PER_ROW)) + uOffset;
+    vertexCursor->v1 = (Y - worldTop) / height * (1.0f / (SCORCH_PER_ROW)) + vOffset;
+    vertexCursor->x = X;
+    vertexCursor->y = Y;
+    vertexCursor->z = m_map->rva0006653B(columnIndex + borderSize, j + borderSize) * 0.0390625f + 1.0f;
+    vertexCursor++;
     m_curNumScorchVertices++;
     
    }
@@ -314,30 +314,30 @@ void BaseHeightMapRenderObjClass::updateScorches()
   }
   for (j = 0; j < maxY - minY - 1; j++) 
   {
-   Int yNdx = j + minY + borderSize;
-   for (i = 0; i < maxX - minX - 1; i++) 
+   Int mapRow = j + minY + borderSize;
+   for (columnIndex = 0; columnIndex < maxX - minX - 1; columnIndex++) 
    {
     if (m_curNumScorchIndices + 6 > MAX_SCORCH_INDEX) return;
-    Int xNdx = i + minX + borderSize;
-    Bool flipForBlend = reinterpret_cast<const Gen_0074B410 *>(m_map)->bfmeBitA(xNdx, yNdx);
+    Int mapColumn = columnIndex + minX + borderSize;
+    Bool flipForBlend = reinterpret_cast<const Gen_0074B410 *>(m_map)->bfmeBitA(mapColumn, mapRow);
     if (flipForBlend) 
     {
-     *curIb++ = startVertex + j * yOffset + i + 1;
-     *curIb++ = startVertex + j * yOffset + i + yOffset;
-     *curIb++ = startVertex + j * yOffset + i;
-     *curIb++ = startVertex + j * yOffset + i + 1;
-     *curIb++ = startVertex + j * yOffset + i + 1 + yOffset;
-     *curIb++ = startVertex + j * yOffset + i + yOffset;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + 1;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + verticesPerRow;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + 1;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + 1 + verticesPerRow;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + verticesPerRow;
      
     }
     else 
     {
-     *curIb++ = startVertex + j * yOffset + i;
-     *curIb++ = startVertex + j * yOffset + i + 1 + yOffset;
-     *curIb++ = startVertex + j * yOffset + i + yOffset;
-     *curIb++ = startVertex + j * yOffset + i;
-     *curIb++ = startVertex + j * yOffset + i + 1;
-     *curIb++ = startVertex + j * yOffset + i + 1 + yOffset;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + 1 + verticesPerRow;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + verticesPerRow;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + 1;
+     *indexCursor++ = firstScorchVertex + j * verticesPerRow + columnIndex + 1 + verticesPerRow;
      
     }
     m_curNumScorchIndices += 6;

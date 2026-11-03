@@ -95,7 +95,7 @@ struct Rva006D1130Iterator
 		return position != other.position;
 	}
 	Rva006D1130Iterator() {}
-	Rva006D1130Iterator(BfmeRefVGO *p, BfmeRefVGO *b, BfmeRefVGO *e) : position(p), begin(b), end(e) {}
+	Rva006D1130Iterator(BfmeRefVGO *initialPosition, BfmeRefVGO *rangeBegin, BfmeRefVGO *rangeEnd) : position(initialPosition), begin(rangeBegin), end(rangeEnd) {}
 	int operator-(const Rva006D1130Iterator &other) const { return position - other.position; }
 	Rva006D1130Iterator operator+(int amount) const { return Rva006D1130Iterator(position + amount, begin, end); }
 	Rva006D1130Iterator operator++(int) {
@@ -125,8 +125,8 @@ private:
 };
 void Rva006D1130::grow(int capacity)
 {
-	int current = m_capacity;
-	if (capacity <= current)
+	int currentCapacity = m_capacity;
+	if (capacity <= currentCapacity)
 		return;
 	if (capacity <= 1)
 	{
@@ -163,37 +163,37 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first, BfmeRefVGO *last,
 void Rva006D1130::insert(Rva006D1130Item *const &first, Rva006D1130Item *const &last,
 	const Rva006D1130Iterator &position)
 {
-	int added = last - first;
-	if (!added)
+	int insertCount = last - first;
+	if (!insertCount)
 		return;
-	int want = m_count + added;
-	if (want < m_capacity)
+	int requiredCount = m_count + insertCount;
+	if (requiredCount < m_capacity)
 	{
 		Rva006D1130Item *end = m_begin + m_count;
 		if (position.position == end)
 		{
 			Rva006D0460Copy(first, last, end);
-			m_begin[want].assign(Rva006D1130Item());
+			m_begin[requiredCount].assign(Rva006D1130Item());
 		}
 		else
 		{
 			BfmeRefVGO *begin = m_begin, *finish = end;
 			Rva006D1130Iterator tail(finish, begin, finish);
-			Rva006D04D0CopyBackward(position, tail, begin + ((position.position - begin) + added));
+			Rva006D04D0CopyBackward(position, tail, begin + ((position.position - begin) + insertCount));
 			Rva006D0540Copy(first, last, position);
-			m_begin[want].assign(Rva006D1130Item());
+			m_begin[requiredCount].assign(Rva006D1130Item());
 		}
-		m_count = want;
+		m_count = requiredCount;
 	}
 	else
 	{
-		int next = (int)(2.0 * m_capacity);
-		if (next < want)
-			next = want;
-		int offset = position - begin();
-		grow(next);
-		Rva006D1130Iterator at = begin() + offset;
-		insert(first, last, at);
+		int newCapacity = (int)(2.0 * m_capacity);
+		if (newCapacity < requiredCount)
+			newCapacity = requiredCount;
+		int insertionOffset = position - begin();
+		grow(newCapacity);
+		Rva006D1130Iterator insertionPosition = begin() + insertionOffset;
+		insert(first, last, insertionPosition);
 	}
 }
 
@@ -225,7 +225,7 @@ struct Rva006D0280 {
  ~Rva006D0280();
  __forceinline Rva006D0280(const EAStringC*name):m_useCount(0),name8(*name),typeC(1),object14(0),buffer18(0){}
  __forceinline int increaseCount(){return ++m_useCount;}
- __forceinline int decreaseCount(){int &p=m_useCount;return --p;}
+ __forceinline int decreaseCount(){int &referenceCount=m_useCount;return --referenceCount;}
  __forceinline static void*operator new(unsigned int n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);}
  __forceinline static void operator delete(void*p,unsigned int n){((Rva006DB270*)g_pChainBlockAllocator)->freeBlock(p,n);}
  int m_useCount;
@@ -293,18 +293,18 @@ BfmeHolderDB Gen_00895650::bfmeGet(void) const
 struct Rva006D0660Table;
 class Rva006D07E0Key {
 public:
- Rva006D07E0Key(Rva006D0280 *p=0):m_object(p) {
-  if(p) p->increaseCount();
+ Rva006D07E0Key(Rva006D0280 *referencedObject=0):m_object(referencedObject) {
+  if(referencedObject) referencedObject->increaseCount();
  }
  Rva006D07E0Key(const Rva006D07E0Key &other) {
   m_object=other.m_object;
   if(m_object) m_object->increaseCount();
  }
  ~Rva006D07E0Key() {
-  Rva006D0280 *r=m_object;
-  if(r && r->decreaseCount()==0) {
-   Rva006D0280 *p=m_object;
-   if(p) { p->~Rva006D0280(); g_pChainBlockAllocator->freeBlock(p,0x1c); }
+  Rva006D0280 *countedObject=m_object;
+  if(countedObject && countedObject->decreaseCount()==0) {
+   Rva006D0280 *releasedObject=m_object;
+   if(releasedObject) { releasedObject->~Rva006D0280(); g_pChainBlockAllocator->freeBlock(releasedObject,0x1c); }
   }
  }
  Rva006D0280 *m_object;
@@ -314,7 +314,7 @@ public:
 struct Rva006D07E0Entry { int unknown0; Rva006D0280 *key4; };
 struct Rva006D07E0Node { Rva006D07E0Entry *entry; Rva006D07E0Node *next; };
 struct Rva006D07E0Iterator {
- Rva006D07E0Iterator(Rva006D07E0Node *p):node(p) {}
+ Rva006D07E0Iterator(Rva006D07E0Node *initialNode):node(initialNode) {}
  Rva006D07E0Node *node;
 };
 class Rva006D07E0List {
@@ -349,8 +349,8 @@ public:
  Rva006D0660Table *table14;
 };
 int Rva006D0660::contains(Rva006D07E0Key key) {
- for(int i=0;i<table14->count28;++i) {
-  if(EAStringC(table14->records2c[i].text).IsEqualTo(&key.m_object->name8))
+ for(int recordIndex=0;recordIndex<table14->count28;++recordIndex) {
+  if(EAStringC(table14->records2c[recordIndex].text).IsEqualTo(&key.m_object->name8))
    return 1;
  }
  return 0;
@@ -365,12 +365,12 @@ BfmeRefVGO *__cdecl Rva006D0460Copy(BfmeRefVGO *first,
   do {
    BfmeRefVGO *destination=result++;
    if(first!=destination) {
-    unsigned *old=destination->m_bfmeP;
-    if(old && --*old==0) {
-     Rva006D0280 *p=(Rva006D0280 *)destination->m_bfmeP;
-     if(p) {
-      p->~Rva006D0280();
-      g_pChainBlockAllocator->freeBlock(p,0x1c);
+    unsigned *previousReferenceCount=destination->m_bfmeP;
+    if(previousReferenceCount && --*previousReferenceCount==0) {
+     Rva006D0280 *releasedObject=(Rva006D0280 *)destination->m_bfmeP;
+     if(releasedObject) {
+      releasedObject->~Rva006D0280();
+      g_pChainBlockAllocator->freeBlock(releasedObject,0x1c);
      }
     }
     destination->m_bfmeP=first->m_bfmeP;
@@ -394,12 +394,12 @@ BfmeRefVGO *__cdecl Rva006D05E0Copy(Rva006D1130Iterator first,
   BfmeRefVGO *destination=result++;
   Rva006D1130Iterator source=first++;
   if(source.position!=destination) {
-   unsigned *old=destination->m_bfmeP;
-   if(old && --*old==0) {
-    Rva006D0280 *p=(Rva006D0280 *)destination->m_bfmeP;
-    if(p) {
-     p->~Rva006D0280();
-     g_pChainBlockAllocator->freeBlock(p,0x1c);
+   unsigned *previousReferenceCount=destination->m_bfmeP;
+   if(previousReferenceCount && --*previousReferenceCount==0) {
+    Rva006D0280 *releasedObject=(Rva006D0280 *)destination->m_bfmeP;
+    if(releasedObject) {
+     releasedObject->~Rva006D0280();
+     g_pChainBlockAllocator->freeBlock(releasedObject,0x1c);
     }
    }
    destination->m_bfmeP=source.position->m_bfmeP;
@@ -415,17 +415,17 @@ BfmeRefVGO *__cdecl Rva006D05E0Copy(Rva006D1130Iterator first,
 // each replacement exactly as6D0460. Original algorithm name unknown.
 BfmeRefVGO *__cdecl Rva006D04D0CopyBackward(Rva006D1130Iterator first,
  Rva006D1130Iterator last, BfmeRefVGO *result) {
- int count=last.position-first.position;
+ int remainingCount=last.position-first.position;
  --last.position;
- result+=count-1;
- while(count) {
+ result+=remainingCount-1;
+ while(remainingCount) {
   if(last.position!=result) {
-   unsigned *old=result->m_bfmeP;
-   if(old && --*old==0) {
-    Rva006D0280 *p=(Rva006D0280 *)result->m_bfmeP;
-    if(p) {
-     p->~Rva006D0280();
-     g_pChainBlockAllocator->freeBlock(p,0x1c);
+   unsigned *previousReferenceCount=result->m_bfmeP;
+   if(previousReferenceCount && --*previousReferenceCount==0) {
+    Rva006D0280 *releasedObject=(Rva006D0280 *)result->m_bfmeP;
+    if(releasedObject) {
+     releasedObject->~Rva006D0280();
+     g_pChainBlockAllocator->freeBlock(releasedObject,0x1c);
     }
    }
    result->m_bfmeP=last.position->m_bfmeP;
@@ -433,7 +433,7 @@ BfmeRefVGO *__cdecl Rva006D04D0CopyBackward(Rva006D1130Iterator first,
   }
   --last.position;
   --result;
-  --count;
+  --remainingCount;
  }
  return result;
 }
@@ -447,12 +447,12 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
   do {
    Rva006D1130Iterator destination=result++;
    if(first!=destination.position) {
-    unsigned *old=destination.position->m_bfmeP;
-    if(old && --*old==0) {
-     Rva006D0280 *p=(Rva006D0280 *)destination.position->m_bfmeP;
-     if(p) {
-      p->~Rva006D0280();
-      g_pChainBlockAllocator->freeBlock(p,0x1c);
+    unsigned *previousReferenceCount=destination.position->m_bfmeP;
+    if(previousReferenceCount && --*previousReferenceCount==0) {
+     Rva006D0280 *releasedObject=(Rva006D0280 *)destination.position->m_bfmeP;
+     if(releasedObject) {
+      releasedObject->~Rva006D0280();
+      g_pChainBlockAllocator->freeBlock(releasedObject,0x1c);
      }
     }
     destination.position->m_bfmeP=first->m_bfmeP;
@@ -470,7 +470,7 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
 // counted value supplies the construction slot that the old out-pointer
 // reconstruction had to force with a volatile local.
 struct Rva006D0A30Node { Rva006D0280 *entry; Rva006D0A30Node *next;
- Rva006D0A30Node(Rva006D0280*p):entry(p),next(0){}
+ Rva006D0A30Node(Rva006D0280*entryObject):entry(entryObject),next(0){}
  __forceinline static void*operator new(unsigned int n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);}
 };
 class Rva006D0A30List {
@@ -503,12 +503,12 @@ Rva006D07E0Key Rva006D0A30List::findSpecial(const EAStringC *key) {
 
 Rva006D07E0Key Rva006D0A30List::rva006D0B40(const EAStringC&name){
  Rva006D07E0Key found=find(&name);
- Rva006D0280*p=found.m_object;
- if(p)return Rva006D07E0Key(p);
+ Rva006D0280*existingObject=found.m_object;
+ if(existingObject)return Rva006D07E0Key(existingObject);
  Rva006D07E0Key key(new Rva006D0280(&name));
- Rva006D0A30Node*node=new Rva006D0A30Node(key.m_object);
- node->next=head;
- head=node;
+ Rva006D0A30Node*newNode=new Rva006D0A30Node(key.m_object);
+ newNode->next=head;
+ head=newNode;
  return key;
 }
 class Rva00893030Manager;extern Rva00893030Manager*g_rva00893030Manager;
@@ -543,8 +543,8 @@ public:
  __forceinline Rva006D17F0Vector &pending() { return *(Rva006D17F0Vector *)&entries; }
 };
 void AptLinker::rva006D1450(Rva006D07E0Key key) {
- Rva006D1130Iterator p=entries.begin(),last=entries.end();
- for(;p!=last;p++) if(p.position->m_bfmeP==(unsigned*)key.m_object) return;
+ Rva006D1130Iterator entryIterator=entries.begin(),last=entries.end();
+ for(;entryIterator!=last;entryIterator++) if(entryIterator.position->m_bfmeP==(unsigned*)key.m_object) return;
  entries.append((Rva006D1130Item*)&key);
 }
 
@@ -704,7 +704,7 @@ struct Rva006D17F0Iterator
     int **position;
     int **begin;
     int **end;
-    Rva006D17F0Iterator(int **p, int **b, int **e) : position(p), begin(b), end(e) {}
+    Rva006D17F0Iterator(int **initialPosition, int **rangeBegin, int **rangeEnd) : position(initialPosition), begin(rangeBegin), end(rangeEnd) {}
 };
 
 struct BfmeLoadNode
@@ -746,7 +746,7 @@ class PlaybackIterator
 {
     PlaybackItem *cur, *first, *last;
 public:
-    PlaybackIterator(PlaybackItem *playbackItem, PlaybackItem *f, PlaybackItem *l) : cur(playbackItem), first(f), last(l) {}
+    PlaybackIterator(PlaybackItem *playbackItem, PlaybackItem *rangeBegin, PlaybackItem *rangeEnd) : cur(playbackItem), first(rangeBegin), last(rangeEnd) {}
     PlaybackIterator &operator++() { ++cur; return *this; }
     PlaybackItem &operator*()
     {
@@ -763,7 +763,7 @@ class PlaybackRange
 {
     PlaybackItem *first, *last;
 public:
-    PlaybackRange(PlaybackItem *playbackItem, PlaybackItem *l) : first(playbackItem), last(l) {}
+    PlaybackRange(PlaybackItem *playbackItem, PlaybackItem *lastItem) : first(playbackItem), last(lastItem) {}
     PlaybackIterator begin() { return PlaybackIterator(first, first, last); }
     PlaybackIterator end() { return PlaybackIterator(last, first, last); }
 };
@@ -775,10 +775,10 @@ public:
     PlaybackItem inlineItems[2];
     PlaybackIterator begin() { return PlaybackRange(items, items + size).begin(); }
     PlaybackIterator end() { return PlaybackRange(items, items + size).end(); }
-    __forceinline bool readyFor(int a, int b)
+    __forceinline bool readyFor(int firstAcceptedValue, int secondAcceptedValue)
     {
-        for (PlaybackIterator it = begin(); it != end(); ++it)
-            if ((*it).m_value != a && (*it).m_value != b) return false;
+        for (PlaybackIterator checkpointIterator = begin(); checkpointIterator != end(); ++checkpointIterator)
+            if ((*checkpointIterator).m_value != firstAcceptedValue && (*checkpointIterator).m_value != secondAcceptedValue) return false;
         return true;
     }
 };
@@ -802,63 +802,63 @@ void AptLinker::rva006D17F0()
     if (g_bfmeAptFlagAtE176D4 &&
         !g_aptPlaybackCheckpoints->readyFor(3, 2)) return;
 
-    int savedCount = pending().size();
-    Rva006D17F0Iterator cursor = pending().begin();
+    int pendingCount = pending().size();
+    Rva006D17F0Iterator pendingIterator = pending().begin();
     for (;;)
     {
-        if (!(cursor != pending().end())) break;
+        if (!(pendingIterator != pending().end())) break;
         bool restarted = false;
-        Rva008A2BA0Handle element(*(const Rva008A2BA0Handle *)&*cursor);
-        for (BfmeLoadNode *node = m_chain; node; node = node->m_next)
+        Rva008A2BA0Handle element(*(const Rva008A2BA0Handle *)&*pendingIterator);
+        for (BfmeLoadNode *loadNode = m_chain; loadNode; loadNode = loadNode->m_next)
         {
-            Rva006D17F0ValueHandle owner(node->m_value);
+            Rva006D17F0ValueHandle owner(loadNode->m_value);
             Gen_00895650 *value = owner.m_value;
             if (((Rva006D0280 *)value->bfmeGet().m_bfmeRef == (Rva006D0280 *)element.m_ref) && value->m_state == 0)
             {
-                Rva008A2C80 *inst = new Rva008A2C80(element);
-                AptCIH *cih = (AptCIH *)value->m_cih;
+                Rva008A2C80 *animationInstance = new Rva008A2C80(element);
+                AptCIH *characterInstance = (AptCIH *)value->m_cih;
                 if (Rva006CD220Get() == 0)
-                    Rva006CD210Set(((AptCharacterAnimationInst *)inst)->getSwfVersion());
-                cih->ClearCIH(1);
-                ((BfmeAptValue006DCD20 *)cih)->setTypeAt006DBBC0(0x12);
-                *(void **)((char *)cih + 0x4c) = inst;
-                ((AptValue *)cih)->setIsDefined(true);
-                *(int *)((char *)cih->rva006CFF40() + 0x18) = -1;
-                *(int *)((char *)cih->rva006CFF40() + 0x1c) |= 0x1000000;
-                cih->rva006E2D60();
+                    Rva006CD210Set(((AptCharacterAnimationInst *)animationInstance)->getSwfVersion());
+                characterInstance->ClearCIH(1);
+                ((BfmeAptValue006DCD20 *)characterInstance)->setTypeAt006DBBC0(0x12);
+                *(void **)((char *)characterInstance + 0x4c) = animationInstance;
+                ((AptValue *)characterInstance)->setIsDefined(true);
+                *(int *)((char *)characterInstance->rva006CFF40() + 0x18) = -1;
+                *(int *)((char *)characterInstance->rva006CFF40() + 0x1c) |= 0x1000000;
+                characterInstance->rva006E2D60();
                 value->m_state = 1;
                 if (g_rva00A17754)
                 {
                     g_rva00A17754(((Rva006D0280 *)element.m_ref)->name8.rva00620090(),
-                        ((EAStringC *)((char *)cih + 8))->rva00620090());
+                        ((EAStringC *)((char *)characterInstance + 8))->rva00620090());
                 }
                 if (g_rva00891FA0Ready)
                 {
-                    EAStringC *name = &((Rva006D0280 *)element.m_ref)->name8;
-                    unsigned int len = name->rva006D3750();
-                    Rva006D17F0Record record;
-                    record.value = g_rva00891FA0Value;
-                    record.kind = 6;
-                    strcpy(record.text, name->rva00620090());
-                    Rva00891FA0SendRecord(&record, len + 6);
+                    EAStringC *loadedName = &((Rva006D0280 *)element.m_ref)->name8;
+                    unsigned int nameLength = loadedName->rva006D3750();
+                    Rva006D17F0Record outgoingRecord;
+                    outgoingRecord.value = g_rva00891FA0Value;
+                    outgoingRecord.kind = 6;
+                    strcpy(outgoingRecord.text, loadedName->rva00620090());
+                    Rva00891FA0SendRecord(&outgoingRecord, nameLength + 6);
                 }
-                if (savedCount != pending().size())
+                if (pendingCount != pending().size())
                 {
-                    cursor = pending().begin();
-                    savedCount = pending().size();
+                    pendingIterator = pending().begin();
+                    pendingCount = pending().size();
                     restarted = true;
                     break;
                 }
             }
         }
-        if (!restarted) ++cursor.position;
+        if (!restarted) ++pendingIterator.position;
     }
     if (g_bfmeAptFlagAtE176D4)
         ((Gen_uw_00893e70 *)g_aptPlaybackCheckpoints)->Rva00895340();
-    if (savedCount > 0)
+    if (pendingCount > 0)
     {
-        ModuleTagString temp;
-        ((ModuleTagString *)&pending())->swap(temp);
+        ModuleTagString pendingEntries;
+        ((ModuleTagString *)&pending())->swap(pendingEntries);
         ((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->rva006E6540();
     }
 }
@@ -875,31 +875,31 @@ void AptLinker::rva006D17F0()
 // target views.
 class Rva006D1090 {
 public:
- void rva006D0D70(void *name);
+ void rva006D0D70(void *requestedName);
 };
 extern AptLinker *g_bfmeAptLinkerAtE176F8;
 extern void *g_aptFreeAnimationSlot;
 
-void Rva006D1090::rva006D0D70(void *name) {
- Rva006D07E0Key key=((Rva006D0A30List*)this)->find((const EAStringC*)name);
+void Rva006D1090::rva006D0D70(void *requestedName) {
+ Rva006D07E0Key key=((Rva006D0A30List*)this)->find((const EAStringC*)requestedName);
  if(key.isNull())return;
- int type=key.m_object->typeC;
- if(type==1){}
- else if(type==2){
+ int entryType=key.m_object->typeC;
+ if(entryType==1){}
+ else if(entryType==2){
   if(key.m_object->buffer18)
    ((void(__cdecl*)(void*))g_aptFreeAnimationSlot)(key.m_object->buffer18);
- }else if(type==3||type==4||type==5){
-  for(int i=0;i<key.getTable()->count28;++i){
+ }else if(entryType==3||entryType==4||entryType==5){
+  for(int dependencyIndex=0;dependencyIndex<key.getTable()->count28;++dependencyIndex){
    Rva006D07E0Key dependent=((Rva006D0A30List*)this)->find(
-    &EAStringC(key.getTable()->records2c[i].text));
+    &EAStringC(key.getTable()->records2c[dependencyIndex].text));
    if(!dependent.isNull() && !((Rva006D07E0List*)g_bfmeAptLinkerAtE176F8)->contains(dependent))
-    rva006D0D70(&EAStringC(key.getTable()->records2c[i].text));
+    rva006D0D70(&EAStringC(key.getTable()->records2c[dependencyIndex].text));
   }
  }
- Rva006D0280 *rel=key.m_object;
- int count=rel->decreaseCount();
- if(count==0){
-  rel->~Rva006D0280();
-  g_pChainBlockAllocator->freeBlock(rel,0x1c);
+ Rva006D0280 *releasedEntry=key.m_object;
+ int remainingReferences=releasedEntry->decreaseCount();
+ if(remainingReferences==0){
+  releasedEntry->~Rva006D0280();
+  g_pChainBlockAllocator->freeBlock(releasedEntry,0x1c);
  }
 }

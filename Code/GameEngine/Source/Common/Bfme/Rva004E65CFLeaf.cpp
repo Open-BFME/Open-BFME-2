@@ -149,25 +149,25 @@ public:
 
 void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
 {
-	Shadow::ShadowTypeInfo ev;
-	ev.m_first = m_04->m_sound;
+	Shadow::ShadowTypeInfo shadowInfo;
+	shadowInfo.m_first = m_04->m_sound;
 	Rva004E65CFFloatSrc *p = m_0C;
-	Rva004E65CFMgr *mgr = (Rva004E65CFMgr *)TheProjectedShadowManager;
-	ev.m_byte25 = 0;
-	ev.m_byte26 = 1;
-	ev.m_type = 0x2000;
-	float f = p->m_radius * g_Va00BC28F4;
-	ev.m_float10 = f;
-	ev.m_floatC = f;
-	m_1C = mgr->play(&ev);
+	Rva004E65CFMgr *shadowManager = (Rva004E65CFMgr *)TheProjectedShadowManager;
+	shadowInfo.m_byte25 = 0;
+	shadowInfo.m_byte26 = 1;
+	shadowInfo.m_type = 0x2000;
+	float decalSize = p->m_radius * g_Va00BC28F4;
+	shadowInfo.m_float10 = decalSize;
+	shadowInfo.m_floatC = decalSize;
+	m_1C = shadowManager->play(&shadowInfo);
 	if (m_1C)
 	{
 		m_1C->m_f20 = 0.0f;
 		m_1C->SetTexture((void *)0xFFFF8000);
-		const Coord3D *pos = m_08->getPosition();
+		const Coord3D *claimPosition = m_08->getPosition();
 		Rva00330995 *decalForDest = m_1C;
-		Coord3D *dest = &decalForDest->m_pos08;
-		*dest = *pos;
+		Coord3D *decalPosition = &decalForDest->m_pos08;
+		*decalPosition = *claimPosition;
 		m_1C->m_b64 = 1;
 		((Shadow *)m_1C)->setOpacity(0x80);
 	}
@@ -211,15 +211,15 @@ void PlaceTerrainResourceClaimantFeedback::Impl::updateStringPos(ICoord2D *p)
  m_position.x+=(*(int*)&p)/-2;
  m_position.y+=-20-bounds.height;
  bounds.maxX=((FeedbackTacticalView*)TheTacticalView)->width()-(*(int*)&p);
- int *pp1=(bounds.maxX<m_position.x)?&bounds.maxX:&m_position.x;
- if(*pp1<0) pp1=&bounds.zero;
- int v1=*pp1;
+ int *clampedXSource=(bounds.maxX<m_position.x)?&bounds.maxX:&m_position.x;
+ if(*clampedXSource<0) clampedXSource=&bounds.zero;
+ int clampedX=*clampedXSource;
  bounds.zero=0;
- m_position.x=v1;
+ m_position.x=clampedX;
  int maxY=((FeedbackTacticalView*)TheTacticalView)->height()-bounds.height;
- int *pp2=(maxY<m_position.y)?&maxY:&m_position.y;
- if(*pp2<0) pp2=&bounds.zero;
- m_position.y=*pp2;
+ int *clampedYSource=(maxY<m_position.y)?&maxY:&m_position.y;
+ if(*clampedYSource<0) clampedYSource=&bounds.zero;
+ m_position.y=*clampedYSource;
 }
 
 class GameLogic;
@@ -233,15 +233,15 @@ class TerrainResourceManager { public: float rva00359A0C(float x, float y, float
 // at359A0C consumes five arguments and ends RET20; original name unknown.
 float PlaceTerrainResourceClaimantFeedback::Impl::rva004E6295()
 {
- GameLogic *logic=TheGameLogic;
- if(logic) {
-  TerrainResourceManager *view=*(TerrainResourceManager **)((char*)logic+0x170);
-  if(view) {
-   FeedbackPlayerIndexView *player=*(FeedbackPlayerIndexView **)((char*)ThePlayerList+0x10);
-   int index=player ? player->index : 0;
+ GameLogic *gameLogic=TheGameLogic;
+ if(gameLogic) {
+  TerrainResourceManager *terrainResources=*(TerrainResourceManager **)((char*)gameLogic+0x170);
+  if(terrainResources) {
+   FeedbackPlayerIndexView *localPlayer=*(FeedbackPlayerIndexView **)((char*)ThePlayerList+0x10);
+   int index=localPlayer ? localPlayer->index : 0;
    Rva004E65CFFloatSrc *data=m_0C;
    const Coord3D *position=m_08->getPosition();
-   return view->rva00359A0C(position->x,m_08->getPosition()->y,data->m_radius,data->m_flag14,index);
+   return terrainResources->rva00359A0C(position->x,m_08->getPosition()->y,data->m_radius,data->m_flag14,index);
   }
  }
  return 0.0f;
@@ -258,22 +258,22 @@ void PlaceTerrainResourceClaimantFeedback::Impl::update(ICoord2D *position)
  unsigned char red,g,b;
  if(m_10) {
   UnicodeString format=((FeedbackTextInterface*)TheGameText)->fetch("GUI:TerrainResourcePercentageClaimable",0);
-  UnicodeString text;
-  int percent=WWMath::Float_To_Long((float)floor(rva004E6295()*100.0f+0.5f));
-  text.format(format.str(),percent);
-  m_10->setText(text);
+  UnicodeString percentageText;
+  int claimablePercent=WWMath::Float_To_Long((float)floor(rva004E6295()*100.0f+0.5f));
+  percentageText.format(format.str(),claimablePercent);
+  m_10->setText(percentageText);
   updateStringPos(position);
-  float fraction=rva004E6295();
-  if(fraction>0.75f) { red=0;g=255;b=0; }
-  else if(fraction>=0.5f) {red=255;g=255;b=0;}
-  else if(fraction>=0.25f) {red=255;g=0;b=0;}
+  float claimableFraction=rva004E6295();
+  if(claimableFraction>0.75f) { red=0;g=255;b=0; }
+  else if(claimableFraction>=0.5f) {red=255;g=255;b=0;}
+  else if(claimableFraction>=0.25f) {red=255;g=0;b=0;}
   else {red=0;g=0;b=0;}
   m_10->setColor((255u<<24)|((unsigned)red<<16)|((unsigned)g<<8)|b,255u<<24);
  }
  if(m_1C) {
   m_1C->SetTexture((void*)((255u<<24)|((unsigned)red<<16)|((unsigned)g<<8)|b));
-  const Coord3D *pos=m_08->getPosition();
-  m_1C->m_pos08=*pos;
+  const Coord3D *claimPosition=m_08->getPosition();
+  m_1C->m_pos08=*claimPosition;
  }
 }
 

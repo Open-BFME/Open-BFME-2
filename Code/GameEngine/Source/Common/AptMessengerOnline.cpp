@@ -216,7 +216,7 @@ struct Rva005AE7A5Class
 	int m_0;
 	int m_4;
 
-	int rva005AE7A5(int a1);
+	int rva005AE7A5(int profileID);
 };
 
 extern int g_Va00E046BC;
@@ -246,12 +246,12 @@ AptMessengerOnline::~AptMessengerOnline()
 
 // ---- from Code/GameEngine/Source/Common/Rva005AE6F8Find.cpp
 
-void *rva005AE6F8(Rva005AE6F8Slot *first, Rva005AE6F8Slot *last, int value, void *ignored)
+void *rva005AE6F8(Rva005AE6F8Slot *first, Rva005AE6F8Slot *slotsEnd, int value, void *ignored)
 {
 	(void)ignored;
-	int groups = ((char *)last - (char *)first) >> 5;
+	int slotGroupsRemaining = ((char *)slotsEnd - (char *)first) >> 5;
 	int step = 8;
-	while (groups > 0) {
+	while (slotGroupsRemaining > 0) {
 		if (*(int *)first->ptr == value)
 			return first;
 		first = (Rva005AE6F8Slot *)((char *)first + step);
@@ -264,10 +264,10 @@ void *rva005AE6F8(Rva005AE6F8Slot *first, Rva005AE6F8Slot *last, int value, void
 		if (*(int *)first->ptr == value)
 			return first;
 		first = (Rva005AE6F8Slot *)((char *)first + step);
-		--groups;
+		--slotGroupsRemaining;
 	}
-	int rest = ((char *)last - (char *)first) >> 3;
-	switch (rest) {
+	int remainingSlots = ((char *)slotsEnd - (char *)first) >> 3;
+	switch (remainingSlots) {
 	case 3:
 		if (*(int *)first->ptr == value)
 			return first;
@@ -284,7 +284,7 @@ void *rva005AE6F8(Rva005AE6F8Slot *first, Rva005AE6F8Slot *last, int value, void
 	default:
 		break;
 	}
-	return last;
+	return slotsEnd;
 }
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnlineConstructor.cpp
@@ -338,21 +338,21 @@ AptMessengerOnline::AptMessengerOnline(void *context)
 
 // ?rva005AE78A@@YAHHHH@Z @0x005AE78A 27B: cdecl 3-arg wrapper passing a char
 // scratch slot to the pinned cdecl callee.
-int __cdecl rva005AE78A(int a, int b, int c)
+int __cdecl rva005AE78A(int a, int b, int profileID)
 {
-	char z;
-	return (int)rva005AE6F8((Rva005AE6F8Slot*)a, (Rva005AE6F8Slot*)b, c, &z);
+	char unusedSearchTag;
+	return (int)rva005AE6F8((Rva005AE6F8Slot*)a, (Rva005AE6F8Slot*)b, profileID, &unusedSearchTag);
 }
 
 // ?rva005AE7A5@Rva005AE7A5Class@@QAEHH@Z @0x005AE7A5 33B: thiscall member
 // forwarding (m_0, m_4, a1) to the row above, returning its result when it
 // differs from m_4 and 0 otherwise (neg/sbb select, no cmov).
-int Rva005AE7A5Class::rva005AE7A5(int a1)
+int Rva005AE7A5Class::rva005AE7A5(int profileID)
 {
-	int m4 = m_4;
-	int r = rva005AE78A(m_0, m4, a1);
-	int d = r - m4;
-	return d ? r : 0;
+	int slotsEndAddress = m_4;
+	int matchingSlotAddress = rva005AE78A(m_0, slotsEndAddress, profileID);
+	int offsetFromEnd = matchingSlotAddress - slotsEndAddress;
+	return offsetFromEnd ? matchingSlotAddress : 0;
 }
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp
@@ -382,48 +382,48 @@ void AptMessengerOnline::UpdatePlayerTabButtons()
     GetSelectedPlayers(g_Va00E046BC, (int)&selected, 0);
     if (selected.size() != 1)
         return;
-    int ignored, notIgnored, notBuddy, pendingBuddy;
-    int *it;
-    ignored = 0;
-    notIgnored = 0;
-    notBuddy = 0;
-    pendingBuddy = 0;
-    int local = TheGameSpyInfo->getLocalProfileID();
-    Rva005AEB2C buddies;
-    for (it = selected.begin(); it != selected.end(); ++it)
+    int ignoredCount, notIgnoredCount, nonFriendCount, pendingFriendCount;
+    int *selectedProfileIt;
+    ignoredCount = 0;
+    notIgnoredCount = 0;
+    nonFriendCount = 0;
+    pendingFriendCount = 0;
+    int localProfileID = TheGameSpyInfo->getLocalProfileID();
+    Rva005AEB2C buddyLookup;
+    for (selectedProfileIt = selected.begin(); selectedProfileIt != selected.end(); ++selectedProfileIt)
     {
-        int profile = *it;
-        if (profile == local)
+        int selectedProfileID = *selectedProfileIt;
+        if (selectedProfileID == localProfileID)
             return;
-        BfmeE8 *buddy = (BfmeE8 *)((Rva005AE7A5Class *)&buddies)->rva005AE7A5(profile);
-        if (buddy)
+        BfmeE8 *buddyEntry = (BfmeE8 *)((Rva005AE7A5Class *)&buddyLookup)->rva005AE7A5(selectedProfileID);
+        if (buddyEntry)
         {
-            if (!buddy->flag)
+            if (!buddyEntry->flag)
                 return;
-            ++pendingBuddy;
+            ++pendingFriendCount;
         }
         else
-            ++notBuddy;
-        PlayerInfo *player = TheGameSpyInfo->rva00382D0A(profile);
-        if (player)
+            ++nonFriendCount;
+        PlayerInfo *playerInfo = TheGameSpyInfo->rva00382D0A(selectedProfileID);
+        if (playerInfo)
         {
-            if (player->isIgnored())
-                ++ignored;
+            if (playerInfo->isIgnored())
+                ++ignoredCount;
             else
-                ++notIgnored;
+                ++notIgnoredCount;
         }
     }
-    if (notBuddy)
-        m_28C[0].enabled = (pendingBuddy == 0);
-    else if (pendingBuddy)
+    if (nonFriendCount)
+        m_28C[0].enabled = (pendingFriendCount == 0);
+    else if (pendingFriendCount)
     {
         m_28C[0].text = "APT:AcceptFriend";
         m_28C[0].enabled = true;
         m_2A0 = true;
     }
-    if (notIgnored)
-        m_28C[1].enabled = (ignored == 0);
-    else if (ignored)
+    if (notIgnoredCount)
+        m_28C[1].enabled = (ignoredCount == 0);
+    else if (ignoredCount)
     {
         m_28C[1].enabled = true;
         m_28C[1].text = "APT:RemoveIgnore";

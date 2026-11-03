@@ -418,7 +418,7 @@ private:
 class Rva0040ADFA
 {
 public:
-	bool rva0040ADFA(const void *arg) const;
+	bool rva0040ADFA(const void *objectTemplate) const;
 	char m_pad00[0x4];
 private:
 	int *m_first; // +0x04
@@ -428,7 +428,7 @@ private:
 class Rva0040AE2C
 {
 public:
-	bool rva0040AE2C(const void *arg) const;
+	bool rva0040AE2C(const void *objectTemplate) const;
 	char m_pad00[0x10];
 private:
 	int *m_first; // +0x10
@@ -559,7 +559,7 @@ template <> void vector<Rva0040AF66>::push_back(const Rva0040AF66 &);
 class Rva0040BAD0
 {
 public:
-    bool rva0040BAD0(Rva0040AF66 *arg);
+    bool rva0040BAD0(Rva0040AF66 *newRecord);
     int rva0040AAF8(int key);
 private:
     char m_pad00[0x18];
@@ -630,51 +630,51 @@ void AwardSystemManager::init()
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0040ABA5Find.cpp
 
-const Rva0040ABA5Item *Rva0040ABA5Find(const Rva0040ABA5Item *first, const Rva0040ABA5Item *last, const Rva0040A7D5 *val, int tag)
+const Rva0040ABA5Item *Rva0040ABA5Find(const Rva0040ABA5Item *rangeBegin, const Rva0040ABA5Item *rangeEnd, const Rva0040A7D5 *searchValue, int unusedTag)
 {
-	(void)tag;
-	const Rva0040ABA5Item *f = first;
-	const char *e = (const char *)last;
-	int n = (int)((const char *)last - (const char *)first) >> 6;
-	while (n > 0) {
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val))
-			return f;
-		++f;
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val))
-			return f;
-		++f;
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val))
-			return f;
-		++f;
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val))
-			return f;
-		++f;
-		--n;
+	(void)unusedTag;
+	const Rva0040ABA5Item *currentItem = rangeBegin;
+	const char *e = (const char *)rangeEnd;
+	int fourItemGroupsRemaining = (int)((const char *)rangeEnd - (const char *)rangeBegin) >> 6;
+	while (fourItemGroupsRemaining > 0) {
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue))
+			return currentItem;
+		++currentItem;
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue))
+			return currentItem;
+		++currentItem;
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue))
+			return currentItem;
+		++currentItem;
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue))
+			return currentItem;
+		++currentItem;
+		--fourItemGroupsRemaining;
 	}
-	switch ((int)(e - (const char *)f) >> 4) {
+	switch ((int)(e - (const char *)currentItem) >> 4) {
 	case 3:
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val))
-			return f;
-		++f;
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue))
+			return currentItem;
+		++currentItem;
 	case 2:
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val) == false) {
-			++f;
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue) == false) {
+			++currentItem;
 		} else {
-			return f;
+			return currentItem;
 		}
 	case 1:
-		if (Rva0040A937Equal((const Rva0040A7D5 *)f, val))
-			return f;
+		if (Rva0040A937Equal((const Rva0040A7D5 *)currentItem, searchValue))
+			return currentItem;
 	}
-	return last;
+	return rangeEnd;
 }
 
 // ?Rva0040AD5AFind@@YAPBURva0040ABA5Item@@PBU1@0PBVRva0040A7D5@@@Z @0x0040AD5A 27B
 // Evidence: chain lane; calls 0x0040ABA5; caller 0x0040ADE9.
-const Rva0040ABA5Item *Rva0040AD5AFind(const Rva0040ABA5Item *first, const Rva0040ABA5Item *last, const Rva0040A7D5 *val)
+const Rva0040ABA5Item *Rva0040AD5AFind(const Rva0040ABA5Item *rangeBegin, const Rva0040ABA5Item *rangeEnd, const Rva0040A7D5 *searchValue)
 {
 	char tag;
-	return Rva0040ABA5Find(first, last, val, (int)&tag);
+	return Rva0040ABA5Find(rangeBegin, rangeEnd, searchValue, (int)&tag);
 }
 
 // ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
@@ -700,12 +700,12 @@ bool Rva0040ADDD::rva0040BAAA(const Rva0040AEE3 *trigger)
  return false;
 }
 
-void AwardSystemManager::parseTrigger(INI *ini,void *instance,void *,const void *)
+void AwardSystemManager::parseTrigger(INI *ini,void *awardStorage,void *,const void *)
 {
  AwardTrigger trigger;
  ini->initFromINI(&trigger,BfmeAwardTriggerFields);
  _STL::sort(reinterpret_cast<int *>(trigger.keys.begin()),reinterpret_cast<int *>(trigger.keys.end()));
- Rva0040ADDD *award=static_cast<Rva0040ADDD *>(instance);
+ Rva0040ADDD *award=static_cast<Rva0040ADDD *>(awardStorage);
  if(award->rva0040ADDD(reinterpret_cast<const Rva0040A7D5 *>(&trigger))) {
   AsciiString name=TheNameKeyGenerator->keyToName(award->name);
   throw INIException(3,"Duplicate trigger in the %s award.",reinterpret_cast<const StringBase<char> *>(&name)->str());
@@ -731,21 +731,21 @@ void parseObjectAwardDefinition(INI *ini)
  static NameKeyType emptyKey=TheNameKeyGenerator->nameToKey("");
  if(key==NAMEKEY_INVALID || key==noneKey || key==emptyKey)
   throw INIException(3,"No award name specified while parsing Award.");
- BfmePod40 *existing=TheAwardSystemManager->rva0040AAD5(key);
- if(existing) {
-  AsciiString name=TheNameKeyGenerator->keyToName(static_cast<NameKeyType>(existing->words[0]));
+ BfmePod40 *existingAward=TheAwardSystemManager->rva0040AAD5(key);
+ if(existingAward) {
+  AsciiString name=TheNameKeyGenerator->keyToName(static_cast<NameKeyType>(existingAward->words[0]));
   throw INIException(3,"An Award with the name %s already exists.",reinterpret_cast<const StringBase<char> *>(&name)->str());
  }
- AsciiString text=award.imageName;
- if(text.isNone() || text.isEmpty())
+ AsciiString fieldText=award.imageName;
+ if(fieldText.isNone() || fieldText.isEmpty())
   throw INIException(3,"No image name specified while parsing Award.");
  if(!TheMappedImageCollection->findImageByName(award.imageName))
   reinterpret_cast<StringBase<char> *>(&award.imageName)->set("BuildingNoArt");
- text.setCopyInline(award.nameTag);
- if(text.isNone() || text.isEmpty())
+ fieldText.setCopyInline(award.nameTag);
+ if(fieldText.isNone() || fieldText.isEmpty())
   throw INIException(3,"No name tag specified while parsing Award.");
- text.setCopyInline(award.descriptionTag);
- if(text.isNone() || text.isEmpty())
+ fieldText.setCopyInline(award.descriptionTag);
+ if(fieldText.isNone() || fieldText.isEmpty())
   throw INIException(3,"No description tag specified while parsing Award.");
  TheAwardSystemManager->rva0040C0FE(reinterpret_cast<const Rva0040C0C7Element &>(award));
 }
@@ -824,20 +824,20 @@ bool Rva0040B0D0::isContributor(const void *contributor)
 	const Rva0040B0D0Arg *objectView = (const Rva0040B0D0Arg *)contributor;
 	if (objectView == 0)
 		return false;
-	void *esi = objectView->m_template;
-	if (esi == 0)
+	void *objectTemplate = objectView->m_template;
+	if (objectTemplate == 0)
 		return false;
 	if (m_38.any()) {
-		if (((BitFlags<69> *)&m_38)->test((const char *)esi + 0x108))
+		if (((BitFlags<69> *)&m_38)->test((const char *)objectTemplate + 0x108))
 			return false;
 	}
-	if (((const Rva0040AE2C *)this)->rva0040AE2C(esi))
+	if (((const Rva0040AE2C *)this)->rva0040AE2C(objectTemplate))
 		return false;
 	if (m_1C.any()) {
-		if (((BitFlags<69> *)&m_1C)->test((const char *)esi + 0x108))
+		if (((BitFlags<69> *)&m_1C)->test((const char *)objectTemplate + 0x108))
 			return true;
 	}
-	return ((const Rva0040ADFA *)this)->rva0040ADFA(esi);
+	return ((const Rva0040ADFA *)this)->rva0040ADFA(objectTemplate);
 }
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva0040AEE3Construct.cpp
@@ -845,9 +845,9 @@ bool Rva0040B0D0::isContributor(const void *contributor)
 // ?Rva0040B14EConstruct@@YAXPAVRva0040AEE3@@ABV1@@Z @ 0x0040B14E (45B). Construct Rva0040AEE3 via copy ctor.
 // Evidence: calls rowed copy ctor 0x0040AEE3; EH prolog with state 0; null check on dst; callers 0x0040B1BB 0x0040B30B 0x0040B887 0x0040BA45.
 
-void __cdecl Rva0040B14EConstruct(Rva0040AEE3 *p, const Rva0040AEE3 &src)
+void __cdecl Rva0040B14EConstruct(Rva0040AEE3 *p, const Rva0040AEE3 &source)
 {
-	new (p) Rva0040AEE3(src);
+	new (p) Rva0040AEE3(source);
 }
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva0040AEE3Fill.cpp
@@ -855,24 +855,24 @@ void __cdecl Rva0040B14EConstruct(Rva0040AEE3 *p, const Rva0040AEE3 &src)
 // ?Rva0040B1A8Fill@@YAPAVRva0040AEE3@@PAV1@IABV1@@Z @ 0x0040B1A8 (37B). Fill range of Rva0040AEE3 via Construct helper.
 // Evidence: retail loops calling rowed ?Rva0040B14EConstruct 0x0040B14E stride 0x10 count in edi jbe; caller 0x0040B89F; neighbours share vector+int layout.
 
-Rva0040AEE3 *__cdecl Rva0040B1A8Fill(Rva0040AEE3 *first, unsigned int count, const Rva0040AEE3 &val)
+Rva0040AEE3 *__cdecl Rva0040B1A8Fill(Rva0040AEE3 *destinationBegin, unsigned int elementCount, const Rva0040AEE3 &fillValue)
 {
-	Rva0040AEE3 *cur = first;
-	for (unsigned int n = count; n > 0; --n) {
-		Rva0040B14EConstruct(cur, val);
-		++cur;
+	Rva0040AEE3 *destinationCursor = destinationBegin;
+	for (unsigned int remainingElements = elementCount; remainingElements > 0; --remainingElements) {
+		Rva0040B14EConstruct(destinationCursor, fillValue);
+		++destinationCursor;
 	}
-	return cur;
+	return destinationCursor;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0040B1CDCopy.cpp
 
-Rva0040AF66 *__cdecl Rva0040B1CDCopy(Rva0040AF66 *first, Rva0040AF66 *last, Rva0040AF66 *result)
+Rva0040AF66 *__cdecl Rva0040B1CDCopy(Rva0040AF66 *sourceBegin, Rva0040AF66 *sourceEnd, Rva0040AF66 *destinationBegin)
 {
-	Rva0040AF66 *cur = result;
-	for (; first != last; ++first, ++cur)
-		_STL::_Construct(cur, *first);
-	return cur;
+	Rva0040AF66 *destinationCursor = destinationBegin;
+	for (; sourceBegin != sourceEnd; ++sourceBegin, ++destinationCursor)
+		_STL::_Construct(destinationCursor, *sourceBegin);
+	return destinationCursor;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0040B1F3Fill.cpp
@@ -880,14 +880,14 @@ Rva0040AF66 *__cdecl Rva0040B1CDCopy(Rva0040AF66 *first, Rva0040AF66 *last, Rva0
 // ?Rva0040B1F3Fill@@YAPAVRva0040AF66@@PAV1@IABV1@@Z @ 0x0040B1F3 (37B). Fill range of Rva0040AF66 via Construct helper.
 // Evidence: retail loops calling the verified STLport _Construct 0x0040B17B stride 0x68 count in edi jbe; caller 0x0040B956; same 37B shape as rowed 0x0040B1A8.
 
-Rva0040AF66 *__cdecl Rva0040B1F3Fill(Rva0040AF66 *first, unsigned int count, const Rva0040AF66 &val)
+Rva0040AF66 *__cdecl Rva0040B1F3Fill(Rva0040AF66 *destinationBegin, unsigned int elementCount, const Rva0040AF66 &fillValue)
 {
-	Rva0040AF66 *cur = first;
-	for (unsigned int n = count; n > 0; --n) {
-		_STL::_Construct(cur, val);
-		++cur;
+	Rva0040AF66 *destinationCursor = destinationBegin;
+	for (unsigned int remainingElements = elementCount; remainingElements > 0; --remainingElements) {
+		_STL::_Construct(destinationCursor, fillValue);
+		++destinationCursor;
 	}
-	return cur;
+	return destinationCursor;
 }
 
 // ---- from Code/GameEngine/Source/Common/Thing/Rva0040AEE3Copy.cpp
@@ -895,14 +895,14 @@ Rva0040AF66 *__cdecl Rva0040B1F3Fill(Rva0040AF66 *first, unsigned int count, con
 // ?Rva0040B218Copy@@YAPAVRva0040AEE3@@PAV1@00@Z @ 0x0040B218 (47B). Copy range of Rva0040AEE3 via operator=.
 // Evidence: retail computes (last-first)>>4 then loops calling rowed ??4Rva0040AEE3 0x0040AEFE; caller 0x0040B350 passes 5 args (tag+0) proving __copy shape; stride 0x10 from vector+int layout.
 
-Rva0040AEE3 *__cdecl Rva0040B218Copy(Rva0040AEE3 *first, Rva0040AEE3 *last, Rva0040AEE3 *result)
+Rva0040AEE3 *__cdecl Rva0040B218Copy(Rva0040AEE3 *sourceBegin, Rva0040AEE3 *sourceEnd, Rva0040AEE3 *destinationBegin)
 {
-	for (int n = last - first; n > 0; --n) {
-		*result = *first;
-		++first;
-		++result;
+	for (int remainingElements = sourceEnd - sourceBegin; remainingElements > 0; --remainingElements) {
+		*destinationBegin = *sourceBegin;
+		++sourceBegin;
+		++destinationBegin;
 	}
-	return result;
+	return destinationBegin;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B52E.cpp
@@ -913,10 +913,10 @@ Rva0040AEE3 *__cdecl Rva0040B218Copy(Rva0040AEE3 *first, Rva0040AEE3 *last, Rva0
 // string at +0 via rowed BasicStringCharDtor_dup 0x0007FAB3. Unblocks
 // 0x0040B560, 0x0040B5DE, 0x0040B61A.
 
-void __cdecl Rva0040B52EDestroy(DestroyElem0040B52E *first, DestroyElem0040B52E *last)
+void __cdecl Rva0040B52EDestroy(DestroyElem0040B52E *rangeBegin, DestroyElem0040B52E *rangeEnd)
 {
-	for (; first != last; ++first)
-		first->m_str.~basic_string();
+	for (; rangeBegin != rangeEnd; ++rangeBegin)
+		rangeBegin->m_str.~basic_string();
 }
 
 void Rva0040B5DE::rva0040B5DE()
@@ -985,15 +985,15 @@ AwardSystemManager::~AwardSystemManager()
 // 0x9FA65 via TheNameKeyGenerator on AsciiString at arg+0x64; caller 0x40B143;
 // LINK BONUS none.
 
-bool Rva0040ADFA::rva0040ADFA(const void *arg) const
+bool Rva0040ADFA::rva0040ADFA(const void *objectTemplate) const
 {
-    NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((const char *)arg + 0x64));
+    NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((const char *)objectTemplate + 0x64));
     return _STL::binary_search(m_first, m_last, (int)key);
 }
 
-bool Rva0040AE2C::rva0040AE2C(const void *arg) const
+bool Rva0040AE2C::rva0040AE2C(const void *objectTemplate) const
 {
-    NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((const char *)arg + 0x64));
+    NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((const char *)objectTemplate + 0x64));
     return _STL::binary_search(m_first, m_last, (int)key);
 }
 
@@ -1023,11 +1023,11 @@ int Rva0040BAD0::rva0040AAF8(int key)
 {
     Rva0040AF66 *begin = m_vec18.begin();
     Rva0040AF66 *end = m_vec18.end();
-    Rva0040AF66 *found = _STL::find(begin, end, key);
-    if (found != end)
-        return (int)found;
+    Rva0040AF66 *matchingRecord = _STL::find(begin, end, key);
+    if (matchingRecord != end)
+        return (int)matchingRecord;
 
-    AsciiString name = TheNameKeyGenerator->keyToName((NameKeyType)key);
+    AsciiString requestedName = TheNameKeyGenerator->keyToName((NameKeyType)key);
     for (unsigned int i = 0; i < m_vec18.size(); ++i)
     {
         Rva0040AF66 *record = &m_vec18[i];
@@ -1043,11 +1043,11 @@ int Rva0040BAD0::rva0040AAF8(int key)
 
 // ?rva0040BAD0@Rva0040BAD0@@QAE_NPAVRva0040AF66@@@Z @0x0040BAD0 39B.
 // Insert the whole argument record only when its name key is not present.
-bool Rva0040BAD0::rva0040BAD0(Rva0040AF66 *arg)
+bool Rva0040BAD0::rva0040BAD0(Rva0040AF66 *newRecord)
 {
-    if (rva0040AAF8(arg->m_00) == 0)
+    if (rva0040AAF8(newRecord->m_00) == 0)
     {
-        m_vec18.push_back(*arg);
+        m_vec18.push_back(*newRecord);
         return true;
     }
     return false;

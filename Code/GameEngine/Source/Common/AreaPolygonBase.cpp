@@ -72,13 +72,13 @@ struct AreaPolygonBase {
     bool m_dirty;
     AreaPolygonBase(const AreaPolygonBase& that);
     void insertPoint(int index, const BfmeE8& point);
-    void reserve(int n);
-    void setPoint(int i, const BfmeE8& val);
+    void reserve(int pointCapacity);
+    void setPoint(int pointIndex, const BfmeE8& point);
     void parse(DataChunkInput& file, int unused);
-    void rva0030B135(const BfmePod8* a);
-    void rva0030B1A7(float f);
+    void rva0030B135(const BfmePod8* offset);
+    void rva0030B1A7(float scaleFactor);
     void rva0030B232(const class Matrix3D& matrix);
-    void deletePoint(int i);
+    void deletePoint(int pointIndex);
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -191,7 +191,7 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(
 
 struct Rva0030BA8C
 {
-	void rva0030BA8C(const BfmeE8 &val);
+	void rva0030BA8C(const BfmeE8 &point);
 	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_vec;
 	char m_pad[0x24 - 12];
 	bool m_flag;
@@ -236,20 +236,20 @@ void __cdecl Rva0030B31ASwap(Region2D *a, Region2D *b);
 // first (`movss xmm0,[ecx+0xc]; addss xmm0,[edx]`). The lvalue array spelling
 // pins the load/operand association so all four come out member-first.
 
-void AreaPolygonBase::rva0030B135(const BfmePod8 *a)
+void AreaPolygonBase::rva0030B135(const BfmePod8 *offset)
 {
-	for (BfmeE8 *p = m_points.begin(), *e = m_points.end(); p != e; ++p) {
-		p->x += a->x;
-		p->y += a->y;
+	for (BfmeE8 *pointIterator = m_points.begin(), *e = m_points.end(); pointIterator != e; ++pointIterator) {
+		pointIterator->x += offset->x;
+		pointIterator->y += offset->y;
 	}
 	if (m_dirty != 0)
 		return;
-	float *pm = m_bounds.v;
-	const float *pa = &a->x;
-	pm[0] = pm[0] + pa[0];
-	pm[1] = pm[1] + pa[1];
-	pm[2] = pm[2] + pa[0];
-	pm[3] = pm[3] + pa[1];
+	float *boundsCoordinates = m_bounds.v;
+	const float *offsetCoordinates = &offset->x;
+	boundsCoordinates[0] = boundsCoordinates[0] + offsetCoordinates[0];
+	boundsCoordinates[1] = boundsCoordinates[1] + offsetCoordinates[1];
+	boundsCoordinates[2] = boundsCoordinates[2] + offsetCoordinates[0];
+	boundsCoordinates[3] = boundsCoordinates[3] + offsetCoordinates[1];
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0030B1A7Scale.cpp
@@ -258,21 +258,21 @@ void AreaPolygonBase::rva0030B135(const BfmePod8 *a)
 // Scale vector points and 6 mid floats by arg then flag-gated.
 // Evidence: loop [ecx]/[ecx+4] step8 mulss xmm0; flag 0x24; mid 0x0C-0x20 six mulss; caller 0x00330B93; same layout as 0x0030B92C.
 
-void AreaPolygonBase::rva0030B1A7(float f)
+void AreaPolygonBase::rva0030B1A7(float scaleFactor)
 {
-	BfmeE8 *e = m_points.end();
-	for (BfmeE8 *p = m_points.begin(); p != e; ++p) {
-		p->x *= f;
-		p->y *= f;
+	BfmeE8 *pointsEnd = m_points.end();
+	for (BfmeE8 *pointIterator = m_points.begin(); pointIterator != pointsEnd; ++pointIterator) {
+		pointIterator->x *= scaleFactor;
+		pointIterator->y *= scaleFactor;
 	}
 	if (m_dirty != 0)
 		return;
-	m_bounds.v[0] *= f;
-	m_bounds.v[1] *= f;
-	m_bounds.v[2] *= f;
-	m_bounds.v[3] *= f;
-	m_1c *= f;
-	m_20 *= f;
+	m_bounds.v[0] *= scaleFactor;
+	m_bounds.v[1] *= scaleFactor;
+	m_bounds.v[2] *= scaleFactor;
+	m_bounds.v[3] *= scaleFactor;
+	m_1c *= scaleFactor;
+	m_20 *= scaleFactor;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0030B232Transform.cpp
@@ -287,12 +287,12 @@ void AreaPolygonBase::rva0030B1A7(float f)
 
 void AreaPolygonBase::rva0030B232(const Matrix3D &matrix)
 {
-	BfmeE8 *e = m_points.end();
-	for (BfmeE8 *p = m_points.begin(); p != e; ++p) {
-		Vector3 v(p->x, p->y, 0.0f);
+	BfmeE8 *pointsEnd = m_points.end();
+	for (BfmeE8 *pointIterator = m_points.begin(); pointIterator != pointsEnd; ++pointIterator) {
+		Vector3 v(pointIterator->x, pointIterator->y, 0.0f);
 		Matrix3D::Transform_Vector(matrix, v, &v);
-		p->x = v.X;
-		p->y = v.Y;
+		pointIterator->x = v.X;
+		pointIterator->y = v.Y;
 	}
 	m_dirty = 1;
 }
@@ -307,12 +307,12 @@ void Rva0030B2B6::rva0030B2B6(DataChunkOutput *out)
 {
 	out->writeInt(m_end - m_begin);
 	Rva0030B2B6Elem *end = m_end;
-	Rva0030B2B6Elem *elem = m_begin;
-	while (elem != end)
+	Rva0030B2B6Elem *element = m_begin;
+	while (element != end)
 	{
-		out->writeReal(elem->a);
-		out->writeReal(elem->b);
-		++elem;
+		out->writeReal(element->a);
+		out->writeReal(element->b);
+		++element;
 	}
 }
 
@@ -329,11 +329,11 @@ void Rva0030B2FE::rva0030B2FE(DataChunkOutput *out)
 // Swap two 16-byte Region2D via temp copy ctor rowed 0x0004254E plus movsd.
 // Evidence: callers at 0x0030B785 with Region2D at +0x0C and 0x005386CD swapping +0x0C then float+byte; prev no-flags next vector /O1 /EHsc.
 
-void __cdecl Rva0030B31ASwap(Region2D *region2D, Region2D *b)
+void __cdecl Rva0030B31ASwap(Region2D *leftRegion, Region2D *rightRegion)
 {
-	Region2D tmp(*region2D);
-	*region2D = *b;
-	*b = tmp;
+	Region2D tmp(*leftRegion);
+	*leftRegion = *rightRegion;
+	*rightRegion = tmp;
 }
 
 // ---- from Code/GameEngine/Source/Common/AreaPolygon.cpp
@@ -381,16 +381,16 @@ void AreaPolygonBase::insertPoint(int index, const BfmeE8& point)
 // Float-pair array equal with NaN fail.
 // Evidence: movss ucomiss lahf test jp x2 plus add 8 loop; caller 0x0030B6CD; prev copy_backward_ptrs BfmeE8.
 // Precedent Rva0030BF0CEqual 90B same pattern with 4 floats.
-bool __cdecl Rva0030B395Equal(const float *first1, const float *last1, const float *first2)
+bool __cdecl Rva0030B395Equal(const float *leftBegin, const float *leftEnd, const float *rightBegin)
 {
-	while (first1 != last1)
+	while (leftBegin != leftEnd)
 	{
-		if (first1[0] != first2[0])
+		if (leftBegin[0] != rightBegin[0])
 			return false;
-		if (first1[1] != first2[1])
+		if (leftBegin[1] != rightBegin[1])
 			return false;
-		first1 += 2;
-		first2 += 2;
+		leftBegin += 2;
+		rightBegin += 2;
 	}
 	return true;
 }
@@ -409,9 +409,9 @@ bool __cdecl Rva0030B395Equal(const float *first1, const float *last1, const flo
 
 int __cdecl Rva0030B6A6Equal(const Rva0030B6A6Range *lhs, const Rva0030B6A6Range *rhs)
 {
-	int size1 = (const char *)lhs->end - (const char *)lhs->begin;
-	int size2 = (const char *)rhs->end - (const char *)rhs->begin;
-	if ((((size1 ^ size2) & ~7) == 0) && Rva0030B395Equal(lhs->begin, lhs->end, rhs->begin))
+	int leftByteCount = (const char *)lhs->end - (const char *)lhs->begin;
+	int rightByteCount = (const char *)rhs->end - (const char *)rhs->begin;
+	if ((((leftByteCount ^ rightByteCount) & ~7) == 0) && Rva0030B395Equal(lhs->begin, lhs->end, rhs->begin))
 		return 1;
 	return 0;
 }
@@ -421,9 +421,9 @@ int __cdecl Rva0030B6A6Equal(const Rva0030B6A6Range *lhs, const Rva0030B6A6Range
 void Rva0030B812::rva0030B812(Rva0030B812 *other)
 {
 	m_00.rva0030B76F(&other->m_00);
-	int t = m_28;
+	int savedValue = m_28;
 	m_28 = other->m_28;
-	other->m_28 = t;
+	other->m_28 = savedValue;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0030B831Equal.cpp
@@ -456,9 +456,9 @@ void Rva0030B9CA::rva0030B9CA()
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 
-void Rva0030BA8C::rva0030BA8C(const BfmeE8 &val)
+void Rva0030BA8C::rva0030BA8C(const BfmeE8 &point)
 {
-	m_vec.push_back(val);
+	m_vec.push_back(point);
 	m_flag = true;
 }
 
@@ -468,11 +468,11 @@ void Rva0030BA8C::rva0030BA8C(const BfmeE8 &val)
 // Holder ensure via rowed vector E8 reserve 0x0030B876 with clamp to 2.
 // Evidence: caller 0x0030B9B4 with ecx this plus int arg; prev reserve same flags next clear same flags.
 
-void AreaPolygonBase::reserve(int n)
+void AreaPolygonBase::reserve(int pointCapacity)
 {
-	if (n < 2)
-		n = 2;
-	m_points.reserve(n);
+	if (pointCapacity < 2)
+		pointCapacity = 2;
+	m_points.reserve(pointCapacity);
 }
 
 // ---- from Code/GameEngine/Source/Common/AreaPolygonBase_deletePoint.cpp
@@ -482,10 +482,10 @@ void AreaPolygonBase::reserve(int n)
 // Evidence: lea [eax+ecx*8] then rowed erase 0x00054B3F; flag 0x24=1; caller 0x00330B1E; same layout as 0x0030B92C.
 
 // bfme link decl-only end
-void AreaPolygonBase::deletePoint(int i)
+void AreaPolygonBase::deletePoint(int pointIndex)
 {
 	((_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > *)&m_points)->erase(
-		((_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > *)&m_points)->begin() + i);
+		((_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > *)&m_points)->begin() + pointIndex);
 	m_dirty = 1;
 }
 
@@ -495,13 +495,13 @@ void AreaPolygonBase::deletePoint(int i)
 // Holder set via size check then rowed push 0x0030BA8C for append else direct 8B copy plus flag at +0x24.
 // Evidence: chain from 0x0030BA8C; caller 0x00330AE6; prev push same flags next Disp8Lea no-flags.
 
-void AreaPolygonBase::setPoint(int i, const BfmeE8 &val)
+void AreaPolygonBase::setPoint(int pointIndex, const BfmeE8 &point)
 {
-	if (i == (int)m_points.size()) {
-		((Rva0030BA8C *)this)->rva0030BA8C(val);
+	if (pointIndex == (int)m_points.size()) {
+		((Rva0030BA8C *)this)->rva0030BA8C(point);
 		return;
 	}
-	m_points[i] = val;
+	m_points[pointIndex] = point;
 	m_dirty = true;
 }
 

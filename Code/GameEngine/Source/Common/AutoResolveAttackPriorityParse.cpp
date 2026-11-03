@@ -26,7 +26,7 @@ struct Rva00418BFBKey
 {
 	int lo;
 	int hi;
-	__forceinline Rva00418BFBKey(const int &a, const int &b) : lo(a), hi(b) {}
+	__forceinline Rva00418BFBKey(const int &lowValue, const int &highValue) : lo(lowValue), hi(highValue) {}
 };
 struct Rva00418BFBNode
 {
@@ -77,22 +77,22 @@ struct Rva00418F7DStore
 	Rva00418F7DFlags m_bits;
 };
 
-void __cdecl Rva00418F7DParse(INI *ini, void * /*instance*/, void *storePtr, const void * /*userData*/)
+void __cdecl Rva00418F7DParse(INI *ini, void * /*instance*/, void *priorityStorePtr, const void * /*userData*/)
 {
-	Rva00418F7DStore *store = static_cast<Rva00418F7DStore *>(storePtr);
-	const char *targetTok = ini->getNextSubToken("Target");
-	unsigned int index = (unsigned int)ini->scanIndexList(targetTok, g_Va00DC85C4Names);
-	const char *priTok = ini->getNextSubToken("Priority");
-	int value = ini->scanInt(priTok);
+	Rva00418F7DStore *priorityStore = static_cast<Rva00418F7DStore *>(priorityStorePtr);
+	const char *targetToken = ini->getNextSubToken("Target");
+	unsigned int index = (unsigned int)ini->scanIndexList(targetToken, g_Va00DC85C4Names);
+	const char *priorityToken = ini->getNextSubToken("Priority");
+	int attackPriority = ini->scanInt(priorityToken);
 
-	if (!store->m_bits.test(index))
+	if (!priorityStore->m_bits.test(index))
 	{
 		throw INIException(3, "Cannot redefine attack priority for unit type %s", getAutoResolveUnitNameFromIndex((int)index));
 	}
 
-	if (value == 0)
+	if (attackPriority == 0)
 		return;
 
-	store->m_bits.clear(index);
-	store->m_map.rva00418DE2(Rva00418BFBKey((int)index, value));
+	priorityStore->m_bits.clear(index);
+	priorityStore->m_map.rva00418DE2(Rva00418BFBKey((int)index, attackPriority));
 }

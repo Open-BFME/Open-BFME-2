@@ -209,12 +209,12 @@ private:
 
 void StrategicHUD::ArmyUnitIconMovieClip::SetUpgradeIconImage(int index, const Image *image)
 {
-	const Image *&slot = m_slot[index];
-	if (image == slot)
+	const Image *&imageSlot = m_slot[index];
+	if (image == imageSlot)
 		return;
 	AsciiString key;
-	const char *t = *(const char **)((const Rva005FC75BAddDwordField *)this)->get();
-	const char *suffix = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *widgetNameStorage = *(const char **)((const Rva005FC75BAddDwordField *)this)->get();
+	const char *suffix = widgetNameStorage ? widgetNameStorage + 8 : g_Rva0107301CEmptyString;
 	key.format("_level%u.%s_UpgradeIcon%d", ((const Rva005FC754PtrChaseField *)this)->get(), suffix, index);
 	if (image)
 		m_images.rva00524725(key, image);
@@ -224,31 +224,31 @@ void StrategicHUD::ArmyUnitIconMovieClip::SetUpgradeIconImage(int index, const I
 		if (m_current == index)
 			m_current = -1;
 	}
-	slot = image;
+	imageSlot = image;
 }
 
 // Retail 0x005FD069, 59 bytes: the "ArmyUnitIcon" widget's
 // "_level<n>._OnUpgradeIconRollOver" callback, bound as a member pointer by
 // its constructor 0x005FD251 (that binding is its only reference): the
 // rolled-over slot becomes current when it holds an image.
-void StrategicHUD::ArmyUnitIconMovieClip::OnUpgradeIconRollOver(const char *value)
+void StrategicHUD::ArmyUnitIconMovieClip::OnUpgradeIconRollOver(const char *iconIndexText)
 {
-	if (value && isdigit(*value))
+	if (iconIndexText && isdigit(*iconIndexText))
 	{
-		int index = atoi(value);
-		if (index >= 0 && index < 4 && m_slot[index])
-			m_current = index;
+		int iconIndex = atoi(iconIndexText);
+		if (iconIndex >= 0 && iconIndex < 4 && m_slot[iconIndex])
+			m_current = iconIndex;
 	}
 }
 
 // Retail 0x005FD0A4, 58 bytes: "_OnUpgradeIconRollOut", bound alongside;
 // rolling out of the current slot clears it.
-void StrategicHUD::ArmyUnitIconMovieClip::OnUpgradeIconRollOut(const char *value)
+void StrategicHUD::ArmyUnitIconMovieClip::OnUpgradeIconRollOut(const char *iconIndexText)
 {
-	if (value && isdigit(*value))
+	if (iconIndexText && isdigit(*iconIndexText))
 	{
-		int index = atoi(value);
-		if (index >= 0 && index < 4 && m_current == index)
+		int iconIndex = atoi(iconIndexText);
+		if (iconIndex >= 0 && iconIndex < 4 && m_current == iconIndex)
 			m_current = -1;
 	}
 }
@@ -263,10 +263,10 @@ void StrategicHUD::ArmyUnitIconMovieClip::DoUpdate()
 	ArmyMemberIconMovieClip::DoUpdate();
 	if (!m_rankSent)
 	{
-		int whole = m_rank / 5;
-		int part = m_rank % 5;
+		int rankQuotient = m_rank / 5;
+		int rankRemainder = m_rank % 5;
 		const AsciiString &name = *(const AsciiString *)((const Rva005FC75BAddDwordField *)this)->get();
-		Rva00525235Fire(TheRva00222A8BTarget, (void *)((const Rva005FC754PtrChaseField *)this)->get(), name.str(), "SetRankDisplayState", &whole, &part);
+		Rva00525235Fire(TheRva00222A8BTarget, (void *)((const Rva005FC754PtrChaseField *)this)->get(), name.str(), "SetRankDisplayState", &rankQuotient, &rankRemainder);
 		m_rankSent = true;
 	}
 	if (!m_upgradeOverlaySent)

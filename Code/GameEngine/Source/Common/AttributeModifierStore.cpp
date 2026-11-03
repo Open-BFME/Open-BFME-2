@@ -235,11 +235,11 @@ Rva0040450E *AttributeModifierStore::replaceModifier(Int index)
     Rva0040450E *oldModifier = (Rva0040450E *)m_modifiers[index];
     m_retired.push_back(reinterpret_cast<const ModuleData *const &>(oldModifier));
     oldModifier->m_flagsD0[1] = 1;
-    Rva0040450E *modifier = new Rva0040450E;
-    modifier->rva00214917(oldModifier->m_name10);
-    modifier->m_key14 = oldModifier->m_key14;
-    m_modifiers[index] = (Rva004036B1 *)modifier;
-    return modifier;
+    Rva0040450E *replacementModifier = new Rva0040450E;
+    replacementModifier->rva00214917(oldModifier->m_name10);
+    replacementModifier->m_key14 = oldModifier->m_key14;
+    m_modifiers[index] = (Rva004036B1 *)replacementModifier;
+    return replacementModifier;
 }
 
 Rva002146F7::~Rva002146F7()
@@ -262,28 +262,28 @@ Rva0040450E::~Rva0040450E()
 
 void AttributeModifierStore::parseModifierListDefinition(INI *ini)
 {
-    const char *name = ini->getNextToken(0);
-    bool isNew = true;
-    int key = TheNameKeyGenerator->nameToKey(name);
-    AttributeModifierStore *store = TheAttributeModifierStore;
-    int index = store->rva00214713(key);
-    Rva0040450E *modifier;
+    const char *modifierName = ini->getNextToken(0);
+    bool isNewModifier = true;
+    int key = TheNameKeyGenerator->nameToKey(modifierName);
+    AttributeModifierStore *modifierStore = TheAttributeModifierStore;
+    int index = modifierStore->rva00214713(key);
+    Rva0040450E *parsedModifier;
     if (index == -1) {
-        modifier = new Rva0040450E;
+        parsedModifier = new Rva0040450E;
     } else if (ini->getLoadType() == 5) {
-        modifier = store->replaceModifier(index);
-        isNew = false;
+        parsedModifier = modifierStore->replaceModifier(index);
+        isNewModifier = false;
     } else {
-        Rva0040450E temporary;
-        ini->initFromINI(&temporary, (const FieldParse *)Rva00404715Get());
+        Rva0040450E discardedModifier;
+        ini->initFromINI(&discardedModifier, (const FieldParse *)Rva00404715Get());
         return;
     }
-    modifier->rva00214917(AsciiString(name));
-    modifier->m_key14 = key;
-    ini->initFromINI(modifier, (const FieldParse *)Rva00404715Get());
-    if (isNew) {
-        Rva004DFCB0Element slot = { (unsigned)modifier };
-        ((Rva00214ACC *)TheAttributeModifierStore)->rva00214ACC(slot);
+    parsedModifier->rva00214917(AsciiString(modifierName));
+    parsedModifier->m_key14 = key;
+    ini->initFromINI(parsedModifier, (const FieldParse *)Rva00404715Get());
+    if (isNewModifier) {
+        Rva004DFCB0Element modifierSlot = { (unsigned)parsedModifier };
+        ((Rva00214ACC *)TheAttributeModifierStore)->rva00214ACC(modifierSlot);
     }
 }
 

@@ -23,9 +23,9 @@ class Rva006DB270 {public:void freeBlock(void*,int);};
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 class Rva006D07E0Key {public:
- Rva006D07E0Key(Rva006D0280*p=0):m_object(p){if(p)++p->m_useCount;}
+ Rva006D07E0Key(Rva006D0280*object=0):m_object(object){if(object)++object->m_useCount;}
  Rva006D07E0Key(const Rva006D07E0Key&other):m_object(other.m_object){if(m_object)++m_object->m_useCount;}
- ~Rva006D07E0Key(){Rva006D0280*p=m_object;if(p&&--p->m_useCount==0){p->Rva006D0280::~Rva006D0280();g_pChainBlockAllocator->freeBlock(p,0x1c);}}
+ ~Rva006D07E0Key(){Rva006D0280*releasedObject=m_object;if(releasedObject&&--releasedObject->m_useCount==0){releasedObject->Rva006D0280::~Rva006D0280();g_pChainBlockAllocator->freeBlock(releasedObject,0x1c);}}
  Rva006D0280*m_object;
 };
 
@@ -75,9 +75,9 @@ class Rva006DB270;
 
 struct Rva006D15B0Node
 {
-	Rva006D15B0Node(int *const *handle)
+	Rva006D15B0Node(int *const *referenceCountHandle)
 	{
-		m_count = *handle;
+		m_count = *referenceCountHandle;
 		if (m_count != 0)
 			++*m_count;
 		m_next = 0;
@@ -106,24 +106,24 @@ private:
 // ---- from Code/Libraries/Source/Apt/Rva006D1680.cpp
 
 void Rva006D0A30List::rva006D1680(){
- bool again;
+ bool needsAnotherPass;
  do{
-  again=false;
-  Rva006D0A30Node *node=head;
-  while(node){
-   {Rva006D07E0Key key(node->entry);
+  needsAnotherPass=false;
+  Rva006D0A30Node *entryNode=head;
+  while(entryNode){
+   {Rva006D07E0Key key(entryNode->entry);
    for(;;){
-    Rva006D0280*p=key.m_object;
-    if(p->typeC==1){p->typeC=2;((void(__cdecl*)(const char*,Rva006D07E0Key))g_aptLoadAnimationSlot)(p->name8.rva00620090(),key);node=head;}
-    else if(p->typeC==2)break;
-    else if(p->typeC==3){if(!rva006D0C60(key))break;p->typeC=4;_ReadWriteBarrier();again=true;((Rva006E3E20Object*)((char*)p->object14+8))->rva006E3E20(p->object14,p->buffer18);{Rva006D07E0Key saved(key);Rva006D1520(saved);}node=head;}
-    else if(p->typeC==4||p->typeC==5)break;
+    Rva006D0280*linkedObject=key.m_object;
+    if(linkedObject->typeC==1){linkedObject->typeC=2;((void(__cdecl*)(const char*,Rva006D07E0Key))g_aptLoadAnimationSlot)(linkedObject->name8.rva00620090(),key);entryNode=head;}
+    else if(linkedObject->typeC==2)break;
+    else if(linkedObject->typeC==3){if(!rva006D0C60(key))break;linkedObject->typeC=4;_ReadWriteBarrier();needsAnotherPass=true;((Rva006E3E20Object*)((char*)linkedObject->object14+8))->rva006E3E20(linkedObject->object14,linkedObject->buffer18);{Rva006D07E0Key saved(key);Rva006D1520(saved);}entryNode=head;}
+    else if(linkedObject->typeC==4||linkedObject->typeC==5)break;
     else {}
-    node=head;
+    entryNode=head;
    }
-   }node=node->next;
+   }entryNode=entryNode->next;
   }
- }while(again);
+ }while(needsAnotherPass);
 }
 
 // Native6D1600..6D1671 RET4 forwards a copied counted owner to6D1520,
@@ -138,7 +138,7 @@ void __stdcall Rva006D1600(Rva006D07E0Key key)
 
 void Rva006D1520(Rva006D07E0Key key){
  g_bfmeAptLinkerAtE176F8->rva006D1450(key);
- if(g_bfmeAptFlagAtE176D4){const EAStringC *eAStringC=&key.m_object->name8;((Rva006CE660Vec *)g_aptPlaybackCheckpoints)->updatePlaybackState(eAStringC,1,3,2);}
+ if(g_bfmeAptFlagAtE176D4){const EAStringC *animationName=&key.m_object->name8;((Rva006CE660Vec *)g_aptPlaybackCheckpoints)->updatePlaybackState(animationName,1,3,2);}
 }
 
 // ---- from Code/Libraries/Source/Apt/Rva006D15B0Push.cpp
@@ -152,7 +152,7 @@ __declspec(noinline) inline void Rva006D15B0Stack::rva006D15B0(int *const *handl
 
 // Select-any: AptLoad.cpp compiles an identical copy; the anchor keeps the rowed body emitted.
 // ?bfmeAnchorRva006D15B0Push absent-from-retail
-void bfmeAnchorRva006D15B0Push(Rva006D15B0Stack *p, int *const *handle) { p->rva006D15B0(handle); }
+void bfmeAnchorRva006D15B0Push(Rva006D15B0Stack *stack, int *const *referenceCountHandle) { stack->rva006D15B0(referenceCountHandle); }
 
 // tu-skeleton: 0x006D17F0 1178B ?rva006D17F0@AptLinker@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp (not merged yet)
 

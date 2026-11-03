@@ -11,20 +11,20 @@ public:
 private:
 	void *m_object;
 };
-Rva005E7198 *__cdecl Rva005E7285Copy(Rva005E7198 *first, Rva005E7198 *last, Rva005E7198 *dest, void *tag, int extra)
+Rva005E7198 *__cdecl Rva005E7285Copy(Rva005E7198 *sourceBegin, Rva005E7198 *sourceEnd, Rva005E7198 *destination, void *unusedTag, int unusedExtra)
 {
-	int n = last - first;
-	if (n <= 0)
-		return dest;
-	for (int i = n; i != 0; --i) {
-		*dest = *first;
-		++first;
-		++dest;
+	int elementCount = sourceEnd - sourceBegin;
+	if (elementCount <= 0)
+		return destination;
+	for (int remainingElements = elementCount; remainingElements != 0; --remainingElements) {
+		*destination = *sourceBegin;
+		++sourceBegin;
+		++destination;
 	}
-	return dest;
+	return destination;
 }
-Rva005E7198 *__cdecl Rva005E748DForward(Rva005E7198 *first, Rva005E7198 *last, Rva005E7198 *dest, void *ignored)
+Rva005E7198 *__cdecl Rva005E748DForward(Rva005E7198 *sourceBegin, Rva005E7198 *sourceEnd, Rva005E7198 *destination, void *ignored)
 {
-	char tag;
-	return Rva005E7285Copy(first, last, dest, &tag, 0);
+	char unusedDispatchTag;
+	return Rva005E7285Copy(sourceBegin, sourceEnd, destination, &unusedDispatchTag, 0);
 }
