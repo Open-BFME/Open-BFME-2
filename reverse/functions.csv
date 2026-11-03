@@ -13209,9 +13209,9 @@ _bfmeHash1228,,0x0070F880,1528,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?OnError@DownloadManager@@UAEJH@Z,,0x005E0628,189,Code/GameEngine/Source/GameNetwork/DownloadManagerOnStatusUpdate.cpp,matched,served-file sibling; DOWNLOADEVENT dec chain; m_wasError +0x0C store hoists between call setup and call; m_errorString +0x10
 ??0ProductionPrerequisite@@QAE@XZ,,0x004F527A,81,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp,matched,BFME1 ProductionPrerequisiteCtorThunk donor shape; 3x folded _Vector_base 0x211E58 plus clear helper 0x4F5227; ends where addUnitPrereq begins
 ??1PrereqUnitRec@ProductionPrerequisite@@QAE@XZ,,0x00577998,8,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp,matched,AsciiString member at +0x08 teardown via tail-jump to rowed 0x36410; called from destroy range 0x2D02A8
-?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z,,0x00621170,170,Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,matched,
+?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z,,0x00621170,170,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,
 ??0WallHubBehaviorModuleData@@QAE@XZ,,0x00453020,148,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp,matched,
-?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z,,0x006212E0,200,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp,matched,
+?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z,,0x006212E0,200,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,
 ?calcHashForLowercaseString@@YAIPBD@Z,,0x0061FCA0,49,Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,matched,
 ?addObjectToLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00242AC2,39,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup add; setID sibling calls it; map at +0xB4 via findSlot pin
 ??1Node@?$SList@VTagBlockIndex@@@@QAE@XZ,,0x006204D0,8,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,matched,this-adjust thunk add ecx 8 tail-jump StringBase dtor 0x36410; StringBase member at +8; called from Remove_All and ??_G

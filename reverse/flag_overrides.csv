@@ -409,13 +409,11 @@ Code/GameEngineDevice/Source/MilesAudioDevice/MilesImportTailThunks.cpp,-O2,3,3,
 Code/GameEngineDevice/Source/W3DDevice/D3DX9ImportThunks.cpp,-O2 -G7,2,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Add_Prototype.cpp,-O2,3,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_getMaximumVisibleBox_Rva00376D29.cpp,-Os,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp,-O2,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,-O2,6,5,region default loses rows
+Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,-O2,8,7,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp,-G7 -arch:SSE,6,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,-arch:SSE,5,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp,-O2,5,3,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp,-Os,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,-O2,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBDC0.cpp,,4,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBEC0.cpp,,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,-G7 -arch:SSE,8,2,region default loses rows

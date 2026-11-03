@@ -13,7 +13,6 @@
 #pragma comment(linker, "/alternatename:?run@Rva007FA650Cleanup@@QAEXXZ=??1Rva00666BA0@@UAE@XZ")
 #pragma comment(linker, "/alternatename:?run@Rva009EDD30Cleanup@@QAEXXZ=?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ")
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
-
 // The header-node initialization stays inline; the shared base owns its external copy.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
@@ -23,38 +22,28 @@ _Rb_tree_base<int, allocator<int> >::_Rb_tree_base(const allocator_type &__a)
     _M_header._M_data = _M_header.allocate(1);
 }
 }
-
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree_node<int> * _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> >::_M_create_node(int const &); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@H@_STL@@U12@V?$allocator@U?$_Rb_tree_no:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void _STLP_alloc_proxy<_Rb_tree_node<int> *,_Rb_tree_node<int>,allocator<_Rb_tree_node<int> > >::deallocate(_Rb_tree_node<int> *,unsigned int); }
-
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@H@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@H@2@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void allocator<_Rb_tree_node<int> >::deallocate(_Rb_tree_node<int> *,unsigned int) const; }
-
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> _Rb_tree<int,int,_Identity<int>,less<int>,allocator<int> >::~_Rb_tree(); }
-
 // Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@AAEXPAU?$_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void _Rb_tree<int,int,_Identity<int>,less<int>,allocator<int> >::_M_erase(_Rb_tree_node<int> *); }
-
 // The rank-set provider owns the recursive integer-set copy.
 namespace _STL { template <> _Rb_tree_node<int> * _Rb_tree<int,int,_Identity<int>,less<int>,allocator<int> >::_M_copy(_Rb_tree_node<int> *, _Rb_tree_node<int> *); }
-
 typedef _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > IntSetTree;
-
 template IntSetTree::_Rb_tree(const IntSetTree &);
-
 // set<int>'s own copy constructor, retail 0x00621020 (19B): _M_t(__x._M_t)
 // through the tree copy above, kept out of line.
 template _STL::set<int, _STL::less<int>, _STL::allocator<int> >::set(const _STL::set<int, _STL::less<int>, _STL::allocator<int> > &);
-
 // The hash table reads its bucket vector's size() and begin() const inline; their
 // unreferenced copies here differed from retail's. Declared imported and
 // force-inlined, they are not emitted.
@@ -65,18 +54,14 @@ template <> __declspec(dllimport) __forceinline
 vector<void *>::const_iterator vector<void *>::begin() const { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline void *const &vector<void *>::operator[](size_t __n) const { return *(begin() + __n); }
 }
-
 struct CRITICAL_SECTION
 {
 	unsigned char m_data[0x18];
 };
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
 	CRITICAL_SECTION *lock);
-
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
 	CRITICAL_SECTION *lock);
-
 class CriticalSectionLock
 {
 public:
@@ -91,14 +76,43 @@ public:
 
 	CRITICAL_SECTION *m_lock;
 };
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
-
 #include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
+#define _STLP_NO_EXCEPTIONS 1
+// Keep hash_map<unsigned, void *>::find and the hashtable lookups under it
+// inline-only: the lookup below inlines all three, and this TU's COMDAT copies
+// are not the bodies the link keeps.
+namespace _STL {
+typedef hashtable<pair<const unsigned int, void *>, unsigned int, hash<unsigned int>,
+	_Select1st<pair<const unsigned int, void *> >, equal_to<unsigned int>,
+	allocator<pair<const unsigned int, void *> > > BfmeUIntPtrTable;
+template <> template <> __declspec(dllimport) __forceinline
+_Hashtable_node<pair<const unsigned int, void *> > *BfmeUIntPtrTable::_M_find<unsigned int>(const unsigned int &__key) const
+{
+	size_type __n = _M_hash(__key) % _M_buckets.size();
+	_Node *__first;
+	for (__first = (_Node *)_M_buckets[__n];
+	     __first && !_M_equals(_M_get_key(__first->_M_val), __key);
+	     __first = __first->_M_next)
+		{}
+	return __first;
+}
+template <> template <> __declspec(dllimport) __forceinline
+BfmeUIntPtrTable::iterator BfmeUIntPtrTable::find<unsigned int>(const unsigned int &__key)
+{ return iterator(_M_find(__key), this); }
+template <> __declspec(dllimport) __forceinline
+hash_map<unsigned int, void *>::iterator hash_map<unsigned int, void *>::find(const unsigned int &__key)
+{ return _M_ht.find(__key); }
+}
+#pragma optimize("t", on)
+#pragma optimize("", on)
+#include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
+#pragma comment(linker, "/alternatename:?bfmeSay1025@BfmeP1025@@QAEDPAD@Z=?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z")
+#define _STLP_NO_EXCEPTIONS 1
 
 struct Rva001408C0Target;
 
@@ -234,6 +248,21 @@ BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007FADF0CleanupDeleting, Rva007EB6C0Cleanup 
 BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007FC120CleanupDeleting, Rva007EB6C0Cleanup )
 
 BFME_VPTR_CLEANUP_DELETING_DTOR( Rva009EEA70CleanupDeleting, Rva009EDD30Cleanup )
+
+class BfmeObjEME
+{
+public:
+	void *bfmeGetEME(void *name);
+
+private:
+	unsigned char m_unmodelled_000[0x34];
+	CRITICAL_SECTION m_lock;
+	_STL::hash_map<unsigned int, void *> m_assets;
+	unsigned char m_gap[0x1f8 - 0x4c - sizeof(_STL::hash_map<unsigned int, void *>)];
+	NameKeyGenerator *m_hash_context;
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 
@@ -386,6 +415,32 @@ bool BfmeUnsignedKeyTree620C70::contains(unsigned int key)
 	return it != m_tree.end();
 }
 
+// ---- from Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
+
+// Seven thirty-six-byte __thiscall scalar deleting destructors with one shape:
+//
+//     push esi / mov esi,ecx / mov [esi],<offset vftable> / call <rel32> /
+//     test byte ptr [esp+4],1 / je +9 / push esi / call operator delete /
+//     add esp,4 / mov eax,esi / pop esi / ret 4
+//
+// BFME1 byte-identical donor (reference/open-bfme-1
+// Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp), trimmed
+// to the seven bodies the address map resolves. The donor carries twelve; the
+// other five do not place uniquely in game.dat. Each callee is spelled as a
+// member of a small class the object is cast to; what the bytes show is a
+// __thiscall function reached with `this` in ecx. In this image the shared
+// callee is the rowed ??1BfmeDirtyBase at 0x00658650 and the odd one out is
+// the rowed ??1Rva00666BA0 at 0x00666BA0; both are pinned under the donor's
+// address-derived run() names. The seventh callee is the SList<TagBlockIndex>
+// bucket cleanup at 0x00620870 (BFME1 0x009EDD30 Remove_All, byte-identical
+// modulo relocs), pinned under the donor's Rva009EDD30Cleanup::run placeholder
+// until its true row lands. The delete call reaches the rowed game
+// scalar operator delete at 0x0002FD60. Identity beyond the address is not
+// recovered: every NAME derives from its retail address.
+
+// These zero-argument thiscall destinations now have unique matched rows:
+// the first two restore base vptrs; the third clears the TagBlockIndex SList.
+
 // tu-skeleton: 0x006205D0 42B ?size@?$deque@HV?$allocator@H@_STL@@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
 
 // tu-skeleton: 0x00620600 64B ?pop_back@?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
@@ -420,32 +475,6 @@ bool BfmeUnsignedKeyTree620C70::contains(unsigned int key)
 
 // tu-skeleton: 0x00620B70 244B ?resize@?$hashtable@U?$pair@$$CBHH@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp
-
-// Seven thirty-six-byte __thiscall scalar deleting destructors with one shape:
-//
-//     push esi / mov esi,ecx / mov [esi],<offset vftable> / call <rel32> /
-//     test byte ptr [esp+4],1 / je +9 / push esi / call operator delete /
-//     add esp,4 / mov eax,esi / pop esi / ret 4
-//
-// BFME1 byte-identical donor (reference/open-bfme-1
-// Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp), trimmed
-// to the seven bodies the address map resolves. The donor carries twelve; the
-// other five do not place uniquely in game.dat. Each callee is spelled as a
-// member of a small class the object is cast to; what the bytes show is a
-// __thiscall function reached with `this` in ecx. In this image the shared
-// callee is the rowed ??1BfmeDirtyBase at 0x00658650 and the odd one out is
-// the rowed ??1Rva00666BA0 at 0x00666BA0; both are pinned under the donor's
-// address-derived run() names. The seventh callee is the SList<TagBlockIndex>
-// bucket cleanup at 0x00620870 (BFME1 0x009EDD30 Remove_All, byte-identical
-// modulo relocs), pinned under the donor's Rva009EDD30Cleanup::run placeholder
-// until its true row lands. The delete call reaches the rowed game
-// scalar operator delete at 0x0002FD60. Identity beyond the address is not
-// recovered: every NAME derives from its retail address.
-
-// These zero-argument thiscall destinations now have unique matched rows:
-// the first two restore base vptrs; the third clears the TagBlockIndex SList.
-
 // tu-skeleton: 0x00620D80 13B ??_F?$deque@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/assetmanager/AssetManagerImplCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00620D90 5B ?release@Rva00620D90TreeRelease@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp (not merged yet)
@@ -474,11 +503,63 @@ bool BfmeUnsignedKeyTree620C70::contains(unsigned int key)
 
 // tu-skeleton: 0x00621070 5B ??1?$hash_map@HHU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp (not merged yet)
 
-// tu-skeleton: 0x00621170 170B ?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp
+
+//
+// Open-BFME2: AssetRegistry::Render_Obj_Exists_Impl, the bool twin of the
+// Find_Asset lookup this directory already proved. The class layout is the
+// one Find_Asset.cpp verified for BFME2 -- the critical section at +0x34,
+// the hash_map at +0x4C and the name-key generator at +0x1F8 (BFME1 donor
+// has +0x2c/+0x44/+0x1F0; BFME2 shifted by 8) -- and the body is the BFME1
+// donor verbatim: lock, lowercase key, null-key false, hash find, found test.
+
+// Native standalone destructor at 0x0061FC60 uses mov/push (10B).
+// Size tuning emitted a 9B push-memory copy; preserve this unit's other bodies.
+
+// ?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z
+bool AssetRegistry::Render_Obj_Exists_Impl(const char *name)
+{
+	CriticalSectionLock lock((CRITICAL_SECTION *)field34);
+	unsigned int key = (unsigned int)field1F8->nameToLowercaseKey(name);
+	if (key == 0)
+		return false;
+	typedef _STL::hash_map<unsigned int, void *> AssetRegistryHash;
+	AssetRegistryHash *assets = (AssetRegistryHash *)field4C;
+	AssetRegistryHash::iterator it = assets->find(key);
+	return it != assets->end();
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x00621220 188B ?Find_Asset@AssetRegistry@@QAE?AVAssetReference@@PBD@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp (not merged yet)
 
-// tu-skeleton: 0x006212E0 200B ?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp
+
+//
+// Open-BFME2: BfmeObjEME::bfmeGetEME, the raw key-returning twin of the
+// AssetRegistry lookups this directory already proved (Find_Asset 188B,
+// Render_Obj_Exists_Impl 170B). Same class layout as the verified BFME2
+// family -- the critical section at +0x34, the hash_map at +0x4C and the
+// name-key generator at +0x1F8 (BFME1 donor has +0x2c/+0x44/+0x1F0) -- and
+// the BFME1 donor body verbatim: lock, lowercase key, null-key null,
+// hash find, not-found null, found returns the key itself.
+
+// ?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z
+void *BfmeObjEME::bfmeGetEME(void *name)
+{
+	CriticalSectionLock lock(&m_lock);
+	unsigned int key =
+		(unsigned int)m_hash_context->nameToLowercaseKey((const char *)name);
+	if (key == 0)
+		return 0;
+	typedef _STL::hash_map<unsigned int, void *> AssetRegistryHash;
+	AssetRegistryHash *assets = &m_assets;
+	AssetRegistryHash::iterator it = assets->find(key);
+	if (it == assets->end())
+		return 0;
+	return (void *)key;
+}
 
 // tu-skeleton: 0x006213B0 197B ?rva006213B0@AssetRegistry@@QAEPBDI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp (not merged yet)
 
