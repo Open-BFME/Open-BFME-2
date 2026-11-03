@@ -62,11 +62,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class CastleUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 
 class CostModifierUpgradeModuleData
 {

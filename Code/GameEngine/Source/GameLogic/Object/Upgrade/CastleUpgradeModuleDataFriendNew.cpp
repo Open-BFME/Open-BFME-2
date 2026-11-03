@@ -20,16 +20,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class CastleUpgradeModuleData
-{
-public:
-	CastleUpgradeModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x120];
-};
+#include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 
 // ?friend_newModuleData@CastleUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *CastleUpgradeModuleData::friend_newModuleData(INI *ini)

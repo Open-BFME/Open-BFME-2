@@ -54,12 +54,7 @@ struct CastleMemberBehaviorView
 	ObjectID m_castleID; // +0x18
 };
 
-struct CastleUpgradeModuleData
-{
-	unsigned char m_pad000[0x118];
-	AsciiString m_upgradeToGrant; // +0x118 retail-measured
-	float m_radius; // native +0x11C
-};
+#include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 class BehaviorModule
