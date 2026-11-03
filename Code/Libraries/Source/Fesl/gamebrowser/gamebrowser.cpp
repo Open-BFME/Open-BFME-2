@@ -132,13 +132,7 @@ public:
 	virtual void notifyActive( int id );
 };
 
-struct Rva007EB810Diag
-{
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void fail( const char *expression, const char *file, int line );
-};
+#include "../../../../GameEngine/Include/GameNetwork/Rva007EB810Diag.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
 

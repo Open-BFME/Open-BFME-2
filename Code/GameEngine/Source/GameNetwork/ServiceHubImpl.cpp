@@ -56,13 +56,7 @@ public:
 // service pointer is already null (servicehub.cpp 0x6D..0x7D), then run the
 // three 0x007E86C0 member vptr stores and the base vptr.
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail(const char *expr, const char *file, int line);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get();
 

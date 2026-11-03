@@ -1,13 +1,7 @@
 // cl: /O2
 // 0x007EB1C0: FESL hubsingle.cpp ServiceHubImpl singleton factory.
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail(const char *expr, const char *file, int line);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 void *Gen007F0130(unsigned int size);
 

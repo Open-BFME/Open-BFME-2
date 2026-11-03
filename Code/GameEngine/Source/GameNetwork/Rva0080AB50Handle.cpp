@@ -91,13 +91,7 @@ struct HostedLanGameView
 	char m_userGameId[ 0x20 ];
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail( const char *expr, const char *file, int line );
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get();
 void *Rva007F93E0( void *message, void *route, void *owner );

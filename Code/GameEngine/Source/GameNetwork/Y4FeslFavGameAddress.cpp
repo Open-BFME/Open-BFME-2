@@ -24,13 +24,7 @@ struct Rva00809500Sink
 	unsigned int m_gdatTimestamp;
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail( const char *expr, const char *file, int line );
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 class GenAlloc; GenAlloc *Gen007EFFC0();
 Rva007EB810Diag *Rva007EB810Get();

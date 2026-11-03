@@ -7,13 +7,7 @@
 #include <string.h>
 #pragma intrinsic( memcpy )
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail( const char *expr, const char *file, int line );
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
