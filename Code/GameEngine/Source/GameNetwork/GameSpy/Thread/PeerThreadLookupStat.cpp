@@ -45,10 +45,7 @@ template <> string &string::append(const char *);
 }
 struct BfmePeerStats { unsigned char unknown[0x98]; std::map<std::string, unsigned int> group, staging; };
 enum RoomType { TitleRoom, GroupRoom, StagingRoom };
-class PeerThreadClass {
-public: int lookupStatForPlayer(RoomType, const char *, const char *);
-private: std::string packStatKey(const char *nick, const char *key);
-};
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 int PeerThreadClass::lookupStatForPlayer(RoomType roomType, const char *nick, const char *key) {
     std::string fullKey = packStatKey(nick, key);
     typedef std::map<std::string, unsigned int> StatMap;

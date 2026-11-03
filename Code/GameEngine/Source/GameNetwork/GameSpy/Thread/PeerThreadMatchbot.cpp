@@ -42,5 +42,5 @@ namespace _STL {
 template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
 }
 struct BfmePeerEnumState { unsigned char unknown[0x48c]; bool sawEnd; bool sawMatchbot; unsigned char alignment[2]; std::string name; };
-class PeerThreadClass { public: void sawMatchbot(std::string bot); };
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 void PeerThreadClass::sawMatchbot(std::string bot) { BfmePeerEnumState *state = reinterpret_cast<BfmePeerEnumState *>(this); state->sawMatchbot = true; state->name = bot; }

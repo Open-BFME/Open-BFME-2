@@ -42,10 +42,7 @@ template <> vector<unsigned int>::vector(const vector<unsigned int> &);
 }
 struct BfmePeerStats { unsigned char unknown[0x98]; std::map<std::string, unsigned int> group, staging; };
 enum RoomType { TitleRoom, GroupRoom, StagingRoom };
-class PeerThreadClass {
-public: void trackStatsForPlayer(RoomType roomType, const char *nick, const char *key, const char *val);
-private: std::string packStatKey(const char *nick, const char *key);
-};
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 std::string PeerThreadClass::packStatKey(const char *nick, const char *key) {
     std::string s = nick;
     s.append(key);

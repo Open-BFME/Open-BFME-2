@@ -25,11 +25,7 @@ public:
 // 0x0038B9F8 is rowed as PeerThreadClass::connectCallback (504B,
 // PeerThread.cpp; ZH body); same (4,4) shape, so this resolves to the
 // rowed body instead of the unrowed Gen_0064C6A0Target spelling (sole U).
-class PeerThreadClass
-{
-public:
-	void connectCallback(void *first, int second);
-};
+#include "../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 
 // ?bfmeDispatch_0064C6A0@@YAXPAX00PAVGen_0064C6A0Target@@@Z	22B @0x0038D494
 void bfmeDispatch_0064C6A0(void *first, void *second, void *third, Gen_0064C6A0Target *target)

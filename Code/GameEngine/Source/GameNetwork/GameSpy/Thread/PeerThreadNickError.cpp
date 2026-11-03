@@ -52,7 +52,7 @@ namespace _STL { template <> string &string::append(const char *); }
 extern "C" void peerRetryWithNickA(PEER, const char *);
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 struct BfmePeerLoginName { unsigned char unknown[0x54]; std::string name; };
-class PeerThreadClass { public: void nickErrorCallback(PEER, Int, const char *); };
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 void PeerThreadClass::nickErrorCallback( PEER peer, Int type, const char *nick )
 {
 	if(type == PEER_IN_USE)

@@ -10,11 +10,7 @@
 // three leading arguments are forwarded to its thiscall member.
 
 // The callee is the rowed PeerThreadClass::nickErrorCallback.
-class PeerThreadClass
-{
-public:
-	void nickErrorCallback(void *peer, int type, const char *nick);
-};
+#include "../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 
 class BfmeSubBPB0064C6C0
 {

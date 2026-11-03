@@ -43,10 +43,7 @@ namespace _STL { template <> unsigned short * __char_traits_base<unsigned short,
 namespace _STL { template <> __declspec(dllimport) __declspec(nothrow) __forceinline _String_base<unsigned short, allocator<unsigned short> >::~_String_base() { _M_deallocate_block(); } }
 namespace AtoiIAT { extern "C" __declspec(dllimport) int __cdecl atoi(const char *); }
 struct BfmePeerQMState { unsigned char unknown[0x294]; QMStatus status; };
-class PeerThreadClass { public:
- QMStatus getQMStatus() { return reinterpret_cast<BfmePeerQMState *>(this)->status; }
- void handleQMMatch(PEER, Int, Int, char *names[MAX_SLOTS], char *ips[MAX_SLOTS], char *sides[MAX_SLOTS], char *colors[MAX_SLOTS], char *nats[MAX_SLOTS], char *unknown[MAX_SLOTS]);
-};
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 // The SDK is C and, with GSI_UNICODE off, its string-taking entry points are the
 // ANSI ones (rowed as _peerGetPlayerInfoNoWaitA in peer/peerMainBlockingOperations.c).
 extern "C" PEERBool peerGetPlayerInfoNoWaitA(PEER peer, const char *nick, unsigned int *IP, int *profileID);
