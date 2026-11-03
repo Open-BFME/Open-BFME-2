@@ -407,3 +407,4 @@ TransportAIUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/TransportAI
 CommandList,Code/GameEngine/Include/Common/CommandList.h,existing header; contract class_contracts/CommandList.json; 10/20 sampled units adopt
 GeneralAllocator,Code/GameEngine/Include/Common/GeneralAllocator.h,existing header; contract class_contracts/GeneralAllocator.json; 19/38 sampled units adopt
 AptBoolean,Code/Libraries/Source/Apt/AptBoolean.h,existing header; contract class_contracts/AptBoolean.json; 9/19 sampled units adopt
+Rva000B3F84Pair,Code/GameEngine/Include/Common/Rva000B3F84Pair.h,existing header; contract class_contracts/Rva000B3F84Pair.json; 88/96 sampled units adopt
