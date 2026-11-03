@@ -1,4 +1,4 @@
-// cl: (none -- build.py base flags)
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0070F5C0@Rva0070F5C0@@QAEXPAVAptCIH@@H@Z @0x0070F5C0 184B. Iterates the
 // indexed frame-action bucket m_table[idx] (8-byte {count, items} entries) and

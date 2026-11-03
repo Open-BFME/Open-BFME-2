@@ -1,4 +1,4 @@
-// cl: (none -- build.py base flags)
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?bfmeGo1020M@BfmeM1020@@QAEXH@Z at retail 0x0051E3A3 (32B). Trimmed port of
 // the Open-BFME-1 BfmeConv1020 donor: only the served bfmeGo1020M body is

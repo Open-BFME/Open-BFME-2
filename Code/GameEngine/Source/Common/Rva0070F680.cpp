@@ -1,4 +1,4 @@
-// cl: (none -- build.py base flags)
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0070F680@Rva0070F680@@QAEXPAXH@Z @0x0070F680 96B. Iterates the indexed
 // bucket at this+4 (8-byte entries {count, array}) and for each element whose
