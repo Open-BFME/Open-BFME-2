@@ -72,17 +72,7 @@ public:
 
 #include "../../../../Include/GameClient/DisplayStringManager.h"
 
-class IMEManager
-{
-public:
-#define V(n) virtual void slot##n() = 0;
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07)
-	V(08) V(09) V(10) V(11) V(12) V(13)
-	virtual void attach(GameWindow *window) = 0;
-	V(15) V(16) V(17) V(18)
-	virtual Bool isAttachedTo(GameWindow *window) = 0;
-#undef V
-};
+#include "../../../../Include/GameClient/IMEManagerClass.h"
 
 class GameWindowManager
 {

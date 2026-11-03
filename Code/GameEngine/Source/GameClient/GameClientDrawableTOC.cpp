@@ -609,7 +609,7 @@ public:
 	unsigned char m_pad6D[0x78 - 0x6D];
 };
 
-class IMEManager : public SubsystemInterface { public: virtual ~IMEManager(); };
+#include "../../Include/GameClient/IMEManagerClass.h"
 #include "../../Include/GameClient/GameWindowManager.h"
 
 // GlobalData's screen resolution (ZH m_xResolution, m_yResolution), the
