@@ -129,50 +129,7 @@ static char *Anim2DModeNames[] =
 // ------------------------------------------------------------------------------------------------
 /** A template of a 2D animation */
 // ------------------------------------------------------------------------------------------------
-class Anim2DTemplate
-{
-public:
-
-	Anim2DTemplate( AsciiString name );
-	virtual ~Anim2DTemplate( void );	// BFME: no memory pool for Anim2DTemplate
-
-	AsciiString getName( void ) const { return m_name; }
-	const Image *getFrame( UnsignedShort frameNumber ) const;
-	UnsignedShort getNumFrames( void ) const { return m_numFrames; }
-	UnsignedShort getNumFramesBetweenUpdates( void ) const { return m_framesBetweenUpdates; }
-	Anim2DMode getAnimMode( void ) const { return m_animMode; }
-	Bool isRandomizedStartFrame( void ) const { return m_randomizeStartFrame; }
-
-	// list access for use by the Anim2DCollection only
-	void friend_setNextTemplate( Anim2DTemplate *animTemplate ) { m_nextTemplate = animTemplate; }
-	Anim2DTemplate *friend_getNextTemplate( void ) const { return m_nextTemplate; };
-	
-	// INI methods
-	const FieldParse *getFieldParse( void ) const { return s_anim2DFieldParseTable; }
-	void storeImage( const Image *image );								///< store image in next available slot
-	void allocateImages( UnsignedShort numFrames );	///< allocate the array of image pointers to use
-
-protected:
-
-	static void parseImage( INI *ini, void *instance, void *store, const void *userData );
-	static void parseNumImages( INI *ini, void *instance, void *store, const void *userData );
-	static void parseImageSequence( INI *ini, void *instance, void *store, const void *userData );
-
-protected:
-	enum { NUM_FRAMES_INVALID = 0 };			///< initialization value for num frames
-
-	Anim2DTemplate*	m_nextTemplate;				///< next animation in collections animation list
-	AsciiString			m_name;										///< name of this 2D animation
-	const Image**		m_images;											///< array of image pointers that make up this animation
-	UnsignedShort		m_numFrames;						///< total number of frames in this animation
-	UnsignedShort		m_framesBetweenUpdates;	///< frames between frame updates
-	Anim2DMode			m_animMode;								///< the animation mode
-	Bool						m_randomizeStartFrame;						///< randomize animation instance start frames
-
-protected:
-	static const FieldParse s_anim2DFieldParseTable[];		///< the parse table for INI definition
-
-};
+#include "../../../Include/GameClient/Anim2DTemplate.h"
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

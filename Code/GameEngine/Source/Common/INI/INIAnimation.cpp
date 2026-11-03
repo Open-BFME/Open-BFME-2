@@ -7,12 +7,7 @@ typedef int Int;
 struct FieldParse;
 
 // BFME adds an integer after the message pointer; its meaning is unresolved.
-class Anim2DTemplate
-{
-	friend class INI;
-protected:
-	static const FieldParse s_anim2DFieldParseTable[];
-};
+#include "../../../Include/GameClient/Anim2DTemplate.h"
 
 // Bind the tree lookup to its existing row, as parseAnim2DTemplate does.
 struct Rva002D752DNode;

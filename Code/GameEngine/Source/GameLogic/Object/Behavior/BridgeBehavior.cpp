@@ -185,11 +185,7 @@ struct BoneNameSlot
 
 extern const Real g_00BC2A10;
 
-class Anim2DTemplate
-{
-public:
-	AsciiString getName() const;
-};
+#include "../../../../Include/GameClient/Anim2DTemplate.h"
 
 // The bridge template's repaired and damaged sound entries.
 class BridgeRoadSoundView

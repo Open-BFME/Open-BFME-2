@@ -19,7 +19,7 @@ struct BfmePairWI
 
 class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
 
-class Anim2DTemplate { public: AsciiString getName() const; };
+#include "../../Include/GameClient/Anim2DTemplate.h"
 
 class Rva00564BF6 { public: BfmePairWI rva00564BF6(); };
 

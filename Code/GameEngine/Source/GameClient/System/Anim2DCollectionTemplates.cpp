@@ -3,14 +3,7 @@
 // ?newTemplate@Anim2DCollection@@QAEPAVAnim2DTemplate@@ABVAsciiString@@@Z @0x002D7283 82B. Evidence: BFME1 donor game/GameEngine/Source/GameClient/System/Anim2DCollectionTemplates.cpp newTemplate plus ZH GeneralsMD Anim2D.cpp:820; placeholder comment in Anim2D.cpp:660 names this mangling; retail new 0x1c plus Anim2DTemplate ctor VAsciiString row 0x002D6CDE plus link [esi+0xc]/[eax+4] matches collection head/template next.
 #include "ascii_string.h"
 
-class Anim2DTemplate
-{
-public:
-	Anim2DTemplate(AsciiString name);
-	virtual ~Anim2DTemplate();
-	Anim2DTemplate *m_nextTemplate;
-	unsigned char m_pad[0x14];
-};
+#include "../../../Include/GameClient/Anim2DTemplate.h"
 
 class Anim2DCollection
 {

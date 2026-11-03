@@ -21,18 +21,7 @@ class Anim2DCollection
 public:
     void registerAnimation(Anim2D *animation);
 };
-class Anim2DTemplate
-{
-public:
-    unsigned short getNumFrames() const { return m_numFrames; }
-    unsigned short getNumFramesBetweenUpdates() const { return m_framesBetweenUpdates; }
-    bool isRandomizedStartFrame() const { return m_randomizeStartFrame; }
-private:
-    char m_unreconstructed000[0x10];
-    unsigned short m_numFrames, m_framesBetweenUpdates;
-    int m_animMode;
-    bool m_randomizeStartFrame;
-};
+#include "../../Include/GameClient/Anim2DTemplate.h"
 class Anim2D : public Snapshot
 {
 public:

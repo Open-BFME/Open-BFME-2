@@ -204,12 +204,7 @@ public:
 	int m_54;
 };
 
-class Anim2DTemplate
-{
-public:
-	char m_pad[8];
-	AsciiString m_name;
-};
+#include "../../Include/GameClient/Anim2DTemplate.h"
 
 class Anim2DCollection;
 extern Anim2DCollection *TheAnim2DCollection;
