@@ -50,7 +50,6 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "Common/CDManager.h"
-#include "GameLogic/GameLogic.h"
 
 //----------------------------------------------------------------------------
 //         Externals                                                     
@@ -99,217 +98,18 @@ CDManagerInterface* TheCDManager = NULL;
 //----------------------------------------------------------------------------
 
 
-//============================================================================
-// CDDrive::CDDrive
-//============================================================================
+// The ledger retains only these two ICF-folded string getters. The former
+// Zero Hour constructors and drive-list methods had no rows; none has an
+// outside object reference. Their LList dependencies and CDManager vtable
+// therefore do not belong to this getter-only unit. Keep TheCDManager above:
+// FileSystem.cpp references that existing global.
 
-// ??0CDDrive@@QAE@XZ present-unmatched
-CDDrive::CDDrive()
-: m_disk(CD::UNKNOWN_DISK)
+AsciiString CDDrive::getPath(void)
 {
-	m_diskName.clear();
-	m_drivePath.clear();
-	
+    return m_drivePath;
 }
 
-//============================================================================
-// CDDrive::~CDDrive
-//============================================================================
-
-// ??1CDDrive@@ present-unmatched
-CDDrive::~CDDrive()
+AsciiString CDDrive::getDiskName(void)
 {
-
+    return m_diskName;
 }
-
-//============================================================================
-// CDDrive::getPath
-//============================================================================
-
-AsciiString CDDrive::getPath( void )
-{
-	return m_drivePath;
-}
-
-//============================================================================
-// CDDrive::getDiskName
-//============================================================================
-
-AsciiString CDDrive::getDiskName( void )
-{
-	return m_diskName;
-}
-
-// ?refreshInfo@CDDrive@@UAEXXZ present-unmatched
-void CDDrive::refreshInfo( void )
-{
-		// map disk names to disk ID
-		m_disk = CD::UNKNOWN_DISK;
-}
-
-//============================================================================
-// CDDrive::getDisk
-//============================================================================
-
-// ?getDisk@CDDrive@@UAE?AW4Disk@CD@@XZ present-unmatched
-CD::Disk CDDrive::getDisk( void )
-{
-	return m_disk;
-}
-
-//============================================================================
-// CDDrive::setPath
-//============================================================================
-
-// ?setPath@CDDrive@@QAEXPBD@Z present-unmatched
-void CDDrive::setPath( const Char *path )
-{
-	m_drivePath = path;
-}
-
-//============================================================================
-// CDManager::CDManager
-//============================================================================
-
-// ??0CDManager@@QAE@XZ present-unmatched
-CDManager::CDManager()
-{
-
-}
-
-//============================================================================
-// CDManager::~CDManager
-//============================================================================
-
-// Not defined here: the destructor this file used to claim at 0x003E5525 is
-// ScriptConditions' (it stores ScriptConditions' vftable 0x00C35B38 and calls
-// ScriptConditions::reset 0x003E3C66), now rowed in
-// GameLogic/ScriptEngine/ScriptConditions_ctor.cpp. Retail's CDManager uses
-// vftable 0x00C3C5DC (constructor 0x00427526); its destructor is not rowed yet.
-
-//============================================================================
-// CDManager::init
-//============================================================================
-
-// ?init@CDManager@@UAEXXZ present-unmatched
-void CDManager::init( void )
-{
-
-}
-
-//============================================================================
-// CDManager::update
-//============================================================================
-
-// ?update@CDManager@@UAEXXZ present-unmatched
-void CDManager::update( void )
-{
-	// Every so often, check to make sure the CD is still in the drive
-	if ((TheGameLogic->getFrame() % 300) == 299) {
-		refreshDrives();
-	}
-}
-
-//============================================================================
-// CDManager::reset
-//============================================================================
-
-// ?reset@CDManager@@UAEXXZ present-unmatched
-void CDManager::reset( void )
-{
-
-}
-
-//============================================================================
-// CDManager::driveCount
-//============================================================================
-
-// ?driveCount@CDManager@@ present-unmatched
-Int CDManager::driveCount( void )
-{
-	return m_drives.nodeCount();
-}
-
-//============================================================================
-// CDManager::getDrive
-//============================================================================
-
-// ?getDrive@CDManager@@UAEPAVCDDriveInterface@@H@Z present-unmatched
-CDDriveInterface* CDManager::getDrive( Int index )
-{
-	CDDriveInterface *cd = NULL;
-	LListNode *node = m_drives.getNode( index );
-
-	if ( node )
-	{
-		cd = (CDDriveInterface*) node->item();
-	}
-
-	return cd;
-}
-
-//============================================================================
-// CDManager::newDrive
-//============================================================================
-
-// ?newDrive@CDManager@@UAEPAVCDDriveInterface@@PBD@Z present-unmatched
-CDDriveInterface* CDManager::newDrive( const Char *path )
-{
-	CDDrive *drive= (CDDrive*) createDrive();
-
-	if ( drive )
-	{
-		drive->setPath( path );
-		
-		drive->m_node.setItem( drive );
-		m_drives.add( &drive->m_node );
-	}
-	return drive;
-}
-
-//============================================================================
-// CDManager::refreshDrives
-//============================================================================
-
-// ?refreshDrives@CDManager@@UAEXXZ present-unmatched
-void CDManager::refreshDrives( void )
-{
-	LListNode *node = m_drives.firstNode();
-
-	while ( node )
-	{
-		CDDriveInterface *drive = (CDDriveInterface *) node->item();
-		if ( drive )
-		{
-			drive->refreshInfo();
-		}
-
-		node = node->next();
-	}
-}
-
-
-//============================================================================
-// CDManager::destroyAllDrives
-//============================================================================
-
-// ?destroyAllDrives@CDManager@@UAEXXZ present-unmatched
-void CDManager::destroyAllDrives( void )
-{
-	LListNode *node;
-
-	while ( (node = m_drives.firstNode() ) != NULL )
-	{
-		node->remove();
-		CDDriveInterface *drive = (CDDriveInterface *) node->item();
-		if ( drive )
-		{
-			delete drive;
-		}
-	}
-}
-
-
-
-
-
