@@ -18,11 +18,7 @@ public:
 	void rva003BBAD3();
 };
 
-class TerrainVisual
-{
-public:
-	virtual void removeAllBibs();
-};
+#include "../../../Include/GameClient/TerrainVisualClass.h"
 class W3DTerrainVisual : public TerrainVisual
 {
 public:
