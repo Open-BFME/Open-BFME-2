@@ -30,7 +30,7 @@ public:
 
 
 class Object;
-class Rva00575674 {public: void rva00575674(Object *); Object *m_ptr;};
+#include "../../../../Include/Common/Rva00575674.h"
 class Rva0042D6BAPtrChaseField {public: int get() const;};
 class Rva0042D6B4PtrChaseField {public: int get() const;};
 class Rva0042D703PtrChaseField {public: int get() const;};

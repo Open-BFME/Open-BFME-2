@@ -23,7 +23,7 @@ namespace AptUtils { int LevelIndexFromTarget(const char*); const char *SkipLeve
 class Rva0050FC54 {public: Rva0050FC54(int,const AsciiString&,Player*);char opaque[0x80];};
 class Rva0050FF55 {public: Rva0050FF55(Rva0050F5A6*,int,const AsciiString&,Player*);int rva0050EAC1();char opaque[0x80];Rva0050F5A6 *parent;};
 class Object;
-class Rva00575674 {public:void rva00575674(Object*);};
+#include "../../../../../Include/Common/Rva00575674.h"
 // Native50FFEC..5101C0 468B RET4; WB1358B70/tribute.cpp1203 corroborates
 // index/name parsing and local-player row selection without an original name.
 // Native constructors50FF55(42B RET16) and50FC54(392B RET12) receive ordinary

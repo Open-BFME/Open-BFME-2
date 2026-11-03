@@ -13,11 +13,7 @@ struct Rva005CF22CBig;
 
 // The owner's +0x1C member is the rowed Rva00575674 (0x00575674 set, Object* argument).
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *h);
-};
+#include "../../Include/Common/Rva00575674.h"
 
 struct Rva005CF22CBig
 {

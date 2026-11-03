@@ -78,11 +78,7 @@ public:
 
 class Object;
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *scrollBar);
-};
+#include "../../../Include/Common/Rva00575674.h"
 
 
 // The scroll bar's enable forwarder to its Impl (0x005D49CD, pinned by

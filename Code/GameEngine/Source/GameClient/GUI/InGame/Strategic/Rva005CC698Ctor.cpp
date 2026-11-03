@@ -29,15 +29,7 @@ public:
 };
 
 class Object;
-class Rva00575674
-{
-public:
-	Rva00575674() : m_p(0) {}
-	~Rva00575674();
-	void rva00575674(Object *p);
-private:
-	Object *m_p;
-};
+#include "../../../../../Include/Common/Rva00575674.h"
 
 struct Rva005CC5C8Region
 {

@@ -72,14 +72,7 @@ private:
 	StrategicInGameUI::RegionAwardDialog::Impl *m_owner;
 };
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *value);
-
-private:
-	Object *m_value;
-};
+#include "../../../Include/Common/Rva00575674.h"
 
 UnicodeString Rva005C95ECGet(Rva0020E89C *object);
 

@@ -95,11 +95,7 @@ public:
 	Rva005A0B4CList m_listeners; // +0x04
 };
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *scrollBar);
-};
+#include "../../Include/Common/Rva00575674.h"
 struct Rva005F2CBAScrollBarHolder
 {
 	void *m_ptr;

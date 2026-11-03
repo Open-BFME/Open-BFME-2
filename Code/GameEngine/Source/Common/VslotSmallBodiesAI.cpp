@@ -346,11 +346,7 @@ private:
 	int m_10;
 };
 #include "../GameLogic/Object/object.h"
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-};
+#include "../../Include/Common/Rva00575674.h"
 inline void *__cdecl operator new(unsigned int size, void *place)
 {
 	return place;

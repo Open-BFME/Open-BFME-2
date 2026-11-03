@@ -22,11 +22,7 @@ class LivingWorldRegion;
 
 #include "../../../../Include/Common/Rva000AD6F4.h"
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *object);
-};
+#include "../../../../Include/Common/Rva00575674.h"
 
 class StrategicInGameUI
 {

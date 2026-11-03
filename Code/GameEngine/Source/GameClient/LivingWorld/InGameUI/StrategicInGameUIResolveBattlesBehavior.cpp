@@ -125,7 +125,7 @@ struct ResolveBattleResultView
     int state;
 };
 class Object;
-class Rva00575674 { public: void rva00575674(Object *); };
+#include "../../../../Include/Common/Rva00575674.h"
 class Rva00576591
 {
 public:

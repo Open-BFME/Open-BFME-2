@@ -90,11 +90,7 @@ public:
 };
 
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *value);
-};
+#include "../../Include/Common/Rva00575674.h"
 
 struct Rva005F4EE8Source;
 class Rva005F4EE8

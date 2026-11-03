@@ -67,7 +67,7 @@ template <> __declspec(dllimport) __forceinline void vector<Rva005FA1CEElement, 
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
-class Rva00575674 {public: void rva00575674(Object *);};
+#include "../../../../../Include/Common/Rva00575674.h"
 class Rva005CB260Properties {public: void rva005CB260(int,unsigned int,unsigned int,const UnicodeString &);};
 class Rva005CC208Select {public: void rva005CC208(int);};
 // Tab page views (pages are Rva005FA0C9/Rva005FA0F7; +0x28 is the page state, 3 = settled).

@@ -47,11 +47,7 @@ public:
 
 class Object;
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *row);
-};
+#include "../../../../../Include/Common/Rva00575674.h"
 
 #include "../../../../../Include/Common/Rva000AD6F4.h"
 

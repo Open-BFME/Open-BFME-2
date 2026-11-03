@@ -103,7 +103,7 @@ extern Keyboard*TheKeyboard;
 class Rva0042D6B4PtrChaseField {public:int get()const;};
 class Rva0042D6BAPtrChaseField {public:int get()const;};
 class Object;
-class Rva00575674 {public:void rva00575674(Object*);};
+#include "../../../Include/Common/Rva00575674.h"
 struct Rva005E626DOwner;class Rva0057C394;struct Rva005E626DListOwner;
 class Rva005E626D {public:Rva005E626D(Rva005E626DOwner*,Rva0057C394*,Rva005E626DListOwner*,void*);char bytes[20];};
 class Rva005E652E {public:void rva005E652E(Rva005FArmyView*);

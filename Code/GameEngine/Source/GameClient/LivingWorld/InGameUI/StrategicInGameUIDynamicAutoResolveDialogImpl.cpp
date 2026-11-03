@@ -275,11 +275,7 @@ extern MessageStream *TheMessageStream;
 Int g_DynamicAutoResolveStepFrames = 0;
 
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-};
+#include "../../../../Include/Common/Rva00575674.h"
 #include "../../../../Include/Common/Rva000AD6F4.h"
 
 // The dialog's movie clip (0x0C bytes, vtable 0x00C781DC); its constructor
