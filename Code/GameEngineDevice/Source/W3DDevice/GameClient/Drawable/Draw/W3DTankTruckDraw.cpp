@@ -61,52 +61,21 @@ template <> DynamicVectorClass<Render2DClass *>::~DynamicVectorClass();
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??0W3DTankTruckDraw@@ present-unmatched
-W3DTankTruckDraw::W3DTankTruckDraw( Thing *thing, const ModuleData* moduleData ) : W3DModelDraw( thing, moduleData ),
-m_dirtEffect(NULL), m_dustEffect(NULL), m_powerslideEffect(NULL), m_effectsInitialized(false),
-m_wasAirborne(false), m_isPowersliding(false), m_frontWheelRotation(0), m_rearWheelRotation(0),
-m_frontRightTireBone(0), m_frontLeftTireBone(0), m_rearLeftTireBone(0),m_rearRightTireBone(0),
-m_prevRenderObj(NULL)
-{	 
-	//Truck Data
-	m_landingSound = *(thing->getTemplate()->getPerUnitSound("TruckLandingSound"));
-	m_powerslideSound = *(thing->getTemplate()->getPerUnitSound("TruckPowerslideSound"));
-
-	//Tank data
-	m_treadDebrisLeft = NULL;
-	m_treadDebrisRight = NULL;
-
-	for (Int i=0; i<MAX_TREADS_PER_TANK; i++)
-		m_treads[i].m_robj = NULL;
-
-	m_treadCount=0;
-
-#ifdef SHOW_TANK_DEBRIS
-	if (getW3DTankTruckDrawModuleData())
-	{
-		ParticleSystemTemplate *sysTemplate;
-
-		sysTemplate = TheParticleSystemManager->findTemplate(getW3DTankTruckDrawModuleData()->m_treadDebrisNameLeft);
-		if (sysTemplate)
-		{
-			m_treadDebrisLeft = TheParticleSystemManager->createParticleSystem( sysTemplate );
-			m_treadDebrisLeft->attachToDrawable(getDrawable());
-DEBUG_CRASH(("test me, may not work (srj)"));
-			// important: mark it as do-not-save, since we'll just re-create it when we reload.
-			m_treadDebrisLeft->setSaveable(FALSE);
-		}
-
-		sysTemplate = TheParticleSystemManager->findTemplate(getW3DTankTruckDrawModuleData()->m_treadDebrisNameRight);
-		if (sysTemplate)
-		{
-			m_treadDebrisRight = TheParticleSystemManager->createParticleSystem( sysTemplate );
-			m_treadDebrisRight->attachToDrawable(getDrawable());
-DEBUG_CRASH(("test me, may not work (srj)"));
-			// important: mark it as do-not-save, since we'll just re-create it when we reload.
-			m_treadDebrisRight->setSaveable(FALSE);
-		}
-	}
-#endif
+// The unrowed Zero Hour constructor that stood here emitted this unit's two
+// rows through its tread array: TreadObjectInfo's implicit constructor
+// (0x000CDFB1, taken by ??_H) and, with it, RenderObjClass::Material_Override's
+// (0x000636B3). TreadObjectInfo is a protected nested type, so the anchor is a
+// static member of a derived helper that is never instantiated (precedent:
+// TerrainTrackEdgeInfoO1.cpp). Not retail code.
+struct BfmeTankTruckTreadAnchor : public W3DTankTruckDraw
+{
+	static void anchor(void);
+};
+// ?anchor@BfmeTankTruckTreadAnchor@@ absent-from-retail
+void BfmeTankTruckTreadAnchor::anchor(void)
+{
+	TreadObjectInfo treads[MAX_TREADS_PER_TANK];
+	(void)treads;
 }
 
 //-------------------------------------------------------------------------------------------------
