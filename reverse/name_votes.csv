@@ -23499,3 +23499,4 @@ Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp|function|0x00041E30|rva
 Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp|function|0x0005E959|rva0005E959,216042c344ba2ec4d63a68df,drz-t46,drz-t46-sv2-1,w-d1d37e680132,2026-11-03
 Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp|function|0x00041FCF|rva00041FCF,93d62c980ec97f2c5da899c6,drz-t46,drz-t46-sv2-1,w-d1d37e680132,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv816_bfmeGoELHa.cpp|local|bfmeGoELHa|o,bc04ed5726d83138c65c4144,drz-t48,drz-t48-sv2-4,w-f1ece73c1831,2026-11-03
+Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp|member|Rva005FFCCBElem|m_8,888c6055c6f14c8176d1200c,drz-t01,drz-t01-sv3-3,w-1b383cf1efa6,2026-11-03
