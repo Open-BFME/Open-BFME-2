@@ -224,11 +224,11 @@ void Drawable::rva00278C7C(int colorArg)
  {
   float r,g,b;
   {
-   RGBColor c1;
-   if (FLASH_GD->houseColor) c1.setFromInt(obj->getIndicatorColor());
-   else c1.setFromInt(-1);
+   RGBColor m_indicatorColor;
+   if (FLASH_GD->houseColor) m_indicatorColor.setFromInt(obj->getIndicatorColor());
+   else m_indicatorColor.setFromInt(-1);
    float factor=FLASH_GD->saturation;
-   r=c1.red*factor; g=c1.green*factor; b=c1.blue*factor;
+   r=m_indicatorColor.red*factor; g=m_indicatorColor.green*factor; b=m_indicatorColor.blue*factor;
    factor*=0.5f;
    r-=factor; g-=factor; b-=factor;
   }

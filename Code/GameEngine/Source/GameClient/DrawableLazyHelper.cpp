@@ -32,7 +32,7 @@ struct DrawableTemplateKindView
 class Drawable
 {
 public:
-	Bool rva002788C7(Int a, Int b);
+	Bool rva002788C7(Int point, Int direction);
 private:
 	void *m_vtable;
 	const DrawableTemplateKindView *m_template; // +0x04
@@ -40,7 +40,7 @@ private:
 	Rva002768AC *m_helper; // +0x45C
 };
 
-Bool Drawable::rva002788C7(Int a, Int b)
+Bool Drawable::rva002788C7(Int point, Int direction)
 {
 	if (!(m_template->m_kindOf118 & 0x40))
 		return false;
@@ -48,5 +48,5 @@ Bool Drawable::rva002788C7(Int a, Int b)
 		m_helper = new Rva002768AC(this);
 	if (m_helper == 0)
 		return false;
-	return m_helper->rva00276952(reinterpret_cast<const Coord3D *>(a), reinterpret_cast<Coord3D *>(b));
+	return m_helper->rva00276952(reinterpret_cast<const Coord3D *>(point), reinterpret_cast<Coord3D *>(direction));
 }

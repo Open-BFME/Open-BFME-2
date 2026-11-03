@@ -23,7 +23,7 @@ class Drawable
 {
 public:
 	void rva00273648(void *arg);
-	void rva00275DCE(int a1, float a2, float a3, float a4);
+	void rva00275DCE(int newState, float a2, float a3, float a4);
 private:
 	char _00[0xB4];
 	int m_B4;
@@ -48,9 +48,9 @@ private:
 extern int BfmeClientFramesPerSecond;
 float __cdecl GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
 
-void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
+void Drawable::rva00275DCE(int newState, float a2, float a3, float a4)
 {
-	if (a1 == m_164)
+	if (newState == m_164)
 		return;
 	float tmp = 1.0f;
 	m_BC = tmp;
@@ -65,8 +65,8 @@ void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
 	m_C0 = c;
 	m_D4 = (int)((double)BfmeClientFramesPerSecond * (double)a4);
 	m_D0 = m_B4;
-	m_164 = a1;
-	switch (a1) {
+	m_164 = newState;
+	switch (newState) {
 	case 0:
 	case 2:
 		m_43E = 0;
@@ -81,7 +81,7 @@ void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
 		m_C8 = (a3 - lo) * 0.5f;
 		m_CC = GetGameClientRandomValueReal(0.0f, 3.14159265f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable.cpp", 0x1074);
 		m_43E = 0;
-		if (a1 == 4)
+		if (newState == 4)
 			m_358 = 1.0f;
 		else
 			m_358 = 0.0f;

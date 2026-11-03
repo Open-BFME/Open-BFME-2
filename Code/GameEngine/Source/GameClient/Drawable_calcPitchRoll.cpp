@@ -125,17 +125,17 @@ Bool Drawable::calcPitchRoll(void *objArg, void *locomotorArg, void *posArg, voi
 
 		if (!tooSteep)
 		{
-			Coord3D v1;
-			v1.x = corners[1].x - corners[0].x;
-			v1.y = corners[1].y - corners[0].y;
-			v1.z = heights[1] - heights[0];
-			Coord3D v2;
-			v2.x = corners[2].x - corners[0].x;
-			v2.y = corners[2].y - corners[0].y;
-			v2.z = heights[2] - heights[0];
-			vec.x = v1.y * v2.z - v1.z * v2.y;
-			vec.y = v1.z * v2.x - v1.x * v2.z;
-			vec.z = v1.x * v2.y - v1.y * v2.x;
+			Coord3D widthEdge;
+			widthEdge.x = corners[1].x - corners[0].x;
+			widthEdge.y = corners[1].y - corners[0].y;
+			widthEdge.z = heights[1] - heights[0];
+			Coord3D lengthEdge;
+			lengthEdge.x = corners[2].x - corners[0].x;
+			lengthEdge.y = corners[2].y - corners[0].y;
+			lengthEdge.z = heights[2] - heights[0];
+			vec.x = widthEdge.y * lengthEdge.z - widthEdge.z * lengthEdge.y;
+			vec.y = widthEdge.z * lengthEdge.x - widthEdge.x * lengthEdge.z;
+			vec.z = widthEdge.x * lengthEdge.y - widthEdge.y * lengthEdge.x;
 			vec.normalize();
 			Real s = vec.x * dir->x + vec.y * dir->y + vec.z * dir->z;
 			*pitch = ASin(s);

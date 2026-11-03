@@ -6851,3 +6851,13 @@ local,Rva00541579::rva00541579::b,Rva00541579::rva00541579::keyBegin,inferred,ag
 local,Rva00541579::rva00541579::h,Rva00541579::rva00541579::cachedIndex,inferred,agree:nl-5bb81fc22000,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541579
 local,Rva005418CB::rva00541641::b,Rva005418CB::rva00541641::keyBegin,inferred,agree:nl-e14ed5211391,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541641
 local,Rva005418CB::rva00541641::h,Rva005418CB::rva00541641::cachedIndex,inferred,agree:nl-2a34f27ebabf,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541641
+param,Display::rva002B2466::a,Display::rva002B2466::left,inferred,agree:nl-0bd5ff56b051,Code/GameEngine/Source/GameClient/DisplayRva002B2466.cpp,0x002B2466
+param,Display::rva002B2466::b,Display::rva002B2466::top,inferred,agree:nl-a6204e02add5,Code/GameEngine/Source/GameClient/DisplayRva002B2466.cpp,0x002B2466
+param,Display::rva002B2466::c,Display::rva002B2466::right,inferred,agree:nl-5e26bac9e92c,Code/GameEngine/Source/GameClient/DisplayRva002B2466.cpp,0x002B2466
+param,Display::rva002B2466::d,Display::rva002B2466::bottom,inferred,agree:nl-a89ac96b4d9f,Code/GameEngine/Source/GameClient/DisplayRva002B2466.cpp,0x002B2466
+local,Drawable::rva00278C7C::c1,Drawable::rva00278C7C::m_indicatorColor,inferred,agree:nl-0a7af72d8722,Code/GameEngine/Source/GameClient/DrawableFlashAsSelected.cpp,0x00278C7C
+param,Drawable::rva002788C7::a,Drawable::rva002788C7::point,inferred,agree:nl-6328f56b0988,Code/GameEngine/Source/GameClient/DrawableLazyHelper.cpp,0x002788C7
+param,Drawable::rva002788C7::b,Drawable::rva002788C7::direction,inferred,agree:nl-354bf0b10b88,Code/GameEngine/Source/GameClient/DrawableLazyHelper.cpp,0x002788C7
+param,Drawable::rva00275DCE::a1,Drawable::rva00275DCE::newState,inferred,agree:nl-302fb65beef5,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
+local,Drawable::calcPitchRoll::v1,Drawable::calcPitchRoll::widthEdge,inferred,agree:nl-7ef694210bf4,Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp,0x00270276
+local,Drawable::calcPitchRoll::v2,Drawable::calcPitchRoll::lengthEdge,inferred,agree:nl-5acf572d9d87,Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp,0x00270276

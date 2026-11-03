@@ -13,10 +13,10 @@
 
 #include "../../Include/GameClient/Display.h"
 
-void Display::rva002B2466(float a, float b, float c, float d)
+void Display::rva002B2466(float left, float top, float right, float bottom)
 {
-	fieldFC = (float)getWidth() * a;
-	field100 = (float)getHeight() * b;
-	field104 = (float)getWidth() * c;
-	field108 = (float)getHeight() * d;
+	fieldFC = (float)getWidth() * left;
+	field100 = (float)getHeight() * top;
+	field104 = (float)getWidth() * right;
+	field108 = (float)getHeight() * bottom;
 }
