@@ -740,12 +740,8 @@ Rva005CD3A5::~Rva005CD3A5()
 {
 }
 
+#include "../../Include/GameClient/ArmyUnitSwapperMovieClip.h"
 namespace StrategicHUD {
-class ArmyUnitSwapperMovieClip
-{
-public:
-	virtual ~ArmyUnitSwapperMovieClip();
-};
 }
 
 class __declspec(novtable) Rva005F4EE8 : public StrategicHUD::ArmyUnitSwapperMovieClip

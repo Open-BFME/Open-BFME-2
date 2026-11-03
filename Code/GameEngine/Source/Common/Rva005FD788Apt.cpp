@@ -125,24 +125,8 @@ struct Rva00578A7EAptMode
 	int m_mode; // +0x318
 };
 
+#include "../../Include/GameClient/ArmyUnitSwapperMovieClip.h"
 namespace StrategicHUD {
-class ArmyUnitSwapperMovieClip
-{
-public:
-	class Impl;
-
-	// The owner's notification slots the callbacks fire (vtable +4..+0x14).
-	ArmyUnitSwapperMovieClip(int level, const AsciiString &name, const TreeHintRef00217D4C &top, const TreeHintRef00217D4C &bottom);
-	virtual void v0();
-	virtual void notifyClosed();
-	virtual void notifyExit();
-	virtual void notifyMoveDown();
-	virtual void notifyMoveUp();
-	virtual void notifySwap();
-
-private:
-	Impl *m_impl; // +0x04
-};
 }
 
 class StrategicHUD::ArmyUnitSwapperMovieClip::Impl

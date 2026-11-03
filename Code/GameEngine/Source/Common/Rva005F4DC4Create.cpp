@@ -107,17 +107,9 @@ Rva005F4DC4Handle Rva005F4DC4::rva005F4DC4()
 // built; the source is kept at +0x08.
 class AsciiString;
 
+#include "../../Include/GameClient/ArmyUnitSwapperMovieClip.h"
 namespace StrategicHUD
 {
-class ArmyUnitSwapperMovieClip
-{
-public:
-	ArmyUnitSwapperMovieClip(int level, const AsciiString &name, const TreeHintRef00217D4C &top, const TreeHintRef00217D4C &bottom);
-	virtual ~ArmyUnitSwapperMovieClip();
-	virtual void notifyClosed();
-private:
-	void *m_impl;							// +0x04
-};
 }
 
 class Rva005F4B48Target

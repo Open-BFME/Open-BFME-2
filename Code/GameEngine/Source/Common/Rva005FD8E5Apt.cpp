@@ -23,12 +23,8 @@ struct ArmyUnitSwapperSlot
 	int m_commandPoints;
 	int m_maxCommandPoints;
 };
+#include "../../Include/GameClient/ArmyUnitSwapperMovieClip.h"
 namespace StrategicHUD {
-class ArmyUnitSwapperMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::ArmyUnitSwapperMovieClip::Impl
