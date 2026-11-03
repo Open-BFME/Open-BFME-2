@@ -1,0 +1,46 @@
+{
+  "before": 49,
+  "after": 49,
+  "removed": [
+    "?Rva0021BEC1@@YGHHH@Z"
+  ],
+  "added": [
+    "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z"
+  ],
+  "shared_payload_changed": [],
+  "shared_properties_changed": [],
+  "new_member": {
+    "bytes": "ff742408e80000000085c0740dff7424048bc8e800000000eb0233c0c20800",
+    "relocations": [
+      [
+        5,
+        20,
+        "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z"
+      ],
+      [
+        20,
+        20,
+        "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z"
+      ]
+    ]
+  },
+  "undefined_removed": [
+    "?Rva00219B9E@@YGPAXH@Z",
+    "?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z"
+  ],
+  "undefined_added": [
+    "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z",
+    "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z"
+  ],
+  "weak": [],
+  "alternates": {
+    "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+    "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+    "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+    "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+    "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+    "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+    "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+  },
+  "includes": []
+}

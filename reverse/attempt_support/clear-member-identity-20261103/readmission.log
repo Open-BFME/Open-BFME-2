@@ -1,0 +1,10 @@
+add_match: appended: ?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z,,0x0021BEC1,31,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp,matched,Native ABI identity repair retaining address placeholder; const receiver calls private219B9E then const subclass21BD22; complete31 unmasked bytes proved; false free claim retracted separately; same source path; no original visibility or descriptive name claim
+add_match: verifying: C:\Users\clemens\scoop\apps\python\current\python.exe tools/build.py Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp
+Source claims: OK (1 sources, scoped byte-verified)
+Functions: OK 15/15 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (2 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+add_match: verified OK — row is live
+add_match: recorded `landed` x1 in reverse/re_attempts.log -- stage it
+add_match: claim kept until the row is on origin/master; after your push run `python3 tools/claims.py release --landed`

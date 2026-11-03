@@ -561,8 +561,30 @@ public:
 };
 
 
-// The false free-function claim at 0x0021BEC1 is retracted here.
-// Its privately verified member body is readmitted in the following commit.
+// Native21BEC1 preserves an incoming const CreateAHeroClass receiver and
+// returns the subclass lookup pointer. Keep its address-placeholder identifier;
+// the public declaration is a TU-local callable view, not original visibility.
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
+
+class CreateAHeroManager::CreateAHeroSubClass
+{
+public:
+    int *rva0021BD22(int key) const;
+};
+
+class CreateAHeroManager::CreateAHeroClass
+{
+private:
+    const CreateAHeroSubClass *rva00219B9E(unsigned int subClassIndex) const;
+public:
+    int *Rva0021BEC1(int a1, int a2) const;
+};
+
+int *CreateAHeroManager::CreateAHeroClass::Rva0021BEC1(int a1, int a2) const
+{
+    const CreateAHeroSubClass *subClass = rva00219B9E((unsigned int)a2);
+    return subClass ? subClass->rva0021BD22(a1) : 0;
+}
 
 // ?rva002103B6@Rva002103B6@@QAEXPBVAsciiString@@@Z @0x002103B6 119B
 // Rebuilds the +0x2c vector from the +0x20 vector through the rowed
