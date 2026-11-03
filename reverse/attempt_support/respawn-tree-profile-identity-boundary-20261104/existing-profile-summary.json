@@ -1,0 +1,105 @@
+{
+  "frozen_commit": "9a47cdf7b0",
+  "private_head": "e514a0124363da28d96728d561f90c598e82047c",
+  "inputs": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp": "e69bedbc5a0f1901d66a3902bf7c5d053b5099b89087bba12c6abd61e72fdc16",
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp": "123aa226201c58edaa556ba139eaf5e224638e7e1641c06996630d9829a53697"
+  },
+  "compile_trials": 4,
+  "control_rows_exact": [
+    24,
+    8
+  ],
+  "control_union_definitions": 117,
+  "control_conflicts": [],
+  "distinct_strategies": {
+    "seed-profile": [
+      "union-first"
+    ],
+    "tree-profile": [
+      "union-first"
+    ]
+  },
+  "variants": [
+    {
+      "label": "compose-seed-profile-union-first",
+      "exact_rows": 28,
+      "missing": [
+        "0x0007FAB3",
+        "0x004AF28F",
+        "0x004AF46E",
+        "0x004AF4A6"
+      ],
+      "effective_cl": "// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /I. /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc",
+      "eh": {
+        "?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ": [
+          "EXACT",
+          ""
+        ],
+        "??1?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ": [
+          "EXACT",
+          ""
+        ]
+      },
+      "provider_diff": {
+        "changed": [
+          "??1?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ",
+          "??1?$_Rb_tree_base@UBfmePod20@@V?$allocator@UBfmePod20@@@_STL@@@_STL@@QAE@XZ",
+          "?_M_erase@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@UBfmePod20@@@2@@Z",
+          "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@UBfmePod20@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@UBfmePod20@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@UBfmePod20@@@2@I@Z",
+          "?deallocate@?$allocator@U?$_Rb_tree_node@UBfmePod20@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@UBfmePod20@@@2@I@Z",
+          "?insert_unique@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@_STL@@_N@2@ABUBfmePod20@@@Z"
+        ],
+        "removed": [],
+        "added": []
+      },
+      "binding_changes": []
+    },
+    {
+      "label": "compose-tree-profile-union-first",
+      "exact_rows": 30,
+      "missing": [
+        "0x004AFC5F",
+        "0x004AFE6C"
+      ],
+      "effective_cl": "// cl: /O1 /arch:SSE /G7 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /I. /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc",
+      "eh": {
+        "?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ": [
+          "EXACT",
+          ""
+        ],
+        "??1?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ": [
+          "EXACT",
+          ""
+        ]
+      },
+      "provider_diff": {
+        "changed": [
+          "?iniParseDefaultRule@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z",
+          "?iniParseNewRuleForLevel@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z"
+        ],
+        "removed": [],
+        "added": []
+      },
+      "binding_changes": []
+    }
+  ],
+  "tracked_reads_stopped": true,
+  "normal_cache_or_tracked_edits": false
+}
