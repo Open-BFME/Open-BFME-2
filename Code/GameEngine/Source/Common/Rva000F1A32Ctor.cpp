@@ -7,12 +7,7 @@ private:
     void *m_a;
     void *m_b;
 };
-class W3DBufferManager {
-public:
-    W3DBufferManager();
-private:
-    char _s[0x4265c];
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 extern class W3DBufferManager *TheW3DBufferManager;
 // g_00DEC3C0: matched references place it at VA 0xdec3c0 (zero-filled .bss).
 class TCBSpline3DClass {

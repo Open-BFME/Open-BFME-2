@@ -4,7 +4,7 @@
 // ??_GW3DBufferManager@@QAEPAXI@Z @0x000F0956
 struct EmitVtableTag;
 
-class W3DBufferManager { public: ~W3DBufferManager(); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 void famgenDelete(W3DBufferManager *w3DBufferManager) { delete w3DBufferManager; }
 
 // ??_GSpecialPowerModuleData@@UAEPAXI@Z @0x00493333 28B; calls rowed ??1SpecialPowerModuleData@@UAE@XZ @0x0049334F then delete.

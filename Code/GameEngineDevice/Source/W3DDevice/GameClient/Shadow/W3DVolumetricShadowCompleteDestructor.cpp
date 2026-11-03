@@ -53,15 +53,7 @@ struct Geometry
 	}
 };
 
-class W3DBufferManager
-{
-public:
-	struct W3DVertexBufferSlot;
-	struct W3DIndexBufferSlot;
-
-	void releaseSlot(W3DVertexBufferSlot *slot);
-	void releaseSlot(W3DIndexBufferSlot *slot);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 
 struct W3DBufferManager::W3DVertexBufferSlot
 {

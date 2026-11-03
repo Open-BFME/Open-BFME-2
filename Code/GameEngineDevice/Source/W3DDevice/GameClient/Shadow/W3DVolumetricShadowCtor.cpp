@@ -54,16 +54,7 @@ class W3DShadowGeometry;
 struct Geometry;
 class W3DVolumetricShadow;
 
-class W3DBufferManager
-{
-public:
-	struct W3DVertexBufferSlot;
-	struct W3DIndexBufferSlot;
-	struct W3DRenderTask
-	{
-		W3DRenderTask *m_nextTask;
-	};
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 
 struct W3DVolumetricShadowRenderTask : public W3DBufferManager::W3DRenderTask
 {

@@ -11,13 +11,7 @@ class Geometry {
 public:
     ~Geometry();
 };
-class W3DBufferManager {
-public:
-    struct W3DVertexBufferSlot;
-    struct W3DIndexBufferSlot;
-    void releaseSlot(W3DVertexBufferSlot *slot);
-    void releaseSlot(W3DIndexBufferSlot *slot);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 extern class W3DBufferManager *TheW3DBufferManager;
 class Rva000F26DC {
 public:

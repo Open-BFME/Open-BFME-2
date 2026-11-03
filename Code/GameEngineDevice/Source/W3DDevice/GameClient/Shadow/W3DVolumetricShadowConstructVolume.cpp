@@ -70,40 +70,7 @@ class DX8VertexBufferClass : public VertexBufferClass
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
-class W3DBufferManager
-{
-public:
-	enum VBM_FVF_TYPES
-	{
-		VBM_FVF_XYZ
-	};
-	struct W3DVertexBuffer
-	{
-		char m_pad[0x14];
-		DX8VertexBufferClass *m_DX8VertexBuffer;
-	};
-	struct W3DIndexBuffer
-	{
-		char m_pad[0x10];
-		DX8IndexBufferClass *m_DX8IndexBuffer;
-	};
-	struct W3DVertexBufferSlot
-	{
-		Int m_size;
-		Int m_start;
-		W3DVertexBuffer *m_VB;
-	};
-	struct W3DIndexBufferSlot
-	{
-		Int m_size;
-		Int m_start;
-		W3DIndexBuffer *m_IB;
-	};
-	W3DVertexBufferSlot *getSlot(VBM_FVF_TYPES fvfType, Int size);
-	W3DIndexBufferSlot *getSlot(Int size);
-	void releaseSlot(W3DVertexBufferSlot *vbSlot);
-	void releaseSlot(W3DIndexBufferSlot *ibSlot);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 extern W3DBufferManager *TheW3DBufferManager;
 
 class Geometry
