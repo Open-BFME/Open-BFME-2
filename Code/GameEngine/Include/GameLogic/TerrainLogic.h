@@ -76,13 +76,30 @@ public:
     virtual void update();
 
 protected:
+    // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+    virtual void LoadPostProcess();
+#else
     virtual void loadPostProcess();
+#endif
 #ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+    virtual const char *GetSnapshotName();
+#else
     virtual const char *GetSnapshotName() const;
+#endif
 #else
     virtual void crc(Xfer *xfer);
 #endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+    virtual void DoXfer(Xfer &);
+#else
+    virtual void DoXfer(Xfer *);
+#endif
+#else
     virtual void xfer(Xfer *);
+#endif
 
 public:
     virtual bool loadMap(const AsciiString &, ChunkInputStream *, bool, bool);
@@ -135,6 +152,8 @@ public:
 
     void setActiveBoundary(int);
     void rva0027D1A4(const Coord3D *, float, int);
+    // Inline in retail: evaluateBridgeBroken 0x003E3D95 and evaluateBridgeRepaired 0x003E3DC6 test byte +0x44.
+    bool anyBridgesDamageStatesChanged() { return field44; }
     bool isBridgeRepaired(const Object *);
     bool isBridgeBroken(const Object *);
     int getPartitionBucket(float *);
