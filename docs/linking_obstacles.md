@@ -230,6 +230,15 @@ canonical header while retaining the same inline separator getter. Current
 29-row checks and owning acceptance pass; one INI entry retires. Private
 27-row/EH4/130-provider identity is unchanged.
 
+AutoPickUp containment follow-up adopts the complete canonical interface and
+its existing getContainCount at slot69 in all four calls. Normal29-row checks
+and owning acceptance pass, retiring the last of seven served header entries.
+The final main object retains all130 provider bytes, relocations, COFF properties
+and symbol routes from control; the paired LINKS preview stays2,073 bytes.
+No new census gain is inferred. GUI push379efc587f still had one missing receipt
+(GadgetTextEntrySetText) in the older-index broad audit; carry that scope into
+the next scheduled census.
+
 ### ScriptActions doNamedEnterNamed link repair (2026-11-02)
 
 `ScriptActions_doNamedEnterNamed.cpp` (92B) unresolved symbol `?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z` resolved by pointing the call to the real rowed provider `AICommandInterface::rva0026C347` (`?rva0026C347@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z` at 0x0026C347 in `AICommandInterfaceAttackCommands.cpp`), which was already matched and linked.
