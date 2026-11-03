@@ -1,0 +1,5 @@
+### Geometry consolidation: explicit instantiation ordered before its template (2026-11-03)
+
+Supported dry-run of21 clean sources accepts none: composing Geometry.cpp alone moves `template float clamp<float>(...)` before its primary template, causingC2143. Original seed39B verifies1/1; composition0/1. No source/gate change in the refusal commit. The older empty-managed-flag refusal is separate; current tooling rejects overrides that cost the seed a row, while other donor profile conflicts remain.
+
+Repair composition ordering in a separate tooling commit with a regression test and all exploit refusals preserved, then retry the supported merge. GeometryInfo canonical adoption, GeometryShape overlap and BfmeElem60 float/int disagreements remain legitimate prerequisites; do not retype or override flags to conceal them. [Exact dry run, composed source and view plan](../../reverse/attempt_support/geometry-template-order-false-reject-20261103/README.md). No merge/link/source-count gain claimed.

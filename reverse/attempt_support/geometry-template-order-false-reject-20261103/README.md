@@ -1,0 +1,9 @@
+# Geometry template ordering false reject, 2026-11-03
+
+At base733f09e7dc plus the pending AIWall handoff, the default picker serves the approved Geometry.cpp cohort:21 clean files,30 code rows,45 approved including mixed sources. The current in-memory map is used, not planner hints or the stale committed map. Strict frozen checks pass for all21 files. The scoped naming planner and private-view dry-run were read; canonical GeometryInfo adoption, overlapping GeometryShape views, float/int BfmeElem60 disagreement and nine compiler overrides remain separate genuine prerequisites.
+
+The supported merge dry-run accepts none. The old empty-managed-flag seed refusal has progressed: this run explicitly refuses the overrides that cost the seed its row. It then fails even the seed composition on C2143 before '<'. This is a new reproducible parser/composition false rejection, not missing native coverage.
+
+The source is just a primary clamp<NUM> function template definition followed by its explicit float instantiation. The ordinary sanctioned Verifier(Geometry.cpp).matched(original,[clamp39B]) reports1/1 at RVA0000575A. compose(...,[seed],...) emits the explicit `template float clamp<float>(...)` declaration before the template body, and the same verifier reports0/1 with C2143. The original source and flags are unchanged. The saved composed text is evidence only, never Code or progress.
+
+No source, ledger, baseline, tool or gate changed in this refusal commit. Root holds the tooling file scope separately. The next tooling commit must preserve template definition/instantiation order, add regression coverage, retain existing gate-exploit refusals, and pass normal hooks before any source merge is retried. Compiler/profile and class-view conflicts must remain visible after repair; no marker, flag override, wrapper or manual source composition is a remedy.

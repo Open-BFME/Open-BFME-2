@@ -1,0 +1,32 @@
+tu: Code/GameEngine/Source/Common/System/Geometry.cpp
+seed: Code/GameEngine/Source/Common/System/Geometry.cpp  (21 files)
+  GeometryInfo: canonical header Code/GameEngine/Include/Common/Geometry.h: header-lane work, not written (python3 tools/header_adopt_lane.py accept --class GeometryInfo FILE...)
+  GeometryShape: conflict (7 files)
+      CONFLICT: fields overlap: Code/GameEngine/Source/Common/System/GeometryParseActiveAndOffset.cpp m_type +0x0..0x4, Code/GameEngine/Source/Common/System/GeometryInfoExpandFootprint.cpp m_prefix +0x0..0x8
+  Rva0087E900Coord: plan (2 files)
+        | struct Rva0087E900Coord
+        | {
+        | public:
+        | 	float x; // +0x00
+        | 	float y; // +0x04
+        | 	float z; // +0x08
+        | };
+  Rva0087E900Shape: plan (2 files)
+      rename in Code/GameEngine/Source/Common/Rva0087E900ShapeRva006BE220.cpp: m_field0x10 -> offset
+        | struct Rva0087E900Shape
+        | {
+        | public:
+        | 	void rva006BE220(const Rva0087E900Coord *position, float angle, Rva0087E900Coord *dest);
+        | 	char m_pad00[0x10];
+        | 	Rva0087E900Coord offset; // +0x10
+        | };
+  BfmeCoord60: plan (2 files)
+        | struct BfmeCoord60
+        | {
+        | public:
+        | 	int m_x; // +0x00
+        | 	int m_y; // +0x04
+        | 	int m_z; // +0x08
+        | };
+  BfmeElem60: conflict (3 files)
+      CONFLICT: +0x4: views disagree on what the field is (float vs int: Code/GameEngine/Source/Common/Rva0087EAA0Fill.cpp m_04, Code/GameEngine/Source/Common/Rva006BE2E0Copy.cpp m_04, Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp m_height)
