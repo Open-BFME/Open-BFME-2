@@ -13,25 +13,7 @@ enum NetCommandType
 	NETCOMMANDTYPE_INFORMPLAYERLEAVEFRAME = 8
 };
 
-class BFMENetInformPlayerLeaveFrameCommandMsg
-{
-public:
-	virtual ~BFMENetInformPlayerLeaveFrameCommandMsg();
-
-	void setLeaveFrame(UnsignedInt frame);
-	void setLeavingPlayerID(Int playerID);
-
-private:
-	UnsignedInt m_timestamp; // this+0x04
-	UnsignedInt m_executionFrame; // this+0x08
-	UnsignedInt m_playerID; // this+0x0C
-	unsigned short m_id; // this+0x10
-	unsigned short m_pad10; // this+0x12
-	Int m_commandType; // this+0x14
-	Int m_referenceCount; // this+0x18
-	UnsignedInt m_leaveFrame; // this+0x1C
-	Int m_leavingPlayerID; // this+0x20
-};
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
 
 // ?setLeaveFrame@BFMENetInformPlayerLeaveFrameCommandMsg@@QAEXI@Z
 void BFMENetInformPlayerLeaveFrameCommandMsg::setLeaveFrame(UnsignedInt frame)

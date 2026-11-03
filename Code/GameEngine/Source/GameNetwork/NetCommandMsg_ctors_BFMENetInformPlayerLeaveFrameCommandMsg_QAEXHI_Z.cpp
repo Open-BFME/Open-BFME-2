@@ -76,19 +76,7 @@ enum NetCommandType
 
 // The matched type-8 receiver (0x00664430) proves frame at +0x1C and
 // leaving player at +0x20. The wire reader transmits player first, then frame.
-class BFMENetInformPlayerLeaveFrameCommandMsg : public NetCommandMsg
-{
-public:
-	BFMENetInformPlayerLeaveFrameCommandMsg();
-	UnsignedInt getLeaveFrame();
-	void setLeaveFrame(UnsignedInt frame);
-	Int getLeavingPlayerID();
-	void setLeavingPlayerID(Int playerID);
-	void setLeaveInfo(Int playerID, UnsignedInt frame);
-
-	UnsignedInt m_leaveFrame; // +0x1C
-	Int m_leavingPlayerID; // +0x20
-};
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
 
 void BFMENetInformPlayerLeaveFrameCommandMsg::setLeaveInfo(Int playerID, UnsignedInt frame)
 {
