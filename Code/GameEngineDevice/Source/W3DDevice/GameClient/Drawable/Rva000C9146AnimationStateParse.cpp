@@ -29,13 +29,7 @@
 #include "ascii_string.h"
 
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 #include "../../../../../GameEngine/Include/Common/INI/INI.h"
 

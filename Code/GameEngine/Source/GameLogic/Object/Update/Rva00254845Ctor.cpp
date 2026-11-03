@@ -72,11 +72,7 @@ ModuleData *ModuleFactoryDataAt00254857(INI *ini)
 struct FieldParse;
 int Rva004CE29DGet();
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *f, unsigned int extraOffset);
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 // ?rva00253475@@YAXAAVMultiIniFieldParse@@@Z @0x00253475 (18B)
 void __declspec(noinline) rva00253475(MultiIniFieldParse &p)
@@ -96,13 +92,6 @@ ModuleData *ModuleFactoryDataAt00254DB3(INI *ini)
 extern const FieldParse g_rva004A33BEFieldParseTable[];
 
 // Zero Hour's FieldParse record (INI.h).
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
 void Rva002567EAParse(INI *ini, void *instance, void *store, const void *userData);
 
 // The condition names at VA 0x00DCBB7C (RVA 0x009CBB7C) that the

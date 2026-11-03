@@ -659,13 +659,7 @@ BFME_LITERAL_NAME_GETTER(Rva0049795ANamed, "BattlePlanUpdate")
 
 #include "../../../../Include/Common/INI/INI.h"
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 extern const FieldParse g_battlePlanUpdateFieldParseTable[];
 
@@ -714,11 +708,6 @@ extern const FieldParse g_battlePlanUpdateFieldParseTable[] =
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *f, unsigned int extraOffset);
-};
 
 class Drawable;
 

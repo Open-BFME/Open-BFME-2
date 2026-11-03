@@ -9,23 +9,9 @@
 class Made002CCCF3;
 
 class INI;
-struct FieldParse
-{
-    const char *token;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 extern const FieldParse FireLogicFieldTable[];
 
-class MultiIniFieldParse
-{
-public:
-    MultiIniFieldParse();
-    void add(const FieldParse *p, unsigned int u);
-
-    char m_pad[0x84];
-};
 
 class Rva005088CE
 {

@@ -140,13 +140,7 @@ void LivingWorldRegionManager::EnumeratePendingBattles(PendingBattleVisitor &vis
 // has no vftable (the ctor stores the id at +0), so the delete calls the dtor
 // 0x002105A6 directly, as WB does. The id counter and the parse table are
 // named here from their roles; retail keeps only their addresses.
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(class INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../../Include/Common/INI/INI.h"
 
