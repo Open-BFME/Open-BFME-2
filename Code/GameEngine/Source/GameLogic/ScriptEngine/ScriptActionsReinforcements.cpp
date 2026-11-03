@@ -273,15 +273,7 @@ struct Rva00372571Params
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 // KindOf bit 7 (template +0x108 & 0x80) and bit 21 (+0x10A & 0x20, the

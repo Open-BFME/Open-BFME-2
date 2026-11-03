@@ -50,11 +50,7 @@ public:
 	unsigned char m_3CA;
 };
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 #include "../../../../Include/Common/TeamBFME2.h"
 

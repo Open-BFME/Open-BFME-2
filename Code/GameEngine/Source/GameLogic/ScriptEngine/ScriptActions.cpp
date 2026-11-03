@@ -456,16 +456,7 @@ struct ScriptActionsAIData
 	float m_5C;
 };
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-	const ScriptActionsAIData *getAiData() const { return m_aiData; }
-
-private:
-	unsigned char m_pad00[0x18];
-	ScriptActionsAIData *m_aiData;
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 void ScriptActions::doTeamFollowWaypoints(const AsciiString &teamName,

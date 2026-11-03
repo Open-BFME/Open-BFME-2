@@ -75,11 +75,7 @@ struct Rva00372571Params
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 void ScriptActions::Rva003C2A9FDo(const AsciiString &teamName, int kindBit)

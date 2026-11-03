@@ -540,16 +540,7 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;	// +0x10
-	char m_pad14[0x18 - 0x14];
-	TAiData *m_aiData;		// +0x18
-	const TAiData *getAiData() const { return m_aiData; }
-	Pathfinder *pathfinder() { return m_pathfinder; }
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/GameLogic/TCreateUnitsInfo.h"

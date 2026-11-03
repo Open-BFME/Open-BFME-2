@@ -25,11 +25,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class AI
-{
-public:
-    AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"

@@ -35,11 +35,7 @@ extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"

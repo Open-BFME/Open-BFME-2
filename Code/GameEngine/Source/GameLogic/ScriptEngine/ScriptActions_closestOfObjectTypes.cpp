@@ -142,11 +142,7 @@ struct Rva00372571Params
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();	// 0x002FEC4B
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

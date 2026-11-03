@@ -13,11 +13,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 class Team;
 class AIGroup;
 #include "../../../Include/GameLogic/ScriptEngine.h"
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/AIGroup.h"
 extern ScriptEngine *TheScriptEngine;

@@ -21,11 +21,7 @@ class AIGroup;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
