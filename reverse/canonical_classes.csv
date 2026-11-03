@@ -375,3 +375,4 @@ AttackPriorityInfo,Code/GameEngine/Include/GameLogic/AttackPriorityInfo.h,existi
 ToppleUpdate,Code/GameEngine/Include/GameLogic/Module/ToppleUpdateClass.h,existing header; contract class_contracts/ToppleUpdate.json; 10/16 sampled units adopt
 CarryoverUnit,Code/GameEngine/Include/GameLogic/CarryoverUnit.h,existing header; contract class_contracts/CarryoverUnit.json; 6/13 sampled units adopt
 AptCommandTarget,Code/Libraries/Source/Apt/AptCommandTarget.h,existing header; contract class_contracts/AptCommandTarget.json; 36/36 sampled units adopt
+SpecialAbilityUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h,existing header; contract class_contracts/SpecialAbilityUpdateModuleData.json; 34/47 sampled units adopt

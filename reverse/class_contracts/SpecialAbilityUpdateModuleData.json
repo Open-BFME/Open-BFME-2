@@ -1,0 +1,1944 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "SpecialAbilityUpdateModuleData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 47,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xc8": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x44eb54"
+     ],
+     "value": 199
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x44eb54"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       1
+      ],
+      "0xa9": [
+       1
+      ],
+      "0xaa": [
+       1
+      ],
+      "0xab": [
+       1
+      ],
+      "0xac": [
+       1
+      ],
+      "0xad": [
+       1
+      ],
+      "0xae": [
+       1
+      ],
+      "0xaf": [
+       1
+      ],
+      "0xb0": [
+       1
+      ],
+      "0xb1": [
+       1
+      ],
+      "0xb2": [
+       1
+      ],
+      "0xb3": [
+       1
+      ],
+      "0xb4": [
+       1
+      ],
+      "0xb5": [
+       1
+      ],
+      "0xb6": [
+       1
+      ],
+      "0xb7": [
+       1
+      ],
+      "0xb8": [
+       1
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc": [
+       4
+      ],
+      "0xc4": [
+       1
+      ],
+      "0xc5": [
+       1
+      ],
+      "0xc6": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x44eb54"
+     ],
+     "value": {
+      "0xc0": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x44eb54"
+     ],
+     "value": {
+      "0x0": "0x83f2a8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83f2a8"
+     ],
+     "value": {
+      "count": 31,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0044ECCE@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x44ef42"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x65212"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 4,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 7,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+        "slot": 14,
+        "target": "0xb69a1"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 16,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 17,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 18,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 19,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 20,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 21,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 22,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 23,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 24,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 25,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 26,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 27,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 29,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 30,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x83f2a8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x83f2a8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0044ECCE@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+     "3": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "4": "?IsCRC@Xfer@@UBE_NXZ",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?IsCRC@Xfer@@UBE_NXZ",
+     "7": "?IsCRC@Xfer@@UBE_NXZ",
+     "8": "?IsCRC@Xfer@@UBE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?IsCRC@Xfer@@UBE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "17": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "18": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "19": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "20": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "21": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "22": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "23": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "24": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "25": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "26": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "27": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "30": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 8,
+  "view_sizes": {
+   "1": 3,
+   "172": 1,
+   "184": 1,
+   "196": 2,
+   "200": 32
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_SpecialAbilityUpdateModuleData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_opaque",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 196,
+   "type": "uchar[196]",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefElement4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "referent",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_packSound",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefElement4",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefPtr",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_p",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_unpackSound",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefPtr",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefElement4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "referent",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_prepSoundLoop",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefElement4",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefPtr",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_p",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_triggerSound",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefPtr",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0044EB54Fields18",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_customAnimAndDuration",
+     "offset": 0,
+     "size": 4,
+     "type": "enum"
+    },
+    {
+     "kind": "i4",
+     "name": "m_1C",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "m_20",
+     "offset": 8,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "m_24",
+     "offset": 12,
+     "size": 4,
+     "type": "enum"
+    }
+   ],
+   "name": "m_fields18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 16,
+   "type": "Rva0044EB54Fields18",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_grabPassengerHealGainPercent",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefPtr",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_p",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_activeLoopSound",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefPtr",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_specialPowerTemplate",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Overridable*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_disableFXParticleSystem",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_specialObject",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_specialObjectAttachToBone",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_triggerAttributeModifier",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_startAbilityRange",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_abilityAbortRange",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_packUnpackVariationFactor",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_fleeRangeAfterCompletion",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_effectValue",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_effectRange",
+   "name_by": "tie",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_awardXPForTriggering",
+   "name_by": "tie",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_skillPointsForTriggering",
+   "name_by": "tie",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_6C",
+   "name_by": "tie",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_70",
+   "name_by": "tie",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_preparationFrames",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_persistentPrepTime",
+   "name_by": "tie",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_effectDuration",
+   "name_by": "majority",
+   "offset": 124,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maxSpecialObjects",
+   "name_by": "tie",
+   "offset": 128,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_packTime",
+   "name_by": "majority",
+   "offset": 132,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_unpackTime",
+   "name_by": "majority",
+   "offset": 136,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_preTriggerUnstealthFrames",
+   "name_by": "tie",
+   "offset": 140,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_paralyzeDurationWhenCompleted",
+   "name_by": "majority",
+   "offset": 144,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_paralyzeDurationWhenAborted",
+   "name_by": "majority",
+   "offset": 148,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_attributeModifierDuration",
+   "name_by": "tie",
+   "offset": 152,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_freezeAfterTriggerDuration",
+   "name_by": "tie",
+   "offset": 156,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_requiredConditions",
+   "name_by": "tie",
+   "offset": 160,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_rejectedConditions",
+   "name_by": "tie",
+   "offset": 164,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_skipPackingWithNoTarget",
+   "name_by": "majority",
+   "offset": 168,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_specialObjectsPersistent",
+   "name_by": "majority",
+   "offset": 169,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_aa",
+   "name_by": "tie",
+   "offset": 170,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_specialObjectsPersistWhenOwnerDies",
+   "name_by": "tie",
+   "offset": 171,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flipAfterPacking",
+   "name_by": "tie",
+   "offset": 172,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flipAfterUnpacking",
+   "name_by": "tie",
+   "offset": 173,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_AE",
+   "name_by": "tie",
+   "offset": 174,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_AF",
+   "name_by": "tie",
+   "offset": 175,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_loseStealth",
+   "name_by": "tie",
+   "offset": 176,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_approachRequiresLOS",
+   "name_by": "majority",
+   "offset": 177,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_chargeAttackSpeedBoost",
+   "name_by": "tie",
+   "offset": 178,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_killAttributeModifierOnExit",
+   "name_by": "majority",
+   "offset": 179,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_killAttributeModifierOnRejected",
+   "name_by": "tie",
+   "offset": 180,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_mustFinishAbility",
+   "name_by": "tie",
+   "offset": 181,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_disableWhenWearingTheRing",
+   "name_by": "majority",
+   "offset": 182,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_instant",
+   "name_by": "majority",
+   "offset": 183,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_contactOnZeroDistance",
+   "name_by": "tie",
+   "offset": 184,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_targetBone",
+   "name_by": "majority",
+   "offset": 188,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_commandButtonName",
+   "name_by": "majority",
+   "offset": 192,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_tailC4",
+   "name_by": "tie",
+   "offset": 196,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_addRadiusC5",
+   "name_by": "tie",
+   "offset": 197,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_ignoreFacingCheck",
+   "name_by": "tie",
+   "offset": 198,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "m_packSound.m_p": 1,
+    "m_packSound.referent": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "m_prepSoundLoop.m_p": 1,
+    "m_prepSoundLoop.referent": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x14",
+   "candidates": {
+    "m_triggerSound.m_p": 1,
+    "triggerSound.referent": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x20",
+   "candidates": {
+    "m_20": 1,
+    "m_fields18.m_20": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x24",
+   "candidates": {
+    "m_24": 1,
+    "m_fields18.m_grabPassengerAnimState": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x34",
+   "candidates": {
+    "m_activeLoopSound.m_p": 1,
+    "triggerLoopSound.referent": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x40",
+   "candidates": {
+    "m_name40.m_text": 1,
+    "m_specialObject.m_text": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x44",
+   "candidates": {
+    "m_attachBone.m_text": 1,
+    "m_specialObjectAttachToBone.m_text": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x60",
+   "candidates": {
+    "eventValue": 1,
+    "m_effectRange": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x64",
+   "candidates": {
+    "awardXPForTriggering": 1,
+    "m_awardXPForTriggering": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x68",
+   "candidates": {
+    "m_skillPointsForTriggering": 1,
+    "skillPointsForTriggering": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x6c",
+   "candidates": {
+    "abilityCondition": 1,
+    "m_6C": 1,
+    "m_unpackingVariation": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x70",
+   "candidates": {
+    "m_70": 1,
+    "m_persistentCount": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x78",
+   "candidates": {
+    "m_persistenceFrames": 1,
+    "m_persistentPrepTime": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x80",
+   "candidates": {
+    "m_max80": 1,
+    "m_maxSpecialObjects": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x8c",
+   "candidates": {
+    "m_preTriggerUnstealthFrames": 1,
+    "m_preTriggerUnstealthTime": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x98",
+   "candidates": {
+    "attributeDuration": 1,
+    "m_attributeModifierDuration": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x9c",
+   "candidates": {
+    "disableFrames": 1,
+    "m_freezeAfterTriggerDuration": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xa0",
+   "candidates": {
+    "m_minPause": 1,
+    "m_requiredConditions": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xa4",
+   "candidates": {
+    "m_maxPause": 1,
+    "m_rejectedConditions": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xaa",
+   "candidates": {
+    "m_AA": 1,
+    "m_aa": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xab",
+   "candidates": {
+    "m_AB": 1,
+    "m_specialObjectsPersistWhenOwnerDies": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xac",
+   "candidates": {
+    "m_AC": 1,
+    "m_flipAfterPacking": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xad",
+   "candidates": {
+    "m_AD": 1,
+    "m_flipAfterUnpacking": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xae",
+   "candidates": {
+    "m_AE": 1,
+    "m_alwaysValidate": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xaf",
+   "candidates": {
+    "m_AF": 1,
+    "m_doCaptureFX": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xb0",
+   "candidates": {
+    "loseStealth": 1,
+    "m_loseStealth": 1,
+    "m_loseStealthOnTrigger": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xb2",
+   "candidates": {
+    "m_chargeAttackSpeedBoost": 1,
+    "specialAttackAnim": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xb4",
+   "candidates": {
+    "m_killAttributeModifierOnRejected": 1,
+    "m_removeModifierOnAbort": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xb5",
+   "candidates": {
+    "m_continueOnAbort": 1,
+    "m_mustFinishAbility": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xb8",
+   "candidates": {
+    "m_contactOnZeroDistance": 1,
+    "m_needCollisionBeforeTrigger": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xbc",
+   "candidates": {
+    "m_BC.m_text": 1,
+    "m_contactBone.m_text": 1,
+    "m_targetBone.m_text": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xc0",
+   "candidates": {
+    "m_chainedButton.m_text": 1,
+    "m_commandButtonName.m_text": 1,
+    "rechargeTrigger.m_text": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xc4",
+   "candidates": {
+    "m_suppressForHordes": 1,
+    "m_tailC4": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xc5",
+   "candidates": {
+    "m_addRadiusC5": 1,
+    "m_approachUntilMembersInRange": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "name@0xc6",
+   "candidates": {
+    "m_ignoreFacing": 1,
+    "m_ignoreFacingCheck": 1
+   },
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xc",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x10",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x18",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x28",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x2c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x30",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x34",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x38",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x3c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x40",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x44",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x48",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x4c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x50",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x54",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x58",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x5c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x60",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x64",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x68",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x6c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x70",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x74",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x78",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x7c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x80",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x84",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x88",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x8c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x90",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x94",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x98",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0x9c",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xa0",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xa4",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xa8",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xa9",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xaa",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xab",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xac",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xad",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xae",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xaf",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb0",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb1",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb2",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb3",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb4",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb5",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb6",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb7",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xb8",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xbc",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xc0",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xc4",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xc5",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  },
+  {
+   "attribute": "straddle@0xc6",
+   "candidates": {},
+   "class": "SpecialAbilityUpdateModuleData"
+  }
+ ],
+ "size": 200,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "crc(Xfer*)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "loadPostProcess()"
+  }
+ }
+}
