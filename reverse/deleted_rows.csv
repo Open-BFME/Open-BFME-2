@@ -4601,3 +4601,7 @@ __ehhandler$?rva000909B7@Rva007E3C20Vp6Stream@@QAEXXZ,0x0075FEDF,"Renamed to __e
 ?rva00104E68@Rva00104DE6@@QAEXHHHH@Z,0x00104E68,"Renamed to ?addExtents@Rva00104DE6@@QAEXHHHH@Z by tools/rename.py (inferred)"
 ?rva001B505F@SubsystemInterfaceList@@QAEEXZ,0x001B505F,"Renamed to ?notifySubsystems@SubsystemInterfaceList@@QAEEXZ by tools/rename.py (inferred)"
 __ehhandler$?rva001B505F@SubsystemInterfaceList@@QAEEXZ,0x007694FF,"Renamed to __ehhandler$?notifySubsystems@SubsystemInterfaceList@@QAEEXZ by tools/rename.py (inferred)"
+?Rva00201095Get@WeatherSetting@@UAEHXZ,0x00201095,"Renamed to ?getFieldParse@WeatherSetting@@UAEHXZ by tools/rename.py (inferred)"
+?Rva005148AA@@YAHXZ,0x005148AA,"Renamed to ?restartGame@@YAHXZ by tools/rename.py (inferred)"
+?rva005F84F7@Rva005F84F7@@QAEXH@Z,0x005F84F7,"Renamed to ?clearEntry@Rva005F84F7@@QAEXH@Z by tools/rename.py (inferred)"
+?rva00578513@Rva00578513@@QAEXH@Z,0x00578513,"Renamed to ?show@Rva00578513@@QAEXH@Z by tools/rename.py (inferred)"

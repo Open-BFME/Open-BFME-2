@@ -157,12 +157,12 @@ private:
 class Rva005F84F7
 {
 public:
-	void rva005F84F7(Int i);
+	void clearEntry(Int i);
 private:
 	char m_pad00[0x20];
 	Rva002BED91Vector m_20;
 };
-void Rva005F84F7::rva005F84F7(Int i)
+void Rva005F84F7::clearEntry(Int i)
 {
 	if (i >= 0 && i < m_20.size())
 		m_20[i].clear();

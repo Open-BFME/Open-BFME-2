@@ -14,7 +14,7 @@ struct Rva005F83A9Element
 class Rva00578513
 {
 public:
-	void rva00578513(int count);
+	void show(int count);
 };
 
 class Rva005F83A9
@@ -30,7 +30,7 @@ private:
 
 void Rva005F83A9::rva005F83A9()
 {
-	((Rva00578513 *)this)->rva00578513(m_end - m_begin);
+	((Rva00578513 *)this)->show(m_end - m_begin);
 }
 
 // Native2BF652..2BF687 RET4: output pair on the stack; value+12C region ID.

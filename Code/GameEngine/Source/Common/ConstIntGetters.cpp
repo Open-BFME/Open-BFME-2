@@ -270,13 +270,13 @@ extern const FieldParse s_rva0033A8FCFieldTableB[];
 class Rva003818B0List;
 extern Rva003818B0List g_00E02310;
 
-// ?Rva00201095Get@WeatherSetting@@UAEHXZ @ 0x00201095 (6B): returns 0x00BE2C10.
+// ?getFieldParse@WeatherSetting@@UAEHXZ @ 0x00201095 (6B): returns 0x00BE2C10.
 // Follows a tail-jmp/ret (0x20108F-94) with a frame-style function
 // after. Carried at 0x7E306C, no direct callers, no branch sources.
 // Opaque address-derived name.
-class WeatherSetting { public: virtual int Rva00201095Get(); };
+class WeatherSetting { public: virtual int getFieldParse(); };
 
-int WeatherSetting::Rva00201095Get()
+int WeatherSetting::getFieldParse()
 {
 	return (int)g_00BE2C10;
 }

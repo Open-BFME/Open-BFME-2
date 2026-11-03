@@ -465,7 +465,7 @@ public:
 	void rva00573E2B(Int state);
 private:
 	char m_pad00[0x10];
-	Int m_10;
+	Int m_state;
 	char m_pad14[0x40];
 	bool m_54;
 	char m_pad55[0x03];
@@ -478,7 +478,7 @@ void Rva00573E2B::rva00573E2B(Int state)
 		m_54 = false;
 		m_58 = (Int)((float)TheGameLogic->getFrame() + (float)BfmeLogicFramesPerSecond * 30.0f);
 	}
-	m_10 = state;
+	m_state = state;
 }
 
 // 0x00516EA7: sets +0x27C and runs the rowed 0x002233A6(1) on the object at

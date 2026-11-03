@@ -101,9 +101,9 @@ private:
 };
 Int Rva00222D26::rva00222D26(char *buf)
 {
-	Rva00222D26Data *d = m_04;
-	buf[0] = d->m_00;
-	return d->m_pair04.write(buf + 1) + 1;
+	Rva00222D26Data *sourceData = m_04;
+	buf[0] = sourceData->m_00;
+	return sourceData->m_pair04.write(buf + 1) + 1;
 }
 
 // slot at 0x0033F504: the rowed BfmeSub932C query of the +0x20 object, 0

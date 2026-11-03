@@ -384,11 +384,11 @@ class Rva00483B10 : public UpdateModule, public Rva00483B10Iface
 public:
 	void rva00483B10(Int unused);
 private:
-	UnsignedInt m_24;
+	UnsignedInt m_wakeFrame;
 };
 void Rva00483B10::rva00483B10(Int)
 {
 	UnsignedInt now = TheGameLogic->m_frame;
 	v13();
-	setWakeFrame(m_object, (UpdateSleepTime)(m_24 - now));
+	setWakeFrame(m_object, (UpdateSleepTime)(m_wakeFrame - now));
 }

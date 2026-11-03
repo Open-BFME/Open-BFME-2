@@ -20,12 +20,12 @@ public:
 class Rva00578513
 {
 public:
-	void rva00578513(Int a0);
+	void show(Int a0);
 private:
 	char m_pad00[0x04];
 	AptRadialMenu::Impl *m_04;
 };
-void Rva00578513::rva00578513(Int a0)
+void Rva00578513::show(Int a0)
 {
 	m_04->AptRadialMenu::Impl::Show(a0);
 }
@@ -89,7 +89,7 @@ class Rva003F287F;
 class Rva002B2B66 { public: Int rva002B2B66(); };
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-struct Rva005CB748Slot { char m_pad00[0x20]; Int m_20; };
+struct Rva005CB748Slot { char m_pad00[0x20]; Int m_enabled; };
 struct Rva005CB748Vec { Rva005CB748Slot **m_begin; Rva005CB748Slot **m_end; };
 struct Rva005CB748Region { char m_pad00[0x170]; Rva005CB748Vec m_vec; };
 
@@ -142,7 +142,7 @@ void Rva005CB748::rva005CB748()
 	if (count > 0) {
 		Rva005CB748Slot **slot = vec.m_begin;
 		for (Int remaining = count; remaining > 0; --remaining, ++slot) {
-			if ((*slot)->m_20) ++enabled;
+			if ((*slot)->m_enabled) ++enabled;
 		}
 	}
 	ui->SetPageCounts(enabled, count);

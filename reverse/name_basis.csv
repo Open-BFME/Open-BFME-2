@@ -6838,3 +6838,11 @@ local,AISpellBookBase::findUnitInCombat::range,AISpellBookBase::findUnitInCombat
 local,AISpellBookBase::findUnitInCombat::it,AISpellBookBase::findUnitInCombat::objectIdIt,inferred,direct:nd-531d44a77e1e1872c2c8572a parent-reviewed-by w-9cc9c63cadbc codex proposed-by /root/bulk_local_proposals,Code/GameEngine/Source/Common/AISpellBookBase.cpp,0x005EEB7B
 local,AISpellBookBase::findUnitInCombat::obj,AISpellBookBase::findUnitInCombat::unit,inferred,direct:nd-31c52e871ede8542931abccd parent-reviewed-by w-9cc9c63cadbc codex proposed-by /root/bulk_local_proposals,Code/GameEngine/Source/Common/AISpellBookBase.cpp,0x005EEB7B
 local,AISpellBookBase::findUnitInCombat::ctrl,AISpellBookBase::findUnitInCombat::victimPlayer,inferred,direct:nd-eb3e35cd25d0c1d343d834e0 parent-reviewed-by w-9cc9c63cadbc codex proposed-by /root/bulk_local_proposals,Code/GameEngine/Source/Common/AISpellBookBase.cpp,0x005EEB7B
+member,Rva00483B10::m_24,Rva00483B10::m_wakeFrame,inferred,agree:nl-4ba9381ccd5f,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp,
+member,Rva005CB748Slot::m_20,Rva005CB748Slot::m_enabled,inferred,agree:nl-05b6886cfc86,Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp,
+member,Rva00573E2B::m_10,Rva00573E2B::m_state,inferred,agree:nl-9303cbd5ef57,Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp,
+local,Rva00222D26::rva00222D26::d,Rva00222D26::rva00222D26::sourceData,inferred,agree:nl-8a754ca53d91,Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp,0x00222D26
+function,?Rva00201095Get@WeatherSetting@@UAEHXZ,?getFieldParse@WeatherSetting@@UAEHXZ,inferred,agree:nl-c59a36dfb9f3,Code/GameEngine/Source/Common/ConstIntGetters.cpp,0x00201095
+function,?Rva005148AA@@YAHXZ,?restartGame@@YAHXZ,inferred,agree:nl-5903f5dedf49,Code/GameEngine/Source/Common/GapBodiesGE28.cpp,0x005148AA
+function,?rva005F84F7@Rva005F84F7@@QAEXH@Z,?clearEntry@Rva005F84F7@@QAEXH@Z,inferred,agree:nl-632198e4200f,Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp,0x005F84F7
+function,?rva00578513@Rva00578513@@QAEXH@Z,?show@Rva00578513@@QAEXH@Z,inferred,agree:nl-9e4c0ef90004,Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp,0x00578513

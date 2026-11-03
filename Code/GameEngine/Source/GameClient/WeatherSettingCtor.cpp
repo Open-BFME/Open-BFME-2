@@ -24,7 +24,7 @@ class Rva00200D38
 public:
 	virtual WeatherSetting *rva00201153() = 0;
 	virtual void rva00201085() = 0;
-	virtual int Rva00201095Get() = 0;
+	virtual int getFieldParse() = 0;
 
 	Rva00200D38(const AsciiString &name);
 private:
@@ -38,7 +38,7 @@ public:
 	virtual ~WeatherSetting();
 	virtual WeatherSetting *rva00201153();
 	virtual void rva00201085();
-	virtual int Rva00201095Get();
+	virtual int getFieldParse();
 
 	AsciiString m_snowTexture;			// +0x18
 	float m_snowFrequencyScaleX;		// +0x1C

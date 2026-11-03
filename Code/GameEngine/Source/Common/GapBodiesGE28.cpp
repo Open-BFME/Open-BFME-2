@@ -70,7 +70,7 @@ extern ThreadRestartObj *g_bfmeThreadAtE048E0;
 void Rva00444525Init();										// 0x00444525
 void rva00516FA9();											// 0x00516FA9
 
-int Rva005148AA()
+int restartGame()
 {
 	if (g_bfmeThreadAtE048E0 && !g_bfmeThreadAtE048E0->slot00(1))
 		return 1;

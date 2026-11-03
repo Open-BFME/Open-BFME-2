@@ -70,7 +70,7 @@ public:
 };
 bool Rva003FE7E6(Rva00211E75Callback callback, int *id);
 extern int g_00E02EC4;
-int Rva005148AA();	// restart callbacks bound below (rowed in GapBodiesGE28.cpp)
+int restartGame();	// restart callbacks bound below (rowed in GapBodiesGE28.cpp)
 int Rva005148FD();
 
 class Rva00690CB0Owner { public: bool init(); };
@@ -201,7 +201,7 @@ int AptMainMenu::rva00515C64()
 		case 6:
 		{
 			rva00514E20();
-			int callback = (int)&Rva005148AA;
+			int callback = (int)&restartGame;
 			Rva003FE7E6(Rva00211E75Callback(&callback), &g_00E02EC4);
 			break;
 		}

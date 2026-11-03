@@ -101,7 +101,7 @@ void Rva002BF6A7::rva002BF6A7(int owner)
 class Rva00578513
 {
 public:
-	void rva00578513(int count);
+	void show(int count);
 };
 #include "../../Common/RegionCenterPointDispatchView.h"
 #include "Lib/Coord2D.h"
