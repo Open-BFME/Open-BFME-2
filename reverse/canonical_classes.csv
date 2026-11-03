@@ -463,3 +463,4 @@ Rva0007BB16Record,Code/Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h,existi
 Rva00404781,Code/GameEngine/Include/Common/Rva00404781.h,existing header; contract class_contracts/Rva00404781.json; 16/19 sampled units adopt
 Rva00072FE6,Code/GameEngine/Include/Common/Rva00072FE6.h,existing header; contract class_contracts/Rva00072FE6.json; 13/24 sampled units adopt
 Rva002EE9B7,Code/GameEngine/Include/GameLogic/Rva002EE9B7.h,existing header; contract class_contracts/Rva002EE9B7.json; 14/21 sampled units adopt
+Rva002226E5TextPlusString,Code/GameEngine/Include/GameClient/Rva002226E5TextPlusString.h,existing header; contract class_contracts/Rva002226E5TextPlusString.json; 15/25 sampled units adopt
