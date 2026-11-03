@@ -8,12 +8,7 @@
 // declare as pointer to match row (cf Rva0023C666Check GetsData==1).
 // Evidence: caller 0x004D3031 in 0x004D2F04, callees rowed 0x0030F2C7
 // getData and 0x0030D377 getDataLength, neighbours Connection TUs.
-class NetWrapperCommandMsg
-{
-public:
-	unsigned char *getData();
-	unsigned int getDataLength();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 

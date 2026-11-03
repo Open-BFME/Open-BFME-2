@@ -29,11 +29,7 @@ class UnleashSpecialPower;
 class SlaveWatcherBehavior;
 
 // 0x0030D377 is the ICF-folded 4-byte getter matched as NetWrapperCommandMsg::getDataLength.
-class NetWrapperCommandMsg
-{
-public:
-	unsigned int getDataLength();
-};
+#include "../../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 class Rva004CE0D9Answer
 {

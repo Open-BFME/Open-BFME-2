@@ -60,11 +60,7 @@ public:
 	void rva0050ACE0(Rva0050ACE0Arg *arg, const Coord3D *pos);
 };
 
-class NetWrapperCommandMsg
-{
-public:
-	unsigned int getDataLength();
-};
+#include "../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 class AICommandInterface
 {

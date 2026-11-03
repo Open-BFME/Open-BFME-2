@@ -29,7 +29,7 @@ AsciiString __cdecl Rva001EB2CCGetMapPath(const char *);
 #include "../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 #include "../../../../Include/Common/RecorderClass.h"
-class NetWrapperCommandMsg { public: unsigned char *getData(); };
+#include "../../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 struct Bfme939Helper;
 class RecorderClass; extern RecorderClass *TheRecorder;
 extern GameLogic *TheGameLogic;

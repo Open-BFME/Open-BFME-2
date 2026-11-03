@@ -19,11 +19,7 @@ public:
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class NetWrapperCommandMsg
-{
-public:
-	unsigned char *getData();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 struct Bfme939Helper
 {

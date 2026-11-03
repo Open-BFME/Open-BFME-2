@@ -48,11 +48,7 @@ private:
 	Int m_playerID;
 };
 
-class NetWrapperCommandMsg
-{
-public:
-	unsigned int getDataLength();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 class GameSlot
 {

@@ -24,11 +24,7 @@ struct Bfme939Helper
 
 class RecorderClass; extern RecorderClass *TheRecorder;
 
-class NetWrapperCommandMsg
-{
-public:
-	unsigned char *getData();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 char BfmeGlob939D::rva0023C6C5()
 {

@@ -531,11 +531,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class NetWrapperCommandMsg
-{
-public:
-	unsigned char *getData();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 class Rva0030F47A
 {

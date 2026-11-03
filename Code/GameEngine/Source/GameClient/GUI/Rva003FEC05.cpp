@@ -13,11 +13,7 @@
 struct Bfme939Helper;
 class RecorderClass; extern RecorderClass *TheRecorder;
 
-class NetWrapperCommandMsg
-{
-public:
-	unsigned char *getData();
-};
+#include "../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 #include "../../../Include/Common/RecorderClass.h"
 
