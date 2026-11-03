@@ -19,12 +19,7 @@ public:
 	BfmeOwnerCFF *m_owner;
 };
 class Object;
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x115];
-	unsigned char m_115;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Player;
 class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
 
@@ -90,7 +85,7 @@ void Team::setControllingPlayer(Player *player)
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 		Object *obj = iter.cur();
 		obj->makeDirty();
-		if ((obj->m_template->m_115 & 0x20) == 0) {
+		if ((obj->m_template->m_kindof[3] & (1U << 13)) == 0) {
 			if (curOwner && curOwner != owner)
 				obj->rva00290DBB((Player *)curOwner, (Player *)owner);
 		}

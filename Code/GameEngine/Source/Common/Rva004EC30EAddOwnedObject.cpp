@@ -14,16 +14,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x108];
-	unsigned int m_flags108;
-	unsigned char m_pad10C[3];
-	unsigned char m_flag10F;
-	unsigned char m_pad110[0x10];
-	unsigned char m_flag120;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -72,15 +63,15 @@ private:
 
 void Rva002A8AB1Record::rva004EC30E(Object *object)
 {
-	if ((object->getThingTemplate()->m_flag120 & 0x04) != 0)
+	if ((object->getThingTemplate()->m_kindof[6] & (1U << 2)) != 0)
 		((FXList *)((char *)this + 0x140))->addFXNugget(
 			(FXNugget *)object->getID());
 
-	if ((object->getThingTemplate()->m_flag10F & 0x80) != 0)
+	if ((object->getThingTemplate()->m_kindof[1] & (1U << 31)) != 0)
 		((AIUnitBuilder *)((char *)this + 0x38))->registerUnitFactory(
 			object->getID());
 
-	unsigned int flags = object->getThingTemplate()->m_flags108;
+	unsigned int flags = object->getThingTemplate()->m_kindof[0];
 	if ((flags & 0x4000) != 0 && (flags & 0x02) != 0)
 		((AIDozerManager *)((char *)this + 0x140))->rva00599825(
 			object->getID());

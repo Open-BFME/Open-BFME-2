@@ -34,11 +34,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x115];
-	unsigned char m_byte115;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva0039E0D0AI
 {
@@ -109,7 +105,7 @@ bool Team::rva0039E0D0()
 			if (cur->testStatus(ObjectStatus_Two))
 				return false;
 			ThingTemplate *thingTemplate = cur->m_template;
-			if ((thingTemplate->m_byte115 & 0x20) == 0)
+			if ((thingTemplate->m_kindof[3] & (1U << 13)) == 0)
 				continue;
 			Rva0039E0D0AI *ai = (Rva0039E0D0AI *)cur->m_inner250;
 			if (ai == 0)

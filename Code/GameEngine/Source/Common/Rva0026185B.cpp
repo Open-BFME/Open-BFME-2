@@ -11,11 +11,7 @@
 typedef bool Bool;
 typedef unsigned char UByte;
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x108];
-	unsigned int m_flags108;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -161,7 +157,7 @@ private:
 
 Bool Rva0026185BFilter::allow(Object *obj)
 {
-	unsigned int flags108 = obj->m_template->m_flags108;
+	unsigned int flags108 = obj->m_template->m_kindof[0];
 	if ((flags108 & 0x80) != 0)
 		return false;
 	if ((flags108 & 4) != 0)

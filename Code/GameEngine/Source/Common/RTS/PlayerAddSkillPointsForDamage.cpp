@@ -27,12 +27,7 @@ enum ObjectStatusTypes
 class Object;
 class Player;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x108];
-	unsigned int m_kindOf[7]; // seven-word retail KindOf range begins at +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva0039ACBD
 {
@@ -99,9 +94,9 @@ bool Player::addSkillPointsForDamage(Object *attacker, const Object *victim, flo
 		return false;
 
 	bool canGain;
-	const unsigned int flags = attacker->getTemplate()->m_kindOf[0];
+	const unsigned int flags = attacker->getTemplate()->m_kindof[0];
 	if ((flags & 8) && !(flags & 128) &&
-		!((flags & 1024) && (attacker->getTemplate()->m_kindOf[5] & (1U << 19))))
+		!((flags & 1024) && (attacker->getTemplate()->m_kindof[5] & (1U << 19))))
 	{
 		canGain = true;
 	}
@@ -110,8 +105,8 @@ bool Player::addSkillPointsForDamage(Object *attacker, const Object *victim, flo
 		canGain = false;
 		Object *source = attacker->rva002931F5(false);
 		if (source)
-			canGain = (source->getTemplate()->m_kindOf[0] >> 3) & 1;
-		if (!canGain && (attacker->getTemplate()->m_kindOf[2] & (1U << 26)))
+			canGain = (source->getTemplate()->m_kindof[0] >> 3) & 1;
+		if (!canGain && (attacker->getTemplate()->m_kindof[2] & (1U << 26)))
 			canGain = true;
 	}
 	if (canGain)

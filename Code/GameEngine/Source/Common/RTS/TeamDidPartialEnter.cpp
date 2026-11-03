@@ -61,13 +61,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x113];
-	unsigned char m_kindByte113;
-	unsigned char m_pad2[0x118 - 0x114];
-	unsigned char m_kindByte118;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 template<int NUMBITS> class BitFlags;
 class Team;
@@ -165,7 +159,7 @@ bool Team::didPartialEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider
 		if ((cur->m_dead & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte113 & 2) != 0)
+		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if (cur->didEnter(pTrigger))
 			return true;
@@ -193,7 +187,7 @@ bool Team::didPartialExit(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		if ((cur->m_dead & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte113 & 2) != 0)
+		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if (cur->didExit(pTrigger))
 			return true;
@@ -221,9 +215,9 @@ bool Team::someInsideSomeOutside(PolygonTrigger *pTrigger, UnsignedInt whichToCo
 		if ((cur->m_dead & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte113 & 2) != 0)
+		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
-		if ((thingTemplate->m_kindByte118 & 0x40) != 0)
+		if ((thingTemplate->m_kindof[4] & (1U << 6)) != 0)
 			continue;
 		if (cur->isInside(pTrigger))
 			anyInside = true;
@@ -256,9 +250,9 @@ bool Team::allInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		if ((cur->m_dead & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte113 & 2) != 0)
+		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
-		if ((thingTemplate->m_kindByte118 & 0x40) != 0)
+		if ((thingTemplate->m_kindof[4] & (1U << 6)) != 0)
 			continue;
 		if (!cur->isInside(pTrigger))
 			anyOutside = true;
@@ -286,9 +280,9 @@ bool Team::noneInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		if ((cur->m_dead & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte113 & 2) != 0)
+		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
-		if ((thingTemplate->m_kindByte118 & 0x40) != 0)
+		if ((thingTemplate->m_kindof[4] & (1U << 6)) != 0)
 			continue;
 		if (cur->isInside(pTrigger))
 			anyInside = true;

@@ -31,15 +31,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x108];
-	UnsignedInt m_kind0;
-	unsigned char m_pad2[0x110 - 0x10c];
-	UnsignedInt m_kind2;
-	unsigned char m_pad3[0x11a - 0x114];
-	unsigned char m_kindByte11a;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -66,7 +58,7 @@ bool Team::hasAnyObjects(bool bfmeFlag)
 			continue;
 		if (bfmeFlag) {
 			ThingTemplate *thingTemplate = cur->m_template;
-			if ((thingTemplate->m_kind0 & 0x80) != 0) {
+			if ((thingTemplate->m_kindof[0] & 0x80) != 0) {
 				UnsignedInt status = cur->m_status114;
 				bool bit3Set = ((status >> 3) & 1) != 0;
 				bool bit4Set = ((status >> 4) & 1) != 0;
@@ -77,11 +69,11 @@ bool Team::hasAnyObjects(bool bfmeFlag)
 			}
 		}
 		ThingTemplate *tmpl2 = cur->m_template;
-		if ((tmpl2->m_kind0 & 0x2000000) != 0)
+		if ((tmpl2->m_kindof[0] & 0x2000000) != 0)
 			continue;
-		if ((tmpl2->m_kind2 & 0x2000000) != 0)
+		if ((tmpl2->m_kindof[2] & 0x2000000) != 0)
 			continue;
-		if ((tmpl2->m_kindByte11a & 0x10) != 0)
+		if ((tmpl2->m_kindof[4] & (1U << 20)) != 0)
 			continue;
 		return true;
 	}

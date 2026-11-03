@@ -58,11 +58,7 @@ public:
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-struct ThingTemplate
-{
-	unsigned char m_head[0x115];
-	unsigned char m_kindByte115;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -82,7 +78,7 @@ void Team::getTeamAsAIGroup(AIGroup *pAIGroup)
 		if (member->m_producerID != 0)
 		{
 			Object *found = TheGameLogic->findObjectByID(member->m_producerID);
-			if (found != 0 && (found->m_template->m_kindByte115 & 0x20) != 0)
+			if (found != 0 && (found->m_template->m_kindof[3] & (1U << 13)) != 0)
 				continue;
 		}
 		pAIGroup->add(member);

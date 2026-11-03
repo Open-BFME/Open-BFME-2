@@ -123,15 +123,7 @@ enum KindOfType
 	KINDOF_TECH_BUILDING = 209
 };
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *tt) const;
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindof[(unsigned)t >> 3] & (1 << ((unsigned)t & 7))) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindof[0x20]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ModelConditionBits
 {
@@ -180,7 +172,7 @@ class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return ((m_template->m_kindof[(unsigned)t >> 5] & (1U << ((unsigned)t & 31))) != 0); }
 	__declspec(dllimport) __forceinline bool isDestroyed() const { return (m_flag94 & 1) != 0; }
 	bool isEffectivelyDead() const { return (m_flag438 & 1) != 0; }
 	Team *getTeam() const { return m_team; }

@@ -71,15 +71,7 @@ public:
 };
 typedef Rva002AA14DBonuses BattlePlanBonuses;
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOfProjectile() const { return (m_kindOf108 >> 25) & 1; }
-
-private:
-	char m_pad[0x108];
-	UnsignedInt m_kindOf108;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
@@ -93,7 +85,7 @@ class Object : public Thing
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	__declspec(dllimport) __forceinline Bool isKindOfProjectile() const { return (((getTemplate()->m_kindof[0] >> 25) & 1) != 0); }
 	ObjectID getProducerID() const { return m_producerID; }
 	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
 	Real getVisionRange() const;

@@ -19,14 +19,7 @@
 class Player;
 class Object;
 
-class ThingTemplate
-{
-public:
-	int rva0033A69A(const class Player *who, int a, int b) const;	// row 0x0033A69A spelling
-
-	char m_pad[0x108];
-	unsigned int m_kindOf108;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -59,13 +52,13 @@ static inline int costOf(const Object *obj)
 
 int Rva002AA497Compare(const Object *object, const Object *b)
 {
-	if (object->m_template->m_kindOf108 & 0x20000)
+	if (object->m_template->m_kindof[0] & 0x20000)
 	{
-		if (b->m_template->m_kindOf108 & 0x20000)
+		if (b->m_template->m_kindof[0] & 0x20000)
 			return b->m_id - object->m_id;
 		return 1;
 	}
-	if (b->m_template->m_kindOf108 & 0x20000)
+	if (b->m_template->m_kindof[0] & 0x20000)
 		return -1;
 	return costOf(object) - costOf(b);
 }
@@ -76,7 +69,7 @@ int __cdecl Rva002AB01C(Object *obj, void *userData)
 	{
 		Rva002ABCF0Context *ctx = (Rva002ABCF0Context *)userData;
 		if ((!ctx->m_flag || !(obj->m_flags438 & 8))
-			&& (obj->m_template->m_kindOf108 & 0x80)
+			&& (obj->m_template->m_kindof[0] & 0x80)
 			&& !(obj->m_flags438 & 1))
 		{
 			if (!ctx->m_best || Rva002AA497Compare(obj, ctx->m_best) > 0)

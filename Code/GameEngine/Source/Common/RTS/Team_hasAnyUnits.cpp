@@ -23,13 +23,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad108[0x108];
-	int m_kind0;
-	unsigned char m_pad10C[0x11A - 0x10C];
-	unsigned char m_kindByte11a;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -53,11 +47,11 @@ bool Team::hasAnyUnits()
 		if ((cur->m_status94 & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kind0 & 0x80) != 0)
+		if ((thingTemplate->m_kindof[0] & 0x80) != 0)
 			continue;
-		if ((thingTemplate->m_kind0 & 0x2000000) != 0)
+		if ((thingTemplate->m_kindof[0] & 0x2000000) != 0)
 			continue;
-		if ((thingTemplate->m_kindByte11a & 0x10) == 0)
+		if ((thingTemplate->m_kindof[4] & (1U << 20)) == 0)
 			return true;
 	}
 	return false;

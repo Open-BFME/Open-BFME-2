@@ -32,12 +32,7 @@ enum CommandSourceType
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
-class ThingTemplate
-{
-public:
-	char m_pad[0x115];
-	unsigned char m_115;		// +0x115
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
@@ -182,7 +177,7 @@ void Rva0044E6AE::triggerAbilityEffect()
 	void * volatile upgrade = up;
 	if (up != 0)
 	{
-		void *prov = (found->m_tmpl->m_115 & 0x20) != 0
+		void *prov = (found->m_tmpl->m_kindof[3] & (1U << 13)) != 0
 			? found->rva0028C197()
 			: ((Rva0049C5F4 *)this)->rva0049C5F4(found);
 		if (prov != 0)

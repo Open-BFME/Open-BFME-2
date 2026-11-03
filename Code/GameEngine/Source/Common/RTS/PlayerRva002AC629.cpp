@@ -5,12 +5,7 @@
 
 class Player;
 
-class ThingTemplate
-{
-public:
-	char m_pad[0x117];
-	unsigned char m_flags117;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../GameLogic/Object/object.h"
 
@@ -42,7 +37,7 @@ int doFindRva002AC629(Object *obj, void *userData)
 	if (obj == 0)
 		return 1;
 	Rva002AC629Info *info = (Rva002AC629Info *)userData;
-	if (info->obj == 0 && (obj->m_template->m_flags117 & 8)
+	if (info->obj == 0 && (obj->m_template->m_kindof[3] & (1U << 27))
 		&& obj->getControllingPlayer() == info->player) {
 		info->obj = obj;
 		return 0;

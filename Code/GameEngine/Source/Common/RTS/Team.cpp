@@ -952,13 +952,7 @@ public:
 
 typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x108];
-	UnsignedInt m_kind0;
-	unsigned char m_pad2[0x10E - 0x10C];
-	unsigned char m_kindByte10e;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // The by-value kind filter is the 28-byte storage the ledger names after
 // its copy constructor 0x0004543D, which every caller copies it through.
@@ -2499,7 +2493,7 @@ int Team::getTargetableCount() const
 			continue;
 		}
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kind0 & 0x80) == 0)
+		if ((thingTemplate->m_kindof[0] & 0x80) == 0)
 			continue;
 		++count;
 	}
@@ -2520,7 +2514,7 @@ int Team::countBuildings() const
 		ThingTemplate *thingTemplate = cur->m_template;
 		if( thingTemplate == 0 )
 			continue;
-		if( (thingTemplate->m_kind0 & 0x80) == 0 )
+		if( (thingTemplate->m_kindof[0] & 0x80) == 0 )
 			continue;
 		++count;
 	}
@@ -2665,10 +2659,10 @@ bool Team::rva0039DD4B(bool flag)
 		if ((cur->m_status94 & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte10e & 0x80) != 0)
+		if ((thingTemplate->m_kindof[1] & (1U << 23)) != 0)
 			continue;
 		if (flag) {
-			if ((thingTemplate->m_kind0 & 0x80) == 0)
+			if ((thingTemplate->m_kindof[0] & 0x80) == 0)
 				continue;
 			UnsignedInt s = cur->m_status114;
 			bool b3 = ((s >> 3) & 1) != 0;
@@ -2678,7 +2672,7 @@ bool Team::rva0039DD4B(bool flag)
 			if (b4)
 				continue;
 		}
-		if ((thingTemplate->m_kind0 & 0x80) == 0)
+		if ((thingTemplate->m_kindof[0] & 0x80) == 0)
 			continue;
 		return true;
 	}
@@ -2696,10 +2690,10 @@ bool Team::rva0039DDC2(Rva0039DDC2Filter kindOfFilter, bool flag)
 		if ((cur->m_status94 & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte10e & 0x80) != 0)
+		if ((thingTemplate->m_kindof[1] & (1U << 23)) != 0)
 			continue;
 		if (flag) {
-			if ((thingTemplate->m_kind0 & 0x80) != 0) {
+			if ((thingTemplate->m_kindof[0] & 0x80) != 0) {
 				UnsignedInt status = cur->m_status114;
 				bool isAwaitingConstruction = ((status >> 3) & 1) != 0;
 				bool isPartiallyConstructed = ((status >> 4) & 1) != 0;
@@ -2729,10 +2723,10 @@ bool Team::rva0039DE46(BfmeTab1026 *tab, bool flag)
 		if ((cur->m_status94 & 1) != 0)
 			continue;
 		ThingTemplate *thingTemplate = cur->m_template;
-		if ((thingTemplate->m_kindByte10e & 0x80) != 0)
+		if ((thingTemplate->m_kindof[1] & (1U << 23)) != 0)
 			continue;
 		if (flag) {
-			if ((thingTemplate->m_kind0 & 0x80) != 0) {
+			if ((thingTemplate->m_kindof[0] & 0x80) != 0) {
 				UnsignedInt status = cur->m_status114;
 				bool b3 = ((status >> 3) & 1) != 0;
 				bool partiallyConstructed = ((status >> 4) & 1) != 0;

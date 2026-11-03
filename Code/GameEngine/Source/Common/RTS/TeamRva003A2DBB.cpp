@@ -58,14 +58,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class ThingTemplate
-{
-public:
-	float get51C() const { return m_51C; }
-private:
-	char m_pad000[0x51C];
-	float m_51C;				// +0x51C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
 
@@ -141,7 +134,7 @@ void Team::rva003A2DBB(float range)
 	float total = 0.0f;
 	Object *obj;
 	while ((obj = hits.next()) != 0)
-		total += obj->getTemplate()->get51C();
+		total += (obj->getTemplate()->m_threatLevel);
 	m_120 = total;
 	rva0039D8D3(5000);
 }
