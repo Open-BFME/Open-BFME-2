@@ -39,14 +39,7 @@ AsciiStringPlusText operator+(const AsciiString &left, const char *right);	// 0x
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);
 
-struct FunctorBinding
-{
-	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
-
-	FunctorTarget *m_target;
-	unsigned int m_pad;
-	FunctorMethod m_method;
-};
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 
 class FunctorWrapperHead
 {

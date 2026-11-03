@@ -99,13 +99,7 @@ namespace _STL { template <> void vector<bool, allocator<bool> >::_M_fill_insert
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(int);
-struct FunctorBinding
-{
-	FunctorTarget *target;
-	unsigned pad;
-	FunctorMethod method;
-	FunctorBinding(FunctorMethod m, FunctorTarget *functorTarget) : target(functorTarget), method(m) {}
-};
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 struct Rva0057BC63FunctorHolder
 {
 	Rva0057BC63FunctorHolder(const FunctorBinding &);

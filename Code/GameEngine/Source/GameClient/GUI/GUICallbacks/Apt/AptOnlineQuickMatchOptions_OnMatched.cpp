@@ -132,7 +132,7 @@ void HandleBuddyResponses();void HandlePersistentStorageResponses();class AptMes
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;typedef void(FunctorTarget::*FunctorMethod)(int);
-struct FunctorBinding {FunctorTarget *target;unsigned pad;FunctorMethod method;FunctorBinding(FunctorMethod m,FunctorTarget*t):target(t),method(m){}};
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 struct Rva0057BC63FunctorHolder {Rva0057BC63FunctorHolder(const FunctorBinding &);Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &o):ptr(o.ptr){if(ptr)++ptr->references;}TargetRef00217D4C *ptr;~Rva0057BC63FunctorHolder(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}};
 class Rva0023E8D8 : public Rva0057BC63FunctorHolder {public:__forceinline Rva0023E8D8(const FunctorBinding &b):Rva0057BC63FunctorHolder(b){} Rva0023E8D8(const Rva0023E8D8&o):Rva0057BC63FunctorHolder(o){} };
 extern "C" void __cdecl Rva00437F61(int,const UnicodeString &,const UnicodeString &,Rva0023E8D8);
