@@ -22683,3 +22683,11 @@ Code/GameEngine/Source/GameLogic/Map/SidesListRva0032B7A7.cpp|param|sidesSwapByt
 Code/GameEngine/Source/GameLogic/Map/SidesListRva0032F0AA.cpp|local|SidesList::rva0032F0AA|d,531b3b0336a4c9d9870455e4,drz-k1,drz-k1-n45a-17,w-d29055ee9848,2026-11-02
 Code/GameEngine/Source/GameLogic/Map/StandingWaterAreaLoadPCA.cpp|function|0x00199FCC|rva00199FCC,82e20980235473a5681919f2,drz-k1,drz-k1-n45a-18,w-d29055ee9848,2026-11-02
 Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp|param|StandingWaveAreaRef|p,17fe8ea69952aecd5c12e998,drz-k1,drz-k1-n45a-19,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp|function|0x001D8E88|rva001D8E88,2caf3fc4be0cb815a0f22a2d,drz-k2,drz-k2-n45b-7,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp|member|Rva0045B134|m_20,7a68f14da21087563546a173,drz-k2,drz-k2-n45b-8,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp|local|AimWeaponBehavior::update|o,e610feb8019dce12b835f995,drz-k2,drz-k2-n45b-8,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|Rva0045ADC1|m_20,12e3a8ea96b4853dea7dc574,drz-k2,drz-k2-n45b-16,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|Rva0045ADC1|m_24,f95a0e22d453d045136ac1a7,drz-k2,drz-k2-n45b-16,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|local|DualWeaponBehavior::update|d,db72dc8f35492ad3b75b3642,drz-k2,drz-k2-n45b-16,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp|function|0x0046183B|rva0046183B,6aa941081ede5abcfa79359b,drz-k2,drz-k2-n45b-18,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp|function|0x004617CF|Rva004617CFFind,95739cb2f7615d4e160e1459,drz-k2,drz-k2-n45b-18,w-ded32b2e2c5e,2026-11-02
