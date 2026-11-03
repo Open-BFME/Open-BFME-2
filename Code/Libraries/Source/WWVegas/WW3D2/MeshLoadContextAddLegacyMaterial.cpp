@@ -139,11 +139,7 @@ public:
     }
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *name, int, int);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 // The wrapper, its RefCountPtr assignment (0x000424D0) and the clear helper
 // below stay visible but noinline, favoring size like their retail copies (inc,

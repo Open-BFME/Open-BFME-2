@@ -41,11 +41,7 @@ template<class T> class RefCountPtr {public: RefCountPtr():m_ptr(0){} ~RefCountP
 
 class BFME2ParticleTextureHandle:public RefCountPtr<TextureClass> {};
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char*,int,int);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 RenderObjClass *Create_Render_Obj(const char*);
 

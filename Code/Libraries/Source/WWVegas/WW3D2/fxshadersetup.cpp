@@ -224,11 +224,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);	// 0x00132D89
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 // One FX shader parameter (FXShader::Parameter, 0x24 bytes); the vector
 // helpers are rowed under this placeholder element name.

@@ -49,11 +49,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
-};
+#include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"

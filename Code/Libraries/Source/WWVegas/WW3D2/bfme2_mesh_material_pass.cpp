@@ -38,7 +38,7 @@ class TextureBaseClass{public:void Release_Ref();};
 class TextureClass:public TextureBaseClass{public:char pre[8];unsigned nameID;};
 template<class T>class RefCountPtr{public:T *p;~RefCountPtr(){if(p)p->Release_Ref();}};
 class BFME2ParticleTextureHandle:public RefCountPtr<TextureClass>{};
-class TextureAsset{public:static BFME2ParticleTextureHandle Get(const char *,int,int);static void RegisterRecolorForHouseColorDecal(void *,void *,void *);};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 class AssetReference{public:AssetReference(const AssetReference&);TextureClass *p;~AssetReference(){if(p)p->Release_Ref();}};
 class Rva0007B9EE{public:AssetReference rva0007B9EE() throw();};
 class Rva0015148D{public:void *rva0015148D();};

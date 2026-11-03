@@ -26,11 +26,7 @@ Rva00136090MeshHolder Rva00136090MeshHold(MeshModelClass *);
 class SwitchTextureVector{public:virtual ~SwitchTextureVector();RefCountPtr<TextureClass> *items;int maximum;bool valid,allocated;short pad;int count,growth;__forceinline RefCountPtr<TextureClass>&operator[](int i){return items[i];}};
 class MaterialInfoClass{public:virtual void Delete_This();int refs;char unknown08[0x18];SwitchTextureVector textures;RefCountPtr<TextureClass> Peek_Texture(int);void Replace_Texture(int i,const RefCountPtr<TextureClass>&t){textures[i]=t;}void Release_Ref(){--refs;if(refs==0)Delete_This();}};
 class BFME2ParticleTextureHandle{public:TextureClass *p;~BFME2ParticleTextureHandle(){if(p)p->Release_Ref();}};
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *,int,int);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
 class BFMEDX8DeviceLock{public:BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}};
 class SwitchMeshView {public:

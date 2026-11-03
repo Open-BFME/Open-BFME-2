@@ -91,11 +91,7 @@ extern const char *EMITTER_TYPE_NAMES[EMITTER_TYPEID_COUNT];
 
 
 #include "texture_handle.h"
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char*,int,int);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 void
 ParticleEmitterDefClass::Convert_To_Ver2 (void)
 {

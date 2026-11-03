@@ -87,11 +87,7 @@ template<class T> class RefCountPtr { public: T *m_ptr; const RefCountPtr &opera
 
 class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass> {};
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *,int,int);
-};
+#include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 float GetGameClientRandomValueReal(float,float,char *,int);
 
