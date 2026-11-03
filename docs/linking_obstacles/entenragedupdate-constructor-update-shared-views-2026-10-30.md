@@ -14,3 +14,5 @@ Common/0CreateAHeroManager21FE49.cpp receipt. Full affected-consumer checks and
 census confirmation remain pending; carry these providers and consumers into
 the next scheduled census.
 [Scoped changes and remaining prerequisites](../../reverse/attempt_support/ent-enraged-shared-views-20261030-codexb5.md).
+
+2026-11-03: scan hierarchy/data declarations reconciled (26/26 rows exact; both previews retain LINKS); the supported merge now accepts the scan fragment. Update/Object and module-data lifetime donors remain blocked. [Evidence and next step](../../reverse/attempt_support/ent-enraged-scan-consolidation-20261103-codex4.md).

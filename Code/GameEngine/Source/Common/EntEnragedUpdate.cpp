@@ -70,6 +70,7 @@ public:
 	EntEnragedUpdateModuleData();
 
 private:
+	friend class EntEnragedUpdate;
 	const void *m_vtable; // +0
 	int m_baseTail; // +4
 	int m_scanDelayTime; // +8, defaults to LogicFramesPerSecond

@@ -96,45 +96,87 @@ public:
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-struct EntEnragedUpdateModuleData
-{
-	char m_pad00[0x14];
-	float m_range;		// +0x14
-	char m_18[4];		// +0x18
-	char m_1C[4];		// +0x1C
-};
+// Use the constructor TU's +0x20 UpdateModule hierarchy and module-data
+// fields; the scan bodies read the same offsets without a second flat view.
+enum NameKeyType { NK_UNKNOWN = 0 };
+class Thing;
+class ModuleData;
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class EntEnragedUpdate
+class UpdateModuleData
 {
 public:
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
+	~UpdateModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+
+private:
+};
+
+class EntEnragedUpdateModuleData : public UpdateModuleData
+{
+public:
+	EntEnragedUpdateModuleData();
+
+private:
+	friend class EntEnragedUpdate;
+	const void *m_vtable; // +0
+	int m_baseTail; // +4
+	int m_scanDelayTime; // +8, defaults to LogicFramesPerSecond
+	int m_enragedTime; // +0xC
+	int m_timeUntilCanRageAgain; // +0x10
+	float m_scanDistance; // +0x14
+	Rva003623E5Member m_hatedFilter; // +0x18
+	Rva003623E5Member m_friendlyFilter; // +0x1C
+	int m_transitionTime; // +0x20
+	int m_transitionFX; // +0x24
+	int m_onBuffFX; // +0x28
+	int m_offBuffFX; // +0x2C
+};
+
+class EntEnragedUpdate : public UpdateModule
+{
+public:
+	EntEnragedUpdate(Thing *, const ModuleData *);
+	virtual ~EntEnragedUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva004B23C5(Xfer *xfer); // slot 3 of 0x00C56948
+	// Rowed in EntEnragedUpdateUpdate.cpp: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
+	virtual UpdateSleepTime update();
 	bool rva004B25C9();
 	bool rva004B266D();
+
 private:
-	const void *m_vtable;
-	const EntEnragedUpdateModuleData *m_moduleData;	// +0x04
-	Object *m_object;				// +0x08
+	unsigned int m_20;
+	unsigned int m_24;
+	unsigned int m_28;
+	bool m_2C;
+	bool m_2D;
+	bool m_2E;
+	bool m_2F;
+	bool m_30;
 };
 
 bool EntEnragedUpdate::rva004B25C9()
 {
 	Object *obj = m_object;
-	const EntEnragedUpdateModuleData *md = m_moduleData;
-	Rva002614ECFilter same(md->m_18, obj->getControllingPlayer(), true);
+	const EntEnragedUpdateModuleData *md = (const EntEnragedUpdateModuleData *)m_moduleData;
+	Rva002614ECFilter same(&md->m_hatedFilter, obj->getControllingPlayer(), true);
 	Rva00260EB1Filter allies(obj, 4, false);
 	Rva002611AFFilter third;
 	same.link(&third);
 	same.link(&allies);
-	return ThePartitionManager->getClosestObject(&obj->m_pos, md->m_range, 1, &same) != 0;
+	return ThePartitionManager->getClosestObject(&obj->m_pos, md->m_scanDistance, 1, &same) != 0;
 }
 
 bool EntEnragedUpdate::rva004B266D()
 {
-	const EntEnragedUpdateModuleData *md = m_moduleData;
+	const EntEnragedUpdateModuleData *md = (const EntEnragedUpdateModuleData *)m_moduleData;
 	Object *obj = m_object;
 	Rva00261058 player(obj, false);
-	Rva002614ECFilter same(md->m_1C, obj->getControllingPlayer(), true);
+	Rva002614ECFilter same(&md->m_friendlyFilter, obj->getControllingPlayer(), true);
 	Rva0026119DFilter alive;
 	player.link(&same);
 	player.link(&alive);
-	return ThePartitionManager->getClosestObject(&obj->m_pos, md->m_range, 1, &player) != 0;
+	return ThePartitionManager->getClosestObject(&obj->m_pos, md->m_scanDistance, 1, &player) != 0;
 }
