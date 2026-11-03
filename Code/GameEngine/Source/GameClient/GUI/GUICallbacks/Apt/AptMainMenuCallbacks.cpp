@@ -928,14 +928,7 @@ extern GameTextInterface *TheGameText;
 // by-value reference the box releases through 0x0007DEEF.
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);
-struct FunctorBinding
-{
-	template <class T, class M> FunctorBinding(T *target, M method)
-		: m_target(reinterpret_cast<FunctorTarget *>(target)), m_method(reinterpret_cast<FunctorMethod>(method)) {}
-	FunctorTarget *m_target;
-	unsigned int m_pad;
-	FunctorMethod m_method;
-};
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 // The generic member pointer is the eight-byte multiple-inheritance form; a
 // plain member converts to it through a derived class of that form.
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
