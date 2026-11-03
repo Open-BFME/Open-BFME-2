@@ -1,0 +1,130 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002EE9B7",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 21,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xd3a71"
+     ],
+     "value": {
+      "0x0": [
+       "?$_Rb_tree@EU?$pair@$$CBEF@_STL@@U?$_Select1st@U?$pair@$$CBEF@_STL@@@2@U?$less@E@2@V?$allocator@U?$pair@$$CBEF@_STL@@@2@@_STL",
+       "?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$Rva0054E8DCAllocator@H@@@_STL",
+       "?$_Rb_tree@PAURva004ABDDCEntry@@PAU1@U?$_Identity@PAURva004ABDDCEntry@@@_STL@@U?$less@PAURva004ABDDCEntry@@@3@V?$allocator@PAURva004ABDDCEntry@@@3@@_STL",
+       "?$_Rb_tree@URva000D20A9Key@@U1@U?$_Identity@URva000D20A9Key@@@_STL@@U?$less@URva000D20A9Key@@@3@V?$allocator@URva000D20A9Key@@@3@@_STL",
+       "?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL"
+      ]
+     }
+    },
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0xd3a71"
+     ],
+     "value": {
+      "0xd3a71": [
+       "?$map@EFU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEF@_STL@@@2@@_STL",
+       "?$set@HU?$less@H@_STL@@V?$Rva0054E8DCAllocator@H@@@_STL",
+       "?$set@PAURva004ABDDCEntry@@U?$less@PAURva004ABDDCEntry@@@_STL@@V?$allocator@PAURva004ABDDCEntry@@@3@@_STL",
+       "?$set@URva000D20A9Key@@U?$less@URva000D20A9Key@@@_STL@@V?$allocator@URva000D20A9Key@@@3@@_STL",
+       "?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL",
+       "Rva002EE9B7"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 4,
+   "8": 7,
+   "12": 8,
+   "25": 1
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "S:RvaTreeFamilyHolder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_header",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_header",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RvaTreeFamilyHolder",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flag",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_compare",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
