@@ -1,0 +1,97 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00404781",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 19,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xa0": {
+    "4": 2
+   },
+   "0xa4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 12,
+  "view_sizes": {
+   "160": 1,
+   "168": 6
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_a",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 80,
+   "type": "float[80]",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_b",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 80,
+   "type": "float[80]",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flags0",
+   "name_by": "majority",
+   "offset": 160,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flags1",
+   "name_by": "majority",
+   "offset": 164,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 168,
+ "size_by": "majority",
+ "vslots": {}
+}
