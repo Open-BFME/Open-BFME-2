@@ -5,11 +5,7 @@
 #include "Common/Snapshot.h"
 class Xfer;
 class ThingTemplate;
-class Player
-{
-public:
-	bool canBuild( const ThingTemplate *thingTemplate ) const;
-};
+#include "../../../Include/Common/Player.h"
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
 #include <stlport/stl/_algobase.h>
 #include <vector>

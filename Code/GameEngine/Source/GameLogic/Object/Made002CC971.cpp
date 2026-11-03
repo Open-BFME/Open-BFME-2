@@ -94,12 +94,7 @@ public:
 	Object *getCurrentVictim() const;
 };
 
-class Player
-{
-public:
-	char m_pad54[0x54];
-	int m_index;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

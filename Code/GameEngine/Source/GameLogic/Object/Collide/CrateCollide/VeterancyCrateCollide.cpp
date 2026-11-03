@@ -84,12 +84,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class Player
-{
-public:
-	char m_pad[0x280];
-	int m_unk280;
-};
+#include "../../../../../Include/Common/Player.h"
 
 class Object
 {
@@ -306,6 +301,6 @@ void Rva004BCF92::rva004BCF92(const Object *obj, int text)
 	pos.y = cratePosition->y;
 	pos.z = cratePosition->z + 10.0f;
 	Player *player = heldObj->getControllingPlayer();
-	int color = player->m_unk280 | 0xe6000000;
+	int color = player->m_color | 0xe6000000;
 	TheInGameUI->unk1A0(text, &pos, color);
 }

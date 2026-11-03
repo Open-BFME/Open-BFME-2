@@ -15,13 +15,7 @@ class Player;
 
 #include "../../object.h"
 
-class Player
-{
-public:
-	void healAllObjects();	// 0x002AB06A
-	char m_head[0x54];
-	int m_playerIndex;
-};
+#include "../../../../../Include/Common/Player.h"
 
 class AudioManager;
 extern AudioManager *TheAudio;

@@ -63,16 +63,7 @@ class Team;
 class Player;
 class Object;
 
-class Player
-{
-public:
-	bool rva002AA245() const;
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-	char m_pad00[0x54];
-	int m_playerIndex;
-	char m_pad58[0x2EC - 0x58];
-	Team *m_defaultTeam;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

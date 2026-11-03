@@ -30,13 +30,7 @@ enum Relationship
 
 #include "../object.h"
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *team) const;
-	unsigned char m_pad000[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/TeamBFME2.h"
 

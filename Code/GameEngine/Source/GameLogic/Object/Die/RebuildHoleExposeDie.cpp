@@ -105,11 +105,7 @@ class Team;
 class ThingTemplate;
 struct BfmeCopyElementA;
 struct Coord3D;
-class Player
-{
-public:
-	Bool isPlayerActive() const;	// 0x002AA231
-};
+#include "../../../../Include/Common/Player.h"
 class PlayerList
 {
 public:

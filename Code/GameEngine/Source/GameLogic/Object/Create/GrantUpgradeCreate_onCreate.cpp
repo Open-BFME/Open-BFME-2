@@ -38,11 +38,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *tmpl, UpgradeStatusType s, int x);
-};
+#include "../../../../Include/Common/Player.h"
 
 class BfmeObject872Header
 {

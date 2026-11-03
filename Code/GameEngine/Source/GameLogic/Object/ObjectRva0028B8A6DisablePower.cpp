@@ -52,12 +52,7 @@ public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Player
-{
-public:
-	void removeRadar(bool disableProof);
-	void addRadar(bool disableProof);
-};
+#include "../../../Include/Common/Player.h"
 
 class Energy
 {

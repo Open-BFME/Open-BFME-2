@@ -35,11 +35,7 @@ class Player;
 
 #include "../object.h"
 
-class Player
-{
-public:
-	void removeUpgrade(const UpgradeTemplate *upgrade, int flag);	// 0x002ADAC3
-};
+#include "../../../../Include/Common/Player.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

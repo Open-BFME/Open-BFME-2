@@ -216,11 +216,7 @@ private:
 	unsigned char m_438; // +0x438
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Object *obj) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 // Three errands handed straight on: one to a holder that may not be there, one
 // to a part of the record itself, and one that asks first which of two to run.

@@ -325,10 +325,7 @@ class Object {
     }
 };
 enum Relationship { RELATIONSHIP_ZERO = 0 };
-class Player {
-  public:
-    Relationship getRelationship(const Object *) const;
-};
+#include "../../../../Include/Common/Player.h"
 class PlayerList {
   public:
     char pad[0x10];

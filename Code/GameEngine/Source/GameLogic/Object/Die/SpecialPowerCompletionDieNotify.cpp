@@ -19,12 +19,7 @@ class AsciiString;
 
 #include "../object.h"
 
-class Player
-{
-public:
-	unsigned char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../../../Include/Common/Player.h"
 
 class ModuleData
 {

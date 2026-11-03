@@ -161,14 +161,7 @@ private:
 // mode, else an AI player 0x002AA245 without the +0x5C flag) and the AI
 // orders manager has no orders for it (0x003552C2), the bird is told to idle
 // as an AI command.
-class Player
-{
-public:
-	Bool isLocalPlayer() const;
-	Bool rva002AA245() const;
-	unsigned char m_pad000[0x5C];
-	Int m_5C;
-};
+#include "../../../../../Include/Common/Player.h"
 struct GiantBirdObjectView { unsigned char m_pad000[0x74]; Int m_id; };
 class Object { public: Player *getControllingPlayer() const; };
 class Rva0023C6A4 { public: Bool rva00200084(); };
@@ -190,7 +183,7 @@ void GiantBirdAIUpdate::rva0036B6B9()
 		controlled = player->isLocalPlayer();
 	else
 	{
-		if (player->m_5C != 0)
+		if (player->m_playerType != 0)
 			return;
 		controlled = player->rva002AA245();
 	}
