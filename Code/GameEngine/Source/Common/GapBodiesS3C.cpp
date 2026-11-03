@@ -436,12 +436,7 @@ private:
 
 
 
-class ResourceEntryCollector
-{
-public:
-	void addEntry(const Coord3D *pos, float value, int color);	// 0x004E5559
-	virtual void rva004E55B9(ObjectID id, float value, bool show);
-};
+#include "../../Include/GameClient/ResourceEntryCollector.h"
 
 // --- 0x004E6882 (22B): 1 when +0x40 is set, or +0x44 is set while the +0x08
 // state is not 4. Native vtable862440 slot4 identifies the named movie clip;

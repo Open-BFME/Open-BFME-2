@@ -193,12 +193,7 @@ public:
     Player* local;
 };
 extern PlayerList* ThePlayerList;
-class ResourceEntryCollector
-{
-public:
-    void rva004E551E();
-    void addEntry(const Coord3D*, float, int);
-};
+#include "../../Include/GameClient/ResourceEntryCollector.h"
 class Rva004E54B8
 {
 public:

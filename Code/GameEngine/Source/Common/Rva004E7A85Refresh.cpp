@@ -45,11 +45,7 @@ public:
 	void enumerateRegisteredClaimants(int v, Cb00359D42 *cb);
 };
 
-class ResourceEntryCollector
-{
-public:
-	void rva004E551E();
-};
+#include "../../Include/GameClient/ResourceEntryCollector.h"
 
 class Rva004E54B8
 {

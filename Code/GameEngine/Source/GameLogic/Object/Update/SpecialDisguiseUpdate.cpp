@@ -618,12 +618,7 @@ private:
 	bool m_latched;											// +0x20
 };
 
-class ResourceEntryCollector
-{
-public:
-	void addEntry(const Coord3D *pos, float value, int color);	// 0x004E5559
-	virtual void rva004E55B9(ObjectID id, float value, bool show);
-};
+#include "../../../../Include/GameClient/ResourceEntryCollector.h"
 
 class Rva002217EA;
 

@@ -927,7 +927,7 @@ public:
 	CBCommandStatus processContextSensitiveButtonClick(GameWindow *button, GadgetGameMessage gadgetMessage);
 	CBCommandStatus processContextSensitiveButtonTransition(GameWindow *button, GadgetGameMessage gadgetMessage);
 };
-class ResourceEntryCollector { public: void rva004E551E(); };
+#include "../../Include/GameClient/ResourceEntryCollector.h"
 struct Rva0030B6A6Range;
 struct Rva0030BFE8Range;
 int Rva0030B6A6Equal(const Rva0030B6A6Range *a, const Rva0030B6A6Range *b);

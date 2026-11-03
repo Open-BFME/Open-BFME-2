@@ -17,7 +17,8 @@ class GlobalData {public:char p[0x134];int timeOfDay;};extern GlobalData*TheWrit
 #define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse*TheMouse;
-class ResourceEntryCollector {public:void rva004E551E();};struct BfmeUiResourceEntryState;extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
+#include "../../Include/GameClient/ResourceEntryCollector.h"
+struct BfmeUiResourceEntryState;extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 class Rva0029B5E3 {public:void clear();void*ptr;};
 class Rva0029A94F {public:void rva0029A94F();};
 struct BuildIcon {Drawable*draw;float angle;};
