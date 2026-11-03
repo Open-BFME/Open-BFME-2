@@ -1,0 +1,233 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "NetWrapperCommandMsg",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 19,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1c": {
+    "4": 4
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "2": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x38": 2
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d5844"
+     ],
+     "value": {
+      "0x0": [
+       "NetCommandMsg"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 14,
+   "28": 1,
+   "40": 1,
+   "44": 1,
+   "56": 2
+  },
+  "views": 19,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_NetWrapperCommandMsg.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_vptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 56,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
