@@ -1,0 +1,1269 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "HordeContainInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 14
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 12,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "h10()": 3,
+    "hordeSlot10()": 3,
+    "s010()": 1,
+    "slot10()": 3,
+    "v10()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "assignSpotToUnit(Object*)": 1,
+    "h11()": 3,
+    "hordeSlot11()": 3,
+    "s011()": 1,
+    "slot11()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "h12()": 3,
+    "hordeSlot12()": 3,
+    "s012()": 1,
+    "slot12()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "h13()": 3,
+    "hordeSlot13()": 3,
+    "s013()": 1,
+    "slot13()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "h14()": 3,
+    "hordeSlot14()": 3,
+    "s014()": 1,
+    "slot14()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "getMembers(_STL::list<Object *,Rva001EB984PoolAllocator<Object *> >*)": 1,
+    "h17()": 3,
+    "hordeSlot17()": 3,
+    "s017()": 1,
+    "slot17()": 2
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "h18()": 3,
+    "hordeSlot18()": 3,
+    "s018()": 1,
+    "slot18()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "h19()": 3,
+    "hordeSlot19()": 3,
+    "s019()": 1,
+    "slot19()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "h020()": 1,
+    "h20()": 2,
+    "hordeSlot20()": 3,
+    "s020()": 1,
+    "slot20()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "h021()": 1,
+    "h21()": 2,
+    "hordeSlot21()": 3,
+    "s021()": 1,
+    "slot21()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "h022()": 1,
+    "h22()": 2,
+    "hordeSlot22()": 3,
+    "s022()": 1,
+    "slot22()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "h025()": 1,
+    "h25()": 2,
+    "hordeSlot25()": 3,
+    "s025()": 1,
+    "slot25()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "h027()": 1,
+    "h27()": 2,
+    "hordeSlot27()": 3,
+    "s027()": 1,
+    "slot27()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "h028()": 1,
+    "h28()": 2,
+    "hordeSlot28()": 3,
+    "s028()": 1,
+    "slot28()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "h030()": 2,
+    "h30()": 1,
+    "hordeSlot30()": 3,
+    "s030()": 1,
+    "setMembers(_STL::list<Object *,Rva001EB984PoolAllocator<Object *> >*)": 1,
+    "slot30()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot32",
+   "candidates": {
+    "enterObject(Object*,enum)": 1,
+    "h032()": 2,
+    "h32()": 1,
+    "hordeSlot32()": 3,
+    "s032()": 1,
+    "slot32()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot33",
+   "candidates": {
+    "exitObject(Object*,enum)": 1,
+    "h033()": 2,
+    "h33()": 1,
+    "hordeSlot33()": 3,
+    "s033()": 1,
+    "slot33()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot34",
+   "candidates": {
+    "h034()": 2,
+    "h34()": 1,
+    "hordeSlot34()": 3,
+    "s034()": 1,
+    "slot34()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot35",
+   "candidates": {
+    "h035()": 2,
+    "h35()": 1,
+    "hordeSlot35()": 3,
+    "s035()": 1,
+    "slot35()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot36",
+   "candidates": {
+    "h036()": 2,
+    "h36()": 1,
+    "hordeSlot36()": 3,
+    "s036()": 1,
+    "slot36()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot38",
+   "candidates": {
+    "h038()": 1,
+    "h38()": 1,
+    "hordeSlot38()": 3,
+    "notifyMember(Object*)": 1,
+    "s038()": 1,
+    "slot38()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot41",
+   "candidates": {
+    "h41()": 2,
+    "hordeSlot41()": 3,
+    "isReady()": 1,
+    "s041()": 1,
+    "slot41()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot42",
+   "candidates": {
+    "h042()": 1,
+    "h42()": 2,
+    "hordeSlot42()": 3,
+    "s042()": 1,
+    "slot42()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot43",
+   "candidates": {
+    "h043()": 1,
+    "h43()": 2,
+    "hordeSlot43()": 3,
+    "s043()": 1,
+    "slot43()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot44",
+   "candidates": {
+    "h044()": 1,
+    "h44()": 2,
+    "hordeSlot44()": 3,
+    "s044()": 1,
+    "slot44()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot45",
+   "candidates": {
+    "h045()": 1,
+    "h45()": 2,
+    "hordeSlot45()": 3,
+    "s045()": 1,
+    "slot45()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot46",
+   "candidates": {
+    "h046()": 1,
+    "h46()": 2,
+    "hordeSlot46()": 3,
+    "s046()": 1,
+    "slot46()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot47",
+   "candidates": {
+    "h047()": 1,
+    "h47()": 2,
+    "hordeSlot47()": 3,
+    "s047()": 1,
+    "slot47()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot48",
+   "candidates": {
+    "h048()": 1,
+    "h48()": 2,
+    "hordeSlot48()": 3,
+    "s048()": 1,
+    "slot48()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot49",
+   "candidates": {
+    "h049()": 1,
+    "h49()": 2,
+    "hordeSlot49()": 3,
+    "s049()": 1,
+    "slot49()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot50",
+   "candidates": {
+    "h050()": 1,
+    "h50()": 2,
+    "hordeSlot50()": 3,
+    "s050()": 1,
+    "slot50()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot51",
+   "candidates": {
+    "h051()": 1,
+    "h51()": 2,
+    "hordeSlot51()": 3,
+    "s051()": 1,
+    "slot51()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot52",
+   "candidates": {
+    "h052()": 1,
+    "h52()": 2,
+    "hordeSlot52()": 3,
+    "s052()": 1,
+    "slot52()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot53",
+   "candidates": {
+    "h053()": 1,
+    "h53()": 2,
+    "hordeSlot53()": 3,
+    "s053()": 1,
+    "slot53()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot54",
+   "candidates": {
+    "h054()": 1,
+    "h54()": 2,
+    "hordeSlot54()": 3,
+    "s054()": 1,
+    "slot54()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot55",
+   "candidates": {
+    "h55()": 2,
+    "hordeSlot55()": 3,
+    "s055()": 1,
+    "slot55()": 3,
+    "update()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot56",
+   "candidates": {
+    "h056()": 1,
+    "h56()": 2,
+    "hordeSlot56()": 3,
+    "s056()": 1,
+    "slot56()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot57",
+   "candidates": {
+    "h057()": 1,
+    "h57()": 2,
+    "hordeSlot57()": 3,
+    "s057()": 1,
+    "slot57()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot58",
+   "candidates": {
+    "h058()": 1,
+    "h58()": 2,
+    "hordeSlot58()": 3,
+    "s058()": 1,
+    "slot58()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot59",
+   "candidates": {
+    "h059()": 1,
+    "h59()": 2,
+    "hordeSlot59()": 3,
+    "s059()": 1,
+    "slot59()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot61",
+   "candidates": {
+    "h61()": 2,
+    "hordeSlot61()": 3,
+    "s061()": 1,
+    "slot61()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot62",
+   "candidates": {
+    "h62()": 2,
+    "hordeSlot62()": 3,
+    "s062()": 1,
+    "slot62()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot63",
+   "candidates": {
+    "h63()": 2,
+    "hordeSlot63()": 3,
+    "s063()": 1,
+    "slot63()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot64",
+   "candidates": {
+    "h64()": 2,
+    "hordeSlot64()": 3,
+    "s064()": 1,
+    "slot64()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot65",
+   "candidates": {
+    "h65()": 2,
+    "hordeSlot65()": 3,
+    "s065()": 1,
+    "slot65()": 3
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot77",
+   "candidates": {
+    "beginMelee(Object*)": 1,
+    "h077()": 1,
+    "hordeSlot77()": 1,
+    "s077()": 1,
+    "slot77()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot85",
+   "candidates": {
+    "h85()": 1,
+    "hordeSlot85()": 1,
+    "isMeleeTargetReady(Object*)": 1,
+    "s085()": 1,
+    "slot85()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot89",
+   "candidates": {
+    "h89()": 1,
+    "hordeSlot89()": 1,
+    "prepareMeleeTarget(Object*)": 1,
+    "s089()": 1,
+    "slot89()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot90",
+   "candidates": {
+    "h90()": 1,
+    "hordeSlot90()": 1,
+    "s090()": 1,
+    "setMeleeFormation(enum)": 1,
+    "setMeleeFormation(uint)": 1,
+    "slot90()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot91",
+   "candidates": {
+    "h91()": 1,
+    "hordeSlot91()": 1,
+    "s091()": 1,
+    "slot91()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot92",
+   "candidates": {
+    "h92()": 1,
+    "hordeSlot92()": 1,
+    "s092()": 1,
+    "slot92()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot93",
+   "candidates": {
+    "h93()": 1,
+    "hordeSlot93()": 1,
+    "s093()": 1,
+    "slot93(int)": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot94",
+   "candidates": {
+    "h94()": 1,
+    "hordeSlot94()": 1,
+    "s094()": 1,
+    "slot94()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot95",
+   "candidates": {
+    "h95()": 1,
+    "hordeSlot95()": 1,
+    "s095()": 1,
+    "slot95()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot96",
+   "candidates": {
+    "getMemberCount(void*)": 1,
+    "h96()": 1,
+    "s096()": 1,
+    "slot96()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot97",
+   "candidates": {
+    "h97()": 1,
+    "s097()": 1,
+    "slot97()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot98",
+   "candidates": {
+    "h98()": 1,
+    "s098()": 1,
+    "slot98()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot99",
+   "candidates": {
+    "h99()": 1,
+    "s099()": 1,
+    "slot99()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot100",
+   "candidates": {
+    "h100()": 1,
+    "s100()": 1,
+    "slot100()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot101",
+   "candidates": {
+    "h101()": 1,
+    "s101()": 1,
+    "slot101()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot102",
+   "candidates": {
+    "h102()": 1,
+    "s102()": 1,
+    "slot102()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot103",
+   "candidates": {
+    "h103()": 1,
+    "s103()": 1,
+    "slot103()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot104",
+   "candidates": {
+    "h104()": 1,
+    "s104()": 1,
+    "slot104()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot105",
+   "candidates": {
+    "h105()": 1,
+    "s105()": 1,
+    "slot105()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot106",
+   "candidates": {
+    "h106()": 1,
+    "s106()": 1,
+    "slot106()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot107",
+   "candidates": {
+    "h107()": 1,
+    "s107()": 1,
+    "slot107()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot108",
+   "candidates": {
+    "h108()": 1,
+    "s108()": 1,
+    "slot108()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot109",
+   "candidates": {
+    "h109()": 1,
+    "s109()": 1,
+    "slot109()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot110",
+   "candidates": {
+    "h110()": 1,
+    "s110()": 1,
+    "slot110()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot111",
+   "candidates": {
+    "h111()": 1,
+    "slot111()": 1,
+    "slot111(Coord3D*,Rva001E34B2Point*,int,int)": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot112",
+   "candidates": {
+    "h112()": 1,
+    "slot112()": 1,
+    "slot112(float)": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot113",
+   "candidates": {
+    "h113()": 1,
+    "s113()": 1,
+    "slot113()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot114",
+   "candidates": {
+    "h114()": 1,
+    "s114()": 1,
+    "slot114()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot115",
+   "candidates": {
+    "h115()": 1,
+    "haveMembersReachedEndOfPath()": 1,
+    "slot115()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot116",
+   "candidates": {
+    "h116()": 1,
+    "s116()": 1,
+    "slot116()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot117",
+   "candidates": {
+    "h117()": 1,
+    "slot117()": 1,
+    "slot117(Coord3D*,int)": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot118",
+   "candidates": {
+    "h118()": 1,
+    "s118()": 1,
+    "slot118()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot119",
+   "candidates": {
+    "h119()": 1,
+    "s119()": 1,
+    "slot119()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot120",
+   "candidates": {
+    "h120()": 1,
+    "s120()": 1,
+    "slot120()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot121",
+   "candidates": {
+    "h121()": 1,
+    "s121()": 1,
+    "slot121()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot122",
+   "candidates": {
+    "h122()": 1,
+    "s122()": 1,
+    "slot122()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot123",
+   "candidates": {
+    "h123()": 1,
+    "s123()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot124",
+   "candidates": {
+    "h124()": 1,
+    "s124()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot125",
+   "candidates": {
+    "h125()": 1,
+    "s125()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot126",
+   "candidates": {
+    "h126()": 1,
+    "s126()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot127",
+   "candidates": {
+    "h127()": 1,
+    "s127()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot128",
+   "candidates": {
+    "h128()": 1,
+    "s128()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot129",
+   "candidates": {
+    "h129()": 1,
+    "s129()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot130",
+   "candidates": {
+    "h130()": 1,
+    "s130()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot131",
+   "candidates": {
+    "h131()": 1,
+    "s131()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot132",
+   "candidates": {
+    "h132()": 1,
+    "s132()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot133",
+   "candidates": {
+    "h133()": 1,
+    "s133()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot134",
+   "candidates": {
+    "h134()": 1,
+    "s134()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot135",
+   "candidates": {
+    "h135()": 1,
+    "s135()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot136",
+   "candidates": {
+    "h136()": 1,
+    "s136()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot137",
+   "candidates": {
+    "h137()": 1,
+    "s137()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot138",
+   "candidates": {
+    "h138()": 1,
+    "s138()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot139",
+   "candidates": {
+    "h139()": 1,
+    "s139()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot140",
+   "candidates": {
+    "h140()": 1,
+    "s140()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot141",
+   "candidates": {
+    "h141()": 1,
+    "s141()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot142",
+   "candidates": {
+    "h142()": 1,
+    "s142()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot143",
+   "candidates": {
+    "h143()": 1,
+    "s143()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot144",
+   "candidates": {
+    "h144()": 1,
+    "slot144(float)": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot145",
+   "candidates": {
+    "h145()": 1,
+    "s145()": 1
+   },
+   "class": "HordeContainInterface"
+  },
+  {
+   "attribute": "slot146",
+   "candidates": {
+    "getRallyPosition(Coord3D*)": 1,
+    "s146()": 1
+   },
+   "class": "HordeContainInterface"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "hordeSlot0()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "hordeSlot1()"
+  },
+  "147": {
+   "decided_by": "bytes",
+   "member": "s147()"
+  },
+  "148": {
+   "decided_by": "bytes",
+   "member": "s148()"
+  },
+  "149": {
+   "decided_by": "bytes",
+   "member": "s149()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot15()"
+  },
+  "150": {
+   "decided_by": "bytes",
+   "member": "s150()"
+  },
+  "151": {
+   "decided_by": "bytes",
+   "member": "s151()"
+  },
+  "152": {
+   "decided_by": "bytes",
+   "member": "s152()"
+  },
+  "153": {
+   "decided_by": "bytes",
+   "member": "s153()"
+  },
+  "154": {
+   "decided_by": "bytes",
+   "member": "slot154()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "slot16()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "hordeSlot2()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot24()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "hordeSlot26()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "hordeSlot29()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "hordeSlot3()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "slot31()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "hordeSlot4()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "hordeSlot5()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "hordeSlot6()"
+  },
+  "60": {
+   "decided_by": "majority",
+   "member": "slot60()"
+  },
+  "66": {
+   "decided_by": "majority",
+   "member": "slot66()"
+  },
+  "67": {
+   "decided_by": "majority",
+   "member": "slot67()"
+  },
+  "68": {
+   "decided_by": "majority",
+   "member": "slot68()"
+  },
+  "69": {
+   "decided_by": "majority",
+   "member": "slot69()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "hordeSlot7()"
+  },
+  "70": {
+   "decided_by": "majority",
+   "member": "slot70()"
+  },
+  "71": {
+   "decided_by": "majority",
+   "member": "slot71()"
+  },
+  "72": {
+   "decided_by": "majority",
+   "member": "slot72()"
+  },
+  "73": {
+   "decided_by": "majority",
+   "member": "slot73()"
+  },
+  "74": {
+   "decided_by": "majority",
+   "member": "slot74()"
+  },
+  "75": {
+   "decided_by": "majority",
+   "member": "slot75()"
+  },
+  "76": {
+   "decided_by": "majority",
+   "member": "slot76()"
+  },
+  "78": {
+   "decided_by": "majority",
+   "member": "slot78()"
+  },
+  "79": {
+   "decided_by": "majority",
+   "member": "slot79()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "hordeSlot8()"
+  },
+  "80": {
+   "decided_by": "majority",
+   "member": "slot80()"
+  },
+  "81": {
+   "decided_by": "majority",
+   "member": "slot81()"
+  },
+  "82": {
+   "decided_by": "majority",
+   "member": "slot82()"
+  },
+  "83": {
+   "decided_by": "majority",
+   "member": "slot83()"
+  },
+  "84": {
+   "decided_by": "majority",
+   "member": "slot84()"
+  },
+  "86": {
+   "decided_by": "majority",
+   "member": "slot86()"
+  },
+  "87": {
+   "decided_by": "majority",
+   "member": "slot87()"
+  },
+  "88": {
+   "decided_by": "majority",
+   "member": "slot88()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "hordeSlot9()"
+  }
+ }
+}
