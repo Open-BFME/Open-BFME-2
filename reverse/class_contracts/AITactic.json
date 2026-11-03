@@ -1,0 +1,503 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AITactic",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 30,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x10": {
+    "1": 2
+   },
+   "0x14": {
+    "4": 11
+   },
+   "0x18": {
+    "4": 9
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 2
+   },
+   "0x28": {
+    "1": 5
+   },
+   "0x34": {
+    "1": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x50": {
+    "1": 2
+   },
+   "0x51": {
+    "1": 1
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4ed3d1"
+     ],
+     "value": 88
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4ed3d1"
+     ],
+     "value": {
+      "0x10": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       1
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       1
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       1
+      ],
+      "0x51": [
+       1
+      ],
+      "0x54": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4ed3d1"
+     ],
+     "value": {
+      "0x14": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x2c": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4ed3d1"
+     ],
+     "value": {
+      "0x0": "0x8629e4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8629e4"
+     ],
+     "value": {
+      "count": 9,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004EDCE9@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4edee7"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?initializeTeamTemplate@AITactic@@UAE_NPAXH@Z",
+        "slot": 3,
+        "target": "0x4ece61"
+       },
+       {
+        "name": "?Create@GameFileClass@@UAEHXZ",
+        "slot": 4,
+        "target": "0x910fb"
+       },
+       {
+        "name": "?xfer@AITactic@@UAEXPAVXfer@@@Z",
+        "slot": 5,
+        "target": "0x4eda8c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva004EDDAA@AITactic@@QAEXXZ",
+        "slot": 8,
+        "target": "0x4eddaa"
+       }
+      ],
+      "table": "0x8629e4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 25,
+  "retail_vtables": {
+   "0x8629e4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004EDCE9@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "?initializeTeamTemplate@AITactic@@UAE_NPAXH@Z",
+     "4": "?Create@GameFileClass@@UAEHXZ",
+     "5": "?xfer@AITactic@@UAEXPAVXfer@@@Z",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "?rva004EDDAA@AITactic@@QAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "4": 22,
+   "28": 1,
+   "40": 1,
+   "52": 1,
+   "68": 1,
+   "88": 1
+  },
+  "views": 30,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 25,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 25
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticsGenerator.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticsGenerator.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004EDDD3.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 81,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "create()": 15
+   },
+   "class": "AITactic",
+   "why": "beyond the retail vftable's 9 slots"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "initializeTeamTemplate()": 6,
+    "initializeTeamTemplate(Rva0039D7A6Setter*,void*)": 1,
+    "initializeTeamTemplate(Rva005A990BUnit*,void*)": 2,
+    "initializeTeamTemplate(Rva005A9ACDUnit*,void*)": 1,
+    "initializeTeamTemplate(Rva005AA860Unit*,void*)": 1,
+    "initializeTeamTemplate(TeamPrototype*,int)": 1,
+    "initializeTeamTemplate(void*,int)": 6,
+    "initializeTeamTemplate(void*,void*)": 1,
+    "v3()": 1
+   },
+   "class": "AITactic"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "canRun(void*)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "cleanUp()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "v4()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "xfer(Xfer*)"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "run()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "update()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "v8()"
+  }
+ }
+}
