@@ -29,17 +29,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_PLACEHOLDER = 0
 };
 
-class Object
-{
-public:
-	void setStatus( ObjectStatusTypes status, bool flag );
-	void rva00291080( bool flag );
-private:
-	unsigned char m_pad00[ 0x04 ];
-	void *m_04;
-	unsigned char m_pad08[ 0x274 - 0x08 ];
-	Object *m_containedBy;
-};
+#include "object.h"
 
 struct FlagObj
 {
@@ -59,7 +49,7 @@ void Object::rva00291080( bool flag )
 		Object *next = obj->m_containedBy;
 		if( !next )
 			return;
-		FlagObj *flagObj = (FlagObj *)next->m_04;
+		FlagObj *flagObj = (FlagObj *)next->m_template;
 		if( ( flagObj->m_flag115 & 0x20 ) == 0 )
 			return;
 		obj = next;

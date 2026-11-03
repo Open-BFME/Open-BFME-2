@@ -10,15 +10,7 @@ extern GameLogic *TheGameLogic;
 
 #define BfmeLogicRate (*(unsigned int *)&BfmeLogicFramesPerSecond)
 
-class Object
-{
-public:
-	void rva0028C0F2(unsigned int v);
-
-private:
-	unsigned char m_pad[0x448];
-	unsigned int m_448; // +0x448
-};
+#include "object.h"
 
 void Object::rva0028C0F2(unsigned int v)
 {

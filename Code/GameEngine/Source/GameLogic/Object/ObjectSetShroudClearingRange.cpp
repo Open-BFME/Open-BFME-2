@@ -12,18 +12,7 @@
 // +0x1B0 is the vision range the matched getVisionRange 0x0028DDE0 reads).
 // Callers 0x002AC8AA (localApplyBattlePlanBonusesToObject, paired with
 // setShroudClearingRange) and 0x00497B63 / 0x00497C9B.
-class Object
-{
-public:
-	void setVisionRange(float value);
-	void setShroudClearingRange(float value);
-	void makeDirty();
-
-private:
-	char m_pad[0x1B0];
-	float m_visionRange;
-	float m_shroudClearingRange;
-};
+#include "object.h"
 
 void Object::setVisionRange(float value)
 {

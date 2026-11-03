@@ -9,16 +9,10 @@ public:
 	virtual void slot02();
 };
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
-class Object
-{
-	char m_pad[0x244];
-	BehaviorModule **m_modules244;
-public:
-	void rva0028AB4E() const;
-};
+#include "object.h"
 void Object::rva0028AB4E() const
 {
-	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
+	for (BehaviorModule **behaviorModule = m_behaviors; *behaviorModule; ++behaviorModule)
 	{
 		Rva0028AB4EResult *r = reinterpret_cast<Rva0028AB4EResult *>((*behaviorModule)->getCreate());
 		if (r != 0)

@@ -18,17 +18,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_3E = 0x3E
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes s) const;
-	void setStatus(ObjectStatusTypes s, bool set);
-	void setTemporaryTeam(Team *team);
-	void rva00298AAD(Team *team);
-private:
-	unsigned char m_pad00[0x304];
-	Team *m_team; // +0x304
-};
+#include "object.h"
 
 // ?rva00298AAD@Object@@QAEXPAVTeam@@@Z
 void Object::rva00298AAD(Team *team)

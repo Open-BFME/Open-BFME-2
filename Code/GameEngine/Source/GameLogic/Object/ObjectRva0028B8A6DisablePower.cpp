@@ -65,19 +65,7 @@ public:
 	void adjustPower(int amount, bool incoming);
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	void rva0028B8A6(bool becomingDisabled);
-
-protected:
-	Module *findModule(NameKeyType key) const;
-
-private:
-	char m_pad00[4];
-	ThingTemplate *m_template;
-};
+#include "object.h"
 
 // ?rva0028B8A6@Object@@QAEX_N@Z
 void Object::rva0028B8A6(bool becomingDisabled)

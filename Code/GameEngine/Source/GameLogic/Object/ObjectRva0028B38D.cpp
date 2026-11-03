@@ -34,14 +34,7 @@ public:
 	virtual bool slot90();
 };
 
-class Object
-{
-public:
-	int rva0028B38D() const;
-private:
-	char m_pad[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "object.h"
 
 int Object::rva0028B38D() const
 {

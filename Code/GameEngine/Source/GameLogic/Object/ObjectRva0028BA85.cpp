@@ -11,26 +11,16 @@
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class Object
-{
-	char m_pad[0x244];
-	BehaviorModule **m_modules244;
-	char m_pad248[0x45c - 0x248];
-	int m_val45c;
-
-public:
-	void rva0028BA85() const;
-	void rva0028BAAE(int v);
-};
+#include "object.h"
 
 void Object::rva0028BA85() const
 {
-	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
-		(*behaviorModule)->slot46(m_val45c);
+	for (BehaviorModule **behaviorModule = m_behaviors; *behaviorModule; ++behaviorModule)
+		(*behaviorModule)->slot46(m_45c);
 }
 
 void Object::rva0028BAAE(int v)
 {
-	m_val45c = v;
+	m_45c = v;
 	rva0028BA85();
 }

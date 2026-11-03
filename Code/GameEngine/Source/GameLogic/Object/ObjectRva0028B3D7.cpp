@@ -21,18 +21,11 @@ public:
 
 
 
-class Object
-{
-	char m_pad[0x244];
-	BehaviorModule **m_modules244;
-
-public:
-	void rva0028B3D7() const;
-};
+#include "object.h"
 
 void Object::rva0028B3D7() const
 {
-	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
+	for (BehaviorModule **behaviorModule = m_behaviors; *behaviorModule; ++behaviorModule)
 	{
 		Rva0028B3D7Result *r = reinterpret_cast<Rva0028B3D7Result *>((*behaviorModule)->getUpgrade());
 		if (r != 0 && r->slot04())

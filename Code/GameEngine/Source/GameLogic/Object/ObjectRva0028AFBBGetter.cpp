@@ -16,12 +16,7 @@ public:
 	int m_5C; // +0x5C
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool rva0028AFBB() const;
-};
+#include "object.h"
 
 bool Object::rva0028AFBB() const
 {

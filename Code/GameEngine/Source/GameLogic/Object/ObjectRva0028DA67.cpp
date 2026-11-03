@@ -36,26 +36,13 @@ public:
 	int m_commandPoints; // +0x618
 	int m_commandPointBonus; // +0x61C
 };
-class Object
-{
-public:
-	void rva0028DA67();
-	void rva0028DAB9();
-	bool rva0028DB0F(bool arg) const;
-	bool testStatus(ObjectStatusTypes s) const;
-	Player *getControllingPlayer() const;
-private:
-	unsigned char m_pad00[0x04];
-	ThingTemplate *m_tmpl; // +0x04
-	unsigned char m_pad08[0x480 - 0x08];
-	unsigned char m_480; // +0x480
-};
+#include "object.h"
 
 void Object::rva0028DA67()
 {
 	if (m_480 != 0)
 		return;
-	if (m_tmpl->m_commandPoints <= 0 && m_tmpl->m_commandPointBonus <= 0)
+	if (m_template->m_commandPoints <= 0 && m_template->m_commandPointBonus <= 0)
 		return;
 	if (testStatus(RVA_57))
 		return;
@@ -85,9 +72,9 @@ void Object::rva0028DAB9()
 
 bool Object::rva0028DB0F(bool arg) const
 {
-	if (m_tmpl->m_shockwaveResistance >= 100.0f)
+	if (m_template->m_shockwaveResistance >= 100.0f)
 	{
-		if (!arg || !(m_tmpl->m_11F & 0x80))
+		if (!arg || !(m_template->m_11F & 0x80))
 			return true;
 	}
 	return false;

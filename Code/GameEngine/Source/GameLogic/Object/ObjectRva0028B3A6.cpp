@@ -20,18 +20,11 @@ public:
 
 
 
-class Object
-{
-	char m_pad[0x244];
-	BehaviorModule **m_modules244;
-
-public:
-	bool rva0028B3A6() const;
-};
+#include "object.h"
 
 bool Object::rva0028B3A6() const
 {
-	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
+	for (BehaviorModule **behaviorModule = m_behaviors; *behaviorModule; ++behaviorModule)
 	{
 		Rva0028B3A6Inner *r = reinterpret_cast<Rva0028B3A6Inner *>((*behaviorModule)->getCollide());
 		if (r != 0 && r->slot05())

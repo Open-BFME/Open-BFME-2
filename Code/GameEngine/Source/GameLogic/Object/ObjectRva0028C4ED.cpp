@@ -12,18 +12,11 @@
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class Object
-{
-	char m_pad[0x244];
-	BehaviorModule **m_modules244;
-
-public:
-	bool rva0028C4ED() const;
-};
+#include "object.h"
 
 bool Object::rva0028C4ED() const
 {
-	for (BehaviorModule **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
+	for (BehaviorModule **behaviorModule = m_behaviors; *behaviorModule; ++behaviorModule)
 	{
 		if ((*behaviorModule)->slot26())
 			return true;

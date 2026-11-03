@@ -31,18 +31,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	Bool rva002931BA();
-	Bool testStatus(ObjectStatusTypes bit) const;
-
-private:
-	unsigned char m_pad00[4];
-	ThingTemplate *m_template;
-	unsigned char m_pad08[0x78 - 0x08];
-	ObjectID m_producerID;
-};
+#include "object.h"
 
 Bool Object::rva002931BA()
 {

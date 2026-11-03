@@ -10,15 +10,7 @@
 
 typedef bool Bool;
 
-class Object
-{
-public:
-	Bool rva002931BA();
-	Object *rva002931F5(Bool checkProducer);
-
-	unsigned char m_pad00[0x274];
-	Object *m_containedBy;
-};
+#include "object.h"
 
 Bool Rva0034311ECheck(Object *object)
 {

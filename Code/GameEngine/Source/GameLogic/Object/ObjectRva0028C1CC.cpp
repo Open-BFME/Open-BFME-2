@@ -26,13 +26,7 @@ enum WeaponStatus
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	int rva0028AF76() const;
-	bool rva0028C1CC() const;
-};
+#include "object.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

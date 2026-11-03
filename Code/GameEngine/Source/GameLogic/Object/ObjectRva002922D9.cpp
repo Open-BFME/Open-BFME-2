@@ -32,13 +32,7 @@ public:
 	const CommandButton *getCommandButton(int i) const;
 };
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-	const AsciiString *rva00290E67() const;
-	bool rva002922D9(const CommandButton *btn);
-};
+#include "object.h"
 
 bool Object::rva002922D9(const CommandButton *btn)
 {

@@ -8,16 +8,7 @@
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	void rva00295844(float range);
-	float rva002972B1(float value);
-private:
-	char m_pad000[0x444];
-	float m_444;
-	unsigned int m_448;
-};
+#include "object.h"
 
 float Object::rva002972B1(float value)
 {
