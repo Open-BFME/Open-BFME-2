@@ -22,6 +22,13 @@ reported a missing current receipt for AIPathfind itself; complete selected
 provider closure remains unverified.
 [Scoped proof and audit limits](../reverse/attempt_support/pathfinder-small-headers-20261103/README.md).
 
+The filter-base follow-up adopts canonical PartitionFilter while retaining the
+same visible inline empty base teardown. Combined tree/filter verification keeps
+all 83 ledger entries, 81 normal active rows, two data rows, three EXACT EH graphs
+and 205 identical external definitions. Its owning header verdict retires one
+additional queue entry; five seed header prerequisites remain. No new vtable,
+provider, pin, alias, marker or source-file merge is added.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:
