@@ -265,18 +265,8 @@ struct Rva003642DFNode
 };
 
 // Zero Hour's ClosestPointOnPathInfo shape: node, then the point.
-struct Rva003642DFResult
-{
-	Rva003642DFResult();
-	Rva003642DFNode *m_node; // +0x00
-	Coord3D m_pos; // +0x04
-};
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 
-class Rva00363D20
-{
-public:
-	double rva00363D20(); // distance along the path
-};
 
 class Rva001E3511
 {
