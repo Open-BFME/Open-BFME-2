@@ -6517,7 +6517,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?WriteScriptListDataChunk@ScriptList@@QAEXAAVDataChunkOutput@@@Z,,0x003B73C5,49,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_WriteScriptsDataChunk.cpp,matched,ZH-order body (script first); script via 0x3B5994 pin; group via 0x3B6975 pin
 ?WriteScriptsDataChunk@ScriptList@@SAXAAVDataChunkOutput@@QAPAV1@H@Z,,0x003B73F6,82,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_WriteScriptsDataChunk.cpp,matched,ZH Scripts.cpp shape via BFME1; per-list write out-of-line; version 1 both chunks; tail-jmp close
 ?initDelayFilter@MilesAudioManager@@IAEXXZ,,0x0005178D,83,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_initDelayFilter.cpp,matched,BFME1 MilesAudioManager.cpp verbatim; member at retail +0x9E4; /O1 /Oy- /Oi- for frame plus out-of-line strcmp; AIL import hoists
-?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z,,0x002A7A41,46,Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp,matched,B1 PlayerList.cpp verbatim /O1; count +0x14 array +0x18 key +0x50; resolves the 0x2A7A41 pin
+?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z,,0x002A7A41,46,Code/GameEngine/Source/Common/RTS/PlayerList.cpp,matched,B1 PlayerList.cpp verbatim /O1; count +0x14 array +0x18 key +0x50; resolves the 0x2A7A41 pin
 ?getAIKindOfFromName@@YAHPBD@Z,,0x004E8DE7,112,Code/GameEngine/Source/GameLogic/AI/AIKindOfFromName.cpp,matched,BFME2-added AI-kind name-to-index mapper; invalid AI_KINDOF literal plus 16-entry table at 0x9D0288; two INI-parse callers at 0x4E8E57 and 0x4E8EA6
 ?parseAIKindOfList@@YAXPAVINI@@PBDPAH@Z,,0x004E8EA6,88,Code/GameEngine/Source/GameLogic/AI/AIKindOfListParse.cpp,matched,BFME2-added AIKINDOF list parser; first token via throwing getNextToken then OrNull; over-16 throws; middle param unread by retail
 ?getNextToken@INI@@QAEPBDPBD@Z,,0x0002DF97,75,Code/GameEngine/Source/Common/System/INI_getNextToken.cpp,matched,BFME1 ini.cpp shape; OrNull+filler+CxxThrow pins; m_seps at +0x418; cond must read (seps == 0) for branch polarity
@@ -23972,7 +23972,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva00536D39@UserPreferences@@QAEHVAsciiString@@@Z,,0x00536D39,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,BattlesWonRTS getter slot18 same TU
 ?rva00536D83@UserPreferences@@QAEXVAsciiString@@H@Z,,0x00536D83,71,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,BattlesLostAutoResolve setter slot2C same TU
 ?rva00536DCA@UserPreferences@@QAEHVAsciiString@@@Z,,0x00536DCA,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,BattlesLostAutoResolve getter slot18 same TU
-?rva002A7AFE@PlayerList@@QAEXPAX@Z,,0x002A7AFE,30,Code/GameEngine/Source/Common/RTS/PlayerListRva002A7AFE.cpp,matched,chain lane player fanout via armor remove
+?rva002A7AFE@PlayerList@@QAEXPAX@Z,,0x002A7AFE,30,Code/GameEngine/Source/Common/RTS/PlayerList.cpp,matched,chain lane player fanout via armor remove
 ??_GRva001ED0DE@@QAEPAXI@Z,,0x001ED269,28,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,matched,deleting dtor via rowed dtor
 ?rva001ED3A2@Rva001ED3A2@@QAEXXZ,,0x001ED3A2,30,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,matched,manual destroy plus free via rowed
 ?checkForDrag@Mouse@@IAEXXZ,,0x001EDD1C,100,Code/GameEngine/Source/GameClient/Input/Mouse.cpp,matched,ZH Mouse::checkForDrag at BFME2 offsets; called by processMouseEvent 0x001EE069 for event 0 (was rva001EDD1C)

@@ -27,26 +27,20 @@ extern BfmeTaintManager *TheTaintManager;
 
 void Rva002D7AE0LocalPlayerShroudCallback();
 void Rva002D7B18LocalPlayerTaintCallback();
-
 extern TeamFactory *TheTeamFactory;
-
 //-----------------------------------------------------------------------------
 PlayerList *ThePlayerList = 0;
-
 class BfmeMemberRV
 {
 public:
 	bool bfmeAskRV();
 };
-
 struct BfmeWorldRV
 {
 	unsigned char m_bfmeHead[0x210];	// BFME1 0x274
 	BfmeMemberRV *m_bfmeOther;
 };
-
 extern class ControlBar *TheControlBar;
-
 class BfmeThingRV
 {
 public:
@@ -54,7 +48,6 @@ public:
 	unsigned char m_bfmeHead[0x10]; // +0x00 BFME1 0xc
 	BfmeMemberRV *m_bfmeMine; // +0x10
 };
-
 // Negated ask wrapper at retail 0x002A7DD0 (14 bytes), appended here: the
 // body is mov ecx,[ecx+0x10]; call bfmeAskRV; neg al; sbb eax,eax; inc eax;
 // ret, i.e. it returns the logical negation of BfmeMemberRV::bfmeAskRV on the
@@ -71,22 +64,18 @@ private:
 	char m_lead[0x10]; // +0x00
 	BfmeMemberRV *m_ptr10; // +0x10 +0x10
 };
-
 // Retail 0x002A7DDE (54 bytes): thiscall, one pointer argument, ret 4. Reads
 // the Player pointer at +0x10; a null pointer answers false. Otherwise it asks
 // bfmeAskRV on that pointer and answers true when the ask is false, else it
 // compares getRelationship on the argument's Team at +0x304 with 2.
 class Team;
-
 class Player;
-
 class Rva002A7DDEArg
 {
 public:
 	char m_pad[0x304];
 	Team *m_team304;
 };
-
 class Rva002A7DDE
 {
 public:
@@ -96,13 +85,9 @@ private:
 	char m_lead[0x10];
 	Player *m_ptr10; // +0x10
 };
-
 class PartitionManager;
-
 extern PartitionManager *TheShroudManager;
-
 class Rva007397D0 { public: void rva007397D0(); };
-
 class ControlBar
 {
 public:
@@ -112,48 +97,39 @@ public:
 	char m_pad00[0x210];
 	Player *m_observedPlayer; // +0x210
 };
-
 extern ControlBar *TheControlBar;
-
 class ClientFrameSubsystem;
-
 class GameClient;
-
 extern GameClient *TheGameClient;
-
 void ShowControlBar(bool);
-
 struct Rva002A7E42Entry;
-
 struct Rva002A7E42EntryVTable
 {
     void *unknown00[13];
     void (__fastcall *refresh)(Rva002A7E42Entry *);
 };
-
 struct Rva002A7E42Entry
 {
     Rva002A7E42EntryVTable *vtable;
     char unknown04[0x100];
     Rva002A7E42Entry *next;
 };
-
 struct Rva002A7E42Client;
-
 struct Rva002A7E42ClientVTable
 {
     void *unknown00[35];
     Rva002A7E42Entry *(__fastcall *first)(Rva002A7E42Client *);
 };
-
 struct Rva002A7E42Client { Rva002A7E42ClientVTable *vtable; };
-
 class Rva002A7E42 { public: void rva002A7E42(Player *player); };
-
-// The element is a narrow string handle: retail assigns it through the rowed
-// StringBase<char>::set 0x000366F0 (the refcounted Rva0036CA00Str handle's own
-
 #include "../../../Include/Common/Rva0036CA00Str.h"
+#include <windows.h>
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	NAMEKEY_MAX = 1 << 23,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
 
 class Rva000DF920
 {
@@ -215,7 +191,18 @@ private:
 	Gen_000cd680_Element *m_arrayC;			// +0x658
 };
 
+class Rva002AD19E
+{
+public:
+	bool rva002AD19E(void *arg);
+};
+
 // tu-skeleton: 0x002A79A9 122B ??1PlayerList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerList.cpp
+
+// The element is a narrow string handle: retail assigns it through the rowed
+// StringBase<char>::set 0x000366F0 (the refcounted Rva0036CA00Str handle's own
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList.cpp
 
@@ -351,12 +338,6 @@ Rva000DF920 &Rva000DF920::operator=(const Rva0036CA00Str *pair)
 
 void **Gen_000cd680::pointerAtA( Int index ) const { return &m_arrayA[index].m_pointer; }
 
-// tu-skeleton: 0x002A7A29 24B ?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x002A7A41 46B ?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp (not merged yet)
-
-// tu-skeleton: 0x002A7A6F 49B ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_Rva002A7A6F.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList_playerLoops.cpp
 
 void PlayerList::init()
@@ -395,8 +376,6 @@ void PlayerList::updateTeamStates()
 		m_players[i]->updateTeamStates();
 }
 
-// tu-skeleton: 0x002A7AFE 30B ?rva002A7AFE@PlayerList@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerListRva002A7AFE.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList_setLocalPlayer.cpp
 
 void Rva002D7AE0LocalPlayerShroudCallback()
@@ -430,6 +409,59 @@ void PlayerList::setLocalPlayer(Player *player)
 		((Rva006C0800 *)TheTaintManager)->rva006C0800((PointGroupClass::PointModeEnum)(int)&Rva002D7B18LocalPlayerTaintCallback);
 }
 
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerList_createClonedAllyFor.cpp
+
+Player *PlayerList::createClonedAllyFor(void *data)
+{
+	if (m_playerCount < 19)
+	{
+		Player *player = m_players[m_playerCount++];
+		if (player->cloneFrom((Player *)data))
+			return player;
+		m_playerCount--;
+	}
+	return 0;
+}
+
+// tu-skeleton: 0x002A7A29 24B ?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerList_findPlayerWithNameKey.cpp
+
+// ?findPlayerWithNameKey@PlayerList@@QAEPAVPlayer@@W4NameKeyType@@@Z
+Player *PlayerList::findPlayerWithNameKey(NameKeyType key)
+{
+	for (Int i = 0; i < m_playerCount; i++)
+	{
+		if (m_players[i]->getPlayerNameKey() == key)
+		{
+			return m_players[i];
+		}
+	}
+	return NULL;
+}
+
+// tu-skeleton: 0x002A7A6F 49B ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_Rva002A7A6F.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/PlayerListRva002A7AFE.cpp
+
+// ?rva002A7AFE@PlayerList@@QAEXPAX@Z @0x002A7AFE 30B.
+// PlayerList fan-out over 20 slots calling rowed armor remove. Evidence:
+// chain lane via 0x002AD19E, prev PlayerList::reset same TU, push-imm 0x14
+// pop-edi /O1 idiom, frameless dec-jne loop, returns void ret 4.
+// The slots are canonical PlayerList::m_players (+0x18, twenty Player
+// pointers); the callee 0x002AD19E is a Player member (its armor store at
+// Player +0x334) still rowed under the Rva002AD19E view, reached by a cast.
+
+void PlayerList::rva002A7AFE(void *arg)
+{
+	Player **slot = m_players;
+	int count = 20;
+	do {
+		((Rva002AD19E *)*slot)->rva002AD19E(arg);
+		++slot;
+	} while (--count != 0);
+}
+
 // tu-skeleton: 0x002A7B91 56B ?getPlayerFromMask@PlayerList@@QAEPAVPlayer@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
 
 // tu-skeleton: 0x002A7BC9 66B ?getEachPlayerFromMask@PlayerList@@QAEPAVPlayer@@AAH@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp (not merged yet)
@@ -445,20 +477,6 @@ void PlayerList::setLocalPlayer(Player *player)
 // tu-skeleton: 0x002A7ECD 8B ??_EPlayerList@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002A7ED5 28B ??_GPlayerList@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerListDtor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/RTS/PlayerList_createClonedAllyFor.cpp
-
-Player *PlayerList::createClonedAllyFor(void *data)
-{
-	if (m_playerCount < 19)
-	{
-		Player *player = m_players[m_playerCount++];
-		if (player->cloneFrom((Player *)data))
-			return player;
-		m_playerCount--;
-	}
-	return 0;
-}
 
 // tu-skeleton: 0x002A7F6C 20B ?rva002A7F6C@Rva002A7F6C@@QAEPAHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
