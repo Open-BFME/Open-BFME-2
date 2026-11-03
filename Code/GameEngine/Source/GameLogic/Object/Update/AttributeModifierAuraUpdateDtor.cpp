@@ -24,11 +24,7 @@ typedef unsigned int ObjectID;
 
 class ModuleData;
 
-struct AttributeModifierAuraUpdateModuleData
-{
-	unsigned char m_pad00[0x1C];
-	Real m_range; // +0x1C
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 
 struct Rva0049B6DDTemplate
 {

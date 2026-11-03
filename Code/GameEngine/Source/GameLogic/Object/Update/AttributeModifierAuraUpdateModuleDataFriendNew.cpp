@@ -22,17 +22,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class AttributeModifierAuraUpdateModuleData
-{
-public:
-	AttributeModifierAuraUpdateModuleData();
-	virtual ~AttributeModifierAuraUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x154 - 4];
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 
 // ?friend_newModuleData@AttributeModifierAuraUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *AttributeModifierAuraUpdateModuleData::friend_newModuleData(INI *ini)

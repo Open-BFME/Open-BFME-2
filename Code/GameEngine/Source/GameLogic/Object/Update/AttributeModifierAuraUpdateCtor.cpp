@@ -28,11 +28,7 @@ class Thing;
 class ModuleData;
 class Object;
 
-struct AttributeModifierAuraUpdateModuleData
-{
-	unsigned char m_pad00[0x138];
-	bool m_startsActive;
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 
 class UpgradeMux
 {

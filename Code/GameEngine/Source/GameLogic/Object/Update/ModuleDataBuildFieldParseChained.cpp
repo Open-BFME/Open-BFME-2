@@ -447,11 +447,7 @@ inline void AutoHealBehaviorModuleData::buildFieldParse(MultiIniFieldParse &pars
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 }
 
-class AttributeModifierAuraUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 
 // Retail VA 0x00C50DC8: 17 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies
