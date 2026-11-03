@@ -2,12 +2,7 @@
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 class Rva00056F61;
-struct Rva0041534BIter
-{
-	void *m_node;
-	Rva00056F61 *m_table;
-	Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {
 public:

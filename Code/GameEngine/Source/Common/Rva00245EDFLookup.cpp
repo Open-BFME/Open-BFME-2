@@ -6,12 +6,7 @@
 // ret 8 plus bool mov-al shape plus prev next same flags.
 #include "ascii_string.h"
 
-struct Rva0041534BIter
-{
-	void *m_node;
-	void *m_table;
-	Rva0041534BIter(void *n, void *t);
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

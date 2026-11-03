@@ -573,14 +573,7 @@ struct Rva0031BEF1
 // The iterator provider only hashes and compares existing string bytes.
 // End its nonthrowing lookup scope before constructing the conditional pair.
 class Rva00056F61;
-struct Rva0041534BIter
-{
-public:
-	Rva0041534BIter(void *n,Rva00056F61 *t) : m_node(n),m_table(t) {}
-	Rva0041534BIter(const Rva0041534BIter &it) : m_node(it.m_node),m_table(it.m_table) {}
-	void *m_node; // +0x00
-	Rva00056F61 *m_table; // +0x04
-};
+#include "../../../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {
 public:

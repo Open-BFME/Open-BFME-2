@@ -110,7 +110,7 @@ extern const FieldParse g_00BE5A50[4] = {
 	{ "Icon", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
 	{ 0, 0, 0, 0 }
 };
-struct Rva0041534BIter {void *m_node;void *m_table;};
+#include "../../../../../Include/GameClient/Rva0041534BIter.h"
 struct BannerTypeIterator
 {
 	BannerTypeIterator(void *node, void *table) : m_node(node), m_table(table) {}

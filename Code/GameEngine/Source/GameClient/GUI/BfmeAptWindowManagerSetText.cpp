@@ -56,11 +56,7 @@ public:
     Rva0022300F m_item;
 };
 class Rva00056F61;
-struct Rva0041534BIter {
-    void *m_node;
-    Rva00056F61 *m_table;
-    Rva0041534BIter(void *n, Rva00056F61 *table) : m_node(n), m_table(table) {}
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61 {
 public:
     // Same proven hash/compare-only contract as the rowed iterator provider.

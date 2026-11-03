@@ -60,12 +60,7 @@ NocasePair &Rva00210347::rva00210347(const NocasePair &value)
 // The iterator provider only hashes and compares existing string bytes.
 // End its nonthrowing lookup scope before constructing the conditional pair.
 class Rva00056F61;
-struct Rva0041534BIter
-{
-	void *m_node;
-	Rva00056F61 *m_table;
- Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

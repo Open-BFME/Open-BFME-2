@@ -105,7 +105,7 @@ typedef _STL::hash_map<AsciiString, Rva0045EF90Object,
 struct TreeHintPayload00410E23 { unsigned char m_body[4]; };
 #include "../../Include/GameLogic/Rva000427195.h"
 class Rva00056F61;
-struct Rva0041534BIter { void *m_node; Rva00056F61 *m_table; };
+#include "../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61 {
 public:
  __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);

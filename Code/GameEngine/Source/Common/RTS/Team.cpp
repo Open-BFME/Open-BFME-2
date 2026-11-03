@@ -1338,15 +1338,7 @@ public:
 
 class Rva00056F61;
 
-struct Rva0041534BIter
-{
-public:
-	void *m_node;
-public:
-	void *m_table;
-public:
-	Rva0041534BIter(void *node, Rva00056F61 *table) : m_node(node), m_table(table) {}
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

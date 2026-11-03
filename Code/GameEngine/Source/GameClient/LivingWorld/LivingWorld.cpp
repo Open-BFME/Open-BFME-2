@@ -240,13 +240,7 @@ typedef char Effect24Size[sizeof(Rva003FA835)==0x24 ? 1 : -1];
 
 class Rva00056F61;
 
-struct Rva0041534BIter
-{
-public:
-	Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
-	void *m_node; // +0x00
-	Rva00056F61 *m_table; // +0x04
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

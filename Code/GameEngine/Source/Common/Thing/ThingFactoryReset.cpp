@@ -12,10 +12,7 @@
 #include "ascii_string.h"
 
 class Rva00056F61;
-struct Rva0041534BIter {
-    void *m_node; Rva00056F61 *m_table;
-    Rva0041534BIter(void *node, Rva00056F61 *table) : m_node(node), m_table(table) {}
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61 { public:
     __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
 };

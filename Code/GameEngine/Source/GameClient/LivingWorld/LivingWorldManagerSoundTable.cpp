@@ -25,12 +25,7 @@ typedef _STL::hashtable<InsertPair, Rva00212A16Record, _STL::hash<Rva00212A16Rec
     _STL::_Select1st<InsertPair>, _STL::equal_to<Rva00212A16Record>,
     _STL::allocator<InsertPair> > InsertTable;
 class Rva00056F61;
-struct Rva0041534BIter
-{
-    void *m_node;
-    Rva00056F61 *m_table;
-    Rva0041534BIter(void *n, Rva00056F61 *table) : m_node(n), m_table(table) {}
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 struct SoundPair21386C
 {
     AsciiString name;
