@@ -5,21 +5,9 @@
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/EventModuleInfo.h"
 namespace FXParticleSystem
 {
-class EventModuleInfo
-{
-public:
-    EventModuleInfo();
-    EventModuleInfo &operator=(const EventModuleInfo &that);
-
-protected:
-    ~EventModuleInfo();
-
-private:
-    bool m_unk0;
-    bool m_unk1;
-};
 
 // The constructor and ParticleSystemInfo::GetSnapshotName are rowed in
 // FXParticleSystemEarlyInlines.cpp (retail places them among the image's first

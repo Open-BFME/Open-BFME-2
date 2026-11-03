@@ -3,12 +3,10 @@
 // Their canonical module base and existing constructors emit both delete thunks.
 #include "ModuleTemplate.h"
 #include <new>
+#include "../../Include/GameClient/EventModuleInfo.h"
 namespace FXParticleSystem {
 class SecondaryModuleBase { public: virtual ~SecondaryModuleBase(); virtual void v1() = 0; };
 class ModuleInfo {};
-class EventModuleInfo : public ModuleInfo {
-public: EventModuleInfo(); bool m_first; bool m_second;
-};
 template <int Category> class CategoryModuleTemplate;
 template <> class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleBase, public EventModuleInfo { public: virtual ~CategoryModuleTemplate(); };
 class LifeEventModuleInfo {

@@ -5,6 +5,7 @@
 // three vtable stores.
 
 #include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
+#include "../../../../Include/GameClient/EventModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -24,14 +25,6 @@ class ModuleInfo
 {
 };
 
-class EventModuleInfo : public ModuleInfo
-{
-public:
-    EventModuleInfo();
-
-    bool m_first;
-    bool m_second;
-};
 
 template <int CATEGORY>
 class CategoryModuleTemplate;

@@ -4,6 +4,7 @@
 // 0x00001EF9, then the info constructor at pinned 0x00564001, then the three
 // vtable stores.
 
+#include "../../../../Include/GameClient/EventModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -23,14 +24,6 @@ class ModuleInfo
 {
 };
 
-class EventModuleInfo : public ModuleInfo
-{
-public:
-    EventModuleInfo() {}
-
-    bool m_first;
-    bool m_second;
-};
 
 template <int CATEGORY>
 class CategoryModuleTemplate;
