@@ -23,15 +23,7 @@ private:
 	const LocomotorTemplate *m_template; // +0x04
 };
 
-class AIUpdateInterface
-{
-public:
-	Locomotor *getCurLocomotor() const { return m_curLocomotor; }
-
-private:
-	unsigned char m_pad[0x1f0];
-	Locomotor *m_curLocomotor; // +0x1f0
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "object.h"
 

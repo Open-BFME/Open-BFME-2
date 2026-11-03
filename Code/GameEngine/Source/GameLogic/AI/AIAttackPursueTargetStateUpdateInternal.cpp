@@ -95,25 +95,7 @@ template <> class AIUpdateSlots<0>
 {
 };
 
-class AIUpdateInterface : public AIUpdateSlots<136>
-{
-public:
-	virtual void slot136() = 0;
-	virtual Bool isDoingGroundMovement() const = 0;
-	virtual void slot138() = 0;
-	virtual void slot139() = 0;
-	virtual void slot140() = 0;
-	virtual void slot141() = 0;
-	virtual void slot142() = 0;
-	virtual void slot143() = 0;
-	virtual void notifyVictimIsDead() = 0;
-	void setCurrentVictim(const Object *victim);
-	WhichTurretType getWhichTurretForCurWeapon() const;
-	void setTurretTargetObject(WhichTurretType tur, Object *o, Bool force);
-	void setDesiredSpeed(Real speed);
-	unsigned char m_pad04[0x1F0 - 0x04];
-	Locomotor *m_curLocomotor;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 enum StateExitType
 {

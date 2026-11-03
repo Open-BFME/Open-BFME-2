@@ -32,7 +32,7 @@ public:
 	UnsignedInt m_kindOf[8]; // +0x108
 };
 
-class AIUpdateInterface { public: ObjectID getIgnoredObstacleID() const; };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

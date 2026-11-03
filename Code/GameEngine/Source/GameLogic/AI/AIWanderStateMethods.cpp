@@ -133,17 +133,7 @@ template <> class AIUpdateSlots<0>
 {
 };
 // chooseLocomotorSet is AIUpdateInterface vslot 142 (+0x238).
-class AIUpdateInterface : public AIUpdateSlots<142>
-{
-public:
-	virtual Bool chooseLocomotorSet(LocomotorSetType wst) = 0;
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-	void setPathExtraDistance(Real dist);
-	void setCompletedWaypoint(const Waypoint *wp);
-private:
-	unsigned char m_pad004[0x1F0 - 0x04];
-	Locomotor *m_curLocomotor; // +0x1F0
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ThingTemplate
 {
 public:

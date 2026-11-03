@@ -554,15 +554,7 @@ public:
 
 struct Coord3D;
 // AIUpdateInterface keeps the last completed waypoint at +0x13C.
-class AIUpdateInterface
-{
-public:
-	const Waypoint *getCompletedWaypoint() const { return m_completedWaypoint; }
-	bool isQuickPathAvailable(const Coord3D *position) const;
-private:
-	unsigned char m_pad00[0x13C];
-	const Waypoint *m_completedWaypoint; // +0x13C
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // Zero Hour's Coord3D; length is the rowed out-of-line 0x00003571.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

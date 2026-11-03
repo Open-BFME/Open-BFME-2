@@ -29,15 +29,7 @@ enum ObjectEnterExitType
 class Object;
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"
-class AIUpdateInterface
-{
-public:
-	void ignoreObstacle(const Object *obj);
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-private:
-	unsigned char m_pad000[0x1F0];
-	Locomotor *m_curLocomotor; // +0x1F0
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 extern GameLogic *TheGameLogic;
 class StateMachine

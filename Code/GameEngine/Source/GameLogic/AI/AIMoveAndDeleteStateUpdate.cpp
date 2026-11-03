@@ -30,20 +30,7 @@ enum PathfindLayerEnum
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"
-class AIUpdateInterface
-{
-public:
-	__declspec(dllimport) __forceinline Path *getPath() { return m_path; }
-	Bool isWaitingForPath() const { return m_waitingForPath; }
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-private:
-	unsigned char m_pad000[0x140];
-	Path *m_path; // +0x140
-	unsigned char m_pad144[0x1F0 - 0x144];
-	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3B1 - 0x1F4];
-	Bool m_waitingForPath; // +0x3B1
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

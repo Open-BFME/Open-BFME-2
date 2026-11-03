@@ -37,11 +37,7 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-class AIUpdateInterface
-{
-public:
-	ObjectID getIgnoredObstacleID() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ThingTemplate
 {

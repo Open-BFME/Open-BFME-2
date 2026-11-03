@@ -28,26 +28,11 @@ struct GameLogicFrame
 
 #define TheGameLogic (*(GameLogicFrame **)&TheGameLogic)
 
-class AIUpdateInterface : public UpdateModule
-{
-	char m_pad20[0x1A8 - 0x20];
-	unsigned int m_vals1A8[4];
-	unsigned int m_frames1B8[4];
-	unsigned int m_count1C8;
-	char m_pad1CC[0x3BD - 0x1CC];
-	bool m_dead3BD;
-	char m_pad3BE[0x3C2 - 0x3BE];
-	bool m_isInUpdate;
-public:
-	void markAsDead();
-	void rva00262989(unsigned int val);
-protected:
-	void wakeUpNow();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::wakeUpNow()
 {
-	if (getWakeFrame() > UPDATE_SLEEP_NONE && !m_isInUpdate)
+	if (getWakeFrame() > UPDATE_SLEEP_NONE && !m_field3C2)
 		setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
@@ -58,7 +43,7 @@ void AIUpdateInterface::wakeUpNow()
 // Evidence: donor plus callees rowed/pinned plus callers at 0x004A4695 etc.
 void AIUpdateInterface::markAsDead()
 {
-	m_dead3BD = true;
+	m_field3BD = true;
 	m_object->setEffectivelyDead(true);
 	return wakeUpNow();
 }
@@ -72,15 +57,15 @@ void AIUpdateInterface::markAsDead()
 void AIUpdateInterface::rva00262989(unsigned int val)
 {
 	unsigned int slot;
-	if (m_count1C8 == 4) {
+	if (m_field1C8 == 4) {
 		slot = 0;
 		for (unsigned int i = 1; i < 4; ++i) {
-			if (m_frames1B8[i] < m_frames1B8[slot])
+			if (m_field1B8[i] < m_field1B8[slot])
 				slot = i;
 		}
 	} else {
-		slot = m_count1C8++;
+		slot = m_field1C8++;
 	}
-	m_frames1B8[slot] = TheGameLogic->m_frame;
-	m_vals1A8[slot] = val;
+	m_field1B8[slot] = TheGameLogic->m_frame;
+	m_field1A8[slot] = val;
 }
