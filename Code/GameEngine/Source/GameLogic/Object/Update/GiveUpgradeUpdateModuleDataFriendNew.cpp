@@ -22,17 +22,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class GiveUpgradeUpdateModuleData
-{
-public:
-	GiveUpgradeUpdateModuleData();
-	virtual ~GiveUpgradeUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xE4 - 4];
-};
+#include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
 
 // ?friend_newModuleData@GiveUpgradeUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *GiveUpgradeUpdateModuleData::friend_newModuleData(INI *ini)

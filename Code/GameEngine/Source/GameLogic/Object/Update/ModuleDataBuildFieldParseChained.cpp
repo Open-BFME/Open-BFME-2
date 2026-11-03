@@ -1000,11 +1000,7 @@ extern const FieldParse BfmeGiveUpgradeUpdateFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class GiveUpgradeUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
 
 void GiveUpgradeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

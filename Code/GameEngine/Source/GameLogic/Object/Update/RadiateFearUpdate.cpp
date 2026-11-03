@@ -351,11 +351,7 @@ int Rva0033A495Get(void);
 
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
 
-class GiveUpgradeUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
