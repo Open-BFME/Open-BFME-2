@@ -77,13 +77,13 @@ float Rva0030E7D0::rva0030E67C(float x, float y)
     float h;
     if (fy > fx)
     {
-        float c = data[base + m_width];
-        h = (p00 - c) * (1.0f - fy) + (p11 - c) * fx + c;
+        float cornerHeight = data[base + m_width];
+        h = (p00 - cornerHeight) * (1.0f - fy) + (p11 - cornerHeight) * fx + cornerHeight;
     }
     else
     {
-        float c = data[base + 1];
-        h = (p00 - c) * (1.0f - fx) + (p11 - c) * fy + c;
+        float cornerHeight = data[base + 1];
+        h = (p00 - cornerHeight) * (1.0f - fx) + (p11 - cornerHeight) * fy + cornerHeight;
     }
     return h;
 }

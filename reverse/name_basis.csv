@@ -7284,3 +7284,11 @@ param,Rva004C77C4Max::a,Rva004C77C4Max::left,inferred,agree:nl-33b427c6d93c,Code
 param,Rva004C77C4Max::b,Rva004C77C4Max::right,inferred,agree:nl-35fd61f21d98,Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp,
 param,Rva002BBBE7::rva002BBBE7::n,Rva002BBBE7::rva002BBBE7::node,inferred,agree:nl-d3f39abeb65d,Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp,0x002BBBE7
 local,BfmeHostAAS::bfmeProbeAAS::r,BfmeHostAAS::bfmeProbeAAS::windowRect,inferred,agree:nl-749e2fa7cbcc,Code/Libraries/Source/debug/debug_cmd.cpp,0x000397D0
+local,~BfmeHolderDB::p,~BfmeHolderDB::countedObject,inferred,agree:nl-cda036a59a26,Code/Libraries/Source/Apt/AptLoad.cpp,
+local,~Rva006D07E0Key::p,~Rva006D07E0Key::countedObject,inferred,agree:nl-8f9c04c1897c,Code/Libraries/Source/Apt/AptLoad.cpp,
+local,Gen_009431F0::map_x::c,Gen_009431F0::map_x::cellCount,inferred,agree:nl-89b2c8b251a3,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,0x00140EB0
+local,Gen_009431F0::map_x::t,Gen_009431F0::map_x::scaledPos,inferred,agree:nl-3c9786ee9bcb,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,0x00140EB0
+local,Gen_009431F0::map_y::c,Gen_009431F0::map_y::cellCount,inferred,agree:nl-92852082f820,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,0x00140F10
+local,Gen_009431F0::map_y::t,Gen_009431F0::map_y::scaledPos,inferred,agree:nl-3ccc53ce4989,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,0x00140F10
+local,Rva0030E7D0::rva0030E67C::c,Rva0030E7D0::rva0030E67C::cornerHeight,inferred,agree:nl-51a2208a11bf,Code/Libraries/Source/WWVegas/WWLib/Rva0030E67CSample.cpp,0x0030E67C
+param,Rva006240E0::Rva006240E0::n,Rva006240E0::Rva006240E0::bucketCount,inferred,agree:nl-c612febf8b9b,Code/Libraries/Source/assetmanager/Rva006240E0Cluster.cpp,0x006240E0

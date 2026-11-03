@@ -27,25 +27,25 @@ private:
 
 int Gen_009431F0::map_x(float x)
 {
-	float t = (x - origin_x) * scale * (float)(unsigned)count;
-	int i = (int)bfme_fistp((float)floor((double)t));
+	float scaledPos = (x - origin_x) * scale * (float)(unsigned)count;
+	int i = (int)bfme_fistp((float)floor((double)scaledPos));
 	if (i < 0)
 		return 0;
-	int c = count;
-	if ((unsigned)i >= (unsigned)c)
-		return c - 1;
+	int cellCount = count;
+	if ((unsigned)i >= (unsigned)cellCount)
+		return cellCount - 1;
 	return i;
 }
 
 int Gen_009431F0::map_y(float y)
 {
-	float t = (y - origin_y) * scale * (float)(unsigned)count;
-	int i = (int)bfme_fistp((float)floor((double)t));
+	float scaledPos = (y - origin_y) * scale * (float)(unsigned)count;
+	int i = (int)bfme_fistp((float)floor((double)scaledPos));
 	if (i < 0)
 		return 0;
-	int c = count;
-	if ((unsigned)i >= (unsigned)c)
-		return c - 1;
+	int cellCount = count;
+	if ((unsigned)i >= (unsigned)cellCount)
+		return cellCount - 1;
 	return i;
 }
 

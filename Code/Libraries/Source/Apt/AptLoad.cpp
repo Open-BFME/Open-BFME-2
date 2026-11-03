@@ -72,9 +72,9 @@ public:
 	~Rva006D07E0Key()
 	{
 		if (m_object && dec(&m_object->m_useCount) == 0) {
-			Rva006D0280 *p = m_object;
-			p->~Rva006D0280();
-			g_pChainBlockAllocator->freeBlock(p, 0x1c);
+			Rva006D0280 *countedObject = m_object;
+			countedObject->~Rva006D0280();
+			g_pChainBlockAllocator->freeBlock(countedObject, 0x1c);
 		}
 	}
 	Rva006D0280 *m_object;
@@ -112,9 +112,9 @@ public:
 	~BfmeHolderDB()
 	{
 		if (m_object && dec(&m_object->m_useCount) == 0) {
-			Rva006D0280 *p = m_object;
-			p->~Rva006D0280();
-			g_pChainBlockAllocator->freeBlock(p, 0x1c);
+			Rva006D0280 *countedObject = m_object;
+			countedObject->~Rva006D0280();
+			g_pChainBlockAllocator->freeBlock(countedObject, 0x1c);
 		}
 	}
 	Rva006D0280 *m_object;

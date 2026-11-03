@@ -377,3 +377,7 @@ agree:nl-79679828ad74,Rva000AFA92::rva000AFA92::t,Rva000AFA92::rva000AFA92::tile
 agree:nl-75e902f53c93,BTREE_findbest::i3,BTREE_findbest::insertIndex,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,80a1d71ab4a9a5f62f87245eca619634a97aaab856d8034a5319d332ac284278
 agree:nl-ddf7b2784deb,BTREE_findbest::l,BTREE_findbest::pairBase,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,80a1d71ab4a9a5f62f87245eca619634a97aaab856d8034a5319d332ac284278
 agree:nl-adfb3166be76,BTREE_treepack::ptr1,BTREE_treepack::scanPtr,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0b3cec50641ae63c43c5d42c0b4bf806e6b64a947a995d7261b4a6f1b3b24996
+agree:nl-89b2c8b251a3,Gen_009431F0::map_x::c,Gen_009431F0::map_x::cellCount,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,cf3a1829d9d0cc5950f301c4fe8b1e165c02f941611e9d5c19c3bbc81a2690e3
+agree:nl-3c9786ee9bcb,Gen_009431F0::map_x::t,Gen_009431F0::map_x::scaledPos,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,cf3a1829d9d0cc5950f301c4fe8b1e165c02f941611e9d5c19c3bbc81a2690e3
+agree:nl-92852082f820,Gen_009431F0::map_y::c,Gen_009431F0::map_y::cellCount,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,ee8e6ede7b23700473d86b0dd07c505f60524672faf98c7b6dc383df68695487
+agree:nl-3ccc53ce4989,Gen_009431F0::map_y::t,Gen_009431F0::map_y::scaledPos,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,ee8e6ede7b23700473d86b0dd07c505f60524672faf98c7b6dc383df68695487

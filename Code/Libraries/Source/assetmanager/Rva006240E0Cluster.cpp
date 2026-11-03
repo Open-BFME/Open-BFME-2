@@ -73,9 +73,9 @@ template <> void **vector<void*>::end();
 class Rva006240E0
 {
 public:
-    Rva006240E0(int n, int a, int b, int c);
+    Rva006240E0(int bucketCount, int a, int b, int c);
 private:
     _STL::hash_map<int, int> m_map;
 };
 
-Rva006240E0::Rva006240E0(int n, int a, int b, int c) : m_map(n) {}
+Rva006240E0::Rva006240E0(int bucketCount, int a, int b, int c) : m_map(bucketCount) {}
