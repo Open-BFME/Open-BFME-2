@@ -705,19 +705,7 @@ extern MultiplayerSettings *TheMultiplayerSettings;
 // AptLoadScreen's Apt extern handlers: its constructor 0x0043AE44 registers 0x0043A1C0 as
 // "GameLoading:PlayerColor:%d" and 0x0043A242 as "GameLoadingType" (AptLoadScreenCtor.cpp).
 // Non-virtual members only; this TU's view covers the fields the two handlers read.
-class AptLoadScreen
-{
-public:
-	void PlayerColor(int index, char *buffer, bool skip);
-	void GameLoadingType(int index, char *buffer, bool skip);
-private:
-	char m_pad[0x14];
-	int m_mode;												// +0x14
-	char m_pad18[0x88 - 0x18];
-	GameInfo *m_gameInfo;									// +0x88
-	int m_8C;
-	int m_slots[8];											// +0x90
-};
+#include "../../Include/GameClient/AptLoadScreen.h"
 
 // --- 0x0041FCD6 (20B): forward to the rowed 0x0041FC77 insert, returning its
 // result record.

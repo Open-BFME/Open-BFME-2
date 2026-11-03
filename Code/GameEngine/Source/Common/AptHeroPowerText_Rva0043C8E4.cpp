@@ -227,14 +227,5 @@ extern int g_Va00E06398;
 // ?processProgress@AptLoadScreen@@UAEXHH@Z @0x0043A15D 99B: SetBarTo on the panel's
 // Apt owner (+0x8C) with the slot's id from the table at +0xB0 and the
 // percentage, both formatted by sprintf "%d".
-class AptLoadScreen
-{
-public:
-	virtual void processProgress(int slot, int percent);
-private:
-	char m_pad04[0x8C - 4];
-	void *m_owner;				// +0x8C
-	char m_pad90[0x20];
-	int m_ids[1];				// +0xB0
-};
+#include "../../Include/GameClient/AptLoadScreen.h"
 
