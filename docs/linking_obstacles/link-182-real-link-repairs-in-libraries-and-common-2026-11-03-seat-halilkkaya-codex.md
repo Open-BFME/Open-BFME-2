@@ -92,3 +92,30 @@ remain scalar stand-ins. The catalog196B extent does not prove the second
 root's size (native40B). Both code rows stay exact, with no source edit.
 [Landing order, all44 sources, pointer graph and claims](../reverse/attempt_support/real-link-seat-halilkkaya-codex-20261103.md)
 and [original name/provider hints](../reverse/attempt_support/real-link-seat-halilkkaya-codex-20261103.tsv).
+
+
+### Particle binder constructor views (2026-11-04, halilkkaya-cx-o3)
+
+Base a24836a7f9: `Rva001F4B01Ctor.cpp` declared four invented three-slot
+classes (`slot0`, `ResolveBindings`, virtual dtor), so its four vtable
+COMDATs named 12 symbols nothing defines (all 12 real-link artifact names of
+this unit). Retail's tables have two slots: 0x00BE171C = { 0x001F4B47,
+0x001F4A90 } and 0x00BE16E8/F0/F8 = { 0x001F45C3, 0x001F69B1/0x001F73D5/
+0x001F7740 }. The unit now compiles the declarations the rowed destructor
+0x001F4B01 already compiles (FX binder base, `FXShaderParameterSourceNamespace_Struct`,
+nested `ParticleFXShaderParameterSourceNamespace::SourceNamespace_*`), so both
+installing units emit one `??_7Rva001F4B01@@6B@`. The 80B ctor stays exact;
+true base/tip link_check over 15 consumer/sibling/COMDAT-sharing units: 14 -> 15
+LINKS, no LINKS loss, every shared COMDAT copy identical to the census's other
+copies. Scoped DIR32 passes. No census/full-image credit is claimed.
+
+Remaining (runtime, not link): slot 1 of 0x00BE171C stays pure in both
+installing units, so a linked image carries `__purecall` there instead of
+0x001F4A90. 0x001F4A90 is rowed as the nonvirtual
+`ParticleFXShaderParameterSourceNamespace::ResolveBindings(const char *, int, int)`.
+Reconciling it needs class `Rva001F4B01` renamed to
+`ParticleFXShaderParameterSourceNamespace` and 0x001F4A90 respelled
+`UAEXPBD0PAVFXShaderParameterBinder@@@Z`. `rename.py class --basis canonical:wb`
+refuses: `name_evidence.py` has no wb-assert candidate for the class, and the
+wb_name_leads row at 0x001F4A90 still spells the stale placeholder
+`Rva001F4A90Host`. The rename needs a naming approval.
