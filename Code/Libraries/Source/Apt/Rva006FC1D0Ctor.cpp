@@ -20,18 +20,7 @@ public:
     BfmeAptValue006DCD20(int type);
     virtual ~BfmeAptValue006DCD20();
 };
-class AptNativeHash
-{
-    struct Entry { void *key; AptValue *value; };
-    int mnTotalSize;
-    Entry *mpData;
-    AptValue *mp__proto__;
-    AptValue *mpPrototype;
-    unsigned int nEventHandlers;
-public:
-    AptNativeHash(int size);
-    ~AptNativeHash();
-};
+#include "AptNativeHash.h"
 class Rva006D6360 : public BfmeAptValue006DCD20
 {
     AptNativeHash m_hash;

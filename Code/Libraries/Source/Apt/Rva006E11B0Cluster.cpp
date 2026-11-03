@@ -46,11 +46,7 @@ public:
     virtual void s13();
 };
 
-class AptNativeHash
-{
-public:
-    void rva0070B220(void *value);
-};
+#include "AptNativeHash.h"
 
 class AptDisplayListState
 {
