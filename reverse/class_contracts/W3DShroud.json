@@ -1,0 +1,281 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DShroud",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 3
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x48": {
+    "1": 1
+   },
+   "0x4c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x73320"
+     ],
+     "value": {
+      "0x4c": [
+       "?$map@EFU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEF@_STL@@@2@@_STL",
+       "?$set@HU?$less@H@_STL@@V?$Rva0054E8DCAllocator@H@@@_STL",
+       "?$set@PAURva004ABDDCEntry@@U?$less@PAURva004ABDDCEntry@@@_STL@@V?$allocator@PAURva004ABDDCEntry@@@3@@_STL",
+       "?$set@URva000D20A9Key@@U?$less@URva000D20A9Key@@@_STL@@V?$allocator@URva000D20A9Key@@@3@@_STL",
+       "?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL",
+       "Rva002EE9B7"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "28": 1,
+   "68": 1,
+   "88": 5
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DShroud.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShroud.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "data",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 53,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 54,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006F1FEGetRef.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 88,
+ "size_by": "majority",
+ "vslots": {}
+}
