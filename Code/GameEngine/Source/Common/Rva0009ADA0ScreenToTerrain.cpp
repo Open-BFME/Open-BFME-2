@@ -129,7 +129,7 @@ public:
 	virtual void v23();
 	virtual bool rva0009AF90();
 	virtual void v25();
-	virtual void rva0009AFA5(float val);
+	virtual void setPosition(float val);
 	virtual void v27();
 	virtual void rva0009AC4E(Vector3 *out);
 	virtual void getPosition(Vector3 *out);
@@ -249,7 +249,7 @@ bool Rva0009D55BProduct::rva0009AF90()
 	return g_00DE5E44 >= m_position134;
 }
 
-void Rva0009D55BProduct::rva0009AFA5(float val)
+void Rva0009D55BProduct::setPosition(float val)
 {
 	m_position134 = (val < 0.0f) ? 0.0f : ((val > 1.0f) ? 1.0f : val);
 }

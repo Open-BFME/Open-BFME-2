@@ -74,7 +74,7 @@ struct XProductionEntry
 	unsigned char m_pad00[8];
 	XProductionInfo *m_08;
 	int m_pad0C;
-	int m_10;
+	int m_productionID;
 };
 
 class XProductionQueue
@@ -112,7 +112,7 @@ struct XModuleData
 {
 	unsigned char m_pad00[8];
 	AsciiString m_08;
-	AsciiString m_0C;
+	AsciiString m_commandButtonName;
 	unsigned char m_pad10[0x1C - 0x10];
 	bool m_1C;
 };
@@ -167,7 +167,7 @@ int Rva004B886F::update()
 			XProductionInfo *info = entry->m_08;
 			bool same = info != 0 && info->m_64.compare(rva004B8851()) == 0;
 			if (same)
-				queue->cancel(entry->m_10);
+				queue->cancel(entry->m_productionID);
 		}
 	}
 	else
@@ -178,7 +178,7 @@ int Rva004B886F::update()
 			const ThingTemplate *thing = TheThingFactory->findTemplate(data->m_08);
 			if (thing && gate->rva002A7557((Rva002A7557In *)thing, 0))
 			{
-				const CommandButton *button = TheControlBar->findCommandButton(data->m_0C);
+				const CommandButton *button = TheControlBar->findCommandButton(data->m_commandButtonName);
 				if (!data->m_1C || m_flag)
 				{
 					if (button)

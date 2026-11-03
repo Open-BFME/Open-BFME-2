@@ -214,9 +214,9 @@ private:
 
 void Rva000B348E::rva000B348E(bool b)
 {
-	Rva000B348EO *o = *(Rva000B348EO **)((char *)this - 8);
+	Rva000B348EO *owner = *(Rva000B348EO **)((char *)this - 8);
 	bool u;
-	if (o->f)
+	if (owner->f)
 		u = false;
 	else
 		u = *(volatile bool *)&b;

@@ -7378,3 +7378,9 @@ function,?rva007B33C5@@YAXXZ,?registerSpawnArmy@@YAXXZ,inferred,agree:nl-5dfa55b
 function,?rva007B481D@@YAXXZ,?registerIncreaseCommandPoints@@YAXXZ,inferred,agree:nl-7c14fa350030,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B481D
 function,?rva007B4874@@YAXXZ,?registerStrengthenArmy@@YAXXZ,inferred,agree:nl-ce4739dd8b31,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B4874
 function,?rva007B48CB@@YAXXZ,?registerUpgradeTroops@@YAXXZ,inferred,agree:nl-6955bfd9bb25,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B48CB
+member,XModuleData::m_0C,XModuleData::m_commandButtonName,inferred,agree:nl-94693bbfe37c,Code/GameEngine/Source/Common/Rva004B8732Getter.cpp,
+member,XProductionEntry::m_10,XProductionEntry::m_productionID,inferred,agree:nl-f78639fddcec,Code/GameEngine/Source/Common/Rva004B8732Getter.cpp,
+param,Rva0056B8F4::rva0056B8F4::arg,Rva0056B8F4::rva0056B8F4::index,inferred,agree:nl-4c0b80389da2-m41e096cbdbca9fa63672f0b7,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,0x0056B8F4
+param,Rva0056B929::rva0056B929::arg,Rva0056B929::rva0056B929::flag,inferred,agree:nl-7856de77e38b-m9a8f1a3b5d545b3c984cecbb,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,0x0056B929
+local,Rva000B348E::rva000B348E::o,Rva000B348E::rva000B348E::owner,inferred,agree:nl-a880ba34ab0c-m4de1c6664c418350a8ad09ec,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp,0x000B348E
+function,?rva0009AFA5@Rva0009D55BProduct@@UAEXM@Z,?setPosition@Rva0009D55BProduct@@UAEXM@Z,inferred,agree:nl-9f4b716a811c,Code/GameEngine/Source/Common/Rva0009ADA0ScreenToTerrain.cpp,0x0009AFA5

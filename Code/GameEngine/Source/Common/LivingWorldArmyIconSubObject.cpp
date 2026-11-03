@@ -162,7 +162,7 @@ private:
 	char m_pad[0xBC - 4];
 	unsigned int m_bc;
 public:
-	void rva0056B8F4(unsigned int arg);
+	void rva0056B8F4(unsigned int index);
 };
 
 // ?rva0056B929@Rva0056B929@@QAEXE@Z @0x0056B929 53B:
@@ -194,7 +194,7 @@ private:
 	char m_pad[0xC0 - 4];
 	unsigned char m_c0;
 public:
-	void rva0056B929(unsigned char arg);
+	void rva0056B929(unsigned char flag);
 };
 
 // ?rva0056B95E@Rva0056B95E@@QAEXXZ @0x0056B95E 18B:
@@ -312,10 +312,10 @@ unsigned char LivingWorldArmyIconSubObject::rva0056B89F()
 
 // ---- from Code/GameEngine/Source/Common/Rva0056B8F4.cpp
 
-void Rva0056B8F4::rva0056B8F4(unsigned int arg)
+void Rva0056B8F4::rva0056B8F4(unsigned int index)
 {
 	bool oldVal = v44func();
-	m_bc = arg;
+	m_bc = index;
 	bool curVal = v44func();
 	if (curVal != oldVal)
 		v30func(curVal);
@@ -323,10 +323,10 @@ void Rva0056B8F4::rva0056B8F4(unsigned int arg)
 
 // ---- from Code/GameEngine/Source/Common/Rva0056B929.cpp
 
-void Rva0056B929::rva0056B929(unsigned char arg)
+void Rva0056B929::rva0056B929(unsigned char flag)
 {
 	bool oldVal = v44func();
-	m_c0 = arg;
+	m_c0 = flag;
 	bool curVal = v44func();
 	if (curVal != oldVal)
 		v30func(curVal);
