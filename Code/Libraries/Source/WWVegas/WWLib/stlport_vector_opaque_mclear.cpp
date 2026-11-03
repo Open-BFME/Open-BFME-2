@@ -8,15 +8,7 @@
 // Four callers 0x00058B74 0x00058C53 0x00239F13 0x0023A10C operate on Opaque vectors.
 #include <windows.h>
 #include <vector>
-class OpaqueRefCounted
-{
-public:
-    virtual ~OpaqueRefCounted();
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "OpaqueRefCounted.h"
 struct OpaqueRefElement4
 {
     OpaqueRefCounted *referent;

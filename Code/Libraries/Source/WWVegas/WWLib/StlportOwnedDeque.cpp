@@ -17,14 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <deque>
 #include <windows.h>
-class OpaqueRefCounted {
-public:
-    virtual ~OpaqueRefCounted();
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "OpaqueRefCounted.h"
 struct OpaqueRefElement4 {
     OpaqueRefCounted *referent;
     ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }

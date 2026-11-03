@@ -23,15 +23,7 @@
 
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
-class OpaqueRefCounted
-{
-public:
-	void Add_Ref() { InterlockedIncrement(&m_refs); }
-	bool rva00050EFA();
-	void Release_Ref();
-	void *m_vtbl;
-	long m_refs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct AudioEventInfo;
 

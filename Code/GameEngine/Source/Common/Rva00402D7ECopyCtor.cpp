@@ -25,14 +25,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "ascii_string.h"
 
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-	void Release_Ref();
-private:
-	long refs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct OpaqueRefElement4
 {

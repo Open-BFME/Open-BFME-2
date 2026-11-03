@@ -5,16 +5,7 @@
 
 #include <windows.h>
 
-class OpaqueRefCounted
-{
-public:
-    virtual ~OpaqueRefCounted();
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    bool rva00050EFA();
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "OpaqueRefCounted.h"
 
 struct OpaqueRefElement4
 {

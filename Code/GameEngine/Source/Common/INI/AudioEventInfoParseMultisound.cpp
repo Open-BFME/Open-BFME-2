@@ -20,15 +20,7 @@ struct FieldParse;
 extern const struct FieldParse g_00BD9D68[];
 extern const float g_00BDA3E4;
 
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-	void Add_Ref() { InterlockedIncrement(&refs); }
-	void Release_Ref();
-private:
-	long refs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct OpaqueRefElement4
 {

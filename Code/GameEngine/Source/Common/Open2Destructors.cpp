@@ -156,15 +156,7 @@ Open2Dtor69CF00::~Open2Dtor69CF00()
 // and two null-guarded calls to OpaqueRefCounted::Release_Ref at 0x50ED3
 // accompany ten member cleanup states. The original record name is unknown.
 // This referent declaration agrees with OpaqueRefOwnership.cpp.
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-	void Add_Ref();
-	void Release_Ref();
-private:
-	long refs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Open2OwnedReference
 {

@@ -17,21 +17,7 @@ enum PlayingStatus
 	PS_Paused
 };
 
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-
-	void Add_Ref(void)
-	{
-		InterlockedIncrement(&m_refCount);
-	}
-
-	void Release_Ref(void);
-
-private:
-	long m_refCount;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class PlayingAudio : public OpaqueRefCounted
 {

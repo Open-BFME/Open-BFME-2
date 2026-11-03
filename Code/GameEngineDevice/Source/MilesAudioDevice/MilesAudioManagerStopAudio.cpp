@@ -60,21 +60,7 @@ public:
 	unsigned int getSoundClass(void) const;
 };
 
-class OpaqueRefCounted
-{
-public:
-	virtual ~OpaqueRefCounted();
-
-	void Add_Ref(void)
-	{
-		InterlockedIncrement(&m_refCount);
-	}
-
-	void Release_Ref(void);
-
-private:
-	long m_refCount;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // The guarded stream forwarders are rowed under these owners in
 // PinnedForwarders1830.cpp; MilesAudioManager.cpp casts to the same views.

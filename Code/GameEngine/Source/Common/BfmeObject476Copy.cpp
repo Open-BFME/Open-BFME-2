@@ -160,7 +160,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 struct Rva003623E5Member {void initFromStorages(BfmeFixedStorage0004543D,BfmeFixedStorage0004543D);};
 struct Rva00360D26Member {Rva00360D26Member();~Rva00360D26Member();unsigned word;};
 void __cdecl Rva00030830GameFree(void *);
-class OpaqueRefCounted {public:virtual ~OpaqueRefCounted();void Release_Ref();long refs;};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct Rva0010F149Handle {
  __forceinline Rva0010F149Handle():referent(0){}
  __declspec(noinline) __declspec(nothrow) Rva0010F149Handle(const Rva0010F149Handle &r);
@@ -169,7 +169,7 @@ struct Rva0010F149Handle {
 };
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
-__declspec(noinline) inline Rva0010F149Handle::Rva0010F149Handle(const Rva0010F149Handle &r):referent(r.referent) {if(referent)InterlockedIncrement(&referent->refs);}
+__declspec(noinline) inline Rva0010F149Handle::Rva0010F149Handle(const Rva0010F149Handle &r):referent(r.referent) {if(referent)InterlockedIncrement(&referent->m_04);}
 
 // ?bfmeAnchorRva0010F149HandleCtor absent-from-retail
 void *bfmeAnchorRva0010F149HandleCtor(void *where, const Rva0010F149Handle &r)

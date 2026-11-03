@@ -17,15 +17,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class OpaqueRefCounted
-{
-public:
-    virtual ~OpaqueRefCounted();
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "OpaqueRefCounted.h"
 
 struct OpaqueRefElement4
 {

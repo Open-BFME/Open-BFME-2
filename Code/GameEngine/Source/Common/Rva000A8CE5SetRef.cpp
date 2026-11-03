@@ -5,13 +5,7 @@
 
 #include <windows.h>
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-	void *vtable;
-	long volatile references;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva000A8C9B
 {
@@ -51,7 +45,7 @@ inline __declspec(noinline) void Rva000A8C9B::rva000A8CE5(OpaqueRefCounted *valu
 		clear();
 		m_ptr = value;
 		if (value)
-			InterlockedIncrement(&value->references);
+			InterlockedIncrement(&value->m_04);
 	}
 }
 
