@@ -1,0 +1,808 @@
+{
+ "bases": [
+  "UpdateModule",
+  "ProductionUpdateInterface",
+  "DieModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ProductionUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x130": {
+    "4": 1
+   },
+   "0x134": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x49e03a"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x8515bc",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva0049E03AIface20",
+       "offset": 32,
+       "own_vftable": "0x851478",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 36,
+       "own_vftable": "0x851470",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49e03a"
+     ],
+     "value": 317
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49e03a"
+     ],
+     "value": {
+      "0x114": [
+       1
+      ],
+      "0x118": [
+       4
+      ],
+      "0x11c": [
+       1
+      ],
+      "0x11d": [
+       1
+      ],
+      "0x120": [
+       4
+      ],
+      "0x128": [
+       4
+      ],
+      "0x12c": [
+       4
+      ],
+      "0x13c": [
+       1
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x49e03a"
+     ],
+     "value": {
+      "0x124": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x130": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x7c": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0xc8": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24e87e"
+     ],
+     "value": 320
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x49e03a"
+     ],
+     "value": {
+      "0x10": [
+       "0x8514f4"
+      ],
+      "0xc": [
+       "0x851500"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x49e03a"
+     ],
+     "value": {
+      "0x0": "0x8515bc",
+      "0x20": "0x851478",
+      "0x24": "0x851470"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8515bc"
+     ],
+     "value": {
+      "count": 13,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GProductionUpdate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x49e34c"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?Rva0049E13CGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x49e13c"
+       },
+       {
+        "name": "?xfer@ProductionUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x49f91a"
+       },
+       {
+        "name": "?getModuleNameKey@ProductionUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x49e15e"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x8515bc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x851470": {
+    "offset": 36,
+    "slots": {},
+    "stores": 1
+   },
+   "0x851478": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8515bc": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GProductionUpdate@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?Rva0049E13CGet@@YAHXZ",
+     "3": "?xfer@ProductionUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@ProductionUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "316": 1,
+   "320": 4
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ProductionUpdate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ProductionUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "Object*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextCallFrameAndPhase",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_indexInLogic",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_productionQueue",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "Rva0049D1B1*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_productionQueueTail",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva0049D1B1*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_uniqueID",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_productionCount",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_constructionCompleteFrame",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_doors",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 64,
+   "type": "DoorInfo[64]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:BitFlags<591>",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_words",
+     "offset": 0,
+     "size": 76,
+     "type": "uint[76]"
+    }
+   ],
+   "name": "m_clearFlags",
+   "name_by": "majority",
+   "offset": 124,
+   "retail_widths": {},
+   "size": 76,
+   "type": "BitFlags<591>",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:BitFlags<591>",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_words",
+     "offset": 0,
+     "size": 76,
+     "type": "uint[76]"
+    }
+   ],
+   "name": "m_setFlags",
+   "name_by": "majority",
+   "offset": 200,
+   "retail_widths": {},
+   "size": 76,
+   "type": "BitFlags<591>",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flagsDirty",
+   "name_by": "majority",
+   "offset": 276,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bfme118",
+   "name_by": "majority",
+   "offset": 280,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_bfme11C",
+   "name_by": "majority",
+   "offset": 284,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_cancellingAll",
+   "name_by": "tie",
+   "offset": 285,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bfme120",
+   "name_by": "majority",
+   "offset": 288,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<enum ObjectID,_STL::allocator<enum ObjectID> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_List_node<enum ObjectID>*"
+    }
+   ],
+   "name": "m_createdAuxiliary",
+   "name_by": "majority",
+   "offset": 292,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<enum ObjectID,_STL::allocator<enum ObjectID> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bfme128",
+   "name_by": "tie",
+   "offset": 296,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bfme12C",
+   "name_by": "tie",
+   "offset": 300,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_bfme130",
+   "name_by": "majority",
+   "offset": 304,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_bfme13C",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "13": 1
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x11d",
+   "candidates": {
+    "m_11D": 1,
+    "m_cancellingAll": 1
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x124",
+   "candidates": {
+    "m_createdAuxiliary._M_node._M_data": 2,
+    "m_list124._M_node._M_data": 2
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x128",
+   "candidates": {
+    "m_128": 2,
+    "m_bfme128": 2
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x12c",
+   "candidates": {
+    "m_12C": 2,
+    "m_bfme12C": 2
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x130",
+   "candidates": {
+    "m_bfme130._M_start": 2,
+    "m_vec130._M_start": 2
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x134",
+   "candidates": {
+    "m_bfme130._M_finish": 2,
+    "m_vec130._M_finish": 2
+   },
+   "class": "ProductionUpdate"
+  },
+  {
+   "attribute": "name@0x138",
+   "candidates": {
+    "m_bfme130._M_end_of_storage._M_data": 2,
+    "m_vec130._M_end_of_storage._M_data": 2
+   },
+   "class": "ProductionUpdate"
+  }
+ ],
+ "size": 320,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}
