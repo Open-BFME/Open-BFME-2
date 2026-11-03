@@ -493,3 +493,4 @@ IMEManager,Code/GameEngine/Include/GameClient/IMEManagerClass.h,existing header;
 ProductionUpdateInterface,Code/GameEngine/Include/GameLogic/Module/ProductionUpdateInterface.h,existing header; contract class_contracts/ProductionUpdateInterface.json; 9/15 sampled units adopt
 PlayerTeamNode,Code/GameEngine/Include/GameLogic/PlayerTeamNode.h,existing header; contract class_contracts/PlayerTeamNode.json; 12/14 sampled units adopt
 WindModuleInfo,Code/GameEngine/Include/GameClient/WindModuleInfo.h,existing header; contract class_contracts/WindModuleInfo.json; 5/16 sampled units adopt
+S4Cmp00625BB0,Code/Libraries/Source/WWVegas/WWLib/S4Cmp00625BB0.h,existing header; contract class_contracts/S4Cmp00625BB0.json; 17/17 sampled units adopt
