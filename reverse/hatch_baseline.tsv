@@ -2742,7 +2742,6 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateC
 alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp	?slot02@State@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp	?slot03@State@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/DirectInputKeyboardOpen.cpp	?ji_0062af20@@YGJPAXKPBXPAPAX0@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	?insert_unique_noresize@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@6@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removeGoal@Pathfinder@@QAEXPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removePos@Pathfinder@@QAEXPAVObject@@@Z	1
@@ -3407,6 +3406,7 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectSce
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?slot04@W3DGhostObject@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?updateOrphanedObjects@GhostObjectManager@@UAEXPAHH@Z	1
 alternatename	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp	??RRva006038D4Less@@QBE_NPBD0@Z	1
+alternatename	Code/GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp	?ji_0062af20@@YGJPAXKPBXPAPAX0@Z	1
 alternatename	Code/Libraries/Source/ATL/atlbase.cpp	??0Rva00800630Owner@@QAE@XZ	1
 alternatename	Code/Libraries/Source/ATL/atlbase.cpp	?m@Gen_00800540@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/ATL/atlimage.cpp	??1Bitmap@Gdiplus@@UAE@XZ	1
