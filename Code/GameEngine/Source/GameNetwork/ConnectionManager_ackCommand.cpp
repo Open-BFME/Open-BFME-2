@@ -30,22 +30,7 @@ enum
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 
-class NetCommandMsg
-{
-public:
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void detach();
-
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	Int m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class NetAckBothCommandMsg : public NetCommandMsg
 {

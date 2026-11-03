@@ -68,21 +68,7 @@ public:
 	void enable();
 };
 
-class NetCommandMsg
-{
-public:
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
-
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class NetFrameCommandMsg : public NetCommandMsg
 {

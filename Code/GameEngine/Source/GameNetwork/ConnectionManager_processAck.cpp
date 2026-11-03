@@ -35,26 +35,7 @@ enum { NUM_CONNECTIONS = 8 };
 class NetCommandRef;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
-class NetCommandMsg
-{
-public:
-	void attach();
-	void detach();
-	UnsignedInt getExecutionFrame() const { return m_executionFrame; }
-	void setExecutionFrame(UnsignedInt frame) { m_executionFrame = frame; }
-	void setTimestamp(UnsignedInt timestamp) { m_timestamp = timestamp; }
-	UnsignedInt getTimestamp() { return m_timestamp; }
-	Int getNetCommandType() { return m_commandType; }
-	UnsignedInt getPlayerID() { return m_playerID; }
-
-	void *m_vptr;
-	UnsignedInt m_timestamp;						// this+0x04
-	UnsignedInt m_executionFrame;					// this+0x08
-	UnsignedInt m_playerID;							// this+0x0C
-	UnsignedShort m_id;								// this+0x10
-	Int m_commandType;								// this+0x14
-	Int m_referenceCount; // target +0x18; allocation/ctor evidence
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandRef.h
 class NetCommandRef

@@ -56,26 +56,12 @@ private:
 
 extern NetworkInterface *TheNetwork;
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setTimestamp(UnsignedInt timestamp) { m_timestamp = timestamp; }
-	UnsignedInt getTimestamp() const { return m_timestamp; }
-	void setExecutionFrame(UnsignedInt frame) { m_executionFrame = frame; }
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // Zero Hour's NetPlayerLeaveCommandMsg (type 10), held in the ledger under its
 // constructor's address name.

@@ -42,24 +42,12 @@ extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 extern Int FRAMES_TO_KEEP;
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 class NetCommandRef
 {
