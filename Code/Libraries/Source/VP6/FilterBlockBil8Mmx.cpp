@@ -12,14 +12,14 @@ extern const unsigned short g_rva00DB81B0Weights[9][16];
 extern "C" void __cdecl FilterBlock1d_hb8_mmx(const void *,void *,int,int,int,int,const void *);
 extern "C" void __cdecl FilterBlock1d_vb8_mmx(const void *,void *,int,int,int,int,const void *);
 extern "C" void __cdecl FilterBlock2dBil_mmx(const unsigned char *,unsigned char *,int,const void *,const void *);
-extern "C" void __cdecl FilterBlockBil_8_mmx(const unsigned char *a,const unsigned char *b,unsigned char *destination,int stride,int x,int y)
+extern "C" void __cdecl FilterBlockBil_8_mmx(const unsigned char *a,const unsigned char *b,unsigned char *destination,int stride,int xPhase,int yPhase)
 {
  int distance=b-a;
  if(distance<0) {const unsigned char *old=a;a=b;distance=old-a;}
- if(distance==1)FilterBlock1d_hb8_mmx(a,destination,stride,1,8,8,g_rva00DB81B0Weights[x]);
- else if(distance==stride)FilterBlock1d_vb8_mmx(a,destination,stride,stride,8,8,g_rva00DB81B0Weights[y]);
- else if(distance==stride-1)FilterBlock2dBil_mmx(a-1,destination,stride,g_rva00DB81B0Weights[x],g_rva00DB81B0Weights[y]);
- else if(distance==stride+1)FilterBlock2dBil_mmx(a,destination,stride,g_rva00DB81B0Weights[x],g_rva00DB81B0Weights[y]);
+ if(distance==1)FilterBlock1d_hb8_mmx(a,destination,stride,1,8,8,g_rva00DB81B0Weights[xPhase]);
+ else if(distance==stride)FilterBlock1d_vb8_mmx(a,destination,stride,stride,8,8,g_rva00DB81B0Weights[yPhase]);
+ else if(distance==stride-1)FilterBlock2dBil_mmx(a-1,destination,stride,g_rva00DB81B0Weights[xPhase],g_rva00DB81B0Weights[yPhase]);
+ else if(distance==stride+1)FilterBlock2dBil_mmx(a,destination,stride,g_rva00DB81B0Weights[xPhase],g_rva00DB81B0Weights[yPhase]);
 }
 
 // Native VA DB81B0 contains exactly these nine32B interpolation rows; the

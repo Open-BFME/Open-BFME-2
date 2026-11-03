@@ -356,3 +356,8 @@ agree:nl-f8044851036e,FontCharsClass::Store_Thai_GDI_Glyph::x1,FontCharsClass::S
 agree:nl-b0bb4be2d184,FontCharsClass::Store_Thai_GDI_Glyph::y0,FontCharsClass::Store_Thai_GDI_Glyph::srcTop,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp,36624343487ff3020ab28b0d192cd13fd6c1815bac6bcb3f66c0bf3353cad1e3
 agree:nl-777ed6a0209d,FontCharsClass::Store_Thai_GDI_Glyph::y1,FontCharsClass::Store_Thai_GDI_Glyph::srcBottom,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp,36624343487ff3020ab28b0d192cd13fd6c1815bac6bcb3f66c0bf3353cad1e3
 agree:nl-59a5732d0702,rva00177E95::n,rva00177E95::remaining,Code/Libraries/Source/WWVegas/WW3D2/Rva00177E95Fill.cpp,39adb18fd208254ac840d84df69b5b838709e90097219eccd0ffab496f7b95aa
+agree:nl-0c5182f124e1,GetStr::t,GetStr::text,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip.cpp,c96d05adba05943d69564008a1f63365f72622c90a5433aa0cb0e36139f0f529
+agree:nl-a9cd788b2e61,InGameUI::createCommandHint::t,InGameUI::createCommandHint::messageType,Code/GameEngine/Source/GameClient/InGameUICreateCommandHint.cpp,7407b8a4cdd6597d691e14eb1867e7a72aec7d57a278316a9fa51d77470f06aa
+agree:nl-7b898318ee05,Rva006E3410::rva006E3410::n,Rva006E3410::rva006E3410::count,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
+agree:nl-4ca868c6fe26,Rva006E3410::rva006E3410::p,Rva006E3410::rva006E3410::cursor,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
+agree:nl-bb120f6dec6a,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::target,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4

@@ -67,10 +67,10 @@ class Rva0029FB3BMember {public:
  IdNode *node;
 };
 class Rva002A1B6FNativeList : public Rva0029FB3BMember {public:
- Rva002A1B6FNativeList(const Rva0029FB3BAlloc &a=Rva0029FB3BAlloc()):Rva0029FB3BMember(a){}
+ Rva002A1B6FNativeList(const Rva0029FB3BAlloc &allocator=Rva0029FB3BAlloc()):Rva0029FB3BMember(allocator){}
  ~Rva002A1B6FNativeList(){}
  void push_back(void *const &value){insert(end(),value);}
- unsigned size() const {unsigned n=0;for(IdNode *i=node->next;i!=node;i=i->next)++n;return n;}
+ unsigned size() const {unsigned count=0;for(IdNode *i=node->next;i!=node;i=i->next)++count;return count;}
 private:
  Rva002A1316Iterator end(){return node;}
  Rva002A1316Iterator insert(Rva002A1316Iterator,void *const &);
@@ -286,12 +286,12 @@ void InGameUI::createCommandHint(const GameMessage *msg)
 {
  if (((Bfme939Helper *)TheRecorder)->get()==1) return;
  const Drawable *draw=TheGameClient->findDrawableByID(mousedOver);
- int t=msg->type;
- if (draw && (t==0xa7 || t==0xc0)) {
+ int messageType=msg->type;
+ if (draw && (messageType==0xa7 || messageType==0xc0)) {
   const Object *obj=draw->getObject();
   int localPlayerIndex=ThePlayerList?ThePlayerList->local->index:0;
   CellShroudStatus ss=!obj?(CellShroudStatus)0:obj->getShroudStatusForPlayer(localPlayerIndex);
-  if(ss==4)t=0xb3;
+  if(ss==4)messageType=0xb3;
  }
  GameWindow *window=0;
  unsigned char underWindow=((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva00222A53();
@@ -313,7 +313,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
  switch(mouseMode){
  case 0:
   if(underWindow || (srcObj&&!srcObj->isLocallyControlled())){CURSOR(2);return;}
-  if(t==0xb3 || t==0xb4) {
+  if(messageType==0xb3 || messageType==0xb4) {
    const DList *list=getAllSelectedDrawables();
    if(list) {
     int value=ThePlayerList->local->value750;
@@ -327,7 +327,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
     }
    }
   }
-  switch(t) {
+  switch(messageType) {
   case 0xb3:
    if(!drawSelectable && srcObj && srcObj->isLocallyControlled() && (srcObj->type->kind108&0x80))
     CURSOR(0xc);
@@ -379,7 +379,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
   break;
  case 1:
   if(underWindow){CURSOR(2);return;}
-  switch(t){
+  switch(messageType){
   case 0xb3: case 0xb4: case 0x432: CURSOR(0xa); break;
   case 0xa7: case 0xc0: CURSOR(0xb); break;
   }
@@ -394,14 +394,14 @@ void InGameUI::createCommandHint(const GameMessage *msg)
     if(radius==0){
      clearRadius();
      int index;
-     switch(t){
+     switch(messageType){
      case 0xa4: index=TheMouse->getCursorIndex(pending->cursor); break;
      default: index=TheMouse->getCursorIndex(pending->invalid); break;
      }
      if(index!=-1) CURSOR(index); else CURSOR(4);
     } else {
      CURSOR(0);
-     radiusCursor(radius,pending->special,pending->weapon,t==0xa4);
+     radiusCursor(radius,pending->special,pending->weapon,messageType==0xa4);
     }
    } else if(pending->options&0x227){
     int radius=pending->radius;

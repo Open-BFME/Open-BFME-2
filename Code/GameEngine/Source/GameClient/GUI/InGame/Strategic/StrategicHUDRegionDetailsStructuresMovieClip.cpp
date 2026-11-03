@@ -311,8 +311,8 @@ AsciiString __cdecl Rva00222834Get(int val);
 
 __forceinline const char *GetStr(const AsciiString &asciiString)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *text = *(char **)(void *)&asciiString;
+	return text ? text + 8 : "";
 }
 
 inline int __cdecl Rva0052519DFire(void *a1, void *a2, const char *a3, const char *a4, int *a5)

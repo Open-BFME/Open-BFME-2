@@ -16,26 +16,26 @@ void __debugbreak();
 class Rva006E3410
 {
 public:
-	int rva006E3410(int v);
+	int rva006E3410(int needle);
 private:
 	char m_pad0[0xC];
 	int m_count;
 	int *m_arr;
 };
 
-int Rva006E3410::rva006E3410(int v)
+int Rva006E3410::rva006E3410(int needle)
 {
-	int n = m_count;
+	int count = m_count;
 	int i = 0;
-	if (n > 0) {
-		int *p = m_arr;
-		int x = v;
+	if (count > 0) {
+		int *cursor = m_arr;
+		int target = needle;
 		do {
-			if (*p == x)
+			if (*cursor == target)
 				return i;
 			++i;
-			++p;
-		} while (i < n);
+			++cursor;
+		} while (i < count);
 	}
 	g_bfmeAptAssertAtE17734("NOT_REACHED", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0xD2);
 	if (g_bfmeAptBreakOnAssertAtDDC01C)
