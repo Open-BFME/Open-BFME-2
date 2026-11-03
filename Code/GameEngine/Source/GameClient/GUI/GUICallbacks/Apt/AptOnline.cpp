@@ -314,14 +314,7 @@ private:
     unsigned int unknown[0x544 / 4];
 };
 typedef char StatsExtent[sizeof(PSPlayerAllStats) == 0x548 ? 1 : -1];
-class GameSpyMiscPreferences {
-public:
-    GameSpyMiscPreferences();
-    virtual ~GameSpyMiscPreferences();
-    int rva00559782();
-private:
-    unsigned int unknown[4];
-};
+#include "../../../../../Include/Common/GameSpyMiscPreferencesClass.h"
 class BfmeOpaqueOwnedRecord1432;
 class GameSpyPSMessageQueueInterface {
 public:

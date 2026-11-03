@@ -64,20 +64,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 
 #include "../../../Include/Common/QuickMatchPreferencesClass.h"
 
-class GameSpyMiscPreferences : public UserPreferences
-{
-public:
-	GameSpyMiscPreferences();
-	virtual ~GameSpyMiscPreferences();
-	int rva00559782();
-	void rva005597CB(int val);
-	void rva0055986F(AsciiString val);
-	void rva00559924(AsciiString val);
-	AsciiString rva00559813();
-	AsciiString rva005598C8();
-	Bool rva0055997D();
-	int rva005599C8();
-};
+#include "../../../Include/Common/GameSpyMiscPreferencesClass.h"
 
 // ??0QuickMatchPreferences@@QAE@XZ @0x5DF1A3
 QuickMatchPreferences::QuickMatchPreferences()

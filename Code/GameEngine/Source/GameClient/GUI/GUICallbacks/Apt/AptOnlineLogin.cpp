@@ -131,16 +131,8 @@ extern BfmeObjELB *g_bfmeObjELB;
 
 extern GameTextInterface *TheGameText;
 
-class UserPreferences { public: virtual ~UserPreferences();
-    virtual bool load(const AsciiString &); virtual bool load(const UnicodeString &);
-    virtual bool write(); };
+#include "../../../../../Include/Common/GameSpyMiscPreferencesClass.h"
 
-class GameSpyMiscPreferences: public UserPreferences {
-public: GameSpyMiscPreferences(); virtual ~GameSpyMiscPreferences();
-    int rva00559782();
-    int rva005599C8(); void rva005597CB(int);
-    unsigned char rest[0x10];
-};
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
