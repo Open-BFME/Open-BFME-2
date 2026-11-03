@@ -22,10 +22,39 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class RadarMarkerClientUpdate
+#include "../../../../Include/GameClient/RadarMarker.h"
+
+class Rva004C9B8F
 {
 public:
+	~Rva004C9B8F()
+	{
+		if (m_ptr != 0)
+			reinterpret_cast<RadarMarker *>(m_ptr)->DeleteReference();
+	}
+	Rva004C9B8F &operator=(const Rva004C9B8F &other);
+	void *get() const { return m_ptr; }
+private:
+	void *m_ptr;
+};
+
+#include "../../../../Include/Common/DrawableModule.h"
+
+class Rva00362EC7 : public DrawableModule
+{
+public:
+	Rva00362EC7(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva00362EC7();
+};
+
+class RadarMarkerClientUpdate : public Rva00362EC7
+{
+public:
+	RadarMarkerClientUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void clientUpdate();
+private:
+	Rva004C9B8F m_marker; // +0x0C
 };
 
 class __declspec(novtable) RadarMarkerClientUpdateModuleDataBase : public Snapshot
@@ -39,6 +68,7 @@ class RadarMarkerClientUpdateModuleData : public RadarMarkerClientUpdateModuleDa
 public:
 	virtual ~RadarMarkerClientUpdateModuleData();
 private:
+	friend class RadarMarkerClientUpdate;
 	int m_unused04;
 	AsciiString m_markerType;
 };

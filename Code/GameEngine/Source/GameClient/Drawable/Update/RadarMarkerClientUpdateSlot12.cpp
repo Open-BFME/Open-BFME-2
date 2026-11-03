@@ -64,28 +64,37 @@ public:
 
 extern Radar *TheRadar;
 
-struct RadarMarkerClientUpdateModuleData
-{
-	unsigned char m_pad00[0x08];
-	AsciiString m_name; // +0x08
-};
-
-class ModuleData;
-
 #include "../../../../Include/Common/DrawableModule.h"
 
-class ClientUpdateModule : public DrawableModule
+class __declspec(novtable) RadarMarkerClientUpdateModuleDataBase : public Snapshot
 {
 public:
-	virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void clientUpdate() = 0;
+	RadarMarkerClientUpdateModuleDataBase() {}
 };
 
-class RadarMarkerClientUpdate : public ClientUpdateModule
+class RadarMarkerClientUpdateModuleData : public RadarMarkerClientUpdateModuleDataBase
 {
 public:
+	virtual ~RadarMarkerClientUpdateModuleData();
+private:
+	friend class RadarMarkerClientUpdate;
+	int m_unused04;
+	AsciiString m_markerType;
+};
+
+
+class Rva00362EC7 : public DrawableModule
+{
+public:
+	Rva00362EC7(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva00362EC7();
+};
+
+class RadarMarkerClientUpdate : public Rva00362EC7
+{
+public:
+	RadarMarkerClientUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void clientUpdate();
 private:
 	Rva004C9B8F m_marker; // +0x0C
@@ -102,7 +111,7 @@ void RadarMarkerClientUpdate::clientUpdate()
 		if (!TheRadar)
 			return;
 		const RadarMarkerClientUpdateModuleData *data = (const RadarMarkerClientUpdateModuleData *)m_moduleData;
-		m_marker = TheRadar->rva004C9CF7Slot12(data->m_name.str());
+		m_marker = TheRadar->rva004C9CF7Slot12(data->m_markerType.str());
 	}
 	((ProcessAnimateWindowSlideFromBottomTimed *)m_marker.get())->ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow((AnimateWindow *)draw->getPosition());
 }
