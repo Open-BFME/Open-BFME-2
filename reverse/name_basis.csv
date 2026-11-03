@@ -7292,3 +7292,7 @@ local,Gen_009431F0::map_y::c,Gen_009431F0::map_y::cellCount,inferred,agree:nl-92
 local,Gen_009431F0::map_y::t,Gen_009431F0::map_y::scaledPos,inferred,agree:nl-3ccc53ce4989,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,0x00140F10
 local,Rva0030E7D0::rva0030E67C::c,Rva0030E7D0::rva0030E67C::cornerHeight,inferred,agree:nl-51a2208a11bf,Code/Libraries/Source/WWVegas/WWLib/Rva0030E67CSample.cpp,0x0030E67C
 param,Rva006240E0::Rva006240E0::n,Rva006240E0::Rva006240E0::bucketCount,inferred,agree:nl-c612febf8b9b,Code/Libraries/Source/assetmanager/Rva006240E0Cluster.cpp,0x006240E0
+local,PSPlayerStats::XferMap#2::n,PSPlayerStats::XferMap#2::count,inferred,agree:nl-a2abc607a560,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
+local,PSPlayerStats::XferMap#2::v,PSPlayerStats::XferMap#2::entryValue,inferred,agree:nl-93af7db260e5,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
+param,PSPlayerStats::XferMap#2::b,PSPlayerStats::XferMap#2::xfer,inferred,agree:nl-c9800ff14a44,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
+param,PSPlayerStats::XferMap#3::b,PSPlayerStats::XferMap#3::xfer,inferred,agree:nl-70f95b229cd9,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,

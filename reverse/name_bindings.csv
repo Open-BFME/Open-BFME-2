@@ -381,3 +381,4 @@ agree:nl-89b2c8b251a3,Gen_009431F0::map_x::c,Gen_009431F0::map_x::cellCount,Code
 agree:nl-3c9786ee9bcb,Gen_009431F0::map_x::t,Gen_009431F0::map_x::scaledPos,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,cf3a1829d9d0cc5950f301c4fe8b1e165c02f941611e9d5c19c3bbc81a2690e3
 agree:nl-92852082f820,Gen_009431F0::map_y::c,Gen_009431F0::map_y::cellCount,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,ee8e6ede7b23700473d86b0dd07c505f60524672faf98c7b6dc383df68695487
 agree:nl-3ccc53ce4989,Gen_009431F0::map_y::t,Gen_009431F0::map_y::scaledPos,Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp,ee8e6ede7b23700473d86b0dd07c505f60524672faf98c7b6dc383df68695487
+agree:nl-a2abc607a560,PSPlayerStats::XferMap#2::n,PSPlayerStats::XferMap#2::count,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,905d0e544cc5898ba077a2ad2b181cbb38a4487227e845c78294d123b4a68c57

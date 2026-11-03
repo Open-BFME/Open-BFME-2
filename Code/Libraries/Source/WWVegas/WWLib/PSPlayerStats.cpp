@@ -70,9 +70,9 @@ template <> int &_STL::map<unsigned char, int>::operator[](const unsigned char &
 class PSPlayerStats
 {
 public:
-	void XferMap(MapHolder *a, XferStub *b);
-	void XferMap(MapFloatHolder *a, XferStub *b);
-	void XferMap(MapIntHolder *a, XferStub *b);
+	void XferMap(MapHolder *a, XferStub *xfer);
+	void XferMap(MapFloatHolder *a, XferStub *xfer);
+	void XferMap(MapIntHolder *a, XferStub *xfer);
 };
 
 void PSPlayerStats::XferMap(MapHolder *a, XferStub *b)
@@ -102,44 +102,44 @@ void PSPlayerStats::XferMap(MapHolder *a, XferStub *b)
 }
 
 // Retail 0x0055499A: uchar/float map, node key +0x10 and value +0x14; xfer slots 0x88/0x70.
-void PSPlayerStats::XferMap(MapFloatHolder *a, XferStub *b)
+void PSPlayerStats::XferMap(MapFloatHolder *a, XferStub *xfer)
 {
 	unsigned int cnt = *(unsigned int *)((char *)a + 4);
-	unsigned int n = cnt;
-	b->_slot78((int &)n);
-	if (b->_isWriting()) {
+	unsigned int count = cnt;
+	xfer->_slot78((int &)count);
+	if (xfer->_isWriting()) {
 		for (MapFloatHolder::iterator it = a->begin(); it._M_node != a->end()._M_node; ++it) {
 			unsigned char k = (*it).first;
-			float v = (*it).second;
-			b->_slot88(k);
-			b->_slot70(v);
+			float entryValue = (*it).second;
+			xfer->_slot88(k);
+			xfer->_slot70(entryValue);
 		}
 		return;
 	}
 	((Rva0038204A *)a)->rva003828DF();
-	if (n <= 0U)
+	if (count <= 0U)
 		return;
 	do {
 		unsigned char k;
-		float v;
-		b->_slot88(k);
-		b->_slot70(v);
-		(*a)[k] = v;
-	} while (--n != 0);
+		float entryValue;
+		xfer->_slot88(k);
+		xfer->_slot70(entryValue);
+		(*a)[k] = entryValue;
+	} while (--count != 0);
 }
 
 // Retail 0x00554A4A: uchar/int map, node key +0x10 and value +0x14; xfer slots 0x88/0x78.
-void PSPlayerStats::XferMap(MapIntHolder *a, XferStub *b)
+void PSPlayerStats::XferMap(MapIntHolder *a, XferStub *xfer)
 {
 	unsigned int cnt = *(unsigned int *)((char *)a + 4);
 	unsigned int n = cnt;
-	b->_slot78((int &)n);
-	if (b->_isWriting()) {
+	xfer->_slot78((int &)n);
+	if (xfer->_isWriting()) {
 		for (MapIntHolder::iterator it = a->begin(); it._M_node != a->end()._M_node; ++it) {
 			unsigned char k = (*it).first;
 			int v = (*it).second;
-			b->_slot88(k);
-			b->_slot78(v);
+			xfer->_slot88(k);
+			xfer->_slot78(v);
 		}
 		return;
 	}
@@ -149,8 +149,8 @@ void PSPlayerStats::XferMap(MapIntHolder *a, XferStub *b)
 	do {
 		unsigned char k;
 		int v;
-		b->_slot88(k);
-		b->_slot78(v);
+		xfer->_slot88(k);
+		xfer->_slot78(v);
 		(*a)[k] = v;
 	} while (--n != 0);
 }
