@@ -646,3 +646,4 @@ W3DShroud,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShroudClass.h,ex
 WinDrawData,Code/GameEngine/Include/GameClient/WinDrawData.h,existing header; contract class_contracts/WinDrawData.json; 7/8 sampled units adopt
 GameSpyMiscPreferences,Code/GameEngine/Include/Common/GameSpyMiscPreferencesClass.h,existing header; contract class_contracts/GameSpyMiscPreferences.json; 5/8 sampled units adopt
 TerrainVisual,Code/GameEngine/Include/GameClient/TerrainVisualClass.h,existing header; contract class_contracts/TerrainVisual.json; 3/6 sampled units adopt
+ShroudManagerCell,Code/GameEngine/Include/Common/ShroudManagerCell.h,existing header; contract class_contracts/ShroudManagerCell.json; 4/7 sampled units adopt
