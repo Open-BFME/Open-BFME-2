@@ -466,3 +466,4 @@ Rva002EE9B7,Code/GameEngine/Include/GameLogic/Rva002EE9B7.h,existing header; con
 Rva002226E5TextPlusString,Code/GameEngine/Include/GameClient/Rva002226E5TextPlusString.h,existing header; contract class_contracts/Rva002226E5TextPlusString.json; 15/25 sampled units adopt
 ParticleSystem,Code/GameEngine/Include/GameClient/ParticleSystemClass.h,existing header; contract class_contracts/ParticleSystem.json; 14/76 sampled units adopt
 AptCreateAHero,Code/GameEngine/Include/Common/AptCreateAHero.h,existing header; contract class_contracts/AptCreateAHero.json; 10/14 sampled units adopt
+Rva0056AC26,Code/GameEngine/Include/Common/Rva0056AC26.h,existing header; contract class_contracts/Rva0056AC26.json; 7/18 sampled units adopt

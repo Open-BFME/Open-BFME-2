@@ -1,0 +1,234 @@
+{
+ "bases": [
+  "Rva003F7BBC"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva0056AC26",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 18,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x56ad80"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva003F7BBC",
+       "offset": 8,
+       "own_vftable": "0x86d01c",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x56ad80"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x56ad80"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x56ad80"
+     ],
+     "value": {
+      "0x0": "0x86d058",
+      "0x8": "0x86d01c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86d058"
+     ],
+     "value": {
+      "count": 5,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0056AC26@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x56add5"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 2,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 4,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x86d058"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x86d01c": {
+    "offset": 8,
+    "slots": {},
+    "stores": 1
+   },
+   "0x86d058": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0056AC26@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "8": 9,
+   "20": 6
+  },
+  "views": 18,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 10
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056AC26Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056AD19Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B188Constructor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B188Dtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldTutorial.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056AC26Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056AD19Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B188Constructor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B188Dtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldTutorial.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056AC26Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056AD19Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B188Constructor.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B188Dtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldTutorial.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base@0x8",
+   "candidates": {
+    "'Rva003F7BBC'": 1
+   },
+   "class": "Rva0056AC26",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  }
+ ],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "ac26Slot1()"
+  }
+ }
+}
