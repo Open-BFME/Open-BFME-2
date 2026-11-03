@@ -678,6 +678,27 @@ the `zh_sweep`/`bfme1_sweep` caches that already exist.
     python3 tools/name_lane.py dispute KEY... --reason TEXT
     python3 tools/name_lane.py status [--metric] [--only-labels L,L]
 
+ANSWER.json maps each served source to its answers, and each answer is keyed by
+`answer_key()`, **not** by the pipe-separated ledger key:
+
+    {"Code/GameEngine/Source/Common/X.cpp": {
+        "SomeClass":              "RealClass",   // class, function, global: bare identifier
+        "SomeClass::m_14":        "m_hitPoints", // member: scope::ident  (two colons)
+        "SomeClass::method:a":    "angle",       // param/local: scope:ident (one colon)
+        "SomeClass::method:b":    "skip"}}       // skip costs nothing; omitted keys are skips too
+
+The brief `next` writes already prints these in its first column, so copy that column
+rather than building a key. An answer key the session was not served is a hard error
+(`keys not served for <file>`), and the whole submit is refused. When a session served
+exactly one file you may drop the outer level and pass the inner map alone; `submit`
+wraps it for you. A value may also be an object carrying a meaning/role instead of a
+bare string. Submit consumes the session, so run `validate` first — and note `validate`
+exits non-zero on an all-skip file, so never chain the two with `&&`.
+
+A skipped key is **never consumed**: it stays in the queue and `next` will serve it again,
+to you, under any later session id. A round that returns only keys you already skipped
+means the lane has nothing new for you; stop there instead of looping on repeats.
+
 `apply` plans all selected live names in memory, running each proposal's normal
 agreement, protection, scope and per-name `--max-files` checks. Planning refusals
 stay blocked. Accepted plans share one claim operation, recovery journal, native
