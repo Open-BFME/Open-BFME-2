@@ -1,0 +1,1582 @@
+{
+ "bases": [
+  "Snapshot",
+  "Rva002B0F3CIface",
+  "Rva00380200"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Player",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 60,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x128": {
+    "4": 1
+   },
+   "0x160": {
+    "4": 1
+   },
+   "0x1ac": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x294": {
+    "4": 2
+   },
+   "0x2a8": {
+    "4": 2
+   },
+   "0x2bc": {
+    "4": 2
+   },
+   "0x2dc": {
+    "4": 5
+   },
+   "0x2f0": {
+    "4": 3
+   },
+   "0x2f4": {
+    "4": 2
+   },
+   "0x2fc": {
+    "4": 2
+   },
+   "0x300": {
+    "4": 2
+   },
+   "0x308": {
+    "4": 1
+   },
+   "0x30c": {
+    "4": 1
+   },
+   "0x314": {
+    "4": 1
+   },
+   "0x32c": {
+    "4": 32
+   },
+   "0x330": {
+    "4": 1
+   },
+   "0x334": {
+    "4": 1
+   },
+   "0x338": {
+    "1": 1
+   },
+   "0x339": {
+    "1": 1
+   },
+   "0x33a": {
+    "1": 1
+   },
+   "0x33d": {
+    "1": 1
+   },
+   "0x33f": {
+    "1": 2
+   },
+   "0x34": {
+    "4": 6
+   },
+   "0x3ac": {
+    "4": 2
+   },
+   "0x3b0": {
+    "4": 1
+   },
+   "0x3bc": {
+    "4": 2
+   },
+   "0x448": {
+    "1": 1
+   },
+   "0x6f0": {
+    "4": 3
+   },
+   "0x6f4": {
+    "4": 2
+   },
+   "0x730": {
+    "4": 6
+   },
+   "0x8": {
+    "4": 3
+   },
+   "0x94": {
+    "4": 1
+   },
+   "0x9c": {
+    "4": 1
+   },
+   "0xa4": {
+    "4": 1
+   },
+   "0xa8": {
+    "1": 1
+   },
+   "0xac": {
+    "4": 1
+   },
+   "0xb0": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 2
+   },
+   "0xb8": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x758": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2b0f3c"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 0,
+       "own_vftable": "0x7fdf3c",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x7e2b78>",
+       "offset": 4,
+       "own_vftable": "0x7fdf30",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "target",
+       "name": "Rva00380200",
+       "offset": 8,
+       "own_vftable": "0x7fdf18",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2b0f3c"
+     ],
+     "value": 1876
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2b0f3c"
+     ],
+     "value": {
+      "0x1c0": [
+       4
+      ],
+      "0x1c4": [
+       4
+      ],
+      "0x1c8": [
+       4
+      ],
+      "0x278": [
+       4
+      ],
+      "0x2dc": [
+       4
+      ],
+      "0x2e4": [
+       4
+      ],
+      "0x2e8": [
+       4
+      ],
+      "0x330": [
+       4
+      ],
+      "0x334": [
+       4
+      ],
+      "0x33f": [
+       1
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3ac": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x730": [
+       4
+      ],
+      "0x74c": [
+       4
+      ],
+      "0x750": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xb8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2b0f3c"
+     ],
+     "value": {
+      "0x0": [
+       "?init@Player@@QAEXPBVPlayerTemplate@@@Z"
+      ],
+      "0x13c": [
+       "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ"
+      ],
+      "0x1cc": [
+       "??0Rva004F599E@@QAE@XZ"
+      ],
+      "0x288": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x294": [
+       "??0?$hash_map@HURva001FEAB2Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva001FEAB2Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x2a8": [
+       "??0?$hash_map@HURva001FEAB2Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva001FEAB2Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x2bc": [
+       "??0?$hash_map@HURva002AF438Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva002AF438Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x2d0": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x2f0": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x2fc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x308": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x318": [
+       "??0Rva002AC340@@QAE@XZ"
+      ],
+      "0x32c": [
+       "?init@Rva002AC026Member@@QAEPAXPAX@Z"
+      ],
+      "0x3b0": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x3bc": [
+       "??0ScoreKeeper@@QAE@XZ"
+      ],
+      "0x3c": [
+       "?rva003B0E83@Rva003B0E83@@QAEPAV1@XZ"
+      ],
+      "0x60": [
+       "??0Rva002AE5EB@@QAE@XZ"
+      ],
+      "0x6f4": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x700": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x704": [
+       "??0?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod8@@@1@@Z"
+      ],
+      "0x738": [
+       "??0UnitRevivalTracker@@QAE@PAVPlayer@@@Z"
+      ],
+      "0x754": [
+       "?init@Rva0029FB3BMember@@QAEPAXPAX@Z"
+      ],
+      "0xbc": [
+       "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x2b0f3c"
+     ],
+     "value": {
+      "0x1bc": [
+       "0x7fdc48"
+      ],
+      "0x90": [
+       "0x7e1aa0"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2b0f3c"
+     ],
+     "value": {
+      "0x0": "0x7fdf3c",
+      "0x4": "0x7fdf30",
+      "0x8": "0x7fdf18"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fdf3c"
+     ],
+     "value": {
+      "count": 8,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GPlayer@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2b14cf"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Rva002B117CGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x2b117c"
+       },
+       {
+        "name": "?DoXfer@Player@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x2b1522"
+       },
+       {
+        "name": "?computeSuperweaponTarget@Player@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z",
+        "slot": 4,
+        "target": "0x2a9b92"
+       },
+       {
+        "name": "?checkBridges@Player@@UAE_NPAVObject@@PAVWaypoint@@@Z",
+        "slot": 5,
+        "target": "0x2a9c0d"
+       },
+       {
+        "name": "?getAiBaseCenter@Player@@UAE_NPAUCoord3D@@@Z",
+        "slot": 6,
+        "target": "0x2a9c26"
+       },
+       {
+        "name": "?repairStructure@Player@@UAEXW4ObjectID@@@Z",
+        "slot": 7,
+        "target": "0x2a9c48"
+       }
+      ],
+      "table": "0x7fdf3c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 142,
+  "retail_vtables": {
+   "0x7fdf18": {
+    "offset": 8,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fdf30": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fdf3c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GPlayer@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?Rva002B117CGet@@YAHXZ",
+     "3": "?DoXfer@Player@@QAEXPAVXfer@@@Z",
+     "4": "?computeSuperweaponTarget@Player@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z",
+     "5": "?checkBridges@Player@@UAE_NPAVObject@@PAVWaypoint@@@Z",
+     "6": "?getAiBaseCenter@Player@@UAE_NPAUCoord3D@@@Z",
+     "7": "?repairStructure@Player@@UAEXW4ObjectID@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "4": 1,
+   "56": 1,
+   "84": 4,
+   "88": 7,
+   "96": 4,
+   "152": 2,
+   "188": 1,
+   "444": 1,
+   "456": 1,
+   "644": 4,
+   "748": 1,
+   "752": 6,
+   "816": 3,
+   "824": 2,
+   "825": 2,
+   "856": 1,
+   "957": 1,
+   "960": 1,
+   "1164": 1,
+   "1232": 1,
+   "1784": 3,
+   "1876": 1,
+   "1880": 2
+  },
+  "views": 60,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Player.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Player.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 238
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerAddSkillPointsForDamage.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DPushButton.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroManager.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable/PickAndPlayUnitVoiceResponse.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookHeal.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicExpansionBase.cpp",
+    "Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlushOccludedObjectsIntoStencil.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp"
+   ],
+   "views": 18
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookHeal.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00294ADD.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/Common/Rva00395686Finish.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicExpansionBase.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 444,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 448,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 452,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 460,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlushOccludedObjectsIntoStencil.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawSkirmishAIStats.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 661,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 662,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 681,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 682,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 692,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 696,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 700,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 701,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 702,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 704,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 708,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 712,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 716,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 720,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 724,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 728,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 732,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 736,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 740,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 744,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 748,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableHealthBarGate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004780E7.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507A04.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerDetected.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookHeal.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 756,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 760,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 764,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 768,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 772,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 776,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 780,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 784,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 788,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 792,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 812,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerRemoveTeamFromList.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 816,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 820,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 824,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayerCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 825,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 826,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 827,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 828,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 829,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 830,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 831,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 832,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 852,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 856,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 944,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 948,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 952,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 956,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerAddSkillPointsForDamage.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCloneFrom.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 960,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 964,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1068,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1072,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1156,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1160,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1228,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTransferAssets.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1780,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerProductionCostChange.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp",
+    "Code/GameEngine/Source/Common/RTS/Rva002B212A_Rva002ADC03.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1792,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1796,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1800,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1840,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1844,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1845,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1848,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1852,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1856,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1860,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1868,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1872,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Drawable/PickAndPlayUnitVoiceResponse.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1876,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1,
+    "52:A": 1,
+    "640:A": 1,
+    "84:A": 1
+   },
+   "class": "Player"
+  },
+  {
+   "attribute": "inherited@0x8",
+   "candidates": {
+    "1:S:Rva00380200": 1,
+    "4:S:PlayerSubobject08": 1,
+    "4:VPTR": 1
+   },
+   "class": "Player"
+  },
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 3,
+    "52:A": 1,
+    "640:A": 1,
+    "84:A": 3
+   },
+   "class": "Player"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "d1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "d2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "d3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "d4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "d5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "d6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "v7(void*)"
+  }
+ }
+}
