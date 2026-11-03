@@ -168,10 +168,17 @@ not linking).
   table VA 0x00C562D8.
   - That table is installed by ToggleMountedSpecialAbilityUpdate's ctor (0x004ADAB5), by
     SpecialDisguiseUpdate's ctor (0x004B0292) and by two ModuleUpdateDtors.cpp dtors.
-  - Slot 9 of the same table is getUpdate 0x002533D3. So it is a BehaviorModuleInterface table of
-    those classes' common base, and slot 3 is that base's interface getter (BFME 2 order, one slot
-    off ZH's from getUpdate on).
-  - The class and getter name must be settled before the Railed dtor/vtable can go.
+  - Both ctors store it at +0xC, which is BehaviorModuleInterface. Each stores its own different
+    table at +0x20. Slot 9 of the shared table is getUpdate 0x002533D3.
+  - The two classes get one table either because it is their common base's or because the linker
+    folded two identical copies.
+  - Canonical `BehaviorModule.h` names slot 3 `getCreate`. The body returns complete-object +0x88
+    (`lea eax,[ecx-0Ch]; add ecx,7Ch`, null-checked). So the honest name is probably that
+    class's `getCreate`, not RailedTransportDockUpdate's ZH getter. This is inference: no ctor here
+    was seen to install a table at +0x88.
+  - The row's class is not a placeholder, so `rename.py function --to-class` cannot move it. That
+    class, and evidence for its +0x88 interface, must be settled before the Railed dtor/vtable can
+    go.
 - **EvacuateDamageCtorModuleFactoryBody.cpp (1):** retail `~EvacuateDamage` 0x0002CD7B calls
   0x0002CCC3 as its base dtor.
   - That address is rowed as a STLport hashtable dtor in INI.cpp. `??1PB_DeepBase@@UAE@XZ` is only
