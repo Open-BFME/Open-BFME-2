@@ -4,12 +4,10 @@ name,target_rva,verdict
 ?d_00012190@@YAXXZ,0x00012190,retail_only
 ??0__Named_exception@_STL@@QAE@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z,0x00024C40,retail_only
 ?initD3DAssets@W3DMouse@@AAEXXZ,0x00098FC1,bytes_differ
-??1SimpleSceneClass@@UAE@XZ,0x00141DF0,bytes_differ
 ??0Rva002186EB@@QAE@XZ,0x002186EB,bytes_differ
 ??0DestroyDieModuleData@@QAE@XZ,0x00253510,bytes_differ
 ??0FadeAndDieOrnamentUpdateModuleData@@QAE@XZ,0x002555AC,bytes_differ
 ??1RandomSoundSelectorClientBehaviorModuleData@@UAE@XZ,0x002578DE,bytes_differ
-??1Rva002CD4A6@@UAE@XZ,0x002CD4A6,bytes_differ
 ??0ObjectModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306AA7,bytes_differ
 ??0DrawableModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306B19,bytes_differ
 ??0GameInfo@@QAE@XZ,0x00400A07,bytes_differ

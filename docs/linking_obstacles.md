@@ -1,3 +1,44 @@
+### Omitted funclets without an EXACT parent (2026-11-03)
+
+`exit_link.py` refused on 13 omitted `uw_gen` funclets. Retail's FuncInfo tables name each one's
+parent; none is inferred from adjacency:
+
+- `uw_007770d9`..`uw_00777140` (9): `??1Rva002CD4A6@@UAE@XZ`. Cleared: retail destroys two members
+  at +0xD0 and +0xD8 through 0x004C9F38, which tests the word at +4; the view had them at +0xD4 and
+  +0xDC. `eh_verify`: EXACT, body unchanged.
+- `uw_007660a8`: `??1SimpleSceneClass@@UAE@XZ`. Cleared: the member starts at +0x34 and 0x00141D90
+  reads its array at +0x18. `eh_verify`: EXACT, body unchanged.
+- `uw_007604bd`: `?initD3DAssets@W3DMouse@@AAEXXZ`. Open. Retail's map at 0xD033E4 has a second
+  state, `{toState 0, action NULL}`; ours has one. Body and funclet bytes match.
+- `uw_007a8dc0`, `uw_007a8dc8`: six `RVA_APT_CTOR` constructors (0x006DE480 onward). Open. Retail's
+  map at 0xD62840 has `{-1, 0xBA8DC0}` (base dtor 0x6D6340) and `{-1, 0xBA8DC8}` (0x6D6470); no write
+  ever enters the second state, and ours emits one. Basing `Rva006D6360Base` on
+  `BfmeAptValue006DCD20` gives the right first target but not the second state.
+
+Tried without effect on the state count: empty-dtor locals and temporaries beside the lock or in
+the dead loop, constant-false and after-return locks (W3DMouse); a dtor or dtor-bearing member on
+`Rva006DBits`, an inline `clear()`, an inline setter in the macro body, an out-of-line base dtor
+(Apt). Each open table differs only in a state retail's code never enters.
+
+### Exit link imports (2026-11-03)
+
+Real link 41583916028 at `35b9760267`: 775 unresolved, of which 85 mss32 imports and 19 thunk-only
+imports (Gdiplus, `Netbios`). mss32.dll is the one DLL whose retail import names keep decoration
+(`_AIL_open_stream@12`); `import_def_entries` looked up the undecorated form. A source that declares
+an import without dllimport references only `_X@N`, which `undefined_imports` did not see. Both are
+fixed in `link_cycle.py`; the census's own unresolved list does not read these helpers. The rest are
+one duplicate pair each for `MapCache::addMap` and `_RTC_CheckStackVars`, and about 670 names no
+kept object defines. Confirm on the next real link.
+
+### Non-flag text in `// cl:` lines (2026-11-03)
+
+The srv1 census published nothing after 2026-11-02 06:54 UTC. `cl -E` failed on `// cl:` words that
+are not flags (`C:/Program Files/Git/ICode/...`, from Git Bash rewriting `/ICode/...`), so
+`census_receipts` could not prove the TUs that have no include inventory: three to four files per
+cycle, each cycle wasting two hours. `cl -c` only warns, so byte verification stayed green. 560 of
+577 lines repaired in `99829f176d`-range commits (the rest were claimed by another seat when this
+ran); `conversion_gate.py` Rule D refuses new ones. Confirm with the next census row.
+
 ### AIPathfind canonical mask prerequisite (2026-11-03)
 
 The current supported dry merge accepts none of eighty donors (401 approved

@@ -46,6 +46,8 @@ public:
     unsigned char pad[0x1c];
 };
 
+// Retail's cleanup destroys this at +0x34 of the scene, through 0x00141D90, which reads
+// the array at +0x18: it is the whole member, not just the part the destructor touches.
 class BfmeSceneVector
 {
 public:
@@ -60,6 +62,7 @@ public:
         release_vector();
     }
 
+    unsigned char pad_to_unused[0x14];
     void *unused;
     BfmeSceneVectorElement *vector;
     int vector_max;
@@ -148,7 +151,7 @@ private:
             Remove_Render_Object(obj);
     }
 
-    unsigned char pad_to_vector[0x40];
+    unsigned char pad_to_vector[0x40 - 0x14];
     BfmeSceneVector scene_vector;
     unsigned char pad_to_render_list[4];
     BfmeRefSceneList render_list;

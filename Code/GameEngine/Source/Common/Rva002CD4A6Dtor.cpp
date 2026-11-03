@@ -57,6 +57,14 @@ struct Rva002CD4A6RefPtr
     ~Rva002CD4A6RefPtr() { if (p) p->Release_Ref(); }
 };
 
+// Retail's cleanups destroy these two at +0xD0 and +0xD8, through a destructor that
+// tests the word at +4 (0x004C9F38), so the counted reference is the record's second word.
+struct Rva002CD4A6RefSlot
+{
+    int m_00;
+    Rva002CD4A6RefPtr m_ref;
+};
+
 class Rva002CD4A6
 {
 public:
@@ -72,10 +80,9 @@ private:
     AsciiString m_90;
     char m_pad94[0xC8 - 0x94];
     Rva002CD4A6RefPtr m_c8;
-    char m_padCC[0xD4 - 0xCC];
-    Rva002CD4A6RefPtr m_d4;
-    char m_padD8[0xDC - 0xD8];
-    Rva002CD4A6RefPtr m_dc;
+    char m_padCC[0xD0 - 0xCC];
+    Rva002CD4A6RefSlot m_d0;
+    Rva002CD4A6RefSlot m_d8;
     void *m_e0;
     char m_padE4[0x120 - 0xE4];
     Rva00360D26Member m_120;
