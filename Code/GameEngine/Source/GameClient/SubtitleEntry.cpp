@@ -88,16 +88,7 @@ extern VideoPlayerInterface *TheVideoPlayer;
 
 extern const FieldParse Rva0081D7C0FieldParseTable[];
 
-class INIException
-{
-public:
-	INIException( int argumentCount, const char *format, ... );
-	INIException( const INIException &other );
-	~INIException();
-
-	char *mFailureMessage;
-	int m_argumentCount;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // ?TheVideoPlayer@@3PAVVideoPlayerInterface@@A: matched references place it at VA 0xe0aba8; also referenced as ?TheVideoPlayer@@3PAVVideoPlayer@@A.
 VideoPlayerInterface * TheVideoPlayer = 0;
