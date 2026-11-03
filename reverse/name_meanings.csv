@@ -941,3 +941,5 @@ Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|WaypointMap:
 Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|bfmeEmitMapMetaDataDeferredCopy|p,fddfc8ee098f7f3cb9f7c9cd,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02,3c74a1c1353c2a6828ef8638
 Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|bfmeEmitMapMetaDataDeferredCopy|w,057eb551ff26ef68f8fb1632,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02,4af53eceda8ef2bcc74fccc0
 Code/GameEngine/Source/GameClient/SubtitleEntry.cpp|param|AssignCString|s,a4a25a139dcaa24fe4cf3d2c,drz-k5,drz-k5-n44d-3,w-526a51702f64,2026-11-02,753a9c5215aabd7bbd8bfd7e
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B266Xfer.cpp|local|Rva0055B266::rva0055B266|n,721a69338c20ba0f72e91c0c,drz-k7,drz-k7-n44e-4,w-4471b1f6edef,2026-11-02,b8e57e092084b3676b4156d0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/V3InlineTemplateDtor.cpp|local|Rva003AE13C::~Rva003AE13C|b08,b10f9c4ead6e22c058e881c3,drz-k7,drz-k7-n44e-20,w-4471b1f6edef,2026-11-02,b67465279ecb192dfb5b6ee3

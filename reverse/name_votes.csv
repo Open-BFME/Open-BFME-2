@@ -22652,3 +22652,7 @@ Code/GameEngine/Source/GameClient/Rva0041154F.cpp|member|Rva0041154FNode|m_18,11
 Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp|function|0x0052A2B7|Rva0052A2B7,bd085f368ff909a25de534e4,drz-k4,drz-k4-n44c-18,w-855a0f400af4,2026-11-02
 Code/GameEngine/Source/GameClient/SubtitleEntry.cpp|param|AssignCString|s,a4a25a139dcaa24fe4cf3d2c,drz-k5,drz-k5-n44d-3,w-526a51702f64,2026-11-02
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00081E36IndexedAsset.cpp|function|0x000820CA|rva000820CA,1da2e20ab18a02c9ec9c7a5c,drz-k5,drz-k5-n44d-13,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B266Xfer.cpp|local|Rva0055B266::rva0055B266|n,721a69338c20ba0f72e91c0c,drz-k7,drz-k7-n44e-4,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp|class||Rva005648FEInput,008d68fd4309521de21024ae,drz-k7,drz-k7-n44e-16,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp|class||Rva005641EDInput,7dff954f92c54799f38d5b67,drz-k7,drz-k7-n44e-16,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/V3InlineTemplateDtor.cpp|local|Rva003AE13C::~Rva003AE13C|b08,b10f9c4ead6e22c058e881c3,drz-k7,drz-k7-n44e-20,w-4471b1f6edef,2026-11-02
