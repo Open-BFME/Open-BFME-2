@@ -20,21 +20,7 @@ struct _AptScriptFunctionState;
 struct AptConstantPool { int nItems; AptValue **apItems; };
 enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 };
 
-struct AptNativeHash
-{
-    AptNativeHash(int);
-    ~AptNativeHash();
-    AptValue *Lookup(const EAStringC *const) const;
-    __forceinline AptValue *Get__Proto__() const { return mp__proto__; }
-    void Set(const EAStringC *const, AptValue *const);
-    void SetPrototype(AptValue *);
-    void Set__Proto__(AptValue *);
-    int mnTotalSize;
-    void *mpData; // Hash-item storage; its element layout is not needed here.
-    AptValue *mp__proto__;
-    AptValue *mpPrototype;
-    unsigned int nEventHandlers;
-};
+#include "../AptNativeHash.h"
 
 class AptValue
 {

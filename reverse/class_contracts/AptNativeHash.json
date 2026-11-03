@@ -1,0 +1,153 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AptNativeHash",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 37,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 18
+   },
+   "0x10": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 38
+   },
+   "0x8": {
+    "4": 13
+   },
+   "0xc": {
+    "4": 13
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 19,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 19,
+   "12": 1,
+   "16": 1,
+   "20": 16
+  },
+  "views": 37,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "mnTotalSize",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 18
+   },
+   "size": 4,
+   "type": "int",
+   "views": 14,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3,
+  "struct": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp",
+    "Code/GameEngine/Source/Common/Rva006FB960Cluster.cpp",
+    "Code/GameEngine/Source/Common/Rva00711380Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp",
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp",
+    "Code/Libraries/Source/Apt/AptNativeHash.cpp",
+    "Code/Libraries/Source/Apt/AptTextFormat.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueConstructBuiltInObjects.cpp",
+    "Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp",
+    "Code/GameEngine/Source/Common/Rva006FB960Cluster.cpp",
+    "Code/GameEngine/Source/Common/Rva00711380Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp",
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp",
+    "Code/Libraries/Source/Apt/AptNativeHash.cpp",
+    "Code/Libraries/Source/Apt/AptTextFormat.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueConstructBuiltInObjects.cpp",
+    "Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva006E2EE0AptCIH.cpp",
+    "Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva00700170Pop.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp",
+    "Code/GameEngine/Source/Common/Rva006FB960Cluster.cpp",
+    "Code/GameEngine/Source/Common/Rva00711380Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp",
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp",
+    "Code/Libraries/Source/Apt/AptNativeHash.cpp",
+    "Code/Libraries/Source/Apt/AptTextFormat.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueConstructBuiltInObjects.cpp",
+    "Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva006E2EE0AptCIH.cpp",
+    "Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp",
+    "Code/GameEngine/Source/Common/Rva006FB960Cluster.cpp",
+    "Code/GameEngine/Source/Common/Rva00711380Cluster.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterSetVariable.cpp",
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptInput.cpp",
+    "Code/Libraries/Source/Apt/AptNativeHash.cpp",
+    "Code/Libraries/Source/Apt/AptTextFormat.cpp",
+    "Code/Libraries/Source/Apt/AptValue/AptValueConstructBuiltInObjects.cpp",
+    "Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp",
+    "Code/Libraries/Source/Apt/Rva006E0AC0.cpp",
+    "Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp"
+   ],
+   "views": 14
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {}
+}
