@@ -38,14 +38,7 @@ public:
 #include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva00281A15Listener;
-class SidesListNotifier : public Rva00330757Member
-{
-public:
-	void post(void (*callback)(), void *owner, int index);
-	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
-	__forceinline SidesListNotifier() : Rva00330757Member() {}
-	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
-};
+#include "../../../Include/Common/SidesListNotifier.h"
 
 class SidesList
 {
