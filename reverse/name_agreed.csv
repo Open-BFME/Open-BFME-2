@@ -17606,3 +17606,5 @@ nl-3a3afbdc1226,param,b,radius,,w-09889333d128@drz-k11,Code/GameEngine/Source/Ga
 nl-d585c424169d,param,arg,damageInfo,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp|param|Object::rva002930A9|arg,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
 nl-6c02cc4cc03f,local,r,radius,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameLogic/Object/ObjectShockRva00296065.cpp|local|Object::rva00296065|r,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
 nl-6cec09a8aee6,param,arg,player,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp|param|Object::rva00294471|arg,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-0aa53db728f3,local,t,gapDistance,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameLogic/Object/Rva00263778Distance.cpp|local|Rva00263778Distance|t,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-e2466bc4e719,local,v,commandPoints,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp|local|Rva002A7461::rva002A7557|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2

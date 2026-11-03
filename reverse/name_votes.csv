@@ -22722,3 +22722,11 @@ Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C264.cpp|param|Object::rva0
 Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp|param|Object::rva002930A9|arg,6d2ce7ac50cab448eed07733,drz-k1,drz-k1-n46a-9,w-d29055ee9848,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/ObjectShockRva00296065.cpp|local|Object::rva00296065|r,0b2018443159f1ed3a37e849,drz-k1,drz-k1-n46a-16,w-d29055ee9848,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp|param|Object::rva00294471|arg,6cec09a8aee616968c6acf24,drz-k1,drz-k1-n46a-17,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva000A4826Call.cpp|function|0x000A4826|rva000A4826,ece08ecc5d6bad06421cbe6c,drz-k2,drz-k2-n46b-6,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva000A4826Call.cpp|function|0x000A47DE|rva000A47DE,b2b2d4533864ac5e68943e75,drz-k2,drz-k2-n46b-6,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva000A4826Call.cpp|function|0x000A4875|rva000A4875,834d0258cc01ed15382a3135,drz-k2,drz-k2-n46b-6,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva00263778Distance.cpp|local|Rva00263778Distance|t,7a7213c3ea025e2f8c0d7518,drz-k2,drz-k2-n46b-12,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva002A74C3.cpp|member|Rva002A74C3Inner|m_val61C,337a4689a5a4cce99b675235,drz-k2,drz-k2-n46b-13,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp|member|Rva002A7557In|m_val618,8a273ccbbcb455c0242b89f2,drz-k2,drz-k2-n46b-14,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp|local|Rva002A7461::rva002A7557|v,6879c2bed72d18c869f27dca,drz-k2,drz-k2-n46b-14,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Rva002A7588Query.cpp|member|Rva002A7588Mid|m_i618,c89d42eaa1bb81e333a36ce0,drz-k2,drz-k2-n46b-15,w-ded32b2e2c5e,2026-11-02
