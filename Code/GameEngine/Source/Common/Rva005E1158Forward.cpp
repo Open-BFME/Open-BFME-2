@@ -3,12 +3,8 @@
 // Evidence: unlock lane tail-forwards this+8 to rowed StrategicHUD::CommandButtonMovieClip::Impl::SetImage callers 0x005E9473 0x005E8E4C prev Rva005E10A8Method
 class Image;
 
+#include "../../Include/GameClient/CommandButtonMovieClip.h"
 namespace StrategicHUD {
-class CommandButtonMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::CommandButtonMovieClip::Impl

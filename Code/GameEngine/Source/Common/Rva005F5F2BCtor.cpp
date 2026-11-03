@@ -16,12 +16,8 @@
 
 class Image;
 
+#include "../../Include/GameClient/CommandButtonMovieClip.h"
 namespace StrategicHUD {
-class CommandButtonMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::CommandButtonMovieClip::Impl

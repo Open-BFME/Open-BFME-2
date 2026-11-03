@@ -91,12 +91,8 @@ private:
 
 APT_IMAGE_KEY_SET( InGameCommandButtonMovieClip::Impl, SetImage, "_level%u.%s_Image", m_image )
 
+#include "../../Include/GameClient/CommandButtonMovieClip.h"
 namespace StrategicHUD {
-class CommandButtonMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::CommandButtonMovieClip::Impl
