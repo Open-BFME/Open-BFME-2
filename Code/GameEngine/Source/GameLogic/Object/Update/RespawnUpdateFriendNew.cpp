@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class RespawnUpdate
-{
-public:
-	RespawnUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x44];
-};
+#include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 
 // ?friend_newModuleInstance@RespawnUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *RespawnUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

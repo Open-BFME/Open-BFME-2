@@ -65,23 +65,7 @@ public:
 
 #include "../../../../Include/Common/Player.h"
 
-class RespawnUpdate : public UpdateModule
-{
-public:
-	void rva004AEF46();
-
-private:
-	float m_20;
-	unsigned int m_24;
-	unsigned int m_28;
-	unsigned int m_2C;
-	unsigned int m_30;
-	unsigned int m_34;
-	unsigned int m_38;
-	unsigned int m_3C;
-	unsigned char m_40;
-	unsigned char m_41;
-};
+#include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 
 void RespawnUpdate::rva004AEF46()
 {

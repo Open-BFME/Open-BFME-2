@@ -10,7 +10,7 @@ enum NameKeyType { NAMEKEY_UNKNOWN=0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Object {friend class Rva00291198Host;protected:Module *findModule(NameKeyType) const;};
-class RespawnUpdate {public:void *rva004AF25D();};
+#include "../../Include/GameLogic/Module/RespawnUpdate.h"
 class Rva001EAFC1 {
 public:
  Rva001EAFC1 &operator=(const Rva001EAFC1&);

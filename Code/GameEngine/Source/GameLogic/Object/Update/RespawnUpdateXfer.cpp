@@ -42,35 +42,19 @@ enum ObjectID;
 void __cdecl XferRespawnModeType(Xfer *x, int *v);
 void __cdecl XferObjectID(Xfer *x, ObjectID *v);
 
-class RespawnUpdate : public UpdateModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	float m_20;
-	unsigned int m_24;
-	unsigned int m_28;
-	int m_2c;
-	int m_30;
-	int m_34;
-	int m_38;
-	int m_3c;
-	bool m_40;
-	bool m_41;
-};
+#include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 
 void RespawnUpdate::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
 	UpdateModule::xfer(xfer);
-	XferRespawnModeType(xfer, &m_2c);
+	XferRespawnModeType(xfer, &m_2C);
 	XferObjectID(xfer, (ObjectID *)&m_30);
 	*xfer == m_34;
 	*xfer == m_38;
 	*xfer == m_40;
-	*xfer == m_3c;
+	*xfer == m_3C;
 	*xfer == m_20;
 	*xfer == m_41;
 }
