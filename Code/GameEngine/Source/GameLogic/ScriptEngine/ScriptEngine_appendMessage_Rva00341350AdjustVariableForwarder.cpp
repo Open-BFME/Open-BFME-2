@@ -151,12 +151,7 @@ private:
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(Int i);				// 0x002A7A29
-	void updateTeamStates();				// 0x002A7B1C
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class NameKeyGenerator
 {

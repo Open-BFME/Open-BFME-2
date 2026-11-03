@@ -345,15 +345,7 @@ static __forceinline void addCastlePathObject(Object* object) {
 // The record scalar is forwarded unchanged to the existing opaque 3980BF ABI.
 #include <ascii_string.h>
 class Team;
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return local; }
-	Player* getNthPlayer(int);
-	char m_pad00[0x10];
-private:
-	Player *local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 class ThingTemplate;
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 extern ThingFactory* TheThingFactory;

@@ -17,11 +17,7 @@ typedef bool Bool;
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 

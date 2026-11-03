@@ -28,17 +28,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	// Matched callers read the local player at +0x10 directly; do not emit
-	// a shared getter from this partial target layout.
-	Player *findPlayerWithNameKey(NameKeyType key);
-	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool reverse);
-	int rva002A7D30();
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

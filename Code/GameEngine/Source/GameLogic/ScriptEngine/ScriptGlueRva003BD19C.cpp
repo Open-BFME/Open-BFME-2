@@ -21,13 +21,7 @@ class Drawable;
 extern ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/Common/Player.h"
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-	char m_pad00[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -153,7 +147,7 @@ void ScriptActions::Rva003BD19CSet(void *p, Parameter *param)
 	do {
 		pl = ThePlayerList->getEachPlayerFromMask(mask);
 		if (pl != 0) {
-			if (pl == ThePlayerList->m_localPlayer) {
+			if (pl == ThePlayerList->m_local) {
 				TheInGameUI->notify();
 				GameMessage *msg = TheMessageStream->appendType(0x3E9);
 				msg->appendBooleanArgument(true);

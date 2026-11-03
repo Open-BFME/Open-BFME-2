@@ -44,11 +44,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 int __cdecl rva003BA83F(void *p, int v);

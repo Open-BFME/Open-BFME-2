@@ -347,7 +347,7 @@ void CastleBehavior::rva0039792B() {
 // The record scalar is forwarded unchanged to the existing opaque 3980BF ABI.
 #include <ascii_string.h>
 class Team;
-class PlayerList { public: Player* getNthPlayer(int); };
+#include "../../../Include/Common/PlayerList.h"
 class ThingTemplate;
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 extern ThingFactory* TheThingFactory;
