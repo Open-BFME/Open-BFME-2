@@ -453,3 +453,4 @@ NoCaseTreeValue4,Code/GameEngine/Include/Common/NoCaseTreeValue4.h,existing head
 Rva003ED658,Code/GameEngine/Include/GameLogic/Rva003ED658.h,existing header; contract class_contracts/Rva003ED658.json; 16/21 sampled units adopt
 AsciiStringPlusText,Code/GameEngine/Include/Common/AsciiStringPlusText.h,existing header; contract class_contracts/AsciiStringPlusText.json; 21/39 sampled units adopt
 Rva003AEEB3,Code/GameEngine/Include/GameClient/Rva003AEEB3.h,existing header; contract class_contracts/Rva003AEEB3.json; 20/23 sampled units adopt
+Locomotor,Code/GameEngine/Include/GameLogic/LocomotorClass.h,existing header; contract class_contracts/Locomotor.json; 50/88 sampled units adopt

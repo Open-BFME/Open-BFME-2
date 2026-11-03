@@ -1,0 +1,487 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Locomotor",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 10
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x44": {
+    "1": 1,
+    "4": 4
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 2
+   },
+   "0x60": {
+    "4": 1
+   },
+   "0x68": {
+    "4": 3
+   },
+   "0x6c": {
+    "4": 1
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x74": {
+    "4": 2
+   },
+   "0x78": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0x84": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 1
+   },
+   "0x94": {
+    "4": 1
+   },
+   "0x99": {
+    "1": 2
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xb0": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1e449a"
+     ],
+     "value": 176
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1e449a"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       1
+      ],
+      "0x99": [
+       1
+      ],
+      "0x9a": [
+       1
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1e449a"
+     ],
+     "value": {
+      "0x0": [
+       "?setFlag@Locomotor@@AAEXW4LocoFlag@1@_N@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1e449a"
+     ],
+     "value": {
+      "0x0": "0x7de888"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7de888"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva001E3E43@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1e4625"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva001E3E56Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x1e3e56"
+       },
+       {
+        "name": "?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x1e525a"
+       }
+      ],
+      "table": "0x7de888"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 21,
+  "retail_vtables": {
+   "0x7de888": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva001E3E43@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva001E3E56Named@@QBEPBDXZ",
+     "3": "?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 13,
+   "8": 9,
+   "12": 1,
+   "64": 1,
+   "68": 1,
+   "72": 13,
+   "76": 1,
+   "152": 1
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Locomotor.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Locomotor.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_vtable",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 14
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001E43C1Wrapper.cpp",
+    "Code/GameEngine/Source/GameClient/DrawablePhysicsXformShip.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIWanderInPlaceStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva00476D77.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorSet_addLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectIsUsingAirborneLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectUpdateObjValuesFromMapProperties.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateMoveToNewRepairSpot.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdNormalFlightStates.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E41FASetOrientation.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "__vfptr": 1,
+    "m_vtable": 3,
+    "m_vtbl": 3
+   },
+   "class": "Locomotor"
+  }
+ ],
+ "size": 72,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
