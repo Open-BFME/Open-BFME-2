@@ -4,118 +4,23 @@
 // (Code/GameEngine/Source/GameClient/System/Smudge.cpp): only the placed
 // SmudgeManager::removeSmudgeSet and SmudgeSet::SmudgeSet bodies are defined
 // here. Sibling bodies stay declared-only so the unmatched-definition gate
-// passes. List machinery is the donor's WW3D2/dllist.h with an empty W3DMPO
-// (BFME1 trimmed-TU convention); Smudge/SmudgeSet/SmudgeManager mirror
-// reference/shims/smudgenopool (no pooling in BFME).
+// passes. Smudge and SmudgeSet come from the canonical GameClient/Smudge.h
+// (WW3D2/dllist.h list machinery, no pooling in BFME); SmudgeManager from
+// SmudgeViews.h.
 
 typedef int Int;
 typedef int Bool;
-class W3DMPO {};
-template <class T> class DLNodeClass;
-template <class T>
-class DLListClass
-{
-	friend DLNodeClass<T>;
-	DLNodeClass<T> *head;
-	DLNodeClass<T> *tail;
+#include "../../../Include/GameClient/Smudge.h"
+// Retail calls these list members out of line (rowed in SmudgeListAddHead.cpp), so
+// this unit declares them specialized rather than expanding dllist.h's inline bodies.
+template<> void DLListClass<SmudgeSet>::Add_Tail(DLNodeClass<SmudgeSet> *node);
+template<> void DLListClass<SmudgeSet>::Remove_Head();
+template<> void DLListClass<SmudgeSet>::Remove_Tail();
+template<> void DLListClass<Smudge>::Remove_Head();
+template<> void DLListClass<Smudge>::Remove_Tail();
+#include "SmudgeViews.h"
+#define SmudgeSetFreeSmudgeList SmudgeSet::m_freeSmudgeList
 
-public:
-	DLListClass() : head(0), tail(0) {}
-	virtual ~DLListClass() { }
-
-	void Add_Head(DLNodeClass<T> *node);
-	void Remove_Head();
-	void Add_Tail(DLNodeClass<T> *node);
-	void Remove_Tail();
-
-	T *Head() { return static_cast<T *>(head); }
-	T *Tail() { return static_cast<T *>(tail); }
-};
-template <class T>
-class DLNodeClass : public W3DMPO
-{
-	friend DLListClass<T>;
-	DLNodeClass<T> *succ;
-	DLNodeClass<T> *pred;
-	DLListClass<T> *list;
-public:
-	DLNodeClass() : succ(0), pred(0), list(0) {}
-	~DLNodeClass() { Remove(); }
-
-	void Insert_Before(DLNodeClass<T> *n)
-	{
-		list = n->list;
-		succ = n;
-		pred = n->pred;
-		if (n->pred) n->pred->succ = this;
-		n->pred = this;
-
-		if (list->head == n) {
-			list->head = this;
-		}
-	}
-
-	void Insert_After(DLNodeClass<T> *n)
-	{
-		list = n->list;
-		pred = n;
-		succ = n->succ;
-		if (n->succ) n->succ->pred = this;
-		n->succ = this;
-
-		if (list->tail == n) {
-			list->tail = this;
-		}
-	}
-
-	void Remove()
-	{
-		if (!list) return;
-		if (list->Head() == this) {
-			DLListClass<T> *tmp_list = list;
-			list = 0;
-			tmp_list->Remove_Head();
-			return;
-		}
-		if (list->Tail() == this) {
-			DLListClass<T> *tmp_list = list;
-			list = 0;
-			tmp_list->Remove_Tail();
-			return;
-		}
-		if (succ) succ->pred = pred;
-		if (pred) pred->succ = succ;
-		list = 0;
-	}
-};
-template <class T>
-inline void DLListClass<T>::Add_Head(DLNodeClass<T> *n)
-{
-	n->list = this;
-	if (head) {
-		n->Insert_Before(head);
-		head = n;
-	}
-	else {
-		tail = n;
-		head = n;
-		n->succ = 0;
-		n->pred = 0;
-	}
-}
-struct Smudge;
-struct SmudgeSet : public DLNodeClass<SmudgeSet>
-{
-private:
-	static DLListClass<Smudge> m_freeSmudgeList;
-public:
-	SmudgeSet(void);
-	void reset(void);
-	virtual ~SmudgeSet();
-private:
-	DLListClass<Smudge> m_usedSmudgeList; // +0x10
-	Int m_usedSmudgeCount; // +0x1C
-};
 // ??0SmudgeSet@@QAE@XZ
 //
 // The donor's body is only m_usedSmudgeCount=0; the vptr pair plus the zero
@@ -126,14 +31,6 @@ SmudgeSet::SmudgeSet(void)
 {
 	m_usedSmudgeCount = 0;
 }
-#include "SmudgeViews.h"
-#define SmudgeSetFreeSmudgeList SmudgeSet::m_freeSmudgeList
-
-struct SmudgeSet;
-
-struct Smudge : public DLNodeClass<Smudge>
-{
-};
 
 // ---- from Code/GameEngine/Source/GameClient/System/Smudge.cpp
 
