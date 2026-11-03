@@ -24,11 +24,7 @@ struct BfmeDelayedLuaEvent
 
 // The dispatch 0x00334634 is the LuaScriptEngine::DispatchEvent row (this unit runs on the same engine).
 class Object;
-class LuaScriptEngine
-{
-public:
-	void DispatchEvent(int *event, Object *object, void *eventList);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 
 // DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
 // vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.

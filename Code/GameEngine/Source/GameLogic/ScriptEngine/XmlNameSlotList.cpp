@@ -11,14 +11,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct EventFlagEntry
-{
-	NameKeyType key;
-	unsigned char flag;
-	char pad[3];
-
-	void setKeyFromName(const char *name);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 
 struct XmlNameSlot
 {
@@ -43,17 +36,6 @@ public:
 // names both bodies: InitializeInternalEvents (:795 asserts each
 // m_internalEvents[i] name key; the same 17 event names in the same order)
 // and ProcessInternalEvent (:946-968, the "Name" attribute loop).
-class LuaScriptEngine
-{
-	char m_pad0[0x14];
-	EventFlagEntry m_internalEvents[17];
-	char m_pad9C[0xDC - 0x9C];
-	NameKeyType m_onDestroyedKey;
-
-public:
-	void InitializeInternalEvents();
-	void ProcessInternalEvent(XmlNameSlotList *xml);
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp
 

@@ -6,11 +6,7 @@
 struct BfmeDelayedLuaEventList;
 // The dispatch 0x00334634 is the LuaScriptEngine::DispatchEvent row (this unit runs on the same engine).
 class Object;
-class LuaScriptEngine
-{
-public:
-	void DispatchEvent(int *event, Object *object, void *eventList);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 
 
 struct BfmeEventSlot8

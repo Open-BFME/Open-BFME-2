@@ -89,7 +89,7 @@ public:
 };
 class Rva0026AFDAMember { public: void doXfer(Xfer *); char m_data[0xC4]; };
 struct Rva00336283Element;
-class LuaScriptEngine { public: Rva00336283Element *rva00337DEF(const AsciiString &); };
+#include "../../../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 void XferCommandSourceType(Xfer *, int *);
 Xfer *Rva00263569Xfer(Xfer *, int *);

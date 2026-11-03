@@ -77,11 +77,7 @@ class UpgradeTemplate;
 extern UpgradeCenter *TheUpgradeCenter;
 
 struct Rva00336283Element;
-class LuaScriptEngine
-{
-public:
-	Rva00336283Element *rva00337DEF(const AsciiString &events);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 #define X1_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();

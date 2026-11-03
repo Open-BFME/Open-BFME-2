@@ -137,11 +137,7 @@ public:
 	void *rva00333918( int key );
 	void *rva0033321B(int key); // 0x0033321B
 };
-class LuaScriptEngine
-{
-public:
-	void DispatchEvent(int *event, Object *obj, void *args);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 int ObjectBroadcastEventToEnemies(lua_State *state)

@@ -11,15 +11,7 @@ class Object;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class LuaScriptEngine
-{
-public:
-    // 0x00334860 is rowed as LuaScriptEngine::DispatchSpyEvent (472B;
-    // sibling of DispatchEvent); same (int, ptr, ptr, ptr) shape, so this
-    // resolves to the rowed body instead of the unrowed spelling (sole U).
-    void DispatchSpyEvent(int event, void *object, void *argument2,
-        void *argument3);
-};
+#include "../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 struct SpyEventObjectNode

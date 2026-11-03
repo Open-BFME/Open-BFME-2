@@ -41,11 +41,7 @@ const char *SidesList::GetSnapshotName() const
 {
 	return "SidesList";
 }
-class LuaScriptEngine
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/LuaScriptEngine.h"
 
 const char *LuaScriptEngine::GetSnapshotName() const
 {

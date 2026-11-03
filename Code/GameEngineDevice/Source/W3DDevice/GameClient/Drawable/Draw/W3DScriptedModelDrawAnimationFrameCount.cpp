@@ -849,7 +849,8 @@ struct Coord3D;enum WeaponStatus {WSTATUS0};
 class Rva002C9504BinarySubField {public:int get()const;};
 struct AdjustDrawable {char pad[0xfc];Object*object;__forceinline Object*getObject()const{return object;}};
 struct Rva00334133Context;
-class LuaScriptEngine {public:AsciiString rva00334133(const char*,unsigned long,Rva00334133Context*);};extern LuaScriptEngine*TheLuaScriptEngine;
+#include "../../../../../../GameEngine/Include/GameLogic/LuaScriptEngine.h"
+extern LuaScriptEngine*TheLuaScriptEngine;
 class Rva000B7539 {public:~Rva000B7539();AsciiString previous,transition,animation;void*source;float fraction;bool finish;Rva000B7539():source(0),fraction(0),finish(false){} };
 class Rva000B4926 {public:const AsciiString&rva000B4926()const;};
 class HTreeClass;

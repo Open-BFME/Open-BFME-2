@@ -74,11 +74,7 @@ public:
 	void *rva00333918(int key);
 };
 
-class LuaScriptEngine
-{
-public:
-	void DispatchEvent(int *event, Object *obj, void *args);
-};
+#include "../../Include/GameLogic/LuaScriptEngine.h"
 
 extern LuaScriptEngine *TheLuaScriptEngine;
 

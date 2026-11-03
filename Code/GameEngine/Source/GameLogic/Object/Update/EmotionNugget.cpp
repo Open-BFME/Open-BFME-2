@@ -218,9 +218,7 @@ struct DelayedLuaEventList {
 
 class Rva00332E60 { public: void *rva00333918(int); };
 
-class LuaScriptEngine {
-public: void DispatchEvent(int *event, Object *object, void *eventList);
-};
+#include "../../../../Include/GameLogic/LuaScriptEngine.h"
 
 class LuaScriptEngine;
 
