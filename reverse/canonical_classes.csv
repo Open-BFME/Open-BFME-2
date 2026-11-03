@@ -515,3 +515,4 @@ GpuDrawModuleInfo,Code/GameEngine/Include/GameClient/GpuDrawModuleInfo.h,existin
 RenderObjectUpdateModuleInfo,Code/GameEngine/Include/GameClient/RenderObjectUpdateModuleInfo.h,existing header; contract class_contracts/RenderObjectUpdateModuleInfo.json; 8/11 sampled units adopt
 InGameHeroSelectInterface,Code/GameEngine/Include/GameClient/InGameHeroSelectInterface.h,existing header; contract class_contracts/InGameHeroSelectInterface.json; 5/9 sampled units adopt
 UnitRevivalEntry,Code/GameEngine/Include/GameLogic/UnitRevivalEntry.h,existing header; contract class_contracts/UnitRevivalEntry.json; 4/14 sampled units adopt
+ManualPhaseEnder,Code/GameEngine/Include/GameLogic/ManualPhaseEnder.h,existing header; contract class_contracts/ManualPhaseEnder.json; 10/11 sampled units adopt
