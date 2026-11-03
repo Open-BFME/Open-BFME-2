@@ -19205,3 +19205,12 @@ An explicit existing pair<constushort,AsciiString> two-reference constructor und
 ### ConnectionManager remaining type/ownership cohort handoff (2026-11-03)
 
 After23ab21b2f2 retires the genuine31-byte constructor scheduling defect, two identity keys remain. Native6204B0 copies plain8B with no string ownership/EH, whereas the emitted string-pair Construct is78B/nontrivial. Native16DF60 compares three signedDWORD keys in712B, whereas the ushort/string helper is593B with16-bit comparisons. These facts refute a profile-only or POD-copy-under-string repair. [Native/typed disassembly and fresh in-memory routing](../reverse/attempt_support/connectionmanager-remaining-identities-20261103/README.md) identify suspect wrappers759460/35B and16E310/31B. The former is currently approved under provisionalCollisionManager routing but still needs use/type/caller reconciliation; the latter has no approvedTU. No move, row/alias/pin edit, suppression or type cast is retained. Both debts stay registered and current32-row byte/EH coverage remains. Prior GenP12 declaration/extern-template failures are retained, not repeated. The broader4D2941 adapter/value identity remains a separate recorded prerequisite despite its unchanged bytes/EH; no complete class or census closure is claimed.
+
+### MapCache duplicate prerequisite 20261103-1638
+
+The real-link artifact41655923515 reports a duplicate addMap. Removing the old
+MapUtil body also drops six existing rowed emissions; five explicit template
+instantiations restore five, but getExtent requires its private EAX argument
+context. All trials were restored and the native checks pass. The duplicate
+remains open; no linker or runtime gain is claimed.
+[Retained evidence](../reverse/attempt_support/mapcache-duplicate-20261103-1638.md).
