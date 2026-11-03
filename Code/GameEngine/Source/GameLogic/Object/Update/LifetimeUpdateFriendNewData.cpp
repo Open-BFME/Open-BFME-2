@@ -31,11 +31,7 @@ private:
 
 // LifetimeUpdateModuleData::buildFieldParse: defined in ModuleDataBuildFieldParse.cpp (its row's unit).
 
-class LifetimeUpdate
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-};
+#include "../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 
 // ?friend_newModuleData@LifetimeUpdate@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *LifetimeUpdate::friend_newModuleData(INI *ini)

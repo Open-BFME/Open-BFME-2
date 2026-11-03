@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class LifetimeUpdate
-{
-public:
-	LifetimeUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x2C];
-};
+#include "../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 
 // ?friend_newModuleInstance@LifetimeUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *LifetimeUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

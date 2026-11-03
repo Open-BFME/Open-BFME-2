@@ -21,7 +21,7 @@ protected:
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class LifetimeUpdate { public: void setLifetimeRange(unsigned int,unsigned int); };
+#include "../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 class FXList { public: static void doFXObj(const FXList*,const Object*,const Object*); };
 struct Rva004C167EData {
  unsigned char prefix[0x6C]; unsigned int m_delayedDeathTime; bool flag70;

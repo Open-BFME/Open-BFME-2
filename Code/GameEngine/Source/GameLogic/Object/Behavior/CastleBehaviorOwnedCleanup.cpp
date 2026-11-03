@@ -20,7 +20,7 @@ class FXList
 public:
 	static void doFXObj(const FXList*,const Object*,const Object*);
 };
-class LifetimeUpdate{public:void rva003A4AD2();};
+#include "../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 class Rva002918E0Object{public:void rva004B239A(unsigned char,unsigned char);};
 extern GameLogic*TheGameLogic;
 struct CastleData{char pad[0x48];const FXList*fx;};

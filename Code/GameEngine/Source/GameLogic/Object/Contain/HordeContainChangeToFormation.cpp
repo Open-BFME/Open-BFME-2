@@ -153,13 +153,7 @@ public:
 	unsigned char m_43C;							// +0x43C
 };
 
-class LifetimeUpdate
-{
-public:
-	void setLifetimeRange(UnsignedInt minFrames, UnsignedInt maxFrames);
-	char m_pad00[0x20];
-	UnsignedInt m_dieFrame;							// +0x20
-};
+#include "../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 
 #include "../../../../Include/GameLogic/StancesBehavior.h"
 NameKeyType Rva0045EE2CGet();
