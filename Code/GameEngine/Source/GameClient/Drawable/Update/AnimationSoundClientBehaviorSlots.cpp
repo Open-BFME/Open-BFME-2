@@ -40,14 +40,7 @@ public:
 class ModuleData;
 class Drawable;
 
-class DrawableModule : public Rva004C9E1FSlots<11>
-{
-public:
-	virtual void rva004C9E1F(int a1, int a2, int a3) = 0;
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Drawable *m_drawable; // +0x08
-};
+#include "../../../../Include/Common/DrawableModule.h"
 
 class Rva004C9E33Iface
 {

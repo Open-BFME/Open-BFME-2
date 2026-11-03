@@ -76,14 +76,7 @@ struct RadarMarkerClientUpdateModuleData
 
 class ModuleData;
 
-class DrawableModule
-{
-public:
-	virtual ~DrawableModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Drawable *m_drawable; // +0x08
-};
+#include "../../../../Include/Common/DrawableModule.h"
 
 class ClientUpdateModule : public DrawableModule
 {
