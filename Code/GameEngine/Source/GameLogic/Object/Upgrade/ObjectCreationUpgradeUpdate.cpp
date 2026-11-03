@@ -43,11 +43,7 @@ class ModuleData;
 
 #include "../../../../Include/Common/Upgrade.h"
 
-class Drawable
-{
-public:
-	void fadeIn(UnsignedInt frames);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 template<int N> class OCUSlots : public OCUSlots<N - 1> { public: virtual void slot(char (*)[N]); };
 template<> class OCUSlots<0> {};
