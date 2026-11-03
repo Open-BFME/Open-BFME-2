@@ -14,8 +14,7 @@
 class Object;
 class Player;
 enum CommandSourceType { CMD_FROM_AI=2 };
-class AICommandInterface { public: void aiIdle(CommandSourceType); };
-class AIUpdateInterface { public: unsigned char m_pad[0x20]; AICommandInterface m_command; };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ThingTemplate {
 public: __forceinline bool isKindOf(int t) const { return (m_kind[t>>3]&(1<<(t&7)))!=0; }
 private: unsigned char m_pad[0x108]; unsigned char m_kind[0x20];
@@ -74,10 +73,10 @@ void ScriptActions::doTransferTeamToPlayer(const AsciiString &teamName,const Asc
   Object *horde=obj->getContainedBy();
   if(horde && horde->isKindOf(0x6D)) {
    horde->rva0028BAC0(); horde->rva0028DCC4(); ai=horde->getAIUpdateInterface();
-   if(ai) ai->m_command.aiIdle(CMD_FROM_AI);
+   if(ai) ai->aiIdle(CMD_FROM_AI);
   }
   obj->rva0028BAC0(); obj->rva0028DCC4(); ai=obj->getAIUpdateInterface();
-  if(ai) ai->m_command.aiIdle(CMD_FROM_AI);
+  if(ai) ai->aiIdle(CMD_FROM_AI);
  }
  ((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
 }

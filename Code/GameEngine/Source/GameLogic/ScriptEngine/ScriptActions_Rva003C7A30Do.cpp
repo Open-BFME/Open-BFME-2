@@ -52,20 +52,7 @@ public:
 extern ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;
 
-class AICommandInterface
-{
-public:
-	void aiMoveToPositionAmphibious(const Coord3D *pos, CommandSourceType src);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	void rva0026295E();
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The ledger row at 0x0028ECDB is Rva0028ECDBHost::rva0028ECDB(void *).
 class Rva0028ECDBHost
@@ -110,8 +97,8 @@ void ScriptActions::Rva003C7A30Do(Parameter *parameter, int id)
 		obj->m_31C = xbits;
 		xy[1] = y;
 		obj->m_320 = *(int *)&xy[1];
-		ai->m_commands.aiMoveToPositionAmphibious(&pos, (CommandSourceType)1);
+		ai->aiMoveToPositionAmphibious(&pos, (CommandSourceType)1);
 	} else {
-		ai->m_commands.aiMoveToPosition(&pos, (CommandSourceType)1);
+		ai->aiMoveToPosition(&pos, (CommandSourceType)1);
 	}
 }

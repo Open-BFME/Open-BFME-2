@@ -20,18 +20,7 @@ class Team;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-    void aiAttackTeam(const Team *, int, CommandSourceType);
-};
-
-class AIUpdateInterface
-{
-public:
-    char m_pad00[0x20];
-    AICommandInterface m_commandInterface;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -59,5 +48,5 @@ void ScriptActions::doNamedAttackTeam(const AsciiString &unitName, const AsciiSt
         return;
     }
     theSrcUnit->leaveGroup();
-    aiUpdate->m_commandInterface.aiAttackTeam(theTeam, 0x7fffffff, CMD_FROM_SCRIPT);
+    aiUpdate->aiAttackTeam(theTeam, 0x7fffffff, CMD_FROM_SCRIPT);
 }

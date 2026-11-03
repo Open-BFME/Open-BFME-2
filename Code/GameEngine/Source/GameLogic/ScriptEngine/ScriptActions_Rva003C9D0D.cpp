@@ -72,18 +72,7 @@ enum CommandSourceType
 // The +0x254 body module interface; only the slot this action calls.
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
-class AICommandInterface
-{
-public:
-	void rva0036F19B(Object *obj, CommandSourceType source);	// 0x0036F19B
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commands;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct ThingTemplate
 {
@@ -156,7 +145,7 @@ void ScriptActions::rva003C9D0D(const AsciiString &teamName, float range)
 			for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 				Object *member = it.cur();
 				if (member->bfme_isKindOfObj_5d2a1(78) && member->bfme_getAIUpdateInterface_de3c5())
-					member->bfme_getAIUpdateInterface_de3c5()->m_commands.rva0036F19B(building, CMD_FROM_SCRIPT);
+					member->bfme_getAIUpdateInterface_de3c5()->rva0036F19B(building, CMD_FROM_SCRIPT);
 			}
 			break;
 		}

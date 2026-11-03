@@ -11,19 +11,7 @@ class Parameter;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void rva0036EFF5(Object *obj, CommandSourceType src);
-	void rva0026C2D9(Object *obj, int x, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -43,7 +31,7 @@ void ScriptActions::Rva003C82EADo(Parameter *parameter, Parameter *p2)
 		return;
 	object->leaveGroup();
 	if ((unsigned char)object->rva0028B38D())
-		ai->m_command.rva0036EFF5(o2, CMD_FROM_SCRIPT);
+		ai->rva0036EFF5(o2, CMD_FROM_SCRIPT);
 	else
-		ai->m_command.rva0026C2D9(o2, 0x7FFFFFFF, CMD_FROM_SCRIPT);
+		ai->rva0026C2D9(o2, 0x7FFFFFFF, CMD_FROM_SCRIPT);
 }

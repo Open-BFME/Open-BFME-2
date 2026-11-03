@@ -20,32 +20,7 @@ class Locomotor;
 class Waypoint;
 typedef float Real;
 
-template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class AIUpdateSlots<0>
-{
-};
-
-class AICommandInterface
-{
-public:
-	void aiWanderInPlace(CommandSourceType src);
-	void rva003C77EE(const Waypoint *way, CommandSourceType source);
-	void rva003C78AF(const Waypoint *way, CommandSourceType source);
-};
-
-class AIUpdateInterface : public AIUpdateSlots<142>
-{
-public:
-	virtual Bool chooseLocomotorSet(LocomotorSetType wst) = 0;
-private:
-	char m_pad[0x20 - 0x04];
-public:
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -76,7 +51,7 @@ void ScriptActions::Rva003C8B62Do(const AsciiString &teamName)
 		if (!ai)
 			continue;
 		ai->chooseLocomotorSet(3);
-		ai->m_command.aiWanderInPlace(CMD_FROM_SCRIPT);
+		ai->aiWanderInPlace(CMD_FROM_SCRIPT);
 	}
 }
 
@@ -117,7 +92,7 @@ void ScriptActions::Rva003C8ABFDo(const AsciiString &teamName, const AsciiString
         if (!way)
             return;
         ai->chooseLocomotorSet(3);
-        ai->m_command.rva003C77EE(way, CMD_FROM_SCRIPT);
+        ai->rva003C77EE(way, CMD_FROM_SCRIPT);
     }
 }
 
@@ -141,7 +116,7 @@ void ScriptActions::Rva003C8BCBDo(const AsciiString &teamName, const AsciiString
         if (!way)
             return;
         ai->chooseLocomotorSet(4);
-        ai->m_command.rva003C78AF(way, CMD_FROM_SCRIPT);
+        ai->rva003C78AF(way, CMD_FROM_SCRIPT);
     }
 }
 

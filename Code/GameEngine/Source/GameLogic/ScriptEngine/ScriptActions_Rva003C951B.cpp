@@ -70,18 +70,7 @@ enum CommandSourceType
 	CMD_FROM_SCRIPT = 1
 };
 
-class AICommandInterface
-{
-public:
-	void rva003C7653(Object *target, CommandSourceType cmdSource);	// 0x003C7653
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commands;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -134,5 +123,5 @@ void ScriptActions::rva003C951B(const AsciiString &unitName, const AsciiString &
 		}
 	}
 	if (target)
-		ai->m_commands.rva003C7653(target, CMD_FROM_SCRIPT);
+		ai->rva003C7653(target, CMD_FROM_SCRIPT);
 }

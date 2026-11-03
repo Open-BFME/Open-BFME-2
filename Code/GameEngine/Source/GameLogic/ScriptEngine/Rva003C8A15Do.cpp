@@ -36,19 +36,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-class AICommandInterface
-{
-public:
-	void aiGuardAreaFromPosition(const PolygonTrigger *area, int v, CommandSourceType src, const Coord3D *pos);
-	void aiGuardArea(const PolygonTrigger *area, int v, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -73,7 +61,7 @@ void ScriptActions::Rva003C8A15Do(Parameter *unitParam, const AsciiString &areaN
 	Waypoint *wp = ((TerrainLogicByValue *&)TheTerrainLogic)->getWaypointByName(wayName);
 	AIUpdateInterface *ai = obj->getAI();
 	if (wp)
-		ai->m_command.aiGuardAreaFromPosition(area, 0, CMD_FROM_SCRIPT, wp->location());
+		ai->aiGuardAreaFromPosition(area, 0, CMD_FROM_SCRIPT, wp->location());
 	else
-		ai->m_command.aiGuardArea(area, 0, CMD_FROM_SCRIPT);
+		ai->aiGuardArea(area, 0, CMD_FROM_SCRIPT);
 }

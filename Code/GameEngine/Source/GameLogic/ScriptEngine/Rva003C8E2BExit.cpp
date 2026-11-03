@@ -28,18 +28,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class AICommandInterface
-{
-public:
-	void aiExit(Object *obj, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -64,6 +53,6 @@ void ScriptActions::Rva003C8E2BExit(const AsciiString &teamName)
 		if (!ai) {
 			continue;
 		}
-		ai->m_command.aiExit(NULL, CMD_FROM_SCRIPT);
+		ai->aiExit(NULL, CMD_FROM_SCRIPT);
 	}
 }

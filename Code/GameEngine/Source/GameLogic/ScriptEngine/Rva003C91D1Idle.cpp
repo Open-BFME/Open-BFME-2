@@ -14,18 +14,7 @@ class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 enum WeaponLockType { NOT_LOCKED, LOCKED_TEMPORARILY, LOCKED_PERMANENTLY };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command; // +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -41,5 +30,5 @@ void ScriptActions::Rva003C91D1Idle(Parameter *param)
 	if (!ai)
 		return;
 	obj->releaseWeaponLock(LOCKED_TEMPORARILY);
-	ai->m_command.aiIdle(CMD_FROM_SCRIPT);
+	ai->aiIdle(CMD_FROM_SCRIPT);
 }

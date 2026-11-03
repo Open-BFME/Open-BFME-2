@@ -20,18 +20,7 @@ class Rva00358752Opaque
 public:
     Object *lookupUnitByValue(AsciiString);
 };
-class AICommandInterface
-{
-public:
-    void aiFaceObject(Object *, CommandSourceType);
-};
-class AIUpdateInterface
-{
-public:
-    char pad[0x20];
-    AICommandInterface command;
-    void rva0026295E();
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -60,5 +49,5 @@ void ScriptActions::doNamedFaceNamed(const AsciiString &unitName,
     if (!ai) return;
     ai->rva0026295E();
     unit->leaveGroup();
-    ai->command.aiFaceObject(faceUnit, CMD_FROM_SCRIPT);
+    ai->aiFaceObject(faceUnit, CMD_FROM_SCRIPT);
 }

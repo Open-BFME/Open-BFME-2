@@ -87,18 +87,7 @@ private:
 	unsigned char m_kindOf[0x20];
 };
 
-class AICommandInterface
-{
-public:
-	void rva0026C347(Object *obj, CommandSourceType cmdSource); // aiEnter
-};
-
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Thing
 {
@@ -233,6 +222,6 @@ void ScriptActions::doLoadAllTransports(const AsciiString &teamName)
 		if (!unit || !trans)
 			continue;
 		if (unit->getAIUpdateInterface())
-			unit->getAIUpdateInterface()->m_command.rva0026C347(trans, CMD_FROM_SCRIPT);
+			unit->getAIUpdateInterface()->rva0026C347(trans, CMD_FROM_SCRIPT);
 	}
 }

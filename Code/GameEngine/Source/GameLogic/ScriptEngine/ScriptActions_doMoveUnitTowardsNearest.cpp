@@ -73,18 +73,7 @@ enum DistanceCalculationType
 	FROM_CENTER_3D = 0
 };
 
-class AICommandInterface
-{
-public:
-	void aiMoveToObject(Object *obj, CommandSourceType source);	// 0x00352ECA
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commands;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -134,5 +123,5 @@ void ScriptActions::doMoveUnitTowardsNearest(const AsciiString &unitName, const 
 	if (!bestObj)
 		return;
 
-	ai->m_commands.aiMoveToObject(bestObj, CMD_FROM_SCRIPT);
+	ai->aiMoveToObject(bestObj, CMD_FROM_SCRIPT);
 }

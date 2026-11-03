@@ -7,18 +7,7 @@ class Parameter;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void aiGuardObject(Object *obj, int mode, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -37,5 +26,5 @@ void ScriptActions::Rva003C89D1Guard(Parameter *parameter, Parameter *p2)
 		return;
 	if (!object)
 		return;
-	ai->m_command.aiGuardObject(object, 0, CMD_FROM_SCRIPT);
+	ai->aiGuardObject(object, 0, CMD_FROM_SCRIPT);
 }

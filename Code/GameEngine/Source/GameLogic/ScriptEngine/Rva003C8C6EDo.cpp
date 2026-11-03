@@ -11,18 +11,7 @@
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
 class Object;
-class AICommandInterface
-{
-public:
-	void aiEvacuate(bool expose, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct ObjectKind
 {
@@ -75,7 +64,7 @@ void ScriptActions::Rva003C8C6EDo(const AsciiString &unitName)
 		return;
 	AIUpdateInterface *ai = obj->m_ai;
 	if (ai) {
-		ai->m_command.aiEvacuate(false, CMD_FROM_SCRIPT);
+		ai->aiEvacuate(false, CMD_FROM_SCRIPT);
 		return;
 	}
 	ContainModule *contain = obj->m_contain;

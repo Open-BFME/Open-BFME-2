@@ -34,18 +34,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-class AICommandInterface
-{
-public:
-	void aiFollowWaypointPathExact(const Waypoint *wp, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -73,5 +62,5 @@ void ScriptActions::doNamedAttackFollowWaypoints(Parameter *unitParam, const Asc
 	if (!wp)
 		return;
 	unit->leaveGroup();
-	ai->m_command.aiFollowWaypointPathExact(wp, CMD_FROM_SCRIPT);
+	ai->aiFollowWaypointPathExact(wp, CMD_FROM_SCRIPT);
 }
