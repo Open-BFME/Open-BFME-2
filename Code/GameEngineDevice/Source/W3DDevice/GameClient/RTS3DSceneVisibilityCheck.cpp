@@ -51,13 +51,7 @@ class RTS3DScene;
 class Drawable;
 class Object;
 
-struct DrawableInfo
-{
-	unsigned shroudStatusObjectID;
-	Drawable *drawable; // +4
-	unsigned gap8;
-	unsigned flags; // +0xC
-};
+#include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 class CameraClass
 {
@@ -538,7 +532,7 @@ void RTS3DScene::Visibility_Check(CameraClass *camera)
 		DrawableInfo *drawInfo = robj->Get_User_Data();
 		if (!drawInfo)
 			continue;
-		Drawable *draw = drawInfo->drawable;
+		Drawable *draw = drawInfo->m_drawable;
 		if (!draw)
 			continue;
 		if (bfmeCameraProjectionOverride)
@@ -559,12 +553,12 @@ void RTS3DScene::Visibility_Check(CameraClass *camera)
 			hideObject(robj);
 			continue;
 		}
-		drawInfo->flags = 0;
+		drawInfo->m_flags = 0;
 		if (draw->rva00272C9E((int)robj) < 1.0f || robj->Get_Transparency() < 1.0f)
 		{
 			if (translucentCount < VISIBILITY_GLOBALS->maxTranslucent)
 			{
-				drawInfo->flags = 8;
+				drawInfo->m_flags = 8;
 				translucentBuffer[translucentCount++] = robj;
 				continue;
 			}
@@ -573,7 +567,7 @@ void RTS3DScene::Visibility_Check(CameraClass *camera)
 		if ((draw->tpl->kind[0] & 0x80) && occluderCount < VISIBILITY_GLOBALS->maxOccluders && !(draw->tpl->kind[0x115 - 0x108] & 0x80))
 		{
 			occluderBuffer[occluderCount++] = robj;
-			drawInfo->flags |= 2;
+			drawInfo->m_flags |= 2;
 		}
 		else if (object && occludeeCount < VISIBILITY_GLOBALS->maxOccludees && !(object->flags438 & 1)
 			&& ((Thing *)draw)->isAnyKindOf(Rva0006EE7A(0, 8, 10, 9, 11))
@@ -584,12 +578,12 @@ void RTS3DScene::Visibility_Check(CameraClass *camera)
 			&& !object->isKindOf(KINDOF_RVA_1BA))
 		{
 			occludeeBuffer[occludeeCount++] = robj;
-			drawInfo->flags |= 4;
+			drawInfo->m_flags |= 4;
 		}
-		else if (drawInfo->flags == 0 && nonOccluderCount < VISIBILITY_GLOBALS->maxNonOccluderOrOccludee)
+		else if (drawInfo->m_flags == 0 && nonOccluderCount < VISIBILITY_GLOBALS->maxNonOccluderOrOccludee)
 		{
 			nonOccluderBuffer[nonOccluderCount++] = robj;
-			drawInfo->flags |= 0x10;
+			drawInfo->m_flags |= 0x10;
 		}
 	}
 

@@ -74,11 +74,7 @@ public:
 	unsigned char m_flag441; // +0x441
 };
 
-struct DrawableInfo
-{
-	void *m_pad00;
-	Drawable *m_drawable; // +0x04
-};
+#include "../../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 // Identity 3x4 at VA 0x00DDD9D0 (value-verified 1,0,0,0,...): the first of
 // the ten 48-byte static matrices (480 bytes: Identity, RotateX90 ...

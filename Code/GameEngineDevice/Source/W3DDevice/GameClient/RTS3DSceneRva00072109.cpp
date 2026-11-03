@@ -107,11 +107,7 @@ public:
 
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
-struct DrawableInfo
-{
-	int m_shroudStatusObjectID;
-	Drawable *m_drawable;
-};
+#include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 class RefCountClass
 {

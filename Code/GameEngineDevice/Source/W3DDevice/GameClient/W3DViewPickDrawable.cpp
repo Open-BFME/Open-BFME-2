@@ -80,11 +80,7 @@ public:
 
 class Drawable;
 
-struct DrawableInfo
-{
-	int m_shroudStatusObjectID;
-	Drawable *m_drawable;
-};
+#include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 // Mask finder item (rowed Rva0008A2A3Find): a render object seen through its user-data slot (+0x15C).
 class Rva0008A2A3Item

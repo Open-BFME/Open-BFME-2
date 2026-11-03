@@ -162,14 +162,7 @@ public:
 	unsigned char m_data[0x90];
 };
 
-struct DrawableInfo
-{
-	DrawableInfo() : m_shroudStatusObjectID(0), m_drawable(0), m_ghostObject(0), m_flags(0) {}
-	int m_shroudStatusObjectID;
-	Drawable *m_drawable;
-	void *m_ghostObject;
-	int m_flags;
-};
+#include "../../Include/GameClient/DrawableInfoClass.h"
 
 // Thing: its constructor is the rowed Thing::Thing 0x0030A188 and its
 // destructor the rowed Thing::~Thing 0x0030A120 (same vtable 0x008086E0 and instance count).

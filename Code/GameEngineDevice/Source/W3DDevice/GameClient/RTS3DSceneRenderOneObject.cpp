@@ -339,11 +339,7 @@ private:
 	Real m_secondMaterialPassOpacity;									// +0x358
 };
 
-struct DrawableInfo
-{
-	ObjectID m_shroudStatusObjectID;									// +0x00
-	Drawable *m_drawable;												// +0x04
-};
+#include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 #include "../../../Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 class TerrainLogic;

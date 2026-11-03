@@ -559,15 +559,7 @@ protected:
 	PartitionData *m_partitionData;															///< 0x7C
 };
 
-struct DrawableInfo
-{
-	DrawableInfo( void ) : m_shroudStatusObjectID( INVALID_OBJECT_ID ), m_drawable( 0 ), m_ghostObject( 0 ), m_flags( 0 ) {}
-
-	ObjectID m_shroudStatusObjectID;														///< 0xD0 in W3DGhostObject
-	Drawable *m_drawable;																				///< 0xD4
-	GhostObject *m_ghostObject;																	///< 0xD8
-	Int m_flags;																								///< 0xDC
-};
+#include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 class W3DGhostObjectManager;
 
