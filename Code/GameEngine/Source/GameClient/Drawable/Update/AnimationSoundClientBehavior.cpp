@@ -9,7 +9,7 @@
 #pragma inline_depth()
 #pragma comment(linker, "/alternatename:??1VoiceSlot@@QAE@XZ=??1Rva002390CB@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ=??3@YAXPAX@Z")
-class INIException {public:char *message;int code;INIException(int,const char*,...);INIException(const INIException&);~INIException();};
+#include "../../../../Include/Common/INI/FieldParse.h"
 class INI {public:const char*getNextSubToken(const char*);const char*getNextToken(const char*);const char*getNextTokenOrNull(const char*);float scanReal(const char*);char pad[0x420];const char *separators;};
 class Rva0036CA00Str {public:Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(object)object->Release_Ref();}OpaqueRefCounted *object;};
 template<int N>class LookupSlots:public LookupSlots<N-1>{public:virtual void gap(char(*)[N]);};
@@ -339,15 +339,9 @@ public:
 
 class MultiIniFieldParse;
 
-struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
 extern const FieldParse s_animSoundFieldTable[];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parse, unsigned int extraOffset);
-};
 
 class AnimationSoundClientBehaviorModuleDataBase
 {

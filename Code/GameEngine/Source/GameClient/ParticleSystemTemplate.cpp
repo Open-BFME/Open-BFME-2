@@ -26,13 +26,7 @@ class INI;
 // 12 bytes, no constructor or destructor by design (used within unions).
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 
-struct FieldParse
-{
-    const char *token;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
 

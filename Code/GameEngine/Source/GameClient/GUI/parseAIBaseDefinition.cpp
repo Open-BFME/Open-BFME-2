@@ -18,7 +18,7 @@ enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 class INI;
-struct FieldParse {const char*name;void(*parse)(INI*,void*,void*,const void*);const void*data;int offset;};
+#include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
 // Native table is exactly five entries at C3AF18..C3AF68; the following
 // bytes are unrelated code pointers and the Unnamed string, not a zero

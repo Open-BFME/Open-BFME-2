@@ -56,7 +56,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
 // bfme link decl-only end
 struct FieldParse;class INI;
-struct FieldParse {const char*name;void(*parse)(INI*,void*,void*,const void*);const void*data;int offset;};
+#include "../../Include/Common/INI/FieldParse.h"
 class INI {public:const char*getNextToken(const char*);void initFromINI(void*,const FieldParse*);static void parseBool(INI*,void*,void*,const void*);char opaque00[8];int loadType;};
 enum NameKeyType{NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 namespace rts {template<class T>struct hash {size_t operator()(const T&x)const{return (size_t)x;}};}

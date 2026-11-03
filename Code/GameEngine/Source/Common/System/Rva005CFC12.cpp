@@ -7,13 +7,7 @@
 struct FieldParse;
 #include "../../../Include/Common/INI/INI.h"
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 static __forceinline float fast_floor(float f)
 {

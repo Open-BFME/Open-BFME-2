@@ -6,7 +6,7 @@
 // from game.dat), so the linked image relocates them instead of pushing
 // hard-coded addresses. Same mechanism as g_emptyFieldParseTable.
 
-struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 extern const int g_emptyFieldParseTable[4];
 extern const FieldParse s_fxpsAlphaTable[];
 extern const FieldParse s_fxpsSizeAngleTable[];

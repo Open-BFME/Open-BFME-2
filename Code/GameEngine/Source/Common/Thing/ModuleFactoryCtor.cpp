@@ -27,13 +27,7 @@ struct Rva004138C7BonusView {
  float firstMultiplier;
  float secondMultiplier;
 };
-struct FieldParse
-{
- const char *name;
- void (*parse)(class INI *, void *, void *, const void *);
- const void *userData;
- int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 void Rva002E2612Parse(INI *, void *, void *, const void *);
 void Rva004138C7Parse(INI *, void *, void *, const void *);
 

@@ -7,7 +7,7 @@
 #include "ascii_string.h"
 #include <utility>
 class INI;
-struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);int offset;const void *data;};
+#include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
 static const FieldParse fields[]={ {"Instances",INI::parseInt,0,0},{0,0,0,0} };
 struct InsertRet0041FA92 {void *node;void *owner;unsigned char found;};

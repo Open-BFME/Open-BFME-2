@@ -15,13 +15,7 @@
 // model; the owning struct is BFME2-new (no BFME1 donor).
 
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
 #include <string.h>

@@ -117,13 +117,7 @@ void Rva003A5757::rva003A5757(Xfer *xfer)
 }
 
 class INI;
-struct FieldParse
-{
-	const char *name;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *data;
-	unsigned int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 #include "../../../../Include/Common/INI/INI.h"
 namespace FXParticleSystem {
 // Export names the five-entry native enum table at C1B6C4; the null terminator

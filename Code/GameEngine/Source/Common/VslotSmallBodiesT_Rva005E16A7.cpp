@@ -54,13 +54,7 @@ public:
 // 0x005E16A7 and 0x005E2126: the pinned INI::initFromINI on this object with
 // the field table at VA 0x00C779F0 (resp. 0x00C77A98).
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 // The two tables (retail .rdata): Image/Title/Help strings at +8/+0xC/+0x10
 // through the rowed INI::parseAsciiString (0x0002F11E), and

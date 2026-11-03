@@ -10,13 +10,7 @@ public:
 	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
 };
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // Retail's own three-record table, transcribed from .rdata at RVA 0x00810550 (VA
 // 0x00C10550, file offset 0x0080F950): Conditions through Rva0033AFBB::parseFromINI
