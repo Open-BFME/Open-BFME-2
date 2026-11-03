@@ -1,0 +1,17 @@
+rename: class Rva004EB583 -> Rva004EB5E9 (fold)
+  owner source: Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp
+  evidence: ??0Rva004EB583@@QAE@H@Z at 0x004EB583 installs retail vftable 0x00C62928 as its own (its only +0 install); 0x00C62928 is named ??_7Rva004EB5E9@@6B@ (data_ledger.csv), ??_7Rva004EB583@@6B@ (data_ledger.csv); ??_GRva004EB5E9@@UAEPAXI@Z at 0x004EB778 is slot 0
+  functions.csv rows renamed (1), each tombstoned:
+    0x004EB583 ??0Rva004EB583@@QAE@H@Z -> ??0Rva004EB5E9@@QAE@H@Z
+  sources rewritten (3):
+    Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp (comment 1)
+    Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp (code 6)
+    Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp (code 5, comment 1)
+  verify (3): ./build.sh Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp
+  claims: 0x004EB583 class:Rva004EB583 class:Rva004EB5E9 file:Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp file:Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp file:Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv
+  mention (not rewritten): reverse/wb_name_leads.csv
+  warning: reverse/data_ledger.csv (tool-written, protected) still spells Rva004EB583 symbols; tools/data_ledger.py regenerates it in a Verifier-Change commit
+  warning: Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp: its file name spells Rva004EB583 (not renamed; use the file kind)
+  suggested subject: Fold class Rva004EB583 into Rva004EB5E9 (retail vftable 0x00C62928)
+rename: --dry-run: nothing written

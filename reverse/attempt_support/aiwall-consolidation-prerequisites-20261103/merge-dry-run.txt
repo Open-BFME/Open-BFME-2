@@ -1,0 +1,9 @@
+tu: Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp
+approved: 50
+mixed: {'Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp': 19, 'Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva004ebe74.cpp': 1}
+refused: {}
+accepted: []
+rejected: {'Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp': 'bytes'}
+adopt_first: {'Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp': ['ModuleData', 'Player', 'PolygonTrigger', 'Rva000421C8', 'ThingTemplate', 'UpgradeTemplate']}
+link_guard: census-linked: Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp, Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp
+blocked: no verified merge of two or more donors
