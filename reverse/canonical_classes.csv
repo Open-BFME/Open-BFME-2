@@ -629,3 +629,4 @@ InGameCommandButtonHelp,Code/GameEngine/Include/GameClient/InGameCommandButtonHe
 W3DBridge,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h,existing header; contract class_contracts/W3DBridge.json; 6/12 sampled units adopt
 Anim2DTemplate,Code/GameEngine/Include/GameClient/Anim2DTemplate.h,existing header; contract class_contracts/Anim2DTemplate.json; 7/8 sampled units adopt
 CastleUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/CastleUpgradeModuleData.h,existing header; contract class_contracts/CastleUpgradeModuleData.json; 5/8 sampled units adopt
+WaterTracksRenderSystem,Code/GameEngineDevice/Include/W3DDevice/GameClient/WaterTracksRenderSystem.h,existing header; contract class_contracts/WaterTracksRenderSystem.json; 8/13 sampled units adopt
