@@ -5,8 +5,19 @@
 // and closeWindows in slot15, after SubsystemInterface's fourteen slots.
 // Rva-prefixed helpers keep their original verbs uncertain. Their member ABI
 // is witnessed by bounded dispatcher3CA4BE call sites passing this in ECX.
+// Bool: the script headers' spelling of bool.
 typedef bool Bool;
-#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+// executeAction and closeWindows (slots 14 and 15) follow the base's fourteen
+// slots, so the base must declare them; a slot-less SubsystemInterface cannot.
+#ifndef BFME_SUBSYSTEM_SLOTS
+#ifdef CANONICAL_SUBSYSTEMINTERFACE_H
+#error ScriptActions needs the fourteen-slot SubsystemInterface (BFME_SUBSYSTEM_SLOTS).
+#endif
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include <vector>
+#include <utility>
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class Parameter;
 class ScriptAction;
 class AsciiString;

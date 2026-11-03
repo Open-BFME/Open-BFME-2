@@ -21,8 +21,8 @@
 //  - GameEngine::init allocates 0x1A500 bytes before calling the ctor
 //    (push 0x1A500 at 0x0022F511), so sizeof is 0x1A500.
 //
-// The base is the 14-slot SubsystemInterface of subsystem_bfme2, the same
-// header the canonical ScriptActions (ScriptActionsBFME2.h) derives from: its
+// The base is the registered SubsystemInterface with its fourteen slots
+// (BFME_SUBSYSTEM_SLOTS), as for ScriptActions and ScriptConditions: its
 // slots 1, 9 and 10 are exactly the ones ScriptEngine overrides.
 //
 // Members: every ScriptEngine row of reverse/functions.csv, with the access,
@@ -38,10 +38,19 @@
 #ifndef CANONICAL_SCRIPTENGINE_H
 #define CANONICAL_SCRIPTENGINE_H
 
-// subsystem_interface.h spells loadIniFilesFromLegend's return Bool; the
-// canonical ScriptActions header declares the same typedef before it.
+// Bool: the script headers' spelling of bool.
 typedef bool Bool;
-#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+// Table 0x007E3D70 extends the base's fourteen slots, so the base must
+// declare them; a slot-less SubsystemInterface read earlier cannot.
+#ifndef BFME_SUBSYSTEM_SLOTS
+#ifdef CANONICAL_SUBSYSTEMINTERFACE_H
+#error ScriptEngine needs the fourteen-slot SubsystemInterface (BFME_SUBSYSTEM_SLOTS).
+#endif
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include <vector>
+#include <utility>
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class ActionTemplate;

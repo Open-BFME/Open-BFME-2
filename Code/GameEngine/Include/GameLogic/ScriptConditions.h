@@ -28,8 +28,8 @@
 //    that emits the vftable binds slot17 to the row (as ScriptConditions_ctor.cpp
 //    binds init with /alternatename).
 //
-// The base is the 14-slot SubsystemInterface of subsystem_bfme2, the same
-// header the canonical ScriptEngine and ScriptActions derive from.
+// The base is the registered SubsystemInterface with its fourteen slots
+// (BFME_SUBSYSTEM_SLOTS), as for ScriptEngine and ScriptActions.
 //
 // Members: every ScriptConditions row of reverse/functions.csv, with the access
 // and parameter types its decorated name states (I = protected, Q = public,
@@ -37,10 +37,19 @@
 #ifndef CANONICAL_SCRIPTCONDITIONS_H
 #define CANONICAL_SCRIPTCONDITIONS_H
 
-// subsystem_interface.h spells loadIniFilesFromLegend's return Bool; the
-// canonical ScriptEngine and ScriptActions headers declare the same typedef.
+// Bool: the script headers' spelling of bool (slots 14-17 return it).
 typedef bool Bool;
-#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+// Slots 14-17 (table 0x00C35AE0) follow the base table 0x00BD77A0's fourteen,
+// so the base must declare them; a slot-less SubsystemInterface read earlier cannot.
+#ifndef BFME_SUBSYSTEM_SLOTS
+#ifdef CANONICAL_SUBSYSTEMINTERFACE_H
+#error ScriptConditions needs the fourteen-slot SubsystemInterface (BFME_SUBSYSTEM_SLOTS).
+#endif
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include <vector>
+#include <utility>
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class Condition;
 class Parameter;

@@ -83,7 +83,12 @@ struct Rva003378D0 : Rva003378D0Base<Rva003371B1>
 {
 	~Rva003378D0();
 };
-#include "subsystem_interface.h"
+#include <vector>
+#include <utility>
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 extern "C" void lua_pushnumber( lua_State *state, double value );
 typedef unsigned int UnsignedInt;
 //

@@ -19,7 +19,12 @@
 typedef bool Bool;
 #include "ascii_string.h"
 #include <list>
-#include "subsystem_interface.h"
+#include <vector>
+#include <utility>
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../GameWindowManagerRecordView.h"
 #include "ControlBarSchemeManagerView.h"
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
