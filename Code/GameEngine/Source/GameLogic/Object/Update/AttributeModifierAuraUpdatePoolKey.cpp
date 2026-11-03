@@ -18,11 +18,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AttributeModifierAuraUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdate.h"
 
 // ?getModuleNameKey@AttributeModifierAuraUpdate@@UBE?AW4NameKeyType@@XZ
 NameKeyType AttributeModifierAuraUpdate::getModuleNameKey() const
