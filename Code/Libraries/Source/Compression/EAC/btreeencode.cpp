@@ -272,12 +272,12 @@ static unsigned int	BTREE_findbest(BTREEWORD     *countptr,
 	unsigned int				leadByte;
 	unsigned int				bestsize;
 
-	unsigned int				i3;
-	unsigned int				l;
+	unsigned int				insertIndex;
+	unsigned int				pairBase;
 
 	bestsize = 1;
 	i = 3;
-	l = 0;
+	pairBase = 0;
 	for (leadByte=0;leadByte<256;++leadByte)
 	{
 		if (tryq[leadByte])
@@ -287,15 +287,15 @@ static unsigned int	BTREE_findbest(BTREEWORD     *countptr,
 				{
 					if (tryq[followByte])
 					{	i = *(countptr-1);
-						i3=bestsize;
-						while (bestval[i3-1]<i)
+						insertIndex=bestsize;
+						while (bestval[insertIndex-1]<i)
 						{
-							bestn[i3] = bestn[i3-1];
-							bestval[i3] = bestval[i3-1];
-							--i3;
+							bestn[insertIndex] = bestn[insertIndex-1];
+							bestval[insertIndex] = bestval[insertIndex-1];
+							--insertIndex;
 						}
-						bestn[i3] = l+followByte;
-						bestval[i3] = i;
+						bestn[insertIndex] = pairBase+followByte;
+						bestval[insertIndex] = i;
 						if (bestsize<48)
 							++bestsize;
 						while (bestval[bestsize-1]<(bestval[1]/ratio))
@@ -310,7 +310,7 @@ static unsigned int	BTREE_findbest(BTREEWORD     *countptr,
 		}
 		else
 			countptr += 256;
-		l += 256;
+		pairBase += 256;
 	}
 	return(bestsize);
 }
@@ -324,7 +324,7 @@ static void BTREE_treepack(struct BTreeEncodeContext *EC,
 {
 
 	unsigned char	*bend;
-	unsigned char	*ptr1;
+	unsigned char	*scanPtr;
 	unsigned char	*treebuf;
 	BTREEWORD		*count;
 	unsigned int	i;
@@ -395,9 +395,9 @@ static void BTREE_treepack(struct BTreeEncodeContext *EC,
 
 	i1 = 0;
 	bend = EC->bufptr;
-	ptr1 = EC->buffer;
-	while (ptr1<bend)
-	{	i = (unsigned int) *ptr1++;
+	scanPtr = EC->buffer;
+	while (scanPtr<bend)
+	{	i = (unsigned int) *scanPtr++;
 		i1 = i1 + i;
 		++count2[i];
 	}
@@ -491,10 +491,10 @@ static void BTREE_treepack(struct BTreeEncodeContext *EC,
 
 /* do an adjacency count */
 
-		ptr1 = EC->bufbase;
+		scanPtr = EC->bufbase;
 		bend = EC->bufend;
 
-		BTREE_adjcount(ptr1, bend, count);
+		BTREE_adjcount(scanPtr, bend, count);
 
 /* find most common nodes */
 
@@ -602,11 +602,11 @@ static void BTREE_treepack(struct BTreeEncodeContext *EC,
 
 /*** write packed file ***/
 
-	ptr1 = EC->bufbase;
+	scanPtr = EC->bufbase;
 	bend = EC->bufend;
 
-	while (ptr1<bend)
-		BTREE_writebits(EC,dest,(unsigned int) *ptr1++, 8);
+	while (scanPtr<bend)
+		BTREE_writebits(EC,dest,(unsigned int) *scanPtr++, 8);
 
 	BTREE_writebits(EC,dest,(unsigned int) clue, 8);
 	BTREE_writebits(EC,dest,(unsigned int) 0, 8);

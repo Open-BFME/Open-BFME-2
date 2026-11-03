@@ -14,7 +14,7 @@ namespace {
 struct Rva0016825DPoint {
     float X,Y,Z;
     Rva0016825DPoint() {}
-    __forceinline Rva0016825DPoint(const Rva0016825DPoint &v) {X=v.X;Y=v.Y;Z=v.Z;}
+    __forceinline Rva0016825DPoint(const Rva0016825DPoint &source) {X=source.X;Y=source.Y;Z=source.Z;}
     __forceinline Rva0016825DPoint &operator=(const Rva0016825DPoint &v) {X=v.X;Y=v.Y;Z=v.Z;return *this;}
     __forceinline Rva0016825DPoint(float x,float y,float z) { X=x;Y=y;Z=z; }
     __forceinline Rva0016825DPoint &operator+=(const Rva0016825DPoint &v) { X+=v.X;Y+=v.Y;Z+=v.Z;return *this; }

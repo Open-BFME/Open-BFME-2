@@ -374,3 +374,6 @@ agree:nl-e803dbbb56b9,BTREE_findbest::i1,BTREE_findbest::followByte,Code/Librari
 agree:nl-26d827607fa5,BTREE_findbest::i2,BTREE_findbest::leadByte,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,373890f7b1c6c6f8740b2e77fdd3f28ef2ee91473a7aea26960489df3e3e8f20
 agree:nl-17d2688ffcfe-m758a6dfdec1b9b1f55cc6fd7,BTREE_joinnodes::d,BTREE_joinnodes::destination,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,dbe8e408ea6c439ec970f7b941cba3930c8d7eff892f541619e873d68049f48a
 agree:nl-79679828ad74,Rva000AFA92::rva000AFA92::t,Rva000AFA92::rva000AFA92::tileTable,Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp,1729bb2a6ac7dcbaa978bc7454783d2d9150f78148a54a74293f3503d0e384db
+agree:nl-75e902f53c93,BTREE_findbest::i3,BTREE_findbest::insertIndex,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,80a1d71ab4a9a5f62f87245eca619634a97aaab856d8034a5319d332ac284278
+agree:nl-ddf7b2784deb,BTREE_findbest::l,BTREE_findbest::pairBase,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,80a1d71ab4a9a5f62f87245eca619634a97aaab856d8034a5319d332ac284278
+agree:nl-adfb3166be76,BTREE_treepack::ptr1,BTREE_treepack::scanPtr,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0b3cec50641ae63c43c5d42c0b4bf806e6b64a947a995d7261b4a6f1b3b24996

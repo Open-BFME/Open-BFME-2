@@ -88,6 +88,6 @@ void __cdecl Rva001800B2Create(const char *name, int a, int b)
 		return;
 	if (Render_Obj_Exists(name))
 		return;
-	Rva0017FF77 *p = new Rva0017FF77(name, a, b);
-	Add_Prototype(p);
+	Rva0017FF77 *prototype = new Rva0017FF77(name, a, b);
+	Add_Prototype(prototype);
 }

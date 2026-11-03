@@ -120,11 +120,11 @@ bool BfmeHostAAS::bfmeProbeAAS()
 	if ((GetWindowLongA(found, -0x10) & 0xc00000) != 0)
 		m_bfme9F55AAS = 1;
 
-	RECT r;
+	RECT windowRect;
 
-	if (GetWindowRect(found, &r) != 0)
+	if (GetWindowRect(found, &windowRect) != 0)
 	{
-		if (r.right - r.left < r.bottom - r.top)
+		if (windowRect.right - windowRect.left < windowRect.bottom - windowRect.top)
 			m_bfme9F55AAS = 1;
 	}
 

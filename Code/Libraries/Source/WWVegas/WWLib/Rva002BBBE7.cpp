@@ -25,14 +25,14 @@ struct Node002BBBE7 {
 class Rva002BBBE7
 {
 public:
-	void rva002BBBE7(Node002BBBE7 *n);
+	void rva002BBBE7(Node002BBBE7 *node);
 };
 
-void Rva002BBBE7::rva002BBBE7(Node002BBBE7 *n)
+void Rva002BBBE7::rva002BBBE7(Node002BBBE7 *node)
 {
-	if (n == 0)
+	if (node == 0)
 		return;
-	for (Node002BBBE7 *cur = n; cur != 0;) {
+	for (Node002BBBE7 *cur = node; cur != 0;) {
 		rva002BBBE7(cur->m_child0C);
 		Node002BBBE7 *next = cur->m_next08;
 		cur->m_obj10.~Rva002B923F();

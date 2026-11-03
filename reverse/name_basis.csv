@@ -7274,3 +7274,13 @@ param,Rva000AFA92::rva000AFA92::b,Rva000AFA92::rva000AFA92::tileY,inferred,agree
 local,Rva0023E8D8::Rva0023E8D8::q,Rva0023E8D8::Rva0023E8D8::impl,inferred,agree:nl-73a1a16c06e9,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,0x0023E8D8
 param,bfmeEmitRva0023E8D8Ctor::p,bfmeEmitRva0023E8D8Ctor::storage,inferred,agree:nl-5d19f0015f69,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,
 param,bfmeEmitRva0023E8D8Ctor::q,bfmeEmitRva0023E8D8Ctor::funcHolder,inferred,agree:nl-a1412cddab42,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,
+local,Rva007E9FC0Owner::begin::s,Rva007E9FC0Owner::begin::slot,inferred,agree:nl-467dd5a8e743,Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp,0x00656F70
+local,BTREE_findbest::i3,BTREE_findbest::insertIndex,inferred,agree:nl-75e902f53c93,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0x0068CCC0
+local,BTREE_findbest::l,BTREE_findbest::pairBase,inferred,agree:nl-ddf7b2784deb,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0x0068CCC0
+local,BTREE_treepack::ptr1,BTREE_treepack::scanPtr,inferred,agree:nl-adfb3166be76,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0x0068CE30
+param,Rva0016825DPoint#2::v,Rva0016825DPoint#2::source,inferred,agree:nl-4c1bc0777040-mf3282ec8dfbddbd131b928e1,Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp,
+local,Rva001800B2Create::p,Rva001800B2Create::prototype,inferred,agree:nl-ad606e3b154f,Code/Libraries/Source/WWVegas/WW3D2/Rva00180054Factory.cpp,0x001800B2
+param,Rva004C77C4Max::a,Rva004C77C4Max::left,inferred,agree:nl-33b427c6d93c,Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp,
+param,Rva004C77C4Max::b,Rva004C77C4Max::right,inferred,agree:nl-35fd61f21d98,Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp,
+param,Rva002BBBE7::rva002BBBE7::n,Rva002BBBE7::rva002BBBE7::node,inferred,agree:nl-d3f39abeb65d,Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp,0x002BBBE7
+local,BfmeHostAAS::bfmeProbeAAS::r,BfmeHostAAS::bfmeProbeAAS::windowRect,inferred,agree:nl-749e2fa7cbcc,Code/Libraries/Source/debug/debug_cmd.cpp,0x000397D0

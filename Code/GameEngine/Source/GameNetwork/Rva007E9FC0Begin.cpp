@@ -71,8 +71,8 @@ void Rva007E9FC0Owner::begin(int n, void *peer)
 		m_260 = peer;
 		m_264 = n;
 		m_254->m_inner->slot2(2, 0);
-		Rva007E9FC0Slot *s = m_250;
-		int resultCode = s->slot4(m_258, m_230);
+		Rva007E9FC0Slot *slot = m_250;
+		int resultCode = slot->slot4(m_258, m_230);
 		if (resultCode)
 		{
 			int tmp = resultCode;
