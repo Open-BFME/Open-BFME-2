@@ -505,3 +505,4 @@ RAMFile,Code/GameEngine/Include/Common/RAMFileClass.h,existing header; contract 
 RectClass,Code/Libraries/Source/WWVegas/WWMath/RectClass.h,existing header; contract class_contracts/RectClass.json; 8/12 sampled units adopt
 LivingWorldAutoResolveBattle,Code/GameEngine/Include/GameLogic/LivingWorldAutoResolveBattle.h,existing header; contract class_contracts/LivingWorldAutoResolveBattle.json; 7/16 sampled units adopt
 PointGroupClass,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.h,existing header; contract class_contracts/PointGroupClass.json; 8/13 sampled units adopt
+AIGuardMachine,Code/GameEngine/Include/GameLogic/AIGuardMachine.h,existing header; contract class_contracts/AIGuardMachine.json; 3/11 sampled units adopt
