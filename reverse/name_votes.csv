@@ -22719,3 +22719,6 @@ Code/GameEngine/Source/GameLogic/Object/ObjectOrderQueue.cpp|param|ObjectOrderQu
 Code/GameEngine/Source/GameLogic/Object/Object_rva002637E2Worker.cpp|param|Object::rva0026381B|b,2fcfc1b65fba3a53638a6e73,drz-k11,drz-k11-n45h-15,w-09889333d128,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp|local|Object::rva0028C1A9|m,91b8a0bddc625cbdecda24a7,drz-k11,drz-k11-n45h-19,w-09889333d128,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C264.cpp|param|Object::rva0028C264|n,21bb433b7478cf49e0f10ae0,drz-k11,drz-k11-n45h-20,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp|param|Object::rva002930A9|arg,6d2ce7ac50cab448eed07733,drz-k1,drz-k1-n46a-9,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectShockRva00296065.cpp|local|Object::rva00296065|r,0b2018443159f1ed3a37e849,drz-k1,drz-k1-n46a-16,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp|param|Object::rva00294471|arg,6cec09a8aee616968c6acf24,drz-k1,drz-k1-n46a-17,w-d29055ee9848,2026-11-02
