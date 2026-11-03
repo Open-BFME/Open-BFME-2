@@ -16,9 +16,9 @@ extern "C" void _ReadWriteBarrier();
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
 namespace _STL {
-template <class _RbVal, class _RbLeft, class _RbRight>
-static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
-                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
 
@@ -28,10 +28,10 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::begin()
-{ return _M_start; }
+{ return this->_M_start; }
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end()
-{ return _M_finish; }
+{ return this->_M_finish; }
 }
 
 void Rva00030830GameFree(void*);
