@@ -69,10 +69,10 @@ void PathfindLayer::rva003666FD(Xfer *xfer)
 	xfer->Version1();
 	if (m_layerCells)
 	{
-		for (int x = 0; x < m_width; ++x)
+		for (int cellX = 0; cellX < m_width; ++cellX)
 		{
-			for (int y = 0; y < m_height; ++y)
-				m_layerCells[x][y].DoXfer(xfer);
+			for (int cellY = 0; cellY < m_height; ++cellY)
+				m_layerCells[cellX][cellY].DoXfer(xfer);
 		}
 	}
 	*xfer == m_width;

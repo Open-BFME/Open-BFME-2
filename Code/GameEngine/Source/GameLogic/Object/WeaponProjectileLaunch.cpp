@@ -281,9 +281,9 @@ class Object : public Thing
         turnAdjustment.In_Place_Pre_Rotate_Z(turretAngle);
         turnAdjustment.Translate(-turretRotPos.x, -turretRotPos.y, -turretRotPos.z);
 
-        Matrix3D tmp = attachTransform;
+        Matrix3D originalTransform = attachTransform;
         attachTransform.mul(turnAdjustment, pitchAdjustment);
-        attachTransform.postMul(tmp);
+        attachTransform.postMul(originalTransform);
     }
 
     if (useHost)

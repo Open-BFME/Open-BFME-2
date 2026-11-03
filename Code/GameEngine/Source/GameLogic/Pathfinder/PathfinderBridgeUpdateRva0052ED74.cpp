@@ -175,10 +175,10 @@ void Rva002E713FOwner::rva0052ED74(void *opaque,int flags)
   for(int i=lx+1;i<=hx-1;++i)for(int j=ly+1;j<=hy-1;++j){
    PathfindCell *cell=&map[i][j];
    if(cell->layer==16 && cell->type!=5){
-    for(int n=0;n<8;++n){
-     PathfindCell *near=&map[i+BridgeUpdateNeighborX[n]][j+BridgeUpdateNeighborY[n]];
+    for(int neighborIndex=0;neighborIndex<8;++neighborIndex){
+     PathfindCell *near=&map[i+BridgeUpdateNeighborX[neighborIndex]][j+BridgeUpdateNeighborY[neighborIndex]];
      if(near->layer!=16 && near->type!=5 && near->layer==1 && near->getOwner()==0){
-      if(near->SetType_Dirty(2))zones.MarkDirty(i+BridgeUpdateNeighborX[n],j+BridgeUpdateNeighborY[n]);
+      if(near->SetType_Dirty(2))zones.MarkDirty(i+BridgeUpdateNeighborX[neighborIndex],j+BridgeUpdateNeighborY[neighborIndex]);
      }
     }
    }

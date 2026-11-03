@@ -75,9 +75,9 @@ bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 // Same 108 bytes as the stdcall above. The caller at 0x004B332D is thiscall-shaped:
 // push the player, call the getter, mov ecx, eax, call. This name is the
 // identical-code fold of that call site.
-bool Rva002A9BF2::fromGate(Rva002A9BF2 *p)
+bool Rva002A9BF2::fromGate(Rva002A9BF2 *key)
 {
-	int diff = (int)p->rva002A9BF2();
+	int diff = (int)key->rva002A9BF2();
 	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
 	float num = (float)entry.m_num;
 	float den = (float)entry.m_den;

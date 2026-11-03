@@ -26,9 +26,9 @@ Object *Weapon::forceFireWeapon(const Object *source, const Coord3D *pos)
 	return TheGameLogic->findObjectByID((ObjectID)id);
 }
 
-bool Weapon::fireProjectileDetonationWeapon(const Object *object, const Coord3D *a2, const Coord3D *a3, int a4)
+bool Weapon::fireProjectileDetonationWeapon(const Object *object, const Coord3D *sourcePos, const Coord3D *targetPos, int extraBonusFlags)
 {
-	return privateFireWeapon(object, a2, 0, 0, a3, 1, 0, a4, 0);
+	return privateFireWeapon(object, sourcePos, 0, 0, targetPos, 1, 0, extraBonusFlags, 0);
 }
 
 // 0x002CE7A4 56B: object-target sibling of forceFireWeapon above: id=0,
