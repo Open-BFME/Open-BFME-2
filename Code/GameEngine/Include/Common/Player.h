@@ -36,6 +36,9 @@ struct Rva002AB894List;
 enum NameKeyType;
 enum PlayerType;
 class AIGroup;
+class Squad;
+class BuildListInfo;
+struct PlayerTeamNode;
 class BfmeFixedStorage0004543D;
 class BfmeTab1026;
 class Dict;
@@ -252,25 +255,46 @@ public:
  PlayerType m_playerType; // setPlayerType 2A9A34 stores its PlayerType argument
  unsigned char m_opaque60[0x9C - 0x60];
  Upgrade *m_upgradeList; // findUpgrade 2AA031 walks the Upgrade list from here
- unsigned char m_opaqueA0[0xB8 - 0xA0];
+ int m_radarCount; // addRadar 2AA937 increments it, removeRadar 2AA9DA decrements it
+ int m_disableProofRadarCount; // addRadar 2AA943 counts disable-proof radars here
+ bool m_radarDisabled; // disableRadar 2AAA7F sets it, enableRadar 2AAB13 clears it
+ unsigned char m_opaqueA9[0xAC - 0xA9];
+ int m_bombardBattlePlans; // changeBattlePlan 2ADB72 adds the delta of status 1 here
+ int m_holdTheLineBattlePlans; // changeBattlePlan 2ADB6A, status 2
+ int m_searchAndDestroyBattlePlans; // changeBattlePlan 2ADB62, status 3
  Rva002AA14DBonuses *m_battlePlanBonuses; // 2AC9DA/2AC9F0 store a new Rva002AA14DBonuses
- unsigned char m_opaqueBC[0x280 - 0xBC];
+ unsigned char m_opaqueBC[0x278 - 0xBC];
+ BuildListInfo *m_pBuildList; // ctor 2B1007 clears it; init 2AF7B1/2AF7C7 deletes the list and clears it
+ unsigned char m_opaque27C[0x280 - 0x27C];
  int m_color; // becomingLocalPlayer 2AE017 passes it to RGBColor::setFromInt
  int m_nightColor; // init 2AFA9B; becomingLocalPlayer 2AE1AD picks it before +0x280
  unsigned char m_opaque288[0x2DC - 0x288];
  AIPlayer *m_ai; // retail delegates use +0x2DC
- unsigned char m_opaque2E0[0x2E4 - 0x2E0];
+ int m_mpStartIndex; // initFromDict 2AFEAE stores Dict::getInt(TheKey_multiplayerStartIndex)
  ResourceGatheringManager *m_resourceGatheringManager; // initFromDict 2B0546/2B055B
  TunnelTracker *m_tunnelSystem; // initFromDict 2B058A/2B059D
  Team *m_defaultTeam; // setDefaultTeam 2ABCC2 stores TeamFactory::findTeam's result
- unsigned char m_opaque2F0[0x330 - 0x2F0];
+ unsigned char m_opaque2F0[0x314 - 0x2F0];
+ float m_cashBountyPercent; // init 2AF836 stores 0.0f; doBountyForKill 2AB6A1 multiplies the cost by it
+ unsigned char m_opaque318[0x32C - 0x318];
+ PlayerTeamNode *m_playerTeamPrototypes; // ctor 2B10A6 builds the list sentinel; addTeamToList 2AE228 walks it
  PlayerRelationMap *m_playerRelations; // init 2AF87A/2AF88F store a new PlayerRelationMap
  TeamRelationMap *m_teamRelations; // init 2AF8BB/2AF8C8 store a new TeamRelationMap
  bool m_canBuildUnits; // allowedToBuild 2ABE3D tests it for non-structures
  bool m_canBuildBase; // allowedToBuild 2ABE28 tests it for structures
  bool m_observer; // isPlayerObserver 2AA223 returns it
- unsigned char m_opaque33B[0x33D - 0x33B];
+ bool m_isPreorder; // init 2AF8E3 clears it, initFromDict 2AFF3E sets it
+ unsigned char m_opaque33C[0x33D - 0x33C];
  bool m_unitsShouldHunt; // setUnitsShouldHunt 2AE9C1 stores it
- unsigned char m_opaque33E[0x758 - 0x33E];
+ unsigned char m_opaque33E[0x358 - 0x33E];
+ int m_358[20]; // setUnitsVisionSpied 2ABA49 counts per player index; init 2AF916 clears 20 entries
+ int m_3A8; // setUnitsVisionSpied 2ABA8B stores the mask of nonzero m_358 entries
+ int m_3AC; // ctor 2B10AB stores -1; initFromDict 2B06E5 stores Dict::getInt(TheKey_livingWorldPlayerID)
+ unsigned char m_opaque3B0[0x6F0 - 0x3B0];
+ ObjectID m_6F0; // rva002AC629 2AC659 caches an object's ID here and passes it to findObjectByID
+ unsigned char m_opaque6F4[0x708 - 0x6F4];
+ Squad *m_squads[10]; // processCreateTeamGameMessage 2ACA94/2ACA9B bound the index by 10 and read it
+ Squad *m_currentSelection; // getCurrentSelectionAsAIGroup 2AA164 reads it, the dtor deletes it
+ unsigned char m_opaque734[0x758 - 0x734];
 };
 typedef char PlayerCanonicalSizeCheck[sizeof(Player) == 0x758 ? 1 : -1];
