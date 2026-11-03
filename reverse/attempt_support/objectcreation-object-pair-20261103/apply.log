@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
+seed: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp  (2 files)
+  Object: applied (2 files)
+      note: sizeof 0x304 from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp; Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp (0x248) stop at their last field
+      note: typedefs a file lacks, spelled out: Real -> float
+      note: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp gets class UpgradeTemplate; struct OCUModuleEntry;
+      note: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp gets enum DamageType{...}; enum DeathType{...}; enum ModelConditionFlagType{...}; class ObjectCreationUpgrade;
+applied: ['Object']

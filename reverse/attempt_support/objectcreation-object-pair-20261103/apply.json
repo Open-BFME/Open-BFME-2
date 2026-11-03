@@ -1,0 +1,60 @@
+{
+  "tu": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+  "classes": {
+    "Object": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+      ],
+      "notes": [
+        "sizeof 0x304 from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp; Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp (0x248) stop at their last field",
+        "typedefs a file lacks, spelled out: Real -> float",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp gets class UpgradeTemplate; struct OCUModuleEntry;",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp gets enum DamageType{...}; enum DeathType{...}; enum ModelConditionFlagType{...}; class ObjectCreationUpgrade;"
+      ],
+      "renames": {},
+      "fields": [
+        [
+          "0x74",
+          4,
+          "m_id",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+        ],
+        [
+          "0x1C0",
+          4,
+          "m_1C0",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+        ],
+        [
+          "0x244",
+          4,
+          "m_244",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+        ],
+        [
+          "0x284",
+          128,
+          "mask",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ]
+      ],
+      "block": "class Object : public Thing\n{\nprotected:\n\tfriend class ObjectCreationUpgrade;\n\tModule *findModule(NameKeyType key) const;\npublic:\n\tvoid kill(DamageType damageType, DeathType deathType);\n\tvoid setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);\n\tPlayer *getControllingPlayer() const;\n\tvoid *rva0028BC58(int query);\n\tModule *findUpdateModule(NameKeyType key) const { return findModule(key); }\n\tvoid rva00293077(const void *upgrade);\n\tvoid removeUpgrade(const UpgradeTemplate *upgrade);\n\tint getID() const { return m_id; }\n\tchar m_pad60[0x14];\n\tint m_id; // +0x74\n\tchar m_pad78[0x148];\n\tfloat m_1C0; // +0x1C0\n\tchar m_pad1C4[0x80];\n\tOCUModuleEntry **m_244; // +0x244\n\tchar m_pad248[0x3C];\n\tRva00406F9C mask; // +0x284\n};\n",
+      "files_changed": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+      ]
+    }
+  },
+  "canonical": {},
+  "applied": [
+    "Object"
+  ],
+  "failed": {},
+  "seed": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+  "files": [
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+  ]
+}

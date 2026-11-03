@@ -106,24 +106,48 @@ inline OCUVector3 operator*(const OCUMatrix3D &A, const OCUVector3 &a)
 
 #include "../../../Common/Thing/thing.h"
 
-class Object : public Thing
+class Rva00406F9C
 {
 public:
+    bool rva00406F9C(const void *other);
+    unsigned m_data[32];
+};
+
+enum DamageType
+{
+	DT_DAMAGE_8 = 8
+};
+enum DeathType
+{
+	DT_DEATH_0 = 0
+};
+enum ModelConditionFlagType
+{
+	MCF_0 = 0
+};
+class ObjectCreationUpgrade;
+class Object : public Thing
+{
+protected:
+	friend class ObjectCreationUpgrade;
+	Module *findModule(NameKeyType key) const;
+public:
+	void kill(DamageType damageType, DeathType deathType);
+	void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);
 	Player *getControllingPlayer() const;
 	void *rva0028BC58(int query);
 	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	void rva00293077(const void *upgrade);
 	void removeUpgrade(const UpgradeTemplate *upgrade);
 	int getID() const { return m_id; }
-protected:
-	Module *findModule(NameKeyType key) const;
-public:
-	char m_pad48[0x74 - sizeof(Thing)]; // Retain the legacy label; the canonical base is0x60.
-	int m_id;
-	char m_pad78[0x1C0 - 0x78];
-	Real m_1C0;
-	char m_pad1C4[0x244 - 0x1C4];
-	OCUModuleEntry **m_244;
+	char m_pad60[0x14];
+	int m_id; // +0x74
+	char m_pad78[0x148];
+	float m_1C0; // +0x1C0
+	char m_pad1C4[0x80];
+	OCUModuleEntry **m_244; // +0x244
+	char m_pad248[0x3C];
+	Rva00406F9C mask; // +0x284
 };
 
 class SlaveWatcherBehavior

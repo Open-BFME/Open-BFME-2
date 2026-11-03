@@ -18985,3 +18985,7 @@ The update donor uses G6; testing that common profile on the seed preserves all3
 ### ObjectCreationUpgrade common G7 profile verified (2026-11-03)
 
 The explicit-profile follow-up clears the tuning prerequisite: current Update compiles753B plus rollback/handler3/3 exact under G7, with its actual EH graph EXACT and zero normalized primary differences. The old G6-only source comment is stale and is corrected to the verified G7 directive. [Explicit controls and normal verification](../reverse/attempt_support/objectcreation-update-g7-20261103/README.md). The negative explicitG6 seed experiment above remains real, but does not block this successful commonG7 choice. No codegen pragma, waiver, funclet repoint or shared-header change is needed. Class/view/lifetime reconciliation and actual composition remain open.
+
+### ObjectCreationUpgrade seed/Update Object views reconciled (2026-11-03)
+
+The supported class-view API joins only these two approved files' existing Object fields and methods, preserving Thing60, ID74, float1C0, modules244 and mask284. The existing complete mask type is supplied before its by-value use; no canonical private copy or new name is invented. Normal23/23 and strict receipts pass; all31+17 external definitions/ordinary relocations are unchanged. [Compiler-layout reconciliation and comparison](../reverse/attempt_support/objectcreation-object-pair-20261103/README.md). No source-path or ownership movement yet; leaf/ModuleData views and actual composition remain separate.

@@ -56,17 +56,30 @@ public:
 };
 #include "../../../Common/Thing/thing.h"
 
+class UpgradeTemplate;
+struct OCUModuleEntry;
 class Object : public Thing
 {
 protected:
-    Module *findModule(NameKeyType key) const;
-    friend class ObjectCreationUpgrade;
+	friend class ObjectCreationUpgrade;
+	Module *findModule(NameKeyType key) const;
 public:
-    void kill(DamageType damageType, DeathType deathType);
-    void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);
-    Player *getControllingPlayer() const;
-    char pad00[0x284 - sizeof(Thing)];
-    Rva00406F9C mask;
+	void kill(DamageType damageType, DeathType deathType);
+	void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);
+	Player *getControllingPlayer() const;
+	void *rva0028BC58(int query);
+	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
+	void rva00293077(const void *upgrade);
+	void removeUpgrade(const UpgradeTemplate *upgrade);
+	int getID() const { return m_id; }
+	char m_pad60[0x14];
+	int m_id; // +0x74
+	char m_pad78[0x148];
+	float m_1C0; // +0x1C0
+	char m_pad1C4[0x80];
+	OCUModuleEntry **m_244; // +0x244
+	char m_pad248[0x3C];
+	Rva00406F9C mask; // +0x284
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
