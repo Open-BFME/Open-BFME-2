@@ -125,7 +125,7 @@ struct CreateMask
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class Player { public: char m_pad00[0x2ec]; Team *m_defaultTeam; };
+#include "../../../Include/Common/Player.h"
 class PlayerList { public: char m_pad00[0x18]; Player *m_neutralPlayer; };
 extern PlayerList *ThePlayerList;
 

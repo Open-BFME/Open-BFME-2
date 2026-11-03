@@ -23,11 +23,7 @@ extern GameLogic *TheGameLogic;
 enum BattlePlanStatus { PLANSTATUS_BOMBARDMENT = 1, PLANSTATUS_HOLDTHELINE = 2, PLANSTATUS_SEARCHANDDESTROY = 3 };
 class Rva002AA14DBonuses;
 
-class Player
-{
-public:
-	void changeBattlePlan(BattlePlanStatus, int, Rva002AA14DBonuses *);
-};
+#include "../../../../Include/Common/Player.h"
 
 class SpectreGunshipUpdate
 {

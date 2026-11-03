@@ -87,12 +87,7 @@ public:
 	unsigned char m_128; // +0x128
 };
 
-class Player
-{
-public:
-	void rva002ADC03(Rva004B5A65Owner *owner, int value);
-	void rva002ACD09(void *owner, int value);
-};
+#include "../../../../Include/Common/Player.h"
 
 class AsciiString;
 

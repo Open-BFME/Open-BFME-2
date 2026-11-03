@@ -19,12 +19,7 @@ extern ScriptEngine *TheScriptEngine;
 // 0x002AF037 is the rowed Player::ungarrisonAllUnits (PlayerTeamCommands.cpp).
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1, CMD_FROM_AI = 2 };
 
-class Player
-{
-public:
-	void garrisonAllUnits(CommandSourceType cmdSource);
-	void ungarrisonAllUnits(CommandSourceType cmdSource);
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

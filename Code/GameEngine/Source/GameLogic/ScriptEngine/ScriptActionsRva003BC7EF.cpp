@@ -10,11 +10,7 @@
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class Player
-{
-public:
-	void rva002AA756(int val);
-};
+#include "../../../Include/Common/Player.h"
 class PlayerList
 {
 public:

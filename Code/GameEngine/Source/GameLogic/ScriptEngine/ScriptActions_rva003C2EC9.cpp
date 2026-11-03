@@ -47,12 +47,7 @@ public:
 	int rva0039BF67(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear);
 };
 
-class Player
-{
-public:
-	char m_pad[0x3bc];
-	Rva0039BF67 m_counts;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 

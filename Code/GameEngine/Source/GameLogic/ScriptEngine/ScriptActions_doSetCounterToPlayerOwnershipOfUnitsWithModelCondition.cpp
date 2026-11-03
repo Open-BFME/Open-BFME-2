@@ -24,11 +24,7 @@ public:
 	Player *getEachPlayerFromMask(int &mask);
 };
 
-class Player
-{
-public:
-	int rva002ABD1D(int kind, int limit);
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 

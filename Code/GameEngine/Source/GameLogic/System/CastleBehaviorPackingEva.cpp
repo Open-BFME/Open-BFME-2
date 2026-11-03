@@ -89,13 +89,7 @@ template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 
 #include "../../../Include/Common/TeamBFME2.h"
 class W3DBridge;
-class Player
-{
-public:
-	Relationship getRelationship(const Team *) const;
-	int getPlayerIndex() const { return *(const int *)((const char *)this + 0x54); }
-	W3DBridge* getBuildControl() { return (W3DBridge*)((char*)this+0x3bc); }
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 enum EvaEventID { EVA_NONE = 0 };

@@ -22,13 +22,7 @@ class Player;
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class Player
-{
-public:
-	bool rva002AA245() const;
-	char m_pad00[0x280];
-	int m_color;				// +0x280
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

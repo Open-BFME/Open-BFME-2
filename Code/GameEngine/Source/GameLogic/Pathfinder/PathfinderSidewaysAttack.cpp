@@ -23,12 +23,7 @@ typedef int LocomotorSurfaceTypeMask;
 
 #include "../../../Include/GameLogic/LocomotorSet.h"
 
-class Player
-{
-public:
-char m_pad00[0x5c];
-Int m_playerType;		// +0x5C (1: computer)
-};
+#include "../../../Include/Common/Player.h"
 class AIUpdateInterface;
 struct PathfinderTemplateView {
 char pad[0x64];

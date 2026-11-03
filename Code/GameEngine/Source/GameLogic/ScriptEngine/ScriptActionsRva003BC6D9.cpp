@@ -24,12 +24,7 @@ extern ScienceStore *TheScienceStore;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class Player
-{
-public:
-	bool grantScience(ScienceType science);
-	bool attemptToPurchaseScience(ScienceType science);
-};
+#include "../../../Include/Common/Player.h"
 class PlayerList
 {
 public:

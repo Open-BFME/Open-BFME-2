@@ -30,12 +30,7 @@ public:
 	Player *findPlayerWithNameKey(NameKeyType key);
 };
 extern PlayerList *ThePlayerList;
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/TeamBFME2.h"
 void ScriptActions::doTeamSetOverrideRelationToPlayer(const AsciiString &teamName, const AsciiString &playerName, Object *obj)
 {

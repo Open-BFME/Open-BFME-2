@@ -28,11 +28,7 @@ public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 extern UpgradeCenter *TheUpgradeCenter;
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *tpl, UpgradeStatusType a2, int a3);
-};
+#include "../../../Include/Common/Player.h"
 void ScriptActions::Rva003BB1A4Grant(const AsciiString &playerName, const AsciiString &upgradeName)
 {
 	int mask = TheScriptEngine->rva00357475(playerName, 0);

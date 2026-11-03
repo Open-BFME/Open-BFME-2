@@ -29,12 +29,7 @@ public:
 	int rva0039C0F4(const AsciiString &name);
 };
 
-class Player
-{
-public:
-	char m_pad[0x3bc];
-	Rva0039C0F4 m_counts;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 

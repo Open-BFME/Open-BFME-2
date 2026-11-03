@@ -20,12 +20,7 @@ class Drawable;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Player
-{
-public:
-	unsigned char m_pad[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 class PlayerList
 {
 public:
