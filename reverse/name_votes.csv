@@ -23651,3 +23651,8 @@ Code/GameEngine/Source/Common/Rva0040C598BitAnd.cpp|function|0x0040C5B1|rva0040C
 Code/GameEngine/Source/Common/Rva004E7A85Refresh.cpp|member|Rva004E7A85World10|m_54,6871acc7eea8ba40fa500897,claude-opus-5-5,claude3-20261103-231855-9,w-29a6ae2a2f9f,2026-11-03
 Code/GameEngine/Source/Common/Rva001E34FA.cpp|function|0x001E34FA|rva001E34FA,4572519d2b27139b0e1231b6,claude-opus-5-5,claude3-20261103-231855-13,w-29a6ae2a2f9f,2026-11-03
 Code/GameEngine/Source/Common/Rva0059B3C1Write.cpp|function|0x0059B3C1|rva0059B3C1,238ac876994b944eccf0d59d,claude-opus-5-5,claude3-20261103-231855-14,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva0059BD58Free.cpp|function|0x0059BD58|rva0059BD58,c813c0dd5b9afcbcc59edeb2,claude-opus-5-5,claude3-20261103-234145-3,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp|member|Rva004F0681Inner|m_1F8,dd93ee8ff2e8aef11e563741,claude-opus-5-5,claude3-20261103-234145-9,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp|member|Rva004F0681Mid|m_30,06a7d71455dfdd8e4c49280a,claude-opus-5-5,claude3-20261103-234145-9,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C68|rva004C1C68,704faf8c73a82b759613d52c,claude-opus-5-5,claude3-20261103-234145-10,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C75|rva004C1C75,b4c5f730eb8aa16849dcacf9,claude-opus-5-5,claude3-20261103-234145-10,w-29a6ae2a2f9f,2026-11-03
