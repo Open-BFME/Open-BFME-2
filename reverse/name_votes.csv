@@ -22609,3 +22609,17 @@ Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnit
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp|param|Rva005E1E9BElement|p,0b5343d69d338340822f3688,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp|param|RegionArmyIconRef|p,e05b228738a6ced0102da235,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueUnitQueued.cpp|param|Rva005E71C6Ref|r,9a78a12ff16dfd6e21ad9e14,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp|local|LivingWorldArmyIcon::continueMoving|d,bc4cfbf69be17e00af15f244,drz-k1,drz-k1-n44a-4,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp|param|initBeaconTransform|m,fdead264de0f72b8a37acc5e,drz-k1,drz-k1-n44a-5,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyLine.cpp|param|LivingWorldArmyLine::rva00538F6B|a,17793ab32e9e4ee21e033168,drz-k1,drz-k1-n44a-6,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|MapMetaData::MapMetaData|o,19ffd7c90676772af9768262,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|WaypointMap::WaypointMap|o,acf2617fe3ea89abfb24d82f,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|bfmeEmitMapMetaDataDeferredCopy|p,fddfc8ee098f7f3cb9f7c9cd,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|bfmeEmitMapMetaDataDeferredCopy|w,057eb551ff26ef68f8fb1632,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva00086C4AUpdate.cpp|local|Rva00086C4A::rva00086C4A|t,00195dbac784fbc03023ee3a,drz-k1,drz-k1-n44a-18,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp|member|RvaDE4880Owner|m_D4,032b64f29e999ba59298bf49,drz-k1,drz-k1-n44a-19,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp|member|RvaDE4880Owner|m_E0,2484c4b636ee02fa07c33a49,drz-k1,drz-k1-n44a-19,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp|function|0x00094D44|rva00094D44,be493abbb871cc6bc5e6f570,drz-k1,drz-k1-n44a-19,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp|member|Rva0009ACB8|m_pC0,5665e37070c701fe191265ff,drz-k1,drz-k1-n44a-20,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp|function|0x0009ACB8|rva0009ACB8,c2001c81f486494964299d99,drz-k1,drz-k1-n44a-20,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp|local|Rva0009ACB8::rva0009ACB8|v,99f7973f29a7d2683fc7be48,drz-k1,drz-k1-n44a-20,w-d29055ee9848,2026-11-02

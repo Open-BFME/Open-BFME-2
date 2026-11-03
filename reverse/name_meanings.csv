@@ -936,3 +936,7 @@ Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnit
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp|param|Rva005E1E9BElement|p,0b5343d69d338340822f3688,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02,d2498ff9f219b5a77620956f
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp|param|RegionArmyIconRef|p,e05b228738a6ced0102da235,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02,02dbcd62860f4185162ce0ea
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueUnitQueued.cpp|param|Rva005E71C6Ref|r,9a78a12ff16dfd6e21ad9e14,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02,96c7e9bc565bb643458acbed
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|MapMetaData::MapMetaData|o,19ffd7c90676772af9768262,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02,defb6eba82365edb921bf593
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|WaypointMap::WaypointMap|o,acf2617fe3ea89abfb24d82f,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02,a172554b4f447fda21dde91e
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|bfmeEmitMapMetaDataDeferredCopy|p,fddfc8ee098f7f3cb9f7c9cd,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02,3c74a1c1353c2a6828ef8638
+Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp|param|bfmeEmitMapMetaDataDeferredCopy|w,057eb551ff26ef68f8fb1632,drz-k1,drz-k1-n44a-11,w-d29055ee9848,2026-11-02,4af53eceda8ef2bcc74fccc0
