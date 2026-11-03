@@ -4,14 +4,9 @@
 // independently identify the first-word info release. See five-link evidence.
 #include "../../../Include/Common/MixFileInfoBuffer.h"
 extern int TheMixFileInfoPool;
-class PathfindCell {
-public:
- ~PathfindCell();
- MixFileInfoBuffer *m_info;
- unsigned char m_rest[12];
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 inline PathfindCell::~PathfindCell() {
- if (m_info) m_info->releaseInto(&TheMixFileInfoPool);
+ if (m_info) ((MixFileInfoBuffer *)m_info)->releaseInto(&TheMixFileInfoPool);
 }
 // Preserve the existing inline destructor emission policy after identity repair.
 #pragma inline_depth(0)

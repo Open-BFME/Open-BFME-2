@@ -24,7 +24,7 @@ public:
 private:
 	void *m_48; // +0x48
 };
-class PathfindCell { public: char pad0[0xc]; unsigned int m_info; };
+#include "../../../Include/GameLogic/PathfindCell.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 ICoord2D *Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
@@ -53,8 +53,8 @@ Bool Pathfinder::IsValidHordeMemberRegularMovement(Object *obj, const Coord3D *f
 		goto success;
 	Rva002EBC14Cell(&cell, obj, from);
 	PathfindCell *fromCell = getCell(fromLayer, cell.x, cell.y);
-	unsigned int toInfo = toCell->m_info;
-	unsigned int fromInfo = fromCell->m_info;
+	unsigned int toInfo = toCell->m_0C;
+	unsigned int fromInfo = fromCell->m_0C;
 	if (((toInfo >> 6) ^ fromInfo) & 0x3f0)
 	{
 		if (!(((fromInfo >> 6) ^ toInfo) & 0x3f0))

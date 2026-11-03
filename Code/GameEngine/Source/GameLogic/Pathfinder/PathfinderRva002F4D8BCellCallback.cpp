@@ -8,12 +8,8 @@
 #include "Lib/Coord3D.h"
 typedef bool Bool;
 class Object;
-class PathfindCell {public:
- char pad00[0xC];unsigned flags;
- __forceinline Bool bit17()const {return (unsigned char)((flags>>17)&1)!=0;}
- __forceinline char layer()const {return (char)((flags>>4)&0x3F);}
- __forceinline char type()const {return (flags&0xF);}
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline char cellLayerByte(const PathfindCell *cell) {return (char)((cell->m_0C>>4)&0x3F);}
 class Rva002E6DC4
 {
 public:
@@ -44,13 +40,13 @@ public:
 };
 int Rva002F4D8BInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
 {
- unsigned flags=to->flags;
+ unsigned flags=to->m_0C;
  if(((unsigned char)((flags>>17)&1)!=0 || (char)((flags>>4)&0x3F)>1) && !flag1D && !flag1E && flag1F)return 1;
  if((flags&0xF)==4)return 0;
  if((char)((flags>>4)&0x3F)>1 && !flag1D && flag1E)return 0;
  flag1E=false;
  if(!((Rva002E6DC4 *)pathfinder)->rva002E6DC4(&position,to))return 0;
- Coord3D point;rva002EBC59(&point,object,x,y,to->layer());
+ Coord3D point;rva002EBC59(&point,object,x,y,cellLayerByte(to));
  if(pathfinder->QuickDoesPathExist(object,&((LayerProbeObjectView *)object)->position,&point,0)) {
   flag1C=true;return 1;
  }

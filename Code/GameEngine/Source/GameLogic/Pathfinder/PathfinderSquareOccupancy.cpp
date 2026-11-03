@@ -31,17 +31,11 @@ class Rva0052DB73 {
 public:
  Bool rva0052DB73(int);
 };
-class PathfindCell {
-public:
- int getType()const{return (int)m_bits.type;}
- unsigned char getAircraftByte()const{return (unsigned char)(m_packed>>18);}
- CellInfo *getInfo()const{return m_info;}
- OccupantNode *getObstacles()const{return m_info->obstacles;}
- OccupantNode *getOccupants()const{return m_info?m_info->occupants:0;}
-private:
- CellInfo*m_info;unsigned int m_unused4,m_unused8;
- union{unsigned int m_packed;struct{unsigned int type:4;unsigned int other:28;}m_bits;};
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline unsigned char cellAircraftByte(const PathfindCell *cell){return (unsigned char)(cell->m_0C>>18);}
+static __forceinline CellInfo *cellInfo(const PathfindCell *cell){return (CellInfo *)cell->m_info;}
+static __forceinline OccupantNode *cellObstacles(const PathfindCell *cell){return cellInfo(cell)->obstacles;}
+static __forceinline OccupantNode *cellOccupants(const PathfindCell *cell){return cellInfo(cell)?cellInfo(cell)->occupants:0;}
 #include "../../../Include/GameLogic/AIPathfind.h"
 class Rva002EC3CEProbes {
 public:
@@ -57,18 +51,18 @@ Bool Rva002EC3CEProbes::rva002EAA41(int objectAddress,int cellX,int cellY,int la
   for(int j=cellY-radius;j<cellY+cellsAbove;++j) {
    PathfindCell *cell=((Pathfinder*)this)->getCell((PathfindLayerEnum)layer,i,j);
    if(!cell)return false;
-   if(cell->getType()==5)return false;
-   if(cell->getAircraftByte()&1)if(obj->rva0028AFBB())return false;
-   if(cell->getType()==4)return false;
+   if(cell->getType()==PathfindCell::CELL_BRIDGE_IMPASSABLE)return false;
+   if(cellAircraftByte(cell)&1)if(obj->rva0028AFBB())return false;
+   if(cell->getType()==PathfindCell::CELL_OBSTACLE)return false;
    if(((obj->getTemplate()->m_kindof[6] & (1U << 20))!=0)) {
-    if(cell->getInfo()) for(OccupantNode *node=cell->getObstacles();node;node=node->next) {
+    if(cellInfo(cell)) for(OccupantNode *node=cellObstacles(cell);node;node=node->next) {
      if(node->object->getID()==objectID)continue;
      if(((node->object->getTemplate()->m_kindof[6] & (1U << 20))!=0))return false;
     }
    } else {
     if(!((Rva0052DB73*)cell)->rva0052DB73(objectID))return false;
    }
-   for(OccupantNode *node=cell->getOccupants();node;node=node->next) {
+   for(OccupantNode *node=cellOccupants(cell);node;node=node->next) {
     if(node->object==obj)continue;
     if(obj->getRelationship(node->object)==ENEMIES)return false;
    }

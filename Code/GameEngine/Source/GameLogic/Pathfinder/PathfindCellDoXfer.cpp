@@ -29,30 +29,32 @@ struct CellXferInfo{
  ICoord2D coordinates;char unknown8[8];unsigned short first,second;CellXferLink*lists[5];ObjectID owner;
  unsigned state0:1;unsigned state1:1;unsigned state2:1;unsigned state3:1;unsigned state4:1;unsigned unknown:27;
 };
-class PathfindCell{public:void DoXfer(Xfer*);
- CellXferInfo*info;unsigned unknown4;unsigned short first,second;
+#include "../../../Include/GameLogic/PathfindCell.h"
+struct CellXferBits{
  unsigned type:4;unsigned layer:6;unsigned field10:6;unsigned pinched:1;unsigned gate:1;unsigned bit18:1;unsigned field19:2;unsigned bit21:1;unsigned bit22:1;unsigned bit23:1;unsigned high:8;
 };
+static __forceinline CellXferInfo*cellInfo(const PathfindCell*cell){return (CellXferInfo*)cell->m_info;}
 void PathfindCell::DoXfer(Xfer*xfer){
  if(!xfer->IsCRC())return;
- if(info){
-  xfer->operator==(info->coordinates);
-  xfer->operator==(info->first);xfer->operator==(info->second);
-  for(int i=0;i<5;++i)for(CellXferLink*cellXferLink=info->lists[i];cellXferLink;cellXferLink=cellXferLink->next){ObjectID id=cellXferLink->object->id;XferObjectID(xfer,&id);}
-  XferObjectID(xfer,&info->owner);
-  int state0=info->state0;xfer->operator==(state0);
-  int state1=info->state1;xfer->operator==(state1);
-  int state2=info->state2;xfer->operator==(state2);
-  int state3=info->state3;xfer->operator==(state3);
-  int state4=info->state4;xfer->operator==(state4);
+ const CellXferBits&bits=*reinterpret_cast<const CellXferBits*>(&m_0C);
+ if(m_info){
+  xfer->operator==(cellInfo(this)->coordinates);
+  xfer->operator==(cellInfo(this)->first);xfer->operator==(cellInfo(this)->second);
+  for(int i=0;i<5;++i)for(CellXferLink*cellXferLink=cellInfo(this)->lists[i];cellXferLink;cellXferLink=cellXferLink->next){ObjectID id=cellXferLink->object->id;XferObjectID(xfer,&id);}
+  XferObjectID(xfer,&cellInfo(this)->owner);
+  int state0=cellInfo(this)->state0;xfer->operator==(state0);
+  int state1=cellInfo(this)->state1;xfer->operator==(state1);
+  int state2=cellInfo(this)->state2;xfer->operator==(state2);
+  int state3=cellInfo(this)->state3;xfer->operator==(state3);
+  int state4=cellInfo(this)->state4;xfer->operator==(state4);
  }
- xfer->operator==(first);
- int cellType=type;xfer->operator==(cellType);
- int cellLayer=layer;xfer->operator==(cellLayer);
- int cellField10=field10;xfer->operator==(cellField10);
- int cellPinched=pinched;xfer->operator==(cellPinched);
- int cellGate=gate;xfer->operator==(cellGate);
- int cellBit22=bit22;xfer->operator==(cellBit22);
- int cellBit23=bit23;xfer->operator==(cellBit23);
- int cellField19=field19;xfer->operator==(cellField19);
+ xfer->operator==(m_zone);
+ int cellType=bits.type;xfer->operator==(cellType);
+ int cellLayer=bits.layer;xfer->operator==(cellLayer);
+ int cellField10=bits.field10;xfer->operator==(cellField10);
+ int cellPinched=bits.pinched;xfer->operator==(cellPinched);
+ int cellGate=bits.gate;xfer->operator==(cellGate);
+ int cellBit22=bits.bit22;xfer->operator==(cellBit22);
+ int cellBit23=bits.bit23;xfer->operator==(cellBit23);
+ int cellField19=bits.field19;xfer->operator==(cellField19);
 }

@@ -24,17 +24,7 @@ enum PathfindLayerEnum
 	LAYER_INVALID = 0
 };
 
-class PathfindCell
-{
-public:
-	unsigned char m_pad00[0x08];
-	unsigned short m_zone08;				// +0x08
-	unsigned char m_pad0A[0x0C - 0x0A];
-	unsigned int m_type : 4;				// +0x0C bits 0..3
-	unsigned int m_layer : 6;				// bits 4..9
-	unsigned int m_bits10 : 8;				// bits 10..17
-	unsigned int m_flag18 : 1;				// bit 18
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
@@ -75,15 +65,15 @@ bool Rva002EC3CEProbes::rva002E7BF0(int locomotor, int zone, bool flag, int cell
 	PathfindCell *cell = reinterpret_cast<Pathfinder *>(this)->getCell((PathfindLayerEnum)layer, cellX, cellY);
 	if (!cell)
 		return false;
-	if (cell->m_layer != layer)
+	if (cell->getLayer() != layer)
 		return false;
-	if (cell->m_type == 4)
+	if (cell->getType() == PathfindCell::CELL_OBSTACLE)
 		return false;
-	if (cell->m_type == 5)
+	if (cell->getType() == PathfindCell::CELL_BRIDGE_IMPASSABLE)
 		return false;
-	if ((bool)cell->m_flag18 && ((Rva002E7BF0Locomotor *)locomotor)->m_05)
+	if ((bool)((cell->m_0C >> 18) & 1) && ((Rva002E7BF0Locomotor *)locomotor)->m_05)
 		return false;
-	int mappedZone = m_zones460.rva0053241F((void *)locomotor, cell->m_zone08);
+	int mappedZone = m_zones460.rva0053241F((void *)locomotor, cell->getZone());
 	if (remap)
 		mappedZone = m_zones460.rva00531FD4((void *)locomotor, mappedZone);
 	if (zone == mappedZone) {

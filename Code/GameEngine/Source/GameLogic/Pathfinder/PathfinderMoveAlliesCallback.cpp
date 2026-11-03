@@ -147,15 +147,12 @@ struct CellInfo
 	unsigned char pad[0x20];
 	OccupantNode *occupants;
 };
-class PathfindCell
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline OccupantNode *cellOccupants(const PathfindCell *cell)
 {
-  public:
-	CellInfo *info;
-	OccupantNode *getOccupants() const
-	{
-		return info ? info->occupants : 0;
-	}
-};
+	CellInfo *info = (CellInfo *)cell->m_info;
+	return info ? info->occupants : 0;
+}
 class Rva002F3F7DInfo
 {
   public:
@@ -166,7 +163,7 @@ class Rva002F3F7DInfo
 };
 int Rva002F3F7DInfo::cellCallback(PathfindCell *previous, PathfindCell *current, int x, int y)
 {
-	for (OccupantNode *node = current->getOccupants(); node; node = node->next)
+	for (OccupantNode *node = cellOccupants(current); node; node = node->next)
 	{
 		Object *other = node->object;
 		if (other == m_obj || node->object->getID() == m_ignoreID || m_obj->getRelationship(other) != ALLIES)

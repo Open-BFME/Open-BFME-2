@@ -20,25 +20,24 @@ class Rva0052DB11
 public:
 	bool rva0052DB11(int);
 };
-class PathfindCell {public: DiameterCellInfo *info; char m_pad[8];
- unsigned int m_flags;
- unsigned char obstacleFence()const{return info?(info->flags>>1)&1:0;}
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline DiameterCellInfo *cellInfo(const PathfindCell *cell) {return (DiameterCellInfo *)cell->m_info;}
+static __forceinline unsigned char cellObstacleFence(const PathfindCell *cell) {return cellInfo(cell)?(cellInfo(cell)->flags>>1)&1:0;}
 #include "../../../Include/GameLogic/AIPathfind.h"
 // ZH AIPathfind.cpp clearCellForDiameter semantic guide; target D4D280
 // separates the cell test. Native field offsets and unsigned crusher compare.
 static __declspec(noinline) bool rva002E76D3(PathfindCell *cell, unsigned int crusher, bool occupants)
 {
  if (occupants && reinterpret_cast<Rva0052DB11 *>(cell)->rva0052DB11(0)) {
-  DiameterOccupant *it=cell->info ? cell->info->occupants : 0;
+  DiameterOccupant *it=cellInfo(cell) ? cellInfo(cell)->occupants : 0;
   for (; it; it=it->next) {
    if ((unsigned int)it->object->rva0028CE7B() > crusher) return false;
   }
  }
- unsigned int type=cell->m_flags & 15;
+ unsigned int type=cell->m_0C & 15;
  switch (type) {
  case 0: return true;
- case 4: return crusher!=0 && cell->obstacleFence();
+ case 4: return crusher!=0 && cellObstacleFence(cell);
  default: return false;
  }
 }
