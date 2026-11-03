@@ -19,7 +19,7 @@
 #include "../../../../Common/RegionDetailsArmiesClipImplView.h"
 struct AsciiStringRef {const AsciiString *m_string;};
 struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
-class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const char*);const char *text;int length;};
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&a,const char*b) {Rva000B3F84Pair p;p.init(b);AsciiStringPlusStringText r;static_cast<AsciiStringPlusString&>(r)=a;r.m_right=p;return r;}

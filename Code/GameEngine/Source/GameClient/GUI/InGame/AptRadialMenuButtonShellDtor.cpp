@@ -21,13 +21,7 @@ public:
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef
 {
 	const AsciiString *m_string;

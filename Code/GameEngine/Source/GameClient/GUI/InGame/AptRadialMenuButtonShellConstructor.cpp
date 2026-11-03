@@ -78,13 +78,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // RegistryAsciiPath's concatenation nodes, spelled as the ledger rows them.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef
 {
 	const AsciiString *m_string;

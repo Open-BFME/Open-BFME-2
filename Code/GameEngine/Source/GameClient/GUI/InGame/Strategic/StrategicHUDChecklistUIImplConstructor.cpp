@@ -47,7 +47,7 @@ static inline void _Construct(int *__p, const int &__val)
 }
 struct AsciiStringRef {const AsciiString *m_string;};
 struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
-class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const char*);const char *text;int length;};
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
 // ?operatorPlusTwoStringsText present-unmatched: exact61B relocation twin at109CFD
