@@ -140,11 +140,7 @@ extern ThingFactory *TheThingFactory;
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AiOrdersManager
-{
-public:
-	void clearOrders(Int type, Int id);
-};
+#include "../../../../Include/GameLogic/AiOrdersManager.h"
 extern AiOrdersManager *TheAiOrdersManager;
 
 #include "../../../../Include/Common/NameKeyGenerator.h"

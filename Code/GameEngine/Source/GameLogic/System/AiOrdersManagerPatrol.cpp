@@ -42,10 +42,7 @@ class GroupOrder { public: virtual void slot0(); _STL::vector<unsigned> objects;
 struct ObjectPatrolView { char pad[0x38]; Coord3D position; char pad44[0x74-0x44]; unsigned id; };
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class AiOrdersManager { public:
-    void *rva0035538C(const Coord3D &,int,const ListHeroPtr *);
-    void *rva00355472(const Coord3D &,int,GroupOrder *);
-};
+#include "../../../Include/GameLogic/AiOrdersManager.h"
 // Callsites and rowed queue/contains providers establish this target's
 // patrol reuse route. Existing ArmorTemplate names are only opaque ABI
 // Codegen: the GameLogic receiver as a same-valued PHI closes the native register roles of the member walk.

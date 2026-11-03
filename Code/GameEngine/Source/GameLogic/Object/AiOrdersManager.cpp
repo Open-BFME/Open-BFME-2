@@ -27,14 +27,7 @@ public:
 // casts below retain this unit's independently verified local view.
 class GroupOrder;
 
-class AiOrdersManager
-{
-public:
-	void clearOrders(int a, int b);
-	void rva00355201(int kind, void *a2, GroupOrder *a3);
-	void rva0035530F(int a, void *holder);
-	void rva00355358(int a, void *holder);
-};
+#include "../../../Include/GameLogic/AiOrdersManager.h"
 
 extern AiOrdersManager *TheAiOrdersManager;
 

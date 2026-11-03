@@ -35,11 +35,7 @@ private:
 // The attach callee at 0x003558A3 is the rowed AiOrdersManager::registerOrder
 // (AiOrdersManager.cpp); this host is that manager.
 class GroupOrder;
-class AiOrdersManager
-{
-public:
-	void registerOrder(int mode, GroupOrder *order);
-};
+#include "../../../Include/GameLogic/AiOrdersManager.h"
 
 class Rva003559B5Host
 {

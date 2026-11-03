@@ -223,11 +223,7 @@ private:
 	ObjectStatusTypes m_status;
 };
 
-class AiOrdersManager
-{
-public:
-	void rva003551D3(int value);
-};
+#include "../../../../../Include/GameLogic/AiOrdersManager.h"
 
 extern AiOrdersManager *TheAiOrdersManager;
 

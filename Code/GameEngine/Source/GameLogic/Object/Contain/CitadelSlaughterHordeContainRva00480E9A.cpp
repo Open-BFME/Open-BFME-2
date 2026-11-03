@@ -119,11 +119,7 @@ class AIUpdateInterface : public AIUpdateInterfaceVtbl, public AICommandInterfac
 
 #include "../object.h"
 
-class AiOrdersManager
-{
-public:
-	void rva003551D3(int value);
-};
+#include "../../../../Include/GameLogic/AiOrdersManager.h"
 extern AiOrdersManager *TheAiOrdersManager;
 
 extern GameLogic *TheGameLogic;

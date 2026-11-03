@@ -171,7 +171,7 @@ class Rva00355B61
 public:
     const ArmorTemplate *rva00355155(NameKeyType) const;
 };
-class AiOrdersManager { public: int cloneOrderForPatrol(int); };
+#include "../../../Include/GameLogic/AiOrdersManager.h"
 extern AiOrdersManager *TheAiOrdersManager;
 struct OrderActivationView
 {

@@ -14,11 +14,7 @@ public:
 // The iterateObjects callback at 0x002AA264 (22B): it hands each object's +0x74
 // field to TheAiOrdersManager (global 0x00A01E18, registered as
 // "TheAiOrdersManager") and returns 1 to keep iterating.
-class AiOrdersManager
-{
-public:
-	void rva0035519E(int value);
-};
+#include "../../../Include/GameLogic/AiOrdersManager.h"
 
 extern AiOrdersManager *TheAiOrdersManager;
 
