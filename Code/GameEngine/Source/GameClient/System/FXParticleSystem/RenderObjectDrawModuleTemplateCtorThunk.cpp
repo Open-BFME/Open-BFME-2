@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME5: clean-C++ RenderObjectDrawModuleTemplate default constructor.
 
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -40,15 +41,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class RenderObjectDrawModuleInfo
-{
-public:
-    RenderObjectDrawModuleInfo();
-    virtual ~RenderObjectDrawModuleInfo();
-
-private:
-    unsigned char m_body[0x2c];
-};
 
 class RenderObjectDrawModuleTemplate : public CategoryModuleTemplate<6>,
     public RenderObjectDrawModuleInfo

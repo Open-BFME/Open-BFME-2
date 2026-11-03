@@ -46,14 +46,8 @@ public:
 	}
 	virtual ~Intermediate3AE683();
 };
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem {
-class RenderObjectDrawModuleInfo {
-public:
-	RenderObjectDrawModuleInfo(const RenderObjectDrawModuleInfo &other);
-	virtual ~RenderObjectDrawModuleInfo();
-private:
-	char m_pad[0x40 - 4];
-};
 }
 class Rva003AE6A9 : public Intermediate3AE683, public FXParticleSystem::RenderObjectDrawModuleInfo
 {

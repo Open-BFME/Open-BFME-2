@@ -17,6 +17,7 @@ private:
 	char m_base[0x10];
 };
 
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -24,29 +25,6 @@ class RenderObjectDrawModuleInfoBase
 {
 };
 
-class RenderObjectDrawModuleInfo : public RenderObjectDrawModuleInfoBase
-{
-public:
-	RenderObjectDrawModuleInfo();
-	virtual ~RenderObjectDrawModuleInfo();
-
-private:
-	bool m_enabled;
-	float m_type;
-	bool m_flag;
-	AsciiString m_name0;
-	unsigned int m_value00;
-	float m_value01;
-	int m_value02;
-	AsciiString m_name1;
-	unsigned int m_value10;
-	float m_value11;
-	int m_value12;
-	AsciiString m_name2;
-	unsigned int m_value20;
-	float m_value21;
-	int m_value22;
-};
 
 }
 

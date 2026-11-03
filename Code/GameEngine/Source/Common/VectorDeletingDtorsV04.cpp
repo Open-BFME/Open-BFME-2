@@ -20,16 +20,9 @@ namespace FXParticleSystem
 {
 }
 
+#include "../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem
 {
-class RenderObjectDrawModuleInfo
-{
-public:
-	RenderObjectDrawModuleInfo();
-	virtual ~RenderObjectDrawModuleInfo();
-private:
-	char m_unmodelled_04[0x40 - 0x04];
-};
 }
 
 namespace FXParticleSystem

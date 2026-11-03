@@ -60,14 +60,8 @@ public:
 	{
 	}
 };
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem {
-class RenderObjectDrawModuleInfo {
-public:
-	RenderObjectDrawModuleInfo(const RenderObjectDrawModuleInfo &other);
-	virtual ~RenderObjectDrawModuleInfo();
-private:
-	char m_pad[0x40 - 4];
-};
 }
 // Slot 0 of this class's own table 0x0081D4F4 is ??_GRva003AB9FF (0x003AE720),
 // whose dtor is the rowed ~Rva003AB9FF (0x003AB9FF); this ctor's EH handler

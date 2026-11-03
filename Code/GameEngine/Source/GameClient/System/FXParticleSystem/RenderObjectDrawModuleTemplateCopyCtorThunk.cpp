@@ -42,15 +42,10 @@ public:
 	}
 };
 
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
-class RenderObjectDrawModuleInfo
-{
-public:
-	RenderObjectDrawModuleInfo(const RenderObjectDrawModuleInfo &);
-	virtual ~RenderObjectDrawModuleInfo();
-};
 
 class RenderObjectDrawModuleTemplate
 	: public RenderObjectDrawCategoryBase,

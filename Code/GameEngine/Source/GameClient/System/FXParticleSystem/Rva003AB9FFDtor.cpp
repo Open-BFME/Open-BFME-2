@@ -9,11 +9,8 @@ public: virtual ~Rva003AF50D() throw();
 private: char m_pad[0x18 - 4];
 };
 
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 namespace FXParticleSystem {
-class RenderObjectDrawModuleInfo {
-public: virtual ~RenderObjectDrawModuleInfo();
-private: char m_pad[0x40 - 4];
-};
 }
 
 class __declspec(novtable) Rva003AB9FF : public Rva003AF50D, public FXParticleSystem::RenderObjectDrawModuleInfo {
