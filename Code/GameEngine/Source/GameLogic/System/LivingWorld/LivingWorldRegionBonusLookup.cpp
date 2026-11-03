@@ -27,18 +27,18 @@ public:
 class Rva0020F0EE
 {
 public:
-	Rva0020E9D0 *rva0020F0EE(Rva0020F0EEArg *arg);
+	Rva0020E9D0 *rva0020F0EE(Rva0020F0EEArg *region);
 
 private:
 	char m_pad[0x5c];
 	_STL::vector<Rva0020E9D0*> m_vec;
 };
 
-Rva0020E9D0 *Rva0020F0EE::rva0020F0EE(Rva0020F0EEArg *arg)
+Rva0020E9D0 *Rva0020F0EE::rva0020F0EE(Rva0020F0EEArg *region)
 {
     unsigned int index = 0;
     if (m_vec.size() > index) {
-        CreateAHeroData *key = arg->m_ptr12c;
+        CreateAHeroData *key = region->m_ptr12c;
         Rva0020E9D0 **cursor = m_vec.begin();
         do {
             Rva0020E9D0 *element = *cursor;

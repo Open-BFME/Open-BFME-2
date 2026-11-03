@@ -228,15 +228,15 @@ bool LivingWorldBuildingNuggetSpawnArmy::canQueueUnit(ObjectID id)
 	SpawnArmy army(0);
 	LivingWorldPlayer *owner;
 	void *summary;
-	Rva004FA83ETemplate *tmpl;
+	Rva004FA83ETemplate *thingTemplate;
 	bool result = false;
 	if (canProduce(id, &army))
 		result = ((Rva002B2646 *)TheLivingWorldLogic)->rva002B2646((Arg54 *)this, (Arg54 *)(int)id)
 		&& (owner = (LivingWorldPlayer *)getOwningPlayer()) != 0
 		&& owner->rva002E1155((SpawnArmy *)&army)
 		&& (summary = ((SpawnArmy *)&army)->rva004E23C1()) != 0
-		&& (tmpl = (Rva004FA83ETemplate *)((Rva0037DCA5 *)((Rva0040CB2CIndexedField *)summary)->get(0))->GetThingTemplate()) != 0
-		&& ((tmpl->m_kind113 & 4) == 0
+		&& (thingTemplate = (Rva004FA83ETemplate *)((Rva0037DCA5 *)((Rva0040CB2CIndexedField *)summary)->get(0))->GetThingTemplate()) != 0
+		&& ((thingTemplate->m_kind113 & 4) == 0
 			|| (((LivingWorldPlayer *)((Rva004E0705 *)m_building)->rva004E0705())->rva002E12F3(id)
 				&& !((LivingWorldPlayer *)((Rva004E0705 *)m_building)->rva004E0705())->HasArmyQueuedInAnyBuilding(*(void **)army.m_pad4C, 0, 0)));
 	return result;
@@ -244,10 +244,10 @@ bool LivingWorldBuildingNuggetSpawnArmy::canQueueUnit(ObjectID id)
 
 // ---- from Code/GameEngine/Source/Common/Rva004FA978Forward.cpp
 
-void Rva004FA978::rva004FA978(void (Rva004FA935Listener::*notify)(void *), void *arg)
+void Rva004FA978::rva004FA978(void (Rva004FA935Listener::*notify)(void *), void *userData)
 {
-	m_list.forEach(notify, arg);
-	reinterpret_cast<Rva004FA935List &>(g_00E044F0).forEach(notify, arg);
+	m_list.forEach(notify, userData);
+	reinterpret_cast<Rva004FA935List &>(g_00E044F0).forEach(notify, userData);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmyRunProductionPhase.cpp
@@ -357,10 +357,10 @@ void Rva004FA992::rva004FA686(ObjectID id)
 
 // ---- from Code/GameEngine/Source/Common/Rva004FA992Forward.cpp
 
-void Rva004FA992::rva004FA992(void (Rva004FA953Listener::*notify)(void *, int), void *arg, int value)
+void Rva004FA992::rva004FA992(void (Rva004FA953Listener::*notify)(void *, int), void *userData, int value)
 {
-	m_list.forEach(notify, arg, value);
-	reinterpret_cast<Rva004FA953List &>(g_00E044F0).forEach(notify, arg, value);
+	m_list.forEach(notify, userData, value);
+	reinterpret_cast<Rva004FA953List &>(g_00E044F0).forEach(notify, userData, value);
 }
 
 // tu-skeleton: 0x004FA9B1 208B ?rva004FA9B1@Rva004FA992Owner@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva004FA738ListenerWalks.cpp (not merged yet)

@@ -72,7 +72,7 @@ struct Rva00505289Data
 	_STL::vector<int> m_54;		// +0x54 one entry per value
 	_STL::vector<int> m_60;		// +0x60 optional per-entry kinds
 	float m_6C;			// +0x6C seconds between rethinks
-	float m_70;			// +0x70 keep chance
+	float m_keepChance;			// +0x70 keep chance
 };
 
 struct Rva002A8AB1Record
@@ -310,7 +310,7 @@ bool AITargetChooser::rva005052AE(Rva002C589B *entry)
 	float elapsed = (float)(((Rva005052AEGameLogicView *)TheGameLogic)->m_frame - entry->m_08);
 	if (elapsed >= (float)BfmeLogicFramesPerSecond * getArmyDef()->m_6C) {
 		float roll = GetGameLogicRandomValueReal(0.0f, 1.0f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITargetChooser\\AITargetChooser.cpp", 129);
-		if (roll >= getArmyDef()->m_70)
+		if (roll >= getArmyDef()->m_keepChance)
 			return true;
 		entry->m_08 = ((Rva005052AEGameLogicView *)TheGameLogic)->m_frame;
 	}

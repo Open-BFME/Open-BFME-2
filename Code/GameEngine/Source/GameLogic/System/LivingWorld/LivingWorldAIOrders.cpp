@@ -53,7 +53,7 @@ private:
  _STL::vector<Rva005B09D8Record> orders80;
  char unknown8C[0x134-0x8C];
 };
-template<class T> __forceinline void clearOrderVector(_STL::vector<T>&v) {v.erase(v.begin(),v.end());}
+template<class T> __forceinline void clearOrderVector(_STL::vector<T>&orders) {orders.erase(orders.begin(),orders.end());}
 void LivingWorldAI::SubmitOrders() {
  if(!owner)return;
  unsigned n=orders68.size();

@@ -223,8 +223,8 @@ void AITargetHeuristicTechBuilding::findBestTarget(AITarget *target,Player *owne
   if(good)
   
   {
-   float d=Distance2(obj->pos,center);
-   if(!best || bestDistance>d)
+   float distanceSquared=Distance2(obj->pos,center);
+   if(!best || bestDistance>distanceSquared)
    
    {
     float dd=Distance2(obj->pos,center);
