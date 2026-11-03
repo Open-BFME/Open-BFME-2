@@ -575,3 +575,4 @@ AISpellBookBase,Code/GameEngine/Include/GameLogic/AISpellBookBase.h,existing hea
 AIStatCollector,Code/GameEngine/Include/GameLogic/AIStatCollector.h,existing header; contract class_contracts/AIStatCollector.json; 6/7 sampled units adopt
 Rva00506B1B,Code/GameEngine/Include/GameLogic/Rva00506B1B.h,existing header; contract class_contracts/Rva00506B1B.json; 9/19 sampled units adopt
 AIBaseBuilder,Code/GameEngine/Include/GameLogic/AIBaseBuilder.h,existing header; contract class_contracts/AIBaseBuilder.json; 6/10 sampled units adopt
+CommandButtonMovieClip,Code/GameEngine/Include/GameClient/CommandButtonMovieClip.h,existing header; contract class_contracts/CommandButtonMovieClip.json; 7/7 sampled units adopt
