@@ -1,0 +1,30 @@
+{
+  "AIBaseBuilder": {
+    "comdats_before": 90,
+    "comdats_after": 91,
+    "comdats_added": [
+      "??0Coord3D@@QAE@XZ"
+    ],
+    "comdats_removed": [],
+    "comdats_changed": [],
+    "exclusive_added": [],
+    "exclusive_removed": [],
+    "undefined_added": [],
+    "undefined_removed": [],
+    "weak_added": [],
+    "weak_removed": []
+  },
+  "Rva00506CF5HomePoint": {
+    "comdats_before": 29,
+    "comdats_after": 29,
+    "comdats_added": [],
+    "comdats_removed": [],
+    "comdats_changed": [],
+    "exclusive_added": [],
+    "exclusive_removed": [],
+    "undefined_added": [],
+    "undefined_removed": [],
+    "weak_added": [],
+    "weak_removed": []
+  }
+}

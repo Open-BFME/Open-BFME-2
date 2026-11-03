@@ -68,6 +68,8 @@ await a census containing that provider or a separate provider-aware
 retirement diagnostic. Library class-key/member-growth prerequisites below
 remain open. Carry changed declarations into the normal consumer audit.
 
+2026-11-03: the current index supplies both home-point providers; ordinary previews now retain 2,545 B across the two units, clearing this missing-provider prerequisite only. [Evidence](../../reverse/attempt_support/aibasebuilder-consolidation-20261103/README.md).
+
 Post-handover verification against `bef6d6aaef3`: all eight outgoing/scoped
 sources have strict receipts and 75/75 rows exact. The batch audit remains
 INCONCLUSIVE because index `41c28839bf` predates that base and affected

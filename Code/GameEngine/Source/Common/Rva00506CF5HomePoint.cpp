@@ -62,7 +62,12 @@ class Region3D;
 extern TerrainLogic *TheTerrainLogic;
 
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);
-struct Rva00506C82Arg {char pad[0x50];int key;};
+struct Rva00506C82Arg
+{
+public:
+	char m_pad00[0x50];
+	int m_50; // +0x50
+};
 class GameSlot {public:char pad[0x10];int start;};
 GameSlot*Rva00506C82Find(const Rva00506C82Arg*);
 class GameLogic;extern GameLogic*TheGameLogic;
@@ -78,7 +83,7 @@ class Rva0040D701ArmySummary;
 #include "../../Include/GameLogic/ArmySummary.h"
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 Coord3D Rva00506CF5(void *owner,Coord3D *point) {
- Coord3D result;result.set((const Coord3D *)&Gen00DD0870);
+ Coord3D result;result.x=Gen00DD0870.x;result.y=Gen00DD0870.y;result.z=Gen00DD0870.z;
  if(((TacticGameLogicView*)TheGameLogic)->mode==3) {
   GameSlot*slot=Rva00506C82Find((Rva00506C82Arg*)owner);
   if(slot) {
