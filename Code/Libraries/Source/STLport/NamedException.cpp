@@ -1,5 +1,5 @@
-// cl: /DNDEBUG /DWIN32 /MD /Od /Ob1 /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// cl: /DNDEBUG /DWIN32 /MD /Od /Ob1 /EHsc /Gy /D_STLP_USE_STATIC_LIB
+// stlport46
 // STLport stdexcept supplies the authentic 256-byte name buffer and native
 // exception base. Its inline implementation witnesses this constructor/what
 // pair; stl/_string_fwd.c independently witnesses __get_c_string via c_str().
