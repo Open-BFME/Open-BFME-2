@@ -147,14 +147,7 @@ public:
 	virtual void rva004C51A0Slot12(const Coord3D *pos, unsigned int options) = 0;
 };
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;	// 0x00290E22
-	const Coord3D *getPosition() const { return &m_pos; }
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-};
+#include "../object.h"
 
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"

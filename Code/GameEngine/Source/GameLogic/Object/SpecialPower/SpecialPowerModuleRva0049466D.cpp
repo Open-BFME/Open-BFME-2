@@ -232,26 +232,7 @@ class BehaviorModule;
 
 enum SpecialPowerType {};
 class SpecialAbilityUpdate;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool rva0028C1CC() const;
-	SpecialAbilityUpdate *findSpecialAbilityUpdate(SpecialPowerType type) const;
-	Drawable *getDrawable() const;
-	int getID() const { return m_id; }
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-	AIUpdateInterface *getAI() const { return m_ai; }
-private:
-	char m_pad[0x74];
-	int m_id; // +0x74
-	char m_pad78[0x244 - 0x78];
-	BehaviorModule **m_behaviors; // +0x244
-	char m_pad248[0x254 - 0x248];
-	BodyModuleInterface *m_body; // +0x254
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../object.h"
 
 #include "../../../../Include/Common/Overridable.h"
 

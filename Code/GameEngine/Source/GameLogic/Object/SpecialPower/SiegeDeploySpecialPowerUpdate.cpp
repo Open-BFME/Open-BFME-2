@@ -95,24 +95,7 @@ public:
 };
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
-class Object : public Thing
-{
-public:
-	float GetRelativeAngle(const Coord3D *pos) const;
-	bool rva0028B35B(const Object *other) const;
-	void setStatus(ObjectStatusTypes bit, bool set);
-	unsigned char m_pad[0x38];
-	Coord3D m_position;			// +0x38
-	unsigned char m_pad44[0x258 - 0x44];
-	AIUpdateInterface *m_ai;		// +0x258
-	unsigned char m_pad25C[0x438 - 0x25C];
-	unsigned char m_privateStatus;		// +0x438
-};
+#include "../object.h"
 
 struct SiegeDeploySpecialPowerModuleData
 {
@@ -223,7 +206,7 @@ UpdateSleepTime SiegeDeploySpecialPower::update()
 	case 1:
 	{
 		Coord3D *offset = &m_direction;
-		Rva004598F2Point face(obj->m_position);
+		Rva004598F2Point face(obj->m_cachedPos);
 		face.x += offset->x;
 		face.y += offset->y;
 		face.z += offset->z;
@@ -267,9 +250,9 @@ UpdateSleepTime SiegeDeploySpecialPower::update()
 			}
 			else
 			{
-				face.x = obj->m_position.x;
-				face.y = obj->m_position.y;
-				face.z = obj->m_position.z;
+				face.x = obj->m_cachedPos.x;
+				face.y = obj->m_cachedPos.y;
+				face.z = obj->m_cachedPos.z;
 				face.x += offset->x;
 				face.y += offset->y;
 				face.z += offset->z;

@@ -44,11 +44,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-};
+#include "../../object.h"
 
 enum CommandSourceType
 {

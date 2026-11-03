@@ -74,20 +74,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	Bool testStatus( ObjectStatusTypes bit ) const;
-	Bool isSelectable( void ) const;
-	Bool isMassSelectable( void ) const;
-
-private:
-	unsigned char m_pad00[ 4 ]; // +0x00 vtable
-	ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[ 0x78 - 0x08 ]; // +0x08..0x77
-	ObjectID m_producerID; // +0x78
-	unsigned char m_pad7C[ 0x437 - 0x7C ]; // +0x7C..+0x436
-};
+#include "object.h"
 
 Bool Object::isMassSelectable( void ) const
 {

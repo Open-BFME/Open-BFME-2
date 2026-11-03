@@ -12,15 +12,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	void Get2DCenterVectorTo(Coord3D *out, const Coord3D *pos) const;
-
-private:
-	char m_pad[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "object.h"
 
 // ?Get2DCenterVectorTo@Object@@QBEXPAUCoord3D@@PBU2@@Z
 void Object::Get2DCenterVectorTo(Coord3D *out, const Coord3D *pos) const
@@ -30,8 +22,8 @@ void Object::Get2DCenterVectorTo(Coord3D *out, const Coord3D *pos) const
 	// flag tried (/O1 /O2 /Os /Ot /G6 /GB /G7 /Og-); the delta temp split
 	// then reproduces retail's sub/out-load/store interleave exactly.
 	const volatile Coord3D *source = pos;
-	float deltaX = source->x - m_position.x;
-	float deltaY = source->y - m_position.y;
+	float deltaX = source->x - m_cachedPos.x;
+	float deltaY = source->y - m_cachedPos.y;
 	out->x = deltaX;
 	out->y = deltaY;
 	out->z = 0.0f;

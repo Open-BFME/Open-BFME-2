@@ -7,12 +7,7 @@
 class Parameter;
 class Object;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Object
-{
-public:
-	// LINK: 0x0029660C is rowed as Object::teleportTo (ObjectRva0029660C.cpp).
-	void teleportTo(const Coord3D *pos, bool flag);
-};
+#include "object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class TerrainLogic

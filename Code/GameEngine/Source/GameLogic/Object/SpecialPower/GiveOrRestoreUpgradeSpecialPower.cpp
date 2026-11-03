@@ -33,12 +33,7 @@ public:
 	void rva0028D86F(const _STL::_Base_bitset<4> &other);
 };
 
-class Object
-{
-public:
-	void rva00293077(const void *arg);
-	void rva00290AC1(const Rva0028C570 &flags);
-};
+#include "../object.h"
 
 class BehaviorModuleBase
 {

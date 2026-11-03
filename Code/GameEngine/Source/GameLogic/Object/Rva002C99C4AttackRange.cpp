@@ -11,12 +11,7 @@
 #include <math.h>
 
 enum ObjectStatusTypes { ObjectStatusType58 = 0x3A };
-class Object
-{
-public:
-    bool testStatus(ObjectStatusTypes status) const;
-    bool rva0028C149(int attribute,float *value,int argument);
-};
+#include "object.h"
 #include "../../../Include/GameLogic/AI.h"
 
 class WeaponBonus;

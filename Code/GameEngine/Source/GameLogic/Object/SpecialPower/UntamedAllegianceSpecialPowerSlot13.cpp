@@ -19,15 +19,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_39 = 0x39,
 	OBJECT_STATUS_3E = 0x3e
 };
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-	void defect(Object *source, bool flag);
-	void rva002930A9(void *value);	// rowed pointer parameter (ObjectRva002931F5.cpp)
-	void setProducer(Object *producer);
-	void setStatus(ObjectStatusTypes status, bool set);
-};
+#include "../object.h"
 class ModuleData;
 class SpecialPowerModule
 {

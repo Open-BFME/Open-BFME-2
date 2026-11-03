@@ -13,11 +13,7 @@ public:
 private:
 	unsigned int m_bits[1];
 };
-class Object
-{
-public:
-	void rva0028B72A() const;
-};
+#include "../object.h"
 class ModuleData;
 class SpecialPowerModule
 {

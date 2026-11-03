@@ -20,11 +20,7 @@ enum UpdateSleepTime
 	Sleep_00 = 0
 };
 
-class Object
-{
-public:
-	void setDisabled(DisabledType t);
-};
+#include "../../object.h"
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 

@@ -11,12 +11,7 @@ enum WeaponSetType
 {
 	WEAPONSET_23 = 0x17
 };
-class Object
-{
-public:
-	void setWeaponSetFlag(WeaponSetType wst);
-	void clearWeaponSetFlag(WeaponSetType wst);
-};
+#include "object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 

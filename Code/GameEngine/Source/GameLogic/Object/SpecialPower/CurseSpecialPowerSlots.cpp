@@ -110,15 +110,7 @@ public:
 	unsigned m_110;		// +0x110 (bit 26 tested)
 };
 
-class Object
-{
-public:
-	Relationship getRelationship(const Object *that) const;	// 0x0028D156
-	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
-	void rva0028B701(float amount);	// 0x0028B701
-	char m_pad000[0x04];
-	const ThingTemplate *m_template;	// +0x04
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

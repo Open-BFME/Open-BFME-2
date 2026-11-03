@@ -57,18 +57,7 @@ extern Radar *TheRadar;
 extern AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 
-class Object
-{
-public:
-	void friend_notifyOfNewMapBoundary();
-	__forceinline const Coord3D *getPosition() const { return &m_position; }
-
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0x438 - 0x38 - sizeof(Coord3D)];
-	UnsignedByte m_privateStatus; // +0x438
-};
+#include "object.h"
 
 enum ObjectPrivateStatus
 {

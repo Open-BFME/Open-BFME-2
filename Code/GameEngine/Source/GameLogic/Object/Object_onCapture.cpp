@@ -97,12 +97,7 @@ public:
 	virtual void rva002966A0Call(Player *a, Player *b);
 };
 
-class Object
-{
-public:
-	void setScriptStatus(ObjectScriptStatusBit bit, bool set);
-	void onCapture(Player *a, Player *b);
-};
+#include "object.h"
 
 void Object::onCapture(Player *oldOwner, Player *newOwner)
 {

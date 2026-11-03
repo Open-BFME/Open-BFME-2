@@ -96,13 +96,7 @@ public:
 	virtual bool s1();
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *tmpl) const;
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class SpecialPowerStore
 {

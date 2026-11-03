@@ -10,12 +10,7 @@ typedef bool Bool;
 #include "../../../Common/GameLogicObjectLookupView.h"
 enum ObjectStatusTypes { OBJECT_STATUS_GIVE_UPGRADE_TARGET = 0x42 };
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, Bool set);	// 0x0023DB0E
-	Object *rva002931F5(Bool flag);				// 0x002931F5
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

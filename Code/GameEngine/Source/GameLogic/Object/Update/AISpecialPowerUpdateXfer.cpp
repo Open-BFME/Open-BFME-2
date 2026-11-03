@@ -37,11 +37,7 @@ class Object;
 
 class Player;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 struct Rva002A8AB1Record;
 
