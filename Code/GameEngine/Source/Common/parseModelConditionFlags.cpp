@@ -13,13 +13,7 @@
 // Landing requires real B3FA5/43 provider and normal whole-source LINK proof;
 // its existing pin is only a lead, not a linkable definition.
 #include <string.h>
-class WeaponTemplateSetHead {
-public:
-    unsigned words[19];
-    void clear() { memset(words,0,sizeof words); }
-    void set(unsigned index) { words[index >> 5] |= 1u << (index & 31); }
-    void rva000B3FA5(int, int);
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 #include "../../Include/Common/INI/INI.h"
 extern const char *const ModelConditionNames[];
 #include <string.h>

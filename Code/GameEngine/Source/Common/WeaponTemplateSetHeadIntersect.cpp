@@ -5,18 +5,11 @@
 // ebp-0x4c built by WeaponTemplateSetHead copy ctor 0x00045455 in caller
 // 0x003317B0 then AND with member at caller+4 then memcmp 0x4c at 0x00045473;
 // sibling NOT loop at 0x000B3EC7 and Equal 0x00045473 share 0x13/0x4c shape.
-class WeaponTemplateSetHead
-{
-public:
-	void rva000B3EC7();
-	void rva000B3ED3(const WeaponTemplateSetHead &other);
-private:
-	unsigned int m_data[19];
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 void WeaponTemplateSetHead::rva000B3ED3(const WeaponTemplateSetHead &other)
 {
 	for (int i = 0; i < 19; ++i)
-		m_data[i] &= other.m_data[i];
+		m_bits[i] &= other.m_bits[i];
 }
 
 // ?rva000B3EC7@WeaponTemplateSetHead@@QAEXXZ retail 0x000B3EC7 12B: the
@@ -25,5 +18,5 @@ void WeaponTemplateSetHead::rva000B3ED3(const WeaponTemplateSetHead &other)
 void WeaponTemplateSetHead::rva000B3EC7()
 {
 	for (unsigned int i = 0; i < 19; ++i)
-		m_data[i] = ~m_data[i];
+		m_bits[i] = ~m_bits[i];
 }

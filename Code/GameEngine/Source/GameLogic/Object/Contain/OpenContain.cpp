@@ -430,13 +430,7 @@ private:
 	int m_4;
 };
 
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
-private:
-	unsigned int m_bits[19]; // +0x00
-};
+#include "../../../../Include/Common/WeaponTemplateSetHead.h"
 
 class Rva0046267A;
 

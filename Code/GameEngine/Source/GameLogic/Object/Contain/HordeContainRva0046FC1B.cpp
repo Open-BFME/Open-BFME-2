@@ -43,11 +43,7 @@ typedef pair<const int, void *> UpdateIntPtrPair;
 typedef _Rb_tree<int, UpdateIntPtrPair, _Select1st<UpdateIntPtrPair>, less<int>, allocator<UpdateIntPtrPair> > UpdateIntPtrTree;
 template <> void UpdateIntPtrTree::clear();
 }
-class WeaponTemplateSetHead {
-public:
-    unsigned int words[19];
-    WeaponTemplateSetHead(const WeaponTemplateSetHead &);
-};
+#include "../../../../Include/Common/WeaponTemplateSetHead.h"
 bool Rva00045473Equal(const void *, const void *);
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };

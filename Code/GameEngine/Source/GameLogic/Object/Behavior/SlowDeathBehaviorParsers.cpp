@@ -95,13 +95,7 @@ void Rva00339184(const char *token, void *store);
 // The death-flag masks under the names the ledger gives their rowed
 // members: the 19-word model condition flags (+0x128) and the 4-word status
 // bitset (+0x174).
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead rva0045D859() throw();
-	void rva000B3ED3(const WeaponTemplateSetHead &other);
-	unsigned int m_words[19];
-};
+#include "../../../../Include/Common/WeaponTemplateSetHead.h"
 
 // Retail's FuncInfo nests two further states inside the description string's
 // with no code and no cleanup action: as in beginSlowDeath 0x0045DE65 they are

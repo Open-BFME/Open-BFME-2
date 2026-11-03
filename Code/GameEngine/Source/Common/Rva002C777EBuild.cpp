@@ -28,13 +28,7 @@ private:
 	int m_mask[19];
 };
 
-class WeaponTemplateSetHead
-{
-	char _m[0x4C];
-
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 WeaponTemplateSetHead *__cdecl rva002C777E(WeaponTemplateSetHead *out, int idx)
 {

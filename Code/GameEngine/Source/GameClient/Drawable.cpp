@@ -2381,13 +2381,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../Include/Common/ModuleData.h"
 
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-	void rva000B3FA5(int a, int b);
-	unsigned int m_bits[19]; // +0x00
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 #include "../../Include/GameClient/ModelConditionFlags.h"
 

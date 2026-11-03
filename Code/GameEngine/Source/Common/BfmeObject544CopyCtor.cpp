@@ -5,13 +5,7 @@
 // Evidence: pin names the copy ctor; caller _Construct at 0x004CADD1 in StlportObject544Vector.cpp copies through it; callees rowed 0x00045455 0x004151A3 0x0041559E; layout mirrors default ctor at 0x004CAD17.
 #include <map>
 
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-private:
-	char m_pad[0x4C];
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 class BfmeOwnedRecordArray56
 {

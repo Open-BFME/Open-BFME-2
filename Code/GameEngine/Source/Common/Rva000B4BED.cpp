@@ -6,12 +6,7 @@
 // Evidence: three copy-ctor calls to ??0WeaponTemplateSetHead@@QAE@ABV0@@Z,
 // memcmp wrapper ?Rva00045473Equal@@YA_NPBX0@Z, callers at 0x000BFCD9 etc.
 
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-	unsigned m_bits[19];
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 extern bool __cdecl Rva00045473Equal(const void *a, const void *b);
 

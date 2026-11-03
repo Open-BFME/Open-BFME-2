@@ -29,14 +29,7 @@ enum ModelConditionFlagType
 };
 
 // The 76-byte (BitFlags<591, ModelConditionFlagType>) model-condition mask.
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(dllimport) __forceinline WeaponTemplateSetHead() { memset(m_bits, 0, sizeof(m_bits)); }
-	void set(ModelConditionFlagType bit) { m_bits[(unsigned int)bit >> 5] |= 1 << ((unsigned int)bit & 31); }
-	void rva000B3FA5(int bit, int value);
-	unsigned int m_bits[19];
-};
+#include "../../../Include/Common/WeaponTemplateSetHead.h"
 
 enum { WEAPONSET_COUNT = 104 };
 extern const ModelConditionFlagType TheWeaponSetTypeToModelConditionTypeMap[WEAPONSET_COUNT];

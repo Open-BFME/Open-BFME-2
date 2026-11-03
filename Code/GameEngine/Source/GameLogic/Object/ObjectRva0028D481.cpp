@@ -29,13 +29,7 @@ public:
 	void bfmeForward(void *a0);
 };
 
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-
-	char m_data[0x4C];
-};
+#include "../../../Include/Common/WeaponTemplateSetHead.h"
 
 class Rva00271C8A
 {

@@ -7,13 +7,7 @@
 // Evidence: sub esp-0x4c push esi lea ecx esi+0x50 call overlap 0x00263546
 // then copy-intersect-equal chain; unblocks 0x00335FE1; chain from 0xB3ED3.
 typedef bool Bool;
-class WeaponTemplateSetHead
-{
-	char _m[0x4C];
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-	void rva000B3ED3(const WeaponTemplateSetHead &other);
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 class Rva00263546
 {
 public:

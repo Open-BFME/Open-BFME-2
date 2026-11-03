@@ -5,13 +5,7 @@
 
 #include <string.h>
 
-class WeaponTemplateSetHead
-{
-	char _m[0x4C];
-
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-};
+#include "../../../Include/Common/WeaponTemplateSetHead.h"
 
 WeaponTemplateSetHead::WeaponTemplateSetHead(const WeaponTemplateSetHead &that)
 {

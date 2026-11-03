@@ -8,19 +8,12 @@
 // ECX is the source and the stack argument is the hidden result address.
 // The ordinary by-value return emits both native copies exactly; sibling intersect
 // ?rva000B3ED3@WeaponTemplateSetHead@@QAEXABV1@@Z shares 19-dword 0x4c shape.
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
-	WeaponTemplateSetHead rva0045D859() throw();
-private:
-	unsigned int m_data[19];
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 WeaponTemplateSetHead WeaponTemplateSetHead::rva0045D859() throw()
 {
 	WeaponTemplateSetHead tmp(*this);
 	for (unsigned i = 0; i < 19; ++i)
-		tmp.m_data[i] = ~tmp.m_data[i];
+		tmp.m_bits[i] = ~tmp.m_bits[i];
 	return tmp;
 }

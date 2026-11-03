@@ -41,21 +41,14 @@ class RGBAColorInt;
 #include "../../../Include/Common/XferVersion.h"
 
 
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(noinline) void rva000B3FA5(int bit, int value);
-
-private:
-	unsigned int m_words[19];
-};
+#include "../../../Include/Common/WeaponTemplateSetHead.h"
 
 void WeaponTemplateSetHead::rva000B3FA5(int bit, int value)
 {
 	unsigned int mask = 1u << (bit & 31);
 	bit >>= 5;
-	unsigned int old = m_words[bit];
-	m_words[bit] = old ^ (((0 - (unsigned)value) ^ old) & mask);
+	unsigned int old = m_bits[bit];
+	m_bits[bit] = old ^ (((0 - (unsigned)value) ^ old) & mask);
 }
 
 class Rva001D96FF {public: void rva001D96FF(int);};

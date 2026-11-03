@@ -14,12 +14,7 @@ public:
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma function(memset)
-class WeaponTemplateSetHead
-{
-	char _m[0x4C];
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 class AttributeModifierStore
 {

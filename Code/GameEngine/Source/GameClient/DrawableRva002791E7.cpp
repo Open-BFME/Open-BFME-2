@@ -5,12 +5,7 @@
 // Target identity is address-derived; layout and branches below follow BFME2
 // retail at 0x002791E7 and its caller 0x0028AE6D.
 
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-	unsigned int m_bits[19];
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 #include "../../Include/GameClient/ModelConditionFlags.h"
 
