@@ -22,6 +22,9 @@ approved TU (`reverse/tu_map.csv`).
 
 **Headline figures:**
 
+- **Real link**: unresolved and duplicates from `.github/workflows/real-link.yml`
+  (`tools/exit_link.py --link`, no `/FORCE`). Only this measures a buildable game
+  (`docs/automation.md`).
 - **Linking**: the census's LINKED and LINKING, printed by `tools/progress.py`
   from `reverse/link_census_history.csv`. Only census figures count;
   `tools/link_check.py` only predicts.
@@ -60,6 +63,10 @@ verified and easy to rebase. Detail for the hook rules:
   `worktree_setup.py remove PATH`.
 - A commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
   needs a `Verifier-Change: <reason>` trailer.
+- A `// cl:` line holds compiler flags and nothing else, and `#include` never names
+  an absolute path (`tools/conversion_gate.py` refuses both). Both pass on your machine
+  and break everyone else: in Git Bash, set `MSYS_NO_PATHCONV=1` before any tool that
+  takes a `/I...` argument, or it becomes `C:/Program Files/Git/I...`.
 - Spell control paths (the root, `reverse/`, `tools/`, `.githooks/`, `.github/`)
   in lowercase (`tools/check_case_collisions.py`; banked attempts, attempt
   evidence and class contracts are exempt).
@@ -209,6 +216,8 @@ verified and easy to rebase. Detail for the hook rules:
   renames and banked attempts the same way. Keep substantive changes in
   separate commits. Publish a smaller final batch when the work or session
   ends, even if no headline figure moved.
+- A red `master` comes before other work. The verification alarm names the failure in
+  Discord; whoever is nearest repairs or reverts it, and says so there.
 - Allow at least five minutes between successful pushes by the same GitHub
   account to this repository; share that clock across workers using the
   account, and keep working during the cooldown. `push.py` keeps the clock
@@ -376,6 +385,8 @@ verified commit first; never split a mixed file inside a merge. Workflow:
 - `docs/structural.md`: manual RE, reassessing, recording and banking attempts.
 - `docs/recipes.md`: proven fixes for near misses.
 - `docs/linking.md`: the census, link tools, class reconciliation.
+- `docs/automation.md`: recurring jobs, reading the real link, a stopped census, the
+  original game under automation.
 - `docs/linking_obstacles.md`: required linking handoff; update repairs, new
   obstacles and evidence for cleared entries.
 - `docs/claims.md`: claim mechanics.

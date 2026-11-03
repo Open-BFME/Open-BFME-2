@@ -30,6 +30,17 @@ can change the headline. Record those outcomes separately; do not add overlappin
 preview gains or treat an old blocker list as a current link result. Existing
 restrictions on maintainer-only measurement runners still apply.
 
+## The census is not the build
+
+The census says whether each file links under `/FORCE`. The real link says whether the game
+builds. Read [automation.md](automation.md) for its result. A linker-invisible gap (an initializer,
+a vtable, a data table) passes both, so neither alone means the game runs.
+
+Exit-link omission needs each omitted `uw_gen` funclet emitted by an EXACT kept parent. Take a
+funclet's parent from retail's FuncInfo table, never adjacency. A `.text$x` difference of one or two
+bytes in a parent is usually a member's real offset (`add ecx,K`); its body can match either way,
+because the view's padding hides where the member starts.
+
 ## How the census decides
 
 `reverse/link_status.csv` and `tools/link_census.py` measure linking under

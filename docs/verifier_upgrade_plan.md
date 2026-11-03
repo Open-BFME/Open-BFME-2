@@ -187,6 +187,8 @@ need none of them; they use `python3 tools/link_check.py --fetch-index`,
 
 ### Boot and smoke queues
 
+Retail's own results, and what they do not yet show, are in `docs/automation.md`.
+
 Served through `repair_queue.py repair` where their files exist; maintainer runs
 write them. Each item's pass test decides who can close it:
 
