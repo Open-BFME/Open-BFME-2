@@ -544,3 +544,4 @@ LightningDrawModuleInfo,Code/GameEngine/Include/GameClient/LightningDrawModuleIn
 FireWeaponUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/FireWeaponUpdateModuleData.h,existing header; contract class_contracts/FireWeaponUpdateModuleData.json; 6/10 sampled units adopt
 SlowDeathBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/SlowDeathBehaviorModuleData.h,existing header; contract class_contracts/SlowDeathBehaviorModuleData.json; 3/11 sampled units adopt
 EmissionVelocityInfo,Code/GameEngine/Include/GameClient/EmissionVelocityInfo.h,existing header; contract class_contracts/EmissionVelocityInfo.json; 8/9 sampled units adopt
+RespawnUpdate,Code/GameEngine/Include/GameLogic/Module/RespawnUpdate.h,existing header; contract class_contracts/RespawnUpdate.json; 4/12 sampled units adopt

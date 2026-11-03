@@ -1,0 +1,546 @@
+{
+ "bases": [
+  "UpdateModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "RespawnUpdate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 6,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x28": {
+    "4": 4
+   },
+   "0x2c": {
+    "4": 3
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0x41": {
+    "1": 1
+   },
+   "0x8": {
+    "4": 5
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4af096"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x8556b0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4af096"
+     ],
+     "value": 66
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4af096"
+     ],
+     "value": {
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x40": [
+       1
+      ],
+      "0x41": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4af096"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24f91d"
+     ],
+     "value": 68
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4af096"
+     ],
+     "value": {
+      "0x10": [
+       "0x8556a4"
+      ],
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4af096"
+     ],
+     "value": {
+      "0x0": "0x8556b0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8556b0"
+     ],
+     "value": {
+      "count": 16,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004AF17D@@QAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4af161"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?name@RespawnUpdate@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4af15b"
+       },
+       {
+        "name": "?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4af00b"
+       },
+       {
+        "name": "?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4af116"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?getPercentReady@RespawnUpdate@@UAEMPAH@Z",
+        "slot": 13,
+        "target": "0x4aefad"
+       },
+       {
+        "name": "?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ",
+        "slot": 14,
+        "target": "0x4af2de"
+       },
+       {
+        "name": "?get@Rva005C4FEBByteField@@QBEEXZ",
+        "slot": 15,
+        "target": "0x5c4feb"
+       }
+      ],
+      "table": "0x8556b0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x8556b0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004AF17D@@QAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?name@RespawnUpdate@@QBEPBDXZ",
+     "3": "?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "13": "?getPercentReady@RespawnUpdate@@UAEMPAH@Z",
+     "14": "?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ",
+     "15": "?get@Rva005C4FEBByteField@@QBEEXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "8": 1,
+   "48": 1,
+   "68": 7
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "Object*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextCallFrameAndPhase",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_indexInLogic",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_34",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_3C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_40",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_41",
+   "name_by": "majority",
+   "offset": 65,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 28]]": 3,
+    "[[0, 32]]": 3
+   },
+   "class": "RespawnUpdate"
+  },
+  {
+   "attribute": "field@0xc",
+   "candidates": {
+    "4:P": 3,
+    "4:VPTR": 3
+   },
+   "class": "RespawnUpdate"
+  },
+  {
+   "attribute": "field@0x10",
+   "candidates": {
+    "4:P": 3,
+    "4:VPTR": 3
+   },
+   "class": "RespawnUpdate"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "getPercentReady(int*)": 1,
+    "v13()": 1
+   },
+   "class": "RespawnUpdate"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "getDeadImage()": 1,
+    "v14()": 1
+   },
+   "class": "RespawnUpdate"
+  }
+ ],
+ "size": 68,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "v10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "v11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "v12()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "v9()"
+  }
+ }
+}
