@@ -19,3 +19,9 @@ For each guard cleanup, control has `A1 <guard> 24 FE A3 <guard> C3`, while G6 h
 Control graph anchors agree at cleanup starts0x78EB7B and0x78EBD7. G6's handler placement derives starts0x78EB7A and0x78EBD6, disagreeing with the cleanup pointer anchor and recording .text$x placement conflicts. At those derived starts the verifier's exact three unmasked differences are: pool-key0x78EB7A A1 vs FF,0x78EB7F83 vs00,0x78EB80E0 vs24; removal0x78EBD6A1 vsFF,0x78EBDB83 vs00,0x78EBDCE0 vs24. These shifted comparisons arise from the concrete one-byte instruction growth; they are not evidence of three unrelated semantic bugs.
 
 Full raw control/candidate/native bytes, symbolic relocations, parent names, conflict lists and each exact comparison site are in guard-control-comparison.json. control-eh-proof.json confirms the independent clean control. No further source/profile experiment or tracked read is needed for this bounded result.
+
+Follow-up: this negative explicitG6 trial does NOT block a common profile.
+Subsequent current-source tests prove Update's G7 primary, rollback and handler
+all exact, including its actual EH graph. The old G6-only source comment was
+stale; see ../objectcreation-update-g7-20261103/README.md. Preserve the G6
+failure evidence but use the verified commonG7 path for future composition.

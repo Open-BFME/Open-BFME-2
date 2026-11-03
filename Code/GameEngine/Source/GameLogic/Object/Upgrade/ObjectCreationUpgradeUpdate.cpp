@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G6 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
 // ObjectCreationUpgrade::update, retail 0x004B42DB (753 B): slot 0 of the
 // UpdateModuleInterface vftable at +0x18 (0x10 vftable of the module). Once
 // the upgrade is armed (+0x2C) and the frame passes +0x28 it spawns the
@@ -9,8 +9,8 @@
 // sets the spawn's owner actions, then grants (+0x124) and removes (+0x120)
 // upgrades. Target facts: boundary 0x4B42DB..0x4B45CC, callees by their
 // rows, the "SlaveWatcherBehavior" key string; field names follow Zero
-// Hour's ObjectCreationUpgrade/OCL semantics (donor inference). /G6 rather
-// than the /G7 of ReplaceSelfUpgrade: only /G6 schedules the angle spill.
+// Hour's ObjectCreationUpgrade/OCL semantics (donor inference). Complete
+// primary and EH verification confirms /O1 /G7 /arch:SSE for this body.
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "Lib/Coord3D.h"
 #include "ascii_string.h"
