@@ -7179,3 +7179,13 @@ param,ExtTextOutA::c,ExtTextOutA::charCount,inferred,agree:nl-3d86cd66318a,Code/
 param,ExtTextOutW::c,ExtTextOutW::charCount,inferred,agree:nl-4452d5053b9c,Code/Libraries/Source/Win32/Gdi32ImportThunks.cpp,0x00688194
 param,GetGlyphIndicesW::c,GetGlyphIndicesW::charCount,inferred,agree:nl-9266cb3f0ae2,Code/Libraries/Source/Win32/Gdi32ImportThunks.cpp,0x00688188
 param,GetTextExtentPoint32W::c,GetTextExtentPoint32W::charCount,inferred,agree:nl-0406afb220a4,Code/Libraries/Source/Win32/Gdi32ImportThunks.cpp,0x0068819A
+param,setInstanceRow::r,setInstanceRow::instanceRow,inferred,agree:nl-723004b3d95d,Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp,
+param,setInstanceRow::w,setInstanceRow::componentW,inferred,agree:nl-c795f7ae2008,Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp,
+param,setInstanceRow::x,setInstanceRow::componentX,inferred,agree:nl-d4eb571c55cd,Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp,
+param,setInstanceRow::y,setInstanceRow::componentY,inferred,agree:nl-582f0e54a660,Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp,
+param,setInstanceRow::z,setInstanceRow::componentZ,inferred,agree:nl-3ebfc0458283,Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp,
+local,DX8Wrapper::Draw_Strip::m,DX8Wrapper::Draw_Strip::minVertexIndex,inferred,agree:nl-ba368c7f1eac,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x001206D0
+local,DX8Wrapper::Draw_Strip::p,DX8Wrapper::Draw_Strip::polygonCount,inferred,agree:nl-5b73785e913c,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x001206D0
+local,DX8Wrapper::Draw_Strip::v,DX8Wrapper::Draw_Strip::vertexCount,inferred,agree:nl-6e09bfa5679a,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x001206D0
+local,DX8Wrapper::Draw_Triangles::m,DX8Wrapper::Draw_Triangles::minVertexIndex,inferred,agree:nl-8f44acce250c,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x00120620
+local,DX8Wrapper::Draw_Triangles::p,DX8Wrapper::Draw_Triangles::polygonCount,inferred,agree:nl-97a513bde50f,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x00120620
