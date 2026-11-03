@@ -30,7 +30,7 @@ namespace _STL { template <> void vector<const ModuleData *, allocator<const Mod
 #include "Coord2D.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-#include "W:/OpenBFME/Open-BFME-2/Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 
 

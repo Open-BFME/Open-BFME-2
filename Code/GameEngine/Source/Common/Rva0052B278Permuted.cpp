@@ -19,7 +19,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class ModuleData;
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::reserve(size_t n); }
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-#include "W:/OpenBFME/Open-BFME-2/Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 
 class Rva0053947D {public:Rva0053947D(void *,const Vector3 *);virtual ~Rva0053947D();};
