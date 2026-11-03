@@ -12272,6 +12272,14 @@ bodies are checked against Zero Hour.
 Clearance: pending.
 Census confirmation: awaiting the next census.
 
+Current follow-up (2026-11-03): a fresh baseline dry merge rejects all20
+clean donors (119 approved TU rows). No source move is applied. Four consumers
+already include the canonical GameWindowManager header; current-main normal
+13-row verification and owning acceptance retire their four stale manager
+queue keys. Other window/DisplayString/transition/list identity debts remain.
+The text-entry anchor cleanup is a separate prepared change.
+[Current scope, exact refusals and acceptance receipts](../reverse/attempt_support/gamewindowmanager-current-pass-20261103/README.md).
+
 ### LINK-076: `Rva006DF470Initialize.cpp` named 0x00A180C4 a second time
 Status: Repair landed / awaiting verification. Updated: 2026-10-26; inspected revision:
 `9f685c7696` (index 2026-10-26 19:02 at `5ce093a71a`).
