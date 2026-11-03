@@ -647,3 +647,4 @@ WinDrawData,Code/GameEngine/Include/GameClient/WinDrawData.h,existing header; co
 GameSpyMiscPreferences,Code/GameEngine/Include/Common/GameSpyMiscPreferencesClass.h,existing header; contract class_contracts/GameSpyMiscPreferences.json; 5/8 sampled units adopt
 TerrainVisual,Code/GameEngine/Include/GameClient/TerrainVisualClass.h,existing header; contract class_contracts/TerrainVisual.json; 3/6 sampled units adopt
 ShroudManagerCell,Code/GameEngine/Include/Common/ShroudManagerCell.h,existing header; contract class_contracts/ShroudManagerCell.json; 4/7 sampled units adopt
+TCreateUnitsInfo,Code/GameEngine/Include/GameLogic/TCreateUnitsInfo.h,existing header; contract class_contracts/TCreateUnitsInfo.json; 3/7 sampled units adopt
