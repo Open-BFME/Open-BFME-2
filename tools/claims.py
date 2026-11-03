@@ -1037,7 +1037,7 @@ def conflicts(mine, root=None, who=None):
             if lock_keys({key}, root, records=records) & locks}
 
 
-def acquire(targets, work=(), note="", who=None, root=None, ttl_hours=TTL_HOURS):
+def acquire(targets, work=(), note="", who=None, root=None, ttl_hours=TTL_HOURS, independent=False):
     """Claim one piece of work under mutual exclusion; returns a ClaimResult.
 
     `targets` are what the work is claimed as (RVAs, `file:`/`class:` scopes),
@@ -1050,7 +1050,8 @@ def acquire(targets, work=(), note="", who=None, root=None, ttl_hours=TTL_HOURS)
     result claims nothing and refuses the colliding keys. A ref this owner already
     held is kept. Raises ClaimsUnavailable as claim() does."""
     spelled = {key_of(t): t for t in targets}
-    logical = set(spelled) | set(work)
+    work = set(work)
+    logical = set(spelled) | work
     locks = lock_keys(logical, root)
     # Header reconciliation holds class refs only. Its file footprint remains in
     # lock_keys for the mandatory fresh post-push conflict check against body edits.
@@ -1061,7 +1062,11 @@ def acquire(targets, work=(), note="", who=None, root=None, ttl_hours=TTL_HOURS)
     else:
         acquired_locks = locks
     extra = sorted(acquired_locks - set(spelled), key=_order)
-    kwargs = {"note": note, "atomic_only": True, "work_locks": locks}
+    # Independent CLI jobs share the transient atomic reservation, but must
+    # not permanently record every other job as their own logical footprint.
+    persisted = ({key: lock_keys({key} | set(work), root) for key in acquired_locks}
+                 if independent else locks)
+    kwargs = {"note": note, "atomic_only": True, "work_locks": persisted}
     for name, value, default in (("who", who, None), ("root", root, None), ("ttl_hours", ttl_hours, TTL_HOURS)):
         if value != default:
             kwargs[name] = value
@@ -1094,6 +1099,61 @@ def acquire(targets, work=(), note="", who=None, root=None, ttl_hours=TTL_HOURS)
     _rollback(fresh, tokens, who, root, refused)
     return ClaimResult([], refused, unconfirmed=getattr(result, "unconfirmed", ()),
                        worker=getattr(result, "worker", ""))
+
+
+def acquire_independent(targets, **kwargs):
+    """Acquire independent CLI work together; retain per-target refusals.
+
+    A class acquisition intentionally reserves class refs only, so class and
+    body/file requests must not share an acquire() call. Contention falls back
+    to individual acquisition only after removing freshly identified blockers.
+    Each attempt retains acquire's atomic footprint and post-push race check.
+    """
+    spelled = {key_of(t): t for t in targets}
+    got, refused, unconfirmed = [], [], []
+    tokens, prior = {}, set()
+
+    def remember(result):
+        got.extend(k for k in result.claimed if k not in got)
+        tokens.update(getattr(result, "tokens", {}))
+        prior.update(getattr(result, "prior", ()))
+        unconfirmed.extend(getattr(result, "unconfirmed", ()))
+
+    def attempt(group):
+        result = acquire(group, independent=True, **kwargs)
+        remember(result)
+        return result
+
+    try:
+        for class_work in (False, True):
+            group = [t for k, t in spelled.items()
+                     if (isinstance(k, str) and k.startswith("class/")) == class_work]
+            if not group:
+                continue
+            if not attempt(group).refused:
+                continue
+            found = claimable(group, who=kwargs.get("who"), root=kwargs.get("root"))
+            blocked = {k for k, holders in found.items() if holders}
+            refused.extend(k for k in spelled if k in blocked and k not in refused)
+            free = [t for t in group if key_of(t) not in blocked]
+            if not free:
+                continue
+            if blocked and not attempt(free).refused:
+                continue
+            # A race or an unclassified refusal must never be treated as a
+            # successful batch. Preserve the old CLI's independent verdicts.
+            for text in free:
+                result = attempt([text])
+                if result.refused and key_of(text) not in refused:
+                    refused.append(key_of(text))
+    except ClaimsUnavailable as error:
+        error.claimed = list(dict.fromkeys(got + list(error.claimed)))
+        error.refused = list(dict.fromkeys(refused + list(error.refused)))
+        error.tokens = {**tokens, **getattr(error, "tokens", {})}
+        error.prior = prior | set(getattr(error, "prior", ()))
+        raise
+    return ClaimResult(got, refused, tokens=tokens,
+                       unconfirmed=[k for k in unconfirmed if k in refused and k not in got], prior=prior)
 
 
 def claimable(targets, who=None, root=None):
@@ -1257,7 +1317,8 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None, locks=(), ato
         scope = scopes.get(rva, "")
         lease, since = lease_of(rva)
         lock = rva in locks
-        stored = set(current.get(rva, (None, {}))[1].get("locks", ())) | set(work_locks)
+        footprint = work_locks.get(rva, ()) if isinstance(work_locks, dict) else work_locks
+        stored = set(current.get(rva, (None, {}))[1].get("locks", ())) | set(footprint)
         cache_key = (scope, lease, lock, tuple(sorted(stored, key=_order)))
         if cache_key not in shas:
             shas[cache_key] = _record(who, ttl_hours, note, root, lease=lease, since=since,
@@ -2743,11 +2804,8 @@ def main(argv=None):
         asked = set(_ints(args.rvas))
         released = settle(hold=asked, defer=True)
         try:
-            for text in args.rvas:
-                result = acquire([text], note=args.note)
-                got += [k for k in result.claimed if k not in got]
-                refused += [key_of(text)] if result.refused else []
-                unconfirmed += result.unconfirmed
+            result = acquire_independent(args.rvas, note=args.note)
+            got, refused, unconfirmed = list(result.claimed), list(result.refused), list(result.unconfirmed)
         except ClaimsUnavailable as error:
             print(error, file=sys.stderr)
             if got or error.claimed:

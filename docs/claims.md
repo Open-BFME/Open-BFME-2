@@ -18,6 +18,13 @@ lock together; class-wide work takes `class:NAME`, file-wide work `file:PATH`
 and pushes no claim, lock or settlement. `release` and `renew` refuse
 `--dry-run`.
 
+`claims.py claim KEY...` batches independent file/function targets in one atomic
+acquisition and fresh conflict check, instead of repeating network setup for
+every target. Class-only acquisitions use a separate batch because their locking
+rules differ. On contention it reports held targets and retries free targets
+together; only an unresolved race uses individual fallback. Persisted footprints
+remain per target, so acquiring jobs together does not couple their later release.
+
 Queues skip work whose footprint meets another seat's live claim in either claim
 namespace: `refs/claims/`, or `refs/heads/claims/` on hosts set by
 `bfme.claimNamespace`. Use one namespace per fleet. An orchestrator sets a

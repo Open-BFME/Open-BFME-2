@@ -1888,6 +1888,51 @@ def test_an_all_or_nothing_claim_takes_back_its_earlier_chunks(hosts, monkeypatc
                 and left[k][1].get("owner") == "a" and left[k][1].get("note") != "released"]
 
 
+def test_independent_cli_claims_free_files_in_one_atomic_acquisition(hosts, monkeypatch):
+    hosts("a")
+    real = claims.acquire
+    calls = []
+    def counted(targets, **kwargs):
+        calls.append(list(targets))
+        return real(targets, **kwargs)
+    monkeypatch.setattr(claims, "acquire", counted)
+    targets = [f"file:Code/File{i}.cpp" for i in range(24)]
+    assert claims.main(["claim", *targets]) == 0
+    assert calls == [targets]
+    assert set(claims.active()) == {claims.key_of(t) for t in targets}
+
+
+def test_independent_claim_batch_keeps_free_files_when_a_peer_holds_one(hosts, monkeypatch):
+    hosts("b")
+    assert claims.acquire(["file:Code/Held.cpp"]).claimed
+    hosts("a")
+    real = claims.acquire
+    calls = []
+    def counted(targets, **kwargs):
+        calls.append(list(targets))
+        return real(targets, **kwargs)
+    monkeypatch.setattr(claims, "acquire", counted)
+    targets = ["file:Code/A.cpp", "file:Code/Held.cpp", "file:Code/B.cpp"]
+    result = claims.acquire_independent(targets)
+    assert set(result.claimed) == {claims.key_of(t) for t in (targets[0], targets[2])}
+    assert result.refused == [claims.key_of(targets[1])]
+    assert calls == [targets, [targets[0], targets[2]]]
+
+
+def test_independent_claims_separate_class_only_and_file_semantics(hosts, monkeypatch):
+    hosts("a")
+    real = claims.acquire
+    calls = []
+    def counted(targets, **kwargs):
+        calls.append(list(targets))
+        return real(targets, **kwargs)
+    monkeypatch.setattr(claims, "acquire", counted)
+    result = claims.acquire_independent(["class:Thing", "file:Code/A.cpp"])
+    assert not result.refused
+    assert {claims.key_of("class:Thing"), claims.key_of("file:Code/A.cpp")} <= set(result.claimed)
+    assert calls == [["file:Code/A.cpp"], ["class:Thing"]]
+
+
 def test_git_stdin_is_sent_without_newline_translation(tmp_path):
     # text-mode stdin turned "\n" into "\r\n" on Windows, so `git fetch --stdin`
     # read "sha\r" as an invalid refspec and every claims read failed (2026-10-30)
