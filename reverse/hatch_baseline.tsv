@@ -11678,6 +11678,7 @@ pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"t",off	1
 present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmeEventPositionView::zero	1
 present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmePoolRef08::BfmePoolRef08	1
 present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmePoolRef10::BfmePoolRef10	1
+present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::BfmePoolRef10	1	allow=b05e1455a2cbbd699a97af0b97750616c5c54993
 present_unmatched	Code/GameEngine/Include/Common/Rva00041004Lock.h	Rva0040EDB::Rva0040EDB	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
