@@ -4,11 +4,7 @@
 // release at 0x006D0F20, then sized release through the rowed pool
 // deallocator 0x006DB270 with the pool object at 0x00E176E8 and class size
 // 0x10, returning this. Same 35B flag-free shape as Rva006CE630Delete.
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 

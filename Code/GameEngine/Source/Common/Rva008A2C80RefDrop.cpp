@@ -20,7 +20,7 @@ public:
 	virtual ~Rva006ED150();
 };
 
-class Rva006DB270 { public: void freeBlock(void *, int); };
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva008A2C80 : public Rva006ED150
 {

@@ -22,7 +22,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void *,unsigned int);
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class Rva006DB270 {public: void freeBlock(void *,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class AptBasePtrStack {
 public:

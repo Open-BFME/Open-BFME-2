@@ -12,11 +12,7 @@ class Rva0070A840
 public:
     ~Rva0070A840();
 };
-class Rva006DB270
-{
-public:
-    void freeBlock(void *p, int size);
-};
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern char g_00DDC2E0;
 // g_00DDC2E0: matched references place it at VA 0xddc2e0 (retail .data initial value -1).

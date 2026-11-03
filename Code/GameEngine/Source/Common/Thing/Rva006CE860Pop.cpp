@@ -1,10 +1,6 @@
 // cl: /DNDEBUG /MD
 // ?rva006CE860@Rva006CE860@@QAEXXZ @0x006CE860 41B evidence pop-front via rowed detach 0x006CD530 plus pool free 8 via rowed 0x006DB270; prev ModuleTagString next ChainDrain
-class Rva006DB270
-{
-public:
-    void freeBlock(void *block, int blockSize);
-};
+#include "../../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006CD530
 {

@@ -24,11 +24,7 @@ public:
 	Rva006CD530 *m_next; // +4, chain link advanced below
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 

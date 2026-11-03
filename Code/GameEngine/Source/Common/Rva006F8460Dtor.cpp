@@ -8,11 +8,7 @@ class Rva0070A840
 public:
 	~Rva0070A840();
 };
-class Rva006DB270
-{
-public:
-	void freeBlock(void *p, int size);
-};
+#include "../../Include/Common/Rva006DB270.h"
 // Existing Apt pool provider; retail callers load this global at VA 0x00E176E8.
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006F8460

@@ -6,11 +6,7 @@
 
 inline void *operator new(unsigned int, void *p) { return p; }
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 
 // Existing Apt pool provider; retail callers load this global at VA 0x00E176E8.
 extern Rva006DB270 *g_pChainBlockAllocator;

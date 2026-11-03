@@ -28,11 +28,7 @@ public:
 	~Rva006D0280();
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int size);
-};
+#include "../../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 class Rva006D0F50Handle
