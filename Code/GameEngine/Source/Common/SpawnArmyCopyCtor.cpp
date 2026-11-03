@@ -27,35 +27,7 @@ template <> vector<AsciiString, allocator<AsciiString> >::vector(const vector<As
 template <> AsciiString *__uninitialized_copy(const AsciiString*, const AsciiString*, AsciiString*, const __false_type&);
 }
 
-class SpawnArmy : public Snapshot {
-public:
-    virtual ~SpawnArmy();
-    virtual void loadPostProcess();
-    virtual const char *GetSnapshotName() const;
-    virtual void xfer(Xfer*);
-    SpawnArmy(const SpawnArmy &o);
-private:
-    AsciiString m_04;
-    AsciiString m_08;
-    AsciiString m_0c;
-    AsciiString m_10;
-    AsciiString m_14;
-    AsciiString m_18;
-    AsciiString m_1c;
-    float m_20;
-    float m_24;
-    AsciiString m_28;
-    AsciiString m_2c;
-    AsciiString m_30;
-    AsciiString m_34;
-    _STL::vector<AsciiString> m_vec38;
-    float m_44;
-    int m_48;
-    int m_4c;
-    AsciiString m_50;
-    bool m_54;
-    bool m_55;
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 SpawnArmy::SpawnArmy(const SpawnArmy &spawnArmy)
     : m_04(spawnArmy.m_04), m_08(spawnArmy.m_08), m_0c(spawnArmy.m_0c), m_10(spawnArmy.m_10),

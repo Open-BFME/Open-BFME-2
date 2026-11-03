@@ -267,23 +267,7 @@ private:
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class SpawnArmy
-{
-	friend class Rva004FAA81Owner;
-public:
-	SpawnArmy(int v);
-	virtual ~SpawnArmy();
-
-private:
-	// Mostly size-only view (0x58B total with the vptr): the real layout
-	// (Snapshot base plus AsciiStrings plus vector) is owned by
-	// SpawnArmyDtor.cpp, whose view stops at m_50, but the int-ctor
-	// 0x004E30D5 stores through +0x55. Only +0x48 is named: the int-ctor
-	// sets it to 1 and 0x004FAA81 uses it as its retry loop bound.
-	char m_pad44[0x44];
-	int m_48;	// +0x48
-	char m_pad4C[0x0C];
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 class Rva002E2903Player
 {

@@ -161,12 +161,7 @@ struct TemplateCountKey {
  __forceinline TemplateCountKey(const ThingTemplate *thingTemplate):pointer(thingTemplate) {}
  __forceinline bool operator<(const TemplateCountKey &other)const {return pointer<other.pointer;}
 };
-class SpawnArmy:public Snapshot {public:
-	void *rva004E23C1();
- SpawnArmy(int);virtual ~SpawnArmy();
- virtual void loadPostProcess();virtual const char *GetSnapshotName()const;virtual void xfer(Xfer*);
- char payload[0x54];
-};
+#include "../../Include/Common/SpawnArmy.h"
 class Rva0040CB2CIndexedField {public:int get(int)const;};
 class Rva0037DCA5 {public:void *GetThingTemplate();};
 class CountInputPrefix {public:virtual void *get();virtual void slot1();virtual void slot2();virtual void slot3();virtual bool fill(void*,SpawnArmy*);};

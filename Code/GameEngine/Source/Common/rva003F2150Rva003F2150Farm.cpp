@@ -101,11 +101,7 @@ public:
 };
 
 // The unit being spawned; its command-point cost comes from 0x004E1755.
-class SpawnArmy
-{
-public:
-	Int rva004E1755();
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 

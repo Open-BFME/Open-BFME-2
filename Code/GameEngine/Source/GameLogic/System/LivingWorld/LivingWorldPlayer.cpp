@@ -113,11 +113,7 @@ class LivingWorldLogic;
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class SpawnArmy
-{
-public:
-	Int rva004E1755();			// 0x004E1755, command-point cost
-};
+#include "../../../../Include/Common/SpawnArmy.h"
 
 // The existing61B provider consumes a24-byte subrecord. These are
 // pointer views into that record; no objects of the declaration-only class

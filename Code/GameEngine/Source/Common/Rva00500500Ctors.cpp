@@ -25,37 +25,7 @@
 // inline destructor restores that table, as the address-named view did.
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class SpawnArmy : public Snapshot {
-public:
-    virtual ~SpawnArmy();
-    SpawnArmy(const SpawnArmy &other);
-protected:
-    virtual void loadPostProcess();
-    virtual void crc(Xfer *xfer);
-    virtual void xfer(Xfer *xfer);
-public:
-private:
-    AsciiString m_04;
-    AsciiString m_08;
-    AsciiString m_0c;
-    AsciiString m_10;
-    AsciiString m_14;
-    AsciiString m_18;
-    AsciiString m_1c;
-    unsigned int m_20;
-    unsigned int m_24;
-    AsciiString m_28;
-    AsciiString m_2c;
-    AsciiString m_30;
-    AsciiString m_34;
-    _STL::vector<AsciiString> m_vec38;
-    unsigned int m_44;
-    unsigned int m_48;
-    unsigned int m_4c;
-    AsciiString m_50;
-    unsigned char m_54;
-    unsigned char m_55;
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 class Rva00500500 {
 public:

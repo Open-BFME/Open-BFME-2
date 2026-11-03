@@ -35,11 +35,7 @@ namespace _STL
 
 }
 
-class SpawnArmy
-{
-public:
-	int rva004E1755();
-};
+#include "../../../../Include/Common/SpawnArmy.h"
 
 struct BfmeE8
 {

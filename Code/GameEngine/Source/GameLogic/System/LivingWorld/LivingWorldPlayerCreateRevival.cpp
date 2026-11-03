@@ -158,7 +158,7 @@ class Rva002E02F0 {public: void rva002E02F0(int,std::vector<ScienceType>*);};
 class Rva002B6498 {public: ArmorTemplate *rva002B6498(NameKeyType);};
 class BuildingNuggetView;
 class LivingWorldBuildingTemplate {public: BuildingNuggetView *findNugget(const AsciiString &) const;};
-class SpawnArmy {public: void *rva004E23C1();};
+#include "../../../../Include/Common/SpawnArmy.h"
 class Rva0040CB2CIndexedField {public: int get(int) const;};
 struct SpawnArmyRecordView {char unknown00[0x4C]; int key; char unknown50[8];};
 struct SpawnArmyNuggetView {char unknown00[8]; SpawnArmyRecordView *begin,*end;};
