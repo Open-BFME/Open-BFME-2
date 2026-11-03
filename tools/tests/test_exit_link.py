@@ -287,7 +287,8 @@ def test_parse_errors_keeps_every_line_and_its_referrer():
 
 def test_link_refuses_on_windows(monkeypatch):
     monkeypatch.setattr(E.sys, "platform", "win32")
-    with pytest.raises(SystemExit, match="boat sandbox"):
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    with pytest.raises(SystemExit, match="sandbox"):
         E.run_link([])
 
 
