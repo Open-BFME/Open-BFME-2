@@ -309,14 +309,7 @@ public:
 	bool rva002EDFF9(Object *obj, Coord3D *pos);
 };
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() const { return m_pathfinder; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder;			// +0x10
-};
+#include "../../../../GameEngine/Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 
