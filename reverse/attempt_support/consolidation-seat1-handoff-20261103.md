@@ -52,3 +52,30 @@ Verification: `python3 tools/name_lane.py consolidate --check build/consolidatio
 passed for the latest Update-scope report. No TU build was run because the
 dry-runs rejected every donor and no source was modified. Run
 `python3 tools/progress.py origin/master` for the final session progress.
+
+## Continuation (2026-11-03)
+
+Resumed at `RankInfo.cpp` as handed off. Its allocated dry run accepted no
+donors: `RankInfoCtor.cpp`, `Rva0022CA74Slot9.cpp`, and `RankInfoParse.cpp`
+compile trials fail on conflicting STL declarations and `operator new/delete`
+linkage. No source or ledger changes were made.
+
+Moved to five other allocated destinations; each allocation check passed, each
+narrow-scope consolidation report was current, and each merge dry run accepted
+zero donors:
+
+| Destination TU | Exact blocker summary |
+| --- | --- |
+| `RunOffMapBehavior.cpp` | constructor and `getModuleNameKey` absent from target view |
+| `BloodthirstyUpdate.cpp` | vftable conflict; module-data constructor undeclared; module-data dtor bytes; LinkGuard reports unresolved `crc@UpdateModule`, `s04` and `s05` on the merged object |
+| `SupplyWarehouseCripplingBehavior.cpp` | constructor absent from target view |
+| `CurseSpecialPower.cpp` | constructor absent from target view |
+| `AudioLoopUpgrade.cpp` | `update` undeclared, duplicate `StringBase`, undefined `UpgradeMux` |
+
+No claims were taken. Across this and the preceding session there are 29
+rejected merge dry runs, one guarded split refusal, and zero applied merges;
+net file reduction remains 0. The allocator's shard listing has 96
+destinations. The next allocated destination is
+`Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp`;
+recheck its allocation and the wind-down marker before proceeding. The latest
+Upgrade-scope planner report passed `name_lane.py consolidate --check`.
