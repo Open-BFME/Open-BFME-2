@@ -110,14 +110,7 @@ public:
 };
 extern ProjectedShadowManager *TheProjectedShadowManager;
 #include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
-class Drawable
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class W3DModelDraw
 {
@@ -153,7 +146,7 @@ void W3DModelDraw::setTerrainDecal(TerrainDecalType type)
 		//turning off decals on this object. (or bad value.)
 		return;
 
-	const ThingTemplate *thingTemplate=getDrawable()->getTemplate();
+	const ThingTemplate *thingTemplate=getDrawable()->m_template;
 
 	//create a new terrain decal
 	Shadow::ShadowTypeInfo decalInfo;

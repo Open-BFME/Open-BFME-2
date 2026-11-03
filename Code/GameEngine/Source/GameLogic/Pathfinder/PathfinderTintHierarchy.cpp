@@ -10,7 +10,7 @@
 // helper itself was not found in the ZH Pathfinder donor.
 struct RGBColor00271779 { float red,green,blue; };
 class Rva00271779 {public: void rva00271779(RGBColor00271779,int,int,int,float,float);};
-class Drawable {public: char pad00[0x118];unsigned int flags;};
+#include "../../../Include/GameClient/Drawable.h"
 class Object;
 struct ContainedObjectListNode {ContainedObjectListNode *next,*prev;Object *obj;};
 struct ContainedObjectList {ContainedObjectListNode *head;};
@@ -37,7 +37,7 @@ void Rva002EBD99(Object *obj,const RGBColor00271779 *color)
 {
  Drawable *drawable=obj->getDrawable();
  if(drawable) {
-  drawable->flags|=0x20;
+  drawable->m_tintStatus|=0x20;
   RGBColor00271779 red={1.0f,0.0f,0.0f};
   if(!color)color=&red;
   ((Rva00271779 *)drawable)->rva00271779(*color,0,0,100,0.0f,0.0f);

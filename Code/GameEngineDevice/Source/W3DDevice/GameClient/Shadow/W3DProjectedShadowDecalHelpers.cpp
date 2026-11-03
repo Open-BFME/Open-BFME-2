@@ -165,7 +165,7 @@ static void projectRangesRva00108FBD(const Rva00108E7AVector &axisA, const Rva00
 }
 
 class Object {public:int rva0028B511()const;};
-class Drawable {public:bool rva0027267D(int,int,int,int);bool rva002726C3(int,int,int,int);int rva0027261D();int rva0027264D();char pad[0xfc];Object*object;};
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 struct DrawableInfo {void*unknown;Drawable*drawable;};
 class AABoxClass;
 class RenderObjClass{public:

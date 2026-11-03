@@ -203,22 +203,8 @@ struct MountedFlags
 	__forceinline void set(unsigned bit) { words[bit >> 5] |= (1U << (bit & 31)); }
 };
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-	void fadeIn(unsigned);
-	char m_pad[0xB0];
-	float m_scale; // +0xB0
-	char m_padB4[0x43C - 0xB4];
-	unsigned char selected; // +0x43C
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
 
 class Object : public Thing
 {
@@ -257,11 +243,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-
-	char pad0[0x38];
-	Coord3D position; // +0x38
-	float angle; // +0x44
-	char pad48[0x74 - 0x48];
+	char pad48[0x74 - 0x60];
 	ObjectID id; // +0x74
 	char pad78[0x88 - 0x78];
 	StringBase<char> name; // +0x88
@@ -701,7 +683,7 @@ void Rva004ADC88::finishAbility()
 	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::rva00451B92();
 	void *other = m_other;
 	if ((*(Object *volatile *)&m_obj)->getDrawable() != 0)
-		(*(Object *volatile *)&m_obj)->getDrawable()->m_scale = 1.0f;
+		(*(Object *volatile *)&m_obj)->getDrawable()->field_0b0 = 1.0f;
 	(*(Object *volatile *)&m_obj)->setStatus((ObjectStatusTypes)0x4A, false);
 	if (m_flag != 0 && ((StringBase<char> *)((char *)other + 0xD0))->isEmpty() == 0)
 		rva004AD9E0();
@@ -748,10 +730,10 @@ void ToggleMountedSpecialAbilityUpdate::createMountedTemplate(){
  const ThingTemplate *what=TheThingFactory->findTemplate(*(const AsciiString *)&data->mountedTemplate);
  if(!what)return;
  Object *original=owner;
- bool selected=original->getDrawable()->selected!=0;
- float angle=original->angle;
+ bool selected=original->getDrawable()->m_selected!=0;
+ float angle=original->m_cachedAngle;
  Player *player=original->getControllingPlayer();
- Object *replacement=TheBuildAssistant->buildObjectNow(original,what,&original->position,angle,player);
+ Object *replacement=TheBuildAssistant->buildObjectNow(original,what,&original->m_cachedPos,angle,player);
  if(!replacement)return;
  player->score.addObjectBuilt(original,-1);
  replacement->name.set(original->name);
@@ -819,7 +801,7 @@ void ToggleMountedSpecialAbilityUpdate::triggerAbilityEffect()
   obj->setArmorSetFlag((ArmorSetType)6);
  }
  Drawable *drawable=obj->getDrawable();
- if(drawable && drawable->selected) TheControlBar->field28=true;
+ if(drawable && drawable->m_selected) TheControlBar->field28=true;
 }
 
 // tu-skeleton: 0x004ADAB5 74B ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp (not merged yet)

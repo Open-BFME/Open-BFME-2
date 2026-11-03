@@ -10,7 +10,7 @@
 // (the inverted !a && !b test with the copy first left the arms swapped).
 struct B90A3Data {char pad[0x69];bool translationOnly,clientHeading;};
 class Object {char pad[0x1C0];public:float orientation;};
-class Drawable {char pad[0xFC];public:Object *object;const Matrix3D *getTransformMatrix()const;};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 class B90A3Render {public:
@@ -45,13 +45,13 @@ class W3DScriptedModelDraw {public:
 };
 void W3DScriptedModelDraw::rva000B90A3()
 {
- if(shadow&&render&&drawable->object){
+ if(shadow&&render&&drawable->m_object){
   B90A3Data *moduleData=data;
   Matrix3D mtx(true);
   if (moduleData->translationOnly||moduleData->clientHeading) {
    mtx.Set_Translation(drawable->getTransformMatrix()->Get_Translation());
    if(moduleData->clientHeading){
-    Object *obj=drawable->object;
+    Object *obj=drawable->m_object;
     float angle=TheInGameUI?TheInGameUI->rva0029B3C1(obj):obj->orientation;
     mtx.Rotate_Z(angle);
    }

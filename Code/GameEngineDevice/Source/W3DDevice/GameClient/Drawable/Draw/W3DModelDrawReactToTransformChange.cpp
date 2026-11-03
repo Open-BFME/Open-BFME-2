@@ -32,18 +32,7 @@ public:
 	Real m_orientation;
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-	const Matrix3D *getTransformMatrix() const;
-	const ThingTemplate *getTemplate() const { return m_template; }
-	Object *getObject() const { return m_object; }
-	char m_pad00[0x04];
-	const ThingTemplate *m_template;
-	char m_pad08[0xFC - 0x08];
-	Object *m_object;
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 #include "../../../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -112,7 +101,7 @@ private:
 void W3DModelDraw::reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, Real oldAngle)
 {
 	const W3DModelDrawModuleData *w3DModelDrawModuleData = getW3DModelDrawModuleData();
-	const ThingTemplate *thingTemplate = getDrawable()->getTemplate();
+	const ThingTemplate *thingTemplate = getDrawable()->m_template;
 	const Coord3D *pos = getDrawable()->getPosition();
 
 	if (thingTemplate->m_removeTerrainRadius > 1.0f)

@@ -92,7 +92,7 @@ public:
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class Object { public: int rva0028B511() const; char prefix00[8]; Matrix3D transform; };
-class Drawable { public: char prefix00[0xFC]; Object *m_object; };
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 class TerrainLogic {
 public:
  virtual void v0() const; virtual void v1() const; virtual void v2() const;

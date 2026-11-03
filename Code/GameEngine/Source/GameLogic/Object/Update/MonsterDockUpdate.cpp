@@ -37,13 +37,7 @@ enum DeathType
 {
 	DEATH_09 = 9
 };
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
- void convertBonePosToWorldPos(const Coord3D *, const Matrix3D *, Coord3D *, Matrix3D *) const;
- void setPosition(const Coord3D *);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class Object : public Thing
 {
 public:
@@ -56,7 +50,7 @@ public:
 	void setDisabled(DisabledType type);
 	bool clearDisabled(DisabledType type);
 	void kill(DamageType damageType, DeathType deathType);
-	unsigned char m_pad000[0x10C];
+	unsigned char m_pad60[0x10C - 0x60];
 	Rva0010CConditionBits m_conditionBits; // +0x10C
 };
 static __forceinline void setModelConditionBit(Object *object, int bit)
@@ -67,12 +61,6 @@ static __forceinline void setModelConditionBit(Object *object, int bit)
 		object->rva0028AE6D();
 	}
 }
-class Drawable
-{
-public:
-	void rva00272A02(bool on);
-	void setDrawableHidden(bool);
-};
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;

@@ -161,7 +161,7 @@ public:
  virtual bool allow(Object *);
  BfmeFixedStorage0004543D m_accept,m_reject;
 };
-class Drawable {public:void setDrawableHidden(bool hidden);};
+#include "../../../../Include/GameClient/Drawable.h"
 class Rva0026F0F0 {public:void *rva0026F0F0(const void *);};
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;
@@ -187,12 +187,6 @@ class ReplaceContain:public ReplaceSlots<18>{public:virtual void addToContain(Ob
 
 struct ReplaceInfo {char pad[0x34];Int delay;};
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	const Coord3D *getUnitDirectionVector2D() const;
-};
 
 class Object : public Thing
 {
@@ -206,15 +200,10 @@ public:
 	void teleportTo(const Coord3D *, Bool);
 	void kill(enum DamageType, enum DeathType);
 	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_pos; }
-	Real getOrientation() const { return m_orientation; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
+	Real getOrientation() const { return m_cachedAngle; }
 private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template;		// +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_pos;					// +0x38
-	Real m_orientation;				// +0x44
-	unsigned char pad48[0x74-0x48];
+	unsigned char pad48[0x74 - 0x60];
 public:
 	unsigned int id;
 	unsigned char pad78[0x88-0x78];

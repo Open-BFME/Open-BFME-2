@@ -269,21 +269,7 @@ private:
 	unsigned int m_words[19];
 };
 
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	Real getOrientation() const { return m_orientation; }
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-	void setOrientation(Real angle);
-	void setTransformMatrix(const Matrix3D *mx);
-
-private:
-	unsigned char m_pad000[0x08];
-	Matrix3D m_transform; // +0x08
-	Coord3D m_pos; // +0x38
-	Real m_orientation; // +0x44
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Object : public Thing
 {
@@ -316,7 +302,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 
 private:
-	unsigned char m_pad048[0xA8 - 0x48];
+	unsigned char m_pad60[0xA8 - 0x60];
 	GeometryInfo m_geometryInfo; // +0xA8 (Object ctor copies it there)
 	unsigned char m_pad0d4[0x10C - 0xD4];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
@@ -388,11 +374,6 @@ class ParticleSystemTemplate;
 #include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
-class Drawable
-{
-public:
-	Int getPristineBonePositions(const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms, Int maxBones, Int unused) const;
-};
 
 class BoneFXUpdate
 {

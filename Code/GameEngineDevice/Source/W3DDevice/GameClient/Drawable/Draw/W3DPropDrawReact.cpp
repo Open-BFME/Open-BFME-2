@@ -42,15 +42,6 @@ enum DrawableID
 	INVALID_DRAWABLE_ID = 0
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition( void ) const;
-	Real getOrientation( void ) const { return m_cachedAngle; }
-private:
-	char m_unrecovered00[ 0x44 ];
-	Real m_cachedAngle;																												///< 0x44
-};
 
 // Drawable::getScale (+0x200) and Drawable::getID are the folded field getters rowed at
 // 0x000788D3 and 0x0055A88B under opaque holder names; the calls use those rows.
@@ -66,6 +57,7 @@ public:
 };
 
 #include "../../../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 class W3DPropDrawModuleData

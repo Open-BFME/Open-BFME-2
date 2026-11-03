@@ -33,20 +33,10 @@ static __forceinline void initLaunchTransform(Matrix3D &m) {m.Row[0].X=1.0f;m.Ro
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Drawable
-{
-public:
-	void setDrawableHidden(Bool hidden);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 
-class Thing
-{
-public:
-	void setTransformMatrix(const Matrix3D *mtx);
-	void setPosition(const Coord3D *pos);
-};
 
 class Object : public Thing
 {
@@ -55,7 +45,7 @@ public:
 	ObjectID getID() const { return m_id; }
 	ExperienceTracker *getExperienceTracker() { return m_experienceTracker; }
 private:
-	char m_pad00[0x74];
+	char m_pad60[0x74 - 0x60];
 	ObjectID m_id;
 	char m_pad78[0x264 - 0x78];
 	ExperienceTracker *m_experienceTracker;

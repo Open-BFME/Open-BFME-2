@@ -52,13 +52,7 @@ class LocomotorStore { public: LocomotorTemplate *findLocomotorTemplate(Int key)
 extern LocomotorStore *TheLocomotorStore;
 
 class Object;
-class Drawable
-{
-public:
-	Bool rva002765D4(UnicodeString *name);	// the display name, when it has one
-	unsigned char m_pad000[0x43C];
-	Bool m_selected;			// +0x43C
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../../Include/Common/Player.h"
 

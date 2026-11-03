@@ -284,7 +284,7 @@ class Rva00373EC6{public:void rva00374815(); char pad[0x31];bool oneRing;};
 
 class StealthUpdate{public:void markAsDetected(unsigned,int,Object*,bool);};
 
-class Drawable{public:int getPristineBonePositions(const char*,int,Coord3D*,Matrix3D*,int,int) const;char pad[0x358];float opacity;};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -502,7 +502,7 @@ UpdateSleepTime StealthDetectorUpdate::update(){
    Rva0036AE51ListView view=((ContainListInterface*)contain)->rva70();
    for(ContainmentList::const_iterator item=view.b->begin();item!=view.b->end();++item){Object *rider=(Object*)containmentFirstWord(*item);StealthUpdate *riderStealth=(StealthUpdate*)rider->rva0028F4BC();if(riderStealth){foundSomeone=true;if(self->getControllingPlayer()!=rider->getControllingPlayer()&&self->getRelationship(rider)!=ALLIES){riderStealth->markAsDetected(data->m_rate+2,2,self,true);TheGameLogic->getManager178()->detected(rider,(Object*)self,data->m_rate+2,2);}}}
   }}
-  if(!forceUnstealth){Drawable *draw=((Thing*)them)->getDrawable();if(draw)draw->opacity=1.0f;}
+  if(!forceUnstealth){Drawable *draw=((Thing*)them)->getDrawable();if(draw)draw->m_secondMaterialPassOpacity=1.0f;}
  }
  if(data->m_grid&&self->getShroudStatusForPlayer(ThePlayerList->m_local->m_index)<=2){
   Drawable *draw=((Thing*)self)->getDrawable();Coord3D bone;bone.x=-1.66f;bone.y=5.5f;bone.z=15.0f;if(draw)draw->getPristineBonePositions(data->m_bone.str(),0,&bone,0,1,0);

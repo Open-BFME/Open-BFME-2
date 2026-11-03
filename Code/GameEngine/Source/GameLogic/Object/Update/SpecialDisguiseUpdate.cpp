@@ -64,26 +64,7 @@ public:
 	int m_0;
 	Rva0036CA00Str m_4;
 };
-class Thing
-{
-public:
-	void setOrientation(float angle); // 0x0030AB9D
-	unsigned char m_thingPad[0xB0];
-};
-class Drawable : public Thing
-{
-public:
-	void setPosition(const Coord3D *position); // 0x002710E7
-	void rva0027290C(int value);
-	void rva00275DCE(int mode, float a, float b, float c);
-	Rva002390CB rva00274CD8(const AsciiString &name); // keyed sound lookup
-
-	float m_B0; // +0xB0
-	unsigned char m_padB4[0x43C - 0xB4];
-	bool m_43C; // +0x43C
-	unsigned char m_pad43D[0x44C - 0x43D];
-	int m_44C; // +0x44C
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class ThingTemplate;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
@@ -688,7 +669,7 @@ void SpecialDisguiseUpdate::onExit(bool a, bool b)
 {
 	SpecialAbilityUpdate::onExit(a, b);
 	if (m_object->getDrawable())
-		m_object->getDrawable()->m_B0 = 1.0f;
+		m_object->getDrawable()->field_0b0 = 1.0f;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp
@@ -773,7 +754,7 @@ void SpecialDisguiseUpdate::rva004B04B2(bool value)
 {
 	Object *obj = m_object;
 	Drawable *draw = obj->getDrawable();
-	bool wasSelected = draw->m_43C != 0;
+	bool wasSelected = draw->m_selected != 0;
 	const SpecialDisguiseUpdateModuleData *data = (const SpecialDisguiseUpdateModuleData *)m_moduleData;
 	if (data->m_forceMounted && obj->isKindOf((KindOfType)300))
 	{
@@ -796,7 +777,7 @@ void SpecialDisguiseUpdate::rva004B04B2(bool value)
 			TheGameLogic->bindObjectAndDrawable((Object *)obj, (Drawable *)draw);
 			draw->setPosition(&obj->m_position);
 			draw->setOrientation(obj->m_orientation);
-			draw->m_B0 = m_8C;
+			draw->field_0b0 = m_8C;
 			((Rva001E42F2 *)obj)->rva001E42F2((const int *)&conditions);
 			((Rva001E431E *)obj)->rva001E431E((const int *)&conditions);
 			draw->rva0027290C(savedValue);

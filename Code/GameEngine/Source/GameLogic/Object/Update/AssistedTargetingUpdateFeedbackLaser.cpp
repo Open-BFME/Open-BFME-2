@@ -9,14 +9,13 @@
 #pragma function(memset)
 class Team;class ThingTemplate;class Drawable;class ClientUpdateModule;
 class Player {public:char pad[0x2EC];Team *team;};
-class Thing {public:Drawable *getDrawable()const;};
-class Object:public Thing {public:Player *getControllingPlayer() const;char pad[0x38];Coord3D position;};
+#include "../../../../Include/GameClient/Drawable.h"
+class Object:public Thing {public:Player *getControllingPlayer() const;};
 struct CreateMask {unsigned words[4];};
 enum ObjectID; class ThingFactory {public:Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);};extern ThingFactory *TheThingFactory;
 enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Drawable {public:ClientUpdateModule *findClientUpdateModule(NameKeyType);};
 class ClientUpdateModule {};
 class LaserUpdate:public ClientUpdateModule {public:void initLaser(const Object *,const Coord3D *,const Coord3D *,int);};
 extern GameLogic *TheGameLogic;
@@ -31,5 +30,5 @@ void AssistedTargetingUpdate::makeFeedbackLaser(const ThingTemplate *laserTempla
  static const NameKeyType key=TheNameKeyGenerator->nameToKey("LaserUpdate");
  LaserUpdate *update=(LaserUpdate*)draw->findClientUpdateModule(key);
  if(!update){TheGameLogic->destroyObject(laser);return;}
- update->initLaser(object,&from->position,&to->position,0);
+ update->initLaser(object,&from->m_cachedPos,&to->m_cachedPos,0);
 }

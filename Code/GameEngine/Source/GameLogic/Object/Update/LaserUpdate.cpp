@@ -213,17 +213,7 @@ public:
     const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)((const char *)this+0xa8); }
 };
 
-class Drawable
-{
-public:
-	bool rva00272835(int, int);
-	__forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
-	void setPosition(const Coord3D *);
-	const Coord3D *getPosition() const;
-	Rva00603BB0ObjectView *getObject() const { return m_object; }
-	char m_unmodelled_000[0xfc]; // +0x00
-	Rva00603BB0ObjectView *m_object; // +0xFC
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/GameClient/GameClientClass.h"
 
