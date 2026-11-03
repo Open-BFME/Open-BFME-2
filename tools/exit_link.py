@@ -49,7 +49,7 @@ commit.
   python3 tools/exit_link.py --plan --objects    # also prove omission from build/match objects
   python3 tools/exit_link.py --plan --index      # also cross-check the published census index
   python3 tools/exit_link.py --eh-proof          # eh_verify --all on the current objects
-  python3 tools/exit_link.py --link              # BOAT ONLY: read-only proof + exit link
+  python3 tools/exit_link.py --link              # sandbox or hosted runner: read-only proof + exit link
   python3 tools/exit_link.py --report            # summarise the last run
 
 The production entry point is `python3 tools/link_cycle.py --exit-link ...`,
@@ -64,6 +64,7 @@ import csv
 import functools
 import hashlib
 import json
+import os
 import re
 import struct
 import subprocess
@@ -597,9 +598,9 @@ def check_data_rows():
 
 
 def run_link(rows):
-    if sys.platform.startswith("win"):
-        raise SystemExit("exit_link: --link runs on the boat sandbox only (Wine + MSVC 7.1); "
-                         "use --plan on Windows")
+    if sys.platform.startswith("win") and not os.environ.get("GITHUB_ACTIONS"):
+        raise SystemExit("exit_link: --link runs on a sandbox (Wine + MSVC 7.1) or a hosted runner only; "
+                         "use --plan on this PC")
     OUT.mkdir(parents=True, exist_ok=True)
     expected, present, missing = object_inventory(rows)
     if missing:
@@ -812,7 +813,7 @@ def main(argv=None):
     mode.add_argument("--plan", action="store_true",
                       help="dry run: the omitted population, its proof and the index's prediction; no link")
     mode.add_argument("--eh-proof", action="store_true", help="run eh_verify --all and report")
-    mode.add_argument("--link", action="store_true", help="BOAT ONLY: read-only proof and exit link")
+    mode.add_argument("--link", action="store_true", help="sandbox or hosted runner only: read-only proof and exit link")
     mode.add_argument("--report", action="store_true", help="summarise build/exit_link/result.json")
     parser.add_argument("--objects", action="store_true",
                         help="with --plan: prove the omission from build/match objects")
