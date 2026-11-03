@@ -5,13 +5,12 @@
 // int3-padded sortingrenderer.cpp run beside the emitted
 // VertexMaterialClass::Get_Lighting copy; no direct caller reaches it.
 // upstream: GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
-class DX8Wrapper
+#include "DX8WrapperClass.h"
+
+inline void DX8Wrapper::_Enable_Triangle_Draw(bool enable)
 {
-public:
-	static void _Enable_Triangle_Draw(bool enable) { _EnableTriangleDraw = enable; }
-protected:
-	static bool _EnableTriangleDraw;
-};
+	_EnableTriangleDraw = enable;
+}
 
 // Keeps the inline's select-any copy emitted here (not retail code).
 extern void (*const g_bfmeDX8EnableTriangleDrawAnchor)(bool);

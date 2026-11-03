@@ -114,26 +114,7 @@ enum
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
-class DX8Wrapper
-{
-public:
-	static IDirect3DSwapChain8 *Create_Additional_Swap_Chain(void *render_window);
-	static IDirect3DSurface9 *_Create_DX8_Surface(
-		unsigned width, unsigned height, WW3DFormat format, D3DPOOL pool);
-	static IDirect3DSurface9 *_Get_DX8_Front_Buffer();
-
-protected:
-	// Protected, not private: retail mangles these as ?Find_Color_Mode@DX8Wrapper@@KA_N...
-	// and ?D3DInterface@DX8Wrapper@@1PAVIDirect3D8@@A.
-	static IDirect3D8 *D3DInterface;
-	static bool __cdecl Find_Color_Mode(_D3DFORMAT colorbuffer, int resx, int resy, UINT *mode);
-
-private:
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-private:
-	static D3DPRESENT_PARAMETERS _PresentParameters;
-};
+#include "DX8WrapperClass.h"
 
 // The DX8 call counter at 0x9EDA98 (the ledger's ?number_of_DX8_calls@@3IA).
 extern unsigned number_of_DX8_calls;
