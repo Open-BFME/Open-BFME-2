@@ -22,6 +22,7 @@ struct XferUnknown11;
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
+#include "../../../../Include/GameClient/LightningDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -31,21 +32,6 @@ public:
 	virtual ~LightningDrawModuleInfoBase();
 };
 
-class LightningDrawModuleInfo : public LightningDrawModuleInfoBase
-{
-public:
-	LightningDrawModuleInfo();
-	virtual ~LightningDrawModuleInfo();
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-	GameClientRandomVariable m_var2;
-	float m_28;
-	bool m_2c;
-};
 
 }
 

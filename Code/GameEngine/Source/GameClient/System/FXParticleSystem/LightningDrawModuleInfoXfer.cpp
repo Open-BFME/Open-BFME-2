@@ -30,25 +30,10 @@ Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #include "Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/LightningDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
-class LightningDrawModuleInfo : public Snapshot
-{
-public:
-	LightningDrawModuleInfo();
-	virtual ~LightningDrawModuleInfo();
-	virtual const char *GetSnapshotName();
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-	GameClientRandomVariable m_var2;
-	float m_28;
-	bool m_2c;
-};
 
 }
 

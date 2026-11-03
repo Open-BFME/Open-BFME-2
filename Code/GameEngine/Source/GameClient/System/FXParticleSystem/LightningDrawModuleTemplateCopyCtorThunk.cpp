@@ -3,6 +3,7 @@
 // Open-BFME5: LightningDrawModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/LightningDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class LightningDrawModuleInfo
-{
-public:
-	LightningDrawModuleInfo(const LightningDrawModuleInfo &that);
-	virtual void dummy();
-};
 
 // LightningDrawModuleTemplate_cvtbl0: matched references place it at VA 0xc1bd90 (retail .rdata value -123).
 extern "C" char LightningDrawModuleTemplate_cvtbl0 = -123;
