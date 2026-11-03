@@ -67,13 +67,6 @@ template <> void **vector<void*>::end();
 // LadderPref copy ctor 0x005BA3F5 (LadderPrefCopy.cpp). The long-keyed twin of
 // this body is rowed in stlport_map_long_ladderpref.cpp; this row keeps the
 // sweep's int key.
-class LadderPref
-{
-public:
-    LadderPref(const LadderPref &source);
-    ~LadderPref();
-private:
-    int m_words[4];
-};
+#include "../../../../GameEngine/Include/GameNetwork/LadderPref.h"
 // Instantiate only the rowed pair copy constructor.
 template _STL::pair<const int, LadderPref>::pair(const _STL::pair<const int, LadderPref> &);

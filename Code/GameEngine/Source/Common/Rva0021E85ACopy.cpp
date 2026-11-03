@@ -21,10 +21,7 @@ enum ScienceType
 	SCIENCE_INVALID = 0
 };
 
-class LadderPref
-{
-	char m_opaque[0x10];	// 16 bytes: the retail copy ctor 0x5BA3F5 copies +0, +4, +8 (short), +0xC
-};
+#include "../../Include/GameNetwork/LadderPref.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _Rb_tree<long,pair<long const ,LadderPref>,_Select1st<pair<long const ,LadderPref> >,less<long>,allocator<pair<long const ,LadderPref> > >::~_Rb_tree(); }
 // Bind to the kept retail copy instead of emitting this unit's own.

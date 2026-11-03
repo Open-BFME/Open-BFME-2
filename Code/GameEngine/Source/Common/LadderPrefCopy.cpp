@@ -17,16 +17,7 @@ class UnicodeString;
 
 // LadderPreferences::loadProfile fills these same offsets; the names agree
 // with the upstream Common/LadderPreferences.h record and its time_t map key.
-class LadderPref
-{
-public:
-    inline __declspec(noinline) LadderPref(const LadderPref &source);
-
-    UnicodeString name;
-    AsciiString address;
-    unsigned short port;
-    long lastPlayDate;
-};
+#include "../../Include/GameNetwork/LadderPref.h"
 
 // Keep the copy out of the pair constructor, whose retail body calls it at +0x13.
 LadderPref::LadderPref(const LadderPref &source)

@@ -194,19 +194,7 @@ int GameSpyMiscPreferences::rva005599C8()
 
 typedef unsigned short UnsignedShort;
 
-class LadderPref
-{
-public:
-	LadderPref();
-	LadderPref(const LadderPref &other);
-	~LadderPref();
-	LadderPref &operator=(const LadderPref &other);
-
-	UnicodeString name;
-	AsciiString address;
-	UnsignedShort port;
-	time_t lastPlayDate;
-};
+#include "../../../Include/GameNetwork/LadderPref.h"
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString original);

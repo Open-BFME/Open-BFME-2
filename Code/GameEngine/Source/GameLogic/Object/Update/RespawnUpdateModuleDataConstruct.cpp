@@ -20,19 +20,7 @@
 
 #include "ascii_string.h"
 
-class LadderPref
-{
-public:
-	LadderPref();
-	LadderPref(const LadderPref &source);
-	~LadderPref();
-
-private:
-	void *m_name;
-	void *m_address;
-	unsigned short m_port;
-	long m_lastPlayDate;
-};
+#include "../../../../Include/GameNetwork/LadderPref.h"
 
 #include <map>
 // bfme link decl-only begin

@@ -21,14 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // The record is LadderPref under a long key: the node construct call goes to
 // the rowed _Construct<pair<const long, LadderPref>> at 0x005DFBDE
 // (stlport_map_long_ladderpref.cpp). Four units emit this member for that map.
-class LadderPref
-{
-public:
-    LadderPref(const LadderPref &source);
-    ~LadderPref();
-private:
-    int m_words[4];
-};
+#include "../../../../GameEngine/Include/GameNetwork/LadderPref.h"
 // Declared only: the rowed copy serves the call.
 namespace _STL { template <> void _Construct<pair<const long, LadderPref>, pair<const long, LadderPref> >(pair<const long, LadderPref> *, const pair<const long, LadderPref> &); }
 // Instantiate the recovered member; retain only its required template dependencies.

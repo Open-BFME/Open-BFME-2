@@ -10,18 +10,7 @@
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // Names agree with upstream Common/LadderPreferences.h record and its time_t map key.
-class LadderPref
-{
-public:
-    LadderPref();
-    __declspec(noinline) LadderPref(const LadderPref &source);
-    ~LadderPref();
-
-    UnicodeString name;
-    AsciiString address;
-    unsigned short port;
-    long lastPlayDate;
-};
+#include "../../../../GameEngine/Include/GameNetwork/LadderPref.h"
 
 #include <map>
 // bfme link decl-only begin

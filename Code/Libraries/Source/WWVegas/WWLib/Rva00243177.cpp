@@ -27,18 +27,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-class LadderPref
-{
-public:
-	LadderPref();
-	LadderPref(const LadderPref &source);
-	~LadderPref();
-
-	UnicodeString name;
-	AsciiString address;
-	unsigned short port;
-	long lastPlayDate;
-};
+#include "../../../../GameEngine/Include/GameNetwork/LadderPref.h"
 
 // The base is the canonical Snapshot (vtable 0x00BBB554): the ctor's unwind
 // funclet 0x007713DB destroys it through the folded Snapshot destructor

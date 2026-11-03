@@ -15,10 +15,7 @@
 
 #include <map>
 
-class LadderPref
-{
-    char m_pad[16];
-};
+#include "../../Include/GameNetwork/LadderPref.h"
 
 typedef _STL::map<long, LadderPref> LadderPrefMap;
 

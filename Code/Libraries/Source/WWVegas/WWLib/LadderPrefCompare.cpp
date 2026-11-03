@@ -6,15 +6,7 @@
 
 #include "unicode_string.h"
 
-class LadderPref
-{
-public:
-    UnicodeString name;
-    AsciiString address;
-    unsigned short port;
-    long lastPlayDate;
-    bool operator==(const LadderPref &other);
-};
+#include "../../../../GameEngine/Include/GameNetwork/LadderPref.h"
 
 bool LadderPref::operator==(const LadderPref &other)
 {
