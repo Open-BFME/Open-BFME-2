@@ -86,14 +86,7 @@ struct CreateMask
 {
 	unsigned int m_bits[4];
 };
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-private:
-	unsigned char m_pad000[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../Include/Common/Player.h"
 #include "../../Include/GameLogic/ObjectFilter.h"
 class ProjectileUpdateInterface
 {

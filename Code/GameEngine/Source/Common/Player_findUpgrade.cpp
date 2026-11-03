@@ -23,15 +23,7 @@ public:
 	Upgrade *m_prev;					// +0x10
 };
 
-class Player
-{
-public:
-	Upgrade *findUpgrade(const UpgradeTemplate *upgradeTemplate);
-
-private:
-	char m_pad[0x9C];
-	Upgrade *m_upgradeList;				// +0x9C
-};
+#include "../../Include/Common/Player.h"
 
 Upgrade *Player::findUpgrade(const UpgradeTemplate *upgradeTemplate)
 {

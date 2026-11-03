@@ -43,15 +43,12 @@ class BfmeMemberRV {public:bool bfmeAskRV();};
 struct BfmeResultA {void *m_value;BfmeResultA();BfmeResultA(const BfmeResultA&);~BfmeResultA();};
 class BfmeResultForwardA {public:BfmeResultA bfmeForwardResultA();};
 extern PartitionManager *ThePartitionManager;
-class Player {
-public:void becomingLocalPlayer(bool);Relationship getRelationship(const Team*)const;
- unsigned char pad[0x280];int color,nightColor;
-};
+#include "../../../Include/Common/Player.h"
 void Player::becomingLocalPlayer(bool yes)
 {
  if(yes){
   GameClient *client=TheGameClient;
-  if(client){RGBColor rgb;rgb.setFromInt(color);client->setTeamColor((int)(rgb.red*255),(int)(rgb.green*255),(int)(rgb.blue*255));}
+  if(client){RGBColor rgb;rgb.setFromInt(m_color);client->setTeamColor((int)(rgb.red*255),(int)(rgb.green*255),(int)(rgb.blue*255));}
   if(ThePartitionManager){
    BfmeResultA iter=((BfmeResultForwardA*)ThePartitionManager)->bfmeForwardResultA();
    for(Object *object=((BfmeWideResult*)&iter)->next();object;object=((BfmeWideResult*)&iter)->next()){
@@ -69,7 +66,7 @@ void Player::becomingLocalPlayer(bool yes)
       if(update && update->disguise){
        Player *disguised=ThePlayerList->getNthPlayer(update->playerIndex);
        if(getRelationship(object->team)!=ALLIES && ((BfmeMemberRV*)this)->bfmeAskRV()){
-        if(TheWritableGlobalData->m_timeOfDay==4)draw->setIndicatorColor(disguised->nightColor);else draw->setIndicatorColor(disguised->color);
+        if(TheWritableGlobalData->m_timeOfDay==4)draw->setIndicatorColor(disguised->m_nightColor);else draw->setIndicatorColor(disguised->m_color);
        }else{
         if(TheWritableGlobalData->m_timeOfDay==4)draw->setIndicatorColor(object->getNightIndicatorColor());else draw->setIndicatorColor(object->getIndicatorColor());
        }

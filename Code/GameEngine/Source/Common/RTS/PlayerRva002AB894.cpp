@@ -12,12 +12,7 @@ struct Rva002AB894List
 	const UpgradeTemplate **m_end;
 };
 
-class Player
-{
-public:
-	bool rva002AB87D(const UpgradeTemplate *tmpl) const;
-	bool rva002AB894(const Rva002AB894List &list) const;
-};
+#include "../../../Include/Common/Player.h"
 
 // ?rva002AB894@Player@@QBE_NABURva002AB894List@@@Z
 bool Player::rva002AB894(const Rva002AB894List &list) const

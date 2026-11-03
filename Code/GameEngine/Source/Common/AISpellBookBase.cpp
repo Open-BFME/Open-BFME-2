@@ -63,15 +63,7 @@ public:
 	void *get() const;
 };
 
-class Player
-{
-public:
-	unsigned char m_pad[0x54];
-public:
-	int m_playerIndex;
-public:
-	bool rva002AA245() const;
-};
+#include "../../Include/Common/Player.h"
 
 struct Flag108
 {

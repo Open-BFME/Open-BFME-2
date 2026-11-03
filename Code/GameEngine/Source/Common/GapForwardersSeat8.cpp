@@ -78,7 +78,7 @@ void Rva0023C4A1::rva0023C4A1()
 #include "../../Include/Common/RvaSmartPtr12.h"
 class Rva00283002 { public: void rva00283002(); };	// 0x00283002 (list clear)
 enum ScienceType { };
-class Player { public: bool hasScience(ScienceType science) const; };	// 0x002AB7D5
+#include "../../Include/Common/Player.h"
 class DataChunkInput;
 class ElevatedAreaPolygon { public: void parse(DataChunkInput &file, int val); };	// 0x0030BB87
 struct Rva0030B7C2Point;

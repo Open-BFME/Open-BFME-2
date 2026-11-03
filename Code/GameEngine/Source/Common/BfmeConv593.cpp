@@ -4,12 +4,7 @@ class BfmeOwnerCFF;
 
 // The owner is the Player and this the TeamPrototype (the ledger rows).
 class TeamPrototype;
-class Player
-{
-public:
-	void addTeamToList(TeamPrototype *team);
-	void removeTeamFromList(TeamPrototype *team);
-};
+#include "../../Include/Common/Player.h"
 
 class BfmeThingCFF
 {

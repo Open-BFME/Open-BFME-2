@@ -4,12 +4,7 @@
 typedef int Int;
 typedef bool Bool;
 
-class Player
-{
-public:
-	char m_pad00[0x54];
-	Int m_playerIndex;
-};
+#include "../../Include/Common/Player.h"
 #include "../GameLogic/Object/object.h"
 class Rva000421C8
 {

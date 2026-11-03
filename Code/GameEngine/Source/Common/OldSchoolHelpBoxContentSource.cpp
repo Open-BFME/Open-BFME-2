@@ -159,11 +159,7 @@ struct UpgradeRange
 	UpgradeTemplate **m_end;
 };
 
-class Player
-{
-public:
-	bool rva002AB87D(const UpgradeTemplate *tmpl) const;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../GameLogic/Object/object.h"
 

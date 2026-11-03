@@ -90,21 +90,7 @@ private:
 
 typedef _STL::list<short> PlayerTemplateIDList;
 
-class Player
-{
-public:
-	Bool allowedToBuild(const ThingTemplate *tmplate) const;
-	Bool canBuild(const ThingTemplate *tmplate) const;
-	__declspec(dllimport) __forceinline PlayerType getPlayerType() const { return m_playerType; }
-private:
-	char m_before_type[0x5c];
-	PlayerType m_playerType;				// +0x5C
-	char m_before_canBuild[0x338 - 0x60];
-	Bool m_canBuildUnits;					// +0x338
-	Bool m_canBuildBase;					// +0x339
-	char m_before_list[0x700 - 0x33a];
-	PlayerTemplateIDList m_templateIdList_700;		// +0x700
-};
+#include "../../../Include/Common/Player.h"
 
 
 Bool Player::canBuild(const ThingTemplate *thingTemplate) const

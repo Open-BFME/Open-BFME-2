@@ -26,11 +26,7 @@ struct VideoPair
     }
 };
 #include "../../../Include/GameLogic/Rva000427195.h"
-class Player
-{
-public:
-    void rva002AE930(const AsciiString *name);
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::rva002AE930(const AsciiString *name)
 {

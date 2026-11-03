@@ -22,11 +22,7 @@ class Rva002AE4C5
 public:
     int &rva002AE4C5(const AsciiString *key);
 };
-class Player
-{
-public:
-    void rva002AE8CF(const AsciiString *name, float bonus, int frames);
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::rva002AE8CF(const AsciiString *name, float bonus, int frames)
 {

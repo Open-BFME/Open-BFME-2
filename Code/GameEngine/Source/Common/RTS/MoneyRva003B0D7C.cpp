@@ -106,12 +106,7 @@ public:
 	virtual const Rva003B0D7CMisc *getMiscAudio();
 };
 
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 

@@ -103,14 +103,7 @@ private:
 	AsciiString *m_04;
 };
 
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-private:
-	char m_pad00[0x2ec];
-	Team *m_defaultTeam;	// +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 class MapObject;
 

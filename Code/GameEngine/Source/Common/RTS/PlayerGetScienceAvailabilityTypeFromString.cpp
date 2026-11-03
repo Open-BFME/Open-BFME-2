@@ -67,11 +67,7 @@ static const char *ScienceAvailabilityNames[] =
     0
 };
 
-class Player
-{
-public:
-    ScienceAvailabilityType getScienceAvailabilityTypeFromString( const AsciiString& name );
-};
+#include "../../../Include/Common/Player.h"
 
 ScienceAvailabilityType Player::getScienceAvailabilityTypeFromString( const AsciiString& name )
 {

@@ -119,18 +119,7 @@ extern GameLogic *TheGameLogic;
 
 typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
 
-class Player
-{
-public:
-	Int iterateObjects(ObjectIterateFunc func, void *userData) const;
-	void applyBattlePlanBonusesForObject(Object *obj) const;
-	void removeBattlePlanBonusesForObject(Object *obj) const;
-	void applyBattlePlanBonusesForPlayerObjects(const BattlePlanBonuses *bonus);
-
-private:
-	char m_pad[0xB8];
-	BattlePlanBonuses *m_battlePlanBonuses;		// +0xB8
-};
+#include "../../../Include/Common/Player.h"
 
 Int localApplyBattlePlanBonusesToObject(Object *obj, void *userData)
 {
