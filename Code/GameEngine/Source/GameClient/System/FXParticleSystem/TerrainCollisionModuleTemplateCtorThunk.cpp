@@ -4,6 +4,7 @@
 // rowed 0x00001EF9, then the info constructor at pinned 0x0056459E, then the
 // three vtable stores.
 
+#include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -44,12 +45,6 @@ public:
     ~CategoryModuleTemplate();
 };
 
-class TerrainCollisionModuleInfo
-{
-public:
-    TerrainCollisionModuleInfo();
-    virtual ~TerrainCollisionModuleInfo();
-};
 
 class TerrainCollisionModuleTemplate : public CategoryModuleTemplate<8>,
                                        public TerrainCollisionModuleInfo

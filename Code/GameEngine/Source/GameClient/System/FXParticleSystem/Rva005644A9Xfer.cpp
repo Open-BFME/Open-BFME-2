@@ -27,15 +27,8 @@ class Snapshot;
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
 namespace FXParticleSystem {
-class TerrainCollisionModuleInfo : public Snapshot
-{
-public:
-	virtual ~TerrainCollisionModuleInfo();
-	virtual void LoadPostProcess();
-	virtual const char *GetSnapshotName();
-	virtual void DoXfer(Xfer &);
-};
 }
 
 class Rva005644A9

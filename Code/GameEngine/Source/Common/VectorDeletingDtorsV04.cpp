@@ -37,16 +37,9 @@ private:
 };
 }
 
+#include "../../Include/GameClient/TerrainCollisionModuleInfo.h"
 namespace FXParticleSystem
 {
-class TerrainCollisionModuleInfo
-{
-public:
-	TerrainCollisionModuleInfo();
-	virtual ~TerrainCollisionModuleInfo();
-private:
-	char m_unmodelled_04[0x1C - 0x04];
-};
 }
 
 class Rva003AA6BD

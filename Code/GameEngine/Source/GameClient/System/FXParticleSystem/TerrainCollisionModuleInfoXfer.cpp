@@ -33,21 +33,9 @@ Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
 namespace FXParticleSystem {
 
-class TerrainCollisionModuleInfo : public Snapshot
-{
-public:
-	virtual ~TerrainCollisionModuleInfo();
-	virtual void LoadPostProcess();
-	virtual const char *GetSnapshotName();
-	virtual void DoXfer(Xfer &stream);
-private:
-	AsciiString m_04;
-	GameClientRandomVariable m_08;
-	bool m_14;
-	int m_18;
-};
 
 void TerrainCollisionModuleInfo::DoXfer(Xfer &stream)
 {

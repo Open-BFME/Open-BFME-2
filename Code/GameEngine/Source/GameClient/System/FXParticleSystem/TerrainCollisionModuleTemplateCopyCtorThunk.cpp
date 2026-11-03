@@ -1,14 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc /Ob2
 
+#include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
 namespace FXParticleSystem
 {
 
-class TerrainCollisionModuleInfo
-{
-public:
-    TerrainCollisionModuleInfo(const TerrainCollisionModuleInfo &);
-    virtual ~TerrainCollisionModuleInfo();
-};
 
 class TerrainCollisionCategoryBaseA
 {
