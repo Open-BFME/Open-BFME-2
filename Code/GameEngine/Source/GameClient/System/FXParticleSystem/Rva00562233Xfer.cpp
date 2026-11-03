@@ -23,6 +23,8 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {
@@ -46,5 +48,5 @@ public:
 void Rva00562233::rva00562233(Xfer *xfer)
 {
 	xfer->Version1();
-	RenderObjectUpdateModuleInfo::xfer(xfer);
+	RenderObjectUpdateModuleInfo::DoXfer(*xfer);
 }

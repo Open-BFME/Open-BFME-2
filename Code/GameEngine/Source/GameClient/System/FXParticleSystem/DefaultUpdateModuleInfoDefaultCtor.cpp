@@ -9,6 +9,8 @@
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 
 class GameClientRandomVariable
@@ -37,7 +39,7 @@ public:
 	DefaultUpdateModuleInfo();
 	__declspec(noinline) virtual ~DefaultUpdateModuleInfo();
 	virtual const char *GetSnapshotName();
-	virtual void xfer(Xfer *);
+	virtual void DoXfer(Xfer &);
 
 private:
 	GameClientRandomVariable m_var0;

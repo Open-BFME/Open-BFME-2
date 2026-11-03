@@ -29,6 +29,8 @@ private:
 // Use the existing BFME2 Snapshot ABI and destructor provider.
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 
 namespace FXParticleSystem
@@ -40,8 +42,7 @@ public:
 	LightningDrawModuleInfo();
 	__declspec(noinline) virtual ~LightningDrawModuleInfo();
 	virtual const char *GetSnapshotName();
-protected:
-	virtual void xfer(Xfer *xfer);
+	virtual void DoXfer(Xfer &xfer);
 
 private:
 	GameClientRandomVariable m_var0;

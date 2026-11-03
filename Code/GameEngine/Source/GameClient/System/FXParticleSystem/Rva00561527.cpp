@@ -22,6 +22,8 @@ struct XferUnknown11;
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../Include/GameClient/LightningDrawModuleInfo.h"
 namespace FXParticleSystem
 {
@@ -52,7 +54,7 @@ public:
 void Rva00561527::rva00561527(Xfer *xfer)
 {
 	xfer->Version1();
-	FXParticleSystem::LightningDrawModuleInfo::xfer(xfer);
+	FXParticleSystem::LightningDrawModuleInfo::DoXfer(*xfer);
 }
 
 // The native constructor installs these primary and +0x18 tables.

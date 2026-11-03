@@ -1,6 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: clean-C++ RenderObjectUpdateModuleTemplate default constructor.
 
+// Retail exports spell the info's slots LoadPostProcess and DoXfer(Xfer &).
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {

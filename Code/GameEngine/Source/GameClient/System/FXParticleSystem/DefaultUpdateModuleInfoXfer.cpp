@@ -1,10 +1,13 @@
 // cl: /MD
-// ?xfer@DefaultUpdateModuleInfo@FXParticleSystem@@UAEXPAVXfer@@@Z, retail 0x0055F67C, 148 bytes.
+// ?DoXfer@DefaultUpdateModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z, retail 0x0055F67C, 148 bytes
+// (retail export 1165).
 // Evidence: vtable slot 3 of 0x0081BCE0 (DefaultUpdateModuleInfo) DoXfer;
 //   8 GameClientRandomVariable plus rotation-typed extra at +0x40.
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 class AsciiString;
 class UnicodeString;
@@ -46,9 +49,9 @@ public:
 	virtual ~DefaultUpdateModuleInfo();
 	// Complete the canonical Snapshot contract for the embedded info below.
 	// This TU owns only transfer bodies; the other slots remain out of line.
-	virtual void loadPostProcess();
+	virtual void LoadPostProcess();
 	virtual const char *GetSnapshotName();
-	virtual void xfer(Xfer *xfer);
+	virtual void DoXfer(Xfer &xfer);
 private:
 	GameClientRandomVariable m_var0;
 	GameClientRandomVariable m_var1;
@@ -63,25 +66,25 @@ private:
 
 }
 
-void FXParticleSystem::DefaultUpdateModuleInfo::xfer(Xfer *xfer)
+void FXParticleSystem::DefaultUpdateModuleInfo::DoXfer(Xfer &xfer)
 {
-	if (xfer->IsLightCRC())
+	if (xfer.IsLightCRC())
 		return;
 	union Ver { int i; Xfer::Version value; } ver;
 	ver.value.current = 1;
 	ver.value.minimum = 2;
-	*xfer == ver.value;
-	xferRandomVariable(*xfer, m_var0);
-	xferRandomVariable(*xfer, m_var1);
-	xferRandomVariable(*xfer, m_var2);
-	xferRandomVariable(*xfer, m_var3);
-	xferRandomVariable(*xfer, m_var4);
-	XferRotationType(xfer, &m_extra);
+	xfer == ver.value;
+	xferRandomVariable(xfer, m_var0);
+	xferRandomVariable(xfer, m_var1);
+	xferRandomVariable(xfer, m_var2);
+	xferRandomVariable(xfer, m_var3);
+	xferRandomVariable(xfer, m_var4);
+	XferRotationType(&xfer, &m_extra);
 	if (ver.value.minimum < 2)
 		return;
-	xferRandomVariable(*xfer, m_var5);
-	xferRandomVariable(*xfer, m_var6);
-	xferRandomVariable(*xfer, m_var7);
+	xferRandomVariable(xfer, m_var5);
+	xferRandomVariable(xfer, m_var6);
+	xferRandomVariable(xfer, m_var7);
 }
 
 class Rva0055F710
@@ -96,7 +99,7 @@ private:
 void Rva0055F710::rva0055F710(Xfer *xfer)
 {
 	xfer->Version1();
-	m_info.FXParticleSystem::DefaultUpdateModuleInfo::xfer(xfer);
+	m_info.FXParticleSystem::DefaultUpdateModuleInfo::DoXfer(*xfer);
 }
 
 namespace FXParticleSystem

@@ -74,7 +74,7 @@ public:
 	GameClientRandomVariable m_var6;
 	GameClientRandomVariable m_var7;
 };
-namespace FXParticleSystem { class DefaultUpdateModuleInfo { public: virtual void xfer(Xfer *); }; }
+namespace FXParticleSystem { class DefaultUpdateModuleInfo { public: virtual void DoXfer(Xfer &); }; }
 
 class Rva0055F9B4 : public Rva0055F98A, public Rva003ABD81SnapshotView
 {
@@ -106,7 +106,7 @@ Rva003ABD81::Rva003ABD81(const RvaSmartPtr12 &smart, int x)
 
 void Rva003ABD81::DoXfer(Xfer &stream) {
  stream.Version1();
- reinterpret_cast<FXParticleSystem::DefaultUpdateModuleInfo *>((char *)this+0x1C)->FXParticleSystem::DefaultUpdateModuleInfo::xfer(&stream);
+ reinterpret_cast<FXParticleSystem::DefaultUpdateModuleInfo *>((char *)this+0x1C)->FXParticleSystem::DefaultUpdateModuleInfo::DoXfer(stream);
 }
 
 typedef char Rva003ABD81SizeCheck[sizeof(Rva003ABD81)==0x84?1:-1];

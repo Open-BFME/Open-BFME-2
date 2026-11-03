@@ -1021,7 +1021,7 @@ public:
     float m_unknown28;
     bool m_unknown2C;
     virtual const char *GetSnapshotName();
-    protected: virtual void xfer(::Xfer *);
+    virtual void DoXfer(::Xfer &);
 };
 
 const char *LightningDrawModuleInfo::GetSnapshotName()
@@ -1119,7 +1119,7 @@ public:
     FXCoord3D m_unknown50;
     FXCoord3D m_unknown5C;
     virtual const char *GetSnapshotName();
-    virtual void xfer(::Xfer *);
+    virtual void DoXfer(::Xfer &);
 };
 
 const char *DefaultUpdateModuleInfo::GetSnapshotName()
@@ -1174,7 +1174,7 @@ public:
     FXCoord3D m_unknown88;
     float m_unknown94;
     virtual const char *GetSnapshotName();
-    protected: virtual void xfer(::Xfer *);
+    virtual void DoXfer(::Xfer &);
 };
 
 const char *RenderObjectUpdateModuleInfo::GetSnapshotName()
