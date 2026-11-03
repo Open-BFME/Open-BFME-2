@@ -33,7 +33,8 @@ class AptCommandMap;template<class T>class AptRef:public Rva00579E47{public:AptR
 class AptCommandMapAdder{public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);char bytes[12];};
 class Rva00524265{public:Rva00524265();~Rva00524265();char bytes[12];};
 class Rva005242D7{public:Rva005242D7();~Rva005242D7();char bytes[12];};
-struct AsciiStringRef{const AsciiString*m_string;};struct AsciiStringPlusString:AsciiStringRef{AsciiStringRef m_second;};
+#include "../../../../../Include/Common/AsciiStringRef.h"
+struct AsciiStringPlusString:AsciiStringRef{AsciiStringRef m_second;};
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusStringText:AsciiStringPlusString{operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}

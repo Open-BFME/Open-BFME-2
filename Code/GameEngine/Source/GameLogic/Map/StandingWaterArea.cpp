@@ -101,7 +101,7 @@ private:
 	bool m_D0;				// +0xD0
 };
 
-struct AsciiStringRef {const AsciiString *m_string;};
+#include "../../../Include/Common/AsciiStringRef.h"
 
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 

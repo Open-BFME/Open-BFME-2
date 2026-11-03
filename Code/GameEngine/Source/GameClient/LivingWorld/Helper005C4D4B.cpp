@@ -13,7 +13,7 @@ template<class T> struct StringInlineData {int m_refCount,m_length;T m_text[1];}
 #include <stdlib.h>
 #include "ascii_string.h"
 
-struct AsciiStringRef { const AsciiString *m_string; };
+#include "../../../Include/Common/AsciiStringRef.h"
 
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 

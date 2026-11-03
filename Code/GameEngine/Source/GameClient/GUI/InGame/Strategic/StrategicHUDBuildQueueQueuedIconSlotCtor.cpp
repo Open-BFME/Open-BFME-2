@@ -29,7 +29,7 @@ template<class T> class AptRef:public Rva00579E47 {public:AptRef(DelegateDesc de
 class AptCommandMap;
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const char*); const char *ptr; int len;};
-struct AsciiStringRef {const AsciiString *m_string;};
+#include "../../../../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusString:AsciiStringRef {AsciiStringRef m_second;};
 struct AsciiStringPlusStringText:AsciiStringPlusString {Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}

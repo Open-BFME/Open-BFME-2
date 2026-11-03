@@ -409,10 +409,7 @@ public:
 
 #include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../../GameEngine/Include/Common/AsciiStringRef.h"
 
 // "string + text"
 struct AsciiStringPlusText : AsciiStringRef

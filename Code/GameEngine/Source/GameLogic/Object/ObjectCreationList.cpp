@@ -692,12 +692,7 @@ class ParticleSystemTemplate;
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
-struct AsciiStringRef
-{
-	AsciiStringRef() {}
-	AsciiStringRef(const AsciiString &asciiString) : m_string(&asciiString) {}
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 
 struct AsciiStringPlusString : AsciiStringRef
 {

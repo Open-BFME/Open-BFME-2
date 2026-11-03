@@ -6,10 +6,7 @@
 // The narrow concatenation nodes, as rowed in RegistryAsciiPath.cpp.
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 
 // "string + string"
 struct AsciiStringPlusString : AsciiStringRef

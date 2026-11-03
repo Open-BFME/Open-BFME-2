@@ -119,10 +119,7 @@ class Rva005242D7 {public:Rva005242D7();~Rva005242D7();private:char bytes[12];};
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../../../Include/Common/AsciiStringRef.h"
 
 struct AsciiStringPlusString : AsciiStringRef
 {
