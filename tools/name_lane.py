@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""The inferred-name lane: one uncontested proposal for parameters/locals;
-two independent blind proposals for other names or contested scoped names.
+"""Shared inferred names use independent blind proposals. Locals and parameters
+use `scoped next`, native sub-agent proposals and parent-reviewed batch application.
 
 Most placeholders (Rva..., bfme..., m_2C, param_1, iVar3) sit where no export,
 WorldBuilder lead, Zero Hour twin or retail string says what the thing is
@@ -23,12 +23,9 @@ and never misleading.
 `next` serves matched, non-generated Code/ sources from one subsystem, with
 shared existing-source context. Each file decides only its own identifiers --
 functions it owns rows for, classes only it
-defines, their used members, parameters and locals (locals only where the unit
-compiles optimised: under /Od a local's name can reorder the frame), and file
-globals it owns data rows for -- that are placeholder or weak
-(tools/name_metric.py's definition, which tools/rename.py shares), except a
-weak parameter spelling (a, b, tmp) that the donor trees' own declaration of
-that function uses -- the original programmer's, not a converter's. It writes a
+defines, their used members, and file globals it owns data rows for -- that are
+placeholder or weak (tools/name_metric.py's definition, which tools/rename.py
+shares). It writes a
 brief to build/name_lane/briefs/<session>.txt: the fixed style rules, the keys
 to answer, the file's text, callers spelling its functions, the retail strings
 its rows reference and tools/name_evidence.py hints. A skip costs nothing; a
@@ -38,7 +35,8 @@ wrong name misleads readers.
 reverse/name_votes.csv (append-only). canon() folds word order, plurals and
 common abbreviations, so m_ladderComboBox and m_comboBoxLadder are one vote,
 and names requiring blind agreement stay hidden until a second worker matches.
-An uncontested parameter/local proposal may enter its approval record at once.
+New parameter/local votes are refused, including submissions from old sessions.
+Use `scoped next` to review those names together in their complete functions.
 Every vote and every served session
 record carries the voter's worker identity (tools/name_agreement.py: hashed
 BFME_CLAIM_OWNER / BFME_RUN_ID, else CLAUDE_CODE_SESSION_ID, else
@@ -47,9 +45,9 @@ tools/claims.py's owner), read from the environment rather than from
 to another worker, a worker votes once per key whatever label it uses, and
 agreement counts distinct workers. An orchestrator running blind seats gives
 each its own BFME_CLAIM_OWNER, as it already does for claims. When a vote
-makes a name win (one uncontested scoped proposal, otherwise two distinct
-workers with a lead of `--lead` votes over every rival spelling, optionally
-`--min-models` distinct models under either policy; files another
+makes a shared name win (two distinct workers with a lead of `--lead` votes
+over every rival spelling, optionally
+`--min-models` distinct models; files another
 model voted on are served first), the name is written to
 reverse/name_agreed.csv as `agreed`.
 
@@ -79,7 +77,9 @@ the failing names are isolated. `apply --per-file` retains file grouping;
 `apply --no-batch` retains per-name verification.
 
 `apply` lands every waiting key whose votes win, including agreements that
-only other contributors' voters reached. `apply --only-labels seat-a,seat-b`
+only other contributors' voters reached and historical scoped approvals.
+Historical votes and reversal rules are preserved; unfinished scoped tasks
+need fresh scoped review, not more votes. `apply --only-labels seat-a,seat-b`
 restricts a pass to agreements reached by its own seats: a key is applied only
 when EVERY worker that voted the winning spelling voted under one of the listed
 `--model` labels (the vote's label is its `model` column; labels are matched
@@ -108,6 +108,7 @@ import json
 import os
 import random
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -133,6 +134,20 @@ EVIDENCE_TSV = "build/name_evidence.tsv"
 MAX_CHARS = 15000
 KINDS = ("function", "class", "member", "param", "local", "global")
 NAMED = ("class", "member", "function", "global")
+SCOPED_KINDS = frozenset(("param", "local"))
+
+
+def scoped_route(session="names", model="MODEL", sources=()):
+    scoped_session = re.sub(r"[^A-Za-z0-9_-]", "_", session[:60]) + "-scoped"
+    command = ["python3", "tools/name_lane.py", "scoped", "next",
+               "--session", scoped_session, "--model", model]
+    if sources:
+        command += ["--files", *dict.fromkeys(sources)]
+    return ("Locals and parameters require a fresh scoped batch: " + shlex.join(command)
+            + ". A native sub-agent proposes complete functions; run scoped preview, "
+              "then the parent reviews the mapping and diff, resolves questionable "
+              "names and runs scoped apply for the whole batch.")
+
 # rename order inside one file: a member's key names its class and a param's
 # key names its function, so those land before the class or function moves
 LAND_ORDER = {"member": 0, "param": 1, "local": 1, "global": 2, "function": 3, "class": 4}
@@ -758,6 +773,8 @@ def queue(lane, worker, model, only=None, *, reviews=None, clarifications=None):
     unvoted shared key; cmd_next never serves a key that worker already voted."""
     voted_sessions, voted_models = collections.defaultdict(set), collections.defaultdict(set)
     for v in lane.votes():
+        if len(parts := v["key"].split("|")) == 4 and parts[1] in SCOPED_KINDS:
+            continue
         rel = v["key"].split("|")[0]
         voted_sessions[rel].add(v.get("worker") or "")
         voted_models[rel].add(v["model"])
@@ -839,7 +856,8 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
                           r"(?:\[[^\]]*\]\s*)*[;,=)(]")
         return next((l for l in uses if decl.search(l)), uses[0] if uses else "")[:90]
 
-    listing = "\n".join(f"  {answer_key(k, s, i):44} {k:8} {declared_at(i, s if k in ('param', 'local') else None)}"
+    items = [item for item in items if item[0] in NAMED]
+    listing = "\n".join(f"  {answer_key(k, s, i):44} {k:8} {declared_at(i)}"
                         for k, s, i, _ in items)
     evidence = []
     for kind, scope, ident, rva in items:
@@ -858,17 +876,15 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
                         f"({e.get('evidence_kind')}, {e.get('strength')}): {(e.get('detail') or '')[:140]}")
     return f"""NAME THE PLACEHOLDERS IN {rel}  (session {session}, model {model})
 {"INDEPENDENT SECOND REVIEW: only the shared identifiers awaiting another worker are served; previous proposals remain hidden." if review else ""}
-{"MEANING CLARIFICATION: resubmit your original normalized spelling with a justified structured meaning. This annotates your existing vote; it never adds a voter or permits changing that vote." if meaning_review else ""}
 
 This is decompiled BFME 2 (SAGE engine) C++. A converter invented the names
 below from addresses, offsets or decompiler slots. Give each the name its
 original EA programmer most likely used, judging from what the code does and
-the evidence. Style (fixed): types CamelCase, members m_camelCase, params and
-locals camelCase, functions and methods camelCase unless the class already
+the evidence. Style (fixed): types CamelCase, members m_camelCase,
+functions and methods camelCase unless the class already
 uses CamelCase. Answer "skip" when you cannot justify a name: a skip costs
-nothing, a wrong name misleads readers. An uncontested parameter/local name
-can land from your one proposal. Other names and competing scoped proposals
-need independent blind agreement. Your proposal must be your own: do not take
+nothing, a wrong name misleads readers. These shared names need independent
+blind agreement. Your proposal must be your own: do not take
 names from, or show yours to, another model or session.
 Write your answer with a file-writing tool, never inline in a shell command
 (other sessions can read command lines). If a stand-in type IS a real class
@@ -887,14 +903,9 @@ identifier's role as a short factual sentence, e.g.
 The role helps a later reviewer distinguish a wording difference from a
 different interpretation. It is context, not proof of a canonical name.
 
-For a parameter/local, first identify its role before choosing a spelling.
-When that role is justified, prefer {{"name":"destination","meaning":
-{{"role":"destination","entity":"buffer","units":"bytes","ownership":"borrowed"}}}}.
-Use the code's role, a specific snake_case entity, units and ownership; see
-docs/naming.md for allowed values. Classify independently, never from another
-worker's proposal. Identical role descriptors can agree despite different
-spellings. Conflicting roles/units/ownership remain competing votes. Omit the
-structured form or skip if you cannot justify its meaning.
+Do not vote on locals or parameters in this packet. {scoped_route(session, model, [rel])}
+Existing scoped votes remain historical evidence; already approved names can
+still land through apply. Unfinished scoped tasks need fresh scoped review.
 
 {listing}
 
@@ -934,9 +945,9 @@ class PickerCache:
                         and all(isinstance(value, str) for value in item[:3])
                         for item in row["items"])):
             self.hits += 1
-            return [tuple(item) for item in row["items"]]
+            return [tuple(item) for item in row["items"] if item[0] in NAMED]
         self.misses += 1
-        items = self.lane.owned(rel, text)
+        items = [item for item in self.lane.owned(rel, text, kinds=NAMED) if item[0] in NAMED]
         if self.stamp:
             self.updates[rel] = dict(sha=sha, items=items)
         return items
@@ -976,6 +987,11 @@ def cmd_next(lane, args):
             for rel in requested_files):
         fail("--files requires distinct Code/ source paths")
     selected_keys = set(getattr(args, "key", None) or ())
+    if getattr(args, "meaning_review_only", False) or any(
+            len(parts := key.split("|")) == 4 and parts[1] in SCOPED_KINDS for key in selected_keys):
+        fail(scoped_route(args.session, args.model,
+                          [key.split("|")[0] for key in selected_keys] or requested_files
+                          or ([args.file] if getattr(args, "file", None) else [])))
     max_keys = getattr(args, "max_keys", None)
     if max_keys is not None and max_keys < 1:
         fail("--max-keys must be positive")
@@ -987,7 +1003,7 @@ def cmd_next(lane, args):
     state = lane.state()
     tally, refused = lane.tally(), lane.disputed()
     reviews = second_reviews(worker, state, tally, refused)
-    clarifications = meaning_reviews(worker, state, tally, refused)
+    clarifications = {}  # Unfinished scoped votes now need fresh scoped review.
     files, voted = queue(lane, worker, model, args.file, reviews=reviews, clarifications=clarifications)
     if requested_files:
         eligible = set(files)
@@ -1003,6 +1019,11 @@ def cmd_next(lane, args):
     current = json.loads(record.read_text()) if record.exists() else {"model": model, "worker": worker, "files": {}}
     if current.get("worker") != worker and not args.list_only:
         fail(f"session {session} belongs to another worker; pick a session label of your own")
+    if any(item[0] in SCOPED_KINDS for entry in current["files"].values() for item in entry["items"]):
+        fail("This saved session contains retired scoped voting tasks. "
+             + scoped_route(session, model, current["files"]))
+    if not args.list_only:
+        print("name_lane: shared-name voting only. " + scoped_route(session, model), file=sys.stderr)
     mixed = getattr(args, "mixed", False)
     prefix = subsystem_prefix(args.subsystem) if getattr(args, "subsystem", None) else None
     if mixed and prefix:
@@ -1055,7 +1076,7 @@ def cmd_next(lane, args):
         if text is None or len(text) > MAX_CHARS:
             continue
         items = [i for i in cache.items(rel, text)
-                 if (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
+                 if i[0] in NAMED and (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
                  and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
                       or key_of(rel, *i[:3]) in clarifications.get(rel, ()))]
         targeted = [i for i in items if key_of(rel, *i[:3]) in reviews.get(rel, ())]
@@ -1075,7 +1096,7 @@ def cmd_next(lane, args):
         if max_keys is not None:
             remaining = max_keys - key_count()
             items = items[:max(0, remaining)]
-        if len(items) < (1 if voted[rel] or args.file or requested_files or explicit_review else 3):
+        if not items:
             continue
         targets = [dict(key=key_of(rel, *i[:3]), kind=i[0], scope=i[1], placeholder=i[2], rva=i[3])
                    for i in items]
@@ -1111,7 +1132,7 @@ def cmd_next(lane, args):
         return 0
     cache.save()
     if not served:
-        print(f"name_lane: no file is left for session {session} to name.")
+        print(f"name_lane: no shared names are left for session {session}. " + scoped_route(session, model))
         return 0
     selection_done = time.perf_counter()
     record.parent.mkdir(parents=True, exist_ok=True)
@@ -1182,6 +1203,22 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     unknown = set(answers) - set(files)
     if unknown:
         fail(f"files not served to session {session}: {', '.join(sorted(unknown)[:4])}")
+    retired = []
+    for rel, mapping in answers.items():
+        for kind, scope, ident, _rva in files[rel]["items"]:
+            answer_id = answer_key(kind, scope, ident)
+            proposal = mapping.get(answer_id, "skip")
+            spelling = proposal.get("name", "") if isinstance(proposal, dict) else proposal
+            if kind in SCOPED_KINDS and str(spelling).strip().lower() != "skip":
+                retired.append(dict(key=key_of(rel, kind, scope, ident), file=rel,
+                                    answer_key=answer_id, retryable=False))
+    if retired:
+        message = "New local/parameter votes are refused, including old sessions. " + scoped_route(
+            session, model, [item["file"] for item in retired])
+        if validate_only:
+            return dict(session=session, valid=[], rejected=[dict(item, reason=message) for item in retired],
+                        proposed=len(retired), rejection_messages=[message])
+        fail(message)
     prior_votes = lane.votes()
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     now = datetime.date.today().isoformat()
@@ -1200,7 +1237,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
         items = [tuple(i) for i in entry["items"]]
         unknown = set(mapping) - {answer_key(k, s, i) for k, s, i, _ in items}
         if unknown:
-            fail(f"keys not served for {rel}: {', '.join(sorted(unknown)[:8])}")
+            fail(f"keys not served for {rel}: {', '.join(sorted(unknown)[:8])}. "
+                 + scoped_route(session, model, [rel]))
         file_words, taken = set(name_metric.WORD.findall(name_metric.strip(text))), set()
         for kind, scope, ident, rva in items:
             proposal = mapping.get(answer_key(kind, scope, ident), "skip")
@@ -1846,6 +1884,8 @@ def cmd_resolve(lane, args):
         fail("--key needs source|kind|scope|placeholder")
     if kind not in KINDS or not rel.startswith("Code/"):
         fail("resolution needs an eligible Code/ name key")
+    if kind in SCOPED_KINDS:
+        fail(scoped_route(sources=[rel]))
     text = lane.text(rel)
     if text is None or not lane.servable(rel):
         fail(f"source unavailable or protected: {rel}")
@@ -2176,7 +2216,7 @@ def cmd_status(lane, args):
 def main(argv=None, lane=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    n = sub.add_parser("next", help="serve placeholders from one subsystem as a shared brief")
+    n = sub.add_parser("next", help="serve only function, class, member and global names for voting")
     n.add_argument("--session", required=True, help="a label for this brief; who votes is the worker identity, not this")
     n.add_argument("--model", required=True, help="the label you vote under, e.g. seat-a")
     n.add_argument("--count", type=int, default=1, help="serve this many files")
@@ -2190,10 +2230,10 @@ def main(argv=None, lane=None):
     n.add_argument("--max-keys", type=int, help="maximum keys in the entire served batch")
     n.add_argument("--max-chars", type=int, help="maximum JSON review packet size across the served sources")
     n.add_argument("--review-only", action="store_true", help="serve only shared names needing a different second voter")
-    n.add_argument("--meaning-review-only", action="store_true", help="clarify your own unannotated scoped votes in disputes")
+    n.add_argument("--meaning-review-only", action="store_true", help="retired scoped vote path; redirects to scoped next")
     n.add_argument("--list-only", action="store_true",
                    help="print the queue's file/size/kind metadata as JSON; no session, no brief")
-    s = sub.add_parser("submit", help="record names, batch-apply new approvals and arrange independent review")
+    s = sub.add_parser("submit", help="record shared-name proposals and apply approvals; scoped votes are refused")
     s.add_argument("answer")
     s.add_argument("--session", required=True)
     s.add_argument("--model", required=True)

@@ -213,6 +213,206 @@ MEMBER_KEY = name_lane.key_of(SOURCE, "member", "Rva00401000Box", "m_x2C")
 PARAM_KEY = name_lane.key_of(SOURCE, "param", "rva00401000", "param_1")
 
 
+def legacy_session(root, session="legacy", model="seat-a"):
+    """A saved packet written before scoped voting was retired."""
+    lane = lane_of(root)
+    record = root / f"build/name_lane/sessions/{session}.json"
+    record.parent.mkdir(parents=True, exist_ok=True)
+    record.write_text(json.dumps(dict(model=model, worker=lane.worker(), files={SOURCE: dict(
+        sha=__import__("hashlib").sha256((root / SOURCE).read_bytes()).hexdigest(),
+        items=[list(item) for item in lane.owned(SOURCE)])})))
+    return record
+
+
+def seed_legacy_scoped(root, kind="param", old="param_1", new="box", *, approved=True):
+    """Historical ledger data, never a new submission through today's voter."""
+    lane = lane_of(root)
+    key = name_lane.key_of(SOURCE, kind, "rva00401000", old)
+    worker, model = "w-0123456789ab", "legacy-model"
+    lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [dict(
+        key=key, hash=name_lane.digest(key, new), worker=worker, model=model,
+        session="historical-scoped", date="2026-11-02")])
+    if approved:
+        row = dict(id=name_lane.record_id(key, new), kind=kind, old=old, new=new,
+                   rva="", agents=f"{worker}@{model}", key=key, status="agreed")
+        row["detail"] = name_lane.approval_detail(lane.tally(), lane.disputed(), row)
+        lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [row])
+    return key
+
+
+def historical_vote(root, tmp_path, session, answers, model="claude-opus-5-5", lead=2,
+                    min_models=1, worker=None, source=SOURCE):
+    """Seed pre-migration records for backlog tests, bypassing no current entry point."""
+    be(worker or f"seat-{session}")
+    lane = lane_of(root)
+    inventory = {name_lane.answer_key(kind, scope, old): (kind, scope, old, rva)
+                 for kind, scope, old, rva in lane.owned(source)}
+    for answer_id, value in answers.items():
+        spelling = value.get("name") if isinstance(value, dict) else value
+        if str(spelling).lower() == "skip":
+            continue
+        kind, scope, old, rva = inventory[answer_id]
+        key = name_lane.key_of(source, kind, scope, old)
+        vote_row = dict(key=key, hash=name_lane.digest(key, spelling), worker=lane.worker(),
+                        model=model, session=session, date="2026-11-02")
+        lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [vote_row])
+        meaning = (name_agreement.meaning_digest(key, value["meaning"])
+                   if isinstance(value, dict) and "meaning" in value else None)
+        if meaning:
+            lane.append(name_lane.MEANINGS, name_lane.MEANING_COLUMNS, [dict(vote_row, meaning=meaning)])
+        tally, refused = lane.tally(), lane.disputed()
+        mine, rivals, role = name_agreement.support(tally, refused, key, spelling, meaning)
+        if name_lane.wins(mine, rivals, lead=lead, min_models=min_models, key=key):
+            row = dict(id=name_lane.record_id(key, spelling, role), kind=kind, old=old,
+                       new=spelling, rva=f"0x{rva:08X}" if rva is not None else "",
+                       agents=";".join(f"{w}@{m}" for w, m in sorted(mine.items())), key=key, status="agreed")
+            row["detail"] = name_lane.approval_detail(tally, refused, row)
+            lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [row])
+    return 0
+
+
+def test_voting_picker_and_brief_only_offer_shared_names(tree):
+    served = serve(tree, "shared-only")
+    assert {item[0] for item in served["files"][SOURCE]["items"]} == set(name_lane.NAMED)
+    brief = (tree / "build/name_lane/briefs/shared-only.txt").read_text()
+    assert "scoped next --session shared-only-scoped" in brief
+    assert "rva00401000:param_1" not in brief
+    assert "can land from your one proposal" not in brief
+    assert "independent\nblind agreement" in brief
+
+
+def test_scoped_redirect_sanitizes_legacy_session_labels():
+    route = name_lane.scoped_route("old.session", "seat-a", [SOURCE])
+    assert "scoped next --session old_session-scoped --model seat-a" in route
+    assert f"--files {SOURCE}" in route
+
+
+def test_old_mixed_session_can_still_submit_shared_answers(tree, tmp_path):
+    legacy_session(tree)
+    path = tmp_path / "shared-answer.json"
+    path.write_text(json.dumps({"rva00401000": "sumBox"}))
+    assert name_lane.cmd_submit(lane_of(tree), SimpleNamespace(
+        session="legacy", model="seat-a", answer=str(path))) == 0
+    votes = rows(tree, name_lane.VOTES)
+    assert len(votes) == 1 and votes[0]["key"] == FN_KEY
+
+
+def test_picker_with_only_legacy_scoped_cache_returns_no_voting_tasks(tree, monkeypatch, capsys):
+    lane = lane_of(tree)
+    scoped = [item for item in lane.owned(SOURCE) if item[0] in name_lane.SCOPED_KINDS]
+    monkeypatch.setattr(name_lane.PickerCache, "items", lambda *_a: scoped)
+    assert name_lane.cmd_next(lane, SimpleNamespace(session="scoped-only", model="seat-a",
+        count=1, file=SOURCE, list_only=False)) == 0
+    assert "scoped next" in capsys.readouterr().out
+    assert not (tree / "build/name_lane/sessions/scoped-only.json").exists()
+    assert not rows(tree, name_lane.VOTES)
+
+
+@pytest.mark.parametrize("cached", [True, False])
+def test_voting_picker_filters_legacy_cached_scoped_items(tree, monkeypatch, cached):
+    lane = lane_of(tree)
+    inventory = lane.owned(SOURCE)
+    if cached:
+        monkeypatch.setattr(name_lane.PickerCache, "snapshot", lambda _self: "same-inputs")
+        path = tree / "build/name_lane/picker-cache.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(dict(stamp="same-inputs", entries={SOURCE: dict(
+            sha=__import__("hashlib").sha256((tree / SOURCE).read_bytes()).hexdigest(),
+            items=inventory)})))
+        monkeypatch.setattr(name_lane.Lane, "owned", lambda *_a, **_k: pytest.fail("must use saved inventory"))
+    else:
+        # Defense at the serving boundary, even if a provider returns old kinds.
+        monkeypatch.setattr(name_lane.PickerCache, "items", lambda *_a: inventory)
+    record = serve(tree, "cached-shared")
+    assert {item[0] for item in record["files"][SOURCE]["items"]} == set(name_lane.NAMED)
+
+
+def test_next_refuses_reusing_a_saved_scoped_voting_session(tree):
+    record = legacy_session(tree)
+    before = record.read_bytes()
+    with pytest.raises(SystemExit, match="scoped next"):
+        name_lane.cmd_next(lane_of(tree), SimpleNamespace(session="legacy", model="seat-a",
+            count=1, file=SOURCE, list_only=False))
+    assert record.read_bytes() == before
+    assert not rows(tree, name_lane.VOTES)
+
+
+@pytest.mark.parametrize("kind,old,answer", [
+    ("param", "param_1", "box"),
+    ("local", "iVar3", {"name": "sum", "meaning": {"role": "output"}}),
+])
+@pytest.mark.parametrize("validate_only", [False, True])
+def test_old_session_cannot_submit_scoped_votes_even_after_source_changes(
+        tree, tmp_path, kind, old, answer, validate_only):
+    seed_legacy_scoped(tree)
+    record = legacy_session(tree)
+    before = {p: (tree / p).read_bytes() for p in (name_lane.VOTES, name_lane.AGREED)}
+    source = tree / SOURCE
+    source.write_bytes(source.read_bytes() + b"\n")
+    response = tmp_path / "retired.json"
+    response.write_text(json.dumps({f"rva00401000:{old}": answer,
+                                   "Rva00401000Box::m_x2C": "m_width"}))
+    args = SimpleNamespace(session="legacy", model="seat-a", answer=str(response), propose_only=True)
+    if validate_only:
+        report = name_lane.cmd_submit(lane_of(tree), args, validate_only=True)
+        assert not report["valid"] and len(report["rejected"]) == 1
+        assert "scoped next" in report["rejected"][0]["reason"]
+        assert not report["rejected"][0]["retryable"]
+    else:
+        with pytest.raises(SystemExit, match="scoped next.*--files Code/Game/Box.cpp"):
+            name_lane.cmd_submit(lane_of(tree), args)
+    assert record.exists()
+    assert before == {p: (tree / p).read_bytes() for p in before}
+    assert not rows(tree, name_lane.MEANINGS)
+    assert not rows(tree, name_lane.RESOLUTIONS)
+
+
+@pytest.mark.parametrize("options", [dict(key=[PARAM_KEY]), dict(meaning_review_only=True)])
+def test_explicit_unfinished_scoped_tasks_redirect_to_batch_review(tree, options):
+    args = SimpleNamespace(session="redirect", model="seat-a", file=SOURCE, count=1,
+                           list_only=False, **options)
+    with pytest.raises(SystemExit, match="scoped next"):
+        name_lane.cmd_next(lane_of(tree), args)
+    assert not (tree / "build/name_lane/sessions/redirect.json").exists()
+
+
+def test_unfinished_scoped_resolution_is_redirected_without_writes(tree):
+    seed_legacy_scoped(tree, approved=False)
+    before = (tree / name_lane.VOTES).read_bytes()
+    with pytest.raises(SystemExit, match="scoped next"):
+        name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=PARAM_KEY, name="box",
+            reason="The parameter supplies the box value"))
+    assert (tree / name_lane.VOTES).read_bytes() == before
+    assert not rows(tree, name_lane.AGREED)
+    assert not rows(tree, name_lane.RESOLUTIONS)
+
+
+def test_historical_scoped_approvals_still_apply_together(tree):
+    seed_legacy_scoped(tree)
+    seed_legacy_scoped(tree, "local", "iVar3", "sum")
+    before = (tree / name_lane.VOTES).read_bytes()
+    builds = []
+    assert apply(tree, per_file=False, verify=lambda _ctx, sources: builds.append(sources) or True) == 0
+    assert builds == [[SOURCE]]
+    assert "int sum = box->m_x2C + a2;" in (tree / SOURCE).read_text()
+    assert {row["status"] for row in lane_of(tree).state().values()} == {"landed"}
+    assert (tree / name_lane.VOTES).read_bytes() == before
+
+
+def test_unapproved_scoped_votes_are_preserved_without_promotion(tree, capsys):
+    seed_legacy_scoped(tree, approved=False)
+    before = (tree / SOURCE).read_bytes(), (tree / name_lane.VOTES).read_bytes()
+    assert apply(tree) == 0
+    assert (tree / SOURCE).read_bytes() == before[0]
+    assert (tree / name_lane.VOTES).read_bytes() == before[1]
+    assert not rows(tree, name_lane.AGREED)
+    be("another-worker")
+    name_lane.cmd_next(lane_of(tree), SimpleNamespace(session="no-old-review", model="seat-a",
+        count=1, file=SOURCE, list_only=False, review_only=True))
+    assert not (tree / "build/name_lane/sessions/no-old-review.json").exists()
+    assert "scoped next" in capsys.readouterr().out
+
+
 # ---------------------------------------------------------------- pure rules
 
 def test_canon_folds_order_plurals_synonyms():
@@ -525,7 +725,7 @@ def test_worker_keeps_subsystem_then_moves_on_when_voted_files_are_exhausted(tre
     assert second["subsystem"] == "Code/Game/AI"
     lane = lane_of(tree)
     lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [
-        {"key": name_lane.key_of(rel, "param", "run", "param_1"), "hash": "x",
+        {"key": name_lane.key_of(rel, "function", "0x00410000", "run"), "hash": "x",
          "worker": lane.worker(), "model": "seat-a", "session": "done", "date": "2026-10-28"}
         for rel in ai])
     moved = subsystem_next(tree, "third", count=1)
@@ -675,7 +875,7 @@ def test_busy_priority_file_cannot_anchor_the_subsystem(tree, monkeypatch):
 def test_a_new_claim_after_serving_still_blocks_apply(tree, tmp_path, monkeypatch):
     import claims
     monkeypatch.setattr(claims, "busy_keys", lambda root: set())
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     before = (tree / SOURCE).read_bytes()
     def refused(*args, **kwargs):
         raise rename.Refusal("claimed by another worker after serving")
@@ -693,7 +893,7 @@ def test_a_new_claim_after_serving_still_blocks_apply(tree, tmp_path, monkeypatc
 
 def test_second_reviewer_can_revisit_file_for_a_different_key(tree, tmp_path):
     vote(tree, tmp_path, "first", {"rva00401000": "sumBox"}, worker="first-worker")
-    vote(tree, tmp_path, "earlier", {"rva00401000:param_1": "box"}, worker="second-worker")
+    historical_vote(tree, tmp_path, "earlier", {"rva00401000:param_1": "box"}, worker="second-worker")
     be("second-worker")
     record = subsystem_next(tree, "second-review", count=1)
     assert set(record["files"]) == {SOURCE}
@@ -710,61 +910,44 @@ def test_second_reviewer_can_revisit_file_for_a_different_key(tree, tmp_path):
 
 
 def legacy_scoped_disagreement(tree, tmp_path):
-    for seat in ("legacy-a", "legacy-b"):
-        serve(tree, seat)
     for seat, name in (("legacy-a", "box"), ("legacy-b", "inputBox")):
-        be("seat-" + seat)
-        answer = tmp_path / (seat + ".json")
-        answer.write_text(json.dumps({"rva00401000:param_1": name}))
-        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session=seat, model="claude-opus-5-5", answer=str(answer)))
+        historical_vote(tree, tmp_path, seat, {"rva00401000:param_1": name})
 
 
-@pytest.mark.parametrize("second_role,landed", [("source", True), ("destination", False)])
-def test_original_workers_can_clarify_without_extra_votes(tree, tmp_path, second_role, landed):
+@pytest.mark.parametrize("second_role", ["source", "destination"])
+def test_original_scoped_workers_are_redirected_instead_of_adding_meanings(tree, tmp_path, second_role):
     legacy_scoped_disagreement(tree, tmp_path)
-    original = rows(tree, name_lane.VOTES)
+    original = (tree / name_lane.VOTES).read_bytes()
     for seat, name, role in (("legacy-a", "box", "source"), ("legacy-b", "inputBox", second_role)):
         be("seat-" + seat)
-        record = subsystem_next(tree, "meaning-" + seat, file=SOURCE, meaning_review_only=True)
-        assert record["files"][SOURCE]["meaning_review"]
+        legacy_session(tree, session="meaning-" + seat)
         answer = tmp_path / (seat + "-role.json")
         answer.write_text(json.dumps({"rva00401000:param_1": {"name": name, "meaning": role_descriptor(role=role)}}))
-        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="meaning-" + seat, model="seat-a", answer=str(answer)))
-    assert rows(tree, name_lane.VOTES) == original
-    annotations = rows(tree, name_lane.MEANINGS)
-    assert len(annotations) == 2
-    assert all({k: r[k] for k in name_lane.VOTE_COLUMNS} in original for r in annotations)
-    if landed:
-        assert name_agreement.record_meaning(lane_of(tree).state()[PARAM_KEY]["id"])
-    apply(tree, key=[PARAM_KEY])
-    assert (lane_of(tree).state()[PARAM_KEY]["status"] == "landed") == landed
+        with pytest.raises(SystemExit, match="scoped next"):
+            name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="meaning-" + seat, model="seat-a", answer=str(answer)))
+    assert (tree / name_lane.VOTES).read_bytes() == original
+    assert not rows(tree, name_lane.MEANINGS)
 
 
-def test_meaning_clarification_cannot_change_the_original_spelling(tree, tmp_path):
+def test_retired_meaning_picker_cannot_restart_with_another_spelling(tree, tmp_path):
     legacy_scoped_disagreement(tree, tmp_path)
-    before = rows(tree, name_lane.VOTES)
+    before = (tree / name_lane.VOTES).read_bytes()
     be("seat-legacy-a")
-    subsystem_next(tree, "clarify", file=SOURCE, meaning_review_only=True)
-    answer = tmp_path / "changed-choice.json"
-    answer.write_text(json.dumps({"rva00401000:param_1": {"name": "otherBox", "meaning": role_descriptor()}}))
-    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="clarify", model="seat-a", answer=str(answer)))
-    assert rows(tree, name_lane.VOTES) == before
-    assert rows(tree, name_lane.MEANINGS) == []
+    with pytest.raises(SystemExit, match="scoped next"):
+        subsystem_next(tree, "clarify", file=SOURCE, meaning_review_only=True)
+    assert (tree / name_lane.VOTES).read_bytes() == before
+    assert not rows(tree, name_lane.MEANINGS)
 
 
-def test_meaning_clarification_cannot_replace_an_existing_descriptor(tree, tmp_path):
-    legacy_scoped_disagreement(tree, tmp_path)
-    be("seat-legacy-a")
-    for session in ("clarify-first", "clarify-second"):
-        subsystem_next(tree, session, file=SOURCE, meaning_review_only=True)
-    for session, role in (("clarify-first", "source"), ("clarify-second", "destination")):
-        answer = tmp_path / (session + ".json")
-        answer.write_text(json.dumps({"rva00401000:param_1": {"name": "box", "meaning": role_descriptor(role=role)}}))
-        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session=session, model="seat-a", answer=str(answer)))
-    assert len(rows(tree, name_lane.VOTES)) == 2
-    annotations = rows(tree, name_lane.MEANINGS)
-    assert len(annotations) == 1
-    assert annotations[0]["meaning"] == name_agreement.meaning_digest(PARAM_KEY, role_descriptor())
+def test_retired_meaning_submission_preserves_existing_descriptors(tree, tmp_path):
+    historical_vote(tree, tmp_path, "legacy-a", {"rva00401000:param_1": {"name": "box", "meaning": role_descriptor()}})
+    before = {rel: (tree / rel).read_bytes() for rel in (name_lane.VOTES, name_lane.MEANINGS, name_lane.AGREED)}
+    legacy_session(tree, "clarify")
+    answer = tmp_path / "changed-meaning.json"
+    answer.write_text(json.dumps({"rva00401000:param_1": {"name": "box", "meaning": role_descriptor(role="destination")}}))
+    with pytest.raises(SystemExit, match="scoped next"):
+        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="clarify", model="seat-a", answer=str(answer)))
+    assert before == {rel: (tree / rel).read_bytes() for rel in before}
 
 
 def test_shared_review_only_does_not_serve_own_meaning_clarifications(tree, tmp_path, capsys):
@@ -773,7 +956,7 @@ def test_shared_review_only_does_not_serve_own_meaning_clarifications(tree, tmp_
     capsys.readouterr()
     subsystem_next(tree, "shared-only", review_only=True, list_only=True)
     assert json.loads(capsys.readouterr().out) == []
-    with pytest.raises(SystemExit, match="cannot be combined"):
+    with pytest.raises(SystemExit, match="scoped next"):
         subsystem_next(tree, "invalid", review_only=True, meaning_review_only=True)
 
 
@@ -838,12 +1021,12 @@ def test_disagreement_and_tie(tree, tmp_path):
 
 
 def test_session_votes_once_and_bad_names_rejected(tree, tmp_path, capsys):
-    vote(tree, tmp_path, "s1", {"rva00401000": "sumBox", "rva00401000:a2": "Delta"})
+    vote(tree, tmp_path, "s1", {"rva00401000": "sumBox", "Rva00401000Box::m_x2C": "bad-name"})
     out = capsys.readouterr().out
-    assert "params and locals are camelCase" in out
+    assert "bad-name" in out and "rejected" in out
     serve_twice = SimpleNamespace(session="s1", model="claude-opus-5-5", count=1, file=SOURCE, list_only=False)
     name_lane.cmd_next(lane_of(tree), serve_twice)
-    assert "no file is left" in capsys.readouterr().out
+    assert "no shared names are left" in capsys.readouterr().out
     with pytest.raises(SystemExit):
         vote(tree, tmp_path, "s2", {"nonexistent": "x"})
 
@@ -851,8 +1034,14 @@ def test_session_votes_once_and_bad_names_rejected(tree, tmp_path, capsys):
 # ---------------------------------------------------------------- apply
 
 def agree_on(tree, tmp_path, answers):
-    vote(tree, tmp_path, "s1", answers)
-    # Uncontested scoped names already have approval after the first proposal.
+    inventory = {name_lane.answer_key(k, s, i): k for k, s, i, _ in lane_of(tree).owned(SOURCE)}
+    scoped = {key: value for key, value in answers.items() if inventory[key] in name_lane.SCOPED_KINDS}
+    shared = {key: value for key, value in answers.items() if key not in scoped}
+    if scoped:
+        historical_vote(tree, tmp_path, "s1", scoped)
+    if shared:
+        vote(tree, tmp_path, "s1", shared)
+    # Already approved historical scoped names stay usable by backlog tests.
     approved = {name_lane.answer_key(*name_lane.split_key(k)[1:]): row
                 for k, row in lane_of(tree).state().items()}
     pending = {key: value for key, value in answers.items() if key not in approved}
@@ -871,7 +1060,7 @@ def claim_apply_args(**overrides):
 def test_apply_defers_busy_approval_before_file_analysis_in_every_mode(tree, tmp_path, monkeypatch, capsys, mode):
     from unittest.mock import Mock
     import claims
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     lane = lane_of(tree)
     agreed = lane.state()[PARAM_KEY]
     lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS,
@@ -899,7 +1088,7 @@ def test_apply_defers_busy_approval_before_file_analysis_in_every_mode(tree, tmp
 @pytest.mark.parametrize("kind", ["file", "rva", "class", "persisted"])
 def test_apply_preflight_uses_standard_expanded_claim_footprints(tree, tmp_path, monkeypatch, kind):
     import claims
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     if kind == "class":
         ledger = tree / "reverse/functions.csv"
         ledger.write_bytes(ledger.read_bytes() +
@@ -935,12 +1124,9 @@ def test_apply_preflight_checks_direct_rva_and_class_keys(tree, tmp_path, monkey
 def test_deferred_claim_does_not_consume_apply_limit(tree, tmp_path, monkeypatch):
     from unittest.mock import Mock
     import claims
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     free = add_subsystem_source(tree, "Available", 1)
-    serve(tree, "available", file=free)
-    answer = tmp_path / "available.json"
-    answer.write_text(json.dumps({"rva00410100:param_1": "inputValue"}))
-    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(answer=str(answer), session="available", model="claude-opus-5-5"))
+    historical_vote(tree, tmp_path, "available", {"rva00410100:param_1": "inputValue"}, source=free)
     monkeypatch.setenv("BFME_CLAIMS", "on")
     snapshot = Mock(return_value={claims.file_key(SOURCE)})
     monkeypatch.setattr(claims, "busy_keys", snapshot)
@@ -956,7 +1142,7 @@ def test_deferred_claim_does_not_consume_apply_limit(tree, tmp_path, monkeypatch
 
 def test_own_claim_remains_available_and_final_acquisition_still_runs(tree, tmp_path, monkeypatch):
     import claims
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     monkeypatch.setenv("BFME_CLAIMS", "on")
     info = {"owner": claims.owner(tree), "expires": float("inf")}
     held = {claims.file_key(SOURCE): ("lease", info)}
@@ -975,7 +1161,7 @@ def test_own_claim_remains_available_and_final_acquisition_still_runs(tree, tmp_
 
 def test_no_claim_mode_does_not_query_shared_claims(tree, tmp_path, monkeypatch):
     import claims
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     monkeypatch.setenv("BFME_CLAIMS", "on")
     monkeypatch.setattr(claims, "busy_keys", lambda root: pytest.fail("--no-claim fetched shared claims"))
     name_lane.cmd_apply(lane_of(tree), claim_apply_args(claim=False), verify=ok_verify, checks=no_checks)
@@ -999,7 +1185,7 @@ def test_apply_lands_through_rename(tree, tmp_path):
 
 
 def test_single_scoped_proposal_lands_and_disputes_through_engine(tree, tmp_path):
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     state = lane_of(tree).state()[PARAM_KEY]
     assert state["status"] == "agreed"
     assert state["detail"].startswith("single-worker scoped approval:")
@@ -1014,14 +1200,9 @@ def test_single_scoped_proposal_lands_and_disputes_through_engine(tree, tmp_path
 
 
 def test_semantic_aliases_land_through_engine_and_the_meaning_is_revocable(tree, tmp_path):
-    # Both briefs are served blind before either proposal creates an approval.
-    for seat in ("first", "second"):
-        serve(tree, seat)
+    # Existing semantic approvals retain their historical proof and reversal path.
     for seat, name in (("first", "box"), ("second", "inputBox")):
-        be("seat-" + seat)
-        answer = tmp_path / (seat + "-meaning.json")
-        answer.write_text(json.dumps({"rva00401000:param_1": {"name": name, "meaning": role_descriptor()}}))
-        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session=seat, model="claude-opus-5-5", answer=str(answer)))
+        historical_vote(tree, tmp_path, seat, {"rva00401000:param_1": {"name": name, "meaning": role_descriptor()}})
     state = lane_of(tree).state()[PARAM_KEY]
     assert name_agreement.record_meaning(state["id"])
     assert len(rows(tree, name_lane.MEANINGS)) == 2
@@ -1029,7 +1210,8 @@ def test_semantic_aliases_land_through_engine_and_the_meaning_is_revocable(tree,
     assert apply(tree) == 0
     landed = lane_of(tree).state()[PARAM_KEY]
     assert landed["status"] == "landed" and len(landed["agents"].split(";")) == 2
-    assert "Rva00401000Box *box" in (tree / SOURCE).read_text()
+    assert landed["new"] in {"box", "inputBox"}
+    assert f"Rva00401000Box *{landed['new']}" in (tree / SOURCE).read_text()
     args = SimpleNamespace(keys=[PARAM_KEY], reason="not a box input", claim=False)
     name_lane.cmd_dispute(lane_of(tree), args, verify=ok_verify, checks=no_checks)
     assert "Rva00401000Box *param_1" in (tree / SOURCE).read_text()
@@ -1047,7 +1229,7 @@ def test_forged_meaning_record_without_annotations_cannot_authorize_alias(tree, 
 
 
 def test_late_rival_stops_single_proposal_before_source_analysis(tree, tmp_path):
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     lane = lane_of(tree)
     lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [{"key": PARAM_KEY,
         "hash": name_lane.digest(PARAM_KEY, "destination"), "worker": "w-abcdef012345",
@@ -1059,14 +1241,14 @@ def test_late_rival_stops_single_proposal_before_source_analysis(tree, tmp_path)
     # A new reviewer can resolve the contest instead of leaving an unservable
     # pending approval. Three proposals beat the original one by default lead 2.
     for seat in ("review-1", "review-2"):
-        vote(tree, tmp_path, seat, {"rva00401000:param_1": "destination"})
+        historical_vote(tree, tmp_path, seat, {"rva00401000:param_1": "destination"})
     assert lane_of(tree).state()[PARAM_KEY]["new"] == "destination"
     assert apply(tree) == 0
     assert "Rva00401000Box *destination" in (tree / SOURCE).read_text()
 
 
 def test_single_scoped_proposal_keeps_byte_verification_rollback(tree, tmp_path):
-    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    historical_vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
     before = (tree / SOURCE).read_bytes()
     builds = []
     def refuse(ctx, sources):
@@ -1097,7 +1279,9 @@ FN_ANSWER = {"rva00401000": "sumBox"}
 def voters(tree, tmp_path, key_answer, labels, tag="v"):
     """One seat per label votes the same answers (a worker per label and tag)."""
     for i, label in enumerate(labels):
-        vote(tree, tmp_path, f"{tag}{i}", key_answer, label)
+        inventory = {name_lane.answer_key(k, s, n): k for k, s, n, _ in lane_of(tree).owned(SOURCE)}
+        submit = historical_vote if any(inventory[k] in name_lane.SCOPED_KINDS for k in key_answer) else vote
+        submit(tree, tmp_path, f"{tag}{i}", key_answer, label)
 
 
 def agreed_keys(tree):
@@ -1320,7 +1504,7 @@ def test_one_worker_under_two_session_labels_is_one_vote(tree, tmp_path, capsys)
     args = SimpleNamespace(session="s2", model="gpt-6.1-sol", count=1, file=SOURCE, list_only=False)
     be("seat-same")
     name_lane.cmd_next(lane_of(tree), args)
-    assert "no file is left" in capsys.readouterr().out          # never served again, any label
+    assert "no shared names are left" in capsys.readouterr().out  # never served again, any label
     assert not rows(tree, name_lane.AGREED)
 
 
@@ -1720,11 +1904,17 @@ def test_apply_max_files_must_be_positive(tree):
         name_lane.main(["apply", "--max-files", "0"], lane=lane_of(tree))
 
 
-READY_ANSWERS = {"rva00401000:param_1": "box", "rva00401000:a2": "increment", "rva00401000:iVar3": "sum"}
+READY_ANSWERS = {"rva00401000": "sumBox", "g_00A01000": "boxTotal", "Rva00401000Box": "BoxValue"}
+
+
+def ready_session(tree, tmp_path, session, worker, *, first_vote=True):
+    if first_vote:
+        vote(tree, tmp_path, session + "-first", READY_ANSWERS, worker="first-" + worker)
+    serve(tree, session, worker=worker)
 
 
 def submit_ready(tree, tmp_path, *, limit=2, verify=ok_verify):
-    serve(tree, "ready", worker="ready-worker")
+    ready_session(tree, tmp_path, "ready", "ready-worker", first_vote=limit is None or limit > 0)
     answer = tmp_path / "ready-answer.json"
     answer.write_text(json.dumps(READY_ANSWERS))
     args = SimpleNamespace(session="ready", model="claude-opus-5-5", answer=str(answer), apply_ready=limit)
@@ -1742,9 +1932,9 @@ def test_submit_apply_ready_is_bounded_and_leaves_unrelated_backlog(tree, tmp_pa
     submit_ready(tree, tmp_path, verify=lambda ctx, sources: builds.append(sources) or True)
     state = lane_of(tree).state()
     assert state[MEMBER_KEY]["status"] == "agreed"
-    scoped = [row for row in state.values() if row["kind"] in ("param", "local")]
-    assert sum(row["status"] == "landed" for row in scoped) == 2
-    assert sum(row["status"] == "agreed" for row in scoped) == 1
+    fresh = [row for key, row in state.items() if key != MEMBER_KEY]
+    assert sum(row["status"] == "landed" for row in fresh) == 2
+    assert sum(row["status"] == "agreed" for row in fresh) == 1
     assert builds == [[SOURCE]]
     assert claims and all(claims)
 
@@ -1756,7 +1946,7 @@ def test_submit_apply_ready_restores_failed_names_and_keeps_votes(tree, tmp_path
     state = lane_of(tree).state()
     assert sum(row["status"] == "blocked" for row in state.values()) == 2
     assert sum(row["status"] == "agreed" for row in state.values()) == 1
-    assert len(rows(tree, name_lane.VOTES)) == 3
+    assert len(rows(tree, name_lane.VOTES)) == 6
 
 
 def test_submit_without_new_approval_does_not_apply_backlog(tree, tmp_path, monkeypatch):
@@ -1814,7 +2004,7 @@ def test_normal_submit_completes_ready_batch_unless_explicitly_opted_out(
         tree, tmp_path, monkeypatch, options, lands, reviews):
     import name_review
     agree_on(tree, tmp_path, MEMBER_ANSWER)
-    serve(tree, "automatic", worker="automatic-worker")
+    ready_session(tree, tmp_path, "automatic", "automatic-worker")
     answer = tmp_path / "automatic.json"
     answer.write_text(json.dumps(READY_ANSWERS))
     source = (tree / SOURCE).read_bytes()
@@ -1826,9 +2016,9 @@ def test_normal_submit_completes_ready_batch_unless_explicitly_opted_out(
     assert name_lane.main(["submit", str(answer), "--session", "automatic",
                            "--model", "claude-opus-5-5", *options], lane=lane_of(tree)) == 0
     state = lane_of(tree).state()
-    scoped = [r for r in state.values() if r["kind"] in ("param", "local")]
-    assert len(scoped) == 3
-    assert {r["status"] for r in scoped} == {"landed" if lands else "agreed"}
+    fresh = [r for key, r in state.items() if key != MEMBER_KEY]
+    assert len(fresh) == 3
+    assert {r["status"] for r in fresh} == {"landed" if lands else "agreed"}
     assert state[MEMBER_KEY]["status"] == "agreed"  # no unrelated backlog application
     assert builds == ([[SOURCE]] if lands else [])
     assert launches == ([{"auto_configure": True, "apply_new": True}] if reviews else [])
@@ -1836,7 +2026,7 @@ def test_normal_submit_completes_ready_batch_unless_explicitly_opted_out(
 
 
 def test_default_submit_keeps_rollback_and_votes_when_verification_fails(tree, tmp_path, monkeypatch):
-    serve(tree, "automatic-failure", worker="automatic-worker")
+    ready_session(tree, tmp_path, "automatic-failure", "automatic-worker")
     answer = tmp_path / "automatic-failure.json"
     answer.write_text(json.dumps(READY_ANSWERS))
     source = (tree / SOURCE).read_bytes()
@@ -1846,7 +2036,7 @@ def test_default_submit_keeps_rollback_and_votes_when_verification_fails(tree, t
     name_lane.main(["submit", str(answer), "--session", "automatic-failure",
                     "--model", "claude-opus-5-5", "--no-auto-review"], lane=lane_of(tree))
     assert (tree / SOURCE).read_bytes() == source
-    assert len(rows(tree, name_lane.VOTES)) == 3
+    assert len(rows(tree, name_lane.VOTES)) == 6
     assert {r["status"] for r in lane_of(tree).state().values()} == {"blocked"}
 
 
@@ -1990,9 +2180,10 @@ def test_retry_blocked_skips_identical_fingerprint_then_retries_changed_source(t
     assert FN_KEY not in name_lane._blockers(lane)
 
 
-def test_submit_apply_ready_includes_local_proof_in_one_verified_batch(tree, tmp_path):
+def test_historical_ready_local_proof_applies_in_one_verified_batch(tree, tmp_path):
+    agree_on(tree, tmp_path, BATCH_ANSWERS)
     builds = []
-    submit_ready(tree, tmp_path, limit=3, verify=lambda ctx, sources: builds.append(sources) or True)
+    apply(tree, per_file=False, verify=lambda ctx, sources: builds.append(sources) or True)
     assert builds == [[SOURCE]]
     assert {row["status"] for row in lane_of(tree).state().values()} == {"landed"}
     assert len(rows(tree, rename.NAME_BINDINGS)) == 1

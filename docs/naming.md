@@ -12,6 +12,13 @@ records its basis, and which tools make a rename safe. Open-BFME-1's
 
 Use this path for local/parameter naming instead of isolated voting rounds:
 
+The voting picker `next` serves only functions, classes, members and globals.
+`submit` and `validate` reject new local/parameter votes even from old saved
+sessions. `--meaning-review-only` and scoped `resolve` requests also direct
+workers here. Cached task inventories cannot restore scoped voting tasks.
+Start a fresh scoped session and review its current complete functions; old
+answers are context, not an approval for the new source snapshot.
+
 ```sh
 python3 tools/name_lane.py scoped next --session S --model M --under Code/GameEngine/Source/Common/
 # A native sub-agent reads build/name_lane/scoped/S.json and fills S.answers.json.
@@ -28,6 +35,11 @@ never truncate a function. Claims held by other workers are skipped.
 Fully reviewed sources are remembered locally until their bytes change, so
 continuous batches advance rather than repeatedly reviewing completed files;
 explicit `--files` revisits a source.
+
+Apply the complete reviewed batch and verify its changed sources together;
+hundreds of names can share one transaction and one commit. Do not split it
+into per-name votes or small application rounds. `--target` counts inventoried
+bindings, including names retained as already clear; it is not a rename quota.
 
 Answers are `{"proposed_by":"/root/naming-child","names":{"KEY":{"name":"descriptiveName"}}}`.
 Account for every inventoried binding; use `{"keep":"already clear"}` to retain
@@ -63,7 +75,7 @@ also describe historical scoped agreements, which remain readable/reversible.
 | The name is | What backs it | Where it is recorded |
 |---|---|---|
 | a **placeholder** (`Rva0026C320Owner`, `?rva0052F63F@...`, `bfmeHit1173`, `m_0C`, `param_1`, `iVar3`, `a1`) | nothing: it admits ignorance | `address` tier, or nothing at all |
-| **inferred** (`AwardRecordView`, `m_markerHandle`) | one uncontested proposal for a parameter/local; otherwise two agents proposed it blind and agreed; or a file stem was read from the real-named rows the file owns | `reverse/name_basis.csv`, basis `inferred` |
+| **inferred** (`AwardRecordView`, `m_markerHandle`) | a scoped batch proposal reviewed by its parent; otherwise two agents proposed it blind and agreed; or a file stem was read from the real-named rows the file owns | `reverse/name_basis.csv`, basis `inferred` |
 | **canonical** (`?ClassifyWall@Pathfinder@@...`) | evidence a tool can check: export, vendored, retail string, Zero Hour or BFME 1 same body, WorldBuilder self-assert, ... | `reverse/name_basis.csv`, basis `canonical:<kind>`, or a fact the tier tool reads directly (exports, `vendored=`, `.lib`) |
 
 A placeholder is acceptable as a starting point but never as a final name. An inferred name is
@@ -811,10 +823,10 @@ select exact agreements; `--limit` still bounds selected names for the entire ru
 
 `next` serves one matched, non-generated source with the placeholders that
 this file alone decides. That covers the functions it owns rows for, the classes only it defines and their
-members, its params, its locals (only where the unit compiles optimised) and the file
-globals it owns. `next` writes a brief to `build/name_lane/briefs/<session>.txt` with the
-style rules: types `CamelCase`, members `m_camelCase`, params and locals
-`camelCase`. Answer each key with a name or `"skip"` in a JSON file written with a
+members, and the file globals it owns. Locals and parameters use `scoped next`.
+`next` writes a brief to `build/name_lane/briefs/<session>.txt` with the
+style rules: types `CamelCase`, members `m_camelCase`, and functions/methods
+following the class's convention. Answer each key with a name or `"skip"` in a JSON file written with a
 file-writing tool, never inline in a shell command. A skip costs nothing; a
 wrong name misleads. If a stand-in type *is* a class that a game or Zero Hour
 header declares, answer that class's name. `apply` lands each agreed key
@@ -836,12 +848,9 @@ Without the option `apply` behaves as before.
 
 ## Review by naming scope
 
-An uncontested inferred **parameter or local** name may land from one worker's
-proposal. It is scoped to one function, remains inferred and revocable, and
-still goes through `rename.py`'s scope/collision checks, byte verification and
-ledger checks. A competing non-disputed proposal restores the existing
-two-worker requirement and voting lead; `apply` and the engine recheck votes,
-so a late rival stops a single-proposal approval before it lands.
+**Parameters and locals** use the complete-function scoped batch workflow at
+the start of this document: native sub-agent proposals, parent review and one
+combined application/verification. They create no new voting or approval rows.
 
 Functions, classes, members and globals still require two independent agents
 to propose a name blind and agree. BFME 1 measured the original blanket rule's
@@ -849,10 +858,9 @@ reason on 2026-09-29: one model alone named about 60% of
 placeholders right and 2-9% of them misleadingly; two agreeing blind proposals were about
 80% right and never misleading.
 
-- Each vote is stored in `reverse/name_votes.csv` only as
+- Each shared-name vote is stored in `reverse/name_votes.csv` only as
   `sha256(key|canon(name))[:24]`. No name text enters the repository until a
-  second worker matches it for names requiring blind agreement. An uncontested
-  parameter/local proposal writes its name to the approval record immediately.
+  second worker matches it.
 - `canon()` folds word order, plurals and common abbreviations, so
   `m_ladderComboBox` and `m_comboBoxLadder` count as one vote.
 - Agreement counts distinct **workers**, not session labels. The worker id
@@ -860,26 +868,29 @@ placeholders right and 2-9% of them misleadingly; two agreeing blind proposals w
   session, otherwise `tools/claims.py`'s owner), stored hashed. Print yours with
   `python3 tools/name_agreement.py whoami`. An orchestrator running blind seats
   gives each seat its own `BFME_CLAIM_OWNER`, as it already does for claims.
-- An uncontested parameter/local wins with one worker. Other names need two
-  or more workers and a lead of `--lead` (2) over every rival spelling.
-  `--min-models` applies to both paths: requiring two models also requires
-  a second proposal for an otherwise uncontested parameter/local.
+- Shared names need two or more workers and a lead of `--lead` (2) over every
+  rival spelling; `--min-models` can require distinct model labels.
 - `rename.py` treats `name_agreed.csv` only as an index. It recomputes the
   agreement from the votes, so a hand-written agreement row authorises
   nothing.
 
-Old single votes contain hashes, not recoverable name text. This policy does
-not automatically turn that backlog into approved names; an existing proposal
-must be recovered from its original answer or independently proposed again.
-The lighter path changes review cost, not evidence: it does not make a name
-canonical or prove its meaning correct.
+Existing votes and approvals are preserved. `apply` may still land already
+approved locals/parameters through the existing agreement, collision, byte and
+ledger checks, and landed names remain reversible. Historical approval rules
+(including single-worker scoped approvals and late-rival checks) remain in the
+proof engine solely to read and verify that backlog. Unfinished scoped tasks
+need a fresh scoped review; do not add votes, meaning annotations or resolutions
+to complete them. Old hashes alone do not recover the proposed spelling.
 
 Do not show your proposal to another seat or read theirs, and do not cast votes for a
 second seat yourself.
 
-## Meaning before spelling for parameters and locals
+## Historical scoped voting meanings (ledger reference)
 
-A scoped answer may include a role descriptor instead of just a string:
+This section documents existing scoped vote records. New scoped names use the
+batch workflow above; the voting commands no longer accept these answers.
+
+A historical scoped answer could include a role descriptor instead of just a string:
 
 ```json
 {
@@ -911,16 +922,16 @@ specific lowercase snake_case concept (not `unknown`, `thing`, `value`, `data`,
 `boolean`, `identifier` or `unspecified`. Ownership is `borrowed`, `owned`,
 `shared`, `value` or `unspecified`. Different qualifiers stay distinct.
 
-`reverse/name_meanings.csv` stores only a descriptor hash, bound to the exact
+Historical `reverse/name_meanings.csv` rows store only a descriptor hash, bound to the exact
 key, spelling vote, worker, model, session and date in `name_votes.csv`. No
-role prose is exposed to the next blind worker. Submit writes both records;
-stage the votes, meanings and agreement records together. A meaning-based
+role prose was exposed to the next blind worker. The historical submit path
+wrote votes and meanings together. A meaning-based
 agreement id carries the descriptor hash, and `rename.py` independently checks
 its support. The chosen identifier must be one someone actually proposed.
 An unbacked metadata/approval row grants no support. Disputing a meaning-based
 name also blocks that meaning under alternative spellings.
 
-Plain string answers and old votes remain supported. An old vote may join an
+Existing plain-string and annotated votes remain readable. An old vote may join an
 annotated role only for the exact same spelling with one unambiguous meaning;
 an old differently spelled vote has no recoverable role and remains a rival.
 The first approved spelling can remain while other equivalent proposals add
@@ -928,16 +939,12 @@ support. Functions, classes, members and globals retain spelling agreement in
 this first version. Meaning agreement is inferred and revocable, not proof of
 original naming or semantic correctness. Byte and ledger checks are unchanged.
 
-For an unresolved scoped disagreement, the original worker can use
-`next --meaning-review-only` to revisit its own unannotated vote. Resubmit the
-same normalized original spelling with a structured meaning. This appends an
-annotation bound to the original vote's worker/model/session/date; it never
-adds a spelling vote, increases voter count, changes the original choice or
-replaces an existing descriptor. Another worker cannot annotate your vote.
-Once both original meanings agree, an old pending approval is promoted to a
-meaning-bound record. Conflicting meanings remain rivals. The normal picker
-routes these clarifications ahead of fresh work after independent shared-name
-second reviews; `--review-only` and `--meaning-review-only` are separate queues.
+Historical clarification records bound an annotation to the original vote's
+worker/model/session/date, without changing that vote or adding a voter.
+Those annotations remain part of the proof for already approved names.
+`next --meaning-review-only` now redirects to `scoped next`; unfinished scoped
+disagreements are reviewed from current code instead of extending old voting
+rounds. The normal voting picker serves shared names only.
 
 ## Disputes
 
@@ -955,9 +962,10 @@ evidence refutes one, that is an identity correction with its own evidence
 
 ## Landing a rename
 
-Renames recover zero bytes. Batch them like other trivial work (roughly 5-20
-per commit, one coherent kind) and keep a class rename in its own commit. The
-lander does the following:
+Renames recover zero bytes. Keep shared-name changes coherent and keep a class
+rename in its own commit. Scoped names use one reviewed batch and one combined
+verification; a successful batch of hundreds does not need splitting into small
+commits. The lander does the following:
 
 1. Stages exactly the paths `rename.py` or the lane printed, including
    `reverse/name_basis.csv` and `reverse/deleted_rows.csv`, and commits with the
@@ -1097,8 +1105,9 @@ Normal submission automatically configures a stable reviewer seat when shared
 names need an independent second vote and no fleet configuration exists. It
 discovers an installed Codex, Claude Code or OpenCode CLI, preferring the
 submitting CLI when identifiable. Existing configurations, especially an explicit
-`review disable`, are never replaced. No runner or model is required merely to
-apply uncontested parameter/local proposals when no shared reviews are pending.
+`review disable`, are never replaced. The native scoped batch path does not
+launch this external reviewer. Historical approved scoped names can still be
+applied without dispatching an external reviewer.
 Missing runtimes/models are reported explicitly; recorded votes are retained.
 
 Override the discovered runner/model once per local fleet when desired:

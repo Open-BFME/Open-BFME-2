@@ -646,13 +646,12 @@ def test_automatic_review_applies_each_new_batch_without_leaving_ready_names(tre
     assert builds == [[SOURCE], [SOURCE]]
 
 
-def test_immediate_scoped_landing_preserves_later_disagreement_comparison(tree, tmp_path):
-    from test_name_lane import serve
-    serve(tree, "mixed-submit", worker="original-worker")
-    path = tmp_path / "mixed-submit.json"
-    path.write_text(json.dumps({**FN_ANSWER, "rva00401000:a2": "increment"}))
-    name_lane.cmd_submit(lane_of(tree), argparse.Namespace(session="mixed-submit", model="claude-opus-5-5",
-        answer=str(path), auto_workflow=True, no_auto_review=True), verify=ok_verify, checks=no_checks)
+def test_historical_scoped_landing_preserves_later_disagreement_comparison(tree, tmp_path):
+    from test_name_lane import apply, historical_vote
+    vote(tree, tmp_path, "shared-submit", FN_ANSWER, worker="original-worker")
+    historical_vote(tree, tmp_path, "historical-scoped", {"rva00401000:a2": "increment"},
+                    worker="original-worker")
+    apply(tree, key=[name_lane.key_of(SOURCE, "param", "rva00401000", "a2")], per_file=False)
     assert "increment" in (tree / SOURCE).read_text()
     enable(tree, resolve_disagreements=True)
     def runner(packet, _config, _job, *, resolution=False):
