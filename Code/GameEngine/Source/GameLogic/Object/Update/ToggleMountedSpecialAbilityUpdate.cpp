@@ -409,11 +409,7 @@ private:
 	unsigned char m_flag;
 };
 
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *obj) const;
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
 class Rva004ADC38
 {

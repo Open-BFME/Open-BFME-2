@@ -128,15 +128,7 @@ unsigned int m_info;			// +0x0C
 
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 
-class Locomotor
-{
-public:
-LocomotorSurfaceTypeMask getLegalSurfaces() const { return m_template->m_surfaces; }
-
-private:
-void *m_vtbl;
-const LocomotorTemplate *m_template;	// +0x04
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 extern unsigned int g_00DBD33C[16];
 

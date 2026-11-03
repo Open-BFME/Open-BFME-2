@@ -297,18 +297,7 @@ class PathfindCell
 };
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
-class Locomotor
-{
-public:
-	LocomotorSurfaceTypeMask getLegalSurfaces() const
-	{
-	 return m_template->m_surfaces;
-	}
-	float getMaxSpeed(Object *obj) const;
-private:
-	void *m_vtbl; // +0x00
-	const LocomotorTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 // The surfaces each cell type allows, indexed by type (VA 0x00DBD33C,
 // defined in Rva002E6DC4Check.cpp).
 extern unsigned int g_00DBD33C[16];

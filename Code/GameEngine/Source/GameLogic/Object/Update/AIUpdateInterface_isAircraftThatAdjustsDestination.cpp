@@ -6,12 +6,7 @@
 
 #include "../../../../Include/GameLogic/LocomotorTemplate.h"
 
-class Locomotor
-{
-public:
-	char m_pad00[4];
-	LocomotorTemplate *m_template; // +0x04
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
 #define VM10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \

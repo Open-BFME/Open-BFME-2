@@ -110,15 +110,7 @@ private:
 	UnsignedInt m_id; // +0x74
 };
 
-class Locomotor
-{
-public:
-	Bool isUltraAccurate() const { return (m_flags >> 6) & 1; }
- void setNoSlowDownAsApproachingDest(Bool x) { if(x)m_flags|=16;else m_flags&=~16; }
-private:
-	unsigned char m_pad00[0x44];
-	UnsignedInt m_flags; // +0x44
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
 class LocomotorSet
 {

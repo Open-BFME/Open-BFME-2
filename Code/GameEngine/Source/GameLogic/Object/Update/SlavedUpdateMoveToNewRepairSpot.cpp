@@ -46,27 +46,7 @@ float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 float Cos(float value);
 float Sin(float value);
 
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		PRECISE_Z_POS = 3,
-		ULTRA_ACCURATE = 6
-	};
-	__declspec(dllimport) __forceinline void setUsePreciseZPos(bool u) { setFlag(PRECISE_Z_POS, u); }
-	__declspec(dllimport) __forceinline void setUltraAccurate(bool u) { setFlag(ULTRA_ACCURATE, u); }
-private:
-	void setFlag(LocoFlag f, bool b)
-	{
-		if (b)
-			m_flags |= (1U << f);
-		else
-			m_flags &= ~(1U << f);
-	}
-	unsigned char m_pad00[0x44];
-	unsigned int m_flags;
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
 class AICommandInterface
 {
