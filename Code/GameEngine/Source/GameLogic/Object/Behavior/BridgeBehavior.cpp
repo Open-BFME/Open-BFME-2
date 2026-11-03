@@ -296,13 +296,7 @@ struct RetailScaffoldNode
 	ObjectID objectID;
 };
 
-class Rva0029FB3BMember
-{
-public:
-	void reset();
-	void init(void *context);
-	void *m_head; // +0x00
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 // Retail's ceil goes through the import table, spelled as math.h's float overload does it; the
 // seed's _CRTIMP makes the CRT's other calls direct.

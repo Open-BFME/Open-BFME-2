@@ -25,13 +25,7 @@ struct Rva0029FB3BNode
 	int m_value;
 };
 
-class Rva0029FB3BMember
-{
-public:
-	bool empty() const { return m_node->m_next == m_node; }
-	void reset();
-	Rva0029FB3BNode *m_node;
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 struct ArrowStormUpdateModuleData
 {

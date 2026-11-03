@@ -8,11 +8,7 @@
 // name (module dtors on their +0x88 member); the owning container type is
 // unidentified, so the address-derived name is kept.
 
-class Rva0029FB3BMember
-{
-public:
-	void reset();
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 extern void *g_freeList;
 

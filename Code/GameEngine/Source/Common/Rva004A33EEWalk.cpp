@@ -29,12 +29,7 @@ struct Rva004A33EENode
 	ObjectID m_id;
 };
 
-class Rva0029FB3BMember
-{
-public:
-	void reset();
-	void *m_head;
-};
+#include "../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 class BroadcastStealthUpdate
 {

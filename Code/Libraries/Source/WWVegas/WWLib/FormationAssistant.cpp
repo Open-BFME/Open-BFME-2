@@ -116,12 +116,7 @@ public:
 	Squad *m_roster;
 };
 
-class Rva0029FB3BMember
-{
-public:
-	void *m_head;
-	void reset();
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 class Rva002A1B6FNativeList
 {

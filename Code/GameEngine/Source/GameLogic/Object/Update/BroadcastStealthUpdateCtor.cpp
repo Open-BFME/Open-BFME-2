@@ -74,14 +74,7 @@ struct Rva0029FB3BAlloc
 	Rva0029FB3BAlloc() {}
 };
 
-class Rva0029FB3BMember
-{
-public:
-	Rva0029FB3BMember(const Rva0029FB3BAlloc &alloc);
-	__declspec(dllimport) __forceinline ~Rva0029FB3BMember() { ((PoolMember *)this)->Rva00268902(); }
-private:
-	void *m_node;
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 // The list itself, default-constructed as STLport's list() does.
 class ObjectIDList : public Rva0029FB3BMember

@@ -43,12 +43,7 @@ public:
 	void Rva00268902() throw();
 };
 
-class Rva0029FB3BMember : public PoolMember
-{
-public:
-	void *init(void *context);
-	~Rva0029FB3BMember() throw();
-};
+#include "../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 class Rva00331EAD
 {

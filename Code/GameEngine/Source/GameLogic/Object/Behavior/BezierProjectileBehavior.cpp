@@ -440,16 +440,7 @@ struct Rva0029FB3BAlloc
 };
 
 // The ID list's base; its allocator-taking ctor is rowed at 0x0029FB3B.
-class Rva0029FB3BMember
-{
-public:
-	Rva0029FB3BMember(const Rva0029FB3BAlloc &alloc);
-	__declspec(dllimport) __forceinline ~Rva0029FB3BMember() { ((PoolMember *)this)->Rva00268902(); }
-	void init(void *context);
-	void reset();
-private:
-	void *m_node; // +0x00
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 class ObjectIDList : public Rva0029FB3BMember
 {

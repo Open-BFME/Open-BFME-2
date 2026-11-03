@@ -438,11 +438,7 @@ void Rva0057A37A::rva0057A37A()
 }
 
 // 0x00456A3E: the rowed reset 0x0026549E on the +0x100 member.
-class Rva0029FB3BMember
-{
-public:
-	void reset();
-};
+#include "../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 class Rva00456A3E
 {
 public:

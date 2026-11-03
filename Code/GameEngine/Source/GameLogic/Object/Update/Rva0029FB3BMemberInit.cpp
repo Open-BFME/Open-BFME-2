@@ -21,13 +21,7 @@ public:
 	void *pop();
 };
 
-class Rva0029FB3BMember
-{
-public:
-	void *m_head;
-	void *init(void *context);
-	void reset();
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 extern FreelistPool g_freelistPool;
 extern void *g_freeList;
