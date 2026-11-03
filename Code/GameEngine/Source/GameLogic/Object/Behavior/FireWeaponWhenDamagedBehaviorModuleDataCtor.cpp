@@ -12,14 +12,7 @@
 // (flat explicit vtable, body in retail order, /O1 /arch:SSE).
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_pad[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 class FireWeaponWhenDamagedBehaviorModuleData
 {

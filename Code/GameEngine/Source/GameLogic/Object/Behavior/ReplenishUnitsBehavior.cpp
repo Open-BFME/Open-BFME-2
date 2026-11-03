@@ -129,14 +129,7 @@ template<> bitset<128> &bitset<128>::reset();
 
 extern int BfmeLogicFramesPerSecond;
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_body[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 class FXList;
 

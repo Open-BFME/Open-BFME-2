@@ -22,14 +22,7 @@ public:
 	ActiveBodyModuleData();
 };
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_pad[0x110];
-};
+#include "../../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 // Vtable 0x00BF4028, defined in PorcupineFormationBodyModuleDataCtor.cpp.
 extern "C" const void *const vtbl_00BF4028[];

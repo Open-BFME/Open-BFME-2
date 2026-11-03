@@ -8,14 +8,7 @@
 // precedent: mixed paths are not folded), zeros at +0x144/+0x148/+0x14C and
 // false at +0x150. No globals, one callee. Factory news 0x154.
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_body[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 // The retail table at RVA 0x008577C8: 31 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

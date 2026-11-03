@@ -44,14 +44,7 @@ private:
 	unsigned char m_pad[0x30];
 };
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_pad[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 class BehaviorModuleData
 {
