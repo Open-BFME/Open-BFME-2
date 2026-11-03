@@ -54,7 +54,7 @@ enum INILoadType { INI_LOAD_OVERWRITE=1 };
 
 #include "../../Include/Common/INI/INI.h"
 
-class GameFont { public: char pad00[0x10]; int height; };
+#include "../../Include/GameClient/GameFontClass.h"
 
 struct CreditsFontDescription { AsciiString name; int size; bool bold; };
 

@@ -109,12 +109,7 @@ template <> __declspec(dllimport) __forceinline unsigned short StringBase<unsign
 	return m_data ? m_data->data[index] : 0;
 }
 
-class GameFont
-{
-public:
-	unsigned char m_pad00[0x10];
-	Int height;
-};
+#include "../../../../Include/GameClient/GameFontClass.h"
 
 class WinInstanceData
 {

@@ -134,12 +134,7 @@ DWORD WINAPI ImmGetCandidateListCountW(HIMC, LPDWORD);
 UINT WINAPI ImmGetIMEFileNameA(HKL, LPSTR, UINT);
 }
 
-class GameFont
-{
-public:
-	char m_pad00[0x10];
-	Int height;				// +0x10
-};
+#include "../../../Include/GameClient/GameFontClass.h"
 
 class GameWindow
 {

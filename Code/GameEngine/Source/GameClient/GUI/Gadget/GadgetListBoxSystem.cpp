@@ -110,12 +110,7 @@ enum { KEY_STATE_DOWN = 0x02 };
 #define TRUE true
 #define FALSE false
 
-class GameFont
-{
-public:
-	unsigned char m_pad00[0x10];
-	Int height;
-};
+#include "../../../../Include/GameClient/GameFontClass.h"
 
 class Image;
 
