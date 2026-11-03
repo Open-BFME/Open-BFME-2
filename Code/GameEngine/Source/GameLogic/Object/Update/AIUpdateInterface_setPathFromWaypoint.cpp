@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
 //
-// ?setPathFromWaypoint@AIUpdateInterface@@QAEXPBVWaypoint@@PBUCoord2D@@@Z,
+// ?setPathFromWaypoint@AIUpdateInterface@@QAEXPBVWaypoint@@PBVCoord2D@@@Z,
 // retail 0x0026569F..0x002657CE (303 bytes, EH, RET 8): Zero Hour's
 // AIUpdateInterface::setPathFromWaypoint (AIUpdate.cpp) in its BFME 2 form,
 // the spelling its caller AIFollowWaypointPathExactState::onEnter pinned.
@@ -13,8 +13,7 @@
 // TheAI's pathfinder at +0x10 (rowed SetDebugPath).
 
 #include "Coord3D.h"
-
-struct Coord2D;
+#include "Coord2D.h"
 
 enum PathfindLayerEnum
 {
@@ -57,12 +56,6 @@ struct Rva002EDEABArg;
 
 extern AI *TheAI;
 
-// The offset is read as its two leading floats.
-struct Rva0026569FOffset
-{
-	float x, y;
-};
-
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *offset)
@@ -84,8 +77,8 @@ void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *
 		wayPos.x = loc->x;
 		wayPos.y = loc->y;
 		wayPos.z = loc->z;
-		wayPos.x += ((const Rva0026569FOffset *)offset)->x;
-		wayPos.y += ((const Rva0026569FOffset *)offset)->y;
+		wayPos.x += offset->x;
+		wayPos.y += offset->y;
 		if (way->getLink(0) == 0)
 			Rva002EDE5B(getObject(), &wayPos);
 		m_path->appendNode(&wayPos, LAYER_GROUND, 0x7FFFFFFF);

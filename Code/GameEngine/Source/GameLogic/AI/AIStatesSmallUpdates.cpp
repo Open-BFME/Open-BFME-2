@@ -35,10 +35,7 @@ enum StateReturnType
 	STATE_FAILURE = -2
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-struct Coord2D
-{
-	Real x, y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../Include/GameLogic/PathNode.h"
 #include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/Waypoint.h"
