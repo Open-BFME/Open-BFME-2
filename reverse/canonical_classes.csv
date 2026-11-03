@@ -611,3 +611,4 @@ LightClass,Code/Libraries/Source/WWVegas/WW3D2/LightClass.h,existing header; con
 W3DDynamicLight,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DDynamicLightClass.h,existing header; contract class_contracts/W3DDynamicLight.json; 3/9 sampled units adopt
 TerrainType,Code/GameEngine/Include/Common/TerrainType.h,existing header; contract class_contracts/TerrainType.json; 10/12 sampled units adopt
 TransportContainModuleData,Code/GameEngine/Include/GameLogic/Module/TransportContainModuleData.h,existing header; contract class_contracts/TransportContainModuleData.json; 9/17 sampled units adopt
+AttributeModifierStore,Code/GameEngine/Include/GameLogic/AttributeModifierStore.h,existing header; contract class_contracts/AttributeModifierStore.json; 9/11 sampled units adopt
