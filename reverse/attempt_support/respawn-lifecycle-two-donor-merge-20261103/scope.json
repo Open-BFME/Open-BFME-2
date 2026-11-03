@@ -1,0 +1,30 @@
+{
+  "starting_preparation_head": "5769d35313bf6121371faba8133444d40f52f989",
+  "head": "5769d35313bf6121371faba8133444d40f52f989",
+  "origin_master": "5769d35313bf6121371faba8133444d40f52f989",
+  "old_paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp"
+  ],
+  "destination": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+  "prior_inconclusive": {
+    "push": "f7ee142e7f",
+    "outgoing_base": "df44fef1910abbb2417deffcef3ba747eeeed08d",
+    "index": "23b85ddde5",
+    "gaps": 1,
+    "first_source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp"
+  },
+  "staged_blobs": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp": "006e00cb087c78d70bdd011c55cf4fa6b3112413",
+    "reverse/functions.csv": "b81dfb80150200876b82932a189dfc78f9d35227",
+    "reverse/tu_map.csv": "efbd0d8172eae5774513f6cb90de28f7b4fd6b55",
+    "reverse/data_ledger.csv": "8f086b57d676d4d26b686c80e4d6cb088aa2005f",
+    "reverse/header_queue.tsv": "212da984a14281c698aa35249dc0ca0608dcb5da",
+    "reverse/ms_header_queue.tsv": "f2d8a9b514b9fef9fcc51cf6487fd6142625d93e",
+    "reverse/code_identity_baseline.tsv": "f445746a96d360475d4d0c99d516a7cab8bd91bc",
+    "reverse/data_rows.csv": "f717779cd6e7f7957ceb4e2c7955d358ba2310a6",
+    "reverse/hatch_baseline.tsv": "a462d62400c98ce4fab042b3a5ee6dc6a8815f8f"
+  },
+  "index_entries_sha256": "c141b75355b6ac4cafda7c4734cf09ba7801a37ab67cae963847a350d52dc694",
+  "staged_diff_sha256": "ea6d9907e831fed717d9f41261a101be69e6dda9e706fd38c4040bfb12e3c398"
+}

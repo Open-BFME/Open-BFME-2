@@ -293,7 +293,46 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
+class InGameUI;
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
+#include "../../../../Include/GameClient/InGameUI.h"
+extern InGameUI *TheInGameUI;
+static __forceinline void initializeRespawnRule(RespawnRule &rule, unsigned level=1)
+{
+    rule.level=level; rule.cost=0; rule.time=0; rule.health=1.0f; rule.autoSpawn=false;
+}
+typedef _STL::pair<const unsigned int, void *> RespawnRuleTreeValue;
+struct RespawnRuleNode
+{
+	char m_pad00[0x10];
+	unsigned m_level;
+	unsigned m_cost;
+	int m_time;
+	unsigned m_healthBits;
+	bool m_autoSpawn;
+};
+inline bool operator<(const BfmePod20 &x, const BfmePod20 &y)
+{
+    return x.a[0] < y.a[0];
+}
+class Rva0037F2C0
+{
+public:
+	int rva0037F2C0(Object *obj, bool autoSpawn);
+};
+class Rva0037E421
+{
+public:
+	void *rva0037E421(int index);
+};
+struct RevivalSlot
+{
+	char m_pad00[0xC8];
+	int m_c8;
+};
+
 void __cdecl XferRespawnModeType(Xfer *x, int *v);
+
 void __cdecl XferObjectID(Xfer *x, ObjectID *v);
 
 extern CreateAHeroManager *TheCreateAHeroManager;
@@ -329,6 +368,8 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp
 
 void RespawnUpdate::rva004AEF46()
@@ -348,15 +389,6 @@ void RespawnUpdate::rva004AEF46()
 	m_30 = 0;
 	m_40 = 1;
 	money->rva003B0D7C(m_3C, (Rva0039B7AD *)((char *)player + 0x3BC), true);
-}
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
-
-inline bool operator<(const BfmePod20 &x, const BfmePod20 &y)
-{
-    return x.a[0] < y.a[0];
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_getPercentReady.cpp
@@ -477,28 +509,6 @@ UpdateSleepTime RespawnUpdate::update() {
  }
  default:return UPDATE_SLEEP_FOREVER;
  }
-}
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateParseRules.cpp
-
-// PC RespawnUpdate::iniParseDefaultRule; exact name in retail diagnostics.
-// Preview RespawnRules crosswalk selected the family; PC C56270 independently
-// registers this callback with the rules tree at module offset10C.
-// No clean BFME1 or GeneralsMD RespawnUpdate parser body was found. Reuse the
-// existing INI parser/exception idioms and STLport tree semantics; reconstruct
-// the sequential field checks as real C++ from the full524B PC body.
-// BFME2RespawnRuleTree/RespawnRule/RespawnInsertResult are descriptive facades,
-// not asserted original type spellings. The tree starts with its header ptr;
-// node+10 is the unsigned level key. Find357180 is the already recovered
-// unsigned STL tree lookup. Insert4AFB2B is a35B pair-copy wrapper around
-// unique insertion4AF4A6; it returns the node and bool (true iff inserted).
-// Throw-info anchor refers to the existing retail INIException chain CFE2FC.
-
-// Parser-local initialization avoids emitting a competing constructor for
-// the descriptive RespawnRule facade. Both retail parsers inline these stores.
-static __forceinline void initializeRespawnRule(RespawnRule &rule, unsigned level=1)
-{
-    rule.level=level; rule.cost=0; rule.time=0; rule.health=1.0f; rule.autoSpawn=false;
 }
 
 void RespawnUpdate::iniParseDefaultRule(INI *ini, void *instance, void *store, const void *) {
@@ -739,9 +749,103 @@ void RespawnUpdate::xfer(Xfer *xfer)
 
 // tu-skeleton: 0x004AF5AC 146B ?calcTimeToBuild@RespawnUpdateModuleData@@QAEHI@Z -- matched in Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp (not merged yet)
 
-// tu-skeleton: 0x004AF63E 350B ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp
 
-// tu-skeleton: 0x004AF79C 403B ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp (not merged yet)
+// ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ @0x004AF63E 350B.
+
+void RespawnUpdate::triggerDeathBeforeRespawn()
+{
+	const RespawnUpdateModuleData *data = reinterpret_cast<const RespawnUpdateModuleData *>(m_moduleData);
+	Object *obj = m_object;
+	if (m_2C != 0 && m_2C != 4)
+		return;
+
+	RespawnRule rule;
+	initializeRespawnRule(rule, (unsigned)obj->m_experienceTracker->m_24);
+	RespawnRuleNode *found = (RespawnRuleNode *)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
+	RespawnRuleNode *end = (RespawnRuleNode *)reinterpret_cast<const BFME2RespawnRuleTree &>(data->m_rules).sentinel;
+	if (found == end)
+	{
+		initializeRespawnRule(rule, 1);
+		found = (RespawnRuleNode *)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
+		if (found == end)
+		{
+			setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
+			return;
+		}
+	}
+
+	obj->rva001E431E(data->conditions0C);
+	FXList::doFXObj(data->deathFX, obj, 0);
+	if (TheInGameUI)
+		TheInGameUI->rva002A1283(obj);
+	obj->setDisabled((DisabledType)4);
+	obj->setEffectivelyDead(true);
+	obj->setStatus((ObjectStatusTypes)3, true);
+
+	m_40 = found->m_autoSpawn == 0;
+	m_38 = (unsigned)found->m_time;
+	m_3C = found->m_cost;
+	*(unsigned *)&m_20 = found->m_healthBits;
+
+	Player *player = obj->getControllingPlayer();
+	if (player == 0)
+		return;
+
+	char *table = (char *)player + 0x738;
+	int index = ((Rva0037F2C0 *)table)->rva0037F2C0(obj, m_40 == 0);
+	ExperienceTracker *tracker = obj->m_experienceTracker;
+	if (tracker == 0)
+		return;
+	RevivalSlot *slot = (RevivalSlot *)((Rva0037E421 *)table)->rva0037E421(index);
+	if (slot == 0)
+		return;
+	slot->m_c8 = tracker->m_28;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp
+
+// WB RespawnUpdate::triggerRevival and native 4AF79C..4AF92F.
+// BF1 RespawnUpdate rule/condition helpers (9cbfb551) guide semantics;
+// BFME2 layout from matched death helper4AF63E and native accesses.
+
+void RespawnUpdate::triggerRevival(Object *at) {
+ Object *obj=m_object;
+ const RespawnUpdateModuleData *data=reinterpret_cast<const RespawnUpdateModuleData *>(m_moduleData);
+ Coord3D pos={at->getPosition()->x,at->getPosition()->y,at->getPosition()->z};
+ ExitInterface *exit=at->getObjectExitInterface();
+ if(exit) exit->getNaturalRallyPoint(pos,true);
+ unsigned time;
+ if(m_41) {
+  obj->rva001E431E(data->conditionsA4);
+  time=data->m_initialSpawnAnimationTime;
+  FXList::doFXObj(data->m_initialSpawnFX,obj,0);
+  if(TheInGameUI) TheInGameUI->rva002A123F(obj);
+ } else {
+  obj->rva001E431E(data->conditions58);
+  time=data->reviveTime;
+  FXList::doFXObj(data->reviveFX,obj,0);
+  if(TheInGameUI) TheInGameUI->rva002A1261(obj);
+ }
+ // Native loads the default health before clearing the two rule counters.
+ static const float one=1.0f;
+ RespawnRule rule;
+ float health=*(const volatile float *)&one;rule.cost=0;rule.time=0;
+ m_2C=4;
+ rule.level=(unsigned)obj->m_experienceTracker->m_24;rule.health=health;rule.autoSpawn=false;
+ RespawnRuleNode *found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
+ RespawnRuleNode *end=(RespawnRuleNode*)reinterpret_cast<const BFME2RespawnRuleTree &>(data->m_rules).sentinel;
+ if(found==end) {
+  initializeRespawnRule(rule, 1);
+  found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
+  if(found==end) {setWakeFrame(obj,UPDATE_SLEEP_FOREVER);return;}
+ }
+ m_20=*(float*)&found->m_healthBits;
+ obj->body->setInitialHealth(m_20*100.0f,false);
+ m_34=(unsigned)-1;m_38=(unsigned)-1;
+ if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->field28=true;
+ setWakeFrame(obj,(UpdateSleepTime)time);
+}
 
 // tu-skeleton: 0x004AFB4E 149B ??0RespawnUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp (not merged yet)
 

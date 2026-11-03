@@ -1,0 +1,209 @@
+{
+  "summary": {
+    "before_unique_definitions": 87,
+    "after_definitions": 87,
+    "before_conflicts": [],
+    "removed": [],
+    "added": [],
+    "changed": [],
+    "binding_changes": []
+  },
+  "routes": {
+    "outside_undefined_equal": true,
+    "weak_equal": true,
+    "alternates_equal": true,
+    "includes_equal": true,
+    "old_alternate_conflicts": [],
+    "counts": {
+      "outside_undefined": 69,
+      "weak": 3,
+      "alternates": 7,
+      "includes": 0
+    }
+  },
+  "current_object": {
+    "sha256": "e82ebe727a8605cf1af253d3c183eb9c620ef2edd2d7d039b82e5f61b9a2b85d",
+    "matches_comparison": true,
+    "source_matches": true,
+    "object_matches": true,
+    "header_mismatches": [],
+    "working_equals_staged": true,
+    "routes_match_comparison": true
+  },
+  "registers": {
+    "functions.csv": {
+      "old_hits": [],
+      "destination_hits": [
+        "reverse/functions.csv:12140:?iniParseDefaultRule@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z,,0x004AFC5F,524,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Retail method diagnostics and PC field C56270 prove identity; sequential AutoSpawn Cost Time Health; full524B includes throw tail to8AFE6B exclusive; source-first INI and STL idioms; tree pins independently resolved",
+        "reverse/functions.csv:12141:?iniParseNewRuleForLevel@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z,,0x004AFE6C,742,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Method named by retail diagnostics and PC RespawnEntry row C56280; full742B includes throw tail through8B0151 then CC; audited rule-tree node payload+10; retail case/error quirks retained; no new pins",
+        "reverse/functions.csv:12728:?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ,,0x004AF116,69,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,BFME2 pool-name key for RespawnUpdate via TheNameKeyGenerator nameToKey rowed at 0x148E1A",
+        "reverse/functions.csv:15175:?buildFieldParse@RespawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004B0153,17,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Single-table parse proc (table 0xC561D0); callee rowed 0x2BC6E; row supersedes parse pin",
+        "reverse/functions.csv:18816:?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z,,0x004AFB2B,35,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,hidden-result wrapper over unique-insert worker; inline memberwise copy ctor gives hidden-first dword-plus-byte copy",
+        "reverse/functions.csv:24907:?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z,,0x004AF00B,139,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,slot3 Version base helpers int bool float",
+        "reverse/functions.csv:24910:?rva004AF25D@RespawnUpdate@@QAEPAXXZ,,0x004AF25D,50,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,RespawnUpdate lazy getter via global lookup",
+        "reverse/functions.csv:31345:?rva004AEF46@RespawnUpdate@@QAEXXZ,,0x004AEF46,103,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,chain from Money 0x003B0D7C RespawnUpdate state gate plus wake plus Money cond-add",
+        "reverse/functions.csv:37030:?rva004AF182@RespawnUpdate@@QAEXXZ,,0x004AF182,76,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,RespawnBody4C1395 calls module returned by RespawnUpdate literal lookup; constructor4AF096 independently fixes receiver layout; native4AF182..4AF1CE RET; conditions+C/+58 state2C timer30; existing callee identities; /O1 /MD",
+        "reverse/functions.csv:44797:?getPercentReady@RespawnUpdate@@UAEMPAH@Z,,0x004AEFAD,94,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,vslot 13 of 0x008556B0 via RespawnUpdateCtor layout and TheGameLogic frame; wb-lead 3/vtable: WB RespawnUpdate.cpp:654 getPercentReady holds this vtable slot",
+        "reverse/functions.csv:44807:?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ,,0x004AF1CE,143,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,closest object within 1e6 passing the owner-player and module-data filters else own object; filter chain; caller 0x004AF92F; address name; wb-lead 2/callgraph: WB RespawnUpdate.cpp:614 searchForSuitableSpawnAtObject; getControllingPlayer x2/PartitionFilter::And/0x00625360 agree",
+        "reverse/functions.csv:46397:?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ,,0x004AF63E,350,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,RespawnUpdate death entry: level rule lookup then death fx disabled and revival slot; wb-lead 1.0/callgraph: WB RespawnUpdate::triggerDeathBeforeRespawn (RespawnUpdate.cpp:385 assert) shares 9 callees with retail in the same order (setWakeFrame / FXList::doFXObj / Object::setDisabled ...); wb-name-unverified",
+        "reverse/functions.csv:47302:?rva004AFB01@Rva004AFB01@@QAEHXZ,,0x004AFB01,21,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,target offsets call the rowed lookup identity unproven",
+        "reverse/functions.csv:53040:?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ,,0x004AF2DE,223,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,WB RespawnUpdate::getDeadImage851/868; native vtable8556B0 slot14; lazy image24 module-data name118 object8 template4 heroKey74 KindOf byte11F bit40; existing hero/image providers; whole223B EH RET0 exact",
+        "reverse/functions.csv:56048:?rva004AFB16@Rva004AFB01@@QAEHXZ,,0x004AFB16,21,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Complete 21B native boundary 4AFB16..4AFB2B; WB122E450 same level lookup through RespawnUpdateModuleData calcTimeToBuild; reuse existing receiver/layout and verified4AF5AC unsigned helper; UnitRevivalEntry caller37EA88",
+        "reverse/functions.csv:57434:?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z,,0x004AF79C,403,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,WB RespawnUpdate triggerRevival and native 4AF79C..4AF92F prove identity; target death helper4AF63E and accesses prove layout; BF1 9cbfb551 rule and condition source guide; volatile read of default health restores native constant load before rule counters; t=24 gpt-6.1-sol",
+        "reverse/functions.csv:57522:?update@RespawnUpdate@@UAE?AW4UpdateSleepTime@@XZ,,0x004AF92F,466,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,WB122D840 RespawnUpdate.cpp709..828 and ctor4AF096 secondary vtableC556A4 prove identity; full4AF92F..4AFB01 RET0 both state paths exact466B; dead null local initialization preserves native data-frame4 before object-frame8 spill order; prior99.5percent bank superseded; no pins",
+        "reverse/functions.csv:72702:__ehhandler$?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ,,0x0078E684,10,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Compiler-emitted C++ EH handler of rowed parent 0x004AF116; retail parent installs handler 0x0078E684 (EH prologue immediate); parent object defines __ehhandler",
+        "reverse/functions.csv:72703:__ehhandler$?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ,,0x0078E69E,10,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Compiler-emitted C++ EH handler of rowed parent 0x004AF1CE; retail parent installs handler 0x0078E69E (EH prologue immediate); parent object defines __ehhandler",
+        "reverse/functions.csv:72704:__ehhandler$?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ,,0x0078E6B0,10,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,Compiler-emitted C++ EH handler of rowed parent 0x004AF2DE; retail parent installs handler 0x0078E6B0 (EH prologue immediate); parent object defines __ehhandler",
+        "reverse/functions.csv:87417:Unwind@00b8e6a8,,0x0078E6A8,8,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,gen-funclet;parent=?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ;object-symbol=$L1301; Matched parent 0x004AF2DE's EH graph is EXACT (eh_verify) and binds compiler label $L1301 to retail Unwind@00b8e6a8 (was gen_uw scaffold uw_0078e6a8)",
+        "reverse/functions.csv:90547:$L498,,0x0078E696,8,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,gen-funclet;parent=?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ; Matched parent 0x004AF1CE's EH graph is EXACT (eh_verify) and binds compiler label $L498 to retail Unwind@00b8e696 0x78E696; replaces generated uw_0078e696",
+        "reverse/functions.csv:90548:$L497,,0x0078E68E,8,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,gen-funclet;parent=?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ; Matched parent 0x004AF1CE's EH graph is EXACT (eh_verify) and binds compiler label $L497 to retail Unwind@00b8e68e 0x78E68E; replaces generated uw_0078e68e",
+        "reverse/functions.csv:91457:$L310,,0x0078E677,13,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,matched,gen-funclet;parent=?getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ; Exact parent 0x004AF116 EH graph (eh_verify EXACT) places compiler label $L310 at native 0x0078E677: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0078E677ClearFlag (reverse/deleted_rows.csv)"
+      ]
+    },
+    "tu_map.csv": {
+      "old_hits": [],
+      "destination_hits": [
+        "reverse/tu_map.csv:17572:0x0024F8F6,56,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateFriendNew.cpp",
+        "reverse/tu_map.csv:17573:0x0024F92E,84,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataFriendNew.cpp",
+        "reverse/tu_map.csv:39055:0x004AEF46,103,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39056:0x004AEFAD,94,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39057:0x004AF00B,139,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39058:0x004AF096,128,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp",
+        "reverse/tu_map.csv:39059:0x004AF116,69,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39060:0x004AF15B,6,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,U,N=Code/GameEngine/Source/Common/RespawnUpdate.cpp,Code/GameEngine/Source/Common/ModuleNameGetters.cpp",
+        "reverse/tu_map.csv:39061:0x004AF161,28,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF15B..0x004AF17D,Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp",
+        "reverse/tu_map.csv:39062:0x004AF17D,5,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF15B..0x004AF182,Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp",
+        "reverse/tu_map.csv:39063:0x004AF182,76,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39064:0x004AF1CE,143,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39065:0x004AF25D,50,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39066:0x004AF28F,45,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF25D..0x004AF2BC,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:39067:0x004AF2BC,34,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF25D..0x004AF2DE,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp",
+        "reverse/tu_map.csv:39068:0x004AF2DE,223,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39069:0x004AF3BD,41,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF2DE..0x004AF3E6,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:39070:0x004AF3E6,136,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF2DE..0x004AF46E,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:39071:0x004AF46E,56,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF2DE..0x004AF4A6,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:39072:0x004AF4A6,134,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF2DE..0x004AF52C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:39073:0x004AF52C,5,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF2DE..0x004AF531,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:39074:0x004AF531,123,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,U,N=Code/GameEngine/Source/Common/RespawnUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp",
+        "reverse/tu_map.csv:39075:0x004AF5AC,146,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,U,N=Code/GameEngine/Source/Common/RespawnUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp",
+        "reverse/tu_map.csv:39076:0x004AF63E,350,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39077:0x004AF79C,403,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39078:0x004AF92F,466,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39079:0x004AFB01,21,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF92F..0x004AFB16,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39080:0x004AFB16,21,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,C,C=0x004AF92F..0x004AFB2B,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39081:0x004AFB2B,35,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Body/BFME2RespawnRuleTree.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39082:0x004AFB4E,149,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp",
+        "reverse/tu_map.csv:39083:0x004AFBE3,28,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,U,N=Code/GameEngine/Source/Common/RespawnUpdate.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-04-4AFBE3.cpp",
+        "reverse/tu_map.csv:39084:0x004AFBFF,96,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:39085:0x004AFC5F,524,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39086:0x004AFE6C,742,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:39087:0x004B0153,17,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81030:0x0078E665,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF096@FuncInfo0x0093EFD4,Code/gen_small/uw_gen_011.cpp",
+        "reverse/tu_map.csv:81031:0x0078E66D,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF096@FuncInfo0x0093EFD4,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp",
+        "reverse/tu_map.csv:81032:0x0078E677,13,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF116@FuncInfo0x0093EFF8,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81033:0x0078E684,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF116@FuncInfo0x0093EFF8,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81034:0x0078E68E,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF1CE@FuncInfo0x0093F024,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81035:0x0078E696,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF1CE@FuncInfo0x0093F024,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81036:0x0078E69E,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF1CE@FuncInfo0x0093F024,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81037:0x0078E6A8,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF2DE@FuncInfo0x0093F048,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81038:0x0078E6B0,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF2DE@FuncInfo0x0093F048,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/tu_map.csv:81039:0x0078E6BA,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF46E@FuncInfo0x0093F06C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:81040:0x0078E6C2,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AF46E@FuncInfo0x0093F06C,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp",
+        "reverse/tu_map.csv:81041:0x0078E6CC,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFB4E@FuncInfo0x0093F098,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp",
+        "reverse/tu_map.csv:81042:0x0078E6D4,11,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFB4E@FuncInfo0x0093F098,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp",
+        "reverse/tu_map.csv:81043:0x0078E6DF,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFB4E@FuncInfo0x0093F098,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataConstruct.cpp",
+        "reverse/tu_map.csv:81044:0x0078E6E9,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFBFF@FuncInfo0x0093F0D4,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:81045:0x0078E6F1,11,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFBFF@FuncInfo0x0093F0D4,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:81046:0x0078E6FC,14,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFBFF@FuncInfo0x0093F0D4,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:81047:0x0078E70A,14,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFBFF@FuncInfo0x0093F0D4,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:81048:0x0078E718,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,P,P=0x004AFBFF@FuncInfo0x0093F0D4,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp",
+        "reverse/tu_map.csv:101350:0x008556A0,4,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101351:0x008556A4,12,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101352:0x008556B0,64,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101353:0x008556F8,128,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101354:0x00855778,128,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101355:0x008557F8,104,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101356:0x00855860,104,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101357:0x008558C8,104,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101358:0x00855930,108,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101359:0x0085599C,12,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=2refs,",
+        "reverse/tu_map.csv:101360:0x008559A8,112,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101361:0x00855A18,108,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101362:0x00855A84,12,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=2refs,",
+        "reverse/tu_map.csv:101363:0x00855A90,132,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101364:0x00855B14,12,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=2refs,",
+        "reverse/tu_map.csv:101365:0x00855B20,72,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101366:0x00855B68,104,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101367:0x00855BD0,120,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101368:0x00855C48,120,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101369:0x00855CC0,136,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101370:0x00855D48,120,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101371:0x00855DC0,128,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101372:0x00855E40,152,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101373:0x00855ED8,152,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101374:0x00855F70,120,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101375:0x00855FE8,104,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:101376:0x00856050,632,data:.rdata,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,",
+        "reverse/tu_map.csv:106359:0x00A03D68,4,data:.data,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,X,X=1refs,"
+      ]
+    },
+    "header_queue.tsv": {
+      "old_hits": [],
+      "destination_hits": [
+        "reverse/header_queue.tsv:824:AIUpdateInterface\tCode/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp\t0x004AEFAD 0x004AF116 0x004AF182 0x004AF1CE\tCode/GameEngine/Include/GameLogic/Module/AIUpdate.h\tCode\\GameEngine\\Source\\GameLogic\\Object\\Update\\RespawnUpdate.cpp(174) : error C2011: 'UpdateModule' : 'class' type redefinition\t3\tpython3 tools/header_adopt_lane.py accept --class AIUpdateInterface Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/header_queue.tsv:3594:FieldParse\tCode/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp\t0x004AEFAD 0x004AF116 0x004AF182 0x004AF1CE\tCode/GameEngine/Include/Common/INI/FieldParse.h\tfield renames: unreadable data member: void (*parse)(class INI *, void *, void *, const void *);\t3\tpython3 tools/header_adopt_lane.py accept --class FieldParse Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/header_queue.tsv:4951:INI\tCode/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp\t0x004AEFAD 0x004AF116 0x004AF182 0x004AF1CE\tCode/GameEngine/Include/Common/INI/INI.h\tfield renames: Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp: colon also appears at file scope; a token rename would reach it\t3\tpython3 tools/header_adopt_lane.py accept --class INI Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/header_queue.tsv:5004:INIException\tCode/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp\t0x004AEFAD 0x004AF116 0x004AF182 0x004AF1CE\tCode/GameEngine/Include/Common/INI/FieldParse.h\tfield renames: unreadable data member: void (*parse)(class INI *, void *, void *, const void *);\t3\tpython3 tools/header_adopt_lane.py accept --class INIException Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/header_queue.tsv:6445:MultiIniFieldParse\tCode/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp\t0x004AEFAD 0x004AF116 0x004AF182 0x004AF1CE\tCode/GameEngine/Include/Common/INI/FieldParse.h\tfield renames: unreadable data member: void (*parse)(class INI *, void *, void *, const void *);\t3\tpython3 tools/header_adopt_lane.py accept --class MultiIniFieldParse Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+        "reverse/header_queue.tsv:8414:Rva000421C8\tCode/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp\t0x004AEFAD 0x004AF116 0x004AF182 0x004AF1CE\tCode/GameEngine/Include/GameLogic/PartitionFilter.h\tFAIL ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ (Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp)\t3\tpython3 tools/header_adopt_lane.py accept --class Rva000421C8 Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp"
+      ]
+    },
+    "ms_header_queue.tsv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "code_identity_baseline.tsv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "data_check_baseline.txt": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "data_rows.csv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "data_ledger.csv": {
+      "old_hits": [],
+      "destination_hits": [
+        "reverse/data_ledger.csv:690:0x007BB8D8,4,.rdata,float,__real@3f800000,,literal,?g_007BB8D8@@3MA;?g_00BBB8D8@@3MA;?g_Va00BBB8D8@@3MA;?g_Va00BBB8D8@@3MB;?one@?N@??triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z@4MB@Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp;?rva00094B08One@@3MB;__real@3f800000;_g_bfmeDefaultBU@Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp;_kDefaultDimension@Code/GameEngine/Source/Common/System/GeometryInfoCalcBoundingStuff.cpp;_kZero@Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp,5,1145",
+        "reverse/data_ledger.csv:16718:0x008FE2FC,2148,.rdata,rtti,__TI1?AVINIException@@,,literal,?g_00CFE2FC@@3HB;__TI1?AVINIException@@;_bannerThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp;_emotionThrowInfoAnchor@Code/GameEngine/Source/Common/System/INI_Rva004DC702ParseEmotionKinds.cpp;_flagsThrowInfoAnchor@Code/GameEngine/Source/Common/System/INI_parseTypeFlags.cpp;_friendLookupThrowInfoAnchor@Code/GameEngine/Source/Common/RTS/Science.cpp;_parseLocomotorThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp;_parseMetaMapThrowInfoAnchor@Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp;_respawnThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp;_rva001EB329ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva001EB329Parse.cpp;_rva0023899FThrowInfoAnchor@Code/GameEngine/Source/Common/Rva0023899F.cpp;_rva002E1D22ThrowInfoAnchor@Code/GameEngine/Source/GameLogic/LivingWorld/ParseLivingWorldPlayer.cpp;_rva003F2576ThrowInfoAnchor@Code/GameEngine/Source/Common/System/Rva003F2576Parse.cpp;_rva003F9258ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp;_rva004135CDThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004135CDParse.cpp;_rva00413D58ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva00413D58Parse.cpp;_rva00413DCCThrowInfoAnchor@Code/GameEngine/Source/Common/Rva00413DCCParse.cpp;_rva004214C3ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004214C3Add.cpp;_rva00427294ThrowInfoAnchor@Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp;_rva004FD77CThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004FD77CParse.cpp;_rva00542B61ThrowInfoAnchor@Code/GameEngine/Source/Common/AutoResolveArmorParse.cpp;_scanIndexListThrowInfoAnchor@Code/GameEngine/Source/Common/INI/INI.cpp;_scanLookupListThrowInfoAnchor@Code/GameEngine/Source/Common/INI/INI.cpp;_splitThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseSplitResult.cpp;_throwAnchor00426D14@Code/GameEngine/Source/Common/Rva00426D14Parse.cpp;_upgradeMuxThrowInfoAnchor@Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp,24,266",
+        "reverse/data_ledger.csv:20361:0x00A03D68,4,.data,global,?TheRespawnUpdatePoolKey@?1??getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,owned,,1,2",
+        "reverse/data_ledger.csv:20362:0x00A03D6C,4,.data,global,?$S1@?1??getModuleNameKey@RespawnUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,owned,,1,4"
+      ]
+    },
+    "data_converged.csv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "symbols.csv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "hatch_baseline.tsv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "flag_overrides.csv": {
+      "old_hits": [],
+      "destination_hits": []
+    },
+    "gate_baseline.txt": {
+      "old_hits": [],
+      "destination_hits": []
+    }
+  },
+  "ending_head": "5769d35313bf6121371faba8133444d40f52f989",
+  "index_unchanged": true
+}
