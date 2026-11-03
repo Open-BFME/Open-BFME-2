@@ -90,7 +90,7 @@ public:
  class FormationPreviewPoolObject;
  virtual bool formationMode();
  virtual void slot52();
- virtual void slot53();
+ virtual void updateFormationPreview();
  virtual void slot54();
  virtual void slot55();
  virtual void slot56();
@@ -112,7 +112,6 @@ public:
  virtual void slot72();
  virtual const DrawableList *getAllSelectedDrawables();
  Coord2D rva0029D9F9();
- void updateFormationPreview();
  void rva002A3E24();
  void clearFormationPreviewDrawables();
  FormationPreviewPoolObject *rva002A3E5A(ThingTemplate*);
