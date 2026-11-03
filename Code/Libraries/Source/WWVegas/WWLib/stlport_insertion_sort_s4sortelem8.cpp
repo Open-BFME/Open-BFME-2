@@ -8,15 +8,7 @@
 
 #include "S4SortElem8.h"
 
-struct S4Cmp00625BB0
-{
-	void *m_bfmeState;
-
-	bool operator()(const S4SortElem8 &a, const S4SortElem8 &b) const
-	{
-		return a.m_bfmeKey < b.m_bfmeKey;
-	}
-};
+#include "S4Cmp00625BB0.h"
 
 namespace _STL
 {
