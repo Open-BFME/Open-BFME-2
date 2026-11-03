@@ -332,4 +332,4 @@ Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7
   CreateObjectDie wait on DamageModule, CreateModule and CreateObjectDie's
   queued unit.
 
-2026-11-03: RadarMarkerClientUpdate's getter/updater views reconcile and pass local link checks; its destructor still needs DrawableModule getter and Rva00362EC7 vtable reconciliation before canonical adoption ([scoped trials and remaining donors](../../reverse/attempt_support/radarmarkerclientupdate-consolidation-20261103.md)).
+2026-11-03: RadarMarkerClientUpdate's getter/updater views reconcile and pass local link checks; merging them also requires Radar factory return-interface reconciliation, while the destructor still needs DrawableModule getter and Rva00362EC7 vtable work ([reconciliation](../../reverse/attempt_support/radarmarkerclientupdate-consolidation-20261103.md), [Radar adoption trials and next step](../../reverse/attempt_support/radarmarkerclientupdate-radar-adoption-20261103.md)).
