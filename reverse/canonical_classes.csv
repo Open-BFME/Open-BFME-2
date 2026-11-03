@@ -601,3 +601,4 @@ ProductionEntry,Code/GameEngine/Include/GameLogic/Module/ProductionEntry.h,exist
 ArmyUnitSwapperMovieClip,Code/GameEngine/Include/GameClient/ArmyUnitSwapperMovieClip.h,existing header; contract class_contracts/ArmyUnitSwapperMovieClip.json; 8/10 sampled units adopt
 CustomMatchPreferences,Code/GameEngine/Include/Common/CustomMatchPreferencesClass.h,existing header; contract class_contracts/CustomMatchPreferences.json; 10/10 sampled units adopt
 DrawableInfo,Code/GameEngine/Include/GameClient/DrawableInfoClass.h,existing header; contract class_contracts/DrawableInfo.json; 7/12 sampled units adopt
+SphericalEmissionVelocityInfo,Code/GameEngine/Include/GameClient/SphericalEmissionVelocityInfo.h,existing header; contract class_contracts/SphericalEmissionVelocityInfo.json; 8/11 sampled units adopt
