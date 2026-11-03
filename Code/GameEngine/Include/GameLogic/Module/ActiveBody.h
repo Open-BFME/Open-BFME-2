@@ -1,5 +1,4 @@
 // Target facts: ActiveBody constructor RVA 0x004BF6A1 calls BodyModule constructor 0x004BD7FD, then installs VAs 0x00C5B038 at +0, 0x00C5AD78 at +0x0C and 0x00C5B5B0 at +0x10. Destructor 0x004BF951 restores those same tables, releases the string at +0xF8 through 0x00036410, frees the pointer at +0xE0 through 0x00030830, and calls BodyModule destructor 0x004BD763. Factory 0x002513AD allocates 0x100 bytes and calls 0x004BF6A1 at 0x002513D7. ActiveBody is polymorphic; its primary table has 23 entries, followed by non-code at VA 0x00C5B094.
-// Target facts: BodyModule constructor 0x004BD7FD calls BehaviorModule constructor 0x00253330, constructs BodyModuleInterface with the 43-pure-slot VA 0x00C5AB68, replaces it with VA 0x00C5AC18, installs primary VA 0x00C5AE68 and behavior-interface VA 0x00C5AD78, and stores float 1 at +0x14. The BodyModule primary table has 13 slots. Its destructor 0x004BD763 restores BodyModuleInterface VA 0x00C5AC18 and BehaviorModule VAs 0x00BEEA7C/0x00BEE9C0 before tail-calling 0x0049B47C. These are base-subobject teardown tables, not competing ActiveBody tables. The behavior-interface slot 0 at 0x002533D3 returns complete-object +0x10; body-interface slot 41 at 0x004BF893 returns complete-object +0.
 // Target facts: primary VA 0x00C5B038 slots 1/2 implement Snapshot's loadPostProcess/GetSnapshotName at 0x004BF40F/0x004BF88D. Slots 13/18/19/22 point to the rowed rva004BE69C/doDamageFX/createParticleSystems/rva004BF9ED; slot 17 points to the nonvirtual-spelled validateArmorAndDamageFX row 0x004BE1AE and slot 21 to the nonvirtual-spelled setCorrectDamageState row 0x004BE8BD. Separate neutral slot declarations preserve those existing out-of-line call spellings. Slots 15/16 are 0x004BF8DF/0x004BF8ED (conditional attacker ID at +0x48 and clearing byte +0xC6); slot 14 is 0x004BF8AC (armor at +0xF8). Body-interface VA 0x00C5B5B0 has the registered parent's 43 slots; its slots 0/1/2/9/11/12/13/14/18/20/21/22/31/32/33 name the corresponding rowed ActiveBody overrides.
 // Target facts: constructor 0x004BF6A1 initializes health floats +0x18/+0x1C/+0x20/+0x24/+0x28/+0x2C, dwords +0x30/+0x34/+0x38/+0x3C, the DamageInfo record at +0x40 through constructor 0x00263895, timestamps +0xBC/+0xC0, flags +0xC4..+0xC7, particle pointer +0xC8, four floats +0xCC and four bytes +0xDC, vector storage +0xE0 through 0x00211E58 and assignment 0x004BF4CE, dword +0xEC, flags +0xF0 through 0x003B31AD, cached pointer +0xF4, string +0xF8 through 0x000365F0, and cached FX +0xFC. Readers 0x004F5F92/0x00314046/0x0023CAD2/0x005BE1A7 independently prove complete-object +0x18/+0x40/+0xBC/+0xC0 from secondary this. validateArmorAndDamageFX 0x004BE1AE proves the flags/cache/string/FX at +0xF0/+0xF4/+0xF8/+0xFC; setMaxHealth 0x004BDB85 proves health accesses at secondary-this +8/+0x10/+0x1C and slot-32 dispatch with a DamageInfo pointer.
 // Donor names: Zero Hour GeneralsMD ActiveBody.h and BodyModule.h supply BodyModule, the health/damage/timestamp/flag/particle names, getClearableLastAttacker, clearLastAttacker and deleteAllParticleSystems. BFME2's different slots, additional fields and 0x7C-byte DamageInfo come from the target facts above; unresolved identities retain offset or slot names. Constructors, destructor and rowed nonvirtual accessors are declared out of line.
@@ -10,7 +9,7 @@
 #define BFME2_GAMELOGIC_MODULE_ACTIVEBODY_H
 
 #include "BehaviorModule.h"
-#include "BodyModule.h"
+#include "BodyModuleClass.h"
 #include "../Damage.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
@@ -19,21 +18,6 @@ class BodyParticleSystem;
 class ParticleSystemTemplate;
 class DamageFX;
 class ArmorTemplateSet;
-
-class BodyModule : public BehaviorModule, public BodyModuleInterface
-{
-public:
-    BodyModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~BodyModule();
-    virtual BodyModuleInterface *getBody();
-    virtual bool vslot12();
-
-protected:
-    virtual void xfer(Xfer *xfer);
-
-public:
-    float m_damageScalar; // +0x14
-};
 
 class ActiveBody : public BodyModule
 {

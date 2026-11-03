@@ -480,3 +480,4 @@ BfmePoolRef10,Code/GameEngine/Include/Common/BfmePoolRef10.h,existing header; co
 Rva0038404A,Code/GameEngine/Include/Common/Rva0038404A.h,existing header; contract class_contracts/Rva0038404A.json; 16/18 sampled units adopt
 Rva005B61B3,Code/GameEngine/Include/Common/Rva005B61B3.h,existing header; contract class_contracts/Rva005B61B3.json; 17/18 sampled units adopt
 ArmySummaryEntry,Code/GameEngine/Include/Common/ArmySummaryEntry.h,existing header; contract class_contracts/ArmySummaryEntry.json; 12/30 sampled units adopt
+BodyModule,Code/GameEngine/Include/GameLogic/Module/BodyModuleClass.h,existing header; contract class_contracts/BodyModule.json; 6/21 sampled units adopt

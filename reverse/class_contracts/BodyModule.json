@@ -1,0 +1,593 @@
+{
+ "bases": [
+  "BehaviorModule",
+  "BodyModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BodyModule",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 21,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x85ae68",
+       "0x10": "0x85ac18"
+      },
+      "dtor": {
+       "0x0": "0x7eea7c",
+       "0x10": "0x85ac18"
+      }
+     },
+     "dtor": "0x4bd763",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4bd7fd"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "BehaviorModule",
+       "offset": 0,
+       "own_vftable": "0x85ae68",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva004BD75A",
+       "offset": 16,
+       "own_vftable": "0x85ac18",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4bd7fd"
+     ],
+     "value": 24
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4bd7fd"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4bd7fd"
+     ],
+     "value": {
+      "0xc": [
+       "0x85ad78"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4bd7fd"
+     ],
+     "value": {
+      "0x0": "0x85ae68",
+      "0x10": "0x85ac18"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x85ae68"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBodyModule@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4bd841"
+       },
+       {
+        "name": "?loadPostProcess@UpdateModule@@MAEXXZ",
+        "slot": 1,
+        "target": "0x58b03e"
+       },
+       {
+        "name": "?Rva004BD83BGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x4bd83b"
+       },
+       {
+        "name": "?xfer@BodyModule@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x58b043"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 12,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x85ae68"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x85ac18": {
+    "offset": 16,
+    "slots": {},
+    "stores": 1
+   },
+   "0x85ae68": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBodyModule@@UAEPAXI@Z",
+     "1": "?loadPostProcess@UpdateModule@@MAEXXZ",
+     "2": "?Rva004BD83BGet@@YAHXZ",
+     "3": "?xfer@BodyModule@@MAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 11,
+   "12": 2,
+   "16": 1,
+   "20": 1,
+   "24": 6
+  },
+  "views": 21,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_BodyModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BodyModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 19,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004BD78FXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModule.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyCtor.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004BD78FXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModule.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyCtor.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp",
+    "Code/GameEngine/Source/Common/Rva004BD78FXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModule.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyCtor.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp",
+    "Code/GameEngine/Source/Common/Rva004BD78FXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModule.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyCtor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004BD78FXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModule.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBodyCtor.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x85ae68",
+     "0x10": "0x85ac18"
+    },
+    "dtor": {
+     "0x0": "0x7eea7c",
+     "0x10": "0x85ac18"
+    }
+   },
+   "class": "BodyModule",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "12": 4
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "b0()": 1,
+    "b13()": 1,
+    "rva00469E03Slot13(int)": 1,
+    "rva004BE69C()": 1,
+    "s13()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "b1()": 1,
+    "b14()": 1,
+    "m14()": 1,
+    "s14()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "b15()": 1,
+    "b2()": 1,
+    "m15()": 1,
+    "s15()": 1,
+    "slot15()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "b16()": 1,
+    "b3()": 1,
+    "m16()": 1,
+    "s16()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "b17()": 1,
+    "c0()": 1,
+    "getLastDamageFrame()": 1,
+    "validateArmorAndDamageFX()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "b18()": 1,
+    "c1()": 1,
+    "doDamageFX(DamageInfo*)": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "b19()": 1,
+    "c2()": 1,
+    "m19()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "b20()": 1,
+    "c3()": 1,
+    "deleteAllParticleSystems()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "b21(float,int)": 1,
+    "d0()": 1,
+    "rvaSlot21(int)": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "b22()": 1,
+    "d1()": 1,
+    "rva004BF9ED()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "b23()": 1,
+    "d2()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "d3()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "t25()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot26",
+   "candidates": {
+    "t26()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "getMaxHealth()": 1
+   },
+   "class": "BodyModule",
+   "why": "beyond the retail vftable's 13 slots"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "b06()": 1,
+    "f6()": 1,
+    "getHealth()": 1,
+    "getMaxHealth()": 1,
+    "m06()": 1,
+    "s6()": 1,
+    "slot18()": 1
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "b07()": 1,
+    "m07()": 1,
+    "s07()": 1,
+    "s7()": 1,
+    "slot1C()": 1
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "b08()": 1,
+    "getDamageState()": 1,
+    "onDelete()": 1,
+    "s08()": 1,
+    "s8()": 1
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "a0()": 1,
+    "b09()": 1,
+    "m09()": 1,
+    "s09()": 1
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "a1()": 1,
+    "b10()": 1,
+    "m10()": 1,
+    "s10()": 1
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "a2()": 1,
+    "b11()": 1,
+    "m11()": 1,
+    "s11()": 1
+   },
+   "class": "BodyModule"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "a3()": 1,
+    "b12()": 1,
+    "m12()": 1,
+    "s12()": 1
+   },
+   "class": "BodyModule"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot0C()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  }
+ }
+}
