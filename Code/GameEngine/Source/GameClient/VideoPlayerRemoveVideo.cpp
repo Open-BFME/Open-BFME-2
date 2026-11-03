@@ -41,11 +41,7 @@ typedef char BfmeVideoVectorWidth[(sizeof(_STL::vector<Video>) == 12) ? 1 : -1];
 // Video::~Video and the held element destructor share the verified ABI.
 #pragma comment(linker, "/alternatename:??1Video@@QAE@XZ=??1Rva001D28F0Element@@QAE@XZ")
 
-class VideoPlayer
-{
-public:
-    virtual void removeVideo(Video *video);
-};
+#include "../../Include/GameClient/VideoPlayerClass.h"
 
 void VideoPlayer::removeVideo(Video *video)
 {

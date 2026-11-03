@@ -49,13 +49,7 @@ inline int compareVideoNames(const AsciiString &left, const AsciiString &right)
 }
 
 class VideoStreamInterface;
-class VideoPlayer
-{
-public:
-	virtual const Video *getVideo(AsciiString movieTitle);
-    virtual VideoStreamInterface *open(AsciiString title, unsigned int argument);
-    virtual SubtitleManager *getSubTitleMgrForVideo(const AsciiString &title);
-};
+#include "../../Include/GameClient/VideoPlayerClass.h"
 
 // ?getVideo@VideoPlayer@@UAEPBUVideo@@VAsciiString@@@Z
 const Video *VideoPlayer::getVideo(AsciiString movieTitle)

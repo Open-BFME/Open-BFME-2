@@ -156,11 +156,7 @@ extern unsigned g_Va00E04938;
 
 struct Rva00524CC6Value {char prefix[0xc];int clearC;char unknown10[0x14];unsigned char flags24;};
 
-class VideoPlayer
-{
-public:
-	virtual void Rva00689180();
-};
+#include "../../Include/GameClient/VideoPlayerClass.h"
 
 class Rva0030ADE8Forwarder
 {

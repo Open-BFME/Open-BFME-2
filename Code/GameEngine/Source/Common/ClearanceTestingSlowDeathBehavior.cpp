@@ -98,11 +98,7 @@ public:
 	virtual void * rva0005E959();
 };
 #include "../GameClient/Rva000869CF.h"
-class VideoPlayer
-{
-public:
-	virtual void Rva00689180();
-};
+#include "../../Include/GameClient/VideoPlayerClass.h"
 class Rva0030ADE8Forwarder
 {
 public:

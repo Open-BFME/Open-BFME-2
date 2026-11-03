@@ -50,11 +50,7 @@ typedef char BfmeVideoVectorWidth[(sizeof(_STL::vector<Video>) == 12) ? 1 : -1];
 // Both names reach native 0x00689500; reuse its verified kept definition.
 #pragma comment(linker, "/alternatename:??1Video@@QAE@XZ=??1Rva001D28F0Element@@QAE@XZ")
 
-class VideoPlayer
-{
-public:
-    virtual void addVideo(Video *video);
-};
+#include "../../Include/GameClient/VideoPlayerClass.h"
 
 void VideoPlayer::addVideo(Video *video)
 {
