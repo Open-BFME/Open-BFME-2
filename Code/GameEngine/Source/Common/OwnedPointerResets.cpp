@@ -173,11 +173,7 @@ void Rva0029B5E3::clear()
 	}
 }
 
-class InGameNotificationBoxMovieClip
-{
-public:
-	~InGameNotificationBoxMovieClip();
-};
+#include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 
 class Rva0029B620
 {

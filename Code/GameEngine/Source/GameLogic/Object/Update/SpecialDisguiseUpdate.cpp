@@ -627,21 +627,7 @@ public:
 
 class Rva002217EA;
 
-class InGameNotificationBoxMovieClip
-{
-public:
-    virtual unsigned char rva00578522() const;
-    virtual void rva004E6B7D(bool);
-    virtual void rva004E725F(const UnicodeString &, const Rva002217EA &, int);
-    virtual void DoClose();
-    virtual int rva004E6882();
-private:
-	int m_04;
-	int m_state;											// +0x08
-	char m_pad0C[0x40 - 0x0C];
-	int m_40;												// +0x40
-	int m_44;												// +0x44
-};
+#include "../../../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp
 

@@ -61,9 +61,7 @@ private:
 class Rva005CB260;
 class CreateAHeroHero;
 class Object;
-class InGameNotificationBoxMovieClip {
-public: void Open(const UnicodeString &, const Rva002217EA &, int, bool, int);
-};
+#include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 class InGameUI : public InGameUIPrimaryView, public InGameNotificationBox
 {
 public:

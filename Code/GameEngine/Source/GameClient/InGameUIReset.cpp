@@ -115,11 +115,7 @@ public:
 	void rva004E5803();
 };
 
-class InGameNotificationBoxMovieClip
-{
-public:
-	void rva004E7019();
-};
+#include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 
 // The InGameUI members reset calls by address (each rowed under its address).
 class Rva0029C138 { public: void rva0029C138(); };

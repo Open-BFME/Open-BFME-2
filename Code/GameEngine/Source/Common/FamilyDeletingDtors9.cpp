@@ -13,7 +13,7 @@ class Rva004E668E { public: ~Rva004E668E(); };
 void famgenDelete(Rva004E668E *p) { delete p; }
 
 // ??_GInGameNotificationBoxMovieClip@@QAEPAXI@Z @0x0029B235 28B: calls pinned ~InGameNotificationBoxMovieClip 0x004E6A9B
-class InGameNotificationBoxMovieClip { public: ~InGameNotificationBoxMovieClip(); };
+#include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 void famgenDelete(InGameNotificationBoxMovieClip *inGameNotificationBoxMovieClip) { delete inGameNotificationBoxMovieClip; }
 
 // ??_GRva004FA2E2@@QAEPAXI@Z @0x002B2F21 28B: calls pinned ~Rva004FA2E2 0x004FA2E2

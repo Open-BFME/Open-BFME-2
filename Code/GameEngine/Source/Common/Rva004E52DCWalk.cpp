@@ -62,7 +62,7 @@ public:
 };
 
 // Native4E7277 calls the already verified577B UpdateNotice at4E701E.
-class InGameNotificationBoxMovieClip { public: void UpdateNotice(); };
+#include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 
 class Rva004E7277
 {
