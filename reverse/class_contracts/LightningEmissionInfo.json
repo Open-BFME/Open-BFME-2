@@ -1,0 +1,421 @@
+{
+ "bases": [
+  "FXParticleSystem::EmissionVolumeInfo"
+ ],
+ "bases_by": "inlined base table store 0x003A6AFC and byte copy +4",
+ "class": "LightningEmissionInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "manual_retail_resolution": {
+   "base_size": 8,
+   "compiled_header_evidence": "build/header-lightning/layout.txt",
+   "constructor_table_va": "0x00C1BBA0",
+   "destructor_resolution": "empty derived destructor folds with Snapshot teardown; only Snapshot vptr store survives",
+   "destructor_table_va": "0x00BBB554",
+   "discovery_limit": "unqualified CodeView and retail discovery misses namespaced members",
+   "identity_check": "583 registered rows; only Snapshot comment mentions Lightning table; inherited Snapshot name names base; unique constructor pair and deleting stride identify distinct derived class",
+   "lane_evidence": "build/header-lightning/lane-1.json",
+   "lane_identity_caveat": "Measured factory pass declares FXParticleSystem::FXParticleSystem::LightningEmissionInfo because lane inserts the header inside the existing namespace; global-scope hand adoption is separately exact and links",
+   "namespace_audit": "build/header-lightning/lane-namespace-audit.txt",
+   "proof_build": "build/header-lightning/proof-after-build.txt",
+   "proof_link": "build/header-lightning/proof-after-link.txt",
+   "qualified_class": "FXParticleSystem::LightningEmissionInfo",
+   "raw_evidence": "build/header-lightning/retail-bytes.txt",
+   "resolved_attributes": [
+    "size",
+    "retail-dtor-vftables"
+   ],
+   "size": 140
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "class": "FXParticleSystem::LightningEmissionInfo",
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x81bba0"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x49b47c",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "ctors": [
+    "0x3a6af5",
+    "0x55d9a5"
+   ],
+   "dtors": [
+    "0x49b47c"
+   ],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3a6af5",
+      "0x55d9a5"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "FXParticleSystem::EmissionVolumeInfo",
+       "offset": 0,
+       "own_vftable": "0x81bba0",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a6af5",
+      "0x55d9a5"
+     ],
+     "value": 140
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a6af5",
+      "0x55d9a5"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3a6af5",
+      "0x55d9a5"
+     ],
+     "value": {
+      "0x20": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x2c": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x38": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x44": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x50": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x5c": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x68": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x74": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ],
+      "0x80": [
+       "?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3a6af5",
+      "0x55d9a5"
+     ],
+     "value": {
+      "0x0": "0x81bba0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81bba0"
+     ],
+     "value": {
+      "count": 4,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": true,
+      "slots": [
+       {
+        "name": "??_ELightningEmissionInfo@FXParticleSystem@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3a6c0b"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ",
+        "slot": 2,
+        "target": "0x1f354a"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x81bba0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 10,
+  "view_sizes": {},
+  "views": 0,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:Coord3D",
+   "name": "m_08",
+   "name_by": "neutral offset placeholder",
+   "offset": 8,
+   "size": 12,
+   "type": "Coord3D"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:Coord3D",
+   "name": "m_14",
+   "name_by": "neutral offset placeholder",
+   "offset": 20,
+   "size": 12,
+   "type": "Coord3D"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_20",
+   "name_by": "neutral offset placeholder",
+   "offset": 32,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_2C",
+   "name_by": "neutral offset placeholder",
+   "offset": 44,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_38",
+   "name_by": "neutral offset placeholder",
+   "offset": 56,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_44",
+   "name_by": "neutral offset placeholder",
+   "offset": 68,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_50",
+   "name_by": "neutral offset placeholder",
+   "offset": 80,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_5C",
+   "name_by": "neutral offset placeholder",
+   "offset": 92,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_68",
+   "name_by": "neutral offset placeholder",
+   "offset": 104,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_74",
+   "name_by": "neutral offset placeholder",
+   "offset": 116,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  },
+  {
+   "decided_by": "retail copy 0x003A6AF5, assignment 0x003A6B8F and default constructor 0x0055D9A5",
+   "kind": "S:GameClientRandomVariable",
+   "name": "m_80",
+   "name_by": "neutral offset placeholder",
+   "offset": 128,
+   "size": 12,
+   "type": "GameClientRandomVariable"
+  }
+ ],
+ "key": "class",
+ "key_by": "namespaced matched ledger rows",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 140,
+ "size_by": "retail deleting destructor 0x003A6C0B, stride push at 0x003A6C23",
+ "vslots": {
+  "0": {
+   "decided_by": "retail table VA 0x00C1BBA0; slots 1-3 inherited from registered EmissionVolumeInfo",
+   "member": "~LightningEmissionInfo",
+   "target_rva": "0x003A6C0B"
+  },
+  "1": {
+   "decided_by": "retail table VA 0x00C1BBA0; slots 1-3 inherited from registered EmissionVolumeInfo",
+   "member": "LoadPostProcess",
+   "target_rva": "0x000B3FD0"
+  },
+  "2": {
+   "decided_by": "retail table VA 0x00C1BBA0; slots 1-3 inherited from registered EmissionVolumeInfo",
+   "member": "GetSnapshotName",
+   "target_rva": "0x001F354A"
+  },
+  "3": {
+   "decided_by": "retail table VA 0x00C1BBA0; slots 1-3 inherited from registered EmissionVolumeInfo",
+   "member": "DoXfer",
+   "target_rva": "0x0047A69C"
+  }
+ }
+}
