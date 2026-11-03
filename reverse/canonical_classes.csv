@@ -396,3 +396,4 @@ AttributeModifierPoolUpdate,Code/GameEngine/Include/GameLogic/Module/AttributeMo
 GameSlotConnectInfo,Code/GameEngine/Include/GameNetwork/GameSlotConnectInfo.h,existing header; contract class_contracts/GameSlotConnectInfo.json; 9/24 sampled units adopt
 AptValueVector,Code/Libraries/Source/Apt/AptValueVector.h,existing header; contract class_contracts/AptValueVector.json; 21/24 sampled units adopt
 AptSaveLoad,Code/GameEngine/Include/GameClient/AptSaveLoad.h,existing header; contract class_contracts/AptSaveLoad.json; 15/28 sampled units adopt
+LivingWorldCampaignManager,Code/GameEngine/Include/Common/LivingWorldCampaignManager.h,existing header; contract class_contracts/LivingWorldCampaignManager.json; 18/25 sampled units adopt

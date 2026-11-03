@@ -1,0 +1,461 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "LivingWorldCampaignManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 25,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 14,
+   "inherited_spans": [
+    [
+     0,
+     12
+    ],
+    [
+     12,
+     16
+    ]
+   ],
+   "secondary_slots": 4
+  },
+  "initial_view_summary": {
+   "bases": [],
+   "queue": [],
+   "size": 1,
+   "size_by": "majority"
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 6
+   },
+   "0x14": {
+    "4": 26
+   },
+   "0x18": {
+    "4": 15
+   },
+   "0x2c": {
+    "1": 1
+   },
+   "0x2d": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x30": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3b90db"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x81fb04",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x81faf4",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3b90db"
+     ],
+     "value": 46
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3b90db"
+     ],
+     "value": {
+      "0x2c": [
+       1
+      ],
+      "0x2d": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3b90db"
+     ],
+     "value": {
+      "0x14": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x20": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3b90db"
+     ],
+     "value": {
+      "0x0": "0x81fb04",
+      "0xc": "0x81faf4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81fb04"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva003B923B@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3b93a0"
+       },
+       {
+        "name": "?rva003B92A2@Rva003B92A2@@QAEXXZ",
+        "slot": 1,
+        "target": "0x3b92a2"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 9,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x81fb04"
+     }
+    }
+   }
+  },
+  "retail_layout_identity": {
+   "allocation_bytes": 48,
+   "allocation_push_rva": "0x0022F7E4",
+   "constructor_call_rva": "0x0022F7F9",
+   "constructor_rva": "0x003B90DB",
+   "destructor_rva": "0x003B923B",
+   "kind": "target stores, table words and call sites; class identity is inferred from their shared receiver",
+   "ledger_class": "Rva003B923B",
+   "registration_call_rva": "0x0022F820",
+   "registration_global_va": "0x00E02D6C",
+   "registration_literal": "TheLivingWorldCampaignManager",
+   "registration_literal_va": "0x00BE7AEC",
+   "secondary_name_getter_rva": "0x003B9124",
+   "secondary_name_literal": "LivingWorldCampaignManager"
+  },
+  "retail_member_rows": 15,
+  "retail_vtables": {
+   "0x81faf4": {
+    "offset": 12,
+    "slots": {
+     "0": "0x3b912a",
+     "1": "0x3b8dd7",
+     "2": "0x3b9124",
+     "3": "0x3b8f76"
+    }
+   },
+   "0x81fb04": {
+    "offset": 0,
+    "slots": {
+     "0": "0x3b93a0",
+     "1": "0x3b92a2",
+     "10": "0xb3fd0",
+     "11": "0x5cb9ff",
+     "12": "0xb3fd0",
+     "13": "0x47a69c",
+     "2": "0x1b5384",
+     "3": "0xb3fd0",
+     "4": "0x5cb9ff",
+     "5": "0x47a699",
+     "6": "0xd43d0",
+     "7": "0x47a69c",
+     "8": "0xb3fd0",
+     "9": "0xb3fd0"
+    }
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 17,
+   "24": 3,
+   "32": 2,
+   "48": 1
+  },
+  "views": 23,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "field10",
+   "name_by": "offset-placeholder",
+   "offset": 16,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "int",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "field14",
+   "name_by": "offset-placeholder",
+   "offset": 20,
+   "retail_widths": {
+    "4": 26
+   },
+   "size": 4,
+   "type": "void**",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "field18",
+   "name_by": "offset-placeholder",
+   "offset": 24,
+   "retail_widths": {
+    "4": 15
+   },
+   "size": 4,
+   "type": "void**",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "field1C",
+   "name_by": "offset-placeholder",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void**",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "field20",
+   "name_by": "offset-placeholder",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "field24",
+   "name_by": "offset-placeholder",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor",
+   "kind": "P",
+   "name": "field28",
+   "name_by": "offset-placeholder",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "field2C",
+   "name_by": "offset-placeholder",
+   "offset": 44,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "field2D",
+   "name_by": "offset-placeholder",
+   "offset": 45,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "witness": null
+  }
+ ],
+ "hand_decided": {
+  "basis": "GameEngine::init allocates 0x30 and calls ledger constructor Rva003B923B at 0x003B90DB, then registers the same returned pointer through global VA 0x00E02D6C with TheLivingWorldCampaignManager. The secondary table points to the literal getter 0x003B9124. Both constructor and destructor store the same own tables, VA 0x00C1FB04 at +0 and 0x00C1FAF4 at +0x0C. Snapshot VA 0x00BBB554 is an intermediate base table, not a competing manager table. SubsystemInterface and Snapshot are registered parents; no parent is redeclared.",
+  "by": "gpt-6.1-sol",
+  "header_sha256": "2ffdfd9035d1d8308fb5c7ee467b544104581f749a624390411b3c9b10a2590d",
+  "storage": "The two vectors are represented by six pointer fields. The +0x14 vector holds pointers with stride four; 0x003B8E89, reached with the same global receiver at 0x004E1764 and 0x004E23D1, walks the +0x20 vector in 0x68-byte records. Element identity is unresolved, so no private element class becomes canonical.",
+  "symbol_scope": "No row or symbol is renamed. The constructor, destructor and virtual implementation rows retain their existing opaque owners. Canonical declarations do not establish new symbol bindings or emit implementations."
+ },
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 48,
+ "size_by": "retail-operator-new",
+ "vslots": {
+  "0": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "init()"
+  },
+  "10": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "update()"
+  },
+  "11": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot11(int)"
+  },
+  "12": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot12()"
+  },
+  "13": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot13(int)"
+  },
+  "2": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "loadIniFilesFromLegend()"
+  },
+  "3": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "postProcessLoad()"
+  },
+  "4": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot04(int)"
+  },
+  "5": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot05()"
+  },
+  "6": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot06()"
+  },
+  "7": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot07(int)"
+  },
+  "8": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "vslot08()"
+  },
+  "9": {
+   "decided_by": "registered-base-and-retail-vtable",
+   "member": "reset()"
+  }
+ }
+}
