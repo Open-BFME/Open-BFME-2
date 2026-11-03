@@ -293,17 +293,7 @@ extern ControlBar *TheControlBar;
 
 void __stdcall rva005257F6(int unused);
 
-class InGameHeroSelectInterface
-{
-public:
-	class Impl
-	{
-	public:
-		void OnButtonPressed(const char *params); // "_OnBttnHeroSelect"
-		void rva0052633A(const char *params); // "_OnBttnSelectAllHeroes"
-		void rva005255E2(const AsciiString *faction);
-	};
-};
+#include "../../../../../Include/GameClient/InGameHeroSelectInterface.h"
 
 class Gen_uwm_00524f5a
 {

@@ -4,18 +4,8 @@
 // Evidence: callee rowed ?OnHeroAttacked@Impl@InGameHeroSelectInterface@@QAEXPAX@Z; caller 0x002D3756 guard then jmp; prev 0x0052557E same dir.
 #include "ascii_string.h"
 
-class InGameHeroSelectInterface
-{
-public:
-	class Impl;
-};
+#include "../../Include/GameClient/InGameHeroSelectInterface.h"
 
-class InGameHeroSelectInterface::Impl
-{
-public:
-	void OnHeroAttacked(void *p);
-	void rva005255E2(const AsciiString *a);
-};
 
 class Rva005258B2
 {

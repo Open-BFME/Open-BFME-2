@@ -64,7 +64,7 @@ void Rva00330BA3::rva00330BA3(Int transform)
 // 0x00526342, 0x00527111 and 0x00567D96: the pinned 0x00525E55 (no
 // argument), 0x00526F85 (the argument) resp. 0x00567A6E (+0x0C) of the
 // +0x08 object; answer true.
-class InGameHeroSelectInterface { public: class Impl { public: void SelectAllHeroes(); void SelectNearestBuilder(bool); }; };
+#include "../../Include/GameClient/InGameHeroSelectInterface.h"
 class Rva00525E55
 {
 public:

@@ -4,16 +4,7 @@
 // Impl that ignores its text argument and runs the rowed
 // Impl::SelectAllHeroes 0x00525E55, the shape of the rowed Apt callback
 // AptSkirmish::rva0052174E. The callback's original name is not established.
-class InGameHeroSelectInterface
-{
-public:
-	class Impl
-	{
-	public:
-		void SelectAllHeroes();
-		void rva0052633A(const char *argument);
-	};
-};
+#include "../../../../../Include/GameClient/InGameHeroSelectInterface.h"
 
 void InGameHeroSelectInterface::Impl::rva0052633A(const char *)
 {
