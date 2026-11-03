@@ -23615,3 +23615,13 @@ Code/GameEngine/Source/Common/Rva003F018EArmyTotal.cpp|class||Rva003F018EArmy,e9
 Code/GameEngine/Source/Common/INI/INIAudioTokenParsers.cpp|class||Rva00339184Ref,539338c854c104bcf54c17a5,claude-sonnet-4-6,review-780f8bfbf6ca4b2d,w-c10b577ef3fb,2026-11-03
 Code/GameEngine/Source/Common/Rva0042C936.cpp|member|Rva0042CA4B|m_08,0e0e648617e5e5c0b042ad4c,claude-sonnet-4-6,review-780f8bfbf6ca4b2d,w-c10b577ef3fb,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/WeaponRva002CB2D1Range.cpp|member|Rva002CB35CAI|m_1F0,fc43d17039786314fcdf26fd,claude-sonnet-4-6,review-780f8bfbf6ca4b2d,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva000B5179.cpp|member|Cont000B5179|mF4,a0830fea45da72f21acfdf95,claude-opus-5-5,claude3-20261103-224743-1,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv937.cpp|member|BfmeThing937C|m_bfmeP,adc923b82832a9ae7c534849,claude-opus-5-5,claude3-20261103-224743-2,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva000C3380Copy.cpp|member|Rva000C3380|m_00,deaaafaabc2a99427260885c,claude-opus-5-5,claude3-20261103-224743-3,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp|member|Rva005964B0Object|m_254,195a1833647314890a810fa6,claude-opus-5-5,claude3-20261103-224743-7,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x00382077|rva00382077,addba95009449c16b9d64212,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x003820A4|rva003820A4,5425b2db4b4e843f2e9a97bf,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x00382931|rva00382931,01e347848ae9f9c1353b11e9,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x003820D1|rva003820D1,2da6a0e16e234b9088b717d4,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x00382983|rva00382983,266e86a39e17bec56a199e28,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/Rva00318D9BFill.cpp|function|0x00318D9B|Rva00318D9BFill,c082a4df2577dd9d76ac1d9d,claude-opus-5-5,claude3-20261103-224743-9,w-29a6ae2a2f9f,2026-11-03
