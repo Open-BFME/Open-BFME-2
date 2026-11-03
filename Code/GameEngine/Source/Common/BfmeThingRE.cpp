@@ -11,13 +11,14 @@
 class Rva007E8810Message
 {
 public:
-    void reset();
-    void addString(const char *key, const char *value);
-    void addInt64(const char *key, __int64 value);
-    void addBool(const char *key, bool value);
-    void rva007E8EF0(const char *key, const char *value);
-    char m_unknown[0x1C];
-    unsigned int m_category;
+	void reset();
+	void addString(const char *key, const char *value);
+	void addInt64(const char *key, __int64 value);
+	void addBool(const char *key, bool value);
+	void rva007E8EF0(const char *key, const char *value);
+	void addInt(const char *key, int value);
+	char m_head[0x1C]; // +0x00
+	unsigned int m_category; // +0x1C
 };
 
 class Rva007E8AC0
