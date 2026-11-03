@@ -1,0 +1,1335 @@
+{
+ "bases": [
+  "ThreadClass"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "PeerThreadClass",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 15,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x274": {
+    "4": 1
+   },
+   "0x278": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x4b0": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x38aaeb"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "ThreadClass",
+       "offset": 0,
+       "own_vftable": "0x81989c",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x38aaeb"
+     ],
+     "value": 1200
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x38aaeb"
+     ],
+     "value": {
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x158": [
+       4
+      ],
+      "0x15c": [
+       1
+      ],
+      "0x178": [
+       2
+      ],
+      "0x17c": [
+       4
+      ],
+      "0x19c": [
+       4
+      ],
+      "0x1bc": [
+       4
+      ],
+      "0x1dc": [
+       4
+      ],
+      "0x1fc": [
+       4
+      ],
+      "0x21c": [
+       4
+      ],
+      "0x23c": [
+       4
+      ],
+      "0x240": [
+       4
+      ],
+      "0x244": [
+       4
+      ],
+      "0x270": [
+       4
+      ],
+      "0x274": [
+       4
+      ],
+      "0x290": [
+       4
+      ],
+      "0x294": [
+       4
+      ],
+      "0x484": [
+       1
+      ],
+      "0x488": [
+       4
+      ],
+      "0x48c": [
+       1
+      ],
+      "0x48d": [
+       1
+      ],
+      "0x49c": [
+       1
+      ],
+      "0x4a0": [
+       4
+      ],
+      "0x4a4": [
+       4
+      ],
+      "0x4a8": [
+       1
+      ],
+      "0x4ac": [
+       4
+      ],
+      "0x50": [
+       1
+      ],
+      "0x51": [
+       1
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       1
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       1
+      ],
+      "0xb0": [
+       1
+      ],
+      "0xb1": [
+       1
+      ],
+      "0xc0": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x38aaeb"
+     ],
+     "value": {
+      "0x160": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x16c": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x278": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x284": [
+       "??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ"
+      ],
+      "0x298": [
+       "??0BfmeOpaqueOwnedRecord492@@QAE@XZ"
+      ],
+      "0x490": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x54": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x60": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x6c": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x78": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0x98": [
+       "??0?$map@HV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0xa4": [
+       "??0?$map@HV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0xb4": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0xc4": [
+       "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ"
+      ],
+      "0xd0": [
+       "??4?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@PBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x38aaeb"
+     ],
+     "value": {
+      "0x0": "0x81989c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81989c"
+     ],
+     "value": {
+      "count": 3,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GPeerThreadClass@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x38adc6"
+       },
+       {
+        "name": "?Execute@ThreadClass@@UAEXXZ",
+        "slot": 1,
+        "target": "0x6104b0"
+       },
+       {
+        "name": "?Thread_Function@PeerThreadClass@@UAEXXZ",
+        "slot": 2,
+        "target": "0x38edd7"
+       }
+      ],
+      "table": "0x81989c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 27,
+  "retail_vtables": {
+   "0x81989c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GPeerThreadClass@@UAEPAXI@Z",
+     "1": "?Execute@ThreadClass@@UAEXXZ",
+     "2": "?Thread_Function@PeerThreadClass@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "80": 1,
+   "152": 1,
+   "176": 1,
+   "636": 1,
+   "664": 1,
+   "1180": 1,
+   "1200": 2
+  },
+  "views": 15,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 81,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadHandleQMMatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadPushStatsBfme.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadHandleQMMatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadPushStatsBfme.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadHandleQMMatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadPushStatsBfme.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadPushStatsBfme.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 177,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 412,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 444,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 508,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 572,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 576,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 580,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 584,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadFindServerByID.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadHandleQMMatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 692,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 696,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 700,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 704,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 708,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 712,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 716,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 720,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 724,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 728,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 732,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 736,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 740,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 744,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 748,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 756,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 760,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 764,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 768,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 772,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 776,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 924,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 928,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 932,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 936,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 940,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1156,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1160,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1164,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1165,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1168,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1172,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1176,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1180,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1184,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1188,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1192,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1196,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadOpaqueConstructor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "84:A": 1
+   },
+   "class": "PeerThreadClass"
+  },
+  {
+   "attribute": "field@0x3b0",
+   "candidates": {
+    "104:S:PeerRequest::__unnamed::__unnamed": 1,
+    "1:S:PeerRequest::__unnamed::__unnamed": 3,
+    "212:S:PeerRequest::__unnamed::__unnamed": 1,
+    "28:S:PeerRequest::__unnamed::__unnamed": 1,
+    "4:S:PeerRequest::__unnamed::__unnamed": 3,
+    "60:S:PeerRequest::__unnamed::__unnamed": 1
+   },
+   "class": "PeerThreadClass"
+  }
+ ],
+ "size": 1200,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

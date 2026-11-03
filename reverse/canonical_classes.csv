@@ -623,3 +623,4 @@ RegionAwardDispute,Code/GameEngine/Include/GameLogic/RegionAwardDispute.h,existi
 GateOpenAndCloseBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h,existing header; contract class_contracts/GateOpenAndCloseBehaviorModuleData.json; 4/9 sampled units adopt
 BFME2MotionChannel,Code/GameEngine/Include/GameClient/BFME2MotionChannel.h,existing header; contract class_contracts/BFME2MotionChannel.json; 1/8 sampled units adopt
 ListboxData,Code/GameEngine/Include/GameClient/ListboxData.h,existing header; contract class_contracts/ListboxData.json; 7/10 sampled units adopt
+PeerThreadClass,Code/GameEngine/Include/GameNetwork/GameSpy/PeerThreadClass.h,existing header; contract class_contracts/PeerThreadClass.json; 7/15 sampled units adopt
