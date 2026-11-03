@@ -65,11 +65,7 @@ public:
     virtual void gap(char (*)[N]);
 };
 template<> class Rva003C8ABFTerrainSlots<0> {};
-class TerrainLogic : public Rva003C8ABFTerrainSlots<36>
-{
-public:
-    virtual Waypoint *getClosestWaypointOnPath(const Coord3D *position, const AsciiString &path);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 void ScriptActions::Rva003C8ABFDo(const AsciiString &teamName, const AsciiString &path)

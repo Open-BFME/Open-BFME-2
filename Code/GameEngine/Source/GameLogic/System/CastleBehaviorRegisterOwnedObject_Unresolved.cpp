@@ -459,7 +459,7 @@ extern PartitionManager* ThePartitionManager;
 // remain exact; this move adds no recovered bytes.
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 #include "../../../Include/Common/Player.h"
-class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic* TheTerrainLogic;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 static __forceinline void castleUnpackedConditions(Object* owner) {

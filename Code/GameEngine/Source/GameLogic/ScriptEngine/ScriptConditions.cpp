@@ -565,22 +565,7 @@ public:
 #include "../../../Include/GameLogic/ScriptConditions.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class Waypoint;
-class TerrainLogic
-{
-public:
-	bool anyBridgesDamageStatesChanged() { return m_bridgeDamageStatesChanged; }
-	bool isBridgeRepaired(const Object *bridge);
-	bool isBridgeBroken(const Object *bridge);
-	virtual void _d00(), _d01(), _d02(), _d03(), _d04(), _d05(), _d06();
-	virtual void _d07(), _d08(), _d09(), _d10(), _d11(), _d12(), _d13();
-	virtual void _d14(), _d15(), _d16(), _d17(), _d18(), _d19(), _d20();
-	virtual void _d21(), _d22(), _d23(), _d24(), _d25(), _d26(), _d27();
-	virtual void _d28(), _d29(), _d30(), _d31(), _d32(), _d33();
-	virtual Waypoint *getWaypointByName(const AsciiString &name);
-	char m_pad04[0x40];
-	bool m_bridgeDamageStatesChanged; // +0x44
-	char m_pad45[0x3];
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // ?Rva003E4B83Get free @ 0x003E4B83 119B leaf from 0x003EBD81. Evidence:
 // 1x Parameter ret 4; rowed getUnitNamed plus static SiegeDeploySpecialPower

@@ -361,13 +361,7 @@ private:
 	Int m_type;				// +0x1C
 };
 
-class TerrainLogic
-{
-public:
-	virtual void tl00(); virtual void tl01(); virtual void tl02();
-	virtual void tl03(); virtual void tl04(); virtual void tl05();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) const;	// +0x18
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #include <math.h>

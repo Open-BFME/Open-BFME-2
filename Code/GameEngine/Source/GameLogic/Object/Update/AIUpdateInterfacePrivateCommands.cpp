@@ -187,16 +187,7 @@ enum PathfindLayerEnum
 	LAYER_INVALID = 0
 };
 
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);	///< pinned 0x002802FE
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void getExtent(Region3D *extent) const;
-	virtual void slot09(); virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual Coord3D findClosestEdgePoint(const Coord3D *closestTo) const;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

@@ -27,20 +27,7 @@ class AIGroup;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class TerrainLogic
-{
-public:
-	virtual void _0()=0; virtual void _1()=0; virtual void _2()=0; virtual void _3()=0;
-	virtual void _4()=0; virtual void _5()=0; virtual void _6()=0; virtual void _7()=0;
-	virtual void _8()=0; virtual void _9()=0; virtual void _10()=0; virtual void _11()=0;
-	virtual void _12()=0; virtual void _13()=0; virtual void _14()=0; virtual void _15()=0;
-	virtual void _16()=0; virtual void _17()=0; virtual void _18()=0; virtual void _19()=0;
-	virtual void _20()=0; virtual void _21()=0; virtual void _22()=0; virtual void _23()=0;
-	virtual void _24()=0; virtual void _25()=0; virtual void _26()=0; virtual void _27()=0;
-	virtual void _28()=0; virtual void _29()=0; virtual void _30()=0; virtual void _31()=0;
-	virtual void _32()=0; virtual void _33()=0;
-	virtual Waypoint *getWaypointByName(const AsciiString &) = 0;
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

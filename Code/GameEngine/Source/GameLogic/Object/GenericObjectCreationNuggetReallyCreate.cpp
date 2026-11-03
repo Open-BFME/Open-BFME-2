@@ -242,14 +242,7 @@ public:
 	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *playerToBuild);
 };
 
-class TerrainLogic
-{
-public:
-	void addTree(const ThingTemplate *tmpl, const Coord3D *pos, const Matrix3D *mtx, Real scale);
-	void rva00280176(const ThingTemplate *tmpl, const Coord3D *pos, const Matrix3D *mtx, Real scale);
-	void rva0027D3D9(const ThingTemplate *tmpl, const Coord3D *pos, const Matrix3D *mtx, Real scale);
-	void rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 #include "../../../Include/Common/GameLODManager.h"
 

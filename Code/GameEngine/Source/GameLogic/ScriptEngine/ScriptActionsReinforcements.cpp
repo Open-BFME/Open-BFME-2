@@ -219,22 +219,7 @@ private:
 
 #include "../../../Include/GameLogic/Waypoint.h"
 
-class TerrainLogic
-{
-public:
-#define TERRAIN_SLOT(n) virtual void slot##n();
-	TERRAIN_SLOT(0) TERRAIN_SLOT(1) TERRAIN_SLOT(2) TERRAIN_SLOT(3) TERRAIN_SLOT(4) TERRAIN_SLOT(5)
-	virtual float getGroundHeight(float x, float y, Coord3D *normal = 0) const; // 0x18
-	TERRAIN_SLOT(7) TERRAIN_SLOT(8) TERRAIN_SLOT(9) TERRAIN_SLOT(10) TERRAIN_SLOT(11)
-	TERRAIN_SLOT(12) TERRAIN_SLOT(13) TERRAIN_SLOT(14) TERRAIN_SLOT(15)
-	TERRAIN_SLOT(16) TERRAIN_SLOT(17) TERRAIN_SLOT(18) TERRAIN_SLOT(19)
-	TERRAIN_SLOT(20) TERRAIN_SLOT(21) TERRAIN_SLOT(22) TERRAIN_SLOT(23)
-	TERRAIN_SLOT(24) TERRAIN_SLOT(25) TERRAIN_SLOT(26) TERRAIN_SLOT(27)
-	TERRAIN_SLOT(28) TERRAIN_SLOT(29) TERRAIN_SLOT(30) TERRAIN_SLOT(31)
-	TERRAIN_SLOT(32) TERRAIN_SLOT(33)
-#undef TERRAIN_SLOT
-	virtual Waypoint *getWaypointByName(const AsciiString &name); // 0x88
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 struct CreateMask { unsigned int m_bits[4]; };
