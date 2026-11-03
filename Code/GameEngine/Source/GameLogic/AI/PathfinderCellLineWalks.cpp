@@ -50,12 +50,7 @@ enum PathfindLayerEnum
 
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 
-class PathfindCell
-{
-public:
-	char m_pad[12];
-	unsigned int m_flags;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 class Pathfinder;
 
@@ -176,15 +171,15 @@ Int Rva002E93A7Info::cellCallback(PathfindCell *previousCell, PathfindCell *curr
 {
 	if (previousCell != 0)
 	{
-		Int layer = (currentCell->m_flags >> 4) & 0x3f;
+		Int layer = (currentCell->m_0C >> 4) & 0x3f;
 		if (Rva001E3679(layer))
 		{
-			Int previousLayer = (previousCell->m_flags >> 4) & 0x3f;
+			Int previousLayer = (previousCell->m_0C >> 4) & 0x3f;
 			if (previousLayer == layer)
 				return 0;
 		}
 	}
-	Int layer = (currentCell->m_flags >> 4) & 0x3f;
+	Int layer = (currentCell->m_0C >> 4) & 0x3f;
 	Int result = m_pathfinder->rva002E7749(0, cellX, cellY, layer, m_arg, true);
 	return result != m_arg;
 }
@@ -420,7 +415,7 @@ Int Pathfinder::rva002E8251(const ICoord2D *startCell, const ICoord2D *destinati
 		PathfindCell *currentCell = getCell(layer, x, y);
 		if (currentCell == 0)
 			return 0;
-		Int blocked = ((currentCell->m_flags & 0x3f0) != 0x10);
+		Int blocked = ((currentCell->m_0C & 0x3f0) != 0x10);
 		if (blocked)
 			return blocked;
 		if (num < 0)
@@ -767,8 +762,8 @@ Int Pathfinder::rva002E8145(const ICoord2D *startCell, const ICoord2D *destinati
 			return 0;
 		bool blocked;
 		if (x == callbackInfo->skipX && y == callbackInfo->skipY) blocked = 0;
-		else if ((currentCell->m_flags & 0xf) != 0 && (currentCell->m_flags & 0xf) != 1) blocked=1;
-		else if((unsigned char)((currentCell->m_flags>>16)&1))blocked=1;else blocked=0;
+		else if ((currentCell->m_0C & 0xf) != 0 && (currentCell->m_0C & 0xf) != 1) blocked=1;
+		else if((unsigned char)((currentCell->m_0C>>16)&1))blocked=1;else blocked=0;
 		if(blocked) return blocked;
 		if (num < 0)
 		{
@@ -839,7 +834,7 @@ Int Pathfinder::iterateCellsAlongLine( const ICoord2D *startCell,
 		if (currentCell == 0)
 			return 0;
 
-		unsigned int flags = currentCell->m_flags;
+		unsigned int flags = currentCell->m_0C;
 		if ((flags & 0xF) == 5 || (flags & 0xF) == 2 || (flags & 0xF) == 4)
 			return 1;
 

@@ -82,7 +82,7 @@ public:
 	unsigned short *table;
 };
 
-class PathfindCell;
+#include "../../../Include/GameLogic/PathfindCell.h"
 class PathfindLayer {public: char unknown00[0x2C]; unsigned short zone; char unknown2E[0x40-0x2E]; unsigned short getZone()const{return zone;} };
 bool Rva001E3679(int);
 class Rva005335B0 {public: void rva005335B0(unsigned short,unsigned short);};
@@ -411,24 +411,22 @@ void PathfindZoneManager::rva005324D8(unsigned char incremental,unsigned short f
   ((Rva005321D1 *)&finalUnion)->LinkSets(first,second);
 }
 
-class PathfindCell {
-public:
- char unknown00[8]; unsigned short zone; char unknown0A[2];
- union { unsigned value; struct {
+// The cell's packed word at +0x0C as the zone code reads it; byte-return flag
+// accessors preserve retail promotion.
+struct ZoneCellBits {
  unsigned type:4,id:6,secondary:6,unknown16:1,flag17:1,flag18:1,kind:2,unknown21:1,flag22:1,unknown23:9;
- }; };
- unsigned short getZone() const { return zone; }
- // Integer-promoted access matches native address selection in link creation.
- int getZoneInt()const{return zone;}
-
  unsigned char get17() const { return (unsigned char)flag17; }
  unsigned char get18() const { return (unsigned char)flag18; }
  unsigned char get22() const { return (unsigned char)flag22; }
 };
+static __forceinline const ZoneCellBits &cellBits(const PathfindCell *cell) { return *(const ZoneCellBits *)&cell->m_0C; }
+// Integer-promoted zone access matches native address selection in link creation.
+struct ZoneCellZoneView { char unknown00[8]; unsigned short zone; int getZoneInt() const { return zone; } };
+static __forceinline int cellZoneInt(const PathfindCell &cell) { return ((const ZoneCellZoneView *)&cell)->getZoneInt(); }
 
 bool Rva0053166DEqual(const PathfindCell *firstCell,const PathfindCell *pathfindCell) {
- return firstCell->type==pathfindCell->type && firstCell->id==pathfindCell->id && firstCell->secondary==pathfindCell->secondary &&
-  firstCell->get17()==pathfindCell->get17() && firstCell->get18()==pathfindCell->get18() && firstCell->kind==pathfindCell->kind && firstCell->get22()==pathfindCell->get22();
+ return cellBits(firstCell).type==cellBits(pathfindCell).type && cellBits(firstCell).id==cellBits(pathfindCell).id && cellBits(firstCell).secondary==cellBits(pathfindCell).secondary &&
+  cellBits(firstCell).get17()==cellBits(pathfindCell).get17() && cellBits(firstCell).get18()==cellBits(pathfindCell).get18() && cellBits(firstCell).kind==cellBits(pathfindCell).kind && cellBits(firstCell).get22()==cellBits(pathfindCell).get22();
 }
 
 // WB 0x012D0A40 and native 0x0053166D..0x005316E0 prove this comparison.
@@ -476,20 +474,20 @@ void PathfindZoneManager::rva005329C8(PathfindCell **map,const IRegion2D &region
  for(x=region.lo.x;x<=region.hi.x;++x) {
   for(int y=region.lo.y;y<=region.hi.y;++y) {
    cell=&map[x][y];
-   cell->zone=0xFFFF;
+   cell->m_zone=0xFFFF;
    if(x>region.lo.x && Rva0053166DEqual(cell,&map[x-1][y]))
-    cell->zone=map[x-1][y].zone;
+    cell->m_zone=map[x-1][y].m_zone;
    if(y>region.lo.y && Rva0053166DEqual(cell,&map[x][y-1])) {
     PathfindCell *down=&map[x][y-1];
     {
-     if(cell->zone==0xFFFF)cell->zone=down->zone;
-     else local.rva00532479(down->zone,cell->zone);
+     if(cell->m_zone==0xFFFF)cell->m_zone=down->m_zone;
+     else local.rva00532479(down->m_zone,cell->m_zone);
     }
    }
-   if(cell->zone==0xFFFF) {
+   if(cell->m_zone==0xFFFF) {
     unsigned index=count++;
     local.MakeSet((unsigned short)index);
-    cell->zone=(unsigned short)index;
+    cell->m_zone=(unsigned short)index;
    }
   }
  }
@@ -506,17 +504,17 @@ void PathfindZoneManager::rva005329C8(PathfindCell **map,const IRegion2D &region
  for(x=region.lo.x;x<=region.hi.x;++x) {
   for(int y=region.lo.y;y<=region.hi.y;++y) {
    cell=&map[x][y];
-   unsigned root=((Rva00531ED3 *)&local)->rva00531ED3(cell->zone);
+   unsigned root=((Rva00531ED3 *)&local)->rva00531ED3(cell->m_zone);
    if(!initialized[root]) {
     initialized[root]=true;
     ((Rva00531196 *)(reinterpret_cast<CellType *>(unknown0C)+mappedID[root]))->rva00531196((unsigned int *)cell);
    } else ++table[mappedID[root]];
-   cell->zone=mappedID[root];
-   if(x>region.lo.x && cell->zone!=map[x-1][y].zone)
-    rva005324D8(0,cell->zone,map[x-1][y].zone);
+   cell->m_zone=mappedID[root];
+   if(x>region.lo.x && cell->m_zone!=map[x-1][y].m_zone)
+    rva005324D8(0,cell->m_zone,map[x-1][y].m_zone);
    if(y>region.lo.y) {
-    unsigned short other=map[x][y-1].zone;
-    if(cell->zone!=other)rva005324D8(0,cell->zone,other);
+    unsigned short other=map[x][y-1].m_zone;
+    if(cell->m_zone!=other)rva005324D8(0,cell->m_zone,other);
    }
   }
  }
@@ -611,20 +609,20 @@ void PathfindZoneManager::rva00533664(Block *block,PathfindCell **map,PathfindLa
   for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
    PathfindCell *cell=&map[x][y];
    if(x<bounds.hi.x) {
-    unsigned short next=map[x+1][y].getZoneInt();
-    if(rva005316E0(map[x][y].getZoneInt(),next)) {
-     if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[x][y].getZoneInt(),next)) {
-      changed.SetBit(map[x][y].getZoneInt());changed.SetBit(map[x+1][y].getZoneInt());
+    unsigned short next=cellZoneInt(map[x+1][y]);
+    if(rva005316E0(cellZoneInt(map[x][y]),next)) {
+     if(((Rva00532DF6*)((char*)this+0x1770C))->add(cellZoneInt(map[x][y]),next)) {
+      changed.SetBit(cellZoneInt(map[x][y]));changed.SetBit(cellZoneInt(map[x+1][y]));
      }
     }
    }
-   if(y<bounds.hi.y && rva005316E0(map[x][y].getZoneInt(),map[x][y+1].getZoneInt())) {
-    if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[x][y].getZoneInt(),map[x][y+1].getZoneInt())) {
-     changed.SetBit(map[x][y].getZoneInt());changed.SetBit(map[x][y+1].getZoneInt());
+   if(y<bounds.hi.y && rva005316E0(cellZoneInt(map[x][y]),cellZoneInt(map[x][y+1]))) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(cellZoneInt(map[x][y]),cellZoneInt(map[x][y+1]))) {
+     changed.SetBit(cellZoneInt(map[x][y]));changed.SetBit(cellZoneInt(map[x][y+1]));
     }
    }
-   unsigned secondary=cell->secondary;
-   if(Rva001E3679(secondary) && cell->type==0) {
+   unsigned secondary=cellBits(cell).secondary;
+   if(Rva001E3679(secondary) && cellBits(cell).type==0) {
     unsigned short goal=layers[secondary].getZone();
     ((Rva005335B0*)block)->rva005335B0(cell->getZone(),goal);
     if(((Rva00532DF6*)((char*)this+0x1770C))->add(cell->getZone(),goal)) {
