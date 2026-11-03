@@ -162,11 +162,7 @@ struct IDirect3DDevice8 { virtual void Slot00()=0; virtual void Slot04()=0; virt
 
 class DX8Wrapper { protected: static DX8Caps *CurrentCaps; static IDirect3DDevice8 *D3DDevice; public: static DX8Caps *Get_Current_Caps() { return CurrentCaps; } static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; } };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *,int,int);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class Rva00938C4TextureRef
 {

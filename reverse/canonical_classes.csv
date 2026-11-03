@@ -390,3 +390,4 @@ FunctorBinding,Code/GameEngine/Include/GameClient/FunctorBinding.h,existing head
 FireLogicSystem,Code/GameEngine/Include/GameLogic/FireLogicSystem.h,existing header; contract class_contracts/FireLogicSystem.json; 15/28 sampled units adopt
 AptBasePtrStack,Code/Libraries/Source/Apt/AptBasePtrStack.h,existing header; contract class_contracts/AptBasePtrStack.json; 18/33 sampled units adopt
 AptInteger,Code/GameEngine/Include/Common/AptInteger.h,existing header; contract class_contracts/AptInteger.json; 19/31 sampled units adopt
+TextureAsset,Code/GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h,existing header; contract class_contracts/TextureAsset.json; 52/54 sampled units adopt
