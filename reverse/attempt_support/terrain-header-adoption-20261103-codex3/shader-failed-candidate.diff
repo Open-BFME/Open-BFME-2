@@ -1,0 +1,25 @@
+--- original shader consumer
++++ failed prerequisite candidate
+@@ -1 +1 @@
+-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
++// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+@@ -95,0 +96,7 @@
++class PersistFactoryClass;
++class ChunkSaveClass;
++class ChunkLoadClass;
++
++class WorldHeightMap;
++class W3DShroud;
++
+@@ -100 +107 @@
+-	void *map; // +0x37C0
++	WorldHeightMap *map; // +0x37C0
+@@ -102 +109 @@
+-	float m_minWaterOpacity; // +0x37E8
++	int field37E8; // +0x37E8, unused storage
+@@ -104 +111 @@
+-	Rva00072B3A *shroud; // +0x3878
++	W3DShroud *shroud; // +0x3878
+@@ -132 +139 @@
+- if((shroud=TheTerrainRenderObject->shroud)!=0){
++ if((shroud=reinterpret_cast<Rva00072B3A *>(TheTerrainRenderObject->shroud))!=0){

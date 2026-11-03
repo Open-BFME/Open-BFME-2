@@ -112,12 +112,13 @@ public:
 	int m_originY;
 };
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	char m_pad00[0x37C0];
-	WorldHeightMap *m_map;
-};
+// VertexMaterialClass already includes the retail RefCountClass definition.
+#define REFCOUNT_H
+class PersistFactoryClass;
+class ChunkSaveClass;
+class ChunkLoadClass;
+
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 struct BFME2TextureRef

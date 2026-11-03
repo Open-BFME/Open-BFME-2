@@ -1,0 +1,8 @@
+W3DShaderManagerSetShroudTex.cpp
+z:\work3\Open-BFME-2\Code\GameEngineDevice\Include\W3DDevice\GameClient\../../../../Libraries\Source\WWVegas\WW3D2\rendobj.h(672) : error C2143: syntax error : missing ';' before '&'
+z:\work3\Open-BFME-2\Code\GameEngineDevice\Include\W3DDevice\GameClient\../../../../Libraries\Source\WWVegas\WW3D2\rendobj.h(672) : error C2501: 'RenderObjClass::Get_Factory' : missing storage-class or type specifiers
+z:\work3\Open-BFME-2\Code\GameEngineDevice\Include\W3DDevice\GameClient\../../../../Libraries\Source\WWVegas\WW3D2\rendobj.h(672) : warning C4183: 'Get_Factory': missing return type; assumed to be a member function returning 'int'
+z:\work3\Open-BFME-2\Code\GameEngineDevice\Include\W3DDevice\GameClient\../../../../Libraries\Source\WWVegas\WW3D2\rendobj.h(673) : error C2061: syntax error : identifier 'ChunkSaveClass'
+z:\work3\Open-BFME-2\Code\GameEngineDevice\Include\W3DDevice\GameClient\../../../../Libraries\Source\WWVegas\WW3D2\rendobj.h(674) : error C2061: syntax error : identifier 'ChunkLoadClass'
+cl : Command line warning D4025 : overriding '/O2' with '/O1'
+cl : Command line warning D4025 : overriding '/EHc-' with '/EHc'
