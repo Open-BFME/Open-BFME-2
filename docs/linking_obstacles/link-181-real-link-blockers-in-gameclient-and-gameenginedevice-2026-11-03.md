@@ -160,3 +160,73 @@ Screen filters (the W3DShaderManagerScreenBWFilterInit and Rva000FDCD7Get entrie
 
 **PlayerList.cpp merge.** It waits on `file:PlayerList.cpp`, held by ancalgonn-ops-srv1 for a
 `// cl:` cleanup.
+
+**Repaired by seat halilkkaya-rl-o3 (2026-11-04, base `343195ceec`).** Unrowed Zero Hour bodies were
+dropped or retargeted. Each unit stays exact, find_declared_unmatched is clean, scoped DIR32 is OK,
+the orphan scan finds 0, and A/B link_check over the first-copy siblings shows no change.
+
+| Unit | Names | How |
+|---|---|---|
+| InGameUI.cpp (`10b6e4f300`) | 3 | Drops ZH `setRadiusCursor` and `clearWorldAnimations`. An anchor keeps the `??_GWorldAnimationData` row (0x007593F0). |
+| FXList.cpp (`525a9fb493`) | 2 | The inline ZH `doFXPos` forwards to the rowed four-argument `reallyDoFX`, as retail 0x001E19CE does (`push 0; push 0`). |
+| W3DTerrainVisual.cpp (`0048fd4f8b`) | 1 | Drops ZH `setWaterTransform(const WaterHandle *, Real x4)`. |
+
+- In FXList.cpp a qualified-call anchor cannot replace the reference FieldParse table. Emitting
+  `ParticleSystemFXNugget::doFXObj` through a direct call compiles `atan2(float, float)` out of
+  line instead of inlined, and the row fails. This holds with or without `inline_depth(0)` and at
+  either place in the file. Only the parse, constructor and vtable route reproduces retail's body.
+
+**Misidentified row 0x001EC981 (for the naming/identity lane).**
+`?removeAllBibs@W3DTerrainVisual@@UAEXXZ` (W3DTerrainVisual.cpp, 13 B, no notes) is not
+W3DTerrainVisual's.
+- Its bytes are `8b 49 10 85 c9 74 05 e9 .. c3`: a null-checked tail jump through `this+0x10` to
+  0x001EC3B5, which is rowed `?onCurrentMissionWon@LinearCampaign@@QAEXXZ` (648 B).
+- It sits among LinearCampaignManager.cpp's null-checked forwarders: 0x001EC98E, 0x001EC99B and
+  0x001EC9AC.
+- Its only retail caller is ScriptGlueRva003BD598 (0x003BD598, call at +0x24). That caller loads
+  `TheLinearCampaignManager` (VA 0x00DFDC8C) into ecx and spells the call
+  `reinterpret_cast<W3DTerrainVisual *>(TheLinearCampaignManager)->W3DTerrainVisual::removeAllBibs()`.
+- The pin `?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ` → 0x001EC3B5 (symbols.csv)
+  follows only from the misplacement. It names a second function at LinearCampaign's address, and it
+  is W3DTerrainVisual.cpp's last real-link name.
+- Fix: re-identify the row as a LinearCampaignManager member that forwards to its campaign's
+  `onCurrentMissionWon`, in LinearCampaignManager's TU. Respell the ScriptGlue caller, drop the ZH
+  `removeAllBibs` body and retire the pin. This is not done ad hoc: it corrects the identity of a
+  readable-named row and a pin.
+
+**Item analyses that did not land (rl-o3).**
+- **InGameUI's 13 out-of-line slots.** `--to-class` reads the vftable from both installer units.
+  Today both declare only 6 virtuals:
+  - InGameUICtor.cpp is held by StarkillerHDX@fleet (class:ResourceEntryCollector).
+  - InGameUIDtor.cpp has a private view.
+  - The image report agrees: `??_7InGameUI@@6BSubsystemInterface@@@` is 7 slots against retail's 120.
+  A full view in both adds references to every still-unresolved slot, so those two linking units
+  (2,686 B and 956 B) would stop linking until all of them resolve. Land the view with the last
+  slot, not before. Three slots need more than `--to-class`, which keeps the return type and
+  parameters:
+  - getScrollAmount's row returns `Rva00SlotFloat2Copy`, not `Coord2D`.
+  - getPendingPlaceSourceObjectID's row returns `int`, not `ObjectID`. ZH declares `const ObjectID`.
+  - slot87's row is the free stdcall `?bfmeGoBLD@@YGXPAX@Z`.
+  - slot77 needs the full mangled name (`UBE`), which the tool accepts.
+- **W3DInGameUI's emitted vtable is short.** Rva0008EF3FProductCtor_Unresolved.cpp includes the
+  canonical SubsystemInterface.h before InGameUI.h, so `BFME_SUBSYSTEM_SLOTS` is off. Its
+  `??_7Rva0008EF3FProduct@@6BSubsystemInterface@@@` has 114 slots against retail's 125 (image
+  report). Every InGameUI slot after slot 3 sits 8 below retail's index. The link cannot see this.
+- **slot92 and slot96.**
+  - Zero Hour declares `cameoVideoBuffer` (slot92) out of line (InGameUI.h:478; body in InGameUI.cpp
+    as `present-unmatched`). Its fold into 0x0043812F is therefore not evidence for inlining: it
+    needs a fold row under the corrected `VideoBuffer *` return type.
+  - slot96 is ZH's inline `getFieldParse() const { return s_fieldParseTable; }` (InGameUI.h:488).
+    It needs `InGameUI::s_fieldParseTable` at 0x00BFC338 as a real global.
+- **W3DGameClient's newDrawable.** The canonical ThingFactory.h needs the canonical
+  SubsystemInterface. This unit's views sit on Zero Hour's 8-byte SubsystemInterface: SnowManager's
+  0x74 size check and the GameClient shim. Respelling the call therefore means adopting
+  SubsystemInterface in the unit first. Splicing the canonical ThingFactory.h onto the ZH base
+  through its include guards was judged a workaround and not done.
+- **Screen filters.** The filter objects are statically initialized, so no constructor, destructor
+  or deleting-destructor row installs 0x00BCF364/0x00BCF380/0x00BCF440. `--to-class` refuses
+  without an installer, so these slots need a tool route for static-object vtables first.
+- **AptPlayerTooltipMap's `??1Rva00224C95`.** Retail funclet 0x0076F6BC destroys AptPlayer's
+  `m_levels[14]` (stride 0x28) through the EH vector destructor iterator 0x00629110, with destructor
+  VA 0x00624252. That RVA is rowed `??1DetailedArchivedDirectoryInfo@@QAE@XZ` (ArchiveDirInfoO1.cpp).
+  Either the element type is that class, or the two destructors fold. That is an identity decision.
