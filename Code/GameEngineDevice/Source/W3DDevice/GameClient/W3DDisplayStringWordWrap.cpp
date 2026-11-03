@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -67,16 +67,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
-class RectClass
-{
-public:
-	RectClass( float left, float top, float right, float bottom ) : Left( left ), Top( top ), Right( right ), Bottom( bottom ) {}
-	float Left;
-	float Top;
-	float Right;
-	float Bottom;
-	RectClass &operator=( const RectClass &r );
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 // BFME 2 DisplayString vftable (??_7DisplayString 0x00C15338, W3DDisplayString
 // 0x00BCF900): Zero Hour's order with the six-argument draw dropped, three

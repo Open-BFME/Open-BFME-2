@@ -11,14 +11,7 @@ typedef unsigned long uint32;
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/rect.h
-class RectClass
-{
-public:
-	float Left;
-	float Top;
-	float Right;
-	float Bottom;
-};
+#include "../WWMath/RectClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2d.h
 #include "Render2DClass.h"

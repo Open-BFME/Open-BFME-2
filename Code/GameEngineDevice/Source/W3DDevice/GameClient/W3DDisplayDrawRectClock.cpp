@@ -33,15 +33,7 @@ typedef int Int;
 
 #define WWMATH_TWO_PI 6.283185307f
 
-class RectClass
-{
-public:
-	RectClass(float left, float top, float right, float bottom) : Left(left), Top(top), Right(right), Bottom(bottom) {}
-	float Left;
-	float Top;
-	float Right;
-	float Bottom;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 

@@ -18,16 +18,7 @@ class GameFont;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/FontCharsClass.h"
 
-class RectClass
-{
-public:
-	RectClass( float left, float top, float right, float bottom ) : Left( left ), Top( top ), Right( right ), Bottom( bottom ) {}
-	float Left;
-	float Top;
-	float Right;
-	float Bottom;
-	RectClass &operator=( const RectClass &r );
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 

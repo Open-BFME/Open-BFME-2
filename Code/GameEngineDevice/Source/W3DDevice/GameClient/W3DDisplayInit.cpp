@@ -25,12 +25,7 @@ enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class RectClass
-{
-public:
-	RectClass(Real left, Real top, Real right, Real bottom) : Left(left), Top(top), Right(right), Bottom(bottom) {}
-	Real Left, Top, Right, Bottom;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 class SceneClass
 {

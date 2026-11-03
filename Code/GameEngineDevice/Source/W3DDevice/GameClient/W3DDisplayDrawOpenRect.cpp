@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?drawOpenRect@W3DDisplay@@UAEXMMMMMI@Z, retail 0x00044A1A..0x00044C9A (640 bytes)
 // thiscall RET 0x18.
@@ -22,15 +22,7 @@ typedef int Int;
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 bool ClipLine2D(ICoord2D *start, ICoord2D *end, ICoord2D *returnStart, ICoord2D *returnEnd, IRegion2D *region);
 
-class RectClass
-{
-public:
-	RectClass(float left, float top, float right, float bottom) : Left(left), Top(top), Right(right), Bottom(bottom) {}
-	float Left;
-	float Top;
-	float Right;
-	float Bottom;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 class Render2DClass;
 static __forceinline void setRender2DTexturing(Render2DClass *render, bool onoff);

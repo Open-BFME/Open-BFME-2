@@ -75,13 +75,7 @@ public:
 	int Y;
 };
 
-struct RectClass
-{
-	int Left;
-	int Top;
-	int Right;
-	int Bottom;
-};
+#include "../WWMath/RectClass.h"
 
 // upstream layout: reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
 class Render2DSentenceClass
