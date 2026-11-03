@@ -9,11 +9,9 @@
 #pragma comment(linker, "/alternatename:?BfmeGameBrowserVJQCallback@@YGXXZ=?Rva007F5AC0@@YAXPAVRva007E8810Message@@PAVRva007F7980Browser@@@Z")
 #pragma comment(linker, "/alternatename:?bfmeDoBDB@BfmeSubBDB@@QAEXPAXH@Z=?handleGameLobbyReply@Rva007F65E0Owner@@QAEXPAVRva007E8810Message@@H@Z")
 #include <new>
-
 // The complete retail destructor at 0x007E86C0 has an address-derived
 // ledger identity; use that existing declaration for the scoped cleanup.
 class Gen_007e86c0 { public: void m(); };
-
 class BfmeC994
 {
 public:
@@ -21,7 +19,6 @@ public:
  ~BfmeC994() { ((Gen_007e86c0 *)this)->m(); }
  int m_storage[0x0D]; // no /GS cookie in retail frames holding this object
 };
-
 class Rva007F5E00Sender
 {
 public:
@@ -44,11 +41,8 @@ public:
  virtual void slot40();
  virtual void slot44(BfmeC994 *, int, int, int);
 };
-
 class Rva007E8810Message;
-
 class Rva007F5D10GameBrowser;
-
 class Rva007F5E00Notifier
 {
 public:
@@ -56,13 +50,11 @@ public:
  virtual void slot04();
  virtual void slot08(BfmeC994 *, void (__cdecl *)(Rva007E8810Message *, Rva007F5D10GameBrowser *), Rva007F5D10GameBrowser *, int);
 };
-
 class Rva00803620Getter
 {
 public:
 	void *getPtr( void *key, void *fallback );
 };
-
 class Rva007E8810Message
 {
 public:
@@ -73,7 +65,6 @@ public:
 	char m_head[ 0x28 ];
 	int m_txn;
 };
-
 class Rva008022A0Owner
 {
 public:
@@ -88,7 +79,6 @@ public:
 	virtual const char *slot20();
 	void setHpState( int state );
 };
-
 class Rva007F5D10HostLookup
 {
 public:
@@ -108,7 +98,6 @@ public:
 	virtual Rva008022A0Owner *find( int id );
 	void resetHpState( Rva008022A0Owner *player );
 };
-
 class Rva007F5D10Listener
 {
 public:
@@ -131,7 +120,6 @@ public:
 	virtual void notifyPendingActive( int id, int error );
 	virtual void notifyActive( int id );
 };
-
 #include "../../../../GameEngine/Include/GameNetwork/Rva007EB810Diag.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
@@ -1423,6 +1411,23 @@ public:
     int m_sequence;
 };
 
+struct Rva007F63D0Src
+{
+	char pad[0x0C];
+	int m_0C;
+};
+
+class Rva007F63D0
+{
+	char pad[0x24];
+	int m_24;
+
+public:
+	void set(int *a, const Rva007F63D0Src *b, int unused);
+};
+
+// ---- from Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007F5720GameBrowserLogin.cpp
 
 void Rva007F5720GameBrowser::handleLoginReply( Rva007E8810Message *msg )
@@ -1449,8 +1454,6 @@ void Rva007F5720GameBrowser::handleLoginReply( Rva007E8810Message *msg )
 
 	m_listener->onSlot2( status );
 }
-
-// tu-skeleton: 0x00661F40 15B _loginReplyCallback -- matched in Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
 
@@ -2087,8 +2090,6 @@ void Rva007F5920Owner::handleHostedGameReply(Rva007E8810Message *msg)
         m_connection->connect(game.m_ugid, game.m_secret, 0);
 }
 
-// tu-skeleton: 0x00662210 15B ?Rva007F5A70Callback@@YAXPAVRva007E8810Message@@PAVRva007F5920Owner@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007F61E0HostedGameRequest.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007F6260GameBrowserConnect.cpp
 
 void Rva007F6260GameBrowser::handleConnectingProtocolReply(
@@ -2117,8 +2118,6 @@ void Rva007F6260GameBrowser::handleConnectingProtocolReply(
 
 	m_listener->onSlot0( status );
 }
-
-// tu-skeleton: 0x00662B60 25B ?set@Rva007F63D0@@QAEXPAHPBURva007F63D0Src@@H@Z -- matched in Code/GameEngine/Source/Common/Rva007F63D0Set.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007F7980BrowserRva007F63F0.cpp
 
@@ -2149,6 +2148,21 @@ void Rva007F7980Browser::rva007f63f0(void *message)
         field24->rva00800a40(reinterpret_cast<Rva00808CB0LanGameEntry *>(storage), 0, 0);
         reinterpret_cast<Rva00808CB0LanGameEntry *>(storage)->Rva00808CB0LanGameEntry::~Rva00808CB0LanGameEntry();
     }
+}
+
+// tu-skeleton: 0x00661F40 15B _loginReplyCallback -- matched in Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp (not merged yet)
+
+// tu-skeleton: 0x00662210 15B ?Rva007F5A70Callback@@YAXPAVRva007E8810Message@@PAVRva007F5920Owner@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007F61E0HostedGameRequest.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva007F63D0Set.cpp
+
+void Rva007F63D0::set(int *a, const Rva007F63D0Src *b, int)
+{
+	if (!a)
+	{
+		if (b)
+			m_24 = b->m_0C;
+	}
 }
 
 // tu-skeleton: 0x00663A40 15B ?Rva007F7350Thunk@@YAXHPAURva007F72D0Obj@@@Z -- matched in Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp (not merged yet)
