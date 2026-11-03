@@ -867,14 +867,7 @@ typedef InGameSimpleHelp::Impl Rva0053973F;
 
 struct FloatPair;
 
-class InGameCommandButtonHelp {
-public:
-	class Impl;
-public:
-	Int SetWidthAndComputeHeight(Int firstValue);
-public:
-	void Render(const FloatPair &position, const FloatPair &size);
-};
+#include "../../Include/GameClient/InGameCommandButtonHelp.h"
 
 typedef InGameCommandButtonHelp::Impl Rva0056CA31;
 

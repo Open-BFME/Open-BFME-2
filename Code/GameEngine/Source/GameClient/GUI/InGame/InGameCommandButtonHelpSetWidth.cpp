@@ -56,43 +56,17 @@ static __forceinline bool hasText(const UnicodeString &unicodeString)
 	return header != 0 && header->length != 0;
 }
 
-class InGameCommandButtonHelp
-{
-public:
-	class Impl;
-};
+#include "../../../../Include/GameClient/InGameCommandButtonHelp.h"
 
-class InGameCommandButtonHelp::Impl
-{
-public:
-	void ComputeIconSizes(FloatPair *a, FloatPair *b, FloatPair *out);
-	Int SetWidthAndComputeHeight(Int width);
-
-private:
-	void *m_owner;                     // +0x00
-	UnicodeString m_name;              // +0x04
-	UnicodeString m_title;             // +0x08
-	UnicodeString m_description;       // +0x0C
-	UnicodeString m_cost;              // +0x10
-	unsigned short m_shortcutKey;      // +0x14
-	Int m_width;                       // +0x18
-	DisplayString *m_nameString;       // +0x1C
-	DisplayString *m_titleString;      // +0x20
-	DisplayString *m_descriptionString; // +0x24
-	DisplayString *m_shortcutString;   // +0x28
-	DisplayString *m_costString;       // +0x2C
-	IntPair *m_icon30;                 // +0x30
-	IntPair *m_icon34;                 // +0x34
-};
 
 Int InGameCommandButtonHelp::Impl::SetWidthAndComputeHeight(Int width)
 {
-	m_width = width;
-	m_nameString->setWordWrap(m_width);
-	m_costString->setWordWrap(m_width);
+	m_18 = width;
+	m_1C->setWordWrap(m_18);
+	m_2C->setWordWrap(m_18);
 
-	UnicodeString title = m_title;
-	UnicodeString description = m_description;
+	UnicodeString title = m_08;
+	UnicodeString description = m_0C;
 	if (!hasText(title) && hasText(description))
 		title.swap(description);
 
@@ -105,31 +79,31 @@ Int InGameCommandButtonHelp::Impl::SetWidthAndComputeHeight(Int width)
 
 	Int width2;
 	Int height;
-	m_nameString->setText(m_name);
-	m_nameString->getSize(&width2, &height);
+	m_1C->setText(m_04);
+	m_1C->getSize(&width2, &height);
 	float total = (float)height;
 
 	Int titleHeightInt;
-	m_titleString->setText(title);
-	m_titleString->getSize(&width2, &titleHeightInt);
+	m_20->setText(title);
+	m_20->getSize(&width2, &titleHeightInt);
 	float titleHeight = (float)titleHeightInt;
 	if (hasText(title) && icons.y > titleHeight)
 		titleHeight = icons.y;
 
 	UnicodeString shortcut;
-	if (m_shortcutKey != 0)
+	if (m_14 != 0)
 	{
-		UnicodeString key(&m_shortcutKey, 1);
+		UnicodeString key(&m_14, 1);
 		const void *keyData = *(const void *const *)&key;
 		shortcut.format(&TheGameText->fetchRef("TOOLTIP:Shortcut"),
 			keyData ? (const unsigned short *)((const char *)keyData + 8) : (const unsigned short *)L"");
 	}
 	Int shortcutHeightInt;
-	m_shortcutString->setText(shortcut);
-	m_shortcutString->getSize(&width2, &shortcutHeightInt);
+	m_28->setText(shortcut);
+	m_28->getSize(&width2, &shortcutHeightInt);
 	float shortcutHeight = (float)shortcutHeightInt;
 	float lineHeight;
-	if (m_shortcutKey != 0)
+	if (m_14 != 0)
 	{
 		if (hasText(title))
 			lineHeight = titleHeight > shortcutHeight ? titleHeight : shortcutHeight;
@@ -142,18 +116,18 @@ Int InGameCommandButtonHelp::Impl::SetWidthAndComputeHeight(Int width)
 	}
 	total += lineHeight;
 
-	m_descriptionString->setText(description);
+	m_24->setText(description);
 	if (hasText(description))
 	{
-		m_descriptionString->getSize(&width2, &height);
+		m_24->getSize(&width2, &height);
 		float descriptionHeight = (float)height;
 		if (icons.y > descriptionHeight)
 			descriptionHeight = icons.y;
 		total += descriptionHeight;
 	}
 
-	m_costString->setText(!m_cost.isEmpty() ? m_cost : UnicodeString((const unsigned short *)L" "));
-	m_costString->getSize(&width2, &height);
+	m_2C->setText(!m_10.isEmpty() ? m_10 : UnicodeString((const unsigned short *)L" "));
+	m_2C->getSize(&width2, &height);
 	total += (float)height;
 
 	return (Int)total;
