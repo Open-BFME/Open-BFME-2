@@ -23466,3 +23466,4 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp|member|
 Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|class||Rva000AE490CliffInfo,4b55ae68a13935cb25901aec,drz-t22,drz-t22-sv2-1,w-2e5ff0f55b41,2026-11-03
 Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|class||Rva000AE490CliffInfoVector,e326b31a824d0f77712ca52b,drz-t22,drz-t22-sv2-1,w-2e5ff0f55b41,2026-11-03
 Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|class||Rva000AE6ADBlendTileInfo,f0c77edb388b2bf86b5f3b2d,drz-t22,drz-t22-sv2-1,w-2e5ff0f55b41,2026-11-03
+Code/GameEngine/Source/Common/Rva005CED37.cpp|member|Rva005CED37Held|m_04,d1785151b9705803bb91206e,drz-t24,drz-t24-sv2-6,w-0cd6f423cf68,2026-11-03
