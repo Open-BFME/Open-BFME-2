@@ -469,3 +469,4 @@ AptCreateAHero,Code/GameEngine/Include/Common/AptCreateAHero.h,existing header; 
 Rva0056AC26,Code/GameEngine/Include/Common/Rva0056AC26.h,existing header; contract class_contracts/Rva0056AC26.json; 7/18 sampled units adopt
 MeshModelClass,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.h,existing header; contract class_contracts/MeshModelClass.json; 14/63 sampled units adopt
 AITacticOffensive,Code/GameEngine/Include/Common/AITacticOffensive.h,existing header; contract class_contracts/AITacticOffensive.json; 3/23 sampled units adopt
+Rva002390CB,Code/GameEngine/Include/Common/Rva002390CB.h,existing header; contract class_contracts/Rva002390CB.json; 34/66 sampled units adopt
