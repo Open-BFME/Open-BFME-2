@@ -29646,7 +29646,7 @@ _piConnectFillInUserCallbackA,,0x006A01B0,55,Code/GameEngine/Source/GameNetwork/
 ?Set_Texture_Tile_Factor@StreakLineClass@@QAEXM@Z,,0x007419D0,37,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,matched,forwards to both renderers like Set_Texture at 0x741880
 ?Rva005923C5Read@@YAPAVRva004D62A9@@HPAI@Z,,0x005923C5,209,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,new 0x24 plus ctor 0x004D62A9 plus StringBase 0x37BA0 plus setters 0x590F13 0x4D5978 0x4D5984
 ?rva0047971C@AICommandInterface@@QAEXABVRva0035149F@@PAVObject@@W4CommandSourceType@@@Z,,0x0047971C,115,Code/GameEngine/Source/GameLogic/AI/AICommandRva0047971C.cpp,matched,cmd 0x0A via 0x351BD0 plus assign 0x35149F plus slot0 plus free 0x30830
-?rva005258B2@Rva005258B2@@QAEXPAX@Z,,0x005258B2,7,Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp,matched,chain forwarder via rowed 0x0052557E caller 0x002D3756
+?rva005258B2@Rva005258B2@@QAEXPAX@Z,,0x005258B2,7,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,matched,chain forwarder via rowed 0x0052557E caller 0x002D3756
 ?Rva005118F3Show@@YAXH_N@Z,,0x005118F3,157,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva005118F3Show.cpp,matched,chain via SetText row globals ShowActiveTab EmptyString callers unblock 3
 ?rva0041FA34@Rva0041FA34@@QAEPAXPBX@Z,,0x0041FA34,37,Code/GameEngine/Source/GameClient/Rva0041FA34NewNode.cpp,matched,allocate 0x307F0 12 plus dup 0x41FA07 plus copy 0x466EA7 unlocks 0x41FA92
 ?rva0041FA92@Rva000427195@@QAE?AUInsertRet0041FA92@@PBX@Z,,0x0041FA92,124,Code/GameEngine/Source/GameClient/Rva0041FA92Insert.cpp,matched,insert_unique via 0x223149 plus compare 0x69D6 plus new_node 0x41FA34
@@ -29720,7 +29720,7 @@ _piConnectFillInUserCallbackA,,0x006A01B0,55,Code/GameEngine/Source/GameNetwork/
 ??1ProcessAnimateWindowSlideFromBottomTimed@@UAE@XZ,,0x005C6317,7,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,matched,Identity correction after standalone generic-setter retraction; native deleting wrapper0x5C5990 calls base-vptr cleanup VA0xC74804; abstract interface and donor hierarchy independently agree; no net new bytes
 ??_GProcessAnimateWindowSlideFromBottomTimed@@UAEPAXI@Z,,0x005C5990,28,Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp,matched,ZH donor BFME1 10af19f44a89ab7ecc23195bb9a842ceafbc02c9; matched ctor0x5C4FEF installs VA0xC7481C slot0; all derived vtables share target28B; plain destructor0x5C6317 now correctly identified; one row per shared body
 ?rva000E6FE3@Rva000E6FE3@@QAEX_N@Z,,0x000E6FE3,51,Code/GameEngine/Source/Common/Rva000E6FE3.cpp,matched,unlock lane byte loop stride 0xA0 count 0x4FB58 caller 0x000682D9
-?rva005258B9@Rva005258B2@@QAEXPBVAsciiString@@@Z,,0x005258B9,7,Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp,matched,chain forwarder via rowed 0x005255E2 caller 0x002D6A3D
+?rva005258B9@Rva005258B2@@QAEXPBVAsciiString@@@Z,,0x005258B9,7,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,matched,chain forwarder via rowed 0x005255E2 caller 0x002D6A3D
 ?rva0052518E@Rva0052518E@@QAEXPAX@Z,,0x0052518E,15,Code/GameEngine/Source/Common/Rva0052518E.cpp,matched,unlock two-level store via caller 0x002D36D0 unblocks 0x002D36C3
 ?rva00525611@Rva00525611@@QAEXXZ,,0x00525611,34,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp,matched,leaf list clear via callers 0x00526FEE 0x0052703A prev 0x005255E2
 ?Rva0030B6A6Equal@@YAHPBURva0030B6A6Range@@0@Z,,0x0030B6A6,61,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,matched,two range float pair equality via size xor

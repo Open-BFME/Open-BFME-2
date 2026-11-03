@@ -8,7 +8,6 @@
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 #include "../../../../Common/GameLogicObjectLookupView.h"
-
 //
 // Listener-list walks around 0x005253A0.  Each list's forEach packs a vcall
 // member-function pointer and its arguments into a stack call record and
@@ -46,19 +45,16 @@ public:
 		whereToRestore = valueToRestore;
 	}
 };
-
 // ---- forEach 0x005258E2, walk 0x005253A0: the slot takes no argument
 class Rva005258E2Listener
 {
 public:
 	virtual void notify();
 };
-
 struct Rva005253A0Call
 {
 	void (Rva005258E2Listener::*notify)();
 };
-
 class Rva005258E2List
 {
 public:
@@ -71,7 +67,6 @@ private:
 	Rva005258E2Listener **m_capacity;	// +0x08
 	unsigned int m_index;	// +0x0C
 };
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -81,16 +76,12 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 typedef int Int;
-
 class CommandButton;
-
 class GameWindow;
-
 struct BfmeMsgDN;
-
 #include "../../../../../Include/GameClient/ControlBar.h"
+#include "../../../../../Include/GameClient/InGameHeroSelectInterface.h"
 
 extern ControlBar *TheControlBar;
 
@@ -210,8 +201,14 @@ private:
 // observed data accesses and ABI; original owner and field meanings are unknown.
 class Object;
 
-// Slot 1 (allow) of partition filter vftable 0x00C53D18.
-// Slot 1 (allow) of partition filter vftable 0x00C1FE28.
+class Rva005258B2
+{
+public:
+	InGameHeroSelectInterface::Impl *m_ptr;
+	void rva005258B2(void *hero);
+	void rva005258B9(const AsciiString *a);
+};
+
 // tu-skeleton: 0x00525407 114B ?rva00525407@Holder00525D9A@@QAEXABUHeroCall@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp (not merged yet)
 
 // tu-skeleton: 0x00525479 16B ?compareRecords@Rva00525479@@QAEHPAVRva00525119@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
@@ -219,6 +216,14 @@ class Object;
 // tu-skeleton: 0x00525489 30B ??0Rva00525489@@QAE@ABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
 
 // tu-skeleton: 0x005254A7 30B ??0Rva005254A7@@QAE@ABUGapPair@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
+
+// Slot 1 (allow) of partition filter vftable 0x00C53D18.
+// Slot 1 (allow) of partition filter vftable 0x00C1FE28.
+
+
+
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
 
@@ -291,6 +296,17 @@ void Rva005258E2List::apply(const Rva005253A0Call &call)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
+
+void Rva0052586B::resetHeroSlots()
+{
+	for (Int i = 0; i < 16; ++i)
+	{
+		m_records[i].m_00 = m_10->m_10;
+		m_records[i].m_16 = false;
+	}
+}
+
 // tu-skeleton: 0x0052557E 100B ?OnHeroAttacked@Impl@InGameHeroSelectInterface@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0052557EPlay.cpp (not merged yet)
 
 // tu-skeleton: 0x005255E2 47B ?rva005255E2@Impl@InGameHeroSelectInterface@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005255E2SetFaction.cpp (not merged yet)
@@ -303,22 +319,23 @@ void Rva005258E2List::apply(const Rva005253A0Call &call)
 
 // tu-skeleton: 0x005257F6 117B ?rva005257F6@@YGXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva005257F6SelectAllHeroes.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp
-
-void Rva0052586B::resetHeroSlots()
-{
-	for (Int i = 0; i < 16; ++i)
-	{
-		m_records[i].m_00 = m_10->m_10;
-		m_records[i].m_16 = false;
-	}
-}
-
 // tu-skeleton: 0x00525886 44B ?rva00525886@Rva00525886@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp (not merged yet)
 
-// tu-skeleton: 0x005258B2 7B ?rva005258B2@Rva005258B2@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp
 
-// tu-skeleton: 0x005258B9 7B ?rva005258B9@Rva005258B2@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp (not merged yet)
+// ?rva005258B2@Rva005258B2@@QAEXPAX@Z, retail 0x005258B2 7B chain via 0x0052557E.
+// Forwarder: ecx=[ecx] then tail-jmp to rowed 0x0052557E.
+// Evidence: callee rowed ?OnHeroAttacked@Impl@InGameHeroSelectInterface@@QAEXPAX@Z; caller 0x002D3756 guard then jmp; prev 0x0052557E same dir.
+
+void Rva005258B2::rva005258B2(void *hero)
+{
+	m_ptr->OnHeroAttacked(hero);
+}
+
+void Rva005258B2::rva005258B9(const AsciiString *asciiString)
+{
+	m_ptr->rva005255E2(asciiString);
+}
 
 // tu-skeleton: 0x005258C0 34B ?_M_create_node@?$list@PAXV?$allocator@PAX@_STL@@@_STL@@IAEPAU?$_List_node@PAX@2@ABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
 
