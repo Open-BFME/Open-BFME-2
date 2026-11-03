@@ -152,11 +152,7 @@ class Object;
 
 class RebuildHoleBehaviorInterface;
 
-class RebuildHoleBehavior
-{
-public:
-	static RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterfaceFromObject(Object *obj);
-};
+#include "../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
 struct Rva00506FE9Template
 {

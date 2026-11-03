@@ -59,11 +59,7 @@ class DamageInfo;
 class Xfer;
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 // ?getModuleNameKey@RebuildHoleExposeDie@@UBE?AW4NameKeyType@@XZ @0x486792
 // (69B): cached pool-name key for RebuildHoleExposeDie. The class
 // identity comes from the pool-name string the body pushes
@@ -148,20 +144,6 @@ public:
 };
 // The RebuildHoleBehavior +0x24 interface table 0x00C49A50: slot 0
 // startRebuildProcess (0x004835B4), slot 4 a byte setter.
-class RebuildHoleBehaviorInterface
-{
-public:
-	virtual void startRebuildProcess(const ThingTemplate *rebuild, ObjectID spawnerID) = 0;
-	virtual ObjectID getSpawnerID() = 0;
-	virtual ObjectID getReconstructedBuildingID() = 0;
-	virtual const ThingTemplate *getRebuildTemplate() const = 0;
-	virtual void setSlot4Flag(Bool flag) = 0;
-};
-class RebuildHoleBehavior
-{
-public:
-	static RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterfaceFromObject(Object *obj);
-};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Drawable
 {

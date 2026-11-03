@@ -201,7 +201,7 @@ public:
     virtual void selected()=0;
 };
 class RebuildHoleBehaviorInterface;
-class RebuildHoleBehavior { public: static RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterfaceFromObject(Object *); };
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 struct ContextDrawableView { char unknown00[0xFC]; Object *object; Object *getObject() { return object; } };
 struct ContextTemplateView { char unknown00[0x10C]; unsigned char flags; };
 struct ContextObjectView { char unknown00[4]; ContextTemplateView *objectTemplate; bool hasRebuildFlag() const { return (objectTemplate->flags&0x40)!=0; } };

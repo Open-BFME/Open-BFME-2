@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class RebuildHoleBehavior
-{
-public:
-	RebuildHoleBehavior(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x48];
-};
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
 // ?friend_newModuleInstance@RebuildHoleBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *RebuildHoleBehavior::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

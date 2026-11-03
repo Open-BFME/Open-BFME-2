@@ -85,38 +85,9 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie();
-};
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
-class RebuildHoleBehaviorInterface
-{
-public:
-	virtual void startRebuildProcess(const ThingTemplate *rebuild, ObjectID spawnerID);
-	virtual ObjectID getSpawnerID();
-	virtual ObjectID getReconstructedBuildingID();
-	virtual const ThingTemplate *getRebuildTemplate() const;
-};
 
-class RebuildHoleBehavior : public UpdateModule,
-	public DieModuleInterface,
-	public RebuildHoleBehaviorInterface
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	ObjectID m_workerID;
-	ObjectID m_reconstructingID;
-	ObjectID m_spawnerObjectID;
-	UnsignedInt m_workerWaitCounter;
-	const ThingTemplate *m_workerTemplate;
-	const ThingTemplate *m_rebuildTemplate;
-	float m_40;
-	bool m_44;
-};
 
 void RebuildHoleBehavior::xfer(Xfer *xfer)
 {

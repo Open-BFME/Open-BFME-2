@@ -8,11 +8,7 @@
 // rowed getRebuildHoleBehaviorInterfaceFromObject 0x004831CB (module+0x24),
 // null-checked by the compiler. Only the bases' sizes are modelled.
 
-class RebuildHoleBehaviorInterface
-{
-public:
-	virtual void s00();
-};
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
 class RebuildHoleBehaviorPrimaryView
 {
@@ -22,11 +18,6 @@ private:
 	char m_pad04[0x24 - 4];
 };
 
-class RebuildHoleBehavior : public RebuildHoleBehaviorPrimaryView, public RebuildHoleBehaviorInterface
-{
-public:
-	virtual RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterface();
-};
 
 RebuildHoleBehaviorInterface *RebuildHoleBehavior::getRebuildHoleBehaviorInterface()
 {
