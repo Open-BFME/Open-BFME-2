@@ -11,19 +11,10 @@
 //
 // Class view and layout come from the rowed Rva006C38D0Cluster.cpp; this TU
 // only re-states the member/base needed to place the implicit destructor
-// calls. The base destructor's own body lives at 0x00033D50.
+// calls. The base destructor thunk at0x00034D00 calls the separately rowed
+// bool teardown body at0x00033D50.
 
-namespace EA
-{
-namespace Allocator
-{
-class GeneralAllocator
-{
-public:
-	~GeneralAllocator();
-};
-}
-}
+#include "../../Include/Common/GeneralAllocator.h"
 
 class Rva006C17B0
 {
@@ -35,8 +26,9 @@ public:
 // ?Rva006C17B0::~Rva006C17B0 present-unmatched
 // Rva006C17B0's destructor is an inline wrapper over rva006C17B0(true,false).
 // Retail keeps an out-of-line copy at 0x006C21B0 (used by unwind funclets and
-// reached by 0x006C17B0's own sibling); it has no ledger row yet, and no
-// aligned base class view exists here beyond this member.
+// reached by 0x006C17B0's own sibling). That10B body is already rowed as
+// rva006C21B0 in Rva006C17B0.cpp; this differently decorated inline destructor
+// retains its existing marker/pin and is outside this base-provider repair.
 inline Rva006C17B0::~Rva006C17B0()
 {
 	rva006C17B0(true, false);
@@ -49,7 +41,7 @@ public:
 	bool rva006C38D0();
 
 private:
-	unsigned char m_pad0[0x684];
+	unsigned char m_pad0[0x174];
 	Rva006C17B0 m_684;
 };
 

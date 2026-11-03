@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "touches": {
+    "^code_^game^engine_^source_^common_^vslot^small^bodies^a^j_^rva00034^d00.obj": [
+      "?rva00034D00@Rva00034D00@@QAE_NXZ"
+    ],
+    "^code_^game^engine_^source_^common_^rva006^c3^c^c0^cluster.obj": [
+      "??1GeneralAllocator@Allocator@EA@@QAE@XZ"
+    ]
+  },
+  "alternate_matches": {},
+  "reference_objects": {
+    "^code_^game^engine_^source_^common_^rva006^c3^c^c0^cluster.obj": {
+      "roots": [
+        "??1GeneralAllocator@Allocator@EA@@QAE@XZ"
+      ],
+      "edges": {},
+      "weaks": []
+    }
+  },
+  "native": {
+    "0x34d00": {
+      "bytes": "e94bf0ffff",
+      "branches": [
+        {
+          "at": "0x34d00",
+          "target": "0x33d50"
+        }
+      ]
+    },
+    "0x6c3d08": {
+      "bytes": "e8f30f97ff",
+      "branches": [
+        {
+          "at": "0x6c3d08",
+          "target": "0x34d00"
+        }
+      ]
+    },
+    "0x7a7cf0": {
+      "bytes": "8b4df0e908d088ff",
+      "branches": [
+        {
+          "at": "0x7a7cf3",
+          "target": "0x34d00"
+        }
+      ]
+    }
+  }
+}

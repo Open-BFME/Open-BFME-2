@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "names": {
+    "??1GeneralAllocator@Allocator@EA@@QAE@XZ": {
+      "strong": [],
+      "comdat": [],
+      "touches": [
+        "^code_^game^engine_^source_^common_^rva006^c3^c^c0^cluster.obj"
+      ]
+    },
+    "?rva00034D00@Rva00034D00@@QAE_NXZ": {
+      "strong": [
+        "^code_^game^engine_^source_^common_^vslot^small^bodies^a^j_^rva00034^d00.obj"
+      ],
+      "comdat": [
+        [
+          "^code_^game^engine_^source_^common_^vslot^small^bodies^a^j_^rva00034^d00.obj",
+          "54336d88eb16",
+          "retail"
+        ]
+      ],
+      "touches": [
+        "^code_^game^engine_^source_^common_^vslot^small^bodies^a^j_^rva00034^d00.obj"
+      ]
+    },
+    "?rva00033D50@GeneralAllocator@Allocator@EA@@QAE_NXZ": {
+      "strong": [
+        "^code_^game^engine_^source_^common_^system_^rva00033^d50^shutdown.obj"
+      ],
+      "comdat": [],
+      "touches": [
+        "^code_^game^engine_^source_^common_^system_^rva00033^d50^shutdown.obj",
+        "^code_^game^engine_^source_^common_^vslot^small^bodies^a^j_^rva00034^d00.obj",
+        "^code_^game^engine_^source_^common_^rva006^c21^c0.obj",
+        "^code_^game^engine_^source_^common_^rva006^c38^d0^cluster.obj"
+      ]
+    },
+    "?rva00033D50@Rva006C1F60@@QAE_NXZ": {
+      "strong": [],
+      "comdat": [],
+      "touches": []
+    }
+  }
+}

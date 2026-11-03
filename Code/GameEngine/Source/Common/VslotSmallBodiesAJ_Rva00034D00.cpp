@@ -288,15 +288,12 @@ int Get_Draw_Calls();
 int Rva000A8F58Get();
 int Rva000A8F5EGet();
 
-// 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
-class Rva00034D00 : public EA::Allocator::GeneralAllocator
+// Native 0x00034D00: the nonvirtual GeneralAllocator destructor.
+// Derived destruction and its unwind action call this thunk, which runs
+// the independently rowed teardown at 0x00033D50.
+EA::Allocator::GeneralAllocator::~GeneralAllocator()
 {
-public:
-	bool rva00034D00();
-};
-bool Rva00034D00::rva00034D00()
-{
-	return EA::Allocator::GeneralAllocator::rva00033D50();
+    rva00033D50();
 }
 
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.

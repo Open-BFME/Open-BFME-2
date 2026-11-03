@@ -2902,7 +2902,6 @@ name,address,notes
 ??1Gen_uw_000b3f43@@QAE@XZ,0x000B3F43,gen-uw-pin target read directly from range-36 retail funclet 0x00769DC9; concrete class identity is unknown
 ??1Gen_uwm_001f22a3@@QAE@XZ,0x001F22A3,gen-uwm-pin for Ghidra 5-byte thunk reached by range-36 retail funclet 0x0076B15A; thunk tail-jumps to rowed Coord3D vector_base destructor 0x001F1609; concrete class relationship is unproven
 ??1Rva0057BCEC@@QAE@XZ,0x0057BCEC,non-virtual spelling of the rowed listener-list interface dtor: its vtable 0x00C6F248 holds nine __purecall slots and no dtor slot; direct call from the SelectionDetailsUIImpl dtor 0x0057BD67
-??1GeneralAllocator@Allocator@EA@@QAE@XZ,0x00033D50,PPMalloc GeneralAllocator base destructor; the EH unwind funclet of Rva006C1F60 dtor 0x006C3CC0 calls it via thunk 0x00034D00; same body as the address-derived pin ?rva00033D50@Rva006C1F60@@QAE_NXZ
 ??1GeometryShapeVector@@QAE@XZ,0x00050A79,Vector<GeometryShape> dtor fold called once by the 0x50B2A GeometryInfo dtor; TU-spelling alias
 ??1GrantStealthBehaviorModuleDataMemberA@@QAE@XZ,0x00360D26,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1GrantStealthBehaviorModuleDataMemberB@@QAE@XZ,0x0002CC70,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1

@@ -17,7 +17,7 @@
 //    0x00030DF0 (0x00033E6B).
 //  - The destructor is not virtual and is called out of line: 0x006C3D08 in the derived
 //    destructor 0x006C3CC0 and the unwind funclet 0x007A7CF0 reach 0x00034D00, `jmp 0x00033D50`;
-//    reverse/symbols.csv pins ??1GeneralAllocator@Allocator@EA@@QAE@XZ.
+//    the matched destructor row owns this 0x00034D00 thunk, distinct from teardown 0x00033D50.
 //  - Snapshot (+0 'SNAP' 0x534E4150, +4 size, +8 context, +0xC..+0xE flags, +0x10..+0x20) is
 //    laid out by its constructor 0x00031570.
 //  - The class-key is `class`: every ledger row mangles VGeneralAllocator@Allocator@EA@@.
