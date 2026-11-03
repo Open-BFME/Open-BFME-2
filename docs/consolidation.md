@@ -438,6 +438,43 @@ trailer. Pin admission re-proves a moved fold proof at commit.
   and leaves consumer byte totals for the next census. Review its shadow
   findings and update the shared linking obstacle register.
 
+### Measured blockers, 2026-11-03 (ten TUs sampled)
+
+Ten targets were taken end to end on this date, five `--merge` and five `--split`, each with
+a freshly fetched census index. None landed. The refusals cluster into three causes, and the
+first two are the same mechanism seen from opposite sides:
+
+- **Carried compiler flags (merges).** `reverse/flag_overrides.csv` holds 699 files, 652 keyed
+  "region default loses rows" and 46 "region default does not compile". A merge carries one
+  `// cl:` set, so a donor whose rows only match under different flags is rejected: "its flag
+  override '-O2 -G6' is not the carried ''", "loses 35 row(s) under the carried flag override
+  '-G7 -arch:SSE'". `Geometry.cpp` rejected all 21 donors this way with an empty carried set
+  against donors needing `-O2`, `-O2 -G6` and `-Ox -G6`. Only 187 of 17,324 sources under
+  `Code/` carry a `// cl:` line with an optimisation flag, so the overrides are the exception
+  that blocks the rule.
+- **The residual's flag-region vote (splits).** Three of five splits carved their rows cleanly
+  and were still refused with "the residual loses matched rows (flag region or a shared
+  helper)": removing rows re-votes the region for what stays behind. `MeshLoadContextCtor.cpp`
+  carved 2 rows and would have cost the residual 18.
+- **Donor-private class views.** `C2011`/`C2953` redefinition where a donor declares its own
+  view of a class the destination's headers define: `AsciiString` from
+  `reference/shims/bfme2_ascii`, donors' own `namespace _STL` vector/allocator, `GameSlot`,
+  `OVERRIDE`, `INI`, `MemoryPoolObject`, `NameKeyGenerator`.
+
+`SubsystemInterface` is the largest single instance of the third cause and worth its own
+pass: 8 of `System/Upgrade.cpp`'s 16 donors fail on it, 462 `reverse/header_queue.tsv` rows
+name a subsystem header, and nine headers in the tree declare the class. It is already
+registered canonical to `Code/Libraries/Source/subsystem/SubsystemInterface.h`, whose note
+records only 16 of 206 sampled units adopting, while 15 units include
+`reference/shims/subsystem_bfme2/subsystem_interface.h` instead. That is not an include swap:
+the shim also declares `SubsystemInterfaceList`, `SubsystemSlotBase`, `SubsystemSlot<T>` and
+`initSubsystem<T>`, it declares the fourteen virtual slots unconditionally where the canonical
+header guards them behind `BFME_SUBSYSTEM_SLOTS`, and its `setName` is inline where retail's
+is the out-of-line 0x0006F3CC. Each unit needs byte verification, and
+`header_adopt_lane.py adopt` cannot drive it, reporting "no private view found" because these
+units include a header rather than declaring a class.
+
+
 ## Consolidation verification checks
 
 During the audit before pushing, check the complete consolidation batch:
