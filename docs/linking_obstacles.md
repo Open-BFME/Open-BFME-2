@@ -11,14 +11,13 @@
   private view declares only the slots it calls, so `??_7Xfer@@6B@` has copies of 1 and 39 words, and
   COMDAT selection may keep either. A virtual call past the end of a kept copy jumps into whatever
   follows. Next step: confirm which copy the link keeps; the header lanes already remove these views.
-- **FieldParse: 4 tables are wrong, and INI data parsed through them lands in the wrong place.**
-  `ThingTemplate::s_objectFieldParseTable` is the BFME 1 table: retail opens `Hotkey`, `ReviveText`,
+- **FieldParse: `ThingTemplate::s_objectFieldParseTable` is still wrong**, so INI data parsed through
+  it lands in the wrong place. It is the BFME 1 table: retail opens `Hotkey`, `ReviveText`,
   `RecruitText`, `DisplayName`, ours `DisplayName`, `RadarPriority`, with 63 wrong pointers.
-  `ModuleFactory.cpp` takes the others from Zero Hour headers. `UnitCrateCollide` has a base 0x18 too
-  small (`UnitCount` 0x44 for 0x5C). `SalvageCrateCollide` is Zero Hour's table: retail's fields are
-  `PorterChance`, `BannerChance`, `LevelUpChance`, `LevelUpRadius`, `ResourceChance`, `Upgrade`.
-  `TransitionDamageFX` drifts by 4, then 8, because each damage mask is 4 bytes too big
-  (`DamageOCLTypes` 0x550 for 0x54C). Fix each from retail's table, with the BFME 2 layout, in its TU.
+  Cleared in `ModuleFactory.cpp`, which took three tables from Zero Hour headers: `UnitCrateCollide`
+  (3 entries), `SalvageCrateCollide` (10, retail's fields were absent) and `TransitionDamageFX` (121;
+  each mask spans 0x154 bytes, and it adds subobject lists at +0xFD4). Every token offset and user
+  word now equals retail's; confirm pointers on the next image report.
 - **Globals:** 3,194 agree, 18 differ, 34 are zero where retail is not, and no object defines 481 that
   retail gives a value. No strong data is defined twice; 24 addresses have several defined names.
 

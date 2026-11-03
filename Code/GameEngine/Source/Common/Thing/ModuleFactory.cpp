@@ -332,7 +332,167 @@ inline DamageModule::~DamageModule() { }
 
 // damage includes
 #include "GameLogic/Module/BoneFXDamage.h"
-#include "GameLogic/Module/TransitionDamageFX.h"
+// BFME 2's table, from retail's at 0x007F2A80: each mask spans 0x154 bytes, and it adds the subobject
+// lists at +0xFD4 that Zero Hour's has no fields for. Only this table reads the fields here.
+struct Bfme2DamageMask { char m_bytes[0x154]; };
+struct Bfme2DamageFXEntry { char m_bytes[0x1C]; };
+struct Bfme2SubObjectList { char m_bytes[0xC]; };
+
+class TransitionDamageFXModuleData : public DamageModuleData
+{
+public:
+	static void parseFXList( INI *ini, void *instance, void *store, const void *userData );
+	static void parseObjectCreationList( INI *ini, void *instance, void *store, const void *userData );
+	static void parseParticleSystem( INI *ini, void *instance, void *store, const void *userData );
+	static void NeighborIDSubobjectNameDataAppend( INI *ini, void *instance, void *store, const void *userData );
+
+	static void buildFieldParse(MultiIniFieldParse& p)
+	{
+		DamageModuleData::buildFieldParse(p);
+
+		static const FieldParse dataFieldParse[] =
+		{
+			{ "DamageFXTypes", INI::parseDamageTypeFlags, NULL, offsetof( TransitionDamageFXModuleData, m_damageFXTypes ) },
+			{ "DamageOCLTypes", INI::parseDamageTypeFlags, NULL, offsetof( TransitionDamageFXModuleData, m_damageOCLTypes ) },
+			{ "DamageParticleTypes", INI::parseDamageTypeFlags, NULL, offsetof( TransitionDamageFXModuleData, m_damageParticleTypes ) },
+			{ "DamagedFXList1", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][0] ) },
+			{ "DamagedFXList2", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][1] ) },
+			{ "DamagedFXList3", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][2] ) },
+			{ "DamagedFXList4", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][3] ) },
+			{ "DamagedFXList5", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][4] ) },
+			{ "DamagedFXList6", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][5] ) },
+			{ "DamagedFXList7", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][6] ) },
+			{ "DamagedFXList8", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][7] ) },
+			{ "DamagedFXList9", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][8] ) },
+			{ "DamagedFXList10", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][9] ) },
+			{ "DamagedFXList11", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][10] ) },
+			{ "DamagedFXList12", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[0][11] ) },
+			{ "ReallyDamagedFXList1", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][0] ) },
+			{ "ReallyDamagedFXList2", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][1] ) },
+			{ "ReallyDamagedFXList3", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][2] ) },
+			{ "ReallyDamagedFXList4", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][3] ) },
+			{ "ReallyDamagedFXList5", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][4] ) },
+			{ "ReallyDamagedFXList6", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][5] ) },
+			{ "ReallyDamagedFXList7", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][6] ) },
+			{ "ReallyDamagedFXList8", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][7] ) },
+			{ "ReallyDamagedFXList9", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][8] ) },
+			{ "ReallyDamagedFXList10", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][9] ) },
+			{ "ReallyDamagedFXList11", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][10] ) },
+			{ "ReallyDamagedFXList12", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[1][11] ) },
+			{ "RubbleFXList1", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][0] ) },
+			{ "RubbleFXList2", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][1] ) },
+			{ "RubbleFXList3", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][2] ) },
+			{ "RubbleFXList4", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][3] ) },
+			{ "RubbleFXList5", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][4] ) },
+			{ "RubbleFXList6", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][5] ) },
+			{ "RubbleFXList7", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][6] ) },
+			{ "RubbleFXList8", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][7] ) },
+			{ "RubbleFXList9", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][8] ) },
+			{ "RubbleFXList10", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][9] ) },
+			{ "RubbleFXList11", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][10] ) },
+			{ "RubbleFXList12", TransitionDamageFXModuleData::parseFXList, NULL, offsetof( TransitionDamageFXModuleData, m_fxList[2][11] ) },
+			{ "DamagedOCL1", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][0] ) },
+			{ "DamagedOCL2", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][1] ) },
+			{ "DamagedOCL3", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][2] ) },
+			{ "DamagedOCL4", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][3] ) },
+			{ "DamagedOCL5", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][4] ) },
+			{ "DamagedOCL6", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][5] ) },
+			{ "DamagedOCL7", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][6] ) },
+			{ "DamagedOCL8", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][7] ) },
+			{ "DamagedOCL9", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][8] ) },
+			{ "DamagedOCL10", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][9] ) },
+			{ "DamagedOCL11", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][10] ) },
+			{ "DamagedOCL12", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[0][11] ) },
+			{ "ReallyDamagedOCL1", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][0] ) },
+			{ "ReallyDamagedOCL2", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][1] ) },
+			{ "ReallyDamagedOCL3", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][2] ) },
+			{ "ReallyDamagedOCL4", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][3] ) },
+			{ "ReallyDamagedOCL5", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][4] ) },
+			{ "ReallyDamagedOCL6", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][5] ) },
+			{ "ReallyDamagedOCL7", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][6] ) },
+			{ "ReallyDamagedOCL8", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][7] ) },
+			{ "ReallyDamagedOCL9", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][8] ) },
+			{ "ReallyDamagedOCL10", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][9] ) },
+			{ "ReallyDamagedOCL11", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][10] ) },
+			{ "ReallyDamagedOCL12", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[1][11] ) },
+			{ "RubbleOCL1", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][0] ) },
+			{ "RubbleOCL2", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][1] ) },
+			{ "RubbleOCL3", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][2] ) },
+			{ "RubbleOCL4", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][3] ) },
+			{ "RubbleOCL5", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][4] ) },
+			{ "RubbleOCL6", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][5] ) },
+			{ "RubbleOCL7", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][6] ) },
+			{ "RubbleOCL8", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][7] ) },
+			{ "RubbleOCL9", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][8] ) },
+			{ "RubbleOCL10", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][9] ) },
+			{ "RubbleOCL11", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][10] ) },
+			{ "RubbleOCL12", TransitionDamageFXModuleData::parseObjectCreationList, NULL, offsetof( TransitionDamageFXModuleData, m_OCL[2][11] ) },
+			{ "DamagedParticleSystem1", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][0] ) },
+			{ "DamagedParticleSystem2", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][1] ) },
+			{ "DamagedParticleSystem3", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][2] ) },
+			{ "DamagedParticleSystem4", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][3] ) },
+			{ "DamagedParticleSystem5", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][4] ) },
+			{ "DamagedParticleSystem6", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][5] ) },
+			{ "DamagedParticleSystem7", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][6] ) },
+			{ "DamagedParticleSystem8", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][7] ) },
+			{ "DamagedParticleSystem9", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][8] ) },
+			{ "DamagedParticleSystem10", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][9] ) },
+			{ "DamagedParticleSystem11", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][10] ) },
+			{ "DamagedParticleSystem12", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[0][11] ) },
+			{ "ReallyDamagedParticleSystem1", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][0] ) },
+			{ "ReallyDamagedParticleSystem2", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][1] ) },
+			{ "ReallyDamagedParticleSystem3", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][2] ) },
+			{ "ReallyDamagedParticleSystem4", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][3] ) },
+			{ "ReallyDamagedParticleSystem5", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][4] ) },
+			{ "ReallyDamagedParticleSystem6", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][5] ) },
+			{ "ReallyDamagedParticleSystem7", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][6] ) },
+			{ "ReallyDamagedParticleSystem8", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][7] ) },
+			{ "ReallyDamagedParticleSystem9", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][8] ) },
+			{ "ReallyDamagedParticleSystem10", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][9] ) },
+			{ "ReallyDamagedParticleSystem11", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][10] ) },
+			{ "ReallyDamagedParticleSystem12", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[1][11] ) },
+			{ "RubbleParticleSystem1", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][0] ) },
+			{ "RubbleParticleSystem2", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][1] ) },
+			{ "RubbleParticleSystem3", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][2] ) },
+			{ "RubbleParticleSystem4", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][3] ) },
+			{ "RubbleParticleSystem5", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][4] ) },
+			{ "RubbleParticleSystem6", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][5] ) },
+			{ "RubbleParticleSystem7", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][6] ) },
+			{ "RubbleParticleSystem8", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][7] ) },
+			{ "RubbleParticleSystem9", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][8] ) },
+			{ "RubbleParticleSystem10", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][9] ) },
+			{ "RubbleParticleSystem11", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][10] ) },
+			{ "RubbleParticleSystem12", TransitionDamageFXModuleData::parseParticleSystem, NULL, offsetof( TransitionDamageFXModuleData, m_particleSystem[2][11] ) },
+			{ "RubbleNeighbor", TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend, NULL, offsetof( TransitionDamageFXModuleData, m_rubbleNeighbors ) },
+			{ "PristineShowSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_pristineShow ) },
+			{ "PristineHideSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_pristineHide ) },
+			{ "DamagedShowSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_damagedShow ) },
+			{ "DamagedHideSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_damagedHide ) },
+			{ "ReallyDamagedShowSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_reallyDamagedShow ) },
+			{ "ReallyDamagedHideSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_reallyDamagedHide ) },
+			{ "RubbleShowSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_rubbleShow ) },
+			{ "RubbleHideSubObject", INI::parseAsciiStringVectorAppend, NULL, offsetof( TransitionDamageFXModuleData, m_rubbleHide ) },
+			{ 0, 0, 0, 0 }
+		};
+		p.add(dataFieldParse);
+	}
+
+	Bfme2DamageMask m_damageFXTypes;
+	Bfme2DamageFXEntry m_fxList[3][12];
+	Bfme2DamageMask m_damageOCLTypes;
+	Bfme2DamageFXEntry m_OCL[3][12];
+	Bfme2DamageMask m_damageParticleTypes;
+	Bfme2DamageFXEntry m_particleSystem[3][12];
+	Bfme2SubObjectList m_pristineHide;
+	Bfme2SubObjectList m_damagedHide;
+	Bfme2SubObjectList m_reallyDamagedHide;
+	Bfme2SubObjectList m_rubbleHide;
+	Bfme2SubObjectList m_pristineShow;
+	Bfme2SubObjectList m_damagedShow;
+	Bfme2SubObjectList m_reallyDamagedShow;
+	Bfme2SubObjectList m_rubbleShow;
+	Bfme2SubObjectList m_rubbleNeighbors;
+};
 
 // collide includes
 #include "GameLogic/Module/FireWeaponCollide.h"
@@ -350,10 +510,69 @@ inline DamageModule::~DamageModule() { }
 #include "GameLogic/Module/SabotageSuperweaponCrateCollide.h"
 #include "GameLogic/Module/SabotageSupplyCenterCrateCollide.h"
 #include "GameLogic/Module/SabotageSupplyDropzoneCrateCollide.h"
-#include "GameLogic/Module/SalvageCrateCollide.h"
 #include "GameLogic/Module/ShroudCrateCollide.h"
-#include "GameLogic/Module/UnitCrateCollide.h"
 #include "GameLogic/Module/VeterancyCrateCollide.h"
+
+// BFME 2's crate data, from retail's field tables at 0x007EFAF4 and 0x007EFC28. Its base runs to
+// +0x5C, past Zero Hour's; only these tables read the fields here.
+class Bfme2CrateCollideModuleData : public CrateCollideModuleData
+{
+	char m_bfme2Fields[0x5C - sizeof(CrateCollideModuleData)];
+};
+
+class UnitCrateCollideModuleData : public Bfme2CrateCollideModuleData
+{
+public:
+	UnsignedInt m_unitCount;
+	AsciiString m_unitType;
+
+	static void buildFieldParse(MultiIniFieldParse& p)
+	{
+		CrateCollideModuleData::buildFieldParse(p);
+
+		static const FieldParse dataFieldParse[] =
+		{
+			{ "UnitCount",	INI::parseUnsignedInt,	NULL, offsetof( UnitCrateCollideModuleData, m_unitCount ) },
+			{ "UnitName",		INI::parseAsciiString,	NULL, offsetof( UnitCrateCollideModuleData, m_unitType ) },
+			{ 0, 0, 0, 0 }
+		};
+		p.add(dataFieldParse);
+	}
+};
+
+class SalvageCrateCollideModuleData : public Bfme2CrateCollideModuleData
+{
+public:
+	Real m_porterChance;
+	Real m_bannerChance;
+	Real m_levelUpChance;
+	Real m_levelUpRadius;
+	Real m_resourceChance;
+	Int m_minResource;
+	Int m_maxResource;
+	AsciiString m_upgrade;
+	Bool m_allowAIPickup;
+
+	static void buildFieldParse(MultiIniFieldParse& p)
+	{
+		CrateCollideModuleData::buildFieldParse(p);
+
+		static const FieldParse dataFieldParse[] =
+		{
+			{ "PorterChance",		INI::parsePercentToReal,	NULL, offsetof( SalvageCrateCollideModuleData, m_porterChance ) },
+			{ "BannerChance",		INI::parsePercentToReal,	NULL, offsetof( SalvageCrateCollideModuleData, m_bannerChance ) },
+			{ "LevelUpChance",	INI::parsePercentToReal,	NULL, offsetof( SalvageCrateCollideModuleData, m_levelUpChance ) },
+			{ "LevelUpRadius",	INI::parsePercentToReal,	NULL, offsetof( SalvageCrateCollideModuleData, m_levelUpRadius ) },
+			{ "ResourceChance",	INI::parsePercentToReal,	NULL, offsetof( SalvageCrateCollideModuleData, m_resourceChance ) },
+			{ "Upgrade",				INI::parseAsciiString,		NULL, offsetof( SalvageCrateCollideModuleData, m_upgrade ) },
+			{ "MinResource",		INI::parseInt,						NULL, offsetof( SalvageCrateCollideModuleData, m_minResource ) },
+			{ "MaxResource",		INI::parseInt,						NULL, offsetof( SalvageCrateCollideModuleData, m_maxResource ) },
+			{ "AllowAIPickup",	INI::parseBool,						NULL, offsetof( SalvageCrateCollideModuleData, m_allowAIPickup ) },
+			{ 0, 0, 0, 0 }
+		};
+		p.add(dataFieldParse);
+	}
+};
 
 // body includes
 #include "GameLogic/Module/InactiveBody.h"
