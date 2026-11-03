@@ -1,19 +1,14 @@
 // cl: /DNDEBUG /MD
+// platformsdk
 // Retail RVA 0x00629F20 is data in .text, not a C++ function.
 // Reconstructed from all 256 retail records; SDK dinput.h supplies the
 // DIOBJECTDATAFORMAT field contract and GUID_Key identity. This table's
 // source-level name is inferred, not an original symbol recovered from debug data.
 // See reverse/attempt_support/directinput-keyboard-format-20261023.md.
 
+#include <guiddef.h>
 #include "DirectInputKeyboardFormat.h"
 
-struct GUID
-{
-    unsigned long Data1;
-    unsigned short Data2;
-    unsigned short Data3;
-    unsigned char Data4[8];
-};
 
 extern "C" const GUID GUID_Key = {
     0x55728220UL, 0xD33C, 0x11CF,

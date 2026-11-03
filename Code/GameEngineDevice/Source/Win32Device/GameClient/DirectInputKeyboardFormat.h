@@ -2,7 +2,9 @@
 
 // DirectInput 8 SDK record layout. The keyboard table is immutable in retail;
 // retain a const pointer in this read-only view of DIDATAFORMAT.
-struct GUID;
+// SDK GUID is a typedef of _GUID; share its tag with windows.h consumers.
+struct _GUID;
+typedef _GUID GUID;
 
 struct DIOBJECTDATAFORMAT
 {
