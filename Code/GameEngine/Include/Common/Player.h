@@ -4,14 +4,10 @@
 // is 0x758. Primary slots 4..7 are the matched AI delegates.
 // Named members carry the retail store or access that places them; the
 // rest of the storage stays opaque and no donor layout is imported.
-// Mixing Snapshot spelling variants would introduce extra primary slots.
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error Player requires the Snapshot name-slot surface before first inclusion
-#endif
-#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
-#error Player requires Snapshot loadPostProcess, const GetSnapshotName, xfer slots
-#endif
+// Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
+#endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../Source/Common/Rva00380200.h"
 class AsciiString;
@@ -66,9 +62,29 @@ class Player : public Snapshot, public Rva002B0F3CIface, public Rva00380200 {
 public:
  Player(int);
  virtual ~Player();
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+ virtual void LoadPostProcess();
+#else
  virtual void loadPostProcess();
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+ virtual const char *GetSnapshotName();
+#else
  virtual const char *GetSnapshotName() const;
+#endif
+#else
+ virtual void crc(Xfer *);
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+ virtual void DoXfer(Xfer &);
+#else
+ virtual void DoXfer(Xfer *);
+#endif
+#else
  virtual void xfer(Xfer *);
+#endif
  virtual void computeSuperweaponTarget(const SpecialPowerTemplate *, Coord3D *, int, float);
  virtual bool checkBridges(Object *, Waypoint *);
  virtual bool getAiBaseCenter(Coord3D *);
