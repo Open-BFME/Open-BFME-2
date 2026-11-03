@@ -9,30 +9,8 @@
 // [esi+0x44]; callee ?bfmeUnlink@MixFileInfoBuffer@@AAEXXZ proves the walked
 // type is MixFileInfoBuffer, and ?ReleaseInfo@PathfindCell@@QAEXXZ is rowed.
 
-struct WalkNode;
-
 #include "../../Include/GameLogic/PathfindCell.h"
-
-class MixFileInfoBuffer
-{
-private:
-	void bfmeUnlink();
-public:
-	void releaseInto(void *pool);
-	friend int PathfindCell::ReleaseClosedList(MixFileInfoBuffer *head);
-	char m_head[0x34];
-	MixFileInfoBuffer *m_next;
-	MixFileInfoBuffer **m_prevNext;
-};
-
-struct WalkNode
-{
-	unsigned char m_pad[0x2c];
-	unsigned int m_flags2c;
-	PathfindCell *m_state;
-	WalkNode *m_next;
-	WalkNode **m_prevNext;
-};
+#include "../../Include/Common/MixFileInfoBuffer.h"
 
 // WorldBuilder PathfindCell::ReleaseClosedList, WB VA 0x012D7F30 (callgraph lead, score 1.0).
 int PathfindCell::ReleaseClosedList(MixFileInfoBuffer *head)
@@ -40,15 +18,15 @@ int PathfindCell::ReleaseClosedList(MixFileInfoBuffer *head)
 	if (head == 0)
 		return 0;
 	int count = 0;
-	WalkNode *next = (WalkNode *)head;
+	MixFileInfoBuffer *next = head;
 	do
 	{
-		WalkNode *cur = next;
-		next = next->m_next;
+		MixFileInfoBuffer *cur = next;
+		next = next->field34;
 		++count;
-		((MixFileInfoBuffer *)cur)->bfmeUnlink();
-		PathfindCell *state = cur->m_state;
-		cur->m_flags2c &= ~0x10u;
+		cur->bfmeUnlink();
+		PathfindCell *state = cur->field30;
+		cur->m_flags &= ~0x10u;
 		if (state != 0)
 			state->ReleaseInfo();
 	} while (next != 0);
