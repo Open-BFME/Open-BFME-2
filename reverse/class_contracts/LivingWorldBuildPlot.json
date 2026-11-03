@@ -1,0 +1,460 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldBuildPlot",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x38": 1
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4fc807"
+     ],
+     "value": {
+      "0x8": [
+       "Rva003197EEList",
+       "Rva00330757Member"
+      ]
+     }
+    },
+    "bases_unproven": {
+     "kind": "inference",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4fc807"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0020E346",
+       "offset": 4,
+       "own_vftable": "0x863528",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4fc807"
+     ],
+     "value": 54
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4fc807"
+     ],
+     "value": {
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       1
+      ],
+      "0x35": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4fc807"
+     ],
+     "value": {
+      "0x0": [
+       "?CreateIcon@LivingWorldBuildPlot@@QAEXABVAsciiString@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4fc807"
+     ],
+     "value": {
+      "0x0": "0x863530",
+      "0x4": "0x863528"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x863530"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GLivingWorldBuildPlot@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4fc563"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva004FC55DNamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4fc55d"
+       },
+       {
+        "name": "?DoXfer@LivingWorldBuildPlot@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4fc57f"
+       }
+      ],
+      "table": "0x863530"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x863528": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x863530": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GLivingWorldBuildPlot@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva004FC55DNamed@@QBEPBDXZ",
+     "3": "?DoXfer@LivingWorldBuildPlot@@UAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "4": 1,
+   "40": 1,
+   "56": 5
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_start",
+   "name_by": "tie",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_finish",
+   "name_by": "tie",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_end_of_storage._M_data",
+   "name_by": "tie",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_index",
+   "name_by": "tie",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_region",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "LivingWorldRegion*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva00575674",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_building",
+     "offset": 0,
+     "size": 4,
+     "type": "LivingWorldBuilding*"
+    }
+   ],
+   "name": "m_building",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva00575674",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva00575674",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_icon",
+     "offset": 0,
+     "size": 4,
+     "type": "LivingWorldBuildPlotIcon*"
+    }
+   ],
+   "name": "m_icon",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva00575674",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord2D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_position",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 8,
+   "type": "Coord2D",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_buildFrames",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_hidden",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_unrecovered35",
+   "name_by": "majority",
+   "offset": 53,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3,
+  "struct": 2
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "_M_start": 1,
+    "field00": 1,
+    "m_begin": 1
+   },
+   "class": "LivingWorldBuildPlot"
+  },
+  {
+   "attribute": "name@0xc",
+   "candidates": {
+    "_M_finish": 1,
+    "field04": 1,
+    "m_end": 1
+   },
+   "class": "LivingWorldBuildPlot"
+  },
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "_M_end_of_storage._M_data": 1,
+    "field08": 1,
+    "m_capacity": 1
+   },
+   "class": "LivingWorldBuildPlot"
+  },
+  {
+   "attribute": "name@0x14",
+   "candidates": {
+    "field0C": 1,
+    "m_index": 1
+   },
+   "class": "LivingWorldBuildPlot"
+  },
+  {
+   "attribute": "name@0x20",
+   "candidates": {
+    "m_20.m_ptr": 1,
+    "m_building": 2,
+    "m_building.m_building": 1,
+    "m_building.m_icon": 2
+   },
+   "class": "LivingWorldBuildPlot"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "_M_end_of_storage._M_data": 3
+   },
+   "class": "LivingWorldBuildPlot"
+  }
+ ],
+ "size": 56,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

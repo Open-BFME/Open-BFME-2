@@ -551,3 +551,4 @@ AnimalAIUpdate,Code/GameEngine/Include/GameLogic/Module/AnimalAIUpdate.h,existin
 NetGameCommandMsg,Code/GameEngine/Include/GameNetwork/NetGameCommandMsg.h,existing header; contract class_contracts/NetGameCommandMsg.json; 3/9 sampled units adopt
 CashHackSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/CashHackSpecialPowerModuleData.h,existing header; contract class_contracts/CashHackSpecialPowerModuleData.json; 4/11 sampled units adopt
 GameSpyLoginPreferences,Code/GameEngine/Include/GameClient/GameSpyLoginPreferences.h,existing header; contract class_contracts/GameSpyLoginPreferences.json; 2/8 sampled units adopt
+LivingWorldBuildPlot,Code/GameEngine/Include/GameLogic/LivingWorldBuildPlot.h,existing header; contract class_contracts/LivingWorldBuildPlot.json; 1/8 sampled units adopt
