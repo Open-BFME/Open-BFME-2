@@ -19,14 +19,7 @@ private:
 	unsigned int unknown04;
 };
 
-class __declspec(novtable) Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-private:
-	unsigned char opaque[0x54];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 struct Float2
 {

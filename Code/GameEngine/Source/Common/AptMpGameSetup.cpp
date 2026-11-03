@@ -28,10 +28,7 @@ class Rva0043F103 {public: TargetRef00217D4C *rva0043F103(int);};
 
 class MpGameSetupOwner;
 
-class __declspec(novtable) Rva005248D0 {
-public: Rva005248D0(); virtual ~Rva005248D0();
-private:unsigned char pad[0x54];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 struct SetupGameRef {
  TargetRef00217D4C* pointer;

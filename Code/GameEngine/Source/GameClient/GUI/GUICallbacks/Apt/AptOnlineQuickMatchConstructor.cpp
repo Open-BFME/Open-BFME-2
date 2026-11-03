@@ -30,12 +30,7 @@ class GameWindow;
 class Image;
 
 class AptOnline;
-class Rva005248D0 {
-public:
-    virtual ~Rva005248D0();
-private:
-    unsigned char unknown04[0x58-4];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 class Rva0056DC4C:public Rva005248D0 {
 public:
     Rva0056DC4C(void*);

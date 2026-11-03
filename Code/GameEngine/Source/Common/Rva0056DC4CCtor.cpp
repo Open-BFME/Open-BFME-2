@@ -4,11 +4,7 @@
 // Constructor: run matched 0x002D2C34 base, set +0x58 to the argument,
 // clear +0x5C via AND-zero, install 0x00C6DB78 at +0. Sibling of the
 // rowed 0x0056AF94 tiny ctor. Honest address-derived name.
-class Rva005248D0
-{
-public:
-	Rva005248D0();
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 // The retail table at RVA 0x0086DB78: 10 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

@@ -45,11 +45,7 @@ struct EmitVtableTag;
 // does not assert which portion belongs to the original base. Full owner
 // size, original name and unused fields remain unknown.
 #include "../../Include/GameClient/Bfme2GameWindow.h"
-class Rva005248D0 {
-public: Rva005248D0(); // Use the full registry constructor at 0x002D2C34.
- virtual ~Rva005248D0();
-private: unsigned char unknown[0x58-4];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 #include "ascii_string.h"
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
 public: virtual ~_bfme_AptGameWindow();

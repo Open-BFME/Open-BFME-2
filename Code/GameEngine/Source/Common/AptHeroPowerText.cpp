@@ -402,11 +402,7 @@ public:
 // transfer popup's destructor. It closes the popup through the rowed invoke
 // (owner 13, FileTransferPopUpClose, no arguments), clears the instance
 // global at VA 0x00E06398, then the rowed base destructor 0x005248D0 runs.
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class Rva00582FC1 : public Rva005248D0
 {

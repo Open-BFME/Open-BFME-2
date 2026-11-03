@@ -4,14 +4,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class __declspec(novtable) Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-private:
-	char m_pad[0x58 - 4];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class GameSpyLoginPreferences
 {

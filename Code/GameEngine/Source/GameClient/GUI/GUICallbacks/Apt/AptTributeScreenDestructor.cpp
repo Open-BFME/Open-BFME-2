@@ -72,13 +72,7 @@ _Rb_tree_base<TreeHintPair0051030C, allocator<TreeHintPair0051030C> >::_Rb_tree_
 
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-private:
-	unsigned char m_pad004[0x58 - 4];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {

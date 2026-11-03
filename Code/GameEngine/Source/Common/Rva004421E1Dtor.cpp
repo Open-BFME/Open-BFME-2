@@ -12,13 +12,7 @@ extern int g_Va00E0333C;
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-private:
-	char m_pad[0x58 - 4];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class Rva0057E3DB
 {

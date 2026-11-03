@@ -21,10 +21,7 @@ public:
  virtual __forceinline ~Rva0074104CBase() {*(const void**)this=__identifier("??_7Rva0045EF90Base@@6B@");}
 private: unsigned int unknown04;
 };
-class __declspec(novtable) Rva005248D0 {
-public: Rva005248D0(); virtual ~Rva005248D0();
-private: unsigned char opaque[0x54];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 // The canonical frozen StringBase replaces the private copy; the switches make
 // its default ctor and dtor reachable and declare the narrow dtor out of line.
 #define BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR

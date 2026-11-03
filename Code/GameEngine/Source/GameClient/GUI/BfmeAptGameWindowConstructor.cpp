@@ -13,11 +13,7 @@ private:
 	char m_pad[0x218 - 4];
 };
 
-class Rva005248D0
-{
-public:
-	Rva005248D0();
-};
+#include "../../../Include/GameClient/Rva005248D0.h"
 
 extern "C" const void *const __identifier("??_7_bfme_AptGameWindow@@6BGameWindow@@@")[];
 extern "C" const void *const __identifier("??_7_bfme_AptGameWindow@@6BRva005248D0@@@")[];

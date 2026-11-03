@@ -4,11 +4,7 @@
 // Store vtable 0x0086DB78 then tail-jmp base dtor ??1Rva005248D0@@UAE@XZ.
 // Evidence: pin base dtor; vtable store plus jmp; callers include Unwind
 // funclets; prev ConstIntGetters TU flags.
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class Rva0056DC6B : public Rva005248D0
 {

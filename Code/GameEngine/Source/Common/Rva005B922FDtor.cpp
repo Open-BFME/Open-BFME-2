@@ -32,14 +32,7 @@ extern int g_Va00E06480;
 const char * g_00DD3BC0 = "OnlineHome/Gadgets/Image";	// retail RVA 0x009D3BC0 (.data), defined here
 const char * g_00DD3BC4 = "OnlineHome/Gadgets/ImageLevelIconMain";	// retail RVA 0x009D3BC4 (.data), defined here
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-private:
-	char m_pad[0x58 - 4];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class Rva0056DC6B : public Rva005248D0
 {
