@@ -12538,7 +12538,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBe
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	0DumbProjectileBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	0DumbProjectileBehaviorModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	update@DumbProjectileBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp	FlightDeckBehavior::~FlightDeckBehavior	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	1InstantDeathBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	crc@InstantDeathBehavior@@	1
