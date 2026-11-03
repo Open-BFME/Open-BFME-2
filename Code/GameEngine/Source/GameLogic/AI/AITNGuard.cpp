@@ -278,11 +278,7 @@ class GateOpenAndCloseBehavior
 protected:
 	virtual void xfer(Xfer *a);
 };
-class Rva00493009
-{
-protected:
-	virtual void xfer(Xfer *a);
-};
+#include "../../../Include/GameLogic/Rva00493009.h"
 #include "../../../Include/GameLogic/Module/Rva00507823.h"
 class _bfme_AptGameWindow
 {
