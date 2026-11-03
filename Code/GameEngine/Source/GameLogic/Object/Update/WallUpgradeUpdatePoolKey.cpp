@@ -18,11 +18,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WallUpgradeUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 
 // ?getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ
 NameKeyType WallUpgradeUpdate::getModuleNameKey() const

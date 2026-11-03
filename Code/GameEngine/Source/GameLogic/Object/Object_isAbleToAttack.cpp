@@ -59,7 +59,7 @@ class Weapon;
 class AI {public:char pad[0x10];Pathfinder *pathfinder;};
 extern AI *TheAI;
 class Module;
-class WallUpgradeUpdate {public:static Module *rva004AB1F5(Object *);};
+#include "../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 class WallAttackPredicate {public:virtual bool slot0();};
 struct WallAttackView {char pad[0x24];WallAttackPredicate predicate;};
 class ContainedAttackObjectView {public:

@@ -117,19 +117,7 @@ public:
     bool rva004AB4AB() const;
 };
 
-class WallUpgradeUpdate : public UpdateModule, public Rva004AB3EBIface, public Rva004AB3AEIface
-{
-public:
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
-	virtual bool rva004AB3AE();
-	virtual UpdateSleepTime update();
-	void scanForBuildingAndPossess();
-private:
-	int m_28;
-	int m_2C; // +0x2C
-	bool m_30;
-	bool m_31;
-};
+#include "../../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 
 // ?rva004AB3AE@WallUpgradeUpdate@@UAE_NXZ @0x004AB3AE
 bool WallUpgradeUpdate::rva004AB3AE()

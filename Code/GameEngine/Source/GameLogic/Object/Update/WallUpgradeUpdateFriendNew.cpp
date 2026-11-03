@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class WallUpgradeUpdate
-{
-public:
-	WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x34];
-};
+#include "../../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 
 // ?friend_newModuleInstance@WallUpgradeUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *WallUpgradeUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

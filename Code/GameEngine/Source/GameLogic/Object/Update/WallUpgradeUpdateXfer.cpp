@@ -52,20 +52,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 class WallUpgradeTrailing1 { public: virtual void trailingSlot1(); };
 class WallUpgradeTrailing2 { public: virtual void trailingSlot2(); };
 
-class WallUpgradeUpdate : public UpdateModule, public WallUpgradeTrailing1, public WallUpgradeTrailing2
-{
-public:
-	WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	ObjectID m_28;
-	int m_2C;
-	bool m_30;
-	bool m_31;
-};
+#include "../../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 
 void WallUpgradeUpdate::xfer(Xfer *xfer)
 {
