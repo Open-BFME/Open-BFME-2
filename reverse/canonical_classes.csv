@@ -613,3 +613,4 @@ TerrainType,Code/GameEngine/Include/Common/TerrainType.h,existing header; contra
 TransportContainModuleData,Code/GameEngine/Include/GameLogic/Module/TransportContainModuleData.h,existing header; contract class_contracts/TransportContainModuleData.json; 9/17 sampled units adopt
 AttributeModifierStore,Code/GameEngine/Include/GameLogic/AttributeModifierStore.h,existing header; contract class_contracts/AttributeModifierStore.json; 9/11 sampled units adopt
 ResourceEntryCollector,Code/GameEngine/Include/GameClient/ResourceEntryCollector.h,existing header; contract class_contracts/ResourceEntryCollector.json; 8/10 sampled units adopt
+AITarget,Code/GameEngine/Include/GameLogic/AITarget.h,existing header; contract class_contracts/AITarget.json; 7/9 sampled units adopt
