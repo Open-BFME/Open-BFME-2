@@ -53,16 +53,7 @@ public:
 	virtual void rva004B15E6() = 0;
 };
 
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-	Rva002EE9B7();
-private:
-	void *m_header; // +0x00
-	int m_flag; // +0x04
-	int m_compare; // +0x08
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 struct EmotionTrackerVecHolder
 {

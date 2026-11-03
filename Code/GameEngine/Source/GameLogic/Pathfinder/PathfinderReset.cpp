@@ -16,14 +16,7 @@ class PathfindCell;
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 struct _Rva002EADB4Node;
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-private:
-	_Rva002EADB4Node *m_head; // +0x00
-	int m_flag; // +0x04
-};
+#include "../../../Include/GameLogic/Rva002EE9B7.h"
 
 #include <new>
 

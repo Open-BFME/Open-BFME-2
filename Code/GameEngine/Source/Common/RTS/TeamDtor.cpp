@@ -115,17 +115,7 @@ struct Rva002EE9B7Node
 	int m_value;
 };
 
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-	bool empty() const { return m_nodeCount == 0; }
-	const int &front() const { return m_header->m_left->m_value; }
-private:
-	Rva002EE9B7Node *m_header;
-	unsigned int m_nodeCount;
-	int m_compare;
-};
+#include "../../../Include/GameLogic/Rva002EE9B7.h"
 
 class TeamPrototype
 {

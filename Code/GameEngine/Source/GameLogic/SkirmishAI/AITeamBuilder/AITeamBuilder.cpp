@@ -448,12 +448,7 @@ public:
 	bool m_04;
 };
 
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-	char m_data[25];
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 class Rva0059A85C : public Rva00506B1B
 {

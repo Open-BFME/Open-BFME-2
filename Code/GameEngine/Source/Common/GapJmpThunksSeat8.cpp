@@ -275,11 +275,7 @@ public:
 	~GameTextTable();
 };
 
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-};
+#include "../../Include/GameLogic/Rva002EE9B7.h"
 
 class Out
 {

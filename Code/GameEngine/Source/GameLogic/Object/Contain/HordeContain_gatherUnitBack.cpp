@@ -25,13 +25,7 @@ public:
 	unsigned char m_284[4]; // +0x284
 };
 
-class Rva002EE9B7
-{
-public:
-	unsigned int rva0046EDEF(const int &key);
-private:
-	unsigned char m_tree[0x0C];
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 struct Iface00
 {

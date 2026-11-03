@@ -16,13 +16,7 @@ public:
 	void rva00397E50();
 };
 
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-private:
-	char m_pad[12];
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 class Rva00395CEB
 {

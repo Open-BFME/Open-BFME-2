@@ -7,11 +7,7 @@ public:
 private:
 	char m_pad24[0x24];
 };
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-};
+#include "../../Include/GameLogic/Rva002EE9B7.h"
 class Rva005D791C : public Rva005EE30C
 {
 public:

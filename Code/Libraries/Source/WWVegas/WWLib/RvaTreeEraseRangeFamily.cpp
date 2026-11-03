@@ -122,13 +122,7 @@ unsigned int Rva00388EAE::rva00389913(const int &key)
 	return count;
 }
 
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-	void rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva0046EDEF(const int &key);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002EE9B7.h"
 
 // 0x0046A967 68B: erase(first, last) over rva002EE9B7
 void Rva002EE9B7::rva0046A967(IntPtrTree::iterator first, IntPtrTree::iterator last)

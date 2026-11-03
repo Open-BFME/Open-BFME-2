@@ -117,16 +117,7 @@ public:
 
 // The ObjectID set at +0xA4; its ctor is the 25-byte STLport set ctor
 // 0x000D3A71, its dtor the one the rowed dtor runs.
-class Rva002EE9B7
-{
-public:
-	~Rva002EE9B7();
-	Rva002EE9B7();
-private:
-	void *m_header; // +0x00
-	int m_flag; // +0x04
-	int m_compare; // +0x08
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase
 {

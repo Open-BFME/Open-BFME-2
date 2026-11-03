@@ -672,12 +672,7 @@ struct Rva00462D35Mapped
 // equal_range (0x002F1C89) and the erase-range body 0x0046A967 (rowed as
 // Rva002EE9B7::rva0046A967 in RvaTreeEraseRangeFamily.cpp). Spelled that way,
 // this unit's copy carries retail's callees.
-class Rva002EE9B7
-{
-public:
-	void rva0046A967(_STL::_Rb_tree<int, _STL::pair<const int, void *>, _STL::_Select1st<_STL::pair<const int, void *> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > >::iterator first,
-		_STL::_Rb_tree<int, _STL::pair<const int, void *>, _STL::_Select1st<_STL::pair<const int, void *> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > >::iterator last);
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 namespace _STL {
 template <> inline _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> >::size_type
 _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> >::erase(const int &x)
