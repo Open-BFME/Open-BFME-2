@@ -777,7 +777,8 @@ def sample_eips(k, hthread, n=8):
     for _ in range(n):
         ctx = WOW64_CONTEXT()
         ctx.flags = 0x10001
-        k.Wow64SuspendThread(wt.HANDLE(hthread))
+        # Wine 9 has no Wow64SuspendThread; SuspendThread stops a 32-bit thread the same way here.
+        getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread))
         if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)):
             out.append(ctx.eip)
         k.ResumeThread(wt.HANDLE(hthread))
