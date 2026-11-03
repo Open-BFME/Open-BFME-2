@@ -1,0 +1,296 @@
+{
+ "bases": [
+  "File"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "RAMFile",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 17,
+   "inherited_spans": [
+    [
+     0,
+     20
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x20": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x6054e7"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "File",
+       "offset": 0,
+       "own_vftable": "0x87aa00",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6054e7"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x6054e7"
+     ],
+     "value": {
+      "0x0": "0x87aa00"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x87aa00"
+     ],
+     "value": {
+      "count": 20,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRAMFile@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x6056a1"
+       },
+       {
+        "name": "?open@RAMFile@@UAE_NPBDH@Z",
+        "slot": 1,
+        "target": "0x6056bd"
+       },
+       {
+        "name": "?close@RAMFile@@UAEXXZ",
+        "slot": 2,
+        "target": "0x605547"
+       },
+       {
+        "name": "?read@RAMFile@@UAEHPAXH@Z",
+        "slot": 3,
+        "target": "0x605564"
+       },
+       {
+        "name": "?write@RAMFile@@UAEHPBXH@Z",
+        "slot": 4,
+        "target": "0x574473"
+       },
+       {
+        "name": "?seek@RAMFile@@UAEHHW4seekMode@File@@@Z",
+        "slot": 5,
+        "target": "0x6055aa"
+       },
+       {
+        "name": "?nextLine@RAMFile@@UAEXPADH@Z",
+        "slot": 6,
+        "target": "0x6055e7"
+       },
+       {
+        "name": "?scanInt@RAMFile@@UAE_NAAH@Z",
+        "slot": 7,
+        "target": "0x60580c"
+       },
+       {
+        "name": "?scanReal@RAMFile@@UAE_NAAM@Z",
+        "slot": 8,
+        "target": "0x6058cd"
+       },
+       {
+        "name": "?scanString@RAMFile@@UAE_NAAVAsciiString@@@Z",
+        "slot": 9,
+        "target": "0x6056fa"
+       },
+       {
+        "name": "?print@File@@UAA_NPBDZZ",
+        "slot": 10,
+        "target": "0x602451"
+       },
+       {
+        "name": "?size@File@@UAEHXZ",
+        "slot": 11,
+        "target": "0x602412"
+       },
+       {
+        "name": "?position@File@@UAEHXZ",
+        "slot": 12,
+        "target": "0x602447"
+       },
+       {
+        "name": "?readEntireAndClose@RAMFile@@UAEPADXZ",
+        "slot": 13,
+        "target": "0x605682"
+       },
+       {
+        "name": "??0RealRange@@QAE@XZ",
+        "slot": 14,
+        "target": "0x47a6a9"
+       },
+       {
+        "name": "?lock@File@@UAEXXZ",
+        "slot": 15,
+        "target": "0x6024ca"
+       },
+       {
+        "name": "?unlock@File@@UAEXXZ",
+        "slot": 16,
+        "target": "0x6024ee"
+       },
+       {
+        "name": "?open@RAMFile@@UAE_NPAVFile@@@Z",
+        "slot": 17,
+        "target": "0x6059b5"
+       },
+       {
+        "name": "?openFromArchive@RAMFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z",
+        "slot": 18,
+        "target": "0x60577a"
+       },
+       {
+        "name": "?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z",
+        "slot": 19,
+        "target": "0x60565e"
+       }
+      ],
+      "table": "0x87aa00"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x87aa00": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRAMFile@@UAEPAXI@Z",
+     "1": "?open@RAMFile@@UAE_NPBDH@Z",
+     "2": "?close@RAMFile@@UAEXXZ",
+     "3": "?read@RAMFile@@UAEHPAXH@Z",
+     "4": "?write@RAMFile@@UAEHPBXH@Z",
+     "5": "?seek@RAMFile@@UAEHHW4seekMode@File@@@Z",
+     "6": "?nextLine@RAMFile@@UAEXPADH@Z",
+     "7": "?scanInt@RAMFile@@UAE_NAAH@Z",
+     "8": "?scanReal@RAMFile@@UAE_NAAM@Z",
+     "9": "?scanString@RAMFile@@UAE_NAAVAsciiString@@@Z",
+     "10": "?print@File@@UAA_NPBDZZ",
+     "11": "?size@File@@UAEHXZ",
+     "12": "?position@File@@UAEHXZ",
+     "13": "?readEntireAndClose@RAMFile@@UAEPADXZ",
+     "14": "??0RealRange@@QAE@XZ",
+     "15": "?lock@File@@UAEXXZ",
+     "16": "?unlock@File@@UAEXXZ",
+     "17": "?open@RAMFile@@UAE_NPAVFile@@@Z",
+     "18": "?openFromArchive@RAMFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z",
+     "19": "?copyDataToFile@RAMFile@@UAE_NPAVFile@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "4": 4,
+   "20": 1,
+   "32": 4
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/RAMFile.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LocalFile.cpp",
+    "Code/GameEngine/Source/Common/System/LocalFile_Unresolved.cpp",
+    "Code/GameEngine/Source/Common/System/RAMFile.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "4": 4,
+    "20": 1,
+    "32": 4
+   },
+   "class": "RAMFile"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "open(File*)": 1,
+    "reserved17()": 1
+   },
+   "class": "RAMFile"
+  }
+ ],
+ "size": 0,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "18": {
+   "decided_by": "zh",
+   "member": "copyDataToFile(File*)"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "copyDataToFile(File*)"
+  }
+ }
+}
