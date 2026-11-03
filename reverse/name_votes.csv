@@ -23549,3 +23549,8 @@ Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp|class||Rva004502CE,fcbf4270
 Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397BD9.cpp|member|Rva00397BD9Data|m_19,89b9dab8cecfac8c1c9a05ce,claude-sonnet-4-6,review-7f36a6369d5a4dd7,w-c10b577ef3fb,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397BD9.cpp|function|0x00397BD9|rva00397BD9,f5c894ea0e782a5b5910fd39,claude-sonnet-4-6,review-7f36a6369d5a4dd7,w-c10b577ef3fb,2026-11-03
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp|class||BfmeSpeedCameraUpdate,b6c67386902565ca0e1f9d41,claude-sonnet-4-6,review-7f36a6369d5a4dd7,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/System/INI_loadFile.cpp|global||BfmeINICurrentFilename,d8e295a680b172bda0228ac5,claude-sonnet-4-6,review-869e0dedda6e476f,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva005FD8E5Apt.cpp|function|0x005FD956|rva005FD956,f9ca146738582d9f06ba9fe7,claude-sonnet-4-6,review-869e0dedda6e476f,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/GameClient/Rva00224A3F.cpp|class||Rva00224A3F,52e42f25834c8d3597b0fd57,claude-sonnet-4-6,review-869e0dedda6e476f,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/RTS/Rva0041458AScoredKillSave.cpp|class||Rva004147CFElem,4deb9dfd3b667c6ddfdd6780,claude-sonnet-4-6,review-869e0dedda6e476f,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Drawable_handleWeaponFireFX.cpp|member|Offset44|m_44,b8ce63ec6eab02bc137d42c5,claude-sonnet-4-6,review-869e0dedda6e476f,w-c10b577ef3fb,2026-11-03
