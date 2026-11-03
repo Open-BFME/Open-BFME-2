@@ -22,6 +22,19 @@
 - **Globals:** 3,194 agree, 18 differ, 34 are zero where retail is not, and no object defines 481 that
   retail gives a value. No strong data is defined twice; 24 addresses have several defined names.
 
+### The real link's two duplicates (2026-11-03)
+
+`MapCache::addMap`: `MapUtil.cpp` holds an unrowed donor copy; the matched body is in
+`MapCacheAddMap.cpp`. Deleting the copy is not enough. It is the only user of `getExtent`, and retail's
+`getExtent` (0x003000B5) takes `extent` in `eax` with no stack load, which the compiler does only for
+a `static` whose every caller it sees, so retail's `addMap` was in this same unit. Making `getExtent`
+external fails its bytes. The two template instantiations it also held pass as explicit instantiations
+of `std::map<AsciiString, Coord3D>` and `std::vector<ICoord2D>`. Next: merge the matched body into
+`MapUtil.cpp` and drop the copy.
+
+`@_RTC_CheckStackVars@8`: already recorded in
+`reverse/attempt_support/rtc-stack-owner-20261028-codex.md`; it needs the stack unit's ownership settled.
+
 ### Omitted funclets without an EXACT parent (2026-11-03)
 
 `exit_link.py` refused on 13 omitted `uw_gen` funclets. Retail's FuncInfo tables name each one's
