@@ -33,15 +33,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 static int s_vtableAnchor;
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-private:
-	unsigned char m_opaque[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class ToggleMountedSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {

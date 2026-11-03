@@ -6,16 +6,7 @@
 // Both retail parse procs reference the existing empty table at VA 0x00C6BB18.
 extern const int g_emptyFieldParseTable[4];
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &p);
-
-protected:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class UnleashSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {

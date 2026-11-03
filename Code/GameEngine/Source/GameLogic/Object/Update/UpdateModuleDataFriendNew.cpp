@@ -627,17 +627,7 @@ ModuleData *WoundArrowUpdateModuleData::friend_newModuleData(INI *ini)
 // vtable 0x00C3F2A8; the ledger keeps it as the opaque Rva0044EB54, which 26
 // *SpecialAbilityUpdate / special-power module data ctors call as their base)
 // and parsed by 0x0044ED95; both are pinned under this class as aliases.
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 // ?friend_newModuleData@SpecialAbilityUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *SpecialAbilityUpdateModuleData::friend_newModuleData(INI *ini)

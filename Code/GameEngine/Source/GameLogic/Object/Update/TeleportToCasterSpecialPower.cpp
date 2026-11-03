@@ -258,15 +258,7 @@ extern PartitionManager *ThePartitionManager;
 // Default ctor over the second intermediate base 0x0044EB54 (pinned opaque
 // as SpecialAbilityUpdateModuleData, 0xC8 bytes). Trailing floats zeroed plus two trailing ints
 // (factory size 0xDC).
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-protected:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class TeleportToCasterSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {

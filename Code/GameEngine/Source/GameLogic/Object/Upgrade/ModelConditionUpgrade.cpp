@@ -264,11 +264,7 @@ public:
 	void add(const FieldParse *parse, unsigned int extraOffset);
 };
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class DockUpdateModuleData
 {

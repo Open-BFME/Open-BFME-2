@@ -16,14 +16,7 @@
 
 extern "C" const void *const __identifier("??_7EvacuateGarrisonSpecialPowerModuleData@@6B@")[];  // folded vftable 0x00C5F778 (3 classes), by its data-ledger name
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-
-private:
-	unsigned char m_pad[0xC8];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class WeaponSetSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {

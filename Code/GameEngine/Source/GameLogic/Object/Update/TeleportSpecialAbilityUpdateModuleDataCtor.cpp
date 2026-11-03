@@ -60,18 +60,7 @@ struct FieldParse;
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class __declspec(novtable) SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-
-private:
-	// +0x00 vptr (novtable: no compiler install here).
-	// Remainder is opaque (0xC4 bytes); only the 0xC8 size matters.
-	unsigned char m_opaque[0xC4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class __declspec(novtable) TeleportSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
