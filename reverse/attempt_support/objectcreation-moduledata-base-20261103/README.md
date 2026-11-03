@@ -11,3 +11,10 @@ Important table boundary: ObjectCreationUpgradeModuleData is declared __declspec
 A possible future separate hypothesis is a justified TU-local inline ModuleData destructor definition that reproduces the native Snapshot reset, as other canonical module families sometimes require; it has NOT been tested here and could affect emitted provider selection. Any such experiment needs its own full byte/EH/provider proof and must not alter the shared header merely to force this candidate. The current report banks the actual result only.
 
 Artifacts: control.cpp/candidate.cpp, their private objects, probe.py and proof.json. No tracked source, ledger, claim, network or shared build-cache mutation was performed. No census or sourcefile credit is claimed.
+
+Resolved follow-up: canonical inheritance now passes all23 rows and four EH
+graphs with an ordinary TU-local EMPTY inline ModuleData destructor, allowing
+automatic Snapshot teardown. See ../objectcreation-moduledata-inline-base-20261103/README.md.
+The earlier out-of-line-declaration trial remains negative evidence, but is
+no longer an open base-call-shape prerequisite for the current typed leaf.
+Constructor lifetime and31-slot data ownership remain separate.

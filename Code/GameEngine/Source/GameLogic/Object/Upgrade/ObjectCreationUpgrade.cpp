@@ -161,7 +161,10 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 #include "Lib/Coord3D.h"
-class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+
+class __declspec(novtable) ObjectCreationUpgradeModuleData : public ModuleData
 {
 private:
 	friend class ObjectCreationUpgrade;
@@ -169,7 +172,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	virtual ~ObjectCreationUpgradeModuleData();
 private:
-	unsigned char m_moduleDataState[0x120 - sizeof(Snapshot)]; // +0x04
+	unsigned char m_moduleDataState[0x120 - sizeof(ModuleData)]; // +0x08
 public:
 	AsciiString m_removeUpgrade; // +0x120
 	AsciiString m_grantUpgrade; // +0x124
