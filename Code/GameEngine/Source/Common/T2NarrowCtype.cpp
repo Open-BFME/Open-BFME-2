@@ -15,23 +15,8 @@
 // import (Import-ref verify refuses it otherwise; no pin can fix this).
 typedef unsigned short T2WChar;
 
-// The case maps at BFME2 VA 0x00BBC1E0 and 0x00BBC2E0 are STLport's
-// ctype<char>::_S_upper and _S_lower, defined (with retail's bytes) in
-// stlport_ctype_wchar_scan_not.cpp. STLport's ctype<char> befriends
-// ctype<wchar_t> for exactly these reads; this view keeps that friendship.
-struct T2WideCtype;
-
-namespace _STL
-{
-template <class _CharT> class ctype;
-template <> class ctype<char>
-{
-	friend struct ::T2WideCtype;
-	static const unsigned char _S_upper[256];
-	static const unsigned char _S_lower[256];
-};
-}
-
+// The matched narrow range helpers need no local ctype specialization.
+// The owning STLport unit supplies its real declaration during composition.
 extern "C" __declspec(dllimport) void *__cdecl memmove(void *dst, const void *src, unsigned int n);
 
 struct T2NarrowCtype
