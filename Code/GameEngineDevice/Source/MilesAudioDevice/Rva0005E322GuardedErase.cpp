@@ -4,15 +4,7 @@
 
 class AsciiString;
 
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *m, int x);
-	~MilesMutexGuard();
-private:
-	void *m_mutex; // +0x00
-	bool m_flag; // +0x04
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 // LINK: the 12-byte tree is rowed as the STLport red-black tree over
 // Rva0005B5EAElement keys (0x0005B5EA); the key is the AsciiString words.

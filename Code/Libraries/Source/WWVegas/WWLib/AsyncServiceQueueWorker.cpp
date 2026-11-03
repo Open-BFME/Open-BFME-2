@@ -27,7 +27,7 @@ template<> __declspec(noinline) void WorkList::splice(iterator position,list&,it
  _List_global_inst::_Transfer(position._M_node,item._M_node,next._M_node);
 }
 }
-class MilesMutexGuard {public:MilesMutexGuard(void*,int);~MilesMutexGuard();void *mutex;bool held;};
+#include "../../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 class Rva0040F9D {public:bool set();bool reset();char pad[4];HANDLE handle;};
 class WorkOperation {public:virtual void slot0();virtual void run();};
 struct AsyncQueueWorkerOwner {int active,count;WorkList queued;char mutexC[8];Rva0040F9D available;WorkList secondary;char m_secondaryMutex[8];Rva0040F9D drained;};

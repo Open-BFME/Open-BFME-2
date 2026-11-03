@@ -135,15 +135,7 @@ private:
 	PlayingAudio *m_ptr;
 };
 
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *mutex, int defer);
-    ~MilesMutexGuard();
-private:
-    void *m_mutex;
-    bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 typedef _STL::list<PlayingAudioRef> PlayingAudioList;
 

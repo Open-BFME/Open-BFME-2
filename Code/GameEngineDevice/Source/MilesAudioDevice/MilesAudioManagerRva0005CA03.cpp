@@ -25,15 +25,7 @@ struct Rva0005CAElem
 	char m_pad1BC[0x1C4 - 0x1B8 - 4];
 };
 
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *obj, int flags);
-	~MilesMutexGuard();
-private:
-	void *m_obj;
-	int m_flags;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 extern const float g_00BBB9AC;
 extern unsigned int g_Va00DE0878;
