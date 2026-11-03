@@ -37,12 +37,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
-class GlobalData
-{
-public:
-	char m_pad[0xA58];
-	Short m_firewallPortAllocationDelta;
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 

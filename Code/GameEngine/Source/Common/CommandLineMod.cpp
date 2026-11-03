@@ -23,12 +23,7 @@ struct BFME2WideConcatPair {
 inline BFME2WideConcatPair operator+(const UnicodeString& a,const UnicodeString& b) {
     return BFME2WideConcatPair(a,b);
 }
-class GlobalData {
-public:
-    char prefix[0xd38];
-    AsciiString m_modDir,m_modBIG;
-    UnicodeString rva002360FC() const;
-};
+#include "../../Include/Common/GlobalData.h"
 class BFME2FileSystemFacade { public: bool doesWideFileExist(const Wide*); };
 extern GlobalData *TheWritableGlobalData;
 class FileSystem;

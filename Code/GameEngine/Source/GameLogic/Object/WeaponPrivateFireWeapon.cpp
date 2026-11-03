@@ -282,12 +282,7 @@ class WeaponBonusSet
     void appendBonuses(UnsignedInt flags, WeaponBonus &bonus) const;
     WeaponBonus m_bonus[22];
 };
-class GlobalData
-{
-  public:
-    char m_pad[0xAD0];
-    WeaponBonusSet *m_weaponBonusSet; // +0xAD0
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/GameLogic/ObjectFilter.h"
 enum WeaponStatus
