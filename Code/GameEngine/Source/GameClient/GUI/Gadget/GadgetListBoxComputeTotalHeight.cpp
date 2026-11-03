@@ -79,16 +79,7 @@ struct ListEntryRow
 	int m_pad0C;
 };
 
-struct ListboxData
-{
-	char m_pad00[2];
-	short columns;
-	char m_pad04[0x14];
-	ListEntryRow *listData;
-	char m_pad1C[0x0C];
-	int totalHeight;
-	short endPos;
-};
+#include "../../../../Include/GameClient/ListboxData.h"
 
 void __cdecl Rva003249D2(GameWindow *window, bool update);
 

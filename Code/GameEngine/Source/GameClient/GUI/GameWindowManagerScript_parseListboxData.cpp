@@ -37,20 +37,7 @@ typedef bool Bool;
 
 class WinInstanceData;
 
-struct ListboxData
-{
-	Short listLength;  // +0
-	Short columns;  // +2
-	Int *columnWidthPercentage;  // +4
-	Bool autoScroll;  // +8
-	Bool autoPurge;  // +9
-	Bool scrollBar;  // +0xA
-	Bool multiSelect;  // +0xB
-	Bool forceSelect;  // +0xC
-	Bool scrollIfAtEnd;  // +0xD
-	unsigned char pad[0x14 - 0xE];  // +0xE
-	Int *columnWidth;  // +0x14
-};
+#include "../../../Include/GameClient/ListboxData.h"
 
 // scanShort/scanInt/scanBool live in GameWindowManagerScript.cpp (file-statics
 // at 0x00314E6D/0x00314E96/0x00314E42). Declared extern (not static: MSVC

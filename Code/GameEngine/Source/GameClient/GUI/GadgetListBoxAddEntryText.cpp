@@ -35,15 +35,7 @@ struct UnicodeStringBufferView
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-struct ListboxData
-{
-	short listLength;
-	short columns;
-	unsigned char m_unmodelled04[9];
-	Bool scrollIfAtEnd;
-	unsigned char m_unmodelled0E[0x1E];
-	short endPos;
-};
+#include "../../../Include/GameClient/ListboxData.h"
 
 struct AddMessageStruct
 {

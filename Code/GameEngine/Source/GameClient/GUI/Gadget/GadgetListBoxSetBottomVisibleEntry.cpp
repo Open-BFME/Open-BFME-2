@@ -24,21 +24,7 @@ struct ListEntryRow
 	Int m_unmodelled0C;
 };
 
-struct ListboxData
-{
-	short listLength;
-	short columns;
-	unsigned char m_unmodelled04[9];
-	Bool scrollIfAtEnd;
-	unsigned char m_unmodelled0E[0x0A];
-	ListEntryRow *listData;
-	unsigned char m_unmodelled1C[0x10];
-	short endPos;
-	unsigned char m_unmodelled2E[0x0E];
-	Short displayHeight;
-	unsigned char m_unmodelled3E[0x06];
-	Short displayPos;
-};
+#include "../../../../Include/GameClient/ListboxData.h"
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 

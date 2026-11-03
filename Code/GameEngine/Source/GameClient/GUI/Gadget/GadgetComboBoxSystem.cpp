@@ -146,14 +146,7 @@ struct EntryData
 	Bool drawTextFromStart;
 };
 
-struct ListboxData
-{
-	short listLength;
-	unsigned char m_pad02[0x1C - 0x2];
-	GameWindow *upButton;
-	GameWindow *downButton;
-	GameWindow *slider;
-};
+#include "../../../../Include/GameClient/ListboxData.h"
 
 // 0x002C0315 returns +0x2C (listBox); 0x002C032C returns +0x28 (editBox).
 void *bfmeGo925A(BfmeKeyLC *k);

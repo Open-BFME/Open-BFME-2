@@ -44,15 +44,7 @@ public:
 	unsigned char m_pad18[0x1A8 - 0x18];
 };
 
-struct ListboxData
-{
-	unsigned char m_pad00[0xA];
-	Bool scrollBar;				// +0x0A
-	unsigned char m_pad0B[0x1C - 0xB];
-	GameWindow *upButton;		// +0x1C
-	GameWindow *downButton;		// +0x20
-	GameWindow *slider;			// +0x24
-};
+#include "../../../../Include/GameClient/ListboxData.h"
 
 struct SliderData
 {

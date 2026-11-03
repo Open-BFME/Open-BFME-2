@@ -100,19 +100,7 @@ struct ComboBoxData
 	unsigned char m_pad30[0x34 - 0x30];
 };
 
-struct ListboxData
-{
-	unsigned char m_pad00[0x12];
-	Bool m_flag12;
-	Bool m_flag13;
-	unsigned char m_pad14[0x1C - 0x14];
-	GameWindow *upButton;
-	GameWindow *downButton;
-	GameWindow *slider;
-	unsigned char m_pad28[0x30 - 0x28];
-	Int m_field30;
-	Int selectPos;
-};
+#include "../../../../Include/GameClient/ListboxData.h"
 
 // 0x002C02FE returns +0x24 (dropDownButton); 0x002C0315 returns +0x2C (listBox);
 // 0x002C032C returns +0x28 (editBox).
@@ -211,9 +199,9 @@ void OnComboBoxClick(GameWindow *comboBox)
 		comboBox->winGetSize(&winSize.x, &winSize.y);
 		WinInstanceData *listInstData = listBox->winGetInstanceData();
 		ListboxData *listData = (ListboxData *)listBox->winGetUserData();
-		listData->m_flag12 = true;
-		listData->m_flag13 = true;
-		listData->m_field30 = listData->selectPos;
+		listData->m_12 = true;
+		listData->m_13 = true;
+		listData->m_30 = listData->selectPos;
 
 		// If we have less entries then our max display is set to, only show
 		// those entries and not additional blank lines.  Also, just so it looks
