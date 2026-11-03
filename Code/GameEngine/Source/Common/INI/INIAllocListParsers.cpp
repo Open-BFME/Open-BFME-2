@@ -81,7 +81,7 @@ private:
 struct Rva0048E022Member
 {
 	Rva0048E022Member()
-		: m_00(0), m_04(0.0f), m_08(0.0f), m_0C(0.0f),
+		: m_00(0), m_04(0.0f), m_controlPointOffsetOneY(0.0f), m_controlPointOffsetOneZ(0.0f),
 		  m_controlPointOffsetTwo(0.0f), m_controlPointOffsetTwoY(0.0f), m_controlPointOffsetTwoZ(0.0f),
 		  m_controlPointOffsetThree(0.0f), m_controlPointOffsetThreeY(0.0f), m_controlPointOffsetThreeZ(0.0f),
 		  m_controlPointOffsetFour(0.0f), m_controlPointOffsetFourY(0.0f), m_controlPointOffsetFourZ(0.0f),
@@ -90,7 +90,7 @@ struct Rva0048E022Member
 	}
 	int m_00;
 	// ControlPointOffsetOne occupies +0x04..+0x0C; these are coordinates.
-	float m_04, m_08, m_0C;
+	float m_04, m_controlPointOffsetOneY, m_controlPointOffsetOneZ;
 	float m_controlPointOffsetTwo, m_controlPointOffsetTwoY, m_controlPointOffsetTwoZ;
 	float m_controlPointOffsetThree, m_controlPointOffsetThreeY, m_controlPointOffsetThreeZ;
 	float m_controlPointOffsetFour, m_controlPointOffsetFourY, m_controlPointOffsetFourZ;

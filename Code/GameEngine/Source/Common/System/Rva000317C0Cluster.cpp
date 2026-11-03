@@ -49,7 +49,7 @@ inline __declspec(noinline) Rva00030DD0Guard::~Rva00030DD0Guard()
 }
 
 // ?bfmeAnchorCountedGuardDtor absent-from-retail
-void bfmeAnchorCountedGuardDtor(Rva00030DD0Guard *p)
+void bfmeAnchorCountedGuardDtor(Rva00030DD0Guard *guard)
 {
-    p->Rva00030DD0Guard::~Rva00030DD0Guard();
+    guard->Rva00030DD0Guard::~Rva00030DD0Guard();
 }

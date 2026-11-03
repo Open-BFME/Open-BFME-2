@@ -4645,3 +4645,6 @@ __ehhandler$?rva007B48CB@@YAXXZ,0x007A0B40,"Renamed to __ehhandler$?registerUpgr
 ?Rva004126A6SkipPastEquals@@YAXPAPBD@Z,0x004126A6,"Renamed to ?skipPastEquals@@YAXPAPBD@Z by tools/rename.py (inferred)"
 ?Rva004126BDSkipPastAmpersand@@YAXPAPBD@Z,0x004126BD,"Renamed to ?skipPastAmpersand@@YAXPAPBD@Z by tools/rename.py (inferred)"
 ?Rva004126D4@@YA_NPBD0H@Z,0x004126D4,"Renamed to ?matchParamKey@@YA_NPBD0H@Z by tools/rename.py (inferred)"
+?rva005CEDAF@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ,0x005CEDAF,"Renamed to ?clone@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ by tools/rename.py (inferred)"
+?rva004FBEAB@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z,0x004FBEAB,"Renamed to ?contains@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z by tools/rename.py (inferred)"
+?fetchContent@Rva007F04B0BlobService@@QAE_NPADI@Z,0x0065D2D0,"Renamed to ?fetchContent@BlobService@@QAE_NPADI@Z by tools/rename.py (inferred)"

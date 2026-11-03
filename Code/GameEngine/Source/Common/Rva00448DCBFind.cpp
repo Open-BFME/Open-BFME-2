@@ -13,9 +13,9 @@ struct Rva00448DCBNode
 {
     int m_color00;
     Rva00448DCBNode *m_parent04;
-    Rva00448DCBNode *m_left08;
-    Rva00448DCBNode *m_right0C;
-    char m_key10[1];
+    Rva00448DCBNode *m_left;
+    Rva00448DCBNode *m_right;
+    char m_key[1];
 };
 
 class Rva00448DCB
@@ -33,13 +33,13 @@ Rva00448DCBNode *Rva00448DCB::rva00448DCB(const BfmeStringRecord00448113 &key)
     Rva00448DCBNode *header = m_header00;
     Rva00448DCBNode *x = header->m_parent04;
     while (x) {
-        if (!(*(const BfmeStringRecord00448113 *)x->m_key10 < key)) {
+        if (!(*(const BfmeStringRecord00448113 *)x->m_key < key)) {
             j = x;
-            x = x->m_left08;
+            x = x->m_left;
         } else
-            x = x->m_right0C;
+            x = x->m_right;
     }
-    if (j == header || key < *(const BfmeStringRecord00448113 *)j->m_key10)
+    if (j == header || key < *(const BfmeStringRecord00448113 *)j->m_key)
         j = header;
     return j;
 }

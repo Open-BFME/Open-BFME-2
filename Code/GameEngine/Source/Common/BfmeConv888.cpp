@@ -46,8 +46,8 @@ extern void *g_bfmeCurEYE;
 void __cdecl bfmeGoEYE(void *a)
 {
 	g_bfmeCurEYE = a;
-	for (BfmeNodeEYE *n = reinterpret_cast<BfmeListEYE *>((*(int **)&BfmeTheMapObjectListHolder))->m_bfmeHead; n; n = n->m_bfmeNext)
-		n->bfmeRunEYE();
+	for (BfmeNodeEYE *node = reinterpret_cast<BfmeListEYE *>((*(int **)&BfmeTheMapObjectListHolder))->m_bfmeHead; node; node = node->m_bfmeNext)
+		node->bfmeRunEYE();
 }
 
 // 0x0030E2EC / 0x0030E2F5 (9B each), retail's next two bodies after
@@ -101,11 +101,11 @@ struct BfmeThingEYF
 
 bool BfmeThingEYF::bfmeGoEYF(void *a, void *b)
 {
-	BfmeNodeEYF *n = (BfmeNodeEYF *)Rva0030DC85ReadMapObject(*(DataChunkInput *)a, (DataChunkInfo *)b);
-	if (n)
+	BfmeNodeEYF *node = (BfmeNodeEYF *)Rva0030DC85ReadMapObject(*(DataChunkInput *)a, (DataChunkInfo *)b);
+	if (node)
 	{
-		m_bfmeHead2->m_bfmeNext = n;
-		m_bfmeHead2 = n;
+		m_bfmeHead2->m_bfmeNext = node;
+		m_bfmeHead2 = node;
 	}
 	return true;
 }

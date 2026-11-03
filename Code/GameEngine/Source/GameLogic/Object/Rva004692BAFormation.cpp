@@ -49,23 +49,23 @@ private:
 	Rva004692BAObject *object() { return *reinterpret_cast<Rva004692BAObject **>(reinterpret_cast<char *>(this) - 0x118); }
 
 	unsigned char m_pad000[0x6C];
-	char *m_membersBegin6C;					// +0x6C, 0x1C-byte records
-	char *m_membersEnd70;					// +0x70
+	char *m_membersBegin;					// +0x6C, 0x1C-byte records
+	char *m_membersEnd;					// +0x70
 	unsigned char m_pad074[0x1AC - 0x74];
-	Rva004692BAFormation *m_formation1AC;	// +0x1AC
+	Rva004692BAFormation *m_formation;	// +0x1AC
 };
 
 void Rva004692BA::rva004692BA(Rva004692BAFactory *factory)
 {
-	if (m_formation1AC)
-		::delete m_formation1AC;
+	if (m_formation)
+		::delete m_formation;
 
 	if (factory)
-		m_formation1AC = factory->create(outer());
+		m_formation = factory->create(outer());
 	else if (object()->m_factory258)
-		m_formation1AC = object()->m_factory258->create(outer());
+		m_formation = object()->m_factory258->create(outer());
 	else
-		m_formation1AC = new HordeMeleeSwarm(outer());
+		m_formation = new HordeMeleeSwarm(outer());
 
-	m_formation1AC->setMemberCount((m_membersEnd70 - m_membersBegin6C) / 0x1C);
+	m_formation->setMemberCount((m_membersEnd - m_membersBegin) / 0x1C);
 }

@@ -104,7 +104,7 @@ private:
 	CreateAHeroData **m_begin;
 	CreateAHeroData **m_end;
 public:
-	bool rva004FBEAB(CreateAHeroData *val);
+	bool contains(CreateAHeroData *val);
 };
 
 class Rva002E2903Player {
@@ -255,12 +255,12 @@ void RegionAwardDispute::rva004FC0AD(const Rva002E2903Player *player) {
 
 // ---- from Code/GameEngine/Source/Common/System/Rva004FBEABContains.cpp
 
-// ?rva004FBEAB@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z 0x004FBEAB 43: contains check
+// ?contains@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z 0x004FBEAB 43: contains check
 // over the CreateAHeroData* registry range [m_begin, m_end) via rowed _STL::find
 // at 0x0020E873. Evidence: same +0x8/+0x0c begin/end layout as the 0x004FBE7A count
 // body over the same registry; caller 0x002BAF01 tests al as a bool.
 
-bool Rva004FBEAB::rva004FBEAB(CreateAHeroData *val)
+bool Rva004FBEAB::contains(CreateAHeroData *val)
 {
 	CreateAHeroData *createAHeroData = val;
 	CreateAHeroData **begin = m_begin;

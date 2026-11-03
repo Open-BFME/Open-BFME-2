@@ -38,7 +38,7 @@ extern Rva007EB810Diag *Rva007EB810Get();
 extern int rva007FF250Decode(
 	int encodedLength, const char *encodedInput, unsigned char *decodedOutput );
 
-class Rva007F04B0BlobService
+class BlobService
 {
 public:
 	bool fetchContent( char *destination, unsigned int length );
@@ -276,9 +276,9 @@ private:
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007F04B0BlobContent.cpp
 
-bool Rva007F04B0BlobService::fetchContent( char *destination, unsigned int length )
+bool BlobService::fetchContent( char *destination, unsigned int length )
 {
-	Rva007F04B0BlobService *self = this;
+	BlobService *self = this;
 	GenAlloc *allocator = Gen007EFFC0();
 	unsigned int adjustedLength = length + 2;
 	unsigned int size = ( adjustedLength / 3 ) * 4 + 1;

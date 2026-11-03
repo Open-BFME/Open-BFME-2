@@ -51,7 +51,7 @@ typedef _STL::_Rb_tree<int, IntIntPair, _STL::_Select1st<IntIntPair>, _STL::less
 class Rva004FBEAB
 {
 public:
-    bool rva004FBEAB(CreateAHeroData *value);
+    bool contains(CreateAHeroData *value);
 };
 class Rva004FBDCC
 {
@@ -79,7 +79,7 @@ void Rva002BAF01::rva002BAF01(Rva002BAF01Region *region, CreateAHeroData *value)
     if (node != tree.header)
     {
         Rva002BAF01Record *record = static_cast<Rva002BAF01Node *>(node)->record;
-        if (reinterpret_cast<Rva004FBEAB *>(record)->rva004FBEAB(value)
+        if (reinterpret_cast<Rva004FBEAB *>(record)->contains(value)
             && !record->marked)
         {
             reinterpret_cast<Rva004FBDCC *>(record)->rva004FBDCC();

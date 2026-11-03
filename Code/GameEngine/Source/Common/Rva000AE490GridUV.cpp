@@ -8,7 +8,7 @@
 // cliff-remap behavior. This address-named class view records target offsets;
 // it does not assert that the target owner is WorldHeightMap.
 
-struct Rva000AE490CliffInfo
+struct CliffInfo
 {
 	float u0;
 	float v0;
@@ -25,9 +25,9 @@ struct Rva000AE490CliffInfo
 
 struct Rva000AE490CliffInfoVector
 {
-	Rva000AE490CliffInfo *first;
-	Rva000AE490CliffInfo *last;
-	Rva000AE490CliffInfo *reserved;
+	CliffInfo *first;
+	CliffInfo *last;
+	CliffInfo *reserved;
 };
 
 struct Rva000AE490TextureClass
@@ -44,7 +44,7 @@ struct Rva000AE490TextureClass
 	int spare;
 };
 
-struct Rva000AE6ADBlendTileInfo
+struct BlendTileInfo
 {
 	short blendNdx;
 	unsigned char padding02[2];
@@ -83,7 +83,7 @@ private:
 	int *m_cliffInfoNdxes;
 	int *m_extraBlendTileNdxes;
 	char m_padA8[0x80B0 - 0xA8];
-	Rva000AE6ADBlendTileInfo *m_blendedTiles;
+	BlendTileInfo *m_blendedTiles;
 	char m_pad80B4[0x80BC - 0x80B4];
 	Rva000AE490CliffInfoVector m_cliffInfo;
 	int m_numTextureClasses;
@@ -121,8 +121,8 @@ bool Rva000AE490::getUVForTileIndex(int ndx, short tileNdx, float uCoords[4],
 			return false;
 		if (m_cliffInfoNdxes[ndx])
 		{
-			Rva000AE490CliffInfo *cliffInfo = m_cliffInfo.first;
-			Rva000AE490CliffInfo info = cliffInfo[m_cliffInfoNdxes[ndx]];
+			CliffInfo *cliffInfo = m_cliffInfo.first;
+			CliffInfo info = cliffInfo[m_cliffInfoNdxes[ndx]];
 			bool tilesMatch = false;
 			register int ndx1 = tileNdx >> 2;
 			register int ndx2 = info.tileIndex >> 2;

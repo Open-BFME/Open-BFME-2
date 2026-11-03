@@ -15,8 +15,8 @@ public:
 	// vtable 0x00C751F8 slot 0 reaches an empty ICF-fold dtor, so the placeholder
 	// dtor needs no out-of-line provider.
 	virtual ~Rva005CED37Held() {}
-	Rva005CED37Held(int const *v) : m_04(0) { m_08 = *v; }
-	int m_04;
+	Rva005CED37Held(int const *v) : m_refCount(0) { m_08 = *v; }
+	int m_refCount;
 	int m_08;
 };
 
@@ -34,5 +34,5 @@ Rva005CED37::Rva005CED37(int const *arg)
 	Rva005CED37Held *p = new Rva005CED37Held(arg);
 	m_00 = p;
 	if (p != 0)
-		p->m_04++;
+		p->m_refCount++;
 }

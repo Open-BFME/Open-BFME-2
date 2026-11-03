@@ -7459,3 +7459,24 @@ carry,Rva004126A6SkipPastEquals::queryCursor,skipPastEquals::queryCursor,inferre
 function,?Rva004126BDSkipPastAmpersand@@YAXPAPBD@Z,?skipPastAmpersand@@YAXPAPBD@Z,inferred,agree:nl-fa127106a832,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126BD
 carry,Rva004126BDSkipPastAmpersand::queryCursor,skipPastAmpersand::queryCursor,inferred,scope renamed by Rename Rva004126BDSkipPastAmpersand to skipPastAmpersand (inferred),Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126BD
 function,?Rva004126D4@@YA_NPBD0H@Z,?matchParamKey@@YA_NPBD0H@Z,inferred,agree:nl-d01d78c2d2b8,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126D4
+member,Rva0048E022Member::m_08,Rva0048E022Member::m_controlPointOffsetOneY,inferred,agree:nl-8602b4da8df0,Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp,
+member,Rva0048E022Member::m_0C,Rva0048E022Member::m_controlPointOffsetOneZ,inferred,agree:nl-a1f9c10370e4,Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp,
+member,Rva00448DCBNode::m_key10,Rva00448DCBNode::m_key,inferred,agree:nl-c055e1b4e847,Code/GameEngine/Source/Common/Rva00448DCBFind.cpp,
+member,Rva00448DCBNode::m_left08,Rva00448DCBNode::m_left,inferred,agree:nl-0b391e360a51,Code/GameEngine/Source/Common/Rva00448DCBFind.cpp,
+member,Rva00448DCBNode::m_right0C,Rva00448DCBNode::m_right,inferred,agree:nl-8554d5cafc38,Code/GameEngine/Source/Common/Rva00448DCBFind.cpp,
+member,Rva005CED37Held::m_04,Rva005CED37Held::m_refCount,inferred,agree:nl-fc14926ec040,Code/GameEngine/Source/Common/Rva005CED37.cpp,
+member,Rva004692BA::m_formation1AC,Rva004692BA::m_formation,inferred,agree:nl-c611f3ece4ef,Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,
+member,Rva004692BA::m_membersBegin6C,Rva004692BA::m_membersBegin,inferred,agree:nl-a9cda92b50a4,Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,
+member,Rva004692BA::m_membersEnd70,Rva004692BA::m_membersEnd,inferred,agree:nl-287ac4e6dda0,Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp,
+member,Rva00254D38Node::m_next08,Rva00254D38Node::m_next,inferred,agree:nl-0a82bc8a89ec,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp,
+local,BfmeHostSB::bfmeGoSB::a,BfmeHostSB::bfmeGoSB::tid,inferred,agree:nl-17c9e5c94680,Code/GameEngine/Source/Common/BfmeConv1287.cpp,0x0066F820
+local,BfmeHostSB::bfmeGoSB::b,BfmeHostSB::bfmeGoSB::pid,inferred,agree:nl-8eb8dc4a861a,Code/GameEngine/Source/Common/BfmeConv1287.cpp,0x0066F820
+local,BfmeThingEYF::bfmeGoEYF::n,BfmeThingEYF::bfmeGoEYF::node,inferred,agree:nl-81b24dda37d0,Code/GameEngine/Source/Common/BfmeConv888.cpp,0x0030DE61
+local,bfmeGoEYE::n,bfmeGoEYE::node,inferred,agree:nl-dfbf18c858e9,Code/GameEngine/Source/Common/BfmeConv888.cpp,0x0030E2C9
+param,bfmeAnchorCountedGuardDtor::p,bfmeAnchorCountedGuardDtor::guard,inferred,agree:nl-9a31d236df1a,Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp,
+function,?rva005CEDAF@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ,?clone@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ,inferred,agree:nl-647060cd0a3c,Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp,0x005CEDAF
+function,?rva004FBEAB@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z,?contains@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z,inferred,agree:nl-d14771858177,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,0x004FBEAB
+carry,Rva004FBEAB::rva004FBEAB::begin,Rva004FBEAB::contains::begin,inferred,scope renamed by Rename rva004FBEAB to contains (inferred),Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,0x004FBEAB
+class,Rva000AE490CliffInfo,CliffInfo,inferred,agree:nl-da86d52f0a93,Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp,
+class,Rva000AE6ADBlendTileInfo,BlendTileInfo,inferred,agree:nl-a7906e8d288f,Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp,
+class,Rva007F04B0BlobService,BlobService,inferred,agree:nl-fb7d8a881cef,Code/Libraries/Source/Fesl/blobservice.cpp,

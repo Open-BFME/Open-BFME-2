@@ -53,7 +53,7 @@ public:
 
 void BfmeHostSB::bfmeGoSB(BfmeThingSB *r)
 {
-	void *a = r->bfmeGetSB((void *)"TID", 0);
-	void *b = r->bfmeGetSB((void *)"PID", 0);
-	m_bfmeSink->bfmeUseSB(a, b);
+	void *tid = r->bfmeGetSB((void *)"TID", 0);
+	void *pid = r->bfmeGetSB((void *)"PID", 0);
+	m_bfmeSink->bfmeUseSB(tid, pid);
 }

@@ -11211,7 +11211,7 @@ _DeblockFrame,,0x001BFBF0,278,Code/Libraries/Source/VP6/DeblockFrame.cpp,matched
 ?rfind@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIDI@Z,,0x000275C0,235,Code/GameEngine/Source/Common/BfmeConv1481.cpp,matched,stlport-4.6 _string.c:385 basic_string<char>::rfind(char;size_type) const via reverse find_if 0x00026E00; was placeholder ?bfmeRFindChV40@@YGHDI@Z (lifted __asm)
 ?onTxn@Rva007FA2C0@@QAE_NPAVRva007E8810Message@@@Z,,0x00665C30,233,Code/GameEngine/Source/GameNetwork/Rva007F96C0Txn.cpp,matched,BFME1 byte-identical donor
 ??_GRva001DFEAABase@@UAEPAXI@Z,,0x001DFA84,28,Code/GameEngine/Source/GameLogic/Object/Contain/Rva001DFA48OwnerDtor.cpp,matched,scalar deleting dtor; TU already emits pop-ecx shape; sole caller pattern via landed dtor
-?fetchContent@Rva007F04B0BlobService@@QAE_NPADI@Z,,0x0065D2D0,205,Code/Libraries/Source/Fesl/blobservice.cpp,matched,BFME1 byte-identical donor; callees resolve via ledger
+?fetchContent@BlobService@@QAE_NPADI@Z,,0x0065D2D0,205,Code/Libraries/Source/Fesl/blobservice.cpp,matched,BFME1 byte-identical donor; callees resolve via ledger
 ?handlePendingActiveReply@Rva007F5D10GameBrowser@@QAEXPAVRva007E8810Message@@@Z,,0x006624B0,223,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,BFME1 byte-identical donor; callees resolve via ledger
 ?reset@Rva0013A820@@QAEXXZ,,0x0050C45A,108,Code/GameEngine/Source/Common/Rva0013A820Reset.cpp,matched,BFME1 byte-identical donor; clear pin added
 ??_GRva000647D4@@UAEPAXI@Z,,0x00064809,28,Code/GameEngine/Source/GameLogic/Object/LocomotorDerivedDtors.cpp,matched,scalar deleting dtor; TU emits pop-ecx shape; calls rowed dtor plus pinned delete
@@ -31658,7 +31658,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ?Rva0026F28BParse@@YAXPAVINI@@PAXPAI@Z,,0x0026F28B,325,Code/GameEngine/Source/Common/System/UpgradeCenterParseUpgradeMask.cpp,matched,UpgradeCenter mask parse via INI tokens no commas
 ?rva002A8FE0@Rva002A8FE0@@QAEXXZ,,0x002A8FE0,73,Code/Libraries/Source/WWVegas/WWLib/Rva002A8FE0Finish.cpp,matched,array-of-lists clear loop frees each slot chain via rowed ICF stdcall Free then clears the slot and size at 0x10
 ?rva00118CC0@Render2DRawArray@@QAEPAXH@Z,,0x00118CC0,121,Code/GameEngine/Source/Common/Rva00118CC0Finish.cpp,matched,Render2DRawArray grow 44-byte elements via realloc caller 0x0011BD80
-?rva004FBEAB@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z,,0x004FBEAB,43,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,matched,contains via rowed find 0x0020E873 over registry at plus8 plusC caller 0x002BAF01
+?contains@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z,,0x004FBEAB,43,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,matched,contains via rowed find 0x0020E873 over registry at plus8 plusC caller 0x002BAF01
 ?rva004FBC02@Rva004FBC02@@QAEXPBURva004FBC02Src@@@Z,,0x004FBC02,21,Code/GameEngine/Source/Common/System/Rva004FBC02Copy.cpp,matched,copies 12B to plus18 sets plus24 to 1 callers 0x002BA331 0x002BA7E1
 ?rva004FBDB0@RegionAwardDispute@@QAEX_N@Z,,0x004FBDB0,28,Code/GameEngine/Source/Common/System/Rva004FBC02Copy.cpp,matched,forwards its bool flag to slot12 on map lookup via rowed 0x002120A4 global (caller 4FC0E2 pushes an unwidened sete) 0x009FE1C8
 ?onExit@Rva0054484A@@UAEXW4StateExitType@@@Z,,0x00544572,98,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,matched,vslot slot5 of 0x00869BA0 sibling update and onEnter via barrier
@@ -44459,7 +44459,7 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?doSpecialPowerAtObject@Rva004C2A35@@UAEXPAVObject@@I@Z,,0x004C2A35,53,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004C2A35Do.cpp,matched,VTABLE slot 11 SpecialPowerModule override calls base 0x0049495B disabled any obj null owner null REF table
 ?xfer@TeamTemplateInfo@@MAEXPAVXfer@@@Z,,0x0039D5C1,323,Code/GameEngine/Source/Common/RTS/TeamTemplateInfoXfer.cpp,matched,TeamTemplateInfo xfer Version 1-3 via TeamPrototype precedent
 ?rva005CECF3@Rva005CECF3@@QBE?AURva005CECF3Handle@@XZ,,0x005CECF3,68,Code/GameEngine/Source/Common/Rva005CECF3Clone.cpp,matched,VTABLE slot1 table 0x008751D0 Family1 clone shape
-?rva005CEDAF@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ,,0x005CEDAF,69,Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp,matched,VTABLE slot1 table 0x008751E8 Family1 clone shape
+?clone@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ,,0x005CEDAF,69,Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp,matched,VTABLE slot1 table 0x008751E8 Family1 clone shape
 ?rva005CE3C4@Rva005CE3C4@@QAE?AURvaF6Ret@@XZ,,0x005CE3C4,26,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,VTABLE slot1 table 0x00875140 forwarder via plus8 to 0x005CE3DE
 ?rva0057B9D8@Rva0057B9D8@@QAEXXZ,,0x0057B9D8,25,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,matched,vtable slot 4 of table 0086F26C clears +0x30 via rowed 002BED91 then tail jmp rowed 005D4F7D of +0x34 object
 ?rva00239A9D@Rva00239A9D@@QAEXXZ,,0x00239A9D,87,Code/GameEngine/Source/Common/Rva00239A9D.cpp,matched,max Drawable ID scan then TacticalView slot 0x224
