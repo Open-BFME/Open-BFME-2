@@ -31,13 +31,7 @@ public:
 	unsigned char minimum;
 };
 
-class GameClientRandomVariable
-{
-public:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 void XferRotationType(Xfer *xfer, int *value);

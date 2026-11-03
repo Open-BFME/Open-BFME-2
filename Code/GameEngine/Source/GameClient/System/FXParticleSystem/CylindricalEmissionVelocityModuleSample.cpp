@@ -44,15 +44,7 @@ struct XferUnknown11;
 class GameClientRandomVariable;
 Xfer &xferRandomVariable( Xfer &xfer, GameClientRandomVariable &var );
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-
-	int distribution;
-	float minimum;
-	float maximum;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 namespace FXParticleSystem
 {

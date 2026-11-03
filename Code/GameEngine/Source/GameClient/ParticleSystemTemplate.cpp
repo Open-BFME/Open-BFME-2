@@ -24,24 +24,7 @@ class INI;
 
 // BFME1 ClientRandomValue.h layout (DistributionType first, then the range):
 // 12 bytes, no constructor or destructor by design (used within unions).
-class GameClientRandomVariable
-{
-public:
-    enum DistributionType
-    {
-        CONSTANT,
-        UNIFORM,
-        GAUSSIAN,
-        TRIANGULAR,
-        LOW_BIAS,
-        HIGH_BIAS
-    };
-
-protected:
-    DistributionType m_type;
-    float m_low;
-    float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 struct FieldParse
 {

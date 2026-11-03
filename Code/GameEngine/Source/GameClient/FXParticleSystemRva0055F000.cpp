@@ -22,15 +22,7 @@
 // The force is cleared after a non-+0x15 step. Address-derived names; field
 // meanings are structural inferences from the arithmetic and binder names.
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}

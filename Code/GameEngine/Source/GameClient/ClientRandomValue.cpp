@@ -3,30 +3,7 @@
 // Member layout is the Zero Hour one, unchanged in BFME 2: the distribution
 // type in the first four bytes, then the two Real bounds. The comparison
 // bodies read exactly [ecx], [ecx+4] and [ecx+8].
-class GameClientRandomVariable
-{
-public:
-    enum DistributionType
-    {
-        CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-    };
-
-    GameClientRandomVariable();
-
-    GameClientRandomVariable &operator=(const GameClientRandomVariable &that);
-
-    void setRange(float low, float high, DistributionType type = UNIFORM);
-    float getValue() const;
-    float getMinimumValue() const;
-    float getMaximumValue() const;
-    DistributionType getDistributionType() const;
-
-protected:
-    DistributionType m_type;
-    float m_low, m_high;
-
-    friend bool operator==(const GameClientRandomVariable &a, const GameClientRandomVariable &b);
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 float GameClientRandomVariable::getMinimumValue() const
 {

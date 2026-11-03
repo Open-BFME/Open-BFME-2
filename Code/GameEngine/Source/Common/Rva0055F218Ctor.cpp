@@ -6,15 +6,7 @@
 // float via rowed GameClientRandomVariable::getValue 0x002341A1, flag bytes
 // from +0x3C/+0x3D. Same shape as sibling 0x005646BC. Caller at 0x003ACF96.
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
 extern "C" const void *const __identifier("??_7V3Vt01111D90@@6B@")[];

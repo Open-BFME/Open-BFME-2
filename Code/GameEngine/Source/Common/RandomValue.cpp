@@ -29,36 +29,7 @@ private:
 	Real m_high;
 };
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-	};
-public:
-	Real getValue() const;
-private:
-	DistributionType m_type;
-private:
-	Real m_low;
-private:
-	Real m_high;
-public:
-	GameClientRandomVariable();
-public:
-	GameClientRandomVariable &operator=(const GameClientRandomVariable &that);
-public:
-	void setRange(float low, float high, DistributionType type = UNIFORM);
-public:
-	float getMinimumValue() const;
-public:
-	float getMaximumValue() const;
-public:
-	DistributionType getDistributionType() const;
-protected:
-	friend bool operator==(const GameClientRandomVariable &a, const GameClientRandomVariable &b);
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 // ---- from Code/GameEngine/Source/Common/RandomValue.cpp
 

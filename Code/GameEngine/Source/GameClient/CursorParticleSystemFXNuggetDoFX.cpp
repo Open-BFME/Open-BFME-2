@@ -25,13 +25,7 @@ struct Rva002A1B1DChunk
 
 extern InGameUI *TheInGameUI;
 
-class GameClientRandomVariable
-{
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 class Rva001DFEAABase
 {

@@ -373,15 +373,7 @@ BFME_DISP_FLOAT_GETTER(Rva0009533CFloatField, 0xD0)
 // float getter above: 0x00094AEE (8B, field +0x74) ends where it begins and
 // 0x00094AFD (11B, field +0x84) starts where it ends. Receiver classes are
 // unknown; names follow this file's per-address convention.
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 //
 // Float-handling straight-line vtable slot bodies below 0x00400000 that

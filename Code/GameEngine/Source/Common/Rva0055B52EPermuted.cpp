@@ -28,14 +28,7 @@ public:
 	Rva0055B32BKey m_keys[8];
 };
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 class Rva0055B39C
 {

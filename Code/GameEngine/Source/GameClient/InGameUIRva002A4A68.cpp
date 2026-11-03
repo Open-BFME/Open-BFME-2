@@ -92,11 +92,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 extern unsigned int g_00DFEE08;
 
-class GameClientRandomVariable {
-public:
-    float getValue() const;
-    int _u[3];
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 class GlobalData {
 public:

@@ -11,14 +11,7 @@
 #include <list>
 #include "ascii_string.h"
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int distribution;
-	float low, high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 struct TreeKey00242F5E
 {

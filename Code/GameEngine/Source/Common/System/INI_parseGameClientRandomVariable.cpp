@@ -9,13 +9,7 @@
 // table is retail's at 0x00DBA3E8 (.data, Zero Hour's six names); no unit
 // defined it, so it is defined here.
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType { CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS };
-	static const char *DistributionTypeNames[];
-	void setRange(float low, float high, DistributionType type);
-};
+#include "../../../Include/GameClient/GameClientRandomVariable.h"
 
 const char *GameClientRandomVariable::DistributionTypeNames[] =
 {

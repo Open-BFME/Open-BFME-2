@@ -72,13 +72,7 @@ public:
 	virtual ~Rva0055F98A();
 };
 
-class GameClientRandomVariable
-{
-public:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 // Canonical four-slot Snapshot plus the native104B info payload. The legacy
 // DefaultUpdateModuleInfo xfer pointer surface is a separate qualified-call

@@ -4,15 +4,7 @@
 // rowed getValue 0x002341A1 into out Vector3 at first arg plus four ignored
 // stack args (ret 0x14). Same 3-float shape as siblings. No callers;
 // vslot of 0x0081D0EC/0x0081C81C via ParticleModuleInfoCopyCtors.
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 struct Vec0055E697
 {

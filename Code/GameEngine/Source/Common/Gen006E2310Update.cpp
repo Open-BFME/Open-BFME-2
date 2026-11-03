@@ -116,15 +116,7 @@ public:
 	static float Random_Float();
 };
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
 
 // The record's colour triples, as the CloudEffect constructor zeroes them.
 #include "../../../Libraries/Include/Lib/RGBColor.h"
