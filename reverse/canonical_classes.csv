@@ -527,3 +527,4 @@ LadderPref,Code/GameEngine/Include/GameNetwork/LadderPref.h,existing header; con
 MixFileInfoBuffer,Code/GameEngine/Include/Common/MixFileInfoBuffer.h,existing header; contract class_contracts/MixFileInfoBuffer.json; 5/13 sampled units adopt
 FormationTranslator,Code/GameEngine/Include/GameClient/FormationTranslator.h,existing header; contract class_contracts/FormationTranslator.json; 6/7 sampled units adopt
 UserInputTranslator,Code/GameEngine/Include/GameClient/UserInputTranslator.h,existing header; contract class_contracts/UserInputTranslator.json; 10/13 sampled units adopt
+InGameCommandButtonMovieClip,Code/GameEngine/Include/GameClient/InGameCommandButtonMovieClip.h,existing header; contract class_contracts/InGameCommandButtonMovieClip.json; 7/8 sampled units adopt
