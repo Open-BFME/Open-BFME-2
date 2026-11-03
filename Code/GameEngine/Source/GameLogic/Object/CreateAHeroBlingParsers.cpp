@@ -27,19 +27,10 @@ class INI;
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class INI;
-struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);const void *user;unsigned offset;};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
 
 struct BfmeStringRecord00219A68 {
  unsigned word0;AsciiString text0,text1;unsigned word1,word2;

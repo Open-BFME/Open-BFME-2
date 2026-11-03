@@ -160,15 +160,10 @@ public:
 
 class MultiIniFieldParse;
 
-struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 extern const FieldParse s_citadelSlaughterFieldTable[];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
  
  

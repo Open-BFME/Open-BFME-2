@@ -9,24 +9,10 @@ class Made002CC8A4;
 
 class INI;
 
-struct FieldParse
-{
-    const char *token;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 int __cdecl Rva00507552Get();
 
-class MultiIniFieldParse
-{
-public:
-    MultiIniFieldParse();
-    void add(const FieldParse *p, unsigned int u);
-
-    char m_pad[0x84];
-};
 
 #include "../../../Include/Common/INI/INI.h"
 

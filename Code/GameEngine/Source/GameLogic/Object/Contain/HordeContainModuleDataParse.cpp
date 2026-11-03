@@ -12,14 +12,9 @@
 
 class INI;
 class MultiIniFieldParse;
-struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 extern const FieldParse s_hordeContainFieldTable[];
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 class TransportContainModuleData
 {
@@ -78,15 +73,6 @@ private:
 	const char *m_sepsColon;
 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
 
 #include "ascii_string.h"
 

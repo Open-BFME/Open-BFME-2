@@ -20,25 +20,10 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class INI;
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-	char *mFailureMessage;
-	int mErrorCode;
-};
 
 class UpgradeTemplate
 {

@@ -12,23 +12,8 @@
 
 typedef int Int;
 
-struct FieldParse
-{
-	const char *name;
-	void (*parse)(class INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
 
 #include "../../../Include/Common/INI/INI.h"
 
