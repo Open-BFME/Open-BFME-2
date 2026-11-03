@@ -98,9 +98,9 @@ __forceinline int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int 
  return index;
 }
 
-static __forceinline float lerpRatio(float frame, float t0, float t1) { return (frame - t0) / (t1 - t0); }
+static __forceinline float lerpRatio(float frame, float startTime, float endTime) { return (frame - startTime) / (endTime - startTime); }
 
-static __forceinline float lerpMotion(float a, float b, float t) { return (b - a) * t + a; }
+static __forceinline float lerpMotion(float start, float end, float t) { return (end - start) * t + start; }
 
 // ?UnknownSlot3@BFME2Encoding0MotionChannel@@UAEXMPAMPAPAE@Z, retail 0x001B2FEF, 362 bytes:
 // scalar sample at frame, a held key copied, otherwise interpolated between the two bracketing keys.

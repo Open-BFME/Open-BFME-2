@@ -132,25 +132,25 @@ void PSPlayerStats::XferMap(MapFloatHolder *a, XferStub *xfer)
 void PSPlayerStats::XferMap(MapIntHolder *a, XferStub *xfer)
 {
 	unsigned int cnt = *(unsigned int *)((char *)a + 4);
-	unsigned int n = cnt;
-	xfer->_slot78((int &)n);
+	unsigned int count = cnt;
+	xfer->_slot78((int &)count);
 	if (xfer->_isWriting()) {
 		for (MapIntHolder::iterator it = a->begin(); it._M_node != a->end()._M_node; ++it) {
 			unsigned char k = (*it).first;
-			int v = (*it).second;
+			int entryValue = (*it).second;
 			xfer->_slot88(k);
-			xfer->_slot78(v);
+			xfer->_slot78(entryValue);
 		}
 		return;
 	}
 	((Rva00382077 *)a)->rva00382908();
-	if (n <= 0U)
+	if (count <= 0U)
 		return;
 	do {
 		unsigned char k;
-		int v;
+		int entryValue;
 		xfer->_slot88(k);
-		xfer->_slot78(v);
-		(*a)[k] = v;
-	} while (--n != 0);
+		xfer->_slot78(entryValue);
+		(*a)[k] = entryValue;
+	} while (--count != 0);
 }

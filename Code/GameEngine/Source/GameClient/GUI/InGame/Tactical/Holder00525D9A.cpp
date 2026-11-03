@@ -113,7 +113,7 @@ public:
 
 struct Rva004E7392 : public TooltipBase
 {
-	Rva004E7392(int a, int b);
+	Rva004E7392(int heroID, int b);
 	virtual ~Rva004E7392();
 	int m_04;
 	int m_08;
@@ -246,9 +246,9 @@ class Object;
 // The ctor and destructor are defined after the region, so the bodies still
 // expand them and the destructor expands the base's.
 
-inline Rva004E7392::Rva004E7392(int a, int b)
+inline Rva004E7392::Rva004E7392(int heroID, int b)
 {
-	m_04 = a;
+	m_04 = heroID;
 	m_08 = b;
 }
 

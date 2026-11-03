@@ -7296,3 +7296,11 @@ local,PSPlayerStats::XferMap#2::n,PSPlayerStats::XferMap#2::count,inferred,agree
 local,PSPlayerStats::XferMap#2::v,PSPlayerStats::XferMap#2::entryValue,inferred,agree:nl-93af7db260e5,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
 param,PSPlayerStats::XferMap#2::b,PSPlayerStats::XferMap#2::xfer,inferred,agree:nl-c9800ff14a44,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
 param,PSPlayerStats::XferMap#3::b,PSPlayerStats::XferMap#3::xfer,inferred,agree:nl-70f95b229cd9,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
+param,Rva004E7392::Rva004E7392::a,Rva004E7392::Rva004E7392::heroID,inferred,agree:nl-907542b09916,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,
+local,SupplyWarehouseDockUpdate::rva004A7E67::r,SupplyWarehouseDockUpdate::rva004A7E67::radius,inferred,agree:nl-4151de7851ee,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp,0x004A7E67
+param,lerpMotion::a,lerpMotion::start,inferred,agree:nl-6a467a171ac9,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,
+param,lerpMotion::b,lerpMotion::end,inferred,agree:nl-92b66fd801ec,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,
+param,lerpRatio::t0,lerpRatio::startTime,inferred,agree:nl-61f75a2b5d20,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,
+param,lerpRatio::t1,lerpRatio::endTime,inferred,agree:nl-370bf0b7c33c,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,
+local,PSPlayerStats::XferMap#3::n,PSPlayerStats::XferMap#3::count,inferred,agree:nl-7b7448ad4307,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
+local,PSPlayerStats::XferMap#3::v,PSPlayerStats::XferMap#3::entryValue,inferred,agree:nl-505288ba9b69,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,

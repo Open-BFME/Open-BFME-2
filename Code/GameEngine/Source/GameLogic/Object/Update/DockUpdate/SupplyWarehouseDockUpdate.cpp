@@ -257,8 +257,8 @@ bool SupplyWarehouseDockUpdate::rva004A7E67(Object *object, int unused)
 {
 	if (m_boxesStored == 0)
 		return false;
-	float r = object->m_radius;
-	float rr = r + r;
+	float radius = object->m_radius;
+	float rr = radius + radius;
 	float e = object->rva00263763(m_object);
 	if (e > rr * rr) {
 		Coord3D p;
