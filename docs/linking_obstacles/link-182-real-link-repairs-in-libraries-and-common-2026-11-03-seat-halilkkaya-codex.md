@@ -146,3 +146,25 @@ Kept, and why:
 - `calcCostToBuild` stays because Player references it, which keeps
   `getProductionCostChangePercent` referenced. These need AudioEventRTS and
   Player identities, not removal.
+
+### Remaining-slice triage (2026-11-04, halilkkaya-cx-o4)
+
+Base 6a193d3101, artifact run 41706953002 (commit 4272054b98, 551
+unresolved, not authoritative). Session ended at setup; no source edit.
+Current per-unit counts: collect 41, twiddler 10, ThingTemplate 8,
+Rva005F422CDtor 9, Rva005BA1FDCtor 7, BfmeConv1292DeferredWalkers 6.
+None is a short fix:
+
+- collect.cpp: claim refused, class:RenderObjClass is held through
+  class:HLodClass (StarkillerHDX@fleet). ThingTemplate: class:ThingTemplate
+  still held by halilkkaya-codex.
+- Rva005BA1FDCtor and Rva005F422CDtor: every missing name is an invented
+  slot (`BoxVirt`, `BaseVirt`, `M60Virt`/`M6CVirt`, `slot01..07`,
+  `DoUpdate`, `CreateMovieClip`, `rva005F4710`). The fix is the cx-o3
+  Particle pattern: rebuild each installed table from retail (three per
+  AptOnlineOpenPlay/Rva005BA28E object; C73DCC/C73D70/C73D60 for the
+  latter) with the rowed slot owners' declarations. Needs the online-screen
+  deleting/lifetime hierarchy above.
+- StlSweepW6Rva0016DEC0 (1 name, element `operator<`): already blocked as
+  LINK-055 (re_attempts: native worker proves `find`, not `lower_bound`).
+  The W4/R3 element families still need real element identities (LINK-002).
