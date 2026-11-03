@@ -55,19 +55,7 @@ extern int g_currentAptOnlineCustomMatch;
 struct Rva004160BEInfo;
 void Rva0041647ASend(const Rva004160BEInfo *info);
 
-class AptMessenger
-{
-public:
-	__declspec(noinline) void GetSelectedPlayers(Int listIndex, Int a, Int b);
-	void rva005AE90F();
-	void rva005AE886();
-	void rva005AE990();
-	void rva005AEA3E();
-
-private:
-	unsigned char m_pad000[0x280];
-	ChatWindowsInGame **m_lists;		// +0x280
-};
+#include "../../../../../Include/GameClient/AptMessenger.h"
 
 // WB AptMessengerOnline::OnBttnInvite (callgraph lead); the Online screen is this
 // AptMessenger layout, so the body keeps the base view.
