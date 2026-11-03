@@ -15,16 +15,9 @@
 
 #include <new>
 
+#include "../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem
 {
-class LifeEventModuleInfo
-{
-public:
-	LifeEventModuleInfo();
-	virtual ~LifeEventModuleInfo();
-private:
-	char m_unmodelled_04[0x18 - 0x04];
-};
 }
 
 namespace FXParticleSystem

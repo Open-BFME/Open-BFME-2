@@ -35,6 +35,7 @@ class DamageInfo;
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
+#include "../../../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -47,20 +48,6 @@ public:
 	virtual void xfer(Xfer *xfer) = 0;
 };
 
-class LifeEventModuleInfo : public SnapshotBase
-{
-public:
-	LifeEventModuleInfo();
-	virtual ~LifeEventModuleInfo();
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	AsciiString m_name;
-	GameClientRandomVariable m_var;
-	const void *m_cached;
-};
 
 }
 

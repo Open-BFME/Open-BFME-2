@@ -10,15 +10,9 @@ private:
     unsigned char m_storage[0x1C];
 };
 
+#include "../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem
 {
-class LifeEventModuleInfo
-{
-public:
-    virtual ~LifeEventModuleInfo();
-private:
-    unsigned char m_storage[0x14];
-};
 }
 
 class __declspec(novtable) Rva005E2D20 : public Rva003AEEB3,
