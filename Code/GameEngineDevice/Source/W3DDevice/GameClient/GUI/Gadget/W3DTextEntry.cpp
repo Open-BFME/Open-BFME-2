@@ -107,12 +107,7 @@ public:
 	ICoord2D m_imageOffset;                                // +0x17C
 };
 
-struct WinDrawData
-{
-	const Image *image;
-	Color color;
-	Color borderColor;
-};
+#include "../../../../../../GameEngine/Include/GameClient/WinDrawData.h"
 
 // The enabled, disabled and hilite draw data sit at +0x48, +0xB4 and +0x120.
 class GameWindow

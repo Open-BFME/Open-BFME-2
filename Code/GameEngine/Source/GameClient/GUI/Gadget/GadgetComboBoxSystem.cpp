@@ -83,12 +83,7 @@ class BfmeKeyLC;
 
 #include "../../../../Include/GameClient/ImageClass.h"
 
-struct WinDrawData
-{
-	const Image *image;
-	Color color;
-	Color borderColor;
-};
+#include "../../../../Include/GameClient/WinDrawData.h"
 
 class WinInstanceData
 {

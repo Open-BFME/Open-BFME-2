@@ -14,12 +14,7 @@
 class Image;
 struct GameWindowEditData;
 
-struct WinDrawData
-{
-	const Image *image;
-	int color;
-	int borderColor;
-};
+#include "../../../Include/GameClient/WinDrawData.h"
 
 struct WinInstanceData
 {

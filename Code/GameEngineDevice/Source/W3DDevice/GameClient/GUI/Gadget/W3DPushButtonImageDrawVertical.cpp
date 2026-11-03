@@ -29,12 +29,7 @@ inline Int imageHeight(const Image *image)
 	return *(const Int *)((const unsigned char *)image + 0x28);
 }
 
-struct WinDrawData
-{
-	const Image *image;
-	Int color;
-	Int borderColor;
-};
+#include "../../../../../../GameEngine/Include/GameClient/WinDrawData.h"
 
 class WinInstanceData
 {

@@ -34,12 +34,7 @@ enum
 	MAX_DRAW_DATA = 9,
 	MAX_TEXT_LABEL = 128
 };
-struct WinDrawData
-{
-	const Image *image;
-	Color color;
-	Color borderColor;
-};
+#include "../../../Include/GameClient/WinDrawData.h"
 struct TextDrawData
 {
 	Color color;

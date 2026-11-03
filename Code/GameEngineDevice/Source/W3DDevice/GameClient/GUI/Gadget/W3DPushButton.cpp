@@ -112,12 +112,7 @@ public:
 	VideoBuffer *m_videoBuffer;                            // +0x1A4
 };
 
-struct WinDrawData
-{
-	const Image *image;
-	Color color;
-	Color borderColor;
-};
+#include "../../../../../../GameEngine/Include/GameClient/WinDrawData.h"
 
 // The enabled, disabled and hilite draw data sit at +0x48, +0xB4 and +0x120.
 class GameWindow
