@@ -25,18 +25,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class AICommandInterface
-{
-public:
-    void aiAttackArea(const PolygonTrigger *, CommandSourceType);
-};
-
-class AIUpdateInterface
-{
-public:
-    char m_pad00[0x20];
-    AICommandInterface m_commandInterface;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -61,5 +50,5 @@ void ScriptActions::doNamedAttackArea(const AsciiString &unitName, const AsciiSt
         return;
     }
     theSrcUnit->leaveGroup();
-    aiUpdate->m_commandInterface.aiAttackArea(trigger, CMD_FROM_SCRIPT);
+    aiUpdate->aiAttackArea(trigger, CMD_FROM_SCRIPT);
 }

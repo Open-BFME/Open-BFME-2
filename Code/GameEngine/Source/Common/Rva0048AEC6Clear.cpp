@@ -10,17 +10,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmd);
-};
-
-struct AIUpdateInterface
-{
-	char m_pad[0x20];
-	AICommandInterface m_cmd;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../GameLogic/Object/object.h"
 
@@ -68,5 +58,5 @@ void Rva0048AEC6::rva0048AEC6(int index)
 		flag += 0x10;
 	}
 	Object *obj = *(Object **)((char *)this - 0x3DC);
-	obj->m_ai->m_cmd.aiIdle(CMD_FROM_AI);
+	obj->m_ai->aiIdle(CMD_FROM_AI);
 }

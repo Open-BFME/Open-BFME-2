@@ -173,18 +173,7 @@ private:
 	unsigned char m_kindOf[0x20];
 };
 
-class AICommandInterface
-{
-public:
-	void rva0026C347(Object *obj, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Player
 {
@@ -536,7 +525,7 @@ void ScriptActions::doUnitGarrisonSpecificBuilding(const AsciiString &unitName,
 			}
 		}
 	} else {
-		ai->m_command.rva0026C347(theBuilding, CMD_FROM_SCRIPT);
+		ai->rva0026C347(theBuilding, CMD_FROM_SCRIPT);
 	}
 }
 

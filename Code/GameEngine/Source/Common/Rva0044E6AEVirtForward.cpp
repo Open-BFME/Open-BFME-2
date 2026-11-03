@@ -30,17 +30,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmd);
-};
-
-struct AIUpdateInterface
-{
-	char m_pad[0x20];
-	AICommandInterface m_cmd20;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class ThingTemplate
 {
@@ -166,7 +156,7 @@ void Rva0044E6AE::rva0049C8FC()
 		return;
 	if (m_flag89 == 0)
 		return;
-	m_obj08->m_ai258->m_cmd20.aiIdle(CMD_FROM_AI);
+	m_obj08->m_ai258->aiIdle(CMD_FROM_AI);
 	m_flag89 = 0;
 	return rva0044E6AE();
 }
@@ -183,7 +173,7 @@ void Rva0044E6AE::triggerAbilityEffect()
 	if (found == 0 || (found->m_privateStatus & 1) != 0
 		|| ((Rva0049C6E1 *)this)->rva0049C6E1(found) == 0)
 	{
-		obj->m_ai258->m_cmd20.aiIdle(CMD_FROM_AI);
+		obj->m_ai258->aiIdle(CMD_FROM_AI);
 		return;
 	}
 

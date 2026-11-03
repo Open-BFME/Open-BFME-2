@@ -29,18 +29,7 @@ enum CommandSourceType
 	CMD_FROM_SCRIPT = 1
 };
 
-class AICommandInterface
-{
-public:
-	void rva003C7653(Object *target, CommandSourceType cmdSource);	// 0x003C7653
-};
-
-class AIUpdateInterface
-{
-public:
-	unsigned char pad[0x20];
-	AICommandInterface command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -67,7 +56,7 @@ void ScriptActions::rva003C7914(const AsciiString &teamName, Parameter *victimPa
 			{
 				AIUpdateInterface *ai = iter.cur()->getAIUpdateInterface();
 				if (ai)
-					ai->command.rva003C7653(victim, CMD_FROM_SCRIPT);
+					ai->rva003C7653(victim, CMD_FROM_SCRIPT);
 			}
 		}
 		else

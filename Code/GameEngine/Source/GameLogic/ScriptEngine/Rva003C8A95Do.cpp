@@ -13,18 +13,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class AICommandInterface
-{
-public:
-	void aiHunt(CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -36,5 +25,5 @@ void ScriptActions::Rva003C8A95Do(Parameter *param)
 	AIUpdateInterface *ai = obj->getAI();
 	if (!ai)
 		return;
-	ai->m_command.aiHunt(CMD_FROM_SCRIPT);
+	ai->aiHunt(CMD_FROM_SCRIPT);
 }

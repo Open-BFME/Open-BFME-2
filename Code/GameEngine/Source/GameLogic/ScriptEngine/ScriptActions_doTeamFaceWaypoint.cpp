@@ -40,18 +40,7 @@ public:
 
 #include "../Object/object.h"
 
-class AICommandInterface
-{
-public: void aiFacePosition(const Coord3D *, int);
-	void rva003C76B8(int value, CommandSourceType cmdSource);
-};
-class AIUpdateInterface
-{
-public:
-    unsigned char pad[0x20];
-    AICommandInterface command;
-    void rva0026295E();
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class TerrainLogicByValue
@@ -93,7 +82,7 @@ void ScriptActions::doTeamFaceWaypoint(const AsciiString &teamName,
         if (ai) {
             ai->rva0026295E();
             object->leaveGroup();
-            ai->command.aiFacePosition(waypoint->location(), 1);
+            ai->aiFacePosition(waypoint->location(), 1);
         }
         iter.advance();
     }
@@ -111,7 +100,7 @@ void ScriptActions::doTeamGuardInTunnelNetwork(const AsciiString &teamName)
         Object *object = iter.cur();
         AIUpdateInterface *ai = object->getAIUpdateInterface();
         if (ai) {
-            ai->command.rva003C76B8(0, CMD_FROM_SCRIPT);
+            ai->rva003C76B8(0, CMD_FROM_SCRIPT);
         }
         iter.advance();
     }

@@ -25,19 +25,7 @@ private:
 	unsigned char m_kindOf[4]; // +0x108
 };
 class Object;
-class AICommandInterface
-{
-public:
-	void rva0036F19B(Object *victim, CommandSourceType cmdSource);
-};
-class AIUpdateInterface
-{
-public:
-	AICommandInterface *getCommandInterface() { return &m_commandInterface; }
-private:
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commandInterface; // +0x20
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -82,6 +70,6 @@ void RepairSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int option
 	{
 		AIUpdateInterface *ai = Object::getAI(self);
 		if (ai)
-			ai->getCommandInterface()->rva0036F19B(TheGameLogic->findObjectByID(obj->m_id), CMD_FROM_PLAYER);
+			ai->rva0036F19B(TheGameLogic->findObjectByID(obj->m_id), CMD_FROM_PLAYER);
 	}
 }

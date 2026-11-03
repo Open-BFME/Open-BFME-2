@@ -45,17 +45,7 @@ class Parameter;
 
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void aiGuardObject(Object *target, int value, CommandSourceType cmdSource);	// 0x0036F4DF
-};
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad[0x20];
-	AICommandInterface m_cmd;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 extern ScriptEngine *TheScriptEngine;
 
 class PlayerList
@@ -270,7 +260,7 @@ void ScriptActions::Rva003C9C0AAttack(Parameter *unitParm, int kindBit)
 	AIUpdateInterface *ai = unit->getAI();
 	if (!ai)
 		return;
-	ai->m_cmd.aiGuardObject(best, 0, CMD_FROM_SCRIPT);
+	ai->aiGuardObject(best, 0, CMD_FROM_SCRIPT);
 }
 
 // Member ABI proved at each native executeAction3CA4BE call site: ECX=this.

@@ -10,19 +10,7 @@ enum CommandSourceType
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	virtual void aiCommandInterfaceAnchor();
-	void rva0026C2D9(Object *obj, int maxShotsToFire, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad0[0x20];
-	AICommandInterface m_commands; // +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 typedef void (*ContainIterateFunc)(Object *obj, void *userData);
 
@@ -187,7 +175,7 @@ void AttackObjectGroupOrder::rva005470F8(Object *obj, void *userData)
 {
 	AIUpdateInterface *ai = obj->m_ai;
 	if (ai)
-		ai->m_commands.rva0026C2D9((Object *)userData, 0x7FFFFFFF, CMD_FROM_PLAYER);
+		ai->rva0026C2D9((Object *)userData, 0x7FFFFFFF, CMD_FROM_PLAYER);
 }
 
 // ?rva0054711A@AttackObjectGroupOrder@@UAEXW4ObjectID@@@Z @0x0054711A 110B.
@@ -206,7 +194,7 @@ void AttackObjectGroupOrder::rva0054711A(ObjectID id)
 		AIUpdateInterface *ai = obj->m_ai;
 		if (ai)
 		{
-			ai->m_commands.rva0026C2D9(target, 0x7FFFFFFF, CMD_FROM_PLAYER);
+			ai->rva0026C2D9(target, 0x7FFFFFFF, CMD_FROM_PLAYER);
 			if ((obj->m_template->m_115 & 0x20) == 0)
 			{
 				ContainModuleInterface *contain = obj->m_contain;

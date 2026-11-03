@@ -159,25 +159,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 class Rva0036DE89Production { public:
  virtual void v0(); virtual int canQueue(const UpgradeTemplate*); virtual void v2(); virtual void queue(const UpgradeTemplate*);
 };
-class AICommandInterface
-{
-public:
-	void aiAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
-	void aiHunt(CommandSourceType cmdSource);
-	void rva0036EC1D(Object*,CommandSourceType);
-	void aiAttackPosition(const Coord3D *, int, CommandSourceType);
- void aiForceAttackObject(Object*,int,CommandSourceType);
- void rva0026C2D9(Object*,int,CommandSourceType);
- void rva0036EFF5(Object*,CommandSourceType);
-};
-
-class AIUpdateInterface
-{
-public:
-	void rva0026DE3B(int arg);
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 enum WeaponSlotType
 {
@@ -300,7 +282,7 @@ void AIGroup::groupAttackTeam(const Team *team, Int maxShotsToFire, CommandSourc
 	for (i = m_memberList.begin(); i != m_memberList.end(); ++i) {
 		AIUpdateInterface *ai = (*i)->m_ai;
 		if (ai) {
-			ai->m_commands.aiAttackTeam(team, maxShotsToFire, cmdSource);
+			ai->aiAttackTeam(team, maxShotsToFire, cmdSource);
 		}
 	}
 }
@@ -310,7 +292,7 @@ void AIGroup::groupHunt(CommandSourceType cmdSource)
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i) {
 		AIUpdateInterface *ai = (*i)->m_ai;
 		if (ai) {
-			ai->m_commands.aiHunt(cmdSource);
+			ai->aiHunt(cmdSource);
 		}
 	}
 }
@@ -441,14 +423,14 @@ void AIGroup::groupAttackPosition(const Coord3D *pos, Int maxShotsToFire, Comman
                 CanAttackResult result=member->getAbleToUseWeaponAgainstTarget(ATTACK_NEW_TARGET,0,&attackPos,cmdSource);
                 if (result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
                     AIUpdateInterface *ai=member->m_ai;
-                    if(ai) ai->m_commands.aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
+                    if(ai) ai->aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
                 }
             }
         }
         SpawnBehaviorInterface *spawn=(*i)->getSpawnBehaviorInterface();
         if(spawn) spawn->attack(&attackPos,maxShotsToFire,cmdSource);
         AIUpdateInterface *ai=(*i)->m_ai;
-        if(ai) ai->m_commands.aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
+        if(ai) ai->aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
     }
 }
 
@@ -504,8 +486,8 @@ void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int shots,Comm
     if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
      AIUpdateInterface *ai=member->m_ai;
      if(ai) {
-      if(forced) ai->m_commands.aiForceAttackObject(victim,shots,source);
-      else ai->m_commands.rva0026C2D9(victim,shots,source);
+      if(forced) ai->aiForceAttackObject(victim,shots,source);
+      else ai->rva0026C2D9(victim,shots,source);
      }
     }
    }
@@ -514,9 +496,9 @@ void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int shots,Comm
   if(ai && unit!=victim) {
    if((unsigned char)unit->rva0028B38D()) {
     CanAttackResult result=TheActionManager->getCanAttackObject(unit,victim,source,ATTACK_NEW_TARGET);
-    if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) ai->m_commands.rva0036EFF5(victim,source);
-   } else if(forced) ai->m_commands.aiForceAttackObject(victim,shots,source);
-   else ai->m_commands.rva0026C2D9(victim,shots,source);
+    if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) ai->rva0036EFF5(victim,source);
+   } else if(forced) ai->aiForceAttackObject(victim,shots,source);
+   else ai->rva0026C2D9(victim,shots,source);
   }
  }
 }

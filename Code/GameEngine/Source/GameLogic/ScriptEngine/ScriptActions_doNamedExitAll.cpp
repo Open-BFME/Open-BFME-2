@@ -17,18 +17,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class AICommandInterface
-{
-public:
-    void aiEvacuate(bool, CommandSourceType);
-};
-
-class AIUpdateInterface
-{
-public:
-    char m_pad00[0x20];
-    AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -49,5 +38,5 @@ void ScriptActions::doNamedExitAll(const AsciiString &unitName)
         return;
     }
     theTransport->leaveGroup();
-    aiUpdate->m_command.aiEvacuate(false, CMD_FROM_SCRIPT);
+    aiUpdate->aiEvacuate(false, CMD_FROM_SCRIPT);
 }

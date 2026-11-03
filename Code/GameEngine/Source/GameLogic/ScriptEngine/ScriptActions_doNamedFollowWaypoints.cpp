@@ -32,17 +32,7 @@ public:
     virtual Waypoint *getClosestWaypointOnPath(const Coord3D *, const AsciiString &) = 0;
 };
 
-class AICommandInterface
-{
-public:
-    void aiFollowWaypointPath(const Waypoint *, CommandSourceType);
-};
-class AIUpdateInterface
-{
-public:
-    char pad[0x20];
-    AICommandInterface command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 class ScriptActions
 {
@@ -69,5 +59,5 @@ void ScriptActions::doNamedFollowWaypoints(const AsciiString &unitName,
         waypointPathLabel);
     if (!waypoint) return;
     unit->leaveGroup();
-    ai->command.aiFollowWaypointPath(waypoint, CMD_FROM_SCRIPT);
+    ai->aiFollowWaypointPath(waypoint, CMD_FROM_SCRIPT);
 }

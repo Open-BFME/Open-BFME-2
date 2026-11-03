@@ -14,18 +14,7 @@ enum CommandSourceType
 	COMMAND_SOURCE_TWO = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType source);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../object.h"
 
@@ -115,7 +104,7 @@ int Rva0049862B::update()
 						}
 						else if (m_turretHeld == 0)
 						{
-							ai->m_commands.aiIdle(COMMAND_SOURCE_TWO);
+							ai->aiIdle(COMMAND_SOURCE_TWO);
 							owner->recenterTurret();
 							m_turretHeld = 1;
 						}

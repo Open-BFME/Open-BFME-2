@@ -10,18 +10,7 @@ class Parameter;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void aiExit(Object *obj, CommandSourceType src);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command; // +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -37,5 +26,5 @@ void ScriptActions::Rva003C90B1Exit(Parameter *param)
 	AIUpdateInterface *ai = obj->getAI();
 	if (!ai)
 		return;
-	ai->m_command.aiExit(0, CMD_FROM_SCRIPT);
+	ai->aiExit(0, CMD_FROM_SCRIPT);
 }

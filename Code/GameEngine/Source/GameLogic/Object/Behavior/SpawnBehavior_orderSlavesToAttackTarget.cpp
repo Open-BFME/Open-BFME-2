@@ -29,18 +29,7 @@ enum CommandSourceType
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	void aiForceAttackObject(Object *target, int maxShotsToFire, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../object.h"
 
@@ -68,7 +57,7 @@ void SpawnBehavior::orderSlavesToAttackTarget(Object *target, int maxShotsToFire
 			AIUpdateInterface *ai = obj->m_ai;
 			if (ai)
 			{
-				ai->m_commands.aiForceAttackObject(target, maxShotsToFire, cmdSource);
+				ai->aiForceAttackObject(target, maxShotsToFire, cmdSource);
 			}
 		}
 	}

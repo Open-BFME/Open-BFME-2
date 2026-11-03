@@ -138,18 +138,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commandInterface;			// +0x20
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AiOrdersManager
 {
@@ -358,7 +347,7 @@ void HordeContain::changeToFormation(const ThingTemplate *newTemplate)
 		if (ai)
 		{
 			TheAiOrdersManager->clearOrders(3, getObject()->getID());
-			ai->m_commandInterface.aiIdle(CMD_FROM_PLAYER);
+			ai->aiIdle(CMD_FROM_PLAYER);
 		}
 	}
 	getObject()->SwapForExchange(newObj);
