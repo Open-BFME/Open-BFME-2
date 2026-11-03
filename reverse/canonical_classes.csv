@@ -415,3 +415,4 @@ Rva00253487Base,Code/GameEngine/Include/GameLogic/Module/Rva00253487Base.h,exist
 Rva0036CA00Str,Code/GameEngine/Include/Common/Rva0036CA00Str.h,existing header; contract class_contracts/Rva0036CA00Str.json; 56/92 sampled units adopt
 WeaponSetUpgradeModuleData,Code/GameEngine/Include/GameLogic/Module/WeaponSetUpgradeModuleData.h,existing header; contract class_contracts/WeaponSetUpgradeModuleData.json; 12/17 sampled units adopt
 Rva00575674,Code/GameEngine/Include/Common/Rva00575674.h,existing header; contract class_contracts/Rva00575674.json; 52/63 sampled units adopt
+Rva00045411BitSet,Code/GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h,existing header; contract class_contracts/Rva00045411BitSet.json; 39/67 sampled units adopt

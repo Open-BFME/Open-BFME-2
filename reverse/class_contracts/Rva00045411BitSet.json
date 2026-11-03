@@ -1,0 +1,54 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00045411BitSet",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "28": 40
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_bits",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 28,
+   "type": "uint[28]",
+   "views": 40,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1,
+  "struct": 7
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {}
+}
