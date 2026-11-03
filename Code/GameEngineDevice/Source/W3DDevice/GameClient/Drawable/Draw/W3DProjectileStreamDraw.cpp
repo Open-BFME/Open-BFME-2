@@ -253,13 +253,7 @@ public:
 
 class Module;
 
-class Object
-{
-public:
-	ProjectileStreamUpdate *findUpdateModule( NameKeyType key ) const { return (ProjectileStreamUpdate *)findModule( key ); }
-protected:
-	Module *findModule( NameKeyType key ) const;
-};
+#include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
