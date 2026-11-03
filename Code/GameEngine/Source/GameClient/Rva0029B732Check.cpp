@@ -14,6 +14,6 @@ private:
 };
 bool Rva0029B732::rva0029B732()
 {
-	int v = m_0 ? m_0->m_4 : 0;
-	return v > 0;
+	int count = m_0 ? m_0->m_4 : 0;
+	return count > 0;
 }

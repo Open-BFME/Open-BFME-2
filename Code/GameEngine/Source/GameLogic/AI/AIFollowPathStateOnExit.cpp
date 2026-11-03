@@ -38,9 +38,9 @@ public:
 		MAINTAIN_POS_IS_VALID,
 		PRECISE_Z_POS
 	};
-	void setUsePreciseZPos(Bool b)
+	void setUsePreciseZPos(Bool usePreciseZPos)
 	{
-		if (b)
+		if (usePreciseZPos)
 			m_flags |= (1 << PRECISE_Z_POS);
 		else
 			m_flags &= ~(1 << PRECISE_Z_POS);
@@ -67,7 +67,7 @@ public:
 class AIUpdateInterface
 {
 public:
-	void setCanPathThroughUnits(Bool b) { m_canPathThroughUnits = b; }
+	void setCanPathThroughUnits(Bool canPathThroughUnits) { m_canPathThroughUnits = canPathThroughUnits; }
 	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the setCanPathThroughUnits copy loses to the first-in-order copy. No flags touched.
 	void bfme_setCanPathThroughUnits_9c10a(Bool b) { m_canPathThroughUnits = b; }
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }

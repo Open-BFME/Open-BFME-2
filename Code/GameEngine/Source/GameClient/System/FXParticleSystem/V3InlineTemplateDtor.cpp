@@ -26,8 +26,8 @@ private:
 
 Rva003AE13C::~Rva003AE13C()
 {
-    unsigned char *b08 = this ? (unsigned char *)this + 8 : 0;
-    *(volatile unsigned int *)b08 = ((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
+    unsigned char *vtableSlot = this ? (unsigned char *)this + 8 : 0;
+    *(volatile unsigned int *)vtableSlot = ((unsigned int)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@"));
     *(volatile unsigned int *)this = ((unsigned int)__identifier("??_7V3Vt01111D90@@6B@"));
 }
 

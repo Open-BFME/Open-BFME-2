@@ -29,10 +29,10 @@ __forceinline long fast_float2long_round(float f)
 // Retail caller 0x00364FAD and WB F24175 both set ECX to Path this.
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-int Path::rva003641AE(float a, float b)
+int Path::rva003641AE(float angle, float b)
 {
 	double d = b;
-	b = (float)ceil((a * (d * BfmePathArcFactor0)) * g_00C17274);
+	b = (float)ceil((angle * (d * BfmePathArcFactor0)) * g_00C17274);
 	int i = fast_float2long_round(b);
 	if (i < 1)
 		i = 1;

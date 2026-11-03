@@ -54,10 +54,10 @@ void Rva0055B266::rva0055B266(Xfer *xfer)
 {
 	xfer->Version1();
 	unsigned int *pVal = &m_elems[0].m_val;
-	int n = 8;
+	int count = 8;
 	do {
 		xferRandomVariable(*xfer, *(GameClientRandomVariable *)(pVal - 3));
 		*xfer == *pVal;
 		pVal += 4;
-	} while (--n != 0);
+	} while (--count != 0);
 }

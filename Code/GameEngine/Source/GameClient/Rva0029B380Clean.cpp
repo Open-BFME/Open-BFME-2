@@ -33,9 +33,9 @@ private:
 void Rva0029B380::rva0029B380(int idx)
 {
  	m_items[idx].m_0.~StringBase<unsigned short>();
- 	void *p = m_items[idx].m_4;
- 	if (p != 0)
- 		(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(p);
+ 	void *displayString = m_items[idx].m_4;
+ 	if (displayString != 0)
+ 		(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(displayString);
  	m_items[idx].m_4 = 0;
  	m_items[idx].m_8 = 0;
 }
@@ -47,9 +47,9 @@ void Rva0029B380::rva0029B34B()
 {
 	for (int i = 0; i < 6; ++i) {
 		m_items[i].m_0.~StringBase<unsigned short>();
-		void *p = m_items[i].m_4;
-		if (p != 0)
-			(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(p);
+		void *displayString = m_items[i].m_4;
+		if (displayString != 0)
+			(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(displayString);
 		m_items[i].m_4 = 0;
 		m_items[i].m_8 = 0;
 	}

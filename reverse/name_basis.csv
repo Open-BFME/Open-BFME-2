@@ -6914,3 +6914,11 @@ local,InGameUI::clearFormationPreviewDrawables::n,InGameUI::clearFormationPrevie
 local,InGameUI::clearFormationPreviewDrawables::p,InGameUI::clearFormationPreviewDrawables::slot,inferred,agree:nl-757a27dc9aca,Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp,0x002A3DD3
 param,killIcon::n,killIcon::iconIndex,inferred,agree:nl-afdac4787e30,Code/GameEngine/Source/GameClient/rva00273DCFRva00273DCFFarm.cpp,
 param,shifted::n,shifted::shiftCount,inferred,agree:nl-a7afa1fa9ae0,Code/GameEngine/Source/GameClient/rva00273DCFRva00273DCFFarm.cpp,
+local,Rva0029B380::rva0029B34B::p,Rva0029B380::rva0029B34B::displayString,inferred,agree:nl-2a951e52c3f5,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp,0x0029B34B
+local,Rva0029B380::rva0029B380::p,Rva0029B380::rva0029B380::displayString,inferred,agree:nl-c98ed0698744,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp,0x0029B380
+local,Rva0029B732::rva0029B732::v,Rva0029B732::rva0029B732::count,inferred,agree:nl-c4eccee5e4e2,Code/GameEngine/Source/GameClient/Rva0029B732Check.cpp,0x0029B732
+local,Rva0055B266::rva0055B266::n,Rva0055B266::rva0055B266::count,inferred,agree:nl-721a69338c20-mb8e57e092084b3676b4156d0,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B266Xfer.cpp,0x0055B266
+local,Rva003AE13C::~Rva003AE13C::b08,Rva003AE13C::~Rva003AE13C::vtableSlot,inferred,agree:nl-22c470157572-mb67465279ecb192dfb5b6ee3,Code/GameEngine/Source/GameClient/System/FXParticleSystem/V3InlineTemplateDtor.cpp,0x003A583E
+param,setCanPathThroughUnits::b,setCanPathThroughUnits::canPathThroughUnits,inferred,agree:nl-a9db763b8a37,Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp,
+param,setUsePreciseZPos::b,setUsePreciseZPos::usePreciseZPos,inferred,agree:nl-9c35b2abf21b,Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp,
+param,Path::rva003641AE::a,Path::rva003641AE::angle,inferred,agree:nl-ef2526dfe9d3,Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp,0x003641AE
