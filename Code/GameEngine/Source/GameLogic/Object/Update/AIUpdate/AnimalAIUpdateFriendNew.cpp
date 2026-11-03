@@ -14,15 +14,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class AnimalAIUpdate
-{
-public:
-	AnimalAIUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x3FC];
-};
+#include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 
 // ?friend_newModuleInstance@AnimalAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *AnimalAIUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

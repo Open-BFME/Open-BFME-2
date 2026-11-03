@@ -42,28 +42,8 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 
-class AIUpdateInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-private:
-	char m_unrecovered04[0x3E8 - 0x04];
-};
+#include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 
-class AnimalAIUpdate : public AIUpdateInterface
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	ObjectID m_3E8;
-	Coord3DBase m_3EC;
-	bool m_3F8;
-	bool m_3F9;
-};
 
 // ?xfer@AnimalAIUpdate@@MAEXPAVXfer@@@Z @0x0047EBAF
 void AnimalAIUpdate::xfer(Xfer *xfer)

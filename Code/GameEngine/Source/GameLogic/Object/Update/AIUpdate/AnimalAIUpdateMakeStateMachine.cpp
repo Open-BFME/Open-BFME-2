@@ -14,11 +14,7 @@ class Object;
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AnimalAIUpdate : public AIUpdateInterface
-{
-protected:
-	virtual AIStateMachine *makeStateMachine();
-};
+#include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 
 AIStateMachine *AnimalAIUpdate::makeStateMachine()
 {
