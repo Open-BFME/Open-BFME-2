@@ -215,74 +215,7 @@ class Rva002E6C79
   return (Rva002E6C79 *)rva002E6C79();
  }
 };
-class PathfindCell
-{
- friend class Pathfinder;
- public:
-// The packed cell word at +0x0C: type in bits 0-3, layer in bits 4-9.
- enum CellType
- {
-  CELL_CLEAR = 0,
-  CELL_OBSTACLE = 4,
-  CELL_IMPASSABLE = 5
- };
- enum
- {
-  LAYER_GROUND = 1
- };
- Bool StartPathfind(Int);
- void ReleaseInfo();
- void SetParentCell(Int *);
- void PutOnClosedList(MixFileInfoBuffer **);
- Int CalcCostSoFar(const Rva002E6C79 *);
- __forceinline void allocateInfo(In002E6BA1 *pos)
- {
-  if(!m_pathInfo)
-  {
-   if(!TheMixFileInfoPool)Rva0052DBCDInit();
-   m_pathInfo=(PathfinderGroundInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool,(Int)this,pos);
-  }
-  else m_pathInfo->parentWaypoint=0;
- }
- void rva0052DAE9(Bool open);
- unsigned short quickZone()const
- {
-  return (unsigned short)word8;
- }
- Int getXIndex() const
- {
-  return m_pathInfo->position.x;
- }
- Int getYIndex() const
- {
-  return m_pathInfo->position.y;
- }
-// 0x0052DD75 (unrowed): an angle for the cell from a facing, a count and
-// a weight (unnamed).
- float rva0052DD75(float facing, Int count, float weight);
- CellType getType() const
- {
-  return (CellType)(m_info & 0xf);
- }
- Int getLayer() const
- {
-  return (m_info & 0x3f0) >> 4;
- }
- PathfindCell *getParentCell()
- {
-  return (PathfindCell *)((Rva002E6C79 *)this)->rva002E6C79();
- }
- Waypoint *getParentWaypoint()const
- {
-  return m_pathInfo?m_pathInfo->parentWaypoint:0;
- }
- private:
- PathfinderGroundInfo *m_pathInfo;
- Waypoint *waypoint;
- Int word8;
- unsigned int m_info;
-// +0x0C
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"

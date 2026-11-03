@@ -91,36 +91,17 @@ class Rva002E8BCF { public: Rva002E8BCF(){} Rva002E8BCF(const Rva002E8BCFSrc *,B
 class Rva002E6DC4 { public: Bool rva002E6DC4(void *,void *); };
 
 void ji_00629952();
-class PathfindCell
-{
-friend class Pathfinder;
-public:
-enum CellType
-{
-CELL_CLEAR = 0,
-CELL_OBSTACLE = 4,
-CELL_IMPASSABLE = 5
-};
-enum { LAYER_GROUND = 1 };
-
-Bool StartPathfind(Int);void ReleaseInfo();void SetParentCell(Int *);void PutOnClosedList(MixFileInfoBuffer **);Int CalcCostSoFar(const Rva002E6C79 *);
-__forceinline void allocateInfo(In002E6BA1 *pos) {
-if(!m_pathInfo) { if(!TheMixFileInfoPool)Rva0052DBCDInit();m_pathInfo=(PathfinderGroundInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool,(Int)this,pos); }
-else m_pathInfo->state=0;
+#include "../../../Include/GameLogic/PathfindCell.h"
+// The cell's info at +0 holds the cell coordinates, cost and obstacle words.
+static __forceinline PathfinderGroundInfo *cellInfo(const PathfindCell *cell) { return (PathfinderGroundInfo *)cell->m_info; }
+// The cell's coordinates read through its info, as retail's inlined accessors do.
+struct SidewaysCellIndexView { PathfinderGroundInfo *info; Int getXIndex() const { return info->position.x; } Int getYIndex() const { return info->position.y; } };
+static __forceinline Int cellX(const PathfindCell *cell) { return ((const SidewaysCellIndexView *)cell)->getXIndex(); }
+static __forceinline Int cellY(const PathfindCell *cell) { return ((const SidewaysCellIndexView *)cell)->getYIndex(); }
+static __forceinline void cellAllocateInfo(PathfindCell *cell, In002E6BA1 *pos) {
+if(!cell->m_info) { if(!TheMixFileInfoPool)Rva0052DBCDInit();cell->m_info=(PathfindCellInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool,(Int)cell,pos); }
+else cellInfo(cell)->state=0;
 }
-void rva0052DAE9(Bool open);
-Int getXIndex() const { return m_pathInfo->position.x; }
-Int getYIndex() const { return m_pathInfo->position.y; }
-float rva0052DD75(float facing, Int count, float weight);
-__declspec(dllimport) CellType getType() const { return (CellType)(m_info & 0xf); }
-Int getLayer() const { return (m_info & 0x3f0) >> 4; }
-
-private:
-PathfinderGroundInfo *m_pathInfo;
-char m_pad04[8];
-unsigned int m_info;			// +0x0C
-};
-
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
@@ -477,12 +458,12 @@ inline __declspec(noinline) Int Pathfinder::rva002F83F5(PathfindCell *parentCell
 if(obj->m_template->hasKind(109)||obj->m_template->hasKind(191)){radius=1;centerInCell=true;}
 Bool canPathThroughUnits=false;
 if(obj->getAI())canPathThroughUnits=*(Bool *)((char *)obj->getAI()+0x3ba);
-if(!m_isTunneling && !locomotorSet.isDownhillOnly() && goalCell && !(parentCell->getXIndex()&3) && !(parentCell->getYIndex()&3)) {
+if(!m_isTunneling && !locomotorSet.isDownhillOnly() && goalCell && !(cellX(parentCell)&3) && !(cellY(parentCell)&3)) {
 ICoord2D end;const ICoord2D *endPtr;
-if(m_1C1CC.empty()){endPtr=(ICoord2D *)goalCell->m_pathInfo;}
+if(m_1C1CC.empty()){endPtr=(ICoord2D *)goalCell->m_info;}
 else {endPtr=(ICoord2D *)&m_1C1CC.back().m_position;}
 end=*endPtr;PathfindLayerEnum layer=(PathfindLayerEnum)parentCell->getLayer();Rva002EAB6F query((Int)this,(const Rva002E8BCFSrc *)&locomotorSet,centerInCell,radius,obj,isHuman,(Int)goalCell,m_1C1CC.empty()?attackMode:0);
-iterateCellsAlongLine((const ICoord2D *)parentCell->m_pathInfo,&end,layer,(Rva002F5925Info *)&query);
+iterateCellsAlongLine((const ICoord2D *)parentCell->m_info,&end,layer,(Rva002F5925Info *)&query);
 }
 Int cellCount=0;
 TCheckMovementInfo info;((Rva002E6FDF *)&info)->rva002E6FDF();
@@ -495,47 +476,47 @@ static Int deltaX[]={1,0,-1,0,1,-1,-1,1};static Int deltaY[]={0,1,0,-1,1,1,-1,-1
 Bool neighborFlags[8];
 for(Int i=0;i<8;++i) {
 neighborFlags[i]=false;
-Int x=parentCell->getXIndex()+deltaX[i],y=parentCell->getYIndex()+deltaY[i];ICoord2D coords={x,y};
+Int x=cellX(parentCell)+deltaX[i],y=cellY(parentCell)+deltaY[i];ICoord2D coords={x,y};
 PathfindCell *newCell=getCell((PathfindLayerEnum)parentCell->getLayer(),x,y);
 if(!newCell)continue;
 if((unsigned char)((Rva002E6B06 *)newCell)->rva002E6B06() || (unsigned char)((Rva002E6AF3 *)newCell)->get())continue;
-if(newCell->getLayer()!=parentCell->getLayer() && !(info.movement.surfaces&64) && newCell->getLayer()!=((parentCell->m_info>>10)&63) && ((newCell->m_info>>10)&63)!=parentCell->getLayer() && (((parentCell->m_info>>10)&63)!=16 || ((newCell->m_info>>10)&63)!=((parentCell->m_info>>10)&63)))continue;
+if(newCell->getLayer()!=parentCell->getLayer() && !(info.movement.surfaces&64) && newCell->getLayer()!=((parentCell->m_0C>>10)&63) && ((newCell->m_0C>>10)&63)!=parentCell->getLayer() && (((parentCell->m_0C>>10)&63)!=16 || ((newCell->m_0C>>10)&63)!=((parentCell->m_0C>>10)&63)))continue;
 if(isHuman){if(x<m_extentLowX)continue;if(y<m_extentLowY)continue;if(x>m_extentHighX)continue;if(y>m_extentHighY)continue;}
 if(i>=4 && !neighborFlags[i&3] && !neighborFlags[(i+1)&3])continue;
 if(locomotorSet.isDownhillOnly()) {
-float oldZ=TheTerrainLogic->getGroundHeight((float)(parentCell->getXIndex()*10),(float)(parentCell->getYIndex()*10),0);
+float oldZ=TheTerrainLogic->getGroundHeight((float)(cellX(parentCell)*10),(float)(cellY(parentCell)*10),0);
 float newZ=TheTerrainLogic->getGroundHeight((float)(x*10),(float)(y*10),0);
 if(oldZ<newZ)continue;
 }
 Bool movementValid=((Rva002E6DC4 *)this)->rva002E6DC4(&info.movement,newCell);
 Bool tunnelingValid=false;
 if(m_isTunneling)tunnelingValid=(newCell->getLayer()==parentCell->getLayer());
-if(!movementValid && !tunnelingValid){newCell->allocateInfo((In002E6BA1 *)&coords);newCell->PutOnClosedList(&m_closedList);continue;}
+if(!movementValid && !tunnelingValid){cellAllocateInfo(newCell,(In002E6BA1 *)&coords);newCell->PutOnClosedList(&m_closedList);continue;}
 neighborFlags[i]=true;
 info.cell.x=x;info.cell.y=y;
-if(!rva002EA658(obj,info,(const ICoord2D *)parentCell->m_pathInfo)) {
-if(!tunnelingValid){newCell->allocateInfo((In002E6BA1 *)&coords);newCell->PutOnClosedList(&m_closedList);continue;}
+if(!rva002EA658(obj,info,(const ICoord2D *)parentCell->m_info)) {
+if(!tunnelingValid){cellAllocateInfo(newCell,(In002E6BA1 *)&coords);newCell->PutOnClosedList(&m_closedList);continue;}
 ++info.blockedCells;
 } else {if(movementValid)m_isTunneling=false;}
-if(!newCell->m_pathInfo)++cellCount;
-newCell->allocateInfo((In002E6BA1 *)&coords);
+if(!newCell->m_info)++cellCount;
+cellAllocateInfo(newCell,(In002E6BA1 *)&coords);
 unsigned int newCostSoFar=0;
-Int dx=goalCell?abs(x-goalCell->getXIndex()):3;
-Int dy=goalCell?abs(y-goalCell->getYIndex()):3;
-if(newCell->getType()==2 && !(unsigned char)(newCell->m_info>>16&1)) {
-float oldZ=TheTerrainLogic->getGroundHeight((float)(parentCell->getXIndex()*10),(float)(parentCell->getYIndex()*10),0);
+Int dx=goalCell?abs(x-cellX(goalCell)):3;
+Int dy=goalCell?abs(y-cellY(goalCell)):3;
+if(newCell->getType()==2 && !(unsigned char)(newCell->m_0C>>16&1)) {
+float oldZ=TheTerrainLogic->getGroundHeight((float)(cellX(parentCell)*10),(float)(cellY(parentCell)*10),0);
 float newZ=TheTerrainLogic->getGroundHeight((float)(x*10),(float)(y*10),0);
 if(fabs(oldZ-newZ)<10.0f)newCostSoFar=98;
-} else if((unsigned char)(newCell->m_info>>16)&1 || (unsigned char)(newCell->m_info>>23)&1){if(dx+dy>3)newCostSoFar=10;}
-newCell->m_pathInfo->flags&=~1U;
-if(info.allyFixedCount){newCostSoFar+=14;if(!canPathThroughUnits)newCell->m_pathInfo->flags|=1;}
+} else if((unsigned char)(newCell->m_0C>>16)&1 || (unsigned char)(newCell->m_0C>>23)&1){if(dx+dy>3)newCostSoFar=10;}
+cellInfo(newCell)->flags&=~1U;
+if(info.allyFixedCount){newCostSoFar+=14;if(!canPathThroughUnits)cellInfo(newCell)->flags|=1;}
 Int remaining=0;
 if(goalCell){remaining=rva002F0A72(newCell,goalCell);if(attackMode && info.allyGoal)newCostSoFar+=30;}
-if((unsigned char)isGroundOrBridgeLayer(newCell->getLayer()) && !m_zoneManager.IsPassable(x,y) && !((unsigned char)(newCell->m_info>>21)&1))newCostSoFar+=1000;
-if(newCell->getType()==4){Int obstacle=newCell->m_pathInfo?newCell->m_pathInfo->obstacleID:0;if(obstacle!=m_ignoreObstacleID)newCostSoFar+=1000;}
+if((unsigned char)isGroundOrBridgeLayer(newCell->getLayer()) && !m_zoneManager.IsPassable(x,y) && !((unsigned char)(newCell->m_0C>>21)&1))newCostSoFar+=1000;
+if(newCell->getType()==4){Int obstacle=newCell->m_info?cellInfo(newCell)->obstacleID:0;if(obstacle!=m_ignoreObstacleID)newCostSoFar+=1000;}
 newCostSoFar+=info.blockedCells*10;
 if(m_isTunneling && !((Rva002E6DC4 *)this)->rva002E6DC4(&info.movement,newCell))newCostSoFar+=100;
-if((unsigned char)(newCell->m_info>>21)&1)newCostSoFar>>=1;
+if((unsigned char)(newCell->m_0C>>21)&1)newCostSoFar>>=1;
 newCostSoFar+=newCell->CalcCostSoFar((const Rva002E6C79 *)parentCell);
 newCostSoFar+=CalcExtraCosts(obj,parentCell,(Rva002EBC7FPair *)&coords,info.radius,info.radius+(info.centerInCell?1:0),true);
 Int fireX=realToIntFloor(((float)(x*10)+0.5f)*0.1f);
@@ -544,10 +525,10 @@ BurningGrid *grid=(BurningGrid *)TheTriggerManager;
 Bool burning=false;
 if(fireX>=0 && fireX<grid->width && fireY>=0 && fireY<grid->height)burning=grid->cells[fireX][fireY].count>0;
 if(burning)newCostSoFar+=10;
-newCell->m_pathInfo->costSoFar=(unsigned short)newCostSoFar;
+cellInfo(newCell)->costSoFar=(unsigned short)newCostSoFar;
 newCell->SetParentCell((Int *)parentCell);
 if(m_isTunneling)remaining=0;
-newCell->m_pathInfo->totalCost=(unsigned short)(newCell->m_pathInfo->costSoFar+remaining);
+cellInfo(newCell)->totalCost=(unsigned short)(cellInfo(newCell)->costSoFar+remaining);
 AddToOpenList(newCell);
 }
 return cellCount;
@@ -713,15 +694,15 @@ inline MathCoord2D operator+(MathCoord2D left, const MathCoord2D &right)
 Int Pathfinder::ExamineNeighboringCellsForSidewaysAttack(PathfindCell *parentCell,const ICoord2D *targetNdx,Int offset,const LocomotorSet &locomotorSet,Bool isHuman,Bool centerInCell,Int radius,ICoord2D *startCellNdx,Object *obj,Int attackDistance)
 {
 	ICoord2D goalNdx;
-	Int px1=parentCell->getXIndex();
-	Int px2=parentCell->getXIndex();
-	Int py1=parentCell->getYIndex();
-	Int py2=parentCell->getYIndex();
+	Int px1=cellX(parentCell);
+	Int px2=cellX(parentCell);
+	Int py1=cellY(parentCell);
+	Int py2=cellY(parentCell);
 	Int distSqr=(px1-targetNdx->x)*(px2-targetNdx->x)+(py1-targetNdx->y)*(py2-targetNdx->y);
 	if(distSqr*5*5<(offset+attackDistance)*(offset+attackDistance)){
 		float orientation=obj->m_orientation;
 		float angle=parentCell->rva0052DD75(orientation,10,0.5f);
-		MathCoord2D parentWorld(parentCell->getXIndex()*10,parentCell->getYIndex()*10);
+		MathCoord2D parentWorld(cellX(parentCell)*10,cellY(parentCell)*10);
 		float s=Sin(angle);
 		MathCoord2D dir;
 		dir.x=Cos(angle);
@@ -749,8 +730,8 @@ Int Pathfinder::ExamineNeighboringCellsForSidewaysAttack(PathfindCell *parentCel
 	}
 	PathfindCell *goalCell=getCell(PATHFIND_LAYER_GROUND,goalNdx.x,goalNdx.y);
 	if(!goalCell)return 0;
-	Bool hadInfo=goalCell->m_pathInfo!=0;
-	if(!hadInfo)goalCell->allocateInfo((In002E6BA1 *)&goalNdx);
+	Bool hadInfo=goalCell->m_info!=0;
+	if(!hadInfo)cellAllocateInfo(goalCell,(In002E6BA1 *)&goalNdx);
 	Int count=rva002F83F5(parentCell,goalCell,locomotorSet,isHuman,centerInCell,radius,startCellNdx,obj,attackDistance);
 	if(!hadInfo){
 		if(!(unsigned char)((Rva002E6AF3 *)goalCell)->get()&&!(unsigned char)((Rva002E6B06 *)goalCell)->rva002E6B06())goalCell->ReleaseInfo();
@@ -804,7 +785,7 @@ Path *Pathfinder::FindAttackPathSideways(Object *obj, const LocomotorSet &locos,
 	if (!parent)
 		return 0;
 	PathfindCell *startCell = parent;
-	parent->allocateInfo((In002E6BA1 *)&startIndex);
+	cellAllocateInfo(parent,(In002E6BA1 *)&startIndex);
 	parent->StartPathfind(0);
 	ICoord2D goalIndex;
 	Rva002E7875WorldToCell(&goalIndex, true, victim ? victim->getPosition() : victimPos);
@@ -815,8 +796,8 @@ Path *Pathfinder::FindAttackPathSideways(Object *obj, const LocomotorSet &locos,
 	PathfindCell *acceptable = 0;
 	PathfindCell *closest = 0;
 	Int closestOrder = 0;
-	Int dx = goalIndex.x - parent->getXIndex();
-	Int dy = goalIndex.y - parent->getYIndex();
+	Int dx = goalIndex.x - cellX(parent);
+	Int dy = goalIndex.y - cellY(parent);
 	float closestDistance = (float)(dx * dx + dy * dy);
 	Int acceptableDistance = 9999999;
 	closestDistance *= 0.9f;
@@ -825,9 +806,9 @@ Path *Pathfinder::FindAttackPathSideways(Object *obj, const LocomotorSet &locos,
 		PathfinderCellPoint cellCenter = Rva002E8C23Call(center, parent);
 		if (hierarchical.path)
 		{
-			Int order = ((HierarchicalPath *)hierarchical.path)->lookUpPositionOnPath((const Coord3D *)parent->m_pathInfo);
-			Int cdx = goalIndex.x - parent->getXIndex();
-			Int cdy = goalIndex.y - parent->getYIndex();
+			Int order = ((HierarchicalPath *)hierarchical.path)->lookUpPositionOnPath((const Coord3D *)parent->m_info);
+			Int cdx = goalIndex.x - cellX(parent);
+			Int cdy = goalIndex.y - cellY(parent);
 			float distance = (float)(cdx * cdx + cdy * cdy);
 			if (order > closestOrder || (order == closestOrder && distance < closestDistance))
 			{
@@ -837,10 +818,10 @@ Path *Pathfinder::FindAttackPathSideways(Object *obj, const LocomotorSet &locos,
 			}
 		}
 		Int destinationDistance = 0;
-		Int cellState = parent->m_pathInfo ? parent->m_pathInfo->state : 0;
+		Int cellState = parent->m_info ? cellInfo(parent)->state : 0;
 		if (!cellState && ((Weapon *)weapon)->isWithinAttackRange(obj, &cellCenter, victim, victimPos, 10.0f, true))
 		{
-			if (CheckDestination(obj, parent->getXIndex(), parent->getYIndex(), (PathfindLayerEnum)parent->getLayer(), radius, center, &destinationDistance, false))
+			if (CheckDestination(obj, cellX(parent), cellY(parent), (PathfindLayerEnum)parent->getLayer(), radius, center, &destinationDistance, false))
 			{
 				Bool blocked = false;
 				if (checkLOS)
@@ -861,7 +842,7 @@ Path *Pathfinder::FindAttackPathSideways(Object *obj, const LocomotorSet &locos,
 				{
 					float angle = parent->rva0052DD75(obj->getOrientation(), 10, 0.5f);
 					MathCoord2D dir(Cos(angle), Sin(angle));
-					MathCoord2D cellWorld(parent->getXIndex() * 10, parent->getYIndex() * 10);
+					MathCoord2D cellWorld(cellX(parent) * 10, cellY(parent) * 10);
 					MathCoord2D goalWorld(goalIndex.x * 10, goalIndex.y * 10);
 					if (center)
 					{

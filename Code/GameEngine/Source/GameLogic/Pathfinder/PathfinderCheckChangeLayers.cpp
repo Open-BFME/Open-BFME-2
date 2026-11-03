@@ -100,33 +100,7 @@ class PathfindCell;
 
 struct PathfinderCostCellInfo { Int x,y; };
 void ji_00629952();
-class PathfindCell
-{
-public:
-	// The packed cell word at +0x0C: type in bits 0-3, layer in bits 4-9.
-	enum CellType
-	{
-		CELL_CLEAR = 0,
-		CELL_OBSTACLE = 4,
-		CELL_IMPASSABLE = 5
-	};
-	enum { LAYER_GROUND = 1 };
-
-	void SetOpen(Bool open);
-	void SetParentCell(int *);
-	Int getXIndex() const { return m_pathInfo->x; }
-	Int getYIndex() const { return m_pathInfo->y; }
-	// 0x0052DD75 (unrowed): an angle for the cell from a facing, a count and
-	// a weight (unnamed).
-	float rva0052DD75(float facing, Int count, float weight);
-	CellType getType() const { return (CellType)(m_info & 0xf); }
-	Int getLayer() const { return (m_info & 0x3f0) >> 4; }
-
-private:
-	PathfinderCostCellInfo *m_pathInfo;
-	char m_pad04[8];
-	unsigned int m_info;			// +0x0C
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
