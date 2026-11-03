@@ -30,12 +30,7 @@ class ThingTemplate;
 
 #include "../object.h"
 
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad00[0x18];
-	bool m_spawnedRequireSpawner;
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 
 extern GameLogic *TheGameLogic;

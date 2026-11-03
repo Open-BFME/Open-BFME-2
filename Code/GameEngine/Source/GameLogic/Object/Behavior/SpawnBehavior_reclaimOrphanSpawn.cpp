@@ -65,13 +65,7 @@ private:
 	BehaviorModule **m_behaviors;
 };
 
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad00[0x14];
-	Bool m_isOneShotData;
-	Bool m_canReclaimOrphans;
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 class SpawnBehavior
 {

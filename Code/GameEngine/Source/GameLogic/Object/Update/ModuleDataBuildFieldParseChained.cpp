@@ -974,11 +974,7 @@ extern const FieldParse BfmeSpawnBehaviorFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class SpawnBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 inline void SpawnBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

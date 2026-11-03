@@ -75,12 +75,7 @@ public:
 	void report(Object *owner, int setting);
 };
 
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad00[0xc];
-	int m_spawnReplaceDelayData;
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 
 extern GameLogic *TheGameLogic;

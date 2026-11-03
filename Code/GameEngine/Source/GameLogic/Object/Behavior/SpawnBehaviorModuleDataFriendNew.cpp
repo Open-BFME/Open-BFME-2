@@ -18,17 +18,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class SpawnBehaviorModuleData
-{
-public:
-	SpawnBehaviorModuleData();
-	virtual ~SpawnBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x174 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 // ?friend_newModuleData@SpawnBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *SpawnBehaviorModuleData::friend_newModuleData(INI *ini)

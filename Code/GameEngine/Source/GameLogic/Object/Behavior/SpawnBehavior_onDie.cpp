@@ -70,14 +70,7 @@ public:
 
 #include "../object.h"
 
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad00[0x18];
-	Bool m_spawnedRequireSpawner;
-	unsigned char m_pad19[0x2C - 0x19];
-	DieMuxData m_dieMuxData;
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<ObjectID> > ObjectPtrHash;
 

@@ -125,12 +125,7 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 }
 extern GameLogic *TheGameLogic;
 
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad00[0x08];
-	Int m_spawnNumberData;
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 class SpawnBehavior
 {
