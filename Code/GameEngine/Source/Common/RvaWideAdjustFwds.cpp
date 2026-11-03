@@ -25,17 +25,7 @@ class AsciiString;
 struct Rva0040D2FDVec;
 // The forwarders below reach the GameLogic +0x184 ArmySummarySystem members
 // by their row names.
-class ArmySummarySystem {public:const AsciiString *GetArmyNameByID(int);const AsciiString *GetArmyBannerByID(int);
-	void *rva0040D008(int id);
-	void rva0040D2FD(int a, int b, Rva0040D2FDVec *out);
-	void rva0040D2C3();
-	int rva0040D380(int id);
-	void CallArmyToEngageInBattleByID(int id);
-	float GetArmyEngageProgressByID(int id);
-	int GetArmyCurFramesToReinforceByID(int id);
-	void rva0040D280(Object *obj, int id);
-	void rva0040F87E();
-	int rva0040D3D5(int id);};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 class Rva0040FAFESub
 {

@@ -132,11 +132,7 @@ void *Rva002A8AB1Record::rva004EC088(Int kind, void *list, const void *name)
 	return 0;
 }
 
-class ArmySummarySystem
-{
-public:
-	int GetArmyIDOfFirstWalkOnArmy();
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 int GameLogic::rva0023D0B7()
 {

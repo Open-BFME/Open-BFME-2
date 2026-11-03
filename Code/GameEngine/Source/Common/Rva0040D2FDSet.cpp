@@ -16,12 +16,7 @@ struct Rva0040D2FDVec
 	float y;
 };
 extern float LOGICFRAMES_PER_SECONDS_REAL;
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	void rva0040D2FD(int armyId, int delaySeconds, Rva0040D2FDVec *coordinates);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 void ArmySummarySystem::rva0040D2FD(int armyId, int delaySeconds, Rva0040D2FDVec *coordinates)
 {
 	float coordinateCopy[2];

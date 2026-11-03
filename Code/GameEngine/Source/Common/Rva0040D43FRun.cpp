@@ -31,11 +31,7 @@ public:
 
 class Rva003F468D;
 
-class ArmySummarySystem
-{
-public:
-	void rva0040D43F(Rva003F468D *arg);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 void ArmySummarySystem::rva0040D43F(Rva003F468D *arg)
 {

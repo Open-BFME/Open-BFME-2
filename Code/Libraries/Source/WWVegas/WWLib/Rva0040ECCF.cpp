@@ -251,15 +251,7 @@ class Rva003F468D;
 class UnitRevivalEntry;
 struct _Rva0040CA61Arg;
 
-class ArmySummarySystem
-{
-public:
-	void Save(Object *objects);
-	void rva0040D43F(Rva003F468D *battle);
-	void *rva0040D008(int key);
-	int ComputePlayerEarnedSpellPoints(_Rva0040CA61Arg *player);
-	void AddDeadHeroEntry(UnitRevivalEntry *entry);
-};
+#include "../../../../GameEngine/Include/Common/ArmySummarySystem.h"
 
 // ?AddDeadHeroEntry@ArmySummarySystem@@QAEXPAVUnitRevivalEntry@@@Z @0x0040F10F
 // 142B: WorldBuilder names it ArmySummarySystem::AddDeadHeroEntry, the callee

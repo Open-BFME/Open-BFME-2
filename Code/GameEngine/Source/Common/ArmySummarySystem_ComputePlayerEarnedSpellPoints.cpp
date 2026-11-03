@@ -26,11 +26,7 @@ struct _Rva0040CA61Arg
 	int m_1C;
 };
 
-class ArmySummarySystem
-{
-public:
-	int ComputePlayerEarnedSpellPoints(_Rva0040CA61Arg *player);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 int ArmySummarySystem::ComputePlayerEarnedSpellPoints(_Rva0040CA61Arg *player)
 {

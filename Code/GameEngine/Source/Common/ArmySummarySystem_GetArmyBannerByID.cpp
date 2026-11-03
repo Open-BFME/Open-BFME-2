@@ -7,7 +7,7 @@ public:
 	char m_pad[0x20];
 	AsciiString m_20;
 };
-class ArmySummarySystem {public:const AsciiString *GetArmyBannerByID(int v);void *rva0040D008(int id);};
+#include "../../Include/Common/ArmySummarySystem.h"
 const AsciiString *ArmySummarySystem::GetArmyBannerByID(int v)
 {
 	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(v);

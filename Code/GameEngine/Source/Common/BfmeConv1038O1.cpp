@@ -117,12 +117,7 @@ public:
 // through a GameLogic forwarder that adds 0x184 to ECX (0x0023D012..0x0023D0C8),
 // and WorldBuilder's twins of 0x0040FAFE/0x0040D3E8 call the lookup's twin
 // 0x0108E170 as __thiscall on their own this.
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	int rva0040D025(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 struct Rva002B488EResult
 {

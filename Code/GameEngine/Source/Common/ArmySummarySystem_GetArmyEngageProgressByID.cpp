@@ -7,12 +7,7 @@ public:
 };
 #include "../../Include/GameLogic/ArmySummary.h"
 extern const float BfmeZeroRange;
-class ArmySummarySystem
-{
-public:
-	float GetArmyEngageProgressByID(int v);
-	void *rva0040D008(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 float ArmySummarySystem::GetArmyEngageProgressByID(int v)
 {

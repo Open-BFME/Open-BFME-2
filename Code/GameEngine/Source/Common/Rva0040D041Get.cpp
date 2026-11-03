@@ -7,12 +7,7 @@ public:
 	char m_pad[0x64];
 	AsciiString m_64;
 };
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	const AsciiString *rva0040D041(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 const AsciiString *ArmySummarySystem::rva0040D041(int armyId)
 {
 	BfmeY1038 *army = (BfmeY1038 *)rva0040D008(armyId);

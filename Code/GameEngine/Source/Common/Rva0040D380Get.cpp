@@ -10,12 +10,7 @@ public:
 	char m_pad0[0x2c];
 	int m_2c;
 };
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	int rva0040D380(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 int ArmySummarySystem::rva0040D380(int v)
 {
 	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(v);

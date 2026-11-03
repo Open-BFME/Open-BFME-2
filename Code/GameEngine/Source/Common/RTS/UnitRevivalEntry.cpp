@@ -286,11 +286,7 @@ public:
 
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class ArmySummarySystem
-{
-public:
-	void AddDeadHeroEntry(UnitRevivalEntry *entry);
-};
+#include "../../../Include/Common/ArmySummarySystem.h"
 
 class ThingTemplate
 {

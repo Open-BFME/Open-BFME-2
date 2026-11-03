@@ -13,12 +13,7 @@ class Drawable;
 class BfmeY1038;
 #include "../../Include/GameLogic/ArmySummary.h"
 #include "../GameLogic/Object/object.h"
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	void rva0040D280(Object *obj, int val);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 void ArmySummarySystem::rva0040D280(Object *obj, int val)
 {
 	if (obj == 0)

@@ -14,12 +14,7 @@ public:
 class GameLogic;
 extern GameLogic *TheGameLogic;
 #include "../../Include/GameLogic/ArmySummary.h"
-class ArmySummarySystem
-{
-public:
-	void CallArmyToEngageInBattleByID(int v);
-	void *rva0040D008(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 void ArmySummarySystem::CallArmyToEngageInBattleByID(int v)
 {

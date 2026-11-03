@@ -237,12 +237,7 @@ class AsciiString;
 class Xfer;
 class Rva004E194E;
 
-class ArmySummarySystem
-{
-public:
-	int rva0040D025(int);
-	const AsciiString *rva0040D041(int);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 namespace _STL
 {

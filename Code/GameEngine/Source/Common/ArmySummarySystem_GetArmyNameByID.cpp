@@ -7,7 +7,7 @@ public:
 	char m_pad[0x18];
 	AsciiString m_18;
 };
-class ArmySummarySystem {public:const AsciiString *GetArmyNameByID(int v);void *rva0040D008(int id);};
+#include "../../Include/Common/ArmySummarySystem.h"
 const AsciiString *ArmySummarySystem::GetArmyNameByID(int v)
 {
 	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(v);

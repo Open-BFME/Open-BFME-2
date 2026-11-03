@@ -27,12 +27,7 @@ public:
 
 #include "../../Include/GameLogic/ArmySummary.h"
 
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	int GetArmyCurFramesToReinforceByID(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 // The order queue the finder returns for clearOrders (its clear,
 // 0x005482E9, recovered in the existing 0x14-byte queue unit).

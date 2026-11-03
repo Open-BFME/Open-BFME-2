@@ -20,12 +20,7 @@ private:
 // makes the same calls, the army lookup (twin 0x0108E170 of 0x0040D008) on its
 // own this, then 0x0040F7E5's twin; GameLogic forwarder 0x0023D08B adds 0x184
 // and tail-jumps here.
-class ArmySummarySystem
-{
-public:
-	void *rva0040D008(int id);
-	void CallArmyReinforcementIntoBattleByID(int id);
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 void BfmeY1038::rva0040F7E5()
 {
