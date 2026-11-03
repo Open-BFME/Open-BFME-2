@@ -1,0 +1,386 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GroupOrder",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 25,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5488c5",
+      "0x5488e9",
+      "0x548a25"
+     ],
+     "value": 24
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5488c5",
+      "0x5488e9",
+      "0x548a25"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5488c5",
+      "0x5488e9",
+      "0x548a25"
+     ],
+     "value": {
+      "0x4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+       "??0?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV01@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5488c5",
+      "0x5488e9",
+      "0x548a25"
+     ],
+     "value": {
+      "0x0": "0x86a520"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86a520"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGroupOrder@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x548a09"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?xfer@GroupOrder@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x548ac2"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 9,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?Get_File_Handle@FileClass@@UAEPAXXZ",
+        "slot": 10,
+        "target": "0x36cc7a"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x86a520"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x86a520": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGroupOrder@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "__purecall",
+     "3": "?xfer@GroupOrder@@UAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "__purecall",
+     "9": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "10": "?Get_File_Handle@FileClass@@UAEPAXXZ",
+     "11": "__purecall",
+     "12": "__purecall",
+     "13": "__purecall"
+    },
+    "stores": 3
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 2,
+   "20": 1,
+   "24": 22
+  },
+  "views": 25,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "enum*"
+    }
+   ],
+   "name": "m_sciences",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_10",
+   "name_by": "tie",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_unused14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 12
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "m_04": 1,
+    "m_list._M_start": 1,
+    "m_sciences._M_start": 2,
+    "m_stringList._M_start": 1,
+    "objects._M_start": 2
+   },
+   "class": "GroupOrder"
+  },
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "m_08": 1,
+    "m_list._M_finish": 1,
+    "m_sciences._M_finish": 2,
+    "m_stringList._M_finish": 1,
+    "objects._M_finish": 2
+   },
+   "class": "GroupOrder"
+  },
+  {
+   "attribute": "name@0xc",
+   "candidates": {
+    "m_0C": 1,
+    "m_list._M_end_of_storage._M_data": 1,
+    "m_sciences._M_end_of_storage._M_data": 2,
+    "m_stringList._M_end_of_storage._M_data": 1,
+    "objects._M_end_of_storage._M_data": 2
+   },
+   "class": "GroupOrder"
+  },
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "id": 2,
+    "m_10": 2,
+    "m_id10": 1,
+    "m_unused10": 2
+   },
+   "class": "GroupOrder"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "getClassKey()": 2,
+    "slot12()": 2
+   },
+   "class": "GroupOrder"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "clone()": 1,
+    "slot13()": 1
+   },
+   "class": "GroupOrder"
+  }
+ ],
+ "size": 24,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "v01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "xfer(Xfer*)"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}
