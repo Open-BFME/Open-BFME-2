@@ -408,3 +408,4 @@ CommandList,Code/GameEngine/Include/Common/CommandList.h,existing header; contra
 GeneralAllocator,Code/GameEngine/Include/Common/GeneralAllocator.h,existing header; contract class_contracts/GeneralAllocator.json; 19/38 sampled units adopt
 AptBoolean,Code/Libraries/Source/Apt/AptBoolean.h,existing header; contract class_contracts/AptBoolean.json; 9/19 sampled units adopt
 Rva000B3F84Pair,Code/GameEngine/Include/Common/Rva000B3F84Pair.h,existing header; contract class_contracts/Rva000B3F84Pair.json; 88/96 sampled units adopt
+Rva00330757Member,Code/GameEngine/Include/Common/Rva00330757Member.h,existing header; contract class_contracts/Rva00330757Member.json; 34/51 sampled units adopt
