@@ -7237,3 +7237,7 @@ param,S2PivotMatrix::m,S2PivotMatrix::matrix,inferred,agree:nl-1928bbc5b2a2,Code
 param,S2PivotMatrix::q,S2PivotMatrix::transform,inferred,agree:nl-a500c166d519,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
 local,Rva005EA58B::rva005EA58B::n,Rva005EA58B::rva005EA58B::rangesLeft,inferred,agree:nl-3ac61585f150,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
 local,Rva005EA58B::rva005EA58B::r,Rva005EA58B::rva005EA58B::range,inferred,agree:nl-b10b6fd2f680,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
+local,Rva005EA58B::rva005EA58B::b,Rva005EA58B::rva005EA58B::begin,inferred,agree:nl-ca2a901b3a16,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
+local,Rva005EA58B::rva005EA58B::e,Rva005EA58B::rva005EA58B::end,inferred,agree:nl-e52689ffd142,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
+local,Rva005EA58B::rva005EA58B::h,Rva005EA58B::rva005EA58B::holder,inferred,agree:nl-65afe0b38630,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
+local,Rva005EA58B::rva005EA58B::p,Rva005EA58B::rva005EA58B::elems,inferred,agree:nl-aca1b901b778,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B

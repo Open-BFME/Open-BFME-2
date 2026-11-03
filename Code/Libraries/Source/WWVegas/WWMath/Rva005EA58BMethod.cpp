@@ -51,12 +51,12 @@ void Rva005EA58B::rva005EA58B()
 	Rva005EA58BRange *range = m_ranges;
 	int rangesLeft = 2;
 	do {
-		Rva005EA58BElem *b = range->m_begin;
-		Rva005EA58BElem *e = range->m_end;
-		for (Rva005EA58BElem *p = b; p != e; ++p) {
-			Rva005EA58BHolder *h = p->m_holder;
-			if (h)
-				h->m_str.validate();
+		Rva005EA58BElem *begin = range->m_begin;
+		Rva005EA58BElem *end = range->m_end;
+		for (Rva005EA58BElem *elems = begin; elems != end; ++elems) {
+			Rva005EA58BHolder *holder = elems->m_holder;
+			if (holder)
+				holder->m_str.validate();
 		}
 		++range;
 		--rangesLeft;
