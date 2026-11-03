@@ -1,0 +1,143 @@
+{
+  "scope": "Exact single local guard S1->S3 binding proof for this Update merge only; no global spelling waiver or whole-image claim.",
+  "old_guard": "?$S1@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+  "new_guard": "?$S3@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+  "variants": [
+    {
+      "label": "before",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\objectcreation-data-leaf-pair-20261103\\before1.obj",
+      "object_sha256": "10f133b7f1d2e161a47c9d102e5cf08a55a9f5708c3a6f83f21901585c887240",
+      "symbol": {
+        "name": "?$S1@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+        "value": 0,
+        "section": 33,
+        "storage": 3
+      },
+      "section_name": ".bss",
+      "section_alignment": 4,
+      "symbol_aligned": true,
+      "inferred_extent": 4,
+      "storage_hex": "00000000",
+      "primary_length": 753,
+      "primary_raw_hex": "b800000000e80000000083ec245356578bf9807f1400897df00f8480000000a1000000008b40403b471076738b5ff485db0f84720200008db3280100008bcee80000000084c00f855d0200008b0d0000000056e80000000080bb50010000008945ec744d8b4ff86a00e80000000085c08945f00f84300200008b306a0168000000006a006aff8bc8ff56088b4df0506affff75ecff562084c00f850a02000033c0408b4df45f5e5b64890d00000000c9c38b47f8f30f104038f30f10a330010000f30f109b34010000f30f10ab2c010000f30f1145dcf30f10403cf30f1145e0f30f104040f30f1145e4f30f10400cf30f104810f30f10501cf30f59cbf30f59c4f30f58c1f30f104808f30f59cdf30f59d4f30f58c1f30f104818f30f584014f30f59cdf30f58caf30f105020f30f59d3f30f58caf30f105028f30f584824f30f59d5f30f10682cf30f59ecf30f106030f30f58d5f30f59e3f30f1145d0f30f58d4f30f5850348b45f0f30f114dd4f30f1155d88d75d08d7ddca5a5a58b70f8a100000000f30f1046448b388bcef30f1145e8e800000000f30f108338010000f30f5845e850518b0d00000000f30f1104248d45dc50ff75ec56ff57388bf085f60f84200100008bcee80000000085c074308b834c010000db834c01000085c07d06d80500000000d80d00000000e800000000508bcee8000000008bc8e8000000008b7df08b47f8f30f104844f30f1083380100008d45dcf30f58c1508bcef30f1186c0010000e800000000f60500000000017524830d00000000018b0d000000008365fc006800000000e800000000834dfcffa3000000008b7ff8ff35000000008bcfe80000000085c0740aff76748bc8e8000000008bb6440200008b0685c074238d480c8b01ff506885c074128b4df08b51f885d274088b38528bc8ff570483c604ebd78b7df08b0d000000008d832401000050e80000000085c074098b4ff850e8000000008b0d0000000081c32001000053e80000000085c074098b4ff850e800000000b8ffffff3fe9b1fdffff",
+      "primary_guard_bindings": [
+        {
+          "offset": 558,
+          "type": 6,
+          "symbol": "?$S1@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x4b4509",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        },
+        {
+          "offset": 567,
+          "type": 6,
+          "symbol": "?$S1@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x4b4512",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        }
+      ],
+      "EH_guard_bindings": [
+        {
+          "section": ".text$x",
+          "section_start": "0x78eb92",
+          "offset": 1,
+          "type": 6,
+          "symbol": "?$S1@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x78eb93",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        },
+        {
+          "section": ".text$x",
+          "section_start": "0x78eb92",
+          "offset": 8,
+          "type": 6,
+          "symbol": "?$S1@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x78eb9a",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        }
+      ],
+      "EH_verdict": [
+        "EXACT",
+        ""
+      ],
+      "EH_placement_conflicts": []
+    },
+    {
+      "label": "after",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^upgrade_^object^creation^upgrade.obj",
+      "object_sha256": "8d4cb87f642db5385c00147c710c3274885ced73324a055b755bcb8aaa5ff093",
+      "symbol": {
+        "name": "?$S3@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+        "value": 0,
+        "section": 84,
+        "storage": 3
+      },
+      "section_name": ".bss",
+      "section_alignment": 4,
+      "symbol_aligned": true,
+      "inferred_extent": 4,
+      "storage_hex": "00000000",
+      "primary_length": 753,
+      "primary_raw_hex": "b800000000e80000000083ec245356578bf9807f1400897df00f8480000000a1000000008b40403b471076738b5ff485db0f84720200008db3280100008bcee80000000084c00f855d0200008b0d0000000056e80000000080bb50010000008945ec744d8b4ff86a00e80000000085c08945f00f84300200008b306a0168000000006a006aff8bc8ff56088b4df0506affff75ecff562084c00f850a02000033c0408b4df45f5e5b64890d00000000c9c38b47f8f30f104038f30f10a330010000f30f109b34010000f30f10ab2c010000f30f1145dcf30f10403cf30f1145e0f30f104040f30f1145e4f30f10400cf30f104810f30f10501cf30f59cbf30f59c4f30f58c1f30f104808f30f59cdf30f59d4f30f58c1f30f104818f30f584014f30f59cdf30f58caf30f105020f30f59d3f30f58caf30f105028f30f584824f30f59d5f30f10682cf30f59ecf30f106030f30f58d5f30f59e3f30f1145d0f30f58d4f30f5850348b45f0f30f114dd4f30f1155d88d75d08d7ddca5a5a58b70f8a100000000f30f1046448b388bcef30f1145e8e800000000f30f108338010000f30f5845e850518b0d00000000f30f1104248d45dc50ff75ec56ff57388bf085f60f84200100008bcee80000000085c074308b834c010000db834c01000085c07d06d80500000000d80d00000000e800000000508bcee8000000008bc8e8000000008b7df08b47f8f30f104844f30f1083380100008d45dcf30f58c1508bcef30f1186c0010000e800000000f60500000000017524830d00000000018b0d000000008365fc006800000000e800000000834dfcffa3000000008b7ff8ff35000000008bcfe80000000085c0740aff76748bc8e8000000008bb6440200008b0685c074238d480c8b01ff506885c074128b4df08b51f885d274088b38528bc8ff570483c604ebd78b7df08b0d000000008d832401000050e80000000085c074098b4ff850e8000000008b0d0000000081c32001000053e80000000085c074098b4ff850e800000000b8ffffff3fe9b1fdffff",
+      "primary_guard_bindings": [
+        {
+          "offset": 558,
+          "type": 6,
+          "symbol": "?$S3@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x4b4509",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        },
+        {
+          "offset": 567,
+          "type": 6,
+          "symbol": "?$S3@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x4b4512",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        }
+      ],
+      "EH_guard_bindings": [
+        {
+          "section": ".text$x",
+          "section_start": "0x78eb92",
+          "offset": 1,
+          "type": 6,
+          "symbol": "?$S3@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x78eb93",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        },
+        {
+          "section": ".text$x",
+          "section_start": "0x78eb92",
+          "offset": 8,
+          "type": 6,
+          "symbol": "?$S3@?BG@??update@ObjectCreationUpgrade@@MAE?AW4UpdateSleepTime@@XZ@4IA",
+          "retail_site": "0x78eb9a",
+          "retail_va": "0xe03e08",
+          "retail_guard_rva": "0xa03e08",
+          "coff_addend": 0
+        }
+      ],
+      "EH_verdict": [
+        "EXACT",
+        ""
+      ],
+      "EH_placement_conflicts": []
+    }
+  ],
+  "primary_bytes_identical": true,
+  "other_relocation_records_identical": true
+}

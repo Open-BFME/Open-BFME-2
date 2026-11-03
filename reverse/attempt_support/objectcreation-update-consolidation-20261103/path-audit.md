@@ -1,0 +1,27 @@
+# Publication path audit: ObjectCreationUpgradeUpdate absorption
+
+Read-only complete-batch audit on2026-11-03, from origin/master b7d909141436e5d365c082500bcd9dbbf1ee804f through HEAD 84f5636adbb0d99aab481b1c55a8b41b059fc586 plus the staged supported merge. Outgoing prerequisite commits reconcile Object views, Update's data class/helper U-to-V return identity, seed typed tail fields, and shared leaf/data views. The ONLY source-path move in that complete combined range is `Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp` absorbed into `Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp`. No network, claims, build or tracked mutation was performed by this audit.
+
+## Ledger, debt and current owners
+
+Exactly THREE function source cells move: update0x004B42DB/753B, its parent-verified guard rollback0x0078EB92/13B and handler0x0078EB9F/10B. Names, addresses, extents, statuses and notes remain unchanged. Exactly THREE approved tu_map source cells move; TU assignment, confidence and evidence remain unchanged. No regenerated map is staged. The destination now has23 code rows.
+
+No absorbed-Update path remains in functions, tu_map, data_rows, data_ledger, body_owners, header_queue, ms_header_queue, flag_overrides, gate/identity/data/hatch baselines, data_converged, symbols, pin_consistency_baseline, source whitelist or doxygen inputs. No protected key, data owner, pin, fold proof or header/MS row needs transfer/retirement for this Update-only move. Existing destination field-parse data and four static data-ledger owners remain in place. BfmeFixedStorage128 header debt already belongs to the destination, remains there and is NOT retired by this move. The four other remaining family donors and their bindings/prerequisites are untouched. register-snapshot.json records current exact source keys.
+
+## Active path consumers and intentional old references
+
+A combined case-insensitive basename/path/glob audit across tools/, .githooks/, .github/, Code/, shims, documentation and repository configuration finds no active include, hard-coded tool/build/workflow path or source registry requiring update. Source discovery recursively walks Code; the move retains the same directory and existing destination. Doxygen already includes the destination. No stale old-path object receipt is used as evidence for the destination.
+
+Old references that remain are classified: measured link_status, deleted-row reasons, prior re_attempts/evidence, historical scoped naming votes/basis/agreement rows, old scope-specific obstacle history, the merged `from` provenance comment and Thing class_contract outlier-source evidence. The Thing paths occur under outliers[*].sources, not its active source census: header_adopt_lane obtains live sources through class_contract.census before applying a contract. Preserve these historical measurement/decision facts rather than rewriting them into fabricated new results. No actionable active path-consumer repair remains identified.
+
+## Provider/consumer binding scope
+
+The earlier supported name_dependents.dependents_by_name audit checked18,560 current matched code/data sources with exact cached external COFF names when source sidecars were current, widening to source text for stale/missing objects. Only Update itself referenced/defined the old U helper; no outside consumer was found. The current complete outgoing code scope remains exactly these two source files, and a fresh current Code/header/shim/ledger helper-identifier search now finds only destination declaration and its own call. No outside helper consumer was added by the batch. The old/new helper body/ordinary relocations were identical excluding the U-to-V decorated return name; root preserves the full native row names.
+
+The old published index984a4cdc4d (Nov2) records the U helper's sole Update COMDAT and unreferenced status, but lacks per-object reference contributions. Its empty caller list is NOT separate proof of no callers; current source/cache dependency scanning is the relevant outside-consumer evidence. This remains a bounded current-tree check, not a future upstream or whole-image guarantee.
+
+Prerequisite object/leaf/data/tail reports retain seed31 and Update17 ordinary definitions unchanged apart from the separately audited U-to-V helper identity. The currently written merged provider report records46 union definitions retained, none added/removed, and ONE changed update definition. Root must inspect and verify that precise change before publication; this audit does NOT call the union identical. Shared compiler-array helper and SlaveWatcherBehavior string copies are the two documented duplicate-definition names in the old union.
+
+The supported merge reports plan_reused=True,23 accepted rows and the current family census-link guard. Root independently supplies fresh normal23-row byte/data/EH verification, strict preparation, bounded link preview and final provider evidence. Attach those actual final results before publishing; no pending check is assumed passed here. Read the outgoing link-batch report and carry inconclusive selection/receipt cases into the next scheduled census. Ordinary external comparison is not full local/.sxdata or final COMDAT/library-selection proof; no new census credit is claimed.
+
+The path/debt/active-consumer audit itself identifies no outstanding repair. Re-audit if relevant paths or consumers change before pushing. All tracked reads stop after this report.
