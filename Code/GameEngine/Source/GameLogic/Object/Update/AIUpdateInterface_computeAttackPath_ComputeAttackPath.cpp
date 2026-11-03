@@ -146,12 +146,7 @@ public:
 };
 
 struct Rva003642DFNode;
-struct Rva003642DFResult
-{
-	Rva003642DFResult();
-	Rva003642DFNode *m_node;
-	Coord3D m_pos;
-};
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 class Rva0008BB38FloatField;
 class Rva001E3511
 {

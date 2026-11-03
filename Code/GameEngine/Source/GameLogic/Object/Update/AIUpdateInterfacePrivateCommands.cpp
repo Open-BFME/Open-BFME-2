@@ -788,12 +788,7 @@ struct Rva003642DFNode
 // What 0x003642DF returns by value (16 bytes): a node and a position. Its
 // default constructor only nulls the node: the shared null-first-word body
 // 0x00326BE6, called out of line. Unnamed.
-struct Rva003642DFResult
-{
-	Rva003642DFResult();
-	Rva003642DFNode *m_node;					// +0x00
-	Coord3D m_pos;								// +0x04
-};
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 
 class Rva00263404Product;
 

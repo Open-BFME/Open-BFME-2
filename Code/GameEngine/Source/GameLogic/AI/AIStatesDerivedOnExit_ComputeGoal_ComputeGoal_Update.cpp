@@ -240,12 +240,7 @@ extern AudioManager *TheAudio;
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.
 struct Rva003642DFNode;
-struct Rva003642DFResult
-{
-	Rva003642DFResult();
-	Rva003642DFNode *m_node; // +0x00
-	Coord3D m_pos; // +0x04
-};
+#include "../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/TAiData.h"

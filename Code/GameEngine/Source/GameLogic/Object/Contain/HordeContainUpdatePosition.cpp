@@ -47,17 +47,8 @@ class Rva0008BB38FloatField {
   public:
     float get() const;
 };
-class Rva00363D20 {
-  public:
-    double rva00363D20();
-};
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 struct Rva003642DFNode;
-struct Rva003642DFResult {
-    Rva003642DFNode *m_node;
-    Coord3D m_pos;
-    ~Rva003642DFResult() {}
-    double remaining() { return ((Rva00363D20 *)this)->rva00363D20(); }
-};
 #include "../../../../Include/GameLogic/PathfindPath.h"
 enum CommandSourceType { COMMAND_SOURCE_2 = 2 };
 class AICommandInterface {

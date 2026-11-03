@@ -11,7 +11,7 @@ struct Rva001E4194A;bool __stdcall Rva001E4194Get(Rva001E4194A*);
 float normalizeAngle(float);
 class Rva0008BB38FloatField {public:float get()const;};
 struct Rva003642DFNode;
-struct Rva003642DFResult {Rva003642DFNode*m_node;Coord3D m_pos;};
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 enum CommandSourceType {COMMAND_SOURCE_2=2};
 class AICommandInterface {public:void aiIdle(CommandSourceType);void rva0045003E(int,CommandSourceType);};

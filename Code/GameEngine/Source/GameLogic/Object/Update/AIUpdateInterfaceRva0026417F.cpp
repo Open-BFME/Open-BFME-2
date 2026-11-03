@@ -17,11 +17,7 @@ public:
 
 #include "../object.h"
 
-struct Rva003642DFResult
-{
-	float m_distance;
-	Coord3D m_point;
-};
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 
 class FloatData
 {
@@ -81,7 +77,7 @@ unsigned char AIUpdateInterface::rva002641BA()
 	if (m_path != 0)
 	{
 		Rva003642DFResult result = m_path->rva00364521(m_field);
-		angle = m_object->GetRelativeAngle(&result.m_point);
+		angle = m_object->GetRelativeAngle(&result.m_pos);
 	}
 	return fabs(angle) > *reinterpret_cast<const volatile float *>(&AIPathRelativeAngleThresholdBits);
 }

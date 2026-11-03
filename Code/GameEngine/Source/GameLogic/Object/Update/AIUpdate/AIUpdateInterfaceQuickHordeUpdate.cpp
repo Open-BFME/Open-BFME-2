@@ -405,18 +405,8 @@ struct Rva003642DFNode
 	Int m_20; // +0x20
 };
 
-struct Rva003642DFResult
-{
-	Rva003642DFResult();
-	Rva003642DFNode *m_node; // +0x00
-	Coord3D m_pos; // +0x04
-};
+#include "../../../../../Include/GameLogic/Rva003642DFResult.h"
 
-class Rva00363D20
-{
-public:
-	double rva00363D20();
-};
 
 class Rva001E3591
 {

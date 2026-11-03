@@ -6,7 +6,7 @@
 #include "Lib/Coord3DCtorView.h"
 
 struct Rva003642DFNode;
-struct Rva003642DFResult { Rva003642DFNode *m_node; Coord3D m_pos; };
+#include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Common/Thing/thing.h"
 class Object {
