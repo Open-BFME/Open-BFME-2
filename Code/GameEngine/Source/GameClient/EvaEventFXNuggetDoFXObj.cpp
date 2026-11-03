@@ -22,12 +22,7 @@ enum Relationship
 	ALLIES
 };
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

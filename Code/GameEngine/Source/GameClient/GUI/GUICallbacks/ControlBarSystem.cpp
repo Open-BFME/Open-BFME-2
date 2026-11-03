@@ -55,11 +55,7 @@ extern ControlBar *TheControlBar;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Player
-{
-public:
-	Bool isPlayerActive() const;
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

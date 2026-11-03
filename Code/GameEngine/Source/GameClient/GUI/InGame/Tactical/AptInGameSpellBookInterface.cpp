@@ -53,7 +53,7 @@ class BfmeMemberRV {public:bool bfmeAskRV();};
 class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
 class PlayerList;extern PlayerList *ThePlayerList;
 class Object {public:const AsciiString *rva00290E67() const;};
-class Player {public:Object *rva002AC629();};
+#include "../../../../../Include/Common/Player.h"
 class CommandButton;
 enum CBCommandStatus { CBC_COMMAND_NOT_USED };
 enum CommandAvailability { COMMAND_AVAILABLE=1 };

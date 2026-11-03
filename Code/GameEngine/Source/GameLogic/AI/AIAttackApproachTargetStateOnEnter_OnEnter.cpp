@@ -361,12 +361,7 @@ private:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Player
-{
-public:
-	unsigned char m_pad00[0x5C];
-	Int m_playerType; // +0x5C
-};
+#include "../../../Include/Common/Player.h"
 
 class Object : public Thing
 {

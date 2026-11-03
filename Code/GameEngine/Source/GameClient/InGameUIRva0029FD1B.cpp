@@ -18,12 +18,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class Player
-{
-public:
-	Object *findNaturalCommandCenter();
-	Object *rva002AC629();
-};
+#include "../../Include/Common/Player.h"
 
 #include "../GameLogic/Object/object.h"
 

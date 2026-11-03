@@ -37,11 +37,7 @@ enum { CONTEXT_EVALUATE_ONLY = 2 };
 
 struct Coord3D;
 class Team;
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../Include/Common/Player.h"
 
 struct SelectionTemplateView
 {

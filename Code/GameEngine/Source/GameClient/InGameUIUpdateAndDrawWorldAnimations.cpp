@@ -64,12 +64,7 @@ extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 extern UnsignedInt g_00DFEE08;
 
-class Player
-{
-public:
-	unsigned char m_pad[0x54];
-	Int m_playerIndex; // +0x54
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

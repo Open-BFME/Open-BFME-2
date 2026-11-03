@@ -54,15 +54,7 @@ public:
     AsciiString m_beaconTemplate; // +0x17C
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-
-	char pad00[0x34];
-	PlayerTemplate *m_playerTemplate;	// +0x34
-	const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
-};
+#include "../../../../Include/Common/Player.h"
 
 class PlayerList
 {

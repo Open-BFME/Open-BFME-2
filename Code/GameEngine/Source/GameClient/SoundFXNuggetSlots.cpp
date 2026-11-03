@@ -16,12 +16,7 @@
 
 class Matrix3D;
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../GameLogic/Object/object.h"
 

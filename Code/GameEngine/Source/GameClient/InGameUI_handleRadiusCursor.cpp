@@ -35,14 +35,7 @@ public:
 
 extern Radar *TheRadar;
 
-class Player
-{
-public:
-	bool hasRadar() const;
-
-	unsigned char m_pad[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

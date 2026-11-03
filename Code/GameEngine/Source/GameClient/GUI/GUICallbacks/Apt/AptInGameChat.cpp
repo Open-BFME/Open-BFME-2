@@ -362,17 +362,7 @@ enum Relationship
 	ALLIES
 };
 
-class Player
-{
-public:
-	bool isPlayerActive() const;
-	Relationship getRelationship(const Team *team) const;
-
-	unsigned char m_pad000[0x54];
-	int m_playerIndex; // +0x54
-	unsigned char m_pad058[0x2EC - 0x58];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../../../Include/Common/Player.h"
 
 enum NameKeyType
 {

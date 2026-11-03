@@ -26,11 +26,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 
 #include "../../Include/Common/Upgrade.h"
 
-class Player
-{
-public:
-	bool rva002AB87D(const UpgradeTemplate *tmpl) const;
-};
+#include "../../Include/Common/Player.h"
 
 #include "GameLogicObjectLookupView.h"
 

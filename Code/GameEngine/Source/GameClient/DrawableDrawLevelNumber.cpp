@@ -85,14 +85,7 @@ struct DrawGroupInfo
 };
 extern DrawGroupInfo *TheDrawGroupInfo;
 
-class Player
-{
-public:
-	__declspec(dllimport) __forceinline Int getPlayerColor() const { return m_color; }
-private:
-	char m_pad000[0x280];
-	Int m_color; // +0x280
-};
+#include "../../Include/Common/Player.h"
 
 struct ObjectLevelRecord
 {

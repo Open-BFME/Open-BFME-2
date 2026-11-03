@@ -19,12 +19,7 @@
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Player
-{
-public:
-	unsigned char m_pad[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

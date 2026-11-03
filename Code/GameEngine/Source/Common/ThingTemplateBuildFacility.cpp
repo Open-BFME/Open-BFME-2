@@ -80,7 +80,7 @@ class Handicap {public: enum HandicapType {BUILDCOST,BUILDTIME}; float getHandic
 class Rva002AE98B {public: float rva002AE98B(const class AsciiString*);};
 class Energy {public: float getEnergySupplyRatio()const;};
 struct PlayerBuildView {char before[0x3c];Handicap handicap; char after[0x1bc-0x4c];Energy energy;};
-class Player {public: void countObjectsByThingTemplate(int,const ThingTemplate *const*,bool,int*,bool)const;};
+#include "../../Include/Common/Player.h"
 class Object {public:void *rva0028BC94();};
 class BuildTimeModule {public:
  virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
