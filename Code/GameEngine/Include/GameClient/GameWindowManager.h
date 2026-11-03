@@ -7,6 +7,7 @@
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class GameWindow;
 class GameFont;
+class UnicodeString;
 struct Rva0047EDE0CreateInfo;
 enum WindowMsgHandledType;
 class GameWindowManager : public SubsystemInterface {
@@ -199,6 +200,8 @@ private:
 public:
     GameWindow *winCreate(Rva0047EDE0CreateInfo *);
     GameFont *winFindFont(AsciiString, int, bool);
+    UnicodeString winTextLabelToText(AsciiString);
+    void winGetTextSize(GameFont *, UnicodeString, int *, int *, int);
     void linkWindow(GameWindow *);
     void unlinkWindow(GameWindow *);
     void unlinkChildWindow(GameWindow *);
