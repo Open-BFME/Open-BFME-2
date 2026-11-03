@@ -455,3 +455,4 @@ AsciiStringPlusText,Code/GameEngine/Include/Common/AsciiStringPlusText.h,existin
 Rva003AEEB3,Code/GameEngine/Include/GameClient/Rva003AEEB3.h,existing header; contract class_contracts/Rva003AEEB3.json; 20/23 sampled units adopt
 Locomotor,Code/GameEngine/Include/GameLogic/LocomotorClass.h,existing header; contract class_contracts/Locomotor.json; 50/88 sampled units adopt
 GenBase009EB7D0,Code/Libraries/Source/WWVegas/WWLib/GenBase009EB7D0.h,existing header; contract class_contracts/GenBase009EB7D0.json; 7/22 sampled units adopt
+Rva000411084,Code/GameEngine/Include/GameClient/Rva000411084.h,existing header; contract class_contracts/Rva000411084.json; 13/24 sampled units adopt
