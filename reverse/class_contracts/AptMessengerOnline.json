@@ -1,0 +1,602 @@
+{
+ "bases": [
+  "AptMessenger"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptMessengerOnline",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 13,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5aef6b"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "AptMessenger",
+       "offset": 0,
+       "own_vftable": "0x872760",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5aef6b"
+     ],
+     "value": 673
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5aef6b"
+     ],
+     "value": {
+      "0x2a0": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5aef6b"
+     ],
+     "value": {
+      "0x21c": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x5aef6b"
+     ],
+     "value": {
+      "0x218": [
+       "0x87275c"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5aef6b"
+     ],
+     "value": {
+      "0x0": "0x872760"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x872760"
+     ],
+     "value": {
+      "count": 17,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptMessengerOnline@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5ae76e"
+       },
+       {
+        "name": "?rva005117B7@Rva005117B7@@QAEHHEH@Z",
+        "slot": 1,
+        "target": "0x5117b7"
+       },
+       {
+        "name": "?rva00511990@AptMessenger@@QAEHHII@Z",
+        "slot": 2,
+        "target": "0x511990"
+       },
+       {
+        "name": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+        "slot": 3,
+        "target": "0xa12f8"
+       },
+       {
+        "name": "?rva00444680@Rva00444680@@QAEHHH@Z",
+        "slot": 4,
+        "target": "0x444680"
+       },
+       {
+        "name": "?rva00511E6D@AptMessenger@@QAEHXZ",
+        "slot": 5,
+        "target": "0x511e6d"
+       },
+       {
+        "name": "?vslot6@GameWindow@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x313913"
+       },
+       {
+        "name": "?Rva00510D87Get@@YAHXZ",
+        "slot": 7,
+        "target": "0x510d87"
+       },
+       {
+        "name": "?vslot8@GameWindow@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x31393a"
+       },
+       {
+        "name": "?vslot9@GameWindow@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x8ff78"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 11,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva00511826@AptMessenger@@QAEXXZ",
+        "slot": 12,
+        "target": "0x511826"
+       },
+       {
+        "name": "?rva005118B2@AptMessenger@@QAEXXZ",
+        "slot": 13,
+        "target": "0x5118b2"
+       },
+       {
+        "name": "?rva005AF117@AptMessenger@@UAEXXZ",
+        "slot": 14,
+        "target": "0x5af117"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 15,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z",
+        "slot": 16,
+        "target": "0x5ae68f"
+       }
+      ],
+      "table": "0x872760"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x872760": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptMessengerOnline@@UAEPAXI@Z",
+     "1": "?rva005117B7@Rva005117B7@@QAEHHEH@Z",
+     "2": "?rva00511990@AptMessenger@@QAEHHII@Z",
+     "3": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+     "4": "?rva00444680@Rva00444680@@QAEHHH@Z",
+     "5": "?rva00511E6D@AptMessenger@@QAEHXZ",
+     "6": "?vslot6@GameWindow@@UBE_NXZ",
+     "7": "?Rva00510D87Get@@YAHXZ",
+     "8": "?vslot8@GameWindow@@UBE_NXZ",
+     "9": "?vslot9@GameWindow@@UBE_NXZ",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "11": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "12": "?rva00511826@AptMessenger@@QAEXXZ",
+     "13": "?rva005118B2@AptMessenger@@QAEXXZ",
+     "14": "?rva005AF117@AptMessenger@@UAEXXZ",
+     "15": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "16": "?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 6,
+   "4": 3,
+   "644": 1,
+   "676": 2
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 472,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 480,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 484,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 488,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 492,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 500,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 504,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 508,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 512,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 516,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 520,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 524,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 528,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 532,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 552,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 669,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 4]]": 1,
+    "[[0, 670]]": 1,
+    "[[640, 644]]": 1
+   },
+   "class": "AptMessengerOnline"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
