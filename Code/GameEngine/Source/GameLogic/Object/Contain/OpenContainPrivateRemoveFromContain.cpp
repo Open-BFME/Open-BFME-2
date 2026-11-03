@@ -12,7 +12,7 @@ enum PathfindLayerEnum { PATHFIND_LAYER_0=0 };
 class Rva00373EC6;
 #include "../object.h"
 #include "../../../../Include/GameLogic/Module/StealthUpdate.h"
-class Rva00439E0C { public: bool detected(Object *,Object *,int,int); };
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 template<int N> class Rva00462FB3Slots:public Rva00462FB3Slots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class Rva00462FB3Slots<0> {};
 struct Rva00462FB3Flags {

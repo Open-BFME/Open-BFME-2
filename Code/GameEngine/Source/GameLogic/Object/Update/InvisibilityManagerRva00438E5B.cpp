@@ -96,13 +96,7 @@ struct Rva004389DBInfo
 	bool m_20;	// +0x20
 };
 
-class Rva00439E0C
-{
-public:
-	bool rva00438E5B(Object *obj, int state, Rva004393D6 *record, Rva004389DBInfo *info, unsigned int duration);
-	void rva004384F2(Object *obj, int val);
-	void rva00438C6C(Object *obj, void *payload, int duration, bool flag);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 bool Rva00439E0C::rva00438E5B(Object *obj, int state, Rva004393D6 *record, Rva004389DBInfo *info, unsigned int duration)
 {

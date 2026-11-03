@@ -41,11 +41,7 @@ struct Rva004393D6 : public _STL::list<BfmePod196>
 	int m_0c;
 };
 
-class Rva00439E0C
-{
-public:
-	void rva0043888E(Rva004393D6 *record);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 void Rva00439E0C::rva0043888E(Rva004393D6 *record)
 {

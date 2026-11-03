@@ -682,12 +682,7 @@ struct Coord3D;
 struct Rva004393D6Entry;
 enum ObjectID;
 
-class Rva00439E0C
-{
-public:
-	bool rva00439428(Object *object, const Coord3D *pos, Rva004393D6Entry *entry, int a, int b, ObjectID *id);	// 0x00439428
-	bool rva004395D3(Object *object, const Coord3D *pos, Rva004393D6Entry *entry);
-};
+#include "../../Include/GameLogic/Rva00439E0C.h"
 
 bool Rva00439E0C::rva004395D3(Object *object, const Coord3D *pos, Rva004393D6Entry *entry)
 {

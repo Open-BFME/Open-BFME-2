@@ -610,7 +610,7 @@ class Rva001E431E {public:void rva001E431E(const int*);};
 
 class StealthUpdate {public:void markAsDetected(unsigned,int,Object*,bool);};
 
-class Rva00439E0C {public:bool detected(Object*,Object*,int,int);};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 struct SpecialGameLogicView {char opaque[0x178];Rva00439E0C *invisibility;};
 

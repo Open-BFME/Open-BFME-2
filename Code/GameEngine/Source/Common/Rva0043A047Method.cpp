@@ -43,12 +43,7 @@ public:
 };
 
 class Xfer;
-class Rva00439E0C
-{
-public:
- void rva00439F3F(Xfer *argument);
- void rva00438FF4(Xfer *argument);
-};
+#include "../../Include/GameLogic/Rva00439E0C.h"
 
 class Rva0043A047
 {

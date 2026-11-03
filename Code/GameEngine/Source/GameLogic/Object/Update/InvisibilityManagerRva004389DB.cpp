@@ -165,11 +165,7 @@ struct Rva004389DBInfo
 	char m_key10[4];	// +0x10
 };
 
-class Rva00439E0C
-{
-public:
-	void rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 void Rva00439E0C::rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback)
 {

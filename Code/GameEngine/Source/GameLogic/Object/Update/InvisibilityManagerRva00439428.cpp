@@ -125,12 +125,7 @@ public:
 	bool rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl, ObjectID *out);
 };
 
-class Rva00439E0C
-{
-public:
-	bool rva00439428(Object *obj, const Coord3D *pos, Rva004393D6Entry *entry, int level, int frame, ObjectID *id);
-	bool rva004387B1(Object *obj, unsigned int flags);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 bool Rva00439E0C::rva00439428(Object *obj, const Coord3D *pos, Rva004393D6Entry *entry, int level, int frame, ObjectID *id)
 {

@@ -235,11 +235,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Rva00439E0C
-{
-public:
-	bool detected(Object *, Object *, int, int);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

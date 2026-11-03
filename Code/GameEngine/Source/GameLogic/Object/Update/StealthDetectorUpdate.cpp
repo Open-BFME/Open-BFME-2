@@ -343,7 +343,7 @@ class Player{public:char pad[0x54];int m_index;};
 
 extern PlayerList *ThePlayerList;
 
-class Rva00439E0C{public:bool detected(Object*,Object*,int,int);};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 extern GameLogic *TheGameLogic;
 

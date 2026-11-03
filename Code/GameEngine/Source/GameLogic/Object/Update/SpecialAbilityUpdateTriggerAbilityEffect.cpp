@@ -502,10 +502,7 @@ enum ObjectID; class ThingFactory {
 extern ThingFactory *TheThingFactory;
 #include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
-class Rva00439E0C {
-  public:
-    bool detected(Object *, Object *, int, int);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 class AutoHealBehavior {
   public:
     void rva004523CC();

@@ -57,12 +57,7 @@ static inline void setObjectID(BfmeAudioEventPrefix136 &sound, int id)
 	((Rva002D9531 *)&sound)->rva002D9531(id);
 }
 
-class Rva00439E0C
-{
-public:
-	void rva00438D58(Object *obj);
-	void rva00438C6C(Object *obj, void *payload, int duration, bool flag);
-};
+#include "../../../Include/GameLogic/Rva00439E0C.h"
 
 void Rva00439E0C::rva00438D58(Object *obj)
 {

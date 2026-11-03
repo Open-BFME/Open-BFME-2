@@ -64,13 +64,7 @@ struct Rva004389DBInfo
 	bool m_20;	// +0x20
 };
 
-class Rva00439E0C
-{
-public:
-	int rva0043966A(Object *obj, const Coord3D *pos, Rva004393D6 *record, Rva004389DBInfo *info);
-	void rva0043888E(Rva004393D6 *record);
-	bool rva00439428(Object *obj, const Coord3D *pos, Rva004393D6Entry *entry, int a, int b, ObjectID *id);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 int Rva00439E0C::rva0043966A(Object *obj, const Coord3D *pos, Rva004393D6 *record, Rva004389DBInfo *info)
 {

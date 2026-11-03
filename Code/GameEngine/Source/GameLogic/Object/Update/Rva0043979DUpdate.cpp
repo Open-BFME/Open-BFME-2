@@ -14,7 +14,7 @@ class Rva00438389 {public:Rva00438389&rva00438389();};
 struct Rva004389DBInfo {unsigned detector;char pad[32];};
 struct Rva004393D6 {void**node;unsigned expiry,refresh,other;};
 class Rva0043846D {public:void rva0043846D(Object*);};
-class Rva00439E0C {public:bool rva0043979D(Object*,Rva004393D6*);int rva0043966A(Object*,const Coord3D*,Rva004393D6*,Rva004389DBInfo*);bool rva00438E5B(Object*,int,Rva004393D6*,Rva004389DBInfo*,unsigned);void rva004389DB(Object*,Rva004389DBInfo*,int);void rva0043822E(Rva004393D6*,unsigned);void rva00438D58(Object*);};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 bool Rva00439E0C::rva0043979D(Object*obj,Rva004393D6*record){
  Rva004389DBInfo info;((Rva00438389*)&info)->rva00438389();
  int result=rva0043966A(obj,obj->getPosition(),record,&info);

@@ -137,11 +137,7 @@ struct Rva004387B1SlotMask
 	WeaponSlotType m_slot;
 };
 
-class Rva00439E0C
-{
-public:
-	bool rva004387B1(Object *obj, unsigned int flags);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 bool Rva00439E0C::rva004387B1(Object *obj, unsigned int flags)
 {

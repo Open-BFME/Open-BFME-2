@@ -107,11 +107,7 @@ class Rva00373EC6
 public:
 };
 
-class Rva00439E0C
-{
-public:
-	bool detected(Object *obj, Object *, int, int);	// 0x00439E0C
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 // Experience tracker views at Object+0x264 (rowed and pinned spellings).
 class Rva0039ACA4

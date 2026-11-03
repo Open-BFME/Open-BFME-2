@@ -97,11 +97,7 @@ void __cdecl Rva00438166Callback(Object *obj, const int *param)
 	obj->rva0029130C(*param);
 }
 
-class Rva00439E0C
-{
-public:
-	void rva004384F2(Object *obj, int val);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 void Rva00439E0C::rva004384F2(Object *obj, int val)
 {

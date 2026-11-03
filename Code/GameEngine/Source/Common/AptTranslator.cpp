@@ -329,12 +329,7 @@ struct Rva004393D6Entry;
 
 enum ObjectID;
 
-class Rva00439E0C
-{
-public:
-	bool rva00439428(Object *object, const Coord3D *pos, Rva004393D6Entry *entry, int a, int b, ObjectID *id);	// 0x00439428
-	bool rva004395D3(Object *object, const Coord3D *pos, Rva004393D6Entry *entry);
-};
+#include "../../Include/GameLogic/Rva00439E0C.h"
 
 // --- 0x0043A1C0 (130B) / 0x0043A242 (54B): text callbacks writing into the
 // buffer unless the flag is set: the +0x90 slot map's player colour value

@@ -17,11 +17,7 @@ struct Rva004393D6
 	unsigned int other;
 };
 
-class Rva00439E0C
-{
-public:
-	void rva0043822E(Rva004393D6 *p, unsigned int v);
-};
+#include "../../Include/GameLogic/Rva00439E0C.h"
 
 void Rva00439E0C::rva0043822E(Rva004393D6 *p, unsigned int v)
 {
