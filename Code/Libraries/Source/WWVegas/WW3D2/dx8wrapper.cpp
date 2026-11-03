@@ -709,15 +709,12 @@ struct BfmeResetAnyRef {
 	BfmeResetAnyRef(const BfmeResetAnyRef &);
 	~BfmeResetAnyRef() { if (pointer) pointer->Release_Ref(); }
 };
-struct BfmeResetTextureRef {
-	BfmeResetResource *pointer;
-	BfmeResetTextureRef():pointer(0) {}
-	~BfmeResetTextureRef() { if (pointer) pointer->Release_Ref(); }
-	BfmeResetTextureRef &operator=(const BfmeResetAnyRef &);
-	operator bool() const { return pointer!=0; }
-	void Release_Device_Resources();
-	void Recreate_Device_Resources();
-};
+#include "BfmeResetTextureRef.h"
+inline BfmeResetTextureRef::~BfmeResetTextureRef()
+{
+	if (pointer) static_cast<BfmeResetResource *>(pointer)->Release_Ref();
+}
+inline BfmeResetTextureRef::operator bool() const { return pointer!=0; }
 struct BfmeResetShaderRef {
 	BfmeResetResource *pointer;
 	BfmeResetShaderRef():pointer(0) {}

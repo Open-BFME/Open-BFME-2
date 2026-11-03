@@ -41,20 +41,17 @@ struct BfmeResetTextureResource
 	BfmeResetTextureBackend *backend;
 };
 
-struct BfmeResetTextureRef
-{
-	BfmeResetTextureResource *pointer;
-	void Recreate_Device_Resources();
-};
+#include "BfmeResetTextureRef.h"
 
 void BfmeResetTextureRef::Recreate_Device_Resources()
 {
-	if (pointer && pointer->backend && pointer->backend->com == 0 && pointer->backend->pool == 0)
-		pointer->backend->CreateTexture(
-			pointer->backend->width, pointer->backend->height,
-			pointer->backend->createArg4C, pointer->backend->createArg44,
-			pointer->backend->pool, pointer->backend->usage,
-			pointer->backend->createArg48);
+	BfmeResetTextureResource *res = static_cast<BfmeResetTextureResource *>(pointer);
+	if (res && res->backend && res->backend->com == 0 && res->backend->pool == 0)
+		res->backend->CreateTexture(
+			res->backend->width, res->backend->height,
+			res->backend->createArg4C, res->backend->createArg44,
+			res->backend->pool, res->backend->usage,
+			res->backend->createArg48);
 }
 
 class Rva00132D0FIface

@@ -1,0 +1,7 @@
+  PASS Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_device.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_recreate_device.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
+  retired 6 row(s) from reverse/header_queue.tsv; commit it with the adoption

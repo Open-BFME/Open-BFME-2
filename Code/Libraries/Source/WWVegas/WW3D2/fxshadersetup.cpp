@@ -337,11 +337,7 @@ public:
 	Rva00082EB8 *rva001518D1();		// 0x001518D1: the asset's default parameters
 };
 
-class BfmeResetTextureRef
-{
-public:
-	void clear();					// 0x0004D75B
-};
+#include "BfmeResetTextureRef.h"
 
 // Reference holder for the shader asset (placeholder-named in the ledger).
 class Rva001514B2 { public: void *rva001514B2(int, int); };

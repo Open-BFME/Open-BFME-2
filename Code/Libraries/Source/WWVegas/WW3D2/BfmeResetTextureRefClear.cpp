@@ -9,11 +9,7 @@ struct BfmeResetResource
 	void Release_Ref();
 };
 
-struct BfmeResetTextureRef
-{
-	BfmeResetResource *pointer;
-	void clear();
-};
+#include "BfmeResetTextureRef.h"
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
@@ -21,7 +17,7 @@ __declspec(noinline) inline void BfmeResetTextureRef::clear()
 {
 	if (pointer)
 	{
-		pointer->Release_Ref();
+		static_cast<BfmeResetResource *>(pointer)->Release_Ref();
 		pointer = 0;
 	}
 }

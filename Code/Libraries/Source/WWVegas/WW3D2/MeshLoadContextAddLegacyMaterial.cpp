@@ -175,16 +175,14 @@ public:
 
 // Release-and-clear helper matched at 0x0004D75B (BfmeResetTextureRefClear.cpp).
 // Defined here only so read_v3_materials can see it keeps no handle address.
+#include "BfmeResetTextureRef.h"
 #pragma optimize("s", on)
-struct BfmeResetTextureRef {
-    TextureClass *pointer;
-    __declspec(noinline) void clear() {
-        if (pointer) {
-            pointer->Release_Ref();
-            pointer = 0;
-        }
+__declspec(noinline) inline void BfmeResetTextureRef::clear() {
+    if (pointer) {
+        static_cast<TextureClass *>(pointer)->Release_Ref();
+        pointer = 0;
     }
-};
+}
 #pragma optimize("", on)
 
 class MeshLoadContextClass {

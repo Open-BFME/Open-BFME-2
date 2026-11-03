@@ -27,15 +27,11 @@ struct BfmeResetTextureResource
 	BfmeResetTextureBackend *backend;
 };
 
-struct BfmeResetTextureRef
-{
-	BfmeResetTextureResource *pointer;
-	void Release_Device_Resources();
-};
+#include "BfmeResetTextureRef.h"
 
 void BfmeResetTextureRef::Release_Device_Resources()
 {
-	BfmeResetTextureResource *res = pointer;
+	BfmeResetTextureResource *res = static_cast<BfmeResetTextureResource *>(pointer);
 	if (res)
 	{
 		BfmeResetTextureBackend *backend = res->backend;

@@ -1,0 +1,9 @@
+  FAIL Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp: Code\GameEngineDevice\Source\W3DDevice\GameClient\W3DTerrainBackground.cpp(1246) : error C2039: 'TerrainInit' : is not a member of 'BfmeResetTextureRef'
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp: FAIL ??0BfmeResetTextureRef@@QAE@ABUBfmeResetAnyRef@@@Z (Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp)
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp: Code\Libraries\Source\WWVegas\WW3D2\BfmeResetTextureRefClear.cpp(20) : error C2227: left of '->Release_Ref' must point to class/struct/union
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp: FAIL ?read_v3_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z (Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp)
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp: Code\Libraries\Source\WWVegas\WW3D2\Rva00136032Factory.cpp(139) : error C2039: 'BfmeNoInitFactory' : is not a member of 'BfmeResetTextureRef'
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_device.cpp: Code\Libraries\Source\WWVegas\WW3D2\bfme_reset_texture_ref_device.cpp(34) : error C2440: 'initializing' : cannot convert from 'void *' to 'BfmeResetTextureResource *'
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_recreate_device.cpp: Code\Libraries\Source\WWVegas\WW3D2\bfme_reset_texture_ref_recreate_device.cpp(48) : error C2227: left of '->backend' must point to class/struct/union
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp: FAIL ?Reset_Device@DX8Wrapper@@SA_N_N@Z (Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp)
+  PASS Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp

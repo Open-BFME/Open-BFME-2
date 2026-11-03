@@ -1,0 +1,14 @@
+Source claims: OK (6 sources, scoped byte-verified)
+Data rows: OK (13 row(s) byte-verified)
+Compile: 4 of 6 TU(s) (deps-cache: 2 current)
+Funclet pins: 119 row(s) verified past a renumbered $L label
+    uw_00768650 (Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp): $L7843 was renumbered; verified parent EH data places $L7917 at 0x00768650
+    uw_0076865b (Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp): $L7844 was renumbered; verified parent EH data places $L7918 at 0x0076865B
+    uw_00768670 (Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp): $L8196 was renumbered; verified parent EH data places $L8270 at 0x00768670
+    uw_0076867b (Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp): $L8197 was renumbered; verified parent EH data places $L8271 at 0x0076867B
+    uw_00768689 (Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp): $L8198 was renumbered; verified parent EH data places $L8272 at 0x00768689
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 314/314 matched across 6 source file(s)
+String-ref verify: OK (79 literals + 6 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (26 compiler literals verified)
+Import-ref verify: OK (25 named imports verified)
