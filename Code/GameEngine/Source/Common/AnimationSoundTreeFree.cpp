@@ -90,7 +90,7 @@ public:
 	~AnimationSoundTree();
 	void rva004CA167(void *node);
 	void rva004CA26A();
-	AnimationSoundTree *rva004CA018(void const *dummy);
+	AnimationSoundTree *rva004CA018(void const *unusedContext);
 	AnimationSoundTree *initHeader(void const *unusedHeaderContext, void const *ignoredContext);
 	AnimationSoundTreeNode *rva004C9FE0(void const *key);
 	void *rva004CA19C(void const *value);
@@ -181,9 +181,9 @@ AnimationSoundTree::~AnimationSoundTree()
 // returning this. Called once from 0x004CA13D. Evidence: callees rowed
 // 0x0014F3C4 proxy and 0x000307F0 allocate; caller at 0x004CA144;
 // prev/next with the same // cl: line.
-AnimationSoundTree *AnimationSoundTree::rva004CA018(void const *dummy)
+AnimationSoundTree *AnimationSoundTree::rva004CA018(void const *unusedContext)
 {
-	(void)dummy;
+	(void)unusedContext;
 	_STL::allocator<ProxyUInt> tmp;
 	_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *proxy =
 		(_STL::_STLP_alloc_proxy<ProxyUInt *, ProxyUInt, _STL::allocator<ProxyUInt> > *)this;

@@ -25,16 +25,16 @@ public:
 
 void BfmeThingVJX::Sort(int mode)
 {
-	BfmeCmpVJX c;
+	BfmeCmpVJX comparator;
 	switch (mode)
 	{
 	case 2:
-		c.m_bfme00 = 0;
-		bfmeSortAVJX(m_bfme00->m_bfme00, m_bfme00->m_bfme04, c);
+		comparator.m_bfme00 = 0;
+		bfmeSortAVJX(m_bfme00->m_bfme00, m_bfme00->m_bfme04, comparator);
 		break;
 	case 1:
-		c.m_bfme00 = 0;
-		bfmeSortBVJX(m_bfme00->m_bfme00, m_bfme00->m_bfme04, c);
+		comparator.m_bfme00 = 0;
+		bfmeSortBVJX(m_bfme00->m_bfme00, m_bfme00->m_bfme04, comparator);
 		break;
 	}
 }

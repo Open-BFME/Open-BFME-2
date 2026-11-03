@@ -44,14 +44,14 @@ public:
  float m[3][4];
  Matrix3D() {}
  __forceinline Matrix3D(
-  const Vector3 &x, // x-axis unit vector
-  const Vector3 &y, // y-axis unit vector
-  const Vector3 &z, // z-axis unit vector
+  const Vector3 &xAxis, // xAxis-axis unit vector
+  const Vector3 &yAxis, // yAxis-axis unit vector
+  const Vector3 &zAxis, // zAxis-axis unit vector
   const Vector3 &pos) // position
  {
-  m[0][0]=x.X; m[0][1]=y.X; m[0][2]=z.X; m[0][3]=pos.X;
-  m[1][0]=x.Y; m[1][1]=y.Y; m[1][2]=z.Y; m[1][3]=pos.Y;
-  m[2][0]=x.Z; m[2][1]=y.Z; m[2][2]=z.Z; m[2][3]=pos.Z;
+  m[0][0]=xAxis.X; m[0][1]=yAxis.X; m[0][2]=zAxis.X; m[0][3]=pos.X;
+  m[1][0]=xAxis.Y; m[1][1]=yAxis.Y; m[1][2]=zAxis.Y; m[1][3]=pos.Y;
+  m[2][0]=xAxis.Z; m[2][1]=yAxis.Z; m[2][2]=zAxis.Z; m[2][3]=pos.Z;
  }
  __forceinline const Vector4 &operator[](int i) const { return *(const Vector4*)m[i]; }
  __forceinline Matrix3D(const Matrix3D &matrix3D) {
@@ -147,20 +147,20 @@ void Rva0007F0FBOwner::rva0007F0FB(CameraClass *source,bool clearOverride)
 {
  DeviceLock guard;
   D3DXMATRIX inverse,projection;
- Vector4 clip;
+ Vector4 transformedClipPlane;
  if (!_finite(source->Get_Transform().m[0][0]))return;
  *camera=*source;
  Matrix4 old(source->Get_Transform());
  Vector3 waterNormal(0,0,1);
  Vector4 WaterPlane(waterNormal.X,waterNormal.Y,waterNormal.Z,*(float*)((char*)finalSetting((Overridable*)TheWaterTransparency.ptr)+0x4c));
- Vector3 rRight,rUp,rN,rPos;
+ Vector3 reflectedRight,rUp,rN,rPos;
 
  Matrix4 full(old.m[0][0],old.m[1][0],old.m[2][0],old.m[3][0],
   old.m[0][1],old.m[1][1],old.m[2][1],old.m[3][1],
   old.m[0][2],old.m[1][2],old.m[2][2],old.m[3][2],
   old.m[0][3],old.m[1][3],old.m[2][3],old.m[3][3]);
  float axis_distance=Vector3::Dot_Product((Vector3&)full.m[0],waterNormal);
- rRight=(Vector3&)full.m[0]-(2.0f*axis_distance*waterNormal);
+ reflectedRight=(Vector3&)full.m[0]-(2.0f*axis_distance*waterNormal);
  axis_distance=Vector3::Dot_Product((Vector3&)full.m[1],waterNormal);
  rUp=(Vector3&)full.m[1]-(2.0f*axis_distance*waterNormal);
  axis_distance=Vector3::Dot_Product((Vector3&)full.m[2],waterNormal);
@@ -168,7 +168,7 @@ void Rva0007F0FBOwner::rva0007F0FB(CameraClass *source,bool clearOverride)
  axis_distance=Vector3::Dot_Product((Vector3&)full.m[3],waterNormal);
  axis_distance-=WaterPlane.W;
  rPos=(Vector3&)full.m[3]-(2.0f*axis_distance*waterNormal);
- Matrix3D reflected(rRight,-rUp,rN,rPos);
+ Matrix3D reflected(reflectedRight,-rUp,rN,rPos);
  camera->Set_Transform(reflected);
  {Vector2 minimum,maximum;
  maximum.X=maximum.Y=1.0f;
@@ -189,22 +189,22 @@ void Rva0007F0FBOwner::rva0007F0FB(CameraClass *source,bool clearOverride)
  }
  D3DXMatrixInverse(&inverse,0,&inverse);
  Vector4 plane(WaterPlane.X,WaterPlane.Y,WaterPlane.Z,-WaterPlane.W);
- rva0062AF4AD3DXVec4Transform(&clip,&plane,&inverse);
+ rva0062AF4AD3DXVec4Transform(&transformedClipPlane,&plane,&inverse);
  projection.m[0][0]=DX8Wrapper::DeviceProjectionMatrix.m[0][0]; projection.m[0][1]=DX8Wrapper::DeviceProjectionMatrix.m[1][0]; projection.m[0][2]=DX8Wrapper::DeviceProjectionMatrix.m[2][0]; projection.m[0][3]=DX8Wrapper::DeviceProjectionMatrix.m[3][0];
  projection.m[1][0]=DX8Wrapper::DeviceProjectionMatrix.m[0][1]; projection.m[1][1]=DX8Wrapper::DeviceProjectionMatrix.m[1][1]; projection.m[1][2]=DX8Wrapper::DeviceProjectionMatrix.m[2][1]; projection.m[1][3]=DX8Wrapper::DeviceProjectionMatrix.m[3][1];
  projection.m[2][0]=DX8Wrapper::DeviceProjectionMatrix.m[0][2]; projection.m[2][1]=DX8Wrapper::DeviceProjectionMatrix.m[1][2]; projection.m[2][2]=DX8Wrapper::DeviceProjectionMatrix.m[2][2]; projection.m[2][3]=DX8Wrapper::DeviceProjectionMatrix.m[3][2];
  projection.m[3][0]=DX8Wrapper::DeviceProjectionMatrix.m[0][3]; projection.m[3][1]=DX8Wrapper::DeviceProjectionMatrix.m[1][3]; projection.m[3][2]=DX8Wrapper::DeviceProjectionMatrix.m[2][3]; projection.m[3][3]=DX8Wrapper::DeviceProjectionMatrix.m[3][3];
  D3DXMatrixTranspose(&projection,&projection);
- Vector4 q;
- q.X=((clip.X>0.0f ? 1.0f : (clip.X<0.0f ? -1.0f : 0.0f))-projection.m[2][0])/projection.m[0][0];
- q.Y=((clip.Y>0.0f ? 1.0f : (clip.Y<0.0f ? -1.0f : 0.0f))-projection.m[2][1])/projection.m[1][1];
- q.Z=1.0f;
- q.W=(1.0f-projection.m[2][2])/projection.m[3][2];
- Vector4 c=clip*(1.0f/(clip.X*q.X+clip.Y*q.Y+clip.Z*q.Z+clip.W*q.W));
- projection.m[0][2]=c.X;
- projection.m[1][2]=c.Y;
- projection.m[2][2]=c.Z;
- projection.m[3][2]=c.W;
+ Vector4 projectionCorner;
+ projectionCorner.X=((transformedClipPlane.X>0.0f ? 1.0f : (transformedClipPlane.X<0.0f ? -1.0f : 0.0f))-projection.m[2][0])/projection.m[0][0];
+ projectionCorner.Y=((transformedClipPlane.Y>0.0f ? 1.0f : (transformedClipPlane.Y<0.0f ? -1.0f : 0.0f))-projection.m[2][1])/projection.m[1][1];
+ projectionCorner.Z=1.0f;
+ projectionCorner.W=(1.0f-projection.m[2][2])/projection.m[3][2];
+ Vector4 scaledClipPlane=transformedClipPlane*(1.0f/(transformedClipPlane.X*projectionCorner.X+transformedClipPlane.Y*projectionCorner.Y+transformedClipPlane.Z*projectionCorner.Z+transformedClipPlane.W*projectionCorner.W));
+ projection.m[0][2]=scaledClipPlane.X;
+ projection.m[1][2]=scaledClipPlane.Y;
+ projection.m[2][2]=scaledClipPlane.Z;
+ projection.m[3][2]=scaledClipPlane.W;
  camera->Set_Reflected_Projection_Matrix(*((Matrix4*)&projection));
  if(DX8Wrapper::RenderStates[152]!=0) {
   if(WW3D::SnapshotActivated) {

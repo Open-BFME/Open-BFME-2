@@ -225,15 +225,15 @@ struct Rva003BAFE8Object
 	unsigned int objectID;
 };
 
-void ScriptActions::Rva003BACCA(Parameter *parameter)
+void ScriptActions::Rva003BACCA(Parameter *unusedParameter)
 {
-	Rva003BACCAPoint v;
-	v.x = g_00BBB9B0;
-	v.y = g_00BBB9B0;
-	reinterpret_cast<TacticalView *>(TheTacticalView)->s023(v);
-	v.x = g_00BBB9B4;
-	v.y = g_00BBB9B4;
-	reinterpret_cast<TacticalView *>(TheTacticalView)->s023(v);
+	Rva003BACCAPoint viewPoint;
+	viewPoint.x = g_00BBB9B0;
+	viewPoint.y = g_00BBB9B0;
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s023(viewPoint);
+	viewPoint.x = g_00BBB9B4;
+	viewPoint.y = g_00BBB9B4;
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s023(viewPoint);
 }
 
 // Retail 0x003BAC6D..0x003BACCA, RET16; called by script dispatch at
@@ -241,10 +241,10 @@ void ScriptActions::Rva003BACCA(Parameter *parameter)
 // value, one truncated integer and two floats. Retail constants at
 // 0x00BBE358 and 0x00BBB8D0 are 1000.0f and float bits 0x3C8EFA35.
 // The original action and virtual-method names remain unresolved.
-void ScriptActions::Rva003BAC6D(float a0, float a1, float a2, float a3)
+void ScriptActions::Rva003BAC6D(float angleDegrees, float durationSeconds, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s62(
-		a0 * 0.01745329238474369f, (int)(a1 * 1000.0f),
+		angleDegrees * 0.01745329238474369f, (int)(durationSeconds * 1000.0f),
 		a2 * 1000.0f, a3 * 1000.0f);
 }
 
@@ -253,34 +253,34 @@ void ScriptActions::Rva003BAC6D(float a0, float a1, float a2, float a3)
 // and truncates the second argument to an integer. Slots and the extra
 // mode argument below are read separately from each bounded retail body.
 // The original action and virtual-method names remain unresolved.
-void ScriptActions::doZoomCamera(float a0, float a1, float a2, float a3)
+void ScriptActions::doZoomCamera(float zoom, float durationSeconds, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s59(
-		a0, (int)(a1 * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
+		zoom, (int)(durationSeconds * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
 }
 
-void ScriptActions::Rva003BABCB(float a0, float a1, float a2, float a3)
+void ScriptActions::Rva003BABCB(float a0, float durationSeconds, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s60(
-		a0, (int)(a1 * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
+		a0, (int)(durationSeconds * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
 }
 
-void ScriptActions::doPitchCamera(float a0, float a1, float a2, float a3)
+void ScriptActions::doPitchCamera(float pitch, float durationSeconds, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s61(
-		a0, (int)(a1 * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
+		pitch, (int)(durationSeconds * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
 }
 
-void ScriptActions::doRotateCamera(float a0, float a1, float a2, float a3)
+void ScriptActions::doRotateCamera(float rotation, float durationSeconds, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s51(
-		a0, (int)(a1 * 1000.0f), 0, a2 * 1000.0f, a3 * 1000.0f);
+		rotation, (int)(durationSeconds * 1000.0f), 0, a2 * 1000.0f, a3 * 1000.0f);
 }
 
-void ScriptActions::Rva003BAF95(float a0, float a1, float a2, float a3)
+void ScriptActions::Rva003BAF95(float a0, float durationSeconds, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s51(
-		a0, (int)(a1 * 1000.0f), 1, a2 * 1000.0f, a3 * 1000.0f);
+		a0, (int)(durationSeconds * 1000.0f), 1, a2 * 1000.0f, a3 * 1000.0f);
 }
 
 // Retail 0x003BAFE8..0x003BB05F, RET24; script caller 0x003CAF53.
@@ -304,13 +304,13 @@ void ScriptActions::Rva003BAFE8(Parameter *parameter, float a1, float a2,
 // Slot 34 of the rowed TerrainLogic global supplies the record. View
 // slot 53 receives record+12, scaled/truncated a2, two scaled floats and
 // the final integer unchanged. The scale literal is retail 1000.0f.
-void ScriptActions::Rva003BB05FSet(int a1, float a2, float a3, float a4, bool a5)
+void ScriptActions::Rva003BB05FSet(int terrainLookupKey, float durationSeconds, float a3, float a4, bool a5)
 {
-	char *record = reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s34(a1);
+	char *record = reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s34(terrainLookupKey);
 	if (record)
 	{
 		reinterpret_cast<TacticalView *>(TheTacticalView)->s53(
-			record + 12, (int)(a2 * 1000.0f),
+			record + 12, (int)(durationSeconds * 1000.0f),
 			a3 * 1000.0f, a4 * 1000.0f, a5);
 	}
 }
@@ -319,15 +319,15 @@ void ScriptActions::Rva003BB05FSet(int a1, float a2, float a3, float a4, bool a5
 // Terrain slot 37 returns the record; only type 6 at +0x60 is accepted.
 // View slot 25 takes that record, the scaled/truncated second argument,
 // literal 1, three scaled floats and the final integer. Argument 3 is unused.
-void ScriptActions::Rva003BB0C7Set(int a1, float a2, float a3,
+void ScriptActions::Rva003BB0C7Set(int recordIndex, float durationSeconds, float unusedArgument,
 	float a4, float a5, float a6, int a7)
 {
 	Rva003BB0C7Record *record =
-		reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s37(a1);
+		reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s37(recordIndex);
 	if (record && record->type == 6)
 	{
 		reinterpret_cast<TacticalView *>(TheTacticalView)->s25(
-			record, (int)(a2 * 1000.0f), 1,
+			record, (int)(durationSeconds * 1000.0f), 1,
 			a4 * 1000.0f, a5 * 1000.0f, a6 * 1000.0f, a7);
 	}
 }
@@ -338,7 +338,7 @@ void ScriptActions::Rva003BB0C7Set(int a1, float a2, float a3,
 // position; View slot 24 takes the copy, marker and scaled arguments.
 // Argument a2 is unused. Original action and virtual-method names unknown.
 void ScriptActions::Rva003BAAE4(const AsciiString &name,
-	float a1, float a2, float a3, float a4)
+	float durationSeconds, float unusedArgument, float a3, float a4)
 {
 	char *terrain =
 		reinterpret_cast<Rva003BB05FTerrain<const AsciiString &> *>(TheTerrainLogic)->s34(name);
@@ -351,7 +351,7 @@ void ScriptActions::Rva003BAAE4(const AsciiString &name,
 	if (marker)
 		position = reinterpret_cast<Rva003BAAE4MarkerPosition *>(marker)->position;
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s24(
-		&position, marker, (int)(a1 * 1000.0f), 1,
+		&position, marker, (int)(durationSeconds * 1000.0f), 1,
 		a3 * 1000.0f, a4 * 1000.0f);
 }
 
@@ -402,19 +402,19 @@ void ScriptActions::Rva003BAE04()
     int count = 0;
     Coord3D destination;
     destination.x = destination.y = destination.z = 0.0f;
-    for (BFMERopeDrawable *d = reinterpret_cast<Rva003BAE04Client *>(TheGameClient)->firstDrawable();
-        d; d = reinterpret_cast<Rva003BAE04Drawable *>(d)->next)
+    for (BFMERopeDrawable *drawable = reinterpret_cast<Rva003BAE04Client *>(TheGameClient)->firstDrawable();
+        drawable; drawable = reinterpret_cast<Rva003BAE04Drawable *>(drawable)->next)
     {
-        if (reinterpret_cast<Rva003BAE04Drawable *>(d)->selected)
+        if (reinterpret_cast<Rva003BAE04Drawable *>(drawable)->selected)
         {
-            const Coord3D *position = d->getPosition();
-            Coord3D pos;
-            pos.x = position->x;
-            pos.y = position->y;
-            pos.z = position->z;
-            destination.x += pos.x;
-            destination.y += pos.y;
-            destination.z += pos.z;
+            const Coord3D *position = drawable->getPosition();
+            Coord3D selectedPosition;
+            selectedPosition.x = position->x;
+            selectedPosition.y = position->y;
+            selectedPosition.z = position->z;
+            destination.x += selectedPosition.x;
+            destination.y += selectedPosition.y;
+            destination.z += selectedPosition.z;
             ++count;
         }
     }
@@ -460,23 +460,23 @@ void ScriptActions::Rva003BAA46(Parameter *parameter, bool snap, float play)
 // 47/45/46/21 with filter2, saturate8 or alpha7, and fallback filter0.
 void ScriptActions::Rva003BB7FESet(int waypoint, bool saturate)
 {
-    char *way = reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s34(waypoint);
-    if (!way)
+    char *waypointRecord = reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s34(waypoint);
+    if (!waypointRecord)
         return;
-    bool passed = false;
-    Coord3D pos;
-    pos.x = reinterpret_cast<Rva003BAAE4TerrainPosition *>(way)->position.x;
-    pos.y = reinterpret_cast<Rva003BAAE4TerrainPosition *>(way)->position.y;
-    pos.z = reinterpret_cast<Rva003BAAE4TerrainPosition *>(way)->position.z;
+    bool filterAccepted = false;
+    Coord3D waypointPosition;
+    waypointPosition.x = reinterpret_cast<Rva003BAAE4TerrainPosition *>(waypointRecord)->position.x;
+    waypointPosition.y = reinterpret_cast<Rva003BAAE4TerrainPosition *>(waypointRecord)->position.y;
+    waypointPosition.z = reinterpret_cast<Rva003BAAE4TerrainPosition *>(waypointRecord)->position.z;
     if (reinterpret_cast<TacticalView *>(TheTacticalView)->s47(2))
     {
-        passed = true;
+        filterAccepted = true;
         if (saturate)
         {
             if (!reinterpret_cast<TacticalView *>(TheTacticalView)->s45(8))
             {
                 reinterpret_cast<TacticalView *>(TheTacticalView)->s47(0);
-                passed = false;
+                filterAccepted = false;
             }
         }
         else
@@ -484,12 +484,12 @@ void ScriptActions::Rva003BB7FESet(int waypoint, bool saturate)
             if (!reinterpret_cast<TacticalView *>(TheTacticalView)->s45(7))
             {
                 reinterpret_cast<TacticalView *>(TheTacticalView)->s47(0);
-                passed = false;
+                filterAccepted = false;
             }
         }
-        if (passed)
-            reinterpret_cast<TacticalView *>(TheTacticalView)->s46(&pos, 0);
+        if (filterAccepted)
+            reinterpret_cast<TacticalView *>(TheTacticalView)->s46(&waypointPosition, 0);
     }
-    if (!passed)
-        reinterpret_cast<TacticalView *>(TheTacticalView)->s21(&pos);
+    if (!filterAccepted)
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s21(&waypointPosition);
 }

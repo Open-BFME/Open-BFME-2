@@ -20,12 +20,12 @@ unsigned int __stdcall Rva00055041AsciiHash(const AsciiString *key);
 class Rva00056E78
 {
 public:
-	unsigned int rva00056E78(const AsciiString *key, unsigned int n) const;
+	unsigned int rva00056E78(const AsciiString *key, unsigned int bucketCount) const;
 };
 
-unsigned int Rva00056E78::rva00056E78(const AsciiString *key, unsigned int n) const
+unsigned int Rva00056E78::rva00056E78(const AsciiString *key, unsigned int bucketCount) const
 {
-	return Rva00055041AsciiHash(key) % n;
+	return Rva00055041AsciiHash(key) % bucketCount;
 }
 
 // --- 0x000579D3 (11B): clear a vector by erasing [begin, end) through its
@@ -87,14 +87,14 @@ class PlayingAudioRef;
 
 #include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
-bool MilesAudioManager::rva00061A7D(PlayingAudioRef &ref, void *second)
+bool MilesAudioManager::rva00061A7D(PlayingAudioRef &ref, void *callbackBuffer)
 {
-	return playSample2DOr3DUsingCallbackBuffers(ref, 0, second);
+	return playSample2DOr3DUsingCallbackBuffers(ref, 0, callbackBuffer);
 }
 
-bool MilesAudioManager::rva00061A8F(PlayingAudioRef &ref, void *first)
+bool MilesAudioManager::rva00061A8F(PlayingAudioRef &ref, void *callbackBuffer)
 {
-	return playSample2DOr3DUsingCallbackBuffers(ref, first, 0);
+	return playSample2DOr3DUsingCallbackBuffers(ref, callbackBuffer, 0);
 }
 
 // --- 0x000628DB (10B) / 0x000628E5 (6B): ShaderOverbrightEnabled set / get.
@@ -111,9 +111,9 @@ bool rva000628E5()
 }
 
 // --- 0x0006607A (17B): float tangent through the msvcr71 tan thunk.
-float rva0006607A(float x)
+float rva0006607A(float angle)
 {
-	return (float)tan((double)x);
+	return (float)tan((double)angle);
 }
 
 // --- 0x0006614F (10B) / 0x00066159 (6B): DX8Wrapper's cleanup-hook store

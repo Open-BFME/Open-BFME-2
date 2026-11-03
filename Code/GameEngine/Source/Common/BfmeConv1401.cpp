@@ -23,12 +23,12 @@ extern "C" void *__stdcall D3DXMatrixMultiply(BfmeMat4VKH *out,
 class BfmeThingVKH
 {
 public:
-	BfmeMat4VKH bfmeGoVKH(int a);
+	BfmeMat4VKH bfmeGoVKH(int rightMatrixAddress);
 };
 
-BfmeMat4VKH BfmeThingVKH::bfmeGoVKH(int a)
+BfmeMat4VKH BfmeThingVKH::bfmeGoVKH(int rightMatrixAddress)
 {
-	BfmeMat4VKH t;
-	D3DXMatrixMultiply(&t, this, a);
-	return t;
+	BfmeMat4VKH product;
+	D3DXMatrixMultiply(&product, this, rightMatrixAddress);
+	return product;
 }

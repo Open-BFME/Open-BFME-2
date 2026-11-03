@@ -124,16 +124,16 @@ void rva005E8ADF(Rva005F86FE *list, const Rva005E8908 &record);
 
 void Rva005E8C54::rva005E8B66(int b)
 {
-	int found = Rva005F88D6Get((int)m_source18);
-	Rva005E8B66Source *source = found ? (Rva005E8B66Source *)((Rva004E0625 *)found)->rva004E0625() : 0;
+	int sourceLookupResult = Rva005F88D6Get((int)m_source18);
+	Rva005E8B66Source *source = sourceLookupResult ? (Rva005E8B66Source *)((Rva004E0625 *)sourceLookupResult)->rva004E0625() : 0;
 	if (!source)
 		return;
 	SpawnArmy unit(0);
 	_STL::vector<int> ids;
 	source->listUnits(&ids);
-	for (int *it = ids.begin(), *end = ids.end(); it != end; ++it)
+	for (int *unitIdIt = ids.begin(), *end = ids.end(); unitIdIt != end; ++unitIdIt)
 	{
-		if (source->describe(*it, &unit))
+		if (source->describe(*unitIdIt, &unit))
 		{
 			rva005E8ADF(&m_member04, Rva005E8908(b, (int)m_source18, (SpawnArmy *)&unit));
 		}
@@ -275,13 +275,13 @@ Rva005E908C::Rva005E908C(void *a, int b, void *c, Rva005E8FECOwner *owner, Rva00
 class Rva005E90EC
 {
 public:
-	Rva005E90EC(void *a, int b, void *c, Rva005E8FECOwner *d, Rva005E8FECSource *e);
+	Rva005E90EC(void *a, int b, void *c, Rva005E8FECOwner *owner, Rva005E8FECSource *source);
 
 private:
 	Rva005E908C *m_object;			// +0x00
 };
 
-Rva005E90EC::Rva005E90EC(void *a, int b, void *c, Rva005E8FECOwner *d, Rva005E8FECSource *e)
-	: m_object(new Rva005E908C(a, b, c, d, e))
+Rva005E90EC::Rva005E90EC(void *a, int b, void *c, Rva005E8FECOwner *owner, Rva005E8FECSource *source)
+	: m_object(new Rva005E908C(a, b, c, owner, source))
 {
 }

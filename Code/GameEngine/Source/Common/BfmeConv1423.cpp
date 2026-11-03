@@ -30,22 +30,22 @@ struct BfmeHdrVLX
 	unsigned m_bfmePad0c;
 };
 
-void bfmeFreeVLX(void *p, unsigned n)
+void bfmeFreeVLX(void *allocation, unsigned payloadSize)
 {
 	BfmeHdrVLX *n1;
 	unsigned n2;
 	unsigned n3;
 
-	n1 = (BfmeHdrVLX *)((char *)p - 0x10);
-	for (n2 = (unsigned)n1 + 8; n2 < (unsigned)p; ++n2)
+	n1 = (BfmeHdrVLX *)((char *)allocation - 0x10);
+	for (n2 = (unsigned)n1 + 8; n2 < (unsigned)allocation; ++n2)
 	{
 	}
-	n3 = n + 0x18;
-	for (n2 = (unsigned)p + n; n2 < (unsigned)n1 + n3; ++n2)
+	n3 = payloadSize + 0x18;
+	for (n2 = (unsigned)allocation + payloadSize; n2 < (unsigned)n1 + n3; ++n2)
 	{
 	}
 	n1->m_bfmeTag = 0xdebd;
-	memset(p, 0xa3, n);
+	memset(allocation, 0xa3, payloadSize);
 	if (n3 > 0x80)
 		bfmeBigFreePM(n1);
 	else

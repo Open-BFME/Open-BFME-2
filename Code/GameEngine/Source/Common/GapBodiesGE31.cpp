@@ -82,15 +82,15 @@ struct GapRecord1C
 class Rva00078930
 {
 public:
-	GapRecord1C *rva00078930(int i);
+	GapRecord1C *rva00078930(int recordIndex);
 private:
 	char m_pad00[0x110];
 	GapRecord1C m_records[1];								// +0x110
 };
 
-GapRecord1C *Rva00078930::rva00078930(int i)
+GapRecord1C *Rva00078930::rva00078930(int recordIndex)
 {
-	return &m_records[i];
+	return &m_records[recordIndex];
 }
 
 // --- 0x0007B275 (10B): WW3D::IsCurrentlyRenderingShadowMap store.
@@ -133,27 +133,27 @@ Rva0007B27F::Rva0007B27F() : m_count(0x400), m_range(1000.0f), m_zero(0.0f)
 class Rva0007B342
 {
 public:
-	void rva0007B342(const Rva0007B342 &o);
-	void rva0007B367(const Rva0007B342 &o);
+	void rva0007B342(const Rva0007B342 &other);
+	void rva0007B367(const Rva0007B342 &other);
 private:
 	float x;
 	float y;
 };
 
-void Rva0007B342::rva0007B342(const Rva0007B342 &o)
+void Rva0007B342::rva0007B342(const Rva0007B342 &other)
 {
-	if (x > o.x)
-		x = o.x;
-	if (y > o.y)
-		y = o.y;
+	if (x > other.x)
+		x = other.x;
+	if (y > other.y)
+		y = other.y;
 }
 
-void Rva0007B342::rva0007B367(const Rva0007B342 &o)
+void Rva0007B342::rva0007B367(const Rva0007B342 &other)
 {
-	if (o.x > x)
-		x = o.x;
-	if (o.y > y)
-		y = o.y;
+	if (other.x > x)
+		x = other.x;
+	if (other.y > y)
+		y = other.y;
 }
 
 // --- 0x0007DE26 (67B): four floats scaled, returned by value.
@@ -161,7 +161,7 @@ class Rva0007DE26
 {
 public:
 	Rva0007DE26() {}
-	Rva0007DE26(float a, float b, float c, float d) : x(a), y(b), z(c), w(d) {}
+	Rva0007DE26(float xComponent, float yComponent, float zComponent, float wComponent) : x(xComponent), y(yComponent), z(zComponent), w(wComponent) {}
 	Rva0007DE26 rva0007DE26(float s) const;
 private:
 	float x;
@@ -590,9 +590,9 @@ public:
 	void rva0005333F();
 };
 
-void rva00054F32(Rva0005333FHolder *p)
+void rva00054F32(Rva0005333FHolder *element)
 {
-	p->rva0005333F();
+	element->rva0005333F();
 }
 
 // 0x00051888 (14B), unreferenced: post-increment the counter at +0xD0,

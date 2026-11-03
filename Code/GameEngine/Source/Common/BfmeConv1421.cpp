@@ -29,13 +29,13 @@ struct BfmeHdrVLV
 	unsigned m_bfmePad0c;
 };
 
-void *bfmeAllocVLV(unsigned n)
+void *bfmeAllocVLV(unsigned requestedSize)
 {
 	BfmeHdrVLV *n1;
 	unsigned n3;
 	unsigned n2;
 
-	n3 = n + 0x18;
+	n3 = requestedSize + 0x18;
 	if (n3 > 0x80)
 		n2 = (unsigned)bfmeBigAllocPR(n3);
 	else
@@ -44,6 +44,6 @@ void *bfmeAllocVLV(unsigned n)
 	memset(n1, 0xa3, n3);
 	n1->m_bfmeTag = 0xdeba;
 	n1->m_bfmeVer = 1;
-	n1->m_bfmeSize = n;
+	n1->m_bfmeSize = requestedSize;
 	return n1 + 1;
 }

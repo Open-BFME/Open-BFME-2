@@ -13,13 +13,13 @@ public:
 class Rva001F63F5
 {
 public:
-	void rva001F63F5(void *a, void *b);
+	void rva001F63F5(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F63F5::rva001F63F5(void *a, void *b)
+void Rva001F63F5::rva001F63F5(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5D98Slot *)b)->get(a);
+	m_00 = ((Rva001F5D98Slot *)slotProvider)->get(a);
 }
 class Rva001F5DACSlot
 {
@@ -29,13 +29,13 @@ public:
 class Rva001F6430
 {
 public:
-	void rva001F6430(void *a, void *b);
+	void rva001F6430(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F6430::rva001F6430(void *a, void *b)
+void Rva001F6430::rva001F6430(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5DACSlot *)b)->get(a);
+	m_00 = ((Rva001F5DACSlot *)slotProvider)->get(a);
 }
 class Rva001F5DC0Slot
 {
@@ -45,13 +45,13 @@ public:
 class Rva001F6446
 {
 public:
-	void rva001F6446(void *a, void *b);
+	void rva001F6446(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F6446::rva001F6446(void *a, void *b)
+void Rva001F6446::rva001F6446(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5DC0Slot *)b)->get(a);
+	m_00 = ((Rva001F5DC0Slot *)slotProvider)->get(a);
 }
 class Rva001F5DD4Slot
 {
@@ -61,13 +61,13 @@ public:
 class Rva001F645C
 {
 public:
-	void rva001F645C(void *a, void *b);
+	void rva001F645C(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F645C::rva001F645C(void *a, void *b)
+void Rva001F645C::rva001F645C(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5DD4Slot *)b)->get(a);
+	m_00 = ((Rva001F5DD4Slot *)slotProvider)->get(a);
 }
 class Rva001F5DE8Slot
 {
@@ -77,13 +77,13 @@ public:
 class Rva001F6472
 {
 public:
-	void rva001F6472(void *a, void *b);
+	void rva001F6472(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F6472::rva001F6472(void *a, void *b)
+void Rva001F6472::rva001F6472(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5DE8Slot *)b)->get(a);
+	m_00 = ((Rva001F5DE8Slot *)slotProvider)->get(a);
 }
 class Rva001F5DFCSlot
 {
@@ -93,13 +93,13 @@ public:
 class Rva001F64BC
 {
 public:
-	void rva001F64BC(void *a, void *b);
+	void rva001F64BC(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F64BC::rva001F64BC(void *a, void *b)
+void Rva001F64BC::rva001F64BC(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5DFCSlot *)b)->get(a);
+	m_00 = ((Rva001F5DFCSlot *)slotProvider)->get(a);
 }
 class Rva001F5E10Slot
 {
@@ -109,13 +109,13 @@ public:
 class Rva001F650B
 {
 public:
-	void rva001F650B(void *a, void *b);
+	void rva001F650B(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F650B::rva001F650B(void *a, void *b)
+void Rva001F650B::rva001F650B(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5E10Slot *)b)->get(a);
+	m_00 = ((Rva001F5E10Slot *)slotProvider)->get(a);
 }
 class Rva001F5E24Slot
 {
@@ -125,11 +125,11 @@ public:
 class Rva001F6521
 {
 public:
-	void rva001F6521(void *a, void *b);
+	void rva001F6521(void *a, void *slotProvider);
 private:
 	void *m_00;
 };
-void Rva001F6521::rva001F6521(void *a, void *b)
+void Rva001F6521::rva001F6521(void *a, void *slotProvider)
 {
-	m_00 = ((Rva001F5E24Slot *)b)->get(a);
+	m_00 = ((Rva001F5E24Slot *)slotProvider)->get(a);
 }

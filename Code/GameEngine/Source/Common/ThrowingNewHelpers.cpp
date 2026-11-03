@@ -26,7 +26,7 @@ struct Rva005CF22CBig
 class Rva005CF22COwner
 {
 public:
-	void rva005CF22C(int x);
+	void rva005CF22C(int regionAddress);
 private:
 	unsigned char m_pad00[0xC];
 	Rva005CF22CBig *m_a;
@@ -79,7 +79,7 @@ struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
 class Rva005CE8F5 {
 public:
-    Rva005CE8F5(Rva005CF22CBig *b) : m_owner(b) {}
+    Rva005CE8F5(Rva005CF22CBig *owner) : m_owner(owner) {}
     virtual ~Rva005CE8F5() {}
     Rva005CF22CBig *m_owner;
 };
@@ -97,7 +97,7 @@ Rva00575E4EBase2::Rva00575E4EBase2()
 class Rva005CEE07 : public Rva005CE8F5, public Rva00575E4EBase2
 {
 public:
-    Rva005CEE07(Rva005CF22CBig *b, int x);
+    Rva005CEE07(Rva005CF22CBig *owner, int armyAddress);
     virtual ~Rva005CEE07();
 private:
     int m_army;
@@ -106,8 +106,8 @@ private:
 // Native boundary 5CF37D..5CF4A8, RET8. Existing allocating caller5CF6B5
 // proves this constructor and its16B allocation. Primary/secondary vptrs at
 // +0/+8; owner+4 and army+0C; WB is an unnamed StrategicInGameUI lead.
-Rva005CEE07::Rva005CEE07(Rva005CF22CBig *b, int x)
-    : Rva005CE8F5(b), m_army(x)
+Rva005CEE07::Rva005CEE07(Rva005CF22CBig *owner, int armyAddress)
+    : Rva005CE8F5(owner), m_army(armyAddress)
 {
     ((Rva00319B0AOwner *)m_army)->rva00319B0A();
     void *view = m_owner->m_view10;
@@ -137,16 +137,16 @@ Rva005CEE07::Rva005CEE07(Rva005CF22CBig *b, int x)
 class Rva005CF6B5Owner
 {
 public:
-	void rva005CF6B5(int x);
+	void rva005CF6B5(int armyAddress);
 private:
 	unsigned char m_pad00[0xC];
 	Rva005CF22CBig *m_a;
 };
 
-void Rva005CF6B5Owner::rva005CF6B5(int x)
+void Rva005CF6B5Owner::rva005CF6B5(int armyAddress)
 {
-	Rva005CEE07 *h = new Rva005CEE07(m_a, x);
-	m_a->m_sub.rva00575674((Object *)h);
+	Rva005CEE07 *armyHelper = new Rva005CEE07(m_a, armyAddress);
+	m_a->m_sub.rva00575674((Object *)armyHelper);
 }
 
 // The selection helper the 0x005CF703 allocator builds is the rowed
@@ -168,8 +168,8 @@ private:
 
 void Rva005CF703Owner::rva005CF703(int x)
 {
-	Rva005CEF2F *h = new Rva005CEF2F(m_a, x);
-	m_a->m_sub.rva00575674((Object *)h);
+	Rva005CEF2F *selectionHelper = new Rva005CEF2F(m_a, x);
+	m_a->m_sub.rva00575674((Object *)selectionHelper);
 }
 
 class Rva004E0741 {public:void rva004E0741()const;};
@@ -200,7 +200,7 @@ class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,
 // independently prove region callbacks and command slot5. No ZH/BF1
 // clean donor exists for this BFME2 strategic UI. Field and argument
 // meanings outside the target-read region and UI roles remain opaque.
-Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CE8F5(b),m_region((void*)x){
+Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*owner,int regionAddress):Rva005CE8F5(owner),m_region((void*)regionAddress){
  ((const Rva004E0741*)m_region)->rva004E0741();
  void *view=m_owner->m_view10;
  S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
@@ -212,7 +212,7 @@ Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CE8F5(b),m_region((void*)
  S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
  if(slots){
   int button=((Rva0042D6B4PtrChaseField*)view)->get();
-  if(button)slots->createButton(5,Rva005CE2A1Create((const Rva005CE259::Payload*)&ICoord2D(button,(int)((Rva004E05F0*)x)->rva004E05F0())));
+  if(button)slots->createButton(5,Rva005CE2A1Create((const Rva005CE259::Payload*)&ICoord2D(button,(int)((Rva004E05F0*)regionAddress)->rva004E05F0())));
  }
  int builder=((Rva0042D6E6PtrChaseField*)view)->get();
  if(builder){
@@ -223,9 +223,9 @@ Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CE8F5(b),m_region((void*)
 }
 
 // Native5CF22C allocator retained with destructor-owned class spelling.
-void Rva005CF22COwner::rva005CF22C(int x) {
- Rva005CEE9F *h=new Rva005CEE9F(m_a,x);
- m_a->m_sub.rva00575674((Object *)h);
+void Rva005CF22COwner::rva005CF22C(int regionAddress) {
+ Rva005CEE9F *regionHelper=new Rva005CEE9F(m_a,regionAddress);
+ m_a->m_sub.rva00575674((Object *)regionHelper);
 }
 
 class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
@@ -266,16 +266,16 @@ Rva005CEE07::~Rva005CEE07(){
 // Keep the pointee's rowed 5E893E thunk distinct from its inner cleanup helper.
 Rva005CE236::~Rva005CE236()
 {
- Rva005E893E *p=m_p;
+ Rva005E893E *ownedObject=m_p;
  m_p=0;
- if(p){p->Rva005E893E::~Rva005E893E();::operator delete(p);}
+ if(ownedObject){ownedObject->Rva005E893E::~Rva005E893E();::operator delete(ownedObject);}
 }
 
 // Complete 26-byte and relocation twin of the owning-pointer clear5CE7EA.
 // Preserve the rowed neutral cleanup method5E8F6A: its original name is unknown.
 Rva005CEA51::~Rva005CEA51()
 {
- Rva005E8F50 *p=pointer;
+ Rva005E8F50 *ownedObject=pointer;
  pointer=0;
- if(p){p->rva005E8F6A();::operator delete(p);}
+ if(ownedObject){ownedObject->rva005E8F6A();::operator delete(ownedObject);}
 }

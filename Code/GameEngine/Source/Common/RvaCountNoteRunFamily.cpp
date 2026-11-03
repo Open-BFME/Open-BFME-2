@@ -77,11 +77,11 @@ struct InsertRet0052B737
     void *node;
     void *owner;
     unsigned char inserted;
-    InsertRet0052B737 *set(void *n, void *o, unsigned char i)
+    InsertRet0052B737 *set(void *nodeValue, void *ownerValue, unsigned char insertionFlag)
     {
-        node = n;
-        owner = o;
-        inserted = i;
+        node = nodeValue;
+        owner = ownerValue;
+        inserted = insertionFlag;
         return this;
     }
 };
@@ -99,7 +99,7 @@ public:
 class Rva00057B27Owner
 {
 public:
-	int fwd(int a, int b);
+	int fwd(int resultAddress, int entryAddress);
 
 private:
 	char m_pad[0x10];
@@ -109,7 +109,7 @@ private:
 class Rva00057D38Owner
 {
 public:
-	int fwd(int a, int b);
+	int fwd(int resultAddress, int entryAddress);
 
 private:
 	char m_pad[0x10];
@@ -119,7 +119,7 @@ private:
 class Rva000E0536Owner
 {
 public:
-	int fwd(int a, int b);
+	int fwd(int resultAddress, int entryAddress);
 
 private:
 	char m_pad[0x10];
@@ -129,7 +129,7 @@ private:
 class Rva003EF34AOwner
 {
 public:
-	int fwd(int a, int b);
+	int fwd(int resultAddress, int entryAddress);
 
 private:
 	char m_pad[0x10];
@@ -139,51 +139,51 @@ private:
 class Rva0052B7F8Owner
 {
 public:
-	int fwd(int a, int b);
+	int fwd(int resultAddress, int entryAddress);
 
 private:
 	char m_pad[0x10];
 	int m_count;
 };
 
-int Rva00057B27Owner::fwd(int a, int b)
+int Rva00057B27Owner::fwd(int resultAddress, int entryAddress)
 {
-	int next = m_count + 1;
-	((Rva00056BFESub *)this)->note(next);
-	((Rva00054BC3Sub *)this)->run(a, b);
-	return a;
+	int nextCount = m_count + 1;
+	((Rva00056BFESub *)this)->note(nextCount);
+	((Rva00054BC3Sub *)this)->run(resultAddress, entryAddress);
+	return resultAddress;
 }
 
-int Rva00057D38Owner::fwd(int a, int b)
+int Rva00057D38Owner::fwd(int resultAddress, int entryAddress)
 {
-	int next = m_count + 1;
-	((Rva0053F1ECSub *)this)->note(next);
-	((Rva000556ABSub *)this)->run(a, b);
-	return a;
+	int nextCount = m_count + 1;
+	((Rva0053F1ECSub *)this)->note(nextCount);
+	((Rva000556ABSub *)this)->run(resultAddress, entryAddress);
+	return resultAddress;
 }
 
-int Rva000E0536Owner::fwd(int a, int b)
+int Rva000E0536Owner::fwd(int resultAddress, int entryAddress)
 {
-	int next = m_count + 1;
-	((Rva000E0322 *)this)->rva000E0322(next);
-	((Rva000E0298Sub *)this)->run(a, b);
-	return a;
+	int nextCount = m_count + 1;
+	((Rva000E0322 *)this)->rva000E0322(nextCount);
+	((Rva000E0298Sub *)this)->run(resultAddress, entryAddress);
+	return resultAddress;
 }
 
-int Rva003EF34AOwner::fwd(int a, int b)
+int Rva003EF34AOwner::fwd(int resultAddress, int entryAddress)
 {
-	int next = m_count + 1;
-	((Rva000427195 *)this)->rva00212858(next);
-	((Rva003EF264Sub *)this)->run(a, b);
-	return a;
+	int nextCount = m_count + 1;
+	((Rva000427195 *)this)->rva00212858(nextCount);
+	((Rva003EF264Sub *)this)->run(resultAddress, entryAddress);
+	return resultAddress;
 }
 
-int Rva0052B7F8Owner::fwd(int a, int b)
+int Rva0052B7F8Owner::fwd(int resultAddress, int entryAddress)
 {
-	int next = m_count + 1;
-	((Rva000427195 *)this)->rva00212858(next);
-	((Rva0052B737Sub *)this)->run(a, b);
-	return a;
+	int nextCount = m_count + 1;
+	((Rva000427195 *)this)->rva00212858(nextCount);
+	((Rva0052B737Sub *)this)->run(resultAddress, entryAddress);
+	return resultAddress;
 }
 
 // cl: /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
@@ -322,15 +322,15 @@ InsertRet0052B737 *Rva0052B737Sub::run(int resultAddress, int keyAddress)
     const void *key=(const void*)keyAddress;
     int bucket=((Rva000427195*)this)->bucketIndex((const AsciiString*)key);
     void *head=buckets[bucket];
-    void *cur=head;
-    if(cur!=0)
+    void *currentNode=head;
+    if(currentNode!=0)
     {
         do
         {
-            if(((const StringBase<char>*)((const char*)cur+4))->compare(*(const StringBase<char>*)key)==0)
-                return result->set(cur,this,0);
-            cur=*(void**)cur;
-        } while(cur!=0);
+            if(((const StringBase<char>*)((const char*)currentNode+4))->compare(*(const StringBase<char>*)key)==0)
+                return result->set(currentNode,this,0);
+            currentNode=*(void**)currentNode;
+        } while(currentNode!=0);
     }
     void *node=((_STL::Rva0052B6D9Provider*)this)->_M_new_node(*(const _STL::Rva0052B6D9Pair*)key);
     *(void**)node=head;
@@ -349,11 +349,11 @@ struct InsertRet003EF264
     void *node;
     void *owner;
     unsigned char inserted;
-    InsertRet003EF264 *set(void *n, void *o, unsigned char i)
+    InsertRet003EF264 *set(void *nodeValue, void *ownerValue, unsigned char insertionFlag)
     {
-        node = n;
-        owner = o;
-        inserted = i;
+        node = nodeValue;
+        owner = ownerValue;
+        inserted = insertionFlag;
         return this;
     }
 };
@@ -375,15 +375,15 @@ InsertRet003EF264 *Rva003EF264Sub::run(int resultAddress, int keyAddress)
     const void *key=(const void*)keyAddress;
     int bucket=((Rva000427195*)this)->bucketIndex((const AsciiString*)key);
     void *head=buckets[bucket];
-    void *cur=head;
-    if(cur!=0)
+    void *currentNode=head;
+    if(currentNode!=0)
     {
         do
         {
-            if(((const StringBase<char>*)((const char*)cur+4))->compare(*(const StringBase<char>*)key)==0)
-                return result->set(cur,this,0);
-            cur=*(void**)cur;
-        } while(cur!=0);
+            if(((const StringBase<char>*)((const char*)currentNode+4))->compare(*(const StringBase<char>*)key)==0)
+                return result->set(currentNode,this,0);
+            currentNode=*(void**)currentNode;
+        } while(currentNode!=0);
     }
     void *node=((_STL::Rva003EF066Provider*)this)->_M_new_node(*(const _STL::Rva003EF066Pair*)key);
     *(void**)node=head;
@@ -399,13 +399,13 @@ InsertRet003EF264 *Rva003EF264Sub::run(int resultAddress, int keyAddress)
 class Rva003EF3F7Owner
 {
 public:
-	int fwd(int a, int b);
+	int fwd(int resultAddress, int entryAddress);
 };
 
-int Rva003EF3F7Owner::fwd(int a, int b)
+int Rva003EF3F7Owner::fwd(int resultAddress, int entryAddress)
 {
-	((Rva003EF34AOwner *)this)->fwd(a, b);
-	return a;
+	((Rva003EF34AOwner *)this)->fwd(resultAddress, entryAddress);
+	return resultAddress;
 }
 
 // Names this unit references that no unit defines under that spelling. Each is

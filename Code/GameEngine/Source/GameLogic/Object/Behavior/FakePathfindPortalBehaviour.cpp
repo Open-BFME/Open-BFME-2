@@ -305,7 +305,7 @@ void FakePathfindPortalBehaviour::regWaypointsWithPathfinder()
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourSlot0.cpp
 
-void FakePathfindPortalBehaviour::rva0046190A(void *arg)
+void FakePathfindPortalBehaviour::rva0046190A(void *unusedArgument)
 {
 	rva0046183B();
 	m_31 = true;
@@ -415,11 +415,11 @@ void FakePathfindPortalBehaviour::rva00461C1F()
  if(!(radius>0.0f)) radius=bounds.hi.x;
  struct PortalVector {
  float x,y,z;
- PortalVector(float a,float b,float c):x(a),y(b),z(c){}
- __forceinline void rotate(float ca,const float &sa) {
-  float tmp_x=x;float tmp_y=y;
-  x=ca*tmp_x-sa*tmp_y;
-  y=sa*tmp_x+ca*tmp_y;
+ PortalVector(float xComponent,float yComponent,float zComponent):x(xComponent),y(yComponent),z(zComponent){}
+ __forceinline void rotate(float cosineAngle,const float &sineAngle) {
+  float originalX=x;float originalY=y;
+  x=cosineAngle*originalX-sineAngle*originalY;
+  y=sineAngle*originalX+cosineAngle*originalY;
  }
  };
  PortalVector offset(radius+s_fakePortalWaypointMargin,0.0f,0.0f);

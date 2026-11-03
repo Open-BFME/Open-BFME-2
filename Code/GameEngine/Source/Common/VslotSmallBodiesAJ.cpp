@@ -98,10 +98,10 @@ void InGameToggleStanceCommandButton::Impl::OnLeftClicked()
  if(!reinterpret_cast<Rva0057C22FByteChaseField *>(menu)->get()) {
   int count=(int)button14->stances.size();
   for(int i=0;i<count && reinterpret_cast<Rva00005C39A3PtrChaseField *>(menu)->get()<3;++i) {
-   Rva005677B9::Payload params;
-   params.v[0]=reinterpret_cast<int>(this);
-   params.v[1]=button14->getStance(i);
-   Rva00567B6DAdd(menu,&params);
+   Rva005677B9::Payload stancePayload;
+   stancePayload.v[0]=reinterpret_cast<int>(this);
+   stancePayload.v[1]=button14->getStance(i);
+   Rva00567B6DAdd(menu,&stancePayload);
   }
   reinterpret_cast<Rva005C3EE0 *>(menu)->show();
  } else {
@@ -704,11 +704,11 @@ bool Rva003682EC::rva003682EC() const
 class Rva003697F4 : public GiantBirdNormalFlightState
 {
 public:
-	void rva003697F4(StateExitType a);
+	void rva003697F4(StateExitType exitType);
 };
-void Rva003697F4::rva003697F4(StateExitType a)
+void Rva003697F4::rva003697F4(StateExitType exitType)
 {
-	GiantBirdNormalFlightState::onExit(a);
+	GiantBirdNormalFlightState::onExit(exitType);
 }
 
 // 0x00374FD0: tail jump to StealthUpdate::rva003748BD.

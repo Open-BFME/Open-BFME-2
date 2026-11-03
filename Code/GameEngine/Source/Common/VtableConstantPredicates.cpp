@@ -48,10 +48,10 @@ bool GameWindow::vslot10()
 class Rva0050B5F1
 {
 public:
-	bool rva0050B5F1(int a, int b);
+	bool rva0050B5F1(int unusedArgument1, int unusedArgument2);
 };
 
-bool Rva0050B5F1::rva0050B5F1(int a, int b)
+bool Rva0050B5F1::rva0050B5F1(int unusedArgument1, int unusedArgument2)
 {
 	return false;
 }
@@ -59,10 +59,10 @@ bool Rva0050B5F1::rva0050B5F1(int a, int b)
 class Rva005CB9FF
 {
 public:
-	bool rva005CB9FF(int a);
+	bool rva005CB9FF(int unusedArgument);
 };
 
-bool Rva005CB9FF::rva005CB9FF(int a)
+bool Rva005CB9FF::rva005CB9FF(int unusedArgument)
 {
 	return false;
 }
@@ -72,10 +72,10 @@ bool Rva005CB9FF::rva005CB9FF(int a)
 class Rva005748AD
 {
 public:
-	int rva005748AD(int a, int b, int c);
+	int rva005748AD(int unusedArgument1, int unusedArgument2, int unusedArgument3);
 };
 
-int Rva005748AD::rva005748AD(int a, int b, int c)
+int Rva005748AD::rva005748AD(int unusedArgument1, int unusedArgument2, int unusedArgument3)
 {
 	return 0;
 }
@@ -83,30 +83,30 @@ int Rva005748AD::rva005748AD(int a, int b, int c)
 class Rva005748B2
 {
 public:
-	int rva005748B2(int a, int b);
+	int rva005748B2(int unusedArgument1, int unusedArgument2);
 };
 
-int Rva005748B2::rva005748B2(int a, int b)
+int Rva005748B2::rva005748B2(int unusedArgument1, int unusedArgument2)
 {
 	return 0;
 }
 
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 12 establishes native stack cleanup only.
-class Rva0041BA5C {public: bool rva0041BA5C(int a0, int a1, int a2);};
-bool Rva0041BA5C::rva0041BA5C(int a0, int a1, int a2) {return false;}
+class Rva0041BA5C {public: bool rva0041BA5C(int unusedArgument1, int unusedArgument2, int unusedArgument3);};
+bool Rva0041BA5C::rva0041BA5C(int unusedArgument1, int unusedArgument2, int unusedArgument3) {return false;}
 
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 24 establishes native stack cleanup only.
-class Rva00481279 {public: bool rva00481279(int a0, int a1, int a2, int a3, int a4, int a5);};
-bool Rva00481279::rva00481279(int a0, int a1, int a2, int a3, int a4, int a5) {return false;}
+class Rva00481279 {public: bool rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6);};
+bool Rva00481279::rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6) {return false;}
 
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 12 establishes native stack cleanup only.
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 4 establishes native stack cleanup only.
-class Rva0046480A {public: int rva0046480A(int a0);};
-int Rva0046480A::rva0046480A(int a0) {return -1;}
+class Rva0046480A {public: int rva0046480A(int unusedArgument);};
+int Rva0046480A::rva0046480A(int unusedArgument) {return -1;}
 
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 0 establishes native stack cleanup only.

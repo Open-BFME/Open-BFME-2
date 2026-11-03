@@ -47,7 +47,7 @@ typedef _STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const
 class AttackPriorityInfo : public Snapshot
 {
 public:
-	void setPriority(const ThingTemplate *tt, int priority);
+	void setPriority(const ThingTemplate *thingTemplate, int priority);
 
 private:
 	AsciiString m_str;
@@ -55,17 +55,17 @@ private:
 	MapIntVoid0033C432 *m_tree;
 };
 
-void AttackPriorityInfo::setPriority(const ThingTemplate *tt, int priority)
+void AttackPriorityInfo::setPriority(const ThingTemplate *thingTemplate, int priority)
 {
-	if (!tt)
+	if (!thingTemplate)
 		return;
 	if (!m_tree)
 		m_tree = new MapIntVoid0033C432;
-	Overridable *next = tt->m_next;
+	Overridable *nextOverride = thingTemplate->m_next;
 	Overridable *key;
-	if (next)
-		key = (Overridable *)next->getFinalOverride();
+	if (nextOverride)
+		key = (Overridable *)nextOverride->getFinalOverride();
 	else
-		key = (Overridable *)tt;
+		key = (Overridable *)thingTemplate;
 	((ImageSubscriptMap *)m_tree)->operator[]((unsigned int)key) = (Image *)priority;
 }

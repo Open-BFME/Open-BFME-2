@@ -10,17 +10,17 @@ public:
 class BfmeThingVJT
 {
 public:
-	BfmeThingVJT *bfmeInitVJT(BfmeMsgVJT *m);
+	BfmeThingVJT *bfmeInitVJT(BfmeMsgVJT *message);
 	BfmeMsgVJT *m_bfme00;
 	char m_bfmeStart[0x20];
 	char m_bfmeEnd[0x20];
 };
 
 // ?bfmeInitVJT@BfmeThingVJT@@QAEPAV1@PAVBfmeMsgVJT@@@Z
-BfmeThingVJT *BfmeThingVJT::bfmeInitVJT(BfmeMsgVJT *m)
+BfmeThingVJT *BfmeThingVJT::bfmeInitVJT(BfmeMsgVJT *message)
 {
-	m_bfme00 = m;
-	m->bfmeGetStrVJT("startDate", m_bfmeStart, 0x20);
+	m_bfme00 = message;
+	message->bfmeGetStrVJT("startDate", m_bfmeStart, 0x20);
 	m_bfme00->bfmeGetStrVJT("endDate", m_bfmeEnd, 0x20);
 	return this;
 }

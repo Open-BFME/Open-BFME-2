@@ -17,46 +17,46 @@
 class Rva00265254
 {
 public:
-	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4);
-	Rva00265254(unsigned int a1, unsigned int unlockId, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9);
-	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int unlockId, unsigned int a11, unsigned int a12);
+	Rva00265254(unsigned int unusedArgument, unsigned int firstBitIndex, unsigned int secondBitIndex, unsigned int thirdBitIndex);
+	Rva00265254(unsigned int unusedArgument, unsigned int unlockId, unsigned int secondBitIndex, unsigned int thirdBitIndex, unsigned int fourthBitIndex, unsigned int fifthBitIndex, unsigned int sixthBitIndex, unsigned int seventhBitIndex, unsigned int eighthBitIndex);
+	Rva00265254(unsigned int unusedArgument, unsigned int firstBitIndex, unsigned int secondBitIndex, unsigned int thirdBitIndex, unsigned int fourthBitIndex, unsigned int fifthBitIndex, unsigned int sixthBitIndex, unsigned int seventhBitIndex, unsigned int eighthBitIndex, unsigned int unlockId, unsigned int tenthBitIndex, unsigned int eleventhBitIndex);
 private:
 	unsigned int m_bits[19];
 };
 
-Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4)
+Rva00265254::Rva00265254(unsigned int unusedArgument, unsigned int firstBitIndex, unsigned int secondBitIndex, unsigned int thirdBitIndex)
 {
 	memset(this, 0, 0x4c);
-	m_bits[a2 >> 5] |= 1u << (a2 & 31);
-	m_bits[a3 >> 5] |= 1u << (a3 & 31);
-	m_bits[a4 >> 5] |= 1u << (a4 & 31);
+	m_bits[firstBitIndex >> 5] |= 1u << (firstBitIndex & 31);
+	m_bits[secondBitIndex >> 5] |= 1u << (secondBitIndex & 31);
+	m_bits[thirdBitIndex >> 5] |= 1u << (thirdBitIndex & 31);
 }
 
-Rva00265254::Rva00265254(unsigned int a1, unsigned int unlockId, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9)
+Rva00265254::Rva00265254(unsigned int unusedArgument, unsigned int unlockId, unsigned int secondBitIndex, unsigned int thirdBitIndex, unsigned int fourthBitIndex, unsigned int fifthBitIndex, unsigned int sixthBitIndex, unsigned int seventhBitIndex, unsigned int eighthBitIndex)
 {
 	memset(this, 0, 0x4c);
 	m_bits[unlockId >> 5] |= 1u << (unlockId & 31);
-	m_bits[a3 >> 5] |= 1u << (a3 & 31);
-	m_bits[a4 >> 5] |= 1u << (a4 & 31);
-	m_bits[a5 >> 5] |= 1u << (a5 & 31);
-	m_bits[a6 >> 5] |= 1u << (a6 & 31);
-	m_bits[a7 >> 5] |= 1u << (a7 & 31);
-	m_bits[a8 >> 5] |= 1u << (a8 & 31);
-	m_bits[a9 >> 5] |= 1u << (a9 & 31);
+	m_bits[secondBitIndex >> 5] |= 1u << (secondBitIndex & 31);
+	m_bits[thirdBitIndex >> 5] |= 1u << (thirdBitIndex & 31);
+	m_bits[fourthBitIndex >> 5] |= 1u << (fourthBitIndex & 31);
+	m_bits[fifthBitIndex >> 5] |= 1u << (fifthBitIndex & 31);
+	m_bits[sixthBitIndex >> 5] |= 1u << (sixthBitIndex & 31);
+	m_bits[seventhBitIndex >> 5] |= 1u << (seventhBitIndex & 31);
+	m_bits[eighthBitIndex >> 5] |= 1u << (eighthBitIndex & 31);
 }
 
-Rva00265254::Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int unlockId, unsigned int a11, unsigned int a12)
+Rva00265254::Rva00265254(unsigned int unusedArgument, unsigned int firstBitIndex, unsigned int secondBitIndex, unsigned int thirdBitIndex, unsigned int fourthBitIndex, unsigned int fifthBitIndex, unsigned int sixthBitIndex, unsigned int seventhBitIndex, unsigned int eighthBitIndex, unsigned int unlockId, unsigned int tenthBitIndex, unsigned int eleventhBitIndex)
 {
 	memset(this, 0, 0x4c);
-	m_bits[a2 >> 5] |= 1u << (a2 & 31);
-	m_bits[a3 >> 5] |= 1u << (a3 & 31);
-	m_bits[a4 >> 5] |= 1u << (a4 & 31);
-	m_bits[a5 >> 5] |= 1u << (a5 & 31);
-	m_bits[a6 >> 5] |= 1u << (a6 & 31);
-	m_bits[a7 >> 5] |= 1u << (a7 & 31);
-	m_bits[a8 >> 5] |= 1u << (a8 & 31);
-	m_bits[a9 >> 5] |= 1u << (a9 & 31);
+	m_bits[firstBitIndex >> 5] |= 1u << (firstBitIndex & 31);
+	m_bits[secondBitIndex >> 5] |= 1u << (secondBitIndex & 31);
+	m_bits[thirdBitIndex >> 5] |= 1u << (thirdBitIndex & 31);
+	m_bits[fourthBitIndex >> 5] |= 1u << (fourthBitIndex & 31);
+	m_bits[fifthBitIndex >> 5] |= 1u << (fifthBitIndex & 31);
+	m_bits[sixthBitIndex >> 5] |= 1u << (sixthBitIndex & 31);
+	m_bits[seventhBitIndex >> 5] |= 1u << (seventhBitIndex & 31);
+	m_bits[eighthBitIndex >> 5] |= 1u << (eighthBitIndex & 31);
 	m_bits[unlockId >> 5] |= 1u << (unlockId & 31);
-	m_bits[a11 >> 5] |= 1u << (a11 & 31);
-	m_bits[a12 >> 5] |= 1u << (a12 & 31);
+	m_bits[tenthBitIndex >> 5] |= 1u << (tenthBitIndex & 31);
+	m_bits[eleventhBitIndex >> 5] |= 1u << (eleventhBitIndex & 31);
 }

@@ -13,7 +13,7 @@
 namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int const & max<unsigned int>(unsigned int const &__a, unsigned int const &__b) { return __a < __b ? __b : __a; } }
 #pragma intrinsic(sqrt)
 class Vector3;
-struct BfmeE8 {float X,Y; BfmeE8(){} BfmeE8(float x,float y):X(x),Y(y){} BfmeE8(const Vector3 &v);};
+struct BfmeE8 {float X,Y; BfmeE8(){} BfmeE8(float x,float y):X(x),Y(y){} BfmeE8(const Vector3 &sourceVector);};
 void Rva00030830FreeAllocation(void*);
 namespace _STL {template<> inline void allocator<BfmeE8>::deallocate(BfmeE8*p,size_t)const{if(p)Rva00030830FreeAllocation(p);}template<> inline void allocator<int>::deallocate(int*p,size_t)const{if(p)Rva00030830FreeAllocation(p);}}
 struct BfmePod8 {int a[2];};
@@ -30,17 +30,17 @@ struct Rva0007B734Item {char m_pad[8];};
 typedef bool (__cdecl *Rva0007B734Pred)(const Rva0007B734Item *,const Rva0007B734Item *);
 Rva0007B734Item *Rva0007B734Find(Rva0007B734Item *,Rva0007B734Item *,Rva0007B734Pred);
 bool Rva0007B701Cmp(const BfmeE8 &,const BfmeE8 &);
-static inline void ClearPoints(std::vector<BfmeE8> &v) {
- std::vector<BfmePod8> &p=*(std::vector<BfmePod8> *)&v;
+static inline void ClearPoints(std::vector<BfmeE8> &points) {
+ std::vector<BfmePod8> &p=*(std::vector<BfmePod8> *)&points;
  p.erase(p.begin(),p.end());
 }
-static inline void PushIndex(std::vector<int> &v,const int &i) {
- ((std::vector<const ModuleData *> *)&v)->push_back(*(const ModuleData *const *)&i);
+static inline void PushIndex(std::vector<int> &indices,const int &i) {
+ ((std::vector<const ModuleData *> *)&indices)->push_back(*(const ModuleData *const *)&i);
 }
 static inline float PointDistance(const BfmeE8 &a,const BfmeE8 &b) {
- float y=a.Y-b.Y,x=a.X-b.X;
- float sum=x*x+y*y;
- return WWMath::Sqrt(sum);
+ float deltaY=a.Y-b.Y,x=a.X-b.X;
+ float distanceSquared=x*x+deltaY*deltaY;
+ return WWMath::Sqrt(distanceSquared);
 }
 static inline BfmeE8 operator-(const BfmeE8 &a,const BfmeE8 &b) {
  return BfmeE8(a.X-b.X,a.Y-b.Y);
@@ -107,7 +107,7 @@ static __forceinline void CrossProduct(const Vector3 &a,const Vector3 &b,Vector3
 	set_result->Y = (a.Z * b.X - a.X * b.Z);
 	set_result->Z = (a.X * b.Y - a.Y * b.X);
 }
-inline BfmeE8::BfmeE8(const Vector3 &v) : X(v.X), Y(v.Y) {}
+inline BfmeE8::BfmeE8(const Vector3 &sourceVector) : X(sourceVector.X), Y(sourceVector.Y) {}
 
 // Retail's Coord3D copy constructor makes _Construct<Coord3D> the null-checked body at 0x002CA82C.
 #include "Lib/Coord3DCtorView.h"
@@ -484,12 +484,12 @@ void W3DShadowMapManager::UpdateShadowCamera()
 	std::vector<BfmeE8> hull;
 	Rva0007C637(points, hull, 0.0001f);
 
-	Coord3D blank;
-	PointList hullPts(hull.size(), blank);
+	Coord3D initialPoint;
+	PointList hullPts(hull.size(), initialPoint);
 	for (unsigned i = 0; i < hull.size(); i++)
 		Matrix3D::Transform_Vector(lightTm, Vector3(hull[i].X, hull[i].Y, 0.0f), (Vector3 *)&hullPts[i]);
-	PointList groundPts(hullPts.size(), blank);
-	PointList ceilingPts(hullPts.size(), blank);
+	PointList groundPts(hullPts.size(), initialPoint);
+	PointList ceilingPts(hullPts.size(), initialPoint);
 	for (unsigned i = 0; i < hull.size(); i++) {
 		float t = 0.0f;
 		ground.Compute_Intersection((const Vector3 &)hullPts[i], lightDir + (const Vector3 &)hullPts[i], &t);

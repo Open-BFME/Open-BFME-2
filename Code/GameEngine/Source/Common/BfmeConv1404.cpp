@@ -23,23 +23,23 @@ private:
 class BfmeStrVKK
 {
 public:
-	void bfmeTruncVKK(unsigned n);
+	void bfmeTruncVKK(unsigned requestedLength);
 	BfmeStrVKK *bfmeReverseVKK();
 	BfmeHdrVKK *m_bfme00;
 };
 
-void BfmeStrVKK::bfmeTruncVKK(unsigned n)
+void BfmeStrVKK::bfmeTruncVKK(unsigned requestedLength)
 {
-	unsigned len = m_bfme00->m_length;
-	if (len > n)
-		len = n;
-	((EAStringC *)this)->ChangeBuffer(n, 0, len, EAStringC::CB_PUSH_ZERO, len);
+	unsigned retainedLength = m_bfme00->m_length;
+	if (retainedLength > requestedLength)
+		retainedLength = requestedLength;
+	((EAStringC *)this)->ChangeBuffer(requestedLength, 0, retainedLength, EAStringC::CB_PUSH_ZERO, retainedLength);
 }
 
 BfmeStrVKK *BfmeStrVKK::bfmeReverseVKK()
 {
-	unsigned len = m_bfme00->m_length;
-	((EAStringC *)this)->ChangeBuffer(len, 0, len, EAStringC::CB_PUSH_ZERO, len);
+	unsigned originalLength = m_bfme00->m_length;
+	((EAStringC *)this)->ChangeBuffer(originalLength, 0, originalLength, EAStringC::CB_PUSH_ZERO, originalLength);
 	unsigned length = m_bfme00->m_length;
 	if (length > 1)
 	{

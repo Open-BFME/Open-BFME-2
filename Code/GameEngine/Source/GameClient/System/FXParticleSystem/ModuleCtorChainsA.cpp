@@ -475,11 +475,11 @@ public:
 class Rva003ABAC3 : public Rva003AE50B
 {
 public:
-	Rva003ABAC3(void *a, void *b);
+	Rva003ABAC3(void *a, void *moduleTemplate);
 };
 
-Rva003ABAC3::Rva003ABAC3(void *a, void *b)
-	: Rva003AE50B(a, b)
+Rva003ABAC3::Rva003ABAC3(void *a, void *moduleTemplate)
+	: Rva003AE50B(a, moduleTemplate)
 {
 	STAMP(0x00, g_00C1C388);
 	STAMP(0x14, __identifier("??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"));
@@ -495,12 +495,12 @@ Rva003ABAC3::Rva003ABAC3(void *a, void *b)
 class Rva003ABDC8 : public FXParticleSystem::Rva005FEAD0DefaultModule7
 {
 public:
-	Rva003ABDC8(void *a, void *b);
+	Rva003ABDC8(void *systemReference, void *moduleTemplate);
 };
 
-Rva003ABDC8::Rva003ABDC8(void *a, void *b)
-	: FXParticleSystem::Rva005FEAD0DefaultModule7(*(FXParticleSystem::TrackingPtr<FXParticleSystem::ParticleSystem> *)a,
-		(const FXParticleSystem::DefaultModuleTemplate7 *)b)
+Rva003ABDC8::Rva003ABDC8(void *systemReference, void *moduleTemplate)
+	: FXParticleSystem::Rva005FEAD0DefaultModule7(*(FXParticleSystem::TrackingPtr<FXParticleSystem::ParticleSystem> *)systemReference,
+		(const FXParticleSystem::DefaultModuleTemplate7 *)moduleTemplate)
 {
 	STAMP(0x00, __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@"));
 	STAMP(0x14, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@"));
@@ -536,11 +536,11 @@ class Rva003AD71BTemplate;
 class Rva003ACDA0Module : public Rva003ABAC3
 {
 public:
-	Rva003ACDA0Module(void *a, Rva003AD71BTemplate *b);
+	Rva003ACDA0Module(void *a, Rva003AD71BTemplate *moduleTemplate);
 };
 
-Rva003ACDA0Module::Rva003ACDA0Module(void *a, Rva003AD71BTemplate *b)
-	: Rva003ABAC3(a, b)
+Rva003ACDA0Module::Rva003ACDA0Module(void *a, Rva003AD71BTemplate *moduleTemplate)
+	: Rva003ABAC3(a, moduleTemplate)
 {
 	STAMP(0x00, __identifier("??_7Rva003AE4E5@@6BDefaultModuleHeadBase@@@"));
 	STAMP(0x14, __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?STREAK_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?STREAK_DRAW_MODULE_NAME@2@3QBDBVStreakDrawModule@2@VStreakDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@"));
@@ -560,11 +560,11 @@ class Rva003AD904Template;
 class Rva003ACFCFModule : public Rva003ABD20
 {
 public:
-	Rva003ACFCFModule(void *a, Rva003AD904Template *b);
+	Rva003ACFCFModule(void *a, Rva003AD904Template *moduleTemplate);
 };
 
-Rva003ACFCFModule::Rva003ACFCFModule(void *a, Rva003AD904Template *b)
-	: Rva003ABD20(*(const RvaSmartPtr12 *)a, (int)b)
+Rva003ACFCFModule::Rva003ACFCFModule(void *a, Rva003AD904Template *moduleTemplate)
+	: Rva003ABD20(*(const RvaSmartPtr12 *)a, (int)moduleTemplate)
 {
 	STAMP(0x00, g_00C1CE64);
 	STAMP(0x14, __identifier("??_7Rva003ABD20@@6BRva003AEEB3Slot14@@@"));
@@ -576,11 +576,11 @@ class Rva003AD940Template;
 class Rva003AD005Module : public Rva003ABD81
 {
 public:
-	Rva003AD005Module(void *a, Rva003AD940Template *b);
+	Rva003AD005Module(void *a, Rva003AD940Template *moduleTemplate);
 };
 
-Rva003AD005Module::Rva003AD005Module(void *a, Rva003AD940Template *b)
-	: Rva003ABD81(*(const RvaSmartPtr12 *)a, (int)b)
+Rva003AD005Module::Rva003AD005Module(void *a, Rva003AD940Template *moduleTemplate)
+	: Rva003ABD81(*(const RvaSmartPtr12 *)a, (int)moduleTemplate)
 {
 	STAMP(0x00, g_00C1CE98);
 	STAMP(0x14, __identifier("??_7Rva003ABD81@@6BRva003AEEB3Slot14@@@"));
@@ -592,11 +592,11 @@ class Rva003AD97FTemplate;
 class Rva003AD094Module : public Rva003ABDC8
 {
 public:
-	Rva003AD094Module(void *a, Rva003AD97FTemplate *b);
+	Rva003AD094Module(void *systemReference, Rva003AD97FTemplate *moduleTemplate);
 };
 
-Rva003AD094Module::Rva003AD094Module(void *a, Rva003AD97FTemplate *b)
-	: Rva003ABDC8(a, b)
+Rva003AD094Module::Rva003AD094Module(void *systemReference, Rva003AD97FTemplate *moduleTemplate)
+	: Rva003ABDC8(systemReference, moduleTemplate)
 {
 	STAMP(0x00, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot0@@@"));
 	STAMP(0x14, __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@"));
@@ -608,12 +608,12 @@ class Rva003ADB21Template;
 class Rva003AD278Module : public Rva003ACC4B
 {
 public:
-	Rva003AD278Module(void *a, Rva003ADB21Template *b);
+	Rva003AD278Module(void *systemReference, Rva003ADB21Template *moduleTemplate);
 };
 
-Rva003AD278Module::Rva003AD278Module(void *a, Rva003ADB21Template *b)
-	: Rva003ACC4B(*(FXParticleSystem::TrackingPtr<FXParticleSystem::ParticleSystem> *)a,
-		(const FXParticleSystem::PointEmissionVolumeModuleTemplate *)b)
+Rva003AD278Module::Rva003AD278Module(void *systemReference, Rva003ADB21Template *moduleTemplate)
+	: Rva003ACC4B(*(FXParticleSystem::TrackingPtr<FXParticleSystem::ParticleSystem> *)systemReference,
+		(const FXParticleSystem::PointEmissionVolumeModuleTemplate *)moduleTemplate)
 {
 	STAMP(0x00, __identifier("??_7Rva003AF47D@@6BDefaultModuleHeadBase@@@"));
 	STAMP(0x14, __identifier("??_7Rva003AF47D@@6BModuleInfoSecondBase@@@"));
@@ -625,11 +625,11 @@ class Rva003ADB44Template;
 class Rva003AD2B3Module : public Rva003ACC7C
 {
 public:
-	Rva003AD2B3Module(void *a, Rva003ADB44Template *b);
+	Rva003AD2B3Module(void *a, Rva003ADB44Template *moduleTemplate);
 };
 
-Rva003AD2B3Module::Rva003AD2B3Module(void *a, Rva003ADB44Template *b)
-	: Rva003ACC7C(a, b)
+Rva003AD2B3Module::Rva003AD2B3Module(void *a, Rva003ADB44Template *moduleTemplate)
+	: Rva003ACC7C(a, moduleTemplate)
 {
 	STAMP(0x00, __identifier("??_7Rva003AF57F@@6BDefaultModuleHeadBase@@@"));
 	STAMP(0x14, __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?LINE_EMISSION_VOLUME_MODULE_KEY@FXParticleSystem@@3QBDB$E?LINE_EMISSION_VOLUME_MODULE_NAME@2@3QBDBVLineEmissionVolumeModule@2@VLineEmissionVolumeModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@"));
@@ -704,11 +704,11 @@ Rva005E76E0Object::Rva005E76E0Object(void *a, V3HostRva005E76E0 *b)
 class Rva003ABB53 : public Rva005634F7
 {
 public:
-	Rva003ABB53(void *a, void *b);
+	Rva003ABB53(void *a, void *drawInfo);
 };
 
-Rva003ABB53::Rva003ABB53(void *a, void *b)
-	: Rva005634F7(a, (DrawInfo2 *)b)
+Rva003ABB53::Rva003ABB53(void *a, void *drawInfo)
+	: Rva005634F7(a, (DrawInfo2 *)drawInfo)
 {
 	STAMP(0x00, g_00C1C444);
 	STAMP(0x14, __identifier("??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"));
@@ -719,11 +719,11 @@ class V3HostRva005E7420;
 class Rva005E7420Object : public Rva003ABB53
 {
 public:
-	Rva005E7420Object(void *a, V3HostRva005E7420 *b);
+	Rva005E7420Object(void *a, V3HostRva005E7420 *drawInfo);
 };
 
-Rva005E7420Object::Rva005E7420Object(void *a, V3HostRva005E7420 *b)
-	: Rva003ABB53(a, b)
+Rva005E7420Object::Rva005E7420Object(void *a, V3HostRva005E7420 *drawInfo)
+	: Rva003ABB53(a, drawInfo)
 {
 	STAMP(0x00, __identifier("??_7Rva003AE683@@6BModuleInfoHeadBase_3AE683@@@"));
 	STAMP(0x14, __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?RENDEROBJECT_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_DRAW_MODULE_NAME@2@3QBDBVRenderObjectDrawModule@2@VRenderObjectDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@"));
@@ -737,11 +737,11 @@ class Rva003AD9BBTemplate;
 class Rva003AD0CAModule : public Rva003ABDF9
 {
 public:
-	Rva003AD0CAModule(void *a, Rva003AD9BBTemplate *b);
+	Rva003AD0CAModule(void *a, Rva003AD9BBTemplate *moduleTemplate);
 };
 
-Rva003AD0CAModule::Rva003AD0CAModule(void *a, Rva003AD9BBTemplate *b)
-	: Rva003ABDF9(a, b)
+Rva003AD0CAModule::Rva003AD0CAModule(void *a, Rva003AD9BBTemplate *moduleTemplate)
+	: Rva003ABDF9(a, moduleTemplate)
 {
 	STAMP(0x00, __identifier("??_7Rva003AEDE9@@6BDefaultModuleHeadBase@@@"));
 	STAMP(0x14, __identifier("??_7Rva003AEDE9@@6BRva003AEEB3Slot14@@@"));

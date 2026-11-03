@@ -23,10 +23,10 @@ extern unsigned number_of_DX8_calls;		// retail 0x00DEDA98
 
 void __cdecl bfmeGo1057C(int a, int b, int c)
 {
-	void *o = DX8Wrapper::D3DDevice;
-	BfmeE1057 *p = reinterpret_cast<BfmeE1057 *>(o);
+	void *d3dDevice = DX8Wrapper::D3DDevice;
+	BfmeE1057 *deviceView = reinterpret_cast<BfmeE1057 *>(d3dDevice);
 
-	p->m_bfmeVt->m_bfmeFn(p, a, b, c);
+	deviceView->m_bfmeVt->m_bfmeFn(deviceView, a, b, c);
 	number_of_DX8_calls++;
 	DX8Wrapper::texture_stage_state_changes++;
 }

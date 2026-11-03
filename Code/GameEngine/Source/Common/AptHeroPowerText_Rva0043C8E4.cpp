@@ -72,9 +72,9 @@ void Rva005B9378::rva005B9378(int index, const UnicodeString &value)
 {
 	AsciiString key;
 	key.format("APT:TickerField_%d", index);
-	UnicodeString field = TheGameText->fetch(g_00DD3B90[index], 0);
-	field.concat(L":");
-	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, field, false);
+	UnicodeString fieldText = TheGameText->fetch(g_00DD3B90[index], 0);
+	fieldText.concat(L":");
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, fieldText, false);
 	key.format("APT:TickerValue_%d", index);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, value, false);
 }
@@ -199,9 +199,9 @@ const char *g_00C3D700[6] = {
 
 void AptSpellStore::rva0043C8E4(int index, int state)
 {
-	char number[4];
-	sprintf(number, "%d", index + 1);
-	TheRva00222A8BTarget->invoke(reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)), "SetSpellButtonState", 2, number, (void *)g_00C3D700[state], 0, 0, 0);
+	char buttonNumberText[4];
+	sprintf(buttonNumberText, "%d", index + 1);
+	TheRva00222A8BTarget->invoke(reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)), "SetSpellButtonState", 2, buttonNumberText, (void *)g_00C3D700[state], 0, 0, 0);
 }
 
 // ??1Rva00582FC1@@UAE@XZ @0x00582FC1 84B (the existing pin's name): the file

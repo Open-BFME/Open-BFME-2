@@ -44,7 +44,7 @@ typedef float Real;
 struct CameraScalar
 {
     float value;
-    CameraScalar(float x) : value(x) {}
+    CameraScalar(float scalarValue) : value(scalarValue) {}
 };
 static __forceinline CameraScalar addCameraScalar(float a, float b)
 {
@@ -59,11 +59,11 @@ public:
 
 	Vector3() {}
     Vector3(float x,float y,float z):X(x),Y(y),Z(z) {}
-	Vector3(const Vector3 &v)
+	Vector3(const Vector3 &sourceVector)
 	{
-		X = v.X;
-		Y = v.Y;
-		Z = v.Z;
+		X = sourceVector.X;
+		Y = sourceVector.Y;
+		Z = sourceVector.Z;
 	}
 
 	Vector3 &operator=(const Coord3D &that)
@@ -96,11 +96,11 @@ public:
 	__forceinline float Length2() const { return X*X + Y*Y + Z*Z; }
 	__forceinline float Length() const;
 	static __forceinline float Distance(const Vector3 &p1, const Vector3 &p2);
-	static __forceinline void Lerp(const Vector3 &a, const Vector3 &b, Real alpha, Vector3 *set_result)
+	static __forceinline void Lerp(const Vector3 &startVector, const Vector3 &endVector, Real alpha, Vector3 *set_result)
 	{
-		set_result->X = (a.X + (b.X - a.X) * alpha);
-		set_result->Y = (a.Y + (b.Y - a.Y) * alpha);
-		set_result->Z = (a.Z + (b.Z - a.Z) * alpha);
+		set_result->X = (startVector.X + (endVector.X - startVector.X) * alpha);
+		set_result->Y = (startVector.Y + (endVector.Y - startVector.Y) * alpha);
+		set_result->Z = (startVector.Z + (endVector.Z - startVector.Z) * alpha);
 	}
 };
 
@@ -145,7 +145,7 @@ extern unsigned int BfmeLiveCameraModeNameStorage;	// live camera mode name (Asc
 #include <math.h>
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/wwmath.h"
 __forceinline float Vector3::Length() const { return WWMath::Sqrt(Length2()); }
-__forceinline float Vector3::Distance(const Vector3 &p1, const Vector3 &p2) { Vector3 temp; temp = p1 - p2; return (temp.Length()); }
+__forceinline float Vector3::Distance(const Vector3 &p1, const Vector3 &p2) { Vector3 displacement; displacement = p1 - p2; return (displacement.Length()); }
 // Reduced donor math view: formulas from GeneralsMD WWMath/matrix3d.h.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix3D {
@@ -153,23 +153,23 @@ public:
     Vector4 Row[3];
     Matrix3D() {}
     explicit Matrix3D(bool init) {if(init)Make_Identity();}
-    __forceinline Matrix3D(const Vector3 &a, float angle) {
-        float c = cosf(angle);
+    __forceinline Matrix3D(const Vector3 &rotationAxis, float angle) {
+        float cosine = cosf(angle);
         float s = sinf(angle);
         Row[0].Set(
-            (float)(a.X*a.X + c*(1.0f - a.X*a.X)),
-            (float)(a.X*a.Y*(1.0f - c) - a.Z*s),
-            (float)(a.Z*a.X*(1.0f - c) + a.Y*s),
+            (float)(rotationAxis.X*rotationAxis.X + cosine*(1.0f - rotationAxis.X*rotationAxis.X)),
+            (float)(rotationAxis.X*rotationAxis.Y*(1.0f - cosine) - rotationAxis.Z*s),
+            (float)(rotationAxis.Z*rotationAxis.X*(1.0f - cosine) + rotationAxis.Y*s),
             0.0f);
         Row[1].Set(
-            (float)(a.X*a.Y*(1.0f - c) + a.Z*s),
-            (float)(a.Y*a.Y + c*(1.0f - a.Y*a.Y)),
-            (float)(a.Y*a.Z*(1.0f - c) - a.X*s),
+            (float)(rotationAxis.X*rotationAxis.Y*(1.0f - cosine) + rotationAxis.Z*s),
+            (float)(rotationAxis.Y*rotationAxis.Y + cosine*(1.0f - rotationAxis.Y*rotationAxis.Y)),
+            (float)(rotationAxis.Y*rotationAxis.Z*(1.0f - cosine) - rotationAxis.X*s),
             0.0f);
         Row[2].Set(
-            (float)(a.Z*a.X*(1.0f - c) - a.Y*s),
-            (float)(a.Y*a.Z*(1.0f - c) + a.X*s),
-            (float)(a.Z*a.Z + c*(1 - a.Z*a.Z)),
+            (float)(rotationAxis.Z*rotationAxis.X*(1.0f - cosine) - rotationAxis.Y*s),
+            (float)(rotationAxis.Y*rotationAxis.Z*(1.0f - cosine) + rotationAxis.X*s),
+            (float)(rotationAxis.Z*rotationAxis.Z + cosine*(1 - rotationAxis.Z*rotationAxis.Z)),
             0.0f);
     }
     __forceinline Matrix3D &operator=(const Matrix3D &m) {
@@ -181,78 +181,78 @@ public:
         Row[2][0]=0; Row[2][1]=0; Row[2][2]=1; Row[2][3]=0;
     }
     void Look_At(const Vector3 &,const Vector3 &,float);
-    __forceinline void mulVector3(Vector3 &v) const {
-        float x=Row[0][0]*v.X+Row[0][1]*v.Y+Row[0][2]*v.Z+Row[0][3];
-        float y=Row[1][0]*v.X+Row[1][1]*v.Y+Row[1][2]*v.Z+Row[1][3];
-        float z=Row[2][0]*v.X+Row[2][1]*v.Y+Row[2][2]*v.Z+Row[2][3];
-        v.Set(x,y,z);
+    __forceinline void mulVector3(Vector3 &inputVector) const {
+        float x=Row[0][0]*inputVector.X+Row[0][1]*inputVector.Y+Row[0][2]*inputVector.Z+Row[0][3];
+        float y=Row[1][0]*inputVector.X+Row[1][1]*inputVector.Y+Row[1][2]*inputVector.Z+Row[1][3];
+        float z=Row[2][0]*inputVector.X+Row[2][1]*inputVector.Y+Row[2][2]*inputVector.Z+Row[2][3];
+        inputVector.Set(x,y,z);
     }
-    __forceinline void mulCameraAngleVector(Vector3 &v) const {
-        float x=Row[0][0]*v.X+Row[0][1]*v.Y+Row[0][2]*v.Z+Row[0][3];
-        float y=(Row[1][0]*v.X+Row[1][1]*v.Y)+Row[1][2]*v.Z+Row[1][3];
-        float z=(Row[2][0]*v.X+Row[2][1]*v.Y)+Row[2][2]*v.Z+Row[2][3];
-        v.Set(x,y,z);
+    __forceinline void mulCameraAngleVector(Vector3 &inputVector) const {
+        float x=Row[0][0]*inputVector.X+Row[0][1]*inputVector.Y+Row[0][2]*inputVector.Z+Row[0][3];
+        float y=(Row[1][0]*inputVector.X+Row[1][1]*inputVector.Y)+Row[1][2]*inputVector.Z+Row[1][3];
+        float z=(Row[2][0]*inputVector.X+Row[2][1]*inputVector.Y)+Row[2][2]*inputVector.Z+Row[2][3];
+        inputVector.Set(x,y,z);
     }
     __forceinline void Rotate_X(float theta) {
-	float tmp1,tmp2;
-	float s,c;
+	float originalY,tmp2;
+	float s,cosine;
 	s = sinf(theta);
-	c = cosf(theta);
-	tmp1 = Row[0][1]; tmp2 = Row[0][2];
-	Row[0][1] = (float)( c*tmp1 + (s*tmp2));
-	Row[0][2] = (float)(-s*tmp1 + c*tmp2);
-	tmp1 = Row[1][1]; tmp2 = Row[1][2];
-	Row[1][1] = (float)( c*tmp1 + (s*tmp2));
-	Row[1][2] = (float)(-s*tmp1 + c*tmp2);
-	tmp1 = Row[2][1]; tmp2 = Row[2][2];
-	Row[2][1] = (float)( c*tmp1 + (s*tmp2));
-	Row[2][2] = (float)(-s*tmp1 + c*tmp2);
+	cosine = cosf(theta);
+	originalY = Row[0][1]; tmp2 = Row[0][2];
+	Row[0][1] = (float)( cosine*originalY + (s*tmp2));
+	Row[0][2] = (float)(-s*originalY + cosine*tmp2);
+	originalY = Row[1][1]; tmp2 = Row[1][2];
+	Row[1][1] = (float)( cosine*originalY + (s*tmp2));
+	Row[1][2] = (float)(-s*originalY + cosine*tmp2);
+	originalY = Row[2][1]; tmp2 = Row[2][2];
+	Row[2][1] = (float)( cosine*originalY + (s*tmp2));
+	Row[2][2] = (float)(-s*originalY + cosine*tmp2);
     }
     __forceinline void Rotate_Y(float theta) {
-	float tmp1,tmp2;
-	float s,c;
+	float originalX,originalZ;
+	float s,cosine;
 	s = sinf(theta);
-	c = cosf(theta);
-	tmp1 = Row[0][0]; tmp2 = Row[0][2];
-	Row[0][0] = (float)(c*tmp1 - s*tmp2);
-	Row[0][2] = (float)(s*tmp1 + c*tmp2);
-	tmp1 = Row[1][0]; tmp2 = Row[1][2];
-	Row[1][0] = (float)(c*tmp1 - s*tmp2);
-	Row[1][2] = (float)(s*tmp1 + c*tmp2);
-	tmp1 = Row[2][0]; tmp2 = Row[2][2];
-	Row[2][0] = (float)(c*tmp1 - s*tmp2);
-	Row[2][2] = (float)(s*tmp1 + c*tmp2);
+	cosine = cosf(theta);
+	originalX = Row[0][0]; originalZ = Row[0][2];
+	Row[0][0] = (float)(cosine*originalX - s*originalZ);
+	Row[0][2] = (float)(s*originalX + cosine*originalZ);
+	originalX = Row[1][0]; originalZ = Row[1][2];
+	Row[1][0] = (float)(cosine*originalX - s*originalZ);
+	Row[1][2] = (float)(s*originalX + cosine*originalZ);
+	originalX = Row[2][0]; originalZ = Row[2][2];
+	Row[2][0] = (float)(cosine*originalX - s*originalZ);
+	Row[2][2] = (float)(s*originalX + cosine*originalZ);
     }
-    __forceinline void Rotate_Y(float s,float c)
+    __forceinline void Rotate_Y(float s,float cosine)
 {
-	float tmp1,tmp2;
+	float originalX,originalZ;
 
-	tmp1 = Row[0][0]; tmp2 = Row[0][2];
-	Row[0][0] = (float)(c*tmp1 - s*tmp2);
-	Row[0][2] = (float)(s*tmp1 + c*tmp2);
+	originalX = Row[0][0]; originalZ = Row[0][2];
+	Row[0][0] = (float)(cosine*originalX - s*originalZ);
+	Row[0][2] = (float)(s*originalX + cosine*originalZ);
 
-	tmp1 = Row[1][0]; tmp2 = Row[1][2];
-	Row[1][0] = (float)(c*tmp1 - s*tmp2);
-	Row[1][2] = (float)(s*tmp1 + c*tmp2);
+	originalX = Row[1][0]; originalZ = Row[1][2];
+	Row[1][0] = (float)(cosine*originalX - s*originalZ);
+	Row[1][2] = (float)(s*originalX + cosine*originalZ);
 
-	tmp1 = Row[2][0]; tmp2 = Row[2][2];
-	Row[2][0] = (float)(c*tmp1 - s*tmp2);
-	Row[2][2] = (float)(s*tmp1 + c*tmp2);
+	originalX = Row[2][0]; originalZ = Row[2][2];
+	Row[2][0] = (float)(cosine*originalX - s*originalZ);
+	Row[2][2] = (float)(s*originalX + cosine*originalZ);
 }
     __forceinline void Rotate_Z(float theta) {
-	float tmp1,tmp2;
-	float c,s;
-	c = cosf(theta);
+	float originalX,originalY;
+	float cosine,s;
+	cosine = cosf(theta);
 	s = sinf(theta);
-	tmp1 = Row[0][0]; tmp2 = Row[0][1];
-	Row[0][0] = (float)( c*tmp1 + s*tmp2);
-	Row[0][1] = (float)(-s*tmp1 + c*tmp2);
-	tmp1 = Row[1][0]; tmp2 = Row[1][1];
-	Row[1][0] = (float)( c*tmp1 + s*tmp2);
-	Row[1][1] = (float)(-s*tmp1 + c*tmp2);
-	tmp1 = Row[2][0]; tmp2 = Row[2][1];
-	Row[2][0] = (float)( c*tmp1 + s*tmp2);
-	Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+	originalX = Row[0][0]; originalY = Row[0][1];
+	Row[0][0] = (float)( cosine*originalX + s*originalY);
+	Row[0][1] = (float)(-s*originalX + cosine*originalY);
+	originalX = Row[1][0]; originalY = Row[1][1];
+	Row[1][0] = (float)( cosine*originalX + s*originalY);
+	Row[1][1] = (float)(-s*originalX + cosine*originalY);
+	originalX = Row[2][0]; originalY = Row[2][1];
+	Row[2][0] = (float)( cosine*originalX + s*originalY);
+	Row[2][1] = (float)(-s*originalX + cosine*originalY);
     }
 };
 class CameraAnimation {public:virtual void slot0();virtual void slot1();virtual void getTransform(Matrix3D *);};
@@ -318,9 +318,9 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 {
 	static Vector3 startPos;
 	static Vector3 unusedPos;
-	static Real zoomT = 0.0f;
+	static Real zoomProgress = 0.0f;
 	static Real zoomSpeed = 0.0f;
-	static Real targetT = 0.0f;
+	static Real targetProgress = 0.0f;
 	static Real targetSpeed = 0.0f;
 	static Real targetMaxSpeed = 0.5f;
 	static Real targetAccel = 0.05f;
@@ -333,12 +333,12 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 	else if (liveModeName().compare("Zoom") == 0)
 		liveMode = 3;
 
-	Object *obj = TheGameLogic->findObjectByID(view->m_cameraLock);
-	if (!obj)
+	Object *controlledObject = TheGameLogic->findObjectByID(view->m_cameraLock);
+	if (!controlledObject)
 	{
-		zoomT = 0.0f;
+		zoomProgress = 0.0f;
 		zoomSpeed = 0.0f;
-		targetT = this ? 0.0f : 0.0f;
+		targetProgress = this ? 0.0f : 0.0f;
 		targetSpeed = 0.0f;
 		m_liveState = 0;
 	}
@@ -371,19 +371,19 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 
 		case 2:
 		{
-			zoomT += zoomSpeed;
+			zoomProgress += zoomSpeed;
 			if (zoomSpeed < zoomMaxSpeed)
 				zoomSpeed += zoomAccel;
 
 			Object *lockObj = TheGameLogic->findObjectByID(view->m_cameraLock);
 			Vector3 objPos;
 			objPos.Set(lockObj->getPosition()->x, lockObj->getPosition()->y, lockObj->getPosition()->z);
-			Vector3::Lerp(m_liveTarget, objPos, zoomT, target);
+			Vector3::Lerp(m_liveTarget, objPos, zoomProgress, target);
 			*pos = m_livePos;
-			if (zoomT >= 1.0f)
+			if (zoomProgress >= 1.0f)
 			{
 				m_liveState = 3;
-				zoomT = 0.0f;
+				zoomProgress = 0.0f;
 				zoomSpeed = 0.0f;
 				startPos = m_livePos;
 				if (liveMode == m_liveState)
@@ -399,27 +399,27 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 		{
 			Real maxSpeed = targetMaxSpeed;
 			Real accel = targetAccel;
-			targetT += targetSpeed;
+			targetProgress += targetSpeed;
 			if (targetSpeed < maxSpeed)
 				targetSpeed += accel;
 
-			if (targetT < 0.9f)
+			if (targetProgress < 0.9f)
 			{
 				Object *lockObj = TheGameLogic->findObjectByID(view->m_cameraLock);
 				Vector3 objPos;
 				objPos.Set(lockObj->getPosition()->x, lockObj->getPosition()->y, lockObj->getPosition()->z);
-				Coord3D world;
-				ICoord2D center;
-				center.x = view->m_width / 2;
-				center.y = view->m_height / 2;
-				TheTacticalView->screenToTerrain(&center, &world, false);
-				Vector3::Lerp(m_liveTarget, objPos, targetT, target);
-				Vector3::Lerp(startPos, m_liveTarget, targetT, pos);
+				Coord3D terrainPosition;
+				ICoord2D screenCenter;
+				screenCenter.x = view->m_width / 2;
+				screenCenter.y = view->m_height / 2;
+				TheTacticalView->screenToTerrain(&screenCenter, &terrainPosition, false);
+				Vector3::Lerp(m_liveTarget, objPos, targetProgress, target);
+				Vector3::Lerp(startPos, m_liveTarget, targetProgress, pos);
 			}
 			else
 			{
 				m_liveState = 1;
-				targetT = 0.0f;
+				targetProgress = 0.0f;
 				targetSpeed = 0.0f;
 				view->m_b4 = 0;
 				view->m_b8 = 0;
@@ -441,165 +441,165 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 // entry and descriptor symbols are retained. Identity: enclosing camera state;
 // original entry-point/descriptor names are not independently established.
 // The scalar-value helper preserves separate pitch arms and native stores.
-static __forceinline void pitchCamera(Vector3 &s,const Vector3 &t,float p) {s.X=CameraScalar((s.X-t.X)/p).value+t.X;s.Y=CameraScalar((s.Y-t.Y)/p).value+t.Y;}
+static __forceinline void pitchCamera(Vector3 &s,const Vector3 &targetPosition,float p) {s.X=CameraScalar((s.X-targetPosition.X)/p).value+targetPosition.X;s.Y=CameraScalar((s.Y-targetPosition.Y)/p).value+targetPosition.Y;}
 class Rva0010274F;static __forceinline Vector3 translated(Vector3 p,const Rva0010274F *v);
-static __forceinline Vector3 translated(Vector3 p,const Rva0010274F *v) {p.X+=v->pos.x;p.Y+=v->pos.y;return p;}
+static __forceinline Vector3 translated(Vector3 p,const Rva0010274F *cameraState) {p.X+=cameraState->pos.x;p.Y+=cameraState->pos.y;return p;}
 __forceinline float cameraMin(float a,float b) {return a<b?a:b;}
 __forceinline float cameraMax(float a,float b) {return a>b?a:b;}
 /** @todo This is inefficient. We should construct the matrix directly using vectors. */
-void Rva00102F83Owner::rva00102F83(Rva0010274F *v)
+void Rva00102F83Owner::rva00102F83(Rva0010274F *cameraState)
 {
     Vector3 sourcePos,targetPos;
-    if(v->mode==4) {
-        if(v->animation) {
+    if(cameraState->mode==4) {
+        if(cameraState->animation) {
             struct AnimatedTransform {Matrix3D tm;float value;} result;
-            v->animation->getTransform(&result.tm);
-            *v->transform=result.tm; v->animationValue=result.value; return;
+            cameraState->animation->getTransform(&result.tm);
+            *cameraState->transform=result.tm; cameraState->animationValue=result.value; return;
         }
-        v->mode=0;
+        cameraState->mode=0;
     }
     // add in the camera shake, if any
-    v->pos.x+=v->shakeX;v->pos.y+=v->shakeY;
-    if(v->mode==2) {
-        sourcePos=v->pos;
-        if(v->explicitTarget.lengthSqr()==0.0f) {targetPos=sourcePos;targetPos.Z=0;}
-        else targetPos.Set(v->explicitTarget.x,v->explicitTarget.y,v->explicitTarget.z);
-        v->transform->Make_Identity();v->transform->Look_At(sourcePos,targetPos,v->roll); return;
+    cameraState->pos.x+=cameraState->shakeX;cameraState->pos.y+=cameraState->shakeY;
+    if(cameraState->mode==2) {
+        sourcePos=cameraState->pos;
+        if(cameraState->explicitTarget.lengthSqr()==0.0f) {targetPos=sourcePos;targetPos.Z=0;}
+        else targetPos.Set(cameraState->explicitTarget.x,cameraState->explicitTarget.y,cameraState->explicitTarget.z);
+        cameraState->transform->Make_Identity();cameraState->transform->Look_At(sourcePos,targetPos,cameraState->roll); return;
     }
-    if(v->constraintValid) {
-        {float x=cameraMax(v->minX,v->pos.x); v->pos.x=x;
-        v->pos.x=cameraMin(v->maxX,x);}
-        v->pos.y=cameraMax(v->minY,v->pos.y);
-        v->pos.y=cameraMin(v->maxY,v->pos.y);
+    if(cameraState->constraintValid) {
+        {float x=cameraMax(cameraState->minX,cameraState->pos.x); cameraState->pos.x=x;
+        cameraState->pos.x=cameraMin(cameraState->maxX,x);}
+        cameraState->pos.y=cameraMax(cameraState->minY,cameraState->pos.y);
+        cameraState->pos.y=cameraMin(cameraState->maxY,cameraState->pos.y);
     }
     // set position of camera itself
-    if(v->realZoom) {
-        sourcePos=v->offset;
-        float capped=v->zoom;
+    if(cameraState->realZoom) {
+        sourcePos=cameraState->offset;
+        float capped=cameraState->zoom;
         if(capped>1.0f)capped=1.0f;
         if(capped<0.5f)capped=0.5f;
-        v->fov=0.87266463f*capped;
+        cameraState->fov=0.87266463f*capped;
     } else {
-        sourcePos.X=v->offset.X*v->zoom;sourcePos.Y=v->offset.Y*v->zoom;sourcePos.Z=v->offset.Z*v->zoom;
-        if(v->liveCamera) {
-            Object *object=TheGameLogic->findObjectByID(v->lock);
-            if(object) sourcePos.Z=(v->offset.Z+object->getPosition()->z)*v->zoom;
+        sourcePos.X=cameraState->offset.X*cameraState->zoom;sourcePos.Y=cameraState->offset.Y*cameraState->zoom;sourcePos.Z=cameraState->offset.Z*cameraState->zoom;
+        if(cameraState->liveCamera) {
+            Object *object=TheGameLogic->findObjectByID(cameraState->lock);
+            if(object) sourcePos.Z=(cameraState->offset.Z+object->getPosition()->z)*cameraState->zoom;
         }
     }
     // camera looking at origin
     targetPos.Set(0,0,0);
-    float groundFraction=v->groundLevel/sourcePos.Z;
-    float factor=CameraScalar((float)(1.0-groundFraction)).value;
+    float groundFraction=cameraState->groundLevel/sourcePos.Z;
+    float aboveGroundFraction=CameraScalar((float)(1.0-groundFraction)).value;
     // construct a matrix to rotate around the up vector by the given angle
-    Matrix3D angleTransform(Vector3(0,0,1),v->angle);
+    Matrix3D angleTransform(Vector3(0,0,1),cameraState->angle);
     // construct a matrix to rotate around the horizontal vector by the given angle
-    Matrix3D pitchTransform(Vector3(1,0,0),v->pitch);
+    Matrix3D pitchTransform(Vector3(1,0,0),cameraState->pitch);
     // rotate camera position (pitch, then angle)
     pitchTransform.mulVector3(sourcePos); angleTransform.mulCameraAngleVector(sourcePos);
-    sourcePos *= factor;
+    sourcePos *= aboveGroundFraction;
     // translate to current XY position
-    sourcePos.X=addCameraScalar(sourcePos.X,v->pos.x).value;
-    sourcePos.Y=addCameraScalar(sourcePos.Y,v->pos.y).value;
-    targetPos.X=addCameraScalar(targetPos.X,v->pos.x).value;
-    targetPos.Y=addCameraScalar(targetPos.Y,v->pos.y).value;
-    Object *object=v->liveCamera?TheGameLogic->findObjectByID(v->lock):0;
-    if(v->liveCamera && (!object || (object->cameraKindFlags()&0x10))) {
-        Matrix3D angleTransform2(Vector3(0,0,1),v->angle);
-        Matrix3D pitchTransform2(Vector3(1,0,0),v->pitch);
+    sourcePos.X=addCameraScalar(sourcePos.X,cameraState->pos.x).value;
+    sourcePos.Y=addCameraScalar(sourcePos.Y,cameraState->pos.y).value;
+    targetPos.X=addCameraScalar(targetPos.X,cameraState->pos.x).value;
+    targetPos.Y=addCameraScalar(targetPos.Y,cameraState->pos.y).value;
+    Object *object=cameraState->liveCamera?TheGameLogic->findObjectByID(cameraState->lock):0;
+    if(cameraState->liveCamera && (!object || (object->cameraKindFlags()&0x10))) {
+        Matrix3D angleTransform2(Vector3(0,0,1),cameraState->angle);
+        Matrix3D pitchTransform2(Vector3(1,0,0),cameraState->pitch);
         pitchTransform2.mulVector3(sourcePos);angleTransform2.mulCameraAngleVector(sourcePos);
-        sourcePos=translated(sourcePos,v);
-        sourcePos.Z=addCameraScalar(sourcePos.Z,v->pos.z).value;
-        targetPos.X=addCameraScalar(targetPos.X,v->pos.x).value;
-        targetPos.Y=addCameraScalar(targetPos.Y,v->pos.y).value;
-        targetPos.Z+=v->pos.z+v->targetZAdjustment;
+        sourcePos=translated(sourcePos,cameraState);
+        sourcePos.Z=addCameraScalar(sourcePos.Z,cameraState->pos.z).value;
+        targetPos.X=addCameraScalar(targetPos.X,cameraState->pos.x).value;
+        targetPos.Y=addCameraScalar(targetPos.Y,cameraState->pos.y).value;
+        targetPos.Z+=cameraState->pos.z+cameraState->targetZAdjustment;
     } else {
-        sourcePos.Z+=v->groundLevel;
-        targetPos.Z+=v->groundLevel+v->targetZAdjustment;
+        sourcePos.Z+=cameraState->groundLevel;
+        targetPos.Z+=cameraState->groundLevel+cameraState->targetZAdjustment;
     }
     // The following code moves camera down and pitch up when player zooms in.
     // Use scripts to switch to useRealZoomCam
-    if(v->realZoom) {
+    if(cameraState->realZoom) {
         float pitchAdjust=1.0f;
         if(!TheDisplay->isLetterBoxed()) {
-            float capped=v->zoom;
+            float capped=cameraState->zoom;
             if(capped>1.0f)capped=1.0f;
             if(capped<0.5f)capped=0.5f;
             sourcePos.Z*=capped*0.75f+0.25f; // move camera down physically
             pitchAdjust=capped; // adjust camera to pitch up
         }
-        v->fxPitch=1.0f*(0.25f+pitchAdjust*0.75f);
-        pitchCamera(sourcePos,targetPos,v->fxPitch);
-    } else if(v->fxPitch <= 1.0f || v->liveCamera) {
-        if(v->liveCamera) {
+        cameraState->fxPitch=1.0f*(0.25f+pitchAdjust*0.75f);
+        pitchCamera(sourcePos,targetPos,cameraState->fxPitch);
+    } else if(cameraState->fxPitch <= 1.0f || cameraState->liveCamera) {
+        if(cameraState->liveCamera) {
         if(reinterpret_cast<W3DCamTransform *>(this)->m_cameraFlag)reinterpret_cast<W3DCamTransform *>(this)->m_cameraFlag=false;
         reinterpret_cast<W3DCamTransform *>(this)->m_cameraSource=sourcePos;
-        Vector3 p1=targetPos; p1.Z=0;
-        Vector3 p2=sourcePos; p2.Z=0;
-        float distance=Vector3::Distance(p1,p2);
-        float height=tan(v->fxPitch)*distance;
+        Vector3 targetGroundProjection=targetPos; targetGroundProjection.Z=0;
+        Vector3 sourceGroundProjection=sourcePos; sourceGroundProjection.Z=0;
+        float distance=Vector3::Distance(targetGroundProjection,sourceGroundProjection);
+        float height=tan(cameraState->fxPitch)*distance;
         targetPos.Z=sourcePos.Z-height;
         } else {
-            float height=sourcePos.Z-targetPos.Z; height*=v->fxPitch;targetPos.Z=sourcePos.Z-height;
+            float height=sourcePos.Z-targetPos.Z; height*=cameraState->fxPitch;targetPos.Z=sourcePos.Z-height;
         }
     } else {
-        sourcePos.X=(sourcePos.X-targetPos.X)/v->fxPitch+targetPos.X;
-        sourcePos.Y=(sourcePos.Y-targetPos.Y)/v->fxPitch+targetPos.Y;
+        sourcePos.X=(sourcePos.X-targetPos.X)/cameraState->fxPitch+targetPos.X;
+        sourcePos.Y=(sourcePos.Y-targetPos.Y)/cameraState->fxPitch+targetPos.Y;
     }
-    if(v->positionHold) {
-        Vector3 delta=v->source-sourcePos;
-        sourcePos=v->source;
+    if(cameraState->positionHold) {
+        Vector3 delta=cameraState->source-sourcePos;
+        sourcePos=cameraState->source;
         targetPos.X+=delta.X;targetPos.Y+=delta.Y;targetPos.Z+=delta.Z;
-        v->pos=v->previousPos;v->pos.x+=delta.X;v->pos.y+=delta.Y;v->previousPos=v->pos;
-        if(!v->retainHold)v->positionHold=false;
+        cameraState->pos=cameraState->previousPos;cameraState->pos.x+=delta.X;cameraState->pos.y+=delta.Y;cameraState->previousPos=cameraState->pos;
+        if(!cameraState->retainHold)cameraState->positionHold=false;
     }
-    v->source=sourcePos;v->target=targetPos;
-    Vector3 delta=v->source;
-    delta-=v->target;
-    v->distance=WWMath::Sqrt(((delta.X*delta.X) + delta.Z*delta.Z) + delta.Y*delta.Y);
-    if(!v->special) reinterpret_cast<W3DCamTransform *>(this)->transitionLiveMode(&sourcePos,&targetPos,(View*)v);
-    if(v->explicitTarget.lengthSqr()>0)targetPos.Set(v->explicitTarget.x,v->explicitTarget.y,v->explicitTarget.z);
+    cameraState->source=sourcePos;cameraState->target=targetPos;
+    Vector3 delta=cameraState->source;
+    delta-=cameraState->target;
+    cameraState->distance=WWMath::Sqrt(((delta.X*delta.X) + delta.Z*delta.Z) + delta.Y*delta.Y);
+    if(!cameraState->special) reinterpret_cast<W3DCamTransform *>(this)->transitionLiveMode(&sourcePos,&targetPos,(View*)cameraState);
+    if(cameraState->explicitTarget.lengthSqr()>0)targetPos.Set(cameraState->explicitTarget.x,cameraState->explicitTarget.y,cameraState->explicitTarget.z);
     // build new camera transform
-    v->transform->Make_Identity();v->transform->Look_At(sourcePos,targetPos,v->roll);
-    if(!v->special) {
+    cameraState->transform->Make_Identity();cameraState->transform->Look_At(sourcePos,targetPos,cameraState->roll);
+    if(!cameraState->special) {
         //WST 11/12/2002 New camera shaker system
         ((Rva0065CA4 *)*(CameraShakeSystemClass**)&CameraShakerSystem)->rva00065E3C(1.0f/30.0f);
-        (*(CameraShakeSystemClass**)&CameraShakerSystem)->Update_Camera_Shaker(sourcePos,&v->shakerAngles);
-        v->transform->Rotate_X(v->shakerAngles.X);
-        v->transform->Rotate_Y(v->shakerAngles.Y);
-        v->transform->Rotate_Z(v->shakerAngles.Z);
+        (*(CameraShakeSystemClass**)&CameraShakerSystem)->Update_Camera_Shaker(sourcePos,&cameraState->shakerAngles);
+        cameraState->transform->Rotate_X(cameraState->shakerAngles.X);
+        cameraState->transform->Rotate_Y(cameraState->shakerAngles.Y);
+        cameraState->transform->Rotate_Z(cameraState->shakerAngles.Z);
     }
     // (gth) check if the camera is being controlled by an animation
-    if(v->slaved) {
+    if(cameraState->slaved) {
         // find object named m_cameraSlaveObjectName
-        Object *slave=((Rva00358752Opaque*)TheScriptEngine)->lookupUnitByValue(v->slaveName);
+        Object *slave=((Rva00358752Opaque*)TheScriptEngine)->lookupUnitByValue(cameraState->slaveName);
         if(slave) {
             // dig out the drawable
-            Drawable *draw=((Thing*)slave)->getDrawable();
-            if(draw) {
-                // dig out the first draw module with an ObjectDrawInterface
-                DrawModule **modules=(DrawModule**)((Rva002B224BDwordField*)draw)->get();
+            Drawable *drawable=((Thing*)slave)->getDrawable();
+            if(drawable) {
+                // dig out the first drawable module with an ObjectDrawInterface
+                DrawModule **modules=(DrawModule**)((Rva002B224BDwordField*)drawable)->get();
                 for(;*modules;++modules) {
-                    const ObjectDrawInterface *di=(*modules)->getObjectDrawInterface();
-                    if(di) {
+                    const ObjectDrawInterface *drawInterface=(*modules)->getObjectDrawInterface();
+                    if(drawInterface) {
                         // Ok, slam it into the camera!
-                        Matrix3D tm(false);di->boneTransform(v->boneName,&tm);*v->transform=tm;
+                        Matrix3D tm(false);drawInterface->boneTransform(cameraState->boneName,&tm);*cameraState->transform=tm;
                         // WST 10.22.2002. Update the Listener positions used by audio system
-                        Matrix3D *transform=v->transform; Coord3D origin; origin.x=transform->Row[0][3]; origin.y=transform->Row[1][3]; origin.z=transform->Row[2][3]; v->previousPos=origin; break;
+                        Matrix3D *transform=cameraState->transform; Coord3D origin; origin.x=transform->Row[0][3]; origin.y=transform->Row[1][3]; origin.z=transform->Row[2][3]; cameraState->previousPos=origin; break;
                     }
                 }
-            } else v->slaved=false;
-        } else v->slaved=false;
+            } else cameraState->slaved=false;
+        } else cameraState->slaved=false;
     }
-    float finalAngle=v->finalRotation;
-    Matrix3D *finalTransform=v->transform;
+    float finalAngle=cameraState->finalRotation;
+    Matrix3D *finalTransform=cameraState->transform;
     float finalSin=sinf(finalAngle);
     float finalCos=cosf(finalAngle);
     finalTransform->Rotate_Y(finalSin,finalCos);
-    if(v->special&&v->nearAdjust) {
-        sourcePos.X=targetPos.X+(sourcePos.X-targetPos.X)/(90.0f+v->fxPitch);
-        sourcePos.Y=targetPos.Y+(sourcePos.Y-targetPos.Y)/(90.0f+v->fxPitch);
-        v->transform->Look_At(sourcePos,targetPos,0);
-        v->source=sourcePos;v->target=targetPos;
+    if(cameraState->special&&cameraState->nearAdjust) {
+        sourcePos.X=targetPos.X+(sourcePos.X-targetPos.X)/(90.0f+cameraState->fxPitch);
+        sourcePos.Y=targetPos.Y+(sourcePos.Y-targetPos.Y)/(90.0f+cameraState->fxPitch);
+        cameraState->transform->Look_At(sourcePos,targetPos,0);
+        cameraState->source=sourcePos;cameraState->target=targetPos;
     }
 }
 

@@ -40,20 +40,20 @@ struct GapVec3;
 struct GapQuat
 {
  GapQuat() {}
- GapQuat(float ax,float ay,float az,float aw):x(ax),y(ay),z(az),w(aw) {}
- void assign(const GapQuat&v) {x=v.x;y=v.y;z=v.z;w=v.w;}
+ GapQuat(float xComponent,float yComponent,float zComponent,float wComponent):x(xComponent),y(yComponent),z(zComponent),w(wComponent) {}
+ void assign(const GapQuat&quaternion) {x=quaternion.x;y=quaternion.y;z=quaternion.z;w=quaternion.w;}
 
 	float x;
 	float y;
 	float z;
 	float w;
- void Rotate(const GapVec3&v,GapVec3*out) const;
+ void Rotate(const GapVec3&vector,GapVec3*out) const;
 };
 
 struct GapVec3
 {
  GapVec3() {}
- GapVec3(float ax,float ay,float az):x(ax),y(ay),z(az) {}
+ GapVec3(float xComponent,float yComponent,float zComponent):x(xComponent),y(yComponent),z(zComponent) {}
  GapVec3& operator=(const GapVec3&v) {x=v.x;y=v.y;z=v.z;return *this;}
  GapVec3& operator+=(const GapVec3&v) {x+=v.x;y+=v.y;z+=v.z;return *this;}
 
@@ -68,7 +68,7 @@ public:
 	Rva0015F920(bool identity);
 	Rva0015F920(const GapQuat &rotation, const GapVec3 &translation);
 	static void rva0015F9E0(const Rva0015F920 &,const Rva0015F920 &,Rva0015F920 *);
-	void rva0015FE80(const GapVec3 &v);
+	void rva0015FE80(const GapVec3 &localTranslation);
 private:
 	GapQuat m_q;
 	GapVec3 m_t;
@@ -132,18 +132,18 @@ struct GapRefItem
 class Rva0016EB50
 {
 public:
-	GapRefItem *rva0016EB50(int i);
+	GapRefItem *rva0016EB50(int itemIndex);
 private:
 	char m_pad00[0xA8];
 	GapRefItem *m_items[4];									// +0xA8
 };
 
-GapRefItem *Rva0016EB50::rva0016EB50(int i)
+GapRefItem *Rva0016EB50::rva0016EB50(int itemIndex)
 {
-	GapRefItem *item = m_items[i];
+	GapRefItem *item = m_items[itemIndex];
 	if (item)
 		item->m_refs += 1;
-	return m_items[i];
+	return m_items[itemIndex];
 }
 
 // --- 0x00189400 (33B): slot 2 (+8) of the object embedded at +0x23C, then
@@ -173,11 +173,11 @@ Rva0019AF00::Rva0019AF00()
 // the term order of the rowed neighbours 0x0015F6D0 / 0x0015F810 / 0x0015FC20
 // (donor shape; owner class and names unknown).
 // ?GapQuat::Rotate absent-from-retail
-inline void GapQuat::Rotate(const GapVec3&v,GapVec3*result) const {
-	float rx = w*v.x + (y*v.z - v.y*z);
-	float ry = w*v.y - (x*v.z - v.x*z);
-	float rz = w*v.z + (x*v.y - v.x*y);
-	float rw = -(x*v.x + y*v.y + z*v.z);
+inline void GapQuat::Rotate(const GapVec3&vector,GapVec3*result) const {
+	float rx = w*vector.x + (y*vector.z - vector.y*z);
+	float ry = w*vector.y - (x*vector.z - vector.x*z);
+	float rz = w*vector.z + (x*vector.y - vector.x*y);
+	float rw = -(x*vector.x + y*vector.y + z*vector.z);
 	result->x = w*rx - rw*x + (y*rz - ry*z);
 	result->y = w*ry - rw*y - (x*rz - rx*z);
 	result->z = w*rz - rw*z + (x*ry - y*rx);
@@ -192,14 +192,14 @@ inline GapQuat operator*(const GapQuat&saved,const GapQuat&other) {
 		other.w*saved.w - (other.z*saved.z + other.y*saved.y + other.x*saved.x));
 }
 
-void Rva0015F920::rva0015F9E0(const Rva0015F920&a,const Rva0015F920&b,Rva0015F920*out) {GapVec3 t; a.m_q.Rotate(b.m_t,&t);out->m_t=t+a.m_t;out->m_q.assign(a.m_q*b.m_q);}
+void Rva0015F920::rva0015F9E0(const Rva0015F920&firstTransform,const Rva0015F920&secondTransform,Rva0015F920*composedTransform) {GapVec3 rotatedTranslation; firstTransform.m_q.Rotate(secondTransform.m_t,&rotatedTranslation);composedTransform->m_t=rotatedTranslation+firstTransform.m_t;composedTransform->m_q.assign(firstTransform.m_q*secondTransform.m_q);}
 
 // --- 0x0015FE80 (322B): translate by v in the local frame: the rotation
 // applied to v (same Rotate_Vector spelling as the compose above) is added
 // to the translation.
-void Rva0015F920::rva0015FE80(const GapVec3 &v)
+void Rva0015F920::rva0015FE80(const GapVec3 &localTranslation)
 {
-	GapVec3 t;
-	m_q.Rotate(v, &t);
-	m_t += t;
+	GapVec3 rotatedTranslation;
+	m_q.Rotate(localTranslation, &rotatedTranslation);
+	m_t += rotatedTranslation;
 }

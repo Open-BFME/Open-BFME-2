@@ -477,10 +477,10 @@ APT_TEXT_KEY_SET( StrategicHUD::RegionDetailsTerritoryMovieClip::Impl, SetTerrit
 
 UnicodeString __cdecl Rva005F6B74Format(int quantity)
 {
-	UnicodeString tmp;
+	UnicodeString quantityText;
 	if (quantity > 0)
-		tmp.format(L"%d", quantity);
-	return tmp;
+		quantityText.format(L"%d", quantity);
+	return quantityText;
 }
 
 // StrategicHUD::FormatNumTurnsString (WorldBuilder name,
@@ -488,16 +488,16 @@ UnicodeString __cdecl Rva005F6B74Format(int quantity)
 // STRATEGICHUD:ConstructionOneTurnRemaining/ConstructionTurnsRemaining labels.
 UnicodeString __cdecl StrategicHUD::FormatNumTurnsString(int turns)
 {
-	UnicodeString tmp;
+	UnicodeString turnsText;
 	if (turns != 1) {
 		bool exists;
 		UnicodeString format = TheGameText->fetch("STRATEGICHUD:ConstructionTurnsRemaining", &exists);
 		if (exists)
-			tmp.format(format.str(), turns);
+			turnsText.format(format.str(), turns);
 	} else {
-		tmp.set(TheGameText->fetch("STRATEGICHUD:ConstructionOneTurnRemaining", 0));
+		turnsText.set(TheGameText->fetch("STRATEGICHUD:ConstructionOneTurnRemaining", 0));
 	}
-	return tmp;
+	return turnsText;
 }
 
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::SetQuantityString(int quantity)

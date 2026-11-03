@@ -57,9 +57,9 @@ public:
 
 void BfmeThingVJN::bfmeGoVJN(int a, int b, int c, int d, int e)
 {
-	BfmeMsgVJN msg;
-	msg.bfmeInitVJN(m_bfmeBuf, 0x400);
-	m_bfme10->bfmeA54VJN(&msg, a, b, c, d, e);
-	m_bfme14->bfmeB08VJN(&msg, 0, this, m_bfme6dc);
-	msg.bfmeDoneVJN();
+	BfmeMsgVJN message;
+	message.bfmeInitVJN(m_bfmeBuf, 0x400);
+	m_bfme10->bfmeA54VJN(&message, a, b, c, d, e);
+	m_bfme14->bfmeB08VJN(&message, 0, this, m_bfme6dc);
+	message.bfmeDoneVJN();
 }

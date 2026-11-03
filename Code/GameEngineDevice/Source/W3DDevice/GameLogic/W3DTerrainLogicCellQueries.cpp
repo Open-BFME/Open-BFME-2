@@ -135,14 +135,14 @@ struct Rva00063082SlotView
 	virtual float border() const;
 };
 
-__forceinline long fast_float2long_round(float f)
+__forceinline long fast_float2long_round(float inputValue)
 {
-	long i;
+	long roundedValue;
 	__asm {
-		fld [f]
-		fistp [i]
+		fld [inputValue]
+		fistp [roundedValue]
 	}
-	return i;
+	return roundedValue;
 }
 
 bool W3DTerrainLogic::rva00063082(const Coord3D *pos) const

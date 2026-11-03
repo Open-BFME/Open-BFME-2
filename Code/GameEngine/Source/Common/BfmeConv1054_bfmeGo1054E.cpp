@@ -23,13 +23,13 @@ struct BfmeE1054
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern unsigned number_of_DX8_calls;		// retail 0x00DEDA98
 
-void __cdecl bfmeGo1054E(int a, int b)
+void __cdecl bfmeGo1054E(int transformState, int matrixAddress)
 {
 	DX8Wrapper::matrix_changes++;
 
-	void *o = DX8Wrapper::D3DDevice;
-	BfmeE1054 *p = reinterpret_cast<BfmeE1054 *>(o);
+	void *device = DX8Wrapper::D3DDevice;
+	BfmeE1054 *deviceView = reinterpret_cast<BfmeE1054 *>(device);
 
-	p->m_bfmeVt->m_bfmeFn(p, a, b);
+	deviceView->m_bfmeVt->m_bfmeFn(deviceView, transformState, matrixAddress);
 	number_of_DX8_calls++;
 }

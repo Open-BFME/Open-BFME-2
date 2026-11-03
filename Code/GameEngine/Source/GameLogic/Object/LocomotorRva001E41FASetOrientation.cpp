@@ -17,10 +17,10 @@ float Cos(float x);
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-static __forceinline float matrixXTranslation(const Matrix3D &m) { return m.Row[0][3]; }
-static __forceinline float matrixYTranslation(const Matrix3D &m) { return m.Row[1][3]; }
-static __forceinline float matrixZTranslation(const Matrix3D &m) { return m.Row[2][3]; }
-static __forceinline void setMatrixValues(Matrix3D &m,float m11,float m12,float m13,float m14,float m21,float m22,float m23,float m24,float m31,float m32,float m33,float m34) { m.Row[0].Set(m11,m12,m13,m14);m.Row[1].Set(m21,m22,m23,m24);m.Row[2].Set(m31,m32,m33,m34); }
+static __forceinline float matrixXTranslation(const Matrix3D &matrix) { return matrix.Row[0][3]; }
+static __forceinline float matrixYTranslation(const Matrix3D &matrix) { return matrix.Row[1][3]; }
+static __forceinline float matrixZTranslation(const Matrix3D &matrix) { return matrix.Row[2][3]; }
+static __forceinline void setMatrixValues(Matrix3D &matrix,float m11,float m12,float m13,float m14,float m21,float m22,float m23,float m24,float m31,float m32,float m33,float m34) { matrix.Row[0].Set(m11,m12,m13,m14);matrix.Row[1].Set(m21,m22,m23,m24);matrix.Row[2].Set(m31,m32,m33,m34); }
 
 
 static __forceinline void crossProduct(const Coord3D *left, const Coord3D *right, Coord3D *result)
@@ -34,10 +34,10 @@ static __forceinline void crossProduct(const Coord3D *left, const Coord3D *right
 
 void Locomotor::rva001E41FA(float angle)
 {
-	Coord3D pos, x, y, z, u;
-	pos.x = matrixXTranslation(m_68);
-	pos.y = matrixYTranslation(m_68);
-	pos.z = matrixZTranslation(m_68);
+	Coord3D translation, x, y, z, u;
+	translation.x = matrixXTranslation(m_68);
+	translation.y = matrixYTranslation(m_68);
+	translation.z = matrixZTranslation(m_68);
 	z.x = 0.0f;
 	z.y = 0.0f;
 	z.z = 1.0f;
@@ -46,7 +46,7 @@ void Locomotor::rva001E41FA(float angle)
 	u.z = 0.0f;
 	crossProduct(&z, &u, &y);
 	crossProduct(&y, &z, &x);
-	setMatrixValues(m_68,x.x, y.x, z.x, pos.x,
-		x.y, y.y, z.y, pos.y,
-		x.z, y.z, z.z, pos.z);
+	setMatrixValues(m_68,x.x, y.x, z.x, translation.x,
+		x.y, y.y, z.y, translation.y,
+		x.z, y.z, z.z, translation.z);
 }

@@ -11,11 +11,11 @@
 
 // ??_GRva005CEFD3@@QAEPAXI@Z @0x005CF046 28B: calls pinned ~Rva005CEFD3 0x005CEFD3
 class Rva005CEFD3 { public: ~Rva005CEFD3(); };
-void famgenDelete(Rva005CEFD3 *p) { delete p; }
+void famgenDelete(Rva005CEFD3 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005D07E1@@QAEPAXI@Z @0x005D0863 28B: calls pinned ~Rva005D07E1 0x005D07E1
 class Rva005D07E1 { public: ~Rva005D07E1(); };
-void famgenDelete(Rva005D07E1 *p) { delete p; }
+void famgenDelete(Rva005D07E1 *objectToDelete) { delete objectToDelete; }
 
 // ??_GImpl@TacticalBattleResolver@StrategicInGameUI@@QAEPAXI@Z @0x005D1260 28B: calls pinned ~Impl 0x005D1210
 namespace StrategicInGameUI { class TacticalBattleResolver { public: class Impl { public: ~Impl(); }; }; }
@@ -23,52 +23,52 @@ void famgenDelete(StrategicInGameUI::TacticalBattleResolver::Impl *impl) { delet
 
 // ??_GRva005E1D07@@QAEPAXI@Z @0x005E1D41 28B: calls pinned ~Rva005E1D07 0x005E1D07
 class Rva005E1D07 { public: ~Rva005E1D07(); };
-void famgenDelete(Rva005E1D07 *p) { delete p; }
+void famgenDelete(Rva005E1D07 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005E4925@@QAEPAXI@Z @0x005E49C4 28B: calls pinned ~Rva005E4925 0x005E4925
 class Rva005E4925 { public: ~Rva005E4925(); };
-void famgenDelete(Rva005E4925 *p) { delete p; }
+void famgenDelete(Rva005E4925 *objectToDelete) { delete objectToDelete; }
 
 
 // ??_GRva005E6D0D@@QAEPAXI@Z @0x005E6D74 28B: calls pinned ~Rva005E6D0D 0x005E6D0D
 class Rva005E6D0D { public: ~Rva005E6D0D(); };
-void famgenDelete(Rva005E6D0D *p) { delete p; }
+void famgenDelete(Rva005E6D0D *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005E98A0@@QAEPAXI@Z @0x005E98E1 28B: calls pinned ~Rva005E98A0 0x005E98A0
 class Rva005E98A0 { public: ~Rva005E98A0(); };
-void famgenDelete(Rva005E98A0 *p) { delete p; }
+void famgenDelete(Rva005E98A0 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005EB8D6@@QAEPAXI@Z @0x005EB9D6 28B: calls pinned ~Rva005EB8D6 0x005EB8D6
 class Rva005EB8D6 { public: ~Rva005EB8D6(); };
-void famgenDelete(Rva005EB8D6 *p) { delete p; }
+void famgenDelete(Rva005EB8D6 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005EC09B@@QAEPAXI@Z @0x005EC162 28B: calls pinned ~Rva005EC09B 0x005EC09B
 class Rva005EC09B { public: ~Rva005EC09B(); };
-void famgenDelete(Rva005EC09B *p) { delete p; }
+void famgenDelete(Rva005EC09B *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005EDE64@@QAEPAXI@Z @0x005EDED7 28B: calls pinned ~Rva005EDE64 0x005EDE64
 class Rva005EDE64 { public: ~Rva005EDE64(); };
-void famgenDelete(Rva005EDE64 *p) { delete p; }
+void famgenDelete(Rva005EDE64 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005F3FFC@@QAEPAXI@Z @0x005F407A 28B: calls pinned ~Rva005F3FFC 0x005F3FFC
 class Rva005F3FFC { public: ~Rva005F3FFC(); };
-void famgenDelete(Rva005F3FFC *p) { delete p; }
+void famgenDelete(Rva005F3FFC *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005F54DA@@QAEPAXI@Z @0x005F55DE 28B: calls pinned ~Rva005F54DA 0x005F54DA
 class Rva005F54DA { public: ~Rva005F54DA(); };
-void famgenDelete(Rva005F54DA *p) { delete p; }
+void famgenDelete(Rva005F54DA *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005F6051@@QAEPAXI@Z @0x005F630E 28B: calls pinned ~Rva005F6051 0x005F6051
 class Rva005F6051 { public: ~Rva005F6051(); };
-void famgenDelete(Rva005F6051 *p) { delete p; }
+void famgenDelete(Rva005F6051 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005FAD8D@@QAEPAXI@Z @0x005FAF41 28B: calls pinned ~Rva005FAD8D 0x005FAD8D
 class Rva005FAD8D { public: ~Rva005FAD8D(); };
-void famgenDelete(Rva005FAD8D *p) { delete p; }
+void famgenDelete(Rva005FAD8D *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005FCA8B@@QAEPAXI@Z @0x005FCB11 28B: calls pinned ~Rva005FCA8B 0x005FCA8B
 class Rva005FCA8B { public: ~Rva005FCA8B(); };
-void famgenDelete(Rva005FCA8B *p) { delete p; }
+void famgenDelete(Rva005FCA8B *objectToDelete) { delete objectToDelete; }
 
 // ??_GImpl@ArmyUnitSwapperMovieClip@StrategicHUD@@QAEPAXI@Z @0x005FD8C9 28B: calls recovered ~Impl 0x005FD628
 // Destructor-only view of the owner whose native member cleanup is recovered.

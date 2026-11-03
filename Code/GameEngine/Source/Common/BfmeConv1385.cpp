@@ -16,7 +16,7 @@ public:
 class BfmeThingVJH
 {
 public:
-	void bfmeGoVJH(int a);
+	void bfmeGoVJH(int messageTid);
 };
 
 class BfmeC994;
@@ -26,12 +26,12 @@ public:
 	void send(BfmeC994 *message) throw();
 };
 
-void BfmeThingVJH::bfmeGoVJH(int a)
+void BfmeThingVJH::bfmeGoVJH(int messageTid)
 {
-	char buf[0x40];
-	BfmeMsgVJH msg(buf, 0x40);
+	char messageBuffer[0x40];
+	BfmeMsgVJH msg(messageBuffer, 0x40);
 	msg.m_bfme1c = 0x4c444154;
-	msg.bfmeSet3VJH("TID", a);
+	msg.bfmeSet3VJH("TID", messageTid);
 	msg.bfmeSet3VJH("LID", -2);
 	msg.bfmeSetVJH("NAME", "LAN");
 	((Rva008038F0Sender *)this)->send((BfmeC994 *)&msg);

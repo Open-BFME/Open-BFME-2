@@ -55,10 +55,10 @@ void __cdecl Rva00661220Callback::forward(int value, BfmeThingVJL *receiver)
 
 void BfmeThingVJL::bfmeGoVJL(int unused)
 {
-	char buf[0x20];
-	BfmeMsgVJL msg;
-	msg.bfmeInitVJL(buf, 0x20);
-	bfmeA18VJL(&msg);
-	bfmeA04VJL()->bfmeB0CVJL(&msg);
-	msg.bfmeDoneVJL();
+	char messageBuffer[0x20];
+	BfmeMsgVJL message;
+	message.bfmeInitVJL(messageBuffer, 0x20);
+	bfmeA18VJL(&message);
+	bfmeA04VJL()->bfmeB0CVJL(&message);
+	message.bfmeDoneVJL();
 }

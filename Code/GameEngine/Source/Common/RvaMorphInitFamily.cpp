@@ -40,7 +40,7 @@ class Rva005CCE13 { public: void rva005CCE13(const UnicodeString &text); };	// 0
 class Rva005CDMorphBase : public Rva005CCDDD
 {
 public:
-	Rva005CDMorphBase(int a, int b, int c, int d, int e);
+	Rva005CDMorphBase(int a, int b, int c, int d, int textSource);
 	virtual ~Rva005CDMorphBase() {}
 private:
 	int m_0c;
@@ -50,8 +50,8 @@ private:
 	unsigned char *m_1c;
 };
 
-Rva005CDMorphBase::Rva005CDMorphBase(int a, int b, int c, int d, int e)
-	: m_0c(a), m_10(b), m_14(c), m_18(d), m_1c((unsigned char *)e)
+Rva005CDMorphBase::Rva005CDMorphBase(int a, int b, int c, int d, int textSource)
+	: m_0c(a), m_10(b), m_14(c), m_18(d), m_1c((unsigned char *)textSource)
 {
 	((Rva005CCB73 *)this)->rva005CCB73((void *)1);
 	((Rva005CCB7B *)this)->rva005CCB7B(false);
@@ -85,44 +85,44 @@ public:
 class Rva005CDMorph
 {
 public:
-	Rva005CDMorph *setup84(int a, int b, int c, int d, int e);
-	Rva005CDMorph *setupA0(int a, int b, int c, int d, int e);
-	Rva005CDMorph *setupBC(int a, int b, int c, int d, int e);
-	Rva005CDMorph *setupD8(int a, int b, int c, int d, int e);
+	Rva005CDMorph *setup84(int a, int b, int c, int d, int textSource);
+	Rva005CDMorph *setupA0(int a, int b, int c, int d, int textSource);
+	Rva005CDMorph *setupBC(int a, int b, int c, int d, int textSource);
+	Rva005CDMorph *setupD8(int a, int b, int c, int d, int textSource);
 
 private:
 	unsigned char m_pad[0x20];
 	int m_last;
 };
 
-Rva005CDMorph *Rva005CDMorph::setup84(int a, int b, int c, int d, int e)
+Rva005CDMorph *Rva005CDMorph::setup84(int a, int b, int c, int d, int textSource)
 {
-	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, e);
-	m_last = e;
+	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, textSource);
+	m_last = textSource;
 	new (this) Rva005CDSub84;
 	return this;
 }
 
-Rva005CDMorph *Rva005CDMorph::setupA0(int a, int b, int c, int d, int e)
+Rva005CDMorph *Rva005CDMorph::setupA0(int a, int b, int c, int d, int textSource)
 {
-	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, e);
-	m_last = e;
+	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, textSource);
+	m_last = textSource;
 	new (this) Rva005CDSubA0;
 	return this;
 }
 
-Rva005CDMorph *Rva005CDMorph::setupBC(int a, int b, int c, int d, int e)
+Rva005CDMorph *Rva005CDMorph::setupBC(int a, int b, int c, int d, int textSource)
 {
-	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, e);
-	m_last = e;
+	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, textSource);
+	m_last = textSource;
 	new (this) Rva005CDSubBC;
 	return this;
 }
 
-Rva005CDMorph *Rva005CDMorph::setupD8(int a, int b, int c, int d, int e)
+Rva005CDMorph *Rva005CDMorph::setupD8(int a, int b, int c, int d, int textSource)
 {
-	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, e);
-	m_last = e;
+	((Rva005CDMorphBase *)this)->Rva005CDMorphBase::Rva005CDMorphBase(a, b, c, d, textSource);
+	m_last = textSource;
 	new (this) Rva005CDSubD8;
 	return this;
 }

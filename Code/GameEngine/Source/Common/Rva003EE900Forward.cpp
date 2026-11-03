@@ -107,7 +107,7 @@ class LivingWorldRegionEffectsManager
 {
 public:
 	void rva003EE884(Int arg);
-	void rva003EE84A(Int a, Int b);
+	void rva003EE84A(Int regionAddress, Int b);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
@@ -133,11 +133,11 @@ void Rva003EEA9D::rva003EEA9D(Int regionArg)
 	m_owner.rva004E35D5(g_Rva00E02E68, (Int)((char *)regionArg + 0x54), 0);
 }
 
-void LivingWorldRegionEffectsManager::rva003EE84A(Int a, Int b)
+void LivingWorldRegionEffectsManager::rva003EE84A(Int regionAddress, Int b)
 {
-	char *p = (char *)a + 0x54;
-	m_owner.rva004E35D5(g_Rva00E02E78, (Int)p, 1);
-	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E78, (Int)p, b);
+	char *regionData = (char *)regionAddress + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E78, (Int)regionData, 1);
+	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E78, (Int)regionData, b);
 	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E78, 0);
 }
 
@@ -168,16 +168,16 @@ void Rva003EEAB7::rva003EEAB7()
 class Rva003EE89E
 {
 public:
-	void rva003EE89E(Int a, Int b);
+	void rva003EE89E(Int regionAddress, Int b);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EE89E::rva003EE89E(Int a, Int b)
+void Rva003EE89E::rva003EE89E(Int regionAddress, Int b)
 {
-	char *p = (char *)a + 0x54;
-	m_owner.rva004E35D5(g_Rva00E02E7C, (Int)p, 1);
-	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E7C, (Int)p, b);
+	char *regionData = (char *)regionAddress + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E7C, (Int)regionData, 1);
+	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E7C, (Int)regionData, b);
 	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E7C, 0);
 }
 
@@ -188,16 +188,16 @@ void Rva003EE89E::rva003EE89E(Int a, Int b)
 class Rva003EEA63
 {
 public:
-	void rva003EEA63(Int a, Int b);
+	void rva003EEA63(Int regionAddress, Int b);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEA63::rva003EEA63(Int a, Int b)
+void Rva003EEA63::rva003EEA63(Int regionAddress, Int b)
 {
-	char *p = (char *)a + 0x54;
-	m_owner.rva004E35D5(g_Rva00E02E68, (Int)p, 1);
-	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E68, (Int)p, b);
+	char *regionData = (char *)regionAddress + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E68, (Int)regionData, 1);
+	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E68, (Int)regionData, b);
 	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E68, 0);
 }
 
@@ -214,17 +214,17 @@ private:
 class Rva003EEBC4
 {
 public:
-	void rva003EEBC4(Int a, Int b);
+	void rva003EEBC4(Int regionAddress, Int b);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 	Int m_saved;
 };
-void Rva003EEBC4::rva003EEBC4(Int a, Int b)
+void Rva003EEBC4::rva003EEBC4(Int regionAddress, Int b)
 {
 	((Rva004E3629 *)&m_owner)->rva004E3629(g_Rva00E02E68, 1);
-	((Rva003EEA63 *)this)->rva003EEA63(a, b);
-	m_saved = a;
+	((Rva003EEA63 *)this)->rva003EEA63(regionAddress, b);
+	m_saved = regionAddress;
 }
 
 // ?rva003EEE64@Rva003EEE64@@QAEXH@Z retail 0x003EEE64 42B. Chain lane: if
@@ -253,16 +253,16 @@ void Rva003EEE64::rva003EEE64(Int x)
 class Rva003EEFA0
 {
 public:
-	void rva003EEFA0(Int p);
+	void rva003EEFA0(Int regionRangeAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEFA0::rva003EEFA0(Int p)
+void Rva003EEFA0::rva003EEFA0(Int regionRangeAddress)
 {
-	Int *arr = (Int *)p;
-	for (unsigned int i = 0; i < (unsigned int)((arr[1] - arr[0]) >> 2); ++i) {
-		Int entry = *(Int *)(arr[0] + i * 4);
+	Int *rangeWords = (Int *)regionRangeAddress;
+	for (unsigned int regionIndex = 0; regionIndex < (unsigned int)((rangeWords[1] - rangeWords[0]) >> 2); ++regionIndex) {
+		Int entry = *(Int *)(rangeWords[0] + regionIndex * 4);
 		if (entry != 0)
 			((Rva003EEA9D *)this)->rva003EEA9D(entry);
 	}
@@ -275,18 +275,18 @@ void Rva003EEFA0::rva003EEFA0(Int p)
 class Rva003EEA1A
 {
 public:
-	void rva003EEA1A(Int a, Int b);
+	void rva003EEA1A(Int regionAddress, Int b);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEA1A::rva003EEA1A(Int a, Int b)
+void Rva003EEA1A::rva003EEA1A(Int regionAddress, Int b)
 {
-	char *p = (char *)a + 0x54;
-	m_owner.rva004E35D5(g_Rva00E02E6C, (Int)p, 1);
-	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E6C, (Int)p, b);
+	char *regionData = (char *)regionAddress + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E6C, (Int)regionData, 1);
+	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E6C, (Int)regionData, b);
 	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E6C, 1);
-	m_owner.rva004E35D5(g_Rva00E02E68, (Int)p, 0);
+	m_owner.rva004E35D5(g_Rva00E02E68, (Int)regionData, 0);
 }
 
 // ?rva003EEB9F@Rva003EEB9F@@QAEXHH@Z retail 0x003EEB9F 37B. Chain lane: calls
@@ -295,15 +295,15 @@ void Rva003EEA1A::rva003EEA1A(Int a, Int b)
 class Rva003EEB9F
 {
 public:
-	void rva003EEB9F(Int a, Int b);
+	void rva003EEB9F(Int regionAddress, Int b);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEB9F::rva003EEB9F(Int a, Int b)
+void Rva003EEB9F::rva003EEB9F(Int regionAddress, Int b)
 {
 	((Rva004E3629 *)&m_owner)->rva004E3629(g_Rva00E02E6C, 1);
-	((Rva003EEA1A *)this)->rva003EEA1A(a, b);
+	((Rva003EEA1A *)this)->rva003EEA1A(regionAddress, b);
 }
 
 // ?rva003EE7E1@Rva003EE7E1@@QAEXH@Z retail 0x003EE7E1 105B. Unlock lane: six
@@ -312,20 +312,20 @@ void Rva003EEB9F::rva003EEB9F(Int a, Int b)
 class Rva003EE7E1
 {
 public:
-	void rva003EE7E1(Int a);
+	void rva003EE7E1(Int regionAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EE7E1::rva003EE7E1(Int a)
+void Rva003EE7E1::rva003EE7E1(Int regionAddress)
 {
-	char *p = (char *)a + 0x54;
-	m_owner.rva004E35D5(g_Rva00E02E64, (Int)p, 0);
-	m_owner.rva004E35D5(g_Rva00E02E68, (Int)p, 0);
-	m_owner.rva004E35D5(g_Rva00E02E6C, (Int)p, 0);
-	m_owner.rva004E35D5(g_Rva00E02E78, (Int)p, 0);
-	m_owner.rva004E35D5(g_Rva00E02E7C, (Int)p, 0);
-	m_owner.rva004E35D5(g_Rva00E02E80, (Int)p, 0);
+	char *regionData = (char *)regionAddress + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E64, (Int)regionData, 0);
+	m_owner.rva004E35D5(g_Rva00E02E68, (Int)regionData, 0);
+	m_owner.rva004E35D5(g_Rva00E02E6C, (Int)regionData, 0);
+	m_owner.rva004E35D5(g_Rva00E02E78, (Int)regionData, 0);
+	m_owner.rva004E35D5(g_Rva00E02E7C, (Int)regionData, 0);
+	m_owner.rva004E35D5(g_Rva00E02E80, (Int)regionData, 0);
 }
 
 // ?rva003EE91A@Rva003EE91A@@QAEXH@Z @0x003EE91A 76B chain via landed 0x003EE7CA
@@ -339,18 +339,18 @@ public:
 class Rva003EE91A
 {
 public:
-	void rva003EE91A(Int a);
+	void rva003EE91A(Int regionAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EE91A::rva003EE91A(Int a)
+void Rva003EE91A::rva003EE91A(Int regionAddress)
 {
 	Int values[3];
-	((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, a);
-	char *p = (char *)a + 0x54;
-	m_owner.rva004E35D5(g_Rva00E02E80, (Int)p, 1);
-	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E80, (Int)p, (Int)&values);
+	((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, regionAddress);
+	char *regionData = (char *)regionAddress + 0x54;
+	m_owner.rva004E35D5(g_Rva00E02E80, (Int)regionData, 1);
+	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E80, (Int)regionData, (Int)&values);
 	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E80, 0);
 }
 
@@ -360,17 +360,17 @@ void Rva003EE91A::rva003EE91A(Int a)
 class Rva003EEEB3
 {
 public:
-	void rva003EEEB3(Int p);
+	void rva003EEEB3(Int regionRangeAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEEB3::rva003EEEB3(Int p)
+void Rva003EEEB3::rva003EEEB3(Int regionRangeAddress)
 {
 	((Rva004E3629 *)&m_owner)->rva004E3629(g_Rva00E02E6C, 1);
-	Int *arr = (Int *)p;
-	for (unsigned int i = 0; i < (unsigned int)((arr[1] - arr[0]) >> 2); ++i) {
-		Int entry = *(Int *)(arr[0] + i * 4);
+	Int *rangeWords = (Int *)regionRangeAddress;
+	for (unsigned int regionIndex = 0; regionIndex < (unsigned int)((rangeWords[1] - rangeWords[0]) >> 2); ++regionIndex) {
+		Int entry = *(Int *)(rangeWords[0] + regionIndex * 4);
 		if (entry != 0) {
 			Int values[3];
 			((Rva003EEA1A *)this)->rva003EEA1A(entry, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, entry));
@@ -384,18 +384,18 @@ void Rva003EEEB3::rva003EEEB3(Int p)
 class Rva003EEF38
 {
 public:
-	void rva003EEF38(Int p);
+	void rva003EEF38(Int regionRangeAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 	Int m_saved;
 };
-void Rva003EEF38::rva003EEF38(Int p)
+void Rva003EEF38::rva003EEF38(Int regionRangeAddress)
 {
 	((Rva004E3629 *)&m_owner)->rva004E3629(g_Rva00E02E68, 1);
-	Int *arr = (Int *)p;
-	for (unsigned int i = 0; i < (unsigned int)((arr[1] - arr[0]) >> 2); ++i) {
-		Int entry = *(Int *)(arr[0] + i * 4);
+	Int *rangeWords = (Int *)regionRangeAddress;
+	for (unsigned int regionIndex = 0; regionIndex < (unsigned int)((rangeWords[1] - rangeWords[0]) >> 2); ++regionIndex) {
+		Int entry = *(Int *)(rangeWords[0] + regionIndex * 4);
 		if (entry != 0) {
 			Int values[3];
 			((Rva003EEA63 *)this)->rva003EEA63(entry, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, entry));
@@ -429,15 +429,15 @@ void Rva003EF041::rva003EF041()
 class Rva003EEE8E
 {
 public:
-	void rva003EEE8E(Int a);
+	void rva003EEE8E(Int regionAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEE8E::rva003EEE8E(Int a)
+void Rva003EEE8E::rva003EEE8E(Int regionAddress)
 {
 	Int values[3];
-	((Rva003EEB9F *)this)->rva003EEB9F(a, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, a));
+	((Rva003EEB9F *)this)->rva003EEB9F(regionAddress, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, regionAddress));
 }
 // ?rva003EEF13@Rva003EEF13@@QAEXH@Z @0x003EEF13 37B chain via 0x003EE7CA+0x003EEBC4
 // Retail: tmp[3] at ebp-0xc; this->rva003EE7CA(&tmp,arg) then
@@ -445,15 +445,15 @@ void Rva003EEE8E::rva003EEE8E(Int a)
 class Rva003EEF13
 {
 public:
-	void rva003EEF13(Int a);
+	void rva003EEF13(Int regionAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EEF13::rva003EEF13(Int a)
+void Rva003EEF13::rva003EEF13(Int regionAddress)
 {
 	Int values[3];
-	((Rva003EEBC4 *)this)->rva003EEBC4(a, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, a));
+	((Rva003EEBC4 *)this)->rva003EEBC4(regionAddress, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, regionAddress));
 }
 // ?rva003EE8D8@Rva003EE8D8@@QAEXH@Z @0x003EE8D8 40B chain via 0x003EE7CA+0x003EE89E
 // Retail: tmp[3] at ebp-0xc; this->rva003EE7CA(&tmp,arg) then
@@ -461,16 +461,16 @@ void Rva003EEF13::rva003EEF13(Int a)
 class Rva003EE8D8
 {
 public:
-	void rva003EE8D8(Int a);
+	void rva003EE8D8(Int regionAddress);
 private:
 	char m_pad[8];
 	Rva004E35D5 m_owner;
 };
-void Rva003EE8D8::rva003EE8D8(Int a)
+void Rva003EE8D8::rva003EE8D8(Int regionAddress)
 {
 	Int values[3];
-	((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, a);
-	((Rva003EE89E *)this)->rva003EE89E(a, (Int)&values);
+	((Rva003EE7CA *)this)->rva003EE7CA((Int)&values, regionAddress);
+	((Rva003EE89E *)this)->rva003EE89E(regionAddress, (Int)&values);
 }
 
 // Native 003EEDD6..003EEE64: 142B campaign-region range update.
@@ -482,18 +482,18 @@ class Rva003F0FD1 {public:void rva003F0FD1();};
 struct S3CampaignRegion {char pad0[0x54];char region[0x1a2-0x54];bool border;};
 struct S3CampaignRange {S3CampaignRegion **begin;S3CampaignRegion **end;};
 class Rva003EEDD6 {public:void rva003EEDD6(int);char pad0[0x54];bool borders;};
-void Rva003EEDD6::rva003EEDD6(int value)
+void Rva003EEDD6::rva003EEDD6(int regionRangeAddress)
 {
-    S3CampaignRange &range=*(S3CampaignRange*)value;
-    for(unsigned i=0;i<(unsigned)(range.end-range.begin);++i) {
-        S3CampaignRegion *region=range.begin[i];
+    S3CampaignRange &range=*(S3CampaignRange*)regionRangeAddress;
+    for(unsigned regionIndex=0;regionIndex<(unsigned)(range.end-range.begin);++regionIndex) {
+        S3CampaignRegion *region=range.begin[regionIndex];
         ((Rva003F0FD1*)region)->rva003F0FD1();
         ((Rva003EE7E1*)this)->rva003EE7E1((int)region);
         if(region->border) {
-            void *p=region->region;
+            void *regionData=region->region;
             Rva004E35D5 *effects=(Rva004E35D5*)((char*)this+8);
-            effects->rva004E35D5(g_Rva00E02E64,(int)p,borders);
-            ((Rva004E35FF*)effects)->rva004E35FF(g_Rva00E02E64,(int)p,(int)((char*)this+0x2c));
+            effects->rva004E35D5(g_Rva00E02E64,(int)regionData,borders);
+            ((Rva004E35FF*)effects)->rva004E35FF(g_Rva00E02E64,(int)regionData,(int)((char*)this+0x2c));
             ((Rva004E35AF*)effects)->rva004E35AF(g_Rva00E02E64,0);
         }
     }
@@ -541,17 +541,17 @@ struct Rva003EEBEFArg
 class Rva003EEBEF
 {
 public:
-	void rva003EEBEF(Int p);
+	void rva003EEBEF(Int recordSourceAddress);
 };
-void Rva003EEBEF::rva003EEBEF(Int p)
+void Rva003EEBEF::rva003EEBEF(Int recordSourceAddress)
 {
 	Rva003EEBEFGate *gate = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_B0->m_holder;
 	if (gate == 0)
 		return;
-	Rva003EEBEFArg *regionArg = (Rva003EEBEFArg *)p;
+	Rva003EEBEFArg *regionArg = (Rva003EEBEFArg *)recordSourceAddress;
 	int count = regionArg->m_records.size();
-	for (int i = 0; i < count; ++i) {
-		Rva0020E89C *found = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->getLookup()->rva0020EAF6(regionArg->m_records[i].m_index);
-		((LivingWorldRegionEffectsManager *)this)->rva003EE84A((Int)found, (Int)&regionArg->m_records[i].m_payload);
+	for (int recordIndex = 0; recordIndex < count; ++recordIndex) {
+		Rva0020E89C *found = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->getLookup()->rva0020EAF6(regionArg->m_records[recordIndex].m_index);
+		((LivingWorldRegionEffectsManager *)this)->rva003EE84A((Int)found, (Int)&regionArg->m_records[recordIndex].m_payload);
 	}
 }

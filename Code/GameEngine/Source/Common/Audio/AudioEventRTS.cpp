@@ -1117,9 +1117,9 @@ private:
 // Inline boundaries carried from BFME1's AudioEventRTSWeightedChoice.cpp:
 // reading the sound type through retainAudioType and the event info through
 // peekEventInfo reproduces retail's register choices for those chains.
-__forceinline unsigned int retainAudioType(unsigned int type)
+__forceinline unsigned int retainAudioType(unsigned int audioType)
 {
-	return type;
+	return audioType;
 }
 
 // ?getRandomSoundIndexByWeight@@YAHIPBUWeightedSoundRange@@@Z
@@ -1710,13 +1710,13 @@ Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &eventReference, Rva002DA555Id 
 
 // ---- from Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerCtorTag5.cpp
 
-Rva002DA651::Rva002DA651(const OpaqueRefElement4 &eventReference, int id)
+Rva002DA651::Rva002DA651(const OpaqueRefElement4 &eventReference, int ownerID)
 {
 	BfmeAudioEventPrefix136 *eventData = (BfmeAudioEventPrefix136 *)this;
 	eventData->rva002D96D3(eventReference);
-	eventData->m_int34 = id;
+	eventData->m_int34 = ownerID;
 	eventData->m_int30 = 1;
-	if (id)
+	if (ownerID)
 		eventData->m_int38 = 5;
 	else
 		eventData->m_int34 = 0;
@@ -1773,21 +1773,21 @@ void Rva002D9FD9Owner::rva002D9FD9(Rva002D9FD9Arg *xfer)
 	((unsigned char *)&version)[0] = 1;
 	((unsigned char *)&version)[1] = 6;
 	xfer->v010(&version);
-	unsigned char flag;
-	int x;
+	unsigned char restorePlayback;
+	int audioHandle;
 	if (xfer->v002())
-		flag = rva002D9608();
-	xfer->v036(&flag);
-	x = m_0C;
-	xfer->v030(&x);
+		restorePlayback = rva002D9608();
+	xfer->v036(&restorePlayback);
+	audioHandle = m_0C;
+	xfer->v030(&audioHandle);
 	((AudioEventRTS *)this)->internalXfer((Xfer *)xfer, &version);
-	if (flag == 0)
+	if (restorePlayback == 0)
 		return;
 	if (!xfer->v001())
 		return;
 	if (TheAudio == 0)
 		return;
-	m_0C = TheAudio->a29(this, x);
+	m_0C = TheAudio->a29(this, audioHandle);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva002D9893Copy.cpp

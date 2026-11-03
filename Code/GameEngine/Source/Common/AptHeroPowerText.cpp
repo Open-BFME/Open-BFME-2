@@ -23,9 +23,9 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 UnicodeString __cdecl Rva005B2376Describe(void *power, const AsciiString &unused, const AsciiString &fallback);
 UnicodeString __cdecl Rva005B2446Describe(void *power);
 
-void __cdecl Rva005B23D7HeroPowersDescription(void *powerButton, const AsciiString &unused, const AsciiString &fallback)
+void __cdecl Rva005B23D7HeroPowersDescription(void *powerButton, const AsciiString &unused, const AsciiString &fallbackTextKey)
 {
-	UnicodeString descriptionText = Rva005B2376Describe(powerButton, unused, fallback);
+	UnicodeString descriptionText = Rva005B2376Describe(powerButton, unused, fallbackTextKey);
 	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:HeroPowersDescription"), descriptionText, true);
 }
 
@@ -357,16 +357,16 @@ void AptFileTransferPopup::ProcessProgress(int playerIndex, int completionPercen
 class Rva0057E3DB
 {
 public:
-	void rva0057C7BA(int type);
+	void rva0057C7BA(int gameType);
 private:
 	char m_pad00[0x1C];
 	int m_type;					// +0x1C
 };
 
-void Rva0057E3DB::rva0057C7BA(int type)
+void Rva0057E3DB::rva0057C7BA(int gameType)
 {
-	m_type = type;
-	switch (type)
+	m_type = gameType;
+	switch (gameType)
 	{
 	case 0:
 		{

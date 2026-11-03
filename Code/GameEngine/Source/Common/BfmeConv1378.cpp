@@ -34,40 +34,40 @@ extern void *g_bfmeVIU;
 // g_bfmeVIU: matched references place it at VA 0xe0a07c (zero-filled .bss).
 void * g_bfmeVIU;
 
-void __stdcall bfmeGoVIT(FeslMessage *m, void *a, void *b)
+void __stdcall bfmeGoVIT(FeslMessage *message, void *password, void *newPassword)
 {
-	void *g = g_bfmeVIT;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x61636374;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addString("password", (const char *)a);
-	((Rva007E8810Message *)m)->addString("newPassword", (const char *)b);
+	void *transactionName = g_bfmeVIT;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x61636374;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addString("password", (const char *)password);
+	((Rva007E8810Message *)message)->addString("newPassword", (const char *)newPassword);
 }
 
-void __stdcall bfmeGoVIU(FeslMessage *m, void *sessionId, void *key, void *value)
+void __stdcall bfmeGoVIU(FeslMessage *message, void *sessionId, void *key, void *value)
 {
-	void *g = g_bfmeVIU;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x72616e6b;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addString("sessionId", (const char *)sessionId);
-	((Rva007E8810Message *)m)->addString("key", (const char *)key);
-	((Rva007E8810Message *)m)->addString("value", (const char *)value);
+	void *transactionName = g_bfmeVIU;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x72616e6b;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addString("sessionId", (const char *)sessionId);
+	((Rva007E8810Message *)message)->addString("key", (const char *)key);
+	((Rva007E8810Message *)message)->addString("value", (const char *)value);
 }
 
-void __stdcall bfmeGoVIV(FeslMessage *m, char *code, char *game, char *platform, char *name, char *password, char *email)
+void __stdcall bfmeGoVIV(FeslMessage *message, char *code, char *game, char *platform, char *name, char *password, char *email)
 {
-	void *g = g_bfmeVIV;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x61636374;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addString("code", code);
-	((Rva007E8810Message *)m)->addString("game", game);
-	((Rva007E8810Message *)m)->addString("platform", platform);
+	void *transactionName = g_bfmeVIV;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x61636374;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addString("code", code);
+	((Rva007E8810Message *)message)->addString("game", game);
+	((Rva007E8810Message *)message)->addString("platform", platform);
 	if (name && *name)
-		((Rva007E8810Message *)m)->addString("name", name);
+		((Rva007E8810Message *)message)->addString("name", name);
 	if (password && *password)
-		((Rva007E8810Message *)m)->addString("password", password);
+		((Rva007E8810Message *)message)->addString("password", password);
 	if (email && *email)
-		((Rva007E8810Message *)m)->addString("encryptedInfo", email);
+		((Rva007E8810Message *)message)->addString("encryptedInfo", email);
 }

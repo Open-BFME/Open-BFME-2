@@ -46,11 +46,11 @@ public:
 
 void BfmeThingVJM::bfmeGoVJM(int a, int b)
 {
-	BfmeMsgVJM msg;
-	msg.bfmeInitVJM(m_bfmeBuf, 0x400);
-	m_bfme10->bfmeA20VJM(&msg, a, b);
-	m_bfme14->bfmeB08VJM(&msg, bfmeCbVJM, this, m_bfme6dc);
-	msg.bfmeDoneVJM();
+	BfmeMsgVJM message;
+	message.bfmeInitVJM(m_bfmeBuf, 0x400);
+	m_bfme10->bfmeA20VJM(&message, a, b);
+	m_bfme14->bfmeB08VJM(&message, bfmeCbVJM, this, m_bfme6dc);
+	message.bfmeDoneVJM();
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

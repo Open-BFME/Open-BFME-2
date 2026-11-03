@@ -61,13 +61,13 @@ struct Rva002ECE6AInfo {
  LineContextMovement movement;ICoord2D previous;LineContextQuery query;
  unsigned char flag5C,flag5D;char pad5E[2];
 };
-Rva002ECE6AInfo::Rva002ECE6AInfo(Pathfinder *a,const Object *b,Int c,Bool d,Bool e,Bool f,Bool g):pathfinder(a),object(b),flag8(e)
+Rva002ECE6AInfo::Rva002ECE6AInfo(Pathfinder *pathfinderArg,const Object *movingObject,Int surfaceMask,Bool d,Bool e,Bool f,Bool g):pathfinder(pathfinderArg),object(movingObject),flag8(e)
 {
- const Object *obj=b;
+ const Object *obj=movingObject;
  Int priority=obj->definition->priority;Bool templateFlag=obj->definition->flag;
  Bool flagA=obj->rva0028AC62();Bool flagB=obj->rva0028AFBB();
- LineContextQuery &value=query;
- value.surfaces=c;value.flag4=!templateFlag;value.flag5=flagB;value.flagC=flagA;value.priority8=priority-1;
+ LineContextQuery &movementQuery=query;
+ movementQuery.surfaces=surfaceMask;movementQuery.flag4=!templateFlag;movementQuery.flag5=flagB;movementQuery.flagC=flagA;movementQuery.priority8=priority-1;
  flag5D=false;
  *(LineContextQuery *)((char *)&movement+0x1C)=query;
  flag5C=(unsigned char)g;movement.flag11=d;
@@ -99,14 +99,14 @@ Rva002ECE6AInfo::Rva002ECE6AInfo(Pathfinder *a,const Object *b,Int c,Bool d,Bool
 #include <math.h>
 extern "C" void _WriteBarrier(void);
 #pragma intrinsic(_WriteBarrier)
-__forceinline long fast_float2long_round(float f)
+__forceinline long fast_float2long_round(float inputValue)
 {
- long i;
+ long roundedValue;
  __asm {
-  fld [f]
-  fistp [i]
+  fld [inputValue]
+  fistp [roundedValue]
  }
- return i;
+ return roundedValue;
 }
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 struct LineOccupant {LineOccupant *next;void *word4;Object *object;};

@@ -162,34 +162,34 @@ __declspec(noinline) inline void Coord3D::normalize()
 	}
 }
 
-inline void coordSub(Coord3D *a, const Coord3D *b)
+inline void coordSub(Coord3D *destination, const Coord3D *operand)
 {
-	a->x -= b->x;
-	a->y -= b->y;
-	a->z -= b->z;
+	destination->x -= operand->x;
+	destination->y -= operand->y;
+	destination->z -= operand->z;
 }
 
-inline void coordAdd(Coord3D *a, const Coord3D *b)
+inline void coordAdd(Coord3D *destination, const Coord3D *operand)
 {
-	a->x += b->x;
-	a->y += b->y;
-	a->z += b->z;
+	destination->x += operand->x;
+	destination->y += operand->y;
+	destination->z += operand->z;
 }
 
-inline void coordScale(Coord3D *a, Real scale)
+inline void coordScale(Coord3D *coordinate, Real scale)
 {
-	a->x *= scale;
-	a->y *= scale;
-	a->z *= scale;
+	coordinate->x *= scale;
+	coordinate->y *= scale;
+	coordinate->z *= scale;
 }
 
 
 struct C3 : Coord3D
 {
-	C3 &Sub(const Coord3D &c) { x -= c.x; y -= c.y; z -= c.z; return *this; }
-	C3 &Add(const Coord3D &c) { x += c.x; y += c.y; z += c.z; return *this; }
+	C3 &Sub(const Coord3D &coordinate) { x -= coordinate.x; y -= coordinate.y; z -= coordinate.z; return *this; }
+	C3 &Add(const Coord3D &coordinate) { x += coordinate.x; y += coordinate.y; z += coordinate.z; return *this; }
 	C3 &Scale(Real s) { x *= s; y *= s; z *= s; return *this; }
-	void Set(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
+	void Set(const Coord3D &coordinate) { x = coordinate.x; y = coordinate.y; z = coordinate.z; }
 };
 
 template <class T>
@@ -220,25 +220,25 @@ public:
 	}
 	__forceinline void rotateZ(float theta)
 	{
-		float tmp1, tmp2;
-		float c, s;
-		c = cosf(theta);
+		float rowX, rowY;
+		float cosine, s;
+		cosine = cosf(theta);
 		s = sinf(theta);
-		tmp1 = Row[0].X; tmp2 = Row[0].Y;
-		Row[0].X = (float)( c*tmp1 + s*tmp2);
-		Row[0].Y = (float)(-s*tmp1 + c*tmp2);
-		tmp1 = Row[1].X; tmp2 = Row[1].Y;
-		Row[1].X = (float)( c*tmp1 + s*tmp2);
-		Row[1].Y = (float)(-s*tmp1 + c*tmp2);
-		tmp1 = Row[2].X; tmp2 = Row[2].Y;
-		Row[2].X = (float)( c*tmp1 + s*tmp2);
-		Row[2].Y = (float)(-s*tmp1 + c*tmp2);
+		rowX = Row[0].X; rowY = Row[0].Y;
+		Row[0].X = (float)( cosine*rowX + s*rowY);
+		Row[0].Y = (float)(-s*rowX + cosine*rowY);
+		rowX = Row[1].X; rowY = Row[1].Y;
+		Row[1].X = (float)( cosine*rowX + s*rowY);
+		Row[1].Y = (float)(-s*rowX + cosine*rowY);
+		rowX = Row[2].X; rowY = Row[2].Y;
+		Row[2].X = (float)( cosine*rowX + s*rowY);
+		Row[2].Y = (float)(-s*rowX + cosine*rowY);
 	}
-	void setTranslation(const Coord3D &t)
+	void setTranslation(const Coord3D &translation)
 	{
-		Row[0][3] = t.x;
-		Row[1][3] = t.y;
-		Row[2][3] = t.z;
+		Row[0][3] = translation.x;
+		Row[1][3] = translation.y;
+		Row[2][3] = translation.z;
 	}
 private:
 	Vector4R Row[3];
@@ -327,19 +327,19 @@ public:
 	Rva0026C4EBContain *getContain() const { return m_contain; }
 	Bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
 
-	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	__forceinline void clearModelConditionState(ModelConditionFlagType condition)
 	{
-		if (m_modelConditionFlags.test(mc) != 0)
+		if (m_modelConditionFlags.test(condition) != 0)
 		{
-			m_modelConditionFlags.clear(mc);
+			m_modelConditionFlags.clear(condition);
 			rva0028AE6D();
 		}
 	}
-	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	__forceinline void setModelConditionState(ModelConditionFlagType condition)
 	{
-		if (m_modelConditionFlags.test(mc))
+		if (m_modelConditionFlags.test(condition))
 			return;
-		m_modelConditionFlags.set(mc);
+		m_modelConditionFlags.set(condition);
 		rva0028AE6D();
 	}
 
@@ -504,48 +504,48 @@ private:
 
 UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 {
-	Object *obj = getObject();
-	obj->clearModelConditionState(MODELCONDITION_103);
-	obj->clearModelConditionState(MODELCONDITION_133);
-	obj->clearModelConditionState(MODELCONDITION_134);
-	obj->clearModelConditionState(MODELCONDITION_137);
-	obj->clearModelConditionState(MODELCONDITION_138);
+	Object *object = getObject();
+	object->clearModelConditionState(MODELCONDITION_103);
+	object->clearModelConditionState(MODELCONDITION_133);
+	object->clearModelConditionState(MODELCONDITION_134);
+	object->clearModelConditionState(MODELCONDITION_137);
+	object->clearModelConditionState(MODELCONDITION_138);
 
-	if (slot113() && obj->getContainedBy() == NULL && obj->rva002931F5(false) == NULL)
+	if (slot113() && object->getContainedBy() == NULL && object->rva002931F5(false) == NULL)
 	{
 		m_commands.aiIdle(CMD_FROM_AI);
 		return UPDATE_SLEEP_NONE;
 	}
 
 	{
-		int sleep;
-		((Rva00265AAB *)this)->rva00265AAB((Object00265AAB *)obj, &sleep);
+		int sleepTime;
+		((Rva00265AAB *)this)->rva00265AAB((Object00265AAB *)object, &sleepTime);
 	}
 	if (m_locomotorGoalType == NONE)
 		return (UpdateSleepTime)BfmeLogicFramesPerSecond;
 
-	if (obj->isEffectivelyDead())
+	if (object->isEffectivelyDead())
 	{
-		obj->clearModelConditionState(MODELCONDITION_156);
+		object->clearModelConditionState(MODELCONDITION_156);
 		Coord3D pos;
-		pos.x = obj->getPosition()->x;
-		pos.y = obj->getPosition()->y;
-		pos.z = obj->getPosition()->z;
-		Real groundZ = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)obj->rva0028B511());
+		pos.x = object->getPosition()->x;
+		pos.y = object->getPosition()->y;
+		pos.z = object->getPosition()->z;
+		Real groundZ = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)object->rva0028B511());
 		if (pos.z > groundZ)
 		{
 			pos.z += ((GlobalDataView *)TheWritableGlobalData)->m_C4 * 5.0f;
 			if (pos.z < groundZ)
 				pos.z = groundZ;
-			obj->setPositionZ(pos.z);
+			object->setPositionZ(pos.z);
 			return UPDATE_SLEEP_NONE;
 		}
 		return (UpdateSleepTime)BfmeLogicFramesPerSecond;
 	}
 
-	if (obj->m_25C && obj->m_25C->m_5C)
+	if (object->m_25C && object->m_25C->m_5C)
 	{
-		obj->clearModelConditionState(MODELCONDITION_156);
+		object->clearModelConditionState(MODELCONDITION_156);
 		return (UpdateSleepTime)BfmeLogicFramesPerSecond;
 	}
 
@@ -555,30 +555,30 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 		getStateMachine()->updateStateMachine();
 		m_3E0 = false;
 	}
-	obj->clearModelConditionState(MODELCONDITION_156);
+	object->clearModelConditionState(MODELCONDITION_156);
 
-	Object *container = obj->getContainedBy();
+	Object *container = object->getContainedBy();
 	if (m_locomotorGoalType == POSITION_EXPLICIT || m_locomotorGoalType == POSITION_EXPLICIT_HORDE)
 	{
 		Real maxSpeed = 99999.0f;
 		if (container && container->getContain() && container->getContain()->slot31()
 			&& container->getContain()->slot31()->slot105())
 		{
-			obj->setModelConditionState(MODELCONDITION_156);
+			object->setModelConditionState(MODELCONDITION_156);
 		}
-		Rva001E46E1 *loco = m_curLocomotor;
-		if (loco)
+		Rva001E46E1 *locomotor = m_curLocomotor;
+		if (locomotor)
 		{
-			if (obj->isKindOf(KINDOF_156))
-				maxSpeed = ((Rva001E3E6D *)loco)->rva001E3E6D((Rva001E3E6DArg *)obj);
+			if (object->isKindOf(KINDOF_156))
+				maxSpeed = ((Rva001E3E6D *)locomotor)->rva001E3E6D((Rva001E3E6DArg *)object);
 			else
-				maxSpeed = ((Locomotor *)loco)->getMaxSpeed(obj);
+				maxSpeed = ((Locomotor *)locomotor)->getMaxSpeed(object);
 		}
 
 		Coord3D pos;
-		static_cast<C3 &>(pos).Set(*obj->getPosition());
-		Coord3D oldPos;
-		static_cast<C3 &>(oldPos).Set(pos);
+		static_cast<C3 &>(pos).Set(*object->getPosition());
+		Coord3D previousPosition;
+		static_cast<C3 &>(previousPosition).Set(pos);
 		if (m_locomotorGoalType != POSITION_EXPLICIT_HORDE || m_path == NULL)
 		{
 			const Coord3D *goal = &m_locomotorGoalData;
@@ -597,23 +597,23 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 				delta.normalize();
 				static_cast<C3 &>(delta).Scale(maxSpeed);
 				static_cast<C3 &>(pos).Add(delta);
-				obj->setModelConditionState(MODELCONDITION_61);
+				object->setModelConditionState(MODELCONDITION_61);
 			}
 			else
 			{
 				pos = m_locomotorGoalData;
 			}
 
-			if (TheAI->pathfinder()->IsValidMovementPositionForObject(obj->getPosition(), obj->rva0028B511(), getValidSurfaces(), obj)
-				&& !TheAI->pathfinder()->IsValidHordeMemberRegularMovement(obj, obj->getPosition(), &pos, &m_locomotorGoalData))
+			if (TheAI->pathfinder()->IsValidMovementPositionForObject(object->getPosition(), object->rva0028B511(), getValidSurfaces(), object)
+				&& !TheAI->pathfinder()->IsValidHordeMemberRegularMovement(object, object->getPosition(), &pos, &m_locomotorGoalData))
 			{
 				if (m_path)
 				{
 					delete m_path;
 					m_path = NULL;
 				}
-				TheAI->pathfinder()->AdjustLayer(obj);
-				m_path = TheAI->pathfinder()->GetHordeUnitPath(obj, &m_locomotorGoalData);
+				TheAI->pathfinder()->AdjustLayer(object);
+				m_path = TheAI->pathfinder()->GetHordeUnitPath(object, &m_locomotorGoalData);
 				if (m_path == NULL)
 					pos = m_locomotorGoalData;
 			}
@@ -621,23 +621,23 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 
 		if (m_locomotorGoalType == POSITION_EXPLICIT_HORDE && m_path)
 		{
-			Rva003642DFResult info = m_path->rva00364521((const Rva0008BB38FloatField *)m_curLocomotor);
+			Rva003642DFResult pathInfo = m_path->rva00364521((const Rva0008BB38FloatField *)m_curLocomotor);
 			if (((Rva001E3591 *)m_path)->rva001E3591())
 			{
 				m_locomotorGoalType = POSITION_ON_PATH;
 				doLocomotor();
 				m_locomotorGoalType = POSITION_EXPLICIT_HORDE;
 				if (m_path)
-					((Rva0028B525DwordSlot *)obj)->set(TheTerrainLogic->getLayerForDestination(obj, &m_path->m_08->m_pos));
+					((Rva0028B525DwordSlot *)object)->set(TheTerrainLogic->getLayerForDestination(object, &m_path->m_08->m_pos));
 			}
 			else
 			{
-				TheAI->pathfinder()->AdjustLayer(obj);
-				((Locomotor *)m_curLocomotor)->rva001E9083(obj, &info.m_pos,
-					getPathExtraDistance() + ((Rva00363D20 *)&info)->rva00363D20(), maxSpeed * 1.5f);
+				TheAI->pathfinder()->AdjustLayer(object);
+				((Locomotor *)m_curLocomotor)->rva001E9083(object, &pathInfo.m_pos,
+					getPathExtraDistance() + ((Rva00363D20 *)&pathInfo)->rva00363D20(), maxSpeed * 1.5f);
 			}
-			obj->setModelConditionState(MODELCONDITION_61);
-			if (info.m_node == NULL || info.m_node->m_08 == NULL)
+			object->setModelConditionState(MODELCONDITION_61);
+			if (pathInfo.m_node == NULL || pathInfo.m_node->m_08 == NULL)
 			{
 				delete m_path;
 				m_path = NULL;
@@ -646,89 +646,89 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 		}
 
 		Matrix3D mtx(true);
-		Real angle = obj->getOrientation() + obj->GetRelativeAngle(&m_locomotorGoalData);
-		if ((obj->getTemplate()->m_kindof[KINDOF_9 >> 5] & (1U << (KINDOF_9 & 0x1f))))
+		Real angle = object->getOrientation() + object->GetRelativeAngle(&m_locomotorGoalData);
+		if ((object->getTemplate()->m_kindof[KINDOF_9 >> 5] & (1U << (KINDOF_9 & 0x1f))))
 		{
-			Real relAngle = obj->GetRelativeAngle(&m_locomotorGoalData);
+			Real relAngle = object->GetRelativeAngle(&m_locomotorGoalData);
 			Coord3D offset;
-			offset.x = obj->getPosition()->x;
-			offset.y = obj->getPosition()->y;
-			offset.z = obj->getPosition()->z;
+			offset.x = object->getPosition()->x;
+			offset.y = object->getPosition()->y;
+			offset.z = object->getPosition()->z;
 			coordSub(&offset, &m_locomotorGoalData);
 			Real factor = offset.GetLength2D() * 0.05f;
 			if (factor < 1.0f)
 			{
 				relAngle *= factor;
-				angle = obj->getOrientation() + relAngle;
+				angle = object->getOrientation() + relAngle;
 			}
 		}
-		if (obj->isKindOf(KINDOF_156))
+		if (object->isKindOf(KINDOF_156))
 		{
-			Object *goal = obj->getContainedBy()->getAI()->getStateMachine()->getGoalObject();
+			Object *goal = object->getContainedBy()->getAI()->getStateMachine()->getGoalObject();
 			if (goal)
-				angle = obj->getOrientation() + obj->GetRelativeAngle(goal->getPosition());
+				angle = object->getOrientation() + object->GetRelativeAngle(goal->getPosition());
 			else
 				angle += PI;
 		}
 		mtx.rotateZ(angle);
-		((Rva0028B525DwordSlot *)obj)->set(TheTerrainLogic->getLayerForDestination(obj, &pos));
+		((Rva0028B525DwordSlot *)object)->set(TheTerrainLogic->getLayerForDestination(object, &pos));
 
 		if (m_locomotorGoalType != POSITION_EXPLICIT_HORDE || m_path == NULL)
 		{
-			if (TheAI->pathfinder()->IsValidMovementPositionForObject(&pos, obj->rva0028B511(), getValidSurfaces(), getObject()))
+			if (TheAI->pathfinder()->IsValidMovementPositionForObject(&pos, object->rva0028B511(), getValidSurfaces(), getObject()))
 			{
-				Real groundZ = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)obj->rva0028B511());
+				Real groundZ = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)object->rva0028B511());
 				if (groundZ > pos.z)
 				{
 					pos.z = groundZ;
 				}
-				else if (obj->rva0028B511() == LAYER_16 && pos.z - groundZ < 20.0f)
+				else if (object->rva0028B511() == LAYER_16 && pos.z - groundZ < 20.0f)
 				{
 					pos.z = maxOf(pos.z - 9.0f, groundZ);
 				}
-				if (obj->rva0028B511() == LAYER_GROUND && container && container->rva0028B511() == LAYER_GROUND)
+				if (object->rva0028B511() == LAYER_GROUND && container && container->rva0028B511() == LAYER_GROUND)
 					pos.z = groundZ;
 			}
 		}
 
 		mtx.setTranslation(pos);
-		obj->setTransformMatrix(&mtx);
+		object->setTransformMatrix(&mtx);
 		{
-			Coord3D moved;
-			moved.x = pos.x;
-			moved.y = pos.y;
-			moved.z = pos.z;
-			coordSub(&moved, &oldPos);
-			Real dist = moved.GetLength();
+			Coord3D movementDelta;
+			movementDelta.x = pos.x;
+			movementDelta.y = pos.y;
+			movementDelta.z = pos.z;
+			coordSub(&movementDelta, &previousPosition);
+			Real dist = movementDelta.GetLength();
 			if (dist > maxSpeed)
 				dist = maxSpeed;
-			m_curLocomotor->rva001E53D8(dist, obj);
+			m_curLocomotor->rva001E53D8(dist, object);
 		}
 		return UPDATE_SLEEP_NONE;
 	}
 	else if (m_locomotorGoalType == ANGLE)
 	{
-		Real angle = obj->getOrientation();
+		Real angle = object->getOrientation();
 		Real goalAngle = m_locomotorGoalData.x;
 		Real angleDiff = normalizeAngle(angle - goalAngle);
 		if (angleDiff > -REAL_EPSILON && angleDiff < REAL_EPSILON)
 		{
-			obj->clearModelConditionState(MODELCONDITION_61);
-			obj->clearModelConditionState(MODELCONDITION_134);
-			obj->clearModelConditionState(MODELCONDITION_133);
+			object->clearModelConditionState(MODELCONDITION_61);
+			object->clearModelConditionState(MODELCONDITION_134);
+			object->clearModelConditionState(MODELCONDITION_133);
 			m_locomotorGoalType = NONE;
 			return UPDATE_SLEEP_NONE;
 		}
-		obj->setModelConditionState(MODELCONDITION_61);
+		object->setModelConditionState(MODELCONDITION_61);
 		if (m_curLocomotor)
 		{
-			Real turnRate = ((Locomotor *)m_curLocomotor)->getMaxTurnRate(obj);
+			Real turnRate = ((Locomotor *)m_curLocomotor)->getMaxTurnRate(object);
 			if (angleDiff > turnRate / 2.0f)
-				obj->setModelConditionState(MODELCONDITION_134);
+				object->setModelConditionState(MODELCONDITION_134);
 			else if (angleDiff < -turnRate / 2.0f)
-				obj->setModelConditionState(MODELCONDITION_133);
+				object->setModelConditionState(MODELCONDITION_133);
 		}
-		obj->setOrientation(m_locomotorGoalData.x);
+		object->setOrientation(m_locomotorGoalData.x);
 		return UPDATE_SLEEP_NONE;
 	}
 	return (UpdateSleepTime)BfmeLogicFramesPerSecond;

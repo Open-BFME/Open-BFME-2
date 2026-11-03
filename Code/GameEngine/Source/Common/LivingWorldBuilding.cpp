@@ -46,10 +46,10 @@ protected:
 	T &whereToRestore;
 
 public:
-	LatchRestore(T &dest, const T &src) : whereToRestore(dest)
+	LatchRestore(T &destination, const T &src) : whereToRestore(destination)
 	{
-		valueToRestore = dest;
-		dest = src;
+		valueToRestore = destination;
+		destination = src;
 	}
 
 	virtual ~LatchRestore()
@@ -169,8 +169,8 @@ extern Rva002B7250 g_00E04424;
 class Rva004E0B60
 {
 public:
-	void rva004E0B60(Rva004EFour f, int e);
-	void rva004E0B9B(Rva004EFour f, int e1, int e2);
+	void rva004E0B60(Rva004EFour callbackWords, int e);
+	void rva004E0B9B(Rva004EFour callbackWords, int firstCallbackArgument, int secondCallbackArgument);
 	void rva004E0C49();
 	void rva004E0CA3();
 	bool rva004E0CCB();
@@ -738,9 +738,9 @@ int Rva004E0632::rva004E0632() const
 
 void Rva004E06A7::rva004E06A7() const
 {
-	int raw = ((const Rva004E0632 *)this)->rva004E0632();
-	if (raw != 0)
-		((Rva004E06A7Target *)raw)->v5();
+	int targetAddress = ((const Rva004E0632 *)this)->rva004E0632();
+	if (targetAddress != 0)
+		((Rva004E06A7Target *)targetAddress)->v5();
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004E0705Find.cpp
@@ -785,9 +785,9 @@ void Rva004E0750::rva004E0750() const
 
 // ---- from Code/GameEngine/Source/Common/Rva004E075FGet.cpp
 
-int Rva004E075FGet(Rva004E075FObj *o, int a)
+int Rva004E075FGet(Rva004E075FObj *propertyObject, int a)
 {
-	return o->v37("LivingWorldBuildingID", a, 4);
+	return propertyObject->v37("LivingWorldBuildingID", a, 4);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004E0790Release.cpp
@@ -836,14 +836,14 @@ void LivingWorldBuilding::rva004E0860(Rva003F7BB4 *b)
 	Rva004E0809Elem **end = m_end;
 	for (Rva004E0809Elem **p = m_begin; p != end; ++p)
 		(*p)->vf5(b);
-	Rva004E0790 *pe = &m_3c;
-	if (pe->m_ptr == 0)
+	Rva004E0790 *entryReference = &m_3c;
+	if (entryReference->m_ptr == 0)
 		return;
 	if (m_28->m_flag == 0)
 		return;
 	if (m_24 != b->m_0)
 		return;
-	b->rva003F7BB4((Rva003F7B22Element &)*pe);
+	b->rva003F7BB4((Rva003F7B22Element &)*entryReference);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004E08A9Gate.cpp
@@ -876,31 +876,31 @@ void Rva004E0790::rva004E08F6(Rva004E0790Inner *p)
 // ?rva004E0ADB@Rva004E0918@@QAEXURva004EFour@@H@Z @0x004E0ADB 39B.
 void Rva004E0918::rva004E0ADB(Rva004EFour f, int e)
 {
-	Rva004E20Packet pkt;
-	pkt.f = f;
-	pkt.e = e;
-	rva004E0918(&pkt);
+	Rva004E20Packet packet;
+	packet.f = f;
+	packet.e = e;
+	rva004E0918(&packet);
 }
 
 void Rva004E0918::rva004E0B02(Rva004EFour f, int e1, int e2)
 {
-	Rva004E24Packet pkt;
-	pkt.f = f;
-	pkt.e1 = e1;
-	pkt.e2 = e2;
-	rva004E0988(&pkt);
+	Rva004E24Packet packet;
+	packet.f = f;
+	packet.e1 = e1;
+	packet.e2 = e2;
+	rva004E0988(&packet);
 }
 
-void Rva004E0B60::rva004E0B60(Rva004EFour f, int e)
+void Rva004E0B60::rva004E0B60(Rva004EFour callbackWords, int e)
 {
-	m_08.rva004E0ADB(f, e);
-	((Rva004E0918 *)&g_00E04424)->rva004E0ADB(f, e);
+	m_08.rva004E0ADB(callbackWords, e);
+	((Rva004E0918 *)&g_00E04424)->rva004E0ADB(callbackWords, e);
 }
 
-void Rva004E0B60::rva004E0B9B(Rva004EFour f, int e1, int e2)
+void Rva004E0B60::rva004E0B9B(Rva004EFour callbackWords, int firstCallbackArgument, int secondCallbackArgument)
 {
-	m_08.rva004E0B02(f, e1, e2);
-	((Rva004E0918 *)&g_00E04424)->rva004E0B02(f, e1, e2);
+	m_08.rva004E0B02(callbackWords, firstCallbackArgument, secondCallbackArgument);
+	((Rva004E0918 *)&g_00E04424)->rva004E0B02(callbackWords, firstCallbackArgument, secondCallbackArgument);
 }
 
 void Rva004E0B60::rva004E0C49()
@@ -912,8 +912,8 @@ void Rva004E0B60::rva004E0C49()
 	NativeBuildingObserverCallback callback;
 	callback.one = &Rva004ECallbackSlots::notify0;
 	callback.words.d = callback.words.c = callback.words.b = 0;
-	Rva004EFour f = callback.words;
-	rva004E0B60(f, (int)this);
+	Rva004EFour callbackWords = callback.words;
+	rva004E0B60(callbackWords, (int)this);
 }
 
 // ?rva004E0CA3@Rva004E0B60@@QAEXXZ @0x004E0CA3 19B.
@@ -930,8 +930,8 @@ bool Rva004E0B60::rva004E0CCB()
 	NativeBuildingObserverCallback callback;
 	callback.one = &Rva004ECallbackSlots::notify2;
 	callback.words.d = callback.words.c = callback.words.b = 0;
-	Rva004EFour f = callback.words;
-	rva004E0B60(f, (int)this);
+	Rva004EFour callbackWords = callback.words;
+	rva004E0B60(callbackWords, (int)this);
 	if (((Rva004E0705 *)this)->rva004E08A9(true))
 	{
 		((LivingWorldBuilding *)this)->createGhostObject();
@@ -945,8 +945,8 @@ void Rva004E0B60::rva004E0D19(int arg)
 	NativeBuildingObserverCallback callback;
 	callback.two = &Rva004ECallbackSlots::notify3;
 	callback.words.d = callback.words.c = callback.words.b = 0;
-	Rva004EFour f = callback.words;
-	rva004E0B9B(f, (int)this, arg);
+	Rva004EFour callbackWords = callback.words;
+	rva004E0B9B(callbackWords, (int)this, arg);
 }
 
 // ?rva004E0CB6@Rva004E0B60@@QAEXXZ @ 0x004E0CB6 (21B).
@@ -1055,10 +1055,10 @@ void LivingWorldBuilding::createGhostObject()
 	if (!m_2C)
 		return;
 	((Rva0023D2D8DwordClearer *)m_2C)->clear();
-	int val;
-	memset(&val, 0, 4);
-	val |= 1;
-	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)m_2C, val);
+	int amount;
+	memset(&amount, 0, 4);
+	amount |= 1;
+	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)m_2C, amount);
 	m_2C = 0;
 }
 

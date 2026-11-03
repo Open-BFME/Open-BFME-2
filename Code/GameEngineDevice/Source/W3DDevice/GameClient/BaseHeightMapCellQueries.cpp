@@ -61,83 +61,83 @@ bool BaseHeightMapRenderObjClass::isCliffCell(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
-	if (iX < 0) iX = 0;
-	if (iY < 0) iY = 0;
-	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
-	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
-	return ((Gen_0074BA50 *)m_map)->bfmeBitA(iX, iY);
+	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (cellX < 0) cellX = 0;
+	if (cellY < 0) cellY = 0;
+	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
+	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	return ((Gen_0074BA50 *)m_map)->bfmeBitA(cellX, cellY);
 }
 
 bool BaseHeightMapRenderObjClass::rva00067298(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
-	if (iX < 0) iX = 0;
-	if (iY < 0) iY = 0;
-	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
-	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
-	return ((Gen_0074BB30 *)m_map)->bfmeBitA(iX, iY);
+	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (cellX < 0) cellX = 0;
+	if (cellY < 0) cellY = 0;
+	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
+	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	return ((Gen_0074BB30 *)m_map)->bfmeBitA(cellX, cellY);
 }
 
 unsigned char BaseHeightMapRenderObjClass::rva00067225(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
-	if (iX < 0) iX = 0;
-	if (iY < 0) iY = 0;
-	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
-	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
-	return ((BfmeGridWM *)m_map)->rva000AE18D(iX, iY);
+	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (cellX < 0) cellX = 0;
+	if (cellY < 0) cellY = 0;
+	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
+	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	return ((BfmeGridWM *)m_map)->rva000AE18D(cellX, cellY);
 }
 
 unsigned char BaseHeightMapRenderObjClass::rva0006730B(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
-	if (iX < 0) iX = 0;
-	if (iY < 0) iY = 0;
-	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
-	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
-	return (unsigned char)((Rva000AE234 *)m_map)->rva000AE234(iX, iY);
+	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (cellX < 0) cellX = 0;
+	if (cellY < 0) cellY = 0;
+	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
+	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	return (unsigned char)((Rva000AE234 *)m_map)->rva000AE234(cellX, cellY);
 }
 
 bool BaseHeightMapRenderObjClass::rva0006B114(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
-	if (iX < 0) iX = 0;
-	if (iY < 0) iY = 0;
-	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
-	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
-	return ((Rva0006AB49BitPlane *)m_map)->test(iX, iY);
+	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (cellX < 0) cellX = 0;
+	if (cellY < 0) cellY = 0;
+	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
+	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	return ((Rva0006AB49BitPlane *)m_map)->test(cellX, cellY);
 }
 
 unsigned char BaseHeightMapRenderObjClass::rva0006B187(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
-	if (iX < 0) iX = 0;
-	if (iY < 0) iY = 0;
-	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
-	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
-	return ((Rva0006AB98 *)m_map)->rva0006AB98(iX, iY);
+	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (cellX < 0) cellX = 0;
+	if (cellY < 0) cellY = 0;
+	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
+	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	return ((Rva0006AB98 *)m_map)->rva0006AB98(cellX, cellY);
 }
 
 float BaseHeightMapRenderObjClass::getMaxCellHeight(float x, float y) const
 {
-	float p0,p1,p2,p3;
+	float baseCornerHeight,adjacentXHeight,diagonalHeight,adjacentYHeight;
 	float height;
 	WorldHeightMap *logicHeightMap = m_map;
 	_ReadWriteBarrier();
@@ -147,29 +147,29 @@ float BaseHeightMapRenderObjClass::getMaxCellHeight(float x, float y) const
 
 	int offset = 1;
 	int borderSize = m_map->getBorderSizeInline();
-	int iX = borderSize - (int)(x * -0.1f);
-	int iY = borderSize - (int)(y * -0.1f);
-	if (iX<0) iX = 0;
-	if (iY<0) iY = 0;
-	if (iX >= (logicHeightMap->getXExtent()-1)) {
-		iX = logicHeightMap->getXExtent()-2;
+	int cellX = borderSize - (int)(x * -0.1f);
+	int cellY = borderSize - (int)(y * -0.1f);
+	if (cellX<0) cellX = 0;
+	if (cellY<0) cellY = 0;
+	if (cellX >= (logicHeightMap->getXExtent()-1)) {
+		cellX = logicHeightMap->getXExtent()-2;
 	}
-	if (iY >= (logicHeightMap->getYExtent()-1)) {
-		iY = logicHeightMap->getYExtent()-2;
+	if (cellY >= (logicHeightMap->getYExtent()-1)) {
+		cellY = logicHeightMap->getYExtent()-2;
 	}
 	register unsigned short *data;
 	_ReadWriteBarrier();
 	data = logicHeightMap->getDataPtr();
 	int xExtent = m_map->getXExtent();
-	p0=data[iX+iY*xExtent]*0.0390625f;
-	p1=data[(iX+offset)+iY*xExtent]*0.0390625f;
-	p2=data[(iX+offset)+(iY+offset)*xExtent]*0.0390625f;
-	p3=data[iX+(iY+offset)*xExtent]*0.0390625f;
+	baseCornerHeight=data[cellX+cellY*xExtent]*0.0390625f;
+	adjacentXHeight=data[(cellX+offset)+cellY*xExtent]*0.0390625f;
+	diagonalHeight=data[(cellX+offset)+(cellY+offset)*xExtent]*0.0390625f;
+	adjacentYHeight=data[cellX+(cellY+offset)*xExtent]*0.0390625f;
 
-	height=p0;
-	height=__max(height,p1);
-	height=__max(height,p2);
-	height=__max(height,p3);
+	height=baseCornerHeight;
+	height=__max(height,adjacentXHeight);
+	height=__max(height,diagonalHeight);
+	height=__max(height,adjacentYHeight);
 
 	return height;
 }

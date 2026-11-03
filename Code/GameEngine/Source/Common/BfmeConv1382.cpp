@@ -28,25 +28,25 @@ void * g_bfmeVJC;
 class BfmeThingVJC
 {
 public:
-	void bfmeGoVJC(BfmeMsgVJC *m, int ratingMin, int ratingMax, int downloadMin, int downloadMax, void *a, void *b);
+	void bfmeGoVJC(BfmeMsgVJC *message, int ratingMin, int ratingMax, int downloadMin, int downloadMax, void *searchCount, void *searchData);
 };
 
-void BfmeThingVJC::bfmeGoVJC(BfmeMsgVJC *m, int ratingMin, int ratingMax, int downloadMin, int downloadMax, void *a, void *b)
+void BfmeThingVJC::bfmeGoVJC(BfmeMsgVJC *message, int ratingMin, int ratingMax, int downloadMin, int downloadMax, void *searchCount, void *searchData)
 {
-	void *g = g_bfmeVJC;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007F1800Search *)this)->serialize((Rva007E8810Message *)m,
-		(int)(unsigned long)a, b);
+	void *transactionName = g_bfmeVJC;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007F1800Search *)this)->serialize((Rva007E8810Message *)message,
+		(int)(unsigned long)searchCount, searchData);
 	if (ratingMin > -1)
-		((Rva007E8810Message *)m)->addInt("ratingMin", ratingMin);
+		((Rva007E8810Message *)message)->addInt("ratingMin", ratingMin);
 	if (ratingMax > -1)
-		((Rva007E8810Message *)m)->addInt("ratingMax", ratingMax);
+		((Rva007E8810Message *)message)->addInt("ratingMax", ratingMax);
 	if (downloadMin > -1)
-		((Rva007E8810Message *)m)->addInt("downloadMin", downloadMin);
+		((Rva007E8810Message *)message)->addInt("downloadMin", downloadMin);
 	if (downloadMax > -1)
-		((Rva007E8810Message *)m)->addInt("downloadMax", downloadMax);
+		((Rva007E8810Message *)message)->addInt("downloadMax", downloadMax);
 }
 
 extern void *g_bfmeVJD;
@@ -56,25 +56,25 @@ void * g_bfmeVJD;
 class BfmeThingVJD
 {
 public:
-	void bfmeGoVJD(BfmeMsgVJC *m, int ratingMin, int ratingMax, int topN, int periodType, int periodsPast, void *b);
+	void bfmeGoVJD(BfmeMsgVJC *message, int ratingMin, int ratingMax, int topN, int periodType, int periodsPast, void *searchData);
 };
 
-void BfmeThingVJD::bfmeGoVJD(BfmeMsgVJC *m, int ratingMin, int ratingMax, int topN, int periodType, int periodsPast, void *b)
+void BfmeThingVJD::bfmeGoVJD(BfmeMsgVJC *message, int ratingMin, int ratingMax, int topN, int periodType, int periodsPast, void *searchData)
 {
-	void *g = g_bfmeVJD;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007F1800Search *)this)->serialize((Rva007E8810Message *)m,
-		topN, b);
+	void *transactionName = g_bfmeVJD;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007F1800Search *)this)->serialize((Rva007E8810Message *)message,
+		topN, searchData);
 	if (ratingMin > -1)
-		((Rva007E8810Message *)m)->addInt("ratingMin", ratingMin);
+		((Rva007E8810Message *)message)->addInt("ratingMin", ratingMin);
 	if (ratingMax > -1)
-		((Rva007E8810Message *)m)->addInt("ratingMax", ratingMax);
+		((Rva007E8810Message *)message)->addInt("ratingMax", ratingMax);
 	if (topN > 0)
-		((Rva007E8810Message *)m)->addInt("topN", topN);
+		((Rva007E8810Message *)message)->addInt("topN", topN);
 	if (periodType > -1)
-		((Rva007E8810Message *)m)->addInt("periodType", periodType);
+		((Rva007E8810Message *)message)->addInt("periodType", periodType);
 	if (periodsPast > -1)
-		((Rva007E8810Message *)m)->addInt("periodsPast", periodsPast);
+		((Rva007E8810Message *)message)->addInt("periodsPast", periodsPast);
 }

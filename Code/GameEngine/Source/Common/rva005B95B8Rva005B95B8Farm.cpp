@@ -44,27 +44,27 @@ float getWinShare(int *selected, int category)
 	int totalGames = g_Va00E06484.losses[category] + g_Va00E06484.wins[category];
 	float winPercent = float(g_Va00E06484.wins[category] * 100) / float(onlineHomeMax(totalGames, 1));
 
-	int t1 = g_Va00E064A4.losses[category] + g_Va00E064A4.wins[category];
-	float r1 = float(g_Va00E064A4.wins[category] * 100) / float(onlineHomeMax(t1, 1));
+	int secondFactionTotalGames = g_Va00E064A4.losses[category] + g_Va00E064A4.wins[category];
+	float secondFactionWinPercent = float(g_Va00E064A4.wins[category] * 100) / float(onlineHomeMax(secondFactionTotalGames, 1));
 
-	int t2 = g_Va00E064C4.losses[category] + g_Va00E064C4.wins[category];
-	float r2 = float(g_Va00E064C4.wins[category] * 100) / float(onlineHomeMax(t2, 1));
+	int thirdFactionTotalGames = g_Va00E064C4.losses[category] + g_Va00E064C4.wins[category];
+	float thirdFactionWinPercent = float(g_Va00E064C4.wins[category] * 100) / float(onlineHomeMax(thirdFactionTotalGames, 1));
 
-	int t3 = g_Va00E064E4.losses[category] + g_Va00E064E4.wins[category];
-	float r3 = float(g_Va00E064E4.wins[category] * 100) / float(onlineHomeMax(t3, 1));
+	int fourthFactionTotalGames = g_Va00E064E4.losses[category] + g_Va00E064E4.wins[category];
+	float fourthFactionWinPercent = float(g_Va00E064E4.wins[category] * 100) / float(onlineHomeMax(fourthFactionTotalGames, 1));
 
-	int t4 = g_Va00E06504.losses[category] + g_Va00E06504.wins[category];
-	float r4 = float(g_Va00E06504.wins[category] * 100) / float(onlineHomeMax(t4, 1));
+	int fifthFactionTotalGames = g_Va00E06504.losses[category] + g_Va00E06504.wins[category];
+	float fifthFactionWinPercent = float(g_Va00E06504.wins[category] * 100) / float(onlineHomeMax(fifthFactionTotalGames, 1));
 
-	int t5 = g_Va00E06524.losses[category] + g_Va00E06524.wins[category];
-	float r5 = float(g_Va00E06524.wins[category] * 100) / float(onlineHomeMax(t5, 1));
+	int sixthFactionTotalGames = g_Va00E06524.losses[category] + g_Va00E06524.wins[category];
+	float sixthFactionWinPercent = float(g_Va00E06524.wins[category] * 100) / float(onlineHomeMax(sixthFactionTotalGames, 1));
 
-	FactionStatBlock *sel = reinterpret_cast<FactionStatBlock *>(selected);
-	int ts = sel->losses[category] + sel->wins[category];
-	float rs = float(sel->wins[category] * 100) / float(onlineHomeMax(ts, 1));
+	FactionStatBlock *selectedFaction = reinterpret_cast<FactionStatBlock *>(selected);
+	int selectedTotalGames = selectedFaction->losses[category] + selectedFaction->wins[category];
+	float selectedWinPercent = float(selectedFaction->wins[category] * 100) / float(onlineHomeMax(selectedTotalGames, 1));
 
-	float sum = r5 + r4 + r3 + r2 + r1 + winPercent;
-	return rs / onlineHomeMax(sum, 1.0f) * 100.0f;
+	float sum = sixthFactionWinPercent + fifthFactionWinPercent + fourthFactionWinPercent + thirdFactionWinPercent + secondFactionWinPercent + winPercent;
+	return selectedWinPercent / onlineHomeMax(sum, 1.0f) * 100.0f;
 }
 
 namespace AptOnline
@@ -81,19 +81,19 @@ void AptOnline::OnlineHome::rva005B95B8()
 	float callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E06484), 3);
 	int winShareScaled = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064A4), 3);
-	int b = int(callResult * 100.0f);
+	int secondFactionShareScaled = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064C4), 3);
-	int c = int(callResult * 100.0f);
+	int thirdFactionShareScaled = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E064E4), 3);
-	int d = int(callResult * 100.0f);
+	int fourthFactionShareScaled = int(callResult * 100.0f);
 	callResult = getWinShare(reinterpret_cast<int *>(&g_Va00E06504), 3);
-	int e = int(callResult * 100.0f);
-	int remainder = 10000 - e - d - c - b - winShareScaled;
+	int fifthFactionShareScaled = int(callResult * 100.0f);
+	int remainder = 10000 - fifthFactionShareScaled - fourthFactionShareScaled - thirdFactionShareScaled - secondFactionShareScaled - winShareScaled;
 	AptOnlineHome *home = reinterpret_cast<AptOnlineHome *>(this);
 	home->rva005B947D(6, winShareScaled / 100, (winShareScaled % 100) / 10);
-	home->rva005B947D(7, b / 100, (b % 100) / 10);
-	home->rva005B947D(8, c / 100, (c % 100) / 10);
-	home->rva005B947D(9, d / 100, (d % 100) / 10);
-	home->rva005B947D(10, e / 100, (e % 100) / 10);
+	home->rva005B947D(7, secondFactionShareScaled / 100, (secondFactionShareScaled % 100) / 10);
+	home->rva005B947D(8, thirdFactionShareScaled / 100, (thirdFactionShareScaled % 100) / 10);
+	home->rva005B947D(9, fourthFactionShareScaled / 100, (fourthFactionShareScaled % 100) / 10);
+	home->rva005B947D(10, fifthFactionShareScaled / 100, (fifthFactionShareScaled % 100) / 10);
 	home->rva005B947D(11, remainder / 100, (remainder % 100) / 10);
 }

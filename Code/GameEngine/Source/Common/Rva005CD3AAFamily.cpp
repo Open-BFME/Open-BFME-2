@@ -11,7 +11,7 @@ struct BfmeRefPtr
 {
 	TargetRef00217D4C *m_ptr;
 
-	BfmeRefPtr(TargetRef00217D4C *p = 0) : m_ptr(p)
+	BfmeRefPtr(TargetRef00217D4C *target = 0) : m_ptr(target)
 	{
 		if (m_ptr)
 			++m_ptr->references;
@@ -57,18 +57,18 @@ public:
 	char m_pad[0x24 - sizeof(TargetRef00217D4C)];
 };
 
-void rva005CD3AA(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
+void rva005CD3AA(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *textSource)
 {
-	BfmeRefPtr item(new Rva005CD257(container, p1, p2, p3, p4));
+	BfmeRefPtr item(new Rva005CD257(container, p1, p2, p3, textSource));
 	{
 		BfmeRefPtr copy(item);
 		container->AddItem(&copy);
 	}
 }
 
-void rva005CD43D(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
+void rva005CD43D(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *textSource)
 {
-	BfmeRefPtr item(new Rva005CD2A3(container, p1, p2, p3, p4));
+	BfmeRefPtr item(new Rva005CD2A3(container, p1, p2, p3, textSource));
 	{
 		BfmeRefPtr copy(item);
 		container->AddItem(&copy);
@@ -82,18 +82,18 @@ public:
 	char m_pad[0x24 - sizeof(TargetRef00217D4C)];
 };
 
-void rva005CD4D0(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
+void rva005CD4D0(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *textSource)
 {
-	BfmeRefPtr item(new Rva005CD2EF(container, p1, p2, p3, p4));
+	BfmeRefPtr item(new Rva005CD2EF(container, p1, p2, p3, textSource));
 	{
 		BfmeRefPtr copy(item);
 		container->AddItem(&copy);
 	}
 }
 
-void rva005CD563(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
+void rva005CD563(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *textSource)
 {
-	BfmeRefPtr item(new Rva005CDMorph(container, p1, p2, p3, p4));
+	BfmeRefPtr item(new Rva005CDMorph(container, p1, p2, p3, textSource));
 	{
 		BfmeRefPtr copy(item);
 		container->AddItem(&copy);

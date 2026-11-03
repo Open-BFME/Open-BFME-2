@@ -18,17 +18,17 @@ void * g_bfmeVIR;
 class BfmeThingVIR
 {
 public:
-	void bfmeGoVIR(BfmeMsgVIR *m, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c);
+	void bfmeGoVIR(BfmeMsgVIR *message, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c);
 	void bfmeSendVIR(BfmeMsgVIR *m, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c);
 };
 
-void BfmeThingVIR::bfmeGoVIR(BfmeMsgVIR *m, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c)
+void BfmeThingVIR::bfmeGoVIR(BfmeMsgVIR *message, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c)
 {
-	void *g = g_bfmeVIR;
-	m->bfmeRunVIR();
-	m->m_bfme1c = 0x72616e6b;
-	m->bfmeSetVIR("TXN", g);
-	bfmeSendVIR(m, o, n, a, b, c);
+	void *transactionName = g_bfmeVIR;
+	message->bfmeRunVIR();
+	message->m_bfme1c = 0x72616e6b;
+	message->bfmeSetVIR("TXN", transactionName);
+	bfmeSendVIR(message, o, n, a, b, c);
 }
 
 extern void *g_bfmeVIS;
@@ -38,15 +38,15 @@ void * g_bfmeVIS;
 class BfmeThingVIS
 {
 public:
-	void bfmeGoVIS(BfmeMsgVIR *m, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c);
+	void bfmeGoVIS(BfmeMsgVIR *message, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c);
 	void bfmeSendVIS(BfmeMsgVIR *m, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c);
 };
 
-void BfmeThingVIS::bfmeGoVIS(BfmeMsgVIR *m, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c)
+void BfmeThingVIS::bfmeGoVIS(BfmeMsgVIR *message, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c)
 {
-	void *g = g_bfmeVIS;
-	m->bfmeRunVIR();
-	m->m_bfme1c = 0x72616e6b;
-	m->bfmeSetVIR("TXN", g);
-	bfmeSendVIS(m, o, n, a, b, c);
+	void *transactionName = g_bfmeVIS;
+	message->bfmeRunVIR();
+	message->m_bfme1c = 0x72616e6b;
+	message->bfmeSetVIR("TXN", transactionName);
+	bfmeSendVIS(message, o, n, a, b, c);
 }

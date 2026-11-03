@@ -70,20 +70,20 @@ void Rva005B9378::rva005BA02B()
 
 	int allowedMessages = TheGameSpyInfo->getMaxMessagesPerUpdate();
 	bool sawImportantMessage = false;
-	PeerResponse resp;
-	while (allowedMessages-- && !sawImportantMessage && TheGameSpyPeerMessageQueue->getResponse(resp))
+	PeerResponse peerResponse;
+	while (allowedMessages-- && !sawImportantMessage && TheGameSpyPeerMessageQueue->getResponse(peerResponse))
 	{
-		AptMessengerOnline::ProcessGameSpyResponse(&resp);
-		switch (resp.peerResponseType)
+		AptMessengerOnline::ProcessGameSpyResponse(&peerResponse);
+		switch (peerResponse.peerResponseType)
 		{
 		case 1:	// PEERRESPONSE_DISCONNECT
 			{
 				sawImportantMessage = true;
 				UnicodeString title, body;
-				AsciiString disconMunkee;
-				disconMunkee.format("GUI:GSDisconReason%d", resp.words[0]);
+				AsciiString disconnectReasonKey;
+				disconnectReasonKey.format("GUI:GSDisconReason%d", peerResponse.words[0]);
 				title = TheGameText->fetch("GUI:GSErrorTitle");
-				body = TheGameText->fetch(disconMunkee);
+				body = TheGameText->fetch(disconnectReasonKey);
 				Rva00548C1ACleanup();
 				GSMessageBoxOk(title, body, 0);
 				TheShell->pop();
@@ -91,8 +91,8 @@ void Rva005B9378::rva005BA02B()
 			}
 			break;
 		case 21:
-			rva005B942A(5, resp.words[6]);
-			rva005B942A(4, resp.words[7] < 1 ? 1 : resp.words[7]);
+			rva005B942A(5, peerResponse.words[6]);
+			rva005B942A(4, peerResponse.words[7] < 1 ? 1 : peerResponse.words[7]);
 			break;
 		}
 	}

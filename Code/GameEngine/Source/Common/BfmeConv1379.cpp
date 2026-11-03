@@ -47,13 +47,13 @@ extern void *g_bfmeEVIW;
 // g_bfmeEVIW: matched references place it at VA 0xe09f04 (zero-filled .bss).
 void * g_bfmeEVIW;
 
-void __stdcall bfmeGoAVIW(BfmeMsgVIW *m, void *a, void *b)
+void __stdcall bfmeGoAVIW(BfmeMsgVIW *message, void *blobIdLowWord, void *blobIdHighWord)
 {
-	void *g = g_bfmeAVIW;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addInt64("blobId", *(__int64 *)&a);
+	void *transactionName = g_bfmeAVIW;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addInt64("blobId", *(__int64 *)&blobIdLowWord);
 }
 
 // bfmeGoDVIW is the donor's D sibling: same blob category as AVIW plus a
@@ -62,14 +62,14 @@ void __stdcall bfmeGoAVIW(BfmeMsgVIW *m, void *a, void *b)
 // at 0x655B50/0x655AA0/0x655F00/0x655960, which fits only the DVIW source
 // (A/B/C/E take 3 args; the Rva007F3Ax0 _J-family takes int64 pairs).
 // BFME1 donor b1 0x007F1050, 3 DIR32 string literals agree.
-void __stdcall bfmeGoDVIW(BfmeMsgVIW *m, void *a, void *b, int rating)
+void __stdcall bfmeGoDVIW(BfmeMsgVIW *message, void *blobIdLowWord, void *blobIdHighWord, int rating)
 {
-	void *g = g_bfmeDVIW;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addInt64("blobId", *(__int64 *)&a);
-	((Rva007E8810Message *)m)->addInt("rating", rating);
+	void *transactionName = g_bfmeDVIW;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addInt64("blobId", *(__int64 *)&blobIdLowWord);
+	((Rva007E8810Message *)message)->addInt("rating", rating);
 }
 
 // Retail 0x6569E0 stamps 0x61636374 and calls Run/Set/Set4/Set4 at
@@ -78,30 +78,30 @@ void __stdcall bfmeGoDVIW(BfmeMsgVIW *m, void *a, void *b, int rating)
 // EVIW@0x656800 claim is corrected by this repoint -- that body pushes
 // TXN/password/newPassword and calls one setter thrice, which is the VIT
 // donor's shape, not this one (see BfmeConv1378.cpp).
-void __stdcall bfmeGoEVIW(BfmeMsgVIW *m, void *a, void *b)
+void __stdcall bfmeGoEVIW(BfmeMsgVIW *message, void *eaMailFlag, void *thirdPartyMailFlag)
 {
-	void *g = g_bfmeEVIW;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x61636374;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addBool("eaMailFlag", *(bool *)&a);
-	((Rva007E8810Message *)m)->addBool("thirdPartyMailFlag", *(bool *)&b);
+	void *transactionName = g_bfmeEVIW;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x61636374;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addBool("eaMailFlag", *(bool *)&eaMailFlag);
+	((Rva007E8810Message *)message)->addBool("thirdPartyMailFlag", *(bool *)&thirdPartyMailFlag);
 }
 
-void __stdcall bfmeGoBVIW(BfmeMsgVIW *m, void *a, void *b)
+void __stdcall bfmeGoBVIW(BfmeMsgVIW *message, void *blobIdLowWord, void *blobIdHighWord)
 {
-	void *g = g_bfmeBVIW;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addInt64("blobId", *(__int64 *)&a);
+	void *transactionName = g_bfmeBVIW;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addInt64("blobId", *(__int64 *)&blobIdLowWord);
 }
 
-void __stdcall bfmeGoCVIW(BfmeMsgVIW *m, void *a, void *b)
+void __stdcall bfmeGoCVIW(BfmeMsgVIW *message, void *blobIdLowWord, void *blobIdHighWord)
 {
-	void *g = g_bfmeCVIW;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)g);
-	((Rva007E8810Message *)m)->addInt64("blobId", *(__int64 *)&a);
+	void *transactionName = g_bfmeCVIW;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addInt64("blobId", *(__int64 *)&blobIdLowWord);
 }

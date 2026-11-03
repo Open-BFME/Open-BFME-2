@@ -47,46 +47,46 @@ public:
 	{
 		Rotate_Y(sinf(theta), cosf(theta));
 	}
-	__forceinline void Rotate_Y(float s, float c)
+	__forceinline void Rotate_Y(float sine, float cosine)
 	{
-		float tmp1, tmp2;
+		float rowX, rowZ;
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][2];
-		Row[0][0] = (float)(c*tmp1 - s*tmp2);
-		Row[0][2] = (float)(s*tmp1 + c*tmp2);
+		rowX = Row[0][0]; rowZ = Row[0][2];
+		Row[0][0] = (float)(cosine*rowX - sine*rowZ);
+		Row[0][2] = (float)(sine*rowX + cosine*rowZ);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][2];
-		Row[1][0] = (float)(c*tmp1 - s*tmp2);
-		Row[1][2] = (float)(s*tmp1 + c*tmp2);
+		rowX = Row[1][0]; rowZ = Row[1][2];
+		Row[1][0] = (float)(cosine*rowX - sine*rowZ);
+		Row[1][2] = (float)(sine*rowX + cosine*rowZ);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][2];
-		Row[2][0] = (float)(c*tmp1 - s*tmp2);
-		Row[2][2] = (float)(s*tmp1 + c*tmp2);
+		rowX = Row[2][0]; rowZ = Row[2][2];
+		Row[2][0] = (float)(cosine*rowX - sine*rowZ);
+		Row[2][2] = (float)(sine*rowX + cosine*rowZ);
 	}
 	__forceinline void Rotate_YAccumulated(float theta)
 	{
 		Rotate_YAccumulated(sinf(theta), cosf(theta));
 	}
-	__forceinline void Rotate_YAccumulated(float s, float c)
+	__forceinline void Rotate_YAccumulated(float sine, float cosine)
 	{
-		float tmp1, tmp2;
+		float rowX, rowZ;
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][2];
-		Row[0][0] = (float)(c*tmp1 - s*tmp2);
-		float sum0 = s*tmp1;
-		sum0 += c*tmp2;
+		rowX = Row[0][0]; rowZ = Row[0][2];
+		Row[0][0] = (float)(cosine*rowX - sine*rowZ);
+		float sum0 = sine*rowX;
+		sum0 += cosine*rowZ;
 		Row[0][2] = sum0;
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][2];
-		Row[1][0] = (float)(c*tmp1 - s*tmp2);
-		float sum1 = s*tmp1;
-		sum1 += c*tmp2;
+		rowX = Row[1][0]; rowZ = Row[1][2];
+		Row[1][0] = (float)(cosine*rowX - sine*rowZ);
+		float sum1 = sine*rowX;
+		sum1 += cosine*rowZ;
 		Row[1][2] = sum1;
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][2];
-		Row[2][0] = (float)(c*tmp1 - s*tmp2);
-		float sum2 = s*tmp1;
-		sum2 += c*tmp2;
+		rowX = Row[2][0]; rowZ = Row[2][2];
+		Row[2][0] = (float)(cosine*rowX - sine*rowZ);
+		float sum2 = sine*rowX;
+		sum2 += cosine*rowZ;
 		Row[2][2] = sum2;
 	}
 	static void Multiply(const Matrix3 &a, const Matrix3 &b, Matrix3 *res);
@@ -233,28 +233,28 @@ __declspec(dllimport) __forceinline Matrix3 Create_Z_Rotation_Matrix3(float rad)
 	return Create_Z_Rotation_Matrix3(sinf(rad), cosf(rad));
 }
 
-__forceinline void rva003F962FCopy(Coord3D &d, const Coord3D &s)
+__forceinline void rva003F962FCopy(Coord3D &destination, const Coord3D &source)
 {
-	d.x = s.x;
-	d.y = s.y;
-	d.z = s.z;
+	destination.x = source.x;
+	destination.y = source.y;
+	destination.z = source.z;
 }
 
 void LivingWorldEyeTower::rva003F962F()
 {
 	float z;
-	float len;
+	float horizontalDistance;
 	{
-		Coord3D dir;
-		rva003F962FCopy(dir, m_eye);
-		dir.x -= m_target.x;
-		dir.y -= m_target.y;
-		dir.z -= m_target.z;
-		z = dir.z;
-		dir.z = 0.0f;
-		len = dir.length();
+		Coord3D eyeOffset;
+		rva003F962FCopy(eyeOffset, m_eye);
+		eyeOffset.x -= m_target.x;
+		eyeOffset.y -= m_target.y;
+		eyeOffset.z -= m_target.z;
+		z = eyeOffset.z;
+		eyeOffset.z = 0.0f;
+		horizontalDistance = eyeOffset.length();
 	}
-	float pitch = atan2(-z, len);
+	float pitch = atan2(-z, horizontalDistance);
 	Matrix3 m(true);
 	m.Rotate_YAccumulated(pitch);
 	float yaw;
@@ -266,24 +266,24 @@ void LivingWorldEyeTower::rva003F962F()
 		yaw = atan2(delta.x, -delta.y);
 	}
 	yaw -= 1.5707964f;
-	Matrix3 rz = Create_Z_Rotation_Matrix3(yaw);
-	Matrix3 res;
-	Matrix3::Multiply(rz, m, &res);
-	rva003F935A(m_firstHost, &res);
-	pitch = atan2(z, len);
+	Matrix3 yawRotation = Create_Z_Rotation_Matrix3(yaw);
+	Matrix3 hostRotation;
+	Matrix3::Multiply(yawRotation, m, &hostRotation);
+	rva003F935A(m_firstHost, &hostRotation);
+	pitch = atan2(z, horizontalDistance);
 	m = Matrix3::Identity;
 	m.Rotate_Y(pitch);
 	yaw -= 3.1415927f;
-	rz = Create_Z_Rotation_Matrix3(yaw);
-	Matrix3::Multiply(rz, m, &res);
-	rva003F935A(m_secondHost, &res);
+	yawRotation = Create_Z_Rotation_Matrix3(yaw);
+	Matrix3::Multiply(yawRotation, m, &hostRotation);
+	rva003F935A(m_secondHost, &hostRotation);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva003F9DDAPushBack.cpp
 
-void Rva003F9DDA::rva003F9DDA(const BfmeE8 &e)
+void Rva003F9DDA::rva003F9DDA(const BfmeE8 &element)
 {
-	m_vec.push_back(e);
+	m_vec.push_back(element);
 }
 
 // ---- from Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldEyeTowerProcessFrame.cpp
@@ -291,9 +291,9 @@ void Rva003F9DDA::rva003F9DDA(const BfmeE8 &e)
 // ?processFrame@LivingWorldEyeTower@@AAEXXZ
 void LivingWorldEyeTower::processFrame()
 {
-    Rva003F99DCVec3 temporary;
+    Rva003F99DCVec3 sampledPosition;
     Rva003F99DCView *view = reinterpret_cast<Rva003F99DCView *>(((Rva002D3627Host *)TheLivingWorld));
-    view->sample(&view->position, &temporary);
+    view->sample(&view->position, &sampledPosition);
     // Retail copies the two words as raw float representations, preserving
     // NaNs and signed zeros. The separate destination fields reproduce its
     // receiver-relative Y store while the X address remains live for both calls.

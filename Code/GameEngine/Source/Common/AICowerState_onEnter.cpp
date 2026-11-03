@@ -140,11 +140,11 @@ StateReturnType AICowerState::onEnter()
 		return (StateReturnType)-2;
 	c258Holder->t258();
 	C250Holder *c250Holder = ownerLayout->m250;
-	CEdi *edi = c250Holder ? (CEdi *)c250Holder->t250() : 0;
-	if (edi != 0) {
-		edi->t19c(goalObject);
-		edi->t1a0(1);
-		edi->t1d0();
+	CEdi *goalHandler = c250Holder ? (CEdi *)c250Holder->t250() : 0;
+	if (goalHandler != 0) {
+		goalHandler->t19c(goalObject);
+		goalHandler->t1a0(1);
+		goalHandler->t1d0();
 	} else {
 		const Coord3D *goalPosition = (const Coord3D *)((char *)goalObject + 0x38);
 		float facingAngle = ownerObject->GetRelativeAngle(goalPosition) + ownerLayout->m44;

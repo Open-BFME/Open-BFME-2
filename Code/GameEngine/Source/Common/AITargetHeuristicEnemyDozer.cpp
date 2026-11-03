@@ -71,7 +71,7 @@ struct EnemyHeuristicRecord
 class AITargetHeuristicEnemyDozer
 {
 public:
-	int isValidTarget(Thing *thing, void *owner);
+	int isValidTarget(Thing *targetThing, void *owner);
 public:
 	void findBestTarget(AITarget *, Player *, Player *);
 };
@@ -88,7 +88,7 @@ public:
 // KindOf mask views follow the neighbouring EnemyStructure heuristic (Rva00573512Permuted.cpp);
 // the debug build's AITargetHeuristicEnemyDozer::isValidTarget is the name lead.
 
-int AITargetHeuristicEnemyDozer::isValidTarget(Thing *thing, void *owner)
+int AITargetHeuristicEnemyDozer::isValidTarget(Thing *targetThing, void *owner)
 {
     long acceptedKinds[7];
     unsigned long excludedKinds[7];
@@ -97,7 +97,7 @@ int AITargetHeuristicEnemyDozer::isValidTarget(Thing *thing, void *owner)
     ((unsigned char *)excludedKinds)[25] |= 8;
     ((unsigned char *)excludedKinds)[13] |= 1;
     const unsigned int sharedKindBit = 0x10000000;
-    Thing *candidateThing = thing;
+    Thing *candidateThing = targetThing;
     ((unsigned char *)excludedKinds)[18] |= 0x40;
     acceptedKinds[6] |= 4;
     excludedKinds[1] |= sharedKindBit;

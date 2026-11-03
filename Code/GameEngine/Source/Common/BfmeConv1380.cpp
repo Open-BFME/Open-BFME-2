@@ -24,24 +24,24 @@ extern void *g_bfmeGVIY;
 // g_bfmeGVIY: matched references place it at VA 0xe0a028 (zero-filled .bss).
 void * g_bfmeGVIY;
 
-void __stdcall bfmeGoVIX(BfmeMsgVIX *m, void *email, void *parentalEmail, void *countryCode, void *eaMail, void *thirdPartyMail)
+void __stdcall bfmeGoVIX(BfmeMsgVIX *message, void *email, void *parentalEmail, void *countryCode, void *eaMail, void *thirdPartyMail)
 {
-	void *txn = g_bfmeFVIX;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x61636374;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)txn);
-	((Rva007E8810Message *)m)->addString("email", (const char *)email);
-	((Rva007E8810Message *)m)->addString("parentalEmail", (const char *)parentalEmail);
-	((Rva007E8810Message *)m)->addString("countryCode", (const char *)countryCode);
-	((Rva007E8810Message *)m)->addBool("eaMailFlag", *(bool *)&eaMail);
-	((Rva007E8810Message *)m)->addBool("thirdPartyMailFlag", *(bool *)&thirdPartyMail);
+	void *transactionName = g_bfmeFVIX;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x61636374;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addString("email", (const char *)email);
+	((Rva007E8810Message *)message)->addString("parentalEmail", (const char *)parentalEmail);
+	((Rva007E8810Message *)message)->addString("countryCode", (const char *)countryCode);
+	((Rva007E8810Message *)message)->addBool("eaMailFlag", *(bool *)&eaMail);
+	((Rva007E8810Message *)message)->addBool("thirdPartyMailFlag", *(bool *)&thirdPartyMail);
 }
 
 class BfmeThingVIY
 {
 public:
-	void bfmeGoVIY(BfmeMsgVIX *m, void *a, void *b, void *c, void *d, void *e);
-	void bfmeSubVIY(BfmeMsgVIX *m, void *c, void *d);
+	void bfmeGoVIY(BfmeMsgVIX *message, void *blobIdLowWord, void *blobIdHighWord, void *blobData, void *blobSize, void *version);
+	void bfmeSubVIY(BfmeMsgVIX *message, void *blobData, void *blobSize);
 };
 
 class Rva007EFFC0Allocator
@@ -78,21 +78,21 @@ class GenAlloc;
 GenAlloc *Gen007EFFC0();
 void rva007FF100Encode(unsigned int length, const char *source, void *destination);
 
-void BfmeThingVIY::bfmeGoVIY(BfmeMsgVIX *m, void *a, void *b, void *c, void *d, void *e)
+void BfmeThingVIY::bfmeGoVIY(BfmeMsgVIX *message, void *blobIdLowWord, void *blobIdHighWord, void *blobData, void *blobSize, void *version)
 {
-	void *txn = g_bfmeGVIY;
-	((Rva007E8810Message *)m)->reset();
-	m->m_bfme1c = 0x626c6f62;
-	((Rva007E8810Message *)m)->addString("TXN", (const char *)txn);
-	((Rva007E8810Message *)m)->addInt64("blobId", *(__int64 *)&a);
-	bfmeSubVIY(m, c, d);
-	((Rva007E8810Message *)m)->addString("version", (const char *)e);
+	void *transactionName = g_bfmeGVIY;
+	((Rva007E8810Message *)message)->reset();
+	message->m_bfme1c = 0x626c6f62;
+	((Rva007E8810Message *)message)->addString("TXN", (const char *)transactionName);
+	((Rva007E8810Message *)message)->addInt64("blobId", *(__int64 *)&blobIdLowWord);
+	bfmeSubVIY(message, blobData, blobSize);
+	((Rva007E8810Message *)message)->addString("version", (const char *)version);
 }
 
-void BfmeThingVIY::bfmeSubVIY(BfmeMsgVIX *m, void *c, void *d)
+void BfmeThingVIY::bfmeSubVIY(BfmeMsgVIX *message, void *blobData, void *blobSize)
 {
 	Rva007EFFC0Allocator *allocator = (Rva007EFFC0Allocator *)Gen007EFFC0();
-	unsigned int length = (unsigned int)d;
+	unsigned int length = (unsigned int)blobSize;
 	unsigned int size = ((length + 2) / 3) * 4 + 1;
 	void *content = allocator->allocate(size, 2);
 	if (content == 0)
@@ -104,8 +104,8 @@ void BfmeThingVIY::bfmeSubVIY(BfmeMsgVIX *m, void *c, void *d)
 			0x17c);
 		return;
 	}
-	rva007FF100Encode(length, (const char *)c, content);
-	((Rva007E8810Message *)m)->rva007E8EF0("content", (const char *)content);
+	rva007FF100Encode(length, (const char *)blobData, content);
+	((Rva007E8810Message *)message)->rva007E8EF0("content", (const char *)content);
 	((Rva007EFFC0Allocator *)Gen007EFFC0())->release(content, 0);
-	((BfmeThingCIB *)m)->bfmeGoCIB((void *)"size", d);
+	((BfmeThingCIB *)message)->bfmeGoCIB((void *)"size", blobSize);
 }

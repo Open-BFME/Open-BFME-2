@@ -24,7 +24,7 @@ public:
 class BfmeThingVJI
 {
 public:
-	void bfmeGoVJI(BfmeMsgVJI *src);
+	void bfmeGoVJI(BfmeMsgVJI *sourceMessage);
 	char m_bfmePad[0x18];
 	BfmeSubVJI *m_bfme18;
 };
@@ -39,15 +39,15 @@ public:
 	void send(BfmeC994 *message) throw();
 };
 
-void BfmeThingVJI::bfmeGoVJI(BfmeMsgVJI *src)
+void BfmeThingVJI::bfmeGoVJI(BfmeMsgVJI *sourceMessage)
 {
-	char buf[0x40];
+	char messageBuffer[0x40];
 	char name[0x20];
-	BfmeMsgVJI msg(buf, 0x40);
+	BfmeMsgVJI msg(messageBuffer, 0x40);
 	msg.m_bfme1c = 0x55534552;
-	src->bfmeGetStrVJI("NAME", name, 0x20);
+	sourceMessage->bfmeGetStrVJI("NAME", name, 0x20);
 	msg.bfmeSetVJI("NAME", name);
-	int tid = src->bfmeGetVJI("TID", -1);
+	int tid = sourceMessage->bfmeGetVJI("TID", -1);
 	if (tid != -1)
 		msg.bfmeSet3VJI("TID", tid);
 	m_bfme18->bfmeNoteVJI(name);

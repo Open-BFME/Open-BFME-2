@@ -91,91 +91,91 @@ private:
 
 void Rva0007517F::rva00075016(float const *position, float f, int a, int b, int c)
 {
-	float m[12];
-	m[0] = g_Va00BBB8D8;
-	m[1] = 0.0f;
-	m[2] = 0.0f;
-	m[3] = position[0];
-	m[4] = 0.0f;
-	m[5] = g_Va00BBB8D8;
-	m[6] = 0.0f;
-	m[7] = position[1];
-	m[8] = 0.0f;
-	m[9] = 0.0f;
-	m[10] = g_Va00BBB8D8;
-	m[11] = position[2];
-	_S18(m, f, a, b, c);
+	float transform[12];
+	transform[0] = g_Va00BBB8D8;
+	transform[1] = 0.0f;
+	transform[2] = 0.0f;
+	transform[3] = position[0];
+	transform[4] = 0.0f;
+	transform[5] = g_Va00BBB8D8;
+	transform[6] = 0.0f;
+	transform[7] = position[1];
+	transform[8] = 0.0f;
+	transform[9] = 0.0f;
+	transform[10] = g_Va00BBB8D8;
+	transform[11] = position[2];
+	_S18(transform, f, a, b, c);
 }
 
 void Rva0007517F::rva00074BC8(float const *position, int f, int a, int b, int c)
 {
-	float m[12];
-	m[0] = g_Va00BBB8D8;
-	m[1] = 0.0f;
-	m[2] = 0.0f;
-	m[3] = position[0];
-	m[4] = 0.0f;
-	m[5] = g_Va00BBB8D8;
-	m[6] = 0.0f;
-	m[7] = position[1];
-	m[8] = 0.0f;
-	m[9] = 0.0f;
-	m[10] = g_Va00BBB8D8;
-	m[11] = position[2];
-	_D12(m, f, a, b, c);
+	float transform[12];
+	transform[0] = g_Va00BBB8D8;
+	transform[1] = 0.0f;
+	transform[2] = 0.0f;
+	transform[3] = position[0];
+	transform[4] = 0.0f;
+	transform[5] = g_Va00BBB8D8;
+	transform[6] = 0.0f;
+	transform[7] = position[1];
+	transform[8] = 0.0f;
+	transform[9] = 0.0f;
+	transform[10] = g_Va00BBB8D8;
+	transform[11] = position[2];
+	_D12(transform, f, a, b, c);
 }
 
 void Rva0007517F::rva00074D39(float const *position, float f, int a, int b, int c)
 {
-	float m[12];
-	m[0] = g_Va00BBB8D8;
-	m[1] = 0.0f;
-	m[2] = 0.0f;
-	m[3] = position[0];
-	m[4] = 0.0f;
-	m[5] = g_Va00BBB8D8;
-	m[6] = 0.0f;
-	m[7] = position[1];
-	m[8] = 0.0f;
-	m[9] = 0.0f;
-	m[10] = g_Va00BBB8D8;
-	m[11] = position[2];
-	_D14(m, f, a, b, c);
+	float transform[12];
+	transform[0] = g_Va00BBB8D8;
+	transform[1] = 0.0f;
+	transform[2] = 0.0f;
+	transform[3] = position[0];
+	transform[4] = 0.0f;
+	transform[5] = g_Va00BBB8D8;
+	transform[6] = 0.0f;
+	transform[7] = position[1];
+	transform[8] = 0.0f;
+	transform[9] = 0.0f;
+	transform[10] = g_Va00BBB8D8;
+	transform[11] = position[2];
+	_D14(transform, f, a, b, c);
 }
 
 void Rva0007517F::rva00074EA2(float const *position, float f1, float f2, int a, int b, int c)
 {
-	float m[12];
-	m[0] = g_Va00BBB8D8;
-	m[1] = 0.0f;
-	m[2] = 0.0f;
-	m[3] = position[0];
-	m[4] = 0.0f;
-	m[5] = g_Va00BBB8D8;
-	m[6] = 0.0f;
-	m[7] = position[1];
-	m[8] = 0.0f;
-	m[9] = 0.0f;
-	m[10] = g_Va00BBB8D8;
-	m[11] = position[2];
-	_D16(m, f1, f2, a, b, c);
+	float transform[12];
+	transform[0] = g_Va00BBB8D8;
+	transform[1] = 0.0f;
+	transform[2] = 0.0f;
+	transform[3] = position[0];
+	transform[4] = 0.0f;
+	transform[5] = g_Va00BBB8D8;
+	transform[6] = 0.0f;
+	transform[7] = position[1];
+	transform[8] = 0.0f;
+	transform[9] = 0.0f;
+	transform[10] = g_Va00BBB8D8;
+	transform[11] = position[2];
+	_D16(transform, f1, f2, a, b, c);
 }
 
 void Rva0007517F::rva000749C1(char *firstCorners, char *secondCorners, int count, int verticalEdgeColor, int firstRingEdgeColor, int secondRingEdgeColor, int x4, int x5)
 {
 	if (count <= 0)
 		return;
-	int i = 1;
-	int diff = (int)(firstCorners - secondCorners);
-	int left = count;
-	char *pb = secondCorners;
+	int nextCorner = 1;
+	int cornerArrayOffset = (int)(firstCorners - secondCorners);
+	int remainingEdges = count;
+	char *secondCorner = secondCorners;
 	do {
-		_D11(pb + diff, pb, verticalEdgeColor, x4, x5);
-		int index = i % count;
-		_D11(pb + diff, (char *)&((RubbleFXVec *)firstCorners)[index], firstRingEdgeColor, x4, x5);
-		_D11(pb, (char *)&((RubbleFXVec *)secondCorners)[index], secondRingEdgeColor, x4, x5);
-		++i;
-		pb += 12;
-		--left;
-	} while (left != 0);
+		_D11(secondCorner + cornerArrayOffset, secondCorner, verticalEdgeColor, x4, x5);
+		int nextCornerIndex = nextCorner % count;
+		_D11(secondCorner + cornerArrayOffset, (char *)&((RubbleFXVec *)firstCorners)[nextCornerIndex], firstRingEdgeColor, x4, x5);
+		_D11(secondCorner, (char *)&((RubbleFXVec *)secondCorners)[nextCornerIndex], secondRingEdgeColor, x4, x5);
+		++nextCorner;
+		secondCorner += 12;
+		--remainingEdges;
+	} while (remainingEdges != 0);
 }
