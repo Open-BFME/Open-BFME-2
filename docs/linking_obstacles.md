@@ -214,6 +214,12 @@ No repair, and no census confirmation is claimed.
 2. Reconciled `AutoPickUpUpdateDtor.cpp` to match `AutoPickUpUpdate.cpp`'s canonical 3-slot `AutoPickUpUpdateInterface` and `UpdateModule` hierarchy, resolving the COMDAT differences.
 Verification: `tools/build.py` 29/29 matched; `tools/link_check.py` LINKS 0 -> 2,013 bytes in `AutoPickUpUpdate.cpp` and preserves 60 bytes in `AutoPickUpUpdateDtor.cpp` (total 2,073 bytes).
 
+AutoPickUp follow-up (2026-11-03): the already-repaired paired cohort passes
+29 current rows and retains its2,073-byte LINKS preview. Canonical filter-base
+adoption preserves all27 source rows, EH4 and130 providers; main owning
+acceptance retires one header entry. No new census gain is claimed.
+[Header adoption and scope](../reverse/attempt_support/autopickup-headers-20261103/README.md).
+
 ### ScriptActions doNamedEnterNamed link repair (2026-11-02)
 
 `ScriptActions_doNamedEnterNamed.cpp` (92B) unresolved symbol `?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z` resolved by pointing the call to the real rowed provider `AICommandInterface::rva0026C347` (`?rva0026C347@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z` at 0x0026C347 in `AICommandInterfaceAttackCommands.cpp`), which was already matched and linked.

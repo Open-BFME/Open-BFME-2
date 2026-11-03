@@ -6,16 +6,8 @@ extern "C" void _ReadWriteBarrier();
 template<class T>static __forceinline T w5Operand(const T&v){return *(const volatile T*)&v;}
 class Object;
 class Player;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
+inline Rva000421C8::~Rva000421C8() {}
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
