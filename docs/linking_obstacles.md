@@ -153,6 +153,14 @@ existing view. Normal 89-row/two-data and private EH3/224-provider checks pass.
 This clears the known competing-prefix prerequisite without moving any row;
 actual composition is still the next supported-tool check.
 
+The next declaration prerequisite removes an unused legacy member-pointer
+typedef from the seed and keeps the callback typedef below its last include,
+preserving its coordinate-type dependency during composition. Normal90-row
+checks and a fresh supported-compose trial pass; EH3 and all225 providers are
+identical. Private LinkGuard sees stale active donors in its older checkout,
+so actual main CLI/current-ledger guard approval remains required before moving
+this callback. No guard is bypassed and no source-file gain is credited yet.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

@@ -17,9 +17,10 @@ class LocomotorSet;
 struct Coord3D;
 enum PathfindLayerEnum { BFME_LAYER_GROUND };
 #include "../../../Include/GameLogic/AIPathfind.h"
+
+#include "../../../Include/GameLogic/PathfindCell.h"
 typedef bool (PathfindServicesInterface::*Rva002F52A7Shape)(unsigned int, unsigned int, unsigned char, unsigned int, unsigned int, unsigned int,
     unsigned int, unsigned char, Rva002F600CCoord *, unsigned int, float, unsigned int *, unsigned int);
-#include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva002F600CInfo
 {
     int cellCallback(PathfindCell *from, PathfindCell *to, int x, int y);

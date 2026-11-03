@@ -1229,8 +1229,7 @@ public:
 	void rva0052A387(int value);							// 0x0052A387
 };
 
-typedef bool (Pathfinder::*Rva002F52A7Shape)(unsigned int, unsigned int, unsigned char, unsigned int, unsigned int, unsigned int,
-    unsigned int, unsigned char, Rva002F600CCoord *, unsigned int, float, unsigned int *, unsigned int);
+
 
 struct PathfinderLogFile;
 

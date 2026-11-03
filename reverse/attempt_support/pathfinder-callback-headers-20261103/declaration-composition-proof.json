@@ -1,0 +1,91 @@
+{
+  "scope": "New frozen declaration fixes only; normally verified frozen object controls, no control recompiles/apply/cache forging",
+  "input_hashes": {
+    "callback.cpp": "ffaf34d849ba4917242f648ea4d393f5054ec15335ae7b007e09241e71fbf3ad",
+    "callback.obj": "6fe11f3c2c198654f65794552a6c9e5161fc890f246cd25cc459ff862fc85c6a",
+    "rows.json": "ec0311de6bc82189c2f912955e8bde3c4cfb9b8bdf11351f208a44652385259b",
+    "seed.cpp": "e1245da2f8fa3d95c5266b11eaee81d3fedba01e02cf3281c685894a712bb1a2",
+    "seed.obj": "1875e13317f0aaae4be9fb818e6b4d77a7f1dea4d9663d59480d3347983b377a"
+  },
+  "input_code_rows": 90,
+  "composition_flags": [
+    "/DNDEBUG",
+    "/MD",
+    "/D_STLP_USE_STATIC_LIB",
+    "/ICode/Libraries/Include",
+    "/Ireference/shims/bfmealloc",
+    "/ICode/Libraries/Include/Lib",
+    "/I.",
+    "-Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI",
+    "/ICode/GameEngine/Source/Common",
+    "/Ireference/shims/bfme2_ascii",
+    "/Ireference/shims/bfmelist",
+    "/ICode/Libraries/Source/WWVegas/WWLib",
+    "/Ireference/shims/ini_bfme2",
+    "/Ireference/shims/moduledata"
+  ],
+  "variants": [
+    {
+      "label": "compose-union-first",
+      "input_rows": 90,
+      "matched_unique_rvas": 88,
+      "missing": [],
+      "compile_errors": [],
+      "external_definitions": 225,
+      "provider_union_diff": {
+        "changed": [],
+        "removed": [],
+        "added": []
+      },
+      "EH": {
+        "??1?$_Rb_tree@HU?$pair@$$CBHURva002F0B8AElement@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F0B8AElement@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F0B8AElement@@@_STL@@@2@@_STL@@QAE@XZ": [
+          "EXACT",
+          ""
+        ],
+        "??1?$_Rb_tree@HU?$pair@$$CBHURva002F0BB5Element@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F0BB5Element@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F0BB5Element@@@_STL@@@2@@_STL@@QAE@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?CircleClipsTallBuilding@Pathfinder@@QAE_NPBUCoord3D@@0MIPAU2@@Z": [
+          "EXACT",
+          ""
+        ]
+      },
+      "linked_at_index": [
+        "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+        "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp"
+      ],
+      "guard_prepare": null,
+      "guard_index_meta": {
+        "date": "2026-11-02 08:35",
+        "commit": "984a4cdc4d",
+        "clean_tree": true,
+        "census_date": "2026-11-02 06:54",
+        "census_commit": "357ce2a88f"
+      },
+      "guard_verdict": [
+        "duplicate ?SetDebugPathPosition@Pathfinder@@QAEXPBUCoord3D@@@Z",
+        "duplicate ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z",
+        "duplicate ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z",
+        "duplicate ?rva002EB675@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z",
+        "duplicate ?rva002EED41@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z",
+        "duplicate ?rva002F6AE3@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z",
+        "duplicate ?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z",
+        "duplicate ?rva002F95B7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F600CInfo@@@Z",
+        "selected ?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z"
+      ]
+    }
+  ],
+  "control_provider_counts": {
+    "seed": 224,
+    "callback": 1
+  },
+  "control_provider_overlap": [],
+  "control_overlap_differences": [],
+  "control_union_definitions": 225,
+  "distinct_available_strategies": [
+    "union-first",
+    "first"
+  ],
+  "compile_trials": 1
+}
