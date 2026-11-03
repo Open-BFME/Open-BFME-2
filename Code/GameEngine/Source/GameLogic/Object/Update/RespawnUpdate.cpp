@@ -65,11 +65,7 @@ public:
     char pad268[0x45C - 0x268];
     int handle;
 };
-class ExitInterface {public:
- virtual void slot0()=0;virtual void slot1()=0;virtual void exitObject(Object *,bool)=0;
- virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
- virtual void getExitPosition(Coord3D *,bool)=0;
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 class FXList
 {
@@ -448,7 +444,7 @@ UpdateSleepTime RespawnUpdate::update() {
   if(at) {
    pos=*at->getPosition();
    ExitInterface *exit=at->getObjectExitInterface();
-   if(exit) exit->getExitPosition(&pos,true);
+   if(exit) exit->getNaturalRallyPoint(pos,true);
   }
   obj->restoreObjectToWorld(&pos);
   obj->rva001E431E(respawnUpdateModuleData->conditions58);
@@ -473,7 +469,7 @@ UpdateSleepTime RespawnUpdate::update() {
    ExitInterface *exit=at->getObjectExitInterface();
    if(exit) {
     int h=obj->handle;
-    exit->exitObject(obj,false);
+    exit->exitObjectViaDoor(obj,(ExitDoorType)0);
     if(h) TheGameLogic->rva0023D0C2(obj,h);
    }
   }

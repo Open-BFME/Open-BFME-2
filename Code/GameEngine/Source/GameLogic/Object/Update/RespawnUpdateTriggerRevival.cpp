@@ -220,11 +220,7 @@ private:
 };
 
 
-class ExitInterface {public:
- virtual void slot0()=0;virtual void slot1()=0;virtual void exitObject(Object *,bool)=0;
- virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
- virtual void getExitPosition(Coord3D *,bool)=0;
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -235,7 +231,7 @@ void RespawnUpdate::triggerRevival(Object *at) {
  const RespawnUpdateModuleData *data=m_moduleData;
  Coord3D pos={at->getPosition()->x,at->getPosition()->y,at->getPosition()->z};
  ExitInterface *exit=at->getObjectExitInterface();
- if(exit) exit->getExitPosition(&pos,true);
+ if(exit) exit->getNaturalRallyPoint(pos,true);
  unsigned time;
  if(m_41) {
   obj->rva001E431E(data->conditionsA4);

@@ -1,0 +1,11 @@
+# Canonical ExitInterface in respawn callers, 2026-11-03
+
+Basef017c99a31, after the published two-donor merge. Replace two private ten-slot ExitInterface declarations with the registered twelve-slot Module/ExitInterface.h. Retail's base tableVAC430B4 and Queue/Default tables, documented in that header, establish slot9 as getNaturalRallyPoint(Coord3D&,bool)const, slot10 as getExitPosition(Coord3D&,float&)const, and slot2 as exitObjectViaDoor(Object*,ExitDoorType). The old private views called slot9 getExitPosition(Coord3D*,bool) and slot2 exitObject(Object*,bool).
+
+The two existing slot9 calls now use getNaturalRallyPoint(pos,true); the seed's slot2 call uses exitObjectViaDoor(obj,(ExitDoorType)0). These consume the existing canonical contract; no new owner/name, alias, pin or speculative door enumerator is introduced. The native eight-byte argument shapes, virtual offsets and ignored boolean return are retained. The whole affected403B revival and seed466B update remain exact along with every other owned row.
+
+Private controls/candidates and the normal objects have identical full provider payloads, relocations, binding properties and routes: seed82 definitions and the revival consumer's existing definitions. Normal23/23,35 string refs,10 float refs and3 imports pass. Strict frozen checks pass; header_adopt_lane accept retires exactly the two ExitInterface entries. Main seed's three EH graphs remain subject to normal commit/push verification. No source path, ledger row, header, global, compiler flag or hatch changes; no new byte/link/census gain is claimed. This is two canonical-header debts retired plus correct existing interface names/types in the callers.
+
+## Previous publication audit carried forward
+
+Pushf017c99a31 was INCONCLUSIVE: index23b85ddde5, outgoing basebc547e1f087524949e5bd7192f3fb9e01777d86e, one current-receipt gap, first RespawnUpdate.cpp. Carry the merged source and all affected respawn consumers into the next scheduled census. Its two-file reduction,82-provider union and eight-unit4375B preview are separately recorded; no measured game-link clearance was inferred. This follow-up moves no paths, so the prior complete two-file path audit stays applicable.
