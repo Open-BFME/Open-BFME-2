@@ -23108,3 +23108,15 @@ Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp|member|Rva0014CE67_Protot
 Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|member|Node002BBBE7|m_next08,3f8086bc923617f878370e58,drz-k7,drz-k7-n48-20,w-4471b1f6edef,2026-11-03
 Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|member|Node002BBBE7|m_child0C,c6a0f8e466aac3ffeb48bb89,drz-k7,drz-k7-n48-20,w-4471b1f6edef,2026-11-03
 Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|param|Rva002BBBE7::rva002BBBE7|n,d3f39abeb65de6a46ae549eb,drz-k7,drz-k7-n48-20,w-4471b1f6edef,2026-11-03
+Code/Libraries/Source/WWVegas/WW3D2/SurfaceByteSize.cpp|function|0x00116D10|rva00116D10,a2667498655d0b1563994465,drz-k8,drz-k8-n48-2,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/Rva0030E67CSample.cpp|local|Rva0030E7D0::rva0030E67C|h,f94b7bd01f5d2fbb3f4cf09f,drz-k8,drz-k8-n48-15,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/Rva0030E67CSample.cpp|local|Rva0030E7D0::rva0030E67C|c,bba9626b13576ab888d96527,drz-k8,drz-k8-n48-15,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/Apt/AptLoad.cpp|param|Rva006D07E0Key|p,ad1755ac866bebff6eb35e14,drz-k8,drz-k8-n48-16,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/Apt/AptLoad.cpp|local|~Rva006D07E0Key|p,43d4a43e6fe66fa7f477d2fc,drz-k8,drz-k8-n48-16,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/Apt/AptLoad.cpp|local|~BfmeHolderDB|p,13bff614bed768453122e269,drz-k8,drz-k8-n48-16,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/assetmanager/Rva006240E0Cluster.cpp|param|Rva006240E0::Rva006240E0|n,81b0f031d41055a8f0ac936e,drz-k8,drz-k8-n48-17,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp|function|0x00140F70|Rva00140F70BitIndex,4b8e71335fc3456c49fb8b7c,drz-k8,drz-k8-n48-18,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp|local|Gen_009431F0::map_x|t,850ddd0a8f187489f2f74c93,drz-k8,drz-k8-n48-18,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp|local|Gen_009431F0::map_x|c,879c07093cea7201ff70ab7a,drz-k8,drz-k8-n48-18,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp|local|Gen_009431F0::map_y|t,1c1dd48f5cee0fdee64fdd69,drz-k8,drz-k8-n48-18,w-87ae7cdc64ef,2026-11-03
+Code/Libraries/Source/WWVegas/WW3D2/Gen_009431F0.cpp|local|Gen_009431F0::map_y|c,3b08292751aa6b3182103e9a,drz-k8,drz-k8-n48-18,w-87ae7cdc64ef,2026-11-03
