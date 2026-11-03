@@ -30,13 +30,7 @@ typedef bool Bool;
 
 extern GameLogic *TheGameLogic;
 
-class FireLogicSystem
-{
-public:
-	void ChangeBurnRateInArea(const Coord3D *pos, Real radius, Int amount, Bool flag);
-	void ChangeBurnRateInArea(const Coord3D *pos, Real radius, const Coord3D *dir, Real cosArc, Int amount, Bool flag);
-	void ChangeFuelInArea(Real *pos, Real radius, Int amount, Int a, Int b, Int c, Bool flag);
-};
+#include "../../../../Include/GameLogic/FireLogicSystem.h"
 
 // The fire logic system at 0x00DFEC68 (the data ledger's name for the pointer).
 class Rva002872BA;

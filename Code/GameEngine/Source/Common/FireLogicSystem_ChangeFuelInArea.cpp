@@ -22,12 +22,7 @@ __forceinline long FloatToLong(float f)
 	return i;
 }
 
-class FireLogicSystem
-{
-public:
-	void rva00285DC5(int r0, int r1, int col, int add, int f12, int f10, int f8, bool flag);
-	void ChangeFuelInArea(float *p, float w, int add, int f12, int f10, int f8, bool flag);
-};
+#include "../../Include/GameLogic/FireLogicSystem.h"
 
 void FireLogicSystem::ChangeFuelInArea(float *p, float w, int add, int f12, int f10, int f8, bool flag)
 {

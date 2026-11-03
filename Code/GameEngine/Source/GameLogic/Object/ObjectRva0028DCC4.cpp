@@ -15,7 +15,7 @@ class PartitionData {public:void makeDirty();};
 struct Rva009A29A0Window;
 class Rva00758230 {public:void rva00758230(Rva009A29A0Window*);};
 struct Rva00287C21Other;
-class FireLogicSystem {public:void RegisterObject(Rva00287C21Other*);};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 class LuaDrawableState {public:void rva00333E5B(Object*);};
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 class ShroudManager;

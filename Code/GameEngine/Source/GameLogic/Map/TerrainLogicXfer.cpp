@@ -190,12 +190,7 @@ extern ThingFactory *TheThingFactory;
 // The fire logic system at 0x00DFEC68 (the data ledger names the pointer
 // TheTriggerManager) and its registration of a placed template, named for its
 // address.
-class FireLogicSystem
-{
-public:
-	void rva00286373(int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
-	void rva0028641F(unsigned int key, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 inline FireLogicSystem *TheFireLogicSystem() { return (FireLogicSystem *)TheTriggerManager; }

@@ -475,12 +475,7 @@ private:
 	char m_storage[12];
 };
 
-class FireLogicSystem
-{
-public:
-	void rva00286CC4();	// rowed grid teardown 0x00286CC4
-	virtual void reset();
-};
+#include "../../Include/GameLogic/FireLogicSystem.h"
 void FireLogicSystem::reset()
 {
 	rva00286CC4();

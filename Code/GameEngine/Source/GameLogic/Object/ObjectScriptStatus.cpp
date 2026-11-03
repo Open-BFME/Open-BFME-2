@@ -101,7 +101,7 @@ class Matrix3D;
 #include "../../Common/Thing/thing.h"
 class Object;
 struct Rva00287C21Other;
-class FireLogicSystem { public: void RegisterObject(Rva00287C21Other *); void UnregisterObject(Rva00287C21Other *); };
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 extern GameLogic *TheGameLogic;

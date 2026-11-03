@@ -35,12 +35,7 @@ struct Rva00287C21Other
 	int m_49C;
 };
 
-class FireLogicSystem
-{
-public:
-	void RegisterObject(Rva00287C21Other *o);
-	void UnregisterObject(Rva00287C21Other *o);
-};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

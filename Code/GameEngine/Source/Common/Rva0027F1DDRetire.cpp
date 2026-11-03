@@ -18,11 +18,7 @@ extern G00DFF080Obj *TheTerrainVisual;
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-class FireLogicSystem
-{
-public:
-	void rva0028641F(unsigned int id, const Coord3D *position);
-};
+#include "../../Include/GameLogic/FireLogicSystem.h"
 
 class G00DFF080Obj
 {

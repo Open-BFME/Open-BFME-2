@@ -59,11 +59,7 @@ BFME_LITERAL_NAME_GETTER(Rva001E70BCNamed, "LocomotorSet")
 BFME_LITERAL_NAME_GETTER(Rva001EAE63Named, "LinearCampaign")
 BFME_LITERAL_NAME_GETTER(Rva001EAE69Named, "LinearCampaignManager")
 BFME_LITERAL_NAME_GETTER(ScriptEngine, "ScriptEngine")
-class FireLogicSystem
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/FireLogicSystem.h"
 
 const char *FireLogicSystem::GetSnapshotName() const
 {

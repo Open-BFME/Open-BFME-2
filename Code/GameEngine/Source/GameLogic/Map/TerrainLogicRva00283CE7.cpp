@@ -60,12 +60,7 @@ extern Rva002872BA *TheTriggerManager;
 
 // 0x0028641F is rowed as a FireLogicSystem member taking the record's Coord3D.
 struct Coord3D;
-class FireLogicSystem
-{
-public:
-	void rva00286373(int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
-	void rva0028641F(unsigned int key, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 class G00DFF080Obj;
 extern G00DFF080Obj *TheTerrainVisual;
 template<int N> class Rva00283CE7Slots : public Rva00283CE7Slots<N-1>
