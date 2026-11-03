@@ -16,7 +16,7 @@ public:
 class Rva005FD956
 {
 public:
-	void rva005FD956(int index, int a, int b);
+	void setCommandPoints(int index, int a, int b);
 };
 
 struct Rva005F4B57Holder08
@@ -44,6 +44,6 @@ void Rva005F4B57::rva005F4B57()
 		return;
 	Rva005FD956 *p = m_08->m_14;
 	if (p != 0)
-		p->rva005FD956(m_0C, m_10->rva00318FBE(), GetMaxCommandPoints(m_10));
+		p->setCommandPoints(m_0C, m_10->rva00318FBE(), GetMaxCommandPoints(m_10));
 	m_30 = 0;
 }

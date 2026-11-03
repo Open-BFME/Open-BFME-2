@@ -15,7 +15,7 @@ class Rva0020E89C {public:UnicodeString rva0020E89C();};
 class Rva00318FBE {public:int rva00318FBE();};
 int GetMaxCommandPoints(void*);
 struct Rva005FD956 {char pad[4];void *inner;
- void rva005FD956(int,int,int);void rva005FDA0D(int,const UnicodeString&);void rva005FDA15(int,const UnicodeString&);};
+ void setCommandPoints(int,int,int);void rva005FDA0D(int,const UnicodeString&);void rva005FDA15(int,const UnicodeString&);};
 class Rva005F501E {public:char unknown[12];int index;Rva00318C79Owner *army;char tail[0x20];};
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}
 template<class T> struct Rva005FBoundPointer { T *p; T *operator->()const {return p;} T *get()const{return p;} };
@@ -28,5 +28,5 @@ void Rva005F54DA::rva005F4BB4(Rva005F501E* input)
  if(region)movieClip->rva005FDA0D(index,((Rva0020E89C*)region)->rva0020E89C());
  movieClip->rva005FDA15(index,StrategicInGameUI::GetDisplayName(army));
  Rva005FD956 *pointsClip=movieClip.get();
- pointsClip->rva005FD956(index,((Rva00318FBE*)army)->rva00318FBE(),GetMaxCommandPoints(army));
+ pointsClip->setCommandPoints(index,((Rva00318FBE*)army)->rva00318FBE(),GetMaxCommandPoints(army));
 }

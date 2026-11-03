@@ -36,7 +36,7 @@ void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetArmyName(int index,const U
 // dereference and direct tail call to the verified67B region-name setter.
 struct Rva005FD956 {
  char m_pad0[4];StrategicHUD::ArmyUnitSwapperMovieClip::Impl *m_p4;
- void rva005FD956(int,int,int);
+ void setCommandPoints(int,int,int);
  void rva005FDA0D(int,const UnicodeString&);
  void rva005FDA15(int,const UnicodeString&);
 };

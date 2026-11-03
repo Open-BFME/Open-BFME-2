@@ -7505,3 +7505,6 @@ function,?rva005ED986@Rva005ED976@@QAEXHABVUnicodeString@@@Z,?setPlayerName@Rva0
 function,?rva00397BD9@Rva00397BD9@@UAEXHHH@Z,?onStateChanged@Rva00397BD9@@UAEXHHH@Z,inferred,agree:nl-1dfdb2808fda,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397BD9.cpp,0x00397BD9
 class,Rva005F83B9Entry,NotifyEntry,inferred,agree:nl-b0cf7523dcfd,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,
 class,Rva005F83B9Item,NotifyItem,inferred,agree:nl-6240c2affc74,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,
+function,?rva005FD956@Rva005FD956@@QAEXHHH@Z,?setCommandPoints@Rva005FD956@@QAEXHHH@Z,inferred,agree:nl-cf27e3d0489f,Code/GameEngine/Source/Common/Rva005FD8E5Apt.cpp,0x005FD956
+carry,Rva005FD956::rva005FD956::commandPoints,Rva005FD956::setCommandPoints::commandPoints,inferred,scope renamed by Rename rva005FD956 to setCommandPoints (inferred),Code/GameEngine/Source/Common/Rva005FD8E5Apt.cpp,0x005FD956
+carry,Rva005FD956::rva005FD956::maxCommandPoints,Rva005FD956::setCommandPoints::maxCommandPoints,inferred,scope renamed by Rename rva005FD956 to setCommandPoints (inferred),Code/GameEngine/Source/Common/Rva005FD8E5Apt.cpp,0x005FD956

@@ -4657,3 +4657,4 @@ __ehhandler$?rva007B48CB@@YAXXZ,0x007A0B40,"Renamed to __ehhandler$?registerUpgr
 ?rva005ED986@Rva005ED976@@QAEXHABVUnicodeString@@@Z,0x005ED986,"Renamed to ?setPlayerName@Rva005ED976@@QAEXHABVUnicodeString@@@Z by tools/rename.py (inferred)"
 ?rva00397BD9@Rva00397BD9@@UAEXHHH@Z,0x00397BD9,"Renamed to ?onStateChanged@Rva00397BD9@@UAEXHHH@Z by tools/rename.py (inferred)"
 __ehhandler$?rva00397BD9@Rva00397BD9@@UAEXHHH@Z,0x00780ED2,"Renamed to __ehhandler$?onStateChanged@Rva00397BD9@@UAEXHHH@Z by tools/rename.py (inferred)"
+?rva005FD956@Rva005FD956@@QAEXHHH@Z,0x005FD956,"Renamed to ?setCommandPoints@Rva005FD956@@QAEXHHH@Z by tools/rename.py (inferred)"

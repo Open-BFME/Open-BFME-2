@@ -56,10 +56,10 @@ struct Rva005FD956
 {
 	char m_pad0[4];
 	StrategicHUD::ArmyUnitSwapperMovieClip::Impl *m_p4;
-	void rva005FD956(int index, int commandPoints, int maxCommandPoints);
+	void setCommandPoints(int index, int commandPoints, int maxCommandPoints);
 };
 
-void Rva005FD956::rva005FD956(int index, int commandPoints, int maxCommandPoints)
+void Rva005FD956::setCommandPoints(int index, int commandPoints, int maxCommandPoints)
 {
 	m_p4->SetCommandPoints(index, commandPoints, maxCommandPoints);
 }
