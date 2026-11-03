@@ -1,0 +1,721 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "IMEManager",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 15,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 14,
+   "inherited_spans": [
+    [
+     0,
+     12
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 4
+   },
+   "0x1022": {
+    "2": 1
+   },
+   "0x1024": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 3
+   },
+   "0x2024": {
+    "2": 1
+   },
+   "0x2026": {
+    "2": 1
+   },
+   "0x22": {
+    "4": 1
+   },
+   "0x3028": {
+    "4": 2
+   },
+   "0x302c": {
+    "4": 3
+   },
+   "0x3030": {
+    "4": 1
+   },
+   "0x3038": {
+    "4": 1
+   },
+   "0x3040": {
+    "4": 1
+   },
+   "0x3044": {
+    "4": 1
+   },
+   "0x3048": {
+    "1": 1
+   },
+   "0x3050": {
+    "4": 9
+   },
+   "0x3054": {
+    "4": 2
+   },
+   "0x3058": {
+    "4": 3
+   },
+   "0x3060": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x23309a"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e82b8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x23309a"
+     ],
+     "value": 12388
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x23309a"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x1024": [
+       2
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       1
+      ],
+      "0x22": [
+       2
+      ],
+      "0x3028": [
+       4
+      ],
+      "0x302c": [
+       4
+      ],
+      "0x3030": [
+       4
+      ],
+      "0x3034": [
+       4
+      ],
+      "0x3038": [
+       4
+      ],
+      "0x303c": [
+       4
+      ],
+      "0x3040": [
+       4
+      ],
+      "0x3044": [
+       4
+      ],
+      "0x3048": [
+       1
+      ],
+      "0x304c": [
+       4
+      ],
+      "0x3050": [
+       4
+      ],
+      "0x3054": [
+       4
+      ],
+      "0x3058": [
+       4
+      ],
+      "0x305c": [
+       4
+      ],
+      "0x3060": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x2331df"
+     ],
+     "value": 12388
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x23309a"
+     ],
+     "value": {
+      "0x0": "0x7e82b8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e82b8"
+     ],
+     "value": {
+      "count": 32,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GIMEManager@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x233a3e"
+       },
+       {
+        "name": "?init@IMEManager@@UAEXXZ",
+        "slot": 1,
+        "target": "0x2336ca"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 9,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?attach@IMEManager@@UAEXPAVGameWindow@@@Z",
+        "slot": 14,
+        "target": "0x233138"
+       },
+       {
+        "name": "?detatch@IMEManager@@UAEXXZ",
+        "slot": 15,
+        "target": "0x232db4"
+       },
+       {
+        "name": "?enable@IMEManager@@UAEXXZ",
+        "slot": 16,
+        "target": "0x232e01"
+       },
+       {
+        "name": "?disable@IMEManager@@UAEXXZ",
+        "slot": 17,
+        "target": "0x232e1e"
+       },
+       {
+        "name": "?isEnabled@IMEManager@@UAE_NXZ",
+        "slot": 18,
+        "target": "0x232e2f"
+       },
+       {
+        "name": "?rva0056A9CF@Rva0056A9CF@@QAEHH@Z",
+        "slot": 19,
+        "target": "0x56a9cf"
+       },
+       {
+        "name": "?get@Rva001DB09DDwordField@@QBEHXZ",
+        "slot": 20,
+        "target": "0x1db09d"
+       },
+       {
+        "name": "?isComposing@IMEManager@@UAE_NXZ",
+        "slot": 21,
+        "target": "0x232e8f"
+       },
+       {
+        "name": "?getCompositionString@IMEManager@@UAEXAAVUnicodeString@@@Z",
+        "slot": 22,
+        "target": "0x233186"
+       },
+       {
+        "name": "?getCompositionCursorPosition@IMEManager@@UAEHXZ",
+        "slot": 23,
+        "target": "0x232e93"
+       },
+       {
+        "name": "?getIndexBase@IMEManager@@UAEHXZ",
+        "slot": 24,
+        "target": "0x232f7d"
+       },
+       {
+        "name": "?getCandidateCount@IMEManager@@UAEHXZ",
+        "slot": 25,
+        "target": "0x23303c"
+       },
+       {
+        "name": "?getCandidate@IMEManager@@UAEPAVUnicodeString@@H@Z",
+        "slot": 26,
+        "target": "0x2339aa"
+       },
+       {
+        "name": "?getSelectedCandidateIndex@IMEManager@@UAEHXZ",
+        "slot": 27,
+        "target": "0x233043"
+       },
+       {
+        "name": "?getCandidatePageSize@IMEManager@@UAEHXZ",
+        "slot": 28,
+        "target": "0x23304a"
+       },
+       {
+        "name": "?getCandidatePageStart@IMEManager@@UAEHXZ",
+        "slot": 29,
+        "target": "0x233051"
+       },
+       {
+        "name": "?serviceIMEMessage@IMEManager@@UAE_NPAXIHH@Z",
+        "slot": 30,
+        "target": "0x233c0b"
+       },
+       {
+        "name": "?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ",
+        "slot": 31,
+        "target": "0x1db0a8"
+       }
+      ],
+      "table": "0x7e82b8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x7e82b8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GIMEManager@@UAEPAXI@Z",
+     "1": "?init@IMEManager@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "??1Region2D@@QAE@XZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?attach@IMEManager@@UAEXPAVGameWindow@@@Z",
+     "15": "?detatch@IMEManager@@UAEXXZ",
+     "16": "?enable@IMEManager@@UAEXXZ",
+     "17": "?disable@IMEManager@@UAEXXZ",
+     "18": "?isEnabled@IMEManager@@UAE_NXZ",
+     "19": "?rva0056A9CF@Rva0056A9CF@@QAEHH@Z",
+     "20": "?get@Rva001DB09DDwordField@@QBEHXZ",
+     "21": "?isComposing@IMEManager@@UAE_NXZ",
+     "22": "?getCompositionString@IMEManager@@UAEXAAVUnicodeString@@@Z",
+     "23": "?getCompositionCursorPosition@IMEManager@@UAEHXZ",
+     "24": "?getIndexBase@IMEManager@@UAEHXZ",
+     "25": "?getCandidateCount@IMEManager@@UAEHXZ",
+     "26": "?getCandidate@IMEManager@@UAEPAVUnicodeString@@H@Z",
+     "27": "?getSelectedCandidateIndex@IMEManager@@UAEHXZ",
+     "28": "?getCandidatePageSize@IMEManager@@UAEHXZ",
+     "29": "?getCandidatePageStart@IMEManager@@UAEHXZ",
+     "30": "?serviceIMEMessage@IMEManager@@UAE_NPAXIHH@Z",
+     "31": "?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "4": 12,
+   "12": 1,
+   "12388": 1
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 34,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8230,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12328,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12332,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12336,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12340,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12344,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12348,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12352,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12356,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12360,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12364,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12368,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12372,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12376,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12380,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12384,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['IMEManagerInterface']": 1,
+    "['SubsystemInterface']": 1
+   },
+   "class": "IMEManager",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "_M_slot_44()": 1,
+    "disable()": 1,
+    "m44()": 2,
+    "slot17()": 2,
+    "unused17()": 1
+   },
+   "class": "IMEManager"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "_M_slot_50()": 1,
+    "m50()": 1,
+    "slot20()": 1,
+    "unused20()": 1
+   },
+   "class": "IMEManager"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "_M_slot_58()": 1,
+    "getCompositionString(UnicodeString*)": 1
+   },
+   "class": "IMEManager"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "_M_slot_5c()": 1,
+    "getCompositionCursorPosition()": 1
+   },
+   "class": "IMEManager"
+  }
+ ],
+ "size": 12388,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "m38()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "m3C()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "m40()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "isAttachedTo(GameWindow*)"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "isComposing()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "_M_slot_60()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "_M_slot_64()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "_M_slot_68()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "_M_slot_6c()"
+  },
+  "28": {
+   "decided_by": "bytes",
+   "member": "_M_slot_70()"
+  },
+  "29": {
+   "decided_by": "bytes",
+   "member": "_M_slot_74()"
+  },
+  "30": {
+   "decided_by": "bytes",
+   "member": "serviceIMEMessage(void*,uint,uint,long)"
+  },
+  "31": {
+   "decided_by": "bytes",
+   "member": "result()"
+  }
+ }
+}
