@@ -8,14 +8,6 @@
 // its destructor is only declared here, so this unit emits the loop alone.
 #include <memory>
 
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		~Nugget();
-		unsigned char m_bytes[0x14];
-	};
-};
+#include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 
 template void _STL::__destroy_aux<ModuleInfo::Nugget *>(ModuleInfo::Nugget *, ModuleInfo::Nugget *, const _STL::__false_type &);

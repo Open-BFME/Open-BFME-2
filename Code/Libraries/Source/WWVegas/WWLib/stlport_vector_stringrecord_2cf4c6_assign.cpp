@@ -15,21 +15,7 @@ struct BfmeStringRecord002CF4C6
 	BfmeStringRecord002CF4C6(const BfmeStringRecord002CF4C6 &other);
 	~BfmeStringRecord002CF4C6();
 };
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		AsciiString m_first;
-		AsciiString m_moduleTag;
-		const void *m_data;
-		int m_interfaceMask;
-		unsigned char m_copiedFromDefault;
-		unsigned char m_inheritable;
-		unsigned char m_overrideableByLikeKind;
-		unsigned char m_pad;
-	};
-};
+#include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 void __cdecl dup_002d028f(void);
 typedef void (__cdecl *NuggetDestroyFn)(ModuleInfo::Nugget *, ModuleInfo::Nugget *);
 namespace _STL
