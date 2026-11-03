@@ -37,10 +37,7 @@ void Rva005DE7D1Vector::resize(unsigned count,Rva005DE7D1Record value) {
 // The library providers use different established record views with the same
 // consumed eight-byte ABI; their application-level identities remain open.
 #include "ascii_string.h"
-struct BfmeStringRecord000B94D2 {
- AsciiString first, second;
- ~BfmeStringRecord000B94D2();
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 struct Rva00B6CF1;
 struct Rva000C225DElement;
 namespace _STL {

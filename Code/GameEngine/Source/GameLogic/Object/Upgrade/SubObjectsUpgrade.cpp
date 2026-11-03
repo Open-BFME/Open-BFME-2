@@ -164,11 +164,7 @@ namespace _STL { template <> void allocator<Rva00B6CF1>::deallocate(Rva00B6CF1 *
 
 #include "../../../../Include/GameClient/Drawable.h"
 
-struct BfmeStringRecord000B94D2
-{
-	AsciiString m_first;
-	AsciiString m_second;
-};
+#include "../../../../Include/Common/BfmeStringRecord000B94D2.h"
 
 // The existing row at 0x000C4D34 owns this one-argument resize.
 namespace _STL {
@@ -699,12 +695,12 @@ void __cdecl rva004B5293(INI *ini, void *instance, void *store, const void *user
 	BfmeStringRecord000B94D2 *record = records->end() - 1;
 	const char *token = ini->getNextTokenOrNull(0);
 	if (token != 0)
-		record->m_first.set(token);
+		record->m_s0.set(token);
 
 	ini->getNextTokenOrNull(0);
 	token = ini->getNextTokenOrNull(0);
 	if (token != 0)
-		record->m_second.set(token);
+		record->m_s1.set(token);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4CDFXfer.cpp

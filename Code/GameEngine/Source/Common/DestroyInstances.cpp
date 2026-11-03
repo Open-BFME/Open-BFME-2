@@ -154,11 +154,7 @@ struct Rva00111B25Record
 public:
 	~Rva00111B25Record();
 };
-struct BfmeStringRecord000B94D2
-{
-public:
-	~BfmeStringRecord000B94D2();
-};
+#include "../../Include/Common/BfmeStringRecord000B94D2.h"
 struct BfmeStringTailRecord180
 {
 public:

@@ -156,10 +156,7 @@ struct BfmeNarrowRecord000BFDC7
 	int word4;
 };
 
-struct BfmeStringRecord000B94D2
-{
-	AsciiString text0, text1;
-};
+#include "../../../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 
 namespace _STL
 {
@@ -554,8 +551,8 @@ void W3DScriptedModelDraw::xfer(Xfer *xfer)
 		m_vec38.resize(count);
 		for (BfmeStringRecord000B94D2 *it = m_vec38.begin(); it != m_vec38.end(); ++it)
 		{
-			(*xfer == it->text0);
-			(*xfer == it->text1);
+			(*xfer == it->m_s0);
+			(*xfer == it->m_s1);
 		}
 	}
 	if (xfer->IsLoading())

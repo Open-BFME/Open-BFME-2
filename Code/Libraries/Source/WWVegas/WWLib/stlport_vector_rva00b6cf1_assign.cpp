@@ -2,14 +2,7 @@
 // stlport
 // ??4?$vector@URva00B6CF1@@V?$allocator@URva00B6CF1@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x000C091B 180B: vector Rva00B6CF1 assign via B94D2 allocate_and_copy 0xBC72B plus B94D2 clear 0xC05CE plus Rva copy_ptrs 0xB67BC ABU pin plus Rva destroy 0xBDCD6 plus B94D2 uninitialized_copy 0xBBAA1. Evidence: same 180B sar 3 stride 8 shape as B94D2 assign 0x000C0799; same rowed helpers; caller 0x000C19A7.
 #include "ascii_string.h"
-struct BfmeStringRecord000B94D2
-{
-	AsciiString m_s0;
-	AsciiString m_s1;
-	BfmeStringRecord000B94D2();
-	BfmeStringRecord000B94D2(const BfmeStringRecord000B94D2 &other);
-	~BfmeStringRecord000B94D2();
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 struct Rva00B6CF1
 {
 	AsciiString m_s0;

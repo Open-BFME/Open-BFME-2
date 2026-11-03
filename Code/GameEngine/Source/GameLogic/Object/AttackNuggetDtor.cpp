@@ -21,14 +21,7 @@ inline Rva001F0622Base::~Rva001F0622Base()
 	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7ObjectCreationNugget@@6B@")));
 }
 
-class BfmeStringRecord000B94D2
-{
-public:
-	~BfmeStringRecord000B94D2();
-
-private:
-	void *m_strings[2];
-};
+#include "../../../Include/Common/BfmeStringRecord000B94D2.h"
 
 class __declspec(novtable) AttackNugget : public Rva001F0622Base
 {

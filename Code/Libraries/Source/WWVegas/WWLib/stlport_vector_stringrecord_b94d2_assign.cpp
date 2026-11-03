@@ -2,14 +2,7 @@
 // stlport
 // ??4?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x000C0799 180B: vector BfmeStringRecord000B94D2 assign via allocate_and_copy 0xBC72B plus clear 0xC05CE plus copy_ptrs 0xB67BC plus destroy 0xBDCD6 plus uninitialized_copy 0xBBAA1. Evidence: retail calls rowed allocate_and_copy plus rowed clear plus rowed copy_ptrs plus rowed destroy plus rowed uninitialized_copy; sar 3 stride 8 throughout; same 3-path shape as StringRecord assign 0x000C084D; caller 0x000C2938.
 #include "ascii_string.h"
-struct BfmeStringRecord000B94D2
-{
-	AsciiString m_s0;
-	AsciiString m_s1;
-	BfmeStringRecord000B94D2();
-	BfmeStringRecord000B94D2(const BfmeStringRecord000B94D2 &other);
-	~BfmeStringRecord000B94D2();
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 struct Rva00B6CF1
 {
 	AsciiString m_s0;

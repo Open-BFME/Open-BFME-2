@@ -9,14 +9,7 @@
 
 #include "Common/Snapshot.h"
 
-class BfmeStringRecord000B94D2
-{
-public:
-	~BfmeStringRecord000B94D2();
-
-private:
-	void *m_strings[2];
-};
+#include "../../../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 
 class __declspec(novtable) W3DTornadoDrawModuleData : public Snapshot
 {

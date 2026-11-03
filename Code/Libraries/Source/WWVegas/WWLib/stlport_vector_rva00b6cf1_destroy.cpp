@@ -15,12 +15,7 @@
 
 #include "ascii_string.h"
 
-struct BfmeStringRecord000B94D2
-{
-	~BfmeStringRecord000B94D2();
-	AsciiString m_s0;
-	AsciiString m_s1;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 
 struct Rva00B6CF1
 {

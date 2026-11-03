@@ -20,7 +20,7 @@ struct Rva000BDBFARecord { char _pad[4]; };
 class Rva000BB491 { public: char _pad[4]; };
 class Rva000BB4AC { public: char _pad[4]; };
 struct Rva000BC20DWords { char _pad[4]; };
-struct BfmeStringRecord000B94D2 { char _pad[8]; };
+#include "../../Include/Common/BfmeStringRecord000B94D2.h"
 class Shadow
 {
 public:

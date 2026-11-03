@@ -33,7 +33,7 @@ public:
 	};
 };
 
-struct BfmeStringRecord000B94D2 { char _pad[8]; };
+#include "../../../../../../GameEngine/Include/Common/BfmeStringRecord000B94D2.h"
 struct BfmePod32 { int a[8]; };
 class Rva000BB491 { public: char _pad[0xc]; };
 class Rva000BB4AC { public: char _pad[0xc]; };

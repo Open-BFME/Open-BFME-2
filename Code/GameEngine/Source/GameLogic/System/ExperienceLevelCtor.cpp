@@ -25,11 +25,7 @@ public:
 // Native cleanup releases the two strings at decal+0/+4 via the already
 // owned 0x000B6CF1 record destructor. Composition models that owned prefix;
 // the remaining decal fields are scalar storage, without another dtor pin.
-struct BfmeStringRecord000B94D2
-{
-    ~BfmeStringRecord000B94D2();
-    AsciiString first, second;
-};
+#include "../../../Include/Common/BfmeStringRecord000B94D2.h"
 class RadiusDecalTemplate
 {
 public:
