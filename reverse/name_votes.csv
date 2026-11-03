@@ -23463,3 +23463,6 @@ Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x001E7
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x003899C4|rva003899C4,d679c246a450b4b2a470ad2f,drz-t17,drz-t17-sv2-4,w-eff6be175289,2026-11-03
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x0047003C|rva0047003C,1152dfc780e7c21eb733971e,drz-t17,drz-t17-sv2-4,w-eff6be175289,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp|member|Rva00254D38Node|m_next08,6f6965f2531c9b90b29155d9,drz-t20,drz-t20-sv2-3,w-3c308dd5c62b,2026-11-03
+Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|class||Rva000AE490CliffInfo,4b55ae68a13935cb25901aec,drz-t22,drz-t22-sv2-1,w-2e5ff0f55b41,2026-11-03
+Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|class||Rva000AE490CliffInfoVector,e326b31a824d0f77712ca52b,drz-t22,drz-t22-sv2-1,w-2e5ff0f55b41,2026-11-03
+Code/GameEngine/Source/Common/Rva000AE490GridUV.cpp|class||Rva000AE6ADBlendTileInfo,f0c77edb388b2bf86b5f3b2d,drz-t22,drz-t22-sv2-1,w-2e5ff0f55b41,2026-11-03
