@@ -636,3 +636,4 @@ RadarMarker,Code/GameEngine/Include/GameClient/RadarMarker.h,existing header; co
 GameFont,Code/GameEngine/Include/GameClient/GameFontClass.h,existing header; contract class_contracts/GameFont.json; 4/11 sampled units adopt
 TransportAIUpdate,Code/GameEngine/Include/GameLogic/Module/TransportAIUpdateClass.h,existing header; contract class_contracts/TransportAIUpdate.json; 7/9 sampled units adopt
 RenderingMethod,Code/Libraries/Source/WWVegas/WW3D2/RenderingMethod.h,existing header; contract class_contracts/RenderingMethod.json; 2/16 sampled units adopt
+LivingWorldVisual,Code/GameEngine/Include/GameClient/LivingWorldVisual.h,existing header; contract class_contracts/LivingWorldVisual.json; 8/13 sampled units adopt

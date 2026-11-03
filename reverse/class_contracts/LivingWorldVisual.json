@@ -1,0 +1,126 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldVisual",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 9
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x7c": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 13
+   },
+   "0xc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 9,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "4": 1,
+   "12": 1,
+   "24": 1,
+   "28": 1,
+   "128": 2
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisual.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisualRva003FBC4D.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisualRva003FBFF3.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisual.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisual.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldVisual_createPickboxObject.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisual.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisualRva003FBC4D.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisualRva003FBFF3.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisual.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisualRva003FBC4D.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldVisualRva003FBFF3.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 128,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "setHouseColor(int*)"
+  }
+ }
+}
