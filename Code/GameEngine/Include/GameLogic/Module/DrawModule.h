@@ -23,22 +23,7 @@ class LaserDrawInterface;
 class RenderObjClass;
 enum TerrainDecalType;
 
-class DrawableModule : public Module
-{
-public:
-	DrawableModule(Thing *thing, const ModuleData *moduleData);
-	virtual void *vslot09() { return 0; }
-	virtual void *vslot10() { return 0; }
-
-protected:
-	virtual ~DrawableModule();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-	Drawable *getDrawable() { return m_drawable; }
-	const Drawable *getDrawable() const { return m_drawable; }
-	Drawable *m_drawable;
-};
+#include "../../Common/DrawableModule.h"
 
 class DrawModule : public DrawableModule
 {

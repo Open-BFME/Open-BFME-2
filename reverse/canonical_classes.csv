@@ -442,3 +442,4 @@ Rva003642DFResult,Code/GameEngine/Include/GameLogic/Rva003642DFResult.h,existing
 Rva0046247DPair,Code/GameEngine/Include/GameLogic/Module/Rva0046247DPair.h,existing header; contract class_contracts/Rva0046247DPair.json; 7/28 sampled units adopt
 Rva0029FB3BMember,Code/GameEngine/Include/GameLogic/Module/Rva0029FB3BMember.h,existing header; contract class_contracts/Rva0029FB3BMember.json; 10/28 sampled units adopt
 BfmeFixedStorage002CF0F0,Code/GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h,existing header; contract class_contracts/BfmeFixedStorage002CF0F0.json; 23/25 sampled units adopt
+DrawableModule,Code/GameEngine/Include/Common/DrawableModule.h,existing header; contract class_contracts/DrawableModule.json; 11/19 sampled units adopt
