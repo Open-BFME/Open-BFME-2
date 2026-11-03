@@ -203,16 +203,7 @@ public:
 private:
 	int m_x;
 };
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-	virtual bool slot01(int source, Object *obj);
-	virtual void slot02(); virtual void slot03(); virtual void slot04(); virtual void slot05();
-	Rva00507823();
-private:
-	char m_pad[0x128 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00507823.h"
 class Made002CC8A4 : public Rva00507823
 {
 public:

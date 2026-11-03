@@ -70,7 +70,7 @@ void Rva0050AEE4Nugget::rva0050AEE4(SourceRecord*record,Object*target){
 // execution above. Source-id +8, Object containment +250/dead bit +438 and
 // seven-word masks +12C/+148 agree with that independently matched consumer.
 // The original method name is not present in WB; retain its address label.
-class Rva00507823 {public:unsigned char rva005075D6(const void*,Object*);};
+#include "../../../../Include/GameLogic/Module/Rva00507823.h"
 bool Rva0050AEE4Nugget::rva0050ADEE(SourceRecord *record,Object *target) {
  if(((Rva00507823 *)this)->rva005075D6(record,target) && target && TheGameLogic->findObjectByID(record->source)) {
   Contain *contain=target->contain;
