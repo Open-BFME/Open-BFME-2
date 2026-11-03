@@ -35,3 +35,9 @@ new or whitelisted conflicts. find_declared_unmatched remains clean.
 Whole real-link and census confirmation remain pending. The published index
 is 984a4cdc4d (November 2 08:35); no global/runtime clearance is claimed.
 Local snapshots and checks: build/seat-link/player/.
+
+The normal commit gate reports six shadow identity diagnostics (iterator
+constructor, TEST_KINDOFMASK_MULTI, TeamPrototype list begin/end, TeamsInfoRec
+getNumTeams and PlayerTemplate isPlayableSide). All are retained among the179
+identical common fingerprints. They remain outside the shadow register; no
+identity debt was retired and this patch claims only donor/link scope.

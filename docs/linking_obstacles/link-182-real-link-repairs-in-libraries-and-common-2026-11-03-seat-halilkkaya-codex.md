@@ -37,3 +37,15 @@ Both Money consumer undefineds disappear. Twelve code rows/one data row and
 retain nine LINKS peers and add Player112B. Scoped DIR32218+68 passes. The
 getDefaultTeam class/field identity remains unresolved; no census/full-image
 credit is claimed. [Exact scope and provider audit](../reverse/attempt_support/real-link-player-donor-20261103.md).
+
+
+### Apt name-entry Laser donor references (2026-11-03, halilkkaya-codex)
+
+Base81510a474f: remove four unrowed position/decay/seven-argument-init Laser
+methods from AptValueNameEntry. All11 rows and587 common COMDAT fingerprints
+remain; three particle/shroud consumer undefineds disappear. Three-source29-row
+normal checks, one EXACT EH graph and scoped DIR3229+35 witnesses pass. Both
+linking peers stay linked in true A/B; this consumer retains three base-view
+unresolveds. Its32B constructor installs native fifteen-slot Apt tableCE8BA0,
+so the old DrawableModule/Snapshot constructor context needs complete identity
+reconciliation. No whole-image/census credit is claimed. [Proof and boundary](../reverse/attempt_support/real-link-apt-laser-donor-20261103.md).
