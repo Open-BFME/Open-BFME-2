@@ -3,7 +3,7 @@
 struct BfmeHdrVKK
 {
 	unsigned short m_bfme00;
-	unsigned short m_bfme02;
+	unsigned short m_length;
 	unsigned short m_bfme04;
 	unsigned short m_bfme06;
 };
@@ -30,7 +30,7 @@ public:
 
 void BfmeStrVKK::bfmeTruncVKK(unsigned n)
 {
-	unsigned len = m_bfme00->m_bfme02;
+	unsigned len = m_bfme00->m_length;
 	if (len > n)
 		len = n;
 	((EAStringC *)this)->ChangeBuffer(n, 0, len, EAStringC::CB_PUSH_ZERO, len);
@@ -38,13 +38,13 @@ void BfmeStrVKK::bfmeTruncVKK(unsigned n)
 
 BfmeStrVKK *BfmeStrVKK::bfmeReverseVKK()
 {
-	unsigned len = m_bfme00->m_bfme02;
+	unsigned len = m_bfme00->m_length;
 	((EAStringC *)this)->ChangeBuffer(len, 0, len, EAStringC::CB_PUSH_ZERO, len);
-	unsigned n = m_bfme00->m_bfme02;
-	if (n > 1)
+	unsigned length = m_bfme00->m_length;
+	if (length > 1)
 	{
 		char *a = (char *)m_bfme00 + 8;
-		char *b = a + n - 1;
+		char *b = a + length - 1;
 		if (a < b)
 		{
 			do

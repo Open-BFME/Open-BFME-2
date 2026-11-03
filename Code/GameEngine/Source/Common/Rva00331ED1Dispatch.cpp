@@ -31,7 +31,7 @@ struct Rva00331ED1Record
 class Rva00331ED1
 {
 public:
-    void rva00331ED1(int key, void *argument2, void *argument3);
+    void rva00331ED1(int key, void *spy, void *parameters);
 private:
     unsigned char prefix[4];
     Rva00331ED1Record *begin;
@@ -39,7 +39,7 @@ private:
 };
 
 // ?rva00331ED1@Rva00331ED1@@QAEXHPAX0@Z
-void Rva00331ED1::rva00331ED1(int key, void *argument2, void *argument3)
+void Rva00331ED1::rva00331ED1(int key, void *spy, void *parameters)
 {
     for (Rva00331ED1Record *record = begin; record != end; ++record)
     {
@@ -51,7 +51,7 @@ void Rva00331ED1::rva00331ED1(int key, void *argument2, void *argument3)
             Object *object = TheGameLogic->findObjectByID(node->id);
             if (object)
                 TheLuaScriptEngine->DispatchSpyEvent((int)record->event, object,
-                    argument2, argument3);
+                    spy, parameters);
             node = node->next;
         }
     }

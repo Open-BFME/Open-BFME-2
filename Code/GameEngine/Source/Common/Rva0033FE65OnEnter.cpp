@@ -17,7 +17,7 @@ struct SubP00346FD0
 	char m_pad00[0x64];
 	const char *m_nameBase;
 	char m_pad68[0x635 - 0x68];
-	bool m_flag635;
+	bool m_shouldClearShotsOnIdle;
 };
 struct SubQ00346FD0
 {
@@ -87,7 +87,7 @@ StateReturnType Rva0033FE65::onEnter()
 		ai->rva00263025();
 	m_25 = true;
 	SubP00346FD0 *p = obj->m_template;
-	if (p->m_flag635) {
+	if (p->m_shouldClearShotsOnIdle) {
 		SubQ00346FD0 *q = obj->m_q240;
 		if (q)
 			q->m_bits20 &= 0;

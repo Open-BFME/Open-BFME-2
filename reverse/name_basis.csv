@@ -7402,3 +7402,13 @@ local,BfmeThingDXK::bfmeGoDXKa::p,BfmeThingDXK::bfmeGoDXKa::buffer,inferred,agre
 local,bfmeGo924A::o,bfmeGo924A::node,inferred,agree:nl-be925db47534,Code/GameEngine/Source/Common/BfmeConv924_bfmeGo924E_YAXPAVBfmeKeyLC_I_Z.cpp,0x00324894
 local,bfmeGo924B::o,bfmeGo924B::node,inferred,agree:nl-03b7352a2811,Code/GameEngine/Source/Common/BfmeConv924_bfmeGo924E_YAXPAVBfmeKeyLC_I_Z.cpp,0x00327D1B
 local,bfmeGo924E::o,bfmeGo924E::node,inferred,agree:nl-d23783ecc650,Code/GameEngine/Source/Common/BfmeConv924_bfmeGo924E_YAXPAVBfmeKeyLC_I_Z.cpp,0x00320626
+member,BfmeHdrVKK::m_bfme02,BfmeHdrVKK::m_length,inferred,agree:nl-15524d676ab2,Code/GameEngine/Source/Common/BfmeConv1404.cpp,
+member,BfmePairFCD::m_bfmeA,BfmePairFCD::m_weaponSlot,inferred,agree:nl-8a73869b5f29,Code/GameEngine/Source/Common/BfmeConv892.cpp,
+member,Rva000ADA6D::m_last54,Rva000ADA6D::m_last,inferred,agree:nl-344c14860de8,Code/GameEngine/Source/Common/Rva000ADA6DFill.cpp,
+member,SubP00346FD0::m_flag635,SubP00346FD0::m_shouldClearShotsOnIdle,inferred,agree:nl-926608bba325,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,
+local,BfmeStrVKK::bfmeReverseVKK::n,BfmeStrVKK::bfmeReverseVKK::length,inferred,agree:nl-dee38547acd3,Code/GameEngine/Source/Common/BfmeConv1404.cpp,0x006D59A0
+param,Rva00331ED1::rva00331ED1::argument2,Rva00331ED1::rva00331ED1::spy,inferred,agree:nl-0d24ff1e6892,Code/GameEngine/Source/Common/Rva00331ED1Dispatch.cpp,0x00331ED1
+param,Rva00331ED1::rva00331ED1::argument3,Rva00331ED1::rva00331ED1::parameters,inferred,agree:nl-0f5b4105c2fd,Code/GameEngine/Source/Common/Rva00331ED1Dispatch.cpp,0x00331ED1
+param,bfmeAnchorRva00447909Copy::p,bfmeAnchorRva00447909Copy::buffer,inferred,agree:nl-9a49d07bb2c9,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,
+param,bfmeAnchorRva00447909Copy::s,bfmeAnchorRva00447909Copy::outU16,inferred,agree:nl-82b199cd8938,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,
+param,bfmeAnchorRva00447909Copy::u,bfmeAnchorRva00447909Copy::outU32,inferred,agree:nl-17cbbb27c5f5,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,

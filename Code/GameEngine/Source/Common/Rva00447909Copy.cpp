@@ -49,9 +49,9 @@ __declspec(noinline) inline char *__cdecl Rva0044796CReadU16(char *src, unsigned
 }
 // Select-any like GenerateGameOptionsString.cpp's copies; the anchor keeps them emitted.
 // ?bfmeAnchorRva00447909Copy absent-from-retail
-void bfmeAnchorRva00447909Copy(char *p, unsigned int *u, unsigned short *s)
+void bfmeAnchorRva00447909Copy(char *buffer, unsigned int *outU32, unsigned short *outU16)
 {
-	Rva0044799ACopy1(p, p, p);
-	Rva0044793FReadU32(p, u, p);
-	Rva0044796CReadU16(p, s, p);
+	Rva0044799ACopy1(buffer, buffer, buffer);
+	Rva0044793FReadU32(buffer, outU32, buffer);
+	Rva0044796CReadU16(buffer, outU16, buffer);
 }

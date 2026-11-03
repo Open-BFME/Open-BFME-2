@@ -8,7 +8,7 @@
 // other definitions are omitted.
 struct BfmePairFCD
 {
-	void *m_bfmeA;
+	void *m_weaponSlot;
 	void *m_bfmeB;
 	char m_bfmeFlag;
 };
@@ -24,7 +24,7 @@ enum WeaponLockType { WEAPON_LOCK_INVALID = -1 };
 
 void bfmeGoFCD(BfmeObjFCD *o, BfmePairFCD *p)
 {
-	char r = (((Object *)o)->setWeaponLock((WeaponSlotType)(int)p->m_bfmeA,
+	char r = (((Object *)o)->setWeaponLock((WeaponSlotType)(int)p->m_weaponSlot,
 		(WeaponLockType)(int)p->m_bfmeB) == 0);
 	p->m_bfmeFlag |= r;
 }
