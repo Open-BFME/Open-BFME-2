@@ -42,11 +42,7 @@ class Object;
 
 #include "../../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-public:
-private:
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
