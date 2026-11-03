@@ -626,3 +626,4 @@ ListboxData,Code/GameEngine/Include/GameClient/ListboxData.h,existing header; co
 PeerThreadClass,Code/GameEngine/Include/GameNetwork/GameSpy/PeerThreadClass.h,existing header; contract class_contracts/PeerThreadClass.json; 7/15 sampled units adopt
 HordeGarrisonContainModuleData,Code/GameEngine/Include/GameLogic/Module/HordeGarrisonContainModuleData.h,existing header; contract class_contracts/HordeGarrisonContainModuleData.json; 6/11 sampled units adopt
 InGameCommandButtonHelp,Code/GameEngine/Include/GameClient/InGameCommandButtonHelp.h,existing header; contract class_contracts/InGameCommandButtonHelp.json; 2/6 sampled units adopt
+W3DBridge,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h,existing header; contract class_contracts/W3DBridge.json; 6/12 sampled units adopt
