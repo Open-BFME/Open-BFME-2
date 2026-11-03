@@ -583,3 +583,4 @@ BoxEmissionVolumeInfo,Code/GameEngine/Include/GameClient/BoxEmissionVolumeInfo.h
 WallUpgradeUpdate,Code/GameEngine/Include/GameLogic/Module/WallUpgradeUpdate.h,existing header; contract class_contracts/WallUpgradeUpdate.json; 5/9 sampled units adopt
 AttributeModifierAuraUpdate,Code/GameEngine/Include/GameLogic/Module/AttributeModifierAuraUpdate.h,existing header; contract class_contracts/AttributeModifierAuraUpdate.json; 3/8 sampled units adopt
 NetFrameCommandMsg,Code/GameEngine/Include/GameNetwork/NetFrameCommandMsg.h,existing header; contract class_contracts/NetFrameCommandMsg.json; 2/7 sampled units adopt
+StructureCollapseUpdate,Code/GameEngine/Include/GameLogic/Module/StructureCollapseUpdateClass.h,existing header; contract class_contracts/StructureCollapseUpdate.json; 3/8 sampled units adopt
