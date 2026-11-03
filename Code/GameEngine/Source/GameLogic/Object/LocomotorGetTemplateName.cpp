@@ -4,13 +4,7 @@
 
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 
-class Locomotor
-{
-public:
-	virtual ~Locomotor();
-	const LocomotorTemplate *m_template;
-	AsciiString getTemplateName() const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.

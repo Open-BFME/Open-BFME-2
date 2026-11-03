@@ -30,21 +30,14 @@ static __forceinline void crossProduct(const Coord3D *left, const Coord3D *right
 	result->z = left->x * right->y - left->y * right->x;
 }
 
-class Locomotor
-{
-public:
-	void rva001E41FA(float angle);
-private:
-	char m_pad00[0x68];
-	Matrix3D m_transform;				// +0x68
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 void Locomotor::rva001E41FA(float angle)
 {
 	Coord3D pos, x, y, z, u;
-	pos.x = matrixXTranslation(m_transform);
-	pos.y = matrixYTranslation(m_transform);
-	pos.z = matrixZTranslation(m_transform);
+	pos.x = matrixXTranslation(m_68);
+	pos.y = matrixYTranslation(m_68);
+	pos.z = matrixZTranslation(m_68);
 	z.x = 0.0f;
 	z.y = 0.0f;
 	z.z = 1.0f;
@@ -53,7 +46,7 @@ void Locomotor::rva001E41FA(float angle)
 	u.z = 0.0f;
 	crossProduct(&z, &u, &y);
 	crossProduct(&y, &z, &x);
-	setMatrixValues(m_transform,x.x, y.x, z.x, pos.x,
+	setMatrixValues(m_68,x.x, y.x, z.x, pos.x,
 		x.y, y.y, z.y, pos.y,
 		x.z, y.z, z.z, pos.z);
 }

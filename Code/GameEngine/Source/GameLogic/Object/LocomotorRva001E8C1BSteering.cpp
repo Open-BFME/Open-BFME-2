@@ -60,11 +60,7 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class Locomotor
-{
-public:
-	Real getMaxSpeed(Object *obj) const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 class Rva001E46E1
 {

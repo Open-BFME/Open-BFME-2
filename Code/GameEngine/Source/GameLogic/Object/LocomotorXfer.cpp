@@ -26,11 +26,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class Locomotor
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 void Locomotor::xfer(Xfer *xfer)
 {

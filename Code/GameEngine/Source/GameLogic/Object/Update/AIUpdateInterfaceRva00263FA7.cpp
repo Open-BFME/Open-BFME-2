@@ -29,12 +29,7 @@ enum PathfindLayerEnum
 	LAYER_GROUND_ENUM = 0
 };
 
-class Locomotor
-{
-public:
-	unsigned char m_pad00[0x44]; // +0x00..0x44
-	UnsignedInt m_flags; // +0x44
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
 class Rva001E48E8ElemInner
 {

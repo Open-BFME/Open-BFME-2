@@ -5,7 +5,7 @@
 float normalizeAngle(float);
 class Object;
 struct Rva0028AC4EEntry {unsigned char m_pad[0x40];mutable float m_40;};
-class Locomotor {public:float getMaxTurnRate(Object*)const;};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 class Object {public:const Rva0028AC4EEntry*rva0028AC4E()const;char pad[0x44];float angle;float getOrientation()const{return angle;}};
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class ContainView {public:virtual void d0();

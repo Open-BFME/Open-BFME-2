@@ -64,11 +64,7 @@ class Rva0008BB38FloatField
  float get() const;
 };
 
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *object) const;
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 class Locomotor;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

@@ -235,14 +235,7 @@ public:
 };
 
 // Locomotor::getMaxSpeed (0x001E46E1), named by WorldBuilder.
-class Locomotor
-{
-public:
-	Real getMaxSpeed(Object *obj) const;
-public: Bool locoUpdate_maintainCurrentPosition(Object *);
-	void locoUpdate_moveTowardsAngle(Object *obj, Real angle); // rowed 0x001EA0F4
-	void rva001E9083(Object *obj, const Coord3D *goal, Real onPathDistToGoal, Real desiredSpeed); // rowed 0x001E9083
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 
 // The current locomotor (Zero Hour's Locomotor); ledger class name.
 class Rva001E46E1

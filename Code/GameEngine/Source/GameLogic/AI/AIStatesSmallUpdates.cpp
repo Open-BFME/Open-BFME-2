@@ -79,26 +79,7 @@ public:
 template <> class AIDeadStateAISlots<0>
 {
 };
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		IS_BRAKING = 0,
-		ALLOW_INVALID_POSITION,
-	};
-	// Keep the target inline flag update without a competing external copy.
-	__declspec(dllimport) __forceinline void setAllowInvalidPosition(Bool b)
-	{
-		if (b)
-			m_flags |= (1 << ALLOW_INVALID_POSITION);
-		else
-			m_flags &= ~(1 << ALLOW_INVALID_POSITION);
-	}
-private:
-	unsigned char m_pad00[0x44];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 // AIUpdateInterface: vslot 136 (+0x220) is called on a dead owner's AI.
 class AIUpdateInterface : public AIDeadStateAISlots<136>
 {

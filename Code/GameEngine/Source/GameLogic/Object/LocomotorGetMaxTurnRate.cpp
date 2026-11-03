@@ -44,15 +44,7 @@ public:
 
 #define TheGlobalData TheWritableGlobalData
 
-class Locomotor
-{
-public:
-	virtual void locoAnchor();
-	const LocomotorTemplate *m_template;
-	char m_pad08[0x38 - 8];
-	Real m_maxTurnRate;
-	Real getMaxTurnRate(Object *object) const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 Real Locomotor::getMaxTurnRate(Object *object) const
 {

@@ -13,13 +13,7 @@ typedef bool Bool;
 
 class LocomotorTemplate;
 
-class Locomotor
-{
-public:
-	Locomotor(const LocomotorTemplate *tmpl, Bool flag);
-private:
-	unsigned char m_pad[0xB0];
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 class LocomotorStore
 {

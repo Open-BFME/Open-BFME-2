@@ -10,7 +10,7 @@
 #include "Lib/Coord3D.h"
 class Object;
 class Rva00375A73Context {public:unsigned char prefix[0x54];Coord3D goal;};
-class Locomotor {public:float getMaxSpeed(Object*)const;void locoUpdate_moveTowardsAngle(Object*,float);bool rva001E9A00(Object*,float,float*,Rva00375A73Context*);};
+#include "../../../../../Include/GameLogic/LocomotorClass.h"
 class Rva001E46E1 {public:void rva001E546B(Object*);};
 class Rva002618A2 {public:Rva002618A2*rva002618A2(int,int,int,int);unsigned words[7];};
 #include "../../../../../Include/Common/BfmeFixedStorage0004543D.h"

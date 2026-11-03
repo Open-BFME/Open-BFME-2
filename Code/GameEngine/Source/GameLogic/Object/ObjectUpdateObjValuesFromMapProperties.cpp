@@ -143,12 +143,7 @@ public:
 void TranslateAudioProperties(Dict *properties, Drawable *draw, ThingTemplate *tmpl,
 	Bool *forcedOff, Rva000A8C9B *info, Bool *enabled);
 
-class Locomotor
-{
-public:
-	char m_pad[0x3C];
-	Real m_closeEnoughDist;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
