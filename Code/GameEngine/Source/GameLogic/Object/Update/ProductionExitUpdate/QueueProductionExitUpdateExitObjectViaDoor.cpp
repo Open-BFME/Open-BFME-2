@@ -245,15 +245,7 @@ private:
 };
 
 // HordeContain's interface at +0x11C (vftable 0x00C44C58).
-class HordeContainInterface
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06();
-	virtual Coord3D slot7(Object *obj, Real *angle);
-	virtual void v08(); virtual void v09(); virtual void v10();
-	virtual void assignSpotToUnit(Object *obj);
-};
+#include "../../../../../Include/GameLogic/Module/HordeContainInterface.h"
 
 class ContainModuleInterface
 {

@@ -240,33 +240,7 @@ extern int BfmeLogicFramesPerSecond;
 
 class Object;
 
-class HordeContainInterface
-{
-public:
-	virtual void h000(); virtual void h001(); virtual void h002(); virtual void h003();
-	virtual void refreshFormation(Bool value); // slot 4
-	virtual void h005(); virtual void h006(); virtual void h007(); virtual void h008(); virtual void h009();
-	SLOT_GAP10(h, 1) SLOT_GAP10(h, 2)
-	virtual void h030(); virtual void h031(); virtual void h032(); virtual void h033(); virtual void h034();
-	virtual void h035(); virtual void h036(); virtual void h037();
-	virtual void notifyMember(Object *member); // slot 38
-	virtual Bool slot39(); // slot 39
-	virtual Bool slot40(); // slot 40
-	virtual Bool isReady(); // slot 41
-	virtual void h042(); virtual void h043(); virtual void h044(); virtual void h045(); virtual void h046();
-	virtual void h047(); virtual void h048(); virtual void h049();
-	virtual void h050(); virtual void h051(); virtual void h052(); virtual void h053(); virtual void h054();
-	virtual void update(); // slot 55
-	virtual void h056(); virtual void h057(); virtual void h058(); virtual void h059();
-	SLOT_GAP10(h, 6)
-	virtual void h070(); virtual void h071(); virtual void h072(); virtual void h073(); virtual void h074();
-	virtual Bool slot75(); // slot 75
-	virtual void h076(); virtual void h077(); virtual void h078(); virtual void h079();
-	SLOT_GAP10(h, 8) SLOT_GAP10(h, 9) SLOT_GAP10(h, 10) SLOT_GAP10(h, 11) SLOT_GAP10(h, 12) SLOT_GAP10(h, 13)
-	virtual void h140(); virtual void h141(); virtual void h142(); virtual void h143(); virtual void h144();
-	virtual void h145();
-	virtual Bool getRallyPosition(Coord3D *pos); // slot 146
-};
+#include "../../Include/GameLogic/Module/HordeContainInterface.h"
 
 class ContainModuleInterface
 {

@@ -109,11 +109,7 @@ private:
 	unsigned char m_pad100[0x11C - 0x100];
 };
 
-class HordeContainInterface
-{
-public:
-	virtual void rva00472329(const Coord3D *, int) = 0;
-};
+#include "../../../../Include/GameLogic/Module/HordeContainInterface.h"
 
 // The +0x2C8 helper.
 class Rva00468FDCHelper

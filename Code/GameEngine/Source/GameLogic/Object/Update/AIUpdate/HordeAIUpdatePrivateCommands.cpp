@@ -51,27 +51,7 @@ enum ObjectStatusTypes
 
 // The horde contain answering Object+0x250's slot 31. Slot names are
 // inferred from use, not from target symbols.
-class HordeContainInterface
-{
-public:
-	virtual void h000(); virtual void h001(); virtual void h002(); virtual void h003();
-	virtual void refreshFormation(bool value); // slot 4 (+0x10)
-	virtual void slot5(Object *target); // slot 5 (+0x14)
-	virtual void h006(); virtual void h007();
-	virtual void slot8(Object *obj); // slot 8 (+0x20)
-	virtual void h009();
-	SLOT_GAP10(h, 1)
-	virtual void h020(); virtual void h021(); virtual void h022();
-	virtual bool slot23(); // slot 23 (+0x5C)
-	virtual void slot24(); // slot 24 (+0x60)
-	virtual void h025(); virtual void h026(); virtual void h027(); virtual void h028(); virtual void h029();
-	virtual void h030(); virtual void h031(); virtual void h032(); virtual void h033(); virtual void h034();
-	virtual void h035(); virtual void h036();
-	virtual bool slot37(); // slot 37 (+0x94)
-	virtual void h038(); virtual void h039();
-	SLOT_GAP10(h, 4) SLOT_GAP10(h, 5)
-	virtual bool slot60(); // slot 60 (+0xF0)
-};
+#include "../../../../../Include/GameLogic/Module/HordeContainInterface.h"
 
 class Rva0028C197Provider
 {

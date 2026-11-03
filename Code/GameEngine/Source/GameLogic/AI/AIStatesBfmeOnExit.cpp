@@ -570,11 +570,7 @@ public:
 	virtual Bool isMeleeTargetReady(Object *target) = 0;
 	virtual void slot86(Object *target) = 0;
 };
-class HordeContainInterface : public AIStateGapSlots<HordeContainInterfaceHead, 3>
-{
-public:
-	virtual void setMeleeFormation(ObjectID id) = 0;
-};
+#include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 class ContainModuleSlot32 : public AIStateSlotFill<ContainModuleSlot17, 17, 30>
 {
 public:
