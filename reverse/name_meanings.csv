@@ -1004,3 +1004,11 @@ Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp|param|Rva0056B8F4
 Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp|param|Rva0056B929::rva0056B929|arg,7856de77e38bfd49633fed4a,drz-k3,drz-k3-sv1c-13,w-077d7aeb666b,2026-11-03,9a8f1a3b5d545b3c984cecbb
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp|local|Rva000B348E::rva000B348E|o,a880ba34ab0c2021296b720d,drz-k3,drz-k3-sv1c-16,w-077d7aeb666b,2026-11-03,4de1c6664c418350a8ad09ec
 Code/GameEngine/Source/Common/BfmeConv1455.cpp|local|BfmeCtxVMP::bfmeResetVMP|b,c0ab95785a66e573a654d4b9,drz-k3,drz-k3-sv1c-17,w-077d7aeb666b,2026-11-03,855d4dc09473ce49855c7bce
+Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|s,ea5596dd6c746587992c5824,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,fc88b61ca34b49331d2ceb7f
+Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|x,26088dbe2de8047c04ee30dc,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,5c3f04b2391afe2cfb16d4e2
+Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|y,cf3ea451c27c172fc8564e5b,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,a4a6116d6336ce14eafe6ce3
+Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|z,636d60a9a40a8a3df31d56b8,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,12b8ebcc3f81a773fbb53fb5
+Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|f,b0d664d10491bf459d0db347,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,4dd5f61627cad68045e73246
+Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|c,acc65ed434b10a4f860aa845,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,e78ec33dd8e000779fa143db
+Code/GameEngine/Source/Common/BfmeConv1733.cpp|param|bfmeEmitZBCopy|p,238e03b5157d1fe20c7d6d38,drz-k9,drz-k9-sv1d-17,w-4d4d8f8584bc,2026-11-03,d9b22e35ebc1bc37fd56104b
+Code/GameEngine/Source/Common/BfmeConv1733.cpp|param|bfmeEmitZBCopy|o,13965b3662cccf2f132e115a,drz-k9,drz-k9-sv1d-17,w-4d4d8f8584bc,2026-11-03,7371cee06bfb28ccc21d6701
