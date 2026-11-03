@@ -310,6 +310,16 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
 - **Escape-hatch debt**: replace a hatch with real code or a real name and lower
   its count, preferably in files you are already in.
 - **Names**: `tools/rename.py`, `tools/name_lane.py` (`docs/naming.md`).
+  For locals/parameters, use `name_lane.py scoped next --session S --model M`
+  (default target 200 bindings across complete functions), then `scoped preview`
+  and `scoped apply`. A native sub-agent proposes the whole batch; the parent
+  quickly scans every mapping and the resulting diff, investigates only
+  questionable names, resolves them, and acknowledges the exact proposal once.
+  No scoped votes, approval rows, external reviewer CLI or per-name review essays.
+  Inventory includes meaningful and donor-spelled scoped names; retain good names
+  explicitly. Check inventory coverage warnings; do not claim regex inventories
+  cover unsupported C++ bindings. Apply and verify the whole batch together.
+  Globals, functions, classes and members keep the existing naming workflow.
   Complete a naming batch through application: normal `name_lane.py submit`
   applies its new approvals together and arranges independent review/application
   for pending shared names using an available Codex, Claude or OpenCode CLI

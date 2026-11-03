@@ -1603,7 +1603,11 @@ def check_basis(ctx, kind, basis, evidence, old_name, old_word, rva, *, new_name
     # alone) carries no name evidence: it is as replaceable as a placeholder.
     placeholder = is_placeholder(old_word, kind) or (kind == "file" and provisional_file(ctx, old_name))
     recorded = recorded_basis(ctx, old_name) or recorded_basis(ctx, old_word)
-    if which == "inferred" and not placeholder:
+    direct = evidence.strip().startswith("direct:")
+    if direct and (kind not in ("param", "local") or not re.fullmatch(
+            r"direct:nd-[0-9a-f]{24}(?: +[^\r\n]+)?", evidence.strip())):
+        raise Refusal("direct: evidence needs a scoped parameter/local nd-<24 hex digits> record")
+    if which == "inferred" and not placeholder and not direct:
         raise Refusal(f"{old_word} is a real name, not a placeholder; an inferred name may replace "
                       "only a placeholder or weak name")
     if which == "canonical" and not placeholder and not (recorded or "").startswith("inferred") \
@@ -1613,7 +1617,9 @@ def check_basis(ctx, kind, basis, evidence, old_name, old_word, rva, *, new_name
                       "a canonical name may replace only a placeholder or an inferred name")
     if which == "inferred":
         inferred_guards(ctx, kind, old_name, old_word, rva)
-        if evidence.strip().startswith("mechanical:"):
+        if direct:
+            pass  # The scoped lane supplies its parent-reviewed record; no shared name enters here.
+        elif evidence.strip().startswith("mechanical:"):
             if kind != "file":
                 raise Refusal("mechanical: evidence names a file from its own rows; other kinds need agree:<id>")
             stem = posixpath.splitext(posixpath.basename(new_name or ""))[0]
@@ -1676,13 +1682,20 @@ class Landing:
     source: str
 
 
+def inferred_record(evidence):
+    """Identity of an agreement-backed or direct scoped inferred landing."""
+    match = re.fullmatch(r"agree:(\S+)|direct:(nd-[0-9a-f]{24})(?: +[^\r\n]+)?",
+                         (evidence or "").strip())
+    return (match.group(1) or match.group(2)) if match else None
+
+
 def landing(ctx, record):
     """The inferred rename `agree:<record>` landed, not yet restored. Carry
     rows (a renamed class or function respelling this record's scope) are
     followed to its current spelling."""
     rows = name_basis_rows(ctx)
     found = [i for i, r in enumerate(rows) if r.get("basis") == "inferred"
-             and (r.get("evidence") or "").strip() == f"agree:{record}"]
+             and inferred_record(r.get("evidence")) == record]
     if not found:
         raise Refusal(f"no inferred rename with evidence agree:{record} is recorded in {NAME_BASIS}")
     at = found[-1]
@@ -2060,14 +2073,14 @@ def unreverted_landings(ctx, word):
     rows = name_basis_rows(ctx)
     found = []
     for at, row in enumerate(rows):
-        match = re.fullmatch(r"agree:(\S+)", (row.get("evidence") or "").strip())
-        if row.get("basis") != "inferred" or not match or not row.get("new"):
+        record = inferred_record(row.get("evidence"))
+        if row.get("basis") != "inferred" or not record or not row.get("new"):
             continue
         if word_of(row.get("kind", ""), row["new"]) != word:
             continue
-        if not any(r.get("basis") == RESTORED and revert_id(r.get("evidence")) == match.group(1)
+        if not any(r.get("basis") == RESTORED and revert_id(r.get("evidence")) == record
                    for r in rows[at + 1:]):
-            found.append(match.group(1))
+            found.append(record)
     return found
 
 
@@ -5317,11 +5330,11 @@ def header_closure(ctx, rel, limit=400):
     return seen
 
 
-def pick_function(code, function):
+def pick_function(code, function, *, functions=None):
     """The name_metric.functions_in entry `function` names: its exact scope
     (`Class::method`, `Class::method#2` for the second overload in the file),
     or a bare method name when one function in the file has it."""
-    found = name_metric.functions_in(code)
+    found = name_metric.functions_in(code) if functions is None else functions
     # functions_in leaves the first overload unsuffixed; #1 makes that
     # choice explicit without making a bare overloaded scope unambiguous.
     if function.endswith("#1"):
@@ -5360,7 +5373,44 @@ def _bracket_pairs(text, opener, closer):
     return pairs
 
 
-def local_scopes(body, name):
+def _comma_local_declarations(body):
+    """Extra declarators in simple primitive comma declarations.
+
+    Deliberately limited to ordinary primitive declarations and simple literal
+    initializers. Template/function declarators and comma expressions need a
+    fuller C++ parser; this helper never guesses their binding.
+    """
+    primitive = {"int", "float", "double", "char", "short", "long", "bool", "wchar_t"}
+    extra = []
+    for first in name_metric.LOCAL.finditer(body):
+        if first.group(1) not in primitive:
+            continue
+        stop = body.find(";", first.end(2))
+        if stop < 0:
+            continue
+        tail = body[first.end(2):stop]
+        if "," not in tail or re.search(r"[(){}<>?:]", tail):
+            continue
+        parts = tail.split(",")
+        if not re.fullmatch(r"\s*(?:=\s*(?:[-+]?\d+(?:\.\d+)?[fFuUlL]*|NULL|true|false))?\s*", parts[0]):
+            continue
+        offset = first.end(2) + len(parts[0]) + 1
+        for part in parts[1:]:
+            match = re.fullmatch(r"\s*[*&]*\s*([A-Za-z_]\w*)\s*"
+                r"(?:=\s*(?:[-+]?\d+(?:\.\d+)?[fFuUlL]*|NULL|true|false))?\s*", part)
+            if match is None or match.group(1) in name_metric.KEYWORDS:
+                break
+            extra.append((match.group(1), offset + match.start(1), first.group(2)))
+            offset += len(part) + 1
+    return extra
+
+
+def scoped_local_names(body):
+    """Local inventory, including conservative primitive comma declarators."""
+    return name_metric.local_names(body) + [name for name, _at, _first in _comma_local_declarations(body)]
+
+
+def local_scopes(body, name, *, include_comma=True):
     """(start, end) of the region each declaration of the local `name` in
     function `body` (stripped text starting at its `{`) governs: from the
     declared name to the end of the block that holds it. A declaration in the
@@ -5401,6 +5451,12 @@ def local_scopes(body, name):
                 stop = body.find(";", after)
                 end = len(body) if stop < 0 else stop
         scopes.append((at, end))
+    for declared, at, first in _comma_local_declarations(body) if include_comma else ():
+        if declared != name:
+            continue
+        first_scopes = local_scopes(body, first, include_comma=False)
+        if len(first_scopes) == 1 and first_scopes[0][0] < at <= first_scopes[0][1]:
+            scopes.append((at, first_scopes[0][1]))
     return scopes
 
 
@@ -5495,12 +5551,13 @@ def recorded_local_binding(ctx, evidence, rel, code, start, end):
     if land.kind != "local" or land.source != rel:
         return False
     current = outer_binding_digest(ctx, rel, code, start, end)
-    return any(row.get("record") == f"agree:{record}" and row.get("source") == rel
+    return any(inferred_record(row.get("record")) == record and row.get("source") == rel
                and row.get("old") == land.target and row.get("new") == land.current
                and row.get("outer_sha256") == current for row in ctx.dicts(NAME_BINDINGS))
 
 
-def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25, local_binding=False):
+def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25,
+                local_binding=False, expected_source_sha=None):
     """Plan respelling one parameter or local inside one function body. Names
     of params and locals never reach bytes under optimisation; a local under
     /Od can (frame order), so /Od files are refused for locals. The rename is
@@ -5532,9 +5589,20 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
                           "(a parameter name never reaches the bytes, so the build cannot catch a wrong pick)")
     if not function:
         raise Refusal("--function (or --rva) is required")
-    text = ctx.read(rel).decode("utf-8", errors="surrogateescape")
-    code = name_metric.strip(text)
-    scope, start, end, params = pick_function(code, function)
+    raw = ctx.read(rel)
+    if evidence.strip().startswith("direct:") and (not isinstance(expected_source_sha, str)
+            or not re.fullmatch(r"[0-9a-f]{64}", expected_source_sha)):
+        raise Refusal("direct scoped plans require the reviewed source SHA-256 fingerprint")
+    if expected_source_sha is not None and ctx.resolution_source_sha(rel) != expected_source_sha:
+        raise Refusal(f"{rel} changed since the direct naming batch was prepared; serve it again")
+    cached = ctx._cache.setdefault("_scoped_sources", {}).get(rel)
+    if cached is None or cached[0] != raw:
+        text = raw.decode("utf-8", errors="surrogateescape")
+        code = name_metric.strip(text)
+        cached = (raw, text, code, name_metric.functions_in(code))
+        ctx._cache["_scoped_sources"][rel] = cached
+    _raw, text, code, functions = cached
+    scope, start, end, params = pick_function(code, function, functions=functions)
     brace = code.find("{", start)
     body = code[brace:end]
     binding = scalar_local_binding(body, name) if kind == "local" and (local_binding or basis == RESTORED) else None
@@ -5548,11 +5616,15 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
     if kind == "param":
         if name not in set(parameters(params)):
             raise Refusal(f"{name} is not a parameter of {scope}")
+        if evidence.strip().startswith("direct:") and name in scoped_local_names(body):
+            raise Refusal(f"{name} is shadowed by a local declaration in {scope}; its bindings need separate proof")
     else:
         if name in set(parameters(params)):
             raise Refusal(f"{name} is a parameter of {scope}, not a local")
-        if name not in set(name_metric.local_names(body)):
+        if name not in set(scoped_local_names(body)):
             raise Refusal(f"{name} is not a local of {scope}")
+        if evidence.strip().startswith("direct:") and len(local_scopes(body, name)) != 1:
+            raise Refusal(f"{name} has ambiguous or unsupported declarations in {scope}")
         flags = compile_flags(ctx, rel)
         if re.search(r'^[ \t]*#[ \t]*pragma[ \t]+optimize[ \t]*\([^)]*\boff\b', text, re.M):
             raise Refusal(f"{rel} turns optimisation off with #pragma optimize; a local's name can reorder "
@@ -5678,14 +5750,124 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
     return plan
 
 
-def plan_param(ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25):
+def plan_param(ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25,
+               expected_source_sha=None):
     return plan_scoped("param", ctx, source, name, new, basis, evidence,
-                       function=function, rva=rva, max_files=max_files)
+                       function=function, rva=rva, max_files=max_files, expected_source_sha=expected_source_sha)
 
 
-def plan_local(ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25, local_binding=False):
+def plan_local(ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25, local_binding=False,
+               expected_source_sha=None):
     return plan_scoped("local", ctx, source, name, new, basis, evidence,
-                       function=function, rva=rva, max_files=max_files, local_binding=local_binding)
+                       function=function, rva=rva, max_files=max_files, local_binding=local_binding,
+                       expected_source_sha=expected_source_sha)
+
+
+def plan_scoped_set(ctx, source, entries, expected_source_sha, basis="inferred", evidence=""):
+    """Plan reviewed scoped names against one original source, then compose.
+
+    Each entry retains the ordinary scoped planner's binding, protection and
+    capture checks. Token-aligned edits are combined simultaneously, never
+    progressively changing the context a later entry was reviewed against.
+    Entries that cannot be proved safe are reported without discarding peers.
+    """
+    if basis != "inferred" or not isinstance(entries, list) or not entries:
+        raise Refusal("scoped-set needs a nonempty list of direct inferred scoped entries")
+    rel = (source or "").replace("\\", "/")
+    raw = ctx.read(rel)
+    if (not isinstance(expected_source_sha, str)
+            or not re.fullmatch(r"[0-9a-f]{64}", expected_source_sha)
+            or raw is None or ctx.resolution_source_sha(rel) != expected_source_sha):
+        raise Refusal(f"{rel} changed since the direct naming batch was prepared; serve it again")
+    text = raw.decode("utf-8", errors="surrogateescape")
+    original_tokens = list(name_metric.WORD.finditer(text))
+    plan = Plan("scoped-set", "scoped identifiers", "reviewed identifiers", basis, evidence, rel, None)
+    plan.scoped_refused = {}
+    plan.scoped_plans = []
+    edits, seen_bindings, targets = {}, set(), set()
+    history = {NAME_BASIS: [], NAME_BINDINGS: []}
+    for index, entry in enumerate(entries):
+        try:
+            if not isinstance(entry, dict) or entry.get("kind") not in ("param", "local"):
+                raise Refusal("scoped-set entries may rename only parameters and locals")
+            if not isinstance(entry.get("evidence"), str) or not entry["evidence"].startswith("direct:"):
+                raise Refusal("scoped-set entries require direct: scoped review evidence")
+            if set(entry) - {"kind", "function", "name", "new", "evidence", "local_binding"}:
+                raise Refusal("unknown scoped-set entry fields")
+            candidate = plan_scoped(entry["kind"], ctx, rel, entry.get("name"), entry.get("new"),
+                basis, entry["evidence"], function=entry.get("function"),
+                local_binding=entry.get("local_binding", entry["kind"] == "local"),
+                expected_source_sha=expected_source_sha)
+            binding = candidate.old
+            target = candidate.new
+            if binding in seen_bindings or target in targets:
+                raise Refusal("duplicate binding or competing final name in scoped-set")
+            changed = candidate.after[rel].decode("utf-8", errors="surrogateescape")
+            tokens = list(name_metric.WORD.finditer(changed))
+            if len(tokens) != len(original_tokens):
+                raise Refusal("scoped-set rewrite is not an identifier-only token replacement")
+            candidate_edits = {}
+            before_at = after_at = 0
+            for original, replacement in zip(original_tokens, tokens):
+                if text[before_at:original.start()] != changed[after_at:replacement.start()]:
+                    raise Refusal("scoped-set rewrite changes non-identifier text")
+                if original.group() != replacement.group():
+                    if original.group() != entry["name"] or replacement.group() != entry["new"]:
+                        raise Refusal("scoped-set rewrite changes an unrelated identifier")
+                    span = (original.start(), original.end())
+                    if span in edits:
+                        raise Refusal("overlapping scoped-set binding edits")
+                    candidate_edits[span] = replacement.group()
+                before_at, after_at = original.end(), replacement.end()
+            if text[before_at:] != changed[after_at:]:
+                raise Refusal("scoped-set rewrite changes trailing non-identifier text")
+            if not candidate_edits:
+                raise Refusal("scoped-set entry has no identifier edits")
+            additions = {}
+            for ledger in history:
+                if ledger not in candidate.after:
+                    continue
+                old = ctx.read(ledger)
+                new = candidate.after[ledger]
+                if old is not None:
+                    if not new.startswith(old):
+                        raise Refusal("scoped-set planner changed existing naming history")
+                    additions[ledger] = new[len(old):]
+                else:
+                    # Ordinary plans create a header; retain it once, not per entry.
+                    _header, separator, row = new.partition(b"\n")
+                    if not separator:
+                        raise Refusal("scoped-set planner did not create a complete history row")
+                    additions[ledger] = row
+            if set(candidate.after) - {rel, NAME_BASIS, NAME_BINDINGS}:
+                raise Refusal("scoped-set planner touched paths outside its source and naming history")
+            edits.update(candidate_edits)
+            seen_bindings.add(binding)
+            targets.add(target)
+            for ledger, added in additions.items():
+                history[ledger].append(added)
+            plan.claims.extend(candidate.claims)
+            plan.scoped_plans.append((index, candidate))
+        except Refusal as error:
+            plan.scoped_refused[index] = str(error)
+    if not plan.scoped_plans:
+        raise Refusal("no scoped-set entries passed planning: " + "; ".join(plan.scoped_refused.values()))
+    for (start, end), replacement in sorted(edits.items(), reverse=True):
+        text = text[:start] + replacement + text[end:]
+    plan.edit(ctx, rel, text.encode("utf-8", errors="surrogateescape"))
+    for ledger, rows in history.items():
+        if rows:
+            header = NAME_BASIS_HEADER if ledger == NAME_BASIS else NAME_BINDINGS_HEADER
+            initial = ctx.read(ledger)
+            if initial is None:
+                initial = (header + "\n").encode("utf-8")
+            plan.edit(ctx, ledger, initial + b"".join(rows))
+    plan.verify = [rel]
+    plan.claims = claim_keys(plan)
+    plan.source_counts[rel] = {"scoped_names": len(plan.scoped_plans), "code": len(edits)}
+    plan.scoped_count = len(plan.scoped_plans)
+    plan.warnings.extend(f"entry {index}: {reason}" for index, reason in plan.scoped_refused.items())
+    return plan
 
 
 def _rva(text):
@@ -5715,7 +5897,7 @@ def _tombstones(ctx, honour_restores=True):
 
 
 PLANNERS = {"function": plan_function, "global": plan_global, "file": plan_file, "class": plan_class,
-            "member": plan_member, "param": plan_param, "local": plan_local}
+            "member": plan_member, "param": plan_param, "local": plan_local, "scoped-set": plan_scoped_set}
 
 
 def plan_rename(kind, *, ctx=None, **kwargs):
@@ -6918,7 +7100,8 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                 combined.claims = claim_keys(combined)
                 for _, plan in result.plans:
                     print(plan.report())
-                print(f"rename: run batch of {len(result.plans)} names; "
+                name_count = sum(getattr(plan, "scoped_count", 1) for _, plan in result.plans)
+                print(f"rename: run batch of {name_count} names; "
                       f"one verification of {len(combined.verify)} source(s).", flush=True)
                 result.planning_seconds = time.perf_counter() - batch_started
                 claimed = None
@@ -6952,7 +7135,7 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                 if claimed.new:
                     print("rename: claims kept until the rename is pushed; then run: python3 tools/claims.py release "
                           + " ".join(map(claim_label, claimed.new)))
-                print(f"rename: run batch verified OK ({len(result.plans)} names, "
+                print(f"rename: run batch verified OK ({name_count} names, "
                       f"{len(combined.verify)} source(s)).")
                 print("rename: batch timing " + json.dumps(dict(
                     planning=round(result.planning_seconds, 3),

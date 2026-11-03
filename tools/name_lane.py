@@ -2250,6 +2250,9 @@ def main(argv=None, lane=None):
     placement = sub.add_parser("consolidate", help="build original-file evidence and consolidation packets; applies nothing")
     import source_layout
     source_layout.configure_parser(placement)
+    scoped = sub.add_parser("scoped", help="whole-function locals/parameters: child proposes, parent scans, one verified batch")
+    import name_scoped
+    name_scoped.configure_parser(scoped)
     args = ap.parse_args(argv)
     if args.cmd == "consolidate":
         try:
@@ -2257,6 +2260,12 @@ def main(argv=None, lane=None):
         except (ValueError, OSError) as exc:
             ap.exit(2, f"source-layout: {exc}\n")
     lane = lane or Lane()
+    if args.cmd == "scoped":
+        try:
+            return name_scoped.run(lane, args)
+        except (ValueError, OSError, rename.Refusal) as exc:
+            print(f"name_lane: scoped batch failed: {exc}", file=sys.stderr)
+            return 2
     if args.cmd == "review":
         try:
             return name_review.run(lane, args)

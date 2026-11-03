@@ -8,6 +8,56 @@ and no gate catches it. This page says which names count as proven, how a rename
 records its basis, and which tools make a rename safe. Open-BFME-1's
 `docs/naming_evidence.md` is the model; the tools here are BFME 2's own.
 
+## Whole-function locals and parameters (normal scoped workflow)
+
+Use this path for local/parameter naming instead of isolated voting rounds:
+
+```sh
+python3 tools/name_lane.py scoped next --session S --model M --under Code/GameEngine/Source/Common/
+# A native sub-agent reads build/name_lane/scoped/S.json and fills S.answers.json.
+python3 tools/name_lane.py scoped preview --session S --answer build/name_lane/scoped/S.answers.json
+# Parent scans the complete mapping and preview diff; investigates only questionable names.
+python3 tools/name_lane.py scoped apply --session S --answer build/name_lane/scoped/S.answers.json --review build/name_lane/scoped/S.review.json
+```
+
+The picker targets 200 bindings by default (`--target 500` for a larger pass),
+selects complete sources/functions, and inventories all recognized scoped names,
+including meaningful names and donor spellings. No weak-name filter truncates
+the pass. `--files SOURCE...` selects explicit sources. Packet size/file bounds
+never truncate a function. Claims held by other workers are skipped.
+Fully reviewed sources are remembered locally until their bytes change, so
+continuous batches advance rather than repeatedly reviewing completed files;
+explicit `--files` revisits a source.
+
+Answers are `{"proposed_by":"/root/naming-child","names":{"KEY":{"name":"descriptiveName"}}}`.
+Account for every inventoried binding; use `{"keep":"already clear"}` to retain
+one. Add `"question":"uncertain units"` to questionable proposals. The parent
+quickly scans all mappings and diffs; only questionable entries need deeper
+investigation and a decision. In the generated review file set `scan_complete`
+to true only after scanning. Preserve the exact proposal SHA. `decisions` maps
+exceptional keys to `{"name":"finalName","reason":"source-based determination"}`
+or `{"keep":"reason"}`. Every flagged question requires a final decision.
+Coverage warnings require `coverage_checked:true` after inspection; regex
+inventory is not a complete C++ parser, so unsupported declarations must be
+reported rather than described as renamed. Already meaningful names need no
+cosmetic replacement.
+
+The grouped planner reuses the original source analysis and composes independent
+binding-proved changes together. One run transaction claims the union, writes
+the journal and verifies changed sources together. Only successful inferred-name
+history/binding records are appended; scoped votes/approvals and external review
+processes are not used. Failed verification restores the transaction. If compiler
+diagnostics identify failed source files, unaffected files retry together once;
+unknown failures stop with diagnostics rather than repeatedly compiling individual names. Inspect the
+per-session `.result.json` for renamed, retained, refused and timing counts.
+Review acknowledgement records responsibility; it is not machine proof of a
+name's meaning or of agent independence.
+
+Canonical protections, ambiguous binding/capture checks, optimization constraints,
+byte/link/ledger verification, and rollback remain enforced. Globals, members,
+functions and classes retain their existing workflow. The voting sections below
+also describe historical scoped agreements, which remain readable/reversible.
+
 ## Three kinds of name
 
 | The name is | What backs it | Where it is recorded |
