@@ -28,9 +28,8 @@ class BodyModuleInterface;
 class FXList;
 class ThingTemplate;
 class Image;
-template<int N> class RespawnAISlots:public RespawnAISlots<N-1> {public:virtual void gap(char (*)[N])=0;};
-template<> class RespawnAISlots<0> {};
-class AIUpdateInterface:public RespawnAISlots<110> {public:virtual bool isAutoDock()=0;int rva00260DED() const;};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+
 enum ObjectID;
 class AIUpdateInterface;
 class ExperienceTracker;
@@ -497,7 +496,7 @@ UpdateSleepTime RespawnUpdate::update() {
   m_2C=0;
   Object *at=TheGameLogic->findObjectByID(obj->producer);
   AIUpdateInterface *ai=m_object->ai;
-  if(at && ai && (ai->isAutoDock() || ai->rva00260DED()==16)) {
+  if(at && ai && (ai->isIdle() || ai->rva00260DED()==16)) {
    ExitInterface *exit=at->getObjectExitInterface();
    if(exit) {
     int h=obj->handle;
