@@ -618,3 +618,4 @@ W3DPropDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DPropDra
 W3DFloorDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DFloorDraw.h,existing header; contract class_contracts/W3DFloorDraw.json; 3/9 sampled units adopt
 GhostObjectManager,Code/GameEngine/Include/GameLogic/GhostObjectManager.h,existing header; contract class_contracts/GhostObjectManager.json; 7/8 sampled units adopt
 AITNGuardMachine,Code/GameEngine/Include/GameLogic/AITNGuardMachine.h,existing header; contract class_contracts/AITNGuardMachine.json; 3/9 sampled units adopt
+SidesListNotifier,Code/GameEngine/Include/Common/SidesListNotifier.h,existing header; contract class_contracts/SidesListNotifier.json; 3/8 sampled units adopt

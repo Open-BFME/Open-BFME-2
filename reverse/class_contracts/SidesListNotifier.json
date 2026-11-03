@@ -1,0 +1,42 @@
+{
+ "bases": [
+  "Rva00330757Member"
+ ],
+ "bases_by": "majority",
+ "class": "SidesListNotifier",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 0,
+   "inherited_spans": [
+    [
+     0,
+     16
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "16": 6
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {}
+}
