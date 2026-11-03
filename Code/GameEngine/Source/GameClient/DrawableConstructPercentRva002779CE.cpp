@@ -62,17 +62,7 @@ public:
 	AsciiString get() const;
 };
 
-class InGameUI
-{
-public:
-	Int getDrawableCaptionPointSize() const { return m_drawableCaptionPointSize; }
-	Bool isDrawableCaptionBold() const { return m_drawableCaptionBold; }
-
-private:
-	char m_pad000[0x7a0];
-	Int m_drawableCaptionPointSize; // +0x7A0
-	Bool m_drawableCaptionBold; // +0x7A4
-};
+#include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class GameTextInterface
