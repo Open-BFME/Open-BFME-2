@@ -57,22 +57,7 @@ public:
 };
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
-class AITactic
-{
-public:
-	Rva004ECECDNode *rva004ECF05(int id);
-	void teamAttackObject(int id, Object *victim);
-	void teamAttackMove(int id, const struct Coord3D *pos);
-	void teamForceMove(int id, const struct Coord3D *pos);
-	void rva004ED342(void *pos);
-	void rva004ED372(const struct Coord3D *pos);
-private:
-	char m_pad00[0x14];
-	Rva004ECECDNode *m_begin;
-	Rva004ECECDNode *m_end;
-	char m_pad1C[0x8];
-	Rva002A9BF2 *m_24;
-};
+#include "../../../../GameEngine/Include/Common/AITactic.h"
 void AITactic::teamAttackObject(int id, Object *victim)
 {
 	Rva004ECECDNode *node = rva004ECF05(id);
@@ -110,7 +95,7 @@ void AITactic::teamAttackMove(int id, const struct Coord3D *pos)
 // Evidence: same TU/class as teamAttackObject siblings; callees rowed rva002A9BF2 0x002A9BF2 rva004ECF05 0x004ECF05 createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins teamAttackMove 0x004ED1FD findTeamByID 0x0039F761 groupMoveToPosition 0x00372571; globals TheAI TheTeamFactory; ret 8 two args.
 void AITactic::teamForceMove(int id, const struct Coord3D *pos)
 {
-	if (m_24->rva002A9BF2() == 0)
+	if (m_field24->rva002A9BF2() == 0)
 	{
 		teamAttackMove(id, pos);
 		return;
@@ -139,7 +124,7 @@ void AITactic::teamForceMove(int id, const struct Coord3D *pos)
 // ?rva004ED342@AITactic@@QAEXPAX@Z @ 0x004ED342 (48B). Loop over Rva004ECECDNode range calling rowed teamAttackObject-style helper teamAttackMove. Count is (m_end-m_begin)/0x14 via idiv. No donor. Callers 0x005A9BB4 0x005AA66A. Honest pin name.
 void AITactic::rva004ED342(void *pos)
 {
-	unsigned int count = (unsigned int)(m_end - m_begin);
+	unsigned int count = (unsigned int)(m_field18 - m_field14);
 	for (unsigned int i = 0; i < count; ++i)
 		teamAttackMove((int)i, (const struct Coord3D *)pos);
 }
@@ -149,7 +134,7 @@ void AITactic::rva004ED342(void *pos)
 // Evidence: chain via just-landed 0x004ED257; callers 0x004EDA76 0x005A991D 0x005AB713 pass getPosition and record points; pin QAEXPBUCoord3D const Coord3D spelling.
 void AITactic::rva004ED372(const struct Coord3D *pos)
 {
-	unsigned int count = (unsigned int)(m_end - m_begin);
+	unsigned int count = (unsigned int)(m_field18 - m_field14);
 	for (unsigned int i = 0; i < count; ++i)
 		teamForceMove((int)i, pos);
 }

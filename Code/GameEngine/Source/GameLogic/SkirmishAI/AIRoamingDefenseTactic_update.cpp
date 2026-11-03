@@ -234,11 +234,7 @@ public:
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // 0x004ED748 on the tactic base is rowed as AITactic::end(bool, bool).
-class AITactic
-{
-public:
-	void end(bool a, bool b);
-};
+#include "../../../Include/Common/AITactic.h"
 
 class Rva004ECECD
 {

@@ -31,12 +31,7 @@ struct Rva00372571Params;
 #include "../../../../GameEngine/Include/GameLogic/AIGroup.h"
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
-class AITactic
-{
-public:
-	Rva004ECECDNode *rva004ECF05(int id);
-	void teamGarrisonObject(int id, Object *victim);
-};
+#include "../../../../GameEngine/Include/Common/AITactic.h"
 void AITactic::teamGarrisonObject(int id, Object *victim)
 {
 	Rva004ECECDNode *node = rva004ECF05(id);
