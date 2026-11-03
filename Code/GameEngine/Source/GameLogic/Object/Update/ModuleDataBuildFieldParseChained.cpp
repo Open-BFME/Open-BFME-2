@@ -762,12 +762,7 @@ void SupplyCenterDockUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse
 	parse.add(BfmeSupplyCenterDockUpdateFields, 0);
 }
 
-class GarrisonContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static void parseInitialRoster(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 // Retail VA 0x00BF3360: 5 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies

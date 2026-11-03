@@ -22,17 +22,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class GarrisonContainModuleData
-{
-public:
-	GarrisonContainModuleData();
-	virtual ~GarrisonContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xAC - 4];
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 // ?friend_newModuleData@GarrisonContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *GarrisonContainModuleData::friend_newModuleData(INI *ini)

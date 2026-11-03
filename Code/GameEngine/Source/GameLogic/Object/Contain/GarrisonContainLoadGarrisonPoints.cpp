@@ -70,11 +70,7 @@ public:
 	AsciiString rva00463235( Thing *thing );
 };
 
-struct GarrisonContainModuleData
-{
-	unsigned char m_pad00[0xA0];
-	Bool m_mobileGarrison;
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 enum
 {

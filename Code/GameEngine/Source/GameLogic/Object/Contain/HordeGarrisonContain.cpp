@@ -361,14 +361,7 @@ extern "C" const void *const __identifier("??_7TunnelContainModuleData@@6B@")[];
 
   // vftable 0x00BF4328
 
-class GarrisonContainModuleData
-{
-public:
-	GarrisonContainModuleData();
-
-private:
-	unsigned char m_pad[0xAC];
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 class HordeGarrisonContainModuleData : public GarrisonContainModuleData
 {

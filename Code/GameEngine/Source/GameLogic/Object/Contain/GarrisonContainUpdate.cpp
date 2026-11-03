@@ -70,11 +70,7 @@ struct GameLogicFrameView
 };
 extern int BfmeLogicFramesPerSecond;	// logic frames per second
 
-struct GarrisonContainModuleData
-{
-	unsigned char m_pad00[0xA0];
-	bool m_mobileGarrison; // +0xA0
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 // The rowed base update 0x004640BE (OpenContain's, with the +0x10 this).
 class Rva004640BE

@@ -9,11 +9,7 @@
 // deleting dtor 0x002579E9 (ContainModuleDeletingDtors.cpp) and the unwind
 // funclets of the module-data factories.
 
-class GarrisonContainModuleData
-{
-public:
-	virtual ~GarrisonContainModuleData();
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 class __declspec(novtable) HordeGarrisonContainModuleData : public GarrisonContainModuleData
 {

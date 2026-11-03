@@ -24,14 +24,7 @@ private:
 	int m_x;
 };
 
-class GarrisonContainModuleData
-{
-public:
-	virtual ~GarrisonContainModuleData();
-
-private:
-	unsigned char m_pad[0xAC - 4];
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 class SlaughterHordeContainModuleData : public GarrisonContainModuleData
 {
