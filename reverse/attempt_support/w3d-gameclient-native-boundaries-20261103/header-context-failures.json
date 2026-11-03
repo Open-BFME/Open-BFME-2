@@ -1,0 +1,69 @@
+{
+  "w3d-canonical-factory-proof-20261103": {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+    "main_control_sha256": "ef870785a1152cfc439514f5ca5812a0cc21180c4c6efba4d76845510eb4b91b",
+    "scope": "Only canonical ThingFactory before legacy classes via their actual guards, direct base opaque tail refits, remove fake derived factory and use real existing3arg API",
+    "header_hashes": {
+      "Code/GameEngine/Include/Common/ThingFactory.h": "e14b51ee78348a7c2bd69a8648400f032f943784abf80a588d832a281710873d",
+      "Code/Libraries/Source/subsystem/SubsystemInterface.h": "138264c32b38cfba78c86cccdfb09c24ff797749bbe70bfbaae1496b522ac2d5",
+      "reference/shims/sweep/Common/SubsystemInterface.h": "556c11b41be28bd11a1b138bb497f8a4c462233dd72f9df70f042b8b45bf269b",
+      "reference/shims/sweep/GameClient/GameClient.h": "02abcc51e5fcd0d981275e42843376b4b56f74f36bcc3b6840c903e051d2a254",
+      "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DGameClient.h": "409a39d705fee50bda4beeeae0c65186fcd2d79eb733235bf5e9231fe20a983c"
+    },
+    "variants": [
+      {
+        "matched_unique_rvas": 5,
+        "missing": [],
+        "errors": []
+      },
+      {
+        "matched_unique_rvas": 0,
+        "missing": [
+          "0x0004C41F",
+          "0x0004C7A8",
+          "0x0004C7F0",
+          "0x0004C8BC",
+          "0x0008FCAE"
+        ],
+        "errors": [
+          "c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\Code\\Libraries\\Source\\subsystem\\../../../../reference\\shims\\bfme2_ascii\\ascii_string.h(65) : error C2011: 'AsciiString' : 'class' type redefinition",
+          "c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\Code\\Libraries\\Source\\subsystem\\../../../../reference\\shims\\bfme2_ascii\\ascii_string.h(223) : error C2084: function 'Bool operator ==(const AsciiString &,const AsciiString &)' already has a body",
+          "c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\Code\\Libraries\\Source\\subsystem\\../../../../reference\\shims\\bfme2_ascii\\ascii_string.h(224) : error C2084: function 'Bool operator !=(const AsciiString &,const AsciiString &)' already has a body",
+          "c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\Code\\Libraries\\Source\\subsystem\\../../../../reference\\shims\\bfme2_ascii\\ascii_string.h(225) : error C2084: function 'Bool operator <(const AsciiString &,const AsciiString &)' already has a body",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\Common\\GameAudio.h(270) : error C2143: syntax error : missing ';' before '*'",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\Common\\GameAudio.h(270) : error C2501: 'AudioManager::getFieldParseTable' : missing storage-class or type specifiers",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(67) : error C2143: syntax error : missing ',' before '*'",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(68) : error C2143: syntax error : missing ',' before '*'",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(69) : error C2143: syntax error : missing ',' before '*'",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(124) : error C2146: syntax error : missing ';' before identifier 'm_specialPowerType'",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(124) : error C2501: 'PickAndPlayInfo::SpecialPowerType' : missing storage-class or type specifiers",
+          "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(124) : error C2501: 'PickAndPlayInfo::m_specialPowerType' : missing storage-class or type specifiers"
+        ]
+      }
+    ]
+  },
+  "w3d-canonical-factory-context-proof-20261103": {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+    "scope": "One earlier canonical-header context candidate; actual legacy ASCIISTRING_H guard after canonical type and restored official INI/SpecialPowerType transitive context",
+    "main_control_sha256": "ef870785a1152cfc439514f5ca5812a0cc21180c4c6efba4d76845510eb4b91b",
+    "header_hashes": {
+      "Code/GameEngine/Include/Common/ThingFactory.h": "e14b51ee78348a7c2bd69a8648400f032f943784abf80a588d832a281710873d",
+      "Code/Libraries/Source/subsystem/SubsystemInterface.h": "138264c32b38cfba78c86cccdfb09c24ff797749bbe70bfbaae1496b522ac2d5",
+      "reference/shims/sweep/Common/SubsystemInterface.h": "556c11b41be28bd11a1b138bb497f8a4c462233dd72f9df70f042b8b45bf269b",
+      "reference/shims/sweep/GameClient/GameClient.h": "02abcc51e5fcd0d981275e42843376b4b56f74f36bcc3b6840c903e051d2a254",
+      "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DGameClient.h": "409a39d705fee50bda4beeeae0c65186fcd2d79eb733235bf5e9231fe20a983c",
+      "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h": "bcd3698aeeec52751affa98abb01f84b7a2dc44ba2f2f3fd4774d389ca11ddcb",
+      "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h": "228d0ba6c591ba407571cf3b0b0c397232c11a3e104af74f012c5a76ac2cd6ac",
+      "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SpecialPowerType.h": "9695713441d717f8ea89871f64ba4eb7357dac55428e8fffa2afd55953ebbb7a"
+    },
+    "candidate_prefix": "#include \"../../../../GameEngine/Include/Common/ThingFactory.h\"\n#ifdef CANONICAL_SUBSYSTEMINTERFACE_H\n#define ASCIISTRING_H\n#define __SUBSYSTEMINTERFACE_H_\n#endif\n#ifdef BFME2_THINGFACTORY_H\n#define __THINGFACTORY_H_\n#endif\n#include \"Common/GameType.h\"\n#include \"Common/STLTypedefs.h\"\n#include \"Common/INI.h\"\n#include \"Common/SpecialPowerType.h\"",
+    "compiler_attempts_this_assignment": 1,
+    "errors": [
+      "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\../include\\new(75) : error C2084: function 'void *operator new[](size_t,void *)' already has a body",
+      "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\../include\\new(80) : error C2084: function 'void operator delete[](void *,void *)' already has a body",
+      "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(67) : error C2143: syntax error : missing ',' before '*'",
+      "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(68) : error C2143: syntax error : missing ',' before '*'",
+      "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\GameClient\\CommandXlat.h(69) : error C2143: syntax error : missing ',' before '*'"
+    ]
+  }
+}

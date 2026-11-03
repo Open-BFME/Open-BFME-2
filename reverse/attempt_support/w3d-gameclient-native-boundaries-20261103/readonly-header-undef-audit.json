@@ -1,0 +1,443 @@
+{
+  "source": "Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DGameClient.cpp",
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^game^client.obj",
+  "object_recorded_md5": "20bc57f30cd84d5c42bd4dcec7714d38",
+  "object_actual_md5": "20bc57f30cd84d5c42bd4dcec7714d38",
+  "source_recorded_md5": "1fb444313c65bd5a9fdddee9018f60a6",
+  "source_actual_md5": "1fb444313c65bd5a9fdddee9018f60a6",
+  "resolved_headers": [
+    {
+      "path": "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\Common\\ThingFactory.h",
+      "recorded_md5": "3d1539346a0629acb32f5c6b01b6211c",
+      "actual_md5": "3d1539346a0629acb32f5c6b01b6211c",
+      "matches": true
+    },
+    {
+      "path": "reference\\shims\\sweep\\GameClient\\GameClient.h",
+      "recorded_md5": "75794077bfe9c2b051688bf36828b41c",
+      "actual_md5": "75794077bfe9c2b051688bf36828b41c",
+      "matches": true
+    },
+    {
+      "path": "reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngineDevice\\Include\\W3DDevice\\GameClient\\W3DGameClient.h",
+      "recorded_md5": "6f0ca07e2eefee102971a64f46967158",
+      "actual_md5": "6f0ca07e2eefee102971a64f46967158",
+      "matches": true
+    }
+  ],
+  "undefined_incoming": {
+    "??0BinkVideoPlayer@@QAE@XZ": [
+      {
+        "from": "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ",
+        "section": ".text",
+        "offset": 34,
+        "type": 20,
+        "body_size": 50
+      }
+    ],
+    "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z": [
+      {
+        "from": "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z",
+        "section": ".text",
+        "offset": 48,
+        "type": 20,
+        "body_size": 70
+      }
+    ],
+    "??0W3DGameWindowManager@@QAE@XZ": [
+      {
+        "from": "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ",
+        "section": ".text",
+        "offset": 34,
+        "type": 20,
+        "body_size": 50
+      }
+    ],
+    "??0W3DInGameUI@@QAE@XZ": [
+      {
+        "from": "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ",
+        "section": ".text",
+        "offset": 37,
+        "type": 20,
+        "body_size": 53
+      }
+    ],
+    "??0W3DTerrainVisual@@QAE@XZ": [
+      {
+        "from": "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ",
+        "section": ".text",
+        "offset": 34,
+        "type": 20,
+        "body_size": 50
+      }
+    ],
+    "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z": [
+      {
+        "from": "??_7W3DGameClient@@6BSubsystemInterface@@@",
+        "section": ".rdata",
+        "offset": 88,
+        "type": 6,
+        "body_size": 180
+      }
+    ],
+    "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z": [
+      {
+        "from": "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z",
+        "section": ".text",
+        "offset": 21,
+        "type": 20,
+        "body_size": 148
+      }
+    ],
+    "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z": [
+      {
+        "from": "??_7W3DGameClient@@6BSubsystemInterface@@@",
+        "section": ".rdata",
+        "offset": 124,
+        "type": 6,
+        "body_size": 180
+      }
+    ],
+    "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z": [
+      {
+        "from": "?adjustLOD@W3DGameClient@@UAEXH@Z",
+        "section": ".text",
+        "offset": 114,
+        "type": 20,
+        "body_size": 122
+      }
+    ],
+    "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z": [
+      {
+        "from": "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z",
+        "section": ".text",
+        "offset": 11,
+        "type": 20,
+        "body_size": 18
+      }
+    ]
+  },
+  "undefined_roots": [
+    "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z",
+    "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z",
+    "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z",
+    "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z"
+  ],
+  "incoming_graph": {
+    "??0BinkVideoPlayer@@QAE@XZ": [
+      "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ"
+    ],
+    "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z": [],
+    "??0W3DGameWindowManager@@QAE@XZ": [
+      "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ"
+    ],
+    "??0W3DInGameUI@@QAE@XZ": [
+      "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ"
+    ],
+    "??0W3DTerrainVisual@@QAE@XZ": [
+      "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ"
+    ],
+    "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z": [
+      "??_7W3DGameClient@@6BSubsystemInterface@@@"
+    ],
+    "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z": [],
+    "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z": [
+      "??_7W3DGameClient@@6BSubsystemInterface@@@"
+    ],
+    "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z": [],
+    "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z": []
+  },
+  "constructor_table_evidence": {
+    "??0W3DGameClient@@QAE@XZ": {
+      "size": 25,
+      "relocations": [
+        [
+          4,
+          20,
+          "??0GameClient@@QAE@XZ"
+        ],
+        [
+          10,
+          6,
+          "??_7W3DGameClient@@6BSubsystemInterface@@@"
+        ],
+        [
+          17,
+          6,
+          "??_7W3DGameClient@@6BSnapshot@@@"
+        ]
+      ]
+    },
+    "??1W3DGameClient@@UAE@XZ": {
+      "size": 18,
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7W3DGameClient@@6BSubsystemInterface@@@"
+        ],
+        [
+          9,
+          6,
+          "??_7W3DGameClient@@6BSnapshot@@@"
+        ],
+        [
+          14,
+          20,
+          "??1GameClient@@UAE@XZ"
+        ]
+      ]
+    },
+    "??_7W3DGameClient@@6BSubsystemInterface@@@": {
+      "size": 180,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EW3DGameClient@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?init@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          8,
+          6,
+          "?postProcessLoad@SubsystemInterface@@UAEXXZ"
+        ],
+        [
+          12,
+          6,
+          "?reset@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          16,
+          6,
+          "?update@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          20,
+          6,
+          "?draw@SubsystemInterface@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?setFrame@GameClient@@UAEXI@Z"
+        ],
+        [
+          28,
+          6,
+          "?registerDrawable@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          32,
+          6,
+          "?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z"
+        ],
+        [
+          36,
+          6,
+          "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ"
+        ],
+        [
+          40,
+          6,
+          "?evaluateContextCommand@GameClient@@UAE?AW4Type@GameMessage@@PAVDrawable@@PBUCoord3D@@W4CommandEvaluateType@CommandTranslator@@@Z"
+        ],
+        [
+          44,
+          6,
+          "?removeFromRayEffects@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          48,
+          6,
+          "?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z"
+        ],
+        [
+          52,
+          6,
+          "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z"
+        ],
+        [
+          56,
+          6,
+          "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z"
+        ],
+        [
+          60,
+          6,
+          "?loadMap@GameClient@@UAE_NVAsciiString@@@Z"
+        ],
+        [
+          64,
+          6,
+          "?unloadMap@GameClient@@UAEXVAsciiString@@@Z"
+        ],
+        [
+          68,
+          6,
+          "?iterateDrawablesInRegion@GameClient@@UAEXPAURegion3D@@P6AXPAVDrawable@@PAX@Z2@Z"
+        ],
+        [
+          72,
+          6,
+          "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          76,
+          6,
+          "?destroyDrawable@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          80,
+          6,
+          "?setTimeOfDay@W3DGameClient@@UAEXW4TimeOfDay@@@Z"
+        ],
+        [
+          84,
+          6,
+          "?selectDrawablesInGroup@GameClient@@UAEXH@Z"
+        ],
+        [
+          88,
+          6,
+          "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z"
+        ],
+        [
+          92,
+          6,
+          "?bfmeVirtualStub00@GameClient@@UAEXXZ"
+        ],
+        [
+          96,
+          6,
+          "?bfmeVirtualStub01@GameClient@@UAEXXZ"
+        ],
+        [
+          100,
+          6,
+          "?bfmeVirtualStub02@GameClient@@UAEXXZ"
+        ],
+        [
+          104,
+          6,
+          "?getFrame@GameClient@@UAEIXZ"
+        ],
+        [
+          108,
+          6,
+          "?setTeamColor@W3DGameClient@@UAEXHHH@Z"
+        ],
+        [
+          112,
+          6,
+          "?adjustLOD@W3DGameClient@@UAEXH@Z"
+        ],
+        [
+          116,
+          6,
+          "?releaseShadows@GameClient@@UAEXXZ"
+        ],
+        [
+          120,
+          6,
+          "?allocateShadows@GameClient@@UAEXXZ"
+        ],
+        [
+          124,
+          6,
+          "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z"
+        ],
+        [
+          128,
+          6,
+          "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ"
+        ],
+        [
+          132,
+          6,
+          "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z"
+        ],
+        [
+          136,
+          6,
+          "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ"
+        ],
+        [
+          140,
+          6,
+          "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ"
+        ],
+        [
+          144,
+          6,
+          "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ"
+        ],
+        [
+          148,
+          6,
+          "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ"
+        ],
+        [
+          152,
+          6,
+          "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ"
+        ],
+        [
+          156,
+          6,
+          "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ"
+        ],
+        [
+          160,
+          6,
+          "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ"
+        ],
+        [
+          164,
+          6,
+          "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ"
+        ],
+        [
+          168,
+          6,
+          "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ"
+        ],
+        [
+          172,
+          6,
+          "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ"
+        ],
+        [
+          176,
+          6,
+          "?setFrameRate@W3DGameClient@@MAEXM@Z"
+        ]
+      ]
+    }
+  },
+  "canonical_thingfactory_include_boundary": {
+    "cached_subsystem_path": "reference/shims/sweep/Common/SubsystemInterface.h",
+    "cached_subsystem_recorded_md5": "4870d7dbe4a29616fdf7c2d1b5ec00cc",
+    "current_subsystem_guard": "__SUBSYSTEMINTERFACE_H_",
+    "current_old_thingfactory_guard": "__THINGFACTORY_H_",
+    "canonical_subsystem_guard": "CANONICAL_SUBSYSTEMINTERFACE_H",
+    "canonical_thingfactory_guard": "BFME2_THINGFACTORY_H",
+    "canonical_newDrawable": "void *newDrawable(void *tmplate, int statusBits, int randomValue)",
+    "source_include_lines": {
+      "old_subsystem": 57,
+      "old_thingfactory": 135,
+      "gameclient_shim": 144,
+      "w3dgameclient": 238
+    },
+    "late_include_blockers": [
+      "second SubsystemInterface full definition after line57",
+      "second ThingFactory full definition after line135"
+    ],
+    "explicit_short_canonical_error_currently_triggered": false,
+    "evidence_kind": "source/header review; not a compile"
+  }
+}

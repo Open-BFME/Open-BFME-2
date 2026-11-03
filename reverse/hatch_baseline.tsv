@@ -10565,8 +10565,6 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCto
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp	"w",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	"",on	1
-pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	"ty",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	"",on	3

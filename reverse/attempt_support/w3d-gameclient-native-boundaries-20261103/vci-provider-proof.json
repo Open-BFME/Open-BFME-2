@@ -1,0 +1,3289 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+  "scope": "Only removal of the artificial VCI anchor block and two existing optimize pragmas; one sanctioned candidate compile, reused control.",
+  "reused_control_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\build\\w3d-canonical-factory-proof-20261103\\control.obj",
+  "reused_control_sha256": "bd4e16862ddb2697595554600add5c3c30b61e5b5d0a89e25d5eb075bb948337",
+  "private_source_sha256": "ef870785a1152cfc439514f5ca5812a0cc21180c4c6efba4d76845510eb4b91b",
+  "removed_source": "// The compiler-generated vector constructor iterator (??_H) takes the\n// optimization state of the first function that needs it. Retail links one\n// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's\n// copy that same body, so it no longer loses to retail's at link time.\n// It can also change how later array constructions here compile; checked to\n// change nothing else in this unit, but if a function added later that builds\n// an array will not match, try it without this block.\nstruct BfmeVciAnchorElem { BfmeVciAnchorElem(); };\n#pragma optimize(\"gsy\", on)\nstatic void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }\n#pragma optimize(\"\", on)\n",
+  "rows": [
+    {
+      "name": "?setColor@W3DStatusCircle@@SAXHHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0004C41F",
+      "target_size": "31",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+      "status": "matched",
+      "notes": "ported from the Open-BFME-1 conversion; the unit needs /G7"
+    },
+    {
+      "name": "?setTeamColor@W3DGameClient@@UAEXHHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0004C8BC",
+      "target_size": "33",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+      "status": "matched",
+      "notes": "ported from the Open-BFME-1 conversion; the unit needs /G7"
+    },
+    {
+      "name": "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0004C7A8",
+      "target_size": "72",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+      "status": "matched",
+      "notes": "ZH W3DGameClient.cpp body; needs /O1 /arch:SSE; W3DGameClient vftable slot (rdata 0x007C4790); callee pinned from its own call site"
+    },
+    {
+      "name": "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0004C7F0",
+      "target_size": "148",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+      "status": "matched",
+      "notes": "ZH W3DGameClient.cpp body; needs /O1 /arch:SSE; follows addScorch in .text as in ZH source order; three callees pinned from its own call sites"
+    },
+    {
+      "name": "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ",
+      "export_rva": "",
+      "target_rva": "0x0008FCAE",
+      "target_size": "53",
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+      "status": "matched",
+      "notes": "BFME1 donor game/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp (6d943426) recompiled /Os; unique masked placement on unclaimed .text; body is the W3DGameClient.h inline virtual emitted via the donor vtable; row moved home from W3DGameClient_createGameDisplay_W3DGameClient_MAEPAVDisplay_XZ.cpp"
+    }
+  ],
+  "compiler_budget": 1,
+  "control_definitions": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "bytes": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+      "relocations": []
+    },
+    "??0Vector3@@QAE@ABV0@@Z": {
+      "bytes": "8bc18b4c24048b1189108b51048950048b4908894808c20400",
+      "relocations": []
+    },
+    "??0Vector3@@QAE@MMM@Z": {
+      "bytes": "f30f104424048bc1f30f1100f30f10442408f30f114004f30f1044240cf30f114008c20c00",
+      "relocations": []
+    },
+    "??2Drawable@@SAPAXIW4DrawableMagicEnum@0@@Z": {
+      "bytes": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "??3Drawable@@SAXPAXW4DrawableMagicEnum@0@@Z": {
+      "bytes": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?setCurrentTextureReduction@GameLODManager@@QAEXH@Z": {
+      "bytes": "8b44240489815c0a0000c20400",
+      "relocations": []
+    },
+    "?setColor@W3DStatusCircle@@SAXHHH@Z": {
+      "bytes": "8b442404c1e00803442408c6050000000001c1e0080344240ca300000000c3",
+      "relocations": [
+        [
+          13,
+          6,
+          "?g_trackDirty@@3EA"
+        ],
+        [
+          26,
+          6,
+          "?m_diffuse@W3DStatusCircle@@2HA"
+        ]
+      ]
+    },
+    "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ": {
+      "bytes": "8b0185c0740750e80000000059c3",
+      "relocations": [
+        [
+          8,
+          20,
+          "??_V@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??0W3DGameClient@@QAE@XZ": {
+      "bytes": "568bf1e800000000c70600000000c74608000000008bc65ec3",
+      "relocations": [
+        [
+          4,
+          20,
+          "??0GameClient@@QAE@XZ"
+        ],
+        [
+          10,
+          6,
+          "??_7W3DGameClient@@6BSubsystemInterface@@@"
+        ],
+        [
+          17,
+          6,
+          "??_7W3DGameClient@@6BSnapshot@@@"
+        ]
+      ]
+    },
+    "??_7W3DGameClient@@6BSnapshot@@@": {
+      "bytes": "000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "?crc@GameClient@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          4,
+          6,
+          "?xfer@GameClient@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          8,
+          6,
+          "?loadPostProcess@GameClient@@MAEXXZ"
+        ]
+      ]
+    },
+    "??_7W3DGameClient@@6BSubsystemInterface@@@": {
+      "bytes": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EW3DGameClient@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?init@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          8,
+          6,
+          "?postProcessLoad@SubsystemInterface@@UAEXXZ"
+        ],
+        [
+          12,
+          6,
+          "?reset@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          16,
+          6,
+          "?update@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          20,
+          6,
+          "?draw@SubsystemInterface@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?setFrame@GameClient@@UAEXI@Z"
+        ],
+        [
+          28,
+          6,
+          "?registerDrawable@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          32,
+          6,
+          "?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z"
+        ],
+        [
+          36,
+          6,
+          "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ"
+        ],
+        [
+          40,
+          6,
+          "?evaluateContextCommand@GameClient@@UAE?AW4Type@GameMessage@@PAVDrawable@@PBUCoord3D@@W4CommandEvaluateType@CommandTranslator@@@Z"
+        ],
+        [
+          44,
+          6,
+          "?removeFromRayEffects@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          48,
+          6,
+          "?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z"
+        ],
+        [
+          52,
+          6,
+          "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z"
+        ],
+        [
+          56,
+          6,
+          "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z"
+        ],
+        [
+          60,
+          6,
+          "?loadMap@GameClient@@UAE_NVAsciiString@@@Z"
+        ],
+        [
+          64,
+          6,
+          "?unloadMap@GameClient@@UAEXVAsciiString@@@Z"
+        ],
+        [
+          68,
+          6,
+          "?iterateDrawablesInRegion@GameClient@@UAEXPAURegion3D@@P6AXPAVDrawable@@PAX@Z2@Z"
+        ],
+        [
+          72,
+          6,
+          "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          76,
+          6,
+          "?destroyDrawable@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          80,
+          6,
+          "?setTimeOfDay@W3DGameClient@@UAEXW4TimeOfDay@@@Z"
+        ],
+        [
+          84,
+          6,
+          "?selectDrawablesInGroup@GameClient@@UAEXH@Z"
+        ],
+        [
+          88,
+          6,
+          "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z"
+        ],
+        [
+          92,
+          6,
+          "?bfmeVirtualStub00@GameClient@@UAEXXZ"
+        ],
+        [
+          96,
+          6,
+          "?bfmeVirtualStub01@GameClient@@UAEXXZ"
+        ],
+        [
+          100,
+          6,
+          "?bfmeVirtualStub02@GameClient@@UAEXXZ"
+        ],
+        [
+          104,
+          6,
+          "?getFrame@GameClient@@UAEIXZ"
+        ],
+        [
+          108,
+          6,
+          "?setTeamColor@W3DGameClient@@UAEXHHH@Z"
+        ],
+        [
+          112,
+          6,
+          "?adjustLOD@W3DGameClient@@UAEXH@Z"
+        ],
+        [
+          116,
+          6,
+          "?releaseShadows@GameClient@@UAEXXZ"
+        ],
+        [
+          120,
+          6,
+          "?allocateShadows@GameClient@@UAEXXZ"
+        ],
+        [
+          124,
+          6,
+          "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z"
+        ],
+        [
+          128,
+          6,
+          "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ"
+        ],
+        [
+          132,
+          6,
+          "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z"
+        ],
+        [
+          136,
+          6,
+          "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ"
+        ],
+        [
+          140,
+          6,
+          "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ"
+        ],
+        [
+          144,
+          6,
+          "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ"
+        ],
+        [
+          148,
+          6,
+          "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ"
+        ],
+        [
+          152,
+          6,
+          "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ"
+        ],
+        [
+          156,
+          6,
+          "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ"
+        ],
+        [
+          160,
+          6,
+          "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ"
+        ],
+        [
+          164,
+          6,
+          "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ"
+        ],
+        [
+          168,
+          6,
+          "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ"
+        ],
+        [
+          172,
+          6,
+          "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ"
+        ],
+        [
+          176,
+          6,
+          "?setFrameRate@W3DGameClient@@MAEXM@Z"
+        ]
+      ]
+    },
+    "?postProcessLoad@SubsystemInterface@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?draw@SubsystemInterface@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?setFrame@GameClient@@UAEXI@Z": {
+      "bytes": "8b44240489410cc20400",
+      "relocations": []
+    },
+    "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ": {
+      "bytes": "8b4110c3",
+      "relocations": []
+    },
+    "?bfmeVirtualStub00@GameClient@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?bfmeVirtualStub01@GameClient@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?bfmeVirtualStub02@GameClient@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?getFrame@GameClient@@UAEIXZ": {
+      "bytes": "8b410cc3",
+      "relocations": []
+    },
+    "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ": {
+      "bytes": "8b4110c3",
+      "relocations": []
+    },
+    "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ": {
+      "bytes": "b800000000e8000000005168d8000000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DDisplay@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ": {
+      "bytes": "b800000000e80000000051687c140000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DInGameUI@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ": {
+      "bytes": "b800000000e800000000516a38e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0W3DGameWindowManager@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ": {
+      "bytes": "b800000000e80000000051566a2ce8000000008bf0598975f033c03bf08945fc740f8bcee800000000c706000000008bc68b4df45e64890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          15,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0FontLibrary@@QAE@XZ"
+        ],
+        [
+          43,
+          6,
+          "??_7W3DFontLibrary@@6B@"
+        ],
+        [
+          56,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "??_7W3DFontLibrary@@6B@": {
+      "bytes": "00000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EW3DFontLibrary@@UAEPAXI@Z"
+        ]
+      ]
+    },
+    "??_GW3DFontLibrary@@UAEPAXI@Z": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1W3DFontLibrary@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ": {
+      "bytes": "b800000000e800000000516a3ce800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0W3DDisplayStringManager@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ": {
+      "bytes": "b800000000e800000000516a18e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0BinkVideoPlayer@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ": {
+      "bytes": "b800000000e800000000516a20e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0W3DTerrainVisual@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ": {
+      "bytes": "b800000000e8000000005168b0000000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DSnowManager@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?setFrameRate@W3DGameClient@@MAEXM@Z": {
+      "bytes": "f30f2c442404a300000000c20400",
+      "relocations": [
+        [
+          7,
+          6,
+          "?TheW3DFrameLengthInMsec@@3HA"
+        ]
+      ]
+    },
+    "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ": {
+      "bytes": "b800000000e8000000005168240e0000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0DirectInputKeyboard@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ": {
+      "bytes": "b800000000e8000000005168445b0000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df4a30000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createMouse@W3DGameClient@@MAEPAVMouse@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DMouse@@QAE@XZ"
+        ],
+        [
+          45,
+          6,
+          "?TheWin32Mouse@@3PAVWin32Mouse@@A"
+        ],
+        [
+          52,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "??1W3DGameClient@@UAE@XZ": {
+      "bytes": "c70100000000c7410800000000e900000000",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7W3DGameClient@@6BSubsystemInterface@@@"
+        ],
+        [
+          9,
+          6,
+          "??_7W3DGameClient@@6BSnapshot@@@"
+        ],
+        [
+          14,
+          20,
+          "??1GameClient@@UAE@XZ"
+        ]
+      ]
+    },
+    "?init@W3DGameClient@@UAEXXZ": {
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?init@GameClient@@UAEXXZ"
+        ]
+      ]
+    },
+    "?update@W3DGameClient@@UAEXXZ": {
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?update@GameClient@@UAEXXZ"
+        ]
+      ]
+    },
+    "?reset@W3DGameClient@@UAEXXZ": {
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?reset@GameClient@@UAEXXZ"
+        ]
+      ]
+    },
+    "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z": {
+      "bytes": "b800000000e80000000051837d080074256850010000e800000000598bc8894df08365fc0085c9740dff750cff7508e800000000eb0233c08b4df464890d00000000c9c20800",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          23,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          48,
+          20,
+          "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          62,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z": {
+      "bytes": "833d0000000000743c8b442404d9442408ff74240cf30f104008f30f104804f30f101083ec108bc4d95c240cf30f1110f30f114804f30f1140088b0d00000000e800000000c20c00",
+      "relocations": [
+        [
+          2,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          60,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          65,
+          20,
+          "?addScorch@BaseHeightMapRenderObjClass@@QAEXVVector3@@MW4Scorches@@@Z"
+        ]
+      ]
+    },
+    "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z": {
+      "bytes": "558bec83ec0c8b0d00000000536aff6a00ff7510e8000000008bd885db7470f30f100500000000568b7508578b7d0cf30f100ff30f5c0ef30f59c8f30f580ef30f114df4f30f104f04f30f5c4e04f30f59c8f30f584e04f30f114df8f30f104f08f30f5c4e088d45f4f30f59c8f30f584e08508bcbf30f114dfce8000000008b0d00000000575653e8000000005f5e5bc9c20c00",
+      "relocations": [
+        [
+          8,
+          6,
+          "?TheThingFactory@@3PAVThingFactory@@A"
+        ],
+        [
+          21,
+          20,
+          "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z"
+        ],
+        [
+          35,
+          6,
+          "__real@3f000000"
+        ],
+        [
+          123,
+          20,
+          "?setPosition@Drawable@@QAEXPBUCoord3D@@@Z"
+        ],
+        [
+          129,
+          6,
+          "?TheRayEffects@@3PAVRayEffectSystem@@A"
+        ],
+        [
+          137,
+          20,
+          "?addRayEffect@RayEffectSystem@@QAEXPBVDrawable@@PBUCoord3D@@1@Z"
+        ]
+      ]
+    },
+    "__real@3f000000": {
+      "bytes": "0000003f",
+      "relocations": []
+    },
+    "?setTeamColor@W3DGameClient@@UAEXHHH@Z": {
+      "bytes": "8b442404c1e00803442408c6050000000001c1e0080344240ca300000000c20c00",
+      "relocations": [
+        [
+          13,
+          6,
+          "?g_trackDirty@@3EA"
+        ],
+        [
+          26,
+          6,
+          "?m_diffuse@W3DStatusCircle@@2HA"
+        ]
+      ]
+    },
+    "?adjustLOD@W3DGameClient@@UAEXH@Z": {
+      "bytes": "a10000000085c0746e8b4c2404014854a1000000006a04593948547e08894854a100000000837854007d0983605400a100000000568b7054e8000000003bc674356a2056e800000000a1000000008b405459598b0d0000000089815c0a00008b0d0000000085c9740da100000000ff7054e8000000005ec20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          17,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          33,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          48,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          57,
+          20,
+          "?Get_Texture_Reduction@WW3D@@SAHXZ"
+        ],
+        [
+          69,
+          20,
+          "?Set_Texture_Reduction@WW3D@@SAXHH@Z"
+        ],
+        [
+          74,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          85,
+          6,
+          "?TheGameLODManager@@3PAVGameLODManager@@A"
+        ],
+        [
+          97,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          106,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          114,
+          20,
+          "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z"
+        ]
+      ]
+    },
+    "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z": {
+      "bytes": "8b0d0000000085c97405e900000000c20400",
+      "relocations": [
+        [
+          2,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          11,
+          20,
+          "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z"
+        ]
+      ]
+    },
+    "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ": {
+      "bytes": "568bf18b460485c07411807e0d00740b50e800000000836604005983660800c6460d005ec3",
+      "relocations": [
+        [
+          18,
+          20,
+          "??_V@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z": {
+      "bytes": "538a5c2408f6c302568bf174245768000000008d7efcff376a0856e800000000f6c301740757e800000000598bc75feb1b8b0685c0740750e80000000059f6c301740756e800000000598bc65e5bc20400",
+      "relocations": [
+        [
+          15,
+          6,
+          "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ"
+        ],
+        [
+          28,
+          20,
+          "??_M@YGXPAXIHP6EX0@Z@Z"
+        ],
+        [
+          39,
+          20,
+          "??_V@YAXPAX@Z"
+        ],
+        [
+          57,
+          20,
+          "??_V@YAXPAX@Z"
+        ],
+        [
+          69,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??_GW3DGameClient@@UAEPAXI@Z": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1W3DGameClient@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1?$VectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "bytes": "c70100000000e900000000",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          7,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ]
+      ]
+    },
+    "??_7?$VectorClass@PAVRender2DClass@@@@6B@": {
+      "bytes": "000000000000000000000000000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_E?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z"
+        ],
+        [
+          8,
+          6,
+          "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z"
+        ],
+        [
+          12,
+          6,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ],
+        [
+          16,
+          6,
+          "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z"
+        ],
+        [
+          20,
+          6,
+          "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z"
+        ]
+      ]
+    },
+    "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z": {
+      "bytes": "538b5c240885db56578bf174718b7c241485ffc6460c00750e8bc3c1e00250e800000000598bf885ffc6460c01750432c0eb54837e040074318b46083bd88bcb0f4dc833c085c97e0e8b56048b1482891487403bc17cf2807e0d00740dff7604e800000000836604005933c039442414897e040f94c0895e0888460deb078b068bceff500cb0015f5e5bc20800",
+      "relocations": [
+        [
+          32,
+          20,
+          "??_U@YAPAXI@Z"
+        ],
+        [
+          97,
+          20,
+          "??_V@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z": {
+      "bytes": "8b5108568b7424083b560857752133ff85d27e178b41048b4e042bc88b303b3401750c4783c0043bfa7cf1b001eb0232c05f5ec20400",
+      "relocations": []
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z": {
+      "bytes": "33c038410c74218b51083bd0567e158b7424088b368b49043931740b4083c1043bc27cf483c8ff5ec20400",
+      "relocations": []
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z": {
+      "bytes": "80790c00750433c0eb0a8b4424042b4104c1e802c20400",
+      "relocations": []
+    },
+    "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z": {
+      "bytes": "568bf1c70600000000e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          5,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          10,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ],
+        [
+          23,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "bytes": "c70100000000e900000000",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          7,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ]
+      ]
+    },
+    "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ": {
+      "bytes": "83c104c70100000000e900000000",
+      "relocations": [
+        [
+          5,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          10,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ]
+      ]
+    },
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z": {
+      "bytes": "538a5c2408f6c302568bf174245768000000008d7efcff376a1c56e800000000f6c301740757e800000000598bc75feb158bcee800000000f6c301740756e800000000598bc65e5bc20400",
+      "relocations": [
+        [
+          15,
+          6,
+          "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ"
+        ],
+        [
+          28,
+          20,
+          "??_M@YGXPAXIHP6EX0@Z@Z"
+        ],
+        [
+          39,
+          20,
+          "??_V@YAXPAX@Z"
+        ],
+        [
+          52,
+          20,
+          "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ"
+        ],
+        [
+          63,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    }
+  },
+  "control_properties": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??0Vector3@@QAE@ABV0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??0Vector3@@QAE@MMM@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??2Drawable@@SAPAXIW4DrawableMagicEnum@0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??3Drawable@@SAXPAXW4DrawableMagicEnum@0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setCurrentTextureReduction@GameLODManager@@QAEXH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setColor@W3DStatusCircle@@SAXHHH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??0W3DGameClient@@QAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "??_7W3DGameClient@@6BSnapshot@@@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "??_7W3DGameClient@@6BSubsystemInterface@@@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "?postProcessLoad@SubsystemInterface@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?draw@SubsystemInterface@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setFrame@GameClient@@UAEXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?bfmeVirtualStub00@GameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?bfmeVirtualStub01@GameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?bfmeVirtualStub02@GameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?getFrame@GameClient@@UAEIXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_7W3DFontLibrary@@6B@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "??_GW3DFontLibrary@@UAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setFrameRate@W3DGameClient@@MAEXM@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1W3DGameClient@@UAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?init@W3DGameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?update@W3DGameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?reset@W3DGameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "__real@3f000000": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "?setTeamColor@W3DGameClient@@UAEXHHH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?adjustLOD@W3DGameClient@@UAEXH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_GW3DGameClient@@UAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1?$VectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_7?$VectorClass@PAVRender2DClass@@@@6B@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    }
+  },
+  "control_symbols": {
+    "defined": [
+      "??0Vector3@@QAE@ABV0@@Z",
+      "??0Vector3@@QAE@MMM@Z",
+      "??0W3DGameClient@@QAE@XZ",
+      "??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ",
+      "??1?$VectorClass@PAVRender2DClass@@@@UAE@XZ",
+      "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ",
+      "??1W3DGameClient@@UAE@XZ",
+      "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ",
+      "??2Drawable@@SAPAXIW4DrawableMagicEnum@0@@Z",
+      "??3Drawable@@SAXPAXW4DrawableMagicEnum@0@@Z",
+      "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z",
+      "??_7?$VectorClass@PAVRender2DClass@@@@6B@",
+      "??_7W3DFontLibrary@@6B@",
+      "??_7W3DGameClient@@6BSnapshot@@@",
+      "??_7W3DGameClient@@6BSubsystemInterface@@@",
+      "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z",
+      "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z",
+      "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z",
+      "??_GW3DFontLibrary@@UAEPAXI@Z",
+      "??_GW3DGameClient@@UAEPAXI@Z",
+      "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ",
+      "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z",
+      "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z",
+      "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z",
+      "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z",
+      "?adjustLOD@W3DGameClient@@UAEXH@Z",
+      "?bfmeVirtualStub00@GameClient@@UAEXXZ",
+      "?bfmeVirtualStub01@GameClient@@UAEXXZ",
+      "?bfmeVirtualStub02@GameClient@@UAEXXZ",
+      "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ",
+      "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ",
+      "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ",
+      "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ",
+      "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ",
+      "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ",
+      "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z",
+      "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ",
+      "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ",
+      "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ",
+      "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ",
+      "?draw@SubsystemInterface@@UAEXXZ",
+      "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ",
+      "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z",
+      "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ",
+      "?getFrame@GameClient@@UAEIXZ",
+      "?init@W3DGameClient@@UAEXXZ",
+      "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z",
+      "?postProcessLoad@SubsystemInterface@@UAEXXZ",
+      "?reset@W3DGameClient@@UAEXXZ",
+      "?setColor@W3DStatusCircle@@SAXHHH@Z",
+      "?setCurrentTextureReduction@GameLODManager@@QAEXH@Z",
+      "?setFrame@GameClient@@UAEXI@Z",
+      "?setFrameRate@W3DGameClient@@MAEXM@Z",
+      "?setTeamColor@W3DGameClient@@UAEXHHH@Z",
+      "?update@W3DGameClient@@UAEXXZ",
+      "__real@3f000000"
+    ],
+    "undefined": [
+      "??0BinkVideoPlayer@@QAE@XZ",
+      "??0DirectInputKeyboard@@QAE@XZ",
+      "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z",
+      "??0FontLibrary@@QAE@XZ",
+      "??0GameClient@@QAE@XZ",
+      "??0W3DDisplay@@QAE@XZ",
+      "??0W3DDisplayStringManager@@QAE@XZ",
+      "??0W3DGameWindowManager@@QAE@XZ",
+      "??0W3DInGameUI@@QAE@XZ",
+      "??0W3DMouse@@QAE@XZ",
+      "??0W3DSnowManager@@QAE@XZ",
+      "??0W3DTerrainVisual@@QAE@XZ",
+      "??1GameClient@@UAE@XZ",
+      "??1W3DFontLibrary@@UAE@XZ",
+      "??2@YAPAXI@Z",
+      "??3@YAXPAX@Z",
+      "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z",
+      "??_GW3DFontLibrary@@UAEPAXI@Z",
+      "??_GW3DGameClient@@UAEPAXI@Z",
+      "??_M@YGXPAXIHP6EX0@Z@Z",
+      "??_U@YAPAXI@Z",
+      "??_V@YAXPAX@Z",
+      "?Get_Texture_Reduction@WW3D@@SAHXZ",
+      "?Set_Texture_Reduction@WW3D@@SAXHH@Z",
+      "?TheGameLODManager@@3PAVGameLODManager@@A",
+      "?TheRayEffects@@3PAVRayEffectSystem@@A",
+      "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A",
+      "?TheThingFactory@@3PAVThingFactory@@A",
+      "?TheW3DFrameLengthInMsec@@3HA",
+      "?TheWin32Mouse@@3PAVWin32Mouse@@A",
+      "?TheWritableGlobalData@@3PAVGlobalData@@A",
+      "?addRayEffect@RayEffectSystem@@QAEXPBVDrawable@@PBUCoord3D@@1@Z",
+      "?addScorch@BaseHeightMapRenderObjClass@@QAEXVVector3@@MW4Scorches@@@Z",
+      "?allocateShadows@GameClient@@UAEXXZ",
+      "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z",
+      "?crc@GameClient@@MAEXPAVXfer@@@Z",
+      "?destroyDrawable@GameClient@@UAEXPAVDrawable@@@Z",
+      "?evaluateContextCommand@GameClient@@UAE?AW4Type@GameMessage@@PAVDrawable@@PBUCoord3D@@W4CommandEvaluateType@CommandTranslator@@@Z",
+      "?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z",
+      "?g_trackDirty@@3EA",
+      "?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z",
+      "?init@GameClient@@UAEXXZ",
+      "?iterateDrawablesInRegion@GameClient@@UAEXPAURegion3D@@P6AXPAVDrawable@@PAX@Z2@Z",
+      "?loadMap@GameClient@@UAE_NVAsciiString@@@Z",
+      "?loadPostProcess@GameClient@@MAEXXZ",
+      "?m_diffuse@W3DStatusCircle@@2HA",
+      "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z",
+      "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z",
+      "?registerDrawable@GameClient@@UAEXPAVDrawable@@@Z",
+      "?releaseShadows@GameClient@@UAEXXZ",
+      "?removeFromRayEffects@GameClient@@UAEXPAVDrawable@@@Z",
+      "?reset@GameClient@@UAEXXZ",
+      "?selectDrawablesInGroup@GameClient@@UAEXH@Z",
+      "?setPosition@Drawable@@QAEXPBUCoord3D@@@Z",
+      "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z",
+      "?setTimeOfDay@W3DGameClient@@UAEXW4TimeOfDay@@@Z",
+      "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z",
+      "?unloadMap@GameClient@@UAEXVAsciiString@@@Z",
+      "?update@GameClient@@UAEXXZ",
+      "?xfer@GameClient@@MAEXPAVXfer@@@Z",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__fltused"
+    ],
+    "weak": [
+      [
+        "??_EW3DGameClient@@UAEPAXI@Z",
+        "??_GW3DGameClient@@UAEPAXI@Z"
+      ],
+      [
+        "??_EW3DFontLibrary@@UAEPAXI@Z",
+        "??_GW3DFontLibrary@@UAEPAXI@Z"
+      ],
+      [
+        "??_E?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z",
+        "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z"
+      ]
+    ],
+    "alternates": {},
+    "includes": []
+  },
+  "candidate_match": {
+    "matched_unique_rvas": 5,
+    "missing": [],
+    "errors": []
+  },
+  "sanctioned_verifier_compile_calls": 1,
+  "candidate_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-private-proof-20261103\\build\\w3d-vci-removal-proof-20261103\\candidate.obj",
+  "candidate_object_sha256": "f955d23c63d734dda3a5fd2a3932a65a3d6fcdf4eae97673572db636e3c4044c",
+  "candidate_definitions": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "bytes": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+      "relocations": []
+    },
+    "??0Vector3@@QAE@ABV0@@Z": {
+      "bytes": "8bc18b4c24048b1189108b51048950048b4908894808c20400",
+      "relocations": []
+    },
+    "??0Vector3@@QAE@MMM@Z": {
+      "bytes": "f30f104424048bc1f30f1100f30f10442408f30f114004f30f1044240cf30f114008c20c00",
+      "relocations": []
+    },
+    "??2Drawable@@SAPAXIW4DrawableMagicEnum@0@@Z": {
+      "bytes": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??2@YAPAXI@Z"
+        ]
+      ]
+    },
+    "??3Drawable@@SAXPAXW4DrawableMagicEnum@0@@Z": {
+      "bytes": "ff742404e80000000059c3",
+      "relocations": [
+        [
+          5,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?setCurrentTextureReduction@GameLODManager@@QAEXH@Z": {
+      "bytes": "8b44240489815c0a0000c20400",
+      "relocations": []
+    },
+    "?setColor@W3DStatusCircle@@SAXHHH@Z": {
+      "bytes": "8b442404c1e00803442408c6050000000001c1e0080344240ca300000000c3",
+      "relocations": [
+        [
+          13,
+          6,
+          "?g_trackDirty@@3EA"
+        ],
+        [
+          26,
+          6,
+          "?m_diffuse@W3DStatusCircle@@2HA"
+        ]
+      ]
+    },
+    "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ": {
+      "bytes": "8b0185c0740750e80000000059c3",
+      "relocations": [
+        [
+          8,
+          20,
+          "??_V@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??0W3DGameClient@@QAE@XZ": {
+      "bytes": "568bf1e800000000c70600000000c74608000000008bc65ec3",
+      "relocations": [
+        [
+          4,
+          20,
+          "??0GameClient@@QAE@XZ"
+        ],
+        [
+          10,
+          6,
+          "??_7W3DGameClient@@6BSubsystemInterface@@@"
+        ],
+        [
+          17,
+          6,
+          "??_7W3DGameClient@@6BSnapshot@@@"
+        ]
+      ]
+    },
+    "??_7W3DGameClient@@6BSnapshot@@@": {
+      "bytes": "000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "?crc@GameClient@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          4,
+          6,
+          "?xfer@GameClient@@MAEXPAVXfer@@@Z"
+        ],
+        [
+          8,
+          6,
+          "?loadPostProcess@GameClient@@MAEXXZ"
+        ]
+      ]
+    },
+    "??_7W3DGameClient@@6BSubsystemInterface@@@": {
+      "bytes": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EW3DGameClient@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?init@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          8,
+          6,
+          "?postProcessLoad@SubsystemInterface@@UAEXXZ"
+        ],
+        [
+          12,
+          6,
+          "?reset@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          16,
+          6,
+          "?update@W3DGameClient@@UAEXXZ"
+        ],
+        [
+          20,
+          6,
+          "?draw@SubsystemInterface@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?setFrame@GameClient@@UAEXI@Z"
+        ],
+        [
+          28,
+          6,
+          "?registerDrawable@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          32,
+          6,
+          "?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z"
+        ],
+        [
+          36,
+          6,
+          "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ"
+        ],
+        [
+          40,
+          6,
+          "?evaluateContextCommand@GameClient@@UAE?AW4Type@GameMessage@@PAVDrawable@@PBUCoord3D@@W4CommandEvaluateType@CommandTranslator@@@Z"
+        ],
+        [
+          44,
+          6,
+          "?removeFromRayEffects@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          48,
+          6,
+          "?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z"
+        ],
+        [
+          52,
+          6,
+          "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z"
+        ],
+        [
+          56,
+          6,
+          "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z"
+        ],
+        [
+          60,
+          6,
+          "?loadMap@GameClient@@UAE_NVAsciiString@@@Z"
+        ],
+        [
+          64,
+          6,
+          "?unloadMap@GameClient@@UAEXVAsciiString@@@Z"
+        ],
+        [
+          68,
+          6,
+          "?iterateDrawablesInRegion@GameClient@@UAEXPAURegion3D@@P6AXPAVDrawable@@PAX@Z2@Z"
+        ],
+        [
+          72,
+          6,
+          "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          76,
+          6,
+          "?destroyDrawable@GameClient@@UAEXPAVDrawable@@@Z"
+        ],
+        [
+          80,
+          6,
+          "?setTimeOfDay@W3DGameClient@@UAEXW4TimeOfDay@@@Z"
+        ],
+        [
+          84,
+          6,
+          "?selectDrawablesInGroup@GameClient@@UAEXH@Z"
+        ],
+        [
+          88,
+          6,
+          "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z"
+        ],
+        [
+          92,
+          6,
+          "?bfmeVirtualStub00@GameClient@@UAEXXZ"
+        ],
+        [
+          96,
+          6,
+          "?bfmeVirtualStub01@GameClient@@UAEXXZ"
+        ],
+        [
+          100,
+          6,
+          "?bfmeVirtualStub02@GameClient@@UAEXXZ"
+        ],
+        [
+          104,
+          6,
+          "?getFrame@GameClient@@UAEIXZ"
+        ],
+        [
+          108,
+          6,
+          "?setTeamColor@W3DGameClient@@UAEXHHH@Z"
+        ],
+        [
+          112,
+          6,
+          "?adjustLOD@W3DGameClient@@UAEXH@Z"
+        ],
+        [
+          116,
+          6,
+          "?releaseShadows@GameClient@@UAEXXZ"
+        ],
+        [
+          120,
+          6,
+          "?allocateShadows@GameClient@@UAEXXZ"
+        ],
+        [
+          124,
+          6,
+          "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z"
+        ],
+        [
+          128,
+          6,
+          "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ"
+        ],
+        [
+          132,
+          6,
+          "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z"
+        ],
+        [
+          136,
+          6,
+          "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ"
+        ],
+        [
+          140,
+          6,
+          "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ"
+        ],
+        [
+          144,
+          6,
+          "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ"
+        ],
+        [
+          148,
+          6,
+          "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ"
+        ],
+        [
+          152,
+          6,
+          "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ"
+        ],
+        [
+          156,
+          6,
+          "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ"
+        ],
+        [
+          160,
+          6,
+          "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ"
+        ],
+        [
+          164,
+          6,
+          "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ"
+        ],
+        [
+          168,
+          6,
+          "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ"
+        ],
+        [
+          172,
+          6,
+          "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ"
+        ],
+        [
+          176,
+          6,
+          "?setFrameRate@W3DGameClient@@MAEXM@Z"
+        ]
+      ]
+    },
+    "?postProcessLoad@SubsystemInterface@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?draw@SubsystemInterface@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?setFrame@GameClient@@UAEXI@Z": {
+      "bytes": "8b44240489410cc20400",
+      "relocations": []
+    },
+    "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ": {
+      "bytes": "8b4110c3",
+      "relocations": []
+    },
+    "?bfmeVirtualStub00@GameClient@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?bfmeVirtualStub01@GameClient@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?bfmeVirtualStub02@GameClient@@UAEXXZ": {
+      "bytes": "c3",
+      "relocations": []
+    },
+    "?getFrame@GameClient@@UAEIXZ": {
+      "bytes": "8b410cc3",
+      "relocations": []
+    },
+    "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ": {
+      "bytes": "8b4110c3",
+      "relocations": []
+    },
+    "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ": {
+      "bytes": "b800000000e8000000005168d8000000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DDisplay@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ": {
+      "bytes": "b800000000e80000000051687c140000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DInGameUI@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ": {
+      "bytes": "b800000000e800000000516a38e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0W3DGameWindowManager@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ": {
+      "bytes": "b800000000e80000000051566a2ce8000000008bf0598975f033c03bf08945fc740f8bcee800000000c706000000008bc68b4df45e64890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          15,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0FontLibrary@@QAE@XZ"
+        ],
+        [
+          43,
+          6,
+          "??_7W3DFontLibrary@@6B@"
+        ],
+        [
+          56,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "??_7W3DFontLibrary@@6B@": {
+      "bytes": "00000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EW3DFontLibrary@@UAEPAXI@Z"
+        ]
+      ]
+    },
+    "??_GW3DFontLibrary@@UAEPAXI@Z": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1W3DFontLibrary@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ": {
+      "bytes": "b800000000e800000000516a3ce800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0W3DDisplayStringManager@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ": {
+      "bytes": "b800000000e800000000516a18e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0BinkVideoPlayer@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ": {
+      "bytes": "b800000000e800000000516a20e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          14,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          34,
+          20,
+          "??0W3DTerrainVisual@@QAE@XZ"
+        ],
+        [
+          44,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ": {
+      "bytes": "b800000000e8000000005168b0000000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DSnowManager@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?setFrameRate@W3DGameClient@@MAEXM@Z": {
+      "bytes": "f30f2c442404a300000000c20400",
+      "relocations": [
+        [
+          7,
+          6,
+          "?TheW3DFrameLengthInMsec@@3HA"
+        ]
+      ]
+    },
+    "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ": {
+      "bytes": "b800000000e8000000005168240e0000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0DirectInputKeyboard@@QAE@XZ"
+        ],
+        [
+          47,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ": {
+      "bytes": "b800000000e8000000005168445b0000e800000000598bc8894df033c03bc88945fc7405e8000000008b4df4a30000000064890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?createMouse@W3DGameClient@@MAEPAVMouse@@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          17,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          37,
+          20,
+          "??0W3DMouse@@QAE@XZ"
+        ],
+        [
+          45,
+          6,
+          "?TheWin32Mouse@@3PAVWin32Mouse@@A"
+        ],
+        [
+          52,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "??1W3DGameClient@@UAE@XZ": {
+      "bytes": "c70100000000c7410800000000e900000000",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7W3DGameClient@@6BSubsystemInterface@@@"
+        ],
+        [
+          9,
+          6,
+          "??_7W3DGameClient@@6BSnapshot@@@"
+        ],
+        [
+          14,
+          20,
+          "??1GameClient@@UAE@XZ"
+        ]
+      ]
+    },
+    "?init@W3DGameClient@@UAEXXZ": {
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?init@GameClient@@UAEXXZ"
+        ]
+      ]
+    },
+    "?update@W3DGameClient@@UAEXXZ": {
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?update@GameClient@@UAEXXZ"
+        ]
+      ]
+    },
+    "?reset@W3DGameClient@@UAEXXZ": {
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?reset@GameClient@@UAEXXZ"
+        ]
+      ]
+    },
+    "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z": {
+      "bytes": "b800000000e80000000051837d080074256850010000e800000000598bc8894df08365fc0085c9740dff750cff7508e800000000eb0233c08b4df464890d00000000c9c20800",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          23,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          48,
+          20,
+          "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z"
+        ],
+        [
+          62,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z": {
+      "bytes": "833d0000000000743c8b442404d9442408ff74240cf30f104008f30f104804f30f101083ec108bc4d95c240cf30f1110f30f114804f30f1140088b0d00000000e800000000c20c00",
+      "relocations": [
+        [
+          2,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          60,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          65,
+          20,
+          "?addScorch@BaseHeightMapRenderObjClass@@QAEXVVector3@@MW4Scorches@@@Z"
+        ]
+      ]
+    },
+    "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z": {
+      "bytes": "558bec83ec0c8b0d00000000536aff6a00ff7510e8000000008bd885db7470f30f100500000000568b7508578b7d0cf30f100ff30f5c0ef30f59c8f30f580ef30f114df4f30f104f04f30f5c4e04f30f59c8f30f584e04f30f114df8f30f104f08f30f5c4e088d45f4f30f59c8f30f584e08508bcbf30f114dfce8000000008b0d00000000575653e8000000005f5e5bc9c20c00",
+      "relocations": [
+        [
+          8,
+          6,
+          "?TheThingFactory@@3PAVThingFactory@@A"
+        ],
+        [
+          21,
+          20,
+          "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z"
+        ],
+        [
+          35,
+          6,
+          "__real@3f000000"
+        ],
+        [
+          123,
+          20,
+          "?setPosition@Drawable@@QAEXPBUCoord3D@@@Z"
+        ],
+        [
+          129,
+          6,
+          "?TheRayEffects@@3PAVRayEffectSystem@@A"
+        ],
+        [
+          137,
+          20,
+          "?addRayEffect@RayEffectSystem@@QAEXPBVDrawable@@PBUCoord3D@@1@Z"
+        ]
+      ]
+    },
+    "__real@3f000000": {
+      "bytes": "0000003f",
+      "relocations": []
+    },
+    "?setTeamColor@W3DGameClient@@UAEXHHH@Z": {
+      "bytes": "8b442404c1e00803442408c6050000000001c1e0080344240ca300000000c20c00",
+      "relocations": [
+        [
+          13,
+          6,
+          "?g_trackDirty@@3EA"
+        ],
+        [
+          26,
+          6,
+          "?m_diffuse@W3DStatusCircle@@2HA"
+        ]
+      ]
+    },
+    "?adjustLOD@W3DGameClient@@UAEXH@Z": {
+      "bytes": "a10000000085c0746e8b4c2404014854a1000000006a04593948547e08894854a100000000837854007d0983605400a100000000568b7054e8000000003bc674356a2056e800000000a1000000008b405459598b0d0000000089815c0a00008b0d0000000085c9740da100000000ff7054e8000000005ec20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          17,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          33,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          48,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          57,
+          20,
+          "?Get_Texture_Reduction@WW3D@@SAHXZ"
+        ],
+        [
+          69,
+          20,
+          "?Set_Texture_Reduction@WW3D@@SAXHH@Z"
+        ],
+        [
+          74,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          85,
+          6,
+          "?TheGameLODManager@@3PAVGameLODManager@@A"
+        ],
+        [
+          97,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          106,
+          6,
+          "?TheWritableGlobalData@@3PAVGlobalData@@A"
+        ],
+        [
+          114,
+          20,
+          "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z"
+        ]
+      ]
+    },
+    "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z": {
+      "bytes": "8b0d0000000085c97405e900000000c20400",
+      "relocations": [
+        [
+          2,
+          6,
+          "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A"
+        ],
+        [
+          11,
+          20,
+          "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z"
+        ]
+      ]
+    },
+    "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ": {
+      "bytes": "568bf18b460485c07411807e0d00740b50e800000000836604005983660800c6460d005ec3",
+      "relocations": [
+        [
+          18,
+          20,
+          "??_V@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z": {
+      "bytes": "538a5c2408f6c302568bf174245768000000008d7efcff376a0856e800000000f6c301740757e800000000598bc75feb1b8b0685c0740750e80000000059f6c301740756e800000000598bc65e5bc20400",
+      "relocations": [
+        [
+          15,
+          6,
+          "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ"
+        ],
+        [
+          28,
+          20,
+          "??_M@YGXPAXIHP6EX0@Z@Z"
+        ],
+        [
+          39,
+          20,
+          "??_V@YAXPAX@Z"
+        ],
+        [
+          57,
+          20,
+          "??_V@YAXPAX@Z"
+        ],
+        [
+          69,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??_GW3DGameClient@@UAEPAXI@Z": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1W3DGameClient@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1?$VectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "bytes": "c70100000000e900000000",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          7,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ]
+      ]
+    },
+    "??_7?$VectorClass@PAVRender2DClass@@@@6B@": {
+      "bytes": "000000000000000000000000000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_E?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z"
+        ],
+        [
+          8,
+          6,
+          "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z"
+        ],
+        [
+          12,
+          6,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ],
+        [
+          16,
+          6,
+          "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z"
+        ],
+        [
+          20,
+          6,
+          "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z"
+        ]
+      ]
+    },
+    "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z": {
+      "bytes": "538b5c240885db56578bf174718b7c241485ffc6460c00750e8bc3c1e00250e800000000598bf885ffc6460c01750432c0eb54837e040074318b46083bd88bcb0f4dc833c085c97e0e8b56048b1482891487403bc17cf2807e0d00740dff7604e800000000836604005933c039442414897e040f94c0895e0888460deb078b068bceff500cb0015f5e5bc20800",
+      "relocations": [
+        [
+          32,
+          20,
+          "??_U@YAPAXI@Z"
+        ],
+        [
+          97,
+          20,
+          "??_V@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z": {
+      "bytes": "8b5108568b7424083b560857752133ff85d27e178b41048b4e042bc88b303b3401750c4783c0043bfa7cf1b001eb0232c05f5ec20400",
+      "relocations": []
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z": {
+      "bytes": "33c038410c74218b51083bd0567e158b7424088b368b49043931740b4083c1043bc27cf483c8ff5ec20400",
+      "relocations": []
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z": {
+      "bytes": "80790c00750433c0eb0a8b4424042b4104c1e802c20400",
+      "relocations": []
+    },
+    "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z": {
+      "bytes": "568bf1c70600000000e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          5,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          10,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ],
+        [
+          23,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "bytes": "c70100000000e900000000",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          7,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ]
+      ]
+    },
+    "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ": {
+      "bytes": "83c104c70100000000e900000000",
+      "relocations": [
+        [
+          5,
+          6,
+          "??_7?$VectorClass@PAVRender2DClass@@@@6B@"
+        ],
+        [
+          10,
+          20,
+          "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ"
+        ]
+      ]
+    },
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z": {
+      "bytes": "538a5c2408f6c302568bf174245768000000008d7efcff376a1c56e800000000f6c301740757e800000000598bc75feb158bcee800000000f6c301740756e800000000598bc65e5bc20400",
+      "relocations": [
+        [
+          15,
+          6,
+          "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ"
+        ],
+        [
+          28,
+          20,
+          "??_M@YGXPAXIHP6EX0@Z@Z"
+        ],
+        [
+          39,
+          20,
+          "??_V@YAXPAX@Z"
+        ],
+        [
+          52,
+          20,
+          "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ"
+        ],
+        [
+          63,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    }
+  },
+  "candidate_properties": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??0Vector3@@QAE@ABV0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??0Vector3@@QAE@MMM@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??2Drawable@@SAPAXIW4DrawableMagicEnum@0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??3Drawable@@SAXPAXW4DrawableMagicEnum@0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setCurrentTextureReduction@GameLODManager@@QAEXH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setColor@W3DStatusCircle@@SAXHHH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??0W3DGameClient@@QAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "??_7W3DGameClient@@6BSnapshot@@@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "??_7W3DGameClient@@6BSubsystemInterface@@@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "?postProcessLoad@SubsystemInterface@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?draw@SubsystemInterface@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setFrame@GameClient@@UAEXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?bfmeVirtualStub00@GameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?bfmeVirtualStub01@GameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?bfmeVirtualStub02@GameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?getFrame@GameClient@@UAEIXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_7W3DFontLibrary@@6B@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "??_GW3DFontLibrary@@UAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?setFrameRate@W3DGameClient@@MAEXM@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1W3DGameClient@@UAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?init@W3DGameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?update@W3DGameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?reset@W3DGameClient@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "__real@3f000000": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "?setTeamColor@W3DGameClient@@UAEXHHH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?adjustLOD@W3DGameClient@@UAEXH@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_GW3DGameClient@@UAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1?$VectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_7?$VectorClass@PAVRender2DClass@@@@6B@": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    }
+  },
+  "candidate_symbols": {
+    "defined": [
+      "??0Vector3@@QAE@ABV0@@Z",
+      "??0Vector3@@QAE@MMM@Z",
+      "??0W3DGameClient@@QAE@XZ",
+      "??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ",
+      "??1?$VectorClass@PAVRender2DClass@@@@UAE@XZ",
+      "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ",
+      "??1W3DGameClient@@UAE@XZ",
+      "??1WeightInfoStruct@NamedPivotMapClass@@QAE@XZ",
+      "??2Drawable@@SAPAXIW4DrawableMagicEnum@0@@Z",
+      "??3Drawable@@SAXPAXW4DrawableMagicEnum@0@@Z",
+      "??8?$VectorClass@PAVRender2DClass@@@@UBE_NABV0@@Z",
+      "??_7?$VectorClass@PAVRender2DClass@@@@6B@",
+      "??_7W3DFontLibrary@@6B@",
+      "??_7W3DGameClient@@6BSnapshot@@@",
+      "??_7W3DGameClient@@6BSubsystemInterface@@@",
+      "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z",
+      "??_EWeightInfoStruct@NamedPivotMapClass@@QAEPAXI@Z",
+      "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z",
+      "??_GW3DFontLibrary@@UAEPAXI@Z",
+      "??_GW3DGameClient@@UAEPAXI@Z",
+      "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "?Clear@?$VectorClass@PAVRender2DClass@@@@UAEXXZ",
+      "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHABQAVRender2DClass@@@Z",
+      "?ID@?$VectorClass@PAVRender2DClass@@@@UAEHPBQAVRender2DClass@@@Z",
+      "?Resize@?$VectorClass@PAVRender2DClass@@@@UAE_NHPBQAVRender2DClass@@@Z",
+      "?addScorch@W3DGameClient@@UAEXPBUCoord3D@@MW4Scorches@@@Z",
+      "?adjustLOD@W3DGameClient@@UAEXH@Z",
+      "?bfmeVirtualStub00@GameClient@@UAEXXZ",
+      "?bfmeVirtualStub01@GameClient@@UAEXXZ",
+      "?bfmeVirtualStub02@GameClient@@UAEXXZ",
+      "?createDisplayStringManager@W3DGameClient@@MAEPAVDisplayStringManager@@XZ",
+      "?createFontLibrary@W3DGameClient@@MAEPAVFontLibrary@@XZ",
+      "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ",
+      "?createInGameUI@W3DGameClient@@MAEPAVInGameUI@@XZ",
+      "?createKeyboard@W3DGameClient@@MAEPAVKeyboard@@XZ",
+      "?createMouse@W3DGameClient@@MAEPAVMouse@@XZ",
+      "?createRayEffectByTemplate@W3DGameClient@@UAEXPBUCoord3D@@0PBVThingTemplate@@@Z",
+      "?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ",
+      "?createTerrainVisual@W3DGameClient@@MAEPAVTerrainVisual@@XZ",
+      "?createVideoPlayer@W3DGameClient@@MAEPAVVideoPlayerInterface@@XZ",
+      "?createWindowManager@W3DGameClient@@MAEPAVGameWindowManager@@XZ",
+      "?draw@SubsystemInterface@@UAEXXZ",
+      "?firstDrawable@GameClient@@UAEPAVDrawable@@XZ",
+      "?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z",
+      "?getDrawableList@GameClient@@UAEPAVDrawable@@XZ",
+      "?getFrame@GameClient@@UAEIXZ",
+      "?init@W3DGameClient@@UAEXXZ",
+      "?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z",
+      "?postProcessLoad@SubsystemInterface@@UAEXXZ",
+      "?reset@W3DGameClient@@UAEXXZ",
+      "?setColor@W3DStatusCircle@@SAXHHH@Z",
+      "?setCurrentTextureReduction@GameLODManager@@QAEXH@Z",
+      "?setFrame@GameClient@@UAEXI@Z",
+      "?setFrameRate@W3DGameClient@@MAEXM@Z",
+      "?setTeamColor@W3DGameClient@@UAEXHHH@Z",
+      "?update@W3DGameClient@@UAEXXZ",
+      "__real@3f000000"
+    ],
+    "undefined": [
+      "??0BinkVideoPlayer@@QAE@XZ",
+      "??0DirectInputKeyboard@@QAE@XZ",
+      "??0Drawable@@QAE@PBVThingTemplate@@W4DrawableStatus@@@Z",
+      "??0FontLibrary@@QAE@XZ",
+      "??0GameClient@@QAE@XZ",
+      "??0W3DDisplay@@QAE@XZ",
+      "??0W3DDisplayStringManager@@QAE@XZ",
+      "??0W3DGameWindowManager@@QAE@XZ",
+      "??0W3DInGameUI@@QAE@XZ",
+      "??0W3DMouse@@QAE@XZ",
+      "??0W3DSnowManager@@QAE@XZ",
+      "??0W3DTerrainVisual@@QAE@XZ",
+      "??1GameClient@@UAE@XZ",
+      "??1W3DFontLibrary@@UAE@XZ",
+      "??2@YAPAXI@Z",
+      "??3@YAXPAX@Z",
+      "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z",
+      "??_GW3DFontLibrary@@UAEPAXI@Z",
+      "??_GW3DGameClient@@UAEPAXI@Z",
+      "??_M@YGXPAXIHP6EX0@Z@Z",
+      "??_U@YAPAXI@Z",
+      "??_V@YAXPAX@Z",
+      "?Get_Texture_Reduction@WW3D@@SAHXZ",
+      "?Set_Texture_Reduction@WW3D@@SAXHH@Z",
+      "?TheGameLODManager@@3PAVGameLODManager@@A",
+      "?TheRayEffects@@3PAVRayEffectSystem@@A",
+      "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A",
+      "?TheThingFactory@@3PAVThingFactory@@A",
+      "?TheW3DFrameLengthInMsec@@3HA",
+      "?TheWin32Mouse@@3PAVWin32Mouse@@A",
+      "?TheWritableGlobalData@@3PAVGlobalData@@A",
+      "?addRayEffect@RayEffectSystem@@QAEXPBVDrawable@@PBUCoord3D@@1@Z",
+      "?addScorch@BaseHeightMapRenderObjClass@@QAEXVVector3@@MW4Scorches@@@Z",
+      "?allocateShadows@GameClient@@UAEXXZ",
+      "?assignSelectedDrawablesToGroup@GameClient@@UAEXH@Z",
+      "?crc@GameClient@@MAEXPAVXfer@@@Z",
+      "?destroyDrawable@GameClient@@UAEXPAVDrawable@@@Z",
+      "?evaluateContextCommand@GameClient@@UAE?AW4Type@GameMessage@@PAVDrawable@@PBUCoord3D@@W4CommandEvaluateType@CommandTranslator@@@Z",
+      "?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z",
+      "?g_trackDirty@@3EA",
+      "?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z",
+      "?init@GameClient@@UAEXXZ",
+      "?iterateDrawablesInRegion@GameClient@@UAEXPAURegion3D@@P6AXPAVDrawable@@PAX@Z2@Z",
+      "?loadMap@GameClient@@UAE_NVAsciiString@@@Z",
+      "?loadPostProcess@GameClient@@MAEXXZ",
+      "?m_diffuse@W3DStatusCircle@@2HA",
+      "?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z",
+      "?preloadAssets@GameClient@@UAEXW4TimeOfDay@@@Z",
+      "?registerDrawable@GameClient@@UAEXPAVDrawable@@@Z",
+      "?releaseShadows@GameClient@@UAEXXZ",
+      "?removeFromRayEffects@GameClient@@UAEXPAVDrawable@@@Z",
+      "?reset@GameClient@@UAEXXZ",
+      "?selectDrawablesInGroup@GameClient@@UAEXH@Z",
+      "?setPosition@Drawable@@QAEXPBUCoord3D@@@Z",
+      "?setTextureLOD@BaseHeightMapRenderObjClass@@QAEXH@Z",
+      "?setTimeOfDay@W3DGameClient@@UAEXW4TimeOfDay@@@Z",
+      "?unitMoved@BaseHeightMapRenderObjClass@@QAEXPAVObject@@@Z",
+      "?unloadMap@GameClient@@UAEXVAsciiString@@@Z",
+      "?update@GameClient@@UAEXXZ",
+      "?xfer@GameClient@@MAEXPAVXfer@@@Z",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__fltused"
+    ],
+    "weak": [
+      [
+        "??_EW3DGameClient@@UAEPAXI@Z",
+        "??_GW3DGameClient@@UAEPAXI@Z"
+      ],
+      [
+        "??_EW3DFontLibrary@@UAEPAXI@Z",
+        "??_GW3DFontLibrary@@UAEPAXI@Z"
+      ],
+      [
+        "??_E?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z",
+        "??_G?$VectorClass@PAVRender2DClass@@@@UAEPAXI@Z"
+      ]
+    ],
+    "alternates": {},
+    "includes": []
+  },
+  "provider_diff": {
+    "changed": [],
+    "removed": [],
+    "added": []
+  },
+  "property_diff": {
+    "changed": [],
+    "removed": [],
+    "added": []
+  },
+  "symbol_delta": {
+    "defined": {
+      "removed": [],
+      "added": []
+    },
+    "undefined": {
+      "removed": [],
+      "added": []
+    },
+    "includes": {
+      "removed": [],
+      "added": []
+    },
+    "weak": {
+      "unchanged": true
+    },
+    "alternates": {
+      "unchanged": true
+    }
+  },
+  "EH": {
+    "control": {
+      "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ": [
+        "EXACT",
+        ""
+      ]
+    },
+    "candidate": {
+      "?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ": [
+        "EXACT",
+        ""
+      ]
+    }
+  },
+  "directives_unchanged": true,
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "affected_selection": [],
+  "private_source_unchanged": true,
+  "temporary_source_cleanup": true
+}
