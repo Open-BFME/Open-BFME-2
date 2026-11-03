@@ -72,3 +72,23 @@ Six-source155-row checks and scoped DIR32 pass. True base/tip A/B preserves
 five LINKS peers (9,873B), while Vslot AG U4 becomes U3. The two held RET4
 helpers and bool/int provider contract remain. No full real-link rerun.
 [ABI and verification evidence](../reverse/attempt_support/real-link-mode-helper-20261103.md).
+
+
+### Real-link Libraries/Common batch handoff (2026-11-03, halilkkaya-codex)
+
+Six implementation commits on c1325ac0b6 retain existing rows and add three
+verified FieldParse tables plus one full-body ICF member spelling. Combined
+70-unit true base/tip checks preserve all previously linking units (LINKS
+29 -> 33; unresolved source/name references 226 -> 176). This is a preview,
+not a new real-link measurement or census gain. Seven-source normal checks
+pass 42 code rows and four data rows; scoped DIR32 passes 42 rows plus
+18 witnesses. Batch audit: INCONCLUSIVE, because index984a4cdc4d predates
+the base and seven changed objects lack current strict receipts. Carry the
+providers and affected consumers into the next scheduled measurement.
+
+The shader-manager roots remain blocked on ten child lists and thirteen
+actual objects. Five initialized homes lack matched data owners; seven more
+remain scalar stand-ins. The catalog196B extent does not prove the second
+root's size (native40B). Both code rows stay exact, with no source edit.
+[Landing order, all44 sources, pointer graph and claims](../reverse/attempt_support/real-link-seat-halilkkaya-codex-20261103.md)
+and [original name/provider hints](../reverse/attempt_support/real-link-seat-halilkkaya-codex-20261103.tsv).

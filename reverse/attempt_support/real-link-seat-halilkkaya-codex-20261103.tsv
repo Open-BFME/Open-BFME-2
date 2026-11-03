@@ -1,0 +1,222 @@
+source	artifact_symbol	existing_pin_rva	existing_owner_examples	current_preview_unresolved
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	??1?$VectorClass@VProxyClass@@@@UAE@XZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	??1CollectionClass@@UAE@XZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	??8?$VectorClass@VProxyClass@@@@UBE_NABV0@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Add_Sub_Object@CollectionClass@@UAEHPAVRenderObjClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Cast_AABox@CollectionClass@@UAE_NAAVAABoxCollisionTestClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Cast_OBBox@CollectionClass@@UAE_NAAVOBBoxCollisionTestClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Cast_Ray@CollectionClass@@UAE_NAAVRayCollisionTestClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Class_ID@CollectionClass@@UBEHXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Clear@?$VectorClass@VProxyClass@@@@UAEXXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Clone@CollectionClass@@UBEPAVRenderObjClass@@XZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Create_Decal@CompositeRenderObjClass@@UAEXPAVDecalGeneratorClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Name@CollectionDefClass@@QBEPBDXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Num_Polys@CollectionClass@@UBEHXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Obj_Space_Bounding_Box@CollectionClass@@UBEXAAVAABoxClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Obj_Space_Bounding_Sphere@CollectionClass@@UBEXAAVSphereClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Proxy@CollectionClass@@UBE_NHAAVProxyClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Proxy_Count@CollectionClass@@UBEHXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Snap_Point@CollectionClass@@UAEXHPAVVector3@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Get_Sub_Object@CollectionClass@@UBEPAVRenderObjClass@@H@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?ID@?$VectorClass@VProxyClass@@@@UAEHABVProxyClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?ID@?$VectorClass@VProxyClass@@@@UAEHPBVProxyClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Intersect_AABox@CollectionClass@@UAE_NAAVAABoxIntersectionTestClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Intersect_OBBox@CollectionClass@@UAE_NAAVOBBoxIntersectionTestClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Load_W3D@CollectionLoaderClass@@UAEPAVPrototypeClass@@AAVChunkLoadClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Remove_Sub_Object@CollectionClass@@UAEHPAVRenderObjClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Render@CollectionClass@@UAEXAAVRenderInfoClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Resize@?$VectorClass@VProxyClass@@@@UAE_NHPBVProxyClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Scale@CollectionClass@@UAEXM@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Scale@CollectionClass@@UAEXMMM@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Set_Position@CollectionClass@@UAEXABVVector3@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Set_Transform@CollectionClass@@UAEXABVMatrix3D@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Snap_Point_Count@CollectionClass@@UAEHXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Special_Render@CollectionClass@@UAEXAAVSpecialRenderInfoClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Update_Obj_Space_Bounding_Volumes@CollectionClass@@UAEXXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	?Update_Sub_Object_Transforms@CollectionClass@@MAEXXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	??0DynamicMeshModel@@QAE@II@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	??0DynamicVBAccessClass@@QAE@IIG@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	??1DynamicMeshClass@@UAE@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Clone@DynamicMeshClass@@UBEPAVRenderObjClass@@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Get_Vertex@DynamicMeshClass@@UAEXHAAM00@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Initialize_Material_Array@DynamicMeshModel@@QAEXHPAVVertexMaterialClass@@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z	0x0012FE00	?Insert@BfmeSortingDispatchAt0012FE00@@SAXABUTargetCenter3@@IIII@Z [1520B; Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp]	no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Location@DynamicMeshClass@@UAEXMMM@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Move_Vertex@DynamicMeshClass@@UAEXHMMM@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Render@DynamicMeshClass@@UAEXAAVRenderInfoClass@@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Reset@DynamicMeshModel@@QAEXXZ			no
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z			no
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	??1ParticleDrawBinder@@UAE@XZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	??1ParticlePhysicsBinder@@UAE@XZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	??1ParticleUpdateBinder@@UAE@XZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	??1Rva001F4A90HostBase@@UAE@XZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?ResolveBindings@ParticleDrawBinder@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?ResolveBindings@ParticlePhysicsBinder@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?ResolveBindings@ParticleUpdateBinder@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?ResolveBindings@Rva001F4A90HostBase@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?slot0@ParticleDrawBinder@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?slot0@ParticlePhysicsBinder@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?slot0@ParticleUpdateBinder@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	?slot0@Rva001F4A90HostBase@@UAEXXZ			yes
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	??0MeshMtlParamsClass@@QAE@PAVMeshModelClass@@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	??0PolygonClass@@QAE@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	??1MeshMtlParamsClass@@QAE@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Add_Texture@MaterialInfoClass@@QAEHPAVTextureClass@@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Clip_Polygon@BSPClass@@QAEXABVPolygonClass@@@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Compute_Plane@PolygonClass@@QAEXXZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?End_Vertex@DynamicMeshClass@@QAE_NXZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Release_Fragments@ShatterSystem@@SAXXZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Reset_Clip_Pools@ShatterSystem@@KAXXZ			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z			no
+Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	?Translate_Vertices@DynamicMeshClass@@QAEXABVVector3@@@Z			no
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	??0AudioEventRTS@@QAE@ABV0@@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	??0AudioEventRTS@@QAE@XZ			yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	??1AudioEventRTS@@UAE@XZ	0x004EC395	??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ [23B; Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp] | ??1?$_List_base@PAURva004FA1FObserver@@V?$allocator@PAURva004FA1FObserver@@@_STL@@@_STL@@QAE@XZ [23B; Code/Libraries/Source/WWVegas/WWLib/RadarObserverListBase.cpp] | ??1?$_List_base@PAVAIGroup@@V?$allocator@PAVAIGroup@@@_STL@@@_STL@@QAE@XZ [23B; Code/GameEngine/Source/GameLogic/AI/AIGroupListCleanup.cpp] | +15 other ledger owners	yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?getProductionCostChangePercent@Player@@QBEMVAsciiString@@@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?parse@?$BitFlags@$0HE@@@QAEXPAVINI@@PAVAsciiString@@@Z			no
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?parseByteSizedIndexList@INI@@SAXPAV1@PAX1PBX@Z			no
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?parseDynamicAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z			no
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?s_bitNameList@?$BitFlags@$0L@@@0PAPBDA			yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?scanIndexList@INI@@SAHPBDPBQBD@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?scanInt@INI@@SAHPBD@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?setEventName@AudioEventRTS@@QAEXVAsciiString@@@Z			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	??0DefinitionFactoryClass@@QAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	??0PersistFactoryClass@@QAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	??0RandomClass@@QAE@I@Z			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	??1DefinitionFactoryClass@@UAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	??1PersistFactoryClass@@UAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	?Find_Definition@DefinitionMgrClass@@SAPAVDefinitionClass@@K_N@Z			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	?Load@DefinitionClass@@UAE_NAAVChunkLoadClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	?Save@DefinitionClass@@UAE_NAAVChunkSaveClass@@@Z			yes
+Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	?Set_ID@DefinitionClass@@UAEXK@Z			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?CreateMovieClip@Rva005F422C@@UAE?AUTreeHintRef00217D4C@@PAVAptMovieClipFrame@@@Z			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?DoUpdate@Rva005F4179@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?DoUpdate@Rva005F422C@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?rva005F4710@Rva005F4179@@UAE?AUTreeHintRef00217D4C@@XZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?rva005F4710@Rva005F422C@@UAE?AUTreeHintRef00217D4C@@XZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?slot01@Rva005E3A76@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?slot05@Rva005E3A76@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?slot06@Rva005E3A76@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	?slot07@Rva005E3A76@@UAEXXZ			yes
+Code/GameEngine/Source/Common/System/CDManager.cpp	??0LList@@QAE@XZ			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	??0LListNode@@QAE@XZ			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	??1CDManager@@UAE@XZ			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	?add@LList@@QAEXPAVLListNode@@@Z			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	?getNode@LList@@QAEPAVLListNode@@H@Z			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	?next@LListNode@@QAEPAV1@XZ			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	?nodeCount@LList@@QAEHXZ			no
+Code/GameEngine/Source/Common/System/CDManager.cpp	?remove@LListNode@@QAEXXZ			no
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?BaseVirt@AptOnlineCustomMatch@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?BoxVirt@AptOnlineOpenPlay@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?BoxVirt@Rva005BA28E@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?M60Virt@Rva005BA1FDM60@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?M60Virt@Rva005BA28EM60@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?M6CVirt@Rva005BA1FDM6C@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	?M6CVirt@Rva005BA28EM6C@@UAEXXZ			yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z	0x000120C0	?assign@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z [41B; Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_assign_copy.cpp] | ??4?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV01@ABV01@@Z [41B; Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_assign_copy.cpp]	yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	??4AudioEventRTS@@QAEAAV0@ABV0@@Z	0x000366F0	?set@?$StringBase@D@@QAEXABV1@@Z [132B; Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp]	yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@ABV?$BitFlags@$0CN@@@PAVTeam@@@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	?initForLTA@ThingTemplate@@QAEXABVAsciiString@@@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	?newOverride@ThingFactory@@AAEPAVThingTemplate@@PAV2@@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	?newTemplate@ThingFactory@@QAEPAVThingTemplate@@ABVAsciiString@@@Z			yes
+Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	?registerObject@PartitionManager@@QAEXPAVObject@@@Z			yes
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?buildFieldParse@Rva005C4352Base@@QAEXAAVMultiIniFieldParse@@@Z	0x0047A69C	?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z [3B; Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp] | ?addSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z [3B; Code/GameEngine/Source/Common/GameEngineInitFolded.cpp] | ?OnInitialized@AptLanLobby@@QAEXPBD@Z [3B; Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp] | +42 other ledger owners	yes
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?g_rva005C4352FieldParse@@3QBUFieldParse@@B			no
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?g_rva005C4553FieldParse@@3QBUFieldParse@@B			no
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?g_rva005C47A8FieldParse@@3QBUFieldParse@@B			no
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?m@Gen_003bcb40@@QAEXH@Z	0x0047A69C	?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z [3B; Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp] | ?addSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z [3B; Code/GameEngine/Source/Common/GameEngineInitFolded.cpp] | ?OnInitialized@AptLanLobby@@QAEXPBD@Z [3B; Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp] | +42 other ledger owners	yes
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?rva00130FCE@Rva00130FCE@@QAE_NXZ	0x00130FCE	?bfmeGoURB@BfmeThingURB@@QAEHXZ [28B; Code/GameEngine/Source/Common/BfmeConv1341.cpp]	yes
+Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	?rva0023C7F5@Rva0023C7F5@@QAEHMH@Z	0x0023C7F5	?Rva0023C7F5Get@@YGHHH@Z [70B; Code/GameEngine/Source/Common/Rva0023C7F5Get.cpp]	no
+Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z	0x00223149	?bucketIndex@Rva000427195@@QAEHPBVAsciiString@@@Z [31B; Code/GameEngine/Source/Common/RTS/PlayerXferStringMaps.cpp]	yes
+Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	?_M_delete_node@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@Z	0x001FD9EF	?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z [28B; Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp]	yes
+Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	?_M_skip_to_next@?$_Hashtable_iterator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@XZ	0x003F7925	?advance@Rva000411084@@QAEPAXXZ [47B; Code/GameEngine/Source/GameClient/EvaBucketAdvance.cpp]	yes
+Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@@2@I@Z			yes
+Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	?dup_00410c7b@@YAXXZ			yes
+Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	?rva004FC957@Rva004FC957Delete@@QBEXPAVRva00460A70Mapped@@@Z	0x004FC957	?Return_File@W3DFileSystem@@UAEXPAVFileClass@@@Z [25B; Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp]	yes
+Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	??1Rva006DCD20@@MAE@XZ			yes
+Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?crc@Rva006DCD20@@MAEXPAVXfer@@@Z			yes
+Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?createParticleSystem@ParticleSystemManager@@QAEPAVParticleSystem@@PBVParticleSystemTemplate@@_N@Z			no
+Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?findParticleSystem@ParticleSystemManager@@QAEPAVParticleSystem@@W4ParticleSystemID@@@Z			no
+Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?getShroudedStatus@Object@@QBE?AW4ObjectShroudStatus@@H@Z			no
+Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?xfer@Rva006DCD20@@MAEXPAVXfer@@@Z			yes
+Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp	??1UnitRevivalTracker@@UAE@XZ			yes
+Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp	?GetSnapshotName@Rva002B0F3CEnergy@@UBEPBDXZ			yes
+Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp	?loadPostProcess@Rva002B0F3CEnergy@@UAEXXZ			yes
+Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp	?xfer@Rva002B0F3CEnergy@@UAEXPAVXfer@@@Z			yes
+Code/GameEngine/Source/Common/Rva006DE1A0Finish.cpp	??1Rva006DE1A0@@UAE@XZ			yes
+Code/GameEngine/Source/Common/Rva006DE1A0Finish.cpp	??1Rva006DE1A0Base@@UAE@XZ	0x006D6340	??1BfmeAptValue006DCD20@@UAE@XZ [5B; Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp] | ??1AptValueGC@@MAE@XZ [5B; Code/GameEngine/Source/Common/Rva006FBC90OwnerDtor.cpp]	yes
+Code/GameEngine/Source/Common/Rva006DE1A0Finish.cpp	??1Rva006DE1A0Mid@@UAE@XZ			yes
+Code/GameEngine/Source/Common/RvaPayloadValueReturnsUnresolved.cpp	??1Rva005FAAA1@@UAE@XZ			yes
+Code/GameEngine/Source/Common/RvaPayloadValueReturnsUnresolved.cpp	??1Rva005FAB16@@UAE@XZ			yes
+Code/GameEngine/Source/Common/RvaPayloadValueReturnsUnresolved.cpp	??1Rva005FAB9E@@UAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva000C225D.cpp	??0Rva000C225DElement@@QAE@ABU0@@Z	0x000B94D2	??0BfmeStringRecord000B94D2@@QAE@ABU0@@Z [61B; Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva000C225D.cpp	??1Rva000C225DElement@@QAE@XZ	0x000B6CF1	??1BfmeStringRecord000B94D2@@QAE@XZ [53B; Code/GameEngine/Source/Common/StringRecordDtors.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva000C225D.cpp	??4Rva000C225DElement@@QAEAAU0@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp	??0Rva001EBEABElement@@QAE@ABU0@@Z	0x001EB79E	??0CarryoverUnit@@QAE@ABV0@@Z [119B; Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp	??1Rva001EBEABElement@@QAE@XZ	0x0037DEE4	??1CarryoverUnit@@UAE@XZ [72B; Code/GameEngine/Source/Common/CarryoverUnit.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp	??4Rva001EBEABElement@@QAEAAU0@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002BC47D.cpp	??0Rva002BC47DElement@@QAE@ABU0@@Z	0x002B90D6	??0Rva002B91EDElement@@QAE@ABU0@@Z [103B; Code/GameEngine/Source/Common/Rva002B91EDElementCopy.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002BC47D.cpp	??1Rva002BC47DElement@@QAE@XZ	0x002B707E	??1BfmeAssignRecord52@@QAE@XZ [53B; Code/GameEngine/Source/GameLogic/Object/Update/BfmeAssignRecord52Dtor.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002BC47D.cpp	??4Rva002BC47DElement@@QAEAAU0@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva005205DA.cpp	??0Rva005205DAElement@@QAE@ABU0@@Z	0x0051F87B	??0Rva0051F87B@@QAE@ABV0@@Z [165B; Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva005205DA.cpp	??1Rva005205DAElement@@QAE@XZ	0x0051FB52	??1Rva00520211Element@@QAE@XZ [135B; Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva005205DA.cpp	??4Rva005205DAElement@@QAEAAU0@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleTranslateToSystem.c	_EnumLocalesProcA@4			yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleTranslateToSystem.c	___rg_country			yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleTranslateToSystem.c	___rg_language			yes
+Code/GameEngine/Source/Common/BfmeConv881O1.cpp	??1Gen_t_009d80b0_p12cd@@QAE@XZ			yes
+Code/GameEngine/Source/Common/BfmeConv881O1.cpp	??1Gen_t_009d8120_p12cd@@QAE@XZ			yes
+Code/GameEngine/Source/Common/BfmeConv901.cpp	??0Rva001320D0@@QAE@PAX@Z	0x001320D0	??0BfmeThingSJ@@QAE@H@Z [89B; Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp]	yes
+Code/GameEngine/Source/Common/BfmeConv901.cpp	??1BfmeThingJC@@UAE@XZ			yes
+Code/GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp	??0Elem003AF9E0@@QAE@ABU0@@Z	0x0052BB9A	??0Rva003A6360Record@@QAE@ABV0@@Z [33B; Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp]	yes
+Code/GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp	??4Elem003B2540@@QAEAAU0@ABU0@@Z			yes
+Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic.cpp	??0Gen003AA0D0@@QAE@ABU0@@Z			yes
+Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic.cpp	??1Gen003AA0D0@@UAE@XZ	0x005DE5B5	??1Rva005DE5B5@@QAE@XZ [53B; Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_5de5b5_dtor.cpp]	yes
+Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic_Rva005de870.cpp	??0Gen003AA0D0@@QAE@ABU0@@Z			yes
+Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic_Rva005de870.cpp	??1Gen003AA0D0@@UAE@XZ	0x005DE5B5	??1Rva005DE5B5@@QAE@XZ [53B; Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_5de5b5_dtor.cpp]	yes
+Code/GameEngine/Source/Common/RTS/Player.cpp	?deposit@Money@@QAEXI_N@Z			no
+Code/GameEngine/Source/Common/RTS/Player.cpp	?withdraw@Money@@QAEII_N@Z			no
+Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	?freeBytes@AsciiString@@AAEXXZ			yes
+Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	?set@AsciiString@@QAEXABV1@@Z	0x000366F0	?set@?$StringBase@D@@QAEXABV1@@Z [132B; Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp]	yes
+Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	?g_Va00DB43A4@@3PAPAPAVRva00077F80Shader@@A			yes
+Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	?g_Va00DB43AC@@3PAPAPAVRva00077F80Filter@@A			yes
+Code/GameEngine/Source/Common/Rva003C2F40TreeCtor.cpp	??1Rva003C2F40Base@@UAE@XZ			yes
+Code/GameEngine/Source/Common/Rva003C2F40TreeCtor.cpp	??1Rva003C2F40Owner@@UAE@XZ			yes
+Code/GameEngine/Source/Common/System/SaveGame/AerialPathfinder.cpp	??1Rva0022C987Base@@UAE@XZ			yes
+Code/GameEngine/Source/Common/System/SaveGame/AerialPathfinder.cpp	?baseConstruct@BFME2NativeNetwork@@QAEXXZ	0x001B4E63	??0SubsystemInterface@@QAE@XZ [17B; Code/Libraries/Source/subsystem/SubsystemInterface.cpp]	yes
+Code/GameEngine/Source/Common/WeaponStore.cpp	??1WeaponStore@@MAE@XZ			yes
+Code/GameEngine/Source/Common/WeaponStore.cpp	?unused@Rva002CC20EBase@@UAEXXZ			yes
+Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp	?Rva00219B9E@@YGPAXH@Z	0x00219B9E	?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z [44B; Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp]	no
+Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp	?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z	0x0021BD22	?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z [31B; Code/GameEngine/Source/Common/System/Rva0021BD22Find.cpp]	no
+Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DE3E3.cpp	??0Rva001DE3E3Record@@QAE@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DE3E3.cpp	??1Rva001DE3E3Record@@QAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001DF2D3.cpp	??1Rva001DF2D3Element@@QAE@XZ	0x001DDEC3	??1Rva00414BDBElement@@QAE@XZ [60B; Code/GameEngine/Source/Common/Rva00414BDBElementDtor.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001DF2D3.cpp	??4Rva001DF2D3Element@@QAEAAU0@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00587375_overflow.cpp	??0Rva00587375@@QAE@XZ			yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00587375_overflow.cpp	??4Rva00587375@@QAEAAU0@ABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva005de9c4_ctor.cpp	??1Gen003AA0D0@@UAE@XZ	0x005DE5B5	??1Rva005DE5B5@@QAE@XZ [53B; Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_5de5b5_dtor.cpp]	yes
+Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva005de9c4_ctor.cpp	?allocate@?$_STLP_alloc_proxy@PAUGen003AA0D0@@U1@V?$allocator@UGen003AA0D0@@@_STL@@@_STL@@QAEPAUGen003AA0D0@@I@Z			yes
+Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-cd13.cpp	??1DeflectSpecialPowerModuleData@@UAE@XZ	0x004C64E9	??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ [5B; Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPower.cpp]	yes
+Code/GameEngine/Source/Common/Rva006C3CC0Cluster.cpp	??1GeneralAllocator@Allocator@EA@@QAE@XZ	0x00033D50	?rva00033D50@GeneralAllocator@Allocator@EA@@QAE_NXZ [309B; Code/GameEngine/Source/Common/System/Rva00033D50Shutdown.cpp]	yes
+Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	??1Rva0052B7B3Dtor@@QAE@XZ	0x0052B7B3	?j_0052b7b3@@YAXXZ [5B; Code/gen_small/gthunks_000_admitted.cpp]	no
+Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	??1Rva0052B7B3Dtor@@QAE@XZ	0x0052B7B3	?j_0052b7b3@@YAXXZ [5B; Code/gen_small/gthunks_000_admitted.cpp]	no
+Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??M@YA_NABUcrateCreationEntry@@0@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	??MRva0016DEC0Element@@QBE_NABU0@@Z			yes
+Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp	??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z	0x005F4F59	?Rva005F4F59Copy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAH@Z [27B; Code/GameEngine/Source/Common/Rva005F4B8FCopy.cpp]	no
