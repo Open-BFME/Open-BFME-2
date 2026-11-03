@@ -45,11 +45,7 @@ public:
 	Object *m_next;
 };
 
-class AITarget
-{
-public:
-	void setTarget(Object *obj, float value);
-};
+#include "../../Include/GameLogic/AITarget.h"
 
 class Rva005CB22A
 {

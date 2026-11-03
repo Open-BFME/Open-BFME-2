@@ -163,11 +163,7 @@ public:
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // What slot 1 hands the pick to (0x002C5D8B forwards to 0x002C5CF7).
-class AITarget
-{
-public:
-	void rva002C5CF7(const Coord3D *pos, float radius, int id);	// 0x002C5CF7
-};
+#include "../../../../../../Include/GameLogic/AITarget.h"
 
 struct Rva005CB22A
 {

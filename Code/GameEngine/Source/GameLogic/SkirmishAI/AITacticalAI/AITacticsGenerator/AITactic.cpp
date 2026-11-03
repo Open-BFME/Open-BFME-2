@@ -218,11 +218,7 @@ extern int g_00E044AC;
 
 // The tactic's target (WorldBuilder AITarget); rowed under a placeholder owner,
 // except markApproachHazard 0x002C590F, rowed under AITarget.
-class AITarget
-{
-public:
-	void markApproachHazard(const Coord3D *area);
-};
+#include "../../../../../Include/GameLogic/AITarget.h"
 
 class Rva002C589B
 {

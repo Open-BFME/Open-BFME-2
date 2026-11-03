@@ -136,13 +136,7 @@ struct Rva002A8F24Record
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // What slot 1 hands the pick to: +0x2C the kind of pick.
-class AITarget
-{
-public:
-	void setTarget(Object *obj, float value);	// 0x002C5D8B
-	char m_pad00[0x2C];
-	int m_2C;	// +0x2C
-};
+#include "../../../../../../Include/GameLogic/AITarget.h"
 
 struct Rva005CB22A
 {

@@ -34,7 +34,7 @@ typedef _STL::vector<ObjectID> IdRange;
 struct Record { Rva005C4AD1LeaField *units; void *reserved; Rva005C4AD1LeaField *structures; };
 class Object { public: char pad[0x38]; Coord3D pos; char pad44[0x74 - 0x44]; ObjectID id; };
 struct Thing;
-class AITarget { public: void setTarget(Object *, float); };
+#include "../../../../../../Include/GameLogic/AITarget.h"
 class AITargetHeuristicEnemyStructure
 {
 public:

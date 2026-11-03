@@ -51,11 +51,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class AITarget
-{
-public:
-    void setTarget(Object *, float);
-};
+#include "../../Include/GameLogic/AITarget.h"
 
 struct EnemyHeuristicIds { ObjectID *first, *last, *limit; };
 

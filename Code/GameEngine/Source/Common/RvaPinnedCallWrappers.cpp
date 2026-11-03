@@ -70,11 +70,7 @@ int CreateAHeroHero::rva00409EA0()
 // position pointer.
 struct Coord3D;
 
-class AITarget
-{
-public:
-	float checkThreatInArea(const Coord3D *pos);
-};
+#include "../../Include/GameLogic/AITarget.h"
 
 class Rva004ECE93
 {
