@@ -534,3 +534,4 @@ TeleportToCasterSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/
 MultiPlayMults,Code/GameEngine/Include/Common/MultiPlayMults.h,existing header; contract class_contracts/MultiPlayMults.json; 12/14 sampled units adopt
 StoreObjectsSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h,existing header; contract class_contracts/StoreObjectsSpecialPowerModuleData.json; 8/12 sampled units adopt
 CurseSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/CurseSpecialPowerModuleData.h,existing header; contract class_contracts/CurseSpecialPowerModuleData.json; 10/13 sampled units adopt
+LivingWorldArmy,Code/GameEngine/Include/GameLogic/LivingWorldArmy.h,existing header; contract class_contracts/LivingWorldArmy.json; 3/12 sampled units adopt

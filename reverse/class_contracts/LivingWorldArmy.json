@@ -1,0 +1,985 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldArmy",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 1
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x78": {
+    "4": 7
+   },
+   "0x88": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x98": 2
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x31a257",
+      "0x31a372"
+     ],
+     "value": {
+      "0x8": [
+       "Rva003197EEList",
+       "Rva00330757Member"
+      ]
+     }
+    },
+    "bases_unproven": {
+     "kind": "inference",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x31a257",
+      "0x31a372"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0020E346",
+       "offset": 4,
+       "own_vftable": "0x80c824",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x31a257",
+      "0x31a372"
+     ],
+     "value": 144
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x31a257",
+      "0x31a372"
+     ],
+     "value": {
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       1
+      ],
+      "0x59": [
+       1
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       1
+      ],
+      "0x65": [
+       1
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       1
+      ],
+      "0x75": [
+       1
+      ],
+      "0x78": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x31a257",
+      "0x31a372"
+     ],
+     "value": {
+      "0x0": [
+       "?UseArmySummary@LivingWorldArmy@@QAEXPAVSpawnArmy@@@Z"
+      ],
+      "0x18": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x1c": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x24": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x28": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x78": [
+       "?rva00575674@Rva00575674@@QAEXPAVObject@@@Z"
+      ],
+      "0x7c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x90": [
+       "??0PlayingAudioUnknown0C@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x31a257",
+      "0x31a372"
+     ],
+     "value": {
+      "0x0": "0x80c82c",
+      "0x4": "0x80c824"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x80c82c"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GLivingWorldArmy@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x31a00e"
+       },
+       {
+        "name": "?loadPostProcess@LivingWorldArmy@@UAEXXZ",
+        "slot": 1,
+        "target": "0x31a02a"
+       },
+       {
+        "name": "?GetSnapshotName@LivingWorldArmy@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x319e76"
+       },
+       {
+        "name": "?xfer@LivingWorldArmy@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x31a6db"
+       }
+      ],
+      "table": "0x80c82c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 10,
+  "retail_vtables": {
+   "0x80c824": {
+    "offset": 4,
+    "slots": {},
+    "stores": 2
+   },
+   "0x80c82c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GLivingWorldArmy@@UAEPAXI@Z",
+     "1": "?loadPostProcess@LivingWorldArmy@@UAEXXZ",
+     "2": "?GetSnapshotName@LivingWorldArmy@@UBEPBDXZ",
+     "3": "?xfer@LivingWorldArmy@@UAEXPAVXfer@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "88": 1,
+   "124": 5,
+   "144": 1,
+   "152": 2
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_start",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003197EEListener**",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_finish",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003197EEListener**",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_end_of_storage._M_data",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003197EEListener**",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "index",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "name18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "name1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "owner20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "name24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "name28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:CtorArmyMinusOneWord",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "region2C",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "v2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "CtorArmyMinusOneWord",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "value30",
+   "name_by": "tie",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "pos34.y",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "pos3C.y",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "pos44.y",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "pos4C.y",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "owner54",
+   "name_by": "tie",
+   "offset": 84,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag58",
+   "name_by": "tie",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag59",
+   "name_by": "tie",
+   "offset": 89,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:CtorArmyScalar",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "value5C",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "f5C",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "CtorArmyScalar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "audio60",
+   "name_by": "tie",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "b64",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag65",
+   "name_by": "tie",
+   "offset": 101,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "text68",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "text6C",
+   "name_by": "majority",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "iconSize70",
+   "name_by": "tie",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag74",
+   "name_by": "tie",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag75",
+   "name_by": "tie",
+   "offset": 117,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva000AD6F4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "summary",
+     "offset": 0,
+     "size": 4,
+     "type": "ArmySummary*"
+    }
+   ],
+   "name": "summary78",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva000AD6F4",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 52
+ },
+ "outliers": [
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x2c",
+   "candidates": {
+    "region2C": 1,
+    "v2C.word": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x30",
+   "candidates": {
+    "v30": 1,
+    "value30": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "field@0x34",
+   "candidates": {
+    "4:f4": 1,
+    "8:A": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "field@0x3c",
+   "candidates": {
+    "4:f4": 1,
+    "8:A": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "field@0x44",
+   "candidates": {
+    "4:f4": 1,
+    "8:A": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "field@0x4c",
+   "candidates": {
+    "4:f4": 1,
+    "4:i4": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x54",
+   "candidates": {
+    "m_54": 1,
+    "m_ownerPlayer": 2,
+    "owner54": 2
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x58",
+   "candidates": {
+    "b58": 1,
+    "flag58": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x59",
+   "candidates": {
+    "b59": 1,
+    "flag59": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x5c",
+   "candidates": {
+    "f5C.x": 1,
+    "value5C": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x60",
+   "candidates": {
+    "audio60": 1,
+    "v60": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x65",
+   "candidates": {
+    "b65": 1,
+    "flag65": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x70",
+   "candidates": {
+    "iconSize70": 1,
+    "v70": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x74",
+   "candidates": {
+    "b74": 1,
+    "flag74": 1,
+    "m_field74": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x75",
+   "candidates": {
+    "b75": 1,
+    "flag75": 1,
+    "m_field75": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "name@0x78",
+   "candidates": {
+    "m_colors78": 1,
+    "m_id": 1,
+    "m_summary": 2,
+    "summary": 2,
+    "summary78": 1,
+    "summary78.m_summary": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "_M_end_of_storage._M_data": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "nested@0x38",
+   "candidates": {
+    "pos34.y": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "nested@0x40",
+   "candidates": {
+    "pos3C.y": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "nested@0x48",
+   "candidates": {
+    "pos44.y": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "nested@0x50",
+   "candidates": {
+    "pos4C.y": 1
+   },
+   "class": "LivingWorldArmy"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "xfer(Xfer*)": 1
+   },
+   "class": "LivingWorldArmy"
+  }
+ ],
+ "size": 124,
+ "size_by": "majority",
+ "vslots": {}
+}
