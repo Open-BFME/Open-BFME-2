@@ -29,6 +29,12 @@ Rule C: Code/gen_asm/ is machine output and stays that way. C1 every added
         scores a .asm file as assembly unconditionally, so the offence Rule A
         polices -- inflating the C++ lane with re-encoded binary -- is not
         expressible in this directory.
+
+Rule D: an added `// cl:` line under Code/ holds compiler flags and nothing else.
+        Git Bash rewrites a /I argument it hands to a Windows program into
+        `C:/Program Files/Git/I...`; 573 headers landed that way in two days.
+        `cl -c` warns and ignores the stray words, so bytes still match, but
+        `cl -E` fails on them, which takes away the census's input proof.
 """
 
 from collections import Counter
@@ -80,6 +86,35 @@ def added_lift_lines(old, new):
                 first, count = bad.get(path, (line[1:].strip()[:80], 0))
                 bad[path] = (first, count + 1)
     return [(p, "%s  (%d such lines)" % (first, count)) for p, (first, count) in bad.items()]
+
+
+CL_MARK = "// cl:"
+CL_QUOTED_INCLUDE_RE = re.compile(r'[/-]I\s*"[^"]*"')
+
+
+def cl_non_flags(line):
+    """The words of one `// cl:` line that are not flags (build._source_flag_tokens' grammar)."""
+    bad, operand = [], False
+    for token in CL_QUOTED_INCLUDE_RE.sub(" ", line[len(CL_MARK):]).split():
+        if operand:
+            operand = False
+        elif token in ("/I", "-I"):
+            operand = True
+        elif not token.startswith(("/", "-")):
+            bad.append(token)
+    return bad
+
+
+def added_cl_garbage(old, new):
+    found, path = [], None
+    for line in diff_lines(old, new, "Code/"):
+        if line.startswith("+++ b/"):
+            path = line[6:]
+        elif line.startswith("+") and line[1:].lstrip("\ufeff").startswith(CL_MARK):
+            bad = cl_non_flags(line[1:].lstrip("\ufeff"))
+            if bad:
+                found.append((path, " ".join(bad)[:80]))
+    return found
 
 
 GEN_ASM = "Code/gen_asm/"
@@ -364,6 +399,12 @@ def main():
     for offence in gen_asm_offences(old, new):
         failed = True
         print("conversion gate: " + offence, file=sys.stderr)
+    for path, words in by_trees("cl-flags", old, new, lambda: added_cl_garbage(old, new)):
+        failed = True
+        print("conversion gate: %s: `// cl:` holds words that are not flags: %s\n"
+              "cl -E fails on them, which breaks the link census. If that is a mangled /I\n"
+              "flag, your shell rewrote it: in Git Bash set MSYS_NO_PATHCONV=1 before the\n"
+              "tool that writes the line." % (path, words), file=sys.stderr)
     for rva, name, old_src, new_src in by_trees("coverage", old, new, lambda: clean_coverage_lost(old, new)):
         failed = True
         print("conversion gate: %s (%s) was clean C++ at %s, repointed to %s.\n"

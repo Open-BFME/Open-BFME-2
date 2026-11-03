@@ -451,3 +451,26 @@ def test_a_one_commit_push_reuses_pre_commits_results(repo, monkeypatch):
     tip2 = commit()
     assert check_main(monkeypatch, base, tip2) == 0                 # another pair: judged
     assert "added_lift_lines" in calls and "_gen_asm_diff_offences" in calls
+
+
+@pytest.mark.parametrize("line", [
+    "// cl: /O1 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /MD",
+    "// cl: (none -- build.py base flags)",
+    "// cl: (at defaults MSVC 7.1 folds `x |= -1` into `mov [ecx],-1`;",
+])
+def test_added_cl_line_with_non_flag_words_is_refused(repo, monkeypatch, line):
+    _, write, commit, base = repo
+    write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
+    assert check_main(monkeypatch, base, commit()) == 1
+
+
+@pytest.mark.parametrize("line", [
+    "// cl: /O1 /MD /EHsc -DNDEBUG /ICode/Libraries/Source/WWVegas/WW3D2",
+    '// cl: /I"C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include" /MD',
+    '// cl: /I "reference/shims/a b" /MD',
+    "// cl: /I reference/shims/sweep -I Code /MD",
+])
+def test_added_cl_line_of_flags_passes(repo, monkeypatch, line):
+    _, write, commit, base = repo
+    write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
+    assert check_main(monkeypatch, base, commit()) == 0
