@@ -529,6 +529,8 @@
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
+#include "MultiPlayMults.h"
+#include "../GameLogic/ObjectFilter.h"
 
 enum TimeOfDay;
 class INI;
@@ -622,7 +624,8 @@ public:
     bool m_liveCampaignMode;
     bool m_hideLivingWorldRegions;
     bool m_livingWorldTurbo;
-    unsigned char storage0089[0x7];
+    unsigned char storage0089[0x3];
+    AsciiString m_livingWorldCampaignOverrride;
     int m_featherWater;
     float m_downwindAngle;
     float field0098;
@@ -1022,7 +1025,12 @@ public:
     unsigned char field0EA7;
     float field0EA8;
     float field0EAC;
-    unsigned char storage0EB0[0x1F4];
+    ObjectFilter m_treeFadeObjectFilter;
+    ObjectFilter m_camouflageDetectorObjectFilter;
+    ObjectFilter m_veterancyPipDrawObjectFilter;
+    ObjectFilter m_victoryConditionStructureObjectFilter;
+    ObjectFilter m_victoryConditionUnitObjectFilter;
+    MultiPlayMults m_multiPlayMults;
     float m_handicapBuildSpeed5;
     float m_handicapBuildSpeed10;
     float m_handicapBuildSpeed15;
@@ -1069,7 +1077,7 @@ public:
     unsigned int field115C;
     unsigned int field1160;
     unsigned int field1164;
-    unsigned char storage1168[0x4];
+    ObjectFilter m_objectsThatScore;
     float m_scoreKeeper_UnitsBuiltMultiplier;
     float m_scoreKeeper_UnitsDestroyedMultiplier;
     float m_scoreKeeper_StructuresBuiltMultiplier;
