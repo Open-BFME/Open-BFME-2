@@ -1,15 +1,11 @@
 #pragma once
 // BFME2 consumed State surface. Native4D73FC gives20hex-byte data and C605D8 gives17slots.
 // StateMachine is intentionally forward-declared; this does not reconstruct that class.
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+// Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
-#define BFME_STATE_RESTORE_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
-#ifdef BFME_STATE_RESTORE_NAME_SLOT
-#undef BFME_SNAPSHOT_NAME_SLOT
-#undef BFME_STATE_RESTORE_NAME_SLOT
-#endif
 class StateMachine;
 class Object;
 typedef unsigned int StateID;
@@ -36,9 +32,29 @@ public:
  virtual void onExit(StateExitType); //5
  virtual StateReturnType update()=0; //6
 protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+ virtual void LoadPostProcess() {} //1
+#else
  virtual void loadPostProcess() {} //1
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+ virtual const char *GetSnapshotName()=0; //2
+#else
  virtual const char *GetSnapshotName() const=0; //2
+#endif
+#else
+ virtual void crc(Xfer *)=0; //2
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+ virtual void DoXfer(Xfer &)=0; //3
+#else
+ virtual void DoXfer(Xfer *)=0; //3
+#endif
+#else
  virtual void xfer(Xfer *)=0; //3
+#endif
 private:
  virtual void _bfme_state_slot7() {}
 public:
