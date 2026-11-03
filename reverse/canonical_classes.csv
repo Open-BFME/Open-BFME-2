@@ -558,3 +558,4 @@ Squad,Code/GameEngine/Include/Common/SquadClass.h,existing header; contract clas
 StrategicVeterancy,Code/GameEngine/Include/GameClient/StrategicVeterancy.h,existing header; contract class_contracts/StrategicVeterancy.json; 4/8 sampled units adopt
 Rva00355D66,Code/GameEngine/Include/GameClient/Rva00355D66.h,existing header; contract class_contracts/Rva00355D66.json; 7/11 sampled units adopt
 AptLoadScreen,Code/GameEngine/Include/GameClient/AptLoadScreen.h,existing header; contract class_contracts/AptLoadScreen.json; 4/9 sampled units adopt
+DamageFX,Code/GameEngine/Include/Common/DamageFXClass.h,existing header; contract class_contracts/DamageFX.json; 6/10 sampled units adopt
