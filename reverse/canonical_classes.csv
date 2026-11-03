@@ -577,3 +577,4 @@ Rva00506B1B,Code/GameEngine/Include/GameLogic/Rva00506B1B.h,existing header; con
 AIBaseBuilder,Code/GameEngine/Include/GameLogic/AIBaseBuilder.h,existing header; contract class_contracts/AIBaseBuilder.json; 6/10 sampled units adopt
 CommandButtonMovieClip,Code/GameEngine/Include/GameClient/CommandButtonMovieClip.h,existing header; contract class_contracts/CommandButtonMovieClip.json; 7/7 sampled units adopt
 VictoryConditions,Code/GameEngine/Include/GameLogic/VictoryConditionsClass.h,existing header; contract class_contracts/VictoryConditions.json; 3/7 sampled units adopt
+DOTManager,Code/GameEngine/Include/GameLogic/DOTManager.h,existing header; contract class_contracts/DOTManager.json; 4/7 sampled units adopt
