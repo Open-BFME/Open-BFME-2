@@ -1,0 +1,150 @@
+name: Verification alarm
+
+# Tells Discord when master's retail byte verification goes red, when it recovers, and when a
+# measurement goes stale. Each red span counts once as one escape, however many runs it reds; the
+# count from the go-live date below is the trigger for the deferred bot-only master work (more
+# than 2 escapes in 14 days, or one red over 12 hours). Reads the Actions API only: no checkout,
+# no repository code runs here.
+
+on:
+  workflow_run:
+    workflows: ['Retail byte verification']
+    types: [completed]
+    branches: [master]
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+    inputs:
+      post:
+        description: 'Post the current state to Discord instead of only printing it'
+        type: boolean
+        default: false
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: verification-alarm
+  cancel-in-progress: false
+
+jobs:
+  alarm:
+    if: github.repository == 'Open-BFME/Open-BFME-2'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Judge and report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
+          POST_NOW: ${{ inputs.post }}
+          TRIGGER_RUN: ${{ github.event.workflow_run.id }}
+        shell: python
+        run: |
+          import csv
+          import datetime as dt
+          import io
+          import json
+          import os
+          import re
+          import urllib.request
+
+          REPO = os.environ['GITHUB_REPOSITORY']
+          EVENT = os.environ['GITHUB_EVENT_NAME']
+          GO_LIVE = dt.datetime(2026, 11, 3, tzinfo=dt.timezone.utc)
+          NOW = dt.datetime.now(dt.timezone.utc)
+          HEADERS = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'User-Agent': 'bfme2-alarm',
+                     'Accept': 'application/vnd.github+json'}
+
+
+          def api(path):
+              request = urllib.request.Request(f'https://api.github.com{path}', headers=HEADERS)
+              with urllib.request.urlopen(request) as response:
+                  return json.load(response)
+
+
+          def when(text):
+              return dt.datetime.fromisoformat(text.replace('Z', '+00:00'))
+
+
+          def hours(span):
+              return span.total_seconds() / 3600
+
+
+          def failing_lines(run):
+              lines = []
+              for job in api(f"/repos/{REPO}/actions/runs/{run['id']}/jobs")['jobs']:
+                  if job['conclusion'] != 'failure':
+                      continue
+                  request = urllib.request.Request(
+                      f"https://api.github.com/repos/{REPO}/actions/jobs/{job['id']}/logs", headers=HEADERS)
+                  with urllib.request.urlopen(request) as response:
+                      text = response.read().decode('utf-8', 'replace')
+                  for line in text.splitlines():
+                      line = re.sub(r'^\S+\s', '', line)[:170]
+                      if re.search(r'compile failed:|fatal error|FULL GATE: FAIL', line) and line not in lines:
+                          lines.append(line)
+              return lines[:8]
+
+
+          runs = api(f'/repos/{REPO}/actions/workflows/byte-verification.yml/runs'
+                     '?branch=master&status=completed&per_page=100')['workflow_runs']
+          runs = [run for run in runs if run['conclusion'] in ('success', 'failure')]
+          latest, previous = runs[0], runs[1]
+          red_runs = []
+          for run in runs:
+              if run['conclusion'] != 'failure':
+                  break
+              red_runs.append(run)
+          red_since = when(red_runs[-1]['created_at']) if red_runs else None
+          escapes = sum(1 for newer, older in zip(runs, runs[1:])
+                        if newer['conclusion'] == 'failure' and older['conclusion'] == 'success'
+                        and when(newer['created_at']) >= max(GO_LIVE, NOW - dt.timedelta(days=14)))
+
+          messages = []
+          if EVENT == 'workflow_run' and str(latest['id']) == os.environ['TRIGGER_RUN']:
+              if latest['conclusion'] == 'failure' and previous['conclusion'] == 'success':
+                  detail = '\n'.join(failing_lines(latest))
+                  messages.append(f"**master went red**: retail byte verification failed at "
+                                  f"`{latest['head_sha'][:10]}`. Whoever is nearest, please repair it first.\n"
+                                  f"```\n{detail}\n```<{latest['html_url']}>\n"
+                                  f"Escapes in the last 14 days: {escapes} (the bot-only trigger is more than 2).")
+              if latest['conclusion'] == 'success' and previous['conclusion'] == 'failure':
+                  red = []
+                  for run in runs[1:]:
+                      if run['conclusion'] != 'failure':
+                          break
+                      red.append(run)
+                  span = hours(when(latest['created_at']) - when(red[-1]['created_at']))
+                  messages.append(f"**master is green again** at `{latest['head_sha'][:10]}`, "
+                                  f"after about {span:.1f} hours red.")
+          if EVENT == 'schedule':
+              if red_since and 12 <= hours(NOW - red_since) < 13:
+                  messages.append(f"**master has been red for over 12 hours**, since "
+                                  f"{red_since:%Y-%m-%d %H:%M} UTC. This alone meets the bot-only trigger. "
+                                  f"<{latest['html_url']}>")
+              if 6 <= hours(NOW - when(latest['created_at'])) < 7:
+                  messages.append('**Stale**: no retail byte verification has finished on master for 6 hours.')
+              url = f'https://raw.githubusercontent.com/{REPO}/master/reverse/link_census_history.csv'
+              request = urllib.request.Request(url, headers={'User-Agent': 'bfme2-alarm'})
+              with urllib.request.urlopen(request) as response:
+                  census = list(csv.DictReader(io.StringIO(response.read().decode('utf-8'))))[-1]
+              taken = dt.datetime.strptime(census['date'], '%Y-%m-%d %H:%M').replace(tzinfo=dt.timezone.utc)
+              if 12 <= hours(NOW - taken) < 13:
+                  messages.append(f"**Stale**: the last link census is 12 hours old (`{census['commit']}`).")
+
+          print(json.dumps({'latest': latest['conclusion'], 'commit': latest['head_sha'][:10],
+                            'red_since': str(red_since) if red_since else None, 'escapes_14d': escapes,
+                            'messages': messages}, indent=1))
+          if os.environ.get('POST_NOW') == 'true' and not messages:
+              messages.append(f"Verification alarm test: master is {latest['conclusion']} at "
+                              f"`{latest['head_sha'][:10]}`; {escapes} escapes counted since go-live.")
+          if EVENT != 'workflow_dispatch' or os.environ.get('POST_NOW') == 'true':
+              for message in messages:
+                  body = json.dumps({'content': message[:1900], 'allowed_mentions': {'parse': []}}).encode()
+                  request = urllib.request.Request(os.environ['WEBHOOK'], data=body, method='POST',
+                                                   headers={'Content-Type': 'application/json',
+                                                            'User-Agent': 'bfme2-alarm'})
+                  with urllib.request.urlopen(request) as response:
+                      print('posted', response.status)
