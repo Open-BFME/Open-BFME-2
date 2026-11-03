@@ -1,0 +1,75 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00056F61",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 38,
+   "12": 2
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_unused",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00056F61Find.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp",
+    "Code/GameEngine/Source/GameClient/Rva00056F61Find.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
