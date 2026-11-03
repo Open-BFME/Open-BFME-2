@@ -131,27 +131,27 @@ struct TurretLayout
 StateReturnType AICowerState::onEnter()
 {
 	TurretStateMachine *turret = m_turret;
-	Object *esi = ((TurretLayout *)turret)->m_obj;
-	if (esi == 0)
+	Object *ownerObject = ((TurretLayout *)turret)->m_obj;
+	if (ownerObject == 0)
 		return (StateReturnType)-2;
-	Object *ebx = turret->getGoalObject();
-	if (ebx == 0)
+	Object *goalObject = turret->getGoalObject();
+	if (goalObject == 0)
 		return (StateReturnType)-2;
-	ObjectLayout *ol = (ObjectLayout *)esi;
-	C258Holder *c258Holder = ol->m258;
+	ObjectLayout *ownerLayout = (ObjectLayout *)ownerObject;
+	C258Holder *c258Holder = ownerLayout->m258;
 	if (c258Holder == 0)
 		return (StateReturnType)-2;
 	c258Holder->t258();
-	C250Holder *c250Holder = ol->m250;
+	C250Holder *c250Holder = ownerLayout->m250;
 	CEdi *edi = c250Holder ? (CEdi *)c250Holder->t250() : 0;
 	if (edi != 0) {
-		edi->t19c(ebx);
+		edi->t19c(goalObject);
 		edi->t1a0(1);
 		edi->t1d0();
 	} else {
-		const Coord3D *pos = (const Coord3D *)((char *)ebx + 0x38);
-		float ang = esi->GetRelativeAngle(pos) + ol->m44;
-		((Thing *)esi)->setOrientation(ang);
+		const Coord3D *goalPosition = (const Coord3D *)((char *)goalObject + 0x38);
+		float facingAngle = ownerObject->GetRelativeAngle(goalPosition) + ownerLayout->m44;
+		((Thing *)ownerObject)->setOrientation(facingAngle);
 	}
 	((GameWindow *)this)->winPrevTab();
 	return STATE_CONTINUE;

@@ -185,9 +185,9 @@ static inline Rva002A8AB1Record *aiData(Player *owner)
 void AIReturnTheRingTactic::run()
 {
 	if (!aiData(m_owner)->rva002C7196(AIReturnTheRingTactic_IsRunning)) {
-		Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
 		if (buildReturnTeam()) {
-			record->rva002C717E(AIReturnTheRingTactic_IsRunning, 1);
+			ownerAIRecord->rva002C717E(AIReturnTheRingTactic_IsRunning, 1);
 			moveToFortress();
 			m_created = true;
 		}

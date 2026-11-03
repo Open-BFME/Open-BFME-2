@@ -58,12 +58,12 @@ class AICommandInterface
 {
 public:
 	virtual void v0(AICommandParms *parms) = 0;
-	void aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType src);
+	void aiMoveToPositionEvenIfSleeping(const Coord3D *destination, CommandSourceType commandSource);
 };
 
-void AICommandInterface::aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType src)
+void AICommandInterface::aiMoveToPositionEvenIfSleeping(const Coord3D *destination, CommandSourceType commandSource)
 {
-	AICommandParms parms((AICommandType)0x36, src);
-	parms.m_pos = *pos;
+	AICommandParms parms((AICommandType)0x36, commandSource);
+	parms.m_pos = *destination;
 	v0(&parms);
 }

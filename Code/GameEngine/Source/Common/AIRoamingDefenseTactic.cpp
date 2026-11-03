@@ -270,13 +270,13 @@ private:
 bool AIRoamingDefenseTactic::canRun(void *)
 {
 	if (!((Rva002A9BF2 *)m_owner)->rva002A9BF2()) {
-		Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-		int running = record->rva002C7196(AsciiString("AIRoamingDefenseTactic_IsRunning"));
-		unsigned int next = record->rva002C7196(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"));
-		if (!next) {
-			record->rva002C717E(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"),
+		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+		int isRunning = ownerAIRecord->rva002C7196(AsciiString("AIRoamingDefenseTactic_IsRunning"));
+		unsigned int nextRunFrame = ownerAIRecord->rva002C7196(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"));
+		if (!nextRunFrame) {
+			ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"),
 				BfmeLogicFramesPerSecond * 5 + TheGameLogic->getFrame());
-		} else if (!running && TheGameLogic->getFrame() >= next) {
+		} else if (!isRunning && TheGameLogic->getFrame() >= nextRunFrame) {
 			return true;
 		}
 	}
@@ -285,15 +285,15 @@ bool AIRoamingDefenseTactic::canRun(void *)
 
 void AIRoamingDefenseTactic::cleanUp()
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	record->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 0);
-	record->rva002C717E(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"), 0);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 0);
+	ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"), 0);
 }
 
 bool AIRoamingDefenseTactic::initializeTeamTemplate(void *unit, int count)
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	record->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 1);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 1);
 	return AITactic::initializeTeamTemplate(unit, count);
 }
 

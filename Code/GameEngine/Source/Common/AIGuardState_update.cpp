@@ -45,7 +45,7 @@ int AIGuardState::update()
 	if (m_20 == 0)
 		return -2;
 	m_machine->m_38 = true;
-	int r = m_20->v4();
+	int updateResult = m_20->v4();
 	m_machine->m_38 = false;
-	return r;
+	return updateResult;
 }

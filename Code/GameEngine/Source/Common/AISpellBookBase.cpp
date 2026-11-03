@@ -115,63 +115,63 @@ struct IdRange
 class AISpellBookBase
 {
 public:
-	bool findDenseStructureCenter(Player *a1, Player *viewingPlayer, Coord3D *out);
+	bool findDenseStructureCenter(Player *a1, Player *viewingPlayer, Coord3D *denseCenter);
 public:
 	void findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player);
 };
 
 // ---- from Code/GameEngine/Source/Common/AISpellBookBase_findDenseStructureCenter.cpp
 
-bool AISpellBookBase::findDenseStructureCenter(Player *player, Player *viewingPlayer, Coord3D *out)
+bool AISpellBookBase::findDenseStructureCenter(Player *player, Player *viewingPlayer, Coord3D *denseCenter)
 {
-	Coord3D tmp;
-	tmp.x = 0.0f;
-	tmp.y = 0.0f;
-	tmp.z = 0.0f;
-	*out = tmp;
-	void *store = TheSkirmishAIManager->rva002A8F24(player);
-	Rva005EEAC6Range *tbl = ((Rva005EEAC6Store *)store)->m_table;
-	unsigned int count = (unsigned int)(((char *)tbl->m_end - (char *)tbl->m_begin) >> 2);
-	unsigned int best = 0;
-	for (unsigned int i = 0; i < count; ++i)
+	Coord3D candidateCenter;
+	candidateCenter.x = 0.0f;
+	candidateCenter.y = 0.0f;
+	candidateCenter.z = 0.0f;
+	*denseCenter = candidateCenter;
+	void *playerAIData = TheSkirmishAIManager->rva002A8F24(player);
+	Rva005EEAC6Range *structureTable = ((Rva005EEAC6Store *)playerAIData)->m_table;
+	unsigned int entryCount = (unsigned int)(((char *)structureTable->m_end - (char *)structureTable->m_begin) >> 2);
+	unsigned int bestStructureCount = 0;
+	for (unsigned int i = 0; i < entryCount; ++i)
 	{
-		unsigned int c = (unsigned int)((Rva00049D20 *)tbl)->rva005D772D((int)i);
-		if (c <= best)
+		unsigned int structureCount = (unsigned int)((Rva00049D20 *)structureTable)->rva005D772D((int)i);
+		if (structureCount <= bestStructureCount)
 			continue;
-		((Rva00049D20 *)tbl)->rva00049D20(&tmp, (int)i);
-		int idx = viewingPlayer->m_playerIndex;
-		if (TheShroudManager->getShroudStatusForPlayer(idx, &tmp) == SHROUDED)
+		((Rva00049D20 *)structureTable)->rva00049D20(&candidateCenter, (int)i);
+		int viewingPlayerIndex = viewingPlayer->m_playerIndex;
+		if (TheShroudManager->getShroudStatusForPlayer(viewingPlayerIndex, &candidateCenter) == SHROUDED)
 			continue;
-		best = c;
-		*out = tmp;
+		bestStructureCount = structureCount;
+		*denseCenter = candidateCenter;
 	}
-	if (best > 0)
+	if (bestStructureCount > 0)
 		return true;
 	return false;
 }
 
 // ---- from Code/GameEngine/Source/Common/AISpellBookBase_findUnitInCombat.cpp
 
-void AISpellBookBase::findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player)
+void AISpellBookBase::findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *combatUnits, Player *player)
 {
-	void *store = TheSkirmishAIManager->rva002A8F24(player);
-	Rva005C4AD1LeaField *holder = *(Rva005C4AD1LeaField **)store;
-	IdRange *range = (IdRange *)(void *)holder->get();
-	ObjectID *it = range->m_begin;
-	ObjectID *end = range->m_end;
-	for (; it != end; ++it)
+	void *playerAIData = TheSkirmishAIManager->rva002A8F24(player);
+	Rva005C4AD1LeaField *objectIDsField = *(Rva005C4AD1LeaField **)playerAIData;
+	IdRange *objectIDRange = (IdRange *)(void *)objectIDsField->get();
+	ObjectID *objectIdIt = objectIDRange->m_begin;
+	ObjectID *end = objectIDRange->m_end;
+	for (; objectIdIt != end; ++objectIdIt)
 	{
-		Object *obj = TheGameLogic->findObjectByID(*it);
-		if (!obj)
+		Object *unit = TheGameLogic->findObjectByID(*objectIdIt);
+		if (!unit)
 			continue;
-		if (obj->m_p108->m_flag & 0x80)
+		if (unit->m_p108->m_flag & 0x80)
 			continue;
-		Object *victim = obj->m_ai->getCurrentVictim();
+		Object *victim = unit->m_ai->getCurrentVictim();
 		if (!victim)
 			continue;
-		Player *ctrl = victim->getControllingPlayer();
-		if (!ctrl->rva002AA245())
+		Player *victimPlayer = victim->getControllingPlayer();
+		if (!victimPlayer->rva002AA245())
 			continue;
-		vec->push_back(*(const ModuleData **)&obj);
+		combatUnits->push_back(*(const ModuleData **)&unit);
 	}
 }

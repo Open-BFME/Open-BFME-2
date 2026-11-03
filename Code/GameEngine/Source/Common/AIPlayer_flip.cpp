@@ -18,19 +18,19 @@ public:
 
 void AIPlayer::flip()
 {
-	Rva00160A00Node *p = m_08;
-	Rva00160A00Node *last = 0;
-	if (p)
+	Rva00160A00Node *currentNode = m_08;
+	Rva00160A00Node *lastNode = 0;
+	if (currentNode)
 	{
 		do
 		{
-			Rva00160A00Node *a = p->m_0C;
-			Rva00160A00Node *b = p->m_10;
-			p->m_10 = a;
-			p->m_0C = b;
-			last = p;
-			p = b;
-		} while (p);
+			Rva00160A00Node *firstLink = currentNode->m_0C;
+			Rva00160A00Node *secondLink = currentNode->m_10;
+			currentNode->m_10 = firstLink;
+			currentNode->m_0C = secondLink;
+			lastNode = currentNode;
+			currentNode = secondLink;
+		} while (currentNode);
 	}
-	m_08 = last;
+	m_08 = lastNode;
 }

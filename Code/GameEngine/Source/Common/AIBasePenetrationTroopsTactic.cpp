@@ -53,8 +53,8 @@ public:
 struct TacticKindMask
 {
 	unsigned int bits[7];
-	unsigned int &word(unsigned int bit) { return bits[bit / 32]; }
-	void set(unsigned int bit) { word(bit) |= 1UL << (bit % 32); }
+	unsigned int &word(unsigned int bitIndex) { return bits[bitIndex / 32]; }
+	void set(unsigned int bitIndex) { word(bitIndex) |= 1UL << (bitIndex % 32); }
 };
 
 struct Rva005A990BUnit
@@ -145,18 +145,18 @@ public:
 
 bool AIBasePenetrationTroopsTactic::canRun(void *request)
 {
-	Rva002A8AB1Record *running = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	if (running->rva002C7196(AIBasePenetrationTroopsTactic_IsRunning))
+	Rva002A8AB1Record *runningStateRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	if (runningStateRecord->rva002C7196(AIBasePenetrationTroopsTactic_IsRunning))
 		return false;
 	if (!checkTarget(request))
 		return false;
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	if (!record || record->m_16C < 1)
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	if (!ownerAIRecord || ownerAIRecord->m_16C < 1)
 		return false;
-	Object *obj = ((Rva002C589B *)request)->rva002C5DA6();
-	if (!obj)
+	Object *requestedObject = ((Rva002C589B *)request)->rva002C5DA6();
+	if (!requestedObject)
 		return false;
-	if ((obj->m_04->m_120 & 4) && !(obj->m_94 & 1) && !(obj->m_438 & 1))
+	if ((requestedObject->m_04->m_120 & 4) && !(requestedObject->m_94 & 1) && !(requestedObject->m_438 & 1))
 		return true;
 	return false;
 }

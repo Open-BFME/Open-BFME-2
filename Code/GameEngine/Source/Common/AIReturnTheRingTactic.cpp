@@ -58,21 +58,21 @@ private:
 
 bool AIReturnTheRingTactic::findRingBearer()
 {
-	void *tmp = TheSkirmishAIManager->rva002A8F24(m_player);
-	Rva005C4AD1LeaField *fld = *(Rva005C4AD1LeaField **)tmp;
-	void *range = fld->get();
-	ObjectID *begin = *(ObjectID **)range;
-	ObjectID *end = *(ObjectID **)((char *)range + 4);
-	for (ObjectID *objectID = begin; objectID != end; ++objectID)
+	void *playerAIData = TheSkirmishAIManager->rva002A8F24(m_player);
+	Rva005C4AD1LeaField *objectIDsField = *(Rva005C4AD1LeaField **)playerAIData;
+	void *objectIDRange = objectIDsField->get();
+	ObjectID *begin = *(ObjectID **)objectIDRange;
+	ObjectID *end = *(ObjectID **)((char *)objectIDRange + 4);
+	for (ObjectID *objectIdIt = begin; objectIdIt != end; ++objectIdIt)
 	{
-		Object *obj = TheGameLogic->findObjectByID(*objectID);
-		if (!obj)
+		Object *candidateObject = TheGameLogic->findObjectByID(*objectIdIt);
+		if (!candidateObject)
 			continue;
-		if (*(unsigned char *)((char *)obj + 0x438) & 1)
+		if (*(unsigned char *)((char *)candidateObject + 0x438) & 1)
 			continue;
-		if (!obj->testStatus((ObjectStatusTypes)0x5e))
+		if (!candidateObject->testStatus((ObjectStatusTypes)0x5e))
 			continue;
-		m_found = *objectID;
+		m_found = *objectIdIt;
 		return true;
 	}
 	return false;

@@ -94,13 +94,13 @@ public:
 class Rva00544FC6ConditionBits
 {
 public:
-	unsigned int test(unsigned int bit) const
+	unsigned int test(unsigned int bitIndex) const
 	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+		return m_words[bitIndex >> 5] & (1U << (bitIndex & 0x1f));
 	}
-	void set(unsigned int bit)
+	void set(unsigned int bitIndex)
 	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+		m_words[bitIndex >> 5] |= 1U << (bitIndex & 0x1f);
 	}
 private:
 	unsigned int m_words[20];
@@ -309,13 +309,13 @@ void AIHarvestPrepareSiteState::xfer(Xfer *xfer)
 StateReturnType AIHarvestPrepareSiteState::onEnter()
 {
 	Object *owner = m_machine->getOwner();
-	AIUpdateInterface *ai = owner->m_ai;
-	RetObj *ret = ai->v95();
-	if (ret == 0)
+	AIUpdateInterface *ownerAI = owner->m_ai;
+	RetObj *siteHelper = ownerAI->v95();
+	if (siteHelper == 0)
 		return (StateReturnType)-2;
-	int frame = TheGameLogic->getFrame();
-	int v = ret->w08();
-	m_20 = v + frame;
+	int currentFrame = TheGameLogic->getFrame();
+	int preparationFrameOffset = siteHelper->w08();
+	m_20 = preparationFrameOffset + currentFrame;
 	return STATE_CONTINUE;
 }
 
@@ -330,20 +330,20 @@ StateReturnType AIHarvestPrepareSiteState::onEnter()
 // the state keeps waiting.
 StateReturnType AIHarvestPrepareSiteState::update()
 {
-	RetObj *helper = m_machine->getOwner()->m_ai->v95();
-	if (helper)
+	RetObj *siteHelper = m_machine->getOwner()->m_ai->v95();
+	if (siteHelper)
 	{
 		Object *owner = m_machine->getOwner();
 		BfmeX1035 *site = (BfmeX1035 *)((BfmeThingCME *)TheTerrainLogic)->rva0027F108(
-			&owner->m_pos38, helper->w07(), 0, 2);
+			&owner->m_pos38, siteHelper->w07(), 0, 2);
 		if (!site)
 		{
-			Coord3D *goal = &m_machine->m_24;
-			if (!((BfmeThingCME *)TheTerrainLogic)->rva0027F108(goal, helper->w07(), 0, 2))
-				helper->w11(1);
+			Coord3D *fallbackPosition = &m_machine->m_24;
+			if (!((BfmeThingCME *)TheTerrainLogic)->rva0027F108(fallbackPosition, siteHelper->w07(), 0, 2))
+				siteHelper->w11(1);
 			return (StateReturnType)-2;
 		}
-		helper->w17(site->m_10);
+		siteHelper->w17(site->m_10);
 		m_machine->getOwner()->markOnce();
 		if (!site->m_18)
 		{

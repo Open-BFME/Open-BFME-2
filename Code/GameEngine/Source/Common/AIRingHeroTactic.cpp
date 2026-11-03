@@ -299,27 +299,27 @@ private:
 void AIRingHeroTactic::cleanUp()
 {
 	m_hero = INVALID_OBJECT_ID;
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	record->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 0);
-	record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), 0);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 0);
+	ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), 0);
 	m_5C = 0;
 }
 
 bool AIRingHeroTactic::initializeTeamTemplate(void *unit, int count)
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	record->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 1);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 1);
 	return AITactic::initializeTeamTemplate(unit, count);
 }
 
 bool AIRingHeroTactic::weHaveGollum()
 {
-	IntMap *objects = *(IntMap **)TheSkirmishAIManager->rva002A8F24(m_owner);
-	for (unsigned int i = 0; i < objects->bucket_count(); ++i) {
-		Rva005AC7E1IDs *ids = (Rva005AC7E1IDs *)((Rva005C4AD1LeaField *)objects)->get();
-		Object *obj = TheGameLogic->findObjectByID(ids->m_begin[i]);
-		if (obj && (obj->m_04->m_121 & 0x20)) {
-			m_hero = obj->m_id;
+	IntMap *ownerObjects = *(IntMap **)TheSkirmishAIManager->rva002A8F24(m_owner);
+	for (unsigned int i = 0; i < ownerObjects->bucket_count(); ++i) {
+		Rva005AC7E1IDs *objectIDs = (Rva005AC7E1IDs *)((Rva005C4AD1LeaField *)ownerObjects)->get();
+		Object *candidateHero = TheGameLogic->findObjectByID(objectIDs->m_begin[i]);
+		if (candidateHero && (candidateHero->m_04->m_121 & 0x20)) {
+			m_hero = candidateHero->m_id;
 			return true;
 		}
 	}
@@ -328,16 +328,16 @@ bool AIRingHeroTactic::weHaveGollum()
 
 bool AIRingHeroTactic::canRun(void *)
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
-	int running = record->rva002C7196(AsciiString("AIRingHeroTactic_IsRunning"));
-	unsigned int next = record->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
-	if (!next) {
-		record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), BfmeLogicFramesPerSecond * 5);
-	} else if (!running && TheGameLogic->getFrame() >= next) {
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	int isRunning = ownerAIRecord->rva002C7196(AsciiString("AIRingHeroTactic_IsRunning"));
+	unsigned int nextRunFrame = ownerAIRecord->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
+	if (!nextRunFrame) {
+		ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), BfmeLogicFramesPerSecond * 5);
+	} else if (!isRunning && TheGameLogic->getFrame() >= nextRunFrame) {
 		if (weHaveGollum() && enemyHasRingHeroUpgrade())
 			return true;
-		int later = record->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
-		record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), BfmeLogicFramesPerSecond * 5 + later);
+		int scheduledRunFrame = ownerAIRecord->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
+		ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), BfmeLogicFramesPerSecond * 5 + scheduledRunFrame);
 	}
 	return false;
 }
@@ -371,14 +371,14 @@ void AIRingHeroTactic::update()
 		if (hero) {
 			if (!m_escorting) {
 				if (!m_escort) {
-					Rva005AC7E1Holder *holder = (Rva005AC7E1Holder *)TheSkirmishAIManager->rva002A8F24(m_owner);
-					Rva005C4AD1LeaField *field = holder->m_08;
-					Rva005AC7E1IDs *ids = (Rva005AC7E1IDs *)field->get();
-					for (ObjectID *it = ids->m_begin; it != ids->m_end; ++it) {
-						Object *obj = TheGameLogic->findObjectByID(*it);
-						if (obj && (obj->m_04->m_120 & 4) && !(obj->m_94 & 1) && !(obj->m_438 & 1)) {
-							hero->m_ai->m_commands.aiMoveToObject(obj, CMD_FROM_PLAYER);
-							m_escort = obj;
+					Rva005AC7E1Holder *ownerAIData = (Rva005AC7E1Holder *)TheSkirmishAIManager->rva002A8F24(m_owner);
+					Rva005C4AD1LeaField *escortObjectsField = ownerAIData->m_08;
+					Rva005AC7E1IDs *escortObjectIDs = (Rva005AC7E1IDs *)escortObjectsField->get();
+					for (ObjectID *objectIdIt = escortObjectIDs->m_begin; objectIdIt != escortObjectIDs->m_end; ++objectIdIt) {
+						Object *escortCandidate = TheGameLogic->findObjectByID(*objectIdIt);
+						if (escortCandidate && (escortCandidate->m_04->m_120 & 4) && !(escortCandidate->m_94 & 1) && !(escortCandidate->m_438 & 1)) {
+							hero->m_ai->m_commands.aiMoveToObject(escortCandidate, CMD_FROM_PLAYER);
+							m_escort = escortCandidate;
 							m_escorting = true;
 						}
 					}

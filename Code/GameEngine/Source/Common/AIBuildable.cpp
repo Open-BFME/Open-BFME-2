@@ -76,8 +76,8 @@ public:
 };
 
 namespace _STL {
-static inline void _Construct(int *__p, const int &__val)
-{ new (__p) int(__val); }
+static inline void _Construct(int *__p, const int &value)
+{ new (__p) int(value); }
 }
 
 class AsciiStringMember
@@ -128,7 +128,7 @@ private:
 class Rva0055B156
 {
 public:
-	void rva0055B156(int val);
+	void rva0055B156(int value);
 private:
 	char m_pad[0x1c];
 	_STL::list<int, _STL::allocator<int> > m_list;
@@ -303,9 +303,9 @@ protected:
 
 void Rva00506FE9Hit::unRegisterWithBuilder(void *x)
 {
-	Rva002A8F24 *mgr = TheSkirmishAIManager;
-	Rva002A8AB1Record *rec = mgr->rva002A8AB1(x);
-	((Rva004EC276 *)rec)->rva004EC276(this);
+	Rva002A8F24 *aiManager = TheSkirmishAIManager;
+	Rva002A8AB1Record *ownerAIRecord = aiManager->rva002A8AB1(x);
+	((Rva004EC276 *)ownerAIRecord)->rva004EC276(this);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0055ADD8Thunk.cpp
@@ -407,24 +407,24 @@ Rva0055B0CC::~Rva0055B0CC()
 	rva0055B01F();
 }
 
-void Rva0055B156::rva0055B156(int val)
+void Rva0055B156::rva0055B156(int value)
 {
-	m_list.push_back(val);
+	m_list.push_back(value);
 }
 
 // ---- from Code/GameEngine/Source/Common/AIBuildable_doBuild.cpp
 
 bool AIBuildable::doBuild(Player *player)
 {
-	void *store = TheSkirmishAIManager->rva002A8F24(player);
-	unsigned int c1 = (unsigned int)player->m_cost94;
-	int amount = (int)(v09(player) - (float)c1);
+	void *playerAIData = TheSkirmishAIManager->rva002A8F24(player);
+	unsigned int playerCost = (unsigned int)player->m_cost94;
+	int savedAmountNeeded = (int)(v09(player) - (float)playerCost);
 	if (m_flag21) {
-		unsigned int c2 = (unsigned int)player->m_cost94;
-		if (v09(player) > (float)c2) {
-			AIEconomyStats *spender = *(AIEconomyStats **)((char *)store + 0xc);
-			if (*(unsigned int *)((char *)spender + 0x14) >= (unsigned int)amount) {
-				spender->withdrawSavedAmount(amount);
+		unsigned int currentPlayerCost = (unsigned int)player->m_cost94;
+		if (v09(player) > (float)currentPlayerCost) {
+			AIEconomyStats *economyStats = *(AIEconomyStats **)((char *)playerAIData + 0xc);
+			if (*(unsigned int *)((char *)economyStats + 0x14) >= (unsigned int)savedAmountNeeded) {
+				economyStats->withdrawSavedAmount(savedAmountNeeded);
 			}
 		}
 	}
@@ -450,20 +450,20 @@ void Rva0055B0CC::rva0055B01F()
 
 int AIBuildable::doCanMake(Player *player)
 {
-    MapRes *res = (MapRes *)TheSkirmishAIManager->rva002A8F24(player);
-    int virtRes = 0;
+    MapRes *playerAIData = (MapRes *)TheSkirmishAIManager->rva002A8F24(player);
+    int canMakeResult = 0;
     if (m_flag21)
     {
-        int amount = res->m_0C->m_14;
+        int amount = playerAIData->m_0C->m_14;
         ((PlayerFull *)player)->m_money.rva003B0D7C(amount, 0, false);
     }
-    virtRes = v16(player);
+    canMakeResult = v16(player);
     if (m_flag21)
     {
-        int amount = res->m_0C->m_14;
+        int amount = playerAIData->m_0C->m_14;
         ((PlayerFull *)player)->m_money.withdraw((unsigned int)amount, 0, false);
     }
-    return virtRes;
+    return canMakeResult;
 }
 
 // tu-skeleton: 0x0055AED6 205B ?Rva0055AED6@Rva0055B0CC@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0055AED6Xfer.cpp (not merged yet)

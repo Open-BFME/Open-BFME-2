@@ -196,21 +196,21 @@ void AINavyUnitBattleShip::patrol()
 	if (!ship->m_ai->isIdle())
 		return;
 	Player *player = (Player *)TheSkirmishAIManager->rva002A8AB1(ship->getControllingPlayer())->rva002C6ACB();
-	Rva005AD6C3Holder *holder = (Rva005AD6C3Holder *)TheSkirmishAIManager->rva002A8F24(player);
-	Rva005C4AD1LeaField *units = holder->m_08;
-	bool attacked = false;
-	unsigned int count = ((IntMap *)units)->bucket_count();
-	if (count > 0) {
-		for (unsigned int i = 0; i < count; ++i) {
-			if (attacked)
+	Rva005AD6C3Holder *playerAIData = (Rva005AD6C3Holder *)TheSkirmishAIManager->rva002A8F24(player);
+	Rva005C4AD1LeaField *trackedUnits = playerAIData->m_08;
+	bool attackIssued = false;
+	unsigned int trackedUnitCount = ((IntMap *)trackedUnits)->bucket_count();
+	if (trackedUnitCount > 0) {
+		for (unsigned int i = 0; i < trackedUnitCount; ++i) {
+			if (attackIssued)
 				return;
-			Object *obj = TheGameLogic->findObjectByID((*(ObjectID **)units->get())[i]);
+			Object *obj = TheGameLogic->findObjectByID((*(ObjectID **)trackedUnits->get())[i]);
 			if (obj->m_04->m_11F & 0x10) {
 				ship->m_ai->m_commands.rva003C7653(obj, CMD_FROM_PLAYER);
-				attacked = true;
+				attackIssued = true;
 			}
 		}
-		if (attacked)
+		if (attackIssued)
 			return;
 	}
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->m_8C) {
@@ -227,14 +227,14 @@ void AINavyUnitBattleShip::patrol()
 
 void AINavyUnitBattleShip::update()
 {
-	GameLogic *logic = TheGameLogic;
-	Object *ship = logic->findObjectByID((ObjectID)m_field04);
+	GameLogic *gameLogic = TheGameLogic;
+	Object *ship = gameLogic->findObjectByID((ObjectID)m_field04);
 	if (!ship)
 		return;
 	if (m_field08) {
-		Object *target = logic->findObjectByID((ObjectID)m_field08);
+		Object *target = gameLogic->findObjectByID((ObjectID)m_field08);
 		if (target) {
-			if (logic->getFrame() == (unsigned int)m_field0C) {
+			if (gameLogic->getFrame() == (unsigned int)m_field0C) {
 				ship->m_ai->m_commands.rva003C7653(target, CMD_FROM_PLAYER);
 				m_field0C = TheGameLogic->getFrame() + 25;
 			}
@@ -248,12 +248,12 @@ void AINavyUnitBattleShip::update()
 		return;
 	_STL::vector<ObjectID> targets(*(const _STL::vector<ObjectID> *)((Rva005AD6C3Holder *)TheSkirmishAIManager->rva002A8F24(player))->m_04->get());
 	if (!targets.empty()) {
-		ObjectID chosen = targets[GetGameLogicRandomValue(0, targets.size() - 1,
+		ObjectID targetID = targets[GetGameLogicRandomValue(0, targets.size() - 1,
 			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticalNavy\\AINavyUnitBattleShip.cpp",
 			65)];
-		m_field08 = chosen;
-		Rva005AD6C3AI *ai = ship->m_ai;
-		ai->m_commands.rva003C7653(TheGameLogic->findObjectByID(chosen), CMD_FROM_PLAYER);
+		m_field08 = targetID;
+		Rva005AD6C3AI *shipAI = ship->m_ai;
+		shipAI->m_commands.rva003C7653(TheGameLogic->findObjectByID(targetID), CMD_FROM_PLAYER);
 	} else {
 		patrol();
 	}

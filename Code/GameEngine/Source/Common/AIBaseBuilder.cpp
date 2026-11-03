@@ -16,7 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "vector3.h"
 extern Coord3DBase Gen00DD0870;
 // Retail inlines this three-float copy; the canonical Coord3D::set is the out-of-line owner.
-static inline void inlineSet(Coord3D &c, const Coord3DBase *that) { c.x = that->x; c.y = that->y; c.z = that->z; }
+static inline void inlineSet(Coord3D &c, const Coord3DBase *source) { c.x = source->x; c.y = source->y; c.z = source->z; }
 // Retail inlines this clamp. Keep its helper local rather than emitting a
 // competing WWMath::Clamp body with different compiler settings.
 static inline float inlineClamp(float val, float minimum, float maximum)
@@ -212,14 +212,14 @@ public:
 	virtual ~AIBaseBuilder();
 	virtual void v1();
 	virtual void v2();
-	bool rva00506B74(Coord3D *out);
-	void rva0050722A(Coord3D *point);
+	bool rva00506B74(Coord3D *outputPosition);
+	void rva0050722A(Coord3D *placementPosition);
 	void rva00506B96(const Coord3D *point);
 	Rva005AD9C0Hit *rva00506BF7(void *arg);
 	bool rva00506C39(void *arg);
 	Rva005ADA40 *getBase(unsigned int index);
 	void postInit();
-	void notifyBuildingDestroyed(Object *obj);
+	void notifyBuildingDestroyed(Object *destroyedBuilding);
 	void DoXfer(Xfer *xfer);
 private:
 	void *m_08;
@@ -286,9 +286,9 @@ struct Rva0050722AExtent
 
 // Retail .data at VA 0x00DD0870 stores the three -1.0f components of the
 
-bool AIBaseBuilder::rva00506B74(Coord3D *out)
+bool AIBaseBuilder::rva00506B74(Coord3D *outputPosition)
 {
-	*out = *(Coord3D *)&m_28;
+	*outputPosition = *(Coord3D *)&m_28;
 	return !m_28.equals(Gen00DD0870);
 }
 
@@ -365,15 +365,15 @@ AIBaseBuilder::~AIBaseBuilder()
 // Slot 1 (0x00506BDC).
 void AIBaseBuilder::v1()
 {
-	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-		reinterpret_cast<AIBase *>(*it)->rva005ADC63();
+	for (Rva005ADA40 **baseIt = m_0C.begin(), **end = m_0C.end(); baseIt != end; ++baseIt)
+		reinterpret_cast<AIBase *>(*baseIt)->rva005ADC63();
 }
 
 // Slot 2 (0x005071A1): free every element, then empty the vector.
 void AIBaseBuilder::v2()
 {
-	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-		delete reinterpret_cast<AIBase *>(*it);
+	for (Rva005ADA40 **baseIt = m_0C.begin(), **end = m_0C.end(); baseIt != end; ++baseIt)
+		delete reinterpret_cast<AIBase *>(*baseIt);
 	m_0C.clear();
 }
 
@@ -386,8 +386,8 @@ void AIBaseBuilder::rva00506B96(const Coord3D *point)
 Rva005AD9C0Hit *AIBaseBuilder::rva00506BF7(void *arg)
 {
 	Rva005ADA40 **end = m_0C.end();
-	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it) {
-		Rva005AD9C0Hit *hit = reinterpret_cast<AIBase *>(*it)->rva005AD9C0((char *)arg + 0xC);
+	for (Rva005ADA40 **baseIt = m_0C.begin(); baseIt != end; ++baseIt) {
+		Rva005AD9C0Hit *hit = reinterpret_cast<AIBase *>(*baseIt)->rva005AD9C0((char *)arg + 0xC);
 		if (hit) {
 			hit->v3(arg);
 			return hit;
@@ -398,8 +398,8 @@ Rva005AD9C0Hit *AIBaseBuilder::rva00506BF7(void *arg)
 
 bool AIBaseBuilder::rva00506C39(void *arg)
 {
-	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it) {
-		if (reinterpret_cast<AIBase *>(*it)->rva005AD9C0(arg))
+	for (Rva005ADA40 **baseIt = m_0C.begin(), **end = m_0C.end(); baseIt != end; ++baseIt) {
+		if (reinterpret_cast<AIBase *>(*baseIt)->rva005AD9C0(arg))
 			return true;
 	}
 	return false;
@@ -424,26 +424,26 @@ void AIBaseBuilder::postInit()
 // 0x00506FE9: collect the owned elements' hits for the object's template name
 // (its rebuild template when it is a rebuild hole), then rescale and re-run
 // every hit that belongs to this object.
-void AIBaseBuilder::notifyBuildingDestroyed(Object *obj)
+void AIBaseBuilder::notifyBuildingDestroyed(Object *destroyedBuilding)
 {
 	_STL::vector<Rva00506FE9Hit *> hits;
-	AsciiString name;
-	RebuildHoleBehaviorInterface *rebuild = RebuildHoleBehavior::getRebuildHoleBehaviorInterfaceFromObject(obj);
-	if (rebuild)
-		name = ((Rva00506FE9RebuildView *)rebuild)->getRebuildTemplate()->m_name;
+	AsciiString buildingTemplateName;
+	RebuildHoleBehaviorInterface *rebuildBehavior = RebuildHoleBehavior::getRebuildHoleBehaviorInterfaceFromObject(destroyedBuilding);
+	if (rebuildBehavior)
+		buildingTemplateName = ((Rva00506FE9RebuildView *)rebuildBehavior)->getRebuildTemplate()->m_name;
 	else
-		name = ((Rva00506FE9ObjectView *)obj)->m_template->m_name;
+		buildingTemplateName = ((Rva00506FE9ObjectView *)destroyedBuilding)->m_template->m_name;
 	Rva005ADA40 **end = m_0C.end();
-	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
-		reinterpret_cast<Rva005AD99C *>(*it)->rva005AD99C(name, (_STL::vector<const ModuleData *> *)&hits);
+	for (Rva005ADA40 **baseIt = m_0C.begin(); baseIt != end; ++baseIt)
+		reinterpret_cast<Rva005AD99C *>(*baseIt)->rva005AD99C(buildingTemplateName, (_STL::vector<const ModuleData *> *)&hits);
 	if (!hits.empty()) {
 		Rva002A8B59Data *data = TheSkirmishAIManager->rva002A8B59(m_08);
 		for (Rva00506FE9Hit **h = hits.begin(); h != hits.end(); ++h) {
 			Rva00506FE9Hit *hit = *h;
-			if (hit->m_24 == ((Rva00506FE9ObjectView *)obj)->m_id) {
+			if (hit->m_24 == ((Rva00506FE9ObjectView *)destroyedBuilding)->m_id) {
 				hit->unRegisterWithBuilder(m_08);
-				float v = hit->m_04;
-				hit->m_04 = data->m_88 * v;
+				float previousValue = hit->m_04;
+				hit->m_04 = data->m_88 * previousValue;
 				hit->v6(m_08, 0);
 			}
 		}
@@ -461,17 +461,17 @@ void AIBaseBuilder::DoXfer(Xfer *xfer)
 	*xfer == m_24;
 	if (version.m_minimum >= 2)
 		*xfer == asBase(m_28);
-	unsigned int count = m_0C.size();
-	*xfer == count;
+	unsigned int baseCount = m_0C.size();
+	*xfer == baseCount;
 	if (xfer->IsLoading()) {
 		if (!m_0C.empty()) {
 			for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
 				delete reinterpret_cast<AIBase *>(*it);
 			m_0C.clear();
 		}
-		for (unsigned int i = 0; i < count; ++i) {
-			Rva005ADA40 *element = reinterpret_cast<Rva005ADA40 *>(new AIBase(i, m_08));
-			m_0C.push_back(element);
+		for (unsigned int i = 0; i < baseCount; ++i) {
+			Rva005ADA40 *base = reinterpret_cast<Rva005ADA40 *>(new AIBase(i, m_08));
+			m_0C.push_back(base);
 		}
 	}
 	Rva005ADA40 **end = m_0C.end();
@@ -479,36 +479,36 @@ void AIBaseBuilder::DoXfer(Xfer *xfer)
 		reinterpret_cast<AIBase *>(*it)->DoXfer(xfer);
 }
 
-Waypoint *Rva00506CC3FindWaypoint(const AsciiString &name)
+Waypoint *Rva00506CC3FindWaypoint(const AsciiString &waypointName)
 {
-	for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->getNext()) {
-		if (way->getName() == name)
-			return way;
+	for (Waypoint *waypoint = TheTerrainLogic->getFirstWaypoint(); waypoint; waypoint = waypoint->getNext()) {
+		if (waypoint->getName() == waypointName)
+			return waypoint;
 	}
 	return 0;
 }
 
 // 0x0050722A: add an element facing from the point towards the map centre.
-void AIBaseBuilder::rva0050722A(Coord3D *point)
+void AIBaseBuilder::rva0050722A(Coord3D *placementPosition)
 {
-	Rva0050722AExtent extent;
-	TheTerrainLogic->getExtent((Region3D *)&extent);
-	Vector3 dir;
-	dir.Set((extent.hi.x - extent.lo.x) * 0.5f, (extent.hi.y - extent.lo.y) * 0.5f, 0.0f);
-	Vector3 pos;
-	pos.Set(point->x, point->y, 0.0f);
-	dir -= pos;
-	dir.Normalize();
+	Rva0050722AExtent terrainExtent;
+	TheTerrainLogic->getExtent((Region3D *)&terrainExtent);
+	Vector3 centerDirection;
+	centerDirection.Set((terrainExtent.hi.x - terrainExtent.lo.x) * 0.5f, (terrainExtent.hi.y - terrainExtent.lo.y) * 0.5f, 0.0f);
+	Vector3 planarPosition;
+	planarPosition.Set(placementPosition->x, placementPosition->y, 0.0f);
+	centerDirection -= planarPosition;
+	centerDirection.Normalize();
 	Vector3 xAxis;
 	xAxis.Set(1.0f, 0.0f, 0.0f);
-	float angle = ACos(inlineClamp(Vector3::Dot_Product(dir, xAxis), -1.0f, 1.0f));
-	if (Vector3::Cross_Product_Z(dir, xAxis) > 0.0f)
-		angle *= -1.0f;
-	angle = normalizeAngle(angle - 1.5707964f);
+	float facingAngle = ACos(inlineClamp(Vector3::Dot_Product(centerDirection, xAxis), -1.0f, 1.0f));
+	if (Vector3::Cross_Product_Z(centerDirection, xAxis) > 0.0f)
+		facingAngle *= -1.0f;
+	facingAngle = normalizeAngle(facingAngle - 1.5707964f);
 	unsigned int index = m_0C.empty() ? 0 : m_0C.size();
-	Rva005ADA40 *element = reinterpret_cast<Rva005ADA40 *>(new AIBase(index, m_08));
-	m_0C.push_back(element);
-	reinterpret_cast<AIBase *>(element)->loadBestFitTemplate(point, angle, index != 0);
+	Rva005ADA40 *base = reinterpret_cast<Rva005ADA40 *>(new AIBase(index, m_08));
+	m_0C.push_back(base);
+	reinterpret_cast<AIBase *>(base)->loadBestFitTemplate(placementPosition, facingAngle, index != 0);
 }
 
 // tu-skeleton: 0x00506CF5 756B ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)

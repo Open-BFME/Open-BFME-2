@@ -96,9 +96,9 @@ __declspec(noinline) inline AISimpleAttackTactic::~AISimpleAttackTactic()
 }
 
 // ?bfmeAnchorAISimpleAttackTacticDtor absent-from-retail
-void bfmeAnchorAISimpleAttackTacticDtor(AISimpleAttackTactic *aISimpleAttackTactic)
+void bfmeAnchorAISimpleAttackTacticDtor(AISimpleAttackTactic *tactic)
 {
-	aISimpleAttackTactic->AISimpleAttackTactic::~AISimpleAttackTactic();
+	tactic->AISimpleAttackTactic::~AISimpleAttackTactic();
 }
 
 // Placeholder virtuals this unit's AITactic stand-in declares. Retail's vftable of the tactic

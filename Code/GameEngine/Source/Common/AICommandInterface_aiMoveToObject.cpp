@@ -63,12 +63,12 @@ class AICommandInterface
 {
 public:
 	virtual void rvaVirtual(AICommandParms *parms) = 0;
-	void aiMoveToObject(Object *obj, CommandSourceType src);
+	void aiMoveToObject(Object *targetObject, CommandSourceType commandSource);
 };
 
-void AICommandInterface::aiMoveToObject(Object *obj, CommandSourceType src)
+void AICommandInterface::aiMoveToObject(Object *targetObject, CommandSourceType commandSource)
 {
-	AICommandParms parms(AICMD_MOVE_TO_OBJECT, src);
-	parms.m_obj = obj;
+	AICommandParms parms(AICMD_MOVE_TO_OBJECT, commandSource);
+	parms.m_obj = targetObject;
 	rvaVirtual(&parms);
 }

@@ -59,12 +59,12 @@ void AIGuardState::xfer(Xfer *xfer)
 	if (xfer->IsLightCRC())
 		return;
 	xfer->Version1();
-	bool has = (m_20 != 0);
-	*xfer == has;
-	if (has) {
+	bool hasSnapshot = (m_20 != 0);
+	*xfer == hasSnapshot;
+	if (hasSnapshot) {
 		if (m_20 == 0)
 			m_20 = m_machine->createSnapshot();
-		if (has)
+		if (hasSnapshot)
 			*xfer == *m_20;
 	}
 }

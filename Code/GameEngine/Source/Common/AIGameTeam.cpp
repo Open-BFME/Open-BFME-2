@@ -132,7 +132,7 @@ struct AIGameTeamPlayersView
 class AIGameTeam
 {
 public:
-	void addPlayer(const ModuleData *parent);
+	void addPlayer(const ModuleData *player);
 	void *getMasterPlayer();
 	void rva004E9446();
 private:
@@ -216,22 +216,22 @@ private:
 
 void *AIGameTeam::getMasterPlayer()
 {
-    void *found = 0;
+    void *masterPlayer = 0;
     const AIGameTeamPlayersView *players = (const AIGameTeamPlayersView *)this;
     Elem004E93E8 **playerIt = players->m_begin;
     Elem004E93E8 **playersEnd = players->m_end;
     for (;;) {
         if (playerIt == playersEnd)
             break;
-        Elem004E93E8 *cur = *playerIt;
-        if (cur->m_playerType == 1 || ((Glob004E93E8 *)TheSkirmishAIManager)->m_forceAI != 0)
-            found = cur;
+        Elem004E93E8 *candidatePlayer = *playerIt;
+        if (candidatePlayer->m_playerType == 1 || ((Glob004E93E8 *)TheSkirmishAIManager)->m_forceAI != 0)
+            masterPlayer = candidatePlayer;
         ++playerIt;
-        if (found == 0)
+        if (masterPlayer == 0)
             continue;
         break;
     }
-    return found;
+    return masterPlayer;
 }
 
 // ---- from Code/GameEngine/Source/Common/AIGameTeam.cpp
@@ -241,9 +241,9 @@ void *AIGameTeam::getMasterPlayer()
 bool Rva004E94CA::rva004E94CA(Player *player)
 {
     if (m_04) {
-        int idx = m_00->m_08->m_10;
-        Player *nth = ThePlayerList->getNthPlayer(idx);
-        Relationship relationship = player->getRelationship(nth);
+        int playerIndex = m_00->m_08->m_10;
+        Player *otherPlayer = ThePlayerList->getNthPlayer(playerIndex);
+        Relationship relationship = player->getRelationship(otherPlayer);
         return relationship == ALLIES;
     }
     return false;
@@ -276,26 +276,26 @@ void *Rva004E9600::rva004E95D4(void *record)
 
 bool Rva004E9600::rva004E9600(void *record)
 {
-    bool result;
+    bool containsRecord;
     if (record) {
         int key = *(int *)((char *)record + 0x54);
-        result = m_map.find(key) != m_map.end();
+        containsRecord = m_map.find(key) != m_map.end();
     } else {
-        result = false;
+        containsRecord = false;
     }
-    return result;
+    return containsRecord;
 }
 
 // ---- from Code/GameEngine/Source/Common/AIGameTeam_addPlayer.cpp
 
-void AIGameTeam::addPlayer(const ModuleData *parent)
+void AIGameTeam::addPlayer(const ModuleData *player)
 {
-	const AsciiString *name = (const AsciiString *)((const char *)parent + 0x58);
+	const AsciiString *name = (const AsciiString *)((const char *)player + 0x58);
 	const ArmorTemplate *armor = g_00E0312C->rva0041F474(*name);
-	SkirmishAI *skirmishAI = new SkirmishAI((Player *)parent, (void *)armor, m_map.size() == 0);
-	int key = *(const int *)((const char *)parent + 0x54);
+	SkirmishAI *skirmishAI = new SkirmishAI((Player *)player, (void *)armor, m_map.size() == 0);
+	int key = *(const int *)((const char *)player + 0x54);
 	m_map[key] = (int)skirmishAI;
-	m_vec.push_back(parent);
+	m_vec.push_back(player);
 	m_24 = true;
 }
 
