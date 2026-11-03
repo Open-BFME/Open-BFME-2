@@ -44,3 +44,17 @@ rows): no donor merges. Four lose rows under the carried flag override
 W3DVideoStateAllocate), six have no baseline match, two lose census linking to
 the seed's Zero Hour unresolved names, and VslotSmallBodiesB.cpp is mixed (14
 rows). All twelve donors are census-linked.
+
+## Fold attempt (same session)
+
+`rename.py class --fold BfmeOwnerCC --into W3DVideoBuffer --dry-run` refuses:
+"Code/GameEngine/Source/Common/BfmeOwnerCC.cpp would declare class
+W3DVideoBuffer twice". That unit's W3DVideoBuffer view is one method,
+`rva00072583()`, which the destructor 0x0007280A calls (retail call target
+0x00072583). Before the fold the destructor's class must differ from the
+callee's, so the unit cannot be reconciled first; the fold needs to merge a
+member-only NEW view into OLD's class body or take `--prepared` sources like
+`function --to-class`. Recorded as a false reject in reverse/re_attempts.log.
+Slot moves with `function --to-class` (slots 0, 4, 6, 7, 9, 10) do not depend
+on the fold but need W3DVideoBufferCtorBfme.cpp's view rewritten to the
+13-slot order in the same batch, and slot 1 stays unresolved until the fold.
