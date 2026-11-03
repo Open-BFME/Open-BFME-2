@@ -8,11 +8,6 @@
 
 struct DiscoveredSoundHolder : public OpaqueRefElement4
 {
-    ~DiscoveredSoundHolder()
-    {
-        if (referent)
-            referent->Release_Ref();
-    }
 };
 
 class OneRingPenaltyUpdateModuleData : public Snapshot

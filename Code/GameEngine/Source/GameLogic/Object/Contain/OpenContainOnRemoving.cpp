@@ -40,7 +40,6 @@ extern GameLogic *TheGameLogic;
 class Rva002390CB {
 public:
     Rva002390CB(const Rva002390CB &);
-    __forceinline ~Rva002390CB() { if (ref.referent) ref.referent->Release_Ref(); }
     void *unknown00;
     OpaqueRefElement4 ref;
 };

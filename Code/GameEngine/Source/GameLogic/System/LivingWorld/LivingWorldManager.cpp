@@ -37,7 +37,6 @@ public:
 // stores a sound reference (passed by value, released by this body) and its
 // owner. The value parameter's own spelling is unknown (address name).
 struct Rva00210FC6Ref : OpaqueRefElement4 {
- ~Rva00210FC6Ref() { if(referent) referent->Release_Ref(); }
 };
 
 class LivingWorldManager {

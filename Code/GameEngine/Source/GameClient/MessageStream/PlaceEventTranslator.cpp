@@ -8,16 +8,6 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 extern GameLogic *TheGameLogic;
 #include "PlaceEventTranslatorView.h"
-// Give local pixel coordinates a lexical lifetime just as PlaceCoord does.
-// The empty destructor emits no work. It preserves retail's overlapping
-// mouse/anchor and build/builder spill homes with the canonical GameLogic API.
-// Message union storage retains the plain two-int layout above.
-struct PlacePixel : ICoord2D
-{
-    PlacePixel() {}
-    PlacePixel(const ICoord2D &p) { x = p.x; y = p.y; }
-    ~PlacePixel() {}
-};
 // Mouse::rva001EDD80 (0x001EDD80): the drag-distance test against the button-down position.
 class Mouse
 {
@@ -542,9 +532,6 @@ PlaceEventTranslator::PlaceEventTranslator()
 // constructor and destructor, member-wise copy constructor (the WWMath owner
 // view in coord3d.cpp).
 
-// Keep the pending build pointer in lexical value storage, preserving native spill homes.
-struct PlacementPointer { const ThingTemplate *value; };
-
 GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMessage *msg)
 {
 	GameMessageDisposition disp = KEEP_MESSAGE;
@@ -557,7 +544,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 		const ThingTemplate *build = TheInGameUI->getPendingPlaceType();
 		if (build && TheInGameUI->isPlacementAnchored() == false)
 		{
-			PlacePixel mouse = msg->getArgument(0)->pixel;
+			ICoord2D mouse = msg->getArgument(0)->pixel;
 			PlaceCoord world;
 
 			TheTacticalView->screenToTerrain(&mouse, &world, false);
@@ -610,29 +597,27 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 	case 23:
 	case 24: // left click / double click: place the anchored building
 	{
-		PlacementPointer pendingBuild = { TheInGameUI->getPendingPlaceType() };
+		const ThingTemplate *pendingBuild = TheInGameUI->getPendingPlaceType();
 
 		// ... and also remove any radius cursor that is active.
 		TheInGameUI->setRadiusCursorNone();
 
-		if (pendingBuild.value && TheInGameUI->isPlacementAnchored())
+		if (pendingBuild && TheInGameUI->isPlacementAnchored())
 		{
-			// Reuse the pending template through the active placement path.
-			// Its native pointer spills remain exact with the shared GameLogic API.
 			GameMessage *placeMsg;
 			PlaceCoord world;
 			float angle;
-			PlacePixel anchorStart, anchorEnd;
+			ICoord2D anchorStart, anchorEnd;
 
 			angle = TheInGameUI->getPlacementAngle();
 			TheInGameUI->getPlacementPoints(&anchorStart, &anchorEnd);
 			TheTacticalView->screenToTerrain(&anchorStart, &world, false);
 
 			Object *builderObj = TheGameLogic->findObjectByID(TheInGameUI->getPendingPlaceSourceObjectID());
-			bool isPort = TheBuildAssistant->isBuildPort(pendingBuild.value, builderObj);
+			bool isPort = TheBuildAssistant->isBuildPort(pendingBuild, builderObj);
 
 			// make sure we can still afford and queue it
-			int cmt = TheBuildAssistant->canMakeUnit(builderObj, pendingBuild.value, -1);
+			int cmt = TheBuildAssistant->canMakeUnit(builderObj, pendingBuild, -1);
 			if (cmt != 0 && cmt != 1)
 			{
 				if (cmt == 2)
@@ -665,7 +650,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 			if (isPort)
 				lbc = 0;
 			else
-				lbc = TheBuildAssistant->isLocationLegalToBuild(&world, pendingBuild.value, angle, 0x49F, builderObj, 0);
+				lbc = TheBuildAssistant->isLocationLegalToBuild(&world, pendingBuild, angle, 0x49F, builderObj, 0);
 
 			// the local player may not build over a ghost object it remembers
 			if (builderObj)
@@ -673,7 +658,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				int localIndex = TheGhostObjectManager->getLocalPlayerIndex();
 				if (localIndex == builderObj->getControllingPlayer()->getPlayerIndex())
 				{
-					if (Rva0030596CIntersects((void *)pendingBuild.value, world, angle))
+					if (Rva0030596CIntersects((void *)pendingBuild, world, angle))
 						lbc = 8;
 				}
 			}
@@ -687,21 +672,21 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 
 			if (lbc == 0 && !portBlocked)
 			{
-				if (pendingBuild.value->m_kindOfByte23 & 0x10)
+				if (pendingBuild->m_kindOfByte23 & 0x10)
 				{
 					PlaceCoord newWorld;
 					float newAngle;
-					TheBuildAssistant->getPortTransform(&world, pendingBuild.value, angle, &newAngle, &newWorld);
+					TheBuildAssistant->getPortTransform(&world, pendingBuild, angle, &newAngle, &newWorld);
 					angle = newAngle;
 					world = newWorld;
 				}
 
-				if (TheBuildAssistant->isBuildPort(pendingBuild.value, builderObj))
+				if (TheBuildAssistant->isBuildPort(pendingBuild, builderObj))
 				{
 					if (TheInGameUI->canPlacePort())
 					{
 						placeMsg = TheMessageStream->appendMessage(GameMessage::MSG_PORT_CONSTRUCT);
-						placeMsg->appendIntegerArgument(pendingBuild.value->getTemplateID());
+						placeMsg->appendIntegerArgument(pendingBuild->getTemplateID());
 						placeMsg->appendLocationArgument(*builderObj->getPosition());
 						placeMsg->appendLocationArgument(world);
 						TheInGameUI->clearPlacementPort(false);
@@ -717,7 +702,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				else
 				{
 					placeMsg = TheMessageStream->appendMessage(GameMessage::MSG_DOZER_CONSTRUCT);
-					placeMsg->appendIntegerArgument(pendingBuild.value->getTemplateID());
+					placeMsg->appendIntegerArgument(pendingBuild->getTemplateID());
 					placeMsg->appendLocationArgument(world);
 					placeMsg->appendRealArgument(angle);
 					pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), placeMsg->getType(), 0);
@@ -763,7 +748,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 
 	case 3: // raw mouse position
 	{
-		PlacePixel mouse = msg->getArgument(0)->pixel;
+		ICoord2D mouse = msg->getArgument(0)->pixel;
 		if (m_isDown && TheMouse->rva001EDD80(&m_downPos, &mouse))
 			m_isDragging = true;
 

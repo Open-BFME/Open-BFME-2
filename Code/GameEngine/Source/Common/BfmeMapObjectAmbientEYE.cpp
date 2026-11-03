@@ -60,23 +60,18 @@ extern AudioManager *TheAudio;
 // The 4-byte owning reference; release is inlined at each scope exit.
 struct Rva00239057Ref : OpaqueRefElement4
 {
-	Rva00239057Ref() { referent = 0; }
-	~Rva00239057Ref() { if (referent) referent->Release_Ref(); }
 	Rva004EC166 *get() const { return (Rva004EC166 *)referent; }
 };
 
 struct AudioEventInfoRef : OpaqueRefElement4
 {
 	AudioEventInfoRef(const AudioEventInfo *info);
-	~AudioEventInfoRef() { if (referent) referent->Release_Ref(); }
 };
 
 // 8-byte template audio slot, returned by value; the info reference is at +4.
 class Rva002390CB
 {
 public:
-	~Rva002390CB() { if (m_info.referent) m_info.referent->Release_Ref(); }
-
 	int m_00;
 	OpaqueRefElement4 m_info; // +0x04
 };

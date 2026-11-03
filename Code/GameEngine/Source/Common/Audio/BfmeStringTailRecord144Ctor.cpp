@@ -11,21 +11,13 @@
 // and 0, then initializes the float at +0x88 and the byte at +0x8C.
 //
 // The reference element is a temporary whose destructor releases the referent
-// through the rowed OpaqueRefCounted::Release_Ref 0x50ED3; the canonical
-// header's OpaqueRefElement4 is a bare pointer view, so the temporary is the
-// same-layout smart handle declared here.
+// through the rowed OpaqueRefCounted::Release_Ref 0x50ED3 (the canonical
+// OpaqueRefElement4 destructor, rowed here under the temporary's type).
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
 class Rva00052512RefElement : public OpaqueRefElement4
 {
-public:
-	Rva00052512RefElement() { referent = 0; }
-	~Rva00052512RefElement()
-	{
-		if (referent)
-			referent->Release_Ref();
-	}
 };
 
 class __declspec(novtable) BfmeStringTailRecord144 : public BfmeAudioEventPrefix136

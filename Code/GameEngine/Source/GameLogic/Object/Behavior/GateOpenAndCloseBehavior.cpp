@@ -268,8 +268,6 @@ public:
 class GateRefHolder : public OpaqueRefElement4
 {
 public:
-	GateRefHolder() { referent = 0; }
-	~GateRefHolder() { if (referent) referent->Release_Ref(); }
 };
 
 class GateOpenAndCloseBehaviorModuleData : public ModuleData

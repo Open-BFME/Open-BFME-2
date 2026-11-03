@@ -119,7 +119,6 @@ class Rva002390CB
 {
 public:
 	Rva002390CB();
-	~Rva002390CB() { if (m_04.referent != 0) m_04.referent->Release_Ref(); }
 	// Assignment is the rowed record assignment 0x002C99FB.
 	__declspec(dllimport) __forceinline Rva002390CB &operator=(const Rva002390CB &other)
 	{

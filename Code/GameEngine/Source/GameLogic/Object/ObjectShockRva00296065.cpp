@@ -19,7 +19,6 @@ class Rva002390CB
 {
 public:
 	Rva002390CB(const Rva002390CB &);
-	__forceinline ~Rva002390CB() { if (name.referent) name.referent->Release_Ref(); }
 	int index;
 	OpaqueRefElement4 name;
 	__forceinline const Rva0036CA00Str &getSound() const { return *(const Rva0036CA00Str *)&name; }

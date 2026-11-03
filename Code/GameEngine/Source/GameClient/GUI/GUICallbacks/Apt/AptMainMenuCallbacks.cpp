@@ -825,8 +825,6 @@ class TutorialShellView {public:
  virtual void slot10();
 };
 class AudioEventInfoRef {public:
- AudioEventInfoRef(){value.referent=0;}
- ~AudioEventInfoRef(){if(value.referent)value.referent->Release_Ref();}
  AudioEventInfoRef &operator=(const AudioEventInfoRef &other){value=other.value;return *this;}
  private:OpaqueRefElement4 value;
 };

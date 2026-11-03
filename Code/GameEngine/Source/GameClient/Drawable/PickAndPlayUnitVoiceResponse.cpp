@@ -456,11 +456,6 @@ class Rva002390CB
 public:
 	Rva002390CB();
 	Rva002390CB(const Rva002390CB &o);
-	~Rva002390CB()
-	{
-		if (m_ref.referent)
-			m_ref.referent->Release_Ref();
-	}
 	bool isBound() const { return m_ref.referent != 0; }
 	int m_id;
 	OpaqueRefElement4 m_ref;

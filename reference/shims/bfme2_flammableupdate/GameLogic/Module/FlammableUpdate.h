@@ -59,12 +59,6 @@ enum FlammabilityStatusType
 // non-null, and ?rva0048C7BF@FlammableUpdate@@QAEXXZ hands it to the audio event ctor 0x002DA461.
 struct BurningSoundHolder
 {
-	~BurningSoundHolder()
-	{
-		if (m_ref.referent)
-			m_ref.referent->Release_Ref();
-	}
-	BurningSoundHolder() { m_ref.referent = 0; }
 	OpaqueRefElement4 m_ref;
 };
 

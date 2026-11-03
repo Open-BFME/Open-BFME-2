@@ -58,12 +58,6 @@ extern AudioManager *TheAudio;
 // Owning sound handle: zeroed on entry, released on exit.
 struct MoveSoundRef : public OpaqueRefElement4
 {
-	MoveSoundRef() { referent = 0; }
-	~MoveSoundRef()
-	{
-		if (referent != 0)
-			referent->Release_Ref();
-	}
 	using OpaqueRefElement4::operator=;
 };
 
@@ -72,11 +66,6 @@ class Rva002390CB
 {
 public:
 	Rva002390CB(const Rva002390CB &other);
-	~Rva002390CB()
-	{
-		if (m_ref.referent != 0)
-			m_ref.referent->Release_Ref();
-	}
 	int m_00;
 	OpaqueRefElement4 m_ref;
 };

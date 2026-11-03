@@ -51,7 +51,6 @@ void INI::parseAudioEventRTS(INI *ini, void *, void *store, const void *)
 #include "Common/BfmeAudioEventPrefix136.h"
 #include <string.h>
 struct Rva00339184Ref : OpaqueRefElement4 {
- ~Rva00339184Ref(){if(referent)referent->Release_Ref();}
 };
 class Rva00339184Audio {
 public:

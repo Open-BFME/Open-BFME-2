@@ -33,8 +33,6 @@ struct XferUnknown11;
 // The native state transitions and temporary Release_Ref call prove that
 // the null reference argument owns its temporary lifetime through the call.
 struct Rva000532B7TemporaryRef : OpaqueRefElement4 {
-    __forceinline Rva000532B7TemporaryRef() { referent = 0; }
-    __forceinline ~Rva000532B7TemporaryRef() { if (referent) referent->Release_Ref(); }
 };
 // A MilesAudioManager member: its xfer caller 0x000596E9 passes the manager
 // in ECX (the body never reads it), RET 4 either way.

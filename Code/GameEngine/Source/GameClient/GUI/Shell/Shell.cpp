@@ -391,8 +391,6 @@ class Rva002D94CE { public: void rva002D94CE(int value); };
 
 struct ShellMusicRef : OpaqueRefElement4
 {
-	ShellMusicRef() { referent = 0; }
-	~ShellMusicRef() { if (referent) referent->Release_Ref(); }
 };
 
 // ?showShellMap@Shell@@QAE_N_N0@Z @0x0035C194 293B: Zero Hour's

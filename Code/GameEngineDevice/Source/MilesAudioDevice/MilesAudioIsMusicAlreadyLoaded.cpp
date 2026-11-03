@@ -42,8 +42,6 @@ struct NonNullAudioRef {
 };
 struct ScopedMusicRef {
  OpaqueRefElement4 value;
- __forceinline ScopedMusicRef(){value.referent=0;}
- __forceinline ~ScopedMusicRef(){if(value.referent)value.referent->Release_Ref();}
 };
 class Rva000411084 { public: void *next(); void *current,*owner; Rva000411084(){}; Rva000411084(const Rva000411084&x):current(x.current),owner(x.owner){} };
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"

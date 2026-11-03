@@ -299,7 +299,6 @@ public:
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ
 OneRingPenaltyUpdateModuleData::OneRingPenaltyUpdateModuleData()
 {
-	m_discoveredSound.referent = 0;
 	m_timeSpentRoamingAround = 0;
 	m_timeRingPowerSuppressed = 0;
 	m_startingDistanceFromMe = 0.0f;

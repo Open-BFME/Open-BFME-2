@@ -45,7 +45,6 @@ struct WeatherData
 // byte at +4; parseWeatherData's HasLightning table uses INI::parseBool.
 WeatherData::WeatherData()
 {
-    m_weatherSound.referent = 0;
     m_hasLightning = false;
 }
 
@@ -55,8 +54,6 @@ WeatherData::WeatherData()
 // with every other one-reference destructor.
 WeatherData::~WeatherData()
 {
-    if (m_weatherSound.referent)
-        m_weatherSound.referent->Release_Ref();
 }
 
 class GlobalWeatherSystem : public SubsystemInterface, public Snapshot

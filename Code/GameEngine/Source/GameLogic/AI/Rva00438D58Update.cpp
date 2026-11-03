@@ -24,7 +24,6 @@ class Rva002390CB
 {
 public:
 	Rva002390CB(const Rva002390CB &other);
-	~Rva002390CB() { if (m_04.referent != 0) m_04.referent->Release_Ref(); }
 	char m_pad00[4];
 	OpaqueRefElement4 m_04;
 };

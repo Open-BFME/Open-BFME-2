@@ -160,12 +160,6 @@ extern ControlBar *TheControlBar;
 // A sound reference that releases what it holds.
 struct Rva00453652Sound : public OpaqueRefElement4
 {
-	Rva00453652Sound() { referent = 0; }
-	~Rva00453652Sound()
-	{
-		if (referent)
-			referent->Release_Ref();
-	}
 };
 
 class ModuleData;

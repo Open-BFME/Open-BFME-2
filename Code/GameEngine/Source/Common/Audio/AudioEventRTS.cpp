@@ -823,7 +823,6 @@ struct AudioEventInfo
 // pool10. These contracts and the temporary's release/unwind are target facts.
 struct Rva002D9D7CRef : OpaqueRefElement4 {
  // Native complete12B reference destructor folds at 0x0010F149.
- ~Rva002D9D7CRef() { if (referent) referent->Release_Ref(); }
 };
 
 void XferDrawableID(Xfer *xfer, int *id);

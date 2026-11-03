@@ -684,7 +684,7 @@ class Rva004DC8E7AsciiField { public: AsciiString get() const; };
 extern ScriptEngine *TheScriptEngine;
 class Rva00358752Opaque { public: Object *lookupUnitByValue(AsciiString); };
 #include "../../../Common/Thing/thing.h"
-class Rva002390CB { public: int opaque00; OpaqueRefElement4 ref; ~Rva002390CB() { if(ref.referent) ref.referent->Release_Ref(); } };
+class Rva002390CB { public: int opaque00; OpaqueRefElement4 ref; };
 #include "../../../../Include/GameClient/Drawable.h"
 class Rva002707FA { public: void rva002707FA(unsigned char); };
 class Rva0028CBFD { public: void rva0028CBFD(); };

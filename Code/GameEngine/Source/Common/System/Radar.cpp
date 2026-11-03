@@ -637,8 +637,6 @@ struct RadarAttackObject {void *vtable;const RadarAttackTemplate *objectTemplate
 struct RadarAttackPlayerList {char opaque[0x10];RadarInfiltrationPlayer *localPlayer;};
 
 struct RadarAttackRef : OpaqueRefElement4 {
- RadarAttackRef() {referent=0;}
- ~RadarAttackRef() {if(referent)referent->Release_Ref();}
 };
 
 // One of the BFME 1 zeroing-constructor family:

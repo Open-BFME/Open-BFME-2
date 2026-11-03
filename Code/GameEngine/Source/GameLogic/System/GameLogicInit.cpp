@@ -5763,8 +5763,6 @@ inline __declspec(noinline) void Rva000A8C9B::clear(void)
 
 struct Rva002423E3NullRef : public OpaqueRefElement4
 {
-	Rva002423E3NullRef() { referent = 0; }
-	~Rva002423E3NullRef() { if (referent) referent->Release_Ref(); }
 };
 
 // GameLogic's conditional string-and-handles setter 0x0023DCCE. Retail emits the

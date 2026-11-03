@@ -29,14 +29,12 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 enum DrawableID { INVALID_DRAWABLE_ID=0 };
 // ?Range::Range present-unmatched
 struct Range { float first,second; Range():first(0.0f),second(0.0f){} };
-class Rva0042526Member { public: Rva0042526Member(); unsigned int words[19]; };
-// ?AnimationSoundNullRef::AnimationSoundNullRef present-unmatched
-struct AnimationSoundNullRef : OpaqueRefElement4 { __forceinline AnimationSoundNullRef(){referent=0;} };
+// Declared nothrow: retail 0x004C9E5D stores no EH state for the sound reference
+// constructed before these two calls.
+class Rva0042526Member { public: __declspec(nothrow) Rva0042526Member(); unsigned int words[19]; };
 class Rva004C9E5D { public:
  Rva004C9E5D(const int*,float);
- // ?Rva004C9E5D::~Rva004C9E5D present-unmatched
- __forceinline ~Rva004C9E5D(){if(sound.referent)sound.referent->Release_Ref();}
- int id; AnimationSoundNullRef sound; float frame;
+ int id; OpaqueRefElement4 sound; float frame;
  Rva0042526Member required,prohibited; unsigned char conditional;
 };
 typedef char EntryExtent[(sizeof(Rva004C9E5D)==168)?1:-1];
