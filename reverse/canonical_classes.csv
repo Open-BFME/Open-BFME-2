@@ -586,3 +586,4 @@ NetFrameCommandMsg,Code/GameEngine/Include/GameNetwork/NetFrameCommandMsg.h,exis
 StructureCollapseUpdate,Code/GameEngine/Include/GameLogic/Module/StructureCollapseUpdateClass.h,existing header; contract class_contracts/StructureCollapseUpdate.json; 3/8 sampled units adopt
 LightningEmissionInfo,Code/GameEngine/Include/GameClient/LightningEmissionInfo.h,existing header; contract class_contracts/LightningEmissionInfo.json; 6/10 sampled units adopt
 TerrainFireEmissionInfo,Code/GameEngine/Include/GameClient/TerrainFireEmissionInfo.h,existing header; contract class_contracts/TerrainFireEmissionInfo.json; 7/10 sampled units adopt
+OrthoEmissionVelocityInfo,Code/GameEngine/Include/GameClient/OrthoEmissionVelocityInfo.h,existing header; contract class_contracts/OrthoEmissionVelocityInfo.json; 7/10 sampled units adopt
