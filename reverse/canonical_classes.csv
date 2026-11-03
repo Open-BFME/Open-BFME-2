@@ -520,3 +520,4 @@ SpawnBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/SpawnBehaviorMo
 AptScrollBar,Code/GameEngine/Include/GameClient/AptScrollBar.h,existing header; contract class_contracts/AptScrollBar.json; 3/7 sampled units adopt
 GameSpyConfigInterface,Code/GameEngine/Include/GameNetwork/GameSpyConfigInterface.h,existing header; contract class_contracts/GameSpyConfigInterface.json; 7/11 sampled units adopt
 GarrisonContainModuleData,Code/GameEngine/Include/GameLogic/Module/GarrisonContainModuleData.h,existing header; contract class_contracts/GarrisonContainModuleData.json; 8/14 sampled units adopt
+LANPlayer,Code/GameEngine/Include/GameNetwork/LANPlayerClass.h,existing header; contract class_contracts/LANPlayer.json; 2/8 sampled units adopt
