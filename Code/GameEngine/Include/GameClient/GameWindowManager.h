@@ -1,6 +1,6 @@
 // GameWindowManager: target ABI view, VA BC7C90 and base constructor RVA 2C5334.
-// Unknown virtual slots are opaque declarations, never named as recovered methods.
-// Opaque slots are private and have no callable signature claim; they only reserve proven positions.
+// Slots 0-13 are SubsystemInterface's 14-slot form (base table VA BFF658: init 1, reset 9, update 10).
+// Unknown slots from 14 on are private opaque declarations that only reserve proven positions.
 // Member names follow the ZH donor except target-identified m_windowList/m_keyboardFocus.
 // Retail new at RVA 4C4C7 proves size0x40; ctor2C5334 proves the base and field offsets.
 #pragma once
@@ -13,39 +13,26 @@ class GameWindowManager : public SubsystemInterface {
 public:
     GameWindowManager();
     virtual ~GameWindowManager();
-private:
-    virtual void slot01(); // slot 1
-public:
-private:
-    virtual void slot02(); // slot 2
-public:
-private:
-    virtual void slot03(); // slot 3
-public:
-private:
-    virtual void slot04(); // slot 4
-public:
-private:
-    virtual void slot05(); // slot 5
-public:
-private:
-    virtual void slot06(); // slot 6
-public:
-private:
-    virtual void slot07(); // slot 7
-public:
-    virtual void init(); // slot 8
+#ifndef BFME_SUBSYSTEM_SLOTS
+    // The unit sees SubsystemInterface's short form: its slots 1-13 are declared here.
+    virtual void init(); // slot 1
+    virtual bool loadIniFilesFromLegend(); // slot 2
+    virtual void postProcessLoad(); // slot 3
+    virtual bool vslot04(int);
+    virtual bool vslot05();
+    virtual int vslot06();
+    virtual void vslot07(int);
+    virtual void vslot08();
     virtual void reset(); // slot 9
     virtual void update(); // slot 10
-private:
-    virtual void slot11(); // slot 11
-public:
-private:
-    virtual void slot12(); // slot 12
-public:
-private:
-    virtual void slot13(); // slot 13
-public:
+    virtual bool vslot11(int);
+    virtual void vslot12();
+    virtual void vslot13(int);
+#else
+    virtual void init(); // slot 1
+    virtual void reset(); // slot 9
+    virtual void update(); // slot 10
+#endif
     virtual int slot14(); // slot 14
     virtual GameWindow *slot15(Rva0047EDE0CreateInfo *info); // slot 15
 private:
@@ -213,7 +200,14 @@ public:
     GameWindow *winCreate(Rva0047EDE0CreateInfo *);
     GameFont *winFindFont(AsciiString, int, bool);
     void linkWindow(GameWindow *);
+    void unlinkWindow(GameWindow *);
+    void unlinkChildWindow(GameWindow *);
+    void insertWindowAheadOf(GameWindow *, GameWindow *);
+    GameWindow *duplicateGadget(GameWindow *, int);
+    void rva002C5761(GameWindow *);
 protected:
+    void processDestroyList();
+    int drawWindow(GameWindow *);
     void dumpWindow(GameWindow *);
     GameWindow *m_windowList; // +0x0C: link/dump owners
     GameWindow *m_windowTail;
