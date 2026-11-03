@@ -22813,3 +22813,8 @@ Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp|local|isBurn
 Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeObjectEventDispatchRva00335FE1.cpp|param|BfmeObjectEventDispatch::rva00335FE1|b,0e9ae1e61506b7f8931e9a22,drz-k1,drz-k1-n47a-12,w-d29055ee9848,2026-11-02
 Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeObjectEventDispatchRva0033605B.cpp|param|BfmeObjectEventDispatch::rva0033605B|a,8648d9fc02eb72f759ee99b4,drz-k1,drz-k1-n47a-13,w-d29055ee9848,2026-11-02
 Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeObjectEventDispatchRva0033605B.cpp|param|BfmeObjectEventDispatch::rva0033605B|b,170a41f853370f6a2552b855,drz-k1,drz-k1-n47a-13,w-d29055ee9848,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC47ADo.cpp|function|0x003BC466|Rva003BC466RadarForceOn,df9e3911f88c17066853677f,drz-k2,drz-k2-n47b-8,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC47ADo.cpp|function|0x003BC470|Rva003BC470RadarRevertNormal,5b3708967e8d20a5a2dafe3e,drz-k2,drz-k2-n47b-8,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doWaterChangeHeightOverTime.cpp|param|ScriptActions::doWaterChangeHeightOverTime|f2,9f2d6739132ee11bd7b97efe,drz-k2,drz-k2-n47b-18,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doWaterChangeHeightOverTime.cpp|param|ScriptActions::doWaterChangeHeightOverTime|f3,648be4cd30f0a4f55485186d,drz-k2,drz-k2-n47b-18,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doWaterChangeHeightOverTime.cpp|param|ScriptActions::doWaterChangeHeightOverTime|f4,ea18f7d3f445c53f7166ae0b,drz-k2,drz-k2-n47b-18,w-ded32b2e2c5e,2026-11-02
