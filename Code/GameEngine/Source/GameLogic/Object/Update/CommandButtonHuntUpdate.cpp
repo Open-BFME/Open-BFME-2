@@ -180,11 +180,7 @@ extern PartitionManager *ThePartitionManager;
 
 extern ActionManager *TheActionManager;
 
-struct TAiData
-{
-	unsigned char m_pad00[0x54];
-	Real m_attackPriorityDistanceModifier;	// +0x54
-};
+#include "../../../../Include/GameLogic/TAiData.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 

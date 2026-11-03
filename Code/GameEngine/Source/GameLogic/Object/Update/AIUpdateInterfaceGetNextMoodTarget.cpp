@@ -86,13 +86,7 @@ private:
 	const Object *m_obj; // +0x08
 };
 
-class TAiData
-{
-public:
-	unsigned char m_pad00[0x67];
-	Bool m_attackUsesLineOfSight; // +0x67
-	Bool m_attackIgnoreInsignificantBuildings; // +0x68
-};
+#include "../../../../Include/GameLogic/TAiData.h"
 
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

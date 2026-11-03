@@ -42,11 +42,7 @@ extern GameLogic *TheGameLogic;
 
 extern TeamFactory *TheTeamFactory;
 
-struct TAiData
-{
-	unsigned char m_pad00[0x44];
-	int m_guardEnemyReturnScanRate; // +0x44 update interval in frames
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

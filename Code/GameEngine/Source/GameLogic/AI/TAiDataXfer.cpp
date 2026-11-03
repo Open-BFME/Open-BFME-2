@@ -60,45 +60,7 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 typedef float Real;
 
-class TAiData
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	Real m_structureSeconds;																									///< 0x04
-	Real m_teamSeconds;																												///< 0x08
-	Int m_resourcesWealthy;																										///< 0x0C
-	Int m_resourcesPoor;																											///< 0x10
-	UnsignedInt m_forceIdleFramesCount;																				///< 0x14
-	Real m_structuresWealthyMod;																							///< 0x18
-	Real m_teamWealthyMod;																										///< 0x1C
-	Real m_structuresPoorMod;																									///< 0x20
-	Real m_teamPoorMod;																												///< 0x24
-	Real m_teamResourcesToBuild;																							///< 0x28
-	Real m_guardInnerModifierAI;																							///< 0x2C
-	Real m_guardOuterModifierAI;																							///< 0x30
-	Real m_guardInnerModifierHuman;																						///< 0x34
-	Real m_guardOuterModifierHuman;																						///< 0x38
-	UnsignedInt m_guardChaseUnitFrames;																				///< 0x3C
-	UnsignedInt m_guardEnemyScanRate;																					///< 0x40
-	UnsignedInt m_guardEnemyReturnScanRate;																		///< 0x44
-	char m_unrecovered48[ 0x4C - 0x48 ];
-	Real m_alertRangeModifier;																								///< 0x4C
-	Real m_aggressiveRangeModifier;																						///< 0x50
-	Real m_attackPriorityDistanceModifier;																		///< 0x54
-	char m_unrecovered58[ 0x5C - 0x58 ];
-	Real m_bfmeReal5C;																												///< 0x5C
-	Real m_bfmeReal60;																												///< 0x60
-	Bool m_enableRepulsors;																										///< 0x64
-	char m_unrecovered65[ 0x104 - 0x65 ];
-	Int m_bfmeInt104;																													///< 0x104
-	Int m_bfmeInt108;																													///< 0x108
-	Int m_bfmeInt10C;																													///< 0x10C
-	Int m_bfmeInt110;																													///< 0x110
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -129,13 +91,13 @@ void TAiData::xfer( Xfer *xfer )
 		*xfer == m_alertRangeModifier;
 		*xfer == m_aggressiveRangeModifier;
 		*xfer == m_attackPriorityDistanceModifier;
-		*xfer == m_bfmeReal5C;
-		*xfer == m_bfmeReal60;
+		*xfer == m_maxRecruitDistance;
+		*xfer == m_repulsedDistance;
 		*xfer == m_enableRepulsors;
-		*xfer == m_bfmeInt104;
-		*xfer == m_bfmeInt108;
-		*xfer == m_bfmeInt10C;
-		*xfer == m_bfmeInt110;
+		*xfer == m_buildPhase1PerSecondPriorityModifier;
+		*xfer == m_buildPhase2PerSecondPriorityModifier;
+		*xfer == m_buildPhase3PerSecondPriorityModifier;
+		*xfer == m_buildPhaseNPerSecondPriorityModifier;
 	}
 	else
 	{
