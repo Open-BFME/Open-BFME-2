@@ -13,26 +13,7 @@ typedef float Real;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
 #include "../../Include/Common/INI/INI.h"
 
-class MultiPlayMults
-{
-public:
-	void setMoneyMult( Int slot, Real value );
-
-	void setUnitXPMult( Int slot, Real value );
-
-	void setBuildingXPMult( Int slot, Real value );
-
-	void setUnitSpeedMult( Int slot, Real value );
-
-	void setBuildingSpeedMult( Int slot, Real value );
-
-	// PC twenty-slot arrays: +0, +0x50, +0xA0, +0xF0, +0x140.
-	Real m_money[ 20 ];
-	Real m_unitXP[ 20 ];
-	Real m_buildingXP[ 20 ];
-	Real m_unitSpeed[ 20 ];
-	Real m_buildingSpeed[ 20 ];
-};
+#include "../../Include/Common/MultiPlayMults.h"
 
 void parseMultiPlayUnitXPMult( INI *ini, void *, void *store, const void * )
 {

@@ -5,26 +5,7 @@
 // Invalid signed slot-1 returns the independently checked float literal 1.0.
 typedef int Int;
 typedef float Real;
-class MultiPlayMults
-{
-public:
-	Real getMoneyMult( Int slot ) const;
-
-	Real getUnitXPMult( Int slot ) const;
-
-	Real getBuildingXPMult( Int slot ) const;
-
-	Real getUnitSpeedMult( Int slot ) const;
-
-	Real getBuildingSpeedMult( Int slot ) const;
-
-	// Five twenty-slot arrays in the PC GlobalData subobject at +0xEC4.
-	Real m_money[ 20 ];
-	Real m_unitXP[ 20 ];
-	Real m_buildingXP[ 20 ];
-	Real m_unitSpeed[ 20 ];
-	Real m_buildingSpeed[ 20 ];
-};
+#include "../../Include/Common/MultiPlayMults.h"
 
 
 Real MultiPlayMults::getMoneyMult(Int slot) const

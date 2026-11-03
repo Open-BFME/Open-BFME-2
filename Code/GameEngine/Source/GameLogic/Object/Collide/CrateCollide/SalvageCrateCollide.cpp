@@ -128,11 +128,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class MultiPlayMults
-{
-public:
-	float getMoneyMult(int slot) const;	// 0x00235971
-};
+#include "../../../../../Include/Common/MultiPlayMults.h"
 
 class GlobalData
 {

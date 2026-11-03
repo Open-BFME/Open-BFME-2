@@ -136,11 +136,7 @@ extern GameLogic *TheGameLogic;
 
 extern PlayerList *ThePlayerList;
 
-class MultiPlayMults
-{
-public:
-	float getMoneyMult( int slot ) const;
-};
+#include "../../../../Include/Common/MultiPlayMults.h"
 
 class Rva004C82E5GlobalData
 {

@@ -92,7 +92,7 @@ class BuildTimeModule {public:
  virtual void slot24(); virtual void slot25(); virtual void slot26();
  virtual float multiplier(const ThingTemplate*);
 };
-class MultiPlayMults {public:float getBuildingSpeedMult(int)const;float getUnitSpeedMult(int)const;};
+#include "../../Include/Common/MultiPlayMults.h"
 struct GlobalDataBuildView {char before[0xa74];float minimum,maximum,penalty,multiple;char after[0xec4-0xa84];MultiPlayMults multiplay;};
 extern GlobalData *TheWritableGlobalData;
 // Existing owned multiplayer predicate; the shared header owns GameLogic.

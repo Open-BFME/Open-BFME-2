@@ -215,12 +215,7 @@ class Object;
 class BfmeGlob939D:public GameLogic{public:char bfmeCall939D();};
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class MultiPlayMults
-{
-public:
-	float getBuildingXPMult(int player) const;	// 0x002359A6
-	float getUnitXPMult(int player) const;		// 0x0023598B
-};
+#include "../../../Include/Common/MultiPlayMults.h"
 class GlobalData
 {
 public:

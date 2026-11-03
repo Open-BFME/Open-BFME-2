@@ -18,7 +18,7 @@ class ScoreKeeper{public:void addObjectLost(const Object*);};
 class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemplate(const ThingTemplate*,bool);
  char pad[0x90];Rva003B0D7C money;char pad91[0x280-0x91];int color;
  char pad284[0x3bc-0x284];ScoreKeeper score;};
-class MultiPlayMults{public:float getMoneyMult(int)const;};
+#include "../../../../Include/Common/MultiPlayMults.h"
 class GlobalData{public:char pad[0xec4];MultiPlayMults mults;};extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
