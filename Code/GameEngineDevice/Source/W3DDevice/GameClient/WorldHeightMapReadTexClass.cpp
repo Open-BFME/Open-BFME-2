@@ -17,17 +17,7 @@ typedef bool Bool;
 
 #include "ascii_string.h"
 
-class TerrainType
-{
-	friend class TerrainTypeCollection;
-public:
-	AsciiString getTexture() const;
-	AsciiString getNrmTexture() const;
-private:
-	char m_pad0[4];
-	AsciiString m_name; // +0x04
-	AsciiString m_texture; // +0x08
-};
+#include "../../../../GameEngine/Include/Common/TerrainType.h"
 
 class TerrainTypeCollection
 {

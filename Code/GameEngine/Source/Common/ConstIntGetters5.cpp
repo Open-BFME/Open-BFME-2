@@ -567,7 +567,7 @@ int Rva00215C4EGet(void)
 class GlowEffect { public: static const FieldParse m_fieldParseTable[]; };
 class CrateTemplate { public: static const FieldParse TheCrateTemplateFieldParseTable[]; };
 class DrawGroupInfo { public: static const FieldParse s_fieldParseTable[]; };
-class TerrainType { public: static const FieldParse m_terrainTypeFieldParseTable[]; };
+#include "../../Include/Common/TerrainType.h"
 extern const FieldParse g_00C15468[];
 extern const FieldParse g_00BFA6E8[];
 extern const FieldParse g_00C00B48[];

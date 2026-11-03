@@ -13,12 +13,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/INI/INI.h"
 
-class TerrainType
-{
-public:
-	static const FieldParse m_terrainTypeFieldParseTable[];
-	const FieldParse *getFieldParse(void) { return m_terrainTypeFieldParseTable; }
-};
+#include "../../../Include/Common/TerrainType.h"
 
 class TerrainTypeCollection
 {

@@ -340,11 +340,7 @@ public:
 	AsciiString rva0056394A();
 };
 
-class TerrainType
-{
-public:
-	AsciiString getTexture() const;
-};
+#include "../../../../Include/Common/TerrainType.h"
 
 extern GameLogic *TheGameLogic;
 

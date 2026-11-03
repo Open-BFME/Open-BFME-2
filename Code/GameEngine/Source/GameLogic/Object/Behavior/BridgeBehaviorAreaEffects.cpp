@@ -47,11 +47,7 @@ private:
 	BridgeInfo m_bridgeInfo;
 };
 
-class TerrainType
-{
-public:
-	AsciiString getTexture() const;
-};
+#include "../../../../Include/Common/TerrainType.h"
 
 class TerrainRoadCollection
 {

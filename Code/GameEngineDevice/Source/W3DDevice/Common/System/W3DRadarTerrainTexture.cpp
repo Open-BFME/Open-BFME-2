@@ -49,7 +49,7 @@ class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~
 class Radar { public: bool radarToWorld(const ICoord2D*,Coord3D*); float getTerrainAverageZ() const {return averageZ;} private: char pad0[0x1c];float averageZ;char pad20[0x1430-0x20]; };
 #include "../../../../../GameEngine/Include/GameClient/TerrainRoadType.h"
 class TerrainRoadCollection { public: TerrainRoadType *findBridge(AsciiString name); };extern TerrainRoadCollection *TheTerrainRoads;
-class TerrainType { public: AsciiString getTexture() const; };
+#include "../../../../../GameEngine/Include/Common/TerrainType.h"
 struct Bridge { char pad[0x30];float z0;char p34[8];float z1;char p40[8];float z2;char p4c[8];float z3;char p58[8];ObjectID objectID; };
 class RadarBodyView {public:
 virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void p6();virtual void p7();virtual int getDamageState();};

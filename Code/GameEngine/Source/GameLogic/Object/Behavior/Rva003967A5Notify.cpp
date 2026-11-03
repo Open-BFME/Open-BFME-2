@@ -133,11 +133,7 @@ typedef char AssertPairSize[sizeof(NoCaseTreePair4) == 8 ? 1 : -1];
 // TerrainType::getTexture pin, which is the spelling the REL32 resolver
 // knows. Called on the BuildListInfo only for its +0x08 template-name
 // member; the pin owner keeps its ZH evidence.
-class TerrainType
-{
-public:
-	AsciiString getTexture() const;
-};
+#include "../../../../Include/Common/TerrainType.h"
 
 class ThingTemplate;
 #include "../../../../Include/Common/ThingFactory.h"

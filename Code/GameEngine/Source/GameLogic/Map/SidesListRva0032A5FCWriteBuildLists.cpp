@@ -97,11 +97,7 @@ private:
 typedef char AssertBuildListInfoSize[sizeof(BuildListInfo) == 0x80 ? 1 : -1];
 
 // 0x000AF1DD (+0x08 template name) and 0x00564DF2 (+0x04 building name).
-class TerrainType
-{
-public:
-	AsciiString getTexture() const;
-};
+#include "../../../Include/Common/TerrainType.h"
 
 class WindowLayout
 {

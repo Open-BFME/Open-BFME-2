@@ -415,11 +415,7 @@ class Rva0029A94F
 public:
     void rva0029A94F();
 };
-class TerrainType
-{
-public:
-    AsciiString getTexture() const;
-};
+#include "../../Include/Common/TerrainType.h"
 class BuildListInfo
 {
     friend class InGameUI;
