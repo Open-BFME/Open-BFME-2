@@ -26,15 +26,7 @@ extern "C" const void *const vtbl_00BDD8E0[] = {
 	(const void *)&__identifier("?rva001DFF5D@Rva001DFEAABase@@UAE_NPAVObject@@0@Z")
 };
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-protected:
-	unsigned int m_vtablePad; // +0, overwritten by the derived vtable store
-	int m_field04; // +4, nugget type id (unused here; retail stores none)
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 

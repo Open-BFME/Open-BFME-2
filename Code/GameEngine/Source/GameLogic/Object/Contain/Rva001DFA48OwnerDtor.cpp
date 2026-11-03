@@ -25,16 +25,7 @@ private:
 
 // The FXNugget base: its ctor 0x001DFEAA installs the same vtable 0x00BDC940
 // as this dtor, so the dtor carries the ctor's class name.
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-
-private:
-	unsigned m_04;				// +0x04 (unrecovered; pads the members to retail offsets)
-	Rva00360D26Member m_08;			// +0x08
-	Rva00360D26Member m_0C;			// +0x0C
-};
+#include "../../../../Include/GameClient/Rva001DFEAABase.h"
 
 // ??1Rva001DFEAABase@@UAE@XZ
 Rva001DFEAABase::~Rva001DFEAABase()

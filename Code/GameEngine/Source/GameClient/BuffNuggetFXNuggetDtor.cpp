@@ -23,14 +23,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
 
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-
-private:
-	unsigned char unknownBaseTail[0x144];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 

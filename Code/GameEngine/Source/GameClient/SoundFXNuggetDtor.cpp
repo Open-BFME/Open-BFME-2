@@ -10,14 +10,7 @@
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-
-private:
-	unsigned char m_tail[0x148 - 4];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 class __declspec(novtable) SoundFXNugget : public Rva001DFEAABase
 {

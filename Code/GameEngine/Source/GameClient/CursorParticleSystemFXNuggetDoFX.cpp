@@ -27,16 +27,7 @@ extern InGameUI *TheInGameUI;
 
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-	virtual void doFXPos(const Coord3D *primary, const Matrix3D *primaryMtx, float primarySpeed, const Coord3D *secondary) const;
-	virtual void doFXObj(const Object *primary, const Object *secondary) const;
-protected:
-	int m_nuggetType;						// +0x04
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 class CursorParticleSystemFXNugget : public Rva001DFEAABase
 {

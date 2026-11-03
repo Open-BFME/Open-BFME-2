@@ -28,13 +28,7 @@ extern int BfmeLogicFramesPerSecond;
 
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-private:
-	unsigned char m_pad[0x148];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

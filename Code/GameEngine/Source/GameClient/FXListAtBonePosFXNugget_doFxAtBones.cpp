@@ -32,13 +32,7 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-protected:
-	unsigned char m_pad[0x148 - 4];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 class FXListAtBonePosFXNugget : public Rva001DFEAABase
 {

@@ -22,14 +22,7 @@ public:
     ~BfmeOwnedString4() {}
 };
 
-class Rva001DFEAABase
-{
-public:
-    virtual ~Rva001DFEAABase();
-
-private:
-    unsigned char unknownBaseTail[0x144];
-};
+#include "../../../../Include/GameClient/Rva001DFEAABase.h"
 
 // The target dtor has no derived-vptr store. novtable keeps this view's dtor
 // body aligned with that fact; no constructor is emitted from this file.

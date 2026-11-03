@@ -29,15 +29,7 @@ template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(Asc
 }
 
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-	virtual ~Rva001DFEAABase();
-protected:
-	int m_nuggetType; // +4
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 

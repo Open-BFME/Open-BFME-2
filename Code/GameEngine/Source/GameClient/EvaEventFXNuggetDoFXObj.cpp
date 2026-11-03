@@ -97,11 +97,7 @@ void EvaEventFXNugget::doFXObj(const Object *primary, const Object *) const
 	}
 }
 
-class Rva001DFEAABase
-{
-public:
-	virtual ~Rva001DFEAABase();
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 class __declspec(novtable) Rva001E009E
 {

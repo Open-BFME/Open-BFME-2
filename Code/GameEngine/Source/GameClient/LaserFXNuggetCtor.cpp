@@ -8,13 +8,7 @@ char g_00BDD7B8;
 // 0x00BDCFD8 (LaserName@0x148 LaserBackwards@0x14C) and the BFME1 donor.
 // Base 0x001DFEAA is a shared FXNugget-family base ctor; pinned opaquely.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-private:
-	unsigned char m_pad[0x148];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
