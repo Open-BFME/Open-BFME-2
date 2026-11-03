@@ -9,19 +9,7 @@
 
 #include <mbstring.h>
 
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-
-	const StringClass &operator=(const char *string);
-
-private:
-	void Get_String(int new_len, bool flag);
-
-	static char *m_EmptyString;
-	char *m_Buffer;
-};
+#include "StringClassData.h"
 
 // StringClass::m_EmptyString: defined in wwstring.cpp (= &m_NullChar).
 
