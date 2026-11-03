@@ -1,0 +1,169 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PartitionData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 20,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x118": {
+    "1": 1
+   },
+   "0x14": {
+    "4": 5
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 15,
+   "24": 1,
+   "28": 2,
+   "216": 1,
+   "284": 1
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_PartitionData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "m_owner",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "PartitionDirtyListOwner*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 8
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionDataDirtyList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionData_friendUpdateCellsTouched.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionData_maybePrepend.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionDataDirtyList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionData_friendUpdateCellsTouched.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {}
+}
