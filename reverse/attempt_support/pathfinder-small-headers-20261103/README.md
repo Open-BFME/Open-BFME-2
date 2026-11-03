@@ -33,3 +33,7 @@ Combined private proof retains all83 ledger entries, three EXACT EH graphs and a
 ## Canonical PathfindCell
 
 The complete private cell declaration is replaced by the registered header. Only IsObstaclePresent's own m_flags reference maps to canonical m_0C; the independent private PathfindCellInfo view stays. Its pointer0, packed field0x0C and16-byte extent remain target-supported. Private byte/provider proof is unchanged; current-main normal verification passes81 function rows and2 data rows, and owning acceptance retires one queue row. Two seed header prerequisites remain.
+
+## Canonical PathfindLayer
+
+Replace the complete opaque private declaration with the existing canonical header, preserving its 0x40-byte extent and all out-of-line method bindings. No body or field access changes. The private control/candidate proof keeps all 83 ledger entries, three EXACT EH graphs and all 209 external definitions identical. Current-main normal verification passes 81 function rows and two data rows; owning header acceptance retires exactly one queue entry. One seed header prerequisite remains. No source-path move or census gain is claimed.

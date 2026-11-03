@@ -115,6 +115,10 @@ own flags reference mapped to m_0C; its separate Info view stays. Current-main
 verification retains 81 function rows and two data rows, and owning acceptance
 retires one more header entry. Two seed header prerequisites remain.
 
+PathfindLayer now uses its canonical 0x40-byte declaration, without body or
+field changes. Current-main 81-row/two-data verification and owning acceptance
+pass; one more header entry retires. One seed header prerequisite remains.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:
