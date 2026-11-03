@@ -160,13 +160,7 @@ public:
 	Rva00808920LanGame *m_game;
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v00();
-	virtual void report( const char *text );
-	virtual void v08();
-	virtual void fail( const char *expression, const char *file, int line );
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get();
 void *Rva007F93E0( void *message, void *route, void *owner );

@@ -160,13 +160,7 @@ public:
 	int m_p2c;
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v00();
-	virtual void v04();
-	virtual void v08();
-	virtual void fail( const char *expr, const char *file, int line );
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get();
 void sendFeslMessage( void *message, const char *route, void *connection ) throw();

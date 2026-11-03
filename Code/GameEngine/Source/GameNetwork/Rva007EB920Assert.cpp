@@ -5,13 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail(const char *expr, const char *file, int line);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 extern int g_FeslDiagReporter;
 

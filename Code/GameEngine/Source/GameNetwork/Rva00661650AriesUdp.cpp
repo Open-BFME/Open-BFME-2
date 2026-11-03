@@ -21,13 +21,7 @@
 // getInt 0x00655990, and the folded base destructor 0x00655780 for both the
 // message and the address (rowed / pinned spellings).
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void fail(const char *expr, const char *file, int line);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get(void);
 

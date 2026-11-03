@@ -98,11 +98,7 @@ public:
 	void bfmeStep1038(void);
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void report(const char *message);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get(void);
 extern char g_bfmeMsg1038[];

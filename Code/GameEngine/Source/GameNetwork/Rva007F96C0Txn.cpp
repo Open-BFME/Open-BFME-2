@@ -3,13 +3,7 @@
 // object; a miss logs the TXN string and fail()s. A hit looks the key up
 // and fires the record callback with a +0x14 refcount around the call.
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void log(int level, const char *format, ...);
-	virtual void fail(const char *expr, const char *file, int line);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 class BfmeThingUPB
 {

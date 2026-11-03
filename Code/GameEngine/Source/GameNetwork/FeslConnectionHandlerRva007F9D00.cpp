@@ -41,12 +41,7 @@ struct Rva00800E50Header
 
 void __cdecl Rva007F91D0(Rva00800E50Header *header, const char *direction);
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void log(int level, const char *format, ...);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get();
 

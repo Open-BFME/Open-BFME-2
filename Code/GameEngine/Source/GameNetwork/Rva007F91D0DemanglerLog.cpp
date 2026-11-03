@@ -9,12 +9,7 @@ struct Rva00800E50Header
 	const char *m_text;
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v0();
-	virtual void v1();
-	virtual void log(int level, const char *format, ...);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
 extern "C" int __cdecl Rva007EEC30(

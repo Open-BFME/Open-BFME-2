@@ -59,13 +59,7 @@ struct PendingProbeCursor
 	int m_bfme20;
 };
 
-struct Rva007EB810Diag
-{
-	virtual void v00();
-	virtual void v04();
-	virtual void v08();
-	virtual void fail(const char *expr, const char *file, int line);
-};
+#include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
