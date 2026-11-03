@@ -92,14 +92,7 @@ WindModuleInfo::WindModuleInfo()
 // mirrors DefaultModuleBaseCopyCtors.cpp.
 #include "../../../../Include/Common/RvaSmartPtr12.h"
 
-class DefaultModuleHeadBase
-{
-public:
-	virtual ~DefaultModuleHeadBase();
-
-	RvaSmartPtr12 m_smart;
-	int m_int10;
-};
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 class DefaultModuleSecondBase
 {

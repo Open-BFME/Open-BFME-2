@@ -14,13 +14,7 @@ extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXPartic
 
 #include "../../../../Include/Common/RvaSmartPtr12.h"
 
-class DefaultModuleHeadBase
-{
-public:
-	virtual ~DefaultModuleHeadBase();
-	RvaSmartPtr12 m_smart;
-	int m_int10;
-};
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 class __declspec(novtable) Rva003AF50D : public DefaultModuleHeadBase
 {

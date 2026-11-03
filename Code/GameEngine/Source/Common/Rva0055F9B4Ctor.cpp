@@ -15,14 +15,7 @@ public:
 	virtual ~DefaultModuleThirdBase();
 };
 
-class DefaultModuleHeadBase
-{
-public:
-	DefaultModuleHeadBase(const RvaSmartPtr12 &smart, int i);
-	virtual ~DefaultModuleHeadBase();
-	RvaSmartPtr12 m_smart;
-	int m_int10;
-};
+#include "../../Include/GameClient/DefaultModuleHeadBase.h"
 
 class Rva003AEEB3 : public DefaultModuleHeadBase, public DefaultModuleSecondBase,
 	public DefaultModuleThirdBase

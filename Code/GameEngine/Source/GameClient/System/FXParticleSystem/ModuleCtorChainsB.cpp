@@ -49,15 +49,7 @@
 
 class RvaSmartPtr12;
 
-class DefaultModuleHeadBase
-{
-public:
-	DefaultModuleHeadBase( const RvaSmartPtr12 &smart, int i );
-	virtual ~DefaultModuleHeadBase();
-
-private:
-	unsigned int m_storage[ 4 ];
-};
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 namespace FXParticleSystem
 {

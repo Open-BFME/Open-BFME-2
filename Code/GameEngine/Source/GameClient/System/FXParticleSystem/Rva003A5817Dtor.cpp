@@ -8,14 +8,7 @@ extern "C" char s_slot3E4first;
 #pragma intrinsic(_ReadWriteBarrier)
 
 #include "../../../../Include/Common/RvaSmartPtr12.h"
-class DefaultModuleHeadBase
-{
-public:
-	virtual ~DefaultModuleHeadBase();
-private:
-	RvaSmartPtr12 m_smart;
-	int m_int10;
-};
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 class __declspec(novtable) Rva003AEEB3 : public DefaultModuleHeadBase
 {
 public:

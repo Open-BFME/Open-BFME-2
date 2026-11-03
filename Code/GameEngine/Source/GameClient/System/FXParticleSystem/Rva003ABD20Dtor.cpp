@@ -49,18 +49,7 @@ public:
 	virtual const void *classView() const = 0;
 };
 
-class DefaultModuleHeadBase
-{
-public:
-	DefaultModuleHeadBase(const RvaSmartPtr12 &smart, int i);
-	virtual ~DefaultModuleHeadBase();
- virtual void rva000B3FD0() = 0;
- virtual void *clone() const = 0;
- virtual void DoXfer(Xfer &) = 0;
-
-	RvaSmartPtr12 m_smart;
-	int m_int10;
-};
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 class Rva003AEEB3 : public DefaultModuleHeadBase, public DefaultModuleSecondBase,
 	public DefaultModuleThirdBase
