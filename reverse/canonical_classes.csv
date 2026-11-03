@@ -606,3 +606,4 @@ ProductionUpdate,Code/GameEngine/Include/GameLogic/Module/ProductionUpdateClass.
 CylindricalEmissionVelocityInfo,Code/GameEngine/Include/GameClient/CylindricalEmissionVelocityInfo.h,existing header; contract class_contracts/CylindricalEmissionVelocityInfo.json; 7/10 sampled units adopt
 AptMessenger,Code/GameEngine/Include/GameClient/AptMessenger.h,existing header; contract class_contracts/AptMessenger.json; 3/25 sampled units adopt
 AptMessengerOnline,Code/GameEngine/Include/GameClient/AptMessengerOnline.h,existing header; contract class_contracts/AptMessengerOnline.json; 7/13 sampled units adopt
+DX8PolygonRendererClass,Code/Libraries/Source/WWVegas/WW3D2/dx8polygonrendererClass.h,existing header; contract class_contracts/DX8PolygonRendererClass.json; 2/10 sampled units adopt
