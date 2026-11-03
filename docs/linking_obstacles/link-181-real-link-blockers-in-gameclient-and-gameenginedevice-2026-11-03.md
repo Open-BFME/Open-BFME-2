@@ -170,11 +170,29 @@ the orphan scan finds 0, and A/B link_check over the first-copy siblings shows n
 | InGameUI.cpp (`10b6e4f300`) | 3 | Drops ZH `setRadiusCursor` and `clearWorldAnimations`. An anchor keeps the `??_GWorldAnimationData` row (0x007593F0). |
 | FXList.cpp (`525a9fb493`) | 2 | The inline ZH `doFXPos` forwards to the rowed four-argument `reallyDoFX`, as retail 0x001E19CE does (`push 0; push 0`). |
 | W3DTerrainVisual.cpp (`0048fd4f8b`) | 1 | Drops ZH `setWaterTransform(const WaterHandle *, Real x4)`. |
+| MapUtil.cpp (`a77d88bab8`) | 10 + the addMap LNK2005 | Applies lk19's banked patch: drops ZH `addMap` and the static chain only it reached. MapCacheAddMap.cpp and MapCacheLoadUserMapsBFME2.cpp go 0 → 1,191 B and 0 → 1,198 B. |
+| MapUtil.cpp (`ce66feaa26`) | 4 | Drops ZH `populateMapListbox` and `populateMapListboxNoReset`, which take AsciiString by value. BFME 2's are rowed in MapUtilGetDefaultMap.cpp. MapUtil.cpp has no unresolved name left. |
 
 - In FXList.cpp a qualified-call anchor cannot replace the reference FieldParse table. Emitting
   `ParticleSystemFXNugget::doFXObj` through a direct call compiles `atan2(float, float)` out of
   line instead of inlined, and the row fails. This holds with or without `inline_depth(0)` and at
   either place in the file. Only the parse, constructor and vtable route reproduces retail's body.
+
+- MapUtil.cpp keeps 19/19 rows exact without any foreign row moving. Rows the dropped bodies used to
+  emit stay this file's rows through explicit instantiations, and three changes made that work:
+  - getExtent (0x003000B5) stays `static`. Its EAX convention needs every caller visible, and its
+    out-of-line copy is emitted only when a later function references it. An `absent-from-retail`
+    anchor references it in place of retail's addMap. lk19's external getExtent changed the
+    convention.
+  - `vector<ICoord2D>::_M_insert_overflow` (0x00181770), the `map<UnicodeString, AsciiString>`
+    constructors (0x00157020, 0x00620E90, 0x00620720) and the four waypoint-tree members are
+    explicitly instantiated.
+  - `__default_constructed<AsciiString>` is explicitly instantiated as well. PeerThread.cpp binds
+    to this file's copy by declaration, which the orphan scan caught.
+- The MapUtil TU merge is still blocked:
+  - `--split` lists 6 implicit STLport rows approved for other TUs and 13 rows with no TU.
+  - `--merge --dry-run` lists MapCache/MapMetaData adoption as adopt_first for 12 donors.
+  - Retail's addMap and getExtent still need to meet in this TU, which retires the anchor.
 
 **Misidentified row 0x001EC981 (for the naming/identity lane).**
 `?removeAllBibs@W3DTerrainVisual@@UAEXXZ` (W3DTerrainVisual.cpp, 13 B, no notes) is not
@@ -230,3 +248,12 @@ W3DTerrainVisual's.
   `m_levels[14]` (stride 0x28) through the EH vector destructor iterator 0x00629110, with destructor
   VA 0x00624252. That RVA is rowed `??1DetailedArchivedDirectoryInfo@@QAE@XZ` (ArchiveDirInfoO1.cpp).
   Either the element type is that class, or the two destructors fold. That is an identity decision.
+- **T1Base005F3750Ctor's `??1T1Base_005F3750`.** Retail's constructor 0x0055C903 installs 0x00C1D3F4
+  at +0. Slot 0 of that table is `??_GRva003ABA36` (0x003AE8D5), so the class's destructor is
+  `??1Rva003ABA36` (0x003ABA36). `rename.py class --fold Rva003ABA36 --into T1Base_005F3750` refuses,
+  because Rva003ABA36's copy constructor 0x003AE7B8 installs other tables. The two placeholders mix
+  classes, and that needs identity work first.
+- **LivingWorldManagerCtor (5).** The member constructors it spells `??0Rva002130CA`,
+  `??0Rva00212379` and `??0Rva00211FA3` reach the ICF-folded STLport constructors 0x00213E11
+  (hash_map) and 0x0033C432 (map) only through pins. The member types need to be the real
+  containers in both the constructor and destructor views, together with their EH funclets.
