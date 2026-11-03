@@ -1133,11 +1133,7 @@ public:
 
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *obj) const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 // ZH/BFME1 ba7ddda7 ActionManager::canFireWeaponAtLocation keeps only the
 // weapon lookup; BFME2 then passes when the 0x28AC4E entry's 0x1E46E1 value

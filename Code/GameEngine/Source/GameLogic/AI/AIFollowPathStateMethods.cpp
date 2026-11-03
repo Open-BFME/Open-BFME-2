@@ -64,28 +64,7 @@ extern "C" void *theLogicRandomLogFile;
 		if (log) \
 			fprintf msg; \
 	}
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		IS_BRAKING = 0,
-		ALLOW_INVALID_POSITION,
-		MAINTAIN_POS_IS_VALID,
-		PRECISE_Z_POS
-	};
-	// Preserve inline flag updates without emitting a competing Locomotor view.
-	__declspec(dllimport) __forceinline void setUsePreciseZPos(Bool b)
-	{
-		if (b)
-			m_flags |= (1 << PRECISE_Z_POS);
-		else
-			m_flags &= ~(1 << PRECISE_Z_POS);
-	}
-private:
-	unsigned char m_pad00[0x44];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 class AIStateMachine
 {
 public:

@@ -109,24 +109,7 @@ private:
 	unsigned char m_padF4[0xF8 - 0xF4];
 	Real m_wanderAboutPointRadius; // +0xF8
 };
-class Locomotor
-{
-public:
-	Real getWanderWidthFactor() const { return m_template->getWanderWidthFactor(); }
-	Real getWanderAboutPointRadius() const { return m_template->getWanderAboutPointRadius(); }
-	__declspec(dllimport) __forceinline void setUsePreciseZPos(Bool use)
-	{
-		if (use)
-			m_flags |= 8;
-		else
-			m_flags &= ~8;
-	}
-private:
-	unsigned char m_pad00[0x04];
-	const LocomotorTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x44 - 0x08];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 class Waypoint;
 class LocomotorSet;
 class RadarObject;

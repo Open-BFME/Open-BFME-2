@@ -45,12 +45,7 @@ public:
 	Real get() const;
 };
 
-class Locomotor
-{
-public:
-	char m_pad00[0x40];
-	Real m_preferredHeight;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 class AIUpdateInterface;
 

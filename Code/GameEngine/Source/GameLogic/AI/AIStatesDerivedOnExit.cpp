@@ -109,32 +109,7 @@ enum
 {
 	AI_IDLE = 0
 };
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		ALLOW_INVALID_POSITION = 1,
-		PRECISE_Z_POS = 3
-	};
-	__declspec(dllimport) __forceinline void setUsePreciseZPos(bool u) { setFlag(PRECISE_Z_POS, u); }
-	__declspec(dllimport) __forceinline void setAllowInvalidPosition(bool allow) { setFlag(ALLOW_INVALID_POSITION, allow); }
-	float getCloseEnoughDist() const { return m_closeEnoughDist; }
-	// Zero Hour's startMove; empty in BFME 2 and folded onto the shared RET.
-	void rva000B3FD0();
-private:
-	void setFlag(LocoFlag f, bool b)
-	{
-		if (b)
-			m_flags |= (1 << f);
-		else
-			m_flags &= ~(1 << f);
-	}
-	unsigned char m_pad00[0x3C];
-	float m_closeEnoughDist; // +0x3C
-	unsigned char m_pad40[0x44 - 0x40];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 template <int N> class AIDeadStateAISlots : public AIDeadStateAISlots<N - 1>
 {
 public:

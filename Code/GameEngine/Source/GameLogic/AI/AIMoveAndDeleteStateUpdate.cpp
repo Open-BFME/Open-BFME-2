@@ -29,25 +29,7 @@ enum PathfindLayerEnum
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/PathfindPath.h"
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		ALLOW_INVALID_POSITION = 1
-	};
-	__declspec(dllimport) __forceinline void setAllowInvalidPosition(Bool allow) { setFlag(ALLOW_INVALID_POSITION, allow); }
-private:
-	void setFlag(LocoFlag f, Bool b)
-	{
-		if (b)
-			m_flags |= (1 << f);
-		else
-			m_flags &= ~(1 << f);
-	}
-	unsigned char m_pad00[0x44];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 class AIUpdateInterface
 {
 public:

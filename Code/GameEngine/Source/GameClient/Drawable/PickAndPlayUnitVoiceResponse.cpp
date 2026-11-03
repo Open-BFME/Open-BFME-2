@@ -365,11 +365,7 @@ public:
 };
 extern LocomotorStore *TheLocomotorStore;
 
-class Locomotor
-{
-public:
-	AsciiString getTemplateName() const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 struct LocomotorVectorView
 {

@@ -240,16 +240,7 @@ extern AI *TheAI;
 // point.
 // --- 0x002638CC, 0x002638E4 (14B each): Locomotor flag setters for flags 6
 // and 3 through the rowed private setFlag.
-class Locomotor
-{
-public:
-	enum LocoFlag { LOCO_FLAG_1 = 1, LOCO_FLAG_3 = 3, LOCO_FLAG_6 = 6 };
-	void rva002638CC(bool value);
-	void rva002638E4(bool value);
-	void rva00343095(bool value);
-private:
-	void setFlag(LocoFlag flag, bool value);				// 0x001E3459
-};
+#include "../../Include/GameLogic/LocomotorClass.h"
 
 
 

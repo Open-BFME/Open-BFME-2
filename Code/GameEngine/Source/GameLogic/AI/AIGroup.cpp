@@ -1048,11 +1048,7 @@ struct Rva0028AC4EEntry
 	float m_40;
 };
 
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *obj) const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 struct ListNode
 {

@@ -82,11 +82,7 @@ public:
 	void setTurretTargetPosition(WhichTurretType tur, const Coord3D *pos);
 	Real getTurretTurnRate(WhichTurretType tur) const;
 };
-class Locomotor
-{
-public:
-	Real getMaxTurnRate(Object *obj) const; // 0x001E3E9F
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 struct Rva0028AC4EEntry;
 class ThingTemplate
 {

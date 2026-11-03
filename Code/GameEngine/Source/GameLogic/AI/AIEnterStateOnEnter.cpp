@@ -76,19 +76,7 @@ public:
 	virtual const Coord3D *getEnterPosition() = 0;
 };
 
-class Locomotor
-{
-public:
-	__declspec(dllimport) __forceinline void setAllowInvalidPosition(Bool allow)
-	{
-		if (allow)
-			m_flags |= 2;
-		else
-			m_flags &= ~2;
-	}
-	char m_pad[0x44];
-	UnsignedInt m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 class LocomotorSet
 {

@@ -124,7 +124,7 @@ public:
  const char *objectTemplate() const { return *(const char *const *)((const char *)this+4); }
 };
 #include "../../../Include/Common/Player.h"
-class Locomotor { public: float getMaxSpeed(Object *) const; };
+#include "../../../Include/GameLogic/LocomotorClass.h"
 class Rva00395A60 { public: float rva00395A60(); };
 class CastleBehavior { public: static NameKeyType rva0003955DA(); };
 #include "../../../Include/GameLogic/AIPathfind.h"

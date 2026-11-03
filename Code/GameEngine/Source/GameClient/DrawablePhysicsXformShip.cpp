@@ -117,12 +117,7 @@ public:
 	Real get() const;
 };
 
-class Locomotor
-{
-public:
-	void *m_vtable;
-	const LocomotorTemplate *m_template;	// +0x04
-};
+#include "../../Include/GameLogic/LocomotorClass.h"
 
 class Rva002627E8
 {

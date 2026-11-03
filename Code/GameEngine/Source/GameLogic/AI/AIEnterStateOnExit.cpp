@@ -28,27 +28,7 @@ enum ObjectEnterExitType
 };
 class Object;
 #include "../../../Include/GameLogic/Module/ContainModule.h"
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		ALLOW_INVALID_POSITION = 1,
-		PRECISE_Z_POS = 3
-	};
-	__declspec(dllimport) __forceinline void setAllowInvalidPosition(bool allow) { setFlag(ALLOW_INVALID_POSITION, allow); }
-	void setUsePreciseZPos(bool u) { setFlag(PRECISE_Z_POS, u); }
-private:
-	void setFlag(LocoFlag f, bool b)
-	{
-		if (b)
-			m_flags |= (1 << f);
-		else
-			m_flags &= ~(1 << f);
-	}
-	unsigned char m_pad00[0x44];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 class AIUpdateInterface
 {
 public:
