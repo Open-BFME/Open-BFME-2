@@ -223,6 +223,77 @@ class DirectiveCompositionTests(unittest.TestCase):
         out = self.compose("#ifdef DEBUG\nint f() { return 1; }\n")
         self.assertIn("#ifdef DEBUG\n", out)
         self.assertNotIn("#endif", out)
+class ExplicitInstantiationCompositionTests(unittest.TestCase):
+    definition = "template <class T> T identity(T value) { return value; }"
+    instantiation = "template float identity<float>(float value);"
+
+    def compose(self, text, skeleton):
+        sk = [({"rva": "0x1000", "size": "8"},
+               {"source": "Seed.cpp", "status": "matched"})] if skeleton else []
+        return T.compose("Seed.cpp", sk, ["Seed.cpp"], {"Seed.cpp": text}, [], "first")
+
+    def test_function_instantiation_follows_the_primary_template(self):
+        for skeleton in (True, False):
+            out = self.compose(self.definition + "\n" + self.instantiation + "\n", skeleton)
+            self.assertLess(out.index(self.definition), out.index(self.instantiation))
+            self.assertEqual(out.count(self.instantiation), 1)
+
+    def test_conditional_instantiation_follows_the_primary_template(self):
+        guarded = "#if FLOATS\n#if ENABLED\n" + self.instantiation + "\n#endif\n#endif"
+        for skeleton in (True, False):
+            out = self.compose(self.definition + "\n" + guarded + "\n", skeleton)
+            self.assertIn(guarded, out)
+            self.assertLess(out.index(self.definition), out.index(guarded))
+
+    def test_instantiation_keeps_its_optimization_scope(self):
+        scoped = '#pragma optimize("s", on)\n' + self.instantiation + '\n#pragma optimize("", on)'
+        for skeleton in (True, False):
+            out = self.compose(self.definition + "\n" + scoped + "\n", skeleton)
+            positions = [out.index(x) for x in (self.definition,
+                         '#pragma optimize("s", on)', self.instantiation,
+                         '#pragma optimize("", on)')]
+            self.assertEqual(positions, sorted(positions))
+
+    def test_instantiation_before_a_later_include_keeps_its_position(self):
+        text = self.definition + "\n" + self.instantiation + '\n#include "after.h"\nint f() { return 0; }\n'
+        for skeleton in (True, False):
+            out = self.compose(text, skeleton)
+            positions = [out.index(x) for x in (self.definition, self.instantiation,
+                         '#include "after.h"', 'int f()')]
+            self.assertEqual(positions, sorted(positions))
+
+    def test_identical_guarded_instantiations_keep_each_donors_scope(self):
+        guarded = "#if FLOATS\n" + self.instantiation + "\n#endif"
+        sk = [({"rva": "0x1000", "size": "8"}, {"source": "Seed.cpp", "status": "matched"}),
+              ({"rva": "0x1010", "size": "8"}, {"source": "Donor.cpp", "status": "matched"})]
+        texts = {"Seed.cpp": self.definition + '\n#pragma optimize("s", on)\n' +
+                             guarded + '\n#pragma optimize("", on)\n',
+                 "Donor.cpp": self.definition + '\n#pragma optimize("t", off)\n' +
+                              guarded + '\n#pragma optimize("", on)\n'}
+        out = T.compose("Seed.cpp", sk, list(texts), texts, [], "first")
+        self.assertEqual(out.count(guarded), 2)
+        first = out.index(guarded)
+        second = out.index(guarded, first + len(guarded))
+        self.assertLess(out.index('#pragma optimize("s", on)'), first)
+        self.assertLess(first, out.index('#pragma optimize("", on)'))
+        self.assertLess(out.index('#pragma optimize("t", off)'), second)
+        self.assertLess(second, out.rindex('#pragma optimize("", on)'))
+
+    def test_class_instantiation_follows_the_class_template(self):
+        definition = "template <class T> struct Box { T value; };"
+        instantiation = "template struct Box<float>;"
+        out = self.compose(definition + "\n" + instantiation + "\n", True)
+        self.assertLess(out.index(definition), out.index(instantiation))
+        self.assertEqual(out.count(instantiation), 1)
+
+    def test_specialization_and_extern_declarations_still_precede_uses(self):
+        declarations = ["template <> int identity<int>(int value);",
+                        "extern template float identity<float>(float value);"]
+        for declaration in declarations:
+            out = self.compose('int f() { return 0; }\n' + declaration + '\n', True)
+            self.assertLess(out.index(declaration), out.index('int f()'))
+
+
 class ComposeRegenerationTests(unittest.TestCase):
     def test_a_seeds_old_placeholders_and_header_are_not_copied(self):
         sk = [({"rva": "0x00001000", "size": "8", "by": "-"}, None),

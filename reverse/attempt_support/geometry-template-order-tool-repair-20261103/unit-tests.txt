@@ -1,0 +1,7 @@
+.....................................................................................................................................................................................................................C:\Users\clemens\Documents\Experiments\Open-BFME-2\tools\rename_files.py:186: DeprecationWarning: 'maxsplit' is passed as positional argument
+  self.included = {posixpath.basename(re.split(r"[<\"]", line, 1)[-1].rstrip('>"')).lower()
+..........................................
+----------------------------------------------------------------------
+Ran 255 tests in 20.626s
+
+OK

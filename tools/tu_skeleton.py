@@ -717,9 +717,16 @@ def composition_chunks(text):
     directives/comments). Its contents are not candidates for view unioning.
     Optimization pragmas must run in the donor's function order, including
     repeated resets, rather than joining the hoisted include directives.
+    Explicit instantiation definitions likewise stay in body order, after their
+    primary templates and inside their original directive context.
     """
     out, region, nesting = [], [], 0
     for kind, text in chunks(text):
+        # Explicit instantiation definitions need the primary template and the
+        # donor's current optimization state. Specialization declarations and
+        # extern-template declarations must still precede their callers.
+        if kind == "decl" and re.match(r"template\b(?!\s*<)", norm(text)):
+            kind = "body-decl"
         directive = re.match(r"#\s*(if|ifdef|ifndef|endif)\b", text) if kind == "pp" else None
         word = directive.group(1) if directive else None
         if word in ("if", "ifdef", "ifndef"):
@@ -729,7 +736,8 @@ def composition_chunks(text):
             if word == "endif":
                 nesting -= 1
                 if not nesting:
-                    opaque_kind = "pp" if all(k in ("pp", "tail") for k, _ in region) else "decl"
+                    opaque_kind = ("body-decl" if any(k == "body-decl" for k, _ in region) else
+                                   "pp" if all(k in ("pp", "tail") for k, _ in region) else "decl")
                     out.append((opaque_kind, "\n".join(c for _, c in region)))
                     region = []
             continue
@@ -783,9 +791,9 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
                         if kind == "pp" and re.match(r"#\s*include\b", c.strip())), default=-1)
         for at, (kind, c) in enumerate(parsed[f]):
             into = pps if at < last_inc else decls
-            if at < last_inc and kind in ("def", "body-pp"):
+            if at < last_inc and kind in ("def", "body-pp", "body-decl"):
                 placed.add((f, at))
-                if kind == "body-pp":
+                if kind in ("body-pp", "body-decl"):
                     pps.append(c.strip())
                 elif norm(c) not in bodies:
                     bodies.add(norm(c))
@@ -837,7 +845,7 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
                 if kind == "def" and norm(c) not in bodies:
                     bodies.add(norm(c))
                     body.append(c.strip("\n"))
-                elif kind in ("tail", "body-pp"):
+                elif kind in ("tail", "body-pp", "body-decl"):
                     body.append(c.strip("\n"))
             continue
         name = (led or {}).get("name") or "(unledgered)"
@@ -847,7 +855,7 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
     for f in files:   # a donor none of whose rows is approved here (cannot happen today)
         if f not in done:
             body.extend(c.strip("\n") for at, (kind, c) in enumerate(parsed[f])
-                        if kind in ("def", "body-pp") and (f, at) not in placed)
+                        if kind in ("def", "body-pp", "body-decl") and (f, at) not in placed)
     head = [f"// cl: {' '.join(flags)}"] if flags else []
     if any("// stlport" in texts[f] for f in files):
         head.append("// stlport")

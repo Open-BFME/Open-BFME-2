@@ -915,13 +915,13 @@ class RepointTests(unittest.TestCase):
             (root / "Code/Mixed.cpp").write_text("old\n")
             (root / "reverse/functions.csv").write_text(
                 HEADER + "?a@@YAXXZ,,0x00001000,8,Code/Mixed.cpp,matched,\n"
-                "?c@@YAXXZ,,0x00001020,8,Code/Mixed.cpp,matched,\n")
+                "?c@@YAXXZ,,0x00001020,8,Code/Mixed.cpp,matched,\n", newline="\n")
             (root / "reverse/tu_map.csv").write_text(
                 "rva,size,kind,tu,confidence,by,evidence,source\n"
                 "0x00001000,8,code,Code/T.cpp,approved,-,,Code/Mixed.cpp\n"
-                "0x00001020,8,code,,,-,,Code/Mixed.cpp\n")
+                "0x00001020,8,code,,,-,,Code/Mixed.cpp\n", newline="\n")
             (root / "reverse/body_owners.csv").write_text(
-                "target_rva,name,target_size,source,evidence\n0x00001000,?a@@YAXXZ,8,Code/Mixed.cpp,x\n")
+                "target_rva,name,target_size,source,evidence\n0x00001000,?a@@YAXXZ,8,Code/Mixed.cpp,x\n", newline="\n")
             (root / "docs/doxygen/sources.cfg").write_text("INPUT += Code/Mixed.cpp\n")
             moved = T.apply_split("Code/T.cpp", "tu text\n", "Code/Mixed.cpp", "residual\n", ["0x00001000"],
                                   False, root=root)
