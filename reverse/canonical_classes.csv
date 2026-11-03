@@ -625,3 +625,4 @@ BFME2MotionChannel,Code/GameEngine/Include/GameClient/BFME2MotionChannel.h,exist
 ListboxData,Code/GameEngine/Include/GameClient/ListboxData.h,existing header; contract class_contracts/ListboxData.json; 7/10 sampled units adopt
 PeerThreadClass,Code/GameEngine/Include/GameNetwork/GameSpy/PeerThreadClass.h,existing header; contract class_contracts/PeerThreadClass.json; 7/15 sampled units adopt
 HordeGarrisonContainModuleData,Code/GameEngine/Include/GameLogic/Module/HordeGarrisonContainModuleData.h,existing header; contract class_contracts/HordeGarrisonContainModuleData.json; 6/11 sampled units adopt
+InGameCommandButtonHelp,Code/GameEngine/Include/GameClient/InGameCommandButtonHelp.h,existing header; contract class_contracts/InGameCommandButtonHelp.json; 2/6 sampled units adopt
