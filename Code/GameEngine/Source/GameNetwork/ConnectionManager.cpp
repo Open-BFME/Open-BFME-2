@@ -53,6 +53,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <map>
+namespace _STL { template <> pair<unsigned short const, AsciiString>::pair(unsigned short const &, AsciiString const &); }
+
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -161,6 +163,10 @@ public:
 };
 
 #pragma optimize("s", on)
+namespace _STL {
+template <> pair<unsigned short const, AsciiString>::pair(unsigned short const &a, AsciiString const &b)
+    : first(a), second(b) {}
+}
 template <> AsciiString &FileCommandMap::operator[](const unsigned short &key)
 {
 	iterator i(((Rva0046A9ABMapLowerBound *)this)->lower_bound(key));
