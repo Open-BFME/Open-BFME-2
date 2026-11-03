@@ -19,10 +19,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 
 #include "../../Apt/BfmeAptValue006DCD20.h"
 
-class AptValueVector {
-public:
-  void ReleaseValues();
-};
+#include "../../Apt/AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 
 #include "../../Apt/EAStringC.h"
