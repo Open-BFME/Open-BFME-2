@@ -44,7 +44,7 @@ class Object;
 // The ctor calls 0x001B4E63 and the paired destructor calls 0x001B4E74;
 // both place Snapshot after the twelve-byte subsystem base.
 typedef bool Bool;
-#include "subsystem_interface.h"
+#include "../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 //
 // ??1DelayedExperienceLevelGrantSystem@@UAE@XZ retail 0x00420E67 76B.
@@ -108,12 +108,6 @@ struct ThingTemplateView
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 enum ModelConditionFlagType { MODELCONDITION_D2 = 0xD2 };
-
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);					// 0x00148E1A
-};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

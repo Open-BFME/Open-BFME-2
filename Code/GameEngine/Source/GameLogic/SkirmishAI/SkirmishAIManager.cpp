@@ -191,7 +191,7 @@ class ArmorStore { public: const ArmorTemplate *rva0041F474(const AsciiString &)
 class Rva0022BD25Subsystem;
 extern Rva0022BD25Subsystem *TheArmyDefinitionManager;
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva002A9140 { public: AsciiString &rva002A9140(const int &); };
 class Rva004EC1CE { public: void rva004EC1CE(const AsciiString &); };
