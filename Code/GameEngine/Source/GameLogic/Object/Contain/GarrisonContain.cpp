@@ -1954,8 +1954,6 @@ GarrisonContain::GarrisonContain(Thing *thing, const ModuleData *moduleData)
 
 // tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
 
-// tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
-
 // tu-skeleton: 0x00478BE0 76B ?rva00478BE0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
 
 // tu-skeleton: 0x00478C2C 222B ?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp (not merged yet)
