@@ -25,31 +25,35 @@ __forceinline long bfmeFloatToLongFD(Real value)
 	return result;
 }
 
-class BfmeCellFD
-{
-public:
-	int m_bfmeData[26];					// 104 bytes
-};
+// The partition cell grid: origins +4/+8, cell-size reciprocal +0x20 and
+// row-major 0xA8-byte cells (bfmeAt); one view for the whole TU.
+class BfmeCellFD;
+struct FloatRect0073CE30;
 
 class Gen_008F7CD0
 {
 public:
-	int bfmeCellY(Real value) const;
+	BfmeCellFD *bfmeAt(int x, int y) const;
+	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstColumn, int lastColumn, int scanRow);
+	int bfmeCellX(float value) const;
+	int bfmeCellY(float value) const;
+	int bfmeCellExtent8F74E0(float value) const;
+	void rva0073CC60(FloatRect0073CE30 *rect, int extra, unsigned int mask);
+	void rva0073CE30(FloatRect0073CE30 *rect, int extra, unsigned int mask);
 
-private:
-	char m_bfmeHead[4];					// +0x00
-	Real m_bfmeOriginX;					// +0x04
-	Real m_bfmeOriginY;					// +0x08
-	char m_bfmeMid[20];					// +0x0C
-	Real m_bfmeScale;					// +0x20
-	int m_bfmeWidth;					// +0x24
-	int m_bfmeHeight;					// +0x28
-	BfmeCellFD *m_bfmeCells;				// +0x2C
+	char m_pad00[4];				// +0x00
+	float m_originX;				// +0x04
+	float m_originY;				// +0x08
+	char m_pad0C[20];				// +0x0C
+	float m_scale;					// +0x20
+	int m_bfmeWidth;				// +0x24
+	int m_bfmeHeight;				// +0x28
+	BfmeCellFD *m_bfmeCells;			// +0x2C
 };
 
 // ?bfmeCellY@Gen_008F7CD0@@QBEHM@Z
 int Gen_008F7CD0::bfmeCellY(Real value) const
 {
 	return bfmeFloatToLongFD(bfmeFloatFloorFD(
-		(value - m_bfmeOriginY) * m_bfmeScale));
+		(value - m_originY) * m_scale));
 }
