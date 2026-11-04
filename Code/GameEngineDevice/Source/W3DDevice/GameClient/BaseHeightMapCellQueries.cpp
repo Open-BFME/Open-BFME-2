@@ -44,16 +44,19 @@ class Gen_0074BA50 { public: bool bfmeBitA(int xIndex, int yIndex) const; };
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
+// Select the const accessors to preserve this object's existing COMDAT providers.
+// The border is read directly so no additional accessor body is emitted.
+
 bool BaseHeightMapRenderObjClass::isCliffCell(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	int cellX = m_map->m_borderSize - (int)(x * -0.1f);
+	int cellY = m_map->m_borderSize - (int)(y * -0.1f);
 	if (cellX < 0) cellX = 0;
 	if (cellY < 0) cellY = 0;
-	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
-	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	if (cellX >= static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 1) cellX = static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 2;
+	if (cellY >= static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 1) cellY = static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 2;
 	return ((Gen_0074BA50 *)m_map)->bfmeBitA(cellX, cellY);
 }
 
@@ -61,12 +64,12 @@ bool BaseHeightMapRenderObjClass::rva00067298(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	int cellX = m_map->m_borderSize - (int)(x * -0.1f);
+	int cellY = m_map->m_borderSize - (int)(y * -0.1f);
 	if (cellX < 0) cellX = 0;
 	if (cellY < 0) cellY = 0;
-	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
-	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	if (cellX >= static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 1) cellX = static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 2;
+	if (cellY >= static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 1) cellY = static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 2;
 	return ((Gen_0074BB30 *)m_map)->bfmeBitA(cellX, cellY);
 }
 
@@ -74,12 +77,12 @@ unsigned char BaseHeightMapRenderObjClass::rva00067225(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	int cellX = m_map->m_borderSize - (int)(x * -0.1f);
+	int cellY = m_map->m_borderSize - (int)(y * -0.1f);
 	if (cellX < 0) cellX = 0;
 	if (cellY < 0) cellY = 0;
-	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
-	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	if (cellX >= static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 1) cellX = static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 2;
+	if (cellY >= static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 1) cellY = static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 2;
 	return ((BfmeGridWM *)m_map)->rva000AE18D(cellX, cellY);
 }
 
@@ -87,12 +90,12 @@ unsigned char BaseHeightMapRenderObjClass::rva0006730B(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	int cellX = m_map->m_borderSize - (int)(x * -0.1f);
+	int cellY = m_map->m_borderSize - (int)(y * -0.1f);
 	if (cellX < 0) cellX = 0;
 	if (cellY < 0) cellY = 0;
-	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
-	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	if (cellX >= static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 1) cellX = static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 2;
+	if (cellY >= static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 1) cellY = static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 2;
 	return (unsigned char)((Rva000AE234 *)m_map)->rva000AE234(cellX, cellY);
 }
 
@@ -100,12 +103,12 @@ bool BaseHeightMapRenderObjClass::rva0006B114(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	int cellX = m_map->m_borderSize - (int)(x * -0.1f);
+	int cellY = m_map->m_borderSize - (int)(y * -0.1f);
 	if (cellX < 0) cellX = 0;
 	if (cellY < 0) cellY = 0;
-	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
-	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	if (cellX >= static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 1) cellX = static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 2;
+	if (cellY >= static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 1) cellY = static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 2;
 	return ((Rva0006AB49BitPlane *)m_map)->test(cellX, cellY);
 }
 
@@ -113,12 +116,12 @@ unsigned char BaseHeightMapRenderObjClass::rva0006B187(float x, float y)
 {
 	if (m_map == 0)
 		return false;
-	int cellX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
-	int cellY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	int cellX = m_map->m_borderSize - (int)(x * -0.1f);
+	int cellY = m_map->m_borderSize - (int)(y * -0.1f);
 	if (cellX < 0) cellX = 0;
 	if (cellY < 0) cellY = 0;
-	if (cellX >= m_map->getXExtent() - 1) cellX = m_map->getXExtent() - 2;
-	if (cellY >= m_map->getYExtent() - 1) cellY = m_map->getYExtent() - 2;
+	if (cellX >= static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 1) cellX = static_cast<const WorldHeightMap *>(m_map)->getXExtent() - 2;
+	if (cellY >= static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 1) cellY = static_cast<const WorldHeightMap *>(m_map)->getYExtent() - 2;
 	return ((Rva0006AB98 *)m_map)->rva0006AB98(cellX, cellY);
 }
 
@@ -126,14 +129,14 @@ float BaseHeightMapRenderObjClass::getMaxCellHeight(float x, float y) const
 {
 	float baseCornerHeight,adjacentXHeight,diagonalHeight,adjacentYHeight;
 	float height;
-	WorldHeightMap *logicHeightMap = m_map;
+	const WorldHeightMap *logicHeightMap = m_map;
 	_ReadWriteBarrier();
 
 	if (logicHeightMap == 0)
 		return 0.0f;
 
 	int offset = 1;
-	int borderSize = m_map->getBorderSizeInline();
+	int borderSize = m_map->m_borderSize;
 	int cellX = borderSize - (int)(x * -0.1f);
 	int cellY = borderSize - (int)(y * -0.1f);
 	if (cellX<0) cellX = 0;
@@ -147,7 +150,7 @@ float BaseHeightMapRenderObjClass::getMaxCellHeight(float x, float y) const
 	register unsigned short *data;
 	_ReadWriteBarrier();
 	data = logicHeightMap->getDataPtr();
-	int xExtent = m_map->getXExtent();
+	int xExtent = static_cast<const WorldHeightMap *>(m_map)->getXExtent();
 	baseCornerHeight=data[cellX+cellY*xExtent]*0.0390625f;
 	adjacentXHeight=data[(cellX+offset)+cellY*xExtent]*0.0390625f;
 	diagonalHeight=data[(cellX+offset)+(cellY+offset)*xExtent]*0.0390625f;
