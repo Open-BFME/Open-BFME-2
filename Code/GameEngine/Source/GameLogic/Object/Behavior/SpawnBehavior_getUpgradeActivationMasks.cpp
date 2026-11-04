@@ -63,11 +63,7 @@ protected:
 	unsigned char m_pad0C[0x30 - 0x0C];
 };
 
-struct SpawnBehaviorModuleData
-{
-	unsigned char m_pad000[0x5C];
-	UpgradeMuxData m_upgradeMuxData; // +0x5C
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 class SpawnBehavior : public SpawnBehaviorView, public UpgradeMux
 {
@@ -80,5 +76,5 @@ private:
 // ?getUpgradeActivationMasks@SpawnBehavior@@MBEXAAUUpgradeMaskType@@0@Z @0x0045F45F
 void SpawnBehavior::getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const
 {
-	getSpawnBehaviorModuleData()->m_upgradeMuxData.rva0045F2D5(activation, conflicting);
+	reinterpret_cast<const UpgradeMuxData *>(&getSpawnBehaviorModuleData()->m_slot5C)->rva0045F2D5(activation, conflicting);
 }

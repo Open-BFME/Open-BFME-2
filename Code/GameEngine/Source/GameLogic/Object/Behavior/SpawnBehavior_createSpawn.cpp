@@ -180,23 +180,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad00[0x14];
-	Bool m_isOneShotData;
-	Bool m_canReclaimOrphans;
-	Bool m_aggregateHealth;
-	Bool m_exitByBudding;
-	Bool m_spawnedRequireSpawner;
-	Bool m_checkCommandPoints;
-	unsigned char m_pad1a[0x20 - 0x1a];
-	_STL::vector<AsciiString> m_spawnTemplateNameData;
-	unsigned char m_pad2c[0x16c - 0x2c];
-	UnsignedInt m_fadeInTime;
-	unsigned char m_pad170[2];
-	Bool m_spawnIgnoresSpawner;
-};
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 
 class SpawnBehavior
 {
@@ -241,7 +225,7 @@ Bool SpawnBehavior::createSpawn()
 		return false;
 
 	m_spawnTemplate = TheThingFactory->findTemplate(*m_templateNameIterator);
-	if (md->m_checkCommandPoints && m_spawnTemplate)
+	if (md->m_respectCommandLimit && m_spawnTemplate)
 	{
 		Player *controllingPlayer = parent->getControllingPlayer();
 		if (controllingPlayer && controllingPlayer->commandPoints())
@@ -258,7 +242,7 @@ Bool SpawnBehavior::createSpawn()
 	// Count this unit towards our score.
 	newSpawn->getControllingPlayer()->onUnitCreated(parent, newSpawn);
 
-	if (md->m_spawnIgnoresSpawner && newSpawn->getAI())
+	if (md->m_spawnInsideBuilding && newSpawn->getAI())
 		newSpawn->getAI()->ignoreObstacle(parent);
 
 	if (newSpawn->getDrawable())
@@ -269,8 +253,8 @@ Bool SpawnBehavior::createSpawn()
 	}
 
 	++m_templateNameIterator;
-	if (m_templateNameIterator == md->m_spawnTemplateNameData.end())
-		m_templateNameIterator = md->m_spawnTemplateNameData.begin();
+	if (m_templateNameIterator == reinterpret_cast<const _STL::vector<AsciiString> *>(md->m_storage20)->end())
+		m_templateNameIterator = reinterpret_cast<const _STL::vector<AsciiString> *>(md->m_storage20)->begin();
 
 	newSpawn->setProducer(parent);
 

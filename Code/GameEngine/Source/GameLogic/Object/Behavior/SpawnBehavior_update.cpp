@@ -98,20 +98,14 @@ template <int N> struct _Base_bitset
 };
 }
 
-// The shared 0x80-byte clear 0x001EAE6F, the out-of-line constructor of
-// every 128-byte BitFlags (rowed under this address-derived name).
-class Rva001EAE6FHelper
+#include "../../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
+
+class UpgradeMaskType
 {
 public:
-	Rva001EAE6FHelper *clear80();
+	UpgradeMaskType() { reinterpret_cast<Rva001EAE6FHelper *>(this)->clear80(); }
 
 	unsigned long m_words[32];
-};
-
-class UpgradeMaskType : public Rva001EAE6FHelper
-{
-public:
-	UpgradeMaskType() { clear80(); }
 
 	Bool any() const
 	{
@@ -166,21 +160,6 @@ public:
 
 	UpgradeMaskType m_activationMask;
 	UpgradeMaskType m_conflictingMask;
-};
-
-class SpawnBehaviorModuleData
-{
-public:
-	unsigned char m_pad000[0x08];
-	Int m_spawnNumberData;
-	Int m_spawnReplaceDelayData;
-	Int m_initialBurst;
-	Bool m_isOneShotData;
-	unsigned char m_pad015[0x5C - 0x15];
-	UpgradeMuxData m_upgradeMuxData;
-	unsigned char m_pad15C[0x170 - 0x15C];
-	Bool m_killSpawnsBasedOnModelConditionState;
-	Bool m_shareUpgrades;
 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
@@ -259,7 +238,7 @@ UpdateSleepTime SpawnBehavior::update()
 	const SpawnBehaviorModuleData *md = getSpawnBehaviorModuleData();
 	UpgradeMaskType activation;
 	UpgradeMaskType conflicting;
-	md->m_upgradeMuxData.getUpgradeActivationMasks(activation, conflicting);
+	reinterpret_cast<const UpgradeMuxData *>(&md->m_slot5C)->getUpgradeActivationMasks(activation, conflicting);
 	if (activation.any() && !isAlreadyUpgraded())
 		return UPDATE_SLEEP_NONE;
 
