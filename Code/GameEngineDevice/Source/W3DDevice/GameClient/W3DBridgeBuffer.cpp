@@ -229,8 +229,8 @@ public:
 		if (m_ptr)
 			m_ptr->Release_Ref();
 	}
-
-	TextureClass *m_ptr;
+	TextureRef() : m_ptr(0) {}
+	TextureClass *m_ptr; // +0x00
 };
 
 class BfmeRetBWF

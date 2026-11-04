@@ -16,14 +16,13 @@ public:
 class TextureRef
 {
 public:
-	TextureRef() : m_ptr(0) {}
 	~TextureRef()
 	{
 		if (m_ptr)
 			m_ptr->Release_Ref();
 	}
-
-	TextureClass *m_ptr;
+	TextureRef() : m_ptr(0) {}
+	TextureClass *m_ptr; // +0x00
 };
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
