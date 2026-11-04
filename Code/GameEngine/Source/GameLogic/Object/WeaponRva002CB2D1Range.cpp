@@ -96,13 +96,15 @@ extern AI *TheAI;
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
+class BfmeRangedWeaponTemplate;
 class Rva002C9B80Owner
 {
 public:
-	float rva002C9B80(void *a, float b);
+	float rva002C9B80(void *, float);
+	void rva002C9A6F(void *a, int b, void *arr);
 private:
-	void *m_00;
-	WeaponTemplate *m_04;		// +0x04
+	void *m_00; // +0x00
+	BfmeRangedWeaponTemplate *m_m04; // +0x04
 };
 
 // The same weapon object under its WorldBuilder class name; only the method

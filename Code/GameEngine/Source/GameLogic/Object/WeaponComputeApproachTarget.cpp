@@ -94,13 +94,18 @@ private:
 class Rva002C9BC3Owner
 {
 public:
-	Real rva002C9BC3(void *source, void *targetPos);	///< retail 0x002C9BC3
+	float rva002C9BC3(void *source, void *targetPos); // retail 0x002C9BC3
 };
 
+class BfmeRangedWeaponTemplate;
 class Rva002C9B80Owner
 {
 public:
-	Real rva002C9B80(void *source, Real heightDifference);	///< retail 0x002C9B80
+	float rva002C9B80(void *, float);
+	void rva002C9A6F(void *a, int b, void *arr);
+private:
+	void *m_00; // +0x00
+	BfmeRangedWeaponTemplate *m_m04; // +0x04
 };
 
 class Weapon

@@ -244,10 +244,15 @@ class AI
     Pathfinder *pathfinder;
 };
 extern AI *TheAI;
+class BfmeRangedWeaponTemplate;
 class Rva002C9B80Owner
 {
-  public:
-    float rva002C9B80(void *, float);
+public:
+	float rva002C9B80(void *, float);
+	void rva002C9A6F(void *a, int b, void *arr);
+private:
+	void *m_00; // +0x00
+	BfmeRangedWeaponTemplate *m_m04; // +0x04
 };
 class WeaponBonus
 {
@@ -334,10 +339,12 @@ class Weapon
     unsigned rangeUntil; // +0x50, the leech-range frame
     int m_linearIndex;   // +0x54
 };
+class Matrix3D;
 class FXList
 {
-  public:
-    static void doFXObj(const FXList *, const Object *, const Object *);
+public:
+	static void doFXObj(const FXList *, const Object *, const Object *);
+	static void doFXPos(const FXList *, const Coord3D *, const Matrix3D *, float, const Coord3D *);
 };
 class WeaponNugget
 {
@@ -451,28 +458,75 @@ struct ListNode
 };
 class VirtNode2
 {
-  public:
-    virtual void v00();
-    virtual bool v04(int a, const void *b);
-    virtual void v08();
-    virtual void v0c(int a, const void *b);
-    virtual void v10();
-    virtual void v14(int a, const void *b);
-    virtual void v18();
-    virtual bool v1c();
+public:
+	virtual void v00();
+	virtual bool v04(int a, const void *b);
+	virtual void v08();
+	virtual void v0c(int a, const void *b);
+	virtual void v10();
+	virtual void v14(int a, const void *b);
+	virtual void v18();
+	virtual bool v1c();
+	virtual void v20() = 0;
+	virtual void v24() = 0;
+	virtual void v28() = 0;
+	virtual void v2c() = 0;
+	virtual void v30();
+	virtual bool v34();
+	virtual void v38();
+	virtual void v3c();
 };
+class Rva001E11F8;
 class Rva002CA9CA
 {
-  public:
-    Bool rva002CA9CA(Int damageType, const void *weapon);
-    void rva002CAA9D(int a1, const void *a2, const void *a3, const WeaponBonus &bonus);
-
-  private:
-    char m_pad00[0x17c];
-    ListNode *m_17c;
+private:
+	friend class Weapon;
+public:
+	bool rva002CA9CA(int damageType, const void *weapon);
+	void rva002CAA9D(int a1, const void *a2, const void *a3, const WeaponBonus &bonus);
+	bool rva002CAA59(int source, const void *weapon);
+	void postProcessLoad();
+	void rva002CA970(int firingWeapon, int source, const void *weapon, int position);
+	float getProjectileNuggetRadiusIfAlliesAffected(const void *arg);
+	bool rva002CAD8B();
+	void rva002CAC6E(int a, int context);
+	bool getAutoReloadsClip() const { return m_128 == 0; }
+	float getReal168() const { return m_168; }
+	char m_pad00[0x58];
+private:
+	int m_58; // +0x58
+	char m_pad5C[0x48];
+	Rva001E11F8 *m_a4; // +0xA4
+	Rva001E11F8 *m_a8; // +0xA8
+	Rva001E11F8 *m_ac; // +0xAC
+	Rva001E11F8 *m_b0; // +0xB0
+	char m_padB4[0x4];
+	Rva001E11F8 *m_b8; // +0xB8
+	Rva001E11F8 *m_bc; // +0xBC
+	Rva001E11F8 *m_c0; // +0xC0
+	Rva001E11F8 *m_c4; // +0xC4
+	char m_padC8[0x48];
+	unsigned char m_110; // +0x110
+	char m_pad111[0x17];
+	int m_128; // +0x128
+	char m_pad12C[0x4];
+	float m_130; // +0x130
+	char m_pad134[0x34];
+	unsigned char m_168; // +0x168
+	char m_pad169[0x13];
+	ListNode *m_17c; // +0x17C
 };
 
-struct TargetCoord { float x,y,z; TargetCoord() {} TargetCoord(float a,float b,float c):x(a),y(b),z(c){} TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){} };
+struct TargetCoord
+{
+public:
+	TargetCoord() {}
+	TargetCoord(float a,float b,float c):x(a),y(b),z(c){}
+	TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 static __forceinline Bool weaponTemplateIsDamageType(const WeaponTemplate *wt, Int damageType, const Weapon *weapon)
 {

@@ -70,10 +70,13 @@ extern GlobalData *TheWritableGlobalData;
 
 struct TargetCoord
 {
-	float x, y, z;
+public:
 	TargetCoord() {}
-	TargetCoord(float xCoord, float yCoord, float zCoord) : x(xCoord), y(yCoord), z(zCoord) {}
-	TargetCoord(const Coord3D &position) : x(position.x), y(position.y), z(position.z) {}
+	TargetCoord(float a,float b,float c):x(a),y(b),z(c){}
+	TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"

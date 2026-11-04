@@ -92,7 +92,16 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-struct TargetCoord { float x,y,z; TargetCoord() {} TargetCoord(float a,float b,float c):x(a),y(b),z(c){} TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){} };
+struct TargetCoord
+{
+public:
+	TargetCoord() {}
+	TargetCoord(float a,float b,float c):x(a),y(b),z(c){}
+	TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
 //-------------------------------------------------------------------------------------------------

@@ -9,16 +9,21 @@
 // /arch:SSE. Honest address-derived names.
 
 // The sibling's ledger row is Rva002C9B80Owner::rva002C9B80.
+class BfmeRangedWeaponTemplate;
 class Rva002C9B80Owner
 {
 public:
-	float rva002C9B80(void *a, float b);
+	float rva002C9B80(void *, float);
+	void rva002C9A6F(void *a, int b, void *arr);
+private:
+	void *m_00; // +0x00
+	BfmeRangedWeaponTemplate *m_m04; // +0x04
 };
 
 class Rva002C9BC3Owner
 {
 public:
-	float rva002C9BC3(void *a, void *b);
+	float rva002C9BC3(void *source, void *targetPos); // retail 0x002C9BC3
 };
 
 struct Rva002C9BC3A

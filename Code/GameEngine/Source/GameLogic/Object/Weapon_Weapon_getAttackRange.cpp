@@ -269,8 +269,8 @@ static void clipToTerrainExtent(Coord3D& approachTargetPos)
 class BfmeRangedWeaponTemplate
 {
 public:
-	Real getAttackRange( const Object *source, const WeaponBonus &bonus,
-			const Coord3D *sourcePos ) const;			///< retail ILT 0x0002ffb3
+	float rva002C995D(void *a, void *arr, float b);
+	float getAttackRange( const Object *source, const WeaponBonus &bonus, const Coord3D *sourcePos ) const; // retail ILT 0x0002ffb3
 };
 
 // BFME's weapon keeps its template at +0x04, where the reference class puts it

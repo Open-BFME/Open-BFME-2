@@ -14,19 +14,23 @@
 // ebp frame with 0x18 locals; ret 8.
 // Owner layout beyond +0x04 is unclaimed pad. Honest address-derived names.
 
+class Object;
+class WeaponBonus;
+struct Coord3D;
 class BfmeRangedWeaponTemplate
 {
 public:
 	float rva002C995D(void *a, void *arr, float b);
+	float getAttackRange( const Object *source, const WeaponBonus &bonus, const Coord3D *sourcePos ) const; // retail ILT 0x0002ffb3
 };
 
 class Rva002C9B80Owner
 {
 public:
+	float rva002C9B80(void *, float);
 	void rva002C9A6F(void *a, int b, void *arr);
-	float rva002C9B80(void *a, float b);
 private:
-	void *m_pad00; // +0x00 unclaimed
+	void *m_00; // +0x00
 	BfmeRangedWeaponTemplate *m_m04; // +0x04
 };
 
@@ -34,8 +38,6 @@ private:
 // BFME1 donor); same (Object*, int, WeaponBonus&) shape on the same
 // receiver, so this resolves to the rowed body instead of the unrowed
 // spelling (sole U on this unit).
-class Object;
-class WeaponBonus;
 class Weapon
 {
 protected:
