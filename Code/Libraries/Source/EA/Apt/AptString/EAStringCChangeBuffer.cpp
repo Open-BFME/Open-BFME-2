@@ -17,34 +17,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	enum CBPushZero
-	{
-		CB_NO_PUSH_ZERO,
-		CB_PUSH_ZERO
-	};
-
-	void SetSize(int size);
-	void Reserve(int size);
-	static void FreeData(StringDataC *data);
-
-private:
-	StringDataC *m_pData;
-
-	void ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
-		unsigned int uSizeCopy, CBPushZero ePushZero, unsigned int uInternalSize);
-};
+#include "../../../Apt/EAStringC.h"
 
 extern EAStringC::StringDataC g_eaEmptyStringData; // 0x00DDC020
 
@@ -52,7 +25,7 @@ extern EAStringC::StringDataC g_eaEmptyStringData; // 0x00DDC020
 void EAStringC::ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
 	unsigned int uSizeCopy, CBPushZero ePushZero, unsigned int uInternalSize)
 {
-	if (!(uSizeCopy + uOffsetCopy <= m_pData->m_uSize)) {
+	if (!(uSizeCopy + uOffsetCopy <= data->m_uSize)) {
 		g_bfmeAptAssertAtE17734("uSizeCopy + uOffsetCopy <= GetLength()",
 			"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp", 0x7DD);
 		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
@@ -63,28 +36,28 @@ void EAStringC::ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCo
 		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
 	}
 
-	StringDataC *oldData = m_pData;
+	StringDataC *oldData = data;
 	if (oldData->m_uRefCount == 1 && uSizeToReserve <= oldData->m_uMaxSize) {
 		if (uOffsetCopy != 0)
 			memmove((char *)oldData + sizeof(StringDataC),
 				(char *)oldData + sizeof(StringDataC) + uOffsetCopy, uSizeCopy);
 		SetSize(uInternalSize);
-		m_pData->m_uHash = 0;
+		data->m_uHash = 0;
 		if (ePushZero != CB_NO_PUSH_ZERO)
-			((char *)m_pData + sizeof(StringDataC))[uInternalSize] = 0;
+			((char *)data + sizeof(StringDataC))[uInternalSize] = 0;
 		return;
 	}
 
 	if (uSizeToReserve != 0) {
 		Reserve(uSizeToReserve + (uSizeToReserve >> 3));
 		SetSize(uInternalSize);
-		m_pData->m_uHash = 0;
-		memcpy((char *)m_pData + sizeof(StringDataC),
+		data->m_uHash = 0;
+		memcpy((char *)data + sizeof(StringDataC),
 			(char *)oldData + sizeof(StringDataC) + uOffsetCopy, uSizeCopy);
 		if (ePushZero != CB_NO_PUSH_ZERO)
-			((char *)m_pData + sizeof(StringDataC))[uInternalSize] = 0;
+			((char *)data + sizeof(StringDataC))[uInternalSize] = 0;
 	} else {
-		m_pData = &g_eaEmptyStringData;
+		data = &g_eaEmptyStringData;
 		++g_eaEmptyStringData.m_uRefCount;
 	}
 

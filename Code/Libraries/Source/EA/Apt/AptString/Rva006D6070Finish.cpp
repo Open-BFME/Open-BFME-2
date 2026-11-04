@@ -28,36 +28,12 @@ void __debugbreak();
 void *__cdecl rva006d4d40(void *pBuffer, int count);
 int __cdecl rva006d4ca0(const char *pBuffer);
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-	StringDataC *m_pData;
-public:
-	static void FreeData(StringDataC *data);
-	EAStringC()
-	{
-		extern StringDataC g_eaEmptyStringData;
-		m_pData = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
-	}
-	EAStringC(const EAStringC &other);
-	~EAStringC() { FreeData(m_pData); }
-	int Find(const char *s, int start);
-	int rva006d6070(const char *pStr, int count);
-};
+#include "../../../Apt/EAStringC.h"
 extern EAStringC::StringDataC g_eaEmptyStringData;
 
 int EAStringC::rva006d6070(const char *pStr, int count)
 {
-	const unsigned char *buffer = reinterpret_cast<const unsigned char *>(m_pData) + 8;
+	const unsigned char *buffer = reinterpret_cast<const unsigned char *>(data) + 8;
 	const unsigned char *found = (const unsigned char *)rva006d4d40((void *)buffer, count);
 	if (found == 0)
 		return -1;

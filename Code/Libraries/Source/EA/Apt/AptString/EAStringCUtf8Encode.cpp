@@ -11,40 +11,16 @@
 // commit; neighbours SetSize 0x006D3BC0 and ChangeBuffer 0x006D4AA0 share
 // the /O2 /DNDEBUG /MD flags. Honest address name; class from StringDataC
 // layout plus SetSize row, void(int) from ret-4 plus int arg.
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-private:
-	StringDataC *m_pData;
-
-	char *GetInternalBuffer() const
-	{
-		return reinterpret_cast<char *>(m_pData) + sizeof(StringDataC);
-	}
-
-public:
-	void SetSize(int size);
-
-	void rva006D4190(int c);
-};
+#include "../../../Apt/EAStringC.h"
 
 void EAStringC::rva006D4190(int c)
 {
-	char *dst = GetInternalBuffer();
+	char *dst = (reinterpret_cast<char *>(data) + sizeof(StringDataC));
 	if (c < 0x80) {
 		dst[0] = (char)c;
 		dst[1] = 0;
 		SetSize(1);
-		m_pData->m_uHash = 0;
+		data->m_uHash = 0;
 		return;
 	}
 	if (c < 0x800) {
@@ -52,7 +28,7 @@ void EAStringC::rva006D4190(int c)
 		dst[1] = (char)(0x80 | (c & 0x3F));
 		dst[2] = 0;
 		SetSize(2);
-		m_pData->m_uHash = 0;
+		data->m_uHash = 0;
 		return;
 	}
 	if (c < 0x10000) {
@@ -61,7 +37,7 @@ void EAStringC::rva006D4190(int c)
 		dst[2] = (char)(0x80 | (c & 0x3F));
 		dst[3] = 0;
 		SetSize(3);
-		m_pData->m_uHash = 0;
+		data->m_uHash = 0;
 		return;
 	}
 	dst[0] = (char)(0xF0 | (c >> 18));
@@ -70,5 +46,5 @@ void EAStringC::rva006D4190(int c)
 	dst[3] = (char)(0x80 | (c & 0x3F));
 	dst[4] = 0;
 	SetSize(4);
-	m_pData->m_uHash = 0;
+	data->m_uHash = 0;
 }

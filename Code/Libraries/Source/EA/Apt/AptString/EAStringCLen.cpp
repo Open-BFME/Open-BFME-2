@@ -6,15 +6,9 @@
 
 int __cdecl rva006d4d80(const char *s);
 
-class EAStringC
-{
-public:
-	int rva006D5EC0();
-private:
-	char *m_pData;
-};
+#include "../../../Apt/EAStringC.h"
 
 int EAStringC::rva006D5EC0()
 {
-	return rva006d4d80(m_pData + 8);
+	return rva006d4d80(reinterpret_cast<char *>(data) + 8);
 }

@@ -16,46 +16,18 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class EAStringC
-{
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	StringDataC *m_pData;
-
-	char *GetInternalBuffer() const
-	{
-		return reinterpret_cast<char *>(m_pData) + sizeof(StringDataC);
-	}
-
-public:
-	int Find(const char *s, int start);
-	int Find(char c, int start);
-	int rva006D3920(const char *text);
-	int rva006D3980(int value);
-	int rva006D39B0(int value, const char *text);
-	int rva006D3A10(int value, int value2);
-	int Replace(char cOld, char cNew);
-	bool startsWith(const char *text) const;
-	bool endsWith(const char *text) const;
-};
+#include "../../../Apt/EAStringC.h"
 
 // ?Find@EAStringC@@QAEHDH@Z
 int EAStringC::Find(char c, int start)
 {
-	if (start >= (int)m_pData->m_uSize)
+	if (start >= (int)data->m_uSize)
 		return -1;
 	if (start < 0)
 		start = 0;
-	char *found = strchr(GetInternalBuffer() + start, c);
+	char *found = strchr((reinterpret_cast<char *>(data) + sizeof(StringDataC)) + start, c);
 	if (found)
-		return found - GetInternalBuffer();
+		return found - (reinterpret_cast<char *>(data) + sizeof(StringDataC));
 	return -1;
 }
 
@@ -72,13 +44,13 @@ int EAStringC::Find(const char *s, int start)
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	if (start >= (int)m_pData->m_uSize)
+	if (start >= (int)data->m_uSize)
 		return -1;
 	if (start < 0)
 		start = 0;
-	char *found = strstr(GetInternalBuffer() + start, s);
+	char *found = strstr((reinterpret_cast<char *>(data) + sizeof(StringDataC)) + start, s);
 	if (found)
-		return found - GetInternalBuffer();
+		return found - (reinterpret_cast<char *>(data) + sizeof(StringDataC));
 	return -1;
 }
 
@@ -161,7 +133,7 @@ int EAStringC::Replace(char cOld, char cNew)
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	char *cursor = GetInternalBuffer();
+	char *cursor = (reinterpret_cast<char *>(data) + sizeof(StringDataC));
 	while ((cursor = strchr(cursor, cOld)) != 0)
 		*cursor++ = cNew;
 	return 0;
@@ -178,9 +150,9 @@ bool EAStringC::startsWith(const char *text) const
 			__debugbreak();
 	}
 	unsigned int len = strlen(text);
-	if ((unsigned int)m_pData->m_uSize < len)
+	if ((unsigned int)data->m_uSize < len)
 		return false;
-	bool prefixMatches = memcmp(GetInternalBuffer(), text, len) == 0;
+	bool prefixMatches = memcmp((reinterpret_cast<char *>(data) + sizeof(StringDataC)), text, len) == 0;
 	return prefixMatches;
 }
 
@@ -194,9 +166,9 @@ bool EAStringC::endsWith(const char *text) const
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	unsigned int size = m_pData->m_uSize;
+	unsigned int size = data->m_uSize;
 	unsigned int len = strlen(text);
 	if (size < len)
 		return false;
-	return memcmp(GetInternalBuffer() + size - len, text, len) == 0;
+	return memcmp((reinterpret_cast<char *>(data) + sizeof(StringDataC)) + size - len, text, len) == 0;
 }

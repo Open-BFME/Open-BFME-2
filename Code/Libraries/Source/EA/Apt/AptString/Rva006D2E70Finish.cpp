@@ -13,36 +13,21 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	StringDataC *m_pData;
-
-	void rva006D2E70();
-};
+#include "../../../Apt/EAStringC.h"
 
 // Retail empty singleton at VA 0x00DDC020, defined in EAStringCRefCount.cpp.
 extern EAStringC::StringDataC g_eaEmptyStringData;
 
 void EAStringC::rva006D2E70()
 {
-	StringDataC *data = m_pData;
-	if (data != &g_eaEmptyStringData && data->m_uRefCount > 0xFFFE) {
+	StringDataC *current = data;
+	if (current != &g_eaEmptyStringData && current->m_uRefCount > 0xFFFE) {
 		g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 		if (!g_bfmeAptBreakOnAssertAtDDC01C) {
-			this->m_pData->m_uRefCount++;
+			this->data->m_uRefCount++;
 			return;
 		}
 		__debugbreak();
 	}
-	this->m_pData->m_uRefCount++;
+	this->data->m_uRefCount++;
 }

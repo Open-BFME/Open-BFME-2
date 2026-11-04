@@ -16,31 +16,7 @@
 extern const char *rva006d4280(const char *pBuffer, int *pUnicode);
 #pragma intrinsic(memcpy)
 
-class EAStringC
-{
-public:
-	struct StringDataC
-	{
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	enum CBPushZero
-	{
-		CB_NO_PUSH_ZERO,
-		CB_PUSH_ZERO
-	};
-
-	EAStringC &rva006D5FE0(void *pSource, int nCodepoints);
-
-private:
-	StringDataC *m_pData;
-	void ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
-		unsigned int uSizeCopy, CBPushZero ePushZero,
-		unsigned int uInternalSize);
-};
+#include "../../../Apt/EAStringC.h"
 
 EAStringC &EAStringC::rva006D5FE0(void *pSource, int nCodepoints)
 {
@@ -70,10 +46,10 @@ EAStringC &EAStringC::rva006D5FE0(void *pSource, int nCodepoints)
 
 	if (decoded != 0)
 	{
-		unsigned int oldSize = m_pData->m_uSize;
+		unsigned int oldSize = data->m_uSize;
 		unsigned int newSize = oldSize + decoded;
 		ChangeBuffer(newSize, 0, oldSize, CB_PUSH_ZERO, newSize);
-		memcpy(reinterpret_cast<char *>(m_pData) + sizeof(StringDataC) + oldSize,
+		memcpy(reinterpret_cast<char *>(data) + sizeof(StringDataC) + oldSize,
 			pText, static_cast<unsigned int>(decoded));
 	}
 	return *this;

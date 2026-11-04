@@ -8,35 +8,7 @@
 #include <string.h>
 #pragma intrinsic(memcpy)
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	static void FreeData(StringDataC *data);
-
-	StringDataC *m_pData;
-
-private:
-	enum CBPushZero
-	{
-		CB_NO_PUSH_ZERO,
-		CB_PUSH_ZERO
-	};
-
-	void ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
-		unsigned int uSizeCopy, CBPushZero ePushZero, unsigned int uInternalSize);
-
-public:
-	int rva006D54B0(int start, int count);
-};
+#include "../../../Apt/EAStringC.h"
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
 
@@ -45,22 +17,22 @@ int EAStringC::rva006D54B0(int start, int count)
 	int end = count + start;
 	if (count <= 0)
 	{
-		FreeData(m_pData);
-		m_pData = &g_eaEmptyStringData;
+		FreeData(data);
+		data = &g_eaEmptyStringData;
 		++g_eaEmptyStringData.m_uRefCount;
 		return 0;
 	}
 	if (end <= 0)
 	{
-		FreeData(m_pData);
-		m_pData = &g_eaEmptyStringData;
+		FreeData(data);
+		data = &g_eaEmptyStringData;
 		++g_eaEmptyStringData.m_uRefCount;
 		return 0;
 	}
 	if (start < 0)
 		start = 0;
-	StringDataC *data = m_pData;
-	int size = data->m_uSize;
+	StringDataC *current = data;
+	int size = current->m_uSize;
 	if (end >= size)
 		end = size;
 	if (start == 0)
@@ -76,7 +48,7 @@ int EAStringC::rva006D54B0(int start, int count)
 	}
 	count = start + (size - end);
 	ChangeBuffer(count, 0, start, CB_NO_PUSH_ZERO, count);
-	memcpy(reinterpret_cast<char *>(m_pData) + sizeof(StringDataC) + start,
-		reinterpret_cast<char *>(data) + sizeof(StringDataC) + end, size - end + 1);
+	memcpy(reinterpret_cast<char *>(data) + sizeof(StringDataC) + start,
+		reinterpret_cast<char *>(current) + sizeof(StringDataC) + end, size - end + 1);
 	return count;
 }
