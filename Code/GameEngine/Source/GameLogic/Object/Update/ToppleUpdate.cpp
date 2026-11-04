@@ -13,75 +13,80 @@ float __cdecl atan2(float y, float x);
 #include "../../../Common/GameLogicObjectLookupView.h"
 #pragma function(memset)
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round((float)floor(x)))
-
 extern "C" void *memset(void *,int,unsigned);
-
 float normalizeAngle(float);
-
 float Cos(float);
-
 float Sin(float);
-
 static const float PI=3.14159265359f;
-
 static const float ANGULAR_LIMIT=PI/2-PI/64;
-
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};
-
 enum DamageType {DAMAGE_UNRESISTABLE=8};
-
 enum DeathType {DEATH_NORMAL=0};
-
 enum NameKeyType {NAMEKEY_INVALID=0};
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Object;
-
 class Team;
-
 class ThingTemplate;
-
 class ClientUpdateModule {public:virtual void s0()=0;virtual void s1()=0;virtual void s2()=0;virtual void s3()=0;virtual NameKeyType getModuleNameKey()const=0;char pad04[0x1E];bool sway;};
-
 class Drawable {public:void rva00272A02(bool);char pad[0x150];ClientUpdateModule **modules;char pad154[0x10E];unsigned char flags262;};
-
 class Thing {public:const Matrix3D *getTransformMatrix()const{return (const Matrix3D*)((const char*)this+8);}void setTransformMatrix(const Matrix3D*);Drawable *getDrawable()const;void setPosition(const Coord3D *);void setOrientation(float);};
-
 class ToppleBits {public:unsigned words[19];
  __forceinline unsigned mask(int bit)const{return words[bit>>5]&(1U<<(bit&31));}
  __forceinline bool test(int bit)const{return mask(bit)!=0;}
  __forceinline void set(int bit){words[bit>>5]|=1U<<(bit&31);}
 };
-
 class ScriptEngine {public:void rva00357340(void *,Coord3D *);};
-
 extern ScriptEngine *TheScriptEngine;
-
 #include "../../../../Include/GameLogic/AIPathfind.h"
-
 class AI {public:char pad[0x10];Pathfinder *pathfinder;};
-
 extern AI *TheAI;
-
 class FXList {public:static void doFXObj(const FXList *,const Object *,const Object *);};
-
 struct CreateMask {unsigned words[4];};
-
 enum ObjectID;
-
 #include "../../../../Include/Common/ThingFactory.h"
-
 extern ThingFactory *TheThingFactory;
-
 struct ToppleUpdateModuleData {char pad[8];const FXList *toppleFX,*bounceFX;AsciiString stump;float initialVelocity,initialAccel,bounceVelocity,minSpeed;bool killWhenToppled,killWhenStart,killStump,leftRight,reorient;};
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+//
+// ?xfer@Rva004A8091@@MAEXPAVXfer@@@Z, retail 0x004A86E7, 168 bytes. Virtual
+// slot 3 (offset 0x0C) of vtable 0x0085386C (class of rowed dtor
+// ??1Rva004A8091@@UAE@XZ in Rva0024A797Grandchildren.cpp): base UpdateModule
+// xfer via rowed 0x0044DF9F then IsLightCRC early-out via Xfer slot 0x10
+// then Version1 via rowed 0x000053EE then floats at +0x24/+0x28 via Xfer
+// slot 0x70 plus Coord3DBase at +0x2C via Xfer slot 0x60 plus raw at +0x38
+// via XferRawBytes slot 0x24 plus floats at +0x3C/+0x40 via slot 0x70 plus
+// int at +0x44 via slot 0x7C plus bool at +0x48 via slot 0x90 plus uint at
+// +0x4C via slot 0x78 plus ObjectID at +0x50 via rowed XferObjectID
+// 0x003060B2 plus float at +0x54 via slot 0x70. Layout is UpdateModule base
+// 0x20 plus E1 vptr at +0x20 giving +0x24 start (cf. rowed dtor four
+// vptrs). Identity is slot 3 plus the UpdateModule base call; class name
+// stays honest Rva address name.
 
-
-
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class CollideModuleInterface {public:virtual void onCollide(Object *,const Coord3D *,const Coord3D *)=0;};
 
@@ -149,7 +154,34 @@ public:
 	char m_24[0x58];
 };
 
+class Rva004A8091_E1
+{
+public:
+	virtual void fe();
+};
+
+class Rva004A8091 : public UpdateModule, public Rva004A8091_E1
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	float m_24;
+	float m_28;
+	Coord3DBase m_2C;
+	unsigned int m_38;
+	float m_3C;
+	float m_40;
+	int m_44;
+	bool m_48;
+	unsigned int m_4C;
+	ObjectID m_50;
+	float m_54;
+};
+
 // tu-skeleton: 0x004A8125 9B ?isAbleToBeToppled@ToppleUpdate@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp
 
@@ -323,14 +355,6 @@ UpdateSleepTime ToppleUpdate::update()
 	return UPDATE_SLEEP_NONE;
 }
 
-// tu-skeleton: 0x004A8173 125B ??0ToppleUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A81F0 17B ?buildFieldParse@ToppleUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004A8201 157B ??0ToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A829E 28B ??_GRva004A8091@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004A82BADamage.cpp
 
 void __cdecl Rva004A82BAAttemptDamage(Object *obj)
@@ -343,11 +367,38 @@ void __cdecl Rva004A82BAAttemptDamage(Object *obj)
 	obj->attemptDamage((DamageInfo *)&info);
 }
 
+// tu-skeleton: 0x004A8173 125B ??0ToppleUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A81F0 17B ?buildFieldParse@ToppleUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004A8201 157B ??0ToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A829E 28B ??_GRva004A8091@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
 // tu-skeleton: 0x004A82F5 150B ?rva004A82F5@Rva004A82F5@@QAEXPAVObject@@HH@Z -- matched in Code/GameEngine/Source/Common/Rva004A82F5Topple.cpp (not merged yet)
 
 // tu-skeleton: 0x004A83A7 48B ??1ToppleUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A86E7 168B ?xfer@Rva004A8091@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva004A8091Xfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004A8091Xfer.cpp
+
+void Rva004A8091::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	*xfer == m_24;
+	*xfer == m_28;
+	*xfer == m_2C;
+	xfer->XferRawBytes(&m_38, 4);
+	*xfer == m_3C;
+	*xfer == m_40;
+	*xfer == m_44;
+	*xfer == m_48;
+	*xfer == m_4C;
+	XferObjectID(xfer, &m_50);
+	*xfer == m_54;
+}
 
 // tu-skeleton: 0x0078DFCE 8B Unwind@00b8dfce -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateModuleDataCtor.cpp (not merged yet)
 
