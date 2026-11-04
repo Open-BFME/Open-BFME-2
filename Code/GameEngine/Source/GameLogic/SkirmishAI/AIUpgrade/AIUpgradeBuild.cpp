@@ -7,21 +7,13 @@
 // (wb-lead 2/callgraph): the builder object (ObjectID +0x08) runs the upgrade's
 // command button (+0x30) through Object::doCommandButton (0x00296749, flags
 // 1 and 0), then the object query 0x0028BC58(0) is asked through its slot 6
-// about the button's +0x24 field, and that answer is returned.
+// about the button's upgrade template (+0x24), and that answer is returned.
 // The slot-6 receiver and the argument are not identified by target evidence
 // and stay opaque.
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class CommandButton
-{
-public:
-	int getField24() const { return m_field24; }
-
-private:
-	unsigned char m_pad00[0x24];
-	int m_field24; // +0x24 retail-measured
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 // Opaque receiver returned by Object::rva0028BC58; slot 6 answers the query.
 class Rva0028BC58Result
@@ -33,7 +25,7 @@ public:
 	virtual void slot3();
 	virtual void slot4();
 	virtual void slot5();
-	virtual char slot6(int value);
+	virtual char slot6(const UpgradeTemplate *upgradeTemplate);
 };
 
 class AsciiString;
@@ -108,19 +100,19 @@ bool AIUpgrade::build(void *context)
 	TheGameLogic->findObjectByID(m_builderID)->doCommandButton(m_commandButton, 1, 0);
 	ObjectID id = m_builderID;
 	Rva0028BC58Result *result = (Rva0028BC58Result *)TheGameLogic->findObjectByID(id)->rva0028BC58(0);
-	return result->slot6(m_commandButton->getField24()) ? true : false;
+	return result->slot6(m_commandButton->getUpgradeTemplate()) ? true : false;
 }
 
 // Native 0x005973D8..0x00597426 (78B, RET0) follows build; WB 0x01537BF0 (AIUpgrade.cpp)
 // gives the shape: with a positive count at +0x10, an existing builder object answers
-// slot 6 of its rva0028BC58(0) query about the button's +0x24 field; no answer -> 1.
+// slot 6 of its rva0028BC58(0) query about the button's upgrade template (+0x24); no answer -> 1.
 // Original name unproven.
 int AIUpgrade::rva005973D8()
 {
 	if (m_remaining10 > 0) {
 		if (TheGameLogic->findObjectByID(m_builderID) != 0) {
 			Rva0028BC58Result *result = (Rva0028BC58Result *)TheGameLogic->findObjectByID(m_builderID)->rva0028BC58(0);
-			if (result->slot6(m_commandButton->getField24()))
+			if (result->slot6(m_commandButton->getUpgradeTemplate()))
 				return 0;
 		}
 		return 1;

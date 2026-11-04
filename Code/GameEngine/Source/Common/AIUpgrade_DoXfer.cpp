@@ -21,18 +21,8 @@ public:
 	void *rva0031D5F8(const AsciiString *s);
 };
 
-class CommandButton
-{
-public:
-	char m_pad00[0x10];
-	AsciiString m_10;
-};
-
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const;
-};
+#include "../../Include/GameClient/CommandButton.h"
+#include "../../Include/GameClient/CommandSet.h"
 
 #include "AIXferTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
@@ -82,7 +72,7 @@ void AIUpgrade::DoXfer(Xfer *xfer, void *p)
 	*xfer == m_2C;
 	const AsciiString *buttonNameSource;
 	if (m_30 != 0)
-		buttonNameSource = &m_30->m_10;
+		buttonNameSource = &m_30->getName();
 	else
 		buttonNameSource = &AsciiString::TheEmptyString;
 	AsciiString tmp(*buttonNameSource);
@@ -104,7 +94,7 @@ void AIUpgrade::DoXfer(Xfer *xfer, void *p)
 		const CommandButton *commandButton = ((CommandSet *)commandSet)->getCommandButton(i);
 		if (commandButton != 0)
 		{
-			if (((const StringBase<char> *)&commandButton->m_10)->compare(*(const StringBase<char> *)&tmp) == 0)
+			if (((const StringBase<char> *)&commandButton->getName())->compare(*(const StringBase<char> *)&tmp) == 0)
 			{
 				m_30 = (CommandButton *)commandButton;
 			}
