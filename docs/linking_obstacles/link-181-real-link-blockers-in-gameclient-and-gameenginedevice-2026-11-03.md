@@ -422,12 +422,12 @@ W3DTerrainVisual's.
     0x00BDBA74.
   - Maintainers must decide: accept slot evidence for these Impl names (`a5901cee17` did so by hand),
     or a WorldBuilder-basis naming route.
-- **Gate caveat (not fixed).** The destructor rule "first +0 store is its own table" misreads a
-  destructor whose own vptr store is elided: `~UserInputTranslator` above, and 0x003ABA36.
-  - 0x003ABA36 stores 0x00BBB554 at `[this ? this+0x18 : 0]` (`neg/sbb/and`), then tail-jumps.
-    `this_stores` does not follow the null-guarded cast idiom, so that store keeps its raw +0.
-  - The "T names NEW" check is the backstop. With the copy constructor now proven, Rva003ABA36's two
-    rows own different tables (0x00BBB554 and 0x00C1D55C). That agrees with rl-o3: the placeholders are
-    mixed.
+- **Gate caveat.** The destructor rule "first +0 store is its own table" misreads a destructor whose
+  own vptr store is elided, when its first store is a base's at +0: `~UserInputTranslator` above. The
+  "T names NEW" check is the backstop.
+  - The null-guarded case is fixed (`071899a749`). 0x003ABA36 stores 0x00BBB554 at
+    `[this ? this+0x18 : 0]` (`neg/sbb/and`), and `this_stores` now reads that store at +0x18.
+  - `--fold Rva003ABA36 --into T1Base_005F3750` now refuses on the copy constructor's own 0x00C1D55C
+    against T1Base's 0x00C1D3F4. That agrees with rl-o3: the placeholders are mixed.
 - **LivingWorldManagerCtor.cpp:** unchanged. `--fold Rva0022B12DSubsystem --into LivingWorldManager`
   still stops at slot 0's `??_GRva00214405`.
