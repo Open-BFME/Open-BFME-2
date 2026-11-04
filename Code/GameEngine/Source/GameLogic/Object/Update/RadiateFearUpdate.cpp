@@ -129,12 +129,72 @@ class UpgradeMux
 public:
 	UpgradeMux();
 	void giveSelfUpgrade();
+	virtual bool isAlreadyUpgraded() const;	// slot 0, 0x00098CBC
 protected:
 	virtual void upgradeMuxXfer(Xfer *xfer);
 
 private:
 	bool m_upgradeExecuted;
 };
+
+class Player;
+
+#include "../../../../Include/GameLogic/PartitionFilter.h"
+
+// vftable 0x00BF91BC, allow 0x002611BF.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+// vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
+// object's team against the +0x10 flags, +0x0C whether a hit allows.
+class Rva00261409Filter : public Rva000421C8
+{
+public:
+	Rva00261409Filter(Player *player, bool match, int flags)
+		: m_player(player), m_match(match), m_flags(flags) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+	bool m_match;
+	int m_flags;
+};
+
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+#include "../../../Common/PartitionRangeQueryCallView.h"
+
+extern PartitionManager *ThePartitionManager;
+
+// 0x00362437, the object filter's acceptance test.
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *player);	// 0x00362437
+};
+
+class Object
+{
+public:
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	void rva0028EC68(int a, void *b, int c);	// 0x0028EC68
+	void applyFrom(int a, Object *source, const int &c) { rva0028EC68(a, source, c); }
+	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
+	const Coord3D *getPosition() const { return &m_pos; }
+	int getID() const { return m_74; }
+	char m_pad000[0x38];
+	Coord3D m_pos;		// +0x38
+	char m_pad044[0x74 - 0x44];
+	int m_74;		// +0x74 the ID
+	char m_pad078[0x438 - 0x78];
+	unsigned char m_438;	// +0x438
+};
+
+class RadiateFearUpdateModuleData;
 
 class RadiateFearUpdate : public UpdateModule, public UpgradeMux
 {
@@ -144,6 +204,13 @@ public:
 
 protected:
 	virtual void xfer(Xfer *xfer);
+public:
+	virtual UpdateSleepTime update();
+private:
+	const RadiateFearUpdateModuleData *getRadiateFearUpdateModuleData() const
+	{
+		return (const RadiateFearUpdateModuleData *)m_moduleData;
+	}
 };
 
 template <int N> class BitFlags;
