@@ -125,11 +125,7 @@ void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::Update()
 // ?CreateGarrisonPanel@Rva005FFC8B@@QAEXABUTreeHintRef00217D4C@@@Z @0x005FFC8B 64B:
 // store the reference through its rowed assignment 0x002174A4, then
 // CreateArmyPanel "garrison" through the same wrapper (level +4, name +8).
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	void *m_ref;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva005FFC8B
 {

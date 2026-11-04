@@ -12,7 +12,7 @@
 #include "RGBColor.h"
 #include <vector>
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
-struct TreeHintRef00217D4C {void *m_target;~TreeHintRef00217D4C();};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 namespace _STL { template<> vector<TreeHintRef00217D4C>::~vector(); }
 struct PageContext {void *region,*page,*owner;};
 class Rva005EFDDB {public:Rva005EFDDB(unsigned,const void*,int);virtual ~Rva005EFDDB();private:void *impl;};
@@ -34,7 +34,7 @@ StrategicInGameUI::RegionDetailsArmiesPage::Impl::Impl(void *page,void *level,vo
  if(army){
   _STL::vector<TreeHintRef00217D4C>::iterator end=icons.end();
   for(_STL::vector<TreeHintRef00217D4C>::iterator i=icons.begin();i!=end;++i){
-   if(((Rva005E19CAEntry*)i->m_target)->army==army){pending=(int)i->m_target;break;}
+   if(((Rva005E19CAEntry*)i->m_ptr)->army==army){pending=(int)i->m_ptr;break;}
   }
  }
 }

@@ -25,11 +25,7 @@ RefCountPtr<TextureClass> Rva00167E5A::rva00167E5A()
     return textures.rva000D6A3F();
 }
 
-struct TreeHintRef00217D4C {
-    void *ptr;
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &other);
-    ~TreeHintRef00217D4C();
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005747B2Target {
 public:
     virtual void slot00(); virtual void slot04(); virtual void slot08();

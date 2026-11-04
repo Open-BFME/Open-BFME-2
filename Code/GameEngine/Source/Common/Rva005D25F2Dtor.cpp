@@ -78,7 +78,7 @@ extern const void *const g_00C078DC[5] = {
 	reinterpret_cast<const void *>(&_purecall),
 };
 
-struct TreeHintRef00217D4C { TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &); void *ptr; };
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005D25F2Base
 {
 public:

@@ -253,18 +253,12 @@ private:
 };
 }
 // The counted help handle (assignment 0x002174A4, rowed elsewhere).
-struct TreeHintRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-
-	TargetRef00217D4C *m_ptr;
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 // The help box the button shows its help in (WorldBuilder
 // InGameHelpBox::Show; retail 0x001FF3A9, pinned address-named).

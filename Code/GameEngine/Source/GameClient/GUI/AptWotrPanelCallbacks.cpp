@@ -303,21 +303,12 @@ void StrategicHUD::ChecklistUIImpl::OnScrollBarPosChanged(int unused, float posi
 // pointer at +0x34 is viewed through its rowed reset and clear.
 // The pending hint at +0x30: a reference to the shared hint object, cleared
 // through the rowed 0x002BED91.
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
-struct TreeHintRef00217D4C
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	// ??1TreeHintRef00217D4C@@QAE@XZ present-unmatched
-	__forceinline ~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
-	}
-
-	void *m_ptr;
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 class Rva002BED91
 {

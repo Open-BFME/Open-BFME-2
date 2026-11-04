@@ -22,12 +22,7 @@
 typedef int Int;
 
 // The reference-counted action handle (rowed under this address name).
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &that);	// 0x002174A4
-
-	void *m_node;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 // View of the STLport map from message type to action handle.
 class HotKeyMessageActionMap

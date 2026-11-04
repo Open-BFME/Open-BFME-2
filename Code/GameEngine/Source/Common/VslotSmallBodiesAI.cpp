@@ -361,11 +361,7 @@ void Rva00575CAE::rva00575CAE(void *arg)
 
 // 0x0057956D and 0x0057B9D0: assignment of the argument to the +0x18 (resp.
 // +0x30) tree hint through its rowed operator=.
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	Int m_00;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva0057956D
 {
 public:

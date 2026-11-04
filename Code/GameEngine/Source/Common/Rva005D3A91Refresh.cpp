@@ -1,12 +1,6 @@
 // cl: /MD /EHsc
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 // The functor's result is the rowed invoke 0x005D388B's one-word value; here
 // it is the reference it is assigned to.
 struct Rva005D388BValue : TreeHintRef00217D4C

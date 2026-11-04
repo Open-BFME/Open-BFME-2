@@ -71,14 +71,8 @@ private:
 #include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 // The rowed TreeHintRef assignment (0x002174A4).
-struct TreeHintRef00217D4C
-{
-	__forceinline TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	__forceinline ~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-
-	TargetRef00217D4C *m_ptr;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 
 // The 24-byte HUD slot has two reference handles and two Unicode strings.
 // Its zeroing constructor folds with 0x00286297; its distinct destructor is
