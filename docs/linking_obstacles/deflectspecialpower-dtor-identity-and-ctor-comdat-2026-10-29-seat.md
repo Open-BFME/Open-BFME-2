@@ -21,3 +21,5 @@ pairs the ctor 0x0058959A (rowed ??0WeaponModeSpecialPowerUpdateBase) with
 the dtor 0x00589079 (rowed ??1Rva00589079). Unifying Rva00589079 into
 WeaponModeSpecialPowerUpdateBase with rename.py class should let the ctor's
 unwind call the rowed dtor. Confirm the census figures after the next census.
+
+2026-11-04: module-data constructor merged into the approved TU (12/12 exact, four-unit link preview clean); behavior constructor still fails C2512 on the distinct base views; prerequisite unchanged. [Consolidation audit](../../reverse/attempt_support/deflect-merge-20261104-codex3.md).

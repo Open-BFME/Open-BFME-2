@@ -51,32 +51,24 @@ class Object;
 		field += ADDIMM; \
 		return base ? (int)field : 0; \
 	}
-
 class Coord3D;
-
 class Xfer;
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-
 class Rva00589079_E1
 {
 public:
 	virtual void fe() = 0;
 };
-
 class Rva00589079_E2
 {
 public:
 	virtual void fe() = 0;
 };
-
 class Rva00589079 : public UpdateModule, public Rva00589079_E1, public Rva00589079_E2
 {
 public:
@@ -91,7 +83,6 @@ private:
 	unsigned int m_30;
 	float m_34;
 };
-
 // DeflectSpecialPower's direct base: its ctor (0x004C545D, not in this file
 // yet) calls 0x0058959A, rowed as WeaponModeSpecialPowerUpdateBase's ctor;
 // its xfer calls 0x00589215 and its dtor 0x004C54BE tail-calls 0x00589079,
@@ -103,7 +94,6 @@ class CollideModuleInterface
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
-
 class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
 {
 public:
@@ -120,16 +110,12 @@ private:
 	bool m_active; // +0x3C
 	bool m_pending; // +0x3D
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 //
 // DeflectSpecialPowerModuleData parse-unit.
 //
@@ -141,20 +127,11 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // supersedes the parse pin.
 
 class MultiIniFieldParse;
-
 struct FieldParse;
-
 extern const int g_emptyFieldParseTable[4];
-
 #include "../../../../Include/Common/INI/FieldParse.h"
 
 class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class DeflectSpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -245,6 +222,30 @@ public:
 };
 
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004C54B1LeaNegSbbField, 12, 0x2C)
+
+// Native0x004C5671/18B: constructs the0x18-byte base then installs Deflect's table.
+// The existing AIUpdateModuleData owner supplies the witnessed base lifetime;
+// this view does not establish the original intermediate class ancestry.
+class AIUpdateModuleData
+{
+public:
+    AIUpdateModuleData();
+    virtual ~AIUpdateModuleData();
+private:
+    unsigned char m_opaque[0x14];
+};
+
+class DeflectSpecialPowerModuleData : public AIUpdateModuleData
+{
+public:
+	DeflectSpecialPowerModuleData();
+public:
+	virtual ~DeflectSpecialPowerModuleData();
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp
 
@@ -413,10 +414,6 @@ void DeflectSpecialPower::onCollide(Object *other, const Coord3D *, const Coord3
 	}
 }
 
-// tu-skeleton: 0x004C545D 78B ??0DeflectSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerConstructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x004C54AB 6B ?Rva004C54ABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
 
 // Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
@@ -431,4 +428,12 @@ void DeflectSpecialPower::onCollide(Object *other, const Coord3D *, const Coord3
 // every name is derived from its address.
 // No // cl: line (defaults match the shape).
 
-// tu-skeleton: 0x004C5671 18B ??0DeflectSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerModuleDataConstructor.cpp (not merged yet)
+// tu-skeleton: 0x004C545D 78B ??0DeflectSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerConstructorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x004C54AB 6B ?Rva004C54ABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerModuleDataConstructor.cpp
+
+DeflectSpecialPowerModuleData::DeflectSpecialPowerModuleData()
+{
+}
