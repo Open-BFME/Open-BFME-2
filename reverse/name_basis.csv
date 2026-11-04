@@ -8558,3 +8558,4 @@ member,Rva0055CD38::m_24,Rva0055CD38::m_startPoint,inferred,agree:nl-e778b63948b
 member,Rva0055CD38::m_30,Rva0055CD38::m_endPoint,inferred,agree:nl-e9e55e8cf0ad,Code/GameEngine/Source/GameClient/FXParticleSystemLineXfer.cpp,
 global,?g_00E01E04@@3HA,?IDLE_COUNTDOWN_DELAY@@3HA,inferred,agree:nl-e83fc5dbe6b4,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,0x00A01E04
 member,BfmeOwnerYX::m_bfmeBYX,BfmeOwnerYX::m_aviFile,inferred,agree:nl-a0c6c74e1a6b,Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp,
+function,?Rva005D7E45FindWaypoint@@YAPAVWaypoint@@VAsciiString@@@Z,?findWaypointByName@@YAPAVWaypoint@@VAsciiString@@@Z,inferred,agree:nl-42c977196190,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookShroudReveal.cpp,0x005D7E45

@@ -159,7 +159,7 @@ bool AISpellBookShroudReveal::shouldActivate(Object *source)
 // Rva005D7E98WaypointStarts.cpp is the C++ guide. Retail independently proves
 // the first-waypoint slot 33, name +8, next +0x1C and by-value key cleanup.
 // The original standalone function name remains unproved.
-Waypoint *Rva005D7E45FindWaypoint(AsciiString key)
+Waypoint *findWaypointByName(AsciiString key)
 {
 	Waypoint *waypoint = TheTerrainLogic->firstWaypoint();
 	for (; waypoint; waypoint = waypoint->m_next1c)
