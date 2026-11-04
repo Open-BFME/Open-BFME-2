@@ -39,3 +39,14 @@ and a private guard; it is outside this changed header's dependency graph.
 No seed/donor composition or TU merge is claimed. That shim and any remaining
 DynamicIBAccessClass view remain explicit prerequisites; the broader obstacle
 stays open. [Batch evidence](../../reverse/attempt_support/device-guard-batch-20261104-0110.md).
+
+
+#### Outgoing native batch audit
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base 94ebe7b612cfa4a6ac16f8d37ea28a8598edc437; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 2 source object(s) lack current receipts; first: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
+```
+
+Inconclusive cases are carried forward to the next maintainer census. They
+are unverified consumers, not evidence of a clean complete-image link.

@@ -110,3 +110,13 @@ source/cache/commit state remain sequential. No local model is used.
 - [Adopt canonical device guard in bfme2_mesh_material_pass](b2-g15-device-guard-header-20261104-0110.md): 22 retained rows; one retired header key.
 - [Adopt canonical device guard in Render2DSentenceBuildNotCenteredBFME2](b2-g16-device-guard-header-20261104-0110.md): 3 retained rows; one retired header key.
 - [Adopt canonical device guard in W3DDisplayInit](b2-g17-device-guard-header-20261104-0110.md): 15 retained rows; one retired header key.
+
+#### Outgoing native batch audit
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base 94ebe7b612cfa4a6ac16f8d37ea28a8598edc437; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 2 source object(s) lack current receipts; first: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
+```
+
+Inconclusive cases are carried forward to the next maintainer census. They
+are unverified consumers, not evidence of a clean complete-image link.
