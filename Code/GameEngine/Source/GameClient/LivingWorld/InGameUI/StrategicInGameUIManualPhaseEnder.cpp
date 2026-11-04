@@ -142,11 +142,8 @@ GameMessageDisposition StrategicInGameUI::ManualPhaseEnder::Translate(const Game
 class Rva0042D6AEPtrChaseField { public: int get() const; };
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct DelegateDesc {
- void *object;
- void (StrategicInGameUI::ManualPhaseEnder::*method)();
-};
-inline DelegateDesc phaseDelegate(StrategicInGameUI::ManualPhaseEnder *object, void (StrategicInGameUI::ManualPhaseEnder::*method)()) { DelegateDesc result={object,method};return result; }
+#include "../../../../Include/Common/DelegateDesc.h"
+inline DelegateDesc phaseDelegate(StrategicInGameUI::ManualPhaseEnder *object, void (StrategicInGameUI::ManualPhaseEnder::*method)()) { DelegateDesc result(object,method);return result; }
 class Rva00579E47 {
 public:
  Rva00579E47(const DelegateDesc &);

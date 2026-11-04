@@ -129,19 +129,7 @@ PalantirButtonSlot::~PalantirButtonSlot(){}
 // views; these wrappers do not assert original C++ type names.
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 
-struct DelegateDesc
-{
-	// ?DelegateDesc::DelegateDesc present-unmatched
-	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
-		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
-
-	// ?DelegateDesc::DelegateDesc present-unmatched
-	template <class T> DelegateDesc(T *object, void (T::*method)(int))
-		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
-
-	AptCommandTarget *m_object;
-	void (AptCommandTarget::*m_method)(const char *path);
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 class AptCommandMap
 {

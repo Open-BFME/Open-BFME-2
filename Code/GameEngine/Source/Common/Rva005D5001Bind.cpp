@@ -20,8 +20,8 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct TreeHintRef00217D4C {TargetRef00217D4C *m_ptr;TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C&);};
 class __single_inheritance Rva005D4F0E;
 typedef void (Rva005D4F0E::*BoundMethod)(int,int);
-struct DelegateDesc {void *m_object;BoundMethod m_method;};
-template <class T> inline DelegateDesc MakeDesc(void *object, void (T::*method)(int,int)) { DelegateDesc desc; desc.m_object = object; desc.m_method = method; return desc; }
+#include "../../Include/Common/DelegateDesc.h"
+template <class T> inline DelegateDesc MakeDesc(void *object, void (T::*method)(int,int)) { DelegateDesc desc; desc.field00 = object; desc.field04 = *reinterpret_cast<void **>(&method); return desc; }
 class Rva00579E47:public TreeHintRef00217D4C {
 public:Rva00579E47(const DelegateDesc&);~Rva00579E47(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
 };

@@ -506,17 +506,7 @@ class __single_inheritance AptDelegateTarget;
 
 typedef void (AptDelegateTarget::*AptDelegateMethod)(void);
 
-struct DelegateDesc
-{
-	template <class T, class M> DelegateDesc(T *object, M method)
-		: m_object(reinterpret_cast<AptDelegateTarget *>(object))
-		, m_method(reinterpret_cast<AptDelegateMethod>(method))
-	{
-	}
-
-	AptDelegateTarget *m_object;
-	AptDelegateMethod m_method;
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 struct BannerSlotDesc
 {

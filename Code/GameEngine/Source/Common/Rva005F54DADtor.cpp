@@ -22,14 +22,7 @@ struct TreeHintRef00217D4C
 };
 
 #include "../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc
-{
-	template <class T> DelegateDesc(T *object, void (T::*method)(void *, void *))
-		: m_object(reinterpret_cast<AptCommandTarget *>(object)),
-		m_method(reinterpret_cast<void (AptCommandTarget::*)(void *, void *)>(method)) {}
-	AptCommandTarget *m_object;
-	void (AptCommandTarget::*m_method)(void *, void *);
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 class Rva00579E47 : public TreeHintRef00217D4C
 {

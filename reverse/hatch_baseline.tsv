@@ -12239,7 +12239,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptOverButtonHandlerAdder::AddOverButtonHandlerDelegate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptRef::AptRef	3
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptRef::~AptRef	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	DelegateDesc::DelegateDesc	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirCostInterface::PalantirCostInterface	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirOverStorage::~PalantirOverStorage	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirRankInterface::PalantirRankInterface	1

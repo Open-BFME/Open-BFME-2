@@ -128,11 +128,7 @@ Rva004A9B51Sub *Rva004A9B51::rva004A9B6F() { return this ? &m_3EC : 0; }
 
 // --- 0x0052AC16 / 0x0052AC29 (19B each): assign a by-value delegate
 // description through the rowed assignments; return this.
-struct DelegateDesc
-{
-	void *m_object;
-	void *m_method;
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 class Rva0052A786
 {

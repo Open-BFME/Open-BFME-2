@@ -93,7 +93,7 @@ class Rva005B4F20WindowManagerView {public:
 
 #include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 typedef void(AptCommandTarget::*FunctorMethod)(const char*);
-struct DelegateDesc {DelegateDesc(FunctorMethod m,AptCommandTarget*o):object(o),method(m){} AptCommandTarget*object;FunctorMethod method;};
+#include "../../Include/Common/DelegateDesc.h"
 static __forceinline DelegateDesc MakeBinding(FunctorMethod method,AptCommandTarget*target){DelegateDesc d(method,target);return d;}
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);void*ptr;};
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);

@@ -141,12 +141,7 @@ void Rva005C3A37Elem::rva005C3B3E()
 
 class Rva005C3C0B {public: void rva005C3C0B(const char *);};
 class Rva005C3D5F {public: void rva005C3D5F(const char *);};
-struct DelegateDesc {
- void *object;
- void (Rva005C3A37Elem::*method)(const char *);
- template<class T> DelegateDesc(Rva005C3A37Elem *p,void (T::*f)(const char *)):object(p),method(reinterpret_cast<void (Rva005C3A37Elem::*)(const char *)>(f)) {}
- DelegateDesc(Rva005C3A37Elem *p,void (Rva005C3A37Elem::*f)(int)):object(p),method(reinterpret_cast<void (Rva005C3A37Elem::*)(const char *)>(f)) {}
-};
+#include "../../Include/Common/DelegateDesc.h"
 // ?AptRef::AptRef present-unmatched (inline delegate adapter; no unique retail body)
 template<class T> __forceinline AptRef<T>::AptRef(DelegateDesc d):Rva00579E47(d) {}
 __forceinline void AptCommandMapAdder::AddCommandMapBinding(const AsciiString &asciiString,DelegateDesc d) {AddCommandMap(asciiString,d);}

@@ -22,11 +22,7 @@ const char *g_00C68508[]={BfmeSpellButtonStateUnused,BfmeSpellButtonStateDisable
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const int &,const char *const &);
 namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc {
- template<class T> DelegateDesc(T *o,void(T::*m)(const char*)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
- template<class T> DelegateDesc(T *o,void(T::*m)(int)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
- void *object;void(AptCommandTarget::*method)(const char*);
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 struct SpellTimerDesc {void *receiver;int index;};
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);private:void *ptr;};
 class Rva0052A786 {public:Rva0052A786 &rva0052A786(const DelegateDesc*);private:void *ptr;};

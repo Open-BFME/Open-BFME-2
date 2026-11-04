@@ -18,10 +18,7 @@
 #include <new.h>
 void *__cdecl operator new(unsigned int size) throw();
 
-struct DelegateDesc {
-    void *m_object;
-    void *m_method;
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 struct ImplBase {
     virtual ~ImplBase() {}
@@ -34,7 +31,7 @@ public:
     virtual void invoke(const char *text);
     void *m_object;
     void *m_method;
-    Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
+    Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.field00), m_method(delegateDesc.field04) {}
 };
 
 class Rva00579E47 {
@@ -69,7 +66,7 @@ void *bfmeAnchorRva00579E47(void *where, const DelegateDesc &delegateDesc)
 struct Impl002165B0 : ImplBase {
     void *m_object;
     void *m_method;
-    Impl002165B0(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
+    Impl002165B0(const DelegateDesc &delegateDesc) : m_object(delegateDesc.field00), m_method(delegateDesc.field04) {}
 };
 class Rva002165B0 {
 public:
@@ -89,7 +86,7 @@ Rva002165B0 &Rva002165B0::rva002165B0(const DelegateDesc *delegateDesc)
 struct Impl00525916 : ImplBase {
     void *m_object;
     void *m_method;
-    Impl00525916(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
+    Impl00525916(const DelegateDesc &delegateDesc) : m_object(delegateDesc.field00), m_method(delegateDesc.field04) {}
 };
 class Rva00525916 {
 public:
@@ -109,7 +106,7 @@ Rva00525916 &Rva00525916::rva00525916(const DelegateDesc *delegateDesc)
 struct Impl0052A786 : ImplBase {
     void *m_object;
     void *m_method;
-    Impl0052A786(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
+    Impl0052A786(const DelegateDesc &delegateDesc) : m_object(delegateDesc.field00), m_method(delegateDesc.field04) {}
 };
 class Rva0052A786 {
 public:
@@ -129,7 +126,7 @@ Rva0052A786 &Rva0052A786::rva0052A786(const DelegateDesc *delegateDesc)
 struct Impl0052A7C1 : ImplBase {
     void *m_object;
     void *m_method;
-    Impl0052A7C1(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
+    Impl0052A7C1(const DelegateDesc &delegateDesc) : m_object(delegateDesc.field00), m_method(delegateDesc.field04) {}
 };
 class Rva0052A7C1 {
 public:

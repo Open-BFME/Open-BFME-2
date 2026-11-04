@@ -21,14 +21,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 #include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 
-struct DelegateDesc
-{
-	template <class T> DelegateDesc(T *object, void (T::*method)(int))
-		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(int)>(method)) {}
-
-	AptCommandTarget *m_object;
-	void (AptCommandTarget::*m_method)(int);
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 class AptCommandMap
 {

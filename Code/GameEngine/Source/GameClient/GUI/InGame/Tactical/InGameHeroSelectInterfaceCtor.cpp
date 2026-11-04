@@ -72,20 +72,7 @@ namespace AptUtils
 class __single_inheritance DelegateTarget;
 typedef void (DelegateTarget::*DelegateMethod)(const char *);
 
-struct DelegateDesc
-{
-	DelegateDesc(void *object, DelegateMethod method) : m_object(object), m_method(method) {}
-	DelegateDesc(void *object, void(__stdcall *function)(int)) : m_object(object), m_function(function) {}
-	DelegateDesc(void *object, int index) : m_object(object), m_index(index) {}
-
-	void *m_object;
-	union
-	{
-		DelegateMethod m_method;
-		void(__stdcall *m_function)(int);
-		int m_index;
-	};
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 // The hero button handlers bind their slot index through 0x00525916.
 struct HeroIndexDesc : DelegateDesc

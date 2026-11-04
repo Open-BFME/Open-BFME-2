@@ -98,10 +98,7 @@ private:
  void *field24; UnicodeString cachedName; int field2c; void *field30;
  float health; int cachedCount; IPEnumeration fields3c[2]; bool hitActive,reinforceActive;
 };
-struct DelegateDesc {
- DelegateDesc(Rva005FBC20 *p,void(Rva005FBC20::*f)(const char*)):m_object(p),m_method(f){}
- Rva005FBC20 *m_object; void(Rva005FBC20::*m_method)(const char*);
-};
+#include "../../../Include/Common/DelegateDesc.h"
 class Rva00579E47Delegate : public Rva00579E47 {
 public: Rva00579E47Delegate(DelegateDesc desc):Rva00579E47(desc){}
 };

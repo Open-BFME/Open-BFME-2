@@ -14,14 +14,14 @@ struct Rva004FBC02Src
 
 class __single_inheritance Rva004FBC02;
 typedef void (Rva004FBC02::*DelegateMethod)(int);
-struct DelegateDesc { void *object; DelegateMethod method; };
+#include "../../../Include/Common/DelegateDesc.h"
 // Builds the bound-method descriptor; retail stores the method first, through
 // a register, as this helper's parameter copy does.
 template <class T> inline DelegateDesc MakeDesc(T *object, void (T::*method)(int))
 {
 	DelegateDesc desc;
-	desc.object = object;
-	desc.method = method;
+	desc.field00 = object;
+	desc.field04 = *reinterpret_cast<void **>(&method);
 	return desc;
 }
 class Rva00579E47 { public: Rva00579E47() {} Rva00579E47(const DelegateDesc &); void *ptr; };
