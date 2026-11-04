@@ -237,9 +237,9 @@ public:
 	~SortingRenderStateStruct();
 };
 
-extern unsigned g_Va00DEDC80;
 // g_Va00DEDC80: matched references place it at VA 0xdedc80 (zero-filled .bss).
-unsigned int g_Va00DEDC80;
+// Retail's object extends 656 bytes; the mangled name stays the one its other users declare.
+extern "C" unsigned int __identifier("?g_Va00DEDC80@@3IA")[164];
 // DX8Wrapper::render_state (VA 0x00DEE5D8, protected static, defined in
 // dx8wrapper.cpp): the global the next thunk destroys.
 struct RenderStateStruct;
@@ -253,7 +253,7 @@ protected:
 // ?rva007B6FC0@@YAXXZ @ 0x007B6FC0 (10B). Global SortingRenderStateStruct dtor thunk: ecx=&g_Va00DEDC80 then tail-jmp to rowed ??1SortingRenderStateStruct@@QAE@XZ (0x0011C5C0). No callers. Same page. Honest address name.
 void __cdecl rva007B6FC0()
 {
-	SortingRenderStateStruct *receiver = (SortingRenderStateStruct *)&g_Va00DEDC80;
+	SortingRenderStateStruct *receiver = (SortingRenderStateStruct *)__identifier("?g_Va00DEDC80@@3IA");
 	return receiver->~SortingRenderStateStruct();
 }
 
@@ -271,16 +271,16 @@ public:
 	~SegLineRendererClass();
 };
 
-extern unsigned g_Va009F6F30;
 // g_Va009F6F30: matched references place it at VA 0xdf6f30 (zero-filled .bss).
-unsigned int g_Va009F6F30;
+// Retail's object extends 80 bytes; the mangled name stays the one its other users declare.
+extern "C" unsigned int __identifier("?g_Va009F6F30@@3IA")[20];
 
 // ?rva007B71C0@@YAXXZ @ 0x007B71C0 (10B). Global SegLineRenderer dtor thunk: ecx=&g_Va009F6F30 then tail-jmp to rowed ??1SegLineRendererClass@@QAE@XZ (0x001911C0). No callers. Prev is our 0x007B6FD0 row in this TU (same page). Honest address name.
 // The deleting-dtor COMDAT copy this TU emits must match part_buf.cpp's /O2-style (add esp,4) copy, while the file stays /O1 for the other thunks: pragma on the caller controls the compiler-generated ??_G.
 #pragma optimize("t", on)
 void __cdecl rva007B71C0()
 {
-	SegLineRendererClass *receiver = (SegLineRendererClass *)&g_Va009F6F30;
+	SegLineRendererClass *receiver = (SegLineRendererClass *)__identifier("?g_Va009F6F30@@3IA");
 	return receiver->~SegLineRendererClass();
 }
 #pragma optimize("", on)

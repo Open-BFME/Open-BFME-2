@@ -19,6 +19,12 @@ example `extern "C" unsigned int __identifier("?g_Va00DEC140@@3IA")[13];`. Byte 
 references are masked. Too large wastes bytes; too small corrupts memory, so the gap is the safe choice until the
 class's real size is known.
 
-**Done:** the filter objects `g_Va00DEC018`..`g_Va00DEC1DC`, then the other constructed names in
-`Rva007B6880Thunks.cpp`. **Open:** the constructed names outside that file, and a check in `image_report.py` that
-compares each global's extent with the size its constructor writes.
+**Done, all in `Rva007B6880Thunks.cpp`:** seven filter objects (`g_Va00DEC018`, `g_Va00DEC080`, `g_Va00DEC0E0`, `g_Va00DEC140`,
+`g_Va00DEC174`, `g_Va00DEC1CC`, `g_Va00DEC1DC`), `g_Va00A1F4E8`, `g_Va00DFDD0C`, `g_Va00E0669C`, `g_Va00E06778`, `g_Va00DE2008`,
+`g_Va00E03168`, `g_Va00DF29B4`, `g_Va00DFF494`, `g_Va00E04508`, `g_Va00E04938`, `g_Va00E03174`, `g_Va00E06E60`, `g_Va009F6F30`
+and `g_Va00DEDC80`.
+
+**Open:** the constructed names defined in other files, among them `g_Va00E06634` (`Rva007ABBB3CtorInits.cpp`, gap 12),
+`g_Va00DE1D00` and `g_Va00DE1D60` (gap 96), `g_Va00DF2984` (36), `g_Va00E02FF8` (20) and `g_00E02EAC` (ours 16, gap 20). The
+measured figures predate these repairs, and the source pattern only sees direct construction, so it can miss others. Also open: a check in
+`image_report.py` that compares each global's extent with the size its constructor writes.
