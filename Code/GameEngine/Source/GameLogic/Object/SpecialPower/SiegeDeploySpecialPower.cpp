@@ -250,14 +250,7 @@ class SiegePhaseContain : public SiegePhaseSlots<70> {public:virtual Rva0036AE51
 
 
 
-class SpecialPowerUpdateInterface
-{
-public:
-    virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-        const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way) = 0;
-    virtual void gap1();
-    virtual bool rva004C575F();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 class SpecialPowerStopInterface
 {
@@ -370,7 +363,7 @@ public:
     virtual NameKeyType getModuleNameKey() const;
     virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
         const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
-    virtual bool rva004C575F();
+    virtual bool isActive() const;
     virtual bool rva004C5751();
     virtual void stopSpecialPower();
     virtual UpdateSleepTime update();
@@ -502,7 +495,7 @@ public:
 // unrowed setter 0x004C5BE3 compares its argument with it), the bool at +0x70.
 // Names are by address.
 //
-// ?rva004C575F@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C575F, 19 bytes:
+// ?isActive@SiegeDeploySpecialPower@@UBE_NXZ, retail 0x004C575F, 19 bytes:
 // +0x20 slot 2; true unless the state is 0 or 1.
 // ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C5751, 14 bytes:
 // +0x24 slot 1; the negation of +0x20 slot 2, called virtually.
@@ -614,7 +607,7 @@ SiegeDeploySpecialPowerModuleData::SiegeDeploySpecialPowerModuleData()
 void SiegeDeploySpecialPower::initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 	const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way)
 {
-	if (rva004C575F())
+	if (isActive())
 		return;
 	if (!targetObj)
 		return;
@@ -705,8 +698,8 @@ NameKeyType SiegeDeploySpecialPower::getModuleNameKey() const
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerSlots.cpp
 
-// ?rva004C575F@SiegeDeploySpecialPower@@UAE_NXZ @0x004C575F
-bool SiegeDeploySpecialPower::rva004C575F()
+// ?isActive@SiegeDeploySpecialPower@@UBE_NXZ @0x004C575F
+bool SiegeDeploySpecialPower::isActive() const
 {
 	return !(m_phase == 0 || m_phase == 1);
 }
@@ -714,7 +707,7 @@ bool SiegeDeploySpecialPower::rva004C575F()
 // ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ @0x004C5751
 bool SiegeDeploySpecialPower::rva004C5751()
 {
-	return !rva004C575F();
+	return !isActive();
 }
 
 // ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ @0x004C5E41
