@@ -12,7 +12,11 @@ class BfmeSelectionState {public:bool isSelectionLocked()const;};
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Object;
-class ObjectLookupMap {public:Object **findSlot(int*);};
+class ObjectLookupMap
+{
+public:
+	Object**findSlot(int*);
+};
 extern unsigned g_Va00E04938;
 void Rva00524CC6(int);
 extern const float MovieSubtitleXScale, MovieSubtitleYScale, MovieSubtitleNormalWidth,MovieSubtitleLockedWidth;

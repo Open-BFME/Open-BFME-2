@@ -132,7 +132,11 @@ private:
 
 class Object;
 
-class ObjectLookupMap {public:Object**findSlot(int*);};
+class ObjectLookupMap
+{
+public:
+	Object**findSlot(int*);
+};
 
 class Rva00548984;
 
