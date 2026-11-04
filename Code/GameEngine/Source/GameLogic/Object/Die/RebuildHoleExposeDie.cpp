@@ -136,6 +136,7 @@ public:
 // The RebuildHoleBehavior +0x24 interface table 0x00C49A50: slot 0
 // startRebuildProcess (0x004835B4), slot 4 a byte setter.
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Object : public Thing
 {
