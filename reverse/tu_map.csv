@@ -27475,7 +27475,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00360CED,57,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp
 0x00360D26,8,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,C,C=0x00360CED..0x00360D2E provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp
 0x00360D2E,139,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp
-0x00360DB9,171,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x00360DB9,171,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00360E64,241,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00360DB9..0x00360F55 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00360F55,134,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00360DB9..0x00360FDB provisional,Code/GameEngine/Source/GameLogic/Object/Rva00360F55Ctor.cpp
 0x00360FDB,128,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00360DB9..0x0036105B provisional,Code/GameEngine/Source/GameLogic/Object/Rva00360F55Dtor.cpp
@@ -27489,7 +27489,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003614CC,40,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x003611EF..0x003614F4 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x003614F4,54,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x003611EF..0x0036152A provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0036152A,9,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x003611EF..0x00361533 provisional,Code/GameEngine/Source/Common/DestroyInstances.cpp
-0x00361533,97,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x00361533,97,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00361594,29,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361533..0x003615B1 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x003615B1,28,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361533..0x003615CD provisional,Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp
 0x003615CD,24,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361533..0x003615E5 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp
@@ -27501,14 +27501,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0036173F,23,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361533..0x00361756 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00361756,58,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361533..0x00361790 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x00361790,135,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361533..0x00361817 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
-0x00361817,162,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterIsForbidden.cpp
-0x003618B9,601,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
-0x00361B12,403,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x00361817,162,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x003618B9,601,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x00361B12,403,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00361CA5,993,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361B12..0x00362087 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00362087,153,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361B12..0x00362120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00362120,114,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00361B12..0x00362192 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00362192,195,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp C=0x00361B12..0x00362255 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
-0x00362255,400,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x00362255,400,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x003623E5,82,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,proposed,K,K=Rva003623E5Member,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x00362437,42,code,,,-,,Code/GameEngine/Source/GameLogic/Object/ObjectFilterAccepts.cpp
 0x00362461,10,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
@@ -74326,8 +74326,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077E067,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/ArmorStoreCtor.cpp
 0x0077E071,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/ArmorStoreCtor.cpp
 0x0077E07C,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/ArmorStoreCtor.cpp
-0x0077E086,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00360DB9@FuncInfo0x00927F94 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
-0x0077E08E,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00360DB9@FuncInfo0x00927F94 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x0077E086,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00360DB9@FuncInfo0x00927F94 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x0077E08E,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00360DB9@FuncInfo0x00927F94 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E098,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E0A0,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E0AB,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
@@ -74339,20 +74339,20 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077E0E6,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x003611EF@FuncInfo0x00928004 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E0F0,14,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361470@FuncInfo0x00928028 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x0077E0FE,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361470@FuncInfo0x00928028 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
-0x0077E108,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361533@FuncInfo0x0092804C provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
-0x0077E110,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361533@FuncInfo0x0092804C provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x0077E108,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361533@FuncInfo0x0092804C provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x0077E110,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361533@FuncInfo0x0092804C provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E11A,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x003615E5@FuncInfo0x00928070 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp
 0x0077E122,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x003615E5@FuncInfo0x00928070 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp
-0x0077E12C,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361817@FuncInfo0x00928094 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterIsForbidden.cpp
-0x0077E137,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361817@FuncInfo0x00928094 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterIsForbidden.cpp
+0x0077E12C,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361817@FuncInfo0x00928094 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x0077E137,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361817@FuncInfo0x00928094 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E141,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361CA5@FuncInfo0x009280F4 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E14C,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361CA5@FuncInfo0x009280F4 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E154,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361CA5@FuncInfo0x009280F4 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E15C,8,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361CA5@FuncInfo0x009280F4 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E164,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00361CA5@FuncInfo0x009280F4 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
-0x0077E16E,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00362255@FuncInfo0x00928120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
-0x0077E179,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00362255@FuncInfo0x00928120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
-0x0077E184,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00362255@FuncInfo0x00928120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
+0x0077E16E,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00362255@FuncInfo0x00928120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x0077E179,11,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00362255@FuncInfo0x00928120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+0x0077E184,10,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,P,P=0x00362255@FuncInfo0x00928120 provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E18E,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E199,10,code,,,-,,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 0x0077E1A3,8,code,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,approved,P,P=0x003628D3@FuncInfo0x00928144 provisional,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
