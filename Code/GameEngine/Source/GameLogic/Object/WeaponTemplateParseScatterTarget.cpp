@@ -41,14 +41,7 @@ private:
 };
 }
 
-class WeaponTemplate
-{
-private:
-	static void parseScatterTarget(INI *ini, void *instance, void *store, const void *userData);
-
-	unsigned char m_unreconstructed_00[0x40];
-	_STL::vector<Coord2D, _STL::allocator<Coord2D> > m_scatterTargets;	// +0x40
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 // ?parseScatterTarget@WeaponTemplate@@CAXPAVINI@@PAX1PBX@Z
 void WeaponTemplate::parseScatterTarget(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
@@ -61,5 +54,5 @@ void WeaponTemplate::parseScatterTarget(INI *ini, void *instance, void * /*store
 	target.y = 0;
 	INI::parseCoord2D(ini, NULL, &target, NULL);
 
-	((_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > *)&self->m_scatterTargets)->push_back(*(const BfmeE8 *)&target);
+	((_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > *)self->m_field40)->push_back(*(const BfmeE8 *)&target);
 }

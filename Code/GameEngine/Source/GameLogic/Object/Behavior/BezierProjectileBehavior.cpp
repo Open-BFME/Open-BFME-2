@@ -285,27 +285,14 @@ struct TargetCoord
 	TargetCoord(const Coord3D &p) : x(p.x), y(p.y), z(p.z) {}
 };
 
-class WeaponTemplate
-{
-public:
-	bool shouldProjectileCollideWith(const Object *launcher, const Object *owner, const Object *victim, ObjectID victimID) const;
-	TargetCoord adjustTargetPositionOnVictim(Object *source, Object *victim, Bool flag);	// 0x002CAB3A
-	Real getMinimumAttackRange() const;	// 0x002C92FA
-	__declspec(dllimport) __forceinline Real getWeaponSpeed() const { return m_weaponSpeed; }
-	__declspec(dllimport) __forceinline Real getMinWeaponSpeed() const { return m_minWeaponSpeed; }
-	Real getMaxWeaponSpeed() const { return m_maxWeaponSpeed; }
-	__declspec(dllimport) __forceinline Bool isScaleWeaponSpeed() const { return m_scaleWeaponSpeed; }
-	const AsciiString &getName() const { return m_name; }
-	char m_pad00[0x8];
-	AsciiString m_name;			// +0x08
-	char m_pad0C[0x68 - 0x0C];
-	Real m_weaponSpeed;			// +0x68
-	Real m_minWeaponSpeed;			// +0x6C
-	Real m_maxWeaponSpeed;			// +0x70
-	Bool m_scaleWeaponSpeed;		// +0x74
-	char m_pad75[0x131 - 0x75];
-	bool m_hitStoredTarget;			// +0x131 fire at the victim
-};
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
+// TU-local readers over the header's fields (the retail getters this TU
+// inlined have no out-of-line copy to bind).
+static __forceinline Real weaponTemplateSpeed(const WeaponTemplate *wt) { return wt->m_weaponSpeed; }
+static __forceinline Real weaponTemplateMinSpeed(const WeaponTemplate *wt) { return wt->m_minWeaponSpeed; }
+static __forceinline Real weaponTemplateMaxSpeed(const WeaponTemplate *wt) { return wt->m_field70; }
+static __forceinline Bool weaponTemplateIsScaleSpeed(const WeaponTemplate *wt) { return wt->m_isScaleWeaponSpeed; }
+static __forceinline const AsciiString &weaponTemplateName(const WeaponTemplate *wt) { return *(const AsciiString *)&wt->m_field08; }
 
 #include "../../../../Include/GameLogic/WeaponStore.h"
 
@@ -932,7 +919,7 @@ void BezierProjectileBehavior::rva0045C026()
 		Object *producer = TheGameLogic->findObjectByID(producerID);
 		if (producer)
 			source = producer;
-		if (victim && m_detonationWeaponTmpl->m_hitStoredTarget)
+		if (victim && m_detonationWeaponTmpl->m_field131)
 			TheWeaponStore->rva002CE964(m_detonationWeaponTmpl, source, victim);
 		else
 			TheWeaponStore->handleProjectileDetonation(m_detonationWeaponTmpl, &m_launchPos, source, obj->getPosition(),
@@ -1003,8 +990,8 @@ void BezierProjectileBehavior::projectileFireAtObjectOrPosition(Object *victim, 
 {
 	const BezierProjectileBehaviorModuleData *md = getBezierProjectileBehaviorModuleData();
 	Object *obj = getObject();
-	Real weaponSpeed = m_weapon ? m_weapon->getWeaponSpeed() : 0.0f;
-	Real minWeaponSpeed = m_weapon ? m_weapon->getMinWeaponSpeed() : 0.0f;
+	Real weaponSpeed = m_weapon ? weaponTemplateSpeed(m_weapon) : 0.0f;
+	Real minWeaponSpeed = m_weapon ? weaponTemplateMinSpeed(m_weapon) : 0.0f;
 
 	setWakeFrame(obj, UPDATE_SLEEP_NONE);
 
@@ -1028,7 +1015,7 @@ void BezierProjectileBehavior::projectileFireAtObjectOrPosition(Object *victim, 
 			victimPosToUse.z = TheTerrainLogic->getGroundHeight(victimPosToUse.x, victimPosToUse.y, 0);
 	}
 
-	if (m_weapon && m_weapon->isScaleWeaponSpeed())
+	if (m_weapon && weaponTemplateIsScaleSpeed(m_weapon))
 	{
 		weaponSpeed = bezierMax(weaponSpeed, minWeaponSpeed);
 
@@ -1039,8 +1026,8 @@ void BezierProjectileBehavior::projectileFireAtObjectOrPosition(Object *victim, 
 		Real distSq = dx * dx + dy * dy;
 		m_flightPathSpeed = ((distSq - minRange) / (maxRange - minRange)) *
 			(weaponSpeed - minWeaponSpeed) + minWeaponSpeed;
-		if (m_flightPathSpeed > m_weapon->getMaxWeaponSpeed())
-			m_flightPathSpeed = m_weapon->getMaxWeaponSpeed();
+		if (m_flightPathSpeed > weaponTemplateMaxSpeed(m_weapon))
+			m_flightPathSpeed = weaponTemplateMaxSpeed(m_weapon);
 	}
 	else
 	{
@@ -1402,7 +1389,7 @@ void BezierProjectileBehavior::xfer(Xfer *xfer)
 		*xfer == m_heightScale;
 	AsciiString name(AsciiString::TheEmptyString);
 	if (m_detonationWeaponTmpl)
-		((StringBase<char> *)&name)->set(*(const StringBase<char> *)&m_detonationWeaponTmpl->getName());
+		((StringBase<char> *)&name)->set(*(const StringBase<char> *)&weaponTemplateName(m_detonationWeaponTmpl));
 	*xfer == name;
 	if (xfer->IsLoading()) {
 		if (name.compare(AsciiString::TheEmptyString) == 0)
@@ -1416,7 +1403,7 @@ void BezierProjectileBehavior::xfer(Xfer *xfer)
 	}
 	((StringBase<char> *)&name)->set(*(const StringBase<char> *)&AsciiString::TheEmptyString);
 	if (m_weapon)
-		((StringBase<char> *)&name)->set(*(const StringBase<char> *)&m_weapon->getName());
+		((StringBase<char> *)&name)->set(*(const StringBase<char> *)&weaponTemplateName(m_weapon));
 	*xfer == name;
 	if (xfer->IsLoading()) {
 		if (name.compare(AsciiString::TheEmptyString) == 0)

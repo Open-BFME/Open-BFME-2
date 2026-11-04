@@ -230,29 +230,7 @@ enum INILoadType;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WeaponTemplate
-{
-    friend class WeaponStore;
-public:
-	WeaponTemplate();
-	WeaponTemplate &operator=(const WeaponTemplate &that);
-
-	NameKeyType getNameKey() const { return m_nameKey; }
-	bool isOverride() const { return m_isOverride; }
-	void friend_setNextTemplate(WeaponTemplate *next) { m_nextTemplate = next; }
-	void friend_setIsOverride() { m_isOverride = true; }
-
-private:
-	unsigned char m_pad000[0x04];
-	WeaponTemplate *m_nextTemplate; // +0x04
-	AsciiString m_name; // +0x08
-	NameKeyType m_nameKey; // +0x0C
-	unsigned char m_pad010[0x160 - 0x10];
-	bool m_isOverride; // +0x160
-    unsigned char m_pad161[0x174 - 0x161];
-    mutable int m_retired; // +0x174
-    unsigned char m_pad178[0x180 - 0x178];
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 typedef _STL::vector<WeaponTemplate *, _STL::allocator<WeaponTemplate *> > WeaponTemplateVector;
 
@@ -287,18 +265,18 @@ WeaponTemplate *WeaponStore::newOverride(WeaponTemplate *weaponTemplate)
 {
 	if (weaponTemplate == 0)
 		return 0;
-	if (weaponTemplate->isOverride())
+	if (weaponTemplate->m_field160)
 		return 0;
 
 	WeaponTemplate *wt = reinterpret_cast<WeaponTemplate *>(new Rva002CD4A6);
 	*wt = *weaponTemplate;
-	wt->friend_setNextTemplate(weaponTemplate);
-	wt->friend_setIsOverride();
+	wt->m_nextTemplate = weaponTemplate;
+	wt->m_field160 = true;
 
-	NameKeyType key = wt->getNameKey();
+	NameKeyType key = (NameKeyType)wt->m_nameKey;
 	for (WeaponTemplateVector::iterator it = m_weaponTemplateVector.begin(); it != m_weaponTemplateVector.end(); ++it)
 	{
-		if ((*it)->getNameKey() == key)
+		if ((*it)->m_nameKey == key)
 		{
 			m_weaponTemplateVector.erase(it);
 			break;
@@ -317,7 +295,7 @@ WeaponTemplate *WeaponStore::newOverride(WeaponTemplate *weaponTemplate)
 WeaponTemplate *WeaponStore::findWeaponTemplatePrivate(NameKeyType key) const
 {
     for (int i = 0; i < m_weaponTemplateVector.size(); ++i)
-        if (m_weaponTemplateVector[i]->getNameKey() == key)
+        if (m_weaponTemplateVector[i]->m_nameKey == key)
             return m_weaponTemplateVector[i];
     return 0;
 }
@@ -334,7 +312,7 @@ WeaponTemplate *WeaponStore::newWeaponTemplate(const AsciiString &name)
     if (((const StringBase<char> *)&name)->isEmpty())
         return 0;
     WeaponTemplate *wt = reinterpret_cast<WeaponTemplate *>(new Rva002CD4A6);
-    wt->m_name = name;
+    *(AsciiString *)&wt->m_field08 = name;
     wt->m_nameKey = TheNameKeyGenerator->nameToKey(name);
     m_weaponTemplateVector.push_back(wt);
     return wt;
@@ -355,7 +333,7 @@ void WeaponStore::rva002CDB0E(const WeaponTemplate *weaponTemplate)
     {
         if (weaponTemplate == *it)
         {
-            weaponTemplate->m_retired = 1;
+            const_cast<WeaponTemplate *>(weaponTemplate)->m_field174 = 1;
             m_weaponTemplateVector.erase(it);
             m_retiredTemplates.push_back(weaponTemplate);
             return;
@@ -385,7 +363,7 @@ void WeaponStore::parseWeaponTemplateDefinition(INI *ini)
         {
             TheWeaponStore->rva002CDB0E(weapon);
             weapon = TheWeaponStore->newWeaponTemplate(name);
-            weapon->m_retired = 0;
+            const_cast<WeaponTemplate *>(weapon)->m_field174 = 0;
         }
         else
             return;

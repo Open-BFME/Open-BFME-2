@@ -117,26 +117,12 @@ static __forceinline void giantBirdDoFXPos(const FXList *fx, const Coord3D *prim
 
 #include "../../../../../Include/GameClient/Drawable.h"
 
-class WeaponTemplate
-{
-public:
-	Real getWeaponSpeed() const { return m_speed68; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getWeaponSpeed copy loses to the first-in-order copy
-	// (no retail address); the call below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	Real bfme_weapon_speed() const { return m_speed68; }
-	const FXList *getFireFX() const { return m_fireFX[0]; }
-	Bool getFlag157() const { return m_flag157; }
-private:
-	unsigned char m_pad000[0x68];
-	Real m_speed68; // +0x68
-	unsigned char m_pad06C[0xA4 - 0x6C];
-	const FXList *m_fireFX[1]; // +0xA4
-	unsigned char m_pad0A8[0x157 - 0xA8];
-	Bool m_flag157; // +0x157
-};
+#include "../../../../../Include/GameLogic/WeaponTemplate.h"
+// TU-local readers: a call to the header's inline getWeaponSpeed would
+// emit a loser COMDAT for a getter retail has no address for.
+static __forceinline Real weaponTemplateSpeed(const WeaponTemplate *wt) { return wt->m_weaponSpeed; }
+static __forceinline const FXList *weaponTemplateFireFX(const WeaponTemplate *wt) { return wt->m_fireFXs[0]; }
+static __forceinline Bool weaponTemplateFlag157(const WeaponTemplate *wt) { return wt->m_field157; }
 
 #include "../../../../../Include/GameLogic/Weapon.h"
 
@@ -434,13 +420,13 @@ StateReturnType AIGiantBirdAttackState::onEnter()
 		if (victim->getContainedBy() == owner)
 		{
 			const Weapon *weapon = owner->getCurrentWeapon();
-			if (weapon != 0 && weapon->getTemplate() != 0 && weapon->getTemplate()->getFlag157())
+			if (weapon != 0 && weapon->getTemplate() != 0 && weaponTemplateFlag157(weapon->getTemplate()))
 			{
-				const FXList *fx = weapon->getTemplate()->getFireFX();
+				const FXList *fx = weaponTemplateFireFX(weapon->getTemplate());
 				Drawable *draw = owner->getDrawable();
 				if (fx != 0 && draw != 0)
 				{
-					Real speed = weapon->getTemplate()->bfme_weapon_speed();
+					Real speed = weaponTemplateSpeed(weapon->getTemplate());
 					const Matrix3D *mtx = draw->getTransformMatrix();
 					giantBirdDoFXPos(fx, victim->getPosition(), mtx, speed, victim->getPosition());
 				}

@@ -200,27 +200,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Weapon.h
-class WeaponTemplate
-{
-public:
-	// 0x0047A699 (pinned): BFME2's contact-weapon query is an out-of-line
-	// body that answers false (xor al, al; ret), folded with other such stubs.
-	Bool isContactWeapon() const;
-	float getContinueAttackRange() const { return m_continueAttackRange; }
-
-	Int getAntiMask() const { return m_antiMask; }
-
-	unsigned char m_unmodelled_00[0x10C];
-	Int m_antiMask;								// +0x10C (isClearingMines)
-	unsigned char m_unmodelled_110[0x148 - 0x110];
-	float m_continueAttackRange;				// +0x148 (privateAttackPosition)
-	unsigned char m_unmodelled_14C[0x4D4 - 0x14C];
-	unsigned char m_bit0 : 1;
-	unsigned char m_bit1 : 1;
-	unsigned char m_bit2 : 1;
-	unsigned char m_bit3 : 1;
-	unsigned char m_bit4 : 1;					// WeaponTemplate+0x4D4 bit 4
-};
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
 
 // The weapon handle bfmeCurrentWeaponTemplateFlag4 asks the object for. It is
 // the same question privateAttackMoveToPosition and privateGuardRetaliate ask
