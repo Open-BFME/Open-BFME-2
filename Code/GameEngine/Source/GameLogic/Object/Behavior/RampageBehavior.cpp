@@ -82,10 +82,10 @@ class Rva00458BE1
 {
 public:
 	unsigned char rva00458BE1();
+	char m_pad00[0x4];
 private:
-	char m_pad[4];
-	Rva00458BE1Sub *m_sub;
-	Object *m_obj;
+	Rva00458BE1Sub *m_sub; // +0x04
+	Object *m_obj; // +0x08
 };
 
 // The matched destructor unit provides retail's module-data vtable.

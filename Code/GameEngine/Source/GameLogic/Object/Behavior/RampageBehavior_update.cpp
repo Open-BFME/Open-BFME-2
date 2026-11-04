@@ -256,14 +256,16 @@ __forceinline const float &rampageMax(const float &a, const float &b)
  return a > b ? a : b;
  
 }
+struct Rva00458BE1Sub;
 class Rva00458BE1
-
 {
- public:
- unsigned char rva00458BE1();
- 
-}
-;
+public:
+	unsigned char rva00458BE1();
+	char m_pad00[0x4];
+private:
+	Rva00458BE1Sub *m_sub; // +0x04
+	Object *m_obj; // +0x08
+};
 class RampageBehavior
 
 {
