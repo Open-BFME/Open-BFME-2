@@ -17349,7 +17349,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009BECD8,3072,.data,global,?s_objectFieldParseTable@ThingTemplate@@0QBUFieldParse@@B,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,owned,,1,3
 0x009BF8D8,360,.data,global,_s_flammabilityTable,Code/GameEngine/Source/Common/Thing/ThingTemplateFlammabilityParse.cpp,owned,,1,23
 0x009BFA40,100,.data,float,__real@43480000,,literal,,0,1
-0x009BFAA4,332,.data,global,?firstLoad@?1??init@Rva00355DC5@@UAEXPAVGameInfo@@@Z@4HA,Code/GameEngine/Source/GameClient/GUI/LoadScreen_ShellGameInit.cpp,owned,,1,2
+0x009BFAA4,332,.data,global,?firstLoad@?1??init@Rva00355DC5@@UAEXPAVGameInfo@@@Z@4HA,Code/GameEngine/Source/GameClient/GUI/LoadScreen.cpp,owned,,1,2
 0x009BFBF0,472,.data,global,?TheCommandNames@@3PAPBDA,,unowned,,0,2
 0x009BFDC8,552,.data,global,?g_00DBFDC8@@3GA,,unowned,,0,1
 0x009BFFF0,328,.data,global,?DamageFXDamageTypeNames@@3QBQBDB,Code/GameEngine/Source/Common/DamageFXParseCommon.cpp,owned,,1,1
