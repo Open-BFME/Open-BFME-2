@@ -959,7 +959,7 @@ return;
 }
 case 135:
 {
-Rva003BAAD6();_ReadWriteBarrier();
+doStopCameraFollowUnit();_ReadWriteBarrier();
 return;
 }
 case 123:
@@ -2081,7 +2081,7 @@ return;
 }
 case 175:
 {
-Rva003BAAD6();
+doStopCameraFollowUnit();
 return;
 }
 case 176:

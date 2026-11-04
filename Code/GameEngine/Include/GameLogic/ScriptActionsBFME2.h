@@ -51,7 +51,7 @@ public:
 public:
     void Rva003BC6C7Set(int);
     void Rva003BCFC9Set(bool);
-    void Rva003BAAD6(void);
+    void doStopCameraFollowUnit(void);
     void doDisableCountdownTimerDisplay(void);
     void doEnableCountdownTimerDisplay(void);
     void Rva003C90B1Exit(Parameter *);

@@ -8775,3 +8775,4 @@ member,Rva005785CD::m_44,Rva005785CD::m_commandUI,inferred,agree:nl-18a181e2ab91
 function,?rva0033FDEB@@YA_NPAVRva00343F8A@@PAX@Z,?cannotPossiblyAttackObject@@YA_NPAVRva00343F8A@@PAX@Z,inferred,agree:nl-2214c747263d,Code/GameEngine/Source/GameLogic/AI/Rva00343F8ADispatch.cpp,0x0033FDEB
 member,Rva002A7557In::m_val618,Rva002A7557In::m_commandPoints,inferred,agree:nl-bc095fa13e54,Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp,
 function,?rva001D8E88@ArmorTemplate@@QBEMXZ,?getFlankedPenalty@ArmorTemplate@@QBEMXZ,inferred,agree:nl-fc4518c0e8e4,Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp,0x001D8E88
+function,?Rva003BAAD6@ScriptActions@@QAEXXZ,?doStopCameraFollowUnit@ScriptActions@@QAEXXZ,inferred,agree:nl-d77dc9aee2e7,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,0x003BAAD6

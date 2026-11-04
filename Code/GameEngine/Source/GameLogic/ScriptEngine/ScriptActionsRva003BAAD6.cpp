@@ -6,7 +6,7 @@
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?Rva003BAAD6@ScriptActions@@QAEXXZ @0x003BAAD6 14B: free forwarder to virtual slot 0x1A0 via global 0xDFEA3C.
+// ?doStopCameraFollowUnit@ScriptActions@@QAEXXZ @0x003BAAD6 14B: free forwarder to virtual slot 0x1A0 via global 0xDFEA3C.
 // Evidence: mov ecx,[0xDFEA3C] mov eax,[ecx] jmp [eax+0x1A0]; callers 0x3CAD41 0x3CC8DF in ScriptActions dispatch with mov ecx,edi no pushes.
 
 extern class AudioManager *TheAudio;
@@ -144,7 +144,7 @@ public:
 #define Rva00DFEDF0 (*(Rva003BAAD6Holder **)&TheInGameUI)
 #define Rva00DFE6E8 (*(Rva003BAAD6Holder **)&TheAudio)
 
-void ScriptActions::Rva003BAAD6()
+void ScriptActions::doStopCameraFollowUnit()
 {
     Rva00DFEA3C->target();
 }
