@@ -43,8 +43,8 @@
 // MODELCONDITION_PANICKING at bit 2*32+13 (Object +0x114 mask 0x2000) and
 // BFME 2's "CritterDesync: ComputePath40" log before computePath.
 #include <math.h>
+#include <stddef.h>
 typedef bool Bool;
-#define NULL 0
 #define FAST_AS_POSSIBLE 999999.0f
 enum ModelConditionFlagType
 {
@@ -52,10 +52,9 @@ enum ModelConditionFlagType
 	MODELCONDITION_BFME_130 = 4 * 32 + 2
 };
 #include "../../../Include/GameClient/ModelConditionFlags.h"
-struct FprintfTarget
-{
-	char m_pad[4];
-};
+// The calls at 0x0034EF3F and 0x0034EF85 reach the game format-and-append
+// helper at 0x002CEC42, not CRT fprintf. Its receiver stays opaque here.
+struct FprintfTarget;
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
