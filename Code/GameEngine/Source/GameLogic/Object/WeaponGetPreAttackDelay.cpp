@@ -50,30 +50,24 @@ private:
 	float m_field[FIELD_COUNT];
 };
 
-class WeaponTemplate
-{
-public:
-	__declspec(dllimport) __forceinline int getClipSize() const { return m_clipSize; }
-	__declspec(dllimport) __forceinline WeaponPrefireType getPrefireType() const { return m_prefireType; }
-	__declspec(dllimport) __forceinline int getPreAttackDelay(const WeaponBonus &bonus) const
-	{
-		return (int)(m_preAttackDelay * bonus.getField(PRE_ATTACK));
-	}
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
-private:
-	unsigned char m_pad000[0xE4];
-	int m_clipSize; // +0xE4
-	unsigned char m_padE8[0x12C - 0xE8];
-	WeaponPrefireType m_prefireType; // +0x12C
-	unsigned char m_pad130[0x138 - 0x130];
-	int m_preAttackDelay; // +0x138
-};
+// The header has no prefire or pre-attack-delay accessors; these TU-local
+// inlines read its +0x12C prefire type and +0x138 delay.
+static __forceinline WeaponPrefireType weaponTemplatePrefireType(const WeaponTemplate *wt)
+{
+	return wt->m_prefireType;
+}
+static __forceinline int weaponTemplatePreAttackDelay(const WeaponTemplate *wt, const WeaponBonus &bonus)
+{
+	return (int)(wt->m_preAttackDelay * bonus.getField(PRE_ATTACK));
+}
 
 #include "../../../Include/GameLogic/Weapon.h"
 
 int Weapon::getPreAttackDelay(const Object *source, const Object *victim, const Coord3D *pos) const
 {
-	WeaponPrefireType type = m_template->getPrefireType();
+	WeaponPrefireType type = weaponTemplatePrefireType(m_template);
 	if (type == PREFIRE_PER_CLIP)
 	{
 		if (m_template->getClipSize() > 0 && getRemainingAmmo(false) < (unsigned int)m_template->getClipSize())
@@ -98,6 +92,6 @@ int Weapon::getPreAttackDelay(const Object *source, const Object *victim, const 
 	{
 		WeaponBonus bonus;
 		computeBonus(source, 0, bonus);
-		return m_template->getPreAttackDelay(bonus) + (int)m_tailState;
+		return weaponTemplatePreAttackDelay(m_template, bonus) + (int)m_tailState;
 	}
 }
