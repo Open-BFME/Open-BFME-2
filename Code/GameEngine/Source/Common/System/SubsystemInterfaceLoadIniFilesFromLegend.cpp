@@ -14,8 +14,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-#include "PreRTS.h"
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../Include/Common/SubsystemInterfaceList.h"
+extern SubsystemInterfaceList *TheSubsystemList;
 #include "Common/INI/INI.h"
 #include "ascii_string.h"
 
@@ -36,7 +38,6 @@ struct BfmeLegendLoadRecord {
  AsciiString name;_STL::vector<AsciiString> files,paths,extensions,cinematicPaths,excludePaths;
  unsigned loader;AsciiString debugFile;
 };
-struct BfmeSubsystemLoadXfer {char prefix[0x24];Xfer *xfer;};
 #include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class CopyProtect {public:static void setVerified(bool);};
@@ -45,24 +46,24 @@ bool Rva0002C5E6(const StringBase<char>&,const Rva0002C5E6Range*);
 // Target global byte atDFD944 controls adding Cinematics paths to the exclusion filter.
 // Its original name is unknown; this descriptive name claims only that use.
 bool skipCinematicSubsystemExclusions;
-Bool SubsystemInterface::loadIniFilesFromLegend(){
+bool SubsystemInterface::loadIniFilesFromLegend(){
  CopyProtect::setVerified(TheFileSystem && TheFileSystem->doesFileExist("mithriledition.txt"));
  if(!TheSubsystemLegend)return false;
- Bool loaded=false;
- AsciiString name=m_name;
- BfmeLegendLoadRecord *entry=reinterpret_cast<BfmeLegendLoadRecord*>(TheSubsystemLegend->rva001B49C4(name));
- if(!entry)return false;
+ bool loaded=false;
+ AsciiString subsystemName=m_name;
+ BfmeLegendLoadRecord *legendEntry=reinterpret_cast<BfmeLegendLoadRecord*>(TheSubsystemLegend->rva001B49C4(subsystemName));
+ if(!legendEntry)return false;
  _STL::vector<AsciiString> excluded;
- for(AsciiString *asciiString=entry->excludePaths.begin();asciiString!=entry->excludePaths.end();++asciiString)excluded.push_back(*asciiString);
+ for(AsciiString *asciiString=legendEntry->excludePaths.begin();asciiString!=legendEntry->excludePaths.end();++asciiString)excluded.push_back(*asciiString);
  if(!skipCinematicSubsystemExclusions)
-  for(AsciiString *asciiString=entry->cinematicPaths.begin();asciiString!=entry->cinematicPaths.end();++asciiString)excluded.push_back(*asciiString);
+  for(AsciiString *asciiString=legendEntry->cinematicPaths.begin();asciiString!=legendEntry->cinematicPaths.end();++asciiString)excluded.push_back(*asciiString);
  INI ini;
- Bool flag=m_flag; INILoadType type=(INILoadType)(flag?5:1);
- for(AsciiString *asciiString=entry->files.begin();asciiString!=entry->files.end();++asciiString){
+ bool flag=m_flag; INILoadType loadType=(INILoadType)(flag?5:1);
+ for(AsciiString *asciiString=legendEntry->files.begin();asciiString!=legendEntry->files.end();++asciiString){
   if(!Rva0002C5E6(reinterpret_cast<const StringBase<char>&>(*asciiString),reinterpret_cast<const Rva0002C5E6Range*>(&excluded)))
-   if(ini.loadFile(*asciiString,type,reinterpret_cast<BfmeSubsystemLoadXfer*>(TheSubsystemList)->xfer))loaded=true;
+   if(ini.loadFile(*asciiString,loadType,TheSubsystemList->getXfer()))loaded=true;
  }
- for(AsciiString *asciiString=entry->paths.begin();asciiString!=entry->paths.end();++asciiString)
-  if(ini.loadDirectory(*asciiString,true,type,reinterpret_cast<BfmeSubsystemLoadXfer*>(TheSubsystemList)->xfer,reinterpret_cast<int>(&excluded)))loaded=true;
+ for(AsciiString *asciiString=legendEntry->paths.begin();asciiString!=legendEntry->paths.end();++asciiString)
+  if(ini.loadDirectory(*asciiString,true,loadType,TheSubsystemList->getXfer(),reinterpret_cast<int>(&excluded)))loaded=true;
  return loaded;
 }
