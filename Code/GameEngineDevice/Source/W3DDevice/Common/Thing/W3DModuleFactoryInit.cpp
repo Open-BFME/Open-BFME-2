@@ -90,7 +90,7 @@ public:
 	static Module *friend_newModuleInstance(Thing *, const ModuleData *);
 	static ModuleData *friend_newModuleData(INI *);
 };
-class W3DFloorDraw { public: static Module *friend_newModuleInstance(Thing *, const ModuleData *); };
+#include "../../../../Include/W3DDevice/GameClient/Module/W3DFloorDraw.h"
 class W3DFloorDrawModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../../Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h"
 class W3DPropDrawModuleData { public: static ModuleData *friend_newModuleData(INI *); };
