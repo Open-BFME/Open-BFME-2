@@ -28,41 +28,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-template<int N> class BitFlags
-{
-};
-typedef BitFlags<11> DisabledMaskType;
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-class UpdateModuleInterface
-{
-public:
-	// Slot order copied from ZH GameLogic/Module/UpdateModule.h
-	// (the header the kept QueueProductionExitUpdate.cpp compiles): update
-	// first, then getDisabledTypesToProcess. The {for UpdateModule} vtable
-	// slice must hold these two refs.
-	virtual UpdateSleepTime update() = 0;
-	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-	virtual UpdateSleepTime update() = 0;
-	virtual DisabledMaskType getDisabledTypesToProcess() const;
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 #include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
