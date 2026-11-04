@@ -271,17 +271,7 @@ public:
 	virtual void v00(int value) = 0;
 };
 
-class GameWindowManager
-{
-public:
-#define W(n) virtual void wpad##n() = 0;
-	W(0) W(1) W(2) W(3) W(4) W(5) W(6) W(7)
-	W(8) W(9) W(10) W(11) W(12) W(13) W(14) W(15)
-	W(16) W(17) W(18) W(19) W(20) W(21) W(22) W(23)
-	W(24) W(25) W(26) W(27) W(28) W(29) W(30) W(31)
-#undef W
-	virtual Rva005116C2Screen *v32(AsciiString filename) = 0;
-};
+#include "../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 
@@ -528,7 +518,7 @@ void __cdecl bfmeShowDisconnectScreen(void)
 	Rva004E855CClose();
 	Rva0051B11CEnable();
 	TheInGameUI->rva0029AC03(1);
-	g_disconnectMenuLayout = (Rva00512C88ObjA *)(void *)TheWindowManager->v32(AsciiString("DisconnectScreen.apt"));
+	g_disconnectMenuLayout = (Rva00512C88ObjA *)(void *)TheWindowManager->winCreateLayout(AsciiString("DisconnectScreen.apt"));
 	g_disconnectMenuLayout->v0(0);
 }
 

@@ -18,33 +18,7 @@ class GameWindow;
 
 typedef void (*GameWinMsgBoxFunc)(void);
 
-class GameWindowManager
-{
-public:
-	virtual void pad0() = 0;
-	virtual void pad1() = 0;
-	virtual void pad2() = 0;
-	virtual void pad3() = 0;
-	virtual void pad4() = 0;
-	virtual void pad5() = 0;
-	virtual void pad6() = 0;
-	virtual void pad7() = 0;
-	virtual void pad8() = 0;
-	virtual void pad9() = 0;
-	virtual void pad10() = 0;
-	virtual void pad11() = 0;
-	virtual void pad12() = 0;
-	virtual void pad13() = 0;
-	virtual void pad14() = 0;
-	virtual void pad15() = 0;
-	virtual void pad16() = 0;
-	virtual GameWindow *gogoMessageBox(Int x, Int y, Int width, Int height, UnsignedShort buttonFlags, UnicodeString titleString, UnicodeString bodyString, GameWinMsgBoxFunc yesCallback, GameWinMsgBoxFunc noCallback, GameWinMsgBoxFunc okCallback, GameWinMsgBoxFunc cancelCallback);
-	virtual GameWindow *gogoMessageBox(Int x, Int y, Int width, Int height, UnsignedShort buttonFlags, UnicodeString titleString, UnicodeString bodyString, GameWinMsgBoxFunc yesCallback, GameWinMsgBoxFunc noCallback, GameWinMsgBoxFunc okCallback, GameWinMsgBoxFunc cancelCallback, Bool useLogo);
-	virtual void pad19() = 0;
-	virtual void pad20() = 0;
-	virtual void pad21() = 0;
-	virtual void pad22() = 0;
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 GameWindow *GameWindowManager::gogoMessageBox(Int x, Int y, Int width, Int height, UnsignedShort buttonFlags, UnicodeString titleString, UnicodeString bodyString, GameWinMsgBoxFunc yesCallback, GameWinMsgBoxFunc noCallback, GameWinMsgBoxFunc okCallback, GameWinMsgBoxFunc cancelCallback)
 {

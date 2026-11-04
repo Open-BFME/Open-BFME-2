@@ -10,6 +10,16 @@ class GameFont;
 class UnicodeString;
 struct Rva0047EDE0CreateInfo;
 enum WindowMsgHandledType;
+class WindowLayout;
+class GadgetCreateView;
+struct _ListboxData;
+struct _EntryData;
+struct _ComboBoxData;
+class Rva0031763A;
+struct ICoord2D;
+class Image;
+enum GameWindowMessage;
+enum WinInputReturnCode;
 class GameWindowManager : public SubsystemInterface {
 public:
     GameWindowManager();
@@ -39,12 +49,9 @@ public:
 private:
     virtual void slot16(); // slot 16
 public:
-private:
-    virtual void slot17(); // slot 17
-public:
-private:
-    virtual void slot18(); // slot 18
-public:
+    // MSVC places overloads in reverse declaration order: the bool form is slot 17.
+    virtual GameWindow *gogoMessageBox(int, int, int, int, unsigned short, UnicodeString, UnicodeString, void (*)(), void (*)(), void (*)(), void (*)()); // slot 18
+    virtual GameWindow *gogoMessageBox(int, int, int, int, unsigned short, UnicodeString, UnicodeString, void (*)(), void (*)(), void (*)(), void (*)(), bool); // slot 17
 private:
     virtual void slot19(); // slot 19
 public:
@@ -60,9 +67,7 @@ public:
 private:
     virtual void slot23(); // slot 23
 public:
-private:
-    virtual void slot24(); // slot 24
-public:
+    virtual GameWindow *gogoGadgetListBox(GadgetCreateView *, _ListboxData *, GameFont *, bool); // slot 24
 private:
     virtual void slot25(); // slot 25
 public:
@@ -72,21 +77,11 @@ public:
 private:
     virtual void slot27(); // slot 27
 public:
-private:
-    virtual void slot28(); // slot 28
-public:
-private:
-    virtual void slot29(); // slot 29
-public:
-private:
-    virtual void slot30(); // slot 30
-public:
-private:
-    virtual void slot31(); // slot 31
-public:
-private:
-    virtual void slot32(); // slot 32
-public:
+    virtual GameWindow *gogoGadgetTextEntry(GadgetCreateView *, _EntryData *, GameFont *, bool); // slot 28
+    virtual GameWindow *gogoGadgetComboBox(GadgetCreateView *, _ComboBoxData *, GameFont *, bool); // slot 29
+    virtual void assignDefaultGadgetLook(GameWindow *, GameFont *, bool); // slot 30
+    virtual GameWindow *winCreateFromScript(AsciiString, Rva0031763A *, GameWindow *); // slot 31
+    virtual WindowLayout *winCreateLayout(AsciiString); // slot 32
     virtual void freeStaticStrings(); // slot 33
 private:
     virtual void slot34(); // slot 34
@@ -98,72 +93,48 @@ private:
 public:
     virtual void hideWindowsInRange(GameWindow *, int, int, bool); // slot 38
     virtual void enableWindowsInRange(GameWindow *, int, int, bool); // slot 39
-private:
-    virtual void slot40(); // slot 40
-public:
+    virtual void windowHiding(GameWindow *); // slot 40
 private:
     virtual void slot41(); // slot 41
 public:
-private:
-    virtual void slot42(); // slot 42
-public:
-private:
-    virtual void slot43(); // slot 43
-public:
+    virtual void winNextTab(GameWindow *); // slot 42
+    virtual void winPrevTab(GameWindow *); // slot 43
 private:
     virtual void slot44(); // slot 44
 public:
 private:
     virtual void slot45(); // slot 45
 public:
-private:
-    virtual void slot46(); // slot 46
-public:
+    virtual WinInputReturnCode winProcessMouseEvent(GameWindowMessage, ICoord2D *, void *); // slot 46
     virtual int rva002C0F68(bool, bool); // slot 47
 private:
     virtual void slot48(); // slot 48
 public:
-private:
-    virtual void slot49(); // slot 49
-public:
+    virtual int winSetFocus(GameWindow *); // slot 49
 private:
     virtual void slot50(); // slot 50
 public:
 private:
     virtual void slot51(); // slot 51
 public:
-private:
-    virtual void slot52(); // slot 52
-public:
+    virtual void winSetLoneWindow(GameWindow *); // slot 52
 private:
     virtual void slot53(); // slot 53
 public:
-private:
-    virtual void slot54(); // slot 54
-public:
-private:
-    virtual void slot55(); // slot 55
-public:
+    virtual bool isEnabled(GameWindow *); // slot 54
+    virtual bool isHidden(GameWindow *); // slot 55
     virtual void addWindowToParent(GameWindow *, GameWindow *); // slot 56
     virtual void addWindowToParentAtEnd(GameWindow *, GameWindow *); // slot 57
     virtual WindowMsgHandledType winSendSystemMsg(GameWindow *, unsigned int, unsigned int, unsigned int); // slot 58
     virtual WindowMsgHandledType winSendInputMsg(GameWindow *, unsigned int, unsigned int, unsigned int); // slot 59
     virtual GameWindow *winGetWindowFromId(GameWindow *, int); // slot 60
-private:
-    virtual void slot61(); // slot 61
-public:
-private:
-    virtual void slot62(); // slot 62
-public:
+    virtual int winCapture(GameWindow *); // slot 61
+    virtual int winRelease(GameWindow *); // slot 62
 private:
     virtual void slot63(); // slot 63
 public:
-private:
-    virtual void slot64(); // slot 64
-public:
-private:
-    virtual void slot65(); // slot 65
-public:
+    virtual int winSetModal(GameWindow *); // slot 64
+    virtual int winUnsetModal(GameWindow *); // slot 65
 private:
     virtual void slot66(); // slot 66
 public:
@@ -176,12 +147,8 @@ public:
 private:
     virtual void slot69(); // slot 69
 public:
-private:
-    virtual void slot70(); // slot 70
-public:
-private:
-    virtual void slot71(); // slot 71
-public:
+    virtual int winMakeColor(unsigned char, unsigned char, unsigned char, unsigned char); // slot 70
+    virtual const Image *winFindImage(const char *); // slot 71
 private:
     virtual void slot72(); // slot 72
 public:

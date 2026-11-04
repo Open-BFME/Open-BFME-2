@@ -56,12 +56,7 @@ public:
 // their direct calls are used.
 typedef struct _EntryData EntryData;
 typedef struct _ComboBoxData ComboBoxData;
-class GameWindowManager
-{
-public:
-	virtual GameWindow *gogoGadgetTextEntry(GadgetCreateView *view, EntryData *entryData, GameFont *defaultFont, bool defaultVisual);
-	virtual GameWindow *gogoGadgetComboBox(GadgetCreateView *view, ComboBoxData *comboBoxDataTemplate, GameFont *defaultFont, bool defaultVisual);
-};
+#include "../../../../../GameEngine/Include/GameClient/GameWindowManager.h"
 
 enum { GADGET_CREATE_IMAGE = 0x80 };
 

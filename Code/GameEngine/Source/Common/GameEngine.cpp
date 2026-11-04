@@ -82,43 +82,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
-class GameWindowManager
-{
-public:
-	virtual void slot00(void);
-	virtual void slot01(void);
-	virtual void slot02(void);
-	virtual void slot03(void);
-	virtual void slot04(void);
-	virtual void slot05(void);
-	virtual void slot06(void);
-	virtual void slot07(void);
-	virtual void slot08(void);
-	virtual void slot09(void);
-	virtual void slot10(void);
-	virtual void slot11(void);
-	virtual void slot12(void);
-	virtual void slot13(void);
-	virtual void slot14(void);
-	virtual void slot15(void);
-	virtual void slot16(void);
-	virtual void slot17(void);
-	virtual void slot18(void);
-	virtual void slot19(void);
-	virtual void slot20(void);
-	virtual void slot21(void);
-	virtual void slot22(void);
-	virtual void slot23(void);
-	virtual void slot24(void);
-	virtual void slot25(void);
-	virtual void slot26(void);
-	virtual void slot27(void);
-	virtual void slot28(void);
-	virtual void slot29(void);
-	virtual void slot30(void);
-	virtual void slot31(void);
-	virtual WindowLayout *winCreateLayout(AsciiString filename);
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GameLogic.h
 

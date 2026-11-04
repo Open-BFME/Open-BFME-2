@@ -47,15 +47,7 @@ class WindowLayoutInfo;
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
-class __declspec(novtable) GameWindowManager
-{
-public:
-	virtual GameWindow *gogoMessageBox(Int x, Int y, Int width, Int height,
-		UnsignedShort buttonFlags, UnicodeString titleString,
-		UnicodeString bodyString, GameWinMsgBoxFunc yesCallback,
-		GameWinMsgBoxFunc noCallback, GameWinMsgBoxFunc okCallback,
-		GameWinMsgBoxFunc cancelCallback, Bool useLogo);
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 extern NameKeyGenerator *TheNameKeyGenerator;
 void GadgetStaticTextSetText(GameWindow *win, UnicodeString text);

@@ -264,17 +264,7 @@ class Rva00580B40 { public: void rva00580B40(const ModuleData *); };
 class LANGameInfo;
 class Rva0058113D { public: LANGameInfo *rva0058113D(unsigned int); };
 class Rva0043DB66ByteOneSetter { public: void enable(); };
-class GameWindowManager {
-public:
-#define W(n) virtual void slot##n();
- W(0) W(1) W(2) W(3) W(4) W(5) W(6) W(7) W(8) W(9)
- W(10) W(11) W(12) W(13) W(14) W(15) W(16) W(17) W(18) W(19)
- W(20) W(21) W(22) W(23) W(24) W(25) W(26) W(27) W(28) W(29)
- W(30) W(31) W(32) W(33) W(34) W(35) W(36) W(37) W(38) W(39)
- W(40) W(41) W(42) W(43) W(44) W(45) W(46) W(47) W(48) W(49) W(50) W(51)
-#undef W
- virtual void slotD0(GameWindow *);
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -312,7 +302,7 @@ void AptOnlineCustomMatch::PopulateGamesListBox()
     GadgetListBoxSetSelected(list, newSelected);
     GadgetListBoxSetTopVisibleEntry(list, top);
     if (newSelected < 0) {
-        if (gameID != 0) TheWindowManager->slotD0(0);
+        if (gameID != 0) TheWindowManager->winSetLoneWindow(0);
         ((AptMpGameSetup *)((char *)this + 0x70))->rva0043FA68(0);
     } else {
         StagingRoomMap *selectedRooms=TheGameSpyInfo->getStagingRoomList();

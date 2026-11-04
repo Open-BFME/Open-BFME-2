@@ -119,11 +119,7 @@ public:
 	GameWindow *m_firstWindow;				// +0x08
 };
 
-class GameWindowManager : public AptLoadScreenSlots<32>
-{
-public:
-	virtual WindowLayout *winCreateLayout(AsciiString filename);	// +0x80
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 
 #include "../../../../../Include/GameClient/GameText.h"

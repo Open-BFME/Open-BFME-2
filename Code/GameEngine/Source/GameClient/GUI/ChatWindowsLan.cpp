@@ -129,14 +129,7 @@ template<> void _STL::vector<const ModuleData *>::push_back(const ModuleData *co
 template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
 typedef _STL::vector<int,Rva002444BEAllocator<int> > SelectionIDs;
 class ChatWindowsInGame {public:int rva005AFDC5(int,const UnicodeString &,const UnicodeString &,int);};
-class GameWindowManager {public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
- V10(0) V10(1) V10(2) V10(3) V10(4) V(50) V(51)
- virtual void selectionChanged(int);
-#undef V10
-#undef V
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 #include "../../../Include/Common/Rva00072FE6.h"
 // The selection ids are a set<int>: its constructor is the shared 25-byte
@@ -179,7 +172,7 @@ bool ChatWindowsLan::PopulatePlayerList(_STL::vector<BfmeStringRecord005D511F>*p
   if(ids.set().find(user)!=ids.set().end())reinterpret_cast<_STL::vector<const ModuleData*>*>(&rows)->push_back(reinterpret_cast<const ModuleData*const &>(counter.row));
  }
  Rva00326F9BSet(list,reinterpret_cast<const int**>(&rows));
- if(rows.size()!=i)TheWindowManager->selectionChanged(0);
+ if(rows.size()!=i)TheWindowManager->winSetLoneWindow(0);
  GadgetListBoxSetTopVisibleEntry(list,top);
  return true;
 }

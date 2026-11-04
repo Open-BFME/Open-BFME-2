@@ -182,7 +182,7 @@ private:
  void bfmeAttach(void *);
  friend class GameWindowManager;
 };
-class GameWindowManager {public:virtual WindowLayout *winCreateLayout(AsciiString);};
+#include "../../../Include/GameClient/GameWindowManager.h"
 // Native3176B9..317779/192B; WB13A7060..13A71DE and the native
 // manager vtable slot32 establish winCreateLayout. The existing44B info
 // supplies a stdcall factory at10; its load and the36B layout constructor
