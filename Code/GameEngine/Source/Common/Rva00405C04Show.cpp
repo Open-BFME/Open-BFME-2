@@ -55,9 +55,11 @@ struct Rva00405C04ScriptEngineView
 class DisconnectMenu;
 extern DisconnectMenu *TheDisconnectMenu;
 
+struct TreeHintRef00217D4C;
 class RadarWindowOverrideSource
 {
 public:
+	void ShowHelpBox(const TreeHintRef00217D4C &hint);
 	void rva002D370A();
 };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
