@@ -78,6 +78,8 @@ public:
     virtual void updateIniSettings();
 protected:
     unsigned char m_targetBase0C[0x14 - 0x0C];
+    // Resource-sync methods copy these values as raw bits. Blend/state methods
+    // retain their existing float accesses through this same storage.
     int m_14;
     unsigned char m_target18[0x3C - 0x18];
     int m_3c;
@@ -94,7 +96,8 @@ protected:
     int m_60;
     int m_64;
     int m_68;
-    unsigned char m_target6C[0x74 - 0x6C];
+    float m_6C;
+    float m_70;
 };
 
 class DX8IndexBufferClass : public IndexBufferClass { unsigned char m_targetTail[16]; public: enum UsageType { USAGE_DEFAULT = 0 }; DX8IndexBufferClass(unsigned int, UsageType); };
@@ -112,8 +115,10 @@ public:
     float rva000932E1();
     void rva00093349();
     void rva00093457();
+    void rva00093B5B();
 private:
     void target_0009322D();
+    void target_00094652();
     DX8IndexBufferClass *m_indexBuffer;
     BFME2ParticleTextureHandle m_snowTexture;
     IDirect3DVertexBuffer8 *m_vertexBuffer;
@@ -135,14 +140,14 @@ typedef char SnowBaseExtent[sizeof(SnowManager) == 0x74 ? 1 : -1];
 
 typedef char W3DSnowExtent[sizeof(W3DSnowManager) == 0xB0 ? 1 : -1];
 
-class Overridable { public: virtual ~Overridable(); Overridable *m_nextOverride; bool m_isOverride; const Overridable *getFinalOverride() const { if (m_nextOverride) return m_nextOverride->getFinalOverride(); return this; } };
+#include "../../../../GameEngine/Include/Common/Overridable.h"
 
 // Only the getValue receiver address is established for this embedded view.
 class GameClientRandomVariable { public: float getValue() const; };
 
 class WeatherSetting : public Overridable {
 public:
-    unsigned char m_pad0C[0x0C];
+    unsigned char m_pad10[0x08];
     AsciiString m_snowTexture;
     unsigned char m_target1C[0x3C - 0x1C];
     int m_3c;
@@ -159,7 +164,8 @@ public:
     unsigned char m_target59[0x64 - 0x59];
     int m_64;
     float m_68;
-    unsigned char m_target6C[0x70 - 0x6C];
+    bool m_6c;
+    unsigned char m_target6D[0x70 - 0x6D];
     int m_70, m_74, m_78;
 };
 
