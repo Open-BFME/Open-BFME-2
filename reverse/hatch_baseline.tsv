@@ -12196,7 +12196,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Strateg
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicVeterancy.cpp	Rva005FA874::Rva005FA874	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	famgenDelete00216108@@YAXPAVRva00216108@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp	StanceToButtonSlot@@YAHPAVCommandButton@@H@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptCommandMapAdder::AddCommandMapDelegate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptOverButtonHandlerAdder::AddOverButtonHandlerDelegate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptRef::AptRef	3
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptRef::~AptRef	1
