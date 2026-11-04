@@ -74,66 +74,8 @@ int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 // (0x00881F70), so <new> has to be visible here as in the real project TUs.
 #include <new>
 
-class File
-{
-public:
-	enum access
-	{
-		READ		= 0x0001,
-		WRITE		= 0x0002,
-		APPEND		= 0x0004,
-		// File.cpp's copy of this enum stops at the bits File::open itself
-		// tests, so it has no name for 0x8. LocalFile::open supplies it: the
-		// bit that turns into _O_CREAT is CREATE, at Zero Hour's value.
-		CREATE		= 0x0008,
-		TRUNCATE	= 0x0010,
-		TEXT		= 0x0020,
-		BINARY		= 0x0040,
-		STREAMING	= 0x0100,
-		READWRITE	= (READ | WRITE)		// retail: and edx,3 / cmp dl,3
-	};
-
-	enum seekMode { START, CURRENT, END };
-
-	File();
-	bool eof( void );
-	virtual ~File();										// slot 0
-	virtual bool open( const char *filename, int access = 0 );	// slot 1
-	virtual void close( void );								// slot 2
-	virtual int read( void *buffer, int bytes );			// slot 3
-	virtual int write( const void *buffer, int bytes );		// slot 4
-	virtual int seek( int pos, seekMode mode );				// slot 5
-	virtual void nextLine( char *buf, int bufSize );		// slot 6
-	virtual bool scanInt( int &newInt );					// slot 7
-	virtual bool scanReal( float &newReal );				// slot 8
-	virtual bool scanString( AsciiString &newString );				// slot 9
-	virtual bool print( const char *format, ... );			// slot 10
-	virtual int size( void );								// slot 11
-	virtual int position( void );							// slot 12
-	virtual char *readEntireAndClose( void );				// slot 13
-	virtual File *convertToRAMFile( void );					// slot 14
-	virtual void lock( void );								// slot 15
-	virtual void unlock( void );							// slot 16
-
-	void deleteOnClose( void )
-	{
-		m_deleteOnClose = true;
-	}
-
-	// ::delete, as File::close spells it: retail calls slot 0 with a zero flag
-	// and then the global operator delete, not the flag-1 deleting dtor.
-	__forceinline void deleteInstance( void )
-	{
-		::delete this;
-	}
-
-protected:
-	void *m_nameStr;		// +0x04  AsciiString, untouched here
-	int m_access;			// +0x08
-	bool m_open;			// +0x0c
-	bool m_deleteOnClose;	// +0x0d
-	void *m_mutex;			// +0x10
-};
+#include "../../../Include/Common/File.h"
+#include "../../../Include/Common/RAMFileClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/LocalFile.h
 class LocalFile : public File
@@ -162,21 +104,6 @@ public:
 
 protected:
 	int m_handle;			// +0x14, -1 when closed
-};
-
-class RAMFile : public File
-{
-public:
-	RAMFile();
-	virtual ~RAMFile();
-	virtual bool open( File *file );
-	virtual void close( void );
-	virtual bool copyDataToFile( File *file );
-
-protected:
-	char *m_data;
-	int m_pos;
-	int m_size;
 };
 
 class StreamingArchiveFile : public RAMFile
@@ -316,14 +243,14 @@ File *LocalFile::convertToRAMFile( void )
 		else
 		{
 			close();
-			deleteInstance();
+			::delete this;
 		}
 		return ramFile;
 	}
 	else
 	{
 		ramFile->close();
-		ramFile->deleteInstance();
+		::delete ramFile;
 		return this;
 	}
 }

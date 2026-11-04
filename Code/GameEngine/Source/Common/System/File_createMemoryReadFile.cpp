@@ -94,83 +94,14 @@
 // slots 15/16 (0x009CB760, 0x009CB790) -- the two BFME added, which Zero Hour
 // has no name for.
 //
-// The class is declared here rather than taken from Zero Hour's Common/file.h
-// because BFME's differs in the two ways close() shows: File is not a
-// MemoryPoolObject here (m_deleteOnClose closes by deleting through the vtable,
-// not through the pool's three-call sequence), and the member layout is proven
-// directly -- m_nameStr at +4, m_open at +0xc, m_deleteOnClose at +0xd.
+// File and RAMFile are the registered BFME 2 classes (Common/File.h and
+// Common/RAMFileClass.h): File is not a MemoryPoolObject (m_deleteOnClose
+// closes by deleting through the vtable) and carries the mutex at +0x10.
 #include "PreRTS.h"
 #include "Common/AsciiString.h"
 
-class File
-{
-public:
-	// Access flags. TEXT is the bit print() tests -- retail is
-	// test byte ptr [esi+8], 0x20 -- and READ|BINARY is what MemoryReadFile's
-	// constructor stores (0x41).
-	// The values beyond READ/WRITE/TEXT/BINARY are the ones File::open tests:
-	// its two illegal-combination checks are `and 0x102` and `and 0x60`, and its
-	// three defaulting steps are `test al,3 / or 1`, `test al,5 / or 0x10` and
-	// `test al,0x60 / or 0x40` -- i.e. STREAMING|WRITE, TEXT|BINARY, READ|WRITE,
-	// READ|APPEND and TEXT|BINARY against Zero Hour's numbering, unchanged.
-	enum access
-	{
-		READ		= 0x0001,
-		WRITE		= 0x0002,
-		APPEND		= 0x0004,
-		TRUNCATE	= 0x0010,
-		TEXT		= 0x0020,
-		BINARY		= 0x0040,
-		STREAMING	= 0x0100
-	};
-
-	enum seekMode { START, CURRENT, END };
-
-	File();
-	// Non-virtual, so it adds no slot. Retail expresses it purely through the
-	// two virtuals below, which is what pins their slot numbers independently.
-	Bool eof( void );
-	virtual ~File();							// slot 0
-	virtual Bool open( const char *filename, Int access = 0 );	// slot 1
-	virtual void close( void );					// slot 2
-	virtual Int read( void *buffer, Int bytes );			// slot 3
-	virtual Int write( const void *buffer, Int bytes );		// slot 4
-	virtual Int seek( Int bytes, Int mode );				// slot 5
-	virtual void nextLine( char *buf, Int bufSize );		// slot 6
-	virtual Bool scanInt( Int &newInt );				// slot 7
-	virtual Bool scanReal( Real &newReal );				// slot 8
-	virtual Bool scanString( AsciiString &newString );		// slot 9
-	virtual Bool print( const char *format, ... );			// slot 10
-	virtual Int size( void );					// slot 11
-	virtual Int position( void );					// slot 12
-	virtual char *readEntireAndClose( void );			// slot 13
-	virtual File *convertToRAMFile( void );				// slot 14
-	// Slots 15 and 16 are BFME additions Zero Hour has no name for. They are a
-	// mutex acquire/release pair over m_mutex, read straight out of the imports
-	// the two bodies call: 0x009CB760 reaches KERNEL32!CreateMutexA and
-	// !WaitForSingleObject, 0x009CB790 reaches !ReleaseMutex.
-	virtual void lock( void );					// slot 15
-	virtual void unlock( void );					// slot 16
-
-protected:
-	// Spelled as a direct set() rather than m_nameStr = name. Going through
-	// operator= makes &m_nameStr a parameter of an inlined member call, so it is
-	// materialised at the inline site instead of at the call -- which shows up in
-	// ~File as lea ecx,[esi+4] before the string push rather than after.
-	void setName( const char *name )
-	{
-		((StringBase<char> *)&m_nameStr)->set( name, name ? (int)strlen( name ) : 0 );
-	}
-
-	AsciiString m_nameStr;		// +0x04
-	Int m_access;				// +0x08
-	Bool m_open;				// +0x0c
-	Bool m_deleteOnClose;		// +0x0d
-	// Not a file handle: lock() creates it with CreateMutexA and unlock()
-	// releases it, so the CloseHandle in ~File is closing a mutex. The OS file
-	// handle lives one field further on, in the subclass that owns it.
-	HANDLE m_mutex;				// +0x10
-};
+#include "../../../Include/Common/File.h"
+#include "../../../Include/Common/RAMFileClass.h"
 
 //-----------------------------------------------------------------------------
 // MemoryReadFile -- a File over a block of memory the caller already has.
@@ -182,43 +113,6 @@ protected:
 // m_pos at +0x1c -- straight after File, whose own last member is the buffer
 // pointer at +0x10 that File::File zeroes and File::~File frees.
 //-----------------------------------------------------------------------------
-// Zero Hour's RAMFile, named at 0x01143C58 in the vtable table above. Its three
-// members are Zero Hour's, in Zero Hour's order: m_data at +0x14, m_pos at
-// +0x18, m_size at +0x1c, which is what the constructor zeroes.
-//
-// Two further checks on that vtable, since it carries no identifying literal.
-// Slots 10, 15 and 16 are File's own print, lock and unlock, so this is a File
-// subclass that does not override them. And the constructor chains to
-// File::File at 0x009CB7A0, so it is a File subclass at all.
-class RAMFile : public File
-{
-public:
-	RAMFile();
-
-	virtual Bool open( const char *filename, Int access = 0 );
-	virtual void close( void );
-	virtual Int read( void *buffer, Int bytes );
-	virtual Int write( const void *buffer, Int bytes );
-	virtual Int seek( Int bytes, Int mode );
-	virtual void nextLine( char *buf, Int bufSize );
-	virtual Bool scanInt( Int &newInt );
-	virtual Bool scanReal( Real &newReal );
-	virtual Bool scanString( AsciiString &newString );
-	// Slots 11 and 12 are NOT re-declared: retail's RAMFile vtable 0x01143C58
-	// holds 0x009CB670 and 0x009CB6B0 there, which is ?size@File@@UAEHXZ and
-	// ?position@File@@UAEHXZ, so the class measures and locates by seeking and
-	// overrides neither. Declaring them here would put ?size@RAMFile@@UAEHXZ
-	// and ?position@RAMFile@@UAEHXZ in the vftable instead -- names no object
-	// defines, where retail's own image names File's.
-	virtual char *readEntireAndClose( void );
-	virtual File *convertToRAMFile( void );
-
-protected:
-	char *m_data;			// +0x14
-	Int m_pos;				// +0x18
-	Int m_size;				// +0x1c
-};
-
 // StreamingArchiveFile, 0x01143CA8 in the table above. It lives here rather than
 // in StreamingArchiveFile.cpp for one reason: it is laid out on BFME's File, and
 // that file compiles against Zero Hour's, which is four bytes shorter because it
@@ -237,7 +131,7 @@ public:
 	// forwards to ?close@File@@UAEXXZ exactly as LocalFile's 0x009D2540 does.
 	virtual Int read( void *buffer, Int bytes );
 	virtual Int write( const void *buffer, Int bytes );
-	virtual Int seek( Int bytes, Int mode );
+	virtual Int seek( Int bytes, seekMode mode );
 	virtual void nextLine( char *buf, Int bufSize );
 	virtual Bool scanInt( Int &newInt );
 	virtual Bool scanReal( Real &newReal );
@@ -271,12 +165,7 @@ public:
 	virtual Int write( const void *buffer, Int bytes );
 	// The mode is File::seekMode, not Int: retail's slot 5 is 0x009D25D0, which
 	// is ?seek@LocalFile@@UAEHHW4seekMode@File@@@Z, the spelling the
-	// LocalFile.cpp object defines. This TU's File::seek has to keep taking an
-	// Int so MemoryReadFile::seek and MemoryWriteFile::seek, matched here as
-	// ?seek@MemoryReadFile@@UAEHHH@Z and ?seek@MemoryWriteFile@@UAEHHH@Z at
-	// retail's own slot 5, still override it; the seek below is therefore a new
-	// virtual appended at slot 17 rather than an override. The symbol is the one
-	// the link needs; the slot is not retail's.
+	// LocalFile.cpp object defines, and the override of File's own seek.
 	virtual Int seek( Int bytes, seekMode mode );
 	virtual void nextLine( char *buf, Int bufSize );
 	virtual Bool scanInt( Int &newInt );
@@ -320,7 +209,7 @@ public:
 	virtual Bool open( const char *filename, Int access = 0 );
 	virtual Int read( void *buffer, Int bytes );
 	virtual Int write( const void *buffer, Int bytes );
-	virtual Int seek( Int bytes, Int mode );
+	virtual Int seek( Int bytes, seekMode mode );
 	virtual void nextLine( char *buf, Int bufSize );
 	virtual Bool scanInt( Int &newInt );
 	virtual Bool scanReal( Real &newReal );
@@ -364,7 +253,7 @@ public:
 	virtual Bool open( const char *filename, Int access = 0 );
 	virtual Int read( void *buffer, Int bytes );
 	virtual Int write( const void *buffer, Int bytes );
-	virtual Int seek( Int bytes, Int mode );
+	virtual Int seek( Int bytes, seekMode mode );
 	virtual void nextLine( char *buf, Int bufSize );
 	virtual Bool scanInt( Int &newInt );
 	virtual Bool scanReal( Real &newReal );
