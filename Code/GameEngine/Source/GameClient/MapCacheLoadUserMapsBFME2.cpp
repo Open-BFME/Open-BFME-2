@@ -53,7 +53,10 @@ class RvaLoadUserDebug{public:
  virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual void s15();virtual void s16();virtual void s17();virtual void s18();virtual void s19();virtual void s20();virtual void s21();virtual void s22();virtual void s23();virtual void beginReport();virtual void s25();virtual void s26();virtual RvaLoadUserReport*getReport(int,int,int);
 };extern Debug*theDebug;
 bool bfmeRva000387C0();void _bfme_debugRecordCallsite(int);
-class MapCache:public _STL::map<AsciiString,MapMetaData>{public:bool loadUserMaps();AsciiString getMapExtension()const;bool addMap(AsciiString,AsciiString,FileInfo*,bool);private:bool clearUnseenMaps(AsciiString);SeenMap m_seen;_STL::set<AsciiString>m_allowedMaps;};
+#include "../../Include/GameClient/MapCache.h"
+// MapCache::m_seen is map<AsciiString,bool> in the canonical header; this
+// unit's view keeps the payload type its tree helpers are rowed under.
+static inline SeenMap &seenOf(_STL::map<AsciiString,bool> &seen){return reinterpret_cast<SeenMap&>(seen);}
 bool MapCache::loadUserMaps(){
  AsciiString mapDir;
  if(TheWritableGlobalData->buildMapCache)mapDir=((const Rva00300489*)this)->Rva00300489::getMapDir();
@@ -64,7 +67,7 @@ bool MapCache::loadUserMaps(){
   if(fp){fp->close();try{ini.load(fname,INI_LOAD_OVERWRITE,0,INI::parseMapCacheDefinition);}catch(...) {}}
  }
  ((Rva00206667*)&m_seen)->rva00206F6B();
- iterator it=begin();while(it!=end()){m_seen[it->first].value=0;++it;}
+ iterator it=begin();while(it!=end()){seenOf(m_seen)[it->first].value=0;++it;}
  FilenameList::iterator iter;FilenameList filenameList;AsciiString toplevelPattern;
  toplevelPattern.format("%s\\",mapDir.str());bool parsedAMap=false;AsciiString filenamepattern;
  filenamepattern.format("*.%s",getMapExtension().str());
@@ -89,7 +92,7 @@ bool MapCache::loadUserMaps(){
     }else if(TheFileSystem->getFileInfo(mapFileName,&fileInfo)){
      char funk[260];strcpy(funk,mapFileName.str());char*filenameptr=funk;char*cursor=funk;
      while(*cursor!=0){if(*cursor=='\\'||*cursor=='/')filenameptr=cursor+1;++cursor;}
-     if(strlen(filenameptr)<0x50){m_seen[mapFileName].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->buildMapCache);}
+     if(strlen(filenameptr)<0x50){seenOf(m_seen)[mapFileName].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->buildMapCache);}
     }
    }
   }
