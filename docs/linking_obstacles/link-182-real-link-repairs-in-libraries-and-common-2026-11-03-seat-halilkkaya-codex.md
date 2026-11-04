@@ -170,3 +170,32 @@ None is a short fix:
   The W4/R3 element families still need real element identities (LINK-002).
 
 Collect follow-up (2026-11-03, base `678d949f99`): retired only the unused `CollectionDefClass` constructor and one hatch; five rows and 140 retained COMDATs stay exact, no provider consumer is orphaned, and true base/tip previews retain the same 41 unresolved names/four conflicts. Remaining constructor removal still needs EFB4C/5AD93A ownership reconciliation. [Evidence](../../reverse/attempt_support/collect-def-constructor-cleanup-20261103/README.md).
+
+### ThingFactory.cpp Zero Hour bodies (2026-11-04, halilkkaya-lk22)
+
+Real link 41813987742 (`612abfbebb`): 6 errors.
+
+**Repaired: 4 names, in c6d228e7b7 and f3c6a87591.**
+
+- The unrowed Zero Hour `newObject(const ThingTemplate *, Team *, BitFlags<45>)` is gone. It was the only
+  caller of `PartitionManager::registerObject` and the Zero Hour `GameLogic::friend_createObject`. BFME 2's
+  `newObject` is the row 0x002D0A23.
+- The LOAD_TEST_ASSETS branch of the unrowed `findTemplateInternal` is gone. It called
+  `ThingTemplate::initForLTA` and a public `newTemplate`. BFME 2's `newTemplate` is private (0x002D1B2E),
+  and its `findTemplate` (0x002D06CA) is a bare hash find with no test-asset path.
+- `findTemplateInternal` stays, because the Zero Hour ports in ScoreKeeper and AssistedTargetingUpdate
+  still call it.
+- Checks:
+  - ScoreKeeper, TeamGetControllingPlayer, AssistedTargetingUpdate and stlport_hashtable_asciistring
+    stay LINKS.
+  - The orphan scan finds 0 orphans.
+
+**Remaining: 2 names. Both rows link only through pins.**
+
+- `DynamicAudioEventRTS::operator=` (0x00200BC0) copies +4 by calling 0x000366F0, the exported
+  `StringBase<char>::set`. In BFME 2, the AudioEventRTS assignment at that point is therefore one inlined
+  string set. The pin `??4AudioEventRTS` onto 0x366F0 provides no definition.
+- `ProductionPrerequisite::operator=` (0x0042816E) copies +0 and +0xC through 0x000120C0. That address is
+  the 41-byte `basic_string<char>` `operator=`, which is not a vector assignment.
+- Both need the unit's `AudioEventRTS` and `ProductionPrerequisite` member views corrected. Those
+  classes are shared with the rest of this unit's Zero Hour ThingTemplate code.

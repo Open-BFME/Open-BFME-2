@@ -191,3 +191,56 @@ not linking).
 - **AIUpdate.cpp (5):** the file is free, but `class:AIUpdateInterface` is held by StarkillerHDX.
 - **BFMENetwork (7), ConnectionManager's last 2, BattlePlan/Radar crc:** no change from the
   sections above. Identity work is still required, and class:BattlePlanUpdate was still held.
+
+#### Seat halilkkaya-lk22 follow-up (2026-11-04, real link 41813987742 at `612abfbebb`, census index `a62ac1c10b`)
+
+**Repaired: 18 names.** Each drop had an orphan scan (existing objects against the census index); every
+COMDAT a changed object held first had a `link_check` over all its definers and referrers.
+
+- **AIUpdate.cpp, 5/5.** The unrowed Zero Hour `getTurretTargetObject(WhichTurretType, Bool)`,
+  `needToRotate` and `privateAttackMoveToPosition` are gone (4 names). The last one,
+  `?crc@UpdateModule@@MAEXPAVXfer@@@Z`, went with the Zero Hour crc chain: `AIUpdateInterface::crc`,
+  `WorkerAIUpdate::crc` and `DozerAIUpdate::crc` were dropped together. BFME 2's module tables have no crc
+  slot, and neither Worker nor Dozer emits its own class vtable. Two rowed header inlines that lost their only
+  user, `OVERRIDE<LocomotorTemplate>::operator->` 0x0035C95F and `Weapon::setMaxShotCount` 0x00661D50, are
+  kept by member-pointer anchors. The unit now has 0 unresolved names. The census still counts it as
+  not linking because of two non-retail STLport COMDAT bodies. The 8 consumer units still LINK.
+- **BFMENetwork.cpp, 5/5; the unit now LINKS (0 -> 173 B).**
+  - `rename.py class --fold Rva00557CCC --into BFMENetwork`: the destructor 0x00557CCC and the constructor
+    0x00558EC1 install one table, 0x00C6B318. The unused QAE pin was dropped first.
+  - The queue members hold one deque each, and +0x90 is `_STL::set<Rva00558D6BElement>` (ctor row
+    0x00558D6B). The implicit destructors are emitted as the 5-byte jumps retail has at
+    0x00557CBD/CC2/CC7. The invented `BFMENetworkAllocate` payload list was a misread of the set's
+    tree header.
+  - Pin `??0BFMENetworkPayloadList` dropped.
+  - Open: respell the placeholder rows 0x00557CBD/CC2/CC7 (`Rva00557CBD::rva00557CBD` etc. in
+    StlportConstructFamilyW3G15.cpp) as `??1BFMENetworkQueue`, `??1BFMENetworkQueue1` and the set
+    destructor. Then uw_00799498/A3/D2 can move into BFMENetwork.cpp (LINK-095).
+- **ThingFactory.cpp, 4 of 6** (LINK-182 has the detail): the Zero Hour `newObject` and the
+  LOAD_TEST_ASSETS branch of `findTemplateInternal` are gone.
+
+**Checked, not repaired:**
+
+- **BoneFXDamage.cpp (3):** no object defines `DamageModule::xfer` or `DamageModule::loadPostProcess`.
+  - `DamageModule::xfer` is retail 0x004CE56D, placeholder `Rva004CE56D::xfer`. That body is in 5 retail
+    module tables, so `--to-class` refuses it. It calls `BehaviorModule::xfer`, which is rowed non-virtual
+    (`QAE`) at 0x004C9C7D, while canonical `BehaviorModule.h` declares no xfer.
+  - `DamageModule::loadPostProcess` is the 0x0058B03E fold. That RVA is claimed by StarkillerHDX
+    (class:UpdateModule).
+  - The crc name needs the unit on canonical `DamageModuleClass.h`.
+  - Prerequisites, in order: ICF twin rows for both base bodies, then the unit's view in retail slot order.
+- **LockWeaponCreate.cpp (2):** the unit emits a Zero Hour-order table, bound by three `/alternatename`
+  hatches.
+  - Retail 0x00C592FC: slot 1 is 0x00497805 (a fold in 60 tables), slot 2 the name getter 0x004B8C38
+    (placeholder free function), slot 3 0x004851E3 (a fold in 8 tables).
+  - Its destructor 0x004B8C3E is placeholder `Rva004B8C3E`. Folding that placeholder into
+    LockWeaponCreate would collide with the unit's Zero Hour destructor until the view changes.
+  - Needs canonical `CreateModuleClass.h` adoption plus ICF twin rows.
+- **ConnectionManager.cpp (2):** 0x0046A9AB is the shared ushort-key `_M_lower_bound`.
+  - Every ushort map `operator[]` calls 0x0046A9AB (callers_of: 5 callers), and it is rowed as
+    `<ushort,uchar>`.
+  - The `<ushort,AsciiString>` `_M_lower_bound` row sits at the byte-identical 0x00156680, which has no
+    direct caller.
+  - 0x004D272E is the hint-insert fold, rowed as `map<int,Rva004D272ERecord>::insert`.
+  - Settle 0x00156680's identity first, then add ICF twin rows for the two FileCommandMap names at
+    0x0046A9AB and 0x004D272E, and drop the adapters.
