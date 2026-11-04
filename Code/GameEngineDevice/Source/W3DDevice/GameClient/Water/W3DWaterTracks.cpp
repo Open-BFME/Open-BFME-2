@@ -7,7 +7,7 @@
 #include "region.h"
 #include "ascii_string.h"
 #include "../../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
-#include "refcount.h"
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #define Matrix4x4 Matrix4
 #include "matrix3d.h"
 #include <stdio.h>
@@ -37,27 +37,8 @@ public:
 
 	int m_refCount;
 };
-class IndexBufferClass
-{
-public:
-	class WriteLockClass { IndexBufferClass *m_indexBuffer; unsigned short *m_indices; unsigned char m_deviceGuardStorage[4]; public: WriteLockClass(IndexBufferClass *indexBuffer, int flags = 0); ~WriteLockClass(void); unsigned short *Get_Index_Array(void) { return m_indices; } };
-};
-class DX8IndexBufferClass : public RefCountedResource
-{
-public:
-	typedef IndexBufferClass::WriteLockClass WriteLockClass;
-
-	enum UsageType
-	{
-		USAGE_DEFAULT = 0,
-		USAGE_DYNAMIC = 1
-	};
-
-	DX8IndexBufferClass(unsigned indexCount, UsageType usage = USAGE_DEFAULT);
-
-private:
-	unsigned char m_bfmeTail[0x10];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 class BfmeDynamicNativeVB : public RefCountedResource
 {
 public:
