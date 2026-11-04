@@ -45,10 +45,18 @@ struct Rva004F6986Member : public Rva0044BC76 {
     }
     __forceinline ~Rva004F6986Member() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
-class Rva004C5DD0 { public: TargetRef00217D4C *m_00,*m_04; Rva004C5DD0(const Rva004C5DD0 &o); };
-struct Rva0044BA4E : Rva004C5DD0 {
-    Rva0044BA4E(Rva004F6986Member,Rva004F6986Member);
-    ~Rva0044BA4E();
+class Rva004C5DD0
+{
+public:
+	Rva004C5DD0(const Rva004C5DD0 &o);
+	TargetRef00217D4C *m_00; // +0x00
+	TargetRef00217D4C *m_04; // +0x04
+};
+struct Rva0044BA4E : Rva004C5DD0
+{
+public:
+	Rva0044BA4E(Rva004F6986Member,Rva004F6986Member);
+	~Rva0044BA4E();
 };
 struct Rva0044BF40 {
     TargetRef00217D4C *m_ptr;
