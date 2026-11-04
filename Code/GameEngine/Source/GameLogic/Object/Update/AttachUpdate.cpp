@@ -53,8 +53,6 @@ enum Relationship
 	NEUTRAL = 1,
 	ALLIES = 2
 };
-// BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
-// documents): link 0x00625790 chains the next filter.
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
@@ -189,12 +187,14 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
+
 class Xfer::Version
 {
 public:
 	UnsignedByte m_version;
 	UnsignedByte m_currentVersion;
 };
+
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -217,6 +217,46 @@ private:
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
+
+// The rva0028C197 interface: slot 140 (+0x230) tests a point.
+class FilterObj
+{
+public:
+	virtual void v000(); virtual void v001(); virtual void v002(); virtual void v003(); virtual void v004();
+	virtual void v005(); virtual void v006(); virtual void v007(); virtual void v008(); virtual void v009();
+	virtual void v010(); virtual void v011(); virtual void v012(); virtual void v013(); virtual void v014();
+	virtual void v015(); virtual void v016(); virtual void v017(); virtual void v018(); virtual void v019();
+	virtual void v020(); virtual void v021(); virtual void v022(); virtual void v023(); virtual void v024();
+	virtual void v025(); virtual void v026(); virtual void v027(); virtual void v028(); virtual void v029();
+	virtual void v030(); virtual void v031(); virtual void v032(); virtual void v033(); virtual void v034();
+	virtual void v035(); virtual void v036(); virtual void v037(); virtual void v038(); virtual void v039();
+	virtual void v040(); virtual void v041(); virtual void v042(); virtual void v043(); virtual void v044();
+	virtual void v045(); virtual void v046(); virtual void v047(); virtual void v048(); virtual void v049();
+	virtual void v050(); virtual void v051(); virtual void v052(); virtual void v053(); virtual void v054();
+	virtual void v055(); virtual void v056(); virtual void v057(); virtual void v058(); virtual void v059();
+	virtual void v060(); virtual void v061(); virtual void v062(); virtual void v063(); virtual void v064();
+	virtual void v065(); virtual void v066(); virtual void v067(); virtual void v068(); virtual void v069();
+	virtual void v070(); virtual void v071(); virtual void v072(); virtual void v073(); virtual void v074();
+	virtual void v075(); virtual void v076(); virtual void v077(); virtual void v078(); virtual void v079();
+	virtual void v080(); virtual void v081(); virtual void v082(); virtual void v083(); virtual void v084();
+	virtual void v085(); virtual void v086(); virtual void v087(); virtual void v088(); virtual void v089();
+	virtual void v090(); virtual void v091(); virtual void v092(); virtual void v093(); virtual void v094();
+	virtual void v095(); virtual void v096(); virtual void v097(); virtual void v098(); virtual void v099();
+	virtual void v100(); virtual void v101(); virtual void v102(); virtual void v103(); virtual void v104();
+	virtual void v105(); virtual void v106(); virtual void v107(); virtual void v108(); virtual void v109();
+	virtual void v110(); virtual void v111(); virtual void v112(); virtual void v113(); virtual void v114();
+	virtual void v115(); virtual void v116(); virtual void v117(); virtual void v118(); virtual void v119();
+	virtual void v120(); virtual void v121(); virtual void v122(); virtual void v123(); virtual void v124();
+	virtual void v125(); virtual void v126(); virtual void v127(); virtual void v128(); virtual void v129();
+	virtual void v130(); virtual void v131(); virtual void v132(); virtual void v133(); virtual void v134();
+	virtual void v135(); virtual void v136(); virtual void v137(); virtual void v138(); virtual void v139();
+	virtual bool check(Coord3D *p);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp
+
+// BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
+// documents): link 0x00625790 chains the next filter.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateXfer.cpp
 
@@ -327,9 +367,47 @@ UpdateSleepTime AttachUpdate::update()
 
 // tu-skeleton: 0x00491A68 28B ??_GRva0049188D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x00491AA0 48B ??1AttachUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp
 
-// tu-skeleton: 0x00491C84 171B ?rva00491C84@AttachUpdate@@QAEXPAUCoord3D@@PBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00491C84Calc.cpp (not merged yet)
+// BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
+// documents): link 0x00625790 chains the next filter.
+
+AttachUpdateModuleData::~AttachUpdateModuleData()
+{
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva00491C84Calc.cpp
+
+// BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
+// documents): link 0x00625790 chains the next filter.
+
+void AttachUpdate::rva00491C84(Coord3D *out, const Object *parent)
+{
+	const AttachUpdateModuleData *data = getAttachUpdateModuleData();
+	const Coord3D *src = parent->getPosition();
+	Coord3D tmp;
+	tmp.x = src->x;
+	tmp.y = src->y;
+	tmp.z = src->z;
+	if ((parent->getTemplate()->m_kindof[3] & (1U << 13)) && parent->m_250 != 0)
+	{
+		FilterObj *filterObj = (FilterObj *)parent->rva0028C197();
+		if (filterObj != 0)
+		{
+			if (!filterObj->check(&tmp))
+			{
+				tmp = *src;
+			}
+		}
+	}
+	if (data->m_anchorToTopOfGeometry)
+	{
+		tmp.z += parent->getGeometryInfo()->getMaxHeightAbovePosition();
+	}
+	out->x = tmp.x;
+	out->y = tmp.y;
+	out->z = tmp.z;
+}
 
 // tu-skeleton: 0x0078CB53 8B Unwind@00b8cb53 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataCtor.cpp (not merged yet)
 
@@ -340,7 +418,3 @@ UpdateSleepTime AttachUpdate::update()
 // tu-skeleton: 0x0078CB70 8B uw_0078cb70 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0078CB78 10B __ehhandler$??0AttachUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078CB82 8B Unwind@00b8cb82 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078CB8A 10B __ehhandler$??1AttachUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp (not merged yet)
