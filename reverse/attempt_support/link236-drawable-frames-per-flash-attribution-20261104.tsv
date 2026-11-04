@@ -59,7 +59,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7acb09	0xdec2d0	?TheW3DProjectedShadowManager@@3PAVW3DProjectedSha	W3DShadow.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7acb33	0xdec2ec	?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManage	W3DShadow.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7acb92	0xdec3bc	?g_00DEC3B8@@3V?$StringBase@D@@B			0	no contiguous .bss neighbour with a TU
-0x7acfe5	0xdfdbcc	_g_Va00DFDBC8	ArmorStoreReload.cpp	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	0	TU does not include Drawable.h yet
+0x7acfe5	0xdfdbcc	_g_Va00DFDBC8	ArmorStoreReload.cpp	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	0	Drawable.h include tried by in-o7 and reverted: Armor.cpp is Zero Hour-shaped (PreRTS.h); the canonical header collides with Zero Hour's Thing
 0x7ad0cc	0xdfdbfc	?TheMetaMap@@3PAVMetaMap@@A			0	no contiguous .bss neighbour with a TU
 0x7ad1b3	0xdfdc34	?TheEva@@3PAVEva@@A	EvaEventFXNuggetDoFXObj.cpp	Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
 0x7ad231	0xdfdc40	?TheFXListStore@@3PAVFXListStore@@A	FXList.cpp	Code/GameEngine/Source/GameClient/FXList.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
@@ -71,8 +71,8 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ad6f3	0xdfe148	?TheGameLODManager@@3PAVGameLODManager@@A	GameLOD.cpp	Code/GameEngine/Source/Common/GameLOD.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
 0x7ad7b0	0xdfe170	?TheScriptEngine@@3PAVScriptEngine@@A	ScriptEngine_setSequentialTimer.cpp	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	0	TU claimed by 17 copies: neighbour data is mis-assigned somewhere
 0x7ad929	0xdfe1cc	?TheLivingWorldManager@@3PAVLivingWorldManager@@A	Rva003FD7CEParse.cpp		0	no contiguous .bss neighbour with a TU
-0x7ad97d	0xdfe1dc	?g_Va00DFE1D8@@3_NA	ReloadIniFileNotices.cpp	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
-0x7ada3c	0xdfe330	?TheBannerUI@@3PAVBannerUI@@A	BannerUI.cpp	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	0	TU does not include Drawable.h yet
+0x7ad97d	0xdfe1dc	?g_Va00DFE1D8@@3_NA	ReloadIniFileNotices.cpp	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	0	rowed by in-o7 as AttributeModifierStore.cpp _$E1 (in-o6 run attribution: copy then the ModifierList node; static follows TheAttributeModifierStore)
+0x7ada3c	0xdfe330	?TheBannerUI@@3PAVBannerUI@@A	BannerUI.cpp	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	0	rowed by in-o7 as BannerUI.cpp _$E1 (include after LivingWorldBattle.h; run: copy then the BannerType node)
 0x7adaa5	0xdfe350	?g_rva005B5C02Flag@@3EA			0	no contiguous .bss neighbour with a TU
 0x7adb01	0xdfe48c	?$S1@?3??iniParseCreateAHeroSystem@CreateAHeroMana	CreateAHero_FindBlingByUpgradeName.cpp	Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
 0x7adb82	0xdfe4d0	?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@	AptFileTransferPopup.cpp	Code/GameEngine/Source/Common/AptFileTransferPopup.cpp	0	TU does not include Drawable.h yet

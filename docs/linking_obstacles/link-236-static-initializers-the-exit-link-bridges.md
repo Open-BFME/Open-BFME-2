@@ -14,7 +14,8 @@ bridged 699 -> 692; halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whos
 holds them, bridged 692 -> 685, then Network.cpp's two timeGetTime initializers, bridged 685 -> 683,
 and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; halilkkaya-in-o7:
 the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged
-683 -> 679; next seat continues).
+683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677; next seat
+continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -486,6 +487,16 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   their reader files and both grab-bags: 11/11 link (owners +76 bytes, grab-bags -60, plus the
   copy the census index predates); scoped DIR32 OK; image_report bridged 683 -> 679 (exactly
   these 4 RVAs), twice 6 -> 6, unidentified 519 -> 519.
+- *Copies rowed with in-o6's run attribution (in-o7).* AttributeModifierStore.cpp and BannerUI.cpp
+  now include the canonical Drawable.h and row their copies 0x007AD97D and 0x007ADA3C as `_$E1`.
+  Their ModifierList and BannerType nodes move to `_$E3`. BannerUI's include must follow
+  `LivingWorldBattle.h`: before it, Drawable.h defines the Snapshot slot macros first and that
+  header refuses to compile. Armor (0x007ACFE5) was reverted: Armor.cpp is Zero Hour-shaped
+  (`PreRTS.h`), and the canonical header collides with Zero Hour's `Thing`. link_check must take
+  the BlockParse grab-bag with these units, because the census index (17:56) predates in-o6's node
+  moves. Taken alone, AttributeModifierStore, BannerUI and the untouched Armor all report the
+  grab-bag's stale copy of their node as a duplicate. With it, 7/7 link. image_report: bridged
+  679 -> 677, twice and unidentified unchanged; both units' `??_7` digests are unchanged.
 - *Next.* Units whose global is already ledger-owned are the cheap ones: 0x007ADEF6
   (Drawable.cpp's own copy `g_00DFEB98`, in a split TU), 0x007AEBAA (`g_00E01E04`, AIStates'
   run), 0x007B1A27 (SlavedUpdate), 0x007B4BC6 (AISpellBookShroudReveal), 0x007B51EB
