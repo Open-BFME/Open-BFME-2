@@ -114,12 +114,46 @@ class CommandButton;
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
 bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
 class Rva00223A94 {public: int rva00223A94(const AsciiString *);};
+// Keep the helper layout shared with AptMyHero.cpp, including the two
+// records stored by value at +0x174.
+class Rva005B129FClass
+{
+public:
+	int m_0;
+	int m_4;
+
+};
+
+struct Rva005B1830Item
+{
+	Rva005B129FClass inner;
+	int m_8;
+};
+
 class Rva005241DF
 {
 public:
 	void rva005241DF(const StringBase<char> &val);
 };
-class Rva005B1830 {public: void rva005B1830();};
+
+struct Rva005B1830Holder
+{
+	char m_pad00[0x228];
+	Rva005241DF m_228;
+};
+
+class Rva005B1830
+{
+public:
+	void rva005B1830();
+
+private:
+	char m_pad00[0x140];
+	Rva005B1830Holder *m_140;
+	char m_pad144[0x174 - 0x144];
+	Rva005B1830Item m_174[2];
+};
+
 // Sun-direction helper views (retail 0x005B0A95): the WWMath Vector3/Vector4/
 // Matrix3D inlines are carried from ZH's vector3.h/vector4.h/matrix3d.h shapes
 // (axis-angle Set with cosf/sinf locals, mul via submul); Rotate_Vector is the
