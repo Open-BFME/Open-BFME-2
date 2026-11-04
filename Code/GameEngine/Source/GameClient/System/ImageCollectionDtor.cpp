@@ -7,7 +7,7 @@
 // BFME 2 frees them with a global delete (virtual destructor with flag 0,
 // then operator delete) where Zero Hour returned them to their pool. The
 // map's destructor (0x002D922A) and SubsystemInterface's (0x001B4E74) follow.
-// Class view as in ImageCollectionFindImage.cpp.
+// ImageCollection and NameKeyGenerator use their canonical headers below.
 
 #include <map>
 
@@ -28,21 +28,12 @@ enum NameKeyType
 
 #include "ascii_string.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType Rva002D91AF(const AsciiString &nameString);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-#include "../../../Include/GameClient/ImageClass.h"
+#include "../../../Include/GameClient/Image.h"
 
 typedef _STL::map<unsigned int, Image *> ImageNameMap;
-// BFME2 SubsystemInterface (12-byte base, 14-slot vtable 0x00BD77A0) from the
-// subsystem shim, so this unit emits the retail 14-slot ImageCollection vtable.
-typedef bool Bool;
-#include "subsystem_interface.h"
+// Image.h supplies the retail 12-byte base and 14-slot collection vtable.
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree<unsigned int,_STL::pair<unsigned int const,Image *>,_STL::_Select1st<_STL::pair<unsigned int const,Image *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,Image *> > >::~_Rb_tree(); }
 namespace _STL { template <> _Rb_tree_base<_STL::pair<unsigned int const,Image *>,_STL::allocator<_STL::pair<unsigned int const,Image *> > >::~_Rb_tree_base(); }
@@ -50,23 +41,6 @@ namespace _STL { template <> void _Rb_tree<unsigned int,_STL::pair<unsigned int 
 namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,unsigned int); }
 namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,unsigned int) const; }
 // bfme link decl-only end
-
-class ImageCollection : public SubsystemInterface
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-	void addImage(Image *image);
-	virtual ~ImageCollection();
-	// Retail vtable 0x00C03878 slots 1/9/10 (init/reset/update) are the folded
-	// empty body at 0x000B3FD0, as in Zero Hour's ImageCollection.
-	virtual void init() {}
-	virtual void reset() {}
-	virtual void update() {}
-
-protected:
-	ImageNameMap m_imageMap;
-};
-
 
 ImageCollection::~ImageCollection()
 {
