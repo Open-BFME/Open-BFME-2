@@ -58,6 +58,10 @@ shape outside the module tree, is recorded under LINK-065.)
   RailedTransportDockUpdate.cpp took the same repair, 3/3 matched: its getter needs only a
   local layout with the +0x0C and +0x88 bases, not the class's identity, which stays open
   for whoever names that row. Expected: 11 fewer names; not yet measured.
+  WW3D2/collect.cpp, the same shape outside the module tree, took it too, 5/5 matched: this
+  answers LINK-182's open EFB4C/5AD93A ownership question for this file without moving those
+  rows. Its Zero Hour bodies and retained COMDATs are gone; no other unit's missing name
+  mentioned these classes at 530def7126. Expected: 41 fewer names; not yet measured.
 - **Remaining / next check:** same test passes for SpectreGunshipUpdate,
   RailedTransportDockUpdate, DeliverPayloadAIUpdate, JetAIUpdate,
   FlightDeckBehavior, DumbProjectileBehavior, HelicopterSlowDeathUpdate and
