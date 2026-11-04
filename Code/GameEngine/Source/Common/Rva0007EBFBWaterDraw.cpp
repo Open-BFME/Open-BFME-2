@@ -228,28 +228,7 @@ struct Rva00080168Owner
 };
 extern void *W3DGCData00DE2000;
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	const Overridable *getFinalOverride( void ) const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
-
-private:
-	Overridable *m_nextOverride;
-	bool m_isOverride;
-};
-
-class WaterTransparencySetting : public Overridable
-{
-public:
-	char m_pad0C[0x50 - 0x0C];
-	bool m_50;
-};
+#include "../../Include/GameClient/Water.h"
 
 template <class T> class OVERRIDE
 {
@@ -418,7 +397,7 @@ void Rva00080131MinWaterOpacity(ID3DXEffect *effect, D3DXHANDLE handle)
 
 void Rva00080168ReflectionTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
-	if (TheWritableGlobalData->m_5E && W3DGCData00DE2000 && TheWaterTransparency && TheWaterTransparency->m_50)
+	if (TheWritableGlobalData->m_5E && W3DGCData00DE2000 && TheWaterTransparency && TheWaterTransparency->m_unk50)
 		effect->SetTexture(handle, ((Rva00080168Owner *)W3DGCData00DE2000)->m_F8.Peek_D3D_Base_Texture());
 	else
 		effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());

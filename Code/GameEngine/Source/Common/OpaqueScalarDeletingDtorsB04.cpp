@@ -14,7 +14,7 @@
 //   wrapper     dtor        vtable#slot
 //   0x001FF9E4  0x001FF909  0x00BE25B4#0
 //   0x001FFE77  0x001FFE93  0x00BE25EC#0
-//   0x00200E79  0x00200E95  0x00BE2BA4#0
+//   0x00200E79  0x00200E95  0x00BE2BA4#0   (WaterTransparencySetting, Water.h; emitted by INI/WaterTransparencySettingCtor.cpp)
 //   0x0020180F  0x0020182B  0x00BE3070#0
 //   0x002035F5  0x00203EBA  0x00BD3B54#0
 //   0x0020D9D0  0x0020D9EC  0x00BE3FF4#0
@@ -31,6 +31,8 @@
 //   0x00237CFD  0x002376CC  0x00BED1C4#0
 //   0x0023BDBB  0x0023AE08  0x00BED850#0
 //   0x0023FCEA  0x0023FD06  0x00BEDC94#0
+
+#include "../../Include/GameClient/Water.h"
 
 struct EmitVtableTag;
 
@@ -57,19 +59,6 @@ public:
 
 // ?<Rva001FFE93::Rva001FFE93> absent-from-retail
 Rva001FFE93::Rva001FFE93(EmitVtableTag *)
-{
-}
-
-class WaterTransparencySetting
-{
-public:
-	WaterTransparencySetting(EmitVtableTag *);
-public:
-	virtual ~WaterTransparencySetting();
-};
-
-// ?<WaterTransparencySetting::WaterTransparencySetting> absent-from-retail
-WaterTransparencySetting::WaterTransparencySetting(EmitVtableTag *)
 {
 }
 
