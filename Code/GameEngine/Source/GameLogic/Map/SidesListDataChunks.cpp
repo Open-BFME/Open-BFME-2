@@ -135,22 +135,7 @@ public:
 	void rva003079ED();					// 0x003079ED, close
 };
 
-class DataChunkInput
-{
-public:
-	explicit DataChunkInput(ChunkInputStream *stream);	// 0x00307316
-	~DataChunkInput();					// 0x00306F01
-	int readInt();						// 0x00306E78
-	float readReal();					// 0x00306E56
-	unsigned char readByte();			// 0x00306E9A
-	NameKeyType readNameKey();			// 0x003077E0
-	AsciiString readAsciiString();		// 0x0030750A
-	Dict readDict();					// 0x00307833
-	bool parse(void *userData);			// 0x00307AC0
-
-private:
-	char m_data[0x28];
-};
+#include "../../../Include/Common/DataChunk.h"
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
 // rowed under its address-era spelling.
@@ -212,18 +197,7 @@ public:
 	void rva003B89A7(BfmeSubGE *other);	// 0x003B89A7
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);	// 0x00307C76
-	void closeDataChunk();				// 0x00306C88
-	void writeNameKey(NameKeyType key);	// 0x00307D29
-	void writeReal(float r);			// 0x00306CFF
-	void writeInt(int i);				// 0x00306CFF
-	void writeByte(unsigned char b);	// 0x00306D17
-	void writeAsciiString(const AsciiString &s);	// 0x00307033
-	void writeDict(const Dict &d);		// 0x00307D85
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_INLINE

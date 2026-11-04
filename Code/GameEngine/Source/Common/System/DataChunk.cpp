@@ -120,26 +120,7 @@ extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 typedef unsigned char WriteByteValue;
 class OutputChunk;
-class DataChunkOutput
-{
-public:
-    void writeInt(int intValue);
-    void writeReal(float realValue);
-    void writeByte(unsigned char byteValue);
-    void writeArrayOfBytes(char *ptr, int len);
-    DataChunkOutput(OutputStream *pOut);
-    ~DataChunkOutput();
-    void writeAsciiString(const AsciiString &textValue) throw();
-    void writeUnicodeString(UnicodeString textValue);
-    void writeNameKey(NameKeyType key);
-    void writeDict(const Dict &d);
-
-private:
-    OutputStream *m_pOut;
-    _iobuf *file;
-    DataChunkTableOfContents m_contents;
-    OutputChunk *m_chunkStack;
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 // Open-BFME: Q1Forwardee0000871A::handle, retail 0x00102610, 37 bytes.
 //
 // An intrusive unlink and a delete, on the node the argument names -- `this' is
@@ -581,17 +562,17 @@ int Rva0023DB34::slot00(void *dst, int len)
 
 void DataChunkOutput::writeInt(int intValue)
 {
-	fwrite(&intValue, 4, 1, file);
+	fwrite(&intValue, 4, 1, m_tmp_file);
 }
 
 void DataChunkOutput::writeReal(float realValue)
 {
-	fwrite(&realValue, 4, 1, file);
+	fwrite(&realValue, 4, 1, m_tmp_file);
 }
 
 void DataChunkOutput::writeByte(WriteByteValue byteValue)
 {
-	fwrite(&byteValue, 1, 1, file);
+	fwrite(&byteValue, 1, 1, m_tmp_file);
 }
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Q1Forwardee0000871A_handle.cpp
@@ -819,26 +800,26 @@ DataChunkOutput::DataChunkOutput(OutputStream *pOut) :
 {
     UnicodeString tmpFileName = TheWritableGlobalData->rva002360FC();
     tmpFileName.concat(L"_tmpChunk.dat");
-    file = ::_wfopen(tmpFileName.str(), L"wb");
+    m_tmp_file = ::_wfopen(tmpFileName.str(), L"wb");
     m_chunkStack = 0;
 }
 
 DataChunkOutput::~DataChunkOutput()
 {
     m_contents.write(*m_pOut);
-    ::fclose(file);
+    ::fclose(m_tmp_file);
     UnicodeString tmpFileName = TheWritableGlobalData->rva002360FC();
     tmpFileName.concat(L"_tmpChunk.dat");
-    file = ::_wfopen(tmpFileName.str(), L"rb");
-    ::fseek(file, 0, SEEK_SET);
+    m_tmp_file = ::_wfopen(tmpFileName.str(), L"rb");
+    ::fseek(m_tmp_file, 0, SEEK_SET);
     char buffer[256];
     int len = 256;
     while (len == 256)
     {
-        len = ::fread(buffer, 1, 256, file);
+        len = ::fread(buffer, 1, 256, m_tmp_file);
         m_pOut->write(buffer, len);
     }
-    ::fclose(file);
+    ::fclose(m_tmp_file);
     ::_wunlink(tmpFileName.str());
 }
 
@@ -848,8 +829,8 @@ DataChunkOutput::~DataChunkOutput()
 void DataChunkOutput::writeAsciiString(const AsciiString &textValue) throw()
 {
 	UnsignedShort textLength = textValue.getLength();
-	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, file);
-	::fwrite(textValue.str(), textLength, 1, file);
+	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, m_tmp_file);
+	::fwrite(textValue.str(), textLength, 1, m_tmp_file);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeUnicodeString.cpp
@@ -857,8 +838,8 @@ void DataChunkOutput::writeAsciiString(const AsciiString &textValue) throw()
 void DataChunkOutput::writeUnicodeString(UnicodeString textValue)
 {
 	UnsignedShort textLength = (UnsignedShort)textValue.getLength();
-	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, file);
-	::fwrite(textValue.str(), textLength * sizeof(WideChar), 1, file);
+	::fwrite((const char *)&textLength, sizeof(UnsignedShort), 1, m_tmp_file);
+	::fwrite(textValue.str(), textLength * sizeof(WideChar), 1, m_tmp_file);
 }
 
 // ---- from Code/GameEngine/Source/Common/System/DataChunkReadNameKey.cpp
@@ -937,7 +918,7 @@ void DataChunkOutput::writeNameKey(NameKeyType key)
 void DataChunkOutput::writeDict(const Dict &dict)
 {
 	UnsignedShort len = dict.getPairCount();
-	::fwrite((const char *)&len, sizeof(UnsignedShort), 1, file);
+	::fwrite((const char *)&len, sizeof(UnsignedShort), 1, m_tmp_file);
 	for (int i = 0; i < len; i++)
 	{
 		NameKeyType k = dict.getNthKey(i);
@@ -1003,7 +984,7 @@ int Rva0023DB34::slot04()
 
 void DataChunkOutput::writeArrayOfBytes(char *ptr, int len)
 {
-	::fwrite(ptr, 1, len, file);
+	::fwrite(ptr, 1, len, m_tmp_file);
 }
 
 // tu-skeleton: 0x00306DCC 20B ?reset@DataChunkInput@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
