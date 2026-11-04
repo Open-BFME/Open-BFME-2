@@ -1,12 +1,12 @@
-// cl: /O2 /G6 /DNDEBUG /MD
+// cl: /O2 /G6 /DNDEBUG /MD /D_CRTIMP=
 // Semantic guide reviewed at BFME1 575ba2b04; original transfer f98983a7d game/Libraries/Source/Apt/AptInput.cpp,
 // bfmeParseSuffix1285 and bfmeAdvance1285. Target parser6F97F0 uses the
 // owned EAStringC emptiness/buffer/size getters and native isdigit/atoi thunks.
 // Native advance6FA340 replaces donor fixed512 table with count8/capacityA/
 // pointerC and current6C; CIH name8, state code via6E1F00 and event6FA100.
 // Static parser remains in the callers' TU for MSVC's register convention.
-extern "C" int __cdecl isdigit(int);
-extern "C" int __cdecl atoi(const char*);
+#include <ctype.h>
+#include <stdlib.h>
 #include "EAStringC.h"
 class AsciiString;
 #include "BfmeAptValue006DCD20.h"
