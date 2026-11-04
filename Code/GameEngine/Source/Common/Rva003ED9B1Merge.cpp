@@ -5,6 +5,7 @@
 // Resizes this to src size then for each node sets bit m_14 and incs m_18; callers 0x0020D8AB/0x003EDD99/0x004ABE12.
 // Neighbour Rva003ED498Count.cpp shares /O1 /EHsc STLport flags and tree walk idioms.
 #include <vector>
+#include <stl/_tree.h>
 #include "../GameLogic/LargeGroupAudio/LargeGroupAudioKeyTreeStorage.h"
 
 class Drawable;
@@ -18,22 +19,6 @@ public:
 };
 _STLP_END_NAMESPACE
 
-namespace _STL
-{
-typedef bool _Rb_tree_Color_type;
-struct _Rb_tree_node_base
-{
-	_Rb_tree_Color_type _M_color;
-	_Rb_tree_node_base *_M_parent;
-	_Rb_tree_node_base *_M_left;
-	_Rb_tree_node_base *_M_right;
-};
-template <class Dummy> class _Rb_global
-{
-public:
-	static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *);
-};
-}
 
 struct BitRange
 {
