@@ -786,7 +786,7 @@ inline void zeroCoord(Coord3D &c)
 class Rva002D9531
 {
 public:
-	void rva002D9531(Int objectID);
+	void rva002D9531(int objectID);
 };
 
 struct BfmeAudioEventPrefix136;
