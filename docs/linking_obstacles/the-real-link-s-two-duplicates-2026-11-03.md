@@ -20,3 +20,8 @@ private 256-byte `MapMetaData`/`MapCache` views at /O1. The patch and evidence a
 
 `@_RTC_CheckStackVars@8`: already recorded in
 `reverse/attempt_support/rtc-stack-owner-20261028-codex.md`; it needs the stack unit's ownership settled.
+
+Settled 2026-11-04 by the owner: 0x0075A5A2 is placed with `RtcStack.cpp`. `__RTC_CheckEsp` consumes the caller's ZF, so
+it cannot be C++ and the anti-lift rule bars a naked body, so it is the sibling `Code/masm_dumps/RTC_CheckEsp.asm` again.
+The link then has no reason to pull `stack.obj`. The next real link verifies that; if another name still pulls it, this
+is not cleared.

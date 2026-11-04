@@ -104,6 +104,7 @@ GEN_NOTE_RE = re.compile(r"(?:^|;)\s*gen-[a-z]|identity=generated\b")
 # evidence plus complete byte/relocation verification. This is metric credit only,
 # not authored-C++ credit, permission to lift code, or a verification exemption.
 REBUILT_ASM_SOURCES = frozenset({
+    "Code/masm_dumps/RTC_CheckEsp.asm",  # consumes incoming ZF, preserves live returns
     "Code/Libraries/Source/VP6/MmxIDct.asm",  # five clean-room MMX bodies
     "Code/masm_dumps/SecurityCookieCheck.asm",  # documented CRT assembly entry
     "Code/Libraries/Source/CRT/RuntimeRelativeDispatchCores.asm",  # verified return-PC/flags ABI
