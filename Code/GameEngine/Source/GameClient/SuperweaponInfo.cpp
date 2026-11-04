@@ -57,11 +57,7 @@ public:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayStringManager.h
 #include "../../Include/GameClient/DisplayStringManager.h"
 
-class GlobalLanguage
-{
-public:
-	Int adjustFontSize(Int point);
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 
 #include "../../Include/GameClient/FontLibrary.h"
 
