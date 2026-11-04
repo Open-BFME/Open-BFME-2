@@ -249,14 +249,15 @@ static const char *getWSAErrorString( Int error )
 #undef CASE
 #endif
 
-class Rva0041A3C4 {
+class Rva0041A3C4
+{
 public:
-    BfmeNarrowRecord0041A5D2 *_M_cur;
-    BfmeNarrowRecord0041A5D2 *_M_first;
-    BfmeNarrowRecord0041A5D2 *_M_last;
-    BfmeNarrowRecord0041A5D2 **_M_node;
-    void rva0041A3C4();
-    void rva0041A486();
+	void rva0041A3C4();
+	void rva0041A486();
+	BfmeNarrowRecord0041A5D2 *_M_cur; // +0x00
+	BfmeNarrowRecord0041A5D2 *_M_first; // +0x04
+	BfmeNarrowRecord0041A5D2 *_M_last; // +0x08
+	BfmeNarrowRecord0041A5D2 **_M_node; // +0x0C
 };
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread_GameResultsThreadClass_sendGameResults.cpp

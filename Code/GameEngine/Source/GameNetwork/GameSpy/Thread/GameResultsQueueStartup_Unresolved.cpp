@@ -169,7 +169,12 @@ public:
 class Rva0041A3C4
 {
 public:
-	void rva0041A486();	// 0x0041A486, request pop_front
+	void rva0041A3C4();
+	void rva0041A486();
+	BfmeNarrowRecord0041A5D2 *_M_cur; // +0x00
+	BfmeNarrowRecord0041A5D2 *_M_first; // +0x04
+	BfmeNarrowRecord0041A5D2 *_M_last; // +0x08
+	BfmeNarrowRecord0041A5D2 **_M_node; // +0x0C
 };
 class Rva0041A3F7
 {
