@@ -11,28 +11,71 @@
 class Player;
 class Object;
 #include "GameLogicObjectLookupView.h"
-
 enum ObjectStatusTypes
 {
 	STATUS_5E = 0x5e
 };
-
 #include "../../Include/GameLogic/Rva002A8F24.h"
-
 class Rva005C4AD1LeaField
 {
 public:
 	void *get() const;
 };
-
 #include "../GameLogic/Object/object.h"
-
 extern GameLogic *TheGameLogic;
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 #include "../../Include/Common/AITactic.h"
 #include "../../Include/Common/AITacticOffensive.h"
+#include "ascii_string.h"
+// Rva005AB309Tactic.cpp owns the retail key at VA 0x00E06410,
+// its startup/atexit functions, and the startup counter/name-list data.
+extern AsciiString AIReturnTheRingTactic_IsRunning;
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
+// BFME2's Xfer: operator== overloads, grouped by cl at the first overload
+// slot in reverse declaration order (Rva004E0513Xfer.cpp has the same view).
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+void XferObjectID(Xfer *xfer, ObjectID *id);
+struct Rva005AB309Thing
+{
+	char m_pad000[0x120];
+	unsigned char m_120;
+};
+#include "../../Include/Common/TeamBFME2.h"
+struct Rva002A8AB1Record
+{
+	void rva002C717E(const AsciiString &key, int value);
+	int rva002C7196(const AsciiString &key);
+};
+struct Rva005AB309Holder
+{
+	char m_pad00[8];
+	Rva005C4AD1LeaField *m_08;	// +0x08
+};
 
 class AIReturnTheRingTactic : public AITacticOffensive
 {
@@ -67,6 +110,8 @@ private:
 // tu-skeleton: 0x005AB3BE 97B ??0AIReturnTheRingTactic@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x005AB41F 60B ?create@AIReturnTheRingTactic@@UAEPAVAITactic@@XZ -- matched in Code/GameEngine/Source/Common/Rva004ECECDTacticCreate.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp
 
 // ---- from Code/GameEngine/Source/Common/AIReturnTheRingTactic_findRingBearer.cpp
 
@@ -104,7 +149,53 @@ bool AIReturnTheRingTactic::findRingBearer()
 
 // tu-skeleton: 0x005AB71D 52B ?update@AIReturnTheRingTactic@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005AB309Tactic.cpp (not merged yet)
 
-// tu-skeleton: 0x005AB751 105B ?run@AIReturnTheRingTactic@@UAEXXZ -- matched in Code/GameEngine/Source/Common/AIReturnTheRingTactic_run.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AIReturnTheRingTactic_run.cpp
+
+// Split from Rva005AB309Tactic.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+//
+// The "ReturnTheRing" skirmish-AI tactic (vtable 0x00872284; ctor 0x005AB3BE
+// in Rva004ECECDTacticCtors.cpp, dtor 0x005AB309 and ??_G in
+// Rva005DCC24Derived.cpp, slot 9 in Rva004ECECDTacticCreate.cpp). Base chain,
+// all address-derived: Rva005DCC24 (ctor 0x005DCC0A) over AITacticOffensive over
+// the AITactic.cpp object AITactic. Layout: +0x58 int, +0x5C the ring
+// holder's id (found by 0x005AB45B), +0x60 the escort target's id, +0x64
+// "escort reached", +0x65 "team created". The owner's TheSkirmishAIManager
+// record keeps this unit's AIReturnTheRingTactic_IsRunning key (global
+// AsciiString 0x00E06410, built by 0x007B4548, released by 0x007B9630).
+//
+//   0x005AB6A5  slot 1: not running yet and a ring holder is found
+//   0x005AB314  slot 2: clear the key when this tactic set it
+//   0x005AB354  slot 5: xfer, version 1
+//   0x005AB751  slot 6: create the ring team (0x005AB4B9), set the key and
+//               send it off (0x005AB6DC); without a team, stop
+//   0x005AB71D  slot 7: while running, on 0x004ED169 stop once the escort
+//               was reached, else try to reach it (0x005AB66A)
+//   0x005AB5B7  the owner's object of kind +0x120 bit 2 nearest the team
+//   0x005AB66A  attack the +0x60 target, or the nearest one when it is gone
+//   0x005AB6DC  head for the nearest such object (remembering it in +0x60),
+//               or the owner's base
+
+// The owner's TheSkirmishAIManager record; retail loads the owner before
+// the record call's own arguments wherever this form is used.
+static inline Rva002A8AB1Record *aiData(void *owner)
+{
+	return TheSkirmishAIManager->rva002A8AB1(owner);
+}
+
+void AIReturnTheRingTactic::run()
+{
+	if (!aiData(m_field24)->rva002C7196(AIReturnTheRingTactic_IsRunning)) {
+		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
+		if (buildReturnTeam()) {
+			ownerAIRecord->rva002C717E(AIReturnTheRingTactic_IsRunning, 1);
+			moveToFortress();
+			m_created = true;
+		}
+	}
+	if (!m_created)
+		end(0, 0);
+}
 
 // tu-skeleton: 0x0079E895 8B $L1782 -- matched in Code/GameEngine/Source/Common/Rva004ECECDTacticCtors.cpp (not merged yet)
 
