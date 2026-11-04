@@ -861,6 +861,8 @@ extern "C" const void *const __identifier("??_7W3DAptComponentView3D@@6B@")[];
 
 // ---- from Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 
+// ---- from Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
+
 // ?Rva00740A60Get@@YAHABV?$StringBase@D@@@Z, retail 0x00740A60, 54 bytes.
 // Table walk with compareNoCase returning index else 0.
 // Evidence: caller at 0x00740E49 pushes dword; callee rowed compareNoCase 0x00037980; global table data 0x009DDF68.
@@ -1051,13 +1053,9 @@ int __cdecl Rva00740A60Get(const StringBase<char> &name)
 // Drawable deriving from Thing at offset 0 is carried from the Zero Hour
 // donor (GameClient/Drawable.h); the unadjusted jump agrees with it.
 
-// tu-skeleton: 0x007401E5 17B ??0Rva007401F6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva007401E5Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x007401F6 48B ??1Rva007401F6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva007401F6Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00740226 28B ??_GRva007401F6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e282.cpp (not merged yet)
 
-// tu-skeleton: 0x007402C0 661B ?rva007402C0@W3DAptComponentView3D@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00789900Init.cpp
 
@@ -1077,6 +1075,23 @@ Rva00789900Init::Rva00789900Init(unsigned char flag)
 	m_2c = 0;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva007401E5Ctor.cpp
+
+// ??0Rva007401F6@@QAE@XZ, retail 0x007401E5..0x007401F6 (17 B): the default
+// constructor of the class whose rowed destructor (0x007401F6) and deleting
+// destructor (0x00740226) sit right after it. Target facts: it stores the
+// class vtable 0x00CF15E8 (the table whose first slot is ??_G 0x00740226),
+// sets +4 to -1 and clears the string handle at +8. The inlined base
+// constructor's own vptr store is dead and removed; it supplies the -1 at +4.
+
+Rva007401F6::Rva007401F6()
+{
+}
+
+// tu-skeleton: 0x00740226 28B ??_GRva007401F6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e282.cpp (not merged yet)
+
+// tu-skeleton: 0x007402C0 661B ?rva007402C0@W3DAptComponentView3D@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp (not merged yet)
+
 // tu-skeleton: 0x007405A9 312B ?Render@W3DAptComponentView3D@@QAEXHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
 
 // tu-skeleton: 0x00740A96 30B ?rva00740A96@Rva00740A96@@QAEXHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp (not merged yet)
@@ -1086,8 +1101,6 @@ Rva00789900Init::Rva00789900Init(unsigned char flag)
 // tu-skeleton: 0x00740BCD 683B ?AddRenderObj@W3DAptComponentView3D@@QAEXIABVAsciiString@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB443 8B uw_007ab443 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
-
-// tu-skeleton: 0x007AB44B 10B __ehhandler$??1Rva007401F6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva007401F6Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB45D 11B uw_007ab45d -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
 
