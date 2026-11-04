@@ -59,13 +59,17 @@ struct IDirect3DSurface8;
 struct IDirect3DBaseTexture8 {};
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
 struct IDirect3DDevice8;
-#define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(_Get_D3D_Device8()))
-#define TEXTURE9(x) (reinterpret_cast<IDirect3DBaseTexture9 *>(x))
+#define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8()))
+
 
 extern unsigned number_of_DX8_calls;
 
 class DX8Wrapper
 {
+private:
+	friend class W3DShaderManager;
+	friend void rva00075E42(void);
+	friend void Rva00075A23Draw(int width, int height);
 public:
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 	static void Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer);
@@ -86,18 +90,18 @@ public:
 	static __forceinline void Set_DX8_Texture(unsigned stage, IDirect3DBaseTexture8 *texture)
 	{
 		if (stage >= 16) {
-			DEVICE9->SetTexture(stage, TEXTURE9(texture));
+			DEVICE9->SetTexture(stage, reinterpret_cast<IDirect3DBaseTexture9 *>(texture));
 			number_of_DX8_calls++;
 			return;
 		}
 		if (Textures[stage] == texture)
 			return;
 		if (Textures[stage])
-			TEXTURE9(Textures[stage])->Release();
+			reinterpret_cast<IDirect3DBaseTexture9 *>(Textures[stage])->Release();
 		Textures[stage] = texture;
 		if (Textures[stage])
-			TEXTURE9(Textures[stage])->AddRef();
-		DEVICE9->SetTexture(stage, TEXTURE9(texture));
+			reinterpret_cast<IDirect3DBaseTexture9 *>(Textures[stage])->AddRef();
+		DEVICE9->SetTexture(stage, reinterpret_cast<IDirect3DBaseTexture9 *>(texture));
 		number_of_DX8_calls++;
 		texture_changes++;
 	}
