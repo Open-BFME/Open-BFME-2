@@ -58,38 +58,8 @@ class W3DMPO
 
 
 
-class ShaderClass
-{
-	friend class DX8Wrapper;
-protected:
-	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
-public:
-	unsigned int ShaderBits;
-	static ShaderClass _PresetOpaqueShader;
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
-	__declspec(dllimport) __forceinline ShaderClass(const ShaderClass &other)
-		: ShaderBits(other.ShaderBits) {}
-	ShaderClass(unsigned int bits)
-		: ShaderBits(bits) {}
-
-	void Set_Depth_Compare(int value)
-	{
-		ShaderBits &= ~7U;
-		ShaderBits |= (unsigned int)value;
-	}
-
-	void Set_Depth_Mask(int value)
-	{
-		ShaderBits &= ~8U;
-		ShaderBits |= ((unsigned int)value << 3);
-	}
-};
-
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass *material;
-};
 
 // This TU already mirrors TextureBaseClass by name; the release declaration
 // below is the same member signature the shared header declares
@@ -260,8 +230,8 @@ bool W3DSmudgeManager::testHardwareSupport(void)
 			vmat->Release_Ref();
 
 		ShaderClass shader = ShaderClass::_PresetOpaqueShader;
-		shader.Set_Depth_Compare(7);
-		shader.Set_Depth_Mask(0);
+		shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+		shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
 		DX8Wrapper::Set_Shader(shader);
 		{
 			RefCountPtr<TextureClass> texture;

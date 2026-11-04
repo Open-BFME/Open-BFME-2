@@ -24,22 +24,7 @@
 
 class ChunkLoadClass;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/shader.h
-class ShaderClass
-{
-public:
-	enum AlphaTestType { ALPHATEST_DISABLE = 0, ALPHATEST_ENABLE };
-	enum DstBlendFuncType { DSTBLEND_ZERO = 0, DSTBLEND_ONE };
-	enum SrcBlendFuncType { SRCBLEND_ZERO = 0, SRCBLEND_ONE };
-
-	ShaderClass(const ShaderClass &shader) : ShaderBits(shader.ShaderBits) {}
-
-	AlphaTestType Get_Alpha_Test() const { return (AlphaTestType)((ShaderBits >> 18) & 3); }
-	DstBlendFuncType Get_Dst_Blend_Func() const { return (DstBlendFuncType)((ShaderBits >> 5) & 7); }
-	SrcBlendFuncType Get_Src_Blend_Func() const { return (SrcBlendFuncType)((ShaderBits >> 14) & 3); }
-
-	unsigned long ShaderBits;
-};
+#include "ShaderClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.h
 class MeshMatDescClass

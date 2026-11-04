@@ -117,26 +117,7 @@ public:
 	bool UseLighting;					// +0x69
 };
 
-class ShaderClass
-{
-public:
-	enum { MASK_DEPTHCOMPARE = (7 << 0), MASK_DEPTHMASK = (1 << 3), MASK_COLORMASK = (1 << 4), MASK_DSTBLEND = (7 << 5),
-		MASK_PRIGRADIENT = (7 << 10), MASK_SECGRADIENT = (1 << 13), MASK_SRCBLEND = (3 << 14), MASK_TEXTURING = (1 << 16),
-		MASK_ALPHATEST = (3 << 18), MASK_CULLMODE = (1 << 20), MASK_POSTDETAILCOLORFUNC = (15 << 21), MASK_POSTDETAILALPHAFUNC = (7 << 25) };
-	int Get_Depth_Compare() const { return (ShaderBits & MASK_DEPTHCOMPARE) >> 0; }
-	int Get_Depth_Mask() const { return (ShaderBits & MASK_DEPTHMASK) >> 3; }
-	int Get_Color_Mask() const { return (ShaderBits & MASK_COLORMASK) >> 4; }
-	int Get_Dst_Blend_Func() const { return (ShaderBits & MASK_DSTBLEND) >> 5; }
-	int Get_Primary_Gradient() const { return (ShaderBits & MASK_PRIGRADIENT) >> 10; }
-	int Get_Secondary_Gradient() const { return (ShaderBits & MASK_SECGRADIENT) >> 13; }
-	int Get_Src_Blend_Func() const { return (ShaderBits & MASK_SRCBLEND) >> 14; }
-	int Get_Texturing() const { return (ShaderBits & MASK_TEXTURING) >> 16; }
-	int Get_Alpha_Test() const { return (ShaderBits & MASK_ALPHATEST) >> 18; }
-	int Get_Cull_Mode() const { return (ShaderBits & MASK_CULLMODE) >> 20; }
-	int Get_Post_Detail_Color_Func() const { return (ShaderBits & MASK_POSTDETAILCOLORFUNC) >> 21; }
-	int Get_Post_Detail_Alpha_Func() const { return (ShaderBits & MASK_POSTDETAILALPHAFUNC) >> 25; }
-	UnsignedInt ShaderBits;
-};
+#include "ShaderClass.h"
 
 class MeshGeometryClass
 {

@@ -114,15 +114,7 @@ public:
  RefCountPtr &operator=(const RefCountPtr &v) { if(v.Referent) ++v.Referent->refs; if(Referent) Referent->Release_Ref(); Referent=v.Referent; return *this; }
  bool operator==(const RefCountPtr &rhs) const {return Referent==rhs.Referent;}
 };
-class ShaderClass {
-public:
- unsigned ShaderBits;
- ShaderClass() : ShaderBits(0x10441b) {}
- ShaderClass(const unsigned int bits) : ShaderBits(bits) {}
- ShaderClass(const ShaderClass &shader) : ShaderBits(shader.ShaderBits) {}
- bool operator==(const ShaderClass &s) const { return ShaderBits == s.ShaderBits; }
- void Set_NPatch_Enable() { ShaderBits |= 0x20000; }
-};
+#include "ShaderClass.h"
 class VertexMaterialClass {
 public:
  char pad[0x64]; mutable unsigned crc; mutable bool dirty;
@@ -286,13 +278,13 @@ ShaderClass Vertex_Split_Table::Peek_Shader(unsigned int index,unsigned int pass
 		if (index < *reinterpret_cast<unsigned int *>(model + 0x24))
 			shader = mmc->Get_Shader(index,pass);
 		if (npatch_enable)
-			shader.Set_NPatch_Enable();
+			shader.Set_NPatch_Enable(ShaderClass::NPATCH_ENABLE);
 		return shader;
 	}
 	if (!npatch_enable)
 		return *reinterpret_cast<ShaderClass *>(desc + 0x98 + pass * 4);
 	ShaderClass shader = *reinterpret_cast<ShaderClass *>(desc + 0x98 + pass * 4);
-	shader.Set_NPatch_Enable();
+	shader.Set_NPatch_Enable(ShaderClass::NPATCH_ENABLE);
 	return shader;
 }
 

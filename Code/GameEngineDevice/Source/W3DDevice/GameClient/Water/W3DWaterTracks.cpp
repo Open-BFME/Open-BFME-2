@@ -218,14 +218,7 @@ enum waveType {WaveTypePond,WaveTypeOcean};
 // 0/C, list links at 10/14, strips at 18/1C and filename at 28.
 class VertexMaterialClass;
 
-class ShaderClass {
-public:
- ShaderClass() : bits(0x10441b) {}
- static ShaderClass _PresetAlphaShader;
- unsigned int bits;
- enum CullMode { CULL_MODE_DISABLE=0 };
- void Set_Cull_Mode(CullMode) {bits &= 0xffefffff;}
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class WaterTracksRenderSystem;
 

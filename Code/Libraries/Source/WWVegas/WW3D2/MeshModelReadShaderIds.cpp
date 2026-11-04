@@ -27,29 +27,7 @@
 typedef unsigned char uint8;
 typedef unsigned long ulong;
 
-class ShaderClass
-{
-public:
-	ShaderClass() : m_bits(0) {}
-	ShaderClass(const ShaderClass &other) : m_bits(other.m_bits) {}
-
-	enum DstBlendType
-	{
-		DSTBLEND_ZERO = 0
-	};
-
-	enum AlphaTestType
-	{
-		ALPHATEST_DISABLE = 0
-	};
-
-	unsigned int Get_Dst_Blend_Func(void) const { return m_bits & 0xE0; }
-	unsigned int Get_Alpha_Test(void) const { return m_bits & 0xC0000; }
-	bool operator!=(const ShaderClass &other) const { return m_bits != other.m_bits; }
-
-private:
-	unsigned int m_bits;
-};
+#include "ShaderClass.h"
 
 extern ShaderClass NullShader;
 

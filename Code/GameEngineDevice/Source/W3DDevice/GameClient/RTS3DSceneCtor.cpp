@@ -87,17 +87,7 @@ public:
 	Bool m_lightingDirty;								// +0x69
 };
 
-class ShaderClass
-{
-public:
-	enum DepthCompareType { PASS_NEVER = 0, PASS_LESS, PASS_EQUAL, PASS_LEQUAL };
-	enum DepthMaskType { DEPTH_WRITE_DISABLE = 0, DEPTH_WRITE_ENABLE };
-	__declspec(dllimport) __forceinline ShaderClass(const ShaderClass &s) : ShaderBits(s.ShaderBits) {}
-	void Set_Depth_Compare(DepthCompareType x) { ShaderBits &= ~7; ShaderBits |= x; }
-	__declspec(dllimport) __forceinline void Set_Depth_Mask(DepthMaskType x) { ShaderBits &= ~8; ShaderBits |= x << 3; }
-	static ShaderClass _PresetAdditiveSolidShader;
-	unsigned int ShaderBits;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class MaterialPassClass : public RefCountClass
 {

@@ -8,16 +8,12 @@
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-class ShaderClass {
-public:
- unsigned int bits;
- void disableCull() { bits &= 0xffefffff; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 // Descriptive ABI-view label, not a recovered original data name. Native
 // mutable4B preset DB44B8 starts at198BB; BF1 donor uses shader012BBBA8.
 // Canonical _PresetAlphaShader is the different DB6234 datum (1198B3).
 // Native complete4B ShaderClass preset; exact initial bits are0x198BB.
-ShaderClass gWaterSurfaceShader = { 0x000198bbu };
+ShaderClass gWaterSurfaceShader(0x000198bbu);
 enum TimeOfDay { TOD_0, TOD_1, TOD_2, TOD_3, TOD_4 };
 enum WaterType { WATER_TYPE_0, WATER_TYPE_1, WATER_TYPE_2 };
 class WaterRenderObjClass {
@@ -81,7 +77,7 @@ int Rva0007FC38::rva0007FC38(float,float,float,SceneClass *scene,WaterType water
  render->Set_Force_Visible(1);
  reinterpret_cast<Rva00066A9ASub *>(this)->headB();
  shader=gWaterSurfaceShader;
- shader.disableCull();
+ shader.Set_Cull_Mode(ShaderClass::CULL_MODE_DISABLE);
  tracks=new WaterTracksRenderSystem;
  tracks->init();
  return 0;

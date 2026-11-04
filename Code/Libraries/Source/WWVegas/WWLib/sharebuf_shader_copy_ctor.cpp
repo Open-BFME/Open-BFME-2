@@ -18,19 +18,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #pragma auto_inline(on)
 
-class ShaderClass
-{
-public:
-	ShaderClass() : ShaderBits(0x0010441B) {}
-	ShaderClass &operator=(const ShaderClass &that)
-	{
-		ShaderBits = that.ShaderBits;
-		return *this;
-	}
-
-private:
-	unsigned ShaderBits;
-};
+#include "../WW3D2/ShaderClass.h"
 
 // Retail's RefCountClass inline copies (scalar deleting dtor 0x00072899) are
 // the size form: compile this class for size, as hlod.cpp does.

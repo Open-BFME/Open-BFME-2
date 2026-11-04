@@ -18,15 +18,15 @@
 // Other rowed entries: Init_From_Material3 0x00137550, Guess_Sort_Level
 // 0x001381B0, Get_SS_Category 0x00138130, Enable_Fog 0x00138200,
 // Get_Description 0x00138280, Is_Backface_Culling_Inverted 0x001381F0,
-// operator== 0x00143240, operator!= 0x001541B0. Set_Color_Mask,
-// Set_Post_Detail_Alpha_Func, Set_Post_Detail_Color_Func, Set_Alpha_Test,
-// Set_Cull_Mode, Set_Dst_Blend_Func, Set_Fog_Func, Set_Primary_Gradient,
-// Set_Secondary_Gradient, Set_Src_Blend_Func, Set_Texturing and Set_NPatch_Enable
-// are rowed at 0x00065F85, 0x00065F97, 0x00065FAC, 0x00065FC1, 0x00065FD6, 0x00065FEB,
-// 0x00065FFD, 0x00066010, 0x00066023, 0x00066036, 0x00066049 and 0x0006605E and are
-// declared out of line. Set_Depth_Compare's row 0x00065F66 has no retail caller, and
-// testHardwareSupport inlines it (`or al, 7` at 0x000A651E). Enum, field, preset and
-// unrowed inline names follow Zero Hour's GeneralsMD WW3D2/shader.h; its one-bit
+// operator== 0x00143240, operator!= 0x001541B0. The setters from Set_Depth_Compare
+// to Set_NPatch_Enable, in declaration order and skipping Set_Depth_Mask, are rowed at
+// 0x00065F66, 0x00065F85, 0x00065F97, 0x00065FAC, 0x00065FC1, 0x00065FD6, 0x00065FEB,
+// 0x00065FFD, 0x00066010, 0x00066023, 0x00066036, 0x00066049 and 0x0006605E. No setter,
+// getter, Reset or default constructor row has a retail caller, direct or through a thunk
+// (testHardwareSupport inlines Set_Depth_Compare: `or al, 7` at 0x000A651E), so they are
+// inline with Zero Hour's bodies and their rows are the copies units emit. Set_Depth_Mask
+// has no row; as an import-inline it is always inlined and never emitted. Enum, field,
+// preset and inline names follow Zero Hour's GeneralsMD WW3D2/shader.h; its one-bit
 // alpha-test layout is not used here.
 
 #pragma once
@@ -237,7 +237,7 @@ public:
         MASK_POSTDETAILALPHAFUNC = 7 << 25
     };
 
-    ShaderClass();
+    ShaderClass() { Reset(); }
     ShaderClass(const ShaderClass &shader) : ShaderBits(shader.ShaderBits) {}
     ShaderClass(unsigned int bits) : ShaderBits(bits) {}
     // Inline, as retail's are: VectorClass<ShaderClass>::operator== and ::ID fold into the
@@ -248,21 +248,21 @@ public:
     bool operator!=(const ShaderClass &shader) { return ShaderBits != shader.ShaderBits; }
 
     unsigned int Get_Bits() const { return ShaderBits; }
-    void Reset();
-    DepthCompareType Get_Depth_Compare() const;
-    DepthMaskType Get_Depth_Mask() const;
-    ColorMaskType Get_Color_Mask() const;
-    DetailAlphaFuncType Get_Post_Detail_Alpha_Func() const;
-    DetailColorFuncType Get_Post_Detail_Color_Func() const;
-    AlphaTestType Get_Alpha_Test() const;
-    CullModeType Get_Cull_Mode() const;
-    DstBlendFuncType Get_Dst_Blend_Func() const;
-    FogFuncType Get_Fog_Func() const;
-    PriGradientType Get_Primary_Gradient() const;
-    SecGradientType Get_Secondary_Gradient() const;
-    SrcBlendFuncType Get_Src_Blend_Func() const;
-    TexturingType Get_Texturing() const;
-    NPatchEnableType Get_NPatch_Enable() const;
+    inline void Reset();
+    DepthCompareType Get_Depth_Compare() const { return (DepthCompareType)(ShaderBits&MASK_DEPTHCOMPARE>>SHIFT_DEPTHCOMPARE); }
+    DepthMaskType Get_Depth_Mask() const { return (DepthMaskType)((ShaderBits&MASK_DEPTHMASK)>>SHIFT_DEPTHMASK); }
+    ColorMaskType Get_Color_Mask() const { return (ColorMaskType)((ShaderBits&MASK_COLORMASK)>>SHIFT_COLORMASK); }
+    DetailAlphaFuncType Get_Post_Detail_Alpha_Func() const { return (DetailAlphaFuncType)((ShaderBits&MASK_POSTDETAILALPHAFUNC)>>SHIFT_POSTDETAILALPHAFUNC); }
+    DetailColorFuncType Get_Post_Detail_Color_Func() const { return (DetailColorFuncType)((ShaderBits&MASK_POSTDETAILCOLORFUNC)>>SHIFT_POSTDETAILCOLORFUNC); }
+    AlphaTestType Get_Alpha_Test() const { return (AlphaTestType)((ShaderBits&MASK_ALPHATEST)>>SHIFT_ALPHATEST); }
+    CullModeType Get_Cull_Mode() const { return (CullModeType)((ShaderBits&MASK_CULLMODE)>>SHIFT_CULLMODE); }
+    DstBlendFuncType Get_Dst_Blend_Func() const { return (DstBlendFuncType)((ShaderBits&MASK_DSTBLEND)>>SHIFT_DSTBLEND); }
+    FogFuncType Get_Fog_Func() const { return (FogFuncType)((ShaderBits&MASK_FOG)>>SHIFT_FOG); }
+    PriGradientType Get_Primary_Gradient() const { return (PriGradientType)((ShaderBits&MASK_PRIGRADIENT)>>SHIFT_PRIGRADIENT); }
+    SecGradientType Get_Secondary_Gradient() const { return (SecGradientType)((ShaderBits&MASK_SECGRADIENT)>>SHIFT_SECGRADIENT); }
+    SrcBlendFuncType Get_Src_Blend_Func() const { return (SrcBlendFuncType)((ShaderBits&MASK_SRCBLEND)>>SHIFT_SRCBLEND); }
+    TexturingType Get_Texturing() const { return (TexturingType)((ShaderBits&MASK_TEXTURING)>>SHIFT_TEXTURING); }
+    NPatchEnableType Get_NPatch_Enable() const { return (NPatchEnableType)((ShaderBits&MASK_NPATCHENABLE)>>SHIFT_NPATCHENABLE); }
 
     int Uses_Alpha() const
     {
@@ -283,19 +283,19 @@ public:
     }
 
     void Set_Depth_Compare(DepthCompareType x) { ShaderBits &= ~MASK_DEPTHCOMPARE; ShaderBits |= (x << SHIFT_DEPTHCOMPARE); }
-    void Set_Depth_Mask(DepthMaskType value) { ShaderBits = (ShaderBits & ~MASK_DEPTHMASK) | (value << 3); }
-    void Set_Color_Mask(ColorMaskType value);
-    void Set_Post_Detail_Alpha_Func(DetailAlphaFuncType value);
-    void Set_Post_Detail_Color_Func(DetailColorFuncType value);
-    void Set_Alpha_Test(AlphaTestType value);
-    void Set_Cull_Mode(CullModeType value);
-    void Set_Dst_Blend_Func(DstBlendFuncType value);
-    void Set_Fog_Func(FogFuncType value);
-    void Set_Primary_Gradient(PriGradientType value);
-    void Set_Secondary_Gradient(SecGradientType value);
-    void Set_Src_Blend_Func(SrcBlendFuncType value);
-    void Set_Texturing(TexturingType value);
-    void Set_NPatch_Enable(NPatchEnableType value);
+    __declspec(dllimport) __forceinline void Set_Depth_Mask(DepthMaskType value) { ShaderBits = (ShaderBits & ~MASK_DEPTHMASK) | (value << 3); }
+    void Set_Color_Mask(ColorMaskType x) { ShaderBits &= ~MASK_COLORMASK; ShaderBits |= (x << SHIFT_COLORMASK); }
+    void Set_Post_Detail_Alpha_Func(DetailAlphaFuncType x) { ShaderBits &= ~MASK_POSTDETAILALPHAFUNC; ShaderBits |= (x << SHIFT_POSTDETAILALPHAFUNC); }
+    void Set_Post_Detail_Color_Func(DetailColorFuncType x) { ShaderBits &= ~MASK_POSTDETAILCOLORFUNC; ShaderBits |= (x << SHIFT_POSTDETAILCOLORFUNC); }
+    void Set_Alpha_Test(AlphaTestType x) { ShaderBits &= ~MASK_ALPHATEST; ShaderBits |= (x << SHIFT_ALPHATEST); }
+    void Set_Cull_Mode(CullModeType x) { ShaderBits &= ~MASK_CULLMODE; ShaderBits |= (x << SHIFT_CULLMODE); }
+    void Set_Dst_Blend_Func(DstBlendFuncType x) { ShaderBits &= ~MASK_DSTBLEND; ShaderBits |= (x << SHIFT_DSTBLEND); }
+    void Set_Fog_Func(FogFuncType x) { ShaderBits &= ~MASK_FOG; ShaderBits |= (x << SHIFT_FOG); }
+    void Set_Primary_Gradient(PriGradientType x) { ShaderBits &= ~MASK_PRIGRADIENT; ShaderBits |= (x << SHIFT_PRIGRADIENT); }
+    void Set_Secondary_Gradient(SecGradientType x) { ShaderBits &= ~MASK_SECGRADIENT; ShaderBits |= (x << SHIFT_SECGRADIENT); }
+    void Set_Src_Blend_Func(SrcBlendFuncType x) { ShaderBits &= ~MASK_SRCBLEND; ShaderBits |= (x << SHIFT_SRCBLEND); }
+    void Set_Texturing(TexturingType x) { ShaderBits &= ~MASK_TEXTURING; ShaderBits |= (x << SHIFT_TEXTURING); }
+    void Set_NPatch_Enable(NPatchEnableType x) { ShaderBits &= ~MASK_NPATCHENABLE; ShaderBits |= (x << SHIFT_NPATCHENABLE); }
 
     void Init_From_Material3(const W3dMaterial3Struct &material);
     void Enable_Fog(const char *source);
@@ -342,5 +342,24 @@ protected:
     static bool ShaderDirty;
     static unsigned long CurrentShader;
 };
+
+inline void ShaderClass::Reset()
+{
+    ShaderBits = 0;
+    Set_Depth_Compare(PASS_LEQUAL);
+    Set_Depth_Mask(DEPTH_WRITE_ENABLE);
+    Set_Color_Mask(COLOR_WRITE_ENABLE);
+    Set_Dst_Blend_Func(DSTBLEND_ZERO);
+    Set_Fog_Func(FOG_DISABLE);
+    Set_Primary_Gradient(GRADIENT_MODULATE);
+    Set_Secondary_Gradient(SECONDARY_GRADIENT_DISABLE);
+    Set_Src_Blend_Func(SRCBLEND_ONE);
+    Set_Texturing(TEXTURING_DISABLE);
+    Set_Alpha_Test(ALPHATEST_DISABLE);
+    Set_Cull_Mode(CULL_MODE_ENABLE);
+    Set_Post_Detail_Color_Func(DETAILCOLOR_DISABLE);
+    Set_Post_Detail_Alpha_Func(DETAILALPHA_DISABLE);
+    Set_NPatch_Enable(NPATCH_DISABLE);
+}
 
 #endif // SHADER_H
