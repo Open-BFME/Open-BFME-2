@@ -159,16 +159,7 @@ void GadgetCheckBoxSetChecked(GameWindow *,bool);
 
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
 
-class GameSpyLoginPreferences: public UserPreferences { public:
-    virtual bool write();
-    void deleteNick(const AsciiString &,const AsciiString &);
-    void rva005CA53E(const AsciiString &);
-    void rva005CACDE(AsciiString,AsciiString,AsciiString,AsciiString);
-    AsciiString rva005C9FC4();
-    _STL::list<AsciiString> rva005CA07D();
-    AsciiString getPasswordForEmail(AsciiString);
-    const _STL::list<AsciiString> &rva005CA201(const AsciiString &);
-};
+#include "../../../../../Include/GameClient/GameSpyLoginPreferences.h"
 
 void GadgetComboBoxReset(GameWindow *);
 
