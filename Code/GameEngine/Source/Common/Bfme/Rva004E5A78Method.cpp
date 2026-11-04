@@ -25,10 +25,15 @@ void *&vector<void*>::operator[](size_t __n)
 { return *(begin() + __n); }
 }
 
+class DisplayString;
 class Rva004E5821
 {
 public:
 	void rva004E5821();
+	void *rva004E58F5(unsigned int flags);
+private:
+	int m_00; // +0x00
+	DisplayString *m_04; // +0x04
 };
 
 // Not vector<void *>: retail's unwind action for the member jumps to the
@@ -37,8 +42,8 @@ public:
 class Rva004E5A78
 {
 public:
-	_STL::vector<Rva004E5821 *> m_vec;
 	~Rva004E5A78();
+	_STL::vector<Rva004E5821 *> m_vec; // +0x00
 };
 
 Rva004E5A78::~Rva004E5A78()

@@ -214,15 +214,14 @@ private:
 	Rva004E58EDStr m_str;
 };
 
-class Rva004E5821 {
-private:
-	int m_00;
-private:
-	DisplayString *m_04;
+class Rva004E5821
+{
 public:
 	void rva004E5821();
-public:
 	void *rva004E58F5(unsigned int flags);
+private:
+	int m_00; // +0x00
+	DisplayString *m_04; // +0x04
 };
 
 void __cdecl Rva004E588DFill(int *out, Rva004E588DNode **first, Rva004E588DNode **last, int acc, int stamp);
@@ -284,6 +283,7 @@ class Rva004E5A78
 {
 public:
 	~Rva004E5A78();
+	_STL::vector<Rva004E5821 *> m_vec; // +0x00
 };
 
 class Rva004E5A78;
