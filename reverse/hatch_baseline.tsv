@@ -12487,9 +12487,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBe
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp	loadPostProcess@BridgeTowerBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp	onBodyDamageStateChange@BridgeTowerBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp	setTowerType@BridgeTowerBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	0DumbProjectileBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	0DumbProjectileBehaviorModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	update@DumbProjectileBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	1InstantDeathBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	crc@InstantDeathBehavior@@	1
@@ -12645,7 +12642,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerA
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getBoredRange@DozerAIUpdate@@UBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getBoredTime@DozerAIUpdate@@UBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getRepairHealthPerSecond@DozerAIUpdate@@UBEMXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp	update@JetAIUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp	claimed:	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	cancelTask@WorkerAIUpdate@@UAEXW4DozerTask@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	crc@WorkerAIUpdate@@MAEXPAVXfer@@@Z	1
@@ -12689,7 +12685,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp	ObjectIDVector::erase	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp	ObjectIDVector::resize	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp	bfmeEmitDockUpdateCtor@@YAXPAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp	1RailedTransportDockUpdate@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	autoPickUpAnchor@AutoPickUpUpdateInterface@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	base0CAnchor@AudioLoopBase0C@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	base10Anchor@AudioLoopBase10@@UAEXXZ	1
@@ -13289,7 +13284,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObj
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Intersect_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Position	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Transform	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	CollectionClass::CollectionClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0AABoxCollisionTestClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0OBBoxCollisionTestClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	Cull@AABoxCollisionTestClass@@	1
@@ -13927,15 +13921,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp	Vector3HollowS
 present_unmatched	Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp	Vector3SolidCylinderRandomizer::Get_Maximum_Extent	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp	Vector3SolidSphereRandomizer::Scale	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWMath/v3_rnd.cpp	Vector3SolidSphereRandomizer::Vector3SolidSphereRandomizer	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	0TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	1TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Create@TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Get_Factory@TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Load@TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Load_Variables@TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Save@TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Save_Variables@TwiddlerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	Twiddle@TwiddlerClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp	1ShdDefFactoryClass@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/assetmanager/AssetManagerImplCtor.cpp	AssetPointerLinkTree::_M_empty_initialize	1
 present_unmatched	Code/Libraries/Source/assetmanager/AssetManagerImplCtor.cpp	AssetPointerLinkTree::_Rb_tree	1
