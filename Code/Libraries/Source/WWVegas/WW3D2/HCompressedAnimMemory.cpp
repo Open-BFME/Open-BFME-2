@@ -11,9 +11,14 @@ struct NodeCompressedMotionStruct {
     unsigned char ExistingFields[28];
     int Get_Channel_Memory_Usage();
 };
-struct BFME2CompressedMotionChannels {
-    BFME2MotionChannel *Channels[5];
-    TimeCodedBitChannelClass *Visibility;
+struct BFME2CompressedMotionChannels
+{
+public:
+	BFME2CompressedMotionChannels();
+	~BFME2CompressedMotionChannels();
+	int Get_Channel_Memory_Usage();
+	BFME2MotionChannel *Channels[5]; // +0x00
+	TimeCodedBitChannelClass *Visibility; // +0x14
 };
 class HCompressedAnimClass {
 public:
