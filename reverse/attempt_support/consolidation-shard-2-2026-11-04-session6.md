@@ -171,6 +171,14 @@ link improvement is claimed. No live claims remain from this pass.
   `HMODULE`/`HINSTANCE` (C2371). Mixed split trials fail on duplicate
   `_STL::vector` (C2953), missing `Rva0057EE5C` class context (C2653/C2065), or
   no spelled definition for 0x0057ED87. No change.
+- `Libraries/Source/debug/debug_except.cpp`: the `Rva0088D8E0RecordInitialize`
+  donor fails byte verification. Mixed split trials either fail bytes, need
+  `Debug::slot42` (C2039), target a vendored STLport source, or leave
+  `EnumThreadWndProc` undeclared in the residual (C2065). No change.
+- `Common/System/TBuff.cpp`: its unsigned `ShareBufferClass` donor duplicates
+  the template constructor definition (C2995). The plan also includes five
+  mixed sources; no split was applied because no donor merge was accepted to
+  pair with a split.
 
 These trials wrote no sources or ledgers and took no claims. No TU merge or
 split landed; file reduction and matched-row movement remain zero.
