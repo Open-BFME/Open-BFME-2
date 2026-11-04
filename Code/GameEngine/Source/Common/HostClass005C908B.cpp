@@ -4,24 +4,8 @@
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct BfmePoolHolder88
-{
-	unsigned char m_pad[0x88];
-	OpaqueRefCounted m_ref;
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
-class BfmePoolRef10
-{
-public:
-	BfmePoolHolder88 *m_target;
-
-	__declspec(noinline) BfmePoolRef10 &operator=(const BfmePoolRef10 &rhs);
-	__forceinline ~BfmePoolRef10()
-	{
-		if (m_target)
-			m_target->m_ref.Release_Ref();
-	}
-};
 
 typedef long Long;
 

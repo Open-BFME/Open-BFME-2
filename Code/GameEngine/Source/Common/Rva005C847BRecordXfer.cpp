@@ -7,13 +7,7 @@
 // The exception identity comes from retail throw-info CFFD18 and its rowed
 // constructor/copy/destructor, independently of that WB lead.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-struct BfmePoolHolder88 { char m_pad[0x88]; OpaqueRefCounted m_ref; };
-class BfmePoolRef10
-{
-public:
-    BfmePoolHolder88 *m_target;
-    void rva00053D26(BfmePoolHolder88 *p);
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 #include "../../Include/Common/OpaqueRefElement4.h"
 class Rva0051D93
 {

@@ -15,16 +15,7 @@ template <> const unsigned int& max<unsigned int>(const unsigned int&, const uns
 }
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-struct BfmePoolHolder88 { char m_pad[0x88]; OpaqueRefCounted m_ref; };
-class BfmePoolRef10
-{
-public:
-    BfmePoolHolder88 *m_target;
-    BfmePoolRef10() : m_target(0) {}
-    ~BfmePoolRef10() { if (m_target) m_target->m_ref.Release_Ref(); }
-    void rva000519BD();
-    void rva00053D26(BfmePoolHolder88 *p);
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 struct BfmeAudioEventPrefix136;
 class Rva0051D93
