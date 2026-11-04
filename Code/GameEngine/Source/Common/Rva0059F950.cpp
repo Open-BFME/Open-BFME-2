@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// stlport
 // ?rva0059F950@Rva0059F950@@QAEXXZ, retail 0x0059F950, 135 bytes.
 // Save prefs from GameSpy slot: getLocalSlotNum slot13, getGameSpySlot, three
 // GameModePreferences int setters from slot +0xC +0x18 +0x5C, amIHost slot12,
@@ -18,18 +19,7 @@ public:
 	int m_5C;
 };
 
-class GameModePreferences
-{
-public:
-	virtual void gap0();
-	virtual void gap1();
-	virtual void gap2();
-	virtual bool write();
-	void rva0044DC54(int val);
-	void rva0044DCB9(int val);
-	void rva0044DD1E(int val);
-	void rva0044DD83(AsciiString val);
-};
+#include "../../Include/Common/GameModePreferences.h"
 
 #include "../../Include/GameNetwork/GameInfo.h"
 

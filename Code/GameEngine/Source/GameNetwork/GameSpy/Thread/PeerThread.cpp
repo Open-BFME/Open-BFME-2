@@ -78,7 +78,8 @@ namespace _STL { void __cdecl free(void *block); }
 
 #include "Common/Registry.h"
 #include "Common/StackDump.h"
-#include "Common/UserPreferences.h"
+#include "../../../../Include/Common/OptionPreferences.h"
+#include "../../../../Include/Common/GameModePreferences.h"
 #include "Common/Version.h"
 #include "GameNetwork/IPEnumeration.h"
 // The GameSpy SDK is C: under /EHsc its callees are nothrow, which is what
@@ -1547,14 +1548,6 @@ struct BfmeStagingResponseView
 	Int scenario;
 };
 
-class GameModePreferences
-{
-public:
-	virtual ~GameModePreferences();
-	AsciiString rva0044D986();
-private:
-	unsigned char m_unrecovered[0x18];
-};
 
 // The mode-keyed preferences object built here is the matched derived class at
 // 0x0054F508 (Rva0044D56ADerived.cpp); its map name comes from the base.

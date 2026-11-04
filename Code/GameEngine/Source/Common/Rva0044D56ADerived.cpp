@@ -1,4 +1,5 @@
 // cl: /MD
+// stlport
 //
 // Single-inheritance destructors tail-calling the matched GameModePreferences
 // base dtor at 0x0044D56A (vptr 0xC3EF60, AsciiString at +0x18, base dtor
@@ -12,36 +13,9 @@ class UnicodeString;
 
 // Virtual interface as Rva0054F508Ctor.cpp declares it (retail vftable 0x0086AA60:
 // deleting dtor, then UserPreferences' load/write/get/set slots, GameModePreferences overrides).
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool load(const AsciiString &fname);
-	virtual bool load(const UnicodeString &fname);
-	virtual bool write(void);
-	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
-	virtual float getReal(const AsciiString &key, float defaultValue) const;
-	virtual int getInt(const AsciiString &key, int defaultValue) const;
-	virtual int getEnumIndex(const char *key, const char **names, int count, int defaultValue) const;
-	virtual AsciiString getAsciiString(const AsciiString &key, const AsciiString &defaultValue) const;
-	virtual void setBool(const AsciiString &key, bool val);
-	virtual void setReal(const AsciiString &key, float val);
-	virtual void setInt(const AsciiString &key, int val);
-	virtual void setAsciiString(const AsciiString &key, const AsciiString &val);
-};
+#include "../../Include/Common/UserPreferences.h"
+#include "../../Include/Common/GameModePreferences.h"
 
-class GameModePreferences : public UserPreferences
-{
-public:
-	virtual ~GameModePreferences();
-	virtual bool write(void);
-	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
-	virtual float getReal(const AsciiString &key, float defaultValue) const;
-	virtual int getInt(const AsciiString &key, int defaultValue) const;
-	virtual void setBool(const AsciiString &key, bool val);
-	virtual void setReal(const AsciiString &key, float val);
-	virtual void setInt(const AsciiString &key, int val);
-};
 
 class Rva0044D285 : public GameModePreferences
 {

@@ -50,44 +50,7 @@ template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, alloca
 
 class GameSlot;
 
-class GameModePreferences : public UserPreferences
-{
-public:
-	GameModePreferences(Int mode);
-	virtual ~GameModePreferences();
-
-	virtual Bool write(void);
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual Real getReal(const AsciiString &key, Real defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-	virtual void setBool(const AsciiString &key, Bool val);
-	virtual void setReal(const AsciiString &key, Real val);
-	virtual void setInt(const AsciiString &key, Int val);
-
-	Int getStrategicScenario(void);
-	void setStrategicScenario(Int scenario);
-	Int rva0054F5A4(void);
-	void rva0054F7C0(Int val);
-	void rva0044DDFB(int *vals);
-	Int rva0044D836(void);
-	Int rva0044D88C(void);
-	Bool rva0044D940(void);
-	AsciiString rva0044DAA8(const AsciiString &def);
-	AsciiString rva0044DBA5(void);
-	AsciiString rva0044D986(void);
-	Bool rva0044DB54(int *vals);
-	Bool rva0044D774(GameSlot *slot);
-	void rva0044DC54(Int val);
-	void rva0044DCB9(Int val);
-	void rva0044DD1E(Int val);
-	void rva0044DD83(AsciiString val);
-
-private:
-	const AsciiString &makeKey(const char *key) const;
-
-	Int m_mode;
-	mutable AsciiString m_key;
-};
+#include "../../Include/Common/GameModePreferences.h"
 
 // Target-backed GameSlot fields: AptMpGameSetup::rva0043DD34 reads/writes
 // +0x50 through +0x5C; the +0x5C dword setter is rowed at 0x003FF0E7.
@@ -126,17 +89,17 @@ Bool GameModePreferences::write(void)
 const AsciiString &GameModePreferences::makeKey(const char *key) const
 {
 	const char *prefix = "";
-	switch (m_mode)
+	switch (field14)
 	{
 		case 0: prefix = "Rts"; break;
 		case 1: prefix = "Strat"; break;
 	}
-	m_key.format("%s:%s", prefix, key);
-	return m_key;
+	field18.format("%s:%s", prefix, key);
+	return field18;
 }
 
 // ??0GameModePreferences@@QAE@H@Z @0x44D54B
-GameModePreferences::GameModePreferences(Int mode) : m_mode(mode)
+GameModePreferences::GameModePreferences(Int mode) : field14(mode)
 {
 }
 
@@ -398,7 +361,7 @@ Bool GameModePreferences::rva0044DB54(int *vals)
 {
 	PreferenceMap::const_iterator it = find(makeKey("Rules"));
 	if (it == end()) {
-		MpGameRules::GetDefaults(m_mode, vals);
+		MpGameRules::GetDefaults(field14, vals);
 		return false;
 	}
 	Rva00559F11Parse(it->second.str(), vals);

@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// stlport
 //
 // LANAPI callbacks of the vtable 0x0083E680, Zero Hour's
 // GameNetwork/LANAPICallbacks.cpp.
@@ -480,17 +481,7 @@ public:
 	Int m_pendingHero;				// +0x2B4
 };
 
-class GameModePreferences
-{
-public:
-	virtual ~GameModePreferences( void );
-	Bool rva0044D774( GameSlot *slot );		// the preferred hero
-	Int rva0044D836( void );			// the preferred color
-	Int rva0044D88C( void );			// the preferred player template
-
-private:
-	UnsignedByte m_body[0x1C - 4];
-};
+#include "../../Include/Common/GameModePreferences.h"
 
 class LANPreferences : public GameModePreferences
 {

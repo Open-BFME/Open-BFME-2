@@ -47,9 +47,8 @@
 
 #include "Common/MessageStream.h"
 #include "Common/RandomValue.h"
-#define LANPreferences ZHMenuLANPreferences
-#include "Common/UserPreferences.h"
-#undef LANPreferences
+#include "../../../../../Include/Common/OptionPreferences.h"
+#include "../../../../../Include/Common/GameModePreferences.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "GameLogic/ScriptEngine.h"
@@ -609,13 +608,7 @@ char data[0x5C];
 };
 extern LANAPI *TheLAN;
 // Target preferences occupy 0x1C bytes; methods bind to existing providers.
-class GameModePreferences {public:
-virtual ~GameModePreferences();
-virtual void slot1();virtual void slot2();virtual bool write();
-void rva0044DD83(AsciiString);
-UnicodeString rva0044D330();
-char data[24];
-};
+
 class LANPreferences:public GameModePreferences {public:LANPreferences(int);virtual ~LANPreferences();};
 class GameEngine {public:void startHeadlessClients(int);};
 extern GameEngine *TheGameEngine;

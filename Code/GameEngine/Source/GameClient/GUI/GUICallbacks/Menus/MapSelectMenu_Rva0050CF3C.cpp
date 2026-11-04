@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 //
 // ?Rva0050CF3CStartHeadlessLanGame@@YAXXZ, retail 0x0050CF3C..0x0050D099
 // (349 bytes). MapSelectMenu.cpp's local LAN game host: its sole caller is
@@ -25,17 +26,7 @@ typedef int Int;
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 
-class GameModePreferences
-{
-public:
-	virtual ~GameModePreferences();
-	virtual Bool write(void);
-
-	UnicodeString rva0044D330(void);
-	void rva0044DD83(AsciiString val);
-
-	unsigned char m_pad04[0x1C - 0x04];
-};
+#include "../../../../../Include/Common/GameModePreferences.h"
 
 class LANPreferences : public GameModePreferences
 {

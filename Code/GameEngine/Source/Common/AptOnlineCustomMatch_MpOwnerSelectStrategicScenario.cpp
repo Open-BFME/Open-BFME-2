@@ -1,4 +1,5 @@
 // cl: -GR- -EHsc-
+// stlport
 // ?MpOwnerSelectStrategicScenario@AptOnlineCustomMatch@@UAE_NH@Z @0x0059EB6F 64B: gated notify-set-go. With
 // the info singleton and TheGameSpyGame present, fire the slot-0xDC
 // virtual on the info, forward the arg to the pinned 1-arg callee 0x44D5EE
@@ -67,7 +68,7 @@ struct Rva0059EB6FInfo
 	virtual void Notify();
 };
 
-class GameModePreferences { public: void setStrategicScenario(int); };
+#include "../../Include/Common/GameModePreferences.h"
 struct Rva0059EB6FSub
 {
 	virtual void d00();

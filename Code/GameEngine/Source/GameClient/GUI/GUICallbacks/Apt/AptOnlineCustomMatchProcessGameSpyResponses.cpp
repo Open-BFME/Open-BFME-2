@@ -584,13 +584,7 @@ public:
 
 extern Int g_Va00E0333C;
 
-class GameModePreferences
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02();
-	virtual bool write(); // slot 3
-	void rva0054F7C0(Int groupRoom);
-};
+#include "../../../../../Include/Common/GameModePreferences.h"
 
 class CustomMatchScreen
 {
@@ -630,7 +624,6 @@ private:
 	Int m_gameMode;					 // +0xEC
 	UnsignedByte m_pad0f0[0x46C - 0xF0];
 	GameModePreferences m_prefs;		// +0x46C
-	UnsignedByte m_pad470[0x488 - 0x470];
 	Int m_state;						// +0x488
 	UnsignedByte m_pad48c[0x4A0 - 0x48C];
 	Bool m_popUp;					   // +0x4A0

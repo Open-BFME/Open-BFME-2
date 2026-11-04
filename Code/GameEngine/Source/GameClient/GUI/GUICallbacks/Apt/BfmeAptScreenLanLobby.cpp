@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 //
 // BFME2's LAN lobby screen: the per-slot option setters and their siblings
 // that the lobby's callback vftable at 0x00C3E098 holds (slot 12 is
@@ -253,20 +254,7 @@ public:
 	void enable();
 };
 
-class GameModePreferences
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual bool write();
-
-	void setStrategicScenario(int scenario);
-	void rva0044DDFB(int *rules);
-	void rva0044DC54(int hero);
-	void rva0044DCB9(int color);
-	void rva0044DD1E(int playerTemplate);
-};
+#include "../../../../../Include/Common/GameModePreferences.h"
 
 class AptLanLobby
 {
@@ -294,7 +282,7 @@ private:
 	int m_88; // +0x88
 	unsigned char m_pad8c[0x408 - 0x8C];
 	GameModePreferences m_prefs; // +0x408
-	unsigned char m_pad40c[0x428 - 0x40C];
+	unsigned char m_pad424[0x428 - 0x424];
 	int m_428; // +0x428
 };
 

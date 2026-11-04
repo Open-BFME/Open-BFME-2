@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /Ireference/shims/bfme2_ascii
+// stlport
 // Rva0038169D, retail 0x0038169D (494 bytes): LAN chat submission.
 // Native38169D..38188B: channel and UnicodeString reference ABI; menu preferences at684; filtered whitespace and slash-command path; LAN virtual slot54 ordinary message request.
 // Honest address-derived identity; no recovered retail method name claimed.
@@ -7,7 +8,7 @@ class LANAPI;extern LANAPI *TheLAN;
 #include "unicode_string.h"
 #include <ctype.h>
 class LanguageFilter {public:void filterLine(UnicodeString&);};extern LanguageFilter*TheLanguageFilter;
-class GameModePreferences {public:UnicodeString rva0044D330();};
+#include "../../Include/Common/GameModePreferences.h"
 struct ChatMenuPreferenceView {char pad[0x684];GameModePreferences preferences;};
 template<int N>class ChatLANSlots:public ChatLANSlots<N-1>{public:virtual void pad(char(*)[N]);};
 template<>class ChatLANSlots<1>{public:virtual void pad(char(*)[1]);};
