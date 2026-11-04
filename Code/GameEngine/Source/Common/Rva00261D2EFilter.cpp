@@ -12,15 +12,7 @@ extern "C" void _ReadWriteBarrier();
 typedef float Real;
 class Object;
 class ModuleData;
-enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
-class GeometryInfo {
-public:
- GeometryInfo(GeometryType, bool, Real, Real, Real);
- virtual ~GeometryInfo();
- bool CollidesWith(const Coord3D&, Real, const GeometryInfo&, const Coord3D&, Real) const;
-private:
- char data04[0x58];
-};
+#include "../../Include/Common/Geometry.h"
 class ThingTemplate {
 public:
  const ModuleData *rva0033B3D7() const;

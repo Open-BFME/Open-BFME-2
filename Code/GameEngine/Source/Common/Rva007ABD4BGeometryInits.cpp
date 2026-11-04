@@ -12,16 +12,8 @@
 
 #include <stdlib.h>
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0
-};
+#include "../../Include/Common/Geometry.h"
 
-class GeometryInfo
-{
-public:
-	GeometryInfo( GeometryType type, bool isSmall, float height, float majorRadius, float minorRadius );
-};
 
 void __cdecl rva007B6B19();
 void __cdecl rva007B6B23();

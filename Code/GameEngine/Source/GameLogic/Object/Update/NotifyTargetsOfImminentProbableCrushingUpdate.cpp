@@ -28,12 +28,7 @@ struct NotifyCoord:Coord3D{
 #include "Lib/Region2D.h"
 #include <math.h>
 struct Rva0087E650Bounds{NotifyCoord lo,hi;};
-enum GeometryType{GEOMETRY_SPHERE,GEOMETRY_CYLINDER,GEOMETRY_BOX};
-class GeometryInfo{public:
- GeometryInfo(GeometryType,bool,float,float,float);virtual ~GeometryInfo();
- float getMaxHeightAbovePosition()const;void rva0087E650(Rva0087E650Bounds*);
- char opaque[0x58];
-};
+#include "../../../../Include/Common/Geometry.h"
 class Rva0087E370{public:void method(const Coord3D&,float,Region2D&)const;};
 class Rva0008BB38FloatField{public:float get()const;};
 struct Rva0028AC4EEntry;

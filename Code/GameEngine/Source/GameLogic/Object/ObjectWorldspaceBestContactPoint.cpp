@@ -77,16 +77,7 @@ enum BodyDamageType
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Geometry.h
-class GeometryInfo
-{
-public:
-	Bool getBestContactPoint(Coord3D *pointOut, const Coord3D *callerPos,
-		const char *label, Int preference, Int seed, Bool skipCollideTest) const;
-	float getMaxHeightAbovePosition() const;
-
-private:
-	unsigned char m_unreconstructed[0x24];
-};
+#include "../../../Include/Common/Geometry.h"
 
 extern bool g_bfmeDockingTraceActive;
 extern "C" void *theLogicRandomLogFile;
@@ -113,7 +104,7 @@ private:
 	UnsignedInt m_id;
 	unsigned char m_unreconstructed_078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;
-	unsigned char m_unreconstructed_0D0[0x254 - 0xCC];
+	unsigned char m_unreconstructed_0D0[0x254 - 0x104];
 	BodyModuleInterface *m_body;
 };
 

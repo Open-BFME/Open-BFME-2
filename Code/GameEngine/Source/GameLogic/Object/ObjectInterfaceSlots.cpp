@@ -21,17 +21,7 @@ typedef float Real;
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_DTOR
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
-class GeometryInfo
-{
-	friend class Object;
-public:
-	float getMaxHeightBelowPosition() const;
-	float getMaxHeightAbovePosition() const;
-private:
-	unsigned char m_pad00[0x10];
-	float m_10; // +0x10
-	unsigned char m_pad14[0x5C - 0x14];
-};
+#include "../../../Include/Common/Geometry.h"
 #include "../../../Include/Common/ThingTemplate.h"
 // The object at Object +0x240. Its rowed 0x0028A82A returns the +0x48
 // position by value: hidden result pointer in, the same pointer back in eax,
@@ -87,8 +77,8 @@ Coord3D Object::rva0028C037()
 	const GeometryInfo *geom = &m_geometryInfo;
 	Coord3D pos = *getPosition();
 	Coord3D result(pos.x, pos.y, pos.z - geom->getMaxHeightBelowPosition());
-	result.x -= geom->m_10;
-	result.y -= geom->m_10;
+	result.x -= geom->m_boundingCircleRadius;
+	result.y -= geom->m_boundingCircleRadius;
 	return result;
 }
 Coord3D Object::rva0028C08D()
@@ -96,8 +86,8 @@ Coord3D Object::rva0028C08D()
 	const GeometryInfo *geom = &m_geometryInfo;
 	Coord3D pos = *getPosition();
 	Coord3D result(pos.x, pos.y, pos.z + geom->getMaxHeightAbovePosition());
-	result.x += geom->m_10;
-	result.y += geom->m_10;
+	result.x += geom->m_boundingCircleRadius;
+	result.y += geom->m_boundingCircleRadius;
 	return result;
 }
 AsciiString Object::rva00290EE0()

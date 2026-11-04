@@ -18,17 +18,8 @@ public:
 	virtual ~SlowDeathBehaviorModuleData();
 };
 
-enum GeometryType
-{
-	GEOMETRY_TYPE_NONE = 0
-};
+#include "../../../../Include/Common/Geometry.h"
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(GeometryType type, bool flag, float a, float b, float c);
-	unsigned char m_data[0x5C];
-};
 
 
 class ClearanceTestingSlowDeathBehaviorModuleData : public SlowDeathBehaviorModuleData
@@ -49,7 +40,7 @@ private:
 
 // ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ @0x483E25
 ClearanceTestingSlowDeathBehaviorModuleData::ClearanceTestingSlowDeathBehaviorModuleData()
-	: m_geometry(GEOMETRY_TYPE_NONE, false, 1.0f, 1.0f, 1.0f)
+	: m_geometry(GEOMETRY_SPHERE, false, 1.0f, 1.0f, 1.0f)
 {
 	float *offset = m_offset;
 	float c = -20.0f;

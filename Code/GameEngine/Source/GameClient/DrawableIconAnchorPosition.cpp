@@ -16,11 +16,7 @@ typedef float Real;
 typedef bool Bool;
 typedef unsigned char UnsignedByte;
 
-class GeometryInfo
-{
-public:
-	Real rva006BD830(void) const;
-};
+#include "../../Include/Common/Geometry.h"
 
 class AnchorInterface
 {
@@ -86,7 +82,7 @@ public:
 private:
 	char m_pad000[0xa8];
 	GeometryInfo m_geometryInfo; // +0xA8
-	char m_pad0a9[0x250 - 0xa9];
+	char m_pad0a9[0x250 - 0x104];
 	AnchorModule *m_anchorModule; // +0x250
 };
 

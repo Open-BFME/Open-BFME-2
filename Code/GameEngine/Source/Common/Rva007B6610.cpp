@@ -46,12 +46,7 @@ void Rva007B6610()
 	atexit(rva007B9BC0);
 }
 
-enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
-class GeometryInfo {
-public:
-	GeometryInfo(GeometryType, bool, float, float, float);
-	virtual ~GeometryInfo();
-};
+#include "../../Include/Common/Geometry.h"
 unsigned GeometryContactSphere;	// retail RVA 0x00A0C150 (.bss), defined here
 extern void __cdecl rva007B9BF0(void);
 

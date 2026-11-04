@@ -28,11 +28,7 @@
 
 #define SLOT(n) virtual void slot##n();
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../../../../../GameEngine/Include/Common/Geometry.h"
 
 class Rva0028B6A2Host
 {
@@ -79,7 +75,7 @@ public:
 	Matrix3D m_transform;
 	char m_pad38[0xA8 - 0x38];
 	GeometryInfo m_geometry;
-	char m_padA9[0x250 - 0xA9];
+	char m_padA9[0x250 - 0x104];
 	ContainView *m_contain;
 	char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai;

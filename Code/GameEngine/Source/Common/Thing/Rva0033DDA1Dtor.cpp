@@ -105,11 +105,7 @@ private:
 	char m[0x14];
 };
 
-class GeometryInfo
-{
-public:
-	virtual ~GeometryInfo();
-}; // 4B: vptr only; the +0xa4..0xfc span is dtor-silent POD
+#include "../../../Include/Common/Geometry.h"
 
 struct Rva0033C3F3
 {
@@ -202,7 +198,6 @@ private:
 	Rva0033B84ETok m_s98; // +0x98
 	Rva0033B84ETok m_s9c; // +0x9c
 	GeometryInfo m_gA0; // +0xa0
-	char m_padA4[0xfc - 0xa4];
 	Rva0033C3F3 m_cFC; // +0xfc
 	char m_pad104[0x124 - 0x104];
 	Rva00254B72 m_e124; // +0x124, 56 records of 8 bytes

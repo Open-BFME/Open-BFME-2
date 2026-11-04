@@ -23,13 +23,7 @@
 #include "../../../Include/Common/Overridable.h"
 struct TemplateStringRange { AsciiString name; float first,second; TemplateStringRange() : first(50.0f),second(50.0f) {} };
 struct Rva0033B352Record { ~Rva0033B352Record(); AsciiString name; UnicodeString text; __forceinline void clear() { name.clear(); text.clear(); } };
-enum GeometryType { GEOMETRY_SPHERE,GEOMETRY_CYLINDER,GEOMETRY_BOX };
-class GeometryInfo {
-public:
-    GeometryInfo(GeometryType,bool,float,float,float);
-    virtual ~GeometryInfo();
-private: unsigned char remaining[0x58];
-};
+#include "../../../Include/Common/Geometry.h"
 class Rva0024C7B3Member { public: Rva0024C7B3Member(); unsigned int words[7]; };
 template<int N> class BitFlags : public Rva0024C7B3Member { public: __declspec(dllimport) __forceinline BitFlags() {} };
 typedef BitFlags<116> KindOfMaskType;

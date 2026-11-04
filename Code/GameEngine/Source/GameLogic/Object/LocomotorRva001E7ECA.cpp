@@ -128,12 +128,7 @@ class Rva001E46E1
 ;
 float __stdcall Rva001E40D9Get(float,float);
 bool Rva001E3679(int);
-class GeometryInfo
-{
- public:float getMaxHeightAbovePosition()const;
- 
-}
-;
+#include "../../../Include/Common/Geometry.h"
 class StealthUpdate
 {
  public:void markAsDetected(unsigned,int,Object*,bool);
