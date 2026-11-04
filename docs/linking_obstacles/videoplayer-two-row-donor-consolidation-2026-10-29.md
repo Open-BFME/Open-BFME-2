@@ -21,3 +21,9 @@ that consumer and the moved provider scope into the next scheduled census.
 it first. That adoption byte-matches 34/34 once row 0x00689180 is spelled
 `?reset@VideoPlayer@@UAEXXZ`; next step is an agreed name for that row.
 [Seed adoption trial](../../reverse/attempt_support/video-player-canonical-adoption-20261104-c3/README.md).
+
+Follow-up (2026-11-04): after `VideoPlayer.cpp` changed, the current merge dry
+run rejects all donors on `SubsystemInterface` redefinition, missing
+`Rva00689180`, and an element-destructor pointer conversion. Reconcile these
+views and rerun the provider/consumer audit before applying; [current trial
+evidence](../../reverse/attempt_support/consolidation-queue-20261104-seat.md).
