@@ -145,7 +145,7 @@ struct SnapOut
 class Rva00472B54
 {
 public:
-	void rva00472B54(Object *obj, CommandSourceType src);
+	void rva00472B54(Object *obj, CommandSourceType cmdSource);
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
 	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
@@ -162,21 +162,21 @@ public:
 	_STL::map<int, int> m_map;
 };
 
-void Rva00472B54::rva00472B54(Object *obj, CommandSourceType src)
+void Rva00472B54::rva00472B54(Object *obj, CommandSourceType cmdSource)
 {
 	if (!obj)
 		return;
-	Gate250 *g = (Gate250 *)obj->m_250;
-	if (!g)
+	Gate250 *contain = (Gate250 *)obj->m_250;
+	if (!contain)
 		return;
 	void *outer = *(void **)((char *)this - 0x114);
-	if (!g->gate(outer, 1, 0))
+	if (!contain->gate(outer, 1, 0))
 		return;
 	Object *outerObj = *(Object **)((char *)this - 0x114);
 	AIUpdate *ai = *(AIUpdate **)((char *)outerObj + 0x258);
 	if (!ai)
 		return;
-	ai->m_cmd.aiBfmeObjectCommand3D(obj, src);
+	ai->m_cmd.aiBfmeObjectCommand3D(obj, cmdSource);
 	_STL::list<int> snap;
 	GetterFC *gf = (GetterFC *)((char *)this - 0xFC);
 	unsigned char buf[8];
@@ -192,7 +192,7 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType src)
 		if (object)
 			grp->add(object);
 	}
-	grp->groupEnter(obj, src);
+	grp->groupEnter(obj, cmdSource);
 	TheAI->destroyGroup(grp);
 }
 

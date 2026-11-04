@@ -88,10 +88,10 @@ class AIGroupMemberList
 public:
 	UnsignedInt size( void ) const
 	{
-		UnsignedInt n = 0;
-		for( AIGroupMemberNode *aIGroupMemberNode = m_node->m_next; aIGroupMemberNode != m_node; aIGroupMemberNode = aIGroupMemberNode->m_next )
-			++n;
-		return n;
+		UnsignedInt count = 0;
+		for( AIGroupMemberNode *node = m_node->m_next; node != m_node; node = node->m_next )
+			++count;
+		return count;
 	}
 	AIGroupMemberNode *m_node;
 };

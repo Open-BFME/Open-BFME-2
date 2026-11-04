@@ -240,24 +240,24 @@ class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiStr
 // Slot0 is a deletion ABI view: flag0 returns the allocation pointer which
 // native feeds to ordinary cdecl scalar delete. No original slot name inferred.
 // Native clears build and next before loading the slot; preserve this order.
-void TAiData::addFactionBuildList(Gen0014AE40*incoming){
+void TAiData::addFactionBuildList(Gen0014AE40*buildList){
  Gen0014AE40*info=m_sideBuildLists;
  while(info){
-  if(incoming->side.compare(info->side)==0){
+  if(buildList->side.compare(info->side)==0){
    if(info->build)::operator delete(((Rva002FE8CCDeleteView*)info->build)->destroy(0));
-   info->build=incoming->build;incoming->build=0;incoming->next=0;_ReadWriteBarrier();
-   ::operator delete(((Rva002FE8CCDeleteView*)incoming)->destroy(0));return;
+   info->build=buildList->build;buildList->build=0;buildList->next=0;_ReadWriteBarrier();
+   ::operator delete(((Rva002FE8CCDeleteView*)buildList)->destroy(0));return;
   }
   info=info->next;
  }
- incoming->next=m_sideBuildLists;m_sideBuildLists=incoming;
+ buildList->next=m_sideBuildLists;m_sideBuildLists=buildList;
 }
 
 class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};
 struct Rva002FFC74Record{unsigned char bytes[8];};
 class Rva002FED8D{public:Rva002FED8D(AsciiString);virtual~Rva002FED8D();AsciiString name;unsigned int value;_STL::list<Rva002FFC74Record>tail;Rva002FED8D*next;};
 
-void AI::addSideInfo(Rva002FE620*info){TAiData*link=m_aiData;Rva002FE620*previous=link->m_sideInfo;info->next=previous;link->m_sideInfo=info;}
+void AI::addSideInfo(Rva002FE620*info){TAiData*aiData=m_aiData;Rva002FE620*previous=aiData->m_sideInfo;info->next=previous;aiData->m_sideInfo=info;}
 
 inline void TAiData::addNamedList(Rva002FED8D*node){node->next=m_namedLists;m_namedLists=node;}
 

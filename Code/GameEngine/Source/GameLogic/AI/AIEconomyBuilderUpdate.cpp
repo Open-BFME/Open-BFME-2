@@ -29,7 +29,7 @@ template <> void vector<const ModuleData *, allocator<const ModuleData *> >::pus
 class EconomyUpdateFarm {
 public:
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void start(Rva002A9BF2 *,int);
- void setPlayer(Rva002A9BF2 *p) { player=p; }
+ void setPlayer(Rva002A9BF2 *newPlayer) { player=newPlayer; }
  void setUnknown08(int v) { unknown08=v; }
  float priority; int unknown08; AsciiString name; int state;
  char gap14[0x64-0x14]; bool claimed; char gap65[3]; Rva002A9BF2 *player; int workers;
@@ -56,12 +56,12 @@ void AIEconomyBuilder::update() {
   EconomyUpdateFarm *farm=reinterpret_cast<EconomyUpdateFarm *>(owner->findAvailableFarm());
   const ModuleData *selected=reinterpret_cast<const ModuleData *>(farm);
   if(farm) {
-   AsciiString type=owner->getFarmTemplateName();
-   if(reinterpret_cast<const StringBase<char> &>(type).compare(reinterpret_cast<const StringBase<char> &>(AsciiString::TheEmptyString))) {
+   AsciiString farmTemplateName=owner->getFarmTemplateName();
+   if(reinterpret_cast<const StringBase<char> &>(farmTemplateName).compare(reinterpret_cast<const StringBase<char> &>(AsciiString::TheEmptyString))) {
     farm->priority=static_cast<float>(priority);
     reinterpret_cast<Bridge *>(farm)->setBridgeObjectID(static_cast<ObjectID>(reinterpret_cast<unsigned>(owner)));
     reinterpret_cast<Rva00596F18 *>(farm)->rva00596FF5(1);
-    farm->name=type;
+    farm->name=farmTemplateName;
     farm->setPlayer(player);_ReadWriteBarrier();
     farm->setUnknown08(0);
     farm->start(player,0);

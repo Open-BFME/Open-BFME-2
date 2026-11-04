@@ -40,7 +40,7 @@ public:
 // Preserve the established PAV ABI while the local parameter view sequences
 // its read ahead of the two ordered position reads.
 bool rva00344EB2Gate(Object *, Thing *);
-bool rva00344EB2Gate(Object *volatile a, Thing *thing)
+bool rva00344EB2Gate(Object *volatile anchorObject, Thing *thing)
 {
 	if (thing == 0)
 		return false;
@@ -50,7 +50,7 @@ bool rva00344EB2Gate(Object *volatile a, Thing *thing)
 		if (((Object *)thing)->rva002931F5(false) != 0)
 			thing = ((Object *)thing)->rva002931F5(false);
 	}
-	Object *anchor=a;
+	Object *anchor=anchorObject;
 const volatile Coord3D& point=thing->m_cachedPos;
 float x=point.x;float y=point.y;
 Coord3D delta;delta.x=x-anchor->m_cachedPos.x;delta.y=y-anchor->m_cachedPos.y;

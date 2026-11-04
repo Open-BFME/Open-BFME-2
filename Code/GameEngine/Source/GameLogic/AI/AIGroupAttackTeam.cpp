@@ -258,7 +258,7 @@ public:
 	const _STL::vector<ObjectID>& getAllIDs() const;
 	void groupAttackPosition(const Coord3D *, Int, CommandSourceType);
 	void rva0036DBBA(int unused, int type, unsigned int frames);
-	void rva0036DC1D(ModelConditionFlagType mc, unsigned int frames);
+	void rva0036DC1D(ModelConditionFlagType modelCondition, unsigned int frames);
 	void setAttitude(AttitudeType tude);
 	bool setWeaponLockForGroup(WeaponSlotType weaponSlot, WeaponLockType lockType);
 	void rva0036DDCD(int x);
@@ -321,10 +321,10 @@ void AIGroup::rva0036DBBA(int, int type, unsigned int frames)
 	}
 }
 
-void AIGroup::rva0036DC1D(ModelConditionFlagType mc, unsigned int frames)
+void AIGroup::rva0036DC1D(ModelConditionFlagType modelCondition, unsigned int frames)
 {
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i) {
-		(*i)->setSpecialModelConditionState(mc, frames);
+		(*i)->setSpecialModelConditionState(modelCondition, frames);
 	}
 }
 
@@ -419,10 +419,10 @@ void AIGroup::groupAttackPosition(const Coord3D *pos, Int maxShotsToFire, Comman
         if (contain && contain->allowedToFire()) {
             Rva0036AE51ListView items=contain->items();
             for (ContainmentList::const_iterator it=items.b->begin(); it!=items.b->end(); ++it) {
-                Object *member=(Object *)containmentFirstWord(*it);
-                CanAttackResult result=member->getAbleToUseWeaponAgainstTarget(ATTACK_NEW_TARGET,0,&attackPos,cmdSource);
+                Object *garrisonedMember=(Object *)containmentFirstWord(*it);
+                CanAttackResult result=garrisonedMember->getAbleToUseWeaponAgainstTarget(ATTACK_NEW_TARGET,0,&attackPos,cmdSource);
                 if (result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
-                    AIUpdateInterface *ai=member->m_ai;
+                    AIUpdateInterface *ai=garrisonedMember->m_ai;
                     if(ai) ai->aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
                 }
             }
@@ -464,7 +464,7 @@ const _STL::vector<ObjectID>& AIGroup::getAllIDs() const
 }
 
 // ZH groupAttackObjectPrivate; native36FD64..36FF33 RET16, WB EE7060.
-void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int shots,CommandSourceType source)
+void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int maxShotsToFire,CommandSourceType cmdSource)
 {
  if (!victim) return;
  Coord3DCopy victimPos=*victim->getPosition();
@@ -481,13 +481,13 @@ void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int shots,Comm
   if(contain && contain->allowedToFire()) {
    Rva0036AE51ListView items=contain->items();
    for(ContainmentList::const_iterator i=items.b->begin();i!=items.b->end();++i) {
-    Object *member=(Object*)containmentFirstWord(*i);
-    CanAttackResult result=member->getAbleToAttackSpecificObject(forced?ATTACK_NEW_TARGET_FORCED:ATTACK_NEW_TARGET,victim,source);
+    Object *garrisonedMember=(Object*)containmentFirstWord(*i);
+    CanAttackResult result=garrisonedMember->getAbleToAttackSpecificObject(forced?ATTACK_NEW_TARGET_FORCED:ATTACK_NEW_TARGET,victim,cmdSource);
     if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
-     AIUpdateInterface *ai=member->m_ai;
+     AIUpdateInterface *ai=garrisonedMember->m_ai;
      if(ai) {
-      if(forced) ai->aiForceAttackObject(victim,shots,source);
-      else ai->rva0026C2D9(victim,shots,source);
+      if(forced) ai->aiForceAttackObject(victim,maxShotsToFire,cmdSource);
+      else ai->rva0026C2D9(victim,maxShotsToFire,cmdSource);
      }
     }
    }
@@ -495,10 +495,10 @@ void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int shots,Comm
   AIUpdateInterface *ai=unit->m_ai;
   if(ai && unit!=victim) {
    if((unsigned char)unit->rva0028B38D()) {
-    CanAttackResult result=TheActionManager->getCanAttackObject(unit,victim,source,ATTACK_NEW_TARGET);
-    if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) ai->rva0036EFF5(victim,source);
-   } else if(forced) ai->aiForceAttackObject(victim,shots,source);
-   else ai->rva0026C2D9(victim,shots,source);
+    CanAttackResult result=TheActionManager->getCanAttackObject(unit,victim,cmdSource,ATTACK_NEW_TARGET);
+    if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) ai->rva0036EFF5(victim,cmdSource);
+   } else if(forced) ai->aiForceAttackObject(victim,maxShotsToFire,cmdSource);
+   else ai->rva0026C2D9(victim,maxShotsToFire,cmdSource);
   }
  }
 }

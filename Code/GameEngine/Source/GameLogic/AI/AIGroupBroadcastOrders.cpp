@@ -146,7 +146,7 @@ class AIGroup
 {
 public:
 	void groupSell(CommandSourceType commandSource);
-	void groupDoCommandButton(const CommandButton *commandButton, CommandSourceType commandSource);
+	void groupDoCommandButton(const CommandButton *commandButton, CommandSourceType cmdSource);
 	void groupDoCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *position, CommandSourceType commandSource);
 	void groupDoCommandButtonAtObject(const CommandButton *commandButton, Object *targetObject, CommandSourceType commandSource);
 	void setAttitude(AttitudeType attitude);
@@ -163,7 +163,7 @@ private:
 // The reference's body with one BFME change: the per-object command carries a
 // third argument, and this loop passes it zero -- the same shape the two
 // AtPosition/AtObject loops below have, one argument narrower.
-void AIGroup::groupDoCommandButton( const CommandButton *commandButton, CommandSourceType commandSource )
+void AIGroup::groupDoCommandButton( const CommandButton *commandButton, CommandSourceType cmdSource )
 {
 	_STL::list<Object *>::iterator i;
 	Object *source;
@@ -174,7 +174,7 @@ void AIGroup::groupDoCommandButton( const CommandButton *commandButton, CommandS
 		// get object
 		source = *i;
 
-		source->doCommandButton( commandButton, commandSource, 0 );
+		source->doCommandButton( commandButton, cmdSource, 0 );
 	}  // end for, i
 }
 

@@ -48,10 +48,10 @@ int Rva005490D2::rva005490D2() const
 	int total = 0;
 	int n = count;
 	if (n > 0) {
-		Mid005490D2 **p = (Mid005490D2 **)array;
+		Mid005490D2 **unitIter = (Mid005490D2 **)array;
 		do {
-			total += (*p)->leaf->field568;
-			++p;
+			total += (*unitIter)->leaf->field568;
+			++unitIter;
 		} while (--n);
 	}
 	return total;
@@ -126,7 +126,7 @@ public:
 
 void Rva00549252::rva00549252()
 {
-	int acc = 0;
+	int rowDepth = 0;
 	int i = 0;
 	m_01B4 = 0;
 	if (m_00 > 0) {
@@ -146,36 +146,36 @@ void Rva00549252::rva00549252()
 			break;
 		int j = 0;
 		if (m_0120 > 0) {
-			Mid00549252 **pp = m_array124;
+			Mid00549252 **unitIter = m_array124;
 			do {
-				Mid00549252 *elem = *pp;
-				Inner100549252 *s1 = elem->m_0258;
+				Mid00549252 *unit = *unitIter;
+				Inner100549252 *s1 = unit->m_0258;
 				if (s1 != 0) {
 					Inner200549252 *s2 = s1->m_01F0;
 					if (s2 != 0) {
-						Gate00549252 *g = s2->m_04;
-						if (g->m_0078 == k) {
-							acc += elem->m_04->m_0568;
-							if (acc > m_04) {
+						Gate00549252 *kindData = s2->m_04;
+						if (kindData->m_0078 == k) {
+							rowDepth += unit->m_04->m_0568;
+							if (rowDepth > m_04) {
 								++m_00;
 								if (m_00 >= 10)
 									break;
-								acc = elem->m_04->m_0568;
+								rowDepth = unit->m_04->m_0568;
 							}
-							m_slots08[m_00].bfmePush((int)elem);
-							if (m_01B4 < acc)
-								m_01B4 = acc;
+							m_slots08[m_00].bfmePush((int)unit);
+							if (m_01B4 < rowDepth)
+								m_01B4 = rowDepth;
 						}
 					}
 				}
 				++j;
-				++pp;
+				++unitIter;
 			} while (j < m_0120);
 		}
 		if (k == 3 || k == 6 || k == 0 || k == 9 || k == 12) {
-			if (acc > 0)
+			if (rowDepth > 0)
 				++m_00;
-			acc = 0;
+			rowDepth = 0;
 		}
 		++k;
 	}
@@ -191,7 +191,7 @@ public:
  FormationDimensions rva00549425();
  void rva00549345(const Coord2D*origin,int formationId);
  void SetSquadWidth(int width);
- void AddUnit(Mid005490D2 *item);
+ void AddUnit(Mid005490D2 *unit);
 
  int rows,width;
  Rva0015A390Bucket rowStorage[10];
@@ -267,13 +267,13 @@ void FormationSquad::rva00549345(const Coord2D*origin,int formationId){
  if(rows>10)rows=10;
  for(int i=0;i<rows;++i){
   FormationSpacingView*data=TheAI->data;
-  Rva005490D2*current=reinterpret_cast<Rva005490D2*>(&rowStorage[i]);
+  Rva005490D2*row=reinterpret_cast<Rva005490D2*>(&rowStorage[i]);
   FormationPosition position(*origin);
   position.x-=columns*data->spacingA4;
   position.x+=halfColumn;
-  position.y+=(height-current->rva005490D2()*data->spacingA0)*0.5f;
-  current->rva005490F1(&position,formationId);
-  columns+=current->rva005490AE();
+  position.y+=(height-row->rva005490D2()*data->spacingA0)*0.5f;
+  row->rva005490F1(&position,formationId);
+  columns+=row->rva005490AE();
  }
 }
 
@@ -300,13 +300,13 @@ class Object { public: const Rva0028AC4EEntry *rva0028AC4E() const; };
 // appends the item while fewer than 36 are stored, then marks the squad dirty.
 // Retail emits `and [esi+0x410],0` (not a folded mov) plus `lea eax,[ecx+0x120]`
 // for the count access under /O1.
-void FormationSquad::AddUnit(Mid005490D2 *item)
+void FormationSquad::AddUnit(Mid005490D2 *unit)
 {
-	item->formationId &= 0;
+	unit->formationId &= 0;
 
 	if (unitCount < 36)
 	{
-		units[unitCount] = item;
+		units[unitCount] = unit;
 		++unitCount;
 	}
 
@@ -320,10 +320,10 @@ void FormationSquad::AddUnit(Mid005490D2 *item)
 // Clamps width to [2, 6] at +4.
 //
 //
-void FormationSquad::SetSquadWidth(int value) {
- if(value<2)value=2;
- else if(value>6)value=6;
- width=value;
+void FormationSquad::SetSquadWidth(int squadWidth) {
+ if(squadWidth<2)squadWidth=2;
+ else if(squadWidth>6)squadWidth=6;
+ width=squadWidth;
 }
 enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 class GameClient {
@@ -378,12 +378,12 @@ static void RotateFormationOffset(const Coord3D *from,const Coord3D *to,Coord2D 
 
 struct FormationVector:Coord3D {
  FormationVector(const FormationVector& formationVector){x=formationVector.x;y=formationVector.y;z=formationVector.z;}
- FormationVector(const Coord3D& p){x=p.x;y=p.y;z=p.z;}
+ FormationVector(const Coord3D& coord){x=coord.x;y=coord.y;z=coord.z;}
  ~FormationVector(){}
- FormationVector& sub(const Coord3D& p){x-=p.x;y-=p.y;z-=p.z;return *this;}
- FormationVector& add(const Coord3D& p){x+=p.x;y+=p.y;z+=p.z;return *this;}
- FormationVector& scale(const float& s){x*=s;y*=s;z*=s;return *this;}
- FormationVector& scaleValue(float s){x*=s;y*=s;z*=s;return *this;}
+ FormationVector& sub(const Coord3D& other){x-=other.x;y-=other.y;z-=other.z;return *this;}
+ FormationVector& add(const Coord3D& other){x+=other.x;y+=other.y;z+=other.z;return *this;}
+ FormationVector& scale(const float& factor){x*=factor;y*=factor;z*=factor;return *this;}
+ FormationVector& scaleValue(float factor){x*=factor;y*=factor;z*=factor;return *this;}
 };
 
 void AIGroup::createFormation(int unused0,int unused1)

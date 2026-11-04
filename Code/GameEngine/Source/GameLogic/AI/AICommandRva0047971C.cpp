@@ -54,10 +54,10 @@ struct AICommandParms
 	Int m_BC;
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-void AICommandInterface::rva0047971C(const Rva0035149F &info, Object *target, CommandSourceType cmdSource)
+void AICommandInterface::rva0047971C(const Rva0035149F &path, Object *target, CommandSourceType cmdSource)
 {
 	AICommandParms parms(AICMD_0A, cmdSource);
-	parms.m_coords.rva0035149F(info);
+	parms.m_coords.rva0035149F(path);
 	parms.m_obj = target;
 	aiDoCommand(&parms);
 }
