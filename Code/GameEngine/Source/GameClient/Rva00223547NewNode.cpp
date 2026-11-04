@@ -12,10 +12,7 @@
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-struct TreeHintRef00217D4C
-{
-	char m_body[4];
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 void __cdecl Rva00223168Construct(void *dest, const void *source);
 
