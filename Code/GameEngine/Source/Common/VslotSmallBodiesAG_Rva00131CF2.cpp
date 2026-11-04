@@ -22,10 +22,17 @@ struct Rva00131CF2Info
 	Int m_04;
 	Int m_08;
 };
+// The body at 0x00130FCE is rowed under this placeholder.
+class BfmeThingURB
+{
+public:
+	int bfmeGoURB();
+};
+
 class Rva00130FCE
 {
 public:
-	bool rva00130FCE();
+	__declspec(noinline) bool rva00130FCE() { return (char)((BfmeThingURB *)this)->bfmeGoURB() != 0; }
 };
 class Rva00131CF2 : public Rva00130FCE
 {
@@ -99,10 +106,18 @@ void Rva0023DAF7::rva0023DAF7(Real a, Int b)
 // Gen_003bcb40::m) with its index, then stores entry [index] of the +0x08
 // object's +0x18 table into its +0x24, resp. resets +0x24 to 7 when it
 // holds that entry.
+// Retail's 0x0047A69C is the shared `ret 4`, rowed under this placeholder among others. An empty
+// local body would not do: cl drops a call to one, and these calls are in the rows' bytes.
+class Rva0059BB50
+{
+public:
+	void rva0047A69C(int value);
+};
+
 class Gen_003bcb40
 {
 public:
-	void m(Int index);
+	__declspec(noinline) void m(Int index) { ((Rva0059BB50 *)this)->rva0047A69C(index); }
 };
 struct Rva005FEEC7Info
 {
@@ -171,7 +186,7 @@ extern const FieldParse g_rva005C47A8FieldParse[] = {
 class Rva005C4352Base
 {
 public:
-	void buildFieldParse(MultiIniFieldParse &p);
+	__declspec(noinline) void buildFieldParse(MultiIniFieldParse &p) { ((Rva0059BB50 *)this)->rva0047A69C((int)&p); }
 };
 class Rva005C4352 : public Rva005C4352Base
 {
