@@ -190,32 +190,32 @@ void RainOfFireUpdate::xfer(Xfer *xfer)
 // native module-data table offsets and terrain/weapon calls guide this body.
 
 UpdateSleepTime RainOfFireUpdate::update() {
- Object *obj=m_object;const RainOfFireUpdateModuleData *rainOfFireUpdateModuleData=reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData);
+ Object *emitterObject=m_object;const RainOfFireUpdateModuleData *rainOfFireUpdateModuleData=reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData);
  if(!rainOfFireUpdateModuleData)return UPDATE_SLEEP_FOREVER;
- unsigned elapsed=TheGameLogic->getFrame()-frame;
- if(elapsed<=rainOfFireUpdateModuleData->darknessFadeTime) {
-  float value=rainOfFireUpdateModuleData->darknessFadeTime ? (float)elapsed/(float)rainOfFireUpdateModuleData->darknessFadeTime:1.0f;
-  rva004AC18D(value);
+ unsigned elapsedFrames=TheGameLogic->getFrame()-frame;
+ if(elapsedFrames<=rainOfFireUpdateModuleData->darknessFadeTime) {
+  float darknessFadeFraction=rainOfFireUpdateModuleData->darknessFadeTime ? (float)elapsedFrames/(float)rainOfFireUpdateModuleData->darknessFadeTime:1.0f;
+  rva004AC18D(darknessFadeFraction);
  }
- if(elapsed>=rainOfFireUpdateModuleData->startRainTime) {
+ if(elapsedFrames>=rainOfFireUpdateModuleData->startRainTime) {
   if(ramp<1.0f) {ramp+=1.0f/rainOfFireUpdateModuleData->rampup;if(ramp>1.0f)ramp=1.0f;}
   pending+=GetGameLogicRandomValueReal(rainOfFireUpdateModuleData->dpsMin,rainOfFireUpdateModuleData->dpsMax,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RainOfFireUpdate.cpp",125)*scale*ramp/BfmeLogicFramesPerSecond;
-  Weapon *weapon=obj->getWeapon();
+  Weapon *weapon=emitterObject->getWeapon();
   if(weapon) {
-   Coord3D center;TheTacticalView->rvaSlot70(&center);center.z=rainOfFireUpdateModuleData->height;
+   Coord3D rainCenter;TheTacticalView->rvaSlot70(&rainCenter);rainCenter.z=rainOfFireUpdateModuleData->height;
    while(pending>=1.0f) {
-    Coord3D pos={center.x,center.y,center.z};
+    Coord3D launchPosition={rainCenter.x,rainCenter.y,rainCenter.z};
     if(rainOfFireUpdateModuleData->jitter>0.0f) {
      float angle=GetGameLogicRandomValueReal(0.0f,6.2831855f,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RainOfFireUpdate.cpp",142);
      float radius=GetGameLogicRandomValueReal(0.0f,rainOfFireUpdateModuleData->jitter,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RainOfFireUpdate.cpp",143);
-     pos.x+=Cos(angle)*radius;pos.y+=Sin(angle)*radius;
+     launchPosition.x+=Cos(angle)*radius;launchPosition.y+=Sin(angle)*radius;
     }
-    Coord3D target;target.z=pos.z;target.x=pos.x+rainOfFireUpdateModuleData->offset.x;target.y=pos.y+rainOfFireUpdateModuleData->offset.y;
-    PathfindLayerEnum layer=TheTerrainLogic->getHighestLayerForDestination(&target,false);
-    target.z=TheTerrainLogic->rvaSlot7(target.x,target.y,layer,0,true);
-    Vector3 dir=Vector3(target.x,target.y,target.z)-Vector3(pos.x,pos.y,pos.z);dir.Normalize();
-    Matrix3D transform;transform.buildTransformMatrix(Vector3(pos.x,pos.y,pos.z),dir);
-    obj->setTransformMatrix(&transform);weapon->loadAmmoNow(obj);weapon->fireWeapon(obj,&target,0);
+    Coord3D targetPosition;targetPosition.z=launchPosition.z;targetPosition.x=launchPosition.x+rainOfFireUpdateModuleData->offset.x;targetPosition.y=launchPosition.y+rainOfFireUpdateModuleData->offset.y;
+    PathfindLayerEnum layer=TheTerrainLogic->getHighestLayerForDestination(&targetPosition,false);
+    targetPosition.z=TheTerrainLogic->rvaSlot7(targetPosition.x,targetPosition.y,layer,0,true);
+    Vector3 firingDirection=Vector3(targetPosition.x,targetPosition.y,targetPosition.z)-Vector3(launchPosition.x,launchPosition.y,launchPosition.z);firingDirection.Normalize();
+    Matrix3D transform;transform.buildTransformMatrix(Vector3(launchPosition.x,launchPosition.y,launchPosition.z),firingDirection);
+    emitterObject->setTransformMatrix(&transform);weapon->loadAmmoNow(emitterObject);weapon->fireWeapon(emitterObject,&targetPosition,0);
     pending-=1.0f;
    }
   }else pending=0.0f;
