@@ -160,15 +160,7 @@ union GameMessageArgumentType
 
 #include "../../Include/Common/MessageStream.h"
 
-class NetGameCommandMsg : public NetCommandMsg
-{
-public:
-	NetGameCommandMsg();
-	GameMessage *constructGameMessage();
-	void addArgument(GameMessageArgumentDataType type, GameMessageArgumentType arg);
-private:
-	UnsignedInt m_gameFields[5];
-};
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 
 // GameMessageParser and its argument-type nodes, rowed under their address
 // names (RvaSmallVtableCtors.cpp): a run's type at +8 and count at +0xC, the
