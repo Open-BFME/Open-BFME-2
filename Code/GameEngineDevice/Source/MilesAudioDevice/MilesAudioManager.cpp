@@ -2071,10 +2071,7 @@ void MilesAudioManager::playAndStoreStream(PlayingAudioRef &playing, const Rva00
 }
 
 class File;
-class FileSystem {
-public:
-    File *openFile(const char *fileName, int access, int bufferSize);
-};
+#include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 // Retail 0x000518B8, the open callback init() hands AIL_set_file_callbacks
