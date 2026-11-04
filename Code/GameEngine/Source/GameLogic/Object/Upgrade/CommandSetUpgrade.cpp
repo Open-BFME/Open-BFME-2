@@ -87,17 +87,7 @@ extern ControlBar *TheControlBar;
 
 class Player;
 
-class Object
-{
-public:
-	void setCommandSetStringOverride(const AsciiString &commandSet);
-public:
-	unsigned char m_pad000[0x420];
-public:
-	AsciiString m_commandSet;
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
 
@@ -304,7 +294,7 @@ void CommandSetUpgrade::upgradeRemovalImplementation()
 		rva004CE4A8();
 		const CommandSetUpgradeModuleDataView *data = (const CommandSetUpgradeModuleDataView *)m_moduleData;
 		Object *object = m_object;
-		if (object->m_commandSet.compare(data->m_commandSet) == 0)
+		if (((const AsciiString *)object->m_420)->compare(data->m_commandSet) == 0)
 		{
 			AsciiString empty("");
 			object->setCommandSetStringOverride(empty);
