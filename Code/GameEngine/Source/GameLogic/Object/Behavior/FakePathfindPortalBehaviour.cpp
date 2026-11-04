@@ -57,7 +57,7 @@ extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSys
 #include "ascii_string.h"
 #include "Coord3D.h"
 struct Rva0087E650Bounds { Coord3D lo,hi; };
-class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds*); };
+#include "../../../../Include/Common/Geometry.h"
 struct FakePortalOwnerView {
  char pad[0x38];Coord3D position;float angle;char pad48[0x74-0x48];unsigned id;
  char pad78[0x104-0x78];GeometryInfo *geometry;

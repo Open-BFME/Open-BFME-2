@@ -16,11 +16,7 @@
 
 #include "Coord3D.h"
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../../../../../GameEngine/Include/Common/Geometry.h"
 
 #include "../../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
