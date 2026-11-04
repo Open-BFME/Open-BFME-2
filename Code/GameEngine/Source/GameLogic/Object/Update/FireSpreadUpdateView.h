@@ -75,8 +75,7 @@ public:
 
 	void startFireSpreading();
 
-protected:
-
+	// Public in BFME 2: retail's ?calcNextSpreadDelay@FireSpreadUpdate@@QAEIXZ (ZH has it protected).
 	UnsignedInt calcNextSpreadDelay();
 
 };
