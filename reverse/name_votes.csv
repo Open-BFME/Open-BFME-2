@@ -23752,3 +23752,4 @@ Code/GameEngine/Source/GameClient/InGameUIRva0029AEF9.cpp|member|Rva0029AEF9Item
 Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp|function|0x0022356C|rva0022356C,d31a26d80e5c2ac483c9d6b7,claude-opus-5-5,claude3-20261104-101555-7,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp|member|Rva000B9B4ATemplatePrefix|flag5ED,51a0444af7dea5f1b1b5f55b,claude-opus-5-5,claude3-20261104-101555-9,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp|member|Rva000B9B4ATemplatePrefix|flag5EF,6d78136afad42df119f41da4,claude-opus-5-5,claude3-20261104-101555-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004D47DParticleRender.cpp|member|Rva0004D47D|m_54,e08449567619dc3003d73b5e,claude-opus-5-5,claude3-20261104-101555-10,w-29a6ae2a2f9f,2026-11-04
