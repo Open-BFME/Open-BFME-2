@@ -24,11 +24,18 @@
 struct ArmySwapView;
 struct ArmyMemberRangeView;
 
+// The vptr-reset body at 0x00210CC5 is rowed under this placeholder.
+class Rva00210CC5DwordImmSetter
+{
+public:
+	void apply();
+};
+
 class Rva00210CC5
 {
 public:
 	Rva00210CC5() {}
-	~Rva00210CC5();
+	__declspec(noinline) ~Rva00210CC5() { ((Rva00210CC5DwordImmSetter *)this)->apply(); }
 	virtual void OnSwapArmyMembers(ArmySwapView *swap, const ArmyMemberRangeView &range, ArmySwapView *a, ArmySwapView *b) = 0;
 };
 
@@ -73,22 +80,54 @@ private:
 
 // The hash tables at +0x204 and +0x26C/+0x280/+0x294 (destructor 0x002130CA)
 // and +0x218 (destructor 0x00212379), all built by 0x00213E11.
+struct Rva00213E11Element;
+
+namespace _STL
+{
+template <class T> struct hash;
+template <class T> struct equal_to;
+template <class T> struct less;
+template <class A, class B> struct pair;
+
+// The rowed constructors 0x00213E11 and 0x0033C432; only their spellings are used here.
+template <class K, class V, class H, class E, class A> class hash_map
+{
+public:
+	hash_map();
+private:
+	unsigned char m_data[0x14];
+};
+
+template <class K, class V, class C, class A> class map
+{
+public:
+	map();
+private:
+	unsigned char m_data[0xC];
+};
+}
+
+typedef _STL::hash_map<int, Rva00213E11Element, _STL::hash<int>, _STL::equal_to<int>,
+	_STL::allocator<_STL::pair<const int, Rva00213E11Element> > > Rva00213E11Map;
+typedef _STL::map<unsigned char, int, _STL::less<unsigned char>,
+	_STL::allocator<_STL::pair<const unsigned char, int> > > Rva0033C432Map;
+
 class Rva002130CA
 {
 public:
-	Rva002130CA();
+	__declspec(noinline) Rva002130CA() {}
 	~Rva002130CA();
 private:
-	unsigned char m_data[0x14];
+	Rva00213E11Map m_data;
 };
 
 class Rva00212379
 {
 public:
-	Rva00212379();
+	__declspec(noinline) Rva00212379() {}
 	~Rva00212379();
 private:
-	unsigned char m_data[0x14];
+	Rva00213E11Map m_data;
 };
 
 class Rva004DFC20
@@ -119,10 +158,10 @@ public:
 class Rva00211FA3
 {
 public:
-	Rva00211FA3();
+	__declspec(noinline) Rva00211FA3() {}
 	~Rva00211FA3();
 private:
-	unsigned char m_data[0xC];
+	Rva0033C432Map m_data;
 };
 
 class Rva0021119B
