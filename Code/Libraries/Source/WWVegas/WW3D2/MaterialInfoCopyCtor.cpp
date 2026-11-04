@@ -1,13 +1,13 @@
-// cl: /DNDEBUG /MD /EHsc /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // BFME1 MaterialInfoCopyCtor.cpp, adapted to BFME2 RVA 0x16FFD0 (351B).
 // Uses the layout and vector vtable identities already established by
 // MaterialInfoClassCtor.cpp. Upstream matinfo.cpp clones vertex materials;
 // retail spells Clone out as default construction plus assignment, allocating
 // 0x6c bytes. Texture handles are copied via the base-vector assignment.
-// MaterialVector::Add follows WWLib/vector.h: increment the count before the
-// element store, preserving the distinct old and new indices.
+// The vertex-material vector is WWLib/vector.h's DynamicVectorClass: its
+// inline constructor and Add expand here, and the unwind funclet calls its
+// virtual destructor at 0x0016F580.
 
-extern "C" const void *__identifier("??_7?$DynamicVectorClass@PAVVertexMaterialClass@@@@6B@")[];
 extern "C" const void *__identifier("??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@")[];
 
 class VertexMaterialClass {
@@ -16,7 +16,7 @@ public:
  VertexMaterialClass &operator=(const VertexMaterialClass &);
  char storage[0x6c];
 };
-#include <new>
+#include "vector.h"
 
 class TextureClass
 {
@@ -48,10 +48,10 @@ typedef RefCountPtr<TextureClass> TextureVectorCell;
 // Its four-byte refcounted handles and vector layout agree with this call;
 // the donor TextureVectorCell name is not asserted as a target type identity.
 class ProxyClass;
-template <class T> class VectorClass
+template <> class VectorClass<ProxyClass>
 {
 public:
- VectorClass<T> &operator=(const VectorClass<T> &);
+ VectorClass<ProxyClass> &operator=(const VectorClass<ProxyClass> &);
 };
 
 class TextureVectorBaseCtorShim
@@ -66,41 +66,6 @@ private:
 	bool IsValid;
 	bool IsAllocated;
 	bool VectorClassPad[2];
-};
-
-class MaterialVector {
-public:
- __forceinline MaterialVector()
- {
-  Vector = 0;
-  VectorMax = 0;
-  IsValid = true;
-  IsAllocated = false;
-  Vtable = ((unsigned int)__identifier("??_7?$DynamicVectorClass@PAVVertexMaterialClass@@@@6B@"));
-  GrowthStep = 10;
-  ActiveCount = 0;
- }
- ~MaterialVector();
- int Count() const { return ActiveCount; }
- VertexMaterialClass *operator[](int i) const { return Vector[i]; }
- bool Add(VertexMaterialClass *const &value) {
-  // VectorClass slots: destructor, equality, Resize.
-  struct Dispatch {
-   virtual void DestructorSlot();
-   virtual void EqualitySlot();
-   virtual bool Resize(int, VertexMaterialClass **);
-  };
-  if(ActiveCount>=VectorMax) {
-   if((!IsAllocated && VectorMax) || GrowthStep<=0) return false;
-   if(!((Dispatch *)this)->Resize(VectorMax+GrowthStep,0)) return false;
-  }
-  int index = ActiveCount++;
-  Vector[index] = value;
-  return true;
- }
-private:
- unsigned Vtable; VertexMaterialClass **Vector; int VectorMax;
- bool IsValid, IsAllocated; char pad[2]; int ActiveCount, GrowthStep;
 };
 
 class TextureVector : public TextureVectorBaseCtorShim
@@ -150,7 +115,7 @@ public:
 	virtual ~MaterialInfoClass();
 
 private:
-	MaterialVector VertexMaterials;
+	DynamicVectorClass<VertexMaterialClass *> VertexMaterials;
 	TextureVector Textures;
 };
 
