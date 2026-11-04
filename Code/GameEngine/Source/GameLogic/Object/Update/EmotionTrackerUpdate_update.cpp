@@ -91,14 +91,7 @@ class EmotionTrackerUpdate;
 // And's canonical owner is a call view. The native polymorphic prefix below
 // uses the existing partition-filter providers (table BC26E0, +4 next link).
 class PartitionFilter { public: PartitionFilter &And(PartitionFilter &); };
-class Rva000421C8 {
-public:
-    Rva000421C8():next(0) {}
-    virtual ~Rva000421C8() {}
-    virtual bool allow(Object *) = 0;
-    virtual int getPlayerMask();
-    Rva000421C8 *next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 class EmotionModuleBase {
 public:

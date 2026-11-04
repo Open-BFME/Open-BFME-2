@@ -185,16 +185,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
  class Object;
 extern PartitionManager *ThePartitionManager;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 // The base filter's slot 2 is the trivial virtual retail shares across many
 // vftable slots (0x0036CC7A); bind the declaration to that row.
 

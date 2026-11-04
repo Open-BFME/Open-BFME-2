@@ -466,13 +466,7 @@ template <int> class BitFlags {
     unsigned words[7];
 };
 extern BitFlags<116> KINDOFMASK_NONE;
-class Rva000421C8 {
-  public:
-    virtual ~Rva000421C8() {}
-    virtual bool allow(Object *) = 0;
-    virtual int getPlayerMask();
-    Rva000421C8 *next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D : public Rva000421C8 {
   public:
     Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &);

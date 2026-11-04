@@ -616,16 +616,7 @@ class SpecialPackingFinishView:public SpecialPackingSlots<19> {public:virtual vo
 
 // Partition filters: the chain base, the one-player filter (vftable
 // 0x00BFAD04) and the kind-of filter with its must-be-set/must-be-clear masks.
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 class Rva00260E2AFilter : public Rva000421C8
 {

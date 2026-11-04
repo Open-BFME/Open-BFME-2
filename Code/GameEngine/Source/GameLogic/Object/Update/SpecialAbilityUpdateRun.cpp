@@ -264,7 +264,7 @@ UpdateSleepTime SpecialAbilityUpdate::rva0044F881()
 }
 
 
-class Rva000421C8 {public:Rva000421C8():m_next(0){}virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *m_next;};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class BfmeFixedStorage0004543D {public:char data[28];};
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};

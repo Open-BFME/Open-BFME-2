@@ -120,15 +120,7 @@ public:
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
 // Partition filters (see the BroadcastStealthUpdate.cpp view).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 // A KindOfMaskType (0x0004543D copies it).
 class BfmeFixedStorage0004543D
 {

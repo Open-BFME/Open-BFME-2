@@ -188,14 +188,7 @@ public:
  unsigned char m_pad044[0x284-0x44]; Rva0033A453 m_upgrades;
 };
 
-class Rva000421C8 {
-public:
- Rva000421C8():m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object*)=0;
- virtual int getPlayerMask();
- Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 class Rva002614ECFilter : public Rva000421C8 {
 public:

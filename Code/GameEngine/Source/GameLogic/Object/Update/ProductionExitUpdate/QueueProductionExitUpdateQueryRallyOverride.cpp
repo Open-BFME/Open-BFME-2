@@ -25,15 +25,7 @@ private:
 
 #include "../../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(class Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../../../Include/GameLogic/PartitionFilter.h"
 
 class Object;
 class ExitInterface
