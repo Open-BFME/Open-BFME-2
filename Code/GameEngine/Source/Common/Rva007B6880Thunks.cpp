@@ -7175,10 +7175,12 @@ void __cdecl rva007B91F8()
 	return receiver->~Rva00524CC1Dtor();
 }
 
+// The destructor retail reaches here is the row at 0x0052B7B3; it takes this object in ecx.
+void j_0052b7b3();
 class Rva0052B7B3Dtor
 {
 public:
-	~Rva0052B7B3Dtor();
+	__declspec(noinline) ~Rva0052B7B3Dtor() { j_0052b7b3(); }
 };
 
 extern unsigned g_Va00E049B4;

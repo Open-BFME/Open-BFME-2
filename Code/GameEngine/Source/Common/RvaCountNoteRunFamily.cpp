@@ -273,10 +273,12 @@ namespace _STL
     };
 }
 typedef _STL::hash_map<int, Rva0052B81CElement> Rva0052B84FRegistry;
+// The destructor retail reaches here is the row at 0x0052B7B3; it takes this object in ecx.
+void j_0052b7b3();
 class Rva0052B7B3Dtor
 {
 public:
-    ~Rva0052B7B3Dtor();
+    __declspec(noinline) ~Rva0052B7B3Dtor() { j_0052b7b3(); }
 };
 namespace _STL
 {
