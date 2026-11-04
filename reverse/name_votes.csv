@@ -23790,3 +23790,4 @@ Code/GameEngine/Source/Common/BfmeConv671.cpp|member|BfmeSubDEA|m_bfmeColor,427e
 Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyDamageState.cpp|member|Rva004BDA67ObjInner|m_val61C,91ff3f1a41ac28482855e2a8,claude-opus-5-5,claude3-20261104-153636-8,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva002E15E6Method.cpp|member|Rva002E15E6Inner|m_08,70e8dcb3d7570adf27ec926f,claude-opus-5-5,claude3-20261104-154830-5,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva002E15E6Method.cpp|member|Rva002E15E6Inner|m_0C,d1d5c08748ce3281b6a9e449,claude-opus-5-5,claude3-20261104-154830-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0043E0C5.cpp|member|Rva0043E6C9Arg|m_12c,3c0b7e7c19f8c27cf8aa78ae,claude-opus-5-5,claude3-20261104-155529-3,w-29a6ae2a2f9f,2026-11-04
