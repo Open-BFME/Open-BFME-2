@@ -59,11 +59,7 @@ void Rva0041647ASend(const Rva004160BEInfo *info);
 
 // WB AptMessengerOnline::OnBttnInvite (callgraph lead); the Online screen is this
 // AptMessenger layout, so the body keeps the base view.
-class AptMessengerOnline : public AptMessenger
-{
-public:
-	void OnBttnInvite();
-};
+#include "../../../../../Include/GameClient/AptMessengerOnline.h"
 
 
 // Native 0x005AE90F..0x005AE990 RET0; AptMessenger::OnBttn_1 calls this

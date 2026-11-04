@@ -149,11 +149,7 @@ void Rva0041647ASend(const Rva004160BEInfo *info);
 
 // WB AptMessengerOnline::OnBttnInvite (callgraph lead); the Online screen is this
 // AptMessenger layout, so the body keeps the base view.
-class AptMessengerOnline : public AptMessenger
-{
-public:
-	void OnBttnInvite();
-};
+#include "../../../../../Include/GameClient/AptMessengerOnline.h"
 
 // AptMessenger::GetSelectedPlayers, retail 0x00511C19.
 void AptMessenger::GetSelectedPlayers(Int listIndex, Int a, Int b)
