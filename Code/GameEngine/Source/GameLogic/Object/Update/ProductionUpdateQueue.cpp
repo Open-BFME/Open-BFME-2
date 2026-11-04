@@ -654,7 +654,7 @@ enum RadarEventType { RADAR_NONE=0 };
 #include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 class FXList { public: static void doFXObj(const FXList *,const Object *,const Object *); };
-class FXListStore { public: const FXList *findFXList(const char *) const; };
+#include "../../../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
