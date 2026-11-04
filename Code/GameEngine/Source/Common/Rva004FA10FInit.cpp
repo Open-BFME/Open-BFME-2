@@ -41,5 +41,5 @@ void Rva004FA10FOwner::rva004FA10F()
 	} while (!ready);
 	((LivingWorldAutoResolveBattle *)this)->completeRound();
 	((Rva004F9E59 *)this)->rva004F9E59();
-	((LivingWorldAutoResolveBattle *)this)->rva004F61B1();
+	((LivingWorldAutoResolveBattle *)this)->determineWinner();
 }

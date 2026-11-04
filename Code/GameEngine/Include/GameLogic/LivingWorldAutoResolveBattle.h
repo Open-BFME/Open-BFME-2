@@ -46,7 +46,7 @@ public:
     ~LivingWorldAutoResolveBattle();
 
     void rva004F6187();
-    void rva004F61B1();
+    void determineWinner();
     void enumerateCurrentUnits(int, Pred004F6234 *);
     void rva004F68B8(unsigned, bool);
     void enumerateReinforcementUnits(int, int, Rva004F76EAPred *);

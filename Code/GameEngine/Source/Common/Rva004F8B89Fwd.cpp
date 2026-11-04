@@ -254,7 +254,7 @@ public:
 	bool rva0059ADB9();
 };
 
-// ?rva004F61B1@LivingWorldAutoResolveBattle@@QAEXXZ @0x004F61B1 110B.
+// ?determineWinner@LivingWorldAutoResolveBattle@@QAEXXZ @0x004F61B1 110B.
 // Target evidence: the two begin/end pairs at +0x0C/+0x10 and +0x18/+0x1C
 // each scan pointer elements and call the matched predicate at 0x0059ADB9;
 // the resulting flags conditionally clear or set the dword at +0x78.
@@ -262,7 +262,7 @@ public:
 // two-list walk. Owner: LivingWorldAutoResolveBattle, whose rowed constructor
 // 0x004FA3C9 sets winner (+0x78) to -1 and then calls this on its own this;
 // the pairs are its two currentUnits vectors.
-void LivingWorldAutoResolveBattle::rva004F61B1()
+void LivingWorldAutoResolveBattle::determineWinner()
 {
 	bool found[2];
 	void ***range = (void ***)((char *)this + 0x10);
