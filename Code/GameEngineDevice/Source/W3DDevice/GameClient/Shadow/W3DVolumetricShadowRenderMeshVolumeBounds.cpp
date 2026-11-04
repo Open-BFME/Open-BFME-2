@@ -96,13 +96,7 @@ private:
 
 extern unsigned number_of_DX8_calls;
 
-class DX8Wrapper
-{
-public:
-	static __declspec(dllimport) __forceinline IDirect3DDevice8 *_Get_D3D_Device8(void) { return D3DDevice; }
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 #define DX8CALL(x) reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->x; number_of_DX8_calls++;
 

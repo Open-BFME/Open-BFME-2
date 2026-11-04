@@ -18,16 +18,7 @@ struct IDirect3DDevice8;
 
 struct Rva000FDD1C;
 
-struct DX8Wrapper
-{
-	friend struct Rva000FDD1C;
-	// dx8wrapper.cpp defines these protected and the counters unsigned (Textures@DX8Wrapper@@1PAPAU..,
-	// texture_changes@DX8Wrapper@@1IA, D3DDevice@DX8Wrapper@@1PAU.. and number_of_DX8_calls@@3IA).
-	protected:
-	static IDirect3DBaseTexture8 *Textures[1];
-	static unsigned int texture_changes;
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern unsigned int number_of_DX8_calls;
 
 struct Rva000FDD1C

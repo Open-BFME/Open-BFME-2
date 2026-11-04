@@ -29,38 +29,30 @@ extern unsigned int number_of_DX8_calls;
 
 // DX8Wrapper's statics under dx8wrapper.cpp's own spellings (protected
 // members, the global call counter).
-class DX8Wrapper
+#include "DX8WrapperClass.h"
+
+__forceinline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture)
 {
-public:
-	static const unsigned int MAX_TEXTURE_STAGES = 16;
-protected:
-	static IDirect3DBaseTexture8 *Textures[MAX_TEXTURE_STAGES];
-	static IDirect3DDevice8 *D3DDevice;
-	static unsigned int texture_changes;
-public:
-	static __forceinline void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture)
-	{
-		if (stage >= MAX_TEXTURE_STAGES) {
-			IDirect3DDevice9 *device = reinterpret_cast<IDirect3DDevice9 *>(D3DDevice);
-			device->SetTexture(stage, reinterpret_cast<IDirect3DBaseTexture9 *>(texture));
-			number_of_DX8_calls++;
-			return;
-		}
-
-		if (Textures[stage] == texture)
-			return;
-
-		if (Textures[stage])
-			reinterpret_cast<IDirect3DBaseTexture9 *>(Textures[stage])->Release();
-		Textures[stage] = texture;
-		if (Textures[stage])
-			reinterpret_cast<IDirect3DBaseTexture9 *>(Textures[stage])->AddRef();
+	if (stage >= 16) {
 		IDirect3DDevice9 *device = reinterpret_cast<IDirect3DDevice9 *>(D3DDevice);
 		device->SetTexture(stage, reinterpret_cast<IDirect3DBaseTexture9 *>(texture));
 		number_of_DX8_calls++;
-		texture_changes++;
+		return;
 	}
-};
+
+	if (Textures[stage] == texture)
+		return;
+
+	if (Textures[stage])
+		reinterpret_cast<IDirect3DBaseTexture9 *>(Textures[stage])->Release();
+	Textures[stage] = texture;
+	if (Textures[stage])
+		reinterpret_cast<IDirect3DBaseTexture9 *>(Textures[stage])->AddRef();
+	IDirect3DDevice9 *device = reinterpret_cast<IDirect3DDevice9 *>(D3DDevice);
+	device->SetTexture(stage, reinterpret_cast<IDirect3DBaseTexture9 *>(texture));
+	number_of_DX8_calls++;
+	texture_changes++;
+}
 
 // Reset-resource backend behind +0x14; single observed virtual at slot 0.
 // TU-local replica: only the slot order is load-bearing for the byte match.

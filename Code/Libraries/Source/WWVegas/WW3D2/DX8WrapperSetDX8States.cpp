@@ -34,20 +34,7 @@ private:
 	void Free_String();
 };
 
-class DX8Wrapper
-{
-public:
-	static void Set_DX8_Render_State(unsigned long state, unsigned value);
-	static void Set_DX8_Texture_Stage_State(unsigned stage, unsigned long state, unsigned value);
-	static void Get_DX8_Render_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
-	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
-protected:
-	static unsigned RenderStates[256];
-	static unsigned TextureStageStates[16][32];
-	static IDirect3DDevice8 *D3DDevice;
-	static unsigned render_state_changes;
-	static unsigned texture_stage_state_changes;
-};
+#include "DX8WrapperClass.h"
 
 #include "WW3DClass.h"
 extern unsigned number_of_DX8_calls;

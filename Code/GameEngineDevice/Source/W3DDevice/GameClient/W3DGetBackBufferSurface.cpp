@@ -18,14 +18,7 @@ class SurfaceResource;
 // type name but is a Direct3D 9 device (GetBackBuffer slot 18, StretchRect 34).
 struct IDirect3DDevice8;
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // This unit's view of that device.
 static __forceinline IDirect3DDevice9 *backBufferDevice()

@@ -86,7 +86,7 @@ extern BfmeObjECF *g_bfmeObjECF;
 #define Rva0134B280Browser (*reinterpret_cast<IFEBrowserEngine2Ptr *>(&g_bfmeObjECF))
 class WW3D { public: static void *Get_Window(); };
 struct IDirect3DDevice8;
-class DX8Wrapper { protected: static IDirect3DDevice8 *D3DDevice; public: static IDirect3DDevice8 *_Get_D3D_Device8(){return D3DDevice;} };
+#include "DX8WrapperClass.h"
 class DX8WebBrowser {
 public:
     static HWND hWnd;

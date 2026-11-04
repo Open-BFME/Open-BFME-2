@@ -32,11 +32,7 @@ int g_bfmeModeTDB;
 // derived view) and DX8 call counter (0x9EDA98). The device keeps its D3D8
 // type name but is a Direct3D 9 device.
 struct IDirect3DDevice8;
-class DX8Wrapper
-{
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern unsigned number_of_DX8_calls;
 
 struct BfmeDeviceTDB : DX8Wrapper

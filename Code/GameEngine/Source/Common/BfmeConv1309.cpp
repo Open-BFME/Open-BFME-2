@@ -38,11 +38,7 @@ void BfmeThingTDA::bfmeGoTDA()
 // The two class statics are protected, so derived views read them. The device
 // keeps its D3D8 type name but is a Direct3D 9 device (SetVertexShader, slot 92).
 struct IDirect3DDevice8;
-class DX8Wrapper
-{
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern unsigned number_of_DX8_calls;
 

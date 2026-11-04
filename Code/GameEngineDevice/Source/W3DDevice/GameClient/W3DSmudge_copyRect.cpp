@@ -21,13 +21,8 @@
 typedef int Int;
 
 struct IDirect3DDevice8;
-class DX8Wrapper
-{
-protected:
-    static IDirect3DDevice8 *D3DDevice;
-    friend Int copyRect(unsigned char *, Int, int, int, int, int);
-};
-#define g_d3dDevice (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice))
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+#define g_d3dDevice (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8()))
 
 Int copyRect(unsigned char *buf, Int bufSize, int oX, int oY, int width, int height)
 {

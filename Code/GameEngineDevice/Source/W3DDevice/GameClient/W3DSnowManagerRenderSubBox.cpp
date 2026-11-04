@@ -38,7 +38,7 @@ class RenderInfoClass;class TextureBaseClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 namespace Debug_Statistics {void Record_DX8_Polys_And_Vertices(int,int,const ShaderClass&);}
 struct IDirect3DDevice8;
-class DX8Wrapper {friend class W3DSnowManager;protected:static IDirect3DDevice8*D3DDevice;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 float Rva000930C0(float,float);
 __forceinline int WWMath::Float_To_Int_Floor (const float& f)
 {
@@ -170,7 +170,7 @@ flush_particles:
 		if (numberInBatch)
 		{
 			Debug_Statistics::Record_DX8_Polys_And_Vertices(numberInBatch * 2, numberInBatch * 4, ShaderClass::_PresetAlphaShader);
-			IDirect3DDevice9 *device = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice);
+			IDirect3DDevice9 *device = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8());
 			device->DrawPrimitive(D3DPT_POINTLIST, m_dwBase, numberInBatch);
 			totalPart -= numberInBatch;
 			m_dwBase += numberInBatch;

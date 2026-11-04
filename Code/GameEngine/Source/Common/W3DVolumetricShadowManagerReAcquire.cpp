@@ -10,13 +10,7 @@ bool __cdecl BFME_DX8_Thread_Assert();
 // (CreateVertexBuffer slot 26, CreateIndexBuffer slot 27).
 struct IDirect3DDevice8;
 // D3DDevice is protected in dx8wrapper.h; read it through WW3D2's accessor.
-class DX8Wrapper
-{
-public:
-	static __forceinline IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 // g_00DEBCE0: matched references place it at VA 0xdebce0 (retail .data initial value 0).
 struct IDirect3DIndexBuffer8; extern IDirect3DIndexBuffer8 *shadowIndexBufferD3D;
 // g_00DEBCDC: matched references place it at VA 0xdebcdc (retail .data initial value 0).

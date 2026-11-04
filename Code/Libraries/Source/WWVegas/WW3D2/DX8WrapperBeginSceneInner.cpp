@@ -70,16 +70,7 @@ __declspec(noinline) void bfmeDebugTouch009588e0(void)
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
-class DX8Wrapper
-{
-public:
-	static void Begin_Scene_Inner(void);
-	static void Rva0011D2D0WaitForBackBuffer(void);
-
-private:
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 
 // Retail's D3D call counter: the data ledger's number_of_DX8_calls
 // (dx8wrapper.cpp), a plain global.

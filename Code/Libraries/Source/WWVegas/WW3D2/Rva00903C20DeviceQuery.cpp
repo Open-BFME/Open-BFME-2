@@ -9,19 +9,13 @@
 // by target evidence.
 #include <d3d9.h>
 
-// dx8wrapper.cpp's protected ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A, read through a
-// TU-scoped friend view (real decoration, no alias). The device keeps its D3D8 type
-// name but is a Direct3D 9 device.
+// dx8wrapper.cpp's protected ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A, read through its
+// public inline accessor. The device keeps its D3D8 type name but is a Direct3D 9 device.
 struct IDirect3DDevice8;
-class DX8Wrapper
-{
-	friend bool rva00903C20DeviceQuery();
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 
 bool rva00903C20DeviceQuery()
 {
 	DWORD passes = 0;
-	return reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice)->ValidateDevice(&passes) == D3D_OK;
+	return reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->ValidateDevice(&passes) == D3D_OK;
 }

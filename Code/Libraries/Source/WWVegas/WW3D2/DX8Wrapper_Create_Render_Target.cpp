@@ -19,7 +19,7 @@
 
 int __cdecl Find_POT(int size);
 
-typedef enum { WW3D_FORMAT_UNKNOWN = 0 } WW3DFormat;
+enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (EvictManagedResources slot 5, GetDisplayMode slot 8), cast at each call.
@@ -84,15 +84,7 @@ public:
 	void rva00131DFC(void *a, void *b, void *c, void *d, int e, int f);
 };
 
-class DX8Wrapper
-{
-public:
-	static RefCountPtr<TextureClass> Create_Render_Target(int width, int height, WW3DFormat format);
-
-protected:
-	static DX8Caps *CurrentCaps;
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 
 // ?Create_Render_Target@DX8Wrapper@@SA?AV?$RefCountPtr@VTextureClass@@@@HHW4WW3DFormat@@@Z
 RefCountPtr<TextureClass> DX8Wrapper::Create_Render_Target(int width, int height, WW3DFormat format)

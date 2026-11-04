@@ -43,17 +43,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 struct IDirect3DDevice8;
 struct RenderStateStruct { unsigned char unused_fields[0x1EC]; Matrix4 world,view; };
 extern unsigned number_of_DX8_calls;
-class DX8Wrapper {
-public:
- static void Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m);
-protected:
- static RenderStateStruct render_state;
- static unsigned render_state_changed;
- static unsigned matrix_changes;
- static IDirect3DDevice8* D3DDevice;
- static float ZNear,ZFar;
- static Matrix4 ProjectionMatrix,DeviceProjectionMatrix;
-};
+#include "DX8WrapperClass.h"
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m) {

@@ -119,15 +119,7 @@ struct BfmeSmokeGlobalDataView
 	bool m_glowActive;
 };
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-	static void Set_Render_Target(IDirect3DSurface8 *, bool);
-	static void Clear(bool, bool, bool, const Vector3 &, float, float, unsigned);
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class W3DFilterInterface
 {

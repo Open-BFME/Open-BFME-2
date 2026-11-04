@@ -10,12 +10,7 @@
 
 struct IDirect3DDevice8;
 class Rva00DF6F94GapFillerContext;
-class DX8Wrapper
-{
-    friend class Rva00DF6F94GapFillerContext;
-protected:
-    static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 struct DX8WrapperStageHelper
 {
     static void Rva0011CC60InvalidateTextureStages();
@@ -53,9 +48,9 @@ void Rva00DF6F94GapFillerContext::rva174ba6()
         DX8WrapperStageHelper::Rva0011CC60InvalidateTextureStages();
         // The device is a Direct3D 9 device: SetVertexShader is slot 92 (+0x170),
         // SetPixelShader slot 107 (+0x1AC).
-        reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice)->SetVertexShader(0);
+        reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->SetVertexShader(0);
         ++number_of_DX8_calls;
-        reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice)->SetPixelShader(0);
+        reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->SetPixelShader(0);
         ++number_of_DX8_calls;
     }
 }

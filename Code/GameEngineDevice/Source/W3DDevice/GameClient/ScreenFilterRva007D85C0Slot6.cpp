@@ -20,17 +20,7 @@ struct IDirect3DBaseTexture8
 struct IDirect3DDevice8;
 
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-	static void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture);
-	static void Invalidate_Cached_Render_States(void);
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-	static IDirect3DBaseTexture8 *Textures[16];
-	static unsigned int texture_changes;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 extern unsigned int number_of_DX8_calls;
 

@@ -14,14 +14,7 @@
 // type name but is a Direct3D 9 device.
 struct IDirect3DDevice8;
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 
 // This unit's view of that device.
 static __forceinline IDirect3DDevice9 *copyDevice()
