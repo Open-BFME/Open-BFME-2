@@ -34,18 +34,8 @@ struct Rva0006EE7A : public BitFlags<69>
 	Rva0006EE7A(int unused, int b1, int b2);
 };
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-	Drawable *getDrawable() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-};
 
 enum DamageType { DAMAGE_UNRESISTABLE_8 = 8 };
 enum DeathType { DEATH_0 = 0 };
@@ -119,9 +109,7 @@ public:
 	void attemptDamage(DamageInfo *damageInfo);
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 
-	char m_pad00[8];
-	float m_transform[3][4];	// +0x08
-	char m_pad38[0x74 - 0x38];
+	char m_pad60[0x74 - 0x60];
 	ObjectID m_id;			// +0x74
 	char m_pad78[0x254 - 0x78];
 	union

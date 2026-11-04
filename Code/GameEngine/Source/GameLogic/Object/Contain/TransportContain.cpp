@@ -557,30 +557,8 @@ extern float BfmeClientFramesPerMillisecond;
 
 enum DisabledType { DISABLED_HELD = 3 };
 
-class Drawable 
-{
- public:
- int getPristineBonePositions(const char *,int,Coord3D *,Matrix3D *,int,int) const;
- void rva00274445(float);
- void fadeIn(unsigned);
- 
-}
-;
+#include "../../../../Include/GameClient/Drawable.h"
 
-class Thing 
-{
- public:
- void convertBonePosToWorldPos(const Coord3D *,const Matrix3D *,Coord3D *,Matrix3D *) const;
- void setPosition(const Coord3D *);
- void setOrientation(float);
- float getOrientation() const 
- {
-  return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(this)+0x44);
-  
- }
- 
-}
-;
 
 class AIUpdateInterface 
 {

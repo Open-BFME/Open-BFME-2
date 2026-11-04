@@ -4,26 +4,7 @@
 // from its parameter by the rowed getUnitNamed hands the flag to its
 // drawable (pinned Object::getDrawable 0x005508E2) through the Drawable
 // method 0x002785FB (stores the flag at +0x448; pinned from this call).
-class Drawable
-{
-public:
-    void rva002785FB(bool flag);
-    void setIndicatorColor(int);
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual void slot20();
-    virtual void slot24();
-    virtual void slot28();
-    virtual void slot2C();
-    virtual void slot30();
-    virtual void rvaSlot34();
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../Object/object.h"
 
@@ -71,7 +52,7 @@ if(drawable) {
 if(TheWritableGlobalData->m_timeOfDay==4)
  drawable->setIndicatorColor(object->getNightIndicatorColor());
 else drawable->setIndicatorColor(object->getIndicatorColor());
-drawable->rvaSlot34();
+drawable->rva00271095();
 }
 }
 return 1;

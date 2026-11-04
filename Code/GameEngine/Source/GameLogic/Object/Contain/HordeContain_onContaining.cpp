@@ -47,15 +47,13 @@ bool less<int>::operator()(const int &a, const int &b) const
 }
 class Object; class Drawable;
 enum ObjectStatusTypes {RvaStatus38=38};
-class Thing {public:void setPosition(const Coord3D*);void setOrientation(float);};
+#include "../../../../Include/GameClient/Drawable.h"
 class Object:public Thing {public:
- char p000[0x38];Coord3D position;float angle;
- char p048[0x74-0x48];int id;
+ char p060[0x74-0x60];int id;
  char p078[0x258-0x78];void*ai;
  void setStatus(ObjectStatusTypes,bool);void setProducer(Object*);
  int rva0028F4EF();void rva0029130C(int);Drawable*getDrawable()const;
 };
-class Drawable {public:char p000[0x43c];bool flag43c;void rva00272945(int);void rva00272BAB(int,int);};
 class Rva0028B525DwordSlot {public:void set(int);};
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 class OpenContain:public ContainModuleInterface {public:virtual void onContaining(Object*,bool);};
@@ -404,16 +402,16 @@ void HordeContain::onContaining(Object*object,bool wasSelected){
  float angle=0.0f;
  RvaHordeIface11C*h=reinterpret_cast<RvaHordeIface11C*>(reinterpret_cast<char*>(this)+0x11C);
  Coord3D pos=h->position(object,&angle);
- int layer=(owner?TheAI:TheAI)->pathfinder->GetGroundLayer(&owner->position);
+ int layer=(owner?TheAI:TheAI)->pathfinder->GetGroundLayer(&owner->m_cachedPos);
  reinterpret_cast<Rva0046E6EA*>(this)->rva0046E6EA(reinterpret_cast<Rva0046E6EAObject*>(object),reinterpret_cast<const Rva0046E6EACoord*>(&pos),reinterpret_cast<Rva0046E6EACoord*>(owner),false);
  pos.z=reinterpret_cast<RvaTerrain*>(TheTerrainLogic)->height(pos.x,pos.y,layer,0,true);
  object->setPosition(&pos);object->setPosition(&pos);
  reinterpret_cast<Rva0028B525DwordSlot*>(object)->set(layer);
- if(angle==0.0f)object->setOrientation(owner->angle);else object->setOrientation(angle);
+ if(angle==0.0f)object->setOrientation(owner->m_cachedAngle);else object->setOrientation(angle);
  if(data){int value=data->value234;if(value!=-1){RvaObjectAI*ai=static_cast<RvaObjectAI*>(object->ai);if(ai)ai->a142(value);}}
  Object*self=owner;
  if(self){Drawable*draw=self->getDrawable();
-  if(draw && draw->flag43c){
+  if(draw && draw->m_selected){
    if(reinterpret_cast<RvaGlobalData9A6*>(TheWritableGlobalData)->flag)draw->rva00272945(h->key(false));
    else {Drawable*child=object->getDrawable();if(child)child->rva00272BAB(1,h->keyFor(self));}
   }

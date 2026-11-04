@@ -73,9 +73,8 @@ private:
 // is not retail's (0x0004C91A builds Vector4 rows first) and held the link.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Drawable {public:bool rva00272835(int,int);};
+#include "../../../Include/GameClient/Drawable.h"
 
-class Thing {public:Drawable *getDrawable()const;};
 
 class FXList {public:
  static void doFXPos(const FXList *,const Coord3D *,const Matrix3D *,float,const Coord3D *);

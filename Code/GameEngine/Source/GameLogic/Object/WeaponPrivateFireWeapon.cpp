@@ -122,12 +122,6 @@ class Player;
 class Object;
 class FXList;
 float GetGameLogicRandomValueReal(float, float, char *, int);
-class Drawable
-{
-  public:
-    bool handleWeaponFireFX(int, int, int, float, float, float, int);
-    int rva0027434D(int);
-};
 
 class WeaponBody
 {
@@ -236,11 +230,6 @@ class WeaponContain
     virtual Object *sF4(const Coord3D *);
 };
 
-class Thing
-{
-  public:
-    Drawable *getDrawable() const;
-};
 struct TBridgeAttackInfo
 {
     Coord3D point1, point2;
@@ -404,6 +393,7 @@ class ThingTemplate
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+#include "../../../Include/GameClient/Drawable.h"
 
 class Object
 {

@@ -202,29 +202,13 @@ public:
 	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx, const Real primarySpeed, const Coord3D *secondary );
 };
 
-class Thing
-{
-public:
-	Real getHeightAboveTerrain( void ) const;
-	Bool isAboveTerrain( void ) const { return getHeightAboveTerrain() > 0.0f; }
-};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
+inline Bool Thing::isAboveTerrain( void ) const { return getHeightAboveTerrain() > 0.0f; }
 
 class Object : public Thing
 {
 };
 
-class Drawable
-{
-	friend struct BfmeDebrisDrawableOps;
-public:
-	const Matrix3D *getTransformMatrix( void ) const;
-	const Coord3D *getPosition( void ) const;
-private:
-	char m_unrecovered00[ 0xFC ];
-	Object *m_object;																													///< 0xFC
-	char m_unrecovered100[ 0x200 - 0x100 ];
-	Real m_instanceScale;																											///< 0x200
-};
 
 class W3DDebrisDraw
 {

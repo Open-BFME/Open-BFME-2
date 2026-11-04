@@ -71,35 +71,8 @@ private:
 };
 
 
-class Drawable
-{
-public:
-	Int getPristineBonePositions(const char *boneNamePrefix, Int startIndex,
-		Coord3D *positions, Matrix3D *transforms, Int maxBones, Int extra) const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
-class Thing
-{
-public:
-	__forceinline const Coord3D *getPosition() const
-	{
-		return &m_cachedPos;
-	}
-	__forceinline const Matrix3D *getTransformMatrix() const
-	{
-		return &m_transform;
-	}
-	void convertBonePosToWorldPos(const Coord3D *bonePos,
-		const Matrix3D *boneTransform, Coord3D *worldPos,
-		Matrix3D *worldTransform) const;
-	void setOrientation(Real angle);
-	void setPosition(const Coord3D *position);
-
-private:
-	unsigned char m_head[8];
-	Matrix3D m_transform;
-	Coord3D m_cachedPos;
-};
 
 class Player
 {

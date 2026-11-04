@@ -152,11 +152,7 @@ public:
  char unknown07c[0x250-0x7c]; SelectionContain *contain;
  char unknown254[0x274-0x254]; Object *containedBy;
 };
-class Drawable {
-public:
- char unknown000[0xfc]; Object *object;
- char unknown100[0x43c-0x100]; bool selected;
-};
+#include "../../Include/GameClient/Drawable.h"
 extern GameLogic *TheGameLogic;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
@@ -168,7 +164,7 @@ int Rva002A1EF5(Drawable *test,void *userData) {
  SelectionData *data=static_cast<SelectionData*>(userData);
  const ThingTemplate *selectedType=data->type;
  if(test) {
-  const Object *object=test->object;
+  const Object *object=test->m_object;
   if(!object)return 2;
   if(object->guardID) {
    Object *guard=TheGameLogic->findObjectByID(object->guardID);
@@ -188,7 +184,7 @@ int Rva002A1EF5(Drawable *test,void *userData) {
     if(child && child->m_template && child->m_template->isEquivalentTo(selectedType)){ equivalent=true;break; }
    }
   }
-  if(object && equivalent && object->isLocallyControlled() && !object->containedBy && !object->getDrawable()->selected && object->isMassSelectable()) {
+  if(object && equivalent && object->isLocallyControlled() && !object->containedBy && !object->getDrawable()->m_selected && object->isMassSelectable()) {
    if(TheInGameUI->getMaxSelectCount()>0 && TheInGameUI->getSelectCount()>=TheInGameUI->getMaxSelectCount()) {
     if(!TheInGameUI->getDisplayedMaxWarning()) {
      TheInGameUI->setDisplayedMaxWarning(true);

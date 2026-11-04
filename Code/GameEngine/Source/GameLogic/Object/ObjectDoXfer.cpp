@@ -161,16 +161,8 @@ public:
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class Drawable
-{
-public:
-	OBJX_SLOTS4(a) OBJX_SLOTS4(b) OBJX_SLOTS4(c)
-	virtual void slot12();
-	virtual void slot13();         // +0x34
-
-	DrawableID getID() const;
-	void setID(void *id);	// 0x00271058
-};
+class RGBColor;
+#include "../../../Include/GameClient/Drawable.h"
 
 class BodyModule
 {
@@ -335,16 +327,6 @@ public:
 	char m_data[0x4C];
 };
 
-class Thing
-{
-public:
-	virtual ~Thing();
-	void setTransformMatrix(const Matrix3D *mx);
-
-	ThingTemplate *m_template;      // +0x04
-	Matrix3D m_transform;           // +0x08
-	char m_thingPad[0x60 - 0x38];
-};
 
 class Object : public Thing, public Snapshot
 {
@@ -809,7 +791,7 @@ void Object::xfer(Xfer *xfer)
 	*xfer == m_field1AC;
 
 	if (xfer->IsLoading() && m_drawable)
-		m_drawable->slot13();
+		m_drawable->rva00271095();
 
 	if (version.m_minimum >= 2)
 		*xfer == m_field42C;

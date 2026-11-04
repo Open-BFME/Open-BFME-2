@@ -34,11 +34,7 @@ class ClientUpdateModule
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Drawable
-{
-public:
-	ClientUpdateModule *findClientUpdateModule(NameKeyType key);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 #include "../../Include/Common/ThingFactory.h"
 

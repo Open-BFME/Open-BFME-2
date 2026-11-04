@@ -74,7 +74,7 @@ public:
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
-typedef unsigned int DrawableID;
+enum DrawableID;
 
 union GameMessageArgumentType
 {
@@ -104,11 +104,7 @@ public:
 
 extern class MessageStream *TheMessageStream;
 
-class Drawable
-{
-public:
-	void rva002754E3( void );
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class ClientFrameSubsystem
 {

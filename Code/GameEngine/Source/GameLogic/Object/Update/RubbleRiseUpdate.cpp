@@ -66,16 +66,8 @@ private:
 typedef PhaseList<FXList> FXVec;
 typedef PhaseList<ObjectCreationList> OCLVec;
 Bool inList(Int value, Int count, const Int idxList[]);
-class Drawable
-{
-public:
-	__declspec(dllimport) __forceinline const Matrix3D *getInstanceMatrix() const { return &m_instance; }
-	void setInstanceMatrix(const Matrix3D *instance, Bool preservePrevious);
-
-private:
-	unsigned char m_pad000[0x1A0];
-	Matrix3D m_instance; // +0x1A0
-};
+class DamageInfo;
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 class ModelConditionFlags
 {
@@ -99,22 +91,6 @@ public:
 
 private:
 	UnsignedInt m_words[19];
-};
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	Real getOrientation() const { return m_cachedAngle; }
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-	Drawable *getDrawable() const;
-
-private:
-	void *m_vptr;
-	const void *m_template; // +0x04
-	Matrix3D m_transform; // +0x08
-	Coord3D m_cachedPos; // +0x38
-	Real m_cachedAngle; // +0x44
 };
 class Object : public Thing
 {
@@ -145,7 +121,7 @@ public:
 	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
 
 private:
-	unsigned char m_pad048[0x10C - 0x48];
+	unsigned char m_pad060[0x10C - 0x60];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254

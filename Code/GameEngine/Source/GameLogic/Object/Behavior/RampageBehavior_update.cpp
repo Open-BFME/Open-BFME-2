@@ -56,14 +56,7 @@ class ModuleData;
 class Object;
 class UpgradeTemplate;
 class AsciiString;
-class Drawable
-
-{
- public:
- void rva00274176(Bool force);
- 
-}
-;
+#include "../../../../Include/GameClient/Drawable.h"
 class RampageBehaviorModuleDataView
 
 {
@@ -137,19 +130,6 @@ class Rva0028BD3AInterface
  
 }
 ;
-class Thing
-
-{
- public:
- Drawable *getDrawable() const;
- void *m_vtable;
- const void *m_template;
- unsigned char m_pad08[0x30];
- Coord3D m_position;
- unsigned char m_pad44[4];
- 
-}
-;
 class Object : public Thing
 
 {
@@ -168,7 +148,7 @@ class Object : public Thing
  }
  const Coord3D *getPosition() const 
  {
-  return &m_position;
+  return &m_cachedPos;
   
  }
  __forceinline void clearConditionWord5Bit2()
@@ -250,7 +230,7 @@ class Object : public Thing
   
  }
  private:
- unsigned char m_pad48[0x10C - 0x48];
+ unsigned char m_pad60[0x10C - 0x60];
  UnsignedInt m_conditionWords[19];
  unsigned char m_pad158[0x254 - 0x158];
  public:

@@ -78,7 +78,7 @@ class UpgradeCenter { public:
 extern ScienceStore *TheScienceStore;
 class Rva0035B164 { public: int rva0035B164(int); };
 class Rva0028B7C1DwordField { public: int get() const; };
-class Thing { public: Drawable *getDrawable() const; };
+#include "../../../../Include/GameClient/Drawable.h"
 struct Rva0045A6D3Arg;
 #include "../../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 class CommandProductionView { public: virtual void slot0(); virtual int canQueue(const UpgradeTemplate*); };
@@ -300,11 +300,6 @@ public:
  CommandSpecialState* specialState;
  char pad258[0x1E3];
  bool singleUseUsed;
-};
-class Drawable { public:
-Object *getObject() const { return object; }
- char pad000[0xFC];
- Object* object;
 };
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

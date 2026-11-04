@@ -28,17 +28,7 @@ class Object
  
 }
 ;
-class Drawable
-
-{
- public:
- void *m_vtable;
- ThingTemplate *m_template;
- unsigned char m_pad08[0xFC - 0x08];
- Object *m_object;
- 
-}
-;
+#include "../../../Include/GameClient/Drawable.h"
 class GameMessage
 
 {

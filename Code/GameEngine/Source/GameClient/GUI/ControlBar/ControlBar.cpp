@@ -843,14 +843,7 @@ public:
 	void remove(AsciiString groupName, bool skipPending);
 };
 #include "Lib/Coord3D.h"
-class Drawable
-{
-public:
-	void setPosition(const Coord3D *loc);
-	void setIndicatorColor(int color);
-	char m_pad00[0xFC];
-	Object *m_object; // +0xFC +0xFC
-};
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../Common/Thing/thing.h"
 class ThingTemplate;
@@ -859,7 +852,6 @@ class Rva0055A88BDwordField
 public:
 	int get() const;
 };
-typedef unsigned int DrawableID;
 class RallyGameClientDispatchView
 {
 public:
@@ -2466,7 +2458,7 @@ void ControlBar::showRallyPoint(const Coord3D *loc)
 	{
 		if (m_rallyPointDrawableID != 0)
 		{
-			((RallyGameClientDispatchView *)TheGameClient)->destroyDrawable(((RallyGameClientDispatchView *)TheGameClient)->findDrawableByID(m_rallyPointDrawableID));
+			((RallyGameClientDispatchView *)TheGameClient)->destroyDrawable(((RallyGameClientDispatchView *)TheGameClient)->findDrawableByID((DrawableID)m_rallyPointDrawableID));
 			m_rallyPointDrawableID = 0;
 		}
 	}
@@ -2489,7 +2481,7 @@ void ControlBar::showRallyPoint(const Coord3D *loc)
 		}
 		else
 		{
-			marker = ((RallyGameClientDispatchView *)TheGameClient)->findDrawableByID(m_rallyPointDrawableID);
+			marker = ((RallyGameClientDispatchView *)TheGameClient)->findDrawableByID((DrawableID)m_rallyPointDrawableID);
 		}
 		if (marker)
 		{

@@ -49,35 +49,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BURNED = 11
 };
 #include "../../../GameLogic/Object/object.h"
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	const Matrix3D *getInstanceMatrix() const { return &m_instance; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's copy loses (first-copy); the call below inlines it
-	// but still emits the loser COMDAT. Rebinding there emits only this
-	// unique (trivially kept) copy. No flags touched.
-	const Matrix3D *bfme_instance_matrix() const { return &m_instance; }
-	void setInstanceMatrix(const Matrix3D *instance, Bool preservePrevious);
-	Object *getObject() { return m_object; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getObject copy loses (first-copy); the call below
-	// inlines it but still emits the loser COMDAT. Rebinding there emits only
-	// this unique (trivially kept) copy. No flags touched.
-	Object *bfme_object() { return m_object; }
-
-private:
-	// The matched caller reads this measured byte directly. Defining a local
-	// Drawable::isVisible would emit a conflicting shared COMDAT.
-	friend class SwayClientUpdate;
-	unsigned char m_pad000[0xFC];
-	Object *m_object; // +0xFC
-	unsigned char m_pad100[0x1A0 - 0x100];
-	Matrix3D m_instance; // +0x1A0
-	unsigned char m_pad1d0[0x441 - 0x1D0];
-	Bool m_isVisible; // +0x441
-};
+#include "../../../../Include/GameClient/Drawable.h"
 #include "SwayClientUpdateView.h"
 //
 // ?xfer@SwayClientUpdate@@MAEXPAVXfer@@@Z, retail 0x004C9505, 142 bytes.
@@ -213,7 +185,7 @@ void SwayClientUpdate::clientUpdate()
 	else
 	{
 		// Otherwise, only update visible drawables
-		if (!draw || !draw->m_isVisible)
+		if (!draw || !draw->m_441)
 			return;
 	}
 
@@ -225,7 +197,7 @@ void SwayClientUpdate::clientUpdate()
 	Real targetAngle = cosine * m_curAngleLimit + m_leanAngle;
 	Real deltaAngle = targetAngle - m_curAngle;
 
-	Matrix3D xfrm = *draw->bfme_instance_matrix();
+	Matrix3D xfrm = *draw->getInstanceMatrix();
 	xfrm.In_Place_Pre_Rotate_X(-deltaAngle * m_directionSin);
 	xfrm.In_Place_Pre_Rotate_Y(deltaAngle * m_directionCos);
 	draw->setInstanceMatrix(&xfrm, false);
@@ -233,7 +205,7 @@ void SwayClientUpdate::clientUpdate()
 	m_curAngle = targetAngle;
 
 	// burned things don't sway.
-	Object *obj = draw->bfme_object();
+	Object *obj = draw->getObject();
 	if (obj && (obj->testStatus(OBJECT_STATUS_BURNED) || obj->isEffectivelyDead()))
 		stopSway();
 }

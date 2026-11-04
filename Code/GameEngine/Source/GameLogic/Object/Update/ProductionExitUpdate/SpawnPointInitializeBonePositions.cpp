@@ -19,21 +19,8 @@ struct BfmeAsciiStringData
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Drawable
-{
-public:
-	int getPristineBonePositions(const char *boneNamePrefix, int startIndex,
-		Coord3D *positions, Matrix3D *transforms, int maxBones, int extra) const;
-};
+#include "../../../../../Include/GameClient/Drawable.h"
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	void convertBonePosToWorldPos(const Coord3D *bonePos,
-		const Matrix3D *boneTransform, Coord3D *worldPos,
-		Matrix3D *worldTransform) const;
-};
 
 class SpawnPointProductionExitUpdateModuleData
 {

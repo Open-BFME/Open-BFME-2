@@ -45,45 +45,35 @@ private:
 
 void *operator new(unsigned int s) throw();
 
-class Drawable
-{
-public:
-	void colorFlash(const RGBColor *peak, unsigned int decayFrames, unsigned int attackFrames, unsigned int sustainAtPeak);
-	void colorTint(const RGBColor *peak);
-private:
-	unsigned char m_pad00[0x68];
-	Rva00271826 *m_68;
-	unsigned char m_pad6C[0x114 - 0x6C];
-	int m_114;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::colorFlash(const RGBColor *peak, unsigned int decayFrames, unsigned int attackFrames, unsigned int sustainAtPeak)
 {
-	if (m_68 == 0)
-		m_68 = new Rva00271826;
+	if (m_colorTintEnvelope == 0)
+		m_colorTintEnvelope = new Rva00271826;
 	if (peak != 0) {
-		((TintEnvelope *)m_68)->play(peak, attackFrames, decayFrames, sustainAtPeak);
+		((TintEnvelope *)m_colorTintEnvelope)->play(peak, attackFrames, decayFrames, sustainAtPeak);
 	} else {
 		float white = 1.0f;
 		RGBColor whiteColor;
 		whiteColor.red = white;
 		whiteColor.green = white;
 		whiteColor.blue = white;
-		((TintEnvelope *)m_68)->play(&whiteColor, 1, 4, 1);
+		((TintEnvelope *)m_colorTintEnvelope)->play(&whiteColor, 1, 4, 1);
 	}
-	m_114 &= ~4;
+	m_status = (DrawableStatus)(m_status & ~4);
 }
 
 void Drawable::colorTint(const RGBColor *peak)
 {
 	if (peak != 0) {
 		colorFlash(peak, 0, 0, (unsigned int)-2);
-		m_114 |= 4;
+		m_status = (DrawableStatus)(m_status | 4);
 	} else {
-		if (m_68 == 0)
-			m_68 = new Rva00271826;
-		m_68->m_38 = 0;
-		m_114 &= ~4;
+		if (m_colorTintEnvelope == 0)
+			m_colorTintEnvelope = new Rva00271826;
+		m_colorTintEnvelope->m_38 = 0;
+		m_status = (DrawableStatus)(m_status & ~4);
 	}
 }
 
