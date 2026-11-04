@@ -1,4 +1,5 @@
-// cl: /MD /GX
+// cl: /MD /EHsc
+// /EHsc keeps CRT calls nonthrowing, preserving retail's EH-state updates.
 //
 // AoE special-power picker slots (the picker class whose 0x005EE816 and
 // 0x005EE8DD live in AISPecialPowerTargetAoE.cpp; retail file unknown).
@@ -45,7 +46,7 @@
 // filter (PartitionFilter::link 0x00625790), then each filter's members;
 // address-derived names after the out-of-line ctor, else after allow
 // (slot 1).
-extern "C" void *memset(void *dst, int value, unsigned int size) throw();
+#include <string.h>
 
 class Object;
 class Player;
