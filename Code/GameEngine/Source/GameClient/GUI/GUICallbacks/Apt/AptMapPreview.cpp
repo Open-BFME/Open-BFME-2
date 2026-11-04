@@ -403,31 +403,11 @@ struct Rva0057DA21Waypoint
 {
 	Coord3D pos;
 };
-#include "../../../../../../Libraries/Include/Lib/Region3D.h"
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getDescriptionFirstLine();
-	UnicodeString getDescription();		// 0x003009CD
-	UnicodeString bfme_getBaseDisplayName();	// 0x00300AEA
-
-	MapMetaData();	// 0x003031D3
-
-	UnicodeString m_displayName;	// +0x00
-	UnicodeString m_04;	// +0x04
-	Region3D m_extent;	// +0x08
-	int m_numPlayers;	// +0x20
-	bool m_isMultiplayer;	// +0x24
-	bool m_25;	// +0x25
-	bool m_isOfficial;	// +0x26
-	unsigned char m_pad27[0x38 - 0x27];
-	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
-	unsigned char m_pad44[0x50 - 0x44];
-	AsciiString m_fileName;	// +0x50
-	unsigned char m_pad54[0xf8 - 0x54];
-	UnicodeString m_f8;	// +0xF8, a second display name
-	UnicodeString m_fc;	// +0xFC, getDescription's cached text
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
+// MapMetaData +0x38 (opaque in the canonical header): the waypoint map.
+typedef _STL::map<AsciiString, Rva0057DA21Waypoint> WaypointMap;
+static inline WaypointMap &waypoints(MapMetaData *mmd)
+{ return reinterpret_cast<WaypointMap &>(mmd->field38); }
 // ZH MapCache: the map records by lower-case file name.
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
@@ -1146,8 +1126,8 @@ void AptMapPreview::UpdateMapStartSpots(MapMetaData *map)
 			for (; i < map->m_numPlayers; ++i)
 			{
 				waypointName.format("Player_%d_Start", i + 1);
-				_STL::map<AsciiString, Rva0057DA21Waypoint>::iterator it = map->m_waypoints.find(waypointName);
-				if (it != map->m_waypoints.end())
+				WaypointMap::iterator it = waypoints(map).find(waypointName);
+				if (it != waypoints(map).end())
 				{
 					positionStartSpotControls(m_currentMapChildren[i], m_currentMap, &(*it).second.pos, map, m_currentMapChildren);
 					if (m_currentMapChildren[i] != 0)
@@ -1332,7 +1312,7 @@ MapMetaData *AptMapPreview::rva0057D922(const AsciiString &map)
 	name.translate(fileName);
 	m_defaultMap->m_numPlayers = 1;
 	m_defaultMap->m_displayName = name;
-	m_defaultMap->m_f8 = name;
+	m_defaultMap->m_cachedDisplayName = name;
 	m_defaultMap->m_fileName = map;
 	return m_defaultMap;
 }
@@ -1398,7 +1378,7 @@ AptMapPreview::AptMapPreview(Rva0043DA65 *game)
 {
 	memset(m_currentMapChildren, 0, sizeof(m_currentMapChildren));
 	m_defaultMap = new MapMetaData;
-	m_defaultMap->m_04 = L"";
+	m_defaultMap->m_description = L"";
 	m_defaultMap->m_displayName = L"";
 	m_defaultMap->m_isOfficial = false;
 	m_defaultMap->m_fileName = "";
