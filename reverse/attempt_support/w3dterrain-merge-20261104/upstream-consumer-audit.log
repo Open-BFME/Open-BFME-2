@@ -1,0 +1,2 @@
+Command: ['git', 'grep', '-n', '-i', '-E', 'rva00091dc4forward|rva00092024clear', 'origin/master', '--', 'tools', '.githooks', '.github', 'Code']
+No active references (exit 1).

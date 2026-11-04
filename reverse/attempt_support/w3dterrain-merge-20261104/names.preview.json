@@ -1,0 +1,29 @@
+{
+  "inventoried": 2,
+  "proposed": 2,
+  "retained": [],
+  "questioned": {},
+  "mapping": [
+    {
+      "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp|param|Rva00091DC4::rva00091DC4|p",
+      "old": "p",
+      "new": "valueSource",
+      "proposed_by": "/root/terrain_scoped_names",
+      "proposed_name": "valueSource",
+      "reviewed_by": null
+    },
+    {
+      "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp|param|Rva00091DC4::rva00091DE3|p",
+      "old": "p",
+      "new": "objectIDSource",
+      "proposed_by": "/root/terrain_scoped_names",
+      "proposed_name": "objectIDSource",
+      "reviewed_by": null
+    }
+  ],
+  "proposal_sha256": "8262e9535acc48c237d9b2ddd7b755f04bf36d3caa86b5c805f1d2b0feca2655",
+  "sources": {},
+  "refused": {
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp": "no scoped-set entries passed planning: p is also spelled in included header reference/shims/sweep/Common/GameMemory.h (a macro); the function may mean it; p is also spelled in included header reference/shims/sweep/Common/GameMemory.h (a macro); the function may mean it"
+  }
+}

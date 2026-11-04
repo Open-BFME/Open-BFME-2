@@ -1,0 +1,4 @@
+Command: ['rg', '-n', '-i', 'rva00091dc4forward|rva00092024clear', 'tools', '.githooks', '.github', 'Code', '--glob', '!*.tu_skeleton.cpp']
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp:274:// ---- from Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp:482:// ---- from Code/GameEngine/Source/Common/Rva00092024Clear.cpp
+Only tu_skeleton historical donor comments remain; no active consumer.

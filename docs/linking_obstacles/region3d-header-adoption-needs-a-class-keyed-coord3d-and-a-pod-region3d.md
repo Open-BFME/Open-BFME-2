@@ -73,3 +73,5 @@ flip with its ledger renames, then each Zero Hour seed moving off `PreRTS.h`.
 No source or ledger changed and no census gain is claimed.
 
 2026-11-04: PathDebugOutput's queued PathNode adoption reaches the same U/V-keyed debug-streamer prerequisite; trials reverted and its 93-byte control restored. [Consumer evidence](../../reverse/attempt_support/pathnode-debug-header-20261104-codex5/readme.md).
+
+2026-11-04: W3DTerrainVisual absorbed two donors with six exact rows and passing link previews; its canonically adopted Init/update donors now expose SubsystemInterface redefinitions too. Move the seed off the Zero Hour class closure before retrying these donors. [Merge and prerequisite evidence](../../reverse/attempt_support/w3dterrain-merge-20261104/README.md).

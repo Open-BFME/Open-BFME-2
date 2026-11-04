@@ -1,0 +1,17 @@
+{
+  "method": "External positive-section COFF definitions; compare symbol-to-section-end bytes and relocation names. Uninitialized .bss is zero-filled, not read from file offset zero.",
+  "code": {
+    "before_external_definitions": 13,
+    "after_external_definitions": 13,
+    "removed": [],
+    "added": [],
+    "different_bytes_or_relocation_names": []
+  },
+  "data": {
+    "before_external_definitions": 544,
+    "after_external_definitions": 544,
+    "removed": [],
+    "added": [],
+    "different_bytes_or_relocation_names": []
+  }
+}

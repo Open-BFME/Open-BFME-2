@@ -43434,7 +43434,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0009D9FD@Rva0009D9BD@@QAEXXZ,,0x0009D9FD,43,Code/Libraries/Source/STLport/Rva0009D9BDFinish.cpp,matched,dump range 2 single-slot prologue with tail jump to rowed vector version; honest address-derived name
 ?rva0009AACF@Rva0009C134Host@@QAEXHM@Z,,0x0009AACF,44,Code/GameEngine/Source/Common/Rva0009AACFFunc.cpp,matched,
 ?rva0009A361@Rva0009A361@@QAEXH@Z,,0x0009A361,34,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp,matched,
-?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z,,0x00091DC4,31,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,matched,
+?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z,,0x00091DC4,31,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,
 ?rva000A8CC9@Rva000A8CC9@@QAEXXZ,,0x000A8CC9,28,Code/GameEngine/Source/Common/Rva000A8CC9Snap.cpp,matched,
 ?w3dAllocateString@@YAPAXPAURva000AAD88Arg@@@Z,,0x000AAD88,57,Code/GameEngine/Source/Common/w3dAllocateString.cpp,matched,
 ?rva000A9211@@YAPAXPAX@Z,,0x000A9211,45,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,matched,
@@ -53954,8 +53954,8 @@ uw_00773b7a,,0x00773B7A,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,
 ?offerItem@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z,,0x00090F88,88,Code/GameEngine/Source/Common/Rva00090F88.cpp,matched,owner offers item through virtual accept then stores or deletes it
 ?rva00090FE0@Rva00090FE0@@QAEHI@Z,,0x00090FE0,224,Code/GameEngine/Source/Common/Rva00090FE0.cpp,matched,timeGetTime elapsed units scaled by rate over divisor and 1000 with double evaluated min clamp
 ?rva00091763@Rva007E3C20Vp6Stream@@UAEHABVAsciiString@@@Z,,0x00091763,345,Code/GameEngine/Source/GameClient/Vp6StreamAudio.cpp,matched,BFME1 movie-audio setup lead575ba2b; native stream slot20 and RET4. BFME2 target manager slots25/75/81 and info smartref return; canonical136 event plus52 flag and handles5C/60. First shape exact345 with existing providers.
-?rva00091DE3@Rva00091DC4@@QAEXPAVRva00091DE3Arg@@@Z,,0x00091DE3,24,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,matched,conditional forward m_1C gate pushes arg+0x74 to rowed 0x6842B; w4-T7-H1
-?rva00091E0A@Rva00091DC4@@QAEXXZ,,0x00091E0A,15,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,matched,conditional tail forward to rowed 0x68415 via m_14; w4-T7-H1
+?rva00091DE3@Rva00091DC4@@QAEXPAVRva00091DE3Arg@@@Z,,0x00091DE3,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,conditional forward m_1C gate pushes arg+0x74 to rowed 0x6842B; w4-T7-H1
+?rva00091E0A@Rva00091DC4@@QAEXXZ,,0x00091E0A,15,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,conditional tail forward to rowed 0x68415 via m_14; w4-T7-H1
 ?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z,,0x00091E19,31,Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp,matched,W3DTerrainVisual vtable slot beside addProp; guarded forward to the rowed 0x00068073 on the plus14 render object
 ?removeTreesAndPropsForConstruction@W3DTerrainVisual@@UAEXPBUCoord3D@@ABVGeometryInfo@@M@Z,,0x00091E45,31,Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp,matched,W3DTerrainVisual vtable slot; guarded forward to the rowed 0x000680D6
 ?rva00091E64@W3DTerrainVisual@@UAEXPBUCoord3D@@PBVGeometryInfo@@M@Z,,0x00091E64,31,Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp,matched,W3DTerrainVisual vtable slot; guarded forward to the rowed 0x00068119
@@ -68881,7 +68881,7 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ?rva001D97D9@Rva001D98BD@@QAE_NXZ,,0x001D97D9,82,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,type-5 child walk predicate (self-call 0x001D97FA); leaf true for type 3 or type 2 with +0x48 bit 1; sibling of 0x001D9781
 ?Set_MeshModel_Flag@@YAXPAVRva00149FD0RenderObj@@IH@Z,,0x00149FD0,153,Code/Libraries/Source/WWVegas/WW3D2/Set_MeshModel_Flag.cpp,matched,recursive model flag set/clear over a render object tree; mesh branch via Get_Model shape 0x001499B0; address-derived
 ?Create_Decal@HLodClass@@UAEXPAVDecalGeneratorClass@@H@Z,,0x0019B9C0,87,Code/Libraries/Source/WWVegas/WW3D2/HLodSubObjectForward.cpp,matched,BFME2 two-argument Create_Decal (slot +0x1F0 of HLod table 0x007D6780) forwarded to each sub-object then released; same skeleton as rowed slot +0x1F8 0x0019BA70; int second argument (a bool spelling reorders the cached args)
-?clear@Rva00092024Block@@QAEXXZ,,0x00092024,14,Code/GameEngine/Source/Common/Rva00092024Clear.cpp,matched,zero a 0x4C-byte object via the CRT memset import; no caller; address-derived
+?clear@Rva00092024Block@@QAEXXZ,,0x00092024,14,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,zero a 0x4C-byte object via the CRT memset import; no caller; address-derived
 ?clear@?$vector@URva0017341BWords@@V?$allocator@URva0017341BWords@@@_STL@@@_STL@@QAEXXZ,,0x00173EAF,11,Code/Libraries/Source/WWVegas/WWLib/StlVectorClearRva00173EAF.cpp,matched,vendored=stlport-4.5.3; vector clear via the rowed range erase 0x00173DF8
 ?rva0010F62E@Rva0010F62E@@QAEXXZ,,0x0010F62E,192,Code/GameEngine/Source/Common/Rva0010F62EStreamCallback.cpp,matched,one-slot vftable 0x00BCFAA0; guarded Miles stream end-callback (de)registration with user data; rowed lock pair 0x0010F24F/0x0010F26E and callback 0x0010EE29; address-derived
 ?set@Rva0015DFA0FloatField@@QAEXM@Z,,0x0015DFA0,14,Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp,matched,disp8 float setter +0x1C (movss); among SegLineRendererClass setters; address-derived

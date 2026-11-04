@@ -1,40 +1,9 @@
-// cl: /Ireference/shims/bfme2ray /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2ray /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp); this unit had no counterpart under Code/.
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// FILE: W3DTerrainVisual.cpp /////////////////////////////////////////////////////////////////////
-// W3D implementation details for visual aspects of terrain
-// Author: Colin Day, April 2001
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
+// TU Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-
 #include "Common/GameState.h"
 #include "Common/GlobalData.h"
 #include "Common/PerfTimer.h"
@@ -43,15 +12,12 @@
 #include "Common/WellKnownKeys.h"
 #include "Common/TerrainTypes.h"
 #include "Common/Xfer.h"
-#include "Common/UnitTimings.h" //Contains the DO_UNIT_TIMINGS define jba.		 
+#include "Common/UnitTimings.h" //Contains the DO_UNIT_TIMINGS define jba.
 #include "Common/QuickTrig.h"
-
 #include "GameClient/Drawable.h"
 #include "GameClient/ClientRandomValue.h"
-
 #include "GameLogic/Object.h"
 #include "GameLogic/GameLogic.h"
-
 #include "coltest.h" // BFME2 RayCollisionTestClass (reference/shims/bfme2ray): out-of-line ctors as retail calls them
 #include "W3DDevice/GameClient/W3DScene.h"
 #include "W3DDevice/GameClient/W3DTerrainVisual.h"
@@ -71,8 +37,21 @@
 #include "WW3D2/ColType.h"
 #include "WW3D2/ColTest.h"
 #include "WW3D2/assetmgr.h"
+#ifdef DO_SEISMIC_SIMULATIONS
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#endif //#defined DO_SEISMIC_SIMULATIONS
+#include <string.h>
+
 // bfme link decl-only begin
 namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
+
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?_Unchecked_set@?$bitset@$0HF@@_STL@@QAEAAV12@IH@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -80,9 +59,9 @@ namespace _STL { template <> bitset<117> & bitset<117>::_Unchecked_set(unsigned 
 
 // placement unverified: no rowed DIR32 site yet; ZH asset-manager singleton starts null.
 WW3DAssetManager *WW3DAssetManager::TheInstance = 0;
+
 // placement unverified: no rowed DIR32 site yet; ZH W3D shadow singleton starts null.
 W3DShadowManager *TheW3DShadowManager = 0;
-
 
 class TestSeismicFilter : public SeismicSimulationFilterBase
 {
@@ -166,8 +145,187 @@ class TestSeismicFilter : public SeismicSimulationFilterBase
 
 
 };
+
 static TestSeismicFilter testSeismicFilter;
 
+  // end setWaterTransform
+
+// ------------------------------------------------------------------------------------------------
+/** get the water transform matrix */
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+/** water grid resolution spacing */
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+/** get water grid resolution spacing */
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+/** adjust the water grid in world coords by the delta */
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// W3DTerrainVisual::addFactionBibDrawable is BFME 2's own body, rowed at
+// 0x00092A95 in W3DTerrainVisualAddFactionBibDrawable.cpp (it copies the
+// template's GeometryInfo through the out-of-line copy ctor 0x000929E8); the
+// Zero Hour copy that stood here duplicated that definition.
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// W3DTerrainVisual::addFactionBib is rowed in W3DTerrainVisualAddFactionBibDrawable.cpp.
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// Retail 0x00091DFB, vtable slot 14 of 0x00BC80A0: BFME 2's class keeps the
+// terrain object at +0x14 and guards on the pointer at +0x1C, not the Zero
+// Hour layout this port's header declares.
+struct W3DTerrainVisualBibView
+{
+	char m_pad00[0x14];
+	BaseHeightMapRenderObjClass *m_terrain;
+	void *m_water;
+	void *m_logicHeightMap;
+};
+
+//
+// ?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z @0x00091DC4
+// 31B: conditional forward. When the dword at +0x1C is nonzero, reads the
+// rowed dword getter 0x0055A88B off the argument and forwards it to the
+// pinned 11B stub 0x00068436 on the +0x14 member. Honest address-derived
+// names; boundary verified (push esi at 0x91DC4, pop esi + ret 4 at end).
+
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+
+class Rva00068436
+{
+public:
+	void rva00068436(int v);
+};
+
+class Rva00068415
+{
+public:
+	void rva00068415();
+};
+
+class Rva0006842B
+{
+public:
+	void rva0006842B(ObjectID id);
+};
+
+class Rva00091DE3Arg
+{
+public:
+	char m_pad00[0x74];
+	int m_objectID;
+};
+
+class Rva00091DC4
+{
+public:
+	void rva00091DC4(Rva0055A88BDwordField *p);
+	void rva00091DE3(Rva00091DE3Arg *p);
+	void rva00091E0A();
+
+private:
+	char m_pad00[0x14];
+	Rva00068436 *m_14;
+	int m_18;
+	int m_1C;
+};
+
+struct Rva00092024Block
+{
+	void clear();
+
+	char m_bytes[0x4C];
+};
+
+// tu-skeleton: 0x00091AEA 445B ?init@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00091CA7 102B ?reset@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00091D0D 37B ?update@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngine/Source/Common/W3DTerrainVisual_update.cpp (not merged yet)
+
+// tu-skeleton: 0x00091D32 11B ?rva00091D32@Rva00091D32Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091D3D 36B ?getTerrainColorAt@W3DTerrainVisual@@UAEXMMPAURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091D61 81B ?rva00091D61@Rva00091D61@@QAEXPAHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00091D61Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x00091DB2 18B ?rva00091DB2@Rva00091DB2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp
+
+// ?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z
+void Rva00091DC4::rva00091DC4(Rva0055A88BDwordField *p)
+{
+	if (m_1C)
+		m_14->rva00068436(p->get());
+}
+
+// ?rva00091DE3@Rva00091DC4@@QAEXPAVRva00091DE3Arg@@@Z
+void Rva00091DC4::rva00091DE3(Rva00091DE3Arg *p)
+{
+	if (m_1C)
+		((Rva0006842B *)m_14)->rva0006842B((ObjectID)p->m_objectID);
+}
+
+// ?rva00091E0A@Rva00091DC4@@QAEXXZ
+void Rva00091DC4::rva00091E0A()
+{
+	if (m_1C)
+		((Rva00068415 *)m_14)->rva00068415();
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp
+
+// Ported verbatim from the Generals Zero Hour reference
+// (GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp); this unit had no counterpart under Code/.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: W3DTerrainVisual.cpp /////////////////////////////////////////////////////////////////////
+// W3D implementation details for visual aspects of terrain
+// Author: Colin Day, April 2001
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -189,16 +347,6 @@ static TestSeismicFilter testSeismicFilter;
 // Rva00091D0DShutdownStep.cpp; the Zero Hour copy here was a second,
 // non-retail definition.
 
-
-#ifdef DO_SEISMIC_SIMULATIONS
-
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#endif //#defined DO_SEISMIC_SIMULATIONS
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -254,55 +402,7 @@ void W3DTerrainVisual::setWaterTransform( const Matrix3D *transform )
 	if( m_waterRenderObject )
 		m_waterRenderObject->setGridTransform( transform );
 			
-}  // end setWaterTransform
-
-// ------------------------------------------------------------------------------------------------
-/** get the water transform matrix */
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-/** water grid resolution spacing */
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-/** get water grid resolution spacing */
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-/** adjust the water grid in world coords by the delta */
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// W3DTerrainVisual::addFactionBibDrawable is BFME 2's own body, rowed at
-// 0x00092A95 in W3DTerrainVisualAddFactionBibDrawable.cpp (it copies the
-// template's GeometryInfo through the out-of-line copy ctor 0x000929E8); the
-// Zero Hour copy that stood here duplicated that definition.
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// W3DTerrainVisual::addFactionBib is rowed in W3DTerrainVisualAddFactionBibDrawable.cpp.
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// Retail 0x00091DFB, vtable slot 14 of 0x00BC80A0: BFME 2's class keeps the
-// terrain object at +0x14 and guards on the pointer at +0x1C, not the Zero
-// Hour layout this port's header declares.
-struct W3DTerrainVisualBibView
-{
-	char m_pad00[0x14];
-	BaseHeightMapRenderObjClass *m_terrain;
-	void *m_water;
-	void *m_logicHeightMap;
-};
+}
 
 void W3DTerrainVisual::removeAllBibs(void)
 {
@@ -344,3 +444,129 @@ void W3DTerrainVisual::removeAllBibs(void)
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
+
+// tu-skeleton: 0x00091E19 31B ?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091E38 13B ?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091E45 31B ?removeTreesAndPropsForConstruction@W3DTerrainVisual@@UAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091E64 31B ?rva00091E64@W3DTerrainVisual@@UAEXPBUCoord3D@@PBVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091E83 90B ?rva00091E83@Rva00091E83@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091EDD 15B ?rva00091EDD@Rva00091EDDNullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091EEC 62B ?rva00091EEC@W3DTerrainVisual@@UAEXVVector3@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F2A 17B ?rva00091F2A@Rva00091F2ANullForwarder@@QAEHHH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F3B 22B ?rva00091F3B@Rva00091F3BNullForwarder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F51 17B ?rva00091F51@Rva00091F51NullForwarder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F62 17B ?rva00091F62@Rva00091F62NullForwarder@@QAE_NHH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F73 17B ?rva00091F73@Rva00091F73NullForwarder@@QAE_NH_N@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F84 17B ?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091F95 22B ?rva00091F95@Rva00091DB2@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+
+// tu-skeleton: 0x00091FAB 15B ?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00091FBA 90B ?rva00091FBA@Rva00091FBA@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x00092014 16B ?rva00092014@Rva00091A80@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksBind.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00092024Clear.cpp
+
+// Retail 0x00092024, 14 bytes (Ghidra-unlisted, after 0x00092014 and before
+// the 0x00092032 deleting-destructor thunk): zero a 0x4C-byte object through
+// the CRT memset import 0x006291AE. No caller found; owner and name are
+// address-derived.
+
+void Rva00092024Block::clear()
+{
+	memset(this, 0, sizeof(*this));
+}
+
+// tu-skeleton: 0x00092032 8B ??_ERva009203A@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
+
+// tu-skeleton: 0x0009203A 233B ??1W3DTerrainVisual@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00092123 28B ??_GRva009203A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
+
+// tu-skeleton: 0x0009213F 979B ?load@W3DTerrainVisual@@UAE_NABVAsciiString@@PAVChunkInputStream@@PAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x00092512 104B ?getTerrainTile@W3DTerrainVisual@@UAEPAVTerrainType@@MM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualGetTerrainTile.cpp (not merged yet)
+
+// tu-skeleton: 0x0009257A 306B ?addProp@W3DTerrainVisual@@UAEXPBVThingTemplate@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x000926AC 64B ?rva000926AC@W3DTerrainVisual@@UAEXABVAsciiString@@_N0@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x000926EC 269B ?xfer@W3DTerrainVisual@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000927F9 57B ??0LineSegClass@@QAE@ABVVector3@@0@Z -- matched in Code/GameEngine/Source/Common/Rva001684D6Rva00168725.cpp (not merged yet)
+
+// tu-skeleton: 0x00092832 249B ?intersectTerrain@W3DTerrainVisual@@UAE_NPAUCoord3D@@00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualIntersectTerrain.cpp (not merged yet)
+
+// tu-skeleton: 0x0009292B 96B ??0?$vector@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/System/GeometryShapeVectorCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0009298B 93B ??0?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/System/GeometryRecordVectorCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000929E8 173B ??0GeometryInfo@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00092A95 835B ?addFactionBibDrawable@W3DTerrainVisual@@UAEXPAVDrawable@@_NM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x00092DD8 717B ?addFactionBib@W3DTerrainVisual@@UAEXPAVObject@@_NM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF57 8B $L687 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF5F 10B $L765 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF69 10B $L689 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF73 10B $L690 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF7D 10B $L691 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF87 10B $L692 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF91 10B __ehhandler$?init@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FF9B 8B uw_0075ff9b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFA3 10B __ehhandler$??1W3DTerrainVisual@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFAD 10B uw_0075ffad -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFB7 10B uw_0075ffb7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFC1 8B Unwind@00b5ffc1 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFC9 10B __ehhandler$?load@W3DTerrainVisual@@UAE_NABVAsciiString@@PAVChunkInputStream@@PAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFD3 8B Unwind@00b5ffd3 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualGetTerrainTile.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFDB 10B __ehhandler$?getTerrainTile@W3DTerrainVisual@@UAEPAVTerrainType@@MM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualGetTerrainTile.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFE5 8B Unwind@00b5ffe5 -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFED 8B Unwind@00b5ffed -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFF5 10B __ehhandler$?addProp@W3DTerrainVisual@@UAEXPBVThingTemplate@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0075FFFF 8B $L5141 -- matched in Code/GameEngine/Source/Common/System/GeometryShapeVectorCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00760007 10B __ehhandler$??0?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/GameEngine/Source/Common/System/GeometryRecordVectorCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00760011 8B Unwind@00b60011 -- matched in Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00760019 11B $L5090 -- matched in Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00760024 10B __ehhandler$??0GeometryInfo@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076002E 11B $L1364 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp (not merged yet)
+
+// tu-skeleton: 0x00760039 10B __ehhandler$?addFactionBibDrawable@W3DTerrainVisual@@UAEXPAVDrawable@@_NM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp (not merged yet)

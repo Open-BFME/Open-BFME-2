@@ -1,0 +1,35 @@
+{
+  "inventoried": 2,
+  "proposed": 2,
+  "retained": [],
+  "questioned": {},
+  "mapping": [
+    {
+      "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp|param|Rva00091DC4::rva00091DC4|p",
+      "old": "p",
+      "new": "valueSource",
+      "proposed_by": "/root/terrain_scoped_names",
+      "proposed_name": "valueSource",
+      "reviewed_by": "w-608cdf7f503e"
+    },
+    {
+      "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp|param|Rva00091DC4::rva00091DE3|p",
+      "old": "p",
+      "new": "objectIDSource",
+      "proposed_by": "/root/terrain_scoped_names",
+      "proposed_name": "objectIDSource",
+      "reviewed_by": "w-608cdf7f503e"
+    }
+  ],
+  "sources": {},
+  "refused": {
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp": "no scoped-set entries passed planning: p is also spelled in included header reference/shims/sweep/Common/GameMemory.h (a macro); the function may mean it; p is also spelled in included header reference/shims/sweep/Common/GameMemory.h (a macro); the function may mean it"
+  },
+  "verification_runs": 0,
+  "failure": null,
+  "planning_seconds": 4.658912461993168,
+  "claims_seconds": 0.0,
+  "apply_verify_seconds": 0.0,
+  "landed": 0,
+  "total_seconds": 4.677
+}
