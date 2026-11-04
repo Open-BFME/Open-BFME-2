@@ -74,8 +74,9 @@ struct Rva00486CF6_P04
 // - The name in the message is template+0x64 (ThingTemplate::m_nameString,
 //   AsciiString), evaluated first like the GameLODManager debug tail.
 // - The reporting tail logs through Debug virtuals plus the matched
-//   Debug/StringBase operator<< at 0x000028E8: slot60(), 3-arg slot6C,
-//   operator<< with the template name, slot38 literal, slot4C(2). The enabled
+//   Debug/StringBase operator<< at 0x000028E8: SkipNext() (slot 0x60),
+//   CrashBegin (0x6C), operator<< with the template name, the literal through
+//   operator<<(const char *) (0x38), CrashDone(2) (0x4C). The enabled
 //   check resolves via the _bfme_debugReportingEnabled alias pin at
 //   0x000387C0; the record call reuses the established Debug::SkipNext pin
 //   at 0x00038790. Shape mirrors GameLODManagerGetAudioLODIndex.cpp.
@@ -84,41 +85,7 @@ struct Rva00486CF6_P04
 
 class ModuleData;
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class Debug
-{
-public:
-	static bool SkipNext(bool skip);
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual Debug &slot38(const char *text);
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C(int report);
-	virtual void slot50();
-	virtual void slot54();
-	virtual void slot58();
-	virtual void slot5C();
-	virtual void slot60();
-	virtual void slot64();
-	virtual void slot68();
-	virtual Debug &slot6C(int first, int second, int third);
-};
-template <typename T> Debug &operator<<(Debug &debug, const StringBase<T> &text);
-extern Debug *theDebug;
+#include "../../../Common/debug.h"
 bool _bfme_debugReportingEnabled(void);
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/Common/ThingTemplate.h"
@@ -182,9 +149,9 @@ KeepObjectDie::KeepObjectDie(Thing *thing, const ModuleData *moduleData) :
 		if (_bfme_debugReportingEnabled())
 		{
 			Debug::SkipNext(true);
-			theDebug->slot60();
-			operator<<(theDebug->slot6C(0, 0, 0),
-				*reinterpret_cast<const StringBase<char> *>(&bfmeGetTemplate(thing)->m_nameString)).slot38(": Objects with KeepObjectDie should be KindOf SELECTABLE\n").slot4C(2);
+			theDebug->SkipNext();
+			(operator<<(theDebug->CrashBegin(0, 0, 0),
+				*reinterpret_cast<const StringBase<char> *>(&bfmeGetTemplate(thing)->m_nameString)) << ": Objects with KeepObjectDie should be KindOf SELECTABLE\n").CrashDone(2);
 		}
 	}
 }

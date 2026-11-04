@@ -43,42 +43,7 @@ extern Rva0039B95FHolder *TheMissionObjectiveTracker;
 
 void __cdecl _bfme_debugRecordCallsite(int kind);
 
-class Debug
-{
-public:
-	virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3();
-	virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7();
-	virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11();
-	virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15();
-	virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19();
-	virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23();
-	virtual void f24();
-	virtual void f25(); virtual void f26();
-	virtual void *f27(int a, int b, int c);
-};
-
-extern Debug *theDebug;
-
-class LogA
-{
-public:
-	virtual void g0(); virtual void g1(); virtual void g2(); virtual void g3();
-	virtual void g4(); virtual void g5(); virtual void g6(); virtual void g7();
-	virtual void g8(); virtual void g9(); virtual void g10(); virtual void g11();
-	virtual void g12(); virtual void g13();
-	virtual void *g14(const char *s);
-};
-
-class LogB
-{
-public:
-	virtual void h0(); virtual void h1(); virtual void h2(); virtual void h3();
-	virtual void h4(); virtual void h5(); virtual void h6(); virtual void h7();
-	virtual void h8(); virtual void h9(); virtual void h10(); virtual void h11();
-	virtual void h12(); virtual void h13(); virtual void h14(); virtual void h15();
-	virtual void h16(); virtual void h17(); virtual void h18();
-	virtual void h19(int x);
-};
+#include "debug.h"
 
 struct INIExceptionBuf
 {
@@ -117,10 +82,8 @@ void MissionObjectiveTracker::ParseMapMissionObjective(INI *ini)
 	if (ini->m_08 == 5)
 		return;
 	_bfme_debugRecordCallsite(1);
-	theDebug->f24();
-	LogA *logA = (LogA *)theDebug->f27(0, 0, 0);
-	LogB *logB = (LogB *)logA->g14("A MissionObjectiveList may only appear in a map.ini file.");
-	logB->h19(1);
+	theDebug->SkipNext();
+	(theDebug->CrashBegin(0, 0, 0) << "A MissionObjectiveList may only appear in a map.ini file.").CrashDone(1);
 	INIExceptionBuf exception;
 	rva002f681_fill(&exception, 9, (const char *)0);
 	_CxxThrowException(&exception, (const _s__ThrowInfo *)&throwAnchor00426D14); __assume(0);
