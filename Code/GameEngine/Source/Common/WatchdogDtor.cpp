@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // platformsdk
 // ??1Watchdog@@UAE@XZ @0x0022576A 99B
 // Evidence: vtable 0x007E6FD8 slot implied by ctor 0x00225616 and deleting dtor 0x002257CD; BFME1 donor Code/GameEngine/Source/Common/WatchdogDestructor.cpp; callees rowed stop 0x00225716 and Mutex 0x00613A20 plus pinned clear 0x0009990D and ThreadClass dtor 0x00610480; caller is deleting dtor at 0x002257D0.
@@ -40,19 +40,7 @@ private:
 
 // Destructor-only base view: Watchdog declares its complete primary table
 // below (retail BE6FD8: deleting dtor, start, Thread_Function, reportWatchdog).
-class ThreadClass
-{
-public:
-	ThreadClass(const char *name);
-	virtual ~ThreadClass();
-	void Stop(void);
-
-private:
-	char m_name[0x40];
-	volatile unsigned int m_running;
-	volatile unsigned long m_handle;
-	int m_priority;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 class WatchdogCriticalSection
 {

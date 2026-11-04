@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 
 typedef unsigned long UnsignedInt;
 
@@ -13,20 +13,7 @@ private:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/thread.h
 // Destructor-only base view; the complete Watchdog primary table is declared
 // below from retail BE6FD8, independently of provisional base method names.
-class ThreadClass
-{
-public:
-	ThreadClass(const char *name);
-	virtual ~ThreadClass();
-	static unsigned int _Get_Current_Thread_ID();
-	void Stop(void);
-
-private:
-	char m_name[0x40];
-	volatile unsigned int m_running;
-	volatile unsigned long m_handle;
-	int m_priority;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/mutex.h
 class MutexClass
