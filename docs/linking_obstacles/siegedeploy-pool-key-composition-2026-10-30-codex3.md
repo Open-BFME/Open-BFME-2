@@ -15,3 +15,5 @@ batch audit remains INCONCLUSIVE on the older index and the missing current
 Common/0CreateAHeroManager21FE49.cpp affected-consumer receipt. Carry the source
 moves and wider provider/consumer scope into the next scheduled census.
 [Evidence, register review and compatibility audit](../../reverse/attempt_support/siegedeploy-key-consolidation-20261030-codex3.md).
+
+2026-11-04: the transfer donor is now consolidated (20 code rows preserved, one fewer source); the [current-receipt handoff](../../reverse/attempt_support/siegedeploy-transfer-batch-audit-20261104.md) records the remaining approach-point EH/view prerequisite and the unchanged wider-consumer audit boundary.
