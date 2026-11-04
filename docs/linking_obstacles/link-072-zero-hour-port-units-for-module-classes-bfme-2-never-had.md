@@ -55,6 +55,9 @@ shape outside the module tree, is recorded under LINK-065.)
   inlined `Make_Identity`, so its caller constructs a local under `/O1`, which keeps the
   constructor out of line. Both rows stay in place until their addresses get an approved
   unit. Expected at the next real link: 10 and 9 fewer unresolved names; not yet measured.
+  RailedTransportDockUpdate.cpp took the same repair, 3/3 matched: its getter needs only a
+  local layout with the +0x0C and +0x88 bases, not the class's identity, which stays open
+  for whoever names that row. Expected: 11 fewer names; not yet measured.
 - **Remaining / next check:** same test passes for SpectreGunshipUpdate,
   RailedTransportDockUpdate, DeliverPayloadAIUpdate, JetAIUpdate,
   FlightDeckBehavior, DumbProjectileBehavior, HelicopterSlowDeathUpdate and
