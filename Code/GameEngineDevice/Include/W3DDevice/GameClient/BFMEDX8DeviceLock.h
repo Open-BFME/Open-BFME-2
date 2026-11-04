@@ -5,7 +5,7 @@
 #pragma once
 
 void BFME_DX8_Thread_Lock();
-void BFME_DX8_Thread_Assert();
+bool BFME_DX8_Thread_Assert();
 
 class BFMEDX8DeviceLock
 {

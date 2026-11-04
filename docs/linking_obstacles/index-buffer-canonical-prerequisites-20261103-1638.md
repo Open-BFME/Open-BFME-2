@@ -15,3 +15,13 @@ link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/Ga
 ```
 
 [Scoped evidence and remaining work](../../reverse/attempt_support/index-buffer-batch-20261103-1638.md).
+
+#### Shared declaration prerequisite repaired, 2026-11-04
+
+The canonical guard header now declares the existing native unlock provider as
+bool, matching dx8wrapper.cpp at0x00120F50. Its6 current consumers retain125
+function/EH rows and complete non-debug sections; only the already same-address
+callee spelling changes in7 code instances. No pin or alias changes. Header
+adoption of further private guard copies is now testable. No TU merge or
+full-image link is established by this prerequisite.
+[Native scope and byte evidence](../../reverse/attempt_support/device-guard-contract-20261104-0110.md).

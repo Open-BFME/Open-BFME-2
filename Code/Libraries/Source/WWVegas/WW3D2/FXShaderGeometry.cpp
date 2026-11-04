@@ -336,7 +336,7 @@ struct BfmeFVFDescriptor {
 
 extern void BFME_DX8_Thread_Lock(void);
 
-extern void BFME_DX8_Thread_Assert(void);
+extern bool BFME_DX8_Thread_Assert(void);
 
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 

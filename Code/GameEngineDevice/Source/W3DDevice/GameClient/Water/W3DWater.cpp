@@ -131,7 +131,7 @@ template<> void allocator<TreeHintRef00217D4C>::deallocate(TreeHintRef00217D4C *
 #include "../../../../Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 class Rva0007E12F {public: void rva0007E12F();};
 void BFME_DX8_Thread_Lock();
-void BFME_DX8_Thread_Assert();
+bool BFME_DX8_Thread_Assert();
 // Native destructor EH cleanup 75F6F6 uses the existing device-lock
 // destructor 42F8C, paired with lock 11F520 and release 120F50.
 #include "../../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
