@@ -39,10 +39,7 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
@@ -66,6 +63,7 @@ public:
 
 class Rva00589079 : public UpdateModule, public Rva00589079_E1, public Rva00589079_E2
 {
+	friend class SiegeDeploySpecialPower;
 protected:
 	virtual void xfer(Xfer *xfer);
 
@@ -82,34 +80,34 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	int m_38;
-	unsigned int m_3C;
-	ObjectID m_40;
+	int m_phase;
+	unsigned int m_frame;
+	ObjectID m_dockID;
 	ObjectID m_44;
 	Coord3DBase m_48;
-	Coord3DBase m_54;
-	bool m_60;
+	Coord3DBase m_approachPoint;
+	bool m_docked;
 	char m_pad61[3];
-	Coord3DBase m_64;
-	bool m_70;
+	Coord3DBase m_dockPosition;
+	bool m_stop;
 };
 
 void SiegeDeploySpecialPower::xfer(Xfer *xfer)
 {
-	Rva00589079::xfer(xfer);
+	((Rva00589079 *)this)->Rva00589079::xfer(xfer);
 	if (xfer->IsLightCRC())
 		return;
 	Xfer::Version version(1, 2);
 	*xfer == version;
-	xfer->XferRawBytes(&m_38, 4);
-	*xfer == m_3C;
-	XferObjectID(xfer, &m_40);
+	xfer->XferRawBytes(&m_phase, 4);
+	*xfer == m_frame;
+	XferObjectID(xfer, &m_dockID);
 	XferObjectID(xfer, &m_44);
 	*xfer == m_48;
-	*xfer == m_70;
-	*xfer == m_60;
+	*xfer == m_stop;
+	*xfer == m_docked;
 	if (version.m_minimum >= 2) {
-		*xfer == m_54;
-		*xfer == m_64;
+		*xfer == (Coord3DBase &)m_approachPoint;
+		*xfer == (Coord3DBase &)m_dockPosition;
 	}
 }

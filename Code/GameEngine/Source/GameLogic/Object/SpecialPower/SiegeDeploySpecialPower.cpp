@@ -361,6 +361,8 @@ public:
     Rva004598F2Point computeApproachPoint(Object *target, Rva004598F2Point *dockPosition, bool *docked) throw();
     void rva004C5E62();
     void rva004C573C();
+protected:
+    virtual void xfer(Xfer *xfer);
 private:
     void setPhase(int state);
     const SiegeDeployModuleDataView *data() const { return (const SiegeDeployModuleDataView *)m_moduleData; }
