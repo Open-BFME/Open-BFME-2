@@ -23,13 +23,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma optimize("", on)
 
 #include <vector>
-class Rva005DBCD1 {
+class Rva005DBCD1
+{
 public:
- Rva005DBCD1();
- Rva005DBCD1(const Rva005DBCD1 &);
- Rva005DBCD1 &operator=(const Rva005DBCD1 &);
- virtual ~Rva005DBCD1();
- short m_field04, m_field06;
+	Rva005DBCD1(const Rva005DBCD1 &other);
+	Rva005DBCD1();
+	Rva005DBCD1 &operator=(const Rva005DBCD1 &);
+	virtual ~Rva005DBCD1();
+	short m_field04; // +0x04
+	short m_field06; // +0x06
 };
 // Instantiate only the served overflow member; helper COMDATs retain their
 // reference definitions and can link against the existing record constructor.

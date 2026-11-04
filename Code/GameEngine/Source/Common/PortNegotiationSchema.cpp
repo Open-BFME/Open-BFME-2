@@ -4,30 +4,90 @@
 
 // ?peekPing@PortNegotiationSchema@@QAEPAXGG@Z 0x005DB98E 46B
 // Bounds-checked 2D index into 20B elements at +0x218.
+// Retail reset 0x005DB9E4 clears 8x8 state/action tables at +0x18/+0x118;
+// ping stats occupy +0x218..+0x718. Setters 0x005DB885/0x005DB8F7 prove
+// their five dwords. peekPing/GetConnectionState retain retail's inclusive
+// bound checks; the field extents describe the tables, not those checks.
 // Evidence: callers 0x5A6D0A 0x5DB570 etc.; unblocks 8.
+class GameSlot;
+
 struct Elem005DB98E
 {
-	char m_data[20];
+public:
+	void rva005DB885(int a);
+	void rva005DB8F7(float a, float b, float c);
+	int m_00; // +0x00
+	float m_04; // +0x04
+	float m_08; // +0x08
+	float m_0C; // +0x0C
+	unsigned long m_10; // +0x10
 };
 
-#include "../../Include/GameNetwork/GameInfo.h"
+class Rva005DBE6AListener
+{
+public:
+	virtual void notify(void *, int, int);
+};
+
+struct Rva005DBDF7Call
+{
+	void (Rva005DBE6AListener::*notify)(void *, int, int);
+	void *arg;
+	int value;
+	int extra;
+};
+
+class Rva005DBE6AList
+{
+public:
+	void forEach(void (Rva005DBE6AListener::*notify)(void *, int, int), void *arg, int value, int extra);
+	void apply(const Rva005DBDF7Call &call);
+private:
+	Rva005DBE6AListener **m_begin; // +0x00
+	Rva005DBE6AListener **m_end; // +0x04
+	Rva005DBE6AListener **m_capacity; // +0x08
+	unsigned int m_index; // +0x0C
+};
 
 class PortNegotiationSchema
 {
-	char m_pad0[0x14];
-	unsigned short m_cur;
-	char m_pad0b[2];
-	int m_arr2[81];
-	char m_pad1[0x218 - 0x18 - 81 * 4];
-	Elem005DB98E m_arr[81];
-	char m_pad2[0x8b8 - 0x86c];
-	GameSlot **m_slots;
 public:
 	void* peekPing(unsigned short x, unsigned short y);
 	int GetConnectionState(unsigned short x, unsigned short y);
 	bool IsConflictingWithProceedingNegotiation(unsigned short x);
 	bool rva005DBA9C(bool flag);
+	int getTimeToSendPing(unsigned short idx);
+	int getActionID(unsigned short x, unsigned short y);
+	bool isConnectionDone(unsigned short first, unsigned short second);
+	bool isRetryConnectingOverLimit(unsigned short first, unsigned short second);
+	bool receivedAPong(unsigned short x, unsigned short y, int a);
+	bool setPingStats(unsigned short x, unsigned short y, float a, float m_pingsSent, float pongsReceived);
+	bool sentAPingPacket(unsigned short x, unsigned short y);
+	void handleNegotiationResult(unsigned short a, unsigned short b, int expected, int newVal);
+	char m_pad00[0x4];
+private:
+	Rva005DBE6AList m_list; // +0x04
+	unsigned short m_cur; // +0x14
+	char m_pad16[0x2];
+	int m_arr2[64]; // +0x18
+	int m_arr118[64]; // +0x118
+	Elem005DB98E m_arr[64]; // +0x218
+	int m_718[8]; // +0x718
+	char m_pad738[0x100];
+	unsigned short m_retries[64]; // +0x838
+	GameSlot **m_slots; // +0x8B8
 };
+
+#include "../../Include/GameNetwork/GameInfo.h"
+
+
+
+
+
+
+
+
+
 
 // ?Rva005DBD4FUninitCopy@@YAPAVRva005DBCD1@@PAV1@00ABU__false_type@_STL@@@Z @0x005DBD4F 41B null-guarded uninitialized copy
 // via placement new with rowed copy ctor 0x005DBCD1 and stride 8. Evidence: callers 0x005DC4D7 0x005DC525 push four args
@@ -104,31 +164,6 @@ public:
 };
 
 // ---- forEach 0x005DBE6A, walk 0x005DBDF7
-class Rva005DBE6AListener
-{
-public:
-	virtual void notify(void *, int, int);
-};
-
-struct Rva005DBDF7Call
-{
-	void (Rva005DBE6AListener::*notify)(void *, int, int);
-	void *arg;
-	int value;
-	int extra;
-};
-
-class Rva005DBE6AList
-{
-public:
-	void forEach(void (Rva005DBE6AListener::*notify)(void *, int, int), void *arg, int value, int extra);
-	void apply(const Rva005DBDF7Call &call);
-private:
-	Rva005DBE6AListener **m_begin; // +0x00
-	Rva005DBE6AListener **m_end; // +0x04
-	Rva005DBE6AListener **m_capacity; // +0x08
-	unsigned int m_index; // +0x0C
-};
 
 struct Tag
 {
