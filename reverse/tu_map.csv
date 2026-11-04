@@ -11111,7 +11111,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00181250,7,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
 0x00181260,488,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptor.cpp,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
 0x00181450,3,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181260..0x00181460,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
-0x00181460,33,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181260..0x00181490,Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptorVertexDeclaration.cpp
+0x00181460,33,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181260..0x00181490,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
 0x00181490,5,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181260..0x001814A0,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp
 0x001814A0,43,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181260..0x001814D0,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp
 0x001814D0,41,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181260..0x00181500,Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp
@@ -11121,8 +11121,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001816E0,3,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181580..0x001816F0,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
 0x001816F0,116,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181580..0x00181770,Code/GameEngine/Source/GameLogic/Object/Update/AngleFXInfoVectorInsertOverflow.cpp
 0x00181770,259,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181580..0x00181880,Code/GameEngine/Source/GameClient/MapUtil.cpp
-0x00181880,58,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181580..0x001818C0,Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptorVertexDeclaration.cpp
-0x001818C0,1705,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptor.cpp,Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptorVertexDeclaration.cpp
+0x00181880,58,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,C,C=0x00181580..0x001818C0,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
+0x001818C0,1705,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptor.cpp,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
 0x00181F70,66,code,,,-,,Code/Libraries/Source/WWVegas/WWMath/matrix4x4.cpp
 0x00181FC0,178,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WWMath/matrix4.cpp N=Code/Libraries/Source/WWVegas/WWMath/Matrix4x4.cpp,Code/Libraries/Source/WWVegas/WWMath/matrix4x4.cpp
 0x00182080,28,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp
@@ -65861,8 +65861,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076844B,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp
 0x00768460,8,code,,,-,,Code/GameEngine/Source/Common/P8ZeroingCtors.cpp
 0x00768468,10,code,,,-,,Code/GameEngine/Source/Common/P8ZeroingCtors.cpp
-0x00768480,8,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,P,P=0x001818C0@FuncInfo0x0090D240,Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptorVertexDeclaration.cpp
-0x00768488,10,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,P,P=0x001818C0@FuncInfo0x0090D240,Code/Libraries/Source/WWVegas/WW3D2/BfmeFVFDescriptorVertexDeclaration.cpp
+0x00768480,8,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,P,P=0x001818C0@FuncInfo0x0090D240,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
+0x00768488,10,code,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp,approved,P,P=0x001818C0@FuncInfo0x0090D240,Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp
 0x007684A0,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp
 0x007684A8,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp
 0x007684C0,8,code,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp,approved,P,P=0x00184170@FuncInfo0x0090D288,Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp

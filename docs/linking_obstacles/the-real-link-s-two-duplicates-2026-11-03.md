@@ -18,6 +18,8 @@ instantiations, and `--split` cannot carve them (`0x00181770: no definition spel
 private 256-byte `MapMetaData`/`MapCache` views at /O1. The patch and evidence are banked in
 `reverse/attempt_support/maputil-addmap-dup-20261103-lk19/`.
 
+2026-11-04: the exact 0x00181770 emitter now lives in `dx8fvf.cpp` after its verified descriptor-builder merge; MapUtil's remaining split prerequisites are unchanged ([audit](../../reverse/attempt_support/dx8fvf-merge-20261104-codexb5.md)).
+
 `@_RTC_CheckStackVars@8`: already recorded in
 `reverse/attempt_support/rtc-stack-owner-20261028-codex.md`; it needs the stack unit's ownership settled.
 
