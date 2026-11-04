@@ -22,13 +22,7 @@ extern const float g_00BDA3E4;
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	OpaqueRefElement4() : referent(0) {}
-	~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 
 inline __declspec(noinline) OpaqueRefElement4 &OpaqueRefElement4::operator=(const OpaqueRefElement4 &other)
 {

@@ -10,11 +10,7 @@
 // ??1?$vector@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAE@XZ @0x57994 (_Destroy at 0x54f94)
 // Element view matches StlportOwnedDeque.cpp (kept ??_G at 0x51B1E): 4-byte owning ref.
 #include "OpaqueRefCounted.h"
-struct OpaqueRefElement4 {
-    OpaqueRefCounted *referent;
-    ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 // The size-only view must not provide the range helper.
 namespace _STL { template <> void _Destroy<OpaqueRefElement4 *>(OpaqueRefElement4 *, OpaqueRefElement4 *); }
 template _STL::vector<OpaqueRefElement4>::~vector();

@@ -18,11 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <deque>
 #include <windows.h>
 #include "OpaqueRefCounted.h"
-struct OpaqueRefElement4 {
-    OpaqueRefCounted *referent;
-    ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 // The stock STLport iterator dispatcher remains an out-of-line call.
 namespace _STL {
 typedef _Deque_iterator<OpaqueRefElement4, _Nonconst_traits<OpaqueRefElement4> > OpaqueRefDequeIter;

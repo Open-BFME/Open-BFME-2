@@ -19,12 +19,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include "OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-    OpaqueRefCounted *referent;
-    ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 bool operator==(const OpaqueRefElement4 &a, const OpaqueRefElement4 &b);
 bool operator<(const OpaqueRefElement4 &a, const OpaqueRefElement4 &b);

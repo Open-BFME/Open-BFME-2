@@ -7,13 +7,7 @@
 
 #include "OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-    OpaqueRefCounted *referent;
-    ~OpaqueRefElement4();
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-    OpaqueRefElement4 &rva00239057(const OpaqueRefElement4 *other);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 // Select-any like MilesAudioIsMusicAlreadyLoaded.cpp's identical copy (an
 // exclusive definition would duplicate it at link time); nothing here calls
