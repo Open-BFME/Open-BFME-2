@@ -66,7 +66,7 @@ private:
 		unsigned char m_padE;
 		unsigned char m_flagF;
 		unsigned char m_pad10[8];
-		LargeNode *m_next18;
+		LargeNode *m_next;
 		LargeNode *m_prev1C;
 	};
 	struct Lock
@@ -96,7 +96,7 @@ unsigned int GeneralAllocator::rva00032C60(unsigned int size)
 	}
 	unsigned int acc = 0;
 	LargeNode *sent = &m_sentinel448;
-	for (LargeNode *node = m_sentinel448.m_next18; node != sent; node = node->m_next18)
+	for (LargeNode *node = m_sentinel448.m_next; node != sent; node = node->m_next)
 	{
 		if (node->m_flagD == 0)
 			continue;
