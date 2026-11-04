@@ -365,48 +365,26 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007ABBF6();
 	static void rva007ABFE3();
 	static void rva007ACFBB();
-	static void rva007ACFD0();
 	static void rva007ACFF5();
-	static void rva007AD024();
-	static void rva007AD039();
-	static void rva007AD04E();
-	static void rva007AD063();
-	static void rva007AD078();
-	static void rva007AD08D();
 	static void rva007AD0A2();
-	static void rva007AD0B7();
-	static void rva007AD0DC();
-	static void rva007AD0F1();
 	static void rva007AD120();
 	static void rva007AD135();
 	static void rva007AD14A();
 	static void rva007AD15F();
 	static void rva007AD174();
 	static void rva007AD189();
-	static void rva007AD19E();
-	static void rva007AD1C3();
-	static void rva007AD1D8();
-	static void rva007AD1ED();
 	static void rva007AD202();
 	static void rva007AD241();
 	static void rva007AD270();
 	static void rva007AD2EF();
 	static void rva007AD31E();
 	static void rva007AD333();
-	static void rva007AD37C();
-	static void rva007AD391();
 	static void rva007AD3B6();
 	static void rva007AD3CB();
-	static void rva007AD3FA();
-	static void rva007AD40F();
 	static void rva007AD424();
-	static void rva007AD463();
-	static void rva007AD478();
-	static void rva007AD48D();
 	static void rva007AD4CC();
 	static void rva007AD521();
 	static void rva007AD550();
-	static void rva007AD57F();
 	static void rva007AD594();
 	static void rva007AD5DD();
 	static void rva007AD60C();
@@ -414,19 +392,10 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD636();
 	static void rva007AD64B();
 	static void rva007AD660();
-	static void rva007AD675();
-	static void rva007AD68A();
 	static void rva007AD69F();
 	static void rva007AD6B4();
 	static void rva007AD6C9();
 	static void rva007AD6DE();
-	static void rva007AD703();
-	static void rva007AD718();
-	static void rva007AD72D();
-	static void rva007AD742();
-	static void rva007AD757();
-	static void rva007AD76C();
-	static void rva007AD781();
 	static void rva007AD801();
 	static void rva007AD816();
 	static void rva007AD845();
@@ -507,30 +476,10 @@ BLOCK_PARSE_INIT( rva007ABBF6, theAudioSettingsBlockParse )
 BLOCK_PARSE_INIT( rva007ABFE3, theShadowMapBlockParse )
 // ?rva007ACFBB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ACFBB (21B): "LoadSubsystem"
 BLOCK_PARSE_INIT( rva007ACFBB, theLoadSubsystemBlockParse )
-// ?rva007ACFD0@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ACFD0 (21B): "AIData"
-BLOCK_PARSE_INIT( rva007ACFD0, theAIDataBlockParse )
 // ?rva007ACFF5@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ACFF5 (21B): "Armor"
 BLOCK_PARSE_INIT( rva007ACFF5, theArmorBlockParse )
-// ?rva007AD024@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD024 (21B): "MusicTrack"
-BLOCK_PARSE_INIT( rva007AD024, theMusicTrackBlockParse )
-// ?rva007AD039@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD039 (21B): "AudioEvent"
-BLOCK_PARSE_INIT( rva007AD039, theAudioEventBlockParse )
-// ?rva007AD04E@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD04E (21B): "DialogEvent"
-BLOCK_PARSE_INIT( rva007AD04E, theDialogEventBlockParse )
-// ?rva007AD063@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD063 (21B): "AmbientStream"
-BLOCK_PARSE_INIT( rva007AD063, theAmbientStreamBlockParse )
-// ?rva007AD078@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD078 (21B): "StreamedSound"
-BLOCK_PARSE_INIT( rva007AD078, theStreamedSoundBlockParse )
-// ?rva007AD08D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD08D (21B): "Multisound"
-BLOCK_PARSE_INIT( rva007AD08D, theMultisoundBlockParse )
 // ?rva007AD0A2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD0A2 (21B): "Bridge"
 BLOCK_PARSE_INIT( rva007AD0A2, theBridgeBlockParse )
-// ?rva007AD0B7@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD0B7 (21B): "CommandButton"
-BLOCK_PARSE_INIT( rva007AD0B7, theCommandButtonBlockParse )
-// ?rva007AD0DC@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD0DC (21B): "CommandMap"
-BLOCK_PARSE_INIT( rva007AD0DC, theCommandMapBlockParse )
-// ?rva007AD0F1@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD0F1 (21B): "DebugCommandMap"
-BLOCK_PARSE_INIT( rva007AD0F1, theDebugCommandMapBlockParse )
 // ?rva007AD120@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD120 (21B): "CommandSet"
 BLOCK_PARSE_INIT( rva007AD120, theCommandSetBlockParse )
 // ?rva007AD135@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD135 (21B): "ControlBarScheme"
@@ -543,14 +492,6 @@ BLOCK_PARSE_INIT( rva007AD15F, theCrateDataBlockParse )
 BLOCK_PARSE_INIT( rva007AD174, theWindowTransitionBlockParse )
 // ?rva007AD189@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD189 (21B): "DamageFX"
 BLOCK_PARSE_INIT( rva007AD189, theDamageFXBlockParse )
-// ?rva007AD19E@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD19E (21B): "DrawGroupInfo"
-BLOCK_PARSE_INIT( rva007AD19E, theDrawGroupInfoBlockParse )
-// ?rva007AD1C3@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD1C3 (21B): "PredefinedEvaEvent"
-BLOCK_PARSE_INIT( rva007AD1C3, thePredefinedEvaEventBlockParse )
-// ?rva007AD1D8@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD1D8 (21B): "NewEvaEvent"
-BLOCK_PARSE_INIT( rva007AD1D8, theNewEvaEventBlockParse )
-// ?rva007AD1ED@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD1ED (21B): "EvaEventForwardReference"
-BLOCK_PARSE_INIT( rva007AD1ED, theEvaEventForwardReferenceBlockParse )
 // ?rva007AD202@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD202 (21B): "MiscEvaData"
 BLOCK_PARSE_INIT( rva007AD202, theMiscEvaDataBlockParse )
 // ?rva007AD241@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD241 (21B): "FXList"
@@ -563,34 +504,18 @@ BLOCK_PARSE_INIT( rva007AD2EF, theLocomotorBlockParse )
 BLOCK_PARSE_INIT( rva007AD31E, theLanguageBlockParse )
 // ?rva007AD333@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD333 (21B): "LinearCampaign"
 BLOCK_PARSE_INIT( rva007AD333, theLinearCampaignBlockParse )
-// ?rva007AD37C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD37C (21B): "MappedImage"
-BLOCK_PARSE_INIT( rva007AD37C, theMappedImageBlockParse )
-// ?rva007AD391@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD391 (21B): "MiscAudio"
-BLOCK_PARSE_INIT( rva007AD391, theMiscAudioBlockParse )
 // ?rva007AD3B6@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD3B6 (21B): "MouseCursor"
 BLOCK_PARSE_INIT( rva007AD3B6, theMouseCursorBlockParse )
 // ?rva007AD3CB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD3CB (21B): "Mouse"
 BLOCK_PARSE_INIT( rva007AD3CB, theMouseBlockParse )
-// ?rva007AD3FA@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD3FA (21B): "MultiplayerSettings"
-BLOCK_PARSE_INIT( rva007AD3FA, theMultiplayerSettingsBlockParse )
-// ?rva007AD40F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD40F (21B): "MultiplayerColor"
-BLOCK_PARSE_INIT( rva007AD40F, theMultiplayerColorBlockParse )
 // ?rva007AD424@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD424 (21B): "OnlineChatColors"
 BLOCK_PARSE_INIT( rva007AD424, theOnlineChatColorsBlockParse )
-// ?rva007AD463@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD463 (21B): "Object"
-BLOCK_PARSE_INIT( rva007AD463, theObjectBlockParse )
-// ?rva007AD478@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD478 (21B): "ObjectReskin"
-BLOCK_PARSE_INIT( rva007AD478, theObjectReskinBlockParse )
-// ?rva007AD48D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD48D (21B): "ChildObject"
-BLOCK_PARSE_INIT( rva007AD48D, theChildObjectBlockParse )
 // ?rva007AD4CC@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD4CC (21B): "ObjectCreationList"
 BLOCK_PARSE_INIT( rva007AD4CC, theObjectCreationListBlockParse )
 // ?rva007AD521@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD521 (21B): "FXParticleSystem"
 BLOCK_PARSE_INIT( rva007AD521, theFXParticleSystemBlockParse )
 // ?rva007AD550@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD550 (21B): "PlayerTemplate"
 BLOCK_PARSE_INIT( rva007AD550, thePlayerTemplateBlockParse )
-// ?rva007AD57F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD57F (21B): "Road"
-BLOCK_PARSE_INIT( rva007AD57F, theRoadBlockParse )
 // ?rva007AD594@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD594 (21B): "Science"
 BLOCK_PARSE_INIT( rva007AD594, theScienceBlockParse )
 // ?rva007AD5DD@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD5DD (21B): "Rank"
@@ -605,10 +530,6 @@ BLOCK_PARSE_INIT( rva007AD636, theTerrainBlockParse )
 BLOCK_PARSE_INIT( rva007AD64B, theWaterTextureListBlockParse )
 // ?rva007AD660@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD660 (21B): "Upgrade"
 BLOCK_PARSE_INIT( rva007AD660, theUpgradeBlockParse )
-// ?rva007AD675@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD675 (21B): "WaterSet"
-BLOCK_PARSE_INIT( rva007AD675, theWaterSetBlockParse )
-// ?rva007AD68A@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD68A (21B): "WaterTransparency"
-BLOCK_PARSE_INIT( rva007AD68A, theWaterTransparencyBlockParse )
 // ?rva007AD69F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD69F (21B): "AerialPathfindNoFlyZone"
 BLOCK_PARSE_INIT( rva007AD69F, theAerialPathfindNoFlyZoneBlockParse )
 // ?rva007AD6B4@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD6B4 (21B): "Weather"
@@ -617,20 +538,6 @@ BLOCK_PARSE_INIT( rva007AD6B4, theWeatherBlockParse )
 BLOCK_PARSE_INIT( rva007AD6C9, theWeaponBlockParse )
 // ?rva007AD6DE@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD6DE (21B): "HeaderTemplate"
 BLOCK_PARSE_INIT( rva007AD6DE, theHeaderTemplateBlockParse )
-// ?rva007AD703@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD703 (21B): "ReallyLowMHz"
-BLOCK_PARSE_INIT( rva007AD703, theReallyLowMHzBlockParse )
-// ?rva007AD718@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD718 (21B): "AudioLowMHz"
-BLOCK_PARSE_INIT( rva007AD718, theAudioLowMHzBlockParse )
-// ?rva007AD72D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD72D (21B): "BenchProfile"
-BLOCK_PARSE_INIT( rva007AD72D, theBenchProfileBlockParse )
-// ?rva007AD742@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD742 (21B): "LODPreset"
-BLOCK_PARSE_INIT( rva007AD742, theLODPresetBlockParse )
-// ?rva007AD757@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD757 (21B): "StaticGameLOD"
-BLOCK_PARSE_INIT( rva007AD757, theStaticGameLODBlockParse )
-// ?rva007AD76C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD76C (21B): "DynamicGameLOD"
-BLOCK_PARSE_INIT( rva007AD76C, theDynamicGameLODBlockParse )
-// ?rva007AD781@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD781 (21B): "AudioLOD"
-BLOCK_PARSE_INIT( rva007AD781, theAudioLODBlockParse )
 // ?rva007AD801@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD801 (21B): "ScriptAction"
 BLOCK_PARSE_INIT( rva007AD801, theScriptActionBlockParse )
 // ?rva007AD816@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD816 (21B): "ScriptCondition"
