@@ -12,7 +12,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 
-struct Rva001DF2D3Element { Rva001DF2D3Element();Rva001DF2D3Element(const Rva001DF2D3Element&);~Rva001DF2D3Element();Rva001DF2D3Element&operator=(const Rva001DF2D3Element&);char bytes[48]; bool operator<(const Rva001DF2D3Element&)const; bool operator==(const Rva001DF2D3Element&)const; };
+// Retail's operation calls these rows for its element, spelled under separate placeholder
+// names. The local element forwards to them, so the rows' own bodies run.
+struct Rva00414BDBElement { ~Rva00414BDBElement(); };
+class Rva001DE727 { public: Rva001DE727 &operator=(const Rva001DE727 &); };
+struct Rva001DF2D3Element { Rva001DF2D3Element();Rva001DF2D3Element(const Rva001DF2D3Element&);~Rva001DF2D3Element() { ((Rva00414BDBElement *)this)->Rva00414BDBElement::~Rva00414BDBElement(); }Rva001DF2D3Element&operator=(const Rva001DF2D3Element&other) { ((Rva001DE727 *)this)->operator=(*(const Rva001DE727 *)&other); return *this; }char bytes[48]; bool operator<(const Rva001DF2D3Element&)const; bool operator==(const Rva001DF2D3Element&)const; };
 
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::vector<Rva001DF2D3Element, _STL::allocator<Rva001DF2D3Element> >::_M_fill_insert(Rva001DF2D3Element *, unsigned int, Rva001DF2D3Element const &);
