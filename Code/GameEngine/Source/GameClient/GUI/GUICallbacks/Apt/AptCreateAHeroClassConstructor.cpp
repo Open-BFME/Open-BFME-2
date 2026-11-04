@@ -48,11 +48,7 @@ class AptExternHandlerAdder
 public:
 	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
 };
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 void _bfme_setAptScreenRef(const AsciiString &, AptRef<AptScreenInitGadgets>);
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
@@ -61,10 +57,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct Rva005B3676Owner
 {
 	char m_pad00[0x21C];
-	union {
-		char m_commands[0x228 - 0x21C];
-		AptCommandMapAdder m_adder;
-	};
+	AptCommandMapAdder m_adder; // +0x21C
 	char m_externs[1];
 };
 class Rva005B566B
@@ -141,7 +134,7 @@ AptCreateAHero::Class::Class(Rva005B3676Owner *owner)
 	((Rva005B566B *)this)->rva005B566B();
 	{ AsciiString name("CahClass::NumClassTypes"); ((AptExternHandlerAdder *)owner->m_externs)->AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeDelegate(this, &Class::ExternFunc))); }
 	{ AsciiString name("CahClass::NumClasses"); ((AptExternHandlerAdder *)owner->m_externs)->AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeDelegate(this, &Class::ExternFunc))); }
-	{ AsciiString name("AptCreateAHero::Class::SetClassAndType"); ((AptCommandMapAdder *)owner->m_commands)->AddCommandMap(name, AptRef<AptCommandMap>(MakeDelegate((Rva005B57C6Box *)this, &Rva005B57C6Box::Run))); }
+	{ AsciiString name("AptCreateAHero::Class::SetClassAndType"); owner->m_adder.AddCommandMap(name, AptRef<AptCommandMap>(MakeDelegate((Rva005B57C6Box *)this, &Rva005B57C6Box::Run))); }
 }
 
 // 0x005B59FD..0x005B5AAF (178 bytes, EH): WB 0x0157BFF0

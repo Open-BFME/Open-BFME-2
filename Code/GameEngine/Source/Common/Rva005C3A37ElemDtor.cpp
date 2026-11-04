@@ -36,15 +36,7 @@ struct DelegateDesc;
 class Rva00579E47 {public: Rva00579E47(const DelegateDesc &); Rva00579E47(const Rva00579E47 &); ~Rva00579E47() {if(ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);} private: void *ptr;};
 class AptCommandMap;
 template<class T> class AptRef : public Rva00579E47 {public: AptRef(DelegateDesc);};
-class AptCommandMapAdder {
-public:
- char unknown00[0xC];
-public:
- AptCommandMapAdder();
- ~AptCommandMapAdder();
- void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
- __forceinline void AddCommandMapBinding(const AsciiString &n, DelegateDesc d);
-};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class Rva005C3DE1Owner { public: virtual void unknown0(); virtual void unknown1(); virtual void finish(); };
 class Rva005C3F02;
 class Rva005C3A37Elem {
@@ -139,7 +131,7 @@ class Rva005C3D5F {public: void rva005C3D5F(const char *);};
 #include "../../Include/Common/DelegateDesc.h"
 // ?AptRef::AptRef present-unmatched (inline delegate adapter; no unique retail body)
 template<class T> __forceinline AptRef<T>::AptRef(DelegateDesc d):Rva00579E47(d) {}
-__forceinline void AptCommandMapAdder::AddCommandMapBinding(const AsciiString &asciiString,DelegateDesc d) {AddCommandMap(asciiString,d);}
+static __forceinline void AddCommandMapBinding(AptCommandMapAdder &adder,const AsciiString &asciiString,DelegateDesc d) {adder.AddCommandMap(asciiString,d);}
 class Rva000B3F84Pair {public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *); const char *ptr; int size;};
 #include "../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
@@ -157,7 +149,7 @@ Rva005C3A37Elem::Rva005C3A37Elem(Rva005C3F02 *p,void *level,void *r)
 {
  AsciiString prefix;
  prefix.format("_level%u.",unknown04);
- commands.AddCommandMapBinding(prefix+name+"_OnButtonFrameLoaded",DelegateDesc(this,&Rva005C3C0B::rva005C3C0B));
- commands.AddCommandMapBinding(prefix+name+"_OnButtonFrameUnloaded",DelegateDesc(this,&Rva005C3D5F::rva005C3D5F));
- commands.AddCommandMapBinding(prefix+name+"_OnClosed",DelegateDesc(this,&Rva005C3A37Elem::onClosed));
+ AddCommandMapBinding(commands,prefix+name+"_OnButtonFrameLoaded",DelegateDesc(this,&Rva005C3C0B::rva005C3C0B));
+ AddCommandMapBinding(commands,prefix+name+"_OnButtonFrameUnloaded",DelegateDesc(this,&Rva005C3D5F::rva005C3D5F));
+ AddCommandMapBinding(commands,prefix+name+"_OnClosed",DelegateDesc(this,&Rva005C3A37Elem::onClosed));
 }
