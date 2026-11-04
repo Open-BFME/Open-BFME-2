@@ -22,7 +22,7 @@
 // thunk 0x00425801 and scalar deleting destructor 0x00425826 tear the same
 // object down.
 #include "ascii_string.h"
-#include "Common/INIException.h"
+#include "../../../Include/Common/INI/FieldParse.h"
 
 
 extern "C" void __cdecl free(void *);
@@ -30,13 +30,6 @@ inline void *operator new(unsigned int, void *where) throw() { return where; }
 
 class INI;
 typedef void (*Parser)(INI *, void *, void *, const void *);
-struct FieldParse
-{
-	const char *token;
-	Parser parse;
-	const void *userData;
-	int offset;
-};
 #include "../../../Include/Common/INI/INI.h"
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/Common/NameKeyGenerator.h"

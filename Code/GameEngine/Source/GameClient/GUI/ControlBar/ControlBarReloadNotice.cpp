@@ -557,15 +557,8 @@ bool Rva0031DCF0::rva0031E7F0(bool *needsRestart)
 // Keep the inline restart-byte store in the unit owning that file-static byte.
 // The complete proposed TU retains exact 8B setter and 137B reload-notice bodies;
 // the new parser is exact through its complete 253B retail boundary.
-#include "Common/INIException.h"
+#include "../../../../Include/Common/INI/FieldParse.h"
 class INI;
-typedef void (*INIFieldParseProc)(INI *,void *,void *,const void *);
-struct FieldParse {
-    const char *token;
-    INIFieldParseProc parse;
-    const void *userData;
-    int offset;
-};
 class Xfer;
 enum INILoadType { INI_LOAD_OVERWRITE = 1 };
 #include "../../../../Include/Common/INI/INI.h"

@@ -16,33 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // retail tests INI type 2 and 5 and uses the ArmyIcon reload message.
 // Donor structure: sibling Rva0056BF1FParse.cpp has the same 255B parser,
 // two-table MultiIniFieldParse setup, INIException paths and vector append.
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(void *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
-
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int m_argumentCount;
-	INIException(const INIException &that);
-	~INIException();
-};
-
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *fields, unsigned extraOffset);
-
-private:
-	char m_pad[0x84];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -81,7 +55,6 @@ struct Rva004DFCB0Element
 };
 
 int Rva0056B7DEGet(void);
-typedef void (__cdecl *FieldParseFn)(void *ini, void *instance, void *store, const void *userData);
 
 // Retail VA 0x00C39498 (.rdata): the VisibleArmySizes bit names, four entries
 // directly followed by the "HERO_ONLY" literal (no separate sentinel word).
@@ -90,10 +63,10 @@ extern const char *const g_00C39498[] = { "HERO_ONLY", "SMALL", "MEDIUM", "LARGE
 // Retail VA 0x00C6D4D0 (.rdata): this object template's own field table, four
 // records and a zero sentinel, chained after the base table (Rva0056B7DEGet).
 extern const FieldParse g_00C6D4D0[] = {
-	{ "VisibleArmySizes", (FieldParseFn)&INI::parseBitString32, g_00C39498, 0x58 },
-	{ "Clickable", (FieldParseFn)&INI::parseBool, 0, 0x5C },
-	{ "DisplayAtRallyPoint", (FieldParseFn)&INI::parseBool, 0, 0x5D },
-	{ "ShowOnlyAfterMoveOrder", (FieldParseFn)&INI::parseBool, 0, 0x5E },
+	{ "VisibleArmySizes", &INI::parseBitString32, g_00C39498, 0x58 },
+	{ "Clickable", &INI::parseBool, 0, 0x5C },
+	{ "DisplayAtRallyPoint", &INI::parseBool, 0, 0x5D },
+	{ "ShowOnlyAfterMoveOrder", &INI::parseBool, 0, 0x5E },
 	{ 0, 0, 0, 0 }
 };
 

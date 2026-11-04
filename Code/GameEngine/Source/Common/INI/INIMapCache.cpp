@@ -36,7 +36,7 @@ class MapMetaData {public:MapMetaData();~MapMetaData();MapMetaData&operator=(con
 
 class INI;
 
-struct FieldParse {const char*name;void(*parse)(INI*,void*,void*,const void*);const void*user;unsigned offset;};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva00534E13 {public:Rva00534E13();~Rva00534E13();
  Region3D extent;int numPlayers;unsigned char multiplayer,scenarioMP;

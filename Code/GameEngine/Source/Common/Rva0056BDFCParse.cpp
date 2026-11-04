@@ -17,33 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class ModuleData;
 namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::allocate(size_t, const void *) const; }
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int m_argumentCount;
-	INIException(const INIException &that);
-	~INIException();
-};
-
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(void *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
-
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *fields, unsigned extraOffset);
-
-private:
-	char m_pad[0x84];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -81,12 +55,12 @@ static const char *const s_iconFadeTypeNames[] = {
 // The icon's own field table (retail 0x00C6D8F8): four visibility flags
 // and two fade types.
 extern const FieldParse g_00C6D8F8[] = {
-	{ "Clickable", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 96 },
-	{ "HideWhenUnderConstruction", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 97 },
-	{ "HideWhenNotUnderConstruction", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 98 },
-	{ "HideWhenNotProducing", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 99 },
-	{ "FadeTypeForShowing", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseIndexList, s_iconFadeTypeNames, 88 },
-	{ "FadeTypeForHiding", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseIndexList, s_iconFadeTypeNames, 92 },
+	{ "Clickable", &INI::parseBool, 0, 96 },
+	{ "HideWhenUnderConstruction", &INI::parseBool, 0, 97 },
+	{ "HideWhenNotUnderConstruction", &INI::parseBool, 0, 98 },
+	{ "HideWhenNotProducing", &INI::parseBool, 0, 99 },
+	{ "FadeTypeForShowing", &INI::parseIndexList, s_iconFadeTypeNames, 88 },
+	{ "FadeTypeForHiding", &INI::parseIndexList, s_iconFadeTypeNames, 92 },
 	{ 0, 0, 0, 0 },
 };
 

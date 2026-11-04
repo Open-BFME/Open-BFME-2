@@ -313,19 +313,11 @@ struct Rva0002D281Element {Rva0002D281Element();Rva0002D281Element(const Rva0002
 // needing the element's undefined operations and kept the unit from linking.
 template _STL::hashtable<_STL::pair<int const, Rva0002D281Element>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva0002D281Element> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva0002D281Element> > >::hashtable(unsigned int, _STL::hash<int> const &, _STL::equal_to<int> const &, _STL::allocator<_STL::pair<int const, Rva0002D281Element> > const &);
 
-class MultiIniFieldParse
-{
-public:
-	enum { MAX_MULTI_FIELDS = 16 };
-	inline int getCount() const { return m_count; }
-	inline const FieldParse *getNthFieldParse(int i) const { return m_fieldParse[i]; }
-	inline unsigned getNthExtraOffset(int i) const { return m_extraOffset[i]; }
-	MultiIniFieldParse();
-	void add(const FieldParse *fields, unsigned extraOffset);
-	const FieldParse *m_fieldParse[MAX_MULTI_FIELDS]; // +0x00
-	unsigned m_extraOffset[MAX_MULTI_FIELDS]; // +0x40
-	int m_count; // +0x80
-};
+#include "../../../Include/Common/INI/FieldParse.h"
+
+// Retail inlines these into initFromINIMulti and keeps copies at 0x0002BABA and 0x0002BAC4.
+inline const FieldParse *MultiIniFieldParse::getNthFieldParse(int i) const { return m_fieldParse[i]; }
+inline unsigned int MultiIniFieldParse::getNthExtraOffset(int i) const { return m_extraOffset[i]; }
 
 typedef void (__cdecl *BuildMultiIniFieldProc)(MultiIniFieldParse &);
 
@@ -348,16 +340,6 @@ struct LookupListRec
 {
 	const char *name;
 	int value;
-};
-
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
 };
 
 const float RADS_PER_DEGREE = 0.017453292f;
@@ -625,16 +607,6 @@ extern const char g_00BBDC80[] =
 	"\nINI ERROR:\n"
 	"===================================================================\n"
 	"%s\\%s(%d):\n";
-
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
 
 struct Rva0002CF86View
 {
@@ -1222,7 +1194,7 @@ void INI::initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList)
 							char *msg;
 							int code;
 							throw INIException(code, "%s\n\nError parsing field '%s' in block '%s' in file '%s', line %i.\n",
-								msg, field, m_curBlockStart, file, (file = rva0002BFE5().str(), msg = iNIException.mFailureMessage, code = iNIException.mErrorCode, rva0002BBDE()));
+								msg, field, m_curBlockStart, file, (file = rva0002BFE5().str(), msg = iNIException.mFailureMessage, code = iNIException.field04, rva0002BBDE()));
 						}
 						catch (...)
 						{
@@ -2198,7 +2170,7 @@ void INI::parseLine(AsciiString &filename)
 			}
 			catch (INIException &iNIException)
 			{
-				throw INIException(iNIException.mErrorCode,
+				throw INIException(iNIException.field04,
 					"%s\n\nError parsing INI block '%s' in file '%s'.",
 					iNIException.mFailureMessage, token, m_filename.str());
 			}
@@ -2391,7 +2363,7 @@ void INI::load(AsciiString filename, INILoadType loadType, Xfer *pXfer, INIBlock
 					{
 						const char *name = m_filename.str();
 						char *msg = iNIException.mFailureMessage;
-						int argCount = iNIException.mErrorCode;
+						int argCount = iNIException.field04;
 						throw INIException(argCount, "%s\n\nError parsing INI block '%s' in file '%s'.",
 							msg, token, name);
 					}
@@ -2412,7 +2384,7 @@ void INI::load(AsciiString filename, INILoadType loadType, Xfer *pXfer, INIBlock
 	}
 	catch (INIException &iNIException)
 	{
-		throw INIException(iNIException.mErrorCode, iNIException.mFailureMessage);
+		throw INIException(iNIException.field04, iNIException.mFailureMessage);
 	}
 	catch (...)
 	{

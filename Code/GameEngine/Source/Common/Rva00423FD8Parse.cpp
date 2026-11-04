@@ -14,7 +14,7 @@
 // object behind 0x00A03160 keep address-derived views. The function name stays
 // address-derived.
 #include "ascii_string.h"
-#include "Common/INIException.h"
+#include "../../Include/Common/INI/FieldParse.h"
 #include <map>
 #include <vector>
 // Bind to the kept retail copy instead of emitting this unit's own.
@@ -51,14 +51,6 @@ enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
-
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(class INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
 };
 
 #include "../../Include/Common/INI/INI.h"

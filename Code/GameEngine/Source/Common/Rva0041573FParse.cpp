@@ -8,7 +8,7 @@
 // EVA sound id was set. Evidence: target bytes and WorldBuilder twin 0x00C65490 (strings "You cannot
 // use EVA: sound overrides in CrowdResponseTemplates"), rowed callees. Container name stays
 // address-derived.
-#include "Common/INIException.h"
+#include "../../Include/Common/INI/FieldParse.h"
 #include <map>
 // Keep typed iterator comparisons local; this unit's incidental tree-base
 // comparison COMDAT differs from the selected library provider.
@@ -26,23 +26,6 @@ _Rb_tree_iterator<pair<const int, int>, _Nonconst_traits<pair<const int, int> > 
 }
 
 class INI;
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
-
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-private:
-	unsigned char m_bytes[0x84];
-};
 
 class Rva0041573F;
 #include "../../Include/Common/INI/INI.h"

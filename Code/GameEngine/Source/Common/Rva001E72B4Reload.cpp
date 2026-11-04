@@ -130,8 +130,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 }
 class ModuleData;
 class INI;
-typedef void (*INIFieldParseProc)(INI *ini,void *instance,void *store,const void *userData);
-struct FieldParse { const char *token; INIFieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 class INI {
 public:
  const char *getNextToken(const char *);
@@ -150,7 +149,6 @@ public:
  char prefix[8]; int type;
 };
 void parseCanMoveBackwards(INI *,void *,void *,const void *);
-class INIException { public: INIException(int,const char*,...); INIException(const INIException &); ~INIException(); char *message; int code; };
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

@@ -15,7 +15,7 @@
 #include "ascii_string.h"
 #include <map>
 #include <float.h>
-#include "Common/INIException.h"
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
@@ -26,8 +26,6 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 class INI;
-typedef void (*Parser)(INI*,void*,void*,const void*);
-struct FieldParse {const char* name;Parser parse;const void* data;unsigned offset;};
 #include "../../../Include/Common/INI/INI.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../../Include/Common/NameKeyGenerator.h"

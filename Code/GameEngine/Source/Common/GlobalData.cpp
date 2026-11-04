@@ -124,9 +124,7 @@ public:
  int m_loadType;
 };
 
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
-struct FieldParse { const char *token; INIFieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 class WeaponBonusSet
 {

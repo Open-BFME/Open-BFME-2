@@ -68,19 +68,8 @@ extern FreelistPool g_freelistPool00DBA5E0;
 // INI factories over 0x11C-byte data built by the rowed constructors
 // 0x0025460F and 0x002546D2 (the latter folds with RadarUpgradeModuleData's).
 class INI;
-struct FieldParse {
-    const char *name;
-    void (__cdecl *parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    unsigned int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 class ModuleData;
-
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *table, unsigned int offset);	// 0x0002BC6E
-};
 
 #include "../../Include/Common/INI/INI.h"
 

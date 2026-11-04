@@ -3,13 +3,11 @@
 #include "ascii_string.h"
 #include <map>
 class INI;
-typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 // The settings object is Rva00217497 (ctor 0x00217497, RvaSmallVtableCtors.cpp):
 // the inline ctor stores that class's vftable 0x007E5AA8 (data ledger
 // ??_7Rva00217497) and clears the count, as the rowed ctor does.
 extern "C" const void *const __identifier("??_7Rva00217497@@6B@")[];
-class INIException {public:INIException(int,const char*,...);INIException(const INIException&);~INIException();private:char *message;int count;};
 #include "../../../Include/Common/INI/INI.h"
 // Retail's one-entry table at 0x007E5B30 (VA 0x00BE5B30) passed to initFromINI:
 // "Antialiased" -> INI::parseBool (rowed 0x0002E850) at +8, then the null

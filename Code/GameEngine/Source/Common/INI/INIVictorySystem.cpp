@@ -12,7 +12,7 @@
 #include "ascii_string.h"
 struct FieldParse;
 #include "../../../Include/Common/INI/INI.h"
-struct FieldParse {const char *name;void (*parse)(INI *,void *,void *,const void *);const void *user;int offset;};
+#include "../../../Include/Common/INI/FieldParse.h"
 class VictorySystem;extern VictorySystem *TheVictorySystem;
 extern "C" const FieldParse VictorySystemFieldParse[]={
  {"CellSize",INI::parseReal,0,0x10},

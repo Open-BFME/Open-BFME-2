@@ -6,8 +6,7 @@
 // The donor mode enum independently calls value1 ADD_REMOVE_REPLACE. The existing
 // home unit supplies s_objectFieldParseTable; rowed INIException ctor and
 // INI::initFromINI preserve the target parser and exception ABI.
-#include "Common/INIException.h"
-struct FieldParse { unsigned int words[4]; };
+#include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/ThingTemplate.h"
 void ThingTemplate::parseAddModule(INI *ini,void *instance,void *,const void *)

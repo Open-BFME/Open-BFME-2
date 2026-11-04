@@ -29,7 +29,7 @@ extern "C" char s_slot3E4first;
 #include "../../Include/Common/NoCaseTreeValue4.h"
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 struct BfmeE12 { char m_d[12]; };
-struct FieldParse { const char *token; void *parse; const void *userdata; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 class FXList;
 
 // 0x0086BB18: the data ledger's all-zero empty FieldParse terminator.
@@ -65,8 +65,8 @@ void Rva002214C5Get(_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > *out)
     for (; it != last; ++it) {
         FieldParse entry;
         entry.token = it->first.str();
-        entry.parse = (void *)&Rva0022104EParse;
-        entry.userdata = *(void **)&it->second;
+        entry.parse = &Rva0022104EParse;
+        entry.userData = *(void **)&it->second;
         entry.offset = 0;
         tmp.push_back(*(const BfmeE16 *)&entry);
     }

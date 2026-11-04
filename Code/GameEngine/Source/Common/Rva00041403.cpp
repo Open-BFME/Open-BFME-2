@@ -4,7 +4,7 @@
 // register conventions come out only with the caller in the same unit, so
 // it replaces the two source-only absent-from-retail callers that stood in.
 #include <float.h>
-#include "Common/INIException.h"
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Native00041403..00041457, RET0: ECX base and EAX byte offset.
 // Checks three float words spaced72 bytes apart. A NaN in the first
@@ -63,25 +63,6 @@ static __declspec(noinline) void rva000416EC(unsigned char *base, int source,
 // MultiIniFieldParse ctor 0x0002BAA0 / add 0x0002BC6E.
 typedef float Real;
 class INI;
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
- const char *token;
- INIFieldParseProc parse;
- const void *userData;
- int offset;
-};
-
-class MultiIniFieldParse
-{
-public:
- MultiIniFieldParse();
- void add(const FieldParse *parse, unsigned int extraOffset);
-private:
- const FieldParse *m_fieldParse[16];
- unsigned int m_extraOffset[16];
- int m_count;
-};
 
 class Rva00238AB6
 {

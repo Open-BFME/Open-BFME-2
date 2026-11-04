@@ -17,33 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class ModuleData;
 namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::allocate(size_t, const void *) const; }
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int m_argumentCount;
-	INIException(const INIException &that);
-	~INIException();
-};
-
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(void *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
-
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *fields, unsigned extraOffset);
-
-private:
-	char m_pad[0x84];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI
 {
@@ -75,9 +49,9 @@ private:
 int Rva0056B7DEGet(void);
 // The plot icon's own field table (retail 0x00C6D9D8): three flags.
 extern const FieldParse g_00C6D9D8[] = {
-	{ "Clickable", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 88 },
-	{ "HideWhenOccupied", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 89 },
-	{ "HideWhenNotOccupied", (void (__cdecl *)(void *, void *, void *, const void *))&INI::parseBool, 0, 90 },
+	{ "Clickable", &INI::parseBool, 0, 88 },
+	{ "HideWhenOccupied", &INI::parseBool, 0, 89 },
+	{ "HideWhenNotOccupied", &INI::parseBool, 0, 90 },
 	{ 0, 0, 0, 0 },
 };
 
