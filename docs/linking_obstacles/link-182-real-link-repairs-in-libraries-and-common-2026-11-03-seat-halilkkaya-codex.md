@@ -2,6 +2,39 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### RTC stack.obj duplicate and Codex handoff (2026-11-04, halilkkaya-cx-o5)
+
+Base `20f35184b7`. The real link at `efbd3f2cb2` reports one LNK2005:
+`@_RTC_CheckStackVars@8`, defined in both the vendored stack.obj and
+`Code/Libraries/Source/CRT/RtcStack.cpp`.
+
+The vendored stack.obj in `vendor/msvc71crt/msvcrt.lib` defines only
+`__RTC_CheckEsp` and `@_RTC_CheckStackVars@8`. With relocations masked,
+both sections equal retail at 0x0075A5A2 and 0x0075A5C5. Their REL32
+targets are the rowed `_RTC_Failure` at 0x0075A904 and `_RTC_StackFailure`
+at 0x0075AAD6.
+
+Row 0x0075A5A2 vendors that member, so the link pulls stack.obj in, and
+stack.obj's second definition collides with RtcStack.cpp's.
+
+Every route to a single provider is closed:
+
+- **Vendor 0x0075A5C5 as well.** `conversion_gate.py` Rule B refuses it.
+  A staged probe printed "was clean C++ at ... RtcStack.cpp, repointed to
+  vendor/msvc71crt/msvcrt.lib", exited 1, and was reverted.
+- **Move `__RTC_CheckEsp` into RtcStack.cpp.** It consumes the caller's ZF,
+  so it would need a naked or `__asm` body, which Rule A refuses.
+- **Restore the `ecbefd2e35` MASM owner.** The gates allow it. But neither
+  RVA has an approved TU, and it would create a one-function file. This
+  waits for an owner or maintainer exception.
+
+The handoff has the evidence and a patch for the MASM restoration that
+applies cleanly to this base. The same directory records the
+ProductionPrerequisite freeBytes prerequisite: rows 0x004EE1E2/0x004EE20B
+call the PerTurnStats copy constructor 0x004EE1A9, and their approved TU is
+LivingWorldScoreKeeper.cpp.
+[Handoff](../../reverse/attempt_support/real-link-codex-efb5fcbb60-20261104/README.md).
+
 ### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
 
 After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the

@@ -1,0 +1,109 @@
+diff --git a/Code/masm_dumps/RTC_CheckEsp.asm b/Code/masm_dumps/RTC_CheckEsp.asm
+new file mode 100644
+index 0000000000..17f343e0ef
+--- /dev/null
++++ b/Code/masm_dumps/RTC_CheckEsp.asm
+@@ -0,0 +1,40 @@
++.386
++.model flat
++
++; Native stack.obj compiler machinery, retail 0x0075A5A2..0x0075A5C5.
++; The caller's ZF is the input: an ordinary C++ prologue cannot implement
++; this entry contract. The failure path also preserves live EAX and EDX.
++; It remains assembly and receives zero C++ credit. The ordinary fastcall
++; guard-checking sibling is recovered in CRT/RtcStack.cpp.
++EXTERN ?_RTC_Failure@@YAXPAXH@Z:PROC
++
++_TEXT SEGMENT
++public __RTC_CheckEsp
++__RTC_CheckEsp PROC
++    jne bad_stack
++    ret
++bad_stack:
++    push ebp
++    mov ebp,esp
++    sub esp,0
++    push eax
++    push edx
++    push ebx
++    push esi
++    push edi
++    push 0
++    push DWORD PTR [ebp+4]
++    call ?_RTC_Failure@@YAXPAXH@Z
++    pop ecx
++    pop ecx
++    pop edi
++    pop esi
++    pop ebx
++    pop edx
++    pop eax
++    mov esp,ebp
++    pop ebp
++    ret
++__RTC_CheckEsp ENDP
++_TEXT ENDS
++END
+diff --git a/reverse/functions.csv b/reverse/functions.csv
+index 3b797430b4..7dfca803e9 100644
+--- a/reverse/functions.csv
++++ b/reverse/functions.csv
+@@ -87930,7 +87930,7 @@ _ji_00629ef4@20,,0x00629EF4,6,Code/GameEngineDevice/Source/MilesAudioDevice/Mile
+ ?absForwarder@@YAHH@Z,,0x00001158,5,Code/Libraries/Source/CRT/AbsImportForwarder.cpp,matched,Retail E9 tail jump to named MSVCR71 abs import thunk 0062909A; cdecl int(int) matches bundled CRT stdlib.h; descriptive wrapper name inferred; existing _abs pin resolves exact target; no generated target alias or new pin
+ __chkstk,,0x00629000,61,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=build\intel\dll_obj\chkstk.obj;whole 61-byte Microsoft CRT stack probe exact with zero relocations;archive also exports __alloca_probe at same offset;replaces retired naked byte spray
+ __EH_prolog,,0x00629188,31,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=build\intel\dll_obj\ehprolog.obj;whole 31-byte CRT compiler EH frame helper exact with zero relocations;replaces hand-authored MASM owner
+-__RTC_CheckEsp,,0x0075A5A2,35,vendor/msvc71crt/msvcrt.lib,matched,vendored=msvc71-crt;member=..\build\intel\dll_obj\stack.obj;bytes equal retail with every relocation site masked;stack.obj sibling of _RTC_CheckStackVars;replaces hand-authored Code/masm_dumps/RTC_CheckEsp.asm
++__RTC_CheckEsp,,0x0075A5A2,35,Code/masm_dumps/RTC_CheckEsp.asm,matched,Restored compiler-machinery owner from ecbefd2e35; native35B consumes caller ZF and preserves registers; removes incidental archive checker provider while retaining clean C++ RtcStack; whole bytes and REL32 verified
+ ?get_allocator@?$vector@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QBE?AV?$allocator@UBfmeStringRecord002CF5B1@@@2@XZ,,0x0021983A,7,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteRecVectorCopy.cpp,matched,Typed string-record allocator getter reached by native2CFE45; whole7B ICF twin with identical relocations; no unique byte gain
+ ??0?$_Vector_base@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmeStringRecord002CF5B1@@@1@@Z,,0x005C8C37,60,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteRecVectorCopy.cpp,matched,Typed12B string-record count-base reached by native2CFE45; whole60B ICF twin including allocator call; no unique byte gain
+ ??0?$vector@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x002CFE45,96,Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteRecVectorCopy.cpp,matched,Scoped identity correction: copy uses string-bearing worker4F5097 via Construct2CF99D and record copy2CF5B1; original application identity unknown; complete96B and EH graph exact; evidence reverse/attempt_support/prereq-copy-provider-20261023-bce2/typed-reconciliation.md
+diff --git a/vendor/msvc71crt/PROVENANCE.txt b/vendor/msvc71crt/PROVENANCE.txt
+index 4bc342fb98..adfecb95a3 100644
+--- a/vendor/msvc71crt/PROVENANCE.txt
++++ b/vendor/msvc71crt/PROVENANCE.txt
+@@ -28,22 +28,26 @@ committing a 2.9 MB library for, and it is left unclaimed.
+ 
+ Region
+ ------
+-Seventeen rows across fifteen archive members, in two clusters. Sixteen sit in
+-the startup helper block at RVA 0x00628FA4-0x00629A2A: the stack probe, the
+-SEH and EH frame helpers, the eh-vector iterators, type_info's deleting
+-destructor, __ftol2 and the 64-bit arithmetic helpers. One, __RTC_CheckEsp at
+-0x0075A5A2 (stack.obj), sits in the /RTC block. The other /RTC and PDB-lookup
+-bodies there are hand-written C++ under Code/Libraries/Source/CRT/, and they
+-stay C++: tools/conversion_gate.py refuses to move a clean C++ row into an
+-archive. Each row names the member its bytes come from, and ./build.sh
+-extracts that member and byte-compares it against retail like any other row.
++Sixteen rows across fourteen archive members sit in the startup helper block
++at RVA 0x00628FA4-0x00629A2A. The RTC compiler helpers are independently
++recovered under Code/: the ordinary fastcall checker remains clean C++ in
++Code/Libraries/Source/CRT/RtcStack.cpp, and the caller-ZF-consuming
++__RTC_CheckEsp is assembly in Code/masm_dumps/RTC_CheckEsp.asm. Including
++stack.obj for the latter also imports a second strong _RTC_CheckStackVars
++provider. Restoring the proven assembly owner keeps exactly one provider for
++each function without moving any recovered C++ into this archive.
++
++The archive itself remains pristine. Each remaining library row names the
++member its bytes come from, and ./build.sh extracts and byte-compares it as
++before. The restored 35-byte assembly body and its native _RTC_Failure
++relocation are independently verified.
+ 
+ How the addresses were decided
+ ------------------------------
+ Each member's COMDATs were carved, every relocation site masked, and .text
+ searched for what was left. ./build.sh then checks the whole row extent
+ against retail. Ghidra's function sizes are a second opinion, and they agree
+-for only eleven of the seventeen rows:
++for only eleven of the sixteen rows:
+ 
+   11 rows   Ghidra size equals the row size (the arithmetic helpers,
+             __SEH_prolog/__SEH_epilog, __ftol2, __chkstk, __EH_prolog).
+@@ -52,7 +56,7 @@ for only eleven of the seventeen rows:
+             `eh vector destructor iterator' (72 of 96) and
+             `eh vector constructor iterator' (74 of 98). The archive section
+             proves the longer extent.
+-   1 row    __RTC_CheckEsp: Ghidra has 3 bytes (jne/ret) and stops at the
++   Retired archive placement, __RTC_CheckEsp: Ghidra has 3 bytes (jne/ret) and stops at the
+             failure path. In stack.obj, __RTC_CheckEsp owns a 35-byte .text
+             section of its own with one relocation, and the local label
+             $esperror$18538 is at offset 3 of it. Retail

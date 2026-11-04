@@ -1,0 +1,12 @@
+commit	required_followup	source	artifact_symbol
+7f23e9a258		GameEngine/Source/Common/BfmeConv881O1.cpp	??1Gen_t_009d80b0_p12cd@@QAE@XZ
+7f23e9a258		GameEngine/Source/Common/BfmeConv881O1.cpp	??1Gen_t_009d8120_p12cd@@QAE@XZ
+18bcf5e8af		GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp	??0Elem003AF9E0@@QAE@ABU0@@Z
+18bcf5e8af		GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp	??4Elem003B2540@@QAEAAU0@ABU0@@Z
+28d8504725		GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp	??1UnitRevivalTracker@@UAE@XZ
+3fde5041ac		GameEngine/Source/Common/Rva003C2F40TreeCtor.cpp	??1Rva003C2F40Base@@UAE@XZ
+31a31e6079		GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??M@YA_NABUcrateCreationEntry@@0@Z
+f0b43e499c		GameEngine/Source/Common/System/SaveGame/AerialPathfinder.cpp	??1Rva0022C987Base@@UAE@XZ
+78126bb907		Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DE3E3.cpp	??1Rva001DE3E3Record@@QAE@XZ
+78126bb907		Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DE3E3.cpp	??0Rva001DE3E3Record@@QAE@ABU0@@Z
+ec9762d9dd	1fbd44eddc	Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	??MRva0016DEC0Element@@QBE_NABU0@@Z
