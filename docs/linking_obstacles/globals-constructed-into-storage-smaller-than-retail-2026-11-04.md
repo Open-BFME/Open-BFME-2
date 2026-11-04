@@ -31,6 +31,17 @@ a gap of 12 and holds a 4-byte `UnicodeString`: it needs nothing, and retyping i
 **Done, data-rowed names, as arrays:** `g_Va00E065EC`, `g_Va00DF2984`, `g_Va00E06620`, `g_Va00DEBC64`,
 `g_Va00E06360`, `g_Va00E08D48`, `g_Va00E0631C`.
 
+**Found by `constructed_undersized` and read against retail's constructor, 2026-11-04:**
+
+- `g_aptDateInterpreter`: 12 bytes, and retail's constructor at 0x006FE980 zeroes words out to +0x3C. Sized to the 72-byte
+  gap in `AptDate.cpp`, which has no other member names to give it.
+- `g_registryAtE02E88`, `g_00E04424`, `g_00E044F0`: 1-byte `Rva002B7250`, and constructor 0x003818F4's base 0x00330757 writes
+  +0xC. Each now has 16 bytes through a storage member in the class that defines it.
+- `g_00E06734`, `g_00E06748` (20) and `g_Va00E06710` (12): arrays, as above.
+
+The array and storage sizes are the ledger's gap, an upper bound. Each constructor's writes reach at least the last word of
+that size except `g_aptDateInterpreter`, whose last proven write is +0x3C.
+
 **Done, in `Rva007ABD4BGeometryInits.cpp` and `Rva007B401CButtonNameInits.cpp`:** the names those files construct.
 
 **Done, all in `Rva007B6880Thunks.cpp`:** seven filter objects (`g_Va00DEC018`, `g_Va00DEC080`, `g_Va00DEC0E0`, `g_Va00DEC140`,
@@ -48,6 +59,7 @@ and `g_Va00DEDC80`.
 - `g_Va00E02FF8` (gap 20): has a data row, so it needs the array form, and `BfmeConv1292DeferredWalkers.cpp` names it. That
   file is frozen (`PointerSJATable::_M_bkt_num_key` and `::_M_delete_node` have no rows), so remedy those first.
 - `g_Va00DE1D00` and `g_Va00DE1D60` (gap 96), and `g_00E02EAC` (ours 16, gap 20).
+- `g_00DFE7A8`: 4 bytes of extent, gap 8, rowed as a byte with many readers, and constructed through `Rva0023DBF9`. Not yet read.
 
 The measured figures predate these repairs. `constructed_undersized` in the next real link's `image_report.json` gives
 the current count; the source pattern only sees direct construction, so it can miss others.
