@@ -55,7 +55,13 @@ template <> void **vector<void*>::end();
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct Rva0041EFE0Element { char bytes[1]; bool operator<(const Rva0041EFE0Element &) const; bool operator==(const Rva0041EFE0Element &) const; };
+struct Rva0041EFE0Element
+{
+public:
+	bool operator<(const Rva0041EFE0Element&)const;
+	bool operator==(const Rva0041EFE0Element&)const;
+	char bytes[1]; // +0x00
+};
 namespace _STL { template<> struct hash<Rva0041EFE0Element> { unsigned operator()(const Rva0041EFE0Element &) const; }; }
 
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
