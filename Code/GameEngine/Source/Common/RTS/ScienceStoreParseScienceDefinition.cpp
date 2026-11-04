@@ -130,16 +130,31 @@ class Rva001FFEE9
 {
 public:
 	Rva001FFEE9 &operator=(const Rva001FFEE9 &that);
+	char m_pad00[0x10];
+private:
+	int m_10; // +0x10
+	UnicodeString m_14; // +0x14
+	UnicodeString m_18; // +0x18
+	char m_1C[4]; // +0x1C
+	char m_pad20[0x8];
+	int m_28; // +0x28
+	int m_2C; // +0x2C
+	unsigned char m_30; // +0x30
+	char m_pad31[0x3];
 };
 
 class CreateAHeroData;
+class ModuleData;
 class Rva001FFA5A
 {
 public:
 	void rva001FFA5A(CreateAHeroData *val);
+	char m_pad00[0xC];
+private:
+	_STL::vector<CreateAHeroData *> m_vec0C; // +0x0C
+	_STL::vector<const ModuleData *> m_vec18; // +0x18
 };
 
-class ModuleData;
 
 class ScienceStore
 {
