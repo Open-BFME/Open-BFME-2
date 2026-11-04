@@ -147,13 +147,7 @@ private:
 };
 extern GameLogic *TheGameLogic;
 
-class WeaponTemplate
-{
-public:
-	unsigned char m_pad00[0x78];
-	int m_bfmeDelay78; // +0x78
-	int m_bfmeDuration7C; // +0x7C
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class Object;
 #include "../../../Include/GameLogic/Weapon.h"
@@ -579,9 +573,9 @@ StateReturnType AIWaitUntilFinishedFiringState::onEnter()
 			return STATE_CONTINUE;
 		return STATE_SUCCESS;
 	}
-	if (weapon->getTemplate()->m_bfmeDelay78 >= 0)
+	if (weapon->getTemplate()->m_idleAfterFiringDelay >= 0)
 		obj->setWeaponLock(weapon->getWeaponSlot(), LOCKED_TEMPORARILY);
-	int duration = weapon->getTemplate()->m_bfmeDuration7C;
+	int duration = weapon->getTemplate()->m_field7C;
 	if (duration > 0)
 		obj->setDisabledUntil(DISABLED_BFME_8, TheGameLogic->getFrame() + duration);
 	return STATE_CONTINUE;
@@ -592,7 +586,7 @@ StateReturnType AIWaitUntilFinishedFiringState::update()
 	const Weapon *weapon = getMachineOwner()->getCurrentWeapon();
 	if (!weapon)
 		return STATE_FAILURE;
-	int delay = weapon->getTemplate()->m_bfmeDelay78;
+	int delay = weapon->getTemplate()->m_idleAfterFiringDelay;
 	if (delay >= 0)
 	{
 		if (weapon->m_unknown2C + delay > TheGameLogic->getFrame())
@@ -600,7 +594,7 @@ StateReturnType AIWaitUntilFinishedFiringState::update()
 	}
 	if (weapon->getStatus() == WEAPON_STATUS_BFME_5)
 		return STATE_CONTINUE;
-	if (weapon->getTemplate()->m_bfmeDelay78 < 0)
+	if (weapon->getTemplate()->m_idleAfterFiringDelay < 0)
 		return STATE_SUCCESS;
 	return STATE_FAILURE;
 }
