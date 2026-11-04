@@ -1,7 +1,7 @@
 # HordeAIUpdate header adoption
 
-This handoff uses LINK-231. Concurrent publications occupied LINK-226 and
-LINK-227; the original attempt log's LINK-226 reference is superseded by LINK-231.
+This handoff uses LINK-233. Concurrent publications occupied LINK-226,
+LINK-227 and LINK-231; the original attempt log's LINK-226 reference is superseded by LINK-233.
 
 2026-11-04, codexb; source base `370febb6d2`, prediction index
 `a62ac1c10b` (2026-11-04 07:28).
