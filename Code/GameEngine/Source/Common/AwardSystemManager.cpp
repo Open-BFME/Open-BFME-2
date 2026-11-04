@@ -540,6 +540,14 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16*, size_t);
 }
 
+struct Rva0040AFF3
+{
+	~Rva0040AFF3();
+	unsigned char m_data[0x68];
+};
+
+// ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
+
 // ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
 
 // stlport46
@@ -1052,6 +1060,20 @@ Rva0040B6D4::Rva0040B6D4()
 {
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0040B17BConstruct.cpp
+
+// stlport46
+// Retail 0x0040B17B (45B): STLport _Construct<Rva0040AF66,Rva0040AF66>.
+// Native vector overflow/push-back calls target this copy-construction body.
+// Element stride 0x68 is proven by those callers; source identity follows
+// their existing STLport specialization and the generic placement-new body.
+// Evidence: calls rowed copy ctor 0x0040AF66; EH prolog with state 0; null check on dst; callers 0x0040B1DB 0x0040B206 stride 0x68; same 45B shape as rowed 0x0040B14E.
+
+template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, const Rva0040AF66 &__val)
+{
+	new (__p) Rva0040AF66(__val);
+}
+
 // tu-skeleton: 0x0040AAD5 35B ?rva0040AAD5@Rva0040AAD5@@QAEPAUBfmePod40@@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x0040AC58 57B ??$__lower_bound@PAHHU?$less@H@_STL@@H@_STL@@YAPAHPAH0ABHU?$less@H@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
@@ -1082,25 +1104,19 @@ Rva0040B6D4::Rva0040B6D4()
 
 // tu-skeleton: 0x0040B14E 45B ??$_Construct@UBfmeRecord0040B61A@@U1@@_STL@@YAXPAUBfmeRecord0040B61A@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva0040B17BConstruct.cpp
-
-// stlport46
-// Retail 0x0040B17B (45B): STLport _Construct<Rva0040AF66,Rva0040AF66>.
-// Native vector overflow/push-back calls target this copy-construction body.
-// Element stride 0x68 is proven by those callers; source identity follows
-// their existing STLport specialization and the generic placement-new body.
-// Evidence: calls rowed copy ctor 0x0040AF66; EH prolog with state 0; null check on dst; callers 0x0040B1DB 0x0040B206 stride 0x68; same 45B shape as rowed 0x0040B14E.
-
-template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, const Rva0040AF66 &__val)
-{
-	new (__p) Rva0040AF66(__val);
-}
-
 // tu-skeleton: 0x0040B247 45B ??$__insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
 
 // tu-skeleton: 0x0040B274 81B ??$__partial_sort@PAHHU?$less@H@_STL@@@_STL@@YAXPAH000U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x0040B2E1 28B ??_GRva0040AFF3@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp
+
+// ??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z @ 0x0040B547 (25B). Range destroy stride 0x68 via rowed dtor.
+// Evidence: retail loop calls rowed ??1Rva0040AFF3@@QAE@XZ 0x0040AFF3 with add esi 0x68; callers 0x0040B59F 0x0040B5FC vector dtors; same 25B shape as rowed 0x0040B52E.
+
+template <> void _STL::_Destroy<Rva0040AFF3 *>(Rva0040AFF3 *__first, Rva0040AFF3 *__last)
+{
+	_STL::__destroy(__first, __last, (Rva0040AFF3 *)0);
+}
 
 // tu-skeleton: 0x0040B2FD 38B ??$__uninitialized_copy@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0040B2FDUninitCopy.cpp (not merged yet)
 
@@ -1119,8 +1135,6 @@ template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, co
 // tu-skeleton: 0x0040B43B 123B ??$__introsort_loop@PAHHHU?$less@H@_STL@@@_STL@@YAXPAH00HU?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
 
 // tu-skeleton: 0x0040B4B6 67B ??$sort@PAH@_STL@@YAXPAH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0040B547 25B ??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp (not merged yet)
 
 // tu-skeleton: 0x0040B560 63B ??1Rva0040B560@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 

@@ -29245,7 +29245,7 @@ _CpuProbe_Sse2Executes,,0x001D5540,126,Code/Libraries/Source/VP6/CpuProbeSse2.cp
 ??1Rva0022D1DF@@QAE@XZ,,0x0022D1DF,53,Code/GameEngine/Source/Common/Rva0022D1DFDtor.cpp,matched,chain dtor via rowed 0x0022D01B plus releaseBuffer same EH shape as 0x0022CFE6
 ?rva0005CE32@Rva0005CE32@@QAEXABVAsciiString@@@Z,,0x0005CE32,65,Code/GameEngine/Source/Common/System/Rva0005CE32Method.cpp,matched,erase via AsciiStringSet row float eq global fill 48B at 0x188
 ?Rva003BF9C8Do@ScriptActions@@QAEXABVAsciiString@@@Z,,0x003BF9C8,50,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF9C8.cpp,matched,chain via rva003570D1 handler forward caller 0x003CB896; receiver repair: dispatcher3CA4BE restores ScriptActions this in ECX; RET alone did not prove stdcall; canonical header retains parameter contract
-??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z,,0x0040B547,25,Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp,matched,range destroy stride 0x68 via rowed Rva0040AFF3 dtor
+??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z,,0x0040B547,25,Code/GameEngine/Source/Common/AwardSystemManager.cpp,matched,range destroy stride 0x68 via rowed Rva0040AFF3 dtor
 ?xfer@Rva004F599E@@MAEXPAVXfer@@@Z,,0x004F59B2,91,Code/GameEngine/Source/Common/Rva004F599EXfer.cpp,matched,vslot lane slot 3 vtable 0x00863254 Version1 plus int21 arrays via Xfer slot 0x7C
 ?rva00211589@Rva00211589@@QAEXXZ,,0x00211589,60,Code/GameEngine/Source/GameClient/System/Rva00211589Loop.cpp,matched,single vector loop via barrier like 0x00206100
 ?rva0022DB72@Rva0022DB72@@QAEXPAX@Z,,0x0022DB72,28,Code/GameEngine/Source/Common/Rva0022DB72Free.cpp,matched,chain node delete via rowed 0x0022D1DF plus free caller 0x0022DD3A
@@ -31843,7 +31843,7 @@ _GetThisFrameReconPtr,,0x001B6330,11,Code/Libraries/Source/VP6/PbAccessors.cpp,m
 ??_GRva00414BDBElement@@QAEPAXI@Z,,0x001DE6C5,28,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva00414BDB.cpp,matched,unique masked-byte placement (locate.py sweep)
 ??$__destroy_aux@PAURva00414BDBElement@@@_STL@@YAXPAURva00414BDBElement@@0ABU__false_type@0@@Z,,0x001DEEE0,25,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva00414BDB.cpp,matched,unique masked-byte placement (locate.py sweep)
 ??_G?$vector@URva002BB6BE20Rec@@V?$allocator@URva002BB6BE20Rec@@@_STL@@@_STL@@QAEPAXI@Z,,0x002BBD31,28,Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_member20_2bb6be.cpp,matched,unique masked-byte placement (locate.py sweep)
-??_GRva0040AFF3@@QAEPAXI@Z,,0x0040B2E1,28,Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp,matched,unique masked-byte placement (locate.py sweep)
+??_GRva0040AFF3@@QAEPAXI@Z,,0x0040B2E1,28,Code/GameEngine/Source/Common/AwardSystemManager.cpp,matched,unique masked-byte placement (locate.py sweep)
 ??$sort@PAHVRva005E4300Cmp@@@_STL@@YAXPAH0VRva005E4300Cmp@@@Z,,0x005E52BA,67,Code/Libraries/Source/WWVegas/WWLib/stlport_int_sort_rva005E4300.cpp,matched,unique masked-byte placement (locate.py sweep); owner ABI repaired from native stateful5E4300 context and Populate5E52FD caller
 ??_GBuddyMessage@@QAEPAXI@Z,,0x00382B63,28,Code/Libraries/Source/WWVegas/WWLib/stlport_list_buddymessage_erase.cpp,matched,unique masked-byte placement (locate.py sweep)
 ??0?$list@FV?$allocator@F@_STL@@@_STL@@QAE@ABV01@@Z,,0x00594689,88,Code/Libraries/Source/WWVegas/WWLib/stlport_list_s_o1.cpp,matched,unique masked-byte placement (locate.py sweep)
