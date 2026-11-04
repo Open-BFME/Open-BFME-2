@@ -1,0 +1,5 @@
+  PASS Code/GameEngine/Source/Common/ArmySummaryGetEntry.cpp
+  PASS Code/GameEngine/Source/Common/VslotSmallBodiesAD_Rva00349D02.cpp
+  PASS Code/GameEngine/Source/GameLogic/System/ArmySummarySystemWalkOn.cpp
+  PASS Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp
+  retired 4 row(s) from reverse/header_queue.tsv; commit it with the adoption

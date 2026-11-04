@@ -1,0 +1,11 @@
+Source claims: OK (6 sources, scoped byte-verified)
+Compile: 0 of 6 TU(s) (deps-cache: 6 current)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    $L7200 (Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveApplyResults.cpp): $L7200 was renumbered; verified parent EH data places $L8232 at 0x0079316F
+    $L7201 (Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveApplyResults.cpp): $L7201 was renumbered; verified parent EH data places $L8233 at 0x00793179
+    $L7199 (Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveApplyResults.cpp): $L7199 was renumbered; verified parent EH data places $L8231 at 0x00793167
+    $L554 (Code/GameEngine/Source/Common/Rva002B2AFDSelect.cpp): $L554 was renumbered; verified parent EH data places $L3176 at 0x007760A6
+Functions: OK 26/26 matched across 6 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

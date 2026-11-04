@@ -51,15 +51,7 @@ public:
 	int find(int key) const;		// 0x0040CB3A
 };
 
-class ArmySummary
-{
-public:
-	ArmySummaryEntryRef GetEntry(int key);
-	void rva0040CC8F();
-private:
-	char m_pad[0x40];
-	Rva0040CB3AEntryArray m_entries;	// +0x40
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
@@ -68,7 +60,7 @@ __declspec(noinline) inline ArmySummaryEntryRef ArmySummary::GetEntry(int key)
 	int index = ((const Rva0040CB3AIndexedField *)this)->find(key);
 	if (index < 0)
 		return ArmySummaryEntryRef();
-	return ArmySummaryEntryRef(m_entries.m_begin[index].m_holder);
+	return ArmySummaryEntryRef(reinterpret_cast<Rva0040CB3AEntryArray *>(&field40)->m_begin[index].m_holder);
 }
 
 // ?bfmeAnchorArmySummaryGetEntry absent-from-retail
@@ -85,9 +77,9 @@ ArmySummaryEntryRef bfmeAnchorArmySummaryGetEntry(ArmySummary *armySummary, int 
 // array as a subobject with inline size()/operator[] gives retail's reloads.
 void ArmySummary::rva0040CC8F()
 {
-	for (unsigned int i = 0; i < m_entries.size(); ++i)
+	for (unsigned int i = 0; i < reinterpret_cast<Rva0040CB3AEntryArray *>(&field40)->size(); ++i)
 	{
-		ArmySummaryEntry *entry = m_entries[i].m_holder.get();
+		ArmySummaryEntry *entry = (*reinterpret_cast<Rva0040CB3AEntryArray *>(&field40))[i].m_holder.get();
 		if (entry->m_bc)
 			entry->ApplyWorldMapUpgrades();
 	}

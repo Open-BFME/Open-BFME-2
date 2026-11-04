@@ -44,10 +44,8 @@ int Rva002B2AFD::rva002B2AFD()
 // Target objects supply a state object at +0x78; its +0x2C is compared with 2.
 // The callback's established int ABI carries that pointer-sized value.
 // Original visitor identity and the meaning of its state remain open.
-class ArmySummary {
-public: void rva0040CA09();
-char pad[0x2c]; int state;
-};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
+#include "../../Include/GameLogic/ArmySummary.h"
 class Rva003F498ACallback { public: virtual bool invoke(int)=0; ~Rva003F498ACallback() {} };
 // ??0Rva002B31DB@@QAE@XZ, retail 0x002B31D2 (9B): this class's implicit
 // default constructor, emitted out of line here as in retail (the uncalled
@@ -60,7 +58,7 @@ public:
 bool Rva002B31DB::invoke(int value)
 {
  ArmySummary *state=*(ArmySummary **)((char *)value+0x78);
- if (state->state==2) state->rva0040CA09();
+ if (state->field2C==2) state->rva0040CA09();
  return true;
 }
 
@@ -70,7 +68,6 @@ bool Rva002B31DB::invoke(int value)
 // Display160 and GameLogic2034E9 guard the global call. Original names
 // and full layouts remain unknown. Lookup20E5BB and singleton are now
 // provided by real recovered code; no new pin or duplicated callback.
-#include "../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F468D;
 class Rva0020E6B7RegionManager { public: Rva003F468D *rva0020E6B7(); };
 class Rva002B4AF8 {
