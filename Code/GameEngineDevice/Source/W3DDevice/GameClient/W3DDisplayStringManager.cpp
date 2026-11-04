@@ -13,19 +13,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 
 // BFME 2 GameClient: getFrame() is virtual (slot 31) rather than ZH's inline.
-class GameClient
-{
-public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
-	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
-	virtual void vslot08(); virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
-	virtual void vslot12(); virtual void vslot13(); virtual void vslot14(); virtual void vslot15();
-	virtual void vslot16(); virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
-	virtual void vslot20(); virtual void vslot21(); virtual void vslot22(); virtual void vslot23();
-	virtual void vslot24(); virtual void vslot25(); virtual void vslot26(); virtual void vslot27();
-	virtual void vslot28(); virtual void vslot29(); virtual void vslot30();
-	virtual UnsignedInt getFrame( void );
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 
