@@ -141,7 +141,7 @@ public:
 	virtual void setTargetPosition(const Coord3D *pos);						// slot 14
 };
 
-struct SiegeDeployHordeSpecialPowerModuleData
+struct __declspec(novtable) SiegeDeployHordeSpecialPowerModuleData
 {
 	unsigned char m_pad00[0x18];
 	Bool m_deployHorde;													// +0x18

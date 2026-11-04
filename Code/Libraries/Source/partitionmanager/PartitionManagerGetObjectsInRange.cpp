@@ -76,7 +76,7 @@ Rva009F4130Distance g_partitionDistance[5] = {
  (Rva009F4130Distance)Rva009F66F0
 };
 struct PartitionTreeView { Rva009F4130NodeList *begin, *end, *capacity; };
-class PartitionManagerImpl {
+class __declspec(novtable) PartitionManagerImpl {
 public:
     int prefix[6]; _STL::vector<Rva009F4130NodeList> trees[21];
     void *head; float scale; int size;

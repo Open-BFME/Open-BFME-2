@@ -80,7 +80,7 @@ struct BfmeResultA : private Rva009F39F0Result
 	}
 };
 
-class PartitionManagerImpl
+class __declspec(novtable) PartitionManagerImpl
 {
 	unsigned char m_bfmePadding[0x114];
 	BfmeResultNode *m_bfmeHead;

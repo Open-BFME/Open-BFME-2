@@ -16,7 +16,7 @@
 #include "UpdateXferTypes.h"
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class __declspec(novtable) DeletionUpdate : public UpdateModule
+class DeletionUpdate : public UpdateModule
 {
 public:
 	unsigned int m_dieFrame;

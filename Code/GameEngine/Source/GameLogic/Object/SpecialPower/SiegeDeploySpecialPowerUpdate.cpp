@@ -97,7 +97,7 @@ public:
 class Drawable;
 #include "../object.h"
 
-struct SiegeDeploySpecialPowerModuleData
+struct __declspec(novtable) SiegeDeploySpecialPowerModuleData
 {
 	unsigned char m_pad[0x18];
 	unsigned m_delay;			// +0x18

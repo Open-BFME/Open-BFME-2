@@ -239,7 +239,7 @@ class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern GameInfo*TheGameInfo;
 void XferObjectID(Xfer*,ObjectID*);
 void XferDrawableID(Xfer*,int*);
-class GameStateMap {public:void DoXfer(Xfer*);void clearScratchPadMaps();};
+class __declspec(novtable) GameStateMap {public:void DoXfer(Xfer*);void clearScratchPadMaps();};
 // Target identity: WB132D380 GameStateMap.cpp357 and native41AFDA..41B603.
 // BFME1 GameStateMap::xfer at874e38488 supplies save/load structure; target
 // independently supplies the two mode words, both auxiliary .wak paths,

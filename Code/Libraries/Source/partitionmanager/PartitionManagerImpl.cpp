@@ -489,7 +489,7 @@ public:
 	virtual Gen009F5040Node *bfmeTakeYQ() = 0;
 };
 
-class PartitionManagerImpl
+class __declspec(novtable) PartitionManagerImpl
 {
 public:
 	__declspec(noinline) void remove(Gen009F5040Node *node);

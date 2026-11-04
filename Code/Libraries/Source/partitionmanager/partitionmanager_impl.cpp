@@ -92,7 +92,7 @@ struct PartitionNode {
 // WB names the owner PartitionManagerImpl; its destructor (0x00627DE0)
 // runs cleanup and then destroys the 21 trees at +0x18.
 struct Gen009F5040Node;
-class PartitionManagerImpl {
+class __declspec(novtable) PartitionManagerImpl {
 public:
  void SetTreeDepth(unsigned);
  void linkNode(Gen009F5040Node*);
