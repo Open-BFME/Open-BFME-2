@@ -208,9 +208,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 class AsciiString;
-
 class Xfer::Version
 {
 public:
@@ -218,18 +216,13 @@ public:
 	UnsignedByte m_first;
 	UnsignedByte m_version;
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class ModuleData;
-
 // Primary table 0x00856398: slot 3 xfer (0x004B01F4), slot 4 getModuleNameKey
 // (0x004B018E), slot 13 onExit (0x004B0414), slot 17 triggerAbilityEffect.
 class UpdateModule
@@ -239,7 +232,6 @@ public:
 	virtual void slot1(); virtual void slot2();
 	void xfer(Xfer *xfer);
 };
-
 class SpecialAbilityUpdate : public UpdateModule
 {
 protected:
@@ -261,9 +253,7 @@ protected:
 	unsigned char m_pad0C[0x24 - 0x0C];
 	int m_state; // +0x24
 };
-
 class FXList;
-
 // The destructor fragment proves the 0xC8 polymorphic base and the two string
 // members. Keep its existing base spelling until that identity is recovered.
 class Rva0044ECCE
@@ -273,21 +263,6 @@ public:
 private:
 	unsigned char m_pad[0xC8 - 4];
 };
-
-class __declspec(novtable) SpecialDisguiseUpdateModuleData : public Rva0044ECCE
-{
-public:
-	virtual ~SpecialDisguiseUpdateModuleData();
-	bool m_triggerInstantlyOnCreate; // +0xC8
-	unsigned char m_padC9[3];
-	float m_opacityTarget; // +0xCC
-	AsciiString m_disguiseAsTemplate; // +0xD0
-	AsciiString m_disguisedAsEnemy; // +0xD4
-	const FXList *m_disguiseFX; // +0xD8
-	bool m_forceMounted; // +0xDC
-	unsigned char m_padDD[3];
-};
-
 class SpecialDisguiseUpdate : public SpecialAbilityUpdate
 {
 public:
@@ -304,13 +279,11 @@ private:
 	float m_8C; // +0x8C
 	int m_90; // +0x90, xfer'd as a bool
 };
-
 struct Rva004B0333Inner
 {
 	char m_pad[0xD4];
 	AsciiString m_key;
 };
-
 class Rva004B0333
 {
 public:
@@ -319,26 +292,16 @@ private:
 	char m_pad0[4];
 	Rva004B0333Inner *m_ptr;
 };
-
 class SpecialDisguiseUpdate;
-
 class Matrix3D;
-
 class FXList
 {
 public:
 	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *mtx, float speed, const Coord3D *secondary);
 };
-
 class Object;
-
 struct Coord3D;
-
-// --- 0x00575CDF / 0x00575D12 (51B each): from a +0x04 interface, build a
-// fresh 0x14-byte rowed 0x0057551C / 0x00575540 record over the whole object
-// and both arguments and hand it to the +0x2C holder's rowed 0x00575674.
 #include "../../../../Include/Common/Rva00575674.h"
-
 class Rva0057551C
 {
 public:
@@ -346,7 +309,6 @@ public:
 private:
 	char m_pad[0x14];
 };
-
 class Rva00575540
 {
 public:
@@ -354,20 +316,17 @@ public:
 private:
 	char m_pad[0x14];
 };
-
 class Rva00575CDFBase0
 {
 public:
 	virtual void b0();
 };
-
 class Rva00575CDFIface
 {
 public:
 	virtual void rva00575CDF(void *a, void *b);
 	virtual void rva00575D12(void *a, void *b);
 };
-
 class Rva00575CDF : public Rva00575CDFBase0, public Rva00575CDFIface
 {
 public:
@@ -377,14 +336,12 @@ private:
 	char m_pad08[0x2C - 8];
 	Rva00575674 m_holder;									// +0x2C
 };
-
 // --- 0x004A6AB5 / 0x004A6ADB / 0x004A6B06: an AIUpdateInterface subclass's
 // privateIdle / privateDock / privateHarvest overrides. Each runs the rowed
 // base command; a player-sourced command also sets the +0x3E4 interface's
 // slot 13, remembers the dock's id (+0x3EC) or the harvest point (+0x3F0,
 // flagged at +0x3FC).
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
-
 class Rva004A6AB5Iface
 {
 public:
@@ -395,18 +352,15 @@ public:
 	virtual void s13(bool on);
 	int m_3E8;
 };
-
 struct Rva004A6AB5Pos
 {
 	int x, y, z;
 };
-
 struct Rva004A6AB5ObjectView
 {
 	char m_pad[0x74];
 	int m_id;												// +0x74
 };
-
 class Rva004A6AB5 : public AIUpdateInterface, public Rva004A6AB5Iface
 {
 protected:
@@ -418,56 +372,45 @@ private:
 	Rva004A6AB5Pos m_harvestPos;							// +0x3F0
 	bool m_hasHarvestPos;									// +0x3FC
 };
-
 // --- 0x00481A6E (48B): an UpdateModule slot: for the local player's
 // (ThePlayerList +0x18) notice run own slot 13 and sleep forever, else wake
 // next frame.
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
-
 class PlayerList;
-
 struct Rva00481A6EPlayerListView
 {
 	char m_pad[0x18];
 	void *m_local;											// +0x18
 };
-
 // --- 0x003B8DD7 (60B): when TheLivingWorldLogic's +0xB0 holder has a
 // campaign (+0x08), run TheLivingWorldManager's rowed 0x00210F96 and the
 // campaign's rowed 0x0020F3E8 over the holder, then slot 1 of the current
 // (+0x04) entry of the +0x08 table.
 class LivingWorldRegionManager;
-
 class LivingWorldRegionCampaign
 {
 public:
 	void rva0020F3E8(LivingWorldRegionManager *mgr);		// 0x0020F3E8
 };
-
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
-
 class LivingWorldLogic;
-
 struct Rva003B8DD7Holder
 {
 	int m_00;
 	int m_04;
 	LivingWorldRegionCampaign *m_campaign;					// +0x08
 };
-
 struct Rva003B8DD7LogicView
 {
 	char m_pad[0xB0];
 	Rva003B8DD7Holder *m_holder;							// +0xB0
 };
-
 class Rva003B8DD7Entry
 {
 public:
 	virtual void s0();
 	virtual void s1();
 };
-
 class Rva003B8DD7
 {
 public:
@@ -476,7 +419,6 @@ private:
 	int m_index;											// +0x04
 	Rva003B8DD7Entry **m_entries;							// +0x08
 };
-
 // --- 0x0039A245 (43B): from a +0x30 interface, when the +0x04 data's +0x3E
 // flag is set and the rowed 0x00395F57 check allows it, start the rowed
 // CastleBehavior::initiateUnpack with no template.
@@ -485,19 +427,16 @@ class Rva00395F57
 public:
 	bool canUnpack(bool flag);								// 0x00395F57
 };
-
 class CastleBehavior
 {
 public:
 	void initiateUnpack(bool flag, const ThingTemplate *tmpl);	// 0x00399C6C
 };
-
 struct Rva0039A245Data
 {
 	char m_pad[0x3E];
 	bool m_summoned;												// +0x3E
 };
-
 class Rva0039A245Base0
 {
 public:
@@ -505,7 +444,6 @@ public:
 	Rva0039A245Data *m_data;								// +0x04
 	char m_pad08[0x30 - 8];
 };
-
 // --- 0x004A9617 / 0x004A6A81 (53B / 52B): whether the level read through
 // +0xE0 / +0x04 (999999 when absent) is 2 or 4, or 2, 4 or 5.
 struct Rva004A9617Level
@@ -513,14 +451,12 @@ struct Rva004A9617Level
 	int m_00;
 	unsigned int m_level;									// +0x04
 };
-
 struct Rva004A9617Holder
 {
 	int m_00;
 	Rva004A9617Level *m_level;								// +0x04
 	unsigned int level() const { return m_level ? m_level->m_level : 999999; }
 };
-
 class Rva004A9617
 {
 public:
@@ -529,7 +465,6 @@ private:
 	char m_pad04[0xE0 - 4];
 	Rva004A9617Holder *m_holder;							// +0xE0
 };
-
 class Rva004A6A81
 {
 public:
@@ -537,7 +472,6 @@ public:
 private:
 	Rva004A9617Holder *m_holder;							// +0x04
 };
-
 // --- 0x004B0303 (27B): from a +0x88 interface, the object's slot 17 when
 // its +0x04 data's +0xC8 flag is set.
 struct Rva004B0303Data
@@ -545,7 +479,6 @@ struct Rva004B0303Data
 	char m_pad[0xC8];
 	bool m_C8;												// +0xC8
 };
-
 class Rva004B0303Base0
 {
 public:
@@ -557,19 +490,16 @@ public:
 	Rva004B0303Data *m_data;								// +0x04
 	char m_pad08[0x88 - 8];
 };
-
 class Rva004B0303Iface
 {
 public:
 	virtual void rva004B0303();
 };
-
 class Rva004B0303 : public Rva004B0303Base0, public Rva004B0303Iface
 {
 public:
 	virtual void rva004B0303();
 };
-
 // --- 0x004B5B82 (42B): from a +0x1C interface, when the +0x04 data's +0x129
 // flag is set run slots 10 and 9 (true) of the +0x10 base; then latch +0x20.
 struct Rva004B5B82Data
@@ -577,7 +507,6 @@ struct Rva004B5B82Data
 	char m_pad[0x129];
 	bool m_129;												// +0x129
 };
-
 class Rva004B5B82Base0
 {
 public:
@@ -586,7 +515,6 @@ public:
 	int m_08;
 	int m_0C;
 };
-
 class Rva004B5B82Base10
 {
 public:
@@ -598,13 +526,11 @@ public:
 	int m_14;
 	int m_18;
 };
-
 class Rva004B5B82Iface
 {
 public:
 	virtual void rva004B5B82();
 };
-
 class Rva004B5B82 : public Rva004B5B82Base0, public Rva004B5B82Base10, public Rva004B5B82Iface
 {
 public:
@@ -612,12 +538,29 @@ public:
 private:
 	bool m_latched;											// +0x20
 };
-
 #include "../../../../Include/GameClient/ResourceEntryCollector.h"
-
 class Rva002217EA;
-
 #include "../../../../Include/GameClient/InGameNotificationBoxMovieClip.h"
+
+class __declspec(novtable) SpecialDisguiseUpdateModuleData : public Rva0044ECCE
+{
+public:
+	virtual ~SpecialDisguiseUpdateModuleData();
+	bool m_triggerInstantlyOnCreate; // +0xC8
+	unsigned char m_padC9[3];
+	float m_opacityTarget; // +0xCC
+	AsciiString m_disguiseAsTemplate; // +0xD0
+	AsciiString m_disguisedAsEnemy; // +0xD4
+	const FXList *m_disguiseFX; // +0xD8
+	bool m_forceMounted; // +0xDC
+	unsigned char m_padDD[3];
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp
+
+// --- 0x00575CDF / 0x00575D12 (51B each): from a +0x04 interface, build a
+// fresh 0x14-byte rowed 0x0057551C / 0x00575540 record over the whole object
+// and both arguments and hand it to the +0x2C holder's rowed 0x00575674.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp
 
@@ -832,18 +775,6 @@ void SpecialDisguiseUpdate::rva004B05F5(bool keep)
 	}
 }
 
-// tu-skeleton: 0x004B01D3 6B ?name@Rva004B01D3Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B01D9 13B ?getRailedTransportDockUpdateInterface@RailedTransportDockUpdate@@UAEPAVRailedTransportDockUpdateInterface@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004B01E6 14B ?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0255 61B ??0SpecialDisguiseUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0292 85B ??0SpecialDisguiseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B02E7 28B ??_GRva004B0164@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GapBodiesS3C.cpp
 
 // Small table-reached bodies from .text gaps no ledger row covers (seat-3
@@ -859,12 +790,22 @@ void Rva004B0303::rva004B0303()
 		s17();
 }
 
+// tu-skeleton: 0x004B01D3 6B ?name@Rva004B01D3Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004B01D9 13B ?getRailedTransportDockUpdateInterface@RailedTransportDockUpdate@@UAEPAVRailedTransportDockUpdateInterface@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004B01E6 14B ?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0255 61B ??0SpecialDisguiseUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0292 85B ??0SpecialDisguiseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B02E7 28B ??_GRva004B0164@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
 // tu-skeleton: 0x004B0348 204B ?handlePackingProcessing@Rva004B0164@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
 
-// tu-skeleton: 0x004B0468 74B ??1SpecialDisguiseUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp
 
-// tu-skeleton: 0x0078E739 8B Unwind@00b8e739 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E741 14B Unwind@00b8e741 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E74F 10B __ehhandler$??1SpecialDisguiseUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp (not merged yet)
+SpecialDisguiseUpdateModuleData::~SpecialDisguiseUpdateModuleData()
+{
+}
