@@ -31,15 +31,29 @@ extern GameLogic *TheGameLogic;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AIReturnTheRingTactic
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
+
+class AIReturnTheRingTactic : public AITacticOffensive
 {
 public:
+	virtual ~AIReturnTheRingTactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual void xfer(Xfer *xfer);
+	virtual void run();
+	virtual void update();
 	bool findRingBearer();
+	bool buildReturnTeam();
+	Object *findClosestFortress();
+	bool garrisonFortress();
+	void moveToFortress();
 private:
-	char m_pad0[0x24];
-	Player *m_player;
-	char m_pad1[0x34];
-	ObjectID m_found;
+	unsigned int m_58;	// +0x58
+	ObjectID m_holder;	// +0x5C
+	ObjectID m_target;	// +0x60
+	bool m_reached;		// +0x64
+	bool m_created;		// +0x65
 };
 
 // tu-skeleton: 0x005AB309 11B ??1AIReturnTheRingTactic@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005DCC24Derived.cpp (not merged yet)
@@ -58,7 +72,7 @@ private:
 
 bool AIReturnTheRingTactic::findRingBearer()
 {
-	void *playerAIData = TheSkirmishAIManager->rva002A8F24(m_player);
+	void *playerAIData = TheSkirmishAIManager->rva002A8F24(m_field24);
 	Rva005C4AD1LeaField *objectIDsField = *(Rva005C4AD1LeaField **)playerAIData;
 	void *objectIDRange = objectIDsField->get();
 	ObjectID *begin = *(ObjectID **)objectIDRange;
@@ -72,7 +86,7 @@ bool AIReturnTheRingTactic::findRingBearer()
 			continue;
 		if (!candidateObject->testStatus((ObjectStatusTypes)0x5e))
 			continue;
-		m_found = *objectIdIt;
+		m_holder = *objectIdIt;
 		return true;
 	}
 	return false;
