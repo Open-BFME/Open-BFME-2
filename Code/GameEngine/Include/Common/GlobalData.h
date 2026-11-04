@@ -278,6 +278,7 @@
 // +0x0B9C, 4 bytes, m_baseRegenDelay: INI VA 0xbe9650: BaseRegenDelay, parseDurationUnsignedInt RVA 0x338b30.
 // +0x0BA0, 4 bytes, m_hotKeyTextColor: INI VA 0xbe9720: HotKeyTextColor, parseColorInt RVA 0x2f3fe.
 // +0x0BA4, 4 bytes, m_specialPowerViewObject: INI VA 0xbe9660: SpecialPowerViewObject, parseAsciiString RVA 0x2f11e.
+// +0x0BA8, 12 bytes, m_standardPublicBones: INI VA 0xbe9670: StandardPublicBone, parseAsciiStringVectorAppend RVA 0x2e896; constructor 0x00236BB7 builds it through _Vector_base 0x00211E58; destructor 0x0023783F calls vector<AsciiString>::~vector 0x0002CC70; Zero Hour std::vector<AsciiString> m_standardPublicBones.
 // +0x0BB4, 1 bytes, m_showMetrics: INI VA 0xbe9680: ShowMetrics, parseBool RVA 0x2e850.
 // +0x0BB8, 4 bytes, m_defaultStartingCash: INI VA 0xbe9690: DefaultStartingCash, parseUnsignedInt RVA 0x2ef72.
 // +0x0BBC, 1 bytes, field0BBC: 0x00236bc9: mov byte ptr [esi + 0xbbc], bl.
@@ -315,6 +316,7 @@
 // +0x0C48, 4 bytes, m_animationSharingSpeedTolerance: INI VA 0xbe9870: AnimationSharingSpeedTolerance, parseReal RVA 0x2efc0.
 // +0x0C4C, 4 bytes, m_animationSharingWorryThreshold: INI VA 0xbe9880: AnimationSharingWorryThreshold, parseReal RVA 0x2efc0.
 // +0x0C50, 4 bytes, m_animationSharingDrasticThreshold: INI VA 0xbe9890: AnimationSharingDrasticThreshold, parseReal RVA 0x2efc0.
+// +0x0C54, 12 bytes, field0C54: constructor 0x00236D30 builds it through _Vector_base 0x00211E58; destructor 0x00237830 calls vector<AsciiString>::~vector 0x0002CC70; W3DDisplay::draw 0x0004C3A7 compares its first two words (empty()).
 // +0x0C60, 4 bytes, field0C60: 0x00236d44: or dword ptr [esi + 0xc60], 0xffffffff.
 // +0x0C64, 1 bytes, field0C64: 0x00236d4b: mov byte ptr [esi + 0xc64], bl.
 // +0x0C65, 1 bytes, field0C65: 0x00236d51: mov byte ptr [esi + 0xc65], bl.
@@ -412,7 +414,7 @@
 // +0x0E98, 4 bytes, m_resourceMultiplierLimit: INI VA 0xbe9bb0: ResourceMultiplierLimit, parseReal RVA 0x2efc0.
 // +0x0E9C, 1 bytes, field0E9C: 0x002371aa: mov byte ptr [esi + 0xe9c], bl.
 // +0x0E9D, 1 bytes, field0E9D: 0x002371b0: mov byte ptr [esi + 0xe9d], bl.
-// +0x0EA0, 4 bytes, field0EA0: 0x002371b6: mov dword ptr [esi + 0xea0], ebx.
+// +0x0EA0, 4 bytes, field0EA0: 0x002371b6: mov dword ptr [esi + 0xea0], ebx; int: W3DDisplay::draw 0x0004C17B cvtsi2ss from it, 0x0004C229 test; jle and 0x0004C309 cmp; jl against it.
 // +0x0EA4, 1 bytes, field0EA4: 0x002371bc: mov byte ptr [esi + 0xea4], 1.
 // +0x0EA5, 1 bytes, field0EA5: 0x002371c3: mov byte ptr [esi + 0xea5], 1.
 // +0x0EA6, 1 bytes, field0EA6: 0x002371ca: mov byte ptr [esi + 0xea6], bl.
@@ -439,6 +441,7 @@
 // +0x10E8, 4 bytes, m_handicapBuildSpeed90: INI VA 0xbe9d70: HandicapBuildSpeed90, parsePercentToReal RVA 0x2f1ba.
 // +0x10EC, 4 bytes, m_handicapBuildSpeed95: INI VA 0xbe9d80: HandicapBuildSpeed95, parsePercentToReal RVA 0x2f1ba.
 // +0x10F0, 4 bytes, m_handicapBuildSpeed100: INI VA 0xbe9d90: HandicapBuildSpeed100, parsePercentToReal RVA 0x2f1ba.
+// +0x10F4, 12 bytes, field10F4: constructor 0x0023723C builds it through _Vector_base 0x00211E58; destructor 0x0023777C calls vector<AsciiString>::~vector 0x0002CC70.
 // +0x1100, 1 bytes, field1100: 0x00237250: mov byte ptr [esi + 0x1100], bl.
 // +0x1104, 4 bytes, field1104: 0x00237256: mov dword ptr [esi + 0x1104], ebx.
 // +0x1108, 4 bytes, m_blockedByWallLeeway: INI VA 0xbe9e80: BlockedByWallLeeway, parseInt RVA 0x2ef56.
@@ -872,7 +875,13 @@ public:
     unsigned int m_baseRegenDelay;
     int m_hotKeyTextColor;
     AsciiString m_specialPowerViewObject;
+    // Typed where the unit included STLport's <vector> first; GlobalData.h includes no STL header,
+    // so other includers keep the same bytes as opaque storage.
+#ifdef _STLP_INTERNAL_VECTOR_H
+    _STL::vector<AsciiString> m_standardPublicBones;
+#else
     unsigned char storage0BA8[0xC];
+#endif
     bool m_showMetrics;
     unsigned char storage0BB5[0x3];
     unsigned int m_defaultStartingCash;
@@ -915,7 +924,11 @@ public:
     float m_animationSharingSpeedTolerance;
     float m_animationSharingWorryThreshold;
     float m_animationSharingDrasticThreshold;
+#ifdef _STLP_INTERNAL_VECTOR_H
+    _STL::vector<AsciiString> field0C54;
+#else
     unsigned char storage0C54[0xC];
+#endif
     unsigned int field0C60;
     unsigned char field0C64;
     unsigned char field0C65;
@@ -1032,7 +1045,7 @@ public:
     unsigned char field0E9C;
     unsigned char field0E9D;
     unsigned char storage0E9E[0x2];
-    unsigned int field0EA0;
+    int field0EA0;
     unsigned char field0EA4;
     unsigned char field0EA5;
     unsigned char field0EA6;
@@ -1065,7 +1078,11 @@ public:
     float m_handicapBuildSpeed90;
     float m_handicapBuildSpeed95;
     float m_handicapBuildSpeed100;
+#ifdef _STLP_INTERNAL_VECTOR_H
+    _STL::vector<AsciiString> field10F4;
+#else
     unsigned char storage10F4[0xC];
+#endif
     unsigned char field1100;
     unsigned char storage1101[0x3];
     unsigned int field1104;

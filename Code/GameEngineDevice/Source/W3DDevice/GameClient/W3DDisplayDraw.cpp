@@ -14,6 +14,7 @@
 // here too. Evidence: reverse/attempt_support/w1-4bef2-20261020.md,
 // w6-4bef2-20261020.md, w8-4bef2-20261019.md.
 #include <new>
+#include <vector>
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 #include <windows.h>
@@ -113,12 +114,7 @@ virtual void slot53();
 virtual void slot54();
 virtual int getTimeMultiplier();
 };
-struct ScriptVector { void *begin, *end; bool empty() const { return begin == end; } };
-class GlobalData {public:
-char pad0[0x26];bool useFpsLimit; char pad27[0xAF5-0x27];bool loadScreenRender;
-char padAF6[0xBBD-0xAF6];bool fastMode;char padBBE[0xC54-0xBBE];ScriptVector scripts;
-char padC5C[0xEA0-0xC5C];int panoramaCount; bool panoramaIndividual; char reservedEA5;bool panoramaMode;bool panoramaLast;float panoramaStep;float panoramaAngle;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 class Rva00084C05System {public:void update();};
 class Rva00203B47Host {public:bool rva00203B47();};
 class GameClient;class View;extern GameLogic*TheGameLogic;extern GameClient*TheGameClient;extern View*TheTacticalView;extern GlobalData*TheWritableGlobalData;
@@ -262,13 +258,13 @@ void W3DDisplay::draw(){
  unsigned delta=((FrameClient*)TheGameClient)->getFrame()-g_Va00DB3BDC;
  if(freezeTime)delta=0;else g_Va00DB3BDC=((FrameClient*)TheGameClient)->getFrame();
  bool fastMode=false;
- if(!TheGameLogic->isGamePaused() && TheGlobalData->fastMode)fastMode=true;
+ if(!TheGameLogic->isGamePaused() && TheGlobalData->field0BBD)fastMode=true;
  if(((Rva00203B47Host*)TheScriptEngine)->rva00203B47())fastMode=true;
  if(!freezeTime && fastMode && !TheGameLogic->getFlag125() && ((FrameClient*)TheGameClient)->getFrame()%30!=0){
   primaryW3DView->updateCameraMovements();  // Update camera motion effects.
   g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec;WW3D::Sync(g_bfmeDisplayAnimationSyncClock);return;}
  //update state of all the terrain tracks (fade, remove, etc.)
- if(TheGlobalData->loadScreenRender!=true && TheTerrainTracksRenderObjClassSystem)((Rva00084C05System*)TheTerrainTracksRenderObjClassSystem)->update();
+ if(TheGlobalData->field0AF5!=true && TheTerrainTracksRenderObjClassSystem)((Rva00084C05System*)TheTerrainTracksRenderObjClassSystem)->update();
  /// @todo Decouple framerate from timestep
  // for now, use constant time steps to avoid animations running independent of framerate
  g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec*delta;WW3D::Sync(g_bfmeDisplayAnimationSyncClock);
@@ -284,28 +280,28 @@ void W3DDisplay::draw(){
  if(disabled)return;
  bool keepDrawing=false;
  do{
-  if(TheGlobalData->loadScreenRender!=true){
+  if(TheGlobalData->field0AF5!=true){
    // limit the framerate
-   while(TheGlobalData->useFpsLimit && now-prevTime<minTime-1)now=timeGetTime();prevTime=now;}
-  if(capturePending>0 && TheGlobalData->panoramaCount!=0){
-   TheWritableGlobalData->panoramaMode=true;TheWritableGlobalData->panoramaStep=TWO_PI/TheGlobalData->panoramaCount;
+   while(TheGlobalData->m_useFpsLimit && now-prevTime<minTime-1)now=timeGetTime();prevTime=now;}
+  if(capturePending>0 && TheGlobalData->field0EA0!=0){
+   TheWritableGlobalData->field0EA6=true;TheWritableGlobalData->field0EA8=TWO_PI/TheGlobalData->field0EA0;
    RECT2 rect;GetClientRect((HWND)ApplicationHWnd,(RECT*)&rect);POINT2 point;point.x=rect.left;point.y=rect.top;ClientToScreen((HWND)ApplicationHWnd,(POINT*)&point);rect.left=point.x;rect.top=point.y;point.x=rect.right;point.y=rect.bottom;ClientToScreen((HWND)ApplicationHWnd,(POINT*)&point);rect.right=point.x;rect.bottom=point.y;
    int width=rect.right-rect.left;int height=rect.bottom-rect.top;
    char*image=0;
-   if(!TheGlobalData->panoramaIndividual)image=new char[width*3*height*TheGlobalData->panoramaCount];
-   for(int i=0;i<TheGlobalData->panoramaCount;++i){
-    TheWritableGlobalData->panoramaAngle=i*-TWO_PI/TheGlobalData->panoramaCount;
-    TheWritableGlobalData->panoramaLast=(i==TheGlobalData->panoramaCount-1);
+   if(!TheGlobalData->field0EA4)image=new char[width*3*height*TheGlobalData->field0EA0];
+   for(int i=0;i<TheGlobalData->field0EA0;++i){
+    TheWritableGlobalData->field0EAC=i*-TWO_PI/TheGlobalData->field0EA0;
+    TheWritableGlobalData->field0EA7=(i==TheGlobalData->field0EA0-1);
     if(!rva0004A462(now))freezeTime=false;
-    if(TheGlobalData->panoramaIndividual){AsciiString name;name.format("sshot_panorama_%.2d_%.4d",i,captureIndex);takeScreenShot(name.str());}
-    else rva00045213(image+width*3*panoramaSliceIndex(i,TheGlobalData->panoramaCount),width*3*TheGlobalData->panoramaCount);
+    if(TheGlobalData->field0EA4){AsciiString name;name.format("sshot_panorama_%.2d_%.4d",i,captureIndex);takeScreenShot(name.str());}
+    else rva00045213(image+width*3*panoramaSliceIndex(i,TheGlobalData->field0EA0),width*3*TheGlobalData->field0EA0);
    }
-   if(!TheGlobalData->panoramaIndividual){rva00047BC0(image,width*TheGlobalData->panoramaCount,height,0);delete[]image;}
-   ++captureIndex;--capturePending;TheWritableGlobalData->panoramaMode=false;
+   if(!TheGlobalData->field0EA4){rva00047BC0(image,width*TheGlobalData->field0EA0,height,0);delete[]image;}
+   ++captureIndex;--capturePending;TheWritableGlobalData->field0EA6=false;
   }else if(!rva0004A462(now))break;
   keepDrawing=freezeTime&&!((TimeView*)TheTacticalView)->isCameraMovementFinished();
   if(keepDrawing&&!TheGameLogic->isGamePaused())keepDrawing=false;
  }while(keepDrawing);
- if(capturePending>0&&TheGlobalData->panoramaCount==0&&TheGlobalData->scripts.empty()){--capturePending;takeScreenShot(0);}
+ if(capturePending>0&&TheGlobalData->field0EA0==0&&TheGlobalData->field0C54.empty()){--capturePending;takeScreenShot(0);}
  Rva00079985Clear();
 }

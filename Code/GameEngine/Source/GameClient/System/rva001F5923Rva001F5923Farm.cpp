@@ -28,7 +28,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 }
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class GlobalData{public:char pad0[0x9c2];bool profile;char pad9c3[0xd45-0x9c3];bool skipRepeatedFrames;};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class GameClient{public:
  virtual void slot00();
@@ -71,8 +71,8 @@ class Rva001F5923{public:void rva001F5923();char pad0[0x4c];_STL::list<RvaSmartP
 void Rva001F5923::rva001F5923(){
  elapsed=0.0f;
  LARGE_INTEGER frequency,after;
- if(TheWritableGlobalData->profile){QueryPerformanceFrequency(&frequency);{LARGE_INTEGER initialAfter; QueryPerformanceCounter(&initialAfter);}}
- if(TheWritableGlobalData && TheWritableGlobalData->skipRepeatedFrames){unsigned frame=TheGameClient?TheGameClient->getFrame():0;if(frame==lastFrame)return;lastFrame=frame;}
+ if(TheWritableGlobalData->field09C2){QueryPerformanceFrequency(&frequency);{LARGE_INTEGER initialAfter; QueryPerformanceCounter(&initialAfter);}}
+ if(TheWritableGlobalData && TheWritableGlobalData->field0D45){unsigned frame=TheGameClient?TheGameClient->getFrame():0;if(frame==lastFrame)return;lastFrame=frame;}
  RvaSmartPtr12 sys;
  LARGE_INTEGER before;
  bool paused=TheGameClient->flagC8 && !TheGameLogic->getFlag125();
@@ -80,5 +80,5 @@ void Rva001F5923::rva001F5923(){
   sys=*i;
   if(sys.ptr){if(sys.ptr->flag98 || paused){if(!sys.ptr->update(playerIndex)){++i;::delete sys.ptr;}else ++i;}else ++i;}
  }
- if(TheWritableGlobalData->profile){QueryPerformanceCounter(&after);elapsed=(after.QuadPart-before.QuadPart)*1000.0f/frequency.QuadPart;}
+ if(TheWritableGlobalData->field09C2){QueryPerformanceCounter(&after);elapsed=(after.QuadPart-before.QuadPart)*1000.0f/frequency.QuadPart;}
 }

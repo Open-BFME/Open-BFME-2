@@ -60,12 +60,7 @@ public:
 extern GlobalLanguage *TheGlobalLanguageData;
 
 // The writable global data as this body reads it.
-class GlobalData
-{
-	char m_unreconstructed_000[0x9CC];
-public:
-	Int m_animDebugMode;		// +0x9CC, index into TheAnimDebugModeNames
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 // The indexed debug strings below own the complete null-terminated retail
 // tables at DB3BB4 (four pointers) and DBC7AC (eight pointers). The existing
@@ -342,7 +337,7 @@ void W3DDisplay::gatherAnimationDebuggingInfo()
 	}
 
 	text.format(L"ANIMATION STATE DEBUGGER: History based on %S changes. (shift+w toggles)",
-		TheAnimDebugModeNames[TheWritableGlobalData->m_animDebugMode]);
+		TheAnimDebugModeNames[TheWritableGlobalData->field09CC]);
 	m_animDebugStrings[0]->setText(text);
 
 	Object *object = 0;
@@ -393,10 +388,10 @@ selection:
 	if (!object || !drawable)
 		goto noObject;
 
-	if (TheGameLogic->findObjectByID((ObjectID)s_prevID) != object || s_mode != TheWritableGlobalData->m_animDebugMode) {
+	if (TheGameLogic->findObjectByID((ObjectID)s_prevID) != object || s_mode != TheWritableGlobalData->field09CC) {
 		s_prevID = object->m_id;
 		animHistory().erase(animHistory().begin(), animHistory().end());
-		s_mode = TheWritableGlobalData->m_animDebugMode;
+		s_mode = TheWritableGlobalData->field09CC;
 	}
 
 	{
@@ -492,7 +487,7 @@ selection:
 	if (animHistory().size() == 0) {
 		animHistory().push_back(current);
 	} else {
-		switch (TheWritableGlobalData->m_animDebugMode) {
+		switch (TheWritableGlobalData->field09CC) {
 		case 0: {
 			AnimRecord &last = animHistory()[animHistory().size() - 1];
 			if (last.m_animationName.compare(current.m_animationName) == 0)
@@ -572,5 +567,5 @@ noObject:
 		m_animDebugStrings[i]->setText(text);
 	s_prevID = 0;
 	animHistory().erase(animHistory().begin(), animHistory().end());
-	s_mode = TheWritableGlobalData->m_animDebugMode;
+	s_mode = TheWritableGlobalData->field09CC;
 }

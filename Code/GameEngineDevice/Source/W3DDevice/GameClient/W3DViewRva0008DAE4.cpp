@@ -10,24 +10,8 @@
 
 typedef float Real;
 
-// The rowed StringBase<char>::set 0x000366F0 (BFME 2's AsciiString copy).
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase &other);
-private:
-	T *m_data;
-};
-
 // The two BFME 2 global settings read below.
-class GlobalData
-{
-public:
-	char m_pad000[0xA0];
-	Real m_valueA0;			// +0xA0
-	char m_pad0A4[0x9A4 - 0xA4];
-	bool m_flag9A4;			// +0x9A4
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class W3DView
@@ -194,7 +178,7 @@ void W3DView::rva000875D6()
 // setting exceeds one, else one.
 void W3DView::rva00086065(int value)
 {
-	if (!TheWritableGlobalData->m_flag9A4 || value == 0)
+	if (!TheWritableGlobalData->m_disableCameraMovements || value == 0)
 	{
 		m_value58 = value;
 		m_value64 = 0.0f;
@@ -205,7 +189,7 @@ void W3DView::rva00086065(int value)
 
 Real W3DView::rva00086166(Real value)
 {
-	if (TheWritableGlobalData->m_valueA0 > 1.0f)
+	if (TheWritableGlobalData->m_defaultCameraMaxHeight > 1.0f)
 		return value / m_scale23F0;
 	return 1.0f;
 }

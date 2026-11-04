@@ -213,12 +213,7 @@ public:
 };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x5E];
-	bool m_5E;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct Rva00080168Owner
@@ -398,7 +393,7 @@ void Rva00080131MinWaterOpacity(ID3DXEffect *effect, D3DXHANDLE handle)
 
 void Rva00080168ReflectionTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
-	if (TheWritableGlobalData->m_5E && W3DGCData00DE2000 && TheWaterTransparency && TheWaterTransparency->m_unk50)
+	if (TheWritableGlobalData->field005E && W3DGCData00DE2000 && TheWaterTransparency && TheWaterTransparency->m_unk50)
 		effect->SetTexture(handle, ((Rva00080168Owner *)W3DGCData00DE2000)->m_F8.Peek_D3D_Base_Texture());
 	else
 		effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());

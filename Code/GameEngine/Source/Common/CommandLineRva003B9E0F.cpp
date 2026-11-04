@@ -1,23 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 
-template<class T> class StringBase
-{
-public:
-	void set(const T *);
-};
-
-class GlobalData
-{
-public:
-	char m_padToFlag40[0x40];
-	char m_flag40;
-	char m_padToFlag9BF[0x9BF - 0x41];
-	char m_flag9BF;
-	char m_padToString[0xD38 - 0x9C0];
-	StringBase<char> m_cinematicDirectory;
-	char m_padToFlagD45[0xD45 - 0xD38 - sizeof(StringBase<char>)];
-	char m_flagD45;
-};
+#include "../../Include/Common/GlobalData.h"
 
 #include "../../Include/Common/SubsystemInterfaceList.h"
 
@@ -36,10 +19,10 @@ void Rva003B9E0FInit()
 	if (TheWritableGlobalData != 0)
 	{
 		((unsigned char *)&TheSubsystemList)[4] = 1;
-		TheWritableGlobalData->m_flagD45 = 1;
-		TheWritableGlobalData->m_flag9BF = 0;
-		TheWritableGlobalData->m_flag40 = 0;
+		TheWritableGlobalData->field0D45 = 1;
+		TheWritableGlobalData->m_showTooltips = 0;
+		TheWritableGlobalData->m_allowTreeFading = 0;
 		g_Va00DB6218 = false;
-		TheWritableGlobalData->m_cinematicDirectory.set("Mods\\cinematics");
+		TheWritableGlobalData->m_modDir.set("Mods\\cinematics");
 	}
 }

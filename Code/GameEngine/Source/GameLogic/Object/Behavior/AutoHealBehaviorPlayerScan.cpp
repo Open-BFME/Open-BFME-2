@@ -277,14 +277,7 @@ enum WorldAnimationOptions
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x128];
-	AsciiString m_getHealedAnimationName; // +0x128
-	Real m_getHealedAnimationDisplayTimeInSeconds; // +0x12C
-	Real m_getHealedAnimationZRisePerSecond; // +0x130
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 extern PartitionManager *ThePartitionManager;
@@ -609,8 +602,8 @@ UpdateSleepTime AutoHealBehavior::update()
 											other->getPosition()->y,
 											other->getPosition()->z + other->getGeometryInfo().getMaxHeightAbovePosition());
 										TheInGameUI->addWorldAnimation(animTemplate, &iconPosition, WORLD_ANIM_FADE_ON_EXPIRE,
-											TheGlobalData->m_getHealedAnimationDisplayTimeInSeconds,
-											TheGlobalData->m_getHealedAnimationZRisePerSecond);
+											TheGlobalData->m_getHealedAnimationTime,
+											TheGlobalData->m_getHealedAnimationZRise);
 									}
 								}
 							}

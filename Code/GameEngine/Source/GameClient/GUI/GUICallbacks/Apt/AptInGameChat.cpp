@@ -297,12 +297,7 @@ public:
 
 extern GameInfo *TheGameInfo;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xA44];
-	int m_A44; // +0xA44
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -561,7 +556,7 @@ void AptInGameChat::OpenScreen(int chatType)
 		return;
 	if (chatType != 3)
 	{
-		if (!TheGameInfo->slot19() && TheWritableGlobalData->m_A44 != 0)
+		if (!TheGameInfo->slot19() && TheWritableGlobalData->field0A44 != 0)
 			return;
 	}
 	if (g_Va00E04478 != 0)
