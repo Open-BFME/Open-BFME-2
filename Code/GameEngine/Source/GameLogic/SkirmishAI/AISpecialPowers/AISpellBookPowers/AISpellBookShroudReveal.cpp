@@ -93,8 +93,10 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 
 // g_00E06648: the frame this unit's picker waits for; only 0x005D7FA6 reads
-// it (zero-filled .bss).
-unsigned int g_00E06648;
+// it (zero-filled .bss). Retail builds it at startup with this unit's
+// .text$yc initializer 0x007B4BC6, the only entry of its run (LINK-236).
+extern int BfmeLogicFramesPerSecond;
+unsigned int g_00E06648 = BfmeLogicFramesPerSecond * 10;
 
 // The waypoint IDs at picker +0x28: a count, then the IDs.
 struct Rva005D7FA6Waypoints

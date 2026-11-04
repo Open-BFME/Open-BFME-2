@@ -14,8 +14,8 @@ bridged 699 -> 692; halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whos
 holds them, bridged 692 -> 685, then Network.cpp's two timeGetTime initializers, bridged 685 -> 683,
 and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; halilkkaya-in-o7:
 the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged
-683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677; next seat
-continues).
+683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677, and
+AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -482,6 +482,9 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
     is SpawnBehavior's copy 0x007B0BFF, then this entry; the static follows the unit's pool key.
   - v3_rnd.cpp `_$E2` 0x007B6800: the unit defines `BFME_RANDOM3CLASS_CTOR_NOINLINE`, as BFME 1's
     v3_rnd.cpp does, so `Vector3Randomizer::Randomizer` calls the pinned out-of-line ctor.
+  - AISpellBookShroudReveal.cpp `_$E1` 0x007B4BC6 (next round): `g_00E06648 =
+    BfmeLogicFramesPerSecond * 10`, the frame its picker 0x005D7FA6 waits for. The entry is the
+    only one of its run; the unit's own flags give retail's `imul`. Bridged 677 -> 676.
 
   Verified: every owner exact; each `??_7` keeps its pre-edit digest; link_check over the owners,
   their reader files and both grab-bags: 11/11 link (owners +76 bytes, grab-bags -60, plus the
@@ -499,7 +502,8 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   679 -> 677, twice and unidentified unchanged; both units' `??_7` digests are unchanged.
 - *Next.* Units whose global is already ledger-owned are the cheap ones: 0x007ADEF6
   (Drawable.cpp's own copy `g_00DFEB98`, in a split TU), 0x007AEBAA (`g_00E01E04`, AIStates'
-  run), 0x007B1A27 (SlavedUpdate), 0x007B4BC6 (AISpellBookShroudReveal), 0x007B51EB
+  run, defined in the fragment Rva0033FE65OnEnter.cpp), 0x007B1A27 (SlavedUpdate's
+  `BfmeSlavedUpdateIntervalFrames` in SlavedUpdateRepair.cpp, held by another seat), 0x007B51EB
   (Rva005F0152ImageGet) and 0x007B67A0 (`g_aptDateInterpreter`, AptDate.cpp's POD view). The
   ctor/dtor families need the owner to declare the real class and take the cleanup row too.
 
