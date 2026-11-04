@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfmealloc /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
-// STLport 4.5.3 wide-string instantiations.
+// stlport46
+// STLport 4.6 wide-string instantiations.
 
 #include <string>
 // bfme link decl-only begin
@@ -15,9 +15,9 @@ namespace _STL { template <> unsigned short *__uninitialized_copy<unsigned short
 // Suppress this TU's non-retail copy of ?_M_deallocate_block@?$_String_base@GV?$allocator@G@_STL@@@_STL@@QAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void _String_base<unsigned short, allocator<unsigned short> >::_M_deallocate_block(); }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z:
+// Suppress this TU's non-retail copy of ?deallocate@?$allocator@G@_STL@@QAEXPAGI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t) const; }
+namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t); }
 
 
 // Retail assignment calls erase at 0x13110 instead of inlining it.
@@ -83,8 +83,6 @@ template wchar_t *WideCharTraitsBase::move(wchar_t *, const wchar_t *, size_t);
 template wchar_t *WideCharTraitsBase::copy(wchar_t *, const wchar_t *, size_t);
 template wchar_t *WideCharTraitsBase::assign(wchar_t *, size_t, wchar_t);
 template void WideCharTraitsBase::assign(wchar_t &, const wchar_t &);
-// Retain the allocator row previously instantiated through range append.
-template unsigned short *_STL::allocator<unsigned short>::allocate(size_t, const void *) const;
 // Keep the rowed placement constructor that the insert helper used to instantiate.
 template void _STL::_Construct<wchar_t, wchar_t>(wchar_t *, const wchar_t &);
 template bool _STL::_Eq_traits<_STL::char_traits<wchar_t> >::operator()(const wchar_t &, const wchar_t &) const;

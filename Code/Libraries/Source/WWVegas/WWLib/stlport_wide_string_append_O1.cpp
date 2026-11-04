@@ -69,7 +69,7 @@ template <class T>
 class allocator
 {
 public:
-	T *allocate(size_t count, const void *hint) const;
+	T *allocate(size_t count, const void *hint);
 };
 
 template <class Pointer, class Value, class Alloc>
@@ -155,7 +155,7 @@ basic_string<CharT, Traits, Alloc>::rva001EF83A(ForwardIter __first, ForwardIter
 		if ((size_type)(__last - __first) + __old_size > capacity()) {
 			const size_type __n = (size_type)(__last - __first);
 			const size_type __len = __old_size + (max)(__old_size, __n) + 1;
-			pointer __new_start = ((const Alloc &)_M_end_of_storage).allocate(__len, 0);
+			pointer __new_start = ((Alloc &)_M_end_of_storage).allocate(__len, 0);
 			pointer __new_finish = uninitialized_copy(_M_start, _M_finish, __new_start);
 
 			__new_finish = uninitialized_copy(__first, __last, __new_finish);
