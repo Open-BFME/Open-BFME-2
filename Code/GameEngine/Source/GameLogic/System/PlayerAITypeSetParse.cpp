@@ -27,7 +27,13 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 class Rva0015334F { public: __declspec(nothrow) Rva0015334F(); public: __declspec(noinline) ~Rva0015334F(); private: AsciiString name; _STL::vector<AsciiString> libraries; };
 struct BfmeItemERE : Rva0015334F { __declspec(nothrow) __forceinline BfmeItemERE():Rva0015334F(){} BfmeItemERE(const BfmeItemERE&); ~BfmeItemERE(); };
-class BfmeVecERE {public:void bfmeResizeERE(unsigned count,BfmeItemERE item);};
+class BfmeVecERE
+{
+public:
+	void bfmeResizeERE(unsigned int count, BfmeItemERE value);
+	BfmeItemERE *m_bfmeFirstERE; // +0x00
+	BfmeItemERE *m_bfmeLastERE; // +0x04
+};
 class Rva00215AF1 { public: void resize(unsigned count); };
 void Rva00215AF1::resize(unsigned count) { ((BfmeVecERE*)this)->bfmeResizeERE(count,BfmeItemERE()); }
 
