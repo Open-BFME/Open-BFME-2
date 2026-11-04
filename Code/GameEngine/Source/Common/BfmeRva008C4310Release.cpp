@@ -18,8 +18,8 @@ public:
 class BfmeListVMU
 {
 public:
-	void bfmeEraseVMU(BfmeNodeVMU **it);
-	BfmeNodeVMU *m_bfmeHead;
+	void bfmeEraseVMU(BfmeNodeVMU **);
+	BfmeNodeVMU *head; // +0x00
 };
 
 class BfmeTracker4310 : public BfmeListVMU
@@ -31,7 +31,7 @@ public:
 // ?bfmeDrop@BfmeTracker4310@@QAEXPAVBfmeObj4310@@@Z, retail 0x006D2580 (52B).
 void BfmeTracker4310::bfmeDrop(BfmeObj4310 *obj)
 {
-	BfmeNodeVMU *node = m_bfmeHead;
+	BfmeNodeVMU *node = head;
 	while (node != 0)
 	{
 		if (*(BfmeObj4310 **)((char *)node->m_bfmePayload + 8) == obj)
