@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /EHs /MD /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
-// stlport
+// stlport46
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -59,17 +59,19 @@ extern LANAPI *TheLAN;
 extern GameTextInterface *TheGameText;
 extern int GameSpyColor[];
 
-class ChatWindowsLan {
+class ChatWindowsLan
+{
 public:
-    void GetLobbyPlayers(_STL::vector<BfmeStringRecord005D511F> *);
-    bool PopulatePlayerList(_STL::vector<BfmeStringRecord005D511F>*);
-    bool rva005D56D0();
-    bool rva005D574C();
-    // 0x005D5648 (StringRecordVectorFill005D5648.cpp): a member that never
-    // reads ECX; this caller sets ECX=this for it (retail hoists that into the
-    // loop test it shares with PopulatePlayerList).
-    void rva005D5648(_STL::vector<BfmeStringRecord005D511F> *, GameInfo *);
-    char unknown00[0x10]; class GameWindow *playerList10;
+	void GetLobbyPlayers(_STL::vector<BfmeStringRecord005D511F> *);
+	bool PopulatePlayerList(_STL::vector<BfmeStringRecord005D511F>*);
+	bool rva005D56D0();
+	bool rva005D574C();
+	// 0x005D5648 (StringRecordVectorFill005D5648.cpp): a member that never
+	// reads ECX; this caller sets ECX=this for it (retail hoists that into the
+	// loop test it shares with PopulatePlayerList).
+	void rva005D5648(_STL::vector<BfmeStringRecord005D511F> *, GameInfo *);
+	char m_pad00[0x10];
+	class GameWindow *playerList10; // +0x10
 };
 
 void ChatWindowsLan::GetLobbyPlayers(
@@ -107,7 +109,7 @@ void GadgetListBoxSetTopVisibleEntry(GameWindow *,int);
 void Rva00326F9BSet(GameWindow *,const int **);
 class ModuleData;
 template<> void _STL::vector<const ModuleData *>::push_back(const ModuleData *const &);
-template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
+template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {public:template<class U> struct rebind {typedef Rva002444BEAllocator<U> other;};};
 typedef _STL::vector<int,Rva002444BEAllocator<int> > SelectionIDs;
 class ChatWindowsInGame {public:int rva005AFDC5(int,const UnicodeString &,const UnicodeString &,int);};
 #include "../../../Include/GameClient/GameWindowManager.h"
