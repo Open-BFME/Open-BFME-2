@@ -212,15 +212,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 // The map cache: the AsciiString-keyed map whose find worker is the pinned
 // _M_find 0x001F8437; size at +0x28 and CRC at +0x2C of the value (as
 // AptLanLobby::bfmeMapChanged reads them).
-class MapMetaData
-{
-public:
-	unsigned char m_pad00[0x20];
-	int m_20;				// +0x20, sent with a created room
-	unsigned char m_pad24[0x28 - 0x24];
-	unsigned int m_filesize; // +0x28
-	unsigned int m_CRC;	  // +0x2C
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 
@@ -1629,7 +1621,7 @@ void AptOnlineCustomMatch::rva005A2899()
 		map.toLower();
 		MapCache::iterator it = TheMapCache->find(map);
 		if (it != TheMapCache->end())
-			req.creation.mapValue = it->second.m_20;
+			req.creation.mapValue = it->second.m_numPlayers;
 	}
 	TheGameSpyPeerMessageQueue->addRequest(req);
 	m_state = 5;
