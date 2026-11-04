@@ -24956,7 +24956,7 @@ _piChannelMessageA,,0x006AACB0,305,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?addObjectType@ObjectTypes@@QAEXABVAsciiString@@@Z,,0x00376B50,32,Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp,matched,check-then-add via contains plus vector push_back
 ?q4Notify002CC5E1@@YAXPAXPAVDamageNugget@@HH@Z,,0x005088F0,53,Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Parse.cpp,matched,DamageNugget parser via rowed buildFieldParse and pinned init
 ?rva000C2AA4@Rva000C2AA4@@QAEXABVAsciiString@@@Z,,0x000C2AA4,127,Code/GameEngine/Source/Common/Rva000C2AA4Add.cpp,matched,lowercased check-then-add via Find and push_back with EH temp
-?rva004E2CD5@Rva004E2CD5@@QAE_NABV?$StringBase@D@@@Z,,0x004E2CD5,34,Code/GameEngine/Source/Common/Rva004E2CD5Contains.cpp,matched,vector contains via rowed Find with last-first locals
+?rva004E2CD5@Rva004E2CD5@@QAE_NABV?$StringBase@D@@@Z,,0x004E2CD5,34,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,matched,vector contains via rowed Find with last-first locals
 ?Rva000C0CE1Copy@@YAPAUBfmeVectorRecord000C0BEC@@PAU1@00@Z,,0x000C0CE1,50,Code/GameEngine/Source/Common/Rva000C0CE1Copy.cpp,matched,array copy via rowed operator equals with lazy esi
 ?xfer@Rva004AD9B0@@MAEXPAVXfer@@@Z,,0x004ADA2D,67,Code/GameEngine/Source/GameLogic/Object/Update/Rva004AD9B0Xfer.cpp,matched,slot3 Version12 base SpecialAbilityUpdate gated bool 0x8C
 ?fillInLANMessage@LANAPI@@UAEXPAULANMessage@@@Z,,0x0044A966,128,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,matched,vslot 57 LANAPI fill message via wcsncpy strncpy
