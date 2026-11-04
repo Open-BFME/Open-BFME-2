@@ -46,32 +46,12 @@ struct Rva00072F7CNode {
   Rva00072F7CNode *left08;
   Rva00072F7CNode *right0C;
 };
-struct Rva00072FE6 {
-  Rva00072F7CNode *header00;
-  unsigned count04;
-  char unknown08[16];
-  void rva00072FE6();
-  typedef _STL::pair<const int, void*> V;
-  typedef _STL::_Rb_tree_iterator<V, _STL::_Nonconst_traits<V> > iterator;
-  // ?begin@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ present-unmatched
-  iterator begin() {
-    iterator it;
-    it._M_node = (::_STL::_Rb_tree_node_base*)header00->left08;
-    return it;
-  }
-  // ?end@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ present-unmatched
-  iterator end() {
-    iterator it;
-    it._M_node = (::_STL::_Rb_tree_node_base*)header00;
-    return it;
-  }
-  void rva0007300F(iterator first, iterator last);
-  unsigned int rva000733D8(const int &key);
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 void Rva00072FE6::rva0007300F(iterator first, iterator last) {
   typedef V VV;
   typedef _STL::_Rb_tree<int, VV, _STL::_Select1st<VV>, _STL::less<int>, _STL::allocator<VV> > Tree;
-  if (first == begin() && last == end())
+  if (first._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(header00->left08) &&
+      last._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(header00))
     rva00072FE6();
   else
     while (first != last)

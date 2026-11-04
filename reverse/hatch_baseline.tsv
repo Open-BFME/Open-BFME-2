@@ -13706,8 +13706,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cp
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0000234DVectorDeletingDtors.cpp	bfmeVectorDeleteAnchor0000234D@@YAXPAVRva0000234DElem@@PAVRva00001E13@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntTree::upper_bound	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	begin@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	end@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00136642HintInsert.cpp	0Rva001364F7Iter@@QAE@PAURvaNode1364F7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	Rva00151248String::Rva00151248String	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C262HeaderOwner::~Rva0018C262HeaderOwner	1
