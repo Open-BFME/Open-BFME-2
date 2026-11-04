@@ -30,7 +30,13 @@ bool Render_Obj_Exists(const char *);
 AsciiString makeNrmTextureName(const AsciiString &);
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
-struct CursorTextureSlot { void operator=(const BFME2ParticleTextureHandle &); };
+class W3DRadarResetSurface;
+class CursorTextureSlot : public BfmeResetTextureRef
+{
+public:
+	W3DRadarResetSurface Get_Surface_Level();
+	void operator=(const BFME2ParticleTextureHandle &);
+};
 class FloorMaterialDispatch;
 class FloorRenderDispatch {
 public:

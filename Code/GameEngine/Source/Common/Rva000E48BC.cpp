@@ -83,24 +83,29 @@ public:
 	const Matrix3D *getTransformMatrix() const;
 };
 
+class Rva000E488FElement;
 class Rva000E488F
 {
 public:
 	bool rva000E488F(void *arg);
+	Rva000E488FElement **m_begin; // +0x00
+	Rva000E488FElement **m_end; // +0x04
 };
 
 class Rva000E48BC
 {
 public:
 	bool rva000E48BC(Rva000E488F *container);
-	int rva000E49B8(int player);
-	Vector3 m_pos;
-	float m_extent; // +0x0C, proven by the 0x000E49B8 sample loads [esi+0xC]
-	Vector3 m_offset;
-	char m_pad1C[0x2C - 0x1C];
-	Drawable *m_drawable;
-	char m_pad30[0x80 - 0x30];
-	bool m_flag;
+	int rva000E49B8(int);
+	Vector3 m_pos; // +0x00
+	float m_extent; // +0x0C
+	Vector3 m_offset; // +0x10
+	char m_pad1C[0x10];
+	Drawable *m_drawable; // +0x2C
+	char m_pad30[0x50];
+	bool m_flag; // +0x80
+	char m_pad81[0x17];
+	int m_98; // +0x98
 };
 
 bool Rva000E48BC::rva000E48BC(Rva000E488F *container)

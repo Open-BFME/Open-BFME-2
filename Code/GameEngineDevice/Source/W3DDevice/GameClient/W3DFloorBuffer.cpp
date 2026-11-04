@@ -57,9 +57,12 @@ public:
 	void *m_surface;
 	~W3DRadarResetSurface();
 };
-struct CursorTextureSlot : public BfmeResetTextureRef
+class BFME2ParticleTextureHandle;
+class CursorTextureSlot : public BfmeResetTextureRef
 {
+public:
 	W3DRadarResetSurface Get_Surface_Level();
+	void operator=(const BFME2ParticleTextureHandle &);
 };
 struct Rva00131DFC : public CursorTextureSlot
 {
