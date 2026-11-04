@@ -1,4 +1,5 @@
 // cl: /GS
+// platformsdk
 // Microsoft Visual C++ .NET 2003 ATL 7.1 CAtlBaseModule constructor, from
 // atls.lib's atlbase.obj (src/atl/atls/atlbase.cpp), and the compiler-generated
 // _ATL_BASE_MODULE70 constructor it calls.
@@ -7,47 +8,13 @@
 // place uniquely at 0x00628E28 and 0x00628CFE. The OSVERSIONINFO local is why
 // the constructor carries a /GS cookie.
 
-typedef unsigned int UINT;
-typedef unsigned long DWORD;
-typedef long HRESULT;
-typedef int BOOL;
-typedef unsigned int size_t;
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <string.h>
 
-struct HINSTANCE__;
-typedef HINSTANCE__ *HINSTANCE;
-
-struct GUID
-{
-    unsigned long Data1;
-    unsigned short Data2;
-    unsigned short Data3;
-    unsigned char Data4[8];
-};
-
-struct IMAGE_DOS_HEADER
-{
-    unsigned short e_magic;
-};
-
-struct OSVERSIONINFOA
-{
-    DWORD dwOSVersionInfoSize;
-    DWORD dwMajorVersion;
-    DWORD dwMinorVersion;
-    DWORD dwBuildNumber;
-    DWORD dwPlatformId;
-    char szCSDVersion[128];
-};
-typedef OSVERSIONINFOA OSVERSIONINFO;
-
-#define VER_PLATFORM_WIN32_WINDOWS 1
-#define VER_PLATFORM_WIN32_NT 2
-#define FAILED(hr) ((hr) < 0)
 #define _ATL_VER 0x0710
 
-extern "C" __declspec(dllimport) BOOL __stdcall GetVersionExA(OSVERSIONINFOA *version);
-extern "C" void *__cdecl memset(void *destination, int value, size_t size);
-
+// Linker-provided image base; _vcclrit.h also defines managed CRT startup state.
 extern "C" IMAGE_DOS_HEADER __ImageBase;
 
 namespace ATL
