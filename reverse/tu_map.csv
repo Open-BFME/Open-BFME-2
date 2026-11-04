@@ -28257,7 +28257,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0037FEA3,125,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,C,C=0x0037FE3D..0x0037FF20 provisional,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FEA3.cpp
 0x0037FF20,189,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,C,C=0x0037FE3D..0x0037FFDD provisional,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FF20.cpp
 0x0037FFDD,55,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,C,C=0x0037FE3D..0x00380014 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
-0x00380014,492,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp W=Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp provisional,Code/GameEngine/Source/GameLogic/System/ArmyPlacerFarthestPair.cpp
+0x00380014,492,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp W=Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp provisional,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp
 0x00380200,13,code,,,-,,Code/GameEngine/Source/Common/Rva00380200Getter.cpp
 0x0038020D,110,code,,,-,,Code/GameEngine/Source/Common/Rva00380200Getter.cpp
 0x0038027B,16,code,,,-,,Code/GameEngine/Source/Common/Rva0038028BMethod.cpp
@@ -74785,8 +74785,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077F22A,13,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x0037FAC6@FuncInfo0x009297D0 provisional,Code/GameEngine/Source/Common/System/ArmyPlacerPlaceObjects.cpp
 0x0077F237,13,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x0037FAC6@FuncInfo0x009297D0 provisional,Code/GameEngine/Source/Common/System/ArmyPlacerPlaceObjects.cpp
 0x0077F244,10,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x0037FAC6@FuncInfo0x009297D0 provisional,Code/GameEngine/Source/Common/System/ArmyPlacerPlaceObjects.cpp
-0x0077F24E,8,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x00380014@FuncInfo0x009297F4 provisional,Code/GameEngine/Source/GameLogic/System/ArmyPlacerFarthestPair.cpp
-0x0077F256,10,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x00380014@FuncInfo0x009297F4 provisional,Code/GameEngine/Source/GameLogic/System/ArmyPlacerFarthestPair.cpp
+0x0077F24E,8,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x00380014@FuncInfo0x009297F4 provisional,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp
+0x0077F256,10,code,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp,approved,P,P=0x00380014@FuncInfo0x009297F4 provisional,Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp
 0x0077F260,8,code,,,-,,Code/GameEngine/Source/Common/Rva00380200Getter_Rva00380200.cpp
 0x0077F268,10,code,,,-,,Code/GameEngine/Source/Common/Rva00380200Getter_Rva00380200.cpp
 0x0077F272,10,code,,,-,,Code/GameEngine/Source/Common/Rva003806D4.cpp
