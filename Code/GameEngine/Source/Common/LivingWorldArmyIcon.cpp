@@ -177,27 +177,13 @@ public:
 };
 
 // ?rva003FE05E@Rva003FE05E@@QAEXXZ @0x003FE05E 85B: __thiscall refresh of +0x4C TreeHintRef from +0x38 int via Helper0056BABF else clear. Evidence: rowed TreeHintRef op= 0x002174A4 plus rowed clear 0x002BED91 plus pinned Helper0056BABF plus rowed Release 0x0007DEEF plus sibling setter 0x003FE0B3 same op-release shape plus callers 0x003FE125 0x003FE550.
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-    void *m_vtbl;
-    int references;
-};
+	if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct TreeHintRef00217D4C
-{
-public:
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) {
-		if (m_ptr) ++m_ptr->references;
-	}
-	__forceinline ~TreeHintRef00217D4C() {
-		if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-	TargetRef00217D4C *m_ptr; // +0x00
-};
 
 struct RvaF6Ret
 {
@@ -234,7 +220,6 @@ struct Rva003FDEADRefBlock;
 
 struct Rva003FDEADParam38;
 
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 
 class Rva003FE0B3 {
 	char m_pad[0x4C];

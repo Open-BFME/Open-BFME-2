@@ -8,23 +8,12 @@
 // establish the reference-counted result and 12-byte help allocation pattern.
 #include "unicode_string.h"
 
-struct TargetRef00217D4C {
-    void *vtable;
-    int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C {
-    TreeHintRef00217D4C(TargetRef00217D4C *p) : m_ptr(p) {
-        if (m_ptr) ++m_ptr->references;
-    }
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) {
-        if (m_ptr) ++m_ptr->references;
-    }
-    ~TreeHintRef00217D4C() {
-        if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
-    }
-    TargetRef00217D4C *m_ptr;
-};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
+    if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
+}
+
 class InGameSimpleHelp {
 public:
     InGameSimpleHelp(const UnicodeString &title, const UnicodeString &text);

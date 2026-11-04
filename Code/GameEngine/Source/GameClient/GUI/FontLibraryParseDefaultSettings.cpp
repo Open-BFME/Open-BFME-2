@@ -19,9 +19,11 @@ extern const FieldParse FontDefaultSettingsFieldParse[2] = {
 	{ 0, 0, 0, 0 },
 };
 extern "C" double (__cdecl * const _imp__atof)(const char*);
-struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C() {if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other) { if (this != &other) { if (other.m_ptr) ++other.m_ptr->references; if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); m_ptr = other.m_ptr; } return *this; }
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-struct TreeHintRef00217D4C {TargetRef00217D4C *m_ptr;TreeHintRef00217D4C(TargetRef00217D4C *p):m_ptr(p){if(p)++p->references;}__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other) { if (this != &other) { if (other.m_ptr) ++other.m_ptr->references; if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); m_ptr = other.m_ptr; } return *this; }__forceinline ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}};
+
 struct FontSettingsOwner {TargetRef00217D4C *m_ptr;FontSettingsOwner(TargetRef00217D4C *p):m_ptr(p){if(p)++p->references;}__forceinline ~FontSettingsOwner(){ReleaseTreeHintRef00217D4C(m_ptr);}};
 struct TreeHintRef00218787 {TargetRef00217D4C *m_ptr;};
 namespace _STL {template<> TreeHintRef00217D4C &map<AsciiString,TreeHintRef00217D4C>::operator[](const AsciiString&);template<> TreeHintRef00218787 &map<int,TreeHintRef00218787>::operator[](const int&);}

@@ -49,28 +49,14 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-    virtual void *destroy(unsigned int flags);
-    int m_references;
-};
+    if (m_ptr)
+        ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct TreeHintRef00217D4C
-{
-    TargetRef00217D4C *m_ptr;
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
-    {
-        if (m_ptr)
-            ++m_ptr->m_references;
-    }
-    ~TreeHintRef00217D4C()
-    {
-        if (m_ptr)
-            ReleaseTreeHintRef00217D4C(m_ptr);
-    }
-};
 
 struct Rva004F8D92Element
 {

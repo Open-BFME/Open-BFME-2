@@ -42,13 +42,9 @@ _STL::pair<const AsciiString, TreeHintPayload00410A86> *Rva000427195::rva00410DD
 // 410688 releases reference+4 then string+0. Keep both existing owners.
 // This call-only specialization holds that native record without imposing
 // the other tree table's cleanup2175CE on the screen table's temporary.
-struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TargetRef00217D4C *m_ptr;
- TreeHintRef00217D4C():m_ptr(0){}
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() {if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+
 class Rva00410688 {public:~Rva00410688();};
 namespace _STL {
 template<> struct pair<const AsciiString,TreeHintRef00217D4C> {

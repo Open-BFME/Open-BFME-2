@@ -229,32 +229,16 @@ class Rva0054CFB8Target;
 
 // Target evidence: 0x0054CFB8 consumes two by-value reference handles at
 // stack offsets +0x14/+0x18 and releases both through the matched helper.
-struct TargetRef00217D4C
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 class Rva0023E8D8;
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
-	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
 
 class Rva0023E8D8 : public TreeHintRef00217D4C
 {

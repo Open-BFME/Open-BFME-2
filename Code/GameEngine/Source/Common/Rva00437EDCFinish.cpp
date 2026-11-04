@@ -42,24 +42,13 @@ bool Rva00437EDCGet()
 // child04 to confirmed100B54D222, which assigns callback1C only on success.
 // A local callback-member reference preserves retail's address evaluation.
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
- TargetRef00217D4C *m_ptr;
- // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
- TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
- {
-  if (m_ptr)
-   ++m_ptr->references;
- }
- // ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched
- __forceinline ~TreeHintRef00217D4C()
- {
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
   if (m_ptr)
    ReleaseTreeHintRef00217D4C(m_ptr);
  }
-};
+
 #include "ascii_string.h"
 class UnicodeString;
 #include "../../Include/Common/Rva000B3F84Pair.h"

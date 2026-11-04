@@ -16,30 +16,12 @@
 // local handle releases on both the normal and exception paths. No original
 // application class name or unused virtual-slot ABI is claimed.
 
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-    virtual void *destroy(unsigned);
-    int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+    if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-struct TreeHintRef00217D4C
-{
-    TargetRef00217D4C *m_ptr;
-    TreeHintRef00217D4C() : m_ptr(0) {}
-    TreeHintRef00217D4C(TargetRef00217D4C *v) : m_ptr(v)
-    {
-        if (m_ptr) ++m_ptr->references;
-    }
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &v) : m_ptr(v.m_ptr)
-    {
-        if (m_ptr) ++m_ptr->references;
-    }
-    ~TreeHintRef00217D4C()
-    {
-        if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
-    }
-};
 
 class Rva00281A33Listener
 {

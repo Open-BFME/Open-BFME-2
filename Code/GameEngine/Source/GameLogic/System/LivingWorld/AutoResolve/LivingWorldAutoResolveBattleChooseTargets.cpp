@@ -18,17 +18,8 @@
 
 #include <string.h>
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-};
 
 struct Ints004F6943
 {

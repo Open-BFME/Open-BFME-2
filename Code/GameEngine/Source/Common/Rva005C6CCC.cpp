@@ -14,25 +14,13 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 #undef _STLP_DEFAULT_CONSTRUCTED
 #define _STLP_DEFAULT_CONSTRUCTED(_TTp) _TTp()
 
-struct TargetRef00217D4C {
-	virtual void *destroy(unsigned flags);
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-struct TreeHintRef00217D4C {
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) {
-		if (m_ptr)
-			++m_ptr->references;
-	}
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	__forceinline ~TreeHintRef00217D4C() {
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
 
 #include <map>
 
