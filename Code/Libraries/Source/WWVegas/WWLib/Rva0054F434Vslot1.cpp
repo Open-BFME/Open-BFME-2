@@ -34,14 +34,7 @@ namespace _STL { template <> _List_iterator<AsciiString, _Nonconst_traits<AsciiS
 
 #include <stdlib.h>
 
-class Rva00072FE6
-{
-public:
-	~Rva00072FE6();
-private:
-	void *m_header;
-	int m_flag;
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 class Rva0054F434Buf
 {
@@ -76,7 +69,6 @@ private:
 	_STL::_List_base<AsciiString, _STL::allocator<AsciiString> > m_list48;
 	char m_padC[0x58 - 0x48 - sizeof(_STL::_List_base<AsciiString, _STL::allocator<AsciiString> >)];
 	Rva00072FE6 m_tree58;
-	char m_padD[0x64 - 0x58 - sizeof(Rva00072FE6)];
 	AsciiString m_str64;
 };
 

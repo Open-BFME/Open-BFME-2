@@ -26,14 +26,7 @@ namespace _STL { template <> _List_node<AsciiString> * list<AsciiString, allocat
 
 #include <stdlib.h>
 
-class Rva00072FE6
-{
-public:
-	~Rva00072FE6();
-private:
-	void *m_header;
-	int m_flag;
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 // The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
 // view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the
@@ -84,7 +77,6 @@ private:
 	_STL::_List_base<AsciiString, _STL::allocator<AsciiString> > m_list48;
 	char m_padC[0x58 - 0x48 - sizeof(_STL::_List_base<AsciiString, _STL::allocator<AsciiString> >)];
 	Rva00073116Set m_tree58;
-	char m_padD[0x64 - 0x58 - sizeof(Rva00072FE6)];
 	AsciiString m_str64;
 };
 
