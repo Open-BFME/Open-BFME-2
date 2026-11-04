@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 //
 // ??0GroupOrder@@QAE@PAVRva0036E346@@@Z, retail 0x00548A25, 157 bytes.
@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-extern "C" const void *const __identifier("??_7GroupOrder@@6B@")[];  // vftable 0x00C6A520
+#include "Common/Snapshot.h"
 
 #include <vector>
 
@@ -84,34 +84,31 @@ public:
 	ListNode *m_head;
 };
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+class Rva0036E346;
 
-class GroupOrder : public EmptyBase
+class GroupOrder : public Snapshot
 {
 public:
+	GroupOrder();
+	GroupOrder(const GroupOrder &other);
 	GroupOrder(Rva0036E346 *holder);
+	virtual ~GroupOrder();
+	virtual void xfer(Xfer *xfer); // slot 3 of 0x0086A520
 
 private:
-	void *m_vtable;
-	_STL::vector<ScienceType> m_sciences;
-	void *m_id10;
-	void *m_unused14;
+	_STL::vector<ScienceType> m_list; // +4
+	unsigned int m_10; // +0x10 fresh nonzero id (copy and holder ctors)
+	unsigned int m_14; // +0x14
 };
 
 GroupOrder::GroupOrder(Rva0036E346 *holder)
-	: m_vtable(reinterpret_cast<void *>(((unsigned int)__identifier("??_7GroupOrder@@6B@"))))
-	, m_sciences()
+	: m_list()
 {
-	m_id10 = reinterpret_cast<void *>(++g_Va00E05F74);
-	m_unused14 = NULL;
-	if (m_id10 == 0)
-		m_id10 = reinterpret_cast<void *>(++g_Va00E05F74);
-	m_sciences.reserve(holder->rva0036E346());
+	m_10 = ++g_Va00E05F74;
+	m_14 = 0;
+	if (m_10 == 0)
+		m_10 = ++g_Va00E05F74;
+	m_list.reserve(holder->rva0036E346());
 	for (ListNode *cur = holder->m_head->m_next; cur != holder->m_head; cur = cur->m_next)
-		m_sciences.push_back(cur->m_obj->getScience());
+		m_list.push_back(cur->m_obj->getScience());
 }

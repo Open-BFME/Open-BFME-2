@@ -50,14 +50,19 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 
 typedef _STL::vector<ScienceType> ScienceTypeVector;
 
+class Rva0036E346;
+
 class GroupOrder : public Snapshot
 {
 public:
+	GroupOrder();
+	GroupOrder(const GroupOrder &other);
+	GroupOrder(Rva0036E346 *holder);
 	virtual ~GroupOrder();
 	virtual void xfer(Xfer *xfer); // slot 3 of 0x0086A520
 
 private:
-	ScienceTypeVector m_list; // +4
+	_STL::vector<ScienceType> m_list; // +4
 	unsigned int m_10; // +0x10 fresh nonzero id (copy and holder ctors)
 	unsigned int m_14; // +0x14
 };

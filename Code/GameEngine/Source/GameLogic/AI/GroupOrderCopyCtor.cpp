@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 //
 // ??0GroupOrder@@QAE@ABV0@@Z at retail 0x005488E9 (95B, not 92:
@@ -7,14 +7,10 @@
 // through the rowed vector<ScienceType> copy at 0x54878E, and generated id
 // words at +0x10/+0x14 fed from the absolute counter at 0x00E05F74 (fresh
 // nonzero id, skipping zero). The member element type is proven by the copy
-// call: a trivial 4-byte element folds to the rowed ScienceType spelling,
-// so no alias pin is needed. (The sibling default-ctor shard models the
-// same member as vector<AsciiString>; the default call folds for every
-// spelling, so both shards are byte-exact.) The single EH state comes from
-// an empty base with declared-only dtor (Topple pattern, zero emitted
-// code); without it this toolchain stays frameless. Split TU because the
-// default-ctor shard must keep its EH-off flags (makeDirty law).
-extern "C" const void *const __identifier("??_7GroupOrder@@6B@")[];  // vftable 0x00C6A520
+// call: a trivial 4-byte element folds to the rowed ScienceType spelling.
+// Snapshot supplies the native base lifetime and the compiler installs
+// GroupOrder's vptr, matching the destructor's proven Snapshot lineage.
+#include "Common/Snapshot.h"
 
 #include <vector>
 
@@ -49,35 +45,31 @@ extern int g_Va00E05F74;
 // g_Va00E05F74: matched references place it at VA 0xe05f74 (zero-filled .bss).
 int g_Va00E05F74;
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+class Rva0036E346;
 
-class GroupOrder : public EmptyBase
+class GroupOrder : public Snapshot
 {
 public:
 	GroupOrder();
 	GroupOrder(const GroupOrder &other);
+	GroupOrder(Rva0036E346 *holder);
+	virtual ~GroupOrder();
+	virtual void xfer(Xfer *xfer); // slot 3 of 0x0086A520
 
 private:
-	void *m_vtable; // +0
-	_STL::vector<ScienceType> m_sciences; // +4
-	void *m_unused10; // +0x10
-	void *m_unused14; // +0x14
+	_STL::vector<ScienceType> m_list; // +4
+	unsigned int m_10; // +0x10 fresh nonzero id (copy and holder ctors)
+	unsigned int m_14; // +0x14
 };
 
 // ??0GroupOrder@@QAE@ABV0@@Z @0x5488E9
 GroupOrder::GroupOrder(const GroupOrder &other)
-	: m_vtable(reinterpret_cast<void *>(((unsigned int)__identifier("??_7GroupOrder@@6B@"))))
-	, m_sciences(other.m_sciences)
+	: m_list(other.m_list)
 {
-	m_unused10 = reinterpret_cast<void *>(++g_Va00E05F74);
-	m_unused14 = NULL;
-	if (m_unused10 == 0)
-		m_unused10 = reinterpret_cast<void *>(++g_Va00E05F74);
+	m_10 = ++g_Va00E05F74;
+	m_14 = 0;
+	if (m_10 == 0)
+		m_10 = ++g_Va00E05F74;
 }
 // bfme link decl-only begin
 namespace _STL { template <> ScienceType * allocator<ScienceType>::allocate(unsigned int,void const *) const; }

@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // ??0GroupOrder@@QAE@XZ at retail 0x005488C5 (36B). The
@@ -8,11 +8,10 @@
 // the six group orders the factory 0x00354EFC creates (formerly rowed as
 // SpecialPowerModuleData; the real SpecialPower base is 0x004930A0). The
 // name GroupOrder is inferred from those six class names. The vector
-// element type is invisible in retail bytes (the base call folds for every
-// spelling); it is modeled as AsciiString after the SpawnBehavior
-// precedent, which resolves with zero new pins. Six derived group-order
+// element type is established by the copy constructor at 0x005488E9,
+// which calls the verified vector<ScienceType> copy. Six derived group-order
 // ctors call this base (see ChangeStanceGroupOrderCtor.cpp).
-extern "C" const void *const __identifier("??_7GroupOrder@@6B@")[];  // vftable 0x00C6A520
+#include "Common/Snapshot.h"
 
 #include <vector>
 
@@ -29,24 +28,28 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-#include "ascii_string.h"
+enum ScienceType { SCIENCE_NONE = 0 };
 
-class GroupOrder
+class Rva0036E346;
+
+class GroupOrder : public Snapshot
 {
 public:
 	GroupOrder();
+	GroupOrder(const GroupOrder &other);
+	GroupOrder(Rva0036E346 *holder);
+	virtual ~GroupOrder();
+	virtual void xfer(Xfer *xfer); // slot 3 of 0x0086A520
 
 private:
-	void *m_vtable; // +0
-	_STL::vector<AsciiString> m_stringList; // +4
-	void *m_unused10; // +0x10
-	void *m_unused14; // +0x14
+	_STL::vector<ScienceType> m_list; // +4
+	unsigned int m_10; // +0x10 fresh nonzero id (copy and holder ctors)
+	unsigned int m_14; // +0x14
 };
 
 // ??0GroupOrder@@QAE@XZ @0x5488C5
 GroupOrder::GroupOrder()
-	: m_vtable(reinterpret_cast<void *>(((unsigned int)__identifier("??_7GroupOrder@@6B@"))))
 {
-	m_unused10 = NULL;
-	m_unused14 = NULL;
+	m_10 = 0;
+	m_14 = 0;
 }
