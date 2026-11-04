@@ -40,10 +40,11 @@ typedef Vector3i16 TriIndex;
 
 class VertexMaterialClass;
 
-class TextureClass {
+class TextureClass
+{
 public:
-    void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this) + 4); }
-    void Release_Ref();
+	void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this) + 4); }
+	void Release_Ref();
 };
 
 // The handle releases through TextureBaseClass::Release_Ref (the same retail
