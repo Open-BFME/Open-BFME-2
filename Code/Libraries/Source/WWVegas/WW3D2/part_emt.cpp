@@ -13,6 +13,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves; <new> must not
 #define _CRTIMP // free and strdup bind the game's direct allocation wrappers (0x00030830, 0x006C4C70), not CRT imports.
+#include <string.h>
 #include "wwstring.h"
 #pragma optimize("t", off)
 #pragma optimize("s", on)
@@ -157,9 +158,6 @@ public:
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-// Direct game string allocation helper; imported CRT _strdup is a different binding.
-extern "C" char * __cdecl strdup(const char *);
-
 extern Vector3 InheritedWorldSpaceEmitterVel;
 
 /*
