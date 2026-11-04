@@ -277,14 +277,7 @@ public:
 	float getRoadWidth();
 };
 
-class WeaponTemplate
-{
-public:
-	Real getAimDelta() const { return m_aimDelta; }
-private:
-	unsigned char m_pad00[0x2C];
-	Real m_aimDelta; // +0x2C
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 #define FAST_AS_POSSIBLE 999999.0f
