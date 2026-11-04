@@ -11,11 +11,7 @@
 
 // Existing WeaponTemplateSetHeadCopyCtor.cpp proves a nonthrowing 0x4C-byte
 // memcpy constructor at 0x45455. Preserve the out-of-line helper call.
-class WeaponTemplateSetHead {
-    char m_bytes[0x4C];
-public:
-    __declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &);
-};
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 
 // Complete retail record copy at 0x00048139.
 struct BfmeContainerRecord00048139 {
