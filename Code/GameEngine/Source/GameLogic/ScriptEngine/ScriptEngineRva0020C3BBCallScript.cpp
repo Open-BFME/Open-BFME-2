@@ -29,26 +29,7 @@ class Player;
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class ScriptAction
-{
-public:
-	Parameter *getParameter(int index) const
-	{
-		return index >= 0 && index < m_parameterCount ? m_parameters[index] : 0;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getParameter copy loses to the first-in-order copy. No flags touched.
-	Parameter *bfme_getParameter_12bb3(int index) const
-	{
-		return index >= 0 && index < m_parameterCount ? m_parameters[index] : 0;
-	}
-
-private:
-	void *m_vtable;
-	int m_actionType;
-	int m_parameterCount;
-	Parameter *m_parameters[12];
-	ScriptAction *m_nextAction;
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 class ScriptGroup
 {
@@ -119,7 +100,7 @@ bool ScriptEngine::rva0020A1D0(const AsciiString &scope, Script *pScript, Team *
 void ScriptEngine::callSubroutine(ScriptAction *action)
 {
 	BfmeOwnZC *lookup = (BfmeOwnZC *)this;
-	AsciiString name = action->bfme_getParameter_12bb3(0)->getString();
+	AsciiString name = action->getParameter(0)->getString();
 	AsciiString canonical;
 	ScriptGroup *group = (ScriptGroup *)lookup->rva00204EBB(*(BfmeRoomZC *)&name, &canonical);
 	if (group)

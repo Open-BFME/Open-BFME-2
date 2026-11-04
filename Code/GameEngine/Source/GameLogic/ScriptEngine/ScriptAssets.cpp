@@ -35,35 +35,7 @@ private:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 #include "../../../Include/GameLogic/ScriptParameter.h"
-class ScriptAction
-{
-private:
-    void *vtable;
-public:
-    int type;
-    Parameter *getParameter(int index) const
-    {
-        if (index >= 0 && index < count)
-            return parameters[index];
-        return 0;
-    }
-    // LINK: same-body helper under a TU-unique name (identical inlined
-    // bytes). This TU's getParameter copy loses to the first-in-order copy (no
-    // retail address); the three call sites below inline it but still emit the
-    // loser COMDAT. Rebinding there emits only this unique (trivially kept)
-    // copy. No flags touched.
-    Parameter *bfme_get_parameter(int index) const
-    {
-        if (index >= 0 && index < count)
-            return parameters[index];
-        return 0;
-    }
-    ScriptAction *getNext() const { return next; }
-private:
-    int count;
-    Parameter *parameters[12];
-    ScriptAction *next;
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 #include "../../../Include/GameLogic/ScriptClass.h"
 static __forceinline void CollectScriptAsset(const ThingTemplate *thing, AssetList *assets, AssetLoadMode *mode)
 {
@@ -79,11 +51,11 @@ void Script::rva003B3836(AssetList *assets, AssetLoadMode *mode)
         ScriptAction *action = *slot;
         while (action)
         {
-            switch (action->type)
+            switch (action->getActionType())
             {
             case 0x22:
             {
-                TeamPrototype *team = TheScriptEngine->rva003570D1(action->bfme_get_parameter(0)->getString());
+                TeamPrototype *team = TheScriptEngine->rva003570D1(action->getParameter(0)->getString());
                 Rva003B3836TemplateInfo *info = team ? team->getTemplateInfo() : 0;
                 if (info)
                 {
@@ -97,11 +69,11 @@ void Script::rva003B3836(AssetList *assets, AssetLoadMode *mode)
             }
             case 0x28:
             case 0x139:
-                CollectScriptAsset(TheThingFactory->findTemplate(action->bfme_get_parameter(1)->getString()), assets, mode);
+                CollectScriptAsset(TheThingFactory->findTemplate(action->getParameter(1)->getString()), assets, mode);
                 break;
             case 0x17:
             case 0x29:
-                CollectScriptAsset(TheThingFactory->findTemplate(action->bfme_get_parameter(0)->getString()), assets, mode);
+                CollectScriptAsset(TheThingFactory->findTemplate(action->getParameter(0)->getString()), assets, mode);
                 break;
             }
             action = action->getNext();

@@ -99,34 +99,7 @@ protected:
 
 class Parameter;
 
-class ScriptAction
-{
-public:
-	Int getActionType() const { return m_actionType; }
-	Parameter *getParameter(Int ndx) const
-	{
-		if (ndx >= 0 && ndx < m_numParms)
-			return m_parms[ndx];
-		return 0;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getParameter copy loses to the first-in-order copy. No flags touched.
-	Parameter *bfme_getParameter_c38e6(Int ndx) const
-	{
-		if (ndx >= 0 && ndx < m_numParms)
-			return m_parms[ndx];
-		return 0;
-	}
-	ScriptAction *getNext() const { return m_nextAction; }
-	void setNextAction(ScriptAction *pAct) { m_nextAction = pAct; }
-	AsciiString getUiText();
-
-private:
-	char m_unknown0[4];
-	Int m_actionType;		// +0x04
-	Int m_numParms;			// +0x08
-	Parameter *m_parms[12];	// +0x0C
-	ScriptAction *m_nextAction;	// +0x3C
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 class Script
 {
@@ -368,23 +341,23 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 					if ((((Rva003B2832 *)action)->rva003B2832() & ((Rva00203693Host *)this)->rva00203693()) == 0) {
 						// WB reports the action as unusable in this mode (debug only).
 					} else if (action->getActionType() == 0x107) {
-						if (!static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateSkirmishCommandButtonIsReady(0, action->bfme_getParameter_c38e6(1), action->bfme_getParameter_c38e6(2), true)) {
+						if (!static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateSkirmishCommandButtonIsReady(0, action->getParameter(1), action->getParameter(2), true)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x108) {
-						if (!static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateSkirmishCommandButtonIsReady(0, action->bfme_getParameter_c38e6(1), action->bfme_getParameter_c38e6(2), false)) {
+						if (!static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateSkirmishCommandButtonIsReady(0, action->getParameter(1), action->getParameter(2), false)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x11B) {
-						if (static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateTeamIsContained(action->bfme_getParameter_c38e6(0), true)) {
+						if (static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateTeamIsContained(action->getParameter(0), true)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x11C) {
-						if (static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateTeamIsContained(action->bfme_getParameter_c38e6(0), false)) {
+						if (static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateTeamIsContained(action->getParameter(0), false)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x1F1) {
-						if (!TheScriptConditions->slot17(action->bfme_getParameter_c38e6(0))) {
+						if (!TheScriptConditions->slot17(action->getParameter(0))) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else {
