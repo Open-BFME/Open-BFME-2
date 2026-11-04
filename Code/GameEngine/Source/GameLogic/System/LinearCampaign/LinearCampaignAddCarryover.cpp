@@ -141,17 +141,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
-struct CarryoverUnit
-{
-public:
-	CarryoverUnit();
-	virtual ~CarryoverUnit();
-	Object *createSingleObject(Player *player);
-	AsciiString m_name; // +0x04
-	char m_pad08[0x90 - 0x08];
-	int m_quantity; // +0x90
-	char m_pad94[0xAC - 0x94];
-};
+#include "../../../../Include/GameLogic/CarryoverUnit.h"
 
 struct BfmeAssignRecord36;
 struct BfmeAssignRecord172
@@ -266,7 +256,7 @@ void LinearCampaign::addCarryoverStuffToMap()
 					bool missing = !reinterpret_cast<Rva001EB8A4 *>(mission)->rva001EB8A4(
 						*reinterpret_cast<const Rva001EB8A4Elem *>(unit));
 					if (missing) {
-						for (int remainingUnits = unit->m_quantity; remainingUnits > 0; --remainingUnits) {
+						for (int remainingUnits = unit->m_90; remainingUnits > 0; --remainingUnits) {
 							Object *obj = unit->createSingleObject(player);
 							if (obj) {
 								reinterpret_cast<Rva001EC63DObjectView *>(obj)->m_statusBits |= 0x10;
