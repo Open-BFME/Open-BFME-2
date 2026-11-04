@@ -8,14 +8,8 @@ class ModuleData;
 class Rva00597E30Entry;
 struct Rva002A8AB1Record;
 
-// Existing manager calls used by registration and shutdown. Its full type
-// and extent remain unresolved; neither consumer constructs this receiver.
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	void *rva002A8F24(Player *player);
-};
+// Manager calls used by registration and shutdown.
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 
 // The seed's existing four-byte vector provider identity. This vector holds
 // object identifiers; the spelling does not establish ScienceType semantics.
