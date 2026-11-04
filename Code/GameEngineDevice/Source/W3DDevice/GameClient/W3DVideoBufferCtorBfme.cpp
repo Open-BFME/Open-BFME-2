@@ -60,7 +60,8 @@ class VideoBuffer
 public:
     VideoBuffer(int format);
     virtual void slot0() = 0;
-    virtual ~VideoBuffer();
+    // Nothing to tear down in this view: retail's constructor has no unwind state for this base.
+    virtual ~VideoBuffer() {}
 
 protected:
     unsigned int m_x_pos;
