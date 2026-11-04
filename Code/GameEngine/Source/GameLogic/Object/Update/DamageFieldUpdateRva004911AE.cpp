@@ -174,8 +174,9 @@ template <> ObjectIDList::iterator ObjectIDList::erase(iterator position)
     g_freeList = node;
     return iterator((_STL::_List_node<ObjectID> *)next);
 }
-struct DamageFieldUpdateModuleData
+class DamageFieldUpdateModuleData
 {
+public:
 	unsigned char m_pad00[0x10];
 	Int m_radius;			// +0x10
 	unsigned char m_filterSpec[4];	// +0x14

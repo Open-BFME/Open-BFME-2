@@ -161,7 +161,7 @@ extern "C" void __cdecl Rva00437F61(int,const UnicodeString &,const UnicodeStrin
 void CloseWindow(const char *);
 class DebugDisplayInterface;
 void __cdecl rva000B3FD0DebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
-class Rva00517345;
+struct Rva00517345;
 class Rva0051759EHandler
 {
 public:
@@ -315,7 +315,7 @@ private:
 };
 typedef char StatsExtent[sizeof(PSPlayerAllStats) == 0x548 ? 1 : -1];
 #include "../../../../../Include/Common/GameSpyMiscPreferencesClass.h"
-class BfmeOpaqueOwnedRecord1432;
+struct BfmeOpaqueOwnedRecord1432;
 class GameSpyPSMessageQueueInterface {
 public:
     virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
@@ -335,7 +335,7 @@ extern Rva00222A8BTarget *TheRva00222A8BTarget;
 void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
 // Second wrapper spelling folded onto 0x00516F21 (see the header comment).
 void Rva00516F21InvokeFold(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
-class BfmeOpaqueOwnedRecord1432
+struct BfmeOpaqueOwnedRecord1432
 {
 public:
 	BfmeOpaqueOwnedRecord1432();
@@ -439,7 +439,7 @@ public:
 	~Rva0051732A() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
-class Rva00517345
+struct Rva00517345
 {
 public:
 	virtual Int rva0051759E(UnsignedInt msg, UnsignedByte key, UnsignedInt state);

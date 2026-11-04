@@ -199,8 +199,9 @@ struct GameLogicFrameView
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-struct ObjectCreationUpgradeModuleData
+class ObjectCreationUpgradeModuleData
 {
+public:
 	unsigned char m_pad000[0x0C];
 	unsigned int m_delay; // +0x0C
 	UpgradeMuxData m_upgradeMuxData; // +0x10

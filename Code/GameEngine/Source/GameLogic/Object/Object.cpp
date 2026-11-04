@@ -1096,8 +1096,9 @@ struct Rva0028F5C6
 	Rva0028F5C6(int unused, int b1, int b2, int b3, int b4);
 };
 
-struct Rva0028F633
+class Rva0028F633
 {
+public:
 	unsigned m_bits[32];
 
 	Rva0028F633(int unused, int bit);
