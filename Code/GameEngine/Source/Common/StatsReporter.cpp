@@ -138,47 +138,7 @@ GameSpyGameSlot*getGameSpySlot(int);AsciiString generateGameSpyGameResultsPacket
  char beforeMode[0x5c-4];int mode;char beforeFlags[0xff4-0x60];bool flagFF4;bool getFF4()const{return flagFF4;}char gap[3];int ladder;
 };
 
-class GameSpyInfoInterface {public:
-virtual void v0();
-virtual void v1();
-virtual void v2();
-virtual void v3();
-virtual void v4();
-virtual void v5();
-virtual void v6();
-virtual void v7();
-virtual void v8();
-virtual void v9();
-virtual void v10();
-virtual void v11();
-virtual void v12();
-virtual void v13();
-virtual void v14();
-virtual void v15();
-virtual void v16();
-virtual void v17();
-virtual void v18();
-virtual void v19();
-virtual void v20();
-virtual void v21();
-virtual void v22();
-virtual void v23();
-virtual void v24();
-virtual void v25();
-virtual void v26();
-virtual void v27();
-virtual void v28();
-virtual void v29();
-virtual void v30();
-virtual int localProfile();
-virtual AsciiString nickname();
-virtual void v33();
-virtual AsciiString password();
-virtual void v35();
-virtual void v36();
-virtual AsciiString cdkey();
-virtual void updated(PSPlayerAllStats);
-};
+#include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 class GameSpyPSMessageQueueInterface {public:
  virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void addRequest(const BfmeOpaqueOwnedRecord1432&);virtual void v5();virtual void addResponse(const BfmeOpaqueOwnedRecord1408&);virtual void v7();virtual void store(PSPlayerAllStats);virtual void v9();virtual void va();virtual void vb();virtual PSPlayerAllStats getStats(int);
@@ -332,7 +292,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  LivingWorldPlayer*lw=0;int mode=0;
  if(TheGameSpyGame->getMode()==1){lw=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->find(player->getStrategicID(),0));mode=2;}
  else if(TheGameSpyGame->ladder==1||TheGameSpyGame->ladder==2)mode=1;
- int profile=TheGameSpyInfo->localProfile();if(!profile)return;
+ int profile=TheGameSpyInfo->getLocalProfileID();if(!profile)return;
  int local=TheGameSpyGame->localSlot();GameSpyGameSlot*localSlot=TheGameSpyGame->getGameSpySlot(local);if(!localSlot)return;
  if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->skipReporting())return;
  PSPlayerAllStats stats=TheGameSpyPSMessageQueue->getStats(profile);
@@ -357,7 +317,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  AsciiString packet=TheGameSpyGame->generateGameSpyGameResultsPacket(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->getDesync(),disconnected);BfmeOpaqueOwnedRecord1432 req;req.requestType=6;req.results=retailStr(packet);TheGameSpyPSMessageQueue->addRequest(req);
  }else{BfmeOpaqueOwnedRecord1432 req;req.requestType=7;TheGameSpyPSMessageQueue->addRequest(req);}
  if(!player->playerTemplate)return;int faction=player->playerTemplate->rva001FD234();
- if(stats.m_id==0){if(noData||reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync){BfmeOpaqueOwnedRecord1432 req;req.requestType=1;req.m_04=1;req.email=retailStr(TheGameSpyInfo->nickname());req.nick=retailStr(TheGameSpyInfo->cdkey());req.password="";req.player=stats;req.addDesync=reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync;req.addDiscon=noData;req.lastHouse=faction;TheGameSpyPSMessageQueue->addRequest(req);}return;}
+ if(stats.m_id==0){if(noData||reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync){BfmeOpaqueOwnedRecord1432 req;req.requestType=1;req.m_04=1;req.email=retailStr(TheGameSpyInfo->getLocalEmail());req.nick=retailStr(TheGameSpyInfo->getLocalBaseName());req.password="";req.player=stats;req.addDesync=reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync;req.addDiscon=noData;req.lastHouse=faction;TheGameSpyPSMessageQueue->addRequest(req);}return;}
  bool win=false;if(mode==2){if(lw)win=!lw->lost;}else win=reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory()&&!reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->quit(local);
  if(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync)++core->m_140;else if(noData)++core->m_13c;else if(win){
  ++core->m_maps04_0[(unsigned char)faction];core->m_14a=0;core->m_maps04_3[(unsigned char)faction]=0;++core->m_146;++core->m_maps04_2[(unsigned char)faction];core->m_148=maxRef(core->m_146,core->m_148);
@@ -397,8 +357,8 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  {float&sumMap=strategic.m_map1cc[(unsigned char)faction];int combined=s->valueE0+s->valueE4;const unsigned char key=(unsigned char)faction;sumMap+=(float)combined;strategic.m_map1d8[key]+=(float)s->valueE8;}strategic.m_map1e4[(unsigned char)faction]+=(float)s->valueEC;strategic.m_map1fc[(unsigned char)faction]+=(float)s->valueF0;strategic.m_map1f0[(unsigned char)faction]+=(float)s->v34.size();
  }
  if(mode==2)stats.setStrategicStats(strategic);else if(mode==1)stats.setTournamentStats(tournament);else stats.setOpenPlayStats(open);
- BfmeOpaqueOwnedRecord1432 req;req.requestType=1;req.m_04=3;req.email=retailStr(TheGameSpyInfo->nickname());req.nick=retailStr(TheGameSpyInfo->cdkey());req.password=retailStr(TheGameSpyInfo->password());req.player=stats;req.addDesync=reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync;req.addDiscon=noData;req.lastHouse=faction;TheGameSpyPSMessageQueue->addRequest(req);
- TheGameSpyPSMessageQueue->store(stats);BfmeOpaqueOwnedRecord1408 response;response.kind=0;response.player=stats;TheGameSpyPSMessageQueue->addResponse(response);Rva00556FB8(reinterpret_cast<const Gen_uw_00385371&>(stats));TheGameSpyInfo->updated(stats);
+ BfmeOpaqueOwnedRecord1432 req;req.requestType=1;req.m_04=3;req.email=retailStr(TheGameSpyInfo->getLocalEmail());req.nick=retailStr(TheGameSpyInfo->getLocalBaseName());req.password=retailStr(TheGameSpyInfo->getLocalPassword());req.player=stats;req.addDesync=reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync;req.addDiscon=noData;req.lastHouse=faction;TheGameSpyPSMessageQueue->addRequest(req);
+ TheGameSpyPSMessageQueue->store(stats);BfmeOpaqueOwnedRecord1408 response;response.kind=0;response.player=stats;TheGameSpyPSMessageQueue->addResponse(response);Rva00556FB8(reinterpret_cast<const Gen_uw_00385371&>(stats));TheGameSpyInfo->setCachedLocalPlayerStats(stats);
 }
 
 // tu-skeleton: 0x007A03D1 11B Unwind@00ba03d1 -- matched in Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp (not merged yet)

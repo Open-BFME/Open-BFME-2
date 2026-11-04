@@ -83,111 +83,11 @@ __forceinline const char *foundDigitText(const SkirmishFindNode *hit)
 	return strData ? (const char *)strData->text : "";
 }
 
-// The GameSpy session info singleton (0x00E02320), as far as this body
-// reaches it: slot 0x178 gates the whole accumulation (a count that must
-// be positive) and slot 0x17c refreshes something when the MiscPref digit
-// sum for the slot is zero. Placeholder slots keep the vtable layout; the
-// two used slots return Int.
-class GameSpyInfoInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0c();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1c();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2c();
-	virtual void slot30();
-	virtual void slot34();
-	virtual void slot38();
-	virtual void slot3c();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4c();
-	virtual void slot50();
-	virtual void slot54();
-	virtual void slot58();
-	virtual void slot5c();
-	virtual void slot60();
-	virtual void slot64();
-	virtual void slot68();
-	virtual void slot6c();
-	virtual void slot70();
-	virtual void slot74();
-	virtual void slot78();
-	virtual void slot7c();
-	virtual void slot80();
-	virtual void slot84();
-	virtual void slot88();
-	virtual void slot8c();
-	virtual void slot90();
-	virtual void slot94();
-	virtual void slot98();
-	virtual void slot9c();
-	virtual void slota0();
-	virtual void slota4();
-	virtual void slota8();
-	virtual void slotac();
-	virtual void slotb0();
-	virtual void slotb4();
-	virtual void slotb8();
-	virtual void slotbc();
-	virtual void slotc0();
-	virtual void slotc4();
-	virtual void slotc8();
-	virtual void slotcc();
-	virtual void slotd0();
-	virtual void slotd4();
-	virtual void slotd8();
-	virtual void slotdc();
-	virtual void slote0();
-	virtual void slote4();
-	virtual void slote8();
-	virtual void slotec();
-	virtual void slotf0();
-	virtual void slotf4();
-	virtual void slotf8();
-	virtual void slotfc();
-	virtual void slot100();
-	virtual void slot104();
-	virtual void slot108();
-	virtual void slot10c();
-	virtual void slot110();
-	virtual void slot114();
-	virtual void slot118();
-	virtual void slot11c();
-	virtual void slot120();
-	virtual void slot124();
-	virtual void slot128();
-	virtual void slot12c();
-	virtual void slot130();
-	virtual void slot134();
-	virtual void slot138();
-	virtual void slot13c();
-	virtual void slot140();
-	virtual void slot144();
-	virtual void slot148();
-	virtual void slot14c();
-	virtual void slot150();
-	virtual void slot154();
-	virtual void slot158();
-	virtual void slot15c();
-	virtual void slot160();
-	virtual void slot164();
-	virtual void slot168();
-	virtual void slot16c();
-	virtual void slot170();
-	virtual void slot174();
-	virtual Int slot178();
-	virtual Int slot17c();
-};
+// The GameSpy session info singleton (0x00E02320): slot 94
+// getAdditionalDisconnects gates the whole accumulation and slot 95
+// clearAdditionalDisconnects runs when the MiscPref digit sum for the
+// slot is zero.
+#include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 // TheGameSpyInfo: matched references place it at VA 0xe02320 (zero-filled .bss).
@@ -215,12 +115,12 @@ void accumulateOnlineMiscPrefs(OnlineMiscProfileStats *stats)
 	if (onlineMiscProfileStats->m_profileSlot == 0)
 		return;
 
-	if (TheGameSpyInfo->slot178() > 0)
+	if (TheGameSpyInfo->getAdditionalDisconnects() > 0)
 	{
 		if (sumOnlineMiscPrefs(onlineMiscProfileStats->m_profileSlot) == 0)
-			TheGameSpyInfo->slot17c();
+			TheGameSpyInfo->clearAdditionalDisconnects();
 	}
-	if (TheGameSpyInfo->slot178() < 1)
+	if (TheGameSpyInfo->getAdditionalDisconnects() < 1)
 		return;
 
 	UserPreferences prefs;
