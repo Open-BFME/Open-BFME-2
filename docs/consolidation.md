@@ -937,6 +937,35 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### Audit of the automated view pass (2026-11-04)
+
+The 29 view commits of 2026-11-04, 14 of them written by an unattended driver,
+measured through `name_metric.declared()` on every changed file:
+
+- **+77 declared names, +19 weak, net +58 strong.**
+- **No commit lost a strong name on balance.** Four individual strong names went
+  across all 29 (`before`, `m_movie`, `opaque`, `enabled`) against many gained,
+  the largest being `Display.cpp`'s six real members.
+- 71% of the names added are non-placeholder, against a 67.69% tree baseline, so
+  the pass nudges READABLE NAMES up rather than down.
+
+Two side effects are worth knowing before running the pass again.
+
+**It spreads placeholder field names.** Every weak name it introduced is an
+offset-derived member the tool did not invent - `m_260`, `m_438`, `m_str80`,
+`m_flag88`, `m_16C` - propagated from the view that had the field into a view that
+had nothing at that offset. That is the correct trade (a named field beats a gap),
+but it widens the rename surface: a later naming-lane rename of `m_260` now has
+more files to touch. Prefer renaming a class before sharing its views, not after.
+
+**It resolves project typedefs.** Three cases in 29 commits: two `UnsignedInt` and
+one `Real` came back as `unsigned int` and `float`. Same types here, and the
+receiving views already said the resolved form, but `Real` and `UnsignedInt` are
+the retail idiom and the block does not preserve them.
+
+Neither is a reason to stop the pass. Both are reasons not to run it over a
+subsystem whose names are about to be recovered.
+
 ### A worked base-clause conflict: mapper.cpp's TextureMapperClass family (2026-11-04)
 
 One of the 16 non-canonical base-clause conflicts, written out so the next seat
