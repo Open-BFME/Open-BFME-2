@@ -42,6 +42,13 @@ a gap of 12 and holds a 4-byte `UnicodeString`: it needs nothing, and retyping i
 The array and storage sizes are the ledger's gap, an upper bound. Each constructor's writes reach at least the last word of
 that size except `g_aptDateInterpreter`, whose last proven write is +0x3C.
 
+- `g_00DFE7A8`: one byte, and retail's constructor at 0x0023DBF9 writes out to +0x88. It takes 0x98 bytes in
+  `Rva003B9EC4.cpp`, keeping the name its byte readers declare. Its data row claimed a one-byte object retail does not have,
+  and `tools/data_rows.py` measures the plain name, so the row was removed. The gap of 8 was far below the true size: the
+  ledger's next name is a field of the same object, so a small gap does not mean a small object.
+
+**False alarm, read against retail:** `g_00E02EAC` is a 16-byte `Region2D`; the gap of 20 is padding.
+
 **Done, in `Rva007ABD4BGeometryInits.cpp` and `Rva007B401CButtonNameInits.cpp`:** the names those files construct.
 
 **Done, all in `Rva007B6880Thunks.cpp`:** seven filter objects (`g_Va00DEC018`, `g_Va00DEC080`, `g_Va00DEC0E0`, `g_Va00DEC140`,
@@ -51,15 +58,17 @@ and `g_Va00DEDC80`.
 
 **Open:**
 
-- `g_Va00E06634` (gap 12): its `Rva005D00A6` object has a vtable and, per `Rva005CFC12`, two parsed floats, so it spans
-  12 bytes. The row `?delay@Rva005CF9FF@@2IA` at 0x00E0663C, in `StrategicInGameUIBattleResolver.cpp`, sits at its +8, so
-  that "static" looks like the object's second float. Both rows must become one: `data_check.py` refuses the overlap.
+- `g_Va00E06634` (gap 12, then `delay` at +8): one object recorded as two globals. Retail's constructor at 0x005D00A6
+  stores 1000 at +8 and +0xC, so the row `?delay@Rva005CF9FF@@2IA` at 0x00E0663C, in
+  `StrategicInGameUIBattleResolver.cpp`, is this object's +8. Ours is a separate zero, so the battle resolver's wait never
+  happens, and the constructor writes past 4 bytes. Fix: make it an array with `delay` as `[2]`, retiring that row. The
+  hatch register counts `g_Va00E06634` per file, and that file has no allowance for the name, so it needs a real name first.
 - `g_Va00E01E08` (gap 16): `AIBurningDeathStateUpdate.cpp` names it and another worker held that file. It has no data
   row, so the first repair works without touching that file.
 - `g_Va00E02FF8` (gap 20): has a data row, so it needs the array form, and `BfmeConv1292DeferredWalkers.cpp` names it. That
   file is frozen (`PointerSJATable::_M_bkt_num_key` and `::_M_delete_node` have no rows), so remedy those first.
-- `g_Va00DE1D00` and `g_Va00DE1D60` (gap 96), and `g_00E02EAC` (ours 16, gap 20).
-- `g_00DFE7A8`: 4 bytes of extent, gap 8, rowed as a byte with many readers, and constructed through `Rva0023DBF9`. Not yet read.
+- `g_00DFE7B0`: the ledger's name for +8 of the object at `g_00DFE7A8`, typed as a string. It should be read against that
+  object now that the object has its storage.
 
 The measured figures predate these repairs. `constructed_undersized` in the next real link's `image_report.json` gives
 the current count; the source pattern only sees direct construction, so it can miss others.
