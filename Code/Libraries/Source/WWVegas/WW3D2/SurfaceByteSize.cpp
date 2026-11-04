@@ -5,23 +5,7 @@
 // and pixel-size helper retain address-qualified BFME identities. /G7 is
 // what selects the cmp-mem null check (83 39 00) over mov+test in the byte
 // size query; without it the head diverges by three bytes.
-class SurfaceClass
-{
-public:
-    struct SurfaceDescription
-    {
-        unsigned int Format;
-        unsigned int Width;
-        unsigned int Height;
-    };
-    __declspec(noinline) void Get_Description(SurfaceDescription &description);
-    unsigned int GetSurfaceMemoryUsage() const;
-    void DrawPixel(unsigned int x, unsigned int y, unsigned int color);
-    void TintSurface(float red, float green, float blue);
-    void rva00116D10(unsigned int x, unsigned int y, unsigned char alpha);
-private:
-    void *surface;
-};
+#include "W3DSurfaceClass.h"
 
 // Keep the actual caller with this local helper: MSVC 7.1 passes the
 // description address in ECX and emits the retail selector-register choice.
@@ -50,7 +34,7 @@ static __declspec(noinline) unsigned int Rva008FC4F0_PixelSize(
 
 unsigned int SurfaceClass::GetSurfaceMemoryUsage() const
 {
-    if (!surface)
+    if (!field00)
         return 0;
     SurfaceDescription description;
     const_cast<SurfaceClass *>(this)->Get_Description(description);
@@ -101,7 +85,7 @@ void SurfaceClass::Get_Description(SurfaceDescription &description)
 {
     D3DSurfaceDesc d3dDesc;
     memset(&d3dDesc, 0, sizeof(d3dDesc));
-    D3DSurface *d3dSurface = (D3DSurface *)surface;
+    D3DSurface *d3dSurface = (D3DSurface *)field00;
     if (!d3dSurface)
         return;
     HRESULT hr = d3dSurface->GetDesc(&d3dDesc);
@@ -188,7 +172,7 @@ void *Rva001166E0::rva001166E0(int *pitchOut, int left, int top, int right, int 
 // BFME1 surfaceclass.cpp DrawPixel donor; same TU and flags.
 void SurfaceClass::DrawPixel(unsigned int x, unsigned int y, unsigned int color)
 {
-    if (!surface)
+    if (!field00)
         return;
     SurfaceDescription sd;
     Get_Description(sd);
@@ -201,7 +185,7 @@ void SurfaceClass::DrawPixel(unsigned int x, unsigned int y, unsigned int color)
     rect.top = (int)y;
     rect.left = (int)x;
     rect.right = (int)(x + 1);
-    HRESULT hr = ((D3DSurface *)surface)->LockRect(&locked, &rect, 0);
+    HRESULT hr = ((D3DSurface *)field00)->LockRect(&locked, &rect, 0);
     if (hr != 0)
         Log_DX8_ErrorCode((unsigned int)hr);
     unsigned char *cptr = (unsigned char *)locked.pBits;
@@ -219,7 +203,7 @@ void SurfaceClass::DrawPixel(unsigned int x, unsigned int y, unsigned int color)
         *lptr = color;
         break;
     }
-    hr = ((D3DSurface *)surface)->UnlockRect();
+    hr = ((D3DSurface *)field00)->UnlockRect();
     if (hr != 0)
         Log_DX8_ErrorCode((unsigned int)hr);
 }
@@ -233,7 +217,7 @@ void SurfaceClass::DrawPixel(unsigned int x, unsigned int y, unsigned int color)
 // single byte store are established directly from BFME2 retail.
 void SurfaceClass::rva00116D10(unsigned int x, unsigned int y, unsigned char alpha)
 {
-    if (!surface)
+    if (!field00)
         return;
     SurfaceDescription sd;
     Get_Description(sd);
@@ -245,12 +229,12 @@ void SurfaceClass::rva00116D10(unsigned int x, unsigned int y, unsigned char alp
     rect.top = (int)y;
     rect.left = (int)x;
     rect.right = (int)(x + 1);
-    HRESULT hr = ((D3DSurface *)surface)->LockRect(&locked, &rect, 0);
+    HRESULT hr = ((D3DSurface *)field00)->LockRect(&locked, &rect, 0);
     if (hr != 0)
         Log_DX8_ErrorCode((unsigned int)hr);
     if (sd.Format == 21)
         ((unsigned char *)locked.pBits)[3] = (unsigned char)alpha;
-    hr = ((D3DSurface *)surface)->UnlockRect();
+    hr = ((D3DSurface *)field00)->UnlockRect();
     if (hr != 0)
         Log_DX8_ErrorCode((unsigned int)hr);
 }
@@ -267,13 +251,13 @@ void SurfaceClass::rva00116D10(unsigned int x, unsigned int y, unsigned char alp
 // signed/unsigned corresponding storage shares the observed bit representation.
 void SurfaceClass::TintSurface(float red, float green, float blue)
 {
-    if (!surface) return;
+    if (!field00) return;
     SurfaceDescription sd;
     Get_Description(sd);
     unsigned size = Rva008FC4F0_PixelSize(sd);
     D3DLockedRect lock;
     memset(&lock, 0, sizeof(lock));
-    HRESULT result=((D3DSurface *)surface)->LockRect(&lock,0,0);
+    HRESULT result=((D3DSurface *)field00)->LockRect(&lock,0,0);
     if(result)Log_DX8_ErrorCode((unsigned)result);
     unsigned char *row = (unsigned char *)lock.pBits;
     const float rscale=red, gscale=green, bscale=blue;
@@ -310,7 +294,7 @@ struct Dimensions { unsigned h; int w; };
             row += lock.Pitch;
         }
     }
-    result=((D3DSurface *)surface)->UnlockRect();
+    result=((D3DSurface *)field00)->UnlockRect();
     if(result)Log_DX8_ErrorCode((unsigned)result);
 }
 
