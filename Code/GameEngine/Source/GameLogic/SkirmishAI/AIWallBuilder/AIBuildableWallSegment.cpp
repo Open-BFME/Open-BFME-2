@@ -153,8 +153,9 @@ struct WallOrderPosition
     float x, y, z;
 };
 
-struct Rva00596CDF : Rva00573B23
+class Rva00596CDF : Rva00573B23
 {
+public:
 	virtual ~Rva00596CDF();
     Rva00596CDF(unsigned int key);
 private:

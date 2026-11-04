@@ -173,8 +173,9 @@ struct AutoPickUpEatObjectEntries
 };
 class ModuleData;
 class INI;
-struct AutoPickUpUpdateModuleData
+class AutoPickUpUpdateModuleData
 {
+public:
 	static void iniParseEatObjectEntry(INI *ini, void *instance, void *store, const void *userData);
 	void *m_vtable;
 	int m_unused04;

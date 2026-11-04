@@ -96,7 +96,7 @@ public:
 	void *vt;
 	int count;
 };
-class Rva0057BC63FunctorHolder
+struct Rva0057BC63FunctorHolder
 {
 public:
 	Rva0057BC63FunctorHolder(const FunctorBinding &);

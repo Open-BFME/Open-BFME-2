@@ -118,8 +118,9 @@ void getNickForMessage(GPConnection *, GPGetInfoResponseArg *, void *);
 void getInfoResponseForStatus(GPConnection *, GPGetInfoResponseArg *, void *);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/BuddyThread.h
-struct BuddyResponse
+class BuddyResponse
 {
+public:
 	enum ResponseType
 	{
 		BUDDYRESPONSE_LOGIN,

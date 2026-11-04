@@ -33,7 +33,7 @@ public:
 
 extern const void *const g_00BCECB8[];
 
-struct Rva000E9BAC : public Rva000E6AC0
+class Rva000E9BAC : public Rva000E6AC0
 {
 public:
 	virtual ~Rva000E9BAC();

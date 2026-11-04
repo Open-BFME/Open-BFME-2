@@ -115,8 +115,9 @@ struct BuddyRequest
 enum Rva0063EB00Kind { RvaKind1=1, RvaKind5=5 };
 enum Rva0063EB00Result { RvaResult4=4 };
 enum Rva0063EB00Fatal { RvaFatal1=1 };
-struct BuddyResponse
+class BuddyResponse
 {
+public:
     Rva0063EB00Kind m_00;
     int m_04;
     Rva0063EB00Result m_08;

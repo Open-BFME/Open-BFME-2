@@ -113,8 +113,9 @@ RvaVecAnimSet::~RvaVecAnimSet()
 class Rva004BA1C8;
 void Rva004BA341DestroyRange(Rva004BA1C8 *first, Rva004BA1C8 *last);
 
-struct TensileFormationUpdateMember : RvaVectorBuffer<Rva004BA1C8>
+class TensileFormationUpdateMember : RvaVectorBuffer<Rva004BA1C8>
 {
+public:
 	~TensileFormationUpdateMember();
 };
 TensileFormationUpdateMember::~TensileFormationUpdateMember()

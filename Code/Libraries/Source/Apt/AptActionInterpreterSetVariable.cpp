@@ -57,7 +57,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 // class-gate: allow AptScriptFunctionBase target-proven field view: retail
 // SetVariable reads parent animation at +0x24; static frame pointer is the
 // established AptScriptFunctionBase::spFrameStack at VA 0x00E1835C.
-class AptActionInterpreter;
+struct AptActionInterpreter;
 class AptScriptFunctionBase {
     unsigned char m_beforeParentAnimation[0x24];
 protected:
@@ -74,7 +74,8 @@ public:
     bool rva006FBE60(Rva8D0D80String *, Rva8D0D80Value *);
 };
 
-class AptActionInterpreter {
+struct AptActionInterpreter {
+private:
     unsigned char m_beforeCurrentFunction[0x30];
     AptScriptFunctionBase *mpCurrentFunction;
 private:

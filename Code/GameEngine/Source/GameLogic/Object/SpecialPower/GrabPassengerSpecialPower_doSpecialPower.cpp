@@ -162,8 +162,9 @@ class SpecialPowerModule : public BehaviorModule, public Rva004C51A0Iface10
 {
 };
 
-struct GrabPassengerSpecialPowerModuleData
+class GrabPassengerSpecialPowerModuleData
 {
+public:
 	unsigned char m_pad00[0x7C];
 	float m_7C;	// +0x7C the radius
 	bool m_80;	// +0x80 also consider the terrain point

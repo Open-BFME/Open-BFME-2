@@ -49,8 +49,9 @@ private:
 	BitFlags<11> m_disabled; // +0x1C8
 };
 
-struct PlayerUpgradeSpecialPowerModuleData
+class PlayerUpgradeSpecialPowerModuleData
 {
+public:
 	unsigned char m_pad00[0x7C];
 	_STL::vector<AsciiString> m_upgradeNames; // +0x7C
 };

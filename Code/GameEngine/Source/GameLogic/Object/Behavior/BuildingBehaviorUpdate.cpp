@@ -59,8 +59,9 @@ struct BuildingWindowList
 	void *m_end;
 };
 
-struct BuildingBehaviorModuleData
+class BuildingBehaviorModuleData
 {
+public:
 	void *m_vtable;
 	Int m_unused04;
 	BuildingWindowList m_windows[4];					// +0x08

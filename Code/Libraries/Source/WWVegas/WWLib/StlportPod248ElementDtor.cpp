@@ -148,7 +148,7 @@ private:
 };
 }
 
-class BfmePod248
+struct BfmePod248
 {
 public:
 	~BfmePod248();

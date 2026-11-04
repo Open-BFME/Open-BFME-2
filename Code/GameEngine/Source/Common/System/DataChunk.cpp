@@ -41,8 +41,9 @@ enum ErrorCode
 // delegation evidence). Teardown inlines to the folded releaseBuffer at
 // 0x36410.
 
-struct InputChunk
+class InputChunk
 {
+public:
 	virtual void *deleteInstance(int flags);	// vtable slot 0 (MemoryPoolObject pattern)
 
 	InputChunk *m_next;			// +0x04
@@ -57,7 +58,7 @@ class Mapping;
 class OutputStream;
 class AsciiString;
 #include "../../../Include/Common/DataChunk.h"
-struct InputChunk;
+class InputChunk;
 class Dict;
 enum NameKeyType
 {

@@ -26,7 +26,7 @@ struct BucketVec
 	void *_end;
 	~BucketVec() { if (_start) free(_start); }
 };
-class Rva002BF6D6
+struct Rva002BF6D6
 {
 public:
 	~Rva002BF6D6();

@@ -96,8 +96,9 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
-struct CallHelpOnDamageModuleData
+class CallHelpOnDamageModuleData
 {
+public:
 	unsigned char m_pad00[0x08];
 	unsigned m_damageTypes;		// +0x08 DamageTypes
 	float m_callRadius;		// +0x0C CallRadius

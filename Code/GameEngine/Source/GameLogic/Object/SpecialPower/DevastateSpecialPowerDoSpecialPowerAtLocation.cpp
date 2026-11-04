@@ -143,8 +143,9 @@ extern GlobalData *TheWritableGlobalData;
 
 extern WeaponStore *TheWeaponStore;
 
-struct DevastateSpecialPowerModuleData
+class DevastateSpecialPowerModuleData
 {
+public:
 	unsigned char m_pad00[0x7C];
 	Real m_radius;
 	const FXList *m_fx;

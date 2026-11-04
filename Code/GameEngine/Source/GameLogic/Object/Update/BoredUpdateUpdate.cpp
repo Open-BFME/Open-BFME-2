@@ -91,8 +91,9 @@ extern ActionManager *TheActionManager;
 
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 
-struct BoredUpdateModuleData
+class BoredUpdateModuleData
 {
+public:
 	unsigned char m_pad00[0x08];
 	int m_scanDelay;				// +0x08
 	float m_scanRange;				// +0x0C

@@ -501,8 +501,9 @@ void DemoTrapUpdate::objectModuleAnchor()
 {
 }
 
-struct DockUpdate
+class DockUpdate
 {
+public:
 	virtual void behaviorAnchor();
 	virtual void dockAnchor();
 	virtual void objectModuleAnchor();

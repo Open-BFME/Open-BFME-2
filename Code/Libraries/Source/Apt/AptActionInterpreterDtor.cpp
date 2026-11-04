@@ -51,7 +51,7 @@ public:
  ~AptDebugStack();
  int elements,capacity;T **storage;
 };
-class AptActionInterpreter {
+struct AptActionInterpreter {
 public:
  struct DebugCallStackInfo_t;
  ~AptActionInterpreter();

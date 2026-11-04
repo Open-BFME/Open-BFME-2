@@ -110,8 +110,9 @@ struct BridgeOCLNode
 	TimeAndLocationInfo timeAndLocationInfo;
 };
 
-struct BridgeBehaviorModuleData
+class BridgeBehaviorModuleData
 {
+public:
 	unsigned char m_unmodelled00[0x10];
 	BridgeFXNode *m_fx;
 	BridgeOCLNode *m_ocl;

@@ -48,7 +48,7 @@ static inline const StringBase<char>&fadeTextBase(const AsciiString&asciiString)
 class Anim2D {public:void setCurrentFrame(unsigned short);void draw(int,int,int,int);Anim2D(Anim2DTemplate*,Anim2DCollection*);unsigned getCurrentFrameHeight() const;char pad[0x34];};
 // Slot 1 of FadeInTextRender's vftable 0x00C70A70 (slot 0 is its deleting
 // destructor), as WB's LoadAssets is slot 1 of its table: virtual.
-class FadeInTextRender {public:
+struct FadeInTextRender {public:
  virtual ~FadeInTextRender();virtual void LoadAssets();virtual void rva00596908(Text004721F0*,const ICoord2D*,unsigned);
  void bfmeExtend(int,int,int,int); // grow the +8..+0x14 bounds (0x0059668D)
  GameFont*font;int minX,minY,maxX,maxY;unsigned effectColor;Anim2D*anim;float oldScale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;

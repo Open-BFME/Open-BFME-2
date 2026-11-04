@@ -249,7 +249,8 @@ static const char *getWSAErrorString( Int error )
 #undef CASE
 #endif
 
-struct Rva0041A3C4 {
+class Rva0041A3C4 {
+public:
     BfmeNarrowRecord0041A5D2 *_M_cur;
     BfmeNarrowRecord0041A5D2 *_M_first;
     BfmeNarrowRecord0041A5D2 *_M_last;

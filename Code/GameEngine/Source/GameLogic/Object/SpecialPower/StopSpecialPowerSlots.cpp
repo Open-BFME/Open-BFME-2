@@ -61,8 +61,9 @@ public:
 	Rva004C683CModule **m_modules; // +0x244 (null-terminated)
 };
 
-struct StopSpecialPowerModuleData
+class StopSpecialPowerModuleData
 {
+public:
 	unsigned char m_pad00[0x7C];
 	int m_7C; // +0x7C
 };

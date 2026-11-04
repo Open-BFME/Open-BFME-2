@@ -84,8 +84,9 @@ struct Rva008097D0Player
 	int m_gameId;
 };
 
-struct Rva00808920LanGame
+class Rva00808920LanGame
 {
+public:
 	~Rva00808920LanGame();
 
 	int m_state;
