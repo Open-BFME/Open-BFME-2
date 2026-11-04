@@ -5779,12 +5779,12 @@ public:
 };
 }
 
-extern unsigned g_00DDE0AC;
-unsigned int g_00DDE0AC;
+// Retail constructs a CAtlWinModule, constructor 0x00006ACE, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_00DDE0AC@@3IA")[11]; }
 
 void __cdecl rva007B686F()
 {
-	ATL::CAtlWinModule *receiver = (ATL::CAtlWinModule *)&g_00DDE0AC;
+	ATL::CAtlWinModule *receiver = (ATL::CAtlWinModule *)__identifier("?g_00DDE0AC@@3IA");
 	return receiver->Term();
 }
 
@@ -6090,12 +6090,12 @@ void __cdecl rva007B6B37()
 	return receiver->~basic_string();
 }
 
-extern unsigned g_Va00DF29A8;
-unsigned int g_Va00DF29A8;
+// Retail constructs a vector, constructor 0x004F710A, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_Va00DF29A8@@3IA")[3]; }
 
 void __cdecl rva007B70C9()
 {
-	StlNarrowString *receiver = (StlNarrowString *)&g_Va00DF29A8;
+	StlNarrowString *receiver = (StlNarrowString *)__identifier("?g_Va00DF29A8@@3IA");
 	return receiver->~basic_string();
 }
 
@@ -6108,12 +6108,12 @@ void __cdecl rva007B782E()
 	return receiver->~basic_string();
 }
 
-extern unsigned g_Va00DFF134;
-unsigned int g_Va00DFF134;
+// Retail constructs a vector, constructor 0x004F710A, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_Va00DFF134@@3IA")[3]; }
 
 void __cdecl rva007B7A7D()
 {
-	StlNarrowString *receiver = (StlNarrowString *)&g_Va00DFF134;
+	StlNarrowString *receiver = (StlNarrowString *)__identifier("?g_Va00DFF134@@3IA");
 	return receiver->~basic_string();
 }
 
@@ -6542,13 +6542,13 @@ void __cdecl rva007B982F()
 	return receiver->~basic_string();
 }
 
-extern unsigned g_Va00E06670;
-unsigned int g_Va00E06670;
+// Retail constructs a vector, constructor 0x004F710A, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_Va00E06670@@3IA")[3]; }
 
 // ?rva007B9843@@YAXXZ @ 0x007B9843 (10B). Global basic_string<char> dtor thunk: ecx=&g_Va00E06670 then tail-jmp to rowed BasicStringCharDtor_dup (0x0007FAB3 object ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ). No callers. Honest address name.
 void __cdecl rva007B9843()
 {
-	StlNarrowString *receiver = (StlNarrowString *)&g_Va00E06670;
+	StlNarrowString *receiver = (StlNarrowString *)__identifier("?g_Va00E06670@@3IA");
 	return receiver->~basic_string();
 }
 
@@ -7114,13 +7114,13 @@ public:
 	~Rva00435CDBDtor();
 };
 
-extern unsigned g_Va00E032EC;
-unsigned int g_Va00E032EC;
+// Retail constructs a map, constructor 0x00435CE0, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_Va00E032EC@@3IA")[3]; }
 
 // ?rva007B83B9@@YAXXZ @ 0x007B83B9 (10B). Global dtor thunk: ecx=&g_Va00E032EC then tail-jmp to pinned ??1Rva00435CDBDtor@@QAE@XZ (0x00435CDB). No callers. Honest address name.
 void __cdecl rva007B83B9()
 {
-	Rva00435CDBDtor *receiver = (Rva00435CDBDtor *)&g_Va00E032EC;
+	Rva00435CDBDtor *receiver = (Rva00435CDBDtor *)__identifier("?g_Va00E032EC@@3IA");
 	return receiver->~Rva00435CDBDtor();
 }
 
@@ -7149,13 +7149,13 @@ public:
 	void rva005011AA();
 };
 
-extern unsigned g_Va00E04544;
-unsigned int g_Va00E04544;
+// Retail constructs a map, constructor 0x005011C1, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_Va00E04544@@3IA")[4]; }
 
 // ?rva007B9071@@YAXXZ @ 0x007B9071 (10B). Global dtor thunk: ecx=&g_Va00E04544 then tail-jmp to pinned ??1Rva005011AADtor@@QAE@XZ (0x005011AA). No callers. Honest address name.
 void __cdecl rva007B9071()
 {
-	Rva005011AA *receiver = (Rva005011AA *)&g_Va00E04544;
+	Rva005011AA *receiver = (Rva005011AA *)__identifier("?g_Va00E04544@@3IA");
 	return receiver->rva005011AA();
 }
 
@@ -7290,13 +7290,13 @@ public:
 	~Rva00362B5ADtor();
 };
 
-extern unsigned g_Va00E01E7C;
-unsigned int g_Va00E01E7C;
+// Retail constructs a map, constructor 0x0033C432, here; its readers declare this name.
+extern "C" { unsigned int __identifier("?g_Va00E01E7C@@3IA")[3]; }
 
 // ?rva007B7CC3@@YAXXZ @ 0x007B7CC3 (10B). Global dtor thunk: ecx=&g_Va00E01E7C then tail-jmp to pinned ??1Rva00362B5ADtor@@QAE@XZ (0x00362B5A). No callers. Honest address name.
 void __cdecl rva007B7CC3()
 {
-	Rva00362B5ADtor *receiver = (Rva00362B5ADtor *)&g_Va00E01E7C;
+	Rva00362B5ADtor *receiver = (Rva00362B5ADtor *)__identifier("?g_Va00E01E7C@@3IA");
 	return receiver->~Rva00362B5ADtor();
 }
 
