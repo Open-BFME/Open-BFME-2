@@ -43,17 +43,20 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
+struct FakePortalOwnerView;
+enum NameKeyType;
+
 struct FakePathfindPortalModule
 {
-	virtual void m00();
+	virtual NameKeyType getModuleNameKey() const = 0;
 	const void *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-	unsigned char m_unmodelled0C[0x10 - 0x0C];
+	FakePortalOwnerView *m_owner;	// +0x08
+	const void *m_p0C;
 };
 
 struct FakePathfindPortalUpdateInterface
 {
-	virtual UpdateSleepTime update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class FakePathfindPortalBehaviour : public FakePathfindPortalModule, public FakePathfindPortalUpdateInterface
@@ -66,29 +69,29 @@ private:
 	void regWaypointsWithPathfinder();
 
 	unsigned char m_unmodelled14[0x30 - 0x14];
-	bool m_registered;	// +0x30
-	bool m_unmodelled31;
-	bool m_unregisterWhenActive;	// +0x32
-	FakePathfindPortalTarget *m_target;	// +0x34
+	bool m_30;	// +0x30
+	bool m_31;
+	bool m_32;	// +0x32
+	int m_34;	// +0x34
 };
 
 // ?update@FakePathfindPortalBehaviour@@UAE?AW4UpdateSleepTime@@XZ @0x00461DC7
 UpdateSleepTime FakePathfindPortalBehaviour::update()
 {
-	if (TheSkirmishAIManager->rva002A8AB1(m_object->getControllingPlayer()) != 0)
+	if (TheSkirmishAIManager->rva002A8AB1(((Object *)m_owner)->getControllingPlayer()) != 0)
 	{
-		if (m_target == 0)
-			m_target = (FakePathfindPortalTarget *)Rva00498725Find(m_object);
-		if (m_target != 0)
+		if (m_34 == 0)
+			m_34 = (int)Rva00498725Find(m_owner);
+		if (m_34 != 0)
 		{
-		if (!m_registered)
+		if (!m_30)
 			((Rva00461DB5Owner *)this)->rva00461DB5();
-		if (m_unregisterWhenActive)
+		if (m_32)
 		{
-			if (m_target->isActive())
+			if (((FakePathfindPortalTarget *)m_34)->isActive())
 				rva004618D4();
 		}
-		else if (!m_target->isActive())
+		else if (!((FakePathfindPortalTarget *)m_34)->isActive())
 			regWaypointsWithPathfinder();
 		return UPDATE_SLEEP_NONE;
 		}

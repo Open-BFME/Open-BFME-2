@@ -180,19 +180,37 @@ extern TerrainLogic *TheTerrainLogic;
 // +0x20. novtable: the ctor writes those stores explicitly.
 struct FakePortalOwnerView;
 
-class UpdateModule
+enum UpdateSleepTime
+{
+    UPDATE_SLEEP_NONE = 1,
+    UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+// The update entry receives the interface subobject at +0x10. The
+// constructor remains external and the derived constructor stores its
+// tables explicitly, so these views do not emit base constructors.
+struct FakePathfindPortalModule
+{
+    virtual NameKeyType getModuleNameKey() const = 0;
+    const void *m_moduleData; // +0x04
+    FakePortalOwnerView *m_owner; // +0x08
+    const void *m_p0C; // +0x0C
+};
+
+struct FakePathfindPortalUpdateInterface
+{
+    virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public FakePathfindPortalModule,
+                     public FakePathfindPortalUpdateInterface
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual NameKeyType getModuleNameKey() const = 0;
-	void xfer(Xfer *xfer);
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
+    void xfer(Xfer *xfer);
 
 protected:
-	const void *m_moduleData;	// +0x04
-	FakePortalOwnerView *m_owner;	// +0x08
-	const void *m_p0C;	// +0x0C
-	const void *m_p10;	// +0x10
-	unsigned char m_pad[0x20 - 0x14];
+    unsigned char m_pad[0x20 - 0x14];
 };
 
 class Rva002E9042
@@ -225,6 +243,7 @@ public:
 	virtual void rva0046190A(void *arg);
 	void rva0046183B();
 	void rva004618D4();
+	virtual UpdateSleepTime update();
 	Waypoint *rva00461A46(const Coord3D *point);
 	void rva00461C1F();
 
@@ -375,7 +394,7 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 	m_34 = 0;
 	*reinterpret_cast<const void **>(this) = &s_vtable;
 	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	*(const void **)((char *)this + 0x10) = &s_secondary10;
 	*(int *)((char *)this + 0x20) = (int)&s_secondary20;
 	*(int *)((char *)this + 0x24) = (int)&s_secondary24;
 	memset(m_28, 0, 8);
