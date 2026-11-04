@@ -56,6 +56,8 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 Xfer &Rva00149101XferNameKey( Xfer &xfer, NameKeyType &key );
 
+// The +0x2C Rva0039AE75 as this unit calls it: its slot-2 xfer, protected
+// in the canonical header.
 class ExperienceTrackerSnapshot
 {
 public:
@@ -97,44 +99,7 @@ struct ExperienceTrackerLevelView
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-// The base whose destructor the constructor's first EH state unwinds.
-class ExperienceTrackerBaseView
-{
-public:
-	virtual ~ExperienceTrackerBaseView();
-};
-
-class ExperienceTracker : public ExperienceTrackerBaseView
-{
-public:
-	ExperienceTracker( const ThingTemplate *thingTemplate );
-	ExperienceLevelHandle rva0039AC0C() const;
-	int rva0039AC23( bool notify );
-	void rva0039AD45();
-	float rva0039ADB9( float experience, int rank ) const;
-	virtual ~ExperienceTracker();
-	virtual void crc(Xfer *xfer);
-	virtual void v2() = 0;
-	// ?isTrainable@ExperienceTracker@@QBE_NXZ, the rowed byte getter 0x0039ADAF
-	// (pinned), inlined by its callers here: the template's byte at +0x5E7.
-	__declspec(dllimport) __forceinline bool isTrainable() const { return *((const unsigned char *)m_04 + 0x5E7) != 0; }
-protected:
-	virtual void xfer(Xfer *xfer);
-	virtual void rvaSlot4( const Overridable *level, bool notify );	// slot 4 (+0x10)
-private:
-	const ThingTemplate *m_04;
-	AsciiString m_08;
-	NameKeyType m_0C;
-	float m_10;
-	int m_14;
-	int m_18;
-	float m_1C;
-	bool m_20;
-	int m_24;
-	int m_28;
-	ExperienceTrackerSnapshot *m_2C;
-	NameKeyType m_30;
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 // ??0ExperienceTracker@@QAE@PAVObject@@@Z @0x0039AEBC 158B: stores vftable
 // 0x00C1AD20 (the one whose slot 3 is the xfer above), keeps the argument at
@@ -148,8 +113,8 @@ private:
 // byte at +0x5E7 are read from it, here through a view.
 // WorldBuilder's call-graph lead names this body
 // ExperienceTrackerBase::ExperienceTrackerBase (ExperienceTracker.cpp line 56);
-// retail's three EH states (a destructible base, the AsciiString +0x08, the
-// new) are what ExperienceTrackerBaseView stands for. The 0x0039AE30 owner
+// retail's three EH states destroy Snapshot, the AsciiString +0x08 and the
+// new allocation. The 0x0039AE30 owner
 // object's shape comes from the Open-BFME-1 BfmeThingEFECtor.cpp donor
 // (revision 177ae72da).
 struct Rva0039AE75Owner;
@@ -189,7 +154,7 @@ int ExperienceTracker::rva0039AC23( bool notify )
 			break;
 		if( experience >= level->m_18 )
 		{
-			rvaSlot4( (const Overridable *)level, notify );
+			vslot04( (const Overridable *)level, notify );
 			reached = level;
 		}
 		else
@@ -206,8 +171,8 @@ int ExperienceTracker::rva0039AC23( bool notify )
 // caller or absolute reference in game.dat; placed by the tracker's layout.
 void ExperienceTracker::rva0039AD45()
 {
-	m_08.clear();
-	m_0C = (NameKeyType)0;
+	((AsciiString *)m_08)->clear();
+	m_0C = 0;
 }
 
 // ?rva0039ADB9@ExperienceTracker@@QBEMMH@Z @0x0039ADB9 51B: the experience
@@ -240,9 +205,9 @@ void ExperienceTracker::xfer( Xfer *xfer )
 		m_10 = (float)oldValue;
 	}
 
-	*xfer == m_08;
+	*xfer == *(AsciiString *)m_08;
 	if( xfer->IsLoading() )
-		m_0C = TheNameKeyGenerator->nameToKey( m_08 );
+		m_0C = TheNameKeyGenerator->nameToKey( *(AsciiString *)m_08 );
 
 	*xfer == m_1C;
 	*xfer == m_14;
@@ -255,9 +220,9 @@ void ExperienceTracker::xfer( Xfer *xfer )
 	*xfer == m_20;
 	*xfer == m_18;
 	if( version.m_current >= 2 )
-		m_2C->xfer( xfer );
+		((ExperienceTrackerSnapshot *)m_2C)->xfer( xfer );
 	if( version.m_current >= 3 )
-		Rva00149101XferNameKey( *xfer, m_30 );
+		Rva00149101XferNameKey( *xfer, (NameKeyType &)m_30 );
 	if( version.m_current >= 5 )
 		*xfer == m_28;
 }
@@ -324,7 +289,7 @@ bool Rva0039ADF3::rva0039AE04() const
 {
 	if( m_34->testStatus( OBJECT_STATUS_3E ) )
 		return false;
-	return isTrainable() || m_38 != INVALID_ID;
+	return *((const unsigned char *)m_04 + 0x5E7) != 0 || m_38 != INVALID_ID;
 }
 
 void Rva0039ADF3::xfer( Xfer *xfer )
