@@ -7,20 +7,7 @@
 // slot-indexed views; no target method names are inferred from their offsets.
 #include "ascii_string.h"
 
-class AudioManager {
-public:
-#define AUDIO_SLOT(n) virtual void slot##n();
-	AUDIO_SLOT(0) AUDIO_SLOT(1) AUDIO_SLOT(2) AUDIO_SLOT(3)
-	AUDIO_SLOT(4) AUDIO_SLOT(5) AUDIO_SLOT(6) AUDIO_SLOT(7)
-	AUDIO_SLOT(8) AUDIO_SLOT(9) AUDIO_SLOT(10) AUDIO_SLOT(11)
-	AUDIO_SLOT(12) AUDIO_SLOT(13) AUDIO_SLOT(14) AUDIO_SLOT(15)
-	AUDIO_SLOT(16) AUDIO_SLOT(17) AUDIO_SLOT(18) AUDIO_SLOT(19)
-	AUDIO_SLOT(20) AUDIO_SLOT(21) AUDIO_SLOT(22) AUDIO_SLOT(23)
-	AUDIO_SLOT(24) AUDIO_SLOT(25) AUDIO_SLOT(26)
-	virtual void slot27(int);
-#undef AUDIO_SLOT
-};
-extern AudioManager *TheAudio;
+#include "../../Include/Common/GameAudio.h"
 
 class W3DDisplay {
 public:
@@ -92,11 +79,11 @@ private:
 Rva003561BE::~Rva003561BE()
 {
 	if (m_handle1c != 1) {
-		TheAudio->slot27(m_handle1c);
+		TheAudio->removeAudioEvent(m_handle1c);
 		m_handle1c = 1;
 	}
 	if (m_handle20 != 1) {
-		TheAudio->slot27(m_handle20);
+		TheAudio->removeAudioEvent(m_handle20);
 		m_handle20 = 1;
 	}
 	((GameLogicFieldView *)TheGameLogic)->field78 = 0;
