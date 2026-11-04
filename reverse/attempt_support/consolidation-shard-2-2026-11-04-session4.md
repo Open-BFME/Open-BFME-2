@@ -47,6 +47,10 @@ source or ledger change was made.
   donor path as unmerged (lines 359, 385, 387, 391 at audit time). A path-consumer
   repair is outside this lane; update those comments and audit the
   `reverse/stlport_trial.csv` consumer before a later apply.
+- `GameClient/GUI/ChatWindowsInGame.cpp`: 33 approved rows, 2 donors, 1 mixed.
+  Accepted none. `Rva005AFE86Ctor.cpp` conflicts on the `Rva005AFE3F` vftable
+  (C2373) and member definition (C2511); class reconciliation for
+  `Rva005AFE86` is reported. LinkGuard sees both sources as census-linked.
 
 The already documented blockers in session 3 and earlier were skipped without
 repeating their trials. No hidden `.*.tu_skeleton.cpp` trial artifacts were
