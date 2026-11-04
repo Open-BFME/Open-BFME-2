@@ -98,22 +98,10 @@ class FXShaderSetup : public FXShader::RenderingMethod
 {
 };
 
-typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
-
 class LightEnvironmentClass;
 class CameraClass;
 
-class RenderInfoClass
-{
-public:
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-	const RenderingMethodStackType &Get_Rendering_Method_Stack(void) const;
-
-	CameraClass &Camera;	// +0x00
-	char _bfme_unk_04[0x28 - 0x04];
-	LightEnvironmentClass *light_environment;	// +0x28
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 // Rendering-method stack walkers (element array, count): rows Rva001688FFShift
 // 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).
@@ -148,20 +136,6 @@ extern unsigned number_of_DX8_calls;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Vector3
-{
-public:
-	__forceinline Vector3() {}
-	__forceinline Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
-
-	Real X;
-	Real Y;
-	Real Z;
-};
-
 class Matrix3D
 {
 public:
@@ -177,9 +151,9 @@ public:
 
 	__forceinline Matrix3D(const Vector3 &x, const Vector3 &y, const Vector3 &z, const Vector3 &pos)
 	{
-		Row[0].Set(x[0], y[0], z[0], pos[0]);
-		Row[1].Set(x[1], y[1], z[1], pos[1]);
-		Row[2].Set(x[2], y[2], z[2], pos[2]);
+		Row[0].Set(x.X, y.X, z.X, pos.X);
+		Row[1].Set(x.Y, y.Y, z.Y, pos.Y);
+		Row[2].Set(x.Z, y.Z, z.Z, pos.Z);
 	}
 
 	Vector4 Row[3];
@@ -400,8 +374,8 @@ public:
 	virtual void l15(); virtual void l16(); virtual void l17(); virtual void l18(); virtual void l19();
 	virtual void l20();
 	virtual void Set_Transform(const Matrix3D &m);	// slot 21
-	void Set_Ambient(const Vector3 &color) { Ambient = color; }
-	void Set_Diffuse(const Vector3 &color) { Diffuse = color; }
+	void Set_Ambient(const Vector3 &color) { Ambient.Set(color); }
+	void Set_Diffuse(const Vector3 &color) { Diffuse.Set(color); }
 
 private:
 	unsigned char m_pad08[0xD4 - 0x08];

@@ -16,7 +16,7 @@ class BFME2ParticleTextureHandle { public:
 };
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
-class Vector3 { public:float x,y,z; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
@@ -38,7 +38,7 @@ class SegmentedLineClass:public RenderObjClass { public:
  void Set_UV_Offset_Rate(const Vector2 &);
  char bytes[292];
 };
-class RenderInfoClass { public: ~RenderInfoClass(); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 extern RenderObjClass *Create_Render_Obj(const char *);
 class LightEnvironmentClass { public:LightEnvironmentClass();~LightEnvironmentClass();char bytes[0x22c];};
 struct Rva00390729Element { int opaque[3]; };
@@ -95,19 +95,19 @@ Rva000E0AE2::Rva000E0AE2():unknown1c(0) {
  lines[0]->Set_Texture((TextureClass *)&normalTexture);
  lines[0]->Set_Shader(shader);
  lines[0]->Set_Width(1.5f);
- { Vector3 color={terrainNormalColor[0],terrainNormalColor[1],terrainNormalColor[2]};lines[0]->Set_Color(color); }
+ { Vector3 color(terrainNormalColor[0],terrainNormalColor[1],terrainNormalColor[2]);lines[0]->Set_Color(color); }
  lines[0]->Set_Texture_Mapping_Mode(SegLineRendererClass::Tile);
  lines[1]=new SegmentedLineClass;
  lines[1]->Set_Texture((TextureClass *)&normalTexture);
  lines[1]->Set_Shader(shader);
  lines[1]->Set_Width(1.5f);
- { Vector3 color={terrainSpecialColor[0],terrainSpecialColor[1],terrainSpecialColor[2]};lines[1]->Set_Color(color); }
+ { Vector3 color(terrainSpecialColor[0],terrainSpecialColor[1],terrainSpecialColor[2]);lines[1]->Set_Color(color); }
  lines[1]->Set_Texture_Mapping_Mode(SegLineRendererClass::Tile);
  lines[2]=new SegmentedLineClass;
  lines[2]->Set_Texture((TextureClass *)&specialTexture);
  lines[2]->Set_Shader(shader);
  lines[2]->Set_Width(1.5f);
- { Vector3 color={terrainNormalColor[0],terrainNormalColor[1],terrainNormalColor[2]};lines[2]->Set_Color(color); }
+ { Vector3 color(terrainNormalColor[0],terrainNormalColor[1],terrainNormalColor[2]);lines[2]->Set_Color(color); }
  lines[2]->Set_Texture_Mapping_Mode(SegLineRendererClass::Tile);
  lines[2]->Set_Texture_Tile_Factor(50.0f);
  { Vector2 rate(.001f,.001f);lines[2]->Set_UV_Offset_Rate(rate); }
@@ -115,7 +115,7 @@ Rva000E0AE2::Rva000E0AE2():unknown1c(0) {
  lines[3]->Set_Texture((TextureClass *)&specialTexture);
  lines[3]->Set_Shader(shader);
  lines[3]->Set_Width(1.5f);
- { Vector3 color={terrainSpecialColor[0],terrainSpecialColor[1],terrainSpecialColor[2]};lines[3]->Set_Color(color); }
+ { Vector3 color(terrainSpecialColor[0],terrainSpecialColor[1],terrainSpecialColor[2]);lines[3]->Set_Color(color); }
  lines[3]->Set_Texture_Mapping_Mode(SegLineRendererClass::Tile);
  lines[3]->Set_Texture_Tile_Factor(50.0f);
  { Vector2 rate(.001f,.001f);lines[3]->Set_UV_Offset_Rate(rate); }

@@ -66,18 +66,8 @@ public:
 	virtual void End(void);	// slot 6
 };
 }
-typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
 class LightEnvironmentClass;
-class RenderInfoClass
-{
-public:
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-	const RenderingMethodStackType &Get_Rendering_Method_Stack(void) const;
-
-	char _bfme_unk_00[0x28];
-	LightEnvironmentClass *light_environment;	// +0x28
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 // Callees taking the rendering-method stack as (first element, count) around
 // the passes; their identities are not established.
 // Rendering-method stack walkers (element array, count): rows Rva001688FFShift
@@ -133,15 +123,6 @@ struct IDirect3DDevice8
 };
 extern unsigned number_of_DX8_calls;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Vector3
-{
-public:
-	__forceinline Vector3() {}
-	__forceinline Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	Real X, Y, Z;
-};
 class Matrix3D
 {
 public:
@@ -361,8 +342,8 @@ public:
 	virtual void s20();
 	virtual void Set_Transform(const Matrix3D &m);	// slot 21
 	void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-	void Set_Ambient(const Vector3 &color) { Ambient = color; }
-	void Set_Diffuse(const Vector3 &color) { Diffuse = color; }
+	void Set_Ambient(const Vector3 &color) { Ambient.Set(color); }
+	void Set_Diffuse(const Vector3 &color) { Diffuse.Set(color); }
 private:
 	int NumRefs;	// +0x04
 	char m_pad08[0xD4 - 0x08];

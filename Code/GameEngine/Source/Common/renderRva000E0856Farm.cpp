@@ -35,7 +35,7 @@ virtual void slot18();
 virtual void slot19();
 virtual void update();char unknown4[0x14];Matrix3D transform;
 };
-class RenderInfoClass {public:RenderInfoClass(CameraClass&);~RenderInfoClass();char prefix[0x28];LightEnvironmentClass*lights;char rest[0x11c];};
+#include "../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class RenderContext {public:CameraClass*camera;};
 class Player;class Object {public:Player*getControllingPlayer()const;Object*rva002931F5(bool);};
 #include "../../Include/Common/Player.h"
@@ -181,7 +181,7 @@ void Rva000E0856::render(RenderContext*ctx){
  uv.X=0;uv.Y=phase;lines[3]->rva0015E3E0(uv);
  BfmeVecHF one={1,1,1},zero={0,0,0};((Gen_0094AC70*)lights)->bfmeSetPair(&zero,&one);
  CameraClass*camera=(*(RenderContext* volatile *)&(ctx))->camera;camera->update();((LightEnvironmentClass*)lights)->Pre_Render_Update(camera->transform);
- RenderInfoClass ri(*ctx->camera);info=&ri;ri.lights=(LightEnvironmentClass*)lights;
+ RenderInfoClass ri(*ctx->camera);info=&ri;ri.light_environment=(LightEnvironmentClass*)lights;
  int mode=TheInGameUI->mode;
  if(TheInGameUI->mode==1||mode==2){
   unsigned selected=TheInGameUI->slot93();
