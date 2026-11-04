@@ -38,21 +38,7 @@ class DrawModule;
 
 #include "../../../../../Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h"
 
-class W3DFloorDraw : public W3DPropDraw
-{
-public:
-	W3DFloorDraw(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	const void *m_10; // +0x10
-	bool m_flag14; // +0x14
-	bool m_flag15; // +0x15
-	bool m_flag16; // +0x16
-	bool m_flag17; // +0x17
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DFloorDraw.h"
 
 void W3DFloorDraw::xfer(Xfer *xfer)
 {
@@ -60,9 +46,9 @@ void W3DFloorDraw::xfer(Xfer *xfer)
 	*xfer == version;
 	W3DPropDraw::xfer(xfer);
 	if (version.m_minimum >= 2) {
-		*xfer == m_flag16;
+		*xfer == m_16;
 	}
 	if (version.m_minimum >= 3) {
-		(*xfer == m_flag17) == m_flag15;
+		(*xfer == m_17) == m_15;
 	}
 }
