@@ -55,6 +55,12 @@ void Rva00031010::rva00031010(Rva00031010Node *node, bool flag)
 // 0x00031010 insert above. Without a core it allocates page-rounded core
 // through 0x00032B00 and installs it as the top chunk inline. Callers:
 // 0x00033700 forwards all six arguments. Field labels are descriptive.
+// Canonical base fields used here: the +0x30 bin (m_030), the top chunk
+// m_440, the +0x448 core list (m_448), the top-down byte m_498, the no-new-cores
+// word m_4AC, the page size m_4D4, minimum core size m_4D8, core granularity
+// m_4DC and the lock m_pLock.
+#include "../../../Include/Common/GeneralAllocator.h"
+
 namespace EA
 {
 namespace Allocator
@@ -73,68 +79,46 @@ static __forceinline void rva00032B00InitializeChunk(Rva00032B00ChunkLocation in
 	info.chunk[1] = info.extent | flags;
 	rva00032B00AddDoubleFencepost(info.chunk, 0);
 }
-class GeneralAllocator
+// Unit views of the canonical base's raw fields: the +0x448 core list
+// (Rva000332D0CoreBlock sentinel) and the +0x4E4 lock wrapper.
+struct Rva000332D0CoreBlock
 {
-public:
-	Rva00031010Node *rva000334A0(unsigned int size);
-	bool rva000332D0(void *core, unsigned int size, bool freeCore, bool trimCore, void *releaseFunction, void *releaseContext);
-	void *rva00032B00(unsigned int size);
-
-private:
-	typedef Rva00031010Node Chunk;
-	void SetTopChunk(Chunk *chunk, bool linkOld)
-	{
-		Chunk *old = m_top;
-		m_top = chunk;
-		chunk->m_linkC = chunk;
-		m_top->m_link8 = m_top->m_linkC;
-		if (old == &m_bin)
-			return;
-		if (!linkOld)
-			return;
-		Chunk *bin = &m_bin;
-		Chunk *after = bin->m_linkC;
-		old->m_link8 = bin;
-		old->m_linkC = after;
-		bin->m_linkC = old;
-		after->m_link8 = old;
-	}
-	struct CoreBlock
-	{
-		Rva00031010Node *m_firstChunk;
-		unsigned int m_size;
-		unsigned int m_committedSize;
-		bool m_flag0C;
-		bool m_freeCore;
-		bool m_freeCore2;
-		bool m_trimCore;
-		void *m_releaseFunction;
-		void *m_releaseContext;
-		CoreBlock *m_next;
-		CoreBlock *m_prev;
-	};
-	struct Lock
-	{
-		CRITICAL_SECTION m_cs;
-		int volatile m_count;
-	};
-	unsigned char m_pad000[0x30];
-	Rva00031010Node m_bin;					// +0x30
-	unsigned char m_pad040[0x440 - 0x40];
-	Rva00031010Node *m_top;					// +0x440
-	unsigned char m_pad444[4];
-	CoreBlock m_cores;					// +0x448
-	unsigned char m_pad468[0x498 - 0x468];
-	bool m_topDown;
-	unsigned char m_pad499[0x4AC - 0x499];
-	int m_noNewCores;
-	unsigned char m_pad4B0[0x4D4 - 0x4B0];
-	unsigned int m_pageSize;				// +0x4D4
-	unsigned int m_minCoreSize;
-	unsigned int m_granularity;
-	unsigned char m_pad4E0[4];
-	Lock *m_4E4;						// +0x4E4
+	Rva00031010Node *m_firstChunk;
+	unsigned int m_size;
+	unsigned int m_committedSize;
+	bool m_flag0C;
+	bool m_freeCore;
+	bool m_freeCore2;
+	bool m_trimCore;
+	void *m_releaseFunction;
+	void *m_releaseContext;
+	Rva000332D0CoreBlock *m_next;
+	Rva000332D0CoreBlock *m_prev;
 };
+struct Rva000332D0Lock
+{
+	CRITICAL_SECTION m_cs;
+	int volatile m_count;
+};
+
+// Installs a new top chunk (m_440) and links the old one into the +0x30 bin.
+static inline void Rva000334A0SetTopChunk(GeneralAllocator *self, Rva00031010Node *chunk, bool linkOld)
+{
+	Rva00031010Node *old = self->m_440;
+	self->m_440 = chunk;
+	chunk->m_linkC = chunk;
+	self->m_440->m_link8 = self->m_440->m_linkC;
+	if (old == (Rva00031010Node *)self->m_030)
+		return;
+	if (!linkOld)
+		return;
+	Rva00031010Node *bin = (Rva00031010Node *)self->m_030;
+	Rva00031010Node *after = bin->m_linkC;
+	old->m_link8 = bin;
+	old->m_linkC = after;
+	bin->m_linkC = old;
+	after->m_link8 = old;
+}
 
 static inline void rva000332D0AddDoubleFencepost(unsigned int *chunk, unsigned int flags)
 {
@@ -150,7 +134,7 @@ static inline void rva000332D0AddDoubleFencepost(unsigned int *chunk, unsigned i
 
 bool GeneralAllocator::rva000332D0(void *core, unsigned int size, bool freeCore, bool trimCore, void *releaseFunction, void *releaseContext)
 {
-	Lock *lock = m_4E4;
+	Rva000332D0Lock *lock = (Rva000332D0Lock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(&lock->m_cs);
@@ -160,11 +144,11 @@ bool GeneralAllocator::rva000332D0(void *core, unsigned int size, bool freeCore,
 	{
 		if (size >= 0x40)
 		{
-			if (size % m_pageSize)
-				size &= ~(m_pageSize - 1);
+			if (size % m_4D4)
+				size &= ~(m_4D4 - 1);
 			if (size & 0xF)
 				size = size / 16 * 16;
-			CoreBlock *block = (CoreBlock *)core;
+			Rva000332D0CoreBlock *block = (Rva000332D0CoreBlock *)core;
 			block->m_freeCore = freeCore;
 			block->m_freeCore2 = freeCore;
 			block->m_firstChunk = (Rva00031010Node *)(((unsigned int)core + 0x27) & ~7);
@@ -174,7 +158,7 @@ bool GeneralAllocator::rva000332D0(void *core, unsigned int size, bool freeCore,
 			block->m_trimCore = trimCore;
 			block->m_releaseFunction = releaseFunction;
 			block->m_releaseContext = releaseContext;
-			CoreBlock *head = &m_cores;
+			Rva000332D0CoreBlock *head = (Rva000332D0CoreBlock *)m_448;
 			block->m_prev = head;
 			block->m_next = head->m_next;
 			head->m_next = block;
@@ -195,7 +179,7 @@ bool GeneralAllocator::rva000332D0(void *core, unsigned int size, bool freeCore,
 			chunkCopy[0] = 0;
 			rva000332D0AddDoubleFencepost(chunkCopy, 0);
 			_ReadWriteBarrier();
-			((Rva00031010 *)this)->rva00031010((Rva00031010Node *)chunk, m_top != &m_bin);
+			((Rva00031010 *)this)->rva00031010((Rva00031010Node *)chunk, m_440 != (Rva00031010Node *)m_030);
 			if (lock != 0)
 			{
 				--lock->m_count;
@@ -206,7 +190,7 @@ bool GeneralAllocator::rva000332D0(void *core, unsigned int size, bool freeCore,
 	}
 	else if (size > 0)
 	{
-		Rva00031010Node *top = (Rva00031010Node *)rva00032B00((size + m_pageSize - 1) & ~(m_pageSize - 1));
+		Rva00031010Node *top = (Rva00031010Node *)rva00032B00((size + m_4D4 - 1) & ~(m_4D4 - 1));
 		if (top)
 		{
 			((Rva00031010 *)this)->rva00031010(top, true);
@@ -245,17 +229,17 @@ static inline void rva000334A0AddDoubleFencepost(unsigned int *chunk, unsigned i
 Rva00031010Node *GeneralAllocator::rva000334A0(unsigned int size)
 {
 	bool newTop = false;
-	Chunk *chunk = 0;
+	Rva00031010Node *chunk = 0;
 	unsigned int extend = 0;
 	unsigned int chunkSize;
-	CoreBlock *core = m_cores.m_next;
-	for (; core != &m_cores; core = core->m_next)
+	Rva000332D0CoreBlock *core = ((Rva000332D0CoreBlock *)m_448)->m_next;
+	for (; core != (Rva000332D0CoreBlock *)m_448; core = core->m_next)
 	{
 		if (size <= core->m_committedSize - core->m_size)
 		{
 			extend = size;
-			if (extend < m_granularity)
-				extend = m_granularity;
+			if (extend < m_4DC)
+				extend = m_4DC;
 			if (extend > core->m_committedSize - core->m_size)
 				extend = core->m_committedSize - core->m_size;
 			if (!VirtualAlloc((char *)core + core->m_size, extend, 0x1000, 4))
@@ -263,33 +247,33 @@ Rva00031010Node *GeneralAllocator::rva000334A0(unsigned int size)
 			break;
 		}
 	}
-	if (core != &m_cores)
+	if (core != (Rva000332D0CoreBlock *)m_448)
 	{
 		if (core->m_size)
 		{
-			Chunk *fencepost = (Chunk *)((char *)core + core->m_size - 0x10);
+			Rva00031010Node *fencepost = (Rva00031010Node *)((char *)core + core->m_size - 0x10);
 			if (fencepost->m_size & 1) {
 				chunk = fencepost;
 				chunkSize = extend;
 				fencepost->m_size = extend | 1;
 			} else {
-				chunk = (Chunk *)((char *)fencepost - fencepost->m_priorSize);
+				chunk = (Rva00031010Node *)((char *)fencepost - fencepost->m_priorSize);
 				chunk->m_link8->m_linkC = chunk->m_linkC;
 				chunk->m_linkC->m_link8 = chunk->m_link8;
 				chunkSize = fencepost->m_priorSize + extend;
 				chunk->m_size = chunkSize | 1;
-				newTop = chunk == m_top;
+				newTop = chunk == m_440;
 			}
-			Chunk *end = (Chunk *)((char *)chunk + chunkSize);
+			Rva00031010Node *end = (Rva00031010Node *)((char *)chunk + chunkSize);
 			end->m_priorSize = chunkSize;
 			end->m_size = 8;
-			end = (Chunk *)((char *)end + 8);
+			end = (Rva00031010Node *)((char *)end + 8);
 			end->m_priorSize = 8;
 			end->m_size = 9;
 		}
 		else
 		{
-			Chunk *first = (Chunk *)(((unsigned int)core + 0x27) & ~7);
+			Rva00031010Node *first = (Rva00031010Node *)(((unsigned int)core + 0x27) & ~7);
 			core->m_firstChunk = first;
 			unsigned int *chunkCopy = (unsigned int *)first;
 			unsigned int initSize = ((unsigned int)core - (unsigned int)chunkCopy + extend);
@@ -298,27 +282,27 @@ Rva00031010Node *GeneralAllocator::rva000334A0(unsigned int size)
 			rva000334A0AddDoubleFencepost(chunkCopy, 0);
 			chunk = first;
 			chunkSize = extend;
-			SetTopChunk(chunk, true);
+			Rva000334A0SetTopChunk(this, chunk, true);
 			newTop = true;
 		}
 		core->m_size += extend;
 	}
 	if (!chunk)
 	{
-		if (!m_noNewCores)
+		if (!m_4AC)
 		{
-			chunk = (Chunk *)rva00032B00(size);
+			chunk = (Rva00031010Node *)rva00032B00(size);
 			if (chunk)
 			{
-				Chunk *old = m_top;
-				m_top = chunk;
+				Rva00031010Node *old = m_440;
+				m_440 = chunk;
 				chunk->m_linkC = chunk;
-				Chunk *node = m_top;
+				Rva00031010Node *node = m_440;
 				node->m_link8 = node->m_linkC;
-				Chunk *bin = &m_bin;
+				Rva00031010Node *bin = (Rva00031010Node *)m_030;
 				if (old != bin)
 				{
-					Chunk *after = bin->m_linkC;
+					Rva00031010Node *after = bin->m_linkC;
 					old->m_link8 = bin;
 					old->m_linkC = after;
 					bin->m_linkC = old;
@@ -332,17 +316,17 @@ Rva00031010Node *GeneralAllocator::rva000334A0(unsigned int size)
 	if (chunk && chunkSize > size)
 	{
 		chunk->m_size = size | 1;
-		Chunk *rest = (Chunk *)((char *)chunk + size);
+		Rva00031010Node *rest = (Rva00031010Node *)((char *)chunk + size);
 		unsigned int remainder = chunkSize - size;
 		rest->m_size = remainder;
 		rest->m_priorSize = size;
 		*(unsigned int *)((char *)rest + remainder) = remainder;
 		if (newTop)
-			SetTopChunk(rest, false);
+			Rva000334A0SetTopChunk(this, rest, false);
 		else
 		{
-			Chunk *bin = &m_bin;
-			Chunk *after = bin->m_linkC;
+			Rva00031010Node *bin = (Rva00031010Node *)m_030;
+			Rva00031010Node *after = bin->m_linkC;
 			rest->m_link8 = bin;
 			rest->m_linkC = after;
 			bin->m_linkC = rest;
@@ -387,27 +371,27 @@ static inline unsigned int rva00032B00Align(unsigned int size, unsigned int alig
 // establish this allocation path; field labels remain descriptive views.
 void *GeneralAllocator::rva00032B00(unsigned int size)
 {
-	unsigned int coreSize = rva00032B00Align(size, m_pageSize);
+	unsigned int coreSize = rva00032B00Align(size, m_4D4);
 	unsigned int chunkFlags = 1;
-	if (coreSize < m_minCoreSize)
-		coreSize = rva00032B00Align(m_minCoreSize, m_pageSize);
+	if (coreSize < m_4D8)
+		coreSize = rva00032B00Align(m_4D8, m_4D4);
 	unsigned int reservedSize = (coreSize + 0xFFFF) & 0xFFFF0000;
-	CoreBlock *core = (CoreBlock *)VirtualAlloc(0, reservedSize, 0x2000, 4);
+	Rva000332D0CoreBlock *core = (Rva000332D0CoreBlock *)VirtualAlloc(0, reservedSize, 0x2000, 4);
 	if (core)
 	{
 		coreSize = 0x100000;
-		if (m_granularity > coreSize)
-			coreSize = rva00032B00Align(m_granularity, m_pageSize);
+		if (m_4DC > coreSize)
+			coreSize = rva00032B00Align(m_4DC, m_4D4);
 		if (coreSize > reservedSize)
 			coreSize = reservedSize;
-		core = (CoreBlock *)VirtualAlloc(core, coreSize, 0x1000, 4);
+		core = (Rva000332D0CoreBlock *)VirtualAlloc(core, coreSize, 0x1000, 4);
 	}
 	if (!core)
 	{
 		unsigned long type = 0x3000;
-		if (m_topDown)
+		if (m_498)
 			type = 0x103000;
-		core = (CoreBlock *)VirtualAlloc(0, coreSize, type, 4);
+		core = (Rva000332D0CoreBlock *)VirtualAlloc(0, coreSize, type, 4);
 		if (core)
 		{
 			chunkFlags = 3;
@@ -420,10 +404,10 @@ void *GeneralAllocator::rva00032B00(unsigned int size)
 		core->m_size = coreSize;
 		core->m_firstChunk = (Rva00031010Node *)(((unsigned int)core + 0x27) & ~7);
 		core->m_flag0C = (chunkFlags >> 1) & 1;
-		CoreBlock *head = &m_cores;
-		bool notFirst = m_cores.m_prev != head;
+		Rva000332D0CoreBlock *head = (Rva000332D0CoreBlock *)m_448;
+		bool notFirst = ((Rva000332D0CoreBlock *)m_448)->m_prev != head;
 		// Retail writes +1C before the +0D/+0F/+0E flag group.
-		*(CoreBlock *volatile *)&core->m_prev = head;
+		*(Rva000332D0CoreBlock *volatile *)&core->m_prev = head;
 		*(volatile bool *)&core->m_freeCore = notFirst;
 		*(volatile bool *)&core->m_trimCore = notFirst;
 		*(volatile bool *)&core->m_freeCore2 = true;

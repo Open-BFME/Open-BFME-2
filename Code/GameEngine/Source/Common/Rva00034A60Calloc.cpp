@@ -34,16 +34,7 @@ public:
     void consolidate();
 };
 
-struct Rva00031010Node;
-namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-    void *calloc(unsigned int count, unsigned int size, int flags);
-    void *rva00032DF0(unsigned int size);
-    Rva00031010Node *rva000334A0(unsigned int size);
-};
-}}
+#include "../../Include/Common/GeneralAllocator.h"
 
 typedef bool (*GrowCallback)(void *, unsigned int, unsigned int, unsigned int);
 
@@ -64,44 +55,29 @@ typedef bool (*GrowCallback)(void *, unsigned int, unsigned int, unsigned int);
  ((((unsigned long)(sz)) >> 15) <=  4)? 119 + (((unsigned long)(sz)) >> 15): \
  ((((unsigned long)(sz)) >> 18) <=  2)? 124 + (((unsigned long)(sz)) >> 18): \
                                         126)
-#define bin_at(m, i) ((mbinptr)((char *)&((m)->bins[(i) << 1]) - 8))
+#define bin_at(m, i) ((mbinptr)((char *)&((m)->m_030[(i) << 1]) - 8))
 #define next_bin(b) ((mbinptr)((char *)(b) + 8))
 #define last(b) ((b)->bk)
 #define unsorted_chunks(M) (bin_at(M, 1))
 #define idx2block(i) ((i) >> 5)
 #define idx2bit(i) ((1U << ((i) & 31)))
-#define mark_bin(m, i) ((m)->binmap[idx2block(i)] |= idx2bit(i))
+#define mark_bin(m, i) ((m)->m_430[idx2block(i)] |= idx2bit(i))
 #define fastbin_index(sz) ((((unsigned int)(sz)) >> 3) - 2)
-#define have_fastchunks(M) (((M)->max_fast & 1))
+#define have_fastchunks(M) (((M)->m_004 & 1))
 #define unlink(P, BK, FD) { P->bk->fd = P->fd; P->fd->bk = P->bk; }
 #define request2size(req) \
     (((req) + 4 + 7 <= MINSIZE) ? MINSIZE : ((req) + 4 + 7) & ~7u)
 
+// The dlmalloc state lives in the canonical base: max_fast m_004, fastbins
+// m_008, bins m_030, binmap m_430, top m_440, last_remainder m_444, the
+// mmap-enable byte m_46D, n_mmaps m_488, n_mmaps_max m_490, mmap_threshold
+// m_494, the grow callback m_4AC with its argument m_4B0 and retry limit m_4B4,
+// and the lock m_pLock.
 class Rva006C1F60 : public EA::Allocator::GeneralAllocator
 {
 public:
     void *rva00033ED0(unsigned int bytes, int flags);
 
-    unsigned int m_0;			// +0x00
-    unsigned int max_fast;		// +0x04
-    mfastbinptr fastbins[10];		// +0x08
-    mchunkptr bins[256];		// +0x30
-    unsigned int binmap[4];		// +0x430
-    mchunkptr top;			// +0x440
-    mchunkptr last_remainder;		// +0x444
-    unsigned char m_pad448[0x46d - 0x448];
-    bool m_46d;				// +0x46d
-    unsigned char m_pad46e[0x488 - 0x46e];
-    int n_mmaps;			// +0x488
-    int m_48c;
-    int n_mmaps_max;			// +0x490
-    unsigned int mmap_threshold;	// +0x494
-    unsigned char m_pad498[0x4ac - 0x498];
-    GrowCallback m_grow;		// +0x4ac
-    unsigned int m_4b0;			// +0x4b0
-    unsigned int m_4b4;			// +0x4b4
-    unsigned char m_pad4b8[0x4e4 - 0x4b8];
-    Rva00030DD0Lock *m_lock;		// +0x4e4
 };
 
 void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
@@ -135,9 +111,9 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
         else
             nb = MINSIZE;
 
-        if (nb <= max_fast)
+        if (nb <= m_004)
         {
-            mfastbinptr *fb = &fastbins[fastbin_index(nb)];
+            mfastbinptr *fb = (mfastbinptr *)&m_008[fastbin_index(nb)];
             if ((victim = *fb) != 0)
             {
                 victim->size &= 0x7ffffffb;
@@ -173,14 +149,14 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                 size = chunksize(victim);
 
                 if (in_smallbin_range(nb) &&
-                    victim == last_remainder &&
+                    victim == (mchunkptr)m_444 &&
                     bck == unsorted &&
                     size > nb + MINSIZE)
                 {
                     remainder_size = size - nb;
                     remainder = chunk_at_offset(victim, nb);
                     unsorted->bk = unsorted->fd = remainder;
-                    last_remainder = remainder;
+                    m_444 = (Rva00031010Node *)remainder;
                     remainder->bk = remainder->fd = unsorted;
                     set_head(victim, nb | 1);
                     set_head(remainder, remainder_size | 1);
@@ -226,7 +202,7 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                 }
 
                 block = victim_index >> 5;
-                binmap[block] |= idx2bit(victim_index);
+                m_430[block] |= idx2bit(victim_index);
                 victim->bk = bck;
                 victim->fd = fwd;
                 fwd->bk = victim;
@@ -262,7 +238,7 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
             ++idx;
             bin = bin_at(this, idx);
             block = idx2block(idx);
-            map = binmap[block];
+            map = m_430[block];
             bit = idx2bit(idx);
 
             for (;;)
@@ -273,7 +249,7 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                     {
                         if (++block >= 4)
                             goto use_top;
-                    } while ((map = binmap[block]) == 0);
+                    } while ((map = m_430[block]) == 0);
                     bin = bin_at(this, (block << 5));
                     bit = 1;
                 }
@@ -287,7 +263,7 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                 victim = last(bin);
                 if (victim == bin)
                 {
-                    binmap[block] = map &= ~bit;
+                    m_430[block] = map &= ~bit;
                     bin = next_bin(bin);
                     bit <<= 1;
                 }
@@ -305,7 +281,7 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                     unsorted->bk = unsorted->fd = remainder;
                     remainder->bk = remainder->fd = unsorted;
                     if (in_smallbin_range(nb))
-                        last_remainder = remainder;
+                        m_444 = (Rva00031010Node *)remainder;
                     set_head(victim, nb | 1);
                     set_head(remainder, remainder_size | 1);
                     set_foot(remainder, remainder_size);
@@ -314,7 +290,7 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
             }
 
         use_top:
-            victim = top;
+            victim = (mchunkptr)m_440;
             size = chunksize(victim);
             if (size >= nb + MINSIZE)
             {
@@ -322,8 +298,8 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                 set_head(victim, nb | 1);
                 remainder = chunk_at_offset(victim, nb);
                 set_head(remainder, remainder_size | 1);
-                top = remainder;
-                mchunkptr topChunk = top;
+                m_440 = (Rva00031010Node *)remainder;
+                mchunkptr topChunk = (mchunkptr)m_440;
                 set_head(topChunk, remainder_size | 1);
                 topChunk->bk = topChunk->fd = topChunk;
                 set_foot(topChunk, remainder_size);
@@ -335,13 +311,13 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
             idx = smallbin_index(nb);
         }
 
-        if (m_46d && nb >= mmap_threshold && n_mmaps < n_mmaps_max)
+        if (m_46D && nb >= m_494 && (int)m_488 < (int)m_490)
         {
             result = ((EA::Allocator::GeneralAllocator *)this)->rva00032DF0(bytes);
             if (result)
                 return result;
         }
-        if (m_46d)
+        if (m_46D)
         {
             mchunkptr allocatedChunk = (mchunkptr)((EA::Allocator::GeneralAllocator *)this)->rva000334A0(nb);
             if (allocatedChunk)
@@ -350,20 +326,20 @@ void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
                 result = chunk2mem(allocatedChunk);
             }
         }
-        if (result || !m_grow || ++attempts >= m_4b4)
+        if (result || !m_4AC || ++attempts >= m_4B4)
             break;
 
-        int refs = m_lock->m_ref;
+        int refs = m_pLock->m_ref;
         for (int i = 0; i < refs; ++i)
         {
-            Rva00030DD0Lock *lock = m_lock;
+            Rva00030DD0Lock *lock = m_pLock;
             --lock->m_ref;
             LeaveCriticalSection((CRITICAL_SECTION *)lock);
         }
-        bool ok = m_grow(this, bytes, bytes + 0x40, m_4b0);
+        bool ok = ((GrowCallback)m_4AC)(this, bytes, bytes + 0x40, m_4B0);
         for (int j = 0; j < refs; ++j)
         {
-            Rva00030DD0Lock *lock = m_lock;
+            Rva00030DD0Lock *lock = m_pLock;
             EnterCriticalSection((CRITICAL_SECTION *)lock);
             ++lock->m_ref;
         }

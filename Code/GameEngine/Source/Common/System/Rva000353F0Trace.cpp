@@ -48,6 +48,11 @@ public:
 	void consolidate();
 };
 
+// Canonical base fields read here: m_004 (bit 0 gates 0x00033930), the trace
+// callback m_4C0 and its context m_4C4, the trace-internal byte m_4E0 and the
+// lock m_pLock.
+#include "../../../Include/Common/GeneralAllocator.h"
+
 namespace EA
 {
 namespace Allocator
@@ -64,63 +69,30 @@ struct BlockInfo
 	bool m_mapped;
 };
 
-class GeneralAllocator
+// The report close, inlined into both callers.
+static inline void Rva000353F0ReportEnd(GeneralAllocator *self, GeneralAllocator::Snapshot *snapshot)
 {
-public:
-	struct Snapshot
+	if (snapshot && snapshot->m_magic == 0x534E4150)
 	{
-		unsigned int m_magic;
-		unsigned int m_size;
-		void *m_arg2;
-		unsigned char m_state[4];
-		unsigned int m_values[5];
-	};
-	typedef void (*TraceFunction)(const char *text, void *context);
-
-	typedef bool (*ReportFunction)(const BlockInfo *info, void *context);
-
-	void rva00033150(const void *block);	// free engine 0x00033150 (memory_pool.cpp)
-	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
-	bool reportHeap(ReportFunction function, void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
-	int rva00031430(const void *block, char *dst, unsigned int left);
-	const BlockInfo *rva00032F60(void *context, int blockTypes);
-
-private:
-	void reportEnd(Snapshot *snapshot)
-	{
-		if (snapshot && snapshot->m_magic == 0x534E4150)
+		if (snapshot->m_state[1])
 		{
-			if (snapshot->m_state[1])
-			{
-				if (!snapshot->m_state[0])
-					rva00033150(snapshot);
-			}
-			else
-				snapshot->m_values[4] = 0;
+			if (!snapshot->m_state[0])
+				self->rva00033150(snapshot);
 		}
+		else
+			snapshot->m_values[4] = 0;
 	}
-
-	unsigned int m_unknown0;
-	unsigned int m_flags04;			// +0x04, bit 0 gates 0x00033930
-	char m_pad08[0x4C0 - 0x08];
-	TraceFunction m_traceFunction;		// +0x4C0
-	void *m_traceContext;			// +0x4C4
-	char m_pad4C8[0x4E0 - 0x4C8];
-	bool m_traceInternal;			// +0x4E0
-	char m_pad4E1[3];
-	void *m_pLock;				// +0x4E4
-};
+}
 
 void GeneralAllocator::traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes)
 {
-	Rva000353F0Lock lock(m_pLock);
-	if (m_flags04 & 1)
+	Rva000353F0Lock lock((void *)m_pLock);
+	if (m_004 & 1)
 		((::Rva00034C90 *)this)->consolidate();
 	if (!function)
-		function = m_traceFunction;
+		function = (TraceFunction)m_4C0;
 	if (!functionContext)
-		functionContext = m_traceContext;
+		functionContext = m_4C4;
 	if (function)
 	{
 		char buffer[4000];
@@ -130,13 +102,13 @@ void GeneralAllocator::traceAllocatedMemory(TraceFunction function, void *functi
 		for (const BlockInfo *info = rva00032F60(snapshot, 0x1F); info; info = rva00032F60(snapshot, 0x1F))
 		{
 			const unsigned int *core = (const unsigned int *)info->m_core;
-			if (m_traceInternal || !(core[1] & 4))
+			if (m_4E0 || !(core[1] & 4))
 			{
 				rva00031430(core, buffer, 4000);
 				function(buffer, functionContext);
 			}
 		}
-		reportEnd(snapshot);
+		Rva000353F0ReportEnd(this, snapshot);
 	}
 }
 
@@ -159,7 +131,7 @@ bool GeneralAllocator::reportHeap(ReportFunction function, void *context, int bl
 			snapshot->m_state[1] = 1;
 			for (const BlockInfo *info = rva00032F60(snapshot, blockTypes); result && info; info = rva00032F60(snapshot, blockTypes))
 				result = function(info, context);
-			reportEnd(snapshot);
+			Rva000353F0ReportEnd(this, snapshot);
 		}
 	}
 	return result;

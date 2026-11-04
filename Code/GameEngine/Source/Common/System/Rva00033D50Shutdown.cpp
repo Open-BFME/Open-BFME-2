@@ -63,62 +63,44 @@ public:
 	void *get() const;
 };
 
+// Canonical base fields used here: m_000 the active flag, m_440, the +0x448
+// descriptor sentinel m_448 with its first link m_448[7] (+0x464), m_468,
+// m_46C, the +0x49C entry sentinel m_49C with its first link m_49C[3]
+// (+0x4A8) and the lock m_pLock.
+#include "../../../Include/Common/GeneralAllocator.h"
+
 namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator
-{
-public:
-	bool rva00033D50();
-	void rva00031660(void *node);
-	void rva00033150(const void *block);
-	bool rva000316B0(void *node, bool release);
-
-private:
-	bool m_active;	// +0x000
-	unsigned char m_pad001[0x440 - 0x001];
-	void *m_440;
-	unsigned char m_pad444[0x448 - 0x444];
-	unsigned char m_448[0x1C];	// descriptor sentinel
-	void *m_464;	// its first link
-	unsigned int m_468;
-	bool m_46C;
-	unsigned char m_pad46D[0x49C - 0x46D];
-	unsigned char m_49C[0xC];	// entry sentinel
-	void *m_4A8;	// its first link
-	unsigned char m_pad4AC[0x4E4 - 0x4AC];
-	Rva00030DD0Lock *m_lock;	// +0x4E4
-};
-
 bool GeneralAllocator::rva00033D50()
 {
-	if (m_lock)
-		Rva00030DD0AddRef(m_lock);
-	if (m_active)
+	if (m_pLock)
+		Rva00030DD0AddRef(m_pLock);
+	if (m_000)
 	{
-		m_active = false;
+		m_000 = false;
 		if (((Rva00030CB0MaskedDwordField *)this)->get())
 			((Rva00034C90 *)this)->consolidate();
-		while (m_4A8 != m_49C)
+		while ((void *)m_49C[3] != (void *)m_49C)
 		{
-			int chunk = Rva00030AE0Sub((int *)m_4A8);
+			int chunk = Rva00030AE0Sub((int *)m_49C[3]);
 			rva00033150(&Rva00033D50TreeAccess::_S_left((Rva00033D50Node *)chunk));
 		}
-		while (m_464 != m_448)
+		while ((void *)m_448[7] != (void *)m_448)
 		{
-			void *node = m_464;
+			void *node = (void *)m_448[7];
 			rva00031660(node);
 			rva000316B0(node, true);
 		}
-		m_440 = ((Rva0066D7D0LeaField *)this)->get();
+		m_440 = (Rva00031010Node *)((Rva0066D7D0LeaField *)this)->get();
 		m_468 = 0;
 		m_46C = false;
 	}
-	if (m_lock)
+	if (m_pLock)
 	{
-		Rva00030DD0Lock *lock = m_lock;
-		m_lock = 0;
+		Rva00030DD0Lock *lock = m_pLock;
+		m_pLock = 0;
 		Rva00030DF0Release(lock);
 		Rva000317E0Delete(lock);
 	}

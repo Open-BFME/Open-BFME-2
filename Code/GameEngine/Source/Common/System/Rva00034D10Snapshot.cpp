@@ -52,6 +52,11 @@ public:
 	void *rva00033ED0(unsigned int size, int flags);
 };
 
+// Canonical base fields used here: m_004 (bit 0 consolidates first), the
+// +0x448 core sentinel m_448, the +0x49C large-block sentinel m_49C and the
+// lock m_pLock; the unit views them as Rva00034D10Core and Rva00034D10Large.
+#include "../../../Include/Common/GeneralAllocator.h"
+
 namespace EA { namespace Allocator {
 struct BlockInfo
 {
@@ -108,44 +113,13 @@ struct Rva00034D10Large
 	Rva00034D10Large *m_next; // +0x0C
 };
 
-namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	struct Snapshot
-	{
-		unsigned int m_magic;
-		unsigned int m_size;
-		void *m_arg2;
-		unsigned char m_state[4];
-		unsigned int m_values[5];
-		// memory_pool.cpp's rowed constructor only clears and initializes
-		// the supplied storage; placement construction needs no failure cleanup.
-		__declspec(nothrow) Snapshot(unsigned int size, void *context);
-	};
-	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void rva00032EC0(const void *chunk, BlockInfo *info);
-
-private:
-	char m_pad000[4];
-	unsigned int m_flags; // +0x004
-	char m_pad008[0x448 - 8];
-	Rva00034D10Core m_coreSentinel; // +0x448
-	char m_pad468[0x49c - 0x468];
-	Rva00034D10Large m_largeSentinel; // +0x49C
-	char m_pad4AC[0x4e4 - 0x4ac];
-	void *m_lock; // +0x4E4
-};
-
-} }
-
 void *EA::Allocator::GeneralAllocator::rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize)
 {
-	Rva00035080Lock lock(m_lock);
+	Rva00035080Lock lock((void *)m_pLock);
 	Rva00034D10Snapshot *snapshot = 0;
 	if (copy)
 	{
-		if (m_flags & 1)
+		if (m_004 & 1)
 			reinterpret_cast<Rva00034C90 *>(this)->consolidate();
 		unsigned int count = 0;
 		for (unsigned int pass = 0; pass < 2; pass++)
@@ -172,7 +146,7 @@ void *EA::Allocator::GeneralAllocator::rva00034D10(int blockTypes, bool copy, vo
 					break;
 			}
 
-			for (Rva00034D10Core *core = m_coreSentinel.m_next; core != &m_coreSentinel; core = core->m_next)
+			for (Rva00034D10Core *core = ((Rva00034D10Core *)m_448)->m_next; core != (Rva00034D10Core *)m_448; core = core->m_next)
 			{
 				if (blockTypes & 8)
 				{
@@ -224,7 +198,7 @@ void *EA::Allocator::GeneralAllocator::rva00034D10(int blockTypes, bool copy, vo
 
 			if (blockTypes & 2)
 			{
-				for (Rva00034D10Large *large = m_largeSentinel.m_next; large != &m_largeSentinel; large = large->m_next)
+				for (Rva00034D10Large *large = ((Rva00034D10Large *)m_49C)->m_next; large != (Rva00034D10Large *)m_49C; large = large->m_next)
 				{
 					void *chunk = (char *)large - large->m_offset;
 					if ((blockTypes & 0x10) || !(large->m_flags & 4))
@@ -253,10 +227,10 @@ void *EA::Allocator::GeneralAllocator::rva00034D10(int blockTypes, bool copy, vo
 			s->m_size = size;
 			s->m_external = storage != 0;
 			s->m_headerOnly = 1;
-			s->m_coreList = m_coreSentinel.m_next;
+			s->m_coreList = ((Rva00034D10Core *)m_448)->m_next;
 			s->m_14 = 0;
 			snapshot = s;
-			s->m_largeList = m_largeSentinel.m_next;
+			s->m_largeList = ((Rva00034D10Large *)m_49C)->m_next;
 		}
 	}
 	return snapshot;

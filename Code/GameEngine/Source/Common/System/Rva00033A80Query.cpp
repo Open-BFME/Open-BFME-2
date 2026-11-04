@@ -45,40 +45,27 @@ public:
 	void consolidate();
 };
 
+// Canonical base fields used here: m_004 (the small-request limit), the
+// +0x030 bin sentinel (viewed as Rva00033A80BinNode), the bin slots up to
+// +0x428, the top chunk m_440 and the lock m_pLock.
+#include "../../../Include/Common/GeneralAllocator.h"
+
+struct Rva00033A80BinNode
+{
+	unsigned int m_unk0;
+	unsigned int m_size;
+	unsigned int m_unk8;
+	Rva00033A80BinNode *m_next;
+};
+
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-	struct BinNode
-	{
-		unsigned int m_unk0;
-		unsigned int m_size;
-		unsigned int m_unk8;
-		BinNode *m_next;
-	};
-
-	unsigned int rva00033A80(bool full);
-
-private:
-	unsigned int m_00;
-	unsigned int m_04;
-	void *m_candidates[10];
-	BinNode m_sentinel30;
-	unsigned char m_bins40[0x428 - 0x40];
-	void *m_428top;
-	unsigned char m_pad42C[0x440 - 0x42C];
-	void *m_440;
-	unsigned char m_pad444[0x4E4 - 0x444];
-	void *m_pLock;
-};
-
 unsigned int GeneralAllocator::rva00033A80(bool full)
 {
-	Rva00035080Lock lock(m_pLock);
+	Rva00035080Lock lock((void *)m_pLock);
 	unsigned int best = 0;
 	if (m_440 != 0)
 	{
@@ -103,8 +90,8 @@ unsigned int GeneralAllocator::rva00033A80(bool full)
 				break;
 			}
 		} while (count >= 2);
-		BinNode *head = m_sentinel30.m_next;
-		BinNode *sentinel = &m_sentinel30;
+		Rva00033A80BinNode *head = ((Rva00033A80BinNode *)m_030)->m_next;
+		Rva00033A80BinNode *sentinel = (Rva00033A80BinNode *)m_030;
 		while (head != sentinel)
 		{
 			unsigned int size = head->m_size & 0x7FFFFFF8;
@@ -114,7 +101,7 @@ unsigned int GeneralAllocator::rva00033A80(bool full)
 		}
 		if (!full)
 		{
-			if (best < m_04)
+			if (best < m_004)
 			{
 				int left = 9;
 				void **cand = (void **)((char *)this + 0x2C);
