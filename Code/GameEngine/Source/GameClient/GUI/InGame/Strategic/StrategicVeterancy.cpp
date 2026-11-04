@@ -25,12 +25,12 @@ public:
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}
 private:T*ptr;
 };
-class AptCommandMapAdder {
-public:AptCommandMapAdder();~AptCommandMapAdder();
- void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
- __forceinline void bind(const AsciiString&name,DelegateDesc d){AddCommandMap(name,&d);}
-private:char names[12];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void bind(AptCommandMapAdder &adder, const AsciiString&name,DelegateDesc d)
+{
+	adder.AddCommandMap(name,&d);
+}
 class Rva005241B0 {
 public:Rva005241B0();~Rva005241B0();
 private:_STL::_Vector_base<AsciiString,_STL::allocator<AsciiString> > names;
@@ -232,9 +232,9 @@ void StrategicVeterancy::Impl::OnInitialized(const char *path)
 StrategicVeterancy::Impl::Impl(StrategicVeterancy *owner, Data *data)
 	:m_owner(owner),m_level((void*)-1),m_state(0),m_numRows(data->size())
 {
-	maps.bind("AptStrategicVeterancy::OnInitialized",DelegateDesc(this,&Impl::OnInitialized));
-	maps.bind("AptStrategicVeterancy::OnFadeOut",DelegateDesc(this,&Impl::OnFadeOut));
-	maps.bind("AptStrategicVeterancy::OnContinue",DelegateDesc(this,&Impl::OnContinue));
+	bind(maps, "AptStrategicVeterancy::OnInitialized",DelegateDesc(this,&Impl::OnInitialized));
+	bind(maps, "AptStrategicVeterancy::OnFadeOut",DelegateDesc(this,&Impl::OnFadeOut));
+	bind(maps, "AptStrategicVeterancy::OnContinue",DelegateDesc(this,&Impl::OnContinue));
 	((AptExternHandlerAdder*)&externs)->bind("StrategicVeterancy::NumRows",DelegateDesc(this,&Impl::ExternFunc));
 	m_level=(void*)g_bfmeAptWindowManager->load("Apt\\","StrategicVeterancy.apt",0,0);
 	((Rva0050B5F1*)&timer)->rva0050B5F1((int)m_level,(int)&AsciiString("StrategicVeterancyTimer"));

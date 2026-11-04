@@ -91,21 +91,12 @@ private:
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
 class Image;
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 
 class Rva005242D7 {public:Rva005242D7();~Rva005242D7();private:char bytes[12];};
@@ -199,8 +190,8 @@ StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::Impl(unsigned int l,const A
  preview=0;
  for(int *p=bonuses;p!=bonuses+6;++p)*p=0;
  AsciiString prefix;prefix.format("_level%u.",level);
- commands.AddCommandMapDelegate(prefix+name+"_OnRollOverBonus",DelegateDesc((Rva005F1AF5*)this,&Rva005F1AF5::rva005F1AF5));
- commands.AddCommandMapDelegate(prefix+name+"_OnRollOutBonus",DelegateDesc((Rva005F1AF5*)this,&Rva005F1AF5::rva005F1B18));
+ AddCommandMapDelegate(commands, prefix+name+"_OnRollOverBonus",DelegateDesc((Rva005F1AF5*)this,&Rva005F1AF5::rva005F1AF5));
+ AddCommandMapDelegate(commands, prefix+name+"_OnRollOutBonus",DelegateDesc((Rva005F1AF5*)this,&Rva005F1AF5::rva005F1B18));
  { UnicodeString blank((const unsigned short*)L" ");
  ((BfmeAptWindowManager*)TheRva00222A8BTarget)->bfmeSetText("APT:"+prefix+name+"_TerritoryName",blank,false); }
  { UnicodeString blank((const unsigned short*)L" ");

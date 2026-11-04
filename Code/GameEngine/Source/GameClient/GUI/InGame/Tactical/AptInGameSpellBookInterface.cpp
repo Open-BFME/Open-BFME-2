@@ -372,12 +372,12 @@ void AptInGameSpellBookInterface::Impl::rva0052A53B() {
 
 class AptCommandMap {public:void *vtable;int refCount;};
 class AptTimer {public:void *vtable;int refCount;};
-class AptCommandMapAdder {
-public:AptCommandMapAdder();~AptCommandMapAdder();
- void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
- __forceinline void bind(const AsciiString&name,DelegateDesc d){AddCommandMap(name,&d);}
-private:int names[3];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void bind(AptCommandMapAdder &adder, const AsciiString&name,DelegateDesc d)
+{
+	adder.AddCommandMap(name,&d);
+}
 class Rva00524349 {public:~Rva00524349();private:int names[3];};
 class AptTimerAdder : public Rva00524349 {
 public:AptTimerAdder();~AptTimerAdder();void AddTimer(const AsciiString&,AptRef<AptTimer>);
@@ -399,10 +399,10 @@ private:
 Rva0052AD30Payload::Rva0052AD30Payload(void *o,void *l)
  :owner(o),level(l),initialized(false),player(0),commandSet(0) {
  AptInGameSpellBookInterface::Impl *self=(AptInGameSpellBookInterface::Impl*)this;
- maps.bind("OnAptInGameSpellBookLoaded",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnClipLoaded));
- maps.bind("OnAptInGameSpellBookUnloaded",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnClipUnloaded));
- maps.bind("OnAptInGameSpellBookShown",DelegateDesc((Rva0052A4B5*)this,&Rva0052A4B5::rva0052A65A));
- maps.bind("OnAptInGameSpellBookButtonPressed",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnButtonPressed));
+ bind(maps, "OnAptInGameSpellBookLoaded",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnClipLoaded));
+ bind(maps, "OnAptInGameSpellBookUnloaded",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnClipUnloaded));
+ bind(maps, "OnAptInGameSpellBookShown",DelegateDesc((Rva0052A4B5*)this,&Rva0052A4B5::rva0052A65A));
+ bind(maps, "OnAptInGameSpellBookButtonPressed",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnButtonPressed));
  for(bool *p=flashFlags;p!=flashFlags+32;++p)*p=true;
  for(int index=0;index<24;++index) {
   AsciiString name;

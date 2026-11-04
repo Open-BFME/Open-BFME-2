@@ -74,21 +74,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
@@ -244,9 +235,9 @@ StrategicHUD::RegionDetailsMovieClip::Impl::Impl(RegionDetailsMovieClip *owner, 
 
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnPageLoaded", DelegateDesc(this, &Impl::OnPageLoaded));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnPageUnloaded", DelegateDesc(this, &Impl::OnPageUnloaded));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnTabClicked", DelegateDesc(this, &Impl::OnTabClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnPageLoaded", DelegateDesc(this, &Impl::OnPageLoaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnPageUnloaded", DelegateDesc(this, &Impl::OnPageUnloaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnTabClicked", DelegateDesc(this, &Impl::OnTabClicked));
 }
 
 void StrategicHUD::RegionDetailsMovieClip::Impl::OnTabClicked(const char *path)

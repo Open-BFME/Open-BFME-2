@@ -94,14 +94,7 @@ extern template _STL::list<AsciiString>::list(const _STL::list<AsciiString> &);
 
 extern template _STL::_List_base<AsciiString, _STL::allocator<AsciiString> >::~_List_base();
 
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {

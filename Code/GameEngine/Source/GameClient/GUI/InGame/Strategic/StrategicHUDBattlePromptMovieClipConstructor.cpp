@@ -37,21 +37,12 @@ template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateD
 static __forceinline DelegateDesc MakeBinding(void(AptCommandTarget::*method)(const char*),AptCommandTarget*object){DelegateDesc d(object,method);return d;}
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, desc);
-	}
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+	adder.AddCommandMap(name, desc);
+}
 
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 
@@ -167,15 +158,15 @@ StrategicHUD::BattlePromptMovieClip::Impl::Impl(BattlePromptMovieClip *owner, in
 		AsciiString prefix;
 
 		prefix.format("_level%u.", m_level);
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnAllyTabsLoaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnAllyTabsLoaded),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnAllyTabsUnloaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnAllyTabsUnloaded),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnEnemyTabsLoaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnEnemyTabsLoaded),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnEnemyTabsUnloaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnEnemyTabsUnloaded),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnOpen", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnOpen),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnClosed", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnClosed),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnAutoResolveButtonClicked", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnAutoResolveButtonClicked),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnRealTimeButtonClicked", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnRealTimeButtonClicked),(AptCommandTarget*)this));
-		m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnRetreatButtonClicked", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnRetreatButtonClicked),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnAllyTabsLoaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnAllyTabsLoaded),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnAllyTabsUnloaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnAllyTabsUnloaded),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnEnemyTabsLoaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnEnemyTabsLoaded),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnEnemyTabsUnloaded", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnEnemyTabsUnloaded),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnOpen", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnOpen),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnClosed", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnClosed),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnAutoResolveButtonClicked", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnAutoResolveButtonClicked),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnRealTimeButtonClicked", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnRealTimeButtonClicked),(AptCommandTarget*)this));
+		AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnRetreatButtonClicked", MakeBinding(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(&Impl::OnRetreatButtonClicked),(AptCommandTarget*)this));
 		SetRegionNameString(UnicodeString::TheEmptyString);
 		AddAlly(ally);
 	}

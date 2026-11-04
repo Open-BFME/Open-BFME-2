@@ -79,15 +79,12 @@ public:
 private:
  T *m_ptr;
 };
-class AptCommandMapAdder {
-public:
- AptCommandMapAdder();
- ~AptCommandMapAdder();
- void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
- __forceinline void AddSideBarCommandMapDelegate(const AsciiString &name, SideBarDelegateDesc desc) { AddCommandMap(name, &desc); }
-private:
- char m_names[12];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddSideBarCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, SideBarDelegateDesc desc)
+{
+	adder.AddCommandMap(name, &desc);
+}
 class AptInGameSideCommandBar {
 public:
  class Impl {
@@ -200,12 +197,12 @@ AptInGameSideCommandBar::Impl::Impl(AptInGameSideCommandBar *owner, int levelInd
  : m_owner(owner), m_level(levelIndex), m_state(0),
    m_selectedObject(0), m_displayedObject(0), m_count(0)
 {
- m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarLoaded"), SideBarDelegateDesc(this, &Impl::OnLoaded));
- m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarUnloaded"), SideBarDelegateDesc(this, &Impl::OnUnloaded));
- m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeInComplete"), SideBarDelegateDesc(this, &Impl::OnFadeInComplete));
- m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeOutComplete"), SideBarDelegateDesc(this, &Impl::OnFadeOutComplete));
- m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameLoaded"), SideBarDelegateDesc(this, &Impl::OnButtonFrameLoaded));
- m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameUnloaded"), SideBarDelegateDesc(this, &Impl::OnButtonFrameUnloaded));
+ AddSideBarCommandMapDelegate(m_maps, AsciiString("OnAptInGameSideCommandBarLoaded"), SideBarDelegateDesc(this, &Impl::OnLoaded));
+ AddSideBarCommandMapDelegate(m_maps, AsciiString("OnAptInGameSideCommandBarUnloaded"), SideBarDelegateDesc(this, &Impl::OnUnloaded));
+ AddSideBarCommandMapDelegate(m_maps, AsciiString("OnAptInGameSideCommandBarFadeInComplete"), SideBarDelegateDesc(this, &Impl::OnFadeInComplete));
+ AddSideBarCommandMapDelegate(m_maps, AsciiString("OnAptInGameSideCommandBarFadeOutComplete"), SideBarDelegateDesc(this, &Impl::OnFadeOutComplete));
+ AddSideBarCommandMapDelegate(m_maps, AsciiString("OnAptInGameSideCommandBarButtonFrameLoaded"), SideBarDelegateDesc(this, &Impl::OnButtonFrameLoaded));
+ AddSideBarCommandMapDelegate(m_maps, AsciiString("OnAptInGameSideCommandBarButtonFrameUnloaded"), SideBarDelegateDesc(this, &Impl::OnButtonFrameUnloaded));
 }
 
 // Complete native79B5282BA..528309 destroys fifteen slots24, string18,

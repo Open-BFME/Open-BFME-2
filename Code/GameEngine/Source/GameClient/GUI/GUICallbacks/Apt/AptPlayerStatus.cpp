@@ -77,14 +77,7 @@ void __stdcall Rva004E40A6Enable(int);
 void __stdcall Rva004E44FBSet(int,int,const UnicodeString&);
 class AptCommandMap;
 class AptExternHandler;
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptExternHandlerAdder
 {
 public:

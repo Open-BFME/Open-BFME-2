@@ -67,21 +67,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
@@ -290,13 +281,13 @@ StrategicHUD::DynamicAutoResolveMovieClip::Impl::Impl(DynamicAutoResolveMovieCli
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
 	g_bfmeAptWindowManager->bfmeSetText("APT:" + prefix + m_name + "_RegionName", m_regionName, false);
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnOpen", DelegateDesc(this, &Impl::OnOpen));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnClosed", DelegateDesc(this, &Impl::OnClosed));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnSkipButtonClicked", DelegateDesc(this, &Impl::OnSkipButtonClicked));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnAllyPanelLoaded", DelegateDesc(this, &Impl::OnAllyPanelLoaded));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnAllyPanelUnloaded", DelegateDesc(this, &Impl::OnAllyPanelUnloaded));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnEnemyPanelLoaded", DelegateDesc(this, &Impl::OnEnemyPanelLoaded));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnEnemyPanelUnloaded", DelegateDesc(this, &Impl::OnEnemyPanelUnloaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnOpen", DelegateDesc(this, &Impl::OnOpen));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnClosed", DelegateDesc(this, &Impl::OnClosed));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnSkipButtonClicked", DelegateDesc(this, &Impl::OnSkipButtonClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnAllyPanelLoaded", DelegateDesc(this, &Impl::OnAllyPanelLoaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnAllyPanelUnloaded", DelegateDesc(this, &Impl::OnAllyPanelUnloaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnEnemyPanelLoaded", DelegateDesc(this, &Impl::OnEnemyPanelLoaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnEnemyPanelUnloaded", DelegateDesc(this, &Impl::OnEnemyPanelUnloaded));
 	Rva0052519DFire(g_bfmeAptWindowManager, (void *)m_level, m_name.str(), "SetNumAllies", &numAllies);
 	Rva0052519DFire(g_bfmeAptWindowManager, (void *)m_level, m_name.str(), "SetNumEnemies", &numEnemies);
 }

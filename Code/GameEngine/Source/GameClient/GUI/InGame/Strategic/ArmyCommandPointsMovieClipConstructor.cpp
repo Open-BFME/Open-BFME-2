@@ -29,7 +29,12 @@ class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);void*ptr;};
 class AptCommandMap;class AptExternHandler;struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateDesc&desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
-class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);__forceinline void AddCommandMapDelegate(const AsciiString&n,DelegateDesc d){AddCommandMap(n,d);}char storage[12];};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString&n,DelegateDesc d)
+{
+	adder.AddCommandMap(n,d);
+}
 class AptExternHandlerAdder {public:__declspec(noinline) AptExternHandlerAdder();~AptExternHandlerAdder();void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);__forceinline void AddExternHandlerDelegate(const AsciiString&n,DelegateDesc d){AddExternHandler(n,0,d);}private:_STL::vector<AsciiString>names;};
 
 
@@ -37,8 +42,8 @@ struct Rva005EF02FOuter;struct Rva005EF096Outer;
 namespace StrategicHUD {void SetArmyNameString(int,Rva005EF02FOuter*,const UnicodeString&);void SetCommandPointsString(int,Rva005EF096Outer*,int,int);}
 StrategicHUD::RegionDetailsArmiesMovieClip::Impl::Impl(int l,const AsciiString&asciiString,unsigned c):m_level(l),m_name(asciiString),m_color(c),m_a(0),m_b(0),m_armyNameShown(false),m_shown(false),m_3E(false){
  AsciiString prefix;prefix.format("_level%u.",m_level);
- reinterpret_cast<AptCommandMapAdder*>(&m_commandMaps)->AddCommandMapDelegate(prefix+m_name+"_OnRollOverCommandPoints",DelegateDesc(this,&Impl::OnRollOverCommandPoints));
- reinterpret_cast<AptCommandMapAdder*>(&m_commandMaps)->AddCommandMapDelegate(prefix+m_name+"_OnRollOutCommandPoints",DelegateDesc(this,&Impl::OnRollOutCommandPoints));
+ AddCommandMapDelegate(*reinterpret_cast<AptCommandMapAdder *>(&m_commandMaps), prefix+m_name+"_OnRollOverCommandPoints",DelegateDesc(this,&Impl::OnRollOverCommandPoints));
+ AddCommandMapDelegate(*reinterpret_cast<AptCommandMapAdder *>(&m_commandMaps), prefix+m_name+"_OnRollOutCommandPoints",DelegateDesc(this,&Impl::OnRollOutCommandPoints));
  reinterpret_cast<AptExternHandlerAdder*>(&m_externHandlers)->AddExternHandlerDelegate(prefix+m_name+"_PlayerColor",DelegateDesc(this,&Impl::PlayerColor));
  StrategicHUD::SetArmyNameString(m_level,reinterpret_cast<Rva005EF02FOuter*>(&m_name),m_cached30);
  StrategicHUD::SetCommandPointsString(m_level,reinterpret_cast<Rva005EF096Outer*>(&m_name),m_a,m_b);

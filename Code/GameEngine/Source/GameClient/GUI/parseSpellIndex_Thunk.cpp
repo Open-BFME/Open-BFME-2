@@ -258,14 +258,7 @@ class AptCommandMap;
 class AptExternHandler;
 
 // The adders (AptCallbackAdders.cpp, both rowed).
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-private:
-	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_names;
-};
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {

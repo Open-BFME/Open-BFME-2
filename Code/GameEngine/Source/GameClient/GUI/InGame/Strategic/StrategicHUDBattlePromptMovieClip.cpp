@@ -272,21 +272,12 @@ public:
  ~AptRef(){if(holder.ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)holder.ptr);}
 private:Rva00579E47 holder;
 };
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // Expression-template concat nodes (System/RegistryAsciiPath.cpp family).
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
@@ -420,9 +411,9 @@ PlayerPageFrame::PlayerPageFrame(int level, const AsciiString &name, const char 
 	AsciiString number;
 	number.format("%d", m_index);
 	Rva005F8FA2Dst node;
-	m_commands.AddCommandMapDelegate(*(Rva005F9852 *)Rva005F8FA2Copy(&node, (Rva005F8FA2Src *)&(prefix + m_name + "_On" + m_side + "PageLoaded"), (int)&number), DelegateDesc(this, &PlayerPageFrame::OnPageLoaded));
-	m_commands.AddCommandMapDelegate(*(Rva005F9852 *)Rva005F8FA2Copy(&node, (Rva005F8FA2Src *)&(prefix + m_name + "_On" + m_side + "PageFrameOpen"), (int)&number), DelegateDesc(this, &PlayerPageFrame::InternalOnOpen));
-	m_commands.AddCommandMapDelegate(*(Rva005F9852 *)Rva005F8FA2Copy(&node, (Rva005F8FA2Src *)&(prefix + m_name + "_On" + m_side + "PageFrameClosed"), (int)&number), DelegateDesc(this, &PlayerPageFrame::InternalOnClosed));
+	AddCommandMapDelegate(m_commands, *(Rva005F9852 *)Rva005F8FA2Copy(&node, (Rva005F8FA2Src *)&(prefix + m_name + "_On" + m_side + "PageLoaded"), (int)&number), DelegateDesc(this, &PlayerPageFrame::OnPageLoaded));
+	AddCommandMapDelegate(m_commands, *(Rva005F9852 *)Rva005F8FA2Copy(&node, (Rva005F8FA2Src *)&(prefix + m_name + "_On" + m_side + "PageFrameOpen"), (int)&number), DelegateDesc(this, &PlayerPageFrame::InternalOnOpen));
+	AddCommandMapDelegate(m_commands, *(Rva005F9852 *)Rva005F8FA2Copy(&node, (Rva005F8FA2Src *)&(prefix + m_name + "_On" + m_side + "PageFrameClosed"), (int)&number), DelegateDesc(this, &PlayerPageFrame::InternalOnClosed));
 	Rva0052519DFire((void *)g_bfmeAptWindowManager, (void *)m_level, m_name.str(),
 		Rva002D56C3Construct((Rva002D4688 &)(Rva005D2F96Base24 &)Rva005D2F96Build(
 			(const Rva005D2F96S16 &)operator+(

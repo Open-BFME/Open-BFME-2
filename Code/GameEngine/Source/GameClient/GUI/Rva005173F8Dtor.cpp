@@ -33,7 +33,7 @@ public:
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
 class AptCommandMap;class AptExternHandler;
-class AptCommandMapAdder { public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>); _STL::vector<AsciiString> names; };
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptExternHandlerAdder { public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>); _STL::vector<AsciiString> names; };
 
 

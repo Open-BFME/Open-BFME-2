@@ -30,7 +30,12 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 // ??1Rva005F8F96 at 0x005F8F96 via the 0x7DEEF pin). Trivial base (no declared
 // dtor; copy ctor kept declared) + inline release dtor emit retail's bytes.
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(DelegateDesc desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
-class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);__forceinline void AddCommandMapDelegate(const AsciiString&n,DelegateDesc d){AddCommandMap(n,AptRef<AptCommandMap>(d));}char storage[12];};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString&n,DelegateDesc d)
+{
+	adder.AddCommandMap(n,AptRef<AptCommandMap>(d));
+}
 class AptCustomRenderAdder {public:void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);__forceinline void AddCustomRenderDelegate(const AsciiString&n,DelegateDesc d){AddCustomRender(n,AptRef<AptCustomRender>(d));}char storage[12];};
 class Image;
 class Rva005F6941 {public:

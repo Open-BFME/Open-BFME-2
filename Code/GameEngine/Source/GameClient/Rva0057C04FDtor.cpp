@@ -58,21 +58,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[12]; // +0x0C size 12 so +0x18 flag follows
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -143,7 +134,7 @@ Rva0057C04F::Rva0057C04F(int level, const AsciiString &name)
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level04);
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnDone", DelegateDesc(this, &Rva0057C04F::OnDone));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnDone", DelegateDesc(this, &Rva0057C04F::OnDone));
 }
 
 void Rva0057C04F::OnDone(const char *path)

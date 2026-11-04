@@ -137,21 +137,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 class GameInfo;
 
@@ -197,11 +188,11 @@ GameSorter::~GameSorter() {}
 // independently establish the GameSorter identity; target stores prove fields.
 // Registration follows the existing verified StrategicHUD delegate pattern.
 GameSorter::GameSorter(Rva005248D0 *registry) : m_primarySort(4),m_previousSort(8),m_changed(false),m_sorted(true),m_cycle(0) {
- { AsciiString name("GameSorter::OnSortStatus");registry->maps.AddCommandMapDelegate(name,DelegateDesc(this,&GameSorter::OnSortStatus)); }
- { AsciiString name("GameSorter::OnSortName");registry->maps.AddCommandMapDelegate(name,DelegateDesc(this,&GameSorter::OnSortName)); }
- { AsciiString name("GameSorter::OnSortMap");registry->maps.AddCommandMapDelegate(name,DelegateDesc(this,&GameSorter::OnSortMap)); }
- { AsciiString name("GameSorter::OnSortPlayers");registry->maps.AddCommandMapDelegate(name,DelegateDesc(this,&GameSorter::OnSortPlayers)); }
- { AsciiString name("GameSorter::OnSortPing");registry->maps.AddCommandMapDelegate(name,DelegateDesc(this,&GameSorter::OnSortPing)); }
+ { AsciiString name("GameSorter::OnSortStatus");AddCommandMapDelegate(registry->maps, name,DelegateDesc(this,&GameSorter::OnSortStatus)); }
+ { AsciiString name("GameSorter::OnSortName");AddCommandMapDelegate(registry->maps, name,DelegateDesc(this,&GameSorter::OnSortName)); }
+ { AsciiString name("GameSorter::OnSortMap");AddCommandMapDelegate(registry->maps, name,DelegateDesc(this,&GameSorter::OnSortMap)); }
+ { AsciiString name("GameSorter::OnSortPlayers");AddCommandMapDelegate(registry->maps, name,DelegateDesc(this,&GameSorter::OnSortPlayers)); }
+ { AsciiString name("GameSorter::OnSortPing");AddCommandMapDelegate(registry->maps, name,DelegateDesc(this,&GameSorter::OnSortPing)); }
 }
 
 // Constructor580842 binds native5801C0 to GameSorter::OnSortName.

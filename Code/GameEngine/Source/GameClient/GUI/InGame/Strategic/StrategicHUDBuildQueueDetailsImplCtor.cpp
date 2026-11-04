@@ -30,7 +30,7 @@
 class Rva00579E47{public:Rva00579E47(const DelegateDesc&);void*ptr;};
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class AptCommandMap;template<class T>class AptRef:public Rva00579E47{public:AptRef(const DelegateDesc&d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
-class AptCommandMapAdder{public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);char bytes[12];};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class Rva00524265{public:Rva00524265();~Rva00524265();char bytes[12];};
 class Rva005242D7{public:Rva005242D7();~Rva005242D7();char bytes[12];};
 #include "../../../../../Include/Common/AsciiStringRef.h"

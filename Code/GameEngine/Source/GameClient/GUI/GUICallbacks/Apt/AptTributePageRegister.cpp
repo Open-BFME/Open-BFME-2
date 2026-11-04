@@ -72,14 +72,7 @@ public:
 class AptCommandMap;
 class AptExternHandler;
 
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);	// 0x0052458E
-
-private:
-	void *m_names[3];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {

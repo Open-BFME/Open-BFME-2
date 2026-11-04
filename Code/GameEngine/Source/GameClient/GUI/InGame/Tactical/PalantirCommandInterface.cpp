@@ -172,22 +172,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	// ?AptCommandMapAdder::AddCommandMapDelegate present-unmatched
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 
 class AptOverButtonHandler {public:void*m_vtbl;int m_refCount;};
@@ -222,12 +212,12 @@ class Rva0052936C {public:
 class Rva00528F30Target {public:void reset();};
 Rva0052936C::Rva0052936C(void*p,int f):owner(p),frame(f),flag2c(false),flag2d(false),current(0),rank((void*)f),cost((void*)f),value60(0) {
  over.AddOverButtonHandlerDelegate(frame,AsciiString("CommandUI/PortraitBackground"),DelegateDesc((Rva00529F3D*)this,&Rva00529F3D::rva00529F3D));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameLoaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameLoaded));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameUnloaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameUnloaded));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::OnSubMenuLoaded));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuUnloaded"),DelegateDesc(this,&Rva0052936C::OnSubMenuUnloaded));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::OnToggleFlashLoaded));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashUnloaded"),DelegateDesc(this,&Rva0052936C::OnToggleFlashUnloaded));
+ AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnButtonFrameLoaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameLoaded));
+ AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnButtonFrameUnloaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameUnloaded));
+ AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnSubMenuLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::OnSubMenuLoaded));
+ AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnSubMenuUnloaded"),DelegateDesc(this,&Rva0052936C::OnSubMenuUnloaded));
+ AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnToggleFlashLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::OnToggleFlashLoaded));
+ AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnToggleFlashUnloaded"),DelegateDesc(this,&Rva0052936C::OnToggleFlashUnloaded));
  ((Rva00528F30Target*)this)->reset();
 }
 
