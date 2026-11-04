@@ -21,12 +21,6 @@ char ProfileId::stringBuf[ProfileId::STRING_BUFFER_SIZE];
 
 unsigned ProfileId::stringBufUnused;
 
-extern "C" unsigned int __cdecl strlen(const char *);
-
-extern "C" int __cdecl strcmp(const char *, const char *);
-
-extern "C" char *__cdecl strcpy(char *, const char *);
-
 void *ProfileAllocMemory(unsigned int);
 
 // The members of the ConstIntGetters7.cpp family whose constant is an image address
