@@ -23703,3 +23703,5 @@ Code/GameEngine/Source/Common/Rva009A2350Init.cpp|member|Rva009A2350Node|m_08,28
 Code/GameEngine/Source/Common/BfmeConv888.cpp|member|Rva0030E2ECFlags|m_bfmeFlags,17c13ac7f2b72b08a4d04acd,claude-opus-5-5,claude3-20261104-044317-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva006C1850Rva006C1920.cpp|function|0x006C18A0|rva006C18A0,f5feaace56662a8533af66f1,claude-opus-5-5,claude3-20261104-044317-5,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/BfmeConv671.cpp|function|0x00323D9D|bfmeGoDEA,8dfc9e55c76ff2d84f7411d9,claude-opus-5-5,claude3-20261104-044317-6,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Bfme5FlagStateTransition.cpp|function|0x004976DB|bfmeTransition,3db3be85b6e7e404c1c7f23b,claude-opus-5-5,claude3-20261104-045655-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/GapBodiesGE53.cpp|function|0x00201DAA|rva00201DAA,dd3aaa53e85fe0e16be6e39a,claude-opus-5-5,claude3-20261104-045655-15,w-29a6ae2a2f9f,2026-11-04
