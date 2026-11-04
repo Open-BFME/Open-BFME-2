@@ -152,11 +152,7 @@ class Rva001EAFC1 { public: Rva001EAFC1 &operator=(const Rva001EAFC1&); };
 extern ScriptEngine *TheScriptEngine;
 class CreateAHeroData;
 class CreateAHeroHero;
-class CreateAHeroManager { public:
- CreateAHeroData *rva002197A6(int);
- const CreateAHeroHero *GetHeroForPlayer(const Player*);
- const AsciiString &GetButtonImageName(const CreateAHeroHero*);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class CreateAHeroHero { public: bool UpdateCommandSet(unsigned int); };
 #include "../../../Include/GameClient/Drawable.h"
