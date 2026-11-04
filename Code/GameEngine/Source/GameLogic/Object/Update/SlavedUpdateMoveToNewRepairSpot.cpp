@@ -48,12 +48,7 @@ float Sin(float value);
 
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const void *parms);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType v);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
@@ -64,19 +59,6 @@ template <> class AIUpdateSlots<0>
 {
 };
 
-class AIUpdateInterface : public AIUpdateSlots<142>
-{
-public:
-	virtual bool chooseLocomotorSet(LocomotorSetType wst);
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-private:
-	unsigned char m_pad004[0x20 - 4];
-public:
-	AICommandInterface m_commands;
-private:
-	unsigned char m_pad024[0x1F0 - 0x24];
-	Locomotor *m_curLocomotor;
-};
 
 #include "../object.h"
 
@@ -130,7 +112,7 @@ void SlavedUpdate::moveToNewRepairSpot()
 		{
 			ai->chooseLocomotorSet(LOCOMOTORSET_PANIC);
 			ai->getCurLocomotor()->setUltraAccurate(true);
-			ai->m_commands.aiMoveToPosition(&m_guardPointOffset, CMD_FROM_AI);
+			ai->aiMoveToPosition(&m_guardPointOffset, CMD_FROM_AI);
 			Locomotor *locomotor = ai->getCurLocomotor();
 			if (locomotor)
 				locomotor->setUsePreciseZPos(true);

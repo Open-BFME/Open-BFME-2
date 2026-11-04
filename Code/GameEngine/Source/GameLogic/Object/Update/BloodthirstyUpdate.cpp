@@ -147,25 +147,8 @@ extern int BfmeLogicFramesPerSecond;
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-	void aiForceAttackObject(Object *victim, int maxShots, CommandSourceType source);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterface
-{
-public:
-	VSLOTS10(a0); VSLOTS10(a1); VSLOTS10(a2); VSLOTS10(a3); VSLOTS10(a4);
-	VSLOTS10(a5); VSLOTS10(a6); VSLOTS10(a7); VSLOTS10(a8); VSLOTS10(a9);
-	VSLOTS10(aA);
-	virtual bool rvaSlot110();
-	AICommandInterface *getCommandInterface() { return &m_commandInterface; }
-private:
-	unsigned char m_pad04[0x20 - 0x04];
-	AICommandInterface m_commandInterface; // +0x20
-};
 
 class Rva0028C1A9Interface
 {
@@ -389,7 +372,7 @@ bool BloodthirstyUpdate::rva0044E12F(Object *obj)
 		AIUpdateInterface *ai = candidate->getAI();
 		if (ai != 0)
 		{
-			if (!ai->rvaSlot110())
+			if (!ai->isIdle())
 				return false;
 		}
 		Rva0028C1A9Interface *iface = (Rva0028C1A9Interface *)candidate->rva0028C1A9();
@@ -448,7 +431,7 @@ void BloodthirstyUpdate::cancelSacrifice()
 	target->clearModelConditionStateForHorde(MODELCONDITION_40);
 	target->setStatus(OBJECT_STATUS_4A, false);
 	target->rva00346C53(OBJECT_STATUS_4A, false);
-	target->getAI()->getCommandInterface()->aiIdle(CMD_FROM_AI);
+	target->getAI()->aiIdle(CMD_FROM_AI);
 }
 
 UpdateSleepTime BloodthirstyUpdate::update()
@@ -463,7 +446,7 @@ UpdateSleepTime BloodthirstyUpdate::update()
 			self->clearModelConditionStateForHorde(MODELCONDITION_40);
 			self->setStatus(OBJECT_STATUS_4A, false);
 			self->rva00346C53(OBJECT_STATUS_4A, false);
-			self->getAI()->getCommandInterface()->aiIdle(CMD_FROM_AI);
+			self->getAI()->aiIdle(CMD_FROM_AI);
 		}
 	}
 	return (UpdateSleepTime)(BfmeLogicFramesPerSecond * 2 + 1);
@@ -498,7 +481,7 @@ void BloodthirstyUpdate::sacrificeHorde(Object *victim, CommandSourceType source
 		{
 			m_bestTargetID = resolved->getID();
 			iface->release(self->getID());
-			ai->getCommandInterface()->aiForceAttackObject(victim, 0x7fffffff, source);
+			ai->aiForceAttackObject(victim, 0x7fffffff, source);
 			self->rva00346C53(OBJECT_STATUS_41, true);
 			resolved->setStatus(OBJECT_STATUS_4A, true);
 			resolved->rva00346C53(OBJECT_STATUS_4A, true);

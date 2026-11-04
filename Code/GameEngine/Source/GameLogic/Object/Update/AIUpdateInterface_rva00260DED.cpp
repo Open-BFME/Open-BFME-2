@@ -27,15 +27,10 @@ public:
 	int getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
 };
 
-class AIUpdateInterface
-{
-	char m_pad00[0x30];
-	MiniMachine *m_machine;
-public:
-	int rva00260DED() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 int AIUpdateInterface::rva00260DED() const
 {
-	return m_machine->getCurrentStateID();
+	return m_stateMachine->getCurrentStateID();
 }

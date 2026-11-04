@@ -287,13 +287,7 @@ struct Rva002EBC7FPair { int x,y; };
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
 class Rva001E46E1 { public: float rva001E46E1(Object *); };
-class AIUpdateInterface {
-public:
-bool isAircraftThatAdjustsDestination() const;
-int rva0026417F(bool);
-char gap[0x1f0];
-Rva001E46E1 *locomotor;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Bridge {
 public:
 bool isPointOnBridge(const Coord3D *pos);

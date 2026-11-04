@@ -12,19 +12,14 @@ class Object;
 
 #include "../../../../Include/Common/StateMachineClass.h"
 
-class AIUpdateInterface
-{
-	char m_pad00[0x30];
-	StateMachine *m_machine;
-public:
-	void friend_setGoalObject(Object *obj);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 void AIUpdateInterface::friend_setGoalObject(Object *obj)
 {
-	bool wasLocked = m_machine->m_locked;
-	m_machine->m_locked = false;
-	m_machine->setGoalObject(obj);
+	bool wasLocked = m_stateMachine->m_locked;
+	m_stateMachine->m_locked = false;
+	m_stateMachine->setGoalObject(obj);
 	if (wasLocked)
-		m_machine->m_locked = true;
+		m_stateMachine->m_locked = true;
 }

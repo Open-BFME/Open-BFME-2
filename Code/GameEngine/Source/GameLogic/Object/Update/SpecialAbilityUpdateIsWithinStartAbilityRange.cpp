@@ -38,25 +38,7 @@ public:
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class AIUpdateInterface
-{
-public:
-#define AI_SLOT(n) virtual void slot##n();
-	AI_SLOT(00) AI_SLOT(01) AI_SLOT(02) AI_SLOT(03) AI_SLOT(04) AI_SLOT(05) AI_SLOT(06) AI_SLOT(07)
-	AI_SLOT(08) AI_SLOT(09) AI_SLOT(10) AI_SLOT(11) AI_SLOT(12) AI_SLOT(13) AI_SLOT(14) AI_SLOT(15)
-	AI_SLOT(16) AI_SLOT(17) AI_SLOT(18) AI_SLOT(19) AI_SLOT(20) AI_SLOT(21) AI_SLOT(22) AI_SLOT(23)
-	AI_SLOT(24) AI_SLOT(25) AI_SLOT(26) AI_SLOT(27) AI_SLOT(28) AI_SLOT(29) AI_SLOT(30) AI_SLOT(31)
-	AI_SLOT(32) AI_SLOT(33) AI_SLOT(34) AI_SLOT(35) AI_SLOT(36) AI_SLOT(37) AI_SLOT(38) AI_SLOT(39)
-	AI_SLOT(40) AI_SLOT(41) AI_SLOT(42) AI_SLOT(43) AI_SLOT(44) AI_SLOT(45) AI_SLOT(46) AI_SLOT(47)
-	AI_SLOT(48) AI_SLOT(49) AI_SLOT(50) AI_SLOT(51) AI_SLOT(52) AI_SLOT(53) AI_SLOT(54) AI_SLOT(55)
-	AI_SLOT(56) AI_SLOT(57) AI_SLOT(58) AI_SLOT(59) AI_SLOT(60) AI_SLOT(61) AI_SLOT(62) AI_SLOT(63)
-	AI_SLOT(64) AI_SLOT(65) AI_SLOT(66) AI_SLOT(67) AI_SLOT(68) AI_SLOT(69) AI_SLOT(70) AI_SLOT(71)
-	AI_SLOT(72) AI_SLOT(73) AI_SLOT(74) AI_SLOT(75) AI_SLOT(76) AI_SLOT(77) AI_SLOT(78) AI_SLOT(79)
-	AI_SLOT(80) AI_SLOT(81) AI_SLOT(82) AI_SLOT(83) AI_SLOT(84) AI_SLOT(85) AI_SLOT(86) AI_SLOT(87)
-	AI_SLOT(88) AI_SLOT(89)
-#undef AI_SLOT
-	virtual Bool slot90();					// +0x168
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // 0x002615E3 is rowed as Rva000CBA20::distSq (Rva000CBA20DistSq.cpp).
 #include "../../../Common/RTS/XYDistanceCallView.h"
@@ -228,7 +210,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 	else if (m_targetPos.x || m_targetPos.y || m_targetPos.z)
 	{
 		Int type = power->getSpecialPowerType();
-		if (self->testStatus(OBJECT_STATUS_BFME_5B) || (self->getAI()->slot90() && type == 0x38))
+		if (self->testStatus(OBJECT_STATUS_BFME_5B) || (self->getAI()->vslot090() && type == 0x38))
 			fDistSquared = ((const Gen_000E5A50 *)self)->Get3DCenterDistanceSquared((const BfmeVec3EJ *)&m_targetPos);
 		else
 			fDistSquared = self->rva002C97E8(self->getPosition(), &m_targetPos);

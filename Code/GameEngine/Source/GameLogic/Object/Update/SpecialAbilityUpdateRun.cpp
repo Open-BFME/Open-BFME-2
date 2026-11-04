@@ -16,43 +16,9 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff };
 enum CommandSourceType { CMD_FROM_AI=2 };
-class AICommandInterface {public:void aiIdle(CommandSourceType);};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 template<int N>class RunSlots:public RunSlots<N-1>{public:virtual void gap(char(*)[N])=0;};
 template<>class RunSlots<0>{};
-class AIUpdateInterface:public RunSlots<110>{public:virtual bool isIdle();
-virtual void aiGap111();
-virtual void aiGap112();
-virtual void aiGap113();
-virtual void aiGap114();
-virtual void aiGap115();
-virtual void aiGap116();
-virtual void aiGap117();
-virtual void aiGap118();
-virtual void aiGap119();
-virtual void aiGap120();
-virtual void aiGap121();
-virtual void aiGap122();
-virtual void aiGap123();
-virtual void aiGap124();
-virtual void aiGap125();
-virtual void aiGap126();
-virtual void aiGap127();
-virtual void aiGap128();
-virtual void aiGap129();
-virtual void aiGap130();
-virtual void aiGap131();
-virtual void aiGap132();
-virtual void aiGap133();
-virtual void aiGap134();
-virtual void aiGap135();
-virtual void aiGap136();
-virtual void aiGap137();
-virtual void aiGap138();
-virtual void aiGap139();
-virtual void aiGap140();
-virtual void aiGap141();
-virtual void aiGap142();
-virtual int getLastCommandSource();};
 enum Relationship{ENEMIES,NEUTRAL,ALLIES};
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 enum NameKeyType{NAMEKEY_INVALID=0};class ClientUpdateModule;
@@ -207,7 +173,7 @@ UpdateSleepTime SpecialAbilityUpdate::update()
   AIUpdateInterface *ai=m_object->m_ai;
   if(!ai){onExit(false,true);return rva0044F881();}
   if(m_targetID){Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);if(target)m_targetPos=target->m_position;}
-  if(ai->getLastCommandSource()!=2){onExit(false,true);return rva0044F881();}
+  if(ai->vslot143()!=2){onExit(false,true);return rva0044F881();}
   bool shouldAbort=false;
   if(specialAbilityUpdateModuleData->m_specialPower->friend_getFinalOverride()->m_type==0x2A){
    Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);

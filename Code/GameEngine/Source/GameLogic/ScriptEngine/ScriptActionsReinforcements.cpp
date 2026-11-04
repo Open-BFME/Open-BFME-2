@@ -68,23 +68,8 @@ class LocomotorSet;
 class Object;
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AICommandInterface
-{
-public:
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-	void aiMoveToAndEvacuate(const Coord3D *pos, CommandSourceType cmdSource);
-	void aiMoveToAndEvacuateAndExit(const Coord3D *pos, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commands;
-	unsigned char m_pad21[0x1CC - 0x21];
-	LocomotorSet &getLocomotorSet() { return *(LocomotorSet *)m_locomotorSet; }
-	unsigned char m_locomotorSet[4];
-};
 
 class Thing
 {
@@ -458,14 +443,14 @@ void ScriptActions::doCreateReinforcements(const AsciiString &team, const AsciiS
 			if (obj->getTemplate()->isEquivalentTo(transport->getTemplate())) {
 				if (pInfo->m_transportsExit) {
 					if (ai)
-						ai->m_commands.aiMoveToAndEvacuateAndExit(&destination, CMD_FROM_SCRIPT);
+						ai->aiMoveToAndEvacuateAndExit(&destination, CMD_FROM_SCRIPT);
 				} else {
 					if (ai)
-						ai->m_commands.aiMoveToAndEvacuate(&destination, CMD_FROM_SCRIPT);
+						ai->aiMoveToAndEvacuate(&destination, CMD_FROM_SCRIPT);
 				}
 			} else if (!obj->isDisabledByType(DISABLED_HELD)) {
 				if (ai)
-					ai->m_commands.aiMoveToPosition(&destination, CMD_FROM_SCRIPT);
+					ai->aiMoveToPosition(&destination, CMD_FROM_SCRIPT);
 			}
 		}
 	} else {

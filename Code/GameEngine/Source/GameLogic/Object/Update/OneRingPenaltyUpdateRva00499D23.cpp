@@ -33,11 +33,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00499D23AIBase
 {
@@ -76,9 +72,6 @@ private:
 	char m_pad04[0x20 - 0x04];
 };
 
-class AIUpdateInterface : public Rva00499D23AIBase, public AICommandInterface
-{
-};
 
 #include "../object.h"
 
@@ -135,7 +128,7 @@ void OneRingPenaltyUpdate::rva00499D23()
 		return;
 	}
 
-	if (ringer && ringer->getAI() && ringer->getAI()->slot110())
+	if (ringer && ringer->getAI() && ringer->getAI()->isIdle())
 	{
 		Coord3D pos;
 		pos.x = obj->getPosition()->x;
