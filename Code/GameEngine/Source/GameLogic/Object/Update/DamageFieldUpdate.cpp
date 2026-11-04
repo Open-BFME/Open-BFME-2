@@ -76,8 +76,9 @@ public:
 
 class FireWeaponUpdate
 {
+public:
+	virtual ~FireWeaponUpdate();
 protected:
-	virtual void v00();
 	virtual void v01();
 	virtual void v02();
 	virtual void xfer(Xfer *xfer);
@@ -166,9 +167,10 @@ public:
 
 Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 
-class DamageFieldUpdate : public FireWeaponUpdate
+class __declspec(novtable) DamageFieldUpdate : public FireWeaponUpdate
 {
 public:
+	virtual ~DamageFieldUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual void xfer(Xfer *xfer);

@@ -1,7 +1,7 @@
 char g_00C4D964;
 char g_00C4D970;
 
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX
 //
 // ??1DamageFieldUpdate@@UAE@XZ, retail 0x0049122C, 49 bytes. Virtual dtor
 // shard: ctor TU keeps its verified shape untouched, so the class is
@@ -30,16 +30,16 @@ class Rva0029FB3BMember
 {
 public:
 	void init(void *context);
-	void reset();
+	void reset() throw();
 };
 
 class PoolMember
 {
 public:
-	void Rva00268902();
+	void Rva00268902() throw();
 };
 
-class DamageFieldUpdate : public FireWeaponUpdate
+class __declspec(novtable) DamageFieldUpdate : public FireWeaponUpdate
 {
 public:
 	DamageFieldUpdate(Thing *thing, const ModuleData *moduleData);

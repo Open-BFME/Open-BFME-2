@@ -30,7 +30,7 @@ class Rva0029FB3BMember
 {
 public:
 	void init(void *context);
-	void reset();
+	void reset() throw();
 };
 
 class __declspec(novtable) DamageFieldUpdate : public FireWeaponUpdate
