@@ -52,15 +52,20 @@ extern TechAndSupplyImages TheSupplyAndTechImageLocations;
 
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class MapMetaData
+#include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+#include "../../../../../Include/GameClient/MapMetaData.h"
+
+// MapMetaData keeps its supply (+0x48) and tech (+0x4C) position lists as
+// opaque storage; this unit reads them as the STLport Coord3D lists they are.
+static inline Coord3DList &supplyPositions(MapMetaData *mmd)
 {
-	public:
-	char m_beforeExtent[8];
-	Region3D m_extent;
-	char m_betweenExtentAndLists[0x28];
-	Coord3DList m_supplyPositions;
-	Coord3DList m_techPositions;
-};
+	return reinterpret_cast<Coord3DList &>(mmd->field48);
+}
+
+static inline Coord3DList &techPositions(MapMetaData *mmd)
+{
+	return reinterpret_cast<Coord3DList &>(mmd->field4C);
+}
 
 void findDrawPositions(Int startX, Int startY, Int width, Int height,
 	Region3D extent, ICoord2D *ul, ICoord2D *lr);
@@ -92,10 +97,10 @@ void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool forc
 		smallHeight= lr.y - ul.y;
 	}
 
-	Coord3DList::iterator it = mmd->m_supplyPositions.begin();
+	Coord3DList::iterator it = supplyPositions(mmd).begin();
 	Int ulX = ul.x;
 	Int ulY = ul.y;
-	while( it._M_node != mmd->m_supplyPositions.end()._M_node)
+	while( it._M_node != supplyPositions(mmd).end()._M_node)
 	{
 		ICoord2D markerPos;
 		Real position;
@@ -107,10 +112,10 @@ void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool forc
 		it++;
 	}
 
-	it = mmd->m_techPositions.begin();
+	it = techPositions(mmd).begin();
 	ulX = ul.x;
 	ulY = ul.y;
-	while( it._M_node != mmd->m_techPositions.end()._M_node)
+	while( it._M_node != techPositions(mmd).end()._M_node)
 	{
 		ICoord2D markerPos;
 		Real position;
