@@ -60,3 +60,33 @@ must then take a fresh allocator and planner report before retrying.
 The scoped consolidation planner and its currency check passed for each
 additional selected TU. No claims remain from these trials. Existing five
 commits already ahead of origin/master were preserved.
+
+## Follow-up session
+
+`Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp` had a fresh, allocated
+trial. The dry run accepted the seed plus three unchanged donor files and 12
+rows, but applying it is blocked: the destination `file:` claim was held by
+another worker (`claims.py claim file:Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp`
+reported `not claimed: file:8b01a57c95fad0da (held by someone else)`). This seat
+released its 47 body and file claims. Do not apply until the destination can be
+claimed and the trial inputs are still current. The other four donor files
+were rejected for missing `AITNGuardMachine`/`TheAI` declarations.
+
+Four more allocated dry runs accepted no donors:
+
+- `Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp`:
+  constructor, `xfer`, `onBuildComplete` and module-data constructors are not
+  declared in the seed views; the tool calls for class-view reconciliation.
+- `Code/GameEngine/Source/GameLogic/Object/Die/CallHelpOnDamage.cpp`: missing
+  constructor and virtual/member declarations, plus two donor byte mismatches;
+  class-view reconciliation is required.
+- `Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp`:
+  its constructor donor is missing the destination constructor declaration.
+- `Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp`:
+  its constructor donor is missing the destination constructor declaration.
+
+All four were dry runs only; no source or ledger changes. The next allocated
+candidate checked for continuation is
+`Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgrade.cpp`
+(allocation check exit 0). Refresh allocator and scoped planner evidence before
+working it.
