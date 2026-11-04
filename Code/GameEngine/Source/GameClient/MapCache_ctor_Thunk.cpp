@@ -14,8 +14,6 @@
 #include <map>
 #include <set>
 
-typedef int Bool;
-
 #include "ascii_string.h"
 
 // __node_alloc<1,0>::allocate (STLport node path) otherwise emits a per-TU
@@ -36,14 +34,11 @@ void __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 // bfme link decl-only begin
-namespace _STL { template <> _Rb_tree_base<_STL::pair<AsciiString const,int>,_STL::allocator<_STL::pair<AsciiString const,int> > >::_Rb_tree_base(_STL::allocator<_STL::pair<AsciiString const,int> > const &); }
-namespace _STL { template <> _Rb_tree<AsciiString,_STL::pair<AsciiString const,int>,_STL::_Select1st<_STL::pair<AsciiString const,int> >,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const,int> > >::~_Rb_tree(); }
-namespace _STL { template <> _Rb_tree_base<_STL::pair<AsciiString const,int>,_STL::allocator<_STL::pair<AsciiString const,int> > >::~_Rb_tree_base(); }
-namespace _STL { template <> void _Rb_tree<AsciiString,_STL::pair<AsciiString const,int>,_STL::_Select1st<_STL::pair<AsciiString const,int> >,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const,int> > >::_M_erase(_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > *); }
-namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > * _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > *,_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > > >::allocate(unsigned int); }
-namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > * allocator<_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > >::allocate(unsigned int,void const *) const; }
-namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > *,_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > *,unsigned int); }
-namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<AsciiString const,int> > *,unsigned int) const; }
+namespace _STL { template <> _Rb_tree<AsciiString,_STL::pair<AsciiString const,bool>,_STL::_Select1st<_STL::pair<AsciiString const,bool> >,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const,bool> > >::~_Rb_tree(); }
+namespace _STL { template <> _Rb_tree_base<_STL::pair<AsciiString const,bool>,_STL::allocator<_STL::pair<AsciiString const,bool> > >::~_Rb_tree_base(); }
+namespace _STL { template <> void _Rb_tree<AsciiString,_STL::pair<AsciiString const,bool>,_STL::_Select1st<_STL::pair<AsciiString const,bool> >,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const,bool> > >::_M_erase(_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> > *); }
+namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> > *,_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> > *,unsigned int); }
+namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<AsciiString const,bool> > *,unsigned int) const; }
 // bfme link decl-only end
 
 // Declaration-only: the rowed set<AsciiString> tree members are bound,
@@ -66,16 +61,7 @@ template <> _Rb_tree_base<MapCacheValue, allocator<MapCacheValue> >::~_Rb_tree_b
 template <> void MapCacheTree::_M_erase(_Rb_tree_node<MapCacheValue> *);
 }
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/MapUtil.h
-class MapCache : public std::map<AsciiString, MapMetaData>
-{
-public:
-	MapCache();
-
-private:
-	std::map<AsciiString, Bool> m_seen;
-	std::set<AsciiString> m_allowedMaps;
-};
+#include "../../Include/GameClient/MapCache.h"
 
 MapCache::MapCache()
 {
