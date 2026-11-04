@@ -257,6 +257,7 @@ public:
 class Rva00151DAB
 {
 public:
+	Rva00151DAB &operator=(Rva00151DAB const &rhs);
 	D3DXHANDLE m_parameter;			// +0
 	RefCountPtr<TextureClass> m_texture;	// +4
 };
