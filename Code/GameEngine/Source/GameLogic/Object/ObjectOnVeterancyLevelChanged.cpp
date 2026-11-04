@@ -63,14 +63,7 @@ public:
 
 #include "../../../Include/GameClient/InGameUI.h"
 
-class GlobalData
-{
-public:
-	char m_pad0[0x11C];
-	AsciiString m_levelGainAnimationName;	// +0x11C
-	float m_levelGainAnimationDisplayTimeInSeconds;	// +0x120
-	float m_levelGainAnimationZRisePerSecond;	// +0x124
-};
+#include "../../../Include/Common/GlobalData.h"
 
 class Anim2DCollection;
 class AudioManager;
@@ -293,8 +286,8 @@ void Object::onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel new
 			CoordMath::add(iconPosition, &m_iconOffset);
 
 			TheInGameUI->addWorldAnimation(animTemplate, &iconPosition, WORLD_ANIM_FADE_ON_EXPIRE,
-				TheWritableGlobalData->m_levelGainAnimationDisplayTimeInSeconds,
-				TheWritableGlobalData->m_levelGainAnimationZRisePerSecond);
+				TheWritableGlobalData->m_levelGainAnimationTime,
+				TheWritableGlobalData->m_levelGainAnimationZRise);
 		}
 
 		BfmeAudioEventPrefix136 soundToPlay(reinterpret_cast<VeterancyAudioView *>(TheAudio)->getMiscAudio()->m_unitPromoted, 0);

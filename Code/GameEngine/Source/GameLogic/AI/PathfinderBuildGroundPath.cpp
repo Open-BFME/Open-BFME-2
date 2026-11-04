@@ -131,20 +131,7 @@ public:
 };
 class Rva002E6ECA { public: int get() const; };
 float Rva002E7BB8Get();
-class GlobalData
-{
-public:
-	char prefix[0x9b8]; // +0x00
-	int m_flag9B8; // +0x9B8
-	char m_pad9BC[0x804];
-	unsigned int limitMs; // +0x11C0
-	char m_pad11C4[0x24];
-	int cellsPerFrame; // +0x11E8
-	char m_pad11EC[0xC];
-	int m_maxCellsAdjustTargetDestination; // +0x11F8
-	char m_pad11FC[0x20];
-	unsigned callbackLimit; // +0x121C
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern int BfmeLogicFramesPerSecond;
 // Pathfinder debug-icon pass, retail 0x002EFB3A..0x002F00C9 (1423 bytes of
@@ -161,12 +148,12 @@ void Pathfinder::rva002EFB3A()
     Int x,y;
     const PathfindCell *cell;
     Int duration=BfmeLogicFramesPerSecond*3;
-    Int mode=TheWritableGlobalData->m_flag9B8;
+    Int mode=TheWritableGlobalData->field09B8;
     if (mode==3 || mode==2 || mode==7 || mode==5) {
         PathfinderDebugColor color;
         color.blue=0; color.green=0; color.red=0;
         Rva000B3FD0PathDebug(0,0,0,color);
-        if (TheWritableGlobalData->m_flag9B8==7) {
+        if (TheWritableGlobalData->field09B8==7) {
             for (PathfinderDebugWaypoint *point=((PathfinderTerrainWaypoints *)TheTerrainLogic)->slot84();point;point=point->next) {
                 color.blue=0; color.green=0; color.red=0;
                 if ((unsigned char)((const Rva002E6ECA *)point)->get()) color.green=1;
@@ -176,7 +163,7 @@ void Pathfinder::rva002EFB3A()
             }
         } else {
             Coord3D topLeftCorner;
-            Bool showCells=TheWritableGlobalData->m_flag9B8==3 || TheWritableGlobalData->m_flag9B8==5;
+            Bool showCells=TheWritableGlobalData->field09B8==3 || TheWritableGlobalData->field09B8==5;
             for (Int layer=0;layer<16;++layer) m_layers[layer].rva000B3FD0();
             for (x=0;x<m_width;++x) {
                 for (y=0;y<m_height;++y) {

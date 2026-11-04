@@ -113,12 +113,7 @@ private:
 	unsigned int m_originalFrame;
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0xc18];
-	unsigned int m_networkRunAheadSlack;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

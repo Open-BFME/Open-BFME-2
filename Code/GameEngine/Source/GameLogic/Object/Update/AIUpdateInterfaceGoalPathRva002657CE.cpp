@@ -54,12 +54,7 @@ struct Rva002EDEABArg;
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x9B8];
-	Int m_debugAI;							// +0x9B8
-};
+#include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -155,7 +150,7 @@ void AIUpdateInterface::rva002657CE()
 		PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination(obj, &pos);
 		m_path->appendNode(&pos, layer, 0x7FFFFFFF);
 	}
-	if (TheWritableGlobalData->m_debugAI == 1)
+	if (TheWritableGlobalData->field09B8 == 1)
 		TheAI->pathfinder()->SetDebugPath((Rva002EDEABArg *)m_path);
 	Coord3D dir;
 	obj->getUnitDirectionVector2D(dir);

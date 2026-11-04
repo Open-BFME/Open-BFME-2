@@ -45,12 +45,7 @@ enum
 
 #include "../Common/GameLogicObjectLookupView.h"
 
-class GlobalData
-{
-public:
-	char m_pad000[0xc18];
-	Int m_quitFrameDelay;
-};
+#include "../../Include/Common/GlobalData.h"
 
 class Connection
 {
@@ -136,7 +131,7 @@ PlayerLeaveCode ConnectionManager::processPlayerLeave(UnsignedByte playerID)
 		if (m_connections[playerID] != 0)
 			m_connections[playerID]->setQuitting(quitFrame);
 		if ((m_frameData[playerID] != 0) && (m_frameData[playerID]->getIsQuitting() == false))
-			m_frameData[playerID]->setQuitFrame(TheGlobalData->m_quitFrameDelay + quitFrame);
+			m_frameData[playerID]->setQuitFrame(TheGlobalData->m_networkRunAheadSlack + quitFrame);
 	}
 
 	PlayerLeaveCode code = disconnectPlayer(playerID);

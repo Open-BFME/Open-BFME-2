@@ -103,12 +103,7 @@ public:
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
-class GlobalData
-{
-public:
-	char m_pad[0x9d4];
-	unsigned char m_flag9D4;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -313,7 +308,7 @@ inline void GameSlot::setPlayerTemplate(Int playerTemplate)
 			if (it == map.end())
 				playerTemplate = map.begin()->first;
 		}
-		if ((TheWritableGlobalData->m_flag9D4 & 3) != 0 && playerTemplate == -1)
+		if ((TheWritableGlobalData->field09D4 & 3) != 0 && playerTemplate == -1)
 			playerTemplate = map.begin()->first;
 		m_playerTemplate = playerTemplate;
 		if (playerTemplate <= -2) {

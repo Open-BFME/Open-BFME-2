@@ -33,12 +33,7 @@ struct HeightHolder
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
-class GlobalData
-{
-public:
-	char m_pad00[0xD4];
-	float m_val;
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -91,7 +86,7 @@ void AIUpdateInterface::setGoalPositionClipped(const Coord3D *pos, float range, 
 		local.y = pos->y;
 		local.z = pos->z;
 		if (flag == 0) {
-			fudge = TheWritableGlobalData->m_val * 0.5f;
+			fudge = TheWritableGlobalData->m_partitionCellSize * 0.5f;
 			if ((m_object->m_flags109->m_flags & 0x10) != 0) {
 				if (m_object->isSignificantlyAboveTerrain()) {
 					if (m_height != 0) {

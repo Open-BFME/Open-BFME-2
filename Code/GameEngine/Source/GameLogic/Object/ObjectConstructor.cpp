@@ -229,7 +229,7 @@ extern PlayerList *ThePlayerList;
 extern Radar *TheRadar;
 
 #include "../../../Include/GameLogic/ObjectFilter.h"
-class GlobalData { public: unsigned char m_pad[0xEB4]; ObjectFilter m_filter; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 #include "../../Common/Thing/thing.h"
@@ -677,7 +677,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 
 	m_428 = tt->m_occlusionDelay + TheGameLogic->getFrame();
 
-	if (TheWritableGlobalData->m_filter.testTemplate(tt, 0, 0))
+	if (TheWritableGlobalData->m_camouflageDetectorObjectFilter.testTemplate(tt, 0, 0))
 		((Rva004381B0 *)TheGameLogic->getManager178())->rva004381B0(tt->m_camouflageDetectionMultiplier);
 
 	rva0028DCC4();

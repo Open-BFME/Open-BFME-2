@@ -36,12 +36,7 @@ enum
 
 #include "../Common/GameLogicObjectLookupView.h"
 
-class GlobalData
-{
-public:
-	char m_pad000[0xd24];
-	Bool m_commandIDFiltering;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GameLogic *TheGameLogic;
 extern GlobalData *TheWritableGlobalData;
@@ -87,7 +82,7 @@ private:
 
 Bool BFMECommandIDHistory::accept(UnsignedShort commandID, UnsignedInt frame)
 {
-	if (TheGlobalData->m_commandIDFiltering)
+	if (TheGlobalData->field0D24)
 	{
 		((Rva004D1EB1 *)this)->rva004D1EB1(commandID);
 		UnsignedInt id = commandID;

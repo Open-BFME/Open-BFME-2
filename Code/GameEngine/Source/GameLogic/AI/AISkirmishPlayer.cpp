@@ -320,12 +320,7 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0x9B8];
-	Int m_debugAI;				// +0x9B8
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -701,7 +696,7 @@ Bool AISkirmishPlayer::isAGoodIdeaToBuildTeam(TeamPrototype *proto)
 	}
 	// check build limit
 	if (proto->countTeamInstances() >= proto->m_maxInstances) {
-		if (TheWritableGlobalData->m_debugAI) {
+		if (TheWritableGlobalData->field09B8) {
 			AsciiString str;
 			str.format("Team %s not chosen - %d already exist.", proto->getName().str(), proto->countTeamInstances());
 			TheScriptEngine->AppendDebugMessage(str, false);
@@ -718,7 +713,7 @@ Bool AISkirmishPlayer::isAGoodIdeaToBuildTeam(TeamPrototype *proto)
 	}
 	Bool needMoney;
 	if (!rva004F13D8(proto) && !isPossibleToBuildTeam(proto, true, needMoney)) {
-		if (TheWritableGlobalData->m_debugAI) {
+		if (TheWritableGlobalData->field09B8) {
 			AsciiString str;
 			if (needMoney) {
 				str.format("Team %s not chosen - Not enough money.", proto->getName().str());

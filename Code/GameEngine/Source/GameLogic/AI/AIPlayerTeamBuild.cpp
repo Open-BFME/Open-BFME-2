@@ -900,12 +900,7 @@ WorkOrder::WorkOrder() :
 	m_bfmeFlag29 = false;
 }
 
-class GlobalData
-{
-public:
-	char m_pad000[0x9B8];
-	Int m_debugAI;				// +0x9B8
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
@@ -1280,7 +1275,7 @@ Bool AIPlayer::isAGoodIdeaToBuildTeam(TeamPrototype *proto)
 	Bool needMoney;
 	if (!isPossibleToBuildTeam(proto, true, needMoney))
 	{
-		if (TheWritableGlobalData->m_debugAI)
+		if (TheWritableGlobalData->field09B8)
 		{
 			AsciiString str;
 			if (needMoney)
@@ -1458,7 +1453,7 @@ Bool AIPlayer::startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName
 			if (pu->queueCreateUnit(order->m_thing, buildIndex, pu->requestUniqueUnitID(-1, 0, AsciiString::TheEmptyString, 0)))
 			{
 				order->m_factoryID = factory->m_id;
-				if (TheWritableGlobalData->m_debugAI)
+				if (TheWritableGlobalData->field09B8)
 				{
 					AsciiString teamStr = "Queuing ";
 					teamStr.concat(order->m_thing->getName());
@@ -1685,7 +1680,7 @@ Bool AIPlayer::selectTeamToBuild()
 	if (hiPri == invalidPri)
 		return false;
 
-	if (TheWritableGlobalData->m_debugAI)
+	if (TheWritableGlobalData->field09B8)
 		TheScriptEngine->AppendDebugMessage("**AI** Selecting team to build", false);
 
 	PlayerTeamList candidateList;
@@ -1784,7 +1779,7 @@ void AIPlayer::checkReadyTeams()
 				else
 				{
 					team->m_team->setActive();
-					if (TheWritableGlobalData->m_debugAI)
+					if (TheWritableGlobalData->field09B8)
 					{
 						AsciiString teamName = team->m_team->getPrototype()->getName();
 						reinterpret_cast<StringBase<char> *>(&teamName)->concat(" - team activated.");
@@ -1925,7 +1920,7 @@ void AIPlayer::onStructureProduced(Object *factory, Object *bldg)
 		bldg->clearStatus(OBJECT_STATUS_RECONSTRUCTING);
 
 		TheScriptEngine->addObjectToCache(bldg, AsciiString(""));
-		if (TheWritableGlobalData->m_debugAI)
+		if (TheWritableGlobalData->field09B8)
 		{
 			AsciiString bldgName = bldg->getTemplate()->getName();
 			reinterpret_cast<StringBase<char> *>(&bldgName)->concat(" - Building completed.");
@@ -2072,7 +2067,7 @@ void AIPlayer::buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild)
 		else
 		{
 			teamProto->m_bfme31C = true;
-			if (TheWritableGlobalData->m_debugAI)
+			if (TheWritableGlobalData->field09B8)
 			{
 				AsciiString teamName = teamProto->getName();
 				reinterpret_cast<StringBase<char> *>(&teamName)->concat(" - contains 0 buildable units.");

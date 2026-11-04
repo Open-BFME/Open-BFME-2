@@ -988,11 +988,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
-class GlobalData {
-public:
-	char m_pad[0xb3c];
-	int m_movementPenaltyDamageState;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

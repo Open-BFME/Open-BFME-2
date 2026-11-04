@@ -59,17 +59,18 @@ ParticleSystem *Make001FCBD7();
 
 struct Src0055F840 {char prefix[0x20];GameClientRandomVariable var20,var2C,var38,var44,var50;int kind5C;GameClientRandomVariable var60,var6C,var78;};
 struct ParticleView330 {char pad[0x28];GameClientRandomVariable initial;char tail[0x17C-0x34];float multiplier,offset;};
-class GlobalData {public:char prefix[0x9EC];float particleScale;};extern GlobalData*TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData*TheWritableGlobalData;
 class Rva003ADFB2:public Rva003ADFDB,public Rva0055F72C {public:Rva003ADFB2(unsigned,Src0055F840&);virtual~Rva003ADFB2();virtual void slot00()=0;};
 Rva003ADFB2::Rva003ADFB2(unsigned a,Src0055F840&src):Rva003ADFDB(a){
  RvaSmartPtr12 smart=((Rva0055DDB6SmartField*)&src)->get();
  ParticleSystem*ps=smart.m_ptr;if(!ps)ps=Make001FCBD7();
  ParticleSystem*pf=smart.m_ptr;if(!pf)pf=Make001FCBD7();
  float multiplier=((ParticleView330*)pf)->multiplier;
- m_04=((ParticleView330*)ps)->initial.getValue()*TheWritableGlobalData->particleScale*multiplier;
+ m_04=((ParticleView330*)ps)->initial.getValue()*TheWritableGlobalData->m_particleScale*multiplier;
  ParticleSystem*py=smart.m_ptr;if(!py)py=Make001FCBD7();
  multiplier=((ParticleView330*)py)->multiplier;
- m_08=src.var20.getValue()*TheWritableGlobalData->particleScale*multiplier;
+ m_08=src.var20.getValue()*TheWritableGlobalData->m_particleScale*multiplier;
  m_0C=src.var2C.getValue();
  ParticleSystem*pa=smart.m_ptr;if(!pa)pa=Make001FCBD7();m_04+=((ParticleView330*)pa)->offset;
  m_10=src.var38.getValue();m_14=src.var44.getValue();m_18=src.var50.getValue();m_1C=src.kind5C;m_20=src.var60.getValue();m_24=src.var6C.getValue();m_28=src.var78.getValue();

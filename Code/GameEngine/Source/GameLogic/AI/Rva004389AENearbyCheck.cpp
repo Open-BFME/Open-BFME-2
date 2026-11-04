@@ -169,12 +169,7 @@ struct Rva004388E3Template
 };
 
 
-class GlobalData
-{
-public:
-	char m_pad000[0xEB4];
-	int m_camouflageDetectorObjectFilter;		// +0xEB4 what the 0x002614EC filter compares
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
 class Rva004389AE

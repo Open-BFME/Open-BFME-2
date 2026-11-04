@@ -98,12 +98,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0xAE8];
-	Real m_attributeDamageCap;		// +0xAE8
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 // Retail RVA 0x009B8968: 27 damage names plus the null terminator.
@@ -209,7 +204,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *owner, Bool
 				AsciiString name(TheDamageNames[type]);
 				const_cast<Object *>(owner)->rva0028C149(1, &attribute, reinterpret_cast<Int>(&name));
 			}
-			amount *= 1.0f - (1.0f - (1.0f - armorMin(TheWritableGlobalData->m_attributeDamageCap, attribute))) * factor;
+			amount *= 1.0f - (1.0f - (1.0f - armorMin(TheWritableGlobalData->m_attributeModifierArmorMaxBonus, attribute))) * factor;
 		}
 	}
 	return amount;

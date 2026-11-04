@@ -137,12 +137,7 @@ public:
 class ActionManager;
 extern ActionManager *TheActionManager;
 
-class GlobalData
-{
-public:
-	char m_pad[0x1234];
-	UnsignedInt m_enterStateTimeoutFrames;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
@@ -184,7 +179,7 @@ enum
 StateReturnType AIEnterState::onEnter()
 {
 	m_entryToClear = INVALID_OBJECT_ID;
-	m_entryTimeoutFrame = TheGlobalData->m_enterStateTimeoutFrames + TheGameLogic->getFrame();
+	m_entryTimeoutFrame = TheGlobalData->m_waitToForceMemberToEnterDelay + TheGameLogic->getFrame();
 
 	Object *obj = getMachineOwner();
 	Object *goal = getMachineGoalObject();

@@ -7,7 +7,8 @@
 // bytes unchanged). Field names beyond the offsets in use are neutral.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Object {public:int rva002933CD();const Coord3D*getPosition()const{return &pos;}private:char pad[0x38];Coord3D pos;};
-class GlobalData {public:char pad[0x11CC];unsigned duration;};extern GlobalData*TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData*TheWritableGlobalData;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic*TheGameLogic;
 class Rva00438389 {public:Rva00438389&rva00438389();};
@@ -18,9 +19,9 @@ class Rva0043846D {public:void rva0043846D(Object*);};
 bool Rva00439E0C::rva0043979D(Object*obj,Rva004393D6*record){
  Rva004389DBInfo info;((Rva00438389*)&info)->rva00438389();
  int result=rva0043966A(obj,obj->getPosition(),record,&info);
- if(rva00438E5B(obj,result,record,&info,TheWritableGlobalData->duration)){
+ if(rva00438E5B(obj,result,record,&info,TheWritableGlobalData->m_reinvisibityDelay)){
   rva004389DB(obj,&info,(info.detector!=0)+1);
-  rva0043822E(record,TheWritableGlobalData->duration);
+  rva0043822E(record,TheWritableGlobalData->m_reinvisibityDelay);
  }
  unsigned frame=TheGameLogic->getFrame();
  if((unsigned char)obj->rva002933CD()&&frame>=record->refresh)rva00438D58(obj);

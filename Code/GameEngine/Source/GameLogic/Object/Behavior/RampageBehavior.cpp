@@ -110,12 +110,7 @@ public:
 private:
 };
 
-class GlobalData
-{
-public:
-	int m_pad[0xB8 / 4];
-	int m_value;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -128,7 +123,7 @@ private:
 	const void *m_vtable; // +0x00
 	unsigned int m_unused04; // +0x04
 	_STL::vector<AsciiString> m_requiredUpgrade; // +0x08
-	int m_healthThreshold; // +0x14
+	float m_healthThreshold; // +0x14
 	int m_lifeTimer; // +0x18
 	int m_angryLifeTimer; // +0x1C
 	int m_resetTimer; // +0x20
@@ -194,7 +189,7 @@ unsigned char Rva00458BE1::rva00458BE1()
 // ??0RampageBehaviorModuleData@@QAE@XZ @0x458C0F
 RampageBehaviorModuleData::RampageBehaviorModuleData()
 	: m_vtable(reinterpret_cast<const void *>(__identifier("??_7RampageBehaviorModuleData@@6B@")))
-	, m_healthThreshold(TheWritableGlobalData->m_value)
+	, m_healthThreshold(TheWritableGlobalData->m_unitReallyDamagedThreshold)
 	, m_lifeTimer(0)
 	, m_angryLifeTimer(0)
 	, m_resetTimer(0)

@@ -274,7 +274,8 @@ private:
  Bool m_attackFlag; //3cd
 };
 
-class GlobalData { public: char pad[0x9b8]; int debugAI; }; extern GlobalData *TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 
 Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,const Object *victim,const Coord3D *victimPos)
 {
@@ -341,7 +342,7 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
   m_path->prependNode(&localVictimPos,LAYER_GROUND,0x7fffffff);
   Coord3D pos;const Coord3D *position=getObject()->getPosition();pos.x=position->x;pos.y=position->y;pos.z=localVictimPos.z;
   m_path->prependNode(&pos,LAYER_GROUND,0x7fffffff);
-  if(TheWritableGlobalData->debugAI==1)TheAI->pathfinder()->SetDebugPath((Rva002EDEABArg*)m_path);
+  if(TheWritableGlobalData->field09B8==1)TheAI->pathfinder()->SetDebugPath((Rva002EDEABArg*)m_path);
  }else{
   destroyPath();getObject()->rva0028AD32();
   TheAI->pathfinder()->rva003E3BFB((ObjectID)m_ignoredObstacle);

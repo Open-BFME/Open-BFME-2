@@ -243,12 +243,7 @@ private:
 	unsigned char m_pad04[0x3C - 0x04];
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0xB60];
-	Real m_groupMoveClickToGatherFactor; // +0xB60
-};
+#include "../../../Include/Common/GlobalData.h"
 
 // 0x009FE758 is converged on TheWritableGlobalData (data_converged.csv).
 extern GlobalData *TheWritableGlobalData;
@@ -522,9 +517,9 @@ void AIGroup::groupMoveToPosition(Rva00372571Params *params, int cmdSource)
 		recompute();
 
 	if (!isFormation && params->m_target == 0 && cmdSource == CMD_FROM_PLAYER
-		&& TheGlobalData->m_groupMoveClickToGatherFactor > 0.0f)
+		&& TheGlobalData->m_groupMoveClickToGatherAreaFactor > 0.0f)
 	{
-		ScaleRect2D(&min, &max, TheGlobalData->m_groupMoveClickToGatherFactor);
+		ScaleRect2D(&min, &max, TheGlobalData->m_groupMoveClickToGatherAreaFactor);
 		if (Coord3DInsideRect2D(params->m_pos, &min, &max))
 			tightenGroup = TRUE;
 	}
