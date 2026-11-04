@@ -24,7 +24,7 @@ class UserParser;
 class ChunkInputStream;
 #include "../../../../GameEngine/Include/Common/DataChunk.h"
 #include "../../../../GameEngine/Include/Common/DataChunkInfo.h"
-class GlobalData { public: char opaque[0x44]; int use3WayTerrainBlends; };
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva000B0565 : public _STL::vector<unsigned char>
 {
@@ -96,7 +96,7 @@ bool WorldHeightMap::parseBlendTileData(DataChunkInput &file,DataChunkInfo *info
             rva000AF1C2((int)temporary.first,(int)temporary.last,(int)m_extraBlendTileNdxes);
         }
     }
-    if(!TheWritableGlobalData->use3WayTerrainBlends)
+    if(!TheWritableGlobalData->m_use3WayTerrainBlends)
         memset(m_extraBlendTileNdxes,0,m_dataSize*4);
     if(info->version>=14)
         file.readArrayOfBytes((char*)m_cliffInfoNdxes,m_dataSize*4);
@@ -154,7 +154,7 @@ bool WorldHeightMap::parseBlendTileData(DataChunkInput &file,DataChunkInfo *info
         m_blendedTiles[k].rightDiagonal=file.readByte();
         m_blendedTiles[k].leftDiagonal=file.readByte();
         m_blendedTiles[k].inverted=file.readByte();
-        if(!TheWritableGlobalData->use3WayTerrainBlends)m_blendedTiles[k].inverted &= ~2;
+        if(!TheWritableGlobalData->m_use3WayTerrainBlends)m_blendedTiles[k].inverted &= ~2;
         if(info->version>=3)m_blendedTiles[k].longDiagonal=file.readByte();
         else m_blendedTiles[k].longDiagonal=0;
         if(info->version>=4)m_blendedTiles[k].customBlendEdgeClass=file.readInt();

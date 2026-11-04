@@ -416,12 +416,7 @@ public:
 
 extern MapCache *TheMapCache;
 
-class GlobalData
-{
-public:
-	UnsignedByte m_preAC0[0xAC0];
-	AsciiString m_pendingFile;			// +0xAC0
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -1149,7 +1144,7 @@ void GameSpyStagingRoom::rva004FDEFF(LivingWorldBattle *battle)
 		slot->m_bfme1A4 = battle->rva003F486C(index);
 	}
 
-	TheWritableGlobalData->m_pendingFile = TheGameSpyGame->getMap();
+	TheWritableGlobalData->field0AC0 = TheGameSpyGame->getMap();
 	InitGameLogicRandom(getSeed());
 }
 
@@ -1516,7 +1511,7 @@ void GameSpyStagingRoom::launchGame(void)
 		return;
 	}
 
-	TheWritableGlobalData->m_pendingFile = TheGameSpyGame->getMap();
+	TheWritableGlobalData->field0AC0 = TheGameSpyGame->getMap();
 
 	GameMessage *msg = TheMessageStream->appendMessage(0x1E);
 	msg->appendIntegerArgument(5);

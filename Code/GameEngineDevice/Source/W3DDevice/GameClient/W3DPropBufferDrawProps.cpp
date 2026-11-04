@@ -152,19 +152,7 @@ public:
 
 // Time-of-day object lighting: three 0x24-byte lights (ambient, diffuse,
 // position) per time of day, 0x6C apart from GlobalData +0x3C8.
-struct BfmeTerrainLighting { Vector3 ambient; Vector3 diffuse; Vector3 lightPos; };
-class GlobalData
-{
-public:
-	char m_pad000[0x1C];
-	Bool m_drawProps;	// +0x1C
-	char m_pad01D[0x134 - 0x1D];
-	Int m_timeOfDay;	// +0x134
-	char m_pad138[0x3C8 - 0x138];
-	BfmeTerrainLighting m_terrainObjectsLighting[1][3];	// +0x3C8 (indexed by time of day)
-	char m_pad434[0xC60 - 0x434];
-	Int m_atC60;	// +0xC60, -1 when unset
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct Rva000E2D26Vector3 { float x, y, z; };
@@ -246,7 +234,7 @@ protected:
 
 void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 {
-	if (!TheWritableGlobalData->m_drawProps)
+	if (!TheWritableGlobalData->m_showProps)
 		return;
 
 	Int i;
@@ -262,7 +250,7 @@ void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 		m_rebuild = false;
 	}
 
-	const BfmeTerrainLighting *objectLighting =
+	const GlobalData::TerrainLighting *objectLighting =
 		TheWritableGlobalData->m_terrainObjectsLighting[TheWritableGlobalData->m_timeOfDay];
 	Real scale = 1.0f;
 	if (TheCloudEffectManager && TheCloudEffectManager->slot3C()) {
@@ -273,18 +261,18 @@ void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 
 	LightEnvironmentClass lightEnv;
 	Vector3 center(0, 0, 0);
-	Vector3 ambient(objectLighting[0].ambient.X, objectLighting[0].ambient.Y, objectLighting[0].ambient.Z);
+	Vector3 ambient(objectLighting[0].ambient.red, objectLighting[0].ambient.green, objectLighting[0].ambient.blue);
 	ambient *= scale;
 	lightEnv.Reset(center, ambient);
 	Matrix3D mtx;
 	for (i = 0; i < MAX_GLOBAL_LIGHTS; ++i)
 	{
 		m_light->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
-		Vector3 diffuse(objectLighting[i].diffuse.X, objectLighting[i].diffuse.Y, objectLighting[i].diffuse.Z);
+		Vector3 diffuse(objectLighting[i].diffuse.red, objectLighting[i].diffuse.green, objectLighting[i].diffuse.blue);
 		diffuse *= scale;
 		m_light->Set_Diffuse(diffuse);
 		m_light->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
-		mtx.Set(Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), Vector3(objectLighting[i].lightPos.X, objectLighting[i].lightPos.Y, objectLighting[i].lightPos.Z), Vector3(0.0f, 0.0f, 0.0f));
+		mtx.Set(Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f), Vector3(objectLighting[i].lightPos.x, objectLighting[i].lightPos.y, objectLighting[i].lightPos.z), Vector3(0.0f, 0.0f, 0.0f));
 		m_light->Set_Transform(mtx);
 		lightEnv.Add_Light(*m_light);
 	}
@@ -298,7 +286,7 @@ void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 		if (m_props[i].m_robj == 0) {
 			continue;
 		}
-		if (TheWritableGlobalData->m_atC60 != -1)
+		if (TheWritableGlobalData->field0C60 != -1)
 			reinterpret_cast<Rva0013BEB0DwordSlot *>(m_props[i].m_robj)->set(2);
 		else
 			reinterpret_cast<Rva0013BEB0DwordSlot *>(m_props[i].m_robj)->set(0);

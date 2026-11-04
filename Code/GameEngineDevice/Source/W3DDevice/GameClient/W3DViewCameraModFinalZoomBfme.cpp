@@ -30,12 +30,7 @@ struct Coord3D;
 class Vector3;
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
-class GlobalData
-{
-public:
-    char unreconstructed[0xdd8];
-    float cameraTerrainSampleSize;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern TerrainLogic *TheTerrainLogic;
 // GameClient.cpp owns the target singleton pointer. ZH aliases TheGlobalData to it.
 extern GlobalData *TheWritableGlobalData;
@@ -43,14 +38,14 @@ static float getHeightAroundPos(float x, float y)
 {
     float center = TheTerrainLogic->getGroundHeight(x, y);
     float lowPlus = TheTerrainLogic->getGroundHeight(
-        x - TheWritableGlobalData->cameraTerrainSampleSize, y + TheWritableGlobalData->cameraTerrainSampleSize);
+        x - TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight, y + TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight);
     float highPlus = TheTerrainLogic->getGroundHeight(
-        x + TheWritableGlobalData->cameraTerrainSampleSize, y + TheWritableGlobalData->cameraTerrainSampleSize);
+        x + TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight, y + TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight);
     float plus = highPlus > lowPlus ? highPlus : lowPlus;
     float lowMinus = TheTerrainLogic->getGroundHeight(
-        x - TheWritableGlobalData->cameraTerrainSampleSize, y - TheWritableGlobalData->cameraTerrainSampleSize);
+        x - TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight, y - TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight);
     float highMinus = TheTerrainLogic->getGroundHeight(
-        x + TheWritableGlobalData->cameraTerrainSampleSize, y - TheWritableGlobalData->cameraTerrainSampleSize);
+        x + TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight, y - TheWritableGlobalData->m_cameraTerrainSampleRadiusForHeight);
     float minus = highMinus > lowMinus ? highMinus : lowMinus;
     float corners = minus > plus ? minus : plus;
     return center > corners ? center : corners;

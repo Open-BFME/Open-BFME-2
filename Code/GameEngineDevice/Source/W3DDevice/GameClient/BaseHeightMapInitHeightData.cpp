@@ -22,7 +22,7 @@ public:
  int refs,xExtent,yExtent,border;
  char pad14[0x24-0x14]; unsigned short *data;
 };
-class GlobalData {public: char pad[0xd4];float partitionCellSize;};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class W3DShroud
 {
@@ -313,8 +313,8 @@ int BaseHeightMapRenderObjClass::initHeightData(int x,int y,WorldHeightMap*pMap,
 {
  REF_PTR_SET(map,pMap);
  terrainFlag=false;
- if(shroud)shroud->init(map,TheWritableGlobalData->partitionCellSize,TheWritableGlobalData->partitionCellSize);
- if(taint)taint->init(map,TheWritableGlobalData->partitionCellSize,TheWritableGlobalData->partitionCellSize);
+ if(shroud)shroud->init(map,TheWritableGlobalData->m_partitionCellSize,TheWritableGlobalData->m_partitionCellSize);
+ if(taint)taint->init(map,TheWritableGlobalData->m_partitionCellSize,TheWritableGlobalData->m_partitionCellSize);
  roadBuffer->setMap(map);
  unsigned short*data=0;
  if(pMap)data=pMap->data;

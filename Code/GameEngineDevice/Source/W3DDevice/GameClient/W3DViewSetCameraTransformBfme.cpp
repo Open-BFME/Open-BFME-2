@@ -242,19 +242,20 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class Rva00203B2BHost{public:void rva00203B2B();};class ScriptEngine;extern ScriptEngine *TheScriptEngine;
 #include "../../../../GameEngine/Include/Common/GameAudio.h"
 extern AudioManager*TheAudio;
-class GlobalData{public:char pad[0x950];float clipMultiplier;char pad954[0xea6-0x954];bool debug,unused;float debugFov,debugAngle;};extern GlobalData*TheWritableGlobalData;
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
+extern GlobalData*TheWritableGlobalData;
 class W3DView{public:virtual void forceRedraw();private:char pad4[8];Coord3D position;char pad18[0x44-0x18];bool constrain;char pad45[0x6c-0x45];float fov;char pad70[0x104-0x70];CameraClass *camera;char pad108[0x2354-0x108];int mode;char pad2358[12];float modeFov;char pad2368[0x23d8-0x2368];bool moved;char pad23d9[0x240c-0x23d9];float loX,loY,hiX,hiY;bool valid;
  void buildCameraTransform(Matrix3D*);void calcCameraConstraints();void setCameraTransform();
 };
 void W3DView::setCameraTransform(){
  moved=true;Matrix3D transform(1);
- camera->Set_Clip_Planes(10.0f,(double)TheWritableGlobalData->clipMultiplier*CameraFarScale);
+ camera->Set_Clip_Planes(10.0f,(double)TheWritableGlobalData->field0950*CameraFarScale);
  if(!valid){buildCameraTransform(&transform);camera->Set_Transform(transform);calcCameraConstraints();}
  if(valid && constrain){CameraPoint pos(position);static_cast<volatile float&>(pos.x)=cameraClamp(pos.x,loX,hiX);static_cast<volatile float&>(pos.y)=cameraClamp(pos.y,loY,hiY);position=pos;}
- if(TheWritableGlobalData->debug)camera->Set_View_Plane(TheWritableGlobalData->debugFov,-1.0f);else camera->Set_View_Plane(fov,-1.0f);
+ if(TheWritableGlobalData->field0EA6)camera->Set_View_Plane(TheWritableGlobalData->field0EA8,-1.0f);else camera->Set_View_Plane(fov,-1.0f);
  buildCameraTransform(&transform);
  if(mode==4)camera->Set_View_Plane(modeFov,-1.0f);
- if(TheWritableGlobalData->debug)transform.Rotate_Y(TheWritableGlobalData->debugAngle);
+ if(TheWritableGlobalData->field0EA6)transform.Rotate_Y(TheWritableGlobalData->field0EAC);
  camera->Set_Transform(transform);
  if(TheTerrainRenderObject){
   RefMultiListIterator<RenderObjClass>*it=W3DDisplay::m_3DScene->createLightsIterator();Rva0008B470 cameras;

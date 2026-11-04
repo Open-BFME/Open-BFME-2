@@ -387,12 +387,7 @@ public:
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class GlobalData
-{
-public:
-	char m_pad00[0x62];
-	bool m_useShadowMap;	// +0x62
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 struct Db12
@@ -433,7 +428,7 @@ typedef std::vector<Coord3D> PointList;
 // helper. The Vector2 temps read through one pointer and the named translation follow WB.
 void W3DShadowMapManager::UpdateShadowCamera()
 {
-	if (!TheWritableGlobalData->m_useShadowMap)
+	if (!TheWritableGlobalData->m_useShadowMapping)
 		return;
 	if (!TheTerrainRenderObject)
 		return;

@@ -449,7 +449,7 @@ struct TerrainLogicVtbl
 
 struct NativeDebugDisplayFont { AsciiString name; int size; bool bold; };
 class GlobalLanguage { public: char m_pad[0xC8]; NativeDebugDisplayFont m_nativeDebugDisplay; };
-class GlobalData { public: char m_pad0[0x26]; bool m_useFpsLimit; char m_pad27; int m_framesPerSecondLimit; char m_pad2c[0x9C7 - 0x2C]; bool m_constantDebugUpdate; };
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 // class-gate: allow GameLogic canonical view lacks getObjectCount (rowed 0x0023CFCE) that this body calls and keeps the +0x38/+0x40 words private
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 class Keyboard { public: bool isShift(); bool isCtrl(); bool isAlt(); char m_pad[0xC]; unsigned char m_modifiers; };
@@ -602,7 +602,7 @@ void W3DDisplay::gatherDebugStats(void)
 
 	s_timeSinceLastUpdateInSecs = ((double)(time64 - s_lastUpdateTime64) / (double)(freq64));
 
-	if (s_timeSinceLastUpdateInSecs >= 2.0 || TheWritableGlobalData->m_constantDebugUpdate)
+	if (s_timeSinceLastUpdateInSecs >= 2.0 || TheWritableGlobalData->field09C7)
 	{
 		UnicodeString unibuffer, unibuffer2;
 		UnicodeString fpsString;

@@ -158,16 +158,7 @@ void W3DShaderManager::setTexture(int stage, const TextureHandle &texture)
 
 // TheGlobalData view: the shroud colour as red/green/blue floats at
 // +0xBDC/+0xBE0/+0xBE4 and the minimum shroud level byte at +0xBEA.
-class GlobalData
-{
-public:
-	char m_pad[0xBDC];
-	float m_shroudRed;
-	float m_shroudGreen;
-	float m_shroudBlue;
-	char m_padBE8[0xBEA - 0xBE8];
-	unsigned char m_shroudAlpha;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
@@ -184,9 +175,9 @@ template <class T> inline const T &ShroudMin(const T &left, const T &right) { re
 unsigned short __cdecl Rva00072D5DShroudPixel(unsigned char level)
 {
 	int value = level;
-	unsigned int blue = (unsigned int)(value * TheGlobalData->m_shroudBlue);
-	unsigned int green = (unsigned int)(value * TheGlobalData->m_shroudGreen);
-	unsigned int red = (unsigned int)(value * TheGlobalData->m_shroudRed);
+	unsigned int blue = (unsigned int)(value * TheGlobalData->m_shroudColor.blue);
+	unsigned int green = (unsigned int)(value * TheGlobalData->m_shroudColor.green);
+	unsigned int red = (unsigned int)(value * TheGlobalData->m_shroudColor.red);
 	int alpha = ShroudMin((ShroudMax(0, value - 4) * 255) / 46, 255);
 	if (level == 255) {
 		red = 255;

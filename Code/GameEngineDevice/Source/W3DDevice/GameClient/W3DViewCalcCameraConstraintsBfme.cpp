@@ -20,12 +20,7 @@ typedef float Real;typedef int Int;typedef bool Bool;
 #include <float.h>
 #include <math.h>
 inline float Coord3D::length()const{float squares=x*x+y*y+z*z;return(float)sqrt((double)squares); }
-class GlobalData
-{
-public:
-	unsigned char m_padding[0x9B8];
-	Int m_debugAI;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
@@ -110,7 +105,7 @@ void W3DView::calcCameraConstraints()
 		if (offset > mapRegion.hi.x * 0.25f)
 			offset = 0.0f;
 
-		if (TheGlobalData->m_debugAI)
+		if (TheGlobalData->field09B8)
 			offset = -1000; // push out the constraints so we can look at staging areas.
 
 		m_cameraConstraint.lo.x = mapRegion.lo.x + offset;

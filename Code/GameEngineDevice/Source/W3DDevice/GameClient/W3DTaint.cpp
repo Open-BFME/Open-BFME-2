@@ -209,21 +209,7 @@ BfmeTaintModeView *g_bfmeTaintModeView;
 
 
 typedef unsigned char UnsignedByte;
-class GlobalData
-{
-	unsigned char m_pad00[0xbec];
-
-public:
-	float m_lowRed;
-	float m_lowGreen;
-	float m_lowBlue;
-	float m_highRed;
-	float m_highGreen;
-	float m_highBlue;
-	unsigned char m_taintAlpha;
-	unsigned char m_padca0[0xc6a - 0xc05];
-	unsigned char m_taintOn;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 class WorldHeightMap;
@@ -315,9 +301,9 @@ void Rva000729CC::rva00073CC0(int x, int y,
 		else
 			blueAdjustment = 0.02f;
 
-		red = base + fraction * (TheWritableGlobalData->m_lowRed + redAdjustment);
-		green = base + fraction * (TheWritableGlobalData->m_lowGreen + greenAdjustment);
-		blue = base + fraction * (TheWritableGlobalData->m_lowBlue + blueAdjustment);
+		red = base + fraction * (TheWritableGlobalData->m_taintColor.red + redAdjustment);
+		green = base + fraction * (TheWritableGlobalData->m_taintColor.green + greenAdjustment);
+		blue = base + fraction * (TheWritableGlobalData->m_taintColor.blue + blueAdjustment);
 	}
 	else if (level > 0x80)
 	{
@@ -345,9 +331,9 @@ void Rva000729CC::rva00073CC0(int x, int y,
 		else
 			blueAdjustment = 0.02f;
 
-		red = base + fraction * (TheWritableGlobalData->m_highRed + redAdjustment);
-		green = base + fraction * (TheWritableGlobalData->m_highGreen + greenAdjustment);
-		blue = base + fraction * (TheWritableGlobalData->m_highBlue + blueAdjustment);
+		red = base + fraction * (TheWritableGlobalData->m_elvenWoodColor.red + redAdjustment);
+		green = base + fraction * (TheWritableGlobalData->m_elvenWoodColor.green + greenAdjustment);
+		blue = base + fraction * (TheWritableGlobalData->m_elvenWoodColor.blue + blueAdjustment);
 	}
 
  if(TheFireManager) {

@@ -472,12 +472,7 @@ public:
 	static VertexMaterialClass *Get_Preset(PresetType preset);
 };
 
-class GlobalData
-{
-public:
-	char m_pad[0x84];
-	bool m_showSoftWaterEdge;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

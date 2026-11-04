@@ -267,16 +267,7 @@ struct WWMathView
 
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x8D8];
-	RGBColor m_terrainAmbient[3];	// +0x8D8
-	RGBColor m_terrainDiffuse[3];	// +0x8FC
-	Coord3D m_terrainLightPos[3];	// +0x920
-	unsigned char m_pad944[0x988 - 0x944];
-	Int m_numGlobalLights;	// +0x988
-};
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class GameLODManager
@@ -383,7 +374,7 @@ void WaterRenderObjClass::drawRiverWater(RenderInfoClass &rinfo, RenderableRiver
 		shadeG = TheWritableGlobalData->m_terrainAmbient[0].green;
 		shadeB = TheWritableGlobalData->m_terrainAmbient[0].blue;
 
-		for (Int lightIndex = 0; lightIndex < TheWritableGlobalData->m_numGlobalLights; lightIndex++)
+		for (Int lightIndex = 0; lightIndex < TheWritableGlobalData->m_numberGlobalLights; lightIndex++)
 		{
 			if (-TheWritableGlobalData->m_terrainLightPos[lightIndex].z > 0)
 			{

@@ -391,12 +391,7 @@ public:
 	static void Flush(void);
 };
 
-class GlobalData
-{
-public:
-	char m_pad[0xC60];
-	Int m_unknownC60;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
@@ -484,7 +479,7 @@ void W3DSmudgeManager::render(RenderInfoClass &rinfo)
 	if (!testHardwareSupport())
 		return;
 
-	if (TheGlobalData->m_unknownC60 != -1)
+	if (TheGlobalData->field0C60 != -1)
 		return;
 
 	CameraClass &camera = rinfo.Camera;

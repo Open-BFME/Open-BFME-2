@@ -145,15 +145,7 @@ public:
 };
 class GameClient;
 extern GameClient *TheGameClient;
-class GlobalData
-{
-public:
-	char m_pad00[0x49];
-	bool m_secondTerrainTexture; // +0x49
-	bool m_allowTexture2X; // +0x4A
-	char m_pad4B[0xE55];
-	int m_stretchTerrain; // +0xEA0
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 #include <math.h>
@@ -1370,8 +1362,8 @@ void W3DTerrainBackground::updateCenter(const Rva00112230CameraGroup &cameraGrou
 
 	m_cameraDistance = (float)sqrt((double)minDistSqr);
 	m_texMultiplier = 1;
-	if (TheGlobalData->m_allowTexture2X
-		&& (minDistSqr < mip2xDistanceSqr || TheGlobalData->m_stretchTerrain)) {
+	if (TheGlobalData->field004A
+		&& (minDistSqr < mip2xDistanceSqr || TheGlobalData->field0EA0)) {
 		m_texMultiplier = 2;
 	} else {
 		clearTextures();
@@ -1387,7 +1379,7 @@ bool W3DTerrainBackground::updateTexture(void)
 		return false;
 	}
 
-	if (m_texMultiplier == 2 || TheGlobalData->m_stretchTerrain) {
+	if (m_texMultiplier == 2 || TheGlobalData->field0EA0) {
 		if (((const RefCountPtr<TextureClass> *)&m_terrainTexture)->isNull()) {
 			*(RefCountPtr<TextureClass> *)&m_terrainTexture = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 0);
 			((ShroudTexture *)&m_terrainTexture)->getFilter()->m_uAddressMode = 1;
@@ -1395,7 +1387,7 @@ bool W3DTerrainBackground::updateTexture(void)
 			if (m_fillSurfaces)
 				((CursorTextureSlot *)&m_terrainTexture)->FillLevelSurfaces();
 
-			if (TheGlobalData->m_secondTerrainTexture && ((const RefCountPtr<TextureClass> *)&m_terrainTexture4X)->isNull()) {
+			if (TheGlobalData->field0049 && ((const RefCountPtr<TextureClass> *)&m_terrainTexture4X)->isNull()) {
 				*(RefCountPtr<TextureClass> *)&m_terrainTexture4X = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x20, 0x19, 1);
 				((ShroudTexture *)&m_terrainTexture4X)->getFilter()->m_uAddressMode = 1;
 				((ShroudTexture *)&m_terrainTexture4X)->getFilter()->m_vAddressMode = 1;
@@ -2293,7 +2285,7 @@ void W3DTerrainBackground::doTesselatedUpdate(const IRegion2D &partialRange, Wor
 		((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X))->getFilter()->m_uAddressMode = 1;
 		((ShroudTexture *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture2X))->getFilter()->m_vAddressMode = 1;
 	}
-	if (TheGlobalData->m_secondTerrainTexture) {
+	if (TheGlobalData->field0049) {
 		if ((*(RefCountPtr<TextureClass> *)&m_texture3C).isNull() || doTextures) {
 			((BfmeResetTextureRef *)&(*(RefCountPtr<TextureClass> *)&m_terrainTexture4X))->clear();
 			(*(RefCountPtr<TextureClass> *)&m_texture3C) = m_map->getFlatTexture(m_xOrigin, m_yOrigin, m_width, 0x10, 0x19, 1);

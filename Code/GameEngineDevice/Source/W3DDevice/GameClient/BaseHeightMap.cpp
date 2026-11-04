@@ -255,12 +255,7 @@ private:
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
-class GlobalData
-{
-public:
-	char _pad[0xD45];
-	unsigned char m_flag;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 class Rva000686F2
 {
@@ -823,7 +818,7 @@ void BaseHeightMapRenderObjClass::rva000685E2(void)
 
 void Rva000686F2::rva000686F2()
 {
-	if (TheWritableGlobalData->m_flag)
+	if (TheWritableGlobalData->field0D45)
 	{
 		m_37b8 = 0xDAC0;
 		m_37bc = 0x3FFFC;

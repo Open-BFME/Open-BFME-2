@@ -17,32 +17,12 @@
 // Codegen: the three blends are computed in z, x, y order into struct locals
 // before the calls; the loop condition is spelled 3 > i (found by mutation
 // walk; it moves the object z load past the argument store).
-struct Rva0004353CRow
-{
-	float ambient[3];
-	float diffuse[3];
-	float position[3];
-};
-
 struct Rva0004353CColor
 {
 	float x, y, z;
 };
 
-class GlobalData
-{
-public:
-	char pad000[0x134];
-	int m_timeOfDay;
-	char pad138[0x140 - 0x138];
-	Rva0004353CRow m_fadeRows[4][3];	// +0x140
-	char pad3C8[0x3C8 - 0x140 - 0x1B0];
-	Rva0004353CRow m_terrainRows[4][3];	// +0x3C8
-	char pad650[0x650 - 0x3C8 - 0x1B0];
-	Rva0004353CRow m_objectRows[4][3];	// +0x650
-	char pad8F8[0x8FC - 0x650 - 0x1B0];
-	Rva0004353CColor m_current[3];	// +0x8FC
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 class Display
 {
@@ -139,26 +119,26 @@ void Rva00043511::rva0004353C()
 		toWeight = swap;
 	}
 	int tod = TheWritableGlobalData->m_timeOfDay;
-	const Rva0004353CRow *fade = TheWritableGlobalData->m_fadeRows[tod];
-	const Rva0004353CRow *terrain = TheWritableGlobalData->m_terrainRows[tod];
-	const Rva0004353CRow *object = TheWritableGlobalData->m_objectRows[tod];
+	const GlobalData::TerrainLighting *fade = TheWritableGlobalData->m_terrainLighting[tod];
+	const GlobalData::TerrainLighting *terrain = TheWritableGlobalData->m_terrainObjectsLighting[tod];
+	const GlobalData::TerrainLighting *object = TheWritableGlobalData->field0650[tod];
 	for (int i = 0; 3 > i; ++i)
 	{
-		Rva0004353CColor blended;
-		blended.z = toWeight * fade[i].diffuse[2] + fromWeight * m_color[2];
-		blended.x = toWeight * fade[i].diffuse[0] + fromWeight * m_color[0];
-		blended.y = toWeight * fade[i].diffuse[1] + fromWeight * m_color[1];
+		RGBColor blended;
+		blended.blue = toWeight * fade[i].diffuse.blue + fromWeight * m_color[2];
+		blended.red = toWeight * fade[i].diffuse.red + fromWeight * m_color[0];
+		blended.green = toWeight * fade[i].diffuse.green + fromWeight * m_color[1];
 		Rva0004353CColor terrainColor;
-		terrainColor.z = toWeight * terrain[i].diffuse[2] + fromWeight * m_color[2];
-		terrainColor.x = toWeight * terrain[i].diffuse[0] + fromWeight * m_color[0];
-		terrainColor.y = toWeight * terrain[i].diffuse[1] + fromWeight * m_color[1];
+		terrainColor.z = toWeight * terrain[i].diffuse.blue + fromWeight * m_color[2];
+		terrainColor.x = toWeight * terrain[i].diffuse.red + fromWeight * m_color[0];
+		terrainColor.y = toWeight * terrain[i].diffuse.green + fromWeight * m_color[1];
 		Rva0004353CColor objectColor;
-		objectColor.z = toWeight * object[i].diffuse[2] + fromWeight * m_color[2];
-		objectColor.x = toWeight * object[i].diffuse[0] + fromWeight * m_color[0];
-		objectColor.y = toWeight * object[i].diffuse[1] + fromWeight * m_color[1];
+		objectColor.z = toWeight * object[i].diffuse.blue + fromWeight * m_color[2];
+		objectColor.x = toWeight * object[i].diffuse.red + fromWeight * m_color[0];
+		objectColor.y = toWeight * object[i].diffuse.green + fromWeight * m_color[1];
 		TheDisplay->setTerrainDiffuse(i, terrainColor.x, terrainColor.y, terrainColor.z);
 		TheDisplay->setObjectDiffuse(i, objectColor.x, objectColor.y, objectColor.z);
-		TheWritableGlobalData->m_current[i] = blended;
+		TheWritableGlobalData->m_terrainDiffuse[i] = blended;
 	}
 	if (TheTerrainRenderObject)
 		TheTerrainRenderObject->rva0006846A(tod);

@@ -49,7 +49,8 @@ public:
 	int updateFlatDXT1(WorldHeightMap *htMap, int xCell, int yCell, int cellWidth, int pixelsPerCell, int tileKind);
 	int updateCliff(TileData**,int,int,int,int);
 };
-class GlobalData {public:char unknown00[0x49];bool m_flag49;};extern GlobalData *TheWritableGlobalData;
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 struct IndexRecord36 {char unknown00[0x22];short indexWord;};
 struct TerrainTextureGridView {int unknown00,start,count,width;char unknown10[0x18];};
 class WorldHeightMap {public:
@@ -63,7 +64,7 @@ private:
 RefCountPtr<TextureClass> WorldHeightMap::rva000AEAA6(int,int,int,int selector) {
  RefCountPtr<TextureClass> &cached=m_cached[selector];
  if(cached.isValid())return RefCountPtr<TextureClass>(*(const AssetReference *)&cached);
- if(selector==1 && !TheWritableGlobalData->m_flag49)return RefCountPtr<TextureClass>((TextureClass*)0);
+ if(selector==1 && !TheWritableGlobalData->field0049)return RefCountPtr<TextureClass>((TextureClass*)0);
  if(m_records.size()<2)return RefCountPtr<TextureClass>((TextureClass*)0);
  int index=m_records[1].indexWord>>2;
  for(int i=0;i<m_numGrids;++i) {

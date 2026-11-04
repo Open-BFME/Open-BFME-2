@@ -100,14 +100,7 @@ public:
 
 #include "../../../../GameEngine/Include/Common/GameEngine.h"
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x40];
-	bool m_allowTreeFading;					// +0x40
-	unsigned char m_pad041[0xEB0 - 0x41];
-	unsigned char m_treeFadeObjectFilter;				// +0xEB0
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 class W3DShrubBuffer
 {
