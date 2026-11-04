@@ -56,12 +56,13 @@ template <> class Rva004C9CF7Slots<0>
 {
 };
 
-class Radar : public Rva004C9CF7Slots<12>
+class Rva004C9CF7RadarView : public Rva004C9CF7Slots<12>
 {
 public:
 	virtual Rva004C9B8F rva004C9CF7Slot12(const char *name) = 0;
 };
 
+class Radar;
 extern Radar *TheRadar;
 
 #include "../../../../Include/Common/DrawableModule.h"
@@ -111,7 +112,7 @@ void RadarMarkerClientUpdate::clientUpdate()
 		if (!TheRadar)
 			return;
 		const RadarMarkerClientUpdateModuleData *data = (const RadarMarkerClientUpdateModuleData *)m_moduleData;
-		m_marker = TheRadar->rva004C9CF7Slot12(data->m_markerType.str());
+		m_marker = ((Rva004C9CF7RadarView *)TheRadar)->rva004C9CF7Slot12(data->m_markerType.str());
 	}
 	((ProcessAnimateWindowSlideFromBottomTimed *)m_marker.get())->ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow((AnimateWindow *)draw->getPosition());
 }
