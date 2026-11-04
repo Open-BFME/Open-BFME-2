@@ -34,12 +34,8 @@ template <> struct less<AsciiString>
 };
 }
 
-class MapMetaData
-{
-public:
-	char m_pad[0x2C];
-	UnsignedInt m_CRC;
-};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 
 #include "../../Include/GameClient/MapCache.h"
 
