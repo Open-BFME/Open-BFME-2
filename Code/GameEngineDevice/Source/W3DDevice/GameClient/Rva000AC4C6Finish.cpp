@@ -9,28 +9,21 @@
 // loop, so the struct is result@+0, start@+4, extent@+8, size 0x28, and the
 // array base sits at this+0x80cc with the count at this+0x80c8.
 typedef int Int;
-class WorldHeightMap
-{
-public:
-	Int rva000AC4C6(Int coord);
-private:
-	struct E { Int result; Int start; Int extent; unsigned char pad[0x28-12]; };
-	unsigned char m_pad0[0x80c8];
-	Int m_intervalCount;
-	E m_intervals[1];
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 Int WorldHeightMap::rva000AC4C6(Int coord)
 {
+	struct E { Int result; Int start; Int extent; unsigned char pad[0x28-12]; };
+	E *intervals = reinterpret_cast<E *>(m_field80CC);
 	coord >>= 2;
-	Int count = m_intervalCount;
-	for (Int i = 0; i < count; ++i) {
-		Int *st = &m_intervals[i].start;
-		Int s = st[0];
+	Int intervalCount = m_numTextureClasses;
+	for (Int intervalIndex = 0; intervalIndex < intervalCount; ++intervalIndex) {
+		Int *intervalBounds = &intervals[intervalIndex].start;
+		Int s = intervalBounds[0];
 		if (s >= 0) {
 			if (coord >= s) {
-				Int top = s + st[1];
-				if (coord < top)
-					return m_intervals[i].result;
+				Int intervalEnd = s + intervalBounds[1];
+				if (coord < intervalEnd)
+					return intervals[intervalIndex].result;
 			}
 		}
 	}
