@@ -5,3 +5,4 @@ Completed: allocation and current-input planner checks passed; LinkGuard refused
 Remaining / next check: trace the provider and consumers for that COMDAT and verify the binding before attempting a new merge.
 Clearance: pending; the donor was not merged.
 Census confirmation: not claimed.
+2026-11-04 (claude): canonical-header adoptions let ImageCollectionDtor.cpp merge into Image.cpp (LINKS 1,210 -> 1,335). ImageCollectionFindImage.cpp now waits only on a census newer than the Rva0010461FCtor getName fix; the StlSweepW5Rva002D9186 `_M_erase` refusal above is unchanged. [Evidence](../../reverse/attempt_support/image-tu-merge-findimage-getname-20261104-claude.md).
