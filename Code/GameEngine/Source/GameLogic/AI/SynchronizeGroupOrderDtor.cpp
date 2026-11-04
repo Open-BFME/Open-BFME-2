@@ -2,7 +2,7 @@
 //
 // ??1SynchronizeGroupOrder@@UAE@XZ, retail 0x005468E1, 59 bytes.
 // SynchronizeGroupOrder destructor: reinstalls vtable 0x0086A314, destroys the +0x18
-// member through the rowed ??1Rva002EE9B7 (state 0), then calls the rowed
+// 12-byte member through the rowed ??1Rva002EE9B7 (state 0), then calls the rowed
 // base ??1GroupOrder at 0x00548948 (state -1). Layout from the
 // rowed ctor 0x00546982 in SynchronizeGroupOrder.cpp (GroupOrder base
 // 0x18, member at +0x18, bool at +0x24). Member is the opaque rowed tree/pool
@@ -20,7 +20,6 @@ public:
 
 private:
 	Rva002EE9B7 m_18; // +0x18
-	int m_pad20; // +0x20, set in the ctor TU is 12 bytes here
 	bool m_24; // +0x24
 };
 

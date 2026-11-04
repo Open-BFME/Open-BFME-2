@@ -39,6 +39,7 @@ typedef _STL::set<int> SetInt;
 Xfer *Rva002F1CDDXfer(Xfer *xfer, SetInt *set);
 
 #include "../../../Include/GameLogic/GroupOrder.h"
+#include "../../../Include/GameLogic/Rva002EE9B7.h"
 
 class SynchronizeGroupOrder : public GroupOrder
 {
@@ -48,7 +49,7 @@ public:
 	virtual void v02();
 	virtual void xfer(Xfer *xfer);
 private:
-	SetInt m_18;
+	Rva002EE9B7 m_18;
 	bool m_24;
 };
 
@@ -59,6 +60,6 @@ void SynchronizeGroupOrder::xfer(Xfer *xfer)
 	version.m_currentVersion = 1;
 	GroupOrder::xfer(xfer);
 	*xfer == version;
-	Rva002F1CDDXfer(xfer, &m_18);
+	Rva002F1CDDXfer(xfer, reinterpret_cast<SetInt *>(&m_18));
 	*xfer == m_24;
 }

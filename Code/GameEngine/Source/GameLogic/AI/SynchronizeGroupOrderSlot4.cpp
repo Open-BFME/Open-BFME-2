@@ -76,7 +76,7 @@ public:
 	virtual bool rva005468AB(int unused);
 	virtual unsigned int rva00546AC0(int val);
 private:
-	SetInt m_18; // +0x18
+	Rva002EE9B7 m_18; // +0x18, 12-byte rowed container view
 	bool m_24; // +0x24
 };
 
@@ -87,9 +87,9 @@ void SynchronizeGroupOrder::rva00546A78(int val)
 	if (m_18.empty())
 	{
 		for (int *p = m_04; p != m_08; ++p)
-			m_18.insert(*p);
+			reinterpret_cast<SetInt *>(&m_18)->insert(*p);
 	}
-	reinterpret_cast<Rva002EE9B7 *>(&m_18)->rva0046EDEF(val);
+	m_18.rva0046EDEF(val);
 }
 
 // ?rva005468AB@SynchronizeGroupOrder@@UAE_NH@Z @0x005468AB 16B: slot 5 of
@@ -107,5 +107,5 @@ bool SynchronizeGroupOrder::rva005468AB(int unused)
 // erase(const key &) 0x0046EDEF slot 4 uses, returning its count.
 unsigned int SynchronizeGroupOrder::rva00546AC0(int val)
 {
-	return reinterpret_cast<Rva002EE9B7 *>(&m_18)->rva0046EDEF(val);
+	return m_18.rva0046EDEF(val);
 }

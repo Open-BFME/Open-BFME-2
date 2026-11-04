@@ -24,6 +24,8 @@ STLport template copies). Single-donor TUs in the same set cannot merge at all
 (`blocked: no verified merge of two or more donors`): BoneFXDamage,
 LockWeaponCreate, SupplyWarehouseCreate, FunctionLexicon.
 
+2026-11-04 SynchronizeGroupOrder: member views now agree at +0x18/+0x24 (14/14 byte-matched; donor link predictions 259 -> 259); merge remains blocked on inheritance/virtual contracts and the constructor vtable provider. [Evidence and next check](../attempt_support/synchronize-group-order-container-20261104.md).
+
 Two concrete hand reconciles, both verified and both still short of a merge:
 
 - **AttackObjectGroupOrder** (16 approved rows, donors Ctor + Xfer, 3 mixed
