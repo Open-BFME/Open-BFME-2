@@ -1,0 +1,5 @@
+# W3DBuffBuffer consolidation trial (2026-11-04)
+
+Allocated destination: `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp`; `consolidation_queue.py --check-tu` passed. A fresh scoped planner and `--check build/consolidation` passed. The plan had 58 approved rows, two pull donors, four mixed files and one refused donor.
+
+The fresh merge dry run accepted no donors. `Rva000D3A8ACtor.cpp` fails because an `Rva000D3A8AElemB[10]` array cannot initialize `Rva000D3A17SetSlot *`; `Rva000D3A17Dtor.cpp` has one row not approved for this TU. Mixed-file split trials found no usable unchanged donor: `RvaTreeEraseClearFamily.cpp` has a missing `Rva000D...::m_tree` declaration; `Rva004ABFB2Method.cpp` and `stlport_asciistring_set_base.cpp` rows have no spelled definition; `RvaTreeEraseRangeFamily.cpp` would grow an escape-hatch count. No source changes or claims were made. Revisit only after the private view/identity prerequisites change; no source reduction or identity/link progress is claimed.
