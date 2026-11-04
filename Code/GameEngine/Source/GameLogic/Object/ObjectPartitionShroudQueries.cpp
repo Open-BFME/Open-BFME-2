@@ -54,15 +54,13 @@ private:
 
 extern PlayerList *ThePlayerList;
 
-class ShroudManager
+#include "../../../Include/Common/ShroudManagerClass.h"
+
+class ShroudManager::Data
 {
-public:
-	class Data
-	{
 	public:
 		char EverSeenByPlayer(int index);
 	};
-};
 
 class Rva008F7B00Unused {};
 class Rva008F7B00
