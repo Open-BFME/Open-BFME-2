@@ -24,3 +24,5 @@ sources remain outside this merge. No rejected donor was edited.
 Clearance: source consolidation and scoped byte/data/EH checks only. Full
 selected-consumer coverage and census confirmation remain open; no measured
 linked-byte or image-ownership gain is claimed.
+
+2026-11-04: canonical Vector3 adoption retires one header row and clears the performGlow merge's C2621 union blocker; the next prerequisite is DX8Wrapper declaration/access reconciliation (C2248 for performGlow, C2039 for setShroudTex). [Verification and remaining scope](../../reverse/attempt_support/w3dshader-vector3-adoption-20261104-codexb.md).
