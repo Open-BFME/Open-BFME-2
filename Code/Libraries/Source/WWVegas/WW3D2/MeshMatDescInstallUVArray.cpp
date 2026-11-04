@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
 // ?Install_UV_Array@MeshMatDescClass@@QAEXHHPAVVector2@@H@Z,
@@ -14,13 +14,10 @@
 // - Fresh install via plain operator new (matched ??2@YAPAXI@Z) + the
 //   ShareBufferClass<Vector2> base ctor (pinned @0xD1D33) + derived vptr +
 //   CRC(-1), inlined memcpy, inlined Update_CRC.
-// Dedicated TU: the shared header MeshMatDesc is 0xF4, retail is 0x118
-// (PostProcess precedent); this TU carries the 0x118 mirror (proven offsets:
-// UVSource at +0x30, Shader/ShaderArray at +0x98/+0xF8, Material/MaterialArray
-// at +0xA8/+0xE8, all from the landed sibling TUs).
+// Uses the canonical MeshMatDescClass.h layout (0x118); the +0xB8/+0x108
+// pass slots are its field_B8/field_108.
 
 #include <windows.h>
-#include <new>
 
 #include <string.h>
 
@@ -74,52 +71,28 @@ private:
 	unsigned CRC;
 };
 
-class MeshMatDescClass
+#include "MeshMatDescClass.h"
+
+inline int MeshMatDescClass::Get_UV_Array_Count(void)
 {
-public:
-	enum
-	{
-		MAX_PASSES = 4,
-		MAX_TEX_STAGES = 2,
-		MAX_UV_ARRAYS = MAX_PASSES * MAX_TEX_STAGES
-	};
-
-	void Install_UV_Array(int pass, int stage, Vector2 *uvs, int count);
-
-	int Get_UV_Array_Count(void)
-	{
-		int count = 0;
-		while ((UV[count] != NULL) && (count < MAX_UV_ARRAYS)) {
-			count++;
-		}
-		return count;
+	int count = 0;
+	while ((UV[count] != NULL) && (count < MAX_UV_ARRAYS)) {
+		count++;
 	}
+	return count;
+}
 
-	void Set_UV_Source(int pass, int stage, int sourceindex)
-	{
-		UVSource[pass][stage] = sourceindex;
-	}
-
-private:
-	char m_pad0[0x10];
-	UVBufferClass *UV[MAX_UV_ARRAYS];
-	int UVSource[MAX_PASSES][MAX_TEX_STAGES];
-	char m_pad1[0xB8 - 0x50];
-	// Pass-indexed slots at +0xB8/+0x108 (true identity open): when either is
-	// set for the pass, retail skips the CRC-dedup scan and allocates fresh.
-	void *m_dedupBypassA[MAX_PASSES];
-	char m_pad2[0x108 - 0xC8];
-	void *m_dedupBypassB[MAX_PASSES];
-};
-
-typedef char MeshMatDescSizeCheck[sizeof(MeshMatDescClass) == 0x118 ? 1 : -1];
+inline void MeshMatDescClass::Set_UV_Source(int pass, int stage, int sourceindex)
+{
+	UVSource[pass][stage] = sourceindex;
+}
 
 // ?Install_UV_Array@MeshMatDescClass@@QAEXHHPAVVector2@@H@Z
 void MeshMatDescClass::Install_UV_Array(int pass, int stage, Vector2 *uvs, int count)
 {
 	unsigned int crc = CRC_Memory((const unsigned char *)uvs, count * sizeof(Vector2), 0);
 
-	if (m_dedupBypassA[pass] == NULL && m_dedupBypassB[pass] == NULL) {
+	if (field_B8[pass] == NULL && field_108[pass] == NULL) {
 		for (int i = 0; i < Get_UV_Array_Count(); i++) {
 			if (UV[i]->Get_CRC() == crc) {
 				Set_UV_Source(pass, stage, i);
@@ -137,7 +110,7 @@ void MeshMatDescClass::Install_UV_Array(int pass, int stage, Vector2 *uvs, int c
 		UV[new_index] = new UVBufferClass(count, "MeshMatDescClass::UV");
 		memcpy(UV[new_index]->Get_Array(), uvs, count * sizeof(Vector2));
 		UV[new_index]->Update_CRC();
-		if (m_dedupBypassA[pass] == NULL && m_dedupBypassB[pass] == NULL) {
+		if (field_B8[pass] == NULL && field_108[pass] == NULL) {
 			Set_UV_Source(pass, stage, new_index);
 		}
 	}
