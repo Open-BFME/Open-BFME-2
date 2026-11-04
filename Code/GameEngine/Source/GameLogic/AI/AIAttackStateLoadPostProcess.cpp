@@ -12,12 +12,7 @@
 class Team;
 enum WeaponSlotType { WEAPON_SLOT_TYPE_UNSPECIFIED = 0 };
 
-class WeaponTemplate
-{
-public:
-    char m_unrecovered00[8];
-    AsciiString m_name;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 // Slot 2 of the retail tables is the class-name getter.
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -56,7 +51,7 @@ void AIAttackState::loadPostProcess()
     if (reinterpret_cast<const Rva0028B7B5CmpBoolField *>(owner)->get()
         && owner->getCurrentWeapon(0))
     {
-        m_lockedWeaponOnEnter = owner->getCurrentWeapon(0)->m_template->m_name;
+        m_lockedWeaponOnEnter = *(const AsciiString *)&owner->getCurrentWeapon(0)->m_template->m_field08;
     }
     else
     {
