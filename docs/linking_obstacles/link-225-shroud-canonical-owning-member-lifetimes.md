@@ -1,4 +1,4 @@
-### LINK-224: Shroud canonical view lacks owning-member lifetimes
+### LINK-225: Shroud canonical view lacks owning-member lifetimes
 
 Status: Blocked for the owning constructor; six caller views repaired locally.
 Updated:2026-11-04; inspected revision `821be0eb4735c240b9da490d9084fd537b6e4813`.
@@ -18,3 +18,8 @@ verified holder-cleanup repoint: it concerns adopting the full owning class.
 [Member-lifetime prerequisite](../../reverse/attempt_support/shroud-owning-member-prerequisite-20261104-1105.md).
 [Scoped batch proof](../../reverse/attempt_support/shroud-batch-20261104-1105.md).
 Census confirmation and full-image linking: not claimed.
+
+
+#### Batch1105 affected-consumer audit
+
+The native audit result is INCONCLUSIVE; affected consumer closure is not fully verified. No full-image or runtime proof follows from unchanged object contents. See [combined audit](../../reverse/attempt_support/header-cleanup-audit-20261104-1105.md).

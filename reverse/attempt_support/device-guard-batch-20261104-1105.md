@@ -21,7 +21,7 @@ W3DFloorBuffer.cpp has a real pointer member. Neither is treated as empty.
 
 W3DShroud.cpp participates only for its independent empty device guard. Its
 private Shroud owner and automatic texture/counting/tree member lifetimes stay
-unchanged and blocked as documented in LINK-224. BaseHeightMapInitHeightData.cpp
+unchanged and blocked as documented in LINK-225. BaseHeightMapInitHeightData.cpp
 is processed after its separate Shroud header adoption. Counts in the two
 cohorts overlap for this source and must not be added as unique native rows.
 
