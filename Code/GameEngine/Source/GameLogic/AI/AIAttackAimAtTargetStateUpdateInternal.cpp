@@ -68,14 +68,7 @@ class Rva002C9400ByteField
 public:
 	unsigned char get() const; // 0x002C9400
 };
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const; // 0x0047A699
-	unsigned char m_pad00[0x2C];
-	Real m_aimDelta; // +0x2C
-	Real m_aimOffset; // +0x30
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 // The vision-range reach test 0x0028F326, pinned under this view.
 class Rva0028F326Owner
@@ -276,7 +269,7 @@ StateReturnType AIAttackAimAtTargetState::updateInternal(Bool stopBeforeAim)
 			source->m_1c0 = source->getOrientation();
 	}
 	if (weapon) {
-		Real aimOffset = weapon->getTemplate()->m_aimOffset;
+		Real aimOffset = weapon->getTemplate()->m_field30;
 		if (aimOffset > 0.0f)
 			relAngle = normalizeAngle(relAngle - aimOffset);
 	}
