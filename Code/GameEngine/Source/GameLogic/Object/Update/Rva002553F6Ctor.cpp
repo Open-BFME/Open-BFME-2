@@ -24,14 +24,7 @@ private:
 	unsigned char m_data[0x1C];
 };
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_data[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 class Rva002553F6
 {

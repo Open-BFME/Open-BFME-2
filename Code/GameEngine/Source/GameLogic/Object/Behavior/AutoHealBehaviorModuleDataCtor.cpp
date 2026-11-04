@@ -9,14 +9,7 @@
 
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_data[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
 // Init-list setup-hoist scaffolding: deriving gives the +8 region an inline
 // ctor whose construct call stays in init position while the lea setup
