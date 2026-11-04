@@ -45,42 +45,23 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void rva00507877();
-private:
-	UpgradeMaskType m_bits04;
-	UpgradeMaskType m_bits84;
-	unsigned char m_pad104[0x108 - 0x104];
-	_STL::vector<AsciiString> m_vec108;
-	_STL::vector<AsciiString> m_vec114;
-	unsigned m_filter120;
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 void Rva00507823::rva00507877()
 {
 	_STL::vector<AsciiString>::const_iterator it;
-	for (it = m_vec108.begin(); it != m_vec108.end(); ++it)
+	for (it = reinterpret_cast<_STL::vector<AsciiString> &>(m_storage108).begin(); it != reinterpret_cast<_STL::vector<AsciiString> &>(m_storage108).end(); ++it)
 	{
 		const UpgradeTemplate *theTemplate = TheUpgradeCenter->findUpgrade(*it);
 		if (theTemplate)
-			m_bits04.set(theTemplate->getUpgradeMask());
+			reinterpret_cast<UpgradeMaskType &>(m_mask04).set(theTemplate->getUpgradeMask());
 	}
-	for (it = m_vec114.begin(); it != m_vec114.end(); ++it)
+	for (it = reinterpret_cast<_STL::vector<AsciiString> &>(m_storage114).begin(); it != reinterpret_cast<_STL::vector<AsciiString> &>(m_storage114).end(); ++it)
 	{
 		const UpgradeTemplate *theTemplate = TheUpgradeCenter->findUpgrade(*it);
 		if (theTemplate)
-			m_bits84.set(theTemplate->getUpgradeMask());
+			reinterpret_cast<UpgradeMaskType &>(m_mask84).set(theTemplate->getUpgradeMask());
 	}
-	m_vec108.clear();
-	m_vec114.clear();
+	reinterpret_cast<_STL::vector<AsciiString> &>(m_storage108).clear();
+	reinterpret_cast<_STL::vector<AsciiString> &>(m_storage114).clear();
 }

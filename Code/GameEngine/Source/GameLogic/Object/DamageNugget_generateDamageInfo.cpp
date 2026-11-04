@@ -129,18 +129,13 @@ template <class T> T clamp(T lo, T value, T hi)
  else
   return value;
 }
-class Rva00507823
-{
-public:
- virtual ~Rva00507823();
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 class DamageNugget : public Rva00507823
 {
 public:
 private:
  bool generateDamageInfo(void *weapon, Object *target, DamageInfo *info, bool flag, const Coord3D *position);
 private:
- unsigned char pad04[0x128 - 4];
  float damage128;
  float minDamage12C;
  float maxRadius130;

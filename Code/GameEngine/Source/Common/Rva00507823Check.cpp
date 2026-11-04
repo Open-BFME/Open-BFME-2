@@ -56,16 +56,7 @@ struct Rva00507558Arg
 	ObjectID m_id08;
 };
 
-class Rva00507823
-{
-public:
-	unsigned char rva00507558(const void *arg);
-	unsigned char rva0050774A(const void *arg, int unused);
-private:
-	char m_pad00[4];
-	_STL::_Base_bitset<32> m_need04;
-	_STL::_Base_bitset<32> m_ban84;
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 unsigned char Rva00507823::rva00507558(const void *arg)
 {
@@ -74,11 +65,11 @@ unsigned char Rva00507823::rva00507558(const void *arg)
 		return false;
 	Object *obj = TheGameLogic->findObjectByID(holder->m_id08);
 	if (!obj)
-		return !m_need04._M_is_any();
+		return !reinterpret_cast<const _STL::_Base_bitset<32> &>(m_mask04)._M_is_any();
 	BfmeFixedStorage128 tmp(obj->m_mask284);
 	Player *player = obj->getControllingPlayer();
 	((_STL::_Base_bitset<32> &)tmp)._M_do_or((const _STL::_Base_bitset<32> &)player->m_mask13c);
-	return ((const Rva0033A453 &)tmp).rva0033A453(&m_need04, &m_ban84) != 0;
+	return ((const Rva0033A453 &)tmp).rva0033A453(&m_mask04, &m_mask84) != 0;
 }
 
 unsigned char Rva00507823::rva0050774A(const void *arg, int unused)
