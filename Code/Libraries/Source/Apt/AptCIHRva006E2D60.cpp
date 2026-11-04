@@ -51,35 +51,18 @@ struct AptCharacterSpriteInstBase
 struct Rva006E1090Target { unsigned char prefix[0x1c]; AptDisplayList list; };
 class Rva006DBB30SarDwordField { public: int get() const; };
 
-class AptValue
-{
-public:
-	bool isUndefined() const;
-};
+#include "AptCIHClass.h"
 
-class AptCIH : public AptValue
+static __forceinline bool cihIsEditText(const AptCIH *cih)
 {
-public:
-	bool IsSpriteInstBase() const;
-	__forceinline bool isEditText() const
-	{
-		if (!this) {
-			g_bfmeAptAssertAtE17734("this", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xb5);
-			if (g_bfmeAptBreakOnAssertAtDDC01C)
-				__debugbreak();
-		}
-		return ((const Rva006DBB30SarDwordField *)this)->get() == 0xe && !isUndefined();
+	if (!cih) {
+		g_bfmeAptAssertAtE17734("this", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xb5);
+		if (g_bfmeAptBreakOnAssertAtDDC01C)
+			__debugbreak();
 	}
-	bool isButton() const { return ((const Rva006DBB30SarDwordField *)this)->get() == 0x12 && !isUndefined(); }
-	void jumpToFrame(int);
-	int rva006E1F90(int);
-	bool queueClipEvents(int, int, int);
-	void *rva006E1090() const;
-	void rva006E2D60();
-
-	unsigned char prefix[0x4c];
-	AptCharacterSpriteInstBase *character;
-};
+	return ((const Rva006DBB30SarDwordField *)cih)->get() == 0xe && !cih->isUndefined();
+}
+static inline bool cihIsButton(const AptCIH *cih) { return ((const Rva006DBB30SarDwordField *)cih)->get() == 0x12 && !cih->isUndefined(); }
 
 void AptCIH::rva006E2D60()
 {
@@ -89,7 +72,7 @@ void AptCIH::rva006E2D60()
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();
 		}
-		AptCharacterSpriteInstBase *sprite = character;
+		AptCharacterSpriteInstBase *sprite = (AptCharacterSpriteInstBase *)field4C;
 		sprite->mnGotoAnded = 0;
 		if (sprite->playing) {
 			if (sprite->mode == 1)
@@ -113,7 +96,7 @@ void AptCIH::rva006E2D60()
 			sprite->mnGotoAnded = sprite->mnFrame;
 		}
 	events:
-		if (!sprite->latched || isButton()) {
+		if (!sprite->latched || cihIsButton(this)) {
 			if (rva006E1F90(2))
 				queueClipEvents(2, g_00E17704, 1);
 		}
@@ -122,7 +105,7 @@ void AptCIH::rva006E2D60()
 			sprite->latched = 0;
 		}
 		sprite->display.rva006F7A30();
-	} else if (isEditText()) {
+	} else if (cihIsEditText(this)) {
 		Rva006E1090Target *target = (Rva006E1090Target *)rva006E1090();
 		target->list.rva006F7A30();
 	}
