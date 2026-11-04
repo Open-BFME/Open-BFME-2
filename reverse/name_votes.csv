@@ -23672,3 +23672,7 @@ Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp|member|Rva0009ACB8|m_pC0
 Code/GameEngine/Source/GameClient/FXParticleSystemLineXfer.cpp|member|Rva0055CD38|m_24,1b1eaa82e40bd9e2c596b982,claude-opus-5-5,claude3-20261104-015631-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/FXParticleSystemLineXfer.cpp|member|Rva0055CD38|m_30,36f16b9f4f136194bc2741bd,claude-opus-5-5,claude3-20261104-015631-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/Rva002237C7.cpp|function|0x002237C7|rva002237C7,5e274d0d5b3e9abc5d2220cd,claude-opus-5-5,claude3-20261104-015631-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp|global||g_00C43D24,30cc76477de8351da92420e0,claude-opus-5-5,claude3-20261104-022115-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva004FD37F.cpp|function|0x004FD37F|rva004FD37F,d9838f82a02c697de909777f,claude-opus-5-5,claude3-20261104-022115-6,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva00418C33Insert.cpp|function|0x00418C33|rva00418C33,6a46e061acd3c02b844cbc87,claude-opus-5-5,claude3-20261104-022115-8,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp|global||g_00E01E04,58f9703ae87ca4205879cd16,claude-opus-5-5,claude3-20261104-022115-10,w-29a6ae2a2f9f,2026-11-04
