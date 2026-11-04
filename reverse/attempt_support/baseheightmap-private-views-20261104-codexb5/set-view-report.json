@@ -1,0 +1,75 @@
+{
+  "tu": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+  "seed": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+  "applied": [
+    "Rva0006C995",
+    "AssetList00208F90"
+  ],
+  "failed": {},
+  "classes": {
+    "Rva0006C995": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ],
+      "notes": [
+        "sizeof 0x14 from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp; Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (0x1) stop at their last field"
+      ],
+      "renames": {},
+      "fields": [
+        [
+          "0x00",
+          12,
+          "m_set",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp"
+        ],
+        [
+          "0x10",
+          1,
+          "m_flag",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp"
+        ]
+      ],
+      "block": "class Rva0006C995\n{\npublic:\n\tRva0006C995 *rva0006C995(Rva001408C0Target *p);\nprivate:\n\t_STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > m_set; // +0x00\n\tchar m_pad0C[0x4];\n\tunsigned char m_flag; // +0x10\n\tchar m_pad11[0x3];\n};\n",
+      "files_changed": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ]
+    },
+    "AssetList00208F90": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ],
+      "notes": [],
+      "renames": {},
+      "fields": [
+        [
+          "0x00",
+          12,
+          "m_prototypes",
+          "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp"
+        ],
+        [
+          "0x0C",
+          4,
+          "m_treeLayoutPad",
+          "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp"
+        ],
+        [
+          "0x10",
+          1,
+          "m_changed",
+          "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp"
+        ]
+      ],
+      "block": "struct AssetList00208F90\n{\npublic:\n\t// ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z\n\tAssetList00208F90 &operator=(const AssetList00208F90 &other)\n\t{\n\t\tm_prototypes = other.m_prototypes;\n\t\tm_treeLayoutPad = other.m_treeLayoutPad;\n\t\tm_changed = other.m_changed;\n\t\treturn *this;\n\t}\n\tAssetList00208F90 &operator <<(const AsciiString &name);\n\tAssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}\n\t_STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > m_prototypes; // +0x00\n\tunsigned int m_treeLayoutPad; // +0x0C\n\tbool m_changed; // +0x10\n\tchar m_pad11[0x3];\n};\n",
+      "files_changed": [
+        "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ]
+    }
+  }
+}

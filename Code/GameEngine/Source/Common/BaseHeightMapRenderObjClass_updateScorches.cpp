@@ -54,13 +54,10 @@ class Rva0006653B
 }
 ;
 class Gen_0074B410
-
 {
- public:
- bool bfmeBitA(int x, int y) const;
- 
-}
-;
+public:
+	bool bfmeBitA(int x, int y) const;
+};
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 struct BFMEScorchEntry
 

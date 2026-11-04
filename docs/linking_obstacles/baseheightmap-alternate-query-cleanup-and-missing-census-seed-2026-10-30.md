@@ -14,3 +14,5 @@ and missing current receipt for Common/0CreateAHeroManager21FE49.cpp. Carry
 the removed provider/literals and affected consumers into the next scheduled
 census. No census gain or seed linking clearance is claimed.
 [Verification, counter retirement and merge blocker](../../reverse/attempt_support/baseheightmap-query-cleanup-20261030-bce2/README.md).
+
+2026-11-04: the current index previews the seed and all 42 family units linking; four private views are reconciled. Next: preserve BoundedShortGrid's out-of-line binding and finish canonical/private-view prerequisites before rerunning the supported merge; [verification and remaining scope](../../reverse/attempt_support/baseheightmap-private-views-20261104-codexb5/README.md). No census gain or completed merge is claimed.

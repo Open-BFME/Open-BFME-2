@@ -1,0 +1,11 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Funclet pins: 6 row(s) verified past a renumbered $L label
+    $L5378 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp): $L5378 was renumbered; verified parent EH data places $L7222 at 0x0075EAC6
+    Unwind@00b5eab6 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp): $L5076 was renumbered; verified parent EH data places $L7220 at 0x0075EAB6
+    Unwind@00b5eabe (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp): $L5077 was renumbered; verified parent EH data places $L7221 at 0x0075EABE
+    Unwind@00b5eace (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp): $L5079 was renumbered; verified parent EH data places $L7223 at 0x0075EACE
+    Unwind@00b5ead6 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp): $L5080 was renumbered; verified parent EH data places $L7224 at 0x0075EAD6
+Functions: OK 9/9 matched across 2 source file(s)
+String-ref verify: OK (1 literals + 2 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (2 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

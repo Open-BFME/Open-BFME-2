@@ -109,13 +109,34 @@ void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 struct Rva001408C0Target;
-struct AssetList00208F90 {
- AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}
- std::set<Rva001408C0Target*> m_prototypes;
- unsigned int m_treeLayoutPad;bool m_changed;
- AssetList00208F90&operator<<(const AsciiString&);
+struct AssetList00208F90
+{
+public:
+	AssetList00208F90 &operator=(const AssetList00208F90 &other)
+	{
+		m_prototypes = other.m_prototypes;
+		m_treeLayoutPad = other.m_treeLayoutPad;
+		m_changed = other.m_changed;
+		return *this;
+	}
+	// ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z
+	AssetList00208F90 &operator <<(const AsciiString &name);
+	AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}
+	_STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > m_prototypes; // +0x00
+	unsigned int m_treeLayoutPad; // +0x0C
+	bool m_changed; // +0x10
+	char m_pad11[0x3];
 };
-class Rva0006C995 {public:Rva0006C995*rva0006C995(Rva001408C0Target*);};
+class Rva0006C995
+{
+public:
+	Rva0006C995 *rva0006C995(Rva001408C0Target *p);
+private:
+	_STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > m_set; // +0x00
+	char m_pad0C[0x4];
+	unsigned char m_flag; // +0x10
+	char m_pad11[0x3];
+};
 void bfmeMergeReceiverKeys(int);
 class BfmeDynamicNativeVB;
 class DX8IndexBufferClass;

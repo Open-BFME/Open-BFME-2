@@ -188,8 +188,11 @@ enum ObjectID
 	FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff
 };
 
+class BaseHeightMapRenderObjClass;
 class W3DBibBuffer
 {
+private:
+	friend class BaseHeightMapRenderObjClass;
 public:
 	void addBibDrawable(Vector3 corners[4], DrawableID id, bool highlight);
 	void removeHighlighting();
@@ -197,6 +200,13 @@ public:
 	void removeBib(ObjectID id);
 	void removeBibDrawable(DrawableID id);
 	void addBib(Vector3 corners[4], ObjectID id, bool highlight);
+protected:
+	void freeBibBuffers();
+	void allocateBibBuffers();
+public:
+	W3DBibBuffer();
+	~W3DBibBuffer();
+	char data[68048]; // +0x00
 };
 
 class Rva0006840A
@@ -357,7 +367,6 @@ private:
 	W3DPropBuffer *m_3858;
 };
 
-class BaseHeightMapRenderObjClass;
 
 class DX8Wrapper
 {
@@ -610,8 +619,6 @@ private:
 // The ICF-folded empty body at 0x000B3FD0 (EmptyFoldTwins.cpp).
 struct Rva001408C0Target { int x; };
 
-typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > PtrSet001408C0;
-
 void *bfmeGoEMEb(void *item);
 
 class Rva0006C995
@@ -619,9 +626,10 @@ class Rva0006C995
 public:
 	Rva0006C995 *rva0006C995(Rva001408C0Target *p);
 private:
-	PtrSet001408C0 m_set;
-	char m_pad0C[4];
-	unsigned char m_flag;
+	_STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > m_set; // +0x00
+	char m_pad0C[0x4];
+	unsigned char m_flag; // +0x10
+	char m_pad11[0x3];
 };
 
 template void _STL::vector<bool>::clear();

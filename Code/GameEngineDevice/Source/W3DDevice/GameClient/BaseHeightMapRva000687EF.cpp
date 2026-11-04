@@ -20,7 +20,11 @@ class Rva0006653B {public:
  }
  char pad00[8];int width,height,border;char pad14[0x24-0x14];unsigned short*heights;
 };
-class Gen_0074B410 {public:bool bfmeBitA(int,int)const;};
+class Gen_0074B410
+{
+public:
+	bool bfmeBitA(int x, int y) const;
+};
 struct ProjectionMap687EF {char pad00[8];int width,height,border;};
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct ProjectionGlobal687EF {char pad00[0x61];bool enabled61;};

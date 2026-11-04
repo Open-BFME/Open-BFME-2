@@ -32,19 +32,11 @@ namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_pro
 
 
 struct Rva001408C0Target;
-typedef Rva001408C0Target *Rva001408C0Key;
-typedef _STL::set<Rva001408C0Key, _STL::less<Rva001408C0Key>,
-	_STL::allocator<Rva001408C0Key> > Rva001408C0Set;
-
 void *bfmeGoEMEb(void *name);
 
 struct AssetList00208F90
 {
-	Rva001408C0Set m_prototypes;
-	unsigned int m_treeLayoutPad;
-	bool m_changed;
-
-	// ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z
+public:
 	AssetList00208F90 &operator=(const AssetList00208F90 &other)
 	{
 		m_prototypes = other.m_prototypes;
@@ -52,8 +44,13 @@ struct AssetList00208F90
 		m_changed = other.m_changed;
 		return *this;
 	}
-
+	// ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z
 	AssetList00208F90 &operator <<(const AsciiString &name);
+	AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}
+	_STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > m_prototypes; // +0x00
+	unsigned int m_treeLayoutPad; // +0x0C
+	bool m_changed; // +0x10
+	char m_pad11[0x3];
 };
 
 

@@ -1,0 +1,157 @@
+{
+  "tu": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+  "seed": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+  "applied": [
+    "W3DBibBuffer",
+    "Gen_0074B410"
+  ],
+  "failed": {
+    "Rva0006C995": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp does not compile with the block: reference\\shims\\bfme2_ascii\\ascii_string.h(72) : see reference to class template instantiation 'CharSource<T>' being compiled | with | [ | T=char | ] | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(123) : error C2501: 'Rva0006C995::PtrSet001408C0' : missing storage-class or type specifiers | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(123) : error C2501: 'Rva0006C995::m_set' : missing storage-class or type specifiers | compile failed: Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "BoundedShortGrid": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp: the rewrite changes the object's external symbols (lost ['?load@BoundedShortGrid@@QAEFHH@Z'], gained ['?load@BoundedShortGrid@@QAEFHH@Z'])",
+    "AssetList00208F90": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp does not compile with the block: reference\\shims\\bfme2_ascii\\ascii_string.h(72) : see reference to class template instantiation 'CharSource<T>' being compiled | with | [ | T=char | ] | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(125) : error C2501: 'AssetList00208F90::Rva001408C0Set' : missing storage-class or type specifiers | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(125) : error C2501: 'AssetList00208F90::m_prototypes' : missing storage-class or type specifiers | compile failed: Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+  },
+  "classes": {
+    "W3DBibBuffer": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp"
+      ],
+      "notes": [
+        "sizeof 0x109D0 from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp; Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp (0x1), Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (0x1), Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp (0x1), Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp (0x1) stop at their last field",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp gets class BaseHeightMapRenderObjClass;",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp gets enum DrawableID{...}; enum ObjectID{...}; class Vector3;",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp gets enum DrawableID{...}; enum ObjectID{...}; class Vector3; class BaseHeightMapRenderObjClass;",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp gets enum DrawableID{...}; enum ObjectID{...}; class Vector3; class BaseHeightMapRenderObjClass;",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp gets enum DrawableID{...}; enum ObjectID{...}; class Vector3;"
+      ],
+      "renames": {},
+      "fields": [
+        [
+          "0x00",
+          68048,
+          "data",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp"
+        ]
+      ],
+      "block": "class W3DBibBuffer\n{\nprivate:\n\tfriend class BaseHeightMapRenderObjClass;\npublic:\n\tvoid addBibDrawable(Vector3 corners[4], DrawableID id, bool highlight);\n\tvoid removeHighlighting();\n\tvoid clearAllBibs();\n\tvoid removeBib(ObjectID id);\n\tvoid removeBibDrawable(DrawableID id);\n\tvoid addBib(Vector3 corners[4], ObjectID id, bool highlight);\nprotected:\n\tvoid freeBibBuffers();\n\tvoid allocateBibBuffers();\npublic:\n\tW3DBibBuffer();\n\t~W3DBibBuffer();\n\tchar data[68048]; // +0x00\n};\n",
+      "files_changed": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+      ]
+    },
+    "Rva0006C995": {
+      "status": "reverted",
+      "files": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ],
+      "notes": [
+        "sizeof 0x14 from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp; Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (0x1) stop at their last field"
+      ],
+      "renames": {},
+      "fields": [
+        [
+          "0x00",
+          12,
+          "m_set",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp"
+        ],
+        [
+          "0x10",
+          1,
+          "m_flag",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp"
+        ]
+      ],
+      "block": "class Rva0006C995\n{\npublic:\n\tRva0006C995 *rva0006C995(Rva001408C0Target *p);\nprivate:\n\tPtrSet001408C0 m_set; // +0x00\n\tchar m_pad0C[0x4];\n\tunsigned char m_flag; // +0x10\n\tchar m_pad11[0x3];\n};\n",
+      "why": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp does not compile with the block: reference\\shims\\bfme2_ascii\\ascii_string.h(72) : see reference to class template instantiation 'CharSource<T>' being compiled | with | [ | T=char | ] | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(123) : error C2501: 'Rva0006C995::PtrSet001408C0' : missing storage-class or type specifiers | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(123) : error C2501: 'Rva0006C995::m_set' : missing storage-class or type specifiers | compile failed: Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+    },
+    "BoundedShortGrid": {
+      "status": "reverted",
+      "files": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ],
+      "notes": [
+        "sizeof 0x28 from Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp; Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp (0x1), Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp (0x1) stop at their last field"
+      ],
+      "renames": {},
+      "fields": [
+        [
+          "0x08",
+          4,
+          "m_stride",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+        ],
+        [
+          "0x20",
+          4,
+          "m_capacity",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+        ],
+        [
+          "0x24",
+          4,
+          "m_data",
+          "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+        ]
+      ],
+      "block": "class BoundedShortGrid\n{\npublic:\n\tshort load(int a,int b){int idx=m_stride*b+a;if(idx<0)return 0;if(idx>=m_capacity)return 0;if(m_data)return m_data[idx];return 0;}\n\tchar m_pad00[0x8];\n\tint m_stride; // +0x08\n\tchar m_pad0C[0x14];\n\tint m_capacity; // +0x20\n\tshort *m_data; // +0x24\n};\n",
+      "why": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp: the rewrite changes the object's external symbols (lost ['?load@BoundedShortGrid@@QAEFHH@Z'], gained ['?load@BoundedShortGrid@@QAEFHH@Z'])"
+    },
+    "Gen_0074B410": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+      ],
+      "notes": [],
+      "renames": {},
+      "fields": [],
+      "block": "class Gen_0074B410\n{\npublic:\n\tbool bfmeBitA(int x, int y) const;\n};\n",
+      "files_changed": [
+        "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp"
+      ]
+    },
+    "AssetList00208F90": {
+      "status": "reverted",
+      "files": [
+        "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+      ],
+      "notes": [],
+      "renames": {},
+      "fields": [
+        [
+          "0x00",
+          12,
+          "m_prototypes",
+          "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp"
+        ],
+        [
+          "0x0C",
+          4,
+          "m_treeLayoutPad",
+          "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp"
+        ],
+        [
+          "0x10",
+          1,
+          "m_changed",
+          "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp"
+        ]
+      ],
+      "block": "struct AssetList00208F90\n{\npublic:\n\t// ??6AssetList00208F90@@QAEAAU0@ABVAsciiString@@@Z\n\tAssetList00208F90 &operator=(const AssetList00208F90 &other)\n\t{\n\t\tm_prototypes = other.m_prototypes;\n\t\tm_treeLayoutPad = other.m_treeLayoutPad;\n\t\tm_changed = other.m_changed;\n\t\treturn *this;\n\t}\n\tAssetList00208F90 &operator <<(const AsciiString &name);\n\tAssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}\n\tRva001408C0Set m_prototypes; // +0x00\n\tunsigned int m_treeLayoutPad; // +0x0C\n\tbool m_changed; // +0x10\n\tchar m_pad11[0x3];\n};\n",
+      "why": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp does not compile with the block: reference\\shims\\bfme2_ascii\\ascii_string.h(72) : see reference to class template instantiation 'CharSource<T>' being compiled | with | [ | T=char | ] | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(125) : error C2501: 'AssetList00208F90::Rva001408C0Set' : missing storage-class or type specifiers | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\BaseHeightMapInitHeightData.cpp(125) : error C2501: 'AssetList00208F90::m_prototypes' : missing storage-class or type specifiers | compile failed: Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+    }
+  }
+}

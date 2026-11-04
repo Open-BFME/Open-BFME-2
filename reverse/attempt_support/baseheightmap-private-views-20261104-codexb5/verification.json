@@ -1,0 +1,173 @@
+[
+  {
+    "log": "build.log",
+    "command": [
+      "bash",
+      "./build.sh",
+      "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+      "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "unmatched.log",
+    "command": [
+      "/opt/venv/bin/python3",
+      "tools/find_declared_unmatched.py",
+      "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+      "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "family-link-after.log",
+    "command": [
+      "/opt/venv/bin/python3",
+      "tools/link_check.py",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva0006692C.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEstimateMaxHeightAlongLine.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCheckCorners.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapLoadRoadsAndBridges.cpp",
+      "Code/GameEngine/Source/Common/Rva00067878Clear.cpp",
+      "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddScorch.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapMoveTree.cpp",
+      "Code/GameEngine/Source/Common/Rva00068073Bodies.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+      "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClassRva0006846A.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawAuxiliary.cpp",
+      "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp",
+      "Code/GameEngine/Source/Common/Rva0006B76CMethod.cpp",
+      "Code/GameEngine/Source/Common/Rva0006B7BFMethod.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp",
+      "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+      "Code/GameEngine/Source/Common/Thing/ThingTemplateAssetListCleanup.cpp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "ledger.log",
+    "command": [
+      "/opt/venv/bin/python3",
+      "tools/check_csv.py"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "format-build.log",
+    "command": [
+      "bash",
+      "./build.sh",
+      "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "format-unmatched.log",
+    "command": [
+      "/opt/venv/bin/python3",
+      "tools/find_declared_unmatched.py",
+      "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "family-link-after.log",
+    "command": [
+      "/opt/venv/bin/python3",
+      "tools/link_check.py",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAdjustTerrainLOD.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva0006692C.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEstimateMaxHeightAlongLine.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEvaluateVisibleCliff.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCheckCorners.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapLoadRoadsAndBridges.cpp",
+      "Code/GameEngine/Source/Common/Rva00067878Clear.cpp",
+      "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddScorch.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapMoveTree.cpp",
+      "Code/GameEngine/Source/Common/Rva00068073Bodies.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddTree.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp",
+      "Code/GameEngine/Source/Common/BaseHeightMapRenderObjClassRva0006846A.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapNotifyAdded.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapXfer.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva000687EF.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawScorches.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDoTheLight.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchOverlap.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva00069CE6.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapDrawAuxiliary.cpp",
+      "Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapScorchResources.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetStaticDiffuse.cpp",
+      "Code/GameEngine/Source/Common/Rva0006B76CMethod.cpp",
+      "Code/GameEngine/Source/Common/Rva0006B7BFMethod.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_Rva0006B804.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapVisibleCellQueries.cpp",
+      "Code/GameEngine/Source/Common/Rva00208F90AssetWalk_Rva0006C950.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0006D0D7Dtor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapUpdateViewImpassable.cpp",
+      "Code/GameEngine/Source/Common/Thing/ThingTemplateAssetListCleanup.cpp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "log": "whitespace.log",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0
+  }
+]

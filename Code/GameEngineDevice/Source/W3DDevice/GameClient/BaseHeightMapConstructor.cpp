@@ -59,7 +59,37 @@ public:
 	W3DPropBuffer();
 	char data[194344]; // +0x00
 };
-class W3DBibBuffer {public:W3DBibBuffer();char data[68048];};
+enum DrawableID
+{
+	INVALID_DRAWABLE_ID = 0,
+	FORCE_DRAWABLEID_TO_LONG_SIZE = 0x7ffffff
+};
+enum ObjectID
+{
+	INVALID_ID = 0,
+	FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff
+};
+class Vector3;
+class BaseHeightMapRenderObjClass;
+class W3DBibBuffer
+{
+private:
+	friend class BaseHeightMapRenderObjClass;
+public:
+	void addBibDrawable(Vector3 corners[4], DrawableID id, bool highlight);
+	void removeHighlighting();
+	void clearAllBibs();
+	void removeBib(ObjectID id);
+	void removeBibDrawable(DrawableID id);
+	void addBib(Vector3 corners[4], ObjectID id, bool highlight);
+protected:
+	void freeBibBuffers();
+	void allocateBibBuffers();
+public:
+	W3DBibBuffer();
+	~W3DBibBuffer();
+	char data[68048]; // +0x00
+};
 class W3DBridgeBuffer {public:W3DBridgeBuffer();char data[55224];};
 class Rva000E59D3 {public:Rva000E59D3();char data[36];};
 class W3DWaypointBuffer
@@ -76,7 +106,6 @@ public:
 	~Rva000E0AE2();
 	char data[620]; // +0x00
 };
-class BaseHeightMapRenderObjClass;
 class WorldHeightMap;
 class W3DRoadBuffer
 {
