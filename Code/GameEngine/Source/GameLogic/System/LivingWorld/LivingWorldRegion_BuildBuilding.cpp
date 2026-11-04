@@ -5,6 +5,8 @@
 // Target facts: plot +20 must be empty, notify through the rowed 003F1A25
 // listener broadcast with the ICF slot-2 vcall thunk, call the plot's
 // 158B RET4 helper 004FC33E, store that plot at +17C and set +1A3.
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
+
 class CreateAHeroData;
 struct Rva003F1BD3TemplateView
 {
@@ -30,19 +32,6 @@ struct Rva003F1A25
     void rva003F1A25(void (Rva003F11C7Listener::*notify)(void *, int),
         void *owner, int value);
 };
-class LivingWorldRegion
-{
-public:
-    bool rva003F1B7C(CreateAHeroData *hero,
-        const Rva003F1BD3TemplateView *record, int *reason);
-    void BuildBuilding(Rva003F1C56Plot *plot,
-        const Rva003F1BD3TemplateView *record);
-private:
-    char unknown00[0x17C];
-    Rva003F1C56Plot *activePlot;
-    char unknown180[0x1A3 - 0x180];
-    bool active;
-};
 
 void LivingWorldRegion::BuildBuilding(Rva003F1C56Plot *plot,
     const Rva003F1BD3TemplateView *record)
@@ -53,7 +42,7 @@ void LivingWorldRegion::BuildBuilding(Rva003F1C56Plot *plot,
         reinterpret_cast<Rva003F1A25 *>(this)->rva003F1A25(
             &Rva003F11C7Listener::notify, this, reinterpret_cast<int>(record));
         plot->rva004FC33E(record);
-        activePlot = plot;
-        active = true;
+        m_field17C = reinterpret_cast<LivingWorldBuildPlot *>(plot);
+        m_field1A3 = true;
     }
 }
