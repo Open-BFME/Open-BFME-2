@@ -121,6 +121,10 @@ class Rva005796B3
 {
 public:
 	void SetHelpBox(void *newObj);
+private:
+	char m_00[0x18]; // +0x00
+	void *m_18; // +0x18
+	int m_1C; // +0x1C
 };
 
 extern "C" const void *const __identifier("??_7Rva005EEF2FBase0@@6B@")[];

@@ -559,9 +559,9 @@ class Rva005796B3
 public:
 	void SetHelpBox(void *newObj);
 private:
-	char m_00[0x18];
-	void *m_18;
-	int m_1C;
+	char m_00[0x18]; // +0x00
+	void *m_18; // +0x18
+	int m_1C; // +0x1C
 };
 
 #include "../../Include/GameClient/GameText.h"
