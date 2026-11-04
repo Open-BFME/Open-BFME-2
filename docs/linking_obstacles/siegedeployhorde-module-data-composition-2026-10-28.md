@@ -17,3 +17,4 @@ objects lack current receipts, first Common/INI/INIAudioEventInfo.cpp. Carry
 the full pending moved-provider and affected-consumer cohort into the next
 scheduled census. No measured linked-byte or ownership improvement is claimed.
 [Checks, path audit and remaining views](../../reverse/attempt_support/siegedeployhorde-consolidation-20261028-codexb4.md).
+The 2026-11-04 mechanical trial found no unchanged behavior donor could join the TU: current class declarations omit the donor members; exact compiler errors are in [the trial handoff](../../reverse/attempt_support/siegedeploy-consolidation-20261104.md).

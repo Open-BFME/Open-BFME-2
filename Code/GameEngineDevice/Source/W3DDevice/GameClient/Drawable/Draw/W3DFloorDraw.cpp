@@ -138,6 +138,55 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 class MultiIniFieldParse;
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
+// ?xfer@W3DFloorDraw@@MAEXPAVXfer@@@Z @0x000CF074 98B
+// Slot 3 (offset 0x0C) of vtable 0x007CD4E0 (class of ??0W3DFloorDraw@@QAE@PAVThing@@PBVModuleData@@@Z).
+// Layout from W3DFloorDrawCtor.cpp (W3DPropDraw base 0x10 plus m_10 +0x10 plus flags +0x14..+0x17).
+// Retail: Version(1,3) via Xfer slot 0x28 then base W3DPropDraw::xfer via rowed 0x000B221A
+// then bool at +0x16 via slot 0x90 if >=2 then bools at +0x17 +0x15 via slot 0x90 if >=3.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../../../../GameEngine/Include/Common/BfmeXfer.h"
+#include "../../../../../../GameEngine/Include/Common/XferVersion.h"
+class DrawModule;
+#include "../../../../../../GameEngine/Include/Common/ObjectModule.h"
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h"
+// ?getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ @0xCF161
+// (69B): cached pool-name key for W3DFloorDraw. The class
+// identity comes from the pool-name string the body pushes
+// ("W3DFloorDraw"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
@@ -145,7 +194,9 @@ class MultiIniFieldParse;
 // placement-copy owner directly. Keep only that neutral footprint here;
 // original element identity and the provider's inherited type view are unknown.
 struct Rva000CF529Element { unsigned words[2]; };
+
 struct TreeKey00242F5E;
+
 void Rva000CF4D6Construct(TreeKey00242F5E *, const TreeKey00242F5E &);
 
 extern const FieldParse s_floorDrawFieldTable[];
@@ -248,7 +299,22 @@ template <> Rva000CF529Element * __uninitialized_fill_n<Rva000CF529Element *, un
 }
 }
 
-// tu-skeleton: 0x000CF074 98B ?xfer@W3DFloorDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawXfer.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawXfer.cpp
+
+void W3DFloorDraw::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 3);
+	*xfer == version;
+	W3DPropDraw::xfer(xfer);
+	if (version.m_minimum >= 2) {
+		*xfer == m_16;
+	}
+	if (version.m_minimum >= 3) {
+		(*xfer == m_17) == m_15;
+	}
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp
 
@@ -448,13 +514,35 @@ void W3DFloorDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // --- 0x0009DBF4 (17B): log10 of a float through the msvcr71 import
 // (thunk 0x0062997C), returned as double.
 
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva000CF529.cpp
+
 // tu-skeleton: 0x000CF10B 68B ??0W3DFloorDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x000CF14F 6B ?name@W3DFloorDraw@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x000CF155 12B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x000CF161 69B ?getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawPoolKey.cpp
+
+// ?getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ
+NameKeyType W3DFloorDraw::getModuleNameKey() const
+{
+	static NameKeyType TheW3DFloorDrawPoolKey =
+		TheNameKeyGenerator->nameToKey("W3DFloorDraw");
+	return TheW3DFloorDrawPoolKey;
+}
 
 // tu-skeleton: 0x000CF1A6 102B ??1W3DFloorDraw@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawDtor.cpp (not merged yet)
 
@@ -472,8 +560,6 @@ void W3DFloorDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x000CF4D6 45B ?Rva000CF4D6Construct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva000CF529.cpp
-
 // tu-skeleton: 0x000CF54E 189B ?_M_insert_overflow@?$vector@UBfmePod76@@V?$allocator@UBfmePod76@@@_STL@@@_STL@@IAEXPAUBfmePod76@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x000CF60B 63B ??1?$vector@VCameraMarker@@V?$allocator@VCameraMarker@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
@@ -485,10 +571,6 @@ void W3DFloorDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // tu-skeleton: 0x000CF83C 55B ?push_back@?$vector@URva000CF83CElement@@V?$allocator@URva000CF83CElement@@@_STL@@@_STL@@QAEXABURva000CF83CElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
 
 // tu-skeleton: 0x000CF873 96B ?Rva000CF873Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00762745 13B $L310 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x00762752 10B __ehhandler$?getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0076275C 8B Unwind@00b6275c -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawDtor.cpp (not merged yet)
 

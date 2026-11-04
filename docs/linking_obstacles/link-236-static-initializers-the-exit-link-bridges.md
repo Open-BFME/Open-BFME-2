@@ -154,6 +154,7 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   compile with the header: W3DDebrisDraw, W3DLightDraw, ProjectileStreamUpdate, AutoHealBehavior,
   BridgeBehavior, AODHordeContain, AssistedTargetingUpdate and ModelConditionAudioLoopClientBehavior.
   36 are held by other seats, and 9 include another `Drawable.h` that builds no copy.
+  2026-11-04: W3DFloorDraw absorbs its accepted Xfer and pool-key donors (24 rows preserved); no census gain is claimed. Shadow identity/data findings and the provider-consumer audit are in [the handoff](../../reverse/attempt_support/siegedeploy-consolidation-20261104.md).
 - *Private views (round 5, halilkkaya-in-o5).* 17 of the 29 refused units now take the canonical
   header without editing it, and each copy is rowed as its unit's `_$E1` (W3DDebrisDraw `_$E2`).
   Three causes explained every refusal fixed so far:
