@@ -5,11 +5,9 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../../../Include/GameNetwork/GameInfo.h"
-template<int N> class LanSlots:public LanSlots<N-1> {public:virtual void gap(char (*)[N])=0;};
-template<> class LanSlots<0> {};
-class LANAPI:public LanSlots<56> {public:virtual GameInfo *slotE0()=0;};
-extern LANAPI *TheLAN;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+#include "../../../../../Include/GameNetwork/LANAPI.h"
+extern LANAPI *TheLAN;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
@@ -25,7 +23,7 @@ int AptMessengerLan::OnUpdateData()
 {
  int result=rva00511E6D();
  if (!TheLAN) return result;
- GameInfo *info=TheLAN->slotE0();
+ GameInfo *info=(GameInfo *)TheLAN->GetMyGame();
  if(info) {
   if(showLobby) {
    const GameSlot *slot=info->getConstSlot(0);

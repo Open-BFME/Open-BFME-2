@@ -61,3 +61,10 @@ ambiguity, so the header cannot be included until those reconcile.
   guard needs BfmeAptWindowManager.h before LANAPI.h's short
   SubsystemInterface, so that include moved up. 38/38 matched, EH 2 EXACT.
 - accept PASS retires 2 rows; link_check LINKED 1,767 -> 1,767 bytes.
+
+## Batch 4: AptMessengerLan.cpp (2026-11-04)
+
+- Replaced the private `LanSlots` template and LANAPI view with LANAPI.h (window manager header first).
+- `TheLAN->slotE0()` -> `(GameInfo *)TheLAN->GetMyGame()`.
+- build.sh: 5/5 matched; eh_verify EXACT 1; find_declared_unmatched clean.
+- link_check: LINKED 266 -> 266 bytes. header_adopt_lane accept retired 1 row.
