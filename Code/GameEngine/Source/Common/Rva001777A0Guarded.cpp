@@ -1,4 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// platformsdk
+#include <windows.h>
+#include <comdef.h>
 //
 // ?invoke@Rva00958C80@@QAEJVBfmeBstrVGP@@0JJJJJJPAX@Z at retail 0x00177010
 // (170B). Trimmed port of the Open-BFME-1 WebBrowserComWrappers donor: only
@@ -18,13 +21,6 @@
 // ?bfmeGoVGP@BfmeThingVGP@@QAEHXZ @0x176E90 (both dtor paths call it);
 // _com_issue_errorex resolves already.
 
-struct _GUID { unsigned char bytes[16]; };
-typedef _GUID GUID;
-struct IUnknown;
-
-extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
-extern void __stdcall _com_issue_errorex(long error, IUnknown *object,
-	const GUID &iid);
 extern GUID g_bfmeIidTSA;
 
 // _bstr_t's Data_t: the BSTR, its reference count and its length.
@@ -51,25 +47,6 @@ public:
 		{
 			m_data->bfmeGoVGP();
 			// As retail's out-of-line copy (WebBrowserComWrappers.cpp): clear the pointer.
-			m_data = 0;
-		}
-	}
-};
-
-// The one wrapper whose parameter the ledger pins as _bstr_t rather than
-// BfmeBstrVGP -- same Data_t layout, but the copy is shallow (no retain);
-// that spelling is part of the mangled name so it cannot be merged above.
-class _bstr_t
-{
-public:
-	BfmeThingVGP *m_data;
-	_bstr_t(const char *value);
-	_bstr_t(const _bstr_t &other) throw() : m_data(other.m_data) {}
-	~_bstr_t() throw()
-	{
-		if (m_data)
-		{
-			m_data->bfmeGoVGP();
 			m_data = 0;
 		}
 	}
@@ -238,8 +215,7 @@ public:
 	__declspec(noinline) long invoke(_bstr_t arg)
 	{
 		long value = 0;
-		BfmeThingVGP *data = arg.m_data;
-		void *text = data ? data->m_bfme00 : 0;
+		void *text = static_cast<wchar_t *>(arg);
 		long result = vtable->slot34(this, text, &value);
 		if (result < 0)
 			_com_issue_errorex(result, (IUnknown *)this, g_bfmeIidTSA);
@@ -261,7 +237,6 @@ static __declspec(noinline) long forceRva00958E30(Rva00958E30 *self, _bstr_t arg
 // BF1 f989 UnclaimedComHelpers is the semantic guide; original class, field
 // purpose and constructor identity are unknown. No incomingrefs or overlaps.
 
-extern void __stdcall _com_issue_error(long error);
 // Address-owned consumed raw32 word0 prefix; original class and constructor identity unknown.
 // Complete1777A0..177825/133 forwards two C-string arguments through the
 // existing two-BSTR invoke177130, after checking actual g_bfmeObjECF DF7040.
