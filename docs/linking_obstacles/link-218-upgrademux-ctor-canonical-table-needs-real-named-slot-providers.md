@@ -1,0 +1,7 @@
+### LINK-218: UpgradeMux ctor's canonical table needs real-named slot providers
+Status: Blocked. Updated: 2026-11-04; inspected revision: f50e1dba12.
+Evidence / affected units: `Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxCtor.cpp` (0x004CE2A3, census-linked 13 B) keeps a novtable view with address-named `g_00C5FF10`; adopting `UpgradeMux.h` emits `??_7UpgradeMux@@6B@` and leaves six slot names unresolved (LINKED 13 -> 0). This also keeps the ctor out of the `UpgradeModule.cpp` TU. [Trial and unresolved list](../../reverse/attempt_support/upgrademux-ctor-canonical-table-20261104/README.md).
+Completed: UpgradeModule.cpp and UpgradeMuxAttemptUpgrade.cpp adopted `UpgradeMux.h` ("Adopt canonical UpgradeMux in UpgradeModule.cpp and UpgradeMuxAttemptUpgrade.cpp"); the latter merged into the TU ("Merge 2 files into UpgradeModule.cpp (9 rows, ...)").
+Remaining / next check: name 0x004CE2B0/0x004CE342 as `UpgradeMux::wouldUpgrade`/`resetUpgrade` and 0x00452354 as `setUpgradeExecuted` through the naming workflow (callers and the two `/alternatename` pragmas in ReplenishUnitsBehaviorDtor.cpp included), give slots 4/7/17 fold-proved providers, then rerun `link_check.py` on the swapped ctor.
+Clearance: pending.
+Census confirmation: not claimed.
