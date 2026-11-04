@@ -726,10 +726,12 @@ public:
 	void rva00352F9D(const void *waypoint, int intVal, CommandSourceType cmdSource);
 };
 
+struct EmitVtableTag;
 class AIGroup : public Snapshot
 {
 public:
 	AIGroup();
+	AIGroup(EmitVtableTag *);
 	void rva0036CE87();
 protected:
 	virtual ~AIGroup();
