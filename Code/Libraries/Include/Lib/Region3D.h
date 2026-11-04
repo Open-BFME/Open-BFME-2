@@ -13,11 +13,16 @@ struct Region3D {
     Coord3D lo;
     Coord3D hi;
     Region3D() {}
+#ifdef BFME_REGION3D_COPY_CTOR_DECL
+    // WaterTracksObj's retail bounds getter calls the copy at 0x0009AC04.
+    Region3D(const Region3D &that);
+#else
     Region3D(const Region3D &that)
     {
         lo.x = that.lo.x; lo.y = that.lo.y; lo.z = that.lo.z;
         hi.x = that.hi.x; hi.y = that.hi.y; hi.z = that.hi.z;
     }
+#endif
     ~Region3D() {}
     float width() const { return hi.x - lo.x; }
     float height() const { return hi.y - lo.y; }

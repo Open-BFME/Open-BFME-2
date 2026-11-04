@@ -4,7 +4,9 @@
 #include "vector3.h"
 #include "sphere.h"
 #include <math.h>
-#include "region.h"
+// The bounds getter calls retail's out-of-line Region3D copy constructor.
+#define BFME_REGION3D_COPY_CTOR_DECL
+#include "../../../../../Libraries/Include/Lib/Region3D.h"
 #include "ascii_string.h"
 #include "../../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
@@ -84,7 +86,7 @@ class RenderObjClass { public: virtual void *Get_User_Data(); };
 
 class Drawable;
 
- class Thing { public: Drawable *getDrawable()const; };
+#include "../../../../../GameEngine/Source/Common/Thing/thing.h"
 
 struct waveInfo { float finalWidth,finalHeight,distance,velocity; int fadeMs; float widthFraction,heightFraction; int compressMs,secondOffset; char *textureName,*typeName; };
 
