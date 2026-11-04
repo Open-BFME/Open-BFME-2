@@ -54,7 +54,6 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
-
 class UpdateModuleData
 {
 public:
@@ -63,7 +62,6 @@ public:
 
 private:
 };
-
 class EntEnragedUpdateModuleData : public UpdateModuleData
 {
 public:
@@ -84,7 +82,6 @@ private:
 	int m_onBuffFX; // +0x28
 	int m_offBuffFX; // +0x2C
 };
-
 // ?getModuleNameKey@EntEnragedUpdate@@UBE?AW4NameKeyType@@XZ @0x004B2458
 // (69B): cached pool-name key for EntEnragedUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -99,28 +96,15 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
-
 class Thing;
-
 class Object;
-
 class ModuleData;
-
 class BodyModuleInterface;
-
 class Xfer;
-
-
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-
 class EntEnragedUpdate : public UpdateModule
 {
 public:
@@ -143,7 +127,6 @@ private:
 	bool m_30; // +0x30
 	char m_pad31[0x3];
 };
-
 // Open-BFME: conditional flag reset reconstructed from retail RVA 0x002918E0.
 
 class Rva002918E0Object
@@ -159,10 +142,68 @@ private:
 	unsigned char m_secondary;
 	unsigned char m_extra;
 };
-
 BFME_LITERAL_NAME_GETTER(Rva004B2394Named, "EntEnragedUpdate")
-
 #include "../../Include/Common/XferVersion.h"
+class Player;
+#include "../../Include/GameLogic/PartitionFilter.h"
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
+// ZH's PartitionFilterAlive.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+// vftable 0x00BF8FE4, allow 0x0026109D: +0x08 the object's controlling player
+// (or none), +0x0C a flag.
+class Rva00261058 : public Rva000421C8
+{
+public:
+	Rva00261058(Object *obj, bool flag);
+	virtual bool allow(Object *obj);
+	Player *m_player;
+	bool m_flag;
+};
+// vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
+// relationship flags and whether a hit allows.
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	Rva00260EB1Filter(const Object *obj, int flags, bool match)
+		: m_obj(obj), m_flags(flags), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	const Object *m_obj;
+	int m_flags;
+	bool m_match;
+};
+// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
+// player, +0x10 whether a hit allows.
+class Rva002614ECFilter : public Rva000421C8
+{
+public:
+	Rva002614ECFilter(const void *what, Player *player, bool match)
+		: m_what(what), m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const void *m_what;
+	Player *m_player;
+	bool m_match;
+};
+// vftable 0x00C56930, allow 0x002611AF: no members of its own.
+class Rva002611AFFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+class Object
+{
+public:
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	char m_pad000[0x38];
+	Coord3D m_pos;		// +0x38
+};
+#include "PartitionRangeQueryCallView.h"
+extern PartitionManager *ThePartitionManager;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
 class ModuleData
@@ -176,6 +217,8 @@ public:
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 // tu-skeleton: 0x004B237B 25B ??1EntEnragedUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
@@ -263,8 +306,6 @@ void EntEnragedUpdate::rva004B23C5( Xfer *xfer )
 	*xfer == m_2E;
 }
 
-// tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp
 
 // ??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -284,32 +325,40 @@ EntEnragedUpdate::EntEnragedUpdate(Thing *thing, const ModuleData *moduleData)
 	m_24 = 0x3fffffff;
 }
 
+// tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
 // tu-skeleton: 0x004B2593 28B ??_GEntEnragedUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B25AF 26B ?bfmeTick@Gen_00291BB0@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x004B25C9 164B ?rva004B25C9@EntEnragedUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp
 
-// tu-skeleton: 0x004B266D 153B ?rva004B266D@EntEnragedUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
+bool EntEnragedUpdate::rva004B25C9()
+{
+	Object *ownerObject = m_object;
+	const EntEnragedUpdateModuleData *enragedData = (const EntEnragedUpdateModuleData *)m_moduleData;
+	Rva002614ECFilter same(&enragedData->m_hatedFilter, ownerObject->getControllingPlayer(), true);
+	Rva00260EB1Filter allies(ownerObject, 4, false);
+	Rva002611AFFilter third;
+	same.link(&third);
+	same.link(&allies);
+	return ThePartitionManager->getClosestObject(&ownerObject->m_pos, enragedData->m_scanDistance, 1, &same) != 0;
+}
+
+bool EntEnragedUpdate::rva004B266D()
+{
+	const EntEnragedUpdateModuleData *enragedData = (const EntEnragedUpdateModuleData *)m_moduleData;
+	Object *ownerObject = m_object;
+	Rva00261058 player(ownerObject, false);
+	Rva002614ECFilter same(&enragedData->m_friendlyFilter, ownerObject->getControllingPlayer(), true);
+	Rva0026119DFilter alive;
+	player.link(&same);
+	player.link(&alive);
+	return ThePartitionManager->getClosestObject(&ownerObject->m_pos, enragedData->m_scanDistance, 1, &player) != 0;
+}
 
 // tu-skeleton: 0x004B2706 28B ??_GEntEnragedUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2722 63B ??1EntEnragedUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2761 550B ?update@EntEnragedUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E94E 8B Unwind@00b8e94e -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E956 8B Unwind@00b8e956 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E95E 8B $L631 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E966 10B __ehhandler$?rva004B25C9@EntEnragedUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E970 8B Unwind@00b8e970 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E978 8B Unwind@00b8e978 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E980 8B Unwind@00b8e980 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E988 10B __ehhandler$?rva004B266D@EntEnragedUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)

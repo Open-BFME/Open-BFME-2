@@ -18,3 +18,5 @@ the next scheduled census.
 2026-11-03: scan hierarchy/data declarations reconciled (26/26 rows exact; both previews retain LINKS); the supported merge now accepts the scan fragment. Update/Object and module-data lifetime donors remain blocked. [Evidence and next step](../../reverse/attempt_support/ent-enraged-scan-consolidation-20261103-codex4.md).
 
 2026-11-03: the accepted scan merge verifies 26/26 rows but class_gate refuses the unchanged private filter transfer; merge reverted. Resolve move-credit refusal or filter header adoption before retrying. [Reproducer and checks](../../reverse/attempt_support/ent-enraged-scan-merge-gate-20261103-codex4.md).
+
+2026-11-04: canonical PartitionFilter adoption clears the scan's private-base prerequisite; supported scan merge now passes class_gate, 26/26 byte checks and the published-index LINKS preview. One source removed; three other donors remain blocked, and current-provider/consumer census confirmation remains pending. [Merge audit and next steps](../../reverse/attempt_support/ent-enraged-scan-merge-20261104-codex.md).
