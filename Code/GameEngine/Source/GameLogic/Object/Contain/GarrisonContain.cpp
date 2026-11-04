@@ -306,40 +306,7 @@ enum WeaponSetType
     WEAPONSET_NONE = 0
 };
 class Player;
-class Object : public Thing
-{
-public:
-    Player *getControllingPlayer() const;
-    void setDisabled(DisabledType type);
-    void setStatus(ObjectStatusTypes bit, bool set);
-    bool rva0029091E(unsigned int flag) const;
-    void setWeaponSetFlag(WeaponSetType type);
-    void *rva0028C197() const;
-    void setPrivateStatus(unsigned int bits) { m_privateStatus |= bits; }
-    ObjectID getID() const { return m_id; }
-    float getBoundingCircleRadius() const { return m_boundingCircleRadius; }
-    ContainModuleInterface *getContain() const { return m_contain; }
-    ConditionBits *getConditionBits() { return &m_conditionBits; }
-    void rva0028AE6D();
-    bool testStatus(ObjectStatusTypes bit) const;
-    const Weapon *getCurrentWeapon(WeaponSlotType *slot = 0) const;
-    AIUpdateInterface *getAI() const { return m_ai; }
-private:
-    unsigned char m_pad60[0x74 - 0x60];
-    ObjectID m_id;
-    unsigned char m_pad78[0xB8 - 0x78];
-    float m_boundingCircleRadius;
-    unsigned char m_padBC[0x10C - 0xBC];
-    ConditionBits m_conditionBits; // +0x10C
-    unsigned char m_pad11C[0x250 - 0x11C];
-    ContainModuleInterface *m_contain; // +0x250
-    void *m_pad254;
-    AIUpdateInterface *m_ai; // +0x258
-    unsigned char m_pad25C[0x380 - 0x25C];
-    unsigned int m_privateStatus; // +0x380
-};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-// Measured target helpers used by retail trackTargets at 0x00478ADB.
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D { public: inline __declspec(noinline) void rva0046247D(Rva0046247DPair&result){void*base=this;result.m00=base?(ContainModuleInterface*)((char*)base+0x20):0;result.m04=(char*)base+0x54;} };
 class Rva00264E93 { public: void *rva00264E93(); };
@@ -400,146 +367,7 @@ struct Rva00477F06GarrisonPoint : public Coord3D
 	Rva00477F06GarrisonPoint();
 	~Rva00477F06GarrisonPoint();
 };
-// OpenContain's nine vftable-bearing bases, positional. The GarrisonContain
-// constructor 0x00477F06 (and the destructor 0x00478067, which restores the
-// same tables) stores nine vftables: +0x00 0x00C461F8 (28 slots), +0x0C
-// 0x00C43528 (47), +0x10 0x00C46560 (3), +0x20 0x00C46080 (94), +0x24
-// 0x00C46064 (6), +0x28 0x00C46F78 (1), +0x2C 0x00C463D8 (4), +0x30
-// 0x00C46034 (12) and +0x34 0x00C48B28 (4), and its first own member is
-// +0xFC. B0 holds the module's data and object pointers (+0x04, +0x08); B2
-// the 12 update bytes before +0x20; B8 OpenContain's data to +0xFC. Only the
-// slots a body of this TU needs are declared. The +0x20 table's slot 76 is
-// calcBestGarrisonPosition (0x00478547), so B3 introduces it and its
-// override is entered with the +0x20 this; the +0x10 table's slot 0 is
-// update (0x00479643), so B2 introduces it. B3's unnamed slots are pure
-// placeholders (so an emitted table needs no placeholder definition); its
-// slots 32 and 35 take the damage-state argument healSingleObject's sibling
-// 0x0047876A passes and slot 69 is the contain count it tests. The +0x2C
-// table's slot 2 is onBodyDamageStateChange (0x0047876A). The +0x20 table
-// holds attemptBestFirePointPosition's position overload 0x004788CE at slot
-// 77 and its Object overload 0x00478850 at 78 (overloads go in reverse
-// declaration order); the primary table holds redeployOccupants 0x00479395
-// at slot 18 and getObjectGarrisonPointIndex 0x00479292 at 27, which
-// putObjectAtBestGarrisonPoint 0x004785A2 calls through +0x6C.
-class B0
-{
-public:
-    virtual void b0();
-    virtual void b01() = 0;
-    virtual void b02() = 0;
-    virtual void b03() = 0;
-    virtual void b04() = 0;
-    virtual void onObjectCreated() = 0;
-    virtual void b06() = 0;
-    virtual void b07() = 0;
-    virtual void b08() = 0;
-    virtual void b09() = 0;
-    virtual void b10() = 0;
-    virtual void b11() = 0;
-    virtual void b12() = 0;
-    virtual void b13() = 0;
-    virtual void b14() = 0;
-    virtual void b15() = 0;
-    virtual void b16() = 0;
-    virtual void b17() = 0;
-    virtual void redeployOccupants() = 0;
-    virtual void b19() = 0;
-    virtual void b20() = 0;
-    virtual void b21() = 0;
-    virtual void b22() = 0;
-    virtual void b23() = 0;
-    virtual void b24() = 0;
-    virtual void b25() = 0;
-    virtual void b26() = 0;
-    virtual int getObjectGarrisonPointIndex(ObjectID id) = 0;
-    int m_pad4;
-    Object *m_object;
-};
 class B1 { public: virtual void b1(); };
-class B2 { public: virtual UpdateSleepTime update() = 0; private: unsigned char m_pad[12]; };
-class B3
-{
-public:
-    virtual void c00() = 0;
-    virtual void c01() = 0;
-    virtual void c02() = 0;
-    virtual void c03() = 0;
-    virtual void c04() = 0;
-    virtual void c05() = 0;
-    virtual void c06() = 0;
-    virtual void c07() = 0;
-    virtual void c08() = 0;
-    virtual void c09() = 0;
-    virtual void c10() = 0;
-    virtual void c11() = 0;
-    virtual void c12() = 0;
-    virtual void c13() = 0;
-    virtual void c14() = 0;
-    virtual void c15() = 0;
-    virtual void c16() = 0;
-    virtual void c17() = 0;
-    virtual void c18() = 0;
-    virtual void c19() = 0;
-    virtual void recalcApparentControllingPlayer() = 0;
-    virtual void c21() = 0;
-    virtual void onContaining(Object *obj, bool wasSelected) = 0;
-    virtual void onRemoving(Object *obj) = 0;
-    virtual void c24() = 0;
-    virtual void c25() = 0;
-    virtual void c26() = 0;
-    virtual void c27() = 0;
-    virtual void c28() = 0;
-    virtual void c29() = 0;
-    virtual void c30() = 0;
-    virtual void c31() = 0;
-    virtual void cSlot32(int) = 0;
-    virtual void c33() = 0;
-    virtual void c34() = 0;
-    virtual void cSlot35(int) = 0;
-    virtual void c36() = 0;
-    virtual void c37() = 0;
-    virtual void c38() = 0;
-    virtual void c39() = 0;
-    virtual void c40() = 0;
-    virtual void c41() = 0;
-    virtual void c42() = 0;
-    virtual void c43() = 0;
-    virtual Flags128 getFlags(int unused) = 0;
-    virtual void c45() = 0;
-    virtual void c46() = 0;
-    virtual void c47() = 0;
-    virtual void c48() = 0;
-    virtual void c49() = 0;
-    virtual void c50() = 0;
-    virtual void c51() = 0;
-    virtual void c52() = 0;
-    virtual void c53() = 0;
-    virtual void c54() = 0;
-    virtual void c55() = 0;
-    virtual void c56() = 0;
-    virtual void c57() = 0;
-    virtual void c58() = 0;
-    virtual void c59() = 0;
-    virtual void c60() = 0;
-    virtual void c61() = 0;
-    virtual void c62() = 0;
-    virtual void c63() = 0;
-    virtual void c64() = 0;
-    virtual void c65() = 0;
-    virtual void c66() = 0;
-    virtual void c67() = 0;
-    virtual void c68() = 0;
-    virtual unsigned int getContainCount(int unused) const = 0;
-    virtual void c70() = 0;
-    virtual void c71() = 0;
-    virtual void c72() = 0;
-    virtual void c73() = 0;
-    virtual void c74() = 0;
-    virtual void c75() = 0;
-    virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *);
-    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
-    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
-};
 class B4 { public: virtual void b4(); };
 class B5 { public: virtual void b5(); };
 class B6
@@ -557,75 +385,6 @@ public:
 	char m_pad04[0xC4];
 };
 class Xfer;
-// OpenContain's own virtuals as the bodies call them by name: xfer (primary
-// slot 3) and loadPostProcess through explicit OpenContain:: calls, and
-// removeAllContained, which the matched 0x00478231 calls on its +0x20
-// receiver unchanged.
-class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
-{
-    friend class Rva004697E1Contain;
-public:
-    OpenContain(Thing *thing, const ModuleData *moduleData);
-    virtual ~OpenContain();
-    virtual void removeAllContained(bool exposeStealthUnits);
-    virtual void onContaining(Object *obj, bool wasSelected);
-    virtual void onRemoving(Object *obj);
-    Object *getObject() const { return m_object; }
-protected:
-    virtual void xfer(Xfer *xfer);
-    virtual void loadPostProcess();
-};
-// GarrisonContain over the 0xFC-byte OpenContain. Offsets from the matched
-// bodies: +0xFC original team id (xfer 0x00478260), +0x100 point records,
-// +0x420 points in use, +0x424 the 3x40 garrison points (put 0x00477DA1,
-// remove 0x00477E82, calcBestGarrisonPosition 0x00478547), +0x9C4 the
-// per-condition point counts (findClosestFreeGarrisonPointIndex 0x00478445),
-// +0x9D0 the exit rally point and the +0x9DC/+0x9DD/+0x9DE flags (xfer,
-// validateRallyPoint 0x00478141). The primary table 0x00C461F8 holds the
-// pool key at slot 4 (0x0047801C).
-class GarrisonContain : public OpenContain
-{
-    friend class Rva00478231;
-public:
-    GarrisonContain(Thing *thing, const ModuleData *moduleData);
-    virtual ~GarrisonContain();
-    virtual UpdateSleepTime update();
-    virtual NameKeyType getModuleNameKey() const;
-    virtual bool calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D *targetPos);
-    virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
-    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
-    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
-    virtual int getObjectGarrisonPointIndex(ObjectID id);
-    virtual void onObjectCreated();
-    virtual void recalcApparentControllingPlayer();
-    virtual void onContaining(Object *obj, bool wasSelected);
-    void rva00478BE0();
-    void rva00478FD7();
-protected:
-    enum { GARRISON_INDEX_INVALID = -1 };
-    virtual void xfer(Xfer *xfer);
-    void trackTargets();
-    int findConditionIndex();
-    int findClosestFreeGarrisonPointIndex(int conditionIndex, const Coord3D *pos);
-    void removeObjectFromGarrisonPoint(Object *obj, int index);
-    void putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, int conditionIndex, int index);
-    void validateRallyPoint();
-    void healSingleObject(Object *obj, float framesForFullHeal);
-    void putObjectAtBestGarrisonPoint(Object *obj, Object *target, const Coord3D *targetPos);
-    virtual void redeployOccupants();
-    void addValidObjectsToGarrisonPoints();
-    void removeInvalidObjectsFromGarrisonPoints();
-private:
-    unsigned int m_originalTeamID; // +0xFC
-    GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
-    int m_garrisonPointsInUse; // +0x420
-    Rva00477F06GarrisonPoint m_garrisonPoint[MAX_GARRISON_POINT_CONDITIONS][MAX_GARRISON_POINTS]; // +0x424
-    int m_numGarrisonPoints[MAX_GARRISON_POINT_CONDITIONS]; // +0x9C4
-    Coord3D m_exitRallyPoint; // +0x9D0
-    bool m_garrisonPointsInitialized; // +0x9DC
-    bool m_hideGarrisonedStateFromNonallies; // +0x9DD
-    bool m_rallyValid; // +0x9DE
-};
 class TeamFactory;
 #include "../../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
@@ -818,6 +577,38 @@ void XferDrawableID( Xfer *xfer, Int *value );
 #include "../../../../Include/Common/XferException.h"
 #include <string.h>
 #pragma intrinsic(memset)
+class Object : public Thing
+{
+public:
+    Player *getControllingPlayer() const;
+    void setDisabled(DisabledType type);
+    void setStatus(ObjectStatusTypes bit, bool set);
+    bool rva0029091E(unsigned int flag) const;
+    void setWeaponSetFlag(WeaponSetType type);
+    void *rva0028C197() const;
+    void setPrivateStatus(unsigned int bits) { m_privateStatus |= bits; }
+    ObjectID getID() const { return m_id; }
+    float getBoundingCircleRadius() const { return m_boundingCircleRadius; }
+    ContainModuleInterface *getContain() const { return m_contain; }
+    ConditionBits *getConditionBits() { return &m_conditionBits; }
+    void rva0028AE6D();
+    bool testStatus(ObjectStatusTypes bit) const;
+    const Weapon *getCurrentWeapon(WeaponSlotType *slot = 0) const;
+    AIUpdateInterface *getAI() const { return m_ai; }
+private:
+    unsigned char m_pad60[0x74 - 0x60];
+    ObjectID m_id;
+    unsigned char m_pad78[0xB8 - 0x78];
+    float m_boundingCircleRadius;
+    unsigned char m_padBC[0x10C - 0xBC];
+    ConditionBits m_conditionBits; // +0x10C
+    unsigned char m_pad11C[0x250 - 0x11C];
+    ContainModuleInterface *m_contain; // +0x250
+    void *m_pad254;
+    AIUpdateInterface *m_ai; // +0x258
+    unsigned char m_pad25C[0x380 - 0x25C];
+    unsigned int m_privateStatus; // +0x380
+};
 
 class Team;
 
@@ -828,6 +619,262 @@ struct Flags128
     bool test(int i) const { return ((m_bits[i >> 5] >> (i & 31)) & 1) != 0; }
     unsigned int m_bits[4];
 };
+
+typedef _STL::list<Object*> ChildList;
+
+struct ChildHealData { char data00[0x98]; bool heal; char pad99[3]; float healFrames; bool move; };
+
+struct GarrisonOwnerPosition { char data00[0x38]; Coord3D position; };
+
+class ContainSlots
+{
+public:
+    virtual void h00(); virtual void h01(); virtual void h02(); virtual void h03();
+    virtual void h04(); virtual void h05(); virtual void h06(); virtual void h07();
+    virtual void h08(); virtual void h09(); virtual void h10(); virtual void h11();
+    virtual void h12(); virtual void h13(); virtual void h14(); virtual void h15();
+    virtual void h16(); virtual void h17(); virtual void h18(); virtual void h19();
+    virtual void h20(); virtual void h21(); virtual void h22(); virtual void h23();
+    virtual void h24(); virtual void h25(); virtual void h26(); virtual void h27();
+    virtual void h28(); virtual void h29(); virtual void h30(); virtual void h31();
+    virtual void h32(); virtual void h33(); virtual void h34(); virtual void h35();
+    virtual void h36(); virtual void h37(); virtual void h38(); virtual void h39();
+    virtual void h40(); virtual void h41(); virtual void h42(); virtual void h43();
+    virtual void h44(); virtual void h45(); virtual void h46(); virtual void h47();
+    virtual void h48(); virtual void h49(); virtual void h50(); virtual void h51();
+    virtual void h52(); virtual void h53(); virtual void h54(); virtual void h55();
+    virtual void h56(); virtual void h57(); virtual void h58(); virtual void h59();
+    virtual void h60(); virtual void h61(); virtual void h62(); virtual void h63();
+    virtual void h64(); virtual void h65();
+    virtual Rva0046247DPair &slot108(Rva0046247DPair &p);
+};
+
+// OpenContain's nine vftable-bearing bases, positional. The GarrisonContain
+// constructor 0x00477F06 (and the destructor 0x00478067, which restores the
+// same tables) stores nine vftables: +0x00 0x00C461F8 (28 slots), +0x0C
+// 0x00C43528 (47), +0x10 0x00C46560 (3), +0x20 0x00C46080 (94), +0x24
+// 0x00C46064 (6), +0x28 0x00C46F78 (1), +0x2C 0x00C463D8 (4), +0x30
+// 0x00C46034 (12) and +0x34 0x00C48B28 (4), and its first own member is
+// +0xFC. B0 holds the module's data and object pointers (+0x04, +0x08); B2
+// the 12 update bytes before +0x20; B8 OpenContain's data to +0xFC. Only the
+// slots a body of this TU needs are declared. The +0x20 table's slot 76 is
+// calcBestGarrisonPosition (0x00478547), so B3 introduces it and its
+// override is entered with the +0x20 this; the +0x10 table's slot 0 is
+// update (0x00479643), so B2 introduces it. B3's unnamed slots are pure
+// placeholders (so an emitted table needs no placeholder definition); its
+// slots 32 and 35 take the damage-state argument healSingleObject's sibling
+// 0x0047876A passes and slot 69 is the contain count it tests. The +0x2C
+// table's slot 2 is onBodyDamageStateChange (0x0047876A). The +0x20 table
+// holds attemptBestFirePointPosition's position overload 0x004788CE at slot
+// 77 and its Object overload 0x00478850 at 78 (overloads go in reverse
+// declaration order); the primary table holds redeployOccupants 0x00479395
+// at slot 18 and getObjectGarrisonPointIndex 0x00479292 at 27, which
+// putObjectAtBestGarrisonPoint 0x004785A2 calls through +0x6C.
+class B0
+{
+public:
+    virtual void b0();
+    virtual void b01() = 0;
+    virtual void b02() = 0;
+    virtual void b03() = 0;
+    virtual void b04() = 0;
+    virtual void onObjectCreated() = 0;
+    virtual void b06() = 0;
+    virtual void b07() = 0;
+    virtual void b08() = 0;
+    virtual void b09() = 0;
+    virtual void b10() = 0;
+    virtual void b11() = 0;
+    virtual void b12() = 0;
+    virtual void b13() = 0;
+    virtual void b14() = 0;
+    virtual void b15() = 0;
+    virtual void b16() = 0;
+    virtual void b17() = 0;
+    virtual void redeployOccupants() = 0;
+    virtual void b19() = 0;
+    virtual void b20() = 0;
+    virtual void b21() = 0;
+    virtual void b22() = 0;
+    virtual void b23() = 0;
+    virtual void b24() = 0;
+    virtual void b25() = 0;
+    virtual void b26() = 0;
+    virtual int getObjectGarrisonPointIndex(ObjectID id) = 0;
+    int m_pad4;
+    Object *m_object;
+};
+
+class B2 { public: virtual UpdateSleepTime update() = 0; private: unsigned char m_pad[12]; };
+
+class B3
+{
+public:
+    virtual void c00() = 0;
+    virtual void c01() = 0;
+    virtual void c02() = 0;
+    virtual void c03() = 0;
+    virtual void c04() = 0;
+    virtual void c05() = 0;
+    virtual void c06() = 0;
+    virtual void c07() = 0;
+    virtual void c08() = 0;
+    virtual void c09() = 0;
+    virtual void c10() = 0;
+    virtual void c11() = 0;
+    virtual void c12() = 0;
+    virtual void c13() = 0;
+    virtual void c14() = 0;
+    virtual void c15() = 0;
+    virtual void c16() = 0;
+    virtual void c17() = 0;
+    virtual void c18() = 0;
+    virtual void c19() = 0;
+    virtual void recalcApparentControllingPlayer() = 0;
+    virtual void c21() = 0;
+    virtual void onContaining(Object *obj, bool wasSelected) = 0;
+    virtual void onRemoving(Object *obj) = 0;
+    virtual void c24() = 0;
+    virtual void c25() = 0;
+    virtual void c26() = 0;
+    virtual void c27() = 0;
+    virtual void c28() = 0;
+    virtual void c29() = 0;
+    virtual void c30() = 0;
+    virtual void c31() = 0;
+    virtual void cSlot32(int) = 0;
+    virtual void c33() = 0;
+    virtual void c34() = 0;
+    virtual void cSlot35(int) = 0;
+    virtual void c36() = 0;
+    virtual void c37() = 0;
+    virtual void c38() = 0;
+    virtual void c39() = 0;
+    virtual void c40() = 0;
+    virtual void c41() = 0;
+    virtual void c42() = 0;
+    virtual void c43() = 0;
+    virtual Flags128 getFlags(int unused) = 0;
+    virtual void c45() = 0;
+    virtual void c46() = 0;
+    virtual void c47() = 0;
+    virtual void c48() = 0;
+    virtual void c49() = 0;
+    virtual void c50() = 0;
+    virtual void c51() = 0;
+    virtual void c52() = 0;
+    virtual void c53() = 0;
+    virtual void c54() = 0;
+    virtual void c55() = 0;
+    virtual void c56() = 0;
+    virtual void c57() = 0;
+    virtual void c58() = 0;
+    virtual void c59() = 0;
+    virtual void c60() = 0;
+    virtual void c61() = 0;
+    virtual void c62() = 0;
+    virtual void c63() = 0;
+    virtual void c64() = 0;
+    virtual void c65() = 0;
+    virtual void c66() = 0;
+    virtual void c67() = 0;
+    virtual void c68() = 0;
+    virtual unsigned int getContainCount(int unused) const = 0;
+    virtual void c70() = 0;
+    virtual void c71() = 0;
+    virtual void c72() = 0;
+    virtual void c73() = 0;
+    virtual void c74() = 0;
+    virtual void c75() = 0;
+    virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
+};
+
+// OpenContain's own virtuals as the bodies call them by name: xfer (primary
+// slot 3) and loadPostProcess through explicit OpenContain:: calls, and
+// removeAllContained, which the matched 0x00478231 calls on its +0x20
+// receiver unchanged.
+class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
+{
+    friend class Rva004697E1Contain;
+public:
+    OpenContain(Thing *thing, const ModuleData *moduleData);
+    virtual ~OpenContain();
+    virtual void removeAllContained(bool exposeStealthUnits);
+    virtual void onContaining(Object *obj, bool wasSelected);
+    virtual void onRemoving(Object *obj);
+    Object *getObject() const { return m_object; }
+protected:
+    virtual void xfer(Xfer *xfer);
+    virtual void loadPostProcess();
+};
+
+struct VisLookupNode { VisLookupNode *next; ObjectID key; Object *object; };
+
+struct VisLookupBuckets {
+ VisLookupNode **begin,**end,**capacity;
+ unsigned int size() const { return end-begin; }
+ VisLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
+};
+
+struct VisLookupMap { unsigned char hashEqual[4]; VisLookupBuckets buckets; };
+
+// GarrisonContain over the 0xFC-byte OpenContain. Offsets from the matched
+// bodies: +0xFC original team id (xfer 0x00478260), +0x100 point records,
+// +0x420 points in use, +0x424 the 3x40 garrison points (put 0x00477DA1,
+// remove 0x00477E82, calcBestGarrisonPosition 0x00478547), +0x9C4 the
+// per-condition point counts (findClosestFreeGarrisonPointIndex 0x00478445),
+// +0x9D0 the exit rally point and the +0x9DC/+0x9DD/+0x9DE flags (xfer,
+// validateRallyPoint 0x00478141). The primary table 0x00C461F8 holds the
+// pool key at slot 4 (0x0047801C).
+class GarrisonContain : public OpenContain
+{
+    friend class Rva00478231;
+public:
+    GarrisonContain(Thing *thing, const ModuleData *moduleData);
+    virtual ~GarrisonContain();
+    virtual UpdateSleepTime update();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual bool calcBestGarrisonPosition(Coord3D *sourcePos, const Coord3D *targetPos);
+    virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
+    virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
+    virtual int getObjectGarrisonPointIndex(ObjectID id);
+    virtual void onObjectCreated();
+    virtual void recalcApparentControllingPlayer();
+    virtual void onContaining(Object *obj, bool wasSelected);
+    void rva00478BE0();
+    void rva00478FD7();
+protected:
+    enum { GARRISON_INDEX_INVALID = -1 };
+    virtual void xfer(Xfer *xfer);
+    void trackTargets();
+    int findConditionIndex();
+    int findClosestFreeGarrisonPointIndex(int conditionIndex, const Coord3D *pos);
+    void removeObjectFromGarrisonPoint(Object *obj, int index);
+    void putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, int conditionIndex, int index);
+    void validateRallyPoint();
+    void healSingleObject(Object *obj, float framesForFullHeal);
+    void putObjectAtBestGarrisonPoint(Object *obj, Object *target, const Coord3D *targetPos);
+    virtual void redeployOccupants();
+    void addValidObjectsToGarrisonPoints();
+    void removeInvalidObjectsFromGarrisonPoints();
+private:
+    unsigned int m_originalTeamID; // +0xFC
+    GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
+    int m_garrisonPointsInUse; // +0x420
+    Rva00477F06GarrisonPoint m_garrisonPoint[MAX_GARRISON_POINT_CONDITIONS][MAX_GARRISON_POINTS]; // +0x424
+    int m_numGarrisonPoints[MAX_GARRISON_POINT_CONDITIONS]; // +0x9C4
+    Coord3D m_exitRallyPoint; // +0x9D0
+    bool m_garrisonPointsInitialized; // +0x9DC
+    bool m_hideGarrisonedStateFromNonallies; // +0x9DD
+    bool m_rallyValid; // +0x9DE
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
+
+// Measured target helpers used by retail trackTargets at 0x00478ADB.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -1983,17 +2030,141 @@ GarrisonContain::GarrisonContain(Thing *thing, const ModuleData *moduleData)
 
 // tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
 
-// tu-skeleton: 0x00478BE0 76B ?rva00478BE0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
+// tu-skeleton: 0x004787B0 160B ?onObjectCreated@GarrisonContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnObjectCreated.cpp (not merged yet)
 
-// tu-skeleton: 0x00478C2C 222B ?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp
+
+// Provider46247D is the already rowed26-byte pair writer: its inline/noinline
+// copy emits the same entire body and relocations here. Visibility proves the
+// out argument is the only receiver storage written, matching native callee
+// knowledge and closing both loop register allocations. /Oy leaves the getter
+// frameless while the two address-taking callers retain their native EBP frames.
+// Native478BE0..478C2C /478FD7..47901B and WB11A4120/11A6EE0 establish
+// each distinct helper. BF1/ZH GarrisonContain loops are semantic guides;
+// receiver/data offsets and list traversal are target evidence.
+
+// Target helpers00478BE0/00478FD7: WB11A4120/11A6EE0 and the
+// GarrisonContain update caller00479643 establish the subsystem and purpose.
+// ZH GarrisonContain healing/move loops are the semantic guide. The target
+// uses its verified pair view0046247D with no owner destructor in either body.
+
+void GarrisonContain::rva00478BE0()
+{
+ const ChildHealData *modData=(const ChildHealData *)m_pad4;
+ if(!modData->heal) return;
+ Rva0046247DPair contained;
+ ((Rva0046247D*)this)->rva0046247D(contained);
+ const ChildList &list=*(const ChildList *)contained.m04;
+ for(ChildList::const_iterator it=list.begin();it!=list.end();++it)
+  healSingleObject(*it,modData->healFrames);
+}
+
+void GarrisonContain::rva00478FD7()
+{
+ if(!((const ChildHealData *)m_pad4)->move) return;
+ Rva0046247DPair contained;
+ ((Rva0046247D*)this)->rva0046247D(contained);
+ const ChildList &list=*(const ChildList *)contained.m04;
+ for(ChildList::const_iterator it=list.begin();it!=list.end();++it)
+  ((Thing*)*it)->setPosition(&((GarrisonOwnerPosition *)m_object)->position);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp
+
+// GarrisonContain::onContaining (0x00478C2C, 222 bytes), after the BFME1
+// GarrisonContain_onContaining.cpp donor and the ZH GarrisonContain.cpp body
+// (BFME1 reference revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20).
+//
+// Target facts: slot 22 of the +0x20 Contain interface vtable 0x00846080;
+// it first calls OpenContain::onContaining 0x00463097 (slot 22 of the
+// OpenContain interface vtable 0x008433B0). The rider is held
+// (Object::setDisabled 0x00291C9B, type 3) and gets status 0x3A, the
+// structure gets status 1 (Object::setStatus 0x0023DB0E), the rider's +0x380
+// word gets bit 0 and the rider moves to the structure's position (+0x38,
+// Thing::setPosition 0x0030AA80). When bit 61 of the 16-byte mask from
+// interface slot +0xB0 is set the rider's drawable (0x005508E2) is hidden
+// (0x00271601). After recalcApparentControllingPlayer (slot +0x50), a rider
+// passing the 0x14 gate 0x0029091E gets weapon set flag 0x14
+// (Object::setWeaponSetFlag 0x00290963), and so does every member of the list
+// that its contain interface (0x0028C197, slot +0x108) hands out.
+//
+// Carried from the donor: the method name, the base call and the order of the
+// rider and structure updates. The weapon-set pass has no BFME1/ZH
+// counterpart; its shape is read from the target.
+
+void GarrisonContain::onContaining(Object *obj, bool wasSelected)
+{
+    OpenContain::onContaining(obj, wasSelected);
+
+    Object *structure = getObject();
+    obj->setDisabled((DisabledType)3);
+    obj->setStatus((ObjectStatusTypes)0x3A, true);
+    structure->setStatus((ObjectStatusTypes)1, true);
+    obj->setPrivateStatus(1);
+    obj->setPosition(structure->getPosition());
+
+    if (getFlags(0).test(61))
+        obj->getDrawable()->setDrawableHidden(true);
+
+    recalcApparentControllingPlayer();
+
+    if (obj->rva0029091E(0x14))
+    {
+        obj->setWeaponSetFlag((WeaponSetType)0x14);
+        if (ContainSlots *contain = (ContainSlots *)obj->rva0028C197())
+        {
+            Rva0046247DPair members;
+            contain->slot108(members);
+            for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)members.m04)->begin(); it != ((const _STL::list<Object *> *)members.m04)->end(); ++it)
+            {
+                Object *member = *it;
+                if (member->rva0029091E(0x14))
+                    member->setWeaponSetFlag((WeaponSetType)0x14);
+            }
+        }
+    }
+}
 
 // tu-skeleton: 0x00478D0A 717B ?onRemoving@GarrisonContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp (not merged yet)
 
-// tu-skeleton: 0x00478FD7 68B ?rva00478FD7@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
-
 // tu-skeleton: 0x0047901B 631B ?loadGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainLoadGarrisonPoints.cpp (not merged yet)
 
-// tu-skeleton: 0x0047933C 89B ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveInvalidObjects.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveInvalidObjects.cpp
+
+inline ObjectIdNode *ObjectIdMap::find(const ObjectID &id) {
+ VisLookupMap *map=(VisLookupMap*)this;
+ unsigned int bucket=(unsigned int)id % map->buckets.size();
+ VisLookupNode *node;
+ for(node=map->buckets[bucket];node && node->key!=id;node=node->next) {}
+ return (ObjectIdNode*)node;
+}
+
+inline Object *GameLogic::findObjectByID(ObjectID id)
+{
+	if (id == 0)
+		return 0;
+	ObjectIdNode *node = m_map.find(id);
+	if (node == 0)
+		return 0;
+	return node->object;
+}
+
+void GarrisonContain::removeInvalidObjectsFromGarrisonPoints()
+{
+    if (m_garrisonPointsInUse == 0)
+        return;
+    for (int i = 0; i < 40; ++i)
+    {
+        ObjectID id = m_garrisonPointData[i].objectID;
+        Object *obj = TheGameLogic->findObjectByID(id);
+        if (obj)
+        {
+            const Weapon *weapon = obj->getCurrentWeapon(0);
+            if (weapon && ((const Rva002C9400ByteField *)weapon->getTemplate())->get())
+                removeObjectFromGarrisonPoint(obj, i);
+        }
+    }
+}
 
 // tu-skeleton: 0x00479432 529B ?recalcApparentControllingPlayer@GarrisonContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRecalcApparentControllingPlayer.cpp (not merged yet)
 
