@@ -4,31 +4,29 @@
 // Dedicated TU so meshmdlio.cpp keeps its matched bodies.
 // Shader[pass] is at MatDesc+0x98; ShaderArray[pass] at +0xF8.
 
-#include "ShaderClass.h"
+#include "MeshMatDescClass.h"
 
-class ShareBufferClass
+template <class T> class ShareBufferClass
 {
 	int Vptr;
 	int NumRefs;
-	ShaderClass *RawBuffer;
-	ShaderClass *Array;
+	T *RawBuffer;
+	T *Array;
 	int Count;
 public:
 	int Get_Count() { return Count; }
-	ShaderClass &Get_Element(int index) { return Array[index]; }
+	T &Get_Element(int index) { return Array[index]; }
 };
 
-class MeshMatDescClass
+inline ShaderClass MeshMatDescClass::Get_Single_Shader(int pass) const
 {
-public:
-	unsigned char Pad[0x98];
-	ShaderClass Shader[4];
-	unsigned char Mid[0x50];
-	ShareBufferClass *ShaderArray[4];
+	return Shader[pass];
+}
 
-	ShaderClass Get_Single_Shader(int pass) const { return Shader[pass]; }
-	bool Has_Shader_Array(int pass) const { return ShaderArray[pass] != 0; }
-};
+inline bool MeshMatDescClass::Has_Shader_Array(int pass) const
+{
+	return ShaderArray[pass] != 0;
+}
 
 class MeshModelClass
 {
