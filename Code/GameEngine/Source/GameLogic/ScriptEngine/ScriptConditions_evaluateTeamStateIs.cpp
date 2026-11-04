@@ -618,16 +618,7 @@ typedef _STL::list<Drawable *> DrawableList;
 // (+0x58, Common/GameEngineSlots.cpp); InGameUI +0x120 is the selection
 // frame and +0x124 the selected-drawable list (LeftHUDInput.cpp).
 #define BFME_SLOT(n) virtual void slot##n() = 0
-class GameEngine
-{
-public:
-	BFME_SLOT(00); BFME_SLOT(01); BFME_SLOT(02); BFME_SLOT(03); BFME_SLOT(04);
-	BFME_SLOT(05); BFME_SLOT(06); BFME_SLOT(07); BFME_SLOT(08); BFME_SLOT(09);
-	BFME_SLOT(10); BFME_SLOT(11); BFME_SLOT(12); BFME_SLOT(13); BFME_SLOT(14);
-	BFME_SLOT(15); BFME_SLOT(16); BFME_SLOT(17); BFME_SLOT(18); BFME_SLOT(19);
-	BFME_SLOT(20); BFME_SLOT(21);
-	virtual bool isMultiplayerSession() = 0; // +0x58
-};
+#include "../../../Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 
 #include "../../../Include/GameClient/InGameUI.h"
