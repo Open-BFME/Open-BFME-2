@@ -40,19 +40,12 @@ protected:
 
 #include "../WWLib/ChunkLoadClass.h"
 
-class MeshMatDescClass
+#include "MeshMatDescClass.h"
+
+inline bool MeshMatDescClass::Has_UV(int pass, int stage)
 {
-public:
-	void Install_UV_Array(int pass, int stage, Vector2 *uvs, int count);
-	bool Has_UV(int pass, int stage) { return UVSource[pass][stage] != -1; }
-
-private:
-	char m_pad0[0x30];
-	int UVSource[4][2];
-	char m_pad1[0x118 - 0x50];
-};
-
-typedef char MeshMatDescSizeCheck[sizeof(MeshMatDescClass) == 0x118 ? 1 : -1];
+	return UVSource[pass][stage] != -1;
+}
 
 class MeshLoadContextClass
 {
