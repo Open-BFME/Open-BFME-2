@@ -84,7 +84,7 @@ template <> inline HRESULT IFEBrowserEngine2Ptr::CreateInstance(
 struct BfmeObjECF;
 extern BfmeObjECF *g_bfmeObjECF;
 #define Rva0134B280Browser (*reinterpret_cast<IFEBrowserEngine2Ptr *>(&g_bfmeObjECF))
-class WW3D { public: static void *Get_Window(); };
+#include "WW3DClass.h"
 struct IDirect3DDevice8;
 #include "DX8WrapperClass.h"
 class DX8WebBrowser {
