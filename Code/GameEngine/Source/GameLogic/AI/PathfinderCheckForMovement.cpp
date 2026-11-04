@@ -41,14 +41,8 @@ class Object;
 
 #include "../../../Include/Common/StateMachineClass.h"
 
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-
-	unsigned char m_pad00[0x30];
-	StateMachine *m_stateMachine; // +0x30
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 
 class Object
 {

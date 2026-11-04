@@ -32,18 +32,7 @@ public:
 template <> class VSlots<0>
 {
 };
-class AIUpdateInterface : public VSlots<118>
-{
-public:
-	virtual const Coord3D *getGuardLocation(void) const = 0;
-	virtual void slot119() = 0;
-	virtual void slot120() = 0;
-	virtual void slot121() = 0;
-	virtual void slot122() = 0;
-	virtual void slot123() = 0;
-	virtual void slot124() = 0;
-	virtual GuardMode getGuardMode(void) const = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -72,8 +61,8 @@ StateReturnType AITunnelNetworkGuardState::onEnter()
 	m_guardMachine = new AITNGuardMachine( getMachineOwner());
 
 	// tell the guarding machine what it is guarding with
-	m_guardMachine->setTargetPositionToGuard( ai->getGuardLocation() ); 
-	m_guardMachine->setGuardMode(ai->getGuardMode());
+	m_guardMachine->setTargetPositionToGuard( ai->vslot118() ); 
+	m_guardMachine->setGuardMode(ai->vslot125());
 
 	// now that essential parameters are set, set the machine's initial state
 	if (m_guardMachine->initDefaultState() == STATE_FAILURE) 

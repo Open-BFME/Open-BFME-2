@@ -16,7 +16,7 @@ public: bool _M_is_any() const; unsigned int words[N];
 }; }
 class Rva00331682Holder { public: bool test(const void*) const; };
 class Rva00263546 { public: bool rva00263546(const Rva00263546*) const; };
-class AIUpdateInterface { public: char data00[0x34]; void *active; };
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 class CommandButton;
 enum ObjectStatusTypes { AutoAbilityStatus74=74 };
@@ -68,6 +68,6 @@ bool AutoAbilityBehavior::rva0045A57C()
  if(((const Rva00263546*)obj->model)->rva00263546(&button->exclude)) return false;
  if(obj->testStatus(AutoAbilityStatus74)) return false;
  AIUpdateInterface *ai=obj->ai;
- if(ai && ai->active) return false;
+ if(ai && ai->m_nextEnemyScanTime) return false;
  return true;
 }

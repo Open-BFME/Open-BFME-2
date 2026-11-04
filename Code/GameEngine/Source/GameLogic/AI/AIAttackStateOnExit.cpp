@@ -80,19 +80,7 @@ public:
 template <> class AttackSlots<0>
 {
 };
-class AIUpdateInterface : public AttackSlots<143>
-{
-public:
-	virtual Int getLastCommandSource() = 0;
-	virtual void notifyVictimIsDead() = 0;
-	virtual void slot145() = 0; virtual void slot146() = 0; virtual void slot147() = 0;
-	virtual void slot148() = 0; virtual void slot149() = 0; virtual void slot150() = 0;
-	virtual void slot151() = 0;
-	virtual Bool slot152() = 0;
-	void setCurrentVictim(const Object *nemesis);
-	void setTurretTargetObject(WhichTurretType tur, Object *o, bool isForceAttacking);
-	void friend_setGoalObject(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ContainModuleInterface : public AttackSlots<4>
 {
 public:
@@ -320,7 +308,7 @@ StateReturnType AIAttackState::update()
 		return STATE_FAILURE;
 	}
 	AIUpdateInterface *sourceAI = source->getAI();
-	if (sourceAI && sourceAI->slot152())
+	if (sourceAI && sourceAI->rva002697FC())
 		return STATE_CONTINUE;
 	if (source->isOutOfAmmo() && !(source->getTemplate()->m_kindof[0] & (1U << 25)))
 		return STATE_FAILURE;
@@ -335,7 +323,7 @@ StateReturnType AIAttackState::update()
 			Int result = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine(); return result > STATE_CONTINUE ? STATE_CONTINUE : (StateReturnType)result;
 		}
 		AIUpdateInterface *ai = source->getAI();
-		Int lastCommandSource = ai->getLastCommandSource();
+		Int lastCommandSource = ai->vslot143();
 		Bool status1C = source->testStatus(OBJECT_STATUS_1C);
 		Bool isEnemy = source->getRelationship(victim) == ENEMIES; _ReadWriteBarrier();
 		if (!isEnemy && m_49 && (lastCommandSource & 2) && !status1C &&

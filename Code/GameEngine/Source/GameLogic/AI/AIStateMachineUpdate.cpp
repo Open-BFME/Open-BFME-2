@@ -57,11 +57,7 @@ public:
 template <> class AIStateMachineAISlots<0>
 {
 };
-class AIUpdateInterface : public AIStateMachineAISlots<153>
-{
-public:
-	virtual void friend_notifyStateMachineChanged() = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva004B0E9C
 {
@@ -206,7 +202,7 @@ void AIStateMachine::clear()
 
 	AIUpdateInterface* ai = getOwner()->m_ai;
 	if (ai)
-		ai->friend_notifyStateMachineChanged();
+		ai->vslot153();
 }
 
 // Preserve the separately rowed Coord3D erase implementation at 0x00081A24.

@@ -67,19 +67,7 @@ public:
 template <> class AIUpdateSlots<0>
 {
 };
-class AIUpdateInterface : public AIUpdateSlots<107>
-{
-public:
-	virtual Bool isAllowedToAdjustDestination() const;
-	void rva00262AEA();
-	void requestPath(Coord3D *destination, Bool isGoalDestination);
-	void rva00262ACE();
-	bool isWaitingForPath() const { return m_waitingForPath; }
-	unsigned char m_pad004[0x1A0 - 4];
-	float m_1A0; // +0x1A0
-	unsigned char m_pad1A4[0x3B1 - (0x1A0 + sizeof(float))];
-	bool m_waitingForPath; // +0x3B1
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -139,7 +127,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 		return false;
 	}
 	const AIUpdateInterface *ai = obj->getAI();
-	if (ai && !ai->isAllowedToAdjustDestination())
+	if (ai && !ai->vslot107())
 	{
 		if (g_00E03745)
 		{
@@ -187,7 +175,7 @@ void AIInternalMoveToState::onExit(StateExitType)
 	{
 		ai->rva00262AEA();
 		if (m_4B)
-			ai->m_1A0 = 3.4028234663852886e+38f;
+			ai->m_field1A0 = 3.4028234663852886e+38f;
 	}
 	m_4B = false;
 }

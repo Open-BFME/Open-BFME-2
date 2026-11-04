@@ -103,16 +103,7 @@ template <> class VSlots<0>
 {
 };
 // isDoingGroundMovement is AIUpdateInterface vslot 137 (+0x224).
-class AIUpdateInterface : public VSlots<137>
-{
-public:
-	virtual Bool isDoingGroundMovement(void) const = 0;
-	void friend_setGoalObject(Object *obj);
-	__declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet(void) const { return *(const LocomotorSet *)m_locomotorSet; }
-private:
-	unsigned char m_pad004[0x1CC - 0x04];
-	unsigned char m_locomotorSet[4]; // +0x1CC
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object;
 struct Coord3D;
 // The +0x250 module controller (module vslot 31): reset vslot 5, pick vslot 18,

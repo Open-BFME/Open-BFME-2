@@ -93,11 +93,7 @@ struct FprintfTarget
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-class AIUpdateInterface : public VSlots<143>
-{
-public:
-	virtual CommandSourceType getLastCommandSource() const = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameClient/ModelConditionFlags.h"
 class Object
 {
@@ -351,7 +347,7 @@ StateReturnType AIAttackMoveToState::onEnter()
 	AIUpdateInterface *ai = owner->getAI();
 	m_attackMoveMachine->clear();
 	m_attackMoveMachine->setState( AI_IDLE );
-	m_commandSrc = ai->getLastCommandSource();
+	m_commandSrc = ai->vslot143();
 	m_retryCount = ATTACK_RETRY_COUNT;
 	m_frameToSleepUntil = 0;
 

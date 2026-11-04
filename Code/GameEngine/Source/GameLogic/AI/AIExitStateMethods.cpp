@@ -63,11 +63,7 @@ template <> class VSlots<0>
 };
 #include "../../../Include/GameLogic/Module/ExitInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"
-class AIUpdateInterface : public VSlots<106>
-{
-public:
-	virtual AIFreeToExitType getAiFreeToExit(const Object *exiter) const = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -194,7 +190,7 @@ StateReturnType AIExitState::update()
 	if (goal)
 	{
 		AIUpdateInterface* goalAI = goal->getAI();
-		if (goalAI && goalAI->getAiFreeToExit(obj) == WAIT_TO_EXIT)
+		if (goalAI && goalAI->vslot106(obj) == WAIT_TO_EXIT)
 			return STATE_CONTINUE;
 
 		ExitInterface* goalExitInterface = goal->getContain() ? goal->getContain()->getContainExitInterface() : NULL;

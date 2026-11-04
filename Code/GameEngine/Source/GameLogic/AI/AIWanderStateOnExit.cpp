@@ -15,11 +15,7 @@ template <> class AIWanderStateAISlots<0>
 {
 };
 // AIUpdateInterface: vslot 142 (+0x238) takes one argument.
-class AIUpdateInterface : public AIWanderStateAISlots<142>
-{
-public:
-	virtual void rva0034A323Slot142(int value) = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ModelConditionFlags
 {
 public:
@@ -72,6 +68,6 @@ void AIWanderState::onExit(StateExitType status)
 	if (obj)
 	{
 		obj->clearModelConditionState(4 * 32 + 2);
-		Object::getAI(obj)->rva0034A323Slot142(0);
+		Object::getAI(obj)->chooseLocomotorSet(0);
 	}
 }

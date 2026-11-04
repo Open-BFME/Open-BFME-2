@@ -223,73 +223,11 @@ class Rva00352F9D
 public:
 	void rva00352F9D(const void *way, int maxShots, CommandSourceType cmdSource);
 };
-class AICommandInterface
-{
-public:
-	void rva00295A0F(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva00352F2FOpaque
 {
 public:
 	void invoke(const Waypoint *way, int maxShots, CommandSourceType cmdSource);
-};
-class AIUpdateInterface : public AIDeadStateAISlots<131>
-{
-public:
-	virtual void setLocomotorGoalPositionOnPath() = 0; // slot 131
-	virtual void slot132() = 0;
-	virtual void slot133() = 0;
-	virtual void slot134() = 0;
-	virtual void slot135() = 0;
-	virtual void setLocomotorGoalNone() = 0; // slot 136
-	virtual Bool isDoingGroundMovement() const = 0; // slot 137
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-	Object *checkForCrateToPickup();
-	Object *getNextMoodTarget(Bool calm, Bool alwaysAttack);
-	Path *getPath() const { return m_path; }
-	UnsignedInt getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
-	void aiAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
-	{
-		((AICommandInterface *)m_commandInterface)->rva00295A0F(pos, maxShotsToFire, cmdSource);
-	}
-	void aiAttackFollowWaypointPath(const Waypoint *way, Int maxShotsToFire, CommandSourceType cmdSource)
-	{
-		((Rva00352F2FOpaque *)m_commandInterface)->invoke(way, maxShotsToFire, cmdSource);
-	}
-	void aiAttackFollowWaypointPathAsTeam(const Waypoint *way, Int maxShotsToFire, CommandSourceType cmdSource)
-	{
-		((Rva00352F9D *)m_commandInterface)->rva00352F9D(way, maxShotsToFire, cmdSource);
-	}
-	Bool isWaitingForPath() const { return m_isWaitingForPath; }
-	__declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
-	void setPriorWaypointID(UnsignedInt id) { m_priorWaypointID = id; }
-	void setCurrentWaypointID(UnsignedInt id) { m_currentWaypointID = id; }
-	void setCompletedWaypoint(const Waypoint *way);
-	// Zero Hour's friend_startingMove and friend_endingMove.
-	void rva00262ACE();
-	void rva00262AEA();
-	ObjectID getIgnoredObstacleID() const;
-	Real getLocomotorDistanceToGoal();
-	void setPathExtraDistance(Real dist);
-	void setDesiredSpeed(Real speed);
-	void friend_setLastCommandSource(CommandSourceType source) { m_lastCommandSource = source; }
-private:
-	unsigned char m_pad004[0x20 - 4];
-	unsigned char m_commandInterface[0x28 - 0x20]; // +0x20
-	UnsignedInt m_priorWaypointID; // +0x28
-	UnsignedInt m_currentWaypointID; // +0x2C
-	unsigned char m_pad030[0x48 - 0x30];
-	CommandSourceType m_lastCommandSource; // +0x48
-	unsigned char m_pad04C[0x140 - 0x4C];
-	Path *m_path; // +0x140
-	unsigned char m_pad144[0x1CC - 0x144];
-	unsigned char m_locomotorSet[0x1F0 - 0x1CC]; // +0x1CC
-	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3B1 - (0x1F0 + sizeof(Locomotor *))];
-	Bool m_isWaitingForPath; // +0x3B1
-	unsigned char m_pad3B2[0x3C7 - 0x3B2];
-public:
-	Bool m_flag3C7; // +0x3C7
 };
 class Rva0010CBits
 {

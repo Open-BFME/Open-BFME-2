@@ -20,11 +20,7 @@ class BfmeVirtualSlots<0>
 {
 };
 
-class AIUpdateInterface : public BfmeVirtualSlots<142>
-{
-public:
-	virtual void slot142(int);
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object0033FA64
 {
@@ -35,5 +31,5 @@ public:
 
 void Rva0033FA64Do(const Object0033FA64 *obj)
 {
-	obj->m_258->slot142(5);
+	obj->m_258->chooseLocomotorSet(5);
 }

@@ -12,7 +12,7 @@ typedef unsigned UnsignedInt;
 #include "../../../Include/Common/StateMachineClass.h"
 class Object;
 template<int N>class Slots:public Slots<N-1>{public:virtual void gap(char(*)[N]);};template<>class Slots<0>{};
-class AIUpdateInterface:public Slots<143>{public:virtual int getCommandSource();};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 class ContainModuleInterface:public Slots<31>{public:virtual HordeContainInterface*getHordeContainInterface();};
 class Object{public:
@@ -29,7 +29,7 @@ StateReturnType AICombineState::internalUpdate(){
  if(owner->cannotCombine())return STATE_FAILURE;
  if(goal){
   if(goal->cannotCombine())return STATE_FAILURE;
-  if(!TheActionManager->Rva0041B94AGet(owner,goal,owner->m_ai->getCommandSource()))return STATE_FAILURE;
+  if(!TheActionManager->Rva0041B94AGet(owner,goal,owner->m_ai->vslot143()))return STATE_FAILURE;
   m_goalPosition=goal->m_position;
   float distance=owner->rva00263763(goal);
   if(2500.0f>distance){

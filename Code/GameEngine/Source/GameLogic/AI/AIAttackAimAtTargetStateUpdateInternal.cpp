@@ -59,29 +59,7 @@ public:
 template <> class AIAimAISlots<0>
 {
 };
-class AIUpdateInterface : public AIAimAISlots<129>
-{
-public:
-	virtual void addTargeter(ObjectID id, Bool add) = 0; // slot 129
-	virtual Bool isTemporarilyPreventingAimSuccess() = 0; // slot 130
-	virtual void slot131() = 0;
-	virtual void setLocomotorGoalPositionExplicit(const Coord3D &newPos) = 0; // slot 132
-	virtual void slot133() = 0;
-	virtual void slot134() = 0;
-	virtual void setLocomotorGoalOrientation(Real angle) = 0; // slot 135
-	virtual void slot136() = 0;
-	virtual void slot137() = 0;
-	virtual void slot138() = 0;
-	virtual void slot139() = 0;
-	virtual void slot140() = 0;
-	virtual void slot141() = 0;
-	virtual void chooseLocomotorSet(Int set) = 0; // slot 142
-	virtual Int slot143() = 0;
-	WhichTurretType getWhichTurretForCurWeapon() const;
-	void setTurretTargetObject(WhichTurretType tur, Object *o, Bool isForceAttacking);
-	void setTurretTargetPosition(WhichTurretType tur, const Coord3D *pos);
-	Real getTurretTurnRate(WhichTurretType tur) const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"
 struct Rva0028AC4EEntry;
 #include "../../../Include/Common/ThingTemplate.h"
@@ -233,7 +211,7 @@ StateReturnType AIAttackAimAtTargetState::updateInternal(Bool stopBeforeAim)
 			return STATE_FAILURE;
 		if (victim->rva002943B2(source->getControllingPlayer()))
 			return STATE_FAILURE;
-		if (source->getTemplate()->m_firingArc < 360.0f && sourceAI->slot143() != 2 &&
+		if (source->getTemplate()->m_firingArc < 360.0f && sourceAI->vslot143() != 2 &&
 			!((Rva0028F326Owner *)source)->rva0028F326((unsigned int)victim, source->getVisionRange() * 10.0f))
 			return STATE_FAILURE;
 	}
@@ -352,7 +330,7 @@ StateReturnType AIAttackAimAtTargetState::updateInternal(Bool stopBeforeAim)
 		// over whether or not we are a targeter... (srj)
 		if (victimAI)
 			victimAI->addTargeter(source->getID(), true);
-		if (victimAI && victimAI->isTemporarilyPreventingAimSuccess())
+		if (victimAI && victimAI->vslot130())
 			return STATE_CONTINUE;
 		return STATE_SUCCESS;
 	}

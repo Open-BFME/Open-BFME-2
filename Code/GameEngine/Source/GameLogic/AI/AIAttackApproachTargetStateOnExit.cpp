@@ -60,27 +60,7 @@ template <> class AIApproachAISlots<0>
 class Object;
 class Weapon;
 
-class AIUpdateInterface : public AIApproachAISlots<136>
-{
-public:
-	virtual void rva003489E2Slot136() = 0;
-	virtual Bool isDoingGroundMovement() const = 0;
-	void ignoreObstacle(const Object *obj);
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-	WhichTurretType getWhichTurretForCurWeapon() const;
-	Object *getNextMoodTarget(Bool calledByAI, Bool calledDuringIdle);
-	void setTurretTargetObject(WhichTurretType tur, Object *o, Bool isForceAttacking);
-private:
-	unsigned char m_pad004[0x1F0 - 0x04];
-	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3B2 - 0x1F4];
-public:
-	Bool m_3b2; // +0x3B2
-private:
-	unsigned char m_pad3B3[0x3C7 - 0x3B3];
-public:
-	Bool m_bfmeFlag3C7; // +0x3C7
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ThingTemplate
 {
@@ -191,7 +171,7 @@ void AIAttackApproachTargetState::onExit( StateExitType status )
 				obj->setPosition(&m_goalPosition);
 			}
 		}
-		ai->rva003489E2Slot136();
+		ai->setLocomotorGoalNone();
 	}
 
 	m_isInitialApproach = false;	// We only want to allow turreted things to fire at enemies during their
@@ -231,7 +211,7 @@ StateReturnType AIAttackApproachTargetState::update()
 			if (object)
 			{
 				ai->setTurretTargetObject(tur, object, m_isForceAttacking);
-				ai->m_bfmeFlag3C7 = true;
+				ai->m_field3C7 = true;
 			}
 		}
 	}
@@ -274,7 +254,7 @@ void AIAttackApproachTargetState00C12678::onExit( StateExitType status )
 				obj->setPosition(&m_goalPosition);
 			}
 		}
-		ai->rva003489E2Slot136();
+		ai->setLocomotorGoalNone();
 	}
 
 	m_isInitialApproach = false;
@@ -295,7 +275,7 @@ StateReturnType AIAttackApproachTargetState00C12678::update()
 			if (object)
 			{
 				ai->setTurretTargetObject(tur, object, false);
-				ai->m_bfmeFlag3C7 = true;
+				ai->m_field3C7 = true;
 			}
 		}
 	}
@@ -314,7 +294,7 @@ StateReturnType AIAttackApproachTargetState00C12678::update()
 StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
 {
 	AIUpdateInterface *ai = m_machine->m_owner->m_ai;
-	m_stopIfInRange = (ai->m_3b2 == 0);
+	m_stopIfInRange = (ai->m_field3B2 == 0);
 	if (m_62)
 		m_stopIfInRange = true;
 	Object *source = m_machine->m_owner;

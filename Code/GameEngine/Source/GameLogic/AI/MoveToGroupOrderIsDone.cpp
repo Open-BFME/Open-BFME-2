@@ -37,11 +37,7 @@ public:
 };
 
 // AIUpdateInterface slot 110 (+0x1B8).
-class AIUpdateInterface : public Rva00547368Slots<109>
-{
-public:
-	virtual bool slot110() = 0;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -80,7 +76,7 @@ bool MoveToGroupOrder::rva00547368(ObjectID id)
 		m_value3C = 0;
 		return true;
 	}
-	if (ai->slot110()) {
+	if (ai->isIdle()) {
 		++m_value3C;
 		if (m_value3C > 1)
 			return true;
