@@ -28,18 +28,11 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #define APT_INPUT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptInput.cpp"
 #define APT_CIH_FILE "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 
-class AptCIH;
+#include "AptCIHClass.h"
 class Rva006DBB30SarDwordField
 {
 public:
     int get() const; // 0x006DBB30 (AptValue::getVtblIndex, rowed under this name)
-};
-class AptValue
-{
-public:
-    bool isCIH(bool bUndefOK = false) const;    // 0x006DC580
-    bool isUndefined() const;                   // 0x006DC010
-    AptCIH *c_cih(bool bUndefOK = false) const; // 0x006DCF60
 };
 #include "BfmeAptValue006DCD20.h"
 
@@ -60,23 +53,13 @@ struct AptButtonCharacter
     AptButtonCharacterData *pData;
 };
 
-class AptCIH : public AptValue
+// AptCIH.h isButtonInst() as retail inlines it (canonical +0x4C holds the
+// button character, +0x48 the parent).
+static __forceinline bool isButtonInst(AptCIH *cih)
 {
-public:
-    bool rva006E0BF0() const;               // 0x006E0BF0
-    int rva006E24D0();                     // 0x006E24D0 (full-width EAX return)
-    bool rva006E0C50(const AptCIH *) const; // 0x006E0C50
-    bool rva006E2460(const AptCIH *) const; // 0x006E2460
-    bool queueClipEvents(int mask, int value, int flag); // 0x006E2010
-    __forceinline bool isButtonInst()
-    {
-        APT_ASSERT(this, "this", APT_CIH_FILE, 0xB5)
-        return ((const Rva006DBB30SarDwordField *)this)->get() == 14 && !isUndefined();
-    }
-    char pad[0x48];
-    AptCIH *mpParent;                // +0x48
-    AptButtonCharacter *mpCharacter; // +0x4C
-};
+    APT_ASSERT(cih, "this", APT_CIH_FILE, 0xB5)
+    return ((const Rva006DBB30SarDwordField *)cih)->get() == 14 && !cih->isUndefined();
+}
 
 class AptActionQueueC
 {
@@ -205,14 +188,14 @@ void AptAnimationPoolData::rva006FB120(int eType, int state, int value, int devi
             AptCIH *pButton = buttonSet.maElements[i];
             if (((Rva006E3710 *)g_bfmeAptPtrAtE176D0)->rva006E3710((Rva006E3710Node *)pButton))
                 continue;
-            APT_ASSERT(pButton->isButtonInst(), "pInst->isButtonInst()", APT_INPUT_FILE, 0x303)
-            AptButtonCharacterData *pData = pButton->mpCharacter->pData;
+            APT_ASSERT(isButtonInst(pButton), "pInst->isButtonInst()", APT_INPUT_FILE, 0x303)
+            AptButtonCharacterData *pData = ((AptButtonCharacter *)pButton->field4C)->pData;
             for (int k = 0; k < pData->nRecords; ++k) {
-                if (pButton->mpCharacter->pData->aRecords[k].flags & 0xFE00) {
+                if (((AptButtonCharacter *)pButton->field4C)->pData->aRecords[k].flags & 0xFE00) {
                     int key = (pData->aRecords[k].flags & 0xFE00) >> 9;
                     if (eType == key) {
                         mpActionQueue->enqueueAction(&pData->aRecords[k].action,
-                                                   pButton->mpParent, 0x400000, g_00E17704);
+                                                   pButton->field48, 0x400000, g_00E17704);
                         return;
                     }
                 }

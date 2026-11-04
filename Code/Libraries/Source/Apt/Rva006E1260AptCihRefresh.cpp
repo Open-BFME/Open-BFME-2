@@ -25,41 +25,20 @@ void __debugbreak();
 
 #include "EAStringC.h"
 
-class AptCIH;
-#include "AptValue.h"
+#include "AptCIHClass.h"
 
 #include "BfmeAptValue006DCD20.h"
 
-class AptCIH
+// factorySetProperty(0 value true) as retail inlines it here: only the
+// x-translation case of its property switch survives (field44 property array,
+// field5C bit 16 the changed flag, field1C the x translation).
+static __forceinline void setPropertyX(AptCIH *cih, float value)
 {
-public:
-	char pad[0xc];
-	float a, b, c, d, tx, ty;
-	float alphaMultiplier, redMultiplier, greenMultiplier, blueMultiplier;
-	float alphaOffset, redOffset, greenOffset, blueOffset;
-	float *properties;
-	char pad2[4];
-	void *sprite;
-	char pad3[0x5c - 0x50];
-	union {
-		unsigned int flags;
-		struct {
-			unsigned int flagsLow : 16;
-			unsigned int asChanged : 1;
-			unsigned int flagsHigh : 15;
-		};
-	};
-	void factoryEnsureProperties();
-	// factorySetProperty(0 value true) as retail inlines it here: only the
-	// x-translation case of its property switch survives.
-	__forceinline void setPropertyX(float value)
-	{
-		factoryEnsureProperties();
-		properties[0] = value;
-		asChanged = 1;
-		tx = value;
-	}
-};
+	cih->factoryEnsureProperties();
+	cih->field44[0] = value;
+	cih->field5C |= 0x10000;
+	cih->field1C = value;
+}
 
 struct AptTextGlyphSource { char pad[8]; const void *glyphs; };
 struct AptParentAnimation { char pad[0x10]; AptTextGlyphSource **fonts; };
@@ -210,9 +189,9 @@ void Rva006E1260::call(void *parentValue)
 			float oldWidth = inst->x1 - inst->x0;
 			float newWidth = params.x1 - params.x0;
 			if (inst->align == 2)
-				((AptCIH *)this)->setPropertyX(((AptCIH *)this)->tx - (newWidth - oldWidth) / 2.0f);
+				setPropertyX((AptCIH *)this, ((AptCIH *)this)->field1C - (newWidth - oldWidth) / 2.0f);
 			else if (inst->align == 1)
-				((AptCIH *)this)->setPropertyX(oldWidth + ((AptCIH *)this)->tx - newWidth);
+				setPropertyX((AptCIH *)this, oldWidth + ((AptCIH *)this)->field1C - newWidth);
 		}
 		inst->x0 = params.x0;
 		inst->x1 = params.x1;

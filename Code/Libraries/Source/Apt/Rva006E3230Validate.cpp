@@ -15,18 +15,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 struct Rva006E3230Action { char data[24]; };
-class AptValue {
-public:
-    virtual void unused0(); virtual void unused1(); virtual void unused2();
-    virtual void unused3(); virtual void unused4(); virtual void unused5();
-    virtual void unused6(); virtual void unused7(); virtual void unused8();
-    virtual void unused9(); virtual void unused10(); virtual void unused11();
-    virtual void unused12();
-public:
-    // Slot 0x34: PDB name unknown (cf AptValueForceDelete.cpp); this body calls it.
-    virtual void unused13();
-    void setGCMark(bool value);
-};
+#include "AptCIHClass.h"
 class Rva006DBB40ShrAndField
 {
 public:
@@ -56,17 +45,6 @@ struct Rva006E3740Slot {
 struct Rva006E4B80Inner {
     char _pad[0x28];
     int m_val28;
-};
-class Rva006CFCD0 {
-public:
-    bool isSpriteInstBase() const;
-};
-class AptCIH {
-public:
-    virtual void AddRef();
-    bool rva006CFCD0() const;
-    char _pad4[0x48];
-    Rva006E4B80Inner *m_pAt4C;
 };
 struct AptQueuedAction {
     int eActionType;
@@ -157,16 +135,16 @@ void AptActionQueueC::rva006E39A0()
             if (m_actionType == 1) {
                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[2])->get()) {
                     action->m_pValues[2]->setGCMark(true);
-                    action->m_pValues[2]->unused13();
+                    action->m_pValues[2]->vslot13();
                 }
             } else if (m_actionType == 2) {
                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[0])->get()) {
                     action->m_pValues[0]->setGCMark(true);
-                    action->m_pValues[0]->unused13();
+                    action->m_pValues[0]->vslot13();
                 }
                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[1])->get()) {
                     action->m_pValues[1]->setGCMark(true);
-                    action->m_pValues[1]->unused13();
+                    action->m_pValues[1]->vslot13();
                 }
             } else {
                 g_bfmeAptAssertAtE17734("NOT_REACHED && \"Encountered invalid pActionPool->eActionType\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x7AA);
@@ -199,9 +177,9 @@ void AptActionQueueC::rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB
         ((Rva006E3740Slot *)m_pEnd)->eActionType = 2;
         ((Rva006E3740Slot *)m_pEnd)->field8 = iE;
         ((Rva006E3740Slot *)m_pEnd)->pValue0 = pContext;
-        ((Rva006E3740Slot *)m_pEnd)->pValue0->unused0();
+        ((Rva006E3740Slot *)m_pEnd)->pValue0->AddRef();
         ((Rva006E3740Slot *)m_pEnd)->pValue1 = pA;
-        ((Rva006E3740Slot *)m_pEnd)->pValue1->unused0();
+        ((Rva006E3740Slot *)m_pEnd)->pValue1->AddRef();
         ((Rva006E3740Slot *)m_pEnd)->pValue2 = pB;
         ((Rva006E3740Slot *)m_pEnd)->field4 = iD;
         m_pEnd = pNext;
@@ -229,12 +207,12 @@ void AptActionQueueC::enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iA
     rva006E3230(pNext);
     if (pNext != m_pCurrent) {
         ((AptQueuedAction *)m_pEnd)->eActionType = 1;
-        if (!((const Rva006CFCD0 *)pCIH)->isSpriteInstBase()) {
+        if (!pCIH->IsSpriteInstBase()) {
             g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7d);
             if (g_bfmeAptBreakOnAssertAtDDC01C)
                 __debugbreak();
         }
-        ((AptQueuedAction *)m_pEnd)->fieldC = pCIH->m_pAt4C->m_val28;
+        ((AptQueuedAction *)m_pEnd)->fieldC = ((Rva006E4B80Inner *)pCIH->field4C)->m_val28;
         ((AptQueuedAction *)m_pEnd)->m_actions = pArg1;
         ((AptQueuedAction *)m_pEnd)->field14 = pCIH;
         pCIH->AddRef();
@@ -265,12 +243,12 @@ void AptActionQueueC::prependAction(void *pArg1, AptCIH *pCIH, int iArg3, int iA
     rva006E3230(pPrev);
     if (pPrev != m_pEnd) {
         m_pCurrent = pPrev;
-        if (!((const Rva006CFCD0 *)pCIH)->isSpriteInstBase()) {
+        if (!pCIH->IsSpriteInstBase()) {
             g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7d);
             if (g_bfmeAptBreakOnAssertAtDDC01C)
                 __debugbreak();
         }
-        ((AptQueuedAction *)m_pCurrent)->fieldC = pCIH->m_pAt4C->m_val28;
+        ((AptQueuedAction *)m_pCurrent)->fieldC = ((Rva006E4B80Inner *)pCIH->field4C)->m_val28;
         ((AptQueuedAction *)m_pCurrent)->eActionType = 1;
         ((AptQueuedAction *)m_pCurrent)->m_actions = pArg1;
         ((AptQueuedAction *)m_pCurrent)->field14 = pCIH;
