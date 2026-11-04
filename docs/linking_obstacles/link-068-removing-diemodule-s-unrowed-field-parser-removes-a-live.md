@@ -49,3 +49,5 @@ recompile the parent before spending a pin on one. Next: for a target whose
 compiled callee is a thunk, make the callee's body visible or inline in the
 parent so the emitted body is retail's, then pin with `fold-proof=` and repoint.
 No row was moved and no census gain is claimed.
+
+2026-11-04 codex4: InstantDeathBehavior now uses native field declarations and the retail four-callback table; its 34-byte preview stays LINKS and three donor merges now verify. DieModule provider cleanup remains open; the batch audit is inconclusive for CreateAHeroManager. [Evidence](../../reverse/attempt_support/instantdeath-native-field-table-20261104-codex4.md).

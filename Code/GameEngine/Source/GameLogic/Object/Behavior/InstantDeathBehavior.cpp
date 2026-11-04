@@ -1,7 +1,4 @@
-// cl: /Ireference/shims/diemodule_link /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
-// stlport
-#define Matrix4x4 Matrix4  // BFME renamed it
-#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
+// cl: /O1 /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -33,173 +30,48 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-#define DEFINE_SLOWDEATHPHASE_NAMES
+// Retail 0x0045D35F registers DieMuxData at +8 and the four-entry table
+// at VA 0x00C41FA8. The table binds FX to the shared vector parser at
+// 0x00339B9A with offset +0x38; OCL, Weapon and Sound use the module's
+// rowed callbacks, which take the complete instance and apply their offsets.
+// The former ZH-only destructor/snapshot methods have no retail rows.
 
-#include "Common/Thing.h"
-#include "Common/ThingTemplate.h"
-#include "Common/INI.h"
-#include "Common/RandomValue.h"
-#include "Common/GameLOD.h"
-#include "Common/Xfer.h"
-#include "GameClient/Drawable.h"
-#include "GameClient/FXList.h"
-#include "GameClient/InGameUI.h"
-#include "GameLogic/GameLogic.h"
-#include "GameLogic/Module/BodyModule.h"
-#include "GameLogic/Module/InstantDeathBehavior.h"
-#include "GameLogic/Module/AIUpdate.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/ObjectCreationList.h"
-#include "GameLogic/Weapon.h"
-#include "GameClient/Drawable.h"
-// Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@PBVObjectCreationList@@V?$allocator@PBVObjectCreationList@@@_:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ObjectCreationList;
-namespace _STL { template <> void vector<ObjectCreationList const *,allocator<ObjectCreationList const *> >::_M_insert_overflow(ObjectCreationList const * *,ObjectCreationList const * const &,__true_type const &,unsigned int,bool); }
-// Suppress this TU's non-retail copy of ?_M_clear@?$vector@PBVWeaponTemplate@@V?$allocator@PBVWeaponTemplate@@@_STL@@@_STL@@IAEXXZ:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class WeaponTemplate;
-namespace _STL { template <> void vector<WeaponTemplate const *,allocator<WeaponTemplate const *> >::_M_clear(); }
-// Suppress this TU's non-retail copy of ?_M_clear@?$vector@PBVObjectCreationList@@V?$allocator@PBVObjectCreationList@@@_STL@@@_STL:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ObjectCreationList;
-namespace _STL { template <> void vector<ObjectCreationList const *,allocator<ObjectCreationList const *> >::_M_clear(); }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@PBVWeaponTemplate@@@_STL@@QBEXPAPBVWeaponTemplate@@I@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class WeaponTemplate;
-namespace _STL { template <> void allocator<WeaponTemplate const *>::deallocate(WeaponTemplate const * *,unsigned int) const; }
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVWeaponTemplate@@@_STL@@QBEPAPBVWeaponTemplate@@IPBX@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class WeaponTemplate;
-namespace _STL { template <> WeaponTemplate const * * allocator<WeaponTemplate const *>::allocate(unsigned int,void const *) const; }
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVObjectCreationList@@@_STL@@QBEPAPBVObjectCreationList@@IPBX@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ObjectCreationList;
-namespace _STL { template <> ObjectCreationList const * * allocator<ObjectCreationList const *>::allocate(unsigned int,void const *) const; }
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVFXList@@@_STL@@QBEPAPBVFXList@@IPBX@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class FXList;
-namespace _STL { template <> FXList const * * allocator<FXList const *>::allocate(unsigned int,void const *) const; }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@PBVObjectCreationList@@@_STL@@QBEXPAPBVObjectCreationList@@I@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ObjectCreationList;
-namespace _STL { template <> void allocator<ObjectCreationList const *>::deallocate(ObjectCreationList const * *,unsigned int) const; }
-// The FXList vector's proxy deallocate is rowed elsewhere (retail copies in
-// the slow-death parsers); this unit's copy is not retail's.
-namespace _STL { template <> void _STLP_alloc_proxy<const FXList **, const FXList *, allocator<const FXList *> >::deallocate(const FXList **, size_t); }
+#include <vector>
+#include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
-// codegen otherwise instantiates the max<unsigned> COMDAT (one byte shape
-// per TU flags); a file-static overload takes those calls instead so this
-// TU emits no external copy. TRANSITIVE anchor (no angle includes here).
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+class InstantDeathBehaviorModuleData : public DestroyDieModuleData
 {
-    return a < b ? b : a;
+public:
+    InstantDeathBehaviorModuleData();
+    virtual ~InstantDeathBehaviorModuleData();
+    static void buildFieldParse(MultiIniFieldParse &parse);
+    static void parseOCL(INI *, void *, void *, const void *);
+    static void parseWeapon(INI *, void *, void *, const void *);
+
+private:
+    // Match the existing constructor's element-neutral views. The retail
+    // field table establishes the offsets; it does not establish C++ types.
+    _STL::vector<int> m_vec38;
+    _STL::vector<int> m_vec44;
+    _STL::vector<int> m_vec50;
+    _STL::vector<int> m_vec5C;
+};
+
+void iniParseFXListVec(INI *, void *, void *, const void *);
+void Rva0045D2F6Parse(INI *, void *, void *, const void *);
+
+// ?buildFieldParse@InstantDeathBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z
+void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+    static const FieldParse dataFieldParse[] =
+    {
+        { "FX", iniParseFXListVec, 0, 0x38 },
+        { "OCL", parseOCL, 0, 0 },
+        { "Weapon", parseWeapon, 0, 0 },
+        { "Sound", Rva0045D2F6Parse, 0, 0 },
+        { 0, 0, 0, 0 }
+    };
+    parse.add(DieMuxData::getFieldParse(), 8);
+    parse.add(dataFieldParse);
 }
-}
-
-//-------------------------------------------------------------------------------------------------
-// ??0InstantDeathBehaviorModuleData@@ is implemented by the exact retail
-// thunk in InstantDeathBehaviorModuleDataCtorThunk.cpp.
-
-//-------------------------------------------------------------------------------------------------
-static void parseFX( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
-{
-	InstantDeathBehaviorModuleData* self = (InstantDeathBehaviorModuleData*)instance;
-	for (const char* token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
-	{
-		const FXList *fxl = TheFXListStore->findFXList((token));	// could be null! this is OK!
-		self->m_fx.push_back(fxl);
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp
-static void parseOCL( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
-{
-	InstantDeathBehaviorModuleData* self = (InstantDeathBehaviorModuleData*)instance;
-	for (const char* token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
-	{
-		const ObjectCreationList *ocl = TheObjectCreationListStore->findObjectCreationList(token);	// could be null! this is OK!
-		self->m_ocls.push_back(ocl);
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp
-static void parseWeapon( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
-{
-	InstantDeathBehaviorModuleData* self = (InstantDeathBehaviorModuleData*)instance;
-	for (const char* token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
-	{
-		const WeaponTemplate *wt = TheWeaponStore->findWeaponTemplate(token);	// could be null! this is OK!
-		self->m_weapons.push_back(wt);
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
-/*static*/ void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse& multiIniFieldParse) 
-{
-  DieModuleData::buildFieldParse(multiIniFieldParse);
-
-	static const FieldParse dataFieldParse[] = 
-	{
-		{ "FX",										parseFX,													NULL, 0 },
-		{ "OCL",									parseOCL,													NULL, 0 },
-		{ "Weapon",								parseWeapon,											NULL, 0 },
-		{ 0, 0, 0, 0 }
-	};
-  multiIniFieldParse.add(dataFieldParse);
-}
-
-//-------------------------------------------------------------------------------------------------
-// ??1InstantDeathBehavior@@ present-unmatched
-InstantDeathBehavior::~InstantDeathBehavior( void )
-{
-}
-
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// ?crc@InstantDeathBehavior@@ present-unmatched
-void InstantDeathBehavior::crc( Xfer *xfer )
-{
-
-	// extend base class
-	DieModule::crc( xfer );
-
-}  // end crc
-
-// ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// ?xfer@InstantDeathBehavior@@ present-unmatched
-void InstantDeathBehavior::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	DieModule::xfer( xfer );
-
-}  // end xfer
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@InstantDeathBehavior@@ present-unmatched
-void InstantDeathBehavior::loadPostProcess( void )
-{
-
-	// extend base class
-	DieModule::loadPostProcess();
-
-}  // end loadPostProcess

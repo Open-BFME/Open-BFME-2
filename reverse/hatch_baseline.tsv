@@ -12444,10 +12444,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBe
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp	onBodyDamageStateChange@BridgeTowerBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp	setTowerType@BridgeTowerBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	1InstantDeathBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	crc@InstantDeathBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	loadPostProcess@InstantDeathBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	xfer@InstantDeathBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::~Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp	dummyCtor@RampageBehaviorModuleData@@QAE@H@Z	1
