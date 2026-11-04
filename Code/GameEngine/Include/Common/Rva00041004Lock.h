@@ -1,7 +1,10 @@
 #pragma once
 // Target-owned ABI view: slot ordering and accessed prefix are proven; original
 // source class names, abstractness and complete layouts are not recovered.
+// Windows names this type once <windows.h> is included ahead of this header.
+#ifndef _WINBASE_
 struct CRITICAL_SECTION { unsigned char data[24]; };
+#endif
 
 class Rva0040EDB
 {

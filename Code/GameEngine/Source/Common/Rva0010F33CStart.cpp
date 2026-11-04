@@ -1,4 +1,6 @@
 // cl: /MD
+// platformsdk
+#include <windows.h>
 #include "../../Include/Common/Rva00041004Lock.h"
 // ?startStream@Rva0010F33C@@QAEXXZ @0x0010F33C 78B.
 // Guarded AIL_start_stream on the +0x08 inner stream: derives the guard
@@ -8,8 +10,6 @@
 // AIL_start_stream at 0x00BBABC4, target layout Rva00041004 with cs at +8
 // and bypass at +0x20 from rowed ctor 0x000411C1. Honest address name.
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall AIL_start_stream(void *stream);
 
 class Rva0010F24F
