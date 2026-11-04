@@ -1,0 +1,97 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderVolume.cpp",
+  "before": [
+    [
+      [
+        "?Get_Transform@RenderObjClass@@QBEPBVMatrix3D@@XZ",
+        "302647c18826",
+        4,
+        null
+      ],
+      [
+        "??_H@YGXPAXIHP6EPAX0@Z@Z",
+        "6246c280fc30",
+        34,
+        null
+      ],
+      [
+        "?getMesh@W3DShadowGeometry@@QAEPAUW3DShadowGeometryMesh@@H@Z",
+        "993a85c987e3",
+        14,
+        null
+      ],
+      [
+        "?shadowVolumeFlags@W3DVolumetricShadow@@KAEPBX@Z",
+        "a84461a3d55c",
+        8,
+        null
+      ],
+      [
+        "?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z",
+        "ca41782e6401",
+        231,
+        null
+      ]
+    ],
+    [
+      "?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z"
+    ],
+    [
+      "?RenderMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z",
+      "?RenderDynamicMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z",
+      "?Identity@Matrix3D@@2V1@B",
+      "?getTransformMatrix@Drawable@@QBEPBVMatrix3D@@XZ",
+      "?BfmeClientFramesPerSecond@@3HA"
+    ],
+    []
+  ],
+  "after": [
+    [
+      [
+        "?Get_Transform@RenderObjClass@@QBEPBVMatrix3D@@XZ",
+        "302647c18826",
+        4,
+        null
+      ],
+      [
+        "??_H@YGXPAXIHP6EPAX0@Z@Z",
+        "6246c280fc30",
+        34,
+        null
+      ],
+      [
+        "?getMesh@W3DShadowGeometry@@QAEPAVW3DShadowGeometryMesh@@H@Z",
+        "993a85c987e3",
+        14,
+        null
+      ],
+      [
+        "?shadowVolumeFlags@W3DVolumetricShadow@@KAEPBX@Z",
+        "a84461a3d55c",
+        8,
+        null
+      ],
+      [
+        "?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z",
+        "ca41782e6401",
+        231,
+        null
+      ]
+    ],
+    [
+      "?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z"
+    ],
+    [
+      "?RenderMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z",
+      "?RenderDynamicMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z",
+      "?Identity@Matrix3D@@2V1@B",
+      "?getTransformMatrix@Drawable@@QBEPBVMatrix3D@@XZ",
+      "?BfmeClientFramesPerSecond@@3HA"
+    ],
+    []
+  ],
+  "allowed_change": {
+    "from": "?getMesh@W3DShadowGeometry@@QAEPAUW3DShadowGeometryMesh@@H@Z",
+    "to": "?getMesh@W3DShadowGeometry@@QAEPAVW3DShadowGeometryMesh@@H@Z"
+  }
+}

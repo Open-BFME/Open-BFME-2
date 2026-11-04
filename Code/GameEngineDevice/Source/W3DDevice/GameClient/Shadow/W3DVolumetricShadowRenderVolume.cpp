@@ -75,24 +75,8 @@ public:
 // Matrix3D::Identity.
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-struct W3DShadowGeometryMesh
-{
-	char m_unmodelled00[0xc];
-	int m_meshRobjIndex;
-	char m_unmodelled10[0x20];
-	unsigned char m_unmodelled30;
-	char m_unmodelled31[3];
-};
-
-class W3DShadowGeometry
-{
-public:
-	W3DShadowGeometryMesh *getMesh(int index) { return &m_meshList[index]; }
-
-private:
-	char m_unmodelled00[0x14];
-	W3DShadowGeometryMesh m_meshList[160];
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometry.h"
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometryMesh.h"
 
 class W3DVolumetricShadow
 {
@@ -136,7 +120,7 @@ void W3DVolumetricShadow::RenderVolume(int meshIndex, int lightIndex)
 
 	mesh->Validate_Transform();
 	const Matrix3D *meshXform = mesh->Get_Transform();
-	if (meshInfo->m_unmodelled30 && mesh->Class_ID() == RenderObjClass::CLASSID_MESH)
+	if (meshInfo->m_30 && mesh->Class_ID() == RenderObjClass::CLASSID_MESH)
 		meshXform = &Matrix3D::Identity;
 
 	void *shadowVolume = m_shadowVolume[meshIndex];
