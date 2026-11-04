@@ -40,6 +40,7 @@ class CameraClass;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
+#include "../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 struct CursorTextureSlot : public BfmeResetTextureRef
 {
@@ -72,12 +73,14 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
-class ThreadClass
+class MouseThreadClass : public ThreadClass
 {
 public:
-	void Stop( void );
+	MouseThreadClass();
+	void Thread_Function();
+	virtual ~MouseThreadClass();
 };
-extern "C" ThreadClass thread;
+extern "C" MouseThreadClass thread;
 
 class Rva0009990D
 {
