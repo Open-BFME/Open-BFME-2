@@ -3,7 +3,7 @@
 // BF1 PeerThread room statistics is the semantic guide. Native38AF29..38B1BB
 // WB F665D0 names pushStatsToRoom and shows BF2 strategic/open-play selection.
 // Target vslot30 returns the owned548B aggregate; vslot7C returns the profile
-// id; vslot168 returns one byte. Their original method names are uncertain.
+// id; vslot168 is didPlayerPreorder. Their original method names are uncertain.
 // Static room key/value/buffer names and singleton names retain existing owners.
 // ABI record views match independently owned PersistentStorageThread.cpp
 // 154B core,190B open-play,208B strategic,548B aggregate; payload stays opaque.
@@ -20,11 +20,9 @@ extern Rva00559D0CRankWeights g_00E05FCC,g_00E06000;
 class GameSpyMiscPreferences{public:GameSpyMiscPreferences();virtual ~GameSpyMiscPreferences();int rva00559782();private:char fields[0x10];};
 #define S(n) virtual void slot##n();
 class GameSpyPSMessageQueueInterface{public:S(0)S(1)S(2)S(3)S(4)S(5)S(6)S(7)S(8)S(9)S(10)S(11)virtual PSPlayerAllStats get(int);};
-class GameSpyInfoInterface{public:
-S(0)S(1)S(2)S(3)S(4)S(5)S(6)S(7)S(8)S(9)S(10)S(11)S(12)S(13)S(14)S(15)S(16)S(17)S(18)S(19)S(20)S(21)S(22)S(23)S(24)S(25)S(26)S(27)S(28)S(29)S(30)virtual int getLocalProfileID();
-S(32)S(33)S(34)S(35)S(36)S(37)S(38)S(39)S(40)S(41)S(42)S(43)S(44)S(45)S(46)S(47)S(48)S(49)S(50)S(51)S(52)S(53)S(54)S(55)S(56)S(57)S(58)S(59)S(60)S(61)S(62)S(63)S(64)S(65)S(66)S(67)S(68)S(69)S(70)S(71)S(72)S(73)S(74)S(75)S(76)S(77)S(78)S(79)S(80)S(81)S(82)S(83)S(84)S(85)S(86)S(87)S(88)S(89)virtual bool premium(int);};
 #undef S
 #include "../../../../Include/GameNetwork/GameSpyStagingRoom.h"
+#include "../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyPSMessageQueueInterface*TheGameSpyPSMessageQueue;extern GameSpyInfoInterface*TheGameSpyInfo;extern GameSpyStagingRoom*TheGameSpyGame;
 
 void dispatchIndexedValue(void*,int,void*,int,int*,int*);
@@ -42,7 +40,7 @@ void PeerThreadClass::pushStatsToRoom(void*peer){
  Rva00553E47StatsCore*stats=0;
  switch(TheGameSpyGame->m_field5C){case 1:stats=&strategic;break;case 0:stats=&open;break;default:return;}
  GameSpyMiscPreferences preferences;
- bool premium=TheGameSpyInfo->premium(TheGameSpyInfo->getLocalProfileID());
+ bool premium=TheGameSpyInfo->didPlayerPreorder(TheGameSpyInfo->getLocalProfileID());
  _snprintf(s_valueBuffers[0],20,"%d",preferences.rva00559782());
  _snprintf(s_valueBuffers[1],20,"%d",reinterpret_cast<Rva005537BA*>(stats)->rva005537BA());
  _snprintf(s_valueBuffers[2],20,"%d",reinterpret_cast<Rva005537EB*>(stats)->rva005537EB());

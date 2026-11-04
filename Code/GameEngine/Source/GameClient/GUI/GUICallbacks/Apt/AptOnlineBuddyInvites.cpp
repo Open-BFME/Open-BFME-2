@@ -61,11 +61,7 @@ struct Rva00517048 {
 };
 class AptOnline {public:void rva005170B4();};
 static __forceinline FunctorBinding bind(FunctorMethod method,FunctorTarget *target){FunctorBinding result(method,target);return result;}
-class GameSpyInfoInterface {public:
-#define V(n) virtual void slot##n();
-V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)V(16)V(17)V(18)V(19)V(20)V(21)V(22)V(23)
-#undef V
- virtual _STL::map<int,int> *getBuddyMap();};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 class GameTextInterface {public:
 #define V(n) virtual void slot##n();
@@ -80,7 +76,7 @@ void Rva00517048::rva005177EB()
 {
  if(!g_Va00A04904)return;
  invite.state=invite.mode==1?3:2;
- _STL::map<int,int> *map=TheGameSpyInfo->getBuddyMap();
+ _STL::map<int,int> *map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyMap();
  Rva00516F3F &pending=invite;
  int profile=pending.profile;
  _STL::map<int,int>::iterator sender=map->find(profile);
@@ -98,7 +94,7 @@ void Rva00517048::rva00517CC9(const BuddyInviteGameInfo &info)
 {
  if(!online)return;
  if(invite.state)return;
- _STL::map<int,int> *map=TheGameSpyInfo->getBuddyMap();
+ _STL::map<int,int> *map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyMap();
  int profile=info.profile;_STL::map<int,int>::iterator sender=map->find(profile);
  if(sender==map->end())return;
  if(input&&!input->blocked())return;

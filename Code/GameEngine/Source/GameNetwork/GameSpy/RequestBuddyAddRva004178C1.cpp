@@ -98,24 +98,7 @@ typedef _STL::map<Int, Rva00384ED4Record> BuddyRequestMap;
 typedef _STL::_Rb_tree<Int, BuddyRequestMap::value_type, _STL::_Select1st<BuddyRequestMap::value_type>, _STL::less<Int>, _STL::allocator<BuddyRequestMap::value_type> > BuddyRequestTree;
 template <> void BuddyRequestTree::erase(BuddyRequestTree::iterator, BuddyRequestTree::iterator);
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23)
-	virtual BuddyInfoMap *getBuddyMap(); // slot 24
-	virtual BuddyInfoMap *getBuddyRequestMap(); // slot 25
-	virtual BuddyMessageList *getBuddyMessages(); // slot 26
-	V(27) V(28) V(29) V(30)
-	virtual Int getLocalProfileID(); // slot 31
-	V(32) V(33) V(34) V(35) V(36)
-	virtual AsciiString getLocalBaseName(); // slot 37
-#undef V10
-#undef V
-};
+#include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 class GameTextInterface
@@ -161,7 +144,7 @@ void Rva004177D5(Int profileID)
 
 void Rva004178C1(Int profileID, const AsciiString &nick)
 {
-	BuddyInfoMap *requests = TheGameSpyInfo->getBuddyRequestMap();
+	BuddyInfoMap *requests = (BuddyInfoMap *)TheGameSpyInfo->getBuddyRequestMap();
 	if (requests && requests->find(profileID) != requests->end())
 	{
 		Rva004177D5(profileID);
@@ -179,7 +162,7 @@ void Rva004178C1(Int profileID, const AsciiString &nick)
 	TheGameSpyBuddyMessageQueue->addRequest(req);
 
 	// save message for future incarnations of the buddy window
-	BuddyMessageList *messages = TheGameSpyInfo->getBuddyMessages();
+	BuddyMessageList *messages = (BuddyMessageList *)TheGameSpyInfo->getBuddyMessages();
 	BuddyMessage message;
 	message.m_timestamp = time(NULL);
 	message.m_senderID = 0;
