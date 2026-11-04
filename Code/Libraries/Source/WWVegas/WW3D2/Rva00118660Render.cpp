@@ -1,4 +1,5 @@
 // cl: /O2 /arch:SSE /G7 /MD /EHs /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // Native Ghidra 00118660..001186FB, 155B, cdecl RET0. Existing
 // callback 0006EE46 supplies owner and camera pointers. The native result
 // is bool (AL), correcting the earlier void-only caller declaration.
@@ -9,14 +10,7 @@
 // Original wrapper and inner render API names remain unknown; the ZH
 // WW3D::Render source supplies the RenderInfo lifetime as a semantic lead.
 class CameraClass;
-class RenderInfoClass
-{
-public:
-    RenderInfoClass(CameraClass &camera);
-    ~RenderInfoClass();
-private:
-    char storage[0x148];
-};
+#include "RenderInfoClass.h"
 // Canonical global identity is established by ww3d.cpp (WW3D::End_Render) at DEC3D4.
 #include "../WWMath/Vector3Data.h"
 class CameraClass

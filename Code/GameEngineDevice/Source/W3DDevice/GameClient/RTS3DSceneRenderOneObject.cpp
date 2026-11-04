@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // platformsdk
 //
 // ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
@@ -42,20 +43,7 @@ typedef float Real;
 typedef bool Bool;
 #include <windows.h>
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3 &operator+=(const Vector3 &vec) { X += vec.X; Y += vec.Y; Z += vec.Z; return *this; }
-	void Scale(const Vector3 &s) { X *= s.X; Y *= s.Y; Z *= s.Z; }
-	static float Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X*b.X + a.Y*b.Y + a.Z*b.Z; }
-	static void Add(const Vector3 &a, const Vector3 &b, Vector3 *c) { c->X = a.X + b.X; c->Y = a.Y + b.Y; c->Z = a.Z + b.Z; }
-	Real X, Y, Z;
-};
+#include "vector3.h"
 
 struct FogColorVector
 {
@@ -69,7 +57,6 @@ public:
 	Real Radius;
 };
 
-inline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z); }
 inline bool Spheres_Intersect(const SphereClass &sphere, const SphereClass &s1)
 {
 	Vector3 delta = sphere.Center - s1.Center;
@@ -242,30 +229,8 @@ private:
 class MaterialPassClass;
 class W3DShroudMaterialPassClass;
 
-class RenderInfoClass
-{
-public:
-	enum RINFO_OVERRIDE_FLAGS
-	{
-		RINFO_OVERRIDE_DEFAULT = 0x0000,
-		RINFO_OVERRIDE_FORCE_TWO_SIDED = 0x0001,
-		RINFO_OVERRIDE_FORCE_SORTING = 0x0002,
-		RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY = 0x0004
-	};
-	void Push_Material_Pass(MaterialPassClass *matpass);
-	void Pop_Material_Pass(void);
-	void Push_Override_Flags(RINFO_OVERRIDE_FLAGS flg);
-	void Pop_Override_Flags(void);
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-
-	CameraClass &Camera;												// +0x00
-	char m_pad04[0x08 - 0x04];
-	Vector3 fogColor;											// +0x08
-	char m_pad14[0x24 - 0x14];
-	Real materialPassEmissiveOverride;									// +0x24
-	LightEnvironmentClass *light_environment;							// +0x28
-};
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
@@ -414,7 +379,7 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 
 	Real foggedLightFrac = (Real)TheWritableGlobalData->m_fogAlpha / (Real)TheWritableGlobalData->m_clearAlpha;
 	if (DX8Wrapper::Get_Fog_Enable())
-		rinfo.fogColor = m_fogColor;
+		rinfo.FogColor = m_fogColor;
 
 	Vector3 ambient = Get_Ambient_Light();
 	Vector3 lightmapColor;
@@ -563,9 +528,9 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 			if (DX8Wrapper::Get_Fog_Enable())
 			{
 				Vector3 fogged(m_fogColor.X * foggedLightFrac, m_fogColor.Y * foggedLightFrac, m_fogColor.Z * foggedLightFrac);
-				rinfo.fogColor.X = fogged.X;
-				rinfo.fogColor.Y = fogged.Y;
-				rinfo.fogColor.Z = fogged.Z;
+				rinfo.FogColor.X = fogged.X;
+				rinfo.FogColor.Y = fogged.Y;
+				rinfo.FogColor.Z = fogged.Z;
 			}
 			robj->Render(rinfo);
 			rinfo.light_environment = NULL;

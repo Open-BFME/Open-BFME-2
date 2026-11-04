@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc
+// stlport
 // ?drawProps@W3DPropBuffer@@QAEXAAVRenderInfoClass@@@Z
 // retail 0x000EE452 (976B)
 //
@@ -22,16 +23,7 @@ typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	Vector3 &operator*=(Real k) { X *= k; Y *= k; Z *= k; return *this; }
-	Real X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Matrix3D
 {
@@ -55,9 +47,9 @@ public:
 	virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
 	virtual void s20();
 	virtual void Set_Transform(const Matrix3D &m);	// slot 21
-	void Set_Ambient(const Vector3 &color) { Ambient = color; }
-	void Set_Diffuse(const Vector3 &color) { Diffuse = color; }
-	void Set_Specular(const Vector3 &color) { Specular = color; }
+	void Set_Ambient(const Vector3 &color) { Ambient.Set(color); }
+	void Set_Diffuse(const Vector3 &color) { Diffuse.Set(color); }
+	void Set_Specular(const Vector3 &color) { Specular.Set(color); }
 private:
 	char m_pad04[0xD4 - 0x04];
 	Vector3 Ambient;	// +0xD4
@@ -104,20 +96,7 @@ namespace FXShader { class RenderingMethod : public RefCountClass {}; }
 
 class MaterialPassClass;
 
-class RenderInfoClass
-{
-public:
-	void Push_Material_Pass(MaterialPassClass *matpass);
-	void Pop_Material_Pass(void);
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-
-	void *Camera;	// +0x00
-	char m_pad04[0x08 - 0x04];
-	Vector3 FogColor;	// +0x08
-	char m_pad14[0x28 - 0x14];
-	class LightEnvironmentClass *light_environment;	// +0x28
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 class RenderObjClass
 {
@@ -304,7 +283,7 @@ void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 			continue;
 		}
 		if (DX8Wrapper::Get_Fog_Enable()) {
-			rinfo.FogColor = DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color());
+			rinfo.FogColor.Set(DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color()));
 		}
 		if (TheTerrainRenderObject->getShroud() && m_props[i].ss != OBJECTSHROUD_CLEAR) {
 			rinfo.Push_Material_Pass(m_propShroudMaterialPass);
