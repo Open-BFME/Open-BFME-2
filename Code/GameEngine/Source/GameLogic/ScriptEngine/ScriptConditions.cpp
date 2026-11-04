@@ -1048,19 +1048,7 @@ public:
 	virtual bool g58(int val);
 };
 bool g_00E02E34;
-class ObjectTypes
-{
-public:
-	ObjectTypes();
-	virtual ~ObjectTypes();
-	void addObjectType(const AsciiString &objectType);
-	bool isInSet(const AsciiString &name) const;	// 0x00376A62
-	int getListSize() const { return m_objectTypes.size(); }
-
-private:
-	AsciiString m_listName;
-	_STL::vector<AsciiString> m_objectTypes;
-};
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 class ObjectTypesTemp
 {
 public:
