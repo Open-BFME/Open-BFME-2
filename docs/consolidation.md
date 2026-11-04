@@ -1585,7 +1585,14 @@ still conflicts, and the lane still moves 0 merge donors (see "Sharing views doe
 merge"). The unit being wrong capped how much of the lane could be *attempted*, not how much of
 it was real.
 
-A cached plan row from a TU that did run is mostly spent - the sweep applied what it could and
-the rest reverted or conflicted - with one exception worth testing: in a whole-TU run an
-earlier class's renames can block a later one ("its renames would change the shared view of
-..."), which cannot happen to a class run on its own.
+A cached plan row from a TU that did run is spent, and this was worth checking rather than
+assuming. `tu_views` can refuse a class because an earlier sibling's renames changed a block it
+already wrote ("its renames would change the shared view of ..."), which cannot happen to a
+class run on its own, so re-running the spent TUs class by class might have recovered some. It
+would not: across the sweep's 222 apply reports, 372 conflicts and 198 reverts, **not one**
+carries that reason. The interference is real in the code and absent from the data.
+
+So the reachable work is the 272 classes in the 46 TUs the sweep never ran, and nothing else.
+The 365 plan rows cached against TUs that did run are already settled - applied, reverted or
+refused on their own merits - and re-reading them buys only the two cheap screens' worth of
+confirmation.
