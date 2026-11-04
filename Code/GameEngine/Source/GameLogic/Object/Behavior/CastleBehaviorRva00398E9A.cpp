@@ -29,7 +29,7 @@ extern PlayerList *ThePlayerList;
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
-class Rva000421C8 {public:Rva000421C8():next(0){}virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask(){return -1;}Rva000421C8 *link(Rva000421C8*);Rva000421C8 *next;};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0026119DFilter:public Rva000421C8 {public:virtual bool allow(Object*);};
 class BfmeFixedStorage0004543D {public:void SetBit(unsigned bit){words[bit>>5]|=1<<(bit&31);} void set(int i){SetBit(i);}BfmeFixedStorage0004543D(){memset(words,0,sizeof(words));}BfmeFixedStorage0004543D(int,int) throw();BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();unsigned words[7];};
 template <int N> class BitFlags;

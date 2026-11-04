@@ -672,16 +672,7 @@ enum { DOZER_TASK_BUILD = 0 };
 inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(m_teamInstances,&Team::dlink_next_TeamInstanceList);}
 
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 
 // vftable 0x00BFAD1C, allow 0x002611DD: no members (ZH's

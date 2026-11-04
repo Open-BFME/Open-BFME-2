@@ -100,14 +100,7 @@ public:
 extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 class Rva0006EE7A { public: Rva0006EE7A(int,int,int); private: unsigned char bytes[28]; };
 static inline const BfmeFixedStorage0004543D &damageStorage(const Rva0006EE7A &v) {return reinterpret_cast<const BfmeFixedStorage0004543D &>(v);}
 #include "RTS/XYDistanceCallView.h"

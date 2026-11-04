@@ -36,7 +36,7 @@ class Rva004BA1D0 {public:
 };
 struct TransitionDamageFXModuleDataView {char pad00[0x1034];_STL::vector<Rva004BA1D0,_STL::allocator<Rva004BA1D0> >neighbors;};
 class BfmeFixedStorage0004543D {public:unsigned words[7];};
-class Rva000421C8 {public:Rva000421C8():next(0){}virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask(){return -1;}Rva000421C8*next;};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva003959FA:public Rva000421C8 {public:Rva003959FA(const BfmeFixedStorage0004543D&);virtual ~Rva003959FA(){}virtual bool allow(Object*);BfmeFixedStorage0004543D mask;};
 extern PartitionManager*ThePartitionManager;
 #include "../../../../Include/Common/ObjectModule.h"

@@ -76,15 +76,7 @@ public:
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;	// +0x04
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00811A5C, allow 0x002612C6.
 class Rva002612C6Filter : public Rva000421C8

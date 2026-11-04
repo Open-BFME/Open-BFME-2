@@ -382,16 +382,7 @@ extern class GlobalData *TheWritableGlobalData;
 // BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
 // documents): a vptr, the +0x04 link to the next filter, then each
 // filter's members; address-derived names after allow (slot 1).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 
 // vftable 0x00BFAD1C, allow 0x002611DD: no members (ZH's

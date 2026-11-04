@@ -14,14 +14,7 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 class Player;
-class Rva000421C8 {
-public:
- Rva000421C8():m_next(0){}
- virtual ~Rva000421C8(){}
- virtual bool allow(Object *)=0;
- virtual int getPlayerMask();
- Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva002614ECFilter : public Rva000421C8 {
 public:
  Rva002614ECFilter(const void *f,Player *player,bool m):m_what(f),m_player(player),m_match(m){}
