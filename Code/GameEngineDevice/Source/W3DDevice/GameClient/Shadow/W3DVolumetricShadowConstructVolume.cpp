@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
 // platformsdk
 // ?constructVolume@W3DVolumetricShadow@@IAEXPAVVector3@@MHH@Z @0x000EFDF6 1115B.
 // ?constructVolumeVB@W3DVolumetricShadow@@IAEXPAVVector3@@MHH@Z @0x000F0251 1277B.
@@ -101,14 +101,7 @@ private:
 
 #include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometryMesh.h"
 
-class W3DShadowGeometry
-{
-public:
-	W3DShadowGeometryMesh *getMesh(Int index) { return &m_meshList[index]; }
-private:
-	char m_pad0[0x14];
-	W3DShadowGeometryMesh m_meshList[MAX_SHADOW_CASTER_MESHES];
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometry.h"
 
 class W3DVolumetricShadow
 {

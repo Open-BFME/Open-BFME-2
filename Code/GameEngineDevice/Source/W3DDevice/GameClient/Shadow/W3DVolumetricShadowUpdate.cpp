@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // platformsdk
 // ?Update@W3DVolumetricShadow@@QAEX_N@Z @0x000F4017 736B.
 //
@@ -223,14 +223,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 #include "../../../../Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 extern W3DBufferManager *TheW3DBufferManager;
 
-class W3DShadowGeometry
-{
-public:
-	Int getMeshCount(void) { return m_meshCount; }
-private:
-	char m_pad[0x2094];
-	Int m_meshCount;
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometry.h"
 
 class W3DVolumetricShadow
 {
