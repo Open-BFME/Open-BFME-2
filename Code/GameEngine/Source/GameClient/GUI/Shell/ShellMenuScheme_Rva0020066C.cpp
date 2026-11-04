@@ -57,7 +57,7 @@
 
 #include "Common/INI.h"
 #include "GameClient/ShellMenuScheme.h"
-#include "GameClient/Shell.h"
+
 #include "GameClient/Display.h"
 //-----------------------------------------------------------------------------
 // DEFINES ////////////////////////////////////////////////////////////////////
