@@ -225,8 +225,9 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 
   Every `??_7` the seven units emit has its pre-include digest again (read from the object
   store's build of the parent commit), and W3DTruckDrawDtor links again. Their `_$E1` rows stay
-  valid. in-o5's unlanded WallHubBehavior include had the same shift (xfer slot 3 -> 10) and is
-  held for the same fix.
+  valid. in-o5's round of 7 freed units had the same shift in WallHubBehavior (xfer slot 3 -> 10)
+  before it landed; its include now follows `Common/Snapshot.h`, and the other 6 units' tables
+  were unchanged.
 - *Rule.* After adding or moving an include, compare every `??_7` the unit emits with the unit's
   object before the edit, not only its bytes and its own link_check. A vtable has no row and no
   byte gate, and most of these tables have no sibling copy that link_check could compare against.
