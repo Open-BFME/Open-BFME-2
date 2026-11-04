@@ -819,18 +819,7 @@ private:
 	TreeHintRef00217D4C m_holder;
 };
 
-class MapMetaData
-{
-	friend class Rva0043FE9A;
-public:
-	UnicodeString bfme_getDisplayName(bool includePlayerCount);
-private:
-	UnicodeString m_displayNameLabel;
-	char m_pad04[0x20 - 0x04];
-	int m_playerCount;
-	char m_pad24[0xF4 - 0x24];
-	int m_wordF4;
-};
+#include "../../../Include/GameClient/MapMetaData.h"
 
 class Rva0043FE9A
 {
@@ -1334,9 +1323,9 @@ bool Rva0043FE9A::rva0043FE9A(MapMetaData *mapMetaData, MapMetaData *b)
 		return false;
 	if (!b)
 		return true;
-	int playerDiff = mapMetaData->m_playerCount - b->m_playerCount;
+	int playerDiff = mapMetaData->m_numPlayers - b->m_numPlayers;
 	int nameCmp = ((StringBase<unsigned short> &)mapMetaData->bfme_getDisplayName(true)).compareNoCase((StringBase<unsigned short> &)b->bfme_getDisplayName(true));
-	int f4Diff = mapMetaData->m_wordF4 - b->m_wordF4;
+	int f4Diff = mapMetaData->fieldF4 - b->fieldF4;
 	int key = m_sort0;
 	for (int i = 0; i < 2; ++i)
 	{
