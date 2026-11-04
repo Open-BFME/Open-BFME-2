@@ -4,3 +4,5 @@ Completed: OnNameChange.cpp adopts LANAPI.h using the existing slot-33 declarati
 Remaining / next check: 24 other trial units need private-layout reconciliation, caller-visible declarations or include prerequisites; fix one evidenced constraint before retrying that unit.
 Evidence: [cohort diagnostics and accepted scope](../../reverse/attempt_support/lanapi-header-adoption-20261103-codexb.md).
 Clearance: OnNameChange adoption only; broader class scope remains open. Census confirmation: awaiting; no headline gain claimed.
+
+2026-11-04: LANGameInfoParseGameOptionsString.cpp adopts LANAPI.h with the native low-byte AmIHost check; 7/7 rows and EH remain exact, acceptance retires one header row, ordinary preview LINKS 607 -> 607 B. Six newly tried callers still need view/declaration reconciliation: [evidence](../../reverse/attempt_support/lan-options-header-20261104-codexb5.md).
