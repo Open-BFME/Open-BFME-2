@@ -209,17 +209,7 @@ public:
 	bool SupportNPatches;
 };
 
-class DX8Wrapper
-{
-public:
-	static void Begin_Statistics();
-public:
-	static void End_Statistics();
-public:
-	static __forceinline DX8Caps *Read_CurrentCaps() { return CurrentCaps; }
-protected:
-	static DX8Caps *CurrentCaps;		// dx8wrapper.cpp's protected static (@@1)
-};
+#include "DX8WrapperClass.h"
 
 class WW3D
 {
@@ -572,7 +562,7 @@ void Debug_Statistics::Record_DX8_Polys_And_Vertices(int polys, int verts, const
 	int n;
 	if (shader.flags & 2)
 	{
-		DX8Caps *caps = DX8Wrapper::Read_CurrentCaps();
+		const DX8Caps *caps = DX8Wrapper::Get_Current_Caps();
 		if (caps->SupportNPatches)
 		{
 			unsigned level = WW3D::Read_NPatchesLevel();

@@ -112,11 +112,7 @@ public:
 	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const;	// 0x0013270C
 };
 
-class DX8Wrapper
-{
-public:
-	static void Apply_Render_State_Changes();		// 0x0011D930
-};
+#include "DX8WrapperClass.h"
 
 void Rva00129670Inc();						// 0x00129670, render statistics counter
 
