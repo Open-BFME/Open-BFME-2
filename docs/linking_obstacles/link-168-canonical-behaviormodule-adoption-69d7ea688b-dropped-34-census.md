@@ -254,7 +254,7 @@ declaring the rowed `protected: virtual ~AudioLoopUpgrade();` (`??1AudioLoopUpgr
 merge; not tried). ThreatFinderUpdateDtor (canonical UpdateModule) and ThreatFinderUpdate.cpp
 (private views, first in link order, held) differ in primary slots 1-4 and 12 and the
 update-interface slots 1-2: both views need the class's native overrides.
-2026-11-04: AudioLoopUpgrade's canonical sound-handle storage now preserves 17/17 rows and a clean 680-byte link preview; remaining declaration/constructor prerequisites and the UpdateModule include-acceptance false reject are in [the scoped handoff](../../reverse/attempt_support/audioloop-consolidation-prerequisites-20261104.md).
+2026-11-04: AudioLoopUpgrade's canonical sound-handle storage preserves 17/17 rows and a 680-byte link preview; [declaration prerequisites](../../reverse/attempt_support/audioloop-consolidation-prerequisites-20261104.md) remain, while [UpdateModule acceptance now passes](../../reverse/attempt_support/audioloop-header-acceptance-20261104.md); retry queue retirement after the separately published include-checker fix lands upstream.
 Repair (2026-11-01, lk10, after `1f5e399716`): Rva0024A797Grandchildren.cpp's 1,280 B
 loss was not the Grandchildren view's fault. StructureToppleUpdate.cpp (a Zero Hour port
 whose only rows are two STLport helpers, link place 3720) still defined the Zero Hour
