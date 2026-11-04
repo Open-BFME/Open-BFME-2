@@ -28,6 +28,7 @@ enum { GWM_CHAR = 0x15 };
 enum { KEY_ESC = 0x01 };
 
 #include "../../../../Include/Common/MessageStream.h"
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 extern MessageStream *TheMessageStream;
 

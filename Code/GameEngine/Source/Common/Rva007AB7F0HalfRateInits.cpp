@@ -42,7 +42,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007AC1C7();
 	static void rva007AC282();
 	static void rva007AC36B();
-	static void rva007AC413();
 	static void rva007AC491();
 	static void rva007AC4E5();
 	static void rva007AC563();
@@ -78,7 +77,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007AD97D();
 	static void rva007ADA3C();
 	static void rva007ADAA5();
-	static void rva007ADB01();
 	static void rva007ADB82();
 	static void rva007ADBC1();
 	static void rva007ADC48();
@@ -89,7 +87,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007ADE78();
 	static void rva007ADECC();
 	static void rva007ADF88();
-	static void rva007ADFDF();
 	static void rva007AE033();
 	static void rva007AE087();
 	static void rva007AE120();
@@ -187,7 +184,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007B0747();
 	static void rva007B078B();
 	static void rva007B0834();
-	static void rva007B0878();
 	static void rva007B08A2();
 	static void rva007B08F6();
 	static void rva007B0920();
@@ -210,7 +206,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007B1166();
 	static void rva007B1266();
 	static void rva007B12AA();
-	static void rva007B1396();
 	static void rva007B13C0();
 	static void rva007B13EA();
 	static void rva007B142E();
@@ -290,7 +285,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007B368E();
 	static void rva007B36D2();
 	static void rva007B3716();
-	static void rva007B3740();
 	static void rva007B3832();
 	static void rva007B385C();
 	static void rva007B3886();
@@ -320,7 +314,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007B4698();
 	static void rva007B46F8();
 	static void rva007B4722();
-	static void rva007B47BF();
 	static void rva007B4922();
 	static void rva007B4A30();
 	static void rva007B4EF4();
@@ -399,8 +392,6 @@ HALF_RATE_INIT( rva007AC1C7 )
 HALF_RATE_INIT( rva007AC282 )
 // ?rva007AC36B@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AC36B (16B), static at VA 0x00DEBB54
 HALF_RATE_INIT( rva007AC36B )
-// ?rva007AC413@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AC413 (16B), static at VA 0x00DEBB8C
-HALF_RATE_INIT( rva007AC413 )
 // ?rva007AC491@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AC491 (16B), static at VA 0x00DEBBB0
 HALF_RATE_INIT( rva007AC491 )
 // ?rva007AC4E5@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AC4E5 (16B), static at VA 0x00DEBBC8
@@ -471,8 +462,6 @@ HALF_RATE_INIT( rva007AD97D )
 HALF_RATE_INIT( rva007ADA3C )
 // ?rva007ADAA5@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ADAA5 (16B), static at VA 0x00DFE350
 HALF_RATE_INIT( rva007ADAA5 )
-// ?rva007ADB01@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ADB01 (16B), static at VA 0x00DFE48C
-HALF_RATE_INIT( rva007ADB01 )
 // ?rva007ADB82@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ADB82 (16B), static at VA 0x00DFE4D0
 HALF_RATE_INIT( rva007ADB82 )
 // ?rva007ADBC1@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ADBC1 (16B), static at VA 0x00DFE714
@@ -493,8 +482,6 @@ HALF_RATE_INIT( rva007ADE78 )
 HALF_RATE_INIT( rva007ADECC )
 // ?rva007ADF88@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ADF88 (16B), static at VA 0x00DFEC58
 HALF_RATE_INIT( rva007ADF88 )
-// ?rva007ADFDF@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ADFDF (16B), static at VA 0x00DFECCC
-HALF_RATE_INIT( rva007ADFDF )
 // ?rva007AE033@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AE033 (16B), static at VA 0x00DFECD4
 HALF_RATE_INIT( rva007AE033 )
 // ?rva007AE087@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AE087 (16B), static at VA 0x00DFEDF8
@@ -689,8 +676,6 @@ HALF_RATE_INIT( rva007B0747 )
 HALF_RATE_INIT( rva007B078B )
 // ?rva007B0834@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B0834 (16B), static at VA 0x00E033DC
 HALF_RATE_INIT( rva007B0834 )
-// ?rva007B0878@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B0878 (16B), static at VA 0x00E033E8
-HALF_RATE_INIT( rva007B0878 )
 // ?rva007B08A2@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B08A2 (16B), static at VA 0x00E033F4
 HALF_RATE_INIT( rva007B08A2 )
 // ?rva007B08F6@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B08F6 (16B), static at VA 0x00E0341C
@@ -735,8 +720,6 @@ HALF_RATE_INIT( rva007B1166 )
 HALF_RATE_INIT( rva007B1266 )
 // ?rva007B12AA@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B12AA (16B), static at VA 0x00E0385C
 HALF_RATE_INIT( rva007B12AA )
-// ?rva007B1396@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B1396 (16B), static at VA 0x00E038A8
-HALF_RATE_INIT( rva007B1396 )
 // ?rva007B13C0@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B13C0 (16B), static at VA 0x00E038BC
 HALF_RATE_INIT( rva007B13C0 )
 // ?rva007B13EA@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B13EA (16B), static at VA 0x00E038D0
@@ -895,8 +878,6 @@ HALF_RATE_INIT( rva007B368E )
 HALF_RATE_INIT( rva007B36D2 )
 // ?rva007B3716@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B3716 (16B), static at VA 0x00E045B4
 HALF_RATE_INIT( rva007B3716 )
-// ?rva007B3740@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B3740 (16B), static at VA 0x00E04600
-HALF_RATE_INIT( rva007B3740 )
 // ?rva007B3832@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B3832 (16B), static at VA 0x00E048D8
 HALF_RATE_INIT( rva007B3832 )
 // ?rva007B385C@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B385C (16B), static at VA 0x00E048E4
@@ -955,8 +936,6 @@ HALF_RATE_INIT( rva007B4698 )
 HALF_RATE_INIT( rva007B46F8 )
 // ?rva007B4722@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B4722 (16B), static at VA 0x00E06470
 HALF_RATE_INIT( rva007B4722 )
-// ?rva007B47BF@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B47BF (16B), static at VA 0x00E065A8
-HALF_RATE_INIT( rva007B47BF )
 // ?rva007B4922@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B4922 (16B), static at VA 0x00E065E0
 HALF_RATE_INIT( rva007B4922 )
 // ?rva007B4A30@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B4A30 (16B), static at VA 0x00E06644

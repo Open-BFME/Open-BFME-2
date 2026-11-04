@@ -27,6 +27,7 @@ class Object;
 class GameLogic;
 class Radar;
 class DamageInfo;
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 enum ModelConditionFlagType
 {
 	MCF_335 = 0x14F
