@@ -2,8 +2,8 @@
 // stlport46
 // 0x00470222 217B evidence: map<int int> Xfer twin of vector sister Rva0046EFDBXfer; version {1,1} via slot 0x28
 // typename "std::map" via slot 0x2c count via slot 0x78 isSaving via slot 8; save loop via rowed _M_increment
-// 0x0024250 with per-item Rva00469124Xfer 0x00469124; load throws "Map must be empty on load" via bfmeFormatText
-// 0x0060C36E then per-item operator[] 0x0028932C; caller 0x00473F81.
+// 0x0024250 with per-item Rva00469124Xfer 0x00469124; load throws XferException(4, "Map must be empty on load")
+// (constructor 0x0060C36E), then per-item operator[] 0x0028932C; caller 0x00473F81.
 #include <map>
 
 // Preserve STLport's inlined walk without emitting a competing size-profile
@@ -73,15 +73,7 @@ struct XferVersion
 #include "System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
 
-struct XferException
-{
-	char *text;
-	int tag;
-};
-
-extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
-extern int g_guardTargetTypeThrowInfo;
-extern void __declspec(noreturn) __stdcall _CxxThrowException(void *object, void *throwInfo);
+#include "../../Include/Common/XferException.h"
 
 // Same tag as the rowed pair helper so the call resolves, but the key is int
 // rather than ObjectID: retail pushes &pair straight into map<int,int>::operator[](const int &),
@@ -116,9 +108,7 @@ Xfer *Rva00470222Xfer(Xfer *xfer, IntIntMap *map)
 		}
 	} else {
 		if (!map->empty()) {
-			XferException error;
-			bfmeFormatText(&error, 4, "Map must be empty on load");
-			_CxxThrowException(&error, &g_guardTargetTypeThrowInfo);
+			throw XferException(4, "Map must be empty on load");
 		}
 		Rva00469124Pair item;
 		item.m_id = 0;
@@ -136,7 +126,7 @@ Xfer *Rva00470222Xfer(Xfer *xfer, IntIntMap *map)
 int g_guardTargetTypeThrowInfo = 0;
 #pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")
 
-// The (void *, void *) declaration above is a C++ overload, so calls spell
-// ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
+// Units that declare _CxxThrowException(void *, void *) as a C++ overload
+// call ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
 // __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
 #pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")

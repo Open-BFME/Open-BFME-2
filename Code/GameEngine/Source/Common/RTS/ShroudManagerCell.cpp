@@ -4,7 +4,7 @@
 // ?Rva0073EB00Xfer@@YAPAVXfer@@PAV1@PAG@Z @0x0073EB00 106B
 // Shroud PlayerState counters[3] Xfer helper N=3 twin of N=2 at 0x0073EA90.
 // Evidence: caller 0x0073EBB0 passes Xfer plus short ptr; slots 0x78 count and 0x80 per-short;
-// throw via _bfmeFormatText 0x0060C36E plus _CxxThrowException 0x00629094 with g_guardTargetTypeThrowInfo.
+// throws XferException (constructor 0x0060C36E, throw info 0x00CFFD18) through _CxxThrowException 0x00629094.
 
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
@@ -81,17 +81,7 @@ class RGBColor;
 
 typedef unsigned short UnsignedShort;
 
-struct XferException
-{
-	char *text;
-	int tag;
-};
-
-extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
-
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
-extern int g_guardTargetTypeThrowInfo;
+#include "../../../Include/Common/XferException.h"
 
 // ?dispatch@Rva0073EB70CellDispatch@@QAEXIIH@Z @0x0073EB70 58B (RET 0xC).
 // Ported from the Open-BFME-1 body Rva008FC250CellDispatch.cpp (BFME 1 RVA
@@ -432,9 +422,7 @@ Xfer *Rva0073EB00Xfer(Xfer *xfer, unsigned short *vals)
 	int n = 3;
 	(*xfer == count);
 	if (count != 3) {
-		XferException error;
-		bfmeFormatText(&error, 0, 0);
-		_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo); __assume(0);
+		throw XferException(0, 0);
 	}
 	do {
 		(*xfer == *vals++);
@@ -453,9 +441,7 @@ Xfer *rva0073ea90(Xfer *xfer, unsigned short *vals)
 	int n = 2;
 	(*xfer == count);
 	if (count != 2) {
-		XferException error;
-		bfmeFormatText(&error, 0, 0);
-		_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo); __assume(0);
+		throw XferException(0, 0);
 	}
 	do {
 		(*xfer == *vals++);

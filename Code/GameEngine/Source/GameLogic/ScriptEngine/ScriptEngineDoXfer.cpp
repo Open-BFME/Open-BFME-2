@@ -85,15 +85,7 @@ class RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
 
 // Native constructor 0x0060C36E and throw type CFFD18 identify the real class.
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &);
-	~XferException();
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 

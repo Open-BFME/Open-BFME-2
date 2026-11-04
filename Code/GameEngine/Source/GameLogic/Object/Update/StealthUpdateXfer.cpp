@@ -24,21 +24,13 @@ struct XferVersion
 	unsigned short m_pad;
 };
 
-struct XferException
-{
-	char *text;
-	int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 
 #include "ascii_string.h"
 
 #include "UpdateXferTypes.h"
 #include "../../../../Include/Common/BfmeXfer.h"
 
-extern "C" XferException *__cdecl bfmeFormatText(
-	XferException *result, int tag, const char *format, ...);
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-extern int g_rva008ffd18ThrowInfo;
 
 class Thing;
 class ModuleData;
@@ -57,7 +49,6 @@ extern class ThingFactory *TheThingFactory;
 
 void StealthUpdate::xfer(Xfer *xfer)
 {
-	XferException error;
 	UpdateModule::xfer(xfer);
 	if (xfer->IsLightCRC())
 		return;
@@ -78,8 +69,7 @@ void StealthUpdate::xfer(Xfer *xfer)
 		if (!tmp.isEmpty()) {
 			m_disguiseAsTemplate = TheThingFactory->findTemplate(tmp);
 			if (m_disguiseAsTemplate == NULL) {
-				bfmeFormatText(&error, 5, 0);
-				_CxxThrowException(&error, (const _s__ThrowInfo *)&g_rva008ffd18ThrowInfo); __assume(0);
+				throw XferException(5, 0);
 			}
 		}
 	}
@@ -96,5 +86,3 @@ void StealthUpdate::xfer(Xfer *xfer)
 	if (version.m_currentVersion >= 4)
 		*xfer == m_field148;
 }
-// ?g_rva008ffd18ThrowInfo@@3HA: the global at VA 0xcffd18 is ?g_guardTargetTypeThrowInfo@@3HA.
-#pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")

@@ -92,16 +92,7 @@ class Snapshot;
 #define GameLogicRandomValueReal(lo, hi) \
 	GetGameLogicRandomValueReal((lo), (hi), __FILE__, __LINE__)
 #include "../../../../Include/Common/XferVersion.h"
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);	// 0x0060C36E
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 // The cdecl enum and ID transfers, rowed at 0x00305E12, 0x00305E2A,
 // 0x00305EBA, 0x0030600A and 0x003060B2.
 void XferBodyDamageType(Xfer *xfer, Int *value);

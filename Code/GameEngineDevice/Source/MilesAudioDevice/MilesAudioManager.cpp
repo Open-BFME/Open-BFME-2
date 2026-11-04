@@ -4548,15 +4548,7 @@ class Rva00053DC5 { public: void rva00054B9A(void); };
 class Rva00056DA2 { public: void rva00056DA2(void); };
 // XferException's throw information (0x00CFFD18) is what the missing-trigger
 // path throws; tag 5 is Zero Hour's invalid-data code.
-class XferException
-{
-public:
-    XferException(int tag, const char *format, ...);
-    XferException(const XferException &that);
-    ~XferException(void);
-    char *text;
-    int tag;
-};
+#include "../../../GameEngine/Include/Common/XferException.h"
 
 // WorldBuilder twin 0x7AB6E0 (MilesAudioManager::LoadPostProcess, assert at
 // line 15099: unable to find reverb suppression polygon trigger by ID).

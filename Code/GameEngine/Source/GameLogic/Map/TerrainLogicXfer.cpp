@@ -103,16 +103,7 @@ public:
 };
 
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 void XferWaypointID(Xfer *xfer, Int *id);
 void XferDrawableID(Xfer *xfer, Int *id);

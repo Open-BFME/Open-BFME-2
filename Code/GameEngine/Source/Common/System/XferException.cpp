@@ -18,31 +18,21 @@
 
 extern char Rva0134D4B8FormatBuffer[2048];
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	XferException &operator=(const XferException &that);
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 // ??0XferException@@QAA@HPBDZZ, the same body as _bfmeFormatText.
 XferException::XferException(int tag, const char *format, ...)
 {
-	this->tag = tag;
-	text = 0;
+	m_xferField04 = tag;
+	m_xferField00 = 0;
 	if (format != 0)
 	{
 		va_list args;
 		va_start(args, format);
 		int length = _vsnprintf(Rva0134D4B8FormatBuffer, 2047, format, args);
-		text = new char[length + 1];
-		memcpy(text, Rva0134D4B8FormatBuffer, length);
-		text[length] = 0;
+		m_xferField00 = new char[length + 1];
+		memcpy(m_xferField00, Rva0134D4B8FormatBuffer, length);
+		m_xferField00[length] = 0;
 		va_end(args);
 	}
 }
@@ -50,14 +40,14 @@ XferException::XferException(int tag, const char *format, ...)
 // ??0XferException@@QAE@ABV0@@Z, retail 0x000588C5, 19 bytes.
 XferException::XferException(const XferException &that)
 {
-	text = 0;
+	m_xferField00 = 0;
 	*this = that;
 }
 
 // ??1XferException@@QAE@XZ, folded with INIException's at 0x0002BD30.
 XferException::~XferException()
 {
-	delete[] text;
+	delete[] m_xferField00;
 }
 
 // ??4XferException@@QAEAAV0@ABV0@@Z, retail 0x0002F6D6, 68 bytes.
@@ -65,15 +55,15 @@ XferException &XferException::operator=(const XferException &that)
 {
 	if (this != &that)
 	{
-		delete[] text;
-		if (that.text != 0)
+		delete[] m_xferField00;
+		if (that.m_xferField00 != 0)
 		{
-			text = new char[strlen(that.text) + 1];
-			_mbscpy(reinterpret_cast<unsigned char *>(text), reinterpret_cast<const unsigned char *>(that.text));
+			m_xferField00 = new char[strlen(that.m_xferField00) + 1];
+			_mbscpy(reinterpret_cast<unsigned char *>(m_xferField00), reinterpret_cast<const unsigned char *>(that.m_xferField00));
 		}
 		else
-			text = 0;
-		tag = that.tag;
+			m_xferField00 = 0;
+		m_xferField04 = that.m_xferField04;
 	}
 	return *this;
 }

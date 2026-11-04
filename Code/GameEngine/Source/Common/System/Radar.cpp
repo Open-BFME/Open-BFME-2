@@ -461,15 +461,7 @@ enum
 	RADAR_CELL_HEIGHT = 128
 };
 
-struct XferException {char *text; int tag;};
-
-extern "C" XferException *__cdecl bfmeFormatText(XferException *result,int tag,const char *format,...);
-
-extern int g_guardTargetTypeThrowInfo;
-
-struct _s__ThrowInfo;
-
-extern "C" void __stdcall _CxxThrowException(void *, const _s__ThrowInfo *);
+#include "../../../Include/Common/XferException.h"
 
 // Native 2D85D7..2D87B9 (482 bytes), WB1109E60 Radar::DoXfer.
 // ZH event transfer spine; target version 1/3, 64 events and tail field slots.
@@ -1379,9 +1371,9 @@ void RadarObject::loadPostProcess() {}
 // Native 2D84F6..2D85D7 (225 bytes): ZH Radar.cpp list transfer spine.
 // Reference inputs reviewed at BFME1 cee35b7d8ca077d7255f1c39cb69e9fd9627aa85.
 // WB110A280 and caller 2D85D7 prove identity and the private EDI/EAX ABI.
-// Retail throw-info CFFD18 names XferException (8-byte payload); the formatter
-// and CRT throw calls explicitly construct and throw that payload. Both throw
-// edges are non-returning. The donor's inline next getter preserves native
+// Retail throw-info CFFD18 names XferException (8-byte payload), thrown by
+// value from its (tag, format) constructor 0x0060C36E. Both throw edges are
+// non-returning. The donor's inline next getter preserves native
 // traversal and register allocation. Radar::xfer below supplies both callers.
 static __declspec(noinline) void xferRadarObjectList(Xfer*xfer,RadarObject**head) {
  xfer->Version1(); unsigned short count=0;
@@ -1393,8 +1385,7 @@ static __declspec(noinline) void xferRadarObjectList(Xfer*xfer,RadarObject**head
  }else {
   for(r=*head;r;r=r->m_next) {
    if(!(r->m_object->m_destroyed&1)) {
-    XferException e;bfmeFormatText(&e,5,0);
-    _CxxThrowException(&e,reinterpret_cast<const _s__ThrowInfo *>(&g_guardTargetTypeThrowInfo));__assume(0);
+    throw XferException(5, 0);
    }
   }
   unsigned short i=0;
@@ -1414,7 +1405,7 @@ void Radar::xfer(Xfer*xfer) {
  *xfer==m_hidden;*xfer==m_forceOn;
  xferRadarObjectList(xfer,&m_localObjectList);xferRadarObjectList(xfer,&m_objectList);
  unsigned short count=64;*xfer==count;
- if(count!=64){XferException e;bfmeFormatText(&e,5,0);_CxxThrowException(&e,reinterpret_cast<const _s__ThrowInfo *>(&g_guardTargetTypeThrowInfo));__assume(0);}
+ if(count!=64){throw XferException(5, 0);}
  unsigned short i=0;
  do {
   XferRadarEventType(xfer,reinterpret_cast<int*>(&m_events[i].type));

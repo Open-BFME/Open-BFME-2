@@ -486,16 +486,7 @@ struct Rva00205709Record
 
 void Rva0020596AConstruct(void *dest, const void *source);
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 typedef _STL::list<int> ListInt;
 

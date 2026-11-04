@@ -214,16 +214,7 @@ class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../../Include/Common/XferException.h"
 #include "../../../../Include/Common/TeamBFME2.h"
 #define _STLP_USE_NEWALLOC 1
 #define _STLP_NO_EXCEPTIONS 1

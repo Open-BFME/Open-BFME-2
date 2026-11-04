@@ -155,15 +155,8 @@ class Snapshot;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-struct XferException
-{
-	char *text;
-	int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 
-extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
-extern int g_guardTargetTypeThrowInfo;
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
 Xfer *Rva00460216XferList(Xfer *xfer, _STL::list<int> *list);
 Xfer *xferAsciiStringVector(Xfer *xfer, _STL::vector<AsciiString> *vec);
@@ -1545,9 +1538,7 @@ void ProductionUpdate::xfer( Xfer *xfer )
 					name = production->m_upgradeToResearch->getUpgradeName();
 					break;
 				default:
-					XferException error;
-					bfmeFormatText( &error, 5, 0 );
-					_CxxThrowException( &error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo ); __assume(0);
+					throw XferException(5, 0);
 			}
 			*xfer == name;
 
@@ -1585,9 +1576,7 @@ void ProductionUpdate::xfer( Xfer *xfer )
 		// the queue should be emtpy now
 		if( m_productionQueue != NULL )
 		{
-			XferException error;
-			bfmeFormatText( &error, 5, 0 );
-			_CxxThrowException( &error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo ); __assume(0);
+			throw XferException(5, 0);
 		}
 
 		// read each element

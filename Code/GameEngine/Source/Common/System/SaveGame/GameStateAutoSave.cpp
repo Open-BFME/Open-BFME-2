@@ -171,17 +171,7 @@ public:
 	void clear();
 };
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-private:
-	char *text;
-	int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 
 #include "../../../../Include/Common/File.h"
 

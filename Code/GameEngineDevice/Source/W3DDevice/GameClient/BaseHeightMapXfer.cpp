@@ -63,11 +63,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
-class XferException
-{
-public:
-	enum { VERSION_TOO_OLD = 2 };
-};
+#include "../../../../GameEngine/Include/Common/XferException.h"
 
 // A 0x1C-byte snapshot record kept in an array at +0x18.
 class BaseHeightMapSnapshotRecord : public Snapshot
@@ -118,7 +114,7 @@ void BaseHeightMapRenderObjClass::xfer( Xfer *xfer )
 	Xfer::Version version( 1, 4 );
 	*xfer == version;
 	if( version.m_minimum < 3 )
-		throw XferException::VERSION_TOO_OLD;
+		throw XferException::XFER_EXCEPTION_BFME_2;
 
 	*xfer == *m_treeBuffer;
 	*xfer == *m_propBuffer;

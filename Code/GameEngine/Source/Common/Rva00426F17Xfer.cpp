@@ -32,16 +32,7 @@ struct BfmeStringRecord00426A5B {
 void * __cdecl Rva004266BCProcess(void *objRaw, void *rec);
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see System/XferException.cpp).
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/XferException.h"
 typedef _STL::vector<BfmeStringRecord00426A5B> BfmeVec;
 Xfer *Rva00426F17Xfer(Xfer *xfer, BfmeVec *vec)
 {

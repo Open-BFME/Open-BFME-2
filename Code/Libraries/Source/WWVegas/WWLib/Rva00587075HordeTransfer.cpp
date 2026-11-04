@@ -54,11 +54,7 @@ struct XferUnknown11;
 #include "../../../../GameEngine/Include/Common/BfmeXfer.h"
 class Xfer::Version { public: unsigned char current,minimum; Version(unsigned char a,unsigned char b):current(a),minimum(b){} };
 Xfer *Rva00586231Xfer(Xfer *,_STL::deque<Gen_t_00595870_p12cd> *);
-struct XferException {char *text;int tag;};
-extern "C" XferException *__cdecl bfmeFormatText(XferException *,int,const char *,...);
-struct _s__ThrowInfo;
-extern "C" void __stdcall _CxxThrowException(void *,const _s__ThrowInfo *);
-extern int g_guardTargetTypeThrowInfo;
+#include "../../../../GameEngine/Include/Common/XferException.h"
 template<class T> struct Rva00584A7DVector {
  T *start,*finish,*limit;
  int size() const {return finish-start;}
@@ -80,10 +76,7 @@ void HordeMeleeFormation::rva00587075(Xfer *xfer) {
  AsciiString actual(expected);
  (*xfer == actual);
  if(actual.compare(expected)!=0) {
-  XferException error;
-  bfmeFormatText(&error,4,"Xfer data saved by %s is now being loaded by %s",actual.str(),expected.str());
-  _CxxThrowException(&error,(const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
-  __assume(0);
+  throw XferException(4, "Xfer data saved by %s is now being loaded by %s",actual.str(),expected.str());
  }
  (*xfer == flag);
  int count=entries.size();
