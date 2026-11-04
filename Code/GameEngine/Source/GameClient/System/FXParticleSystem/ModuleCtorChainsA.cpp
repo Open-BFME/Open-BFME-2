@@ -307,7 +307,7 @@ extern "C" const void *const __identifier("??_7Gen005ED0D0@@6BDefaultModuleHeadB
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
 extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot0@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
-extern "C" const void *const __identifier("??_7Rva003AE928@@6BModuleInfoHeadBase_3AE94E@@@")[];
+extern "C" const void *const g_gpuDrawTable00[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
 extern const void *const g_00C1C488[];
 extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot2@@@")[];
@@ -339,7 +339,7 @@ extern const void *const g_00C1C4C8[11] = {
 	(const void *)&__identifier("?getDataLength@NetWrapperCommandMsg@@QAEIXZ"), // slot 9 0x0030D377
 	(const void *)&__identifier("?get@Rva00094A98FloatField@@QBEMXZ"), // slot 10 0x00094A98
 };
-extern "C" const void *const __identifier("??_7Rva003AE928@@6B@")[];
+extern "C" const void *const g_gpuDrawTable18[];
 extern const void *const g_00C1C508[];
 // The retail table at RVA 0x0081C504: 6 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -655,7 +655,7 @@ Rva003ABBCB::Rva003ABBCB(void *a, void *b)
 {
 	STAMP(0x00, g_00C1C4C8);
 	STAMP(0x14, __identifier("??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"));
-	STAMP(0x18, __identifier("??_7Rva003AE928@@6B@"));
+	STAMP(0x18, g_gpuDrawTable18);
 }
 
 
@@ -693,9 +693,9 @@ public:
 Rva005E76E0Object::Rva005E76E0Object(void *a, V3HostRva005E76E0 *b)
 	: Rva003ABBCB(a, b)
 {
-	STAMP(0x00, __identifier("??_7Rva003AE928@@6BModuleInfoHeadBase_3AE94E@@@"));
+	STAMP(0x00, g_gpuDrawTable00);
 	STAMP(0x14, __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@"));
-	STAMP(0x18, __identifier("??_7Rva003AE928@@6B@"));
+	STAMP(0x18, g_gpuDrawTable18);
 }
 
 // ---- two more intermediates over rowed bases, then the five module
