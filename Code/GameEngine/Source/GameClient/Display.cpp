@@ -35,6 +35,8 @@ class Image;
 class W3DDisplay
 {
 public:
+	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
+	void rva0025D2F6();
 	virtual void unused00();
 	virtual void unused01();
 	virtual void unused02();
@@ -53,7 +55,6 @@ public:
 	virtual void unused15();
 	virtual unsigned unused16();
 	virtual unsigned unused17();
-	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
 };
 
 //
@@ -81,35 +82,35 @@ public:
 class Rva0025C3AA
 {
 public:
-    virtual void s00();
-    virtual void s01();
-    virtual void s02();
-    virtual void s03();
-    virtual void s04();
-    virtual void s05();
-    virtual void s06();
-    virtual void s07();
-    virtual void s08();
-    virtual void s09();
-    virtual void s10();
-    virtual void s11();
-    virtual void s12();
-    virtual void s13();
-    virtual void s14();
-    virtual void s15();
-    virtual UnsignedInt getWidth();
-    virtual UnsignedInt getHeight();
-    void rva0025C3AA();
-
+	void rva0025C3AA();
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual unsigned int getWidth();
+	virtual unsigned int getHeight();
+	char m_pad04[0x34];
 private:
-    unsigned char m_pad04[0x38 - 0x04];
-    Rva0025C3AAVideo *m_video;          // +0x38
-    unsigned char m_pad3c[0xFC - 0x3C];
-    float m_fc;                         // +0xFC
-    float m_margin;                     // +0x100
-    float m_displayWidth;               // +0x104
-    float m_extent;                     // +0x108
-    bool m_ready;                       // +0x10C
+	Rva0025C3AAVideo *m_video; // +0x38
+	char m_pad3C[0xC0];
+	float m_fc; // +0xFC
+	float m_margin; // +0x100
+	float m_displayWidth; // +0x104
+	float m_extent; // +0x108
+	bool m_ready; // +0x10C
+	char m_pad10D[0x3];
 };
 
 typedef bool Bool;
