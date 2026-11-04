@@ -148,6 +148,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
+struct Rva0035A238Argument;
 struct Rva0035A238Argument
 {
 	char unknown00[0x74];
@@ -163,6 +164,10 @@ public:
 private:
 	char unknown00[0x14];
 	_STL::list<BfmePod12> records;
+	float maxRadius18;
+	float originX1C, originY20;
+	char pad24[0x18];
+	float cell3C;
 };
 // Retail 0x0035A61F..0x0035A8D7 (696 bytes, ret 0x10).
 // WorldBuilder 0x00E61580 has the same thirteen isCellClaimable calls
@@ -225,6 +230,7 @@ enum CellShroudStatus;
 class Object
 {
 protected:
+	friend class Rva0035A238;
 	friend class Rva0035A292;
 public:
 	float x38() const { return *(const float *)((const char *)this + 0x38); }
