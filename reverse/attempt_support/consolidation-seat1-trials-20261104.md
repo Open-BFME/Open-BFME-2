@@ -168,3 +168,15 @@ and that row matched alone, but the destination compile failed with duplicate
 `DeletionUpdate` class definition; LinkGuard compared residual and destination
 together. `Rva0024A797Derived.cpp` had no row approved for this TU. No changes
 or claims were applied. Class/view reconciliation is outside this seat.
+
+## Continuation: CommandPointsUpgrade
+
+Allocation and scoped planner checks passed (10 approved rows, three donors,
+one mixed file). Merge dry run accepted no donors: the ctor donor lacks the
+`CommandPointsUpgrade` constructor declaration (`C2511`), while the mux-slot
+donor lacks its `getModuleNameKey` member (`C2509`); both require class-view
+reconciliation for `CommandPointsUpgrade` and `CommandPointsUpgradeModuleData`.
+The mixed `FireWeaponWhenDeadBehaviorDerived.cpp` split carved destructor
+`0x004B85D4` and both carved rows matched alone, but the destination compile
+failed on duplicate `AsciiString` class declarations. LinkGuard compared both
+split sides. No changes or claims were applied.

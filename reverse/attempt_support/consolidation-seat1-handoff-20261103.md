@@ -197,3 +197,10 @@ alone, then failed against the destination on a duplicate `DeletionUpdate`
 declaration; LinkGuard checked both split sides. The second mixed file has no
 row approved for this TU. No source changes or claims were applied; exact
 checks are in the trial note. Continue to the next allocated destination.
+
+`CommandPointsUpgrade.cpp` likewise had zero accepted donors: the ctor and mux
+slot donors lack members in the TU class views. Its mixed destructor split
+matched alone but the destination compile hit duplicate `AsciiString`
+declarations; LinkGuard compared residual and destination. No source edits or
+claims were made. See the trial note for exact errors; continue to another
+allocated TU.
