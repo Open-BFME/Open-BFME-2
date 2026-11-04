@@ -1,10 +1,14 @@
+// platformsdk
 // ATL 7.1 cstringt.h lstrcmpiWFake with the atlconv.h W2A expansion.
-// Retail uses the legacy unsuffixed ANSI kernel32 string exports.
-// Source supplied by Open-BFME-1 toolchain; local ABI declarations replace headers.
+// Retail uses the legacy unsuffixed ANSI kernel32 lstrcmpi export, which
+// WinBase.h only spells as a macro for lstrcmpiA, so that one declaration
+// stays local.
+// Source supplied by Open-BFME-1 toolchain.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+#include <windows.h>
 #include <malloc.h>
 #pragma intrinsic(_alloca)
-extern "C" __declspec(dllimport) int __stdcall lstrlenW(const unsigned short *);
+#undef lstrcmpi
 extern "C" __declspec(dllimport) int __stdcall lstrcmpi(const char *, const char *);
 char *__stdcall AtlW2AHelper(char *, const unsigned short *, int, unsigned int);
 namespace ATL {
