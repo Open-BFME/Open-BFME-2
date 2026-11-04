@@ -70,16 +70,26 @@ struct HordeLodEntry
 	int m_start;
 };
 class MultiIniFieldParse;
-class W3DHordeModelDrawModuleData
+class __declspec(novtable) W3DModelDrawModuleData
 {
 public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	W3DModelDrawModuleData();
+	virtual ~W3DModelDrawModuleData();
+private:
+	unsigned char m_opaque[0x184]; // +0x04
+};
+class W3DHordeModelDrawModuleData;
+class __declspec(novtable) W3DHordeModelDrawModuleData : public W3DModelDrawModuleData
+{
+public:
+	W3DHordeModelDrawModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	__declspec(noinline) bool rva00079147();
 	__declspec(noinline) int rva00079157();
 	__declspec(noinline) int rva00079167();
 	__declspec(noinline) float rva00079176();
 	int rva00079186(int count);
-	char m_pad[0x188];
 	HordeLodEntry m_lods[3];
 };
 // 0x00079186 (59B), reached through the forwarder 0x000791E5: a client
@@ -849,15 +859,7 @@ template <> void _Construct<basic_string<char>, basic_string<char> >(basic_strin
 
 extern const FieldParse s_hordeModelDrawFieldTable[];
 
-class __declspec(novtable) W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	W3DModelDrawModuleData();
-	virtual ~W3DModelDrawModuleData();
-private:
-	unsigned char m_opaque[0x184]; // +0x04
-};
+
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 

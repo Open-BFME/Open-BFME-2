@@ -15,6 +15,15 @@
 // Vtable 0x00BC6870: the table whose slot 0 is ??_GRva000D089D (vftable_map); bound to the ??_7 the ledger's deleting-dtor unit emits.
 extern "C" const void *__identifier("??_7Rva000D089D@@6B@")[];
 
+struct HordeLodEntry
+{
+	bool m_allow;
+	char m_pad189[3];
+	int m_maxTex;
+	int m_maxAnim;
+	float m_delta;
+	int m_start;
+};
 class MultiIniFieldParse;
 class __declspec(novtable) W3DModelDrawModuleData
 {
@@ -25,31 +34,18 @@ public:
 private:
 	unsigned char m_opaque[0x184]; // +0x04
 };
-
+class W3DHordeModelDrawModuleData;
 class __declspec(novtable) W3DHordeModelDrawModuleData : public W3DModelDrawModuleData
 {
 public:
 	W3DHordeModelDrawModuleData();
-
-private:
-	bool m_allow0; // +0x188
-	char m_pad189[3];
-	int m_maxTex0; // +0x18C
-	int m_maxAnim0; // +0x190
-	float m_delta0; // +0x194
-	int m_start0; // +0x198
-	bool m_allow1; // +0x19C
-	char m_pad19D[3];
-	int m_maxTex1; // +0x1A0
-	int m_maxAnim1; // +0x1A4
-	float m_delta1; // +0x1A8
-	int m_start1; // +0x1AC
-	bool m_allow2; // +0x1B0
-	char m_pad1B1[3];
-	int m_maxTex2; // +0x1B4
-	int m_maxAnim2; // +0x1B8
-	float m_delta2; // +0x1BC
-	int m_start2; // +0x1C0
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	__declspec(noinline) bool rva00079147();
+	__declspec(noinline) int rva00079157();
+	__declspec(noinline) int rva00079167();
+	__declspec(noinline) float rva00079176();
+	int rva00079186(int count);
+	HordeLodEntry m_lods[3];
 };
 
 W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
@@ -59,19 +55,19 @@ W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
 	float f8 = 8.0f;
 	float f05 = 0.5f;
 	*(unsigned int *)this = (unsigned int)__identifier("??_7Rva000D089D@@6B@");
-	m_allow0 = false;
-	m_maxTex0 = 1;
-	m_maxAnim0 = 1;
-	m_delta0 = f15;
-	m_start0 = 0;
-	m_allow1 = true;
-	m_maxTex1 = 2;
-	m_maxAnim1 = 2;
-	m_delta1 = f8;
-	m_start1 = 50;
-	m_allow2 = true;
-	m_maxTex2 = 999;
-	m_maxAnim2 = 999;
-	m_delta2 = f05;
-	m_start2 = 100;
+	m_lods[0].m_allow = false;
+	m_lods[0].m_maxTex = 1;
+	m_lods[0].m_maxAnim = 1;
+	m_lods[0].m_delta = f15;
+	m_lods[0].m_start = 0;
+	m_lods[1].m_allow = true;
+	m_lods[1].m_maxTex = 2;
+	m_lods[1].m_maxAnim = 2;
+	m_lods[1].m_delta = f8;
+	m_lods[1].m_start = 50;
+	m_lods[2].m_allow = true;
+	m_lods[2].m_maxTex = 999;
+	m_lods[2].m_maxAnim = 999;
+	m_lods[2].m_delta = f05;
+	m_lods[2].m_start = 100;
 }
