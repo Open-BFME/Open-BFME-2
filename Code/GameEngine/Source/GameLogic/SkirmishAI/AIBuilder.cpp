@@ -107,18 +107,7 @@ public:
     void rva00599825(int);
     __declspec(noinline) void rva00599606();
 };
-class AIBaseBuilder
-{
-public:
-    virtual void slot00();
-    virtual void slot01();
-    virtual void reset();
-    virtual ~AIBaseBuilder();
-    void DoXfer(Xfer*);
-    void notifyBuildingDestroyed(Object *);
-private:
-    unsigned char opaque04[0x30];
-};
+#include "../../../Include/GameLogic/AIBaseBuilder.h"
 class Rva00598B2A
 {
 public:
