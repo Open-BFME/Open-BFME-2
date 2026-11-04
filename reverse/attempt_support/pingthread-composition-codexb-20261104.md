@@ -37,3 +37,47 @@ The supported full merge and its path-consumer audit are the next step. Other
 initial donor failures are cleanup's duplicate `StringBase`, destroy's allocator
 specialization signature, constructor/slot-method private views, and worker-loop
 bytes. These were not repaired by the prerequisite commit.
+
+## Supported merge trial and application handoff
+
+Prerequisite commit: `dc706b4ef3` (handed to the fleet publisher). The subsequent
+full supported `tu_skeleton.py --merge ... --dry-run` accepts the destination
+and `PingThread_Pinger_getPing.cpp`: 50 distinct addresses, normal census link
+guard enabled. It would absorb one donor and transfer its existing free alias
+through `hatch_counters --update`; no alias deletion is proposed. All five other
+whole donors still fail with the same declarations/bytes listed above. The
+constructor names `m_B0` absent from the destination view; the slot-method donor
+instantiates a string destructor before its explicit specialization.
+
+A refreshed supported consolidation planner completed with 47 selected source
+files, 12 groups and no missing inputs. Its first refresh raced a transient
+`.tu_skeleton.cpp` scratch file; rerunning after the dry-run finished succeeded.
+The real apply command then stopped before writing anything:
+
+```
+accepted: []
+rejected: {}
+blocked: held by another worker: 0x0007FAB3
+```
+
+The live claim belongs to `yasinschroeder-claudeb` for `ChatWindowsLan.cpp` (about
+four hours left when inspected). This is the shared ICF cleanup address included
+in the destination's full merge scope. No bypass, claim takeover, source move,
+ledger repoint, register transfer or source-file-count reduction occurred. The
+failed admission released this worker's merge-scope claims.
+
+The prerequisite's object comparison against the saved original has 876 -> 880
+COMDAT names: zero removed and zero changed bodies/digests. Its four additions
+are the ordinary `_String_base<char>` destructor, `_M_deallocate_block`, proxy
+and allocator destructors. The hook's shadow `allocator<BfmePod16>::deallocate`
+identity finding is inherited: both objects have the same 20-byte body and
+normalized digest `083eb30a50cf`. Existing identity-register keys remain.
+The prerequisite commit hook verified 52/52 rows across the two files and all
+nine EH graphs EXACT, plus data and frozen-file checks.
+
+Next: after the other worker releases `0x0007FAB3`, take the normal merge scope
+and rerun the supported merge (its saved plan checks input freshness). Verify
+its final TU, transfer and audit the donor's hatch key, header queues and active
+path consumers, then publish the source move promptly. A source-path audit and
+scoped naming remain follow-up work because no final TU was written. Do not
+repeat the already isolated constructor/declaration experiments.
