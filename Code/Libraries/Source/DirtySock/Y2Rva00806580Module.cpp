@@ -73,13 +73,9 @@ extern "C" void  Rva0080E410( void *crypto, char *packet, int length );  // 0x00
 char g_Rva0130ACE0Empty[25];
 unsigned int Rva007FEA00Tick( void );                       // 0x007FEA00
 
-// Retail bytes at 0x00E0A710 consumed by Rva0080B1B0's null-name fallback:
-// the loop reaches the colon at +9 and atoi reads the non-digit at +10. The
-// surrounding data block has no proven extent or type in this TU, so keep only
-// this exact, bounded access window instead of claiming the whole block.
-char g_Rva00E0A710Prefix[ 11 ] = {
-	0x69, 0x36, 0x77, 0x36, 0x1a, 0x37, 0x22, 0x37, 0x85, 0x3a, 0xab
-};
+// The empty name Rva0080B1B0 falls back to: VA 0x00E0A710 lies past .data's file
+// bytes, so retail's byte is zero and the name loop stops at once.
+char g_Rva00E0A710Prefix[ 1 ];
 
 // The tick this module first ran at, filled in once and never again.
 extern unsigned int g_Rva0130ACDCEpoch;
