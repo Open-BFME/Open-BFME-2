@@ -91,3 +91,37 @@ private.
 - eh_verify: 5 EXACT. find_declared_unmatched clean.
 - accept PASS: LANAPI x4, BfmeNetAddress x1, LANPlayer x1 (6 rows retired).
 - link_check: 3/3 LINKS, LINKED 1,323 -> 1,323 bytes (prediction).
+
+## Batch 6 (2026-11-04)
+
+LANAPI.h now declares the rowed non-virtual handlers rva005816E3 (0x005816E3),
+rva00582EB0 (0x00582EB0), handleSetAccept (0x005815EA) and the protected
+removeGame (0x00449913, `IAE` in the ledger). Declarations only: no layout or
+vtable change.
+
+- LANAPIRva005816E3.cpp, LANAPI_handleSetAccept.cpp: slot 46 is
+  OnGameOptionsPacked(const BfmeNetAddress &, int, const void *, int), slot 38
+  OnAccept(const BfmeNetAddress *, bool). The message's +0x40 field is read as a
+  bool (ZH's isAccepted), so no normalisation is emitted. LANGame stays a
+  local view reached through m_currentGame. 2/2 matched.
+- LANAPIRva00582EB0.cpp: slots 37/42/43/46/61 are OnPlayerLeave, OnGameStart,
+  OnWOTRGameStart, OnGameOptionsPacked and rva00248E2F. 3/3 matched (EH funclet
+  verified past its renumbered label).
+- LANAPI_OnPlayerJoin.cpp: slot 64 is getLocalAddress, slot 26
+  RequestGameOptionsPacked(true, &zero). 1/1 matched.
+- ConnectionManager_sendFile.cpp and ConnectionManager_sendFileAnnounce.cpp:
+  retail zeroes the OnChat address record between the argument pushes
+  (`89 5d e8 66 89 5d ec`), which is a constructed temporary. The canonical
+  BfmeNetAddress has no ctor. A named local zeroed before the call
+  mis-orders the stores. `&BfmeNetAddress()` value-initialises with `stos` and
+  shifts the frame. A TU-local `ZeroNetAddress : BfmeNetAddress` with an inline
+  zeroing ctor matches. 12/12 matched.
+- Blocked: LANAPI_OnAccept.cpp calls the out-of-line empty
+  `?validate@?$StringBase@G@@ABEXXZ` (0x000B3FD0), and the shim string_base.h
+  defines validate() inline. Any unit including LANAPI.h (unicode_string.h)
+  loses that call. This needs a per-unit switch in the shim, like
+  BFME_STRINGBASE_PUBLIC_DTOR.
+- All 29 LANAPI.h includers rebuilt: 194/194 matched. eh_verify EXACT on
+  every touched unit. link_check: every touched unit LINKS with bytes kept
+  (373 + 202 + 800 B).
+- accept PASS: LANAPI x6, BfmeNetAddress x2 (8 rows retired).

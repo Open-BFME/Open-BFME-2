@@ -77,39 +77,15 @@ public:
 	Rva004D62A9();
 };
 
-struct BfmeNetAddress
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
+#include "../../Include/GameNetwork/LANAPI.h"
+
+// The canonical BfmeNetAddress has no constructor; retail zeroes the
+// record OnChat receives in place, as a temporary built between the pushes.
+struct ZeroNetAddress : public BfmeNetAddress
 {
-	BfmeNetAddress(UnsignedInt ip, UnsignedShort port) : m_ip(ip), m_port(port) {}
-
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
+	ZeroNetAddress() { ip = 0; port = 0; }
 };
-
-enum ChatType
-{
-	LANCHAT_NORMAL = 0,
-	LANCHAT_EMOTE,
-	LANCHAT_SYSTEM = 3
-};
-
-#define LAN_SLOT(n) virtual void slot##n();
-
-class LANAPI
-{
-public:
-	LAN_SLOT(00) LAN_SLOT(01) LAN_SLOT(02) LAN_SLOT(03) LAN_SLOT(04)
-	LAN_SLOT(05) LAN_SLOT(06) LAN_SLOT(07) LAN_SLOT(08) LAN_SLOT(09)
-	LAN_SLOT(10) LAN_SLOT(11) LAN_SLOT(12) LAN_SLOT(13) LAN_SLOT(14)
-	LAN_SLOT(15) LAN_SLOT(16) LAN_SLOT(17) LAN_SLOT(18) LAN_SLOT(19)
-	LAN_SLOT(20) LAN_SLOT(21) LAN_SLOT(22) LAN_SLOT(23) LAN_SLOT(24)
-	LAN_SLOT(25) LAN_SLOT(26) LAN_SLOT(27) LAN_SLOT(28) LAN_SLOT(29)
-	LAN_SLOT(30) LAN_SLOT(31) LAN_SLOT(32) LAN_SLOT(33) LAN_SLOT(34)
-	LAN_SLOT(35) LAN_SLOT(36) LAN_SLOT(37) LAN_SLOT(38) LAN_SLOT(39)
-	virtual void OnChat(const UnicodeString &player, const BfmeNetAddress *ip,
-		const UnicodeString &message, ChatType format);	// +0xA0
-};
-
-#undef LAN_SLOT
 
 extern FileSystem *TheFileSystem;
 extern LANAPI *TheLAN;
@@ -127,7 +103,7 @@ UnsignedShort ConnectionManager::sendFileAnnounce(AsciiString path, UnsignedByte
 		UnicodeString log;
 		log.format(L"Not sending file '%hs' to %X\n", path.str(), playerMask);
 		if (TheLAN)
-			TheLAN->OnChat(UnicodeString(L"sendFile"), &BfmeNetAddress(0, 0), log, LANCHAT_SYSTEM);
+			TheLAN->OnChat(UnicodeString(L"sendFile"), &ZeroNetAddress(), log, LANAPI::LANCHAT_SYSTEM);
 		return 0;
 	}
 

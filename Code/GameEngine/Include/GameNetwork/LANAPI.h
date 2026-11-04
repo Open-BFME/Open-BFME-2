@@ -169,11 +169,15 @@ public:
 	virtual BfmeNetAddress *getLocalAddress(void) { return &m_localAddress; }	// 64 (folded +0x48 address getter 0x0053B8E5, 8D 41 48 C3)
  void handleGameOptions(LANMessage *,const BfmeNetAddress *);
  void handleGameStartTimer(LANMessage *,const BfmeNetAddress *);
+ void handleSetAccept(LANMessage *message, const BfmeNetAddress *address);	// 0x005815EA
  void Rva004495A2(LANMessage *message, unsigned int ip);	// 0x004495A2 (ZH sendMessage)
  void rva00581641(LANMessage *message, const BfmeNetAddress *address);	// 0x00581641
+ void rva005816E3(LANMessage *message, const BfmeNetAddress *address);	// 0x005816E3
+ void rva00582EB0(LANMessage *message, const BfmeNetAddress *address, bool flag);	// 0x00582EB0
  friend class AptLanLobby;	// calls the protected ValidateGameInfo (IAE in the ledger)
 protected:
  bool ValidateGameInfo(LANGameInfo *game);	// 0x00449969
+ void removeGame(LANGameInfo *game);	// 0x00449913
 protected:
 	LANPlayer *m_lobbyPlayers;		// +0x0C
 	LANGameInfo *m_games;		// +0x10
