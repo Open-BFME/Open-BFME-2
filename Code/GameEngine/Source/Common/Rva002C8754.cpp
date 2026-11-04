@@ -30,7 +30,7 @@ public:
 class Rva002C8754
 {
 public:
-	void rva002C8754(INI *ini, void *accum);
+	void rva002C8754(INI *ini, void *extra);
 };
 
 void Rva002C8754::rva002C8754(INI *ini, void *accumVoid)

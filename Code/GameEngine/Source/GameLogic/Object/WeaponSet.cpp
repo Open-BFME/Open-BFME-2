@@ -93,6 +93,7 @@ class Rva00256499
 {
 public:
 	void rva00256499(INI *ini, void *extra);
+	UnsignedInt m_bits[7]; // +0x00
 };
 
 class Rva002C8754

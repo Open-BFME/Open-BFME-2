@@ -15,9 +15,8 @@ class Rva002C7492
 public:
 	void rva002C7492(const Rva002C7492 *other);
 	Rva002C7492 *rva002C760B(int v0, int idx1, int idx2, int idx3, int idx4, int idx5, int idx6, int idx7);
-
 private:
-	int m_mask[19];
+	int m_mask[19]; // +0x00
 };
 
 void Rva002C7492::rva002C7492(const Rva002C7492 *other)
