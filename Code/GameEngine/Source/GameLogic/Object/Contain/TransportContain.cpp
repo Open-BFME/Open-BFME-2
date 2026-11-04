@@ -993,7 +993,13 @@ private:
 	ConstructProbePair m_value;
 };
 
-struct BfmeStringRecord00466E64 { AsciiString upgrade; AsciiString object; unsigned count; };
+struct BfmeStringRecord00466E64
+{
+public:
+	AsciiString upgrade; // +0x00
+	AsciiString object; // +0x04
+	unsigned count; // +0x08
+};
 
 template <> void _STL::vector<BfmeStringRecord00466E64, _STL::allocator<BfmeStringRecord00466E64> >::push_back(const BfmeStringRecord00466E64 &);
 

@@ -18,7 +18,13 @@ struct CreateMask{unsigned words[4];};
 enum ObjectID; class ThingFactory{public:const ThingTemplate*findTemplate(const AsciiString&);Object*newObject(const ThingTemplate*,Team*,const CreateMask*,ObjectID);};extern ThingFactory*TheThingFactory;
 #include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter*TheUpgradeCenter;
-struct BfmeStringRecord00466E64{AsciiString upgrade;AsciiString object;unsigned count;};
+struct BfmeStringRecord00466E64
+{
+public:
+	AsciiString upgrade; // +0x00
+	AsciiString object; // +0x04
+	unsigned count; // +0x08
+};
 class Rva00467799{public:BfmeStringRecord00466E64*rva00467799(const StringBase<char>&);};
 class Rva00466D50{public:bool rva00466D50(unsigned);};
 class TransportBodyView {public:
