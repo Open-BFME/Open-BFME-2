@@ -628,24 +628,8 @@ void ScriptActions::doPlaySoundEffectAtTeam(const AsciiString &sound, const Asci
 // selects it (a 0x3E9 message carrying true and its id, then the in-game UI
 // slot 0x108 with its drawable) when the local player controls it, and plays
 // the sound whether or not the event was found.
-class GameMessage
-{
-public:
-	void appendBooleanArgument(bool arg);
-	void appendObjectIDArgument(ObjectID arg);
-};
+#include "../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-#define STREAM_SLOT(n) virtual void slot##n();
-	STREAM_SLOT(0) STREAM_SLOT(1) STREAM_SLOT(2) STREAM_SLOT(3) STREAM_SLOT(4)
-	STREAM_SLOT(5) STREAM_SLOT(6) STREAM_SLOT(7) STREAM_SLOT(8) STREAM_SLOT(9)
-	STREAM_SLOT(10) STREAM_SLOT(11) STREAM_SLOT(12) STREAM_SLOT(13) STREAM_SLOT(14)
-	STREAM_SLOT(15) STREAM_SLOT(16) STREAM_SLOT(17)
-#undef STREAM_SLOT
-	virtual GameMessage *appendMessage(int type); // slot 0x48
-};
 extern MessageStream *TheMessageStream;
 
 #include "../../../Include/GameClient/InGameUI.h"
