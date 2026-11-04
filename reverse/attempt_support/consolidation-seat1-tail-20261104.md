@@ -43,3 +43,6 @@ The preceding inspections of EmotionNugget, ChatWindowsLan and AITactic are
 in the session's earlier trial handoff. The remaining allocated candidates in
 the full shard listing already have recorded prerequisite/blocker evidence;
 there was no clean mechanical composition available in this reassessment.
+
+Additional current-shard trials and their exact prerequisites are recorded in
+`consolidation-seat1-continuation-20261104.md`.
