@@ -44798,7 +44798,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00538661,19,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538674 provisional,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp
 0x00538674,67,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x005386B7 provisional,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp
 0x005386B7,62,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x005386F5 provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
-0x005386F5,68,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538739 provisional,Code/GameEngine/Source/Common/Rva005386F5Copy.cpp
+0x005386F5,68,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538739 provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x00538739,47,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x0053841C..0x00538768 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp
 0x00538768,26,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,N,N=Code/GameEngine/Source/Common/QuadStrip2D.cpp provisional,Code/GameEngine/Source/Common/QuadStrip2D.cpp
 0x00538782,183,code,Code/GameEngine/Source/Common/QuadStrip2D.cpp,approved,C,C=0x00538768..0x00538839 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_malloc_deferred_copies.cpp
