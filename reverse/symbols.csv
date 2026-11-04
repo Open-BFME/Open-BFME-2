@@ -7555,7 +7555,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0SpawnArmy@@QAE@H@Z,0x004E30D5,SpawnArmy int-ctor: vtable 0x861F28 store plus member zeroing; 0x004FA9B1 builds its SpawnArmy temp (rowed dtor 0x004E3184) through this ctor pushing one int 0
 ?rva004F9F39@Rva004F9F39@@QAEXXZ,0x004F9F39,callee of 0x004FA10F read from REL32 at 0x004FA12F; no-arg thiscall; body blocked (470B sort) so pinned only
 ?rva004F9D6A@Rva004F9D6A@@QAEXXZ,0x004F9D6A,callee of 0x004FA10F read from REL32 at 0x004FA152; no-arg thiscall after the ready loop; identity unproven
-?rva004F61B1@Rva004F61B1@@QAEXXZ,0x004F61B1,callee of 0x004FA10F read from REL32 at 0x004FA160; no-arg thiscall tail; identity unproven
 ??1Rva004FF630Member@@QAE@XZ,0x004FF630,pinned placeholder dtor: REL32 target of the +0x1C member teardown in Rva00502D03 0x00502D03
 ?rva0040CB79@Rva0040CB79Helper@@QAEHH@Z,0x0040CB79,callee of forwarder 0x0031979C read from its REL32 displacement; w3-g26
 ?rva00319517@Rva0031979COwner@@QAEXH@Z,0x00319517,callee of forwarder 0x0031979C read from its REL32 displacement; w3-g26
