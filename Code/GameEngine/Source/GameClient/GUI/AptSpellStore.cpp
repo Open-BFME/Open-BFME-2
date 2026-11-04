@@ -339,17 +339,7 @@ public:
 	static void CloseScreen(void);
 };
 
-class Mouse
-{
-public:
-#define MOUSE_SLOT(N) virtual void slot##N();
-	MOUSE_SLOT(00) MOUSE_SLOT(01) MOUSE_SLOT(02) MOUSE_SLOT(03) MOUSE_SLOT(04)
-	MOUSE_SLOT(05) MOUSE_SLOT(06) MOUSE_SLOT(07) MOUSE_SLOT(08) MOUSE_SLOT(09)
-	MOUSE_SLOT(10) MOUSE_SLOT(11) MOUSE_SLOT(12) MOUSE_SLOT(13) MOUSE_SLOT(14)
-	MOUSE_SLOT(15) MOUSE_SLOT(16) MOUSE_SLOT(17) MOUSE_SLOT(18)
-#undef MOUSE_SLOT
-	virtual void setCursor(int cursor);
-};
+#include "../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
 

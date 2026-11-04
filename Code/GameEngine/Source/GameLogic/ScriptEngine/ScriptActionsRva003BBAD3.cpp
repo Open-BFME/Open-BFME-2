@@ -79,11 +79,7 @@ public:
 	void setInputEnabled(bool v);
 };
 extern InGameUI *TheInGameUI;
-class Mouse
-{
-public:
-	void setVisibility(bool v);
-};
+#include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class GameMessage
 {

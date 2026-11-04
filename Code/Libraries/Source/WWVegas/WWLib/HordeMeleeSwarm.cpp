@@ -16,12 +16,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 // 0x00041B85 (tables VA 0x00BC24E8/0x00BC8748): the rowed Mouse
 // 0x001EE5EE with both arguments, then the pinned 0x00041A83 with +0x4FA4.
-class Mouse
-{
-public:
-	enum MouseCursor {};
-	void rva001EE5EE(unsigned char a, unsigned char *b);
-};
+#include "../../../../GameEngine/Include/GameClient/Mouse.h"
 // 0x00041A83 is rowed as the virtual Win32Mouse::setCursor; called directly.
 class Win32Mouse
 {

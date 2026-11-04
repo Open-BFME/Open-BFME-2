@@ -296,11 +296,7 @@ extern GameEngine *TheGameEngine;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class Mouse
-{
-public:
-	void setVisibility(bool visible);
-};
+#include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
