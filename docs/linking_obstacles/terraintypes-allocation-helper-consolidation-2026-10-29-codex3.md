@@ -19,3 +19,5 @@ the next scheduled census; no measured linking gain or full consumer closure
 is claimed. [Scoped evidence and remaining donors](../../reverse/attempt_support/terraintypes-consolidation-20261029-codex3.md).
 
 2026-11-04: the assignment's private STL declarations and VC7.1 C1001 are resolved ([repair evidence](../../reverse/attempt_support/terraintypes-stl-reconcile-20261104-codexb4.md)); supported consolidation removes its donor file, preserving 31/31 rows and local LINKS. Next reconcile TerrainType's vector-base destructor; LINK-095 remains. [Merge and audit evidence](../../reverse/attempt_support/terraintypes-assignment-merge-20261104-codexb4.md).
+
+2026-11-04: the seed now shares the destructor donor's inline scalar-vector cleanup; 31/31 rows pass and preview retains LINKS. Next recheck composition and resolve canonical vector/storage adoption without assuming element identity; LINK-095 remains. [Evidence](../../reverse/attempt_support/terrain-scalar-cleanup-20261104-codexb5.md).

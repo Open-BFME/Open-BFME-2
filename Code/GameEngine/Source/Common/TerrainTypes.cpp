@@ -124,16 +124,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-// Nothing here calls the base destructor out of line (~vector inlines it); its
-// unreferenced copy differed from the first one in link order. Declared imported
-// and force-inlined, it is not emitted.
+// Match the scalar-vector cleanup used by TerrainType's rowed destructor.
+// The game-memory wrapper owns this free, including constructor unwind paths.
+void __cdecl Rva00030830GameFree(void *);
 namespace _STL {
-template <> __declspec(dllimport) __forceinline
-_Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
-{
-	if (_M_start != 0)
-		_M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start);
-}
+template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
+{ if (_M_start) Rva00030830GameFree(_M_start); }
 }
 // This view uses the external retail table throughout its lifetime; no
 // separate table for the partial method declarations belongs in the link.
