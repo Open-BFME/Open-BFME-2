@@ -73,7 +73,7 @@ struct ConditionOwnerView { char prefix[0x258]; ConditionAIView *ai; };
 struct ConditionGoalView { char prefix[0x438]; unsigned char flags; };
 struct ConditionWeaponTemplateView { char prefix[0x16b]; bool flag; };
 struct ConditionWeaponView { char first[4]; ConditionWeaponTemplateView *info; };
-bool rva0033FDEB(Rva00343F8A *state, void *data)
+bool cannotPossiblyAttackObject(Rva00343F8A *state, void *data)
 {
     StateMachine *machine = state->m_machine;
     Object *owner = machine->owner;

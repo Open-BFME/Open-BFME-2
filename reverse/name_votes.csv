@@ -23743,3 +23743,4 @@ Code/GameEngine/Source/Common/Rva000AD6F4Members.cpp|function|0x0057792E|rva0057
 Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp|function|0x004F61B1|rva004F61B1,193e200cd43c29faf17a1e38,claude-opus-5-5,claude3-20261104-083517-10,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/GapBodiesGE45.cpp|function|0x00148DB3|rva00148DB3,9692e2ae9c1a9df5e95b252f,claude-opus-5-5,claude3-20261104-083517-11,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp|member|Rva005785CD|m_44,a8e0ebc60652dc3fde565206,claude-opus-5-5,claude3-20261104-094127-4,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/AI/Rva00343F8ADispatch.cpp|function|0x0033FDEB|rva0033FDEB,7fdb318cda255fc1958cfe93,claude-opus-5-5,claude3-20261104-095103-7,w-29a6ae2a2f9f,2026-11-04

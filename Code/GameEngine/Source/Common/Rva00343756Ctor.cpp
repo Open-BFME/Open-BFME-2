@@ -24,7 +24,7 @@ class StateMachine;
 class Rva00343F8A;
 
 int rva0034373F(State *state, void *);
-bool rva0033FDEB(Rva00343F8A *state, void *data);
+bool cannotPossiblyAttackObject(Rva00343F8A *state, void *data);
 
 class Rva0033F483
 {
@@ -59,7 +59,7 @@ AttackContesterStateMachine::AttackContesterStateMachine(Object *owner, int val,
 	static const StateConditionInfo conditions[] =
 	{
 		{ (bool (*)(State *, void *))rva0034373F, 0x270F, 0 },
-		{ (bool (*)(State *, void *))rva0033FDEB, 0x270F, (void *)2 },
+		{ (bool (*)(State *, void *))cannotPossiblyAttackObject, 0x270F, (void *)2 },
 		{ 0, 0, 0 } // keep last
 	};
 

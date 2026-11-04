@@ -129,7 +129,7 @@ public:
 bool rva00343DD8(void *thisState, void *userData);	// outOfWeaponRangeObject
 class Rva00343F8A; struct Rva00343EFAState;
 bool wantToSquishTarget(Rva00343EFAState *thisState);	// wantToSquishTarget
-bool rva0033FDEB(Rva00343F8A *thisState, void *userData);	// cannotPossiblyAttackObject
+bool cannotPossiblyAttackObject(Rva00343F8A *thisState, void *userData);	// cannotPossiblyAttackObject
 bool rva0033FD98(Rva00343F8A *thisState, void *userData);	// outOfWeaponRangePosition
 int inWeaponRangeObject(void *thisState, void *userData);	// inWeaponRangeObject
 enum
@@ -148,13 +148,13 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 	{
 		{ (void *)rva00343DD8, CHASE_TARGET, NULL },
 		{ (void *)wantToSquishTarget, CHASE_TARGET, NULL },
-		{ (void *)rva0033FDEB, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+		{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
 		{ NULL, 0, NULL }	// keep last
 	};
 	static const StateConditionInfo objectConditionsForced[] =
 	{
 		{ (void *)rva00343DD8, CHASE_TARGET, NULL },
-		{ (void *)rva0033FDEB, EXIT_MACHINE_WITH_FAILURE, (void *)3 },
+		{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)3 },
 		{ (void *)wantToSquishTarget, CHASE_TARGET, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
@@ -163,13 +163,13 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 	{
 		static const StateConditionInfo statusConditions[] =
 		{
-			{ (void *)rva0033FDEB, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+			{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
 			{ NULL, 0, NULL }	// keep last
 		};
 		static const StateConditionInfo turretConditions[] =
 		{
 			{ (void *)rva00343DD8, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
-			{ (void *)rva0033FDEB, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+			{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
 			{ NULL, 0, NULL }	// keep last
 		};
 		objectConditions = statusConditions;
