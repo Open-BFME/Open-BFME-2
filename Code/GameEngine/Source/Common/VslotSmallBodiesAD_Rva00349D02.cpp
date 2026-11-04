@@ -87,11 +87,7 @@ extern class ParticleSystemManager *TheParticleSystemManager;
 // 0x0040E0C5: for the argument's +0x78 object in state 4 (+0x2C), the
 // rowed ArmySummary 0x0040DF77 (ArmySummary.cpp) then the rowed 0x0040E02B;
 // answers true.
-class ArmySummary
-{
-public:
-	void rva0040DF77();
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 class Rva0040E02B
 {
 public:
