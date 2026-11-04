@@ -12,8 +12,6 @@ typedef unsigned int UnsignedInt;
 extern int BfmeLogicFramesPerSecond;
 #include <windows.h>
 #define INVALID_STATE_ID 999999
-#define GB_GAP10(n) virtual void aigap##n##0(); virtual void aigap##n##1(); virtual void aigap##n##2(); virtual void aigap##n##3(); virtual void aigap##n##4(); \
-	virtual void aigap##n##5(); virtual void aigap##n##6(); virtual void aigap##n##7(); virtual void aigap##n##8(); virtual void aigap##n##9();
 #include <stdlib.h>
 #include <list>
 #include <memory>
@@ -252,29 +250,8 @@ public:
 
 typedef UnsignedInt StateID;
 
-class State
-{
-public:
-	StateID getID() const { return m_ID; }
-private:
-	void *m_vptr;
-	StateID m_ID; // +0x04
-};
-
-class StateMachine
-{
-public:
-	virtual void gap00(); virtual void gap01(); virtual void gap02(); virtual void gap03();
-	virtual Int updateStateMachine() = 0; // +0x10
-	virtual void gap05(); virtual void gap06(); virtual void gap07();
-	virtual void gap08(); virtual void gap09(); virtual void gap10(); virtual void gap11();
-	virtual void gap12(); virtual void gap13();
-	virtual void slot14(void *arg) = 0; // +0x38
-	// Inlined at every call; dllimport keeps this view from emitting its own copy.
-	__declspec(dllimport) __forceinline StateID getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
-private:
-	State *m_currentState; // +0x04
-};
+#include "../../../../../Include/Common/StateMachine.h"
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 // Field names are the INI tokens of the retail parse table 0x00C178D8.
 class MultiIniFieldParse;
@@ -319,71 +296,14 @@ struct GiantBirdLocomotorView
 	Int getC0() const { return m_04->m_C0; }
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const void *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	Object *getObject() const { return m_object; }
-};
-
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_bfmeReserved; // +0x1C
-};
-
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms) = 0;
-	void aiIdle(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface : public UpdateModule, public AICommandInterface
-{
-public:
-	// Primary vtable slots 1..148 (slot 0 is BehaviorModuleBase's).
-	GB_GAP10(0) GB_GAP10(1) GB_GAP10(2) GB_GAP10(3) GB_GAP10(4) GB_GAP10(5) GB_GAP10(6)
-	GB_GAP10(7) GB_GAP10(8) GB_GAP10(9) GB_GAP10(10) GB_GAP10(11) GB_GAP10(12) GB_GAP10(13)
-	virtual void aigap140(); virtual void aigap141(); virtual void aigap142(); virtual void aigap143();
-	virtual void aigap144(); virtual void aigap145(); virtual void aigap146(); virtual void aigap147();
-	virtual UpdateSleepTime slot149(); // +0x254, where Zero Hour calls doLocomotor
-	StateMachine *getStateMachine() const { return m_stateMachine; }
-protected:
-	unsigned char m_pad24[0x30 - 0x24];
-	StateMachine *m_stateMachine; // +0x30
-	StateMachine *m_34; // +0x34 the machine waiting to replace +0x30
-	unsigned char m_pad38[0x1F0 - 0x38];
-	const GiantBirdLocomotorView *m_1F0; // +0x1F0
-	unsigned char m_pad1F4[0x3E0 - 0x1F4];
-	Bool m_3E0; // +0x3E0 set while +0x30 updates
-	unsigned char m_pad3E1[0x3F0 - 0x3E1];
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
+	StateMachine *getStateMachine() const { return (StateMachine *)m_stateMachine; }
 	Bool isCommandPending() const { return m_commandPending; }
 	virtual UpdateSleepTime update();
 	void rva0036AE79();
@@ -391,6 +311,7 @@ public:
 	Bool testFlag(Int bit) const { return (m_4B8 >> bit) & 1; }
 	void clearFlag(Int bit) { m_4B8 &= ~(1 << bit); }
 private:
+	unsigned char m_pad3E4[0x3F0 - 0x3E4];
 	Rva00351570 m_storedCommand; // +0x3F0
 	unsigned char m_pad4B4[0x4B8 - 0x3F0 - sizeof(Rva00351570)];
 	UnsignedInt m_4B8; // +0x4B8
@@ -612,8 +533,8 @@ void GiantBirdAIUpdate::rva0036AE79()
 					m_4C4 = 0;
 					contain->removeFromContain(rider, false);
 					rider->setOrientation(obj->getTransformMatrix()->Get_Z_Rotation());
-					getStateMachine()->slot14(0);
-					const void *p1F0 = m_1F0;
+					getStateMachine()->setGoalObject(0);
+					const void *p1F0 = m_curLocomotor;
 					PhysicsBehavior *phys = rider->getPhysics();
 					if (phys && p1F0)
 					{
@@ -670,14 +591,14 @@ UpdateSleepTime GiantBirdAIUpdate::update()
 	rva0036AE79();
 	m_53C *= 0.8f;
 	m_538 *= 0.9f;
-	if (m_1F0 && getObject()->getHeightAboveTerrain() > m_1F0->getC0())
+	if (m_curLocomotor && getObject()->getHeightAboveTerrain() > ((const GiantBirdLocomotorView *)m_curLocomotor)->getC0())
 		getObject()->setStatus(OBJECT_STATUS_BFME_06, true);
 	else
 		getObject()->setStatus(OBJECT_STATUS_BFME_06, false);
 	UpdateSleepTime sleep = (UpdateSleepTime)2;
-	m_3E0 = m_34 != NULL;
+	m_field3E0 = m_nextEnemyScanTime != 0;
 	Int stRet = getStateMachine()->updateStateMachine();
-	m_3E0 = FALSE;
+	m_field3E0 = FALSE;
 	if (stRet > 0)
 	{
 		Int frames = stRet;
@@ -730,7 +651,7 @@ UpdateSleepTime GiantBirdAIUpdate::update()
 		case 0x3EE: case 0x3EF: case 0x3F1: case 0x3F2: case 0x3F3:
 		case 0x3F5: case 0x3F6: case 0x3FB: case 0x3FD: case 0x400:
 		{
-			UpdateSleepTime tmp = slot149();
+			UpdateSleepTime tmp = doLocomotor();
 			if (tmp < sleep)
 				sleep = tmp;
 			break;
@@ -738,7 +659,7 @@ UpdateSleepTime GiantBirdAIUpdate::update()
 		case 0x3FC: case 0x3FF:
 		{
 			m_528 = 2;
-			UpdateSleepTime tmp = slot149();
+			UpdateSleepTime tmp = doLocomotor();
 			if (tmp < sleep)
 				sleep = tmp;
 			break;
@@ -747,7 +668,7 @@ UpdateSleepTime GiantBirdAIUpdate::update()
 		case 0x3F7: case 0x3F8: case 0x3F9: case 0x3FA:
 		{
 			m_528 = 1;
-			UpdateSleepTime tmp = slot149();
+			UpdateSleepTime tmp = doLocomotor();
 			if (tmp < sleep)
 				sleep = tmp;
 			break;
@@ -758,7 +679,7 @@ UpdateSleepTime GiantBirdAIUpdate::update()
 		case 0:
 		{
 			m_528 = 3;
-			UpdateSleepTime tmp = slot149();
+			UpdateSleepTime tmp = doLocomotor();
 			if (tmp < sleep)
 				sleep = tmp;
 			break;

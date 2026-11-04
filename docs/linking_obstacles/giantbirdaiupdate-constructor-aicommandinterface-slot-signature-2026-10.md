@@ -14,3 +14,5 @@ files keep the parameterless view (`GiantBirdAIUpdateOnCollide.cpp`,
 and already link, so they were left alone.
 
 2026-11-04: `GiantBirdAIUpdateOnCollide.cpp` now adopts canonical AI interfaces; both header-queue rows retired, 238/238 bytes still match and link prediction remains LINKS. [Evidence](../../reverse/attempt_support/giantbird-oncollide-header-20261104-codex.md).
+
+2026-11-04: the main `GiantBirdAIUpdate.cpp` now adopts canonical AI/module bases and state-machine headers; seven queue rows retired with 18/18 byte matches and unchanged 2,249 linked-byte prediction. Remaining merge prerequisites: [evidence](../../reverse/attempt_support/giantbird-main-headers-20261104-codex.md).
