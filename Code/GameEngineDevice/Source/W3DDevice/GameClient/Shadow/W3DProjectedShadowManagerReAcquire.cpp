@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
 // ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ @0x0010716D 127B
 // Target evidence: retail checks [this+0] then [this+4] for null, creates
 // BfmeDynamicNativeVB(2 0x7530 1 0) size 0x20 and DX8IndexBufferClass(0x7530 1)
@@ -28,17 +28,7 @@ private:
 	char _t[0x10];
 };
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(IndexBufferClass *b, int flags);
-	private:
-		char _t[0xC];
-	};
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class W3DProjectedShadowManager
 {
 public:
