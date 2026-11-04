@@ -16,8 +16,18 @@ struct Rva00288BF9Record
 
 class Rva00289371HashTable
 {
+private:
+    struct Node;
 public:
-    ~Rva00289371HashTable();
+    void clear(); // 0x00289371
+    ~Rva00289371HashTable(); // 0x002895BF
+private:
+    void deleteNode(Node *node); // 0x00289164
+    char m_functors[4];
+    Node **m_bucketsBegin;
+    Node **m_bucketsEnd;
+    Node **m_bucketsCapacity;
+    unsigned int m_numElements;
 };
 
 class Rva0028881C

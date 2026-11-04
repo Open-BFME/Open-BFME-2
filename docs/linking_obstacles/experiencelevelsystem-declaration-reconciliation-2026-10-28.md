@@ -26,3 +26,5 @@ INCONCLUSIVE: index 41c28839bf predates base 161aae0a72, and affected
 ExperienceTracker.cpp and W3DDisplayGatherDebugStats.cpp lack current receipts.
 Carry these consumers and moved-provider selection into the next census; the
 broader consumer/census limitation remains open.
+
+2026-11-04: real STLport pair and three hash-table views reconciled; scoped bytes/link preview preserved. The next hash-clear merge blocker is a qualified nested-type key collision in tu_skeleton; fix it separately before retrying. [Evidence](../../reverse/attempt_support/experience-level-hashtable-20261104.md).

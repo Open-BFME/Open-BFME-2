@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/Libraries/Source/WWVegas/WWLib
+// stlport
 //
 // 0x00289371 (73 bytes): clear() of the hash table the ExperienceLevels
 // store (vftable 0x00BFB8F4, class ExperienceLevelSystem) holds by pointer at +0x10;
@@ -12,42 +13,41 @@
 
 typedef unsigned int UnsignedInt;
 
-// LINK: the node value is rowed as pair<const int, list<BfmePod264>>, whose
-// destructor is the folded 0x00288B89.
+#include <list>
+#include <utility>
 struct BfmePod264;
-namespace _STL
-{
-template <class T> class allocator;
-template <class T, class A> class list;
-template <class A, class B> struct pair
-{
-	~pair() throw();
-};
+// Retail's pair destructor at 0x00288B89 calls the already-owned list
+// base destructor at 0x002889A4. Keep that out-of-line boundary with real STLport.
+namespace _STL {
+template <> void _List_base<BfmePod264, allocator<BfmePod264> >::clear();
+template <> _List_base<BfmePod264, allocator<BfmePod264> >::~_List_base();
 }
-typedef _STL::pair<const int, _STL::list<BfmePod264, _STL::allocator<BfmePod264> > > Rva00288B89;
+typedef _STL::pair<const int, _STL::list<BfmePod264> > Rva00288B89;
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
-#define _CRTIMP
 #include <stdlib.h>
-#undef _CRTIMP
 
 class Rva00289371HashTable
 {
-public:
-	void clear();
 private:
-	struct Node
-	{
-		Node *m_next;
-		Rva00288B89 m_value04;
-	};
-	void deleteNode(Node *node);	// 0x00289164
-	char m_functors[4];
-	Node **m_bucketsBegin;
-	Node **m_bucketsEnd;
-	Node **m_bucketsCapacity;
-	UnsignedInt m_numElements;
+    struct Node;
+public:
+    void clear(); // 0x00289371
+    ~Rva00289371HashTable(); // 0x002895BF
+private:
+    void deleteNode(Node *node); // 0x00289164
+    char m_functors[4];
+    Node **m_bucketsBegin;
+    Node **m_bucketsEnd;
+    Node **m_bucketsCapacity;
+    unsigned int m_numElements;
+};
+
+struct Rva00289371HashTable::Node
+{
+    Node *m_next;
+    Rva00288B89 m_value04;
 };
 
 void Rva00289371HashTable::clear()

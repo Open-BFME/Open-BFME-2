@@ -494,8 +494,18 @@ static bool g_Va00DFECC8;
 static bool g_Va00DFECC9;
 class Rva00289371HashTable
 {
+private:
+    struct Node;
 public:
-	void clear();	// 0x00289371
+    void clear(); // 0x00289371
+    ~Rva00289371HashTable(); // 0x002895BF
+private:
+    void deleteNode(Node *node); // 0x00289164
+    char m_functors[4];
+    Node **m_bucketsBegin;
+    Node **m_bucketsEnd;
+    Node **m_bucketsCapacity;
+    unsigned int m_numElements;
 };
 class Rva00289ABDBase
 {
