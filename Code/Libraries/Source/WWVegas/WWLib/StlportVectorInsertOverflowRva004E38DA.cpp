@@ -31,11 +31,13 @@ void __cdecl Rva004E1FCCGet(Rva004E1AD5Item *, Rva004E1AD5Item *);
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<BfmePod88 *>(BfmePod88 *__first, BfmePod88 *__last)
 { Rva004E1FCCGet(reinterpret_cast<Rva004E1AD5Item *>(__first), reinterpret_cast<Rva004E1AD5Item *>(__last)); } }
 
-struct BfmePod88 {
-	char opaque[88];
-	BfmePod88(const BfmePod88 &);
+struct BfmePod88
+{
+public:
+	BfmePod88(const BfmePod88 &other);
 	BfmePod88 &operator=(const BfmePod88 &);
 	~BfmePod88();
+	char m_body[88]; // +0x00
 };
 
 namespace _STL {

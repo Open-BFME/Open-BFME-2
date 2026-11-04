@@ -16,15 +16,17 @@ struct FieldParse;
 
 #include "../../Include/Common/INI/INI.h"
 
+class OpaqueRefCounted;
 class Rva004E18A2
 {
 public:
-	Rva004E18A2() : m_04(0), m_08(0), m_0C(false) {}
+	Rva004E18A2() : m_04(0), m_member08(0), m_0C(false) {}
 	virtual ~Rva004E18A2();
 private:
-	int m_04;
-	void *m_08;
-	bool m_0C;
+	int m_04; // +0x04
+	OpaqueRefCounted *m_member08; // +0x08
+	bool m_0C; // +0x0C
+	char m_pad0D[0x3];
 };
 
 namespace _STL
