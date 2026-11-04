@@ -9,7 +9,14 @@
 // 0x1EB5FC 0x2125C5 0x2227C0 and 8 newly ready bodies.
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-struct RGBAColorInt { int red, green, blue, alpha; };
+struct RGBAColorInt
+{
+public:
+	unsigned int red; // +0x00
+	unsigned int green; // +0x04
+	unsigned int blue; // +0x08
+	unsigned int alpha; // +0x0C
+};
 class Mouse {
 	char _pad0[0x128C];
 	RGBAColorInt m_128C;
