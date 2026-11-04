@@ -10,21 +10,12 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
+#include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/GameLogic/AIGroup.h"
-
-class AI
-{
-public:
-	AIGroup *createGroup();
-
-private:
-	char m_pad[0x14];
-	_STL::list<AIGroup *> m_groupList;
-};
 
 AIGroup *AI::createGroup()
 {
 	AIGroup *group = new AIGroup;
-	m_groupList.push_back(group);
+	((_STL::list<AIGroup *> *)&field14)->push_back(group);
 	return group;
 }
