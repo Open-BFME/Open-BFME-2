@@ -64,7 +64,7 @@ void XferSiegeTypeEnum(Xfer *xfer, int *value);
 class SiegeDockingBehaviorSecondaryBase
 {
 public:
-	virtual void slot();
+	virtual void slot() = 0;
 };
 struct SiegeDockEntry00206FF0
 {
