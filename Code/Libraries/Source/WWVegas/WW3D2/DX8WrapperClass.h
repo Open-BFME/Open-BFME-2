@@ -203,7 +203,10 @@ struct _D3DVIEWPORT8;
 enum _D3DPOOL;
 enum _D3DFORMAT;
 enum _D3DTRANSFORMSTATETYPE;
+// The DirectX SDK types make D3DTRANSFORMSTATETYPE a typedef of _D3DTRANSFORMSTATETYPE.
+#if !defined(_D3D8TYPES_H_) && !defined(_d3d9TYPES_H_)
 enum D3DTRANSFORMSTATETYPE;
+#endif
 enum WW3DFormat;
 
 class DX8Wrapper
@@ -238,7 +241,10 @@ public:
     static void Set_Projection_Transform_With_Z_Bias(const Matrix4 &, float, float);
     static void Set_Transform(_D3DTRANSFORMSTATETYPE, const Matrix4 &);
     static void Set_Transform(_D3DTRANSFORMSTATETYPE, const Matrix3D &);
+// Its row spells the native enum, which a unit with the SDK types cannot name.
+#if !defined(_D3D8TYPES_H_) && !defined(_d3d9TYPES_H_)
     static void Get_Transform(D3DTRANSFORMSTATETYPE, Matrix4 &);
+#endif
     static void Set_World_Identity();
     static void Set_View_Identity();
     static void Set_DX8_Light(int, _D3DLIGHT8 *);
