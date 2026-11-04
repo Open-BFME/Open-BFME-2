@@ -804,13 +804,7 @@ public:
 	Coord3D m_0c; // +0x0C
 };
 #include "../../../Include/GameLogic/AIPathfind.h"
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_10; }
-	char m_pad[0x10]; // +0x00
-	Pathfinder *m_10; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 struct CondA003E514F
 {
@@ -3060,7 +3054,7 @@ bool ScriptConditions::evaluateNamedCanPathToWaypoint(Parameter *parameter, Para
 	Waypoint *way = TheTerrainLogic->getWaypointByName(*(const AsciiString *)((const char *)b + 0x10));
 	if (!way)
 		return false;
-	Pathfinder *pf = TheAI->m_10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist(object, &object->m_pos, &way->m_0c, 0);
 }
 
@@ -3080,7 +3074,7 @@ bool ScriptConditions::rva003E5105(Parameter *parameter, Parameter *b)
 	Object *o2 = TheScriptEngine->getUnitNamed(b);
 	if (!o2)
 		return false;
-	Pathfinder *pf = TheAI->m_10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist(object, &object->m_pos, &o2->m_pos, 0);
 }
 
@@ -3916,7 +3910,7 @@ bool ScriptConditions::evaluateTeamCanPathToWaypoint(Parameter *parameter, Param
 	Waypoint *way = TheTerrainLogic->getWaypointByName(p1->m_string);
 	if (!way)
 		return false;
-	Pathfinder *pf = TheAI->m_10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &way->m_0c, 0);
 }
 
@@ -3936,7 +3930,7 @@ bool ScriptConditions::evaluateTeamCanPathToNamed(Parameter *parameter, Paramete
 	Object *unitObj = TheScriptEngine->getUnitNamed(p1);
 	if (!unitObj)
 		return false;
-	Pathfinder *pf = TheAI->m_10;
+	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &unitObj->m_pos, 0);
 }
 

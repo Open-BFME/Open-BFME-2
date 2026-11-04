@@ -16,19 +16,8 @@ class ObjectTypes;
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class AIData
-{
-public:
-	unsigned char m_pad[0x5C];
-	float m_recruitRadius;		// +0x5C
-};
-
-class AI
-{
-public:
-	unsigned char m_pad[0x18];
-	AIData *m_aiData;		// +0x18
-};
+#include "../../../Include/GameLogic/AI.h"
+#include "../../../Include/GameLogic/TAiData.h"
 extern AI *TheAI;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -48,7 +37,7 @@ void ScriptActions::rva003C2166(const AsciiString &teamName, int count, const As
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(thingName);
 		ObjectTypes *types = TheScriptEngine->getObjectTypes(thingName);
 		if (team->hasAnyObjects(false))
-			team->rva003A1AA3(thingTemplate, types, count, TheAI->m_aiData->m_recruitRadius);
+			team->rva003A1AA3(thingTemplate, types, count, TheAI->m_aiData->m_maxRecruitDistance);
 		else
 			team->rva003A1AA3(thingTemplate, types, count, 1000000.0f);
 	}
