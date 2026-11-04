@@ -36,9 +36,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <stdlib.h>
 #pragma comment(linker, "/alternatename:?bfmeInit1039@BfmeC1039@@QAEXPAVBfmeD1039@@@Z=??0GridWSEnvMapperClass@@QAE@ABV0@@Z")
 #include "../../../../../reference/shims/bfme_matrix3d_link/vector4.h"
-// math.h's inline floorf gets internal linkage, and the link view keeps Vector4(x,y,z,w) inline, so neither
-// emits a copy that loses to retail's owners (0x0004D649, 0x006D8A30).
-extern "C" { static float __cdecl floorf(float); }
+// math.h was included with static inline above, and the link view keeps
+// Vector4(x,y,z,w) inline, so neither emits a competing external copy.
 #include "../../../../../reference/shims/bfme_matrix4_rows_link/matrix4_bfme1_rows_link.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
