@@ -69,25 +69,7 @@ private:
 	unsigned char m_unreconstructed_000[0x228];
 };
 
-// BFME 2 RenderInfoClass: 0x148 bytes (ctor 0x00142EE0, dtor 0x00142FE0);
-// the fog colour sits at +0x08 and light_environment at +0x28.
-class RenderInfoClass
-{
-public:
-	RenderInfoClass(CameraClass &cam);
-	~RenderInfoClass(void);
-
-	CameraClass &Camera;
-	float fog_scale;
-	float FogColor[3];
-	float fog_start;
-	float fog_end;
-	float alphaOverride;
-	float materialPassAlphaOverride;
-	float materialPassEmissiveOverride;
-	LightEnvironmentClass *light_environment;
-	unsigned char m_unreconstructed_2C[0x148 - 0x2C];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

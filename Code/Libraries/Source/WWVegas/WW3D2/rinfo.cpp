@@ -140,7 +140,7 @@ template <> inline RefCountPtr<FXShader::RenderingMethod>::~RefCountPtr(void)
 
 #include "../WWMath/Vector3Data.h"
 
-typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
+#include "RenderInfoClass.h"
 
 namespace _STL
 {
@@ -171,57 +171,6 @@ __forceinline void _Destroy<RefCountPtr<FXShader::RenderingMethod> *>(RefCountPt
 const unsigned MAX_ADDITIONAL_MATERIAL_PASSES=32;
 const unsigned MAX_OVERRIDE_FLAG_LEVEL=32;
 
-class RenderInfoClass
-{
-public:
-	RenderInfoClass(CameraClass & cam);
-	~RenderInfoClass(void);
-
-	enum RINFO_OVERRIDE_FLAGS {
-		RINFO_OVERRIDE_DEFAULT						= 0x0000,	// No overrides
-		RINFO_OVERRIDE_FORCE_TWO_SIDED			= 0x0001,	// Override mesh settings to force no backface culling
-		RINFO_OVERRIDE_FORCE_SORTING				= 0x0002,	// Override mesh settings to force sorting
-		RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY	= 0x0004,	// Do not render base passes (only additional passes)
-		RINFO_OVERRIDE_SHADOW_RENDERING			= 0x0008		// Hint: we are rendering a shadow
-	};
-
-	void								Push_Material_Pass(MaterialPassClass * matpass);
-	void								Pop_Material_Pass(void);
-
-	int								Additional_Pass_Count(void);
-	MaterialPassClass *			Peek_Additional_Pass(int i);
-
-	void								Push_Override_Flags(RINFO_OVERRIDE_FLAGS flg);
-	void								Pop_Override_Flags(void);
-	RINFO_OVERRIDE_FLAGS &		Current_Override_Flags(void);
-
-	void								Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void								Pop_Rendering_Method(void);
-	const RenderingMethodStackType & Get_Rendering_Method_Stack(void) const;
-
-	CameraClass &					Camera;						// +0x00
-
-	float								fog_scale;					// +0x04
-	Vector3							FogColor;					// +0x08
-	float								fog_start;					// +0x14
-	float								fog_end;						// +0x18
-	float								alphaOverride;				// +0x1C
-	float								materialPassAlphaOverride;	// +0x20
-	float								materialPassEmissiveOverride;	// +0x24
-
-	LightEnvironmentClass*		light_environment;		// +0x28
-
-	TexProjectClass*				Texture_Projector;		// +0x2C
-
-protected:
-	MaterialPassClass*			AdditionalMaterialPassArray[MAX_ADDITIONAL_MATERIAL_PASSES];	// +0x30
-	unsigned							AdditionalMaterialPassCount;	// +0xB0
-	unsigned							RejectedMaterialPasses;			// +0xB4
-	RINFO_OVERRIDE_FLAGS			OverrideFlag[MAX_OVERRIDE_FLAG_LEVEL];	// +0xB8
-	unsigned							OverrideFlagLevel;				// +0x138
-	RenderingMethodStackType	RenderingMethodStack;			// +0x13C
-};
-
 class SpecialRenderInfoClass : public RenderInfoClass
 {
 public:
@@ -246,10 +195,10 @@ public:
 ***********************************************************************************************/
 RenderInfoClass::RenderInfoClass(CameraClass & cam) :
 	Camera(cam),
-	fog_scale(0.0f),
+	field04(0.0f),
 	FogColor(0.0f, 0.0f, 0.0f),
-	fog_start(0.0f),
-	fog_end(0.0f),
+	field14(0.0f),
+	field18(0.0f),
 	light_environment(0),
 	AdditionalMaterialPassCount(0),
 	RejectedMaterialPasses(0),
