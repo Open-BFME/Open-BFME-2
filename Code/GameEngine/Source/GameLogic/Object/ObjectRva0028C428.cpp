@@ -26,12 +26,7 @@ public:
 	bool rva001E3E5C() const;
 };
 
-class WeaponTemplate
-{
-public:
-	unsigned char m_pad00[0x174];
-	Int m_index174;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -140,7 +135,7 @@ bool Object::rva0028C428() const
 	for( Int i = 0; i < WEAPONSLOT_COUNT; ++i )
 	{
 		const Weapon *weapon = m_weaponSet.getWeaponInWeaponSlot( (WeaponSlotType)i );
-		if( weapon && weapon->m_template && weapon->m_template->m_index174 >= 0 )
+		if( weapon && weapon->m_template && weapon->m_template->m_field174 >= 0 )
 			return true;
 	}
 
