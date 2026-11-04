@@ -15,6 +15,7 @@
 // global TheUpgradeCenter. Evidence: vtable slot, callers none, MI vptrs
 // +0/+0xC/+0x10 family precedent
 // Rva004B8CDEDerived.cpp, next GrantUpgradeCreateModuleData.
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 #include "ascii_string.h"
 
 #include "../../../Common/RTS/PlayerUpgradeStatus.h"
@@ -34,57 +35,24 @@ extern UpgradeCenter *TheUpgradeCenter;
 
 #include "../../../../Include/Common/Player.h"
 
-class Rva004B8CDEBase
+// Use the retail CreateModule hierarchy: its +0x10 interface owns the
+// slot-3 gate and the +0x14 flag cleared by onBuildComplete.
+class GrantUpgradeCreate : public CreateModule
 {
 public:
-	virtual ~Rva004B8CDEBase();
-	void *m_data04;
-	Object *m_object08;
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class GrantUpgradeCreateThird
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual bool isReady();
-	virtual void f4();
-	virtual void f5();
-	virtual void f6();
-	virtual void f7();
-	virtual void f8();
-	virtual void f9();
-	virtual void f10();
-	virtual void f11();
-	virtual void f12();
 	virtual void onBuildComplete();
-};
-
-class GrantUpgradeCreate : public Rva004B8CDEBase, public MiBase1, public GrantUpgradeCreateThird
-{
-public:
-	void onBuildComplete();
-private:
-	bool m_granted14;
 };
 
 void GrantUpgradeCreate::onBuildComplete()
 {
-	if (!isReady())
+	if (!shouldDoOnBuildComplete())
 		return;
-	AsciiString *name = (AsciiString *)((char *)m_data04 + 8);
-	m_granted14 = false;
+	AsciiString *name = (AsciiString *)((char *)getModuleData() + 8);
+	CreateModule::onBuildComplete();
 	const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->findUpgrade(*name);
 	if (upgradeTemplate == 0)
 		return;
-	Object *obj = m_object08;
+	Object *obj = getObject();
 	if (upgradeTemplate->m_type == 0)
 	{
 		Player *player = obj->getControllingPlayer();

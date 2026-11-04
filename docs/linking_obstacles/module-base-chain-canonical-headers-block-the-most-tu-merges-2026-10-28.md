@@ -333,3 +333,5 @@ Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7
   queued unit.
 
 2026-11-03: RadarMarkerClientUpdate's getter/updater views reconcile and pass local link checks; merging them also requires Radar factory return-interface reconciliation, while the destructor still needs DrawableModule getter and Rva00362EC7 vtable work ([reconciliation](../../reverse/attempt_support/radarmarkerclientupdate-consolidation-20261103.md), [Radar adoption trials and next step](../../reverse/attempt_support/radarmarkerclientupdate-radar-adoption-20261103.md)).
+
+- 2026-11-04: GrantUpgradeCreate_onBuildComplete now adopts canonical CreateModule (78 bytes matched, link preview unchanged); reconcile seed/donor declarations and ModuleDataDtor bytes before merging. [Evidence](../../reverse/attempt_support/grantupgradecreate-buildcomplete-canonical-base-2026-11-04.md).
