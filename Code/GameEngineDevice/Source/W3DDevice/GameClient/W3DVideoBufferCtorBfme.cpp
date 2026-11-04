@@ -31,24 +31,22 @@ private:
 class W3DVideoSurfaceHandle
 {
 public:
-    ~W3DVideoSurfaceHandle() {}
-
+	~W3DVideoSurfaceHandle() {}
 private:
-    void *m_surface;
+	void *m_surface; // +0x00
 };
 
 class Rva00739C70State
 {
 public:
-    Rva00739C70State() {}
-    ~Rva00739C70State() {}
-
+	Rva00739C70State() {}
+	~Rva00739C70State() {}
 private:
-    int m_value_00;
-    int m_value_04;
-    TextureClass *m_texture;
-    W3DVideoSurfaceHandle m_surface;
-    unsigned int m_flags;
+	int m_value_00; // +0x00
+	int m_value_04; // +0x04
+	TextureClass *m_texture; // +0x08
+	W3DVideoSurfaceHandle m_surface; // +0x0C
+	unsigned int m_flags; // +0x10
 };
 
 class Rva00739C70

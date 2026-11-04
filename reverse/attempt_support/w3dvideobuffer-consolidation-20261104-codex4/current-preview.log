@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp: LINKS  LINKED 0 -> 47 bytes (census 2026-11-04 07:28 at a62ac1c10b; file's own bytes 47)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp: does not link  LINKED 213 -> 0 bytes (census 2026-11-04 07:28 at a62ac1c10b; file's own bytes 213)
+  unresolved  ??1VideoBuffer@@UAE@XZ
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferRva00072480.cpp: LINKS  LINKED 32 -> 32 bytes (census 2026-11-04 07:28 at a62ac1c10b; file's own bytes 32)
+link_check: 2 of 3 link cleanly; LINKED 245 -> 79 bytes (9.8s)
