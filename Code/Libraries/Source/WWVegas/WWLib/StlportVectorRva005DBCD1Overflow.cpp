@@ -26,7 +26,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class Rva005DBCD1
 {
 public:
-	Rva005DBCD1(const Rva005DBCD1 &other);
+	// Native 0x005DBCD1 installs the vptr and copies two shorts without calls.
+	Rva005DBCD1(const Rva005DBCD1 &other) throw();
 	Rva005DBCD1();
 	Rva005DBCD1 &operator=(const Rva005DBCD1 &);
 	virtual ~Rva005DBCD1();
