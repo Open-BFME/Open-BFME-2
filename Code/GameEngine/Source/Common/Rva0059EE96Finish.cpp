@@ -16,64 +16,8 @@ int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, c
 #include "../../Include/GameNetwork/GameInfo.h"
 
 
-class GameSpyInfoInterface
-{
-public:
-	virtual void f00();
-	virtual void f01();
-	virtual void f02();
-	virtual void f03();
-	virtual void f04();
-	virtual void f05();
-	virtual void f06();
-	virtual void f07();
-	virtual void f08();
-	virtual void f09();
-	virtual void f10();
-	virtual void f11();
-	virtual void f12();
-	virtual void f13();
-	virtual void f14();
-	virtual void f15();
-	virtual void f16();
-	virtual void f17();
-	virtual void f18();
-	virtual void f19();
-	virtual void f20();
-	virtual void f21();
-	virtual void f22();
-	virtual void f23();
-	virtual void f24();
-	virtual void f25();
-	virtual void f26();
-	virtual void f27();
-	virtual void f28();
-	virtual void f29();
-	virtual void f30();
-	virtual void f31();
-	virtual void f32();
-	virtual void f33();
-	virtual void f34();
-	virtual void f35();
-	virtual void f36();
-	virtual void f37();
-	virtual void f38();
-	virtual void f39();
-	virtual void f40();
-	virtual void f41();
-	virtual void f42();
-	virtual void f43();
-	virtual void f44();
-	virtual void f45();
-	virtual void f46();
-	virtual void f47();
-	virtual void f48();
-	virtual void f49();
-	virtual void f50();
-	virtual void f51();
-	virtual void f52();
-	virtual GameInfo *f53();
-};
+#include "../../Include/GameNetwork/GameSpyStagingRoom.h"
+#include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -131,7 +75,7 @@ void AptOnlineCustomMatch::UpdateHostStartGameButton()
 {
 	if (!TheGameSpyInfo)
 		return;
-	GameInfo *gi = TheGameSpyInfo->f53();
+	GameInfo *gi = TheGameSpyInfo->getCurrentStagingRoom();
 	if (!gi)
 		return;
 	int human = 0;

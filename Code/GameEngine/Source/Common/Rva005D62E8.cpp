@@ -55,42 +55,7 @@ public:
 };
 extern class GameSpyConfigInterface *TheGameSpyConfig;
 
-class GameSpyInfoInterface
-{
-public:
-	virtual void vf0();
-	virtual void vf1();
-	virtual void vf2();
-	virtual void vf3();
-	virtual void vf4();
-	virtual void vf5();
-	virtual void vf6();
-	virtual void vf7();
-	virtual void vf8();
-	virtual void vf9();
-	virtual void vf10();
-	virtual void vf11();
-	virtual void vf12();
-	virtual void vf13();
-	virtual void vf14();
-	virtual void vf15();
-	virtual void vf16();
-	virtual void vf17();
-	virtual void vf18();
-	virtual void vf19();
-	virtual void vf20();
-	virtual void vf21();
-	virtual void vf22();
-	virtual void vf23();
-	virtual _STL::map<int, int> *vf24();
-	virtual void vf25();
-	virtual void vf26();
-	virtual void vf27();
-	virtual void vf28();
-	virtual void vf29();
-	virtual void vf30();
-	virtual int vf31();
-};
+#include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 #include "../../Include/GameNetwork/PlayerInfo.h"
@@ -112,15 +77,14 @@ Rva005D62E8 *Rva005D62E8::rva005D62E8(PlayerInfo *playerInfo)
 	m_sub = 11;
 	if ((playerInfo->m_at18 & 0x20) == 0 && !(*(Rva00E05FB4 **)&TheGameSpyConfig)->vf10(playerInfo->m_at14))
 	{
-		_STL::map<int, int> *m = TheGameSpyInfo->vf24();
-		MapIntIntTree *mapIntIntTree = (MapIntIntTree *)m;
+		MapIntIntTree *mapIntIntTree = (MapIntIntTree *)TheGameSpyInfo->getBuddyMap();
 		_STL::_Rb_tree_node<IntIntPair> *node = mapIntIntTree->_M_find(m_player->m_at14);
 		if ((void *)node != *(void * *)mapIntIntTree)
 		{
 			m_state = 1;
 			m_sub = 8;
 		}
-		else if (m_player->m_at14 == TheGameSpyInfo->vf31())
+		else if (m_player->m_at14 == TheGameSpyInfo->getLocalProfileID())
 		{
 			m_state = 3;
 			m_sub = 10;
