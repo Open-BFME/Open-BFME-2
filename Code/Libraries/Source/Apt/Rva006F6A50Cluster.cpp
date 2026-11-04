@@ -21,25 +21,12 @@ public:
 #include "EAStringC.h"
 struct AptCharacter;struct AptCharacterInst;
 class AptRenderingContext;
-class AptCIH
-{
-public:
-	virtual void v0();
- virtual void Release();
- void *rva006E1170()const;void rva006E1F00(int);
-	bool rva006E24E0() const;
-	void rva006E2560(int arg);
-	void rva006E2D60();
-	void rva006E1C40(AptRenderingContext *context, int flags);	// 0x006E1C40
-	bool rva006CFCD0() const;
-	void ClearCIH(int arg);
-
-	char m_pad04[4];EAStringC name;char m_pad0c[0x48-0x0c];AptCIH *parent;
- union {void *pData;AptCharacterInst *inst;};
-	AptCIH *m_prev;
-	AptCIH *m_next;
-	union {unsigned int m_key;struct {int depth:17;int created:14;unsigned high:1;};};
-};
+#include "AptCIHClass.h"
+#include "BfmeAptValue006DCD20.h"
+// AptCIH::field58 packs the signed 17-bit display depth (0x006F72F0), the
+// 14-bit creation frame and a high flag; this view reads and writes them.
+struct AptCIHKeyBits {int depth:17;int created:14;unsigned high:1;};
+static __forceinline AptCIHKeyBits &cihKeyBits(AptCIH *cih){return *(AptCIHKeyBits *)&cih->field58;}
 
 // ?rva006F7AC0@Rva006F7AC0List@@QAE_NXZ @0x006F7AC0 33B
 class Rva006F7AC0List
@@ -60,7 +47,7 @@ bool Rva006F7AC0List::rva006F7AC0()
 	{
 		if (node->rva006E24E0())
 			return true;
-		node = node->m_next;
+		node = node->field54;
 	} while (node != 0);
 	return false;
 }
@@ -74,7 +61,7 @@ void Rva006F7AC0List::rva006F7AF0(int arg)
 	do
 	{
 		node->rva006E2560(arg);
-		node = node->m_next;
+		node = node->field54;
 	} while (node != 0);
 }
 
@@ -86,26 +73,6 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-
-class BfmeAptValue006DCD20
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	bool isUndefined() const;
- void *rva006E0F40()const;
-	void setGCRootCount(unsigned int n);
-	int rva006E02B0() const;
-	void rva006E1540();	// 0x006E1540, the AptCIH sprite worker (Rva006E0D40Cluster.cpp)
-	unsigned int m_flags;
-};
-
-class AptValue : public BfmeAptValue006DCD20
-{
-public:
-	void setIsDefined(bool defined);
-};
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
@@ -129,7 +96,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4; // VA 0x00E176F4
 // ??0Rva006CBDE0@@QAE@HPAXPAVAptValue@@@Z; the fields below are the ones this
 // cluster touches (prev +0x50, next +0x54, key/GC word +0x58).
 void Rva006F12F0Free(void*,int);
-class Rva006CBDE0 : public AptValue
+class Rva006CBDE0
 {
 public:
 	Rva006CBDE0(int type, void *p1, AptValue *p2);
@@ -141,13 +108,7 @@ public:
 		return g_pChainBlockAllocatorF4->allocBlock((int)size);
 	}
 
-	char m_pad08[0x48 - 0x08];
-	AptValue *m_48;
-	void *m4C;
-	Rva006CBDE0 *m_50;
-	Rva006CBDE0 *m_54;
-	unsigned int m_58;
-	unsigned int m_5c;
+	char m_storage[0x60];
 };
 
 class BfmeQuery1279
@@ -172,20 +133,20 @@ public:
 		g_pChainBlockAllocator->freeBlock(block, (int)size);
 	}
 
-	Rva006CBDE0 *m_root;
+	AptCIH *m_root;
 };
 
 // ??0BfmeQuery1279@@QAE@XZ @0x006F7B20 153B: construct the root sentinel from
 // the 0xE176F4 pool, mark it undefined with one GC root, clear its key link.
 BfmeQuery1279::BfmeQuery1279()
 {
-	m_root = new Rva006CBDE0(0x2e, (void *)0xbaadf00d, 0);
+	m_root = (AptCIH *)new Rva006CBDE0(0x2e, (void *)0xbaadf00d, 0);
 	m_root->setIsDefined(false);
-	m_root->setGCRootCount(1);
-	m_root->v0();
-	m_root->m_58 |= 0x1ffff;
-	m_root->m_54 = 0;
-	m_root->m_50 = 0;
+	((BfmeAptValue006DCD20 *)m_root)->setGCRootCount(1);
+	m_root->AddRef();
+	m_root->field58 |= 0x1ffff;
+	m_root->field54 = 0;
+	m_root->field50 = 0;
 }
 
 // ?BfmeQuery1279::~BfmeQuery1279 @0x006F7BC0 65B: assert the root sentinel is
@@ -197,8 +158,8 @@ BfmeQuery1279::~BfmeQuery1279()
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	m_root->m4C = 0;
-	m_root->v2();
+	m_root->field4C = 0;
+	m_root->ForceDelete();
 }
 
 class AptDisplayList
@@ -375,18 +336,18 @@ static __forceinline int rva006F6D60IsType14(const AptCIH *pNewItem)
 AptCIH *BfmeQuery1279::insert(AptCIH *pOldItem, AptCIH *pNewItem)
 {
 	if (pNewItem->rva006CFCD0() || rva006F6D60IsType14(pNewItem)) {
-		if (pNewItem->pData == 0) {
+		if (pNewItem->field4C == 0) {
 			g_bfmeAptAssertAtE17734("pNewItem->pData != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x1D8);
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();
 		}
 	}
-	pNewItem->m_next = pOldItem->m_next;
-	pNewItem->m_prev = pOldItem;
-	pNewItem->v0();
-	if (pNewItem->m_next != 0)
-		pNewItem->m_next->m_prev = pNewItem;
-	pNewItem->m_prev->m_next = pNewItem;
+	pNewItem->field54 = pOldItem->field54;
+	pNewItem->field50 = pOldItem;
+	pNewItem->AddRef();
+	if (pNewItem->field54 != 0)
+		pNewItem->field54->field50 = pNewItem;
+	pNewItem->field50->field54 = pNewItem;
 	return pNewItem;
 }
 
@@ -404,7 +365,7 @@ void BfmeQuery1279::rva006F6FB0(int key, AptCIH *pNewItem)
 			__debugbreak();
 	}
 	AptCIH *node = insert((AptCIH *)pPrev, pNewItem);
-	node->m_key = node->m_key ^ ((node->m_key ^ (unsigned int)key) & 0x1FFFFu);
+	node->field58 = node->field58 ^ ((node->field58 ^ (unsigned int)key) & 0x1FFFFu);
 }
 
 // ---------------------------------------------------------------------------
@@ -430,15 +391,15 @@ static __forceinline int rva006F79B0IsType19(const AptCIH *pNode)
 // ?rva006F79B0@AptDisplayList@@QAEXPAX0@Z @0x006F79B0 126B
 void AptDisplayList::rva006F79B0(void *arg1, void *arg2)
 {
-	AptCIH *node = (AptCIH *)m_query->m_root->m_54;
+	AptCIH *node = (AptCIH *)m_query->m_root->field54;
 	while (node != 0) {
 		if (!((const BfmeAptValue006DCD20 *)node)->isUndefined()) {
 			if (!rva006F79B0IsType19(node)) {
-				if (*(int *)((char *)node->pData + 4) < 0)
+				if (*(int *)((char *)node->field4C + 4) < 0)
 					node->rva006E1C40((AptRenderingContext *)arg1, (int)arg2);
 			}
 		}
-		node = node->m_next;
+		node = node->field54;
 	}
 }
 
@@ -446,7 +407,7 @@ void AptDisplayList::rva006F79B0(void *arg1, void *arg2)
 // rebuilds (0x006E2D60) defined kind-13/18 nodes and kind-14 nodes.
 void AptDisplayList::rva006F7A30()
 {
-	AptCIH *node = (AptCIH *)m_query->m_root->m_54;
+	AptCIH *node = (AptCIH *)m_query->m_root->field54;
 	for (;;) {
 		if (node == 0)
 			break;
@@ -466,7 +427,7 @@ void AptDisplayList::rva006F7A30()
 		} else if (rva006F6D60IsType14(node)) {
 			node->rva006E2D60();
 		}
-		node = node->m_next;
+		node = node->field54;
 	}
 }
 
@@ -555,11 +516,11 @@ public:
 // ?rva006F76B0@AptDisplayList@@QAEXXZ @0x006F76B0 100B
 void AptDisplayList::rva006F76B0()
 {
-	AptCIH *node = (AptCIH *)m_query->m_root->m_54;
+	AptCIH *node = (AptCIH *)m_query->m_root->field54;
 	Rva006F7540 array;
 	while (node != 0) {
 		((BfmeAptValue006DCD20 *)node)->rva006E1540();
-		node = node->m_next;
+		node = node->field54;
 	}
 }
 
@@ -614,12 +575,12 @@ void AptDisplayList::clear(bool flag)
 	BfmeQuery1279 *query = m_query;
 	if (query == 0)
 		return;
-	BfmeNode1279 *cur = (BfmeNode1279 *)query->m_root->m_54;
+	BfmeNode1279 *cur = (BfmeNode1279 *)query->m_root->field54;
 	if (cur == 0)
 		return;
 	do {
 		BfmeNode1279 *next = cur->m_next;
-		cur->v0();
+		cur->AddRef();
 		if (!cur->isUndefined()) {
 			BfmeProvider1279 *prov = cur->m_provider;
 			if (prov != 0) {
@@ -646,7 +607,7 @@ void AptDisplayList::clear(bool flag)
 			if (*reinterpret_cast<void **>(&g_aptDateInterpreter) == 0)
 				g_releaseVectorAtE17710->ReleaseValues();
 		}
-		cur->v1();
+		cur->Release();
 		cur = next;
 	} while (cur != 0);
 }
@@ -669,7 +630,7 @@ void BfmeQuery1279::rva006F7030(int key, AptCIH *pNewItem, AptCIH *pPrev,
             __debugbreak();
     }
     AptCIH *node = insert(pPrev, pNewItem);
-    node->m_key = node->m_key ^ ((node->m_key ^ (unsigned int)key) & 0x1FFFFu);
+    node->field58 = node->field58 ^ ((node->field58 ^ (unsigned int)key) & 0x1FFFFu);
 }
 
 // Native6F6ED0..6F6FAD221B: allocate/construct a60B CIH, query the
@@ -738,7 +699,7 @@ AptCIH *BfmeQuery1279::rva006F6ED0(int key, int type, void *pData)
 {
 	AptCIH *pOldItem;
 	void *pPrev;
-	Rva006CBDE0 *node = new Rva006CBDE0(type, pData, 0);
+	AptCIH *node = (AptCIH *)new Rva006CBDE0(type, pData, 0);
 
 	bfmeQuery1279(key, 0, &pPrev, (void **)&pOldItem);
 	if (pOldItem != 0 && !((const BfmeAptValue006DCD20 *)pOldItem)->isUndefined()) {
@@ -746,9 +707,9 @@ AptCIH *BfmeQuery1279::rva006F6ED0(int key, int type, void *pData)
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	node->m_58 = node->m_58 ^ ((node->m_58 ^ (unsigned int)key) & 0x1FFFFu);
-	node->m4C = pData;
-	return insert((AptCIH *)pPrev, (AptCIH *)node);
+	node->field58 = node->field58 ^ ((node->field58 ^ (unsigned int)key) & 0x1FFFFu);
+	node->field4C = pData;
+	return insert((AptCIH *)pPrev, node);
 }
 
 // ?instantiateCharacter@AptDisplayList@@QAEXHPAUAptCharacter@@PAVEAStringC@@PAVAptCIH@@HHPAPAV4@PAH@Z
@@ -860,7 +821,7 @@ static __forceinline AptCharacterInst*spriteInst(AptCIH*aptCIH)
   g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);
   if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
  }
- return (AptCharacterInst*)aptCIH->inst;
+ return (AptCharacterInst*)aptCIH->field4C;
 }
 void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStringC*name,AptCIH*parent,int replace,int value,AptCIH**out,int*created)
 {
@@ -876,7 +837,7 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
    if(existing){bfmeUnlinkNestedBE((BfmeNestedBE*)existing);bfmeProcess1279(existing);existing=0;}
    isNew=true;
   } else if(((BfmeAptValue006DCD20*)existing)->isUndefined()) {
-   if(name && name->IsEqualTo(&existing->name)) {((AptValue*)existing)->setIsDefined(true);current=existing;}
+   if(name && name->IsEqualTo(&existing->field08)) {((AptValue*)existing)->setIsDefined(true);current=existing;}
    isNew=true;
   } else {current=existing;isNew=false;goto finish;}
  }
@@ -914,17 +875,17 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
   if(!current) {
    current=m_query->rva006F6ED0(depth,type,inst);
   } else {
-   if(depth!=current->depth) {
+   if(depth!=cihKeyBits(current).depth) {
     bfmeUnlinkNestedBE((BfmeNestedBE*)current);
     m_query->rva006F6FB0(depth,current);
     current->Release();
    }
-   current->inst=inst;
+   current->field4C=inst;
   }
-  if(parent->rva006CFCD0())current->created=inst->frame;
-  else current->created=-1;
+  if(parent->rva006CFCD0())cihKeyBits(current).created=inst->frame;
+  else cihKeyBits(current).created=-1;
   if(name) {
-   current->name=*name;
+   current->field08=*name;
    if(!name->IsEmpty()){AptNativeHash*hash=((AptCharacterInst*)parent->rva006E1170())->hash;hash->Set(name,(AptValue*)current);}
   }
   if(type==13 || type==14) {
@@ -935,7 +896,7 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
    }
    g_bfmeAptPtrAtE176D0->m_field00[g_bfmeAptPtrAtE176D0->m_field04]=current;
    ++g_bfmeAptPtrAtE176D0->m_field04;
-   current->v0();
+   current->AddRef();
   } else if(type==15) {
    TextInst*text=(TextInst*)((BfmeAptValue006DCD20*)current)->rva006E0F40();
    if(text->character->defaultText){EAStringC str(text->character->defaultText);text->text=str;}
@@ -948,11 +909,11 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
  }
 finish:
  CHECK(current,"pCurCIH",0x30b);
- parent->v0();
- if(current->parent)current->parent->Release();
- current->parent=parent;
- current->inst->character=definition;
- current->inst->value=value;
+ parent->AddRef();
+ if(current->field48)current->field48->Release();
+ current->field48=parent;
+ ((AptCharacterInst*)current->field4C)->character=definition;
+ ((AptCharacterInst*)current->field4C)->value=value;
  if(definition->type==4)current->rva006E1F00(1);
  *out=current;
  *created=isNew;
