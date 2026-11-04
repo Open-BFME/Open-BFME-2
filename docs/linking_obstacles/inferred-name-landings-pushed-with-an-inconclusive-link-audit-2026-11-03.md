@@ -76,3 +76,36 @@ The three classes the same pass pointed the wrong way were refused by the byte c
 before any push, and two of them are recorded above as reverted
 (`BfmeObject544`, `Rva00087A93`); the third, `Rva00587375`, is a name the ledger spells
 both `U` and `V`, so it is two distinct types and no single spelling can serve the TU.
+
+A fourth INCONCLUSIVE verdict, 2026-11-04, on the smallest possible version of this
+change (`d92dd4c134`, two commits, 2 sources): "2 source object(s) lack current receipts;
+first: Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp", index
+`8661f15284`, outgoing base `a7d6d877db6`. The edit gave
+`TransportContain.cpp` and `TransportContainUpdateUpgradeCreationTriggers.cpp` one
+spelling of `BfmeStringRecord00466E64`, a three-field private record. It is worth
+recording because it is the case where a reader might expect the audit to come back
+clean: the class name, its key (`struct`), its three member names and its layout are all
+unchanged, so nothing here can rename an external symbol the way the class-key pass could.
+`_STL::vector<BfmeStringRecord00466E64, ...>::push_back` keeps the mangled name it had.
+
+The verdict is still INCONCLUSIVE, and the reason is the index, not the edit: an index
+built at `8661f15284` holds no receipt for an object recompiled after it, whatever the
+edit did. So this is not evidence that the change is risky; it is evidence that the audit
+cannot distinguish a layout-neutral reformat from a link-identity edit once the receipts
+are stale. Both carry. Positive evidence for this one: `DIR32 consistency: OK (17 symbols;
+0 new)`, `EH verify: 7 EXACT`, and `Functions: OK 34/34`. Carry both objects into the next
+scheduled census with the earlier 38, 11 and 25. No linking gain is claimed.
+
+The practical note for seats in this lane: all four verdicts above were read against the
+same index, `8661f15284`, which by 2026-11-04 was days and several hundred commits stale,
+so every consolidation push read INCONCLUSIVE regardless of merit. That is a refreshable
+condition, and no seat in these four pushes refreshed it. Running
+`python3 tools/link_check.py --fetch-index` in this worktree moved it to `328bb2bbe4`
+(2026-11-04 12:49) and added 18,285 compiled objects to the object store, which are used
+when they match the tree.
+
+So the first thing to do about an INCONCLUSIVE audit is to check the index id it prints
+against a fresh fetch, per worktree, before reading anything into the verdict. It is only
+after a fetch that "lacks current receipts" says something about the edit rather than about
+the index. When it does still read INCONCLUSIVE, the real signal is in the DIR32, EH and
+byte lines, and the objects still carry into the next census.
