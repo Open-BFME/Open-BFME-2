@@ -5,36 +5,15 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const char *function, const float *val);
 
-struct Rva005D4AD0Team
-{
-	char m_pad[8];
-	char m_name[1];
-};
+#include "../../Include/GameClient/AptScrollBar.h"
 
 // AptScrollBar::Impl::SetPageSize (WorldBuilder name): it fires the same "SetPageSize"
 // literal on a change, as the rowed AptScrollBar::Impl::SetVisible does.
-class AptScrollBar
-{
-public:
-	class Impl;
-};
-class AptScrollBar::Impl
-{
-public:
-	void SetPageSize(float v);
-private:
-	char m_pad00[4];
-	void *m_level04;
-	Rva005D4AD0Team *m_team08;
-	char m_pad0C[0x18 - 0x0C];
-	float m_float18;
-};
-
 void AptScrollBar::Impl::SetPageSize(float v)
 {
-	if (v != m_float18) {
-		const char *team = m_team08 ? m_team08->m_name : "";
-		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetPageSize", &v);
-		m_float18 = v;
+	if (v != field18) {
+		const char *team = field08.str();
+		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)field04, team, "SetPageSize", &v);
+		field18 = v;
 	}
 }

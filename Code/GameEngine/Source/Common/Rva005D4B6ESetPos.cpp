@@ -5,35 +5,14 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const char *function, const float *val);
 
-struct Rva005D4B6ETeam
-{
-	char m_pad[8];
-	char m_name[1];
-};
+#include "../../Include/GameClient/AptScrollBar.h"
 
 // AptScrollBar::Impl::SetPos (WorldBuilder name): it fires the same "SetPos"
 // literal on a change, as the rowed AptScrollBar::Impl::SetVisible does.
-class AptScrollBar
-{
-public:
-	class Impl;
-};
-class AptScrollBar::Impl
-{
-public:
-	void SetPos(float v);
-private:
-	char m_pad00[4];
-	void *m_level04;
-	Rva005D4B6ETeam *m_team08;
-	char m_pad0C[0x20 - 0x0C];
-	float m_float20;
-};
-
 void AptScrollBar::Impl::SetPos(float v)
 {
-	if (v != m_float20) {
-		const char *team = m_team08 ? m_team08->m_name : "";
-		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetPos", &v);
+	if (v != field20) {
+		const char *team = field08.str();
+		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)field04, team, "SetPos", &v);
 	}
 }
