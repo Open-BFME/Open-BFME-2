@@ -7,6 +7,9 @@ and the normal `tu_skeleton.py --plan` / `--merge --dry-run` path preserved the
 current sources. No source changes or claims were made. All candidates below
 were rejected unchanged by the merge tool:
 
+Additional follow-up refusals and the restored W3DFloorDraw trial:
+[consolidation-shard1-followup-20261104.md](consolidation-shard1-followup-20261104.md).
+
 - `Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp`: no donor
   accepted. The destination's merged composition fails its census link check
   because `?rva004C09A1@Rva004C09A1@@QAEXPBURva004C09A1Object@@@Z` is duplicated;
