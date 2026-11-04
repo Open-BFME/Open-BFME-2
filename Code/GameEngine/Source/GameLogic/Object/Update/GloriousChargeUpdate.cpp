@@ -54,7 +54,6 @@ class Snapshot;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
-
 //
 // ??0GloriousChargeUpdateModuleData@@QAE@XZ, retail 0x004AD4F2 (43 bytes).
 // Frameless Update-side ModuleData for the glorious charge: runs the pinned
@@ -71,11 +70,7 @@ class Object;
 // 0x4AD4F2 ctor pin (row proves the body).
 
 extern "C" const void *const __identifier("??_7EvacuateGarrisonSpecialPowerModuleData@@6B@")[];
-
-  // folded vftable 0x00C5F778 (3 classes), by its data-ledger name
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-
 class GloriousChargeUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
@@ -85,7 +80,6 @@ public:
 	int m_speechDuration; // +0xCC
 	int m_updateInterval; // +0xD0
 };
-
 class Object
 {
 public:
@@ -104,21 +98,18 @@ public:
 	unsigned char m_pad15C[0x44C - 0x15C];
 	int m_44C; // +0x44C
 };
-
 // The Drawable word 0x004AD8E3 sets bit 3 of.
 struct Rva004AD8E3Drawable
 {
 	unsigned char m_pad[0x118];
 	unsigned int m_118; // +0x118
 };
-
 struct Rva004AD613Node
 {
 	Rva004AD613Node *m_next;
 	Rva004AD613Node *m_prev;
 	ObjectID m_id;
 };
-
 struct Rva004AD613Iterator
 {
 	Rva004AD613Node *m_node;
@@ -126,12 +117,10 @@ struct Rva004AD613Iterator
 	Rva004AD613Iterator &operator++() { m_node = m_node->m_next; return *this; }
 	bool operator!=(const Rva004AD613Iterator &other) const { return m_node != other.m_node; }
 };
-
 // Native2A1B6F and its whole insertion helper copy one opaque four-byte
 // element into a 12-byte list node; they never dereference the word as a
 // pointer. Reuse that existing owner for these ObjectID payloads.
 class Rva002A1B6FNativeList { public: void append(void *const &value); };
-
 class Rva0029FB3BMember
 {
 public:
@@ -142,31 +131,20 @@ public:
 	void reset() throw();
 	Rva004AD613Node *m_head;
 };
-
 class Thing;
-
 class ModuleData;
-
 class Xfer;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
-
-
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-
 // Primary-vtable slots 1..17 of SpecialAbilityUpdate (vtable 0x00C3FBA8):
 // xfer 0x0044F996 in slot 3 and the pool key in slot 4; only the positions
 // of slots 15 and 17 matter to update().
@@ -188,7 +166,6 @@ public:
 private:
 	unsigned char m_pad24[0x88 - 0x24];
 };
-
 // The spelling the derived ctors use for SpecialAbilityUpdate's ctor (row
 // 0x0044EF5E); ??1Rva0044EF5E is bound to the complete dtor 0x00451F45.
 class Rva0044EF5E : public SpecialAbilityUpdate
@@ -197,7 +174,6 @@ public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
 };
-
 // The ctor 0x004AD680 and dtor 0x004AD58C store retail's four (folded)
 // vtables themselves: this view models only some primary slots, so it must
 // not emit a vtable of its own.
@@ -223,31 +199,21 @@ private:
 	unsigned int m_8C; // +0x8C
 	bool m_90; // +0x90
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 extern GameLogic *TheGameLogic;
-
 class Rva00270619
 {
 public:
 	void Rva00270619Clear(int bit);
 };
-
-// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
-// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
-// own members.
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
 };
-
 // vftable 0x00BFBC90, allow 0x00260EB1: the object, relationship flags and
 // whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8
@@ -261,7 +227,6 @@ public:
 	int m_flags;
 	bool m_match;
 };
-
 // vftable 0x00BF91BC, allow 0x002611BF: +0x08 an object.
 class Rva002611BFFilter : public Rva000421C8
 {
@@ -270,9 +235,7 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
-
 #include "../../../Common/PartitionRangeQueryCallView.h"
-
 
 extern PartitionManager *ThePartitionManager;
 
@@ -294,6 +257,70 @@ public:
 
 Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 
+// ??1GloriousChargeUpdate@@UAE@XZ, retail 0x004AD58C, 60 bytes. Virtual dtor
+// shard over the TU's class view (novtable, so the four vtable stores
+// are explicit).
+//
+// Shape follows the RousingSpeechUpdate dtor precedent: explicit 4 vtable
+// installs plus freelist-node member at +0x88 via pinned reset plus
+// pool-free via 0x268902 pin plus implicit Rva0044EF5E base-dtor tail call.
+// The class is proven by the poolkey, name getter, ModuleData and instance
+// factories plus the ctor installing these same 4 vtables. Zero new pins.
+
+extern "C" const void *const __identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@")[];
+
+  // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
+// The retail table at RVA 0x008552A4: 9 slots, each a rowed code owner (the next
+// word is not a code address or starts another ledger datum).
+extern "C" {
+void __identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z")();
+void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
+void __identifier("?get@Rva005C4AE5ByteField@@QBEEXZ")();
+void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
+void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
+void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
+void __identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z")();
+void __identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z")();
+void __identifier("?vslot08@SpecialAbilityUpdate@@UAE_NH@Z")();
+}
+
+extern "C" const void *const vtbl_00C552A4[9] = {
+	(const void *)&__identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z"), // slot 0 0x004500A3
+	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 1 0x0050B5C6
+	(const void *)&__identifier("?get@Rva005C4AE5ByteField@@QBEEXZ"), // slot 2 0x005C4AE5
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 3 0x000D43D0
+	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 4 0x0047A699
+	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5 0x0047A69C
+	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // slot 6 0x0044EECA
+	(const void *)&__identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z"), // slot 7 0x0044F09F
+	(const void *)&__identifier("?vslot08@SpecialAbilityUpdate@@UAE_NH@Z"), // slot 8 0x0044EDA6
+};
+
+extern char g_00C55108;
+
+extern char g_00C55118;
+
+char g_00C55108;
+
+char g_00C55118;
+
+class PoolMember
+{
+public:
+	void Rva00268902() throw();
+};
+
+  // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
+extern "C" const void *const vtbl_00C552A4[];
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp
+
+  // folded vftable 0x00C5F778 (3 classes), by its data-ledger name
+
+// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
+// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
+// own members.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateModuleDataCtor.cpp
 
 // ??0GloriousChargeUpdateModuleData@@QAE@XZ @0x4AD4F2
@@ -305,10 +332,6 @@ GloriousChargeUpdateModuleData::GloriousChargeUpdateModuleData()
 	m_speechDuration = 0;
 	m_updateInterval = 0;
 }
-
-// tu-skeleton: 0x004AD51D 27B ?buildFieldParse@GloriousChargeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x004AD538 28B ??_GRva004C6CC1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate_startPreparation.cpp
 
@@ -360,10 +383,6 @@ void GloriousChargeUpdate::startPreparation()
 	if (draw)
 		((Rva004AD8E3Drawable *)draw)->m_118 |= 0x10;
 }
-
-// tu-skeleton: 0x004AD58C 60B ??1GloriousChargeUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AD5C8 6B ?name@GloriousChargeUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdatePoolKey.cpp
 
@@ -506,10 +525,6 @@ void GloriousChargeUpdate::triggerAbilityEffect()
 	}
 }
 
-// tu-skeleton: 0x004AD680 116B ??0GloriousChargeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AD6F4 28B ??_GGloriousChargeUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateXfer.cpp
 
 // ?xfer@GloriousChargeUpdate@@MAEXPAVXfer@@@Z @0x004AD890
@@ -526,6 +541,56 @@ void GloriousChargeUpdate::xfer(Xfer *xfer)
 	*xfer == m_8C;
 }
 
-// tu-skeleton: 0x0078E4F2 8B uw_0078e4f2 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
+// tu-skeleton: 0x004AD51D 27B ?buildFieldParse@GloriousChargeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
-// tu-skeleton: 0x0078E4FA 10B __ehhandler$??0GloriousChargeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorCtor.cpp (not merged yet)
+// tu-skeleton: 0x004AD538 28B ??_GRva004C6CC1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorDtor.cpp
+
+  // folded vftable 0x00C5F778 (3 classes), by its data-ledger name
+
+// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
+// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
+// own members.
+
+// ??1GloriousChargeUpdate@@UAE@XZ @0x004AD58C
+GloriousChargeUpdate::~GloriousChargeUpdate()
+{
+	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
+	*(const void **)this = (const void *)(unsigned int)&g_00C55118;
+	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@"));
+	*(const void **)((char *)this + 0x10) = (const void *)(unsigned int)&g_00C55108;
+	*(const void **)((char *)this + 0x20) = (const void *)((unsigned int)vtbl_00C552A4);
+	member->reset();
+	((PoolMember *)member)->Rva00268902();
+}
+
+// tu-skeleton: 0x004AD5C8 6B ?name@GloriousChargeUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorCtor.cpp
+
+  // folded vftable 0x00C5F778 (3 classes), by its data-ledger name
+
+// BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
+// a vptr, the +0x04 link to the next filter (0x00625790), then each filter's
+// own members.
+
+// ??0GloriousChargeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x004AD680
+GloriousChargeUpdate::GloriousChargeUpdate(Thing *thing, const ModuleData *moduleData) :
+	Rva0044EF5E(thing, moduleData)
+{
+	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
+	void *context = (void *)((char *)&moduleData + 3);
+	*(const void **)this = (const void *)(unsigned int)&g_00C55118;
+	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@"));
+	*(const void **)((char *)this + 0x10) = (const void *)(unsigned int)&g_00C55108;
+	*(const void **)((char *)this + 0x20) = (const void *)((unsigned int)vtbl_00C552A4);
+	member->init(context);
+	m_8C &= 0;
+	m_90 = 0;
+	member->reset();
+}
+
+// tu-skeleton: 0x004AD6F4 28B ??_GGloriousChargeUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0078E4F2 8B uw_0078e4f2 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
