@@ -13,25 +13,36 @@ namespace _STL
 {
 	template <class T> class allocator
 	{
+	public:
+		allocator() {}
 	};
 
-	template <class T, class A = allocator<T> > class vector
+	// Storage-only view. The rowed STLport base constructor initializes the
+	// three pointers without allocating; Rva005965A5 owns erase and free.
+	template <class T, class A> class _Vector_base
 	{
 	public:
+		_Vector_base(const A &allocator) throw();
+		T *_M_start;
+		T *_M_finish;
+		T *_M_end_of_storage;
+	};
+
+	template <class T, class A = allocator<T> > class vector : public _Vector_base<T, A>
+	{
+	public:
+		vector(const A &allocator = A()) : _Vector_base<T, A>(allocator) {}
 		T *erase(T *first, T *last);
 		T *begin() { return _M_start; }
 		T *end() { return _M_finish; }
 		void clear() { erase(begin(), end()); }
-
-		T *_M_start;
-		T *_M_finish;
-		T *_M_end_of_storage;
 	};
 }
 
 class Rva0025BFE3
 {
 public:
+	Rva0025BFE3();
 	virtual ~Rva0025BFE3();
 private:
 	char m_pad04[0x10 - 4];
@@ -40,6 +51,7 @@ private:
 class Rva005965A5 : public Rva0025BFE3
 {
 public:
+	Rva005965A5();
 	virtual ~Rva005965A5();
 
 private:
@@ -57,8 +69,8 @@ private:
 // emptied through the rowed range erase 0x00532803 (folded STLport
 // vector<ScienceType>::erase) and its block freed with the CRT free; then the
 // rowed base dtor ??1Rva0025BFE3@@UAE@XZ 0x0025BFE3 runs. The element size
-// follows from the folded erase (4-byte enum stride), not the ctor's view in
-// Rva005965A5Ctor.cpp. Names address-derived.
+// follows from the folded erase (4-byte enum stride); the constructor uses
+// the same storage view. Names address-derived.
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
