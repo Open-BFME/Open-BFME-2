@@ -50,11 +50,6 @@ numpunct<wchar_t>::~numpunct()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?do_is@?$ctype@G@_STL@@MBEPBGPBG0PAW4mask@ctype_base@2@@Z=?isRange@T2WideCtype@@QBEPBGPBG0PAI@Z")
-#pragma comment(linker, "/alternatename:?do_toupper@?$ctype@G@_STL@@MBEPBGPAGPBG@Z=?toUpperRange@T2WideCtype@@QBEPBGPAG0@Z")
-#pragma comment(linker, "/alternatename:?do_tolower@?$ctype@G@_STL@@MBEPBGPAGPBG@Z=?toLowerRange@T2WideCtype@@QBEPBGPAG0@Z")
-#pragma comment(linker, "/alternatename:?do_widen@?$ctype@G@_STL@@MBEPBDPBD0PAG@Z=?widenRange@T2WideCtype@@QBEPBDPBD0PAG@Z")
-#pragma comment(linker, "/alternatename:?do_narrow@?$ctype@G@_STL@@MBEPBGPBG0DPAD@Z=?narrowRange@T2WideCtype@@QBEPBGPBG0DPAD@Z")
 #pragma comment(linker, "/alternatename:?do_in@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z=?do_out@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z")
 #pragma comment(linker, "/alternatename:?do_out@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBG1AAPBGPAD3AAPAD@Z=?do_out@codecvt_wide_char@_STL@@QBEHAAHPBG1AAPBGPAD3AAPAD@Z")
 #pragma comment(linker, "/alternatename:?do_in@?$codecvt@GDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAG3AAPAG@Z=?do_in@codecvt_wide_char@_STL@@QBEHAAHPBD1AAPBDPAG3AAPAG@Z")

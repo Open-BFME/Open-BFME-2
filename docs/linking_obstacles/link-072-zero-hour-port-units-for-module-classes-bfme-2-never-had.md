@@ -203,17 +203,13 @@ Carry consumer preservation into the next census; no census gain is claimed.
   fold (`do_close` / `Prepare_LOD`, `do_always_noconv` / `_AptValidate`, `showmanyc` /
   `GetNativeHashVirtual`): `tools/vtable_slots.py` lists no other placeholder. Retail is `/GR-`,
   so no engine, W3D or Apt class has an RTTI vftable; this method does not reach them.
-- **Remaining / next check:** (0) `ctype` range virtuals: slots 5/7 of `ctype<char>` (0x007BC3E4)
-  hold 0x00016C20 / 0x00016C60 (`do_widen` / `do_narrow` range forms) and slots 1/5/7/9/11 of
-  `ctype<wchar_t>` (0x007BBAD0) hold 0x00016D00..0x00016E60 (`do_is` / `do_toupper` /
-  `do_tolower` / `do_widen` / `do_narrow` range forms), all rowed as the BFME 1 donor names
-  `T2NarrowCtype::*Range` / `T2WideCtype::*Range` in `T2CtypeTableFacets.cpp`. The natural owners
-  are `stlport_narrow_ctype_virtuals.cpp` (which already defines the two narrow range forms
-  unrowed, with `memcpy` bodies that do not match retail's `if (high != low) memmove`) and
-  `stlport_wide_ctype_virtuals.cpp` (single-character forms only; addresses interleave).
-  Moving the seven rows there removes ten hatches (five each in `stlport_classic_locale.cpp`
-  and `stlport_locale_facet_subclass_dtors.cpp`). Not attempted: `T2CtypeTableFacets.cpp` was
-  LOCKED by K6. (1) Give the 12-byte statics their STLport names (`_M_truename` / `_M_falsename`,
+- **Remaining / next check:** (0) `ctype` range virtuals: the wide half is done (2026-11-04):
+  0x00016D00..0x00016E60 (`ctype<wchar_t>` vftable 0x007BBAD0 slots 1/5/7/9/11) are rowed under
+  their STLport names in `T2WideCtype.cpp`, `T2CtypeTableFacets.cpp` is gone and the ten
+  `*Range@T2WideCtype` hatches in `stlport_classic_locale.cpp` / `stlport_locale_facet_subclass_dtors.cpp`
+  are removed (4/4 units LINK). Open: slots 5/7 of `ctype<char>` (0x007BC3E4), 0x00016C20 /
+  0x00016C60 (`do_widen` / `do_narrow` range forms, still `T2NarrowCtype::*Range`); retail's
+  `if (high != low) memmove` body differs from `stlport_narrow_ctype_virtuals.cpp`'s unrowed `memcpy` one. (1) Give the 12-byte statics their STLport names (`_M_truename` / `_M_falsename`,
   monetary.cpp's file-static empty strings) through the data lane; `data_check` (shadow)
   already flags `g_009DEEF0Static` and siblings as duplicate-def / wrong-name. (2) The nine
   narrow and five wide moneypunct alias hatches (per unit) need alias rows to go.

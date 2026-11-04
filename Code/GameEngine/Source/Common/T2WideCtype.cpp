@@ -10,9 +10,33 @@ bool ctype<wchar_t>::do_is(ctype_base::mask __m, wchar_t __c) const
 	return (unsigned) __c < 256 && (ctype<char>::classic_table()[__c] & __m) != 0;
 }
 
+const wchar_t *ctype<wchar_t>::do_is(const wchar_t *__low, const wchar_t *__high,
+                                     ctype_base::mask *__vec) const
+{
+	const ctype_base::mask *__table = ctype<char>::classic_table();
+	for ( ; __low < __high; ++__low, ++__vec)
+	{
+		wchar_t __c = *__low;
+		*__vec = __c >= 0 && size_t(__c) < ctype<char>::table_size ? __table[__c] : ctype_base::mask(0);
+	}
+	return __high;
+}
+
 wchar_t ctype<wchar_t>::do_toupper(wchar_t __c) const
 {
 	return (unsigned) __c < 256 ? (wchar_t) ctype<char>::_S_upper[__c] : __c;
+}
+
+const wchar_t *ctype<wchar_t>::do_toupper(wchar_t *__low, const wchar_t *__high) const
+{
+	for ( ; __low < __high; ++__low)
+	{
+		wchar_t __c = *__low;
+		*__low = __c >= 0 && size_t(__c) < ctype<char>::table_size
+			? (wchar_t) ctype<char>::_S_upper[__c]
+			: __c;
+	}
+	return __high;
 }
 
 wchar_t ctype<wchar_t>::do_tolower(wchar_t __c) const
@@ -20,9 +44,29 @@ wchar_t ctype<wchar_t>::do_tolower(wchar_t __c) const
 	return (unsigned) __c < 256 ? (wchar_t) ctype<char>::_S_lower[__c] : __c;
 }
 
+const wchar_t *ctype<wchar_t>::do_tolower(wchar_t *__low, const wchar_t *__high) const
+{
+	for ( ; __low < __high; ++__low)
+	{
+		wchar_t __c = *__low;
+		*__low = __c >= 0 && size_t(__c) < ctype<char>::table_size
+			? (wchar_t) ctype<char>::_S_lower[__c]
+			: __c;
+	}
+	return __high;
+}
+
 wchar_t ctype<wchar_t>::do_widen(char __c) const
 {
 	return (wchar_t) __c;
+}
+
+const char *ctype<wchar_t>::do_widen(const char *__low, const char *__high,
+                                     wchar_t *__dest) const
+{
+	while (__low != __high)
+		*__dest++ = (wchar_t) *__low++;
+	return __high;
 }
 
 char ctype<wchar_t>::do_narrow(wchar_t __c, char __dfault) const
@@ -30,28 +74,33 @@ char ctype<wchar_t>::do_narrow(wchar_t __c, char __dfault) const
 	return (char) ((char) __c == __c ? __c : __dfault);
 }
 
+const wchar_t *ctype<wchar_t>::do_narrow(const wchar_t *__low, const wchar_t *__high,
+                                         char __dfault, char *__dest) const
+{
+	while (__low != __high)
+	{
+		wchar_t __c = *__low++;
+		*__dest++ = (char) __c == __c ? __c : __dfault;
+	}
+	return __high;
 }
 
-// tu-skeleton: 0x00016D00 57B ?isRange@T2WideCtype@@QBEPBGPBG0PAI@Z -- matched in Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp (not merged yet)
+}
+
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ctype_virtuals.cpp
 
 // stlport46
 //
-// The single-character half of ctype<wchar_t>'s vftable at 0x007BBAD0. Slot
-// order follows the same reversed-overload rule as ctype<char>: each range
-// form sits below the single-character form declared before it, so the odd
-// slots are ranges and 2, 6, 8, 10 and 12 are the ones here.
+// ctype<wchar_t>'s vftable at 0x007BBAD0. Slot order follows the same
+// reversed-overload rule as ctype<char>: each range form sits below the
+// single-character form declared before it, so slots 1, 5, 7, 9 and 11 hold
+// the range forms (0x00016D00..0x00016E60, STLport 4.6 src/ctype.cpp) and
+// 2, 6, 8, 10 and 12 the single-character ones; the bodies interleave in
+// that source order.
 //
 // do_is reads a table of 32-bit masks at 0x00BBBDDC, which is ctype<char>'s
 // classic_table() - &_S_classic_table[1] - and do_toupper and do_tolower index
 // the same _S_upper and _S_lower at 0x00BBC1E0 and 0x00BBC2E0 that
 // ctype<char> uses. Above 255 each returns its argument unchanged.
 
-// tu-skeleton: 0x00016D60 50B ?toUpperRange@T2WideCtype@@QBEPBGPAG0@Z -- matched in Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp (not merged yet)
-
-// tu-skeleton: 0x00016DC0 50B ?toLowerRange@T2WideCtype@@QBEPBGPAG0@Z -- matched in Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp (not merged yet)
-
-// tu-skeleton: 0x00016E10 36B ?widenRange@T2WideCtype@@QBEPBDPBD0PAG@Z -- matched in Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp (not merged yet)
-
-// tu-skeleton: 0x00016E60 57B ?narrowRange@T2WideCtype@@QBEPBGPBG0DPAD@Z -- matched in Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp (not merged yet)

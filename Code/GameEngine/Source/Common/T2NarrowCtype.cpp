@@ -15,7 +15,6 @@
 // find_declared_unmatched gate stays green. The donor declares t2_block_copy
 // but retail reaches memmove, so the declaration is renamed to the real
 // import (Import-ref verify refuses it otherwise; no pin can fix this).
-typedef unsigned short T2WChar;
 
 // The matched narrow range helpers need no local ctype specialization.
 // The owning STLport unit supplies its real declaration during composition.
@@ -26,19 +25,6 @@ struct T2NarrowCtype
 	const char *toLowerRange(char *low, char *high) const;
 	const char *widenRange(const char *low, const char *high, char *to) const;
 	const char *narrowRange(const char *low, const char *high, char dflt, char *to) const;
-};
-
-struct T2WideCtype
-{
-	const T2WChar *isRange(const T2WChar *low, const T2WChar *high, unsigned int *vec) const;
-	T2WChar toUpper(unsigned int c) const;
-	const T2WChar *toUpperRange(T2WChar *low, T2WChar *high) const;
-	T2WChar toLower(unsigned int c) const;
-	const T2WChar *toLowerRange(T2WChar *low, T2WChar *high) const;
-	T2WChar widen(char c) const;
-	const char *widenRange(const char *low, const char *high, T2WChar *to) const;
-	int narrow(T2WChar c, char dflt) const;
-	const T2WChar *narrowRange(const T2WChar *low, const T2WChar *high, char dflt, char *to) const;
 };
 
 namespace _STL
