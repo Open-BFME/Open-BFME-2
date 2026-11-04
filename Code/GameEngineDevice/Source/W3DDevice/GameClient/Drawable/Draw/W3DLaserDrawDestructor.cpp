@@ -109,7 +109,8 @@ protected:
 // ??1W3DLaserDraw@@MAE@XZ
 W3DLaserDraw::~W3DLaserDraw()
 {
-	const W3DLaserDrawModuleData *data = m_moduleData;
+	const W3DLaserDrawModuleData *data =
+		reinterpret_cast<const W3DLaserDrawModuleData *>(m_moduleData);
 
 	for (int i = 0; i < data->m_numBeams * data->m_segments; i++)
 	{

@@ -49,6 +49,9 @@ class DrawModule;
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
+// The retail laser teardown inlines DrawModule's empty destructor before
+// calling DrawableModule's destructor, as the separate destructor donor does.
+inline DrawModule::~DrawModule() {}
 
 enum NameKeyType;
 
@@ -124,6 +127,7 @@ private:
 
 class W3DLaserDrawModuleData : public ModuleData, public W3DLaserDrawModuleDataBase
 {
+	friend class W3DLaserDraw;
 public:
 	W3DLaserDrawModuleData();
 public:
@@ -185,18 +189,32 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class W3DLaserDraw : public DrawModule
+class SegmentedLineClass;
+
+// Retail's constructor installs the laser interface at +0x0C; the line array
+// and texture-vector storage follow it at +0x10 and +0x14 respectively.
+class LaserDrawInterface
+{
+public:
+	virtual float getLaserTemplateWidth() const = 0;
+};
+
+class W3DLaserDraw : public DrawModule, public LaserDrawInterface
 {
 public:
 	W3DLaserDraw(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doDrawModule(const Matrix3D *transform);
+	virtual float getLaserTemplateWidth() const;
 
 protected:
+	virtual ~W3DLaserDraw();
 	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 
 private:
-	char m_pad0C[0x14];
+	SegmentedLineClass **m_line3D;
+	Rva000C9A12 m_textureVector;
 	float m_textureAspectRatio;
 	bool m_selfDirty;
 	char m_pad25[3];
