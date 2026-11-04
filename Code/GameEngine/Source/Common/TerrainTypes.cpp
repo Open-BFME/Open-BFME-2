@@ -140,10 +140,10 @@ _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_base()
 class __declspec(novtable) CharSourceSuffix : public CharSource<char>
 {
 public:
-	CharSourceSuffix(const char *s)
+	CharSourceSuffix(const char *suffix)
 	{
 		*(const void **)this = __identifier("??_7Rva002AAD9C@@6B@");
-		m_arg = s;
+		m_arg = suffix;
 	}
 	virtual ~CharSourceSuffix() { *(const void **)this = __identifier("??_7Rva002AAD9C@@6B@"); }
 	int getLength() const;
@@ -281,12 +281,12 @@ TerrainTypeCollection::~TerrainTypeCollection()
     do {
       ListNode *listNode = (ListNode *)m_head;
       next = listNode->m_next;
-      void *mem;
+      void *nodeStorage;
       if (m_head != 0)
-        mem = listNode->destroy(0);
+        nodeStorage = listNode->destroy(0);
       else
-        mem = 0;
-      ::operator delete(mem);
+        nodeStorage = 0;
+      ::operator delete(nodeStorage);
       m_head = (TerrainType *)next;
     } while (next != 0);
   }
@@ -302,8 +302,8 @@ TerrainTypeCollection::~TerrainTypeCollection()
 
 void TerrainType::friend_setName(AsciiString name)
 {
-	AsciiString &slot = m_str04;
-	slot = name;
+	AsciiString &nameSlot = m_str04;
+	nameSlot = name;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva00317CCD.cpp
@@ -413,9 +413,9 @@ TerrainType::TerrainType()
 {
   m_str04.clear();
   m_str08.clear();
-  ScienceType st = SCIENCE_NONE;
+  ScienceType initialScience = SCIENCE_NONE;
   m_f0c = 0;
-  m_v1.push_back(st);
+  m_v1.push_back(initialScience);
   m_next = 0;
   m_f1c = 0;
 }
