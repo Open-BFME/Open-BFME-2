@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include
+// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include /Ireference/shims/moduledata
 // stlport
 //
 // ??0Rva00359E13@@QAE@XZ, retail 0x00359E13, 122 bytes; caller 0x0024408B.
@@ -20,14 +20,16 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 #include "../../../Include/Common/Rva00330757Member.h"
 
-extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
+#include "Common/Snapshot.h"
+
 class __declspec(novtable) Rva00359E13Interface
 {
 public:
 	Rva00359E13Interface() {}
 	// Retail's ctor unwind destroys this base through 0x0049B47C, the folded
-	// Snapshot destructor: restore table 0x00BBB554 and return.
-	virtual ~Rva00359E13Interface() { *(const void *const **)this = __identifier("??_7Snapshot@@6B@"); }
+	// Snapshot destructor: restore table 0x00BBB554 and return. Running the
+	// canonical Snapshot destructor body emits exactly that store.
+	virtual ~Rva00359E13Interface() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 };
 
 class Rva00359E13 : public Rva00359E13Interface, public Rva00330757Member
