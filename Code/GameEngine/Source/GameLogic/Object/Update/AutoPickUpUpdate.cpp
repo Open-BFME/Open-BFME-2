@@ -290,8 +290,6 @@ typedef float Real;
 #include "../../../../Include/Common/INI/INI.h"
 inline const char *INI::getSepsColon() const { return m_sepsColon; }
 #include "../../../../Include/Common/INI/FieldParse.h"
-// Match the vector provider's allocation policy and unit-local max overload:
-// retail kept the shared unsigned max from a different compiler profile.
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -316,8 +314,9 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 #define BFME_SNAPSHOT_NAME_SLOT
+
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -360,14 +359,17 @@ private:
 	bool m_flag29;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
+
+// Match the vector provider's allocation policy and unit-local max overload:
+// retail kept the shared unsigned max from a different compiler profile.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp
 
 // ??1AutoPickUpUpdate@@UAE@XZ @0x00495C48
 AutoPickUpUpdate::~AutoPickUpUpdate()
 {
 }
-
-// tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 
@@ -711,19 +713,48 @@ void AutoPickUpUpdateModuleData::iniParseEatObjectEntry(INI *ini, void *instance
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
+// tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
 // tu-skeleton: 0x00495DF8 9B ??$_Destroy@VRva00495C43PoolRecord@@@_STL@@YAXPAVRva00495C43PoolRecord@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x004962AB 63B ??1Rva004962ABVector@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00496308 151B ??0AutoPickUpUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049639F 193B ?_M_insert_overflow@?$vector@UAutoPickUpEatObjectEntry@@V?$allocator@UAutoPickUpEatObjectEntry@@@_STL@@@_STL@@IAEXPAUAutoPickUpEatObjectEntry@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_autopickup_eat_entry.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_autopickup_eat_entry.cpp
+
+//
+// vector<AutoPickUpEatObjectEntry> growth path, STLport 4.5.3:
+//   push_back            retail 0x004964BB, 52 bytes
+//   _M_insert_overflow   retail 0x0049639F, 193 bytes
+//
+// Target evidence: AutoPickUpUpdateModuleData::iniParseEatObjectEntry
+// 0x004964EF calls 0x004964BB with the store vector in ecx and the local
+// entry; 0x004964BB copies the 12-byte entry in place (three movsd) or
+// calls 0x0049639F, which calls the shared 12-byte allocate 0x00395928,
+// copy 0x000766F5 and fill_n 0x002A73C0 (ICF bodies rowed under the
+// BfmeE12 stand-in, pinned here under this TU's element) and the vector's
+// own clear 0x004962EA (range destroy through the entry destructor, then
+// free), proving the element is non-trivially destructible. Entry layout
+// (filter handle, MyHealth, TargetHealth) is the BFME 1 donor's
+// AutoPickUpEatObjectEntry; see AutoPickUpUpdateParseEatObjectEntry.cpp.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+
+template void _STL::vector<AutoPickUpEatObjectEntry>::_M_insert_overflow(
+	AutoPickUpEatObjectEntry *,
+	const AutoPickUpEatObjectEntry &,
+	const _STL::__false_type &,
+	unsigned int,
+	bool);
+
+template void _STL::vector<AutoPickUpEatObjectEntry>::push_back(
+	const AutoPickUpEatObjectEntry &);
 
 // tu-skeleton: 0x00496460 28B ??_GAutoPickUpUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0049647C 63B ??1AutoPickUpUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004964BB 52B ?push_back@?$vector@UAutoPickUpEatObjectEntry@@V?$allocator@UAutoPickUpEatObjectEntry@@@_STL@@@_STL@@QAEXABUAutoPickUpEatObjectEntry@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_autopickup_eat_entry.cpp (not merged yet)
 
 // tu-skeleton: 0x00496689 17B ?buildFieldParse@AutoPickUpUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 

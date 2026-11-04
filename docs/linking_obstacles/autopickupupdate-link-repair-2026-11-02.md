@@ -29,3 +29,5 @@ and symbol routes from control; the paired LINKS preview stays2,073 bytes.
 No new census gain is inferred. GUI push379efc587f still had one missing receipt
 (GadgetTextEntrySetText) in the older-index broad audit; carry that scope into
 the next scheduled census.
+
+Vector consolidation (2026-11-04): one source absorbed, 31 rows exact, cohort preview preserved; module-data views remain to reconcile, and the broader audit needs an AIBaseBuilder receipt and the next scheduled census ([evidence](../../reverse/attempt_support/autopickup-vector-consolidation-20261104-codexb4.md)).
