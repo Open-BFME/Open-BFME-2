@@ -16,25 +16,8 @@ enum NameKeyType
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 // Slot 0 of the primary vtable 0x00857E30 is the scalar deleting dtor.
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-protected:
-	Object *getObject() const { return m_object; }
-
-private:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 template <int N> class UpgradeMuxSlots : public UpgradeMuxSlots<N - 1>
 {
@@ -67,10 +50,7 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
+class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
 {
 public:
 	UpgradeModule( Thing *thing, const ModuleData *moduleData );

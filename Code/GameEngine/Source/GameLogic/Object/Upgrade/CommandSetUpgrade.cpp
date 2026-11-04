@@ -13,22 +13,8 @@ class Object;
 typedef bool Bool;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
 class UpgradeMux
@@ -58,14 +44,13 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
+class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
 {
 public:
 	UpgradeModule( Thing *thing, const ModuleData *moduleData );
 	void rva004CE4A8();
+protected:
+	virtual ~UpgradeModule();
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CommandSetUpgrade.h

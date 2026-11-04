@@ -8,20 +8,8 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-class TransportAIUpdateIface1
-{
-public:
-	virtual void transportAIUpdateIface1Anchor();
-};
 
 class TransportAIUpdateIface2
 {
@@ -44,14 +32,12 @@ public:
 	virtual void transportAIUpdateIface4Anchor();
 };
 
-class AIUpdateInterface : public BehaviorModule,
-	public TransportAIUpdateIface1,
-	public TransportAIUpdateIface2,
-	public TransportAIUpdateIface3,
-	public TransportAIUpdateIface4
+class AIUpdateInterface : public BehaviorModule, public TransportAIUpdateIface2, public TransportAIUpdateIface3, public TransportAIUpdateIface4
 {
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+protected:
+	virtual ~AIUpdateInterface();
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/TransportAIUpdate.h
@@ -59,6 +45,8 @@ class TransportAIUpdate : public AIUpdateInterface
 {
 public:
 	TransportAIUpdate(Thing *thing, const ModuleData *moduleData);
+public:
+	virtual ~TransportAIUpdate();
 };
 
 // ??0TransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z

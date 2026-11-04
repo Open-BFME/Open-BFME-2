@@ -9,21 +9,8 @@
 class Thing;
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-	virtual ~BehaviorModule();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 class UpgradeMux
 {
@@ -40,10 +27,7 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
+class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
 {
 public:
 	UpgradeModule(Thing *thing, const ModuleData *moduleData);

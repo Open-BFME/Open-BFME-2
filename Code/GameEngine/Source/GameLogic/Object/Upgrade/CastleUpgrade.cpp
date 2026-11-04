@@ -57,24 +57,8 @@ struct CastleMemberBehaviorView
 #include "../../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
 class UpgradeMux
@@ -91,13 +75,12 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
+class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
 {
 public:
 	UpgradeModule( Thing *thing, const ModuleData *moduleData );
+protected:
+	virtual ~UpgradeModule();
 };
 
 class CastleUpgrade : public UpgradeModule

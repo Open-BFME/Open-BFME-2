@@ -20,19 +20,7 @@ enum UpdateSleepTime
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-
-protected:
-	// Match the existing BehaviorModule cleanup providers.
-	virtual ~BehaviorModule();
-
-public:
-	unsigned int m_04;
-	Object *m_object;							///< retail this+0x08
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class __declspec(novtable) WeaponModeSpecialPowerUpdateIface1
 {
@@ -71,11 +59,7 @@ protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime when);
 };
 
-class WeaponModeSpecialPowerUpdate : public WeaponModeSpecialPowerUpdateBase,
-	public WeaponModeSpecialPowerUpdateIface1,
-	public WeaponModeSpecialPowerUpdateIface2,
-	public WeaponModeSpecialPowerUpdateIface3,
-	public WeaponModeSpecialPowerUpdateIface4
+class WeaponModeSpecialPowerUpdate : public WeaponModeSpecialPowerUpdateBase, public WeaponModeSpecialPowerUpdateIface2, public WeaponModeSpecialPowerUpdateIface3, public WeaponModeSpecialPowerUpdateIface4
 {
 public:
 	WeaponModeSpecialPowerUpdate(Thing *thing, const ModuleData *moduleData);

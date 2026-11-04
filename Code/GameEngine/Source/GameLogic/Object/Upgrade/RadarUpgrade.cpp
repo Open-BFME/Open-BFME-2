@@ -137,23 +137,8 @@ class Object;
 typedef bool Bool;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
 // UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slots 1-7 gaps,
@@ -186,13 +171,12 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
+class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
 {
 public:
 	UpgradeModule( Thing *thing, const ModuleData *moduleData );
+protected:
+	virtual ~UpgradeModule();
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/RadarUpgrade.h
