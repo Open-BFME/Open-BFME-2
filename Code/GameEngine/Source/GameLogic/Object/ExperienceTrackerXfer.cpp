@@ -82,7 +82,8 @@ class Overridable;
 class Rva0028951F
 {
 public:
-	const Overridable *rva002897A8( void *list, int key );	// 0x002897A8
+	const Overridable *rva002897A8(void *list, int level); // 0x002897A8
+	const Overridable *rva0028951F(int key); // 0x0028951F, level by name key
 };
 // An experience level as read here: required experience at +0x18 and the
 // value at +0xFC this tracker reports.
@@ -277,15 +278,26 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_3E = 0x3E
 };
 
+enum Relationship
+{
+	ENEMIES,
+	NEUTRAL,
+	ALLIES
+};
 class Object
 {
 public:
-	bool testStatus( ObjectStatusTypes bit ) const;	// 0x0004E536
+	const ThingTemplate *getTemplate() const { return m_template; }
+	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
+	Relationship getRelationship(Object const *that) const;
+	bool testStatus( ObjectStatusTypes bit ) const; // 0x0004E536
 	// Thing's raw template pointer at +0x04 (no override walk).
 	const ThingTemplate *rawTemplate() const { return m_template; }
 private:
-	void *m_vtable;
-	const ThingTemplate *m_template;
+	void *m_vtbl; // +0x00
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x25C];
+	ExperienceTracker *m_experienceTracker; // +0x264
 };
 
 class Rva0039ADF3 : public ExperienceTracker
