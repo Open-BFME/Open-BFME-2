@@ -112,15 +112,13 @@ struct BfmeE12 { unsigned int words[3]; };
 namespace _STL {
 template<> __declspec(dllimport) __forceinline void allocator<BfmeE12>::deallocate(BfmeE12 *p,size_t n) const { if(p) __sgi_alloc::deallocate(p,n*12); }
 }
-class GameSpyInfoInterface { public:
-#define SPY_SLOT(N) virtual void slot##N();
- SPY_SLOT(00) SPY_SLOT(01) SPY_SLOT(02) SPY_SLOT(03) SPY_SLOT(04)
- SPY_SLOT(05) SPY_SLOT(06) SPY_SLOT(07) SPY_SLOT(08) SPY_SLOT(09)
- SPY_SLOT(10) SPY_SLOT(11) SPY_SLOT(12) SPY_SLOT(13) SPY_SLOT(14)
- SPY_SLOT(15) SPY_SLOT(16) SPY_SLOT(17) SPY_SLOT(18) SPY_SLOT(19) SPY_SLOT(20)
-#undef SPY_SLOT
- virtual _STL::map<int,PlayerInfo> *roomPlayers();
+// The header's slot 21 player map is keyed by AsciiString; the call
+// instantiates it, so its comparator must be complete here.
+struct AsciiComparator
+{
+	bool operator()(AsciiString s1, AsciiString s2) const;
 };
+#include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 class ChatWindowsOnlineRoom : public ChatWindowsOnline { public:
  virtual bool PopulatePlayerList();
 };
@@ -133,7 +131,7 @@ bool ChatWindowsOnlineRoom::PopulatePlayerList()
   int widths[4]={1,10,88,1};
   GadgetListBoxSetColumnWidths(list,3,widths);
  }
- _STL::map<int,PlayerInfo> *players=TheGameSpyInfo->roomPlayers();
+ _STL::map<int,PlayerInfo> *players=reinterpret_cast<_STL::map<int,PlayerInfo> *>(TheGameSpyInfo->getPlayerInfoMap());
  _STL::vector<int> oldIDs;
  rva005AFEF7(reinterpret_cast<SelectionIDs *>(&oldIDs),0);
  int top=GadgetListBoxGetTopVisibleEntry(list);

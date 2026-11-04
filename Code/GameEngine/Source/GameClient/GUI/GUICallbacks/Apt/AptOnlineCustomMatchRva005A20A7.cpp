@@ -120,33 +120,7 @@ bool operator<(const AsciiString &left, const AsciiString &right);
 
 extern MapCache *TheMapCache;
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0)
-	virtual void reset() = 0;								// slot 1
-	V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10)
-	virtual void setCurrentGroupRoom(int groupID) = 0;	   // slot 11
-	virtual int getCurrentGroupRoom() = 0;				   // slot 12
-	V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30)
-	virtual int gs31() = 0;								  // slot 31
-	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50)
-	virtual bool amIHost() = 0;							  // slot 51
-	V(52)
-	virtual GameSpyStagingRoom *getCurrentStagingRoom() = 0; // slot 53
-	V(54)
-	virtual void setGameOptions() = 0;					   // slot 55
-	V(56) V(57) V(58) V(59)
-	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70)
-	virtual AsciiString &getPingString() = 0;				// slot 71
-	V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
-	V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87)
-	virtual bool isDisconnectedAfterGameStart(int *reason) = 0; // slot 88
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -338,7 +312,7 @@ void AptOnlineCustomMatch::rva005A20A7()
 		}
 		hostSlot->m_field40 = natPref.getFirewallBehavior();
 		((Rva004FDB04 *)hostSlot)->rva004FDB04(TheGameSpyInfo->getPingString());
-		hostSlot->m_1ac = TheGameSpyInfo->gs31();
+		hostSlot->m_1ac = TheGameSpyInfo->getLocalProfileID();
 	}
 	else
 	{

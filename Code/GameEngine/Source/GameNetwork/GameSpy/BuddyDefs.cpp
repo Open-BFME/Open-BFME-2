@@ -106,13 +106,7 @@ class GameSpyBuddyMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)virtual 
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 class GameSpyPeerMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void addResponse(const PeerResponse &);};
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
-class GameSpyInfoInterface {public:
-V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)V(16)V(17)V(18)V(19)V(20)V(21)V(22)V(23)
-virtual _STL::map<int,int> *getBuddyMap();virtual _STL::map<int,int> *getBuddyRequestMap();V(26)virtual bool hasBuddyRequest(int);
-V(28)V(29)V(30)virtual int getLocalProfileID();V(32)V(33)V(34)V(35)V(36)virtual AsciiString getLocalBaseName();
-V(38)V(39)V(40)V(41)V(42)V(43)V(44)V(45)V(46)V(47)V(48)V(49)V(50)V(51)V(52)V(53)V(54)V(55)V(56)V(57)V(58)V(59)V(60)V(61)V(62)V(63)V(64)V(65)V(66)V(67)V(68)V(69)V(70)V(71)V(72)V(73)V(74)V(75)V(76)virtual bool isSavedIgnored(int);
-V(78)V(79)V(80)V(81)V(82)V(83)V(84)V(85)V(86)V(87)V(88)V(89)V(90)V(91)V(92)V(93)V(94)V(95)V(96)V(97)virtual void setConnected(bool);
-};
+#include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 class GameTextInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);V(16)virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
 extern GameTextInterface *TheGameText;
@@ -136,11 +130,11 @@ void HandleBuddyResponses()
 {
  if(TheGameSpyBuddyMessageQueue){BuddyResponse resp;if(TheGameSpyBuddyMessageQueue->getResponse(resp)){
  switch(resp.type){
- case 0:Rva00415EF8Close();TheGameSpyInfo->setConnected(true);break;
+ case 0:Rva00415EF8Close();TheGameSpyInfo->slot98(true);break;
  case 6:
   if(g_bfmeObjELB)g_bfmeObjELB->disconnected=true;
   if(TheGameSpyPeerMessageQueue){PeerResponse peer;peer.unknown_00=1;peer.payload_word0.value=21;TheGameSpyPeerMessageQueue->addResponse(peer);}
-  TheGameSpyInfo->setConnected(false);break;
+  TheGameSpyInfo->slot98(false);break;
  case 1:{
   g_Va00A0308C=false;g_Va00A03090=0;Rva004163E1Notify(AsciiString::TheEmptyString,TheGameText->fetch("Buddy:MessageDisconnected"));
   UnicodeString title,message;AsciiString reason;
@@ -148,7 +142,7 @@ void HandleBuddyResponses()
   title=TheGameText->fetch("GUI:GSErrorTitle");message=TheGameText->fetch(reason);GSMessageBoxOk(title,message,0);
   if(g_bfmeObjELB)g_bfmeObjELB->disconnected=true;
   if(TheGameSpyPeerMessageQueue){PeerResponse peer;peer.unknown_00=1;peer.payload_word0.value=3;TheGameSpyPeerMessageQueue->addResponse(peer);}
-  TheGameSpyInfo->setConnected(false);break;}
+  TheGameSpyInfo->slot98(false);break;}
  case 5:{
   g_Va00A0308C=false;g_Va00A03090=0;Rva004163E1Notify(AsciiString::TheEmptyString,TheGameText->fetch("Buddy:MessageDisconnected"));
   UnicodeString title,message;AsciiString reason;
@@ -156,27 +150,27 @@ void HandleBuddyResponses()
   title=TheGameText->fetch("GUI:GSErrorTitle");message=TheGameText->fetch(reason);GSMessageBoxOk(title,message,0);
   if(g_bfmeObjELB){g_bfmeObjELB->disconnected=true;if(resp.arg.error.errorResult==0x26ad)(*(BfmeObjELB *volatile *)&g_bfmeObjELB)->fesl26ad=true;}
   if(TheGameSpyPeerMessageQueue){PeerResponse peer;peer.unknown_00=1;peer.payload_word0.value=3;TheGameSpyPeerMessageQueue->addResponse(peer);}
-  TheGameSpyInfo->setConnected(false);break;}
+  TheGameSpyInfo->slot98(false);break;}
  case 2:{
   if(!wcscmp(resp.arg.message.text,L"I have authorized your request to add me to your list"))break;
   if(TheGameSpyInfo->isSavedIgnored(resp.profile))break;
   BuddyMessage message;message.timestamp=resp.arg.message.date;message.sender=resp.profile;
   message.recipient=TheGameSpyInfo->getLocalProfileID();message.recipientNick=TheGameSpyInfo->getLocalBaseName();message.message=resp.arg.message.text;
-  _STL::map<int,int> *map=TheGameSpyInfo->getBuddyMap();_STL::map<int,int>::iterator sender=map->find(message.sender);AsciiString nick;
+  _STL::map<int,int> *map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyMap();_STL::map<int,int>::iterator sender=map->find(message.sender);AsciiString nick;
   if(sender!=map->end())nick=((BuddyInfo *)&sender->second)->name.str();else nick=resp.arg.message.nick;
   message.senderNick=nick;Rva00416A5DPush(*(const BfmeStringRecord00415F34 *)&message);Rva00416589(*(const BfmeStringRecord00415F34 *)&message);break;}
  case 3:{
   if(TheGameSpyInfo->isSavedIgnored(resp.profile)){BuddyRequest request;request.type=8;request.profile=resp.profile;TheGameSpyBuddyMessageQueue->addRequest(request);break;}
-  _STL::map<int,int> *map=TheGameSpyInfo->getBuddyMap();_STL::map<int,int>::iterator buddy=map->find(resp.profile);if(buddy!=map->end()){BuddyRequest request;request.type=7;request.profile=resp.profile;TheGameSpyBuddyMessageQueue->addRequest(request);break;}
-  map=TheGameSpyInfo->getBuddyRequestMap();BuddyInfo info;info.country=resp.arg.request.country;info.email=resp.arg.request.email;info.name=resp.arg.request.nick;info.id=resp.profile;info.status=0;info.statusString=resp.arg.request.text;*(Rva004E9B70 *)&value(map,resp.profile)=*(const Rva004E9B70 *)&info;
+  _STL::map<int,int> *map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyMap();_STL::map<int,int>::iterator buddy=map->find(resp.profile);if(buddy!=map->end()){BuddyRequest request;request.type=7;request.profile=resp.profile;TheGameSpyBuddyMessageQueue->addRequest(request);break;}
+  map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyRequestMap();BuddyInfo info;info.country=resp.arg.request.country;info.email=resp.arg.request.email;info.name=resp.arg.request.nick;info.id=resp.profile;info.status=0;info.statusString=resp.arg.request.text;*(Rva004E9B70 *)&value(map,resp.profile)=*(const Rva004E9B70 *)&info;
   Rva00381900(0);g_Va00A0308C=false;g_Va00A03090=0;
   BuddyMessage message;message.timestamp=0;message.recipient=TheGameSpyInfo->getLocalProfileID();message.recipientNick=TheGameSpyInfo->getLocalBaseName();message.senderNick=info.name;message.message=TheGameText->fetch("Buddy:AddNotification");message.message.format(&message.message,message.senderNick.str());Rva00416A5DPush(*(const BfmeStringRecord00415F34 *)&message);Rva00416589(*(const BfmeStringRecord00415F34 *)&message);break;}
  case 4:{
-  _STL::map<int,int> *map=TheGameSpyInfo->getBuddyMap();_STL::map<int,int>::const_iterator it=map->find(resp.profile);bool seen=false;int oldStatus=0;int newStatus=resp.arg.status.status;
+  _STL::map<int,int> *map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyMap();_STL::map<int,int>::const_iterator it=map->find(resp.profile);bool seen=false;int oldStatus=0;int newStatus=resp.arg.status.status;
   if(it!=map->end()){seen=true;oldStatus=value(map,resp.profile).status;}
   BuddyInfo info;info.country=resp.arg.status.country;info.email=resp.arg.status.email;info.name=resp.arg.status.nick;info.id=resp.profile;info.status=newStatus;
   info.statusString=UnicodeString(MultiByteToWideCharSingleLine(resp.arg.status.text).c_str());info.location=UnicodeString(MultiByteToWideCharSingleLine(resp.arg.status.location).c_str());*(Rva004E9B70 *)&value(map,resp.profile)=*(const Rva004E9B70 *)&info;
-  if(TheGameSpyInfo->hasBuddyRequest(resp.profile)){map=TheGameSpyInfo->getBuddyRequestMap();if(map->find(resp.profile)!=map->end()){BuddyRequest request;request.type=7;request.profile=resp.profile;TheGameSpyBuddyMessageQueue->addRequest(request);((RequestEraseTree *)map)->erase(resp.profile);}}
+  if(TheGameSpyInfo->isBuddy(resp.profile)){map=(_STL::map<int,int> *)TheGameSpyInfo->getBuddyRequestMap();if(map->find(resp.profile)!=map->end()){BuddyRequest request;request.type=7;request.profile=resp.profile;TheGameSpyBuddyMessageQueue->addRequest(request);((RequestEraseTree *)map)->erase(resp.profile);}}
   Rva00381900(0);BuddyMessage message;message.timestamp=0;message.recipient=TheGameSpyInfo->getLocalProfileID();message.recipientNick=TheGameSpyInfo->getLocalBaseName();message.senderNick=info.name;
   if((newStatus==0&&seen)||(newStatus==1&&(oldStatus==0||!seen))){AsciiString marker;marker.format("Buddy:%lsNotification",info.statusString.str());g_Va00A0308C=true;if(newStatus!=0)++g_Va00A03090;message.message=TheGameText->fetch(marker);message.message.format(&message.message,message.senderNick.str());Rva00416A5DPush(*(const BfmeStringRecord00415F34 *)&message);Rva00416589(*(const BfmeStringRecord00415F34 *)&message);}
   else if(newStatus==4&&!seen){g_Va00A0308C=true;++g_Va00A03090;message.message=TheGameText->fetch("Buddy:OnlineNotification");message.message.format(&message.message,message.senderNick.str());Rva00416A5DPush(*(const BfmeStringRecord00415F34 *)&message);Rva00416589(*(const BfmeStringRecord00415F34 *)&message);}
