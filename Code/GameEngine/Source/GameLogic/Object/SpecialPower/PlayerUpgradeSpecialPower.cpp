@@ -9,28 +9,14 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-
-private:
-	unsigned char m_data[8];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
-class SpecialPowerModule : public BehaviorModule,
-	public SpecialPowerModuleInterface,
-	public ModuleInterface
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
 	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );

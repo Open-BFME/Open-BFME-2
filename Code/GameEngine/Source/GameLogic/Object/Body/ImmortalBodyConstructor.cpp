@@ -43,29 +43,14 @@ static __forceinline const Real &bfme_max_real(const Real &a, const Real &b)
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BodyModule.h
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ActiveBody.h
-class ActiveBody : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public BodyModuleInterface
+class ActiveBody : public BehaviorModule, public BodyModuleInterface
 {
 public:
 	ActiveBody( Thing *thing, const ModuleData *moduleData );

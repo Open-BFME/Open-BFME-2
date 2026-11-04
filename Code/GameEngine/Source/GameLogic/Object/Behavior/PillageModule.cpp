@@ -41,14 +41,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BehaviorModule
-{
-public:
-	virtual void anchor();
-	void xfer(Xfer *xfer);
-	unsigned int m_04;
-	void *m_object;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum ObjectID
 {
@@ -66,7 +59,7 @@ public:
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
-	char m_pad[0x08];
+	char m_pad[0x4];
 	ObjectID m_14;
 };
 

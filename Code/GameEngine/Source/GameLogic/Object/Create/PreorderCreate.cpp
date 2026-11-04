@@ -113,21 +113,8 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CreateModule.h
-class CreateModuleInterface
-{
-public:
-	virtual void createModuleInterfaceAnchor();
-};
 
 class ModuleInterface
 {
@@ -136,9 +123,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CreateModule.h
-class CreateModule : public BehaviorModule,
-	public CreateModuleInterface,
-	public ModuleInterface
+class CreateModule : public BehaviorModule, public ModuleInterface
 {
 public:
 	CreateModule( Thing *thing, const ModuleData *moduleData );

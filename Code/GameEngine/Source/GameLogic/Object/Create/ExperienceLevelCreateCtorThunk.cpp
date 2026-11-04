@@ -7,20 +7,8 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-class ExperienceLevelCreateIface1
-{
-public:
-	virtual void experienceLevelCreateIface1Anchor();
-};
 
 class ExperienceLevelCreateIface2
 {
@@ -28,9 +16,7 @@ public:
 	virtual void experienceLevelCreateIface2Anchor();
 };
 
-class ExperienceLevelCreateBase : public BehaviorModule,
-	public ExperienceLevelCreateIface1,
-	public ExperienceLevelCreateIface2
+class ExperienceLevelCreateBase : public BehaviorModule, public ExperienceLevelCreateIface2
 {
 public:
 	ExperienceLevelCreateBase(Thing *thing, const ModuleData *moduleData);

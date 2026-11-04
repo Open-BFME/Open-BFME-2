@@ -7,26 +7,12 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class ActiveBody : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public BodyModuleInterface
+class ActiveBody : public BehaviorModule, public BodyModuleInterface
 {
 public:
 	ActiveBody(Thing *thing, const ModuleData *moduleData);

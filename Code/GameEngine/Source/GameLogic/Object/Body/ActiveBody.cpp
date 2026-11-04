@@ -223,18 +223,7 @@ public:
 	virtual void onHealing(DamageInfo *damageInfo);					// +0x04
 	virtual void onBodyDamageStateChange(DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);	// +0x08
 };
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03();
-	virtual DamageModuleInterface *getDamage();	// +0x10
-};
-class BehaviorModule
-{
-public:
-	unsigned char m_pad00[0x0C];
-	BehaviorModuleInterface m_iface;	// +0x0C
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class GeometryInfo
 {
 public:
@@ -1449,7 +1438,7 @@ void ActiveBody::attemptHealing(DamageInfo *damageInfo)
 		{
 			for (BehaviorModule **behaviorModule = obj->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 			{
-				DamageModuleInterface *damageModule = (*behaviorModule)->m_iface.getDamage();
+				DamageModuleInterface *damageModule = (*behaviorModule)->getDamage();
 				if (damageModule)
 					damageModule->onHealing(damageInfo);
 			}
@@ -1464,7 +1453,7 @@ void ActiveBody::attemptHealing(DamageInfo *damageInfo)
 		{
 			for (BehaviorModule **behaviorModule = obj->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 			{
-				DamageModuleInterface *damageModule = (*behaviorModule)->m_iface.getDamage();
+				DamageModuleInterface *damageModule = (*behaviorModule)->getDamage();
 				if (damageModule)
 					damageModule->onBodyDamageStateChange(damageInfo, oldState, m_curDamageState);
 			}
@@ -2332,7 +2321,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 		{
 			for (BehaviorModule **behaviorModule = obj->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 			{
-				DamageModuleInterface *damageModule = (*behaviorModule)->m_iface.getDamage();
+				DamageModuleInterface *damageModule = (*behaviorModule)->getDamage();
 				if (damageModule)
 					damageModule->onDamage(damageInfo);
 			}
@@ -2345,7 +2334,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 		{
 			for (BehaviorModule **behaviorModule = obj->getBehaviorModules(); *behaviorModule; ++behaviorModule)
 			{
-				DamageModuleInterface *damageModule = (*behaviorModule)->m_iface.getDamage();
+				DamageModuleInterface *damageModule = (*behaviorModule)->getDamage();
 				if (damageModule)
 					damageModule->onBodyDamageStateChange(damageInfo, oldState, m_curDamageState);
 			}

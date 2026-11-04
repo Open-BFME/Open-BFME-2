@@ -55,21 +55,8 @@ struct Coord3D;
 
 struct BfmeCrateCollideModuleData;
 
-class BehaviorModule
-{
-public:
-	BehaviorModule( Thing *thing, const ModuleData *moduleData );
-	virtual void behaviorModuleAnchor();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class InlineCollideModuleInterface
-{
-public:
-	virtual void collideModuleInterfaceAnchor();
-};
 
 class ModuleInterface
 {
@@ -78,7 +65,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
-class CollideModule : public BehaviorModule, public InlineCollideModuleInterface, public ModuleInterface
+class CollideModule : public BehaviorModule, public ModuleInterface
 {
 public:
 	// LINK: declaration-only base ctor (no body in this TU). CrateCollide's
@@ -87,6 +74,8 @@ public:
 	// unchanged (same reloc name). No flags touched.
 	CollideModule( Thing *thing, const ModuleData *moduleData );
 	void xfer(Xfer *xfer);
+public:
+	virtual ~CollideModule();
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
