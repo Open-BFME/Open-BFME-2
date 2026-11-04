@@ -11,8 +11,9 @@ more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`
 halilkkaya-fix-o1: 7 round-2 includes moved below their units' Snapshot includes, restoring the
 vtables they had shifted, bridged 699 unchanged; halilkkaya-in-o5 then 7 units free since round 2,
 bridged 699 -> 692; halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whose `.text$yc` run
-holds them, bridged 692 -> 685, and the ZeroInits masks traced to a giant-bird header, not
-AerialPathfinder.h; next seat continues).
+holds them, bridged 692 -> 685, then Network.cpp's two timeGetTime initializers, bridged 685 -> 683,
+and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; next seat
+continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -459,7 +460,14 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 - **Shape-only credits (3).** These are listed in `by_shape_only` and are weak.
 
 **Next useful checks.**
-- Pick a family whose global already has a data-ledger owner and apply the method there. The
-  `Rva007ADBD1ImportInits.cpp` timeGetTime globals are owned by `Network.cpp` and
-  `Rva005A6709Predicate.cpp`.
+- Pick a family whose global already has a data-ledger owner and apply the method there.
+  - *Network.cpp (halilkkaya-in-o6, rowed).* 0x007ADDC7 and 0x007ADDD3 are the only entries of
+    their `.text$yc` run, between Display.cpp's copy 0x007ADD9D and View.cpp's copy 0x007ADDF9.
+    Their globals 0x00DFEA2C and 0x00DFEA30 lie in Network.cpp's `.bss` run, before
+    NetworkTimingOverruns. Network.cpp now defines them as `= timeGetTime()`. MSVC numbers
+    them `_$E1` and `_$E3`. Both files link (+24 / -24 bytes), and bridged went 685 -> 683.
+  - *Still open.* 0x007B4439's global 0x00E063FC is read by `Rva005A6709Predicate.cpp`.
+    0x007ADBD1 (`g_00DFE718 = MessageBoxA == MessageBoxW`) is the second entry of GameEngine.cpp's
+    run, after its copy 0x007ADBC1, whose static 0x00DFE714 follows TheGameEngine. Its bool
+    0x00DFE718 is defined in the grab-bag today.
 - Separately, decide the HalfRate header constant.

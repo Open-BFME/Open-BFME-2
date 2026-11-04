@@ -652,11 +652,13 @@ private:
 	int m_16;
 };
 
-// g_00DFEA2C: VA 0x00DFEA2C (.data(bss)); retail initial value is zero.
-unsigned long g_00DFEA2C = 0;
+// g_00DFEA2C and g_00DFEA30: VA 0x00DFEA2C/0x00DFEA30 (.bss). This unit's
+// dynamic initializers set each to timeGetTime() at startup: retail
+// .CRT$XCU entries 0x007ADDC7 and 0x007ADDD3, the only two of this unit's
+// .text$yc run (LINK-236).
+unsigned long g_00DFEA2C = timeGetTime();
 
-// g_00DFEA30: VA 0x00DFEA30 (.data(bss)); retail initial value is zero.
-unsigned long g_00DFEA30 = 0;
+unsigned long g_00DFEA30 = timeGetTime();
 
 // g_00DFEA38: VA 0x00DFEA38 (.data(bss)); retail initial value is zero.
 unsigned int g_00DFEA38 = 0;
