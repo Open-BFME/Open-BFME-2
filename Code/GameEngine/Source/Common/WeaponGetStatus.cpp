@@ -30,20 +30,13 @@ public:
     bool isValid() const;
 };
 
-class WeaponTemplate
+#include "../../Include/GameLogic/WeaponTemplate.h"
+
+// The header keeps the +0x120 pooled ammo descriptor as opaque storage.
+static __forceinline const ObjectFilter &weaponTemplateAmmo(const WeaponTemplate *wt)
 {
-public:
-    char m_pad00[0x0C];
-    int m_key0C;
-    char m_pad10[0x78 - 0x10];
-    int m_flag78;
-    char m_pad7C[0xE4 - 0x7C];
-    int m_valueE4; // target ammo-scaling operand
-    char m_padE8[0x120 - 0xE8];
-    ObjectFilter m_ammo;
-    char m_pad121[0x16E - 0x121]; // ObjectFilter is one byte here
-    bool m_flag16E;
-};
+    return *(const ObjectFilter *)&wt->m_field120;
+}
 
 class Object;
 
@@ -89,9 +82,9 @@ __forceinline long rva002CE280_float2long(float floatValue)
 // ?setClipPercentFull@Weapon@@QAEXM_N@Z
 void Weapon::setClipPercentFull(float rate, bool flag)
 {
-	if (m_template->m_valueE4 == 0)
+	if (m_template->m_clipSize == 0)
 		return;
-	int m_clipSize = m_template->m_valueE4;
+	int m_clipSize = m_template->m_clipSize;
 	float f = (float)floor((double)m_clipSize * rate);
 	int want = rva002CE280_float2long(f);
 	if (want > getRemainingAmmo(false) || (flag && want < getRemainingAmmo(false))) {
@@ -128,16 +121,16 @@ WeaponStatus Weapon::computeStatus(bool *cacheable) const
                 *cacheable = false;
             return WEAPON_STATUS_5;
         }
-        if (m_template->m_flag78 >= 0)
+        if (m_template->m_idleAfterFiringDelay >= 0)
         {
-            if (frame < m_whenWeCanFireAgain && !m_template->m_ammo.isValid())
+            if (frame < m_whenWeCanFireAgain && !weaponTemplateAmmo(m_template).isValid())
                 goto return_cached_status;
             if (getRemainingAmmo(false) > 0)
                 return READY_TO_FIRE;
             if (frame >= m_whenWeCanFireAgain)
             {
                 const WeaponTemplate *weaponTemplate = m_template;
-                if (weaponTemplate->m_ammo.isValid())
+                if (weaponTemplateAmmo(weaponTemplate).isValid())
                 {
                     if (isAmmoReady())
                         return READY_TO_FIRE;
@@ -145,7 +138,7 @@ WeaponStatus Weapon::computeStatus(bool *cacheable) const
             }
             return OUT_OF_AMMO;
         }
-        if (frame < m_whenWeCanFireAgain && !m_template->m_ammo.isValid())
+        if (frame < m_whenWeCanFireAgain && !weaponTemplateAmmo(m_template).isValid())
         return_cached_status:
             return m_status;
         return (WeaponStatus)(getRemainingAmmo(false) <= 0);
@@ -158,7 +151,7 @@ void Weapon::rva002CE226(const Object *sourceObj, const SavedWeaponState *saved)
     {
         for (int i = 0; i < 6; ++i, ++saved)
         {
-            if (saved->m_key == m_template->m_key0C)
+            if (saved->m_key == m_template->m_nameKey)
             {
                 m_ammoInClip = saved->m_14;
                 cacheStatus(saved->m_status);
@@ -168,7 +161,7 @@ void Weapon::rva002CE226(const Object *sourceObj, const SavedWeaponState *saved)
             }
         }
     }
-    if (m_template->m_flag16E)
+    if (m_template->m_field16E)
         loadAmmoNow(sourceObj);
     else
         reloadAmmo(sourceObj);
