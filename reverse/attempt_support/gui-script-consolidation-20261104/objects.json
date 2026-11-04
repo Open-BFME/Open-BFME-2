@@ -1,0 +1,82 @@
+{
+  "before_objects": {
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp": {
+      "sha256": "50ac99a68b11458f8e67ca1fe0257c3718ea05d38ff1583fc5827a0579199dfc",
+      "receipt_source_current": true,
+      "receipt_object_current": true,
+      "receipt_dependencies_current": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltip.cpp": {
+      "sha256": "60235e02c9c34010e9907344454935dc7d81e842cfbf5fe5132bcda009392876",
+      "receipt_source_current": true,
+      "receipt_object_current": true,
+      "receipt_dependencies_current": true
+    }
+  },
+  "after_object": {
+    "sha256": "3fa8eb4ee5c9b6e76b6e4a3000c2d3d6b8fbf80cd9f77be98fc4f2438acfa07f",
+    "receipt_source_current": true,
+    "receipt_object_current": true,
+    "receipt_dependencies_current": true
+  },
+  "copies": {
+    "before_union": 728,
+    "after": 728,
+    "removed": [],
+    "added": []
+  },
+  "strong": {
+    "before_union": 35,
+    "after": 35,
+    "removed": [],
+    "added": []
+  },
+  "undefined": {
+    "before_union": 84,
+    "after": 83,
+    "removed": [
+      "?parseTooltip@@YA_NPADPAVWinInstanceData@@0PAX@Z"
+    ],
+    "added": []
+  },
+  "weak": {
+    "before_union": 0,
+    "after": 0,
+    "removed": [],
+    "added": []
+  },
+  "directives": {
+    "before_union": 13,
+    "after": 13,
+    "removed": [],
+    "added": []
+  },
+  "aliases": {
+    "before_union": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z",
+      "_strcpy": "?ji_00629176@@YAXXZ"
+    },
+    "after": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z",
+      "_strcpy": "?ji_00629176@@YAXXZ"
+    },
+    "equal": true
+  },
+  "common": {
+    "before_union": {},
+    "after": {},
+    "equal": true
+  }
+}

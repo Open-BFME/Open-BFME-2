@@ -1,12 +1,644 @@
-// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims /Ireference/shims/bfme2_ascii_common /Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Ireference/open-bfme-1/inputs/reference/shims/stlp_nodealloc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// stlport
+// TU Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 template<class T> class Rva001EB984PoolAllocator;
 namespace _STL {
 template<class A,class B> Rva001EB984PoolAllocator<B> &__stl_alloc_rebind(Rva001EB984PoolAllocator<A> &,const B *);
 template<class A,class B> Rva001EB984PoolAllocator<B> __stl_alloc_create(const Rva001EB984PoolAllocator<A> &,const B *);
 }
+#include "unicode_string.h"
+// Keep the existing public buffer-clear operation inline, with no competing wrapper.
+template <> __declspec(dllimport) __forceinline void StringBase<char>::clear() { releaseBuffer(); }
+#define UNICODESTRING_H
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include <list>
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+#include "Lib/BaseType.h"
+#include "Common/Debug.h"
+#include "Common/File.h"
+#include "WindowScriptShims/Common/FileSystem.h"
+#include "Common/GameMemory.h"
+#include "Common/NameKeyGenerator.h"
+#include "Common/FunctionLexicon.h"
+#include "GameClient/Display.h"
+#include "GameClient/WindowLayout.h"
+#include "GameClient/Gadget.h"
+#include "WindowScriptShims/GameClient/GameWindowManager.h"
+#include "GameClient/GameWindowGlobal.h"
+#include "GameClient/GadgetStaticText.h"
+#include "GameClient/GadgetTabControl.h"
+#include "GameClient/GadgetTextEntry.h"
+#include "GameClient/GadgetPushButton.h"
+#include "GameClient/GadgetRadioButton.h"
+#include "GameClient/GadgetCheckBox.h"
+#include "GameClient/GadgetListBox.h"
+#include "GameClient/GadgetComboBox.h"
+#include "GameClient/GadgetSlider.h"
+#include "GameClient/GameText.h"
+#include "GameClient/HeaderTemplate.h"
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+#endif
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl isspace(int);
+}
+// DEFINES ////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// PRIVATE TYPES //////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+enum
+{
+	WIN_BUFFER_LENGTH  = 2048,
+	WIN_STACK_DEPTH    = 10,
+};
+//-------------------------------------------------------------------------------------------------
+/** Layout parse structure ... these data items apply to the window file itself,
+	* they are not associated with any window, but rather just a block of data in
+	* every file */
+//-------------------------------------------------------------------------------------------------
+struct LayoutScriptParse
+{
+
+	char *name;
+	Bool (*parse)( char *token, char *buffer, UnsignedInt version, WindowLayoutInfo *info );
+
+};
+// GameWindowParse ------------------------------------------------------------
+/** used to match database fields to parsing functions */
+//-----------------------------------------------------------------------------
+struct GameWindowParse
+{
+
+	char *name;
+	Bool (*parse)( char *token, WinInstanceData *, char *, void * );
+
+};
+#include "GameWindowManagerRecordView.h"
+#include "WindowScriptCreateRecord.h"
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+// platformsdk
+//
+// ?parseTooltip@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315BA3, 82 bytes.
+// Dedicated TU.
+//
+// Battle for Middle-earth reference
+// (reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,
+// parseTooltip): default tooltip text via wide set plus setTooltipText.
+// BFME2 facts (all retail-measured):
+// - Retail builds a UnicodeString temp (8B stack: temp plus by-value arg
+//   slot), nulls it (and [ebp-0x10],0), sets wide L"Need tooltip
+//   translation" (0xC0C270) through the matched StringBase<wchar>::set row
+//   at 0x565D, copy-constructs the by-value argument through the
+//   StringBase<wchar> copy pin at 0x37050, calls setTooltipText through the
+//   pin at 0x322352, releases the temp through the releaseBuffer pin at
+//   0x36E70, returns 1. EH prolog via 0x629188, scope 0xB7A55D.
+// - UnicodeString stays implicit (copy/dtor inline to the StringBase member
+//   calls, no out-of-line emission); the nulling default comes from an
+//   inline StringBase() member-init chain.
+// - Identity: the .data dispatch table at 0x9BE198 pairs 'TOOLTIP' with
+//   0x715BA3 (entries are name@+0/fn@+4; the walker at 0x31701C compares
+//   names and calls [eax+4]).
+
+typedef int Int;
+typedef bool Bool;
+typedef unsigned short wchar_t;
+class UnicodeString;
+
+WindowScriptCreateRecord g_windowScriptCreateRecord;
+
+class ScriptDisplaySlots {
+public:
+#define DS(n) virtual void slot##n();
+DS(0) DS(1) DS(2) DS(3) DS(4) DS(5) DS(6) DS(7)
+DS(8) DS(9) DS(10) DS(11) DS(12) DS(13) DS(14) DS(15)
+#undef DS
+virtual UnsignedInt getWidth();
+virtual UnsignedInt getHeight();
+};
+
+class ScriptFactoryManagerSlots {
+public:
+#define MS(n) virtual void slot##n();
+MS(0) MS(1) MS(2) MS(3) MS(4) MS(5) MS(6) MS(7) MS(8) MS(9)
+MS(10) MS(11) MS(12) MS(13) MS(14) MS(15) MS(16) MS(17) MS(18) MS(19)
+MS(20) MS(21) MS(22) MS(23) MS(24) MS(25) MS(26) MS(27) MS(28) MS(29)
+MS(30) MS(31) MS(32) MS(33)
+virtual GameWindow *createFromView(GadgetCreateView *);
+MS(35) MS(36) MS(37) MS(38) MS(39) MS(40) MS(41) MS(42) MS(43) MS(44)
+MS(45) MS(46) MS(47) MS(48) MS(49) MS(50) MS(51) MS(52) MS(53) MS(54)
+MS(55) MS(56) MS(57) MS(58)
+#undef MS
+virtual Int send(GameWindow *, UnsignedInt, UnsignedInt, UnsignedInt);
+};
+
+GameWindow *createGadget(char *, void *, GadgetCreateView *, GameWindow *);
+
+#pragma inline_depth( 0 )
+AsciiString g_systemCallbackName;
+
+AsciiString g_inputCallbackName;
+
+AsciiString g_tooltipCallbackName;
+
+// Expose the original fourth string at native RVA A01314, preserving order.
+AsciiString g_drawCallbackName;
+#pragma inline_depth()
+
+// default visual properties
+static Color defEnabledColor		= 0;
+
+static Color defDisabledColor		= 0;
+
+static Color defBackgroundColor	= 0;
+
+static Color defHiliteColor			= 0;
+
+static Color defSelectedColor		= 0;
+
+static Color defTextColor				= 0;
+
+static GameFont  *defFont				= NULL;
+
+//
+// These strings must be in the same order as they are in their definitions 
+// (see WIN_STATUS_* enums and GWS_* enums).
+//
+const char *WindowStatusNames[] = { "ACTIVE", "TOGGLE", "DRAGABLE", "ENABLED", "HIDDEN", 
+														  "ABOVE", "BELOW", "IMAGE", "TABSTOP", "NOINPUT",
+														  "NOFOCUS", "DESTROYED", "BORDER",
+														  "SMOOTH_TEXT", "ONE_LINE", "NO_FLUSH", "SEE_THRU", 
+															"RIGHT_CLICK", "WRAP_CENTERED", "CHECK_LIKE","HOTKEY_TEXT",
+															"USE_OVERLAY_STATES", "NOT_READY", "FLASHING", "ALWAYS_COLOR",
+															"ON_MOUSE_DOWN", "WIN_STATUS_CIRCULAR", "WIN_STATUS_AVAIL_FLAG", "WIN_STATUS_BLOCK_INPUT",
+															NULL };
+
+const char *WindowStyleNames[] = { "PUSHBUTTON",	"RADIOBUTTON",	"CHECKBOX",
+														 "VERTSLIDER",	"HORZSLIDER",		"SCROLLLISTBOX",
+														 "ENTRYFIELD",	"STATICTEXT",		"PROGRESSBAR",
+														 "USER",				"MOUSETRACK",		"ANIMATED",
+														 "TABSTOP",			"TABCONTROL",		"TABPANE",
+														 "COMBOBOX",
+														 NULL };
+
+// Implement a stack to keep track of parent/child nested window descriptions.
+static GameWindow *windowStack[ WIN_STACK_DEPTH ];
+
+static GameWindow **stackPtr;
+
+// for parsing
+static char *seps = " =;\n\r\t";
+
+WinDrawData enabledDropDownButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+WinDrawData disabledDropDownButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+WinDrawData hiliteDropDownButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+
+WinDrawData enabledEditBoxDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+WinDrawData disabledEditBoxDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+WinDrawData hiliteEditBoxDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+
+WinDrawData enabledListBoxDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+WinDrawData disabledListBoxDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+WinDrawData hiliteListBoxDrawData[ MAX_DRAW_DATA ];
+
+  ///< for combo boxes
+
+WinDrawData enabledUpButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData disabledUpButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData hiliteUpButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData enabledDownButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData disabledDownButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData hiliteDownButtonDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData enabledSliderDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData disabledSliderDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData hiliteSliderDrawData[ MAX_DRAW_DATA ];
+
+  ///< for list boxes and combo boxes
+WinDrawData enabledSliderThumbDrawData[ MAX_DRAW_DATA ];
+
+  ///< for sliders and list boxes and combo boxes
+WinDrawData disabledSliderThumbDrawData[ MAX_DRAW_DATA ];
+
+  ///< for sliders and list boxes and combo boxes
+WinDrawData hiliteSliderThumbDrawData[ MAX_DRAW_DATA ];
+
+  ///< for sliders and list boxes and combo boxes
+
+// PUBLIC DATA ////////////////////////////////////////////////////////////////
+
+// PRIVATE PROTOTYPES /////////////////////////////////////////////////////////
+static GameWindow *parseWindow( File *inFile, char *buffer );
+
+  // end parseBitString
+
+// Native File calls use read at slot 3 and scanString at slot 9.
+class GoalScriptFileSlots {
+public:
+ virtual void s0(); virtual void s1(); virtual void close();
+ virtual int read(void*,int); virtual int write(const void*,int);
+ virtual int seek(int,int); virtual void nextLine(char*,int);
+ virtual bool scanInt(int&); virtual bool scanReal(float&);
+ virtual bool scanString(AsciiString&);
+};
+
+  // end parseDefaultFont
+
+// parseTooltip ===============================================================
+/** Parse the tooltip field */
+//=============================================================================
+// The rowed parseTooltip body is defined below.
+Bool parseTooltip( char *token, WinInstanceData *instData, char *buffer, void *data );
+
+  // end parseImageOffset
+
+// parseFont ==================================================================
+/** Parse the font field */
+//=============================================================================
+// The retail body is rowed in GameWindowManagerScript_parseFont.cpp; call that one.
+Bool parseFont( char *token, WinInstanceData *instData, char *buffer, void *data );
+
+  // end parseStyle
+
+// parseSystemCallback ========================================================
+/** Parse the system method callback for a window */
+//=============================================================================
+Bool parseSystemCallback( char *token, WinInstanceData *instData,
+																 char *buffer, void *data );
+
+  // end parseSystemCallback
+
+// parseInputCallback =========================================================
+/** Parse the Input method callback for a window */
+//=============================================================================
+Bool parseInputCallback( char *token, WinInstanceData *instData,
+																char *buffer, void *data );
+
+  // end parseInputCallback
+
+// parseTooltipCallback =======================================================
+/** Parse the Tooltip method callback for a window */
+//=============================================================================
+Bool parseTooltipCallback( char *token, WinInstanceData *instData,
+																  char *buffer, void *data );
+
+  // end parseTooltipCallback
+
+// parseDrawCallback ==========================================================
+/** Parse the Draw method callback for a window */
+//=============================================================================
+Bool parseDrawCallback( char *token, WinInstanceData *instData,
+															 char *buffer, void *data );
+
+  // end parseDrawCallback
+
+// parseListboxData ===========================================================
+/** Parse listbox data entry */
+//=============================================================================
+// The retail body is rowed in GameWindowManagerScript_parseListboxData.cpp; call that one.
+Bool parseListboxData( char *token, WinInstanceData *instData, char *buffer, void *data );
+
+  // end parseRadioButtonData
+
+
+// parseTooltipText ===========================================================
+/** Parse the TOOLTIPTEXT field */
+//=============================================================================
+// The retail body is rowed in GameWindowManagerScript_parseTooltipText.cpp; call that one.
+Bool parseTooltipText( char *token, WinInstanceData *instData, char *buffer, void *data );
+
+  // end parseDrawData
+
+// getDataTemplate ============================================================
+/** Given a window type style string return the address of a static
+	* gadget data type used for the generic data pointers in the
+	* GUI gadget contorls */
+//=============================================================================
+void *getDataTemplate(char *type, Int *sizeOut);
+
+// parseData ==================================================================
+//
+// Parse the data for gadgets.  For sliders the data is in the format:
+// <Minimum Value> <Maximum Value>
+//
+// For listboxes the data is formatted as:
+// <Max number of entries> <Height of an entry> <AutoScroll> <AutoPurge> <ScrollBar> <MultiSelect> <ForceSelect>
+//
+// For Combo Boxes the data is formatted as:
+// <is Editable> <Max Characters> <Max Entries before scroll appaears>
+//
+// For entry fields the data is as follows:
+// <Max text length> <entry box width> <SecretText> <1 = NumericalOnly, 2 = AlphaNumericOnly>
+//
+// For text the data is as follows:
+// <Centered> <Outlined> <StringManagerLabel>
+//
+// 1/2/2003: THIS FUNCTION IS NEVER REACHED; IT IS OBSOLETE -MDC
+//
+//=============================================================================
+// Retail EntryData uses a flags word at +0x0c and is 0x28 bytes.
+struct EntryData004850C0 { void *text,*sText,*constructText; unsigned int field0c; short maxTextLen; bool secretText; char tail[21]; };
+
+struct LocalListboxData : ListboxData { char retailExtra[8]; };
+
+  // end createWindow
+
+// parseChildWindows ==========================================================
+/** Parse window descriptions until an extra end is encountered indicating
+	* the end of this block of child window descriptions. */
+//=============================================================================
+// Retail's parser destroys children through the existing manager's slot 0x8C.
+// Keep this declaration-only view local: the donor manager header has slot 0x78.
+class ScriptChildWindowManagerSlots
+{
+public:
+#define SLOT(n) virtual void unusedSlot##n();
+	SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9)
+	SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
+	SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29)
+	SLOT(30) SLOT(31) SLOT(32) SLOT(33) SLOT(34)
+#undef SLOT
+	virtual Int winDestroy(GameWindow *window);
+};
+
+  // end parseChildWindows
+
+// lookup table for parsing functions
+Bool parseName(char *, WinInstanceData *, char *, void *);
+
+Bool parseStatus(char *, WinInstanceData *, char *, void *);
+
+Bool parseStyle(char *, WinInstanceData *, char *, void *);
+
+Bool parseSystemCallback(char *, WinInstanceData *, char *, void *);
+
+Bool parseWinClass(char *, WinInstanceData *, char *, void *);
+
+Bool parseInputCallback(char *, WinInstanceData *, char *, void *);
+
+Bool parseTooltipCallback(char *, WinInstanceData *, char *, void *);
+
+Bool parseDrawCallback(char *, WinInstanceData *, char *, void *);
+
+Bool parseFont(char *, WinInstanceData *, char *, void *);
+
+Bool parseHeaderTemplate(char *, WinInstanceData *, char *, void *);
+
+Bool parseListboxData(char *, WinInstanceData *, char *, void *);
+
+Bool parseComboBoxData(char *, WinInstanceData *, char *, void *);
+
+Bool parseSliderData(char *, WinInstanceData *, char *, void *);
+
+Bool parseRadioButtonData(char *, WinInstanceData *, char *, void *);
+
+Bool parseTooltipText(char *, WinInstanceData *, char *, void *);
+
+Bool parseTooltipDelay(char *, WinInstanceData *, char *, void *);
+
+Bool parseText(char *, WinInstanceData *, char *, void *);
+
+Bool parseTextColor(char *, WinInstanceData *, char *, void *);
+
+Bool parseStaticTextData(char *, WinInstanceData *, char *, void *);
+
+Bool parseTextEntryData(char *, WinInstanceData *, char *, void *);
+
+Bool parseTabControlData(char *, WinInstanceData *, char *, void *);
+
+Bool parseDrawData(char *, WinInstanceData *, char *, void *);
+
+Bool parseImageOffset(char *, WinInstanceData *, char *, void *);
+
+Bool parseTooltip(char *, WinInstanceData *, char *, void *);
+
+static GameWindowParse gameWindowFieldList[] = 
+{
+	{ "NAME", parseName },
+	{ "STATUS", parseStatus },
+	{ "STYLE", parseStyle },
+	{ "SYSTEMCALLBACK", parseSystemCallback },
+	{ "WINCLASS", parseWinClass },
+	{ "INPUTCALLBACK", parseInputCallback },
+	{ "TOOLTIPCALLBACK", parseTooltipCallback },
+	{ "DRAWCALLBACK", parseDrawCallback },
+	{ "FONT", parseFont },
+	{ "HEADERTEMPLATE", parseHeaderTemplate },
+	{ "LISTBOXDATA", parseListboxData },
+	{ "COMBOBOXDATA", parseComboBoxData },
+	{ "SLIDERDATA", parseSliderData },
+	{ "RADIOBUTTONDATA", parseRadioButtonData },
+	{	"TOOLTIPTEXT", parseTooltipText },
+  { "TOOLTIPDELAY", parseTooltipDelay },
+	{ "TEXT", parseText },
+	{ "TEXTCOLOR", parseTextColor },
+	{ "STATICTEXTDATA", parseStaticTextData },
+	{ "TEXTENTRYDATA", parseTextEntryData },
+	{ "TABCONTROLDATA", parseTabControlData },
+
+	{ "ENABLEDDRAWDATA", parseDrawData },
+	{ "DISABLEDDRAWDATA", parseDrawData },
+	{ "HILITEDRAWDATA", parseDrawData },
+	{ "LISTBOXENABLEDUPBUTTONDRAWDATA", parseDrawData },
+	{ "LISTBOXENABLEDDOWNBUTTONDRAWDATA", parseDrawData },
+	{ "LISTBOXENABLEDSLIDERDRAWDATA", parseDrawData },
+	{ "LISTBOXDISABLEDUPBUTTONDRAWDATA", parseDrawData },
+	{ "LISTBOXDISABLEDDOWNBUTTONDRAWDATA", parseDrawData },
+	{ "LISTBOXDISABLEDSLIDERDRAWDATA", parseDrawData },
+	{ "LISTBOXHILITEUPBUTTONDRAWDATA", parseDrawData },
+	{ "LISTBOXHILITEDOWNBUTTONDRAWDATA", parseDrawData },
+	{ "LISTBOXHILITESLIDERDRAWDATA", parseDrawData },
+	{ "SLIDERTHUMBENABLEDDRAWDATA", parseDrawData },
+	{ "SLIDERTHUMBDISABLEDDRAWDATA", parseDrawData },
+	{ "SLIDERTHUMBHILITEDRAWDATA", parseDrawData },
+
+	{ "COMBOBOXDROPDOWNBUTTONENABLEDDRAWDATA", parseDrawData },
+	{ "COMBOBOXDROPDOWNBUTTONDISABLEDDRAWDATA", parseDrawData },
+	{ "COMBOBOXDROPDOWNBUTTONHILITEDRAWDATA", parseDrawData },
+	{ "COMBOBOXEDITBOXENABLEDDRAWDATA", parseDrawData },
+	{ "COMBOBOXEDITBOXDISABLEDDRAWDATA", parseDrawData },
+	{ "COMBOBOXEDITBOXHILITEDRAWDATA", parseDrawData },
+	{ "COMBOBOXLISTBOXENABLEDDRAWDATA", parseDrawData },
+	{ "COMBOBOXLISTBOXDISABLEDDRAWDATA", parseDrawData },
+	{ "COMBOBOXLISTBOXHILITEDRAWDATA", parseDrawData },
+
+	{ "IMAGEOFFSET", parseImageOffset },
+	{ "TOOLTIP", parseTooltip },
+
+	{ NULL, NULL }
+};
+
+  // end parseWindow
+
+//=================================================================================================
+//=================================================================================================
+//=================================================================================================
+
+//-------------------------------------------------------------------------------------------------
+/** Parse init for layout file */
+//-------------------------------------------------------------------------------------------------
+// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
+Bool parseInit(char *, char *, UnsignedInt, WindowLayoutInfo *);
+
+//-------------------------------------------------------------------------------------------------
+/** Parse update for layout file */
+//-------------------------------------------------------------------------------------------------
+// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
+Bool parseUpdate(char *, char *, UnsignedInt, WindowLayoutInfo *);
+
+//-------------------------------------------------------------------------------------------------
+/** Parse shutdown for layout file */
+//-------------------------------------------------------------------------------------------------
+// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
+Bool parseShutdown(char *, char *, UnsignedInt, WindowLayoutInfo *);
+
+static LayoutScriptParse layoutScriptTable[] =
+{
+	{ "LAYOUTINIT",										parseInit },
+	{ "LAYOUTUPDATE",									parseUpdate },
+	{ "LAYOUTSHUTDOWN",								parseShutdown },
+
+	{ NULL,															NULL },
+
+};
+
+//-------------------------------------------------------------------------------------------------
+/** Parse the layout block which MUST be present in every window file */
+//-------------------------------------------------------------------------------------------------
+// parseLayoutBlock: defined in GameWindowManagerScript_parseLayoutBlock.cpp (its row's unit).
+Bool parseLayoutBlock( File *inFile, char *buffer, UnsignedInt version, WindowLayoutInfo *info );
+
+// GameWindowManager::winCreateFromScript =====================================
+/** Parse through a window .wnd file and create all the windows
+	* within it.
+	*
+	* NOTE: The FIRST window created from the script is returned, this
+	* way if you want to know ALL of the windows created from this 
+	* layout file you must iterate over info->windows, since the windows will
+	* not be at the head of the window list if there is a modal window active.
+	*/
+//=============================================================================
+// This caller imports strchr/sprintf directly; existing parsers retain their thunk declarations.
+namespace NativeWindowCrt {
+extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
+}
+
+// Existing pooled Object-list allocator ABI; implementation remains with its native providers.
+class Object;
+
+template<class T> class Rva001EB984PoolAllocator {
+public:
+    typedef T value_type; typedef T *pointer; typedef const T *const_pointer;
+    typedef T &reference; typedef const T &const_reference;
+    typedef unsigned int size_type; typedef int difference_type;
+    template<class U> struct rebind { typedef Rva001EB984PoolAllocator<U> other; };
+    Rva001EB984PoolAllocator();
+    template<class U> Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator<U> &);
+    Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator &);
+    ~Rva001EB984PoolAllocator();
+    T *allocate(unsigned int, const void * = 0);
+    void deallocate(T *,unsigned int);
+    void construct(T *,const T &); void destroy(T *);
+    unsigned int max_size() const;
+};
+
+namespace _STL {
+template<class T,class U> struct _Alloc_traits<T,Rva001EB984PoolAllocator<U> > {
+    typedef Rva001EB984PoolAllocator<U> _Orig;
+    typedef Rva001EB984PoolAllocator<T> allocator_type;
+    static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
+};
+}
+
+typedef _STL::list<Object *,Rva001EB984PoolAllocator<Object *> > NativePooledObjectList;
+
+typedef char NativePooledObjectListExtent[sizeof(NativePooledObjectList)==4 ? 1 : -1];
+
+namespace _STL {
+template <> NativePooledObjectList::iterator NativePooledObjectList::erase(NativePooledObjectList::iterator);
+template <> NativePooledObjectList::iterator NativePooledObjectList::insert(NativePooledObjectList::iterator,Object *const &);
+}
+
+// STLport 4.5.3 node creation, kept out of line as in retail.
+namespace _STL {
+template<> __declspec(noinline)
+_List_node<GameWindow*> *list<GameWindow*>::_M_create_node(GameWindow *const &value)
+{
+    _List_node<GameWindow*> *node = this->_M_node.allocate(1);
+    _Construct(&node->_M_data, value);
+    return node;
+}
+}
+
+// Keep the already-rowed STLport assignment and range erase emitted after
+// the native caller delegates layout assignment to its 44-byte ABI owner.
+namespace _STL {
+template NativePooledObjectList &NativePooledObjectList::operator=(const NativePooledObjectList &);
+template NativePooledObjectList::iterator NativePooledObjectList::erase(NativePooledObjectList::iterator, NativePooledObjectList::iterator);
+template list<GameWindow*>::iterator list<GameWindow*>::erase(list<GameWindow*>::iterator);
+}
+
+// ABI view of the existing 44-byte constructor/dtor/assign owner.
+// Native callbacks prove +4/+8/+C/+10 functions and +14/+18/+1C/+20 names;
+// WindowLayoutInfo::load proves the filename at +24. The list payload holds
+// window pointers here; the provider's integer-list view has the same four-byte ABI.
+// The leading word's purpose and original class spelling remain unestablished.
+class Rva0031763A {public:
+ Rva0031763A();~Rva0031763A();Rva0031763A &operator=(const Rva0031763A&);
+ unsigned version;void *init,*update,*shutdown,*field_10;
+ AsciiString initNameString,updateNameString,shutdownNameString,field_20,field_24;
+ _STL::list<GameWindow*> windows;
+};
+
+static const void *s_parseTooltipAnchor = (const void *)parseTooltip;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+
 // platformsdk
 // dxsdk
-// stlport
 // Ported from the Generals Zero Hour window-script parser.
 // Retail BFME 2 supplies the creation record and parser interfaces.
 /*
@@ -58,92 +690,8 @@ template<class A,class B> Rva001EB984PoolAllocator<B> __stl_alloc_create(const R
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 // BFME2's UnicodeString is a StringBase<unsigned short> subclass; skip Zero
 // Hour's own class.
-#include "unicode_string.h"
-// Keep the existing public buffer-clear operation inline, with no competing wrapper.
-template <> __declspec(dllimport) __forceinline void StringBase<char>::clear() { releaseBuffer(); }
-#define UNICODESTRING_H
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-#include <list>
-
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
-namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
-                              const _List_iterator<T, RightTraits>& b)
-{ return a._M_node != b._M_node; }
-}
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
-#include "Lib/BaseType.h"
-#include "Common/Debug.h"
-#include "Common/File.h"
-#include "WindowScriptShims/Common/FileSystem.h"
-#include "Common/GameMemory.h"
-#include "Common/NameKeyGenerator.h"
-#include "Common/FunctionLexicon.h"
-#include "GameClient/Display.h"
-#include "GameClient/WindowLayout.h"
-#include "GameClient/Gadget.h"
-#include "WindowScriptShims/GameClient/GameWindowManager.h"
-#include "GameClient/GameWindowGlobal.h"
-#include "GameClient/GadgetStaticText.h"
-#include "GameClient/GadgetTabControl.h"
-#include "GameClient/GadgetTextEntry.h"
-#include "GameClient/GadgetPushButton.h"
-#include "GameClient/GadgetRadioButton.h"
-#include "GameClient/GadgetCheckBox.h"
-#include "GameClient/GadgetListBox.h"
-#include "GameClient/GadgetComboBox.h"
-#include "GameClient/GadgetSlider.h"
-#include "GameClient/GameText.h"
-#include "GameClient/HeaderTemplate.h"
-
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
-
-
-namespace NativeScriptCrt {
-extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
-extern "C" __declspec(dllimport) int __cdecl isspace(int);
-}
-// DEFINES ////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-// PRIVATE TYPES //////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-enum
-{
-	WIN_BUFFER_LENGTH  = 2048,
-	WIN_STACK_DEPTH    = 10,
-};
-
-//-------------------------------------------------------------------------------------------------
-/** Layout parse structure ... these data items apply to the window file itself,
-	* they are not associated with any window, but rather just a block of data in
-	* every file */
-//-------------------------------------------------------------------------------------------------
-struct LayoutScriptParse
-{
-
-	char *name;
-	Bool (*parse)( char *token, char *buffer, UnsignedInt version, WindowLayoutInfo *info );
-
-};
-
-// GameWindowParse ------------------------------------------------------------
-/** used to match database fields to parsing functions */
-//-----------------------------------------------------------------------------
-struct GameWindowParse
-{
-
-	char *name;
-	Bool (*parse)( char *token, WinInstanceData *, char *, void * );
-
-};
 
 ///////////////////////////////////////////////////////////////////////////////
 // PRIVATE DATA ///////////////////////////////////////////////////////////////
@@ -151,112 +699,12 @@ struct GameWindowParse
 
 // window methods and their string representations
 
-#include "GameWindowManagerRecordView.h"
-#include "WindowScriptCreateRecord.h"
-WindowScriptCreateRecord g_windowScriptCreateRecord;
-class ScriptDisplaySlots {
-public:
-#define DS(n) virtual void slot##n();
-DS(0) DS(1) DS(2) DS(3) DS(4) DS(5) DS(6) DS(7)
-DS(8) DS(9) DS(10) DS(11) DS(12) DS(13) DS(14) DS(15)
-#undef DS
-virtual UnsignedInt getWidth();
-virtual UnsignedInt getHeight();
-};
-class ScriptFactoryManagerSlots {
-public:
-#define MS(n) virtual void slot##n();
-MS(0) MS(1) MS(2) MS(3) MS(4) MS(5) MS(6) MS(7) MS(8) MS(9)
-MS(10) MS(11) MS(12) MS(13) MS(14) MS(15) MS(16) MS(17) MS(18) MS(19)
-MS(20) MS(21) MS(22) MS(23) MS(24) MS(25) MS(26) MS(27) MS(28) MS(29)
-MS(30) MS(31) MS(32) MS(33)
-virtual GameWindow *createFromView(GadgetCreateView *);
-MS(35) MS(36) MS(37) MS(38) MS(39) MS(40) MS(41) MS(42) MS(43) MS(44)
-MS(45) MS(46) MS(47) MS(48) MS(49) MS(50) MS(51) MS(52) MS(53) MS(54)
-MS(55) MS(56) MS(57) MS(58)
-#undef MS
-virtual Int send(GameWindow *, UnsignedInt, UnsignedInt, UnsignedInt);
-};
-GameWindow *createGadget(char *, void *, GadgetCreateView *, GameWindow *);
 // The split callback parsers reference the canonical data-ledger names.
 // Keep these strings in their original initialization order and expose this
 // existing storage: native DIR32 bindings are RVA A01308/A0130C/A01310.
 // The compiler-generated initializer/cleanup rows still verify this storage.
 // Retail's initializers call the out-of-line AsciiString() at 0x00326BE6
 // rather than folding the construction away.
-#pragma inline_depth( 0 )
-AsciiString g_systemCallbackName;
-AsciiString g_inputCallbackName;
-AsciiString g_tooltipCallbackName;
-// Expose the original fourth string at native RVA A01314, preserving order.
-AsciiString g_drawCallbackName;
-#pragma inline_depth()
-
-// default visual properties
-static Color defEnabledColor		= 0;
-static Color defDisabledColor		= 0;
-static Color defBackgroundColor	= 0;
-static Color defHiliteColor			= 0;
-static Color defSelectedColor		= 0;
-static Color defTextColor				= 0;
-static GameFont  *defFont				= NULL;
-
-//
-// These strings must be in the same order as they are in their definitions 
-// (see WIN_STATUS_* enums and GWS_* enums).
-//
-const char *WindowStatusNames[] = { "ACTIVE", "TOGGLE", "DRAGABLE", "ENABLED", "HIDDEN", 
-														  "ABOVE", "BELOW", "IMAGE", "TABSTOP", "NOINPUT",
-														  "NOFOCUS", "DESTROYED", "BORDER",
-														  "SMOOTH_TEXT", "ONE_LINE", "NO_FLUSH", "SEE_THRU", 
-															"RIGHT_CLICK", "WRAP_CENTERED", "CHECK_LIKE","HOTKEY_TEXT",
-															"USE_OVERLAY_STATES", "NOT_READY", "FLASHING", "ALWAYS_COLOR",
-															"ON_MOUSE_DOWN", "WIN_STATUS_CIRCULAR", "WIN_STATUS_AVAIL_FLAG", "WIN_STATUS_BLOCK_INPUT",
-															NULL };
-
-const char *WindowStyleNames[] = { "PUSHBUTTON",	"RADIOBUTTON",	"CHECKBOX",
-														 "VERTSLIDER",	"HORZSLIDER",		"SCROLLLISTBOX",
-														 "ENTRYFIELD",	"STATICTEXT",		"PROGRESSBAR",
-														 "USER",				"MOUSETRACK",		"ANIMATED",
-														 "TABSTOP",			"TABCONTROL",		"TABPANE",
-														 "COMBOBOX",
-														 NULL };
-
-// Implement a stack to keep track of parent/child nested window descriptions.
-static GameWindow *windowStack[ WIN_STACK_DEPTH ];
-static GameWindow **stackPtr;
-
-// for parsing
-static char *seps = " =;\n\r\t";
-WinDrawData enabledDropDownButtonDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-WinDrawData disabledDropDownButtonDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-WinDrawData hiliteDropDownButtonDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-
-WinDrawData enabledEditBoxDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-WinDrawData disabledEditBoxDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-WinDrawData hiliteEditBoxDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-
-WinDrawData enabledListBoxDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-WinDrawData disabledListBoxDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-WinDrawData hiliteListBoxDrawData[ MAX_DRAW_DATA ];  ///< for combo boxes
-
-WinDrawData enabledUpButtonDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData disabledUpButtonDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData hiliteUpButtonDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData enabledDownButtonDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData disabledDownButtonDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData hiliteDownButtonDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData enabledSliderDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData disabledSliderDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData hiliteSliderDrawData[ MAX_DRAW_DATA ];  ///< for list boxes and combo boxes
-WinDrawData enabledSliderThumbDrawData[ MAX_DRAW_DATA ];  ///< for sliders and list boxes and combo boxes
-WinDrawData disabledSliderThumbDrawData[ MAX_DRAW_DATA ];  ///< for sliders and list boxes and combo boxes
-WinDrawData hiliteSliderThumbDrawData[ MAX_DRAW_DATA ];  ///< for sliders and list boxes and combo boxes
-
-// PUBLIC DATA ////////////////////////////////////////////////////////////////
-
-// PRIVATE PROTOTYPES /////////////////////////////////////////////////////////
-static GameWindow *parseWindow( File *inFile, char *buffer );
 
 ///////////////////////////////////////////////////////////////////////////////
 // PRIVATE FUNCTIONS //////////////////////////////////////////////////////////
@@ -286,7 +734,9 @@ static Bool parseBitFlag( const char *flagString, UnsignedInt *bits,
 
 	return FALSE;
 
-}  // end parseBitFlag
+}
+
+  // end parseBitFlag
 
 // parseBitString =============================================================
 /** Given a character string of the form 'A+B+C+D', parse the
@@ -313,17 +763,7 @@ static void parseBitString( const char *inBuffer, UnsignedInt *bits, const char 
 		}
 	}
 
-}  // end parseBitString
-
-// Native File calls use read at slot 3 and scanString at slot 9.
-class GoalScriptFileSlots {
-public:
- virtual void s0(); virtual void s1(); virtual void close();
- virtual int read(void*,int); virtual int write(const void*,int);
- virtual int seek(int,int); virtual void nextLine(char*,int);
- virtual bool scanInt(int&); virtual bool scanReal(float&);
- virtual bool scanString(AsciiString&);
-};
+}
 
 // readUntilSemicolon =========================================================
 //=============================================================================
@@ -369,7 +809,9 @@ static void readUntilSemicolon( File *fp, char *buffer, int maxBufLen )
 
 	buffer[ maxBufLen - 1 ] = '\000';
 
-}  // end readUntilSemicolon
+}
+
+  // end readUntilSemicolon
 
 // scanBool ===================================================================
 //=============================================================================
@@ -380,7 +822,9 @@ static Int scanBool( const char *source, Bool& val )
 	val = (Bool)temp;
 
 	return ret;
-}  // end scanBool
+}
+
+  // end scanBool
 
 // scanShort ==================================================================
 //=============================================================================
@@ -391,7 +835,9 @@ static Int scanShort( const char *source, Short& val )
 	val = (Short)temp;
 
 	return ret;
-}  // end scanShort
+}
+
+  // end scanShort
 
 // scanInt ====================================================================
 //=============================================================================
@@ -400,7 +846,9 @@ static Int scanInt( const char *source, Int& val )
 	Int ret = sscanf( source, "%d", &val ); // not strictly necessary to wrap this, but it's more consistent
 
 	return ret;
-}  // end scanInt
+}
+
+  // end scanInt
 
 // scanUnsignedInt ============================================================
 //=============================================================================
@@ -409,7 +857,9 @@ static Int scanUnsignedInt( const char *source, UnsignedInt& val )
 	Int ret = sscanf( source, "%d", &val ); // not strictly necessary to wrap this, but it's more consistent
 
 	return ret;
-}  // end scanUnsignedInt
+}
+
+  // end scanUnsignedInt
 
 // resetWindowStack ===========================================================
 //=============================================================================
@@ -419,7 +869,9 @@ void resetWindowStack( void )
   memset( windowStack, 0, sizeof( windowStack ) );
   stackPtr = windowStack;
 
-}  // end resetWindowStack
+}
+
+  // end resetWindowStack
 
 // resetWindowDefaults ========================================================
 //=============================================================================
@@ -434,7 +886,9 @@ void resetWindowDefaults( void )
 	defTextColor = 0;
 	defFont = 0;
 
-}  // end resetWindowDefaults
+}
+
+  // end resetWindowDefaults
 
 // peekWindow =================================================================
 //=============================================================================
@@ -445,7 +899,9 @@ GameWindow *peekWindow( void )
   
   return *(stackPtr - 1);
 
-}  // end peekWindow
+}
+
+  // end peekWindow
 
 // popWindow ==================================================================
 //=============================================================================
@@ -458,7 +914,9 @@ static GameWindow *popWindow( void )
 
   return *stackPtr;
 
-}  // end popWindow
+}
+
+  // end popWindow
 
 // pushWindow =================================================================
 //=============================================================================
@@ -475,7 +933,9 @@ static void pushWindow( GameWindow *window )
 
   *stackPtr++ = window;
 
-}  // end pushWindow
+}
+
+  // end pushWindow
 
 // parseColor =================================================================
 /** Parse a color entry and store it in the value pointed to by the 
@@ -499,7 +959,9 @@ static Bool parseColor( Color *color, char *buffer )
 
   return TRUE;
 
-}  // end parseColor
+}
+
+  // end parseColor
 
 // parseDefaultColor ==========================================================
 /** Parse a default color entry and store it in the value pointed to by 
@@ -526,7 +988,9 @@ static Bool parseDefaultColor( Color *color, File *inFile, char *buffer )
 
   return TRUE;
 
-}  // end parseDefaultColor
+}
+
+  // end parseDefaultColor
 
 // parseDefaultFont ===========================================================
 /** Parse the default font */
@@ -549,13 +1013,7 @@ static Bool parseDefaultFont( GameFont *font, File *inFile, char *buffer )
 
 	return TRUE;
 
-}  // end parseDefaultFont
-
-// parseTooltip ===============================================================
-/** Parse the tooltip field */
-//=============================================================================
-// The retail body is rowed in GameWindowManagerScript_parseTooltip.cpp; call that one.
-Bool parseTooltip( char *token, WinInstanceData *instData, char *buffer, void *data );
+}
 
 // parseScreenRect ============================================================
 /** Parse the screen rect entry which tells us the position and size
@@ -633,7 +1091,9 @@ static Bool parseScreenRect( char *token, char *buffer,
 
 	return TRUE;
 
-}  // end parseScreenRect
+}
+
+  // end parseScreenRect
 
 // parseImageOffset ===========================================================
 /** Parse the image draw offset */
@@ -651,13 +1111,7 @@ static Bool parseImageOffset( char *token, WinInstanceData *instData,
   
   return TRUE;
 
-}  // end parseImageOffset
-
-// parseFont ==================================================================
-/** Parse the font field */
-//=============================================================================
-// The retail body is rowed in GameWindowManagerScript_parseFont.cpp; call that one.
-Bool parseFont( char *token, WinInstanceData *instData, char *buffer, void *data );
+}
 
 // parseName =================================================================
 /** Parse the NAME field */
@@ -684,7 +1138,9 @@ static Bool parseName( char *token, WinInstanceData *instData,
 	
 	return TRUE;
 
-}  // end parseName
+}
+
+  // end parseName
 
 // parseStatus ================================================================
 /** Parse the STATUS field */
@@ -698,7 +1154,9 @@ static Bool parseStatus( char *token, WinInstanceData *instData,
 
   return TRUE;
 
-}  // end parseStatus
+}
+
+  // end parseStatus
 
 // parseStyle =================================================================
 /** Parse the STYLE field */
@@ -712,31 +1170,9 @@ static Bool parseStyle( char *token, WinInstanceData *instData,
 
   return TRUE;
 
-}  // end parseStyle
+}
 
-// parseSystemCallback ========================================================
-/** Parse the system method callback for a window */
-//=============================================================================
-Bool parseSystemCallback( char *token, WinInstanceData *instData,
-																 char *buffer, void *data );  // end parseSystemCallback
-
-// parseInputCallback =========================================================
-/** Parse the Input method callback for a window */
-//=============================================================================
-Bool parseInputCallback( char *token, WinInstanceData *instData,
-																char *buffer, void *data );  // end parseInputCallback
-
-// parseTooltipCallback =======================================================
-/** Parse the Tooltip method callback for a window */
-//=============================================================================
-Bool parseTooltipCallback( char *token, WinInstanceData *instData,
-																  char *buffer, void *data );  // end parseTooltipCallback
-
-// parseDrawCallback ==========================================================
-/** Parse the Draw method callback for a window */
-//=============================================================================
-Bool parseDrawCallback( char *token, WinInstanceData *instData,
-															 char *buffer, void *data );  // end parseDrawCallback
+  // end parseDrawCallback
 
 // parseHeaderTemplate ==========================================================
 /** Parse the Draw method callback for a window */
@@ -762,13 +1198,7 @@ static Bool parseHeaderTemplate( char *token, WinInstanceData *instData,
 	
 	return TRUE;
 
-}  // end parseDrawCallback
-
-// parseListboxData ===========================================================
-/** Parse listbox data entry */
-//=============================================================================
-// The retail body is rowed in GameWindowManagerScript_parseListboxData.cpp; call that one.
-Bool parseListboxData( char *token, WinInstanceData *instData, char *buffer, void *data );
+}
 
 // parseComboBoxData ===========================================================
 /** Parse Combo Box data entry */
@@ -802,7 +1232,9 @@ static Bool parseComboBoxData( char *token, WinInstanceData *instData,
 	
 
   return TRUE;
-}//parseComboBoxData
+}
+
+//parseComboBoxData
 
 // parseSliderData ============================================================
 /** Parse slider data entry */
@@ -826,7 +1258,9 @@ static Bool parseSliderData( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseSliderData
+}
+
+  // end parseSliderData
 
 // parseRadioButtonData =======================================================
 /** Parse radio button data entry */
@@ -845,14 +1279,7 @@ static Bool parseRadioButtonData( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseRadioButtonData
-
-
-// parseTooltipText ===========================================================
-/** Parse the TOOLTIPTEXT field */
-//=============================================================================
-// The retail body is rowed in GameWindowManagerScript_parseTooltipText.cpp; call that one.
-Bool parseTooltipText( char *token, WinInstanceData *instData, char *buffer, void *data );
+}
 
 // parseTooltipDelay =======================================================
 /** Parse the tooltip delay */
@@ -870,7 +1297,9 @@ static Bool parseTooltipDelay( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseTooltipDelay
+}
+
+  // end parseTooltipDelay
 
 
 // parseText ==================================================================
@@ -901,7 +1330,9 @@ static Bool parseText( char *token, WinInstanceData *instData,
 
   return TRUE;
 
-}  // end parseText
+}
+
+  // end parseText
 
 // parseTextColor =============================================================
 /** Parse text color entries for enabled, disabled, and hilite with
@@ -968,7 +1399,9 @@ static Bool parseTextColor( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseTextColor
+}
+
+  // end parseTextColor
 
 // parseStaticTextData ========================================================
 /** Parse static text data entry */
@@ -994,7 +1427,9 @@ static Bool parseStaticTextData( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseStaticTextDAta
+}
+
+  // end parseStaticTextDAta
 
 // parseTextEntryData =========================================================
 /** Parse text entry data entry */
@@ -1033,7 +1468,9 @@ static Bool parseTextEntryData( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseStaticTextDAta
+}
+
+  // end parseStaticTextDAta
 
 // parseTabControlData =========================================================
 /** Parse tab control data entry */
@@ -1204,38 +1641,8 @@ static Bool parseDrawData( char *token, WinInstanceData *instData,
 
 	return TRUE;
 
-}  // end parseDrawData
+}
 
-// getDataTemplate ============================================================
-/** Given a window type style string return the address of a static
-	* gadget data type used for the generic data pointers in the
-	* GUI gadget contorls */
-//=============================================================================
-void *getDataTemplate(char *type, Int *sizeOut);
-
-// parseData ==================================================================
-//
-// Parse the data for gadgets.  For sliders the data is in the format:
-// <Minimum Value> <Maximum Value>
-//
-// For listboxes the data is formatted as:
-// <Max number of entries> <Height of an entry> <AutoScroll> <AutoPurge> <ScrollBar> <MultiSelect> <ForceSelect>
-//
-// For Combo Boxes the data is formatted as:
-// <is Editable> <Max Characters> <Max Entries before scroll appaears>
-//
-// For entry fields the data is as follows:
-// <Max text length> <entry box width> <SecretText> <1 = NumericalOnly, 2 = AlphaNumericOnly>
-//
-// For text the data is as follows:
-// <Centered> <Outlined> <StringManagerLabel>
-//
-// 1/2/2003: THIS FUNCTION IS NEVER REACHED; IT IS OBSOLETE -MDC
-//
-//=============================================================================
-// Retail EntryData uses a flags word at +0x0c and is 0x28 bytes.
-struct EntryData004850C0 { void *text,*sText,*constructText; unsigned int field0c; short maxTextLen; bool secretText; char tail[21]; };
-struct LocalListboxData : ListboxData { char retailExtra[8]; };
 static __declspec(noinline) Bool parseData( void **data, char *type, char *buffer )
 {
   char *c;
@@ -1362,7 +1769,9 @@ static __declspec(noinline) Bool parseData( void **data, char *type, char *buffe
 
   return TRUE;
 
-}  // end parseData
+}
+
+  // end parseData
 
 // setWindowText ==============================================================
 /** Set the default text for a window or gadget control */
@@ -1394,7 +1803,9 @@ static void setWindowText( GameWindow *window, AsciiString textLabel )
 	else
 		window->winSetText( theText );
 
-}  // end setWindowText
+}
+
+  // end setWindowText
 
 // createGadget ===============================================================
 /** Create a gadget based on the 'type' parm */
@@ -1796,7 +2207,9 @@ static GameWindow *createGadget( char *type,
 
   return window;
 
-}  // end createGadget
+}
+
+  // end createGadget
 
 // createWindow ===============================================================
 // Create a user window or a gadget depending on the 'type' parm
@@ -1861,25 +2274,7 @@ static GameWindow *createWindow(char *type, Int id, void *data, GadgetCreateView
 		((ScriptFactoryManagerSlots *)TheWindowManager)->send(parent, 0x16, id, 0);
 
 	return window;
-}  // end createWindow
-
-// parseChildWindows ==========================================================
-/** Parse window descriptions until an extra end is encountered indicating
-	* the end of this block of child window descriptions. */
-//=============================================================================
-// Retail's parser destroys children through the existing manager's slot 0x8C.
-// Keep this declaration-only view local: the donor manager header has slot 0x78.
-class ScriptChildWindowManagerSlots
-{
-public:
-#define SLOT(n) virtual void unusedSlot##n();
-	SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9)
-	SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
-	SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29)
-	SLOT(30) SLOT(31) SLOT(32) SLOT(33) SLOT(34)
-#undef SLOT
-	virtual Int winDestroy(GameWindow *window);
-};
+}
 
 static Bool parseChildWindows( GameWindow *window, 
 															 File *inFile, 
@@ -1992,89 +2387,7 @@ static Bool parseChildWindows( GameWindow *window,
 
   return TRUE;
 
-}  // end parseChildWindows
-
-// lookup table for parsing functions
-Bool parseName(char *, WinInstanceData *, char *, void *);
-Bool parseStatus(char *, WinInstanceData *, char *, void *);
-Bool parseStyle(char *, WinInstanceData *, char *, void *);
-Bool parseSystemCallback(char *, WinInstanceData *, char *, void *);
-Bool parseWinClass(char *, WinInstanceData *, char *, void *);
-Bool parseInputCallback(char *, WinInstanceData *, char *, void *);
-Bool parseTooltipCallback(char *, WinInstanceData *, char *, void *);
-Bool parseDrawCallback(char *, WinInstanceData *, char *, void *);
-Bool parseFont(char *, WinInstanceData *, char *, void *);
-Bool parseHeaderTemplate(char *, WinInstanceData *, char *, void *);
-Bool parseListboxData(char *, WinInstanceData *, char *, void *);
-Bool parseComboBoxData(char *, WinInstanceData *, char *, void *);
-Bool parseSliderData(char *, WinInstanceData *, char *, void *);
-Bool parseRadioButtonData(char *, WinInstanceData *, char *, void *);
-Bool parseTooltipText(char *, WinInstanceData *, char *, void *);
-Bool parseTooltipDelay(char *, WinInstanceData *, char *, void *);
-Bool parseText(char *, WinInstanceData *, char *, void *);
-Bool parseTextColor(char *, WinInstanceData *, char *, void *);
-Bool parseStaticTextData(char *, WinInstanceData *, char *, void *);
-Bool parseTextEntryData(char *, WinInstanceData *, char *, void *);
-Bool parseTabControlData(char *, WinInstanceData *, char *, void *);
-Bool parseDrawData(char *, WinInstanceData *, char *, void *);
-Bool parseImageOffset(char *, WinInstanceData *, char *, void *);
-Bool parseTooltip(char *, WinInstanceData *, char *, void *);
-
-static GameWindowParse gameWindowFieldList[] = 
-{
-	{ "NAME", parseName },
-	{ "STATUS", parseStatus },
-	{ "STYLE", parseStyle },
-	{ "SYSTEMCALLBACK", parseSystemCallback },
-	{ "WINCLASS", parseWinClass },
-	{ "INPUTCALLBACK", parseInputCallback },
-	{ "TOOLTIPCALLBACK", parseTooltipCallback },
-	{ "DRAWCALLBACK", parseDrawCallback },
-	{ "FONT", parseFont },
-	{ "HEADERTEMPLATE", parseHeaderTemplate },
-	{ "LISTBOXDATA", parseListboxData },
-	{ "COMBOBOXDATA", parseComboBoxData },
-	{ "SLIDERDATA", parseSliderData },
-	{ "RADIOBUTTONDATA", parseRadioButtonData },
-	{	"TOOLTIPTEXT", parseTooltipText },
-  { "TOOLTIPDELAY", parseTooltipDelay },
-	{ "TEXT", parseText },
-	{ "TEXTCOLOR", parseTextColor },
-	{ "STATICTEXTDATA", parseStaticTextData },
-	{ "TEXTENTRYDATA", parseTextEntryData },
-	{ "TABCONTROLDATA", parseTabControlData },
-
-	{ "ENABLEDDRAWDATA", parseDrawData },
-	{ "DISABLEDDRAWDATA", parseDrawData },
-	{ "HILITEDRAWDATA", parseDrawData },
-	{ "LISTBOXENABLEDUPBUTTONDRAWDATA", parseDrawData },
-	{ "LISTBOXENABLEDDOWNBUTTONDRAWDATA", parseDrawData },
-	{ "LISTBOXENABLEDSLIDERDRAWDATA", parseDrawData },
-	{ "LISTBOXDISABLEDUPBUTTONDRAWDATA", parseDrawData },
-	{ "LISTBOXDISABLEDDOWNBUTTONDRAWDATA", parseDrawData },
-	{ "LISTBOXDISABLEDSLIDERDRAWDATA", parseDrawData },
-	{ "LISTBOXHILITEUPBUTTONDRAWDATA", parseDrawData },
-	{ "LISTBOXHILITEDOWNBUTTONDRAWDATA", parseDrawData },
-	{ "LISTBOXHILITESLIDERDRAWDATA", parseDrawData },
-	{ "SLIDERTHUMBENABLEDDRAWDATA", parseDrawData },
-	{ "SLIDERTHUMBDISABLEDDRAWDATA", parseDrawData },
-	{ "SLIDERTHUMBHILITEDRAWDATA", parseDrawData },
-
-	{ "COMBOBOXDROPDOWNBUTTONENABLEDDRAWDATA", parseDrawData },
-	{ "COMBOBOXDROPDOWNBUTTONDISABLEDDRAWDATA", parseDrawData },
-	{ "COMBOBOXDROPDOWNBUTTONHILITEDRAWDATA", parseDrawData },
-	{ "COMBOBOXEDITBOXENABLEDDRAWDATA", parseDrawData },
-	{ "COMBOBOXEDITBOXDISABLEDDRAWDATA", parseDrawData },
-	{ "COMBOBOXEDITBOXHILITEDRAWDATA", parseDrawData },
-	{ "COMBOBOXLISTBOXENABLEDDRAWDATA", parseDrawData },
-	{ "COMBOBOXLISTBOXDISABLEDDRAWDATA", parseDrawData },
-	{ "COMBOBOXLISTBOXHILITEDRAWDATA", parseDrawData },
-
-	{ "IMAGEOFFSET", parseImageOffset },
-	{ "TOOLTIP", parseTooltip },
-
-	{ NULL, NULL }
-};
+}
 
 // parseWindow ================================================================
 /** Parse a WINDOW entry in the script. */
@@ -2266,45 +2579,8 @@ cleanupAndExit:
 
 	return window;
 
-}  // end parseWindow
+}
 
-//=================================================================================================
-//=================================================================================================
-//=================================================================================================
-
-//-------------------------------------------------------------------------------------------------
-/** Parse init for layout file */
-//-------------------------------------------------------------------------------------------------
-// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
-Bool parseInit(char *, char *, UnsignedInt, WindowLayoutInfo *);
-
-//-------------------------------------------------------------------------------------------------
-/** Parse update for layout file */
-//-------------------------------------------------------------------------------------------------
-// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
-Bool parseUpdate(char *, char *, UnsignedInt, WindowLayoutInfo *);
-
-//-------------------------------------------------------------------------------------------------
-/** Parse shutdown for layout file */
-//-------------------------------------------------------------------------------------------------
-// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
-Bool parseShutdown(char *, char *, UnsignedInt, WindowLayoutInfo *);
-
-static LayoutScriptParse layoutScriptTable[] =
-{
-	{ "LAYOUTINIT",										parseInit },
-	{ "LAYOUTUPDATE",									parseUpdate },
-	{ "LAYOUTSHUTDOWN",								parseShutdown },
-
-	{ NULL,															NULL },
-
-};
-
-//-------------------------------------------------------------------------------------------------
-/** Parse the layout block which MUST be present in every window file */
-//-------------------------------------------------------------------------------------------------
-// parseLayoutBlock: defined in GameWindowManagerScript_parseLayoutBlock.cpp (its row's unit).
-Bool parseLayoutBlock( File *inFile, char *buffer, UnsignedInt version, WindowLayoutInfo *info );
   // end parseLayoutBlock
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2343,82 +2619,6 @@ WindowLayoutInfo::WindowLayoutInfo() :
 		windows.clear();
 }
 
-// GameWindowManager::winCreateFromScript =====================================
-/** Parse through a window .wnd file and create all the windows
-	* within it.
-	*
-	* NOTE: The FIRST window created from the script is returned, this
-	* way if you want to know ALL of the windows created from this 
-	* layout file you must iterate over info->windows, since the windows will
-	* not be at the head of the window list if there is a modal window active.
-	*/
-//=============================================================================
-// This caller imports strchr/sprintf directly; existing parsers retain their thunk declarations.
-namespace NativeWindowCrt {
-extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
-}
-
-// Existing pooled Object-list allocator ABI; implementation remains with its native providers.
-class Object;
-template<class T> class Rva001EB984PoolAllocator {
-public:
-    typedef T value_type; typedef T *pointer; typedef const T *const_pointer;
-    typedef T &reference; typedef const T &const_reference;
-    typedef unsigned int size_type; typedef int difference_type;
-    template<class U> struct rebind { typedef Rva001EB984PoolAllocator<U> other; };
-    Rva001EB984PoolAllocator();
-    template<class U> Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator<U> &);
-    Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator &);
-    ~Rva001EB984PoolAllocator();
-    T *allocate(unsigned int, const void * = 0);
-    void deallocate(T *,unsigned int);
-    void construct(T *,const T &); void destroy(T *);
-    unsigned int max_size() const;
-};
-namespace _STL {
-template<class T,class U> struct _Alloc_traits<T,Rva001EB984PoolAllocator<U> > {
-    typedef Rva001EB984PoolAllocator<U> _Orig;
-    typedef Rva001EB984PoolAllocator<T> allocator_type;
-    static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
-};
-}
-typedef _STL::list<Object *,Rva001EB984PoolAllocator<Object *> > NativePooledObjectList;
-typedef char NativePooledObjectListExtent[sizeof(NativePooledObjectList)==4 ? 1 : -1];
-namespace _STL {
-template <> NativePooledObjectList::iterator NativePooledObjectList::erase(NativePooledObjectList::iterator);
-template <> NativePooledObjectList::iterator NativePooledObjectList::insert(NativePooledObjectList::iterator,Object *const &);
-}
-
-// STLport 4.5.3 node creation, kept out of line as in retail.
-namespace _STL {
-template<> __declspec(noinline)
-_List_node<GameWindow*> *list<GameWindow*>::_M_create_node(GameWindow *const &value)
-{
-    _List_node<GameWindow*> *node = this->_M_node.allocate(1);
-    _Construct(&node->_M_data, value);
-    return node;
-}
-}
-// Keep the already-rowed STLport assignment and range erase emitted after
-// the native caller delegates layout assignment to its 44-byte ABI owner.
-namespace _STL {
-template NativePooledObjectList &NativePooledObjectList::operator=(const NativePooledObjectList &);
-template NativePooledObjectList::iterator NativePooledObjectList::erase(NativePooledObjectList::iterator, NativePooledObjectList::iterator);
-template list<GameWindow*>::iterator list<GameWindow*>::erase(list<GameWindow*>::iterator);
-}
-// ABI view of the existing 44-byte constructor/dtor/assign owner.
-// Native callbacks prove +4/+8/+C/+10 functions and +14/+18/+1C/+20 names;
-// WindowLayoutInfo::load proves the filename at +24. The list payload holds
-// window pointers here; the provider's integer-list view has the same four-byte ABI.
-// The leading word's purpose and original class spelling remain unestablished.
-class Rva0031763A {public:
- Rva0031763A();~Rva0031763A();Rva0031763A &operator=(const Rva0031763A&);
- unsigned version;void *init,*update,*shutdown,*field_10;
- AsciiString initNameString,updateNameString,shutdownNameString,field_20,field_24;
- _STL::list<GameWindow*> windows;
-};
-
 // BFME1 9e3be919b10a clean parser lead; target 3177EC..317B35, RET12.
 // Keep this in the static stack/default/parser owner. Third argument is the parent;
 // inherited status uses bit 0x08000000, and native defaults are APT:None.
@@ -2449,7 +2649,127 @@ GameWindow *GameWindowManager::winCreateFromScript(AsciiString filenameString,Rv
  ((GoalScriptFileSlots*)inFile)->close();inFile=0;if(info)*info=scriptInfo;if(parent)popWindow();return firstWindow;
 }
 
-
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
-#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltip.cpp
+
+// ?parseTooltip@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	UnicodeString tooltip;
+	tooltip.set(L"Need tooltip translation");
+
+	instData->setTooltipText(tooltip);
+	return true;
+}
+
+// tu-skeleton: 0x00315BF5 218B ?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
+
+// tu-skeleton: 0x00315CCF 46B ?parseHeaderTemplate@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x00315CFD 112B ?parseTooltipText@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp (not merged yet)
+
+// tu-skeleton: 0x00315D6D 68B ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp (not merged yet)
+
+// tu-skeleton: 0x00315DB1 1089B ?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
+
+// tu-skeleton: 0x003161F2 355B ?setWindowText@@YAXPAVGameWindow@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x00316355 71B ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp (not merged yet)
+
+// tu-skeleton: 0x0031639C 76B ?parseWinClass@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseWinClass.cpp (not merged yet)
+
+// tu-skeleton: 0x003163E8 76B ?parseSystemCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseSystemCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x00316434 76B ?parseInputCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x00316480 76B ?parseTooltipCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x003164CC 76B ?parseDrawCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp (not merged yet)
+
+// tu-skeleton: 0x00316518 1722B ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp (not merged yet)
+
+// tu-skeleton: 0x00316BD2 294B ?createWindow@@YAPAVGameWindow@@PADHPAXPAVGadgetCreateView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x0031721D 68B ?parseInit@@YA_NPAD0IPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x00317261 68B ?parseUpdate@@YA_NPAD0IPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x003172A5 68B ?parseShutdown@@YA_NPAD0IPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x003172E9 68B ?parseClass@@YA_NPAD0IPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x0031732D 255B ?parseLayoutBlock@@YA_NPAVFile@@PADIPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x0031742C 159B ?load@WindowLayoutInfo@@QAE_NVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/WindowLayoutInfoLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x003175D1 105B ??1Rva0031763A@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0031763A 127B ??0Rva0031763A@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x003176B9 192B ?winCreateLayout@GameWindowManager@@UAEPAVWindowLayout@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x00317717 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00317779 115B ??4Rva0031763A@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A567 8B $L41376 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A56F 10B __ehhandler$?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A579 8B Unwind@00b7a579 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A581 8B Unwind@00b7a581 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A589 8B Unwind@00b7a589 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A591 8B Unwind@00b7a591 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A599 10B __ehhandler$?setWindowText@@YAXPAVGameWindow@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5A3 8B $L1207 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5AB 10B __ehhandler$?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5D2 8B $L35380 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5DA 10B __ehhandler$?parseLayoutBlock@@YA_NPAVFile@@PADIPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5E4 8B $L1264 -- matched in Code/GameEngine/Source/GameClient/GUI/WindowLayoutInfoLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5EC 10B __ehhandler$?load@WindowLayoutInfo@@QAE_NVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/WindowLayoutInfoLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A5F6 11B Unwind@00b7a5f6 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A601 11B Unwind@00b7a601 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A60C 11B Unwind@00b7a60c -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A617 11B Unwind@00b7a617 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A622 11B Unwind@00b7a622 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A62D 10B __ehhandler$??1Rva0031763A@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A637 11B Unwind@00b7a637 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A642 11B Unwind@00b7a642 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A64D 11B Unwind@00b7a64d -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A658 11B Unwind@00b7a658 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A663 11B Unwind@00b7a663 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A66E 11B uw_0077a66e -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A679 10B __ehhandler$??0Rva0031763A@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A683 8B Unwind@00b7a683 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A68B 8B Unwind@00b7a68b -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A693 10B $L4759 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A69D 10B __ehhandler$?winCreateLayout@GameWindowManager@@UAEPAVWindowLayout@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
