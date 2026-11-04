@@ -32,7 +32,6 @@ class UpgradeTemplate { public: char pad[4]; int type; };
 #include "../../../../Include/Common/Player.h"
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
-class Object { public: char pad[0x38]; Coord3D pos; Player *getControllingPlayer() const; };
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 class Rva000421C8 {
 public: Rva000421C8():next(0){} virtual ~Rva000421C8(){} virtual bool allow(Object *)=0; virtual int getPlayerMask();
@@ -56,10 +55,6 @@ virtual void s3C();virtual void s40();virtual void s44();virtual void s48();virt
 virtual Waypoint *getWaypoint(const AsciiString &);
 };
 extern TerrainLogic *TheTerrainLogic;
-class ObjectCreationList {public:void create(void*,void*,void*,int);void create(void*,void*,void*,void*,int);
- static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *a, const Coord3D *b,int c) { if(ocl)ocl->create(owner,a,(void*)b,c); }
- static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *primary, const Coord3D *secondary,void *c,int d) { if(ocl)ocl->create(owner,primary,(void*)secondary,c,d); }
-};
 struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrades; ObjectFilter filter; };
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
@@ -69,7 +64,6 @@ struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrade
 namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
-
 // BFME 2's list (retail VA 0x00DCDFD0, .data, read from retail): the
 // CreateLocation parseIndexList names of OCLSpecialPowerModuleData's table,
 // Zero Hour's six plus three BFME 2 placements.
@@ -86,49 +80,13 @@ const char* TheOCLCreateLocTypeNames[] =
 	"USE_SECONDARY_OBJECT_LOCATION",
 	0
 };
-
-//-------------------------------------------------------------------------------------------------
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-
-//-------------------------------------------------------------------------------------------------
-class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
-{
-public:
-	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
-	virtual ~SpecialPowerModule();											// rowed 0x00493DEF
-
-	virtual void doSpecialPower( unsigned commandOptions );
-	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions );
-	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
-	virtual bool rva0049466D( const Coord3D *loc );
-};
-
 // The constructor's three tables, by their data-ledger names.
 extern "C" const void *const __identifier("??_7Rva004C3108@@6BRva00493DEF@@@")[];
-
 				// 0x00C5CC74
 extern "C" const void *const __identifier("??_7Rva004C3108@@6BMiBase1@@@")[];
-
 					// 0x00BEFCF8
 extern "C" const void *const __identifier("??_7Rva004C3108@@6BRva004C3108_B2@@@")[];
-
-			// 0x00C5CC10
-
-//-------------------------------------------------------------------------------------------------
-class __declspec(novtable) OCLSpecialPower : public SpecialPowerModule
-{
-public:
-	OCLSpecialPower( Thing *thing, const ModuleData *moduleData );
-
-	static NameKeyType rva0004C3147();
-
-	virtual void doSpecialPower( unsigned commandOptions );
-	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
-	virtual bool rva0049466D( const Coord3D *loc );
-};
-
-class Rva004C31A8ScienceSelector {public:unsigned select() const;};
-
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
 namespace _STL {
@@ -137,27 +95,17 @@ template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
-
 template <int N> class BitFlags;
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
-
-// Opaque intermediate base (DeliverPayloadAIUpdateCtor precedent: the pin
-// claims only the address): the rowed SpecialPowerModuleData base plus
-// 0x64 of unknown intermediate storage.
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
-
 // BFME1 OCLSpecialPower.cpp parseOCLUpgradePair: science plus OCL pair.
 struct OCLUpgradePair
 {
 	int m_science;
 	int m_ocl;
 };
-
 // Virtual base plus virtual derived with declared-only dtors (no code):
 // the base contributes the vptr at +0 so the base call takes this with no
 // displacement, and the derived vtable store lands mid-init through the
@@ -175,15 +123,67 @@ private:
 	_STL::vector<AsciiString> m_upgradeName; // +0x90, UpgradeName
 	Rva003623E5Member m_nearestSecondaryObjectFilter; // +0x9C, NearestSecondaryObjectFilter
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "Coord3D.h"
+class ObjectCreationList;
+enum ScienceType { SCIENCE_INVALID = -1 };
+struct Rva004C31A8ScienceWord { ScienceType science; unsigned value; };
+struct Rva004C31A8DataWords {
+ char prefix[0x7C];
+ Rva004C31A8ScienceWord *begin,*end,*capacity;
+ unsigned fallback;
+};
+template<int N> class BitFlags {public:bool any()const;};
+class Object { public: char pad[0x38]; Coord3D pos; Player *getControllingPlayer() const; };
+class ObjectCreationList {public:void create(void*,void*,void*,int);void create(void*,void*,void*,void*,int);
+ static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *a, const Coord3D *b,int c) { if(ocl)ocl->create(owner,a,(void*)b,c); }
+ static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *primary, const Coord3D *secondary,void *c,int d) { if(ocl)ocl->create(owner,primary,(void*)secondary,c,d); }
+};
+int __cdecl Rva004C30BC(ObjectCreationList*,void*,void*);
 
 extern NameKeyGenerator *TheNameKeyGenerator;
+
+//-------------------------------------------------------------------------------------------------
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
+{
+public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
+	virtual ~SpecialPowerModule();											// rowed 0x00493DEF
+
+	virtual void doSpecialPower( unsigned commandOptions );
+	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions );
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
+	virtual bool rva0049466D( const Coord3D *loc );
+};
+
+class Rva004C31A8ScienceSelector { public: unsigned select() const; private: void *vtable; Rva004C31A8DataWords *m_data; Object *m_object; };
+
+			// 0x00C5CC10
+
+//-------------------------------------------------------------------------------------------------
+class __declspec(novtable) OCLSpecialPower : public SpecialPowerModule
+{
+public:
+	OCLSpecialPower( Thing *thing, const ModuleData *moduleData );
+
+	static NameKeyType rva0004C3147();
+
+	virtual void doSpecialPower( unsigned commandOptions );
+	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
+	virtual bool rva0049466D( const Coord3D *loc );
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
+
+//-------------------------------------------------------------------------------------------------
+
+// Opaque intermediate base (DeliverPayloadAIUpdateCtor precedent: the pin
+// claims only the address): the rowed SpecialPowerModuleData base plus
+// 0x64 of unknown intermediate storage.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
 
@@ -225,12 +225,6 @@ OCLSpecialPower::OCLSpecialPower( Thing *thing, const ModuleData *moduleData )
 	*(unsigned int *)((char *)this + 0x10) = (unsigned int)__identifier("??_7Rva004C3108@@6BRva004C3108_B2@@@");
 }
 
-// tu-skeleton: 0x004C3102 6B ?Rva004C3102Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3108 25B ??1Rva004C3108@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3121 38B ??$__uninitialized_copy@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerPoolKey.cpp
 
 // ?rva0004C3147@OCLSpecialPower@@SA?AW4NameKeyType@@XZ @0x4C3147
@@ -253,16 +247,6 @@ NameKeyType OCLSpecialPower::rva0004C3147()
 		TheNameKeyGenerator->nameToKey("OCLSpecialPower");
 	return TheOCLSpecialPowerPoolKey;
 }
-
-// tu-skeleton: 0x004C318C 28B ??_GRva004C3108@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004C31A8 68B ?select@Rva004C31A8ScienceSelector@@QBEIXZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerFindOCL.cpp (not merged yet)
-
-// tu-skeleton: 0x004C31EC 24B ?doSpecialPowerAtObject@Rva004C31EC@@QAEXPAURva004C31ECArg@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3204 92B ?doSpecialPower@OCLSpecialPower@@UAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerFindOCL.cpp (not merged yet)
-
-// tu-skeleton: 0x004C3260 92B ?rva0049466D@OCLSpecialPower@@UAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerFindOCL.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataCtor.cpp
 
@@ -383,6 +367,61 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
   if(up->type==0){Player *player=getObject()->getControllingPlayer();player->addUpgrade(up,UPGRADE_COMPLETE,0);}
  }
 }
+
+// tu-skeleton: 0x004C3102 6B ?Rva004C3102Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3108 25B ??1Rva004C3108@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004C3121 38B ??$__uninitialized_copy@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x004C318C 28B ??_GRva004C3108@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerFindOCL.cpp
+
+// ZH OCLSpecialPower.cpp at BF1 2f243e26d is the semantic guide.
+// Target WB125D170 proves OCL selection; data ctor4C32BC proves7C/88 offsets.
+// Retail folds this science-controlled 32-bit selection with CashHack's amount
+// selection (WB125B670 selector / WB125B700 action4C26D0). The word payload is a pointer in OCL
+// and an unsigned amount in CashHack. This neutral owner records their common
+// ABI and access pattern without giving the folded address a second real name.
+// Word-view layout is a structural reconciliation: Module data4/Object8,
+// vector7C..88, fallback88; source semantic guides remain the distinct ZH
+// findOCL and findAmountToSteal methods. No shared target class is asserted.
+// Target OCL interface is +10; Module data4/Object8 and Behavior interfaceC
+// are also used by the verified SpecialPowerModuleDo.cpp. ZH doSpecialPower
+// is the semantic guide; BFME2 removes the disabled check and angle argument.
+
+void OCLSpecialPower::doSpecialPower(unsigned flags)
+{
+ Coord3D coord;
+ const Coord3D *pos=&m_object->pos;
+ coord.x=pos->x;coord.y=pos->y;coord.z=pos->z;
+ SpecialPowerModule::doSpecialPowerAtLocation(&coord,flags);
+ ObjectCreationList *ocl=reinterpret_cast<ObjectCreationList*>(((const Rva004C31A8ScienceSelector*)this)->select());
+ if(ocl) ocl->create(m_object,&coord,0,0,0);
+}
+
+bool OCLSpecialPower::rva0049466D(const Coord3D *loc)
+{
+ if(((const BitFlags<11>*)((const char*)m_object+0x1C8))->any()) return false;
+ unsigned char ready=1;
+ ObjectCreationList *ocl=reinterpret_cast<ObjectCreationList*>(((const Rva004C31A8ScienceSelector*)this)->select());
+ if(ocl && loc && m_object) ready=(unsigned char)Rva004C30BC(ocl,m_object,(void*)loc);
+ return ready && SpecialPowerModule::rva0049466D(loc);
+}
+
+unsigned Rva004C31A8ScienceSelector::select()const
+{
+ const Rva004C31A8DataWords *data=m_data;
+ Player *player=m_object->getControllingPlayer();
+ if(player) {
+  for(const Rva004C31A8ScienceWord *entry=data->begin;entry!=data->end;++entry)
+   if(player->hasScience(entry->science)) return entry->value;
+ }
+ return data->fallback;
+}
+
+// tu-skeleton: 0x004C31EC 24B ?doSpecialPowerAtObject@Rva004C31EC@@QAEXPAURva004C31ECArg@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
 
 // tu-skeleton: 0x004C37A4 28B ??_GOCLSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
