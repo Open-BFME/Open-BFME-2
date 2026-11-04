@@ -128,45 +128,26 @@ class Xfer;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0052BB28DivAvgField, 0x04, 0x00, 0x28)
-
 extern GameLogic *TheGameLogic;
-
 class Rva00210C66CmpBoolField {public: bool get() const;};
-
 class Glo012F1028Type {public: void rva002B7D91();};
-
 struct Rva002BA8F1Input;
-
 struct Rva002BA8F1Slot;
-
 class Rva002E2903Player;
-
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-
 class Rva002E067DDwordSlot {public: void set(int);};
-
 class Rva0020E89C {public:char pad[0x14]; AsciiString name;};
-
 class Rva0020EAF6View {public: Rva0020E89C *rva0020EAF6(int);};
-
 class LivingWorldLogic {public:
  void ValidatePlayers(); void AddPlayer(Rva002BA8F1Input *,bool,int,Rva002BA8F1Slot *); char pad[0xb0]; Rva0020EAF6View *regions;
 };
-
 extern LivingWorldLogic *TheLivingWorldLogic;
-
 struct Rva002E1904Entry;
-
 class Rva002E1904Lookup {public: Rva002E1904Entry *find(const AsciiString &);};
-
 class Rva002E18C3Lookup;
-
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
-
 class Rva002E0F1E {public: virtual ~Rva002E0F1E();};
-
 struct Rva002E0EF7 {
  void *vtable;
  int m_04,m_08,m_0C,m_10,m_14,m_18,m_1C,m_20; unsigned char m_24;
@@ -175,9 +156,7 @@ struct Rva002E0EF7 {
  AsciiString &narrow(int offset) {return *(AsciiString *)((char *)this+offset);}
  UnicodeString &wide() {return *(UnicodeString *)((char *)this+4);}
 };
-
 int Rva0052C06CGet(GameInfo *);
-
 // A campaign's 184-byte mission records (+0x0C begin, +0x10 end); the
 // byte at +0xB4 marks a record the step below selects.
 struct LivingWorldCampaignRecord
@@ -186,7 +165,6 @@ struct LivingWorldCampaignRecord
 	bool m_selected;						// +0xB4
 	char m_padB5[0xB8 - 0xB5];
 };
-
 struct LivingWorldCampaignRecords
 {
 	LivingWorldCampaignRecord *m_start;
@@ -196,46 +174,30 @@ struct LivingWorldCampaignRecords
 	unsigned int size() const { return m_finish - m_start; }
 	LivingWorldCampaignRecord &operator[](unsigned int i) { return m_start[i]; }
 };
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../../../Include/Common/INI/FieldParse.h"
-
 #include "../../../../Include/Common/INI/INI.h"
-
-
 class ModuleData;
-
 class Rva00289218
 {
 public:
 	void rva00289218(const ModuleData *data);
 };
-
 class Rva00E02D6C;
-
 extern Rva00E02D6C *TheCampaignManager;
-
 // Retail's campaign block field table at RVA 0x008688A8 (.rdata, 240 bytes = fourteen 16-byte records and a zero
 // sentinel), transcribed from retail's own bytes; every procedure is rowed. Records whose parser takes fewer
 // arguments than the FieldParse callback (the cdecl caller cleans the stack) are stored through a cast.
 class ScenarioOwnerView;
-
 class Rva003F7BE9;
-
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
-
 	// rowed 0x002E1D22
 namespace LivingWorldScenario { class Scenario { public: static void ParseINI(INI *ini, ScenarioOwnerView *owner); }; }
-
 	// rowed 0x004FD94E
 void ParseLivingWorldCampaignAct(INI *ini, void *instance, void *store, const void *userData);
-
 	// rowed 0x00566D83
 void Rva003F9258Parse(INI *ini, Rva003F7BE9 *holder);
-
 	// rowed 0x003F9258
 extern const FieldParse LivingWorldCampaignFields[] =
 {
@@ -255,10 +217,7 @@ extern const FieldParse LivingWorldCampaignFields[] =
 	{ "InitialRevivalTimeMultiplier", INI::parseReal, 0, 0x48 },
 	{ 0, 0, 0, 0 }
 };
-
-// ??0Rva004E18A2@@QAE@ABV0@@Z @0x0052BB6D 45B copy ctor vtable 0x00861C30 int plus Rva0036CA00Str plus byte via rowed 0x000A8C7C caller 0x0052BD22
 #include "../../../../Include/Common/Rva0036CA00Str.h"
-
 class Rva004E18A2
 {
 public:
@@ -269,12 +228,10 @@ private:
 	Rva0036CA00Str m_08;
 	unsigned char m_0C;
 };
-
 // Retail 0x003A6360 copies a 12-byte polymorphic record and installs vtable
 // 0x010EC760. No evidence proves the semantic class name, so the type keeps the address.
 
 extern int R2Data010EC760;
-
 class Rva003A6360Record
 {
 public:
@@ -285,9 +242,7 @@ public:
 	unsigned char m_byte08;
 	int m_word0C;
 };
-
 extern "C" const void *const __identifier("??_7Rva004E16D9Record@@6B@")[];
-
 class Rva0052BD59
 {
 public:
@@ -306,20 +261,15 @@ private:
 	unsigned int m_20; // +0x20
 	unsigned int m_24; // +0x24
 };
-
 extern "C" const void *const __identifier("??_7Rva004E1B00@@6B@")[];
-
 class EmptyBase
 {
 public:
 	EmptyBase() {}
 	~EmptyBase();
 };
-
 extern "C" const void *const __identifier("??_7Rva004E179A@@6B@")[];
-
 extern "C" const void *const __identifier("??_7Rva004E1B72@@6B@")[];
-
 // ?rva0052BFE1@Rva0052BFE1@@QAEPAURva005657FEElement@@ABV?$StringBase@D@@PBURva005657FEHolder@@@Z
 // Native85B52BFE1..52C036; campaign-manager caller3B8CE0 tail reaches
 // this entry; target calls typed103B search5657FE per opaque184B entry.
@@ -333,19 +283,13 @@ extern "C" const void *const __identifier("??_7Rva004E1B72@@6B@")[];
 // known campaign-manager caller and the matched stride-search sibling supplied
 // the semantic guide, with native accesses establishing this184-byte layout.
 template<class T> class StringBase;
-
 struct Rva005657FEElement;
-
 struct Rva005657FEHolder;
-
 class Rva005657FEOwner {
 public: Rva005657FEElement *rva005657FE(const StringBase<char>&,const Rva005657FEHolder*) const;
 };
-
 struct CampaignEntry184 {unsigned char opaque[184];};
-
 struct CampaignRange184 {CampaignEntry184 *begin,*end;};
-
 class Rva00564DF2NameView
 {
 public:
@@ -353,7 +297,6 @@ public:
 private:
 	char m_bytes[0xB8];
 };
-
 // The 184-byte records at +0x0C, read as name views by rva0052C7A2.
 struct Rva0052BFE1Records
 {
@@ -364,13 +307,11 @@ struct Rva0052BFE1Records
 	unsigned int size() const { return m_finish - m_start; }
 	Rva00564DF2NameView &operator[](unsigned int i) { return m_start[i]; }
 };
-
 class Rva0052BFE1 {
 public: Rva005657FEElement *rva0052BFE1(const StringBase<char>&,const Rva005657FEHolder*);
 public: Rva00564DF2NameView *rva0052C7A2(const AsciiString &name);
 private: unsigned char prefix[12];union { struct { CampaignEntry184 *m_begin,*m_end; }; Rva0052BFE1Records m_records; };
 };
-
 // ?rva0052C036@Rva0052C036@@QAE_NXZ @0x0052C036 54B: advance index at +8 toward limit at +18 over 0xB8 stride array at +0xC else clamp and notify.
 // Evidence: callers 0x003B8CAC tail-jmp via array at +0x14 and 0x0052C9F9 tail-jmp; callees rowed 0x003EF2FF LivingWorldRegionEffectsManager plus pin 0x0056696F bfmeEnter plus g_009FE1C8; stride 0xB8 matches Rva0052BCE7Elem; neighbours Rva0052BF33DestroyTagged and Rva0052C06CGet.
 class LivingWorldRegionEffectsManager
@@ -378,47 +319,37 @@ class LivingWorldRegionEffectsManager
 public:
 	void rva003EF2FF();
 };
-
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
-
 // 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
 extern LivingWorldManager *TheLivingWorldManager;
-
 class Rva003F812C
 {
 public:
 	void rva003F812C();
 };
-
 // AdjustStartingPositionForScenario's +0x1C helper and the +0x12C int of its 0x004FCA0C result.
 struct Res004FCA0C
 {
 	char m_pad[0x12C];
 	int m_12C;
 };
-
 // +0x1C and +0x20 hold objects released through virtual slot 0.
 struct RvaItem0052CFB1 { virtual void *get(int x); };
-
 struct Sub0052BAC1 : public RvaItem0052CFB1
 {
 	Res004FCA0C *Rva004FCA0C(Rva0020E89C *found);
 };
-
 struct Rva0052CA2D {
  __forceinline Rva0052CA2D():storage(_STL::allocator<BfmeE16>()){}
  ~Rva0052CA2D();
  _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > storage;
 };
-
 struct Rva0052CA6C {
  __forceinline Rva0052CA6C():storage(_STL::allocator<BfmeE16>()){}
  ~Rva0052CA6C();
  _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > storage;
 };
-
 class Rva002E0A0A;
-
 // +0x0C and +0x24 are vectors whose destructors are rowed as Rva0052CA2D and Rva0052CA6C;
 // the 0xB8-stride mission records and 0x28-stride player records are read through element views.
 class LivingWorldCampaign : public Snapshot {
@@ -437,21 +368,17 @@ public:
  AsciiString m_34; int m_38; int m_3c; int m_40; float m_44; float m_48;
  bool fromCampaign; bool m_4d; bool m_4e;
 };
-
 class Rva0059E647World
 {
 public:
 	void rva002B77AD();
 };
-
 class LivingWorldLogic;
-
 class Glo012F1024Item
 {
 public:
 	void bfmeEnter();
 };
-
 class Rva0052C036
 {
 public:
@@ -467,7 +394,6 @@ private:
 	char m_pad1c[4];
 	void *m_20;
 };
-
 class Rva0052BDE6 : public EmptyBase
 {
 public:
@@ -478,14 +404,12 @@ private:
 	AsciiString m_str04; // +4
 	AsciiString m_str08; // +8
 };
-
 namespace _STL
 {
 template <class _T1, class _T2>
 void _Construct(_T1 *, const _T2 &);
 template <> void _Construct<Rva0052BDE6, Rva0052BDE6>(Rva0052BDE6 *, const Rva0052BDE6 &);
 }
-
 class Rva0052BE33 : public EmptyBase
 {
 public:
@@ -498,14 +422,12 @@ private:
 	AsciiString m_str0C; // +0xC
 	unsigned char m_b10; // +0x10
 };
-
 namespace _STL
 {
 template <class _T1, class _T2>
 void _Construct(_T1 *, const _T2 &);
 template <> void _Construct<Rva0052BE33, Rva0052BE33>(Rva0052BE33 *, const Rva0052BE33 &);
 }
-
 class Rva004E194E
 {
 public:
@@ -517,14 +439,12 @@ private:
 	AsciiString m_0C;
 	unsigned char m_10;
 };
-
 namespace _STL
 {
 template <class _T1, class _T2>
 void _Construct(_T1 *, const _T2 &);
 template <> void _Construct<Rva004E194E, Rva004E194E>(Rva004E194E *, const Rva004E194E &);
 }
-
 //
 // ?Rva0052C9ADGet@@YAPAXPAX00@Z retail 0x0052C9AD 38B. Unlock lane:
 // uninitialized copy over 0x10-stride opaque elements via Construct helper
@@ -537,9 +457,7 @@ template <> void _Construct<Rva004E194E, Rva004E194E>(Rva004E194E *, const Rva00
 struct Rva0052C9ADElem {
 	char m_body[16];
 };
-
 void __cdecl Rva0052C404Construct(void *d, const void *s);
-
 class Rva0052BEF0 : public EmptyBase
 {
 public:
@@ -550,14 +468,12 @@ private:
 	AsciiString m_str; // +4
 	unsigned char m_b; // +8
 };
-
 namespace _STL
 {
 template <class _T1, class _T2>
 void _Construct(_T1 *, const _T2 &);
 template <> void _Construct<Rva0052BEF0, Rva0052BEF0>(Rva0052BEF0 *, const Rva0052BEF0 &);
 }
-
 //
 // ?Rva0052CEDDClear@@YAXPAVRva004E1A04@@0@Z retail 0x0052CEDD 25B
 // Evidence: chain lane; callee dtor 0x004E1A04 rowed in Rva004E1A04Dtor.cpp;
@@ -570,7 +486,6 @@ public:
 private:
 	char m_pad[16];
 };
-
 //
 // ?Rva0052CEF6Clear@@YAXPAVRva004E366E@@0@Z retail 0x0052CEF6 25B
 // Evidence: unlock lane; callee rva004E366E 0x004E366E; unblocks 0x0052D20C 0x0056614D; prev vector Pod40 next ConstIntGetters4; range destroy step 0xC.
@@ -581,7 +496,6 @@ public:
 private:
 	char m_pad[12];
 };
-
 // Range-27 view-dispatch lookup.
 // ?AdjustStartingPositionForScenario@LivingWorldCampaign@@QAEHH@Z @0x0052BAC1 61B
 // Thiscall: answers arg unchanged when this+0x1C is null; otherwise runs
@@ -590,7 +504,6 @@ private:
 // the 0x004FCA0C result built from this+0x1C and the lookup pointer.
 
 class Rva0020E89C;
-
 // ?Rva0052C06CGet@@YAHPAVGameInfo@@@Z @0x0052C06C 92B: random unlocked untaken color via MultiplayerSettings and GameInfo.
 // Evidence: TheMultiplayerSettings +0x40 +0x38 refill, GetGameLogicRandomValue 0-A8 file, getColor +0x3C check, isColorTaken -1 loop, caller 0x0052C629, neighbours Rva0052BF33DestroyTagged.
 class MultiplayerColorDefinition {
@@ -598,7 +511,6 @@ public:
 	unsigned char m_pad[0x3C];
 	bool m_3C;
 };
-
 class MultiplayerSettings {
 public:
 	unsigned char m_pad[0x38];
@@ -607,25 +519,16 @@ public:
 	int m_40;
 	MultiplayerColorDefinition *getColor(int i);
 };
-
 extern MultiplayerSettings *TheMultiplayerSettings;
-
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-
 static char s_file[] = "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\System\\GameLogic.cpp";
-
 class Rva00564DF2NameView;
-
 // These elements copy through real copy constructors; their _Construct
 // bodies are rowed under the real element names, so call those.
 struct BfmePod32;
-
 class Gen_005e9a20;
-
 struct BfmePod76;
-
 class WeaponTemplateSetHead;
-
 namespace _STL {
 template <> void _Construct<Gen_005e9a20, Gen_005e9a20>(Gen_005e9a20 *, const Gen_005e9a20 &) throw();
 template <> void _Construct<WeaponTemplateSetHead, WeaponTemplateSetHead>(WeaponTemplateSetHead *, const WeaponTemplateSetHead &) throw();
@@ -636,98 +539,63 @@ template <> __declspec(dllimport) __forceinline void _Construct<BfmePod32, BfmeP
 template <> __declspec(dllimport) __forceinline void _Construct<BfmePod76, BfmePod76>(BfmePod76 *p, const BfmePod76 &v) throw()
 { _Construct((WeaponTemplateSetHead *)p, (const WeaponTemplateSetHead &)v); }
 }
-
 // Suppress this TU's non-retail copy of ?erase@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEPAUBfmePod68@@PAU3@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod68;
-
 namespace _STL { template <> BfmePod68 * vector<BfmePod68,allocator<BfmePod68> >::erase(BfmePod68 *); }
-
 // Suppress this TU's non-retail copy of ??0?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@QAE@ABV01@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod40;
-
 namespace _STL { template <> vector<BfmePod40,allocator<BfmePod40> >::vector(vector<BfmePod40,allocator<BfmePod40> > const &); }
-
 // Suppress this TU's non-retail copy of ??$_Construct@UBfmePod52@@U1@@_STL@@YAXPAUBfmePod52@@ABU1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod52;
-
 namespace _STL { template <> void _Construct<BfmePod52,BfmePod52>(BfmePod52 *,BfmePod52 const &); }
-
 // Suppress this TU's non-retail copy of ??$__destroy_aux@U?$_Deque_iterator@UBfmePod16@@U?$_Nonconst_traits@UBfmePod16@@@_STL@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod16;
-
 // The non-trivial range helper is supplied by StlportDequePod16Dtor.cpp.
 namespace _STL { template <> void __destroy<_Deque_iterator<BfmePod16, _Nonconst_traits<BfmePod16> >, BfmePod16>(_Deque_iterator<BfmePod16, _Nonconst_traits<BfmePod16> >, _Deque_iterator<BfmePod16, _Nonconst_traits<BfmePod16> >, BfmePod16 *); }
-
 namespace _STL { template <> void __destroy_aux<_Deque_iterator<BfmePod16,_Nonconst_traits<BfmePod16> > >(_Deque_iterator<BfmePod16,_Nonconst_traits<BfmePod16> >,_Deque_iterator<BfmePod16,_Nonconst_traits<BfmePod16> >,__false_type const &); }
-
 // Suppress this TU's non-retail copy of ??0?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QAE@ABV01@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod44;
-
 namespace _STL { template <> vector<BfmePod44, allocator<BfmePod44> >::vector(const vector<BfmePod44, allocator<BfmePod44> > &); }
-
 namespace _STL { template <> void vector<BfmePod44, allocator<BfmePod44> >::resize(size_t); }
-
 namespace _STL { template <> BfmePod44 *vector<BfmePod44, allocator<BfmePod44> >::erase(BfmePod44 *, BfmePod44 *); }
-
 namespace _STL { template <> void vector<BfmePod52, allocator<BfmePod52> >::_M_fill_insert(BfmePod52 *, size_t, const BfmePod52 &); }
-
 namespace _STL { template <> void vector<BfmePod44, allocator<BfmePod44> >::_M_fill_insert(BfmePod44 *, size_t, const BfmePod44 &); }
-
 struct BfmePod16 { int a[4]; };
-
 struct BfmePod28 { int a[7]; };
-
 // bfme link decl-only BfmePod28
 namespace _STL { template <> BfmePod28 * vector<BfmePod28, allocator<BfmePod28> >::erase(BfmePod28 *, BfmePod28 *); }
-
 namespace _STL { template <> BfmePod28 * vector<BfmePod28, allocator<BfmePod28> >::erase(BfmePod28 *); }
-
 struct BfmePod32 { int a[8]; };
-
 // bfme link decl-only BfmePod32
 namespace _STL { template <> vector<BfmePod32, allocator<BfmePod32> >::~vector(); }
-
 struct BfmePod40 { int a[10]; };
-
 // bfme link decl-only BfmePod40
 namespace _STL { template <> vector<BfmePod40, allocator<BfmePod40> >::~vector(); }
-
 namespace _STL { template <> BfmePod40 *vector<BfmePod40, allocator<BfmePod40> >::erase(BfmePod40 *); }
-
 namespace _STL { template <> BfmePod40 *vector<BfmePod40, allocator<BfmePod40> >::erase(BfmePod40 *, BfmePod40 *); }
-
 struct BfmePod44 { int a[11]; };
-
 struct BfmePod52 { int a[13]; };
-
 struct BfmePod68 { int a[17]; };
-
 struct BfmePod76 { int a[19]; };
-
 // 696 = 0x2B8 is BuddyRequest, as in stlport_pod_large_bodies.cpp.
 class BuddyRequest
 {
 	char m_bfmeBody[0x2B8];
 };
-
 namespace _STL { template <> BfmePod52 *vector<BfmePod52, allocator<BfmePod52> >::erase(BfmePod52 *, BfmePod52 *); }
-
 // Deferred callers: their stride-only helper names disagree with rowed retail callees.
 // Kept unchanged here while the complete-lifetime collector links independently.
 // 0x00541434 and 0x00541BDF copy the 28-byte Rva00541021 (an int then a
 // Region3D): the copy reaches its rowed copy worker 0x005411C8 and _Construct
 // 0x0054105B, the view StlSweepW5Rva005411C8.cpp uses.
 struct Rva00541021 { char bytes[28]; Rva00541021(const Rva00541021 &) throw(); };
-
 namespace _STL { template <> void _Construct<Rva00541021, Rva00541021>(Rva00541021 *, const Rva00541021 &) throw(); }
-
 template _STL::vector<Rva00541021,_STL::allocator<Rva00541021> >::vector(_STL::vector<Rva00541021,_STL::allocator<Rva00541021> > const &);
-
 class Rva003A6F70
 {
 public:
@@ -736,19 +604,14 @@ public:
 	char m_1C;
 	Rva003A6F70(const Rva003A6F70 &other);
 };
-
 namespace _STL { template <> void _Construct<Rva003A6F70, Rva003A6F70>(Rva003A6F70 *, const Rva003A6F70 &) throw(); }
-
 template _STL::vector<Rva003A6F70,_STL::allocator<Rva003A6F70> >::vector(_STL::vector<Rva003A6F70,_STL::allocator<Rva003A6F70> > const &);
-
 template void _STL::vector<Rva00541021,_STL::allocator<Rva00541021> >::reserve(unsigned int);
-
 class Rva0041579E
 {
 public:
 	Rva0041579E(const Rva0041579E &other);
 };
-
 class Rva002E0A0A {
     char opaque[36];
 public:
@@ -756,74 +619,51 @@ public:
     Rva002E0A0A &operator=(const Rva002E0A0A &);
     virtual ~Rva002E0A0A();
 };
-
 namespace _STL {
 template <> void _Construct<Rva002E0A0A, Rva002E0A0A>(
     Rva002E0A0A *, const Rva002E0A0A &);
 }
-
 template void _STL::_Construct<Rva0041579E, Rva0041579E>(Rva0041579E *, const Rva0041579E &);
-
 // Out-of-line definitions: the unit's loops call these two rather than inlining them.
 namespace _STL { template <> void _Construct<Rva002E0A0A, Rva002E0A0A>(Rva002E0A0A *p, const Rva002E0A0A &v) { new (p) Rva002E0A0A(v); } }
-
 namespace _STL { template <> void _Construct<Rva004E194E, Rva004E194E>(Rva004E194E *p, const Rva004E194E &v) { new (p) Rva004E194E(v); } }
-
 struct Sub0052BAC1;
-
 template Rva002E0A0A *_STL::__uninitialized_copy(Rva002E0A0A *, Rva002E0A0A *, Rva002E0A0A *, const _STL::__false_type &);
-
 template Rva002E0A0A *_STL::__uninitialized_fill_n(Rva002E0A0A *, unsigned int, const Rva002E0A0A &, const _STL::__false_type &);
-
 template Rva003A6F70 *_STL::__uninitialized_copy(Rva003A6F70 *, Rva003A6F70 *, Rva003A6F70 *, const _STL::__false_type &);
-
 namespace _STL { template <> void _Construct<Rva004E18A2, Rva004E18A2>(Rva004E18A2 *, const Rva004E18A2 &) throw(); }
-
 template Rva004E18A2 *_STL::__uninitialized_copy(Rva004E18A2 *, Rva004E18A2 *, Rva004E18A2 *, const _STL::__false_type &);
-
 // _Construct<Rva003A6360Record> is emitted by StlportConstructCopySiblings.cpp (0x0052BD28); here it only inlines.
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Construct<Rva003A6360Record, Rva003A6360Record>(Rva003A6360Record *p, const Rva003A6360Record &v) throw()
 { new (p) Rva003A6360Record(v); } }
-
 template Rva003A6360Record *_STL::__uninitialized_copy(Rva003A6360Record *, Rva003A6360Record *, Rva003A6360Record *, const _STL::__false_type &);
-
 namespace _STL { template <> _Vector_base<BfmeE16, allocator<BfmeE16> >::_Vector_base(unsigned int, allocator<BfmeE16> const &); }
-
 namespace _STL { template <> allocator<AsciiString> vector<AsciiString, allocator<AsciiString> >::get_allocator() const; }
-
 class Rva0052C867 : public _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >
 {
 public:
 	Rva0052C867(const Rva0052C867 &x);
 };
-
 class Rva0052C8AB : public _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >
 {
 public:
 	Rva0052C8AB(const Rva0052C8AB &x);
 };
-
 struct Res004FCA0C;
-
 struct Rva000AD6F4Base
 {
 	virtual void *virt0(unsigned int);
 };
-
 #include "../../../../Include/Common/Rva000AD6F4.h"
-
 struct BfmePod88
 {
 	char m_body[88];
 };
-
 struct TreeHintPayload003012F0
 {
 	char m_body[12];
 };
-
 struct TargetRef00217D4C;
-
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 
 typedef _STL::vector<BfmePod88> ConstructPodVec;
@@ -843,6 +683,23 @@ template <> ConstructPodVec::vector(const ConstructPodVec &);
 template <> ConstructPairHP::pair(const ConstructPairHP &);
 template <> ConstructPairHR::pair(const ConstructPairHR &);
 }
+
+typedef char RecordSizeCheck[sizeof(Rva004E194E) == 20 ? 1 : -1];
+
+namespace _STL
+{
+template <> void _Construct<Rva004E194E, Rva004E194E>(Rva004E194E *, const Rva004E194E &);
+}
+
+class Rva0052CD81 : public _STL::_Vector_base<Rva004E194E, _STL::allocator<Rva004E194E> >
+{
+public:
+	Rva0052CD81(const Rva0052CD81 &);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+
+// ??0Rva004E18A2@@QAE@ABV0@@Z @0x0052BB6D 45B copy ctor vtable 0x00861C30 int plus Rva0036CA00Str plus byte via rowed 0x000A8C7C caller 0x0052BD22
 
 template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec *, const ConstructPodVec &);
 
@@ -1468,6 +1325,49 @@ void LivingWorldCampaign::AddPlayer(const Rva002E0A0A &arg)
 
 // ?clear@Rva000AD6F4@@QAEXXZ @0x000AD6F4 29B: owning-pointer clear via virtual slot0 with 0 plus operator delete; callers 40+ incl Rva002D3573 dtor; no donor.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
+
+//
+// Fourth batch of STLport _Construct<T> placement-copy helpers, same-shape
+// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Game mapped types are declared minimally (opaque payloads, matching the
+// struct/class-ness of their rowed copy ctors); no member is ever touched,
+// so the emitted code is identical apart from the callee.
+
+void Rva0052C404Construct(void *dest, const void *source)
+{
+    ::new (dest) ConstructPairHP(*static_cast<const ConstructPairHP *>(source));
+}
+
 // tu-skeleton: 0x0052BBD7 28B ??_GRva004E364F@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp (not merged yet)
 
 // tu-skeleton: 0x0052BCAB 60B ??0?$_Vector_base@UBfmePod32@@V?$allocator@UBfmePod32@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod32@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
@@ -1520,23 +1420,6 @@ void LivingWorldCampaign::AddPlayer(const Rva002E0A0A &arg)
 
 // tu-skeleton: 0x0052C3BF 24B ?Rva0052C3BFDestroyRange@@YAXPAURva0052BF67Elem@@0@Z -- matched in Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
-
-//
-// Fourth batch of STLport _Construct<T> placement-copy helpers, same-shape
-// siblings of the rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
-// stlport_construct_asciistring.cpp). Each body is the null-guarded
-// placement-new copy over a single element: the copy delegates out-of-line
-// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
-// Game mapped types are declared minimally (opaque payloads, matching the
-// struct/class-ness of their rowed copy ctors); no member is ever touched,
-// so the emitted code is identical apart from the callee.
-
-void Rva0052C404Construct(void *dest, const void *source)
-{
-    ::new (dest) ConstructPairHP(*static_cast<const ConstructPairHP *>(source));
-}
-
 // tu-skeleton: 0x0052C431 45B ??$_Construct@VRva0052BEF0@@V1@@_STL@@YAXPAVRva0052BEF0@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
 // tu-skeleton: 0x0052C72B 119B ?hasEntryNamed@Rva0052BFE1@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp (not merged yet)
@@ -1569,7 +1452,21 @@ void Rva0052C404Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x0052CD42 63B ??1Rva0052CD42@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x0052CD81 96B ??0Rva0052CD81@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/System/SaveGame/Rva0052CD81Finish.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/SaveGame/Rva0052CD81Finish.cpp
+
+// Native copy constructor 0x0052CD81, 96B. Its range callee 52C987 calls
+// Construct 52C3D7 and the existing Rva004E194E copy 52BE96; SaveMapPreview
+// is a different 20B record. Reuse the actual LivingWorldCampaign record view.
+// The 60B count base at 4FF36C uses the native malloc allocator configuration.
+
+Rva0052CD81::Rva0052CD81(const Rva0052CD81 &x)
+	: _STL::_Vector_base<Rva004E194E, _STL::allocator<Rva004E194E> >(
+		x._M_finish - x._M_start,
+		*(const _STL::allocator<Rva004E194E> *)&
+		((const _STL::vector<AsciiString, _STL::allocator<AsciiString> > &)x).get_allocator())
+{
+	_M_finish = _STL::__uninitialized_copy(x._M_start, x._M_finish, _M_start, _STL::__false_type());
+}
 
 // tu-skeleton: 0x0052CDE1 63B ??1Rva0052CDE1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
