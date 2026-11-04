@@ -17,3 +17,5 @@ The staged-tree batch audit is INCONCLUSIVE: the index predates the base and
 affected consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt.
 Carry this consumer and the two-unit cleanup scope into the next scheduled census.
 [Evidence and verification scope](../../reverse/attempt_support/connection-ack-cleanup-20261029-codexb4.md).
+
+2026-11-04: The two-file Connection.cpp/ack composition is cleared (22/22 rows); broader class/header work and the next-census consumer audit remain. [Evidence](../../reverse/attempt_support/connection-ack-consolidation-20261104.md).

@@ -10,7 +10,6 @@
 #include "../Common/GameLogicObjectLookupView.h"
 #pragma comment(linker, "/alternatename:?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z=?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z")
 #include <list>
-
 // Trimmed from Open-BFME-1
 // (Code/GameEngine/Source/GameNetwork/Connection.cpp): only the placed
 // Connection::isQueueEmpty and Connection::setQuitting bodies are defined
@@ -27,13 +26,9 @@
 // (0x004D36B2), which name it. BFME 1 row of the same name: 0x00661C90.
 
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
 class NetCommandRef;
-
 class NetCommandMsg;
-
 class NetCommandList
 {
 public:
@@ -49,37 +44,26 @@ private:
 	NetCommandRef *m_last; // +0x08 +0x08
 	NetCommandRef *m_lastMessageInserted; // +0x0C +0x0C
 };
-
 typedef unsigned short UnsignedShort;
-
 typedef float Real;
-
 struct NetPacketAddress
 {
 	NetPacketAddress() : ip(0), port(0) {}
 	unsigned int ip;
 	unsigned short port;
 };
-
 struct ConnectionBlock0C
 {
 	NetPacketAddress m_address;
 	UnicodeString m_name;
 };
-
 class Transport;
-
 class NetAckBothCommandMsg;
-
 struct InitAddrs;
-
 typedef unsigned char UnsignedByte;
-
 extern const float g_00BC26EC;
-
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 #include "../../Include/GameNetwork/NetGameCommandMsg.h"
-
 class NetCommandRef
 {
 public:
@@ -98,12 +82,9 @@ public:
 	char m_pad0D[0x3];
 	unsigned int m_timeLastSent; // +0x10 +0x10
 };
-
 // ?rva0058BAA7@Connection@@QAEXPAUInitAddrs@@ABVUnicodeString@@H@Z @0x0058BAA7 181B Connection init with address block plus name plus id new NetCommandList plus latencies; evidence: StringBase wide set 0x00037150 NetCommandList new 0x10 ctor 0x0058B06A reset 0x0058B283x2 rep stosd 0xC8 frameGrouping 0x344; callers 0x004D1703 0x004D175B
 struct InitAddrs { unsigned int a; unsigned int b; };
-
 typedef bool Bool;
-
 class NetFrameCommandMsg : public NetCommandMsg
 {
 public:
@@ -112,7 +93,6 @@ public:
 private:
 	unsigned int m_originalFrame;
 };
-
 #include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
@@ -187,6 +167,25 @@ public:
 	NetCommandList *getCommandList();
 };
 
+class Rva004543C6ByteField
+{
+public:
+	unsigned char get() const;
+};
+
+class Rva004D5767WordField
+{
+public:
+	unsigned short get() const;
+};
+
+struct Rva0058BD4FPkt
+{
+	unsigned char pad[0x20];
+	UnsignedInt field20;
+	UnsignedInt field24;
+};
+
 class Connection
 {
 public:
@@ -240,6 +239,8 @@ private:
 public:
 	void clearCommandsExceptFrom(Int playerIndex);
 };
+
+// ---- from Code/GameEngine/Source/GameNetwork/Connection.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/Connection_clearCommandsExceptFrom.cpp
 
@@ -577,4 +578,12 @@ void Connection::sendNetCommandMsg(NetCommandMsg *msg, UnsignedByte relay)
 	}
 }
 
-// tu-skeleton: 0x0058BD4F 44B ?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z -- matched in Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp
+
+NetCommandRef *Connection::rva0058BD4F(void *msg)
+{
+	Rva0058BD4FPkt *pkt = (Rva0058BD4FPkt *)msg;
+	UnsignedInt executionFrame = pkt->field24;
+	UnsignedInt timestamp = pkt->field20;
+	return processAck(((Rva004D5767WordField *)msg)->get(), ((Rva004543C6ByteField *)msg)->get(), timestamp, executionFrame);
+}
