@@ -195,7 +195,8 @@ public:
 	void rva00082B08();
 };
 
-// The counted object at +0x18 (count at +4, slot 0 deletes it).
+// Logic height map, at +0x1C in the complete terrain visual and +0x18 from
+// the secondary SubsystemInterface receiver (count at +4, slot 0 deletes it).
 class Rva00091CA7Counted
 {
 public:
@@ -204,26 +205,17 @@ public:
 	int m_refs;					// +0x04
 };
 
-class W3DTerrainVisual
-{
-public:
-	virtual void init();
-	virtual void reset();
-private:
-	unsigned char m_pad04[0x10 - 4];
-	Rva000E3B41 *m_terrainRenderObject;		// +0x10
-	WaterRenderObjClass *m_waterRenderObject;		// +0x14
-	Rva00091CA7Counted *m_18;			// +0x18
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
 void W3DTerrainVisual::init()
 {
 	BFMEDX8DeviceLock lock;
-	((Rva000B3FD0 *)this)->rva000B3FD0();
+	// Preserve the secondary SubsystemInterface receiver expected by retail.
+	((Rva000B3FD0 *)((char *)this + 4))->rva000B3FD0();
 
-	m_terrainRenderObject = new Rva000E3B41(false);
-	m_terrainRenderObject->slot121(2, 0);
-	TheTerrainRenderObject = (BaseHeightMapRenderObjClass *)m_terrainRenderObject;
+	m_terrainRenderObject = (BaseHeightMapRenderObjClass *)new Rva000E3B41(false);
+	((Rva000E3B41 *)m_terrainRenderObject)->slot121(2, 0);
+	TheTerrainRenderObject = m_terrainRenderObject;
 
 	Rva00084CA5 *tracks = new Rva00084CA5;
 	TheTerrainTracksRenderObjClassSystem = (TerrainTracksRenderObjClassSystem *)tracks;
@@ -261,9 +253,9 @@ void W3DTerrainVisual::init()
 // member pins.
 void W3DTerrainVisual::reset()
 {
-	((Rva0004F82B *)this)->rva0004F82B();
+	((Rva0004F82B *)((char *)this + 4))->rva0004F82B();
 	if (m_terrainRenderObject)
-		m_terrainRenderObject->reset();
+		((Rva000E3B41 *)m_terrainRenderObject)->reset();
 	if (TheW3DShadowManager)
 		TheW3DShadowManager->rva0009A2CD();
 	if (g_bfmeB991)
@@ -272,10 +264,10 @@ void W3DTerrainVisual::reset()
 		((Rva00083CE9Host *)TheTerrainTracksRenderObjClassSystem)->Reset();
 	if (m_waterRenderObject)
 		((Rva00082B08 *)m_waterRenderObject)->rva00082B08();
-	if (m_18)
+	if (m_logicHeightMap)
 	{
-		m_18->releaseRef();
-		m_18 = 0;
+		((Rva00091CA7Counted *)m_logicHeightMap)->releaseRef();
+		m_logicHeightMap = 0;
 	}
 }
 

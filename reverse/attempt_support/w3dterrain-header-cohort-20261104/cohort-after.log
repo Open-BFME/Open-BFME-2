@@ -1,0 +1,5 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualIntersectTerrain.cpp: LINKS  LINKED 249 -> 249 bytes (census 2026-11-04 17:56 at 8c757ea0db; file's own bytes 249)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp: LINKS  LINKED 1,556 -> 1,556 bytes (census 2026-11-04 17:56 at 8c757ea0db; file's own bytes 1,556)
+link_check: 2 of 2 link cleanly; LINKED 1,805 -> 1,805 bytes (5.3s)

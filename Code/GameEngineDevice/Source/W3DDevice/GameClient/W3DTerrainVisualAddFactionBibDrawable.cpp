@@ -159,18 +159,7 @@ public:
 	void rva000683FF(Vector3 corners[4], ObjectID id, bool highlight);
 };
 
-class W3DTerrainVisual
-{
-public:
-	virtual void addFactionBib(Object *factionBuilding, Bool highlight, Real extra);
-	virtual void addFactionBibDrawable(Drawable *factionBuilding, Bool highlight, Real extra);
-
-private:
-	char m_pad04[0x14 - 0x04];
-	Rva0006840A *m_terrainRenderObject;	// +0x14
-	void *m_waterRenderObject;			// +0x18
-	void *m_logicHeightMap;				// +0x1C
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
 void W3DTerrainVisual::addFactionBibDrawable(Drawable *factionBuilding, Bool highlight, Real extra)
 {
@@ -201,7 +190,7 @@ void W3DTerrainVisual::addFactionBibDrawable(Drawable *factionBuilding, Bool hig
 		mtx->Transform_Vector(*mtx, corners[1], &corners[1]);
 		mtx->Transform_Vector(*mtx, corners[2], &corners[2]);
 		mtx->Transform_Vector(*mtx, corners[3], &corners[3]);
-		m_terrainRenderObject->rva0006840A(corners, factionBuilding->getID(), highlight);
+		((Rva0006840A *)m_terrainRenderObject)->rva0006840A(corners, factionBuilding->getID(), highlight);
 	}
 }
 

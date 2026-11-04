@@ -117,15 +117,7 @@ public:
 	virtual bool Cast_Ray(RayCollisionTestClass &raytest);
 };
 
-class W3DTerrainVisual
-{
-public:
-	virtual bool intersectTerrain(Coord3D *rayStart, Coord3D *rayEnd, Coord3D *result);
-
-private:
-	unsigned char m_pad04[0x14 - 4];
-	RenderObjClass *m_terrainRenderObject;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
 bool W3DTerrainVisual::intersectTerrain(Coord3D *rayStart, Coord3D *rayEnd, Coord3D *result)
 {
@@ -136,7 +128,7 @@ bool W3DTerrainVisual::intersectTerrain(Coord3D *rayStart, Coord3D *rayEnd, Coor
 		CastResultStruct castResult;
 		LineSegClass ray(Vector3(rayStart->x, rayStart->y, rayStart->z), Vector3(rayEnd->x, rayEnd->y, rayEnd->z));
 		RayCollisionTestClass rayTest(ray, &castResult, 2, false, false);
-		hit = m_terrainRenderObject->Cast_Ray(rayTest);
+		hit = ((RenderObjClass *)m_terrainRenderObject)->Cast_Ray(rayTest);
 		if (hit) {
 			if (result)
 				*result = *(Coord3D *)&rayTest.Result->ContactPoint;
