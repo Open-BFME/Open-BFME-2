@@ -264,6 +264,10 @@ public:
     virtual void c24(); virtual void c25(); virtual void c26(); virtual void c27();
     virtual void c28(); virtual void c29(); virtual void c30();
     virtual HordeContainInterface *getHordeContainInterface(); // +0x7C
+    virtual void c32(); virtual void c33(); virtual void c34(); virtual void c35();
+    virtual void c36(); virtual void c37();
+    virtual bool isValidContainerFor(Object *obj, bool checkCapacity, int unused); // +0x98
+    virtual void addToContain(Object *obj); // +0x9C
 };
 enum NameKeyType { NK_UNKNOWN = 0 };
 class ConditionBits
@@ -293,9 +297,25 @@ class ContainModuleInterface;
 // tests a status bit, reads the current weapon and the
 // +0x258 AI pointer.
 // Only the accessed Object prefix is represented; its full extent is unknown.
+enum DisabledType
+{
+    DISABLED_DEFAULT = 0
+};
+enum WeaponSetType
+{
+    WEAPONSET_NONE = 0
+};
+class Player;
 class Object : public Thing
 {
 public:
+    Player *getControllingPlayer() const;
+    void setDisabled(DisabledType type);
+    void setStatus(ObjectStatusTypes bit, bool set);
+    bool rva0029091E(unsigned int flag) const;
+    void setWeaponSetFlag(WeaponSetType type);
+    void *rva0028C197() const;
+    void setPrivateStatus(unsigned int bits) { m_privateStatus |= bits; }
     ObjectID getID() const { return m_id; }
     float getBoundingCircleRadius() const { return m_boundingCircleRadius; }
     ContainModuleInterface *getContain() const { return m_contain; }
@@ -315,6 +335,8 @@ private:
     ContainModuleInterface *m_contain; // +0x250
     void *m_pad254;
     AIUpdateInterface *m_ai; // +0x258
+    unsigned char m_pad25C[0x380 - 0x25C];
+    unsigned int m_privateStatus; // +0x380
 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 // Measured target helpers used by retail trackTargets at 0x00478ADB.
@@ -407,7 +429,7 @@ public:
     virtual void b02() = 0;
     virtual void b03() = 0;
     virtual void b04() = 0;
-    virtual void b05() = 0;
+    virtual void onObjectCreated() = 0;
     virtual void b06() = 0;
     virtual void b07() = 0;
     virtual void b08() = 0;
@@ -458,10 +480,10 @@ public:
     virtual void c17() = 0;
     virtual void c18() = 0;
     virtual void c19() = 0;
-    virtual void c20() = 0;
+    virtual void recalcApparentControllingPlayer() = 0;
     virtual void c21() = 0;
-    virtual void c22() = 0;
-    virtual void c23() = 0;
+    virtual void onContaining(Object *obj, bool wasSelected) = 0;
+    virtual void onRemoving(Object *obj) = 0;
     virtual void c24() = 0;
     virtual void c25() = 0;
     virtual void c26() = 0;
@@ -546,6 +568,8 @@ public:
     OpenContain(Thing *thing, const ModuleData *moduleData);
     virtual ~OpenContain();
     virtual void removeAllContained(bool exposeStealthUnits);
+    virtual void onContaining(Object *obj, bool wasSelected);
+    virtual void onRemoving(Object *obj);
     Object *getObject() const { return m_object; }
 protected:
     virtual void xfer(Xfer *xfer);
@@ -572,6 +596,9 @@ public:
     virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
     virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
     virtual int getObjectGarrisonPointIndex(ObjectID id);
+    virtual void onObjectCreated();
+    virtual void recalcApparentControllingPlayer();
+    virtual void onContaining(Object *obj, bool wasSelected);
     void rva00478BE0();
     void rva00478FD7();
 protected:

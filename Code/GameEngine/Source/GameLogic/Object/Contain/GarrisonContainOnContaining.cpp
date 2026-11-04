@@ -48,11 +48,7 @@ enum WeaponSetType
 
 class Object;
 
-struct Rva0046247DPair
-{
-    void *m00;
-    const _STL::list<Object *> *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 #include "../../../../Include/GameClient/Drawable.h"
 
@@ -192,7 +188,7 @@ void GarrisonContain::onContaining(Object *obj, bool wasSelected)
         {
             Rva0046247DPair members;
             contain->slot108(members);
-            for (_STL::list<Object *>::const_iterator it = members.m04->begin(); it != members.m04->end(); ++it)
+            for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)members.m04)->begin(); it != ((const _STL::list<Object *> *)members.m04)->end(); ++it)
             {
                 Object *member = *it;
                 if (member->rva0029091E(0x14))
