@@ -351,6 +351,7 @@ struct Rva004266A1
 	char pad[4];
 	_STL::vector<Rva004266A1Rec> vec;
 	unsigned char rva0042680D(int index);
+	void *rva004267E9(int index);
 };
 
 struct Rva0039B95FHolder
