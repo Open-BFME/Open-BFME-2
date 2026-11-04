@@ -76,7 +76,6 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
-
 // list<int> destruction otherwise instantiates per-TU deallocate
 // COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
 // specializations take those calls inline so this TU emits no external copy.
@@ -91,7 +90,6 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
   allocator<_List_node<int> >().deallocate(__p, __n);
 }
 }
-
 struct BucketVec
 {
 	void *_s;
@@ -99,7 +97,6 @@ struct BucketVec
 	void *_e;
 	~BucketVec() { if (_s) free(_s); }
 };
-
 class Rva005982AC
 {
 public:
@@ -108,13 +105,11 @@ private:
 	char m_pad[4];
 	BucketVec m_buckets;
 };
-
 struct Holder004
 {
 	void *m_ptr;
 	~Holder004() { if (m_ptr) free(m_ptr); }
 };
-
 // The base is Rva00506B1B (ctor 0x00506B1B, vtable 0x00863F9C); its
 // destructor is the 7-byte vptr store at 0x00506B28.
 class Rva00506B1B
@@ -125,11 +120,9 @@ public:
 	virtual void v1() = 0;
 	virtual void v2() = 0;
 };
-
 // ?getAI@AIUnitBuilder@@QAEPAURva002A8AB1Record@@XZ @0x00598007 15B
 // Evidence: leaf lookup via global and rowed Rva002A8F24 rva002A8AB1 on member at +0x30; ready caller 0x00598CBC uses eax as pointer plus 0x160.
 struct MidVecHolder;
-
 struct Rva002A8AB1Record
 {
 public:
@@ -138,13 +131,9 @@ public:
 	char m_pad164[0x8];
 	void *m_16c; // +0x16C
 };
-
 class Player;
-
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -152,7 +141,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 class Rva00598149
 {
 public:
@@ -163,7 +151,6 @@ private:
 	char m_padAfterMap[0x2C - 8 - sizeof(_STL::map<int, void *>)];
 	bool m_done;
 };
-
 class Rva005980F3
 {
 public:
@@ -175,13 +162,11 @@ private:
 public:
 	void rva00598120();
 };
-
 class RvaObj00598B2A
 {
 public:
 	virtual void *get(int x);
 };
-
 class Rva00598B2A : public Rva00506B1B
 {
 public:
@@ -209,55 +194,36 @@ private:
 private:
 	char m_padAfterList[0x4C - 0x14 - sizeof(_STL::list<int>)];
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
-
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }
-
 namespace _STL { template <> vector<void *, allocator<void *> >::vector(unsigned int, void *const &, allocator<void *> const &); }
-
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
-
 namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_clear(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_fill_insert(void **, unsigned int, void *const &); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_overflow(void **, void *const &, __true_type const &, unsigned int, bool); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
-
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
-
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
-
 // Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> void *&_STL::vector<void*>::operator[](size_t);
 }
-
 // Suppress this TU's non-retail const-begin copy (row 47 family2-LK3): the
 // /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
 namespace _STL {
 template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 }
-
 // map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); a declaration-only specialization
 // stops this TU emitting its copy so callers bind the kept copy.
@@ -265,7 +231,6 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
-
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
@@ -279,21 +244,16 @@ template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
 { _M_fill_insert(pos, n, x); }
 }
-
 struct Rva00598C7CElement {Rva00598C7CElement();Rva00598C7CElement(const Rva00598C7CElement&);Rva00598C7CElement&operator=(const Rva00598C7CElement&);~Rva00598C7CElement(){}char bytes[8]; bool operator==(const Rva00598C7CElement&)const;};
-
 // Instantiate only the rowed constructor: a whole-class instantiation also emitted members
 // needing the element's undefined operations and kept the unit from linking.
 template _STL::hashtable<_STL::pair<int const, Rva00598C7CElement>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva00598C7CElement> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva00598C7CElement> > >::hashtable(unsigned int, _STL::hash<int> const &, _STL::equal_to<int> const &, _STL::allocator<_STL::pair<int const, Rva00598C7CElement> > const &);
-
 struct Rva002A8AB1Record;
-
 struct Rva00598192Item
 {
 	char m_pad00[0xC];
 	AsciiString m_name;
 };
-
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
 namespace _STL {
@@ -305,13 +265,11 @@ template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const A
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
 template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflow(AsciiString*, const AsciiString&, const __false_type&, size_t, bool);
 }
-
 struct MidVecHolder
 {
 	char _pad[0x8c];
 	_STL::vector<AsciiString> m_vec;
 };
-
 // Address-named build item made by the two factories (slot 6 starts it).
 class Rva00598C3AItem
 {
@@ -323,6 +281,93 @@ public:
 	virtual void slot4();
 	virtual void slot5();
 	virtual void slot6(Player *player, int flags);
+};
+struct Rva00506C82Arg
+{
+	char _pad[0x50];
+	int m_50;
+};
+#include "../../../../Include/GameNetwork/GameInfo.h"
+GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
+// Owned here (its only reader); retail .data zero-initializes it (VA 0x00E063D4, BSS tail).
+AsciiString g_00E063D4;
+class Rva00598CBC
+{
+public:
+	void rva00598CBC();
+private:
+	char _pad0[0x30];
+	void *m_30;
+	char _pad1[0x4c - 0x34];
+	_STL::vector<AsciiString> m_vec;
+};
+namespace _STL {
+template<> vector<AsciiString>::iterator vector<AsciiString>::erase(iterator,iterator);
+template<> void vector<AsciiString>::push_back(const AsciiString &);
+}
+class Rva00598DA2 {
+public: void rva00598DA2(Xfer *);
+private: unsigned char prefix[0x4c]; _STL::vector<AsciiString> values;
+};
+enum NameKeyType { NAMEKEY_DUMMY };
+class ArmorTemplate;
+namespace rts { template <class T> struct hash; }
+namespace _STL {
+template <class T1, class T2> struct pair;
+template <class P> struct _Select1st;
+template <class T> struct equal_to;
+template <class T> class allocator;
+template <class V, class K, class H, class S, class E, class A>
+class hashtable;
+}
+typedef _STL::hashtable<
+	_STL::pair<const NameKeyType, ArmorTemplate>,
+	NameKeyType,
+	rts::hash<NameKeyType>,
+	_STL::_Select1st<_STL::pair<const NameKeyType, ArmorTemplate> >,
+	_STL::equal_to<NameKeyType>,
+	_STL::allocator<_STL::pair<const NameKeyType, ArmorTemplate> > > ArmorHashTable;
+namespace _STL {
+template <>
+class hashtable<
+	pair<const NameKeyType, ArmorTemplate>,
+	NameKeyType,
+	rts::hash<NameKeyType>,
+	_Select1st<pair<const NameKeyType, ArmorTemplate> >,
+	equal_to<NameKeyType>,
+	allocator<pair<const NameKeyType, ArmorTemplate> > >
+{
+public:
+	void clear();
+};
+}
+// Native5982E5..5982EA JMP5982AC; unchanged thiscall receiver and RET0.
+// Only forwarding to the owned nonvirtual cleanup is established.
+// Original wrapper name and enclosing application type remain unknown.
+struct Rva005982E5CleanupForward { void cleanup(); };
+// Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
+// Keep the existing slot placeholder: no original method name is proven.
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+class WinInstanceData;
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
+// Zero-displacement members: the compared dword is the first field, so no
+// lead padding is emitted (a zero-length pad array is not legal C++).
+BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva00598025CmpBoolField, 0x34, ==)
+#include "../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
+
+// ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
+// Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
+// (1/2/4/8); returns true when a set field lacks its bit, false when covered.
+// Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
+class Rva00050D86
+{
+public:
+	bool rva00050D86(unsigned char mask);
+	char m_lead[0x49];
+	unsigned char m_49;
+	unsigned char m_4A;
+	unsigned char m_4B;
+	unsigned char m_4C;
 };
 
 class AIUnitBuilder
@@ -343,113 +388,10 @@ private:
 	bool m_34; // +0x34
 };
 
-struct Rva00506C82Arg
-{
-	char _pad[0x50];
-	int m_50;
-};
-
-#include "../../../../Include/GameNetwork/GameInfo.h"
-
-GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
-
-// Owned here (its only reader); retail .data zero-initializes it (VA 0x00E063D4, BSS tail).
-AsciiString g_00E063D4;
-
-class Rva00598CBC
-{
-public:
-	void rva00598CBC();
-private:
-	char _pad0[0x30];
-	void *m_30;
-	char _pad1[0x4c - 0x34];
-	_STL::vector<AsciiString> m_vec;
-};
-
-namespace _STL {
-template<> vector<AsciiString>::iterator vector<AsciiString>::erase(iterator,iterator);
-template<> void vector<AsciiString>::push_back(const AsciiString &);
-}
-
-class Rva00598DA2 {
-public: void rva00598DA2(Xfer *);
-private: unsigned char prefix[0x4c]; _STL::vector<AsciiString> values;
-};
-
-enum NameKeyType { NAMEKEY_DUMMY };
-
-class ArmorTemplate;
-
-namespace rts { template <class T> struct hash; }
-
-namespace _STL {
-template <class T1, class T2> struct pair;
-template <class P> struct _Select1st;
-template <class T> struct equal_to;
-template <class T> class allocator;
-template <class V, class K, class H, class S, class E, class A>
-class hashtable;
-}
-
-typedef _STL::hashtable<
-	_STL::pair<const NameKeyType, ArmorTemplate>,
-	NameKeyType,
-	rts::hash<NameKeyType>,
-	_STL::_Select1st<_STL::pair<const NameKeyType, ArmorTemplate> >,
-	_STL::equal_to<NameKeyType>,
-	_STL::allocator<_STL::pair<const NameKeyType, ArmorTemplate> > > ArmorHashTable;
-
-namespace _STL {
-template <>
-class hashtable<
-	pair<const NameKeyType, ArmorTemplate>,
-	NameKeyType,
-	rts::hash<NameKeyType>,
-	_Select1st<pair<const NameKeyType, ArmorTemplate> >,
-	equal_to<NameKeyType>,
-	allocator<pair<const NameKeyType, ArmorTemplate> > >
-{
-public:
-	void clear();
-};
-}
-
-// Native5982E5..5982EA JMP5982AC; unchanged thiscall receiver and RET0.
-// Only forwarding to the owned nonvirtual cleanup is established.
-// Original wrapper name and enclosing application type remain unknown.
-struct Rva005982E5CleanupForward { void cleanup(); };
-
-// Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
-// Keep the existing slot placeholder: no original method name is proven.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-
-class WinInstanceData;
-
-#include "../../../../Include/GameClient/Bfme2GameWindow.h"
-
-// Zero-displacement members: the compared dword is the first field, so no
-// lead padding is emitted (a zero-length pad array is not legal C++).
-BFME_DISP8_BYTE_CMP_BOOL_GETTER(Rva00598025CmpBoolField, 0x34, ==)
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
-#include "../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
-
-// ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
-// Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
-// (1/2/4/8); returns true when a set field lacks its bit, false when covered.
-// Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
-class Rva00050D86
-{
-public:
-	bool rva00050D86(unsigned char mask);
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
 
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
@@ -671,7 +613,31 @@ void Rva005982E5CleanupForward::cleanup() {
 
 // tu-skeleton: 0x00598B78 194B ?createBestUnitToMake@AIUnitBuilder@@QAEPAVRva00598C3AItem@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
-// tu-skeleton: 0x00598C3A 66B ?build@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderBuild.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderBuild.cpp
+
+//
+// AIUnitBuilder::build, retail 0x00598C3A (66 bytes).
+// Identity (target): WorldBuilder's debug AIUnitBuilder.cpp line 456 names it
+// and its callees (wb-lead 2/callgraph): unless the flag at +0x34 is set,
+// try createBestHeroToBuild (0x0059858C); fall back to createBestUnitToMake
+// (0x00598B78); start the chosen item through its slot 6 with the +0x30 Player
+// and 0, then append it to the list at +0x14 (STLport pointer-list push_back
+// fold 0x0005548F). WB's leading getAI() range reads have no effect and are
+// gone from retail. The +0x30 member is the Player that 0x00598016 hands
+// TheSkirmishAIManager; the item type and the +0x34 role are not established
+// by target evidence and stay address-named.
+
+void AIUnitBuilder::build()
+{
+	Rva00598C3AItem *item;
+	if (m_34 || (item = createBestHeroToBuild()) == 0)
+		item = createBestUnitToMake();
+	if (item != 0)
+	{
+		item->slot6(m_player, 0);
+		m_items.push_back(item);
+	}
+}
 
 // tu-skeleton: 0x00598D7A 40B ?Rva00598D7A@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
