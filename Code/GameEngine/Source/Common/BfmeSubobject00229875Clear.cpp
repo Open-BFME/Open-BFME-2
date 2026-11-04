@@ -13,16 +13,7 @@
 
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class GameSlot : Snapshot
-{
-protected:
-	virtual void loadPostProcess();
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-public:
-	virtual void unkSlot4();
-	char _pad[0x1AC - 4];
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 struct BfmeSaveBlock4 { unsigned int values[4]; };
 struct BfmeSaveBlock10 { unsigned int values[10]; };
@@ -44,7 +35,7 @@ private:
 void BfmeSubobject00229875::rva002DBA6A()
 {
 	for (int i = 0; i < 8; ++i)
-		m_elements[i].unkSlot4();
+		m_elements[i].reset();
 	memset(&m_blockD64, 0, sizeof(m_blockD64));
 	memset(&m_blockD74, 0, sizeof(m_blockD74));
 	m_wordDA0 = 0;

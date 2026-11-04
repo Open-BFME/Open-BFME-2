@@ -33,14 +33,7 @@ namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> copy<_B
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *>::_Bit_iter(); }
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
 // bfme link decl-only end
-class GameSlot {public: bool isHuman() const; bool isObserver() const; bool isAI() const;
- char pad[4];int state;char pad8[4];int color;};
-class GameInfo {public:
- virtual void v00();virtual void v01();virtual void v02();virtual void v03();
- virtual void v04();virtual void v05();virtual void v06();virtual void v07();
- virtual void v08();virtual void v09();virtual void v10();virtual void v11();
- virtual void v12();virtual int v13();
- GameSlot*getSlot(int);const GameSlot*getConstSlot(int)const;};
+#include "../../../Include/GameNetwork/GameInfo.h"
 class Rva0043DA65 {public:int rva0043DA65();};
 class ColorSetupOwner {public:virtual void v00();virtual bool amIHost();};
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
@@ -77,13 +70,13 @@ bool AptMpGameSetup::PopulateColorCombo(int index) {
  int count=availableCount;
  int numColors=available.size();
  bool changed=(getMode()==1);
- bool editable=(info->v13()==index);
+ bool editable=(info->getLocalSlotNum()==index);
  if(owner->amIHost()&&cur->isAI())editable=true;
  if(editable){
   for(int i=0;i<8;++i){
    GameSlot*slot=info->getSlot(i);
-   if(slot&&slot->color>=0&&slot->color<numColors&&i!=index&&slot->isHuman()&&!slot->isObserver()){
-    available[slot->color]=false;--count;
+   if(slot&&slot->m_color>=0&&slot->m_color<numColors&&i!=index&&slot->isHuman()&&!slot->isObserver()){
+    available[slot->m_color]=false;--count;
    }
   }
  }
@@ -106,11 +99,11 @@ bool AptMpGameSetup::PopulateColorCombo(int index) {
  bool wasObserver=(((Rva003236E8*)&combo)->rva003236E8()==1);
  ((Rva00323619*)&combo)->rva00323642();
  TheMultiplayerSettings->getColor(-1);
- if(optional||cur->state==1){
+ if(optional||cur->m_state==1){
   static const Image*randomImage=TheMappedImageCollection->findImageByName(AsciiString("AptRandomColor"));
   int entry=((Rva003235B8*)&combo)->rva003235B8(randomImage,20,20,AptLobbyRandomColorTint);
   ((Rva003236A0*)&combo)->rva003236A0(entry,-1);
-  if(cur->isObserver()||cur->state==1)((BfmeThing925D*)&combo)->bfmeGo925D(0);
+  if(cur->isObserver()||cur->m_state==1)((BfmeThing925D*)&combo)->bfmeGo925D(0);
  }
  for(int c=0;c<numColors;++c){
   MultiplayerColorDefinition*def=TheMultiplayerSettings->getColor(c);

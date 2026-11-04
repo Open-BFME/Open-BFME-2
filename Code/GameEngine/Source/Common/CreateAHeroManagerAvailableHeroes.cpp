@@ -138,26 +138,8 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GameSlot
-{
-public:
-	const AsciiString &getPlayerName() const { return m_playerName; }
-	const CreateAHeroHero *getHero() const { return m_hasHero ? &m_hero : 0; }
+#include "../../Include/GameNetwork/GameInfo.h"
 
-private:
-	unsigned char m_pad00[0x34];
-	AsciiString m_playerName;				// +0x34
-	unsigned char m_pad38[0x60 - 0x38];
-	Bool m_hasHero;						// +0x60
-	unsigned char m_pad61[0x64 - 0x61];
-	CreateAHeroHero m_hero;					// +0x64
-};
-
-class GameInfo
-{
-public:
-	GameSlot *getSlot(Int index);				// 0x003FF29F
-};
 
 extern GameInfo *TheGameInfo;
 

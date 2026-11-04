@@ -9,21 +9,7 @@ class Rva0043DA65
 public:
 	int rva0043DA65();
 };
-class GameSlot
-{
-public:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0c;
-	int m_10;
-};
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int i) const;
-	AsciiString getMap() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 class Rva0020E89C;
 class Rva00376A62;
 class Rva0020EAF6View
@@ -91,7 +77,7 @@ void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 	if (info) {
 		const GameSlot *gs = info->getConstSlot(slot);
 		if (gs) {
-			int v10 = gs->m_10;
+			int v10 = gs->m_startPos;
 			if (m_1c == 1) {
 				if (v10 != -1) {
 					Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);

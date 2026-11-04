@@ -79,48 +79,8 @@ enum NameKeyType
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
-class GameSlot
-{
-public:
-	void *m_vtable;
-	int m_state;
-	bool m_isAccepted;
-	bool m_hasMap;
-	bool m_isMuted;
-	char m_pad0B;
-	int m_color;
-	int m_startPos;
-	int m_bfme14;
-	int m_playerTemplate;
-	int m_teamNumber;
-	int m_bfme20;
-	int m_origColor;
-	int m_origStartPos;
-	int m_origPlayerTemplate;
-	UnicodeString m_name30;
-public:
-	AsciiString m_name34;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	virtual int slot00();
-	virtual int slot04();
-	virtual int slot08();
-	virtual int slot0c();
-	virtual int slot10();
-	virtual int slot14();
-	virtual int slot18();
-	virtual int slot1c();
-	virtual int slot20();
-	virtual int slot24();
-	virtual int slot28();
-	virtual int slot2c();
-	virtual int slot30();
-	virtual int getLocalSlot();
-	GameSlot *getSlot(int i);
-};
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
@@ -133,9 +93,9 @@ extern InGameUI *TheInGameUI;
 
 void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString message)
 {
-	int localSlot = TheGameInfo->getLocalSlot();
+	int localSlot = TheGameInfo->getLocalSlotNum();
 	GameSlot *slot = TheGameInfo->getSlot(localSlot);
-	AsciiString tmp(slot->m_name34);
+	AsciiString tmp(slot->m_field34);
 	NameKeyType key = TheNameKeyGenerator->nameToKey(tmp);
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player == 0)

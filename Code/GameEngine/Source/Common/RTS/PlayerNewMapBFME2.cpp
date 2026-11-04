@@ -53,16 +53,7 @@ public:
 };
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class GameInfo {
-public:
-#define SLOT(N) virtual void slot##N() = 0;
- SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
- SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17)
-#undef SLOT
- virtual bool flag48() = 0;
- virtual bool flag4C() = 0;
- virtual bool flag50() = 0;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 struct Rva002E2690Element { char bytes[0xD8]; ~Rva002E2690Element(); };
@@ -110,7 +101,7 @@ void Player::newMap() {
  rva002A99FA();
  if (ai) ai->newMap();
  if (TheWritableGlobalData->field09C0 ||
-     (TheGameInfo && (TheGameInfo->flag48() || TheGameInfo->flag4C() || TheGameInfo->flag50())) ||
+     (TheGameInfo && (TheGameInfo->isSkirmish() || TheGameInfo->isMultiPlayer() || TheGameInfo->isSandbox())) ||
      (TheGameLogic && ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D()))
   initBuildableHeroes();
  enableView.setEnabled(true);

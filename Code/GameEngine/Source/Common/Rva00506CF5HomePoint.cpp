@@ -68,7 +68,7 @@ public:
 	char m_pad00[0x50];
 	int m_50; // +0x50
 };
-class GameSlot {public:char pad[0x10];int start;};
+#include "../../Include/GameNetwork/GameInfo.h"
 GameSlot*Rva00506C82Find(const Rva00506C82Arg*);
 class GameLogic;extern GameLogic*TheGameLogic;
 struct TacticGameLogicView {char pad[0x114];int mode;};
@@ -87,7 +87,7 @@ Coord3D Rva00506CF5(void *owner,Coord3D *point) {
  if(((TacticGameLogicView*)TheGameLogic)->mode==3) {
   GameSlot*slot=Rva00506C82Find((Rva00506C82Arg*)owner);
   if(slot) {
-   int start=slot->start;AsciiString name;name.format("Player_%d_Start",start+1);
+   int start=slot->m_startPos;AsciiString name;name.format("Player_%d_Start",start+1);
    Waypoint *way=Rva00506CC3FindWaypoint(name);
    if(way){result=*(const Coord3D*)&way->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
   }else if(point&&!point->equals(Gen00DD0870)){result=*point;}

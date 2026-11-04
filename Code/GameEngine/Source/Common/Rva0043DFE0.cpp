@@ -3,18 +3,8 @@
 // Evidence: leaf, provider +0x5C rva0043DA65 0x0043DA65, target +0x58 slot 0x30, flag +0x2C3, combo +0x314, slot item +0x1C, GadgetComboBoxGetSelectedPos 0x003228EB GetItemData 0x00322981 getSlot 0x003FF29F, caller 0x00442DF3.
 class GameWindow;
 
-class GameSlot
-{
-public:
-	char m_pad[0x1C];
-	void *m_item;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int slot);
-};
 
 class Rva0043DA65
 {
@@ -78,7 +68,7 @@ bool Rva0043DFE0::rva0043DFE0(int index)
 	GameSlot *slot = info->getSlot(index);
 	if (slot == 0)
 		return false;
-	if (data == slot->m_item)
+	if ((int)data == slot->m_teamNumber)
 		return false;
 	return m_target->v12(slot, data);
 }

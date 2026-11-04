@@ -75,29 +75,7 @@ public:
 protected:
     virtual void loadPostProcess();
 };
-class GameSlot : Rva0022CE19SnapshotBase {
-public:
-    GameSlot();
-    virtual const char *typeName() const { return "GameSlot"; }
-    virtual void xfer(Xfer *);
-    virtual void reset();
-protected:
-    virtual void loadPostProcess();
-public:
-    unsigned int word04;
-    unsigned char flag08, flag09, flag0A;
-    unsigned int word0C, word10, word14, word18, word1C, word20, word24, word28, word2C;
-    UnicodeString text30;
-    AsciiString text34;
-    unsigned int word38, word3C, word40, word44;
-    unsigned char flag48;
-    unsigned int word4C, word50, word54, word58, word5C;
-    unsigned char flag60;
-    CreateAHeroData hero64;
-    unsigned char flag1A4;
-    AsciiString text1A8;
-    GameSlot &rva002DBAB9(const GameSlot &other);	// 0x002DBAB9
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 struct BfmeSaveBlock4 { unsigned int values[4]; };
 struct BfmeSaveBlock10 { unsigned int values[10]; };
 struct BfmeSubobject00229875 : Rva0022CE19SnapshotBase {

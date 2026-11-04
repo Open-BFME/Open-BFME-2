@@ -315,24 +315,8 @@ unsigned char Rva005FFB65::rva005FFB73(int index) const
 // info: its virtual slot 13 value unless slot 12 holds and the slot that
 // value names exists with +0x18 == -2, in which case the first AI slot
 // (rowed GameInfo::getConstSlot / GameSlot::isAI, 8 slots) wins.
-class GameSlot
-{
-public:
-	bool isAI() const;										// 0x003FF127
-	char m_pad00[0x18];
-	int m_18;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual bool v12();
-	virtual int v13();
-	const GameSlot *getConstSlot(int index) const;			// 0x003FF2BE
-};
 
 class Rva0043DA65
 {
@@ -354,20 +338,20 @@ int Rva0057CB06::rva0057CB06()
 	GameInfo *game = (GameInfo *)m_18->rva0043DA65();
 	if (!game)
 		return 0;
-	if (!game->v12())
-		return game->v13();
-	const GameSlot *slot = game->getConstSlot(game->v13());
+	if (!game->amIHost())
+		return game->getLocalSlotNum();
+	const GameSlot *slot = game->getConstSlot(game->getLocalSlotNum());
 	if (!slot)
-		return game->v13();
-	if (slot->m_18 != -2)
-		return game->v13();
+		return game->getLocalSlotNum();
+	if (slot->m_playerTemplate != -2)
+		return game->getLocalSlotNum();
 	for (int i = 0; i < 8; ++i)
 	{
 		const GameSlot *candidate = game->getConstSlot(i);
 		if (candidate && candidate->isAI())
 			return i;
 	}
-	return game->v13();
+	return game->getLocalSlotNum();
 }
 
 // --- 0x005CF9AA (8B): tail call of the rowed 0x005E96D4 on the member

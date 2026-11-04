@@ -75,25 +75,8 @@ public:
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
+#include "../../../Include/GameNetwork/GameInfo.h"
 
-private:
-	void *m_vtable;
-	int m_state;
-	char m_pad08[0x34 - 0x08];
-
-public:
-	AsciiString m_name34;
-};
-
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int i);
-};
 
 class GameTextInterface
 {
@@ -154,7 +137,7 @@ bool Rva0038190FSendChat(const UnicodeString &text, const SelectionIDs &selected
 		GameSlot *slot = TheGameInfo->getSlot(id);
 		if (slot == 0)
 			continue;
-		Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(slot->m_name34));
+		Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(slot->m_field34));
 		if (player == 0)
 			continue;
 		if (observer && ((BfmeMemberRV *)player)->bfmeAskRV())

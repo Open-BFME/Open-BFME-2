@@ -10,24 +10,8 @@
 // rowed as ??1GameInfo (formerly the address name Rva00382FA7).
 #include "unicode_string.h"
 
-class GameInfo
-{
-public:
-    virtual ~GameInfo();
-    char m_pad[0xDC - 4];
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameSlot
-{
-public:
-    virtual ~GameSlot();
-    void setAccept() { m_isAccepted = true; }
-    void setMapAvailability(bool hasMap);
-private:
-    int m_state;                        // +0x04
-    bool m_isAccepted;                  // +0x08
-    char m_rest[0x1AC - 9];
-};
 
 class LANGameSlot : public GameSlot
 {

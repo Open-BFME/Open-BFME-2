@@ -147,19 +147,8 @@ public:
 };
 
 // TheSkirmishGameInfo (0x00E02EF0) and its rowed getMap.
-class GameSlot
-{
-public:
-	char m_pad[0x5C];
-	int m_heroIndex5C;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	AsciiString getMap() const;
-	GameSlot *getSlot(int index);
-};
 
 class SkirmishGameInfo;
 extern SkirmishGameInfo *TheSkirmishGameInfo;
@@ -383,7 +372,7 @@ void SkirmishPreferences::rva0043BD36(void)
 		GameSlot *slot = ((GameInfo *)TheSkirmishGameInfo)->getSlot(i);
 		int v = -1;
 		if (slot)
-			v = slot->m_heroIndex5C;
+			v = slot->m_field5C;
 		num.format("%d:", v);
 		((StringBase<char> *)&gameInfoValue)->concat(*(StringBase<char> *)&num);
 	}

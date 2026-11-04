@@ -5,31 +5,7 @@
 // m_dword18[m_68]. Evidence: callers none; callees rowed GameInfo 0x00A02EEC
 // slot 0x50 plus own slot 0x38; layout +0x18/+0x68/+0x86 matches init 0x0041FE86.
 
-class GameInfo
-{
-public:
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void s10() = 0;
-	virtual void s11() = 0;
-	virtual void s12() = 0;
-	virtual void s13() = 0;
-	virtual void s14() = 0;
-	virtual void s15() = 0;
-	virtual void s16() = 0;
-	virtual void s17() = 0;
-	virtual void s18() = 0;
-	virtual void s19() = 0;
-	virtual bool s20() = 0;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 
 #include "../../Include/Common/Player.h"
@@ -94,7 +70,7 @@ bool VictoryConditions::isLocalAlliedVictory()
 {
 	if (m_86 != 0)
 		return false;
-	if (TheGameInfo != 0 && TheGameInfo->s20() != false)
+	if (TheGameInfo != 0 && TheGameInfo->isSandbox() != false)
 		return false;
 	int idx = m_68;
 	if (idx < 0 || (unsigned int)idx >= 0x14)

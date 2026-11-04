@@ -90,45 +90,7 @@ enum SlotState
 
 #include "../../../Include/GameNetwork/GameSlotConnectInfo.h"
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-	bool isObserver() const;
-	bool isOccupied() const;
-	bool isAI() const;
-
-	unsigned char m_pad00[0x04];
-	int m_state; // +0x04
-	bool m_accepted; // +0x08
-	bool m_hasMap; // +0x09
-	unsigned char m_pad0a[0x0C - 0x0A];
-	int m_color; // +0x0C
-	int m_10; // +0x10
-	int m_14; // +0x14
-	int m_playerTemplate; // +0x18
-	int m_team; // +0x1C
-	int m_20; // +0x20 (the handicap)
-	unsigned char m_pad24[0x30 - 0x24];
-	UnicodeString m_name; // +0x30
-	unsigned char m_pad34[0x40 - 0x34];
-	int m_40; // +0x40
-	unsigned char m_pad44[0x50 - 0x44];
-	int m_heroKind; // +0x50 (1 random, 2 or 3 by the hero's +0x48 flag)
-	int m_hero0c; // +0x54 (the hero's +0x0C)
-	int m_hero10; // +0x58 (the hero's +0x10)
-	int m_hero; // +0x5C
-	unsigned char m_pad60[0x1AC - 0x60];
-
-	void setPlayerTemplate(int playerTemplate);
-	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
-	int getTeamNumber() const { return m_team; }
-	int getState() const { return m_state; }
-	int getHeroKey0c() const { return m_hero0c; }
-	int getHeroKey10() const { return m_hero10; }
-	int getStartPos() const { return m_10; }
-
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
 class Rva003821B9AsciiField
@@ -138,31 +100,6 @@ public:
 };
 
 // The slot's +0x5C setter (rowed as a Disp8 dword setter).
-class GameInfo
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual bool v12();
-	virtual int v13();
-	virtual void v14();
-	virtual void v15();
-
-	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
-	AsciiString getMap() const;
-	void setMap(AsciiString map);
-
-	unsigned char m_pad04[0x58 - 0x04];
-	int m_58; // +0x58
-	unsigned char m_pad5c[0x8C - 0x5C];
-	bool m_8c; // +0x8C
-	unsigned char m_pad8d[0xCC - 0x8D];
-	unsigned char m_digest[16]; // +0xCC
-
-	bool isLocked() const { return m_8c; }
-};
 
 // Unrowed 0x00300E42 (cdecl; whether the game's map starts with the map
 // cache's 0x00300D7A folder name, through startsWithNoCase), pinned by
@@ -1036,7 +973,7 @@ bool AptMpGameSetup::rva0043FC1F(int kind, bool reset)
 	if (m_owner->v01())
 	{
 		((Rva00381CED *)game)->rva00381CED(&m_rules);
-		game->v14();
+		game->resetAccepted();
 		for (int slot = 0; slot < 8; ++slot)
 			UpdateReadyIcon(slot);
 		m_owner->v02();
@@ -1090,7 +1027,7 @@ void AptMpGameSetup::OnReadyPress(const char *slotText)
 	if (!slot)
 		return;
 
-	bool ready = !slot->m_accepted;
+	bool ready = !slot->m_isAccepted;
 	if (ready)
 	{
 		int mode = m_rules.m_04;
@@ -1102,7 +1039,7 @@ void AptMpGameSetup::OnReadyPress(const char *slotText)
 				MessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("CLAN:ErrorMissingClanAffiliation"), 0);
 				ready = false;
 			}
-			else if ((unsigned int)slot->m_team >= 2)
+			else if ((unsigned int)slot->m_teamNumber >= 2)
 			{
 				MessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("CLAN:ErrorOnlyTwoClans"), 0);
 				ready = false;
@@ -1130,13 +1067,13 @@ bool AptMpGameSetup::rva0043E1CC(int which)
 			int value = ((AptMapPreview *)&m_60)->GetCurrentStrategicScenario();
 			if (game)
 			{
-				if (game->m_8c)
+				if (game->m_field8C)
 					return false;
 				if (m_owner->v01())
 				{
-					game->v14();
-					game->v15();
-					game->m_58 = value;
+					game->resetAccepted();
+					game->resetStartSpots();
+					game->m_field58 = value;
 				}
 			}
 			m_2c0 = true;
@@ -1181,7 +1118,7 @@ bool AptMpGameSetup::Init(GameInfo *game, int value)
 		PopulatePlayerTemplateCombo(slot);
 		rva0043F244(slot, false);
 		PopulateHeroCombo(slot);
-		if (game->m_8c)
+		if (game->m_field8C)
 			m_player[slot]->winEnable(false);
 		else
 			m_player[slot]->winEnable(host);
@@ -1602,7 +1539,7 @@ void AptMpGameSetup::UpdateClans()
 		}
 		else
 			team = (unsigned int)-1;
-		if (slot->m_team != (int)team)
+		if (slot->m_teamNumber != (int)team)
 		{
 			m_owner->applySlotTeam(slot, team);
 			m_2b9 = true;
@@ -1702,7 +1639,7 @@ int AptMpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned i
 					m_2b9 = true;
 					break;
 				}
-				else if (control == m_player[i] && game->v12())
+				else if (control == m_player[i] && game->amIHost())
 				{
 					rva00442A68(i);
 					m_2b9 = true;
@@ -1755,7 +1692,7 @@ int AptMpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned i
 			if (playerIdxInPos >= 0)
 			{
 				GameSlot *slot = game->getSlot(playerIdxInPos);
-				if (playerIdxInPos == game->v13() || (game->v12() && slot && slot->isAI()))
+				if (playerIdxInPos == game->getLocalSlotNum() || (game->amIHost() && slot && slot->isAI()))
 				{
 					int nextPlayer;
 					if (msg == 0x4008)

@@ -11,41 +11,12 @@
 
 class GameWindow;
 
-class GameSlot
-{
-public:
-	char m_pad0[0x10]; // +0x00..+0x0F
-	int m_10; // +0x10 slot tag compared against the value
-	char m_pad1[0x20 - 0x14]; // +0x14..+0x1F
-	void *m_item; // +0x20 compared against combo item data
-
-	bool isAI() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class GameSlot;
 
 // Slots 12 and 13 sit where Zero Hour's GameInfo declares amIHost and
 // getLocalSlotNum; the names are carried from that donor.
-class GameInfo
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual bool amIHost();
-	virtual int getLocalSlotNum();
-
-	GameSlot *getSlot(int slot);
-};
 
 // Layout mirrors Code/GameEngine/Source/Common/Rva0043DA65Getter.cpp
 // (vptr + two ints); only rva0043DA65 is called here.
@@ -135,7 +106,7 @@ bool Rva0043E0C5::rva0043E0C5(int index)
 	GameSlot *slot = info->getSlot(index);
 	if (slot == 0)
 		return false;
-	if (data == slot->m_item)
+	if ((int)data == slot->m_field20)
 		return false;
 	return m_target->v5(slot, data);
 }
@@ -152,14 +123,14 @@ bool Rva0043E0C5::rva0043E132(int index, int value)
 	GameSlot *slot = info->getSlot(index);
 	if (slot == 0)
 		return false;
-	if (value == slot->m_10)
+	if (value == slot->m_startPos)
 		return false;
 	if (value >= 0) {
 		for (int i = 0; i < 8; ++i) {
 			if (i == index)
 				continue;
 			GameSlot *other = info->getSlot(i);
-			if (other != 0 && other->m_10 == value)
+			if (other != 0 && other->m_startPos == value)
 				return false;
 		}
 	}
@@ -191,7 +162,7 @@ void Rva0043E0C5::rva0043E6C9(Rva0043E6C9Arg *arg)
 	int found = -1;
 	for (int i = 0; i < 8; ++i) {
 		GameSlot * ci_getSlot = info->getSlot(i);
-		if (ci_getSlot->m_10 == value) {
+		if (ci_getSlot->m_startPos == value) {
 			found = i;
 			break;
 		}

@@ -4,12 +4,7 @@
 // else true, then (this+0xD0)->rva0057E59B(8, enable) via rowed 0x0057E59B.
 // Evidence: packet disasm with rowed callee, TheGameInfo extern in use,
 // caller 0x00443EA8, prev/next rows.
-class GameInfo
-{
-public:
-	char m_pad0[0x7C]; // +0x00..+0x7B
-	int m_7C; // +0x7C type 1/2 check
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 
 class Rva0057E97A
@@ -29,5 +24,5 @@ private:
 
 void Rva0043DBE0::rva0043DBE0()
 {
-	m_rva.rva0057E59B(8, TheGameInfo->m_7C != 1 && TheGameInfo->m_7C != 2);
+	m_rva.rva0057E59B(8, TheGameInfo->m_field60[7] != 1 && TheGameInfo->m_field60[7] != 2);
 }

@@ -17,36 +17,7 @@ class RealTimeStatsPreferences:public ProfilePreferences {
  public: RealTimeStatsPreferences(const UnicodeString&);virtual ~RealTimeStatsPreferences();
 };
 
-class GameSlot {
- public:virtual void reset(); bool isAI()const;bool isOccupied()const;
- int getState()const{return state;} int getPlayerTemplate()const{return playerTemplate;}
- int state; char gap08[16];int playerTemplate;
-};
-class GameInfo {
- public:
- virtual void v0();
- virtual void v1();
- virtual void v2();
- virtual void v3();
- virtual void v4();
- virtual void v5();
- virtual void v6();
- virtual void v7();
- virtual void v8();
- virtual void v9();
- virtual void va();
- virtual void vb();
- virtual void vc();
- virtual void vd();
- virtual void ve();
- virtual void vf();
- virtual void v10();
- virtual void v11();
- virtual void v12();
- virtual void v13();
- virtual bool isSandbox();
- const GameSlot*getConstSlot(int)const;int getMaxPlayers();
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 class PlayerTemplate {public:const AsciiString&getSide()const{return side;} char prefix[24];AsciiString side;};
 class PlayerTemplateStore {public:const PlayerTemplate*getNthPlayerTemplate(int)const;};
 class VictoryConditionsInterface {public:

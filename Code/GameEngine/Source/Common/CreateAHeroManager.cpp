@@ -107,25 +107,7 @@ public:
 	NameKeyType nameToKey(const AsciiString &name);		// 0x0009FA65
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class GameSlot
-{
-public:
-	const AsciiString &getPlayerName() const { return m_playerName; }
-	const CreateAHeroHero *getHero() const { return m_hasHero ? &m_hero : 0; }
-
-private:
-	unsigned char m_pad00[0x34];
-	AsciiString m_playerName;				// +0x34
-	unsigned char m_pad38[0x60 - 0x38];
-	Bool m_hasHero;						// +0x60
-	unsigned char m_pad61[0x64 - 0x61];
-	CreateAHeroHero m_hero;					// +0x64
-};
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int index);				// 0x003FF29F
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 // init's INI load: the file goes through INI::loadFile with the subsystem
 // list's xfer (+0x24) when TheSubsystemList (VA 0x00DFD940) exists.
