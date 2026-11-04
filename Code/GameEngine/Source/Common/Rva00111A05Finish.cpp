@@ -6,23 +6,16 @@
 // RGBA through1118EC at factors1,2,4,8,16,32,64 into packed16-bit buffers.
 extern "C" void __cdecl Rva001118ECResampleRgb555(
     const unsigned char *,int,int,unsigned short *);
-class TileData {
-    unsigned char prefix[8];
-    unsigned short mip64[64*64],mip32[32*32],mip16[16*16],mip8[8*8];
-    unsigned short mip4[4*4],mip2[2*2],mip1[1];
-public:
-    void rva00111A05(const unsigned char *source,int stride);
-};
-// ?TileData::rva00111A05 present-unmatched
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TileDataClass.h"
 void TileData::rva00111A05(const unsigned char *source,int stride)
 {
-    Rva001118ECResampleRgb555(source,stride,1,mip64);
-    Rva001118ECResampleRgb555(source,stride,2,mip32);
-    Rva001118ECResampleRgb555(source,stride,4,mip16);
-    Rva001118ECResampleRgb555(source,stride,8,mip8);
-    Rva001118ECResampleRgb555(source,stride,16,mip4);
-    Rva001118ECResampleRgb555(source,stride,32,mip2);
-    Rva001118ECResampleRgb555(source,stride,64,mip1);
+    Rva001118ECResampleRgb555(source,stride,1,reinterpret_cast<unsigned short *>(m_tileData));
+    Rva001118ECResampleRgb555(source,stride,2,reinterpret_cast<unsigned short *>(m_tileDataMip32));
+    Rva001118ECResampleRgb555(source,stride,4,reinterpret_cast<unsigned short *>(m_tileDataMip16));
+    Rva001118ECResampleRgb555(source,stride,8,reinterpret_cast<unsigned short *>(m_tileDataMip8));
+    Rva001118ECResampleRgb555(source,stride,16,reinterpret_cast<unsigned short *>(m_tileDataMip4));
+    Rva001118ECResampleRgb555(source,stride,32,reinterpret_cast<unsigned short *>(m_tileDataMip2));
+    Rva001118ECResampleRgb555(source,stride,64,reinterpret_cast<unsigned short *>(m_tileDataMip1));
 }
 
 // Pending pin: _Rva001118ECResampleRgb555 ->0x001118EC; full281B helper independently decoded.
