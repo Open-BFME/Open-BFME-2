@@ -72,21 +72,47 @@ void ObjectFilter::DoTemplatesXfer(Xfer *xfer,
 }
 
 // Existing verified 218-bit flag provider; only its member ABI is used here.
-template<int N> class BitFlags {
+template <int NUMBITS>
+class BitFlags
+{
 public:
- void xfer(Xfer *); bool any() const; bool test(const void *) const;
- bool testSetAndClear(const BitFlags &, const BitFlags &) const;
+	static int getSingleBitFromName(const char *token);
+	void xfer(Xfer *);
+	bool any() const;
+	bool test(const void *) const;
+	bool testSetAndClear(const BitFlags &, const BitFlags &) const;
 };
 // Existing constructor/destructor/equality own this nonvirtual 0x94-byte
 // interned record. Offset views below come from this retail transfer and are
 // consistent with those providers; no new record identity is asserted.
+typedef unsigned int UnsignedInt;
+typedef _STL::vector<AsciiString> AsciiStringVector;
+class ModuleData;
+struct BfmeAttributeBits
+{
+	UnsignedInt m_values[7];	// BitFlags<218>
+};
 class Rva00360F55
 {
 public:
-    Rva00360F55();
-    ~Rva00360F55();
-    bool rva00360E64(const Rva00360F55 &);
-    char bytes[0x94];
+	Rva00360F55();
+	~Rva00360F55();
+	bool rva00360E64(const Rva00360F55 &other);
+
+	AsciiStringVector m_inclusionNames;							// +0x00
+	AsciiStringVector m_exclusionNames;							// +0x0C
+	_STL::vector<const ModuleData *> m_inclusionSTemplates;	// +0x18
+	_STL::vector<const ModuleData *> m_exclusionSTemplates;	// +0x24
+	_STL::vector<const ModuleData *> m_inclusionTemplates;		// +0x30
+	_STL::vector<const ModuleData *> m_exclusionTemplates;		// +0x3C
+	BfmeAttributeBits m_firstPlain;		// +0x48
+	BfmeAttributeBits m_secondPlain;	// +0x64
+	UnsignedInt m_kind;					// +0x80
+	UnsignedInt m_relationship;			// +0x84
+	bool m_enabled;						// +0x88
+	unsigned char m_pad89[3];
+	UnsignedInt m_useCount;				// +0x8C
+	UnsignedInt m_alignment;			// +0x90
 };
 int Rva00361790(Rva00360F55*);
 extern unsigned char*g_validityBegin;extern unsigned char*g_validityEnd;
@@ -109,24 +135,24 @@ void ObjectFilter::DoXfer(Xfer *xfer)
     }
     else
         data = &temp;
-    (*xfer == *reinterpret_cast<bool *>(data->bytes + 0x88));
-    (*xfer == *reinterpret_cast<int *>(data->bytes + 0x80));
-    reinterpret_cast<BitFlags<218> *>(data->bytes + 0x48)->xfer(xfer);
-    reinterpret_cast<BitFlags<218> *>(data->bytes + 0x64)->xfer(xfer);
-    (*xfer == *reinterpret_cast<int *>(data->bytes + 0x84));
+    (*xfer == data->m_enabled);
+    (*xfer == reinterpret_cast<int &>(data->m_kind));
+    reinterpret_cast<BitFlags<218> *>(&data->m_firstPlain)->xfer(xfer);
+    reinterpret_cast<BitFlags<218> *>(&data->m_secondPlain)->xfer(xfer);
+    (*xfer == reinterpret_cast<int &>(data->m_relationship));
     if (xfer->IsStoring())
     {
         DoTemplatesXfer(xfer,
-            reinterpret_cast<_STL::vector<ThingTemplate *> *>(data->bytes + 0x18),
-            reinterpret_cast<_STL::vector<ThingTemplate *> *>(data->bytes + 0x30));
+            reinterpret_cast<_STL::vector<ThingTemplate *> *>(&data->m_inclusionSTemplates),
+            reinterpret_cast<_STL::vector<ThingTemplate *> *>(&data->m_inclusionTemplates));
         DoTemplatesXfer(xfer,
-            reinterpret_cast<_STL::vector<ThingTemplate *> *>(data->bytes + 0x24),
-            reinterpret_cast<_STL::vector<ThingTemplate *> *>(data->bytes + 0x3C));
+            reinterpret_cast<_STL::vector<ThingTemplate *> *>(&data->m_exclusionSTemplates),
+            reinterpret_cast<_STL::vector<ThingTemplate *> *>(&data->m_exclusionTemplates));
     }
     else
     {
-        DoNamesXfer(xfer, reinterpret_cast<_STL::vector<AsciiString> *>(data->bytes));
-        DoNamesXfer(xfer, reinterpret_cast<_STL::vector<AsciiString> *>(data->bytes + 0x0C));
+        DoNamesXfer(xfer, &data->m_inclusionNames);
+        DoNamesXfer(xfer, &data->m_exclusionNames);
         rva003611EFResolveNames(reinterpret_cast<ObjectFilter *>(data));
         int count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360F55);
         for (int i = 0; i < count; ++i)
@@ -139,7 +165,7 @@ void ObjectFilter::DoXfer(Xfer *xfer)
         }
     }
     if (version.current >= 2)
-        (*xfer == *reinterpret_cast<int *>(data->bytes + 0x90));
+        (*xfer == reinterpret_cast<int &>(data->m_alignment));
 }
 
 class Team;
@@ -164,7 +190,7 @@ bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player,
  if(m_objectFilterSlot00 >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
  if(m_objectFilterSlot00 == -1) m_objectFilterSlot00=Rva00361790(&Rva00360F55());
  Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
- int alignment=*reinterpret_cast<int*>(data->bytes+0x90);
+ int alignment=data->m_alignment;
  if(alignment) {
   bool flag=player->playerTemplate->alignment;
   switch(alignment) {
@@ -173,24 +199,24 @@ bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player,
   }
  }
  
- if((*reinterpret_cast<int*>(data->bytes+0x84))) {
+ if(data->m_relationship) {
   if(!player || !context) return false;
   switch(context->getRelationship(player->team)) {
    case Relationship2:
-    if(!((*reinterpret_cast<int*>(data->bytes+0x84))&1) && !(context->playerID==player->playerID && ((*reinterpret_cast<int*>(data->bytes+0x84))&8))) return false;
+    if(!(data->m_relationship&1) && !(context->playerID==player->playerID && (data->m_relationship&8))) return false;
     break;
-   case Relationship0: if(!((*reinterpret_cast<int*>(data->bytes+0x84))&2)) return false; break;
-   case Relationship1: if(!((*reinterpret_cast<int*>(data->bytes+0x84))&4)) return false; break;
+   case Relationship0: if(!(data->m_relationship&2)) return false; break;
+   case Relationship1: if(!(data->m_relationship&4)) return false; break;
    default: return false;
   }
  }
- BitFlags<218> *reject=reinterpret_cast<BitFlags<218>*>(data->bytes+0x64);
+ BitFlags<218> *reject=reinterpret_cast<BitFlags<218>*>(&data->m_secondPlain);
  if(reject->any() && reinterpret_cast<BitFlags<69>*>(reject)->test(kindOf)) return false;
- int &mode=*reinterpret_cast<int*>(data->bytes+0x80);
+ int &mode=reinterpret_cast<int &>(data->m_kind);
 
  switch(mode) {
-  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(kindOf)) return true; break; }
-  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<const BitFlags<116>*>(kindOf)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
+  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(&data->m_firstPlain); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(kindOf)) return true; break; }
+  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(&data->m_firstPlain); if(require->any() && reinterpret_cast<const BitFlags<116>*>(kindOf)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
   case 0: mode=3; break;
  }
  bool result=mode==3; return result;
@@ -205,7 +231,7 @@ bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player
  if(m_objectFilterSlot00 >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
  if(m_objectFilterSlot00 == -1) m_objectFilterSlot00=Rva00361790(&Rva00360F55());
  Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
- int alignment=*reinterpret_cast<int*>(data->bytes+0x90);
+ int alignment=data->m_alignment;
  if(alignment) {
   bool flag=player->playerTemplate->alignment;
   switch(alignment) {
@@ -214,48 +240,48 @@ bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player
   }
  }
  
- if((*reinterpret_cast<int*>(data->bytes+0x84))) {
+ if(data->m_relationship) {
   if(!player || !context) return false;
   switch(context->getRelationship(player->team)) {
    case Relationship2:
-    if(!((*reinterpret_cast<int*>(data->bytes+0x84))&1) && !(context->playerID==player->playerID && ((*reinterpret_cast<int*>(data->bytes+0x84))&8))) return false;
+    if(!(data->m_relationship&1) && !(context->playerID==player->playerID && (data->m_relationship&8))) return false;
     break;
-   case Relationship0: if(!((*reinterpret_cast<int*>(data->bytes+0x84))&2)) return false; break;
-   case Relationship1: if(!((*reinterpret_cast<int*>(data->bytes+0x84))&4)) return false; break;
+   case Relationship0: if(!(data->m_relationship&2)) return false; break;
+   case Relationship1: if(!(data->m_relationship&4)) return false; break;
    default: return false;
   }
  }
  {
-  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x18);
+  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(&data->m_inclusionSTemplates);
   int count=list->size();
   for(int i=0;i<count;++i)
    if(thingTemplate->m_nameString.compare((*list)[i]->m_nameString)==0) return true;
  }
  {
-  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x24);
+  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(&data->m_exclusionSTemplates);
   int count=list->size();
   for(int i=0;i<count;++i)
    if(thingTemplate->m_nameString.compare((*list)[i]->m_nameString)==0) return false;
  }
  {
-  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x30);
+  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(&data->m_inclusionTemplates);
   int count=list->size();
   for(int i=0;i<count;++i)
    if(thingTemplate->isEquivalentTo((*list)[i])) return true;
  }
  {
-  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x3c);
+  const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(&data->m_exclusionTemplates);
   int count=list->size();
   for(int i=0;i<count;++i)
    if(thingTemplate->isEquivalentTo((*list)[i])) return false;
  }
- BitFlags<218> *reject=reinterpret_cast<BitFlags<218>*>(data->bytes+0x64);
+ BitFlags<218> *reject=reinterpret_cast<BitFlags<218>*>(&data->m_secondPlain);
  if(reject->any() && reinterpret_cast<BitFlags<69>*>(reject)->test(thingTemplate->m_kindof)) return false;
- int &mode=*reinterpret_cast<int*>(data->bytes+0x80);
+ int &mode=reinterpret_cast<int &>(data->m_kind);
 
  switch(mode) {
-  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(thingTemplate->m_kindof)) return true; break; }
-  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<const BitFlags<116>*>(thingTemplate->m_kindof)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
+  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(&data->m_firstPlain); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(thingTemplate->m_kindof)) return true; break; }
+  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(&data->m_firstPlain); if(require->any() && reinterpret_cast<const BitFlags<116>*>(thingTemplate->m_kindof)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
   case 0: mode=3; break;
  }
  bool result=mode==3; return result;

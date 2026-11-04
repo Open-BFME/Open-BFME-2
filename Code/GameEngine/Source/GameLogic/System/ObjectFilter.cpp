@@ -76,11 +76,17 @@ class INI;
 
 typedef _STL::vector<AsciiString> AsciiStringVector;
 
+class Xfer;
+
 template <int NUMBITS>
 class BitFlags
 {
 public:
 	static int getSingleBitFromName(const char *token);
+	void xfer(Xfer *);
+	bool any() const;
+	bool test(const void *) const;
+	bool testSetAndClear(const BitFlags &, const BitFlags &) const;
 };
 
 struct BfmeAttributeBits
