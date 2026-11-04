@@ -20,18 +20,7 @@ enum NetCommandType
 #include "../../Include/Common/MessageStream.h"
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
-
-class NetGameCommandMsg : public NetCommandMsg
-{
-public:
-	NetGameCommandMsg(GameMessage *msg);
-private:
-	Int m_numArgs;
-	Int m_argSize;
-	Int m_type;
-	void *m_argList;
-	void *m_argTail;
-};
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 
 #include "../Common/GameLogicObjectLookupView.h"
 

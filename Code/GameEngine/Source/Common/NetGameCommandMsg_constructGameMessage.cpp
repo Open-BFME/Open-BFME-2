@@ -98,35 +98,25 @@ struct ArgNode
 	int m_type;
 };
 
-class NetGameCommandMsg
-{
-public:
-	GameMessage *constructGameMessage();
-private:
-	char m_pad00[0x0c];
-	int m_slot;
-	char m_pad10[0x14];
-	void *m_msgType;
-	ArgNode *m_head;
-};
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 
 GameMessage *NetGameCommandMsg::constructGameMessage()
 {
 	GameInfo *gi = TheGameInfo;
 	if (gi == 0)
 		return 0;
-	if (gi->getSlot(m_slot) == 0)
+	if (gi->getSlot(m_playerID) == 0)
 		return 0;
-	GameSlot *slot = TheGameInfo->getSlot(m_slot);
+	GameSlot *slot = TheGameInfo->getSlot(m_playerID);
 	NameKeyType key = TheNameKeyGenerator->nameToKey(slot->m_field34);
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player == 0)
 		return 0;
-	GameMessage *msg = (GameMessage *)new Rva0030F47A(m_msgType);
+	GameMessage *msg = (GameMessage *)new Rva0030F47A((void *)m_type);
 	if (msg != 0)
 	{
 		msg->m_14 = player->m_54;
-		for (ArgNode *node = m_head; node != 0; node = node->m_next)
+		for (ArgNode *node = (ArgNode *)m_argList; node != 0; node = node->m_next)
 		{
 			int type = node->m_type;
 			if (type == 0)

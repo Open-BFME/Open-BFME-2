@@ -77,21 +77,8 @@ typedef unsigned char UnsignedByte;
 
 extern const float g_00BC26EC;
 
-class NetCommandMsg
-{
-public:
-	unsigned int getTimestamp() const { return m_timestamp; }
-	unsigned int getExecutionFrame() const { return m_executionFrame; }
-	int getNetCommandType() const { return m_commandType; }
-	void *m_vptr; // +0x00 +0x00
-	unsigned int m_timestamp; // +0x04 +0x04
-	unsigned int m_executionFrame; // +0x08 +0x08
-	unsigned int m_playerID; // +0x0C +0x0C
-	unsigned short m_id; // +0x10 +0x10
-	char m_pad12[0x2];
-	int m_commandType; // +0x14 +0x14
-	int m_referenceCount; // +0x18 +0x18
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 
 class NetCommandRef
 {
@@ -162,12 +149,6 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 
 class GameMessage;
-
-class NetGameCommandMsg : public NetCommandMsg
-{
-public:
-	GameMessage *constructGameMessage();
-};
 
 class NetPacket;
 
