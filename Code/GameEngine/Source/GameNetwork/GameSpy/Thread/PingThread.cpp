@@ -302,9 +302,9 @@ namespace _STL { template <> void _Destroy<BfmePod16>(BfmePod16 *); }
 
 template _STL::deque<BfmePod16, _STL::allocator<BfmePod16> >::~deque();
 
-// Inline _String_base<char>'s dtor everywhere so this unit emits no copy of
-// its own; the kept retail copy serves any out-of-line call.
-namespace _STL { template <> __declspec(dllimport) __declspec(nothrow) __forceinline
+// Keep base cleanup inline in callers and expose its ordinary symbol to
+// compiler-generated unwind actions when getPing joins this TU.
+namespace _STL { template <> __declspec(nothrow) __forceinline
 _String_base<char, allocator<char> >::~_String_base() { _M_deallocate_block(); } }
 
 // Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
@@ -501,7 +501,6 @@ class BuddyResponse { char m_bfmeBody[0x864]; };
 template _STL::deque<BuddyResponse>::~deque();
 
 // bfme link decl-only begin
-namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }
 
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(basic_string<char, char_traits<char>, allocator<char> > const &); }
 

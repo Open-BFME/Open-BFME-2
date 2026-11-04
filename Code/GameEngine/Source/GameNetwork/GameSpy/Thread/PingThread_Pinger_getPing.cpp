@@ -69,7 +69,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #undef free
 #pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 
-static const Int NumWorkerThreads = 10;
+static const int NumWorkerThreads = 10;
 typedef std::queue<PingRequest> RequestQueue;
 typedef std::queue<PingResponse> ResponseQueue;
 
