@@ -34,6 +34,20 @@ changes.
   at `8c757ea0db` (2026-11-04 17:56 UTC). This is a prediction, not a census gain.
 - `check_csv.py` passes (99,450 function rows, 9,328 symbol rows, 2,268 data rows).
 
+The commit hook initially reports one shadow `wrong/unknown` binding for
+`??1Rva0029FB3BMember@@QAE@XZ` at 0x00268902. Its selected definition is the
+29-byte destructor in `Common/Rva004DF418Finish.cpp`; the cached object still
+references `g_freeList` even though the current source uses `g_freelistPool+8`.
+Building that unchanged provider through `./build.sh` passes all four rows.
+Repeating `allowed_symbols.py --source .../RousingSpeechUpdateBehaviorDtor.cpp`
+then reports three references (one owner, one fold, one alias) and zero wrong
+bindings. No source or register change is needed for this stale-object finding.
+
+Publication also rebased the preceding queued TBuff consolidation. Its
+Microsoft-header queue conflict is resolved by retaining both the upstream
+WeaponSet row and the TBuff row; the following existing TBuff verdict commit
+still retires only its own row. TBuff passes all 25 rows after resolution.
+
 ## Consolidation boundary
 
 Both the initial and final supported merge dry runs accepted zero of four
