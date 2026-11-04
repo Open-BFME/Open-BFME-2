@@ -3,7 +3,10 @@
 // The named INI token/table/exception providers and retail Color/Name/Fuel/
 // MaxBurnRate/Decay/Resistance descriptors establish field-parser purpose.
 // A normal local static aggregate owns its compiler-generated lazy guard.
-#include <stdlib.h>
+// Keep the retail IAT call when the containing TU clears the CRT's _CRTIMP.
+namespace FireLogicCRT {
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+}
 class INI;
 typedef void (*INIFieldParseProc)(INI *,void *,void *,const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
@@ -12,7 +15,7 @@ static inline const void *materialMask(unsigned mask) { return reinterpret_cast<
 void Rva00285FA9Parse(INI *ini,void *,void *store,const void *) {
  const char *token=ini->getNextToken(0);
  if(!token) throw INIException(3,"TerrainCellType index expected.");
- int index=atoi(token);
+ int index=FireLogicCRT::atoi(token);
  if(index<0 || index>=4) throw INIException(3,"TerrainCellType index out of valid range.");
  static const FieldParse fields[]={
   {"Color",INI::parseColorInt,0,0},
