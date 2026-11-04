@@ -122,6 +122,7 @@ extern ActionManager *TheActionManager;
 
 extern GameLogic *TheGameLogic;
 
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
@@ -139,19 +140,7 @@ public:
 	virtual bool rva0049A973(Object *obj, int arg2) = 0;
 };
 
-class HordeAIUpdate : public AIUpdateInterface, public HordeAIInterface3E4
-{
-protected:
-	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource);
-public:
-	virtual bool rva0049A973(Object *obj, int arg2);
-	virtual UpdateSleepTime update();
-	virtual void aiDoCommand(const AICommandParms *parms);
-	bool commandCancelsPorcupineFormation(const AICommandParms *parms);
-	bool porcupineFormationIgnoresCommand(const AICommandParms *parms);
-protected:
-	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource);
-};
+#include "../../../../../Include/GameLogic/Module/HordeAIUpdate.h"
 
 // Placeholder owners of two rowed HordeWorkerAIUpdate helpers whose names
 // are not recovered: 0x0049ADB7 (the ObjectID check sibling of 0x0049AE5E)
