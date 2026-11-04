@@ -4,9 +4,12 @@
 // Objective 0x004E4446 and PlayerColor 0x004E45FA in same TU family; same
 // m_state +0x288 zero check and row range 0-12 and bool skip as Objective;
 // same GetNthVisibleObjectiveIndex index plus TheMissionObjectiveTracker list plus Rva004266A1 text record.
+// Retail calls the CRT import thunk directly, as the containing TU does.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
 #include "ascii_string.h"
-
-extern "C" char *__cdecl _mbscpy(char *destination, const char *source);
 
 int __cdecl GetNthVisibleObjectiveIndex(int row);
 
@@ -47,7 +50,8 @@ void AptPlayerStatus::ExternsObjective(int row, char *result, bool skip)
 		if (!tmp.isEmpty() && tmp.getLength() + 2 < 0xFF)
 		{
 			result[0] = '$';
-			_mbscpy(result + 1, tmp.str());
+			_mbscpy(reinterpret_cast<unsigned char *>(result + 1),
+				reinterpret_cast<const unsigned char *>(tmp.str()));
 		}
 	}
 }
