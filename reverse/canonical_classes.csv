@@ -656,3 +656,4 @@ AttributeModifierAuraUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/A
 HashableClass,Code/Libraries/Source/WWVegas/WWLib/HashableClass.h,existing header; contract class_contracts/HashableClass.json; 6/9 sampled units adopt
 HashTableClass,Code/Libraries/Source/WWVegas/WWLib/HashableClass.h,existing header; contract class_contracts/HashTableClass.json; 3/4 sampled units adopt
 W3DShadowGeometry,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowGeometry.h,existing header; contract class_contracts/W3DShadowGeometry.json; 2/9 sampled units adopt
+Matrix4,Code/Libraries/Source/WWVegas/WWMath/Matrix4Data.h,existing header; contract class_contracts/Matrix4.json; 10/24 sampled units adopt
