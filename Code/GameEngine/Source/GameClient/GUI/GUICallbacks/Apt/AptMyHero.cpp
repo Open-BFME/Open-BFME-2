@@ -71,8 +71,10 @@ class Object;
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
 #include "../../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
-class Display {public: char pad000[0x141];bool field141;};
-extern Display *TheDisplay;
+#include "../../../../../Include/GameClient/Display.h"
+// Display keeps its +0x141 flag protected; this unit writes it through a view
+// of the real TheDisplay.
+struct DisplayFlag141View {char pad000[0x141];bool field141;};
 class GameWindowTransitionsHandler {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
@@ -1473,7 +1475,7 @@ void AptMyHero::rva005B21DA(CreateAHeroData *hero,bool flag,int mode){
    field14C=0;
    break;
   case 1:
-   TheDisplay->field141=true;
+   ((DisplayFlag141View *)TheDisplay)->field141=true;
    TheTransitionHandler->slot24();
    TheTransitionHandler->setGroup(TheCreateAHeroManager->field1E8,false);
    reinterpret_cast<Rva001DBB82OneSetter *>(TheTransitionHandler)->enable();

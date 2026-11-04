@@ -190,14 +190,7 @@ public:
 	virtual void releaseResources();
 };
 
-class Display
-{
-public:
-	SLOT_ROW(0) SLOT_ROW(1) SLOT_ROW(2)
-	virtual void slot30();
-	virtual void releaseResources();
-	virtual void reacquireResources();
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 #include "../../../../GameEngine/Include/GameClient/View.h"
 
@@ -295,7 +288,7 @@ void BaseHeightMapRenderObjClass::ReleaseResources()
 	if (m_roadBuffer)
 		m_roadBuffer->freeRoadBuffers();
 	if (TheDisplay)
-		TheDisplay->releaseResources();
+		TheDisplay->slot31();
 	complete->tail129();
 }
 
@@ -346,5 +339,5 @@ void BaseHeightMapRenderObjClass::ReAcquireResources()
 	}
 	rva000ABA2F();
 	if (TheDisplay)
-		TheDisplay->reacquireResources();
+		TheDisplay->slot32();
 }

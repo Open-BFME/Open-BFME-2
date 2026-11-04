@@ -165,32 +165,7 @@ public:
 		Int startX, Int startY, Int endX, Int endY );         // +0x110
 };
 
-class Display
-{
-public:
-	virtual void unused00(); virtual void unused01(); virtual void unused02(); virtual void unused03();
-	virtual void unused04(); virtual void unused05(); virtual void unused06(); virtual void unused07();
-	virtual void unused08(); virtual void unused09(); virtual void unused10(); virtual void unused11();
-	virtual void unused12(); virtual void unused13(); virtual void unused14(); virtual void unused15();
-	virtual void unused16(); virtual void unused17(); virtual void unused18(); virtual void unused19();
-	virtual void unused20(); virtual void unused21(); virtual void unused22(); virtual void unused23();
-	virtual void unused24(); virtual void unused25(); virtual void unused26(); virtual void unused27();
-	virtual void unused28(); virtual void unused29(); virtual void unused30(); virtual void unused31();
-	virtual void unused32(); virtual void unused33(); virtual void unused34(); virtual void unused35();
-	virtual void unused36(); virtual void unused37(); virtual void unused38(); virtual void unused39();
-	virtual void unused40(); virtual void unused41();
-	virtual void setClipRegion( IRegion2D *region );      // +0xA8
-	virtual void unused43();
-	virtual void enableClipping( Bool onoff );             // +0xB0
-	virtual void unused45(); virtual void unused46(); virtual void unused47();
-	virtual void unused48(); virtual void unused49(); virtual void unused50(); virtual void unused51();
-	virtual void unused52(); virtual void unused53(); virtual void unused54(); virtual void unused55();
-	virtual void unused56(); virtual void unused57(); virtual void unused58(); virtual void unused59();
-	virtual void unused60(); virtual void unused61(); virtual void unused62(); virtual void unused63();
-	virtual void unused64();
-	virtual void drawVideoBuffer( VideoBuffer *buffer, Real startX, Real startY,
-		Real endX, Real endY, Color color = -1 );             // +0x104
-};
+#include "../../../../../../GameEngine/Include/GameClient/Display.h"
 
 // Non-virtual float-coordinate members of the display, rowed under their
 // address names (W3DDisplayDrawImageMode.cpp and Rva000A4826Call.cpp).
@@ -307,7 +282,6 @@ inline Int BitTest( UnsignedInt bits, UnsignedInt mask )
 #define RADIAL_CLOCK_SCALE ( 46.0f / 48.0f )
 
 extern GameWindowManager *TheWindowManager;
-extern Display *TheDisplay;
 extern ImageCollection *TheMappedImageCollection;
 extern PlayerList *ThePlayerList;
 // Retail's DIR32 references use the GameClient-owned slot at VA 0x00DFE758.
@@ -575,7 +549,7 @@ void W3DGadgetPushButtonImageDrawThree( GameWindow *window, WinInstanceData *ins
 	// if we have a video buffer, draw the video buffer
 	if ( instData->m_videoBuffer )
 	{
-		TheDisplay->drawVideoBuffer( instData->m_videoBuffer, start.x, start.y, start.x + size.x, start.y + size.y );
+		TheDisplay->slot65( (Image *)instData->m_videoBuffer, start.x, start.y, start.x + size.x, start.y + size.y, -1 );
 	}
 
 	PushButtonData *pData = (PushButtonData *)window->winGetUserData();
@@ -743,7 +717,7 @@ void W3DGadgetPushButtonDraw( GameWindow *window, WinInstanceData *instData )
 	// if we have a video buffer, draw the video buffer
 	if ( instData->m_videoBuffer )
 	{
-		TheDisplay->drawVideoBuffer( instData->m_videoBuffer, origin.x, origin.y, origin.x + size.x, origin.y + size.y );
+		TheDisplay->slot65( (Image *)instData->m_videoBuffer, origin.x, origin.y, origin.x + size.x, origin.y + size.y, -1 );
 	}
 
 	PushButtonData *pData = (PushButtonData *)window->winGetUserData();
@@ -904,7 +878,7 @@ void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instD
 		// if we have a video buffer, draw the video buffer
 		if ( instData->m_videoBuffer )
 		{
-			TheDisplay->drawVideoBuffer( instData->m_videoBuffer, start.x, start.y, start.x + size.x, start.y + size.y );
+			TheDisplay->slot65( (Image *)instData->m_videoBuffer, start.x, start.y, start.x + size.x, start.y + size.y, -1 );
 		}
 
 		PushButtonData *pData = (PushButtonData *)window->winGetUserData();

@@ -103,15 +103,7 @@ private:
 #include "string_base.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Display.h
-class Display
-{
-public:
-	virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
-	virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9();
-	virtual void update();  // BFME 2 +0x28
-	virtual void slot11();
-	virtual void draw();    // BFME 2 +0x30
-};
+#include "../../../Include/GameClient/Display.h"
 
 extern NetworkInterface *TheNetwork;
 
@@ -127,7 +119,6 @@ extern GameWindowManager *TheWindowManager;
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-extern Display *TheDisplay;
 
 extern void setFPMode();
 
@@ -332,7 +323,7 @@ void LoadScreen::update(int)
 		TheWindowManager->update();
 		g_bfmeAptWindowManager->update();
 		TheDisplay->update();
-		TheDisplay->draw();
+		TheDisplay->vslot12();
 	}
 	setFPMode();
 }

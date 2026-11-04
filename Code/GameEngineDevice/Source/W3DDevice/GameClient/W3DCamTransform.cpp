@@ -275,14 +275,7 @@ public:
 class CameraShakeSystemClass {public:void Update_Camera_Shaker(Vector3,Vector3 *);};
 class Rva0065CA4 {public:void rva00065E3C(float);};
 extern CameraShakeSystemClass CameraShakerSystem;
-class Display {public:
-    PAD_VIRTUALS10(d0) PAD_VIRTUALS10(d1) PAD_VIRTUALS10(d2) PAD_VIRTUALS10(d3)
-    PAD_VIRTUALS10(d4) PAD_VIRTUALS10(d5) PAD_VIRTUALS10(d6) PAD_VIRTUALS10(d7)
-    virtual void d80();virtual void d81();virtual void d82();virtual void d83();
-    virtual void d84();virtual void d85();virtual void d86();virtual void d87();
-    virtual bool isLetterBoxed();
-};
-extern Display *TheDisplay;
+#include "Code/GameEngine/Include/GameClient/Display.h"
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class Rva00358752Opaque {public:Object *lookupUnitByValue(AsciiString);};
@@ -520,7 +513,7 @@ void Rva00102F83Owner::rva00102F83(Rva0010274F *cameraState)
     // Use scripts to switch to useRealZoomCam
     if(cameraState->realZoom) {
         float pitchAdjust=1.0f;
-        if(!TheDisplay->isLetterBoxed()) {
+        if(!TheDisplay->slot88()) {
             float capped=cameraState->zoom;
             if(capped>1.0f)capped=1.0f;
             if(capped<0.5f)capped=0.5f;

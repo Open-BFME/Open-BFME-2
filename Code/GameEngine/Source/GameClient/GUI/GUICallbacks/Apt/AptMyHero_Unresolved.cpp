@@ -82,8 +82,10 @@ class Object;
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
 #include "../../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
-class Display {public: char pad000[0x141];bool field141;};
-extern Display *TheDisplay;
+#include "../../../../../Include/GameClient/Display.h"
+// Display keeps its +0x141 flag protected; this unit writes it through a view
+// of the real TheDisplay.
+struct DisplayFlag141View {char pad000[0x141];bool field141;};
 class GameWindowTransitionsHandler {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
@@ -267,7 +269,7 @@ void AptMyHero::FrameUpdate() {
   break;
  case 2:
   if(TheTransitionHandler->isFinished()) {
-   TheTransitionHandler->slot24();TheWindowManager->slot28();field14C=0;TheDisplay->field141=false;
+   TheTransitionHandler->slot24();TheWindowManager->slot28();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
   }
   break;
  }
