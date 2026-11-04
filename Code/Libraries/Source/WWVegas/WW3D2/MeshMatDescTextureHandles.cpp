@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later
@@ -7,17 +7,12 @@
 // BFME2 owning-handle type follows matched MeshMatDescClass::Get_Single_Texture
 // and MeshModelClass texture accessors; target Remap_Mesh 0x16F35C proves the
 // hidden return ABI. Target TextureArray +0xC8, single texture handles +0x78.
+#include "MeshMatDescClass.h"
+
 class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass : public TextureBaseClass {
 public:
-    void Add_Ref();
-};
-template<class T> class RefCountPtr {
-public:
-    T *p;
-    RefCountPtr() : p(0) {}
-    __declspec(dllimport) __forceinline RefCountPtr(RefCountPtr const &other) : p(other.p) { if (p) ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(p)+4); }
-    ~RefCountPtr() { if (p) p->Release_Ref(); }
+    __declspec(dllimport) __forceinline void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this)+4); }
 };
 class TexBufferClass {
     char prefix[8];
@@ -30,14 +25,6 @@ RefCountPtr<TextureClass> TexBufferClass::Get_Element(int index)
 {
     return RawBuffer[index];
 }
-class MeshMatDescClass {
-    char padding_to_single_textures[0x78];
-    RefCountPtr<TextureClass> Texture[4][2];
-    char padding_to_texture_array[0x30];
-    TexBufferClass *TextureArray[4][2];
-public:
-    RefCountPtr<TextureClass> Get_Texture(int index, int pass, int stage) const;
-};
 RefCountPtr<TextureClass> MeshMatDescClass::Get_Texture(int index, int pass, int stage) const
 {
     if (TextureArray[pass][stage] != 0) {
