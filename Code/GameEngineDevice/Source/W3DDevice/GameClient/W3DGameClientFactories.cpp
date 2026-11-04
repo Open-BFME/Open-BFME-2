@@ -139,7 +139,7 @@ class Rva004C743
 {
 public:
 	void *rva0004C45D();
-	void *rva0004C492();
+	void *createInGameUI();
 	void *rva0004C4C7();
 	void *rva0004C553();
 	void *rva0004C5C6();
@@ -154,7 +154,7 @@ void *Rva004C743::rva0004C45D()
 	return new W3DDisplay;
 }
 
-void *Rva004C743::rva0004C492()
+void *Rva004C743::createInGameUI()
 {
 	return new Rva0008EF3FProduct;
 }

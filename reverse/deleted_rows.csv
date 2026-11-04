@@ -4747,3 +4747,4 @@ __ehhandler$?s5parse0059FB50@@YAXPAVINI@@PAUGen_00489270@@@Z,0x0077DDF5,"Renamed
 ?Rva003BAAD6@ScriptActions@@QAEXXZ,0x003BAAD6,"Renamed to ?doStopCameraFollowUnit@ScriptActions@@QAEXXZ by tools/rename.py (inferred)"
 ?rva000820CA@Rva000820CA@@QAEXPAXH@Z,0x000820CA,"Renamed to ?onRiverAreaTextureNameChanged@Rva000820CA@@QAEXPAXH@Z by tools/rename.py (inferred)"
 __ehhandler$?rva000820CA@Rva000820CA@@QAEXPAXH@Z,0x0075F5C2,"Renamed to __ehhandler$?onRiverAreaTextureNameChanged@Rva000820CA@@QAEXPAXH@Z by tools/rename.py (inferred)"
+?rva0004C492@Rva004C743@@QAEPAXXZ,0x0004C492,"Renamed to ?createInGameUI@Rva004C743@@QAEPAXXZ by tools/rename.py (inferred)"
