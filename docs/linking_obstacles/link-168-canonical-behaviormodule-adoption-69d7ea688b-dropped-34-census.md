@@ -255,6 +255,7 @@ merge; not tried). ThreatFinderUpdateDtor (canonical UpdateModule) and ThreatFin
 (private views, first in link order, held) differ in primary slots 1-4 and 12 and the
 update-interface slots 1-2: both views need the class's native overrides.
 2026-11-04: AudioLoopUpgrade's canonical sound-handle storage preserves 17/17 rows and a 680-byte link preview; [declaration prerequisites](../../reverse/attempt_support/audioloop-consolidation-prerequisites-20261104.md) remain; the include-checker fix landed and [normal UpdateModule acceptance retired both stale queue rows](../../reverse/attempt_support/audioloop-header-retirement-20261104.md), with byte and link-preservation checks passing for this source only.
+2026-11-04: [AudioLoopUpgrade xfer adopts the canonical UpgradeMux base](../../reverse/attempt_support/audioloop-xfer-upgrademux-adoption-20261104.md), retiring its header-queue row with 1/1 byte match and 72 -> 72 link-preview bytes; seed adoption and the other declaration prerequisites remain.
 Repair (2026-11-01, lk10, after `1f5e399716`): Rva0024A797Grandchildren.cpp's 1,280 B
 loss was not the Grandchildren view's fault. StructureToppleUpdate.cpp (a Zero Hour port
 whose only rows are two STLport helpers, link place 3720) still defined the Zero Hour
