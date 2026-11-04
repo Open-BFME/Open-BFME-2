@@ -120,6 +120,11 @@ link improvement is claimed. No live claims remain from this pass.
   encounters a duplicate `UpdateModule` definition. The field-parse split
   matches alone but fails because the module-data view lacks `m_fieldParse`;
   `Rva0024A797Grandchildren.cpp` has no row approved for this TU. No change.
+- `GameLogic/Object/Update/ProductionUpdate.cpp`: dry run accepts no donors.
+  The queue donor needs undeclared `Rva0049D526` (MSVC C2065), the dtor donor
+  needs an undeclared `getDisabledTypesToProcess` member (C2509), and the
+  quantity-modifier parser has a conflicting STL specialization (C2908).
+  Class reconciliation is also required; no merge was applied.
 - `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
   and `Object::id`, which are absent from the TU class view (MSVC C2039).
   Manual class-view reconciliation is required; no merge was applied.
