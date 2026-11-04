@@ -351,15 +351,7 @@ bool FoundationAIUpdate::isRemovableForConstruction(Object *obj)
  if (obj->isEffectivelyDead()) return true;
  return false;
 }
-class Rva000421C8 {
-public:
- Rva000421C8() : m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object *)=0;
- virtual int getPlayerMask();
- Rva000421C8 *link(Rva000421C8 *next);
- Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva00261603Filter : public Rva000421C8 {
 public:
  Rva00261603Filter(const Coord3D &, const GeometryInfo &, float, bool);

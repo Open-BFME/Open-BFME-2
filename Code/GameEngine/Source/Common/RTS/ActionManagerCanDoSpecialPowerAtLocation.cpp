@@ -49,15 +49,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeFixedStorage0004543D { public: BfmeFixedStorage0004543D(int,int); unsigned words[7]; };
 struct Rva0006EE7A { Rva0006EE7A(int,int,int); unsigned words[7]; };
 class Rva002618A2 { public: Rva002618A2() {} Rva002618A2 *rva002618FA(int,int,int,int,int,int); unsigned words[7]; };
-class Rva000421C8 {
-public:
- Rva000421C8():next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object *)=0;
- virtual int getPlayerMask() { return -1; }
- Rva000421C8 *link(Rva000421C8 *);
- Rva000421C8 *next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D:public Rva000421C8 {
 public:
  Rva0004584D(const BfmeFixedStorage0004543D &,const BfmeFixedStorage0004543D &);

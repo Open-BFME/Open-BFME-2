@@ -789,18 +789,7 @@ extern GameLogic *TheGameLogic;
 // second one's name is Zero Hour's (the filter its privateAttackPosition pairs
 // with the attack filter), donor-carried. Their base is the ledger's
 // Rva000421C8 (vtable 0x00BC26E0): both vtables keep its slot 2 0x0036CC7A.
-class Rva000421C8
-{
-public:
-	__declspec(dllimport) __forceinline Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *objOther) = 0;
-	virtual Int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);
-
-private:
-	Rva000421C8 *m_next;					// +0x04
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 enum AbleToAttackType
 {

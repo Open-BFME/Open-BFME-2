@@ -187,19 +187,12 @@ inline void copyCoordinateComponent(float &out, const float &in) { out = in; }
 typedef bool Bool;
 typedef float Real;
 #include "../../../../Include/Common/Geometry.h"
-class Rva000421C8
-{
-  public:
-    virtual ~Rva000421C8() {}
-    virtual Bool allow(void *obj) = 0;
-    virtual int getPlayerMask();
-    Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva00261603Filter : public Rva000421C8
 {
   public:
     Rva00261603Filter(const Coord3D &pos, const GeometryInfo &geom, Real angle, Bool desired);
-    virtual Bool allow(void *obj);
+    virtual Bool allow(Object *obj);
 
   private:
     Coord3D m_position;

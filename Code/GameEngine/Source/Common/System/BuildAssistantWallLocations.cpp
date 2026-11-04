@@ -514,16 +514,7 @@ FROM_CENTER_3D,
 FROM_BOUNDINGSPHERE_2D,
 FROM_BOUNDINGSPHERE_3D
 };
-class Rva000421C8
-{
-public:
-Rva000421C8(): m_next(0){}
-virtual ~Rva000421C8(){}
-virtual Bool allow(Object*obj)=0;
-virtual int getPlayerMask();
-Rva000421C8*link(Rva000421C8*filter);
-Rva000421C8*m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int NUMBITS> class BitFlags;

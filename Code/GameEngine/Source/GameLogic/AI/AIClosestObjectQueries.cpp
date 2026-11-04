@@ -43,17 +43,7 @@ class Player;
 class AttackPriorityInfo;
 class PartitionFilter;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	bool allows(Object *obj);	// 0x00625720
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
 // ZH's PartitionFilterAlive.

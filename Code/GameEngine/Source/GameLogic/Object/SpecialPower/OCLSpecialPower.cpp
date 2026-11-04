@@ -33,10 +33,7 @@ class UpgradeTemplate { public: char pad[4]; int type; };
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../../Include/GameLogic/ObjectFilter.h"
-class Rva000421C8 {
-public: Rva000421C8():next(0){} virtual ~Rva000421C8(){} virtual bool allow(Object *)=0; virtual int getPlayerMask();
-Rva000421C8 *next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva002614ECFilter:public Rva000421C8 {
 public: Rva002614ECFilter(const void *what,Player *player,bool match):what(what),player(player),match(match){}
 virtual bool allow(Object *); const void *what; Player *player; bool match;

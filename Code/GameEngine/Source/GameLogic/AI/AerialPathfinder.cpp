@@ -22,10 +22,7 @@ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) 
 
 #include "../Object/object.h"
 
-class Rva000421C8 {public:
- Rva000421C8():next(0){} virtual ~Rva000421C8(){} virtual bool allow(Object*)=0;virtual int getPlayerMask();
- Rva000421C8* next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 class Rva00261603Filter : public Rva000421C8 {public:
  Rva00261603Filter(const Coord3D&,const GeometryInfo&,float,bool) throw();virtual bool allow(Object*);

@@ -64,17 +64,7 @@ class AttackPriorityInfo;
 class PartitionFilter;
 extern GameLogic *TheGameLogic;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *objOther) = 0;
-	// Native filter vtables retain the inherited player-mask slot.
-	virtual Int getPlayerMask();
-private:
-	Rva000421C8 *m_next; // +0x04
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BF91F0 (allow 0x00263077): built only for human players.
 class Rva00263077Filter : public Rva000421C8

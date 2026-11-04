@@ -10,7 +10,7 @@
 class Object{public:char pad0[0xa8];GeometryInfo geometry;};
 class BfmeFixedStorage0004543D{public:unsigned words[7];};template<int N>class BitFlags{public:unsigned words[7];};extern BitFlags<116> KINDOFMASK_NONE;
 class Rva002618A2{public:Rva002618A2*rva002618A2(int,int,int,int);unsigned words[7];};
-class Rva000421C8{public:virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask(){return -1;}Rva000421C8*next;};
+#include "../../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D:public Rva000421C8{public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);virtual ~Rva0004584D(){}virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};
 #include "../../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager*ThePartitionManager;

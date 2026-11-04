@@ -17,7 +17,7 @@ float Cos(float);
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
-class Rva000421C8 { public: virtual ~Rva000421C8() {} virtual bool allow(Object*)=0; virtual int getPlayerMask() {return -1;} Rva000421C8 *next; };
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D: public Rva000421C8 { public: Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &); virtual ~Rva0004584D() {} virtual bool allow(Object*); BfmeFixedStorage0004543D accepted,rejected; };
 extern PartitionManager *ThePartitionManager;
 class Object {public: char pad[0x38];Coord3D position;char beforeRadius[0xbc-0x44];float radius;

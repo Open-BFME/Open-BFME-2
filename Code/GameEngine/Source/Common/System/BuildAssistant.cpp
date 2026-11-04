@@ -1126,16 +1126,7 @@ enum DistanceCalculationType
 };
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0) and the
 // would-collide filter (ctor 0x0027C2C9), as PartitionFilterWouldCollideCtor.cpp.
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	Rva000421C8 *link(Rva000421C8 *filter);
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next; // +0x04
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 // The 224-bit KindOf mask (unused, bit) constructor 0x00045411.
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"

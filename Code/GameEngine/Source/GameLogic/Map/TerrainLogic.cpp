@@ -1063,16 +1063,7 @@ class Image;
 // The shared unsigned-key pointer-map operator[] (0x002077D6) that retail
 // calls for every such map; the id cache is subscripted through it.
 #include "../../../Include/GameClient/ImageSubscriptMap.h"
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next; // +0x04
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 extern PartitionManager *ThePartitionManager;
 extern BfmeTaintManager *TheTaintManager;
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"

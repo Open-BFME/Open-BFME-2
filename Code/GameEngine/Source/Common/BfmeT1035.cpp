@@ -15,7 +15,7 @@ class Object {public:char pad[0x38]; Coord3D position;const Coord3D *getPosition
 #include "../../Include/Common/Geometry.h"
 
 
-class Rva000421C8 {public:Rva000421C8():m_next(0) {} virtual ~Rva000421C8() {} virtual bool allow(Object *)=0; virtual int getPlayerMask();Rva000421C8 *m_next;};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 class BfmeFixedStorage0004543D {public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();unsigned bits[7];};
 
