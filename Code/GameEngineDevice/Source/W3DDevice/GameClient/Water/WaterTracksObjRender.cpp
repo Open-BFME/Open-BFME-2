@@ -79,14 +79,7 @@ private:
 	Int m_playerIndex;
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() { return m_local; }
-private:
-	char m_unmodelled00[0x10];
-	Player *m_local;
-};
+#include "../../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // Water query at 0x0007FA2B (rowed int return in Rva0007F944HostFamily.cpp); render

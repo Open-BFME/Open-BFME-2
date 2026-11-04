@@ -61,21 +61,7 @@ private:
 
 #include "../../../../GameEngine/Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() { return m_local; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getLocalPlayer copy loses to the first-in-order copy
-	// (no retail address); the call below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	Player *bfme_local_player() { return m_local; }
-
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local;				// +0x10
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 #include "../../../../GameEngine/Include/GameClient/View.h"
 
@@ -139,7 +125,7 @@ void drawablePostDraw(Drawable *draw, void *userData)
 		return;
 
 	Object *obj = draw->bfme_object();
-	Int localPlayerIndex = ThePlayerList ? ThePlayerList->bfme_local_player()->getPlayerIndex() : 0;
+	Int localPlayerIndex = ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0;
 	CellShroudStatus ss = (!obj) ? OBJECTSHROUD_CLEAR : obj->getShroudStatusForPlayer(localPlayerIndex);
 	if (ss > OBJECTSHROUD_PARTIAL_CLEAR)
 		return;

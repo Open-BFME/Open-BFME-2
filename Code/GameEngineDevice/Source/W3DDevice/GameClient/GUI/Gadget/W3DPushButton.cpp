@@ -240,14 +240,7 @@ public:
 	LocalPlayerInfo *m_info;                               // +0x34
 };
 
-class PlayerList
-{
-public:
-	unsigned char m_unreconstructed00[ 0x10 ];
-	// Retail's button bodies access +0x10 directly; this local layout view
-	// does not supply the shared getter for the other PlayerList views.
-	Player *m_local;                                       // +0x10
-};
+#include "../../../../../../GameEngine/Include/Common/PlayerList.h"
 
 struct BfmePushButtonGlobalDataView
 {
