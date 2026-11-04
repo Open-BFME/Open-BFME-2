@@ -4,3 +4,5 @@ Completed: link-step declarations reconciled; its 115-byte row remains exact and
 Remaining / next check: preserve the link-step's `/Oy-` frame in composition, reconcile the constructor's duplicate allocator specialization and destructor's subsystem header, and prove the manager's native virtual slots before its selected-vtable guard can pass.
 Evidence: [trial scope, byte discrepancy and verification](../../reverse/attempt_support/mineshaft-tu-consolidation-20261104.md).
 Clearance: pending; no census gain claimed.
+
+Prerequisite (2026-11-04): constructor base fields now share the seed's typed view; 96-byte body exact and preview LINKS. [Checks and unchanged merge blockers](../../reverse/attempt_support/mineshaft-base-view-codexb4-20261104.md).

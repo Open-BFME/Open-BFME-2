@@ -38,11 +38,14 @@ template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 class Thing;
 class ModuleData;
 
+class Object;
 class BehaviorModuleBase
 {
+private:
 	virtual void unused();
-	int a;
-	int b;
+public:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
 class BehaviorModuleOther
