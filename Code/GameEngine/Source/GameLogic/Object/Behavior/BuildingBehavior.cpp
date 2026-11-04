@@ -28,6 +28,9 @@ private:
 }
 typedef _STL::vector<AsciiString, _STL::allocator<AsciiString> > BuildingWindowName;
 extern "C" const void *const __identifier("??_7BuildingBehaviorModuleData@@6B@")[];
+// Retail's module tables hold GetSnapshotName in Snapshot slot 2 (see
+// UpdateModule.h); spell it so before the shim is first read.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 class UnicodeString;
 class PooledString;
@@ -171,6 +174,8 @@ private:
 class BuildingBehavior : public UpdateModule
 {
 public:
+	BuildingBehavior(Thing *thing, const ModuleData *moduleData);
+
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva0045628C(const BuildingWindowList *names, Drawable *draw, int state);
