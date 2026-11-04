@@ -33,26 +33,7 @@ extern class Rva006DB270 *g_pChainBlockAllocator;
 
  // 0x00E176E8
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	StringDataC *m_pData;
-
-public:
-	EAStringC();
-	EAStringC(const EAStringC &other);
-	EAStringC &operator=(const EAStringC &other);
-	EAStringC &clear();
-};
+#include "../EAStringC.h"
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
 
@@ -205,7 +186,7 @@ int Rva008981E0Value::aptHasAll()
 
 __declspec(noinline) inline EAStringC::EAStringC()
 {
-	m_pData = &g_eaEmptyStringData;
+	data = &g_eaEmptyStringData;
 	++g_eaEmptyStringData.m_uRefCount;
 }
 

@@ -17,31 +17,15 @@ class AptFrameStack;
 class Rva8D0D80String;
 class Rva8D0D80Value;
 
-class EAStringC {
-public:
-    class StringDataC {
-    public:
-        unsigned short m_uRefCount;
-        unsigned short m_uSize;
-        unsigned short m_uMaxSize;
-        unsigned short m_uHash;
-    };
-private:
-    StringDataC *mpData;
-public:
-    EAStringC &clear();
-    EAStringC();
-    EAStringC &operator=(const EAStringC &);
-    ~EAStringC();
-};
+#include "EAStringC.h"
 extern EAStringC::StringDataC g_eaEmptyStringData;
 // Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
 // clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
 // 0x00DDC020) and takes one reference. Keep the native call boundary.
 __declspec(noinline) inline EAStringC::EAStringC()
 {
-    mpData = &g_eaEmptyStringData;
-    ++mpData->m_uRefCount;
+    data = &g_eaEmptyStringData;
+    ++data->m_uRefCount;
 }
 
 #include "AptNativeHash.h"

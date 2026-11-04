@@ -17,18 +17,13 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #define APTLOAD_CPP "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptLoad.cpp"
 #define APTCIH_H "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 
-class EAStringC
+#include "EAStringC.h"
+
+// Retail inlines this empty test (a temporary "" compared through IsEqualTo).
+static __forceinline bool isEmptyString(const EAStringC &text)
 {
-public:
-	EAStringC(const char *);
-	~EAStringC();
-	EAStringC &operator=(const EAStringC &);
-	bool IsEqualTo(const EAStringC *) const;
-	__forceinline bool isEmpty() const { return IsEqualTo(&EAStringC("")); }
-	const char *rva00620090() const;
-private:
-	void *m_data;
-};
+	return text.IsEqualTo(&EAStringC(""));
+}
 
 void __cdecl Rva006CC110Log(int, const char *, ...);
 
@@ -371,7 +366,7 @@ void AptLinker::Load(const EAStringC &file, EAStringC target)
 				CHECK(i->entry->GetTarget() != j->entry->GetTarget(), "(*i)->GetTarget() != (*j)->GetTarget()", APTLOAD_CPP, 0x262);
 
 	Rva006D07E0Key loaded; // retail unwinds it through the key destructor at 0x000A9DF3
-	if (!file.isEmpty()) {
+	if (!isEmptyString(file)) {
 		loaded = ((Rva006D0A30List *)g_rva00893030Manager)->findSpecial(&file);
 		if (!loaded.m_object)
 			((BfmeRefVGO &)loaded).assign((const BfmeRefVGO &)((Rva006D0A30List *)g_rva00893030Manager)->rva006D0B40(file));
