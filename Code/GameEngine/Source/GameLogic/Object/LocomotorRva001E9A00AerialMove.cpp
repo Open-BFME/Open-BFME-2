@@ -74,16 +74,7 @@ public:
 // .data) is defined with its class in AerialPathfinder.cpp.
 extern AerialPathfinder *TheAerialPathfinder;
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &that);
-	virtual ~GeometryInfo();
-	char m_pad04[0x14 - 0x04];
-	Real m_14;							// +0x14
-	Real get14() const { return m_14; }
-	char m_pad18[0x5C - 0x18];
-};
+#include "../../../Include/Common/Geometry.h"
 
 class ModelConditionFlags
 {
@@ -253,7 +244,7 @@ Bool Locomotor::rva001E9A00(Object *obj, Real goalSpeed, Real *pathDistance, Rva
 {
 	if (!obj)
 		return false;
-	Real lookAhead = obj->getGeometryInfo().get14() * 0.5f;
+	Real lookAhead = obj->getGeometryInfo().getBoundingSphereRadius() * 0.5f;
 	if (m_template->m_lookAheadMult > 1.0f)
 		lookAhead *= m_template->m_lookAheadMult;
 	AIUpdateInterface *ai = obj->getAI();
@@ -337,7 +328,7 @@ Bool Locomotor::rva001E9A00(Object *obj, Real goalSpeed, Real *pathDistance, Rva
 		Real height = TheTerrainLogic->getGroundHeight(position[0], position[1], 0);
 		{
 			GeometryInfo geom(obj->getGeometryInfo());
-			Real minZ = geom.m_14 * 0.25f + height;
+			Real minZ = geom.m_boundingSphereRadius * 0.25f + height;
 			position[2] = maxOf(position[2], minZ);
 			m_transform.Set_Translation(position);
 			if (pitch > 0.3f)

@@ -205,7 +205,7 @@ public:
 	unsigned m_targetID;
 };
 
-class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
+#include "../../../../Include/Common/Geometry.h"
 
 class Rva00603BB0ObjectView {
 public:

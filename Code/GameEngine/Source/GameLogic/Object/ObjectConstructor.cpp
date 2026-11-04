@@ -262,13 +262,7 @@ public:
 	BitFlags(const BitFlags &that);
 	unsigned int m_bits[(N + 31) / 32];
 };
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &that);
-	virtual ~GeometryInfo();
-	unsigned char m_data[0x58];
-};
+#include "../../../Include/Common/Geometry.h"
 struct ZeroCoord3D { float x, y, z; ZeroCoord3D() { x = 0.0f; y = 0.0f; z = 0.0f; } };
 struct ZeroCoord2D { float x, y; ZeroCoord2D() { x = 0.0f; y = 0.0f; } };
 struct ZeroICoord2D { int x, y; ZeroICoord2D() { x = 0; y = 0; } };

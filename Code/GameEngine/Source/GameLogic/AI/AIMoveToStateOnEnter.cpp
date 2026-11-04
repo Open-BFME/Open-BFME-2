@@ -41,13 +41,7 @@ static __forceinline void critterDesyncLog(const char *text)
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-private:
-	char m_pad00[0x14];
-};
+#include "../../../Include/Common/Geometry.h"
 
 class Object
 {
@@ -66,7 +60,7 @@ private:
 	ObjectID m_id;
 	char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo; // +0xA8
-	char m_pad0BC[0x258 - 0xBC];
+	char m_pad0BC[0x258 - 0x104];
 	AIUpdateInterface *m_ai; // +0x258
 };
 

@@ -391,27 +391,9 @@ public:
 	Rva000421C8 *m_next;
 };
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER,
-	GEOMETRY_BOX
-};
+#include "../../../../Include/Common/Geometry.h"
 
 // GeometryInfo as this scan reads it (ctor 0x00050B74, dtor 0x00050B2A).
-class GeometryInfo
-{
-public:
-	GeometryInfo(GeometryType type, bool isSmall, float height, float majorRadius,
-		float minorRadius);
-	virtual ~GeometryInfo();
-	char m_pad04[0x10 - 0x04];
-	float m_majorRadius;	// +0x10
-	float m_minorRadius;	// +0x14
-	// The +0x14 read is the getMinorRadius copy other units emit.
-	float getMinorRadius() const { return m_minorRadius; }
-	char m_pad18[0x5C - 0x18];
-};
 
 // vftable 0x00BFB1B8; the out-of-line ctor 0x0027C2C9: +0x08 a position,
 // +0x14 a geometry, +0x18 an angle, +0x1C a flag.
@@ -911,7 +893,7 @@ void GateOpenAndCloseBehavior::rva00498FAA()
 	pos.z = us->getPosition()->z;
 	float radius = us->getTemplate()->m_B0;
 	GeometryInfo geom(GEOMETRY_CYLINDER, false, 30.0f, radius, radius);
-	float offset = geom.m_majorRadius * 0.66;
+	float offset = geom.m_boundingCircleRadius * 0.66;
 	Coord3D dir;
 	us->getUnitDirectionVector2D(dir);
 	dir.x *= offset;
@@ -922,7 +904,7 @@ void GateOpenAndCloseBehavior::rva00498FAA()
 	volatile Coord3D *vp = &pos;
 	pos.x = vp->x + dir.x;
 	pos.y = vp->y + dir.y;
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&pos, geom.getMinorRadius() * 1.1f, 3,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&pos, geom.getBoundingSphereRadius() * 1.1f, 3,
 		Rva0026119DFilter().link(&Rva0026118BFilter())
 			->link(&Rva0004584D(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 				*(const BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 0x59, 0x68, 0x3C, 2)))

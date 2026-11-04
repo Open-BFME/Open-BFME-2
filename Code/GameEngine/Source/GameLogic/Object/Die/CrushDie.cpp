@@ -97,13 +97,7 @@ public:
 	virtual void setFrontCrushed( Bool v ) = 0;
 	virtual void setBackCrushed( Bool v ) = 0;
 };
-class GeometryInfo
-{
-public:
-	Real getMajorRadius() const { return m_majorRadius; }
-	unsigned char m_pad00[0x10];
-	Real m_majorRadius;
-};
+#include "../../../../Include/Common/Geometry.h"
 // ModelConditionFlags view (0x4C bytes); set( bit, value ) is 0x000B3FA5.
 class ModelConditionFlags
 {
@@ -133,7 +127,7 @@ public:
 	ObjectID m_id;
 	unsigned char m_pad78[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;
-	unsigned char m_padBC[0x254 - 0xBC];
+	unsigned char m_padBC[0x254 - 0x104];
 	BodyModuleInterface *m_body;
 };
 extern GameLogic *TheGameLogic;
@@ -245,7 +239,7 @@ static CrushEnum crushLocationCheck( Object* crusherObject, Object* victimObject
 	const Coord3D *pos = crusherObject->getPosition();
 	const Coord3D *otherPos = victimObject->getPosition();
 
-	Real crushPointOffsetDistance = victimObject->getGeometryInfo().getMajorRadius() * 0.5;
+	Real crushPointOffsetDistance = victimObject->getGeometryInfo().getBoundingCircleRadius() * 0.5;
 	Coord3D crushPointOffset;
 	crushPointOffset.x = otherDir->x * crushPointOffsetDistance;
 	crushPointOffset.y = otherDir->y * crushPointOffsetDistance;

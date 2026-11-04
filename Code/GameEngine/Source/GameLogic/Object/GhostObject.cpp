@@ -82,15 +82,7 @@ public:
 
 struct Coord3D;
 
-class GeometryInfo
-{
-public:
-	GeometryInfo();
-	bool CollidesWith(const Coord3D &, float, const GeometryInfo &, const Coord3D &, float) const;
-	virtual ~GeometryInfo();
-private:
-	unsigned char m_bytes[0x5C - 0x04]; // +0x04
-};
+#include "../../../Include/Common/Geometry.h"
 
 class GhostObject : public Snapshot, public Rva003058F9
 {

@@ -13,9 +13,6 @@
 #ifndef __BFME2_GEOMETRY_H_
 #define __BFME2_GEOMETRY_H_
 
-#if defined(__SNAPSHOT_H_) && (!defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || !defined(BFME_SNAPSHOT_REFERENCE_XFER) || !defined(BFME_SNAPSHOT_NAME_SLOT) || !defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT))
-#error GeometryInfo requires Snapshot LoadPostProcess, non-const GetSnapshotName and DoXfer(Xfer&) slots
-#endif
 #ifndef __SNAPSHOT_H_
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_REFERENCE_XFER
@@ -45,9 +42,26 @@ public:
     GeometryInfo(GeometryType type, bool isSmall, float height, float majorRadius, float minorRadius);
     GeometryInfo(const GeometryInfo &other);
     virtual ~GeometryInfo();
+    // Slots 1 to 3 take the spelling of the unit's Snapshot selection, as Snapshot.h does; the default is the ledger's.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void LoadPostProcess();
+#else
+    virtual void loadPostProcess();
+#endif
+#if defined(BFME_SNAPSHOT_NAME_SLOT) && defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
     virtual const char *GetSnapshotName();
+#elif defined(BFME_SNAPSHOT_NAME_SLOT)
+    virtual const char *GetSnapshotName() const;
+#else
+    virtual void crc(Xfer *xfer);
+#endif
+#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) && defined(BFME_SNAPSHOT_REFERENCE_XFER)
     virtual void DoXfer(Xfer &xfer);
+#elif defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS)
+    virtual void DoXfer(Xfer *xfer);
+#else
+    virtual void xfer(Xfer *xfer);
+#endif
 
     void set(GeometryType type, bool isSmall, float height, float majorRadius, float minorRadius);
     float getMaxHeightAbovePosition() const;

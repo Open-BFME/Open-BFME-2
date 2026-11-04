@@ -21,18 +21,7 @@ typedef bool Bool;
 typedef float Real;
 enum PathfindLayerEnum { LAYER_GROUND = 1 };
 
-class GeometryInfo : public Snapshot
-{
-public:
-	GeometryInfo(const GeometryInfo &);
-	virtual ~GeometryInfo();
-	virtual void loadPostProcess();
-	virtual void crc(Xfer *);
-	virtual void xfer(Xfer *);
-	unsigned char m_pad04[0x10];
-	float m_14;
-	unsigned char m_pad18[0x5C - 0x18];
-};
+#include "../../Include/Common/Geometry.h"
 
 #include "Thing/thing.h"
 
@@ -136,7 +125,7 @@ bool ClearanceTestingSlowDeathBehavior::rva00483F19()
 		return false;
 	Coord3D center;
 	obj->transformPoint(&md->m_clearanceGeometryOffset, &center);
-	float base = md->m_geometry.m_14;
+	float base = md->m_geometry.m_boundingSphereRadius;
 	float radius = base * 1.1f;
 	if (ThePartitionManager->getClosestObject(&center, radius, 3,
 			Rva00483C9FFilter(obj, obj->rva00294815()).link(&

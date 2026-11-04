@@ -145,16 +145,7 @@ public:
 	void rva00270644(Real target, Real rate);
 };
 
-class GeometryInfo
-{
-public:
-	Real getMajorRadius() const { return m_majorRadius; }
-
-private:
-	void *m_vptr;
-	unsigned char m_pad04[0x10 - 0x04];
-	Real m_majorRadius;	// +0x10
-};
+#include "../../../../Include/Common/Geometry.h"
 
 
 class Object : public Thing
@@ -176,7 +167,7 @@ private:
 	ObjectID m_id;	// +0x74
 	unsigned char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;	// +0xA8
-	unsigned char m_pad0BC[0x258 - 0xBC];
+	unsigned char m_pad0BC[0x258 - 0x104];
 	AIUpdateInterface *m_ai;	// +0x258
 };
 
@@ -419,8 +410,8 @@ Object *CreateCrateDie::createCrate(const CrateTemplate *currentCrateData)
 		if (crateDrawable)
 		{
 			crateDrawable->rva00272870(TERRAIN_DECAL_CRATE);
-			crateDrawable->rva002728C5(2.5f * newCrate->getGeometryInfo().getMajorRadius(),
-				2.5f * newCrate->getGeometryInfo().getMajorRadius());
+			crateDrawable->rva002728C5(2.5f * newCrate->getGeometryInfo().getBoundingCircleRadius(),
+				2.5f * newCrate->getGeometryInfo().getBoundingCircleRadius());
 			((Rva00270644 *)crateDrawable)->rva00270644(1.0f, 0.03f);
 		}
 

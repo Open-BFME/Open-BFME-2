@@ -326,11 +326,7 @@ private:
 	} *m_data;
 };
 #include "../../../Include/Common/ThingTemplate.h"
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-};
+#include "../../../Include/Common/Geometry.h"
 #include "../../Common/Thing/thing.h"
 enum ObjectStatusTypes
 {

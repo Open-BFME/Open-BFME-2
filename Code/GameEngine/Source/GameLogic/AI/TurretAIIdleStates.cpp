@@ -169,11 +169,7 @@ private:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-};
+#include "../../../Include/Common/Geometry.h"
 
 class Rva001E438B
 {
@@ -206,7 +202,7 @@ public:
 	UnsignedInt m_id; // +0x74
 	unsigned char m_pad78[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo; // +0xA8
-	unsigned char m_padA9[0x258 - 0xA9];
+	unsigned char m_padA9[0x258 - 0x104];
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x304 - 0x25C];
 	Team *m_team; // +0x304

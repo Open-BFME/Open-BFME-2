@@ -77,14 +77,7 @@ extern View *TheTacticalView;
 #include "../../Include/GameClient/Display.h"
 extern Display *TheDisplay;
 
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-    char m_pad000[0x14];
-    Real m_boundingSphereRadius; // target Object+A8+14 = Object+BC
-
-};
+#include "../../Include/Common/Geometry.h"
 
 struct DrawableKindByteView {char pad[0x108];unsigned char bits;};
 struct DrawableKindWordView {char pad[0x108];unsigned bits;};

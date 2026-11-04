@@ -608,7 +608,7 @@ struct GeometryShape {
     bool enabled,opaque21;
     __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
 };
-class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
+#include "../../../Include/Common/Geometry.h"
 struct ICoord2DBase { int x,y; };
 class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
 class Rva002E7C99 {

@@ -405,20 +405,7 @@ private:
 	unsigned char byte2C, byte2D;
 	unsigned short word2E;
 };
-enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
-class GeometryInfo
-{
-public:
-	GeometryInfo(GeometryType type, Bool isSmall, Real height, Real majorRadius, Real minorRadius);
-	virtual ~GeometryInfo();
-	Bool CollidesWith(const Coord3D &pos, Real angle, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
-	__declspec(dllimport) __forceinline Real getMinorRadius() const { return m_minorRadius; }
-	bool terrainShapeIsSmall() const { return m_isSmall; }
-	Bool m_isSmall; // +0x04 (rva0028449F/flattenTerrain read it)
-	char m_pad05[0x10 - 0x05];
-	Real m_minorRadius; // +0x10
-	char m_pad14[0x5C - 0x14];
-};
+#include "../../../Include/Common/Geometry.h"
 class BodyModuleInterface;
 extern class AI *TheAI;
 // ?rva0027D3CB@Rva0027D3CB@@QAE_NH@Z, retail 0x0027D3CB, 14 bytes.
@@ -3008,7 +2995,7 @@ Bool TerrainLogic::objectInteractsWithBridgeLayer(Object *obj, Int layer, Bool c
 				match = true;
 			}
 
-			Real radius = obj->getGeometryInfo().getMinorRadius();
+			Real radius = obj->getGeometryInfo().getBoundingCircleRadius();
 			radius += PATHFIND_CELL_SIZE_F/2.0f;
 			Region2D bounds;
 			bounds.lo.x = obj->getPosition()->x;
@@ -3055,7 +3042,7 @@ Bool TerrainLogic::objectInteractsWithBridgeEnd(Object *obj, Int layer) const
 		if (pBridge->getLayer() == layer) {
 			Bool match = false;
 
-			Real radius = obj->getGeometryInfo().getMinorRadius();
+			Real radius = obj->getGeometryInfo().getBoundingCircleRadius();
 			radius += PATHFIND_CELL_SIZE_F/2.0f;
 			Region2D bounds;
 			bounds.lo.x = obj->getPosition()->x;
@@ -4229,7 +4216,7 @@ __forceinline const BfmeStrF9 &flagName(const AsciiString &name)
 void TerrainLogic::flattenTerrain(Object *obj)
 {
 	Rva0028458FObjectView *view = reinterpret_cast<Rva0028458FObjectView *>(obj);
-	if (view->geometry.terrainShapeIsSmall())
+	if (view->geometry.getIsSmall())
 		return;
 	Coord3D pos;
 	pos.x = view->pos.x;
@@ -4306,7 +4293,7 @@ void TerrainLogic::flattenTerrain(Object *obj)
 
 void TerrainLogic::iterateTreesNearAPoint(const Coord3D *position,float angle,
  GeometryInfo *geometry,BfmeT1035 *action,bool skipFlag18,int mode) {
- float radius=geometry->m_minorRadius;
+ float radius=geometry->m_boundingCircleRadius;
  Coord3D center;
  ((Rva0087DC00*)geometry)->get((Rva0087DC00Vec*)&center);
  center.x+=position->x;center.y+=position->y;center.z+=position->z;

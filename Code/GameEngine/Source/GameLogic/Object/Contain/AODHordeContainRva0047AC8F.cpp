@@ -70,10 +70,7 @@ class Locomotor;
 
 #include "../../../Common/Thing/thing.h"
 
-class GeometryInfo
-{
- public: float getMaxHeightAbovePosition() const;
-};
+#include "../../../../Include/Common/Geometry.h"
 
 class Drawable;
 struct Rva0028AC4EEntry;

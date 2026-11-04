@@ -27,11 +27,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../Include/GameClient/Drawable.h"
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../Include/Common/Geometry.h"
 
 struct ScreenPositionTemplateView
 {

@@ -325,11 +325,7 @@ private:
 	unsigned int m_words[19];
 };
 #include "../../../Include/Common/ThingTemplate.h"
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-};
+#include "../../../Include/Common/Geometry.h"
 #include "../../Common/Thing/thing.h"
 class Object;
 #include "../../../Include/GameLogic/Module/StealthUpdate.h"

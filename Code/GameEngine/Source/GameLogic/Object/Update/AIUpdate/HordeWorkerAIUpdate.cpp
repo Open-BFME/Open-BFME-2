@@ -96,15 +96,7 @@ private:
 	int m_repairTarget3EC;					// +0x3EC
 };
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &other);
-	virtual ~GeometryInfo();
-	char m_pad04[0x0C];
-	float m_field10;
-	char m_pad14[0x5C - 0x14];
-};
+#include "../../../../../Include/Common/Geometry.h"
 
 struct Rva0049B0BFData
 {
@@ -204,7 +196,7 @@ void Rva0049B0BF::rva0049B0BF(Rva0049B0BFData *arg, int arg2)
 	diff.normalize();
 	GeometryInfo g1(arg->m_geoA8);
 	GeometryInfo g2(obj->m_geoA8);
-	float sum = g1.m_field10 + g2.m_field10;
+	float sum = g1.m_boundingCircleRadius + g2.m_boundingCircleRadius;
 	float sx = sum * diff.x;
 	float sy = sum * diff.y;
 	float ax = arg->m_x38;

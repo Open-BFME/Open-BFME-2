@@ -291,14 +291,7 @@ protected:
 
 #include "../../Include/GameLogic/Module/SlowDeathBehaviorModuleData.h"
 
-class GeometryInfo
-{
-public:
-	virtual ~GeometryInfo();
-
-private:
-	unsigned char m_data[0x5C - 4];
-};
+#include "../../Include/Common/Geometry.h"
 
 class __declspec(novtable) ClearanceTestingSlowDeathBehaviorModuleData : public SlowDeathBehaviorModuleData
 {

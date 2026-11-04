@@ -6,15 +6,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include "Common/Snapshot.h"
 #include "vector3.h"
 #include "Lib/Coord2D.h"
-class GeometryInfo:public Snapshot {
-public:
- GeometryInfo(const GeometryInfo &);
- virtual ~GeometryInfo();
- virtual void loadPostProcess();
- virtual void crc(Xfer*);
- virtual void xfer(Xfer*);
- char prefix[0xC]; float radius; char gap14[0x10]; float extentX,extentY; char remaining[0x30];
-};
+#include "../../../../Include/Common/Geometry.h"
 class BfmeThingTemplateShadowSelector {
 public: bool usePluralShadowName() const;
 };
@@ -57,7 +49,7 @@ bool Rva004DC1BF::rva004DC096(Coord2D *out)
   } else {
    float dx=point.X-position.X;
    float dy=point.Y-position.Y;
-   float r=geometry.radius;
+   float r=geometry.m_boundingCircleRadius;
    accepted=dx*dx+dy*dy<r*r;
   }
   if(accepted) {out->x=point.X;out->y=point.Y;return true;}
@@ -82,7 +74,7 @@ Rva004DC1BF::Rva004DC1BF(const GeometryInfo &source,float orientation,const Vect
 {
  if(reinterpret_cast<const BfmeThingTemplateShadowSelector *>(&source)->usePluralShadowName()) {
   float minor,major;
-  major=source.extentX; minor=source.extentY;
+  major=source.field24; minor=source.field28;
   float cosAngle=Cos(orientation),s=Sin(orientation);
   corner0.Set(p.X-major*cosAngle-minor*s,p.Y+minor*cosAngle-major*s,0.0f);
   corner1.Set(major*cosAngle+p.X-minor*s,p.Y+major*s+minor*cosAngle,0.0f);
@@ -107,7 +99,7 @@ Rva004DC1BF::Rva004DC1BF(const GeometryInfo &source,float orientation,const Vect
   xMin=WWMath::Float_To_Long((float)floor(minX*0.1f)); yMin=WWMath::Float_To_Long((float)floor(minY*0.1f));
   xMax=WWMath::Float_To_Long((float)floor(maxX*0.1f)); yMax=WWMath::Float_To_Long((float)floor(maxY*0.1f));
  } else {
-  float r=source.radius;
+  float r=source.m_boundingCircleRadius;
   {float scaled=(p.X-r)*0.1f; xMin=WWMath::Float_To_Long((float)floor(scaled));}
   {float scaled=(p.Y-r)*0.1f; yMin=WWMath::Float_To_Long((float)floor(scaled));}
   {float scaled=(p.X+r)*0.1f; xMax=WWMath::Float_To_Long((float)floor(scaled));}

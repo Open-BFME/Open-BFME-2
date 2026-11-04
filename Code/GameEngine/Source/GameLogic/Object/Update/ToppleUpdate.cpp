@@ -94,7 +94,7 @@ class ToppleUpdate:public UpdateModule,public CollideModuleInterface {public:vir
 
 extern GameLogic *TheGameLogic;
 
-class GeometryInfo {public:float getMaxHeightAbovePosition()const;};
+#include "../../../../Include/Common/Geometry.h"
 
 void Rva004A82BAAttemptDamage(Object *);
 

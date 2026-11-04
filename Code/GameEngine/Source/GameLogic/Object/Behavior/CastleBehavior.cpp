@@ -186,18 +186,7 @@ struct DisplacementCoord : Coord3D
 inline void copyCoordinateComponent(float &out, const float &in) { out = in; }
 typedef bool Bool;
 typedef float Real;
-class GeometryInfo
-{
-  public:
-    GeometryInfo(const GeometryInfo &that);
-    virtual ~GeometryInfo();
-    float displacementSearchRadius() const { return m_radius14; }
-
-  private:
-    char m_pad00[0x10];
-    float m_radius14;
-    char m_pad18[0x5C - 0x18];
-};
+#include "../../../../Include/Common/Geometry.h"
 class Rva000421C8
 {
   public:
@@ -386,7 +375,7 @@ void Rva0039A270MoveOwner::rva0039A270Move(Object *src)
     pos.y = src->m_pos38.y;
     copyCoordinateComponent(pos.z, src->m_pos38.z);
     GeometryInfo gi(src->m_geomA8);
-    Real radius = gi.displacementSearchRadius() * 1.1f;
+    Real radius = gi.getBoundingSphereRadius() * 1.1f;
     BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(
         &pos, radius, 3, &Rva00261603Filter(pos, gi, src->m_angle44, true), 0);
     for (Object *them = iter.next(); them; them = iter.next())

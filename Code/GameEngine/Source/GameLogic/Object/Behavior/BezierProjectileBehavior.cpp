@@ -182,15 +182,7 @@ enum SleepyUpdatePhase;
 
 // This partial geometry view reads +0x10 inline in the retail update. Keep
 // its helper distinct from the generic accessor emitted by +0x18 views.
-class GeometryInfo
-{
-public:
-	bool CollidesWith(const Coord3D &, float, const GeometryInfo &, const Coord3D &, float) const;
-	float getMaxHeightAbovePosition() const;
-	float projectileCollisionRadius() const { return radius; }
-	char m_pad00[0x10];
-	float radius; // +0x10
-};
+#include "../../../../Include/Common/Geometry.h"
 
 // The model-condition words at Object +0x10C.
 struct BezierModelFlags
@@ -257,7 +249,7 @@ public:
 	ObjectID m_producerID;			// +0x78
 	unsigned char m_pad07C[0xA8 - 0x7C];
 	GeometryInfo m_geometry;		// +0xA8
-	unsigned char m_padBC[0x10C - 0xBC];
+	unsigned char m_padBC[0x10C - 0x104];
 	BezierModelFlags m_modelConditionFlags;	// +0x10C
 	unsigned char m_pad158[0x198 - 0x158];
 	Coord3D m_nextPosition;			// +0x198
@@ -1236,7 +1228,7 @@ UpdateSleepTime BezierProjectileBehavior::update()
 		{
 			BezCoord targetPos(target->m_cachedPos);
 			targetPos.z += target->m_geometry.getMaxHeightAbovePosition() * 0.5f;
-			float radius = target->m_geometry.projectileCollisionRadius();
+			float radius = target->m_geometry.getBoundingCircleRadius();
 			if (targetPos.length() < radius + m_flightPathSpeed)
 				rva0045CD6E(target);
 		}

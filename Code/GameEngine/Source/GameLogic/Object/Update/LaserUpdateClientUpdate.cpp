@@ -10,7 +10,7 @@
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
-class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
+#include "../../../../Include/Common/Geometry.h"
 #include "matrix3d.h"
 static inline void coordSet(Coord3D *to,const Coord3D *from) {to->x=from->x;to->y=from->y;to->z=from->z;}
 static inline void coordSet(Coord3D *to,float x,float y,float z) {to->x=x;to->y=y;to->z=z;}

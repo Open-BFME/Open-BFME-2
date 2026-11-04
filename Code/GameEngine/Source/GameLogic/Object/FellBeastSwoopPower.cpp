@@ -52,18 +52,7 @@ struct AICommandParms
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &other);
-	virtual ~GeometryInfo();
-	float m_04;
-	float m_08;
-	float m_0C;
-	float m_10;
-	float m_14; // +0x14
-	unsigned char m_pad18[0x5C - 0x18];
-};
+#include "../../../Include/Common/Geometry.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
@@ -352,7 +341,7 @@ UpdateSleepTime FellBeastSwoopPower::update()
 		float ground = TheTerrainLogic->getGroundHeight(object->m_x, object->m_y, 0);
 		float height = object->m_z - ground;
 		GeometryInfo geometry(object->m_geometryInfo);
-		if (geometry.m_14 > height)
+		if (geometry.m_boundingSphereRadius > height)
 		{
 			if (object->m_conditionBits.test(7 * 32 + 20) == 0)
 			{
