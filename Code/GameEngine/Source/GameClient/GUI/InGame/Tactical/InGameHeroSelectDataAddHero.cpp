@@ -26,7 +26,7 @@ class Object;class ThingTemplate;class Image;
 #include "../../../../Common/GameLogicObjectLookupView.h"
 const Image *getButtonImage(ThingTemplate *,Object *);
 int ComputeObjectRank(const Object *);
-class ThingTemplate {public:char pad[0x638];int rank638;};
+#include "../../../../../Include/Common/ThingTemplate.h"
 class Object {public:void *vptr;ThingTemplate *templ;char pad08[0x74-8];int id; ThingTemplate*getTemplate()const{return templ;} };
 extern GameLogic *TheGameLogic;
 struct BfmePod12 {int id,unknown,flash;};
@@ -69,13 +69,13 @@ void Holder00526309::Rva00525CC5(Obj00526309 *heroObject)
 		record.unknown = objectRank;
 		templ = obj->templ;
 		// This home and the visible lookup body retain retail's register allocation.
-		volatile int rank = templ->rank638;
+		volatile int rank = templ->m_heroSortOrder;
 		HeroInfoList::iterator it = heroes.begin();
 		bool found = false;
 		while (!found && it != heroes.end())
 		{
 			Object *other = TheGameLogic->findObjectByID((ObjectID)it->id);
-			if (other && rank < other->getTemplate()->rank638)
+			if (other && rank < other->getTemplate()->m_heroSortOrder)
 				found = true;
 			else
 				++it;

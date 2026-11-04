@@ -253,7 +253,7 @@ public:
 	unsigned char m_deadCollideSize;							// +0x5F5
 	unsigned char m_thingClass;									// +0x5F6
 	signed char m_structureRubbleHeight;						// +0x5F7 Byte: consumers sign-extend it
-	unsigned char m5F8;											// +0x5F8
+	signed char m5F8;											// +0x5F8 signed: movsx at 0x0033A516 (parseAddModule) and 0x0033A56A (parseInheritableModule)
 	unsigned char m_crusherLevel;								// +0x5F9
 	unsigned char m_crushableLevel;								// +0x5FA
 	unsigned char m_mountedCrusherLevel;						// +0x5FB
@@ -276,7 +276,7 @@ public:
 	unsigned char m_isAutoBuilt;								// +0x633
 	unsigned char m_canPathThroughGates;						// +0x634
 	unsigned char m_shouldClearShotsOnIdle;						// +0x635
-	unsigned int m_heroSortOrder;								// +0x638
+	int m_heroSortOrder;										// +0x638 signed: jl at 0x00525D55 after the compare at 0x00525D4F
 	unsigned int m_selectionPriority;							// +0x63C
 
 };

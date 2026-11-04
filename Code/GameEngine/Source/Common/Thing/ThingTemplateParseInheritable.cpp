@@ -9,19 +9,13 @@
 #include "Common/INIException.h"
 struct FieldParse { unsigned int words[4]; };
 #include "../../../Include/Common/INI/INI.h"
-class ThingTemplate {
-protected:
- static void parseInheritableModule(INI *,void *,void *,const void *);
-private:
- char prefix[0x5F8]; signed char m_moduleParsingMode;
- static const FieldParse s_objectFieldParseTable[];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 void ThingTemplate::parseInheritableModule(INI *ini,void *instance,void *,const void *)
 {
  ThingTemplate *self=(ThingTemplate *)instance;
- int oldMode=self->m_moduleParsingMode;
+ int oldMode=self->m5F8;
  if (oldMode!=0) throw INIException(3,"Expected oldMode to be MODULEPARSE_NORMAL");
- self->m_moduleParsingMode=2;
+ self->m5F8=2;
  ini->initFromINI(self,s_objectFieldParseTable);
- self->m_moduleParsingMode=(signed char)oldMode;
+ self->m5F8=(signed char)oldMode;
 }
