@@ -43,37 +43,7 @@ private:
 	unsigned int m_index;
 };
 
-class LivingWorld : public Rva002BF33DList, public Snapshot
-{
-public:
-	virtual ~LivingWorld();
-protected:
-	virtual void loadPostProcess();
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-public:
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void rva002BF391(bool active);	// slot 10
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20(bool value);
-private:
-	int m_14;
-	bool m_18;
-	bool m_19;
-};
+#include "../../../Include/GameLogic/LivingWorldClass.h"
 
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
@@ -229,5 +199,6 @@ void LivingWorld::rva002BF391(bool active)
 			((Rva00213A85 *)TheLivingWorldManager)->rva00213C30();
 		((AIGroup *)TheLivingWorldManager)->setMineClearingDetail(((Rva002BE7BB *)TheGameLogic)->rva002BE7BB());
 	}
-	forEach(&Rva002BF33DListener::notifyStateChanged, this);
+	// The listener list is the +4 base (Rva00330757Member in the canonical header).
+	reinterpret_cast<Rva002BF33DList *>((char *)this + 4)->forEach(&Rva002BF33DListener::notifyStateChanged, this);
 }
