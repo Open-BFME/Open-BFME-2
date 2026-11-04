@@ -10,7 +10,12 @@ class Rva00319B0AOwner {public:void rva00319B31();};
 class Rva005E5FButtons {public:virtual void s0();virtual void s1();virtual void erase(int);};
 class Rva005E5FPanel {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void close();};
 class Rva005E5FDetails {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void clear();};
-class Rva005F23B2 {public:~Rva005F23B2();char storage[24];};
+class Rva005F23B2
+{
+public:
+	~Rva005F23B2();
+	char storage[24]; // +0x00
+};
 class Rva000AD6F4 {public:void clear();char storage[8];};
 struct Rva005E5FOwnedSlot {Rva000AD6F4 holder;~Rva005E5FOwnedSlot(){holder.clear();}};
 class Rva005E5FFB :public Rva005E5FObserver {public:

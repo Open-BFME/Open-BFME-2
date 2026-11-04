@@ -188,7 +188,12 @@ class Rva0057C394;
 
 #include "../../../Include/Common/Rva000AD6F4.h"
 
-class Rva005F23B2 {public: ~Rva005F23B2();};
+class Rva005F23B2
+{
+public:
+	~Rva005F23B2();
+	char storage[24]; // +0x00
+};
 
 class Rva005F2381
 {
