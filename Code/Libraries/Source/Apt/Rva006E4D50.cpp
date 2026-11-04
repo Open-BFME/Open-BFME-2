@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /O2 /MD /D_CRTIMP=
 // AptActionQueueC::RemoveActionFor (WorldBuilder name, its __FUNCTION__ string) @0x006E4D50 441B.
 // Removes one matching type-1 action holding the given AptValue: scans the
 // circular action pool from m_pCurrent to m_pEnd (stride 24), validates the
@@ -10,7 +10,7 @@
 // 0x006E2B40 passes the same pool this and an AptValue.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
+#include <string.h>
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "AptValue.h"
