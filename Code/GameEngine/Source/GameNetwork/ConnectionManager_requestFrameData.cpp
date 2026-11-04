@@ -60,15 +60,7 @@ private:
 	NetCommandRef *m_next;
 };
 
-class NetCommandList
-{
-public:
-	NetCommandRef *getFirstMessage() { return m_first; }
-
-private:
-	void *m_vptr;
-	NetCommandRef *m_first;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class NetFrameCommandMsg : public NetCommandMsg
 {
