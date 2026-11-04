@@ -60332,7 +60332,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00740A45,27,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,C,C=0x007405A9..0x00740A60 provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 0x00740A60,54,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,C,C=0x007405A9..0x00740A96 provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 0x00740A96,30,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,C,C=0x007405A9..0x00740AB4 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp
-0x00740AB4,281,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,C,W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp C=0x007405A9..0x00740BCD provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DAnimInfo.cpp
+0x00740AB4,281,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,C,W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp C=0x007405A9..0x00740BCD provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 0x00740BCD,683,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp
 0x00740E78,13,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00740E78Constructor.cpp
 0x00740E85,28,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00740E78Constructor.cpp
@@ -92551,10 +92551,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AB4B5,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x007406E1@FuncInfo0x00964D98 provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 0x007AB4BD,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x007406E1@FuncInfo0x00964D98 provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 0x007AB4C5,10,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x007406E1@FuncInfo0x00964D98 provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
-0x007AB4CF,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DAnimInfo.cpp
-0x007AB4D7,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DAnimInfo.cpp
-0x007AB4DF,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DAnimInfo.cpp
-0x007AB4E7,10,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DAnimInfo.cpp
+0x007AB4CF,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
+0x007AB4D7,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
+0x007AB4DF,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
+0x007AB4E7,10,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740AB4@FuncInfo0x00964DCC provisional,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp
 0x007AB4F1,8,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740BCD@FuncInfo0x00964DF8 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp
 0x007AB4F9,10,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740BCD@FuncInfo0x00964DF8 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp
 0x007AB503,10,code,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,approved,P,P=0x00740BCD@FuncInfo0x00964DF8 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp
