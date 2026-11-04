@@ -23680,3 +23680,12 @@ Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp|member|BfmeOwnerYX|m_bfmeBYX,8e
 Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp|member|BfmeOwnerYX|m_bfmeAYX,3cf099c6bfd7d4d5ac509725,claude-opus-5-5,claude3-20261104-023505-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookShroudReveal.cpp|function|0x005D7E45|Rva005D7E45FindWaypoint,901a86cc45fdff947d589684,claude-opus-5-5,claude3-20261104-023505-5,w-29a6ae2a2f9f,2026-11-04
 Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|Rva0022C68CMetadataTree|count04,da9af8cd010902ec586c75e0,claude-opus-5-5,claude3-20261104-023505-5,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp|member|Rva000AFA92|m_8,2a6d7792216167f1b592b22b,claude-opus-5-5,claude3-20261104-023505-7,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp|member|Rva000AFA92|m_20,2ba37ad655577e81b1f27293,claude-opus-5-5,claude3-20261104-023505-7,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp|member|Rva000AFA92|m_120E0,4f241a8f921ed30437ce7105,claude-opus-5-5,claude3-20261104-023505-7,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp|member|Rva000AFA92|m_120E4,8def391c5228cae0aff91d08,claude-opus-5-5,claude3-20261104-023505-7,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0052DE5BState.cpp|member|Rva0052DEEFArg|m_74,1e04cea3b486ba1a365f6a7b,claude-opus-5-5,claude3-20261104-023505-8,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0052DE5BState.cpp|member|Rva0052DEEFArg|m_254,e60715ff2659293ada4c1f00,claude-opus-5-5,claude3-20261104-023505-8,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|member|Node002BBBE7|m_next08,7b5ab679ee187bf94b98071a,claude-opus-5-5,claude3-20261104-023505-10,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|member|Node002BBBE7|m_child0C,843f3db2ad61d1425a1d5fa3,claude-opus-5-5,claude3-20261104-023505-10,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0041097BDelete.cpp|function|0x0041097B|rva0041097B,cf442464e8730054d1476fb7,claude-opus-5-5,claude3-20261104-023505-10,w-29a6ae2a2f9f,2026-11-04
