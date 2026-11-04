@@ -1,7 +1,7 @@
 ### LINK-236: static initializers the exit link bridges
 
 Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
-`f2cec2a7f8`: report tie fix, Drawable.h constant and 77 rowed copies, bridged 969 -> 892 on the
+`f2cec2a7f8`: report tie fix, Drawable.h constant and 79 rowed copies, bridged 969 -> 890 on the
 fixed report; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
@@ -62,7 +62,7 @@ places it.
 
 | Grab-bag file | Rows |
 | --- | ---: |
-| `Rva007AB7F0HalfRateInits.cpp` | 425 (348 after in-o2) |
+| `Rva007AB7F0HalfRateInits.cpp` | 425 (346 after in-o2) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 |
 | `StaticTagInitializers.cpp` | 63 |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
@@ -131,6 +131,10 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     TunnelContain, CitadelSlaughterHordeContain, RefundDie, RebuildHoleExposeDie, UpgradeDie,
     OilSpillUpdate, FlammableUpdate, SlavedUpdate, SupplyTruckAIUpdate, RespawnUpdate,
     GeometryUpgrade, TooltipUpgrade, SquishCollide, AODCrushCollide, ActiveBody, HeroDie.
+- *Fragments (round 3).* TransportContain.cpp and MonsterDockUpdate.cpp already compiled their copy
+  beside one more fragment of the TU that includes Drawable.h. Each TU file's copy is rowed, and
+  the fragment's copy stays unidentified until the merge. BuildingBehavior (0x007B0920) is the
+  same case, held by another seat.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.

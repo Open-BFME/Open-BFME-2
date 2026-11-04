@@ -203,7 +203,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b0ca7	0xe03604	?$S1@?1??getModuleNameKey@GiantBirdSlowDeathBehavi	GiantBirdSlowDeathBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp	0	Drawable.h include added and reverted: the unit does not compile with the canonical header
 0x7b0d45	0xe03628	?g_00E03624@@3_NA			0	no contiguous .bss neighbour with a TU
 0x7b0d8c	0xe03650	?$S1@?1??getModuleNameKey@CaveContain@@UBE?AW4Name	CaveContain.cpp	Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp	1	rowed in this series
-0x7b0db6	0xe03664	?$S1@?1??getModuleNameKey@TransportContain@@UBE?AW	TransportContain.cpp	Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
+0x7b0db6	0xe03664	?$S1@?1??getModuleNameKey@TransportContain@@UBE?AW	TransportContain.cpp	Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp	2	rowed in this series (TU file copy; one fragment copy stays unidentified until the merge)
 0x7b0de0	0xe03690	?$S1@?BN@??changeToFormation@HordeContain@@UAEXPBV	HordeContainChangeToFormation.cpp	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp	5	only fragments of the TU include Drawable.h
 0x7b0e24	0xe0369c	?$S1@?1??getModuleNameKey@HorseHordeContain@@UBE?A	HorseHordeContain.cpp	Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp	0	rowed in this series (Drawable.h include added)
 0x7b0e4e	0xe036a8	?$S1@?1??getModuleNameKey@HordeTransportContain@@U	HordeTransportContain.cpp	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp	1	rowed in this series
@@ -256,7 +256,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b1921	0xe03b70	?$S2@?1??update@ProductionUpdate@@UAE?AW4UpdateSle	ProductionUpdateQueue.cpp	Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp	1	only fragments of the TU include Drawable.h
 0x7b1965	0xe03b7c	?$S1@?1??getModuleNameKey@ProneUpdate@@UBE?AW4Name	ProneUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp	0	rowed in this series (Drawable.h include added)
 0x7b19a9	0xe03b90	?$S1@?1??getModuleNameKey@RadarUpdate@@UBE?AW4Name	RadarUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/RadarUpdate.cpp	0	rowed in this series (Drawable.h include added)
-0x7b19ed	0xe03bac	?$S1@?1??getModuleNameKey@MonsterDockUpdate@@UBE?A	MonsterDockUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
+0x7b19ed	0xe03bac	?$S1@?1??getModuleNameKey@MonsterDockUpdate@@UBE?A	MonsterDockUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp	2	rowed in this series (TU file copy; one fragment copy stays unidentified until the merge)
 0x7b1a17	0xe03bb8	?$S1@?1??rva0004A1875@SlavedUpdate@@SA?AW4NameKeyT	SlavedUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cpp	0	Drawable.h include added and reverted: the unit does not compile with the canonical header
 0x7b1a52	0xe03bd0	?g_Va00E03BCC@@3IA	GlobalFlagClearers_E03Bxx.cpp		0	no contiguous .bss neighbour with a TU
 0x7b1a7c	0xe03bdc	?$S1@?1??getModuleNameKey@BroadcastStealthUpdate@@	BroadcastStealthUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp	0	TU does not include Drawable.h yet
