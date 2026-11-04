@@ -55,3 +55,17 @@ before the repair and retain four negative declarator/directive cases. After
 the repair, `test_tu_views.py`, `test_header_adopt_lane.py` and
 `test_gate_exploits.py` pass together: 251 passed, 1 existing skip and 9
 subtests passed. No layout, byte or link check is bypassed.
+
+## Adoption and acceptance
+
+Ordinary `adopt --apply` passes and replaces only the private Pair body with
+the canonical header include. `header_adopt_lane.py accept --class
+Rva000B3F84Pair --header Code/GameEngine/Include/Common/Rva000B3F84Pair.h`
+on this unit passes its byte and link-prediction checks and retires exactly one
+row from `reverse/header_queue.tsv` through the queue's supported path.
+
+`./build.sh` on the unit passes 7/7 matched functions, four funclet pins,
+one string literal, six empty-string references and one compiler float literal.
+`eh_verify.py` reports one EH row EXACT, zero baseline entries and no missing
+objects. `find_declared_unmatched.py` reports all defined functions matched.
+No source path, function row, pin or alias changes; no census gain claimed.

@@ -95,17 +95,7 @@ public:
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
-class Rva000B3F84Pair
-{
- public: Rva000B3F84Pair()
- {
-
- }
- const char *m_ptr;
- int m_len;
-
-}
-;
+#include "../../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
 struct WinMainTitlePair : Rva000B3F84Pair
 {
  operator AsciiString();
