@@ -558,13 +558,7 @@ public:
 	ExperienceTracker *m_experienceTracker;
 };
 
-class WeaponTemplate
-{
-public:
-	char m_pad[0xD0];
-	Rva002C99FB m_D0;
-	Rva002C99FB m_D8;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
@@ -1032,9 +1026,9 @@ static void doPickAndPlayForAttackCommand(GameMessage::Type type, PickAndPlayInf
 const WeaponTemplate *weaponTemplate=weapon->m_template;
 if (weaponTemplate) {
 			if (isSiege)
-				((Rva004D977D *)record)->rva004D977D(weaponTemplate->m_D8, asStruct(Rva002390CB()));
+				((Rva004D977D *)record)->rva004D977D(*(const Rva002C99FB *)weaponTemplate->m_fieldD8, asStruct(Rva002390CB()));
 			else
-				((Rva004D977D *)record)->rva004D977D(weaponTemplate->m_D0, asStruct(Rva002390CB()));
+				((Rva004D977D *)record)->rva004D977D(*(const Rva002C99FB *)weaponTemplate->m_fieldD0, asStruct(Rva002390CB()));
 		}
 	}
 
