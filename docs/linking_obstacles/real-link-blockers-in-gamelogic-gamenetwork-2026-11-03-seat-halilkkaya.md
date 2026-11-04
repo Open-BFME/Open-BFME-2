@@ -194,7 +194,7 @@ not linking).
 
 #### Seat halilkkaya-lk22 follow-up (2026-11-04, real link 41813987742 at `612abfbebb`, census index `a62ac1c10b`)
 
-**Repaired: 18 names.** Each drop had an orphan scan (existing objects against the census index); every
+**Repaired: 14 names (AIUpdate 5, BFMENetwork 5, ThingFactory 4).** Each drop had an orphan scan (existing objects against the census index); every
 COMDAT a changed object held first had a `link_check` over all its definers and referrers.
 
 - **AIUpdate.cpp, 5/5.** The unrowed Zero Hour `getTurretTargetObject(WhichTurretType, Bool)`,
