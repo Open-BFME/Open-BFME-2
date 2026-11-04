@@ -109,21 +109,18 @@ public:
 	virtual ~LANAPIInterface( void ) {}
 };
 // The ledger's inequality test of two addresses (0x00248CDD) is a method of
-// a class named by its address; an empty base puts it on BfmeNetAddress.
+// a class named by its address; cast the address to that existing view.
 class Rva00248CDD
 {
 public:
 	Bool rva00248CDD( const Rva00248CDD &other ) const;
 };
-struct BfmeNetAddress : public Rva00248CDD
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
+// Keep address construction local; the shared address is a plain record.
+struct AddressValue : public BfmeNetAddress
 {
-	BfmeNetAddress( void ) {}
-	BfmeNetAddress( UnsignedInt ip, UnsignedShort port ) : m_ip( ip ), m_port( port ) {}
-	BfmeNetAddress *self( void ) { return this; }
-	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
-
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
+    AddressValue(unsigned int peerIP, unsigned short peerPort) { ip = peerIP; port = peerPort; }
+    BfmeNetAddress *self() { return this; }
 };
 enum SlotState
 {
@@ -154,29 +151,7 @@ public:
 	BfmeNetAddress m_address;		// +0x38
 	UnsignedByte m_pad40[0x1AC - 0x40];
 };
-class LANPlayer
-{
-public:
-	LANPlayer() : m_lastHeard(0), m_next(0)
-	{
-		m_address.m_ip = 0;
-		m_address.m_port = 0;
-	}
-	LANPlayer( const LANPlayer &other );
-	~LANPlayer();
-
-	const UnicodeString &getName(void) const { return m_name; }
-	LANPlayer *getNext(void) const { return m_next; }
-	void setNext(LANPlayer *next) { m_next = next; }
-	UnsignedInt getIP(void) const { return m_address.m_ip; }
-
-	UnicodeString m_name;
-	UnicodeString m_login;
-	UnicodeString m_host;
-	UnsignedInt m_lastHeard;
-	LANPlayer *m_next;
-	BfmeNetAddress m_address;
-};
+#include "../../Include/GameNetwork/LANPlayerClass.h"
 class LANGameSlot : public GameSlot
 {
 public:
@@ -638,7 +613,7 @@ public:
 void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
 {
 	const BfmeNetAddress *to = (const BfmeNetAddress *)ip;
-	if (to != 0 && (to->m_ip != 0 || to->m_port != 0))
+	if (to != 0 && (to->ip != 0 || to->port != 0))
 	{
 		m_transport->queueSend((NetPacketAddress *)to, (const unsigned char *)msg, sizeof(LANMessage));
 	}
@@ -660,8 +635,8 @@ void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
 		for (UnsignedShort port = 0x1F96; port < 0x1F9E; ++port)
 		{
 			BfmeNetAddress broadcast;
-			broadcast.m_ip = m_broadcastAddr;
-			broadcast.m_port = port;
+			broadcast.ip = m_broadcastAddr;
+			broadcast.port = port;
 			m_transport->queueSend((NetPacketAddress *)&broadcast, (const unsigned char *)msg, sizeof(LANMessage));
 		}
 	}
@@ -730,7 +705,7 @@ Int LANAPI::AmIHost( void )
 
 Bool LANAPI::rva00449B79( void )
 {
-	return getLocalAddress()->m_ip == 0x7F000001;
+	return getLocalAddress()->ip == 0x7F000001;
 }
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIRemoveGame.cpp
@@ -780,7 +755,7 @@ LANPlayer *LANAPI::LookupPlayer( const BfmeNetAddress *address )
 		do
 		{
 			if( player->m_address.Rva00248CBF( address ) ||
-				( address->m_port == 0 && address->m_ip == player->m_address.m_ip ) )
+				( address->port == 0 && address->ip == player->m_address.ip ) )
 				break;
 			player = player->m_next;
 		} while( player );
@@ -1193,7 +1168,7 @@ void LANAPI::init( void )
 	m_inLobby = true;
 	m_isInLANMenu = true;
 	m_currentGame = 0;
-	BfmeNetAddress noAddress( 0, 0 );
+	BfmeNetAddress noAddress = {0, 0};
 	m_directConnectRemoteAddress = noAddress;
 
 	DWORD bufferSize = USER_NAME_BUFFER;
@@ -1235,7 +1210,7 @@ void LANAPI::RequestGameJoin( LANGameInfo *game, const BfmeNetAddress &ip )
 	LANMessage msg;
 	msg.LANMessageType = LANMessage::MSG_REQUEST_JOIN;
 	fillInLANMessage( &msg );
-	msg.GameToJoin.gameIP = game->getSlot( 0 )->m_address.m_ip;
+	msg.GameToJoin.gameIP = game->getSlot( 0 )->m_address.ip;
 	TheWritableGlobalData->m_exeCRC.rva00237E28( &msg.GameToJoin.exeCRC );
 	msg.GameToJoin.iniCRC = TheWritableGlobalData->m_iniCRC;
 	msg.GameToJoin.bfmeExtraCRC = TheWritableGlobalData->m_bfmeExtraCRC;
@@ -1273,8 +1248,8 @@ void LANAPI::RequestGameJoinDirectConnect(void *arg)
 	LANMessage msg;
 	msg.LANMessageType = 0x12;
 	fillInLANMessage(&msg);
-	msg.DirectConnect.ip = getLocalAddress()->m_ip;
-	msg.DirectConnect.port = getLocalAddress()->m_port;
+	msg.DirectConnect.ip = getLocalAddress()->ip;
+	msg.DirectConnect.port = getLocalAddress()->port;
 	const WideChar *name = (*(const void *const *)&m_name != 0) ? (const WideChar *)((const char *)*(const void *const *)&m_name + 8) : (const WideChar *)L"";
 	wcsncpy(msg.DirectConnect.name, name, 0xa);
 	msg.DirectConnect.name[0xa] = 0;
@@ -1618,7 +1593,7 @@ void LANAPI::update() {
  for(int i=0;i<128 && !LANbuttonPushed;++i) {
   Bool flag=false;
   if(((LANTransportRings*)m_transport)->in[i].length>0) {
-   BfmeNetAddress sender(((LANTransportRings*)m_transport)->in[i].ip,((LANTransportRings*)m_transport)->in[i].port);
+   AddressValue sender(((LANTransportRings*)m_transport)->in[i].ip,((LANTransportRings*)m_transport)->in[i].port);
    if(sender.Rva00248CBF(getLocalAddress())){((LANTransportRings*)m_transport)->in[i].length=0;continue;}
    LANMessage *msg=(LANMessage*)((LANTransportRings*)m_transport)->in[i].data;
    switch(msg->LANMessageType) {
@@ -1655,12 +1630,12 @@ void LANAPI::update() {
   if(m_inLobby)RequestSetName(m_name);
   else if(m_currentGame && !m_currentGame->isGameInProgress()) {
    // Retail tests only the low byte of slot 54's result.
-   if((UnsignedByte)AmIHost()) {RequestGameOptionsPacked(true,BfmeNetAddress(0,0).self());RequestGameAnnounce();}
+   if((UnsignedByte)AmIHost()) {RequestGameOptionsPacked(true,AddressValue(0,0).self());RequestGameAnnounce();}
    else {
     AsciiString text;text.format("User=%s",m_userName.str());
-    RequestGameOptions(text,true,(UnsignedInt)BfmeNetAddress(0,0).self());
-    text.format("Host=%s",m_hostName.str());RequestGameOptions(text,true,(UnsignedInt)BfmeNetAddress(0,0).self());
-    RequestGameOptions("HELLO",false,(UnsignedInt)BfmeNetAddress(0,0).self());
+    RequestGameOptions(text,true,(UnsignedInt)AddressValue(0,0).self());
+    text.format("Host=%s",m_hostName.str());RequestGameOptions(text,true,(UnsignedInt)AddressValue(0,0).self());
+    RequestGameOptions("HELLO",false,(UnsignedInt)AddressValue(0,0).self());
    }
   } else if(m_currentGame)RequestGameAnnounce();
  }
@@ -1686,10 +1661,10 @@ void LANAPI::update() {
    UnicodeString text;text=TheGameText->fetch("LAN:HostNotResponding");OnChat(UnicodeString::TheEmptyString,getLocalAddress(),text,LANAPIInterface::LANCHAT_SYSTEM);
    }
   } else {
-   int p=1;BfmeNetAddress none(0,0);_ReadWriteBarrier();
+   int p=1;BfmeNetAddress none = {0,0};_ReadWriteBarrier();
    for(;p<8;++p) {
     LANGameInfo *current=m_currentGame;
-    if(current->getAddress(p)->Rva00248CDD::rva00248CDD(none) && (UnsignedInt)current->rva00449522(p)+20000<now) {
+    if(((const Rva00248CDD *)current->getAddress(p))->rva00248CDD(*(const Rva00248CDD *)&none) && (UnsignedInt)current->rva00449522(p)+20000<now) {
      LANMessage msg;fillInLANMessage(&msg);UnicodeString text;
      text.format(TheGameText->fetchPointer("LAN:PlayerDropped"),((Rva004482B7*)m_currentGame)->rva004482B7(p).str());
      msg.LANMessageType=6;wcsncpy(msg.name,((Rva004482B7*)m_currentGame)->rva004482B7(p).str(),10);msg.name[10]=0;
@@ -1746,7 +1721,7 @@ void LANAPI::RequestGameCreate( UnicodeString gameName, Bool isDirectConnect )
 	myGame->enterGame();
 
 	UnicodeString name;
-	name.format( L"%8.8X%8.8X", getLocalAddress()->m_ip, myGame->getSeed() );
+	name.format( L"%8.8X%8.8X", getLocalAddress()->ip, myGame->getSeed() );
 	if( unicodeIsEmpty( gameName ) )
 		name.concat( m_name );
 	else

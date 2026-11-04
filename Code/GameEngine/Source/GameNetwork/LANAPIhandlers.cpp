@@ -140,47 +140,23 @@ extern "C" void MD5Print( unsigned char digest[16], char output[33] );
 template <> int StringBase<unsigned short>::compare( const unsigned short *str ) const throw();
 
 // The ledger's inequality test of two addresses (0x00248CDD) is a method of
-// a class named by its address; an empty base puts it on BfmeNetAddress.
+// a class named by its address; cast the address to that existing view.
 class Rva00248CDD
 {
 public:
 	Bool rva00248CDD( const Rva00248CDD &other ) const;
 };
 
-struct BfmeNetAddress : public Rva00248CDD
-{
-	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
-
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 // A zeroed address built at the use, as NoConnectInfo below.
 struct NoAddress : public BfmeNetAddress
 {
-	NoAddress( void ) { m_ip = 0; m_port = 0; }
+	NoAddress( void ) { ip = 0; port = 0; }
 	BfmeNetAddress *self( void ) { return this; }
 };
 
-class LANPlayer
-{
-public:
-	LANPlayer() : m_lastHeard( 0 ), m_next( 0 )
-	{
-		m_address.m_ip = 0;
-		m_address.m_port = 0;
-	}
-
-	LANPlayer *getNext( void ) { return m_next; }
-	const BfmeNetAddress *getAddress( void ) const { return &m_address; }
-
-	UnicodeString m_name;				// +0x00
-	UnicodeString m_login;				// +0x04
-	UnicodeString m_host;				// +0x08
-	UnsignedInt m_lastHeard;			// +0x0C
-	LANPlayer *m_next;				// +0x10
-	BfmeNetAddress m_address;			// +0x14
-};
+#include "../../Include/GameNetwork/LANPlayerClass.h"
 
 UnsignedInt ComputeCRC( const UnsignedByte *buf, UnsignedInt len, UnsignedInt crc );
 
@@ -669,9 +645,9 @@ void LANAPI::handleRequestLobbyLeave( LANMessage *msg, const BfmeNetAddress *sen
 
 void LANAPI::handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender )
 {
-	if( msg->JoinDeny.playerIP != getLocalAddress()->m_ip )
+	if( msg->JoinDeny.playerIP != getLocalAddress()->ip )
 		return;
-	if( msg->JoinDeny.playerPort != getLocalAddress()->m_port )
+	if( msg->JoinDeny.playerPort != getLocalAddress()->port )
 		return;
 
 	if( m_pendingAction == ACT_JOIN )
@@ -750,7 +726,7 @@ void LANAPI::handleInActive( LANMessage *msg, const BfmeNetAddress *sender )
 	if( !slot )
 		return;
 
-	if( sender->rva00248CDD( slot->m_address ) )
+	if( ((const Rva00248CDD *)sender)->rva00248CDD( *(const Rva00248CDD *)&slot->m_address ) )
 		return;
 
 	// don't want to unaccept the host, that's silly.
@@ -763,8 +739,8 @@ void LANAPI::handleInActive( LANMessage *msg, const BfmeNetAddress *sender )
 
 	slot->unAccept();
 	BfmeNetAddress noAddress;
-	noAddress.m_ip = 0;
-	noAddress.m_port = 0;
+	noAddress.ip = 0;
+	noAddress.port = 0;
 	RequestGameOptionsPacked( true, &noAddress );
 	Rva00446A77Enable();
 }
@@ -863,9 +839,9 @@ void LANAPI::handleChat( LANMessage *msg, const BfmeNetAddress *sender )
 
 void LANAPI::handleJoinAccept( LANMessage *msg, const BfmeNetAddress *sender )
 {
-	if( msg->GameJoined.playerIP != getLocalAddress()->m_ip )
+	if( msg->GameJoined.playerIP != getLocalAddress()->ip )
 		return;
-	if( msg->GameJoined.playerPort != getLocalAddress()->m_port )
+	if( msg->GameJoined.playerPort != getLocalAddress()->port )
 		return;
 
 	if( m_pendingAction == ACT_JOIN ) // Are we trying to join?
@@ -1115,7 +1091,7 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 	BfmeNetAddress responseIP = *sender;	// need this cause the player may or may not be
 						// in the player list at the sendMessage.
 
-	if( msg->GameToJoin.gameIP != getLocalAddress()->m_ip )
+	if( msg->GameToJoin.gameIP != getLocalAddress()->ip )
 	{
 		return; // Not us.  Ignore it.
 	}
@@ -1127,10 +1103,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 		{
 			reply.LANMessageType = 5;	// MSG_JOIN_DENY
 			reply.JoinDeny.reason = LANAPIInterface::RET_GAME_STARTED;
-			reply.JoinDeny.gameIP = getLocalAddress()->m_ip;
-			reply.JoinDeny.gamePort = getLocalAddress()->m_port;
-			reply.JoinDeny.playerIP = sender->m_ip;
-			reply.JoinDeny.playerPort = sender->m_port;
+			reply.JoinDeny.gameIP = getLocalAddress()->ip;
+			reply.JoinDeny.gamePort = getLocalAddress()->port;
+			reply.JoinDeny.playerIP = sender->ip;
+			reply.JoinDeny.playerPort = sender->port;
 		}
 		else
 		{
@@ -1149,10 +1125,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 				{
 					reply.LANMessageType = 5;	// MSG_JOIN_DENY
 					reply.JoinDeny.reason = LANAPIInterface::RET_CRC_MISMATCH;
-					reply.JoinDeny.gameIP = getLocalAddress()->m_ip;
-					reply.JoinDeny.gamePort = getLocalAddress()->m_port;
-					reply.JoinDeny.playerIP = sender->m_ip;
-					reply.JoinDeny.playerPort = sender->m_port;
+					reply.JoinDeny.gameIP = getLocalAddress()->ip;
+					reply.JoinDeny.gamePort = getLocalAddress()->port;
+					reply.JoinDeny.playerIP = sender->ip;
+					reply.JoinDeny.playerPort = sender->port;
 					reply.JoinDeny.exeCRCMatch = exeMatch;
 					reply.JoinDeny.iniCRCMatch = iniMatch;
 					reply.JoinDeny.bfmeExtraCRCMatch = extraMatch;
@@ -1195,10 +1171,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 							reply.JoinDeny.reason = LANAPIInterface::RET_SERIAL_DUPE;
 							reply.LANMessageType = 5; // MSG_JOIN_DENY
 						}
-						reply.JoinDeny.gameIP = getLocalAddress()->m_ip;
-						reply.JoinDeny.gamePort = getLocalAddress()->m_port;
-						reply.JoinDeny.playerIP = sender->m_ip;
-						reply.JoinDeny.playerPort = sender->m_port;
+						reply.JoinDeny.gameIP = getLocalAddress()->ip;
+						reply.JoinDeny.gamePort = getLocalAddress()->port;
+						reply.JoinDeny.playerIP = sender->ip;
+						reply.JoinDeny.playerPort = sender->port;
 						reply.JoinDeny.exeCRCMatch = false;
 						reply.JoinDeny.iniCRCMatch = false;
 						reply.JoinDeny.bfmeExtraCRCMatch = false;
@@ -1217,10 +1193,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 					// just deny duplicates
 					reply.LANMessageType = 5;	// MSG_JOIN_DENY
 					reply.JoinDeny.reason = LANAPIInterface::RET_DUPLICATE_NAME;
-					reply.JoinDeny.gameIP = getLocalAddress()->m_ip;
-					reply.JoinDeny.gamePort = getLocalAddress()->m_port;
-					reply.JoinDeny.playerIP = sender->m_ip;
-					reply.JoinDeny.playerPort = sender->m_port;
+					reply.JoinDeny.gameIP = getLocalAddress()->ip;
+					reply.JoinDeny.gamePort = getLocalAddress()->port;
+					reply.JoinDeny.playerIP = sender->ip;
+					reply.JoinDeny.playerPort = sender->port;
 					reply.JoinDeny.exeCRCMatch = false;
 					reply.JoinDeny.iniCRCMatch = false;
 					reply.JoinDeny.bfmeExtraCRCMatch = false;
@@ -1238,10 +1214,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 					wcsncpy( reply.GameJoined.gameName, m_currentGame->getName().str(), g_lanGameNameLength );
 					reply.GameJoined.gameName[g_lanGameNameLength] = 0;
 					reply.GameJoined.slotPosition = player;
-					reply.GameJoined.gameIP = getLocalAddress()->m_ip;
-					reply.GameJoined.gamePort = getLocalAddress()->m_port;
-					reply.GameJoined.playerIP = sender->m_ip;
-					reply.GameJoined.playerPort = sender->m_port;
+					reply.GameJoined.gameIP = getLocalAddress()->ip;
+					reply.GameJoined.gamePort = getLocalAddress()->port;
+					reply.GameJoined.playerIP = sender->ip;
+					reply.GameJoined.playerPort = sender->port;
 
 					LANGameSlot newSlot;
 					newSlot.setState( SLOT_PLAYER, UnicodeString( msg->name ), NoConnectInfo().self() );
@@ -1275,10 +1251,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 				wcsncpy( reply.JoinDeny.gameName, m_currentGame->getName().str(), g_lanGameNameLength );
 				reply.JoinDeny.gameName[g_lanGameNameLength] = 0;
 				reply.JoinDeny.reason = LANAPIInterface::RET_GAME_FULL;
-				reply.JoinDeny.gameIP = getLocalAddress()->m_ip;
-				reply.JoinDeny.gamePort = getLocalAddress()->m_port;
-				reply.JoinDeny.playerIP = sender->m_ip;
-				reply.JoinDeny.playerPort = sender->m_port;
+				reply.JoinDeny.gameIP = getLocalAddress()->ip;
+				reply.JoinDeny.gamePort = getLocalAddress()->port;
+				reply.JoinDeny.playerIP = sender->ip;
+				reply.JoinDeny.playerPort = sender->port;
 				reply.JoinDeny.exeCRCMatch = false;
 				reply.JoinDeny.iniCRCMatch = false;
 				reply.JoinDeny.bfmeExtraCRCMatch = false;
@@ -1289,10 +1265,10 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 	{
 		reply.LANMessageType = 5;	// MSG_JOIN_DENY
 		reply.JoinDeny.reason = LANAPIInterface::RET_GAME_GONE;
-		reply.JoinDeny.gameIP = getLocalAddress()->m_ip;
-		reply.JoinDeny.gamePort = getLocalAddress()->m_port;
-		reply.JoinDeny.playerIP = sender->m_ip;
-		reply.JoinDeny.playerPort = sender->m_port;
+		reply.JoinDeny.gameIP = getLocalAddress()->ip;
+		reply.JoinDeny.gamePort = getLocalAddress()->port;
+		reply.JoinDeny.playerIP = sender->ip;
+		reply.JoinDeny.playerPort = sender->port;
 		reply.JoinDeny.exeCRCMatch = false;
 		reply.JoinDeny.iniCRCMatch = false;
 		reply.JoinDeny.bfmeExtraCRCMatch = false;
