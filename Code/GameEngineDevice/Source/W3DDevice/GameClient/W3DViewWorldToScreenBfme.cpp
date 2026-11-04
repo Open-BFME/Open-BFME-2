@@ -14,21 +14,7 @@ typedef int Int;
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-
-class CameraClass
-{
-public:
-	enum ProjectionResType
-	{
-		INSIDE_FRUSTUM,
-		OUTSIDE_FRUSTUM,
-		OUTSIDE_NEAR_CLIP,
-		OUTSIDE_FAR_CLIP
-	};
-
-	ProjectionResType Project(Vector3 &destination, const Vector3 &source) const;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 extern void W3DLogicalScreenToPixelScreen(float, float, Int *, Int *, Int, Int);
 

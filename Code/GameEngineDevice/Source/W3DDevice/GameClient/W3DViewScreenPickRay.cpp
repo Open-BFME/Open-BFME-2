@@ -13,12 +13,7 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
-#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
-class CameraClass:public RenderObjClass {
-public:
-    void Un_Project(Vector3 &,const Vector2 &) const;
-    char unknownC4[0xF0 - 0xC4]; float depth;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 struct Rva001028AAView {
     char unknown00[0xBC];
     int width,height,originX,originY;
@@ -33,6 +28,6 @@ void __stdcall Rva001028AAPickRay(const ICoord2D *screen,Vector3 *start,Vector3 
     view->camera->Un_Project(*end,Vector2(logX,logY));
     *end-=*start;
     end->Normalize();
-    *end*=view->camera->depth;
+    *end*=view->camera->Get_Depth();
     *end+=*start;
 }

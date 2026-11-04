@@ -1,4 +1,5 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// flags: region default (reverse/retail_inventory/flag_regions.csv) plus NDEBUG and the canonical camera header include paths
+// cl: /DNDEBUG /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 //
 // ?Set_Reflected_Projection_Matrix@CameraClass@@QAEXABVMatrix4@@@Z, retail 0x00133DA0, 150 bytes.
 // CameraClass AdditionalTransform setter (second Matrix4 at +0x38C, BFME2
@@ -11,39 +12,26 @@
 // AdditionalTransform; 64B Matrix4 copy + sole caller 0x7F7E1). No fallback
 // paths.
 
-class Matrix4
-{
-public:
-	int m[16];
-};
-
-class CameraClass
-{
-public:
-	void Set_Reflected_Projection_Matrix(const Matrix4 &src);
-
-private:
-	char m_lead[0x38C];
-	Matrix4 m_38C;
-};
+#include "CameraClass.h"
 
 // ?Set_Reflected_Projection_Matrix@CameraClass@@QAEXABVMatrix4@@@Z @0x00133DA0
 void CameraClass::Set_Reflected_Projection_Matrix(const Matrix4 &src)
 {
-	m_38C.m[0] = src.m[0];
-	m_38C.m[1] = src.m[1];
-	m_38C.m[2] = src.m[2];
-	m_38C.m[3] = src.m[3];
-	m_38C.m[4] = src.m[4];
-	m_38C.m[5] = src.m[5];
-	m_38C.m[6] = src.m[6];
-	m_38C.m[7] = src.m[7];
-	m_38C.m[8] = src.m[8];
-	m_38C.m[9] = src.m[9];
-	m_38C.m[10] = src.m[10];
-	m_38C.m[11] = src.m[11];
-	m_38C.m[12] = src.m[12];
-	m_38C.m[13] = src.m[13];
-	m_38C.m[14] = src.m[14];
-	m_38C.m[15] = src.m[15];
+	const int *from = (const int *)&src;
+	((int *)field38C)[0] = from[0];
+	((int *)field38C)[1] = from[1];
+	((int *)field38C)[2] = from[2];
+	((int *)field38C)[3] = from[3];
+	((int *)field38C)[4] = from[4];
+	((int *)field38C)[5] = from[5];
+	((int *)field38C)[6] = from[6];
+	((int *)field38C)[7] = from[7];
+	((int *)field38C)[8] = from[8];
+	((int *)field38C)[9] = from[9];
+	((int *)field38C)[10] = from[10];
+	((int *)field38C)[11] = from[11];
+	((int *)field38C)[12] = from[12];
+	((int *)field38C)[13] = from[13];
+	((int *)field38C)[14] = from[14];
+	((int *)field38C)[15] = from[15];
 }

@@ -13,9 +13,8 @@
 // WB7EF0B0 confirms CameraClass RefCountPtr return ownership. The original
 // owner/method and gate purpose remain unknown; preserve existing opaque names.
 // Raw constructor must be forceinline to match the return-buffer sequence.
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc /Oy
-#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class CameraClass : public RefCountClass {char opaque[0x3f4];};
+// cl: /O1 /G7 /DNDEBUG /MD /EHsc /Oy /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 struct Rva0008B689Element {
  CameraClass *pointer;
  Rva0008B689Element():pointer(0){}
