@@ -3,27 +3,24 @@
 // ?rva0035A1D8@Rva0035A1D8@@QAEXXZ @0x0035A1D8 96B
 // Unlock via 0x002442A4; neighbours Rva0035A18DVectorDeletingDtor and OpaqueScalarDeletingDtorsB06.
 // Evidence: thiscall reads ecx first; list clear 0x0023DAA5 at +0x14; 8 float zeros; array delete 0x0035A18D x3 at +0x40; forEach 0x00359BE8 with callback 0x5CB26A (receiver virtual slot +0x10) plus owner; callers 0x002443AA and thunk 0x0035AA3E.
-#include <string>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+#include <stdlib.h>
+#include <list>
+#include <vector>
 
-namespace _STL
-{
-template <class T> class allocator;
-template <class T, class Alloc> class _List_base
+
+// TerrainResourceManager.cpp's cell view: an eight-byte-element vector plus a
+// state word. Only the array delete 0x0035A18D is called here.
+struct BfmePod8
 {
 public:
-	void clear();
+	int a[2]; // +0x00 +0x00
 };
-}
 
-class Rva0035A18D
-{
-public:
-	~Rva0035A18D();
-private:
-	_STL::basic_string<char> m_str;
-	int m_x;
+class Rva0035A18D {
+public: Rva0035A18D();~Rva0035A18D();
+ _STL::vector<BfmePod8> values; int state;
 };
 
 class Rva00359E04Owner;
