@@ -15,7 +15,7 @@ extern "C" void _ReadWriteBarrier();
 #include "Common/Snapshot.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include <string.h>
-#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../Include/Common/NameKeyGenerator.h"
 class TeamFactory;
 class Player;
 class PlayerList;
@@ -590,13 +590,6 @@ typedef _STL::hashtable<Rva003A37FAPair, int, _STL::hash<int>,
 template Rva003A37FATable::hashtable(Rva003A37FATable::size_type,
 	const Rva003A37FATable::hasher &, const Rva003A37FATable::key_equal &,
 	const Rva003A37FATable::allocator_type &);
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-	const AsciiString &keyToName(NameKeyType);
-	NameKeyType nameToKey(const char *name);
-};
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerList *ThePlayerList;
 class ObjectLookupMap

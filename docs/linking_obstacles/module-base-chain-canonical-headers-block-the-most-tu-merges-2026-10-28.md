@@ -1,5 +1,7 @@
 ### Module base chain: canonical headers block the most TU merges (2026-10-28)
 
+2026-11-04: Team.cpp now adopts canonical NameKeyGenerator (156/156 exact; 7,862 preview-linked bytes preserved; one header-queue row retired); its remaining merge prerequisites and the claim-blocked five-donor trial are recorded in [scoped evidence](../../reverse/attempt_support/team-namekey-header-20261104-codexb4.md).
+
 2026-11-04: InstantDeathBehavior's constructor/onDie/pool-key leaf declarations now agree (8/8 rows exact; 521 preview-linked bytes unchanged); its merge still needs the seed's legacy headers and module-data views reconciled. [Scoped evidence and audit boundary](../../reverse/attempt_support/instantdeath-leaf-views-20261104-codex4.md).
 
 `header_adopt_lane.py order --merges` ("Rank the class-header tier by TU-merge donors unblocked") ranks classes by queued
