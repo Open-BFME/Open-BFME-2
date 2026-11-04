@@ -52,3 +52,6 @@ This session’s follow-on candidate and mixed-file trials are recorded in
 
 The later continuation probes, including the completed StealthUpdate dry run,
 are recorded in `consolidation-seat1-final-probes-20261104.md`.
+
+The late-session BuddyThread and GameInfo dry runs and the remaining shard
+candidates are recorded in `consolidation-seat1-probes-20261104-late.md`.
