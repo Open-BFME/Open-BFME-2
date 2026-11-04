@@ -39,7 +39,7 @@ public:
 class Rva0004263F
 {
 public:
-	void rva0004263F(Real x, Real y, Real width, Real height, Int color);
+	void rva0004263F(float,float,float,float,Int);
 };
 
 class Display;
