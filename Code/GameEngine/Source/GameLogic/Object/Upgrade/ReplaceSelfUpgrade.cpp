@@ -218,34 +218,28 @@ public:
 // view of the mask type so the temporary is built through that row.
 struct Rva0006EE7A : BfmeFixedStorage0004543D { Rva0006EE7A(Int init, Int bit1, Int bit2); };
 
-class Rva004B7110ModuleBase
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+
+// The +0x1C interface: the ctor's temporary table 0x0084EF80, then 0x00858AB8.
+class Rva004B70F0Iface1C
 {
 public:
-	virtual void b0();
- Object *getObject() const { return m_object; }
+	virtual void i1C_0();
+	virtual void rva004B70F0();
+};
+
+class ReplaceSelfUpgrade : public UpgradeModule, public Rva004B70F0Iface1C
+{
+public:
+	ReplaceSelfUpgrade(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva004B70F0();
+	virtual bool wouldUpgrade(const BitFlags<128> &keyMask) const;
+	virtual void upgradeImplementation();
+
 protected:
-	const ReplaceSelfUpgradeModuleData *m_moduleData;	// +0x04
-	Object *m_object;				// +0x08
-};
-
-class UpgradeMux
-{
-public:
-	virtual void m0();
-	virtual void m1();
-	virtual Bool rva004CE2B0(Rva00406F9C *mask);	// slot 2
-	virtual void m3();virtual void m4();virtual void m5();virtual void m6();virtual void m7();virtual void m8();
-	virtual void upgradeImplementation();
-	// The base's slot-2 body (0x004CE2B0); slot 2 itself keeps the overrides'
-	// placeholder spelling above, so this declaration only names the direct call.
-	virtual Bool wouldUpgrade(const BitFlags<128> &keyMask) const;
-};
-
-class ReplaceSelfUpgrade : public Rva004B7110ModuleBase, public Rva004B7110UpgradeInterface, public UpgradeMux
-{
-public:
-	virtual Bool rva004CE2B0(Rva00406F9C *mask);
-	virtual void upgradeImplementation();
+	virtual ~ReplaceSelfUpgrade();
+	virtual void xfer(Xfer *xfer);
 };
 
 // tu-skeleton: 0x004B6FF7 44B ?xfer@ReplaceSelfUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeXfer.cpp (not merged yet)
@@ -265,7 +259,7 @@ public:
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeRva004B7110.cpp
 
 //
-// ?rva004CE2B0@ReplaceSelfUpgrade@@UAE_NPAVRva00406F9C@@@Z, retail
+// ?wouldUpgrade@ReplaceSelfUpgrade@@UBE_NABV?$BitFlags@$0IA@@@@Z, retail
 // 0x004B7110..0x004B74CB (955B), thiscall ret 4; slot 2 of the UpgradeMux
 // vtable 0x00858AC8 that the rowed ReplaceSelfUpgrade ctor 0x004B7045 installs
 // at +0x10 (so `this` is that subobject: module data at -0x0C, object at -0x08).
@@ -295,16 +289,16 @@ public:
 // fetched before the footprint query's arguments; the position add goes
 // through an owner local, and the kind-of tests are plain word tests.
 
-Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
+bool ReplaceSelfUpgrade::wouldUpgrade(const BitFlags<128> &keyMask) const
 {
-	if (!UpgradeMux::wouldUpgrade(*(const BitFlags<128> *)mask)) // the UpgradeMux base at +0x10, no null check
+	if (!UpgradeMux::wouldUpgrade(keyMask)) // the UpgradeMux base at +0x10, no null check
 		return false;
 
 	Object *obj = m_object;
 	if (obj->testStatus((ObjectStatusTypes)2) && !obj->testStatus((ObjectStatusTypes)0x14))
 		return false;
 
-	const ReplaceSelfUpgradeModuleData *data = m_moduleData;
+	const ReplaceSelfUpgradeModuleData *data = (const ReplaceSelfUpgradeModuleData *)getModuleData();
 	if (!data)
 		return false;
 
@@ -390,7 +384,7 @@ Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 
 void ReplaceSelfUpgrade::upgradeImplementation()
 {
- const ReplaceSelfUpgradeModuleData *data=m_moduleData;
+ const ReplaceSelfUpgradeModuleData *data=(const ReplaceSelfUpgradeModuleData *)getModuleData();
  if(!data)return;
  AsciiStringVector names=data->m_replaceWith;
  Int count=names.size();if(!count)return;
