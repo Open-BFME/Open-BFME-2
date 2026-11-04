@@ -149,7 +149,12 @@ public:
  void *payload;
 };
 
-struct AptButtonRecord {int mask;void *actions;};
+struct AptButtonRecord
+{
+public:
+	int mask; // +0x00
+	void *actions; // +0x04
+};
 
 struct AptButtonSound {char pad[8];void *handle;};
 

@@ -38,8 +38,9 @@ public:
 
 struct AptButtonRecord
 {
-    int flags;  // key code in bits 9..15
-    int action; // action block handed to the queue by address
+public:
+	int mask; // +0x00
+	void *actions; // +0x04
 };
 struct AptButtonCharacterData
 {
@@ -61,17 +62,20 @@ static __forceinline bool isButtonInst(AptCIH *cih)
     return ((const Rva006DBB30SarDwordField *)cih)->get() == 14 && !cih->isUndefined();
 }
 
+class AptValue;
 class AptActionQueueC
 {
 public:
-    void enqueueAction(void *actions, AptCIH *target, int flags, int arg); // 0x006E4B80
+	void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);
+	void enqueueFront(AptValue *,AptValue *,AptValue *,int,int);
+	void enqueueAction(void *,AptCIH *,int,int);
 };
 
 struct Rva006E3710Node;
 class Rva006E3710
 {
 public:
-    bool rva006E3710(Rva006E3710Node *node); // 0x006E3710
+	bool rva006E3710(Rva006E3710Node*);
 };
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
@@ -191,10 +195,10 @@ void AptAnimationPoolData::rva006FB120(int eType, int state, int value, int devi
             APT_ASSERT(isButtonInst(pButton), "pInst->isButtonInst()", APT_INPUT_FILE, 0x303)
             AptButtonCharacterData *pData = ((AptButtonCharacter *)pButton->field4C)->pData;
             for (int k = 0; k < pData->nRecords; ++k) {
-                if (((AptButtonCharacter *)pButton->field4C)->pData->aRecords[k].flags & 0xFE00) {
-                    int key = (pData->aRecords[k].flags & 0xFE00) >> 9;
+                if (((AptButtonCharacter *)pButton->field4C)->pData->aRecords[k].mask & 0xFE00) {
+                    int key = (pData->aRecords[k].mask & 0xFE00) >> 9;
                     if (eType == key) {
-                        mpActionQueue->enqueueAction(&pData->aRecords[k].action,
+                        mpActionQueue->enqueueAction(&pData->aRecords[k].actions,
                                                    pButton->field48, 0x400000, g_00E17704);
                         return;
                     }
