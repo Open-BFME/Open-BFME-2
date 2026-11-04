@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /MD /EHsc /Oy-
+// stlport
 // BF1 PeerThread room statistics is the semantic guide. Native38AF29..38B1BB
 // WB F665D0 names pushStatsToRoom and shows BF2 strategic/open-play selection.
 // Target vslot30 returns the owned548B aggregate; vslot7C returns the profile
