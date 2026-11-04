@@ -8,15 +8,10 @@
 // Return-by-value temporaries release through TextureBaseClass::Release_Ref.
 // The complete body and its 52-byte list-query and 31-byte array-query siblings
 // place uniquely in retail. Callee identities were audited separately from bytes.
+#include "MeshMatDescClass.h"
 #include "multilist.h"
-class TextureBaseClass { public: void Release_Ref(); };
+class TextureBaseClass { public: void Add_Ref(); void Release_Ref(); };
 class TextureClass : public TextureBaseClass {};
-template<class T> class RefCountPtr {
-public:
-    T *p;
-    ~RefCountPtr() { if(p) p->Release_Ref(); }
-    bool operator==(const RefCountPtr &other) const { return p==other.p; }
-};
 class VertexMaterialClass;
 class DX8PolygonRendererClass;
 class DX8FVFCategoryContainer {
@@ -32,20 +27,6 @@ class DX8PolygonRendererClass : public MultiListObjectClass {
     char gap[4];
     DX8TextureCategoryClass *TextureCategory;
 public: DX8TextureCategoryClass *Get_Texture_Category() { return TextureCategory; }
-};
-class MeshMatDescClass {
-public:
-    int PassCount;
-    char gap4[0xa4];
-    VertexMaterialClass *Material[4];	// +0xA8
-    char gapB8[0x10];
-    void *TextureArray[4][2];	// +0xC8
-    void *MaterialArray[4];	// +0xE8
-    VertexMaterialClass *Peek_Material(int,int) const;
-    void Set_Material(int,VertexMaterialClass*,int);
-    void Set_Single_Material(VertexMaterialClass*,int);
-    void Set_Texture(int,const RefCountPtr<TextureClass>&,int,int);
-    void Set_Single_Texture(const RefCountPtr<TextureClass>&,int,int);
 };
 class MeshModelClass {
     char prefix[0x24];
