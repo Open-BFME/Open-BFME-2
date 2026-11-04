@@ -1,0 +1,5 @@
+# FireWeaponUpdate consolidation trial (2026-11-04)
+
+Allocated destination: `Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp`; `consolidation_queue.py --check-tu` passed. A fresh scoped planner and `--check build/consolidation` passed. The plan had 31 approved rows, four pull donors and three mixed files.
+
+The fresh merge dry run accepted no donors. `string_base_clear.cpp` failed because `StringBase` was already defined; `Rva0048B9D0Replace.cpp` needs missing `FireWeaponUpdate` declarations/members; and `FireWeaponUpdateModuleDataCtor.cpp` redeclares the module-data vftable. Mixed-file trials refused the GE22 helper because it would increase escape-hatch count, refused the INI parse split because the residual loses matched row `0x0048BA1A`, and rejected the field-parse split for compile errors involving `FireWeaponUpdate::getFi...` after moving data address `g_00C4C210`. No split or merge was applied and no claims were acquired. Revisit only after the declaration, view, or residual-row prerequisites change; no source reduction, identity cleanup, or linking gain is claimed.
