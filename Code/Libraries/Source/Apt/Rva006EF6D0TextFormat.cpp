@@ -51,9 +51,8 @@ struct NativeCharacter {char unknown00[12];NativeAnimation *definition;};
 struct TextDefinition {char unknown00[24];int fontIndex;};
 struct TextInstance {char unknown00[12];TextDefinition *definition;char unknown10[20];int color;char unknown28[20];int align;char unknown40[32];int size;int unknown64;Rva006EB4B0 *format;};
 #include "BfmeAptValue006DCD20.h"
-class AptCIH {public:bool IsCharacterInst()const;char unknown00[0x4C];NativeCharacter *character;
- __forceinline NativeCharacter *getCharacter(){if(!IsCharacterInst())aptAssert("isCharacterInst()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0xA5);return character;}};
-#include "AptValue.h"
+#include "AptCIHClass.h"
+static __forceinline NativeCharacter *getCharacter(AptCIH *cih){if(!cih->IsCharacterInst())aptAssert("isCharacterInst()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0xA5);return (NativeCharacter*)cih->field4C;}
 static __forceinline TextInstance *text(AptValue *context){return (TextInstance*)((const BfmeAptValue006DCD20*)context->c_cih(false))->rva006E0F40();}
 AptValue *Rva006EF6D0TextFormat(AptValue *context,int argc){
  if(argc>0)return gpUndefinedValue;
@@ -63,7 +62,7 @@ AptValue *Rva006EF6D0TextFormat(AptValue *context,int argc){
  }
  Rva006ECFC0Owner *value=new Rva006ECFC0Owner(*text(context)->format);
  if(value->color==-1)value->color=text(context)->color;
- NativeFrameList *frames=(NativeFrameList*)(context->c_cih(false)->getCharacter()->definition->frameList+8);
+ NativeFrameList *frames=(NativeFrameList*)(getCharacter(context->c_cih(false))->definition->frameList+8);
  if(text(context)->definition->fontIndex<frames->count && text(context)->definition->fontIndex!=-1 && frames->items[text(context)->definition->fontIndex]->type==3){
   EAStringC tmp(frames->items[text(context)->definition->fontIndex]->font);value->font=tmp;
  }else{EAStringC tmp("");value->font=tmp;}
