@@ -28,7 +28,7 @@ public:
  char prefix[8];
  AudioInfoReference info;
 };
-class BfmePoolRef10 { public: AudioEventRTS *event; };
+#include "../../../GameEngine/Include/Common/BfmePoolRef10.h"
 class AudioFileCache {
 public:
  Rva00690FF0Handle requestFile(const BfmePoolRef10&,int);
@@ -36,7 +36,7 @@ public:
 private: char unknown[0x44]; Rva00690FF0Handle emptyFile;
 };
 Rva00690FF0Handle AudioFileCache::requestFile(const BfmePoolRef10 &event,int priority) {
- AudioEventRTS*ev=event.event;
+ AudioEventRTS*ev=reinterpret_cast<AudioEventRTS*>(event.m_target);
  if(!ev) return emptyFile;
  if (ev->info.isNull()) return emptyFile;
  _ReadWriteBarrier();if (ev->info->type!=2) return emptyFile;

@@ -27,17 +27,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 class PoolMember { public: void Rva0050ED3(); };
-struct BfmePoolHolder88 { unsigned char pad[0x88]; PoolMember m_ref; };
 class BfmePoolRef08 {
 	PoolMember *m_target;
 public:
 	__forceinline ~BfmePoolRef08() { if (m_target != 0) m_target->Rva0050ED3(); }
 };
-class BfmePoolRef10 {
-	BfmePoolHolder88 *m_target;
-public:
-	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Rva0050ED3(); }
-};
+#include "../../../../GameEngine/Include/Common/BfmePoolRef10.h"
 
 struct BfmeStringTailRecord144 {
 	virtual ~BfmeStringTailRecord144();
