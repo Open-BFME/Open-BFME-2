@@ -1,9 +1,11 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // Native 330C50..330CC2: primary vptr +0, vbptr +4, container +8,
 // flag +34, vtordisp +38, seven-slot virtual interface +3C.
 // The vbtable contains {-4, 0x38}; interface thunks 2E3E80..2E3EB0
 // each subtract the vtordisp before dispatching the corresponding member.
 #include "../../../Libraries/Include/Lib/Region2D.h"
+#include "../../Include/Common/AreaPolygonBase.h"
 // The virtual-base interface has seven slots. Defining their actual
 // overrides makes MSVC derive the native negative offsets from this class
 // layout; separate opaque receiver classes previously hid that relationship.
@@ -32,7 +34,6 @@ public:
 	virtual Rva0030B72CPoint slot6() const = 0;
 };
 
-namespace _STL { void free(void *); }
 class Rva0030B9DD
 {
 public:
@@ -75,7 +76,6 @@ Rva00330C50::Rva00330C50() : container(0)
 // this object. The original semantic class name remains unproven.
 Rva00330C50::~Rva00330C50() {}
 
-class AreaPolygonBase { public: void reserve(int); };
 // Native330AA6 is an8-byte terminal jump to rowed AreaPolygonBase::reserve
 // at30B96B with the measured container adjustment8. The following16 bytes
 // form a separate float virtual dispatch, not part of this reserve wrapper.
