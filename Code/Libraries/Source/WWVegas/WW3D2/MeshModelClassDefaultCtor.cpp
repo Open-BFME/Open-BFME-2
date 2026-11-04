@@ -23,9 +23,9 @@
 #include <new>
 #include <windows.h>
 
-class W3DMPO
-{
-};
+// <new> supplies the placement operators; skip always.h's duplicates.
+#define _OPERATOR_NEW_DEFINED_
+#include "always.h"
 
 #include "../WWLib/RefCountData.h"
 
@@ -44,16 +44,7 @@ public:
 // The proven DX8PolygonRendererList vtable slot 0 is rowed at 0x00144690.
 typedef Rva00144690 DX8PolygonRendererList;
 
-class MeshMatDescClass
-{
-public:
-	MeshMatDescClass();
-	virtual ~MeshMatDescClass();
-
-private:
-	// Retail news 0x118 for this (proven by the copy ctor's push).
-	char m_pad[0x118 - 4];
-};
+#include "MeshMatDescClass.h"
 
 #include "MaterialInfoClass.h"
 

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Retain native inlined reference operations without competing external
 // copies; whole-body verification also checks that no imported call remains.
 // EA Zero Hour meshmatdesc.cpp setters adapted to BFME2 owning handles.
@@ -9,45 +9,18 @@ class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass : public TextureBaseClass {
 public: __declspec(dllimport) __forceinline void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this)+4); }
 };
-template<class T> class RefCountPtr {
-public:
-    T *p;
-    RefCountPtr &operator=(const RefCountPtr &other) {
-        if(other.p) other.p->Add_Ref();
-        if(p) p->Release_Ref();
-        p=other.p;
-        return *this;
-    }
-    // LINK: same-body helper under a TU-unique name (identical inlined
-    // bytes). This TU's operator= copy loses to the first-in-order copy (no
-    // retail address); both setters below inline it but still emit the loser
-    // COMDAT. Rebinding them here emits only this unique (trivially kept)
-    // copy. No flags touched.
-    RefCountPtr &bfme_assign(const RefCountPtr &other) {
-        if(other.p) other.p->Add_Ref();
-        if(p) p->Release_Ref();
-        p=other.p;
-        return *this;
-    }
-};
+#include "MeshMatDescClass.h"
+// TU-local completion of the descriptor's texture buffer: its element array at +8.
 class TexBufferClass {
     char prefix[8];
     RefCountPtr<TextureClass> *Array;
 public: RefCountPtr<TextureClass> *Get_Array() { return Array; }
 };
-class MeshMatDescClass {
-    char prefix[0x78];
-    RefCountPtr<TextureClass> Textures[4][2];
-public:
-    TexBufferClass *Get_Texture_Array(int,int,bool);
-    void Set_Single_Texture(const RefCountPtr<TextureClass>&,int,int);
-    void Set_Texture(int,const RefCountPtr<TextureClass>&,int,int);
-};
 void MeshMatDescClass::Set_Single_Texture(const RefCountPtr<TextureClass>& texture,int pass,int stage) {
-    Textures[pass][stage].bfme_assign(texture);
+    Texture[pass][stage] = texture;
 }
 void MeshMatDescClass::Set_Texture(int index,const RefCountPtr<TextureClass>& texture,int pass,int stage) {
-    Get_Texture_Array(pass,stage,true)->Get_Array()[index].bfme_assign(texture);
+    Get_Texture_Array(pass,stage,true)->Get_Array()[index] = texture;
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

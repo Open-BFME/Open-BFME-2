@@ -13,8 +13,8 @@
 //   null-checks compile to mov+test, which is how the shape proves both
 //   globals are pointers; the GapFiller helper ignores its own this and
 //   only takes the model, but the caller still passes the global as this).
-// - CurMatDesc UV[0] guard around the renderer-teardown helper (UV[0] sits
-//   at +0xC per the meshmatdesclayout shim; the helper re-checks it).
+// - CurMatDesc renderer-state guard around the renderer-teardown helper
+//   (MeshMatDescClass +0xC, field_0C; the helper re-checks it).
 // - Reset(0, 0, 0, skin) where skin is the SKIN bit (Flags 0x400, bit 10).
 //   The extraction is (Flags >> 10) with a bool mask: cl7.1 keeps `& true`
 //   byte-wide (and al,1) while `& 1` widens to and eax,1 and mismatches;
@@ -39,9 +39,9 @@
 
 #define SKIN_BIT_INDEX 10
 
-class W3DMPO
-{
-};
+// <new> supplies the placement operators; skip always.h's duplicates.
+#define _OPERATOR_NEW_DEFINED_
+#include "always.h"
 
 #include "../WWLib/RefCountData.h"
 
@@ -56,18 +56,8 @@ public:
 	virtual ~DX8PolygonRendererList();
 };
 
-struct UVBufferClass;
 
-class MeshMatDescClass
-{
-public:
-	~MeshMatDescClass();
-
-	int PassCount;
-	int VertexCount;
-	int PolyCount;
-	UVBufferClass *UV[8];
-};
+#include "MeshMatDescClass.h"
 
 #include "MaterialInfoClass.h"
 
@@ -151,7 +141,7 @@ MeshModelClass::~MeshModelClass(void)
 	if (TheMeshGapFillerContext != NULL) {
 		TheMeshGapFillerContext->DeleteModelGapFiller(this);
 	}
-	if (CurMatDesc->UV[0] != NULL) {
+	if (CurMatDesc->field_0C != NULL) {
 		rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
 	}
 	Reset(0, 0, 0, (Flags >> SKIN_BIT_INDEX) & true);
@@ -176,7 +166,7 @@ MeshModelClass::~MeshModelClass(void)
 
 // Retail 0x001716E0, 58 bytes. Renderer/gapfiller/UV unregister head shared
 // with the destructor above, as a standalone thiscall method: the two global
-// guards, then the CurMatDesc UV[0] guard around the teardown helper.
+// guards, then the CurMatDesc renderer-state guard around the teardown helper.
 void MeshModelClass::rva001716E0UnregisterMeshModel(void)
 {
 	if (TheDX8MeshRenderer != NULL) {
@@ -186,7 +176,7 @@ void MeshModelClass::rva001716E0UnregisterMeshModel(void)
 		TheMeshGapFillerContext->DeleteModelGapFiller(this);
 	}
 	MeshMatDescClass *curDesc = CurMatDesc;
-	if (curDesc->UV[0] != NULL) {
+	if (curDesc->field_0C != NULL) {
 		rva00199FA5((Rva00199FA5Rec *)curDesc);
 	}
 }
@@ -213,7 +203,7 @@ void MeshModelClass::Enable_Alternate_Material_Description(bool onoff)
 			if (TheMeshGapFillerContext != NULL) {
 				TheMeshGapFillerContext->DeleteModelGapFiller(this);
 			}
-			if (CurMatDesc->UV[0] != NULL) {
+			if (CurMatDesc->field_0C != NULL) {
 				rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
 			}
 			CurMatDesc = DefMatDesc;
