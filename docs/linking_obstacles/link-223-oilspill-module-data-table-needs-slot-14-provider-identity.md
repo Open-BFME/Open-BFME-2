@@ -1,4 +1,4 @@
-### LINK-217: OilSpill module-data table needs slot-14 provider identity
+### LINK-223: OilSpill module-data table needs slot-14 provider identity
 
 Status: Blocked. Updated: 2026-11-04; inspected revision: `78e2dc7b06`.
 Canonical base adoption keeps the destination/destructor's 9 code/EH rows exact,

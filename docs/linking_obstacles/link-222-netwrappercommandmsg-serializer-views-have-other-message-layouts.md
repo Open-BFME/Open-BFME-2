@@ -1,4 +1,4 @@
-### LINK-218: NetWrapperCommandMsg serializer views have other message layouts
+### LINK-222: NetWrapperCommandMsg serializer views have other message layouts
 
 Status: Open. Updated: 2026-11-04; inspected revision: `51570733cf`.
 Scope: `FillBufferWithFrameCommand.cpp` (`0x0058C80F`) and `Rva0058CD6AWrite.cpp` (`0x0058CD6A`); their private wrapper views describe frame and buffer-bearing layouts that differ from the canonical wrapper contract.
