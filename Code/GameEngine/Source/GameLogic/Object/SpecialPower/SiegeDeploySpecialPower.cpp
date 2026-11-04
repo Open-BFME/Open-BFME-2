@@ -385,18 +385,6 @@ private:
     bool m_stop; // +0x70
 };
 
-// Counts anything past the first two states as interesting.
-
-class BfmeThingXT
-{
-public:
-	int bfmeOddXT(void) const;
-
-private:
-	unsigned char m_bfmeHead[0x18];		// 0x00
-	int m_bfmeState;			// 0x18
-};
-
 //
 // ??0SiegeDeploySpecialPowerModuleData@@QAE@XZ, retail 0x004C5815 (70 bytes).
 // Frameless ModuleData ctor over the rowed AIUpdateModuleData base
@@ -571,18 +559,6 @@ void SiegeDeploySpecialPower::rva004C573C()
 	{
 		((DynamicPortalBehaviour *)found)->rva0046094C();
 	}
-}
-
-// ---- from Code/GameEngine/Source/Common/BfmeOneHundredFortySeven.cpp
-
-int BfmeThingXT::bfmeOddXT(void) const
-{
-	int state = m_bfmeState;
-
-	if (state != 0 && state != 1)
-		return 1;
-
-	return 0;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerModuleDataCtor.cpp
