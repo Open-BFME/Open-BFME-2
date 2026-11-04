@@ -156,3 +156,15 @@ tools, hooks, workflows and include directives; no active path consumer was
 found. The remaining provenance comments retain original-path history.
 LinkGuard found no lost selected provider/COMDAT in the dry run. Another
 contributor must resolve the shared-header class view before retrying.
+
+## Continuation: DeletionUpdate
+
+Allocation and scoped planner checks passed (12 approved rows, four donors,
+two mixed files). Merge dry run accepted no donors: all three donor compiles
+reported duplicate class definitions (`GameLogic`, `SubsystemInterface`,
+`Xfer`/`Module`, and related views). The destination and donor units are
+census-linked. `ModuleNameGetters3.cpp` split dry run carved only `0x00488351`
+and that row matched alone, but the destination compile failed with duplicate
+`DeletionUpdate` class definition; LinkGuard compared residual and destination
+together. `Rva0024A797Derived.cpp` had no row approved for this TU. No changes
+or claims were applied. Class/view reconciliation is outside this seat.

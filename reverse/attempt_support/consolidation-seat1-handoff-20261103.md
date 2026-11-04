@@ -190,3 +190,10 @@ its file/RVA claims released. Nothing landed and no file reduction occurred.
 The exact gate error and verification evidence are in the linked trial note.
 Another contributor must reconcile this class view before retrying. Continue
 with another allocated TU after rechecking allocation and wind-down.
+
+`DeletionUpdate.cpp` also had zero accepted donors: its donor compiles report
+class/view redefinitions. A mixed getter split carved `0x00488351` and matched
+alone, then failed against the destination on a duplicate `DeletionUpdate`
+declaration; LinkGuard checked both split sides. The second mixed file has no
+row approved for this TU. No source changes or claims were applied; exact
+checks are in the trial note. Continue to the next allocated destination.
