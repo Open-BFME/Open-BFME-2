@@ -112,6 +112,10 @@ link improvement is claimed. No live claims remain from this pass.
   Splits for `ConstIntGetters4.cpp` and `Rva004BC4FCDerived.cpp` carve the
   selected rows and match alone, but LinkGuard rejects both for selected
   COMDAT context loss. No merge or split was applied.
+- `WWVegas/WW3D2/FXShaderParameterSourceNamespaceWW3D.cpp`: the destructor
+  donor from `Common` fails byte verification. The mixed namespace split
+  carves six matching rows, but is refused because copying `MakeDesc` and
+  `g_Va00DEDA28` would grow a hatch. No merge or split was applied.
 - `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
   and `Object::id`, which are absent from the TU class view (MSVC C2039).
   Manual class-view reconciliation is required; no merge was applied.
