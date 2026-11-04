@@ -125,6 +125,11 @@ link improvement is claimed. No live claims remain from this pass.
   needs an undeclared `getDisabledTypesToProcess` member (C2509), and the
   quantity-modifier parser has a conflicting STL specialization (C2908).
   Class reconciliation is also required; no merge was applied.
+- `W3DDevice/GameClient/Shadow/W3DShadow.cpp`: no donor was accepted; merge
+  trials hit a duplicate `StringBase` definition and missing class members.
+  The `R2GuardedGlobalCalls` split lost selected COMDAT context, the toggle-list
+  split lacks `ReAcquireResources` in its view, and the time-of-day split would
+  grow a hatch. No merge or split was applied.
 - `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
   and `Object::id`, which are absent from the TU class view (MSVC C2039).
   Manual class-view reconciliation is required; no merge was applied.
