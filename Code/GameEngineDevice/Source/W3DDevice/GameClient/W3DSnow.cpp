@@ -256,11 +256,11 @@ static __forceinline const WeatherSetting *walk(const WeatherSetting *weatherSet
 
 void W3DSnowManager::rva00093B5B() {
  const WeatherSetting *weatherSetting=TheWeatherSetting.m_object;
- const WeatherSetting *d= !weatherSetting ? 0 : (weatherSetting->getNextOverride() ? (const WeatherSetting *)const_cast<Overridable *>(weatherSetting->getNextOverride())->friend_getFinalOverride() : weatherSetting);
+ const WeatherSetting *resolvedSettings= !weatherSetting ? 0 : (weatherSetting->getNextOverride() ? (const WeatherSetting *)const_cast<Overridable *>(weatherSetting->getNextOverride())->friend_getFinalOverride() : weatherSetting);
  const WeatherSetting *from=0, *to;
- if (!d->m_6c || !m_AC) return;
+ if (!resolvedSettings->m_6c || !m_AC) return;
  const Overridable *next=0;
- if (weatherSetting) { next=weatherSetting->getNextOverride(); const WeatherSetting *ft=next ? (const WeatherSetting *)const_cast<Overridable *>(next)->friend_getFinalOverride() : weatherSetting; _ReadWriteBarrier(); from=ft; }
+ if (weatherSetting) { next=weatherSetting->getNextOverride(); const WeatherSetting *fromSettings=next ? (const WeatherSetting *)const_cast<Overridable *>(next)->friend_getFinalOverride() : weatherSetting; _ReadWriteBarrier(); from=fromSettings; }
  to = !weatherSetting ? 0 : (next ? (const WeatherSetting *)const_cast<Overridable *>(next)->friend_getFinalOverride() : weatherSetting);
  float fraction=(float)(from->m_70-m_58)/(float)to->m_70;
  if(fraction>1.0f) { rva00093457(); }
@@ -293,8 +293,8 @@ void W3DSnowManager::rva00093B5B() {
 // Existing reset93349, override1E35DF and named weather globals bind the rest.
 
 void W3DSnowManager::target_00094652() {
- const WeatherSetting *ov=walk(TheWeatherSetting.m_object);
- if(!ov->m_6c) return;
+ const WeatherSetting *weatherSettings=walk(TheWeatherSetting.m_object);
+ if(!weatherSettings->m_6c) return;
  if(m_AC) {
   int s=m_AC;
   if(s==1 || s==3) --m_58;
@@ -303,8 +303,8 @@ void W3DSnowManager::target_00094652() {
   if(m_A8==state2) {
    int s=TheGlobalWeatherSystem->state;
    if(s!=state2) {
-    m_AC=3; ov=walk(TheWeatherSetting.m_object);
-    m_58=(int)((1.0f-(*reinterpret_cast<float *>(&m_60)))*ov->m_70); m_A8=s;
+    m_AC=3; weatherSettings=walk(TheWeatherSetting.m_object);
+    m_58=(int)((1.0f-(*reinterpret_cast<float *>(&m_60)))*weatherSettings->m_70); m_A8=s;
    }
   }
  } else {
