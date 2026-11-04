@@ -6,8 +6,9 @@ fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope
 rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are
 file-scope objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records
 of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; halilkkaya-in-o5: 17
-private-view units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700; next
-seat continues).
+private-view units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700, then 3
+more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`; next seat
+continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -67,7 +68,7 @@ places it.
 
 | Grab-bag file | Rows |
 | --- | ---: |
-| `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2, 324 after in-o5) |
+| `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2, 321 after in-o5) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3, 88 after in-o4) |
 | `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 (0 after in-o4) |
@@ -170,6 +171,13 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     included `DrawableBFME2.h`, which builds no copy.
   - AODHordeContain needed only the include. Its fragment AODHordeContainOnContaining.cpp still
     compiles a second, unidentified copy until the merge.
+  - *Private `Thing` layouts (3 more).* SquishCollide's private `Thing` (vptr pad, `tmplate` +4,
+    position +0x38, angle +0x44, 0x48 bytes) and RebuildHoleExposeDie's private `Drawable`/`Thing`
+    give way to the canonical classes. `tmplate` reads become `m_template`. Each private `Object`
+    now pads from the canonical Thing's end (+0x60) to its first own field (id at +0x74).
+    RebuildHoleExposeDie's `Object` keeps its inline `getTemplate` over the inherited
+    `m_template`. W3DLightDraw takes the include after WW3D2 `rendobj.h`, whose full WWMath
+    `Matrix3D` makes thing.h's `Matrix3DData.h` stand down. Its copy is `_$E2`.
 - *Still refused (round 5).*
   - PlaceEventTranslator compiles with the include at every position tried, but
     `translateGameMessage` swaps two spill slots. Its FreelistPool comment records the same
@@ -180,13 +188,12 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     BridgeBehavior and SlavedUpdate. The canonical header collides with Zero Hour's `Thing`,
     `Coord3D` and `ModelConditionFlags`. AutoHealBehavior, BridgeBehavior and SlavedUpdate already
     include Zero Hour's `GameClient/Drawable.h`, whose constant is not dynamic.
-  - Private `Thing` layouts: SquishCollide and RebuildHoleExposeDie (whose private `Object` carries
-    its own `m_vptr`). These need a Thing adoption first.
-  - `Matrix3D`: thing.h's `Matrix3DData.h` lacks members that ActiveBody (`Get_Y_Vector`) and
-    W3DLightDraw (BFME 1 `sphere.h`/`aabox.h`) use.
-- *Next.* The handoff table lists each copy's state. The units above need their `Thing` view,
-  `Matrix3D` view or Zero Hour header graph reconciled first. Held units follow the same steps
-  once they are free.
+  - ActiveBody defines private `Matrix3D` (with `Get_Y_Vector`), `Drawable`, `Thing` and `Object`
+    views. thing.h's `Matrix3DData.h` lacks `Get_Y_Vector`, so the unit needs the WWMath
+    `matrix3d.h` before the header, and then its other views reconciled.
+- *Next.* The handoff table lists each copy's state. ActiveBody and the Zero Hour-shaped units
+  need their views or header graph reconciled first. Held units follow the same steps once they
+  are free.
 
 **BlockParseInits (130 rows): per-unit `BlockParse` nodes (halilkkaya-in-o3, 2026-11-04).**
 - *Target facts.* All 130 entries are one 21-byte body, `mov eax, [0x00DDF578]; mov [node], eax;
