@@ -3,12 +3,7 @@
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class DamageInfo;
-class Player
-{
-public:
-    char pad[0x54];
-    int index;
-};
+#include "../../../Include/Common/Player.h"
 class Object;
 class GrabContainView {public:virtual void s00()=0;
 virtual void s01()=0;
@@ -148,9 +143,9 @@ void Made002CC907::rva0050A832(Object *source,Object *target) {
  info.radius44=m_shockWaveRadius;info.taper48=m_shockWaveTaper;info.factor4C=m_shockWaveZMultiplier;
  if(m_shockWaveSpeed>0.0f)info.delay28=direction.length()/m_shockWaveSpeed;
  info.id30=source->id;
- if(source && source->getControllingPlayer())info.mask0C=1u<<source->getControllingPlayer()->index;
+ if(source && source->getControllingPlayer())info.mask0C=1u<<source->getControllingPlayer()->m_playerIndex;
  info.id08=source->id;
- info.mask0C=source ? (1u<<source->getControllingPlayer()->index):0;
+ info.mask0C=source ? (1u<<source->getControllingPlayer()->m_playerIndex):0;
  target->attemptDamage((DamageInfo *)&info);
 }
 

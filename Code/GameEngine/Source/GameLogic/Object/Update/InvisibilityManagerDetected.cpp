@@ -27,7 +27,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 }
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 enum Relationship { ENEMIES,NEUTRAL,ALLIES };class Team;
-class Player {public:Relationship getRelationship(const Team*)const;char pad[0x2EC];const Team *team;};
+#include "../../../../Include/Common/Player.h"
 struct DetectionTemplate {char pad[0x115];unsigned char kind;};
 class Object {public:void *vtable;DetectionTemplate *objectTemplate;char pad8[0x30];Coord3D position;char pad44[0x30];int id;Object *rva002931F5(bool);Player *getControllingPlayer()const;};
 struct BfmePod196 {int a[49];};
@@ -65,7 +65,7 @@ bool Rva00439E0C::detected(Object *object,Object *volatile detectorInput,int dur
  Object *detector=detectorInput;
  scratch.record=&node->record;
  bool allied=false;
- if(detector) {Player *detectorPlayer=detector->getControllingPlayer();allied=detectorPlayer->getRelationship(object->getControllingPlayer()->team)==2;}
+ if(detector) {Player *detectorPlayer=detector->getControllingPlayer();allied=detectorPlayer->getRelationship(object->getControllingPlayer()->m_defaultTeam)==2;}
  rva0043822E(scratch.record,duration);
  Rva00438389 info;info.rva00438389();
  int state=rva0043966A(object,&object->position,scratch.record,(Rva004389DBInfo*)&info);

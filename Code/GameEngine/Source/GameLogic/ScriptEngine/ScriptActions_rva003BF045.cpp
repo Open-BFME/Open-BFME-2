@@ -40,15 +40,7 @@ class Rva0036FAF8
 public:
 	void rva0036FAF8(const Waypoint *wp, CommandSourceType src, int x);
 };
-class Player
-{
-public:
-	virtual void d00(); virtual void d01(); virtual void d02(); virtual void d03();
-	virtual void d04();
-	virtual void v05(Object *o, Waypoint *wp);
-	char m_pad04[0x2E0 - 4];
-	int m_2E0;
-};
+#include "../../../Include/Common/Player.h"
 class TerrainLogic
 {
 public:
@@ -112,7 +104,7 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 	Player *enemy = TheScriptEngine->getSkirmishEnemyPlayer();
 	if (enemy == 0)
 		return;
-	int base = enemy->m_2E0;
+	int base = enemy->m_mpStartIndex;
 	int num = base + 1;
 	AsciiString waypointName;
 	const void *prefixHeader = *(const void * const *)&prefix;
@@ -123,7 +115,7 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 		return;
 	Player *cur = TheScriptEngine->getCurrentPlayer();
 	if (cur != 0 && first != 0)
-		cur->v05(first, wp);
+		cur->checkBridges(first, wp);
 	if (which)
 		((Rva0036FAF8 *)group)->rva0036FAF8(wp, CMD_FROM_SCRIPT, 0);
 	else

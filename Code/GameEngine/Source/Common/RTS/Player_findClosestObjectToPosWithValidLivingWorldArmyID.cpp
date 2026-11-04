@@ -23,21 +23,14 @@ public:
 	float m_bestDist;
 };
 
-typedef void (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
+#include "../../../Include/Common/Player.h"
 
-class Player
-{
-public:
-	void iterateObjects(ObjectIterateFunc func, void *userData) const;
-	Object *findClosestObjectToPosWithValidLivingWorldArmyID(const void *pos) const;
-};
-
-int __cdecl Rva002AA41A(Object *obj, void *userData); // rowed with an int result; used as a void callback
+int __cdecl Rva002AA41A(Object *obj, void *userData); // rowed with an int result
 
 Object *Player::findClosestObjectToPosWithValidLivingWorldArmyID(const void *pos) const
 {
 	Rva002A996F data;
 	data.m_point = *(const Rva002AB22APoint *)pos;
-	iterateObjects((void (__cdecl *)(Object *, void *))Rva002AA41A, &data);
+	iterateObjects(Rva002AA41A, &data);
 	return data.m_best;
 }

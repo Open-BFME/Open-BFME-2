@@ -24,12 +24,7 @@ public:
 
 #include "../../../../Include/GameLogic/Weapon.h"
 
-class Player
-{
-public:
-	char m_pad00[0x5C];
-	int m_5C; // +0x5C
-};
+#include "../../../../Include/Common/Player.h"
 
 class AIUpdateInterface;
 
@@ -62,7 +57,7 @@ Bool Rva00263077Filter::allow(Object *target)
 			{
 				if (!((Rva002C9407ByteField *)weapon->m_template)->get())
 				{
-					if (m_object->getControllingPlayer()->m_5C == 0)
+					if (m_object->getControllingPlayer()->m_playerType == 0)
 					{
 						Object *owner = m_object;
 						AIUpdateInterface *ai = owner->m_ai;

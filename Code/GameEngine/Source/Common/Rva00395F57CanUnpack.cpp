@@ -17,12 +17,7 @@ extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 class Player;
 #include "../GameLogic/Object/object.h"
-class Player
-{
-public:
-	char m_pad00[0x4C];
-	AsciiString m_name;
-};
+#include "../../Include/Common/Player.h"
 struct ChainValue
 {
 	char m_pad00[0x64];
@@ -54,7 +49,7 @@ bool Rva00395F57::canUnpack(bool checkTimer)
 		if (theLogicRandomLogFile != 0)
 		{
 			Player *player = object->getControllingPlayer();
-			const char *textA = player->m_name.str();
+			const char *textA = player->m_playerName.str();
 			int id = object->m_id;
 			ChainValue *chain = (ChainValue *)object->m_template;
 			const char *textB = chain->m_value.str();

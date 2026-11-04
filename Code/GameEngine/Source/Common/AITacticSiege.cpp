@@ -22,6 +22,7 @@ protected:
 
 // ?rva005DCAF4@AITacticSiege@@QAE_NXZ @ 0x005DCAF4 25B
 // Bool getter via pinned 0x005DCAE5 Object then bit0 at +0x438; caller v7 0x005A9BBF.
+class Team;
 class Object
 {
 public:
@@ -32,7 +33,7 @@ public:
 	char m_pad44[0x74 - 0x44];
 	ObjectID id;
 	char m_pad78[0x304 - 0x78];
-	int m_304;
+	Team *m_304;
 	char m_pad308[0x438 - 0x308];
 	unsigned char m_438;
 };
@@ -63,14 +64,7 @@ class Player;
 
 class Object;
 
-class Player
-{
-public:
-	char m_pad0[0x54];
-	int m_playerIndex; // +0x54 (as in Rva002A8F24.cpp)
-	char m_pad1[0x2EC - 0x58];
-	int m_2EC; // +0x2EC
-};
+#include "../../Include/Common/Player.h"
 
 struct Inner520
 {
@@ -157,7 +151,7 @@ bool AITacticSiege::sideHasIdleSiegeWeapons()
 		Object *object = objects->rva0025BFF8((int)i);
 		if (!object)
 			continue;
-		if (object->m_304 != ((Player *)m_owner)->m_2EC)
+		if (object->m_304 != ((Player *)m_owner)->m_defaultTeam)
 			continue;
 		if (((Inner520 *)object->m_p4)->m_520 == 7)
 			return true;

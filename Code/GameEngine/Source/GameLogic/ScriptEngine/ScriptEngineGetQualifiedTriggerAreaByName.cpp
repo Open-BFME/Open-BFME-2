@@ -30,16 +30,10 @@ public:
 	void *rva002A9BBD();
 };
 
-class Player
-{
-public:
-	Int getMpStartIndex() const { return m_mpStartIndex; }
-	Player *getCurrentEnemy() { return (Player *)((Rva002A9BBD *)this)->rva002A9BBD(); }
-
-private:
-	unsigned char m_pad000[0x2E0];
-	Int m_mpStartIndex; // +0x2E0
-};
+#include "../../../Include/Common/Player.h"
+// Zero Hour's inline Player accessors, as unit-local helpers over the header's members.
+static inline Int getMpStartIndex(const Player *player) { return player->m_mpStartIndex; }
+static inline Player *getCurrentEnemy(Player *player) { return (Player *)((Rva002A9BBD *)player)->rva002A9BBD(); }
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -60,7 +54,7 @@ PolygonTrigger *ScriptEngine::getQualifiedTriggerAreaByName(AsciiString name)
 {
 	if (name.compare(MY_INNER_PERIMETER) == 0 || name.compare(MY_OUTER_PERIMETER) == 0) {
 		if (m_currentPlayer) {
-			Int ndx = m_currentPlayer->getMpStartIndex() + 1;
+			Int ndx = getMpStartIndex(m_currentPlayer) + 1;
 			if (name.compare(MY_INNER_PERIMETER) == 0) {
 				name.format("%s%d", INNER_PERIMETER, ndx);
 			} else {
@@ -73,9 +67,9 @@ PolygonTrigger *ScriptEngine::getQualifiedTriggerAreaByName(AsciiString name)
 		Int mpNdx;
 		mpNdx = -1;
 		if (m_currentPlayer) {
-			Player *enemy = getCurrentPlayer()->getCurrentEnemy();
+			Player *enemy = getCurrentEnemy(getCurrentPlayer());
 			if (enemy) {
-				mpNdx = enemy->getMpStartIndex() + 1;
+				mpNdx = getMpStartIndex(enemy) + 1;
 			}
 		}
 		if (name.compare(ENEMY_INNER_PERIMETER) == 0) {

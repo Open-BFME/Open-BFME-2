@@ -91,15 +91,7 @@ Object **bfmeAnchorObjectLookupMapFindSlot(ObjectLookupMap *p, int *key)
 }
 
 
-class Player
-{
-public:
-	// Matched callers use the target player index at +0x54 directly;
-	// avoid an out-of-line getter shared with incompatible layouts.
-public:
-	char m_pad00[0x54];
-	int m_index54; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 struct MapHolder
 {
@@ -120,7 +112,7 @@ void Rva002ADF9C::rva002ADF9C(const Player *player, Object *o)
 {
 	if (!player)
 		return;
-	int key = player->m_index54;
+	int key = player->m_playerIndex;
 	Object **slot = m_holder->m_map.findSlot(&key);
 	*slot = o;
 }

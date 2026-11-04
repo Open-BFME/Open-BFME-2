@@ -168,6 +168,7 @@ public:
 	virtual bool isIdle();		// slot 110 (+0x1B8)
 };
 
+class Team;
 class Object
 {
 public:
@@ -175,7 +176,7 @@ public:
 	char m_pad000[0x258];
 	Rva005AAB91AI *m_ai;		// +0x258
 	char m_pad25C[0x304 - 0x25C];
-	int m_304;			// +0x304
+	Team *m_304;			// +0x304
 };
 
 extern GameLogic *TheGameLogic;
@@ -223,12 +224,7 @@ public:
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
 
-class Player
-{
-public:
-	char m_pad000[0x2EC];
-	int m_2EC;			// +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -286,7 +282,7 @@ void AIRoamingDefenseTactic::update()
 		Rva005AAB91IDs *ids = (Rva005AAB91IDs *)((Rva005C4AD1LeaField *)objects)->get();
 		Object *obj = TheGameLogic->findObjectByID(ids->m_begin[i]);
 		if (obj && obj->m_ai->isIdle() && !obj->testStatus(OBJECT_STATUS_5A)
-			&& obj->m_304 == m_owner->m_2EC) {
+			&& obj->m_304 == m_owner->m_defaultTeam) {
 			roam(obj);
 			break;
 		}

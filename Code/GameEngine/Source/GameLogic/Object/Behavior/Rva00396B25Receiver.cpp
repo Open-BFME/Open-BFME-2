@@ -39,13 +39,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class AsciiString;
 
-class Player
-{
-public:
-	char m_pad00[0x58];
-	AsciiString m_name58;
-	char m_pad5C[0x360];
-};
+#include "../../../../Include/Common/Player.h"
 
 class Rva003B0D7C
 {
@@ -87,7 +81,7 @@ void Rva00396B25::rva00396B25()
 	Player *player = obj->getControllingPlayer();
 	if (player == 0)
 		return;
-	AsciiString name(player->m_name58);
+	AsciiString name(player->m_side);
 	int key = TheNameKeyGenerator->nameToKey(name);
 	_STL::map<int, int>::iterator it_int = ((_STL::map<int, int> *)&holder->m_map68)->find(key);
 	_STL::map<int, AmountAt18>::iterator it = *(_STL::map<int, AmountAt18>::iterator *)&it_int;

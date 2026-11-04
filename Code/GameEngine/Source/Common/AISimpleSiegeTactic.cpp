@@ -29,6 +29,7 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
+class Team;
 class Object
 {
 public:
@@ -38,10 +39,10 @@ public:
 	char m_pad008[0x38 - 8];
 	Coord3D m_pos;		// +0x38
 	char m_pad044[0x304 - 0x44];
-	int m_304;		// +0x304
-	// Inline index read (WB 0x0151A830 copies it into its own temporary
+	Team *m_304;		// +0x304
+	// Inline team read (WB 0x0151A830 copies it into its own temporary
 	// before the owner side of the compare).
-	int getOwnerIndex() const { return m_304; }
+	Team *getTeam() const { return m_304; }
 };
 struct Rva005A9CB3Template
 {
@@ -50,13 +51,7 @@ struct Rva005A9CB3Template
 	char m_pad068[0x520 - 0x68];
 	int m_520;		// +0x520
 };
-class Player
-{
-public:
-	char m_pad000[0x2EC];
-	int m_2EC;		// +0x2EC
-	int getPlayerIndex() const { return m_2EC; }
-};
+#include "../../Include/Common/Player.h"
 #include "../../Include/Common/TeamBFME2.h"
 #include "../../Include/Common/BfmeAccessorMacros.h"
 
@@ -406,7 +401,7 @@ bool AISimpleSiegeTactic::initializeTeamTemplate(TeamPrototype *orders, int skip
 		Rva0025BFF8 *objects = *(Rva0025BFF8 **)TheSkirmishAIManager->rva002A8F24(getPlayer());
 		for (unsigned int objectIndex = 0; objectIndex < ((IntMap *)objects)->bucket_count(); ++objectIndex) {
 			object = objects->rva0025BFF8(objectIndex);
-			if (object && object->getOwnerIndex() == getPlayer()->getPlayerIndex()
+			if (object && object->getTeam() == getPlayer()->getDefaultTeam()
 				&& ((Rva005A9CB3Template *)object->m_04)->m_520 == 7) {
 				Rva0039EA9C order;
 				order.m_00 = 1;

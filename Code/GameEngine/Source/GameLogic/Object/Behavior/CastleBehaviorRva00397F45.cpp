@@ -23,12 +23,7 @@ class Rva00397FEBInterface;
 
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
-class Player
-{
-public:
-	char m_pad00[0x4C];
-	AsciiString m_name;
-};
+#include "../../../../Include/Common/Player.h"
 
 struct ChainValue
 {
@@ -84,7 +79,7 @@ bool Rva00397F45::isPlayerAllowedToPackOrUnpack( Player *player, Int arg )
 
 	if( *(const Int *)( (const char *)TheGameLogic + 0x1B4 ) > 0 && theLogicRandomLogFile != 0 )
 	{
-		const char *playerName = object->getControllingPlayer()->m_name.str();
+		const char *playerName = object->getControllingPlayer()->m_playerName.str();
 		Int id = object->m_id;
 		const char *castleName = object->m_chain->m_value.str();
 		fprintf( theLogicRandomLogFile,

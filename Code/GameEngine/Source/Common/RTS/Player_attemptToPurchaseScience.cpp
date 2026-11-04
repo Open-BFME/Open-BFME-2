@@ -11,31 +11,14 @@ enum ScienceType
 #include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 
-class Bank
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void withdraw(int amount);
-};
-
-class Player
-{
-public:
-	bool isCapableOfPurchasingScience(ScienceType science) const;
-	bool attemptToPurchaseScience(ScienceType science);
-private:
-	bool addScience(ScienceType science);
-	char m_pad00[8];
-	Bank m_bank;
-};
+#include "../../../Include/Common/Player.h"
 
 bool Player::attemptToPurchaseScience(ScienceType science)
 {
 	if (!isCapableOfPurchasingScience(science))
 		return false;
 	int cost = TheScienceStore->getSciencePurchaseCost(science);
-	m_bank.withdraw(-cost);
+	rslot02(-cost);
 	addScience(science);
 	return true;
 }

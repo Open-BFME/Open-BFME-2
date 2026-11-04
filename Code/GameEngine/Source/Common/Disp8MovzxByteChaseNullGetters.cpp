@@ -13,19 +13,9 @@
 // name stays address-derived (formerly rowed as
 // Rva002AA245MovzxByteChaseField::get returning unsigned int).
 // No // cl: line (defaults match the frameless shape, like the neighbours).
-struct Rva002AA245Part
-{
-	char m_pad[0x151];
-	bool m_flag;
-};
-class Player
-{
-public:
-	bool rva002AA245() const;
-	char m_lead[0x34];
-	Rva002AA245Part *m_ptr;
-};
+#include "../../Include/Common/Player.h"
+#include "../../Include/Common/PlayerTemplate.h"
 bool Player::rva002AA245() const
 {
-	return m_ptr ? m_ptr->m_flag : 0;
+	return m_playerTemplate ? m_playerTemplate->m_playableSide : 0;
 }

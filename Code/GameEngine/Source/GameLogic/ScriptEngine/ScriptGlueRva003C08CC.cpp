@@ -53,18 +53,7 @@ extern AI *TheAI;
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-struct Rva003C08CCP2EC
-{
-	char m_pad[0x30];
-	void *m_proto;
-};
-
-class Player
-{
-public:
-	char m_pad[0x2EC];
-	Rva003C08CCP2EC *m_p2EC; // +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 class Rva003C08CC : public ScriptActions
 {
@@ -85,7 +74,7 @@ void Rva003C08CC::rva003C08CC(const AsciiString *teamName, bool extra)
 	if (extra == 0)
 		return;
 	Player *player = team->getControllingPlayer();
-	Rva003C08CCP2EC *playerDefaultTeam = player->m_p2EC;
+	Team *playerDefaultTeam = player->m_defaultTeam;
 	DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList();
 	while (!iter.done()) {
 		Object *teamMember = iter.cur();

@@ -34,20 +34,13 @@ public:
 	void rva002AA1BF(void *arg);
 };
 
-class Player
-{
-public:
-	void processCreateTeamGameMessage(int index, const GameMessage *msg);
-private:
-	char m_pad[0x708];
-	void *m_array[10];
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::processCreateTeamGameMessage(int index, const GameMessage *msg)
 {
 	if (index < 0 || index >= 10)
 		return;
-	void **slot = &m_array[index];
+	Squad **slot = &m_squads[index];
 	((Rva004D6C29 *)*slot)->rva004D6C29();
 	unsigned char count = *(const unsigned char *)((const char *)msg + 0x18);
 	if (count <= 0)

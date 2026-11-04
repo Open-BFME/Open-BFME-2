@@ -20,12 +20,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Player
-{
-public:
-	char m_pad00[0x58];
-	AsciiString m_name58; // +0x58
-};
+#include "../../../../Include/Common/Player.h"
 
 class Rva003973EB;
 
@@ -110,7 +105,7 @@ bool Rva003973EB::rva003973EB(Player *player, int /*unused*/)
 	Rva003973EBInner *inner = m_inner04;
 	if (inner->m_tree68.m_count <= 0)
 		return false;
-	int key = TheNameKeyGenerator->nameToKey(player->m_name58);
+	int key = TheNameKeyGenerator->nameToKey(player->m_side);
 	Rva003973EBNode *found = inner->m_tree68._M_find(key);
 	bool ok = (found != (Rva003973EBNode *)inner->m_tree68.m_header);
 	return ok;
