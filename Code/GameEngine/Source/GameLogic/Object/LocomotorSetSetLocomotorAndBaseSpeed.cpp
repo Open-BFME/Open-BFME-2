@@ -64,20 +64,17 @@ public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
 #include "Common/INIException.h"
-class LocomotorSet {
-public: void setLocomotorAndBaseSpeed(INI *ini, ThingTemplate *instance);
-private: char unknown00[0x18]; AsciiString name; AsciiString setName; float speed;
-};
+#include "../../../Include/GameLogic/LocomotorSet.h"
 void LocomotorSet::setLocomotorAndBaseSpeed(INI *ini, ThingTemplate *instance) {
  AIUpdateModuleData *self=instance->friend_getAIModuleInfo();
  if (!self)
   throw INIException(3,"Attempted to specify a locomotor for object %s without an AIUpdate\tblock.",instance->getName().str());
  else {
-  LocomotorSetType set=(LocomotorSetType)ini->scanIndexList(setName.str(),TheLocomotorSetNames);
-  const LocomotorTemplate *loco=TheLocomotorStore->findLocomotorTemplate(name);
+  LocomotorSetType set=(LocomotorSetType)ini->scanIndexList(m_string1C.str(),TheLocomotorSetNames);
+  const LocomotorTemplate *loco=TheLocomotorStore->findLocomotorTemplate(m_string18);
   if (!locomotorTemplatesEmpty(self->templates[set]) && ini->getLoadType()!=2 && ini->getLoadType()!=4)
    throw INIException(3,"re-specifying a LocomotorSet\tis no longer allowed");
   instance->rva0033E17D(set,loco);
-  instance->Rva0033D396StoreFloat((int)set,speed);
+  instance->Rva0033D396StoreFloat((int)set,m_float20);
  }
 }

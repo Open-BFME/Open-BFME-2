@@ -102,7 +102,7 @@ protected:
 private:
 	unsigned char m_pad04[0x24 - 4];
 };
-class LocomotorSet { public: void addLocomotor(const LocomotorTemplate *lt, Bool optional); };
+#include "../../../Include/GameLogic/LocomotorSet.h"
 
 class GameTextInterface
 {
