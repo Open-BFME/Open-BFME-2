@@ -503,6 +503,67 @@ hold donor-private views here and the rejected donors need step 4
 (`tools/tu_views.py Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp --dry-run`);
 `adopt_first` names `ScriptList` and `Parameter` as the first to resolve.
 
+### Scripts.cpp's 42 private views, reconciled as far as they go (2026-11-03)
+
+`tools/tu_views.py` on the merged TU planned 16 of the 42 classes that two or more of its
+files declare privately; 10 verified and were written (`Rva003B3EEAOwner`,
+`Rva003B40A1Holder`, `Rva003B44EE`, `Rva003B485AHolder`, `Rva003B48B9Holder`,
+`Rva003B48E4`, `Rva003B713ERange`, `Rva003B8802Set`, `BfmeStringRecord003B3F78`,
+`KindOfMaskType`), and three (`Rva0034FE00`, `Rva003B40B6Holder`, `Template`) did not
+compile with their block and the tool restored them. No donor was unblocked by this: the
+rejections that remain are the 26 conflicting views, and they group as follows.
+
+- **10: the rename is token-based and would reach the wrong member.** The superset view
+  needs a field renamed, and an identically named field of a *different* struct sits in
+  the same file, so the tool refuses: "`m_index` is also a member of `Rva003B3204`; a token
+  rename would reach it". This is the largest group and it holds the single biggest blocker
+  in the whole class-view category — `Rva003B31DF`, named by 23 queue items. Worth being
+  precise about what these are *not*: `Rva003B31DF` and `Rva003B3204` sit in one file with
+  identical layouts (`m_next` +0x00, `m_index` +0x04) and a `clear()` each, which looks
+  like one retail class split into two placeholders. It is not. Retail's own mangling
+  separates them — `?deleteGroupRef@ScriptList@@QAEXPAXPAURva003B31DF@@@Z` against
+  `?deleteScriptRef@ScriptList@@QAEXPAXPAURva003B3204@@@Z` — so they are two real types, a
+  group-ref node and a script-ref node, that happen to share a shape. The fix is a
+  class-scoped rename, not unification, and naming the pair is ordinary name-lane work with
+  the evidence already in hand. The others in this group: `BfmeHeadXZ`, `BfmeNodeXZ`,
+  `BfmeNodeZ`, `Gen_00350E60`, `Rva003B3204`, `Rva003B3485`, `Rva003B37C8`, `Rva003B448C`,
+  `ScriptSubRecord`.
+- **7: the views partition the same bytes differently** (`Rva003B2498`, `Rva003B44AB`,
+  `Rva003B56A5`, `Rva003B573E`, `Rva003B761E`, `Rva003B770B`, `Rva003B872ASet`). Real
+  layout disagreement; each needs evidence, not a tool.
+- **4: the view omits its own bases or vfptr**, declaring a field at +0x0 where the
+  compiler puts base data (`ActionTemplate` and `ConditionTemplate`, own data at +0x7C;
+  `Rva003BRefSubrecord` at +0x10; `BfmeParserBindingBaseVE` under the vfptr at +0x4).
+- **5 singletons:** `Rva003B3536` is defined inline in one file and out of line in
+  another; `OrCondition`'s base clause differs between views; `Rva003B675BRecord` is typed
+  `AsciiString` in one view and `void*` in another at +0x8; `ScriptListBase` names
+  `m_firstScript` at both +0x4 and +0x8; and nothing in the tree lays `ScriptListView` out
+  at all, so there is no evidence to reconcile.
+
+**The sister TU is someone else's lane.** `Weapon.cpp` carries the other 40 of the 92
+class-view items, but 8 of its 9 commonest blockers (`WeaponTemplate`, `Weapon`, `Thing`,
+`Drawable`, `ThingTemplate`, `AI`, `TerrainLogic`, `WeaponStore`; only `Object` is not)
+are registered in `reverse/canonical_classes.csv`, which makes them
+`header_adopt_lane` work rather than `tu_views` work — and a contributor's header fleet
+held live `apply AI` and `apply TerrainLogic` claims while this was measured. Do not open a
+second front on it; 34 of its 40 diagnostics are plain `C2011` redefinitions that adopting
+the canonical header is meant to remove.
+
+**Two follow-ups this pass created or uncovered.** The merge left three new code-identity
+findings in shadow mode on the merged TU — two wrong call bindings in `Scripts.cpp`
+(`deque<Rva003B5603Element>::back` to `_M_decrement` at 0x003B3EA8,
+`deque<Rva00423BD8Element>::push_back` to `_M_push_back_aux_v` at 0x003B7313) and one
+divergent definition (`vector<const ModuleData*>::_M_insert_overflow`) — all naming types
+that entered the TU with the absorbed donors, none of them touched by the view edits.
+They belong in the identity register's reconciliation
+(`docs/consolidation.md`, "Consolidation verification checks"), not in a view pass. Second,
+`tu_views` appended its offset comment to a comment that already carried the same offset,
+emitting `// +0x18 +0x18` and compounding on every rerun; that is fixed at the source and
+the four lines this pass wrote are cleaned, but **114 files and 496 lines** across the tree
+still carry the doubled form. It is comment text only, byte-neutral, and a tree-wide sweep
+would conflict with every contributor's in-flight work, so it is left for whoever is
+already editing those files.
+
 ### The whole queue measured, 2026-11-03 (723 items; supersedes the flag reading above)
 
 The same run measured every candidate before starting work and wrote

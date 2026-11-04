@@ -68,7 +68,7 @@ public:
 	int skipScript(void *record);
 	char m_pad00[0x38];
 private:
-	char *m_table; // +0x38 +0x38
+	char *m_table; // +0x38
 };
 class Rva003B40B6Holder { public: void *captureGroup(void *); };
 void WriteScriptSubRecord_Rva003B24F2(DataChunkOutput &,const ScriptSubRecord *);

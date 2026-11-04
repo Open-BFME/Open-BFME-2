@@ -62,7 +62,7 @@ public:
 	Int skipGroup(void *record);
 	char m_pad00[0x18];
 private:
-	Byte *m_table; // +0x18 +0x18
+	Byte *m_table; // +0x18
 };
 
 class Rva003B40A1Holder

@@ -948,7 +948,7 @@ public:
 	Int skipGroup(void *record);
 	char m_pad00[0x18];
 private:
-	Byte *m_table; // +0x18 +0x18
+	Byte *m_table; // +0x18
 };
 
 class Rva003B48B9Holder
@@ -957,7 +957,7 @@ public:
 	int skipScript(void *record);
 	char m_pad00[0x38];
 private:
-	char *m_table; // +0x38 +0x38
+	char *m_table; // +0x38
 };
 
 struct Rva003B5603Element { _STL::basic_string<wchar_t> strings[1]; bool operator<(const Rva003B5603Element&)const; bool operator==(const Rva003B5603Element&)const; };

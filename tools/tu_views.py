@@ -846,7 +846,13 @@ def render(plan):
             put(state[0] or "public", f"char m_pad{at:02X}[0x{off - at:X}];")
         for line in m.lead:
             put(m.access, line)
-        put(m.access, f"{m.base} {m.decl}; // +0x{off:02X}" + (f" {m.tail}" if m.tail else ""))
+        # The donor's own trailing comment is usually just the offset we are about to
+        # print, so keep it only when it says something else ("// +0x18 +0x18" otherwise).
+        tail = m.tail
+        if tail and (mt := re.fullmatch(r"\+?0x([0-9A-Fa-f]+)", tail.strip())) \
+                and int(mt.group(1), 16) == off:
+            tail = ""
+        put(m.access, f"{m.base} {m.decl}; // +0x{off:02X}" + (f" {tail}" if tail else ""))
         at = off + sz
     if plan.size > at and not (plan.empty and plan.size == 1 and at == 0):
         put(state[0] or "public", f"char m_pad{at:02X}[0x{plan.size - at:X}];")
