@@ -706,7 +706,10 @@ private:
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
 // template, or -1 without a combo box.
 struct PlayerComboMapPosition { unsigned char flags[3]; char pad; int value; unsigned char names[12]; };
-class MapMetaData { public: unsigned char pad0[0x20]; int numPlayers; unsigned char pad24[0x54-0x24]; PlayerComboMapPosition positions[8]; };
+#include "../../../Include/GameClient/MapMetaData.h"
+// MapMetaData +0x54 (opaque in the canonical header): the 8 start positions.
+static inline const PlayerComboMapPosition *positions(const MapMetaData *map)
+{ return reinterpret_cast<const PlayerComboMapPosition *>(map->field54); }
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData* TheWritableGlobalData;
 // Native DC8D48 is a writable DWORD tint initialized FFFFFFFF, shared
@@ -735,8 +738,8 @@ void AptMpGameSetup::PopulatePlayerCombo(int slot)
         const MapMetaData* map=TheMapCache->findMap(game->getMap());
         if(map) {
             allowAI=false;
-            for(int i=0;i<map->numPlayers;++i) {
-                if(map->positions[i].flags[1]) { allowAI=true; break; }
+            for(int i=0;i<map->m_numPlayers;++i) {
+                if(positions(map)[i].flags[1]) { allowAI=true; break; }
             }
         }
     }
