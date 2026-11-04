@@ -11322,9 +11322,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOver
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOverflow.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp	"s",on	1

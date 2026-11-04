@@ -1,4 +1,4 @@
-// cl: -GX- /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport46
 //
 // Bodies ported from Open-BFME-1's
@@ -19,7 +19,7 @@
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &(max)(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
@@ -34,7 +34,9 @@ struct Elem003AF7A0
 	char m_body[ 8 - 4 ];
 
 	Elem003AF7A0();
-	Elem003AF7A0( const Elem003AF7A0 & );
+	// Retail's copy constructor 0x005DBCD1 makes no calls; with it non-throwing
+	// the placement copy inlines under EH as it does in retail.
+	Elem003AF7A0( const Elem003AF7A0 & ) throw();
 	Elem003AF7A0 &operator=( const Elem003AF7A0 & );
 };
 
