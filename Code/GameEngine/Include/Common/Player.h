@@ -248,7 +248,8 @@ private:
  bool addScience(ScienceType); // 0x002AD661, private (A)
 public:
  const PlayerTemplate *m_playerTemplate; // init 2AF744 stores its PlayerTemplate argument
- unsigned char m_opaque38[0x50 - 0x38];
+ unsigned char m_opaque38[0x4C - 0x38];
+ AsciiString m_playerName; // init 2AFA09 clears it and 2AFB60 sets it; the dtor releases it at 2B13E9
  NameKeyType m_playerNameKey; // init 2AFB79 stores NameKeyGenerator::nameToKey's result
  int m_playerIndex; // constructor 2B0F94/97 stores the int argument at +54
  AsciiString m_side; // init 2AFA1D copies the template's side into it; the dtor releases it at 2B13DD
