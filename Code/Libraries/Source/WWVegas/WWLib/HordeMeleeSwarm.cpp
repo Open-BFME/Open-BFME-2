@@ -91,11 +91,7 @@ public:
 // pinned 0x0035C194(true, false) agrees; else true.
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Retail 0x0035C194 is the verified Shell::showShellMap provider.
-class Shell
-{
-public:
-	bool showShellMap(bool a, bool b);
-};
+#include "../../../../GameEngine/Include/GameClient/Shell.h"
 extern class Shell *TheShell;
 class GameLogic;
 extern GameLogic *TheGameLogic;

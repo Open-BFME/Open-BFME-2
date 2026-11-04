@@ -64,21 +64,7 @@ struct AptMainMenuMiscAudio
 // body it folds with (as Rva0043A278Slot2.cpp's Weapon-cast).
 #include "../../../../../Include/GameLogic/Weapon.h"
 
-class Shell
-{
-public:
-	// Rowed 0x0035BEC7; unrowed 0x0035BD5D (a byte query) and 0x0035C2B9,
-	// pinned by address.
-	void pop();
-	bool rva0035BD5D();
-	void rva0035C2B9();
-	void rva0035BF4C(bool hide);	// rowed; Zero Hour's Shell::hide
-
-	unsigned char m_pad00[0x5D];
-	bool m_5d; // +0x5D
-	unsigned char m_pad5E[0x6C - 0x5E];
-	bool m_6c; // +0x6C, set when a campaign starts
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 // The shell's rowed 0x0035BD3F (its own address class).
 class GameWindowTransitionsHandler
@@ -527,8 +513,8 @@ void AptMainMenu::rva00515980()
 			rva00514FE9();
 		else if (m_280)
 			TheTransitionHandler->reverse(AsciiString("PreParchmentMapFade_StartNew"));
-		TheShell->m_5d = false;
-		TheShell->m_6c = true;
+		TheShell->m_shellMapOn = false;
+		TheShell->m_byte6C = true;
 		if (m_state == 8)
 		{
 			m_282 = false;

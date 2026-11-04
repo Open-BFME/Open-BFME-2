@@ -86,21 +86,7 @@ public:
 // body it folds with (as Rva0043A278Slot2.cpp's Weapon-cast).
 #include "../../../../../Include/GameLogic/Weapon.h"
 
-class Shell
-{
-public:
-	// Rowed 0x0035BEC7; unrowed 0x0035BD5D (a byte query) and 0x0035C2B9,
-	// pinned by address.
-	void pop();
-	bool rva0035BD5D();
-	void rva0035C2B9();
-	void rva0035BF4C(bool hide);	// rowed; Zero Hour's Shell::hide
-
-	unsigned char m_pad00[0x5D];
-	bool m_5d; // +0x5D
-	unsigned char m_pad5E[0x6C - 0x5E];
-	bool m_campaignStarted; // +0x6C, set when a campaign starts
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 // The shell's rowed 0x0035BD3F (its own address class).
 class Rva0035BD3F
@@ -449,7 +435,7 @@ void AptMainMenu::ContinueCampaign(const char *unused)
 void AptMainMenu::BattleSchool(const char *unused)
 {
 	if (TheShell)
-		TheShell->m_5d = true;
+		TheShell->m_shellMapOn = true;
 	TheTransitionHandler->setGroup(AsciiString("MainMenuToBattleSchool"), false);
 	if (TheShell)
 		((Rva0035BD3F *)TheShell)->rva0035BD3F();
@@ -477,7 +463,7 @@ void AptMainMenu::Credits(const char *unused)
 	((Weapon *)&music)->setLeechRangeActive(true);
 	((AptMainMenuAudioView *)TheAudio)->addAudioEvent(&music);
 	m_state = 4;
-	TheShell->m_5d = true;
+	TheShell->m_shellMapOn = true;
 	((GameEngineRate *)TheGameEngine)->v18(100);
 }
 
@@ -501,7 +487,7 @@ void AptMainMenu::CreditsExit(const char *unused)
 	TheTransitionHandler->reverse(AsciiString("MainMenuToCreditsScreen"));
 	m_state = 0;
 	m_2a4.clear();
-	TheShell->m_5d = false;
+	TheShell->m_shellMapOn = false;
 	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheWritableGlobalData)->m_28);
 }
 
@@ -625,7 +611,7 @@ int AptMainMenu::LinearCampaignStart(const AsciiString &campaign, float time, bo
 		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->PopFocus((AptFocusTarget *)-1);
 		reinterpret_cast<Rva00222A8BTarget *>(reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager))->rva00222F55(false);
 		TheShell->rva0035BF4C(true);
-		TheShell->m_campaignStarted = true;
+		TheShell->m_byte6C = true;
 		TheDisplay->m_114 = true;
 		TheVideoPlayer->stopAllVideo();
 		TheGameLogic->clearGameData(false, false);

@@ -340,12 +340,7 @@ public:
 extern Mouse *TheMouse;
 
 // TheShell (0x00E01E48): the rowed 0x0035C7CF (BFME 1's showShell).
-class Shell
-{
-public:
-	void showShell(bool flag);
-	void push(AsciiString name, bool flag);
-};
+#include "../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 
