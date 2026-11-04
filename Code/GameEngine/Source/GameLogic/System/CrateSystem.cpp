@@ -187,6 +187,7 @@ template void _STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry>
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry> >::insert<_STL::_List_iterator<crateCreationEntry, _STL::_Const_traits<crateCreationEntry> > >(_STL::_List_iterator<crateCreationEntry, _STL::_Nonconst_traits<crateCreationEntry> >, _STL::_List_iterator<crateCreationEntry, _STL::_Const_traits<crateCreationEntry> >, _STL::_List_iterator<crateCreationEntry, _STL::_Const_traits<crateCreationEntry> >);
 
+
 // tu-skeleton: 0x0035C972 52B ?setName@CrateTemplate@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x0035C9A6 41B ??0?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod8@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
@@ -385,7 +386,25 @@ void CrateTemplate::parseCrateCreationEntry(INI *ini, void *instance, void *, co
 	self->m_possibleCrates.push_back(newEntry);
 }
 
-// tu-skeleton: 0x0035CDDF 115B ??4?$list@UBfmeStringRecord000B757D@@V?$allocator@UBfmeStringRecord000B757D@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_b757d_insert.cpp (not merged yet)
+// Retail's crateCreationEntryList assignment (0x0035CDDF, called by CrateTemplate's
+// copy assignment 0x0035CE52) erases its tail through the range erase at
+// 0x002FECD3, the row ?erase of list<AsciiString>; the call goes there by that name.
+namespace _STL {
+template <> list<AsciiString, allocator<AsciiString> >::iterator list<AsciiString, allocator<AsciiString> >::erase(iterator, iterator);
+template <> __declspec(dllimport) __forceinline
+list<crateCreationEntry, allocator<crateCreationEntry> >::iterator
+list<crateCreationEntry, allocator<crateCreationEntry> >::erase(iterator __first, iterator __last)
+{
+	typedef list<AsciiString, allocator<AsciiString> > _StringList;
+	return iterator((_Node *)((_StringList *)this)->erase(
+		_StringList::iterator((_List_node<AsciiString> *)__first._M_node),
+		_StringList::iterator((_List_node<AsciiString> *)__last._M_node))._M_node);
+}
+}
+
+// crateCreationEntryList::operator= (0x0035CDDF); each element copy calls the
+// implicit crateCreationEntry assignment, retail's 0x001D9990 body.
+template _STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry> > &_STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry> >::operator=(const _STL::list<crateCreationEntry, _STL::allocator<crateCreationEntry> > &);
 
 // tu-skeleton: 0x0035CE52 84B ??4CrateTemplate@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/System/CrateTemplateAssign.cpp (not merged yet)
 

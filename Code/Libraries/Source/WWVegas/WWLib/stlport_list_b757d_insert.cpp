@@ -27,18 +27,4 @@ namespace _STL {
 template <> _List_node<BfmeStringRecord000B757D> *list<BfmeStringRecord000B757D, allocator<BfmeStringRecord000B757D> >::_M_create_node(BfmeStringRecord000B757D const &);
 }
 
-// Retail's list assignment (0x0035CDDF) erases its tail through the range erase
-// at 0x002FECD3, the row ?erase of list<AsciiString>; the call goes there by that name.
-namespace _STL {
-template <> list<AsciiString, allocator<AsciiString> >::iterator list<AsciiString, allocator<AsciiString> >::erase(iterator, iterator);
-template <> __declspec(dllimport) __forceinline
-list<BfmeStringRecord000B757D, allocator<BfmeStringRecord000B757D> >::iterator
-list<BfmeStringRecord000B757D, allocator<BfmeStringRecord000B757D> >::erase(iterator __first, iterator __last)
-{
-	typedef list<AsciiString, allocator<AsciiString> > _StringList;
-	return iterator((_Node *)((_StringList *)this)->erase(
-		_StringList::iterator((_List_node<AsciiString> *)__first._M_node),
-		_StringList::iterator((_List_node<AsciiString> *)__last._M_node))._M_node);
-}
-}
 template class _STL::list<BfmeStringRecord000B757D, _STL::allocator<BfmeStringRecord000B757D> >;
