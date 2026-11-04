@@ -15,55 +15,40 @@
 
 #include "../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
-class RvaSmartPtr12
+#include "../../../Include/Common/RvaSmartPtr12.h"
+
+RvaSmartPtr12::RvaSmartPtr12(void *ptr) throw()
 {
-	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
-
-public:
-	RvaSmartPtr12(void *ptr);
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
-	void attach();
-
-private:
-	void *m_ptr; // +0x0
-	int m_pad04; // +0x4
-	int m_pad08; // +0x8
-};
-
-RvaSmartPtr12::RvaSmartPtr12(void *ptr)
-{
-	m_ptr = ptr;
-	if (m_ptr != 0)
+	field00 = ptr;
+	if (field00 != 0)
 		attach();
 	else
 	{
-		m_pad08 = 0;
-		m_pad04 = 0;
+		field08 = 0;
+		field04 = 0;
 	}
 }
 
-RvaSmartPtr12::RvaSmartPtr12(const RvaSmartPtr12 &that)
+RvaSmartPtr12::RvaSmartPtr12(const RvaSmartPtr12 &that) throw()
 {
-	m_ptr = that.m_ptr;
-	if (m_ptr != 0)
+	field00 = that.field00;
+	if (field00 != 0)
 		attach();
 	else
 	{
-		m_pad08 = 0;
-		m_pad04 = 0;
+		field08 = 0;
+		field04 = 0;
 	}
 }
 
-RvaSmartPtr12 &RvaSmartPtr12::operator=(const RvaSmartPtr12 &that)
+RvaSmartPtr12 &RvaSmartPtr12::operator=(const RvaSmartPtr12 &that) throw()
 {
 	if (this != &that)
 	{
-		if (m_ptr != 0)
-			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
-		m_ptr = that.m_ptr;
-		if (m_ptr != 0)
+		if (field00 != 0)
+			rva0004CBC0();
+		field00 = that.field00;
+		if (field00 != 0)
 			attach();
 	}
 	return *this;
