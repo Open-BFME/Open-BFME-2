@@ -767,11 +767,7 @@ private:
 	Rva0039C0F4 m_kills; // +0x3BC
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class UpgradeCenter

@@ -349,7 +349,7 @@ void CastleBehavior::rva0039792B() {
 class Team;
 #include "../../../Include/Common/PlayerList.h"
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 // Existing verified 8B ASCII-plus-word record view. The source pair's scalar
 // identity is unresolved; only the measured layout and copy ABI are used here.

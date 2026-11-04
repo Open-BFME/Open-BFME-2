@@ -18,11 +18,7 @@ class ObjectTypes;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 
 void ScriptActions::Rva003C21E5Do(const AsciiString *str1, int x, const AsciiString *str2, const AsciiString *str3)

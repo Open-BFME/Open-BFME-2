@@ -200,11 +200,7 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 // The module record Object::rva0028C197 returns: a vtable whose slot 59

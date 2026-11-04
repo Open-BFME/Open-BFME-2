@@ -30,14 +30,7 @@ private:
     const ThingTemplate *m_nextTemplate;
 };
 
-class ThingFactory
-{
-public:
-    const ThingTemplate *firstTemplate() const { return m_firstTemplate; }
-private:
-    char m_unknown[0xC];
-    const ThingTemplate *m_firstTemplate;
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class AttackPriorityInfo

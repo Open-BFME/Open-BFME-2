@@ -540,11 +540,7 @@ class Rva002A7461
 public:
 	int rva002A7548(int v);
 };
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 extern float g_Va007C26F0;
 struct TeamEntry
