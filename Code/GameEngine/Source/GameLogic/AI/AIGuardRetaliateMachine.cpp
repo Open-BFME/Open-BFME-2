@@ -88,8 +88,8 @@ public:
 class Rva00260FD0Filter : public Rva000421C8
 {
 public:
-	Rva00260FD0Filter(const Object *obj, int attackType, int source)
-		: m_obj(obj), m_attackType(attackType), m_source(source) {}
+	Rva00260FD0Filter(const Object *obj, int attackType, int commandSource)
+		: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 	int m_attackType;
@@ -176,7 +176,7 @@ bool AIGuardRetaliateMachine::lookForInnerTarget()
 	Rva0004584D f8(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 		*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x82));
 	Rva002611BFFilter filterMapStatus(owner);
-	PartitionFilterIsFlying unused;
+	PartitionFilterIsFlying filterIsFlying;
 	f1.link(f2.link(&filterMapStatus));
 	f1.link(&f3);
 	f1.link(&f8);

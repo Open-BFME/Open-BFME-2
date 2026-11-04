@@ -155,10 +155,10 @@ StateReturnType AIHarvestWorkSiteState::update() {
    if(TheGameLogic->getFrame() >= frame) {
     int first=target->slot01();
     int second=target->slot00();
-    int previous=record->amount;
+    int previousAmount=record->amount;
     int amount=first-second;
     int remaining=((Rva0027D378*)TheTerrainLogic)->rva0027D378(record,amount);
-    for(int count=0;count<remaining;++count) target->slot03(previous-remaining);
+    for(int count=0;count<remaining;++count) target->slot03(previousAmount-remaining);
     return STATE_SUCCESS;
    }
    if(machine->owner->ai->locomotor) machine->owner->ai->locomotor->rva001E702E((Thing*)machine->owner,(int)record,0);
