@@ -252,23 +252,7 @@ public:
     virtual void h64(); virtual void h65();
     virtual Rva0046247DPair &slot108(Rva0046247DPair &p); // +0x108
 };
-class ContainModuleInterface
-{
-public:
-    virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
-    virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07();
-    virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11();
-    virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15();
-    virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19();
-    virtual void c20(); virtual void c21(); virtual void c22(); virtual void c23();
-    virtual void c24(); virtual void c25(); virtual void c26(); virtual void c27();
-    virtual void c28(); virtual void c29(); virtual void c30();
-    virtual HordeContainInterface *getHordeContainInterface(); // +0x7C
-    virtual void c32(); virtual void c33(); virtual void c34(); virtual void c35();
-    virtual void c36(); virtual void c37();
-    virtual bool isValidContainerFor(Object *obj, bool checkCapacity, int unused); // +0x98
-    virtual void addToContain(Object *obj); // +0x9C
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 enum NameKeyType { NK_UNKNOWN = 0 };
 class ConditionBits
 {
@@ -1804,7 +1788,7 @@ Int GarrisonContain::getObjectGarrisonPointIndex(ObjectID objectID)
         ContainModuleInterface *contain = object->getContain();
         if (contain != 0)
         {
-            HordeContainInterface *horde = contain->getHordeContainInterface();
+            HordeContainInterface *horde = (HordeContainInterface *)contain->slot31();
             if (horde != 0)
             {
                 Rva0046247DPair members;
@@ -1898,7 +1882,7 @@ void GarrisonContain::addValidObjectsToGarrisonPoints()
             continue;
         if (ContainModuleInterface *contain = obj->getContain())
         {
-            HordeContainInterface *iface = contain->getHordeContainInterface();
+            HordeContainInterface *iface = (HordeContainInterface *)contain->slot31();
             if (!iface)
                 continue;
             Rva0046247DPair members;
