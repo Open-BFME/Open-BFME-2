@@ -6,7 +6,7 @@
 #include "../../Include/GameClient/EventModuleInfo.h"
 namespace FXParticleSystem {
 class SecondaryModuleBase { public: virtual ~SecondaryModuleBase(); virtual void v1() = 0; };
-class ModuleInfo {};
+#include "../../Include/Common/ModuleInfoClass.h"
 template <int Category> class CategoryModuleTemplate;
 template <> class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleBase, public EventModuleInfo { public: virtual ~CategoryModuleTemplate(); };
 class LifeEventModuleInfo {

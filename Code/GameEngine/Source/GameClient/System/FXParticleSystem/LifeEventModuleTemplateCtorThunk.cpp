@@ -20,9 +20,7 @@ public:
     virtual ~SecondaryModuleBase();
 };
 
-class ModuleInfo
-{
-};
+#include "../../../../Include/Common/ModuleInfoClass.h"
 
 
 template <int CATEGORY>
