@@ -65,7 +65,12 @@ class Rva009A3300HashTable
 {
 public:
 	void remove(Rva009A3300Node *entry);
- __forceinline void removeKey(unsigned a, unsigned b) { Rva009A3300Node key; key.m_key0=a; key.m_key1=b; remove(&key); }
+	__forceinline void removeKey(unsigned a, unsigned b) { Rva009A3300Node key; key.m_key0=a; key.m_key1=b; remove(&key); }
+private:
+	Rva009A3300Node *m_buckets[0x493]; // +0x00
+	Rva009A3300Node *m_freeHead; // +0x124C
+	void *m_spare; // +0x1250
+	Rva009A3300Node *m_cursor; // +0x1254
 };
 
 struct PairNode3630
