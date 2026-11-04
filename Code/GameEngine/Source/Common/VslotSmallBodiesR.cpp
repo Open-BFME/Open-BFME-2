@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD
+// stlport
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch R. As in VslotSmallBodiesA-Q, each class and
@@ -252,13 +253,7 @@ void Rva003FF271::rva003FF271(Int value)
 
 // slots at 0x00330AD8 and 0x00330B85: the rowed setter of the +0x08 member,
 // then virtual slot 12.
-struct BfmeE8;
-class AreaPolygonBase
-{
-public:
-	void setPoint(Int a, const BfmeE8 &b);
-	void rva0030B1A7(float f);
-};
+#include "../../Include/Common/AreaPolygonBase.h"
 class Rva00330AD8Base
 {
 public:
