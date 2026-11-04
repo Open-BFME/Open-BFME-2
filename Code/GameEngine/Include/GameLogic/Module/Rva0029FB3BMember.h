@@ -2,6 +2,7 @@
 // Retail 0x00331EAD constructs it at record+8; 0x00332926 advances those records by 12, proving sizeof 4 with no separate parent storage. The node pool is VA 0x00DA60E8 and its free head is VA 0x00DA60F0 (0x002393FE, 0x00268911); 0x00490A89/0x00490A8F tests head->next == head inline.
 // Retail 0x002A12A5 is the void-pointer constructor wrapper calling 0x0029FB3B; 0x00490B64 calls the allocator-reference constructor at 0x0029FB3B, and 0x00490C7B calls the nonvirtual destructor at 0x00268902. Lifetimes remain declared out of line.
 
+// Retail 0x0049122C (DamageFieldUpdate dtor, /GX TU) calls reset 0x0026549E and then 0x00268902 with no EH frame around them, so reset is declared throw().
 #pragma once
 
 struct Rva0029FB3BAlloc;
@@ -14,7 +15,7 @@ public:
 	~Rva0029FB3BMember() throw();
 
 	void *init(void *context);
-	void reset();
+	void reset() throw();
 	bool empty() const { return *(void *const *)m_head == m_head; }
 
 	void *m_head;
