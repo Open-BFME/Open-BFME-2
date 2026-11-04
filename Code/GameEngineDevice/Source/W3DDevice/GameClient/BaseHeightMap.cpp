@@ -245,12 +245,7 @@ private:
 	W3DBibBuffer *m_bib;
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This() {}
-	int m_refs; // +0x04
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class BfmeDynamicNativeVB : public RefCountClass
 {
@@ -260,14 +255,7 @@ private:
 	char _t[0x18];
 };
 
-class DX8IndexBufferClass : public RefCountClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-	DX8IndexBufferClass(Uint count, UsageType u);
-private:
-	char _t[0x10];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 class GlobalData
 {
