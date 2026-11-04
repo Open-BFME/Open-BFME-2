@@ -43,7 +43,7 @@ public: Rva002614ECFilter(const void *what,Player *player,bool match):what(what)
 virtual bool allow(Object *); const void *what; Player *player; bool match;
 };
 extern PartitionManager *ThePartitionManager;
-class Pathfinder { public: bool AdjustToNearestValidCell(Coord3D *); };
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI { public: char pad[0x10]; Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; } };
 extern AI *TheAI;
 struct Waypoint { char pad[0xC]; Coord3D pos; };

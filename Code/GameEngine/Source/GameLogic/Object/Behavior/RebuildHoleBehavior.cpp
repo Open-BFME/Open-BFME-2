@@ -333,7 +333,7 @@ virtual void slot120(); virtual void slot121(); virtual void slot122(); virtual 
 virtual void slot124();
 virtual void slot125();
 virtual Object *construct(const ThingTemplate*,const Coord3D*,float,Player*,bool,bool);};
-class Pathfinder {public:void RemoveObjectFromPathfindMap(Object*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI; extern AI *TheAI;
 struct AIDataView {char pad[0x10];Pathfinder *path;};
 enum ObjectID; class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString&);Object *newObject(const ThingTemplate*,Team*,const CreateMask*,ObjectID);}; extern ThingFactory *TheThingFactory;

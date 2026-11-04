@@ -54,10 +54,7 @@ inline __declspec(noinline) float rva00363B4BAngle(const Rva00363B4BVector *lhs,
 }
 static __forceinline float angleBetween(const Vector3 &lhs,const Vector3 &rhs){return rva00363B4BAngle((const Rva00363B4BVector *)&lhs,(const Rva00363B4BVector *)&rhs);}
 struct DirectionOptions {bool flag0,flag1;float value4;bool flag8;};
-class Pathfinder {public:
- bool IsValidMovementPositionForObject(const Coord3D *,int,int,const Object *);
- int IsLinePassable(void *,void *,PathfindLayerEnum,const Coord3D *,const Coord3D *,void *,int,int);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/GameLogic/PathfindPath.h"

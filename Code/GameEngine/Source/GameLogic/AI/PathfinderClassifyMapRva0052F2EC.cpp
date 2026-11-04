@@ -64,17 +64,7 @@ static __forceinline void setCellBit23(PathfindCell *cell, bool on)
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
-class Pathfinder
-{
-public:
-	static void classifyMapCell(Int cellX, Int cellY, PathfindCell *cell);
-	void Rva0052F2EC();
-
-private:
-	char m_head[0x10];
-	PathfindCell **m_map;
-	IRegion2D m_extent;
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void Pathfinder::Rva0052F2EC()
 {

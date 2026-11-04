@@ -108,11 +108,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Pathfinder
-{
-public:
-	bool queueForPath(ObjectID id);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 

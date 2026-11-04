@@ -12,11 +12,7 @@ public:
 	char m_pad[0x38];
 	Coord3D m_38;
 };
-class Pathfinder
-{
-public:
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int x);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"

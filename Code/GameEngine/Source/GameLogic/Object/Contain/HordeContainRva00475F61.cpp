@@ -137,7 +137,7 @@ enum ObjectID; class ThingFactory { public:
     const ThingTemplate *findTemplate(const AsciiString &);
     Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);
 };
-class Pathfinder { public: void AddObjectToPathfindMap(Object *); };
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern ThingFactory *TheThingFactory;
 extern GameLogic *TheGameLogic;

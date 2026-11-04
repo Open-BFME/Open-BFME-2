@@ -317,7 +317,7 @@ class TerrainLogic {public:
 };
 extern TerrainLogic *TheTerrainLogic;
 class LocomotorSet;
-class Pathfinder {public: Bool AdjustDestination(Object*,const LocomotorSet&,Coord3D*,const Coord3D*);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;

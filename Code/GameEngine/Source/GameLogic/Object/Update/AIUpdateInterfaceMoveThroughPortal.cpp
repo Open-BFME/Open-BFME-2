@@ -15,7 +15,7 @@ class Path {public:Path();void prependNode(const Coord3D*,PathfindLayerEnum,int)
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva002EDEABArg;
-class Pathfinder {public:void SetDebugPath(Rva002EDEABArg*);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../../Include/Common/GlobalData.h"

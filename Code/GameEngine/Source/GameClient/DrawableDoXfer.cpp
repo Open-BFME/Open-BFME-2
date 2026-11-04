@@ -214,12 +214,7 @@ public:
 #include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-	void AddObjectToPathfindMap(Object *obj);
-};
+#include "../../Include/GameLogic/AIPathfind.h"
 class AI;
 extern AI *TheAI;
 struct AIPathfinderView

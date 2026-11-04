@@ -129,12 +129,7 @@ struct Rva002ED236Pos {
  Rva002ED236Pos(const Rva002ED236Pos &p) { x=p.x;y=p.y;z=p.z; }
  ~Rva002ED236Pos() {}
 };
-class Pathfinder { public:
- PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos);
- bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, int);
- void RemoveObjectFromPathfindMap(Object *);
- void AddObjectToPathfindMap(Object *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 

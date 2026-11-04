@@ -528,13 +528,7 @@ extern GameTextInterface*TheGameText;
 extern InGameUI*TheInGameUI;
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;
-class Pathfinder
-{
-public:
-void AddObjectToPathfindMap(Object*object);
-void GetCellType(int pos,void*isValid,void*isBlocked,void*cellType,int layer);
-void*getObstacleID(int layer,int pos);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI*TheAI;
 extern PartitionManager*ThePartitionManager;

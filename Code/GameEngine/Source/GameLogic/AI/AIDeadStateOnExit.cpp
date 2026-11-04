@@ -81,11 +81,7 @@ private:
 	unsigned char m_pad008[0x10C - 0x8];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
-class Pathfinder
-{
-public:
-	void RemoveObjectFromPathfindMap(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/Common/StateMachineClass.h"

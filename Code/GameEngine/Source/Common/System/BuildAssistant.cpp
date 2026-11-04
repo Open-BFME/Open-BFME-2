@@ -1112,14 +1112,7 @@ extern GameTextInterface *TheGameText;
 extern InGameUI *TheInGameUI;
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *object);
-	void GetCellType(int pos, void *isValid, void *isBlocked, void *cellType, int layer);
-	void *getObstacleID(int layer, int pos);
-	Bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, Int);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 // Retail calls the list destructor out of line (the shared pointer-list

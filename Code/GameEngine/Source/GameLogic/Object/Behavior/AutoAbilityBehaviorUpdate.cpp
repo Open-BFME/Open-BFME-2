@@ -309,11 +309,7 @@ public:
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
-class Pathfinder
-{
-public:
-	bool adjustToMeleeDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern PartitionManager *ThePartitionManager;

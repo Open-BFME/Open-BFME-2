@@ -53,7 +53,7 @@ public:
     float radius() const { return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(this)+0xB8); }
     AIUpdateInterface *ai() const { return *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(this)+0x258); }
 };
-class Pathfinder { public: bool IsValidMovementTerrain(PathfindLayerEnum,const Locomotor *,const Coord3D *); void AddObjectToPathfindMap(Object *); bool adjustToPossibleDestination(Object *,const LocomotorSet &,Coord3D *); };
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 template<int N> class Rva0047983ASlots:public Rva0047983ASlots<N-1> { public: virtual void gap(char (*)[N]); };

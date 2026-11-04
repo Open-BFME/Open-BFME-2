@@ -39,7 +39,7 @@ public:
 };
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
-class Pathfinder {public:void RemoveObjectFromPathfindMap(Object *);void AddObjectToPathfindMap(Object *);};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../../Include/Common/BuildAssistantClass.h"
