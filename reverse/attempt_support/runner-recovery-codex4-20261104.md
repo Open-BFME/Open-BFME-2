@@ -37,3 +37,10 @@ LINK-235 for the vector-copy and Horde entries. A new follow-up commit leaves
 the handed-over commits intact and assigns ClickReactionBehavior LINK-236 and
 VertexMaterialClass LINK-237, updating the same material evidence reference.
 Repository searches again find no consumers of the two former filenames.
+
+While the eight-commit handover waited, upstream `f2cec2a7f8` assigned LINK-236
+to its static-initializer entry. Another new follow-up commit assigns this
+batch's ClickReactionBehavior entry LINK-238; VertexMaterialClass keeps
+LINK-237. The handed-over commits remain intact. No consumers of the former
+ClickReactionBehavior filename were found. The publisher's unrelated preceding
+batch has encountered GitHub pack-storage failures; publication is still pending.
