@@ -1,66 +1,27 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Shell
-// readable body of ??0ShellMenuSchemeImage@@QAE@XZ: game/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
-
-// Open-BFME5: ShellMenuSchemeImage::ShellMenuSchemeImage, retail 0x005807D0,
-// 74 bytes. The body carried only a machine byte-dump row;
-// targets/game/reverse/reloc_names.csv holds the name with identity=real.
-//
-// Zero Hour's constructor accounts for every store, including two oddities
-// that would look like mistakes in the disassembly:
+// cl: /DNDEBUG /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/shims/stlp_nodealloc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Shell /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii_common
+// stlport
+// ??0ShellMenuSchemeImage@@QAE@XZ, retail 0x002004C3 (58B): Zero Hour's
+// ShellMenuScheme.cpp constructor, compiled against the TU's own headers.
 //
 //   m_position.x = m_position.y = 0;
 //
-// is a chained assignment, so y at +8 is stored before x at +4 -- which is why
-// retail writes +8, then +4, and not in address order.
+// is a chained assignment, so y at +8 is stored before x at +4, which is
+// why retail writes +8, then +4.
 //
 //   m_size.x = m_size.x = 0;
 //
 // names x twice. It is a typo in the original, and BFME kept it: m_size.y at
 // +0x10 is never written, which is exactly what retail does.
-//
-// The string member is cleared through StringBase<char>::clear, which the
-// ledger already places at 0x00887940 folded with releaseBuffer, and the
-// unwind state around it is there to destroy that member if it throws.
+#define Matrix4x4 Matrix4
+#include "zh_ascii.h"
+#include "PreRTS.h"
+#include "Common/INI.h"
+#include "GameClient/ShellMenuScheme.h"
 
-typedef int Int;
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
-#include "../../../../../Libraries/Include/Lib/ICoord2D.h"
-
-class Image;
-
-template <class T>
-class StringBase
-{
-public:
-	StringBase(void) : m_data(0) {}
-	~StringBase(void);
-
-	void clear(void);					// retail 0x00887940
-
-private:
-	void releaseBuffer(void);				// retail 0x00887940
-
-	T *m_data;
-};
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ShellMenuScheme.h
-class ShellMenuSchemeImage
-{
-public:
-	ShellMenuSchemeImage(void);
-
-	StringBase<char> m_name;				// +0x00
-	ICoord2D m_position;					// +0x04
-	ICoord2D m_size;					// +0x0C
-	Image *m_image;						// +0x14
-};
-
-// ??0ShellMenuSchemeImage@@QAE@XZ
-ShellMenuSchemeImage::ShellMenuSchemeImage(void)
+ShellMenuSchemeImage::ShellMenuSchemeImage( void )
 {
 	m_name.clear();
 	m_position.x = m_position.y = 0;
 	m_size.x = m_size.x = 0;
-	m_image = 0;
+	m_image = NULL;
 }
