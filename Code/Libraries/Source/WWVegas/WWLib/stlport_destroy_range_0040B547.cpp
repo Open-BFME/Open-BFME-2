@@ -10,4 +10,7 @@ struct Rva0040AFF3
 	unsigned char m_data[0x68];
 };
 
-template void _STL::_Destroy<Rva0040AFF3 *>(Rva0040AFF3 *, Rva0040AFF3 *);
+template <> void _STL::_Destroy<Rva0040AFF3 *>(Rva0040AFF3 *__first, Rva0040AFF3 *__last)
+{
+	_STL::__destroy(__first, __last, (Rva0040AFF3 *)0);
+}
