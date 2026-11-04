@@ -11436,9 +11436,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_string_insert_fill.c
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_string_insert_fill.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_timeinfo.cpp	"",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_timeinfo.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_assetreference_overflow.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmestringrecord0022074b_pushback.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmestringrecord0022074b_pushback.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmestringrecord0022074b_pushback.cpp	"t",on	1

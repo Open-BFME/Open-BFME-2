@@ -9,17 +9,14 @@
 // fill 0x000C932E construct 0x000C92F6 and allocate 0x00068E15; ICF twins pinned
 // for the PAV copy and AssetReference allocate and _M_clear at 0x000C9A51.
 // Keep this inlined unsigned max overload local; retail has one external owner.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// Force this small helper inline under the unit's size-optimised settings.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static __forceinline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 
