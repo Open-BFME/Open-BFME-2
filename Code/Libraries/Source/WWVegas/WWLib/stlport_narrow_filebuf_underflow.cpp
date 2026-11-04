@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ob0
-// stlport
+// stlport46
 //
 // The narrow twin of stlport_wide_filebuf_underflow.cpp - same instantiation as
 // stlport_narrow_filebuf.cpp built without inline expansion, because retail's
@@ -50,12 +50,3 @@ template <> bool basic_filebuf<char, char_traits<char> >::_M_allocate_buffers(ch
 
 template class _STL::basic_filebuf<char, _STL::char_traits<char> >;
 
-// The /Ob0 overflow copy was the only reference to the rowed out-of-line
-// codecvt<char,char,mbstate_t>::out (0x0001D140); this anchor keeps cl
-// emitting it.
-// ?bfmeAnchorCodecvtCharOut absent-from-retail
-int bfmeAnchorCodecvtCharOut(const _STL::codecvt<char, char, _STL::mbstate_t> &cvt, const char *from,
-    const char *&fromNext, char *to, char *&toNext)
-{
-	return cvt.out(0, from, from, fromNext, to, to, toNext);
-}
