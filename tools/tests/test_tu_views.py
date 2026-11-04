@@ -153,6 +153,21 @@ class Superset(unittest.TestCase):
         self.assertEqual(self.fx.text("Seed.cpp"), SEED)
         self.assertEqual(self.fx.builds, [])
 
+    def test_a_dry_run_calls_views_that_already_agree_already_shared(self):
+        """The apply path says "already shared" for a class whose views need no
+        write. The dry run must say the same, or a seat ranking TUs by their
+        "plan" count plans work that does not exist."""
+        twin = SEED.replace("void Foo::a() { m_x = 1; m_y = 2.0f; }", "int t() { return 0; }")
+        fx = Fixture({"Seed.cpp": SEED, "Twin.cpp": twin})
+        try:
+            rep = fx.run(dry_run=True)
+            self.assertEqual(rep["classes"]["Foo"]["status"], "already shared")
+            self.assertEqual(fx.text("Seed.cpp"), SEED)
+            self.assertEqual(fx.text("Twin.cpp"), twin)
+            self.assertEqual(fx.builds, [])
+        finally:
+            fx.close()
+
 
 class Rollback(unittest.TestCase):
     def test_a_build_that_is_not_exact_restores_every_file(self):

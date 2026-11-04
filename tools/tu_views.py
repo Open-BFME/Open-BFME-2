@@ -1297,7 +1297,17 @@ class Tool:
             return report
         if dry_run:
             for c in order:
-                report["classes"][c] = self.describe(c, shared[c], texts, seed)[0]
+                entry, plan = self.describe(c, shared[c], texts, seed)
+                # A plan whose files already agree writes nothing, so say so here
+                # too: a seat ranking TUs by "plan" otherwise counts work that
+                # does not exist. Both tests are pure text, as in attempt().
+                if plan:
+                    try:
+                        if self.shared_already(plan, texts):
+                            entry["status"] = "already shared"
+                    except Exception:
+                        pass          # a rewrite the apply path would report instead
+                report["classes"][c] = entry
             return report
         held = self.held(files)
         if held:
@@ -1313,6 +1323,21 @@ class Tool:
                 self.attempt(c, shared[c], texts, seed, before, blocks, report, None)
         return report
 
+    def rewritten(self, plan, texts):
+        """(new text per view file, the files it would change). Pure text."""
+        new = {v.path: rewrite(texts[v.path], v, plan.block, plan.renames.get(v.path, {}), plan.forward.get(v.path, ()))
+               for v in plan.views}
+        return new, sorted(f for f in new if new[f] != texts[f])
+
+    def shared_already(self, plan, texts):
+        """True when nothing needs writing: the views spell the class the same
+        way already (the merge emits it once), or the block they would get back
+        is the text they hold."""
+        spelled = {ws(hal.masked(texts[v.path][v.span[0]:v.span[1]])) for v in plan.views}
+        if len(spelled) == 1:
+            return True
+        return not self.rewritten(plan, texts)[1]
+
     def attempt(self, c, files, texts, seed, before, blocks, report, retry):
         entry, plan = self.describe(c, files, texts, seed)
         report["classes"][c] = entry
@@ -1322,9 +1347,7 @@ class Tool:
         if len(spelled) == 1:                  # one spelling already: the merge emits it once
             entry["status"] = "already shared"
             return
-        new = {v.path: rewrite(texts[v.path], v, plan.block, plan.renames.get(v.path, {}), plan.forward.get(v.path, ()))
-               for v in plan.views}
-        changed = sorted(f for f in new if new[f] != texts[f])
+        new, changed = self.rewritten(plan, texts)
         if not changed:
             entry["status"] = "already shared"
             return
