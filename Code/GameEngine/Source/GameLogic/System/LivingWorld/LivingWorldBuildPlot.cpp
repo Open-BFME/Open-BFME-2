@@ -153,12 +153,12 @@ public:
 class Rva004FC320List
 {
 public:
-    void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
+	void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
 private:
-    Rva004FC320Listener **m_begin;
-    Rva004FC320Listener **m_end;
-    Rva004FC320Listener **m_capacity;
-    unsigned int m_index;
+	Rva004FC320Listener **m_begin; // +0x00
+	Rva004FC320Listener **m_end; // +0x04
+	Rva004FC320Listener **m_capacity; // +0x08
+	unsigned int m_index; // +0x0C
 };
 
 struct TreeHintRef00217D4C;
