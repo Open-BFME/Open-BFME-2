@@ -62,3 +62,13 @@ abstract canonical interface. No relevant existing linking-obstacle entry was
 found for these two units. The scoped naming handoff uses the final TU path;
 its review inventories 22 bindings, with the direct-initialized AsciiString
 local outside the regex inventory and retained unchanged.
+
+## Vanished-source header accounting
+
+The publication range check could not rerun the earlier passing Player
+acceptance after its donor source was absorbed. Player acceptance passed in
+`Reconcile the ring hero upgrade donor with its tactic TU` before the merge;
+its original four rows now byte-verify in AIRingHeroTactic.cpp. The following
+accounting commit uses AGENTS.md's per-key Debt-Retired exception for this
+vanished source. It changes no queue or baseline. deleted_rows.csv is
+inapplicable because every named body and EH row remains in the ledger.
