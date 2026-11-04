@@ -37,17 +37,13 @@ struct Global009FE958 : public VSlots<31>
 };
 class LANAPI;
 extern LANAPI *TheLAN;
-class GameSlot
-{
-public:
-	void unAccept(void);
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 class LANGameSlot : public GameSlot
 {
 public:
 	Bool isLocalPlayer(void) const;
 private:
-	unsigned char m_pad00[0x1D0];
+	unsigned char m_pad1AC[0x1D0 - sizeof(GameSlot)];
 };
 class LANGameInfo
 {

@@ -32,26 +32,20 @@ struct LANAPISlot64View : public VSlots<64>
 };
 class LANAPI;
 extern LANAPI *TheLAN;
-class GameSlot
-{
-public:
-	Bool isHuman(void) const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 class LANGameSlot : public GameSlot
 {
 public:
 	Bool isLocalPlayer(void) const;
-private:
-	unsigned char m_pad00[0x38];
-	BfmeNetAddress m_address; // +0x38
-	unsigned char m_pad40[0x1D0 - 0x40];
 };
 
 Bool LANGameSlot::isLocalPlayer(void) const
 {
 	if (isHuman() && TheLAN)
 	{
-		if (((LANAPISlot64View *)TheLAN)->GetLocalAddress()->Rva00248CBF(&m_address))
+		// The canonical base stores the address at +0x38/+0x3C.
+		const BfmeNetAddress *address = (const BfmeNetAddress *)&m_field38;
+		if (((LANAPISlot64View *)TheLAN)->GetLocalAddress()->Rva00248CBF(address))
 			return true;
 		BfmeNetAddress alternate;
 		{
@@ -63,7 +57,7 @@ Bool LANGameSlot::isLocalPlayer(void) const
 		}
 		_ReadWriteBarrier();
 		alternate.port += 8;
-		return alternate.Rva00248CBF(&m_address);
+		return alternate.Rva00248CBF(address);
 	}
 	return false;
 }
