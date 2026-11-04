@@ -41,6 +41,7 @@ public:
 };
 
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 class Rva002793AF
