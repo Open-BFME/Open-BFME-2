@@ -80,7 +80,13 @@ struct Rva0046247DPair
 class Rva00263895Member
 {
 public:
-	Rva00263895Member();	// 0x00263895
+	Rva00263895Member();
+	char m_lead[0x10]; // +0x00
+	int m_damageType; // +0x10
+	char m_pad14[0x8];
+	int m_deathType; // +0x1C
+	float m_amount; // +0x20
+	char m_tail[0x7c-0x24]; // +0x24
 };
 class DamageInfo
 {
@@ -274,9 +280,27 @@ public:
 };
 class B4 { public: virtual void b4(); };
 class B5 { public: virtual void b5(); };
-class B6 { public: virtual void b6(); };
+enum BodyDamageType
+{
+    BODY_PRISTINE = 0,
+    BODY_DAMAGED = 1,
+    BODY_REALLYDAMAGED = 2,
+    BODY_RUBBLE = 3
+};
+class B6
+{
+public:
+	virtual void b6();
+	virtual void d01() = 0;
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+};
 class B7 { public: virtual void b7(); };
-class B8 { public: virtual void b8(); private: unsigned char pad[0xC8 - 4]; };
+class B8
+{
+public:
+	virtual void b8();
+	char m_pad04[0xC4];
+};
 
 class OpenContain : public B0, public B1, public B2, public B3, public B4,
     public B5, public B6, public B7, public B8

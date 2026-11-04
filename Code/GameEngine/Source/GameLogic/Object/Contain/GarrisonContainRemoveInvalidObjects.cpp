@@ -52,11 +52,12 @@ extern GameLogic *TheGameLogic;
 
 struct GarrisonPointData
 {
-    ObjectID objectID;
-    ObjectID targetID;
-    unsigned int placeFrame;
-    unsigned int lastEffectFrame;
-    void *effect;
+public:
+	ObjectID objectID; // +0x00
+	ObjectID targetID; // +0x04
+	unsigned int placeFrame; // +0x08
+	unsigned int lastEffectFrame; // +0x0C
+	int effect; // +0x10
 };
 
 class GarrisonContain

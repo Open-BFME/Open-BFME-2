@@ -179,15 +179,16 @@ public:
     float m_amount;
     char m_tail[0x7c-0x24];
 };
-class Rva00263895Member {
+class Rva00263895Member
+{
 public:
-    Rva00263895Member();
-    char m_lead[0x10];
-    int m_damageType;
-    char m_gap[8];
-    int m_deathType;
-    float m_amount;
-    char m_tail[0x7c-0x24];
+	Rva00263895Member();
+	char m_lead[0x10]; // +0x00
+	int m_damageType; // +0x10
+	char m_pad14[0x8];
+	int m_deathType; // +0x1C
+	float m_amount; // +0x20
+	char m_tail[0x7c-0x24]; // +0x24
 };
 class Rva004786F8Body {
 public:
@@ -345,11 +346,12 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // put/remove bodies store the object and target IDs and the place frame).
 struct GarrisonPointData
 {
-	ObjectID objectID;
-	ObjectID targetID;
-	unsigned int placeFrame;
-	unsigned int lastEffectFrame;
-	int effect;
+public:
+	ObjectID objectID; // +0x00
+	ObjectID targetID; // +0x04
+	unsigned int placeFrame; // +0x08
+	unsigned int lastEffectFrame; // +0x0C
+	int effect; // +0x10
 };
 enum
 {
@@ -521,12 +523,17 @@ class B5 { public: virtual void b5(); };
 class B6
 {
 public:
-    virtual void b6();
-    virtual void d01() = 0;
-    virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+	virtual void b6();
+	virtual void d01() = 0;
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 };
 class B7 { public: virtual void b7(); };
-class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
+class B8
+{
+public:
+	virtual void b8();
+	char m_pad04[0xC4];
+};
 class Xfer;
 // OpenContain's own virtuals as the bodies call them by name: xfer (primary
 // slot 3) and loadPostProcess through explicit OpenContain:: calls, and
