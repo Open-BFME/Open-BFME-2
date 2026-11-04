@@ -61,14 +61,6 @@ public:
  int render(DX8VertexBufferClass *,int,RenderInfoClass &);
 };
 struct FeNode;
-class BfmeThingSH {
-public:
- void bfmeResetSH();
- // ?BfmeThingSH::~BfmeThingSH present-unmatched
- // Local deletion view delegates cleanup to the existing FE290 provider.
- // The inline view is not an additional recovery or pin.
- ~BfmeThingSH() { bfmeResetSH(); }
-};
 class WaterTracksRenderSystem {
 public:
  DX8VertexBufferClass *vertexBuffer;
