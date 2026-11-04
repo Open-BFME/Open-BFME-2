@@ -338,3 +338,5 @@ Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7
 
 - 2026-11-04: GrantUpgradeCreate_onBuildComplete now adopts canonical CreateModule (78 bytes matched, link preview unchanged); reconcile seed/donor declarations and ModuleDataDtor bytes before merging. [Evidence](../../reverse/attempt_support/grantupgradecreate-buildcomplete-canonical-base-2026-11-04.md).
 - 2026-11-04: GrantUpgradeCreate's seed now uses canonical Player and onCreate's Player queue row passed acceptance and retired (3/3 code rows exact; previews 177 -> 177 bytes); module/Object declarations and ModuleData lifetime shapes still block consolidation. [Evidence](../../reverse/attempt_support/grantupgradecreate-player-reconciliation-20261104.md).
+
+- 2026-11-04: ToggleMountedSpecialAbilityUpdate constructor/leaf views reconcile; merge preview accepts 18 exact rows with the census link guard passing. Module-data constructor/deleter remain separate. [Evidence](../../reverse/attempt_support/togglemounted-constructor-reconciliation-20261104-codexb4.md).

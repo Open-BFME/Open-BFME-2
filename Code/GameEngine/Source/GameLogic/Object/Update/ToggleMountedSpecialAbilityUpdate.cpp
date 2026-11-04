@@ -299,13 +299,34 @@ public:
 	bool flag8C;
 };
 
-class ToggleMountedSpecialAbilityUpdate : public SpecialAbilityUpdate
+// The constructor's real provider is still rowed as Rva0044EF5E. Keep that
+// base identity while sharing its retail +0x88 prefix with the behavior bodies.
+class Thing;
+class ModuleData;
+
+class __declspec(novtable) Rva0044EF5E : public MountedSlots<17>
 {
 public:
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void triggerAbilityEffect();
-	void createMountedTemplate();
-	void rva004ADCE8(const Object *replacement);
+    Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+    const MountedDataView *data;
+    Object *owner;
+    char padC[0x24 - 0xC];
+    int state;
+    char pad28[0x88 - 0x28];
+};
+
+class __declspec(novtable) ToggleMountedSpecialAbilityUpdate : public Rva0044EF5E
+{
+public:
+    ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void triggerAbilityEffect();
+    void createMountedTemplate();
+    void rva004ADCE8(const Object *replacement);
+
+protected:
+    const void *m_slotBase;
+    bool flag8C;
 };
 
 class Rva0044ECCE
@@ -774,7 +795,7 @@ void ToggleMountedSpecialAbilityUpdate::createMountedTemplate(){
 
 void ToggleMountedSpecialAbilityUpdate::triggerAbilityEffect()
 {
- SpecialAbilityUpdate::triggerAbilityEffect();
+ ((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::triggerAbilityEffect();
  Object *obj=owner;
  MountedAIView *ai=obj->ai;
  flag8C=false;

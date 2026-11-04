@@ -14,8 +14,11 @@
 class Thing;
 class ModuleData;
 
-extern "C" void _ReadWriteBarrier(void);
+extern "C"
+{
+	void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+}
 
 static int s_slotBase;
 static int s_vtable;
@@ -30,36 +33,50 @@ extern "C"
 	extern const void *const s_dummy62D8[47];
 }
 
-// Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class Rva0044EF5E
+enum NameKeyType { NK_UNKNOWN = 0 };
+class Object;
+struct MountedDataView;
+
+template <int N>
+class MountedSlots : public MountedSlots<N - 1>
 {
 public:
-	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
+	virtual void gap(char (*)[N]) = 0;
 };
 
-class ToggleMountedSpecialAbilityUpdate : public Rva0044EF5E
+template <>
+class MountedSlots<0>
+{
+};
+
+// The constructor's real provider is still rowed as Rva0044EF5E. Keep that
+// base identity while sharing its retail +0x88 prefix with the behavior bodies.
+class Thing;
+class ModuleData;
+
+class __declspec(novtable) Rva0044EF5E : public MountedSlots<17>
 {
 public:
-	ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
+    Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+    const MountedDataView *data;
+    Object *owner;
+    char padC[0x24 - 0xC];
+    int state;
+    char pad28[0x88 - 0x28];
+};
 
-private:
-	const void *m_p20;
-	unsigned char m_pad24[0x88 - 0x24];
-	union
-	{
-		const void *m_slotBase;
-		const void *m_slotFinal;
-	};
-	bool m_flag;
+class __declspec(novtable) ToggleMountedSpecialAbilityUpdate : public Rva0044EF5E
+{
+public:
+    ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void triggerAbilityEffect();
+    void createMountedTemplate();
+    void rva004ADCE8(const Object *replacement);
+
+protected:
+    const void *m_slotBase;
+    bool flag8C;
 };
 
 // ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4ADAB5
@@ -68,10 +85,10 @@ ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thin
 {
 	m_slotBase = &s_slotBase;
 	_ReadWriteBarrier();
-	m_slotFinal = &s_dummy5188;
-	m_vtable = &s_vtable;
-	m_p0C = s_dummy62D8;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_dummy5198;
-	m_flag = false;
+	m_slotBase = &s_dummy5188;
+	*(const void **)this = &s_vtable;
+	*(const void **)((char *)this + 0x0C) = s_dummy62D8;
+	*(const void **)((char *)this + 0x10) = &s_secondary10;
+	*(const void **)((char *)this + 0x20) = &s_dummy5198;
+	flag8C = false;
 }
