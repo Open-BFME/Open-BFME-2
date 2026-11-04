@@ -289,9 +289,9 @@ bool AIRingHeroTactic::initializeTeamTemplate(void *unit, int count)
 bool AIRingHeroTactic::weHaveGollum()
 {
 	IntMap *ownerObjects = *(IntMap **)TheSkirmishAIManager->rva002A8F24((Player *)m_field24);
-	for (unsigned int i = 0; i < ownerObjects->bucket_count(); ++i) {
+	for (unsigned int objectIndex = 0; objectIndex < ownerObjects->bucket_count(); ++objectIndex) {
 		Rva005AC7E1IDs *objectIDs = (Rva005AC7E1IDs *)((Rva005C4AD1LeaField *)ownerObjects)->get();
-		Object *candidateHero = TheGameLogic->findObjectByID(objectIDs->m_begin[i]);
+		Object *candidateHero = TheGameLogic->findObjectByID(objectIDs->m_begin[objectIndex]);
 		if (candidateHero && (candidateHero->m_04->m_121 & 0x20)) {
 			m_hero = candidateHero->m_id;
 			return true;
@@ -379,10 +379,10 @@ void AIRingHeroTactic::update()
 
 bool AIRingHeroTactic::enemyHasRingHeroUpgrade()
 {
-	unsigned int count = ThePlayerList->m_playerCount;
-	for (unsigned int i = 0; i < count; ++i)
+	unsigned int playerCount = ThePlayerList->m_playerCount;
+	for (unsigned int playerIndex = 0; playerIndex < playerCount; ++playerIndex)
 	{
-		Player *player = ThePlayerList->getNthPlayer(i);
+		Player *player = ThePlayerList->getNthPlayer(playerIndex);
 		m_5C = player;
 		if (player == (Player *)m_field24)
 			continue;
