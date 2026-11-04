@@ -230,12 +230,7 @@ class ParticleSystem
  
 }
 ;
-class RvaSmartPtr12 
-{
- public: void rva0004CBC0() throw();
- 
-}
-;
+#include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct W3DScriptedModelDrawHandle
 
 {
