@@ -1,5 +1,6 @@
 ### LINK-200: statistics-core owner requires its implicit destructor contract
-Status: Blocked. Updated: 2026-11-04; inspected revision: `6b19bc334f`.
+Status: Cleared 2026-11-04 at `9e0d470331` (was Blocked; history below).
+Resolution: the shared header no longer declares a destructor, so every unit gets the implicit nonvirtual one retail emits at `0x00383D71` (no vptr store). `PersistentStorageThread.cpp` then adopts `Rva00553E47StatsCore.h`, `Rva003844D7.h` and `Rva0038454E.h` (three queue rows retired by `accept`): 306/306 exact, EH 46/46; consumers PeerDefs 136/136, Rva00386374Copy 3/3, PeerThreadPushStatsBfme 8/8, Rva005B8116Stats 61/61, StatsReporter 22/22. `link_check.py` preview: LINKS, 21,853 -> 21,853 bytes (census a62ac1c10b); no census gain claimed.
 Completed: canonical `Rva00553E47StatsCore` adopted in `PeerDefs.cpp` and `Thread/PeerThreadPushStatsBfme.cpp`; acceptance retired two header-queue rows, 144/144 rows match, both ordinary previews retain LINKS (7,921 bytes).
 Remaining / next check: `Thread/PersistentStorageThread.cpp` emits the native implicit nonvirtual destructor at `0x00383D71`; the shared header's declaration suppresses it, and an explicit empty definition adds a non-retail vptr store. Reconcile that lifetime contract and verify all consumers before retrying the remaining queue row; owner trial restored and verified.
 Evidence: [scoped adoption, destructor bytes and checks](../../reverse/attempt_support/statscore-header-adoption-20261104-codex3.md).
