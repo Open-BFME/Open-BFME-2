@@ -67,34 +67,7 @@ static __forceinline bool hasText(const UnicodeString &unicodeString)
 	return header != 0 && header->length != 0;
 }
 
-class InGameCommandButtonHelp
-{
-public:
-	class Impl;
-};
-
-class InGameCommandButtonHelp::Impl
-{
-public:
-	void ComputeIconSizes(FloatPair *a, FloatPair *b, FloatPair *out);
- void Render(const FloatPair &position,const FloatPair &size);
-
-private:
-	void *m_owner;                     // +0x00
-	UnicodeString m_name;              // +0x04
-	UnicodeString m_title;             // +0x08
-	UnicodeString m_description;       // +0x0C
-	UnicodeString m_cost;              // +0x10
-	unsigned short m_shortcutKey;      // +0x14
-	Int m_width;                       // +0x18
-	DisplayString *m_nameString;       // +0x1C
-	DisplayString *m_titleString;      // +0x20
-	DisplayString *m_descriptionString; // +0x24
-	DisplayString *m_shortcutString;   // +0x28
-	DisplayString *m_costString;       // +0x2C
-	IntPair *m_icon30;                 // +0x30
-	IntPair *m_icon34;                 // +0x34
-};
+#include "../../../../Include/GameClient/InGameCommandButtonHelp.h"
 
 
 class Image;
@@ -111,16 +84,16 @@ static void DrawIcon(Image *image,FloatPair position,const FloatPair &maximum,co
 void InGameCommandButtonHelp::Impl::ComputeIconSizes(FloatPair *floatPair, FloatPair *descriptionIconSize, FloatPair *out)
 {
 	ScalePair *scale = reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager)->v15();
-	if (m_icon30 != 0) {
-		floatPair->x = (float)m_icon30->v24 * scale->x;
-		floatPair->y = (float)m_icon30->m_height * scale->y;
+	if (m_30 != 0) {
+		floatPair->x = (float)reinterpret_cast<const IntPair *>(m_30)->v24 * scale->x;
+		floatPair->y = (float)reinterpret_cast<const IntPair *>(m_30)->m_height * scale->y;
 	} else {
 		floatPair->x = 0.0f;
 		floatPair->y = 0.0f;
 	}
-	if (m_icon34 != 0) {
-		descriptionIconSize->x = (float)m_icon34->v24 * scale->x;
-		descriptionIconSize->y = (float)m_icon34->m_height * scale->y;
+	if (m_34 != 0) {
+		descriptionIconSize->x = (float)reinterpret_cast<const IntPair *>(m_34)->v24 * scale->x;
+		descriptionIconSize->y = (float)reinterpret_cast<const IntPair *>(m_34)->m_height * scale->y;
 	} else {
 		descriptionIconSize->x = 0.0f;
 		descriptionIconSize->y = 0.0f;
@@ -143,60 +116,60 @@ static __forceinline Int rounded(float value){return WWMath::Float_To_Long((floa
 void InGameCommandButtonHelp::Impl::Render(const FloatPair &position,const FloatPair &size) {
  FloatPair firstIcon,secondIcon,maximum;
  ComputeIconSizes(&firstIcon,&secondIcon,&maximum);
- UnicodeString title=m_title;
- Image *titleIcon=(Image*)m_icon30;
+ UnicodeString title=m_08;
+ Image *titleIcon=(Image*)m_30;
  FloatPair titleSize=firstIcon;
- UnicodeString description=m_description;
- Image *descriptionIcon=(Image*)m_icon34;
+ UnicodeString description=m_0C;
+ Image *descriptionIcon=(Image*)m_34;
  FloatPair descriptionSize=secondIcon;
  if(!hasText(title) && hasText(description)) {
   title.swap(description);titleIcon=descriptionIcon;titleSize=descriptionSize;
  }
  float y=position.y;
  Int w,h;
- m_nameString->getSize(&w,&h);
+ m_1C->getSize(&w,&h);
  float x=position.x+(size.x-(float)w)*0.5f;
- m_nameString->draw(rounded(x),rounded(y));
+ m_1C->draw(rounded(x),rounded(y));
  y+=(float)h;
  float lineHeight=0.0f;
  Bool centered=false;
- if(m_shortcutKey) {
+ if(m_14) {
   if(hasText(title)) {
-   m_titleString->getSize(&w,&h);
+   m_20->getSize(&w,&h);
    float titleH=(float)h;
-   m_shortcutString->getSize(&w,&h);
+   m_28->getSize(&w,&h);
    float shortcutW=(float)w,shortcutH=(float)h;
    lineHeight=titleH>shortcutH?titleH:shortcutH;
    if(maximum.y>lineHeight)lineHeight=maximum.y;
    DrawIcon(titleIcon,FloatPair(position.x,y+(lineHeight-maximum.y)*0.5f),maximum,titleSize);
-   Int drawX=WWMath::Float_To_Long((float)floor(position.x+maximum.x+0.5f)); Int drawY=WWMath::Float_To_Long((float)floor(y+(lineHeight-titleH+1.0f)*0.5f)); m_titleString->draw(drawX,drawY);
-   Int shortX=rounded(position.x+size.x-shortcutW); Int shortY=WWMath::Float_To_Long((float)floor(y+(lineHeight-shortcutH+1.0f)*0.5f)); m_shortcutString->draw(shortX,shortY);
+   Int drawX=WWMath::Float_To_Long((float)floor(position.x+maximum.x+0.5f)); Int drawY=WWMath::Float_To_Long((float)floor(y+(lineHeight-titleH+1.0f)*0.5f)); m_20->draw(drawX,drawY);
+   Int shortX=rounded(position.x+size.x-shortcutW); Int shortY=WWMath::Float_To_Long((float)floor(y+(lineHeight-shortcutH+1.0f)*0.5f)); m_28->draw(shortX,shortY);
   } else {
-   m_shortcutString->getSize(&w,&h);lineHeight=(float)h;
+   m_28->getSize(&w,&h);lineHeight=(float)h;
    x=position.x+(size.x-(float)w)*0.5f;
-   m_shortcutString->draw(rounded(x),rounded(y));
+   m_28->draw(rounded(x),rounded(y));
   }
  } else {
   centered=true;
   if(hasText(title)) {
-   m_titleString->getSize(&w,&h);float titleW=(float)w; float titleH=(float)h;
+   m_20->getSize(&w,&h);float titleW=(float)w; float titleH=(float)h;
    lineHeight=maximum.y>titleH?maximum.y:titleH;
    titleW+=maximum.x; x=position.x+(size.x-titleW)*0.5f;
    DrawIcon(titleIcon,FloatPair(x,y+(lineHeight-maximum.y)*0.5f),maximum,titleSize);
-   Int drawX=WWMath::Float_To_Long((float)floor(x+maximum.x+0.5f)); Int drawY=WWMath::Float_To_Long((float)floor(y+(lineHeight-titleH+1.0f)*0.5f)); m_titleString->draw(drawX,drawY);
+   Int drawX=WWMath::Float_To_Long((float)floor(x+maximum.x+0.5f)); Int drawY=WWMath::Float_To_Long((float)floor(y+(lineHeight-titleH+1.0f)*0.5f)); m_20->draw(drawX,drawY);
   }
  }
  y+=lineHeight;
  if(hasText(description)) {
-  m_descriptionString->getSize(&w,&h);FloatPair descriptionExtent((float)w,(float)h);float descriptionH=descriptionExtent.y;
+  m_24->getSize(&w,&h);FloatPair descriptionExtent((float)w,(float)h);float descriptionH=descriptionExtent.y;
   lineHeight=maximum.y>descriptionH?maximum.y:descriptionH;
   x=position.x;
   if(centered)x+=(size.x-(descriptionExtent.x+maximum.x))*0.5f;
   DrawIcon(descriptionIcon,FloatPair(x,y+(lineHeight-maximum.y)*0.5f),maximum,descriptionSize);
-  Int drawX=WWMath::Float_To_Long((float)floor(x+maximum.x+0.5f)); Int drawY=WWMath::Float_To_Long((float)floor(y+(lineHeight-descriptionH+1.0f)*0.5f)); m_descriptionString->draw(drawX,drawY);
+  Int drawX=WWMath::Float_To_Long((float)floor(x+maximum.x+0.5f)); Int drawY=WWMath::Float_To_Long((float)floor(y+(lineHeight-descriptionH+1.0f)*0.5f)); m_24->draw(drawX,drawY);
   y+=lineHeight;
  }
- m_costString->getSize(&w,&h);
+ m_2C->getSize(&w,&h);
  x=position.x+(size.x-(float)w)*0.5f;
- m_costString->draw(rounded(x),rounded(y));
+ m_2C->draw(rounded(x),rounded(y));
 }

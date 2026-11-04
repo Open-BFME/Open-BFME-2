@@ -54,18 +54,13 @@ class ImageCollection{public:const Image*findImageByName(const AsciiString&);};
 extern ImageCollection *TheMappedImageCollection;
 struct AsciiStringPlusString {const AsciiString *first,*second;operator AsciiString();};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString p={&a,&b};return p;}
-class InGameCommandButtonHelp {public: class Impl;};
-class InGameCommandButtonHelp::Impl {public:
- Rva0056D3FD *owner;UnicodeString name,title,description,cost;unsigned short key;char pad16[2];int width;DisplayString *s1,*s2,*s3,*s4,*s5;const Image *icon30,*icon34;
- void SetupDisplayStrings();
- Impl(Rva0056D3FD*,const UnicodeString&,const UnicodeString&,const UnicodeString&,const UnicodeString&,const AsciiString&);
-};
+#include "../../../Include/GameClient/InGameCommandButtonHelp.h"
 void InGameCommandButtonHelp::Impl::SetupDisplayStrings() {
- Rva0056C790(s1,&((Rva0029F8B8*)TheInGameUI)->rva0029F8B8());
- Rva0056C790(s2,&((Rva0029F8B8*)TheInGameUI)->rva0029D844());
- Rva0056C790(s3,&((Rva0029F8B8*)TheInGameUI)->rva0029D844());
- Rva0056C790(s4,&((Rva0029F8B8*)TheInGameUI)->rva0029D8C6());
- Rva0056C790(s5,&((Rva0029F8B8*)TheInGameUI)->rva0029D948());
+ Rva0056C790(m_1C,&((Rva0029F8B8*)TheInGameUI)->rva0029F8B8());
+ Rva0056C790(m_20,&((Rva0029F8B8*)TheInGameUI)->rva0029D844());
+ Rva0056C790(m_24,&((Rva0029F8B8*)TheInGameUI)->rva0029D844());
+ Rva0056C790(m_28,&((Rva0029F8B8*)TheInGameUI)->rva0029D8C6());
+ Rva0056C790(m_2C,&((Rva0029F8B8*)TheInGameUI)->rva0029D948());
 }
 
 // Native539619..5396E6 is a205B cdecl hidden-result string helper.
@@ -154,15 +149,15 @@ __declspec(noinline) static unsigned short Rva0056C89B(UnicodeString &str){
  str.swap(out);
  return key;
 }
-InGameCommandButtonHelp::Impl::Impl(Rva0056D3FD *o,const UnicodeString&unicodeString,const UnicodeString&t,const UnicodeString&d,const UnicodeString&c,const AsciiString&asciiString):owner(o),name(unicodeString),title(t),description(d),cost(c),key(0),width(0){
- s1=TheDisplayStringManager->newDisplayString();s2=TheDisplayStringManager->newDisplayString();s3=TheDisplayStringManager->newDisplayString();s4=TheDisplayStringManager->newDisplayString();s5=TheDisplayStringManager->newDisplayString();
- icon30=TheMappedImageCollection->findImageByName(AsciiString("Resource_Icon"));
- icon34=0;
- key=Rva0056C89B(name);
- if(icon30&&(icon30->width<=0||icon30->height<=0))icon30=0;
+InGameCommandButtonHelp::Impl::Impl(Rva0056D3FD *o,const UnicodeString&unicodeString,const UnicodeString&t,const UnicodeString&d,const UnicodeString&c,const AsciiString&asciiString):m_00(o),m_04(unicodeString),m_08(t),m_0C(d),m_10(c),m_14(0),m_18(0){
+ m_1C=TheDisplayStringManager->newDisplayString();m_20=TheDisplayStringManager->newDisplayString();m_24=TheDisplayStringManager->newDisplayString();m_28=TheDisplayStringManager->newDisplayString();m_2C=TheDisplayStringManager->newDisplayString();
+ m_30=TheMappedImageCollection->findImageByName(AsciiString("Resource_Icon"));
+ m_34=0;
+ m_14=Rva0056C89B(m_04);
+ if(m_30&&(m_30->width<=0||m_30->height<=0))m_30=0;
  if(!asciiString.isEmpty()){
-  icon34=TheMappedImageCollection->findImageByName(AsciiString("ResourceBar_")+asciiString);
-  if(icon34&&(icon34->width<=0||icon34->height<=0))icon34=0;
+  m_34=TheMappedImageCollection->findImageByName(AsciiString("ResourceBar_")+asciiString);
+  if(m_34&&(m_34->width<=0||m_34->height<=0))m_34=0;
  }
  SetupDisplayStrings();
 }

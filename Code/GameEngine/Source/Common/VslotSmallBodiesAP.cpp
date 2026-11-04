@@ -103,13 +103,7 @@ void Rva005397D3::rva005397D3(Int firstValue)
 }
 
 struct FloatPair;
-class InGameCommandButtonHelp { public: class Impl; };
-class InGameCommandButtonHelp::Impl
-{
-public:
-	Int SetWidthAndComputeHeight(Int firstValue);
-	void Render(const FloatPair &position, const FloatPair &size);
-};
+#include "../../Include/GameClient/InGameCommandButtonHelp.h"
 typedef InGameCommandButtonHelp::Impl Rva0056CA31;
 class Rva0056D2BD
 {

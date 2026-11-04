@@ -24,16 +24,7 @@ private:
 };
 
 class Rva0056D3FD;
-class InGameCommandButtonHelp {public: class Impl;};
-class InGameCommandButtonHelp::Impl
-{
-public:
- Impl(Rva0056D3FD *owner, const UnicodeString &a,
-  const UnicodeString &b, const UnicodeString &c, const UnicodeString &d,
-  const AsciiString &e);
-private:
- char m_data[0x38]; // Native allocation56B; provider defines the complete view.
-};
+#include "../../Include/GameClient/InGameCommandButtonHelp.h"
 
 class Rva0056D3E3
 {
