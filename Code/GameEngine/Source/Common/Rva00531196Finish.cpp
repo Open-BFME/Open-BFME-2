@@ -6,7 +6,8 @@
 // the (m_val & ~mask) | (value & mask) insert idiom, which MSVC 7.1 lowers to
 // the xor-into-memory form at retail. Caller 0x005329C8; owner unknown, so an
 // honest address-derived name.
-extern "C" void __cdecl memset(void *, int, unsigned int);
+#include <string.h>
+#pragma function(memset)
 class Rva00531196
 {
 public:
