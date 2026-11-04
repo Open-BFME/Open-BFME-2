@@ -9,7 +9,7 @@
 // observed here. The remaining20B stay opaque and are passed to rowed advance.
 enum KindOfType { KIND_TOGGLE_MOUNTED=0xD6 };
 class Team;
-class Player {public:char unknown[0x2ec];Team *defaultTeam;};
+#include "../../../../../Include/Common/Player.h"
 struct ToggleMountedTemplate {char pad[0x115];unsigned char exclude;char rest[0x520-0x116];int category;};
 class Object {public:
  Player *getControllingPlayer() const;
@@ -30,7 +30,7 @@ class AISpecialPowerToggleMounted {public:
 };
 bool AISpecialPowerToggleMounted::shouldActivate(Object *source) {
  Team *team=source->team;
- if(team!=source->getControllingPlayer()->defaultTeam) {
+ if(team!=source->getControllingPlayer()->m_defaultTeam) {
  int categoryThree=0,other=0;
  for(DLINK_ITERATOR<Object> it=team->iterate_TeamMemberList();!it.done();it.advance()) {
   Object *member=it.cur();

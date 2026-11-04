@@ -105,12 +105,7 @@ public:
 
 #include "../../../../GameEngine/Include/Common/SquadClass.h"
 
-class Player
-{
-public:
-	char m_pad[0x730];
-	Squad *m_roster;
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva0029FB3BMember.h"
 
@@ -274,7 +269,7 @@ bool FormationAssistant::getValidSelectedObjectsForPlayer(Player *player, Rva002
 	out->reset();
 	if (!player)
 		return false;
-	Squad *roster = player->m_roster;
+	Squad *roster = player->m_currentSelection;
 	if (!roster)
 		return false;
 	const VecObjectPtr &objects = roster->rva004D6CAC();

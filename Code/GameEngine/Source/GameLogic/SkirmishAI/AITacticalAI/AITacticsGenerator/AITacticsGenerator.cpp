@@ -136,12 +136,7 @@ struct Rva005059A1Team
 	int m_id;	// +0x2D8
 };
 
-class Player
-{
-public:
-	char m_pad00[0x2EC];
-	class Team *m_unit;	// +0x2EC
-};
+#include "../../../../../Include/Common/Player.h"
 
 class Team
 {
@@ -387,7 +382,7 @@ bool AITacticsGenerator::rva00506411(void *owner)
 // item lists, that belongs to its team.
 void AITacticsGenerator::Register(Team *unit)
 {
-	if (unit == unit->getControllingPlayer()->m_unit)
+	if (unit == unit->getControllingPlayer()->m_defaultTeam)
 		return;
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
