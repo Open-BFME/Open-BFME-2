@@ -61,6 +61,11 @@ namespace _STL { template <> vector<UnicodeString, allocator<UnicodeString> >::~
 namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > > & _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > >::operator++(); }
 namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > > & _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > >::operator--(); }
 namespace _STL { template <> _Rb_tree_node<pair<unsigned char const, short> > * _Rb_tree<unsigned char, pair<unsigned char const, short>, _Select1st<pair<unsigned char const, short> >, less<unsigned char>, allocator<pair<unsigned char const, short> > >::_M_create_node(pair<unsigned char const, short> const &); }
+// The stats core's implicit destructor (0x00383D71) is emitted here for the
+// by-value locals below; these keep its map-tree destructors bound to the
+// kept copies instead of emitting divergent COMDATs.
+namespace _STL { template <> _Rb_tree<unsigned char, pair<unsigned char const, short>, _Select1st<pair<unsigned char const, short> >, less<unsigned char>, allocator<pair<unsigned char const, short> > >::~_Rb_tree(); }
+namespace _STL { template <> _Rb_tree<unsigned char, pair<unsigned char const, float>, _Select1st<pair<unsigned char const, float> >, less<unsigned char>, allocator<pair<unsigned char const, float> > >::~_Rb_tree(); }
 namespace _STL { template <> _Rb_tree_node<pair<int const, AsciiString> > * _Rb_tree<int, pair<int const, AsciiString>, _Select1st<pair<int const, AsciiString> >, less<int>, allocator<pair<int const, AsciiString> > >::_M_create_node(pair<int const, AsciiString> const &); }
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAE@XZ:
