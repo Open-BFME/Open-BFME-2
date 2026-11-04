@@ -127,7 +127,7 @@ public:
 class Rva004B5AC0_Primary
 {
 public:
-	void __fastcall rva004B5AC0(int /*unused*/, Player *player1, Player *player2);
+	void __fastcall onCapture(int /*unused*/, Player *player1, Player *player2);
 };
 
 // A declaration-only specialization stops this TU emitting its own
@@ -588,8 +588,8 @@ void Rva004B5A65_Secondary::upgradeImplementation()
 	}
 }
 
-// ?rva004B5AC0@Rva004B5AC0_Primary@@QAIXHPAVPlayer@@0@Z
-void __fastcall Rva004B5AC0_Primary::rva004B5AC0(int /*unused*/, Player *player1, Player *player2)
+// ?onCapture@Rva004B5AC0_Primary@@QAIXHPAVPlayer@@0@Z
+void __fastcall Rva004B5AC0_Primary::onCapture(int /*unused*/, Player *player1, Player *player2)
 {
 	Rva004B5A65_Secondary *secondary = (Rva004B5A65_Secondary *)((char *)this + 0x10);
 	if (!secondary->vfunc00())

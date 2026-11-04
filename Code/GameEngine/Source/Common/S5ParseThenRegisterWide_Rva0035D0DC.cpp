@@ -56,7 +56,7 @@ extern const FieldParse s5Table0059FB50[] = {
     { 0, 0, 0, 0 }
 };
 
-void s5parse0059FB50(INI *ini, Gen_00489270 *sink)
+void parseSoundFadeTransition(INI *ini, Gen_00489270 *sink)
 {
     Rva0035D0D1 *transition = new Rva0035D0D1;
     ini->initFromINI(transition, s5Table0059FB50);

@@ -8766,3 +8766,6 @@ function,?rva004F61B1@LivingWorldAutoResolveBattle@@QAEXXZ,?determineWinner@Livi
 member,BfmeThingVJQ::m_bfme14,BfmeThingVJQ::m_transactor,inferred,agree:nl-058b05cb074b,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJQ.cpp,
 local,AITactic::calcLastTeamPos::n,AITactic::calcLastTeamPos::count,inferred,agree:nl-1e580845e304,Code/GameEngine/Source/Common/Rva004EDDD3.cpp,0x004EDDD3
 local,PlayerAITypeSet::rva00215B14::p,PlayerAITypeSet::rva00215B14::src,inferred,agree:nl-950eaf488e9d,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp,0x00215B14
+function,?s5parse0059FB50@@YAXPAVINI@@PAUGen_00489270@@@Z,?parseSoundFadeTransition@@YAXPAVINI@@PAUGen_00489270@@@Z,inferred,agree:nl-c52a3a778348,Code/GameEngine/Source/Common/S5ParseThenRegisterWide_Rva0035D0DC.cpp,0x0035D0DC
+carry,s5parse0059FB50::transition,parseSoundFadeTransition::transition,inferred,scope renamed by Rename s5parse0059FB50 to parseSoundFadeTransition (inferred),Code/GameEngine/Source/Common/S5ParseThenRegisterWide_Rva0035D0DC.cpp,0x0035D0DC
+function,?rva004B5AC0@Rva004B5AC0_Primary@@QAIXHPAVPlayer@@0@Z,?onCapture@Rva004B5AC0_Primary@@QAIXHPAVPlayer@@0@Z,inferred,agree:nl-3af629138449,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,0x004B5AC0
