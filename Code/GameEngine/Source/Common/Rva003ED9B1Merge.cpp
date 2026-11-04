@@ -10,14 +10,15 @@
 
 class Drawable;
 
-_STLP_BEGIN_NAMESPACE
+namespace _STL
+{
 template <>
 class vector<Drawable *, allocator<Drawable *> > : public _Vector_base<Drawable *, allocator<Drawable *> >
 {
 public:
 	void resize(unsigned int n, Drawable *x);
 };
-_STLP_END_NAMESPACE
+}
 
 
 struct BitRange
