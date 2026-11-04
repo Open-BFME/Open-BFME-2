@@ -46,3 +46,14 @@ its unverified `free` finding rather than concealing it. Header adoption and
 that Microsoft-header finding remain separate work; no debt retirement or
 new census measurement is claimed. The outgoing push hook supplies the final
 batch consumer audit.
+
+Post-commit freshness check: the shadow identity gate initially reported four
+duplicate definitions against cached TerrainLogicCtor, GapBodiesSeat2B and
+VtableVirtualForwarders objects. Current sources already declare/reference those
+names instead of defining them; all four TBuff bodies also predate this merge.
+Rebuilding those three units through `./build.sh` passed 50/50 rows, and a fresh
+scoped `code_identity_gate.check` for TBuff returned zero findings in shadow
+mode. No source or baseline change was needed. The scoped naming picker could
+not inventory the two explicit unsigned template-specialization functions;
+their inspected `count`, `msg`, and `alignment` parameters retain their existing
+names. This is not a claim of complete template-binding inventory coverage.
