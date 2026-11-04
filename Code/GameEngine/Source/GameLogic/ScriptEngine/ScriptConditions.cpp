@@ -1301,11 +1301,7 @@ public:
 	ObjectID SpawnOneDelayedCarryoverUnit(ObjectTypes *types);
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	void rva002B323C(_STL::vector<Rva0040D701ArmySummary *> *armies, int armyID);
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002BA8F1Logic;
 
