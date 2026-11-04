@@ -23,30 +23,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-// Suppress this TU's non-retail copy of ?_M_clear@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@IAEXXZ:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class W3DAnimationInfo;
-namespace _STL { template <> void vector<W3DAnimationInfo,allocator<W3DAnimationInfo> >::_M_clear(); }
-// Suppress this TU's non-retail copy of ??$_Destroy@PAVW3DAnimationInfo@@@_STL@@YAXPAVW3DAnimationInfo@@0@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class W3DAnimationInfo;
-namespace _STL { template <> void _Destroy<W3DAnimationInfo *>(W3DAnimationInfo *,W3DAnimationInfo *); }
-// Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAVW3DAnimationInfo@@V1@V?$allocator@VW3DAnimationInfo@@@_ST:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class W3DAnimationInfo;
-namespace _STL { template <> W3DAnimationInfo * _STLP_alloc_proxy<W3DAnimationInfo *,W3DAnimationInfo,allocator<W3DAnimationInfo> >::allocate(unsigned int); }
-// Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAVW3DAnimationInfo@@IV1@@_STL@@YAPAVW3DAnimationInfo@@PAV1@IABV:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class W3DAnimationInfo;
-namespace _STL { template <> W3DAnimationInfo * __uninitialized_fill_n<W3DAnimationInfo *,unsigned int,W3DAnimationInfo>(W3DAnimationInfo *,unsigned int,W3DAnimationInfo const &,__false_type const &); }
-// Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAVW3DAnimationInfo@@PAV1@@_STL@@YAPAVW3DAnimationInfo@@PAV1@00ABU:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class W3DAnimationInfo;
-namespace _STL { template <> W3DAnimationInfo * __uninitialized_copy<W3DAnimationInfo *,W3DAnimationInfo *>(W3DAnimationInfo *,W3DAnimationInfo *,W3DAnimationInfo *,__false_type const &); }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@VW3DAnimationInfo@@@_STL@@QBEXPAVW3DAnimationInfo@@I@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class W3DAnimationInfo;
-namespace _STL { template <> void allocator<W3DAnimationInfo>::deallocate(W3DAnimationInfo *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
