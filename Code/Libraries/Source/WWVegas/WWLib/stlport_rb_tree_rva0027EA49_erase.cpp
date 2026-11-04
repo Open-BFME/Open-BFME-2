@@ -8,11 +8,13 @@
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <map>
 
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+// _Rb_tree_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
 namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
-                              const _Rb_tree_iterator<T, RightTraits>& b)
+template <class _RbVal, class _RbLeft, class _RbRight>
+static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
+                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
 #include "../../Apt/AptRefTarget.h"
