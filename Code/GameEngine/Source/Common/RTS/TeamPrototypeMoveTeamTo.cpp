@@ -38,19 +38,12 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamPrototype
-{
-public:
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
-	{
-		return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
-	}
-	void moveTeamTo(Coord3D destination);
+#include "../../../Include/Common/Team.h"
 
-private:
-	unsigned char m_pad[0x334];
-	Team *m_dlinkhead_TeamInstanceList;
-};
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
+{
+	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
 
 void TeamPrototype::moveTeamTo(Coord3D destination)
 {

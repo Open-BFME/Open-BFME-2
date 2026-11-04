@@ -25,14 +25,8 @@ public:
  T *cur()const{return m_cur;}
 private: T *m_cur; GetNextFunc m_next;
 };
-class TeamPrototype {
-public:
- unsigned getID()const{return id;}
- DLINK_ITERATOR<Team> iterate_TeamInstanceList()const {return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList);}
- Team *bfme_head()const {return head;}
-private:
- char unknown00[0x0c]; unsigned id; char unknown10[0x334-0x10]; Team *head;
-};
+#include "../../../Include/Common/Team.h"
+
 struct PrototypeNode: _STL::_Rb_tree_node_base {unsigned key[2];TeamPrototype *value;};
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class TeamFactory: public SubsystemInterface,public Snapshot {
@@ -46,7 +40,7 @@ void TeamFactory::loadPostProcess() {
   TeamPrototype *prototype=((PrototypeNode*)it)->value;
   if(prototype->getID()>=prototypeID)prototypeID=prototype->getID()+1;
   DLINK_ITERATOR<Team> iter;
-  iter.bfme_dlink_rehome(prototype->bfme_head(),&Team::dlink_next_TeamInstanceList);
+  iter.bfme_dlink_rehome(prototype->getFirstItemIn_TeamInstanceList(),&Team::dlink_next_TeamInstanceList);
   for(;!iter.done();iter.advance()) {
    Team *team=iter.cur();
    if(team->getID()>=teamID)teamID=team->getID()+1;

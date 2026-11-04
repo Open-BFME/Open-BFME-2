@@ -18,15 +18,12 @@ public:
  T *cur()const{return m_cur;}
 private: T *m_cur; GetNextFunc m_next;
 };
-class TeamPrototype {
-public:
- unsigned getID()const{return id;}
- Team *findTeamByID(unsigned id);
- int countTeamInstances();
- DLINK_ITERATOR<Team> iterate_TeamInstanceList()const {return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList);}
-private:
- char unknown00[0x0c]; unsigned id; char unknown10[0x334-0x10]; Team *head;
-};
+#include "../../../Include/Common/Team.h"
+
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
+{
+ return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList,&Team::dlink_next_TeamInstanceList);
+}
 
 Team *TeamPrototype::findTeamByID(unsigned id) {
  for(DLINK_ITERATOR<Team> iter=iterate_TeamInstanceList();!iter.done();iter.advance())
