@@ -212,49 +212,10 @@ void Rva00553E47StatsCore::reset() {
 
 
 // Native open-play vtable86B100 extends the core with prefix merge555845.
-class Rva003844D7 : public Rva00553E47StatsCore {
-public:
-    Rva003844D7(int);
-    Rva003844D7(const Rva003844D7 &);
-    virtual void reset();
-    virtual void rva00555109(XferStub *);
-    virtual void rva00555845(const Rva003844D7 *);
-    ~Rva003844D7();
-    Rva003844D7 &operator=(const Rva003844D7 &);
-    StatsIntMap m_map154;
-    StatsShortMap m_map160, m_map16c;
-    StatsFloatMap m_map178, m_map184;
-};
+#include "../../../../Include/GameNetwork/Rva003844D7.h"
 typedef char OpenPlaySizeCheck[sizeof(Rva003844D7)==0x190?1:-1];
 
-class Rva0038454E : public Rva00553E47StatsCore	// strategic stats block
-{
-public:
-    Rva0038454E(int);
-    Rva0038454E(const Rva0038454E &);
-    virtual void reset();
-    virtual void rva00555109(XferStub *);
-    virtual void rva0055524B(const Rva0038454E *);
-	~Rva0038454E();						// 0x0038454E
-	Rva0038454E &operator=(const Rva0038454E &that);	// 0x00387945
-
-    StatsFloatMap m_map154;
-    StatsFloatMap m_map160;
-    StatsFloatMap m_map16c;
-    StatsFloatMap m_map178;
-    StatsFloatMap m_map184;
-    StatsFloatMap m_map190;
-    StatsFloatMap m_map19c;
-    StatsFloatMap m_map1a8;
-    StatsShortMap m_map1b4;
-    StatsShortMap m_map1c0;
-    StatsFloatMap m_map1cc;
-    StatsFloatMap m_map1d8;
-    StatsFloatMap m_map1e4;
-    StatsFloatMap m_map1f0;
-    StatsFloatMap m_map1fc;
-
-};
+#include "../../../../Include/GameNetwork/Rva0038454E.h"
 
 class Rva00385333 : public Rva003844D7	// tournament stats block
 {
