@@ -11780,7 +11780,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseS
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificBuilding@Player@@QAEXABVAsciiString@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificTeam@Player@@QAEXPAVTeamPrototype@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildUpgrade@Player@@QAEXABVAsciiString@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	countReadyShortcutSpecialPowersOfType@Player@@QAEHW4SpecialPowerType@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findAnyExistingObjectWithThingTemplate@Player@@QAEPAVObject@@PBVThingTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	findMostReadyShortcutSpecialPowerForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z	1
@@ -12097,7 +12096,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	ThingFact
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	findTemplateInternal@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	init@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	update@ThingFactory@@	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::calcCostToBuild	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::canPossiblyHaveAnyWeapon	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::findArmorTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::findWeaponTemplateSet	1
