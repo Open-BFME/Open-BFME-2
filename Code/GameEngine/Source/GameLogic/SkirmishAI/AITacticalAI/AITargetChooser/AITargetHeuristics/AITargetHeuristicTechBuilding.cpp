@@ -162,13 +162,7 @@ template<int N>class BitFlags
 }
 ;
 extern BitFlags<116> KINDOFMASK_NONE;
-class AITarget
-
-{
- public:void setTarget(Object*,float);
- 
-}
-;
+#include "../../../../../../Include/GameLogic/AITarget.h"
 static __forceinline float Distance2(const Coord3D&a,const Coord3D&b)
 
 {
