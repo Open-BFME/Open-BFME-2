@@ -31,10 +31,10 @@ private:
 class Rva00360D26Member
 {
 public:
+	Rva00360D26Member();
 	~Rva00360D26Member();
-
 private:
-	unsigned m_unknown;
+	unsigned handle; // +0x00
 };
 
 class Rva0048130E
