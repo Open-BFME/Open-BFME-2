@@ -36,3 +36,34 @@ Verification before the merge:
   constructor donor redeclares STLport templates. Nine mixed donors remain separate.
 
 These are scoped byte and link-preview results, not a new census or real-link run.
+
+## Applied merge and compatibility audit
+
+After prerequisite commit `06619ce637`, tu_skeleton applied the accepted merge:
+five rows (the 548-byte method and its four EH rows) moved to the approved TU,
+and the directory-list donor was deleted. Source files decrease by one; no
+matched row is lost. The TU map change only repoints these five source columns;
+it does not regenerate assignments. Hatch totals are unchanged.
+
+The merged TU passes 38/38 byte matches, string/import checks and funclet-parent
+verification. The link guard passes, and link_check reports the combined TU
+LINKS at 2,559 own bytes, accounting for the donor's 548-byte method; the parser
+donor still LINKS at 606. This is a transfer, not a measured linking gain.
+
+The outgoing path audit covers the single removed source and destination on top
+of `06619ce637`; the earlier queued commits have no source-path moves. Searches
+of tools, hooks, workflows, Code includes, docs and reverse registries found no
+active consumer needing an update. Remaining old paths are the source-provenance
+comment, attempt evidence, and historical link_status.csv census row. The
+functions ledger and TU-map source columns now name the current owner. Header,
+MS-header, code-identity, data and gate registers have no keys for this scope;
+no debt is retired. No /alternatename is removed. Composition's provider/consumer
+guard and the subsequent link preview pass despite deduplicated instantiations.
+
+Scoped naming reviewed all five parameters and seven locals of the complete
+merged method, retaining nine clear names and clarifying the directory iterator,
+file iterator and directory-match predicate. The native-child proposal and full
+parent mapping/diff review use the same claims and final TU path. The generic
+complex-binding inventory warning was inspected: this function's declarations
+are covered; no broader C++ inventory completeness is claimed. Application
+verified all 38 rows again.

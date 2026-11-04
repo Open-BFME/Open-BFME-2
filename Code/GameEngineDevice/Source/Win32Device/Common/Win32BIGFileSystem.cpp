@@ -4,7 +4,6 @@
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <stdio.h>
-// Retail 0x00603FF8 calls strncmp through the import table.
 #include <string.h>
 #undef _CRTIMP
 #define _CRTIMP
@@ -15,19 +14,16 @@
 #include <map>
 #define _STLP_BFME_TREE_NODE_BASE_O2  // emit retail's _Rb_tree_node_base::_S_minimum/_S_maximum (vendor/stlport/stl/_tree.h)
 #include <stl/_alloc.h>
-
 // Declare the comparators before donor includes that use their container types.
 struct BfmeCStringLess
 {
 	bool operator()(const char *a, const char *b) const;
 };
-
 struct BfmeStringNoCaseLess
 {
 public:
 	bool operator()(const AsciiString &a, const AsciiString &b) const;
 };
-
 #pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
@@ -118,7 +114,6 @@ public:
 			m_count = 0;                                                  \
 		}                                                                 \
 	}
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -126,36 +121,29 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 class Rva0060426C;
-
 void Rva00604289Construct(Rva0060426C *dest, const Rva0060426C &src);
-
 class Rva00604374
 {
 public:
 	void *rva00604374(const Rva0060426C &src);
 };
-
 struct Rva006038D4Less
 {
 public:
 	bool operator()(const char *, const char *) const;
 };
-
 struct Rva006044A0Node {
 	unsigned color;
 	Rva006044A0Node *parent;
 	Rva006044A0Node *left;
 	Rva006044A0Node *right;
 };
-
 struct Rva006044A0Pair {
 	Rva006044A0Node *first;
 	bool second;
 	Rva006044A0Pair(Rva006044A0Node *f, bool s) : first(f), second(s) {}
 };
-
 struct Rva006044A0 {
 	Rva006044A0Node *m_header;
 	int m_count;
@@ -165,40 +153,31 @@ struct Rva006044A0 {
 	Rva006044A0Pair rva006044A0(const Rva0060426C &v);
 	Rva006044A0Pair rva0060458E(const Rva0060426C &v);
 };
-
 // 603B0A/603E50: same strcmp-key insertion control flow, with the existing
 // 29E11A allocator copying a 16B value through Construct41360E. That provider
 // is ledgered as ModuleFactory; this is its measured four-word ABI view only.
 // The new tree's application owner and remaining payload meanings are unknown.
 struct Rva00603E50Value { const char *key; unsigned words[3]; };
-
 enum NameKeyType { NameKeyZero = 0 };
-
 #include "../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
-
 typedef _STL::pair<const NameKeyType, ModuleFactory::ModuleTemplate> ModuleWordPair;
-
 typedef _STL::_Rb_tree<NameKeyType, ModuleWordPair, _STL::_Select1st<ModuleWordPair>, _STL::less<NameKeyType>, _STL::allocator<ModuleWordPair> > ModuleWordTree;
-
 struct ModuleWordNodeView : ModuleWordTree {
  static __forceinline _STL::_Rb_tree_node<ModuleWordPair> *create(void *receiver, const ModuleWordPair &value) {
   return ((ModuleWordNodeView *)receiver)->_M_create_node(value);
  }
 };
-
 struct Rva00603E50Node {
 	unsigned color;
 	Rva00603E50Node *parent;
 	Rva00603E50Node *left;
 	Rva00603E50Node *right;
 };
-
 struct Rva00603E50Pair {
 	Rva00603E50Node *first;
 	bool second;
 	Rva00603E50Pair(Rva00603E50Node *f, bool s) : first(f), second(s) {}
 };
-
 struct Rva00603E50 {
 	Rva00603E50Node *m_header;
 	int m_count;
@@ -208,11 +187,43 @@ struct Rva00603E50 {
 	Rva00603E50Pair rva00603E50(const Rva00603E50Value &v);
 	Rva00603E50Pair rva00603FAC(const Rva00603E50Value &v);
 };
-
 typedef bool Bool;
-
 #include "../../../../GameEngine/Include/Common/File.h"
 #include "../../../../GameEngine/Include/Common/RAMFileClass.h"
+typedef int Int;
+typedef _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > FilenameList;
+namespace _STL
+{
+template <> pair<FilenameList::iterator, bool> FilenameList::insert(const AsciiString &);
+}
+void Rva00605324(char *path);
+				// 0x00605324, path normaliser
+bool Rva006053D7(const char *str, const char *pattern);
+	// 0x006053D7, wildcard match
+AsciiString makeAsciiString(const char *text);
+#include "../../../../GameEngine/Include/Common/AsciiStringRef.h"
+struct AsciiStringRefWithChar : AsciiStringRef
+{
+	char m_char;
+};
+#include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
+struct AsciiStringCharPlusText : AsciiStringRefWithChar
+{
+	operator AsciiString();					// 0x00234CA6
+	Rva000B3F84Pair m_right;
+};
+inline AsciiStringRefWithChar operator+(const AsciiString &s, char c)
+{
+	AsciiStringRefWithChar r;
+	r.m_string = &s;
+	r.m_char = c;
+	return r;
+}
+AsciiStringCharPlusText operator+(const AsciiStringRefWithChar &left, const char *text);
+	// 0x00109CFD
+
+void _bfme_debugRecordCallsite(int kind);
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 class StreamingArchiveFile : public RAMFile
 {
@@ -291,9 +302,6 @@ struct BigArchiveMemberInfo
 
 typedef _STL::pair<const char *const, BigArchiveMemberInfo> BigArchiveMemberValue;
 
-template void _STL::_Construct<BigArchiveMemberValue, BigArchiveMemberValue>(
-	BigArchiveMemberValue *, const BigArchiveMemberValue &);
-
 void __cdecl ji_00629176();
 
 char *Rva00605365(char *p);
@@ -369,12 +377,6 @@ template <> __forceinline void allocator<_Rb_tree_node< ::Rva00603A00Pair > >::d
 
 typedef _STL::_Rb_tree<const char*, Rva00603A00Pair, _STL::_Select1st<Rva00603A00Pair>, _STL::less<const char*>, _STL::allocator<Rva00603A00Pair> > Rva00603A00Tree;
 
-template void Rva00603A00Tree::_M_erase(Rva00603A00Tree::_Link_type);
-
-template void Rva00603A00Tree::clear();
-
-template Rva00603A00Tree::~_Rb_tree();
-
 // Native603C52..603C57 tail JMP603AA8 to the sole owned tree destructor.
 // Unadjusted receiver only; original wrapper and enclosing type unknown.
 struct Rva00603C52TreeRelease { void release(); };
@@ -383,34 +385,11 @@ typedef _STL::pair<const char* const, Rva00603A00Mapped> Rva00603A2DPair;
 
 typedef _STL::_Rb_tree<const char*, Rva00603A2DPair, _STL::_Select1st<Rva00603A2DPair>, Rva006038D4Less, _STL::allocator<Rva00603A2DPair> > Rva00603A2DTree;
 
-template Rva00603A2DTree::_Link_type Rva00603A2DTree::_M_find<const char*>(const char* const &) const;
-
 extern char g_00DD509C[];
-
 
 typedef _STL::set<const char *, BfmeCStringLess> BigFileNameSet;
 
 typedef _STL::map<const char *, BigFileNameSet, BfmeCStringLess> BigDirectoryMap;
-
-class Win32BIGFileSystem
-{
-public:
-	Win32BIGFileSystem();
-	virtual ~Win32BIGFileSystem();
-	virtual void init(bool flag);
-	virtual void V2();
-	virtual void V3();
-	virtual void V4();
-	virtual bool helper(const char *s, int extra);
-	virtual void V6();
-	virtual void V7();
-	virtual bool rva006042B6(const char *path, const char *filter, int extra);
-	virtual void getFileListInDirectory(const AsciiString &currentDirectory, const AsciiString &originalDirectory,
-		const AsciiString &searchName, _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > &filenameList, bool searchSubdirectories) const;	// slot 9
-
-private:
-	BigDirectoryMap m_directories;	// +0x04
-};
 
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree_base<AsciiString,_STL::allocator<AsciiString> >::_Rb_tree_base(_STL::allocator<AsciiString> const &); }
@@ -522,6 +501,43 @@ private:
 	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
 	int m_count;				/* +0x04, the slot CLEAR() tests */
 };
+
+extern Debug *theDebug;
+
+class Win32BIGFileSystem
+{
+public:
+	Win32BIGFileSystem();
+	virtual ~Win32BIGFileSystem();
+	virtual void init(bool flag);
+	virtual void V2();
+	virtual void V3();
+	virtual void V4();
+	virtual bool helper(const char *s, int extra);
+	virtual void V6();
+	virtual void V7();
+	virtual bool rva006042B6(const char *path, const char *filter, int extra);
+	virtual void getFileListInDirectory(const AsciiString &currentDirectory, const AsciiString &originalDirectory,
+		const AsciiString &searchName, _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > &filenameList, bool searchSubdirectories) const;	// slot 9
+
+private:
+	BigDirectoryMap m_directories;	// +0x04
+};
+
+// ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
+
+// Retail 0x00603FF8 calls strncmp through the import table.
+
+template void _STL::_Construct<BigArchiveMemberValue, BigArchiveMemberValue>(
+	BigArchiveMemberValue *, const BigArchiveMemberValue &);
+
+template void Rva00603A00Tree::_M_erase(Rva00603A00Tree::_Link_type);
+
+template void Rva00603A00Tree::clear();
+
+template Rva00603A00Tree::~_Rb_tree();
+
+template Rva00603A2DTree::_Link_type Rva00603A2DTree::_M_find<const char*>(const char* const &) const;
 
 // ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 
@@ -877,22 +893,6 @@ bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int e
 	return result;
 }
 
-// tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x00603C0F 67B ?rva00603C0F@Rva00603C0F@@QAEPBXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_lookup_00603C0F.cpp (not merged yet)
-
-// tu-skeleton: 0x00603C57 8B ??1Rva00603C57@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00603EEB 165B ??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x00603F90 28B ??_GRva00603C57@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
-
-// tu-skeleton: 0x00603FEF 9B ??$_Destroy@VRva00603C57@@@_STL@@YAXPAVRva00603C57@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00603FF8 548B ?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp
 
 //
@@ -911,6 +911,95 @@ bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int e
 // Three more trees with the same shapes over other value types, whose
 // destructors are already pinned under these address names.
 
+// tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x00603C0F 67B ?rva00603C0F@Rva00603C0F@@QAEPBXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_lookup_00603C0F.cpp (not merged yet)
+
+// tu-skeleton: 0x00603C57 8B ??1Rva00603C57@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00603EEB 165B ??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x00603F90 28B ??_GRva00603C57@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
+
+// tu-skeleton: 0x00603FEF 9B ??$_Destroy@VRva00603C57@@@_STL@@YAXPAVRva00603C57@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp
+
+// ?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z
+// Retail 0x00603FF8..0x0060421C (548 bytes); slot 9 of the Win32BIGFileSystem
+// vtable 0x00C7A94C (entry at 0x0087A970), WB
+// Win32BIGFileSystem::getFileListInDirectory (Win32BIGFileSystem.cpp).
+//
+// BFME 2 lists files from its own directory index at +0x04 (directory name
+// -> set of file names, both C strings) instead of Zero Hour's per-archive
+// walk: a non-empty currentDirectory is a debug crash ("currentDirectory -
+// not implemented"); the original directory and the search mask are copied
+// and normalised (rowed 0x00605324); a directory matches exactly, or with
+// subdirectory search as a prefix ending at a backslash; each of its files
+// matching the mask (rowed wildcard 0x006053D7) is added to the list as
+// "directory\file" (rowed makeAsciiString 0x002343DF and the narrow
+// concatenation nodes 0x00109CFD / 0x00234CA6 of RegistryAsciiPath.cpp).
+// Evidence: vtable slot, WB name, the debug literal, rowed callees, the
+// imported strncmp and the rowed no-case AsciiString set insert 0x0002CA26
+// (FilenameList). Debug expansion as in Rva0033BA46Finish.cpp.
+
+// STLport4.5.3 iterator comparison is its node-pointer comparison.
+// Spell that native comparison here so no competing operator copy is emitted.
+
+		// 0x002343DF
+
+// BFME 2's narrow concatenation nodes (RegistryAsciiPath.cpp).
+
+void Win32BIGFileSystem::getFileListInDirectory(const AsciiString &currentDirectory, const AsciiString &originalDirectory,
+	const AsciiString &searchName, FilenameList &filenameList, Bool searchSubdirectories) const
+{
+	if (currentDirectory.getLength() > 0)
+	{
+		_bfme_debugRecordCallsite(1);
+		theDebug->SkipNext();
+		(theDebug->CrashBegin(0, 0, 0) << "currentDirectory - not implemented").CrashDone(1);
+	}
+
+	char directory[260];
+	strcpy(directory, originalDirectory.str());
+	Rva00605324(directory);
+	char mask[260];
+	strcpy(mask, searchName.str());
+	Rva00605324(mask);
+
+	Int directoryLength = -1;
+	if (searchSubdirectories)
+		directoryLength = strlen(directory);
+
+	for (BigDirectoryMap::const_iterator directoryIter = m_directories.begin(); directoryIter._M_node != m_directories.end()._M_node; ++directoryIter)
+	{
+		Bool directoryMatches;
+		if (directoryLength >= 0)
+		{
+			directoryMatches = strncmp(directory, (*directoryIter).first, directoryLength) == 0;
+			if (directoryMatches && strlen((*directoryIter).first) != directoryLength)
+				directoryMatches &= ((*directoryIter).first[directoryLength] == '\\');
+		}
+		else
+		{
+			directoryMatches = strcmp(directory, (*directoryIter).first) == 0;
+		}
+		if (!directoryMatches)
+			continue;
+
+		for (BigFileNameSet::const_iterator fileIter = (*directoryIter).second.begin(); fileIter._M_node != (*directoryIter).second.end()._M_node; ++fileIter)
+		{
+			if (Rva006053D7(*fileIter, mask))
+			{
+				AsciiString path = makeAsciiString((*directoryIter).first) + '\\' + *fileIter;
+				filenameList.insert(path);
+			}
+		}
+	}
+}
+
 // tu-skeleton: 0x00604396 56B ??1?$_Rb_tree@$$CBV?$BitFlags@$0BB@@@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@U?$_Select1st@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@UMapHelper@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x00604460 5B ??1?$map@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@UMapHelper@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
@@ -928,14 +1017,6 @@ bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int e
 // tu-skeleton: 0x007A6B22 8B $L5374 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6B2A 10B __ehhandler$??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x007A6B34 8B Unwind@00ba6b34 -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
-
-// tu-skeleton: 0x007A6B3C 8B Unwind@00ba6b3c -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
-
-// tu-skeleton: 0x007A6B44 8B Unwind@00ba6b44 -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
-
-// tu-skeleton: 0x007A6B4C 10B __ehhandler$?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6B80 8B uw_007a6b80 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
