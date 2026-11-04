@@ -78,13 +78,29 @@ class Fixture:
         # A class nothing uses concretely gets no CodeView record from the real
         # compiler; no_layout reproduces that.
         layouts = (lambda f: {k: v for k, v in base(f).items() if k not in no_layout}) if no_layout else base
-        self.tool = V.Tool("Seed.cpp", root=self.root, layouts=layouts, build=build,
-                           unmatched=lambda files: [], ledger=list(ledger), held=lambda files: [],
+        # Which files the run laid out, claimed and audited: a --class run may
+        # only reach the ones that class lives in.
+        self.layout_reads, self.held_asked, self.unmatched_asked = [], [], []
+
+        def read_layout(f):
+            self.layout_reads.append(f)
+            return layouts(f)
+
+        def ask_held(files):
+            self.held_asked.append(list(files))
+            return []
+
+        def ask_unmatched(files):
+            self.unmatched_asked.append(list(files))
+            return []
+
+        self.tool = V.Tool("Seed.cpp", root=self.root, layouts=read_layout, build=build,
+                           unmatched=ask_unmatched, ledger=list(ledger), held=ask_held,
                            canon=canon or {})
         self.files = list(files)
 
-    def run(self, dry_run=False):
-        return self.tool.run(dry_run=dry_run, files=self.files, seed=self.files[0])
+    def run(self, dry_run=False, only=()):
+        return self.tool.run(dry_run=dry_run, only=only, files=self.files, seed=self.files[0])
 
     def text(self, name):
         return (self.root / name).read_text(encoding="latin-1")
@@ -589,6 +605,82 @@ class ReviewDefects(unittest.TestCase):
                                 dry_run=True)
         self.assertNotEqual(rep["classes"]["Foo"]["status"], "plan")
         self.assertIn("overloaded", str(rep["classes"]["Foo"]))
+
+
+# A second class, shared by two further files, that no --class Foo run may read.
+# Its two views disagree about sizeof, so laying it out at all would be visible.
+BAR_ONE = """// cl: /DNDEBUG /MD
+class Bar
+{
+public:
+	void only_here();
+	int m_count;
+};
+
+void Bar::only_here() { m_count = 0; }
+"""
+
+BAR_TWO = """// cl: /DNDEBUG /MD
+class Bar
+{
+public:
+	int m_count;
+	int m_extra;
+};
+
+int bar_extra(Bar *b) { return b->m_extra; }
+"""
+
+
+class ClassScope(unittest.TestCase):
+    """--class X confines the run to the files X lives in.
+
+    The cost and the claim footprint of a run used to be the whole TU's file
+    list, whatever --class asked for: a two-file class inside a 223-file TU read
+    223 CodeView layouts, asked 223 unmatched queries, and refused unless all
+    223 files were claimable at the same moment. The fleet holds hundreds of
+    file claims at any time, so that last condition is never met on a large TU
+    however often it is retried - 48% of the 2026-11-04 sweep's 1074 attempts
+    were refused over a file no class they meant to write even mentions.
+    """
+
+    def fixture(self):
+        fx = Fixture({"Seed.cpp": SEED, "Donor.cpp": DONOR,
+                      "Bar1.cpp": BAR_ONE, "Bar2.cpp": BAR_TWO})
+        self.addCleanup(fx.close)
+        return fx
+
+    def test_only_the_selected_class_s_files_are_claimed(self):
+        fx = self.fixture()
+        rep = fx.run(only=["Foo"])
+        self.assertEqual(rep["applied"], ["Foo"])
+        # `files` is what a caller claims, so it has to be the narrow set too.
+        self.assertEqual(set(rep["files"]), {"Seed.cpp", "Donor.cpp"})
+        self.assertEqual(set(rep["touched"]), {"Seed.cpp", "Donor.cpp"})
+        self.assertEqual({f for call in fx.held_asked for f in call},
+                         {"Seed.cpp", "Donor.cpp"})
+
+    def test_the_other_class_s_files_are_never_laid_out_or_audited(self):
+        fx = self.fixture()
+        fx.run(only=["Foo"])
+        self.assertEqual({"Bar1.cpp", "Bar2.cpp"} & set(fx.layout_reads), set())
+        self.assertEqual({"Bar1.cpp", "Bar2.cpp"} &
+                         {f for call in fx.unmatched_asked for f in call}, set())
+
+    def test_a_dry_run_is_narrowed_the_same_way(self):
+        fx = self.fixture()
+        rep = fx.run(dry_run=True, only=["Foo"])
+        self.assertEqual(rep["classes"]["Foo"]["status"], "plan")
+        self.assertNotIn("Bar", rep["classes"])
+        self.assertEqual(set(rep["files"]), {"Seed.cpp", "Donor.cpp"})
+        self.assertEqual({"Bar1.cpp", "Bar2.cpp"} & set(fx.layout_reads), set())
+
+    def test_without_class_the_whole_tu_is_still_the_unit(self):
+        fx = self.fixture()
+        rep = fx.run(dry_run=True)
+        self.assertEqual(set(rep["files"]), set(fx.files))
+        self.assertEqual(set(rep["touched"]), set(fx.files))
+        self.assertIn("Bar", rep["classes"])
 
 
 if __name__ == "__main__":

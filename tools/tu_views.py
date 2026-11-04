@@ -1299,8 +1299,22 @@ class Tool:
                                           "action": f"python3 tools/header_adopt_lane.py accept --class {c} FILE..."}
         if only:
             shared = {c: fs for c, fs in shared.items() if c in only}
+        # A run only concerns the files the selected classes live in. Narrowing to
+        # those is what makes --class a cheap unit of work: a 2-file class inside a
+        # 223-file TU used to read 223 CodeView layouts, ask 223 unmatched queries,
+        # and refuse unless all 223 files were claimable at the same moment. With
+        # the fleet holding hundreds of file claims that last condition is never
+        # met, so the largest TUs were unreachable however often they were tried:
+        # 48% of the 2026-11-04 sweep's 1074 attempts died on a file that no class
+        # it meant to write even mentions. A base recorded only outside this set
+        # cannot order two selected classes either, since a file declaring the
+        # derived class lays out its bases, and that file is in the set.
+        work = sorted({f for fs in shared.values() for f in fs}) if only else list(files)
+        report["touched"] = work
+        if only:
+            report["files"] = work         # what to claim, and all this run can touch
         try:
-            order = dependency_order(list(shared), {f: self.layouts(f) for f in files})
+            order = dependency_order(list(shared), {f: self.layouts(f) for f in work})
         except RuntimeError as exc:
             report["blocked"] = f"layout read failed: {exc}"
             return report
@@ -1318,11 +1332,11 @@ class Tool:
                         pass          # a rewrite the apply path would report instead
                 report["classes"][c] = entry
             return report
-        held = self.held(files)
+        held = self.held(work)
         if held:
             report["blocked"] = "held by another worker: " + ", ".join(held[:5])
             return report
-        before = {f: self.unmatched([f]) for f in files}
+        before = {f: self.unmatched([f]) for f in work}
         blocks = collections.defaultdict(list)             # file -> blocks already shared there
         retry = []
         for c in order:
