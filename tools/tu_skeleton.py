@@ -369,9 +369,9 @@ def token_seq(t):
 def key_of(kind, text):
     s = norm(text)
     m = re.match(r"^(?:template\s*<[^>]*>\s*)?(class|struct|enum|union)\s+(?:__declspec\([^)]*\)\s*)?"
-                 r"([A-Za-z_]\w*)\s*(?::[^{]*)?\{", s)
+                 r"([A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*)\s*(?::(?!:)[^{]*)?\{", s)
     if m:
-        return ("type", m.group(2))
+        return ("type", "".join(m.group(2).split()))
     m = re.match(r"^typedef\b.*?\b([A-Za-z_]\w*)\s*(\[[^\]]*\])?\s*;$", s)
     if m:
         return ("typedef", m.group(1))

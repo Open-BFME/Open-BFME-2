@@ -865,6 +865,29 @@ class ComposeWhitespaceVariantTests(unittest.TestCase):
         self.assertEqual(T.token_seq("x = a->b;"), ("x", "=", "a", "->", "b", ";"))
 
 
+class QualifiedTypeCompositionTests(unittest.TestCase):
+    def test_nested_definition_survives_beside_its_enclosing_class(self):
+        seed = "class Outer { public: struct Node; void clear(); };\n"
+        donor = (seed + "struct Outer::Node { Node *next; int value; };\n"
+                 "void Outer::clear() { Node node; node.value = 0; }\n")
+        rows = [({}, {"source": "Donor.cpp"})]
+        for strategy in T.STRATEGIES:
+            with self.subTest(strategy=strategy):
+                out = T.compose("Seed.cpp", rows, ["Seed.cpp", "Donor.cpp"],
+                                {"Seed.cpp": seed, "Donor.cpp": donor}, [], strategy)
+                self.assertEqual(out.count("class Outer {"), 1)
+                self.assertEqual(out.count("struct Outer::Node {"), 1)
+                self.assertLess(out.index("class Outer {"), out.index("struct Outer::Node {"))
+                self.assertLess(out.index("struct Outer::Node {"), out.index("void Outer::clear() {"))
+
+    def test_qualified_names_keep_all_scopes_and_normalize_colon_spacing(self):
+        for name in ("Outer::Node", "Other::Node", "ns::Outer::Node"):
+            with self.subTest(name=name):
+                text = "struct " + name + " : public Base { int value; };"
+                self.assertEqual(T.key_of("decl", text), ("type", name))
+                self.assertEqual(T.key_of("decl", text.replace("::", " :: ")), ("type", name))
+
+
 class EffectiveFlagsTests(unittest.TestCase):
     def verifier(self, overridden=False):
         v = T.Verifier.__new__(T.Verifier)
