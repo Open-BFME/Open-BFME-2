@@ -99,3 +99,15 @@ Each one sees the donor ZH RefCountClass through rendobj.h, linegrp_headers.h or
 an inlined copy, and the canonical header then fails with C2011. These units
 need the canonical RefCountData.h first.
 [Evidence](../../reverse/attempt_support/index-buffer-refcount-blockers-20261104.md).
+
+
+#### Ten further guard adoptions, 2026-11-04, run1105
+
+The unchanged, previously corrected shared guard header is adopted in ten
+further sources. All 193 existing code/EH rows and complete runtime object
+contents remain intact; native acceptance retires ten header keys. The
+thirteen-source starting inventory now leaves three private guards: the protected wrapper plus two distinct nonempty or
+imported contracts remain untouched. The old index-buffer shim and wider TU
+merge obstacle remain open. W3DShroud.cpp changes only its independent empty
+guard, preserving the Shroud owner's blocked nontrivial member lifetimes.
+[Scoped evidence](../../reverse/attempt_support/device-guard-batch-20261104-1105.md).

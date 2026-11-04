@@ -37,11 +37,7 @@ enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 
-struct BFMEDX8DeviceLock
-{
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 class Rva00066A9ASub
 {

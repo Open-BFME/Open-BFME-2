@@ -107,10 +107,7 @@ template<class T>class TexSlot:public RefCountPtr<T>{public:
  __forceinline TexSlot&operator=(const BFME2ParticleTextureHandle&h){RefCountPtr<T>::operator=(*(const RefCountPtr<T>*)&h);return *this;}};
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
-struct BFMEDX8DeviceLock {
- BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}
- ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 struct Rva001408C0Target;
 struct AssetList00208F90 {
  AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}

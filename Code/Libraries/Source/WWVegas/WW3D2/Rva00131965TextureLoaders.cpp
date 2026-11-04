@@ -13,7 +13,7 @@
 extern void BFME_DX8_Thread_Lock();
 extern bool BFME_DX8_Thread_Assert();
 // Native normal and unwind paths share the existing device guard at 0x00042F8C.
-struct BFMEDX8DeviceLock {BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 struct IDirect3DDevice8;
 class DX8Wrapper {friend class Rva0013107A;protected:static IDirect3DDevice8 *D3DDevice;};
 struct TextureGUID {unsigned long a;unsigned short b,c;unsigned char d[8];};

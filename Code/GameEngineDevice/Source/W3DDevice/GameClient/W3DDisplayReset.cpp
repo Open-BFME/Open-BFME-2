@@ -14,11 +14,7 @@ typedef float Real;
 
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
-struct BFMEDX8DeviceLock
-{
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 void Log_DX8_ErrorCode(unsigned int error);
 void Rva0012641FClear();

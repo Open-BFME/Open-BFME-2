@@ -343,11 +343,7 @@ public:
 	Rva00075E42D3D8Vtable *m_vtable;
 };
 
-struct BFMEDX8DeviceLock
-{
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 extern int g_00DE1F18;
 
