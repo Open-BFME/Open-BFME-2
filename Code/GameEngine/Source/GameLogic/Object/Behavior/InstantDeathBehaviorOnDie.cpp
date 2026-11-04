@@ -27,7 +27,19 @@ extern AudioManager*TheAudio;
 template<class T>struct PtrVector{T*begin;T*end;T*storage;int size()const{return end-begin;}T&operator[](int i)const{return begin[i];}};
 struct InstantDeathBehaviorModuleData{char pad[0x38];PtrVector<const FXList*>fx;PtrVector<ObjectCreationList*>ocls;PtrVector<const WeaponTemplate*>weapons;PtrVector<Rva0036CA00Str>sounds;};
 #include "../../../../Include/GameLogic/Module/DieModule.h"
-class InstantDeathBehavior:public DieModule{public:virtual void onDie(const DamageInfo*);};
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Thing;
+class ModuleData;
+class InstantDeathBehavior : public DieModule
+{
+public:
+	static NameKeyType rva00045CF10();
+	InstantDeathBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual void onDie(const DamageInfo*);
+};
 void InstantDeathBehavior::onDie(const DamageInfo*damageInfo){
  if(!isDieApplicable(damageInfo))return;
  if(m_object->ai){if(m_object->ai->dead)return;m_object->ai->markAsDead();}

@@ -23,10 +23,17 @@ class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class DamageInfo;
 class InstantDeathBehavior : public DieModule
 {
 public:
+	static NameKeyType rva00045CF10();
 	InstantDeathBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual void onDie(const DamageInfo*);
 };
 
 // ??0InstantDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x0045CF55

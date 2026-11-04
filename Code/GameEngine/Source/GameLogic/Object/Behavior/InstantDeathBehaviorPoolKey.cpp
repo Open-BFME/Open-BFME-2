@@ -15,13 +15,19 @@ enum NameKeyType
 };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class InstantDeathBehavior
+class Thing;
+class ModuleData;
+class DamageInfo;
+class InstantDeathBehavior : public DieModule
 {
 public:
 	static NameKeyType rva00045CF10();
+	InstantDeathBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual void onDie(const DamageInfo*);
 };
 
 // ?rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ

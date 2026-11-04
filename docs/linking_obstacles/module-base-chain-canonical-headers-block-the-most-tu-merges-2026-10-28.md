@@ -1,5 +1,7 @@
 ### Module base chain: canonical headers block the most TU merges (2026-10-28)
 
+2026-11-04: InstantDeathBehavior's constructor/onDie/pool-key leaf declarations now agree (8/8 rows exact; 521 preview-linked bytes unchanged); its merge still needs the seed's legacy headers and module-data views reconciled. [Scoped evidence and audit boundary](../../reverse/attempt_support/instantdeath-leaf-views-20261104-codex4.md).
+
 `header_adopt_lane.py order --merges` ("Rank the class-header tier by TU-merge donors unblocked") ranks classes by queued
 merge donors whose private views they split. The module chain leads after
 Object/Thing: Module, ObjectModule, BehaviorModule(Interface),
