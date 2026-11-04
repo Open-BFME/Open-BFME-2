@@ -4,39 +4,46 @@
 // Member at +0x18 via pinned 0x00360D26. Layout from ctor TU 0x0048202F
 // (base 8 radius +8 maxIncome +0xC interval +0x10 highPri +0x14 visible +0x15
 // pad +0x16 member +0x18). Vtable 0x00849440 slot 0 is ??_G 0x00482259.
-// ShareExperienceBehaviorModuleDataDtor precedent.
+// The class views match TerrainResourceBehavior.cpp's, its approved TU.
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+class TerrainResourceModuleDataBase
+{
+public:
+	TerrainResourceModuleDataBase() {}
+	virtual ~TerrainResourceModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+
+private:
+	unsigned char m_pad[8 - 4];
+};
+class UpgradeTemplate;
+class BfmeTab1026;
 class Rva003623E5Filter
 {
 public:
 	Rva003623E5Filter();
 	~Rva003623E5Filter();
-private:
-	unsigned char m_data[4];
+
+	unsigned int m_data; // +0, 4-aligned: retail pads +0x16/+0x17 before +0x18
 };
-#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-#include "../../../../Include/Common/BfmeModuleData.h"
-// Native teardown restores Snapshot; the intermediate data base adds +4 only.
-inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
-class TerrainResourceBehaviorModuleData : public ModuleData
+class TerrainResourceBehaviorModuleData : public TerrainResourceModuleDataBase
 {
 public:
-	TerrainResourceBehaviorModuleData(); // rowed in TerrainResourceBehaviorModuleDataCtor.cpp
-	// Native table C49440 slot24 is 47A6A9: return this.
-	virtual const void *slot24() const { return this; }
-// Implicit virtual dtor (never declared, never defined)
-private:
-	int m_gap04;
-	float m_radius;
-	int m_maxIncome;
-	int m_incomeInterval;
-	bool m_highPriority;
-	bool m_visible;
-	unsigned char m_pad16[2];
-	Rva003623E5Filter m_member18;
-	int m_upgrade;
-	float m_upgradeBonusPercent;
+	TerrainResourceBehaviorModuleData();
+	// The virtual destructor stays implicit: retail 0x00482275 stores no
+	// derived vptr, which only the compiler-generated form omits.
+	BfmeTab1026 *upgradeMustBePresent() const { return (BfmeTab1026 *)&m_upgradeMustBePresent; }
+
+	float m_radius; // +8
+	int m_maxIncome; // +0xC
+	int m_incomeInterval; // +0x10
+	bool m_highPriority; // +0x14
+	bool m_visible; // +0x15
+	Rva003623E5Filter m_upgradeMustBePresent; // +0x18
+	const UpgradeTemplate *m_upgrade; // +0x1C
+	float m_upgradeBonusPercent; // +0x20
 };
-// Emit the native implicit destructor without a synthetic constructor/vtable.
+
+// Emit the implicit destructor without a synthetic constructor.
 void destroyTerrainResourceBehaviorModuleData(TerrainResourceBehaviorModuleData *terrainResourceBehaviorModuleData)
 {
 	terrainResourceBehaviorModuleData->TerrainResourceBehaviorModuleData::~TerrainResourceBehaviorModuleData();
