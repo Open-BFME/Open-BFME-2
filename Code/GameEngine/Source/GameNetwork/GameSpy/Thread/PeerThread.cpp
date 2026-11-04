@@ -1,24 +1,8 @@
 // cl: /DBFME_ASCII_KEEP_COPY_SET_BODY /DBFME_ASCII_DTOR_DECL /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /O1 /G7 /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/nat /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /D_STLP_NO_EXCEPTIONS
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
-// Load the native ThreadClass ABI before donor headers reach thread.h.
-// Its 0x50-byte base has Execute in virtual slot 1.
-#define THREAD_H
-class ThreadClass {
-public:
-    ThreadClass(const char *name = 0);
-    virtual ~ThreadClass();
-    virtual void Execute();
-    bool Is_Running();
-    static void Switch_Thread();
-protected:
-    virtual void Thread_Function() = 0;
-private:
-    char m_name[0x40];
-    unsigned int m_threadId;
-    void *m_handle;
-    int m_priority;
-};
+// The native 0x50-byte ThreadClass, loaded before donor headers reach thread.h.
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -350,10 +334,6 @@ struct Rva0009990D {
 	void clear();
 	void set(void *pointer);
 	~Rva0009990D() { clear(); }
-};
-struct Rva006105F0 { void stop(); };
-struct Rva0038909EPeerThreadDtorView {
-	virtual void *destroy(unsigned int flags);
 };
 // Target's request queue advances in 0x1EC-byte steps. Its push_back body is
 // already verified under this size-only record view. Target members and payload
@@ -687,13 +667,8 @@ void GameSpyPeerMessageQueue::endThread( void )
 {
 	if (m_thread) {
 		_bfme_hole_tailOwner.clear();
-		((Rva006105F0 *)m_thread)->stop();
-		void *threadToFree;
-		if (m_thread)
-			threadToFree = ((Rva0038909EPeerThreadDtorView *)m_thread)->destroy(0);
-		else
-			threadToFree = NULL;
-		::operator delete(threadToFree);
+		m_thread->Stop();
+		::delete m_thread;
 	}
 	m_thread = NULL;
 }
