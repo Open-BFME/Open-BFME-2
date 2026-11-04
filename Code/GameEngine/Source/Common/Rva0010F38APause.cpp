@@ -1,4 +1,6 @@
 // cl: /MD
+// platformsdk
+#include <windows.h>
 #include "../../Include/Common/Rva00041004Lock.h"
 // ?rva0010F38A@Rva0010F38A@@QAEXXZ @0x0010F38A 80B.
 // ?rva0010F3DA@Rva0010F3DA@@QAEXXZ @0x0010F3DA 80B.
@@ -9,8 +11,6 @@
 // AIL_pause_stream at 0x00BBABC8, Rva00041004 layout from rowed ctor
 // 0x000411C1. Honest address names.
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 extern "C" __declspec(dllimport) void __stdcall AIL_pause_stream(void *stream, int flag);
 
 class Rva0010F24F
