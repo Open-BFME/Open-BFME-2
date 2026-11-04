@@ -31,15 +31,7 @@ public:
     virtual void AddRef();
     virtual void Release();
 };
-class BfmeAptValue006DCD20 {
-public:
-    bool isUndefined() const;
-    int isScriptFunction() const;
-    int isNativeFunction() const;
-    int isCharacterInst() const;
-    int rva006E03A0() const;
-    BfmeAptValue006DCD20 *rva006DCEE0();
-};
+#include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField {
 public:
     int get() const;

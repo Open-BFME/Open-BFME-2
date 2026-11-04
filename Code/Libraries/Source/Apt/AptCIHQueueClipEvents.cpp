@@ -59,12 +59,7 @@ class Rva006DBB30SarDwordField
 public:
     int get() const; // 0x006DBB30
 };
-class BfmeAptValue006DCD20
-{
-public:
-    BfmeAptValue006DCD20 *rva006DCEE0(); // 0x006DCEE0
-    void setGCRootCount(unsigned int);   // 0x006DBC70
-};
+#include "BfmeAptValue006DCD20.h"
 
 struct AptClipActionRecord
 {

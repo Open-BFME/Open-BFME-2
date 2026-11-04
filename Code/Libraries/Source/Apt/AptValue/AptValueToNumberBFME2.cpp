@@ -9,18 +9,7 @@
 // by this body's LEA and the matched toInteger path. No full string-class
 // layout or original numeric-converter member name is claimed.
 #include "../EAStringC.h"
-class BfmeAptValue006DCD20
-{
-    virtual void vtableSlot0();
-    unsigned int m_flags;
-public:
-    bool isUndefined() const;
-    BfmeAptValue006DCD20 *checkedString();
-    BfmeAptValue006DCD20 *rva006DCEA0();
-    BfmeAptValue006DCD20 *checkedInteger();
-    BfmeAptValue006DCD20 *checkedFloat();
-    float rva006DD460();
-};
+#include "../BfmeAptValue006DCD20.h"
 class Rva006D89D0ByteField { public: unsigned char get() const; };
 class Rva00723490FloatField { public: float get() const; };
 class Rva00144010Opaque { public: int rva00144010(); };
@@ -36,7 +25,7 @@ float BfmeAptValue006DCD20::rva006DD460()
 {
     if (isUndefined())
         return BfmeZeroRange;
-    switch (static_cast<int>(m_flags) >> 25) {
+    switch (static_cast<int>(field04) >> 25) {
     case 1:
     case 42: {
         NumberStringView *string = reinterpret_cast<NumberStringView *>(checkedString());

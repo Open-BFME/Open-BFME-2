@@ -8,7 +8,7 @@
 // The37 cache fields reuse the owned plain-data view from AptDate.cpp.
 #include "AptValue.h"
 #include "EAStringC.h"
-class BfmeAptValue006DCD20 {public:void setGCRootCount(unsigned int);};
+#include "BfmeAptValue006DCD20.h"
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class Rva006D6500 {unsigned char storage[36];public:Rva006D6500(int);static void *operator new(unsigned int n){return g_pChainBlockAllocatorF4->allocBlock(n);}static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}};

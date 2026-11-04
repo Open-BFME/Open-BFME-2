@@ -6,7 +6,7 @@
 // warning texts, reference drop, virtual teardown order and final dirty flag.
 // Address-derived worker retains the existing caller spelling/pin.
 #include "EAStringC.h"
-class BfmeAptValue006DCD20 {public:BfmeAptValue006DCD20 *rva006DCF60(bool);void setGCRootCount(unsigned);};
+#include "BfmeAptValue006DCD20.h"
 class AptValue;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
