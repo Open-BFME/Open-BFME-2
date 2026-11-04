@@ -40,9 +40,10 @@ Verification of the final source:
   The funclet label renumbered; parent EH data verifies retail placement.
 - `find_declared_unmatched.py`: all defined functions already matched.
 - `link_check.py` current-object preview: LINKS, 84 -> 84 authored bytes,
-  index 2026-11-04 17:56 at 8c757ea0db. The allocator<char>::deallocate
-  difference is diagnosed as unreferenced and not a blocker. This is preserved
-  preview coverage, not a census result or a real-link/boot measurement.
+  index 2026-11-04 17:56 at 8c757ea0db. The follow-up declares the existing
+  basic_string destructor specialization without defining it, avoiding extra
+  allocator implementations and their diagnostic. This is preserved preview
+  coverage, not a census result or a real-link/boot measurement.
 
 ## Remaining consolidation prerequisites
 
@@ -64,3 +65,14 @@ before the trials.
 Local transcripts: build/partition-tu-views-codexb.log and
 build/partition-string-merge-check-codexb.log. No source paths, ledger owners,
 protected debt keys, aliases, pins or hatch counts changed. No debt is retired.
+
+## Shadow identity comparison
+
+The commit hook reports two shadow binding findings for the parent/funclet's
+Gen_uw_009f5690 destructor adapter at 0x00142D70. Restoring the original source
+from 11dd6c6970, rebuilding it, and running the scoped staged identity gate
+reproduces exactly the same two findings. Restoring the header-based source
+with the declaration-only specialization keeps the same findings: these are
+pre-existing adapter-identity debt, not findings introduced by the header
+cleanup. No baseline entry was added or retired. The specialization keeps the
+header adoption from emitting another copy of the already-rowed string destructor.

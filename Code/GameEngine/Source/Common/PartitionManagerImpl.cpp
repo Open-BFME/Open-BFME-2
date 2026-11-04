@@ -14,6 +14,10 @@
 // type. The recovered tree operations use twelve-byte vector storage.
 // stlport
 #include <string>
+// Use the already-rowed destructor without instantiating another copy here.
+namespace _STL {
+template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string();
+}
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > Rva00142D70String;
 
 struct Gen_uw_009f5690
