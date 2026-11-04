@@ -17,7 +17,7 @@
 
 extern "C" const void *const vtbl_00C40818[];  // folded, 7 classes; via ??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C40818=??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@")
-extern "C" const void *const __identifier("??_7AODCrushCollide@@6BCollideDtorB2@@@")[];  // folded, 4 classes; via ??_7AODCrushCollide@@6BCollideDtorB2@@@
+extern "C" const void *const __identifier("??_7AODCrushCollide@@6BBehaviorModuleInterface@@@")[];  // retail VA 0x00C5A260: shared with the matched AODCrushCollide destructor
 
 extern "C" const void *const __identifier("??_7Rva004A8091@@6BRva004A8091_E1@@@")[];  // ??_7Rva004A8091@@6BRva004A8091_E1@@@
 extern "C" const void *const __identifier("??_7Rva004A8091@@6BUpdateModule@@@")[];  // ??_7Rva004A8091@@6BUpdateModule@@@
@@ -83,7 +83,7 @@ ToppleUpdate::ToppleUpdate(Thing *thing, const ModuleData *moduleData)
 	*slot20 = (int)((unsigned int)vtbl_00C40818);
 	int zero = 0;
 	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BObjectModule@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AODCrushCollide@@6BCollideDtorB2@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AODCrushCollide@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BUpdateModule@@@"));
 	m_20 = (const void *)((unsigned int)__identifier("??_7Rva004A8091@@6BRva004A8091_E1@@@"));
 	m_40 = fzero;
