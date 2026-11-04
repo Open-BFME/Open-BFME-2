@@ -1,4 +1,4 @@
-### LINK-222: ActionManager consolidation declaration prerequisites
+### LINK-224: ActionManager consolidation declaration prerequisites
 
 Status: Open. Updated: 2026-11-04; inspected revision: `6b9c853538`.
 Scope: `Common/RTS/ActionManager.cpp`, `ActionManagerCanDoSpecialPowerAtLocation.cpp` and `Common/Rva0041C9C4.cpp`.
