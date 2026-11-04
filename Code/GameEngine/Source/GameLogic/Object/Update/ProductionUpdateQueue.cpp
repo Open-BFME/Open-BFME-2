@@ -648,7 +648,7 @@ extern unsigned int ProductionDoorOpeningFlags[4];
 extern unsigned int ProductionDoorClosingFlags[4];
 extern unsigned int ProductionDoorWaitingOpenFlags[4];
 enum EvaEventID { EVA_NONE=0 };
-class Eva { public: bool reportEvaEvent(EvaEventID,const Coord3D *,const Coord3D *); };
+#include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 enum RadarEventType { RADAR_NONE=0 };
 #include "../../../../Include/Common/Radar.h"

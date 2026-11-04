@@ -55,12 +55,7 @@ class Parameter;
 enum EvaEventID { EVA_EVENT_ID_FIRST = 0 };
 struct Vec001DCDAF;
 
-class Eva
-{
-public:
-	int rva001DE78E(const AsciiString *key);		// 0x001DE78E
-	bool rva001DD670(EvaEventID index, Vec001DCDAF *pos) const;		// 0x001DD670
-};
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
 struct BfmeWideHit

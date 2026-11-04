@@ -35,13 +35,7 @@ extern int BfmeLogicFramesPerSecond;
 extern GameLogic *TheGameLogic;
 enum EvaEventID { EVA_EVENT_ID_RV = 0 };
 struct Vec001DCDAF;
-class Eva
-{
-public:
-	int rva001DE78E(const AsciiString *name); // 0x001DE78E, event index or -1
-	bool getLastReallyPlayedFrameForEvaEvent(EvaEventID index, unsigned int *frame) const; // 0x001DD604 (rowed: const, enum arg)
-	bool rva001DD670(EvaEventID index, Vec001DCDAF *pos) const; // 0x001DD670
-};
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
