@@ -1,0 +1,288 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "RenderStateStruct",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 9,
+   "8": 3,
+   "12": 1,
+   "556": 4,
+   "620": 11,
+   "654": 1,
+   "656": 11
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "shader.ShaderBits",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 33,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "shader.field02",
+   "name_by": "majority",
+   "offset": 2,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "P",
+   "name": "material",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "VertexMaterialClass*",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "Textures",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 64,
+   "type": "TextureBaseClass*[64]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "Lights",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 416,
+   "type": "_D3DLIGHT8[416]",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "LightEnable",
+   "name_by": "majority",
+   "offset": 488,
+   "retail_widths": {},
+   "size": 4,
+   "type": "bool[4]",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Matrix4",
+   "members": [
+    {
+     "kind": "A",
+     "name": "Row",
+     "offset": 0,
+     "size": 64,
+     "type": "Vector4[64]"
+    }
+   ],
+   "name": "world",
+   "name_by": "majority",
+   "offset": 492,
+   "retail_widths": {},
+   "size": 64,
+   "type": "Matrix4",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Matrix4",
+   "members": [
+    {
+     "kind": "A",
+     "name": "Row",
+     "offset": 0,
+     "size": 64,
+     "type": "Vector4[64]"
+    }
+   ],
+   "name": "view",
+   "name_by": "majority",
+   "offset": 556,
+   "retail_widths": {},
+   "size": 64,
+   "type": "Matrix4",
+   "views": 22,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 4
+ },
+ "outliers": [
+  {
+   "offset": 620,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleDoParticles.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawOceanWater.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshClassRenderWithFXMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 634,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksFlush.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8PolygonRendererClass_Render_Sorted.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 7
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "nested@0x0",
+   "candidates": {
+    "shader.ShaderBits": 33
+   },
+   "class": "RenderStateStruct"
+  },
+  {
+   "attribute": "nested@0x2",
+   "candidates": {
+    "shader.field02": 11
+   },
+   "class": "RenderStateStruct"
+  },
+  {
+   "attribute": "straddle@0x2",
+   "candidates": {},
+   "class": "RenderStateStruct"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "4": 9,
+    "8": 3,
+    "12": 1,
+    "556": 4,
+    "620": 11,
+    "654": 1,
+    "656": 11
+   },
+   "class": "RenderStateStruct"
+  }
+ ],
+ "size": 620,
+ "size_by": "tie",
+ "vslots": {}
+}

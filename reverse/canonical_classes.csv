@@ -657,3 +657,4 @@ HashableClass,Code/Libraries/Source/WWVegas/WWLib/HashableClass.h,existing heade
 HashTableClass,Code/Libraries/Source/WWVegas/WWLib/HashableClass.h,existing header; contract class_contracts/HashTableClass.json; 3/4 sampled units adopt
 W3DShadowGeometry,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowGeometry.h,existing header; contract class_contracts/W3DShadowGeometry.json; 2/9 sampled units adopt
 Matrix4,Code/Libraries/Source/WWVegas/WWMath/Matrix4Data.h,existing header; contract class_contracts/Matrix4.json; 10/24 sampled units adopt
+RenderStateStruct,Code/Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h,existing header; contract class_contracts/RenderStateStruct.json; 22/50 sampled units adopt
