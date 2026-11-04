@@ -429,11 +429,7 @@ private:
 
 class Thing;
 
-class W3DShrubBuffer
-{
-public:
-	void rva000E7734(Thing *a0);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
 class Rva00068061NullTarget
 {
