@@ -8553,3 +8553,4 @@ member,Rva004E7A85World10::m_54,Rva004E7A85World10::m_playerIndex,inferred,agree
 function,?rva004C1C68@DetachableRiderBody@@MBE_NXZ,?requiresAllActivationUpgrades@DetachableRiderBody@@MBE_NXZ,inferred,agree:nl-8f64ddf9a292,Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp,0x004C1C68
 function,?rva004C1C75@DetachableRiderBody@@MBE_NXZ,?requiresAllConflictingUpgrades@DetachableRiderBody@@MBE_NXZ,inferred,agree:nl-853cef84d114,Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp,0x004C1C75
 member,Rva0029B380Elem::m_4,Rva0029B380Elem::m_displayString,inferred,agree:nl-0df313dbb5cd,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp,
+member,ParticleView::flag16C,ParticleView::m_masterSystem,inferred,agree:nl-e7bdc746c933,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp,

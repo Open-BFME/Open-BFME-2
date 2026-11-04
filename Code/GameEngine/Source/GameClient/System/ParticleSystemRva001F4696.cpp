@@ -74,7 +74,7 @@ struct ParticleView
 	unsigned char pad150[0x15C - 0x150];
 	BfmeParticleSystemPtr m_slaveSystem;
 	unsigned char pad160[0x16C - 0x160];
-	int flag16C;
+	int m_masterSystem;
 	unsigned char pad170[0x1A1 - 0x170];
 	bool flag1A1;
 };
@@ -87,7 +87,7 @@ void ParticleSystem::rva001F4696(void *posArg, void *priority, bool m_isIdentity
 	Coord3D *pos = (Coord3D *)posArg;
 	FortyEight *info = (FortyEight *)infoArg;
 
-	if (self->flag16C != 0)
+	if (self->m_masterSystem != 0)
 	{
 		self->flag1A1 = m_isIdentity;
 		if (!m_isIdentity)
