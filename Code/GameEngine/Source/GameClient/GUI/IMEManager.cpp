@@ -38,7 +38,10 @@ typedef unsigned short WideChar;
 #undef free
 void free(void *);
 #define _strcmpi _stlport_hides_strcmpi
-#include "subsystem_interface.h"
+#include <vector>
+#include <utility>
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "unicode_string.h"
 // Retail builds with STRICT handles: the keyboard-layout vector's members are
 // instantiated over HKL__ *, not over the void * the sweep windows.h spells
@@ -211,106 +214,9 @@ enum
 	KEY_STATE_DOWN = 0x02
 };
 
-class IMEManagerInterface : public SubsystemInterface
-{
-public:
-	virtual ~IMEManagerInterface() {}
+#include "../../../Include/GameClient/IMEManagerClass.h"
+inline IMEManagerInterface::~IMEManagerInterface() {}
 
-	virtual void attach(GameWindow *window) = 0;
-	virtual void detatch(void) = 0;
-	virtual void enable(void) = 0;
-	virtual void disable(void) = 0;
-	virtual Bool isEnabled(void) = 0;
-	virtual Bool isAttachedTo(GameWindow *window) = 0;
-	virtual GameWindow *getWindow(void) = 0;
-	virtual Bool isComposing(void) = 0;
-	virtual void getCompositionString(UnicodeString &string) = 0;
-	virtual Int getCompositionCursorPosition(void) = 0;
-	virtual Int getIndexBase(void) = 0;
-	virtual Int getCandidateCount() = 0;
-	virtual UnicodeString *getCandidate(Int index) = 0;
-	virtual Int getSelectedCandidateIndex() = 0;
-	virtual Int getCandidatePageSize() = 0;
-	virtual Int getCandidatePageStart() = 0;
-	virtual Bool serviceIMEMessage(void *windowsHandle, UnsignedInt message, Int wParam, Int lParam) = 0;
-	virtual Int result(void) = 0;
-};
-
-class IMEManager : public IMEManagerInterface
-{
-public:
-	IMEManager();
-	~IMEManager();
-
-	virtual void init(void);
-	virtual void reset(void);
-	virtual void update(void);
-
-	virtual void attach(GameWindow *window);
-	virtual void detatch(void);
-	virtual void enable(void);
-	virtual void disable(void);
-	virtual Bool isEnabled(void);
-	virtual Bool isAttachedTo(GameWindow *window);
-	virtual GameWindow *getWindow(void);
-	// Native vtable slots and constructor stores identify the getters owned here.
-	virtual Bool isComposing(void);
-	virtual void getCompositionString(UnicodeString &string);
-	virtual Int getCompositionCursorPosition(void);
-	virtual Int getIndexBase(void);
-	virtual Int getCandidateCount();
-	virtual UnicodeString *getCandidate(Int index);
-	virtual Int getSelectedCandidateIndex();
-	virtual Int getCandidatePageSize();
-	virtual Int getCandidatePageStart();
-	virtual Bool serviceIMEMessage(void *windowsHandle, UnsignedInt message, Int wParam, Int lParam);
-	virtual Int result(void);
-
-protected:
-	enum
-	{
-		MAX_COMPSTRINGLEN = 2 * 1024
-	};
-
-	Int m_result;										// +0x0C
-	GameWindow *m_window;								// +0x10
-	HIMC m_context;										// +0x14
-	HIMC m_oldContext;									// +0x18
-	Int m_disabled;										// +0x1C
-	Bool m_composing;									// +0x20
-	WideChar m_compositionString[MAX_COMPSTRINGLEN + 1];	// +0x22
-	WideChar m_resultsString[MAX_COMPSTRINGLEN + 1];		// +0x1024
-	WideChar m_compositionString2[MAX_COMPSTRINGLEN + 1];	// +0x2026, BFME2 only
-	Int m_compositionCursorPos;							// +0x3028
-	Int m_compositionStringLength;						// +0x302C
-	Int m_indexBase;									// +0x3030
-	Int m_pageStart;									// +0x3034
-	Int m_pageSize;										// +0x3038
-	Int m_selectedIndex;								// +0x303C
-	Int m_candidateCount;								// +0x3040
-	UnicodeString *m_candidateString;					// +0x3044
-	Bool m_unicodeIME;									// +0x3048
-	Int m_compositionCharsDisplayed;					// +0x304C
-
-	WideChar convertCharToWide(WPARAM mbchar, UINT codePage);
-	void updateCompositionString(void);
-	void getResultsString(void);
-	void updateProperties(void);
-	void openCandidateList(Int candidateFlags);
-	void closeCandidateList(Int candidateFlags);
-	void updateCandidateList(Int candidateFlags);
-	void convertToUnicode(Char *mbcs, UnicodeString &unicode);
-	void resizeCandidateWindow(Int pageSize);
-
-	void openStatusWindow(void);
-	void closeStatusWindow(void);
-
-	GameWindow *m_candidateWindow;						// +0x3050
-	GameWindow *m_statusWindow;							// +0x3054
-	GameWindow *m_candidateTextArea;					// +0x3058
-	GameWindow *m_candidateUpArrow;						// +0x305C
-	GameWindow *m_candidateDownArrow;					// +0x3060
-};
 
 extern IMEManager *TheIMEManager;
 Int IMECandidateWindowLineSpacing = 2;
@@ -917,7 +823,7 @@ void IMEManager::updateCompositionString(void)
 {
 	m_compositionCursorPos = 0;
 	m_compositionString[0] = 0;
-	m_compositionString2[0] = 0;
+	field2026[0] = 0;
 	m_compositionStringLength = 0;
 
 	if (m_context)

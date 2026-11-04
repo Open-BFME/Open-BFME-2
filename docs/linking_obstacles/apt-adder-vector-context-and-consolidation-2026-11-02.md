@@ -16,3 +16,12 @@ the outgoing audit remains INCONCLUSIVE on the older984a4cdc4d index and
 missing current0CreateAHeroManager21FE49 receipt. Carry this scope into the
 next scheduled census.
 [Merge and audit scope](../../reverse/attempt_support/apt-adder-consolidation-20261102-bce2/README.md).
+
+
+#### TreeKey preflight, 2026-11-04, run1242
+
+Eighteen queued TreeKey views were checked through native preparation and all
+remain unchanged: field/lifetime mappings are still unresolved or refused by
+the include/scope guards. No merge or key retirement was attempted. The mixed
+AptCallbackAdders context and old identity prerequisites stay open.
+[Current prerequisite handoff](../../reverse/attempt_support/treekey-prerequisites-20261104-1242.md).

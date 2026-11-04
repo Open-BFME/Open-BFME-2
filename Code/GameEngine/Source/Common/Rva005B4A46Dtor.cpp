@@ -116,27 +116,7 @@ public:
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class IMEManager
-{
-public:
-	virtual void m00() = 0;
-	virtual void m04() = 0;
-	virtual void m08() = 0;
-	virtual void m0C() = 0;
-	virtual void m10() = 0;
-	virtual void m14() = 0;
-	virtual void m18() = 0;
-	virtual void m1C() = 0;
-	virtual void m20() = 0;
-	virtual void m24() = 0;
-	virtual void m28() = 0;
-	virtual void m2C() = 0;
-	virtual void m30() = 0;
-	virtual void m34() = 0;
-	virtual void m38() = 0;
-	virtual void m3C() = 0;
-	virtual void m40() = 0;
-};
+#include "../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 
 class Rva005B253F
@@ -184,7 +164,7 @@ AptCreateAHero::Appearance::~Appearance()
 		reinterpret_cast<Rva00223A94 *>(g_bfmeAptWindowManager)->rva00223A94(&name);
 	}
 	if (m_imeActive)
-		TheIMEManager->m40();
+		TheIMEManager->enable();
 }
 
 AptCreateAHero::Appearance::Appearance(AppearanceOwner*owner):Rva005B253F(owner),m_window08(0),m_pad0C(true),m_imeActive(false){

@@ -5,28 +5,7 @@
 // +0x27C conditioner (rowed 0x407BC3) with 0x27C riding edi; run the rowed
 // 0x5B4C3C on this, then poke m_4+0x27C with 0 via rowed 0x5B034A.
 // All callees rowed; 0x27C/0x414 family per 0x5B692F/0x5B2725.
-class IMEManager
-{
-public:
-	virtual void m00();
-	virtual void m04();
-	virtual void m08();
-	virtual void m0C();
-	virtual void m10();
-	virtual void m14();
-	virtual void m18();
-	virtual void m1C();
-	virtual void m20();
-	virtual void m24();
-	virtual void m28();
-	virtual void m2C();
-	virtual void m30();
-	virtual void m34();
-	virtual void m38();
-	virtual void m3C();
-	virtual void m40();
-	virtual void m44();
-};
+#include "../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 
 class CreateAHeroHero
@@ -77,7 +56,7 @@ struct Rva005B4CC6
 void Rva005B4CC6::Run()
 {
 	if (m_D == 0) {
-		TheIMEManager->m44();
+		TheIMEManager->disable();
 		m_D = 1;
 	}
 	if (m_4->m_414 == m_4->m_41C) {

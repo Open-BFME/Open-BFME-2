@@ -82,16 +82,7 @@ private:
 
 #include "../../../../../Include/GameClient/GameSpyLoginPreferences.h"
 
-class IMEManager
-{
-public:
-#define IME_SLOT(N) virtual void slot##N();
-	IME_SLOT(00) IME_SLOT(01) IME_SLOT(02) IME_SLOT(03) IME_SLOT(04) IME_SLOT(05)
-	IME_SLOT(06) IME_SLOT(07) IME_SLOT(08) IME_SLOT(09) IME_SLOT(10) IME_SLOT(11)
-	IME_SLOT(12) IME_SLOT(13) IME_SLOT(14) IME_SLOT(15) IME_SLOT(16)
-#undef IME_SLOT
-	virtual void slot17();
-};
+#include "../../../../../Include/GameClient/IMEManagerClass.h"
 
 extern IMEManager *TheIMEManager;
 
@@ -233,5 +224,5 @@ AptOnlineLogin::AptOnlineLogin(AptOnline *shell)
 	}
 	m_CF = ((Rva0056EE5F *)this)->rva0056EE5F();
 	m_D2 = ((Rva0056EE5F *)this)->rva0056EE5F();
-	TheIMEManager->slot17();
+	TheIMEManager->disable();
 }

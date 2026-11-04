@@ -53,3 +53,12 @@ The measured figures predate these repairs. `constructed_undersized` in the next
 the current count; the source pattern only sees direct construction, so it can miss others.
 
 2026-11-04 scoped preview: the current `g_Va00E06E60` provider resolves the old blocker in all three selected filesystem consumers; the provider's separate `g_Va00DF2984` index blocker remains ([evidence](../../reverse/attempt_support/chat-header-adoption-20261104-codex5.md)); no census confirmation claimed.
+
+
+#### Existing E06E60 provider rechecked, 2026-11-04, run1242
+
+The picker still cites the older missing-global artifact, but the recorded
+forty-byte E06E60 provider is present. The unchanged Rva0060147B source now
+predicts LINKS with177 ->177 bytes. No new datum, identity, alias or link-census
+credit is taken; the pending official whole-image result remains separate.
+[Scoped review](../../reverse/attempt_support/link-picker-review-20261104-1242.md).

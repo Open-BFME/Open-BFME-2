@@ -10,27 +10,7 @@ typedef bool Bool;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
-class IMEManager
-{
-public:
-	virtual void m00() = 0;
-	virtual void m04() = 0;
-	virtual void m08() = 0;
-	virtual void m0C() = 0;
-	virtual void m10() = 0;
-	virtual void m14() = 0;
-	virtual void m18() = 0;
-	virtual void m1C() = 0;
-	virtual void m20() = 0;
-	virtual void m24() = 0;
-	virtual void m28() = 0;
-	virtual void m2C() = 0;
-	virtual void m30() = 0;
-	virtual void m34() = 0;
-	virtual void m38() = 0;
-	virtual void m3C() = 0;
-	virtual void m40() = 0;
-};
+#include "../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 class Rva00407A6A
 {
@@ -85,7 +65,7 @@ void Rva005B4BDB::rva005B4D20()
 {
 	rva005B4BDB();
 	if (m_flag0D) {
-		TheIMEManager->m40();
+		TheIMEManager->enable();
 		m_flag0D = false;
 	}
 }

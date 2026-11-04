@@ -505,31 +505,7 @@ public:
 // such); the other GUI bodies put TheWindowManager at 0x00DFEF1C. Generals
 // ~GameWindow likewise detaches the IME manager when it owns this window.
 // Slot names stay offset placeholders.
-class IMEManager
-{
-public:
-	virtual void m00() = 0;
-	virtual void m04() = 0;
-	virtual void m08() = 0;
-	virtual void m0C() = 0;
-	virtual void m10() = 0;
-	virtual void m14() = 0;
-	virtual void m18() = 0;
-	virtual void m1C() = 0;
-	virtual void m20() = 0;
-	virtual void m24() = 0;
-	virtual void m28() = 0;
-	virtual void m2C() = 0;
-	virtual void m30() = 0;
-	virtual void m34() = 0;
-	virtual void m38() = 0;
-	virtual void m3C() = 0;
-	virtual void m40() = 0;
-	virtual void m44() = 0;
-	virtual void m48() = 0;
-	virtual void m4C() = 0;
-	virtual GameWindow *m50() = 0;
-};
+#include "../../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
@@ -1794,8 +1770,8 @@ void GameWindow::winDrawBorder()
 
 GameWindow::~GameWindow()
 {
-	if ( TheIMEManager && TheIMEManager->m50() == this )
-		TheIMEManager->m3C();
+	if ( TheIMEManager && TheIMEManager->getWindow() == this )
+		TheIMEManager->detatch();
 
 	if ( m_inputData )
 		delete (GameWindowInputData *)m_inputData;

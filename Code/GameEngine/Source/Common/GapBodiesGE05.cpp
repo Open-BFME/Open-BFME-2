@@ -137,12 +137,7 @@ struct Rva004E0B2FEntry
 	Rva004E0B2FInfo *m_info;								// +0x08
 };
 
-template <> class StringBase<char>
-{
-public:
-	int compare(const StringBase<char> &that) const;		// 0x000069D6
-	char *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva004E0B2FInfo
 {
@@ -262,15 +257,7 @@ public:
 	virtual void s4(int value);
 };
 
-class IMEManager
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void s15();
-};
+#include "../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 
 class Rva0035BD0D
@@ -288,7 +275,7 @@ void Rva0035BD0D::rva0035BD0D(int value)
 		if (m_slots[i])
 			m_slots[i]->s4(value);
 	if (TheIMEManager)
-		TheIMEManager->s15();
+		TheIMEManager->detatch();
 }
 
 // --- 0x005E564B (32B): a three-word record with a flag; 0x005E566B (18B):
