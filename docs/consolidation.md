@@ -874,6 +874,61 @@ checkout; both BFME 1 layouts (`game/` and `Code/`) are recognised. `--zh` selec
 an explicit `GeneralsMD/Code` tree. `--under Code/GameEngine/.../` narrows the
 survey, but a destination outside that ledger scope remains blocked.
 
+### Sharing views does not move the merge: the classes it can write are not the ones blocking (2026-11-04)
+
+Two TUs had their private class views shared and then re-measured with
+`tu_skeleton --merge --dry-run`. Both went **0 donors -> 0 donors**:
+`TransportContain.cpp` (1 class written) and `SiegeDeploySpecialPower.cpp`
+(5 written). The work was real and byte-verified; the merge did not move at all.
+
+The cause is a selection effect inside each TU, and it is worth stating because
+the obvious plan - sweep `tu_views` across the `blocked-by-classes` ranking and
+expect merges to fall out - does not work. `tu_views` writes the classes whose
+views are *compatible*, and refuses as a CONFLICT the ones that are not. The
+donors are blocked by the second group. On `SiegeDeploySpecialPower` the two
+sets line up one for one; the donors' compiler errors name the conflicts and
+nothing else:
+
+| donor error | class | why `tu_views` refused it |
+| --- | --- | --- |
+| `C2509: 'xfer' : member function not declared in 'SiegeDeploySpecialPower'` | `SiegeDeploySpecialPower` | base clause differs across its 6 files |
+| `C2504: 'WeaponModeSpecialPowerUpdateBase' : base class undefined` | `WeaponModeSpecialPowerUpdateBase` | `m_vtable` at +0x0 lies under the bases (own data starts at +0x28) |
+| `C2248: 'Object::findModule' : cannot access protected member` | `Object` | written, then reverted: the block does not compile in ComputeApproachPoint.cpp |
+| `C2027: use of undefined type 'ModuleData'` | - | an incomplete type, not a shared view at all |
+
+The five that landed - `Rva004598F2Point`, `SiegeDockingIface`,
+`SiegeDockingBehavior`, `SiegeDeployModuleDataView`, `DynamicPortalBehaviour` -
+were not in any donor's way. `TransportContain` is the same shape: the residual
+errors were `OpenContain::onRemoving`, `UpdateModuleInterface` and
+`OpenContainModuleData`, all of them types the TU does not share a view of.
+
+So `blocked-by-classes` in `build/merge_all/decisions.json` (685 files over 317
+TUs) means "some views in this TU disagree", not "reconciling the agreeable ones
+unblocks it". The reason is in the label the tool prints for itself: *header lane
+ranking; not compiled*. Rank a merge-unblocking pass by a TU's **CONFLICT** list,
+not by its plan list, and expect each conflict to be its own piece of work - a
+base clause, a class key, a vtable placement, an access level - with some of them
+only retirable through the header lane.
+
+That does not make the plan list worthless: one shared spelling is a prerequisite
+that has to be paid once per class either way, and it is cheap and safely
+verified. It is just not a merge, and a seat should not report it as progress
+toward SOURCE FILES.
+
+### How much of the view lane is real (2026-11-04)
+
+Measured after `tu_views --dry-run` was taught to report `already shared` (it
+previously printed a plan for every shared class, and only the apply path tested
+whether the files already agreed, so the counts it gave a planner were inflated -
+18 plans on `TransportContain.cpp` where 1 class needed writing).
+
+Over the 70 TUs with the most `blocked-by-classes` donors: **87 classes actually
+need a write**, spread over 45 of those 70 TUs; the other 25 need none. The best
+TU in the sample holds 6. Scaled across all 317 such TUs that is roughly 390
+classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
+as a long tail of small, cheap, independently verifiable edits, and do not expect
+any one of them to land a merge.
+
 ### Evidence, without upgrading a hint into proof
 
 The baseline `game.dat` SHA-256 is
