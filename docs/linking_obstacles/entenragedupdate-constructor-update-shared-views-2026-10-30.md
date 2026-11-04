@@ -20,3 +20,5 @@ the next scheduled census.
 2026-11-03: the accepted scan merge verifies 26/26 rows but class_gate refuses the unchanged private filter transfer; merge reverted. Resolve move-credit refusal or filter header adoption before retrying. [Reproducer and checks](../../reverse/attempt_support/ent-enraged-scan-merge-gate-20261103-codex4.md).
 
 2026-11-04: canonical PartitionFilter adoption clears the scan's private-base prerequisite; supported scan merge now passes class_gate, 26/26 byte checks and the published-index LINKS preview. One source removed; three other donors remain blocked, and current-provider/consumer census confirmation remains pending. [Merge audit and next steps](../../reverse/attempt_support/ent-enraged-scan-merge-20261104-codex.md).
+
+2026-11-04: Object/module-data views reconciled; the supported merge absorbed the update donor (27/27 exact, EH EXACT 5, published-index LINKS 524 -> 1,416). The deleting-dtor (EmitVtableTag ctor) and module-data dtor (bytes) donors remain blocked. [Merge audit](../../reverse/attempt_support/ent-enraged-update-merge-20261104-claude.md).

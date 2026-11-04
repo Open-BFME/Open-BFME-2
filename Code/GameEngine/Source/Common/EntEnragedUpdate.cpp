@@ -63,26 +63,6 @@ public:
 private:
 };
 class FXList;
-class EntEnragedUpdateModuleData : public UpdateModuleData
-{
-public:
-	EntEnragedUpdateModuleData();
-
-private:
-	friend class EntEnragedUpdate;
-	const void *m_vtable; // +0
-	int m_baseTail; // +4
-	int m_scanDelayTime; // +8, defaults to LogicFramesPerSecond
-	unsigned m_enragedTime; // +0xC
-	unsigned m_timeUntilCanRageAgain; // +0x10
-	float m_scanDistance; // +0x14
-	Rva003623E5Member m_hatedFilter; // +0x18
-	Rva003623E5Member m_friendlyFilter; // +0x1C
-	unsigned m_transitionTime; // +0x20
-	const FXList *m_transitionFX; // +0x24
-	const FXList *m_onBuffFX; // +0x28
-	const FXList *m_offBuffFX; // +0x2C
-};
 // ?getModuleNameKey@EntEnragedUpdate@@UBE?AW4NameKeyType@@XZ @0x004B2458
 // (69B): cached pool-name key for EntEnragedUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -111,7 +91,7 @@ class EntEnragedUpdate : public UpdateModule
 public:
 	EntEnragedUpdate(Thing *, const ModuleData *);
 	virtual NameKeyType getModuleNameKey() const;
-	// Rowed in EntEnragedUpdateUpdate.cpp: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
+	// Rowed below: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
 	virtual UpdateSleepTime update();
 	bool rva004B25C9();
 	bool rva004B266D();
@@ -245,6 +225,67 @@ public:
 	char m_pad439[0x3];
 };
 #include "PartitionRangeQueryCallView.h"
+// Slot filler: one distinct pure virtual per vtable index, so a view class
+// can name a single high slot (the idiom ToggleMountedSpecialAbilityUpdate.cpp
+// uses).
+template<int N> class Slots : public Slots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template<> class Slots<0>
+{
+};
+// The Body module at Object+0x254: slot 5 returns the health fraction.
+class BodyView : public Slots<5>
+{
+public:
+	virtual float getHealthFraction() = 0;
+};
+// The AIUpdateInterface at Object+0x258: slot 142 takes a mode (FlammableUpdate
+// documents the same slot).
+class AIView : public Slots<142>
+{
+public:
+	virtual void slot142(int mode) = 0;
+};
+struct Coord3D;
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary = 0);
+};
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+class EntEnragedUpdateModuleData : public UpdateModuleData
+{
+public:
+	EntEnragedUpdateModuleData();
+
+private:
+	friend class EntEnragedUpdate;
+	const void *m_vtable; // +0
+	int m_baseTail; // +4
+	int m_scanDelayTime; // +8, defaults to LogicFramesPerSecond
+	unsigned m_enragedTime; // +0xC
+	unsigned m_timeUntilCanRageAgain; // +0x10
+	float m_scanDistance; // +0x14
+	Rva003623E5Member m_hatedFilter; // +0x18
+	Rva003623E5Member m_friendlyFilter; // +0x1C
+	unsigned m_transitionTime; // +0x20
+	const FXList *m_transitionFX; // +0x24
+	const FXList *m_onBuffFX; // +0x28
+	const FXList *m_offBuffFX; // +0x2C
+};
+class PB_DeepBase
+{
+public:
+	PB_DeepBase(Thing *, const ModuleData *);
+	virtual ~PB_DeepBase();
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
 extern PartitionManager *ThePartitionManager;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
@@ -259,6 +300,8 @@ public:
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 // tu-skeleton: 0x004B237B 25B ??1EntEnragedUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
@@ -367,12 +410,6 @@ EntEnragedUpdate::EntEnragedUpdate(Thing *thing, const ModuleData *moduleData)
 	m_24 = 0x3fffffff;
 }
 
-// tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B2593 28B ??_GEntEnragedUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x004B25AF 26B ?bfmeTick@Gen_00291BB0@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp
 
 bool EntEnragedUpdate::rva004B25C9()
@@ -399,8 +436,106 @@ bool EntEnragedUpdate::rva004B266D()
 	return ThePartitionManager->getClosestObject(&ownerObject->m_pos, enragedData->m_scanDistance, 1, &player) != 0;
 }
 
+// tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004B2593 28B ??_GEntEnragedUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x004B25AF 26B ?bfmeTick@Gen_00291BB0@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp (not merged yet)
+
 // tu-skeleton: 0x004B2706 28B ??_GEntEnragedUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7q-eb73.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2722 63B ??1EntEnragedUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B2761 550B ?update@EntEnragedUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateUpdate.cpp
+
+// The constructor installs the shared 0x007EFF90 table at +0x0C. Its
+// first entry is the null-returning getBody used by this same base view.
+
+UpdateSleepTime EntEnragedUpdate::update()
+{
+	Object *me = m_object;
+	const EntEnragedUpdateModuleData *data = (const EntEnragedUpdateModuleData *)m_moduleData;
+
+	if (me->m_flags438 & 1)
+		return UPDATE_SLEEP_FOREVER;
+
+	bool mayRage = m_24 <= TheGameLogic->getFrame() && !me->testStatus(OBJECT_STATUS_AFLAME);
+	if (m_2D)
+		mayRage = true;
+
+	if (m_2C && mayRage)
+	{
+		if (m_30)
+			m_2F = false;
+		if (!m_2F)
+		{
+			me->setStatus(OBJECT_STATUS_STATUS_54, false);
+			me->clearWeaponSetFlag(WEAPONSET_SET_16);
+			AIView *ai = me->m_ai;
+			if (ai)
+				ai->slot142(0);
+			m_24 = UPDATE_SLEEP_FOREVER;
+			m_28 = TheGameLogic->getFrame() + data->m_timeUntilCanRageAgain;
+			m_2C = false;
+			m_2E = false;
+			if (data->m_offBuffFX)
+				FXList::doFXObj(data->m_offBuffFX, me, 0);
+		}
+	}
+
+	if (m_2C)
+		return UPDATE_SLEEP_NONE;
+
+	if (m_28 < TheGameLogic->getFrame() || m_2F)
+	{
+		bool wantRage = false;
+		if (rva004B25C9())
+			wantRage = true;
+		if (rva004B266D())
+			wantRage = true;
+		BodyView *body = m_object->m_body;
+		if (body && body->getHealthFraction() < 0.5)
+			wantRage = true;
+
+		if (m_2E)
+		{
+			if (!me->isKindOf(KINDOF_KIND_4E))
+				wantRage = true;
+		}
+		else
+		{
+			if (me->isKindOf(KINDOF_KIND_4E))
+				m_2E = true;
+		}
+
+		if (me->testStatus(OBJECT_STATUS_AFLAME))
+			wantRage = false;
+		if (m_2F)
+			wantRage = true;
+		if (m_2D)
+			wantRage = false;
+
+		if (wantRage)
+		{
+			if (!me->isKindOf(KINDOF_KIND_FA) && !me->testStatus(OBJECT_STATUS_AFLAME))
+			{
+				me->setSpecialModelConditionState(MODELCONDITION_FLAG_13B, data->m_transitionTime);
+				me->setDisabledUntil(DISABLED_TYPE_4, TheGameLogic->getFrame() + data->m_transitionTime);
+				if (data->m_transitionFX)
+					FXList::doFXObj(data->m_transitionFX, me, 0);
+			}
+			me->setStatus(OBJECT_STATUS_STATUS_54, true);
+			me->setWeaponSetFlag(WEAPONSET_SET_16);
+			AIView *ai = me->m_ai;
+			if (ai)
+				ai->slot142(8);
+			m_2C = true;
+			m_24 = TheGameLogic->getFrame() + data->m_enragedTime;
+			const FXList *fx = data->m_onBuffFX;
+			if (fx)
+				FXList::doFXObj(fx, me, 0);
+		}
+	}
+
+	return UPDATE_SLEEP_NONE;
+}
