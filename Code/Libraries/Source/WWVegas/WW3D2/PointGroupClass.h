@@ -88,6 +88,9 @@ public:
     float VPXMax;
     float VPYMax;
 
+private:
+    friend void Rva007B73C0();
+
     static Vector3 _TriVertexLocationOrientationTable[256][3];
     static Vector3 _QuadVertexLocationOrientationTable[256][4];
     static Vector3 _ScreenspaceVertexLocationSizeTable[2][3];

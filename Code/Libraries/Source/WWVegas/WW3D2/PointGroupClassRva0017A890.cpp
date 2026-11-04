@@ -74,37 +74,12 @@ template <> VectorClass<Vector3>::~VectorClass();
 static VectorClass<Vector3> VertexLoc;
 extern VectorClass<Vector2> VertexUV;
 
-class PointGroupClass {
-public:
-  enum PointModeEnum { TRIS, QUADS, SCREENSPACE };
-  void rva009148C0(Vector3*,float*,unsigned char*,int);
-  enum FlagsType{TRANSFORM,BILLBOARD};
-  int Get_Flag(FlagsType f){return (Flags>>f)&1;}
+#include "PointGroupClass.h"
 
-private:
-  virtual void abstract_dtor();
-  ShareBufferClass<Vector3> *PointLoc;
-  ShareBufferClass<Vector4> *PointDiffuse;
-  ShareBufferClass<unsigned int> *APT;
-  ShareBufferClass<float> *PointSize;
-  ShareBufferClass<unsigned char> *PointOrientation, *PointFrame;
-  int PointCount;
-  unsigned char FrameRowColumnCountLog2;
-  void *dword_24;
-  unsigned int dword_28;
-  PointModeEnum PointMode;
-  unsigned int Flags;
-  float DefaultPointSize;
-  Vector3 DefaultPointColor;
-  float DefaultPointAlpha;
-  unsigned char DefaultPointOrientation, DefaultPointFrame;
-  float VPXMin, VPYMin, VPXMax, VPYMax;
-  static Vector3 _TriVertexLocationOrientationTable[256][3];
-  static Vector3 _QuadVertexLocationOrientationTable[256][4];
-  static Vector3 _ScreenspaceVertexLocationSizeTable[2][3];
-  static Vector2 *_TriVertexUVFrameTable[5];
-  static Vector2 *_QuadVertexUVFrameTable[5];
-};
+inline int PointGroupClass::Get_Flag(FlagsType flag)
+{
+	return (Flags >> flag) & 1;
+}
 
 void PointGroupClass::rva009148C0(Vector3 *point_loc, float *point_size, unsigned char *point_orientation, int active_points)
 {
@@ -282,7 +257,7 @@ void PointGroupClass::rva009148C0(Vector3 *point_loc, float *point_size, unsigne
 
 		case QUADS_SIZE_ORIENT:
 			{
-				if (!Get_Flag(BILLBOARD)) {
+				if (!Get_Flag(flag01)) {
 					Matrix4 rotMat;
 					Matrix4 view;
 					Vector4 result;
