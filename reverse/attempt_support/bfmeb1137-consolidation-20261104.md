@@ -34,4 +34,10 @@ Verification before the merge:
   donor. Existing DX8Wrapper/StringClass header work stays attached to the TU.
   No baseline debt is retired by this prerequisite repair.
 
-The approved merge and complete outgoing path-consumer audit follow separately.
+Application after prerequisite commit cdc1ac1995 wrote nothing: tu_skeleton
+refused the live claim on shared ICF RVA 0x0017098D, held by
+`yasinschroeder-claudeb` for fxshadersetup.cpp (about 2.2 hours remaining).
+The seed owns the folded StageTextureRef destructor at that address. Respect
+that claim and retry the approved merge after it is released; do not remove the
+alias row or narrow the merge claim set. No source-file reduction is claimed.
+No paths moved, so no outgoing path-consumer audit was necessary in this pass.
