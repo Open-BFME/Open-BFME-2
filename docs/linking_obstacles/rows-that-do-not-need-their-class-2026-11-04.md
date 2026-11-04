@@ -87,6 +87,15 @@ and call it with no arguments: confirm in the object that the body is a bare `e9
 vtable stores first, so it passes `(char *)this + <offset>` to the row's class instead. A slot that takes stack arguments
 or returns through a hidden pointer needs a real typed call, which only works in a class with no virtual base.
 
+**Never forward to a row under `Code/gen_small`.** The real link omits those objects, and its omission proof refuses to
+link at all if a kept object references one of their names. `eb0105378d` called the thunk `j_0052b7b3`, and the link at
+`cc7b90ee97` measured nothing. A thunk's note gives its `target=`: reach the row there (`612abfbebb`).
+`tools/link_batch_audit.py` now refuses such a reference at push.
+
+**A forwarder with stack arguments must be a typed call unless the object shows a bare `e9`.** `Rva002B0F3CEnergy::xfer`
+compiled to `call row; ret 4`, and the row pops its own argument, so the stack would have been wrong. No byte check
+sees this, because forwarders have no row.
+
 **Limits.** None of these helps when the missing names are base destructors an EH unwind calls by name
 (`Rva0057621ACtor.cpp`). A hand table is a
 step toward linking, not the final source: when the class's members get real names, go back to the
