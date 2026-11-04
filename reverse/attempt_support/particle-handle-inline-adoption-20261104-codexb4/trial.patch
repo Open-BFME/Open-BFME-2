@@ -1,0 +1,90 @@
+diff --git a/Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptParticleHandleReset.cpp b/Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptParticleHandleReset.cpp
+index ea7e234295..a1ba561c56 100644
+--- a/Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptParticleHandleReset.cpp
++++ b/Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptParticleHandleReset.cpp
+@@ -11,14 +11,14 @@ class ParticleSystem {public:void destroy();};
+ ParticleSystem *Make001FCBD7();
+ class Rva001F3852ByteOneSetter {public:void enable();};
+ #include "../../../Include/Common/RvaSmartPtr12.h"
+-class BfmeParticleSystemHandle {
+-public:
+- __forceinline ~BfmeParticleSystemHandle(){if(system)((RvaSmartPtr12 *)this)->rva0004CBC0();}
+- operator bool() const{return system!=0;}
+- ParticleSystem *operator->() const{return system?system:Make001FCBD7();}
+- ParticleSystem *system;
+- BfmeParticleSystemHandle *previous,*next;
+-};
++#include "../../../Include/GameClient/BfmeParticleSystemHandle.h"
++// Keep the native inline lifetime visible: 0x002115C5 guards the system
++// pointer and tail-calls the rowed unlink at 0x0004CBC0.
++__forceinline BfmeParticleSystemHandle::~BfmeParticleSystemHandle() throw()
++{
++    if (m_system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
++}
++
+ enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+ class Rva0020453CHolderBase;
+ #include "../../../Include/GameClient/ParticleSys.h"
+@@ -31,7 +31,7 @@ void Rva0020453CHolderBase::release(){
+  if(id!=INVALID_PARTICLE_SYSTEM_ID && destroyOnReset){
+   BfmeParticleSystemHandle handle=TheParticleSystemManager->findParticleSystemByID(id);
+   if(handle){
+-   reinterpret_cast<Rva001F3852ByteOneSetter *>(handle.system)->enable();
++   reinterpret_cast<Rva001F3852ByteOneSetter *>(handle.m_system)->enable();
+    handle->destroy();
+   }
+  }
+diff --git a/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticleBones.cpp b/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticleBones.cpp
+index 502aa4de44..e16ef50296 100644
+--- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticleBones.cpp
++++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticleBones.cpp
+@@ -148,18 +148,14 @@ public:
+ 	void *m_next;
+ };
+ 
+-class BfmeParticleSystemHandle : public RvaSmartPtr12
++#include "../../../../../../GameEngine/Include/GameClient/BfmeParticleSystemHandle.h"
++// Preserve the native inline destructor at 0x002115C5: guard the system
++// pointer before calling the existing intrusive unlink at 0x0004CBC0.
++__forceinline BfmeParticleSystemHandle::~BfmeParticleSystemHandle() throw()
+ {
+-public:
+-	__forceinline ~BfmeParticleSystemHandle() throw() { if (m_system) rva0004CBC0(); }
+-	operator Bool() const { return m_system != 0; }
+-	ParticleSystem *operator->() const
+-	{
+-		if (!m_system)
+-			return Make001FCBD7();
+-		return m_system;
+-	}
+-};
++    if (m_system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
++}
++
+ 
+ class ParticleSystemTemplate;
+ class W3DModelDraw;
+diff --git a/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticles.cpp b/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticles.cpp
+index eea152eaa6..f9eac41d1b 100644
+--- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticles.cpp
++++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticles.cpp
+@@ -18,12 +18,14 @@ public:
+  void *m_previous;
+  void *m_next;
+ };
+-class BfmeParticleSystemHandle : public RvaSmartPtr12
++#include "../../../../../../GameEngine/Include/GameClient/BfmeParticleSystemHandle.h"
++// Preserve the native inline destructor at 0x002115C5: guard the system
++// pointer before calling the existing intrusive unlink at 0x0004CBC0.
++__forceinline BfmeParticleSystemHandle::~BfmeParticleSystemHandle() throw()
+ {
+-public:
+- __forceinline ~BfmeParticleSystemHandle() { if(m_system) rva0004CBC0(); }
+- operator bool() const { return m_system != 0; }
+-};
++    if (m_system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
++}
++
+ enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+ class W3DModelDraw;
+ #include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
