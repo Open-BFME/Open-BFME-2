@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // ?get_planes@MeshGeometryClass@@IAEPAVVector4@@_N@Z
 //
 // MeshGeometryClass::get_planes at 0x0016AC00 (136 bytes): lazily builds
@@ -11,6 +11,8 @@
 
 class Vector4;
 #include <new>
+// The toolchain supplies placement operators; suppress always.h's copies.
+#define _OPERATOR_NEW_DEFINED_
 
 template<class T>
 class ShareBufferClass
@@ -26,20 +28,7 @@ private:
 	unsigned char m_pad10[0x18 - 0x10];
 };
 
-class MeshGeometryClass
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2();
-	virtual void onPlanes(Vector4 *planes);
-protected:
-	Vector4 *get_planes(bool create);
-	char m_pad[0x18 - 4];
-	unsigned int m_flags;				// +0x18
-	char m_pad1C[0x24 - 0x1C];
-	int PolyCount;					// +0x24
-	char m_pad28[0x48 - 0x28];
-	ShareBufferClass<Vector4> *PlaneEq;	// +0x48
-};
+#include "MeshGeometryClass.h"
 
 // ?get_planes@MeshGeometryClass@@IAEPAVVector4@@_N@Z
 Vector4 *MeshGeometryClass::get_planes(bool create)
