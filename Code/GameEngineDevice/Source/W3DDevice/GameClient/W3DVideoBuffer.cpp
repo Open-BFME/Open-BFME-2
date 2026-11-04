@@ -13,22 +13,15 @@
 #pragma comment(linker, "/alternatename:?valid@Rva007FA5E0Arg@@QAE_NXZ=?valid@W3DVideoBuffer@@UAE_NXZ")
 #pragma comment(linker, "/alternatename:?bfmeHas992C@BfmeAsk992@@QAEDXZ=?valid@W3DVideoBuffer@@UAE_NXZ")
 #include <windows.h>
-
 class GameLogic;
-
 class GlobalData;
-
 extern GameLogic *TheGameLogic;
-
 					// VA 0x00DFE78C
 extern GlobalData *TheWritableGlobalData;
-
 		// VA 0x00DFE758
 
 struct Rva00SlotTriple { int a, b, c; };
-
 struct Rva00SlotQuad { int a, b, c, d; };
-
 // 0x0035D1BD (slot 3 of 0x00C150D1's table): clears the two flag bytes.
 class Rva0035D1BD
 {
@@ -39,7 +32,6 @@ private:
 	bool m_flag08;
 	bool m_flag09;
 };
-
 // 0x0035D4DB: sets the two flag bytes; one argument unused.
 class Rva0035D4DB
 {
@@ -50,7 +42,6 @@ private:
 	bool m_flag08;
 	bool m_flag09;
 };
-
 // 0x0007E103: sets the flag byte at +0x1C; one argument unused.
 class Rva0007E103
 {
@@ -60,14 +51,12 @@ private:
 	char m_pad00[0x1C];
 	bool m_flag1C;
 };
-
 // 0x000F6335: four arguments, answers false.
 class Rva000F6335
 {
 public:
 	bool rva000F6335(int a, int b, int c, int d);
 };
-
 // 0x00049F35 (slot 26 of Display's table): sets three bool outputs
 // (third first) and answers true; two further arguments unused.
 class Rva00049F35
@@ -75,28 +64,24 @@ class Rva00049F35
 public:
 	bool rva00049F35(bool *videoPassed, bool *cpuPassed, bool *memPassed, int d, int e);
 };
-
 // 0x0006DD63 (slot 3 of LightClass's RefCountClass table): constant 14.
 class Rva0006DD63
 {
 public:
 	int Class_ID();
 };
-
 // 0x0018077E: constant 0x44.
 class Rva0018077E
 {
 public:
 	int rva0018077E();
 };
-
 // 0x003FD370: constant 0x10.
 class Rva003FD370
 {
 public:
 	int rva003FD370();
 };
-
 // 0x0008BB27: copies the 12 bytes at +0x0C out.
 class Rva0008BB27
 {
@@ -106,7 +91,6 @@ private:
 	char m_pad00[0x0C];
 	Rva00SlotTriple m_value0C;
 };
-
 // 0x0008BBB8: sets the two words at +0x8C and +0x90 to -1.
 class Rva0008BBB8
 {
@@ -117,7 +101,6 @@ private:
 	int m_value8C;
 	int m_value90;
 };
-
 // 0x0008BBE0: returns the 12 bytes at +0x8C by value.
 class Rva0008BBE0
 {
@@ -127,7 +110,6 @@ private:
 	char m_pad00[0x8C];
 	Rva00SlotTriple m_value8C;
 };
-
 // 0x00222471: clears the flag byte at +0x329.
 class Rva00222471
 {
@@ -137,7 +119,6 @@ private:
 	char m_pad00[0x329];
 	bool m_flag329;
 };
-
 // 0x00251C2C: clears the flag byte at +0x18.
 class Rva00251C2C
 {
@@ -147,7 +128,6 @@ private:
 	char m_pad00[0x18];
 	bool m_flag18;
 };
-
 // 0x0029A60C: stores the inverse of its bool argument at +0x14.
 class Rva0029A60C
 {
@@ -157,7 +137,6 @@ private:
 	char m_pad00[0x14];
 	bool m_flag14;
 };
-
 // 0x0029A9B4: the word at +0x53C.
 class Rva0029A9B4
 {
@@ -167,7 +146,6 @@ private:
 	char m_pad00[0x53C];
 	int m_value53C;
 };
-
 // 0x003B03F3: whether the words at +0x34 and +0x38 differ.
 class Rva003B03F3
 {
@@ -178,7 +156,6 @@ private:
 	int m_value34;
 	int m_value38;
 };
-
 // 0x00044FB9: copies 16 bytes in to +0x16C and sets the flag at +0x17C.
 class Rva00044FB9
 {
@@ -189,7 +166,6 @@ private:
 	Rva00SlotQuad m_value16C;
 	bool m_flag17C;
 };
-
 // 0x000515B3: clears the flag at +0x6AC and stores its argument at +0x6B0.
 class MilesAudioManager
 {
@@ -203,7 +179,6 @@ private:
 	char m_pad6B4[0xB3C - 0x6B4];
 	int m_values[1];
 };
-
 // 0x00072740 / 0x0007274B (slots 9 and 10 of BfmeOwnerCC's table): mark the
 // flag at +0x48 and answer the address of the word at +8 / +0xC of the block
 // at +0x40.
@@ -218,7 +193,6 @@ private:
 	char m_pad44[4];
 	bool m_flag48;
 };
-
 // 0x00086A82: whether the word at +0x23CC equals its argument.
 class Rva00086A82
 {
@@ -228,7 +202,6 @@ private:
 	char m_pad00[0x23CC];
 	int m_value23CC;
 };
-
 // 0x00090838: the word at +0x40 divided by the word at +0x44.
 class Rva00090838
 {
@@ -239,7 +212,6 @@ private:
 	int m_value40;
 	int m_value44;
 };
-
 // 0x000E132C: copies the 16 bytes at +0x3898 out.
 class Rva000E132C
 {
@@ -249,7 +221,6 @@ private:
 	char m_pad00[0x3898];
 	Rva00SlotQuad m_value3898;
 };
-
 // 0x000E4886: sets the flag bytes at +0x22 and +0x21.
 class Rva000E4886
 {
@@ -260,7 +231,6 @@ private:
 	bool m_flag21;
 	bool m_flag22;
 };
-
 // 0x000E7529: sets four flag bytes deep in a large object.
 class Rva000E7529
 {
@@ -275,14 +245,12 @@ private:
 	char m_pad4FB6F[0x51274 - 0x4FB6F];
 	bool m_flag51274;
 };
-
 // 0x000F6329: clears its bool output and answers false; one argument unused.
 class Rva000F6329
 {
 public:
 	bool rva000F6329(bool *out, int unused);
 };
-
 // 0x000F6D4F: clears the word at +4 and answers 0.
 class Rva000F6D4F
 {
@@ -292,7 +260,6 @@ private:
 	char m_pad00[4];
 	int m_value04;
 };
-
 // 0x00135E60: 20000 when the word at +0x54 is set, else 0.
 class Rva00135E60
 {
@@ -302,7 +269,6 @@ private:
 	char m_pad00[0x54];
 	int m_value54;
 };
-
 // 0x0015140A: 0x28 when the word at +0x14 is set, else 0.
 class Rva0015140A
 {
@@ -312,7 +278,6 @@ private:
 	char m_pad00[0x14];
 	int m_value14;
 };
-
 // 0x0016814C: twice the word at +0xD0, less 2.
 class Rva0016814C
 {
@@ -322,7 +287,6 @@ private:
 	char m_pad00[0xD0];
 	int m_valueD0;
 };
-
 // The shared true predicate188170 now belongs to Rva0073BAA0Base
 // in RTS/Rva0073BAA0.cpp; CF139C establishes its updater relationship.
 
@@ -333,7 +297,6 @@ struct Rva00216239Target
 	char m_pad00[0x38];
 	int m_value38;
 };
-
 class Rva00216239
 {
 public:
@@ -343,14 +306,12 @@ private:
 	Rva00216239Target *m_target08;
 	int m_value0C;
 };
-
 // 0x00222A2B: one more than the +8 word of the object at +4.
 struct Rva00222A2BTarget
 {
 	char m_pad00[8];
 	int m_value08;
 };
-
 class Rva00222A2B
 {
 public:
@@ -359,7 +320,6 @@ private:
 	char m_pad00[4];
 	Rva00222A2BTarget *m_target04;
 };
-
 // 0x00251C08: whether the word at +0xC is positive.
 class Rva00251C08
 {
@@ -369,7 +329,6 @@ private:
 	char m_pad00[0xC];
 	int m_value0C;
 };
-
 // 0x001F01E8 / 0x0025EF07 / 0x0025EF01: empty bodies taking four, six and
 // seven arguments.
 class Rva001F01E8
@@ -379,19 +338,15 @@ public:
 	void rva0025EF07(int a, int b, int c, int d, int e, int f);
 	void rva0025EF01(int a, int b, int c, int d, int e, int f, int g);
 };
-
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
-
 #include "../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
-
 // 0x00260E1E: one shifted left by the +0x54 word of the object at +8.
 struct Rva00260E1ETarget
 {
 	char m_pad00[0x54];
 	int m_playerIndex;
 };
-
 class Rva00260E2AFilter : public Rva000421C8
 {
 public:
@@ -399,27 +354,23 @@ public:
 private:
 	Rva00260E1ETarget *m_target08;
 };
-
 // 0x0026118B: whether the +0x258 word of the argument is set.
 struct Rva0026118BTarget
 {
 	char m_pad00[0x258];
 	int m_value258;
 };
-
 class Rva0026118BFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *target);
 };
-
 // 0x00285703: the 16-bit constant 1.
 class Rva00285703
 {
 public:
 	short rva00285703();
 };
-
 // 0x00306C49: sets the word at +8 to the word at +4 plus its argument and
 // answers true; 0x00306C58: whether the word at +8 has reached the word at
 // +0xC (unsigned). Slots 2 and 3 of the table 0x00BEDAA8 that the constructor
@@ -436,7 +387,6 @@ private:
 	unsigned int m_cursor08;
 	unsigned int m_end0C;
 };
-
 // 0x00330CC2: copies 12 bytes in to +0x14.
 class Rva00330CC2
 {
@@ -446,7 +396,6 @@ private:
 	char m_pad00[0x14];
 	Rva00SlotTriple m_value14;
 };
-
 // 0x00355DD4: clears the words at +8 and +0x10.
 class Rva00355DD4
 {
@@ -458,14 +407,12 @@ private:
 	int m_value0C;
 	int m_value10;
 };
-
 // 0x0036803F: stores TheGameLogic's +0x40 word plus 2 at +0x20 and answers 0.
 struct Rva0036803FLogic
 {
 	char m_pad00[0x40];
 	int m_value40;
 };
-
 class Rva0036803F
 {
 public:
@@ -474,7 +421,6 @@ private:
 	char m_pad00[0x20];
 	int m_value20;
 };
-
 // 0x003F718D: whether the word at +8 is set; two arguments unused.
 class Rva003F718D
 {
@@ -484,20 +430,17 @@ private:
 	char m_pad00[8];
 	int m_value08;
 };
-
 // 0x00203665: TheWritableGlobalData's +0xAC8 word.
 struct Rva00203665Data
 {
 	char m_pad00[0xAC8];
 	int m_maxParticleCount;
 };
-
 class Rva00203665
 {
 public:
 	int rva00203665();
 };
-
 // 0x00345F76: 0 when bit 0x2000 of the +0x114 word four links down (+0x18,
 // +0x14, +4) is set, else -2.
 struct Rva00345F76Leaf
@@ -505,19 +448,16 @@ struct Rva00345F76Leaf
 	char m_pad00[0x114];
 	unsigned int m_flags114;
 };
-
 struct Rva00345F76Mid
 {
 	char m_pad00[4];
 	Rva00345F76Leaf *m_leaf04;
 };
-
 struct Rva00345F76Top
 {
 	char m_pad00[0x14];
 	Rva00345F76Mid *m_mid14;
 };
-
 class Rva00345F76
 {
 public:
@@ -526,10 +466,24 @@ private:
 	char m_pad00[0x18];
 	Rva00345F76Top *m_top18;
 };
-
 struct IDirect3DSurface8;
-
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+// ?rva000724AE@Rva000724AE@@QAEXXZ, RVA 0x000724AE, 25B. Triple clear: call
+// rowed cleanup@Rva00739C70 on +0x00 then clear@BfmeResetTextureRef on +0x08
+// then tail-jump to rva000723AC@W3DRadarResetSurface on +0x0c. Evidence:
+// chain from just-landed 0x723AC; callers at 0x7259D/0x7262D/0x72697 pass
+// W3DVideoBuffer+0x2c; layout matches Rva00739C70State 0x14-byte shape in
+// W3DVideoBufferCtorBfme.cpp (+8 texture ref +0xc surface +0x10 flags).
+class Rva00739C70
+{
+public:
+	void cleanup();
+private:
+	int m_00;
+	int m_04;
+};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
+#include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
 class Rva000F6D56Filter
 {
@@ -624,6 +578,30 @@ private:
 	unsigned int a, b, c;
 };
 
+class W3DRadarResetSurface
+{
+public:
+	void rva000723AC();
+private:
+	void *m_surface;
+};
+
+class Rva000724AE
+{
+public:
+	void rva000724AE();
+	bool rva000724C7();
+	void *rva000724D7(int *pitchOut);
+	bool rva000725BC(unsigned textureWidth,unsigned textureHeight,unsigned width,unsigned height,unsigned format,bool surfaceOnly);
+	int m_00; // +0x00
+	int m_04; // +0x04
+	void *m_08; // +0x08
+	void *m_0c; // +0x0C
+	unsigned int m_flags; // +0x10
+};
+
+BFME_DISP8_MASKED_CHASE_DWORD_GETTER(Rva00072756MaskedChaseField, 0x40, 0x10, 0x02)
+
 // tu-skeleton: 0x000723FB 17B ?Rva000723FB@W3DVideoBuffer@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x0007240C 49B ?Rva0007240CGet@@YAHH_N@Z -- matched in Code/GameEngine/Source/Common/Rva0007240C.cpp (not merged yet)
@@ -633,6 +611,8 @@ private:
 // tu-skeleton: 0x00072472 14B ?Rva00072472@W3DVideoBuffer@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x00072480 32B ?Rva00072480@W3DVideoBuffer@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferRva00072480.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp
 
 // ---- from Code/GameEngine/Source/Common/S1ZeroingConstructors.cpp
 
@@ -644,26 +624,6 @@ Rva000724A0ZeroView *Rva000724A0ZeroView::rva000724A0()
 	c = 0;
 	return this;
 }
-
-// tu-skeleton: 0x000724AE 25B ?rva000724AE@Rva000724AE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000724AEClear.cpp (not merged yet)
-
-// tu-skeleton: 0x000724C7 16B ?rva000724C7@Rva000724AE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva000724C7Check.cpp (not merged yet)
-
-// tu-skeleton: 0x000724D7 72B ?rva000724D7@Rva000724AE@@QAEPAXPAH@Z -- matched in Code/GameEngine/Source/Common/Rva000724D7Lock.cpp (not merged yet)
-
-// tu-skeleton: 0x0007251F 58B ??1Rva00739C70@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup_1Rva00739C70_QAE_XZ.cpp (not merged yet)
-
-// tu-skeleton: 0x00072559 13B ?rva00072559@Rva00072559@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
-
-// tu-skeleton: 0x00072566 29B ?rva00072566@Rva00072566@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva000724C7Check.cpp (not merged yet)
-
-// tu-skeleton: 0x00072583 57B ?rva00072583@W3DVideoBuffer@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x000725BC 244B ?rva000725BC@Rva000724AE@@QAE_NIIIII_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp (not merged yet)
-
-// tu-skeleton: 0x000726B0 115B ??0W3DVideoBuffer@@QAE@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00072723 29B ?bfmeSwapBits@Gen_0073A2E0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp
 
@@ -706,13 +666,57 @@ Bool		W3DVideoBuffer::valid( void )
 	return m_texture != NULL;
 }
 
-// tu-skeleton: 0x00072756 10B ?get@Rva00072756MaskedChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8MaskedChaseDwordGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000724AEClear.cpp
+
+void Rva000724AE::rva000724AE()
+{
+	reinterpret_cast<Rva00739C70 *>(this)->cleanup();
+	reinterpret_cast<BfmeResetTextureRef *>(&m_08)->clear();
+	reinterpret_cast<W3DRadarResetSurface *>(&m_0c)->rva000723AC();
+}
+
+// tu-skeleton: 0x000724C7 16B ?rva000724C7@Rva000724AE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva000724C7Check.cpp (not merged yet)
+
+// tu-skeleton: 0x000724D7 72B ?rva000724D7@Rva000724AE@@QAEPAXPAH@Z -- matched in Code/GameEngine/Source/Common/Rva000724D7Lock.cpp (not merged yet)
+
+// tu-skeleton: 0x0007251F 58B ??1Rva00739C70@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup_1Rva00739C70_QAE_XZ.cpp (not merged yet)
+
+// tu-skeleton: 0x00072559 13B ?rva00072559@Rva00072559@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
+
+// tu-skeleton: 0x00072566 29B ?rva00072566@Rva00072566@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva000724C7Check.cpp (not merged yet)
+
+// tu-skeleton: 0x00072583 57B ?rva00072583@W3DVideoBuffer@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x000725BC 244B ?rva000725BC@Rva000724AE@@QAE_NIIIII_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp (not merged yet)
+
+// tu-skeleton: 0x000726B0 115B ??0W3DVideoBuffer@@QAE@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x00072723 29B ?bfmeSwapBits@Gen_0073A2E0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8MaskedChaseDwordGetters.cpp
+
+// Disp8 masked-chase dword getters: ten-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov eax,[eax+<DISP2>] / and eax,<MASK> / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a dword is read
+// at a second displacement from that pointer, masked with a small immediate,
+// and returned. MSVC 7.1 emits the disp8 loads `8B 41 XX` + `8B 40 XX`, plus
+// the `83 E0 XX` and-mask, plus `ret`, for ten bytes total. This is the masked
+// sibling of the plain Disp8PtrChaseDwordFieldGetters family; the extra `and`
+// is why the two families are kept in separate translation units. Identity
+// is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless ten-byte shape).
 
 // tu-skeleton: 0x00072760 170B ?allocate@W3DVideoBuffer@@UAE_NII_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferAllocate.cpp (not merged yet)
 
 // tu-skeleton: 0x0075ED22 11B uw_0075ed22 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0075ED2D 10B __ehhandler$??1Rva00739C70@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup_1Rva00739C70_QAE_XZ.cpp (not merged yet)
+
+// tu-skeleton: 0x0075ED37 8B uw_0075ed37 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0075ED3F 10B __ehhandler$?allocate@W3DVideoBuffer@@UAE_NII_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferAllocate.cpp (not merged yet)
 
 // tu-skeleton: 0x0075ED49 8B Unwind@00b5ed49 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp (not merged yet)
 
