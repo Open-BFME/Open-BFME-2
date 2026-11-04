@@ -349,11 +349,7 @@ void AptMainMenu::ResetResolution(const char *unused)
 // knows, a message 0x20 carries its index and the global at 0x00DD1538.
 // Callers 0x0051590C/0x0051596B pass the float second argument; it is unused.
 class AptFocusTarget;
-class AptPlayer
-{
-public:
-	void PopFocus(AptFocusTarget *target);	// 0x00222A33
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

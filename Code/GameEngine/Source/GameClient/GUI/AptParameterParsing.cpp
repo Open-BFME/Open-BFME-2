@@ -89,11 +89,7 @@ bool __cdecl Rva004128F0GetParam(const char *input, const char *key, AsciiString
 // sibling Rva00412B94, with the draw mode fixed at 1 instead of parsed from the
 // parameters; the mode's meaning is not established.
 class Image;
-class AptPlayer
-{
-public:
- const Image *FindRenderImage(const char *path, const char *parameters);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
