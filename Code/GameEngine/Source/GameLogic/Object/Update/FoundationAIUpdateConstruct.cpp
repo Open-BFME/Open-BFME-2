@@ -93,6 +93,8 @@ class CastleBehavior
 {
 public:
 	static NameKeyType rva0003955DA();
+	char m_pad00[0x38];
+	ObjectID m_38; // +0x38
 };
 
 class Drawable
@@ -261,7 +263,7 @@ struct Rva0039BAD2Input;
 class Rva0039BAD2
 {
 public:
-	void rva0039BAD2(Rva0039BAD2Input *what, Int cost);
+	void rva0039BAD2(Rva0039BAD2Input *what, int cost);
 };
 
 class Rva0039B795 : public Rva0039BAD2
@@ -271,7 +273,7 @@ class Rva0039B795 : public Rva0039BAD2
 class Rva003B0D7C
 {
 public:
-	UnsignedInt withdraw(UnsignedInt amount, Rva0039B795 *stats, Bool flag);
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *stats, bool flag);
 };
 
 class Player
