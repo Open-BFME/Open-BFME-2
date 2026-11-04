@@ -82,7 +82,6 @@ typedef ObjectIDList::iterator ObjectIDListIterator;
 // 0x00268AFF and the list members createScaffolding 0x00457737 calls show.
 class FreelistPool { public: void *pop(); };
 extern FreelistPool g_freelistPool;
-extern void *g_freeList;
 template <class T> class BfmeObjectIdPoolAllocator {
 public:
 	typedef T value_type;
@@ -100,8 +99,10 @@ public:
 	{
 		if (p)
 		{
-			*(void **)p = g_freeList;
-			g_freeList = p;
+			// The pool owns its free-list head at +8; it is not a separate global.
+			void *&freeHead = *(void **)((char *)&g_freelistPool + 8);
+			*(void **)p = freeHead;
+			freeHead = p;
 		}
 	}
 	void construct(pointer p, const_reference value) { new (p) T(value); }

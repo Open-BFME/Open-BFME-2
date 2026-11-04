@@ -106,3 +106,5 @@ predicts LINKS with177 ->177 bytes. No new datum, identity, alias or link-census
 credit is taken; the pending official whole-image result remains separate.
 [Scoped review](../../reverse/attempt_support/link-picker-review-20261104-1242.md).
 2026-11-04: current-object preview confirms the two DEC1CC/DEC1DC consumers ScreenFilterRva000FC63DSet.cpp and Rva007AC9B0FilterInits.cpp link with the existing providers; broader thunk unit still has an unrelated DF2984 array-name blocker ([evidence](../../reverse/attempt_support/screenfilter-link-header-20261104.md)).
+
+2026-11-04: BridgeBehavior allocator shim now accesses the repaired pool's +8 head instead of the removed standalone `g_freeList`; 51/51 rows byte-match and the scoped preview links, with official real-link confirmation pending ([evidence](../../reverse/attempt_support/bridgebehavior-pool-head-20261104-codexb.md)).
