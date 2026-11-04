@@ -5,7 +5,12 @@
 #ifndef CANONICAL_BFMEINTVECG_H
 #define CANONICAL_BFMEINTVECG_H
 #include <vector>
-extern "C" void __cdecl free(void*);
+// Retail calls the game allocator's free directly, not the CRT import.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <malloc.h>
+#pragma pop_macro("_CRTIMP")
 // Each physical four-byte word is consumed as a signed lookup key in ArmySummary.
 // STLport's generic copy-ptrs29 wrapper and forward-copy31B031 establish the
 // scalar range-erasure shape; they do not establish an original enum/class name.
