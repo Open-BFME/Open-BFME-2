@@ -1,4 +1,6 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP=
+// Retail calls the CRT entry thunks directly; _CRTIMP= preserves that call
+// form while using the declarations from the real CRT headers.
 // Apt array helpers from the retail ABI at 0x006D94A0..0x006DA557. Layout
 // (m_data +0x20, mnCapacity +0x24, mnLength +0x28) and the array-value role
 // follow the rowed helpers in AptValueArrayAt.cpp and Rva006D94A0Cluster.cpp;
@@ -7,7 +9,8 @@
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
+#include <stdlib.h>
+#include <string.h>
 
 class BfmeAptValue006DCD20;
 class EAStringC;
@@ -89,9 +92,6 @@ extern void *g_eaStringAtE18060Storage;
 extern "C" int __cdecl rva006D9D70Comparator(const void *, const void *);
 extern "C" int __cdecl rva006D9E40Comparator(const void *, const void *);
 extern "C" int __cdecl rva006DA0C0Comparator(const void *, const void *);
-
-// msvcr71 qsort reached through the import thunk at 0x00629B4A.
-extern "C" void __cdecl qsort(void *, unsigned int, unsigned int, int (__cdecl *)(const void *, const void *));
 
 // Scratch array handles published by the non-default sort path (VA 0x00E18044
 // and 0x00E18048).
@@ -184,7 +184,6 @@ extern "C" int __cdecl rva006D9E40Comparator(const void *a, const void *b)
 // rowed string comparator above. Other pairs hit the AptArray.cpp line
 // 0x328 NOT_REACHED assert (retail texts) and compare equal.
 #include "../../../Libraries/Source/Apt/AptNativeHash.h"
-extern "C" int __cdecl atoi(const char *);
 
 static __forceinline BfmeAptValue006DCD20 *rva006DA0C0Element(BfmeAptValue006DCD20 *value, int i)
 {
