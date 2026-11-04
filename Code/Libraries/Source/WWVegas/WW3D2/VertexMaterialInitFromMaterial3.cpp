@@ -61,63 +61,58 @@ struct D3DMaterial
 	float Power;
 };
 
-class VertexMaterialClass
+// The canonical material pointer owns the same 0x44-byte D3D payload.
+class DynD3DMATERIAL8
 {
 public:
-	virtual ~VertexMaterialClass();
-	void Init_From_Material3(const W3dMaterial3Struct &mat3);
-
-	void Set_Diffuse(float r, float g, float b)
-	{
-		MaterialDirty = true;
-		Material->Diffuse.r = r;
-		Material->Diffuse.g = g;
-		Material->Diffuse.b = b;
-	}
-
-	void Set_Specular(float r, float g, float b)
-	{
-		MaterialDirty = true;
-		Material->Specular.r = r;
-		Material->Specular.g = g;
-		Material->Specular.b = b;
-	}
-
-	void Set_Emissive(float r, float g, float b)
-	{
-		MaterialDirty = true;
-		Material->Emissive.r = r;
-		Material->Emissive.g = g;
-		Material->Emissive.b = b;
-	}
-
-	void Set_Ambient(float r, float g, float b)
-	{
-		MaterialDirty = true;
-		Material->Ambient.r = r;
-		Material->Ambient.g = g;
-		Material->Ambient.b = b;
-	}
-
-	void Set_Shininess(float s)
-	{
-		MaterialDirty = true;
-		Material->Power = s;
-	}
-
-	void Set_Opacity(float o)
-	{
-		MaterialDirty = true;
-		Material->Diffuse.a = o;
-	}
-
-private:
-	int RefCount;
-	D3DMaterial *Material;
-	int Attributes;
-	char m_pad[0x68 - 0x10];
-	bool MaterialDirty;
+	D3DMaterial Mat;
 };
+
+#include "VertexMaterialClass.h"
+
+inline void VertexMaterialClass::Set_Diffuse(float r, float g, float b)
+{
+	CRCDirty = true;
+	MaterialDyn->Mat.Diffuse.r = r;
+	MaterialDyn->Mat.Diffuse.g = g;
+	MaterialDyn->Mat.Diffuse.b = b;
+}
+
+inline void VertexMaterialClass::Set_Specular(float r, float g, float b)
+{
+	CRCDirty = true;
+	MaterialDyn->Mat.Specular.r = r;
+	MaterialDyn->Mat.Specular.g = g;
+	MaterialDyn->Mat.Specular.b = b;
+}
+
+inline void VertexMaterialClass::Set_Emissive(float r, float g, float b)
+{
+	CRCDirty = true;
+	MaterialDyn->Mat.Emissive.r = r;
+	MaterialDyn->Mat.Emissive.g = g;
+	MaterialDyn->Mat.Emissive.b = b;
+}
+
+inline void VertexMaterialClass::Set_Ambient(float r, float g, float b)
+{
+	CRCDirty = true;
+	MaterialDyn->Mat.Ambient.r = r;
+	MaterialDyn->Mat.Ambient.g = g;
+	MaterialDyn->Mat.Ambient.b = b;
+}
+
+inline void VertexMaterialClass::Set_Shininess(float s)
+{
+	CRCDirty = true;
+	MaterialDyn->Mat.Power = s;
+}
+
+inline void VertexMaterialClass::Set_Opacity(float o)
+{
+	CRCDirty = true;
+	MaterialDyn->Mat.Diffuse.a = o;
+}
 
 // The temporaries below force left-to-right evaluation of the channel
 // conversions; passing the expressions straight into the setter evaluates

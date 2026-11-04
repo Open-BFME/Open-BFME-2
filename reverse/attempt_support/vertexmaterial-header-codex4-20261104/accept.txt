@@ -1,0 +1,3 @@
+  PASS Code/Libraries/Source/WWVegas/WW3D2/Rva00155AD0.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialInitFromMaterial3.cpp
+  PASS Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialParseStruct.cpp

@@ -55,15 +55,7 @@ public:
         DynamicIBAccessClass*owner;unsigned short *data;char guard[4];
     };
 };
-class VertexMaterialClass {
-public:
-    virtual void Delete_This();
-    int references;
-    enum PresetType { PRELIT_DIFFUSE };
-    static VertexMaterialClass *Get_Preset(PresetType);
-    __declspec(dllimport) __forceinline void Add_Ref() {++references;}
-    __declspec(dllimport) __forceinline void Release_Ref() {if(--references==0) Delete_This();}
-};
+#include "VertexMaterialClass.h"
 class TextureBaseClass {public:void Release_Ref();};
 typedef TextureBaseClass BFME2TextureResource;
 struct BFME2TextureRef {
@@ -72,15 +64,6 @@ struct BFME2TextureRef {
     __forceinline ~BFME2TextureRef() {if(texture)texture->Release_Ref();}
 };
 void BFME2Set_Texture(unsigned,const BFME2TextureRef&);
-class StringClass {
-public:
-    __declspec(dllimport) __forceinline StringClass(int length,bool isTemp) {m_Buffer=m_EmptyString;Get_String(length,isTemp);m_Buffer[0]=m_NullChar;}
-    ~StringClass() {Free_String();}
-    private:
-    char *m_Buffer;
-    static char*m_EmptyString;static char m_NullChar;
-    void Get_String(int,bool);void Free_String();
-};
 #define renderDeviceWidth ((unsigned)DX8Wrapper::Get_Device_Resolution_Width())
 #define renderDeviceHeight ((unsigned)DX8Wrapper::Get_Device_Resolution_Height())
 extern int G00DB5FC0,G00DB5FC4,G00DB5FBC;
