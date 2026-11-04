@@ -50,8 +50,9 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 // WayPoint parser46133B is unclaimed, so its two scalar fields stay neutral.
 struct DynamicPortalWayPoint
 {
-	int m_first;
-	int m_second;
+public:
+	int m_first; // +0x00
+	int m_second; // +0x04
 };
 
 // Same partial element layout as the verified DynamicPortalLinkVector provider.

@@ -418,6 +418,7 @@ class Rva002E9042
 {
 public:
 	void rva002E9042(void *arg);
+	void AddPortal(void *waypoint);
 };
 
 // The pathfinder rebuild walk, rowed as Rva004618D4Caller::rva002E7023

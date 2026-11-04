@@ -63,6 +63,7 @@ public:
 class Rva002E9042
 {
 public:
+	void rva002E9042(void *arg);
 	void AddPortal(void *waypoint);
 };
 
@@ -79,8 +80,9 @@ extern int BfmeLogicFramesPerSecond;
 
 struct DynamicPortalWayPoint
 {
-	int m_bone;
-	int m_type;
+public:
+	int m_first; // +0x00
+	int m_second; // +0x04
 };
 
 typedef _STL::vector<unsigned int> DynamicPortalLinkList;
@@ -133,8 +135,8 @@ void DynamicPortalBehaviour::createWaypoints()
 		for (const DynamicPortalWayPoint *it = data->m_wayPoint.begin(); it != data->m_wayPoint.end(); ++it, ++index)
 		{
 			const DynamicPortalWayPoint &entry = *it;
-			Coord3D pos = locations[entry.m_bone];
-			Waypoint *wp = new Waypoint(0x7ffffffe, AsciiString("#dynamicportal_wp"), &pos, AsciiString::TheEmptyString, AsciiString::TheEmptyString, AsciiString::TheEmptyString, false, entry.m_type, AsciiString::TheEmptyString);
+			Coord3D pos = locations[entry.m_first];
+			Waypoint *wp = new Waypoint(0x7ffffffe, AsciiString("#dynamicportal_wp"), &pos, AsciiString::TheEmptyString, AsciiString::TheEmptyString, AsciiString::TheEmptyString, false, entry.m_second, AsciiString::TheEmptyString);
 			wp->m_ownerID = ownerID;
 			wp->m_portal = true;
 			wp->m_timeout = data->m_timeout;
