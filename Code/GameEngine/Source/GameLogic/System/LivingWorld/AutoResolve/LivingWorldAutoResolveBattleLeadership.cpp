@@ -19,29 +19,15 @@
 #include <vector>
 namespace _STL { template <class It, class Cmp> void sort(It, It, Cmp); }
 
-struct TargetRef00217D4C
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
+
+// Retail inlines this release in the leadership loop; keep its body visible
+// while sharing the canonical handle and referent declarations.
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	void *m_vtbl;
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct Rva004F9F39Unit;
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	// The unit view derives from TargetRef00217D4C at offset 0.
-	Rva004F9F39Unit *get() const { return (Rva004F9F39Unit *)m_ptr; }
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
-	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 struct MedianKey004F60EC
 {
@@ -159,7 +145,7 @@ void LivingWorldAutoResolveBattle::rva004F9F39()
 		TreeHintRef00217D4C *end = vec.m_finish;
 		for (TreeHintRef00217D4C *it = vec.m_start; it != end; ++it)
 		{
-			Rva004F9F39Unit *unit = it->get();
+			Rva004F9F39Unit *unit = (Rva004F9F39Unit *)it->m_ptr;
 			Rva00417FBA *table = unit->m_template->m_autoResolveLeadership;
 			if (!table)
 				continue;
@@ -179,7 +165,7 @@ void LivingWorldAutoResolveBattle::rva004F9F39()
 			for (int k = 0; count > 0 && k < numUnits; ++k)
 			{
 				const TreeHintRef00217D4C &ref = frontToBack ? vec.m_start[k] : vec[numUnits - k - 1];
-				Rva004F9F39Unit *unit = ref.get();
+				Rva004F9F39Unit *unit = (Rva004F9F39Unit *)ref.m_ptr;
 				if (unit->getBonus() == 0)
 				{
 					unsigned int bit = unit->m_template->m_autoResolveUnitType;
