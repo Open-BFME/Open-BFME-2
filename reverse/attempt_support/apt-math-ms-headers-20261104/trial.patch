@@ -1,0 +1,47 @@
+diff --git a/Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp b/Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp
+index 0f79a664c9..600bead0d6 100644
+--- a/Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp
++++ b/Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp
+@@ -10,37 +10,13 @@
+ // The numeric converter retains an address-derived member name.
+ #include <stdlib.h>
+ 
+-// The CRT math declarations this unit needs, in place of <math.h> (this TU compiles with
+-// /D_CRTIMP= and /O2, so these are the same plain, intrinsic-eligible declarations). <math.h>'s
+-// float overloads would emit this /O2 x87 unit's copies of floor(float), sqrt(float), sinf, cosf
+-// ... as COMDATs that differ from the copies the rest of the link keeps (retail's _sinf/_cosf are
+-// the 17-byte rows at 0x0008516D/0x0008515C). The callbacks call the double functions; only
+-// sin(float), cos(float) (rowed here, 0x0002FBB0/0x0002FBC0) and pow(float, float) keep float
+-// overloads, written with the bodies <math.h> gives them after inlining sinf/cosf.
++// Keep the header's x87 helpers local: this TU owns sin(float)/cos(float),
++// but retail's external sinf/cosf wrappers have separate, 17-byte bodies.
+ extern "C" {
+-double __cdecl acos(double);
+-double __cdecl asin(double);
+-double __cdecl atan(double);
+-double __cdecl atan2(double, double);
+-double __cdecl ceil(double);
+-double __cdecl cos(double);
+-double __cdecl exp(double);
+-double __cdecl fabs(double);
+-double __cdecl floor(double);
+-double __cdecl log(double);
+-double __cdecl pow(double, double);
+-double __cdecl sin(double);
+-double __cdecl sqrt(double);
+-double __cdecl tan(double);
+-inline float powf(float _X, float _Y)
+-        {return ((float)pow((double)_X, (double)_Y)); }
++static float __cdecl cosf(float);
++static float __cdecl sinf(float);
+ }
+-inline float __cdecl cos(float _X)
+-        {return ((float)cos((double)_X)); }
+-inline float __cdecl sin(float _X)
+-        {return ((float)sin((double)_X)); }
+-inline float __cdecl pow(float _X, float _Y)
+-        {return (powf(_X, _Y)); }
++#include <math.h>
+ 
+ class AptValue;
+ #include "BfmeAptValue006DCD20.h"
