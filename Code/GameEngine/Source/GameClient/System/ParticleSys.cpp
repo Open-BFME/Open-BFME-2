@@ -75,13 +75,9 @@ class Object;
 	{ \
 		((Rva001F43BD *)(owner + DISP))->rva001F43BD(p); \
 	}
-
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
-
 float __cdecl ACos(float);
-
 class Rva001F37C4 {public:void rva001F37C4(Xfer*);};
-
 struct Rva003AFA0BVector
 {
 public:
@@ -97,7 +93,6 @@ public:
 	float y; // +0x04
 	float z; // +0x08
 };
-
 struct Rva001F55A8Info
 {
 	char pad00[0x10];
@@ -107,7 +102,6 @@ struct Rva001F55A8Info
 	int lifetime;
 	char upTowardsEmitter;
 };
-
 struct Matrix3DView
 {
 	float m[3][4];
@@ -124,15 +118,10 @@ struct Matrix3DView
 		o.z = m[2][2] * v.z + m[2][1] * v.y + m[2][0] * v.x;
 	}
 };
-
 #include "../../../Include/GameClient/GameClientRandomVariable.h"
-
 struct Rva0007BB16Record;
-
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-
 #include "../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
-
 template<class T> class RefCountPtr {
 public:
 RefCountPtr():m_ptr(0){}
@@ -141,45 +130,30 @@ RefCountPtr():m_ptr(0){}
  ~RefCountPtr(){if(m_ptr)m_ptr->Release_Ref();}
  T*m_ptr;
 };
-
 class Rva00072A94 {
 public:
 Rva00072A94 &operator=(const Rva00072A94&);
 };
-
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char*,const char*,const _STL::vector<Rva0007BB16Record>*,int);
-
 void BFME_DX8_Thread_Lock();
-
  bool BFME_DX8_Thread_Assert();
-
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
-
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
-
 struct IDirect3DDevice8;
-
 struct IDirect3DVertexDeclaration9;
-
 struct D3DVERTEXELEMENT9 {unsigned short Stream,Offset;unsigned char Type,Method,Usage,UsageIndex;
 };
-
 template<int N> class ParticleDeviceSlots:public ParticleDeviceSlots<N-1>{
 public:
 virtual long __stdcall gap(char(*)[N]);
 };
-
 template<> class ParticleDeviceSlots<0> {};
-
 class ParticleDevice9:public ParticleDeviceSlots<86>{
 public:
 virtual long __stdcall CreateVertexDeclaration(const D3DVERTEXELEMENT9*,IDirect3DVertexDeclaration9**);
 };
-
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
-
 namespace FXParticleSystem {
 class ParticleSystemManager {
 public:
@@ -227,50 +201,42 @@ RefCountPtr<FXShaderSetup> ParticleSystemManager::GetShaderSetup(){
  return m_particleShader;
 }
 }
-
 class Sub005CD540Outer
 {
 public:
     ~Sub005CD540Outer();
 };
-
 class Rva001FB94FFirst
 {
 public:
     int m_00;
     ~Rva001FB94FFirst();
 };
-
 class Rva001FB94F : public Rva001FB94FFirst, public Sub005CD540Outer
 {
 public:
     ~Rva001FB94F();
 };
-
 class Rva001FBAEE : public Rva001FB94FFirst, public Rva001FB94F
 {
 public:
     ~Rva001FBAEE();
 };
-
 class Rva001FBCA1 : public Rva001FB94FFirst, public Rva001FBAEE
 {
 public:
     ~Rva001FBCA1();
 };
-
 class Rva001FC0B6 : public Rva001FB94FFirst, public Rva001FBCA1
 {
 public:
     ~Rva001FC0B6();
 };
-
 class Rva001F4C67
 {
 public:
     virtual ~Rva001F4C67();
 };
-
 struct RefObj
 {
     virtual void v0();
@@ -292,7 +258,6 @@ struct RefObj
     virtual void v16();
     int m_ref;
 };
-
 class Rva001FC0F1 : public Rva001F4C67
 {
 public:
@@ -302,7 +267,6 @@ public:
     Rva001FC0B6 m_94;
     virtual ~Rva001FC0F1();
 };
-
 // Forwarding chain 001FA836 .. 001FC451 (seven 38B bodies) over the rowed
 // root Rva001FA54DForward.cpp: each link stores the rowed Slot get(a) of b at
 // +0 then forwards (a, b) to the next link held at +4. Getters and next links
@@ -319,7 +283,6 @@ private:
 	void *m_00;
 	void *m_04;
 };
-
 class Rva001FA836
 {
 public:
@@ -328,7 +291,6 @@ private:
 	void *m_00;
 	Rva001FA54D m_04;
 };
-
 class Rva001FB8EC
 {
 public:
@@ -337,7 +299,6 @@ private:
 	void *m_00;
 	Rva001FA836 m_04;
 };
-
 class Rva001FBA8C
 {
 public:
@@ -346,7 +307,6 @@ private:
 	void *m_00;
 	Rva001FB8EC m_04;
 };
-
 class Rva001FBC43
 {
 public:
@@ -355,7 +315,6 @@ private:
 	void *m_00;
 	Rva001FBA8C m_04;
 };
-
 class Rva001FBFEA
 {
 public:
@@ -364,7 +323,6 @@ private:
 	void *m_00;
 	Rva001FBC43 m_04;
 };
-
 class Rva001FC357
 {
 public:
@@ -373,7 +331,6 @@ private:
 	void *m_00;
 	Rva001FBFEA m_04;
 };
-
 class Rva001FC451
 {
 public:
@@ -382,9 +339,7 @@ private:
 	void *m_00;
 	Rva001FC357 m_04;
 };
-
 class Xfer;
-
 // Native vtableBE1A28: deleting destructor1FC052, empty LoadPostProcessB3FD0,
 // GetSnapshotName1272 and DoXfer1F4F5A. Use the verified particle interface;
 // the earlier crc/loadPostProcess Snapshot view placed different names here.
@@ -469,11 +424,8 @@ ParticleSystemTemplate &ParticleSystemTemplate::operator=(const ParticleSystemTe
 typedef char ParticleTemplateSize[sizeof(ParticleSystemTemplate) == 0xD4 ? 1 : -1];
 
 }
-
 #include "../../../Include/Common/GlobalData.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 class Rva003AFB2A
 {
 public:
@@ -486,7 +438,6 @@ public:
 	virtual float vf06();
 	void rva003AFB2A(Coord3D *out, float a, float b, unsigned int c, unsigned int d);
 };
-
 class Rva001F534CHelper
 {
 public:
@@ -502,7 +453,6 @@ public:
 	virtual void f09();
 	virtual float f10();
 };
-
 struct Holder001F5401
 {
 	char m_pad[0x24];
@@ -511,7 +461,6 @@ struct Holder001F5401
 	float m_value2;
  float m_value3;
 };
-
 class Rva001F553F
 {
 public:
@@ -530,39 +479,24 @@ private:
 	Rva001F534CHelper *m_1C4;
 	Holder001F5401 *m_1C8;
 };
-
 class Rva001F3C20Slot {
 public:
     void set(const Rva0055A88BDwordField *arg);
     char m_lead[0xb0];
     int m_value;
 };
-
 class Rva001F3C43Slot {
 public:
     void set(const Rva001F3C43Arg *arg);
     char m_lead[0xb4];
     int m_value;
 };
-
 class Rva001F3C60Slot {
 public:
     void set(const AsciiString &other);
     char m_lead[0xb8];
     AsciiString m_value;
 };
-
-// RVA 0x001F448D..0x001F44E4. The following matched copy constructor
-// identifies CategoryModuleTemplate<7>; the default constructor calls the
-// independently matched WindModuleInfo constructor at 0x003A53C4 on this+8.
-// Retail installs the established template tables at +0/+4/+8 and unwinds
-// the dual-interface base if WindModuleInfo construction throws.
-//
-// Keep this constructor in an EH-enabled unit: the main template unit uses
-// /GX-. These opaque views retain the known 8-byte base and 0x48-byte wind
-// subobject, while novtable leaves table ownership in the existing units.
-// The three secondary tables fold to the same retail address but remain
-// separate symbols, as they are during normal C++ construction.
 #include "../../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem {
 extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
@@ -604,7 +538,6 @@ template<int N> CategoryModuleTemplate<N>::CategoryModuleTemplate() : CategoryMo
 }
 template CategoryModuleTemplate<7>::CategoryModuleTemplate();
 }
-
 //
 // ?rva001FA529@Rva001FA529@@QAEXPAX0@Z @0x001FA529, 36B.
 // Forwards two void args to rowed rva001F5D71 on this then rowed rva001F8E45
@@ -612,19 +545,16 @@ template CategoryModuleTemplate<7>::CategoryModuleTemplate();
 // chain lane via 0x001F8E45; prev/next indicate /O1 family.
 
 struct Holder001F5D71;
-
 class Rva001F8E45
 {
 public:
 	void rva001F8E45(void *a, void *b);
 };
-
 class Rva001FA529
 {
 public:
 	void rva001FA529(void *a, void *b);
 };
-
 // ?rva001FB8E4@Rva001FB8E4Owner@@QAEXPAX0@Z @0x001FB8E4 8B: offsets this to the Rva001FA529 embedded at +0x4 and
 // tail-jumps Rva001FA529::rva001FA529. Owner and name are address-derived; no
 // referencing site was found in this pass.
@@ -633,7 +563,6 @@ class Rva001FB8E4Owner
 public:
 	void rva001FB8E4(void *a, void *b);
 };
-
 // ?rva001FBA84@Rva001FBA84Owner@@QAEXPAX0@Z @0x001FBA84 8B: offsets this to the Rva001FA529 embedded at +0x8 and
 // tail-jumps Rva001FA529::rva001FA529. Owner and name are address-derived; no
 // referencing site was found in this pass.
@@ -642,28 +571,23 @@ class Rva001FBA84Owner
 public:
 	void rva001FBA84(void *a, void *b);
 };
-
 struct Rva001F4206Helper {
     virtual void *func(int x);
 };
-
 class Rva001F4206 {
 public:
     Rva001F4206Helper *m_ptr;
     __declspec(noinline) void rva001F4206();
 };
-
 // Native0x001F45EF..0x001F45F4: tail JMP to sole owned cleanup0x001F4206.
 // No receiver adjustment no stack arguments RET0. Original wrapper name
 // enclosing class and lifetime role unknown; existing receiver view reused.
 struct Rva001F45EFCleanupForward { void cleanup(); };
-
 class Rva001F4D22 : public Rva001F4C67
 {
 public:
 	virtual ~Rva001F4D22();
 };
-
 //
 // ?rva001F3C9A@Rva001F3C9A@@QAE_NXZ, retail 0x001F3C9A, 105 bytes.
 // Bool predicate over a large object (>=0x1A5 bytes): nullable helper at
@@ -689,7 +613,6 @@ public:
 	virtual void v24();
 	virtual void v28();
 };
-
 class Rva001F3C9A
 {
 public:
@@ -707,7 +630,6 @@ private:
 	bool m_1A4; // +0x1A4
 	char m_pad1A5[0x3];
 };
-
 class Rva001F3FD0Slot {
 public:
     void set(const AsciiString &other);
@@ -716,7 +638,6 @@ public:
     char m_pad[0xa0 - (0x68 + 4)];
     int m_a0;
 };
-
 // ?rva001F416C@Rva001F416C@@QAEXPAUNode001F416C@@H@Z @0x001F416C 67B.
 // Insert node at head of slot list when flag clear; mirrors unlink at
 // 0x001F4882 which uses same +0x10 +0x2c +0x50 and +0x6c +0x70 +0x75.
@@ -729,7 +650,6 @@ struct Node001F416C
     char m_gap;
     unsigned char m_flag;
 };
-
 class Rva001F416C
 {
 public:
@@ -740,7 +660,6 @@ private:
 	Node001F416C *m_arr2[9]; // +0x2C
 	int m_count; // +0x50
 };
-
 // ??4Rva001F41AF@@QAEAAV0@ABV0@@Z @0x001F41AF 30B.
 // Assignment clones holder at +0 via second virtual slot returning void* with null else zero then returns self.
 // Callers at 0x001F9C89 and 0x001FA647 pass own this plus stack arg and ignore return proving thiscall ret4.
@@ -750,90 +669,59 @@ struct Rva001F41AFHelper {
     virtual void f0();
     virtual void *clone();
 };
-
 class Rva001F41AF {
 public:
     Rva001F41AFHelper *m_ptr;
     Rva001F41AF &operator=(const Rva001F41AF &other);
 };
-
 struct Rva001F41CDHelper {
     virtual void *func0(int x);
     virtual void *clone();
 };
-
 class Rva001F41CD {
 public:
     Rva001F41CDHelper *m_ptr;
     Rva001F41CD &operator=(const Rva001F41CD &other);
 };
-
 // Whole U1SmallStateProbes.cpp @5cc75ddda6455c338a5068307e587a793f96d6b3.
 // Target raw CDECL pointer-word zero test; original names and entry unresolved.
 struct Rva001F430APointerCell {void *word;};
-
 // bfme link decl-only begin
 namespace _STL { template <> _STL::_OKToMemCpy<void *,void *> _IsOKToMemCpy<void *,void *>(void * *,void * *); }
-
 namespace _STL { template <> template <> void * * vector<void *,_STL::allocator<void *> >::_M_allocate_and_copy<void * *>(unsigned int,void * *,void * *); }
-
 namespace _STL { template <> void swap<_STL::_STLP_alloc_proxy<void * *,void *,_STL::allocator<void *> > >(_STL::_STLP_alloc_proxy<void * *,void *,_STL::allocator<void *> > &,_STL::_STLP_alloc_proxy<void * *,void *,_STL::allocator<void *> > &); }
-
 namespace _STL { template <> _Vector_base<void *,_STL::allocator<void *> >::_Vector_base(_STL::allocator<void *> const &); }
-
 namespace _STL { template <> _Vector_base<void *,_STL::allocator<void *> >::_Vector_base(unsigned int,_STL::allocator<void *> const &); }
-
 namespace _STL { template <> vector<void *,_STL::allocator<void *> >::vector(_STL::allocator<void *> const &); }
-
 namespace _STL { template <> vector<void *,_STL::allocator<void *> >::vector(unsigned int,void * const &,_STL::allocator<void *> const &); }
-
 namespace _STL { template <> _STLP_alloc_proxy<void * *,void *,_STL::allocator<void *> >::~_STLP_alloc_proxy(); }
-
 namespace _STL { template <> _Vector_base<void *,_STL::allocator<void *> >::~_Vector_base(); }
-
 namespace _STL { template <> allocator<void *>::~allocator(); }
-
 namespace _STL { template <> vector<void *,_STL::allocator<void *> >::~vector(); }
-
 namespace _STL { template <> void * const & vector<void *,_STL::allocator<void *> >::operator[](unsigned int) const; }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::_M_clear(); }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::_M_fill_insert(void * *,unsigned int,void * const &); }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::_M_insert_overflow(void * *,void * const &,_STL::__true_type const &,unsigned int,bool); }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::_M_set(void * *,void * *,void * *); }
-
 namespace _STL { template <> _STL::__true_type _OKToMemCpy<void *,void *>::_Ret(); }
-
 namespace _STL { template <> void * * _STLP_alloc_proxy<void * *,void *,_STL::allocator<void *> >::allocate(unsigned int); }
-
 namespace _STL { template <> void * * allocator<void *>::allocate(unsigned int,void const *) const; }
-
 namespace _STL { template <> unsigned int vector<void *,_STL::allocator<void *> >::capacity() const; }
-
 namespace _STL { template <> _STL::allocator<void *> vector<void *,_STL::allocator<void *> >::get_allocator() const; }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::insert(void * *,unsigned int,void * const &); }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::reserve(unsigned int); }
-
 namespace _STL { template <> void vector<void *,_STL::allocator<void *> >::swap(_STL::vector<void *,_STL::allocator<void *> > &); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> void *&_STL::vector<void*>::operator[](size_t);
 }
-
 // Suppress this TU's non-retail const-begin copy (row 47 family2-LK3): the
 // /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
 namespace _STL {
 template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 }
-
 // map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); a declaration-only specialization
 // stops this TU emitting its copy so callers bind the kept copy.
@@ -841,7 +729,6 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
-
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
@@ -849,45 +736,30 @@ template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
-
 struct Rva001F4325Element { unsigned words[1];operator unsigned() const {return words[0];}bool operator<(const Rva001F4325Element& b)const{return words[0]<b.words[0];}bool operator==(const Rva001F4325Element& b)const{return words[0]==b.words[0];} };
-
 template class _STL::hash_set<Rva001F4325Element,_STL::hash<unsigned> >;
-
-// ?Rva001F458BWrite@@YAAAVFile@@AAV1@ABURva001F458BText@@@Z @0x001F458B 29B.
-// File::write at vtable +0x10 with (start and finish-start) from ostringstream text.
-// Donor BFME1 fx_particle_system_bulk.cpp writeStreamText via FileWriteShim.
-// Callers at 0x001FB7B4 and 0x00564315 in writeINI bodies using str() text.
-// Honest Rva name; /O1 for frameless esi-return idiom.
 #include "../../../Include/Common/File.h"
-
 struct Rva001F458BText {
     const char* m_start;
     const char* m_finish;
 };
-
 // ?get@Rva001F45DFSlot@@QBEHXZ @0x001F45DF 16B.
 // Reads pointer at +0x3c, falls back to pinned ?Make001FCBD7@@YAPAVParticleSystem@@XZ
 // when null, then returns dword at +0x7c through it. Caller at 0x001F4892.
 // Honest Rva name; /O1 for the frameless null-or-Make chase.
 class ParticleSystem;
-
 ParticleSystem *Make001FCBD7();
-
 struct Rva001F45DFInner {
     char m_pad[0x7c];
     int m_value;
 };
-
 class Rva001F45DFSlot {
 public:
     int get() const;
     char m_lead[0x3c];
     Rva001F45DFInner *m_ptr;
 };
-
 ParticleSystem *Make001FCBD7(void);
-
 class BfmeParticleSystemPtr
 {
 public:
@@ -904,7 +776,6 @@ public:
 	}
 	ParticleSystem *m_target; // +0x00
 };
-
 struct BfmeParticleDestroyView
 {
 	unsigned char m_unreconstructed_000[0x15C];
@@ -912,9 +783,7 @@ struct BfmeParticleDestroyView
 	unsigned char m_unreconstructed_160[0x1A4 - 0x160];
 	unsigned char m_isDestroyed;				///< retail this+0x1A4
 };
-
 struct Rva001F5BBEArg;
-
 class Rva001F58D4
 {
 public:
@@ -935,7 +804,6 @@ private:
 	char m_pad68[0xC];
 	int m74; // +0x74
 };
-
 //
 // ParticleSystemManager::destroyParticleSystemByID, retail 0x001F5B79 (69
 // bytes), after Zero Hour's GameEngine/Source/GameClient/System/
@@ -951,7 +819,6 @@ enum ParticleSystemID
 {
 	INVALID_PARTICLE_SYSTEM_ID = 0
 };
-
 class ParticleSystem
 {
 public:
@@ -990,12 +857,7 @@ public:
 	bool m_saveable; // +0x33A +0x33A
 	char m_pad33B[0x1];
 };
-
-// The handle findParticleSystemByID returns: the BfmeParticleSystemHandle
-// class of ParticleSystemManagerFindByID.cpp. Its release is the rowed
-// RvaSmartPtr12::rva0004CBC0, reached only when the handle holds a system.
 #include "../../../Include/Common/RvaSmartPtr12.h"
-
 class BfmeParticleSystemHandle
 {
 public:
@@ -1008,7 +870,6 @@ public:
 	void *m_previous;
 	void *m_next;
 };
-
 //
 // ?rva001F5C39@Rva001F5C39@@QAEXPAXPAUHolder001F5C39@@@Z, retail 0x001F5C39, 39 bytes.
 // Null-checked fetch at holder+0x1AC, virtual slot0 of object at +0x14,
@@ -1019,19 +880,16 @@ class Provider001F5C39
 public:
 	virtual void *fetch(void *arg);
 };
-
 struct Mid001F5C39
 {
 	char m_pad[0x14];
 	Provider001F5C39 m_prov;
 };
-
 struct Holder001F5C39
 {
 	char m_pad[0x1AC];
 	Mid001F5C39 *m_mid;
 };
-
 //
 // ?rva001F5C60@Rva001F5C60@@QAEXPAXPAUHolder001F5C60@@@Z, retail 0x001F5C60, 39 bytes.
 // Null-checked fetch at holder+0x1B0, virtual slot0 of object at +0x14,
@@ -1043,19 +901,16 @@ class Provider001F5C60
 public:
 	virtual void *fetch(void *arg);
 };
-
 struct Mid001F5C60
 {
 	char m_pad[0x14];
 	Provider001F5C60 m_prov;
 };
-
 struct Holder001F5C60
 {
 	char m_pad[0x1B0];
 	Mid001F5C60 *m_mid;
 };
-
 //
 // ?rva001F5CA9@Rva001F5CA9@@QAEXPAXPAUHolder001F5CA9@@@Z, retail 0x001F5CA9, 39 bytes.
 // Null-checked fetch at holder+0x1B4, virtual slot0 of object at +0x14,
@@ -1067,19 +922,16 @@ class Provider001F5CA9
 public:
 	virtual void *fetch(void *arg);
 };
-
 struct Mid001F5CA9
 {
 	char m_pad[0x14];
 	Provider001F5CA9 m_prov;
 };
-
 struct Holder001F5CA9
 {
 	char m_pad[0x1B4];
 	Mid001F5CA9 *m_mid;
 };
-
 //
 // ?rva001F5CD0@Rva001F5CD0@@QAEXPAXPAUHolder001F5CD0@@@Z, retail 0x001F5CD0, 39 bytes.
 // Null-checked fetch at holder+0x1B8, virtual slot0 of object at +0x14,
@@ -1092,32 +944,27 @@ class Provider001F5CD0
 public:
 	virtual void *fetch(void *arg);
 };
-
 struct Mid001F5CD0
 {
 	char m_pad[0x14];
 	Provider001F5CD0 m_prov;
 };
-
 struct Holder001F5CD0
 {
 	char m_pad[0x1B8];
 	Mid001F5CD0 *m_mid;
 };
-
 // ?rva001F5CF7@Rva001F5CF7@@QAEXXZ @0x001F5CF7 23B.
 // Null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F425C::call on this+4.
 // Callers jmp from 0x001F6488 0x001F8206 0x001F8953 0x001F8DBB. Honest Rva names.
 struct Rva001F425C {
     void call();
 };
-
 class Helper001F5CF7 {
 public:
     virtual ~Helper001F5CF7();
     virtual void tick();
 };
-
 class Rva001F5CF7 {
 public:
     void rva001F5CF7();
@@ -1125,14 +972,12 @@ private:
     Helper001F5CF7* m_ptr;
     Rva001F425C m_next;
 };
-
 // ?rva001F5D0E@Rva001F5D0E@@QAEXHH@Z @0x001F5D0E 42B
 // Null-checked virtual slot 0xc at +0 with (int,int) then rowed Rva001F4276::call on this+4.
 // Callees rowed: ?call@Rva001F4276@@QAEXHH@Z. Callers: jmp from 0x001F64B3. Honest Rva names.
 struct Rva001F4276 {
     void call(int a, int b);
 };
-
 class Helper001F5D0E {
 public:
     virtual ~Helper001F5D0E();
@@ -1140,20 +985,17 @@ public:
     virtual void m2();
     virtual void m3(int a, int b);
 };
-
 // ?rva001F5D38@Rva001F5D38@@QAEXXZ @0x001F5D38 23B.
 // Null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F429A::call on this+4.
 // Caller jmp from 0x001F64E4. Honest Rva names.
 struct Rva001F429A {
     void call();
 };
-
 class Helper001F5D38 {
 public:
     virtual ~Helper001F5D38();
     virtual void tick();
 };
-
 class Rva001F5D38 {
 public:
     void rva001F5D38();
@@ -1161,7 +1003,6 @@ private:
     Helper001F5D38* m_ptr;
     Rva001F429A m_next;
 };
-
 //
 // ?rva001F5D71@Rva001F5D71@@QAEXPAXPAUHolder001F5D71@@@Z, retail 0x001F5D71, 39 bytes.
 // Null-checked fetch at holder+0x1C8, virtual slot0 of object at +0x14,
@@ -1174,19 +1015,16 @@ class Provider001F5D71
 public:
 	virtual void *fetch(void *arg);
 };
-
 struct Mid001F5D71
 {
 	char m_pad[0x14];
 	Provider001F5D71 m_prov;
 };
-
 struct Holder001F5D71
 {
 	char m_pad[0x1C8];
 	Mid001F5D71 *m_mid;
 };
-
 class Rva001F5D71
 {
 public:
@@ -1194,7 +1032,6 @@ public:
 private:
 	void *m_ptr;
 };
-
 // ?get@Rva001F5D98Slot@@QAEPAXPAX@Z @0x001F5D98 20B.
 // Null-checked holder at +0xA4 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F6400 and 0x001FC45C. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1204,14 +1041,12 @@ public:
     virtual void u1();
     virtual void* fetch(void* arg);
 };
-
 class Rva001F5D98Slot {
 public:
     void* get(void* arg);
     char m_pad[0xA4];
     Rva001F5D98Helper* m_ptr;
 };
-
 // ?get@Rva001F5DACSlot@@QAEPAXPAX@Z @0x001F5DAC 20B.
 // Null-checked holder at +0xA8 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F643B and 0x001FC362. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1221,14 +1056,12 @@ public:
     virtual void u1();
     virtual void* fetch(void* arg);
 };
-
 class Rva001F5DACSlot {
 public:
     void* get(void* arg);
     char m_pad[0xA8];
     Rva001F5DACHelper* m_ptr;
 };
-
 // ?get@Rva001F5DC0Slot@@QAEPAXPAX@Z @0x001F5DC0 20B.
 // Null-checked holder at +0xAC via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F6451 and 0x001FBFF5. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1238,14 +1071,12 @@ public:
     virtual void u1();
     virtual void* fetch(void* arg);
 };
-
 class Rva001F5DC0Slot {
 public:
     void* get(void* arg);
     char m_pad[0xAC];
     Rva001F5DC0Helper* m_ptr;
 };
-
 // ?get@Rva001F5DD4Slot@@QAEPAXPAX@Z @0x001F5DD4 20B.
 // Null-checked holder at +0xB0 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F6467 and 0x001FBC4E. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1255,14 +1086,12 @@ public:
     virtual void u1();
     virtual void* fetch(void* arg);
 };
-
 class Rva001F5DD4Slot {
 public:
     void* get(void* arg);
     char m_pad[0xB0];
     Rva001F5DD4Helper* m_ptr;
 };
-
 // ?get@Rva001F5DE8Slot@@QAEPAXPAX@Z @0x001F5DE8 20B
 // Null-checked holder at +0xB4 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F647D and 0x001FBA97. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1272,14 +1101,12 @@ public:
     virtual void u1();
     virtual void *fetch(void *arg);
 };
-
 class Rva001F5DE8Slot {
 public:
     void *get(void *arg);
     char m_pad[0xB4];
     Rva001F5DE8Helper *m_ptr;
 };
-
 // ?get@Rva001F5DFCSlot@@QAEPAXPAX@Z @0x001F5DFC 20B
 // Null-checked holder at +0xB8 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F64C7 and 0x001FB8F7. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1289,14 +1116,12 @@ public:
     virtual void u1();
     virtual void *fetch(void *arg);
 };
-
 class Rva001F5DFCSlot {
 public:
     void *get(void *arg);
     char m_pad[0xB8];
     Rva001F5DFCHelper *m_ptr;
 };
-
 // ?get@Rva001F5E10Slot@@QAEPAXPAX@Z @0x001F5E10 20B
 // Null-checked holder at +0xBC via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F6516 and 0x001FA841. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1306,14 +1131,12 @@ public:
     virtual void u1();
     virtual void *fetch(void *arg);
 };
-
 class Rva001F5E10Slot {
 public:
     void *get(void *arg);
     char m_pad[0xBC];
     Rva001F5E10Helper *m_ptr;
 };
-
 // ?get@Rva001F5E24Slot@@QAEPAXPAX@Z @0x001F5E24 20B.
 // Null-checked holder at +0xC0 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F652C and 0x001FA558. Honest Rva names; /O1 for je plus tail-jmp shape.
@@ -1323,7 +1146,6 @@ public:
     virtual void u1();
     virtual void* fetch(void* arg);
 };
-
 // ?rva001FA48D@Rva001FA48D@@QAEXXZ 0x001FA48D 23B
 // Evidence: chain via rowed 0x001F93EB; null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F93EB on this+4. Caller jmp at 0x001FA7A7. Honest Rva names.
 class Helper001FA48D
@@ -1332,13 +1154,11 @@ public:
 	virtual ~Helper001FA48D();
 	virtual void tick();
 };
-
 class Rva001F93EB
 {
 public:
 	void rva001F93EB();
 };
-
 // ?rva001FA4A4@Rva001FA4A4@@QAEXH@Z 0x001FA4A4 34B
 // Evidence: chain via rowed 0x001F9402; null-checked virtual slot +0xC at +0 with int arg then rowed Rva001F9402 on this+4. Caller call at 0x001FA7C5. Honest Rva names.
 class Rva001F9402
@@ -1346,7 +1166,6 @@ class Rva001F9402
 public:
 	void rva001F9402(int);
 };
-
 class Helper001FA4A4
 {
 public:
@@ -1355,7 +1174,6 @@ public:
 	virtual void pad2();
 	virtual void slot3(int);
 };
-
 // ?rva001FA4F0@Rva001FA4F0@@QAEXXZ 0x001FA4F0 23B
 // Evidence: chain via rowed 0x001F944E; null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F944E on this+4. Caller jmp at 0x001FA80A. Honest Rva names.
 class Helper001FA4F0
@@ -1364,13 +1182,11 @@ public:
 	virtual ~Helper001FA4F0();
 	virtual void tick();
 };
-
 class Rva001F944E
 {
 public:
 	void rva001F944E();
 };
-
 // ?rva001FA507@Rva001FA507@@QAEXH@Z @0x001FA507 (34B)
 // Evidence: chain via rowed 0x001F9465; null-checked virtual slot 3 at +0 with int arg then rowed Rva001F9465 on this+4. Caller at 0x001FA828. Honest Rva names.
 class Helper001FA507
@@ -1381,26 +1197,22 @@ public:
 	virtual void pad2();
 	virtual void slot3(int);
 };
-
 class Rva001F9465
 {
 public:
 	void rva001F9465(int x);
 };
-
 class Rva001F5E24Slot {
 public:
     void* get(void* arg);
     char m_pad[0xC0];
     Rva001F5E24Helper* m_ptr;
 };
-
 class T1Sink_005C8D40
 {
 public:
 	void *accept(void *a, void *b);
 };
-
 // ?rva001FA795@Rva001FA795@@QAEXXZ 0x001FA795 23B
 // Evidence: chain via rowed 0x001FA48D; null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001FA48D on this+4. Caller call at 0x001FA980. Honest Rva names.
 class Helper001FA795
@@ -1409,7 +1221,6 @@ public:
 	virtual ~Helper001FA795();
 	virtual void tick();
 };
-
 class Rva001FA48D
 {
 public:
@@ -1418,7 +1229,6 @@ private:
 	Helper001FA48D *m_ptr;
 	Rva001F93EB m_next;
 };
-
 class Rva001FA795
 {
 public:
@@ -1427,7 +1237,6 @@ private:
 	Helper001FA795 *m_ptr;
 	Rva001FA48D m_next;
 };
-
 class Rva001FA4A4
 {
 public:
@@ -1436,7 +1245,6 @@ private:
 	Helper001FA4A4 *m_ptr;
 	Rva001F9402 m_next;
 };
-
 class Helper001FA7AC
 {
 public:
@@ -1445,7 +1253,6 @@ public:
 	virtual void pad2();
 	virtual void slot3(int);
 };
-
 class Rva001FA7AC
 {
 public:
@@ -1454,7 +1261,6 @@ private:
 	Helper001FA7AC *m_ptr;
 	Rva001FA4A4 m_next;
 };
-
 // ?rva001FA7F8@Rva001FA7F8@@QAEXXZ 0x001FA7F8 23B
 // Evidence: chain via rowed 0x001FA4F0; null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001FA4F0 on this+4. Caller call at 0x001FB1AC. Honest Rva names.
 class Helper001FA7F8
@@ -1463,7 +1269,6 @@ public:
 	virtual ~Helper001FA7F8();
 	virtual void tick();
 };
-
 class Rva001FA4F0
 {
 public:
@@ -1472,7 +1277,6 @@ private:
 	Helper001FA4F0 *m_ptr;
 	Rva001F944E m_next;
 };
-
 class Rva001FA7F8
 {
 public:
@@ -1481,7 +1285,6 @@ private:
 	Helper001FA7F8 *m_ptr;
 	Rva001FA4F0 m_next;
 };
-
 // ?rva001FA80F@Rva001FA80F@@QAEXH@Z @0x001FA80F (34B)
 // Evidence: chain via rowed 0x001FA507; null-checked virtual slot 3 at +0 with int arg then rowed Rva001FA507 on this+4. Caller at 0x001FB23A. Honest Rva names.
 class Helper001FA80F
@@ -1492,7 +1295,6 @@ public:
 	virtual void pad2();
 	virtual void slot3(int);
 };
-
 class Rva001FA507
 {
 public:
@@ -1501,7 +1303,6 @@ private:
 	Helper001FA507 *m_ptr;
 	Rva001F9465 m_next;
 };
-
 class Rva001FA80F
 {
 public:
@@ -1510,7 +1311,6 @@ private:
 	Helper001FA80F *m_ptr;
 	Rva001FA507 m_next;
 };
-
 //
 // ?rva001FBC1F@Rva001FBC1F@@QAEXPAX0@Z @0x001FBC1F, 36B.
 // Forwards two void args to rowed rva001F5CD0 on this then rowed rva001FA529
@@ -1518,7 +1318,6 @@ private:
 // chain lane via 0x001FA529; prev/next indicate /O1 family.
 
 struct Holder001F5CD0;
-
 class Rva001F5CD0
 {
 public:
@@ -1526,13 +1325,11 @@ public:
 private:
 	void *m_ptr;
 };
-
 class Rva001FBC1F
 {
 public:
 	void rva001FBC1F(void *a, void *b);
 };
-
 //
 // ?rva001FBFC6@Rva001FBFC6@@QAEXPAX0@Z @0x001FBFC6, 36B.
 // Forwards two void args to rowed rva001F5CA9 on this then rowed rva001FBC1F
@@ -1540,7 +1337,6 @@ public:
 // chain lane via 0x001FBC1F; prev/next indicate /O1 family.
 
 struct Holder001F5CA9;
-
 class Rva001F5CA9
 {
 public:
@@ -1548,13 +1344,11 @@ public:
 private:
 	void *m_ptr;
 };
-
 class Rva001FBFC6
 {
 public:
 	void rva001FBFC6(void *a, void *b);
 };
-
 //
 // ?rva001FC333@Rva001FC333@@QAEXPAX0@Z @0x001FC333, 36B.
 // Forwards two void args to rowed rva001F5C60 on this then rowed rva001FBFC6
@@ -1562,7 +1356,6 @@ public:
 // chain lane via 0x001FBFC6; prev/next indicate /O1 family.
 
 struct Holder001F5C60;
-
 class Rva001F5C60
 {
 public:
@@ -1570,13 +1363,11 @@ public:
 private:
 	void *m_ptr;
 };
-
 class Rva001FC333
 {
 public:
 	void rva001FC333(void *a, void *b);
 };
-
 //
 // ?rva001FC42D@Rva001FC42D@@QAEXPAX0@Z @0x001FC42D, 36B.
 // Forwards two void args to rowed rva001F5C39 on this then rowed rva001FC333
@@ -1584,7 +1375,6 @@ public:
 // chain lane via 0x001FC333; prev/next indicate /O1 family.
 
 struct Holder001F5C39;
-
 class Rva001F5C39
 {
 public:
@@ -1592,30 +1382,22 @@ public:
 private:
 	void *m_ptr;
 };
-
 class Rva001FC42D
 {
 public:
 	void rva001FC42D(void *a, void *b);
 };
-
 class Rva001F3D03Slot {
 public:
     void set(float a, float b);
     char m_lead[0x14];
     GameClientRandomVariable m_var;
 };
-
 struct Rva001F55A8Info;
-
 struct Coord3D;
-
 extern ParticleSystem *Make001FCBD7(void);
-
 struct SlaveHandleFAA { void*system;void*prev,*next;operator bool()const{return system!=0;}ParticleSystem*operator->()const{if(!system)return Make001FCBD7();return (ParticleSystem*)system;} };
-
 void XferParticleSystemID(Xfer*,int*);
-
 // Unnamed completion predicate: retail 1F4E2D..1F4E82, WB B0D730.
 // Its whole-particle receiver, bool result and zero arguments are established
 // by this caller and WB. The original method name remains unknown.
@@ -1635,7 +1417,6 @@ public:
     virtual void slot20();
     virtual void setAngle(float angle);
 };
-
 namespace FXParticleSystem
 {
 // Identity: WB B0D4B0 explicitly names FXParticleSystem::CPUParticle::update
@@ -1685,7 +1466,6 @@ void CPUParticle::rva001FAA8D(Xfer *xfer)
  XferParticleSystemID(xfer,&id);
 }
 }
-
 // ?rva001F43BD@Rva001F43BD@@QAEXPAX@Z @0x001F43BD 33B
 // Owned-pointer setter: releases the old object through its virtual slot 0
 // with a 0 argument, frees the returned pointer with operator delete, then
@@ -1704,7 +1484,6 @@ class Rva001F43BD
 public:
     void rva001F43BD(void *p);
 };
-
 // ?rva001F609F@Rva001F609FOwner@@QAEXPAX@Z @0x001F609F 11B: offsets this to the Rva001F43BD embedded at +0xA4 and
 // tail-jumps Rva001F43BD::rva001F43BD. Owner and name are address-derived; no
 // referencing site was found in this pass.
@@ -1713,21 +1492,13 @@ class Rva001F609FOwner
 public:
 	void rva001F609F(void *p);
 };
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F617CSlot, 0xA8)
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F6187Slot, 0xAC)
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F6192Slot, 0xB0)
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F619DSlot, 0xB4)
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F61A8Slot, 0xB8)
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F61B3Slot, 0xBC)
-
 BFME_RVA001F43BD_SLOT_SETTER(Rva001F61BESlot, 0xC0)
-
 //
 // ?Rva00113BA0@@YAHPAVGenSlot08@@@Z 0x00306A4E, 16 bytes
 //   (the donor's own @-comment cites 0x00113BA0, which is its BFME 1 RVA)
@@ -1777,13 +1548,11 @@ public:
     virtual void slot0();
     virtual void forward();
 };
-
 class Rva001F4234 {
 public:
     void forward();
     Rva001F4234Slot1 *held;
 };
-
 class Rva001F4240Slot3 {
 public:
     virtual void slot0();
@@ -1791,13 +1560,11 @@ public:
     virtual void slot2();
     virtual void forward(unsigned first, unsigned second);
 };
-
 class Rva001F4240 {
 public:
     void forward(unsigned first, unsigned second);
     Rva001F4240Slot3 *held;
 };
-
 class Rva001F424ESlot3 {
 public:
     virtual void slot0();
@@ -1805,21 +1572,26 @@ public:
     virtual void slot2();
     virtual void forward(unsigned word);
 };
-
 class Rva001F424E {
 public:
     void forward(unsigned word);
     Rva001F424ESlot3 *held;
 };
-
 #include "../../../Include/Common/ModuleData.h"
-
 BFME_LITERAL_NAME_GETTER(Rva001FBEB1Named, "FXParticleSystem")
-
 BFME_LITERAL_NAME_GETTER(Rva001FC179Named, "FXParticle")
-
-// LargeGroupAudio getter is owned by the complete subsystem unit.
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
+#pragma pack(push, 1)
+struct InsertRet001F8F2A
+{
+	InsertRet001F8F2A(void *node, void *owner, unsigned char found)
+		: m_node(node), m_owner(owner), m_found(found) {}
+	void *m_node;
+	void *m_owner;
+	unsigned char m_found;
+};
+#pragma pack(pop)
+#include "../../../Include/GameLogic/Rva000427195.h"
 
 BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
 
@@ -2044,11 +1816,66 @@ private:
     Rva001FA4C6 m_next;
 };
 
+// Retail 0x001FA45F (20B, RET8): the hash container member over this table
+// (at +0): the hidden result pointer and the key go straight to the
+// insert-with-grow above, its only callee (the hash_map::insert ->
+// insert_unique forwarding shape). Owner unresolved, address-named.
+class Rva001FA45F
+{
+public:
+	InsertRet001F8F2A rva001FA45F(const void *key);
+private:
+	Rva000427195 m_table;
+};
+
+// ??0Rva001F9CB8@@QAE@XZ @0x001F9CB8 18B: default ctor zeroing +0 then rowed Rva001F9060 at +4 plus return this.
+// Evidence: push esi mov esi ecx and [esi] 0 lea ecx [esi+4] call 0x001F9060 mov eax esi pop esi ret; chain from 0x001F9060.
+class Rva001F9060
+{
+public:
+	Rva001F9060();
+};
+
+class Rva001F9CB8
+{
+public:
+	Rva001F9CB8();
+private:
+	int m_00;
+	Rva001F9060 m_04;
+};
+
 // tu-skeleton: 0x001F392E 247B ?rotateLocalTransformX@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3A25 247B ?rotateLocalTransformY@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3B1C 247B ?rotateLocalTransformZ@ParticleSystem@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemRotateLocalTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
+
+// RVA 0x001F448D..0x001F44E4. The following matched copy constructor
+// identifies CategoryModuleTemplate<7>; the default constructor calls the
+// independently matched WindModuleInfo constructor at 0x003A53C4 on this+8.
+// Retail installs the established template tables at +0/+4/+8 and unwinds
+// the dual-interface base if WindModuleInfo construction throws.
+//
+// Keep this constructor in an EH-enabled unit: the main template unit uses
+// /GX-. These opaque views retain the known 8-byte base and 0x48-byte wind
+// subobject, while novtable leaves table ownership in the existing units.
+// The three secondary tables fold to the same retail address but remain
+// separate symbols, as they are during normal C++ construction.
+
+// ?Rva001F458BWrite@@YAAAVFile@@AAV1@ABURva001F458BText@@@Z @0x001F458B 29B.
+// File::write at vtable +0x10 with (start and finish-start) from ostringstream text.
+// Donor BFME1 fx_particle_system_bulk.cpp writeStreamText via FileWriteShim.
+// Callers at 0x001FB7B4 and 0x00564315 in writeINI bodies using str() text.
+// Honest Rva name; /O1 for frameless esi-return idiom.
+
+// The handle findParticleSystemByID returns: the BfmeParticleSystemHandle
+// class of ParticleSystemManagerFindByID.cpp. Its release is the rowed
+// RvaSmartPtr12::rva0004CBC0, reached only when the handle holds a system.
+
+// LargeGroupAudio getter is owned by the complete subsystem unit.
 
 // ---- from Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 
@@ -3171,6 +2998,32 @@ ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &na
 	return findTemplate(name);
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva001F6492Chain.cpp
+
+void Rva001F9424::rva001F9424(int a, int b)
+{
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
+    m_next.rva001F8DE2(a, b);
+}
+
+void Rva001FA4C6::rva001FA4C6(int a, int b)
+{
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
+    m_next.rva001F9424(a, b);
+}
+
+void Rva001FA7CE::rva001FA7CE(int a, int b)
+{
+    Rva001F6492Helper *linkHelper = m_ptr;
+    if (linkHelper)
+        linkHelper->m3(a, b);
+    m_next.rva001FA4C6(a, b);
+}
+
 // tu-skeleton: 0x001F3C6B 47B ?rva001F3C6B@ParticleSystem@@QAEIXZ -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp (not merged yet)
 
 // tu-skeleton: 0x001F3D2E 674B ?parse@ParticleSystemTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp (not merged yet)
@@ -3299,39 +3152,32 @@ ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &na
 
 // tu-skeleton: 0x001F9363 64B ??0?$hashtable@U?$pair@$$CBHURva001F9363Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@U?$pair@$$CBHURva001F9363Element@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001F9363.cpp (not merged yet)
 
-// tu-skeleton: 0x001F93A3 36B ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp
+
+// ?insertWithGrow@Rva000427195@@QAE?AUInsertRet001F8F2A@@PBX@Z retail 0x001F93A3 36 bytes.
+// Hashtable insert with grow: loads count at +0x10 inc calls pinned grow
+// rva00212858 at 0x00212858 then tail-returns rowed insert rva001F8F2A at
+// 0x001F8F2A with the same hidden return and key. Class proven by +0x10
+// count and both callee owners. Callers at 0x001FA467 0x001FC2DF 0x001FCFC6.
+// Evidence: callees 0x00212858 pinned 0x001F8F2A rowed ret 8 struct-return.
+// Precedent: Code/GameEngine/Source/GameClient/Rva0041557AInsert.cpp.
+
+InsertRet001F8F2A Rva000427195::insertWithGrow(const void *key)
+{
+	rva00212858(m_numElements + 1);
+	return rva001F8F2A(key);
+}
+
+InsertRet001F8F2A Rva001FA45F::rva001FA45F(const void *key)
+{
+	return m_table.insertWithGrow(key);
+}
 
 // tu-skeleton: 0x001F93C7 36B ?str@?$basic_stringbuf@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x001F93EB 23B ?rva001F93EB@Rva001F93EB@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001F93EB.cpp (not merged yet)
 
 // tu-skeleton: 0x001F9402 34B ?rva001F9402@Rva001F9402@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9402.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva001F6492Chain.cpp
-
-void Rva001F9424::rva001F9424(int a, int b)
-{
-    Rva001F6492Helper *linkHelper = m_ptr;
-    if (linkHelper)
-        linkHelper->m3(a, b);
-    m_next.rva001F8DE2(a, b);
-}
-
-void Rva001FA4C6::rva001FA4C6(int a, int b)
-{
-    Rva001F6492Helper *linkHelper = m_ptr;
-    if (linkHelper)
-        linkHelper->m3(a, b);
-    m_next.rva001F9424(a, b);
-}
-
-void Rva001FA7CE::rva001FA7CE(int a, int b)
-{
-    Rva001F6492Helper *linkHelper = m_ptr;
-    if (linkHelper)
-        linkHelper->m3(a, b);
-    m_next.rva001FA4C6(a, b);
-}
 
 // tu-skeleton: 0x001F944E 23B ?rva001F944E@Rva001F944E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001F944E.cpp (not merged yet)
 
@@ -3367,7 +3213,12 @@ void Rva001FA7CE::rva001FA7CE(int a, int b)
 
 // tu-skeleton: 0x001F9C73 69B ??0Rva001F9C73@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp (not merged yet)
 
-// tu-skeleton: 0x001F9CB8 18B ??0Rva001F9CB8@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001F9CB8Ctor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001F9CB8Ctor.cpp
+
+Rva001F9CB8::Rva001F9CB8()
+	: m_00(0)
+{
+}
 
 // tu-skeleton: 0x001F9CCA 41B ??4Rva001F9CCA@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp (not merged yet)
 
@@ -3382,8 +3233,6 @@ void Rva001FA7CE::rva001FA7CE(int a, int b)
 // tu-skeleton: 0x001FA04B 1013B ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplayBody.cpp (not merged yet)
 
 // tu-skeleton: 0x001FA440 31B ??0Rva001FA440@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Thing/Rva001FA440Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x001FA45F 20B ?rva001FA45F@Rva001FA45F@@QAE?AUInsertRet001F8F2A@@PBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp (not merged yet)
 
 // tu-skeleton: 0x001FA473 26B ?str@?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostringstream_dtor.cpp (not merged yet)
 
@@ -3518,6 +3367,14 @@ void Rva001FA7CE::rva001FA7CE(int a, int b)
 // tu-skeleton: 0x0076B3D0 8B Unwind@00b6b3d0 -- matched in Code/GameEngine/Source/GameClient/System/rva001F5923Rva001F5923Farm.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B3D8 10B __ehhandler$?rva001F5923@Rva001F5923@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/rva001F5923Rva001F5923Farm.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B3E2 8B $L374 -- matched in Code/GameEngine/Source/Common/Rva001F5BBE.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B3EA 10B __ehhandler$?rva001F5BBE@Rva001F58D4@@QAEXPAURva001F5BBEArg@@@Z -- matched in Code/GameEngine/Source/Common/Rva001F5BBE.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B3F4 8B $L13866 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
+
+// tu-skeleton: 0x0076B3FC 10B __ehhandler$?_M_put_char@?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@QAEXD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ostream_put_num.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B5DF 8B Unwind@00b6b5df -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemManagerFindTemplate.cpp (not merged yet)
 
