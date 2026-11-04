@@ -94,13 +94,7 @@ public:
 };
 extern AI *TheAI;
 
-class WeaponTemplate
-{
-public:
-	float getMinimumAttackRange() const;
-	char m_pad000[0x125];
-	bool m_meleeWeapon;							// +0x125: melee
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class Rva002C9B80Owner
 {
@@ -149,7 +143,7 @@ bool Weapon::isSourceObjectWithGoalPositionWithinAttackRange(const Object *sourc
 bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 	Object *victim, const Coord3D *victimPos, float bonus, bool checkMinimum)
 {
-	if (m_template->m_meleeWeapon)
+	if (m_template->m_field125)	// +0x125: melee
 	{
 		if (!victim)
 			return false;
