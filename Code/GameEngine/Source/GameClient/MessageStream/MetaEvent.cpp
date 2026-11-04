@@ -18,7 +18,7 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-extern "C" int __cdecl abs(int);
+#include <stdlib.h>
 
 void buildRegion(const ICoord2D *anchor, const ICoord2D *dest, IRegion2D *region);
 
@@ -219,7 +219,7 @@ private:
 // rowed operator delete when flags bit0 is set. Evidence: chain caller of
 // landed 0x001DB60F plus vtable slot 0 of 0x007DBA7C plus rowed delete
 // 0x0002FD60. Honest address name on proven owner.
-void __cdecl operator delete(void *p);
+#include <new>
 
 class MetaMapRec
 {

@@ -78,9 +78,7 @@ struct RGBAColorInt;
 #include "../../Include/Common/BfmeXfer.h"
 #include <list>
 #include <new>
-struct _iobuf;
-typedef struct _iobuf FILE;
-extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
+#include <stdio.h>
 // ZH ReplayGameInfo derives from GameInfo; its ctor/dtor are rowed at 0x0037BADD / 0x0037BB53.
 class Rva0037BB53 : public GameInfo
 {

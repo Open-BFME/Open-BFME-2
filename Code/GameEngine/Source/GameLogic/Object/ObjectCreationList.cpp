@@ -560,7 +560,7 @@ template GenericObjectCreationNugget::AnimSet * _STL::__uninitialized_copy<Gener
 // Instantiate the recovered operation and its required template dependencies.
 template GenericObjectCreationNugget::AnimSet * _STL::__uninitialized_fill_n<GenericObjectCreationNugget::AnimSet *, unsigned int, GenericObjectCreationNugget::AnimSet>(GenericObjectCreationNugget::AnimSet *, unsigned int, GenericObjectCreationNugget::AnimSet const &, _STL::__false_type const &);
 
-extern "C" void __cdecl free(void *block);
+#include <stdlib.h>
 
 struct Rva001F077DBuf
 {

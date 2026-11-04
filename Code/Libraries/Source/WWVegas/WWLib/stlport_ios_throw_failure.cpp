@@ -7,13 +7,7 @@
 // _iob[2] through the dllimport array slot, which is what the
 // `mov eax,[...]` / `add eax,0x40` pair is.
 
-struct FILE
-{
-	unsigned char _reserved[32];
-};
-
-extern "C" __declspec(dllimport) FILE _iob[];
-extern "C" __declspec(dllimport) int __cdecl fputs(const char *string, FILE *stream);
+#include <stdio.h>
 
 namespace _STL
 {

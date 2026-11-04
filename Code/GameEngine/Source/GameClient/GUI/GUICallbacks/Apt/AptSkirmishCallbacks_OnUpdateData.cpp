@@ -47,7 +47,7 @@ void GadgetListBoxSetSelected(GameWindow *listBox, int selectIndex);
 void GadgetListBoxReset(GameWindow *listBox);
 int GadgetListBoxAddEntryText(GameWindow *listBox, UnicodeString text, int color, int row, int column, bool overwrite);
 
-extern "C" int __cdecl strcmp(const char *left, const char *right);
+#include <string.h>
 
 class BfmeKeyLC;
 class BfmeObjENK;
@@ -175,7 +175,7 @@ class GameSlot;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern int g_Va00E0333C;
-void __cdecl operator delete(void *p);
+#include <new>
 void Rva00521643Enable();
 
 
