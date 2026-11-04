@@ -103,7 +103,7 @@ extern "C" const void *const g_openPlayTable6C[3] = {
 };
 
 // Retail table at VA 0x00C73DCC.
-extern "C" const void *const g_rva005BA28ETable00[11] = {
+extern "C" const void *const g_customMatchScreenTable00[11] = {
 	(const void *)&__identifier("??_GRva005BA2CB@@UAEPAXI@Z"), // slot 0, RVA 0x005BA303
 	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
 	(const void *)&__identifier("?InitGadgets@AptOnlineCustomMatch@@UAEXXZ"), // slot 2, RVA 0x0059EFA0
@@ -118,7 +118,7 @@ extern "C" const void *const g_rva005BA28ETable00[11] = {
 };
 
 // Retail table at VA 0x00C73D70.
-extern "C" const void *const g_rva005BA28ETable60[23] = {
+extern "C" const void *const g_customMatchScreenTable60[23] = {
 	(const void *)&__identifier("??_ERva005BA2CB@@WGA@AEPAXI@Z"), // slot 0, RVA 0x005BA2F3
 	(const void *)&__identifier("?rva0059EBDE@AptOnlineCustomMatch@@UAE_NXZ"), // slot 1, RVA 0x0059EBDE
 	(const void *)&__identifier("?rva0059EBFE@AptOnlineCustomMatch@@UAEXXZ"), // slot 2, RVA 0x0059EBFE
@@ -145,7 +145,7 @@ extern "C" const void *const g_rva005BA28ETable60[23] = {
 };
 
 // Retail table at VA 0x00C73D60.
-extern "C" const void *const g_rva005BA28ETable6C[3] = {
+extern "C" const void *const g_customMatchScreenTable6C[3] = {
 	(const void *)&__identifier("?rva0059EF57@Rva0059EF57@@QAEXHHH@Z"), // slot 0, RVA 0x0059EF57
 	(const void *)&__identifier("?rva0059EF57@Rva0059EF57@@QAEXHHH@Z"), // slot 1, RVA 0x0059EF57
 	(const void *)&__identifier("??_ERva005BA2CB@@WGM@AEPAXI@Z"), // slot 2, RVA 0x005BA2FB
@@ -204,9 +204,9 @@ private:
 Rva005BA28E::Rva005BA28E(int arg)
 	: AptOnlineCustomMatch(arg, 1)
 {
-	m_table00 = g_rva005BA28ETable00;
-	m_table60 = g_rva005BA28ETable60;
-	m_table6C = g_rva005BA28ETable6C;
+	m_table00 = g_customMatchScreenTable00;
+	m_table60 = g_customMatchScreenTable60;
+	m_table6C = g_customMatchScreenTable6C;
 	if (g_rva005BA28EInst == 0)
 		g_rva005BA28EInst = this;
 }
