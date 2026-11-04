@@ -290,13 +290,7 @@ struct PlayerTeamNode
 	TeamPrototype *m_value;
 };
 
-class Player
-{
-public:
-	bool rva002AB87D(const UpgradeTemplate *t) const;
-	char m_pad00[0x32C];
-	PlayerTeamNode *m_head32C; // +0x32C
-};
+#include "../../../../Include/Common/Player.h"
 
 struct Rva00485C19Ctx
 {
@@ -678,7 +672,7 @@ CreateObjectDieIfEldestKindof::CreateObjectDieIfEldestKindof(Thing *thing, const
 
 Bool StatusBitsEldestFrame::rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key)
 {
-	PlayerTeamNode **head = &obj->getControllingPlayer()->m_head32C;
+	PlayerTeamNode **head = &obj->getControllingPlayer()->m_playerTeamPrototypes;
 	Rva00485C19Ctx ctx;
 	ctx.m_found = 0;
 	ctx.m_best = -1;
