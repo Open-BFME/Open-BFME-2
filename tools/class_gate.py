@@ -220,9 +220,11 @@ def scoped_move_spans(text):
                 return []
             _, head, scope = stack.pop()
             unproven.pop()
-            if head:
-                if head.group('template'):
-                    return []
+            # A template body is never credited, but it does not void the
+            # unit's other spans: a TU merge that also composes a template
+            # (an STLport specialization, a local container) still moves its
+            # ordinary class bodies verbatim.
+            if head and not head.group('template'):
                 spans.append((head.group('name'), head.start(), pos + 1, scope))
         elif all(frame[0] is not None for frame in stack):
             # A semicolon ends text, not the uncertainty of a macro expansion.

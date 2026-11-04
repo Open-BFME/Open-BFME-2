@@ -463,3 +463,47 @@ def test_semicolon_declaration_before_class_still_credits_move(repo, capsys):
     merge_into(repo, FILLER + X_BODY + FRESH, OLD)
     assert class_gate.staged_renames() == {}
     assert repo.gate(capsys) == (0, '')
+
+
+TEMPLATE = 'template <class T> struct Box { T *m_p; };\ntemplate <> struct Box<int> { int m_v; };\n'
+
+
+@pytest.mark.parametrize('where', ['before', 'after'])
+def test_template_elsewhere_keeps_other_move_credit(where):
+    # A template body is never credited, but it no longer voids the unit's
+    # ordinary spans (a TU merge that composes an STLport specialization).
+    text = TEMPLATE + X_BODY if where == 'before' else X_BODY + TEMPLATE
+    found = class_gate.moved_bodies(text)
+    assert found['X'] == class_gate.moved_bodies(X_BODY)['X']
+    assert 'Box' not in found
+
+
+@pytest.mark.parametrize('side', ['donor', 'destination', 'both'])
+def test_tu_merge_beside_a_template_credits_the_moved_body(repo, capsys, side):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    old = (TEMPLATE if side in ('donor', 'both') else '') + X_BODY
+    new = (TEMPLATE if side in ('destination', 'both') else '') + X_BODY
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    assert repo.gate(capsys) == (0, '')
+
+
+def test_tu_merge_beside_a_template_still_refuses_an_edited_body(repo, capsys):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, TEMPLATE + X_BODY + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + TEMPLATE + X_BODY.replace('int a;', 'int b;') + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+def test_template_body_of_a_registered_class_is_never_credited(repo, capsys):
+    # The donor's X is a template; a plain X in the merged unit is new.
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, 'template <class T> class X { int a; };\n' + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + X_BODY + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
