@@ -37,22 +37,7 @@ public:
 	NameKeyType nameToKey(const AsciiString &nameString);
 };
 
-class PlayerTemplate
-{
-public:
-    const AsciiString &getSpecialPowerShortcutCommandSet() const { return m_specialPowerShortcutCommandSet; }
-    const AsciiString &getSpecialPowerShortcutWinName() const { return m_specialPowerShortcutWinName; }
-    int getSpecialPowerShortcutButtonCount() const { return m_specialPowerShortcutButtonCount; }
-    const AsciiString &getBeaconTemplate() const { return m_beaconTemplate; }
-    char m_pad00[0x138];
-    AsciiString commandSet;
-    char m_pad13C[4];
-    AsciiString m_specialPowerShortcutCommandSet;
-    AsciiString m_specialPowerShortcutWinName;
-    int m_specialPowerShortcutButtonCount;
-    char m_pad14C[0x17C - 0x14C];
-    AsciiString m_beaconTemplate; // +0x17C
-};
+#include "../../../../Include/Common/PlayerTemplate.h"
 
 #include "../../../../Include/Common/Player.h"
 
