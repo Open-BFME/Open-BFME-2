@@ -98,65 +98,14 @@ struct Rva002BE8F9Pair
 	float b;
 };
 
-class LivingWorld
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14(void *a, void *b);
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19(int a, int b);
-	virtual void v20();
-	virtual void v21();
-	virtual void v22(void *p);
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void v27();
-	virtual void v28();
-	virtual void v29();
-	virtual void v30();
-	virtual void v31();
-	virtual void v32();
-	virtual void v33();
-	virtual void v34();
-	virtual void v35();
-	virtual void v36();
-	virtual void v37();
-	virtual void v38();
-	virtual void v39();
-	virtual void v40(int a);
-	void ZoomInTo(void *arg);
-private:
-	char m_pad04[0x14 - 0x04];
-	int m_14;
-	unsigned char m_18;
-	char m_pad19[0x1C - 0x19];
-	int m_1c;
-};
+#include "../../Include/GameLogic/LivingWorldClass.h"
 
 // ?ZoomInTo@LivingWorld@@QAEXPAX@Z
 void LivingWorld::ZoomInTo(void *arg)
 {
 	if (m_18 == 0)
 		return;
-	switch (m_14)
+	switch (field14)
 	{
 	case 1:
 		{
@@ -165,7 +114,7 @@ void LivingWorld::ZoomInTo(void *arg)
 				return;
 			int itemValue = *(int *)((char *)item + 0x12C);
 			Rva0020F27EHost *host = TheLivingWorldLogic->m_b0;
-			if (!host->rva0020F27E(itemValue, (int)&m_1c))
+			if (!host->rva0020F27E(itemValue, (int)&field1C))
 				return;
 			v40(1);
 			TheMouse->m19(0);
