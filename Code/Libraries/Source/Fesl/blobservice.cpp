@@ -316,16 +316,20 @@ public:
 	void reset();
 	void setError(int error);
 	int getError();
-
+	__int64 getInt64( const char *key, __int64 defaultValue );
+	void addInt64(const char *key, __int64 value);
+	char m_pad00[0x10];
 private:
-	char m_pad[0x10];
-	char *m_record;       // +0x10
-	int m_capacity;       // +0x14
-	int m_position;       // +0x18
-	char m_pad1C[8];
-	int m_error;          // +0x24
-	char m_pad28[4];
-	int m_state;          // +0x2C
+	char *m_record; // +0x10
+	int m_capacity; // +0x14
+	int m_position; // +0x18
+public:
+	unsigned int m_category; // +0x1C
+	char m_pad20[0x4];
+private:
+	int m_error; // +0x24
+	char m_pad28[0x4];
+	int m_state; // +0x2C
 };
 
 // ---- from Code/Libraries/Source/Fesl/blobservice.cpp
