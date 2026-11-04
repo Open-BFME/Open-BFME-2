@@ -113,7 +113,7 @@ class Player;
 // destructors used by AIBuilder.cpp. Account for each vptr in the opaque size.
 // The +0x38 constructor and destructor both install vtable VA 0x00C70D2C:
 // use the destructor owner's established class name for both operations.
-class AIBaseBuilder { public: AIBaseBuilder(void *player); virtual ~AIBaseBuilder(); char m_data[0x30]; };
+#include "../../../../GameEngine/Include/GameLogic/AIBaseBuilder.h"
 class Rva00598B2A { public: Rva00598B2A(void *player); virtual ~Rva00598B2A(); char m_data[0x54]; };
 class Rva0059A85C { public: Rva0059A85C(void *player); virtual ~Rva0059A85C(); char m_data[0x20]; };
 class Rva004EA3B8 { public: Rva004EA3B8(void *player); virtual ~Rva004EA3B8(); char m_data[0x2C]; };
