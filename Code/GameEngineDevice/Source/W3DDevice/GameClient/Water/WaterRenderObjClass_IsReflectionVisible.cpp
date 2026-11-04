@@ -3,23 +3,13 @@
 // are measured; original receiver and predicate names are unresolved.
 // Existing ReflectionTexture callback80168 independently binds globals
 // TheWritableGlobalData+5E and TheWaterTransparency final override+50.
-// Reuse the existing native14B Rva001E35DFView getter without a new name.
+// The inline Overridable::getFinalOverride compiles to the native 14B getter.
 // Callee308DF0 uses ECX and RET0, returning owned pointer84 in EAX.
 // Callee7FB85 uses ECX and arg8, returns AL, RET4 after polygon clipping.
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct GlobalDataGate {char unknown00[0x5e];bool enabled;};
-class Rva001E35DFView {
-public:
- const Rva001E35DFView *getFinalOverride() const {
-  if(next)return next->getFinalOverride();
-  return this;
- }
- void *unknown00;Rva001E35DFView *next;bool isOverride;
-};
-class WaterTransparencySetting : public Rva001E35DFView {
-public:char unknown0C[0x44];bool flag50;
-};
+#include "../../../../../GameEngine/Include/GameClient/Water.h"
 template<class T> class OVERRIDE {
 public:
  operator const T *() const {if(!pointer)return 0;return (const T *)pointer->getFinalOverride();}
@@ -40,7 +30,7 @@ private:char unknown00[0x108];Rva0007FD89Entry **first,**last,**capacity;
 bool WaterRenderObjClass::IsReflectionVisible(void *input)
 {
  if(!input)return false;
- if(reinterpret_cast<GlobalDataGate *>(TheWritableGlobalData)->enabled && TheWaterTransparency && TheWaterTransparency->flag50) {
+ if(reinterpret_cast<GlobalDataGate *>(TheWritableGlobalData)->enabled && TheWaterTransparency && TheWaterTransparency->m_unk50) {
   for(Rva0007FD89Entry **it=first;it!=last;++it) {
    Rva0007FD89Entry *entry=*it;
    Rva00308DF0Ref *data=entry->owner->rva00308DF0();
