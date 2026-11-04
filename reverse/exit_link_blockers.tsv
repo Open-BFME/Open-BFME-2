@@ -1,9 +1,7 @@
-# real link at 612abfbebb845fb97ceae4e8e772900e7e335027: tools/exit_link.py --blockers
+# real link at efbd3f2cb226039b7ab0127d00c8653fc04f3df0: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameClient/GUI/Rva0057621ACtor.cpp	10	??1Rva005753E2Listener@@QAE@XZ
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	7	??0TextureClass@@QAE@IIW4WW3DFormat@@W4MipCountType@@W4PoolType@TextureBaseClass@@_N3@Z
 Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	6	??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	5	?computePointOnPath@Path@@QAEXPBVObject@@ABVLocomotorSet@@ABUCoord3D@@AAUClosestPointOnPathInfo@@@Z
 Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp	5	??1BFMENetwork@@UAE@XZ
 Code/GameEngine/Source/GameClient/GUI/Rva005776A7Ctor.cpp	3	??1Rva005776A7@@UAE@XZ
 Code/GameEngine/Source/GameClient/RegionDetailsStructuresIconCtor.cpp	3	??1Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAE@XZ
@@ -23,6 +21,8 @@ Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	1	?getProductionCostChange
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp	1	??1T1Base_005F3750@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	1	?crc@UpdateModule@@MAEXPAVXfer@@@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationInfoVectorInsert.cpp	1	??0W3DAnimationInfo@@QAE@ABV0@@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	1	?freeBytes@AsciiString@@AAEXXZ
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp	1	??1VideoBuffer@@UAE@XZ
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	1	??MRva0016DEC0Element@@QBE_NABU0@@Z
