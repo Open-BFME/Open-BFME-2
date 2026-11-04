@@ -20,11 +20,7 @@ enum ObjectStatusTypes {};
 class Object; class Team; class Player;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct AttackThingTemplateView { char pad[0x108]; unsigned char kinds[0x20]; };
-class WeaponTemplate { public:
- char pad00[8]; AsciiString name;
- char pad0c[0x76]; bool field82;
- char pad83[0xC5]; float m_continueAttackRange;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 class Object {
 public:
@@ -89,7 +85,7 @@ StateReturnType AIAttackState::onEnter() {
  if((unsigned char)source->rva0028B38D()) machineType=0;
  else if(source->testStatus((ObjectStatusTypes)37)) machineType=5;
  else if(source->m_template->kinds[13]&0x20) { if(!melee && !attackingObject) machineType=7; else machineType=6; }
- else if(weapon->m_template->field82) machineType=8;
+ else if(weapon->m_template->m_field82) machineType=8;
  else if(melee) machineType=reinterpret_cast<const Rva002C940EByteField*>(weapon->m_template)->get()?1:2;
  else machineType=attackingObject?3:4;
  createAttackMachine(source);
@@ -113,7 +109,7 @@ StateReturnType AIAttackState::onEnter() {
  weapon->m_maxShotCount=0x7FFFFFFF;
  if(weapon->m_template->m_continueAttackRange>0) source->setStatus((ObjectStatusTypes)27,true);
  if(reinterpret_cast<const Rva0028B7B5CmpBoolField*>(source)->get() && source->getCurrentWeapon(0))
-  lockedWeapon=source->getCurrentWeapon(0)->m_template->name;
+  lockedWeapon=*(const AsciiString *)&(source->getCurrentWeapon(0)->m_template->m_field08);
  else lockedWeapon.clear();
  StateReturnType ret=attackMachine->initDefaultState();
  if(ret==STATE_CONTINUE) {
