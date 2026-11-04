@@ -11,14 +11,23 @@
 // neighbours FrameDataManagerReset/Counts.
 //
 
+class NetCommandRef;
+class NetCommandMsg;
+class NetCommandList;
 class FrameData
 {
 public:
+	__declspec(noinline) void zeroFrame();
+	void init(void);
+	void setFrameCommandCount(unsigned int count);
+	NetCommandRef *addCommand(NetCommandMsg *msg);
 	FrameData();
 	~FrameData();
-	void init();
 private:
-	char m_pad[0x14];
+	unsigned int m_frameCommandCount; // +0x00
+	unsigned int m_commandCount; // +0x04
+	NetCommandList *m_commandList; // +0x08
+	char storage[8]; // +0x0C
 };
 
 #include <new>
