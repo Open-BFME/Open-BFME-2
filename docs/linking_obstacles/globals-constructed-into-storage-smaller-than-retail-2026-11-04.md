@@ -47,6 +47,16 @@ that size except `g_aptDateInterpreter`, whose last proven write is +0x3C.
   and `tools/data_rows.py` measures the plain name, so the row was removed. The gap of 8 was far below the true size: the
   ledger's next name is a field of the same object, so a small gap does not mean a small object.
 
+- `g_Va00E06360`: first sized to its 20-byte gap, wrongly. Constructor 0x0057AA45 writes out to +0x20. The ledger's
+  `g_00E06374`, `g_00E06378` and `g_00E0637C` were its words 5 to 7, so `StrategicHUD.cpp` read ints nothing wrote.
+
+**An object recorded as several globals.** The ledger knows addresses, so a field used on its own looks like a separate
+global, its gap is too small, and code reads the wrong memory. So the gap is not a safe size: read the constructor.
+`constructed_undersized` compares against the gap and misses these once sized to it. A one-off scan of 71 constructed
+globals against their constructor's highest store found only `g_Va00E06360` and `g_Va00E06634`, but it cannot see a class
+whose name differs from its constructor's row, as `g_00DFE7A8`'s does. No check enforces this yet. Leads with close
+neighbours to read: `g_Va00E032E8`, `g_Va00E048C4`.
+
 **False alarm, read against retail:** `g_00E02EAC` is a 16-byte `Region2D`; the gap of 20 is padding.
 
 **Done, in `Rva007ABD4BGeometryInits.cpp` and `Rva007B401CButtonNameInits.cpp`:** the names those files construct.
@@ -58,7 +68,7 @@ and `g_Va00DEDC80`.
 
 **Open:**
 
-- `g_Va00E06634` (gap 12, then `delay` at +8): one object recorded as two globals. Retail's constructor at 0x005D00A6
+- `g_Va00E06634` (16 bytes; the ledger's gap of 12 is short): one object recorded as two globals. Retail's constructor at 0x005D00A6
   stores 1000 at +8 and +0xC, so the row `?delay@Rva005CF9FF@@2IA` at 0x00E0663C, in
   `StrategicInGameUIBattleResolver.cpp`, is this object's +8. Ours is a separate zero, so the battle resolver's wait never
   happens, and the constructor writes past 4 bytes. Fix: make it an array with `delay` as `[2]`, retiring that row. The
