@@ -25,19 +25,7 @@ class GameEngine : public VirtualSlots<23>
 public:
 	virtual void slot23();
 };
-class Display : public VirtualSlots<66>
-{
-public:
-	virtual void slot66(AsciiString name, int flags, int a, int b);
-	virtual void d67();
-	virtual void slot68();
-	virtual void d69(); virtual void d70(); virtual void d71();
-	virtual void slot72(AsciiString name, int flags);
-	virtual void slot73(int value);
-	void rva002B2466(float x0, float y0, float x1, float y1);
-	void SetMovieImage(int image, int layer, float x0, float y0, float x1, float y1);
-	void rva0025D358(UnicodeString text, float x, float y, int font, int color, int flags);
-};
+#include "../../Include/GameClient/Display.h"
 class W3DDisplay
 {
 public:
@@ -62,7 +50,6 @@ extern FontLibrary *TheFontLibrary;
 extern GameTextInterface *TheGameText;
 #include "../../Include/Common/GlobalData.h"
 extern GameEngine *TheGameEngine;
-extern Display *TheDisplay;
 extern GlobalData *TheWritableGlobalData;
 class GameInfo;
 class Rva003560ED
@@ -80,13 +67,13 @@ void Rva003560ED::rva00355DF4(int)
 {
 	TheGameEngine->slot23();
 	if (TheWritableGlobalData->field11C8)
-		TheDisplay->slot73(0);
+		TheDisplay->rva0025CF2A(0);
 }
 void Rva003560ED::rva00355E20(int, int)
 {
 	TheGameEngine->slot23();
 	if (TheWritableGlobalData->field11C8)
-		TheDisplay->slot73(0);
+		TheDisplay->rva0025CF2A(0);
 }
 
 // ?rva00355E4C@Rva003561BE@@UAE_NXZ @0x00355E4C 57B
@@ -158,7 +145,7 @@ void Rva003561BE::rva00355E85()
 		m_20 = 1;
 	}
 	clearGameLogicFlag78();
-	TheDisplay->slot68();
+	TheDisplay->stopMovie();
 	((W3DDisplay *)TheDisplay)->rva0025D2F6();
 	m_08 &= 0;
 }
@@ -198,10 +185,10 @@ void Rva003561BE::rva00356889(GameInfo *)
 	if (!TheWritableGlobalData->field11C8)
 	{
 		if (TheDisplay)
-			TheDisplay->slot72(movieName, flags);
+			TheDisplay->rva0025DA8D(movieName, flags);
 	}
 	else
-		TheDisplay->slot66(movieName, 0x14, -1, -1);
+		TheDisplay->rva0025C97E(movieName, 0x14, -1, -1);
 	((Rva00356284 *)this)->rva00356284();
 	bool exists = false;
 	GameFont *font = TheFontLibrary->getFont(&AsciiString("SachaWynter"), 18.0f, false);
@@ -234,9 +221,9 @@ void Rva003560ED::rva00356724(GameInfo *)
 		if (!TheWritableGlobalData->field11C8)
 		{
 			if (TheDisplay)
-				TheDisplay->slot72(movieName, 4);
+				TheDisplay->rva0025DA8D(movieName, 4);
 		}
 		else
-			TheDisplay->slot66(movieName, 4, -1, -1);
+			TheDisplay->rva0025C97E(movieName, 4, -1, -1);
 	}
 }

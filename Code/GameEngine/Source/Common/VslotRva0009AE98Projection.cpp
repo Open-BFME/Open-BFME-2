@@ -16,18 +16,7 @@ public:
 	ProjectionResType Project(Vector3 &dest, const Vector3 &source) const;
 };
 
-class Display
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-#undef V
-	virtual unsigned int GetWidth();
-	virtual unsigned int GetHeight();
-};
-
-extern Display *TheDisplay;
+#include "../../Include/GameClient/Display.h"
 void __cdecl W3DLogicalScreenToPixelScreen(float, float, int *, int *, int, int);
 
 class Rva0009AE98
@@ -55,8 +44,8 @@ bool Rva0009AE98::rva0009AE98(const Vector3 *point, int *screen)
 	source.Z = point->Z;
 	Vector3 projected;
 	CameraClass::ProjectionResType result = m_camera->Project(projected, source);
-	float width = (float)TheDisplay->GetWidth();
-	float height = (float)TheDisplay->GetHeight();
+	float width = (float)TheDisplay->getWidth();
+	float height = (float)TheDisplay->getHeight();
 	W3DLogicalScreenToPixelScreen(projected.X, projected.Y, &screen[0], &screen[1], width, height);
 	if (projected.X > 2.0f)
 		return false;
