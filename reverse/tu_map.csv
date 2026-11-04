@@ -49358,7 +49358,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005BA359,20,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp
 0x005BA36D,50,code,Code/GameEngine/Source/Common/AptOnlineQuickMatch.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptOnlineQuickMatch.cpp,Code/GameEngine/Source/Common/Rva005BA36DGet.cpp
 0x005BA39F,14,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
-0x005BA3AD,19,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA39F..0x005BA3C0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp
+0x005BA3AD,19,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA39F..0x005BA3C0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 0x005BA3C0,53,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/GameSpy/LadderPref.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp
 0x005BA3F5,75,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,U,N=Code/GameEngine/Source/Common/LadderPref.cpp,Code/GameEngine/Source/Common/LadderPrefCopy.cpp
 0x005BA440,327,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,approved,C,C=0x005BA3F5..0x005BA587,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
