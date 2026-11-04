@@ -1,0 +1,115 @@
+{
+  "comparison": "merged object against prerequisite input union; null verdicts are digest-only, not retail judgments",
+  "checks": {
+    "comdat_union": true,
+    "strong_union": true,
+    "external_dependencies": true,
+    "weak_union": true,
+    "common_union": true
+  },
+  "merged_facts": [
+    [
+      [
+        "?getObject@ObjectModule@@IAEPAVObject@@XZ",
+        "dbc10ce76e7d",
+        4,
+        null
+      ],
+      [
+        "??_H@YGXPAXIHP6EPAX0@Z@Z",
+        "6246c280fc30",
+        34,
+        null
+      ],
+      [
+        "??0Version@Xfer@@QAE@EE@Z",
+        "e198e1c25236",
+        18,
+        null
+      ],
+      [
+        "?getModuleNameKey@AISpecialPowerUpdate@@UBE?AW4NameKeyType@@XZ",
+        "6aafe756b400",
+        69,
+        null
+      ],
+      [
+        "??_C@_0BF@MHDDIAPK@AISpecialPowerUpdate?$AA@",
+        "70d115f15fff",
+        21,
+        null
+      ],
+      [
+        "?rva004B2F7B@Rva004B2F7B@@QAE_NPBVSpecialPowerTemplate@@@Z",
+        "2f6818bc2047",
+        82,
+        null
+      ],
+      [
+        "??0AISpecialPowerUpdateModuleData@@QAE@XZ",
+        "72bc5b373dce",
+        38,
+        null
+      ],
+      [
+        "__real@bf800000",
+        "4e1d91c11851",
+        4,
+        null
+      ],
+      [
+        "?update@AISpecialPowerUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+        "9628641a1740",
+        211,
+        null
+      ],
+      [
+        "?xfer@AISpecialPowerUpdate@@MAEXPAVXfer@@@Z",
+        "1845011c1f5f",
+        153,
+        null
+      ]
+    ],
+    [
+      "_vtbl_00C56F48",
+      "?getModuleNameKey@AISpecialPowerUpdate@@UBE?AW4NameKeyType@@XZ",
+      "?rva004B2F7B@Rva004B2F7B@@QAE_NPBVSpecialPowerTemplate@@@Z",
+      "??0AISpecialPowerUpdateModuleData@@QAE@XZ",
+      "?update@AISpecialPowerUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+      "?xfer@AISpecialPowerUpdate@@MAEXPAVXfer@@@Z"
+    ],
+    [
+      "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+      "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+      "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+      "?IsCRC@Xfer@@UBE_NXZ",
+      "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+      "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+      "??1Coord2D@@QAE@XZ",
+      "??_GAISpecialPowerUpdateModuleData@@UAEPAXI@Z",
+      "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+      "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__EH_prolog",
+      "?getSpecialPowerModule@Object@@QBEPAVSpecialPowerModuleInterface@@PBVSpecialPowerTemplate@@@Z",
+      "?canUseSpecialPower@SpecialPowerStore@@QAE_NPAVObject@@PBVSpecialPowerTemplate@@@Z",
+      "?TheSpecialPowerStore@@3PAVSpecialPowerStore@@A",
+      "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z",
+      "__fltused",
+      "?rva0058ADA8@Rva0058ADA8@@QAEXH@Z",
+      "?fromGate@Rva002A9BF2@@QAE_NPAV1@@Z",
+      "?Rva0058AEB6Get@@YAHXZ",
+      "?rva0058ADD0@Rva0058ADD0@@QAE_NPAX_N1@Z",
+      "?rva0058AD94@Rva0058AD94@@QAEXH@Z",
+      "?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z",
+      "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+      "?get@Rva002AA22AByteField@@QBEEXZ",
+      "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+      "?postInitAISpecialPower@AISpecialPowerUpdate@@AAEXXZ",
+      "?xfer@UpdateModule@@UAEXPAVXfer@@@Z"
+    ],
+    []
+  ],
+  "merged_common": {}
+}

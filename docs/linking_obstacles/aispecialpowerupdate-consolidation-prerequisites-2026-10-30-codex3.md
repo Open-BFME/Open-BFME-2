@@ -19,4 +19,4 @@ receipt. Carry the retired provider, surviving destination, earlier outgoing
 providers and affected consumers into the next scheduled census. No census
 gain is claimed; the other five donors and two mixed sources stay separate.
 
-2026-11-04: save/load donor declaration prerequisite cleared (7/7 exact, both LINKS, complete external object facts unchanged); supported dry run now accepts the TU plus xfer donor. Constructor/destructor/post-init/secondary-interface prerequisites remain. [Evidence](../../reverse/attempt_support/aispecialpower-xfer-consolidation-20261104/README.md).
+2026-11-04: save/load donor merged into the approved TU (-1 source, 7/7 exact, object union preserved, preview LINKS); constructor/destructor/post-init/secondary-interface prerequisites remain. Whole outgoing audit is INCONCLUSIVE (stale index, six earlier providers lack current receipts); carry providers and affected consumers into the next census. [Evidence and scope](../../reverse/attempt_support/aispecialpower-xfer-consolidation-20261104/README.md).
