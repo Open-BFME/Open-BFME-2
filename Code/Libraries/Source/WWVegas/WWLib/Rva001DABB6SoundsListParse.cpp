@@ -10,8 +10,12 @@
 #include <new>
 #define _OPERATOR_NEW_DEFINED_
 #include <string.h>
+#include <vector>
+// Retail calls both through the IAT; the TU builds with _CRTIMP= empty.
+namespace SoundsListCRT {
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
+}
 #include "../../../../GameEngine/Include/Common/INI/INI.h"
 #include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 struct Rva001DAAF2Element {
@@ -19,17 +23,8 @@ struct Rva001DAAF2Element {
 	int weight;
 	Rva001DAAF2Element(const AsciiString &text, int value) : name(text), weight(value) {}
 };
-namespace _STL {
-template <class T, class A> class vector
-{
-public:
-	void push_back(const T &x);
-};
-template <class T> class allocator
-{
-};
-}
-typedef _STL::vector<Rva001DAAF2Element, _STL::allocator<Rva001DAAF2Element> > Rva001DAAF2Vec;
+typedef _STL::vector<Rva001DAAF2Element> Rva001DAAF2Vec;
+namespace _STL { template <> void Rva001DAAF2Vec::push_back(const Rva001DAAF2Element &x); }
 extern const char g_Rva0107301CEmptyString[];
 void __cdecl Rva001DABB6Parse(INI *ini, void *store, int *totalWeight, void *instance)
 {
@@ -38,12 +33,12 @@ void __cdecl Rva001DABB6Parse(INI *ini, void *store, int *totalWeight, void *ins
 		int tokenLength = strlen(token);
 		if (tokenLength) {
 			const char *end = token + tokenLength - 1;
-			while (end > token && isdigit(*end))
+			while (end > token && SoundsListCRT::isdigit(*end))
 				--end;
 			int weight;
 			AsciiString name;
 			if (*end == ':') {
-				weight = atoi(++end);
+				weight = SoundsListCRT::atoi(++end);
 				if (weight < 1)
 					throw INIException(3, "Weight of sound files must be >= 1. Sound '%s' for audio event '%s'", token, *(const char **)instance ? *(const char **)instance + 8 : g_Rva0107301CEmptyString);
 				name = AsciiString(token, (store ? (end - token - 1) : (end - token - 1)));
