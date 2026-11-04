@@ -44,39 +44,17 @@ struct BfmeStringRecord005D511F {
     ~BfmeStringRecord005D511F();
 };
 namespace _STL { template<> void vector<BfmeStringRecord005D511F>::push_back(const BfmeStringRecord005D511F &); }
-struct BfmeNetAddress {
-    bool Rva00248CBF(const BfmeNetAddress *) const;
-    unsigned int address;
-    unsigned int port;
-};
-struct LANPlayer {
-    UnicodeString name;
-    unsigned char m_unknown04[12];
-    LANPlayer *next;
-    BfmeNetAddress address;
-};
+#include "../../../Include/GameClient/GameText.h"
+#include "../../../Include/GameNetwork/BfmeNetAddress.h"
+#include "../../../Include/GameNetwork/LANPlayerClass.h"
+#include "../../../Include/GameNetwork/LANAPI.h"
 
-// Reduced interfaces: only the native call-site slots are named here.
+// Reduced view: LANGameInfo's game-list link at +0xF5C.
 class GameInfo;
 struct LANGameInfoView {
     char m_pad[0xF5C];
     LANGameInfoView *next;
 };
-class LANAPI {
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-    V10(0) V10(1) V10(2) V10(3) V10(4)
-    V(50) virtual LANGameInfoView *GetGames(); /* +CC */ V(52) V(53) V(54) V(55)
-    virtual GameInfo *GetCurrentGame(); // +E0, used by native 5D56D0
-    V(57) V(58)
-    virtual LANPlayer *GetLobbyPlayers(); // +EC
-    V(60) V(61) V(62) V(63)
-    virtual const BfmeNetAddress *GetLocalAddress(); // +100
-#undef V10
-#undef V
-};
-#include "../../../Include/GameClient/GameText.h"
 extern LANAPI *TheLAN;
 extern GameTextInterface *TheGameText;
 extern int GameSpyColor[];
@@ -102,15 +80,18 @@ void ChatWindowsLan::GetLobbyPlayers(
     LANPlayer *player = TheLAN->GetLobbyPlayers();
     if (!player)
         return;
-    const BfmeNetAddress *local = TheLAN->GetLocalAddress();
+    const BfmeNetAddress *local = TheLAN->getLocalAddress();
     UnicodeString description = TheGameText->fetch("APT:PlayerInLobby", 0);
     do {
-        const BfmeNetAddress &address = player->address;
+        const BfmeNetAddress &address = player->m_address;
         int colorIndex = address.Rva00248CBF(local) ? 10 : 8;
-        BfmeStringRecord005D511F record(player->name, address.address,
-            address.port, description, GameSpyColor[colorIndex]);
+        // Retail pushes the address as two whole dwords (ff 77 04 / ff 37):
+        // the +4 word is the port read with its padding, not zero-extended.
+        const unsigned int *words = reinterpret_cast<const unsigned int *>(&address);
+        BfmeStringRecord005D511F record(player->m_name, words[0],
+            words[1], description, GameSpyColor[colorIndex]);
         players->push_back(record);
-        player = player->next;
+        player = player->m_next;
     } while (player);
 }
 
@@ -187,7 +168,7 @@ bool ChatWindowsLan::rva005D574C()
         return false;
     _STL::vector<BfmeStringRecord005D511F> players;
     GetLobbyPlayers(&players);
-    for (LANGameInfoView *game = TheLAN->GetGames(); game; game = game->next)
+    for (LANGameInfoView *game = reinterpret_cast<LANGameInfoView *>(TheLAN->GetGameList()); game; game = game->next)
         rva005D5648(&players, reinterpret_cast<GameInfo *>(game));
     return PopulatePlayerList(&players);
 }
@@ -202,7 +183,7 @@ bool ChatWindowsLan::rva005D56D0()
 {
     if (!TheLAN)
         return false;
-    GameInfo *game = TheLAN->GetCurrentGame();
+    GameInfo *game = reinterpret_cast<GameInfo *>(TheLAN->GetMyGame());
     _STL::vector<BfmeStringRecord005D511F> players;
     if (game)
         rva005D5648(&players, game);

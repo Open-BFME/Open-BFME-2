@@ -68,3 +68,26 @@ ambiguity, so the header cannot be included until those reconcile.
 - `TheLAN->slotE0()` -> `(GameInfo *)TheLAN->GetMyGame()`.
 - build.sh: 5/5 matched; eh_verify EXACT 1; find_declared_unmatched clean.
 - link_check: LINKED 266 -> 266 bytes. header_adopt_lane accept retired 1 row.
+
+## Batch 5: slots 59/64 named; ChatWindowsLan, OnGameStartTimer, RequestGameStart (2026-11-04)
+
+Target facts: vtable VA 0x00C3E680 slot 59 holds 0x001DB0A8 (`8B 41 0C C3`,
+returns +0x0C, m_lobbyPlayers; the interface table 0x00C3E588 has _purecall
+there) and slot 64 holds 0x0053B8E5 (`8D 41 48 C3`, returns &+0x48,
+m_localAddress). Both bodies are ICF folds already rowed under other owners.
+Names are inferred from the consumer units' spelling (ChatWindowsLan's
+GetLobbyPlayers, LANAPI.cpp/LANAPIhandlers.cpp's getLocalAddress); no donor
+proves them. LANAPI.h declares them inline like slots 51/56; slot 58 stays
+private.
+
+- LANAPILobbyMenuForwarders.cpp already included the header: accept PASS.
+- ChatWindowsLan.cpp adopts LANAPI.h, LANPlayerClass.h and BfmeNetAddress.h
+  (GameText.h first). Retail pushes the address as two whole dwords
+  (`ff 77 04`, `ff 37`); the canonical word port would zero-extend, so the
+  call reads the two dwords. 14/14 matched.
+- LANAPIOnGameStartTimer.cpp, LANAPIRva00449693.cpp: slot 64 is getLocalAddress;
+  slots 42/43 are OnGameStart/OnWOTRGameStart. 6/6 matched.
+- All 20 earlier LANAPI.h includers rebuilt: 156/156 matched.
+- eh_verify: 5 EXACT. find_declared_unmatched clean.
+- accept PASS: LANAPI x4, BfmeNetAddress x1, LANPlayer x1 (6 rows retired).
+- link_check: 3/3 LINKS, LINKED 1,323 -> 1,323 bytes (prediction).

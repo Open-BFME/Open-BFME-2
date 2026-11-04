@@ -95,10 +95,10 @@ public:
 	virtual void fillInLANMessage(LANMessage *message) = 0;			// 57
 
 private:
- // Native positions58/59 lack recovered callable identities.
+ // Native position 58 lacks a recovered callable identity.
  virtual void _bfme_lan58() = 0;
- virtual void _bfme_lan59() = 0;
 public:
+ virtual LANPlayer *GetLobbyPlayers(void) = 0;	// 59
  virtual bool rva00449B79() = 0; //60
 };
 
@@ -158,17 +158,15 @@ public:
 
 private:
  virtual void _bfme_lan58();
- virtual void _bfme_lan59();
 public:
+	virtual LANPlayer *GetLobbyPlayers(void) { return m_lobbyPlayers; }	// 59 (folded +0x0C getter 0x001DB0A8, 8B 41 0C C3)
  virtual bool rva00449B79(); //60
  virtual void rva00248E2F(bool); //61
 private:
  virtual void _bfme_lan62(); //uncallable unknown one-argument native stub
 public:
  virtual LANPlayer *LookupPlayer(const BfmeNetAddress *); //63
-private:
- virtual void _bfme_lan64(); //uncallable native +48 address getter
-public:
+	virtual BfmeNetAddress *getLocalAddress(void) { return &m_localAddress; }	// 64 (folded +0x48 address getter 0x0053B8E5, 8D 41 48 C3)
  void handleGameOptions(LANMessage *,const BfmeNetAddress *);
  void handleGameStartTimer(LANMessage *,const BfmeNetAddress *);
  void Rva004495A2(LANMessage *message, unsigned int ip);	// 0x004495A2 (ZH sendMessage)
