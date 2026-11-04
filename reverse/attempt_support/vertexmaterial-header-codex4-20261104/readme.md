@@ -32,6 +32,11 @@ Verification:
   diagnostic, explicitly not a blocker.
 - After restoring Load_W3D, the final four-file preview reports all four LINKS,
   preserving 3,908 -> 3,908 census-linked bytes, including Load_W3D's 308 bytes.
+- The normal commit hook passes nine rows, one EXACT EH parent, converged data
+  and three-source checks. Its shadow identity scan reports divergent
+  `??4Matrix4@@QAEAAV0@ABV0@@Z` and
+  `?Get_Transform@DX8Wrapper@@SAXHAAVMatrix4@@@Z` helper definitions. These
+  diagnostics are not identity retirements or a claim of clean helper identity.
 
 The fourth queued file, `VertexMaterialLoadW3D.cpp`, was tried with the canonical
 header instead of StringClassData.h and its private class. Its 308-byte row
