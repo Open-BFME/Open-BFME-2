@@ -6,11 +6,7 @@
 // +0x10 world block's flag bytes in retail order
 // 848/849/84E/84A/84B/84C/84F. Member extents past each call site are
 // spacing pads; only the call targets and flag offsets are proven.
-class AIBaseBuilder
-{
-public:
-	void postInit();
-};
+#include "../../Include/GameLogic/AIBaseBuilder.h"
 
 class AIEconomyBuilder
 {
@@ -64,10 +60,7 @@ public:
 	void rva004EBF93();
 private:
 	char m_pad00[4];
-	AIBaseBuilder m_04;
-	char m_pad05[0x08 - 0x05];
-	unsigned char m_8;
-	char m_pad09[0x38 - 0x09];
+	AIBaseBuilder m_04;						// +0x04..+0x38
 	Rva00598CBC m_38;
 	char m_pad39[0x3C - 0x39];
 	unsigned char m_3C;
@@ -99,7 +92,7 @@ void Rva004EBF93::rva004EBF93()
 	m_12C->postInit();
 	Rva004EBF93World *world = (Rva004EBF93World *)((char *)TheSkirmishAIManager + 0x10);
 	if (world->m_848 != 0)
-		m_8 = 1;
+		m_04.field04 = true;
 	if (world->m_849 != 0)
 		m_C4 = 1;
 	if (world->m_84E != 0)
