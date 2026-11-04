@@ -1,0 +1,5 @@
+### LINK-198: HordeMeleeAmoeba emitted vtable blocks consolidation
+Status: Blocked on the seed's element identities and emitted-table provider closure. Updated: 2026-11-04; inspected revision: `132c321fb8`.
+Completed / evidence: canonical setter adoption retires one header-queue row, preserves its 52-byte match and LINKS preview; six-donor merge accepts none. [Scope, refusals and next checks](../../reverse/attempt_support/horde-melee-amoeba-consolidation-20261104-codex3.md).
+Remaining / next check: reconcile `WWLib/HordeMeleeAmoeba.cpp`'s vector<BfmeE16> lifetime/helper identity and the `??_7HordeMeleeAmoeba@@6B@` copy selected after composition, then repeat the setter merge guard; retain LINK-002's overflow-family prerequisites.
+Clearance: setter adoption verified only; consolidation and family linking remain blocked. Census confirmation: awaiting; no new census claimed.
