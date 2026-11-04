@@ -23780,3 +23780,5 @@ Code/Libraries/Source/Apt/Rva006E3230Validate.cpp|member|AptQueuedAction|field14
 Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp|member|MapPreviewTextureAssetFactory|m_30,283a8d1b93cb9c999a443118,claude-opus-5-5,claude3-20261104-134952-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp|member|MapPreviewTextureAssetFactory|m_34,450b58ff8ed4169a8964ae14,claude-opus-5-5,claude3-20261104-134952-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp|function|0x00309E85|rva00309E85,4c3ab75a07e96e25636f8cc6,claude-opus-5-5,claude3-20261104-134952-4,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0040E6D6Forward.cpp|member|Rva0040E6D6Arg|m_1C,8cd656277a89ffd5c95de669,claude-opus-5-5,claude3-20261104-135826-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/BfmeConv448.cpp|function|0x00483BBB|bfmeGoBEC,69a70cea025930e6d0d3b95a,claude-opus-5-5,claude3-20261104-135826-6,w-29a6ae2a2f9f,2026-11-04
