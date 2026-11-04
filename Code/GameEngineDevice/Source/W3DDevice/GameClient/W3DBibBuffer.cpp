@@ -5,7 +5,7 @@
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
 #define Matrix4x4 Matrix4  // BFME renamed it
-#include "W3DDevice/GameClient/W3DBibBuffer.h"
+#include "W3DBibBufferLayout.h"
 #include <stdio.h>
 #include <string.h>
 #include <assetmgr.h>
