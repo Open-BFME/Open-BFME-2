@@ -17,18 +17,13 @@ public:
 	void Unload();
 };
 
-class GenBase009EB7D0
-{
-public:
-	GenBase009EB7D0();
-	virtual ~GenBase009EB7D0();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/GenBase009EB7D0.h"
 
 class Rva00151632 : public GenBase009EB7D0
 {
 public:
 	virtual void rva001517B5();
-	char m_pad04[0x10]; // +0x04..+0x13
+
 	FXShaderAsset::Impl *m_link; // +0x14
 };
 

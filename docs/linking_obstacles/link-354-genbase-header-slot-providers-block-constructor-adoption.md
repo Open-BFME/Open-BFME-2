@@ -1,0 +1,3 @@
+### LINK-354: GenBase009EB7D0 slot providers block constructor header adoption
+Status: Blocked. Updated: 2026-11-04; inspected revision: a3368cc7d7.
+Evidence / next check: [cohort trials and final receipts](../../reverse/attempt_support/genbase-header-adoption-20261104.md): six byte-exact constructor adoptions introduce unresolved canonical Delete/UnloadNow/vslot10/vslot11 names (634 B); reconcile their existing rowed provider identities and Rva00180B94's competing vtable before retrying. Trials reverted; two method-only adoptions accepted, with all eight checked units preserving 708/708 preview-linked bytes. Census confirmation: not claimed.

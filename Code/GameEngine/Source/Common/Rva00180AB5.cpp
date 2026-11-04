@@ -15,19 +15,13 @@ struct TreeLink
 
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
-class GenBase009EB7D0
-{
-public:
-	GenBase009EB7D0();
-	virtual ~GenBase009EB7D0();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/GenBase009EB7D0.h"
 
 class Rva00180B94_Prototype : public GenBase009EB7D0
 {
 public:
 	Rva00180B94_Prototype(const char *name, void *tree);
 
-	char m_pad04[0x10];
 	void *m_tree;
 	StringClass m_name;
 	int m_arg1C;
