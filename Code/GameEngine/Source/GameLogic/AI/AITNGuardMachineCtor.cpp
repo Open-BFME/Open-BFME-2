@@ -37,13 +37,7 @@ public:
 private:
 	unsigned char m_pad00[0x30];
 };
-class AITNGuardInnerState
-{
-public:
-	AITNGuardInnerState(StateMachine *machine);
-private:
-	unsigned char m_pad00[0x30];
-};
+#include "../../../Include/GameLogic/AITNGuard.h"
 class Rva00545D7E
 {
 public:
