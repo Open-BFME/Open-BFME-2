@@ -577,37 +577,18 @@ void XferDrawableID( Xfer *xfer, Int *value );
 #include "../../../../Include/Common/XferException.h"
 #include <string.h>
 #pragma intrinsic(memset)
-class Object : public Thing
+#include "../object.h"
+// object.h keeps these three fields private; the offsets come from the matched
+// bodies: validateRallyPoint 0x00478141 (+0xB8), redeployOccupants 0x00479395
+// (+0x10C), onContaining 0x00478C2C (+0x380).
+struct GarrisonObjectFields
 {
-public:
-    Player *getControllingPlayer() const;
-    void setDisabled(DisabledType type);
-    void setStatus(ObjectStatusTypes bit, bool set);
-    bool rva0029091E(unsigned int flag) const;
-    void setWeaponSetFlag(WeaponSetType type);
-    void *rva0028C197() const;
-    void setPrivateStatus(unsigned int bits) { m_privateStatus |= bits; }
-    ObjectID getID() const { return m_id; }
-    float getBoundingCircleRadius() const { return m_boundingCircleRadius; }
-    ContainModuleInterface *getContain() const { return m_contain; }
-    ConditionBits *getConditionBits() { return &m_conditionBits; }
-    void rva0028AE6D();
-    bool testStatus(ObjectStatusTypes bit) const;
-    const Weapon *getCurrentWeapon(WeaponSlotType *slot = 0) const;
-    AIUpdateInterface *getAI() const { return m_ai; }
-private:
-    unsigned char m_pad60[0x74 - 0x60];
-    ObjectID m_id;
-    unsigned char m_pad78[0xB8 - 0x78];
-    float m_boundingCircleRadius;
+    unsigned char m_pad00[0xB8];
+    float m_boundingCircleRadius; // +0xB8
     unsigned char m_padBC[0x10C - 0xBC];
     ConditionBits m_conditionBits; // +0x10C
-    unsigned char m_pad11C[0x250 - 0x11C];
-    ContainModuleInterface *m_contain; // +0x250
-    void *m_pad254;
-    AIUpdateInterface *m_ai; // +0x258
-    unsigned char m_pad25C[0x380 - 0x25C];
-    unsigned int m_privateStatus; // +0x380
+    unsigned char m_pad11C[0x380 - 0x11C];
+    unsigned int m_380; // +0x380
 };
 
 class Team;
@@ -1479,7 +1460,7 @@ void GarrisonContain::validateRallyPoint()
 	{
 		FindPositionOptions options;
 		options.flags = FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS;
-		options.minRadius = getObject()->getBoundingCircleRadius();
+		options.minRadius = ((GarrisonObjectFields *)getObject())->m_boundingCircleRadius;
 		options.maxRadius = options.minRadius * 1.8f;
 		options.ignoreObject = getObject();
 		options.relationshipObject = getObject();
@@ -1801,7 +1782,7 @@ bool GarrisonContain::attemptBestFirePointPosition(Object *source, Weapon *weapo
 
 static __forceinline void setCondition(Object *obj, int bit)
 {
-    ConditionBits *bits = obj->getConditionBits();
+    ConditionBits *bits = &((GarrisonObjectFields *)obj)->m_conditionBits;
     if (bits->test(bit) == 0)
     {
         bits->set(bit);
@@ -1925,7 +1906,7 @@ void GarrisonContain::addValidObjectsToGarrisonPoints()
             for (_STL::list<Object *>::const_iterator it2 = ((const _STL::list<Object *> *)members.m04)->begin(); it2 != ((const _STL::list<Object *> *)members.m04)->end(); ++it2)
             {
                 Object *member = *it2;
-                const Weapon *weapon = member->getCurrentWeapon();
+                const Weapon *weapon = ((const Object *)member)->getCurrentWeapon(0);
                 if (!weapon || ((const Rva002C9400ByteField *)weapon->getTemplate())->get())
                     continue;
                 AIUpdateInterface *ai = member->getAI();
@@ -2100,7 +2081,7 @@ void GarrisonContain::onContaining(Object *obj, bool wasSelected)
     obj->setDisabled((DisabledType)3);
     obj->setStatus((ObjectStatusTypes)0x3A, true);
     structure->setStatus((ObjectStatusTypes)1, true);
-    obj->setPrivateStatus(1);
+    ((GarrisonObjectFields *)obj)->m_380 |= 1;
     obj->setPosition(structure->getPosition());
 
     if (getFlags(0).test(61))
