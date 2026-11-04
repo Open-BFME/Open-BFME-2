@@ -1,4 +1,6 @@
-// cl: /MD
+// cl: /MD /EHsc
+// platformsdk
+#include <windows.h>
 //
 // ?traceAllocatedMemory@GeneralAllocator@Allocator@EA@@QAEXP6AXPBDPAX@Z11H@Z @0x000353F0 331B.
 // Heap trace over allocated blocks (PPMalloc TraceAllocatedMemory-like):
@@ -17,8 +19,6 @@
 // offsets, the 0x534E4150 magic) and the callers' existing pins. The
 // trace/report roles follow PPMalloc's GeneralAllocator naming carried by
 // the sibling rows; the original member name is unknown (address-derived).
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
 
 class Rva000353F0Lock
 {
@@ -28,7 +28,7 @@ public:
 	{
 		if (m_obj)
 		{
-			EnterCriticalSection(m_obj);
+			EnterCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 			++*(volatile int *)((char *)m_obj + 0x18);
 		}
 	}
@@ -37,7 +37,7 @@ public:
 		if (m_obj)
 		{
 			--*(volatile int *)((char *)m_obj + 0x18);
-			LeaveCriticalSection(m_obj);
+			LeaveCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 		}
 	}
 };

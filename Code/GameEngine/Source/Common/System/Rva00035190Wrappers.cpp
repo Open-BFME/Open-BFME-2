@@ -1,4 +1,6 @@
-// cl: /MD
+// cl: /MD /EHsc
+// platformsdk
+#include <windows.h>
 //
 // ?rva00035190@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z @0x00035190 125B Realloc-like
 // ?rva00035210@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z @0x00035210 125B Calloc-like
@@ -9,9 +11,9 @@
 // (IAT 0xBBA200) + inc [esi+0x18], inner call with ecx=this pass-through,
 // result held in edi across dec [esi+0x18] + LeaveCriticalSection
 // (IAT 0xBBA204) + fs restore + ret 12. The two IAT calls are declared
-// dllimport+throw() so cl omits the non-retail EH state reset, exactly as
-// the 35080 TU. Lock layout is the proven subset: pointer at +0x4E4 with
-// use count at +0x18 of the lock object; agrees with memory_pool.cpp
+// by the Windows SDK; /EHsc keeps the calls nonthrowing and omits the
+// non-retail EH state reset, exactly as the 35080 TU. Lock layout is the
+// proven subset: pointer at +0x4E4 with use count at +0x18 of the lock object; agrees with memory_pool.cpp
 // GeneralAllocator at +0x4E4/+0x18. State slot +0x20 = 0x14+4*3, 3 pushes,
 // ret 12 = 4*3 (family rule shared with 35080 2-arg +0x1C/ret8).
 //
@@ -38,8 +40,6 @@
 //     per seat-42-r23). No BFME1 donor (rg GeneralAllocator|PPMalloc
 //     zero hits at 6583b3c1 per seat-42-r22); no 30520 rework; no header
 //     edits; no STL; no fallbacks.
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
 
 class Rva00035080Lock
 {
@@ -49,7 +49,7 @@ public:
 	{
 		if (m_obj)
 		{
-			EnterCriticalSection(m_obj);
+			EnterCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 			++*(volatile int *)((char *)m_obj + 0x18);
 		}
 	}
@@ -58,7 +58,7 @@ public:
 		if (m_obj)
 		{
 			--*(volatile int *)((char *)m_obj + 0x18);
-			LeaveCriticalSection(m_obj);
+			LeaveCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 		}
 	}
 };

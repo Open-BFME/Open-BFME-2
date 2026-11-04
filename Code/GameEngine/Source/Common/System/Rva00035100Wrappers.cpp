@@ -1,12 +1,12 @@
-// cl: /MD
+// cl: /MD /EHsc
+// platformsdk
+#include <windows.h>
 // Native 35100..35182 RET16, 35290..35314 RET16, 35320..353A3 RET16.
 // Ghidra boundaries and CC padding agree. Reuse the independently matched
 // 35080/35190/35210 counted-lock and SEH pattern at receiver+4E4/lock+18.
 // The neutral engine344A0 spans759B and pops16; engine34B30 spans348B
 // and pops20. Native wrapper loads prove each argument forwarding path.
 // Original GeneralAllocator naming remains carried by sibling definitions.
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
 
 class Rva00035080Lock
 {
@@ -16,7 +16,7 @@ public:
 	{
 		if (m_obj)
 		{
-			EnterCriticalSection(m_obj);
+			EnterCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 			++*(volatile int *)((char *)m_obj + 0x18);
 		}
 	}
@@ -25,7 +25,7 @@ public:
 		if (m_obj)
 		{
 			--*(volatile int *)((char *)m_obj + 0x18);
-			LeaveCriticalSection(m_obj);
+			LeaveCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 		}
 	}
 };
