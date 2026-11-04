@@ -583,15 +583,6 @@ unsigned char g_00E0635E;
 
 // ?rva0057A382@Rva0057A382@@QAEXXZ @0x0057A382 39B
 // Evidence: caller 0x0057A748 sets +0x58=0 +0x5C=1; callee row ?rva005D3F6D@Rva005D3F6D@@QAEXH@Z; neighbours share /O1 /MD
-int g_00E06374;
-
-	// retail RVA 0x00A06374 (.data, 4 bytes), defined here: nothing else owns it
-int g_00E06378;
-
-	// retail RVA 0x00A06378 (.data, 4 bytes), defined here: nothing else owns it
-int g_00E0637C;
-
-	// retail RVA 0x00A0637C (.data, 8 bytes), defined here: nothing else owns it
 
 class Rva005D3F6DInner;
 
@@ -799,6 +790,7 @@ struct ChecklistIteratorView
 struct ChecklistFontDesc;
 
 extern unsigned int g_Va00E06360[9];
+struct HudFontObject { static int *words() { return (int *)g_Va00E06360; } };
 
 class Rva005D1A6C
 {
@@ -1421,11 +1413,13 @@ unsigned short *Rva0057A272Get(void)
 
 void Rva0057A382::rva0057A382()
 {
-	int v = g_00E06374;
+	// Words 5 to 7 of the object at VA 0x00E06360: its constructor, 0x0057AA45, sets word 5 to -1.
+	const int *font = HudFontObject::words();
+	int v = font[5];
 	if (m_58 == 1)
-		v = g_00E06378;
+		v = font[6];
 	else if (m_5C != 0)
-		v = g_00E0637C;
+		v = font[7];
 	m_08.rva005D3F6D(v);
 }
 
@@ -1861,7 +1855,7 @@ int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, 
 StrategicHUD::ChecklistUIImpl::Item::Item(ChecklistUIImpl *owner, ChecklistIteratorView position,
 	int value, void *level, const AsciiString &path)
 	: Rva005D40A6((int)level, path,
-		*reinterpret_cast<const ChecklistFontDesc *>(reinterpret_cast<char *>(&g_Va00E06360) + 8)),
+		*reinterpret_cast<const ChecklistFontDesc *>(reinterpret_cast<char *>(HudFontObject::words()) + 8)),
 	  m_owner(owner), m_listPos(position), m_value(value), m_observer(0), m_58(0), m_5c(true)
 {
 	m_listPos.node->item = this;
