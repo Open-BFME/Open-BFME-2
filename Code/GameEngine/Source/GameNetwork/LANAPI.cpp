@@ -379,7 +379,6 @@ static inline Bool unicodeIsEmpty( const UnicodeString &text )
 }
 #pragma pack(push, 1)
 #pragma pack(pop)
-
 enum
 {
 	LAN_BASE_PORT = 8086,
@@ -387,44 +386,33 @@ enum
 	USER_NAME_BUFFER = 257,
 	COMPUTER_NAME_BUFFER = 16
 };
-
 Bool GetStringFromRegistry( AsciiString path, AsciiString key, AsciiString &val );
-
 class LANGameInfo2
 {
 public:
 	virtual void s00();
 };
-
 enum
 {
 	g_lanGameNameLength = 16,
 	g_lanMaxOptionsLength = 0x186
 };
-
 class GameSlot;
-
 template <typename T> class StringBase;
-
 class AsciiStringData
 {
 public:
 	UnsignedByte m_prefix[8];
 	char m_data[1];
 };
-
 unsigned int __cdecl ResolveIP(AsciiString addr);
-
 class LANGameInfo;
-
 struct TransportAddress
 {
 	UnsignedInt m_ip;
 	UnsignedShort m_port;
 };
-
 class LivingWorldBattle;
-
 class LANAPI : public LANAPIInterface
 {
 public:
@@ -539,22 +527,16 @@ protected:
 	Bool m_isActive;				// +0x5C
 	Bool m_unused5D;				// +0x5D
 };
-
 extern class GameInfo *TheGameInfo;
-
 // Retail registers no unwind state for the compared name temporaries:
 // StringBase<unsigned short>::compareNoCase is taken not to throw (as in
 // AptSkirmishCallbacks.cpp).
 template <> int StringBase<unsigned short>::compareNoCase(const StringBase<unsigned short> &str) const throw();
-
 typedef char PlayerSizeCheck[sizeof(LANPlayer) == 0x1C ? 1 : -1];
-
 typedef char MessageSizeCheck[sizeof(LANMessage) == 0x1D8 ? 1 : -1];
-
 // The native search keeps the getName temporary live across compare without
 // another EH state. Preserve that nonthrowing contract for this instantiation.
 template <> int StringBase<WideChar>::compare(const StringBase<WideChar> &) const throw();
-
 class GlobalData
 {
 public:
@@ -564,35 +546,26 @@ public:
 	UnsignedByte m_preB38[0xB38 - 0xB18];
 	UnsignedInt m_bfmeExtraCRC;			// +0xB38
 };
-
 extern GlobalData *TheWritableGlobalData;
-
 enum
 {
 	SERIAL_LENGTH = 0x17
 };
-
 class NetworkInterface : public VSlots<43>
 {
 public:
 	virtual Bool isPacketRouter( void ) = 0;
 };
-
 extern NetworkInterface *TheNetwork;
-
 void GameInfoToByteBuffer( LANGameInfo *game, char *buffer, Int size );
-
 UnsignedInt ResolveIP( AsciiString host );
-
 void Rva0044802D( char *buffer, Int size );
-
 extern Bool LANbuttonPushed;
-
 Bool LANSocketErrorDetected=false;
-
 class Rva004482B7 {public:UnicodeString rva004482B7(Int);};
-
 #include "../../Include/Common/GameModePreferences.h"
+#include "GameNetwork/BfmeNetAddress.h"
+#include "GameNetwork/LANPlayerClass.h"
 
 class LANPreferences : public GameModePreferences
 {
@@ -600,6 +573,8 @@ public:
 	LANPreferences( Int mode );
 	virtual ~LANPreferences( void );
 };
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIRva004495A2Send.cpp
 
@@ -634,8 +609,6 @@ void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
 		}
 	}
 }
-
-// tu-skeleton: 0x004495AF 173B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 
@@ -1374,8 +1347,6 @@ void LANAPI::SetLocalIP(AsciiString addr)
 	SetLocalIP(ip);
 }
 
-// tu-skeleton: 0x00449693 169B ?RequestGameStart@LANAPI@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptionsPacked.cpp
 
 // WorldBuilder LANAPI::RequestGameOptionsPacked, WB VA 0x014B6290 (callgraph lead, score 1).
@@ -1402,8 +1373,6 @@ void LANAPI::RequestGameOptionsPacked( Bool unused, BfmeNetAddress *destination 
 	}
 }
 
-// tu-skeleton: 0x00449AB8 193B ??0LANAPI@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp
 
 void LANAPI::RequestGameOptions(AsciiString str, int, UnsignedInt val)
@@ -1426,8 +1395,6 @@ void LANAPI::RequestGameOptions(AsciiString str, int, UnsignedInt val)
 		}
 	}
 }
-
-// tu-skeleton: 0x0044A901 101B ??0LANPlayer@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp
 
@@ -1690,8 +1657,6 @@ LANGameSlot::LANGameSlot(const LANGameSlot &other) :
 {
 }
 
-// tu-skeleton: 0x0044B49B 191B ?reset@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIRequestGameCreate.cpp
 
 void LANAPI::RequestGameCreate( UnicodeString gameName, Bool isDirectConnect )
@@ -1750,6 +1715,26 @@ void LANAPI::RequestGameCreate( UnicodeString gameName, Bool isDirectConnect )
 	OnGameCreate( RET_OK );
 }
 
+// tu-skeleton: 0x004495AF 173B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00449693 169B ?RequestGameStart@LANAPI@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp (not merged yet)
+
+// tu-skeleton: 0x00449AB8 193B ??0LANAPI@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp
+
+LANPlayer::LANPlayer(const LANPlayer &other)
+	: m_name(other.m_name),
+	  m_login(other.m_login),
+	  m_host(other.m_host),
+	  m_lastHeard(other.m_lastHeard),
+	  m_next(other.m_next),
+	  m_address(other.m_address)
+{
+}
+
+// tu-skeleton: 0x0044B49B 191B ?reset@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp (not merged yet)
+
 // tu-skeleton: 0x0044B992 124B ??1LANAPI@@UAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPICompleteDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0044BA0E 28B ??_GLANAPI@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp (not merged yet)
@@ -1769,8 +1754,6 @@ void LANAPI::RequestGameCreate( UnicodeString gameName, Bool isDirectConnect )
 // tu-skeleton: 0x00789517 8B uw_00789517 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
 
 // tu-skeleton: 0x0078951F 11B uw_0078951f -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
-
-// tu-skeleton: 0x0078952A 10B __ehhandler$??0LANPlayer@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x0078962E 8B $L7833 -- matched in Code/GameEngine/Source/GameNetwork/LANAPICompleteDestructor.cpp (not merged yet)
 
