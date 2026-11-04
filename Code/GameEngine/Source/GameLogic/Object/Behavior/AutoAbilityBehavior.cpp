@@ -26,6 +26,8 @@ class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 class Object;
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
@@ -116,26 +118,8 @@ class BehaviorModuleOther
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	virtual ~UpdateModule();
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	void xfer(Xfer *xfer);
-protected:
-	Object *getObject() const { return m_object; }
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-};
 
 struct Rva0045A6D3Arg
 {

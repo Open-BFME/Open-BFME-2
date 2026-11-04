@@ -80,6 +80,8 @@ class Coord3D;
 
 class Xfer;
 
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime
@@ -88,23 +90,8 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class CritterEmitterUpdateIface
 {

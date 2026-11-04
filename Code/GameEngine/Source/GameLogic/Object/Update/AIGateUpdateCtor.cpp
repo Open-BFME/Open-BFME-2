@@ -36,6 +36,7 @@ class AIGateUpdate : public UpdateModule
 public:
 	AIGateUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~AIGateUpdate();
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 
 private:
 	unsigned int m_reserved20;

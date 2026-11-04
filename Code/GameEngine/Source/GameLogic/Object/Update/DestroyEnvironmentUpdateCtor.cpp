@@ -41,6 +41,8 @@ class DestroyEnvironmentUpdate : public UpdateModule
 public:
 	DestroyEnvironmentUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~DestroyEnvironmentUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 
 private:
 	unsigned int m_nextCallFrame;

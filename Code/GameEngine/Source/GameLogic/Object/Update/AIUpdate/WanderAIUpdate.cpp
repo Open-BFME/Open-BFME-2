@@ -99,6 +99,8 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../object.h"
 
 struct WanderAIUpdateModuleData
@@ -122,19 +124,8 @@ class ModuleInterface { public: virtual void moduleInterfaceAnchor(); };
 
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();	// 0x0024A797, out of line
-protected:
-	char m_pad14[0x20 - 0x14];
-};
 
 struct AICommandParms;
 

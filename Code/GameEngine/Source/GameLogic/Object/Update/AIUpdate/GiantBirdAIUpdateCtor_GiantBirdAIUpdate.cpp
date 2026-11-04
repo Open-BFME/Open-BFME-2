@@ -60,6 +60,8 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 	return *(UnsignedInt *)mask;
 }
 
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../Include/Common/ObjectModule.h"
 
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -67,19 +69,8 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 
 enum CommandSourceType
 {

@@ -17,32 +17,14 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	char m_pad[8];
-};
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
-class MiBase1
+class PhysicsBehavior : public UpdateModule
 {
 public:
-	virtual void f1() = 0;
-};
-
-class MiBase2
-{
-public:
-	virtual void f2() = 0;
-};
-
-class PhysicsBehavior : public UpdateModule, public MiBase1, public MiBase2
-{
-public:
+	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~PhysicsBehavior();
 private:
-	char m_pad14[0x20 - 0x14];
 	void *m_p20;
 };
 

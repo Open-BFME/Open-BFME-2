@@ -9,33 +9,9 @@
 // dtor 0x0024A797, the only entry in retail's unwind map. Base layout as in
 // Rva0024A797Derived.cpp. The same find/unlink/notify/delete sequence
 // recurs at 0x00397E6E and 0x004EB61A.
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0 };
-
-// The update interface at +0x10: retail's AIGateUpdate table there
-// (0x00C56474) holds AIGateUpdate::update (rowed) in slot 0.
-class AIGateUpdate_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-private:
-	int m_14;
-	int m_18;
-	int m_1C;
-};
 
 struct Rva002E36D5Node
 {
@@ -56,7 +32,7 @@ public:
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-class AIGateUpdate : public UpdateModule, public MiBase1, public AIGateUpdate_B2
+class AIGateUpdate : public UpdateModule
 {
 public:
 	virtual ~AIGateUpdate();

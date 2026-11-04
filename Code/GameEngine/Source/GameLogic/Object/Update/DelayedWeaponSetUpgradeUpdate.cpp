@@ -21,17 +21,15 @@
 class Thing;
 class ModuleData;
 class Object;
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void anchor();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class DelayedUpgradeUpdateInterface
 {
@@ -63,15 +61,6 @@ public:
 };
 
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-private:
-	unsigned int m_storage[3];
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-};
 
 // ?getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ @0x48828e
 // (69B): cached pool-name key for DelayedWeaponSetUpgradeUpdate. The class

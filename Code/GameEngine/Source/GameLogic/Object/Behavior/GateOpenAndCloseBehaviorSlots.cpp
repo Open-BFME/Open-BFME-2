@@ -30,6 +30,8 @@
 // ??_EGateOpenAndCloseBehavior@@W3AEPAXI@Z, retail 0x0049884F, 8 bytes:
 // this-4 then the deleting dtor.
 
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
@@ -75,23 +77,8 @@ struct Rva00498DF3Arg;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_bfmeReserved; // +0x1C
-};
 
 // 4-byte polymorphic primary at +0. Inline ctor installs the first vtable
 // ahead of the UpdateModule call; the implicit trivial dtor arms nothing

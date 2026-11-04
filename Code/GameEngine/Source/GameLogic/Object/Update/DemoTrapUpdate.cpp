@@ -78,38 +78,12 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 
-class BehaviorInterface
-{
-public:
-	virtual void behaviorAnchor() = 0;			// vptr at +0x0C
-};
-
-class UpdateInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;			// vptr at +0x10
-};
-
-class UpdateModule : public ObjectModule,
-	public BehaviorInterface, public UpdateInterface
-{
-public:
-	// Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390).
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();				// 0x0024A797, out of line
-	virtual void behaviorAnchor();
-	void xfer(Xfer *xfer);					// 0x0044DF9F, spelled as its row
-protected:
-	virtual void loadPostProcess();				// slot 1
-	virtual const char *GetSnapshotName() const;		// slot 2
-private:
-	unsigned int m_nextCallFrameAndPhase;			// +0x14
-	int m_indexInLogic;					// +0x18
-	int m_updateState;					// +0x1C
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class DemoTrapUpdate : public UpdateModule
 {

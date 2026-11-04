@@ -14,6 +14,8 @@
 // ctor 0x004A342E and UpdateModule::~UpdateModule 0x0024A797 show, so this
 // unit's vftable names agree with the ctor's: the +0x10 UpdateModuleInterface
 // one (0x00C52358) is ??_7BroadcastStealthUpdate@@6BUpdateModule@@@.
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -21,21 +23,8 @@
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-private:
-	int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class BroadcastStealthUpdate_B3
 {
