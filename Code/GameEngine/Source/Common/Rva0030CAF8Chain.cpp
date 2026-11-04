@@ -35,7 +35,7 @@ struct Rva0030CAF8Area
 	float m_f90;
 	float m_f94;
 	float m_f98;
-	AsciiString m_s9C;
+	AsciiString m_textureName;
 	int m_iA0;
 };
 
@@ -89,7 +89,7 @@ void __cdecl saveStandingWaveAreas(Rva0030CAF8Collection *coll, DataChunkOutput 
 			out->writeInt((int)area->m_f90);
 			out->writeInt((int)area->m_f94);
 			out->writeInt((int)area->m_f98);
-			out->writeAsciiString(area->m_s9C);
+			out->writeAsciiString(area->m_textureName);
 			out->writeInt(area->m_iA0);
 			++cur.m_index;
 		} while (Rva0030CAF8CursorEqual(cur, endCur) == false);

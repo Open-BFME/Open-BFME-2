@@ -23711,3 +23711,6 @@ Code/GameEngine/Source/Common/Rva00431F61Ctor.cpp|global||g_00E0322C,bc209a6f60a
 Code/GameEngine/Source/Common/Rva00540E82Init.cpp|function|0x00541FCC|rva00541FCC,d8cf22d9bd9396aacb9f7af2,claude-opus-5-5,claude3-20261104-053632-4,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva00540E82Init.cpp|function|0x005420AD|rva005420AD,e892c28d2a359ca7ce09bd36,claude-opus-5-5,claude3-20261104-053632-4,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0052B4B6XferOpen.cpp|member|Rva0052B4B6|m_41,a91009b329da0cf57167ddfa,claude-opus-5-5,claude3-20261104-054735-2,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva006C4300Malloc.cpp|function|0x006C4300|rva006C4300,64e0242947f71c18591f45a0,claude-opus-5-5,claude3-20261104-054735-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva006C4300Malloc.cpp|function|0x006C4530|rva006C4530,705d8a4c0c81451dbcf17da5,claude-opus-5-5,claude3-20261104-054735-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0030CAF8Chain.cpp|member|Rva0030CAF8Area|m_s9C,40023d5ec23b5ab83732c733,claude-opus-5-5,claude3-20261104-054735-3,w-29a6ae2a2f9f,2026-11-04
