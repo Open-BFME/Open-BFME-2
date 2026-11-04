@@ -1,4 +1,4 @@
-### LINK-199: truncated ThingTemplate kind-mask views in four AI state units
+### LINK-202: truncated ThingTemplate kind-mask views in four AI state units
 
 Status: Cleared for these four consumers; updated 2026-11-04 at `2b49153c61`.
 The attack onEnter, unresolved attack, attack onExit and follow-path method units
