@@ -111,7 +111,9 @@ template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 #include <windows.h>
 struct Rva00224C76Element {Rva00224C76Element();Rva00224C76Element(const Rva00224C76Element&);Rva00224C76Element&operator=(const Rva00224C76Element&);~Rva00224C76Element(){}char bytes[8]; bool operator==(const Rva00224C76Element&)const;};
 typedef _STL::hash_map<int, Rva00224C76Element> AptPlayerTable;
-class Rva00224C95 { public: Rva00224C95(); ~Rva00224C95(); private: char m_bytes[0x28]; };
+// Retail destroys these through the row at 0x00224252 (call in AptPlayer's constructor at +0xA4); it takes this object in ecx.
+extern "C" { void __identifier("??1DetailedArchivedDirectoryInfo@@QAE@XZ")(); }
+class Rva00224C95 { public: Rva00224C95(); __declspec(noinline) ~Rva00224C95() { __identifier("??1DetailedArchivedDirectoryInfo@@QAE@XZ")(); } private: char m_bytes[0x28]; };
 class AptPlayer : public SubsystemInterface
 {
 public:
