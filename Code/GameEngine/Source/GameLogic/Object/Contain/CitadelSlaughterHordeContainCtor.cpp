@@ -19,8 +19,11 @@ class CitadelContainDieView;
 enum ObjectID { INVALID_ID = 0 };
 enum NameKeyType { NK_UNKNOWN = 0 };
 
-extern "C" void _ReadWriteBarrier(void);
+// Keep the intrinsic directive after its declaration when composing this TU.
+extern "C" {
+void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
+}
 
 static int s_vtable;
 static int s_secondary0C;
