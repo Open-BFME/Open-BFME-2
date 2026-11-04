@@ -23,9 +23,7 @@ void __cdecl Rva00030830GameFree(void *);
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 inline RefCountClass::~RefCountClass() {}
 
-class TileData : public RefCountClass
-{
-};
+#include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
 #define REF_PTR_RELEASE(x) { if (x) { x->Release_Ref(); x = 0; } }
 
