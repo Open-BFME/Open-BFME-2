@@ -54,17 +54,26 @@ public:
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
+enum NameKeyType;
+enum UpdateSleepTime;
+class Rva0058AD94;
+
 class AISpecialPowerUpdate : public UpdateModule
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
 	void postInitAISpecialPower();
 
-	bool m_20;
-	bool m_21;
-	Rva004B3352State *m_24;
+	bool m_flag; // +0x20
+	bool m_inited; // +0x21
+	char m_pad22[2];
+	Rva0058AD94 *m_power; // +0x24
 };
 
 // ?xfer@AISpecialPowerUpdate@@MAEXPAVXfer@@@Z @0x004B3352
@@ -76,16 +85,16 @@ void AISpecialPowerUpdate::xfer(Xfer *xfer)
 	UpdateModule::xfer(xfer);
 
 	if (version.m_minimum >= 3)
-		*xfer == m_21;
+		*xfer == m_inited;
 
-	if (xfer->IsLoading() && (m_21 || version.m_minimum < 3))
+	if (xfer->IsLoading() && (m_inited || version.m_minimum < 3))
 		postInitAISpecialPower();
 
-	*xfer == m_20;
+	*xfer == m_flag;
 
-	if (m_24)
+	if (m_power)
 	{
 		if (version.m_minimum >= 2 || TheSkirmishAIManager->rva002A8AB1(getObject()->getControllingPlayer()))
-			m_24->xfer(xfer);
+			((Rva004B3352State *)m_power)->xfer(xfer);
 	}
 }

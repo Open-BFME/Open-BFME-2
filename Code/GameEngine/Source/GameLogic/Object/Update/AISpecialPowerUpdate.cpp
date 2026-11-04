@@ -65,6 +65,9 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
 	void postInitAISpecialPower();
 
