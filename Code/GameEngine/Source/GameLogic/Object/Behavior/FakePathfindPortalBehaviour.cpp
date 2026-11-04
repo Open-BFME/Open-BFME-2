@@ -65,7 +65,6 @@ struct FakePortalOwnerView {
 #define inline static inline
 #include <math.h>
 #undef inline
-
 // ?getModuleNameKey@FakePathfindPortalBehaviour@@UBE?AW4NameKeyType@@XZ @0x4619AD
 // (69B): cached pool-name key for FakePathfindPortalBehaviour. The class
 // identity comes from the pool-name string the body pushes
@@ -80,11 +79,8 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 //
 // FakePathfindPortalBehaviourModuleData parse-unit (the ctor lives in
 // FakePathfindPortalBehaviourCtor.cpp).
@@ -97,45 +93,31 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // under "FakePathfindPortalBehaviour". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../../../Include/Common/INI/FieldParse.h"
-
 #include "../../../../Include/Common/INI/INI.h"
-
 // Retail VA 0x00C42B10 (.rdata): 2 field records and a zero sentinel.
 extern const FieldParse g_00C42B10[] = {
 	{ "AllowEnemies", &INI::parseBool, 0, 0x118 },
 	{ "AllowNonSkirmishAIUnits", &INI::parseBool, 0, 0x119 },
 	{ 0, 0, 0, 0 }
 };
-
-
 int Rva004CE29DGet(void);
-
 class FakePathfindPortalBehaviourModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 class Thing;
-
 class ModuleData;
-
 class Xfer;
-
 class Waypoint;
-
 class __declspec(novtable) Rva00C42B40Iface
 {
 public:
 	virtual void slot0() = 0;
 };
-
 class Rva00461DB5Owner
 {
 public:
@@ -145,31 +127,28 @@ private:
 	bool flag30; // +0x30
 	bool flag31; // +0x31
 };
-
 BFME_DISP8_BYTE_SETTER(Rva0046191DByteSetter, disable, 0xD, 0x0)
-
-// Same clean BF1 9cb R1MemberValueReads.cpp donor and /O1 /arch:SSE /G7
-// expression family. Independently measured retail leaf 388869..388872
-// writes byte +0x51 zero then byte +0x50 zero and RET0. Prior RET4 at
-// 388866 ends at the start; the next byte getter begins at 388872.
-// Byte widths/order are target facts; original class and field purposes
-// remain unknown, and the donor's bool spelling is not asserted here.
-// Whole clean BF1 f98983a7 Rva0069DE50ByteClear.cpp supplies the byte-zero
-// store plus receiver-return source expression. Native54B6E..54B75 is a
-// separate seven-byte leaf after rowed54B3F/47 RET4at54B6B and before
-// rowed54B75 list insertion. Only byte8=0 and EAX=receiver are observed;
-// owner, constructor/reset purpose and complete allocation size are unknown.
 #include "../../../../Include/Common/XferVersion.h"
-
 enum { INVALID_WAYPOINT_ID = 0x7fffffff };
-
 void XferWaypointID(Xfer *xfer, int *id);
-
 struct Coord3D;
-
 #include "../../../../Include/GameLogic/Waypoint.h"
-
 #include "../../../../Include/GameLogic/TerrainLogic.h"
+//
+// ?update@FakePathfindPortalBehaviour@@UAE?AW4UpdateSleepTime@@XZ, retail
+// 0x00461DC7, 118 bytes. The update-interface slot (this is the +0x10
+// subobject): sleeps forever unless the owner's controlling player has a
+// record in the rowed TheSkirmishAIManager lookup (0x002A8AB1) and the +0x34 target
+// is cached (rowed finder 0x00498725). An unregistered portal (+0x30 clear)
+// runs the rowed gate 0x00461DB5 first; then, with +0x32 set, a target
+// answering its slot 6 is unregistered (0x004618D4), and without it a target
+// that does not answer registers the waypoints (0x004618AB). Only the layout
+// this body touches is modelled.
+
+class Player;
+#include "../object.h"
+struct Rva002A8AB1Record;
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
@@ -234,6 +213,32 @@ public:
 	virtual void rva0046190A(void *arg) = 0;
 };
 
+static int s_vtable;
+
+static int s_secondary0C;
+
+static int s_secondary10;
+
+static int s_secondary20;
+
+static int s_secondary24;
+
+static float s_fakePortalWaypointMargin=10.0f;
+
+extern Rva002A8F24 *TheSkirmishAIManager;
+
+void *Rva00498725Find(void *object);
+
+class FakePathfindPortalTarget
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02();
+	virtual void t03(); virtual void t04(); virtual void t05();
+	virtual bool isActive();	// slot 6 (+0x18)
+};
+
+enum NameKeyType;
+
 class __declspec(novtable) FakePathfindPortalBehaviour : public UpdateModule, public Rva00C42B50Iface,
 	public Rva00C42B40Iface
 {
@@ -261,19 +266,21 @@ private:
 	int m_34;
 };
 
-static int s_vtable;
-
-static int s_secondary0C;
-
-static int s_secondary10;
-
-static int s_secondary20;
-
-static int s_secondary24;
-
-static float s_fakePortalWaypointMargin=10.0f;
-
 // tu-skeleton: 0x0046183B 112B ?rva0046183B@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviour.cpp
+
+// Same clean BF1 9cb R1MemberValueReads.cpp donor and /O1 /arch:SSE /G7
+// expression family. Independently measured retail leaf 388869..388872
+// writes byte +0x51 zero then byte +0x50 zero and RET0. Prior RET4 at
+// 388866 ends at the start; the next byte getter begins at 388872.
+// Byte widths/order are target facts; original class and field purposes
+// remain unknown, and the donor's bool spelling is not asserted here.
+// Whole clean BF1 f98983a7 Rva0069DE50ByteClear.cpp supplies the byte-zero
+// store plus receiver-return source expression. Native54B6E..54B75 is a
+// separate seven-byte leaf after rowed54B3F/47 RET4at54B6B and before
+// rowed54B75 list insertion. Only byte8=0 and EAX=receiver are observed;
+// owner, constructor/reset purpose and complete allocation size are unknown.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviour.cpp
 
@@ -400,16 +407,6 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 	memset(m_28, 0, 8);
 }
 
-// tu-skeleton: 0x004618D4 54B ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004619A7 6B ?Rva004619A7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004619F2 84B ??1FakePathfindPortalBehaviour@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00461A46 213B ?rva00461A46@FakePathfindPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00461C03 28B ??_GFakePathfindPortalBehaviour@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourRva00461C1F.cpp
 
 // ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ
@@ -461,7 +458,41 @@ void FakePathfindPortalBehaviour::rva00461C1F()
  m_30=true;
 }
 
-// tu-skeleton: 0x00461DC7 118B ?update@FakePathfindPortalBehaviour@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourUpdate.cpp (not merged yet)
+// tu-skeleton: 0x004618D4 54B ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004619A7 6B ?Rva004619A7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004619F2 84B ??1FakePathfindPortalBehaviour@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00461A46 213B ?rva00461A46@FakePathfindPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00461C03 28B ??_GFakePathfindPortalBehaviour@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourUpdate.cpp
+
+// ?update@FakePathfindPortalBehaviour@@UAE?AW4UpdateSleepTime@@XZ @0x00461DC7
+UpdateSleepTime FakePathfindPortalBehaviour::update()
+{
+	if (TheSkirmishAIManager->rva002A8AB1(((Object *)m_owner)->getControllingPlayer()) != 0)
+	{
+		if (m_34 == 0)
+			m_34 = (int)Rva00498725Find(m_owner);
+		if (m_34 != 0)
+		{
+		if (!m_30)
+			((Rva00461DB5Owner *)this)->rva00461DB5();
+		if (m_32)
+		{
+			if (((FakePathfindPortalTarget *)m_34)->isActive())
+				rva004618D4();
+		}
+		else if (!((FakePathfindPortalTarget *)m_34)->isActive())
+			regWaypointsWithPathfinder();
+		return UPDATE_SLEEP_NONE;
+		}
+	}
+	return UPDATE_SLEEP_FOREVER;
+}
 
 // tu-skeleton: 0x0078A9AB 8B Unwind@00b8a9ab -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
