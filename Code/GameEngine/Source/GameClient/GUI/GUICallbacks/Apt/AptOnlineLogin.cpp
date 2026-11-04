@@ -140,7 +140,12 @@ class BfmeAptWindowManager;
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-struct AptOnlineLoginOwner { unsigned char pad[0x274]; void *movie; };
+struct AptOnlineLoginOwner
+{
+public:
+	char m_pad00[0x274];
+	void *movie; // +0x274
+};
 
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 

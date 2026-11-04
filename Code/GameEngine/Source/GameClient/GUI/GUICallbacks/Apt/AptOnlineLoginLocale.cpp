@@ -53,8 +53,9 @@ bool g_Va00E062F0 = false;
 
 struct AptOnlineLoginOwner
 {
-	unsigned char m_pad000[0x274];
-	void *m_movie; // +0x274
+public:
+	char m_pad00[0x274];
+	void *movie; // +0x274
 };
 
 namespace AptOnline
@@ -92,6 +93,6 @@ void AptOnline::Login::AcceptLocale(const char *unused)
 	}
 	else
 		g_Va00E062F0 = true;
-	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_owner->m_movie, "CallChild", 1, "DoCloseLocale", 0, 0, 0, 0);
+	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_owner->movie, "CallChild", 1, "DoCloseLocale", 0, 0, 0, 0);
 	((AptOnlineLogin *)(*(int *)&g_bfmeObjELB))->rva0057179D(m_d0);
 }
