@@ -10,19 +10,20 @@ struct Rva000CF529Element { unsigned words[2]; };
 struct TreeKey00242F5E;
 void Rva000CF4D6Construct(TreeKey00242F5E *, const TreeKey00242F5E &);
 
+#include <vector>
+
 namespace _STL {
-// TU-local forwarding glue; its discardable out-of-line copy has no retail entry.
+// Specialize the reference operation after its declaration so this forwarding
+// glue also applies when the containing TU has already included <vector>.
+// Its force-inlined body has no separate retail entry.
 // ?_STL::_Construct absent-from-retail
-static __forceinline void _Construct(Rva000CF529Element *destination,
+template <> __forceinline void _Construct<Rva000CF529Element, Rva000CF529Element>(Rva000CF529Element *destination,
                                     const Rva000CF529Element &value)
 {
     Rva000CF4D6Construct(reinterpret_cast<TreeKey00242F5E *>(destination),
         *reinterpret_cast<const TreeKey00242F5E *>(&value));
 }
 }
-
-// Expose the local overload when the reference template is parsed.
-#include <vector>
 
 // Instantiate the recovered operation and its required template dependencies.
 template Rva000CF529Element * _STL::__uninitialized_fill_n<Rva000CF529Element *, unsigned int, Rva000CF529Element>(Rva000CF529Element *, unsigned int, Rva000CF529Element const &, _STL::__false_type const &);
