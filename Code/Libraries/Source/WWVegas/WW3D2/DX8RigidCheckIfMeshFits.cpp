@@ -6,25 +6,11 @@
 // unsigned short at +0x0C, the index buffer's the full unsigned at +0x0C (as
 // in DX8SkinClearVisibleList.cpp). Fields: vertex buffer +0xE8 with used
 // vertices +0xEC, index buffer +0xD0 with used indices +0xD4; the mesh model
-// keeps its pass count at +0x24, its vertex count at +0x28 and its polygon
-// count through the pointer at +0x94.
-struct MeshPolygonCount
-{
-	int Count;
-};
-
-class MeshModelClass
-{
-public:
-	unsigned char pad[0x24];
-	int PassCount;				// +0x24
-	int VertexCount;			// +0x28
-	unsigned char pad1[0x94 - 0x2C];
-	MeshPolygonCount *PolygonCount;		// +0x94
-	int Get_Vertex_Count() const { return VertexCount; }
-	__declspec(dllimport) __forceinline int Get_Pass_Count() const { return PassCount; }
-	__declspec(dllimport) __forceinline int Get_Polygon_Count() const { return PolygonCount->Count; }
-};
+// keeps its polygon count at +0x24, its vertex count at +0x28 and its pass
+// count in CurMatDesc (+0x94).
+#include "MeshMatDescClass.h"
+#include "MeshModelClass.h"
+inline int MeshModelClass::Get_Pass_Count() const { return CurMatDesc->PassCount; }
 
 #include "VertexBufferClass.h"
 
