@@ -3,16 +3,20 @@
 // ??1Rva0035A9C1@@UAE@XZ @0x0035A9C1 125B
 // Evidence: vtable 0x00C153E0#0 via deleting dtor 0x0035ABA4; Snapshot base vtable 0x00BBB554; forEach 0x00359BE8 with callback 0x1FF3A9 (receiver virtual slot zero); list clear/dtor 0x0023DAA5/0x004EC395 at +0x14; array delete 0x0035A18D at +0x40; free 0x00030830 of +0x04 buffer.
 #include <stdlib.h>
-#include <string>
+#include <vector>
 #include <list>
 
-class Rva0035A18D
+// TerrainResourceManager.cpp's cell view: an eight-byte-element vector plus a
+// state word. Only the array delete 0x0035A18D is called here.
+struct BfmePod8
 {
 public:
-	~Rva0035A18D();
-private:
-	_STL::basic_string<char> m_str;
-	int m_x;
+	int a[2]; // +0x00 +0x00
+};
+
+class Rva0035A18D {
+public: Rva0035A18D();~Rva0035A18D();
+ _STL::vector<BfmePod8> values; int state;
 };
 
 class Rva00359E04Owner;
