@@ -1,4 +1,4 @@
-### LINK-187: NetCommandMsg dtor and ctor units cannot adopt the canonical header without a non-retail MemoryPoolObject vtable (2026-11-03)
+### LINK-188: NetCommandMsg dtor and ctor units cannot adopt the canonical header without a non-retail MemoryPoolObject vtable (2026-11-03)
 
 Status: Open (header-queue blocker; no census loss landed).
 
