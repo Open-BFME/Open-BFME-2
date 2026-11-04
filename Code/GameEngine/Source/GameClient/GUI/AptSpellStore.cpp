@@ -47,7 +47,9 @@ class CreateAHeroData;
 class __declspec(novtable) Rva0043D193 { public: ~Rva0043D193(); };
 // The out-of-line constructor installs the retail vtable; this forwarding
 // destructor must leave that ownership to the rowed destructor at 0x0043D193.
-class Rva0043D16F
+// The constructor's EH cleanup inlines this destructor even though it has no
+// separate ledger row. novtable suppresses its otherwise undefined vtable.
+class __declspec(novtable) Rva0043D16F
 {
 public:
 	Rva0043D16F() throw();

@@ -5,3 +5,5 @@ Completed: restored `novtable` on that view; 16/16 byte checks and parent EH EXA
 Evidence: [before/after verification and ownership](../../reverse/attempt_support/aptspellstore-novtable-link-20261104.md).
 Remaining / next check: confirm both names disappear from the next real-link blockers; constructor/destructor identity reconciliation for consolidation remains separate work.
 Census confirmation: awaiting; no headline gain claimed.
+
+2026-11-04 recurrence: `8740450b92` removed the annotation again; the forwarding destructor is still inlined by constructor EH cleanup. Restoring suppression passes 16/16 bytes, EH EXACT and the 1,137-byte link preview; AptPlayer acceptance passes again. [Evidence](../../reverse/attempt_support/aptspellstore-novtable-recurrence-20261104-codex3.md).
