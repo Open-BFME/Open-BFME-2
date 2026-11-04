@@ -2,6 +2,30 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### Experience sort comparator in the mixed Crate unit (2026-11-04, halilkkaya-codex)
+
+`CrateCreationEntryList.cpp`'s 0x00288E8D sort is called only by
+ExperienceLevelStore's list-header view. Its native merge at 0x00288874
+calls the existing `ExperienceLevel::operator<` at 0x00288621 (orders the
+final overrides' required-experience fields). An inline-only comparator
+specialization now uses that provider; it does not order actual eight-byte
+crate records or claim those two element families have one identity.
+The missing free crate comparison from artifact `612abfbebb` disappears,
+and the merge copy now agrees with retail. The comparator emits neither a
+standalone definition nor an import, and its one removed definition has no
+outside consumer losing its provider.
+
+Normal verification passes all 107 rows across the mixed unit, insert consumer,
+ExperienceLevelSystem, native list providers and CrateSystem. The sort's EH
+graph is EXACT and the frozen check is clean. True base/tip preview over that
+family and first-copy COMDAT providers (32 units, `a62ac1c10b`) retains all
+30 LINKS units and 48,315 preview bytes. Scoped DIR32 passes 107 rows plus
+25 witnesses. The sort's incorrectly sized list-base constructor remains
+blocked; recover the separate ExperienceLevel and crate element identities
+before consolidating this mixed source. No census/full-image claim.
+Receipts: `build/seat_crate_{base,tip,build,family_build}.log` and
+`build/seat_crate_cohort.{txt,json}`.
+
 ### PA vector element operation providers (2026-11-04, halilkkaya-codex)
 
 Base `e8527d1743`: `PAVectorEraseRangeFamily003AF.cpp`'s sixteen-byte copy

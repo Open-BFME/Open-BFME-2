@@ -43,10 +43,26 @@ struct crateCreationEntry
 };
 
 bool operator==(const crateCreationEntry &a, const crateCreationEntry &b);
-bool operator<(const crateCreationEntry &a, const crateCreationEntry &b);
+
+// The unrelated sort row at 0x00288E8D belongs to ExperienceLevelSystem,
+// whose caller passes an experience-level list through this historical
+// template spelling. Its native merge calls ExperienceLevel::operator< at
+// 0x00288621; it never orders the eight-byte crate records above.
+class ExperienceLevel
+{
+public:
+	bool operator<(const ExperienceLevel &) const;
+};
 
 namespace _STL
 {
+
+template <>
+__declspec(dllimport) __forceinline bool less<crateCreationEntry>::operator()(
+	const crateCreationEntry &left, const crateCreationEntry &right) const
+{
+	return ((const ExperienceLevel *)&left)->operator<(*(const ExperienceLevel *)&right);
+}
 
 // The crate entry copies its owning name and chance through STLport.
 template <>
