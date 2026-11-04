@@ -8,15 +8,7 @@
 // neighbours rva0021A1B6 and BfmeStringRecord dtor prove TU and flags;
 // +0x174 hero-list count via (finish-start)/4 plus ret-4 int param.
 
-class CreateAHeroData
-{
-public:
-	char m_pad00[0x0C];
-	unsigned int m_o0C;
-	unsigned int m_i10;
-	char m_pad14[0x48 - 0x14];
-	unsigned char m_flag48;
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 #include "../../Include/Common/Rva0040A3F9.h"
 
@@ -37,7 +29,7 @@ CreateAHeroData *CreateAHeroManager::GetDefaultHero(int v)
 	unsigned int count = (unsigned int)(heroes->m_field04 - heroes->m_field00);
 	for (unsigned int i = 0; i < count; ++i) {
 		CreateAHeroData *data = heroes->rva0040A32F((int)i);
-		if (data != 0 && data->m_flag48 != 0 && GetPreferedFaction(data->m_o0C, data->m_i10) == v)
+		if (data != 0 && data->m_48 != 0 && GetPreferedFaction(data->m_0c, data->m_10) == v)
 			return data;
 	}
 	return 0;

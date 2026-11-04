@@ -17,13 +17,7 @@
 // binary and are descriptive only.
 #include <vector>
 
-class CreateAHeroData
-{
-public:
-	int m_unk0;
-	int m_id;
-	int getID() const { return m_id; }
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class GameSlot
 {
@@ -59,7 +53,7 @@ CreateAHeroData *CreateAHeroManager::rva002197A6(int id)
 			if (slot == 0)
 				continue;
 			CreateAHeroData *data = slot->getHeroData();
-			if (data != 0 && data->getID() == id)
+			if (data != 0 && data->field04 == id)
 				result = data;
 		}
 	}
@@ -67,7 +61,7 @@ CreateAHeroData *CreateAHeroManager::rva002197A6(int id)
 	{
 		for (unsigned int i = 0; result == 0 && i < g_CreateAHeroRegistry.size(); ++i)
 		{
-			if (id == g_CreateAHeroRegistry[i]->m_id)
+			if (id == g_CreateAHeroRegistry[i]->field04)
 				result = g_CreateAHeroRegistry[i];
 		}
 	}

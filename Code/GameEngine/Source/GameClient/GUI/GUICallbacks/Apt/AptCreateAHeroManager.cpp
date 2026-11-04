@@ -18,7 +18,7 @@ class Image {public:char prefix[0x24];int width;};
 class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
 extern ImageCollection *TheMappedImageCollection;
 enum NameKeyType;
-class CreateAHeroData {public:unsigned GetStatValue(const NameKeyType *);char prefix[8];UnicodeString name;unsigned major,minor;char gap[0x48-0x14];bool isDefault;};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 class Rva0040A3F9 {public:unsigned *first,*last,*limit;bool rva0040A441(CreateAHeroData *);};
 #include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
@@ -65,13 +65,13 @@ void AptCreateAHero::Manager::PopulateHeroList() {
   _STL::sort(reinterpret_cast<void **>(heroes.first),reinterpret_cast<void **>(heroes.last),Rva005B61B3Less(order.key0,order.key1));
   for(unsigned i=0;i<count;++i) {
    CreateAHeroData *hero=reinterpret_cast<CreateAHeroData *>(heroes.first[i]);
-   if(!hero->isDefault && image)GadgetListBoxAddEntryImage(heroWindow,image,i,0,imageSize,imageSize,true,-1);
-   GadgetListBoxAddEntryText(heroWindow,hero->name,-1,i,1,true);
-   unsigned minor=hero->minor,major=hero->major;
+   if(!hero->m_48 && image)GadgetListBoxAddEntryImage(heroWindow,image,i,0,imageSize,imageSize,true,-1);
+   GadgetListBoxAddEntryText(heroWindow,hero->field08,-1,i,1,true);
+   unsigned minor=hero->m_10,major=hero->m_0c;
    UnicodeString label=TheGameText->fetchLabel(TheCreateAHeroManager->GetSubClassNameTag(major,minor));
    GadgetListBoxAddEntryText(heroWindow,label,-1,i,2,true);
    GadgetListBoxSetItemData(heroWindow,(void *)hero,i,0);
-   if(selectedName->compare(hero->name)==0)selectedIndex=i;
+   if(selectedName->compare(hero->field08)==0)selectedIndex=i;
   }
   GadgetListBoxSetSelected(heroWindow,selectedIndex);
   reinterpret_cast<Rva005B5C70Box *>(this)->Run(0);
@@ -207,7 +207,7 @@ void AptCreateAHero::Manager::rva005B6A5E(int unused) {
  if(selected<0)return;
  CreateAHeroData *hero=(CreateAHeroData *)GadgetListBoxGetItemData(heroWindow,selected,0);
  if(hero==0)return;
- if(hero->isDefault&&g_rva005B5C02Flag==0)return;
+ if(hero->m_48&&g_rva005B5C02Flag==0)return;
  UnicodeString title=TheGameText->fetchByName("GUI:DeleteFile");
  UnicodeString text=TheGameText->fetchByName("GUI:AreYouSureDelete");
  n0044BF40::Rva00437F61(2,title,text,Rva0044BF40(Rva0044BA4E(Rva004F6986Member(MakeDelegate(this,codeAddress(&AptCreateAHero::Manager::rva005B6A05))),Rva004F6986Member(MakeDelegate(this,codeAddress(&Rva005B5B07DwordClearer::clear))))));

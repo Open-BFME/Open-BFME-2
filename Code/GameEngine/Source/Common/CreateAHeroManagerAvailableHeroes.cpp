@@ -95,12 +95,7 @@ public:
 
 // The same hero object under the names its rowed copy and setter carry:
 // operator= at 0x00409359 and the +4 setter at 0x00406E47.
-class CreateAHeroData
-{
-public:
-	CreateAHeroData &operator=(const CreateAHeroData &that);
-    unsigned char prefix[0x0c]; unsigned classIndex; unsigned subClassIndex;
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling
@@ -329,7 +324,7 @@ Bool CreateAHeroManager::GetAvailableHeroesForFaction(std::vector<unsigned int> 
     for (unsigned i=0;i<count;++i) {
         CreateAHeroData *hero=reinterpret_cast<Rva0040A3F9 *>(&m_userHeroes)->rva0040A32F(i);
         if (!hero) continue;
-        const CreateAHeroSubClass *sub=rva0021A1B6(hero->classIndex,hero->subClassIndex);
+        const CreateAHeroSubClass *sub=rva0021A1B6(hero->m_0c,hero->m_10);
         if (!sub) continue;
         if (faction==-1 || static_cast<unsigned char>(reinterpret_cast<Rva002196A9 *>(const_cast<CreateAHeroSubClass *>(sub))->rva002196A9(faction)))
             result->push_back(i);

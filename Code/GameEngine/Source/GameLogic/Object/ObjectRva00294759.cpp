@@ -52,12 +52,7 @@ public:
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class CreateAHeroData
-{
-public:
-	char m_pad[0x138];
-	const Image *m_portrait; // +0x138
-};
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
@@ -120,8 +115,8 @@ const Image *Object::getObjectSelectedPortraitImage()
 				return Rva0033BC53Get(thingTemplate, this);
 		}
 		CreateAHeroData *hero = TheCreateAHeroManager->rva002197A6(m_createAHeroKey);
-		if (hero && hero->m_portrait)
-			return hero->m_portrait;
+		if (hero && hero->field138)
+			return hero->field138;
 	}
 	ThingTemplate *thingTemplate = rva002911B7();
 	if (!thingTemplate)

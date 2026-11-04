@@ -125,12 +125,7 @@ extern InGameUI *TheInGameUI;
 class GameWindow;
 void MessageBoxOk(UnicodeString titleString, UnicodeString bodyString, void (*okCallback)(void));
 
-class CreateAHeroData
-{
-public:
-	char m_pad0[8];
-	UnicodeString m_name;	// +0x08
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class GameSlot
 {
@@ -348,7 +343,7 @@ int GameState::saveGame(UnicodeString filename, const UnicodeString &desc, int w
 			{
 				CreateAHeroData *hero = slot->getHeroData();
 				if (hero)
-					m_heroName = hero->m_name;
+					m_heroName = hero->field08;
 			}
 		}
 	}
