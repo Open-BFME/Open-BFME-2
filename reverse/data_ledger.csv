@@ -4791,8 +4791,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008006C8,468,.rdata,global,?TheWeaponSetTypeToModelConditionTypeMap@@3QBW4ModelConditionFlagType@@B,Code/GameEngine/Source/GameLogic/Object/ObjectWeaponSetFlags.cpp,owned,,1,3
 0x0080089C,16,.rdata,vtable,??_7WeaponSet@@6B@,,literal,??_7WeaponSet@@6B@;?g_00C0089C@@3QBQBXB,0,2
 0x008008AC,132,.rdata,string,??_C@_09KCDHNPIL@WeaponSet?$AA@,,literal,,0,1
-0x00800930,24,.rdata,global,?g_00C00930@@3PAHA,Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp,owned,,1,1
-0x00800948,24,.rdata,global,?g_00C00948@@3PAHA,Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp,owned,,1,1
+0x00800930,24,.rdata,global,?g_00C00930@@3PAHA,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,owned,,1,1
+0x00800948,24,.rdata,global,?g_00C00948@@3PAHA,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,owned,,1,1
 0x00800960,304,.rdata,global,?g_00C00960@@3PAHA,,unowned,,0,1
 0x00800A90,184,.rdata,global,?myFieldParse@?1??parseWeaponTemplateSet@WeaponTemplateSet@@QAEXPAVINI@@PBVThingTemplate@@@Z@4QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,owned,,1,1
 0x00800B48,2644,.rdata,global,?g_00C00B48@@3QBUFieldParse@@B,,unowned,,0,1

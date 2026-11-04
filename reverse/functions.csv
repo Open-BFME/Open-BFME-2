@@ -8281,7 +8281,7 @@ _LastVerticalBand_1_2_Scale_C,,0x001BA3A0,28,Code/Libraries/Source/VP6/CopyHelpe
 ?maybePrepend@PartitionData@@QAEXXZ,,0x0073A0E0,16,Code/GameEngine/Source/GameLogic/Object/PartitionData_maybePrepend.cpp,matched,BFME1 byte-identical donor; b1 0x008F7B20
 ?cmp@Rva0089E1E0@@QAEEH@Z,,0x006D3860,16,Code/GameEngine/Source/Common/Rva0089E1E0Cmp.cpp,matched,BFME1 byte-identical donor; b1 0x0089E1E0
 ?bfmeZeroVMG@@YA?AUBfmeByteVMG@@XZ,,0x00024930,16,Code/GameEngine/Source/Common/BfmeGrokOdZero.cpp,matched,BFME1 byte-identical donor; b1 0x0082BE00
-?get@Rva00751B90@@QAEPAXH@Z,,0x002C74D9,17,Code/GameEngine/Source/Common/Rva00751B90Get.cpp,matched,BFME1 donor b1 0x00751B90; slot base +0xEC not +0xDC; TU-local
+?get@Rva00751B90@@QAEPAXH@Z,,0x002C74D9,17,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,matched,BFME1 donor b1 0x00751B90; slot base +0xEC not +0xDC; TU-local
 ?rva007AE4A0Interpolate@@YANNNM@Z,,0x0010851A,17,Code/GameEngine/Source/Common/Rva007AE4A0Interpolate.cpp,matched,BFME1 byte-identical donor; b1 0x007AE4A0
 ?set@Rva002DF730@@QAEXE@Z,,0x00331640,17,Code/GameEngine/Source/Common/Rva002DF730Set.cpp,matched,BFME1 byte-identical donor; b1 0x002DF730
 ?set@Rva008F8C30@@QAEXHH@Z,,0x0073B280,17,Code/GameEngine/Source/Common/Rva008F8C30Set.cpp,matched,BFME1 byte-identical donor; b1 0x008F8C30
@@ -22401,7 +22401,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva0031D5F8@Rva0031D5F8@@QAEPAXPBVAsciiString@@@Z,,0x0031D5F8,38,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,table at this+0x30 via rowed Rva00056F61 find with node+8 payload and callers at 0x00219317 0x0031D623 0x0031DFC7
 ?Rva00740A45Create@@YAPAVRva00789900Init@@E@Z,,0x00740A45,27,Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp,matched,factory new Rva00789900Init via rowed ctor caller 0x41194B
 ?isKindOf@ThingTemplate@@QBE_NW4KindOfType@@@Z,,0x000456AC,21,Code/GameEngine/Source/Common/Thing/ThingTemplateRva000456AC.cpp,matched,Team countKind 0x0039DC05 passes Object+4 template plus kind index with 0x108 kind bits per Handicap Rva00290EFE StatsCollector via helper 0x001E4426
-?rva002C7492@Rva002C7492@@QAEXPBV1@@Z,,0x002C7492,25,Code/GameEngine/Source/Common/Rva002C7492Or.cpp,matched,19-dword OR via 0x4C temps and Head copy ctor callers
+?rva002C7492@Rva002C7492@@QAEXPBV1@@Z,,0x002C7492,25,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,matched,19-dword OR via 0x4C temps and Head copy ctor callers
 ?isOutOfAmmo@WeaponSet@@QBE_NXZ,,0x002C73CE,41,Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp,matched,WeaponSet out-of-ammo via six slots and getStatus callers
 ?GetPurchaseScienceCommandSet@Rva0031D5F8@@QAEPAXPBX@Z,,0x0031DF89,72,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,same table guarded lookup via 0x00DFE78C gate and isEmpty then rva0031D5F8
 ?Add_Visible_Skin@DX8SkinFVFCategoryContainer@@QAEXPAVMeshClass@@@Z,,0x00143CB0,67,Code/Libraries/Source/WWVegas/WW3D2/DX8SkinClearVisibleList.cpp,matched,ZH donor Add Visible Skin with BFME2 offsets head F0 tail F4
@@ -23355,7 +23355,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva0056ECDAPick@@YAXPAH0@Z,,0x0056ECDA,44,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp,matched,unlock esp-seed table pick
 ?rva002CFD61@Rva002CFD61@@QAEXPAURva002CFD61Node@@@Z,,0x002CFD61,53,Code/Libraries/Source/WWVegas/WWLib/Rva002CFD61Erase.cpp,matched,53B erase with string at +16 via rowed 0x48BA39 same shape as rowed 0x56CC3
 ?newDrawable@ThingFactory@@QAEPAXPAXHH@Z,,0x002CF21B,99,Code/GameEngine/Source/Common/Rva002CF21BGet.cpp,matched,manager slot 0x70 via global 0xDFE77C array at +154 Sleep spin via 0xDFF004; named ThingFactory::newDrawable: WB 0x00A95DB0 makes the same TheGameClient slot 0x70 create then Sleep spin and slot 0x40 per element; callers pass TheThingFactory (0x009FF000) in ecx; three arguments in BFME2 (ret 12)
-?clear@Rva002C752F@@QAEXXZ,,0x002C752F,134,Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp,matched,six-slot clear via caller 0x0033A888 and WeaponSet neighbours
+?clear@Rva002C752F@@QAEXXZ,,0x002C752F,134,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,matched,six-slot clear via caller 0x0033A888 and WeaponSet neighbours
 ??0Rva004D964E@@QAE@ABV0@@Z,,0x004D964E,63,Code/GameEngine/Source/Common/Rva004D964ECopy.cpp,matched,Rva004D964E copy ctor via two Rva002390CB plus dwords plus byte unblocks 0x004D9A44 0x004D971D
 ?rva002CFD96@Rva002CFD96@@QAEPAURva002CFD96Node@@PAU2@0@Z,,0x002CFD96,115,Code/Libraries/Source/WWVegas/WWLib/Rva002CFD96Copy.cpp,matched,115B tree copy via twin of rowed clone 0x0053444F same shape as 0x002CFCEE
 ??_GHeaderTemplateManager@@QAEPAXI@Z,,0x00238DE4,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-238DE4.cpp,matched,chain deleting dtor calls rowed dtor plus delete
@@ -26886,7 +26886,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?Update@Rva005F6F0C@@QAEXXZ,,0x005F6F0C,57,Code/GameEngine/Source/Common/Rva005F6F0CTooltip.cpp,matched,ConstructionTurns tooltip via GameText slot 0x3c plus Mouse with 1.0f flag plus 0x28 precedent Rva005F06EF
 ?rva0020F442@Rva0020F442@@QAEPAVAsciiString@@ABV2@@Z,,0x0020F442,65,Code/GameEngine/Source/Common/RTS/Rva0020F442Find.cpp,matched,vector find via rowed StringBase compare callers 0x004FD8B8
 ?rva00466C04@Rva00466C04@@QAE_NPAVObject@@I@Z,,0x00466C04,144,Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466C04Heal.cpp,matched,healing frame check via TheGameLogic plus body slots
-?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z,,0x002C76B2,204,Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp,matched,bitset via 4 tables plus copyctor and EAX-out return
+?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z,,0x002C76B2,204,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,matched,bitset via 4 tables plus copyctor and EAX-out return
 ?Rva002E0864Median@@YAPAPAXPAPAX00@Z,,0x002E0864,62,Code/GameEngine/Source/Common/Rva002E08A2Insert.cpp,matched,median of three keyed at plus 0xC via quicksort caller
 ?Rva002E08C7SiftUp@@YAXPAPAXHHPAX@Z,,0x002E08C7,63,Code/GameEngine/Source/Common/Rva002E08A2Insert.cpp,matched,heap sift-up min key plus12 caller 0x002E0E9D
 ?Rva002E0E9DAdjustHeap@@YAXPAPAXHHPAX1@Z,,0x002E0E9D,90,Code/GameEngine/Source/Common/Rva002E08A2Insert.cpp,matched,heap adjust min key plus12 via rowed sift-up
@@ -43979,7 +43979,7 @@ uw_00777e88,,0x00777E88,25,Code/GameEngine/Source/Common/System/SaveGame/SaveGam
 uw_0077af33,,0x0077AF33,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp,matched,gen-funclet;parent=??1ControlBarScheme@@QAE@XZ;object-symbol=$L1232
 uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp,matched,gen-funclet;parent=??0ControlBarScheme@@QAE@XZ;object-symbol=$L51404
 ?rva00504112@Rva00504112@@QAEPAXPAX@Z,,0x00504112,38,Code/GameEngine/Source/Common/Rva00504112Find.cpp,matched,hand-rolled lower_bound unsigned key at node+0x28
-?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,,0x002C760B,167,Code/GameEngine/Source/Common/Rva002C7492Or.cpp,matched,sole caller 0x002C777E and memset import 0x6291AE and 19-dword layout
+?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,,0x002C760B,167,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,matched,sole caller 0x002C777E and memset import 0x6291AE and 19-dword layout
 ?isPlayer@Rva004481A7@@QBE_NVUnicodeString@@@Z,,0x004481A7,45,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,matched,GameSlot layout SLOT_PLAYER 6 m_name 0x30 swapped compareNoCase retail order
 ?rva005E8892@Rva005E888A@@QAEXXZ,,0x005E8892,47,Code/GameEngine/Source/Common/Bfme/Rva005E8892Method.cpp,matched,gap body same class rowed callees caller 0x005E88DD
 ?rva005E88DD@Rva005E88DDNullTarget@@QAEXXZ,,0x005E88DD,7,Code/GameEngine/Source/Common/Bfme/Rva005E88DDForwarder.cpp,matched,chain forwarder to 0x005E8892 pinned callers

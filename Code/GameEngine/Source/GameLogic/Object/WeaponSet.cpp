@@ -1,4 +1,4 @@
-// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /I.
 // stlport
 // TU Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define stricmp _strcmpi
@@ -43,8 +43,41 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 
 
+
 #endif
 #include "../../../Include/Common/BfmeAccessorMacros.h"
+#include <string.h>
+#pragma function(memset)
+#include <new.h>
+extern void *g_00DBC46C[];
+extern int g_00C00960[];
+// g_00C00960 and the per-b row table g_00DBC46C have this function as their
+// only reader. Retail .rdata rows at VA 0xc008b8..0xc00918 (6 ints each, read
+// only through g_00DBC46C's .data pointers at VA 0xdbc46c) and the image's
+// contents follow; b selects rows 0xc00918, 0xc00900, 0xc008e8, 0xc008d0 and
+// twice 0xc008b8.
+int g_00C00960[6] = {
+	123, 124, 125, 538, 539, -1,
+};
+static int g_00C00918[6] = { -1, -1, -1, -1, -1, -1, };
+static int g_00C00900[6] = { 41, 47, 53, 530, 531, -1, };
+static int g_00C008E8[6] = { 44, 50, 56, 532, 533, -1, };
+static int g_00C008D0[6] = { 45, 51, 57, 534, 535, -1, };
+static int g_00C008B8[6] = { 40, 46, 52, 536, 537, -1, };
+void *g_00DBC46C[6] = {
+	g_00C00918, g_00C00900, g_00C008E8, g_00C008D0, g_00C008B8, g_00C008B8,
+};
+// g_00C00948: matched references place it at VA 0xc00948; retail contents, sized to the
+// 0x18-byte gap before the next known global there.
+int FiringOrPreAttack[6] = {
+	42, 48, 54, 540, 541, -1,
+};
+// g_00C00930: matched references place it at VA 0xc00930; retail contents, sized to the
+// 0x18-byte gap before the next known global there.
+int FiringOrReloading[6] = {
+	43, 49, 55, 542, 543, -1,
+};
+#include "../../../Include/Common/WeaponTemplateSetHead.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
@@ -178,6 +211,61 @@ struct Rva00262356Fields
     float get() const;
 };
 
+class Rva002C7492
+{
+public:
+	void rva002C7492(const Rva002C7492 *other);
+	Rva002C7492 *rva002C760B(int v0, int idx1, int idx2, int idx3, int idx4, int idx5, int idx6, int idx7);
+private:
+	int m_mask[19]; // +0x00
+};
+
+struct Rva00751B90Slot
+{
+	char a[0x1C];
+};
+
+class Rva00751B90
+{
+	// BFME2 retail indexes slots from +0xEC (BFME1 donor has +0xDC);
+	// stride 0x1C is proven by retail's imul. TU-local layout only.
+	char pad[0xEC];
+	Rva00751B90Slot m_slots[1];
+
+public:
+	void *get(int i);
+};
+
+struct Rva002C752F_1C
+{
+	unsigned char data[0x1C];
+};
+
+struct Rva002C752F_4C
+{
+	unsigned char data[0x4C];
+};
+
+class Rva002C752F
+{
+public:
+	void clear();
+
+private:
+	char m_pad0[4];
+	unsigned char m_04[0x10];
+	const void *m_tmpl[6];
+	int m_mask[6];
+	Rva002C752F_1C m_a[6];
+	Rva002C752F_1C m_b[6];
+	Rva002C752F_4C m_c[6];
+	unsigned char m_35C;
+	unsigned char m_35D;
+	char m_pad35E[2];
+	int m_360;
+	unsigned char m_364;
+};
+
 // tu-skeleton: 0x002C726C 51B ?parseWeapon@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
 
 // tu-skeleton: 0x002C729F 54B ?parseAutoChoose@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
@@ -202,7 +290,46 @@ struct Rva00262356Fields
 
 // tu-skeleton: 0x002C7474 30B ?rva002C7474@Rva002C7474@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva002C7474Loop.cpp (not merged yet)
 
-// tu-skeleton: 0x002C7492 25B ?rva002C7492@Rva002C7492@@QAEXPBV1@@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva002C7492Or.cpp
+
+//
+// ?rva002C7492@Rva002C7492@@QAEXPBV1@@Z @0x002C7492, 25B.
+// 19-dword OR-merge: this[i] |= other[i]. Retail computes other-this once
+// then loops with mov esi [eax+ecx] / or [ecx] esi over 0x13 dwords.
+// Evidence: this is the 76-byte (0x4C) temp at [ebp-0x4C] in 0x002C777E and
+// 0x0034707A copied via WeaponTemplateSetHead copy ctor at 0x00045455;
+// arg is the 19-dword mask built by 0x002C760B. Same family as
+// Rva00263546Overlap.cpp (19-dword overlap with sub eax ecx shape) and
+// Rva00271C8ALoop.cpp (19-dword merge with push 0x13 pop dec-jne).
+
+void Rva002C7492::rva002C7492(const Rva002C7492 *other)
+{
+	for (unsigned i = 0; i < 19; ++i) {
+		m_mask[i] |= other->m_mask[i];
+	}
+}
+
+// ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z @0x002C760B, 167B.
+// 8-bit setter: memset 0x4C then set one bit per int arg (index val>>5).
+// Evidence: sole caller 0x002C777E passes zero plus 7 bit ids per case;
+// neighbour Rva002C76B2Build.cpp proves extern C memset import 0x6291AE
+// and unsigned bit idiom; class layout int[19] from the OR-merge above.
+Rva002C7492 *Rva002C7492::rva002C760B(int v0, int idx1, int idx2, int idx3, int idx4, int idx5, int idx6, int idx7)
+{
+	(void)v0;
+	memset(this, 0, 0x4C);
+	unsigned *bits = (unsigned *)m_mask;
+	bits[(unsigned)idx1 >> 5] |= 1u << ((unsigned)idx1 & 31);
+	bits[(unsigned)idx2 >> 5] |= 1u << ((unsigned)idx2 & 31);
+	bits[(unsigned)idx3 >> 5] |= 1u << ((unsigned)idx3 & 31);
+	bits[(unsigned)idx4 >> 5] |= 1u << ((unsigned)idx4 & 31);
+	bits[(unsigned)idx5 >> 5] |= 1u << ((unsigned)idx5 & 31);
+	bits[(unsigned)idx6 >> 5] |= 1u << ((unsigned)idx6 & 31);
+	bits[(unsigned)idx7 >> 5] |= 1u << ((unsigned)idx7 & 31);
+	return this;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp32ByteGetters.cpp
 
@@ -610,7 +737,12 @@ Bool WeaponSet::isSharedReloadTime() const
 
 // tu-skeleton: 0x002C74CB 14B ?rva002C74CB@Rva002C71CA@@QAEPAURva002C74CBRecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C74D9 17B ?get@Rva00751B90@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00751B90Get.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00751B90Get.cpp
+
+void *Rva00751B90::get(int i)
+{
+	return &m_slots[i];
+}
 
 // tu-skeleton: 0x002C74EA 17B ?rva002C74EA@Rva002C71CA@@QAEPAURva002C74EARecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
@@ -622,7 +754,33 @@ Bool WeaponSet::isSharedReloadTime() const
 
 // tu-skeleton: 0x002C751E 17B ?Rva002C751E@@YAXPAURva002C74CBRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C752F 134B ?clear@Rva002C752F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// ?clear@Rva002C752F@@QAEXXZ @0x002C752F, 134B.
+// Six-slot clear: zeroes bitset at +0x04 (0x10), tail bytes/dword at
+// +0x35C/+0x35D/+0x360/+0x364, then per slot sets dword at +0x2C to -1
+// and memsets 0x1C at +0x44, 0x1C at +0xEC, 0x4C at +0x194.
+// Evidence: neighbour WeaponSetRva002C75D1 proves +0x2C autoChooseMask[6]
+// and next array at +0x44; caller 0x0033A888 constructs the same three
+// arrays (0x1C/0x1C/0x4C via 0x24C7B3/0x42526) then calls here.
+
+void Rva002C752F::clear()
+{
+	m_35C = 0;
+	m_35D = 0;
+	m_364 = 0;
+	m_360 = 0;
+	memset(m_04, 0, 0x10);
+	for (int i = 0; i < 6; ++i) {
+		m_tmpl[i] = 0;
+		m_mask[i] = -1;
+		memset(&m_a[i], 0, 0x1C);
+		memset(&m_b[i], 0, 0x1C);
+		memset(&m_c[i], 0, 0x4C);
+	}
+}
 
 // tu-skeleton: 0x002C75B5 28B ??_GWeaponSet@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp (not merged yet)
 
@@ -630,9 +788,35 @@ Bool WeaponSet::isSharedReloadTime() const
 
 // tu-skeleton: 0x002C75FA 17B ?rva002C75FA@Rva002C71CA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
-// tu-skeleton: 0x002C760B 167B ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp
 
-// tu-skeleton: 0x002C76B2 204B ?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp (not merged yet)
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z retail 0x002C76B2 204B
+// Bitset builder returning out for WeaponTemplateSetHead 0x4C: memset 0 then set 1<<bit from four condition tables, copy-construct out. Evidence: calls memset import 0x6291AE and rowed copy ctor 0x45455; tables g_00DBC46C g_00C00960 g_00C00948 g_00C00930; callers 0x28DC8F 0x28FCB2 need unlock; free cdecl with EAX-out return per lever 31 and inline placement new precedent.
+
+WeaponTemplateSetHead *__cdecl Rva002C76B2Build(WeaponTemplateSetHead *out, int a, int b)
+{
+	__assume(out != 0);
+	char tmpBuf[0x4C];
+	WeaponTemplateSetHead &weaponTemplateSetHead = *(WeaponTemplateSetHead *)tmpBuf;
+	memset(&weaponTemplateSetHead, 0, 0x4C);
+	unsigned *bits = (unsigned *)&weaponTemplateSetHead;
+	unsigned bit = 1;
+	int m_conditionFlag = ((int **)g_00DBC46C)[b][a];
+	if (m_conditionFlag != -1)
+		bits[(unsigned)m_conditionFlag >> 5] |= bit << ((unsigned)m_conditionFlag & 31);
+	int w = ((int *)g_00C00960)[a];
+	if (w != -1 && b != 0)
+		bits[(unsigned)w >> 5] |= bit << ((unsigned)w & 31);
+	int firingOrPreAttackFlag = ((int *)FiringOrPreAttack)[a];
+	if (firingOrPreAttackFlag != -1 && (b == 1 || b == 4 || b == 5))
+		bits[(unsigned)firingOrPreAttackFlag >> 5] |= bit << ((unsigned)firingOrPreAttackFlag & 31);
+	int firingOrReloadingFlag = ((int *)FiringOrReloading)[a];
+	if (firingOrReloadingFlag != -1 && (b == 1 || b == 3))
+		bits[(unsigned)firingOrReloadingFlag >> 5] |= bit << ((unsigned)firingOrReloadingFlag & 31);
+	new (out) WeaponTemplateSetHead(weaponTemplateSetHead);
+	return out;
+}
 
 // tu-skeleton: 0x002C777E 257B ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002C777EBuild.cpp (not merged yet)
 
