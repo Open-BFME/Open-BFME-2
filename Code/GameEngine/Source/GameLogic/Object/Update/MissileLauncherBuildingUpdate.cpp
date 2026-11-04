@@ -78,27 +78,22 @@ extern PartitionManager *ThePartitionManager;
 #include "../../../GameClient/BuffManager.h"
 #include <vector>
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-
 namespace _STL {
 template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *first, ObjectID *last);	// 0x00532803
 template <> void vector<ObjectID, allocator<ObjectID> >::push_back(const ObjectID &value);	// 0x002E01C6
 }
-
 class ThingTemplate
 {
 public:
 	char m_pad000[0x114];
 	unsigned m_114;		// +0x114 (bit 13 tested)
 };
-
 extern GameLogic *TheGameLogic;
-
 class Overridable
 {
 public:
 	const Overridable *friend_getFinalOverride() const;	// 0x00288609
 };
-
 class SpecialPowerTemplate : public Overridable
 {
 public:
@@ -109,7 +104,6 @@ public:
 	char m_pad00[0x60];
 	int m_objectFilter;	// +0x60 the object filter
 };
-
 // What 0x0044E633 returns: slot 6 is the special power template.
 class Rva004CDA49Power
 {
@@ -122,9 +116,7 @@ public:
 	virtual void slot05();
 	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
 };
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-
 class StoreObjectsSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
@@ -132,15 +124,11 @@ public:
 	virtual ~StoreObjectsSpecialPowerModuleData();
 	float m_C8;	// +0xC8 the radius
 };
-
 class Rva0044E633 {public:void*rva0044E633();};
-
 	// 0x0044E633
 
 class Thing;
-
 class ModuleData;
-
 // Four-vptr module hierarchy (+0 +0x0C +0x10 +0x20), as in the matched
 // GiveOrRestoreUpgradeSpecialPowerDtor.cpp; the dtor's vptr restores are
 // compiler-generated, which puts them ahead of the EH state store.
@@ -151,21 +139,13 @@ public:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
 class SpecialPowerTemplate;
-
 class Waypoint;
-
 struct Coord3D;
-
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-
 // The dtor tail-calls the rowed ??1SpecialAbilityUpdate (0x00451F45), and
 // retail's +0x10 and +0x20 tables (0x0084DEE8, 0x008552A4) keep
 // SpecialAbilityUpdate::update (0x00451FA2) and
@@ -180,7 +160,6 @@ public:
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
 		const Waypoint *way);
 };
-
 // The spelling the derived ctors use for SpecialAbilityUpdate's ctor (row
 // 0x0044EF5E), as in WeaponFireSpecialAbilityUpdate.cpp.
 class Rva0044EF5E : public SpecialAbilityUpdate
@@ -189,12 +168,10 @@ public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 // Cold-slice B8-imm32 const-int returners (twin-free TU).
 //
 // Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
@@ -207,11 +184,8 @@ enum NameKeyType
 
 // The three Apt screen factories these getters return are matched rows.
 void *__stdcall createAptScreenInGameChat(void *);
-
 void *__stdcall createAptScreenObjectives(void *);
-
 void *__stdcall createAptScreenQuickMatchMenu(void *);
-
 class Object
 {
 public:
@@ -224,7 +198,6 @@ public:
 	ObjectID m_74;		// +0x74
 	ObjectID m_78;		// +0x78
 };
-
 // ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
@@ -233,61 +206,33 @@ class Rva004885DE
 protected:
 	virtual const char *GetSnapshotName() const;
 };
-
-// Retail table C4C3D4 selects this Snapshot name getter in slot 2.
-// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
-
 class Xfer;
-
 // Existing verified getters rehomed after naming their actual providers.
 // Integer return representation retained; provider addresses now relocate.
 class GameWindow;
-
  class WinInstanceData;
-
  void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
-
 class Rva0078D310Host;
-
  Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
-
 class AptLanLobby;
-
  AptLanLobby *__stdcall Rva002D1F77Create(void *);
-
 class Rva004E4A45;
-
  Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
-
 class Rva004E8B38;
-
  Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
-
 class Rva00512AC8;
-
  Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
-
 class Rva005142B0;
-
  Rva005142B0 *__stdcall Rva002D1F03Create(void *);
-
 class Rva00516211;
-
  Rva00516211 *__stdcall Rva002D1FB1Create(void *);
-
 class Rva0051A78E;
-
  Rva0051A78E *__stdcall Rva002D205FCreate(void *);
-
 class Rva005202C8;
-
  Rva005202C8 *__stdcall Rva002D2147Create(void *);
-
 class Rva00523825;
-
  Rva00523825 *__stdcall Rva002D21FBCreate(void *);
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -344,6 +289,13 @@ private:
 // bfme link decl-only begin
 namespace _STL { template <> ScienceType * vector<ScienceType,_STL::allocator<ScienceType> >::erase(ScienceType *,ScienceType *); }
 
+class StoreObjectsSpecialPowerModuleData;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp
+
+// Retail table C4C3D4 selects this Snapshot name getter in slot 2.
+// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterProductionExitUpdateCtor.cpp
 
 StoreObjectsSpecialPowerModuleData::StoreObjectsSpecialPowerModuleData()
@@ -356,10 +308,6 @@ StoreObjectsSpecialPowerModuleData::StoreObjectsSpecialPowerModuleData()
 StoreObjectsSpecialPowerModuleData::~StoreObjectsSpecialPowerModuleData()
 {
 }
-
-// tu-skeleton: 0x004CD918 27B ?buildFieldParse@StoreObjectsSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x004CD933 66B ??0StoreObjectsSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdateCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp
 
@@ -444,3 +392,22 @@ void Rva004CDA35::rva004CDA35()
 }
 
 // bfme link decl-only end
+
+// tu-skeleton: 0x004CD918 27B ?buildFieldParse@StoreObjectsSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdateCtor.cpp
+
+// Identity: ModuleFactory registers this module as "StoreObjectsSpecialPower" (addModule pairs
+// the name with its factories); formerly misnamed MissileLauncherBuildingUpdate.
+//
+// ??0StoreObjectsSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at retail
+// 0x004CD933 (66B): calls SpecialAbilityUpdate's constructor (rowed as
+// Rva0044EF5E at 0x0044EF5E), stores the four tables (+0x00, +0x0C, +0x10,
+// +0x20) and default-constructs the ObjectID vector at +0x88 (the shared
+// empty vector base 0x00211E58). The class views are the ones
+// MissileLauncherBuildingUpdate.cpp declares.
+
+StoreObjectsSpecialPower::StoreObjectsSpecialPower(Thing *thing, const ModuleData *moduleData)
+	: Rva0044EF5E(thing, moduleData)
+{
+}

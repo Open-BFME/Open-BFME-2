@@ -6422,7 +6422,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?Release_Ref@TextureBaseClass@@QAEXXZ,,0x0061ED10,36,Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp,matched,
 ?InitRandom@@YAXI@Z,,0x00233F82,69,Code/GameEngine/Source/Common/GameLogicRandomInit.cpp,matched,BFME1 random_value.cpp shape with frame-override; /Ob0 keeps seedRandom calls out of line
 ?InitGameLogicRandom@@YAXI@Z,,0x00233FC7,45,Code/GameEngine/Source/Common/GameLogicRandomInit.cpp,matched,BFME1 random_value.cpp shape with frame-override; logic seed only
-??0StoreObjectsSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004CD933,66,Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdateCtor.cpp,matched,opaque Rva0044EF5E base via pin; inherited slots re-stored; body-placed E16 vector
+??0StoreObjectsSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004CD933,66,Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp,matched,opaque Rva0044EF5E base via pin; inherited slots re-stored; body-placed E16 vector
 ??0TeleportToCasterSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004CD3A4,49,Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp,matched,opaque-base pattern; factory stub order; size 0x88
 ??0CurseSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004CCD7F,49,Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateCtor.cpp,matched,opaque-base pattern; factory stub order; size 0x88
 ??0EvacuateGarrisonSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004CDBFC,49,Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp,matched,opaque-base pattern; factory stub order; size 0x88
