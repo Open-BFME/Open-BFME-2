@@ -83,7 +83,9 @@ class Player {public:char unknown00[0x54];int index;AsciiString faction;};
 
 struct VictoryObjectTemplate { char pad[0x109]; unsigned char flags109; char pad10a[9]; unsigned char flags113; };
 
-class Object { public: Player *getControllingPlayer() const; char pad0[4]; VictoryObjectTemplate *tmpl; char pad8[0x438-8]; unsigned char flags438; };
+class ExperienceTracker;
+
+class Object { public: Player *getControllingPlayer() const; char pad0[4]; VictoryObjectTemplate *tmpl; char pad8[0x264-8]; ExperienceTracker *m_experienceTracker; char pad268[0x438-0x268]; unsigned char flags438; };
 
 extern GameLogic *TheGameLogic;
 
@@ -95,7 +97,22 @@ class Rva0056C4D3 { public: void rva0056C4D3(void*,float,int,int); };
 
 class Rva0056C0F0 { public: void rva0056C0F0(unsigned int,Vec3*); };
 
-class Rva004051BC { public: void rva004051BC(int,const Coord3D*); };
+struct Rva004051BCEntry
+{
+	unsigned char flag;
+	char pad[3];
+};
+
+class Rva004051BC
+{
+public:
+	void rva004051BC(int playerIndex, const Coord3D *pos);
+private:
+	char m_pad00[0x20];
+	float m_radius20; // +0x20
+	char m_pad24[0x2B - 0x24];
+	Rva004051BCEntry m_guards[8]; // +0x2B stride 4, bit 0x80 skips
+};
 
 class CellGrid
 {
