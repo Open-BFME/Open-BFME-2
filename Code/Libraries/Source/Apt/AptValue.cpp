@@ -218,6 +218,28 @@ public:
 	}
 };
 
+// The middle level whose destructor (0x006D6470) is retail's second unwind target.
+class Rva006D6470Owner : public Rva006D6360Base, public Rva006DBits
+{
+public:
+	__forceinline Rva006D6470Owner(int type, int size) : Rva006D6360Base(type, size), Rva006DBits() {}
+	virtual ~Rva006D6470Owner();
+};
+
+#undef RVA_APT_CTOR
+#define RVA_APT_CTOR(NAME, TYPE, SIZE) \
+	class NAME : public Rva006D6470Owner \
+	{ \
+	public: \
+		NAME(); \
+		virtual ~NAME() {} \
+	}; \
+	NAME::NAME() : Rva006D6470Owner(TYPE, SIZE) \
+	{ \
+		if(0){throw 0;} \
+		m_flags = (m_flags & 0xFE07FFFFu) | 0x40000u; \
+	}
+
 RVA_APT_CTOR(Rva006DE480, 0x17, 8)
 
 RVA_APT_CTOR(Rva006DE510, 0x18, 8)
