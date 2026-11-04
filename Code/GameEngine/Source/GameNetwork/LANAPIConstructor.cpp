@@ -25,28 +25,10 @@ class LivingWorldBattle;
 class LANAPIInterface : public SubsystemInterface
 {
 public:
-	enum ChatType
-	{
-		LANCHAT_NORMAL = 0,
-		LANCHAT_TYPE1,
-		LANCHAT_EMOTE,
-		LANCHAT_SYSTEM
-	};
-	enum ReturnType
-	{
-		RET_OK = 0,
-		RET_TIMEOUT,
-		RET_GAME_FULL,
-		RET_DUPLICATE_NAME,
-		RET_CRC_MISMATCH,
-		RET_SERIAL_DUPE,
-		RET_GAME_STARTED,
-		RET_GAME_EXISTS,
-		RET_GAME_GONE,
-		RET_BUSY
-	};
-	LANAPIInterface(void) {}
-	virtual ~LANAPIInterface(void) {}
+	enum ReturnType { RET_OK = 0, RET_TIMEOUT, RET_GAME_FULL, RET_DUPLICATE_NAME, RET_CRC_MISMATCH, RET_SERIAL_DUPE, RET_GAME_STARTED, RET_GAME_EXISTS, RET_GAME_GONE, RET_BUSY };
+	enum ChatType { LANCHAT_NORMAL = 0, LANCHAT_TYPE1, LANCHAT_EMOTE, LANCHAT_SYSTEM };
+	LANAPIInterface( void ) {}
+	virtual ~LANAPIInterface( void ) {}
 };
 
 #include "../../Include/GameNetwork/Transport.h"
