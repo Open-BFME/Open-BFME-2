@@ -137,12 +137,7 @@ public:
 	void report(Object *victim, int amount);
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x112];
-	unsigned char m_hulkKind; // +0x112 bit 2 (mask 4) is HULK
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -150,7 +145,7 @@ public:
 	virtual ~Thing();
 
 	const ThingTemplate *getTemplate() const { return m_template; }
-	Bool isHulkKind() const { return (getTemplate()->m_hulkKind & 4) != 0; }
+	Bool isHulkKind() const { return ((unsigned char)(getTemplate()->m_kindof[2] >> 16) & 4) != 0; }
 
 private:
 	const ThingTemplate *m_template; // +0x04

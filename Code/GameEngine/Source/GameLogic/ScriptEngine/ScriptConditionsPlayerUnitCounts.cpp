@@ -142,24 +142,7 @@ enum KindOfType
 	KINDOF_90 = 90
 };
 
-class ThingTemplate
-{
-public:
-	Bool isEquivalentTo(const ThingTemplate *other) const;
-	Bool isKindOf(KindOfType t) const
-	{
-		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isKindOf
-	// copy loses to the kept copy. No flags touched.
-	Bool bfme_isKindOf_puc(KindOfType t) const
-	{
-		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
-	}
-private:
-	unsigned char m_pad[0x108];
-	unsigned char m_kindOf[16]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Vector3i16;
 
@@ -451,7 +434,7 @@ Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, 
 				Object *obj = iter2.cur();
 				if (!obj)
 					continue;
-				if (obj->getTemplate()->bfme_isKindOf_puc(KINDOF_90) && obj->getExperienceTracker() != 0
+				if ((((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0) && obj->getExperienceTracker() != 0
 					&& obj->getExperienceTracker()->getRank() >= rankParm->bfme_getInt_f996b())
 					count++;
 			}
@@ -679,7 +662,7 @@ Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, 
 				Object *obj = iter2.cur();
 				if (obj->testStatus((ObjectStatusTypes)0x26))
 					continue;
-				if (modeParm->bfme_getInt_f996b() == 0 && obj->getTemplate()->bfme_isKindOf_puc(KINDOF_90))
+				if (modeParm->bfme_getInt_f996b() == 0 && (((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0))
 					continue;
 				ExperienceTracker *tracker = obj->getExperienceTracker();
 				if (tracker && tracker->getRank() > tracker->getLevelCap())

@@ -46,30 +46,15 @@ enum StateID
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const;
-
-	void *m_vtable;
-	Overridable *m_nextOverride;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // Keep the guard kind checks inline without exporting competing private
 // Thing/ThingTemplate helper bodies. No import remains when fully inlined.
-class ThingTemplate : public Overridable
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
-
-	unsigned char m_unmodelled_08[0x108 - 8];
-	unsigned char m_kindof[16];
-};
 
 class Thing
 {
 public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (((unsigned char)(m_template->m_kindof[t >> 5] >> (t & 24)) & (1 << (t & 7))) != 0); }
 
 	virtual void slot00();
 	ThingTemplate *m_template;

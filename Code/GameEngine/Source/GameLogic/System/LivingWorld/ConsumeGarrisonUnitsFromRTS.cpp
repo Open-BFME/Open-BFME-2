@@ -39,7 +39,7 @@ class Rva002BC1DAUnit {public:char pad00[0x18];AsciiString name;char pad1C[0x78-
 struct Rva002BC1DAArmy {char bytes[0x38];};
 #include "../../../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F4DCA {public:int rva003F4DCA(int,int);};
-class ThingTemplate {public:char pad00[0x113];unsigned char heroFlags;char pad114[0x5C4-0x114];int kind;};
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
 class Rva002B6066 {public:Rva0040DC56Element*rva002B6066(Rva0040DC56Element*);};
@@ -59,7 +59,7 @@ int Rva00318FC6::rva00318FC6(int kind,int maxCP){
  int count=0;
  for(int i=0;i<(int)summary.Get()->records.size();++i){
   ThingTemplate*thing=(ThingTemplate*)((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->GetThingTemplate();
-  if(thing->kind==kind&&((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->GetCommandPointSize()<=maxCP)++count;
+  if(thing->m_autoResolveUnitType==kind&&((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->GetCommandPointSize()<=maxCP)++count;
  }
  return count;
 }
@@ -69,7 +69,7 @@ int Rva00318FC6::rva00318FC6(int kind,int maxCP){
 ArmySummaryEntryRef Rva00319028::rva00319028(int kind,int maxCP){
  for(int i=(int)summary.Get()->records.size()-1;i>=0;--i){
   ThingTemplate*thing=(ThingTemplate*)((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->GetThingTemplate();
-  if(thing->kind==kind&&((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->GetCommandPointSize()<=maxCP){
+  if(thing->m_autoResolveUnitType==kind&&((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->GetCommandPointSize()<=maxCP){
    int id=((Rva0040CC0EIndexedField*)summary.Get())->get(i);
    return summary.Get()->GetEntry(id);
   }
@@ -114,7 +114,7 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
    }
    lost=((Rva0040DB0ERegistry*)summary)->rva0040DB0E(*name)-((Rva00319924*)other)->count(*name);
    int cp=((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary)->get(j))->GetCommandPointSize();
-   int kind=TheThingFactory->findTemplate(*name)->kind;
+   int kind=TheThingFactory->findTemplate(*name)->m_autoResolveUnitType;
    available=((Rva00318FC6*)unit)->rva00318FC6(kind,cp);
    if(lost>0&&available>0&&kind!=5){
     int take=lost>available?available:lost;
@@ -138,7 +138,7 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
   for(int j=0;j<max&&cp<limit;++j){
    Rva0040DC56Element*last=remaining.begin()+remaining.size()-1;
    ThingTemplate*thing=(ThingTemplate*)((Rva0037DCA5*)last->Get())->GetThingTemplate();
-   if(((Rva0037DCA5*)last->Get())->GetCommandPointSize()+cp>limit||(thing&&(thing->heroFlags&4)))continue;
+   if(((Rva0037DCA5*)last->Get())->GetCommandPointSize()+cp>limit||(thing&&(thing->m_kindof[2] & 0x4000000U)))continue;
    ((LivingWorldArmy*)other)->rva00319EA3((LivingWorldArmy*)unit,last->Get());
    ((Rva002B6066*)&remaining)->rva002B6066(remaining.begin()+remaining.size()-1);
    cp+=((Rva0037DCA5*)last->Get())->GetCommandPointSize();
@@ -151,7 +151,7 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
   for(int j=0;j<(int)summary->records.size();++j){
    ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary)->get(j);
    AsciiString*name=&entry->name;
-   int kind=TheThingFactory->findTemplate(*name)->kind;
+   int kind=TheThingFactory->findTemplate(*name)->m_autoResolveUnitType;
    int cp=((Rva0037DCA5*)entry)->GetCommandPointSize();
    bool found=false;
    Rva0040DC56Element*it;
@@ -164,7 +164,7 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
    }
    if(found)continue;
    for(it=remaining.begin();it!=remaining.end();++it){
-    if(kind!=5&&kind==((ThingTemplate*)((Rva0037DCA5*)it->value)->GetThingTemplate())->kind&&cp>=((Rva0037DCA5*)it->value)->GetCommandPointSize()){
+    if(kind!=5&&kind==((ThingTemplate*)((Rva0037DCA5*)it->value)->GetThingTemplate())->m_autoResolveUnitType&&cp>=((Rva0037DCA5*)it->value)->GetCommandPointSize()){
      found=true;
      ((Rva002B6066*)&remaining)->rva002B6066(it);
      break;
@@ -172,7 +172,7 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
    }
    if(found)continue;
    for(it=remaining.begin();it!=remaining.end();++it){
-    if(((ThingTemplate*)((Rva0037DCA5*)it->value)->GetThingTemplate())->kind!=5&&cp>=((Rva0037DCA5*)it->value)->GetCommandPointSize()){
+    if(((ThingTemplate*)((Rva0037DCA5*)it->value)->GetThingTemplate())->m_autoResolveUnitType!=5&&cp>=((Rva0037DCA5*)it->value)->GetCommandPointSize()){
      ((Rva002B6066*)&remaining)->rva002B6066(it);
      break;
     }

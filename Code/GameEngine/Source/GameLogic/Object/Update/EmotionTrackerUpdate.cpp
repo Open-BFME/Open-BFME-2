@@ -30,7 +30,7 @@ public:
 	char m_pad00[0x54];
 	int index; // +0x54
 };
-class ThingTemplate { public: char pad[0x10b]; unsigned char flags10b; };
+#include "../../../../Include/Common/ThingTemplate.h"
 class ExperienceTracker { public: char pad[0x24]; int level; };
 enum ObjectStatusTypes;
 enum Relationship { ENEMIES = 0 };
@@ -594,7 +594,7 @@ EmotionNugget *EmotionTrackerUpdate::rva004B13D8()
 			if (other)
 			{
 				unsigned char bit = (unsigned char)(other->status94 >> 6);
-				if ((other->m_template->flags10b & 2) == 0 && (bit & 1) == 0)
+				if ((other->m_template->m_kindof[0] & 0x2000000U) == 0 && (bit & 1) == 0)
 				{
 
 					if (getObject()->rva0028B511() != other->rva0028B511())

@@ -17,7 +17,7 @@ static __forceinline const char*formatText(const Debug::Format&f){return (const 
 extern Debug*theDebug;void _bfme_debugRecordCallsite(int);
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpecialPowerModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void atLocation(const Coord3D*,int);};
-struct ThingTemplate{char pad[0x64];AsciiString name;};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object{public:BehaviorModule*rva0028F2C4(int)const;char p0[4];const ThingTemplate*tmpl;char p8[0x38-8];Coord3D position;};
 struct WakeEntry{int key,mode;};struct WakeVector{WakeEntry*begin,*end,*capacity;};struct WakeData{char p[0xc8];WakeVector entries;};
 class SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();};
@@ -30,7 +30,7 @@ void ActivateModuleSpecialPower::SetWakeState(int state)
   BehaviorModule*module=obj->rva0028F2C4(it->key);
   if(!module)continue;
   if((void*)this==(void*)module){
-   const char*name=obj->tmpl->name.str();
+   const char*name=obj->tmpl->m_nameString.str();
    _bfme_debugRecordCallsite(1);theDebug->SkipNext();
    Debug&report=theDebug->CrashBegin(0,0,0);
    report<<formatText(Debug::Format("ERROR: ActivateModuleSpecialPower can not be used on it self! Check the INI for Object %s",name));report.CrashDone(1);

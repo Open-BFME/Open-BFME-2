@@ -20,7 +20,7 @@ extern "C" void _ReadWriteBarrier();
 #include <math.h>
 class BfmeVec3EJ;
 class Gen_000E5A50 { public: float Get3DCenterDistanceSquared(const BfmeVec3EJ*)const; };
-class ThingTemplate { public: char pad[0x10B];unsigned char kinds; };
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object { public: char pad[4];ThingTemplate *templ; char pad8[0x38-8];Coord3D position; const Coord3D*getPosition()const{return &position;} };
 class LocomotorTemplate {public:char pad[0x74];int type;};
 class Locomotor {public: char pad[4];LocomotorTemplate*templ;char pad8[0x44-8];unsigned int flags;bool isCloseEnoughDist3D()const{return (flags>>10)&1;} };
@@ -55,7 +55,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
  case 1:{
   if(!path)return 100.0f;
   if(!loco)break;
-  if(loco->isCloseEnoughDist3D()||(owner->templ->kinds&2)){
+  if(loco->isCloseEnoughDist3D()||(owner->templ->m_kindof[0] & 0x2000000U)){
    const Object *obj=owner;PathNode *last=path->m_pathTail;const Coord3D *p=machine->locomotorGoalPosition();
    goalPos.x=p->x;goalPos.y=p->y;goalPos.z=p->z;
    if(last)goalPos=last->m_pos;

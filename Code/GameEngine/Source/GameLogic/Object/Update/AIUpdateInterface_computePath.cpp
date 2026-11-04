@@ -62,18 +62,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	Bool isKindOfByte(Int index, unsigned char mask) const { return (m_kindOf[index] & mask) != 0; }
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	unsigned char m_kindOf[0x14]; // +0x108
-	unsigned char m_pad11C[0x614 - 0x11C];
-	Bool m_moveAllies; // +0x614
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -363,19 +352,19 @@ Bool AIUpdateInterface::computePath(PathfindServicesInterface *pathServices, Coo
 			CRITTER_TRACE("CritterDesync:  bblah1");
 		}
 		setLocomotorGoalPositionOnPath();
-		Bool moveAllies = m_path->m_blockedByAlly && !getObject()->getTemplate()->isKindOfByte(3, 0x40);
-		if (getObject()->getTemplate()->isKindOfByte(0xD, 0x20)) {
+		Bool moveAllies = m_path->m_blockedByAlly && !((getObject()->getTemplate()->m_kindof[0] & 0x40000000U) != 0);
+		if (((getObject()->getTemplate()->m_kindof[3] & 0x2000U) != 0)) {
 			CRITTER_TRACE("CritterDesync:  bblah2");
 			if (!TheAI->getAiData()->m_fieldB9) {
 				CRITTER_TRACE("CritterDesync:  bblah3");
 				moveAllies = false;
 			}
 		}
-		if (getObject()->getTemplate()->m_moveAllies || getObject()->getTemplate()->isKindOfByte(0xF, 0x20)) {
+		if (getObject()->getTemplate()->m_crushAllies || ((getObject()->getTemplate()->m_kindof[3] & 0x20000000U) != 0)) {
 			CRITTER_TRACE("CritterDesync:  bblah4");
 			moveAllies = true;
 		}
-		if (getObject()->getTemplate()->isKindOfByte(0x11, 0x08)) {
+		if (((getObject()->getTemplate()->m_kindof[4] & 0x800U) != 0)) {
 			CRITTER_TRACE("CritterDesync:  bblah5");
 			moveAllies = false;
 		}

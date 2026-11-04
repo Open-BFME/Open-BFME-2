@@ -108,13 +108,7 @@ public:
 	__forceinline unsigned long test(unsigned pos) const { return m_words[pos / 32] & (1UL << (pos % 32)); }
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x108];
-	BitFlags<218> m_kindof;	// +0x108
-	__forceinline unsigned long isKindOf(unsigned t) const { return m_kindof.test(t); }
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -245,12 +239,12 @@ void ArrowStormUpdate::rva00490AC5()
 	Rva0029FB3BMember extra;
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		if (other->getTemplate()->isKindOf(104) || other->getTemplate()->isKindOf(89)
-				|| other->getTemplate()->isKindOf(47) || other->getTemplate()->isKindOf(150)
-				|| other->getTemplate()->isKindOf(54) || other->getTemplate()->isKindOf(134))
+		if (((other->getTemplate()->m_kindof[3] & 0x100U) != 0) || ((other->getTemplate()->m_kindof[2] & 0x2000000U) != 0)
+				|| ((other->getTemplate()->m_kindof[1] & 0x8000U) != 0) || ((other->getTemplate()->m_kindof[4] & 0x400000U) != 0)
+				|| ((other->getTemplate()->m_kindof[1] & 0x400000U) != 0) || ((other->getTemplate()->m_kindof[4] & 0x40U) != 0))
 			continue;
 		m_88.push_back(other->getID());
-		if (other->getTemplate()->isKindOf(10))
+		if (((other->getTemplate()->m_kindof[0] & 0x400U) != 0))
 			extra.pushBackInline(other->getID());
 	}
 	if (m_88.size() == 0)

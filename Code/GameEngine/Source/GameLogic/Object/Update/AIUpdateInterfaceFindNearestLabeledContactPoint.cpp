@@ -9,7 +9,7 @@
 #include "Lib/Coord3D.h"
 #include "ascii_string.h"
 typedef bool Bool; typedef int Int;
-class ThingTemplate { public: char pad[0x64]; AsciiString name; const AsciiString&getName()const{return name;} };
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object { public:
  void *vtable; const ThingTemplate *m_template; char pad08[0x6c]; unsigned id;
  const ThingTemplate*getTemplate()const{return m_template;} unsigned getID()const{return id;}

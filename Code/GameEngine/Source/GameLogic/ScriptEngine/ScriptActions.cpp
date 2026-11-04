@@ -341,13 +341,7 @@ private:
 	Team *m_dlinkhead_TeamInstanceList;
 };
 
-class ThingTemplate
-{
-public:
- bool rva003BE11C94() const { return (((const unsigned char *)this)[0x113] & 0x40) != 0; }
- bool isEquivalentTo(const ThingTemplate *) const;
-	int rva0033B479() const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
@@ -1323,7 +1317,7 @@ static __declspec(noinline) void rva003BE11C(Object *obj, const ThingTemplate *t
 		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
 			Rva00261750Filter(tmpl, true).link(Rva002614BCFilter(obj, button, true, 1).link(&Rva002611BFFilter(obj))));
 		if (!target) {
-			if (tmpl->rva003BE11C94()) {
+			if (((tmpl->m_kindof[2] & 0x40000000U) != 0)) {
 				int where = reinterpret_cast<BfmeThingCME *>(TheTerrainLogic)->rva0027F108(
 					const_cast<Coord3D *>(obj->getPosition()), 10000000.0f, 1, 1);
 				if (where)

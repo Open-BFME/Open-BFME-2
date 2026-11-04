@@ -13,7 +13,7 @@ class Thing {public:void getUnitDirectionVector2D(Coord3D&)const;};
 class Rva001E3511 {public:int rva001E3511();};
 class Path {public:Rva003642DFResult rva00364521(const Rva0008BB38FloatField*);char pad[8];struct Node{char pad[12];Coord3D point;}*node;};
 class Rva0008BB38FloatField {public:char pad[0x44];union{unsigned flags;struct{unsigned lower:7;unsigned ignored:1;unsigned upper:24;};};bool ignores()const{return ignored!=0;}};
-class ThingTemplate {public:char pad[0x108];unsigned kind[7];__forceinline bool kindOf(int n)const{return (reinterpret_cast<const unsigned char*>(kind)[n>>3]&(1u<<(n&7)))!=0;}};
+#include "../../../../Include/Common/ThingTemplate.h"
 enum CommandSourceType{CMD_FROM_AI=2};
 class CollisionConditionBits{public:unsigned test(int n)const{return words[n>>5]&(1u<<(n&31));}void clear(int n){words[n>>5]&=~(1u<<(n&31));}unsigned words[19];};
 class Object:public Thing {public:
@@ -238,19 +238,19 @@ bool AIUpdateInterface::rva0026CF11(Object*other)
  Object*obj=owner;Relationship relationship=obj->getRelationship(other);
  if(relationship==0 && obj->rva0029493F(other,2))return false;
  if(loco && loco->ignores())return false;
- if(obj->templ->kindOf(0x6d)&&relationship==2){if(obj->rva0028B511()!=1)return false;if(TheTerrainLogic->isUnderwater(&obj->position))return false;}
+ if(((obj->templ->m_kindof[3] & 0x2000U)!=0)&&relationship==2){if(obj->rva0028B511()!=1)return false;if(TheTerrainLogic->isUnderwater(&obj->position))return false;}
  if(aiOther->currentVictim()==obj)return false;
  if(!isDoingGroundMovement())return false;if(!aiOther->isDoingGroundMovement())return false;
- if(obj->templ->kindOf(8)&&machine->getID()==0x13)return false;
+ if(((obj->templ->m_kindof[0] & 0x100U)!=0)&&machine->getID()==0x13)return false;
  bool selfMoving=isMoving();bool otherMoving=aiOther->isMoving();
  if(selfMoving&&path&&(unsigned char)Rva00264237Check(&obj->position,&path->node->point))return false;
  if(otherMoving&&aiOther->path&&(unsigned char)Rva00264237Check(&other->position,&aiOther->path->node->point))return false;
  if(path){Rva003642DFResult p=path->rva00364521(loco);if(reinterpret_cast<Rva001E3511*>(&p)->rva001E3511()!=0x7fffffff)return false;}
  if(aiOther->path){Rva003642DFResult p=aiOther->path->rva00364521(aiOther->loco);if(reinterpret_cast<Rva001E3511*>(&p)->rva001E3511()!=0x7fffffff)return false;}
  if(!selfMoving){
-  if(dead&&obj->templ->kindOf(8)&&other->rva0029493F(obj,1))return false;
+  if(dead&&((obj->templ->m_kindof[0] & 0x100U)!=0)&&other->rva0029493F(obj,1))return false;
   if(otherMoving)return false;if(rva00260DED()==0x2a)return false;
-  if(obj->testStatus((ObjectStatusTypes)0x46))return false;if(obj->flags438&8)return false;if(obj->templ->kindOf(0xba))return false;
+  if(obj->testStatus((ObjectStatusTypes)0x46))return false;if(obj->flags438&8)return false;if(((obj->templ->m_kindof[5] & 0x4000000U)!=0))return false;
   if(!isIdle())return false;
   Coord3D safe,old;safe.x=obj->position.x;safe.y=obj->position.y;safe.z=obj->position.z;old.x=safe.x;old.y=safe.y;old.z=safe.z;
   TheAI->pathfinder->adjustToPossibleDestination(obj,collisionLocomotorSet(),&safe);

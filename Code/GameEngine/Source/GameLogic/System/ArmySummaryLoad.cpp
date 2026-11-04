@@ -96,11 +96,7 @@ extern LivingWorldLogic*TheLivingWorldLogic;
 extern PlayerList*ThePlayerList;
 class PlayerTemplate {public:char bytes00[0xE8];_STL::vector<AsciiString>startingUnits;};
 class Player {public:char bytes00[0x34];PlayerTemplate*tmplate;};
-class ThingTemplate {
-public:char bytes00[0x64];AsciiString name;
- char bytes68[0x110-0x68];unsigned flags110;
- char bytes114[0x618-0x114];int commandPoints;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -155,16 +151,16 @@ void ArmySummary::Load(bool battle,bool first,int overrideID)
    if(saved[index].value->flagged && !includeFlagged)continue;
    const ThingTemplate*definition=TheThingFactory->findTemplate(saved[index].value->templateName);
    if(!definition)continue;
-   unsigned firstKind=(definition->flags110>>26)&1;
+   unsigned firstKind=(definition->m_kindof[2]>>26)&1;
    if(firstKind!=(pass==0))continue;
    _STL::vector<AsciiString>::const_iterator current=delayedNames.begin(),end=delayedNames.end();
    postpone=false;
-   while(!postpone && current!=end){if(current->compare(definition->name)==0)postpone=true;++current;}
+   while(!postpone && current!=end){if(current->compare(definition->m_nameString)==0)postpone=true;++current;}
    if(postpone){self->delayed.push_back(*(const NameKeyType*)&saved[index].key);continue;}
    int count=saved[index].value->count;
-   if(definition->commandPoints>0 && pass>0)count=budget/definition->commandPoints;
+   if(definition->m_commandPoints>0 && pass>0)count=budget/definition->m_commandPoints;
    if(count>saved[index].value->count)count=saved[index].value->count;
-   if(count>0){budget-=count*definition->commandPoints;
+   if(count>0){budget-=count*definition->m_commandPoints;
     self->LoadArmyEntry((Rva0040E534Input*)&saved[index].value,count,&loaded,0);
    }
   }

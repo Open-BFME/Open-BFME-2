@@ -67,14 +67,7 @@ struct Rva002A8AB1Record
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;
 enum ObjectStatusTypes;
-class ThingTemplate
-{
-public:
-    unsigned char prefix00[0x64];
-    AsciiString name64;
-    unsigned char gap68[0xad];
-    unsigned char kindOf115;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -127,10 +120,10 @@ void AIBuilder::onUnitCreated(Object *object, Object *created, bool horde)
         for (_STL::list<AIBuilderOrder *>::iterator it = orders13c.begin(); it != orders13c.end(); ++it)
         {
             AIBuilderOrder *order = *it;
-            if ((horde || !(created->template04->kindOf115 & 0x20)) &&
+            if ((horde || !(created->template04->m_kindof[3] & 0x2000U)) &&
                 order->state10 == 1 && order->objectID08 == object->id74 &&
                 !created->testStatus(static_cast<ObjectStatusTypes>(0x57)) &&
-                order->name0c.compare( (created->template04->kindOf115 ? created->template04->name64 : created->template04->name64)) == 0)
+                order->name0c.compare( ((created->template04->m_kindof[3] >> 8 & 0xFF) ? created->template04->m_nameString : created->template04->m_nameString)) == 0)
             {
                 order->slot07(2);
                 break;

@@ -63,18 +63,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	Bool isKindOfByte(Int index, unsigned char mask) const { return (m_kindOf[index] & mask) != 0; }
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	unsigned char m_kindOf[0x18]; // observed bytes +0x108..0x11F
-	unsigned char m_pad120[0x614 - 0x120];
-	Bool m_moveAllies; // +0x614
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -262,7 +251,7 @@ static __forceinline void setFacingCondition(Object *obj,unsigned int bit) {
 void AIUpdateInterface::rva0026717B()
 {
  Object *obj=getObject();
- if(obj->getTemplate()->isKindOfByte(0x17,0x80)) {
+ if(((obj->getTemplate()->m_kindof[5] & 0x80000000U) != 0)) {
   static FacingDirection direction(0.5f,0.5f,0.0f);
   direction.Normalize();
   ((Rva001E42F2*)obj)->rva001E42F2(Rva00265254(0,0x151,0x152,0x153).bits);

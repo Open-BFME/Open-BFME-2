@@ -141,7 +141,7 @@ class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
-class ThingTemplate { public: char pad00[0x5C4]; int kind; };
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
@@ -233,7 +233,7 @@ bool Rva0059DA34::rva0059DB48(_STL::vector<BfmeE8> *out, const Rva0059D90CSource
 				SpawnArmy *unit = (SpawnArmy *)types->rva0050024C(type, key2);
 				void *summary = ((Rva003B8E89 *)TheCampaignManager)->rva003B8E89(&unit->m_name);
 				AsciiString name(((Rva005E7322MidRet *)((Rva0040CB2CIndexedField *)summary)->get(0))->text);
-				int kind = TheThingFactory->findTemplate(name)->kind;
+				int kind = TheThingFactory->findTemplate(name)->m_autoResolveUnitType;
 				if (tally[kind] > m_weights[type])
 					continue;
 				BfmeE8 entry;

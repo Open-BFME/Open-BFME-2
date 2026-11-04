@@ -11,7 +11,7 @@
 // stlport
 #include "ArmySummary.h"
 // Target lookup2D06CA and the following byte test prove only this flag offset.
-class ThingTemplate { public: unsigned char opaque[0x113]; unsigned char flags113; };
+#include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 
@@ -97,7 +97,7 @@ void ArmySummary::rva0040DE16()
 {
  for(int index=(int)entries.size()-1;index>=0;--index) {
   const ThingTemplate* definition=TheThingFactory->findTemplate(entries[index].value->templateName);
-  if(!definition || (definition->flags113&4)) continue;
+  if(!definition || (definition->m_kindof[2] & 0x4000000U)) continue;
   Rva004F69C3* entry=entries.begin()+index;
   Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removing,this,entry->key);
   Rva0040DD3ARef value(entry->value);
