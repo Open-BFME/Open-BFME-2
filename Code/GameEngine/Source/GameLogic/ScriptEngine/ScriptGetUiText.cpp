@@ -26,13 +26,7 @@ public:
     OrCondition *m_next;
     Condition *m_first;
 };
-class ScriptAction {
-public:
-    AsciiString getUiText();
-    ScriptAction *getNext() const { return m_next; }
-    char m_prefix[0x3C];
-    ScriptAction *m_next;
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 class Script {
 public:
     AsciiString getUiText();

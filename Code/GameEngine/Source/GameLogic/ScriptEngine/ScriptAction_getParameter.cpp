@@ -10,37 +10,10 @@
 // m_parms +0xC. Condition::getParameter is an identical ICF twin (same
 // address, ctor 0x003B5AC7 path).
 
-enum { MAX_PARMS = 12 };
+#include "../../../Include/GameLogic/ScriptAction.h"
 
-class Parameter
-{
-};
-
-class ScriptAction
-{
-public:
-	Parameter *getParameter(int ndx);
-
-private:
-	void *m_vtable; // +0x00
-	int m_actionType; // +0x04
-	int m_numParms; // +0x08
-	Parameter *m_parms[MAX_PARMS]; // +0x0C
-};
-
-// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
-// the anchor keeps the noinline body emitted.
-__declspec(noinline) inline Parameter *ScriptAction::getParameter(int ndx)
-{
-	if (ndx >= 0 && ndx < m_numParms)
-		return m_parms[ndx];
-
-	return 0;
-}
-
+// The canonical in-class accessor is implicitly inline (select-any like
+// every other TU's copy); taking its address keeps the body emitted here.
 // ?bfmeAnchorScriptActionGetParameter absent-from-retail
-Parameter *bfmeAnchorScriptActionGetParameter(ScriptAction *scriptAction, int ndx)
-{
-	return scriptAction->getParameter(ndx);
-}
+Parameter *(ScriptAction::*bfmeAnchorScriptActionGetParameter)(int) = &ScriptAction::getParameter;
 

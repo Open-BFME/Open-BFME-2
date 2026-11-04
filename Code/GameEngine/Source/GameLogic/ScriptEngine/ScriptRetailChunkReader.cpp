@@ -4,28 +4,7 @@
 
 #include <windows.h>
 
-class DataChunkInput;
-struct DataChunkInfo;
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
-
-class ScriptAction
-{
-public:
-	static bool ParseActionDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
-    static bool ParseActionFalseDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
-
-	ScriptAction *getNext(void) const { return m_nextAction; }
-	void setNextAction(ScriptAction *pAct) { m_nextAction = pAct; }
-
-protected:
-	// Rowed at 0x003B5EA5 (Rva003b6d92Finish.cpp).
-	static ScriptAction *ParseAction(DataChunkInput &file, DataChunkInfo *info, void *userData);
-
-private:
-	unsigned char _bfme_head[0x3C];
-	ScriptAction *m_nextAction;
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 class Script

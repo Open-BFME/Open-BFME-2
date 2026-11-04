@@ -4,35 +4,12 @@
 typedef bool Bool;
 typedef int Int;
 
-enum { MAX_PARMS = 12 };
-
-class Parameter
-{
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 class Rva0034FE00
 {
 public:
 	Rva0034FE00 &operator=(const Rva0034FE00 &other);
-};
-
-class ScriptAction
-{
-public:
-	enum ScriptActionType { NO_OP = 5 };
-	virtual ~ScriptAction();
-	ScriptAction(ScriptActionType type);
-	ScriptAction *duplicate(void) const;
-
-private:
-	Int m_actionType;
-	Int m_numParms;
-	Parameter *m_parms[MAX_PARMS];
-	ScriptAction *m_nextAction;
-	Bool m_hasWarnings;
-	unsigned char m_tail;
-	char m_pad[2];
-	Int m_bfmeTail;
 };
 
 ScriptAction *ScriptAction::duplicate(void) const
@@ -44,6 +21,6 @@ ScriptAction *ScriptAction::duplicate(void) const
 			*(Rva0034FE00 *)pNew->m_parms[i] = *(Rva0034FE00 *)m_parms[i];
 	}
 	pNew->m_nextAction = m_nextAction ? m_nextAction->duplicate() : 0;
-	pNew->m_tail = m_tail;
+	pNew->field41 = field41;
 	return pNew;
 }

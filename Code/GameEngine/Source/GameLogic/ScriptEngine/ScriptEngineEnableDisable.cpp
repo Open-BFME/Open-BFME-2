@@ -9,18 +9,7 @@
 #include "ascii_string.h"
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
-class ScriptAction
-{
-public:
-    Parameter *getParameter(int index) const
-    {
-        return index < m_count ? m_parameters[index] : 0;
-    }
-private:
-    unsigned char m_pad00[8];
-    int m_count;
-    Parameter *m_parameters[1];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 class BfmeRoomZC
 {
 public:
