@@ -18,20 +18,24 @@ class RadarEventRef
 {
 public:
 	void release();
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
 };
 
 class RadarEventRefSlot
 {
 public:
+	RadarEventRefSlot &operator=(const RadarEventRefSlot &other);
 	RadarEventRefSlot() : m_ref(0) {}
 	~RadarEventRefSlot()
 	{
 		if (m_ref)
 			m_ref->release();
 	}
-	RadarEventRefSlot &operator=(const RadarEventRefSlot &other);
 private:
-	RadarEventRef *m_ref;
+	RadarEventRef *m_ref; // +0x00
 };
 
 class RadarWindowOverrideSource
