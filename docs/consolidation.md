@@ -937,6 +937,45 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### The conflict census, and why none of it is a mechanical lane (2026-11-04)
+
+Classified from the `evidence` string `tu_views` already writes, over 168 TUs
+examined: **273 CONFLICTs across 146 TUs**.
+
+| count | blocker |
+| --- | --- |
+| 100 | base clause differs |
+| 24 | vtable/vfptr placement |
+| 23 | unclassified |
+| 22 | class declspec differs |
+| 18 | class-key differs, ledger silent |
+| 18 | virtual slot filled two ways |
+| 18 | fields overlap |
+| 16 | no layout evidence |
+| 15 | field typed differently |
+| 8 | anonymous/nested aggregate |
+| 5 | two inline bodies |
+| 3 | inline vs out of line |
+
+**Realistically mechanical: about 6 of 273, roughly 2%.** That figure replaces
+three earlier estimates of mine, each made from a category label rather than its
+evidence, and each wrong: 15 of 94, then 11, then 3. The two categories that look
+mechanical are not:
+
+- **class-key differs: 0 decidable.** All 18 carry the marker
+  `and no matched name spells it`, which is the tool saying the ledger holds no
+  mangled name that settles the key. Not a sample - all 18.
+- **class declspec differs: about 1 in 4.** Checking ctor/dtor row ownership for
+  eleven cases decided 3, left 7 undecidable because the ctor owner and the dtor
+  owner disagree, and 1 unresolvable. A declspec row is a candidate for that
+  check, never a decided fix, and the two rows must not be added together.
+
+The reason is structural and worth stating once: these conflicts are **survivors**.
+`tu_views` writes every class it can settle and refuses the rest, so the census is
+by construction the residue of everything mechanisable. Any subset of it that
+looks cheap is selected against being cheap. Price a category by opening its
+evidence; a label is not a measurement.
+
 ### Audit of the automated view pass (2026-11-04)
 
 The 29 view commits of 2026-11-04, 14 of them written by an unattended driver,
@@ -1014,9 +1053,10 @@ up rather than one of the module-data cases.
 
 ### What the base-clause conflicts are made of, and why no tool change clears them (2026-11-04)
 
-`base clause differs` is the largest group in the CONFLICT census - 48 of the
-first 94, half of everything - so it is worth knowing exactly what it is before
-anyone tries to automate it. Two things were measured.
+`base clause differs` is the largest group in the CONFLICT census by a wide
+margin - 100 of 273 over 146 TUs, so a little over a third, not the "half" an
+earlier 94-conflict sample here suggested - so it is worth knowing exactly what it
+is before anyone tries to automate it. Two things were measured.
 
 **Canonical bases gate two thirds of it, not all of it.** None of the 48
 conflicted classes is itself in `reverse/canonical_classes.csv`; they are all
