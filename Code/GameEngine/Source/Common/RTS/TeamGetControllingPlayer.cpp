@@ -32,7 +32,8 @@
 // call), then the empty-team sweep -- singleton bit 0 of +0x18, the
 // controlling player's default team at +0x2EC, the team's active flag at
 // +0x5D -- deleting through TheTeamFactory's teamAboutToBeDeleted
-// (0x003A3048) and BFME 2's deleteInstance shape. Retail reuses ecx for the
+// (0x003A3048) and a global ::delete (flag-0 virtual destructor, then
+// ::operator delete), BFME 2's deleteInstance shape. Retail reuses ecx for the
 // second getControllingPlayer call, so it joins this file too; Team gains
 // its two polymorphic bases here (MemoryPoolObject, Snapshot), which
 // leaves every offset above unchanged.
@@ -313,11 +314,7 @@ class TeamPrototype;
 class PlayerTemplate;
 #include "../../../Include/Common/Player.h"
 
-class MemoryPoolObject
-{
-public:
-	virtual void *deleteInstance(int flags);
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 template <class OBJCLASS>
 class TeamInstanceIterator
@@ -675,7 +672,7 @@ void TeamPrototype::updateState()
 
 				// So remove it
 				TheTeamFactory->teamAboutToBeDeleted(iter.cur());
-				::operator delete(iter.cur()->deleteInstance(0));
+				::delete iter.cur();
 
 				done = false;
 				break;
