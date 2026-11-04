@@ -19,12 +19,12 @@
 void __cdecl rva007B94AA();
 void __cdecl rva007B94B4();
 
-extern unsigned g_Va00E062FC;
-extern unsigned g_Va00E0630C;
 // Owned here: the two 16-byte button-name statics this unit constructs (zero-filled .data;
 // their initialisers below fill them).
-unsigned int g_Va00E062FC;
-unsigned int g_Va00E0630C;
+// Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
+extern "C" unsigned int __identifier("?g_Va00E062FC@@3IA")[4];
+// Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
+extern "C" unsigned int __identifier("?g_Va00E0630C@@3IA")[4];
 
 class Rva00221635
 {
@@ -52,13 +52,13 @@ struct Rva007B401CButtonNameInits
 
 void __cdecl Rva007B401CButtonNameInits::rva007B401C()
 {
-	( (Rva007B401CButton *)&g_Va00E062FC )->Rva007B401CButton::Rva007B401CButton( AsciiString( "OptionsButton" ) );
+	( (Rva007B401CButton *)__identifier("?g_Va00E062FC@@3IA") )->Rva007B401CButton::Rva007B401CButton( AsciiString( "OptionsButton" ) );
 	atexit( rva007B94AA );
 }
 
 void __cdecl Rva007B401CButtonNameInits::rva007B4081()
 {
-	( (Rva007B401CButton *)&g_Va00E0630C )->Rva007B401CButton::Rva007B401CButton( AsciiString( "ObjectivesButton" ) );
+	( (Rva007B401CButton *)__identifier("?g_Va00E0630C@@3IA") )->Rva007B401CButton::Rva007B401CButton( AsciiString( "ObjectivesButton" ) );
 	atexit( rva007B94B4 );
 }
 
