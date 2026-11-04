@@ -759,8 +759,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp	g_Va00E03
 address_global	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp	g_Va00E04478	3
-address_global	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp	g_Va00E01D24	5
-address_global	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp	g_Va00E01D34	5
 address_global	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp	g_Va00E01D3C	3
 address_global	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp	g_Va00E01D0C	6
 address_global	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp	g_Va00E04478	2
