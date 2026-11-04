@@ -2,7 +2,7 @@
 // stlport46
 //
 // Dedicated TU for STLport _Stl_string_to_double. The wrapper unit
-// stlport_string_to_float.cpp already holds the three __string_to_float
+// _STL.cpp (from stlport_string_to_float.cpp) already holds the three __string_to_float
 // bodies and only declares this helper.
 
 #include <limits>

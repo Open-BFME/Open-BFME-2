@@ -962,8 +962,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00018150,30,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x00017C80..0x00018170,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 0x00018170,14,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x00017C80..0x00018180,Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp
 0x00018180,116,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x00017C80..0x00018200,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
-0x00018200,59,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp
-0x00018240,78,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp
+0x00018200,59,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
+0x00018240,78,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 0x00018290,36,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x00018240..0x000182C0,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 0x000182C0,55,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x00018240..0x00018300,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp
 0x00018300,32,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x00018240..0x00018320,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
@@ -1100,9 +1100,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0001AA40,658,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp
 0x0001ACE0,343,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp
 0x0001AE40,360,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp
-0x0001AFB0,22,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp
-0x0001AFD0,22,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp
-0x0001AFF0,22,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp
+0x0001AFB0,22,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
+0x0001AFD0,22,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
+0x0001AFF0,22,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 0x0001B010,25,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp
 0x0001B030,40,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp
 0x0001B060,28,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp

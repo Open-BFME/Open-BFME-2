@@ -552,6 +552,59 @@ void __cdecl __adjust_float_buffer(char *first, char *last, char decimalPoint)
 
 }
 
+namespace _STL
+{
+
+bool __cdecl __get_fdigit(wchar_t &character, const wchar_t *digits)
+{
+	const wchar_t *position = find(digits, digits + 10, character);
+
+	if (position != digits + 10)
+	{
+		character = static_cast<char>('0' + (position - digits));
+		return true;
+	}
+	else
+		return false;
+}
+
+bool __cdecl __get_fdigit_or_sep(wchar_t &character, wchar_t separator,
+		const wchar_t *digits)
+{
+	if (character == separator)
+	{
+		character = static_cast<char>(',');
+		return true;
+	}
+	else
+		return __get_fdigit(character, digits);
+}
+
+}
+
+namespace _STL
+{
+
+double __cdecl _Stl_string_to_double(const char *s);
+long double __cdecl _Stl_string_to_long_double(const char *s);
+
+void __cdecl __string_to_float(const string &v, float &val)
+{
+	val = (float)_Stl_string_to_double(v.c_str());
+}
+
+void __cdecl __string_to_float(const string &v, double &val)
+{
+	val = _Stl_string_to_double(v.c_str());
+}
+
+void __cdecl __string_to_float(const string &v, long double &val)
+{
+	val = _Stl_string_to_long_double(v.c_str());
+}
+
+}
+
 // tu-skeleton: 0x00013300 27B ?_FILE_I_set@_STL@@YAXPAU_iobuf@@PAD11@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_stringbuf.cpp (not merged yet)
 
 // tu-skeleton: 0x00013320 60B ??0?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@IAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp (not merged yet)
@@ -573,6 +626,8 @@ void __cdecl __adjust_float_buffer(char *first, char *last, char decimalPoint)
 // tu-skeleton: 0x00013400 11B ?is_open@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@QBE_NXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp (not merged yet)
 
 // tu-skeleton: 0x00013410 15B ??1?$basic_istream@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 
@@ -969,6 +1024,253 @@ char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_float_buffer.cpp
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_initialize_get_float.cpp
+
+// stlport46
+//
+// Dedicated TU for STLport _Initialize_get_float(wchar_t). The wide-read-float
+// unit only declares the helper and already holds a matched scanner.
+
+_STLP_BEGIN_NAMESPACE
+
+void __cdecl _Initialize_get_float(
+	const ctype<wchar_t> &ct,
+	wchar_t &Plus, wchar_t &Minus,
+	wchar_t &pow_e, wchar_t &pow_E,
+	wchar_t *digits)
+{
+	char ndigits[11] = "0123456789";
+	Plus = ct.widen('+');
+	Minus = ct.widen('-');
+	pow_e = ct.widen('e');
+	pow_E = ct.widen('E');
+	ct.widen(ndigits + 0, ndigits + 10, digits);
+}
+
 // tu-skeleton: 0x00013430 15B ??1?$basic_istream@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_fstream.cpp (not merged yet)
 
 // tu-skeleton: 0x00013440 11B ??1?$basic_ios@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ios.cpp (not merged yet)
@@ -1225,9 +1527,15 @@ char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int
 
 // tu-skeleton: 0x00018170 14B ??$_M_get_ostreambuf@DV?$char_traits@D@_STL@@@_STL@@YAPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@0@AAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp (not merged yet)
 
-// tu-skeleton: 0x00018200 59B ?__get_fdigit@_STL@@YA_NAAGPBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp
 
-// tu-skeleton: 0x00018240 78B ?__get_fdigit_or_sep@_STL@@YA_NAAGGPBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp (not merged yet)
+// stlport46
+//
+// STLport 4.5.3 __get_fdigit and __get_fdigit_or_sep for wide input. Both fold
+// a locale digit back to its ASCII form so the buffer handed to strtod is
+// plain; the separator variant answers first and otherwise inlines the digit
+// lookup whole. find over a const wchar_t* range folds onto the non-const
+// instantiation already landed at 0x00010F60.
 
 // tu-skeleton: 0x000182C0 55B ??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp (not merged yet)
 
@@ -1417,29 +1725,6 @@ char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int
 
 // tu-skeleton: 0x0001A610 5B ?__insert_grouping@_STL@@YAHPAG0ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@GGGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_insert_grouping.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_initialize_get_float.cpp
-
-// stlport46
-//
-// Dedicated TU for STLport _Initialize_get_float(wchar_t). The wide-read-float
-// unit only declares the helper and already holds a matched scanner.
-
-_STLP_BEGIN_NAMESPACE
-
-void __cdecl _Initialize_get_float(
-	const ctype<wchar_t> &ct,
-	wchar_t &Plus, wchar_t &Minus,
-	wchar_t &pow_e, wchar_t &pow_E,
-	wchar_t *digits)
-{
-	char ndigits[11] = "0123456789";
-	Plus = ct.widen('+');
-	Minus = ct.widen('-');
-	pow_e = ct.widen('e');
-	pow_E = ct.widen('E');
-	ct.widen(ndigits + 0, ndigits + 10, digits);
-}
-
 // tu-skeleton: 0x0001A6D0 165B ?_Stl_mult64@_STL@@YAX_K0AA_K1@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp (not merged yet)
 
 // tu-skeleton: 0x0001A780 34B ?_Stl_set_exponent@_STL@@YAXAA_K_K@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp (not merged yet)
@@ -1454,11 +1739,18 @@ void __cdecl _Initialize_get_float(
 
 // tu-skeleton: 0x0001AE40 360B ?_Stl_string_to_long_double@_STL@@YAOPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp (not merged yet)
 
-// tu-skeleton: 0x0001AFB0 22B ?__string_to_float@_STL@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@AAM@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp
 
-// tu-skeleton: 0x0001AFD0 22B ?__string_to_float@_STL@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@AAN@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp (not merged yet)
+// stlport46
 
-// tu-skeleton: 0x0001AFF0 22B ?__string_to_float@_STL@@YAXABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@AAO@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp (not merged yet)
+// STLport 4.5.3 __string_to_float, all three overloads. Each is one call to
+// _Stl_string_to_double and one store of the right width. c_str() rather than
+// the member directly is what makes MSVC 7.1 reuse eax for the dereference the
+// way retail does; reading _M_start through the reference costs a second
+// register and shifts every one after it. The long double overload goes to a
+// different converter - 0x0001AE40 rather than 0x0001ACE0 - which is the only
+// thing separating it from the double one, since MSVC 7.1 stores both as
+// eight bytes.
 
 // tu-skeleton: 0x0001B010 25B ?_Stl_is_nan_or_inf@_STL@@YA_NN@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp (not merged yet)
 
