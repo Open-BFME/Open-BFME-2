@@ -1,15 +1,8 @@
-# real link at 530def71268674cc2e2a85af6bf42b51973d0f83: tools/exit_link.py --blockers
+# real link at 4a114fcaf5284ebe902df85ac9a1504a45626740: tools/exit_link.py --blockers
 source	missing	sample
-Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	41	??1?$VectorClass@VProxyClass@@@@UAE@XZ
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0008EF3FProductCtor_Unresolved.cpp	16	??1Rva0008EF3FProduct@@UAE@XZ
-Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp	11	??1DockUpdate@@MAE@XZ
 Code/GameEngine/Source/GameClient/GUI/Rva0057621ACtor.cpp	10	??1Rva005753E2Listener@@QAE@XZ
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp	10	??1ArmyHeroIcon@StrategicInGameUI@@UAE@XZ
-Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	10	??1DumbProjectileBehavior@@MAE@XZ
-Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	10	??0DefinitionFactoryClass@@QAE@XZ
 Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	9	?CreateMovieClip@Rva005F422C@@UAE?AUTreeHintRef00217D4C@@PAVAptMovieClipFrame@@@Z
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp	9	?friend_setAllowAirLoco@JetAIUpdate@@QAEX_N@Z
-Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	7	?BaseVirt@AptOnlineCustomMatch@@UAEXXZ
 Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	7	??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp	7	??1ArmyHeroIcon@StrategicInGameUI@@UAE@XZ
 Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp	7	??0BFMENetworkState@@QAE@XZ
@@ -21,7 +14,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	5	?computePointOnPat
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationInfoVectorInsert.cpp	5	??$__uninitialized_copy@PAVW3DAnimationInfo@@PAV1@@_STL@@YAPAVW3DAnimationInfo@@PAV1@00ABU__false_type@0@@Z
 Code/GameEngine/Source/Common/RTS/PlayerCtorBFME2.cpp	4	??1UnitRevivalTracker@@UAE@XZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	4	??1W3DAnimationInfo@@QAE@XZ
-Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp	3	?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z
 Code/GameEngine/Source/Common/Rva006DE1A0Finish.cpp	3	??1Rva006DE1A0@@UAE@XZ
 Code/GameEngine/Source/Common/RvaPayloadValueReturnsUnresolved.cpp	3	??1Rva005FAAA1@@UAE@XZ
 Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	3	?buildFieldParse@Rva005C4352Base@@QAEXAAVMultiIniFieldParse@@@Z
@@ -49,16 +41,21 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerScreenBWFilter
 Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DE3E3.cpp	2	??0Rva001DE3E3Record@@QAE@ABU0@@Z
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001DF2D3.cpp	2	??1Rva001DF2D3Element@@QAE@XZ
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00587375_overflow.cpp	2	??0Rva00587375@@QAE@XZ
+Code/GameEngine/Source/Common/Rva0024A797DeletingDtor.cpp	1	?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0N@@@XZ
 Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	1	??1Rva0052B7B3Dtor@@QAE@XZ
 Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	1	??1Rva0052B7B3Dtor@@QAE@XZ
 Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	1	??M@YA_NABUcrateCreationEntry@@0@Z
+Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	1	??0UpdateModuleData@@QAE@XZ
 Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	1	??1Rva00224C95@@QAE@XZ
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp	1	??1T1Base_005F3750@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateConstructor.cpp	1	?crc@UpdateModule@@MAEXPAVXfer@@@Z
+Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateDtor.cpp	1	?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0N@@@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/RadarUpdateConstructor.cpp	1	?GetSnapshotName@RadarUpdate@@MBEPBDXZ
+Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleCtor.cpp	1	?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0N@@@XZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDCD7Get.cpp	1	?g_00DB5BD4@@3VRva000FDCD7Filter@@A
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	1	?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	1	?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ
+Code/Libraries/Source/WWVegas/WW3D2/distlod.cpp	1	?Get_Native_Screen_Size@RenderObjClass@@UBEMXZ
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	1	??MRva0016DEC0Element@@QBE_NABU0@@Z
 Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes2.cpp	1	?dup_002ca82c@@YAXXZ
