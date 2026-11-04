@@ -183,3 +183,99 @@ the corresponding `docs/linking_obstacles/` entries.
   fails because a composed `_STL::set` cannot convert to `Rva002EE9B7 *` in
   this destination view. Three mixed sources remain listed; no split was
   applied because it would not unblock the ctor. No source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp`: allocated check and
+  scoped planner passed; guarded dry run accepted no donors from 17 clean donor
+  files. Composition trials failed on duplicate `AsciiString`, `Weapon`, and
+  class declarations, incompatible `WeaponSlotType` or `BitFlags` views,
+  duplicate destructor/operator-new bodies, and missing class members. LinkGuard
+  also rejected merges with `Rva002C7492Or.cpp`, `Rva00751B90Get.cpp`,
+  `WeaponSetRva002C752F.cpp` and `Rva002C76B2Build.cpp` because the merged
+  `WeaponSet` object would emit a census-linked vtable COMDAT. Reconciliation
+  prerequisites named by the report: `Rva00256499`, `Rva002C7492`,
+  `Rva002C8754`, `WeaponTemplateSet`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Made002CCA37.cpp`: allocated check
+  and scoped planner passed; no donor accepted. `Made002CCA37Dot.cpp` fails
+  composition because `DamageNugget` is an undefined base and
+  `generateDamageInfo` is undeclared. The tool identifies private view
+  reconciliation for `DamageNugget` and `Made002CCA37`; no source changes or
+  claims.
+- `Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp`:
+  allocated check and planner passed; no donor accepted. The mux-slots donor
+  fails with undefined base `UpgradeMux` and a missing
+  `LevelUpUpgrade::LevelUpUpgrade` overload. The tool identifies class-view
+  reconciliation for `LevelUpUpgrade`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp`:
+  allocated check and planner passed; no donor accepted. Candidate compositions
+  report duplicate `GameLogic`, `SubsystemInterface`, `NameKeyGenerator`,
+  `Xfer`, and `Module` declarations across the calc-sleep, pool-key and Xfer
+  donors. LinkGuard confirms the existing donor objects are census-linked; no
+  source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgrade.cpp`:
+  allocated check and planner passed; no donor accepted. The ctor donor fails
+  C2511 because `BuildableHeroListUpgrade(Thing *, const ModuleData *)` is
+  absent from the destination class view. The tool identifies class-view
+  reconciliation for `BuildableHeroListUpgrade`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp`:
+  allocated check and planner passed; no donor accepted. `TooltipUpgradePoolKey`
+  fails C2509 because `getModuleNameKey` is absent from the class view;
+  `TooltipUpgradeRemoval` fails on undefined `UpgradeModule` and duplicate
+  `Drawable` declarations. The tool identifies class-view reconciliation for
+  `TooltipUpgrade`; no source changes or claims.
+- `Code/GameEngine/Source/Common/OathbreakersFadeAwayBehavior.cpp`:
+  allocated check and planner passed; no donor accepted. The ctor donor lacks
+  the `OathbreakersFadeAwayBehavior(Thing *, const ModuleData *)` declaration;
+  the update donor lacks `getModuleNameKey`. The tool identifies class-view
+  reconciliation for `OathbreakersFadeAwayBehavior`; no source changes or
+  claims.
+- `Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollide.cpp`:
+  allocated check and planner passed; no donor accepted. The on-collide donor
+  fails C2511 because the constructor overload is absent from the destination
+  class view. The tool identifies class-view reconciliation for
+  `HordeMemberCollide`; no source changes or claims.
+- `Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp`: allocated check
+  and planner passed; no donor accepted. The run donor fails because `run` is
+  absent from `AIReturnTheRingTactic` and it references undeclared `m_owner`.
+  The tool identifies view reconciliation for `AIReturnTheRingTactic` and
+  `Rva005C4AD1LeaField`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp`: allocated
+  check and planner passed; no donor accepted. The slot donor defines an
+  undeclared compiler-generated special member; destructor/Xfer donors treat
+  `SynchronizeGroupOrder` as abstract, and the Xfer donor also lacks `xfer` in
+  the class view. Class-view reconciliation for `SynchronizeGroupOrder` is the
+  reported prerequisite; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrder.cpp`:
+  allocated check and planner passed; no donor accepted. Ctors conflict with
+  the destination's vftable type; Xfer lacks the `xfer` class member; another
+  donor instantiates abstract `AICommandInterface`. The tool reports private
+  view reconciliation for `GarrisonObjectGroupOrder`, `GroupOrder`, and
+  `Object`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Behavior/PillageModule.cpp`:
+  allocated check and planner passed; no donor accepted. The ctor overload and
+  `rva00484FE2` method are absent from the destination view, with `data` also
+  undeclared in the latter composition. The tool identifies class-view
+  reconciliation for `PillageModule`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPower.cpp`:
+  allocated check and planner passed; no donor accepted. The seed itself is
+  LinkGuard-refused because merging changes the `DeflectSpecialPowerModuleData`
+  vtable COMDAT. Other donors fail bytes, missing ctor/`initiateIntentToDoSpecialPower`/
+  `xfer` declarations, or abstract `AICommandInterface`; the tool reports
+  several class-view reconciliations. No source changes or claims.
+- `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp`:
+  allocated check and planner passed; no donor accepted from 12 clean donor
+  files. The seed fails merged compilation at the upstream `cpudetect.h(171)`
+  declaration. Remaining candidates fail on missing class members, duplicate
+  declarations or bytes; LinkGuard refuses `Rva00091DC4Forward.cpp` because the
+  merged object would remove the census-referenced `rva00091DFB` body. The tool
+  also identifies view reconciliation for `Rva000B3FD0` and `WaterRenderObjClass`.
+  No source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp`:
+  allocated check and planner passed; no donor accepted. Donors fail on
+  undefined `UpdateModule` base, missing `getModuleNameKey`/`update` members,
+  and an undeclared module-data overload. The tool reports private view
+  reconciliation for `RampageBehavior`, `RampageBehaviorModuleData`, and
+  `Rva00458BE1`; no source changes or claims.
+- `Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehavior.cpp`:
+  allocated check and planner passed; no donor accepted. The ctor donor lacks
+  the declared overload; the slot donor lacks `getModuleNameKey`. The tool
+  identifies private view reconciliation for `RunOffMapBehavior`; no source
+  changes or claims.
