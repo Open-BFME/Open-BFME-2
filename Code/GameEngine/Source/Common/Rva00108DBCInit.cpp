@@ -1,18 +1,11 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 //
 // ?rva00108DBC@W3DProjectedShadowManager@@QAE_NXZ @0x00108DBC 108B. Init method allocating
 // Rva00108A0B at +0x24C via rowed new and CameraClass(0x3FC) at +0x20,
 // returning true. Caller at 0x0009A29A. Honest address name.
 class HashableClass;
 
-class HashTableClass
-{
-public:
-	HashTableClass(int size);
-private:
-	int m_size;
-	HashableClass **m_table;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"
 
 class Rva00108A0B
 {
