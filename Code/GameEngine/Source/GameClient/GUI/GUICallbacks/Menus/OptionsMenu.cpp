@@ -101,9 +101,21 @@ public:
 	int m_count; // +0x08
 };
 
-// Retail enum-dispatch table at 0xDBD120. COMMON merges across TUs; the
-// address patches from retail.
-BfmeEnumTableEntry BfmeEnumTable[8];
+// GameLOD.cpp's LOD name lists, which retail lays end to end at RVA 0x009B960C.
+extern const char *const g_00DB960C[];
+
+// Retail enum-dispatch table at 0xDBD120: each option's name, its value names and their count.
+BfmeEnumTableEntry BfmeEnumTable[9] = {
+	{ "ModelLOD", g_00DB960C + 0, 4 },
+	{ "AnimationLOD", g_00DB960C + 4, 5 },
+	{ "EffectsLOD", g_00DB960C + 9, 5 },
+	{ "ShadowLOD", g_00DB960C + 21, 5 },
+	{ "TerrainLOD", g_00DB960C + 26, 3 },
+	{ "WaterLOD", g_00DB960C + 17, 4 },
+	{ "TextureQualityLOD", g_00DB960C + 29, 3 },
+	{ "ShaderLOD", g_00DB960C + 32, 4 },
+	{ "DecalLOD", g_00DB960C + 14, 3 },
+};
 
 // Declaration-only: the rowed map<AsciiString,AsciiString>::operator[] is bound,
 // this TU emits no per-flag copy of it or of the tree internals it pulls in.
