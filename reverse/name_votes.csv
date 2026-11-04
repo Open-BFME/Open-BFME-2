@@ -23723,3 +23723,10 @@ Code/GameEngine/Source/Common/Rva004D9A62Clear.cpp|function|0x004D9A62|rva004D9A
 Code/GameEngine/Source/Common/Rva002B4280.cpp|function|0x002B4280|rva002B4280,75f8f0a36d03f272b7a5df4d,claude-opus-5-5,claude3-20261104-061943-7,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/GapBodiesGE45.cpp|function|0x001524EE|rva001524EE,843eb8efb4c0d840f94fbc29,claude-opus-5-5,claude3-20261104-061943-9,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva003182CDCheck.cpp|function|0x003182CD|rva003182CD,bc6e6205173d5bf9e6d07e45,claude-opus-5-5,claude3-20261104-061943-10,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003F87FFNotifiers.cpp|function|0x003F8814|rva003F8814,90bef5b63bbe0380e15de82f,claude-opus-5-5,claude3-20261104-071243-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003F87FFNotifiers.cpp|function|0x003F883E|rva003F883E,ed88fe4425e7aaa6daf8d64f,claude-opus-5-5,claude3-20261104-071243-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003F87FFNotifiers.cpp|function|0x003F8853|rva003F8853,74cea75aa9498bac259173d1,claude-opus-5-5,claude3-20261104-071243-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003F87FFNotifiers.cpp|function|0x003F8868|rva003F8868,4c159284da3bf194ee132fac,claude-opus-5-5,claude3-20261104-071243-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003F87FFNotifiers.cpp|function|0x003F887D|rva003F887D,1f4bfcce541ef82ae27a06ec,claude-opus-5-5,claude3-20261104-071243-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003F87FFNotifiers.cpp|function|0x003F8892|rva003F8892,fc0d87736cd8b84ecdbcca57,claude-opus-5-5,claude3-20261104-071243-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva005F6220Apt.cpp|function|0x005F6306|rva005F6306,d303266b9fed372282f1efd8,claude-opus-5-5,claude3-20261104-071243-3,w-29a6ae2a2f9f,2026-11-04
