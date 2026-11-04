@@ -611,14 +611,7 @@ class AptExternHandler;
 
 // The panel's two adders at +0x04 and +0x10 (AptCallbackAdders.cpp, both
 // rowed): each registers with the Apt player and remembers the name.
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {

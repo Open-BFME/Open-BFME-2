@@ -99,7 +99,7 @@ class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);void*ptr;};
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateDesc&d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 class AptCommandMap;class AptExternHandler;class AptScreenInitGadgets;
-class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);char storage[12];};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);char storage[12];};
 struct AppearanceOwner {char unknown00[0x21C];AptCommandMapAdder maps;AptExternHandlerAdder externs;char unknown234[0x414-0x234];Rva005B5C02Box *current414,*selected418;};
 void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);

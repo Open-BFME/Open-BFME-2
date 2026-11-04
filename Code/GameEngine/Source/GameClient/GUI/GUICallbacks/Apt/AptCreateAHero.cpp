@@ -63,13 +63,7 @@ class AptExternHandler;
 
 class AptOverButtonHandler;
 
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {

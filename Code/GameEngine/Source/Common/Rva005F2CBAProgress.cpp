@@ -392,8 +392,7 @@ inline AptTextPlusStringPlusStringText operator+(const AptTextPlusStringPlusStri
 }
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
-class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
- private:char storage[12];};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 static __forceinline void BindArmyDetailsCommand(AptCommandMapAdder &adder,const AsciiString &name,DelegateDesc desc){adder.AddCommandMap(name,(const DelegateDesc *)&desc);}
 
 class StrategicHUD::ArmyDetailsMovieClip::Impl :public Rva0086EE20
