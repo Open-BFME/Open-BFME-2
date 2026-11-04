@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0055CC35@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z at 0x0055CC35 size 186
 // Evidence: chain via just-landed 0x003AFC6B; vslot 3 of PointEmissionVolumeModuleTemplate; calls rowed WriteHeader 0x0055CB5D then rowed bool-line 0x001F89C3 IsHollow then rowed str then rowed Write 0x001F458B then rowed 0x003AFC6B; member bool at +0xC.
@@ -68,7 +68,7 @@ template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(siz
 #include "../../Include/Common/File.h"
 #include "../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055CB5DWriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

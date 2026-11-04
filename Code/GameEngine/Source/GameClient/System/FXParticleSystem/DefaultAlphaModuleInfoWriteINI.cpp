@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0055B735@DefaultAlphaModuleInfo@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055B735 302B writeINI via WriteHeader.
 // Evidence: vslot 7 of DefaultAlphaModuleInfo 0x0081BA60 (slot 0 its rowed
@@ -78,7 +78,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055B65DWriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

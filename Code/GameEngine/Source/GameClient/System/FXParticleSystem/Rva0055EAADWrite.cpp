@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0055EAAD@SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055EAAD 197B chain lane writeINI via WriteVelocityHeader.
 // Evidence: vslot 3 of SphericalEmissionVelocityModuleTemplate 0x0081BC40; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated Speed 0x001F8B5F then rowed str plus FileWrite plus free plus footer; same shape as TerrainFire rva0055E6D4.
@@ -69,7 +69,7 @@ template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(siz
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055E891WriteVelocityHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

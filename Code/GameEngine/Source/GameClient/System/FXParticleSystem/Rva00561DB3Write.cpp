@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva00561DB3@LightningDrawModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x00561DB3 340B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningDrawModuleTemplate 0x0081BD90; calls rowed WriteHeader 0x0055C9A0 then ostringstream then rowed IsZero 0x001F3744 gated OffsetX/Y/Z 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated MultiChance 0x003A5D34 then TileTexture 0x001F89C3 then rowed str plus FileWrite plus free plus footer; same shape as GpuDrawModuleTemplate rva00563D3F.
@@ -63,7 +63,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055C9A0WriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport46
 //
 // ?rva003A5E78@WindModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z
@@ -73,7 +73,7 @@ namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,cha
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva003A5DA0WriteWindHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

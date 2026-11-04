@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?Rva003AFBC1Write@@YAXPBDPAVFile@@PAI@Z at 0x003AFBC1 size 170
 // Evidence: chain via rowed Pad 0x001F6951; oss ctor 0x001FA85C push 1 push 0x10 then Pad then single _M_put_nowiden then _M_put_char 0xA then str 0x001FA473 then Write 0x001F458B then free 0x30830 then flags+=2 then oss dtors; precedent Rva0055CB5DWrite.cpp.
@@ -72,7 +72,7 @@ template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(siz
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva001F6951Pad(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,

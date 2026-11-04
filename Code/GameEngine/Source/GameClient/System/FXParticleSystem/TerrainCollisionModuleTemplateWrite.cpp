@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0056499B@TerrainCollisionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0056499B 285B chain lane writeINI.
 // Evidence: vslot 3 of TerrainCollisionModuleTemplate; calls rowed WriteHeader 0x00564284 then ostringstream then HeightOffset 0x001F8B5F EventFX 0x001F82EE Orient/PerParticle/Kill 0x001F8384 then str/Write/free then footer 0x003AFC6B; members +0x8 +0x9 +0x10 AsciiString +0x14 S001F87D5 +0x20.
@@ -64,7 +64,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva00564284WriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?Rva003A5DA0WriteWindHeader@@YAXPBXPAVFile@@PAI@Z @0x003A5DA0 216B: wind header File INI key-string line via oss Pad str Write.
 // Evidence: calls rowed oss ctor 0x001FA85C then virtual ModuleClassView::getClass name+4 then rowed GetKey 0x003AFD16 cat7 WIND then rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 x3 then rowed _M_put_char 0x001F5E51 then rowed str 0x001FA473 then rowed Write 0x001F458B then free 0x30830 via bfmealloc then indent+=2 then rowed oss dtor 0x001F66C6 and ios_base dtor 0x1C220; donor BFME1 Rva005FF160WriteWindHeader cat7; chain via 0x001F6951.
@@ -72,7 +72,7 @@ template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(siz
 #include "../../Include/Common/File.h"
 #include "../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 namespace FXParticleSystem {
 enum ModuleCategory {

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0055ED5F@OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055ED5F 237B chain lane writeINI via WriteVelocityHeader.
 // Evidence: vslot 3 of OutwardEmissionVelocityModuleTemplate 0x0081BCA0 and 0x0081C07C; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated Speed OtherSpeed via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Cylindrical Rva0055EBFA.
@@ -69,7 +69,7 @@ template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(siz
 #include "../../../../Include/Common/File.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055E891WriteVelocityHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

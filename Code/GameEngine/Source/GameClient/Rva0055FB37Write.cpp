@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0055FB37@Rva0055FB37@@QAEXPAVFile@@I@Z @0x0055FB37 504B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of DefaultModuleTemplate $01 0x0081BCF0 and ConcreteModuleTag $01 0x0081BF84; calls rowed WriteHeader 0x0055FA5F then ostringstream then 8x rowed IsZero 0x001F3744 gated SizeRate SizeRateDamping AngleZ AngularRateZ AngularDamping AngleXY AngularRateXY AngularDampingXY via rowed 0x001F8B5F plus Rotation enum via rowed 0x001F82AB with table FXParticleSystem::RotationTypeNames (RVA 0x0081B6D8) then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
@@ -62,7 +62,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 #include "../../Include/Common/File.h"
 #include "../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055FA5FWriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);

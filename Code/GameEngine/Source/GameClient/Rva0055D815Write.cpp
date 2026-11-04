@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva0055D815@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z at 0x0055D815 size 339
 // Evidence: chain via 0x003A5D34; vslot 3 CylinderEmissionVolumeModuleTemplate; WriteHeader 0x0055CB5D then IsHollow 0x001F89C3 then IsZero-gated Radius RadiusRate Length floats 0x003A5D34 then IsZero-gated Offset Vec 0x001F89E2 then str Write 0x001F458B then 0x003AFC6B; bool at +0xC floats at +0x10/+0x14/+0x18 Vec at +0x1C.
@@ -22,7 +22,7 @@ namespace _STL { template <> basic_ostringstream<char, char_traits<char>, alloca
 #include "../../Include/Common/File.h"
 #include "../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
+#include <stdlib.h>
 
 void Rva0055CB5DWriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);
