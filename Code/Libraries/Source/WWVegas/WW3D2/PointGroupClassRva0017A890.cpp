@@ -25,7 +25,7 @@
 #include "vector4.h"
 #include "matrix4.h"
 #include "matrix3d.h"
-struct RenderStateStruct { unsigned char opaque[0x1EC]; Matrix4 world; Matrix4 view; };
+#include "RenderStateStruct.h"
 class DX8Wrapper { public:
  static __forceinline void Get_Transform(int transform,Matrix4& matrix4) {
   switch (transform) {
