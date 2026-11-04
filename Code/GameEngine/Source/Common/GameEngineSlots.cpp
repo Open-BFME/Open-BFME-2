@@ -20,13 +20,7 @@ typedef bool Bool;
 #include "../../Include/Common/GlobalData.h"
 
 class Rva001B5140 { public: Bool rva001B5140(); };
-class SubsystemInterfaceList
-{
-public:
-	// Returns a byte its caller normalises to Bool (test al, al; setne al).
-	unsigned char notifySubsystems();/* the rowed Rva001B5140::rva001B5140 */ __declspec(dllimport) __forceinline Bool rva001B5140() { return ((Rva001B5140 *)this)->rva001B5140(); }
-	void rva001B4FE9();
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 #include "GameLogicObjectLookupView.h"
 
@@ -57,7 +51,7 @@ Bool GameEngine::rva00225AFF()
 	if (!TheSubsystemList)
 		return false;
 	Bool result = false;
-	if (TheSubsystemList->rva001B5140() || TheGameLogic->rva0024877A())
+	if (((Rva001B5140 *)TheSubsystemList)->rva001B5140() || TheGameLogic->rva0024877A())
 		result = true;
 	TheSubsystemList->rva001B4FE9();
 	return result;

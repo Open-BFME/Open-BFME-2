@@ -448,17 +448,7 @@ public:
 
 class Rva001B4EAB { public: void rva001B4EAB(); };
 
-class SubsystemInterfaceList
-{
-public:
-	SubsystemInterfaceList();
-	void addSubsystem(SubsystemInterface *sys);
-	void postProcessLoadAll();
-	void resetAll();
-	void rva001B4EAB();
-	char m_00[0x24];
-	Xfer *m_xfer;				// +0x24
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 extern SubsystemInterfaceList *TheSubsystemList;
 
 class NameKeyGenerator
