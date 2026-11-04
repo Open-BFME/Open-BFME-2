@@ -1,9 +1,9 @@
-// cl: /MD
+// cl: /MD /EHsc
 //
 // ?rva00033A80@GeneralAllocator@Allocator@EA@@QAEI_N@Z @0x00033A80 269B.
 // Largest-block query over the allocator bins. Counted lock-guard via the
 // proven Rva00035080Lock RAII idiom (EnterCriticalSection IAT 0xBBA200 /
-// LeaveCriticalSection IAT 0xBBA204 declared dllimport+throw(), SEH stub
+// LeaveCriticalSection IAT 0xBBA204 from windows.h, SEH stub
 // 0xB5CC48), same as the rowed 0x35080/0x35190/0x35210 wrappers. Returns 0
 // when the +0x440 member is null; with a true argument it first calls the
 // pinned (not rowed) body 0x00033930 via the existing
@@ -14,8 +14,8 @@
 // sentinel (size at +4, next at +0xC), and, unless the flag is set and best
 // already reaches [+0x4], up to ten dwords down from +0x2C. Address-derived
 // name; member offsets are target facts, type labels descriptive.
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
+// /EHsc retains the original nonthrowing C API contract from the SDK declarations.
+#include <windows.h>
 
 class Rva00035080Lock
 {
@@ -25,7 +25,7 @@ public:
 	{
 		if (m_obj)
 		{
-			EnterCriticalSection(m_obj);
+			EnterCriticalSection((CRITICAL_SECTION *)m_obj);
 			++*(volatile int *)((char *)m_obj + 0x18);
 		}
 	}
@@ -34,7 +34,7 @@ public:
 		if (m_obj)
 		{
 			--*(volatile int *)((char *)m_obj + 0x18);
-			LeaveCriticalSection(m_obj);
+			LeaveCriticalSection((CRITICAL_SECTION *)m_obj);
 		}
 	}
 };
