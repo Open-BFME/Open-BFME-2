@@ -154,3 +154,55 @@ def test_initializer_report_lets_relocation_targets_pick_among_same_shaped_entri
     # A target the ledger places elsewhere rules every entry out.
     report = ir.initializer_report(Image(), [], [("x.obj", "_$E7", ours, masked, relocs)], {**addresses, "?g_two@@3VThing@@A": {0x7000}})
     assert report["registered_retail_entries"] == 0 and report["unidentified"] == [["x.obj", "_$E7"]]
+
+
+def test_initializer_report_needs_a_row_for_a_header_constant_copy():
+    # Retail's three `mov eax, [rate]; mov [s], eax; ret` entries each build their own unit's copy
+    # of one header constant. An unrowed copy agrees on the rate with all three: that vote picks
+    # none, and its static is its own object's, so it is neither credited by shape nor "twice".
+    import link_cycle
+
+    base, rate = 0x400000, 0x9000
+
+    def body(static):
+        return (bytes([0xA1]) + (base + rate).to_bytes(4, "little") + bytes([0xA3])
+                + (base + static).to_bytes(4, "little") + bytes([0xC3]))
+
+    image = {0x100: body(0xA000), 0x200: body(0xA004), 0x300: body(0xA008)}
+
+    class Image:
+        def __init__(self):
+            self.base = base
+
+        def initializers(self):
+            return [0x100, 0x200, 0x300]
+
+        def read(self, rva, size):
+            for start, raw in image.items():
+                if start <= rva < start + len(raw):
+                    return (raw[rva - start:] + bytes(size))[:size]
+            return bytes(size)
+
+    ours = bytes([0xA1]) + bytes(4) + bytes([0xA3]) + bytes(4) + bytes([0xC3])
+    masked = set(range(1, 5)) | set(range(6, 10))
+    relocs = [(1, "?rate@@3HA", link_cycle.DIR32, 0), (6, "?CONSTANT@@3HB", link_cycle.DIR32, 0)]
+    addresses = {"?rate@@3HA": {rate}}
+    copy = ("u.obj", "_$E1", ours, masked, relocs, frozenset({"?CONSTANT@@3HB"}))
+    report = ir.initializer_report(Image(), [], [copy], addresses)
+    assert report["registered_retail_entries"] == 0 and report["unidentified"] == [["u.obj", "_$E1"]]
+    assert report["by_shape_only"] == [] and report["twice"] == []
+    # Its row names the entry.
+    import build
+    row = {"name": "_$E1", "target_rva": "0x200", "source": "Code/U.cpp", "notes": ""}
+    copy = (build.row_object(row).name,) + copy[1:]
+    report = ir.initializer_report(Image(), [row], [copy], addresses)
+    assert report["not_registered_rvas"] == ["0x100", "0x300"] and report["unidentified"] == []
+    # One unit's own statics that use up the tie are credited, as shape credits.
+    unit = [("w.obj", f"_$E{n}", ours, masked, [(1, "?rate@@3HA", link_cycle.DIR32, 0), (6, f"_s{n}", link_cycle.DIR32, 0)],
+             frozenset({f"_s{n}"})) for n in (1, 4, 7)]
+    report = ir.initializer_report(Image(), [], unit, addresses)
+    assert report["not_registered"] == 0 and len(report["by_shape_only"]) == 3 and report["unidentified"] == []
+    # A shared global the vote cannot single out is a shape credit, listed as one.
+    shared = ("v.obj", "_$E2", ours, masked, relocs, frozenset())
+    report = ir.initializer_report(Image(), [], [shared], addresses)
+    assert report["by_shape_only"] == [["v.obj", "_$E2", "0x100"]]

@@ -195,7 +195,11 @@ def scan_objects(paths):
                             struct.unpack_from("<i", raw, target.ptr + off)[0])
                            for off, i, kind in target.relocs if i in symbols and off >= symbol.value]
                           if target and not target.flags & UNINITIALIZED else [])
-                registered.append((path.name, symbol.name, body, masked, relocs))
+                # Data only this object can name: its own statics, such as a header constant's copy.
+                local = frozenset(symbols[i].name for off, i, _kind in (target.relocs if target else [])
+                                  if i in symbols and off >= symbol.value and symbols[i].cls != link_cycle.EXTERNAL
+                                  and symbols[i].sec > 0 and not sections[symbols[i].sec - 1].name.startswith(".text"))
+                registered.append((path.name, symbol.name, body, masked, relocs, local))
     return definitions, registered, code
 
 
@@ -266,16 +270,38 @@ def initializer_report(retail, rows, registered, addresses=None):
         return [rva for rva in in_order if len(body) >= 5 and (rva in mapped) == taken
                 and all(k in masked or body[k] == bodies[rva][k] for k in range(len(body)))]
 
+    # A vote every remaining candidate shares picks none of them: `mov eax, [rate]; ...; mov [s], eax`
+    # agrees on the rate with all 442 of retail's entries of that shape. Only a single best entry is
+    # an identification; a tie is a shape credit. A registration that builds its own static (data only
+    # its object names, such as a header constant's copy) where the ledger places none builds no other
+    # object's global, so a tie credits it only when its object's like registrations use up the tie
+    # (four `static StateVectorClass` in one unit and four retail entries calling that ctor); among
+    # more entries, only a row names which one it is.
+    def unplaced_local(entry):
+        obj, _symbol, _body, _masked, relocs, *rest = entry
+        local = rest[0] if rest else frozenset()
+        return any(target in local and not places(obj)(target) for _offset, target, *_kind in relocs)
+
+    def ties(entry):
+        obj, _symbol, body, masked, relocs, *_local = entry
+        votes = [(relocation_votes(retail, rva, relocs, places(obj)), rva) for rva in shaped(body, masked)]
+        votes = [(agree, rva) for (agree, disagree), rva in votes if not disagree]
+        best = max((agree for agree, _rva in votes), default=-1)
+        return best, [rva for agree, rva in votes if agree == best]
+
+    first = {id(entry): (entry[0], tuple(ties(entry)[1])) for entry in pending if unplaced_local(entry)}
+    owned = collections.Counter(first.values())
+    unowned = {key for key, count in owned.items() if count < len(key[1])}
+
     by_shape = []
     for strong in (True, False):
         waiting = []
         for entry in pending:
-            obj, symbol, body, masked, relocs = entry
-            votes = [(relocation_votes(retail, rva, relocs, places(obj)), rva) for rva in shaped(body, masked)]
-            votes = [(agree, rva) for (agree, disagree), rva in votes if not disagree]
-            best = max((agree for agree, _rva in votes), default=-1)
-            hit = next((rva for agree, rva in votes if agree == best), None)
-            if hit is None or (strong and best <= 0):
+            obj, symbol, *_rest = entry
+            best, tied = ties(entry)
+            hit = tied[0] if tied else None
+            if (hit is None or (strong and (best <= 0 or len(tied) > 1))
+                    or (len(tied) > 1 and first.get(id(entry)) in unowned)):
                 waiting.append(entry)
                 continue
             mapped.add(hit)
@@ -284,9 +310,12 @@ def initializer_report(retail, rows, registered, addresses=None):
         pending = waiting
     unmapped = [[obj, symbol] for obj, symbol, *_rest in pending]
     # One left over whose relocations agree with an entry another registration already took builds
-    # that entry's global a second time.
+    # that entry's global a second time. One that builds its own unplaced static builds no other's.
     twice = []
-    for obj, symbol, body, masked, relocs in pending:
+    for entry in pending:
+        obj, symbol, body, masked, relocs, *_local = entry
+        if unplaced_local(entry):
+            continue
         for rva in shaped(body, masked, taken=True):
             agree, disagree = relocation_votes(retail, rva, relocs, places(obj))
             if agree and not disagree:
