@@ -36,7 +36,8 @@ struct BigArchiveMemberInfo
 
 struct Rva006038D4Less
 {
- bool operator()(const char *a, const char *b) const;
+public:
+	bool operator()(const char *, const char *) const;
 };
 typedef _STL::map<const char *, BigArchiveMemberInfo, Rva006038D4Less> BigMemberMap;
 typedef _STL::map<const char *, BigMemberMap, Rva006038D4Less> BigFolderMap;

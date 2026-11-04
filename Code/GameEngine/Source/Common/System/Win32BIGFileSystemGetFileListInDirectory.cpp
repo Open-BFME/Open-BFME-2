@@ -12,7 +12,7 @@
 // and normalised (rowed 0x00605324); a directory matches exactly, or with
 // subdirectory search as a prefix ending at a backslash; each of its files
 // matching the mask (rowed wildcard 0x006053D7) is added to the list as
-// "directoryile" (rowed makeAsciiString 0x002343DF and the narrow
+// "directory\file" (rowed makeAsciiString 0x002343DF and the narrow
 // concatenation nodes 0x00109CFD / 0x00234CA6 of RegistryAsciiPath.cpp).
 // Evidence: vtable slot, WB name, the debug literal, rowed callees, the
 // imported strncmp and the rowed no-case AsciiString set insert 0x0002CA26
@@ -29,6 +29,7 @@ typedef bool Bool;
 
 struct BfmeStringNoCaseLess
 {
+public:
 	bool operator()(const AsciiString &a, const AsciiString &b) const;
 };
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > FilenameList;

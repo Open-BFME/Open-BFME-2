@@ -4,6 +4,8 @@
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <stdio.h>
+// Retail 0x00603FF8 calls strncmp through the import table.
+#include <string.h>
 #undef _CRTIMP
 #define _CRTIMP
 #include <memory>
@@ -13,7 +15,19 @@
 #include <map>
 #define _STLP_BFME_TREE_NODE_BASE_O2  // emit retail's _Rb_tree_node_base::_S_minimum/_S_maximum (vendor/stlport/stl/_tree.h)
 #include <stl/_alloc.h>
-#include <string.h>
+
+// Declare the comparators before donor includes that use their container types.
+struct BfmeCStringLess
+{
+	bool operator()(const char *a, const char *b) const;
+};
+
+struct BfmeStringNoCaseLess
+{
+public:
+	bool operator()(const AsciiString &a, const AsciiString &b) const;
+};
+
 #pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
@@ -373,10 +387,6 @@ template Rva00603A2DTree::_Link_type Rva00603A2DTree::_M_find<const char*>(const
 
 extern char g_00DD509C[];
 
-struct BfmeCStringLess
-{
-	bool operator()(const char *a, const char *b) const;
-};
 
 typedef _STL::set<const char *, BfmeCStringLess> BigFileNameSet;
 
@@ -407,11 +417,6 @@ namespace _STL { template <> _Rb_tree_base<AsciiString,_STL::allocator<AsciiStri
 
 // bfme link decl-only end
 
-struct BfmeStringNoCaseLess
-{
-public:
-	bool operator()(const AsciiString &a, const AsciiString &b) const;
-};
 
 // Retail calls the rowed BfmeStringNoCaseLess tree destructor at 0x0002CC38
 // from this body's cleanup, establishing the set's comparator type. Its
