@@ -11,9 +11,12 @@ struct Rva0030B7C2Point { float x, y; };
 class Rva0030B719Shape;
 bool rva0030B7C2(const Rva0030B7C2Point *, Rva0030B719Shape *);
 struct Rva002E3A8DPair { float x; unsigned yBits; };
-class Rva002E3A8DHolder {
+class Rva002E3A8DHolder
+{
 public:
-    Rva002E3A8DPair *get(Rva002E3A8DPair *, int);
+	Rva002E3A8DPair *get(Rva002E3A8DPair *out, int index);
+	char m_pad00[0x8];
+	Rva002E3A8DPair *m_array; // +0x08
 };
 bool IntersectLine2D(const Coord2D *, const Coord2D *, const Coord2D *,
                      const Coord2D *, Coord2D *);
