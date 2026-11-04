@@ -43,11 +43,7 @@ extern AI *TheAI;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ShroudManager
-{
-public:
-	void rva00739820(const Coord3D *sourceLocation, Int playerMask, Int unknown, Int valueRequired, Coord3D *outLocation);
-};
+#include "../../../Include/Common/ShroudManagerClass.h"
 // The data ledger owns the global under its PartitionManager-typed name.
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
