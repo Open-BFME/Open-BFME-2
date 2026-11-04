@@ -16,6 +16,11 @@
 // element and owner unproven so honest Rva names only.
 #define WWINLINE __forceinline
 
+// Private Vector3 view, not Vector3Data.h: the canonical header's user-declared
+// default constructor flips one addss operand pair in 0x000E49B8's inlined
+// transform (Y row, offset 159), and its out-of-line operator= (0x00169FB0)
+// is a call where retail inlines the copy. Measured with Matrix3DData.h
+// adopted; Set(in) restores 0x000E48BC but not 0x000E49B8.
 class Vector3
 {
 public:
@@ -28,6 +33,7 @@ public:
 };
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 static WWINLINE const float &vector4Component(const Vector4 &row, int index)
 {
@@ -35,53 +41,27 @@ static WWINLINE const float &vector4Component(const Vector4 &row, int index)
 }
 
 #pragma optimize("ty", on)
-class Matrix3D
+// Zero Hour's Matrix3D::Transform_Vector body (alias test, then rows X,Y,Z) as
+// a file-static helper: retail's out-of-line Transform_Vector lives in
+// frustum.cpp (0x0007B501), and a member copy here would emit a competing
+// COMDAT. Kept inside the optimize region the 0x000E48BC row was verified under.
+static WWINLINE void bfme_xform(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 {
-public:
-	Vector4 Row[3];
-	WWINLINE Vector4 &operator[](int i) { return Row[i]; }
-	WWINLINE const Vector4 &operator[](int i) const { return Row[i]; }
-	static WWINLINE void Transform_Vector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
-	{
-		Vector3 inputCopy;
-		Vector3 *source;
-		if (out == &in) {
-			inputCopy = in;
-			source = &inputCopy;
-		} else {
-			source = (Vector3 *)&in;
-		}
-		out->X = (vector4Component(matrix3D[0], 0) * source->X + vector4Component(matrix3D[0], 1) * source->Y + vector4Component(matrix3D[0], 2) * source->Z + vector4Component(matrix3D[0], 3));
-		out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
-		out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
+	Vector3 inputCopy;
+	Vector3 *source;
+	if (out == &in) {
+		inputCopy = in;
+		source = &inputCopy;
+	} else {
+		source = (Vector3 *)&in;
 	}
-	// LINK: same-body file-static helper (identical inlined bytes; kept inside
-	// the same optimize region so codegen matches). This TU's Transform_Vector
-	// copy is not retail's (home: frustum.cpp @0x7B501); the call below inlines
-	// it but still emits the loser COMDAT. Rebinding there emits nothing
-	// (internal linkage, fully inlined). No flags touched.
-	static WWINLINE void bfme_xform(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
-	{
-		Vector3 inputCopy;
-		Vector3 *source;
-		if (out == &in) {
-			inputCopy = in;
-			source = &inputCopy;
-		} else {
-			source = (Vector3 *)&in;
-		}
-		out->X = (vector4Component(matrix3D[0], 0) * source->X + vector4Component(matrix3D[0], 1) * source->Y + vector4Component(matrix3D[0], 2) * source->Z + vector4Component(matrix3D[0], 3));
-		out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
-		out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
-	}
-};
+	out->X = (vector4Component(matrix3D[0], 0) * source->X + vector4Component(matrix3D[0], 1) * source->Y + vector4Component(matrix3D[0], 2) * source->Z + vector4Component(matrix3D[0], 3));
+	out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
+	out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
+}
 #pragma optimize("", on)
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva000E488FElement;
 class Rva000E488F
@@ -115,7 +95,7 @@ bool Rva000E48BC::rva000E48BC(Rva000E488F *container)
 		Vector3 *out = &m_pos;
 		const Vector3 *in = &m_offset;
 		const Matrix3D *mtx = m_drawable->getTransformMatrix();
-		Matrix3D::bfme_xform(*mtx, *in, out);
+		bfme_xform(*mtx, *in, out);
 	}
 	bool cur = !container->rva000E488F(this);
 	m_flag = cur;
