@@ -36,3 +36,10 @@ audit; full consumer selection/loss verification remains open.
 merge now accepts the constructor. Next: apply the merge; mixed getter,
 generated unwind and full consumer-audit prerequisites remain.
 [Evidence and audit limits](../../reverse/attempt_support/w3dbuffdraw-instance-composition-20261104-codexb4.md).
+
+2026-11-04: Supported instance merge removes the constructor file, retains
+9/9 exact rows, both EXACT EH graphs and the combined 237-byte current LINKS
+scope. Instance composition is resolved; next work is the mixed getter and
+generated unwind owner. Full consumer audit remains INCONCLUSIVE on missing
+receipts; census confirmation is pending.
+[Merge, path audit and verification scope](../../reverse/attempt_support/w3dbuffdraw-instance-composition-20261104-codexb4.md#applied-instance-merge).
