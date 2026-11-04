@@ -44,3 +44,9 @@ batch's ClickReactionBehavior entry LINK-238; VertexMaterialClass keeps
 LINK-237. The handed-over commits remain intact. No consumers of the former
 ClickReactionBehavior filename were found. The publisher's unrelated preceding
 batch has encountered GitHub pack-storage failures; publication is still pending.
+
+At 14:09 UTC the publisher named the preceding codex5 batch's pending entry
+`docs/linking_obstacles/link-237-aitacticsiege-constructor-needs-base-slot-providers.md`.
+To avoid that pending ID, a new follow-up assigns VertexMaterialClass LINK-239
+and updates its evidence reference; ClickReactionBehavior keeps LINK-238.
+The publisher's generic refusal does not establish why that other batch failed.
