@@ -392,15 +392,7 @@ private:
 };
 }
 
-class DX8IndexBufferClass
-{
-public:
-	IDirect3DIndexBuffer8 *Get_DX8_Index_Buffer() { return index_buffer; }
-
-private:
-	char m_pad00[0x14];
-	IDirect3DIndexBuffer8 *index_buffer;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 template <class T> class ShareBufferClass
 {
