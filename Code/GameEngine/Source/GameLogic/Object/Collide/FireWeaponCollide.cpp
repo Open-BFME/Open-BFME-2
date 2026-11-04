@@ -59,14 +59,6 @@ enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-class Weapon
-{
-public:
-	virtual void *deleteInstance(int flags);
-
-	unsigned char m_pad04[4];
-	unsigned int m_status; // +0x08
-};
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 // Status mask copy and overlap test over Object's status bits (rowed
@@ -83,14 +75,6 @@ public:
 	bool test(const void *other) const;
 	int m_vals[4];
 };
-class Object
-{
-public:
-	unsigned char m_pad[0x74];
-	int m_weaponStatus; // +0x74
-	unsigned char m_pad78[0x1C];
-	BfmeObject872Header m_status; // +0x94
-};
 class Xfer;
 enum NameKeyType
 {
@@ -100,26 +84,7 @@ enum NameKeyType
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
-
-// Slot 0 of both interface vftables is retail's shared `return 0` fold
-// (33 C0 C3 at 0x000D43D0); the views define it inline with that body, so
-// the compiled tables name a definition of their own.
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-class CollideModuleInterface
-{
-public:
-	virtual void *collideSlot() { return 0; }
-};
-
-class CollideModule : public BehaviorModule, public CollideModuleInterface
-{
-public:
-	CollideModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~CollideModule();
-};
-
 class FireWeaponCollideModuleData
 {
 public:
@@ -129,32 +94,6 @@ public:
 	Rva00331682Holder m_forbidden; // +0x1C
 	bool m_fireOnce; // +0x2C
 };
-
-class FireWeaponCollide : public CollideModule
-{
-public:
-	FireWeaponCollide(Thing *thing, const ModuleData *moduleData);
-	virtual ~FireWeaponCollide();
-
-protected:
-	virtual void xfer(Xfer *xfer);				// slot 3
-
-public:
-	virtual NameKeyType getModuleNameKey() const;		// slot 4
-
-protected:
-	virtual bool shouldFireWeapon();			// retail slot 12
-
-private:
-	const FireWeaponCollideModuleData *getFireWeaponCollideModuleData() const
-	{
-		return reinterpret_cast<const FireWeaponCollideModuleData *>(m_moduleData);
-	}
-
-	Weapon *m_collideWeapon; // +0x14
-	bool m_everFired; // +0x18
-};
-
 // Cold-slice B8-imm32 const-int returners (twin-free TU).
 //
 // Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
@@ -167,11 +106,8 @@ private:
 
 // The three Apt screen factories these getters return are matched rows.
 void *__stdcall createAptScreenInGameChat(void *);
-
 void *__stdcall createAptScreenObjectives(void *);
-
 void *__stdcall createAptScreenQuickMatchMenu(void *);
-
 // ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
@@ -180,17 +116,13 @@ class Rva004885DE
 protected:
 	virtual const char *GetSnapshotName() const;
 };
-
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 class FlammableUpdate
 {
 protected:
 	virtual const char *GetSnapshotName() const;
 };
-
-// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
-
 class LivingWorldCampaign
 {
 public:
@@ -199,60 +131,100 @@ public:
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *);
 };
-
 // Existing verified getters rehomed after naming their actual providers.
 // Integer return representation retained; provider addresses now relocate.
 class GameWindow;
-
  class WinInstanceData;
-
  void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
-
 class Rva0078D310Host;
-
  Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
-
 class AptLanLobby;
-
  AptLanLobby *__stdcall Rva002D1F77Create(void *);
-
 class Rva004E4A45;
-
  Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
-
 class Rva004E8B38;
-
  Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
-
 class Rva00512AC8;
-
  Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
-
 class Rva005142B0;
-
  Rva005142B0 *__stdcall Rva002D1F03Create(void *);
-
 class Rva00516211;
-
  Rva00516211 *__stdcall Rva002D1FB1Create(void *);
-
 class Rva0051A78E;
-
  Rva0051A78E *__stdcall Rva002D205FCreate(void *);
-
 class Rva005202C8;
-
  Rva005202C8 *__stdcall Rva002D2147Create(void *);
-
 class Rva00523825;
-
  Rva00523825 *__stdcall Rva002D21FBCreate(void *);
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "Coord3D.h"
+class Object
+{
+public:
+	unsigned char m_pad[0x74];
+	int m_id; // +0x74
+	unsigned char m_pad78[0x1C];
+	BfmeObject872Header m_status; // +0x94
+};
+class Weapon
+{
+public:
+	virtual void *deleteInstance(int flags);
+	void loadAmmoNow(const Object *source);
+	bool rva002CE6C5(const Object *source, int victimID, const Object *victim, int *result);
+
+	unsigned char m_pad04[4];
+	unsigned int m_status; // +0x08
+};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 BFME_LITERAL_NAME_GETTER(Rva004BB6FCNamed, "FireWeaponCollide")
+
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *location, const Coord3D *normal) {}
+};
+
+class CollideModule : public BehaviorModule, public CollideModuleInterface
+{
+public:
+	CollideModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~CollideModule();
+};
+
+class FireWeaponCollide : public CollideModule
+{
+public:
+	FireWeaponCollide(Thing *thing, const ModuleData *moduleData);
+	virtual ~FireWeaponCollide();
+
+protected:
+	virtual bool shouldFireWeapon();			// retail slot 12
+	virtual void xfer(Xfer *xfer);				// slot 3
+
+public:
+	virtual NameKeyType getModuleNameKey() const;		// slot 4
+	virtual void onCollide(Object *other, const Coord3D *location, const Coord3D *normal);
+
+private:
+	const FireWeaponCollideModuleData *getFireWeaponCollideModuleData() const
+	{
+		return reinterpret_cast<const FireWeaponCollideModuleData *>(m_moduleData);
+	}
+
+	Weapon *m_collideWeapon; // +0x14
+	bool m_everFired; // +0x18
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
+
+// Slot 0 of both interface vftables is retail's shared `return 0` fold
+// (33 C0 C3 at 0x000D43D0); the views define it inline with that body, so
+// the compiled tables name a definition of their own.
+
+// Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
 
@@ -307,7 +279,7 @@ FireWeaponCollide::FireWeaponCollide(Thing *thing, const ModuleData *moduleData)
 {
 	m_collideWeapon = TheWeaponStore->allocateNewWeapon(
 		getFireWeaponCollideModuleData()->m_collideWeaponTemplate, PRIMARY_WEAPON);
-	m_collideWeapon->m_status = m_object->m_weaponStatus;
+	m_collideWeapon->m_status = m_object->m_id;
 	m_everFired = false;
 }
 
@@ -390,6 +362,13 @@ CollideModule::CollideModule(Thing *thing, const ModuleData *moduleData) :
 
 // tu-skeleton: 0x004BB739 28B ??_GRva004BB68E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004BB822 58B ?onCollide@FireWeaponCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideOnCollide.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideOnCollide.cpp
+
+// ?onCollide@FireWeaponCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z @0x004BB822 58B
+// Evidence: ZH GeneralsMD FireWeaponCollide.cpp lines76..91 source primary guide. Native full58B RET12 slot0 atRVA85A024 (not CallHelp table which ends before85A010), class name getter4BB6FC plus ctor4BB79A proves FireWeaponCollide and MI interface+10. Local me before shouldFireWeapon preserves owner lifetime; existing loadAmmoNow2CE1AC/private fire wrapper2CE6C5 full rows. Original primary type and field offsets from native ctor.
+
+void FireWeaponCollide::onCollide(Object*other,const Coord3D*,const Coord3D*){
+ if(!other)return;Object*me=getObject(); if(shouldFireWeapon()){m_collideWeapon->loadAmmoNow(me);m_collideWeapon->rva002CE6C5(me,other->m_id,other,0);}
+}
 
 // tu-skeleton: 0x004BB918 17B ?buildFieldParse@FireWeaponCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
