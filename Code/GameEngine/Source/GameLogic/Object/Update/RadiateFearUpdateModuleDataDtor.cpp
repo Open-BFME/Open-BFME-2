@@ -15,10 +15,15 @@ class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 
+class BfmeFixedStorage0004543D;
 class Rva003623E5Filter
 {
 public:
+	Rva003623E5Filter();
 	~Rva003623E5Filter();
+	void applyFilter(BfmeFixedStorage0004543D storage);
+private:
+	int m_filterData; // +0x00
 };
 
 class __declspec(novtable) RadiateFearUpdateModuleData : public Snapshot
