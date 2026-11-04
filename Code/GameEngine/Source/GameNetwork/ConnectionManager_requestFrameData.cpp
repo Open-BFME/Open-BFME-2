@@ -76,12 +76,7 @@ private:
 };
 
 // The folded dword getters at +0x1C and +0x20.
-class NetWrapperCommandMsg
-{
-public:
-	UnsignedByte *getData();
-	UnsignedInt getDataLength();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 class BFMENetRequestFrameDataCommandMsg : public NetCommandMsg
 {

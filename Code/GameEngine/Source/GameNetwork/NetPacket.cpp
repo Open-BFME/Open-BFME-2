@@ -231,31 +231,7 @@ public:
 	UnsignedByte get() const;
 };
 
-class NetWrapperCommandMsg : public NetCommandMsg
-{
-public:
-	NetWrapperCommandMsg();
-	void setChunkNumber(UnsignedInt n);
-	void setNumChunks(UnsignedInt n);
-	void setDataOffset(UnsignedInt n);
-	void setData(UnsignedByte *data, UnsignedInt len);
-	void setTotalDataLength(UnsignedInt n);
-	void setWrappedCommandID(UnsignedShort id);
-	UnsignedShort getWrappedCommandID();
-	UnsignedInt getChunkNumber();
-	UnsignedInt getNumChunks();
-	UnsignedInt getTotalDataLength();
-	UnsignedInt getDataLength();
-	UnsignedInt getDataOffset();
-	UnsignedByte *getData();
-	UnsignedByte *m_data;
-	UnsignedInt m_dataLength;
-	UnsignedInt m_dataOffset;
-	UnsignedInt m_totalDataLength;
-	UnsignedInt m_chunkNumber;
-	UnsignedInt m_numChunks;
-	UnsignedShort m_wrappedCommandID;
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 // Frame message addFrameCommand serializes: three dwords after the base.
 class NetFrameCommandMsg : public NetCommandMsg

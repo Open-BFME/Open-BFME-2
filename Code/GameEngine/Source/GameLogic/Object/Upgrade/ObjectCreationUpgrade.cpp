@@ -4,11 +4,7 @@
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/Module.h"
-class NetWrapperCommandMsg
-{
-public:
-	unsigned getDataLength();
-};
+#include "../../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 enum DamageType
 {
 	DT_DAMAGE_8 = 8
