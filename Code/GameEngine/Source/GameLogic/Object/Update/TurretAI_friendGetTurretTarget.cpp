@@ -18,7 +18,6 @@ typedef bool Bool;
 
 #include "../object.h"
 
-
 extern GameLogic *TheGameLogic;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
@@ -28,12 +27,6 @@ enum TurretTargetType
 	TARGET_NONE,
 	TARGET_OBJECT,
 	TARGET_POSITION
-};
-
-struct TurretData
-{
-	char m_pad[0x4C];
-	unsigned m_slotMask;
 };
 
 struct TurretStateMachine
@@ -61,21 +54,6 @@ struct TurretStateMachine
 	virtual void _rsvd12();
 	virtual void _rsvd13();
 	virtual void setGoalObject(Object *o);
-};
-
-class TurretAI
-{
-	char m_pad0[8];
-	TurretData *m_data;
-	char m_pad1[0x14 - 0x0C];
-	TurretStateMachine *m_machine;
-	char m_pad2[0x2C - 0x18];
-	mutable TurretTargetType m_target;
-	char m_pad3[0x3F - 0x30];
-	mutable Bool m_targetWasSetByIdleMood;
-
-public:
-	TurretTargetType friend_getTurretTarget(Object *&obj, Coord3D &pos) const;
 };
 
 // ?getGoalObject@TurretStateMachine@@QAEPAVObject@@XZ

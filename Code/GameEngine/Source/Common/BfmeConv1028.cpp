@@ -37,22 +37,4 @@ void BfmeH1028::bfmeGo1028H(void)
 	m_bfmeOwner->m_bfmeSink->bfmeSend1028(m_bfmeArg, &m_bfmeB, &m_bfmeA);
 }
 
-class BfmeA1028
-{
-public:
-	BfmeA1028 *bfmeGo1028A(int a);
-};
-
 void __stdcall bfmeGo1028B(int a);
-
-class BfmeD1028
-{
-public:
-	void bfmeGo1028D(int a);
-};
-
-class BfmeE1028
-{
-public:
-	void bfmeGo1028E(void *q);
-};

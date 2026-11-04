@@ -16,66 +16,6 @@
 
 #include "../../Include/Common/Overridable.h"
 
-class Rva00420B2AZeroSetter
-{
-public:
-	void disable();
-};
-
-class Rva005D13C2Run
-{
-public:
-	void run();
-};
-
-class Rva005E18D0Run
-{
-public:
-	void run();
-};
-
-class Rva005E18DCRun
-{
-public:
-	void run();
-};
-
-class Rva005E1B9ARun
-{
-public:
-	void run();
-};
-
-class Rva005E254CRun
-{
-public:
-	void run();
-};
-
-class Rva005E589ERun
-{
-public:
-	void run();
-};
-
-class Rva005E6AD8Run
-{
-public:
-	void run();
-};
-
-class Rva0033B1CDNarrow
-{
-public:
-	void release();
-};
-
-class Rva0033B1CDWide
-{
-public:
-	void release();
-};
-
 class Rva005E549E
 {
 public:
@@ -88,20 +28,12 @@ public:
 	void run();
 };
 
-class Rva005E590FCaller
-{
-public:
-	void step();
-};
-
 class Rva005E5554
 {
 public:
 	// virtual: also reached through the this-8 thunk 0x005CDA53.
 	virtual void step();
 };
-
-
 
 void Rva005E5554::step()
 {

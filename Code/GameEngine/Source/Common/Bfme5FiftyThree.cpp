@@ -14,23 +14,11 @@ public:
 	BfmeThingCX *m_bfmeThing;				// +0x00
 };
 
-class Gen_0092F0A0
-{
-public:
-	BfmeHandleCX bfmeGet(int index) const;
-};
-
 class BfmeTripleDW
 {
 public:
 	int m_bfmeFirst;					// +0x00
 	int m_bfmeTail[2];					// +0x04
-};
-
-class Gen_00938010
-{
-public:
-	int bfmeIndexOf(const int *key) const;
 };
 
 class BfmeQuadDW

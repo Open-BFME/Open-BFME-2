@@ -33,15 +33,3 @@ void BfmeThingIO::bfmeTellIO(void *what)
 		--at;
 	}
 }
-
-class BfmeItemIP
-{
-public:
-	virtual void bfmeSpare000IP(void) = 0;
-};
-
-class BfmeThingIP
-{
-public:
-	void bfmeTakeIP(BfmeItemIP *item);
-};

@@ -14,19 +14,6 @@ typedef short Short;
 
 void __cdecl Rva003249D2(GameWindow *window, bool updateSlider);
 
-struct ListboxData00324B39
-{
-	char pad0[0x18];
-	void *rows;
-	char pad1C[0x0C];
-	int field28;
-	short endPosUnused;
-	char pad2E[0x0E];
-	short displayHeight;
-	char pad3E[0x06];
-	short displayPos;
-};
-
 void __cdecl Rva00324B39Add(GameWindow *window, short delta, bool update)
 {
 	void *userData = window->winGetUserData();
