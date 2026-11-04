@@ -135,8 +135,8 @@ public:
 class Rva00263546
 {
 public:
-	bool rva00263546(const Rva00263546 *other) const;	// 0x00263546: any common bit
-	unsigned int m_words[19];
+	bool rva00263546(const Rva00263546*) const;
+	unsigned int m_words[19]; // +0x00
 };
 class ModelConditionFlags
 {

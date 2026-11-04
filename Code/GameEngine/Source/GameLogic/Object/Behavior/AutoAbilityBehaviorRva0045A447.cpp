@@ -19,7 +19,12 @@ extern "C" void _ReadWriteBarrier();
 namespace _STL { template<unsigned int N> class _Base_bitset {
 public: bool _M_is_any() const; unsigned int words[N];
 }; }
-class Rva00263546 { public: bool rva00263546(const Rva00263546*) const; };
+class Rva00263546
+{
+public:
+	bool rva00263546(const Rva00263546*) const;
+	unsigned int m_words[19]; // +0x00
+};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class BodyModule { public:
  virtual void slot00(); virtual void slot04(); virtual void slot08();

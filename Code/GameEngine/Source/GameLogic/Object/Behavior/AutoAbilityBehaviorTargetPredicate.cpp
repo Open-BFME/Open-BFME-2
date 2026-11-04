@@ -15,7 +15,12 @@ namespace _STL { template<unsigned int N> class _Base_bitset {
 public: bool _M_is_any() const; unsigned int words[N];
 }; }
 class Rva00331682Holder { public: bool test(const void*) const; };
-class Rva00263546 { public: bool rva00263546(const Rva00263546*) const; };
+class Rva00263546
+{
+public:
+	bool rva00263546(const Rva00263546*) const;
+	unsigned int m_words[19]; // +0x00
+};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 class CommandButton;
