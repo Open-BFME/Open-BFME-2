@@ -206,3 +206,48 @@ def test_initializer_report_needs_a_row_for_a_header_constant_copy():
     shared = ("v.obj", "_$E2", ours, masked, relocs, frozenset())
     report = ir.initializer_report(Image(), [], [shared], addresses)
     assert report["by_shape_only"] == [["v.obj", "_$E2", "0x100"]]
+
+
+def test_a_template_static_slot_runs_once_however_many_objects_emit_it(tmp_path):
+    # MSVC 7.1 emits `ModuleTag<...>::s_key`'s data as a pick-any COMDAT in every object that
+    # instantiates it, and its `.CRT$XCU` slot in a section associative with that data. The link keeps
+    # one copy of the data and drops the other objects' associated slots: no second construction.
+    import struct
+    import link_cycle
+
+    data, slot = 0xC0301040, 0xC0301040
+    paths = []
+    for name in ("a", "b"):
+        path = link_cycle.write_coff(
+            tmp_path / f"{name}.obj",
+            [(".data", data | link_cycle.COMDAT, bytes(4), 2), (".CRT$XCU", slot | link_cycle.COMDAT, bytes(4), 5),
+             (".text$yc", 0x60501020, b"\xC3", 0)],
+            [("?s_key@?$Tag@$00@@2HA", 1, 0, link_cycle.EXTERNAL), ("_$E1", 3, 0, link_cycle.STATIC)],
+            {2: [(0, "_$E1", link_cycle.DIR32)]})
+        raw = bytearray(path.read_bytes())
+        table = struct.unpack_from("<I", raw, 8)[0]
+        raw[table + 18 * 3 + 12:table + 18 * 3 + 14] = (1).to_bytes(2, "little")   # .CRT$XCU's aux: with section 1
+        path.write_bytes(bytes(raw))
+        paths.append(path)
+    _definitions, registered, _code = ir.scan_objects(paths)
+    assert [(obj, symbol, entry[-1]) for obj, symbol, *entry in registered] == [
+        ("a.obj", "_$E1", "?s_key@?$Tag@$00@@2HA"), ("b.obj", "_$E1", "?s_key@?$Tag@$00@@2HA")]
+
+    class Image:
+        base = 0x400000
+
+        def initializers(self):
+            return [0x10]
+
+        def read(self, rva, size):
+            return bytes(size)
+
+    report = ir.initializer_report(Image(), [], registered)
+    assert report["registered_entries"] == 1 and report["registered_comdat_copies_discarded"] == 1
+    assert report["twice"] == [] and len(report["unidentified"]) <= 1
+    # The copy a row names is the one counted.
+    import build
+    row = {"name": "_$E1", "target_rva": "0x10", "source": "Code/B.cpp", "notes": ""}
+    rowed = [(build.row_object(row).name if obj == "b.obj" else obj, symbol, *entry) for obj, symbol, *entry in registered]
+    report = ir.initializer_report(Image(), [row], rowed)
+    assert report["registered_retail_entries"] == 1 and report["unidentified"] == [] and report["twice"] == []

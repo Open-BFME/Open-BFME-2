@@ -5,6 +5,7 @@ Initializers: retail's `.CRT$XCU` table against what our objects register. A bod
 as a plain function compiles, matches and links, and never runs. Order needs an image. A `_$E<n>`
 is looked up in its own object (every object numbers its own); an unrowed one by its shape and
 its relocations' targets. `twice` lists registrations that build an entry another object registers.
+A slot associative with a public COMDAT (a template static's) runs once, however many objects emit it.
 Vtables: every kept copy's length against retail's run of code pointers. COMDAT selection may keep
 any copy, so the shortest one counts.
 Globals and FieldParse tables: bytes against retail, each comparison bounded by the symbol's own
@@ -147,9 +148,40 @@ class Definition:
     __slots__ = ("object", "extent", "body", "masked", "comdat", "pointers")
 
 
+ASSOCIATIVE = 5
+
+
+def comdat_owners(raw, sections, symbols):
+    """{section number: public name} for each section linked only with another object's choice of a
+    COMDAT: an associative section (selection 5) whose associated section's COMDAT symbol is public.
+
+    A template static data member with a dynamic initializer (`ModuleTag<...>::s_key`) is emitted in
+    every object that instantiates it: its data as a pick-any COMDAT, and its `.CRT$XCU` slot in a
+    section associative with that data. The linker keeps one copy of the data and drops every other
+    object's associated sections, so the slot runs once however many objects register it.
+    """
+    _, count, _, table, total, _, _ = struct.unpack_from("<HHIIIHH", raw, 0)
+    associated, index = {}, 0
+    while index < total:
+        at = table + 18 * index
+        value, sec, _type, cls, extra = struct.unpack_from("<IhHBB", raw, at + 8)
+        if cls == link_cycle.STATIC and extra and 0 < sec <= count and value == 0 \
+                and sections[sec - 1].flags & COMDAT:
+            number, selection = struct.unpack_from("<HB", raw, at + 18 + 12)
+            if selection == ASSOCIATIVE and 0 < number <= count:
+                associated[sec] = number
+        index += 1 + extra
+    public = {}
+    for i in sorted(symbols):
+        symbol = symbols[i]
+        if symbol.sec > 0 and symbol.cls == link_cycle.EXTERNAL and symbol.value == 0:
+            public.setdefault(symbol.sec, symbol.name)
+    return {sec: public[number] for sec, number in associated.items() if number in public}
+
+
 def scan_objects(paths):
-    """({external name: [Definition]} for non-code symbols, [(object, symbol, body, masked)] registered,
-    {external names defined in code})."""
+    """({external name: [Definition]} for non-code symbols, [(object, symbol, body, masked, relocs,
+    local statics, owning public COMDAT or None)] registered, {external names defined in code})."""
     definitions = collections.defaultdict(list)
     registered = []
     code = set()
@@ -179,9 +211,11 @@ def scan_objects(paths):
                                struct.unpack_from("<I", raw, section.ptr + off)[0] if not section.flags & UNINITIALIZED else 0)
                               for off, i, _t in section.relocs if i in symbols]
             definitions[symbol.name].append(found)
+        owners = comdat_owners(raw, sections, symbols)
         for section in sections:
             if not section.name.startswith(".CRT$XCU"):
                 continue
+            owner = owners.get(section.idx)
             for _offset, index, _kind in section.relocs:
                 symbol = symbols.get(index)
                 if symbol is None:
@@ -199,7 +233,7 @@ def scan_objects(paths):
                 local = frozenset(symbols[i].name for off, i, _kind in (target.relocs if target else [])
                                   if i in symbols and off >= symbol.value and symbols[i].cls != link_cycle.EXTERNAL
                                   and symbols[i].sec > 0 and not sections[symbols[i].sec - 1].name.startswith(".text"))
-                registered.append((path.name, symbol.name, body, masked, relocs, local))
+                registered.append((path.name, symbol.name, body, masked, relocs, local, owner))
     return definitions, registered, code
 
 
@@ -245,10 +279,25 @@ def initializer_report(retail, rows, registered, addresses=None):
             else:
                 rva_of.setdefault(symbol, rva)
         row_at.setdefault(rva, row)
+
+    def rowed(entry):
+        return (local_of.get((entry[0], entry[1])) if ledger_io.LOCAL_STATIC.fullmatch(entry[1])
+                else rva_of.get(entry[1]))
+
+    # Registrations a public COMDAT owns (`comdat_owners`: a template static's slot, emitted by every
+    # object that instantiates it) run once, beside the copy of the data the link keeps. Keep one per
+    # owner, a rowed one where there is one; the others are no second construction and no extra
+    # initializer. Which object's copy survives follows link order, and every copy builds that global.
+    kept = {}
+    for entry in registered:
+        owner = entry[6] if len(entry) > 6 else None
+        if owner is not None and (owner not in kept or rowed(kept[owner]) is None and rowed(entry) is not None):
+            kept[owner] = entry
+    runs = [entry for entry in registered if len(entry) <= 6 or entry[6] is None or kept[entry[6]] is entry]
+    discarded, registered = len(registered) - len(runs), runs
     mapped, pending, unmapped = set(), [], []
     for entry in registered:
-        rva = (local_of.get((entry[0], entry[1])) if ledger_io.LOCAL_STATIC.fullmatch(entry[1])
-               else rva_of.get(entry[1]))
+        rva = rowed(entry)
         if rva is None:
             pending.append(entry)
         else:
@@ -335,6 +384,7 @@ def initializer_report(retail, rows, registered, addresses=None):
             kinds["plain_function_row"] += 1
             plain.append([hex(rva), row["name"], row["source"]])
     return {"retail": len(table), "registered_entries": len(registered),
+            "registered_comdat_copies_discarded": discarded,
             "registered_retail_entries": len(table & mapped), "not_registered": len(table - mapped),
             "not_registered_kinds": dict(kinds), "registered_not_in_retail": len(mapped - table),
             "registered_unidentified": len(unmapped), "registered_by_shape_only": len(by_shape),
