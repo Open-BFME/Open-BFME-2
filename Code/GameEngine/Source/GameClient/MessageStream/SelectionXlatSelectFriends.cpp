@@ -142,14 +142,7 @@ class InGameUI
 ;
 extern InGameUI *TheInGameUI;
 class Image;
-class ImageSubscriptMap
-
-{
- public:
- Image *&operator[](const unsigned int &key);
- 
-}
-;
+#include "../../../Include/GameClient/ImageSubscriptMap.h"
 Bool CanSelectDrawable(const Drawable *draw, Bool dragSelecting);
 class SelectionTranslator
 
