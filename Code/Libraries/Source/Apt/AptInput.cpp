@@ -17,16 +17,7 @@
 // semantics, but its clean compiled bodies do not place this handler; the
 // complete string-resolution and interpreter paths here follow WB and retail.
 // No donor layout or complete class identity is asserted by byte matching.
-class EAStringC
-{
-public:
-	EAStringC();
-	~EAStringC();
-	const char *rva00620090() const;
-	unsigned int rva006D3750() const;
-	EAStringC(const char *);
-	void *data; // +0x00
-};
+#include "EAStringC.h"
 
 class AptValue;
 

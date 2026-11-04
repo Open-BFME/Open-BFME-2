@@ -47,11 +47,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 __forceinline void *AptScriptFunctionByteCodeBlock::operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
 __forceinline void AptScriptFunctionByteCodeBlock::operator delete(void *p, unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p, n); }
 
-class EAStringC
-{
-public:
-    const char *rva00620090() const; // 0x00620090
-};
+#include "EAStringC.h"
 EAStringC *Rva0070B4F0GetString(int id);
 
 class Rva006DBB30SarDwordField
