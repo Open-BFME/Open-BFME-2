@@ -18,6 +18,31 @@ template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
 #include "SiegeDockingBehaviorView.h"
+struct Rva004598F2Point
+{
+	Rva004598F2Point() {}
+	Rva004598F2Point(const Rva004598F2Point &other) : x(other.x), y(other.y), z(other.z) {}
+	float x;
+	float y;
+	float z;
+};
+class Object
+{
+public:
+	const Rva004598F2Point *getPosition() const { return &m_cachedPos; }
+private:
+	unsigned char m_pad00[0x38];
+	Rva004598F2Point m_cachedPos; // +0x38
+};
+struct SiegeDockEntry
+{
+	int m_int00;
+	int m_enum04;
+	Rva004598F2Point m_coord08; // +0x08
+	Rva004598F2Point m_coord14; // +0x14
+	int m_objectID20;
+};
+
 namespace _STL
 {
 // Bind the range erase to the rowed void-pointer worker.
@@ -41,9 +66,38 @@ private:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-// tu-skeleton: 0x004598F2 61B ?rva004598F2@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDockPoints.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDockPoints.cpp
 
-// tu-skeleton: 0x0045992F 61B ?rva0045992F@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDockPoints.cpp (not merged yet)
+//
+// SiegeDockingBehavior's two dock-point accessors, retail 0x004598F2 and
+// 0x0045992F (61 bytes each): by index, a copy of the +0x08 or +0x14 position
+// of an entry in the +0x24 entry vector, or the Object's position (+0x38 of
+// the +0x08 Object) when the index is out of range. Target facts: HordeContain
+// slot 130 (0x00469967) calls both on the module it finds under the
+// "SiegeDockingBehavior" key, and the +0x24 vector and entry offsets are the
+// ones SiegeDockingBehavior::xfer (0x0045A02F) walks. Donor: BFME 1's
+// Rva002060B0TripleCopy.cpp and Rva00206100Point.cpp (retail 0x002060B0,
+// 0x00206100) have this shape; the returned triple's copy constructor is
+// carried from them and reproduces retail's fld/fstp first word. The method
+// and point names are address-derived.
+
+// ?rva004598F2@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z @0x004598F2
+Rva004598F2Point SiegeDockingBehavior::rva004598F2(int index)
+{
+	if (index >= 0 && index < m_vector.size())
+		return ((SiegeDockEntry *)m_vector[index])->m_coord08;
+	return *getObject()->getPosition();
+}
+
+// ?rva0045992F@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z @0x0045992F
+Rva004598F2Point SiegeDockingBehavior::rva0045992F(int index)
+{
+	if (index >= 0 && index < m_vector.size())
+		return ((SiegeDockEntry *)m_vector[index])->m_coord14;
+	return *getObject()->getPosition();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehavior.cpp
 
@@ -78,12 +132,6 @@ NameKeyType SiegeDockingBehavior::getModuleNameKey() const
 	return TheSiegeDockingBehaviorPoolKey;
 }
 
-// tu-skeleton: 0x004599DF 6B ?Rva4599DFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00459A2A 318B ?rva00459A2A@SiegeDockingBehavior@@UAE_NW4ObjectID@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorReserve.cpp (not merged yet)
-
-// tu-skeleton: 0x00459B68 191B ?rva00459B68@SiegeDockingBehavior@@ABEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorRefresh.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorStopDocking.cpp
 
 // ?stopDocking@SiegeDockingBehavior@@AAEXXZ @0x00459C27 49B.
@@ -108,6 +156,12 @@ void SiegeDockingBehavior::stopDocking() throw()
 	}
 	entries->erase(entries->begin(), entries->end());
 }
+
+// tu-skeleton: 0x004599DF 6B ?Rva4599DFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00459A2A 318B ?rva00459A2A@SiegeDockingBehavior@@UAE_NW4ObjectID@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorReserve.cpp (not merged yet)
+
+// tu-skeleton: 0x00459B68 191B ?rva00459B68@SiegeDockingBehavior@@ABEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorRefresh.cpp (not merged yet)
 
 // tu-skeleton: 0x00459C58 104B ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorCanDock.cpp (not merged yet)
 
