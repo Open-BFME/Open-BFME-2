@@ -84,28 +84,18 @@ public:
 
 void BoxSetTexture(unsigned int stage, TextureBaseClass *&texture);
 
-class StringClass
-{
-	char *m_Buffer;
-	static char *m_EmptyString;
-	static char m_NullChar;
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
-	void Get_String(int length, bool temporary);
-	void Free_String(void);
-
-public:
 #pragma optimize("t", off)
 #pragma optimize("s", on)
-
-	StringClass(int length, bool temporary) : m_Buffer(m_EmptyString)
-	{
-		Get_String(length, temporary);
-		m_Buffer[0] = m_NullChar;
-	}
+inline StringClass::StringClass(int length, bool temporary) : m_Buffer(m_EmptyString)
+{
+	Get_String(length, temporary);
+	m_Buffer[0] = m_NullChar;
+}
 #pragma optimize("", on)
 
-	__forceinline ~StringClass(void) { Free_String(); }
-};
+__forceinline StringClass::~StringClass(void) { Free_String(); }
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (SetTextureStageState, vtable slot 67).
@@ -121,42 +111,31 @@ extern unsigned number_of_DX8_calls;
 
 extern unsigned ScreenTextureStageStateChanges;
 
-class DX8Wrapper
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+
+__forceinline void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned int stage,
+	unsigned long state, unsigned int value)
 {
-public:
-	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &,
-		unsigned long, unsigned int);
-
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-	static unsigned TextureStageStates[16][32];
-	static unsigned texture_stage_state_changes;
-
-public:
-	static __forceinline void Set_DX8_Texture_Stage_State(unsigned int stage,
-		unsigned long state, unsigned int value)
+	if (stage >= 16)
 	{
-		if (stage >= 16)
-		{
-			reinterpret_cast<IDirect3DDevice9 *>(D3DDevice)->SetTextureStageState(stage,
-				(D3DTEXTURESTAGESTATETYPE)state, value);
-			++number_of_DX8_calls;
-			return;
-		}
-		if (TextureStageStates[stage][state] == value)
-			return;
-		if (WW3D::SnapshotActivated)
-		{
-			StringClass name(0, true);
-			Get_DX8_Texture_Stage_State_Value_Name(name, state, value);
-		}
-		TextureStageStates[stage][state] = value;
 		reinterpret_cast<IDirect3DDevice9 *>(D3DDevice)->SetTextureStageState(stage,
-				(D3DTEXTURESTAGESTATETYPE)state, value);
+			(D3DTEXTURESTAGESTATETYPE)state, value);
 		++number_of_DX8_calls;
-		++texture_stage_state_changes;
+		return;
 	}
-};
+	if (TextureStageStates[stage][state] == value)
+		return;
+	if (WW3D::SnapshotActivated)
+	{
+		StringClass name(0, true);
+		Get_DX8_Texture_Stage_State_Value_Name(name, state, value);
+	}
+	TextureStageStates[stage][state] = value;
+	reinterpret_cast<IDirect3DDevice9 *>(D3DDevice)->SetTextureStageState(stage,
+			(D3DTEXTURESTAGESTATETYPE)state, value);
+	++number_of_DX8_calls;
+	++texture_stage_state_changes;
+}
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 
