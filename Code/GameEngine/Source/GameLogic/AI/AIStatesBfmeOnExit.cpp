@@ -588,23 +588,7 @@ public:
 	BfmeShapeE15 *getGeometryShape(int index);
 };
 struct Rva0028AC4EEntry;
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	Real getOrientation() const { return m_orientation; }
-	void setOrientation(Real angle);
-	void setPosition(const Coord3D *pos);
-	Bool isAboveTerrain() const;
-	const Coord3D *getUnitDirectionVector2D() const;
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-	Real m_orientation; // +0x44
-};
+#include "../../Common/Thing/thing.h"
 
 // 0x002615E3 is rowed as Rva000CBA20::distSq (Rva000CBA20DistSq.cpp).
 #include "../../Common/RTS/XYDistanceCallView.h"
@@ -663,7 +647,7 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad048[0x74 - 0x48];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0x94 - 0x78];
 	unsigned char m_bfmeFlags94; // +0x94
@@ -1002,7 +986,7 @@ StateReturnType AIMoveToPositionAndEnterState::onEnter()
 	AIUpdateInterface *ai = owner->getAI();
 	Object *goal = getMachine()->getGoalObject();
 	m_goalPosition = *goal->getContain()->getEnterPosition();
-	if (((goal->getTemplate()->m_kindof[5] & 0x80000000U) != 0))
+	if (((goal->m_template->m_kindof[5] & 0x80000000U) != 0))
 		TheAI->pathfinder()->AdjustDestination(owner, ai->getLocomotorSet(), &m_goalPosition, 0);
 
 	StateReturnType ret = AIInternalMoveToState::onEnter();
@@ -1040,7 +1024,7 @@ StateReturnType AIMoveToPositionAndEnterState::update()
 	}
 
 	StateReturnType ret = AIMoveToState::update();
-	if (((goal->getTemplate()->m_kindof[5] & 0x80000000U) != 0))
+	if (((goal->m_template->m_kindof[5] & 0x80000000U) != 0))
 	{
 		int state = goal->getAI()->rva00260DED();
 		if (state == 0x46 || state == 0x47)
@@ -1064,7 +1048,7 @@ void AIMoveToPositionAndEnterState::onExit(StateExitType status)
 	{
 		owner->setStatus(OBJECT_STATUS_BFME_4E, false);
 		owner->setStatus(OBJECT_STATUS_BFME_3, false);
-		if (((owner->getTemplate()->m_kindof[3] & 0x2000U) != 0))
+		if (((owner->m_template->m_kindof[3] & 0x2000U) != 0))
 			owner->rva00346C53(OBJECT_STATUS_BFME_3, false);
 	}
 	owner->setStatus(OBJECT_STATUS_BFME_5D, false);
@@ -1108,7 +1092,7 @@ void AIAttackPositionAimAtTargetState::onExit(StateExitType status)
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (m_bfmeFlag20 && ai && m_bfmeFlag21)
 		ai->rva0034A82DSlot136();
-	if (ai && getMachineOwner()->getTemplate()->m_firingArc < 360.0f)
+	if (ai && getMachineOwner()->m_template->m_firingArc < 360.0f)
 		ai->rva0034BEF9Slot142(0);
 	getMachineOwner()->setStatus(OBJECT_STATUS_BFME_19, false);
 }
@@ -1726,7 +1710,7 @@ Bool AIAttackMeleeHordeApproachTargetState::computePath()
 				if (!TheAI->pathfinder()->IsLineBlocked(source, ai->getValidLocomotorSurfaces(),
 						LAYER_GROUND, goal, &destination))
 					*goal = destination;
-				if (((victim->getTemplate()->m_kindof[0] & 0x80U) != 0))
+				if (((victim->m_template->m_kindof[0] & 0x80U) != 0))
 					rva00344D60(goal, source, victim);
 			}
 			if (!rva003449C5(goal, source, victim))

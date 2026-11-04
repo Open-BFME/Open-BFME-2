@@ -21,7 +21,7 @@ public:
 	void rva0027366A();
 	void rva000B3FD0();
 };
-class Thing { public: Drawable *getDrawable() const; };
+#include "../../../Common/Thing/thing.h"
 class SpawnBehaviorInterface : public GettingBuiltCallbackSlots<10> {
 public: virtual void constructionFinished() = 0;
 };
@@ -63,8 +63,7 @@ public:
     __forceinline int getID() const { return id; }
     __forceinline int getProducerID() const { return producerID; }
     __forceinline int getBuilderID() const { return builderID; }
-    unsigned char pad0[4]; GettingBuiltTemplateView *tmplate;
-    unsigned char pad8[0x74-8]; int id, producerID, builderID;
+    unsigned char pad60[0x74-0x60]; int id, producerID, builderID;
     unsigned char pad80[0x10c-0x80]; GettingBuiltCallbackConditions conditions;
     unsigned char pad158[0x280-0x158]; float construction;
 };
@@ -141,7 +140,7 @@ void GettingBuiltBehavior::rva00453905(Object *other)
     } else {
         flag32 = false;
         obj->construction = -1.0f;
-        if (flag33 && !(obj->tmplate->kindByte & 2) && obj->getDrawable())
+        if (flag33 && !(((const GettingBuiltTemplateView *)obj->m_template)->kindByte & 2) && obj->getDrawable())
             obj->getDrawable()->rva0027366A();
         obj->setStatus((ObjectStatusTypes)0x14, false);
         obj->setStatus((ObjectStatusTypes)2, false);

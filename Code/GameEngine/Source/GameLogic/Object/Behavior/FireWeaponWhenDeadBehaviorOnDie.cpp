@@ -69,11 +69,7 @@ private:
 	UpgradeMaskType m_completedUpgrades; // +0x13C
 };
 
-class Thing
-{
-public:
-	void transformPoint(const Coord3D *in, Coord3D *out);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -82,7 +78,7 @@ public:
 	Player *getControllingPlayer() const;
 	Bool testForAnyCompletedUpgrade(const UpgradeMaskType &mask) { return ((Rva00406F9C *)&m_completedUpgrades)->rva00406F9C(&mask); }
 private:
-	char m_pad000[0x284];
+	char m_pad060[0x284 - 0x60];
 	UpgradeMaskType m_completedUpgrades; // +0x284
 };
 

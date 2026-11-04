@@ -145,18 +145,7 @@ public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	const Coord3D *getUnitDirectionVector2D() const;
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../Common/Thing/thing.h"
 
 #include "../../../Include/Common/Player.h"
 
@@ -165,8 +154,8 @@ class Object : public Thing
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Object *getContainedBy() { return m_containedBy; }
-	Bool isKindOfImmobile() const { return (((unsigned char)getTemplate()->m_kindof[0] & 4) != 0); }
-	Bool isKindOfProjectile() const { return (((unsigned char)(getTemplate()->m_kindof[0] >> 24) & 2) != 0); }
+	Bool isKindOfImmobile() const { return (((unsigned char)m_template->m_kindof[0] & 4) != 0); }
+	Bool isKindOfProjectile() const { return (((unsigned char)(m_template->m_kindof[0] >> 24) & 2) != 0); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -175,7 +164,7 @@ public:
 	Bool isSignificantlyAboveTerrain() const;
 	Bool rva0029493F(Object *other, Int test);
 	Real rva0028AC7D() const;
-	unsigned char m_pad044[0x249 - 0x44];
+	unsigned char m_pad060[0x249 - 0x60];
 	Bool m_249; // +0x249
 	unsigned char m_pad24A[0x258 - 0x24A];
 	AIUpdateInterface *m_ai; // +0x258
@@ -314,7 +303,7 @@ __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Wea
 {
 	if (weapon && victim && !((const Rva002C9400ByteField *)weapon->getTemplate())->get() &&
 		!weapon->getTemplate()->isContactWeapon() &&
-		(((unsigned char)(source->getTemplate()->m_kindof[1] >> 24) & 8) || ((unsigned char)(source->getTemplate()->m_kindof[6] >> 16) & 0x40)))
+		(((unsigned char)(source->m_template->m_kindof[1] >> 24) & 8) || ((unsigned char)(source->m_template->m_kindof[6] >> 16) & 0x40)))
 	{
 		Rva002619C1Filter filter(source);
 		if (!filter.allow(victim))

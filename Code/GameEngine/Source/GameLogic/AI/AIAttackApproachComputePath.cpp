@@ -324,18 +324,7 @@ public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	const Coord3D *getUnitDirectionVector2D() const;
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../Common/Thing/thing.h"
 
 #include "../../../Include/Common/Team.h"
 
@@ -362,8 +351,8 @@ public:
 		Object *container = getOutermostContainer();
 		return container && container->isKindOfImmobile();
 	}
-	Bool isKindOfImmobile() const { return ((getTemplate()->m_kindof[0] & (1U << 2)) != 0); }
-	Bool isKindOfProjectile() const { return ((getTemplate()->m_kindof[0] & (1U << 25)) != 0); }
+	Bool isKindOfImmobile() const { return ((m_template->m_kindof[0] & (1U << 2)) != 0); }
+	Bool isKindOfProjectile() const { return ((m_template->m_kindof[0] & (1U << 25)) != 0); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -376,7 +365,7 @@ public:
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 	void rva0028CDB6();
 	Real GetRelativeAngle(const Coord3D *pos) const;
-	Real getOrientation() const { return m_orientation; }
+	Real getOrientation() const { return m_cachedAngle; }
 	Bool rva002943B2(const Player *player);
 	Bool isOutOfAmmo() const;
 	Object *adjustVictim(Object *owner, Int flag, Int extra);
@@ -397,8 +386,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 public:
 	ObjectID getID() const { return (ObjectID)m_id; }
-	Real m_orientation; // +0x44
-	unsigned char m_pad048[0x74 - 0x48];
+	unsigned char m_pad060[0x74 - 0x60];
 	Int m_id; // +0x74
 	unsigned char m_pad078[0x94 - 0x78];
 	UnsignedInt m_94; // +0x94 (bit 0: destroyed)
@@ -768,7 +756,7 @@ __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Wea
 {
 	if (weapon && victim && !((const Rva002C9400ByteField *)weapon->getTemplate())->get() &&
 		!weapon->getTemplate()->isContactWeapon() &&
-		((source->getTemplate()->m_kindof[1] & (1U << 27)) || (source->getTemplate()->m_kindof[6] & (1U << 22))))
+		((source->m_template->m_kindof[1] & (1U << 27)) || (source->m_template->m_kindof[6] & (1U << 22))))
 	{
 		Rva002619C1Filter filter(source);
 		if (!filter.allow(victim))
@@ -1217,7 +1205,7 @@ Bool AIAttackApproachTargetState::computePath()
   critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 18");
   setAdjustsDestination(true);
   Bool usePathfinder=false;
-  if(!(source->getTemplate()->m_kindof[1] & (1U << 27)))usePathfinder=true;
+  if(!(source->m_template->m_kindof[1] & (1U << 27)))usePathfinder=true;
   m_goalPosition=m_prevVictimPos;
   if(!usePathfinder && TheAI->pathfinder()->CanApproachToTarget(source,victim->getPosition(),(Rva002C9B80Owner*)weapon,false))usePathfinder=true;
   if(canPursue(source,weapon,victim) && usePathfinder)return false;

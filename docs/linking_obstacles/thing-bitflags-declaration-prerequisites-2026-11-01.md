@@ -24,3 +24,5 @@ standardize their BitFlags template parameter; their COFF link facts remain
 identical. The bulk queue rewrite is restored before accept. The header stays
 unchanged: six held dependents still block its two matched query declarations.
 [Accepted paths, trial history and validation](../../reverse/attempt_support/thing-header-adoption-20261101.md).
+
+Twenty-one more Thing consumers pass owning acceptance and retire their queue keys; four scanner-blocked sources remain unchanged. [Scope and verification](../../reverse/attempt_support/thing-header-adoption-20261104.md).

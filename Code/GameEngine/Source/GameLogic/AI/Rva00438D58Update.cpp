@@ -13,6 +13,7 @@
 
 class Drawable;
 #include "../Object/object.h"
+#include "../../Common/Thing/thing.h"
 
 enum ObjectStatusTypes
 {

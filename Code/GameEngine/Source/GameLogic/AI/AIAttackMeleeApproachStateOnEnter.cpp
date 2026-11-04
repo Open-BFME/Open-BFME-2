@@ -90,14 +90,7 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../Common/Thing/thing.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -111,7 +104,7 @@ public:
 	Player *getControllingPlayer() const;
 	Bool rva0029493F(Object *other, Int test);
 	Bool rva002943B2(const Player *player);
-	unsigned char m_pad044[0x258 - 0x44];
+	unsigned char m_pad060[0x258 - 0x60];
 	AIUpdateInterface *m_ai; // +0x258
 	void *m_physics; // +0x25C
 	unsigned char m_pad260[0x274 - 0x260];

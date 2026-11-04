@@ -91,15 +91,7 @@ template <> class AIUpdateSlots<0>
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	const Coord3D *getUnitDirectionVector2D() const;
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -117,7 +109,7 @@ public:
 	ObjectID getID() const { return (ObjectID)m_id; }
 	Real getRadius() const { return m_radius; }
 private:
-	unsigned char m_pad044[0x74 - 0x44];
+	unsigned char m_pad060[0x74 - 0x60];
 	Int m_id; // +0x74
 	unsigned char m_pad078[0xB8 - 0x78];
 	Real m_radius; // +0xB8

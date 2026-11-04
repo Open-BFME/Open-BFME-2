@@ -87,15 +87,7 @@ public:
 	unsigned char m_kindOf10B;
 };
 
-class Thing
-{
-public:
-	bool isAboveTerrain() const;
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_pos;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -137,9 +129,9 @@ public:
 void BridgeBehavior::handleObjectsOnBridgeOnDie()
 {
 	const Object *bridge = m_object;
-	const Coord3D *bridgePos = &bridge->m_pos;
+	const Coord3D *bridgePos = &bridge->m_cachedPos;
 
-	Bridge *terrainBridge = TheTerrainLogic->findBridgeAt(&m_object->m_pos);
+	Bridge *terrainBridge = TheTerrainLogic->findBridgeAt(&m_object->m_cachedPos);
 	if (terrainBridge)
 	{
 		int bridgeLayer = terrainBridge->m_layer;
@@ -171,9 +163,9 @@ void BridgeBehavior::handleObjectsOnBridgeOnDie()
 				continue;
 			if (other->isAboveTerrain())
 				continue;
-			if (other->m_pos.z < lowBridgeZ)
+			if (other->m_cachedPos.z < lowBridgeZ)
 				continue;
-			if (!PointInsideArea2D(&other->m_pos, bridgePolygon, 4))
+			if (!PointInsideArea2D(&other->m_cachedPos, bridgePolygon, 4))
 				continue;
 			if (bridgeLayer != other->rva0028B511())
 				continue;

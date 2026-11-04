@@ -11,6 +11,7 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameClient/DrawableBFME2.h"
+#include "../../../Common/Thing/thing.h"
 class Module;
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 enum ObjectStatusTypes { OBJECT_STATUS_5=5, OBJECT_STATUS_79=79 };

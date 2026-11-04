@@ -64,27 +64,16 @@ class Weapon;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	void setPosition(const Coord3D *pos);
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
-	Bool isKindOfProjectile() const { return (((unsigned char)(getTemplate()->m_kindof[0] >> 24) & 2) != 0); }
+	Bool isKindOfProjectile() const { return (((unsigned char)(m_template->m_kindof[0] >> 24) & 2) != 0); }
 	Bool isMobile() const;  // rowed at 0x002907A1
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	unsigned char m_pad044[0x258 - 0x44];
+	unsigned char m_pad060[0x258 - 0x60];
 	AIUpdateInterface *m_ai; // +0x258
 };
 
@@ -182,7 +171,7 @@ StateReturnType AIAttackApproachTargetState::update()
 	{
 		// Basically, if the object is alive, we continue, in case the target moves.
 		Object* victim = getMachineGoalObject();
-		if (victim && source->isMobile() && !(((unsigned char)victim->getTemplate()->m_kindof[0] & 4) != 0))
+		if (victim && source->isMobile() && !(((unsigned char)victim->m_template->m_kindof[0] & 4) != 0))
 		{
 			if (code != STATE_CONTINUE)
 			{

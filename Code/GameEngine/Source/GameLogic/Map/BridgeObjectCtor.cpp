@@ -179,21 +179,7 @@ public:
 	virtual Bool isIndestructible() const = 0; // +0x88
 };
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	Real getOrientation() const { return m_cachedAngle; }
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-private:
-	void *m_vptr;
-	const ThingTemplate *m_template; // +0x04
-	char m_pad08[0x38 - 0x08];
-	Coord3D m_cachedPos; // +0x38
-	Real m_cachedAngle; // +0x44
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -203,7 +189,7 @@ public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Team *getTeam() const { return m_team; }
 private:
-	char m_pad48[0x74 - 0x48];
+	char m_pad60[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	char m_pad78[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo; // +0xA8 (Object ctor copies it there)
@@ -272,7 +258,7 @@ m_layer(LAYER_INVALID),
 m_outline(NULL)
 {
 	// save the template name
-	m_templateName = bridgeObj->getTemplate()->getName();
+	m_templateName = bridgeObj->m_template->getName();
 
 	const Coord3D *pos = bridgeObj->getPosition();
 	Real angle = bridgeObj->getOrientation();
@@ -330,7 +316,7 @@ m_outline(NULL)
 	m_bridgeInfo.bridgeObjectID = bridgeObj->getID();
 
 	// get the template of the bridge
-	AsciiString bridgeTemplateName = bridgeObj->getTemplate()->getName();
+	AsciiString bridgeTemplateName = bridgeObj->m_template->getName();
 	TerrainRoadType *bridgeTemplate = TheTerrainRoads->findBridge( bridgeTemplateName );
 	if( bridgeTemplate == NULL ) {
 		return;

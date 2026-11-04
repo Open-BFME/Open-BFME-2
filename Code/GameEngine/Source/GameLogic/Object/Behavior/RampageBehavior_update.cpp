@@ -57,6 +57,7 @@ class Object;
 class UpgradeTemplate;
 class AsciiString;
 #include "../../../../Include/GameClient/Drawable.h"
+#include "../../../Common/Thing/thing.h"
 class RampageBehaviorModuleDataView
 
 {

@@ -141,21 +141,7 @@ private:
 	unsigned char m_kindof[32]; // +0x108
 };
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
-	Bool isAnyKindOf(const KindOfMaskType &anyKindOf) const;
-	const Coord3D *getPosition() const { return &m_pos; }
-	const Matrix3D *getTransformMatrix() const { return (const Matrix3D *)m_transform; }
-private:
-	void *m_vtable;
-	const ThingTemplate *m_template; // +0x04
-	char m_transform[0x30]; // +0x08
-	Coord3D m_pos; // +0x38
-	Real m_angle; // +0x44
-};
+#include "../../../Common/Thing/thing.h"
 
 class GeometryInfo
 {
@@ -253,7 +239,7 @@ public:
 	void *rva0028C197() const;
 	void updateShroudNow();
 private:
-	char m_pad48[0xA8 - 0x48];
+	char m_pad60[0xA8 - 0x60];
 	GeometryInfo m_geometryInfo; // +0xA8
 	char m_padA9[0x250 - 0xA9];
 	ContainModuleInterface *m_contain; // +0x250
@@ -420,7 +406,7 @@ static Bool Rva00452496Check(Object *obj)
 		return true;
 	Object *container = obj->getContainedBy();
 	return container
-		&& container->isKindOf(KINDOF_HORDE)
+		&& container->m_template->isKindOf(KINDOF_HORDE)
 		&& container->getAIUpdateInterface() != 0
 		&& container->getAIUpdateInterface()->getCurrentVictim() != 0;
 }
@@ -470,7 +456,7 @@ static Bool Rva004524E5ShouldHeal(Object *testObj, const AutoHealPlayerScanHelpe
 // Gathers the hurt units of a container, descending into hordes.
 void Rva00452795CollectContained(Object *obj, void *userData)
 {
-	if (obj->isKindOf(KINDOF_HORDE))
+	if (obj->m_template->isKindOf(KINDOF_HORDE))
 		obj->getContain()->iterateContained(Rva00452795CollectContained, userData, true);
 	else if (obj->getBodyModule()->getHealthRatio() < 1.0f)
 		((ObjectPointerList *)userData)->push_back(obj);
@@ -632,7 +618,7 @@ UpdateSleepTime AutoHealBehavior::update()
 					}
 				}
 			}
-			if (respawnReady && autoHealBehaviorModuleData->m_respawnNearbyHordeMembers && other->isKindOf(KINDOF_HORDE)
+			if (respawnReady && autoHealBehaviorModuleData->m_respawnNearbyHordeMembers && other->m_template->isKindOf(KINDOF_HORDE)
 				&& !other->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
 			{
 				HordeRespawnInterface *horde = (HordeRespawnInterface *)other->rva0028C197();

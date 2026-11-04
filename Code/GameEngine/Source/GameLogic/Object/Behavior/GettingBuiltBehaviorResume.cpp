@@ -9,6 +9,7 @@
 
 class Object;
 #include "../../../../Include/GameClient/Drawable.h"
+#include "../../../Common/Thing/thing.h"
 // WBCA4BE0 is an empty instance method invoked on the builder drawable;
 // retail uses the complete shared RET at B3FD0. Original spelling unknown.
 enum ObjectStatusTypes { STATUS_NONE = 0 };

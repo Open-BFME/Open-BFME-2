@@ -71,6 +71,7 @@ public:
 };
 
 #include "../../../Include/GameClient/Drawable.h"
+#include "../../Common/Thing/thing.h"
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 

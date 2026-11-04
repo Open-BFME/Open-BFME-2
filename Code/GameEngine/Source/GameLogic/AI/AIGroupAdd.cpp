@@ -29,6 +29,7 @@ public:
 #include "../../../Include/Common/ThingTemplate.h"
 
 #include "../Object/object.h"
+#include "../../Common/Thing/thing.h"
 
 class AIGroup;
 

@@ -23,6 +23,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "../../Common/Thing/thing.h"
 
 class BfmeSubBGB
 {

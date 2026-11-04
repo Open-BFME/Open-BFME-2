@@ -48,6 +48,7 @@ private:
 };
 
 #include "../../GameLogic/Object/object.h"
+#include "../../Common/Thing/thing.h"
 
 enum CellShroudStatus
 {

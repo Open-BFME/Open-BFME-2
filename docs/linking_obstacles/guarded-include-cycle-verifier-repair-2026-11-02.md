@@ -8,3 +8,5 @@ header queue is changed by this separate verifier fix. The original strict
 STLport walk now stops at its unchanged continued-comment refusal in
 config/stl_dec_vms.h:50; Carryover parent adoption is still unaccepted.
 Evidence: reverse/attempt_support/header-cycle-verifier-20261102/.
+
+The unchanged STLport continued-comment refusal also blocks four Thing adoption trials before compilation. [Sources and recorded refusals](../../reverse/attempt_support/thing-header-adoption-20261104.md#scanner-handoff).
