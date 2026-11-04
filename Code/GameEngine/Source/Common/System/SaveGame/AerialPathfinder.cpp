@@ -24,16 +24,12 @@ namespace _STL { template <> void allocator<_List_node<BfmePod8> >::deallocate(_
 struct BfmePod8;
 namespace _STL { template <> void _List_base<BfmePod8,allocator<BfmePod8> >::clear(); }
 
-class BFME2NativeNetwork
-{
-public:
-	void baseConstruct();
-};
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class __declspec(novtable) Rva0022C987Base
 {
 public:
-	Rva0022C987Base() { ((BFME2NativeNetwork *)this)->baseConstruct(); }
+	Rva0022C987Base() { reinterpret_cast<SubsystemInterface *>(this)->SubsystemInterface::SubsystemInterface(); }
 	virtual ~Rva0022C987Base();
 private:
 	char m_pad[8];
