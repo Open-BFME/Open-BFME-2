@@ -1,0 +1,13 @@
+Source claims: OK (3 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 2 of 3 TU(s) (deps-cache: 1 current)
+Funclet pins: 44 row(s) verified past a renumbered $L label
+    $L1253 (Code/GameEngine/Source/Common/RTS/Team.cpp): $L1253 was renumbered; verified parent EH data places $L22161 at 0x00781AAB
+    $L1254 (Code/GameEngine/Source/Common/RTS/Team.cpp): $L1254 was renumbered; verified parent EH data places $L22162 at 0x00781AB5
+    $L4516 (Code/GameEngine/Source/Common/RTS/Team.cpp): $L4516 was renumbered; verified parent EH data places $L23193 at 0x0078168A
+    $L1499 (Code/GameEngine/Source/Common/RTS/Team.cpp): $L1499 was renumbered; verified parent EH data places $L22083 at 0x007818BE
+    ?rva00781759@@YAXXZ (Code/GameEngine/Source/Common/RTS/Team.cpp): $L1358 was renumbered; verified parent EH data places $L22008 at 0x00781759
+Functions: OK 171/171 matched across 3 source file(s)
+String-ref verify: OK (5 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (6 compiler literals verified)
+Import-ref verify: OK (11 named imports verified)
