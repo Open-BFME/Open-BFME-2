@@ -19,17 +19,24 @@ int Rva004D39DEGet(int a, int b);
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 
+class NetCommandMsg;
 class DisconnectManager
 {
 protected:
-	__declspec(noinline) void resetPlayerTimeout(Int slot);
-
+	__declspec(noinline) void resetPlayerTimeout(int slot);
 public:
 	void processDisconnectKeepAlive(void *keepAliveMsg, ConnectionManager *a2);
-
+	void processDisconnectPlayer(NetCommandMsg *msg, ConnectionManager *conMgr);
+protected:
+	void disconnectPlayer(int slot, ConnectionManager *conMgr); // rowed 0x004D41B3
+public:
+	void processDisconnectCommand(void *ref, ConnectionManager *conMgr);
+protected:
+	void processDisconnectVote(NetCommandMsg *msg, ConnectionManager *conMgr);
+	void processDisconnectFrame(NetCommandMsg *msg, ConnectionManager *conMgr);
+	char m_pad00[0x14];
 private:
-	unsigned char m_pad[0x14];
-	long m_playerTimeouts[1];
+	long m_playerTimeouts[1]; // +0x14
 };
 
 class Rva0066B100

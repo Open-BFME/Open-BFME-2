@@ -34,11 +34,10 @@ bool DoesCommandRequireACommandID(NetCommandType type);
 class Rva004D3942
 {
 public:
-    void sendKeepAlive(ConnectionManager *mgr);
-
+	void sendKeepAlive(ConnectionManager *conMgr);
+	char m_pad00[0x10];
 private:
-    char m_pad[0x10];
-    unsigned long m_10;
+	unsigned long m_10; // +0x10
 };
 
 void Rva004D3942::sendKeepAlive(ConnectionManager *mgr)

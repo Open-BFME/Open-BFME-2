@@ -9,13 +9,13 @@ void Rva00512C88Shutdown();
 class Rva004D3906
 {
 public:
-	void rva004D3906(int i);
+	void rva004D3906(int slot);
+	char m_pad00[0xC];
 private:
-	char m_pad00[0x0c];
-	int m_0c;
-	char m_pad10[0x30 - 0x10];
-	unsigned char m_30[0x25c - 0x30];
-	int m_25c;
+	int m_0c; // +0x0C
+	char m_pad10[0x20];
+	unsigned char m_30[0x25c - 0x30]; // +0x30
+	int m_25c; // +0x25C
 };
 void Rva004D3906::rva004D3906(int i)
 {

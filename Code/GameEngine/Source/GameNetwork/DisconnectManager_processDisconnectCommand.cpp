@@ -5,16 +5,21 @@ class NetCommandMsg;
 
 class DisconnectManager
 {
+protected:
+	__declspec(noinline) void resetPlayerTimeout(int slot);
 public:
-	void processDisconnectKeepAlive(void *msg, ConnectionManager *conMgr);
+	void processDisconnectKeepAlive(void *keepAliveMsg, ConnectionManager *a2);
 	void processDisconnectPlayer(NetCommandMsg *msg, ConnectionManager *conMgr);
+protected:
+	void disconnectPlayer(int slot, ConnectionManager *conMgr); // rowed 0x004D41B3
+public:
 	void processDisconnectCommand(void *ref, ConnectionManager *conMgr);
-
-	// LINK: 0x4D3F74 and 0x4D3FCB are rowed as the protected processDisconnectVote /
-	// processDisconnectFrame (DisconnectManager*.cpp); bind them under those names.
 protected:
 	void processDisconnectVote(NetCommandMsg *msg, ConnectionManager *conMgr);
 	void processDisconnectFrame(NetCommandMsg *msg, ConnectionManager *conMgr);
+	char m_pad00[0x14];
+private:
+	long m_playerTimeouts[1]; // +0x14
 };
 
 // Target evidence: Ghidra boundary 0x004D46AF..0x004D46FC (77 bytes); the

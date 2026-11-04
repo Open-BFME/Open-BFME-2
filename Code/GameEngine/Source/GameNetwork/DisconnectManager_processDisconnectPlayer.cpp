@@ -14,7 +14,11 @@ public:
 class Rva004D38D8
 {
 public:
-	bool rva004D38D8(float f);
+	bool rva004D38D8(float ratio);
+	char m_pad00[0x260];
+private:
+	int m_260; // +0x260
+	int m_264; // +0x264
 };
 
 class GameLogic;
@@ -25,10 +29,21 @@ extern GameLogic *TheGameLogic;
 
 class DisconnectManager
 {
+protected:
+	__declspec(noinline) void resetPlayerTimeout(int slot);
 public:
+	void processDisconnectKeepAlive(void *keepAliveMsg, ConnectionManager *a2);
 	void processDisconnectPlayer(NetCommandMsg *msg, ConnectionManager *conMgr);
 protected:
-	void disconnectPlayer(Int slot, ConnectionManager *conMgr); // rowed 0x004D41B3
+	void disconnectPlayer(int slot, ConnectionManager *conMgr); // rowed 0x004D41B3
+public:
+	void processDisconnectCommand(void *ref, ConnectionManager *conMgr);
+protected:
+	void processDisconnectVote(NetCommandMsg *msg, ConnectionManager *conMgr);
+	void processDisconnectFrame(NetCommandMsg *msg, ConnectionManager *conMgr);
+	char m_pad00[0x14];
+private:
+	long m_playerTimeouts[1]; // +0x14
 };
 
 // Target evidence: 0x004D46AF dispatches command type 0x1A here with

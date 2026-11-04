@@ -835,7 +835,11 @@ void DisconnectManager::populateDisconnectScreen(ConnectionManager *conMgr) {
 class Rva004D38D8
 {
 public:
-	Bool rva004D38D8(Real ratio);
+	bool rva004D38D8(float ratio);
+	char m_pad00[0x260];
+private:
+	int m_260; // +0x260
+	int m_264; // +0x264
 };
 
 // GameLogic's +0x114 mode test (1 or 2), rowed at 0x00210C66.
@@ -969,12 +973,21 @@ class Rva004D3942
 {
 public:
 	void sendKeepAlive(ConnectionManager *conMgr);
+	char m_pad00[0x10];
+private:
+	unsigned long m_10; // +0x10
 };
 
 class Rva004D3906
 {
 public:
-	void rva004D3906(Int slot);
+	void rva004D3906(int slot);
+	char m_pad00[0xC];
+private:
+	int m_0c; // +0x0C
+	char m_pad10[0x20];
+	unsigned char m_30[0x25c - 0x30]; // +0x30
+	int m_25c; // +0x25C
 };
 
 // The victory conditions, held in the data ledger under an address name; update
