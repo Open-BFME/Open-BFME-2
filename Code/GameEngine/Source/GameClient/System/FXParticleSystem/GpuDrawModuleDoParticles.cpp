@@ -110,49 +110,7 @@ struct GpuTransformRow : Vector4
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Matrix4
-{
-public:
-	__forceinline explicit Matrix4(const Matrix3D &matrix3D)
-	{
-		copyVector4(Row[0], matrix3D[0]); copyVector4(Row[1], matrix3D[1]); copyVector4(Row[2], matrix3D[2]); Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	__forceinline Matrix4() {}
-	__forceinline explicit Matrix4(bool identity)
-	{
-		if (identity)
-			Make_Identity();
-	}
-	__forceinline Matrix4(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
-	{
-		copyVector4(Row[0], vector4); copyVector4(Row[1], r1); copyVector4(Row[2], r2); copyVector4(Row[3], r3);
-	}
-	__forceinline Matrix4(const Matrix4 &matrix4)
-	{
-		copyVector4(Row[0], matrix4.Row[0]); copyVector4(Row[1], matrix4.Row[1]); copyVector4(Row[2], matrix4.Row[2]); copyVector4(Row[3], matrix4.Row[3]);
-	}
-	__forceinline Matrix4 &operator=(const Matrix4 &m)
-	{
-		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); copyVector4(Row[3], m.Row[3]);
-		return *this;
-	}
-	__forceinline void Make_Identity(void)
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-		Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	__forceinline Matrix4 Transpose(void) const
-	{
-		return Matrix4(
-			GpuTransformRow(Row[0].X, Row[1].X, Row[2].X, Row[3].X),
-			GpuTransformRow(Row[0].Y, Row[1].Y, Row[2].Y, Row[3].Y),
-			GpuTransformRow(Row[0].Z, Row[1].Z, Row[2].Z, Row[3].Z),
-			GpuTransformRow(Row[0].W, Row[1].W, Row[2].W, Row[3].W));
-	}
-	Vector4 Row[4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 // DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
 struct RenderStateStruct
 {

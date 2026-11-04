@@ -47,19 +47,7 @@ struct IDirect3DDevice8;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix4
-{
-public:
-	__forceinline explicit Matrix4(bool identity) { if (identity) Make_Identity(); }
-	__forceinline void Make_Identity(void)
-	{
-		Row[0].Set(1.0, 0.0, 0.0, 0.0);
-		Row[1].Set(0.0, 1.0, 0.0, 0.0);
-		Row[2].Set(0.0, 0.0, 1.0, 0.0);
-		Row[3].Set(0.0, 0.0, 0.0, 1.0);
-	}
-	Vector4 Row[4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 
 
 #define REF_PTR_RELEASE(x)		{ if (x) x->Release_Ref(); x = 0; }

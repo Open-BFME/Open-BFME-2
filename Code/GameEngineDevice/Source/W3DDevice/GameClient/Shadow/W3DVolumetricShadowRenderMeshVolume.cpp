@@ -39,33 +39,7 @@ struct IDirect3DIndexBuffer8;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Matrix4
-{
-public:
-	// Keep the widening inline without publishing another constructor COMDAT;
-	// Matrix4FromMatrix3DO1.cpp owns retail's out-of-line copy.
-	__declspec(dllimport) __forceinline explicit Matrix4(const Matrix3D &m) { Init(m); }
-	__forceinline Matrix4(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3) { Init(vector4, r1, r2, r3); }
-	__forceinline void Init(const Matrix3D &matrix3D)
-	{
-		Row[0] = matrix3D[0]; Row[1] = matrix3D[1]; Row[2] = matrix3D[2]; Row[3] = Vector4(0.0,0.0,0.0,1.0);
-	}
-	__forceinline void Init(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
-	{
-		Row[0] = vector4; Row[1] = r1; Row[2] = r2; Row[3] = r3;
-	}
-	__forceinline Matrix4 Transpose(void) const
-	{
-		return Matrix4(
-			Vector4(Row[0][0], Row[1][0], Row[2][0], Row[3][0]),
-			Vector4(Row[0][1], Row[1][1], Row[2][1], Row[3][1]),
-			Vector4(Row[0][2], Row[1][2], Row[2][2], Row[3][2]),
-			Vector4(Row[0][3], Row[1][3], Row[2][3], Row[3][3])
-		);
-	}
-protected:
-	Vector4 Row[4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 typedef Matrix4 Matrix4x4;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"

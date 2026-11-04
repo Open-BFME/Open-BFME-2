@@ -21,7 +21,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define Fabs Fabs_BFME_LINK_LOCAL
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 
-class Matrix4 { public: void Inverse(Matrix4 *out) const; Vector4 Row[4]; };
+#include "Matrix4Data.h"
 
 void Matrix4::Inverse(Matrix4 *out) const
 {

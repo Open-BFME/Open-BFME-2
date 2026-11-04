@@ -10,13 +10,7 @@
 // Matrix4 view this unit needs; the matrix layout is sixteen floats.
 #include "D3dx8math.h"
 
-class Matrix4
-{
-public:
-	void Get_Inverse(Matrix4 & out) const;
-private:
-	float m[4][4];
-};
+#include "Matrix4Data.h"
 
 void Matrix4::Get_Inverse(Matrix4 & out) const
 {

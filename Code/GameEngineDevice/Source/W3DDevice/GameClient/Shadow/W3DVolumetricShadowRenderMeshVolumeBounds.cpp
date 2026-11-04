@@ -58,20 +58,7 @@ public:
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix4
-{
-public:
-	__declspec(dllimport) __forceinline Matrix4(bool identity) { if (identity) Make_Identity(); }
-	__forceinline void Make_Identity(void)
-	{
-		Row[0].Set(1.0f,0.0f,0.0f,0.0f);
-		Row[1].Set(0.0f,1.0f,0.0f,0.0f);
-		Row[2].Set(0.0f,0.0f,1.0f,0.0f);
-		Row[3].Set(0.0f,0.0f,0.0f,1.0f);
-	}
-protected:
-	Vector4 Row[4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 typedef Matrix4 Matrix4x4;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"

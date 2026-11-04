@@ -22,17 +22,7 @@ static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
 #include "Matrix3DData.h"
 
 
-class Matrix4
-{
-public:
-	__forceinline Matrix4() {}
-	__declspec(dllimport) __forceinline void Init(const Matrix3D &m)
-	{
-		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	void Inverse(Matrix4 *out) const;
-	Vector4 Row[4];
-};
+#include "Matrix4Data.h"
 
 class Rva007133F0MatrixInverse : public Matrix3D
 {
