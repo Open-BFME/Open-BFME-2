@@ -47,20 +47,7 @@ extern Bool LANbuttonPushed;
 
 void Rva00381900(Int value);
 
-class LANAPI
-{
-public:
-	virtual void OnGameList(LANGameInfo *gameList);
-	virtual void rva00248E87();
-	virtual void OnHostLeave();
-	virtual void rva00248E2F(Bool value);
-
-protected:
-	unsigned char m_unmodelled_04[0x41 - 0x04];
-	Bool m_inLobby;								// +0x41
-	unsigned char m_unmodelled_42[0x44 - 0x42];
-	LANGameInfo *m_currentGame;					// +0x44
-};
+#include "../../Include/GameNetwork/LANAPI.h"
 
 void LANAPI::rva00248E2F(Bool value)
 {
