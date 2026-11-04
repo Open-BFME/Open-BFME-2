@@ -76,10 +76,11 @@ private:
 };
 class UpgradeTemplate;
 class BfmeTab1026;
-class Rva003623E5Member
+class Rva003623E5Filter
 {
 public:
-	Rva003623E5Member();
+	Rva003623E5Filter();
+	~Rva003623E5Filter();
 
 	unsigned int m_data; // +0, 4-aligned: retail pads +0x16/+0x17 before +0x18
 };
@@ -87,7 +88,8 @@ class TerrainResourceBehaviorModuleData : public TerrainResourceModuleDataBase
 {
 public:
 	TerrainResourceBehaviorModuleData();
-	virtual ~TerrainResourceBehaviorModuleData();
+	// The virtual destructor stays implicit: retail 0x00482275 stores no
+	// derived vptr, which only the compiler-generated form omits.
 	BfmeTab1026 *upgradeMustBePresent() const { return (BfmeTab1026 *)&m_upgradeMustBePresent; }
 
 	float m_radius; // +8
@@ -95,7 +97,7 @@ public:
 	int m_incomeInterval; // +0x10
 	bool m_highPriority; // +0x14
 	bool m_visible; // +0x15
-	Rva003623E5Member m_upgradeMustBePresent; // +0x18
+	Rva003623E5Filter m_upgradeMustBePresent; // +0x18
 	const UpgradeTemplate *m_upgrade; // +0x1C
 	float m_upgradeBonusPercent; // +0x20
 };
@@ -367,6 +369,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 #include "../../../../Include/GameClient/InGameUI.h"
+
 //
 // ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0048209B, 125 bytes. Behavior-side ctor (rowed instance factory
@@ -384,15 +387,20 @@ extern GameTextInterface *TheGameText;
 // at 0x44DF71). Row supersedes the ctor pin.
 
 extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@")[];
+
   // folded vftable 0x00C42B60 (3 classes), the name FakePathfindPortalBehaviourDtor.cpp emits
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
+
   // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@")[];
+
   // vftable 0x00C493E8
 extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@")[];
+
   // vftable 0x00C493F8
 extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@")[];
+
   // vftable 0x00C493FC
 // The retail table at RVA 0x00849408: 13 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -408,6 +416,7 @@ void __identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVec
 void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
 void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
 }
+
 extern "C" const void *const vtbl_00C49408[13] = {
 	(const void *)&__identifier("??_GRva00481F82@@UAEPAXI@Z"), // slot 0 0x00482118
 	(const void *)&__identifier("?loadPostProcess@TerrainResourceBehavior@@MAEXXZ"), // slot 1 0x0048223D
@@ -423,6 +432,7 @@ extern "C" const void *const vtbl_00C49408[13] = {
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11 0x000D43D0
 	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
 };
+
 extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
 
 extern InGameUI *TheInGameUI;
@@ -456,6 +466,8 @@ private:
 	bool m_sleepAfterRegister; // +0x29
 	float m_incomeScale; // +0x2C
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp
 
@@ -718,8 +730,6 @@ void TerrainResourceBehavior::loadPostProcess()
 	}
 }
 
-// tu-skeleton: 0x0048208A 17B ?buildFieldParse@TerrainResourceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorCtor.cpp
 
 // ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x0048209B
@@ -742,8 +752,23 @@ TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData 
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
+// tu-skeleton: 0x0048208A 17B ?buildFieldParse@TerrainResourceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
 // tu-skeleton: 0x00482118 28B ??_GRva00481F82@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00589079Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x00482275 48B ??1TerrainResourceBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorModuleDataDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorModuleDataDtor.cpp
+
+// ??1TerrainResourceBehaviorModuleData@@UAE@XZ @ 0x00482275 48B
+// Implicit virtual dtor restoring base vtable 0x00BBB554 with no base call.
+// Member at +0x18 via pinned 0x00360D26. Layout from ctor TU 0x0048202F
+// (base 8 radius +8 maxIncome +0xC interval +0x10 highPri +0x14 visible +0x15
+// pad +0x16 member +0x18). Vtable 0x00849440 slot 0 is ??_G 0x00482259.
+// The class views match TerrainResourceBehavior.cpp's, its approved TU.
+
+// Emit the implicit destructor without a synthetic constructor.
+void destroyTerrainResourceBehaviorModuleData(TerrainResourceBehaviorModuleData *terrainResourceBehaviorModuleData)
+{
+	terrainResourceBehaviorModuleData->TerrainResourceBehaviorModuleData::~TerrainResourceBehaviorModuleData();
+}
 
 // tu-skeleton: 0x0078BB78 8B uw_0078bb78 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
