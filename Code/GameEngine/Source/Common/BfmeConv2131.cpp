@@ -21,15 +21,13 @@ public:
 	void *m_bfme04ABI;
 };
 
-class ShroudManager
+#include "../../Include/Common/ShroudManagerClass.h"
+
+class ShroudManager::Data
 {
-public:
-	class Data
-	{
 	public:
 		bool KeepAsGhost();
 	};
-};
 
 void __stdcall bfmeReleaseABI(void *owner);
 
