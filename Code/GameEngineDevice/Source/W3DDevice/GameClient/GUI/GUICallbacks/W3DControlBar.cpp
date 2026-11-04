@@ -309,12 +309,8 @@ public:
 
 #include "../../../../../../Libraries/Include/Lib/Region3D.h"
 
-class MapMetaData
-{
-public:
-	char m_pad00[0x08];
-	Region3D m_extent;   // +0x08
-};
+#include "unicode_string.h"
+#include "../../../../../../GameEngine/Include/GameClient/MapMetaData.h"
 
 inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha)
 {
