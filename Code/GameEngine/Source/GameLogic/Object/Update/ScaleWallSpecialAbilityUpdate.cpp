@@ -364,7 +364,7 @@ public:
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
 // slot 1, so this keeps an address-derived name).
-// 0x00041E65: tail jump to Win32GameEngine::rva0005E959.
+// 0x00041E65: tail jump to Win32GameEngine::createAudioManager.
 // 0x00043F94: tail jump to Debug_Statistics::Get_Draw_Calls.
 // 0x00062972: tail jump to Rva000A8F58Get.
 // 0x00062977: tail jump to Rva000A8F5EGet.

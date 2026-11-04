@@ -607,7 +607,7 @@ class Rva00099109 : public Rva00041A06
 public:
 	void rva00099109();
 };
-// 0x00041E65: tail jump to Win32GameEngine::rva0005E959.
+// 0x00041E65: tail jump to Win32GameEngine::createAudioManager.
 // 0x00043F94: tail jump to Debug_Statistics::Get_Draw_Calls.
 // 0x00062972: tail jump to Rva000A8F58Get.
 // 0x00062977: tail jump to Rva000A8F5EGet.
