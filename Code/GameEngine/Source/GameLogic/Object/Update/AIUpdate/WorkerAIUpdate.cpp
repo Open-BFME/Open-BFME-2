@@ -1206,12 +1206,6 @@ void WorkerAIUpdate::removeBridgeScaffolding( Object *bridgeTower )
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@WorkerAIUpdate@@MAEXPAVXfer@@@Z present-unmatched
-void WorkerAIUpdate::crc( Xfer *xfer )
-{
-	// extend base class
-	AIUpdateInterface::crc(xfer);
-}
 
   // end crc
 

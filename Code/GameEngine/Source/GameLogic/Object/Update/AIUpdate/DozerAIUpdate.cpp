@@ -601,12 +601,6 @@ Real DozerAIUpdate::getBoredRange( void ) const
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@DozerAIUpdate@@MAEXPAVXfer@@@Z present-unmatched
-void DozerAIUpdate::crc( Xfer *xfer )
-{
-	// extend base class
-	AIUpdateInterface::crc(xfer);
-}  // end crc
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method

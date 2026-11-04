@@ -756,18 +756,6 @@ void AIUpdateInterface::setLastCommandSource( CommandSourceType source )
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::crc( Xfer *x )
-{
-	CRCGEN_LOG(("AIUpdateInterface::crc() begin - %8.8X\n", ((XferCRC *)x)->getCRC()));
-	// extend base class
-	UpdateModule::crc( x );
-
-	xfer(x);
-
-	CRCGEN_LOG(("AIUpdateInterface::crc() end - %8.8X\n", ((XferCRC *)x)->getCRC()));
-
-}  // end crc
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
