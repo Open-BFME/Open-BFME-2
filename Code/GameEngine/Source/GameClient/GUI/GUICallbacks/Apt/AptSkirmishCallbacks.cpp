@@ -724,7 +724,8 @@ extern class Rva00E02D6C *TheCampaignManager;
 class Rva003B8B2A {public:int rva003B8B2A();};
 class Rva0052BAB2 {public:int rva0052BAB2() const;};
 enum Rva004FD8B8RegionID { Rva004FD8B8RegionID_Representation = 0 };
-class LivingWorldScenario {public:class Scenario {public:void getDefaultStartSpots(const AsciiString &,_STL::vector<Rva004FD8B8RegionID> &);};};
+#include "../../../../../Include/Common/LivingWorldScenario.h"
+class LivingWorldScenario::Scenario {public:void getDefaultStartSpots(const AsciiString &,_STL::vector<Rva004FD8B8RegionID> &);};
 struct ScenarioCampaignView {char pad[0x1c];LivingWorldScenario::Scenario *scenario;};
 struct ScenarioSlotView {char pad[0x10];int start,original;void setStart(int n){start=n;original=n;}};
 // Native 0x005223D7..0x005224E3, WB 0x014680C0

@@ -43,15 +43,13 @@ public:
 	bool rva0059E31F(const Rva0059E2FD &other);
 };
 
-class LivingWorldScenario
+#include "../../Include/Common/LivingWorldScenario.h"
+
+class LivingWorldScenario::OwnershipSet
 {
 public:
-	class OwnershipSet
-	{
-	public:
-		void spawnBuildingsInRegionsForPlayer(Rva0059E647Arg *player);
-		void spawnArmiesInRegionsForPlayer(Rva0059E647Arg *player);
-	};
+	void spawnBuildingsInRegionsForPlayer(Rva0059E647Arg *player);
+	void spawnArmiesInRegionsForPlayer(Rva0059E647Arg *player);
 };
 
 class Rva002B7582Sets
