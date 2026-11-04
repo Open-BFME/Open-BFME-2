@@ -1960,9 +1960,20 @@ def link_ok(sources):
     if done.returncode not in (0, 1):
         return {s: None for s in sources}
     out = done.stdout + done.stderr
+    normalize = lambda source: (ROOT / source).resolve().relative_to(ROOT.resolve()).as_posix()
+    outside = re.search(r"^link_check: not in census [^\n]*?\(the next census measures it\): (.+)$", out, re.M)
+    if outside:
+        # link_check refuses the whole run when one unit is outside the census; that
+        # unit has no verdict, and the others are judged as a run without it would be.
+        outside = {name.strip() for name in outside.group(1).split(", ")}
+        rest = [s for s in sources if normalize(s) not in outside]
+        results = dict.fromkeys(sources, None)
+        if rest and len(rest) < len(sources):
+            results.update(link_ok(rest))
+        return results
     results = {}
     for source in sources:
-        normalized = (ROOT / source).resolve().relative_to(ROOT.resolve()).as_posix()
+        normalized = normalize(source)
         matches = re.findall(r"^" + re.escape(normalized)
                              + r": (?:LINKS|does not link)  LINKED ([0-9]+(?:,[0-9]{3})*)"
                              + r" -> ([0-9]+(?:,[0-9]{3})*) bytes \(census [^\n]+\)$",

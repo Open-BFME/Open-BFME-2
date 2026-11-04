@@ -825,6 +825,30 @@ def test_link_guard_requires_explicit_per_unit_coverage(output, code, expected, 
     assert lane.link_ok(["./Code/FX.cpp"]) == {"./Code/FX.cpp": expected}
 
 
+def test_link_guard_judges_the_rest_without_an_out_of_census_unit(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "tools").mkdir()
+    (tmp_path / "tools/link_check.py").touch()
+    calls = []
+
+    def run(command, **kwargs):
+        calls.append(command[2:])
+        if "Code/New.cpp" in command:
+            return SimpleNamespace(stdout="", returncode=1, stderr=(
+                "link_check: not in census 5a13f2cd61, so not previewable "
+                "(the next census measures it): Code/New.cpp\n"))
+        return SimpleNamespace(stdout=preview("Code/FX.cpp", 5649, 5649) + preview("Code/Lost.cpp", 90, 0, False),
+                               stderr="", returncode=1)
+
+    monkeypatch.setattr(lane.subprocess, "run", run)
+    assert lane.link_ok(["Code/FX.cpp", "Code/New.cpp", "Code/Lost.cpp"]) == {
+        "Code/FX.cpp": True, "Code/New.cpp": None, "Code/Lost.cpp": False}
+    assert calls == [["Code/FX.cpp", "Code/New.cpp", "Code/Lost.cpp"], ["Code/FX.cpp", "Code/Lost.cpp"]]
+    calls.clear()
+    assert lane.link_ok(["Code/New.cpp"]) == {"Code/New.cpp": None}
+    assert calls == [["Code/New.cpp"]]
+
+
 @pytest.mark.parametrize("output,code,passes", [
     (preview("Code/FX.cpp", 5649, 0, False), 1, False),
     ("Code/FX.cpp: UNKNOWN (missing object)\n", 1, False),
