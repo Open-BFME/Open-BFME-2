@@ -1,5 +1,7 @@
 // ?rva0010F62E@Rva0010F62E@@QAEXXZ
+// platformsdk
 // cl: /MD
+#include <windows.h>
 #include "../../Include/Common/Rva00041004Lock.h"
 // Retail 0x0010F62E (192 bytes): the only slot of the one-slot vftable at
 // 0x00BCFAA0, next to the guarded Miles stream operations of
@@ -19,7 +21,6 @@
 // body, cl omits the frame pointer and reallocates every register; the
 // early return gives retail's ebp frame and block order.
 
-extern "C" __declspec(dllimport) long __stdcall InterlockedExchangeAdd(long volatile *addend, long value);
 extern "C" __declspec(dllimport) void __stdcall AIL_lock_mutex(void);
 extern "C" __declspec(dllimport) void __stdcall AIL_unlock_mutex(void);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_user_data(void *stream, unsigned int index, int value);
