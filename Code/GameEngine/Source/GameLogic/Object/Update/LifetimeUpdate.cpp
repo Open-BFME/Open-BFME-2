@@ -24,37 +24,13 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 template <int NUMBITS> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-	// BFME 2's wake slot (rowed UpdateModule default 0x0044DF8D).
-	virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
-};
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	// Declared only: retail's ~UpdateModule (0x0024A797, pin) restores the three vtables and
-	// tail-jumps on; the implicit one here compiled to a 5-byte jmp the link could keep.
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-	// UpdateModuleInterface slot 1 (rowed 0x00253376).
-	virtual DisabledMaskType getDisabledTypesToProcess() const;
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_updateState; // +0x1C
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "LifetimeUpdateModuleDataView.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
