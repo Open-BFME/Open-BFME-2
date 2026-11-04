@@ -1,68 +1,53 @@
-// cl: /DNDEBUG /MD
-//
-// AODCrushCollide destructor pair, retail 0x004BBEDD (32 bytes) and
-// 0x004BC050 (28 bytes). The dtor reinstalls the behavior vtable slot and
-// the +0x0C/+0x10/+0x20 secondary slots, then tail-jumps to the UpdateModule
-// base dtor (existing pin at 0x0024A797); the scalar-deleting-dtor runs the
-// dtor and conditionally frees through the rowed operator delete.
-//
-// The four vtable slots need a four-vptr TU-local model (single inheritance
-// emits one store): CollideDtorB1 carries the module-data/object members to
-// +0x0C, B2 is a bare vptr at +0x0C, B3 pads to +0x20, B4 is the +0x20 vptr.
-// The MI is a vptr-placement model only; the proven facts are the four
-// store slots, the single base-dtor tail jump, and the AODCrushCollide
-// name (vtable 0x00C5A31C slot2 getter pushes AODCrushCollide, pool key
-// rowed at 0x004BBF44). Recipe: the opaque MI-dtor pattern
-// (Rva004BC4FCDerived.cpp). The anchors are defined trivially so the TU
-// links; only the dtor pair is rowed.
-
+// cl: /DNDEBUG /MD /Ireference/shims/moduledata
+// AODCrushCollide destructor pair: retail RVAs 0x004BBEDD (32B), 0x004BC050 (28B).
+// Shared UpdateModule supplies the primary/+0x0C/+0x10 bases; CrushCollide
+// contributes the collide interface at +0x20, as the matched constructor proves.
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+enum ObjectID;
 class Thing;
 class ModuleData;
-
-class CollideDtorB1
+class Xfer;
+class Object;
+struct Coord3D;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+class __declspec(novtable) CollideModuleInterface
 {
 public:
-	virtual void b1anchor() {}
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
+};
+class __declspec(novtable) CrushCollide : public UpdateModule, public CollideModuleInterface
+{
+public:
+	virtual ~CrushCollide() {}
 
 protected:
-	const ModuleData *m_moduleData;
-	void *m_object;
+	unsigned int m_24;
+	ObjectID m_28;
+	bool m_2C;
 };
-
-class CollideDtorB2
+class AODCrushCollide : public CrushCollide
 {
 public:
-	virtual void b2anchor() {}
-};
-
-class CollideDtorB3
-{
-public:
-	virtual void b3anchor() {}
-
-protected:
-	char m_pad[0x0C];
-};
-
-class CollideDtorB4
-{
-public:
-	virtual void b4anchor() {}
-};
-
-class UpdateModule : public CollideDtorB1, public CollideDtorB2, public CollideDtorB3, public CollideDtorB4
-{
-public:
-	virtual ~UpdateModule();
-};
-
-class AODCrushCollide : public UpdateModule
-{
-public:
+	AODCrushCollide(Thing *thing, const ModuleData *moduleData);
 	virtual ~AODCrushCollide();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual CollideModuleInterface *getCollide() { return this; }
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
-// ??1AODCrushCollide@@UAE@XZ
 AODCrushCollide::~AODCrushCollide()
 {
 }
