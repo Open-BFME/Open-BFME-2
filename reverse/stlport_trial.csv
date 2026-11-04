@@ -1998,7 +1998,7 @@ library-copy,0x000219E0,291,__Locale_toupper,Code/Libraries/Source/WWVegas/WWLib
 library-copy,0x00021B10,291,__Locale_tolower,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleCtypeCase.c,not-sampled,,match,upstream-staticx,c_locale.c,
 library-copy,0x00021C40,272,__Locale_strcmp,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleStrcmp.c,not-sampled,,match,upstream-staticx,c_locale.c,
 library-copy,0x000221B0,362,___GetLCIDFromName,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,not-sampled,,match,upstream-staticx,c_locale.c,
-library-copy,0x00022320,57,___TranslateToSystem,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleTranslateToSystem.c,not-sampled,,match,upstream-staticx,c_locale.c,
+library-copy,0x00022320,57,___TranslateToSystem,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,not-sampled,,match,upstream-staticx,c_locale.c,
 library-copy,0x00022360,1316,__Locale_ctype_create,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,not-sampled,,match,upstream-staticx,c_locale.c,
 library-copy,0x00022890,354,__Locale_numeric_create,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,not-sampled,,mismatch,GR-,c_locale.c,first diff +0x14E/354: retail aee8ffff897e vs 00000000897e; unresolved ___FixGrouping
 library-copy,0x00022A00,1018,__Locale_time_create,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleFacets.cpp,not-sampled,,match,upstream-staticx,c_locale.c,

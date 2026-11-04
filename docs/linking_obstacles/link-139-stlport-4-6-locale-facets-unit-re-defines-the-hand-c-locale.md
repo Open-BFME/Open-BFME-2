@@ -57,3 +57,11 @@ two-source `link_check.py` preview with `stlport_LocaleFacets.cpp` reports
 both LINKS (6,205 authored bytes) against index 85f6b7f40c. This confirms
 the existing repair for this pair; no new linking gain or census result is
 claimed. The full consumer and scheduled-census prerequisites above remain.
+
+LINK-139 TranslateToSystem (2026-11-04, base 433fd9d9cd, seat claudec): the real link
+listed `stlport_LocaleTranslateToSystem.c` for `_EnumLocalesProcA@4`, which
+now exists only as the facets unit's vendor static. The facets object already
+compiles `__TranslateToSystem`; row 0x00022320 (57 B) is repointed there
+(`add_match --replace-existing`, facets 21/21 byte-verify) and the hand `.c`
+copy with its unrowed statics is deleted. `link_check` on the facets unit:
+LINKS, 6,113 -> 6,170 bytes. tu_map still approves no TU for the range.
