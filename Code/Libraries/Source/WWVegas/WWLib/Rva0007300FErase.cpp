@@ -8,14 +8,9 @@
 // Contiguous with clear 0x00072FE6 and set insert 0x00073053 and unblocks caller 0x000733D8
 #include <map>
 
-// map/set<int> internals otherwise instantiate the less<int>::operator()
-// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
-// specialization takes those calls inline so this TU emits no external copy.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-bool less<int>::operator()(const int &a, const int &b) const
-{ return a < b; }
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeShroudTreeCompare.h"
 
+namespace _STL {
 // Keep the vendor bodies inline without emitting additional int/int tree
 // COMDAT copies. The matched callers already inline these two helpers.
 typedef pair<const int, int> EraseIntPair;
@@ -47,6 +42,13 @@ struct Rva00072F7CNode {
   Rva00072F7CNode *right0C;
 };
 #include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
+// The single-iterator erase provider is rowed at 0x005530A8 in
+// stlport_map_int_ptr_o1.cpp. Keep calls to that body when this donor joins
+// the shroud TU, whose /G7 flags would emit a different COMDAT copy.
+namespace _STL {
+template <> void _Rb_tree<int, Rva00072FE6::V,
+    _Select1st<Rva00072FE6::V>, less<int>, allocator<Rva00072FE6::V> >::erase(iterator);
+}
 void Rva00072FE6::rva0007300F(iterator first, iterator last) {
   typedef V VV;
   typedef _STL::_Rb_tree<int, VV, _STL::_Select1st<VV>, _STL::less<int>, _STL::allocator<VV> > Tree;
