@@ -1092,7 +1092,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0001A610,5,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_insert_grouping.cpp
 0x0001A620,7,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x0001A610..0x0001A630,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 0x0001A630,7,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,C,C=0x0001A610..0x0001A640,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
-0x0001A640,139,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_initialize_get_float.cpp
+0x0001A640,139,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 0x0001A6D0,165,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp
 0x0001A780,34,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp
 0x0001A7B0,233,code,Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp

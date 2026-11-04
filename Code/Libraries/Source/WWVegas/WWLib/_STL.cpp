@@ -574,6 +574,8 @@ void __cdecl __adjust_float_buffer(char *first, char *last, char decimalPoint)
 
 // tu-skeleton: 0x00013410 15B ??1?$basic_istream@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp (not merged yet)
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ios.cpp
 
 // stlport46
@@ -582,6 +584,390 @@ void __cdecl __adjust_float_buffer(char *first, char *last, char decimalPoint)
 // stlport_basic_ios_init.cpp), not STLport's identity specialization.
 
 template class _STL::basic_ios<char, _STL::char_traits<char> >;
+
+// ---- from Code/Libraries/Source/STLport/Rva00013580VirtualDispatch.cpp
+
+void rva00013580Dispatch(Rva00013580Owner *object)
+{
+    object->~Rva00013580Owner();
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00014D90ArrayRelease.cpp
+
+// Complete 10B body 14D90..14D9A calls rowed operator delete[] 2FD80
+// on word 0, unconditionally. Original owner, payload type and allocation
+// extent are unknown; this is only a borrowed pointer prefix.
+
+void Rva00014D90ArrayPrefix::releaseArray() { operator delete[](storage); }
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_numpunct_virtuals.cpp
+
+// stlport46
+//
+// The five virtuals behind numpunct<char>'s vftable at 0x007BBB78 and
+// numpunct<wchar_t>'s at 0x007BBB94. No search was needed to identify these -
+// the vftable slot IS the identity, and the ledger already holds slot 0 of
+// both, so slots 1..5 are do_decimal_point, do_thousands_sep, do_grouping,
+// do_truename and do_falsename in declaration order.
+//
+// Slots 4 and 5 (do_truename / do_falsename) are not here: retail's bodies
+// read the _M_truename / _M_falsename statics through the storage that
+// Rva007AB8D0StringInits.cpp and Rva00017B00StringInit.cpp own, so they are
+// defined beside that storage (stlport_narrow_string_range_ctors.cpp for
+// char at 0x00017A40 / 0x00017AA0, Rva00017B00StringInit.cpp for wchar_t at
+// 0x00017B00 / 0x00017B30).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00844730DualDigitTables.cpp
+
+void rva00844730DispatchTables(int first, int second,
+	Rva00844730TableSink *sink)
+{
+	static const char numbers[] = "0123456789";
+	static const char letters[] = "aAbBcCdDeEfF";
+	sink->accept(numbers, numbers + 10, first);
+	sink->accept(letters, letters + 10, second);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_valid_grouping.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp
+
+// stlport46
+
+// ~basic_string<unsigned short> binds to the rowed retail 63B copy (0x0000B3C0): this
+// unit's own copy is not retail's and comes before it in link order.
+
+template class _STL::num_get<wchar_t, _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > >;
+
+// Native 18050..1805F: the out-of-line use_facet<ctype<wchar_t> > (push
+// ctype<wchar_t>::id VA 0x00DA6200, locale::_M_use_facet), an orphan .text
+// hole beside this unit's size() copy at 0x00018040.
+template const _STL::ctype<wchar_t> &_STL::use_facet<_STL::ctype<wchar_t> >(const _STL::locale &);
+
+// Retain the rowed iterator helpers formerly emitted by the generic uint scanner.
+template void _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >::_M_bumpc();
+
+template wchar_t _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >::operator*() const;
+
+template _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > &_STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >::operator++();
+
+template bool _STL::operator!=<wchar_t, _STL::char_traits<wchar_t> >(const _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > &, const _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > &);
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_put.cpp
+
+// stlport46
+
+template unsigned short *_STL::allocator<unsigned short>::allocate(size_t, const void *);
+
+template class _STL::num_put<wchar_t, _STL::ostreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > >;
+
+// The two writers above are declared only; keep the retail helpers they
+// instantiated in this unit as explicit instantiations.
+template unsigned short * _STL::find<unsigned short *, unsigned short>(unsigned short *, unsigned short *, unsigned short const &);
+
+template _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > _STL::__copy_aux<unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > >(unsigned short const *, unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, _STL::__false_type const &);
+
+template _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > _STL::fill_n<_STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, int, unsigned short>(_STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, int, unsigned short const &);
+
+template _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > _STL::__copy<unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, int>(unsigned short const *, unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, _STL::random_access_iterator_tag const &, int *);
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00844F60DualRangeFind.cpp
+
+int Rva00844F60FindTwoWideRanges(wchar_t needle, const wchar_t *first, const wchar_t *second, wchar_t sentinel)
+{
+    if (needle == sentinel)
+        return -1;
+    const wchar_t *found = _STL::find(first, first + 10, needle);
+    if (found != first + 10)
+        return (int)(found - first);
+    found = _STL::find(second, second + 12, needle);
+    if (found != second + 12)
+        return 10 + (int)((second - found) / 2);
+    return -2;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_iterators.cpp
+
+// stlport46
+
+template class _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >;
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_timeinfo.cpp
+
+// stlport46
+//
+// Modified STLport 4.5.3 src/time_facets.cpp and stl/_algobase.h.
+// Initialize the complete 540-byte _Time_Info using the original classic
+// day/month tables and formatting strings. Long-date fields remain empty,
+// exactly as in the primary source's default-locale initializer.
+//
+// The copy loop stays visible but out of line. MSVC uses its side-effect
+// information to reuse the dead input-parameter home for the return object
+// and empty dispatch tag. An opaque declaration allocates an extra stack
+// slot; neither register constraints nor inline assembly is necessary.
+//
+// Retail __copy is 124 bytes at RVA 0x19180; _Init_timeinfo is 315 bytes at
+// 0x19260. Their final returns end at 0x191FC / 0x1939B, excluding alignment.
+// The original 196-byte day table and 576-byte month table are verified too.
+/*
+ * Copyright (c) 1999
+ * Silicon Graphics Computer Systems, Inc.
+ *
+ * Copyright (c) 1999 
+ * Boris Fomitchev
+ *
+ * This material is provided "as is", with absolutely no warranty expressed
+ * or implied. Any use is at your own risk.
+ *
+ * Permission to use or copy this software for any purpose is hereby granted 
+ * without fee, provided the above notices are retained on all copies.
+ * Permission to modify the code and to distribute modified code is granted,
+ * provided the above notices are retained, and a notice that the code was
+ * modified is included with the above copyright notice.
+ *
+ */
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_ctors.cpp
+
+// stlport46
+// Reconstructed STLport 4.5.3 facet construction from the vendor layouts and
+// retail code. Constructor identities independently follow PE vtable RTTI.
+// Modified reconstruction; no new address aliases are introduced.
+/*
+ * Copyright (c) 1999
+ * Silicon Graphics Computer Systems, Inc.
+ *
+ * Copyright (c) 1999 
+ * Boris Fomitchev
+ *
+ * This material is provided "as is", with absolutely no warranty expressed
+ * or implied. Any use is at your own risk.
+ *
+ * Permission to use or copy this software for any purpose is hereby granted 
+ * without fee, provided the above notices are retained on all copies.
+ * Permission to modify the code and to distribute modified code is granted,
+ * provided the above notices are retained, and a notice that the code was
+ * modified is included with the above copyright notice.
+ *
+ */
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_virtuals.cpp
+
+// stlport46
+//
+// moneypunct's nine virtuals, slots 1..9 of the four vftables at 0x007BC810,
+// 0x007BC83C, 0x007BC868 and 0x007BC894. Almost none of it is distinct code:
+// the four vftables between them name thirty-six slots and hold six bodies,
+// because the default facet has no locale data to report. decimal_point and
+// thousands_sep both return a space, grouping and the three string getters
+// all return an empty string, frac_digits returns zero, and only the two
+// format getters differ - and only from each other, reading _M_pos_format at
+// this+0xC and _M_neg_format at this+0x10.
+//
+// Those two offsets come from the constructor at 0x00019750, which writes the
+// bytes 2,3,0,4 to each: symbol, sign, none, value.
+//
+// The four string getters are not here. They share one body at 0x00019D30
+// which zeroes a basic_string in place and then range-initialises it from a
+// static - basic_string's copy constructor, inlined. cl 13.10 declines to
+// inline it and emits a call, and that same wall stops numpunct's truename
+// and falsename. Ten of these thirty-six slots wait behind it.
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_money_put.cpp
+
+// stlport46
+
+template class _STL::money_put<char, _STL::ostreambuf_iterator<char, _STL::char_traits<char> > >;
+
+// The string do_put is declaration-only here, so its rowed helpers are
+// instantiated explicitly.
+template _STL::ostreambuf_iterator<char, _STL::char_traits<char> > _STL::fill_n(_STL::ostreambuf_iterator<char, _STL::char_traits<char> >, unsigned int, const char &);
+
+template const _STL::moneypunct<char, false> &_STL::use_facet<_STL::moneypunct<char, false> >(const _STL::locale &);
+
+template const _STL::moneypunct<char, true> &_STL::use_facet<_STL::moneypunct<char, true> >(const _STL::locale &);
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_money_put_wide.cpp
+
+// stlport46
+// Retain only this unit's three owned helper instantiations. The full
+// money_put class also emitted a competing do_put implementation and
+// unrelated string constructors/destructors; their verified owners provide
+// those bodies independently.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_messages_ctors.cpp
+
+// stlport46
+// Reconstructed STLport 4.5.3 facet construction from the vendor layouts and
+// retail code. Constructor identities independently follow PE vtable RTTI.
+// Modified reconstruction; no new address aliases are introduced.
+/*
+ * Copyright (c) 1999
+ * Silicon Graphics Computer Systems, Inc.
+ *
+ * Copyright (c) 1999 
+ * Boris Fomitchev
+ *
+ * This material is provided "as is", with absolutely no warranty expressed
+ * or implied. Any use is at your own risk.
+ *
+ * Permission to use or copy this software for any purpose is hereby granted 
+ * without fee, provided the above notices are retained on all copies.
+ * Permission to modify the code and to distribute modified code is granted,
+ * provided the above notices are retained, and a notice that the code was
+ * modified is included with the above copyright notice.
+ *
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/NumPutUnsignedDigits.cpp
+
+char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int flags)
+{
+    while (value != 0) {
+        unsigned int digit = value % 10;
+        *--end = (char)(digit + '0');
+        value /= 10;
+    }
+    if (flags & 0x800)
+        *--end = '+';
+    return end;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_numeric_limits_infinity.cpp
+
+// stlport46
+//
+// Standalone COMDAT copies of STLport's inline numeric_limits<double> and
+// numeric_limits<long double>::infinity(), retail 0x0001A620 and 0x0001A630
+// (7 bytes each: fld qword ptr [rep]; ret), placed between the num_put
+// grouping helpers and _Initialize_get_float.
+//
+// Target evidence: 0x0001A620 loads 0x00BBCC48 and 0x0001A630 loads
+// 0x00BBCC50, both +inf doubles. The matched _Stl_string_to_long_double
+// (0x0001AE40, stlport_string_to_double.cpp) loads 0x00BBCC48 for its
+// numeric_limits<double>::infinity() compare and 0x00BBCC50 for the
+// numeric_limits<long double>::infinity() result, so the two constants are
+// _LimG<bool>::_D_inf and _LimG<bool>::_L_inf. Retail has no caller of either
+// copy; their addresses are taken here only so this TU emits the COMDATs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_float_buffer.cpp
 
 // tu-skeleton: 0x00013430 15B ??1?$basic_istream@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_fstream.cpp (not merged yet)
 
@@ -610,13 +996,6 @@ template class _STL::basic_ios<char, _STL::char_traits<char> >;
 // tu-skeleton: 0x00013560 14B ??1?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
 // tu-skeleton: 0x00013570 5B ?setbuf@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEPAV12@PAGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/STLport/Rva00013580VirtualDispatch.cpp
-
-void rva00013580Dispatch(Rva00013580Owner *object)
-{
-    object->~Rva00013580Owner();
-}
 
 // tu-skeleton: 0x000135A0 30B ??_G?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
@@ -728,14 +1107,6 @@ void rva00013580Dispatch(Rva00013580Owner *object)
 
 // tu-skeleton: 0x000149F0 920B ?seekoff@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_create_filebuf.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00014D90ArrayRelease.cpp
-
-// Complete 10B body 14D90..14D9A calls rowed operator delete[] 2FD80
-// on word 0, unconditionally. Original owner, payload type and allocation
-// extent are unknown; this is only a borrowed pointer prefix.
-
-void Rva00014D90ArrayPrefix::releaseArray() { operator delete[](storage); }
-
 // tu-skeleton: 0x00014DA0 77B ?_M_seek_return@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAE?AV?$fpos@H@2@JH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf_seek_return.cpp (not merged yet)
 
 // tu-skeleton: 0x00014DF0 35B ?_M_exit_input_mode@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@AAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp (not merged yet)
@@ -770,23 +1141,6 @@ void Rva00014D90ArrayPrefix::releaseArray() { operator delete[](storage); }
 
 // tu-skeleton: 0x000179E0 25B ?length@?$__char_traits_base@GG@_STL@@SAIPBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_numpunct_virtuals.cpp
-
-// stlport46
-//
-// The five virtuals behind numpunct<char>'s vftable at 0x007BBB78 and
-// numpunct<wchar_t>'s at 0x007BBB94. No search was needed to identify these -
-// the vftable slot IS the identity, and the ledger already holds slot 0 of
-// both, so slots 1..5 are do_decimal_point, do_thousands_sep, do_grouping,
-// do_truename and do_falsename in declaration order.
-//
-// Slots 4 and 5 (do_truename / do_falsename) are not here: retail's bodies
-// read the _M_truename / _M_falsename statics through the storage that
-// Rva007AB8D0StringInits.cpp and Rva00017B00StringInit.cpp own, so they are
-// defined beside that storage (stlport_narrow_string_range_ctors.cpp for
-// char at 0x00017A40 / 0x00017AA0, Rva00017B00StringInit.cpp for wchar_t at
-// 0x00017B00 / 0x00017B30).
-
 // tu-skeleton: 0x00017A20 23B ??$_M_range_initialize@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEXPAG0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_copy_ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00017A40 85B ?do_truename@?$numpunct@D@_STL@@MBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp (not merged yet)
@@ -814,19 +1168,6 @@ void Rva00014D90ArrayPrefix::releaseArray() { operator delete[](storage); }
 // tu-skeleton: 0x00017BF0 35B ?__get_fdigit_or_sep@_STL@@YA_NAADDPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp (not merged yet)
 
 // tu-skeleton: 0x00017C20 23B ?__get_digit_from_table@_STL@@YAHI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00844730DualDigitTables.cpp
-
-void rva00844730DispatchTables(int first, int second,
-	Rva00844730TableSink *sink)
-{
-	static const char numbers[] = "0123456789";
-	static const char letters[] = "aAbBcCdDeEfF";
-	sink->accept(numbers, numbers + 10, first);
-	sink->accept(letters, letters + 10, second);
-}
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_valid_grouping.cpp
 
 // tu-skeleton: 0x00017CD0 21B ?_M_init@?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@AAEXPAV?$basic_streambuf@GV?$char_traits@G@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_istream.cpp (not merged yet)
 
@@ -862,29 +1203,6 @@ void rva00844730DispatchTables(int first, int second,
 
 // tu-skeleton: 0x00018040 8B ?size@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get_bool.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_get.cpp
-
-// stlport46
-
-// ~basic_string<unsigned short> binds to the rowed retail 63B copy (0x0000B3C0): this
-// unit's own copy is not retail's and comes before it in link order.
-
-template class _STL::num_get<wchar_t, _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > >;
-
-// Native 18050..1805F: the out-of-line use_facet<ctype<wchar_t> > (push
-// ctype<wchar_t>::id VA 0x00DA6200, locale::_M_use_facet), an orphan .text
-// hole beside this unit's size() copy at 0x00018040.
-template const _STL::ctype<wchar_t> &_STL::use_facet<_STL::ctype<wchar_t> >(const _STL::locale &);
-
-// Retain the rowed iterator helpers formerly emitted by the generic uint scanner.
-template void _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >::_M_bumpc();
-
-template wchar_t _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >::operator*() const;
-
-template _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > &_STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >::operator++();
-
-template bool _STL::operator!=<wchar_t, _STL::char_traits<wchar_t> >(const _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > &, const _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > &);
-
 // tu-skeleton: 0x00018060 15B ??$use_facet@V?$ctype@D@_STL@@@_STL@@YAABV?$ctype@D@0@ABVlocale@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp (not merged yet)
 
 // tu-skeleton: 0x00018070 11B ?empty@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBE_NXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp (not merged yet)
@@ -905,52 +1223,13 @@ template bool _STL::operator!=<wchar_t, _STL::char_traits<wchar_t> >(const _STL:
 
 // tu-skeleton: 0x00018130 17B ?sgetc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_num_put.cpp
-
-// stlport46
-
-template unsigned short *_STL::allocator<unsigned short>::allocate(size_t, const void *);
-
-template class _STL::num_put<wchar_t, _STL::ostreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> > >;
-
-// The two writers above are declared only; keep the retail helpers they
-// instantiated in this unit as explicit instantiations.
-template unsigned short * _STL::find<unsigned short *, unsigned short>(unsigned short *, unsigned short *, unsigned short const &);
-
-template _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > _STL::__copy_aux<unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > >(unsigned short const *, unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, _STL::__false_type const &);
-
-template _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > _STL::fill_n<_STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, int, unsigned short>(_STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, int, unsigned short const &);
-
-template _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> > _STL::__copy<unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, int>(unsigned short const *, unsigned short const *, _STL::ostreambuf_iterator<unsigned short, _STL::char_traits<unsigned short> >, _STL::random_access_iterator_tag const &, int *);
-
 // tu-skeleton: 0x00018170 14B ??$_M_get_ostreambuf@DV?$char_traits@D@_STL@@@_STL@@YAPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@0@AAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00844F60DualRangeFind.cpp
-
-int Rva00844F60FindTwoWideRanges(wchar_t needle, const wchar_t *first, const wchar_t *second, wchar_t sentinel)
-{
-    if (needle == sentinel)
-        return -1;
-    const wchar_t *found = _STL::find(first, first + 10, needle);
-    if (found != first + 10)
-        return (int)(found - first);
-    found = _STL::find(second, second + 12, needle);
-    if (found != second + 12)
-        return 10 + (int)((second - found) / 2);
-    return -2;
-}
 
 // tu-skeleton: 0x00018200 59B ?__get_fdigit@_STL@@YA_NAAGPBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp (not merged yet)
 
 // tu-skeleton: 0x00018240 78B ?__get_fdigit_or_sep@_STL@@YA_NAAGGPBG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp (not merged yet)
 
 // tu-skeleton: 0x000182C0 55B ??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf_iterators.cpp
-
-// stlport46
-
-template class _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >;
 
 // tu-skeleton: 0x00018370 32B ??0?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QAE@AAV?$basic_istream@DV?$char_traits@D@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp (not merged yet)
 
@@ -998,41 +1277,6 @@ template class _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >;
 
 // tu-skeleton: 0x00019160 25B ??4?$back_insert_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@QAEAAV01@ABD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_timeinfo.cpp
-
-// stlport46
-//
-// Modified STLport 4.5.3 src/time_facets.cpp and stl/_algobase.h.
-// Initialize the complete 540-byte _Time_Info using the original classic
-// day/month tables and formatting strings. Long-date fields remain empty,
-// exactly as in the primary source's default-locale initializer.
-//
-// The copy loop stays visible but out of line. MSVC uses its side-effect
-// information to reuse the dead input-parameter home for the return object
-// and empty dispatch tag. An opaque declaration allocates an extra stack
-// slot; neither register constraints nor inline assembly is necessary.
-//
-// Retail __copy is 124 bytes at RVA 0x19180; _Init_timeinfo is 315 bytes at
-// 0x19260. Their final returns end at 0x191FC / 0x1939B, excluding alignment.
-// The original 196-byte day table and 576-byte month table are verified too.
-/*
- * Copyright (c) 1999
- * Silicon Graphics Computer Systems, Inc.
- *
- * Copyright (c) 1999 
- * Boris Fomitchev
- *
- * This material is provided "as is", with absolutely no warranty expressed
- * or implied. Any use is at your own risk.
- *
- * Permission to use or copy this software for any purpose is hereby granted 
- * without fee, provided the above notices are retained on all copies.
- * Permission to modify the code and to distribute modified code is granted,
- * provided the above notices are retained, and a notice that the code was
- * modified is included with the above copyright notice.
- *
- */
-
 // tu-skeleton: 0x000193A0 686B ?_Init_timeinfo@_STL@@YAXAAV_Time_Info@1@PAU_Locale_time@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_X4TimeFacets.cpp (not merged yet)
 
 // tu-skeleton: 0x00019650 24B ?is@?$ctype@D@_STL@@QBE_NW4mask@ctype_base@2@D@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_string.cpp (not merged yet)
@@ -1043,57 +1287,7 @@ template class _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >;
 
 // tu-skeleton: 0x000196B0 7B ?max@?$numeric_limits@O@_STL@@SAOXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_ctors.cpp
-
-// stlport46
-// Reconstructed STLport 4.5.3 facet construction from the vendor layouts and
-// retail code. Constructor identities independently follow PE vtable RTTI.
-// Modified reconstruction; no new address aliases are introduced.
-/*
- * Copyright (c) 1999
- * Silicon Graphics Computer Systems, Inc.
- *
- * Copyright (c) 1999 
- * Boris Fomitchev
- *
- * This material is provided "as is", with absolutely no warranty expressed
- * or implied. Any use is at your own risk.
- *
- * Permission to use or copy this software for any purpose is hereby granted 
- * without fee, provided the above notices are retained on all copies.
- * Permission to modify the code and to distribute modified code is granted,
- * provided the above notices are retained, and a notice that the code was
- * modified is included with the above copyright notice.
- *
- */
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
 // tu-skeleton: 0x00019720 11B ??1?$moneypunct@D$00@_STL@@MAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_dtors.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_virtuals.cpp
-
-// stlport46
-//
-// moneypunct's nine virtuals, slots 1..9 of the four vftables at 0x007BC810,
-// 0x007BC83C, 0x007BC868 and 0x007BC894. Almost none of it is distinct code:
-// the four vftables between them name thirty-six slots and hold six bodies,
-// because the default facet has no locale data to report. decimal_point and
-// thousands_sep both return a space, grouping and the three string getters
-// all return an empty string, frac_digits returns zero, and only the two
-// format getters differ - and only from each other, reading _M_pos_format at
-// this+0xC and _M_neg_format at this+0x10.
-//
-// Those two offsets come from the constructor at 0x00019750, which writes the
-// bytes 2,3,0,4 to each: symbol, sign, none, value.
-//
-// The four string getters are not here. They share one body at 0x00019D30
-// which zeroes a basic_string in place and then range-initialises it from a
-// static - basic_string's copy constructor, inlined. cl 13.10 declines to
-// inline it and emits a call, and that same wall stops numpunct's truename
-// and falsename. Ten of these thirty-six slots wait behind it.
 
 // tu-skeleton: 0x00019790 11B ??1?$moneypunct@D$0A@@_STL@@MAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_moneypunct_dtors.cpp (not merged yet)
 
@@ -1103,33 +1297,11 @@ template class _STL::istreambuf_iterator<wchar_t, _STL::char_traits<wchar_t> >;
 
 // tu-skeleton: 0x00019850 57B ?get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@QBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_money_put.cpp
-
-// stlport46
-
-template class _STL::money_put<char, _STL::ostreambuf_iterator<char, _STL::char_traits<char> > >;
-
-// The string do_put is declaration-only here, so its rowed helpers are
-// instantiated explicitly.
-template _STL::ostreambuf_iterator<char, _STL::char_traits<char> > _STL::fill_n(_STL::ostreambuf_iterator<char, _STL::char_traits<char> >, unsigned int, const char &);
-
-template const _STL::moneypunct<char, false> &_STL::use_facet<_STL::moneypunct<char, false> >(const _STL::locale &);
-
-template const _STL::moneypunct<char, true> &_STL::use_facet<_STL::moneypunct<char, true> >(const _STL::locale &);
-
 // tu-skeleton: 0x000198D0 57B ?get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@QBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAO@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp (not merged yet)
 
 // tu-skeleton: 0x00019940 15B ?assign@?$__char_traits_base@GG@_STL@@SAXAAGABG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp (not merged yet)
 
 // tu-skeleton: 0x00019950 12B ?_M_construct_null_aux@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAGABU__true_type@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_money_put_wide.cpp
-
-// stlport46
-// Retain only this unit's three owned helper instantiations. The full
-// money_put class also emitted a competing do_put implementation and
-// unrelated string constructors/destructors; their verified owners provide
-// those bodies independently.
 
 // tu-skeleton: 0x000199A0 25B ?move@?$__char_traits_base@GG@_STL@@SAPAGPAGPBGI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp (not merged yet)
 
@@ -1176,30 +1348,6 @@ template const _STL::moneypunct<char, true> &_STL::use_facet<_STL::moneypunct<ch
 // tu-skeleton: 0x00019DC0 23B ??$assign@PAG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@PAG0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp (not merged yet)
 
 // tu-skeleton: 0x00019DE0 36B ??4?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_messages_ctors.cpp
-
-// stlport46
-// Reconstructed STLport 4.5.3 facet construction from the vendor layouts and
-// retail code. Constructor identities independently follow PE vtable RTTI.
-// Modified reconstruction; no new address aliases are introduced.
-/*
- * Copyright (c) 1999
- * Silicon Graphics Computer Systems, Inc.
- *
- * Copyright (c) 1999 
- * Boris Fomitchev
- *
- * This material is provided "as is", with absolutely no warranty expressed
- * or implied. Any use is at your own risk.
- *
- * Permission to use or copy this software for any purpose is hereby granted 
- * without fee, provided the above notices are retained on all copies.
- * Permission to modify the code and to distribute modified code is granted,
- * provided the above notices are retained, and a notice that the code was
- * modified is included with the above copyright notice.
- *
- */
 
 // tu-skeleton: 0x00019E40 95B ??1?$messages@D@_STL@@MAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp (not merged yet)
 
@@ -1253,20 +1401,6 @@ template const _STL::moneypunct<char, true> &_STL::use_facet<_STL::moneypunct<ch
 
 // tu-skeleton: 0x0001A290 67B ??$__write_decimal_backward@_K@_STL@@YAPADPAD_KHABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_write_decimal_backward_u64.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/NumPutUnsignedDigits.cpp
-
-char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int flags)
-{
-    while (value != 0) {
-        unsigned int digit = value % 10;
-        *--end = (char)(digit + '0');
-        value /= 10;
-    }
-    if (flags & 0x800)
-        *--end = '+';
-    return end;
-}
-
 // tu-skeleton: 0x0001A320 113B ??$fill_n@V?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@HD@_STL@@YA?AV?$ostreambuf_iterator@DV?$char_traits@D@_STL@@@0@V10@HABD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put_bool.cpp (not merged yet)
 
 // tu-skeleton: 0x0001A3A0 30B ??$find@PADD@_STL@@YAPADPAD0ABD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_put.cpp (not merged yet)
@@ -1283,24 +1417,28 @@ char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int
 
 // tu-skeleton: 0x0001A610 5B ?__insert_grouping@_STL@@YAHPAG0ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@GGGH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_insert_grouping.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_numeric_limits_infinity.cpp
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_initialize_get_float.cpp
 
 // stlport46
 //
-// Standalone COMDAT copies of STLport's inline numeric_limits<double> and
-// numeric_limits<long double>::infinity(), retail 0x0001A620 and 0x0001A630
-// (7 bytes each: fld qword ptr [rep]; ret), placed between the num_put
-// grouping helpers and _Initialize_get_float.
-//
-// Target evidence: 0x0001A620 loads 0x00BBCC48 and 0x0001A630 loads
-// 0x00BBCC50, both +inf doubles. The matched _Stl_string_to_long_double
-// (0x0001AE40, stlport_string_to_double.cpp) loads 0x00BBCC48 for its
-// numeric_limits<double>::infinity() compare and 0x00BBCC50 for the
-// numeric_limits<long double>::infinity() result, so the two constants are
-// _LimG<bool>::_D_inf and _LimG<bool>::_L_inf. Retail has no caller of either
-// copy; their addresses are taken here only so this TU emits the COMDATs.
+// Dedicated TU for STLport _Initialize_get_float(wchar_t). The wide-read-float
+// unit only declares the helper and already holds a matched scanner.
 
-// tu-skeleton: 0x0001A640 139B ?_Initialize_get_float@_STL@@YAXABV?$ctype@G@1@AAG111PAG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_initialize_get_float.cpp (not merged yet)
+_STLP_BEGIN_NAMESPACE
+
+void __cdecl _Initialize_get_float(
+	const ctype<wchar_t> &ct,
+	wchar_t &Plus, wchar_t &Minus,
+	wchar_t &pow_e, wchar_t &pow_E,
+	wchar_t *digits)
+{
+	char ndigits[11] = "0123456789";
+	Plus = ct.widen('+');
+	Minus = ct.widen('-');
+	pow_e = ct.widen('e');
+	pow_E = ct.widen('E');
+	ct.widen(ndigits + 0, ndigits + 10, digits);
+}
 
 // tu-skeleton: 0x0001A6D0 165B ?_Stl_mult64@_STL@@YAX_K0AA_K1@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_stl_atod.cpp (not merged yet)
 
@@ -1345,8 +1483,6 @@ char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int
 // tu-skeleton: 0x0001B320 42B ?copy@?$__char_traits_base@DH@_STL@@SAPADPADPBDI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp (not merged yet)
 
 // tu-skeleton: 0x0001B350 96B ?__convert_float_buffer@_STL@@YAPAGPBD0PAGABV?$ctype@G@1@G@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_float_buffer.cpp
 
 // tu-skeleton: 0x0001B3E0 254B ??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_append.cpp (not merged yet)
 
@@ -1417,3 +1553,5 @@ char *Rva00845640WriteUnsignedDigits(char *end, unsigned int value, unsigned int
 // tu-skeleton: 0x0075C3B0 8B uw_0075c3b0 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0075C3B8 10B __ehhandler$??1?$messages@D@_STL@@MAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp (not merged yet)
+
+_STLP_END_NAMESPACE
