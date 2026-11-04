@@ -136,13 +136,13 @@ class Rva0015229CVector
 {
 public:
 	Rva0007BB16Record *EraseRange(Rva0007BB16Record *first, Rva0007BB16Record *last);
-	void rva001524EE();
+	void clear();
 private:
 	Rva0007BB16Record *m_start;
 	Rva0007BB16Record *m_finish;
 };
 
-void Rva0015229CVector::rva001524EE()
+void Rva0015229CVector::clear()
 {
 	EraseRange(m_start, m_finish);
 }

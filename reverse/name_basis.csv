@@ -8668,3 +8668,4 @@ carry,s4ParseFieldsRva0059D1F0::transition,parseFreezePostLoadSoundsTransition::
 member,Rva0052B4B6::m_41,Rva0052B4B6::m_digest,inferred,agree:nl-13f18d58778b,Code/GameEngine/Source/Common/Rva0052B4B6XferOpen.cpp,
 member,Rva0030CAF8Area::m_s9C,Rva0030CAF8Area::m_textureName,inferred,agree:nl-a68938a4066d,Code/GameEngine/Source/Common/Rva0030CAF8Chain.cpp,
 member,Rva0042D5DDInner::m_04,Rva0042D5DDInner::m_level,inferred,agree:nl-fce6ae1a223c,Code/GameEngine/Source/Common/Rva0042D5DDUpdate.cpp,
+function,?rva001524EE@Rva0015229CVector@@QAEXXZ,?clear@Rva0015229CVector@@QAEXXZ,inferred,agree:nl-843eb8efb4c0,Code/GameEngine/Source/Common/GapBodiesGE45.cpp,0x001524EE
