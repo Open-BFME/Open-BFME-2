@@ -38,9 +38,11 @@ private:
 
 struct AutoPickUpEatObjectEntry
 {
-	Rva00360D26Member m_filter;
-	float m_myHealth;
-	float m_targetHealth;
+public:
+	AutoPickUpEatObjectEntry() : m_myHealth(0), m_targetHealth(1.0f) {}
+	Rva00360D26Member m_filter; // +0x00
+	float m_myHealth; // +0x04
+	float m_targetHealth; // +0x08
 };
 
 #include <vector>
