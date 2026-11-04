@@ -45,7 +45,7 @@ class W3DRadarResetSurface { void *ptr; public: ~W3DRadarResetSurface(); };
 class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); };
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 void BFME_DX8_Thread_Lock(); bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();} };
+#include "../../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 class Radar { public: bool radarToWorld(const ICoord2D*,Coord3D*); float getTerrainAverageZ() const {return averageZ;} private: char pad0[0x1c];float averageZ;char pad20[0x1430-0x20]; };
 #include "../../../../../GameEngine/Include/GameClient/TerrainRoadType.h"
 class TerrainRoadCollection { public: TerrainRoadType *findBridge(AsciiString name); };extern TerrainRoadCollection *TheTerrainRoads;

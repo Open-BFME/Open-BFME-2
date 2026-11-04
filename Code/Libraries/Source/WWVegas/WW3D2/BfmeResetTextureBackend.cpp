@@ -55,12 +55,7 @@ bool BFME_DX8_Thread_Assert();
 
 void *Rva00120720CreateTexture(int a1, int a2, int a3, int a4, int a5, int a6);
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // Reference lead: BFME1 968ca36c TextureHandleApply.cpp's inline
 // Set_DX8_Texture manages cached COM references and both counters.

@@ -25,3 +25,17 @@ callee spelling changes in7 code instances. No pin or alias changes. Header
 adoption of further private guard copies is now testable. No TU merge or
 full-image link is established by this prerequisite.
 [Native scope and byte evidence](../../reverse/attempt_support/device-guard-contract-20261104-0110.md).
+
+
+#### Seventeen private guard copies retired, 2026-11-04
+
+After that shared prerequisite,17 independent sources adopt the registered
+BFMEDX8DeviceLock header, including DynamicIBAccessWriteLock.cpp. Native
+acceptance retires exactly17 header keys; all129 existing code/EH rows
+and complete non-debug sections remain. The23-source canonical-header closure
+has normal byte verification and strict current receipts. The older
+reference/shims/indexbuffercount/dx8indexbuffer.h still declares void unlock
+and a private guard; it is outside this changed header's dependency graph.
+No seed/donor composition or TU merge is claimed. That shim and any remaining
+DynamicIBAccessClass view remain explicit prerequisites; the broader obstacle
+stays open. [Batch evidence](../../reverse/attempt_support/device-guard-batch-20261104-0110.md).

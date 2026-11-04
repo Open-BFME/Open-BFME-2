@@ -17,12 +17,7 @@ extern void Log_DX8_ErrorCode(unsigned);
 extern void BFME_DX8_Thread_Lock(void);
 extern bool BFME_DX8_Thread_Assert(void);
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // upstream layout: d3d9.h IDirect3DIndexBuffer9 (Lock is slot 11, Unlock slot 12)
 struct BfmeIndexBuffer9

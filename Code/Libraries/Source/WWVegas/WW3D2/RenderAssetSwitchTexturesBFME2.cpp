@@ -28,7 +28,7 @@ class MaterialInfoClass{public:virtual void Delete_This();int refs;char unknown0
 class BFME2ParticleTextureHandle{public:TextureClass *p;~BFME2ParticleTextureHandle(){if(p)p->Release_Ref();}};
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock{public:BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 class SwitchMeshView {public:
 virtual void slot0();
 virtual void slot1();

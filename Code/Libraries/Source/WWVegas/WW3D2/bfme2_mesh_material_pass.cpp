@@ -48,7 +48,7 @@ bool Render_Obj_Exists(const char *);
 const char *Rva001363A1Get(unsigned);
 
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock{public:BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 struct BfmeAssignRecord36{BfmeAssignRecord36(const char *,int);AsciiString name;int kind;AsciiString value;char pad[20];bool flag;char last[3];};
 struct Rva0007BB16Record:BfmeAssignRecord36{Rva0007BB16Record(const char *n,int k):BfmeAssignRecord36(n,k){}~Rva0007BB16Record();};
 namespace _STL{template<>vector<Rva0007BB16Record>::vector(const vector<Rva0007BB16Record>&);template<>vector<Rva0007BB16Record>::~vector();}

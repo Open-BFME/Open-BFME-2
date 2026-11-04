@@ -87,11 +87,7 @@ AssetReference Rva009EBDC0();
 extern void BFME_DX8_Thread_Lock();
 extern bool BFME_DX8_Thread_Assert();
 
-class BFMEDX8DeviceLock {
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 #include "WW3DClass.h"
 

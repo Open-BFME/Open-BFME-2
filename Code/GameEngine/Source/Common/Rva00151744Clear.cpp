@@ -29,12 +29,7 @@ typedef void (__stdcall *SurfaceRelease)(void *surface);
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 class FXShaderAsset
 {

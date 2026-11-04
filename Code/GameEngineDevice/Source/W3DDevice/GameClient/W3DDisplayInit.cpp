@@ -98,12 +98,7 @@ bool BFME_DX8_Thread_Assert(void);
 
 // Native normal and unwind paths use the existing DX8 device guard.
 // Its complete destructor at 0x00042F8C tail-calls BFME_DX8_Thread_Assert.
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 class SortingRendererClass
 {

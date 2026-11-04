@@ -23,12 +23,7 @@ typedef bool Bool;
 void BFME_DX8_Thread_Lock(void); // retail 0x0011F520
 bool BFME_DX8_Thread_Assert(void); // retail 0x00120F50
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // The render target surface. DX8Wrapper keeps the BFME 1 spelling of the
 // member; the native object is a Direct3D 9 surface, whose GetDesc (vtable

@@ -19,7 +19,7 @@ template <> VectorClass<Render2DClass *>::~VectorClass();
 template <> DynamicVectorClass<Render2DClass *>::~DynamicVectorClass();
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();} };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 class Rva00116680 { public: void *rva00116680(int *,bool); };
 class Member0C00739C70 { public: void clear(); };
 

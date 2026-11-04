@@ -15,7 +15,7 @@
 void BFME_DX8_Thread_Lock();
 // The unlock half is rowed at 0x00120F50 as BFME_DX8_Thread_Assert (dx8wrapper.cpp).
 bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();} };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // REF_PTR_RELEASE, copied from WWLib/refcount.h (NULL spelled 0: identical
 // codegen, keeps this TU include-free).

@@ -47,7 +47,7 @@ flag=false;rva000E153A();return 0;
 }
 
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock{public:BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 void Rva000E15D1::rva000E14C4(){
  if(tiles){BFMEDX8DeviceLock lock;delete[]tiles;tiles=0;}
  cols=0;rows=0;count=0;
