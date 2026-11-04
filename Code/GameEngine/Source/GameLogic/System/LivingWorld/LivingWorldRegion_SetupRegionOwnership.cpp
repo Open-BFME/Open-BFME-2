@@ -4,6 +4,8 @@
 // at +0xE0, looks up a player by that string, updates ownership through the
 // direct callee at 0x003F2A8C, then calls the rowed scheduler at 0x002B388D.
 
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
+
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
@@ -33,16 +35,6 @@ public:
 	void scheduleNullable(Refresh0023FA80AI *ai, Refresh0023FA80Object *object);
 };
 
-class LivingWorldRegion
-{
-public:
-	void SetupRegionOwnership();
-
-private:
-	unsigned char m_pad00[0xE0];
-	AsciiString m_playerName;	// +0xE0; lookup key inferred from target calls
-};
-
 static __forceinline int rva003F300ANameLength(const AsciiString *key)
 {
 	const char *text = *(const char **)key;
@@ -52,7 +44,7 @@ static __forceinline int rva003F300ANameLength(const AsciiString *key)
 void LivingWorldRegion::SetupRegionOwnership()
 {
 	LivingWorldRegion *region = this;
-	AsciiString *key = (AsciiString *)((char *)region + 0xE0);
+	AsciiString *key = &region->m_fieldE0;
 	if (rva003F300ANameLength(key) <= 0)
 		return;
 	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(*key, 0);
