@@ -131,3 +131,12 @@ vector definitions. `Rva0042700FParse.cpp`, `StlportVectorDtorFamily.cpp`, and
 `stlport_vector_e8_o1.cpp` could not spell their selected symbol definitions.
 `Made002CC5E1DamageScalar.cpp` could carve `0x00508862`, but the residual would
 lose five matched rows. No split or merge was applied.
+
+A fresh allocated `Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehavior.cpp`
+trial accepted no donors. The seed and donors need manual private-view or
+module-data declaration repair; three donor compile trials also report the
+`OpaqueRefCounted` redefinition. All four mixed files were inspected:
+`ClientModuleDeletingDtors.cpp`, `stlport_construct_game_structs2.cpp`, and
+`stlport_pod_large_bodies.cpp` could not spell their selected definitions;
+`ModuleDataBuildFieldParse.cpp` carved `0x004CBBB4` but failed compilation in
+the destination. No split or merge was applied.
