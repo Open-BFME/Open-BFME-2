@@ -278,12 +278,7 @@ void PopulateColorComboBox(Int comboBox, GameWindow *comboArray[], GameInfo *myG
 // refresh: non-hosts cannot edit player combos, a hidden colour list is
 // repopulated, and the colour, team and player template combos select the
 // slot's values.
-class MapMetaData
-{
-public:
-	unsigned char m_00[0x26];
-	Bool m_isOfficial;	// +0x26
-};
+#include "../../Include/GameClient/MapMetaData.h"
 #include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 Bool Rva00300E42Check(GameInfo *game);	// ZH WouldMapTransfer, keyed by the game in BFME2
