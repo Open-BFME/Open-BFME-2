@@ -83,33 +83,19 @@ enum
 // INI table at 0x00C51964 joined to the Zero Hour ProneUpdate donor
 // (DamageToFramesRatio, parseReal).
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-
 class ModuleData;
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-
 class Xfer;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
-// Primary vftable slots as retail's ProneUpdate one (0x00C5191C) and
-// UpdateModule's own (0x00BF004C) hold them: 0 the scalar deleting dtor,
-// 1 loadPostProcess (0x0058B03E in UpdateModule's), 2 GetSnapshotName
-// (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
-// UpdateModule's, 0x0049FE9A in ProneUpdate's).
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -131,6 +117,14 @@ protected:
 	Int m_proneFrames; // +0x20
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp
+
+// Primary vftable slots as retail's ProneUpdate one (0x00C5191C) and
+// UpdateModule's own (0x00BF004C) hold them: 0 the scalar deleting dtor,
+// 1 loadPostProcess (0x0058B03E in UpdateModule's), 2 GetSnapshotName
+// (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
+// UpdateModule's, 0x0049FE9A in ProneUpdate's).
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdatePoolKey.cpp
 
 // ?getModuleNameKey@ProneUpdate@@UBE?AW4NameKeyType@@XZ
@@ -150,12 +144,6 @@ ProneUpdateModuleData::ProneUpdateModuleData()
 	  m_damageToFramesRatio( 1.0f )
 {
 }
-
-// tu-skeleton: 0x0049FEF5 17B ?buildFieldParse@ProneUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0049FF06 46B ??0ProneUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049FF34 28B ??_GRva0049FE7B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp
 
@@ -192,3 +180,22 @@ void ProneUpdate::goProne(const DamageInfo *damageInfo)
 	if (!wasProne && (m_proneFrames > 0))
 		startProneEffects();
 }
+
+// tu-skeleton: 0x0049FEF5 17B ?buildFieldParse@ProneUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdateCtor.cpp
+
+// Primary vftable slots as retail's ProneUpdate one (0x00C5191C) and
+// UpdateModule's own (0x00BF004C) hold them: 0 the scalar deleting dtor,
+// 1 loadPostProcess (0x0058B03E in UpdateModule's), 2 GetSnapshotName
+// (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
+// UpdateModule's, 0x0049FE9A in ProneUpdate's).
+
+// ??0ProneUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x49FF06
+ProneUpdate::ProneUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_proneFrames = 0;
+}
+
+// tu-skeleton: 0x0049FF34 28B ??_GRva0049FE7B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
