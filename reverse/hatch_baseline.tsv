@@ -13012,14 +13012,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTr
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	shutdown@TerrainTracksRenderObjClassSystem@@QAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	unbindTrack@TerrainTracksRenderObjClassSystem@@QAEXPAVTerrainTracksRenderObjClass@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	update@TerrainTracksRenderObjClassSystem@@QAEXXZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	0W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	1W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	TypeToW3DFormat@W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	W3DFormatToType@W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	allocate@W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	free@W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	lock@W3DVideoBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	unlock@W3DVideoBuffer@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterBoundingSphere.cpp	0WaterRenderObjClass@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterBoundingSphere.cpp	1WaterRenderObjClass@@UAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterBoundingSphere.cpp	Class_ID@WaterRenderObjClass@@UBEHXZ	1
