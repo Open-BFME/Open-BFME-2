@@ -13,16 +13,26 @@ public:
 	StringBase<char> m_name; // +0x64
 };
 
+enum ObjectStatusTypes
+{
+	STATUS_0 = 0,
+	STATUS_1 = 1,
+	STATUS_2 = 2
+};
+
 class Object
 {
 public:
+	bool testStatus(ObjectStatusTypes s) const;
 	Object *getNextObject() { return m_next; }
-
-public:
-	void *m_unk00; // +0x00
-	Rva004EA2C5Template *m_holder; // +0x04
-	char m_pad08[0x8C - 8];
+	char m_pad00[4];
+	void *m_04;
+	char m_pad08[0x6C];
+	int m_74;
+	char m_pad78[0x14];
 	Object *m_next; // +0x8C
+	char m_pad90[0x1F0];
+	float m_280;
 };
 
 #include "GameLogicObjectLookupView.h"
@@ -36,7 +46,7 @@ int __cdecl Rva004EA2C5Get()
 {
 	int count = 0;
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject()) {
-		Rva004EA2C5Template *holder = obj->m_holder;
+		Rva004EA2C5Template *holder = (Rva004EA2C5Template *)obj->m_04;
 		if (holder->m_name.compare(*(const StringBase<char> *)&g_Va00E04490) == 0)
 			++count;
 	}

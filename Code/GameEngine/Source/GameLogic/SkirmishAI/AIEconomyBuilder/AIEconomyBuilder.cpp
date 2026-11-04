@@ -70,11 +70,14 @@ class Object
 {
 public:
 	bool testStatus(ObjectStatusTypes s) const;
+	Object *getNextObject() { return m_next; }
 	char m_pad00[4];
 	void *m_04;
 	char m_pad08[0x6C];
 	int m_74;
-	char m_pad78[0x208];
+	char m_pad78[0x14];
+	Object *m_next; // +0x8C
+	char m_pad90[0x1F0];
 	float m_280;
 };
 
