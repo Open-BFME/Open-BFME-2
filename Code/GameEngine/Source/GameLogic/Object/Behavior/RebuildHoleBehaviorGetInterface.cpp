@@ -10,13 +10,6 @@
 
 #include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
-class RebuildHoleBehaviorPrimaryView
-{
-public:
-	virtual void p00();
-private:
-	char m_pad04[0x24 - 4];
-};
 
 
 RebuildHoleBehaviorInterface *RebuildHoleBehavior::getRebuildHoleBehaviorInterface()

@@ -51,10 +51,6 @@ enum ScienceType
 	SCIENCE_NONE = 0
 };
 
-struct BfmeE12
-{
-	char e[12];
-};
 
 namespace _STL
 {

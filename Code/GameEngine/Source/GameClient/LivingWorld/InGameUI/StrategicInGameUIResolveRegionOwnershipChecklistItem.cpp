@@ -23,7 +23,6 @@ class Rva005CCE13 {public:void rva005CCE13(const UnicodeString&);};
 class Rva005CCB73 {public:void rva005CCB73(void*);};
 class Rva005CCB7B {public:void rva005CCB7B(bool);};
 class Rva005CCB83 {public:void rva005CCB83(void*);};
-class Rva002BF5B0Maker {public:void rva002BF5B0(void*,void*);};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class GameTextInterface;
 extern GameTextInterface*TheGameText;

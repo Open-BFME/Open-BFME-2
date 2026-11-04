@@ -10,14 +10,6 @@
 
 #include "../../Include/GameLogic/Rva000427195.h"
 
-struct Rva004114EFGlobalTable
-{
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
 
 // VA 0x00E02FE4: the component-window table AptComponentWindowLookup.cpp owns.
 extern unsigned int AptComponentWindowDataTableStorage[5];

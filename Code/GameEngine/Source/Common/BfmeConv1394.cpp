@@ -24,12 +24,3 @@ BfmeThingVJT *BfmeThingVJT::bfmeInitVJT(BfmeMsgVJT *message)
 	m_bfme00->bfmeGetStrVJT("endDate", m_bfmeEnd, 0x20);
 	return this;
 }
-
-class BfmeStackVJU
-{
-public:
-	void bfmePushVJU();
-	void bfmeSetVJU(void *p);
-	void bfmePopVJU();
-};
-

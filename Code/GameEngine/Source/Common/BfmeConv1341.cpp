@@ -44,9 +44,3 @@ BfmeThingURC::BfmeThingURC(BfmeSrcURC *p)
 	m_bfmeOwner = p;
 	p->bfmeFillURC((char *)"sessionId", m_sessionId, (void *)0x40);
 }
-
-class BfmeThingURD
-{
-public:
-	unsigned bfmeGoURD(void);
-};

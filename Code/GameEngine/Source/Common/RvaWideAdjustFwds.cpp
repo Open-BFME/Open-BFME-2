@@ -70,11 +70,6 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class Rva002E2F39Owner
-{
-public:
-	int fwd(int value);
-};
 
 class Rva004EC072Owner
 {
