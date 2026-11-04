@@ -41,3 +41,11 @@ is now `(4430, 4525, class)`.
 `python3 -m pytest -q tools/tests/test_header_adopt_lane.py
 tools/tests/test_gate_exploits.py`: 213 passed, 1 skipped. No game source or
 header-queue row changes accompany the parser fix.
+
+## Downstream false reject
+
+After the span repair, the same adoption command refuses with `field renames:
+Rva000B3F84Pair: unterminated definition`. `tu_views.class_span` independently
+requires horizontal whitespace between the closing brace and semicolon. The
+source and header queue remain unchanged. Repair this second parser with the
+same valid-whitespace and invalid-declarator boundaries before retrying adoption.
