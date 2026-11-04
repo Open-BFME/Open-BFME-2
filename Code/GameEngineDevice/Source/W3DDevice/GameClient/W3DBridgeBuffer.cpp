@@ -438,39 +438,46 @@ private:
 private:
 	float m_scale;
 private:
-	char m_pad1C[0x34 - 0x1C];
+	float m_length;
+	int m_bridgeType;
+	float m_bounds[4];
 private:
 	TextureRef m_bridgeTexture;
 private:
 	MeshClass *m_leftMesh;
 private:
-	char m_pad3C[0x6C - 0x3C];
+	Vector4 m_leftMtx[3];
 private:
 	float m_minY;
 private:
 	float m_maxY;
 private:
-	unsigned char m_pad74[0x7C - 0x74];
+	float m_leftMinX;
+	float m_leftMaxX;
 private:
 	MeshClass *m_sectionMesh;
 private:
-	unsigned char m_pad80[0xB8 - 0x80];
+	Vector4 m_sectionMtx[3];
+	float m_sectionMinX;
+	float m_sectionMaxX;
 private:
 	MeshClass *m_rightMesh;
 private:
-	unsigned char m_padBC[0x104 - 0xBC];
+	Vector4 m_rightMtx[3];
+	float m_rightMinX;
+	float m_rightMaxX;
+	int m_firstIndex;
+	int m_numVertex;
+	int m_firstVertex;
+	int m_numPolygons;
 public:
 	bool m_visible;
-private:
-	unsigned char m_pad105[0x108 - 0x105];
 private:
 	AsciiString m_templateName;
 private:
 	int m_curDamageState;
 private:
 	bool m_enabled;
-private:
-	unsigned char m_pad111[0x114 - 0x111];
 protected:
 	int getModelVertices(VertexFormatXYZNDUV1 *destination_vb, int curVertex, float xOffset,
 		Vector3 &vec, Vector3 &vecNormal, Vector3 &vecZ, Vector3 &offset,
