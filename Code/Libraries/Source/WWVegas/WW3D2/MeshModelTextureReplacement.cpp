@@ -28,42 +28,22 @@ class DX8PolygonRendererClass : public MultiListObjectClass {
     DX8TextureCategoryClass *TextureCategory;
 public: DX8TextureCategoryClass *Get_Texture_Category() { return TextureCategory; }
 };
-class MeshModelClass {
-    char prefix[0x24];
-    int PolygonCount;
-    int VertexCount;	// +0x28
-    char gap2C[0x68];
-    MeshMatDescClass *CurMatDesc;
-    char gap98[4];
-    MultiListClass<DX8PolygonRendererClass> PolygonRendererList;
-public:
-    RefCountPtr<TextureClass> Peek_Texture(int,int,int) const;
-    RefCountPtr<TextureClass> Peek_Single_Texture(int,int) const;
-    int Get_Pass_Count() const { return CurMatDesc->PassCount; }
-    int Get_Polygon_Count() const { return PolygonCount; }
-    bool Has_Texture_Array(int pass,int stage) const { return CurMatDesc->TextureArray[pass][stage]!=0; }
-    // dllimport + forceinline: retail's own out-of-line copies of these five
-    // forwarders live in MeshModelMatDescForwarders.cpp (rows 0x00143550,
-    // 0x00149510, 0x00171680, 0x00171690, 0x001716A0). The flag keeps the call
-    // sites below inlined (retail inlines them: these bodies do not call the
-    // forwarders) while suppressing this unit's duplicate COMDAT copies.
-    __declspec(dllimport) __forceinline void Set_Texture(int i,const RefCountPtr<TextureClass>& texture,int pass,int stage) { CurMatDesc->Set_Texture(i,texture,pass,stage); }
-    __declspec(dllimport) __forceinline void Set_Single_Texture(const RefCountPtr<TextureClass>& texture,int pass,int stage) { CurMatDesc->Set_Single_Texture(texture,pass,stage); }
-    DX8FVFCategoryContainer *Peek_FVF_Category_Container() {
-        if(PolygonRendererList.Is_Empty()) return 0;
-        DX8PolygonRendererClass *polygon_renderer=PolygonRendererList.Get_Head();
-        DX8TextureCategoryClass *texture_category=polygon_renderer->Get_Texture_Category();
-        return texture_category->Get_Container();
-    }
-    void Replace_Texture(const RefCountPtr<TextureClass>&,const RefCountPtr<TextureClass>&);
-    int Get_Vertex_Count() const { return VertexCount; }
-    bool Has_Material_Array(int pass) const { return CurMatDesc->MaterialArray[pass]!=0; }
-    __declspec(dllimport) __forceinline VertexMaterialClass *Peek_Material(int i,int pass) const { return CurMatDesc->Peek_Material(i,pass); }
-    VertexMaterialClass *Peek_Single_Material(int pass) const { return CurMatDesc->Material[pass]; }
-    __declspec(dllimport) __forceinline void Set_Material(int i,VertexMaterialClass *v,int pass) { CurMatDesc->Set_Material(i,v,pass); }
-    __declspec(dllimport) __forceinline void Set_Single_Material(VertexMaterialClass *v,int pass) { CurMatDesc->Set_Single_Material(v,pass); }
-    void Replace_VertexMaterial(VertexMaterialClass*,VertexMaterialClass*);
-};
+#include "MeshModelClass.h"
+inline int MeshModelClass::Get_Pass_Count() const { return CurMatDesc->PassCount; }
+inline bool MeshModelClass::Has_Texture_Array(int pass,int stage) const { return CurMatDesc->TextureArray[pass][stage]!=0; }
+inline DX8FVFCategoryContainer *MeshModelClass::Peek_FVF_Category_Container() {
+    if(PolygonRendererList.Is_Empty()) return 0;
+    DX8PolygonRendererClass *polygon_renderer=PolygonRendererList.Get_Head();
+    DX8TextureCategoryClass *texture_category=polygon_renderer->Get_Texture_Category();
+    return texture_category->Get_Container();
+}
+inline bool MeshModelClass::Has_Material_Array(int pass) const { return CurMatDesc->MaterialArray[pass]!=0; }
+inline VertexMaterialClass *MeshModelClass::Peek_Single_Material(int pass) const { return CurMatDesc->Material[pass]; }
+// The bodies call the five CurMatDesc forwarders (Set_Texture,
+// Set_Single_Texture, Peek_Material, Set_Material, Set_Single_Material) through
+// CurMatDesc directly: retail inlines them here, and their out-of-line copies
+// belong to MeshModelMatDescForwarders.cpp (0x00143550, 0x00149510, 0x00171680,
+// 0x00171690, 0x001716A0).
 // Zero Hour GeneralsMD meshmdl.cpp Replace_Texture, adapted to owning handles.
 void MeshModelClass::Replace_Texture(const RefCountPtr<TextureClass>& texture,const RefCountPtr<TextureClass>& new_texture)
 {
@@ -72,12 +52,12 @@ void MeshModelClass::Replace_Texture(const RefCountPtr<TextureClass>& texture,co
             if(Has_Texture_Array(pass,stage)) {
                 for(int i=0;i<Get_Polygon_Count();++i) {
                     if(Peek_Texture(i,pass,stage)==texture) {
-                        Set_Texture(i,new_texture,pass,stage);
+                        CurMatDesc->Set_Texture(i,new_texture,pass,stage);
                     }
                 }
             } else {
                 if(Peek_Single_Texture(pass,stage)==texture) {
-                    Set_Single_Texture(new_texture,pass,stage);
+                    CurMatDesc->Set_Single_Texture(new_texture,pass,stage);
                 }
             }
             DX8FVFCategoryContainer *fvf_category=Peek_FVF_Category_Container();
@@ -96,10 +76,10 @@ void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass *vmat,VertexMate
     for(int pass=0;pass<Get_Pass_Count();++pass) {
         if(Has_Material_Array(pass)) {
             for(int i=0;i<Get_Vertex_Count();++i) {
-                if(Peek_Material(i,pass)==vmat) Set_Material(i,new_vmat,pass);
+                if(CurMatDesc->Peek_Material(i,pass)==vmat) CurMatDesc->Set_Material(i,new_vmat,pass);
             }
         } else {
-            if(Peek_Single_Material(pass)==vmat) Set_Single_Material(new_vmat,pass);
+            if(Peek_Single_Material(pass)==vmat) CurMatDesc->Set_Single_Material(new_vmat,pass);
         }
         DX8FVFCategoryContainer *fvf_category=Peek_FVF_Category_Container();
         if(fvf_category) fvf_category->Change_Polygon_Renderer_Material(PolygonRendererList,vmat,new_vmat,pass);
