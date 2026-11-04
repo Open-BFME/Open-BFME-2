@@ -63,7 +63,7 @@ def fake_layouts(root):
 
 
 class Fixture:
-    def __init__(self, files, build_ok=True, ledger=(), canon=None):
+    def __init__(self, files, build_ok=True, ledger=(), canon=None, no_layout=()):
         self.dir = tempfile.TemporaryDirectory()
         self.root = Path(self.dir.name)
         for name, text in files.items():
@@ -74,7 +74,11 @@ class Fixture:
             self.builds.append(list(changed))
             return build_ok, "Functions: OK" if build_ok else "Functions: FAIL 1/2"
 
-        self.tool = V.Tool("Seed.cpp", root=self.root, layouts=fake_layouts(self.root), build=build,
+        base = fake_layouts(self.root)
+        # A class nothing uses concretely gets no CodeView record from the real
+        # compiler; no_layout reproduces that.
+        layouts = (lambda f: {k: v for k, v in base(f).items() if k not in no_layout}) if no_layout else base
+        self.tool = V.Tool("Seed.cpp", root=self.root, layouts=layouts, build=build,
                            unmatched=lambda files: [], ledger=list(ledger), held=lambda files: [],
                            canon=canon or {})
         self.files = list(files)
@@ -152,6 +156,39 @@ class Superset(unittest.TestCase):
         self.assertEqual(self.fx.text("Donor.cpp"), DONOR)
         self.assertEqual(self.fx.text("Seed.cpp"), SEED)
         self.assertEqual(self.fx.builds, [])
+
+    def test_identical_views_are_already_shared_even_with_no_layout(self):
+        """A class two files declare identically, which neither file uses
+        concretely, has no CodeView layout. plan() cannot run without one and
+        reported it as a CONFLICT; but identical views need no write, so the
+        honest status is "already shared" and no layout is required to say it."""
+        decl = "class Opaque\n{\npublic:\n\tvoid go();\n};\n"
+        a = "// cl: /DNDEBUG /MD\n" + decl + "\nint ua() { return 1; }\n"
+        b = "// cl: /DNDEBUG /MD\n" + decl + "\nint ub() { return 2; }\n"
+        fx = Fixture({"Seed.cpp": a, "Other.cpp": b}, no_layout=("Opaque",))
+        try:
+            rep = fx.run(dry_run=True)
+            self.assertEqual(rep["classes"]["Opaque"]["status"], "already shared")
+            self.assertEqual(fx.builds, [])
+            rep = fx.run()
+            self.assertEqual(rep["applied"], [])
+            self.assertEqual(rep["classes"]["Opaque"]["status"], "already shared")
+            self.assertEqual(fx.text("Seed.cpp"), a)
+            self.assertEqual(fx.text("Other.cpp"), b)
+            self.assertEqual(fx.builds, [])
+        finally:
+            fx.close()
+
+    def test_views_differing_only_in_whitespace_are_already_shared(self):
+        """ws() collapses runs but not presence, so a minified view and a
+        formatted one still differ and are NOT caught here (AptValue.cpp,
+        2026-11-04: that reformat was a real, landed change)."""
+        fx = Fixture({"Seed.cpp": SEED, "Twin.cpp": SEED.replace("\tint m_x;", "\tint  m_x;")})
+        try:
+            rep = fx.run(dry_run=True)
+            self.assertEqual(rep["classes"]["Foo"]["status"], "already shared")
+        finally:
+            fx.close()
 
     def test_a_dry_run_calls_views_that_already_agree_already_shared(self):
         """The apply path says "already shared" for a class whose views need no

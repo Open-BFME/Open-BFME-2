@@ -1265,6 +1265,15 @@ class Tool:
         return {n: next(iter(k)) for n, k in seen.items() if len(k) == 1}
 
     def describe(self, cls, files, texts, seed):
+        if self.spelled_alike(cls, files, texts):
+            # Nothing to write, so nothing to plan: the merge already emits this
+            # class once. Said before plan(), because plan() needs a layout and
+            # these views often have none - a class two files declare identically
+            # but neither file uses concretely has no CodeView record, and it was
+            # reported as a CONFLICT ("no file's CodeView lays X out") where the
+            # honest answer is that the views already agree. 8 of 16 such rows in
+            # the 2026-11-04 census were this case.
+            return {"status": "already shared", "files": files}, None
         try:
             plan = self.plan(cls, files, texts, seed)
         except Refused as exc:
@@ -1322,6 +1331,18 @@ class Tool:
             for c in retry:
                 self.attempt(c, shared[c], texts, seed, before, blocks, report, None)
         return report
+
+    def spelled_alike(self, cls, files, texts):
+        """True when every file spells the class the same way already, compared as
+        plan()'s own views are: comments and strings masked, whitespace runs
+        collapsed. Needs no layout, so it can be asked before plan()."""
+        spell = set()
+        for path in files:
+            span = class_span(texts[path], cls)
+            if not span:
+                return False               # a view plan() would read differently
+            spell.add(ws(hal.masked(texts[path][span[0]:span[1]])))
+        return len(spell) == 1
 
     def rewritten(self, plan, texts):
         """(new text per view file, the files it would change). Pure text."""
