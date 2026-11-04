@@ -33,18 +33,7 @@
 #define COORD2D_VIEW_DTOR
 #include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
 
-class Image
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	int getImageSize() const { return m_24; }
-
-private:
-	char m_pad00[8];
-	AsciiString m_name; // +0x08
-	char m_pad0C[0x24 - 0x0C];
-	int m_24; // +0x24
-};
+#include "../../../../GameEngine/Include/GameClient/ImageClass.h"
 
 class ImageCollection
 {
@@ -106,7 +95,7 @@ Rva0010461F::Rva0010461F()
 	  m_edgeImage(TheMappedImageCollection->findImageByName(AsciiString("RadarViewBoxEdge")))
 {
 	if (m_edgeImage != 0)
-		m_edgeTexture = TextureAsset::Get(m_edgeImage->getName().str(), 1, 0);
+		m_edgeTexture = TextureAsset::Get(m_edgeImage->getFilename().str(), 1, 0);
 }
 
 #include "../../../../GameEngine/Include/GameClient/Display.h"
@@ -167,7 +156,7 @@ void Rva0010461F::rva00104359()
 		if (minLength > length)
 			minLength = length;
 	}
-	float size = (float)m_edgeImage->getImageSize();
+	float size = (float)m_edgeImage->getImageWidth();
 	size = (float)TheDisplay->getWidth() * size / 1024.0f;
 	if (size > minLength)
 		size = minLength;
