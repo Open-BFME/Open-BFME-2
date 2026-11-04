@@ -181,9 +181,10 @@ def audit(base, tip, verified):
             missing.append(source)
         else:
             replacements.append(obj)
-    # Before the receipt check, which a byte-verified object can still fail: this needs only the object.
-    built = [build.obj_path(link_check.ROOT / source) for source in sorted(scope)]
-    refused = omitted_references(rows, [obj for obj in built if obj.is_file()])
+    # Before the receipt check, which a byte-verified object can still fail. Only objects known to be
+    # current: scope also holds consumers of a changed identity, whose object here may predate a fix.
+    built = {build.obj_path(link_check.ROOT / source) for source in sorted(scope & set(verified))} | set(replacements)
+    refused = omitted_references(rows, sorted(obj for obj in built if obj.is_file()))
     if refused:
         for obj, name in refused[:20]:
             print(f"  OMITTED {obj} references {name}, defined in a placement object the real link leaves out")

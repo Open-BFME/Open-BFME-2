@@ -323,3 +323,23 @@ def test_omitted_reference_is_refused_even_when_receipts_are_stale(monkeypatch, 
     monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
     monkeypatch.setattr(A, "omitted_references", lambda rows, objects: [("ini.obj", "?j_0052b7b3@@YAXXZ")] if objects else [])
     assert A.audit("a" * 40, "b" * 40, ["Code/INI.cpp"]) == 1
+
+
+def test_a_stale_consumer_outside_the_verified_set_is_not_judged_for_omitted_references(monkeypatch, tmp_path, capsys):
+    saved = index()
+    marker = tmp_path / "index.pkl"
+    marker.touch()
+    current = tmp_path / "ini.obj"
+    current.touch()
+    monkeypatch.setattr(A.link_check, "INDEX", marker)
+    monkeypatch.setattr(A.link_check, "load_index", lambda: saved)
+    monkeypatch.setattr(A, "changed_sources", lambda base, tip: {"Code/INI.cpp"})
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": "Code/INI.cpp"}])
+    monkeypatch.setattr(A.link_census, "data_ledger", lambda: [])
+    monkeypatch.setattr(A.link_census, "RetailTruth", lambda rows: None)
+    monkeypatch.setattr(A.build, "obj_path", lambda source: current)
+    monkeypatch.setattr(A.link_census, "object_current", lambda source, obj: False)
+    monkeypatch.setattr(A, "omitted_references", lambda rows, objects: [("ini.obj", "?j_0052b7b3@@YAXXZ")] if objects else [])
+    assert A.audit("a" * 40, "b" * 40, []) == 2      # in scope by the change alone, stale, not verified: unverified
+    assert "OMITTED" not in capsys.readouterr().out
+
