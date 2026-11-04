@@ -181,17 +181,19 @@ def audit(base, tip, verified):
             missing.append(source)
         else:
             replacements.append(obj)
-    if missing:
-        print(f"link batch audit: INCONCLUSIVE: {len(missing)} source object(s) lack current receipts; "
-              f"first: {missing[0]}")
-        return 2
-    refused = omitted_references(rows, replacements)
+    # Before the receipt check, which a byte-verified object can still fail: this needs only the object.
+    built = [build.obj_path(link_check.ROOT / source) for source in sorted(scope)]
+    refused = omitted_references(rows, [obj for obj in built if obj.is_file()])
     if refused:
         for obj, name in refused[:20]:
             print(f"  OMITTED {obj} references {name}, defined in a placement object the real link leaves out")
         print(f"link batch audit: FAILED: {len(refused)} reference(s) to omitted objects; "
               "exit_link.py would refuse to link. Reach the row the omitted thunk jumps to instead")
         return 1
+    if missing:
+        print(f"link batch audit: INCONCLUSIVE: {len(missing)} source object(s) lack current receipts; "
+              f"first: {missing[0]}")
+        return 2
     # A changed ledger may remove an object without deleting its source path.
     current_objects = {build.obj_path(link_check.ROOT / source).name for source in sources}
     removed |= {obj for source, obj in old_by_source.items() if source not in sources and obj not in current_objects}
