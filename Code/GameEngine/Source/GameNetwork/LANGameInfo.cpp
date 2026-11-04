@@ -30,6 +30,8 @@ enum
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 #include "ascii_string.h"
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
+#include "../../Include/GameNetwork/LANPlayerClass.h"
 
 // LANGameSlot's copy assignment, rowed under its address name (0x00447B58).
 struct Rva00447B0E
@@ -88,12 +90,6 @@ template <> class VSlots<0>
 {
 };
 
-struct BfmeNetAddress
-{
-	UnsignedInt m_ip;
-	UnsignedInt m_port;
-};
-
 class LANAPI : public VSlots<64>
 {
 public:
@@ -120,22 +116,6 @@ public:
 	Bool isPlayer(UnicodeString userName) const;
 public:
 	GameSlot( void );
-};
-
-class LANPlayer
-{
-public:
-	LANPlayer( void ) : m_lastHeard( 0 ), m_next( 0 ), m_IP( 0 ), m_port( 0 ) {}
-	~LANPlayer( void );
-
-private:
-	UnicodeString m_name;				// +0x00
-	UnicodeString m_login;				// +0x04
-	UnicodeString m_host;				// +0x08
-	UnsignedInt m_lastHeard;			// +0x0C
-	LANPlayer *m_next;				// +0x10
-	UnsignedInt m_IP;				// +0x14
-	UnsignedShort m_port;				// +0x18
 };
 
 class LANGameSlot : public GameSlot
