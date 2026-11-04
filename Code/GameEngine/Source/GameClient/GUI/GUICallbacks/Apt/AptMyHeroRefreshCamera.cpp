@@ -136,21 +136,7 @@ struct CameraPosition {
 		return *this;
 	}
 };
-class AptMyHero {
-public:
-	BfmePod8 *GetObjectInfo(int);
-private:
-	char pad00[0xc];
-	int field0C,field10;
-	char pad14[0x140-0x14];
-	void *holder140;
-	char pad144[0x168-0x144];
-	float field168,field16C;
-	int field170;
-	public:
-	Rva005B0473View *rva005B0473();
-	void rva005B1019();
-};
+#include "../../../../../Include/GameClient/AptMyHero.h"
 void AptMyHero::rva005B1019(){
 	Thing *object=(Thing *)reinterpret_cast<Rva004076EE *>(this)->rva004076EE();
 	if(!object)return;
@@ -158,16 +144,16 @@ void AptMyHero::rva005B1019(){
 	int firstIndex=firstView->field68;
 	BfmePod8 *info=GetObjectInfo(firstIndex);
 	object->setOrientation(field168+info->b);
-	int b=field10;
-	int classIndex=field0C;
+	int b=m_10;
+	int classIndex=m_0c;
 	const MyHeroCameraView2 *view=reinterpret_cast<const MyHeroCameraView2 *>(TheCreateAHeroManager->GetViewInfo(classIndex,b));
 	float interpolationFactor=field16C;
 	const MyHeroCameraPreset *preset=&view->preset18;
 	bool useLerp=true;
 	if(field170){
 		useLerp=false;
-		int currentChoice=*(int *)((char *)holder140+0x410);
-		if(currentChoice==((int *)((char *)holder140+0x418))[3])preset=&view->preset30;
+		int currentChoice=*(int *)((char *)field140+0x410);
+		if(currentChoice==((int *)((char *)field140+0x418))[3])preset=&view->preset30;
 		else preset=&view->preset48;
 	}
 	Rva005B01D3 *lerp=(Rva005B01D3 *)view;
