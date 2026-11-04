@@ -747,6 +747,19 @@ public:
 #include "../../../Include/Common/Rva00404781.h"
 #include "../../../Include/Common/VictorySystem.h"
 #include <stl/_algobase.h>
+// Native285FA9 parses an indexed24B terrain-material entry at instance+10.
+// The named INI token/table/exception providers and retail Color/Name/Fuel/
+// MaxBurnRate/Decay/Resistance descriptors establish field-parser purpose.
+// A normal local static aggregate owns its compiler-generated lazy guard.
+// Keep the retail IAT call when the containing TU clears the CRT's _CRTIMP.
+namespace FireLogicCRT {
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+}
+class INI;
+typedef void (*INIFieldParseProc)(INI *,void *,void *,const void *);
+#include "../../../Include/Common/INI/FieldParse.h"
+#include "../../../Include/Common/INI/INI.h"
+
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
@@ -779,7 +792,28 @@ _Construct<Rva00287F76Element, Rva00287F76Element>(
 
 // tu-skeleton: 0x00285F43 102B ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
-// tu-skeleton: 0x00285FA9 293B ?Rva00285FA9Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemParseMaterial.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystemParseMaterial.cpp
+
+static inline const void *materialMask(unsigned mask) { return reinterpret_cast<const void *>(mask); }
+
+void Rva00285FA9Parse(INI *ini,void *,void *store,const void *) {
+ const char *token=ini->getNextToken(0);
+ if(!token) throw INIException(3,"TerrainCellType index expected.");
+ int index=FireLogicCRT::atoi(token);
+ if(index<0 || index>=4) throw INIException(3,"TerrainCellType index out of valid range.");
+ static const FieldParse fields[]={
+  {"Color",INI::parseColorInt,0,0},
+  {"Name",INI::parseAsciiString,0,4},
+  {"Fuel",INI::parseUnsignedInt,materialMask(0xffff),8},
+  {"MaxBurnRate",INI::parseUnsignedInt,materialMask(0xfff),12},
+  {"Decay",INI::parseUnsignedInt,materialMask(0x3ff),16},
+  {"Resistance",INI::parseUnsignedInt,materialMask(0xff),20},
+  {0,0,0,0}
+ };
+ ini->initFromINI((char *)store+0x10+index*24,fields);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 
@@ -1326,6 +1360,15 @@ Rva003ED658 Rva00286356::rva00286356()
 	return *reinterpret_cast<Rva003ED658 const *>(rva002862C9());
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00287f76_overflow.cpp
+
+//
+// vector<Rva00287F76Element>::_M_insert_overflow, retail 0x00287B4D, 184 bytes.
+// Masked-identical to landed BfmeE8 overflow at 0x00057C80 (8-byte stride,
+// inline free). Same no-EH / bfmealloc recipe as stlport_vector_e8_allocate_copy.cpp.
+
+template class _STL::vector<Rva00287F76Element, _STL::allocator<Rva00287F76Element> >;
+
 // tu-skeleton: 0x002862AD 28B ??_GRva00285BEC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x002862C9 136B ?rva002862C9@Rva002862C9@@QAEPAVLargeGroupAudioKeyMap@@XZ -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp (not merged yet)
@@ -1367,15 +1410,6 @@ Rva003ED658 Rva00286356::rva00286356()
 // tu-skeleton: 0x00287552 1496B ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00287C51 805B ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00287f76_overflow.cpp
-
-//
-// vector<Rva00287F76Element>::_M_insert_overflow, retail 0x00287B4D, 184 bytes.
-// Masked-identical to landed BfmeE8 overflow at 0x00057C80 (8-byte stride,
-// inline free). Same no-EH / bfmealloc recipe as stlport_vector_e8_allocate_copy.cpp.
-
-template class _STL::vector<Rva00287F76Element, _STL::allocator<Rva00287F76Element> >;
 
 // tu-skeleton: 0x00773E7A 8B $L699 -- matched in Code/GameEngine/Source/Common/Rva00285BECDtor.cpp (not merged yet)
 
