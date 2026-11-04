@@ -1,4 +1,5 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /G7 /arch:SSE
+// platformsdk
 // ?OnHostStartGame@AptMpGameSetup@@QAE_N_N@Z
 // stlport
 //
@@ -12,6 +13,10 @@
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <windows.h>
 #include <vector>
 #include <set>
 
@@ -39,7 +44,6 @@ extern Mouse *TheMouse;
 
 void *bfmeGo925A(BfmeKeyLC *comboBox);
 
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 
 enum SlotState
 {
@@ -189,9 +193,6 @@ void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
 void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
 int Rva0043DDF8(int count);
 
-extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
-extern "C" int __cdecl strcmp(const char *left, const char *right);
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 class Image;
 
@@ -423,7 +424,6 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
 // Rva00511730Save.cpp's text entry helper.
 void Rva00511730(int value);
