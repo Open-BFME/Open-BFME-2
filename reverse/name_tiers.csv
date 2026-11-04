@@ -11320,7 +11320,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?Rva0040B218Copy@@YAPAVRva0040AEE3@@PAV1@00@Z,0x0040B218,address,placeholder
 ??_GRva0040AFF3@@QAEPAXI@Z,0x0040B2E1,address,placeholder
 ??$__uninitialized_copy@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00ABU__false_type@0@@Z,0x0040B2FD,address,placeholder
-??$__copy_ptrs@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00U__false_type@0@@Z,0x0040B350,address,placeholder
+??$__copy_ptrs@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00ABU__false_type@0@@Z,0x0040B350,address,placeholder
 ?rva0040B4F9@Rva0040B4F9@@QAEXXZ,0x0040B4F9,address,placeholder
 ??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z,0x0040B547,address,placeholder
 ??1Rva0040B560@@QAE@XZ,0x0040B560,address,placeholder

@@ -100,13 +100,13 @@ vector<BfmeRecord0040B61A, allocator<BfmeRecord0040B61A> >::operator=(
             _M_start = __tmp;
             _M_end_of_storage._M_data = _M_start + __xlen;
         } else if (size() >= __xlen) {
-            pointer __i = __copy_ptrs((const_pointer)__x._M_start+0,
-                (const_pointer)__x._M_finish+0, (pointer)_M_start, _TrivialAss());
+            Rva0040AEE3 *__i = __copy_ptrs((Rva0040AEE3 *)__x._M_start+0,
+                (Rva0040AEE3 *)__x._M_finish+0, (Rva0040AEE3 *)_M_start, _TrivialAss());
             Rva0040B52EDestroy((DestroyElem0040B52E *)__i,
                 (DestroyElem0040B52E *)_M_finish);
         } else {
-            __copy_ptrs((const_pointer)__x._M_start,
-                (const_pointer)__x._M_start + size(), (pointer)_M_start, _TrivialAss());
+            __copy_ptrs((Rva0040AEE3 *)__x._M_start,
+                (Rva0040AEE3 *)(__x._M_start + size()), (Rva0040AEE3 *)_M_start, _TrivialAss());
             __uninitialized_copy((Rva0040AEE3 *)(__x._M_start + size()),
                 (Rva0040AEE3 *)__x._M_finish, (Rva0040AEE3 *)_M_finish, _IsPODType());
         }
