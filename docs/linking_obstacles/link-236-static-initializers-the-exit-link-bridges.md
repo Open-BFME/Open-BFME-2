@@ -268,16 +268,34 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 - The static's `.bss` address falls inside its TU's data contribution next to ledgered globals.
 
 **Runtime hazards found (not counted in `initializers_bridged`).**
-- **Registered twice (116).** Objects register an initializer whose retail entry another object
-  already registers, so the image builds that global twice. 52 come from
-  `FXParticleSystemFactories.obj`, which re-emits `ModuleTag<...>::s_key`/`s_name` template-static
-  initializers rowed in `FXParticleSystemModules.cpp`; an example is 0x007AF6F3. Retail compiled these
-  once. The split `FXParticleSystem*` files each instantiate them, and merging those files into their
-  TU removes the copies.
-- **Unidentified (342).** Registrations whose shape and relocations match no retail entry. 224 are
-  in `FXParticleSystem.obj`, `FXParticleSystemFactories.obj` and `FXParticleSystemModules.obj`; for
-  example `g_categoryModuleTemplate<N>` ctor+atexit. They run in our image and never in retail. Check
-  whether retail initializes these statically before an image boots.
+- **Registered twice (116; 6 since `b4d81c1215`).** Objects register an initializer whose retail
+  entry another object already registers. The FXParticleSystem part was a counting error, not a
+  runtime hazard (halilkkaya-fx-o1, 2026-11-04). *Object facts:* MSVC 7.1 emits a template static
+  data member's dynamic initializer in every object that instantiates it, and puts its `.CRT$XCU`
+  slot in a COMDAT section of selection 5 (associative) tied to the pick-any COMDAT of the data. In
+  `FXParticleSystemFactories.obj`, `_$E94`'s slot (section 1098, `0xC0301040`) is associative with
+  section 1097, `?s_key@?$ModuleTag@$04$E?SPHERE_EMISSION_VOLUME_MODULE_KEY@...`, and
+  `FXParticleSystemModules.obj` carries the same pair. The linker keeps one copy of the data and drops
+  the other object's associated slot, so the slot runs once. `image_report` now counts one
+  registration per owning COMDAT (`registered_comdat_copies_discarded`). On `4be378257d`'s objects:
+  81 copies discarded (80 Factories/Modules pairs and one `AutoPoolClass<HAnimComboDataClass>::
+  Allocator` pair in `hanim.obj`/`HAnimComboBFME1.obj`), twice 58 -> 6, unidentified 599 -> 520,
+  not registered 781 -> 783 (two weak shape credits moved).
+- **Unidentified (342; 520 by the corrected report, 146 of them FXParticleSystem).** Registrations
+  whose shape and relocations match no retail entry. They run in our image and never in retail.
+  The FXParticleSystem ones are emission scaffolding, not retail globals: none is in
+  `reverse/data_ledger.csv`.
+  - 77 in `FXParticleSystem.obj`: file-scope `CategoryModuleTemplate<N> g_categoryModuleTemplateN`
+    objects and `g_*Assign*` pointers to members (`FX_FORCE_CATEGORY_ASSIGN`). The comments say
+    they exist to force out template constructors and assignments nothing in the split file calls.
+  - 39 plain in `FXParticleSystemModules.obj`/`FXParticleSystemFactories.obj`: the same pattern,
+    `g_*ModuleConcrete` and `g_defaultConcreteN` objects and `g_*ConcreteAssign` pointers.
+  - 29 associative `ConcreteModuleClass<...>::s_instance` slots that match no retail entry, and
+    one in `Rva003A5A58WindUpdate.obj`.
+  Retail emitted those COMDATs from the module code of its own `fxps*.cpp` units. The scaffolding
+  can go only when the bodies that need the COMDATs share a unit with them, which needs TU approval
+  for the `fxps*` units first. The evidence package is in `docs/consolidation.md` ("FXParticleSystem:
+  approved units are single files, approval is the wall").
 - **Shape-only credits (3).** These are listed in `by_shape_only` and are weak.
 
 **Next useful checks.**

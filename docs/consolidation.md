@@ -1340,3 +1340,72 @@ concatenation failed even in groups passing its static checks. Its placement
 lane therefore moves fragments and preserves per-file environments; it does not
 solve consolidation by itself. BFME 2 keeps that distinction and uses its own
 existing guarded naming, TU, class and verification machinery.
+
+### FXParticleSystem: approved units are single files, approval is the wall (2026-11-04)
+
+`name_lane.py consolidate --under Code/GameEngine/Source/GameClient/System/FXParticleSystem/`
+surveyed 294 files in 10 groups, none statically clear. `tu_skeleton.py --list` on the directory
+names nine approved TUs, and none of them has anything to merge:
+
+- The seven `fxps*module.cpp` TUs each hold one approved row, their `__FILE__` anchor, already in
+  a file of that name. `DefaultModuleHeadBase.cpp` (three provisional N rows) is one file too.
+- `T1Base_005F3750.cpp` holds only four `p-group provisional` funclets of 0x0055C903, whose own
+  row is only proposed (N). A carve cannot move funclets without their parent. The parent's
+  WorldBuilder pairing names `fxpsdefaultdrawmodule.cpp`, so the provisional name is probably not
+  its unit. Its unresolved `??1T1Base_005F3750` is the `Rva003ABA36` class-identity fold recorded
+  in LINK-181, not a TU question.
+
+**Why the rest has no TU (1,199 of the 1,318 tu_map rows of the directory's files).** Each `fxps`
+unit has one F anchor, so C brackets nothing. Retail's file names (`fxpsemitterboxvolumemodule.cpp`)
+do not follow `<dir>/<Class>.cpp`, and `tu_map.demangle` reads no class from a namespaced name
+(`?getPosition@SphereEmissionVolumeModule@FXParticleSystem@@...`), so N, U and W have nothing to
+work with. The code is new in BFME 2, so Z and S cannot reach it.
+
+**Missed F evidence (target facts).** F reads only `reverse/string_xrefs.tsv`, the Ghidra export,
+which lists the references Ghidra created. A scan of retail `.text` for imm32 operands equal to one
+of the 173 retail `.cpp` path strings, decoded with capstone inside the owning row, finds 301
+`push`/`mov` references in 213 functions that the export lacks:
+
+| owner's current map row | functions |
+| --- | ---: |
+| approved for the same TU (agreement) | 139 |
+| no TU | 21 |
+| proposed for the same TU | 10 |
+| proposed or displaced to another TU | 23 |
+| approved for another TU | 20 |
+
+Most of the 20 are provisional names that retail's own path corrects. For example,
+`AINavyUnitBattleShip` is approved under `Common/` while retail names
+`GameLogic/SkirmishAI/AITacticalAI/AITacticalNavy/`, and `HordeContain.cpp` sits one directory above
+retail's `Contain/HordeContain/`. One is a real conflict: the function at 0x00216332, approved for
+`BannerUI.cpp` by C, pushes `LivingWorldAIArmyMover.cpp`.
+
+In this directory the missed references are:
+- `fxpswindmodule.cpp` at 0x003A5926 (`mov ebx`) in 0x003A58A6 and at 0x003A59FB in 0x003A59C3,
+  three anchors over 0x003A5572..0x003A5A42;
+- `fxpsstoragemodule.cpp`, which has no F row at all, at 0x003B066A in 0x003B0578 and at
+  0x003B096E/0x003B0ABD in 0x003B0869;
+- `W3DFXParticleSystem.cpp` at 0x0004D229/0x0004D26A in 0x0004CF9A.
+
+Every reference is listed in `reverse/attempt_support/tu-evidence-missed-file-xrefs-20261104.tsv`.
+
+**What approval needs (maintainer action, stopped here).** Two routes: re-export
+`string_xrefs.tsv` with the references Ghidra missed, or let F take capstone-verified imm32
+operands from retail, as `source_layout.py` already does for routing. Either route then needs
+`tu_map.py --validate` and the hold-out over the approvals it changes. A seat must not hand-edit a
+generated input to move approvals.
+
+WorldBuilder pairings also name six draw-module units for constructors and draw bodies:
+- `fxpsdefaultdrawmodule` at 0x0055C478, 0x0055C8BC and 0x0055C903;
+- `fxpsstreakdrawmodule` at 0x00560135;
+- `fxpsquaddrawmodule` at 0x00560A58;
+- `fxpsbutterflydrawmodule` at 0x005613B2;
+- `fxpslightningdrawmodule` at 0x00561D3D;
+- `fxpsgpudrawmodule` at 0x005639A4.
+
+These are donor facts. W anchors only where a row's N gives the same path, which the naming above
+rules out.
+
+**Initializers.** The 52 "registered twice" from `FXParticleSystemFactories.obj` were a counting
+error (LINK-236, `b4d81c1215`). Merging these files would retire emission scaffolding (146
+unidentified registrations), not double construction.
