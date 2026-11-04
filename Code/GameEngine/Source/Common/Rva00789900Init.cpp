@@ -1,6 +1,8 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
-extern "C" void *__identifier("??_7W3DAptComponentView3D@@6B@")[];
+namespace W3DAptComponentTable {
+extern "C" const void *const __identifier("??_7W3DAptComponentView3D@@6B@")[];
+}
 
 class Rva00789900Init
 {
@@ -25,7 +27,7 @@ Rva00789900Init::Rva00789900Init(unsigned char flag)
 {
 	m_04 = 0xffffffff;
 	m_08 = 0;
-	m_table = __identifier("??_7W3DAptComponentView3D@@6B@");
+	m_table = (void *)W3DAptComponentTable::__identifier("??_7W3DAptComponentView3D@@6B@");
 	m_0c = 0;
 	m_10 = 0;
 	m_14 = flag;
