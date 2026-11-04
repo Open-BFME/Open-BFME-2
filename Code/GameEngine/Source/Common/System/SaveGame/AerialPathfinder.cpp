@@ -26,15 +26,6 @@ namespace _STL { template <> void _List_base<BfmePod8,allocator<BfmePod8> >::cle
 
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class __declspec(novtable) Rva0022C987Base
-{
-public:
-	Rva0022C987Base() { reinterpret_cast<SubsystemInterface *>(this)->SubsystemInterface::SubsystemInterface(); }
-	virtual ~Rva0022C987Base();
-private:
-	char m_pad[8];
-};
-
 template <int NUM_BITS>
 class BitFlags
 {
@@ -46,7 +37,10 @@ public:
 
 struct BfmePod8 { int a[2]; };
 
-class AerialPathfinder : public Rva0022C987Base
+// Both native lifetime edges use SubsystemInterface: constructor 0x001B4E63
+// and the constructor's unwind cleanup 0x001B4E74. Use the same base as the
+// rowed AerialPathfinder destructor, rather than a second private base name.
+class AerialPathfinder : public SubsystemInterface
 {
 public:
 	AerialPathfinder();

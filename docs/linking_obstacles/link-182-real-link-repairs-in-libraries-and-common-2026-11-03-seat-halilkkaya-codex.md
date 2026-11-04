@@ -2,6 +2,26 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### AerialPathfinder constructor base (2026-11-04, halilkkaya-codex)
+
+Base `efb5fcbb60`: replace the constructor's private `Rva0022C987Base`
+with the existing canonical `SubsystemInterface`, as its rowed destructor
+already does. Retail calls its constructor at 0x001B4E63 and its unwind
+destructor at 0x001B4E74. The synthetic base destructor was the one error
+attributed to this source in real-link artifact `612abfbebb`; its undefined
+name disappears. No new provider, pin, alias or row is introduced.
+
+Normal byte verification passes all five rows across the constructor and
+destructor; the constructor's frozen-file check is clean. True current-object
+base/tip previews over both units and their first-copy COMDAT providers
+(`MilesAudioVolumeConstructor.cpp`, `stlport_pod_list_bodies.cpp`), against
+index `a62ac1c10b`, retain all three LINKS peers and 1,907 preview bytes.
+Scoped DIR32 passes five owned rows plus three witnesses. The constructor
+still has the existing allocator-import and selected list-destructor findings
+in preview (LINK-002); its abbreviated vtable remains separate recovery work.
+No whole-image or census result is claimed. Local receipts:
+`build/seat_aerial_{base,tip,build}.log` and `build/seat_aerial_cohort.json`.
+
 
 ### CDManager real-link donor cleanup (2026-11-03, halilkkaya-codex)
 
