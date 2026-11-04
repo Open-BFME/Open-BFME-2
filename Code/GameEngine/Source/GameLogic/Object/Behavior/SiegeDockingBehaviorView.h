@@ -29,11 +29,15 @@ public:
 	virtual void slot() = 0;
 };
 
+struct Rva004598F2Point;
+
 class SiegeDockingBehavior : public UpdateModule, public SiegeDockingBehaviorSecondaryBase
 {
 public:
 	SiegeDockingBehavior(Thing *thing, const ModuleData *data);
 	virtual ~SiegeDockingBehavior();
+	Rva004598F2Point rva004598F2(int index);
+	Rva004598F2Point rva0045992F(int index);
 	// Retail primary table 0x00C414DC slots 1, 3 and 4: the rowed overrides 0x0045A16D,
 	// 0x0045A02F and 0x004599E5.
 	virtual NameKeyType getModuleNameKey() const;

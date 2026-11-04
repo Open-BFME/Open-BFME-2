@@ -42,32 +42,20 @@ struct SiegeDockEntry
 	int m_objectID20;
 };
 
-class SiegeDockingBehavior
-{
-public:
-	Rva004598F2Point rva004598F2(int index);
-	Rva004598F2Point rva0045992F(int index);
-	Object *getObject() const { return m_object; }
-private:
-	void *m_vtbl;
-	const void *m_moduleData;
-	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x24 - 0x0C];
-	_STL::vector<SiegeDockEntry *> m_entries; // +0x24
-};
+#include "SiegeDockingBehaviorView.h"
 
 // ?rva004598F2@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z @0x004598F2
 Rva004598F2Point SiegeDockingBehavior::rva004598F2(int index)
 {
-	if (index >= 0 && index < m_entries.size())
-		return m_entries[index]->m_coord08;
+	if (index >= 0 && index < m_vector.size())
+		return ((SiegeDockEntry *)m_vector[index])->m_coord08;
 	return *getObject()->getPosition();
 }
 
 // ?rva0045992F@SiegeDockingBehavior@@QAE?AURva004598F2Point@@H@Z @0x0045992F
 Rva004598F2Point SiegeDockingBehavior::rva0045992F(int index)
 {
-	if (index >= 0 && index < m_entries.size())
-		return m_entries[index]->m_coord14;
+	if (index >= 0 && index < m_vector.size())
+		return ((SiegeDockEntry *)m_vector[index])->m_coord14;
 	return *getObject()->getPosition();
 }
