@@ -41,12 +41,29 @@ private:
 	unsigned int m_words[8];
 };
 
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_RETAIL_5D = 0x5D,
+	OBJECT_STATUS_26 = 0x26
+};
+class Player;
+class Drawable;
+class Rva0047A14CBody;
 class Object
 {
 public:
+	bool testStatus(ObjectStatusTypes status) const;
+	Player *getControllingPlayer() const;
+	void rva0028DCC4();
+	Drawable *getDrawable() const;
 	void rva0028AE6D();
-	unsigned char m_pad000[0x110];
+	char m_pad00[0x110];
 	Rva00110ConditionBits m_conditionBits; // +0x110
+	char m_pad130[0x120];
+	Rva0047A14CBody *m_body250; // +0x250
+	char m_pad254[0x200];
+	unsigned char m_454; // +0x454
+	char m_pad455[0x3];
 };
 
 static __forceinline void rva0047A040SetCondition(Object *object, int bit)
