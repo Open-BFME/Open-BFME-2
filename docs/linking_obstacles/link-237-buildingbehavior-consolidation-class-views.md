@@ -1,4 +1,4 @@
-### LINK-236: BuildingBehavior consolidation needs compatible class views
+### LINK-237: BuildingBehavior consolidation needs compatible class views
 
 Status: Blocked. Updated: 2026-11-04; inspected revision: `d0bd44e76e`.
 Completed: the module-data destructor now names the proven window-vector destructor; its identity key retired through the owning tool, and its 57 linked-byte preview is preserved.
