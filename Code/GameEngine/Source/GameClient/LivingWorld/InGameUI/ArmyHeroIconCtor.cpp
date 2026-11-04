@@ -110,6 +110,22 @@ namespace StrategicInGameUI {
 UnicodeString __cdecl GetTooltipText(int id); // 0x005F027D (pinned)
 }
 
+// Rows retail's tables hold in the shared virtual base's slots (0x00879448, 0x00877C50).
+class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
+class Rva005F41AF { public: void rva005F41AF(); };
+class Rva005F3FF4 { public: void rva005F3FF4(); };
+class Rva005F3F6B { public: void rva005F3F6B(); };
+// Retail's details-portion rows. A vtordisp thunk enters them with the virtual base's pointer and they adjust it
+// themselves, so these forward by jump: a cast to a class would subtract the base's offset a second time.
+extern "C" {
+void __identifier("?fwd@Rva005E3AA2Mid@@QAEXXZ")();
+void __identifier("?rva005E51D3@Rva005E51D3@@QAEXXZ")();
+void __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")();
+void __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")();
+}
+// Their destructors enter with the virtual base's pointer, 0x14 past this class's start.
+class Rva005F422C { public: virtual ~Rva005F422C(); };
+class Rva005E3A76 { public: virtual ~Rva005E3A76(); };
 class Rva005F3F73 { public: Rva005F3F73(void *, void *) throw(); private: char storage[0x18]; };
 class Rva005F4096 { public: void clear(); Rva005F4096(Rva005F3F73 *p) : p(p) {} private: Rva005F3F73 *p; };
 class Rva005F4179Base { public: Rva005F4179Base() : count(0) {} virtual ~Rva005F4179Base() {} protected: int count; };
@@ -118,11 +134,11 @@ public:
  Rva005F4179(void *clip); virtual ~Rva005F4179();
  virtual void slot1()=0;
  virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *)=0;
- __declspec(noinline) virtual TreeHintRef00217D4C rva005F4254();
- __declspec(noinline) virtual void DoUpdate();
+ __declspec(noinline) virtual TreeHintRef00217D4C rva005F4254() { return ((Rva001524CA *)this)->rva001524CA(); }
+ __declspec(noinline) virtual void DoUpdate() { ((Rva005F41AF *)this)->rva005F41AF(); }
  virtual void slot5() {}
- virtual void rva005F3FF4();
- virtual void rva005F3F6B();
+ __declspec(noinline) virtual void rva005F3FF4() { ((Rva005F3FF4 *)this)->rva005F3FF4(); }
+ __declspec(noinline) virtual void rva005F3F6B() { ((Rva005F3F6B *)this)->rva005F3F6B(); }
 private: Rva005F4096 leaf;
 };
 struct HeroClipHolder { ArmyHeroIconMovieClip *p; HeroClipHolder():p(0){} };
@@ -130,7 +146,7 @@ namespace StrategicInGameUI {
 class ArmyHeroIcon : public virtual Rva005F4179 {
 public:
  ArmyHeroIcon(void *owner,void *clip,void *entry);
- virtual ~ArmyHeroIcon();
+ __declspec(noinline) virtual ~ArmyHeroIcon() { ((Rva005F422C *)((char *)this + 0x14))->Rva005F422C::~Rva005F422C(); }
  virtual void DoUpdate();
  virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *);
  __declspec(noinline) virtual TreeHintRef00217D4C rva005F4254();
@@ -149,11 +165,11 @@ namespace {
 class HeroDetailsPortion : public virtual Rva005F4179 {
 public:
  HeroDetailsPortion() : Rva005F4179(0) {}
- virtual ~HeroDetailsPortion();
- virtual void slot1();
- virtual void slot5();
- virtual void rva005F3FF4();
- virtual void rva005F3F6B();
+ __declspec(noinline) virtual ~HeroDetailsPortion() { ((Rva005E3A76 *)((char *)this + 0x14))->Rva005E3A76::~Rva005E3A76(); }
+ __declspec(noinline) virtual void slot1() { __identifier("?fwd@Rva005E3AA2Mid@@QAEXXZ")(); }
+ __declspec(noinline) virtual void slot5() { __identifier("?rva005E51D3@Rva005E51D3@@QAEXXZ")(); }
+ __declspec(noinline) virtual void rva005F3FF4() { __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")(); }
+ __declspec(noinline) virtual void rva005F3F6B() { __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")(); }
 private: char m_unrecovered[12];
 };
 struct EmitVtableTag;

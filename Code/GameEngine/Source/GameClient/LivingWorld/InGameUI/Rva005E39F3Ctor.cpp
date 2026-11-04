@@ -10,6 +10,24 @@
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
+class HeroClipReference;
+class AptMovieClipFrame;
+// Rows retail's tables hold in the shared virtual base's slots (0x00879448, 0x00877C50).
+class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
+class Rva005F41AF { public: void rva005F41AF(); };
+class Rva005F3FF4 { public: void rva005F3FF4(); };
+class Rva005F3F6B { public: void rva005F3F6B(); };
+// Retail's details-portion rows. A vtordisp thunk enters them with the virtual base's pointer and they adjust it
+// themselves, so these forward by jump: a cast to a class would subtract the base's offset a second time.
+extern "C" {
+void __identifier("?fwd@Rva005E3AA2Mid@@QAEXXZ")();
+void __identifier("?rva005E51D3@Rva005E51D3@@QAEXXZ")();
+void __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")();
+void __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")();
+}
+class Rva005F422C { public: virtual ~Rva005F422C(); };
+
 class Rva005F3F73
 {
 public:
@@ -36,16 +54,19 @@ protected:
 	int m_04;
 };
 
-class ArmyHeroIconMovieClip;
-
+// The slots in retail's order: the constructors below install tables built from them.
 class Rva005F4179 : public Rva005F4179Base
 {
 public:
 	Rva005F4179(void *clip);
 	virtual ~Rva005F4179();
-	virtual void DoUpdate();
-	virtual void CreateMovieClip(ArmyHeroIconMovieClip *);
-	virtual void rva005F4254();
+	virtual void slot01() = 0;
+	virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *) = 0;
+	__declspec(noinline) virtual TreeHintRef00217D4C rva005F4254() { return ((Rva001524CA *)this)->rva001524CA(); }
+	__declspec(noinline) virtual void DoUpdate() { ((Rva005F41AF *)this)->rva005F41AF(); }
+	virtual void slot05() {}
+	__declspec(noinline) virtual void slot06() { ((Rva005F3FF4 *)this)->rva005F3FF4(); }
+	__declspec(noinline) virtual void slot07() { ((Rva005F3F6B *)this)->rva005F3F6B(); }
 private:
 	Rva005F4096 m_08;
 };
@@ -84,7 +105,10 @@ class Rva005E39F3 : public virtual Rva005F4179
 {
 public:
 	Rva005E39F3(Rva005E39F3Arg *arg, void *clip, int count);
-	virtual void DoUpdate();
+	__declspec(noinline) virtual void slot01() { __identifier("?fwd@Rva005E3AA2Mid@@QAEXXZ")(); }
+	__declspec(noinline) virtual void slot05() { __identifier("?rva005E51D3@Rva005E51D3@@QAEXXZ")(); }
+	__declspec(noinline) virtual void slot06() { __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")(); }
+	__declspec(noinline) virtual void slot07() { __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")(); }
 private:
 	Rva005E39F3Arg *m_04;
 	int m_08;
@@ -97,18 +121,16 @@ Rva005E39F3::Rva005E39F3(Rva005E39F3Arg *arg, void *clip, int count)
 {
 }
 
-class ArmyHeroIconMovieClip;
-
 namespace StrategicInGameUI
 {
 class ArmyHeroIcon : public virtual Rva005F4179
 {
 public:
 	ArmyHeroIcon(void *owner, void *clip, void *entry);
-	virtual ~ArmyHeroIcon();
+	__declspec(noinline) virtual ~ArmyHeroIcon() { ((Rva005F422C *)((char *)this + 0x14))->Rva005F422C::~Rva005F422C(); }
 	virtual void DoUpdate();
-	virtual void CreateMovieClip(ArmyHeroIconMovieClip *);
-	virtual void rva005F4254();
+	virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *);
+	virtual TreeHintRef00217D4C rva005F4254();
 private:
 	void *m_owner;
 	void *m_hero;
@@ -125,7 +147,6 @@ class Rva005E3BD5 : public StrategicInGameUI::ArmyHeroIcon, public Rva005E39F3
 {
 public:
 	Rva005E3BD5(Rva005E39F3Arg *arg, void *clip, int count, void *entry);
-	virtual void DoUpdate();
 };
 
 Rva005E3BD5::Rva005E3BD5(Rva005E39F3Arg *arg, void *clip, int count, void *entry)

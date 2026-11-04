@@ -23,17 +23,28 @@
 // Evidence and full-body/provider receipts: W7-R1 r2 build/w7r1r2/diamond.
 #include <new>
 #include <vector>
-struct TargetRef00217D4C;
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C;
 class AptMovieClipFrame;
+// Rows retail's tables hold in the shared virtual base's slots (0x00879448, 0x00877C50).
+class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
+class Rva005F41AF { public: void rva005F41AF(); };
+// Retail's details-portion rows. A vtordisp thunk enters them with the virtual base's pointer and they adjust it
+// themselves, so these forward by jump: a cast to a class would subtract the base's offset a second time.
+extern "C" {
+void __identifier("?fwd@Rva005E3AA2Mid@@QAEXXZ")();
+void __identifier("?rva005E51D3@Rva005E51D3@@QAEXXZ")();
+void __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")();
+void __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")();
+}
+extern "C" { void __identifier("?DoUpdate@ArmyHeroIcon@StrategicInGameUI@@UAEXXZ")(); }
 class Rva005F4179 {
 public:
  virtual ~Rva005F4179();
  virtual void slot01()=0;
  virtual TreeHintRef00217D4C CreateMovieClip(AptMovieClipFrame *)=0;
- virtual TreeHintRef00217D4C rva005F4710();
- virtual void DoUpdate();
+ __declspec(noinline) virtual TreeHintRef00217D4C rva005F4710() { return ((Rva001524CA *)this)->rva001524CA(); }
+ __declspec(noinline) virtual void DoUpdate() { ((Rva005F41AF *)this)->rva005F41AF(); }
  virtual void slot05();
  virtual void slot06();
  virtual void slot07();
@@ -46,9 +57,10 @@ struct Rva005F422CClip {
 class Rva005F422C:public virtual Rva005F4179 {
 public:
  virtual ~Rva005F422C();
- virtual TreeHintRef00217D4C CreateMovieClip(AptMovieClipFrame *);
- virtual TreeHintRef00217D4C rva005F4710();
- virtual void DoUpdate();
+// Retail's table here (0x00879468) is ArmyHeroIcon's, which ArmyHeroIconCtor.cpp's constructor installs for the
+// object's life. This unit only stores it while destroying the icon, so the slots whose result types this view
+// lacks stay the base's; DoUpdate keeps the vtordisp and reaches retail's row with the virtual base's pointer.
+ __declspec(noinline) virtual void DoUpdate() { __identifier("?DoUpdate@ArmyHeroIcon@StrategicInGameUI@@UAEXXZ")(); }
 private: char m_unrecovered[8];Rva005F422CClip clip;
 };
 class Rva005E3A76Ref {public:virtual void release();int m_refs;};
@@ -59,10 +71,10 @@ struct Rva005E3A76Clip {
 class Rva005E3A76:public virtual Rva005F4179 {
 public:
  virtual ~Rva005E3A76();
- virtual void slot01();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
+ __declspec(noinline) virtual void slot01() { __identifier("?fwd@Rva005E3AA2Mid@@QAEXXZ")(); }
+ __declspec(noinline) virtual void slot05() { __identifier("?rva005E51D3@Rva005E51D3@@QAEXXZ")(); }
+ __declspec(noinline) virtual void slot06() { __identifier("?rva005E4389@Rva005E4389@@QAEXXZ")(); }
+ __declspec(noinline) virtual void slot07() { __identifier("?rva005E3E41@Rva005E3E41@@QAEXXZ")(); }
 private: char m_unrecovered[8];Rva005E3A76Clip clip;
 };
 Rva005F422C::~Rva005F422C(){}
