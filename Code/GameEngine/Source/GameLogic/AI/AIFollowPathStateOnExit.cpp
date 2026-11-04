@@ -92,11 +92,7 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual void onExit(StateExitType status);
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIFollowPathState : public AIInternalMoveToState
 {
 public:

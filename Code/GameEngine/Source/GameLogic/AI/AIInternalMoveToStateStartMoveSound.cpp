@@ -114,13 +114,7 @@ private:
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-private:
-	unsigned char m_pad20[0x40 - 0x20];
-	AudioHandle m_ambientPlayingHandle; // +0x40
-	void startMoveSound();
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 static inline void setObjectID(BfmeAudioEventPrefix136 &sound, ObjectID id)
 {

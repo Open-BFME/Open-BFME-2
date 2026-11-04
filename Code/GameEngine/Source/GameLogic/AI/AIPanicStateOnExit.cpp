@@ -43,11 +43,7 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual void onExit(StateExitType status);
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIPanicState : public AIInternalMoveToState
 {
 public:

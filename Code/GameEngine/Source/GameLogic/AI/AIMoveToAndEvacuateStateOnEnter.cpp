@@ -22,11 +22,7 @@ void Rva0033FA64Do(const Object0033FA64 *obj);
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-protected:
-	Coord3D m_goalPosition;
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIMoveToState : public AIInternalMoveToState
 {

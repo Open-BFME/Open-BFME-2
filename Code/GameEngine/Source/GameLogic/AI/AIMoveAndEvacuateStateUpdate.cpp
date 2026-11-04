@@ -43,11 +43,7 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType update();
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIMoveAndEvacuateState : public AIInternalMoveToState
 {
 public:

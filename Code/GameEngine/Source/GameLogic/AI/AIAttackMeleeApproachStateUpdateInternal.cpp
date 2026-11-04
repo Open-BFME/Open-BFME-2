@@ -95,20 +95,7 @@ template <> class AIUpdateSlots<0>
 
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual Bool computePath();
-
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48-0x2C];
-	Bool m_adjustsDestination; // +0x48
-	Bool m_waitingForPath; // +0x49
-	unsigned char m_pad4A[2];
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00349611 : public AIInternalMoveToState
 {

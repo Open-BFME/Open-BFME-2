@@ -110,27 +110,7 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	Bool getAdjustsDestination() const;
-	virtual Bool computePath();
-private:
-	Coord3D m_goalPosition; // +0x20
-	float m_2C; // +0x2C
-	PathfindLayerEnum m_goalLayer; // +0x30
-	Coord3D m_pathGoalPosition; // +0x34
-	AudioHandle m_ambientPlayingHandle; // +0x40
-	unsigned int m_pathTimestamp; // +0x44
-	Bool m_adjustDestinations; // +0x48
-	bool m_waitingForPath; // +0x49
-	Bool m_tryOneMoreRepath; // +0x4A
-	bool m_4B; // +0x4B
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 struct FprintfTarget
 {
