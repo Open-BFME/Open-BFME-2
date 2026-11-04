@@ -349,10 +349,7 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD241();
 	static void rva007AD270();
 	static void rva007AD2EF();
-	static void rva007AD31E();
 	static void rva007AD333();
-	static void rva007AD3B6();
-	static void rva007AD3CB();
 	static void rva007AD424();
 	static void rva007AD4CC();
 	static void rva007AD521();
@@ -361,8 +358,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD5DD();
 	static void rva007AD60C();
 	static void rva007AD621();
-	static void rva007AD636();
-	static void rva007AD64B();
 	static void rva007AD660();
 	static void rva007AD69F();
 	static void rva007AD6B4();
@@ -374,8 +369,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD85A();
 	static void rva007AD86F();
 	static void rva007AD884();
-	static void rva007AD8B6();
-	static void rva007AD8CB();
 	static void rva007AD8FA();
 	static void rva007AD939();
 	static void rva007AD94E();
@@ -431,8 +424,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007B0354();
 	static void rva007B0383();
 	static void rva007B03B2();
-	static void rva007B058F();
-	static void rva007B3A0D();
 };
 
 #define BLOCK_PARSE_INIT(init, node) \
@@ -472,14 +463,8 @@ BLOCK_PARSE_INIT( rva007AD241, theFXListBlockParse )
 BLOCK_PARSE_INIT( rva007AD270, theGameDataBlockParse )
 // ?rva007AD2EF@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD2EF (21B): "Locomotor"
 BLOCK_PARSE_INIT( rva007AD2EF, theLocomotorBlockParse )
-// ?rva007AD31E@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD31E (21B): "Language"
-BLOCK_PARSE_INIT( rva007AD31E, theLanguageBlockParse )
 // ?rva007AD333@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD333 (21B): "LinearCampaign"
 BLOCK_PARSE_INIT( rva007AD333, theLinearCampaignBlockParse )
-// ?rva007AD3B6@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD3B6 (21B): "MouseCursor"
-BLOCK_PARSE_INIT( rva007AD3B6, theMouseCursorBlockParse )
-// ?rva007AD3CB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD3CB (21B): "Mouse"
-BLOCK_PARSE_INIT( rva007AD3CB, theMouseBlockParse )
 // ?rva007AD424@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD424 (21B): "OnlineChatColors"
 BLOCK_PARSE_INIT( rva007AD424, theOnlineChatColorsBlockParse )
 // ?rva007AD4CC@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD4CC (21B): "ObjectCreationList"
@@ -496,10 +481,6 @@ BLOCK_PARSE_INIT( rva007AD5DD, theRankBlockParse )
 BLOCK_PARSE_INIT( rva007AD60C, theSpecialPowerBlockParse )
 // ?rva007AD621@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD621 (21B): "ShellMenuScheme"
 BLOCK_PARSE_INIT( rva007AD621, theShellMenuSchemeBlockParse )
-// ?rva007AD636@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD636 (21B): "Terrain"
-BLOCK_PARSE_INIT( rva007AD636, theTerrainBlockParse )
-// ?rva007AD64B@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD64B (21B): "WaterTextureList"
-BLOCK_PARSE_INIT( rva007AD64B, theWaterTextureListBlockParse )
 // ?rva007AD660@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD660 (21B): "Upgrade"
 BLOCK_PARSE_INIT( rva007AD660, theUpgradeBlockParse )
 // ?rva007AD69F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD69F (21B): "AerialPathfindNoFlyZone"
@@ -522,10 +503,6 @@ BLOCK_PARSE_INIT( rva007AD85A, theGlowEffectBlockParse )
 BLOCK_PARSE_INIT( rva007AD86F, theRingEffectBlockParse )
 // ?rva007AD884@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD884 (21B): "FireEffect"
 BLOCK_PARSE_INIT( rva007AD884, theFireEffectBlockParse )
-// ?rva007AD8B6@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD8B6 (21B): "LargeGroupAudioMap"
-BLOCK_PARSE_INIT( rva007AD8B6, theLargeGroupAudioMapBlockParse )
-// ?rva007AD8CB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD8CB (21B): "LargeGroupAudioUnusedKnownKeys"
-BLOCK_PARSE_INIT( rva007AD8CB, theLargeGroupAudioUnusedKnownKeysBlockParse )
 // ?rva007AD8FA@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD8FA (21B): "LivingWorldRegionCampaign"
 BLOCK_PARSE_INIT( rva007AD8FA, theLivingWorldRegionCampaignBlockParse )
 // ?rva007AD939@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD939 (21B): "LivingWorldObject"
@@ -636,7 +613,3 @@ BLOCK_PARSE_INIT( rva007B0354, theEmotionNuggetBlockParse )
 BLOCK_PARSE_INIT( rva007B0383, theMissionObjectiveListBlockParse )
 // ?rva007B03B2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B03B2 (21B): "AutoResolveArmor"
 BLOCK_PARSE_INIT( rva007B03B2, theAutoResolveArmorBlockParse )
-// ?rva007B058F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B058F (21B): "AnimationSoundClientBehaviorGlobalSetting"
-BLOCK_PARSE_INIT( rva007B058F, theAnimationSoundClientBehaviorGlobalSettingBlockParse )
-// ?rva007B3A0D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B3A0D (21B): "LivingWorldCampaign"
-BLOCK_PARSE_INIT( rva007B3A0D, theLivingWorldCampaignBlockParse )
