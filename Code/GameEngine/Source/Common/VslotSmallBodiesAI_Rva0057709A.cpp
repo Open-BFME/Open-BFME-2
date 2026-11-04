@@ -78,14 +78,14 @@ public:
 
 private:
 	char m_pad00[0x44];
-	StrategicHUD::CommandUIImpl *m_44;
+	StrategicHUD::CommandUIImpl *m_commandUI;
 	Rva000B3FD0 *m_48;
 	Rva000B3FD0 *m_4C;
 };
 void Rva005785CD::rva005785CD()
 {
-	if (m_44 != 0)
-		m_44->Update();
+	if (m_commandUI != 0)
+		m_commandUI->Update();
 	if (m_4C != 0)
 		m_4C->rva000B3FD0();
 	if (m_48 != 0)
