@@ -73,13 +73,12 @@ struct IDirect3DDevice8;
 
 extern unsigned number_of_DX8_calls;
 
-class Matrix4 { public: float Row[16]; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 struct Rva00726290Matrix4;
 
 __forceinline void Rva0006BBD9SetWorld(const Rva00726290Matrix4 &);
 
-struct RenderStateStruct { unsigned shader; char m_pad04[0x1E8]; Matrix4 world; };
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
@@ -907,43 +906,43 @@ void Rva00069AF5Host::rva00069AF5(float *out)
 
 __forceinline void Rva00726290SetWorld(const Rva00726290Matrix3D &m)
 {
-	DX8Wrapper::render_state.world.Row[0] = m.row[0];
-	DX8Wrapper::render_state.world.Row[1] = m.row[4];
-	DX8Wrapper::render_state.world.Row[2] = m.row[8];
-	DX8Wrapper::render_state.world.Row[3] = 0.0f;
-	DX8Wrapper::render_state.world.Row[4] = m.row[1];
-	DX8Wrapper::render_state.world.Row[5] = m.row[5];
-	DX8Wrapper::render_state.world.Row[6] = m.row[9];
-	DX8Wrapper::render_state.world.Row[7] = 0.0f;
-	DX8Wrapper::render_state.world.Row[8] = m.row[2];
-	DX8Wrapper::render_state.world.Row[9] = m.row[6];
-	DX8Wrapper::render_state.world.Row[10] = m.row[10];
-	DX8Wrapper::render_state.world.Row[11] = 0.0f;
-	DX8Wrapper::render_state.world.Row[12] = m.row[3];
-	DX8Wrapper::render_state.world.Row[13] = m.row[7];
-	DX8Wrapper::render_state.world.Row[14] = m.row[11];
-	DX8Wrapper::render_state.world.Row[15] = 1.0f;
+	DX8Wrapper::render_state.world.Row[0].X = m.row[0];
+	DX8Wrapper::render_state.world.Row[0].Y = m.row[4];
+	DX8Wrapper::render_state.world.Row[0].Z = m.row[8];
+	DX8Wrapper::render_state.world.Row[0].W = 0.0f;
+	DX8Wrapper::render_state.world.Row[1].X = m.row[1];
+	DX8Wrapper::render_state.world.Row[1].Y = m.row[5];
+	DX8Wrapper::render_state.world.Row[1].Z = m.row[9];
+	DX8Wrapper::render_state.world.Row[1].W = 0.0f;
+	DX8Wrapper::render_state.world.Row[2].X = m.row[2];
+	DX8Wrapper::render_state.world.Row[2].Y = m.row[6];
+	DX8Wrapper::render_state.world.Row[2].Z = m.row[10];
+	DX8Wrapper::render_state.world.Row[2].W = 0.0f;
+	DX8Wrapper::render_state.world.Row[3].X = m.row[3];
+	DX8Wrapper::render_state.world.Row[3].Y = m.row[7];
+	DX8Wrapper::render_state.world.Row[3].Z = m.row[11];
+	DX8Wrapper::render_state.world.Row[3].W = 1.0f;
 	DX8Wrapper::render_state_changed = (DX8Wrapper::render_state_changed & 0xfffbffff) | 1;
 }
 
 __forceinline void Rva0006BBD9SetWorld(const Rva00726290Matrix4 &m)
 {
-	DX8Wrapper::render_state.world.Row[0] = m.row[0];
-	DX8Wrapper::render_state.world.Row[1] = m.row[4];
-	DX8Wrapper::render_state.world.Row[2] = m.row[8];
-	DX8Wrapper::render_state.world.Row[3] = m.row[12];
-	DX8Wrapper::render_state.world.Row[4] = m.row[1];
-	DX8Wrapper::render_state.world.Row[5] = m.row[5];
-	DX8Wrapper::render_state.world.Row[6] = m.row[9];
-	DX8Wrapper::render_state.world.Row[7] = m.row[13];
-	DX8Wrapper::render_state.world.Row[8] = m.row[2];
-	DX8Wrapper::render_state.world.Row[9] = m.row[6];
-	DX8Wrapper::render_state.world.Row[10] = m.row[10];
-	DX8Wrapper::render_state.world.Row[11] = m.row[14];
-	DX8Wrapper::render_state.world.Row[12] = m.row[3];
-	DX8Wrapper::render_state.world.Row[13] = m.row[7];
-	DX8Wrapper::render_state.world.Row[14] = m.row[11];
-	DX8Wrapper::render_state.world.Row[15] = m.row[15];
+	DX8Wrapper::render_state.world.Row[0].X = m.row[0];
+	DX8Wrapper::render_state.world.Row[0].Y = m.row[4];
+	DX8Wrapper::render_state.world.Row[0].Z = m.row[8];
+	DX8Wrapper::render_state.world.Row[0].W = m.row[12];
+	DX8Wrapper::render_state.world.Row[1].X = m.row[1];
+	DX8Wrapper::render_state.world.Row[1].Y = m.row[5];
+	DX8Wrapper::render_state.world.Row[1].Z = m.row[9];
+	DX8Wrapper::render_state.world.Row[1].W = m.row[13];
+	DX8Wrapper::render_state.world.Row[2].X = m.row[2];
+	DX8Wrapper::render_state.world.Row[2].Y = m.row[6];
+	DX8Wrapper::render_state.world.Row[2].Z = m.row[10];
+	DX8Wrapper::render_state.world.Row[2].W = m.row[14];
+	DX8Wrapper::render_state.world.Row[3].X = m.row[3];
+	DX8Wrapper::render_state.world.Row[3].Y = m.row[7];
+	DX8Wrapper::render_state.world.Row[3].Z = m.row[11];
+	DX8Wrapper::render_state.world.Row[3].W = m.row[15];
 	DX8Wrapper::render_state_changed = (DX8Wrapper::render_state_changed & 0xfffbffff) | 1;
 }
 

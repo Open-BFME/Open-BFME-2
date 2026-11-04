@@ -80,25 +80,13 @@ extern View *TheTacticalView;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 extern VertexMaterialClass *ScreenMaterial;
 
-class ShaderClass
-{
-public:
-	static ShaderClass _PresetOpaqueShader;
-	static ShaderClass _PresetAlphaShader;
-	unsigned bits;
-	ShaderClass(unsigned value) : bits(value) {}
-	static __forceinline void Force_Dirty() { ShaderDirty = true; }
-protected:
-	friend class DX8Wrapper;
-	static bool ShaderDirty;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class TextureBaseClass { public: void Release_Ref(); };
 class WW3D {
 public: static bool Is_Snapshot_Activated() { return SnapshotActivated; }
 private: static bool SnapshotActivated;
 };
-struct RenderStateStruct { ShaderClass shader; };
 struct BFME2TextureResource;
 struct BFME2TextureRef
 {
@@ -165,8 +153,8 @@ public:
 	}
  static void Get_DX8_Render_State_Value_Name(StringClass &, unsigned long, unsigned int);
  static __forceinline void Set_Dot3_Shader(const ShaderClass &shader) {
-  if (!ShaderClass::ShaderDirty && shader.bits == render_state.shader.bits) return;
-  render_state.shader.bits = shader.bits;
+  if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader.ShaderBits) return;
+  render_state.shader.ShaderBits = shader.ShaderBits;
   render_state_changed |= 0x8000;
   StringClass str;
  }
@@ -650,9 +638,9 @@ Bool Rva000FCF54Filter::postRender(FilterModes mode, Coord2D &scrollDelta,
 	pDev->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v,
 		sizeof(Vertex));
 
-	ShaderClass::Force_Dirty();
+	ShaderClass::Invalidate();
 	DX8Wrapper::Set_Shader(
-		ShaderClass(ShaderClass::_PresetAlphaShader.bits | 7));
+		ShaderClass(ShaderClass::_PresetAlphaShader.ShaderBits | 7));
 	DX8Wrapper::Apply_Render_State_Changes();
 	DX8Wrapper::Set_DX8_Texture_Stage_State(0, 4, 3);
 	pDev->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v,
@@ -854,9 +842,9 @@ Bool Rva000FC34FFilter::postRender(FilterModes mode, Coord2D &scrollDelta,
 	pDev->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v,
 		sizeof(Vertex));
 
-	ShaderClass::Force_Dirty();
+	ShaderClass::Invalidate();
 	DX8Wrapper::Set_Shader(
-		ShaderClass(ShaderClass::_PresetAlphaShader.bits | 7));
+		ShaderClass(ShaderClass::_PresetAlphaShader.ShaderBits | 7));
 	DX8Wrapper::Apply_Render_State_Changes();
 	DX8Wrapper::Set_DX8_Texture_Stage_State(0, 4, 3);
 	pDev->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, v,

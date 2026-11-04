@@ -24,19 +24,24 @@
 // black-colour arm) and adds the translation through Vector4::operator+=;
 // both keep retail's float operand order under the plain ZH Matrix4x4 *
 // Vector4. Matrix types: pristine ZH WWMath at donor
-// a18d9ed50607e9175de4d6568798d7d73119de09 (donor fact); RenderStateStruct
-// view at +0x22C (0x009EE804) is target evidence.
+// a18d9ed50607e9175de4d6568798d7d73119de09 (donor fact); the
+// RenderStateStruct view matrix at +0x22C (0x009EE804) is target evidence.
 #include "ascii_string.h"
 class RenderInfoClass;
 class RefCountClass;
 // Keep the native inline Vector4 constructor while using its existing external owner.
 #include <vector4.h>
-#include "matrix4.h"
-class Matrix4 : public Matrix4x4 {
-public:
- __forceinline void identity() {Make_Identity();}
- __forceinline void transposeFrom(const Matrix4 &matrix4) {*(Matrix4x4*)this=matrix4.Transpose();}
-};
+#include "vector3.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
+// Zero Hour matrix4.h's Matrix4x4 * Vector4, which the canonical Matrix4 does not declare.
+__forceinline Vector4 operator * (const Matrix4 & a, const Vector4 & v) {
+	return Vector4(
+		a[0][0] * v[0] + a[0][1] * v[1] + a[0][2] * v[2] + a[0][3] * v[3],
+		a[1][0] * v[0] + a[1][1] * v[1] + a[1][2] * v[2] + a[1][3] * v[3],
+		a[2][0] * v[0] + a[2][1] * v[1] + a[2][2] * v[2] + a[2][3] * v[3],
+		a[3][0] * v[0] + a[3][1] * v[1] + a[3][2] * v[2] + a[3][3] * v[3]
+	);
+}
 class Rva0007671F:public Matrix4 {public:Rva0007671F();};
 struct D3DXMATRIX {float m[4][4];};
 extern "C" D3DXMATRIX*__stdcall D3DXMatrixRotationZ(D3DXMATRIX*,float);
@@ -56,7 +61,6 @@ class Rva0090F8C0Holder {public:void set(int,RefCountClass*,RefCountClass*,RefCo
 class Rva00177860 {public:void Render(RenderInfoClass&);void*refs[4];int count;RefCountPtr<TextureClass> texture;unsigned shader;float tail[4];};
 extern Rva00177860*g_00E0623C;
 enum D3DTRANSFORMSTATETYPE {D3DTS_VIEW=2,D3DTS_PROJECTION=3,D3DTS_WORLD=256,D3DTS_FORCE_DWORD=0x7fffffff};
-struct RenderStateStruct {char pad[0x1EC];Matrix4x4 world;Matrix4x4 view;};
 class DX8Wrapper {public:enum {WORLD_IDENTITY=1<<18,VIEW_IDENTITY=1<<19};static bool Get_Fog_Enable(){return FogEnable;}
  // BFME 2 DX8Wrapper::Get_Transform (WB 0x009C1560)
  static __forceinline void Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4x4& matrix4x4)
@@ -119,7 +123,7 @@ int QuadDrawModule::doParticles(RenderInfoClass&rinfo,void*bounds,int*particleCo
   else if(axis==2)D3DXMatrixRotationX((D3DXMATRIX*)&rotation,angle);
   else if(axis==3)D3DXMatrixRotationY((D3DXMATRIX*)&rotation,angle);
   else if(axis==5){Vector3 axisv(quadParticle->axis.X,-quadParticle->axis.Y,quadParticle->axis.Z);D3DXMatrixRotationAxis((D3DXMATRIX*)&rotation,&axisv,angle);}
-  else rotation.identity();
+  else rotation.Make_Identity();
   for(int i=0;i<4;++i)vertices[i]=rotation*vertices[i];
   Vector4 translation(pos->X,pos->Y,pos->Z,0);int start=count*4;
   for(int j=0;j<4;++j){vertices[j]+=translation;

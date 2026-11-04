@@ -52,14 +52,7 @@ public:
 	int NumRefs;
 };
 
-// The render-state block of dx8wrapper.h, only the fields used here.
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass *material;
-	unsigned char m_pad008[0x1EC - 0x008];
-	float world[4][4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class VertexMaterialClass;
 extern VertexMaterialClass *ScreenMaterial;

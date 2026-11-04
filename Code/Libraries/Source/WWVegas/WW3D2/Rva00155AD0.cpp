@@ -76,7 +76,7 @@ extern unsigned int g_Va00DEC4A0,g_Va00DEC4A4;
 extern unsigned number_of_DX8_calls;
 struct _D3DVIEWPORT8 {unsigned X,Y,Width,Height;float MinZ,MaxZ;};
 struct IDirect3DDevice8 { void **vtable; };
-struct RenderStateStruct { unsigned shader;VertexMaterialClass*material;unsigned char unmodelled[0x1EC-8];Matrix4 world,view; };
+#include "RenderStateStruct.h"
 #include "ShaderClass.h"
 class DX8Wrapper {
 public:
@@ -124,8 +124,8 @@ public:
         }
     }
     static __forceinline void SetShader(unsigned shader) {
-        if(!ShaderClass::ShaderDirty && shader==render_state.shader)return;
-        render_state.shader=shader;render_state_changed|=0x8000;
+        if(!ShaderClass::ShaderDirty && shader==render_state.shader.ShaderBits)return;
+        render_state.shader.ShaderBits=shader;render_state_changed|=0x8000;
         StringClass text(0,false);
     }
 };

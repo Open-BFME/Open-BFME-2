@@ -65,35 +65,13 @@ void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Matrix4
-{
-public:
-	__forceinline Matrix4 &operator=(const Matrix3D &m)
-	{
-		Row[0][0] = m.Row[0][0]; Row[0][1] = m.Row[0][1]; Row[0][2] = m.Row[0][2]; Row[0][3] = m.Row[0][3];
-		Row[1][0] = m.Row[1][0]; Row[1][1] = m.Row[1][1]; Row[1][2] = m.Row[1][2]; Row[1][3] = m.Row[1][3];
-		Row[2][0] = m.Row[2][0]; Row[2][1] = m.Row[2][1]; Row[2][2] = m.Row[2][2]; Row[2][3] = m.Row[2][3];
-		Row[3][0] = 0.0f; Row[3][1] = 0.0f; Row[3][2] = 0.0f; Row[3][3] = 1.0f;
-		return *this;
-	}
-	Real Row[4][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 // DX8Wrapper::render_state (VA 0x00DEE5D8, defined in dx8wrapper.cpp): Zero
 // Hour's RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material
 // (0x00DEE5DC), Textures[16], Lights[4] and LightEnable[4], then world at
 // +0x1EC (0x00DEE7C4), view at +0x22C, and index_base_offset at +0x28C
 // (0x00DEE864) after the vertex/index buffer bookkeeping.
-struct RenderStateStruct
-{
-	UnsignedInt shader;
-	VertexMaterialClass *material;
-	unsigned char m_pad08[0x1EC - 0x08];
-	Matrix4 world;
-	Matrix4 view;
-	unsigned char m_pad26C[0x28C - 0x26C];
-	unsigned short index_base_offset;
-};
 
 class DX8Wrapper
 {
@@ -113,15 +91,15 @@ public:
 	}
 	static __forceinline void Set_Shader(const ShaderClass &shader)
 	{
-		if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader)
+		if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader.ShaderBits)
 			return;
-		render_state.shader = shader.ShaderBits;
+		render_state.shader.ShaderBits = shader.ShaderBits;
 		render_state_changed |= 0x8000;
 		StringClass str;
 	}
 	static __forceinline void Set_World(const Matrix3D &matrix3D)
 	{
-		render_state.world = matrix3D;
+		render_state.world.Init(matrix3D);
 		render_state_changed |= 0x1;
 		render_state_changed &= ~0x40000;
 	}

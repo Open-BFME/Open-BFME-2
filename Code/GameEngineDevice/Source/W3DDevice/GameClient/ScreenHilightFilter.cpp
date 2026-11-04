@@ -52,17 +52,7 @@ public:
 	int NumRefs;
 };
 extern VertexMaterialClass *ScreenMaterial;
-class ShaderClass
-{
-public:
-	static ShaderClass _PresetOpaqueShader;
-	unsigned int ShaderBits;
-protected:
-	friend class DX8Wrapper;
-	static bool ShaderDirty;
-private:
-	unsigned int m_bits[2];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 class TextureBaseClass
 {
 public:
@@ -86,10 +76,6 @@ public:
 	static bool Is_Snapshot_Activated() { return SnapshotActivated; }
 private:
 	static bool SnapshotActivated;
-};
-struct RenderStateStruct
-{
-	ShaderClass shader;
 };
 struct GlowSampleVector;
 struct IDirect3DTexture8;

@@ -1,4 +1,6 @@
 // cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /G7 /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// The canonical ShaderClass first: its SHADER_H guard keeps the reference shader.h from defining a second one.
+#include "ShaderClass.h"
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"
 // Link view first: Vector3::Length (and Normalize/Vector3(x,y,z) in the full view) stay inline without
 // emitting /O2 copies that compete with retail's owners (0x000692B3, 0x0006924F, 0x006CD510).
@@ -93,26 +95,7 @@ enum { BUFFER_TYPE_DX8, BUFFER_TYPE_SORTING, BUFFER_TYPE_DYNAMIC_DX8,
 extern unsigned number_of_DX8_calls;
 #define DX8_RECORD_MATRIX_CHANGE() matrix_changes++
 #define DX8CALL(x) DX8Wrapper::_Get_D3D_Device8()->x; number_of_DX8_calls++
-struct RenderStateStruct {
-    ShaderClass shader;
-    VertexMaterialClass* material;
-    TextureBaseClass* Textures[MAX_TEXTURE_STAGES];
-    D3DLIGHT8 Lights[4];
-    bool LightEnable[4];
-    Matrix4x4 world;
-    Matrix4x4 view;
-    unsigned vertex_buffer_types[MAX_VERTEX_STREAMS];
-    unsigned index_buffer_type;
-    unsigned short vba_offset;
-    unsigned short vba_count;
-    unsigned short iba_offset;
-    VertexBufferClass* vertex_buffers[MAX_VERTEX_STREAMS];
-    IndexBufferClass* index_buffer;
-    unsigned short index_base_offset;
-    RenderStateStruct();
-    ~RenderStateStruct();
-    RenderStateStruct& operator=(const RenderStateStruct&);
-};
+#include "RenderStateStruct.h"
 class DX8Wrapper {
     enum ChangedStates {
         WORLD_CHANGED=1<<0, VIEW_CHANGED=1<<1,

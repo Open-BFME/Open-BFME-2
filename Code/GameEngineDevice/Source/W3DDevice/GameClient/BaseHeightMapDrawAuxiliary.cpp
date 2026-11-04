@@ -14,27 +14,13 @@ class StringClass {public:
 class VertexMaterialClass {public:
  virtual void Delete_This();int refs;enum PresetType{PRELIT_DIFFUSE=1};static VertexMaterialClass*Get_Preset(PresetType);__forceinline void Release_Ref(){if(!--refs)Delete_This();
 }};
-class ShaderClass
-{
-protected:
-	friend class DX8Wrapper;
-public:
-	static ShaderClass _PresetAlphaShader;
-	static ShaderClass _PresetMultiplicativeShader;
-protected:
-	static bool ShaderDirty;
-public:
-	void Enable_Fog(const char *source);
-	unsigned bits; // +0x00
-};
-struct RenderStateStruct {ShaderClass shader;VertexMaterialClass*material;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 class IndexBufferClass;class VertexBufferClass;
 class DX8Wrapper {public:
  static void Set_Index_Buffer(const IndexBufferClass*,unsigned short);static void Set_Vertex_Buffer(const VertexBufferClass*,unsigned);static void Draw_Triangles(unsigned,unsigned,unsigned,unsigned);static __forceinline void BindAuxiliaryMaterial(VertexMaterialClass*m){if(m)++m->refs;
  if(render_state.material)render_state.material->Release_Ref();render_state.material=m;render_state_changed|=0x4000;
 }
-static __forceinline void BindAuxiliaryShader(const ShaderClass&s){if(!ShaderClass::ShaderDirty&&s.bits==render_state.shader.bits)return;render_state.shader=s;render_state_changed|=0x8000;StringClass str(0,false);
+static __forceinline void BindAuxiliaryShader(const ShaderClass&s){if(!ShaderClass::ShaderDirty&&s.ShaderBits==render_state.shader.ShaderBits)return;render_state.shader=s;render_state_changed|=0x8000;StringClass str(0,false);
 }
 protected:
  static bool FogEnable;static RenderStateStruct render_state;static unsigned render_state_changed;friend class Rva00069DB1;

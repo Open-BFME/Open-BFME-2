@@ -19,11 +19,7 @@ private:
 	int MaxTexturesPerPass;
 };
 
-struct RenderStateStruct
-{
-	unsigned int shader;
-	VertexMaterialClass *material;
-};
+#include "RenderStateStruct.h"
 
 struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
 struct BFME2TextureRef
@@ -53,9 +49,9 @@ public:
 	}
 	static __declspec(dllimport) __forceinline void Set_Shader(const ShaderClass &shader)
 	{
-		if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader)
+		if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader.ShaderBits)
 			return;
-		render_state.shader = shader.ShaderBits;
+		render_state.shader.ShaderBits = shader.ShaderBits;
 		render_state_changed |= 0x8000;
 		StringClass str;
 	}

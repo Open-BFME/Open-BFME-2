@@ -65,7 +65,7 @@ class RenderInfoClass;
 class RefCountClass;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix4 {public:Vector4 Row[4];__forceinline Matrix4(){}__forceinline Matrix4(const Vector4&r0,const Vector4&r1,const Vector4&r2,const Vector4&r3){Row[0]=r0;Row[1]=r1;Row[2]=r2;Row[3]=r3;}__forceinline Matrix4 Transpose()const{return Matrix4(Vector4(Row[0][0],Row[1][0],Row[2][0],Row[3][0]),Vector4(Row[0][1],Row[1][1],Row[2][1],Row[3][1]),Vector4(Row[0][2],Row[1][2],Row[2][2],Row[3][2]),Vector4(Row[0][3],Row[1][3],Row[2][3],Row[3][3]));}__forceinline Matrix4&operator=(const Matrix4&m){Row[0]=m.Row[0];Row[1]=m.Row[1];Row[2]=m.Row[2];Row[3]=m.Row[3];return *this;}__forceinline const Vector4&operator[](int i)const{return Row[i];}__forceinline void identity(){Row[0].Set(1,0,0,0);Row[1].Set(0,1,0,0);Row[2].Set(0,0,1,0);Row[3].Set(0,0,0,1);}__forceinline void transposeFrom(const Matrix4&m){Row[0].Set(m.Row[0].X,m.Row[1].X,m.Row[2].X,m.Row[3].X);Row[1].Set(m.Row[0].Y,m.Row[1].Y,m.Row[2].Y,m.Row[3].Y);Row[2].Set(m.Row[0].Z,m.Row[1].Z,m.Row[2].Z,m.Row[3].Z);Row[3].Set(m.Row[0].W,m.Row[1].W,m.Row[2].W,m.Row[3].W);}};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 /*
 ** Multiply a Matrix4x4 by a Vector4
 */
@@ -91,14 +91,6 @@ extern ShareBufferClass<Vector4>*g_00E065CC;
 // Use the existing four-byte particle shader storage owner.
 extern unsigned int BfmeParticleType2ShaderBits;
 // The existing world cache owns the complete matrix at RVA 009EE7C4.
-// DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
-struct RenderStateStruct
-{
-	char m_shaderToLights[0x1EC];
-	Matrix4 world;
-	Matrix4 view;
-	char m_buffers[0x290 - 0x26C];
-};
 class TextureClass {public:void Release_Ref();};
 class BFME2ParticleTextureHandle {public:~BFME2ParticleTextureHandle(){if(Ptr)Ptr->Release_Ref();}TextureClass*Ptr;};
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
@@ -110,7 +102,7 @@ class DX8Wrapper {
 protected:
 	static RenderStateStruct render_state;
 private:
-friend class FXParticleSystem::ButterflyDrawModule;protected:static unsigned render_state_changed;static Matrix4 DeviceProjectionMatrix;static bool FogEnable;public:static __forceinline void Get_Transform(int t,Matrix4&m){switch((int)t){case 0x100:if(render_state_changed&0x40000)m.identity();else m=DX8Wrapper::render_state.world.Transpose();break;case 2:if(render_state_changed&0x80000)m.identity();else m=DX8Wrapper::render_state.view.Transpose();break;case 3:m=DeviceProjectionMatrix.Transpose();break;default:m.identity();break;}}};
+friend class FXParticleSystem::ButterflyDrawModule;protected:static unsigned render_state_changed;static Matrix4 DeviceProjectionMatrix;static bool FogEnable;public:static __forceinline void Get_Transform(int t,Matrix4&m){switch((int)t){case 0x100:if(render_state_changed&0x40000)m.Make_Identity();else m=DX8Wrapper::render_state.world.Transpose();break;case 2:if(render_state_changed&0x80000)m.Make_Identity();else m=DX8Wrapper::render_state.view.Transpose();break;case 3:m=DeviceProjectionMatrix.Transpose();break;default:m.Make_Identity();break;}}};
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva001F4E2D {public:bool rva001F4E2D();};
 class Rva001F4D2D {public:float rva001F4D2D();};

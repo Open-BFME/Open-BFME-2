@@ -98,29 +98,12 @@ extern unsigned number_of_DX8_calls;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Matrix4
-{
-public:
-	__forceinline Matrix4 &operator=(const Matrix3D &m)
-	{
-		Row[0][0] = m.Row[0][0]; Row[0][1] = m.Row[0][1]; Row[0][2] = m.Row[0][2]; Row[0][3] = m.Row[0][3];
-		Row[1][0] = m.Row[1][0]; Row[1][1] = m.Row[1][1]; Row[1][2] = m.Row[1][2]; Row[1][3] = m.Row[1][3];
-		Row[2][0] = m.Row[2][0]; Row[2][1] = m.Row[2][1]; Row[2][2] = m.Row[2][2]; Row[2][3] = m.Row[2][3];
-		Row[3][0] = 0.0f; Row[3][1] = 0.0f; Row[3][2] = 0.0f; Row[3][3] = 1.0f;
-		return *this;
-	}
-	Real Row[4][4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 // DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
 // RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
 // Textures[16], Lights[4] and LightEnable[4] (0x1EC bytes), then world at
 // +0x1EC (0x00DEE7C4).
-struct RenderStateStruct
-{
-	unsigned char m_pad00[0x1EC];
-	Matrix4 world;
-};
 
 class DynamicIBAccessClass
 {
@@ -186,7 +169,10 @@ public:
 
 	static __forceinline void Set_World(const Matrix3D &matrix3D)
 	{
-		render_state.world = matrix3D;
+		render_state.world.Row[0].X = matrix3D.Row[0][0]; render_state.world.Row[0].Y = matrix3D.Row[0][1]; render_state.world.Row[0].Z = matrix3D.Row[0][2]; render_state.world.Row[0].W = matrix3D.Row[0][3];
+		render_state.world.Row[1].X = matrix3D.Row[1][0]; render_state.world.Row[1].Y = matrix3D.Row[1][1]; render_state.world.Row[1].Z = matrix3D.Row[1][2]; render_state.world.Row[1].W = matrix3D.Row[1][3];
+		render_state.world.Row[2].X = matrix3D.Row[2][0]; render_state.world.Row[2].Y = matrix3D.Row[2][1]; render_state.world.Row[2].Z = matrix3D.Row[2][2]; render_state.world.Row[2].W = matrix3D.Row[2][3];
+		render_state.world.Row[3].X = 0.0f; render_state.world.Row[3].Y = 0.0f; render_state.world.Row[3].Z = 0.0f; render_state.world.Row[3].W = 1.0f;
 		render_state_changed |= 0x1;
 		render_state_changed &= ~0x40000;
 	}
