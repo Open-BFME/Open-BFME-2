@@ -53,11 +53,7 @@ BFME_DISP_BYTE_GETTER(Rva0047DB8EByteField, 0x9B0)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class Rva0047DE6CRiderInterface
 {

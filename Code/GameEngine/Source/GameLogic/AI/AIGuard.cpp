@@ -108,11 +108,7 @@ template <> class VSlots<0>
 
 class Object;
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class AttackPriorityInfo;
 

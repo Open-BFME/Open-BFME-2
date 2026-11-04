@@ -10,11 +10,7 @@
 
 #include "../GameLogic/Object/object.h"
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../Include/GameLogic/Module/TurretStateMachine.h"
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 

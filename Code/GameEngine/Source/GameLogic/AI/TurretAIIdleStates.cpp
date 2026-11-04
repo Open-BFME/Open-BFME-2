@@ -317,14 +317,7 @@ private:
 	mutable Bool m_targetWasSetByIdleMood; // +0x3F
 };
 
-class TurretStateMachine : public StateMachine
-{
-public:
-	TurretAI *getTurretAI() const { return m_turretAI; }
-	Object *getGoalObject();
-private:
-	TurretAI *m_turretAI; // +0x3C
-};
+#include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 
 class TurretState : public State
