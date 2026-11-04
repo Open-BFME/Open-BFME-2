@@ -28,3 +28,5 @@ remain unverified. Other donor blockers above remain open.
 [Evidence and remaining prerequisites](../../reverse/attempt_support/cashhack-pool-consolidation-20261030-codex3.md).
 
 2026-11-04: the weapon-constructor nested `Upgrades` consumer adopts the canonical CashHack module-data header (15/15 rows; preview preserves 879 bytes); six queued consumers still require base/member or wrapper-emission reconciliation. [Evidence and next checks](../../reverse/attempt_support/cashhack-header-weapon-consumer-20261104-codex5.md).
+
+2026-11-04 recovery audit: strict receipts pass for the recovered providers; the broader consumer audit remains inconclusive at `0CreateAHeroManager21FE49.cpp` on the older census index. Carry the recovered batch into the next scheduled census; see [recovery and audit evidence](../../reverse/attempt_support/preparation-recovery-20261104-codex5.md).

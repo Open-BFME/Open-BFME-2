@@ -23,3 +23,5 @@ normal census; review the outgoing batch audit for any additional limitations.
 2026-11-04: destructor fields and its explicit declaration are reconciled; the supported dry run now accepts that donor with all 13 rows and its link guard passing. Apply the merge next; the constructor table conflict remains. [Composition prerequisite](../../reverse/attempt_support/rainoffire-destructor-composition-prerequisite-20261104.md).
 
 2026-11-04: destructor composition is verified: one source removed, 13/13 rows exact, both EH graphs EXACT, constructor link preview preserved and alias key transferred. Constructor and mixed-source prerequisites remain; external selection awaits the normal census. [Merge audit](../../reverse/attempt_support/rainoffire-destructor-merge-audit-20261104.md).
+
+2026-11-04 recovery audit: strict receipts pass for the recovered providers; the broader consumer audit remains inconclusive at `0CreateAHeroManager21FE49.cpp` on the older census index. Carry the recovered batch into the next scheduled census; see [recovery and audit evidence](../../reverse/attempt_support/preparation-recovery-20261104-codex5.md).
