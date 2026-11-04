@@ -937,6 +937,50 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### What the base-clause conflicts are made of, and why no tool change clears them (2026-11-04)
+
+`base clause differs` is the largest group in the CONFLICT census - 48 of the
+first 94, half of everything - so it is worth knowing exactly what it is before
+anyone tries to automate it. Two things were measured.
+
+**Canonical bases gate two thirds of it, not all of it.** None of the 48
+conflicted classes is itself in `reverse/canonical_classes.csv`; they are all
+private views. But 32 of the 48 name at least one canonical base (`UpdateModule`,
+`DrawModule`, `SubsystemInterface`, `Snapshot`, `ModuleData`, `CreateModule`,
+`RefCountClass`), so the header lane gates those. The remaining **16 involve no
+canonical class at all** and are reachable from the consolidation lane alone:
+`W3DVideoBuffer`, `Rva0043D193`, `AptOnlineLogin`, `AptSkirmish`,
+`GameWindowTransitionsHandler`, `GarrisonObjectGroupOrder`, `HordeContain`,
+`AODHordeContain`, `HorseHordeContain`, `Rva00596F18`, `Rva007E86B0Base`,
+`Rva0014F401`, and the three `*TextureMapperClass` cases in `mapper.cpp`. That
+corrects an earlier claim in this file that the group "mostly needs the header
+lane": two thirds, not all.
+
+**The conflicts are real, and the tool's refusal is load-bearing.** 26 of the 48
+print one variant as `-`, a view declaring no base while the other variants agree,
+which looks like a view that is merely silent - and `tu_views` already has the
+right doctrine for genuine silence: `head_free()` ignores any view with no base,
+no class declspec, no vfptr, no virtual slot and no virtual method, so the
+interface-only stubs (`ModuleFactoryInit.cpp` declaring a class solely to call one
+static factory) are already excluded and never reach the comparison.
+
+The `-` views that do reach it are a different animal: **30 of those 32 declare
+their own virtual functions**, and 11 also flatten the base away into opaque
+padding. `FireWeaponUpdate` is the clean illustration. In
+`DamageFieldUpdate.cpp` it declares no base, four virtuals of its own
+(`~FireWeaponUpdate`, `v01`, `v02`, `xfer`) and `char m_unrecovered04[0x2C-0x04]`.
+In `DamageFieldUpdateRva004911AE.cpp` it is `: public UpdateModule` with
+`Weapon *m_20; DamageNode *m_24; void *m_28;`. Those are incompatible models of
+one class: the first claims the vtable slots are introduced here, the second says
+they come from `UpdateModule`. Picking either silently moves the vftable, so
+refusing is correct.
+
+So there is no relaxation to be had here. Clearing one of these means recovering
+which class really introduces the slots and giving the flattened view its real
+base and real fields - reverse engineering per class, with the byte check as the
+arbiter. The 16 non-canonical ones are where a seat without header-lane access can
+start.
+
 ### The declspec conflicts are not a mechanical lane (2026-11-04)
 
 The CONFLICT census groups 9 "class declspec differs" and 1 "member declspec
