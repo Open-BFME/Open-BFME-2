@@ -68,3 +68,45 @@ Next useful check: have the responsible code/header owners reconcile the stated
 declarations, class layouts, STLport or byte prerequisites, then recheck the
 destination's allocation and rerun the supported dry run. Do not apply any of
 these candidates until it accepts unchanged donors and LinkGuard passes.
+
+## Follow-up dry run on `7f32535bc6ab2a40f68cd6407f2fabf92dc794e7`
+
+`Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdate.cpp` passed
+the shard allocation check and a fresh scoped consolidation snapshot. Its plan
+had 19 approved rows, five donor files and two mixed files. The dry run accepted
+no donors. `StrafeAreaUpdateCtor.cpp` fails with C2509 (`getModuleNameKey` is
+not declared in `StrafeAreaUpdate`); the module-data constructor and destructor
+donors fail with C2600 because their compiler-generated special members are not
+declared first; `StrafeAreaUpdate_update.cpp` fails with C2504 (`Thing` base
+undefined) and C2039 (`setOrientation` is not a member). LinkGuard retained all
+five census-linked units. The plan names `AICommandInterface`,
+`AIUpdateInterface`, `Thing`, `TerrainLogic`, `UpdateModule` and `WeaponStore`
+for class/view reconciliation. No claim or source edit was made.
+
+`SiegeDockingBehavior.cpp` remains blocked by another worker's claims on
+`0x00068E15`, `0x0007E48F` and `0x002DFCF6` (read-only claim check on this
+session: all three held by the Display seat). No claim was taken.
+
+## Follow-up dry runs on `7f32535bc6ab2a40f68cd6407f2fabf92dc794e7`
+
+Each destination below passed `--check-tu`, used a current scoped planner
+snapshot, and accepted no donors. LinkGuard retained every census-linked unit.
+No source or ledger was changed and no claim was taken.
+
+| Destination | Dry-run blocker |
+|---|---|
+| `GameLogic/AI/MoveToGroupOrder.cpp` | `MoveToGroupOrderIsDone.cpp` redefines `rts::hash` (C2953); invalid template use follows (C3203). |
+| `GameLogic/AI/AIGuardRetaliate.cpp` | Constructor/state donors need undeclared `xfer`; state donor has `ObjectID` syntax failure; machine donor calls missing `Object::getCurrentWeapon`. |
+| `GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp` | Load donor redefines `StringBase`; constructor overload is absent; module-data ctor is undeclared compiler-generated special member; dtor donor fails byte verification. |
+| `GameLogic/Map/FireLogicSystem.cpp` | `FireLogicSystemParseMaterial.cpp`, `StlSweepR3Rva0028681A.cpp` and `stlport_map_int_ptr_tree_dtor.cpp` each fail byte verification. |
+| `GameLogic/Object/SpecialPower/CombineHordeSpecialPower.cpp` | `doSpecialPower` donor's constructor is absent from the destination class view. |
+| `GameLogic/Object/Update/DemoTrapUpdate.cpp` | `onObjectCreated` donor redefines `Thing` and `Object` (C2011). |
+| `GameLogic/Object/Update/TemporarilyDefectUpdate.cpp` | Constructor donor references undeclared destination members `m_p0C` and `m_p10`. |
+| `GameLogic/Object/SpecialPower/LevelGrantSpecialPower.cpp` | Constructor donor overload is absent; module-data dtor donor fails compilation without a diagnostic. |
+
+`GameClient/System/Image.cpp` was also rechecked, but its existing handoff already
+records the same refusal: the tree-erasure donor fails LinkGuard because the
+merged object loses its selected `_M_erase` COMDAT; the other STL donor fails
+bytes and `ImageCollectionFindImage.cpp` has duplicate declarations. No new
+merge or claim resulted. The three SiegeDockingBehavior RVA claims remained held
+by the Display seat in the read-only claim check.
