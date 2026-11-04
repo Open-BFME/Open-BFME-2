@@ -208,16 +208,18 @@ Rva005E1FBC::Rva005E1FBC(EmitVtableTag *)
 {
 }
 
-class Rva005E278E
+namespace StrategicInGameUI { class RegionDetailsStructuresPage { public: class Impl; }; }
+class StrategicInGameUI::RegionDetailsStructuresPage::Impl { public: class Icon; };
+class StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon
 {
 public:
-	Rva005E278E(EmitVtableTag *);
+	Icon(EmitVtableTag *);
 public:
-	virtual ~Rva005E278E();
+	virtual ~Icon();
 };
 
-// ?<Rva005E278E::Rva005E278E> absent-from-retail
-Rva005E278E::Rva005E278E(EmitVtableTag *)
+// ?<StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon::Icon> absent-from-retail
+StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon::Icon(EmitVtableTag *)
 {
 }
 
