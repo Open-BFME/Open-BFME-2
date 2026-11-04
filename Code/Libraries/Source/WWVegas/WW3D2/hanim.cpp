@@ -23,7 +23,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Retail treats array delete as nothrow: ~NamedPivotMapClass (0x001976F0) has
 // no EH state store between its WeightInfo teardown and the PivotMapClass
 // base's, which the compiler drops only when delete[] cannot throw.
-void __cdecl operator delete[](void *) throw();
+#define __PLACEMENT_VEC_NEW_INLINE // always.h supplies array placement new/delete.
+#include <new>
 
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.

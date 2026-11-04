@@ -19,8 +19,8 @@
 */
 // Keep the five native Texture-pointer vector members owned by this TU.
 // Unmatched Zero Hour decal renderers are omitted: their native BFME 2 implementations are not established here.
-void __cdecl operator delete[](void *) throw();
-void __cdecl operator delete(void *) throw();
+#define __PLACEMENT_VEC_NEW_INLINE // always.h supplies array placement new/delete.
+#include <new>
 class TextureClass;
 #include "simplevec.h"
 

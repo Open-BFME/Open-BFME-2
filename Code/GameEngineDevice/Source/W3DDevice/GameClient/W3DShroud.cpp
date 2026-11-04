@@ -13,8 +13,7 @@
 typedef float Real;
 typedef bool Bool;
 // Retail IAT: MSVCR71.dll!ceil at VA 0x01359394, floor at 0x013593B8.
-extern "C" __declspec(dllimport) double __cdecl ceil(double value);
-extern "C" __declspec(dllimport) double __cdecl floor(double value);
+#include <math.h>
 __forceinline Real ShroudCeil(Real value)
 {
 	return (Real)ceil((double)value);
@@ -23,7 +22,7 @@ __forceinline Real ShroudFloor(Real value)
 {
 	return (Real)floor((double)value);
 }
-void *__cdecl operator new[](unsigned int size);
+#include <new>
 class WorldHeightMap
 {
 public:

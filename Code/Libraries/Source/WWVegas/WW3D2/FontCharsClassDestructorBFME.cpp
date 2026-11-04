@@ -20,8 +20,8 @@
 // no state is written around the inlined buffer-list destructor, so retail
 // knew that operator delete, operator delete[] and Free_Character_Arrays do
 // not throw (docs/shape_levers.md, the throw() row for EH state stores).
-void __cdecl operator delete(void *) throw();
-void __cdecl operator delete[](void *) throw();
+#define __PLACEMENT_VEC_NEW_INLINE // always.h supplies array placement new/delete.
+#include <new>
 
 #include "always.h"
 // Retail's RefCountClass inline copies are the size form: compile refcount.h for size.

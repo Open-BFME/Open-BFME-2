@@ -220,9 +220,7 @@ _OutputIter __copy(_RandomAccessIter __first, _RandomAccessIter __last, _OutputI
 
 struct BfmePod36;
 
-void *operator new[](unsigned int);
-
-void operator delete[](void *);
+#include <new>
 
 class Rva00160FC0Item
 {
