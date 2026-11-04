@@ -36,6 +36,10 @@ diagnostic; this is not a new census or real-link measurement.
 Neither input has gate, code/data identity or header-queue debt keys. The tool
 repointed the three ledger and TU-map source cells; header queues and hatch
 totals have no diff. No fold-proof or provider binding needed a path update.
+The commit hook's shadow code-identity check reports a divergent const Object
+list-iterator constructor. Its 11-byte COMDAT already existed in the original
+Script object (digest `431f5c99fd6f`) and remains unchanged in the exact union
+comparison; this is inherited identity cleanup, not a new emitted body.
 The relevant GUI identity obstacle entry was checked; this merge changes no
 identity route or next step, and no new linking obstacle was encountered.
 
