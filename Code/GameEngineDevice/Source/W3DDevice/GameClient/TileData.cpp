@@ -40,35 +40,12 @@ extern "C" void __cdecl Rva001118ECResampleRgb555(
 // The base is RefCountClass (vptr BC650C restored by its inline dtor), the
 // view TileDataGetRGBDataForWidth.cpp uses, so both units emit one TileData
 // vtable whose slot 0 is RefCountClass::Delete_This.
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-public:
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+#include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
-	void Release_Ref()
-	{
-		if (--m_numRefs == 0)
-			Delete_This();
-	}
-
-	int m_numRefs;
-};
-
-class TileData : public RefCountClass
-{
-public:
-	virtual ~TileData();
-private:
-	unsigned char m_data[0x2AB4 - 8];
-private:
-	RefCountClass *m_ref;
-public:
-	bool hasRGBDataForWidth(int width);
-	void rva0011178B(TileData *value);
-};
+// Retail inlines the base teardown into TileData destruction. Supply its
+// definition locally so the canonical declaration retains that code generation.
+inline RefCountClass::~RefCountClass() {}
 
 BFME_DISP_DWORD_GETTER(Rva00111784DwordField, 0x2AB4)
 
@@ -133,10 +110,10 @@ private:
 
 TileData::~TileData()
 {
-	if (m_ref)
+	if (m_2AB4)
 	{
-		m_ref->Release_Ref();
-		m_ref = 0;
+		m_2AB4->Release_Ref();
+		m_2AB4 = 0;
 	}
 }
 
@@ -228,8 +205,8 @@ void __cdecl Rva001118ECResampleRgb555(
 void TileData::rva0011178B(TileData *value)
 {
     RefCountClass *incoming=value;
-    if(incoming)++incoming->m_numRefs;
-    RefCountClass *&slot=m_ref;
+    if(incoming)++incoming->NumRefs;
+    RefCountClass *&slot=m_2AB4;
     if(slot)slot->Release_Ref();
     slot=incoming;
 }
