@@ -61,3 +61,20 @@ Local logs: `build/sideslist-notifier-accept-20261104.log`,
 `build/sideslist-notifier-base-accept-20261104.log`,
 `build/sideslist-notifier-verified-20261104.log`, and
 `build/sideslist-notifier-links-20261104.log`.
+
+## Shadow identity control
+
+The commit hook reported five out-of-register shadow findings: two bindings
+to `SidesList::FactionBuildLists` destruction at RVA `0x0032C1C1`, and three
+divergent definitions (`Xfer::Version` construction and two nested-vector
+deallocation methods). The four original sources from the adoption commit's
+parent were rebuilt with `./build.sh` (52/52 exact), then scanned with the
+same scoped `code_identity_gate.check` call. Their complete set of findings
+is identical to the adopted sources' set. These are pre-existing findings;
+no identity baseline entry was added or retired. The adopted sources were
+restored and rebuilt after the control.
+
+Local control logs: `build/sideslist-notifier-identity-current-20261104.txt`,
+`build/sideslist-notifier-identity-original-20261104.txt`,
+`build/sideslist-notifier-original-control-20261104.log`, and
+`build/sideslist-notifier-control-restored-20261104.log`.
