@@ -59,13 +59,16 @@ public:
 class Rva003B485AHolder
 {
 public:
-	Int skipGroup(void *group);
+	Int skipGroup(void *record);
+	char m_pad00[0x18];
+private:
+	Byte *m_table; // +0x18 +0x18
 };
 
 class Rva003B40A1Holder
 {
 public:
-	void *captureGroup(void *group);
+	void *captureGroup(void *record);
 };
 
 void WriteScriptDataChunk(DataChunkOutput &chunkWriter, ScriptList *scriptList, Script *script);

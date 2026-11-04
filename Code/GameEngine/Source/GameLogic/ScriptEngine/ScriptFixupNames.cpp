@@ -122,7 +122,7 @@ void emitScriptNameFixup(ScriptList *list, AsciiString &script)
 class Rva003B40A1Holder
 {
 public:
-    void *captureGroup(void *node);
+	void *captureGroup(void *record);
 };
 
 struct Rva0034F9D0Node

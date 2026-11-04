@@ -450,12 +450,12 @@ private:
 
 struct Rva003B3EEAOwner
 {
-	char m_padding00[ 0x0c ];
-	unsigned int m_entries;
-	char m_padding10[ 0x0c ];
-	int m_index;
-
+public:
 	void rva003B3EEA();
+	char m_pad00[0xC];
+	unsigned int m_entries; // +0x0C
+	char m_pad10[0xC];
+	int m_index; // +0x1C
 };
 
 // Whole BF1 f98983a7d3 Common/Rva000BE720Arr.cpp supplies the clean
@@ -939,26 +939,25 @@ class Rva003B48E4
 {
 public:
 	void rva003B48E4(void *arg);
+	char m_pad00[0x4];
 };
 
 class Rva003B485AHolder
 {
 public:
 	Int skipGroup(void *record);
-
+	char m_pad00[0x18];
 private:
-	Byte m_pad[0x18];
-	Byte *m_table; // +0x18
+	Byte *m_table; // +0x18 +0x18
 };
 
 class Rva003B48B9Holder
 {
 public:
-	Int skipScript(void *record);
-
+	int skipScript(void *record);
+	char m_pad00[0x38];
 private:
-	Byte m_pad[0x38];
-	Byte *m_table; // +0x38
+	char *m_table; // +0x38 +0x38
 };
 
 struct Rva003B5603Element { _STL::basic_string<wchar_t> strings[1]; bool operator<(const Rva003B5603Element&)const; bool operator==(const Rva003B5603Element&)const; };
@@ -1092,6 +1091,8 @@ class Rva003B8802Set
 {
 public:
 	~Rva003B8802Set();
+private:
+	unsigned char m_data[0x20]; // +0x00
 };
 
 // bfme link decl-only/import-inline begin: stop this unit emitting non-retail STL copies
@@ -1107,8 +1108,9 @@ namespace _STL {template<> vector<BfmeStringRecord003B3F78>::~vector();}
 
 struct Rva003B713ERange
 {
-	void *m_start;
-	void *m_finish;
+public:
+	Rva003B675BRecord *m_start; // +0x00
+	Rva003B675BRecord *m_finish; // +0x04
 };
 
 void destroyRva003B713ERange(Rva003B713ERange *range);

@@ -24,7 +24,7 @@
 class KindOfMaskType
 {
 public:
-	static const char *getNameFromSingleBit(int bit);	// 0x00306218
+	static const char *getNameFromSingleBit(int bitIndex);
 };
 
 #include "../../../Include/GameLogic/ScriptParameter.h"

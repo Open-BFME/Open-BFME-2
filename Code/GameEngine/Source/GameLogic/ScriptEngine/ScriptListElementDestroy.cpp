@@ -72,8 +72,9 @@ struct Rva003B678ARange
 
 struct Rva003B713ERange
 {
-	Rva003B675BRecord *m_start;
-	Rva003B675BRecord *m_finish;
+public:
+	Rva003B675BRecord *m_start; // +0x00
+	Rva003B675BRecord *m_finish; // +0x04
 };
 
 // ?destroyRva003B678ARange@@YAXPAURva003B678ARange@@@Z

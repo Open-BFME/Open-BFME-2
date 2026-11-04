@@ -32,9 +32,8 @@ class Rva003B8802Set
 {
 public:
 	~Rva003B8802Set();
-
 private:
-	unsigned char m_data[0x20];
+	unsigned char m_data[0x20]; // +0x00
 };
 
 class Rva003B31DF { public: void clear(); };

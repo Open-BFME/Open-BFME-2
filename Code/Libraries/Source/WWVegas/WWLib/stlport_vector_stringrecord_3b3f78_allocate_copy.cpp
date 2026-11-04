@@ -13,13 +13,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeStringRecord003B3F78 {
-    unsigned int word0, word1;
-    AsciiString text;
-    unsigned char flag;
-    unsigned short short0;
-    unsigned int word2;
-    BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &o);
+struct BfmeStringRecord003B3F78
+{
+public:
+	BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &o);
+	BfmeStringRecord003B3F78() : word2(0) {}
+	unsigned int word0; // +0x00
+	unsigned int word1; // +0x04
+	AsciiString text; // +0x08
+	unsigned char flag; // +0x0C
+	char m_pad0D[0x1];
+	unsigned short short0; // +0x0E
+	unsigned int word2; // +0x10
 };
 #include <memory>
 template void _STL::_Construct<BfmeStringRecord003B3F78,BfmeStringRecord003B3F78>(BfmeStringRecord003B3F78*,const BfmeStringRecord003B3F78&);

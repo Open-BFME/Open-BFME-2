@@ -28,7 +28,7 @@ struct Rva003B3204
 class Rva003B40A1Holder
 {
 public:
-	void *captureGroup(void *p);
+	void *captureGroup(void *record);
 };
 
 class Rva003B573E

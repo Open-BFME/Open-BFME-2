@@ -10,8 +10,8 @@
 class Rva003B48E4
 {
 public:
-	void rva003B48E4(void *p);
-	int pad0;
+	void rva003B48E4(void *arg);
+	char m_pad00[0x4];
 };
 class Rva003B693ABase4
 {
@@ -29,7 +29,12 @@ private:
 };
 struct Rva003B3EEAOwner
 {
+public:
 	void rva003B3EEA();
+	char m_pad00[0xC];
+	unsigned int m_entries; // +0x0C
+	char m_pad10[0xC];
+	int m_index; // +0x1C
 };
 class ScriptList : public Rva003B48E4, public Rva003B693ABase4
 {

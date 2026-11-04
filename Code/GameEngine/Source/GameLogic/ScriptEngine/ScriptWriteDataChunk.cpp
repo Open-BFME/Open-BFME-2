@@ -62,7 +62,14 @@ struct ScriptReal {
  OrCondition *condition;
  ScriptAction *actions[2];
 };
-class Rva003B48B9Holder { public: int skipScript(void *); };
+class Rva003B48B9Holder
+{
+public:
+	int skipScript(void *record);
+	char m_pad00[0x38];
+private:
+	char *m_table; // +0x38 +0x38
+};
 class Rva003B40B6Holder { public: void *captureGroup(void *); };
 void WriteScriptSubRecord_Rva003B24F2(DataChunkOutput &,const ScriptSubRecord *);
 
@@ -103,7 +110,8 @@ void WriteScriptDataChunk(DataChunkOutput &writer,ScriptList *list,Script *scrip
 class Rva003B44EE
 {
 public:
-    void rva003B5624(AsciiString text);
+	bool rva003B44EE(const char *token, bool *foundNormal, bool *foundAddOrSub);
+	void rva003B5624(AsciiString text);
 };
 class DataChunkInput;
 class UserParser;
