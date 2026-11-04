@@ -482,12 +482,7 @@ public:
 	Rva003EFDDBHolder *m_holder;			// +0x24
 };
 
-class LivingWorldLogic
-{
-public:
-	UnsignedByte m_preEC[0xEC];
-	Int m_bfmeEC;					// +0xEC
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva002D3627Host
@@ -998,7 +993,7 @@ void LANAPI::OnWOTRGameStart( void )
 		m_currentGame->startGame( 0 );
 		if( TheLivingWorldManager )
 			TheLivingWorldManager->rva0021427A();
-		TheLivingWorldLogic->m_bfmeEC = 0;
+		TheLivingWorldLogic->fieldEC = 0;
 		TheGameLogic->clearGameData( false, false );
 		((Rva002D3627Host *)TheLivingWorld)->rva10( 1 );
 
