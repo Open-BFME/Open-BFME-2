@@ -175,22 +175,7 @@ void **vector<void*>::end()
 { return _M_finish; }
 }
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-struct BfmePoolHolder88
-{
-	unsigned char m_pad[0x88];
-	OpaqueRefCounted m_ref;
-};
-class BfmePoolRef10
-{
-public:
-	BfmePoolHolder88 *m_target;
-	__forceinline BfmePoolRef10() : m_target(0) {}
-	BfmePoolRef10(const BfmePoolRef10 &other);
-	BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
-	void rva000519BD();
-	BfmePoolRef10(BfmePoolHolder88 *) throw();
-	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 struct Rva005C8876Position;
 struct Rva005C8876Grid;
 class LargeGroupAudioGridCell
