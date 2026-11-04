@@ -11,7 +11,6 @@
 // (??0TextureVectorBaseCtorShim@@QAE@HPBV?$RefCountPtr@VTextureClass@@@@@Z)
 // lives at 0x0016ED80 (ghidra FUN_0056ed80, 191B, same size as BFME1's 191B
 // construct); declared only here and pinned, defined in its own TU next.
-extern "C" const void *__identifier("??_7?$DynamicVectorClass@PAVVertexMaterialClass@@@@6B@")[];
 extern "C" const void *__identifier("??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@")[];
 
 class ShaderClass;
@@ -91,24 +90,40 @@ private:
 };
 typedef char ShaderVectorSize[sizeof(DynamicVectorClass<ShaderClass>) == 0x18 ? 1 : -1];
 
-class MaterialVector
+// Native vertex-material member at +0x18 is DynamicVectorClass<
+// VertexMaterialClass *> (vtable BD4658): retail expands both its base and its
+// own constructor inline. Its unwind calls the virtual destructor at 16F580.
+class VertexMaterialClass;
+
+template <>
+__forceinline VectorClass<VertexMaterialClass *>::VectorClass(int, VertexMaterialClass *const *)
+{
+	unsigned char *self = (unsigned char *)this;
+	*(unsigned int *)(self + 4) = 0;
+	*(unsigned int *)(self + 8) = 0;
+	*(unsigned char *)(self + 0x0c) = 1;
+	*(unsigned char *)(self + 0x0d) = 0;
+}
+
+template <>
+class DynamicVectorClass<VertexMaterialClass *>
+	: public VectorClass<VertexMaterialClass *>
 {
 public:
-	__forceinline MaterialVector()
+	__forceinline DynamicVectorClass()
+		: VectorClass<VertexMaterialClass *>(0, 0)
 	{
-		unsigned char *self = (unsigned char *)this;
-		*(unsigned int *)(self + 4) = 0;
-		*(unsigned int *)(self + 8) = 0;
-		*(unsigned char *)(self + 0x0c) = 1;
-		*(unsigned char *)(self + 0x0d) = 0;
-		*(unsigned int *)self = ((unsigned int)__identifier("??_7?$DynamicVectorClass@PAVVertexMaterialClass@@@@6B@"));
-		*(unsigned int *)(self + 0x14) = 10;
-		*(unsigned int *)(self + 0x10) = 0;
+		*(unsigned int *)((unsigned char *)this + 0x14) = 10;
+		*(unsigned int *)((unsigned char *)this + 0x10) = 0;
 	}
-	~MaterialVector();
+	virtual ~DynamicVectorClass();
+	virtual bool Resize(int, VertexMaterialClass *const *);
+	virtual void Clear();
+	virtual int ID(VertexMaterialClass *const *);
+	virtual int ID(VertexMaterialClass *const &);
 
 private:
-	unsigned char m_data[0x18];
+	unsigned char m_data[8];
 };
 
 class TextureVector
@@ -157,7 +172,7 @@ public:
 
 private:
 	DynamicVectorClass<ShaderClass> m_shaders;
-	MaterialVector m_materials;
+	DynamicVectorClass<VertexMaterialClass *> m_materials;
 	TextureVector m_textures;
 	ShaderValue LastShader;
 	void *LastMaterial;

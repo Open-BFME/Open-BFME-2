@@ -1,8 +1,12 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Clean C++ reconstruction of MaterialInfoClass::MaterialInfoClass().
+// The vertex-material vector is WWLib/vector.h's DynamicVectorClass; its
+// constructor expands inline and the unwind funclet calls its destructor.
 
-extern "C" const void *__identifier("??_7?$DynamicVectorClass@PAVVertexMaterialClass@@@@6B@")[];
 extern "C" const void *__identifier("??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@")[];
+
+class VertexMaterialClass;
+#include "vector.h"
 
 class TextureClass
 {
@@ -42,26 +46,6 @@ private:
 	bool IsValid;
 	bool IsAllocated;
 	bool VectorClassPad[2];
-};
-
-class MaterialVector
-{
-public:
-	__forceinline MaterialVector()
-	{
-		unsigned char *self = (unsigned char *)this;
-		*(unsigned int *)(self + 4) = 0;
-		*(unsigned int *)(self + 8) = 0;
-		*(unsigned char *)(self + 0x0c) = 1;
-		*(unsigned char *)(self + 0x0d) = 0;
-		*(unsigned int *)self = ((unsigned int)__identifier("??_7?$DynamicVectorClass@PAVVertexMaterialClass@@@@6B@"));
-		*(unsigned int *)(self + 0x14) = 10;
-		*(unsigned int *)(self + 0x10) = 0;
-	}
-	~MaterialVector();
-
-private:
-	unsigned char m_data[0x18];
 };
 
 class TextureVector : public TextureVectorBaseCtorShim
@@ -104,7 +88,7 @@ public:
 	virtual ~MaterialInfoClass();
 
 private:
-	MaterialVector VertexMaterials;
+	DynamicVectorClass<VertexMaterialClass *> VertexMaterials;
 	TextureVector Textures;
 };
 
