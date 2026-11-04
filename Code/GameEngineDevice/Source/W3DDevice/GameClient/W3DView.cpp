@@ -388,8 +388,11 @@ public:
 extern Int TheW3DFrameLengthInMsec;
 
  // default is 33msec/frame == 30fps. but we may change it depending on sys config.
-// Owned here: retail .data starts it at 0 (VA 0x009E204C); configured later.
-Int TheW3DFrameLengthInMsec = 0;
+// Owned here (VA 0x009E204C). Retail builds it at startup with this unit's
+// .text$yc initializer 0x007AC08C, which follows the unit's Drawable.h copy in
+// its run (LINK-236).
+extern int BfmeClientFramesPerSecond;
+Int TheW3DFrameLengthInMsec = 1000 / BfmeClientFramesPerSecond;
 
 // The camera an object follow saves and restores (W3DView vftable slots 116 and 119,
 // 0x0008ADEA and 0x00087642; 0x0008780A reads them too). Retail keeps them as internal

@@ -36,10 +36,6 @@ int g_00E02D9C = 0;
 extern int g_00E033D0;
 // Owned here: written by rva007B07F5 below; retail .data starts it at 0.
 int g_00E033D0 = 0;
-extern int g_00E035C8;
-int g_00E035C8 = 0;	// owned here; retail .data starts it at 0
-extern int g_00E03994;
-int g_00E03994 = 0;	// owned here; retail .data starts it at 0
 extern int g_00E05F24;
 int g_00E05F24 = 0;	// owned here; retail .data starts it at 0
 extern int g_00E062F4;

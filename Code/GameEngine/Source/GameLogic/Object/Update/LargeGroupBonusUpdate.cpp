@@ -135,6 +135,11 @@ struct ObjectKindBytes
 	};
 };
 #include "../../../../Include/GameClient/Drawable.h"
+// g_00E03994 (VA 0x00E03994): the default update rate the ModuleData ctor
+// reads (m_updateRate). Retail builds it with this unit's .text$yc
+// initializer 0x007B15B2, right after the unit's Drawable.h copy (LINK-236).
+extern int BfmeLogicFramesPerSecond;
+int g_00E03994 = BfmeLogicFramesPerSecond;
 class Object
 {
 public:

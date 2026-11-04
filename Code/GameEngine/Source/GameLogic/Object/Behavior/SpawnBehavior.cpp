@@ -57,6 +57,12 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/Module/StealthUpdate.h"
 
 
+// g_00E035C8 (VA 0x00E035C8): the frame wait SpawnBehavior::update reloads.
+// Retail builds it with this unit's .text$yc initializer 0x007B0C0F, after the
+// unit's Drawable.h copy 0x007B0BFF in its run (LINK-236).
+extern int BfmeLogicFramesPerSecond;
+int g_00E035C8 = BfmeLogicFramesPerSecond / 2;
+
 #define NONE_SPAWNED_YET (0xffffffff)
 
 

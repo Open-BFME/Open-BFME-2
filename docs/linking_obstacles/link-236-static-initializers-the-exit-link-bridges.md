@@ -12,8 +12,9 @@ halilkkaya-fix-o1: 7 round-2 includes moved below their units' Snapshot includes
 vtables they had shifted, bridged 699 unchanged; halilkkaya-in-o5 then 7 units free since round 2,
 bridged 699 -> 692; halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whose `.text$yc` run
 holds them, bridged 692 -> 685, then Network.cpp's two timeGetTime initializers, bridged 685 -> 683,
-and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; next seat
-continues).
+and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; halilkkaya-in-o7:
+the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged
+683 -> 679; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -424,6 +425,72 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   run's unit then includes it. GiantBirdAIUpdate's own five are `g_00E01EC0`..`g_00E01ED0`, shared
   today by its split fragments, and they need its TU merged first: per-fragment copies would split
   the constructor's writes from the states' reads.
+
+**The small grab-bags: what each family is (halilkkaya-in-o7, 2026-11-04).** Each form below is
+read from retail bytes and compiled in scratch (`cl` through `build.compiler_command` into
+`build/`, never `build/match`). Counts are bridged entries on `ffd59e2e74`.
+- *FrameRateInits (31): unit constants derived from the frame rates.* `int X =
+  BfmeLogicFramesPerSecond * k` (k = 1, 2, 3, 4, 5, 10, 60, 120), `/ 2`, `/ 4`, and `1000 /
+  BfmeClientFramesPerSecond`. `/ 2`, `* 1`, `* 60` and `1000 /` compile to retail's bytes with any
+  flags. `* 2` (`add`), `* 3`/`* 5`/`* 10` (`imul`), `* 4` (`shl`) and `/ 4` (`push 4; pop ecx;
+  idiv`) need the owner's own flags; blended `/O1` emits `lea`. Sixteen are the `/ 2` shape. Twelve
+  of those divide `BfmeLogicFramesPerSecond`, and each directly follows a unit's Drawable.h copy in
+  its run. Nothing in .text reads ten of them (0x007ADD08, 0x007ADE88, 0x007AE043, 0x007AE2CE,
+  0x007AEE6B, 0x007B014F, 0x007B042B, 0x007B08B2, 0x007B1122, 0x007B1328). That suggests a second
+  header constant (inference). By the attribution TSV its includers would be ModuleFactory,
+  AIUpdate, TacticalAI, GettingBuiltBehavior, RebuildHoleBehavior and RebuildHoleExposeDie, among
+  others. W3DDisplay's updateAverageFPS reads its copy (0x00DE1B50) and SpawnBehavior::update reads
+  its own (0x00E035C8). The header is not identified, so the ten wait.
+- *GlobalInits (17): mixed.* Most are `T g;` objects (`mov ecx, g; call ctor; push cleanup; call
+  atexit`). 0x007B6670/0x007B6680 register only an atexit cleanup (a trivial ctor and a real
+  dtor). 0x007AE7FB stores an address constant (`g = &x`). 0x007B6800 is `Random3Class(0, 0)`.
+- *CtorInits (25) and AtexitInits (12): `T g;` and `T g("literal");` with a destructor.* 22
+  bytes: `mov ecx, &g; call T::T(); push _$E<n+1>; call atexit; pop ecx; ret`. AtexitInits is
+  the 27-byte `push "lit"` form, all through `AsciiString::AsciiString(const char *)`
+  (0x0000654A). CtorInits' ctors are AsciiString/UnicodeString defaults (0x00326BE6), STLport
+  map/set defaults (0x0033C432, 0x0024613C) and unit classes (0x003818F4...). Two pairs are
+  STLport's per-includer `ios_base::_Loc_init` (0x0000F740) and `ios_base::Init` (0x00016AA0)
+  objects: 0x007ABCAF/0x007ABCC5 and 0x007AEC8E/0x007AECA4, so each comes from a unit that
+  includes `<iostream>`. Rowing one also moves its `.text$yd` cleanup row (`_$E<n+1>`, today in
+  `Rva007B6880Thunks.cpp`) into the owner.
+- *AllocCtorInits (17): STLport containers with the defaulted allocator argument.* 29 bytes:
+  `push ecx; lea eax, [esp+3]; push eax; mov ecx, &g; call ctor(const allocator &); push cleanup;
+  call atexit`. The ctors are out-of-line `vector`/`list` (allocator) ctors (0x004F710A,
+  0x002C5309, 0x004226CE, 0x002F0BE0). A scratch empty `Alloc()` adds a `mov byte [esp+7], 0`
+  that STLport's allocator, with its user-declared ctor, does not.
+- *StringInits (9): STLport `string`/`wstring` objects from literals* (`basic_string(const char *,
+  const allocator &)`, 0x00009100 and 0x0000BF20). Their globals sit at 0x009DEB2C..0x009DEF38
+  among STLport's library data (`_Nameless`), so they belong to STLport 4.6 sources, not game
+  units.
+- *ArgCtorInits (16): constructors with constant arguments.* Pools built as `(0, -1)` with an
+  atexit dtor, like the pool-init marker (0x0006EFC8, 0x002E8548); DisabledMask constants through
+  the one-, two- and four-bit `BitFlags<11>(BogusInitType, ...)` ctors (0x00481B7F, 0x005E5963,
+  0x005CBA5F); table objects through 0x00559A11/0x00559A76 with 0 or 1; and 0x000411C1(1).
+- *MaskInits (14): `BitFlags<N>` default ctors that call `memset`.* `push size; push 0; push &g;
+  call memset; add esp, 0xC`. They include KINDOFMASK_NONE (0x1C), DISABLEDMASK_NONE/ALL (4) and
+  in-o4's giant-bird masks. A scratch inline `memset` ctor folds to static zero, so the real
+  `BitFlags`/bitset header is needed to compile them.
+- *Rowed (4, this series).* Each owner already defined or owned the global; its initializer now
+  comes from the owner's definition, and the grab-bag body was retracted:
+  - W3DView.cpp `_$E6` 0x007AC08C: `Int TheW3DFrameLengthInMsec = 1000 /
+    BfmeClientFramesPerSecond;`. Its run is W3DView's copy 0x007AC07C, then this entry; its
+    `.bss` slot follows that copy's static 0x00DE2048 among W3DView's file statics.
+  - LargeGroupBonusUpdate.cpp `_$E3` 0x007B15B2: `g_00E03994 = BfmeLogicFramesPerSecond`, the
+    ModuleData ctor's default update rate. It follows the unit's rowed copy `_$E1`.
+  - SpawnBehavior.cpp `_$E86` 0x007B0C0F: `g_00E035C8 = BfmeLogicFramesPerSecond / 2`. Its run
+    is SpawnBehavior's copy 0x007B0BFF, then this entry; the static follows the unit's pool key.
+  - v3_rnd.cpp `_$E2` 0x007B6800: the unit defines `BFME_RANDOM3CLASS_CTOR_NOINLINE`, as BFME 1's
+    v3_rnd.cpp does, so `Vector3Randomizer::Randomizer` calls the pinned out-of-line ctor.
+
+  Verified: every owner exact; each `??_7` keeps its pre-edit digest; link_check over the owners,
+  their reader files and both grab-bags: 11/11 link (owners +76 bytes, grab-bags -60, plus the
+  copy the census index predates); scoped DIR32 OK; image_report bridged 683 -> 679 (exactly
+  these 4 RVAs), twice 6 -> 6, unidentified 519 -> 519.
+- *Next.* Units whose global is already ledger-owned are the cheap ones: 0x007ADEF6
+  (Drawable.cpp's own copy `g_00DFEB98`, in a split TU), 0x007AEBAA (`g_00E01E04`, AIStates'
+  run), 0x007B1A27 (SlavedUpdate), 0x007B4BC6 (AISpellBookShroudReveal), 0x007B51EB
+  (Rva005F0152ImageGet) and 0x007B67A0 (`g_aptDateInterpreter`, AptDate.cpp's POD view). The
+  ctor/dtor families need the owner to declare the real class and take the cleanup row too.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
