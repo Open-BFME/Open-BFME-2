@@ -171,7 +171,7 @@ class Rva0022167C
 public:
 	~Rva0022167C();
 private:
-	char m_bytes[8];
+	char m_bytes[8]; // +0x00
 };
 
 class Rva005E3DE8
