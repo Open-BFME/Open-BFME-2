@@ -1,0 +1,3 @@
+# AIBase consolidation allocation mismatch (2026-11-04)
+
+`consolidation_queue.py --check-tu Code/GameEngine/Source/GameLogic/SkirmishAI/AIBase.cpp` exited 0 and the current shard listing showed 34 rows and one removable file. The fresh SkirmishAI-scoped planner and `--check` passed, but `tu_skeleton.py --plan` and `--merge --dry-run` each reported zero approved rows, zero donors and `blocked: fewer than two donors`. No changes or claims were made. The queue/planner allocation discrepancy needs investigation outside this mechanical trial; no source reduction or identity/link progress is claimed.
