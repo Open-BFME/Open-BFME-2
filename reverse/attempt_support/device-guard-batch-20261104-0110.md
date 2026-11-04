@@ -120,3 +120,19 @@ link batch audit: INCONCLUSIVE: 2 source object(s) lack current receipts; first:
 
 Inconclusive cases are carried forward to the next maintainer census. They
 are unverified consumers, not evidence of a clean complete-image link.
+
+
+#### Native audit after search-inventory receipt refresh
+
+The first audit above preceded refreshing two root-search inventories after
+new proof files were created. All actual recorded dependencies stayed exact.
+Reprepare only W3DBridgeBuffer.cpp and FXShaderGeometry.cpp via the supported
+strict-current mode, with normal byte gates. The broader native result now is:
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base 94ebe7b612cfa4a6ac16f8d37ea28a8598edc437; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
+```
+
+This supersedes the earlier two-own-source receipt gap; any remaining affected
+consumer gap still stays unverified and is carried to the next census.
