@@ -64,44 +64,24 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-// The module data is +0x04, the object is +0x08 and the update interface is +0x10.
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+class __declspec(novtable) TRB_Iface3 { public: virtual void slot3(); };
+
+class __declspec(novtable) TRB_Iface4 { public: virtual void slot4(); };
+
+class __declspec(novtable) TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData);
 	__forceinline void wakeNativeObject(Object *object)
 	{
 		setWakeFrame(object, UPDATE_SLEEP_NONE);
 	}
-protected:
-	virtual void loadPostProcess();
-	void setWakeFrame(Object *object, UpdateSleepTime delay);
 	const TerrainResourceBehaviorModuleData *getTerrainResourceBehaviorModuleData() const
 	{
 		return reinterpret_cast<const TerrainResourceBehaviorModuleData *>(m_moduleData);
 	}
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
-
-class TRB_Iface3 { public: virtual void slot3(); };
-
-class TRB_Iface4 { public: virtual void slot4(); };
-
-class TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
-{
-public:
-	TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~TerrainResourceBehavior();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
@@ -543,7 +523,7 @@ TerrainResourceBehaviorModuleData::TerrainResourceBehaviorModuleData()
 
 void Rva00482172::rva00482172()
 {
-	UpdateModule *module = reinterpret_cast<UpdateModule *>(reinterpret_cast<char *>(this) - 0x24);
+	TerrainResourceBehavior *module = reinterpret_cast<TerrainResourceBehavior *>(reinterpret_cast<char *>(this) - 0x24);
 	module->wakeNativeObject(*reinterpret_cast<Object **>(reinterpret_cast<char *>(this) - 0x1C));
 	Object *object = *reinterpret_cast<Object **>(reinterpret_cast<char *>(this) - 0x1C);
 	state = false;

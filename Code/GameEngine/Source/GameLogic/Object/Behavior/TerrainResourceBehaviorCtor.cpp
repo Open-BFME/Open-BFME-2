@@ -62,36 +62,28 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	~UpdateModule();
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
+class __declspec(novtable) TRB_Iface3 { public: virtual void slot3(); };
+class __declspec(novtable) TRB_Iface4 { public: virtual void slot4(); };
 
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
-
-class TerrainResourceBehavior : public UpdateModule
+// Retail's named table providers are retained below; novtable leaves their
+// installation explicit while describing the native interface subobjects.
+class __declspec(novtable) TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
 {
 public:
 	TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData);
-
+	virtual ~TerrainResourceBehavior();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 private:
-	const void *m_20;
-	const void *m_24;
-	bool m_28;
-	bool m_29;
-	float m_2C;
+	bool m_registered;
+	bool m_sleepAfterRegister;
+	float m_incomeScale;
 };
 
 // ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x0048209B
@@ -99,17 +91,17 @@ TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData 
 	: UpdateModule(thing, moduleData)
 {
 	float fzero = 0.0f;
-	int *slot20 = (int *)&m_20;
-	int *slot24 = (int *)&m_24;
+	int *slot20 = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x20);
+	int *slot24 = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x24);
 	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
 	*slot24 = (int)((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
-	m_vtable = (const void *)((unsigned int)vtbl_00C49408);
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@"));
-	m_20 = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@"));
-	m_24 = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@"));
-	m_28 = false;
-	m_29 = true;
-	m_2C = fzero;
+	*reinterpret_cast<const void **>(this) = (const void *)((unsigned int)vtbl_00C49408);
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x0C) = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x20) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x24) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@"));
+	m_registered = false;
+	m_sleepAfterRegister = true;
+	m_incomeScale = fzero;
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
