@@ -430,11 +430,7 @@ extern PartitionManager *ThePartitionManager;
 
 // The inherited static range helper belongs to AIGuardMachine; its
 // verified definition in AIGuardStates.cpp is the native 0x00542C2A call.
-class AIGuardMachine
-{
-public:
-	static float getStdGuardRange(const Object *obj);	// 0x00542C2A
-};
+#include "../../../Include/GameLogic/AIGuardMachine.h"
 
 struct DamageInfo;
 
