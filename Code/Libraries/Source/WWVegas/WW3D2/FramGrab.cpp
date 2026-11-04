@@ -217,7 +217,7 @@ public:
 	unsigned char m_bfmePadYX[8];
 	unsigned char *m_bfmeArrayYX;
 	unsigned char m_bfmeMidYX[8];
-	void *m_bfmeBYX;
+	void *m_aviFile;
 	void *m_bfmeAYX;
 };
 
@@ -454,8 +454,8 @@ void BfmeOwnerYX::bfmeCleanupYX()
 	if (m_bfmeAYX != 0)
 		bfmeFreeAYX(m_bfmeAYX);
 
-	if (m_bfmeBYX != 0)
-		bfmeFreeBYX(m_bfmeBYX);
+	if (m_aviFile != 0)
+		bfmeFreeBYX(m_aviFile);
 
 	if (m_bfmeArrayYX != 0)
 		delete [] m_bfmeArrayYX;
