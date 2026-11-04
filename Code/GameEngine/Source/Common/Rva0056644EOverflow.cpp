@@ -21,6 +21,7 @@ class Rva004E1A04
 {
 public:
 	~Rva004E1A04();
+	char m_pad00[0x10];
 };
 
 struct Rva0056644EElement {
