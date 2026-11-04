@@ -1,7 +1,44 @@
 ### LINK-161: delayed spline event constructor retains a partial hierarchy (2026-10-30, seat codexb4)
 
-Status: map dependency repaired; destructor placeholder folded; virtual
-destructor blocked on a one-unit shape (below); census confirmation open.
+Status: map dependency repaired; destructor placeholder folded; the
+constructor unit's unresolved `??1Rva003C2F40Owner@@UAE@XZ` repaired in
+preview (below); the row respell and TU merge stay blocked; census
+confirmation open.
+
+**2026-11-04, halilkkaya-lk25:** `Rva003C2F40TreeCtor.cpp` now declares no
+destructor, so its vftable's `??_G` reaches the implicit virtual destructor
+the unit emits itself. Its +0x0C map view holds the
+`_Rb_tree<int, pair<const int, AsciiString>>` storage whose destructor is the
+existing 0x002B80CE row. The emitted `??1...UAE@XZ` and `??_G...UAE` equal
+retail 0x002BAEAB and 0x002BAE8F with relocations masked, and their call
+targets are the 0x002B80CE and 0x0049B47C rows. The map view's destructor is
+`dllimport __forceinline`, so no stray `??1?$map@HUBfmePod24...` COMDAT is
+emitted. That copy would jump to the AsciiString tree, and this unit precedes
+the majority copies in link order. The unit's flags go from `/Os` to `/O1`,
+the approved TU's level. The constructor is still 1/1 exact.
+link_check over 11 units (the two units, both tree/map providers, Snapshot,
+the kind-8 consumer, BfmeRectVNI, the name getters, SpawnArmy and the two
+other int-map users): TreeCtor 0 -> 50 B LINKS, the other 10 unchanged LINKS,
+5,396 -> 5,446 B. Scoped DIR32 OK; 0 orphans.
+The ledger still rows 0x002BAEAB/0x002BAE8F as the QAE copies in
+`Rva002BAEAB.cpp`. The linked image takes the UAE copies, which are unrowed.
+
+The planned merge and respell are blocked on three counts:
+- `tu_skeleton.py --merge LivingWorldLogic.cpp --dry-run` refuses: "TU path
+  exists and holds rows of another TU (split it first)". The foreign row is
+  0x002B3A9C `AttackOrders::GetMaxHeroLeaderRank`, which the map proposes
+  for `AttackOrders.cpp` by name. A TU-approval decision must come first.
+- The dry run lists `adopt_first`: `Rva002BAEAB.cpp` needs `WindModuleInfo`.
+- No tool can move the rows and respell them in one step. One TU cannot hold
+  both donors' views: the constructor needs the Snapshot base, and the QAE
+  rows need the composition view with a non-virtual destructor. `??_G` is
+  emitted only beside a vftable, and the vftable only beside the constructor.
+  So `rename.py function --virtual --prepared` would still verify the rows at
+  `Rva002BAEAB.cpp`, where the UAE pair cannot be emitted.
+- Next step: once the TU is unblocked, merge `TreeCtor.cpp`. LWL then emits
+  exact UAE copies, so the remaining step is a rehome with a respell:
+  `rehome_rows.py` / `add_match --replace-existing` extended to a virtual
+  respell, or `rename.py --virtual` repointing rows to a prepared approved TU.
 
 **2026-11-04, halilkkaya-lk24:** `rename.py class --fold` gained a
 destructor-only route ("fold a destructor-only placeholder by its slot"). `Rva002BAEAB` (dtor 0x002BAEAB and
