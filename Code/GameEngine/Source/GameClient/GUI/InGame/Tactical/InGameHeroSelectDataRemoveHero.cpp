@@ -18,7 +18,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 class Object;class ThingTemplate;class Image;
 const Image *getButtonImage(ThingTemplate *,Object *);
-class ThingTemplate {public:char pad[0x110];unsigned int kind110;char pad114[5];unsigned char kind119;};
+#include "../../../../../Include/Common/ThingTemplate.h"
 class Object {public:void *vptr;ThingTemplate *templ;char pad08[0x74-8];int id;};
 struct HeroButtonInfo {int id,unknown,flash;};
 struct BuilderButtonInfo {int id;bool used;char pad[3];float value;};
@@ -56,14 +56,14 @@ public:__declspec(noinline) void rva005259B9(Object *);HeroInfoList heroes;Build
 };
 void HeroSelectData::rva005259B9(Object *obj) {
  const unsigned int heroBit=0x4000000;ThingTemplate *thingTemplate=obj->templ;
- if(!(thingTemplate->kind110&heroBit) && !(thingTemplate->kind119&0x80))return;
+ if(!(thingTemplate->m_kindof[2]&heroBit) && !(thingTemplate->m_kindof[4] & 0x8000U))return;
  if(!getButtonImage(thingTemplate,obj))return;
  int id=obj->id;thingTemplate=obj->templ;
- if(thingTemplate->kind110&heroBit) {
+ if(thingTemplate->m_kindof[2]&heroBit) {
   for(HeroInfoList::iterator it=heroes.begin();it!=heroes.end();++it) {
    if(id==it->id){union{HeroNotify method;int fn;} binding={&Rva005259B9Listener::removeHero};Rva005258F8(binding.fn,(Pod12Node00525D9A*)it._M_node);heroes.erase(it);break;}
   }
- }else if(thingTemplate->kind119&0x80) {
+ }else if(thingTemplate->m_kindof[4] & 0x8000U) {
   for(BuilderInfoList::iterator it=builders.begin();it!=builders.end();++it) {
    if(id==it->id){union{HeroNotify method;int fn;} binding={&Rva005259B9Listener::removeBuilder};Rva005258F8(binding.fn,(Pod12Node00525D9A*)it._M_node);builders.erase(it);break;}
   }

@@ -20,18 +20,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_SOLD = 0x13
 };
 
-class ThingTemplate
-{
-public:
-	bool isKindOfCommandCenter() const { return (m_kindOf10A & 2) != 0; }
-	const AsciiString &getDefaultOwningSide() const { return m_defaultOwningSide; }
-
-private:
-	char m_pad[0x6C];
-	AsciiString m_defaultOwningSide;	// +0x6C
-	char m_pad2[0x10A - 0x70];
-	unsigned char m_kindOf10A;			// KINDOF_COMMANDCENTER is bit 0x02
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/Player.h"
 
@@ -40,7 +29,7 @@ class Object
 public:
 	bool testStatus(ObjectStatusTypes bit) const;
 	const ThingTemplate *getTemplate() const { return m_template; }
-	bool isKindOfCommandCenter() const { return getTemplate()->isKindOfCommandCenter(); }
+	bool isKindOfCommandCenter() const { return (((unsigned char)(getTemplate()->m_kindof[0] >> 16) & 2) != 0); }
 
 private:
 	void *m_vtbl;
@@ -63,7 +52,7 @@ int doFindCommandCenter(Object *obj, void *userData)
 
 	if (info->obj == 0
 			&& obj->isKindOfCommandCenter()
-			&& obj->getTemplate()->getDefaultOwningSide() == info->player->m_side
+			&& obj->getTemplate()->m_defaultOwningSide == info->player->m_side
 			&& !obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION)
 			&& !obj->testStatus(OBJECT_STATUS_SOLD))
 	{

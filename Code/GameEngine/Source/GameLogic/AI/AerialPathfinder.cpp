@@ -12,7 +12,7 @@ public:
 
 struct AerialMotionInfo { char prefix[0x48]; float height; };
 
-class ThingTemplate {public: char prefix[0x108];unsigned kinds[7];};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class AerialPartner {public:char prefix[0x4C0];unsigned id;};
 
@@ -114,10 +114,10 @@ bool AerialPathfinder::rva00375C28(Object*obj,const Coord3D*pos,float*worstOverl
  while((them=const_cast<BfmeWideResult&>(found).next())!=0){
   if(them==obj)continue;
   if(partnerID!=0&&partnerID==them->m_id)continue;
-  if((them->m_template->kinds[0]&0x100)!=0)continue;
-  if((them->m_template->kinds[0]&0x200)!=0)continue;
-  if((them->m_template->kinds[3]&0x2000)!=0)continue;
-  if((them->m_template->kinds[0]&4)==0){
+  if((them->m_template->m_kindof[0]&0x100)!=0)continue;
+  if((them->m_template->m_kindof[0]&0x200)!=0)continue;
+  if((them->m_template->m_kindof[3]&0x2000)!=0)continue;
+  if((them->m_template->m_kindof[0]&4)==0){
    float range=radius*1.2f;
    if(((Gen_000E5A50*)them)->Get3DCenterDistanceSquared((BfmeVec3EJ*)&obj->m_cachedPos)>range*range)continue;
   }

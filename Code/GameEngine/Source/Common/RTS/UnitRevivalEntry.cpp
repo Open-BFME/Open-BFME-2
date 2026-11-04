@@ -288,16 +288,7 @@ public:
 
 #include "../../../Include/Common/ArmySummarySystem.h"
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-	char unknown00[0x64];
-	AsciiString name; // +0x64
-	char unknown68[0x108 - 0x68];
-	unsigned char m_kindOf[0x20]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva002E0D93
 {
@@ -678,7 +669,7 @@ int Rva0037EE4C::rva0037EE4C(const ThingTemplate *key, int filter, int wanted)
     int index = 0, matching = 0;
     for (RevivalIndexEntry *entry = begin; entry != end; ++index, ++entry)
     {
-        if (entry->name == key->name)
+        if (entry->name == key->m_nameString)
         {
             if (filter == -1)
             {
@@ -764,7 +755,7 @@ void UnitRevivalTracker::retrieveHeroesForArmySummary(ArmySummarySystem *summary
 	{
 		UnitRevivalEntry *entry = &m_entries[i];
 		const ThingTemplate *thingTemplate = (const ThingTemplate *)entry->getThingTemplate();
-		if (thingTemplate && thingTemplate->isKindOf(KINDOF_90) && thingTemplate->isKindOf(KINDOF_128))
+		if (thingTemplate && ((thingTemplate->m_kindof[KINDOF_90 >> 5] & (1U << (KINDOF_90 & 31))) != 0) && ((thingTemplate->m_kindof[KINDOF_128 >> 5] & (1U << (KINDOF_128 & 31))) != 0))
 		{
 			if (lwPlayer->rva002E1CA7(entry))
 				summary->AddDeadHeroEntry(entry);
@@ -793,7 +784,7 @@ void UnitRevivalTracker::retrieveHeroesForArmySummary(ArmySummarySystem *summary
 void UnitRevivalTracker::removeBuildUnit(const ThingTemplate *thingTemplate)
 {
 	for (Rva002E0D93 *p = ((Rva002E204D *)&m_entries)->m_start00; p != ((Rva002E204D *)&m_entries)->m_finish04; ++p) {
-		if (p->m_strD4.compare(thingTemplate->name) == 0) {
+		if (p->m_strD4.compare(thingTemplate->m_nameString) == 0) {
 			((Rva002E204D *)&m_entries)->rva002E204D(p);
 			break;
 		}

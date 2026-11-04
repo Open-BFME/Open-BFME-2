@@ -21,19 +21,12 @@ enum StateReturnType
 	STATE_CONTINUE = 0,
 	STATE_FAILURE = -2
 };
-class ThingTemplate
-{
-public:
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 0x02) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[4]; // +0x108 (PROJECTILE: byte +0x10B mask 0x02)
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
 	Bool isOutOfAmmo() const;
-	Bool isKindOfProjectile() const { return m_template->isKindOfProjectile(); }
+	Bool isKindOfProjectile() const { return (((unsigned char)(m_template->m_kindof[0] >> 24) & 0x02) != 0); }
 private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04

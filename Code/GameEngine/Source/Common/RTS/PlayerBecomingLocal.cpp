@@ -27,7 +27,7 @@ class Module;
 class Team;
 class Player;
 class SpecialDisguiseUpdate {public:void rva004B04B2(bool);};
-struct ThingTemplate {unsigned char pad[0x113];unsigned char kind;};
+#include "../../../Include/Common/ThingTemplate.h"
 class ContainLocalView:public PlayerLocalSlots<20>{public:virtual void recalcApparent()=0;};
 class Rva00373EC6 {public:unsigned char pad[0x38];int playerIndex;unsigned disguise;};
 class Object:public Thing {
@@ -59,7 +59,7 @@ void Player::becomingLocalPlayer(bool yes)
      SpecialDisguiseUpdate *module=(SpecialDisguiseUpdate*)object->findModule(key);
      if(module)module->rva004B04B2(getRelationship(object->team)==ALLIES && ((BfmeMemberRV*)this)->bfmeAskRV());
     }
-    if(object->m_template->kind&1){
+    if(object->m_template->m_kindof[2] & 0x1000000U){
      Drawable *draw=object->getDrawable();
      if(draw){
       Rva00373EC6 *update=object->rva0028F4BC();

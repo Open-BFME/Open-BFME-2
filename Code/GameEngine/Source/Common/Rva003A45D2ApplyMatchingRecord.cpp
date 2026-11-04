@@ -53,11 +53,7 @@ public:
 	int getDesiredGatherers();
 };
 
-struct ThingTemplate
-{
-	char m_pad00[0x64];
-	AsciiString m_name;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -105,7 +101,7 @@ void Rva003A45D2::rva003A45D2(void *sourceObject)
 	for (unsigned int i = 0; i < data->m_recs.size(); ++i)
 	{
 		const Rva003A45D2Rec *rec = &data->m_recs[i];
-		if (rec->m_name.compare(obj->getTemplate()->m_name) == 0)
+		if (rec->m_name.compare(obj->getTemplate()->m_nameString) == 0)
 		{
 			if (rec->m_flags.rva000B3EB3() && !obj->m_conditions.rva00263546((const Rva00263546 *)&rec->m_flags))
 				return;

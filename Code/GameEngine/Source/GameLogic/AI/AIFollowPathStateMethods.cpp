@@ -104,21 +104,14 @@ private:
 	unsigned char m_pad1F4[0x3BA - 0x1F4];
 	Bool m_canPathThroughUnits; // +0x3BA
 };
-class ThingTemplate
-{
-public:
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 0x02) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[4]; // +0x108 (PROJECTILE: byte +0x10B mask 0x02)
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
 	void rva0028ACDC(int goal);
 	AIUpdateInterface *getAI() { return m_ai; }
-	Bool isKindOfProjectile() const { return m_template->isKindOfProjectile(); }
+	Bool isKindOfProjectile() const { return (((unsigned char)(m_template->m_kindof[0] >> 24) & 0x02) != 0); }
 private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04

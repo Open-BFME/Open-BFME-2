@@ -62,15 +62,7 @@ class Weapon;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[4]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -89,7 +81,7 @@ class Object : public Thing
 {
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfProjectile() const { return (((unsigned char)(getTemplate()->m_kindof[0] >> 24) & 2) != 0); }
 	Bool isMobile() const;  // rowed at 0x002907A1
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	unsigned char m_pad044[0x258 - 0x44];
@@ -190,7 +182,7 @@ StateReturnType AIAttackApproachTargetState::update()
 	{
 		// Basically, if the object is alive, we continue, in case the target moves.
 		Object* victim = getMachineGoalObject();
-		if (victim && source->isMobile() && !victim->getTemplate()->isKindOfImmobile())
+		if (victim && source->isMobile() && !(((unsigned char)victim->getTemplate()->m_kindof[0] & 4) != 0))
 		{
 			if (code != STATE_CONTINUE)
 			{

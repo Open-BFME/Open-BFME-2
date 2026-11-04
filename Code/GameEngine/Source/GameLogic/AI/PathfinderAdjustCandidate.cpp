@@ -12,7 +12,7 @@ public:
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 enum PathfindLayerEnum { LAYER_GROUND=0 };
-struct ThingTemplate { char pad[0x109]; unsigned char kind109; };
+#include "../../../Include/Common/ThingTemplate.h"
 class Object { public: void *vptr; ThingTemplate *type; char pad[0x38-8]; Coord3D position; };
 #include "../../../Include/GameLogic/PathfindCell.h"
 void *rva002EBC59(void *,void *,int,int,int);
@@ -37,7 +37,7 @@ bool Rva002F57E6Query::rva002F57E6(unsigned int a,unsigned int locomotorSet,unsi
  {
   Coord3D cellPosition,adjust;
   adjust=*(Coord3D *)rva002EBC59(&cellPosition,object,cellX,cellY,cell->getLayer());
-  if(!(object->type->kind109&0x10)) {
+  if(!(object->type->m_kindof[0] & 0x1000U)) {
    if(originalZ>0.0f && fabs(adjust.z-originalZ)>50.0f) return false;
    bool adjustedPathExists=pathfinder->QuickDoesPathExist(object,&object->position,&adjust,0);
    bool pathExists=pathfinder->QuickDoesPathExist(object,&object->position,(Coord3D *)destination,0);

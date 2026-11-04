@@ -27,15 +27,7 @@ private:
 	ObjectID *m_capacity;
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int bit) const { return (m_kindOf[bit >> 3] & (1 << (bit & 7))) != 0; }
-
-private:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x20]; // +0x108
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 void *__cdecl rva00397FEB(void *context, ObjectID id, void *target, int mode);
 
@@ -58,7 +50,7 @@ void *Rva003980BF::rva003980BF(void *target, int which, int mode)
 	if (target == 0)
 		return 0;
 	const Rva003980BFIdList *ids = &m_normal;
-	if (static_cast<ThingTemplate *>(target)->isKindOf(0x40) && m_alternate.size() > 0)
+	if ((((static_cast<ThingTemplate *>(target))->m_kindof[2] & 0x1U) != 0) && m_alternate.size() > 0)
 		ids = &m_alternate;
 	if (which == -2)
 	{

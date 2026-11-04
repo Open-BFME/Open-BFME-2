@@ -17,8 +17,7 @@ class BuildListInfo { public: float angle() const { return *(const float*)((cons
 enum KindOfType { KINDOF_17=17, KINDOF_60=60, KINDOF_100=100 };
 template<int NUMBITS> class BitFlags { public: unsigned long m_words[(NUMBITS+31)/32];
  __forceinline bool test(size_t pos) const { return (m_words[pos/32] & (1UL<<(pos%32)))!=0; } };
-class ThingTemplate { public: char pad[0x108]; BitFlags<218> m_kindof;
- __declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return m_kindof.test(t); } };
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 class Player;
@@ -85,8 +84,8 @@ Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant)
  if(name.isEmpty()) return created;
  const ThingTemplate* type=TheThingFactory->findTemplate(name);
  if(!type) return 0;
- if(type->isKindOf(KINDOF_100)) return 0;
- if(type->isKindOf(KINDOF_60)) field<bool>(this,0x44)=true;
+ if(((type->m_kindof[KINDOF_100 >> 5] & (1U << (KINDOF_100 & 31))) != 0)) return 0;
+ if(((type->m_kindof[KINDOF_60 >> 5] & (1U << (KINDOF_60 & 31))) != 0)) field<bool>(this,0x44)=true;
  Player* player=getOwner()->getControllingPlayer();
  if(!data->m_filter.testTemplate(type,0,0)) player=field<Player*>(ThePlayerList,0x18);
  if(!player) return 0;
@@ -97,10 +96,10 @@ Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant)
  pos.x=p.X; pos.y=p.Y; pos.z=p.Z;
  float angle=owner->orientation(); angle+=record->angle();
  angle=normalizeAngle(angle);
- if(!type->isKindOf(KINDOF_17) && ((Rva003955AFData*)getData())->query((int)&pos,(int)type,angle,5,(int)getOwner())) return 0;
+ if(!((type->m_kindof[KINDOF_17 >> 5] & (1U << (KINDOF_17 & 31))) != 0) && ((Rva003955AFData*)getData())->query((int)&pos,(int)type,angle,5,(int)getOwner())) return 0;
  created=((CastleFactoryView*)((char*)this+0x20))->create(getOwner(),type,&pos,angle,player,instant);
  if(created) {
-  if(type->isKindOf(KINDOF_17) && data->m_flag75 && getOwner()) {
+  if(((type->m_kindof[KINDOF_17 >> 5] & (1U << (KINDOF_17 & 31))) != 0) && data->m_flag75 && getOwner()) {
    CastleBodyView* from=getOwner()->body();
    CastleBodyView* to=created->body();
    if(from && to) {

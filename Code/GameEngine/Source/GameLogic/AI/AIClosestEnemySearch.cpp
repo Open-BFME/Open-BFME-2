@@ -267,7 +267,7 @@ public:
 	char pad50[4];
 	int index;
 };
-class ThingTemplate { public: char pad0[0x108]; unsigned char kind[28]; };
+#include "../../../Include/Common/ThingTemplate.h"
 class Rva002FFFCA;
 class Object
 {
@@ -440,7 +440,7 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 			continue;
 		if (enemy->testStatus(STATUS79))
 			continue;
-		if (enemy->tmpl->kind[17] & 2)
+		if (enemy->tmpl->m_kindof[4] & 0x200U)
 		{
 			static NameKeyType gateKey = TheNameKeyGenerator->nameToKey("GateOpenAndCloseBehavior");
 			GateBehavior *gate = static_cast<GateBehavior *>(enemy->findModule(gateKey));
@@ -462,7 +462,7 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 		float weightedDistance = dist / TheAI->data->distanceModifier;
 		float effective = priority + 100.0f - weightedDistance;
 		if ((qualifiers & 0x80)
-			&& (enemy->getControllingPlayer()->getPlayerName().compare("PlyrCreeps") == 0 || (enemy->tmpl->kind[21] & 0x40)))
+			&& (enemy->getControllingPlayer()->getPlayerName().compare("PlyrCreeps") == 0 || (enemy->tmpl->m_kindof[5] & 0x4000U)))
 			effective = 1.0f;
 		bool improves = effective > bestPriority || (effective == bestPriority && priority > bestRaw);
 		if (!improves && bestApproachable)

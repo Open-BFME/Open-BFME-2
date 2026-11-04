@@ -510,19 +510,7 @@ private:
 	unsigned int m_words[19];
 };
 
-class ThingTemplate
-{
-public:
-	Bool testKindByte115() const { return (m_kindOf[1] & 0x20) != 0; }
-	Bool testKindByte11F() const { return (m_kindOf[11] & 0x80) != 0; }
-	Bool testKindByte108() const { return (m_pad00[0x108] & 0x80) != 0; }
-	Real getBfmeReal53C() const { return m_bfmeReal53C; }
-private:
-	unsigned char m_pad00[0x114];
-	unsigned char m_kindOf[12]; // +0x114
-	unsigned char m_pad120[0x53C - 0x120];
-	Real m_bfmeReal53C; // +0x53C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 Real normalizeAngle(Real angle);
 // math.h: its sqrt declaration is what keeps the x87 result store after the
@@ -1021,7 +1009,7 @@ StateReturnType AIMoveToPositionAndEnterState::onEnter()
 	AIUpdateInterface *ai = owner->getAI();
 	Object *goal = getMachine()->getGoalObject();
 	m_goalPosition = *goal->getContain()->getEnterPosition();
-	if (goal->getTemplate()->testKindByte11F())
+	if (((goal->getTemplate()->m_kindof[5] & 0x80000000U) != 0))
 		TheAI->pathfinder()->AdjustDestination(owner, ai->getLocomotorSet(), &m_goalPosition, 0);
 
 	StateReturnType ret = AIInternalMoveToState::onEnter();
@@ -1059,7 +1047,7 @@ StateReturnType AIMoveToPositionAndEnterState::update()
 	}
 
 	StateReturnType ret = AIMoveToState::update();
-	if (goal->getTemplate()->testKindByte11F())
+	if (((goal->getTemplate()->m_kindof[5] & 0x80000000U) != 0))
 	{
 		int state = goal->getAI()->rva00260DED();
 		if (state == 0x46 || state == 0x47)
@@ -1083,7 +1071,7 @@ void AIMoveToPositionAndEnterState::onExit(StateExitType status)
 	{
 		owner->setStatus(OBJECT_STATUS_BFME_4E, false);
 		owner->setStatus(OBJECT_STATUS_BFME_3, false);
-		if (owner->getTemplate()->testKindByte115())
+		if (((owner->getTemplate()->m_kindof[3] & 0x2000U) != 0))
 			owner->rva00346C53(OBJECT_STATUS_BFME_3, false);
 	}
 	owner->setStatus(OBJECT_STATUS_BFME_5D, false);
@@ -1127,7 +1115,7 @@ void AIAttackPositionAimAtTargetState::onExit(StateExitType status)
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (m_bfmeFlag20 && ai && m_bfmeFlag21)
 		ai->rva0034A82DSlot136();
-	if (ai && getMachineOwner()->getTemplate()->getBfmeReal53C() < 360.0f)
+	if (ai && getMachineOwner()->getTemplate()->m_firingArc < 360.0f)
 		ai->rva0034BEF9Slot142(0);
 	getMachineOwner()->setStatus(OBJECT_STATUS_BFME_19, false);
 }
@@ -1745,7 +1733,7 @@ Bool AIAttackMeleeHordeApproachTargetState::computePath()
 				if (!TheAI->pathfinder()->IsLineBlocked(source, ai->getValidLocomotorSurfaces(),
 						LAYER_GROUND, goal, &destination))
 					*goal = destination;
-				if (victim->getTemplate()->testKindByte108())
+				if (((victim->getTemplate()->m_kindof[0] & 0x80U) != 0))
 					rva00344D60(goal, source, victim);
 			}
 			if (!rva003449C5(goal, source, victim))

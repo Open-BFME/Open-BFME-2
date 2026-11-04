@@ -106,16 +106,7 @@ template <> class AIUpdateSlots<0>
 // isDoingGroundMovement is vslot 137 (+0x224); chooseLocomotorSet is vslot
 // 142 (+0x238).
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class ThingTemplate
-{
-public:
-    Bool isKindOfCanBeRepulsed() const { return (m_kindOf[1] & 0x20) != 0; }
-    Bool isKindOfProjectile() const { return (m_projectileKindFlags & 0x02) != 0; }
-private:
-    unsigned char m_pad00[0x10B];
-    unsigned char m_projectileKindFlags; // +0x10B, retail test at 0x0034EFE5
-    unsigned char m_kindOf[4]; // +0x10C (CAN_BE_REPULSED: byte +0x10D mask 0x20)
-};
+#include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 class Object
 {
@@ -124,8 +115,8 @@ public:
     unsigned int getID() const { return m_id; }
     AIUpdateInterface *getAI() { return m_ai; }
     __declspec(dllimport) __forceinline Team *getTeam() { return m_team; }
-    Bool isKindOfCanBeRepulsed() const { return m_template->isKindOfCanBeRepulsed(); }
-    Bool isKindOfProjectile() const { return m_template->isKindOfProjectile(); }
+    Bool isKindOfCanBeRepulsed() const { return (((unsigned char)(m_template->m_kindof[1] >> 8) & 0x20) != 0); }
+    Bool isKindOfProjectile() const { return (((unsigned char)(m_template->m_kindof[0] >> 24) & 0x02) != 0); }
     Real getVisionRange() const;
     void rva0028AE6D();
     void rva0028ACEE(int position, int layer);

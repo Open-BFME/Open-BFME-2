@@ -19,7 +19,7 @@ class Dict { public:
  private:void releaseData();void *data;
 };
 #include "../../Include/Common/DataChunk.h"
-class ThingTemplate { public: char unknown[0x111]; unsigned char flags; };
+#include "../../Include/Common/ThingTemplate.h"
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class Rva0030D748 { public: AsciiString rva0030D748(); };
@@ -52,7 +52,7 @@ bool ParseObjectDataChunk(DataChunkInput &file,DataChunkInfo *info,void *) {
  if(object->dict.getType(g_00DBDC74.get())==Dict::INT) {
   object->flags|=4;
   *reinterpret_cast<Coord3D *>(&(*m_waypoints)[reinterpret_cast<Rva0030D748 *>(object)->rva0030D748()])=loc;
- } else if(reinterpret_cast<MapObject *>(object)->getThingTemplate() && (reinterpret_cast<MapObject *>(object)->getThingTemplate()->flags &0x20)) m_supplyPositions.push_back(loc);
+ } else if(reinterpret_cast<MapObject *>(object)->getThingTemplate() && (reinterpret_cast<MapObject *>(object)->getThingTemplate()->m_kindof[2] & 0x2000U)) m_supplyPositions.push_back(loc);
  void *allocation=object ? reinterpret_cast<MapObjectDeleteSlotView *>(object)->destroy(0):0;
  ::operator delete(allocation);
  return true;

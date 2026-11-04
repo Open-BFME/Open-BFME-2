@@ -143,16 +143,7 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[8]; // +0x108
-	unsigned char m_pad110[0x122 - 0x110];
-	unsigned char m_122; // +0x122
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -174,8 +165,8 @@ class Object : public Thing
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Object *getContainedBy() { return m_containedBy; }
-	Bool isKindOfImmobile() const { return getTemplate()->isKindOfImmobile(); }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfImmobile() const { return (((unsigned char)getTemplate()->m_kindof[0] & 4) != 0); }
+	Bool isKindOfProjectile() const { return (((unsigned char)(getTemplate()->m_kindof[0] >> 24) & 2) != 0); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -329,7 +320,7 @@ __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Wea
 {
 	if (weapon && victim && !((const Rva002C9400ByteField *)weapon->getTemplate())->get() &&
 		!weapon->getTemplate()->isContactWeapon() &&
-		((source->getTemplate()->m_kindOf[7] & 8) || (source->getTemplate()->m_122 & 0x40)))
+		(((unsigned char)(source->getTemplate()->m_kindof[1] >> 24) & 8) || ((unsigned char)(source->getTemplate()->m_kindof[6] >> 16) & 0x40)))
 	{
 		Rva002619C1Filter filter(source);
 		if (!filter.allow(victim))

@@ -16,7 +16,7 @@ class Rva002C9400ByteField {public:unsigned char get()const;};
 class Weapon {public:bool isWithinAttackRange(const Object*,const Object*,float,int)const;char pad[4];const Rva002C9400ByteField*data;};
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-struct ThingTemplate {char pad[0x113];unsigned char flags113;char pad114;unsigned char flags115;};
+#include "../../../Include/Common/ThingTemplate.h"
 class Rva004C5772CmpBoolField {public:bool get()const;};
 class Rva0028F326Owner {public:unsigned char rva0028F326(unsigned,float);};
 class Object {public:
@@ -33,7 +33,7 @@ bool AI::rva002FE193(Object*source,Object*target)
  if(!ai)return false;
  bool onGround=false;
  if(source->testStatus((ObjectStatusTypes)68)||ai->m_field3CC)onGround=true;
- if(source->data->flags115&0x20){
+ if(source->data->m_kindof[3] & 0x2000U){
   if(!source->contain)return false;
   for(int slot=0;slot<6;++slot){
    Weapon*weapon=source->weapons.getWeaponInWeaponSlot((WeaponSlotType)slot);
@@ -44,7 +44,7 @@ bool AI::rva002FE193(Object*source,Object*target)
    int sourceLayer=source->rva0028B511();
    bool sameLayer=target->rva0028B511()==sourceLayer;
    if(!sameLayer){
-    if(!(target->data->flags113&0x20))continue;
+    if(!(target->data->m_kindof[2] & 0x20000000U))continue;
     static NameKeyType siegeDeploySpecialPowerKey=TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
     Module*module=target->findModule(siegeDeploySpecialPowerKey);
     if(!module||!((Rva004C5772CmpBoolField*)module)->get())continue;

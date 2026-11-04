@@ -147,7 +147,7 @@ public:
 	int m_31C; // +0x31C float bits
 	int m_320; // +0x320 float bits
 };
-struct ThingTemplate { char pad[0x11C]; unsigned kindHigh; };
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Rva00295A0FCommands
 {
@@ -466,7 +466,7 @@ Coord3D *MoveToGroupOrder::rva005476C8(ObjectID id)
 				*reinterpret_cast<LocomotorSet *>(reinterpret_cast<char *>(ai) + 0x1CC),
 				&result, &m_destination))
 				result = m_destination;
-			if (obj->theTemplate->kindHigh & 0x04000000) {
+			if (obj->theTemplate->m_kindof[5] & 0x04000000) {
 				float angle = obj->angle;
 				float rel = obj->GetRelativeAngle(&result) + angle;
 				obj->rva0028AD00((int)&result, rel, layer);
