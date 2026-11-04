@@ -22,3 +22,5 @@ Retry the supported dry run before changing donors. Strict reusable byte
 receipts cover the seed; they do not establish link closure.
 The stable post-rebase full gate passes every check (98,945 function rows and
 2,203 data rows). All 53 file-scope claims are released.
+
+2026-11-04: the supported trial completed with no accepted merge; Rva00089510 receiver views now agree with unchanged bytes/symbols and clean scoped link previews; reconcile the remaining compiler rejects before another exhaustive trial ([boundaries and checks](../../reverse/attempt_support/w3dview-consolidation-20261104-codexb5.md)).

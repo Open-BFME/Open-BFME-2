@@ -11,6 +11,7 @@
 #include "Lib/BaseType.h"
 #include "vector2.h"
 #include "wwmath.h"
+#include "../../../../GameEngine/Source/GameClient/Rva000869CF.h"
 #pragma auto_inline(off)
 static void normAngle(float &angle)
 {
@@ -31,7 +32,11 @@ static void normAngle(float &angle)
 
 // Data-only target path prefix; these are observations, not donor class names.
 // Array owner Rva0089971 has this prefix, established by its ctor8990C/dtor89971.
-class Rva00089510{public:void rva00089510(Bool,Real,Int);};
+class Rva00089510 : public Rva000869CF
+{
+public:
+	void rva00089510(bool,float,int);
+};
 class Rva0089971;
 struct BfmePathWaypoint20 { Coord3D position; void *nameStorage; int lastWord; };
 struct BfmePathAnglesFields {
