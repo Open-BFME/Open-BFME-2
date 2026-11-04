@@ -1,4 +1,4 @@
-### LINK-191: ArmyDetails static cleanup needs a distinct destructor lifetime
+### LINK-194: ArmyDetails static cleanup needs a distinct destructor lifetime
 
 Status: Blocked. Updated: 2026-11-03; inspected revision: `bc8e2a3575`.
 The two registered `Rva005F2FEFApt.cpp` atexit callbacks need the destructor
