@@ -15,6 +15,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 struct Rva006E3230Action { char data[24]; };
+#include "AptValue.h"
 #include "AptCIHClass.h"
 class Rva006DBB40ShrAndField
 {

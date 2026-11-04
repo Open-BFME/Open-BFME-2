@@ -12,6 +12,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
+#include "AptValue.h"
 #include "AptCIHClass.h"
 
 class Rva006D2A60

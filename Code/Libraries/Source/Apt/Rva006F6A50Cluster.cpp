@@ -21,6 +21,7 @@ public:
 #include "EAStringC.h"
 struct AptCharacter;struct AptCharacterInst;
 class AptRenderingContext;
+#include "AptValue.h"
 #include "AptCIHClass.h"
 #include "BfmeAptValue006DCD20.h"
 // AptCIH::field58 packs the signed 17-bit display depth (0x006F72F0), the

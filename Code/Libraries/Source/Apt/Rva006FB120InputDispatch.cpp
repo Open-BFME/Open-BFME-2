@@ -28,6 +28,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #define APT_INPUT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptInput.cpp"
 #define APT_CIH_FILE "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 
+#include "AptValue.h"
 #include "AptCIHClass.h"
 class Rva006DBB30SarDwordField
 {

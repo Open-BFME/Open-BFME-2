@@ -28,6 +28,7 @@ void __debugbreak();
 
 #include "EAStringC.h"
 
+#include "AptValue.h"
 #include "AptCIHClass.h"
 
 #include "BfmeAptValue006DCD20.h"
