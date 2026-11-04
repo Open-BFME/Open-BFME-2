@@ -23,21 +23,16 @@ struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
 struct AptCharacterSpriteInstBase { unsigned char prefix[12]; AptCharacter *character; AptNativeHash *nativeHash; int unknown14; int mnFrame; int flags; void *actions; AptDisplayList display; int mnGotoAnded; };
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-class AptCIH {
-public:
- unsigned char prefix[0x4c]; AptCharacterSpriteInstBase *character;
- bool IsSpriteInstBase() const;
- AptCharacterSpriteInstBase *GetSpriteInstBase() const {
-  if(!IsSpriteInstBase()) {
-   g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);
-   if(g_bfmeAptBreakOnAssertAtDDC01C) {__asm int 3}
-  }
-  return character;
+#include "AptCIHClass.h"
+static __forceinline AptCharacterSpriteInstBase *spriteInstBase(const AptCIH *cih) {
+ if(!cih->IsSpriteInstBase()) {
+  g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);
+  if(g_bfmeAptBreakOnAssertAtDDC01C) {__asm int 3}
  }
- void jumpToFrame(int);
-};
+ return (AptCharacterSpriteInstBase *)cih->field4C;
+}
 void AptCIH::jumpToFrame(int frame) {
- AptCharacterSpriteInstBase *sprite=GetSpriteInstBase();
+ AptCharacterSpriteInstBase *sprite=spriteInstBase(this);
  if(frame<0 || frame>=sprite->character->movie.nFrames) return;
  if(frame==sprite->mnFrame) return;
  else if(frame==sprite->mnFrame+1) {

@@ -34,11 +34,10 @@ struct Animation {char prefix[8];FrameList frames;};
 struct Character {int type;Animation *parent;float x,y,width,height;int fontIndex;int color;int unknown20;float size;int unknown28,unknown2c,unknown30,unknown34,unknown38,unknown3c;};
 struct Instance {char prefix[12];Character *character;char middle[0x24-0x10];};
 struct TextInstance {char prefix[0x24];int field24;char pad28[8];int color30,color34;char pad38[4];int color3c;char pad40[4];int field44,field48;char pad4c[4];float x,y,width,height,size;int fontIndex;char pad68[4];int field6c;char pad70[4];unsigned int flags;};
-class AptCIH {public:char prefix[0x4c];Instance *inst;bool IsCharacterInst()const;void factorySetProperty(int,float,bool);
- __forceinline Instance *characterInst()const {CHECK(IsCharacterInst(),"isCharacterInst()",0xa5);return inst;}
- __forceinline Instance *spriteBase()const {CHECK(this,"this",0xe2);CHECK(!((AptValue*)this)->isUndefined() && (((Rva006DBB30SarDwordField*)this)->get()==13 || ((Rva006DBB30SarDwordField*)this)->get()==18),"isSpriteInstBase()",0x7d);return inst;}
- __forceinline bool textValid()const {CHECK(this,"this",0xc4);return ((Rva006DBB30SarDwordField*)this)->get()==15 && !((AptValue*)this)->isUndefined();}
-};
+#include "AptCIHClass.h"
+static __forceinline Instance *characterInst(const AptCIH *cih) {CHECK(cih->IsCharacterInst(),"isCharacterInst()",0xa5);return (Instance*)cih->field4C;}
+static __forceinline Instance *spriteBase(const AptCIH *cih) {CHECK(cih,"this",0xe2);CHECK(!((AptValue*)cih)->isUndefined() && (((Rva006DBB30SarDwordField*)cih)->get()==13 || ((Rva006DBB30SarDwordField*)cih)->get()==18),"isSpriteInstBase()",0x7d);return (Instance*)cih->field4C;}
+static __forceinline bool textValid(const AptCIH *cih) {CHECK(cih,"this",0xc4);return ((Rva006DBB30SarDwordField*)cih)->get()==15 && !((AptValue*)cih)->isUndefined();}
 class BfmeSubmitter1283
 {
 public:
@@ -64,11 +63,11 @@ AptValue *Rva006ED810CreateTextField(AptValue *context,int argc) {
  if(!character){g_bfmeAptAssertAtE17734("pCharacter","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCharacter.cpp",0x3c3);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
  character->type=2;character->x=0;character->y=0;character->width=width;character->height=height;
  character->color=0;character->unknown20=0;character->size=12;character->unknown28=0;character->unknown2c=0;character->unknown30=0;character->unknown34=0;character->unknown38=0;character->fontIndex=-1;
- character->parent=context->c_cih(false)->characterInst()->character->parent;
- FrameList *animation=&context->c_cih(false)->characterInst()->character->parent->frames;
+ character->parent=characterInst(context->c_cih(false))->character->parent;
+ FrameList *animation=&characterInst(context->c_cih(false))->character->parent->frames;
  for(int i=0;i<animation->count;++i){if(animation->characters[i]->type==3){character->fontIndex=i;break;}}
- AptCIH *child=(AptCIH*)((BfmeSubmitter1283*)((char*)parent->spriteBase()+0x24))->bfmeSubmit1283(0,depth+0x4000,(int)character,(int)&name,(int)parent,1,-1,0,0,0,0,0);
- if(child->textValid()){
+ AptCIH *child=(AptCIH*)((BfmeSubmitter1283*)((char*)spriteBase(parent)+0x24))->bfmeSubmit1283(0,depth+0x4000,(int)character,(int)&name,(int)parent,1,-1,0,0,0,0,0);
+ if(textValid(child)){
   TextInstance *text=(TextInstance*)((BfmeAptValue006DCD20*)child)->rva006E0F40();
   text->flags=(text->flags&~6)|1;text->color34=0xff000000;text->color30=-1;
   text->height=character->height;text->x=character->x;text->width=character->width;text->y=character->y;
