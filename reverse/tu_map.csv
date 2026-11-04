@@ -19580,7 +19580,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002890D1,104,code,,displaced,-,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIUpgradeListParsers.cpp
 0x00289139,14,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288E21..0x00289147,Code/GameEngine/Source/Common/System/CrateCreationEntryListInsert.cpp
 0x00289147,29,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288E21..0x00289164,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp
-0x00289164,28,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288E21..0x00289180,Code/GameEngine/Source/Common/Rva00289371HashClear.cpp
+0x00289164,28,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x00288E21..0x00289180,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00289180,91,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/Common/ExperienceLevelSystem.cpp,Code/GameEngine/Source/Common/Rva00289180Finish.cpp
 0x002891DB,61,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/ExperienceLevelStore.cpp,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x00289218,16,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x00289265,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
@@ -19588,7 +19588,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00289265,136,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x002892ED,Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp
 0x002892ED,63,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x0028932C,Code/GameEngine/Source/GameLogic/System/ExperienceLevelDtor.cpp
 0x0028932C,69,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x00289371,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp
-0x00289371,73,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x002893BA,Code/GameEngine/Source/Common/Rva00289371HashClear.cpp
+0x00289371,73,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x002893BA,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 0x002893BA,232,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x002894A2,Code/GameEngine/Source/GameLogic/System/ExperienceLevelCtor.cpp
 0x002894A2,125,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x0028951F,Code/GameEngine/Source/GameLogic/System/ExperienceLevelDtor.cpp
 0x0028951F,144,code,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,approved,C,C=0x002891DB..0x002895AF,Code/Libraries/Source/WWVegas/WWLib/Rva0028951FFind.cpp
