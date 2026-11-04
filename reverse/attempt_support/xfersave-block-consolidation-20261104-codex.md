@@ -35,3 +35,16 @@ Raw local checks: `build/xfersave-blocks-{before,after}.log`,
 `build/xfersave-blocks-{before,after}-link.log`,
 `build/xfersave-blocks-dry.log`; before objects under `build/xfersave-blocks/`.
 No census or full-image gain is claimed.
+
+## Application boundary
+
+Prerequisite commit: `d02fb7da09` (handed to the fleet publisher).
+The normal application command refused before writing: another worker holds
+`0x0007FAB3`, the shared string destructor fold in the candidate scope.
+No claim bypass, source move or ledger repoint was attempted. The application
+released its scope claims. When that claim is free, rerun the supported merge;
+the verified seed/block-writer composition is the new positive prerequisite.
+EH verification passes all three graphs; data checks report zero findings.
+No source-file reduction is claimed for this pass. This is the existing shared
+fold claim boundary documented in the earlier XferSave handoffs, not a newly
+discovered linking obstacle.
