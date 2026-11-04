@@ -46,3 +46,6 @@ Additional probes from the current shard reassessment are recorded in
 
 Current-shard allocator probes and exact compile/LinkGuard blockers are recorded
 in `consolidation-seat1-current-probes-20261104.md`.
+
+This session’s follow-on candidate and mixed-file trials are recorded in
+`consolidation-seat1-session-20261104.md`.
