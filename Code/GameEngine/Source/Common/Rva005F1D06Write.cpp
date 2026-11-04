@@ -1,25 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /MD
 // ?rva005F1D06@Rva005F1D06@@QAEHPAD@Z @0x005F1D06 37B evidence: gap between dtor rows in Rva005F1CE8Dtor.cpp base write 0x005F1B75 plus pair write at +0x10 caller 0x005F1D7C
 #include "ascii_string.h"
-struct Rva002226E5TextPlusString
-{
-	int length() const;
-	int write(char *dst);
-	char m_pad[8];
-};
-struct AsciiStringRef
-{
-	class AsciiString *m_string;
-	int m_len;
-	int write(char *dst);
-};
+#include "../../Include/Common/AsciiStringRef.h"
+#include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 struct Rva005F1B75 : Rva002226E5TextPlusString
 {
 	int length() const;
 	int write(char *dst);
 	AsciiStringRef m_third;
 };
-#include "../../Include/Common/Rva000B3F84Pair.h"
 class Rva005F1D06 : public Rva005F1B75
 {
 public:
