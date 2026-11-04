@@ -15,8 +15,12 @@ struct BFME2TextureRef {
  BFME2TextureRef(const BFME2TextureRef& p):Ptr(p.Ptr) { if(Ptr) ++Ptr->Refs; }
  ~BFME2TextureRef() { if(Ptr) Ptr->Release_Ref(); }
 };
-class Rva0013EF40Category {
- unsigned Prefix[2]; BFME2TextureResource* Textures[2];
- public: BFME2TextureRef Get_Texture(int stage);
+class Rva0013EF40Category
+{
+public:
+	BFME2TextureRef Get_Texture(int stage);
+private:
+	unsigned Prefix[2]; // +0x00
+	BFME2TextureResource * Textures[2]; // +0x08
 };
 BFME2TextureRef Rva0013EF40Category::Get_Texture(int stage) { return BFME2TextureRef(Textures[stage]); }

@@ -14,9 +14,8 @@ class MaterialPassStage
 public:
 	MaterialPassStage();
 	~MaterialPassStage();
-
 private:
-	void *m_ptr;
+	void *m_ptr; // +0x00
 };
 
 class MaterialPassClass : public RefCountClass

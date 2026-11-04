@@ -33,6 +33,9 @@ class Rva0013EF40Category
 {
 public:
 	BFME2TextureRef Get_Texture(int stage);
+private:
+	unsigned Prefix[2]; // +0x00
+	BFME2TextureResource * Textures[2]; // +0x08
 };
 
 class DX8Wrapper

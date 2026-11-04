@@ -36,9 +36,8 @@ class MaterialPassStage
 public:
 	MaterialPassStage();
 	~MaterialPassStage();
-
 private:
-	void *Pointer;
+	void *m_ptr; // +0x00
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/matpass.h
