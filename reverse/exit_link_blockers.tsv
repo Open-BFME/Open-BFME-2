@@ -1,12 +1,9 @@
-# real link at 84634ff60c3be0c2c28adcb9b7471b3b4ee5086e: tools/exit_link.py --blockers
+# real link at 173e734df9559288220546e9d229ac6ba50112b0: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp	3	?crc@DamageModule@@MAEXPAVXfer@@@Z
-Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	2	??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 Code/GameEngine/Source/GameClient/GUI/Rva005776A7Ctor.cpp	2	?r0@Rva005776A7Interface@@UAEXXZ
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
-Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	2	?insert@Rva004D272EMapHintInsert@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBGVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@U23@ABU?$pair@$$CBGVAsciiString@@@3@@Z
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	1	?freeBytes@AsciiString@@AAEXXZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp	1	??1T1Base_005F3750@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	1	?g_freeList@@3PAXA
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
