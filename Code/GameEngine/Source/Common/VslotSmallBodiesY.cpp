@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-class AptSaveLoad { public: static AptSaveLoad *s_instance; };
+#include "../../Include/GameClient/AptSaveLoad.h"
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch Y. As in VslotSmallBodiesA-X, each class and
