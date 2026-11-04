@@ -211,7 +211,7 @@ const char *WindowStatusNames[] = { "ACTIVE", "TOGGLE", "DRAGABLE", "ENABLED", "
 														  "SMOOTH_TEXT", "ONE_LINE", "NO_FLUSH", "SEE_THRU", 
 															"RIGHT_CLICK", "WRAP_CENTERED", "CHECK_LIKE","HOTKEY_TEXT",
 															"USE_OVERLAY_STATES", "NOT_READY", "FLASHING", "ALWAYS_COLOR",
-															"ON_MOUSE_DOWN",
+															"ON_MOUSE_DOWN", "WIN_STATUS_CIRCULAR", "WIN_STATUS_AVAIL_FLAG", "WIN_STATUS_BLOCK_INPUT",
 															NULL };
 
 const char *WindowStyleNames[] = { "PUSHBUTTON",	"RADIOBUTTON",	"CHECKBOX",
