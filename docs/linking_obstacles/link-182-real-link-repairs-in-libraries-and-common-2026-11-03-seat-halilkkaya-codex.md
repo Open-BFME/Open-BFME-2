@@ -2,6 +2,27 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### PA vector element operation providers (2026-11-04, halilkkaya-codex)
+
+Base `e8527d1743`: `PAVectorEraseRangeFamily003AF.cpp`'s sixteen-byte copy
+now uses the existing 0x0052BB9A constructor operation, and its twenty-four-byte
+assignment uses the existing 0x003F2A11 operation. Inline-only adapters preserve
+the opaque element spellings and footprints; they emit neither new element
+methods nor imports. The constructor view is novtable so its real provider
+performs the witnessed vptr initialization. No alias, pin, row or element
+identity claim is added. Both artifact `612abfbebb` unresolved names disappear.
+
+All 83 family rows verify (both owned vector rows, the constructor provider,
+assignment provider and range-copy provider); the frozen check is clean.
+True current-object base/tip checks of that family and first-copy COMDAT
+providers (25 units, index `a62ac1c10b`) preserve all 23 LINKS units and
+69,412 preview bytes. Scoped DIR32 passes 83 rows plus 50 witnesses. The
+pre-existing non-retail selected overflow body is still blocked (LINK-002);
+the earlier failed temporary/tag forwarder trials were not repeated.
+An out-of-line assignment adapter was discarded because it introduced an
+unrowed body; the retained adapters have no standalone code or import.
+No whole-image/census closure is claimed. Receipts: `build/seat_pa_*`.
+
 ### Delayed spline event's Snapshot base (2026-11-04, halilkkaya-codex)
 
 Base `35cb072fd7`: replace `Rva003C2F40TreeCtor.cpp`'s private base with the

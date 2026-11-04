@@ -49,8 +49,45 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 	}
 
 BFME_PA_ERASE_ELEM( Elem003AF8C0, 0x0C );
-BFME_PA_ERASE_ELEM( Elem003AF9E0, 0x10 );
-BFME_PA_ERASE_ELEM( Elem003B2540, 0x18 );
+
+// Native construction reaches the existing 0x0052BB9A owner. This is an
+// operation view of the same sixteen-byte storage, not a recovered type name.
+// Both operation adapters are inline-only: the current object has neither
+// an element-method definition nor an import referring to either adapter.
+class Rva003A6360Record {
+public:
+	Rva003A6360Record(const Rva003A6360Record &) throw();
+};
+struct __declspec(novtable) Elem003AF9E0
+{
+	virtual ~Elem003AF9E0();
+	char m_body[0x0C];
+	Elem003AF9E0();
+	__declspec(dllimport) __forceinline Elem003AF9E0(const Elem003AF9E0 &other)
+	{
+		((Rva003A6360Record *)this)->Rva003A6360Record::Rva003A6360Record(
+			*(const Rva003A6360Record *)&other);
+	}
+	Elem003AF9E0 &operator=(const Elem003AF9E0 &);
+};
+// The twenty-four-byte element's observed assignment is the existing
+// 0x003F2A11 operation (string +4, word +8, vector +0x0C).
+class Rva003F2A11 {
+public:
+	Rva003F2A11 &rva003F2A11(const Rva003F2A11 &);
+};
+struct Elem003B2540
+{
+	virtual ~Elem003B2540();
+	char m_body[0x14];
+	Elem003B2540();
+	Elem003B2540(const Elem003B2540 &);
+	__declspec(dllimport) __forceinline Elem003B2540 &operator=(const Elem003B2540 &other)
+	{
+		return *(Elem003B2540 *)&((Rva003F2A11 *)this)->rva003F2A11(
+			*(const Rva003F2A11 *)&other);
+	}
+};
 
 // Only the placed members are instantiated; the donor instantiated nine
 // whole vector<T> classes, whose other members came out as private copies.
