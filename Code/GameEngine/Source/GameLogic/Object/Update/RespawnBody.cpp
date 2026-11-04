@@ -15,7 +15,7 @@ class Module;
 enum NameKeyType;
 enum ObjectStatusTypes;
 enum ObjectID;
-class DamageInfo { public: unsigned char before08[8]; ObjectID source; };
+#include "../../../../Include/GameLogic/Damage.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/NameKeyGenerator.h"
@@ -113,7 +113,7 @@ void RespawnBody::internalChangeHealth(float amount, DamageInfo *info)
             if (!data->canRespawn) {
                 permanent = true;
             } else if (info) {
-                Object *source = TheGameLogic->findObjectByID(info->source);
+                Object *source = TheGameLogic->findObjectByID(info->m_sourceID);
                 if (source && data->filter.accepts(source, obj->getControllingPlayer()))
                     permanent = true;
             }

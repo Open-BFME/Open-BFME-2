@@ -1,0 +1,1107 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnBody.cpp",
+  "base": "10b67cc307d6f62b2b530b257db7b92e367e59c5",
+  "runtime_identical": true,
+  "before": {
+    "sections": [
+      {
+        "name": ".drectve",
+        "size": 600,
+        "characteristics": 1051136,
+        "sha256": "862521b5d91cc18fdfdc5ac4b3e0c417926c5eabbee2c7d7cf9c173399068ec4",
+        "relocs": [],
+        "comdat": [
+          0,
+          null
+        ]
+      },
+      {
+        "name": ".text",
+        "size": 330,
+        "characteristics": 1611665440,
+        "sha256": "85b810eb6aea0ea28d52d829f64fdc213c0dd4d4a6c280de9fccfca7fd57a40c",
+        "relocs": [
+          [
+            1,
+            6,
+            [
+              "defined",
+              2,
+              13
+            ]
+          ],
+          [
+            6,
+            20,
+            [
+              "external",
+              "__EH_prolog",
+              2,
+              32
+            ]
+          ],
+          [
+            20,
+            6,
+            [
+              "defined",
+              6,
+              0,
+              "__real@00000000"
+            ]
+          ],
+          [
+            98,
+            6,
+            [
+              "external",
+              "?TheGameLogic@@3PAVGameLogic@@A",
+              2,
+              0
+            ]
+          ],
+          [
+            107,
+            20,
+            [
+              "external",
+              "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            121,
+            20,
+            [
+              "external",
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            131,
+            20,
+            [
+              "external",
+              "?accepts@Rva2225E0Filter@@QAE_NPAVObject@@PAVPlayer@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            157,
+            20,
+            [
+              "external",
+              "?internalChangeHealth@ActiveBody@@UAEXMPAVDamageInfo@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            163,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            172,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            179,
+            6,
+            [
+              "external",
+              "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+              2,
+              0
+            ]
+          ],
+          [
+            188,
+            6,
+            [
+              "defined",
+              4,
+              0,
+              "??_C@_0O@OHBIEHDN@RespawnUpdate?$AA@"
+            ]
+          ],
+          [
+            193,
+            20,
+            [
+              "external",
+              "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            202,
+            6,
+            [
+              "defined",
+              3,
+              0
+            ]
+          ],
+          [
+            211,
+            6,
+            [
+              "defined",
+              3,
+              0
+            ]
+          ],
+          [
+            218,
+            20,
+            [
+              "external",
+              "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            245,
+            20,
+            [
+              "external",
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            256,
+            20,
+            [
+              "external",
+              "?rva0029A12B@Object@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            265,
+            20,
+            [
+              "external",
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            276,
+            20,
+            [
+              "external",
+              "?rva004AF182@RespawnUpdate@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            287,
+            20,
+            [
+              "external",
+              "?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            297,
+            20,
+            [
+              "external",
+              "?onDie@Object@@QAEXPAVDamageInfo@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            310,
+            20,
+            [
+              "external",
+              "?rva004AF182@RespawnUpdate@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            322,
+            6,
+            [
+              "external",
+              "__except_list",
+              2,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          1,
+          null
+        ]
+      },
+      {
+        "name": ".text$x",
+        "size": 23,
+        "characteristics": 1611665440,
+        "sha256": "1e8fadde163ec4860777e15eb4f5ce68deec0481441de6ed6d75ce16057dabfa",
+        "relocs": [
+          [
+            1,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            8,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            14,
+            6,
+            [
+              "defined",
+              7,
+              8
+            ]
+          ],
+          [
+            19,
+            20,
+            [
+              "external",
+              "___CxxFrameHandler",
+              2,
+              32
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          1
+        ]
+      },
+      {
+        "name": ".bss",
+        "size": 4,
+        "characteristics": 3224375424,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".rdata",
+        "size": 14,
+        "characteristics": 1076891712,
+        "sha256": "87b7a50da986bb27ff6119670a3aa01c7b027d7b08bee350496e817dd40e798b",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".bss",
+        "size": 4,
+        "characteristics": 3224375424,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".rdata",
+        "size": 4,
+        "characteristics": 1076891712,
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".xdata$x",
+        "size": 36,
+        "characteristics": 1076891712,
+        "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+        "relocs": [
+          [
+            4,
+            6,
+            [
+              "defined",
+              2,
+              0
+            ]
+          ],
+          [
+            16,
+            6,
+            [
+              "defined",
+              7,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          1
+        ]
+      },
+      {
+        "name": ".sxdata",
+        "size": 8,
+        "characteristics": 3146240,
+        "sha256": "a89ffc54922847eab7691681863040613082541f5a165307fc82eedcf7e3a79d",
+        "relocs": [],
+        "comdat": [
+          0,
+          null
+        ]
+      },
+      {
+        "name": ".text",
+        "size": 53,
+        "characteristics": 1611665440,
+        "sha256": "cbfccfb804a6bac7d431920a0b74185a70dc3882b49eb99b24538ff3ff597be2",
+        "relocs": [
+          [
+            1,
+            6,
+            [
+              "defined",
+              10,
+              8
+            ]
+          ],
+          [
+            6,
+            20,
+            [
+              "external",
+              "__EH_prolog",
+              2,
+              32
+            ]
+          ],
+          [
+            25,
+            20,
+            [
+              "external",
+              "??1Rva00360D26Member@@QAE@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            36,
+            20,
+            [
+              "external",
+              "??1ActiveBodyModuleData@@UAE@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            47,
+            6,
+            [
+              "external",
+              "__except_list",
+              2,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          1,
+          null
+        ]
+      },
+      {
+        "name": ".text$x",
+        "size": 18,
+        "characteristics": 1611665440,
+        "sha256": "2c6f0783d5302700489405424646cd4aef3c69beb71063b1404998b91ef83f00",
+        "relocs": [
+          [
+            4,
+            20,
+            [
+              "external",
+              "??1ActiveBodyModuleData@@UAE@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            9,
+            6,
+            [
+              "defined",
+              11,
+              8
+            ]
+          ],
+          [
+            14,
+            20,
+            [
+              "external",
+              "___CxxFrameHandler",
+              2,
+              32
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          9
+        ]
+      },
+      {
+        "name": ".xdata$x",
+        "size": 36,
+        "characteristics": 1076891712,
+        "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+        "relocs": [
+          [
+            4,
+            6,
+            [
+              "defined",
+              10,
+              0
+            ]
+          ],
+          [
+            16,
+            6,
+            [
+              "defined",
+              11,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          9
+        ]
+      }
+    ],
+    "extern_definitions": {
+      "?internalChangeHealth@RespawnBody@@UAEXMPAVDamageInfo@@@Z": [
+        1,
+        0,
+        32
+      ],
+      "??_C@_0O@OHBIEHDN@RespawnUpdate?$AA@": [
+        4,
+        0,
+        0
+      ],
+      "__real@00000000": [
+        6,
+        0,
+        0
+      ],
+      "??1RespawnBodyModuleData@@UAE@XZ": [
+        9,
+        0,
+        32
+      ]
+    },
+    "weak": {}
+  },
+  "after": {
+    "sections": [
+      {
+        "name": ".drectve",
+        "size": 600,
+        "characteristics": 1051136,
+        "sha256": "862521b5d91cc18fdfdc5ac4b3e0c417926c5eabbee2c7d7cf9c173399068ec4",
+        "relocs": [],
+        "comdat": [
+          0,
+          null
+        ]
+      },
+      {
+        "name": ".text",
+        "size": 330,
+        "characteristics": 1611665440,
+        "sha256": "85b810eb6aea0ea28d52d829f64fdc213c0dd4d4a6c280de9fccfca7fd57a40c",
+        "relocs": [
+          [
+            1,
+            6,
+            [
+              "defined",
+              2,
+              13
+            ]
+          ],
+          [
+            6,
+            20,
+            [
+              "external",
+              "__EH_prolog",
+              2,
+              32
+            ]
+          ],
+          [
+            20,
+            6,
+            [
+              "defined",
+              6,
+              0,
+              "__real@00000000"
+            ]
+          ],
+          [
+            98,
+            6,
+            [
+              "external",
+              "?TheGameLogic@@3PAVGameLogic@@A",
+              2,
+              0
+            ]
+          ],
+          [
+            107,
+            20,
+            [
+              "external",
+              "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            121,
+            20,
+            [
+              "external",
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            131,
+            20,
+            [
+              "external",
+              "?accepts@Rva2225E0Filter@@QAE_NPAVObject@@PAVPlayer@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            157,
+            20,
+            [
+              "external",
+              "?internalChangeHealth@ActiveBody@@UAEXMPAVDamageInfo@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            163,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            172,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            179,
+            6,
+            [
+              "external",
+              "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+              2,
+              0
+            ]
+          ],
+          [
+            188,
+            6,
+            [
+              "defined",
+              4,
+              0,
+              "??_C@_0O@OHBIEHDN@RespawnUpdate?$AA@"
+            ]
+          ],
+          [
+            193,
+            20,
+            [
+              "external",
+              "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            202,
+            6,
+            [
+              "defined",
+              3,
+              0
+            ]
+          ],
+          [
+            211,
+            6,
+            [
+              "defined",
+              3,
+              0
+            ]
+          ],
+          [
+            218,
+            20,
+            [
+              "external",
+              "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            245,
+            20,
+            [
+              "external",
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            256,
+            20,
+            [
+              "external",
+              "?rva0029A12B@Object@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            265,
+            20,
+            [
+              "external",
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            276,
+            20,
+            [
+              "external",
+              "?rva004AF182@RespawnUpdate@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            287,
+            20,
+            [
+              "external",
+              "?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            297,
+            20,
+            [
+              "external",
+              "?onDie@Object@@QAEXPAVDamageInfo@@@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            310,
+            20,
+            [
+              "external",
+              "?rva004AF182@RespawnUpdate@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            322,
+            6,
+            [
+              "external",
+              "__except_list",
+              2,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          1,
+          null
+        ]
+      },
+      {
+        "name": ".text$x",
+        "size": 23,
+        "characteristics": 1611665440,
+        "sha256": "1e8fadde163ec4860777e15eb4f5ce68deec0481441de6ed6d75ce16057dabfa",
+        "relocs": [
+          [
+            1,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            8,
+            6,
+            [
+              "defined",
+              5,
+              0
+            ]
+          ],
+          [
+            14,
+            6,
+            [
+              "defined",
+              7,
+              8
+            ]
+          ],
+          [
+            19,
+            20,
+            [
+              "external",
+              "___CxxFrameHandler",
+              2,
+              32
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          1
+        ]
+      },
+      {
+        "name": ".bss",
+        "size": 4,
+        "characteristics": 3224375424,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".rdata",
+        "size": 14,
+        "characteristics": 1076891712,
+        "sha256": "87b7a50da986bb27ff6119670a3aa01c7b027d7b08bee350496e817dd40e798b",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".bss",
+        "size": 4,
+        "characteristics": 3224375424,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".rdata",
+        "size": 4,
+        "characteristics": 1076891712,
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+        "relocs": [],
+        "comdat": [
+          2,
+          null
+        ]
+      },
+      {
+        "name": ".xdata$x",
+        "size": 36,
+        "characteristics": 1076891712,
+        "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+        "relocs": [
+          [
+            4,
+            6,
+            [
+              "defined",
+              2,
+              0
+            ]
+          ],
+          [
+            16,
+            6,
+            [
+              "defined",
+              7,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          1
+        ]
+      },
+      {
+        "name": ".sxdata",
+        "size": 8,
+        "characteristics": 3146240,
+        "sha256": "a89ffc54922847eab7691681863040613082541f5a165307fc82eedcf7e3a79d",
+        "relocs": [],
+        "comdat": [
+          0,
+          null
+        ]
+      },
+      {
+        "name": ".text",
+        "size": 53,
+        "characteristics": 1611665440,
+        "sha256": "cbfccfb804a6bac7d431920a0b74185a70dc3882b49eb99b24538ff3ff597be2",
+        "relocs": [
+          [
+            1,
+            6,
+            [
+              "defined",
+              10,
+              8
+            ]
+          ],
+          [
+            6,
+            20,
+            [
+              "external",
+              "__EH_prolog",
+              2,
+              32
+            ]
+          ],
+          [
+            25,
+            20,
+            [
+              "external",
+              "??1Rva00360D26Member@@QAE@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            36,
+            20,
+            [
+              "external",
+              "??1ActiveBodyModuleData@@UAE@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            47,
+            6,
+            [
+              "external",
+              "__except_list",
+              2,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          1,
+          null
+        ]
+      },
+      {
+        "name": ".text$x",
+        "size": 18,
+        "characteristics": 1611665440,
+        "sha256": "2c6f0783d5302700489405424646cd4aef3c69beb71063b1404998b91ef83f00",
+        "relocs": [
+          [
+            4,
+            20,
+            [
+              "external",
+              "??1ActiveBodyModuleData@@UAE@XZ",
+              2,
+              32
+            ]
+          ],
+          [
+            9,
+            6,
+            [
+              "defined",
+              11,
+              8
+            ]
+          ],
+          [
+            14,
+            20,
+            [
+              "external",
+              "___CxxFrameHandler",
+              2,
+              32
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          9
+        ]
+      },
+      {
+        "name": ".xdata$x",
+        "size": 36,
+        "characteristics": 1076891712,
+        "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+        "relocs": [
+          [
+            4,
+            6,
+            [
+              "defined",
+              10,
+              0
+            ]
+          ],
+          [
+            16,
+            6,
+            [
+              "defined",
+              11,
+              0
+            ]
+          ]
+        ],
+        "comdat": [
+          5,
+          9
+        ]
+      }
+    ],
+    "extern_definitions": {
+      "?internalChangeHealth@RespawnBody@@UAEXMPAVDamageInfo@@@Z": [
+        1,
+        0,
+        32
+      ],
+      "??_C@_0O@OHBIEHDN@RespawnUpdate?$AA@": [
+        4,
+        0,
+        0
+      ],
+      "__real@00000000": [
+        6,
+        0,
+        0
+      ],
+      "??1RespawnBodyModuleData@@UAE@XZ": [
+        9,
+        0,
+        32
+      ]
+    },
+    "weak": {}
+  }
+}
