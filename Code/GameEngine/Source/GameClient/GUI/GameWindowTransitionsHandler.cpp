@@ -125,7 +125,14 @@ public:
 class Rva001DBDA4
 {
 public:
-	void rva001DBE17();
+	bool rva001DBD83() const; // isFinished
+	void rva001DBD5D(); // update
+	void rva001DBDC6(); // reverse
+	void rva001DBE17(); // BFME 2's step after skip
+	void rva001DBE34(); // skip
+	void rva001DBE51(); // draw
+	int rva001DBDA4() const; // getTotalFrames
+	void rva001DC164(); // init
 };
 typedef Rva001DC0EC TransitionGroup;
 
