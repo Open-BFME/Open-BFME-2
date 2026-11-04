@@ -23,7 +23,17 @@ template <> __forceinline void _Construct<Rva000CF529Element, Rva000CF529Element
     Rva000CF4D6Construct(reinterpret_cast<TreeKey00242F5E *>(destination),
         *reinterpret_cast<const TreeKey00242F5E *>(&value));
 }
-}
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva000CF529Element * _STL::__uninitialized_fill_n<Rva000CF529Element *, unsigned int, Rva000CF529Element>(Rva000CF529Element *, unsigned int, Rva000CF529Element const &, _STL::__false_type const &);
+// The element has no destructor work. A direct specialization preserves the
+// reference loop without its empty cleanup/rethrow handler when another TU
+// has included STLport with exception support enabled.
+template <> Rva000CF529Element * __uninitialized_fill_n<Rva000CF529Element *, unsigned int, Rva000CF529Element>(
+    Rva000CF529Element *destination, unsigned int count,
+    const Rva000CF529Element &value, const __false_type &)
+{
+    Rva000CF529Element *current = destination;
+    for (; count > 0; --count, ++current)
+        _Construct(current, value);
+    return current;
+}
+}
