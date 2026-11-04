@@ -248,6 +248,26 @@ class DirectiveCompositionTests(unittest.TestCase):
             self.assertEqual(T.token_seq(scope), T.token_seq(out[start:end]))
             self.assertLess(out.index('struct AsciiString'), start)
 
+    def test_objects_after_the_last_body_keep_following_every_body(self):
+        # INIAudioEventInfo.cpp's BlockParse nodes: hoisted above the bodies their
+        # initializers became _$E1.. instead of retail's _$E2.., losing six rows.
+        node = 'Node theTrackNode( "Track", parseTrack );'
+        text = ('struct Node { Node(const char *, void (*)()); };\n'
+                'void parseTrack() {}\n'
+                'typedef void (*Parse)();\nextern Node *theList;\nstruct Late;\n'
+                'void parseLater();\n' + node + '\nNode plain;\n')
+        sk = [({"rva": "0x1000", "size": "8"}, {"source": "Seed.cpp", "status": "matched"}),
+              ({"rva": "0x1010", "size": "8"}, {"source": "Donor.cpp", "status": "matched"})]
+        texts = {"Seed.cpp": text, "Donor.cpp": "int g() { return 2; }\n"}
+        out = T.compose("Seed.cpp", sk, ["Seed.cpp", "Donor.cpp"], texts, [], "first")
+        body = out.index("int g()")
+        self.assertGreater(out.index(node), body)
+        self.assertGreater(out.index("Node plain;"), out.index(node))
+        for hoisted in ("typedef void (*Parse)();", "extern Node *theList;",
+                        "struct Late;", "void parseLater();"):
+            self.assertLess(out.index(hoisted), out.index("void parseTrack()"), hoisted)
+        self.assertEqual(out.count(node), 1)
+
     def test_separate_inline_depth_declaration_scopes_keep_their_resets(self):
         first = '#pragma inline_depth(0)\nA first;\n#pragma inline_depth()'
         second = '#pragma inline_depth(1)\nA second;\n#pragma inline_depth()'
