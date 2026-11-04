@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class W3DStreakDraw
-{
-public:
-	W3DStreakDraw(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x14];
-};
+#include "../../../../../Include/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.h"
 
 // ?friend_newModuleInstance@W3DStreakDraw@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *W3DStreakDraw::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
