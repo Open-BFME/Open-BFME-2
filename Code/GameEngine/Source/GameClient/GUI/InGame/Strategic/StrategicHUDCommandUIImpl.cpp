@@ -60,15 +60,7 @@ namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 // address-named setters; their parameter types are those views').
 class Object;
 struct CameraMarker;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *object);
-	void *get() const { return m_ptr; }
-
-private:
-	void *m_ptr;
-};
+#include "../../../../../Include/Common/Rva00575674.h"
 class Rva00528FE6
 {
 public:
@@ -177,7 +169,7 @@ void StrategicHUD::CommandUIImpl::ButtonSubMenu::OnShown()
 	if (m_owner->m_currentSubMenu != m_slot)
 	{
 		if (m_owner->m_currentSubMenu >= 0)
-			((Rva005C39AA *)m_owner->m_slots[m_owner->m_currentSubMenu].m_subMenu.get())->rva005C39AA();
+			((Rva005C39AA *)m_owner->m_slots[m_owner->m_currentSubMenu].m_subMenu.m_ptr)->rva005C39AA();
 		m_owner->m_currentSubMenu = m_slot;
 	}
 }
@@ -243,18 +235,18 @@ void StrategicHUD::CommandUIImpl::Update()
     for (int i = 0; i < 6; ++i)
     {
         ButtonSlot *slot = &self->m_slots[i];
-        if (slot->m_frame.get())
+        if (slot->m_frame.m_ptr)
         {
             if (slot->queued.ptr)
             {
-                slot->active = ((Rva005C39C4 *)slot->queued.ptr)->rva005C39C4((int)slot->m_frame.get());
+                slot->active = ((Rva005C39C4 *)slot->queued.ptr)->rva005C39C4((int)slot->m_frame.m_ptr);
                 slot->queued.clear();
             }
             if (slot->active.m_ptr)
                 slot->active.m_ptr->slot1();
         }
-        if (slot->m_subMenu.get())
-            ((Rva005C3F02 *)slot->m_subMenu.get())->rva005C3E81();
+        if (slot->m_subMenu.m_ptr)
+            ((Rva005C3F02 *)slot->m_subMenu.m_ptr)->rva005C3E81();
         if (slot->timeout && timeGetTime() - slot->startTime >= slot->timeout)
         {
             CommandUIImpl *owner = self;

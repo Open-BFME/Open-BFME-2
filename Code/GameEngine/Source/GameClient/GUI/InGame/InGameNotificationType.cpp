@@ -202,12 +202,7 @@ Rva002217EA InGameNotificationType::rva00221ABB() const
 	return rva00221920(this);
 }
 
-class Rva00575674
-{
-public:
-	void rva00575674(void *p);
-	InGameNotificationTypeStore *m_ptr;
-};
+#include "../../../../Include/Common/Rva00575674.h"
 extern Rva00575674 g_00DFE4C4;
 
 void Rva002220DCInit();
@@ -216,15 +211,15 @@ Rva002217EA rva0022213F()
 {
 	if (!g_00DFE4C4.m_ptr)
 		Rva002220DCInit();
-	return rva00221920(&g_00DFE4C4.m_ptr->m_defaultType);
+	return rva00221920(&((InGameNotificationTypeStore *)g_00DFE4C4.m_ptr)->m_defaultType);
 }
 
 InGameNotificationType *FindInGameNotificationType(const AsciiString &name)
 {
 	if (!g_00DFE4C4.m_ptr)
 		Rva002220DCInit();
-	_STL::map<AsciiString, Rva0022216EEntry *>::iterator it = g_00DFE4C4.m_ptr->m_types.find(name);
-	if (it != g_00DFE4C4.m_ptr->m_types.end()) {
+	_STL::map<AsciiString, Rva0022216EEntry *>::iterator it = ((InGameNotificationTypeStore *)g_00DFE4C4.m_ptr)->m_types.find(name);
+	if (it != ((InGameNotificationTypeStore *)g_00DFE4C4.m_ptr)->m_types.end()) {
 		Rva0022216EEntry *entry = (*it).second;
 		return entry;
 	}
@@ -252,7 +247,7 @@ void forEachInGameNotificationType(InGameNotificationTypeVisitor &visitor)
 {
 	if (!g_00DFE4C4.m_ptr)
 		Rva002220DCInit();
-	_STL::map<AsciiString, Rva0022216EEntry *> &types = g_00DFE4C4.m_ptr->m_types;
+	_STL::map<AsciiString, Rva0022216EEntry *> &types = ((InGameNotificationTypeStore *)g_00DFE4C4.m_ptr)->m_types;
 	_STL::map<AsciiString, Rva0022216EEntry *>::iterator end = types.end();
 	for (_STL::map<AsciiString, Rva0022216EEntry *>::iterator it = types.begin(); it != end; ++it) {
 		if (!visitor.visit(rva002221A9Type((*it).second)))

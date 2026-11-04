@@ -15,12 +15,7 @@ public:
 
 class Object;
 
-class Rva00575674
-{
-public:
-	VirtPred *m_00;
-	void rva00575674(Object *obj) throw();
-};
+#include "../../Include/Common/Rva00575674.h"
 
 struct Rva005E5823Inner
 {
@@ -48,7 +43,7 @@ private:
 
 void Rva005E5823::rva005E5823(void *arg)
 {
-	VirtPred *pred = m_08->m_38.m_00;
+	VirtPred *pred = (VirtPred *)m_08->m_38.m_ptr;
 	if (pred && pred->v1(arg))
 		return;
 	Rva005E56C8 *obj = new Rva005E56C8((int)m_08, arg);

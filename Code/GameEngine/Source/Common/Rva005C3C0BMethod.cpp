@@ -14,14 +14,7 @@ namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 class Object;
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *obj);
-	void *m_00;
-	int m_04;
-	int m_08;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 class Rva005C3975
 {
@@ -51,7 +44,7 @@ void Rva005C3C0B::rva005C3C0B(const char *params)
 		return;
 	char *record = (char *)this + 0x20 + indexValue * 0xc;
 	Rva00575674 *elem = (Rva00575674 *)(record + 4);
-	if (elem->m_00 || !*(void **)record)
+	if (elem->m_ptr || !*(void **)record)
 		return;
 	AsciiString name;
 	if (!Rva004128F0GetParam(params, "name", name))

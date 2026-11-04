@@ -26,12 +26,7 @@ private:
 	char m_pad04[0x10];
 };
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-	Checkable *m_ptr;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 struct Rva00574851Inner
 {
@@ -50,7 +45,7 @@ private:
 
 void Rva00574815::rva00574851(int arg)
 {
-	Checkable *existing = m_08->m_54.m_ptr;
+	Checkable *existing = (Checkable *)m_08->m_54.m_ptr;
 	if (existing && existing->check(arg))
 		return;
 	((Rva000AD6F4 *)&m_08->m_54)->clear();

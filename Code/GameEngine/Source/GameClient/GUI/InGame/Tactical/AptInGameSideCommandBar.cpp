@@ -25,13 +25,7 @@ public:
 };
 class Rva00528309 { public: void reset(); };
 class Object;
-class Rva00575674 {
-public:
- void rva00575674(Object *);
- void *m_button;
- void *m_updater;
- int m_key;
-};
+#include "../../../../../Include/Common/Rva00575674.h"
 class Rva005C31FB {
 public:
  virtual ~Rva005C31FB();
@@ -132,7 +126,7 @@ void AptInGameSideCommandBar::Impl::OnButtonFrameLoaded(const char *params)
  int index = atoi(indexText.str());
  if (index < 0 || index > 15) return;
  Rva00575674 *slot = (Rva00575674 *)&m_buttons[index];
- if (slot->m_button) return;
+ if (slot->m_ptr) return;
  AsciiString name;
  if (!Rva004128F0GetParam(params, "name", name)) return;
  slot->rva00575674((Object *)new Rva005C31FB(
