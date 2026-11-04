@@ -38,16 +38,7 @@ private:
 	OrCondition *m_next;	// +0x04
 };
 
-class ScriptAction
-{
-public:
-	virtual ~ScriptAction();
-	ScriptAction *getNext() const { return m_next; }
-	void setNextAction(ScriptAction *next) { m_next = next; }
-private:
-	char m_pad04[0x3C - 0x04];
-	ScriptAction *m_next;	// +0x3C
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 class Script
 {

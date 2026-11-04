@@ -16,20 +16,7 @@
 // address-derived.
 #include "ascii_string.h"
 
-class ScriptAction
-{
-public:
-	enum ScriptActionType
-	{
-		DEFEAT = 4
-	};
-
-	ScriptAction(ScriptActionType type);
-
-private:
-	char m_storage[0x48];
-};
-
+#include "../../../Include/GameLogic/ScriptAction.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva0020CE13()

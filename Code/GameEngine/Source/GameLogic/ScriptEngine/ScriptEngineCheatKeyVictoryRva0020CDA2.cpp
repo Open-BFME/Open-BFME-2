@@ -10,20 +10,7 @@
 // exists in retail; the method name stays address-derived.
 #include "ascii_string.h"
 
-class ScriptAction
-{
-public:
-	enum ScriptActionType
-	{
-		VICTORY = 3
-	};
-
-	ScriptAction(ScriptActionType type);
-
-private:
-	char m_storage[0x48];
-};
-
+#include "../../../Include/GameLogic/ScriptAction.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva0020CDA2()
