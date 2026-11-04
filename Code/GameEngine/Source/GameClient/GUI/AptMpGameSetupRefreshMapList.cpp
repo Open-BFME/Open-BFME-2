@@ -50,13 +50,7 @@ class Image;
 #include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 struct ImageWidthView {char unknown[0x24];int width;};
-class MapMetaData {public:
- UnicodeString bfme_getDisplayName(bool withPlayers);
- char unknown00[0x20];int numPlayers;
- unsigned char multiplayer,scenarioMP,official;
- char unknown27[0x50-0x27];AsciiString fileName;
- char unknown54[0xf4-0x54];int conquest;char unknownF8[8];
-};
+#include "../../../Include/GameClient/MapMetaData.h"
 class MapCache;
 extern MapCache *TheMapCache;
 void rva00302459(unsigned flags,_STL::vector<MapMetaData *> *maps);
@@ -78,7 +72,6 @@ class RealTimeStatsPreferences:public UserPreferences {public:
 #include "../../../Include/GameClient/SkirmishPreferencesClass.h"
 typedef char CheckUserPreferences20[(sizeof(UserPreferences)==20)?1:-1];
 typedef char CheckSkirmishPreferences32[(sizeof(SkirmishPreferences)==32)?1:-1];
-typedef char CheckMap256[(sizeof(MapMetaData)==256)?1:-1];
 int GadgetListBoxGetColumnWidth(GameWindow *window,int column);
 int GadgetListBoxGetNumColumns(GameWindow *window);
 void GadgetListBoxReset(GameWindow *window);
@@ -123,26 +116,26 @@ void AptMpGameSetup::rva00443538(int flags)
  rva00302459(flags,&maps);
  for(_STL::vector<MapMetaData *>::iterator it=maps.begin();it!=maps.end();++it) {
   MapMetaData *map=*it;
-  if(stats && map->multiplayer) {
-   int wonEasy=stats->rva00537190(AsciiString(map->fileName.str()),2);
-   int wonMedium=stats->rva00537190(AsciiString(map->fileName.str()),3);
-   int wonHard=stats->rva00537190(AsciiString(map->fileName.str()),4);
-   int wonBrutal=stats->rva00537190(AsciiString(map->fileName.str()),5);
-   int wonMaximum=stats->rva00537190(AsciiString(map->fileName.str()),6);
-   if(wonMaximum) map->conquest=6;
-   else if(wonBrutal) map->conquest=5;
-   else if(wonHard) map->conquest=4;
-   else if(wonMedium) map->conquest=3;
-   else if(wonEasy) map->conquest=2;
-   else map->conquest=1;
-  } else map->conquest=0;
-  if(!map->official)map->conquest|=0x8000;
+  if(stats && map->m_isMultiplayer) {
+   int wonEasy=stats->rva00537190(AsciiString(map->m_fileName.str()),2);
+   int wonMedium=stats->rva00537190(AsciiString(map->m_fileName.str()),3);
+   int wonHard=stats->rva00537190(AsciiString(map->m_fileName.str()),4);
+   int wonBrutal=stats->rva00537190(AsciiString(map->m_fileName.str()),5);
+   int wonMaximum=stats->rva00537190(AsciiString(map->m_fileName.str()),6);
+   if(wonMaximum) map->fieldF4=6;
+   else if(wonBrutal) map->fieldF4=5;
+   else if(wonHard) map->fieldF4=4;
+   else if(wonMedium) map->fieldF4=3;
+   else if(wonEasy) map->fieldF4=2;
+   else map->fieldF4=1;
+  } else map->fieldF4=0;
+  if(!map->m_isOfficial)map->fieldF4|=0x8000;
  }
  _STL::sort(maps.begin(),maps.end(),Rva0043FE9ALess(sortColumn,previousSortColumn));
  for(_STL::vector<MapMetaData *>::iterator it=maps.begin();it!=maps.end();++it) {
   MapMetaData *map=*it;
   const Image *badge=notConquered;
-  switch(map->conquest) {
+  switch((int)map->fieldF4) {
   case 0:case 1:badge=notConquered;break;
   case 2:badge=easy;break;case 3:badge=medium;break;
   case 4:badge=hard;break;case 5:badge=brutal;break;case 6:badge=maximum;break;
@@ -151,12 +144,12 @@ void AptMpGameSetup::rva00443538(int flags)
   case 0x8004:badge=userHard;break;case 0x8005:badge=userBrutal;break;
   case 0x8006:badge=userMaximum;break;
   }
-  GadgetListBoxSetItemData(mapList,(void *)(map->conquest),-1,1);
+  GadgetListBoxSetItemData(mapList,(void *)(map->fieldF4),-1,1);
   int row=GadgetListBoxAddEntryImage(mapList,badge,-1,0,width,width,true,-1);
   row=GadgetListBoxAddEntryText(mapList,map->bfme_getDisplayName(false),-1,row,numColumns-3,true);
-  UnicodeString players;players.format(L"%d",map->numPlayers);
+  UnicodeString players;players.format(L"%d",map->m_numPlayers);
   GadgetListBoxAddEntryText(mapList,players,-1,row,numColumns-1,true);
-  mapNames.push_back(map->fileName);
+  mapNames.push_back(map->m_fileName);
  }
  if(stats) operator delete(((PreferencesDeletingDtorView *)stats)->scalarDeletingDtor(0));
  refreshing=false;
