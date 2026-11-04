@@ -12,12 +12,7 @@
 // type 7 healing at +0x10, death type 1 at +0x1C, amount +0x20, source id +0x08)
 // heals the docker through body slot 1 and a drone, if given, up to its max
 // health.
-class Object;
-
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "RepairDockUpdateView.h"
 
 class DamageInfoInput
 {
@@ -67,48 +62,12 @@ private:
 	BodyModuleInterface *m_body; // +0x254
 };
 
-struct RepairDockUpdateModuleData
-{
-	char m_pad00[0x10];
-	float m_framesForFullHeal; // +0x10
-};
-
-class UpdateModuleBase
-{
-public:
-	virtual ~UpdateModuleBase();
-protected:
-	const RepairDockUpdateModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-private:
-	char m_pad0C[0x20 - 0x0C];
-};
-
-class DockUpdateInterface
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual bool action(Object *docker, Object *drone) = 0; // slot 12
-};
-
-class RepairDockUpdate : public UpdateModuleBase, public DockUpdateInterface
-{
-public:
-	virtual bool action(Object *docker, Object *drone);
-private:
-	char m_pad24[0x88 - 0x24];
-	ObjectID m_lastRepair; // +0x88
-	float m_healthToAddPerFrame; // +0x8C
-};
-
 bool RepairDockUpdate::action(Object *docker, Object *drone)
 {
 	if (docker == 0)
 		return false;
 
-	const RepairDockUpdateModuleData *modData = m_moduleData;
+	const RepairDockUpdateModuleData *modData = getRepairDockUpdateModuleData();
 	BodyModuleInterface *body = docker->getBodyModule();
 
 	if (m_lastRepair == 0)
