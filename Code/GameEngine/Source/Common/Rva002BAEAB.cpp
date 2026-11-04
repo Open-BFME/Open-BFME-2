@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ??1Rva002BAEAB@@QAE@XZ @0x002BAEAB 53B.
+// ??1Rva003C2F40Owner@@QAE@XZ @0x002BAEAB 53B.
 // Non-virtual dtor over WindModuleInfo member at +0 and RvaVec member
 // at +0xC; empty body with EH states for the two calls.
 // Evidence: unlock lane; member callee pinned 0x002B80CE; base callee
@@ -26,27 +26,28 @@ private:
 	char m_pad[12];
 };
 
-class Rva002BAEAB
+class Rva003C2F40Owner
 {
 public:
-	~Rva002BAEAB();
+	~Rva003C2F40Owner();
 private:
 	FXParticleSystem::WindModuleInfo m_00;
 	RvaVec002B80CE m_0C;
 };
 
-Rva002BAEAB::~Rva002BAEAB()
+Rva003C2F40Owner::~Rva003C2F40Owner()
 {
 }
 
 #include <new>
 
-// Anchor: new/delete calls the scalar deleting dtor directly (non-virtual,
+// Anchor: delete calls the scalar deleting dtor directly (non-virtual,
 // so devirtualization is a direct ??_G call), emitting the COMDAT for
-// ??_GRva002BAEAB@@QAEPAXI@Z at 0x002BAE8F. Operator new/delete resolve to
-// their rows at 0x0002FDA0/0x0002FD60.
-void Rva002BAEAB_Anchor()
+// ??_GRva003C2F40Owner@@QAEPAXI@Z at 0x002BAE8F. Operator delete resolves to
+// its row at 0x0002FD60. No new-expression: an implicit default constructor
+// here would emit a second ??0Rva003C2F40Owner@@QAE@XZ COMDAT beside the
+// rowed constructor at 0x002BAE57 (Rva003C2F40TreeCtor.cpp).
+void Rva002BAEAB_Anchor(Rva003C2F40Owner *p)
 {
-	Rva002BAEAB *p = new Rva002BAEAB;
 	delete p;
 }
