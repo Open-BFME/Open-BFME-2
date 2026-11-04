@@ -675,6 +675,34 @@ def test_identical_inline_body_does_not_override_exception_contract():
     assert occ[3] == "abi" and "exception specification" in occ[4]
 
 
+@pytest.mark.parametrize("local,real", [(True, False), (False, True), (True, True), (False, False)])
+@pytest.mark.parametrize("inline_body", [False, True])
+def test_declspec_nothrow_contract_is_not_lost(local, real, inline_body, tmp_path):
+    # LivingWorldPlayer.cpp deliberately redeclares memset as nothrow:
+    # removing that attribute changes its constructors' native EH states.
+    def declaration(nothrow):
+        attr = "__declspec(nothrow) " if nothrow else ""
+        inline = "inline " if inline_body else ""
+        ending = " { return 0; }" if inline_body else ";"
+        return f'extern "C" {attr}{inline}void *memset(void *, int, unsigned int){ending}\n'
+
+    text = declaration(local)
+    decls, _, _ = mha.parse_text(text, "cpp")
+    assert next(d for d in decls if d.name == "memset").d["nothrow"] is local
+    index = index_from(declaration(real))
+    res = mha.scan_text("Code/Fixture.cpp", text, index)
+    occ = next(o for o in res["occ"] if o[1] == "memset")
+    different = local != real
+    assert occ[3] == ("abi" if different else "same")
+    if different:
+        assert "nothrow" in occ[4] and "unwind cleanup" in occ[4]
+    expected = "conflicting" if different else mha.DROP_IN
+    assert mha.classify("Code/Fixture.cpp", res, index)[0] == expected
+    mha.write_queue({"Code/Fixture.cpp": res}, index,
+                    queue=tmp_path / "queue.tsv", occurrences=tmp_path / "occurrences.tsv")
+    assert mha.read_queue(tmp_path / "queue.tsv")[0]["class"] == expected
+
+
 def test_a_game_function_sharing_a_c_name_is_an_overload():
     _, occ = scan("void GetTickCount(const char *name);\n")
     assert "GetTickCount" not in occ

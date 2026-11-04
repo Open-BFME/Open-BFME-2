@@ -71,7 +71,7 @@ import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL_VERSION = 15
+TOOL_VERSION = 16
 CACHE_DIR = ROOT / "build" / "ms_header_audit"
 QUEUE = ROOT / "reverse" / "ms_header_queue.tsv"
 OCCURRENCES = CACHE_DIR / "occurrences.tsv"
@@ -1143,6 +1143,7 @@ class Parser:
             ret_clean = ret_clean[:k]
         detail = {"ret": ret_clean, "params": ptypes, "variadic": variadic, "cc": cc,
                   "throws": throws,
+                  "nothrow": any(re.search(r"\bnothrow\b", a) for a in attrs),
                   "dllimport": any("dllimport" in a for a in attrs), "body": body,
                   "inline": bool(flags & {"inline", "__inline", "_inline", "__forceinline"}),
                   "static": "static" in flags}
@@ -2296,7 +2297,8 @@ class Comparer:
         dll = detail.get("dllimport", False)
         return {"cc": detail.get("cc") or "__cdecl", "ret": ret, "ret_abi": ctx.abi(ret) if ret else ("i", 4, "s"),
                 "ptypes": ptypes, "pabi": pabi, "stack": stack, "variadic": detail.get("variadic", False),
-                "dll": dll, "n": len(params), "throws": detail.get("throws")}
+                "dll": dll, "n": len(params), "throws": detail.get("throws"),
+                "nothrow": detail.get("nothrow", False)}
 
     def compare_function(self, d, es):
         fns = [e for e in es if e["k"] == "function"]
@@ -2390,6 +2392,9 @@ class Comparer:
             def contract(spec):
                 return "unspecified" if spec is None else "throw(" + _join(spec) + ")"
             worse("abi", f"exception specification {contract(local['throws'])} vs {contract(real['throws'])}; "
+                  "may change unwind cleanup")
+        if self.lang == "cpp" and local["nothrow"] != real["nothrow"]:
+            worse("abi", f"__declspec(nothrow) {local['nothrow']} vs {real['nothrow']}; "
                   "may change unwind cleanup")
         if local["n"] != real["n"]:
             worse("abi", f"{local['n']} parameters vs {real['n']}")
