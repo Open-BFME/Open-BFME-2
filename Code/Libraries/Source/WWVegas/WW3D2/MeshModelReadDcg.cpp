@@ -24,7 +24,6 @@
 
 #define WWINLINE __forceinline
 
-typedef unsigned int uint32;
 typedef unsigned char uint8;
 
 struct W3dRGBAStruct
@@ -147,7 +146,7 @@ private:
 	char m_pad0[0x88];
 
 public:
-	uint32 PrelitChunkID;
+	unsigned int PrelitChunkID;
 	int CurPass;
 
 private:
@@ -157,23 +156,7 @@ public:
 	MeshMatDescClass AlternateMatDesc;
 };
 
-class MeshModelClass
-{
-protected:
-	bool read_dcg(ChunkLoadClass &cload, MeshLoadContextClass *context);
-
-private:
-	char m_pad0[0x28];
-
-public:
-	int VertexCount;
-
-private:
-	char m_pad1[0x8C - 0x2C];
-
-public:
-	MeshMatDescClass *DefMatDesc;
-};
+#include "MeshModelClass.h"
 
 enum
 {
