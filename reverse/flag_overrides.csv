@@ -295,7 +295,6 @@ Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,,1,1,region defau
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,,5,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingTWA.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,,17,6,region default loses rows
-Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp,-O2 -arch:SSE,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp,,1,1,region default loses rows

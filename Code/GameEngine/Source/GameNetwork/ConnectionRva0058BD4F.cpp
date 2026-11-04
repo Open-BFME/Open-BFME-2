@@ -29,5 +29,7 @@ public:
 NetCommandRef *Connection::rva0058BD4F(void *msg)
 {
 	Rva0058BD4FPkt *pkt = (Rva0058BD4FPkt *)msg;
-	return processAck(((Rva004D5767WordField *)msg)->get(), ((Rva004543C6ByteField *)msg)->get(), pkt->field20, pkt->field24);
+	UnsignedInt executionFrame = pkt->field24;
+	UnsignedInt timestamp = pkt->field20;
+	return processAck(((Rva004D5767WordField *)msg)->get(), ((Rva004543C6ByteField *)msg)->get(), timestamp, executionFrame);
 }
