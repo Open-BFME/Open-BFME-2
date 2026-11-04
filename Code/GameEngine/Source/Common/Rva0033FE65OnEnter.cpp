@@ -22,7 +22,7 @@ struct SubP00346FD0
 struct SubQ00346FD0
 {
 	char m_pad00[0x20];
-	int m_bits20;
+	int m_consecutiveShots;
 };
 struct Owner00346FD0
 {
@@ -90,7 +90,7 @@ StateReturnType Rva0033FE65::onEnter()
 	if (p->m_shouldClearShotsOnIdle) {
 		SubQ00346FD0 *q = obj->m_q240;
 		if (q)
-			q->m_bits20 &= 0;
+			q->m_consecutiveShots &= 0;
 	}
 	void *logFile = theLogicRandomLogFile;
 	if (logFile) {
