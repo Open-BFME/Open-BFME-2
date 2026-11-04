@@ -222,32 +222,8 @@ struct Rva005AC7E1Holder
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(void *unit, int count);
-	virtual void v4();
-	virtual void v5();
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x24 - 0x11];
-	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIRingHeroTactic : public AITacticOffensive
 {
@@ -299,7 +275,7 @@ private:
 void AIRingHeroTactic::cleanUp()
 {
 	m_hero = INVALID_OBJECT_ID;
-	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1((Player *)m_field24);
 	ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 0);
 	ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), 0);
 	m_5C = 0;
@@ -307,14 +283,14 @@ void AIRingHeroTactic::cleanUp()
 
 bool AIRingHeroTactic::initializeTeamTemplate(void *unit, int count)
 {
-	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1((Player *)m_field24);
 	ownerAIRecord->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 1);
 	return AITactic::initializeTeamTemplate(unit, count);
 }
 
 bool AIRingHeroTactic::weHaveGollum()
 {
-	IntMap *ownerObjects = *(IntMap **)TheSkirmishAIManager->rva002A8F24(m_owner);
+	IntMap *ownerObjects = *(IntMap **)TheSkirmishAIManager->rva002A8F24((Player *)m_field24);
 	for (unsigned int i = 0; i < ownerObjects->bucket_count(); ++i) {
 		Rva005AC7E1IDs *objectIDs = (Rva005AC7E1IDs *)((Rva005C4AD1LeaField *)ownerObjects)->get();
 		Object *candidateHero = TheGameLogic->findObjectByID(objectIDs->m_begin[i]);
@@ -328,7 +304,7 @@ bool AIRingHeroTactic::weHaveGollum()
 
 bool AIRingHeroTactic::canRun(void *)
 {
-	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1((Player *)m_field24);
 	int isRunning = ownerAIRecord->rva002C7196(AsciiString("AIRingHeroTactic_IsRunning"));
 	unsigned int nextRunFrame = ownerAIRecord->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
 	if (!nextRunFrame) {
@@ -345,7 +321,7 @@ bool AIRingHeroTactic::canRun(void *)
 void AIRingHeroTactic::run()
 {
 	m_escort = 0;
-	m_running = true;
+	m_field10 = true;
 	m_escorting = false;
 	weHaveGollum();
 	enemyHasRingHeroUpgrade();
@@ -366,12 +342,12 @@ bool AIRingHeroTactic::rva005ACA92()
 // Shape follows the WorldBuilder twin (AIRingHeroTactic.cpp:96..110).
 void AIRingHeroTactic::update()
 {
-	if (m_running) {
+	if (m_field10) {
 		Object *hero = TheGameLogic->findObjectByID(m_hero);
 		if (hero) {
 			if (!m_escorting) {
 				if (!m_escort) {
-					Rva005AC7E1Holder *ownerAIData = (Rva005AC7E1Holder *)TheSkirmishAIManager->rva002A8F24(m_owner);
+					Rva005AC7E1Holder *ownerAIData = (Rva005AC7E1Holder *)TheSkirmishAIManager->rva002A8F24((Player *)m_field24);
 					Rva005C4AD1LeaField *escortObjectsField = ownerAIData->m_08;
 					Rva005AC7E1IDs *escortObjectIDs = (Rva005AC7E1IDs *)escortObjectsField->get();
 					for (ObjectID *objectIdIt = escortObjectIDs->m_begin; objectIdIt != escortObjectIDs->m_end; ++objectIdIt) {
