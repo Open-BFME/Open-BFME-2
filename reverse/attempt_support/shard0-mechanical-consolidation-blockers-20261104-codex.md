@@ -32,6 +32,11 @@ link loss except the explicit `XferMD5CRC` donor noted below.
 | `GameLogic/Object/Update/ModelConditionSoundSelectorClientBehavior.cpp` | module-data dtor and STLport vector donors both failed compilation without diagnostics; LinkGuard retained all three linked objects. |
 | `GameLogic/Object/Create/SupplyWarehouseCreate.cpp` | `SupplyWarehouseCreatePoolKey.cpp` donor has duplicate `SubsystemInterface` declarations; LinkGuard retained both census-linked objects. |
 | `GameLogic/Object/Behavior/BridgeTowerBehavior.cpp` | Pool-key donor has `SubsystemInterface` redefinition; Xfer donor has `Xfer` redefinition and missing `Version1`; OnDamage/OnHealing donors have `GameLogic` redefinition. LinkGuard retained all five census-linked objects; canonical header adoption/class reconciliation remain registered prerequisites. |
+| `WWMath/wwmath.cpp` | `WWLib/wwmath.cpp` donor failed byte verification; LinkGuard retained both census-linked objects (existing common-profile handoff). |
+| `Common/TaintManagerImpl.cpp` | `Bfme5SeventySix.cpp` donor defines an undeclared compiler-generated `BfmeTaintManager` constructor; class views require reconciliation. LinkGuard retained both census-linked objects. |
+| `GameLogic/Object/Behavior/TerrainResourceBehavior.cpp` | module-data destructor donor failed byte verification; LinkGuard retained both census-linked objects. |
+| `GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp` | constructor donor signature is absent from the destination class view; LinkGuard retained both census-linked objects (existing composition handoff). |
+| `GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp` | constructor donor signature is absent from the destination class view; LinkGuard retained both census-linked objects. |
 
 Also not retried because the obstacle register already records an unchanged
 prerequisite: `MemoryReadFile.cpp` (missing current consumer/index receipt),
