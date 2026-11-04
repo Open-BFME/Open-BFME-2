@@ -71,47 +71,7 @@ public:
 };
 #include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
-class Debug
-{
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void output(const char *);
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void finish(int);
-    virtual void v20();
-    virtual void v21();
-    virtual void v22();
-    virtual void v23();
-    virtual void skip();
-    virtual void v25();
-    virtual void v26();
-    virtual Debug *start(int, int, int);
-    class Format
-    {
-    public:
-        Format(const char *, ...);
-        operator const char *() const { return data; }
-    private:
-        char data[512];
-    };
-};
-extern Debug *theDebug;
+#include "../../../GameEngine/Source/Common/debug.h"
 void _bfme_debugRecordCallsite(int);
 class Rva00601B30 {public:void add(unsigned,unsigned,const char*);};
 char *Rva006017DAParse(const char*,char*,int);
@@ -159,12 +119,12 @@ void __cdecl rva00601C53(void *outer, int lineFlag, void *vec1, void *vec2, void
     for (unsigned j = 0; j < stack.size(); ++j) {
         if (_strcmpi(file->filename.str(), stack[j]) == 0) {
             _bfme_debugRecordCallsite(1);
-            theDebug->skip();
+            theDebug->SkipNext();
             const char **entries = stack.begin();
             const char *errorName = file->filename.str();
-            Debug *debug = theDebug->start(0, 0, 0);
-            debug->output(Debug::Format("ERROR: Circular include in %s line %d, Circular file %s, parent file %s", entries[stack.size() - 1], lineFlag, errorName, entries[0]));
-            debug->finish(1);
+            Debug &debug = theDebug->CrashBegin(0, 0, 0);
+            debug << Debug::Format("ERROR: Circular include in %s line %d, Circular file %s, parent file %s", entries[stack.size() - 1], lineFlag, errorName, entries[0]);
+            debug.CrashDone(1);
             return;
         }
     }
@@ -227,11 +187,11 @@ void __cdecl rva00601C53(void *outer, int lineFlag, void *vec1, void *vec2, void
                     File *child = TheFileSystem->openFile(name, 1, 0);
                     if (!child) {
                         _bfme_debugRecordCallsite(1);
-                        theDebug->skip();
+                        theDebug->SkipNext();
                         const char **entries = stack.begin();
-                        Debug *debug = theDebug->start(0, 0, 0);
-                        debug->output(Debug::Format("ERROR: Could not open include in %s line %d, file %s, parent file %s", entries[stack.size() - 1], lineFlag, name, entries[0]));
-                        debug->finish(1);
+                        Debug &debug = theDebug->CrashBegin(0, 0, 0);
+                        debug << Debug::Format("ERROR: Could not open include in %s line %d, file %s, parent file %s", entries[stack.size() - 1], lineFlag, name, entries[0]);
+                        debug.CrashDone(1);
                         return;
                     }
                     rva00601C53(child, line, vec1, vec2, member);
