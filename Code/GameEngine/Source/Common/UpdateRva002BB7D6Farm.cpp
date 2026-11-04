@@ -49,7 +49,7 @@ inline Rva004FA2E2 *ResolverTransfer::release() const {r.m_ptr=0;return p;}
 class Rva002B430C {public:void clear();};
 class Rva002B43E7 {public:Rva002B43E7(Rva002B4349);~Rva002B43E7(){((Rva002B430C*)this)->clear();}Rva004FA2E2 *m_ptr;};
 class Rva002B54BB {public:Rva002B4349 rva002B54BB();};
-class LivingWorldAutoResolveBattle {public:void applyResults();};
+#include "../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
 Int Rva002B74DE::Update(){
  if(m_sim){
