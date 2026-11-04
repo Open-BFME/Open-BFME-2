@@ -25,7 +25,7 @@ public:
 
 private:
 	char m_pad00[0x8];
-	int m_8;
+	int m_width;
 	char m_pad0C[0x20 - 0x0C];
 	int m_20;
 	char m_pad24[0x98 - 0x24];
@@ -37,7 +37,7 @@ private:
 
 bool Rva000AFA92::rva000AFA92(int tileX, int tileY, int c, int d, int e)
 {
-	int idx = (m_120E4 + tileY) * m_8 + m_120E0 + tileX;
+	int idx = (m_120E4 + tileY) * m_width + m_120E0 + tileX;
 	if (idx < m_20)
 	{
 		unsigned short *tileTable = m_98;
