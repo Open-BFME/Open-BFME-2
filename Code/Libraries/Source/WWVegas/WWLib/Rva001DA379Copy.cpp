@@ -8,7 +8,12 @@
 
 struct Rva001DA05ERecord
 {
-	char bytes[8];
+public:
+	Rva001DA05ERecord();
+	Rva001DA05ERecord(const Rva001DA05ERecord&);
+	~Rva001DA05ERecord();
+	Rva001DA05ERecord&operator=(const Rva001DA05ERecord&);
+	char bytes[8]; // +0x00
 };
 
 class BfmeStringTailRecord156

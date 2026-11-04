@@ -18,7 +18,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 
 
-struct Rva001DA05ERecord { Rva001DA05ERecord(); Rva001DA05ERecord(const Rva001DA05ERecord&); ~Rva001DA05ERecord(); Rva001DA05ERecord&operator=(const Rva001DA05ERecord&); char bytes[8]; };
+struct Rva001DA05ERecord
+{
+public:
+	Rva001DA05ERecord();
+	Rva001DA05ERecord(const Rva001DA05ERecord&);
+	~Rva001DA05ERecord();
+	Rva001DA05ERecord&operator=(const Rva001DA05ERecord&);
+	char bytes[8]; // +0x00
+};
 namespace _STL {template<> void _Construct<Rva001DA05ERecord,Rva001DA05ERecord>(Rva001DA05ERecord*,const Rva001DA05ERecord&);}
 
 
