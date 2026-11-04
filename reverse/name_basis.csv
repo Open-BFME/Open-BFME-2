@@ -8773,3 +8773,4 @@ param,inlineSet::c,inlineSet::destination,inferred,direct:nd-c4f5c12d6eda831d834
 local,AIBaseBuilder::notifyBuildingDestroyed::h,AIBaseBuilder::notifyBuildingDestroyed::hitIt,inferred,direct:nd-1ae19e604d23882d5ff4626f parent-reviewed-by w-596fb631131d claude-opus-5-5 proposed-by /root/naming-child,Code/GameEngine/Source/Common/AIBaseBuilder.cpp,0x00506FE9
 member,Rva005785CD::m_44,Rva005785CD::m_commandUI,inferred,agree:nl-18a181e2ab91,Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp,
 function,?rva0033FDEB@@YA_NPAVRva00343F8A@@PAX@Z,?cannotPossiblyAttackObject@@YA_NPAVRva00343F8A@@PAX@Z,inferred,agree:nl-2214c747263d,Code/GameEngine/Source/GameLogic/AI/Rva00343F8ADispatch.cpp,0x0033FDEB
+member,Rva002A7557In::m_val618,Rva002A7557In::m_commandPoints,inferred,agree:nl-bc095fa13e54,Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp,

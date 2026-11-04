@@ -9,7 +9,7 @@ struct Rva002A7557In
 	char m_pad0[0x11A];
 	unsigned char m_flags11A;
 	char m_pad11B[0x618 - 0x11B];
-	int m_val618;
+	int m_commandPoints;
 };
 
 class Rva002A7461
@@ -28,7 +28,7 @@ private:
 bool Rva002A7461::rva002A7557(Rva002A7557In *p, int unused)
 {
 	(void)unused;
-	int commandPoints = p->m_val618;
+	int commandPoints = p->m_commandPoints;
 	if (commandPoints == 0)
 		return true;
 	int base = m_base8;
