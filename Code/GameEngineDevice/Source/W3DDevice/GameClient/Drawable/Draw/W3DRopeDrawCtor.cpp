@@ -38,8 +38,7 @@ protected:
 class RopeDrawInterface
 {
 public:
-	virtual void initRopeParms(float length, float width, const RGBColor &color,
-		float wobbleLen, float wobbleAmp, float wobbleRate) = 0;
+	virtual void initRopeParms(float length, float width, const RGBColor &color, float wobbleLen, float wobbleAmp, float wobbleRate) = 0;
 	virtual void setRopeCurLen(float length) = 0;
 	virtual void setRopeSpeed(float curSpeed, float maxSpeed, float accel) = 0;
 };

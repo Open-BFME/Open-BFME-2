@@ -113,7 +113,9 @@ class Drawable;
 class RopeDrawInterface
 {
 public:
-	virtual void initRopeParms(Real length, Real width, const RGBColor &color, Real wobbleLen, Real wobbleAmp, Real wobbleRate) = 0;
+	virtual void initRopeParms(float length, float width, const RGBColor &color, float wobbleLen, float wobbleAmp, float wobbleRate) = 0;
+	virtual void setRopeCurLen(float length) = 0;
+	virtual void setRopeSpeed(float curSpeed, float maxSpeed, float accel) = 0;
 };
 
 class W3DRopeDraw : public DrawModule, public RopeDrawInterface
