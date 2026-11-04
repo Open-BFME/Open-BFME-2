@@ -67,7 +67,10 @@ private:
 
 // Method-only view: the independently named target provider is73AD90.
 // No ShroudManager or nested Data object layout is asserted here.
-class ShroudManager { public: class Data { public: void UpdateCellsTouched(); }; };
+#include "../../../Include/Common/ShroudManagerClass.h"
+
+class ShroudManager::Data
+{ public: void UpdateCellsTouched(); };
 
 // tu-skeleton: 0x007AB130 8B $L490 -- matched in Code/GameEngine/Source/Common/BfmeCellAt.cpp (not merged yet)
 
