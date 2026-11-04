@@ -679,6 +679,77 @@ moves its donors from `blocked-by-classes` into `claimed`, so holding the scope
 you are working on makes the blocker you are clearing appear to shrink. Release
 the scope and re-measure before quoting a figure.
 
+### What the view wall is made of, statically (2026-11-03)
+
+`blocked-by-classes` is one number over a queue of 582 TUs, so it says nothing
+about which mechanism to attack. This is a compiler-free census of it: for every
+approved TU, every class the TU's files declare at namespace scope more than
+once, classified by the first disagreement visible in the text. 4,051 class/TU
+pairs, "canonical" being the ones registered in
+`reverse/canonical_classes.csv` and therefore `header_adopt_lane.py`'s:
+
+| disagreement | non-canonical | canonical |
+| --- | --- | --- |
+| field names | 1,751 | 163 |
+| nothing visible without a layout | 1,007 | 97 |
+| base arity | 367 | 150 |
+| two inline bodies of one method | 164 | 62 |
+| class key | 100 | 11 |
+| declspec | 60 | 8 |
+| base names | 50 | 9 |
+| inline body against an out-of-line definition | 44 | 6 |
+| base access only | 2 | 0 |
+
+Two of those rows are not blockers and must not be read as a backlog:
+
+- **field names** is what `tu_views` is for. It renames each view's fields to the
+  superset's spelling and only refuses when the rename is unsafe, so most of
+  the 1,751 are work the tool already does.
+- **nothing visible without a layout** means this census found no textual
+  disagreement, not that the class is blocked. Offsets, `sizeof`, padding and
+  field types need `tools/class_layouts.py` and the compiler. Both of
+  `BattlePlanUpdate.cpp`'s classes that `tu_views` reports as *already shared*
+  land in this row, which is the proof that it is a residual bucket.
+
+Validated against the recorded `tu_views --dry-run` for
+`BattlePlanUpdate.cpp`, the one TU with a verdict on file for every class:
+`BattlePlanUpdateModuleData` declspec, `BattlePlanUpdate` base arity, `Object`
+field names. All three agree.
+
+Mind the parser when repeating this. A first version matched a class head only
+when its opening brace sat on the same line, which is the minority spelling
+here; it found 974 pairs where the real figure is 4,051, and it biased the
+table toward compact declarations. Match the head and brace as one unit across
+newlines, and track brace depth so a nested class is not taken for a
+namespace-scope one.
+
+Where this leaves the mechanical lanes: the class key is finished at 14
+decidable pairs of 100, because 56 are ties with no ledger spelling and 30 are
+names the ledger spells both `U` and `V`, which means two types share the name.
+`declspec` is nearly finished the same way. The weight has moved to base arity
+(367, and 150 of those are the header lane's) and to the two inline-body rows,
+where a class is declared with a body in one file and defined out of line in
+another; neither is a spelling fix.
+
+### Bulk merges refuse at the top of the queue on linking, not contention (2026-11-03)
+
+A `--merge-all --jobs 1` run over the highest-value queue entries accepted no
+donor at all in eight TUs: `lantheateremulator.cpp`,
+`LinearCampaignManager.cpp`, `W3DShrubBuffer.cpp`, `Geometry.cpp`,
+`GameWindowManager.cpp`, `BuddyThread.cpp`, `W3DView.cpp` and
+`W3DVideoBuffer.cpp`. The refusals are the link audit and the compiler, not
+held scope: for `BuddyThread.cpp` the TU's own file is rejected because "the
+merged object would not [link]: no longer defines
+`?rva00550B4C@Rva00550B4C@@QAEXXZ`, which the census still references", and
+`GetNickForMessage.cpp` because three `GameSpyBuddyMessageQueue` virtuals go
+unresolved.
+
+That is worth knowing before spending a wave: the top of the queue is where the
+mixed files are, so a merge there moves rows out of objects the census still
+references and `link_batch_audit` correctly refuses it. The 142 approved rows of
+`BuddyThread.cpp` sat behind eleven mixed donors. Carve the mixed files first
+(the split lane) rather than paying a compile budget per TU to be told no.
+
 ## Consolidation verification checks
 
 During the audit before pushing, check the complete consolidation batch:
