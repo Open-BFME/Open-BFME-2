@@ -2,13 +2,10 @@
 //
 // ?rva0037BCA8@Rva0037BBED@@QAE?AVUnicodeString@@XZ, retail 0x0037BCA8, 28 bytes.
 // Evidence: this+0x10 is FILE* (prev Rva0037BBED dtor closes m_10 via fclose); forwards hidden+file to rowed readUnicodeString 0x0037B648 returning by value (hidden at [ebp+8], ret 4, mov eax hidden); callers in 0x0037CBB6/0x0037D55E.
+#include <stdio.h>
 #include "unicode_string.h"
 
-struct _iobuf
-{
-};
-
-UnicodeString readUnicodeString(_iobuf *file);
+UnicodeString readUnicodeString(FILE *file);
 
 class Rva0037BB53
 {
@@ -42,5 +39,5 @@ private:
 
 UnicodeString Rva0037BBED::rva0037BCA8(void)
 {
-	return readUnicodeString((_iobuf *)m_10);
+	return readUnicodeString((FILE *)m_10);
 }
