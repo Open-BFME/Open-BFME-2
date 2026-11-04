@@ -594,3 +594,5 @@ still reports the selected non-retail `vector<Object *>` destructor as the
 sole blocker for GameEngineInit (9,424 authored bytes). The earlier provider
 trials were not repeated. Provider reconciliation or an approved census rule
 decision remains necessary; census clearance is not claimed.
+
+**Pinger flag alias boundary (2026-11-04):** `/Ow` permits the shared flag with 18/19 rows exact; only `_piBytesToPing` scheduling remains. All trials restored and 19/19 reverified; [evidence and next check](../../reverse/attempt_support/pinger-settingdata-alias-flags-20261104-codexb.md).
