@@ -56550,7 +56550,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00689C70,59,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689B10..0x00689CB0,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689CB0,33,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689B10..0x00689CE0,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689CE0,195,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/VideoPlayer.cpp S=Code/GameEngine/Source/GameClient/VideoPlayer.cpp N=Code/GameEngine/Source/GameClient/VideoPlayer.cpp,Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp
-0x00689DB0,103,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689CE0..0x00689E20,Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp
+0x00689DB0,103,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689CE0..0x00689E20,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689E20,49,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689CE0..0x00689E60,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689E60,300,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689CE0..0x00689F90,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689F90,62,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689CE0..0x00689FD0,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
@@ -91400,8 +91400,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A7B78,8,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689B10@FuncInfo0x00961558,Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp
 0x007A7B80,8,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689B10@FuncInfo0x00961558,Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp
 0x007A7B88,10,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689B10@FuncInfo0x00961558,Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp
-0x007A7BA0,8,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689DB0@FuncInfo0x0096157C,Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp
-0x007A7BA8,10,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689DB0@FuncInfo0x0096157C,Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp
+0x007A7BA0,8,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689DB0@FuncInfo0x0096157C,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+0x007A7BA8,10,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,P,P=0x00689DB0@FuncInfo0x0096157C,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x007A7BC0,8,code,,,-,,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp
 0x007A7BC8,11,code,,,-,,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp
 0x007A7BD3,10,code,,,-,,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp
