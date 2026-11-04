@@ -342,7 +342,7 @@ public:
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 class Rva002E062EDwordSlot { public: void set(int value); };
-class LivingWorldPlayer { public: void rva002E14E9(const BfmeFixedStorage128 &bits); };
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2578 { public: void rva002E2578(const _STL::vector<ScienceType> &sciences); };
 struct Rva0040F19DLivingWorldPlayer { char pad00[0x1c8]; float m_1C8; };
 class Rva002E2903Player;
