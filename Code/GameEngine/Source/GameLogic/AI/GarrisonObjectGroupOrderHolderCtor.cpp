@@ -12,11 +12,11 @@ class GroupOrder
 {
 public:
 	GroupOrder(Rva0036E346 *holder);
-
+	GroupOrder();
+	GroupOrder(const GroupOrder &other);
 protected:
-	void *m_vtable; // +0
-private:
-	unsigned char m_pad04[0x18 - 4];
+	void *m_vtable; // +0x00 +0
+	char m_pad04[0x14];
 };
 
 extern "C" const void *const __identifier("??_7GarrisonObjectGroupOrder@@6B@")[];
