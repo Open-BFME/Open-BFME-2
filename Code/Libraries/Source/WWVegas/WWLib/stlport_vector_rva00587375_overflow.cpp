@@ -34,4 +34,8 @@ struct Rva00587375 {
 	Rva00587375 &operator=(const Rva00587375 &rhs);
 };
 typedef char Rva00587375Extent[sizeof(Rva00587375) == 60 ? 1 : -1];
-template class _STL::vector<Rva00587375, _STL::allocator<Rva00587375> >;
+// Only the rowed member: the whole-class instantiation also emitted resize(n),
+// insert(pos) and push_back(), which need a default constructor and operator=
+// this unit never defines (real-link unresolved).
+template void _STL::vector<Rva00587375, _STL::allocator<Rva00587375> >::_M_insert_overflow(
+	Rva00587375 *, const Rva00587375 &, const _STL::__false_type &, unsigned int, bool);
