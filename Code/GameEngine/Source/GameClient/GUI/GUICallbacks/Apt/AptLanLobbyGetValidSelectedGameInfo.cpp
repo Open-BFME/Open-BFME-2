@@ -24,16 +24,7 @@ public:
 	LANGameInfo *m_next;
 };
 
-class LANAPI
-{
-	friend class AptLanLobby;
-public:
-	virtual void vft() = 0;
-	char m_pad0C[0x0C];
-	LANGameInfo *m_games;
-protected:
-	bool ValidateGameInfo(LANGameInfo *game);
-};
+#include "../../../../../Include/GameNetwork/LANAPI.h"
 
 extern LANAPI *TheLAN;
 

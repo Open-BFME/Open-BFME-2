@@ -11,13 +11,7 @@
 // LANAPI::ValidateGameInfo (0x00449969, the callee below), and retail's LAN
 // lobby owner vftable holds it.
 
-class LANGameInfo;
-class LANAPI
-{
-	friend class AptLanLobby;
-protected:
-	bool ValidateGameInfo(LANGameInfo *game);
-};
+#include "../../../../../Include/GameNetwork/LANAPI.h"
 
 extern class LANAPI *TheLAN;
 

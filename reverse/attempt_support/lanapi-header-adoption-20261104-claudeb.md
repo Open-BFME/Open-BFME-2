@@ -37,3 +37,16 @@ which the header keeps as private `_bfme_lan64` ("uncallable native +48
 address getter"); naming it is an identity change that needs its own evidence.
 LANAPI.cpp carries private BfmeNetAddress/GameInfo views besides the m_name
 ambiguity, so the header cannot be included until those reconcile.
+
+## Second batch (ValidateGameInfo)
+
+- LANAPI.h declares the rowed protected `ValidateGameInfo(LANGameInfo *)`
+  (`?ValidateGameInfo@LANAPI@@IAE_NPAVLANGameInfo@@@Z`, 0x00449969) and
+  `friend class AptLanLobby`, which both callers' private views already used.
+- AptLanLobbyGetValidSelectedGameInfo.cpp and AptLanLobbyMPOwnerValidatGameInfo.cpp
+  include the header: 1/1 and 1/1 matched; all 17 LANAPI.h includers still
+  match; accept PASS retires 2 rows; link_check LINKED 95 -> 95 bytes.
+- BfmeAptScreenLanLobbySetOption.cpp (0x00444240) cannot use the header's
+  RequestAccept(bool): the compiled call normalises the int argument
+  (`83 7c 24 04 00 .. 0f 95 c2 52`) where retail pushes it raw
+  (`ff 74 24 04`). File restored; logged as blocked in re_attempts.log.
