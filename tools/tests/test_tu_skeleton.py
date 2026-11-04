@@ -890,6 +890,30 @@ class EffectiveFlagsTests(unittest.TestCase):
         out = self.verifier().effective("int f() { return 0; }\n", [{"target_rva": "0x1000", "target_size": "8"}])
         self.assertTrue(out.startswith("// cl: /O1 /arch:SSE /G7\n"))
 
+    def test_quoted_sdk_include_survives_region_flag_replacement_and_composition(self):
+        # ComRaise.cpp and ComInvoke.cpp share this valid /I operand. Splitting
+        # it into words treated the path tail as flags and truncated the include.
+        include = "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include"
+        for prefix in ("/I", "-I"):
+            text = f'// cl: /O2 /MD {prefix}"{include}"\nint f() {{ return 0; }}\n'
+            out = self.verifier().effective(text, [{"target_rva": "0x1000", "target_size": "8"}])
+            flags = T.flags_of(out)
+            self.assertEqual(flags, ["/O1", "/arch:SSE", "/G7", "/MD", prefix + include])
+            composed = T.compose("Code/T.cpp", [], ["Code/A.cpp"],
+                                 {"Code/A.cpp": text}, flags, "first")
+            self.assertEqual(T.flags_of(composed), flags)
+
+    def test_include_flag_round_trip_keeps_windows_backslashes_and_operand_boundaries(self):
+        text = '// cl: /MD /I "reference\\Program Files\\SDK" /EHsc -ICode\n'
+        flags = T.flags_of(text)
+        self.assertEqual(flags, ["/MD", "/Ireference\\Program Files\\SDK", "/EHsc", "-ICode"])
+        self.assertEqual(T.flags_of("// cl: " + T.render_flags(flags)), flags)
+
+    def test_malformed_quoted_include_is_still_refused(self):
+        for operand in ('/I"unfinished path', '/I""', '/I"SDK path"trailing'):
+            with self.assertRaises(SystemExit):
+                T.flags_of("// cl: " + operand)
+
 
 class MemberKeyTests(unittest.TestCase):
     def test_a_declspec_does_not_hide_the_function_name(self):
