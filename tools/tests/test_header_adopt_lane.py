@@ -605,6 +605,21 @@ def test_swap_strips_the_view_and_includes_the_header_where_it_stood():
     assert lane.swap("void f();\n", ["Coord3D"], "x.h") is None
 
 
+@pytest.mark.parametrize("separator", ["\n", "\r\n", "\n\t\n", "\v\f", "\n/* end of view */\n"])
+def test_swap_accepts_whitespace_before_the_class_semicolon(separator):
+    prefix = "void before();\n"
+    view = "class Pair { public: Pair() {} const char *ptr; int len; }" + separator + ";\n"
+    suffix = "struct Holder { Pair value; };\nvoid after(Pair *);\n"
+    out = lane.swap(prefix + view + suffix, ["Pair"], "Pair.h")
+    assert out == prefix + '#include "Pair.h"\n' + suffix
+
+
+@pytest.mark.parametrize("tail", ["\nPair value;\n", "\nvalue;\n", "\n*value;\n", "\n#define END ;\n"])
+def test_swap_still_requires_a_standalone_complete_class_definition(tail):
+    text = "class Pair { int len; }" + tail
+    assert lane.swap(text, ["Pair"], "Pair.h") is None
+
+
 def test_dependency_views_go_with_the_class():
     out = lane.swap(UNIT, ["AsciiString", "StringBase"], "ascii_string.h")
     assert "StringBase" not in out.split("void use")[0].split('#include "ascii_string.h"')[1]

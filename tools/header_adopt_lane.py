@@ -198,7 +198,7 @@ def body_span(text, name):
     for found, start, index, key in class_layouts.class_body_spans(text, include_templates=True):
         if found != name:
             continue
-        tail = re.match(r"[ \t]*;[ \t]*\r?\n?", code[index:])
+        tail = re.match(r"[ \t\r\n\v\f]*;[ \t]*\r?\n?", code[index:])
         if not tail:
             continue
         return start, index + tail.end(), key

@@ -28,3 +28,16 @@ The committed TU map is stale; the merger rebuilds it in memory. The broad
 merge dry run was interrupted after about twenty minutes during compiler-flag
 screening, without a final verdict or tracked changes. No merge or file-count
 gain is claimed. Temporary trial sources were removed after stopping the trial.
+
+## Parser repair
+
+The span tail accepts ASCII C++ whitespace before the terminating semicolon.
+Regression tests reproduce the original refusal for LF, CRLF, blank lines,
+vertical-tab/form-feed and a comment between the brace and semicolon; all five
+failed before the fix. Four negative cases still refuse declarators or a
+preprocessor directive between the brace and semicolon. The actual donor span
+is now `(4430, 4525, class)`.
+
+`python3 -m pytest -q tools/tests/test_header_adopt_lane.py
+tools/tests/test_gate_exploits.py`: 213 passed, 1 skipped. No game source or
+header-queue row changes accompany the parser fix.
