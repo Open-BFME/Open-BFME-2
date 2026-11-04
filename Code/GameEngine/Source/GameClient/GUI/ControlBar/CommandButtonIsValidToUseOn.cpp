@@ -12,38 +12,8 @@ class SpecialPowerTemplate;
 struct Coord3D;
 enum CommandSourceType { COMMANDSOURCE_AI=0, COMMANDSOURCE_PLAYER=1, COMMANDSOURCE_SCRIPT=2 };
 enum WeaponSlotType { PRIMARY_WEAPON=0, SECONDARY_WEAPON=1, TERTIARY_WEAPON=2 };
-struct ProductionEntry {
-    int pad00;
-    int type;
-    int pad08;
-    const UpgradeTemplate *upgrade;
-};
-class ProductionUpdateInterface {
-public:
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual void slot20();
-    virtual void slot24();
-    virtual void slot28();
-    virtual void slot2C();
-    virtual void slot30();
-    virtual void slot34();
-    virtual void slot38();
-    virtual void slot3C();
-    virtual void slot40();
-    virtual void slot44();
-    virtual void slot48();
-    virtual void slot4C();
-    virtual void slot50();
-    virtual const ProductionEntry *firstProduction();
-    virtual const ProductionEntry *nextProduction(const ProductionEntry *entry);
-};
+#include "../../../../Include/GameLogic/Module/ProductionEntry.h"
+#include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 #include "../../../GameLogic/Object/object.h"
 #include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
@@ -70,10 +40,12 @@ bool Rva0035B2C3::rva0035B2C3(void *source, int target, const Coord3D *location,
     if (upgrade && command != 0x17) {
         ProductionUpdateInterface *pui = (ProductionUpdateInterface *)sourceObj->rva0028BC58(0);
         if (pui) {
-            const ProductionEntry *pe = pui->firstProduction();
+            // ProductionUpdate's rows spell the entry Rva0049D1B1 (ctor 0x0049D162);
+            // it is ProductionEntry (ProductionEntry.h), so the cast changes no bytes.
+            const ProductionEntry *pe = (const ProductionEntry *)pui->firstProduction();
             while (pe) {
-                if (pe->type == 2 && pe->upgrade) return false;
-                pe = pui->nextProduction(pe);
+                if (pe->m_type == 2 && pe->m_upgradeToResearch) return false;
+                pe = (const ProductionEntry *)pui->nextProduction((const Rva0049D1B1 *)pe);
             }
             return sourceObj->affectedByUpgrade(upgrade) && !sourceObj->hasUpgrade(upgrade);
         }

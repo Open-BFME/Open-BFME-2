@@ -173,19 +173,7 @@ public:
 	virtual Int getState();
 };
 
-class ProductionUpdateInterface {
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05();
-	virtual Bool isUpgradeInQueue(const UpgradeTemplate *upgrade);
-	Bool isQueued(const UpgradeTemplate *upgrade) { return isUpgradeInQueue(upgrade); }
-	virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10();
-	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
-	virtual void v15(); virtual void v16();
-	virtual Int getProductionCount();
-	virtual void v18(); virtual void v19(); virtual void v20();
-	virtual Int firstProduction();
-};
+#include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 class FoundationView {
 public:
@@ -400,6 +388,7 @@ public:
 	const ThingTemplate *rva0035B570() const;
 	Int getCommandType() const { return m_commandType; }
 	UnsignedInt commandOptions() const { return m_options; }
+	const UpgradeTemplate *getUpgradeTemplate() const { return m_upgrade; }
 	BfmeFixedStorage0004543D getCastleKindOf() const { return m_castleKindOf; }
 	char m_pad000[0x14];
 	Int m_commandType;
@@ -876,7 +865,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			}
 			if (pu == 0)
 				return COMMAND_RESTRICTED;
-			if (obj->hasUpgrade(command->m_upgrade) == true || pu->isQueued(command->m_upgrade) == true)
+			if (obj->hasUpgrade(command->m_upgrade) == true || pu->isUpgradeInQueue(command->getUpgradeTemplate()) == true)
 				return COMMAND_DONE;
 			if (queueMaxed)
 				return COMMAND_RESTRICTED;
@@ -893,7 +882,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 				return COMMAND_CANT_AFFORD;
 			if (pu == 0)
 				return COMMAND_RESTRICTED;
-			if (!pu->isQueued(command->m_upgrade))
+			if (!pu->isUpgradeInQueue(command->getUpgradeTemplate()))
 			{
 				static NameKeyType key = TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
 				Module *member = obj->findModule(key);

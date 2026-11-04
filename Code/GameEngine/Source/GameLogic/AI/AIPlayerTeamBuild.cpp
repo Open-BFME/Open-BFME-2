@@ -620,40 +620,8 @@ public:
 #include "../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant *TheBuildAssistant;
 
-class ProductionEntry
-{
-public:
-	void *m_vtable;
-	Int m_type;
-	ThingTemplate *m_thing;
-};
-
-class ProductionUpdateInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual Int requestUniqueUnitID(Int a, Int b, const AsciiString &name, Int d);	// +0x08
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int quantity, Int productionID);	// +0x20
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Int getProductionCount() const;		// +0x44
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual ProductionEntry *firstProduction() const;	// +0x54
-};
+#include "../../../Include/GameLogic/Module/ProductionEntry.h"
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
@@ -1054,14 +1022,16 @@ Object *AIPlayer::findFactory(const ThingTemplate *thing, Bool busyOK, Int *buil
 			return factory;
 		if (m_player->m_bfme735)
 		{
-			ProductionEntry *entry = production->firstProduction();
+			// ProductionUpdate's rows spell the entry Rva0049D1B1 (ctor 0x0049D162);
+			// it is ProductionEntry (ProductionEntry.h), so the cast changes no bytes.
+			const ProductionEntry *entry = (const ProductionEntry *)production->firstProduction();
 			if (entry != NULL)
 			{
 				switch (entry->m_type)
 				{
 				case 1:
 				case 3:
-					ThingTemplate *entryThing = entry->m_thing;
+					ThingTemplate *entryThing = entry->m_objectToProduce;
 					if (entryThing != NULL && entryThing->m_isAutoBuilt && !thing->isEquivalentTo(entryThing))
 						return factory;
 				}
@@ -1450,7 +1420,7 @@ Bool AIPlayer::startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName
 		ProductionUpdateInterface *pu = (ProductionUpdateInterface *)factory->rva0028BC58(0);
 		if (pu && pu->getProductionCount() == 0)
 		{
-			if (pu->queueCreateUnit(order->m_thing, buildIndex, pu->requestUniqueUnitID(-1, 0, AsciiString::TheEmptyString, 0)))
+			if (pu->queueCreateUnit(order->m_thing, buildIndex, pu->requestUniqueUnitID(), -1, false, AsciiString::TheEmptyString, false))
 			{
 				order->m_factoryID = factory->m_id;
 				if (TheWritableGlobalData->field09B8)

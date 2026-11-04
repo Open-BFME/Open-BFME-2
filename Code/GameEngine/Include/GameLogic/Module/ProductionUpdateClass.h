@@ -48,7 +48,7 @@ public:
     virtual void rva0049CC15(ProductionID productionID, int value); // 0x0049CC15
     virtual void cancelAndRefundAllProduction(); // 0x0049CE6E
     virtual void rva0049DEC8(); // 0x0049DEC8
-    virtual unsigned int getProductionCount() const; // 0x0057E556
+    virtual int getProductionCount() const; // 0x0057E556
     virtual unsigned int rva0049CEAE(const ThingTemplate *unitType) const; // 0x0049CEAE
     virtual unsigned int rva0049CEE1(int value) const; // 0x0049CEE1
     virtual unsigned int rva0049D0DE(const Rva0049D0DEMask *mask) const; // 0x0049D0DE

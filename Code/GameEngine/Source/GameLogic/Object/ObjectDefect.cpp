@@ -82,13 +82,7 @@ enum CommandSourceType { CMD_FROM_AI = 2 };
 
 #define SLOT(n) virtual void slot##n();
 
-class ProductionUpdateInterface
-{
-public:
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	virtual void cancelAndRefundAllProduction();
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 class ContainModuleInterface
 {
@@ -187,7 +181,7 @@ void Object::defect(Team *newTeam, UnsignedInt detectionTime)
 
 	ProductionUpdateInterface *production = (ProductionUpdateInterface *)rva0028BC58(0);
 	if (production)
-		production->cancelAndRefundAllProduction();
+		production->rva0049DEC8();
 
 	if (m_radarData && newTeam->getControllingPlayer()->rva002AA245() && myTeam->getControllingPlayer()->rva002AA245())
 		TheRadar->tryInfiltrationEvent(this);

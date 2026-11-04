@@ -287,15 +287,7 @@ NameKeyType Rva0045EE2CGet(void);
 
 class UpgradeTemplate;
 
-class ProductionUpdateInterface
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void rvaSlot10(const UpgradeTemplate *upgrade);
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -2138,7 +2130,7 @@ void AIGroup::rva0036DF14(const UpgradeTemplate *upgrade)
 		ProductionUpdateInterface *prod = (ProductionUpdateInterface *)member->rva0028BC58(0);
 		if (!prod)
 			continue;
-		prod->rvaSlot10(upgrade);
+		prod->cancelUpgrade(upgrade);
 	}
 }
 

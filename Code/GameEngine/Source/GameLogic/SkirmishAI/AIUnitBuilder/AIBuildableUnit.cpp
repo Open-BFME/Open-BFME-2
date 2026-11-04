@@ -10,16 +10,7 @@ typedef bool Bool;
 enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_FACTORY_IS_DISABLED, CANMAKE_QUEUE_FULL };
 class Player;
 #include "../../../../Include/Common/ThingTemplate.h"
-class ProductionUpdateInterface
-{
-public:
-	virtual Int queueSize() = 0;			// +0x00
-	virtual void s01() = 0;
-	virtual Int requestUniqueUnitID(Int a, Int b, Int *c, Int d) = 0;	// +0x08
-	virtual void s03() = 0; virtual void s04() = 0; virtual void s05() = 0;
-	virtual void s06() = 0; virtual void s07() = 0;
-	virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int quantity, Int productionID) = 0;	// +0x20
-};
+#include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 class Rva0037EE4C
 {
 public:
@@ -98,7 +89,7 @@ public:
 private:
 	AIBuildableVector m_2C;				// +0x2C
 	Int m_38;					// +0x38
-	Int m_productionID;				// +0x3C
+	AsciiString m_3C;				// +0x3C, destroyed by ~Rva005DAC85
 	Int m_40;					// +0x40
 };
 typedef unsigned int UnsignedInt;
@@ -280,7 +271,7 @@ struct Rva005DACC0PlayerView { char pad[0x60]; Rva002A7389 sk; };
 
 // AIBuildableUnit::AIBuildableUnit, retail 0x005DAC38.
 AIBuildableUnit::AIBuildableUnit(Int arg)
-	: m_38(0), m_productionID(0), m_40(arg)
+	: m_38(0), m_40(arg)
 {
 }
 
@@ -295,7 +286,7 @@ Bool AIBuildableUnit::build(Player *player)
 	if (pui == 0)
 		return false;
 	Int quantity = player->m_productionQuantities.rva0037EE4C(unitType, -1, 0);
-	return pui->queueCreateUnit(unitType, quantity, pui->requestUniqueUnitID(-1, 0, &m_productionID, 0));
+	return pui->queueCreateUnit(unitType, quantity, pui->requestUniqueUnitID(), -1, false, m_3C, false);
 }
 
 // AIBuildableUnit::canMake, retail 0x005DAE6F.
@@ -305,7 +296,7 @@ CanMakeType AIBuildableUnit::canMake(Player *player)
 	if (factory)
 	{
 		ProductionUpdateInterface *pui = (ProductionUpdateInterface *)factory->rva0028BC58(0);
-		if (pui && pui->queueSize() == 0)
+		if (pui && pui->rva0049CFCD() == CANMAKE_OK)
 		{
 			const ThingTemplate *unitType = TheThingFactory->findTemplate(m_templateName);
 			Int quantity = player->m_productionQuantities.rva0037EE4C(unitType, -1, 0);

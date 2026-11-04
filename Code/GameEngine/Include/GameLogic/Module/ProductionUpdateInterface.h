@@ -28,6 +28,7 @@
 //    then +0x20 with seven arguments, the third the result of +0x08 called with none
 //    (0x004F212F, 0x004F213B); 0x0049CC61 calls +0x28 with an entry's id. Object::defect
 //    (0x00298CE7) and the DieModuleInterface thunk 0x0049CE63 call +0x40, not +0x3C.
+//  - AIPlayer::findFactory tests +0x44's result with a signed jle (0x004F0AD3): it is int.
 //  - Types are the implementer rows' mangled types. Slots 10, 12 and 23-30 are rowed on
 //    placeholder or shared classes; 10 and 23 take Zero Hour's types, 24 and 25 bool.
 // Donor (Zero Hour ProductionUpdate.h) facts: the names. BFME2 keeps Zero Hour's slots 1-4,
@@ -75,7 +76,7 @@ public:
 	virtual void rva0049CC15( ProductionID, int ) = 0;									// +0x38, 0x0049CC15
 	virtual void cancelAndRefundAllProduction() = 0;								// +0x3C
 	virtual void rva0049DEC8() = 0;													// +0x40, 0x0049DEC8
-	virtual unsigned int getProductionCount() const = 0;							// +0x44
+	virtual int getProductionCount() const = 0;									// +0x44
 	virtual unsigned int rva0049CEAE( const ThingTemplate * ) const = 0;				// +0x48, 0x0049CEAE
 	virtual unsigned int rva0049CEE1( int ) const = 0;									// +0x4C, 0x0049CEE1
 	virtual unsigned int rva0049D0DE( const Rva0049D0DEMask * ) const = 0;				// +0x50, 0x0049D0DE
