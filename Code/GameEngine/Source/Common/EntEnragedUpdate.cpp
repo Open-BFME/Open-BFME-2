@@ -62,6 +62,7 @@ public:
 
 private:
 };
+class FXList;
 class EntEnragedUpdateModuleData : public UpdateModuleData
 {
 public:
@@ -72,15 +73,15 @@ private:
 	const void *m_vtable; // +0
 	int m_baseTail; // +4
 	int m_scanDelayTime; // +8, defaults to LogicFramesPerSecond
-	int m_enragedTime; // +0xC
-	int m_timeUntilCanRageAgain; // +0x10
+	unsigned m_enragedTime; // +0xC
+	unsigned m_timeUntilCanRageAgain; // +0x10
 	float m_scanDistance; // +0x14
 	Rva003623E5Member m_hatedFilter; // +0x18
 	Rva003623E5Member m_friendlyFilter; // +0x1C
-	int m_transitionTime; // +0x20
-	int m_transitionFX; // +0x24
-	int m_onBuffFX; // +0x28
-	int m_offBuffFX; // +0x2C
+	unsigned m_transitionTime; // +0x20
+	const FXList *m_transitionFX; // +0x24
+	const FXList *m_onBuffFX; // +0x28
+	const FXList *m_offBuffFX; // +0x2C
 };
 // ?getModuleNameKey@EntEnragedUpdate@@UBE?AW4NameKeyType@@XZ @0x004B2458
 // (69B): cached pool-name key for EntEnragedUpdate. The class
@@ -195,12 +196,53 @@ public:
 	virtual bool allow(Object *obj);
 };
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_AFLAME = 10,
+	OBJECT_STATUS_STATUS_54 = 0x36
+};
+enum KindOfType
+{
+	KINDOF_KIND_4E = 0x4e,
+	KINDOF_KIND_FA = 0xfa
+};
+enum WeaponSetType
+{
+	WEAPONSET_SET_16 = 0x16
+};
+enum ModelConditionFlagType
+{
+	MODELCONDITION_FLAG_13B = 0x13b
+};
+enum DisabledType
+{
+	DISABLED_TYPE_4 = 4
+};
+class BodyView;
+class AIView;
 class Object
 {
 public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
+	Player *getControllingPlayer() const; // 0x0028AFA9
+	bool testStatus(ObjectStatusTypes status) const;
+	__declspec(noinline) bool isKindOf(KindOfType kind) const
+	{
+		return (m_kindOfBits[(unsigned)kind >> 5] & (1 << (kind & 31))) != 0;
+	}
+	void setStatus(ObjectStatusTypes status, bool set);
+	void clearWeaponSetFlag(WeaponSetType set);
+	void setWeaponSetFlag(WeaponSetType set);
+	void setSpecialModelConditionState(ModelConditionFlagType type, unsigned frames);
+	void setDisabledUntil(DisabledType type, unsigned frame);
+	char m_pad00[0x38];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0xC8];
+	unsigned m_kindOfBits[(0x254 - 0x10C) / 4]; // +0x10C
+	BodyView *m_body; // +0x254
+	AIView *m_ai; // +0x258
+	char m_pad25C[0x1DC];
+	unsigned char m_flags438; // +0x438
+	char m_pad439[0x3];
 };
 #include "PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;

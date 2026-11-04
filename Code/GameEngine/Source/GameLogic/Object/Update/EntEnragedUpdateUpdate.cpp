@@ -87,9 +87,13 @@ public:
 	virtual void slot142(int mode) = 0;
 };
 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+class Player;
+struct Coord3D;
 class Object
 {
 public:
+	Player *getControllingPlayer() const; // 0x0028AFA9
 	bool testStatus(ObjectStatusTypes status) const;
 	__declspec(noinline) bool isKindOf(KindOfType kind) const
 	{
@@ -100,13 +104,15 @@ public:
 	void setWeaponSetFlag(WeaponSetType set);
 	void setSpecialModelConditionState(ModelConditionFlagType type, unsigned frames);
 	void setDisabledUntil(DisabledType type, unsigned frame);
-
-	char m_unknown00[0x10C];
-	unsigned m_kindOfBits[(0x254 - 0x10C) / 4];	// +0x10C
-	BodyView *m_body;	// +0x254
-	AIView *m_ai;		// +0x258
-	char m_unknown25C[0x438 - 0x25C];
-	unsigned char m_flags438;
+	char m_pad00[0x38];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0xC8];
+	unsigned m_kindOfBits[(0x254 - 0x10C) / 4]; // +0x10C
+	BodyView *m_body; // +0x254
+	AIView *m_ai; // +0x258
+	char m_pad25C[0x1DC];
+	unsigned char m_flags438; // +0x438
+	char m_pad439[0x3];
 };
 
 class FXList
@@ -125,10 +131,10 @@ public:
 	unsigned m_enragedTime;			// +0x0C
 	unsigned m_timeUntilCanRageAgain;	// +0x10
 	char m_unknown14[0x20 - 0x14];
-	unsigned m_stunTime;			// +0x20
-	const FXList *m_fxStun;			// +0x24
-	const FXList *m_fxEnrage;		// +0x28
-	const FXList *m_fxCalm;			// +0x2C
+	unsigned m_transitionTime;			// +0x20
+	const FXList *m_transitionFX;			// +0x24
+	const FXList *m_onBuffFX;		// +0x28
+	const FXList *m_offBuffFX;			// +0x2C
 };
 
 class PB_DeepBase
@@ -204,8 +210,8 @@ UpdateSleepTime EntEnragedUpdate::update()
 			m_28 = TheGameLogic->getFrame() + data->m_timeUntilCanRageAgain;
 			m_2C = false;
 			m_2E = false;
-			if (data->m_fxCalm)
-				FXList::doFXObj(data->m_fxCalm, me, 0);
+			if (data->m_offBuffFX)
+				FXList::doFXObj(data->m_offBuffFX, me, 0);
 		}
 	}
 
@@ -245,10 +251,10 @@ UpdateSleepTime EntEnragedUpdate::update()
 		{
 			if (!me->isKindOf(KINDOF_KIND_FA) && !me->testStatus(OBJECT_STATUS_AFLAME))
 			{
-				me->setSpecialModelConditionState(MODELCONDITION_FLAG_13B, data->m_stunTime);
-				me->setDisabledUntil(DISABLED_TYPE_4, TheGameLogic->getFrame() + data->m_stunTime);
-				if (data->m_fxStun)
-					FXList::doFXObj(data->m_fxStun, me, 0);
+				me->setSpecialModelConditionState(MODELCONDITION_FLAG_13B, data->m_transitionTime);
+				me->setDisabledUntil(DISABLED_TYPE_4, TheGameLogic->getFrame() + data->m_transitionTime);
+				if (data->m_transitionFX)
+					FXList::doFXObj(data->m_transitionFX, me, 0);
 			}
 			me->setStatus(OBJECT_STATUS_STATUS_54, true);
 			me->setWeaponSetFlag(WEAPONSET_SET_16);
@@ -257,7 +263,7 @@ UpdateSleepTime EntEnragedUpdate::update()
 				ai->slot142(8);
 			m_2C = true;
 			m_24 = TheGameLogic->getFrame() + data->m_enragedTime;
-			const FXList *fx = data->m_fxEnrage;
+			const FXList *fx = data->m_onBuffFX;
 			if (fx)
 				FXList::doFXObj(fx, me, 0);
 		}
