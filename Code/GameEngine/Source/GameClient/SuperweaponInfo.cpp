@@ -55,21 +55,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayStringManager.h
-class DisplayStringManager
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void freeDisplayString(DisplayString *string) = 0;
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 class GlobalLanguage
 {
