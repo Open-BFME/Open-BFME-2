@@ -257,7 +257,6 @@ address_global	Code/GameEngine/Source/Common/Rva0043DB3DGlobalSet.cpp	g_Va00E033
 address_global	Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp	g_Va00E0333C	3
 address_global	Code/GameEngine/Source/Common/Rva00446A71Get.cpp	g_Va00A0335C	4
 address_global	Code/GameEngine/Source/Common/Rva00446A77Enable.cpp	g_Va00A0335C	2
-address_global	Code/GameEngine/Source/Common/Rva004EA2C5.cpp	g_Va00E04490	2
 address_global	Code/GameEngine/Source/Common/Rva004EA420Init.cpp	g_Va00E04490	2
 address_global	Code/GameEngine/Source/Common/Rva004EDDD3.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva004FB27EBufferCalls.cpp	g_Va00E04508	3
@@ -970,6 +969,7 @@ address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChun
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00E02D64	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00E02D68	2
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase_DoXfer.cpp	g_Va00E06448	2
+address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp	g_Va00E04490	2
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookArmyBreaker.cpp	g_Va00E06670	2
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp	g_Va00E06654	2
 address_global	Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp	g_Va00E05F74	2

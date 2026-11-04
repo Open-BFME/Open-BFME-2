@@ -45,6 +45,14 @@ class EconomyFarmDestroyView { public: virtual void *destroy(int); };
 class Player;
 class CreateAHeroData;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
+class Rva004EA2C5Template
+{
+public:
+	char m_pad[0x64];
+	StringBase<char> m_name; // +0x64
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+
 class Rva004DFB55 { public: void rva004DFB55(CreateAHeroData *); };
 
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
@@ -177,6 +185,12 @@ private:
 	int m_20;
 	_STL::vector<int> m_items24;			// +0x24
 };
+
+// The rowed initializer at 7B31DF constructs "FarmTemplate" in this
+// four-byte storage; its existing owner keeps the global address unique.
+extern unsigned g_Va00E04490;
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp
 
@@ -363,18 +377,6 @@ void AIEconomyBuilder::DoXfer(Xfer *xfer) {
  }
 }
 
-// tu-skeleton: 0x004EA149 45B ?rva004EA149@Rva004EA149@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA264 41B ?rva004EA264@Rva004EA149@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA28D 56B ??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA2C5 55B ?Rva004EA2C5Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva004EA2C5.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA2FC 5B ?rva004EA2FC@Rva004EA2FC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA301 57B ?insert_equal@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderShutdown.cpp
 
 // WB13816D0 names AIEconomyBuilder::shutdown. Native4EA33A..4EA3A4
@@ -400,6 +402,35 @@ void Rva004EA3B8::rva004EA33A()
  void *stats = TheSkirmishAIManager->rva002A8F24(static_cast<Player *>(m_owner14));
  reinterpret_cast<Rva004DFB55 *>(stats)->rva004DFB55(reinterpret_cast<CreateAHeroData *>(this));
 }
+
+// tu-skeleton: 0x004EA149 45B ?rva004EA149@Rva004EA149@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA264 41B ?rva004EA264@Rva004EA149@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA28D 56B ??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004EA2C5.cpp
+
+// ?Rva004EA2C5Get@@YAHXZ @0x004EA2C5 55B
+// Counts world objects whose template name matches global g_00E04490.
+// Evidence: leaf packet walks GameLogic list head +0xAC next +0x8C via rowed
+// getFirstObject 0x0023CAD2 and rowed StringBase compare 0x000069D6 with
+// holder +0x4 name +0x64; TheGameLogic extern in use.
+
+int __cdecl Rva004EA2C5Get()
+{
+	int count = 0;
+	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject()) {
+		Rva004EA2C5Template *holder = (Rva004EA2C5Template *)obj->m_04;
+		if (holder->m_name.compare(*(const StringBase<char> *)&g_Va00E04490) == 0)
+			++count;
+	}
+	return count;
+}
+
+// tu-skeleton: 0x004EA2FC 5B ?rva004EA2FC@Rva004EA2FC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA301 57B ?insert_equal@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
 // tu-skeleton: 0x004EA3A4 20B ?insert@?$multimap@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRva00072109.cpp (not merged yet)
 
