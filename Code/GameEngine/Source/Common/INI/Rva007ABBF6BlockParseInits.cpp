@@ -324,7 +324,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007ABBF6();
 	static void rva007ABFE3();
 	static void rva007ACFBB();
-	static void rva007ACFF5();
 	static void rva007AD0A2();
 	static void rva007AD120();
 	static void rva007AD135();
@@ -340,9 +339,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD424();
 	static void rva007AD4CC();
 	static void rva007AD521();
-	static void rva007AD550();
-	static void rva007AD594();
-	static void rva007AD5DD();
 	static void rva007AD60C();
 	static void rva007AD621();
 	static void rva007AD660();
@@ -356,15 +352,12 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD85A();
 	static void rva007AD86F();
 	static void rva007AD884();
-	static void rva007AD8FA();
 	static void rva007AD939();
 	static void rva007AD94E();
-	static void rva007AD98D();
 	static void rva007AD9E8();
 	static void rva007AD9FD();
 	static void rva007ADA12();
 	static void rva007ADA27();
-	static void rva007ADA4C();
 	static void rva007ADA7B();
 	static void rva007ADA90();
 	static void rva007ADAD2();
@@ -424,8 +417,6 @@ BLOCK_PARSE_INIT( rva007ABBF6, theAudioSettingsBlockParse )
 BLOCK_PARSE_INIT( rva007ABFE3, theShadowMapBlockParse )
 // ?rva007ACFBB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ACFBB (21B): "LoadSubsystem"
 BLOCK_PARSE_INIT( rva007ACFBB, theLoadSubsystemBlockParse )
-// ?rva007ACFF5@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ACFF5 (21B): "Armor"
-BLOCK_PARSE_INIT( rva007ACFF5, theArmorBlockParse )
 // ?rva007AD0A2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD0A2 (21B): "Bridge"
 BLOCK_PARSE_INIT( rva007AD0A2, theBridgeBlockParse )
 // ?rva007AD120@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD120 (21B): "CommandSet"
@@ -456,12 +447,6 @@ BLOCK_PARSE_INIT( rva007AD424, theOnlineChatColorsBlockParse )
 BLOCK_PARSE_INIT( rva007AD4CC, theObjectCreationListBlockParse )
 // ?rva007AD521@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD521 (21B): "FXParticleSystem"
 BLOCK_PARSE_INIT( rva007AD521, theFXParticleSystemBlockParse )
-// ?rva007AD550@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD550 (21B): "PlayerTemplate"
-BLOCK_PARSE_INIT( rva007AD550, thePlayerTemplateBlockParse )
-// ?rva007AD594@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD594 (21B): "Science"
-BLOCK_PARSE_INIT( rva007AD594, theScienceBlockParse )
-// ?rva007AD5DD@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD5DD (21B): "Rank"
-BLOCK_PARSE_INIT( rva007AD5DD, theRankBlockParse )
 // ?rva007AD60C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD60C (21B): "SpecialPower"
 BLOCK_PARSE_INIT( rva007AD60C, theSpecialPowerBlockParse )
 // ?rva007AD621@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD621 (21B): "ShellMenuScheme"
@@ -488,14 +473,10 @@ BLOCK_PARSE_INIT( rva007AD85A, theGlowEffectBlockParse )
 BLOCK_PARSE_INIT( rva007AD86F, theRingEffectBlockParse )
 // ?rva007AD884@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD884 (21B): "FireEffect"
 BLOCK_PARSE_INIT( rva007AD884, theFireEffectBlockParse )
-// ?rva007AD8FA@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD8FA (21B): "LivingWorldRegionCampaign"
-BLOCK_PARSE_INIT( rva007AD8FA, theLivingWorldRegionCampaignBlockParse )
 // ?rva007AD939@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD939 (21B): "LivingWorldObject"
 BLOCK_PARSE_INIT( rva007AD939, theLivingWorldObjectBlockParse )
 // ?rva007AD94E@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD94E (21B): "LivingWorldMapInfo"
 BLOCK_PARSE_INIT( rva007AD94E, theLivingWorldMapInfoBlockParse )
-// ?rva007AD98D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD98D (21B): "ModifierList"
-BLOCK_PARSE_INIT( rva007AD98D, theModifierListBlockParse )
 // ?rva007AD9E8@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD9E8 (21B): "CloudEffect"
 BLOCK_PARSE_INIT( rva007AD9E8, theCloudEffectBlockParse )
 // ?rva007AD9FD@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD9FD (21B): "PlayerAIType"
@@ -504,8 +485,6 @@ BLOCK_PARSE_INIT( rva007AD9FD, thePlayerAITypeBlockParse )
 BLOCK_PARSE_INIT( rva007ADA12, theVictorySystemDataBlockParse )
 // ?rva007ADA27@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA27 (21B): "FactionVictoryData"
 BLOCK_PARSE_INIT( rva007ADA27, theFactionVictoryDataBlockParse )
-// ?rva007ADA4C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA4C (21B): "BannerType"
-BLOCK_PARSE_INIT( rva007ADA4C, theBannerTypeBlockParse )
 // ?rva007ADA7B@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA7B (21B): "FontDefaultSettings"
 BLOCK_PARSE_INIT( rva007ADA7B, theFontDefaultSettingsBlockParse )
 // ?rva007ADA90@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA90 (21B): "FontSubstitution"
