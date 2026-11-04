@@ -1,0 +1,262 @@
+diff --git a/Code/GameEngine/Source/Common/Rva00709C10Cluster.cpp b/Code/GameEngine/Source/Common/Rva00709C10Cluster.cpp
+index c4800f1ae3..7999bfe278 100644
+--- a/Code/GameEngine/Source/Common/Rva00709C10Cluster.cpp
++++ b/Code/GameEngine/Source/Common/Rva00709C10Cluster.cpp
+@@ -87,7 +87,7 @@ void Rva00709B80::rva00709D80()
+ 		if (!((const Rva006DBB40ShrAndField *)m_28)->get())
+ 		{
+ 			((AptValue *)m_28)->setGCMark(true);
+-			((AptValue *)m_28)->vslot13();
++			((AptValue *)m_28)->RegisterReferences();
+ 		}
+ 	}
+ 
+@@ -96,7 +96,7 @@ void Rva00709B80::rva00709D80()
+ 		if (!((const Rva006DBB40ShrAndField *)m_20)->get())
+ 		{
+ 			((AptValue *)m_20)->setGCMark(true);
+-			((AptValue *)m_20)->vslot13();
++			((AptValue *)m_20)->RegisterReferences();
+ 		}
+ 	}
+ 
+@@ -105,7 +105,7 @@ void Rva00709B80::rva00709D80()
+ 		if (!((const Rva006DBB40ShrAndField *)m_24)->get())
+ 		{
+ 			((AptValue *)m_24)->setGCMark(true);
+-			((AptValue *)m_24)->vslot13();
++			((AptValue *)m_24)->RegisterReferences();
+ 		}
+ 	}
+ }
+diff --git a/Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp b/Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
+index 51a93ba045..7e52a62334 100644
+--- a/Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
++++ b/Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp
+@@ -50,7 +50,7 @@ class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); }
+ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+ // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
+ // AptArray vtableCEA778 and slots+20/+24/+28. Unaccessed state stays opaque.
+-class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); virtual bool vslot12() const; virtual void vslot13() const; static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *block,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(block,n); } AptValue *get(int); void set(int,AptValue *); };
++class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); virtual bool IsGarbageCollected() const; virtual void RegisterReferences() const; static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *block,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(block,n); } AptValue *get(int); void set(int,AptValue *); };
+ // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
+ // Member handlers establish the getter/setter ABI; later source names their role.
+ AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char *)=0;
+@@ -1823,8 +1823,8 @@ class AptPrototype : public AptValue {
+     AptValue *mp__constructor__;
+ public:
+     AptPrototype();
+-    virtual bool vslot12() const;
+-    virtual void vslot13() const;
++    virtual bool IsGarbageCollected() const;
++    virtual void RegisterReferences() const;
+     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
+     static void operator delete(void *,unsigned int);
+     __forceinline AptValue *GetSuperConstructor() const { return mp__constructor__; }
+diff --git a/Code/Libraries/Source/Apt/AptActionInterpreterParseStream.cpp b/Code/Libraries/Source/Apt/AptActionInterpreterParseStream.cpp
+index 4add9b8628..2c2fdce030 100644
+--- a/Code/Libraries/Source/Apt/AptActionInterpreterParseStream.cpp
++++ b/Code/Libraries/Source/Apt/AptActionInterpreterParseStream.cpp
+@@ -50,8 +50,8 @@ class Rva006FB9C0 : public AptValue
+ {
+ public:
+ 	Rva006FB9C0(int value);
+-	virtual bool vslot12() const;
+-	virtual void vslot13() const;
++	virtual bool IsGarbageCollected() const;
++	virtual void RegisterReferences() const;
+ 	static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
+ 	static void operator delete(void *p, unsigned int n) { Rva006D8680Free(p, n); }
+ private:
+@@ -62,8 +62,8 @@ class Rva006FB960 : public AptValue
+ {
+ public:
+ 	Rva006FB960(int value);
+-	virtual bool vslot12() const;
+-	virtual void vslot13() const;
++	virtual bool IsGarbageCollected() const;
++	virtual void RegisterReferences() const;
+ 	static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
+ 	static void operator delete(void *p, unsigned int n) { Rva006D8680Free(p, n); }
+ private:
+diff --git a/Code/Libraries/Source/Apt/AptBoolean.h b/Code/Libraries/Source/Apt/AptBoolean.h
+index ad238eeacd..a2a431d297 100644
+--- a/Code/Libraries/Source/Apt/AptBoolean.h
++++ b/Code/Libraries/Source/Apt/AptBoolean.h
+@@ -13,8 +13,8 @@ public:
+ 
+     virtual void ForceDelete();
+     virtual void DeleteThis();
+-    virtual bool vslot12() const;
+-    virtual void vslot13() const;
++    virtual bool IsGarbageCollected() const;
++    virtual void RegisterReferences() const;
+ 
+     static AptValue *Create(bool);
+     static void ClearPool();
+diff --git a/Code/Libraries/Source/Apt/AptCIHClass.h b/Code/Libraries/Source/Apt/AptCIHClass.h
+index e3c23f3522..abf58d406b 100644
+--- a/Code/Libraries/Source/Apt/AptCIHClass.h
++++ b/Code/Libraries/Source/Apt/AptCIHClass.h
+@@ -1,5 +1,5 @@
+ // Target facts: constructor RVA 0x006CBDE0 calls the eight-byte AptValue constructor 0x006DCD20, installs VA 0x00CE8C24 at +0 (0x006CBE12), and constructs EAStringC at +8 (0x006CBE18). Destructor 0x006E2A70 installs the same table, destroys the string at 0x006E2B0D and calls AptValue destruction 0x006DE350 at 0x006E2B1C; the latter restores VA 0x00CEAED0. The differently named lifecycle rows Rva006CBDE0 and Rva006CBF40 describe this object: allocation 0x006F6E21 and deleting destruction 0x006CBF55 both use sizeof 0x60.
+-// Target facts: VA 0x00CE8C24 has 15 slots, with RVAs 006DCAC0,006E05B0,006CBCD0,006E0500,006E0510,006CBED0,006CBEB0,006E0520,006E0560,006CBCF0,006E0440,006E0460,001826C0,006E11B0,006CBF40; assertion text starts at VA 0x00CE8C60. AptValue supplies the inherited slot names; slots 12/13 remain neutral. Constructor stores 0x006CBE34..0x006CBE61 prove four-byte fields +0x0C..+0x4C; property allocation/access at 0x006E06A0 proves floats +0x0C..+0x40 and the twelve-float pointer +0x44; 0x006E0B60 proves the +0x48 parent chain; 0x006F7B97/0x006F7BA4 prove list pointers +0x54/+0x50; 0x006F72F0 proves a signed 17-bit depth at +0x58; constructor 0x006CBE6A/0x006CBE75 proves the +0x5C flag word.
++// Target facts: VA 0x00CE8C24 has 15 slots, with RVAs 006DCAC0,006E05B0,006CBCD0,006E0500,006E0510,006CBED0,006CBEB0,006E0520,006E0560,006CBCF0,006E0440,006E0460,001826C0,006E11B0,006CBF40; assertion text starts at VA 0x00CE8C60. AptValue supplies the inherited slot names, including IsGarbageCollected and RegisterReferences at slots 12/13. Constructor stores 0x006CBE34..0x006CBE61 prove four-byte fields +0x0C..+0x4C; property allocation/access at 0x006E06A0 proves floats +0x0C..+0x40 and the twelve-float pointer +0x44; 0x006E0B60 proves the +0x48 parent chain; 0x006F7B97/0x006F7BA4 prove list pointers +0x54/+0x50; 0x006F72F0 proves a signed 17-bit depth at +0x58; constructor 0x006CBE6A/0x006CBE75 proves the +0x5C flag word.
+ // Target facts: nonvirtual API declarations retain AptCIH ledger rows at 006E0B20/006E0B40,006E0B60/006E0B80,006E0BF0/006E0C50/006E0CB0,006E0FB0/006E1020/006E1090/006E1100/006E1170,006CFF40,006E11B0,006E1C40/006E1DD0/006E1F00/006E1F90,006E2010,006E2460/006E24D0/006E24E0/006E2560/006E2690/006E2C10/006E2D60/006E2EE0,006E06A0/006E0930. Existing retail-call bindings name predicates IsSpriteInstBase (006CFCD0), IsCharacterInst (006E0200), IsLevelInst (006E03A0), IsSpriteInst (006E01A0), IsAnimationInst (006CBEE0), GetRootAnimation (006E0CB0), GetSpriteInstBase (006CFF40), factoryGetProperty (006E0920), rva006E1540 (006E1540), and rva006dbd80 (006DBD80). Lifecycle and all rowed bodies stay out of line; no copy or assignment body is inferred.
+ #pragma once
+ 
+@@ -24,8 +24,8 @@ public:
+     virtual bool objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const);
+     virtual void PreDestroy();
+     virtual void DestroyGCPointers();
+-    virtual bool vslot12() const;
+-    virtual void vslot13() const;
++    virtual bool IsGarbageCollected() const;
++    virtual void RegisterReferences() const;
+ 
+     void SetEventHandler(int);
+     void RemoveEventHandler(int);
+diff --git a/Code/Libraries/Source/Apt/AptDisplayList.cpp b/Code/Libraries/Source/Apt/AptDisplayList.cpp
+index d3bee8b0ec..d0dc416090 100644
+--- a/Code/Libraries/Source/Apt/AptDisplayList.cpp
++++ b/Code/Libraries/Source/Apt/AptDisplayList.cpp
+@@ -174,7 +174,7 @@ void AptDisplayListState::DisplayListItem(void *arg)
+ 	do {
+ 		if (!((const Rva006DBB40ShrAndField *)node)->get()) {
+ 			((AptValue *)node)->setGCMark(true);
+-			((AptValue *)node)->vslot13();
++			((AptValue *)node)->RegisterReferences();
+ 		}
+ 		node = node->m_next;
+ 	} while (node != 0);
+diff --git a/Code/Libraries/Source/Apt/AptGC.cpp b/Code/Libraries/Source/Apt/AptGC.cpp
+index a94b77ebe3..236391ea50 100644
+--- a/Code/Libraries/Source/Apt/AptGC.cpp
++++ b/Code/Libraries/Source/Apt/AptGC.cpp
+@@ -69,7 +69,7 @@ void __cdecl Rva006E6E20Collect()
+             if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
+                 if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
+                     pValue->setGCMark(true);
+-                    pValue->vslot13();
++                    pValue->RegisterReferences();
+                 }
+             }
+         }
+diff --git a/Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h b/Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h
+index bd88fdf903..19fb876a07 100644
+--- a/Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h
++++ b/Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h
+@@ -22,44 +22,7 @@ enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 }
+ 
+ #include "../AptNativeHash.h"
+ 
+-class AptValue
+-{
+-public:
+-    AptNativeFunction *c_nativefunction() const;
+-    AptDate *c_date() const;
+-    AptCIH *c_cih(bool = false) const;
+-    bool isArray() const;
+-    int toInteger() const;
+-    void toString(EAStringC &) const;
+-    void rva006DE870(char *) const;
+-    AptArray *c_array() const;
+-    AptString *c_string() const;
+-    bool isUndefined() const;
+-    AptValue *findChild(const EAStringC *, AptValue *);
+-    bool getIsDefined() const;
+-    unsigned int getRefCount() const;
+-    bool isCIH(bool = false) const;
+-    virtual void AddRef();
+-    virtual void Release();
+-    virtual void ForceDelete();
+-    virtual AptNativeHash *GetNativeHashVirtual();
+-    virtual bool ContainsNativeHashVirtual() const;
+-    virtual int getHasClass() const;
+-    virtual void setHasClass(int);
+-    virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
+-    virtual bool objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const);
+-    virtual void DeleteThis();
+-    virtual void PreDestroy();
+-    virtual void DestroyGCPointers();
+-    virtual bool IsGarbageCollected() const = 0;
+-    virtual void RegisterReferences() const = 0;
+-protected:
+-    AptValue(AptVirtualFunctionTable_Indices);
+-    virtual ~AptValue();
+-    unsigned int mnValueData;
+-private:
+-    void SetDestroyedGC(); // Native6DBD80 ORs destroyed-GC bit3.
+-};
++#include "../AptValue.h"
+ // Native GC destructor6D6340 tail-calls the base without resetting a GC vptr.
+ class __declspec(novtable) AptValueGC : public AptValue
+ {
+diff --git a/Code/Libraries/Source/Apt/AptValue.h b/Code/Libraries/Source/Apt/AptValue.h
+index 6c27054e10..eefc480791 100644
+--- a/Code/Libraries/Source/Apt/AptValue.h
++++ b/Code/Libraries/Source/Apt/AptValue.h
+@@ -1,5 +1,5 @@
+ // Target facts: constructors RVA 0x006DCCC0 and 0x006DCD20 store VA 0x00CEAED0 at +0 and a dword at +4, with no base-constructor call; destructor 0x006DE350 restores that same table. Scalar constructors 0x006D84C0, 0x006D86A0 and 0x006D8860 call 0x006DCCC0 and begin their payload at +8: the root is eight bytes, with no evidenced base. The BfmeAptValue006DCD20 constructor spelling describes this root; its destructor row 0x006D6340 is the AptValueGC wrapper that jumps to 0x006DE350 without a table store.
+-// Target table 0x00CEAED0 has 15 slots with RVAs 006DCAC0, 006DCB20, 006CBCD0, 0065CE90, 0073B660, 0065CE90, 00180FD0, 0003FD80, 006C8770, 006CBCF0, 0069E440, 006CBD00, 0003B810, 0003B810, 006DE820; the following word at VA 0x00CEAF0C begins assertion text. AptValue ledger rows name slots 0..8 and 11; the matched AptGC::CleanAll calls at 0x006E6FB4, 0x006E6FBB and 0x006E6FFE prove PreDestroy, DestroyGCPointers and DeleteThis at 10, 11 and 9. Slots 12/13 are pure and retain neutral names; slot 14 is deleting destruction, proved by 0x006CBCF8 and 0x006DE820.
++// Target table 0x00CEAED0 has 15 slots with RVAs 006DCAC0, 006DCB20, 006CBCD0, 0065CE90, 0073B660, 0065CE90, 00180FD0, 0003FD80, 006C8770, 006CBCF0, 0069E440, 006CBD00, 0003B810, 0003B810, 006DE820; the following word at VA 0x00CEAF0C begins assertion text. AptValue ledger rows name slots 0..8 and 11; the matched AptGC::CleanAll calls at 0x006E6FB4, 0x006E6FBB and 0x006E6FFE prove PreDestroy, DestroyGCPointers and DeleteThis at 10, 11 and 9. Slots 12/13 are pure; their names IsGarbageCollected and RegisterReferences follow the donor APT 0.19.03 PDB declaration that AptObject/AptScriptFunction.h carried, and the ledger already names slot-13 overriders RegisterReferences (AptValueWithHash 0x006DCC00, AptObject 0x0070DFD0); the +4 word's name mnValueData follows the same PDB; slot 14 is deleting destruction, proved by 0x006CBCF8 and 0x006DE820.
+ // Target declarations: the protected enum constructor binds 0x006DCCC0; flags at +4 are read by getRefCount 0x006DBB20 and private setRefCount 0x006DBB70 (bits 6..17), getIsDefined 0x006DBB60 (bit 4), IsReleaseAtEnd 0x006DBDD0 (bit 2), setIsDefined 0x006DBC30, setGCMark 0x006DBC50 and private SetDestroyedGC 0x006DBD80 (bit 3). Other AptValue rows prove SetString 0x006CBF70, toBool 0x006DD550, toString 0x006DD6C0, rva006ddde0 0x006DDDE0, rva006DDF60 0x006DDF60, rva006DE870 0x006DE870 and findChild 0x006DF9A0. Existing symbol bindings and retail callers prove the predicate/cast API (0x006DBB30, 0x006DBFA0..0x006DC630, 0x006DCD50..0x006DD160), ClearReleaseAtEnd 0x006DBDC0, toInteger 0x006DD360 and toFloat 0x006DD460. All rowed methods remain out of line.
+ #pragma once
+ 
+@@ -31,8 +31,8 @@ public:
+     virtual void DeleteThis();
+     virtual void PreDestroy();
+     virtual void DestroyGCPointers();
+-    virtual bool vslot12() const = 0;
+-    virtual void vslot13() const = 0;
++    virtual bool IsGarbageCollected() const = 0;
++    virtual void RegisterReferences() const = 0;
+ 
+     unsigned int getRefCount() const;
+     bool getIsDefined() const;
+@@ -82,7 +82,7 @@ public:
+ protected:
+     AptValue(AptVirtualFunctionTable_Indices);
+     virtual ~AptValue();
+-    unsigned int field04;
++    unsigned int mnValueData;
+ 
+ private:
+     friend class AptGC;
+diff --git a/Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp b/Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp
+index fd75c64382..e70251be2d 100644
+--- a/Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp
++++ b/Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp
+@@ -32,7 +32,7 @@ extern AptValue *gpUndefinedValue;
+ 
+ bool AptValue::toBool() const
+ {
+-    switch (static_cast<int>(field04) >> 25) {
++    switch (static_cast<int>(mnValueData) >> 25) {
+     case 1:
+     case 42:
+         if (Rva006CD220Get() == 7) {
+diff --git a/Code/Libraries/Source/Apt/Rva006E3230Validate.cpp b/Code/Libraries/Source/Apt/Rva006E3230Validate.cpp
+index a5f672b09f..1c524e8049 100644
+--- a/Code/Libraries/Source/Apt/Rva006E3230Validate.cpp
++++ b/Code/Libraries/Source/Apt/Rva006E3230Validate.cpp
+@@ -135,16 +135,16 @@ void AptActionQueueC::rva006E39A0()
+             if (m_actionType == 1) {
+                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[2])->get()) {
+                     action->m_pValues[2]->setGCMark(true);
+-                    action->m_pValues[2]->vslot13();
++                    action->m_pValues[2]->RegisterReferences();
+                 }
+             } else if (m_actionType == 2) {
+                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[0])->get()) {
+                     action->m_pValues[0]->setGCMark(true);
+-                    action->m_pValues[0]->vslot13();
++                    action->m_pValues[0]->RegisterReferences();
+                 }
+                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[1])->get()) {
+                     action->m_pValues[1]->setGCMark(true);
+-                    action->m_pValues[1]->vslot13();
++                    action->m_pValues[1]->RegisterReferences();
+                 }
+             } else {
+                 g_bfmeAptAssertAtE17734("NOT_REACHED && \"Encountered invalid pActionPool->eActionType\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x7AA);
