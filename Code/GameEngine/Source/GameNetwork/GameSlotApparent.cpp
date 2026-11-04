@@ -164,12 +164,7 @@ struct GameSlotConnectInfo
 	unsigned short m_port;
 };
 
-struct BfmeNetAddress
-{
-	bool Rva00248CBF(const BfmeNetAddress *other) const;
-	unsigned int m_ip;
-	unsigned short m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 class GameSlot
 {
@@ -994,7 +989,7 @@ AsciiString GameInfoToAsciiString(const GameInfo *game, bool withNames)
 			AsciiString name = WideCharStringToMultiByte(slot->getName().str()).c_str();
 			str.format("H%s,%X,%d,%c%c,%d,%d,%d,%d,%d,%d,%d:",
 				withNames ? baseStr(name) : "",
-				slot->m_addr38.m_ip, slot->m_addr38.m_port,
+				slot->m_addr38.ip, slot->m_addr38.port,
 				slot->isAccepted() ? 'T' : 'F',
 				slot->hasMap() ? 'T' : 'F',
 				slot->getColor(), slot->getPlayerTemplate(),

@@ -127,11 +127,7 @@ extern MapCache *TheMapCache;
 
 // The 8-byte local network address GameInfo keeps at +0x38 (ZH's
 // UnsignedInt m_localIP, widened in BFME by a port).
-struct BfmeNetAddress
-{
-	UnsignedInt m_ip;
-	unsigned short m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 class GameInfo
 {
