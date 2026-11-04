@@ -3085,8 +3085,8 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbi
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateModuleDataFriendNew.cpp	_vtbl_00BF3740	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp	??1Rva0044EF5E@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp	??1Rva00451F45@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp	?slot@SESU_Iface1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp	?slot@SESU_Iface2@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp	?slot@SESU_Iface1@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp	?slot@SESU_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/StanceTemplateUpdateModuleDataFriendNew.cpp	??0StancesBehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateXfer.cpp	?g_rva008ffd18ThrowInfo@@3HA	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdate.cpp	??0TeleportSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
@@ -12957,8 +12957,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Dra
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setFullyObscuredByShroud@W3DDebrisDraw@@UAEX_N@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setShadowsEnabled@W3DDebrisDraw@@UAEX_N@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawSetModelName.cpp	The	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	clear@ModelConditionInfo@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	validateCachedBones@ModelConditionInfo@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp	1W3DPropDraw@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp	doDrawModule@W3DPropDraw@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp	loadPostProcess@W3DPropDraw@@	1

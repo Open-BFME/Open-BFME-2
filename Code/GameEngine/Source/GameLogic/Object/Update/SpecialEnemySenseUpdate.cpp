@@ -80,11 +80,8 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 #include "../../../Common/PartitionRangeQueryCallView.h"
-
 extern PartitionManager *ThePartitionManager;
-
 class Rva0010CBits
 {
 public:
@@ -103,17 +100,14 @@ public:
 private:
 	unsigned int m_words[20];
 };
-
 template <int N> class Rva0049A037Slots : public Rva0049A037Slots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class Rva0049A037Slots<0>
 {
 };
-
 // A contained-objects list: STLport list<Object *> nodes (+0 next, +8 the
 // object) behind its header node.
 struct Rva0049A037Node
@@ -122,12 +116,10 @@ struct Rva0049A037Node
 	Rva0049A037Node *m_prev;
 	Object *m_object;
 };
-
 struct Rva0049A037List
 {
 	Rva0049A037Node *m_head;
 };
-
 // What slot 66 returns by value (through a hidden pointer, so not a POD).
 struct Rva0049A037Items
 {
@@ -135,19 +127,16 @@ struct Rva0049A037Items
 	int m_00;
 	const Rva0049A037List *m_list;
 };
-
 class Rva0049A037Members : public Rva0049A037Slots<66>
 {
 public:
 	virtual Rva0049A037Items rva0049A037Slot66() = 0;
 };
-
 class Rva0049A037Contain : public Rva0049A037Slots<31>
 {
 public:
 	virtual Rva0049A037Members *rva0049A037Slot31() = 0;
 };
-
 class Object
 {
 public:
@@ -162,24 +151,15 @@ public:
 	Rva0049A037Contain *m_contain;	// +0x250
 	Rva0049A037Contain *getContain() const { return m_contain; }
 };
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
-
 class ModuleData;
-
 class Thing;
-
 class Xfer;
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-
-
 struct SpecialEnemySenseUpdateModuleData
 {
 	unsigned char m_pad00[0x08];
@@ -187,33 +167,50 @@ struct SpecialEnemySenseUpdateModuleData
 	float m_scanRange;			// +0x0C the radius
 	UpdateSleepTime m_scanInterval;		// +0x10 the delay
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-class SpecialEnemySenseUpdate : public UpdateModule
+class SESU_DeepBase
 {
 public:
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-private:
-	const SpecialEnemySenseUpdateModuleData *getSpecialEnemySenseUpdateModuleData() const
-	{
-		return (const SpecialEnemySenseUpdateModuleData *)m_moduleData;
-	}
+    SESU_DeepBase(Thing *, const ModuleData *);
+    virtual ~SESU_DeepBase();
+
+protected:
+    const ModuleData *m_moduleData;
+    Object *m_object;
 };
+class SESU_Iface1 { public: virtual void slot(); };
+class SESU_Iface2 { public: virtual void slot(); };
+#pragma comment(linker, "/alternatename:?slot@SESU_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?slot@SESU_Iface2@@UAEXXZ=?update@SpecialEnemySenseUpdate@@UAE?AW4UpdateSleepTime@@XZ")
+
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva00499F45 : public UpdateModule
 {
 protected:
 	virtual void xfer(Xfer *xfer);
 };
+
+class SpecialEnemySenseUpdate : public UpdateModule
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+public:
+	virtual UpdateSleepTime update();
+private:
+	const SpecialEnemySenseUpdateModuleData *getSpecialEnemySenseUpdateModuleData() const
+	{
+		return (const SpecialEnemySenseUpdateModuleData *)m_moduleData;
+	}
+public:
+	SpecialEnemySenseUpdate(Thing *, const ModuleData *);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp
 
@@ -276,10 +273,6 @@ UpdateSleepTime SpecialEnemySenseUpdate::update()
 	return data->m_scanInterval;
 }
 
-// tu-skeleton: 0x00499FA9 81B ??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00499FFA 28B ??_GRva00499F45@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00499F45Xfer.cpp
 
 void Rva00499F45::xfer(Xfer *xfer)
@@ -290,6 +283,20 @@ void Rva00499F45::xfer(Xfer *xfer)
 	xfer->Version1();
 }
 
-// tu-skeleton: 0x0078D5AC 8B Unwind@00b8d5ac -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp
 
-// tu-skeleton: 0x0078D5B4 10B __ehhandler$??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp (not merged yet)
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
+
+// ??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
+SpecialEnemySenseUpdate::SpecialEnemySenseUpdate(
+    Thing *thing, const ModuleData *moduleData)
+    : UpdateModule(thing, moduleData)
+{
+    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x00499FFA 28B ??_GRva00499F45@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
