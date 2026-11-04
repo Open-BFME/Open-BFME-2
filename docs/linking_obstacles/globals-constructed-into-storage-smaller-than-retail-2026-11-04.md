@@ -92,8 +92,8 @@ through neighbouring memory the first time a pool grew. The heads were also reco
 object, as `36c6b5aa26` did for `g_freelistPool00DB8FEC`; the head names are per-file macros over the pool's +8 field.
 Evidence is retail's bytes and the matched pool code. No build has run with this yet.
 
-Still open: `g_freelistPool` (VA 0x00DA60E8, 1,459 references) has the same fault and needs the same repair, with its head
-`g_freeList` at 0x00DA60F0. Two of `g_freeList`'s files were held by other workers on 2026-11-04.
+`g_freelistPool` (VA 0x00DA60E8, 1,459 references) had the same fault and got the same repair in `b83078ec2e`, with its head
+`g_freeList` at 0x00DA60F0.
 
 2026-11-04 scoped preview: the current `g_Va00E06E60` provider resolves the old blocker in all three selected filesystem consumers; the provider's separate `g_Va00DF2984` index blocker remains ([evidence](../../reverse/attempt_support/chat-header-adoption-20261104-codex5.md)); no census confirmation claimed.
 
