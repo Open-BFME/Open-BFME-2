@@ -48,12 +48,7 @@ extern const StaticNameKey TheKey_objectSoundAmbientMinRange;		// retail 0x00DBD
 extern const StaticNameKey TheKey_objectSoundAmbientMaxRange;		// retail 0x00DBDDF4
 extern const StaticNameKey TheKey_objectSoundAmbientPriority;		// retail 0x00DBDDFC
 
-class OpaqueRefCounted
-{
-public:
-	void Add_Ref() { InterlockedIncrement((long volatile *)((char *)this + 4)); }
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 class Rva001DA2D5;
 
 struct OpaqueRefElement4
@@ -88,7 +83,7 @@ class Rva001DA2D5 : public OpaqueRefCounted
 public:
 	bool isPermanentSound() { return ((Rva001D98BD *)this)->rva001D9781(); }
 
-	char m_pad00[0xB0];
+	char m_pad08[0xB0 - 0x08];														// +0x08, after the vptr and count
 	int m_b0;															// +0xB0
 };
 

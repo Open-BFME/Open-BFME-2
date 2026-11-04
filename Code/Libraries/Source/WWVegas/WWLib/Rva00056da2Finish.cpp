@@ -22,14 +22,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct OpaqueRefElement4;
 namespace _STL { template <> _Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> > copy_backward<_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> > >(_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >); }
 #include <windows.h>
-class OpaqueRefCounted {
-public:
-    virtual ~OpaqueRefCounted();
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "OpaqueRefCounted.h"
 struct OpaqueRefElement4 {
     OpaqueRefCounted *referent;
     ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }

@@ -11,14 +11,7 @@
 
 #include <deque>
 
-class OpaqueRefCounted {
-public:
-    virtual ~OpaqueRefCounted();
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "OpaqueRefCounted.h"
 
 struct OpaqueRefElement4 {
     OpaqueRefCounted *referent;

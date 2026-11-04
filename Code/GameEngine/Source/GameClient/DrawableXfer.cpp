@@ -76,13 +76,7 @@ void Rva0030612AXfer(Xfer *xfer, float *vals);
 
 extern const char *TheDrawableIconNames[];
 
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-	void *vtable;
-	long volatile count;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 // Counted four-byte owners (target-neutral views; see OpaqueRefOwnership.cpp).
 struct OpaqueRefElement4

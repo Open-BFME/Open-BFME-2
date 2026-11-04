@@ -188,16 +188,9 @@ extern Rva00148F5ECache g_00DBDEEC;
 // The audio events the client keeps playing across a save. Each is a
 // 0xD0-byte reference-counted event (vftable 0x0083CB1C) built from the
 // looked-up event info or empty.
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-
-	void *m_vtbl;
-	long volatile m_references; // +0x04
-};
-
 #include <windows.h>
+
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class AudioEventInfoRef
 {
@@ -240,7 +233,7 @@ public:
 			clear();
 			m_ptr = value;
 			if (value)
-				InterlockedIncrement(&value->m_references);
+				InterlockedIncrement(&value->m_04);
 		}
 	}
 	operator const Rva0023AD91Record &() const { return *reinterpret_cast<const Rva0023AD91Record *>(this); }
@@ -313,7 +306,7 @@ public:
 	__declspec(noinline) Rva0036CA00Str(const Rva0036CA00Str &other) : m_ptr(other.m_ptr)
 	{
 		if (m_ptr)
-			InterlockedIncrement(&m_ptr->m_references);
+			InterlockedIncrement(&m_ptr->m_04);
 	}
 	~Rva0036CA00Str();
 	Rva0036CA00Str &operator=(const Rva0036CA00Str &);

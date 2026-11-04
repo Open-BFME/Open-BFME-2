@@ -154,15 +154,7 @@ private:
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
 
-class OpaqueRefCounted {
-public:
-    virtual ~OpaqueRefCounted();
-    bool rva00050EFA(void);  // add a reference unless the count already reached zero (0x00050EFA)
-    void Add_Ref() { InterlockedIncrement(&refs); }
-    void Release_Ref();
-private:
-    long refs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct OpaqueRefElement4 {
     OpaqueRefCounted *referent;

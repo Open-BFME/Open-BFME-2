@@ -1127,13 +1127,7 @@ private:
 // facts. The compiler-local callback independently matches all16B; its
 // generic _$E2 name already belongs to another TU, so no extra row is claimed.
 // Original factory/receiver names unknown; addresses remain honest names.
-class OpaqueRefCounted
-{
-public:
-	void Release_Ref();
-	void *vtable; // +0x00
-	long volatile count; // +0x04
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 class Rva0036CA00Str {public:
  __declspec(nothrow) Rva0036CA00Str():item(0){}

@@ -31,15 +31,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
-class OpaqueRefCounted
-
-{
- public:
- virtual ~OpaqueRefCounted();
- void Release_Ref();
- 
-}
-;
+#include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct OpaqueRefElement4
 
 {
