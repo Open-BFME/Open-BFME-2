@@ -20,11 +20,29 @@ class Rva005970ED {
 };
 class Rva005978ED { public: Rva005970ED *rva005978ED(); };
 struct ScienceUpgradeConfig { char pad00[0xc8]; float min0,max0,min1,max1; };
-struct Rva002A8AB1Record { char pad00[0x160]; ScienceUpgradeConfig *config; char pad164[8]; int enabled; };
+struct Rva002A8AB1Record
+{
+public:
+	int get16C() const { return m_16C; }
+	char m_pad00[0x160];
+	ScienceUpgradeConfig *config; // +0x160
+	char m_pad164[0x8];
+	int m_16C; // +0x16C
+};
 #include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 float GetGameLogicRandomValueReal(float,float,char *,int);
-class Rva00597983 { char pad00[0x14]; Player *owner; char pad18[0x24-0x18]; Rva005970ED **begin,**end; public: void rva00597983(); };
+class Rva00597983
+{
+public:
+	void rva00597983();
+	char m_pad00[0x14];
+private:
+	Player *owner; // +0x14
+	char m_pad18[0xC];
+	Rva005970ED **begin; // +0x24
+	Rva005970ED **end; // +0x28
+};
 void Rva00597983::rva00597983()
 {
  unsigned count=0;
@@ -34,7 +52,7 @@ void Rva00597983::rva00597983()
  }
  Rva002A8AB1Record *ai=TheSkirmishAIManager->rva002A8AB1(owner);
  unsigned limit;
- switch(ai->enabled) { case 1:limit=1;break;case 2:limit=3;break;default:return; }
+ switch(ai->m_16C) { case 1:limit=1;break;case 2:limit=3;break;default:return; }
  if (count>=limit) return;
  float factor=(float)(count+1);
  unsigned funds=owner->money;

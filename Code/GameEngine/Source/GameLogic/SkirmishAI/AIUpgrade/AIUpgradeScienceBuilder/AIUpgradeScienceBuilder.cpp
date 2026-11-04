@@ -88,11 +88,15 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 	// 0x00233FF4
 
+struct ScienceUpgradeConfig;
 struct Rva002A8AB1Record
 {
-	char m_pad00[0x16C];
+public:
 	int get16C() const { return m_16C; }
-	int m_16C;		// +0x16C
+	char m_pad00[0x160];
+	ScienceUpgradeConfig *config; // +0x160
+	char m_pad164[0x8];
+	int m_16C; // +0x16C
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -249,6 +253,12 @@ class Rva00597983
 {
 public:
 	void rva00597983();
+	char m_pad00[0x14];
+private:
+	Player *owner; // +0x14
+	char m_pad18[0xC];
+	Rva005970ED **begin; // +0x24
+	Rva005970ED **end; // +0x28
 };
 
 class Rva005975C0
