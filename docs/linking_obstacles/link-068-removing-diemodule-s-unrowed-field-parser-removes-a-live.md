@@ -51,3 +51,5 @@ parent so the emitted body is retail's, then pin with `fold-proof=` and repoint.
 No row was moved and no census gain is claimed.
 
 2026-11-04 codex4: InstantDeathBehavior now uses native field declarations and the retail four-callback table; its 34-byte preview stays LINKS and three donor merges now verify. DieModule provider cleanup remains open; the batch audit is inconclusive for CreateAHeroManager. [Evidence](../../reverse/attempt_support/instantdeath-native-field-table-20261104-codex4.md).
+
+2026-11-04 codex5: the existing retail-table provider now passes ModuleFactory's fresh-object identity scan; its one stale key is retired after the separate direct-string teardown repair in LINK-248. [Evidence](../../reverse/attempt_support/modulefactory-string-teardown-20261104-codex5.md).
