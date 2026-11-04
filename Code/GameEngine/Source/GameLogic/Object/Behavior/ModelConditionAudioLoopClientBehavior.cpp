@@ -35,14 +35,7 @@ public:
 // already matched at 0x00045455, no pin needed). Member 2 ends exactly where
 // member 3 starts (+0x04 + 0x4C = +0x50), so no padding is needed.
 
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str(const Rva0036CA00Str &other);
-
-private:
-	void *m_item;
-};
+#include "../../../../Include/Common/Rva0036CA00Str.h"
 
 #include "../../../../Include/Common/WeaponTemplateSetHead.h"
 

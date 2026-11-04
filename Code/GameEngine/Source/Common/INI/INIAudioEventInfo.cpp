@@ -445,13 +445,7 @@ private:
 // below. Ghidra boundary and size are 0x001D9975/27, checked against retail
 // disassembly. No matching ZH/Open-BFME-1 donor was found.
 
-class Rva0036CA00Str
-{
-    void *m_item;
-public:
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &);
-	~Rva0036CA00Str();
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
 
 class Rva00436290StrideDifference {
 public:
