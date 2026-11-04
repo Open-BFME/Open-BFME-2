@@ -159,12 +159,6 @@ private:
 	int m_100;
 };
 
-void Rva004C09A1::rva004C09A1(const Rva004C09A1Object *object)
-{
-	if (object)
-		m_100 = object->m_74;
-}
-
 // --- 0x004C2B45 (18B): a zero float and two zero words.
 class Rva004C2B45
 {
