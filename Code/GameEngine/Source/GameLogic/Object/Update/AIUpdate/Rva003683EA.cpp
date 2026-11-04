@@ -19,11 +19,7 @@ public:
 
 class Waypoint;
 
-class AIStateMachine
-{
-public:
-	void setGoalWaypoint(const Waypoint *p);
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
 class Rva003683EA : public AIUpdateInterface
 {

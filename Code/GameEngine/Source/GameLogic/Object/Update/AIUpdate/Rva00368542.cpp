@@ -3,7 +3,7 @@
 // Evidence: leaf called from 0x0036BD2C plus sibling Rva003683EA layout (+0x30 machine +0x528 done) plus rowed callees.
 class Object { public: bool isMobile() const; };
 class Waypoint;
-class AIStateMachine { public: void setGoalWaypoint(const Waypoint *p); };
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 #include "../../../../../Include/Common/StateMachineClass.h"
 class Rva00368542 {
 public:

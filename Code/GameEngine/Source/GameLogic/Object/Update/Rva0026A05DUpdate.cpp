@@ -125,29 +125,7 @@ struct AIStateView
 	char m_pad00[4];
 	int m_id;
 };
-class AIStateMachine
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual int updateStateMachine();
-	virtual void clear();
-	virtual void slot06();
-	virtual void slot07();
-	virtual int setState(int id);
-	void rva0035033F();
-	int getCurrentStateID() const
-	{
-		if (m_currentState)
-			return m_currentState->m_id;
-		return 999999;
-	}
-	AIStateView *m_currentState;
-	char m_pad08[0x38 - 0x08];
-	bool m_locked;
-};
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 struct AIStateMachineTable { void *m_slots[4]; int (AIStateMachine::*updateStateMachine)(); };
 class Rva00264069ObserverPrefix

@@ -170,14 +170,7 @@ public:
 extern AI *TheAI;
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/Common/StateMachineClass.h"
-class AIStateMachine : public StateMachine
-{
-public:
-	const Waypoint *getGoalWaypoint() { return m_goalWaypoint; }
-private:
-	unsigned char m_pad3C[0x48 - 0x3C];
-	const Waypoint *m_goalWaypoint; // +0x48
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:

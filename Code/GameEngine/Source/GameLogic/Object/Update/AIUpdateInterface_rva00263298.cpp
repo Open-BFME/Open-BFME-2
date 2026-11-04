@@ -8,11 +8,7 @@
 
 #include "../../../../Include/Common/StateMachine.h"
 
-class AIStateMachine
-{
-public:
-	StateReturnType setTemporaryState(unsigned int state, int frameLimit);
-};
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 class RetState
 {
