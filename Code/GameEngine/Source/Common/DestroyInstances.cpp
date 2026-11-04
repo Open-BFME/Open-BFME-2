@@ -315,22 +315,20 @@ template void _STL::_Destroy<Rva005C8FBD>(Rva005C8FBD *);
 template void _STL::_Destroy<BfmeVectorRecord002AF478>(BfmeVectorRecord002AF478 *);
 
 // 0x00288FE5 -> ??1?$pair@$$CBHV?$list@UBfmePod264@@...@@ 0x00288B89 and
-// 0x002A1D94 -> ??1?$pair@VAsciiString@@VAudioEventRTS@@ 0x002A12E1 (ICF-shared
-// with another AsciiString-keyed pair). Each pair destructor is the rowed
-// body, declared here so the instance tail-jumps to it.
+// 0x002A1D94 -> ??1?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@ 0x002A12E1,
+// the list-valued pair rowed in stlport_rb_tree_subscript_002a6a2d.cpp. Each pair
+// destructor is the rowed body, declared here so the instance tail-jumps to it.
 #include <list>
 struct BfmePod264 { BfmePod264(const BfmePod264 &); virtual ~BfmePod264(); int a[65]; };
 typedef _STL::pair<const int, _STL::list<BfmePod264> > Rva00288B89Pair;
 template <> Rva00288B89Pair::~pair();
-// The pair's +4 teardown is retail's call to 0x004EC395, the ICF-folded
-// _List_base<int> destructor row; no AudioEventRTS destructor is rowed.
-class AudioEventRTS
-{
-public:
-	_STL::_List_base<int, _STL::allocator<int> > m_list;
-};
-typedef _STL::pair<AsciiString, AudioEventRTS> Rva002A12E1Pair;
-template <> Rva002A12E1Pair::~pair();
+// The pair's +4 teardown (retail's call to 0x004EC395, the ICF-folded
+// _List_base<int> destructor row) belongs to that rowed body: the mapped value is a
+// list, not an AudioEventRTS. This TU only calls it, so the specialization declares
+// the destructor without defining it.
+struct TreeHintOpaque002A484A;
+template <> struct _STL::pair<const AsciiString, TreeHintOpaque002A484A> { ~pair(); };
+typedef _STL::pair<const AsciiString, TreeHintOpaque002A484A> Rva002A12E1Pair;
 template void _STL::_Destroy<Rva00288B89Pair>(Rva00288B89Pair *);
 template void _STL::_Destroy<Rva002A12E1Pair>(Rva002A12E1Pair *);
 

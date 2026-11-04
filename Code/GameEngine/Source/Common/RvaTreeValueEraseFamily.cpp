@@ -16,7 +16,7 @@
 #undef _CRTIMP
 
 class AsciiString;
-class AudioEventRTS;
+struct TreeHintOpaque002A484A;
 class LocomotorTemplate;
 class TextureClass;
 struct TreeHintRef00217D4C;
@@ -495,8 +495,8 @@ void Rva00240CAB::rva0024191A()
 	m_04Flag = 0;
 }
 
-// owner Rva002A4281: erase 0x002A4281 (value ??1?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAE@XZ), clear 0x002A47E1
-typedef _STL::pair<AsciiString, AudioEventRTS> Rva002A4281Value;
+// owner Rva002A4281: erase 0x002A4281 (value ??1?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@XZ), clear 0x002A47E1
+typedef _STL::pair<const AsciiString, TreeHintOpaque002A484A> Rva002A4281Value;
 class Rva002A4281
 {
 public:

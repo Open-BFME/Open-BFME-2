@@ -250,7 +250,7 @@ header,0x0022D8C3,9,??$_Destroy@VRva0022CFE6@@@_STL@@YAXPAVRva0022CFE6@@@Z,Code/
 header,0x002385DD,9,??$_Destroy@UVersionBlockEntry@@@_STL@@YAXPAUVersionBlockEntry@@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
 header,0x00288FE5,9,??$_Destroy@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@0@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
 header,0x0029FC7E,9,??$_Destroy@URva0029E00D@@@_STL@@YAXPAURva0029E00D@@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
-header,0x002A1D94,9,??$_Destroy@U?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@@_STL@@YAXPAU?$pair@VAsciiString@@VAudioEventRTS@@@0@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
+header,0x002A1D94,9,??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@0@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
 header,0x002ADDD0,9,??$_Destroy@VRva001EB63C@@@_STL@@YAXPAVRva001EB63C@@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
 header,0x002BB6F5,9,??$_Destroy@VRva002B923F@@@_STL@@YAXPAVRva002B923F@@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
 header,0x0032A3D8,9,??$_Destroy@VRva00329D0E@@@_STL@@YAXPAVRva00329D0E@@@Z,Code/GameEngine/Source/Common/DestroyInstances.cpp,match-4.6,,,,,
@@ -925,7 +925,7 @@ unmarked,0x000A9DF8,18,??$_Construct@URva000AB3E2Element@@U1@@_STL@@YAXPAURva000
 unmarked,0x000A9E0A,18,??$_Construct@URva000AB419Element@@U1@@_STL@@YAXPAURva000AB419Element@@ABU1@@Z,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,match-4.6,,,,,
 unmarked,0x004075A8,56,??1?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE@XZ,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,match-4.6,,,,,
 unmarked,0x00785166,10,__ehhandler$??1?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAE@XZ,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,match-4.6,,,,,
-unmarked,0x002A14B9,28,??_G?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAEPAXI@Z,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,match-4.6,,,,,
+unmarked,0x002A14B9,28,??_G?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAEPAXI@Z,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,match-4.6,,,,,
 header,0x00337C0E,71,??$__final_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z,Code/GameEngine/Source/Common/S4StlSortHelpers.cpp,match-4.6,,,,,
 collateral,0x0043B9E8,13,?Rva0043B9E8@SkirmishPreferences@@QAE_NXZ,Code/GameEngine/Source/Common/SkirmishPreferences.cpp,mismatch,adapt,,,,first diff +0x3/13: retail 33c939000f95 vs 8b1033c93bd0
 collateral,0x0043B9F5,160,?Rva0043B9F5@SkirmishPreferences@@QAE?AVUnicodeString@@XZ,Code/GameEngine/Source/Common/SkirmishPreferences.cpp,mismatch,adapt,,,,?Rva0043B9F5@SkirmishPreferences@@QAE?AVUnicodeString@@XZ (Code/GameEngine/Source/Common/SkirmishPreferences.cpp): REL32 site at offset 159 (0x9f) for ??0?$Stri

@@ -1,11 +1,11 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva002A408B@Rva002A408B@@QAEXPAURva002A408BNode@@@Z, retail 0x002A408B, 59 bytes. Rb erase-one: rebalance-for-erase then destroy pair<AsciiString AudioEventRTS> value at +16 and free. Evidence: calls 0x00025620 rebalance plus 0x002A12E1 pair dtor plus _free 0x00030830; dec count at +4 ret 4; same 59B shape as Rva00383F9C 0x00383F9C and Rva00439325 0x00439325; callers 0x002A47BC 0x002A4A03; unblocks 0x002A4975.
+// ?rva002A408B@Rva002A408B@@QAEXPAURva002A408BNode@@@Z, retail 0x002A408B, 59 bytes. Rb erase-one: rebalance-for-erase then destroy the list-valued pair<const AsciiString TreeHintOpaque002A484A> value at +16 and free. Evidence: calls 0x00025620 rebalance plus 0x002A12E1 pair dtor plus _free 0x00030830; dec count at +4 ret 4; same 59B shape as Rva00383F9C 0x00383F9C and Rva00439325 0x00439325; callers 0x002A47BC 0x002A4A03; unblocks 0x002A4975.
 #include "ascii_string.h"
 
 #include <stdlib.h>
 
-class AudioEventRTS;
+struct TreeHintOpaque002A484A;
 
 namespace _STL
 {
@@ -48,7 +48,7 @@ void Rva002A408B::rva002A408B(Rva002A408BNode *pos)
 {
 	_STL::_Rb_tree_node_base *toDelete = _STL::_Rb_global<bool>::_Rebalance_for_erase(
 		pos, m_header->_M_parent, m_header->_M_left, m_header->_M_right);
-	((_STL::pair<AsciiString, AudioEventRTS> *)(toDelete + 1))->~pair();
+	((_STL::pair<const AsciiString, TreeHintOpaque002A484A> *)(toDelete + 1))->~pair();
 	if (toDelete)
 		free(toDelete);
 	--m_count;

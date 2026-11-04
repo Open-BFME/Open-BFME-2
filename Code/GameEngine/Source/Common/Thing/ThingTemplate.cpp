@@ -245,7 +245,7 @@ const FieldParse ThingTemplate::s_objectReskinFieldParseTable[] =
 	{ "FenceXOffset",					INI::parseReal,													NULL,		offsetof( ThingTemplate, m_fenceXOffset ) },
 
   // Needed to avoid some cheats with the scud storm rebuild hole
-  { "MaxSimultaneousOfType",	ThingTemplate::parseMaxSimultaneous,		NULL, offsetof(ThingTemplate, m_maxSimultaneousOfType ) }, 
+  { "MaxSimultaneousOfType",	INI::parseUnsignedShort,		NULL, offsetof(ThingTemplate, m_maxSimultaneousOfType ) }, 
   { "MaxSimultaneousLinkKey",	NameKeyGenerator::parseStringAsNameKeyType,		NULL, offsetof(ThingTemplate, m_maxSimultaneousLinkKey ) }, 
 
 	{ 0, 0, 0, 0 }  // keep this last
@@ -345,36 +345,9 @@ void parseArbitraryFXIntoMap( INI* ini, void *instance, void* /* store */, const
 //-------------------------------------------------------------------------------------------------
 
 
-//-------------------------------------------------------------------------------------------Static
-static void parseArbitrarySoundsIntoMap( INI* ini, void *instance, void* /* store */, const void* userData )
-{
-	PerUnitSoundMap *mapSounds = (PerUnitSoundMap*) instance;
-	const char* name = (const char*)userData;
-	const char* token = ini->getNextToken();
-	
-	AudioEventRTS a;
-	if (token)
-		a.setEventName(token);
-	mapSounds->insert(std::make_pair(AsciiString(name), a));	
-}
-
-//-------------------------------------------------------------------------------------------------
-/** Parse Additional per unit sounds such as TankTurretMove and TankTurretMoveLoop. */
-//-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parsePerUnitSounds present-unmatched
-void ThingTemplate::parsePerUnitSounds( INI* ini, void *instance, void *store, const void *userData )
-{
-	PerUnitSoundMap *mapSounds = (PerUnitSoundMap*)store;
-	mapSounds->clear();
-
-	static const FieldParse myFieldParse[] = 
-	{
-		{ 0, parseArbitrarySoundsIntoMap, NULL, 0 },
-		{ 0, 0, 0, 0 }
-	};
-
-	ini->initFromINI(mapSounds, myFieldParse);
-}
+// BFME2's UnitSpecificSounds parser and its map callback are rowed in
+// ThingTemplateSoundMapParse.cpp (0x0033DC9C, 0x0033DBE5). The Zero Hour copies
+// formerly here referenced AudioEventRTS members retail does not use in this map.
 
 //-------------------------------------------------------------------------------------------------
 /** Parse modules to add to the existing set of modules. */
@@ -442,37 +415,9 @@ void ThingTemplate::parseWeaponTemplateSet( INI* ini, void *instance, void * /*s
 	self->m_weaponTemplateSetFinder.clear();
 }
 
-//-------------------------------------------------------------------------------------------------
-// Parse the "maxSimultaneousOfType" keyword
-// ?ThingTemplate::parseMaxSimultaneous present-unmatched
-void ThingTemplate::parseMaxSimultaneous(INI *ini, void *instance, void *store, const void *userData)
-{
-  // Most of the time, this is an UnsignedShort, but sometimes this is the keyword
-  // "DeterminedBySuperweaponRestriction"
-  const char DETERMINED_BY_SUPERWEAPON_KEYWORD[] = "DeterminedBySuperweaponRestriction";
-
-  ThingTemplate *myTemplate = (ThingTemplate *)instance;
-  DEBUG_ASSERTCRASH ( &myTemplate->m_maxSimultaneousOfType == store, ("Bad store passed to parseMaxSimultaneous" ) );
-
-  const char * token = ini->getNextToken();
-  if ( stricmp( token, DETERMINED_BY_SUPERWEAPON_KEYWORD ) == 0 )
-  {
-    myTemplate->m_maxSimultaneousDeterminedBySuperweaponRestriction = true;
-    *(UnsignedShort *)store = 0;
-  }
-  else
-  {
-    // Copied from parseUnsignedShort
-    Int value = INI::scanInt(token);
-    if (value < 0 || value > 65535)
-    {
-      DEBUG_CRASH(("Bad value parseMaxSimultaneous"));
-      throw ERROR_BUG;
-    }
-    *(UnsignedShort *)store = (UnsignedShort)value;
-    myTemplate->m_maxSimultaneousDeterminedBySuperweaponRestriction = false;
-  }
-}
+// Retail has no "DeterminedBySuperweaponRestriction" keyword: its object table parses
+// MaxSimultaneousOfType with INI::parseUnsignedShort (ThingTemplateFieldTable.cpp), so the
+// Zero Hour ThingTemplate::parseMaxSimultaneous is not compiled here.
 
 
 //-------------------------------------------------------------------------------------------------
