@@ -291,14 +291,14 @@ struct SiegeDeployModuleDataView
 {
 public:
 	char m_pad00[0x18];
-    unsigned int m_delay; // +0x18
-    unsigned int m_disabledDuration; // +0x1C
-    bool m_evacuate; // +0x20
-    bool m_exit; // +0x21
+	unsigned int m_delay; // +0x18
+	unsigned int m_disabledDuration; // +0x1C
+	bool m_evacuate; // +0x20
+	bool m_exit; // +0x21
 	bool m_noAdjust; // +0x22
 	char m_pad23[0x1];
-	float m_searchRadius; // +0x24 +0x24
-	float m_pushDistance; // +0x28 +0x28
+	float m_searchRadius; // +0x24 +0x24 +0x24
+	float m_pushDistance; // +0x28 +0x28 +0x28
 	float m_approachScale; // +0x2C
 };
 

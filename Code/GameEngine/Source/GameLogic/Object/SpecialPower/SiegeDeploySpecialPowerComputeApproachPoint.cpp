@@ -27,13 +27,16 @@ enum ObjectStatusTypes { BFME_STATUS_40 = 0x40 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+struct Coord3D;
 struct Rva004598F2Point
 {
+public:
 	Rva004598F2Point() {}
 	Rva004598F2Point(const Rva004598F2Point &other) : x(other.x), y(other.y), z(other.z) {}
-	float x;
-	float y;
-	float z;
+	Rva004598F2Point(const Coord3D &o) : x(o.x), y(o.y), z(o.z) {}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 class SiegeDockingIface
@@ -42,6 +45,7 @@ public:
 	virtual void gap0();
 	virtual void gap1();
 	virtual int dockIndexFor(ObjectID id);
+	virtual bool acceptsDockFor(ObjectID id);
 };
 
 class SiegeDockingBehavior
@@ -49,8 +53,8 @@ class SiegeDockingBehavior
 public:
 	Rva004598F2Point rva004598F2(int index);
 	Rva004598F2Point rva0045992F(int index);
-	unsigned char m_pad00[0x20];
-	SiegeDockingIface m_iface;
+	char m_pad00[0x20];
+	SiegeDockingIface m_iface; // +0x20
 };
 
 class Module;
@@ -81,10 +85,17 @@ extern AI *TheAI;
 
 struct SiegeDeployModuleDataView
 {
-	unsigned char m_pad00[0x22];
-	bool m_noAdjust;
-	unsigned char m_pad23[0x2C - 0x23];
-	float m_approachScale;
+public:
+	char m_pad00[0x18];
+	unsigned int m_delay; // +0x18
+	unsigned int m_disabledDuration; // +0x1C
+	bool m_evacuate; // +0x20
+	bool m_exit; // +0x21
+	bool m_noAdjust; // +0x22
+	char m_pad23[0x1];
+	float m_searchRadius; // +0x24 +0x24 +0x24
+	float m_pushDistance; // +0x28 +0x28 +0x28
+	float m_approachScale; // +0x2C
 };
 
 class SiegeDeploySpecialPower

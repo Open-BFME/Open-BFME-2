@@ -40,6 +40,8 @@ class DynamicPortalBehaviour
 {
 public:
 	static Module *rva004608E0(Object *obj);
+	void rva0046094C();
+	void createWaypoints();
 	bool IsEndPortalAboveWall(Coord3D *pos);
 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
@@ -106,10 +108,13 @@ extern GameLogic *TheGameLogic;
 
 struct Rva004598F2Point
 {
+public:
 	Rva004598F2Point() {}
+	Rva004598F2Point(const Rva004598F2Point &other) : x(other.x), y(other.y), z(other.z) {}
 	Rva004598F2Point(const Coord3D &o) : x(o.x), y(o.y), z(o.z) {}
-	Rva004598F2Point(const Rva004598F2Point &o) : x(o.x), y(o.y), z(o.z) {}
-	float x, y, z;
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 class SiegeDeployPrimary
