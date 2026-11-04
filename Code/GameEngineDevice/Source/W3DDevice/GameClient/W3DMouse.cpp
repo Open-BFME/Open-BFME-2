@@ -905,6 +905,9 @@ void W3DMouse::initD3DAssets(void)
 		{	
 			for (Int j=0; j < MAX_2D_CURSOR_ANIM_FRAMES; j++)
 			{
+				// The test above is never true (cursorTextures[1] is an array), so this loop compiles
+				// away. This string's unwind state survives without an action: retail's table has it.
+				{ AsciiString deadName; deadName = m_cursorInfo[i].textureName; }
 				cursorTextures[i][j]=NULL;//am->Get_Texture(m_cursorInfo[i].textureName.str());
 				m_currentD3DSurface[i]=NULL;
 			}
