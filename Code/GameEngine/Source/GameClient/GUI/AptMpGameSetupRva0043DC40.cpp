@@ -151,31 +151,7 @@ void GadgetListBoxSetSelected(GameWindow *listBox, const int *selectList, int se
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 #include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
-class MultiplayerSettings
-
-{
- public:
- MultiplayerColorDefinition *getColor(int which);
-// Zero Hour's lazily counted getNumColors, inline as there: +0x38 is the
-// color map's node count.
- int getNumColors()
- 
- {
-  if (m_numColors == 0)
-  m_numColors = m_colorCount;
-  return m_numColors;
-  
- }
- unsigned char m_pad00[0x38];
- int m_colorCount;
-// +0x38
- unsigned char m_pad3c[0x40 - 0x3C];
- int m_numColors;
-// +0x40
- 
-}
-;
-extern MultiplayerSettings *TheMultiplayerSettings;
+#include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern const unsigned short g_00C3D9D4[];
 void GadgetComboBoxReset(GameWindow *comboBox);
 int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
