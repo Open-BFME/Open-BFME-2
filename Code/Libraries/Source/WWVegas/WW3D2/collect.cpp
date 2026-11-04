@@ -165,6 +165,7 @@ static void callInlineRows(RenderObjClass *object, DynamicVectorClass<ProxyClass
 {
 	object->RenderObjClass::Set_Native_Screen_Size(0.0f);
 	object->RenderObjClass::Set_ObjectScale(0.0f);
+	object->RenderObjClass::Get_Native_Screen_Size(); // distlod.cpp's table binds to this copy
 	*proxies = *other;
 	new DynamicVectorClass<char *>(0, 0);
 }
