@@ -1,0 +1,62 @@
+# Consolidation shard 2 handoff — 2026-11-04, session 6
+
+No source merge was accepted in this pass. The applied `W3DTornadoDraw.cpp`
+trial built 6/6 rows, but the outgoing path audit found active ownership
+comments in the sibling W3D device TU that still name the deleted destructor
+file. The trial was restored and its two file claims and five RVA claims were
+released. Repair those comments before retrying that destination.
+
+Additional allocated dry-run blockers:
+
+- `Made002CCC2D.cpp`: ctor is refused because the class view omits the
+  compiler-generated special member declaration (`C2600`).
+- `Squad.cpp`: donor accesses `Object::contain` and `Object::id`, absent from
+  the seed view (`C2039`).
+- `StatsReporter.cpp`: strategic-results donor needs `LivingWorldLogic::getFrame`
+  and `rva004EE037`, absent from current views (`C2039`).
+- `LightPointSystem.cpp`: donor duplicates STL allocator/vector templates
+  (`C2953`). Both mixed splits were inspected: the `GapBodiesGE20.cpp` split
+  fails on `perror` linkage (`C2375`); the other residual loses matched row
+  `0x00421572`.
+- `registry.cpp`: `RegistryDeleteValues.cpp` fails donor byte verification.
+- `animobj.cpp`: donors conflict on `Get_Bone_Transform` return type (`C2556`)
+  and require missing `Rva001A5460` / `_slave` declarations. Reconcile the class
+  view before retrying.
+- `FXShaderParameterSourceNamespaceWW3D.cpp`: donor fails byte verification.
+  Its mixed-source split would grow the `MakeDesc` hatch count and is refused.
+- `UnitCrateCollide.cpp`: ctor signature is absent from the class view
+  (`C2511`). Both mixed rows were tested; LinkGuard refuses moving their
+  selected COMDATs without matching private/weak-free context.
+- `RadarUpdate.cpp`: ctor trial gets duplicate `BehaviorModuleInterface` and
+  `BehaviorModule` definitions (`C2011`); its mixed donor has no row approved
+  for this TU.
+- `CivilianSpawnUpdate.cpp`: ctor thunk converts `int` to `UpdateSleepTime`
+  (`C2440`); module-data destructor fails byte verification.
+- `ClickReactionBehavior.cpp`: ctor donor gets duplicate `UpdateModule`
+  (`C2011`). The mixed field-parse split compiles alone but needs missing
+  `ClickReactionBehaviorModuleData::m_fieldParse`; the other mixed donor has
+  no row approved for this TU.
+- `GiveOrRestoreUpgradeSpecialPower.cpp`: module-data ctor needs missing
+  `m_vtable`, and the class ctor has no default `SpecialAbilityUpdate`
+  constructor (`C2065` / `C2512`). Splitting the mixed getter is refused by
+  LinkGuard because its selected string COMDAT lacks matching private/weak-free
+  context.
+- `BaseUpgrade.cpp`: implementation donor conflicts with a repeated
+  `StringBase` template definition (`C2953`).
+- `MonitorConditionUpdate.cpp`: module-data ctor tries to define an undeclared
+  compiler-generated special member (`C2600`); the update donor fails byte
+  verification. Its getter split is refused by LinkGuard because the selected
+  string COMDAT lacks matching private/weak-free context; the field-parse split
+  fails because the module-data destructor declaration is absent (`C2600`).
+- `CaveContain.cpp`: ctor view lacks `m_FC` and `m_104` (`C2065`); the dtor
+  would regress a census-linked unit by losing
+  `OpenContain::getApparentControllingPlayer`. The mixed name-getter split
+  cannot compile because `CaveContain` is undeclared (`C2065`/`C2070`).
+- `W3DWaterTracks.cpp`: render donor conflicts on `RealRange` (`C2011`); flush
+  donor lacks `TextureClass` (`C2065`) and has an additional include conflict.
+  LinkGuard reported all three source units census-linked; no donor was
+  accepted.
+
+The prior shard handoff records the first sampled candidates and their
+prerequisites. Dry runs and split trials wrote no sources or ledgers; no claims
+remain. No identity, header, link or debt retirement is claimed.
