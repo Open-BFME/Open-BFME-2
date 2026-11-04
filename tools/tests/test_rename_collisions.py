@@ -343,6 +343,11 @@ def test_inline_method_in_a_class_body_sees_the_bases_members(tmp_path):
     ("class A { union { int m; }; };\n", "m", ["class:A"]),
     ("extern \"C\" { int m; }\n", "m", ["ns"]),
     ("int a[] = { m };\n", "m", ["fnbody"]),
+    # a header name's extension is a path, not a macro spelling the word
+    ("#include <stl/_algobase.c>\n#  include <vector3.h>\n", "c", []),
+    ("#include <vector3.h>\n", "h", []),
+    ("#include <x.h>\n#define h 1\n", "h", ["macro"]),
+    ("#error Include NameKeyGenerator.h first\n#warning see x.h\n", "h", []),
 ])
 def test_occurrence_kinds(code, word, kinds):
     assert rename.occurrence_kinds(rename.name_metric.strip(code), word) == kinds

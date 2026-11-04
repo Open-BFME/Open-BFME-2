@@ -5222,6 +5222,10 @@ def other_declarations(code, word, cls=None, *, member_classes=None):
     return found
 
 
+_INCLUDE_HEADER_NAME = re.compile(r"^[ \t]*#[ \t]*(?:(?:include|include_next|import)[ \t]*<[^>\n]*>"
+                                  r"|(?:error|warning)\b[^\n]*)")
+
+
 def _define_formals(line):
     """(macro name, formal parameters) of a function-like `#define` line, else None."""
     match = re.match(r"[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)\(([^)]*)\)", line)
@@ -5290,7 +5294,10 @@ def occurrence_spots(code, word, where="the scanned text"):
 
     def blank(match):
         line = match.group(0)
-        if pattern.search(line):
+        # an angle-bracket header name (`#include <stl/_algobase.c>`) is a path and
+        # `#error`/`#warning` text is a message, not tokens: neither spells a macro
+        # (quoted header names strip() already blanked)
+        if pattern.search(_INCLUDE_HEADER_NAME.sub("", line)):
             formals = _define_formals(line)
             if not (formals and formals[0] != word and word in formals[1]):
                 out.append([match.start(), "macro"])
