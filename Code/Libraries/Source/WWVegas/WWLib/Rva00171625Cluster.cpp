@@ -15,14 +15,7 @@ public:
     void Release_Ref();
 };
 
-class AssetReference
-{
-public:
-    AssetReference(const AssetReference &other);
-    ~AssetReference();
-private:
-    CountedAsset *m_object;
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
 class Rva00171024
 {
