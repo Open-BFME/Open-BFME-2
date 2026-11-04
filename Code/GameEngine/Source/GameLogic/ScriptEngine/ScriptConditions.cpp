@@ -1249,11 +1249,7 @@ public:
     bool rva00286772(PolygonTrigger *trig, int v);
 };
 
-class FireLogicSystem
-{
-public:
-    bool rva00286772(const PolygonTrigger *trig, int v);
-};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 
 class Rva00286772Manager;
 

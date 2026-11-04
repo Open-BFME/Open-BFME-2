@@ -728,7 +728,7 @@ void CastleBehavior::rva0039865E(PolygonTrigger* polygon) {
 // table C1A680 slot1. WB confirms void/no arguments and the same owner,
 // module-data flag, area fuel reset, model-condition bit and status60.
 // Constructor3983D4 proves the FoundationAIUpdate prefix is30 bytes.
-class FireLogicSystem {public:void ChangeFuelInArea(float*,float,int,int,int,int,bool);};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 void CastleBehavior::rva00395DAC() {
