@@ -39,7 +39,7 @@ struct ArmySummaryEntryRef{Rva004F6093Holder holder;ArmySummaryEntryRef(){}ArmyS
 class Rva0040CB3AIndexedField{public:int find(int)const;};
 class ObjectTypes{public:bool isInSet(const AsciiString&)const;char pad[8];_STL::vector<AsciiString>types;};
 namespace _STL{template<>vector<ObjectID>::iterator vector<ObjectID>::erase(iterator);}
-struct UnitRevivalEntry { UnitRevivalEntry(); ~UnitRevivalEntry(); unsigned char opaque[0xD8]; };
+#include "../../../Include/GameLogic/UnitRevivalEntry.h"
 struct Rva002E2D10Record { unsigned char opaque[0xD8]; };
 class UnitRevivalTracker {public:void addRevivableUnit(const Rva002E2D10Record&,Player*);};
 class Player {public:UnitRevivalTracker*getUnitRevivalTracker(){return &tracker;}private:unsigned char opaque[0x738];UnitRevivalTracker tracker;};
