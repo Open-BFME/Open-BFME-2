@@ -23,14 +23,16 @@ private:
 	char m_pad[0x1A4 - 4];
 };
 
+class Object;
+struct Coord3D;
 class Made002CCA37 : public DamageNugget
 {
 public:
 	Made002CCA37();
-
+	bool rva0050B16F(void *weapon, Object *target, const Coord3D *position);
 private:
-	int m_1A4;
-	int m_1A8;
+	int m_1A4; // +0x1A4
+	int m_1A8; // +0x1A8
 };
 
 // tu-skeleton: 0x0050B16F 141B ?rva0050B16F@Made002CCA37@@QAE_NPAXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Made002CCA37Dot.cpp (not merged yet)

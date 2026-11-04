@@ -56,10 +56,11 @@ private:
 class Made002CCA37 : public DamageNugget
 {
 public:
+	Made002CCA37();
 	bool rva0050B16F(void *weapon, Object *target, const Coord3D *position);
 private:
-	int m_1A4;	// +0x1A4
-	int m_1A8;	// +0x1A8
+	int m_1A4; // +0x1A4
+	int m_1A8; // +0x1A8
 };
 
 bool Made002CCA37::rva0050B16F(void *weapon, Object *target, const Coord3D *position)
