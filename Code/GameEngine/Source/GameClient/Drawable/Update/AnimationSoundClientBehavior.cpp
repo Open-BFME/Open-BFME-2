@@ -23,7 +23,6 @@ template<int N>class BitFlags{public:bool setBitByName(const char*);};
 class WeaponTemplateSetHead {public:struct BfmeNoInitAnim{};WeaponTemplateSetHead(){} WeaponTemplateSetHead(BfmeNoInitAnim){} WeaponTemplateSetHead(const WeaponTemplateSetHead&);unsigned words[19];};
 class Rva004C9E94 {public:Rva004C9E94(const Rva0036CA00Str&,const int*,float,const WeaponTemplateSetHead&,const WeaponTemplateSetHead&);int key;Rva0036CA00Str sound;float frame;WeaponTemplateSetHead required,excluded;bool check;};
 struct AnimationSoundTreeNode;
-enum NameKeyType{KEY0=0};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 enum DrawableID { INVALID_DRAWABLE_ID=0 };
@@ -56,6 +55,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma optimize("", on)
 #include <set>
 #pragma comment(linker, "/alternatename:?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z=?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z")
+enum NameKeyType{KEY0=0};
+class AsciiString;
 
 struct AnimationSoundTreeNode { int color; AnimationSoundTreeNode *parent,*left,*right; Rva004C9E5D payload; };
 
@@ -262,20 +263,6 @@ public:
     virtual void rva004C9E48() = 0;
 };
 
-class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E33Iface
-{
-public:
-    virtual ~AnimationSoundClientBehavior();
-    virtual NameKeyType getModuleNameKey() const;
-    virtual void rva004C9E1F(int a1, int a2, int a3);
-    virtual void rva004C9E33();
-    virtual void rva004C9E48();
-    void updateAnimationSounds();
-    float rangeSquared;
-    Rva00432F23Node *next;
-    Rva00432F23Node *prev;
-};
-
 class Rva002390CB {
     void *unknown00;
     OpaqueRefCounted *owner04;
@@ -339,9 +326,7 @@ public:
 
 class MultiIniFieldParse;
 
-
 extern const FieldParse s_animSoundFieldTable[];
-
 
 class AnimationSoundClientBehaviorModuleDataBase
 {
@@ -484,6 +469,22 @@ bool less<int>::operator()(const int &a, const int &b) const
 // pinned address; this TU's copy is not retail's.
 namespace _STL { template <> _STL::_Rb_tree_iterator<int,_STL::_Nonconst_traits<int> > _Rb_tree<int,int,_STL::_Identity<int>,_STL::less<int>,_STL::allocator<int> >::insert_equal(int const &); }
 
+class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E33Iface
+{
+public:
+    virtual ~AnimationSoundClientBehavior();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void rva004C9E1F(int a1, int a2, int a3);
+    virtual void rva004C9E33();
+    virtual void rva004C9E48();
+    void updateAnimationSounds();
+    float rangeSquared;
+    Rva00432F23Node *next;
+    Rva00432F23Node *prev;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
+
 template _STL::_Rb_tree_iterator<int, _STL::_Const_traits<int> > _STL::multiset<int, _STL::less<int>, _STL::allocator<int> >::insert(int const &);
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp
@@ -493,14 +494,6 @@ AnimationSoundClientBehavior::~AnimationSoundClientBehavior()
     if (TheAnimationSoundModuleManager)
         TheAnimationSoundModuleManager->remove((Rva00432F23Node *)this);
 }
-
-// tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004C9E1F 20B ?rva004C9E1F@AnimationSoundClientBehavior@@UAEXHHH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004C9E33 21B ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004C9E48 21B ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
 
@@ -751,9 +744,74 @@ AnimationSoundClientBehaviorModuleData::AnimationSoundClientBehaviorModuleData()
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
+
+// tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp
+
+// ?rva004C9E1F@AnimationSoundClientBehavior@@UAEXHHH@Z @0x004C9E1F
+void AnimationSoundClientBehavior::rva004C9E1F(int, int, int)
+{
+	if (TheAnimationSoundModuleManager)
+		TheAnimationSoundModuleManager->rva00432E5D((Rva00432F23Node *)this);
+}
+
+// ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ @0x004C9E33
+void AnimationSoundClientBehavior::rva004C9E33()
+{
+	if (TheAnimationSoundModuleManager)
+		TheAnimationSoundModuleManager->rva00432E5D((Rva00432F23Node *)this);
+}
+
+// ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ @0x004C9E48
+void AnimationSoundClientBehavior::rva004C9E48()
+{
+	if (TheAnimationSoundModuleManager)
+		TheAnimationSoundModuleManager->rva00432EC0((Rva00432F23Node *)this);
+}
+
 // tu-skeleton: 0x004C9E94 95B ??0Rva004C9E94@@QAE@ABVRva0036CA00Str@@PBHMABVWeaponTemplateSetHead@@2@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9EF3 69B ?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType AnimationSoundClientBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheAnimationSoundClientBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("AnimationSoundClientBehavior");
+	return TheAnimationSoundClientBehaviorPoolKey;
+}
 
 // tu-skeleton: 0x004C9F61 21B ??0Rva004C9F61@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
 
@@ -789,24 +847,7 @@ AnimationSoundClientBehaviorModuleData::AnimationSoundClientBehaviorModuleData()
 
 // tu-skeleton: 0x004CA6D5 5B ??1Rva004CA6D5@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-
-// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
-// COMDAT (one byte shape per TU flags); a file-static overload takes those
-// calls instead so this TU emits no external copy.
-
-// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
-
 // tu-skeleton: 0x004CA74C 28B ??_GAnimationSoundClientBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/ClientModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x007905B4 13B $L310 -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x007905C1 10B __ehhandler$?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x007905CB 8B $L441 -- matched in Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp (not merged yet)
 
