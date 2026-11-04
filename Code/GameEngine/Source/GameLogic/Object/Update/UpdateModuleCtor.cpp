@@ -29,7 +29,7 @@ class UpdateModuleInterface
 {
 public:
 	virtual void update() = 0;
-	virtual BitFlags<13> getDisabledTypesToProcess() const = 0;
+	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -41,7 +41,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
-	virtual BitFlags<13> getDisabledTypesToProcess() const;
+	virtual BitFlags<11> getDisabledTypesToProcess() const;
 };
 
 UpdateModule::UpdateModule(Thing *thing, const ModuleData *moduleData)

@@ -38,7 +38,7 @@ class Rva0024A797_B2
 {
 public:
 	virtual void update() = 0;
-	virtual BitFlags<13> getDisabledTypesToProcess() const = 0;
+	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
 
 private:
 	char m_pad08[12];
@@ -48,7 +48,7 @@ class UpdateModule : public PrimaryP24A797, public Rva0024A797_B2
 {
 public:
 	virtual ~UpdateModule();
-	virtual BitFlags<13> getDisabledTypesToProcess() const;
+	virtual BitFlags<11> getDisabledTypesToProcess() const;
 };
 
 UpdateModule::~UpdateModule()
