@@ -125,6 +125,8 @@ private:
 	int m_200;
 public:
 	int rva0043287E();
+public:
+	void rva00432A3B(const GameMessage *msg);
 };
 
 // Declaration-only views of the STLport containers whose rowed members these

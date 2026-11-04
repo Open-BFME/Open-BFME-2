@@ -23,27 +23,64 @@ union GameMessageArgumentType
 
 #include "../../Include/Common/MessageStream.h"
 
-struct Rva00432A3BEntry
-{
-	int m_type;
-	int m_pixX;
-	int m_pixY;
-	int m_int1;
-	int m_int2;
-	unsigned char m_flags14;
-	char m_pad15[3];
-};
-
-class AptTranslator
+class Rva0043283CBase
 {
 public:
-	void rva00432A3B(const GameMessage *msg);
+	Rva0043283CBase() { }
+	~Rva0043283CBase() { }
+	// The base table 0x00BDBA74 (the folded 8-byte translator base) starts
+	// with __purecall 0x0003B810 (rowed in debug_purecall.cpp) and ends with a
+	// deleting destructor; slot 0 is abstract, so declare it pure. The
+	// placeholder body was never retail's and left the two vftables
+	// referencing the undefined ?rva0043283CSlot0@Rva0043283CBase@@UAEXXZ.
+	virtual void rva0043283CSlot0() = 0;
+};
 
+struct Rva0043283CEntry
+{
+	Rva0043283CEntry()
+	{
+		m_00 = 0;
+		m_0C = 0;
+		m_10 = 0;
+		m_flag14 = 0;
+	}
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	unsigned char m_flag14 : 1;
+};
+
+class AptTranslator : public Rva0043283CBase
+{
+public:
+	AptTranslator();
+public:
+	~AptTranslator();
 private:
-	char m_pad0[8];
-	Rva00432A3BEntry m_entries[17];
-	char m_pad1A0[0x1E8 - 0x1A0];
-	int m_1E8;
+	int m_04;
+private:
+	Rva0043283CEntry m_entries08[0x14];
+private:
+	int m_1e8;
+private:
+	bool m_1ec;
+private:
+	int m_1f0;
+private:
+	int m_1f4;
+private:
+	int m_1f8;
+private:
+	int m_1fc;
+private:
+	int m_200;
+public:
+	int rva0043287E();
+public:
+	void rva00432A3B(const GameMessage *msg);
 };
 
 void AptTranslator::rva00432A3B(const GameMessage *msg)
@@ -59,15 +96,15 @@ void AptTranslator::rva00432A3B(const GameMessage *msg)
 	default:
 		return;
 	}
-	Rva00432A3BEntry *e = &m_entries[type];
-	m_1E8 = type;
-	e->m_type = type;
+	Rva0043283CEntry *e = &m_entries08[type];
+	m_1e8 = type;
+	e->m_00 = type;
 	const GameMessageArgumentType *gameMessageArgumentType = msg->getArgument(0);
-	e->m_pixX = gameMessageArgumentType->pixel.x;
-	e->m_pixY = gameMessageArgumentType->pixel.y;
+	e->m_04 = gameMessageArgumentType->pixel.x;
+	e->m_08 = gameMessageArgumentType->pixel.y;
 	const GameMessageArgumentType *a1 = msg->getArgument(1);
-	e->m_int1 = a1->integer;
+	e->m_0C = a1->integer;
 	const GameMessageArgumentType *a2 = msg->getArgument(2);
-	e->m_int2 = a2->integer;
-	e->m_flags14 &= ~1;
+	e->m_10 = a2->integer;
+	e->m_flag14 = 0;
 }
