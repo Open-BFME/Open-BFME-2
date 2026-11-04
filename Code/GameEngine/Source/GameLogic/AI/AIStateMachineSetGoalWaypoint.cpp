@@ -32,7 +32,7 @@ class Pathfinder {
 public:
     void rva003E3BFB(ObjectID);
 };
-void Pathfinder::rva003E3BFB(ObjectID id)
+void Pathfinder::rva003E3BFB(ObjectID objID)
 {
-    ignoredObstacleID = id;
+    ignoredObstacleID = objID;
 }

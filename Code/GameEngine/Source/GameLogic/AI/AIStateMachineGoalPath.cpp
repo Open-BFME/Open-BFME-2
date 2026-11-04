@@ -13,11 +13,11 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
 class AIStateMachine {public:void addToGoalPath(const Coord3D*);private:char prefix[0x3C];_STL::vector<Coord3D> goalPath;};
-void AIStateMachine::addToGoalPath(const Coord3D *point)
+void AIStateMachine::addToGoalPath(const Coord3D *pathPoint)
 {
- if(goalPath.size()==0)goalPath.push_back(*point);
+ if(goalPath.size()==0)goalPath.push_back(*pathPoint);
  else {
-  Coord3D *last=&goalPath[goalPath.size()-1];
-  if(!(*last==*point))goalPath.push_back(*point);
+  Coord3D *finalPoint=&goalPath[goalPath.size()-1];
+  if(!(*finalPoint==*pathPoint))goalPath.push_back(*pathPoint);
  }
 }
