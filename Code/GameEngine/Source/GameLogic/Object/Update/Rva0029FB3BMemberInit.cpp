@@ -24,7 +24,10 @@ public:
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 extern FreelistPool g_freelistPool;
-extern void *g_freeList;
+// The free-list head is the +8 member of the complete pool at VA 0xDA60E8.
+class FreelistPool;
+extern FreelistPool g_freelistPool;
+#define g_freeList (*(void **)((char *)&g_freelistPool + 8))
 
 // ?init@Rva0029FB3BMember@@QAEPAXPAX@Z @0x0029FB3B
 void *Rva0029FB3BMember::init(void *context)
@@ -57,7 +60,6 @@ void Rva0029FB3BMember::reset()
 }
 
 // ?g_freeList@@3PAXA: matched references place it at VA 0xda60f0; also referenced as ?g_pool009A60F0@@3PAUPoolNode002ABB20@@A.
-void * g_freeList = 0;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

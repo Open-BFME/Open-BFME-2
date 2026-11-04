@@ -19,12 +19,24 @@ class FreelistPool
 {
 	friend struct Rva007AB800PoolInits;
 
+public:
+	int m_00;
+	void *m_04;
+	void *m_head;
+	void *(__cdecl *m_alloc)(int, int);
+	void (__cdecl *m_free)(void *, int);
+	int m_14;
+
 private:
 	bool grow( int arena, int size );
 };
 
+void *__cdecl Rva0002FFC0Alloc(int size, int ignored);
+void __cdecl Rva0002FFE0Free(void *ptr, int ignored);
 extern FreelistPool g_freelistPool;
-FreelistPool g_freelistPool;
+FreelistPool g_freelistPool = {
+	0x80, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0
+};
 
 void __cdecl rva007B6850();
 void __cdecl rva007B6AAA();

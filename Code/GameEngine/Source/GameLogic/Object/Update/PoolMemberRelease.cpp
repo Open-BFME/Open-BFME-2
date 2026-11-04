@@ -10,7 +10,10 @@
 
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
-extern void *g_freeList;
+// The free-list head is the +8 member of the complete pool at VA 0xDA60E8.
+class FreelistPool;
+extern FreelistPool g_freelistPool;
+#define g_freeList (*(void **)((char *)&g_freelistPool + 8))
 
 class PoolMember
 {

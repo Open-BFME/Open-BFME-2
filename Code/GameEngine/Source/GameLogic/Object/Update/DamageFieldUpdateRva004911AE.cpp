@@ -120,7 +120,10 @@ static inline bool operator!=(const _List_iterator<T, Traits> &a,
 // Iterator identity depends on ObjectID, not on this allocator parameter.
 class FreelistPool { public: void *pop(); };
 extern FreelistPool g_freelistPool;
-extern void *g_freeList;
+// The free-list head is the +8 member of the complete pool at VA 0xDA60E8.
+class FreelistPool;
+extern FreelistPool g_freelistPool;
+#define g_freeList (*(void **)((char *)&g_freelistPool + 8))
 template <class T> class BfmeObjectIdPoolAllocator {
 public:
     typedef T value_type;

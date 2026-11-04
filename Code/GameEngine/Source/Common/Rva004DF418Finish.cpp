@@ -32,7 +32,10 @@ public:
 // Native 0x00268902 clears the list and returns its head to the shared pool.
 // Spell the complete cleanup here, as in PoolMemberRelease.cpp: a forwarding
 // destructor would emit a non-retail five-byte COMDAT under this existing pin.
-extern void *g_freeList;
+// The free-list head is the +8 member of the complete pool at VA 0xDA60E8.
+class FreelistPool;
+extern FreelistPool g_freelistPool;
+#define g_freeList (*(void **)((char *)&g_freelistPool + 8))
 
 class Rva0029FB3BMember
 {

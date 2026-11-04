@@ -5,11 +5,13 @@
 // iterator result and by-value iterator, matching this unused-this ABI.
 // Replace the former stdcall free-function view with the actual template
 // member binding its callers use. The element name remains address-derived.
-// g_freeList is the existing DA60F0 owner; no new address or alias is admitted.
 
 #include <list>
 struct Rva004907AAElement {unsigned int id;bool operator<(const Rva004907AAElement&)const;bool operator==(const Rva004907AAElement&)const;};
-extern void *g_freeList;
+// The free-list head is the +8 member of the complete pool at VA 0xDA60E8.
+class FreelistPool;
+extern FreelistPool g_freelistPool;
+#define g_freeList (*(void **)((char *)&g_freelistPool + 8))
 template<> _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::iterator _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::erase(iterator position)
 {
  _STL::_List_node_base *n=position._M_node;
