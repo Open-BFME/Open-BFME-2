@@ -1,4 +1,4 @@
-### LINK-232: vector copy 0x00540295 used a trivial key-copy worker
+### LINK-234: vector copy 0x00540295 used a trivial key-copy worker
 
 Status: Cleared for the six-unit preview scope. Updated: 2026-11-04; inspected revision: c0177ca98a.
 Evidence: [target chain, discarded trials and verification](../../reverse/attempt_support/vector-copy-540295-identity-20261104.md).
