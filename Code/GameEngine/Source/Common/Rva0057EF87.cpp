@@ -7,40 +7,7 @@
 // prev/next Rva0057EE5C.cpp // cl: /O1 /DNDEBUG /MD /GX, all callees rowed/pinned.
 #include "ascii_string.h"
 
-class Drawable;
-
-namespace _STL
-{
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A>
-class vector
-{
-public:
-	T *m_start;
-	T *m_finish;
-	T *m_end_of_storage;
-	__declspec(dllimport) __forceinline T *begin() { return m_start; }
-	__declspec(dllimport) __forceinline T *end() { return m_finish; }
-	T *erase(T *first, T *last);
-	void resize(unsigned int n, T x);
-};
-}
-
-struct TargetRef00217D4C
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
-
-struct ReleaseHolder0057EE5C
-{
-	TargetRef00217D4C *m_ptr;
-};
+#include "../GameClient/GUI/GUICallbacks/Apt/AptMpGameRulesView.h"
 
 class Rva005248D0
 {
@@ -65,26 +32,30 @@ void _bfme_closeAptScreen(const AsciiString &name);
 class Rva0057EE5C : public Rva005248D0
 {
 public:
+	virtual void vslot1(int a, int b);
+	void rva0057EA0F();
 	void rva0057EF87();
 private:
-	char m_pad04[0x58 - 4]; // +0x04..+0x57
-	ReleaseHolder0057EE5C m_58; // +0x58
-	char m_pad5C[0x60 - 0x5C]; // +0x5C..+0x5F
-	int m_60; // +0x60
-	_STL::vector<void *, _STL::allocator<void *> > m_64; // +0x64
-	_STL::vector<void *, _STL::allocator<void *> > m_70; // +0x70
-	_STL::vector<Drawable *, _STL::allocator<Drawable *> > m_7C; // +0x7C
+	char m_pad04[0x58 - 4];
+	Rva0043DA65 *m_holder; // +0x58: refcounted referent
+	int m_5C;
+	int m_60;
+	_STL::vector<void *> m_64; // +0x64
+	_STL::vector<void *> m_70; // +0x70
+	_STL::vector<Drawable *> m_7C; // +0x7C
+	char m_pad88[0x8C - 0x88];
+	int m_8C[10];
 };
 
 void Rva0057EE5C::rva0057EF87()
 {
 	((AptMpGameRules *)this)->rva0057EF18();
-	m_58.m_ptr->m_08 = 0;
+	m_holder->m_08 = 0;
 	m_7C.resize(10, (Drawable *)0);
 	((Rva0052493F *)this)->rva0052493F();
 	_bfme_closeAptScreen(AsciiString("AptMpGameRules::InitGadgets"));
-	_STL::vector<void *, _STL::allocator<void *> > &v64 = m_64;
+	_STL::vector<void *> &v64 = m_64;
 	v64.erase(v64.begin(), v64.end());
-	_STL::vector<void *, _STL::allocator<void *> > &v70 = m_70;
+	_STL::vector<void *> &v70 = m_70;
 	v70.erase(v70.begin(), v70.end());
 }

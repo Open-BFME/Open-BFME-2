@@ -4,29 +4,8 @@
 // resize to 10, clears +0x89, then tail jmps to pinned 0x0057ED2B. Evidence:
 // packet disasm with rowed callees 0x0031BD55 and 0x000E6D39; callers
 // 0x0057EF95 0x0057F02D and InitGadgets; AptMpGameRules layout in
-// AptMpGameRulesCallbacks.cpp; neighbours in Common.
-class Drawable;
-
-namespace _STL
-{
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A>
-class vector
-{
-public:
-	T *m_start;
-	T *m_finish;
-	T *m_end_of_storage;
-	__declspec(dllimport) __forceinline T *begin() { return m_start; }
-	__declspec(dllimport) __forceinline T *end() { return m_finish; }
-	T *erase(T *first, T *last);
-	void resize(unsigned int n, T x);
-};
-}
+// AptMpGameRules.cpp; neighbours in Common.
+#include "../GameClient/GUI/GUICallbacks/Apt/AptMpGameRulesView.h"
 
 class AptMpGameRules
 {
@@ -34,22 +13,19 @@ public:
 	virtual void v00();
 	virtual void ruleChanged(int rule, bool silent);
 	void rva0057EF18();
-	bool rva0057ED2B();	// row 0x0057ED2B (AptMpGameRulesRefreshWidgets.cpp) returns bool; the tail call ignores it
+	bool rva0057ED2B();	// row 0x0057ED2B returns bool; the tail call ignores it
 private:
-	char m_pad04[0x60 - 0x04];
-	int m_mode;
-	char m_pad64[0x7C - 0x64];
-	_STL::vector<Drawable *, _STL::allocator<Drawable *> > m_7C;
-	char m_pad88;
-	bool m_89;
+	char m_pad04[0x7C - 0x04];
+	AptMpGameRulesWidgets m_ruleWindows; // +0x7C
+	bool m_88; // +0x88
+	bool m_89; // +0x89
 };
 
 void AptMpGameRules::rva0057EF18()
 {
 	m_89 = false;
-	_STL::vector<void *, _STL::allocator<void *> > *v =
-		(_STL::vector<void *, _STL::allocator<void *> > *)&m_7C;
+	_STL::vector<void *> *v = (_STL::vector<void *> *)&m_ruleWindows;
 	v->erase(v->begin(), v->end());
-	m_7C.resize(10, (Drawable *)0);
+	((_STL::vector<Drawable *> *)&m_ruleWindows)->resize(10, (Drawable *)0);
 	rva0057ED2B();
 }

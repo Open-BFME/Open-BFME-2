@@ -17,16 +17,9 @@ void *GadgetComboBoxGetItemData(GameWindow *window, int selection);
 
 bool GadgetCheckBoxIsChecked(GameWindow *window);
 
-// A rule widget list (+0x64 combo boxes, +0x70 check boxes).
+// A typed view of a rule widget list.
 // Retail/WB vector access uses a separate begin pointer per subscript.
 template<class T> struct RuleVectorView { T *m_begin; T *m_end; T *m_capacity; T &operator[](unsigned int i) {T *begin=m_begin; return begin[i];} unsigned int size() const {return m_end-m_begin;} };
-
-struct AptMpGameRulesWidgets
-{
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-};
 
 // Rowed 0x00559FAC in Common/RTS/MpGameRules.cpp: resets rules at +0x8C
 // for the mode at +0x60; existing cdecl caller ABI.
@@ -80,20 +73,6 @@ public:
 class AptCommandMap;
 
 class AptExternHandler;
-
-namespace _STL
-{
-    template<class I, class T> I find(I, I, const T &);
-	template <class T> class allocator {};
-
-	template <class T, class A = allocator<T> > class vector
-	{
-	private:
-		T *m_start;
-		T *m_finish;
-		T *m_endOfStorage;
-	};
-}
 
 class AptCommandMapAdder
 {
@@ -195,19 +174,6 @@ private:
 	unsigned char m_rules[0x28]; // +0x8C
     AptMpGameRulesWidgets m_ruleStates; // +0xB4: retail integer state vector
 };
-
-// Reuse the ledger's folded pointer-vector resize provider. Retail proves
-// three pointer fields and four-byte pointer elements for these widget lists.
-class Drawable;
-
-namespace _STL {
-    template<class T> class allocator;
-    template<class T, class Allocator> class vector;
-    template<> class vector<Drawable *, allocator<Drawable *> > {
-    public:
-        void resize(unsigned int, Drawable *);
-    };
-}
 
 // Native 57EAAD..57ED2B, complete638B. WB159E9E0 names this callback.
 // Descriptor/state/widget offsets are measured independently in retail.
@@ -311,12 +277,16 @@ class Rva0057EE5C : public Rva005248D0
 public:
 	virtual void vslot1(int a, int b);
 	void rva0057EA0F();
+	void rva0057EF87();
 private:
 	char m_pad04[0x58 - 4];
-	Rva0043DA65 *m_holder;
+	Rva0043DA65 *m_holder; // +0x58: refcounted referent
 	int m_5C;
 	int m_60;
-	char m_pad64[0x8C - 0x64];
+	_STL::vector<void *> m_64; // +0x64
+	_STL::vector<void *> m_70; // +0x70
+	_STL::vector<Drawable *> m_7C; // +0x7C
+	char m_pad88[0x8C - 0x88];
 	int m_8C[10];
 };
 
