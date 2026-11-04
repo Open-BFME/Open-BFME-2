@@ -182,22 +182,39 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class CrateCollide
+// The collide interface at +0x10. Retail's SalvageCrateCollide table there
+// (0x00C5A9A8) has six slots; slot 0 is CrateCollide::onCollide 0x004BC56D.
+// Only that slot carries a name yet.
+class CollideModuleInterface
 {
 public:
-	virtual ~CrateCollide();
-protected:
-	virtual void xfer(Xfer *xfer);
-protected:
-	virtual bool executeCrateBehavior(Object *other);
-protected:
-	virtual bool isValidToExecute(const Object *other) const;
-protected:
-	const void *m_moduleData;
-protected:
-	Object *m_object;
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
+class CollideModule : public BehaviorModule, public CollideModuleInterface
+{
+public:
+	CollideModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~CollideModule();
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
+// Target facts: SalvageCrateCollide's primary table 0x00C5A9C0 is
+// ObjectModule's ten slots and BehaviorModule's two, then slot 12
+// executeCrateBehavior 0x004BD442 and slot 13 isValidToExecute 0x004BD314;
+// CrateCollide's own table 0x00C5A618 holds __purecall in slot 12.
+class CrateCollide : public CollideModule
+{
 public:
 	CrateCollide(Thing *thing, const ModuleData *moduleData);
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual bool executeCrateBehavior(Object *other) = 0;
+	virtual bool isValidToExecute(const Object *other) const;
+private:
+	bool m_everExecuted;			// +0x14, right after the three module bases
 };
 
 class SalvageCrateCollide : public CrateCollide

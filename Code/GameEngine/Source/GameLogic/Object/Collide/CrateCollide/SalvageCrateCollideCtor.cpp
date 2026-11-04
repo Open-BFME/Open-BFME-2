@@ -1,46 +1,84 @@
-// cl: /DNDEBUG /MD
+// cl: /MD /GX /Ireference/shims/bfme2_ascii
 //
 // ??0SalvageCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
-// 0x004BD1D7, 42 bytes. SalvageCrateCollide behavior ctor over the pinned
-// CrateCollide intermediate base (0x4BC523, thing plus data): forwards both
-// args to the base, then re-stores the primary vtable slot (the behavior
-// vtable 0x00C5A9C0, whose slot2 is the name getter 0x004BD201 and whose
-// slot4 is the pool key 0x004BD220) and the +0x0C/+0x10 secondary slots
-// (address-of TU-local dummies, DIR32-masked).
-//
-// The class declares no virtuals of its own: the stores land from explicit
-// members in body order, so a virtual TU spelling cannot reproduce the
-// order. The base ctor spelling resolves to its pin at 0x004BC523 (six raw
-// callers, all CrateCollide-family behavior ctors; chains into 0x004BB702
-// and the rowed BehaviorModule ctor 0x00253330). Recipe: the opaque-base
-// behavior-ctor pattern (PlayerHealSpecialPowerCtor.cpp) with the
-// SalvageCrateCollide file-unit (pool key at 0x004BD220 plus name getter at
-// 0x004BD201 plus ctor-thunk at 0x004BD207 plus scalar-deleting-dtor at
-// 0x004BD265; the instance factory at 0x002512B4 is the sole raw caller).
+// 0x004BD1D7, 42 bytes: calls the CrateCollide constructor (rowed at
+// 0x004BC523, thing plus data), then stores SalvageCrateCollide's three
+// tables in base order: the primary 0x00C5A9C0 at +0x00, the collide
+// family's BehaviorModuleInterface table 0x00C5A040 at +0x0C and its own
+// CollideModuleInterface table 0x00C5A9A8 at +0x10. The class adds no
+// members, so the body is empty. The class views are the ones
+// SalvageCrateCollide.cpp declares.
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Object;
+class Xfer;
 class Thing;
 class ModuleData;
+struct Coord3D;
+struct SalvageCrateCollideModuleData;
+struct BfmeWideResult;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-// Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class CrateCollide
+// The collide interface at +0x10. Retail's SalvageCrateCollide table there
+// (0x00C5A9A8) has six slots; slot 0 is CrateCollide::onCollide 0x004BC56D.
+// Only that slot carries a name yet.
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
+class CollideModule : public BehaviorModule, public CollideModuleInterface
+{
+public:
+	CollideModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~CollideModule();
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CrateCollide.h
+// Target facts: SalvageCrateCollide's primary table 0x00C5A9C0 is
+// ObjectModule's ten slots and BehaviorModule's two, then slot 12
+// executeCrateBehavior 0x004BD442 and slot 13 isValidToExecute 0x004BD314;
+// CrateCollide's own table 0x00C5A618 holds __purecall in slot 12.
+class CrateCollide : public CollideModule
 {
 public:
 	CrateCollide(Thing *thing, const ModuleData *moduleData);
-
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
-	const void *m_vtable;
-	unsigned char m_pad04[0x0C - 4];
-	const void *m_p0C;
-	const void *m_p10;
+	virtual void xfer(Xfer *xfer);
+	virtual bool executeCrateBehavior(Object *other) = 0;
+	virtual bool isValidToExecute(const Object *other) const;
+private:
+	bool m_everExecuted;			// +0x14, right after the three module bases
 };
 
 class SalvageCrateCollide : public CrateCollide
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+protected:
+	virtual bool executeCrateBehavior(Object *other);
+protected:
+	virtual bool isValidToExecute(const Object *other) const;
+private:
+	const SalvageCrateCollideModuleData *getSalvageCrateCollideModuleData() const
+	{
+		return (const SalvageCrateCollideModuleData *)m_moduleData;
+	}
+private:
+	int rva004BD281();
+private:
+	void rva004BD2D0(BfmeWideResult *hits);
+private:
+	void doMoney(Object *other);
 public:
 	SalvageCrateCollide(Thing *thing, const ModuleData *moduleData);
 };
@@ -49,7 +87,4 @@ public:
 SalvageCrateCollide::SalvageCrateCollide(Thing *thing, const ModuleData *moduleData)
 	: CrateCollide(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
 }
