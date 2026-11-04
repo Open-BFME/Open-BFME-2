@@ -335,24 +335,7 @@ Bool ParseGameOptionsString( LANGameInfo *game, AsciiString options, const void 
 
 #include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor( Int which );
-	Int getNumColors( void )
-	{
-		if( m_numColors == 0 )
-			m_numColors = m_colorCount;
-		return m_numColors;
-	}
-
-private:
-	UnsignedByte m_pre38[0x38];
-	Int m_colorCount;				// +0x38
-	UnsignedByte m_pre40[0x40 - 0x3C];
-	Int m_numColors;				// +0x40
-};
-extern MultiplayerSettings *TheMultiplayerSettings;
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 class LanguageFilter
 {

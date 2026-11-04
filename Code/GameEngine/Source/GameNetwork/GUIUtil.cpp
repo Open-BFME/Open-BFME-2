@@ -29,23 +29,7 @@ void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool 
 Int GadgetComboBoxGetLength(GameWindow *comboBox);
 
 #include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(Int which);
-	Int getNumColors()
-	{
-		if (m_numColors == 0)
-			m_numColors = m_colorCount;
-		return m_numColors;
-	}
-private:
-	unsigned char m_00[0x38];
-	Int m_colorCount;	// +0x38
-	unsigned char m_3c[4];
-	Int m_numColors;	// +0x40
-};
-extern MultiplayerSettings *TheMultiplayerSettings;
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
