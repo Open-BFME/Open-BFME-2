@@ -41,6 +41,21 @@ The default TU-approval pick is not completed: the consolidation planner
 finds no original-path evidence for these placeholder owners. No map or
 approval is changed. The approved parent-group destination is used only for
 the existing generated cleanup. Full generated-unit link closure and new
-census coverage remain unverified. The publication hook supplies the scoped
-consumer audit; an inconclusive audit requires current receipts/index in the
-next maintainer census.
+census coverage remain unverified. The repair was handed to the fleet publisher as `839d1c9ab2`.
+
+Post-rebase validation: `link_check.py --prepare-current` succeeds for the
+destination and `dx8wrapper.cpp`: 253/253 function rows, 13 data rows,
+79 literals plus one empty-string reference, 26 float literals and 24 imports.
+Both explicit providers receive strict reusable receipts.
+
+`link_batch_audit.py --base HEAD^ --tip HEAD` on `839d1c9ab2` exits 2,
+INCONCLUSIVE: index `40fe1783d7` predates the outgoing base, and affected
+consumer `Code/GameEngine/Source/Common/AICowerState_onEnter.cpp` lacks a
+current receipt. This is unverified consumer preservation, not clearance.
+Next census: refresh that consumer receipt and the index, then repeat the
+scoped audit; preserve the direct destination/provider checks above.
+
+The commit hook also reports a shadow `definition: duplicate` finding for
+`?rva0018077E@Rva0018077E@@QAEHXZ`. Its declaration, body and ledger row are
+unchanged from the parent commit; it is outside this cleanup's repair scope.
+No identity debt key was removed or treated as retired.

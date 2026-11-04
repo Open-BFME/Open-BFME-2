@@ -1,6 +1,6 @@
 ### LINK-095: generated EH funclets whose parent TU emits an unpinned or wrong dtor callee
 
-**2026-11-04:** Reused the existing counted-holder destructor for constructor `0x00180649` and repointed cleanup `0x007682C7` to its EXACT C++ parent; 220/220 rows pass and paired destination/provider previews retain 2/2 LINKS. Remaining generated rows and census confirmation are open: [evidence](../../reverse/attempt_support/bfme-reset-holder-unwind-20261104-codexb4.md).
+**2026-11-04:** Reused the existing counted-holder destructor for constructor `0x00180649` and repointed cleanup `0x007682C7` to its EXACT C++ parent; 220/220 rows pass and paired destination/provider previews retain 2/2 LINKS. Scoped audit remains inconclusive: refresh the `AICowerState_onEnter.cpp` receipt and older index in the next census; remaining generated rows stay open: [evidence](../../reverse/attempt_support/bfme-reset-holder-unwind-20261104-codexb4.md).
 
 **Shroud holder cleanup repointed (2026-10-30, base `b9f4ccb4a1`):**
 the existing setter at `0x00072A51` has an EXACT parent EH graph placing
