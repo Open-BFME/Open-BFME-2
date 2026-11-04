@@ -5,7 +5,7 @@
 // Targetctor523DB7 copies the same key bits; signedness is irrelevant there.
 #include <map>
 #include "ascii_string.h"
-struct TreeKey00242F5E { unsigned int m_id; char _pad[4]; };
+#include "TreeKey00242F5E.h"
 struct RvaNode1364F7 { int _c0; RvaNode1364F7 *_parent,*_left,*_right; TreeKey00242F5E _key; };
 // Native stack-value construction requires a nontrivial four-byte iterator
 // copy. It preserves exactly the node pointer used by the existing hint worker.
@@ -28,7 +28,7 @@ Rva001364F7Iter Rva00136A21::rva00136777(Rva001364F7Iter hint,const Rva00523DB7 
 }
 AsciiString &Rva00136A21::rva00136A21(const unsigned int &key) {
  RvaNode1364F7 *node=reinterpret_cast<RvaNode1364F7 *>(reinterpret_cast<LowerTree *>(this)->lower_bound(key)._M_node);
- if (node==m_head || key<node->_key.m_id) {
+ if (node==m_head || key<node->_key.field00) {
   AsciiString empty;
   node=rva00136777(Rva001364F7Iter(node),Rva00523DB7(reinterpret_cast<const int *>(&key),reinterpret_cast<const StringBase<char> &>(empty))).m_node;
  }

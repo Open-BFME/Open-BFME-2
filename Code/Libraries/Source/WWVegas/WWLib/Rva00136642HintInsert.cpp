@@ -11,7 +11,7 @@
 // Code-shape guide: matched 294-byte Rva004075E0::rva00407C7F at 0x00407C7F.
 // Its source provides the same hint/edge/neighbor algorithm and iterator ABI;
 // the target's node and helper layouts below come from the target call chain.
-struct TreeKey00242F5E { unsigned int m_id; char _pad[4]; };
+#include "TreeKey00242F5E.h"
 struct RvaNode1364F7 {
 	int _c0;
 	RvaNode1364F7 *_parent;
@@ -56,10 +56,10 @@ Rva001364F7Iter Rva001364F7::rva00136642(Rva001364F7Iter position, const TreeKey
 			Rva0013657FOutFn find = (Rva0013657FOutFn)&Rva001364F7::rva0013657F;
 			return Rva001364F7Iter(((this->*find)(&value)).node);
 		}
-		if (value.m_id < pos->_key.m_id) {
+		if (value.field00 < pos->_key.field00) {
 			return rva001364F7(pos, pos, &value, 0);
 		} else {
-			bool comp_pos_v = pos->_key.m_id < value.m_id;
+			bool comp_pos_v = pos->_key.field00 < value.field00;
 			if (comp_pos_v == false)
 				return position;
 			Rva001364F7Iter after = position;
@@ -67,7 +67,7 @@ Rva001364F7Iter Rva001364F7::rva00136642(Rva001364F7Iter position, const TreeKey
 			if (after.m_node == m_root) {
 				return rva001364F7(0, pos, &value, pos);
 			}
-			if (value.m_id < after.m_node->_key.m_id) {
+			if (value.field00 < after.m_node->_key.field00) {
 				if (pos->_right == 0)
 					return rva001364F7(0, pos, &value, pos);
 				else
@@ -78,7 +78,7 @@ Rva001364F7Iter Rva001364F7::rva00136642(Rva001364F7Iter position, const TreeKey
 			}
 		}
 	} else if (pos == m_root) {
-		if (m_root->_right->_key.m_id < value.m_id) {
+		if (m_root->_right->_key.field00 < value.field00) {
 			return rva001364F7(0, m_root->_right, &value, pos);
 		} else {
 			Rva0013657FOutFn find = (Rva0013657FOutFn)&Rva001364F7::rva0013657F;
@@ -87,8 +87,8 @@ Rva001364F7Iter Rva001364F7::rva00136642(Rva001364F7Iter position, const TreeKey
 	} else {
 		Rva001364F7Iter before = position;
 		before.m_node = (RvaNode1364F7 *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)before.m_node);
-		bool comp_v_pos = value.m_id < pos->_key.m_id;
-		if (comp_v_pos && before.m_node->_key.m_id < value.m_id) {
+		bool comp_v_pos = value.field00 < pos->_key.field00;
+		if (comp_v_pos && before.m_node->_key.field00 < value.field00) {
 			if (before.m_node->_right == 0)
 				return rva001364F7(0, before.m_node, &value, before.m_node);
 			else
@@ -98,8 +98,8 @@ Rva001364F7Iter Rva001364F7::rva00136642(Rva001364F7Iter position, const TreeKey
 			after.m_node = (RvaNode1364F7 *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)after.m_node);
 			bool comp_pos_v = !comp_v_pos;
 			if (!comp_v_pos)
-				comp_pos_v = pos->_key.m_id < value.m_id;
-			if (!comp_v_pos && comp_pos_v && (after.m_node == m_root || value.m_id < after.m_node->_key.m_id)) {
+				comp_pos_v = pos->_key.field00 < value.field00;
+			if (!comp_v_pos && comp_pos_v && (after.m_node == m_root || value.field00 < after.m_node->_key.field00)) {
 				if (pos->_right == 0)
 					return rva001364F7(0, pos, &value, pos);
 				else

@@ -10,7 +10,7 @@
 // this then unblocks 0x0013657F and 0x00136642. Pattern follows manual worker
 // Rva00418C33Insert.cpp (create call through the rowed factory name,
 // _Rb_global<bool>::_Rebalance with the parent-slot cast).
-struct TreeKey00242F5E { unsigned m_id; char _pad[4]; };
+#include "TreeKey00242F5E.h"
 struct RvaNode1364F7 {
 	int _c0;
 	RvaNode1364F7 *_parent;
@@ -47,7 +47,7 @@ public:
 Rva001364F7Iter Rva001364F7::rva001364F7(RvaNode1364F7 *left, RvaNode1364F7 *parent, const TreeKey00242F5E *key, RvaNode1364F7 *right)
 {
 	RvaNode1364F7 *node;
-	if (parent != m_root && (right != 0 || (left == 0 && key->m_id >= parent->_key.m_id))) {
+	if (parent != m_root && (right != 0 || (left == 0 && key->field00 >= parent->_key.field00))) {
 		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(key);
 		parent->_right = node;
 		RvaNode1364F7 *root = m_root;

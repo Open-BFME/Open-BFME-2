@@ -11,7 +11,7 @@
 // recast to the iterator-returning ABI restores the hidden-return call at the
 // call site while still naming the rowed void symbol for the REL32 relocation;
 // the compiler folds the constant pointer to a direct call.
-struct TreeKey00242F5E { unsigned m_id; char _pad[4]; };
+#include "TreeKey00242F5E.h"
 struct RvaNode1364F7 {
 	int _c0;
 	RvaNode1364F7 *_parent;
@@ -56,7 +56,7 @@ RvaOut13657F *Rva001364F7::rva0013657F(RvaOut13657F *out, const TreeKey00242F5E 
 	bool comp = true;
 	while (x != 0) {
 		y = x;
-		comp = v->m_id < x->_key.m_id;
+		comp = v->field00 < x->_key.field00;
 		x = comp ? x->_left : x->_right;
 	}
 	RvaNode1364F7 *j = y;
@@ -69,7 +69,7 @@ RvaOut13657F *Rva001364F7::rva0013657F(RvaOut13657F *out, const TreeKey00242F5E 
 		}
 		j = (RvaNode1364F7 *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)j);
 	}
-	if (j->_key.m_id < v->m_id) {
+	if (j->_key.field00 < v->field00) {
 		out->node = (((Rva001364F7 *)this)->*insert)(x, y, v, 0).m_node;
 		out->inserted = true;
 		return out;
