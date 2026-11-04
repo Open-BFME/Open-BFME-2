@@ -38,3 +38,37 @@ The initial ordinary merge trial accepted neither donor (constructor field
 names, destructor bytes). After this separately verified prerequisite the
 constructor can be retried. The destructor's distinct member identity remains
 out of scope until its rowed folded destructor and EH consumers are reconciled.
+
+## Applied constructor merge
+
+After the declaration prerequisite, the refreshed supported planner passed its
+currency check. `tu_skeleton.py --merge` reused its successful dry-run plan,
+accepted the seed and constructor (22 rows), and rejected the destructor on
+bytes. The merge removes one C++ source and moves seven existing rows into
+their approved TU. The committed map changes only those seven source fields;
+its approval evidence was not regenerated. No new matched coverage is claimed.
+
+Post-merge verification:
+
+- `./build.sh W3DBibBuffer.cpp`: 22/22 matched; string, float and import checks
+  pass. `eh_verify.py`: 3/3 EXACT, no missing objects or baseline debt.
+- `find_declared_unmatched.py`, `check_csv.py`, `tu_ownership.py --staged` and
+  both working-tree/index whitespace checks pass.
+- The merge's census-linked guard retained the seed, constructor and destructor.
+  `link_check.py` predicts the combined unit links with all 1820 own bytes,
+  equal to the seed's 1517 plus constructor's 303. No new census was run.
+
+The batch path audit covers the two pending prerequisite commits and this
+merge, after fetching origin/master at efb5fcbb60. The only absorbed path is
+W3DBibBufferConstructor.cpp. Searches across active tools, hooks, workflows,
+source/includes, configuration and reverse registers found no remaining active
+path consumer. Remaining old-path references are the merge provenance comment,
+historical link_status/re_attempts records and attempt-support documents.
+
+The removed constructor has no code/data identity, hatch or header-queue keys.
+The merge tool transferred header-queue ownership and refreshed the Microsoft
+header queue without changes. The seed's detailAlphaShader data-ledger owner
+is retained; no providers, pins, aliases or debt keys were removed. Ledger and
+map repointing preserve all seven row identities, including the parent's
+already-owned EH funclets. The destructor's independent identity prerequisite
+and LINK-090's awaiting-real-link status are unchanged.

@@ -24,6 +24,11 @@
 	ShaderClass::DSTBLEND_ONE_MINUS_SRC_ALPHA, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
 	ShaderClass::ALPHATEST_DISABLE, ShaderClass::CULL_MODE_DISABLE, \
 	ShaderClass::DETAILCOLOR_DISABLE, ShaderClass::DETAILALPHA_DISABLE) )
+class BFME2ParticleTextureHandle { public:
+ TextureClass *Ptr;
+ ~BFME2ParticleTextureHandle() { if (Ptr) Ptr->Release_Ref(); }
+};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 static ShaderClass detailAlphaShader(SC_ALPHA_DETAIL);
 
@@ -78,6 +83,12 @@ private:
 // The seed exposes the slot through the legacy DX8 view used by its lock API.
 // Allocation still constructs the target-proven BFME native buffer.
 class DX8VertexBufferClass;
+
+class ShroudFilter { public: char pad[12]; int u,v; };
+
+class ShroudTexture { public: ShroudFilter *getFilter(); };
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBuffer.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBuffer.cpp
 
@@ -278,10 +289,8 @@ void W3DBibBuffer::loadBibsInVertexAndIndexBuffers(void)
 for the bibs. */
 //=============================================================================
 // BFME 2's constructor (0x000D42B3: counted particle-texture holders loaded
-// through TextureAsset::Get, clamp set on each filter) is matched in
-// W3DBibBufferConstructor.cpp, which also emits the TBib array constructor;
-// the Zero Hour body that stood here did not match retail and only
-// duplicated that definition at link time.
+// through TextureAsset::Get, clamp set on each filter) is defined below,
+// together with the TBib array constructor emitted from the shared layout.
 
 
 //=============================================================================
@@ -304,7 +313,7 @@ void W3DBibBuffer::freeBibBuffers(void)
 //=============================================================================
 /** Allocates the index and vertex buffers. */
 //=============================================================================
-// W3DBibBuffer::allocateBibBuffers is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferRva000D3C9F.cpp (0x000D3C9F).
+// The retail-matched allocateBibBuffers body (0x000D3C9F) is defined below.
 
 //=============================================================================
 // W3DBibBuffer::clearAllBibs
@@ -487,22 +496,32 @@ void W3DBibBuffer::allocateBibBuffers()
 
 // tu-skeleton: 0x000D402E 74B ??1W3DBibBuffer@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000D4078 22B ??0TBib@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp
 
-// tu-skeleton: 0x000D42B3 272B ??0W3DBibBuffer@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
+// ZH W3DBibBuffer.cpp (BF1 donor 575ba2b04) supplies the constructor purpose,
+// texture names and clamp operations. BFME2 parent allocation at 0x6CC5C calls
+// this body for its +385C bib owner and allocates 109D0 bytes. Native +10/+14
+// are counted holders, unlike ZH raw pointers; the native array helper calls
+// the already-owned 22B TBib constructor 1000 times with stride 68. The added
+// two dwords at +20 are opaque: this constructor does not initialize them.
+// All factory/assignment/filter/buffer/release callees are existing owners.
+W3DBibBuffer::W3DBibBuffer() {
+ m_initialized=false;
+ m_vertexBib=0; m_indexBib=0; m_curNumBibVertices=0; m_curNumBibIndices=0;
+ m_numBibs=0; m_anythingChanged=true;
+ m_indexBibSize=384; m_vertexBibSize=256;
+ allocateBibBuffers();
+ m_bibTexture=(const RefCountPtr<TextureClass> &)TextureAsset::Get("TBBib.tga",0,0);
+ m_highlightBibTexture=(const RefCountPtr<TextureClass> &)TextureAsset::Get("TBRedBib.tga",0,0);
+ ((ShroudTexture *)&m_bibTexture)->getFilter()->u=1;
+ ((ShroudTexture *)&m_bibTexture)->getFilter()->v=1;
+ ((ShroudTexture *)&m_highlightBibTexture)->getFilter()->u=1;
+ ((ShroudTexture *)&m_highlightBibTexture)->getFilter()->v=1;
+ m_initialized=true;
+}
 
-// tu-skeleton: 0x00762C91 11B uw_00762c91 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// tu-skeleton: 0x00762C91 11B $L332 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00762C9C 11B uw_00762c9c -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// tu-skeleton: 0x00762C9C 11B $L333 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00762CA7 10B __ehhandler$??1W3DBibBuffer@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00762CB1 11B Unwind@00b62cb1 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00762CBC 11B Unwind@00b62cbc -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00762CC7 8B Unwind@00b62cc7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00762CCF 8B Unwind@00b62ccf -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00762CD7 10B __ehhandler$??0W3DBibBuffer@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBufferConstructor.cpp (not merged yet)
