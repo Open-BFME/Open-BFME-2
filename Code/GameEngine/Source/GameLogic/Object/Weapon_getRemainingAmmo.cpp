@@ -23,14 +23,13 @@ enum WeaponStatus
 
 #include "../../../Include/GameLogic/ObjectFilter.h"
 
-class WeaponTemplate
+#include "../../../Include/GameLogic/WeaponTemplate.h"
+
+// The header keeps the +0x120 pooled ammo descriptor as opaque storage.
+static __forceinline const ObjectFilter &weaponTemplateAmmo(const WeaponTemplate *wt)
 {
-public:
-    // computeStatus reads an int flag at +0x78; this body only needs the ammo
-    // descriptor at +0x120.
-    char m_pad00[0x120];
-    ObjectFilter m_ammo;
-};
+    return *(const ObjectFilter *)&wt->m_field120;
+}
 
 class BfmeAmmoProvider
 {
@@ -95,14 +94,14 @@ extern "C" void _ReadWriteBarrier(void);
 UnsignedInt Weapon::getRemainingAmmo(Bool countReloadingAsEmpty) const
 {
     const WeaponTemplate *weaponTemplate = m_template;
-    if (weaponTemplate->m_ammo.isValid())
+    if (weaponTemplateAmmo(weaponTemplate).isValid())
     {
         Object *owner = TheGameLogic->findObjectByID(m_ownerID);
         BfmeAmmoProvider *provider = owner ? owner->getAmmoProvider() : 0;
         if (provider)
         {
             const WeaponTemplate *templateForAmmo = m_template;
-            UnsignedInt remaining = provider->getRemainingAmmo(&templateForAmmo->m_ammo);
+            UnsignedInt remaining = provider->getRemainingAmmo(&weaponTemplateAmmo(templateForAmmo));
             _ReadWriteBarrier();
             return remaining;
         }
