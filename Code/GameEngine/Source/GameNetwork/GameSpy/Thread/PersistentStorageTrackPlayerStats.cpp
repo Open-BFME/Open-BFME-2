@@ -36,18 +36,8 @@ public:
  ~Rva00385333();
  unsigned char prefix[0x150-4]; int m_id; unsigned char tail[0x1A8-0x154];
 };
-class Rva003844D7 {
-public:
- virtual void reset();
- ~Rva003844D7();
- unsigned char prefix[0x150-4]; int m_id; unsigned char tail[0x190-0x154];
-};
-class Rva0038454E {
-public:
- virtual void reset();
- ~Rva0038454E();
- unsigned char prefix[0x150-4]; int m_id; unsigned char tail[0x208-0x154];
-};
+#include "../../../../Include/GameNetwork/Rva003844D7.h"
+#include "../../../../Include/GameNetwork/Rva0038454E.h"
 class Rva00552D7BSrc;class Rva00552DDASrc;class Rva00552E3CSrc;
 class PSPlayerAllStats {
 public:
