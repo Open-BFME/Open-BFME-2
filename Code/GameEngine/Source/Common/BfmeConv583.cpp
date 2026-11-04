@@ -9,16 +9,16 @@ class BfmeThingCDE
 public:
 	void bfmeDtorCDE();
 	void bfmeGoCDE();
-	BfmeOwnerCDE *m_bfmeOwner;
-	void *m_bfmePtr;
+	void *m_owner;
+	void *m_ptr4;
 };
 
 
 void BfmeThingCDE::bfmeGoCDE()
 {
-	if (m_bfmePtr != 0)
+	if (m_ptr4 != 0)
 	{
-		m_bfmeOwner->bfmeOneCDE(m_bfmePtr);
+		((BfmeOwnerCDE *)m_owner)->bfmeOneCDE(m_ptr4);
 		return;
 	}
 	bfmeDtorCDE();

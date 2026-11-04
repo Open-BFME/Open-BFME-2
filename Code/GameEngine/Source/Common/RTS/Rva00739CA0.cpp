@@ -7,11 +7,11 @@ static __forceinline float fast_floor(float f)
 	return (float)floor((double)f);
 }
 
-static __forceinline long fast_round(float number)
+static __forceinline long fast_round(float f)
 {
 	long i;
 	__asm {
-		fld [number]
+		fld [f]
 		fistp [i]
 	}
 	return i;

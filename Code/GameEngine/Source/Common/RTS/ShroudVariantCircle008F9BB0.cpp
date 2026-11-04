@@ -125,24 +125,24 @@ public:
 class Gen_008F7CD0
 {
 public:
-	char m_head[4];
-	Real m_originX;
-	Real m_originY;
-	char m_middle[20];
-	Real m_scale;
-	int m_width;
-	int m_height;
-	BfmeCellFD *m_cells;
+	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstColumn, int lastColumn, int scanRow);
 
-	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
-
-	BfmeCellFD *getCellAt(int x, int y)
-	{
-		if (x < 0 || x >= m_width || y < 0 || y >= m_height)
-			return 0;
-		return &m_cells[y * m_width + x];
-	}
+	char m_pad00[4];				// +0x00
+	float m_originX;				// +0x04
+	float m_originY;				// +0x08
+	char m_pad0C[20];				// +0x0C
+	float m_scale;					// +0x20
+	int m_bfmeWidth;				// +0x24
+	int m_bfmeHeight;				// +0x28
+	BfmeCellFD *m_bfmeCells;			// +0x2C
 };
+
+__forceinline BfmeCellFD *bfmeCellAtSmallFill(Gen_008F7CD0 *grid, int x, int y)
+{
+	if (x < 0 || x >= grid->m_bfmeWidth || y < 0 || y >= grid->m_bfmeHeight)
+		return 0;
+	return &grid->m_bfmeCells[y * grid->m_bfmeWidth + x];
+}
 
 class BfmeCoiSmallFill
 {
@@ -170,28 +170,28 @@ class BfmeThingCDE
 private:
 	bool rva0073A9B0(Real centerX, Real centerY, Real radius);
 
-	Gen_008F7CD0 *m_grid;
+	void *m_owner;
 	char m_prefix[0x18];
-	BfmeCoiSmallFill *m_coiArray;
-	int m_coiInUseCount;
+	void *m_array;
+	int m_count;
 };
 
 bool BfmeThingCDE::rva0073A9B0(Real centerX, Real centerY, Real radius)
 {
 	int cellCenterX = bfmeFloatToIntSmallFill(bfmeFloatFloorSmallFill(
-		(centerX - m_grid->m_originX) * m_grid->m_scale));
+		(centerX - ((Gen_008F7CD0 *)m_owner)->m_originX) * ((Gen_008F7CD0 *)m_owner)->m_scale));
 	int cellCenterY = bfmeFloatToIntSmallFill(bfmeFloatFloorSmallFill(
-		(centerY - m_grid->m_originY) * m_grid->m_scale));
+		(centerY - ((Gen_008F7CD0 *)m_owner)->m_originY) * ((Gen_008F7CD0 *)m_owner)->m_scale));
 	int cellRadius = bfmeFloatToIntSmallFill(bfmeFloatCeilSmallFill(
-		radius * m_grid->m_scale));
+		radius * ((Gen_008F7CD0 *)m_owner)->m_scale));
 
 	--cellRadius;
 	if (cellRadius < 1)
 	{
-		BfmeCellFD *cell = m_grid->getCellAt(cellCenterX, cellCenterY);
+		BfmeCellFD *cell = bfmeCellAtSmallFill((Gen_008F7CD0 *)m_owner, cellCenterX, cellCenterY);
 		if (cell != 0)
 		{
-			BfmeCoiSmallFill *coi = m_coiArray;
+			BfmeCoiSmallFill *coi = (BfmeCoiSmallFill *)m_array;
 			coi->addCoverage(cell);
 		}
 		return true;
@@ -199,9 +199,9 @@ bool BfmeThingCDE::rva0073A9B0(Real centerX, Real centerY, Real radius)
 	else
 	{
 		BfmeArgXO range;
-		range.m_grid = m_grid;
-		range.m_first = m_coiArray;
-		range.m_next = m_coiArray + m_coiInUseCount;
+		range.m_grid = (Gen_008F7CD0 *)m_owner;
+		range.m_first = (BfmeCoiSmallFill *)m_array;
+		range.m_next = (BfmeCoiSmallFill *)m_array + m_count;
 		if (!bfmeCallXO(cellCenterX, cellCenterY, cellRadius, range))
 		{
 			_ReadWriteBarrier();
