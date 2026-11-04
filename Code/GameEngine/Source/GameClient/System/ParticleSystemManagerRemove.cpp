@@ -23,7 +23,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-class RvaSmartPtr12 {public:void *ptr,*prev,*next;};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class Rva0004CCFF {public:void *destroyDelete(unsigned);void *ptr,*prev,*next;};
 struct Rva001F63C9Node {void *next,*prev;Rva0004CCFF handle;};
 class Rva001F63C9List {public:_STL::list<void*>::iterator erase(_STL::list<void*>::iterator);};
@@ -41,7 +41,7 @@ public:void friend_removeParticleSystem(const RvaSmartPtr12&);
 void Rva001F8109::friend_removeParticleSystem(const RvaSmartPtr12 &handle)
 {
  typedef _STL::list<void *>::iterator Iterator;
- Iterator it=_STL::find(systems.begin(),systems.end(),handle.ptr);
+ Iterator it=_STL::find(systems.begin(),systems.end(),handle.field00);
  if(it==systems.end())return;
  ((Rva001F63C9List*)&systems)->erase(it);
  --count;
