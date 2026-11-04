@@ -223,3 +223,16 @@ zero local Microsoft declarations. No active path consumer references the
 moved row; the remaining source mentions are provenance comments. This split
 retained both files (net source-file change zero), preserved all 24 matched rows
 and retired no identity debt.
+
+## Publication handoff
+
+The fleet status for `codexb2` confirms the ten earlier handoff commits landed.
+The two StructureBody commits remain local and verified. The next
+`/opt/runner/publish` attempt stopped during its rebase with `There is no
+candidate for rebasing against among the refs that you just fetched`; no rebase
+is active. At inspection, `origin/master` was `73b0beb620d27ef701769c1da6862e7f82f1f5db`,
+local `HEAD` was `542ee1dd848ce25146869038a89a6bb0af0b51c2`, and the branch was
+12 ahead/14 behind. StructureBody destination, donor and RVA claims remain held
+until publication is confirmed; the audited range for the pending source-path
+move is the StructureBody split commit, whose active path-consumer audit is
+recorded above.
