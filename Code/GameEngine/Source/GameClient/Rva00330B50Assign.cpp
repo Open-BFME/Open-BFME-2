@@ -1,11 +1,8 @@
 // cl: /MD
+// stlport
 // ?rva00330B50@Rva00330B50@@QAEAAV1@ABV1@@Z retail 0x00330B50 27B: copy-assign via rowed base opassign plus dword 0x28 returns this.
 // Evidence: call 0x0030B92C ??4AreaPolygonBase@@QAEAAU0@ABU0@@Z then mov eax [edi+0x28] to [esi+0x28]; chain from 0x0030B92C.
-struct AreaPolygonBase
-{
-	AreaPolygonBase &operator=(const AreaPolygonBase &o);
-	char m_pad[0x28];
-};
+#include "../../Include/Common/AreaPolygonBase.h"
 
 class Rva00330B50 : public AreaPolygonBase
 {
