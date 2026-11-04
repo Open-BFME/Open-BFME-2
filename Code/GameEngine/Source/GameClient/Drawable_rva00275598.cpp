@@ -80,7 +80,14 @@ public:
 };
 class GameClient;
 extern GameClient *TheGameClient;
-int g_00DFEB98 = 0; // Native flash interval storage, initialized by 0x007ADEF6.
+// Drawable.cpp's own flash interval (its Drawable.h copy) and the healing-icon
+// display time drawHealing 0x00273DCF reads. Retail builds both with this TU's
+// .text$yc initializers 0x007ADEF6 and 0x007ADF60, which open and close its run
+// around five ZeroInits masks (LINK-236).
+extern int BfmeClientFramesPerSecond;
+extern int BfmeLogicFramesPerSecond;
+int g_00DFEB98 = BfmeClientFramesPerSecond / 2;
+unsigned BfmeHealingIconDisplayFrames = BfmeLogicFramesPerSecond * 3;
 class DrawableConditionInterface {public:virtual void replaceModelConditionState(const int *,int,int);};
 class DrawableUpdateModule {
 public:

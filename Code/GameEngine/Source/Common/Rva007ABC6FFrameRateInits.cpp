@@ -15,12 +15,6 @@ extern int BfmeClientFramesPerSecond;
 
 extern int g_00DE1B50;
 int g_00DE1B50 = 0;	// owned here; retail .data starts it at 0
-// Native initializer7ADF60 multiplies logic FPS by3; the only retail
-// consumers are drawHealing273DCF. ZH HEALING_ICON_DISPLAY_TIME has exactly
-// that role and expression. Keep writable storage for the separately recovered
-// initializer; unsigned duration is witnessed by the consumer's JA/JBE tests.
-extern unsigned BfmeHealingIconDisplayFrames;
-unsigned BfmeHealingIconDisplayFrames = 0;	// owned here; retail .data starts it at 0
 extern int g_00DFEFCC;
 int g_00DFEFCC = 0;	// owned here; retail .data starts it at 0
 extern int IDLE_COUNTDOWN_DELAY;

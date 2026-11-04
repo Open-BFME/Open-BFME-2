@@ -15,7 +15,8 @@ holds them, bridged 692 -> 685, then Network.cpp's two timeGetTime initializers,
 and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; halilkkaya-in-o7:
 the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged
 683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677, and
-AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676; next seat continues).
+AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, and Drawable.cpp's two, bridged
+676 -> 674; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -485,6 +486,12 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   - AISpellBookShroudReveal.cpp `_$E1` 0x007B4BC6 (next round): `g_00E06648 =
     BfmeLogicFramesPerSecond * 10`, the frame its picker 0x005D7FA6 waits for. The entry is the
     only one of its run; the unit's own flags give retail's `imul`. Bridged 677 -> 676.
+  - Drawable_rva00275598.cpp (Drawable.cpp TU) `_$E1` 0x007ADEF6 and `_$E3` 0x007ADF60: Drawable.cpp's
+    own flash interval `g_00DFEB98 = BfmeClientFramesPerSecond / 2`, which updateDrawable in that
+    fragment reads, and `BfmeHealingIconDisplayFrames = BfmeLogicFramesPerSecond * 3`, which
+    drawHealing 0x00273DCF reads. They open and close Drawable.cpp's run around five ZeroInits
+    masks. The second definition moved from the grab-bag with its data row. Recovering the masks
+    will move the second ordinal. Bridged 676 -> 674.
 
   Verified: every owner exact; each `??_7` keeps its pre-edit digest; link_check over the owners,
   their reader files and both grab-bags: 11/11 link (owners +76 bytes, grab-bags -60, plus the
@@ -500,8 +507,7 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   moves. Taken alone, AttributeModifierStore, BannerUI and the untouched Armor all report the
   grab-bag's stale copy of their node as a duplicate. With it, 7/7 link. image_report: bridged
   679 -> 677, twice and unidentified unchanged; both units' `??_7` digests are unchanged.
-- *Next.* Units whose global is already ledger-owned are the cheap ones: 0x007ADEF6
-  (Drawable.cpp's own copy `g_00DFEB98`, in a split TU), 0x007AEBAA (`g_00E01E04`, AIStates'
+- *Next.* Units whose global is already ledger-owned are the cheap ones: 0x007AEBAA (`g_00E01E04`, AIStates'
   run, defined in the fragment Rva0033FE65OnEnter.cpp), 0x007B1A27 (SlavedUpdate's
   `BfmeSlavedUpdateIntervalFrames` in SlavedUpdateRepair.cpp, held by another seat), 0x007B51EB
   (Rva005F0152ImageGet) and 0x007B67A0 (`g_aptDateInterpreter`, AptDate.cpp's POD view). The
