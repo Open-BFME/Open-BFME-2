@@ -129,26 +129,7 @@ struct AptScale
 	float y;
 };
 
-class AptPlayer
-{
-public:
-	virtual void _slot0() = 0;
-	virtual void _slot1() = 0;
-	virtual void _slot2() = 0;
-	virtual void _slot3() = 0;
-	virtual void _slot4() = 0;
-	virtual void _slot5() = 0;
-	virtual void _slot6() = 0;
-	virtual void _slot7() = 0;
-	virtual void _slot8() = 0;
-	virtual void _slot9() = 0;
-	virtual void _slot10() = 0;
-	virtual void _slot11() = 0;
-	virtual void _slot12() = 0;
-	virtual void _slot13() = 0;
-	virtual void _slot14() = 0;
-	virtual AptScale *v15() = 0;
-};
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -203,7 +184,8 @@ static __declspec(noinline) Rva002217EA rva00221920(const InGameNotificationType
 	if (!type->m_imageKey.isEmpty()) {
 		localNotif.rva0010670B(TheMappedImageCollection->findImageByName(type->m_imageKey));
 	}
-	AptScale *scale = reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->v15();
+	AptScale *scale = reinterpret_cast<AptScale *>(
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->v15());
 	float scaleFactor;
 	if (scale->y > scale->x)
 		scaleFactor = scale->x;
