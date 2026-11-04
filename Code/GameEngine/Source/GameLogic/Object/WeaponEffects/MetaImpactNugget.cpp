@@ -371,15 +371,7 @@ struct Rva0050A4A2Source
 };
 
 // BFME 2's partition filter base (ctor 0x000421C8): a vptr and the +0x04 link.
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask(); // native filter base has three slots
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 // The 224-bit KindOf mask and the one-bit mask builder 0x00045411.
 struct Rva00045411BitSet : public BfmeFixedStorage0004543D
 {

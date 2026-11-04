@@ -294,16 +294,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 // The partition filter chain: a vptr, the +0x04 link to the next filter, then
 // each filter's members (see ScriptActions_closestOfObjectTypes.cpp).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();	// slot 2, 0x0036CC7A
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00C1FDEC, allow 0x00261750 (Zero Hour's PartitionFilterThing).
 class Rva00261750Filter : public Rva000421C8

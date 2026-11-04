@@ -1928,16 +1928,7 @@ public:
 
 #include "../../../Include/GameLogic/AI.h"
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();	// slot 2, 0x0036CC7A
-	bool allows(Object *obj);	// 0x00625720
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BF91B0, allow 0x00260FD0 (PartitionFilterPossibleToAttack): +0x08
 // the object, +0x0C the attack type, +0x10 the command source.

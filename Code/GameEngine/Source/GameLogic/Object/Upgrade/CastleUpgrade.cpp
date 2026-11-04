@@ -103,14 +103,7 @@ private:
 // masks follow the independently verified providers in BFME2.
 struct Rva0006EE7A { unsigned int words[7]; Rva0006EE7A(int,int,int,int,int); };
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-class Rva000421C8
-{
-public:
- Rva000421C8 *next;
- virtual ~Rva000421C8() {}
- virtual bool allow(Object *) = 0;
- virtual int getPlayerMask() { return -1; }
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva003959FA : public Rva000421C8
 {
 public:

@@ -18,16 +18,7 @@
 class Object;
 class Player;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
