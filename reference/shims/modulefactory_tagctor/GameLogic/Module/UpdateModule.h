@@ -123,12 +123,11 @@ class UpdateModuleData : public BehaviorModuleData
 {
 public:
 
-	// BFME shim (ModuleFactory.cpp only): declared, not defined, so the unit's
-	// tag constructors and their unwinding call the shared copies (the
-	// destructor is rowed at 0x0049B47C) instead of emitting these, which also
-	// emitted unreferenced BehaviorModuleData constructor and destructor
-	// copies that differ from the link's first ones.
-	UpdateModuleData();
+	// BFME shim (ModuleFactory.cpp only): the destructor is declared, not defined,
+	// so the unit's unwinding calls the shared copy (rowed at 0x0049B47C). Retail
+	// always inlines the constructor and has no row for it, so it is forced inline
+	// and emits no copy.
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
 	virtual ~UpdateModuleData();
 
 	static void buildFieldParse(MultiIniFieldParse& p) 
