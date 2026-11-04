@@ -23775,3 +23775,5 @@ Code/GameEngine/Source/Common/BfmeConv940.cpp|member|BfmeThing940G|m_bfmeFlag,38
 Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp|member|Rva0060038E|m_08,a1b8f3758bf64584ec73a89a,claude-opus-5-5,claude3-20261104-122207-5,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva004B8732Getter.cpp|member|XProductionInfo|m_64,452c3784154b64ce17ac9b0d,claude-opus-5-5,claude3-20261104-124001-6,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp|member|Rva001087BBNode|m_next114,a3e54bbacbed3503483ce4d4,claude-opus-5-5,claude3-20261104-124941-11,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/Object/Rva002A7588Query.cpp|member|Rva002A7588Mid|m_i618,c89d42eaa1bb81e333a36ce0,claude-opus-5-5,claude3-20261104-130318-1,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/Apt/Rva006E3230Validate.cpp|member|AptQueuedAction|field14,c33aa0740f61d8346ab68df5,claude-opus-5-5,claude3-20261104-130318-6,w-29a6ae2a2f9f,2026-11-04
