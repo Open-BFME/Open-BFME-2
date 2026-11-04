@@ -21,17 +21,13 @@ public:
 
 #include "AptValue.h"
 
-class AptCIH
+#include "AptCIHClass.h"
+struct AptCIHDepthBits
 {
-public:
-    unsigned char prefix[0x4c];
-    void *member4C;
-    char unknown50[8];
     signed int depth:17;
     unsigned int unknownDepth17:15;
-    void rva006E1DD0(void *);
-    void *rva006E1170() const;
 };
+static __forceinline AptCIHDepthBits &cihDepthBits(AptCIH *cih) { return *(AptCIHDepthBits *)&cih->field58; }
 
 #include "EAStringC.h"
 extern EAStringC::StringDataC g_eaEmptyStringData;
@@ -85,7 +81,7 @@ AptValue *__cdecl rva006ee3b0(AptValue *value)
     EAStringC url;
 
     AptCIH *initial = value->c_cih(false);
-    if (!initial->member4C)
+    if (!initial->field4C)
         return Rva008A4EA0MakeFloat(0.0f);
     if (value->isCIH(false)) {
         AptCIH *cih = value->c_cih(false);
@@ -212,7 +208,7 @@ Rva006EB4B0::Rva006EB4B0(AptValue *fontValue,float sizeValue,int colorValue,int 
 // Callback identity remains address-derived; no inferred original name.
 extern AptValue *gpUndefinedValue;
 AptValue *Rva006EC6F0Depth(AptValue *context,int unusedArgumentCount){
- if(context->isCIH(false))return AptInteger::Create(context->c_cih(false)->depth-0x4000);
+ if(context->isCIH(false))return AptInteger::Create(cihDepthBits(context->c_cih(false)).depth-0x4000);
  return gpUndefinedValue;
 }
 
@@ -282,7 +278,7 @@ AptValue *Rva006ED770RemoveMovieClip(AptValue *self,int){
    g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7D);
    if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
   }
-  ((AptDisplayList *)((char *)parent->member4C+0x24))->removeClonedObject(cih);
+  ((AptDisplayList *)((char *)parent->field4C+0x24))->removeClonedObject(cih);
  }
  return gpUndefinedValue;
 }
@@ -374,8 +370,8 @@ AptValue *Rva006EDF20SwapDepths(AptValue *self,int count){
  if(aptValue->isCIH(false)){
   AptCIH *other=aptValue->c_cih(false);
   if(other && ((AptValue *)other)->getIsDefined()){
-   int depth=((AptValue *)other)->c_cih(false)->depth;
-   ((AptValue *)other)->c_cih(false)->depth=mine->depth;
+   int depth=cihDepthBits(((AptValue *)other)->c_cih(false)).depth;
+   cihDepthBits(((AptValue *)other)->c_cih(false)).depth=cihDepthBits(mine).depth;
    ((int *)mine->rva006E1170())[1]=depth+1;
   }
   return gpUndefinedValue;
