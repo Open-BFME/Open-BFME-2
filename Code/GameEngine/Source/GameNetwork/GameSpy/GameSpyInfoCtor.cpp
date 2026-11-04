@@ -109,25 +109,7 @@ struct TreeHintOpaque0043671B;
 extern "C" void MD5Print(unsigned char digest[16], char output[33]);
 TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
 
-class PlayerInfo
-{
-public:
-	AsciiString m_name;
-	AsciiString m_locale;
-	AsciiString m_clan;
-	Int m_wins;
-	Int m_losses;
-	Int m_profileID;
-	Int m_flags;
-	Int m_rankPoints;
-	Int m_side;
-	Int m_unk24;
-	Int m_dc;
-	Int m_desync;
-	Int m_preorder;		// +0x30: updatePlayerInfo marks the profile when set
-	~PlayerInfo();
-	Bool isIgnored(void);
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 
 struct AsciiComparator
 {

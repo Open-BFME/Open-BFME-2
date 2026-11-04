@@ -8,26 +8,7 @@
 #include "ascii_string.h"
 
 
-class PlayerInfo
-{
-public:
-	PlayerInfo(const PlayerInfo &other);
-
-private:
-	AsciiString m_00;
-	AsciiString m_04;
-	AsciiString m_08;
-	int m_0c;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2c;
-	int m_30;
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 
 struct Rva00382BF0
 {

@@ -307,23 +307,7 @@ private:
 class GameSpyStagingRoom;
 
 // BFME 2's PlayerInfo as PeerDefs.cpp lays it out (0x34 bytes).
-class PlayerInfo
-{
-public:
-	AsciiString m_name;
-	AsciiString m_locale;
-	AsciiString m_clan;
-	int m_wins;
-	int m_losses;
-	int m_profileID;
-	int m_flags;
-	int m_rankPoints;
-	int m_side;
-	int m_unk24;
-	int m_dc;
-	int m_desync;
-	int m_preorder;
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 
 struct AsciiComparator
 {
@@ -1849,13 +1833,13 @@ void GameSpyStagingRoom::startGame(Int gameID)
 				PlayerInfoMap *pInfoMap = TheGameSpyInfo->getPlayerInfoMap();
 				PlayerInfoMap::iterator it = pInfoMap->end();
 				if (info)
-					it = pInfoMap->find(info->m_name);
+					it = pInfoMap->find(info->m_at00);
 				if (it != pInfoMap->end())
 				{
-					slot->setProfileID(it->second.m_profileID);
-					((Rva004FDD36AsciiField *)slot)->setClan(it->second.m_clan);
-					slot->setSlotRankPoints(it->second.m_rankPoints);
-					slot->setFavoriteSide(it->second.m_desync);
+					slot->setProfileID(it->second.m_at14);
+					((Rva004FDD36AsciiField *)slot)->setClan(it->second.m_at08);
+					slot->setSlotRankPoints(it->second.m_at1c);
+					slot->setFavoriteSide(it->second.m_at2c);
 				}
 			}
 		}

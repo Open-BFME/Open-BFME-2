@@ -40,22 +40,8 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-// The profile record (layout as the staging tooltip's view).
-class PlayerInfo
-{
-public:
-    unsigned char m_prefix[8];
-    AsciiString m_locale;
-    int m_wins;
-    int m_losses;
-    int m_profileID;
-    int m_18;
-    int m_rankPoints;
-    int m_rank20;
-    int m_rank24;
-    int m_side;
-    int m_favoriteSide;
-};
+// Use the shared retail PlayerInfo layout for the profile record.
+#include "../../../../../Include/GameNetwork/PlayerInfo.h"
 
 class BuddyInfo
 {
@@ -108,19 +94,19 @@ void Rva005D5F86::showPlayerTooltip(const AsciiString &name)
         TheMouse->rva001EEA6D(uName, -1, 0, 1.5f);
         return;
     }
-    int profileID = info->m_profileID;
+    int profileID = info->m_at14;
     AsciiString localeIdentifier;
-    localeIdentifier.format("WOL:Locale%2.2d", atoi(info->m_locale.str()));
+    localeIdentifier.format("WOL:Locale%2.2d", atoi(info->m_at08.str()));
     UnicodeString playerInfo;
     int wins = 0;
     int losses = 0;
-    wins = info->m_wins;
-    losses = info->m_losses;
+    wins = info->m_at0c;
+    losses = info->m_at10;
     UnicodeString favoriteSide;
     int totalGames = 0;
     int side = 0;
-    totalGames = info->m_wins + info->m_losses;
-    side = info->m_favoriteSide;
+    totalGames = info->m_at0c + info->m_at10;
+    side = info->m_at2c;
     if (!totalGames)
         favoriteSide = TheGameText->fetch("APT:Men");
     else {
@@ -129,15 +115,15 @@ void Rva005D5F86::showPlayerTooltip(const AsciiString &name)
         favoriteSide = TheGameText->fetch(sideKey);
     }
     const int *thresholds = g_Va00E06548 ? (const int *)&g_00E05FCC : (const int *)&g_00E06000;
-    int rankSide = info->m_side;
-    int points = info->m_rankPoints;
+    int rankSide = info->m_at28;
+    int points = info->m_at1c;
     int rank;
     for (rank = 1; rank < 11; ++rank)
         if (points < thresholds[rank])
             break;
     UnicodeString rankText = Rva00559CE5(rankSide, rank - 1);
-    UnicodeString rank20 = Rva005D59F0Get(info->m_rank20);
-    UnicodeString rank24 = Rva005D59F0Get(info->m_rank24);
+    UnicodeString rank20 = Rva005D59F0Get(info->m_at20);
+    UnicodeString rank24 = Rva005D59F0Get(info->m_at24);
     playerInfo.format(TheGameText->fetchPtr("TOOLTIP:ChatPlayerInfo"),
         TheGameText->fetch(localeIdentifier).str(), rankText.str(),
         wins, losses, favoriteSide.str(), rank20.str(), rank24.str());

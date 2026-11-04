@@ -237,25 +237,7 @@ public:
 
 extern GameSpyStagingRoom *TheGameSpyGame;
 
-class PlayerInfo
-{
-public:
-	AsciiString m_name;
-	AsciiString m_locale;
-	AsciiString m_clan;
-	Int m_wins;
-	Int m_losses;
-	Int m_profileID;
-	Int m_flags;
-	Int m_rankPoints;
-	Int m_side;
-	Int m_unk24;
-	Int m_dc;
-	Int m_desync;
-	Int m_preorder;		// +0x30: updatePlayerInfo marks the profile when set
-	~PlayerInfo();
-	Bool isIgnored(void);
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 
 struct AsciiComparator
 {
@@ -367,9 +349,9 @@ void GameSpyInfo::setGameOptions(void)
 				PlayerInfoMap::iterator it = m_playerInfoMap.find(playerName);
 				if (it != m_playerInfoMap.end())
 				{
-					wins = it->second.m_wins;
-					losses = it->second.m_losses;
-					profileID = it->second.m_profileID;
+					wins = it->second.m_at0c;
+					losses = it->second.m_at10;
+					profileID = it->second.m_at14;
 				}
 				req.gameOptions.wins[i] = wins;
 				req.gameOptions.losses[i] = losses;

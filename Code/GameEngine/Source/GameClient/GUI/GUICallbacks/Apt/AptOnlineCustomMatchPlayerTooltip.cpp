@@ -173,23 +173,8 @@ extern MapCache *TheMapCache;
 // BFME1 donor's getLocalName; slots 51 (+0xCC), 53 (+0xD4) and 55 (+0xDC)
 // as the BFME1 donor's amIHost / getCurrentStagingRoom / setGameOptions.
 
-// The profile record used by WB's named staging tooltip. Native accesses
-// establish these BFME2 fields; the prefix and +0x18 remain uninterpreted.
-class PlayerInfo
-{
-public:
-    unsigned char m_prefix[8];
-    AsciiString m_locale;
-    int m_wins;
-    int m_losses;
-    int m_profileID;
-    int m_18;
-    int m_rankPoints;
-    int m_rank20;
-    int m_rank24;
-    int m_side;
-    int m_favoriteSide;
-};
+// Use the shared retail PlayerInfo layout for the staging tooltip.
+#include "../../../../../Include/GameNetwork/PlayerInfo.h"
 // PeerDefs.h at BFME1 donor revision 9cbfb551 supplies this map value.
 // The tooltip only searches its integer profile key, never its payload.
 class BuddyInfo
@@ -513,23 +498,23 @@ void AptOnlineCustomMatch::MpOwnerUpdatePlayerTooltip(GameSlot *slot)
     name.translate(uName);
     PlayerInfo *info = TheGameSpyInfo->rva00382CCE(name.str());
     if (info) {
-        int profileID = info->m_profileID;
+        int profileID = info->m_at14;
         bool isLocal = slot == room->getGameSpySlot(room->getLocalSlotNum());
         AsciiString localeIdentifier;
-        localeIdentifier.format("WOL:Locale%2.2d", atoi(info->m_locale.str()));
+        localeIdentifier.format("WOL:Locale%2.2d", atoi(info->m_at08.str()));
         UnicodeString playerInfo;
         int wins = 0;
         int losses = 0;
         int ping = 0;
-        const int &w = info->m_wins;
-        const int &l = info->m_losses;
-        wins = info->m_wins;
-        losses = info->m_losses;
+        const int &w = info->m_at0c;
+        const int &l = info->m_at10;
+        wins = info->m_at0c;
+        losses = info->m_at10;
         UnicodeString favoriteSide;
         int totalGames = 0;
         int side = 0;
         totalGames = w + l;
-        side = info->m_favoriteSide;
+        side = info->m_at2c;
         if (!totalGames)
             favoriteSide = TheGameText->fetch("APT:Men");
         else {
@@ -539,8 +524,8 @@ void AptOnlineCustomMatch::MpOwnerUpdatePlayerTooltip(GameSlot *slot)
         }
         bool firstMode = m_70.m_7c == 1;
         const int *thresholds = firstMode ? (const int *)&g_00E05FCC : (const int *)&g_00E06000;
-        int rankSide = info->m_side;
-        int points = info->m_rankPoints;
+        int rankSide = info->m_at28;
+        int points = info->m_at1c;
         int rank;
         for (rank = 1; rank < 11; ++rank)
             if (points < thresholds[rank])
@@ -550,8 +535,8 @@ void AptOnlineCustomMatch::MpOwnerUpdatePlayerTooltip(GameSlot *slot)
         UnicodeString rank24;
         // WB has this inner check even though the enclosing arm proved info.
         if (info) {
-            rank20 = Rva0059F12A(info->m_rank20);
-            rank24 = Rva0059F12A(info->m_rank24);
+            rank20 = Rva0059F12A(info->m_at20);
+            rank24 = Rva0059F12A(info->m_at24);
         } else {
             rank20 = Rva0059F12A(-1);
             rank24 = Rva0059F12A(-1);

@@ -338,12 +338,7 @@ public:
 };
 extern GameSpyStagingRoom *TheGameSpyGame;
 
-class PlayerInfo
-{
-public:
-	AsciiString m_00;
-	AsciiString m_name; // +0x04
-};
+#include "../../../../../Include/GameNetwork/PlayerInfo.h"
 
 struct AsciiComparator
 {
@@ -1023,7 +1018,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 					PlayerInfoMap::iterator it = TheGameSpyInfo->getPlayerInfoMap()->find(AsciiString(resp.nick.c_str()));
 					AsciiString senderName;
 					if (it != TheGameSpyInfo->getPlayerInfoMap()->end())
-						senderName = it->second.m_name;
+						senderName = it->second.m_at04;
 					else
 						senderName.set(resp.nick.c_str());
 					Bool isValidSlotList = game && game->getSlot(0) && game->getSlot(0)->isPlayer(senderName) && !TheGameSpyInfo->amIHost();
@@ -1174,7 +1169,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 					AsciiString senderName;
 					PlayerInfoMap::iterator it = TheGameSpyInfo->getPlayerInfoMap()->find(AsciiString(resp.nick.c_str()));
 					if (it != TheGameSpyInfo->getPlayerInfoMap()->end())
-						senderName = it->second.m_name;
+						senderName = it->second.m_at04;
 					else
 						senderName.set(resp.nick.c_str());
 					Bool valid = game && game->getSlot(0) && game->getSlot(0)->isPlayer(senderName) && !TheGameSpyInfo->amIHost();
@@ -1315,7 +1310,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 					PlayerInfoMap::iterator it = TheGameSpyInfo->getPlayerInfoMap()->find(AsciiString(resp.nick.c_str()));
 					AsciiString senderName;
 					if (it != TheGameSpyInfo->getPlayerInfoMap()->end())
-						senderName = it->second.m_name;
+						senderName = it->second.m_at04;
 					else
 						senderName.set(resp.nick.c_str());
 					Int slotNum = game->getSlotNum(senderName);
