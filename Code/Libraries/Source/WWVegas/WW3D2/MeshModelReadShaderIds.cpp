@@ -1,6 +1,8 @@
 // cl: /DNDEBUG /MD /GX- /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
+// Retail inlines both SORT sets: the int overload is the header's inline
+// Set_Flag; Set_Flag(FlagsType, bool) is out of line.
 // ?read_shader_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x001889B0 (307 bytes).
 // BFME1 MeshModelMaterialIds.cpp read_shader_ids port (single shaderid vs
@@ -114,31 +116,7 @@ public:
 	MeshMatDescClass AlternateMatDesc;
 };
 
-class MeshModelClass
-{
-public:
-	enum FlagsType
-	{
-		SORT = 0x10
-	};
-	void Set_Flag(FlagsType flag, bool onoff) { if (onoff) Flags |= flag; else Flags &= ~flag; }
-	int Get_Polygon_Count(void) { return PolyCount; }
-
-protected:
-	virtual ~MeshModelClass();
-	bool read_shader_ids(ChunkLoadClass &cload, MeshLoadContextClass *context);
-
-private:
-	char m_pad0[0x18 - 4];
-	int Flags;
-	char SortLevel;
-	char m_pad1[0x24 - 0x1D];
-	int PolyCount;
-	char m_pad2[0x8C - 0x28];
-
-public:
-	MeshMatDescClass *DefMatDesc;
-};
+#include "MeshModelClass.h"
 
 // ?read_shader_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 bool MeshModelClass::read_shader_ids(ChunkLoadClass &cload, MeshLoadContextClass *context)
@@ -159,7 +137,7 @@ bool MeshModelClass::read_shader_ids(ChunkLoadClass &cload, MeshLoadContextClass
 			(shader.Get_Dst_Blend_Func() != ShaderClass::DSTBLEND_ZERO) &&
 			(shader.Get_Alpha_Test() == ShaderClass::ALPHATEST_DISABLE) &&
 			(SortLevel == 0)) {
-			Set_Flag(SORT, true);
+			Set_Flag((int)SORT, true);
 		}
 	} else {
 		for (int i = 0; i < Get_Polygon_Count(); i++) {
@@ -171,7 +149,7 @@ bool MeshModelClass::read_shader_ids(ChunkLoadClass &cload, MeshLoadContextClass
 				(shader.Get_Dst_Blend_Func() != ShaderClass::DSTBLEND_ZERO) &&
 				(shader.Get_Alpha_Test() == ShaderClass::ALPHATEST_DISABLE) &&
 				(SortLevel == 0)) {
-				Set_Flag(SORT, true);
+				Set_Flag((int)SORT, true);
 			}
 		}
 	}
