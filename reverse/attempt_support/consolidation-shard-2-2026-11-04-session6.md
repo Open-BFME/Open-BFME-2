@@ -95,3 +95,8 @@ link improvement is claimed. No live claims remain from this pass.
   fail on `_errno` linkage and duplicate STL pair templates; the map donor has
   no spelled definition for its candidate row. No split is accepted for use
   with this destination.
+- `GameClient/Drawable/Update/W3DTornadoDraw.cpp`: the dry run accepts the
+  destructor donor, but `tu_views.py --dry-run` reports a conflicting
+  `W3DTornadoDraw` base clause (`public Rva000B19A1` versus no base) between
+  the destructor and radius donors. Manual class-view reconciliation is
+  required; no merge was applied.
