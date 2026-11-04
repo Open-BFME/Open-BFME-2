@@ -103,6 +103,7 @@ public:
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
+#include "../../../../Include/Common/Geometry.h"
 #include "../../../Common/Thing/thing.h"
 class Object : public Thing
 {
@@ -117,9 +118,15 @@ public:
 	ObjectID getID() const { return m_id; }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Object *getRider() const { return m_274; }	// +0x274 (WB reads it through a getter)
+	void *rva0028C197() const;	// 0x0028C197, the +0x250 interface
+	const GeometryInfo *getGeometryInfo() const { return &m_geometryInfo; }
 	char m_pad060[0x74 - 0x60];
 	ObjectID m_id;		// +0x74
-	char m_pad078[0x274 - 0x78];
+	char m_pad078[0xA8 - 0x78];
+	GeometryInfo m_geometryInfo;	// +0xA8
+	char m_pad104[0x250 - 0x104];
+	void *m_250;		// +0x250
+	char m_pad254[0x274 - 0x254];
 	Object *m_274;		// +0x274
 	char m_pad278[0x438 - 0x278];
 	unsigned char m_438;	// +0x438 (bit 0: effectively dead)
