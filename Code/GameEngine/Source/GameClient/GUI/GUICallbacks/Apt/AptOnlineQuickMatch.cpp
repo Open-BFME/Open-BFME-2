@@ -542,7 +542,7 @@ void *GadgetComboBoxGetItemData(GameWindow *, int);
 // +0x1D0/+0x1D4 and the NAT negotiator setup. The local address record uses
 // the connect-info type (its constructor zeroing is dead but sets retail's
 // frame homes for the temporaries and the param-home reuse of the new NAT).
-class MapMetaData {public:char pad[0x20];int players;};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 void SendStatsToOtherPlayers(GameInfo*);
@@ -1090,7 +1090,7 @@ void AptOnlineQuickMatch::rva005BBDAC(BfmeOpaqueOwnedRecord492 &request){
  MapMetaData **end=(MapMetaData**)_STL::partition((Rva00450B90Item**)metadata.begin(),(Rva00450B90Item**)metadata.end(),predicate);
  metadata.erase(end,metadata.end());
  _STL::sort(metadata.begin(),metadata.end(),Rva0030145CCmp());
- for(_STL::vector<MapMetaData*>::iterator mapMetaData=metadata.begin();mapMetaData!=metadata.end();++mapMetaData){MapMetaData *md=*mapMetaData;if(md->players==players)result.push_back(true);}
+ for(_STL::vector<MapMetaData*>::iterator mapMetaData=metadata.begin();mapMetaData!=metadata.end();++mapMetaData){MapMetaData *md=*mapMetaData;if(md->m_numPlayers==players)result.push_back(true);}
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva005BA440SaveOptions.cpp
