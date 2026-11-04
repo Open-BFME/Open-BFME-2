@@ -9,26 +9,7 @@ class Thing;
 class ModuleData;
 class WeaponTemplate;
 
-struct DamageInfoInput
-{
-	unsigned char m_pad00[0x10];
-	int m_damageType; // +0x10
-	unsigned char m_pad14[0x60 - 0x14];
-};
-
-struct DamageInfoOutput
-{
-	unsigned char m_pad00[0x10];
-	float m_actualDamageDealt; // +0x10 in Out => +0x70 overall
-	unsigned char m_pad14[0x10];
-};
-
-class DamageInfo
-{
-public:
-	DamageInfoInput in; // +0x00
-	DamageInfoOutput out; // +0x60
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 typedef float Real;
 
@@ -83,17 +64,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual bool isUpgradeActive() = 0;
-	void giveSelfUpgrade();
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class DamageModuleInterface
 {
@@ -129,6 +100,11 @@ public:
 	virtual void onDamage(DamageInfo *damageInfo);
 
 private:
+	bool isUpgradeActive() const
+	{
+		return isAlreadyUpgraded();
+	}
+
 	const Object *getObject() const
 	{
 		return m_object;
@@ -188,10 +164,10 @@ void FireWeaponWhenDamagedBehavior::onDamage(DamageInfo *damageInfo)
 
 	const FireWeaponWhenDamagedBehaviorModuleData *fireWeaponWhenDamagedBehaviorModuleData = getFireWeaponWhenDamagedBehaviorModuleData();
 
-	if ((fireWeaponWhenDamagedBehaviorModuleData->m_damageTypes & (1 << (damageInfo->in.m_damageType - 1))) == 0)
+	if ((fireWeaponWhenDamagedBehaviorModuleData->m_damageTypes & (1 << (damageInfo->m_damageType - 1))) == 0)
 		return;
 
-	if (damageInfo->out.m_actualDamageDealt < fireWeaponWhenDamagedBehaviorModuleData->m_damageAmount)
+	if (damageInfo->m_actualDamageDealt < fireWeaponWhenDamagedBehaviorModuleData->m_damageAmount)
 		return;
 
 	const Object *obj = getObject();
