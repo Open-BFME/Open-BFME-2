@@ -181,6 +181,7 @@ extern bool BFME_DX8_Thread_Assert(void);
 
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 class VertexBufferClass

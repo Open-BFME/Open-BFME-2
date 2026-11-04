@@ -360,6 +360,7 @@ public:
  char m_pad00[0x20];
 };
 
+#include "IndexBufferClass.h"
 #include "DX8IndexBufferClass.h"
 
 
