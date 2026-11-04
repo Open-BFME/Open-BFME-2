@@ -3,6 +3,11 @@
 #include "../../../../GameEngine/Include/Common/Overridable.h"
 #include "W3DSnowResourceView.h"
 #define TheOther00E01CE4 ((*(Rva00E01CE4Holder **)&TheGlobalWeatherSystem))
+// Retail 0x00093B5B, 360 bytes: W3DSnowManager weather blend update (WB debug body gives the
+// override walk). Codegen: the from-chain temp is assigned after the barrier inside the f arm and
+// the to-chain is the !f ? 0 : (next ? FO : f) ternary, which places the f==0 block between the arms.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 // ?target_0009322D@W3DSnowManager@@AAEXXZ @0x0009322D 180B (Ghidra splits it
 // at 0x0009323B; the prologue and first override hop sit in 0x0009322D..0x0009323B).
@@ -29,6 +34,12 @@ extern float g_Va00BBB8D8;
 struct Rva00E01CE4Holder { char m_pad[0x10]; int m_10; };
 
 extern class GlobalWeatherSystem *TheGlobalWeatherSystem;
+
+class GlobalWeatherSystem { public: char pad00[0x10]; int state; };
+
+extern GlobalWeatherSystem *TheGlobalWeatherSystem;
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp
 
@@ -215,12 +226,6 @@ void W3DSnowManager::rva00093457()
 	}
 }
 
-// tu-skeleton: 0x0009323B 166B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00093507 957B ?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRenderSubBox.cpp (not merged yet)
-
-// tu-skeleton: 0x00093ACB 116B ?updateIniSettings@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/W3DSnowManager.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManager_reset.cpp
 
 // ?reset@W3DSnowManager@@UAEXXZ @0x00093B3F (28B):
@@ -236,11 +241,77 @@ void W3DSnowManager::reset()
 	m_50 = false;
 }
 
-// tu-skeleton: 0x00093B5B 360B ?rva00093B5B@W3DSnowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowBlendPhase.cpp (not merged yet)
+// tu-skeleton: 0x0009323B 166B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00093507 957B ?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRenderSubBox.cpp (not merged yet)
+
+// tu-skeleton: 0x00093ACB 116B ?updateIniSettings@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/W3DSnowManager.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowBlendPhase.cpp
+
+static __forceinline const WeatherSetting *walk(const WeatherSetting *weatherSetting) {
+ if(weatherSetting && weatherSetting->getNextOverride()) return (const WeatherSetting *)const_cast<Overridable *>(weatherSetting->getNextOverride())->friend_getFinalOverride();
+ return weatherSetting;
+}
+
+void W3DSnowManager::rva00093B5B() {
+ const WeatherSetting *weatherSetting=TheWeatherSetting.m_object;
+ const WeatherSetting *d= !weatherSetting ? 0 : (weatherSetting->getNextOverride() ? (const WeatherSetting *)const_cast<Overridable *>(weatherSetting->getNextOverride())->friend_getFinalOverride() : weatherSetting);
+ const WeatherSetting *from=0, *to;
+ if (!d->m_6c || !m_AC) return;
+ const Overridable *next=0;
+ if (weatherSetting) { next=weatherSetting->getNextOverride(); const WeatherSetting *ft=next ? (const WeatherSetting *)const_cast<Overridable *>(next)->friend_getFinalOverride() : weatherSetting; _ReadWriteBarrier(); from=ft; }
+ to = !weatherSetting ? 0 : (next ? (const WeatherSetting *)const_cast<Overridable *>(next)->friend_getFinalOverride() : weatherSetting);
+ float fraction=(float)(from->m_70-m_58)/(float)to->m_70;
+ if(fraction>1.0f) { rva00093457(); }
+ else if(fraction>(*reinterpret_cast<float *>(&m_60))) {
+  float blend=(fraction-(*reinterpret_cast<float *>(&m_60)))/(1.0f-(*reinterpret_cast<float *>(&m_60)));
+  m_AC=3;
+  (*reinterpret_cast<float *>(&m_3c))=(*reinterpret_cast<float *>(&m_68))-((*reinterpret_cast<float *>(&m_68))-(*reinterpret_cast<float *>(&m_64)))*blend;
+  (*reinterpret_cast<float *>(&m_14))=m_70-(m_70-m_6C)*blend;
+ } else if(fraction>(*reinterpret_cast<float *>(&m_5c))) { (*reinterpret_cast<float *>(&m_3c))=(*reinterpret_cast<float *>(&m_68)); m_AC=2; (*reinterpret_cast<float *>(&m_14))=m_70; }
+ else if(fraction>0.0f) {
+  m_AC=1;
+  float blend=(*reinterpret_cast<float *>(&m_5c))>1e-5f ? fraction/(*reinterpret_cast<float *>(&m_5c)) : 1.0f;
+  (*reinterpret_cast<float *>(&m_3c))=(*reinterpret_cast<float *>(&m_64))+((*reinterpret_cast<float *>(&m_68))-(*reinterpret_cast<float *>(&m_64)))*blend;
+  (*reinterpret_cast<float *>(&m_14))=m_6C+(m_70-m_6C)*blend;
+ } else { rva00093457(); }
+}
 
 // tu-skeleton: 0x00093CC3 2403B ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRenderAsQuads.cpp (not merged yet)
 
-// tu-skeleton: 0x00094652 189B ?target_00094652@W3DSnowManager@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowStateTransition.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowStateTransition.cpp
+
+// Native94652..9470F189B, reached by rowed W3DSnowManager update949D9.
+// BFME1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d semantic guide:
+// game/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerExtraAfterFmod.cpp.
+// Original target method name remains unknown. The target observes weather
+// enabled6C/duration70 and receiver frames58/endFraction60/stateA8/phaseAC.
+// Neutral rva00093B5B is the complete360B RET0/tail93457 body, with this
+// in ECX at both calls and receiver accesses. BFME1 transitionTBA supports
+// its purpose; the10B CFG near miss is banked separately and not counted.
+// Existing reset93349, override1E35DF and named weather globals bind the rest.
+
+void W3DSnowManager::target_00094652() {
+ const WeatherSetting *ov=walk(TheWeatherSetting.m_object);
+ if(!ov->m_6c) return;
+ if(m_AC) {
+  int s=m_AC;
+  if(s==1 || s==3) --m_58;
+  rva00093B5B();
+  int state2=2;
+  if(m_A8==state2) {
+   int s=TheGlobalWeatherSystem->state;
+   if(s!=state2) {
+    m_AC=3; ov=walk(TheWeatherSetting.m_object);
+    m_58=(int)((1.0f-(*reinterpret_cast<float *>(&m_60)))*ov->m_70); m_A8=s;
+   }
+  }
+ } else {
+  int s=TheGlobalWeatherSystem->state;
+  if(s==2 && m_A8!=2) { m_A8=s; rva00093349(); }
+ }
+}
 
 // tu-skeleton: 0x0009470F 714B ?render@W3DSnowManager@@QAEXAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp (not merged yet)
 

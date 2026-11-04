@@ -5,3 +5,4 @@ Evidence: [scope, vtable and verification](../../reverse/attempt_support/w3dsnow
 Evidence: [reset merge, provider/path audit and update trial](../../reverse/attempt_support/w3dsnow-reset-merge-20261103-codex4.md).
 Evidence: [blend/state canonical Overridable adoption; two header rows retired, shared resource/storage reconciliation next](../../reverse/attempt_support/w3dsnow-override-adoption-20261104-codex4.md).
 Evidence: [shared canonical resource/blend/state view verified; normal merge dry-run now accepts both donors](../../reverse/attempt_support/w3dsnow-shared-view-20261104-codex4.md).
+Evidence: [blend/state merged into approved TU; 23 byte rows, 48 external definitions and link bindings preserved; remaining donor blockers](../../reverse/attempt_support/w3dsnow-blend-state-merge-20261104-codex4.md).
