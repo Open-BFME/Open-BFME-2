@@ -2,8 +2,8 @@
 
 Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
 `f2cec2a7f8`: report tie fix, Drawable.h constant and 84 rowed copies, bridged 969 -> 885 on the
-fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 31
-rowed in their units, bridged 885 -> 854; next seat continues).
+fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40
+rowed in their units, bridged 885 -> 845; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -64,7 +64,7 @@ places it.
 | Grab-bag file | Rows |
 | --- | ---: |
 | `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2) |
-| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (99 after in-o3) |
+| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3) |
 | `StaticTagInitializers.cpp` | 63 |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
 | `Rva007AD295ZeroInits.cpp` | 56 |
@@ -167,7 +167,7 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   Zero Hour's `INI*.cpp` wrappers explain the nodes whose callback lives elsewhere: in CommandSet,
   CrateData and DamageFX, the node calls the store's parser directly. These nodes still wait for an
   `INI*.cpp` unit our tree does not have.
-- *Rowed (31, this series).* Each owner defines the struct with its inline constructor (a
+- *Rowed (40, this series).* Each owner defines the struct with its inline constructor (a
   TU-scoped view; there is no canonical declaration yet). Each owner also defines the node at the
   end of the file, so no earlier ordinal moves. Each node's data row is repointed to its owner, and
   the address is readmitted as `_$E<n>`:
@@ -177,8 +177,13 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   - Eva: PredefinedEvaEvent, NewEvaEvent, EvaEventForwardReference;
   - INIWater, INIMultiplayer and MetaEvent: two each;
   - INIAiData, INICommandButton, INIDrawGroupInfo, INIMappedImage, INIMiscAudio and INITerrainRoad:
-    one each.
-- *Waiting.* MiscEvaData needs `INI::parseMiscEvaData` in Eva.cpp's INI view. These need their
+    one each;
+  - Mouse (MouseCursor, Mouse `_$E34`/`_$E36`), LargeGroupAudio and INITerrain (Terrain,
+    WaterTextureList): two each;
+  - GlobalLanguage, AnimationSoundModuleManager and LivingWorldCampaign: one each.
+- *Waiting.* MiscEvaData needs `INI::parseMiscEvaData` in Eva.cpp's INI view. FXList (0x007AD241)
+  compiles in FXList.cpp as `_$E48`. It stays in the grab-bag because FXList.cpp does not link yet
+  (census: COMDAT losers), and moving the entry there would cost 21 linked bytes. These need their
   wrapper unit or a claimable owner: AudioSettings, ShadowMap, LoadSubsystem, Armor (Armor.cpp),
   Bridge (INITerrainBridge.cpp is approved but missing), CommandSet, ControlBarScheme,
   ControlBarResizer, CrateData, WindowTransition and DamageFX. ScriptEngine.cpp is held by another

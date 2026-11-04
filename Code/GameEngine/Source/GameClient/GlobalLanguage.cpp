@@ -486,3 +486,25 @@ void GlobalLanguage::onGameEngineExit()
 // tu-skeleton: 0x0076A17C 14B uw_0076a17c -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x0076A18A 10B __ehhandler$??$_Construct@UBfmeStringRecord001EA478@@U1@@_STL@@YAXPAUBfmeStringRecord001EA478@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// INI block registration. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD31E,
+// node 0x00DB8F98).
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theLanguageBlockParse( "Language", INI::parseLanguageDefinition );
