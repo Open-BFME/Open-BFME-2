@@ -14,7 +14,7 @@
 // from the native atexit call, guard bit, and pointer globals at DF2974/DF297C.
 // SurfaceClass and W3DRadarResetSurface are both the established one-pointer COM
 // holder view; DrawPixel takes the holder address rather than its COM pointer.
-class SurfaceClass { public: void DrawPixel(unsigned,unsigned,unsigned); private: void *surface; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 class W3DRadarResetSurface {
 public:
  W3DRadarResetSurface():surface(0){}
