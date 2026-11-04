@@ -1,16 +1,18 @@
+// cl: /MD
+// platformsdk
 // ATL 7.1 cstringt.h CharLowerWFake and atlconv.h conversion macros.
-// Retail uses the legacy unsuffixed ANSI kernel32 string exports.
-// Reference: Open-BFME-1 MSVC 7.1 toolchain; local ABI declarations replace headers.
+// Retail imports wcscpy from the DLL CRT (/MD) and uses the legacy unsuffixed
+// ANSI kernel32 lstrlen export, which WinBase.h only spells as a macro for
+// lstrlenA, so that one declaration stays local.
+// Reference: Open-BFME-1 MSVC 7.1 toolchain.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-extern "C" void *__cdecl _alloca(unsigned int);
-#pragma intrinsic(_alloca)
-extern "C" __declspec(dllimport) int __stdcall lstrlenW(const unsigned short *);
+#include <windows.h>
+#include <malloc.h>
+#include <string.h>
+#undef lstrlen
 extern "C" __declspec(dllimport) int __stdcall lstrlen(const char *);
-extern "C" __declspec(dllimport) char *__stdcall CharLowerA(char *);
-extern "C" __declspec(dllimport) unsigned short *__cdecl wcscpy(unsigned short *, const unsigned short *);
 char *__stdcall AtlW2AHelper(char *, const unsigned short *, int, unsigned int);
 unsigned short *__stdcall AtlA2WHelper(unsigned short *, const char *, int, unsigned int);
-extern "C" __declspec(dllimport) char *__stdcall CharUpperA(char *);
 namespace ATL {
 typedef unsigned int (__stdcall *ATLGETTHREADACP)();
 unsigned int __stdcall _AtlGetThreadACPThunk();
