@@ -30,5 +30,38 @@ The consolidation planner completed with no missing inputs and its snapshot
 check passed before editing. It supplies investigation hints only; the merge
 tool rebuilds the stale TU map in memory. No regenerated map is committed.
 
-Merge, publication audit and post-merge verification follow separately. No
-census or real-link gain is claimed by this prerequisite change.
+The reconciliation was handed to the fleet publisher as `bfbbe79075`.
+
+## Merge and publication audit
+
+Audited range: `9e671822ba` through the reconciliation and this merge. The
+merge tool absorbs the residual donor into the approved AIStatCollector TU,
+reducing source files by one. It repoints only the 0x004DFE4F source cells in
+functions.csv and tu_map.csv; it does not regenerate the map. Three mixed
+sources remain outside this merge.
+
+Post-merge checks:
+
+- `./build.sh` on the destination: 43/43 functions exact; all nine renamed
+  funclet labels verified through parent EH, float/import/string checks pass.
+- `check_csv.py`, `tu_ownership.py --staged` and
+  `find_declared_unmatched.py`: pass.
+- The merge's link guard preserves both previously linking units together.
+  Destination `link_check.py`: LINKS, own bytes 2,803 (the prior two units'
+  combined total). The census still records the old composition. No census
+  or real-link gain is claimed.
+- The existing unreferenced `Rva00281A76::add` relocation diagnostic remains;
+  aliases, pins and selected-provider declarations are preserved.
+- No absorbed-source data, identity, header, Microsoft-header or flag keys
+  require retirement. The existing AIStatCollector header adoption blocker
+  remains in header_queue.tsv. Microsoft-header scan refreshes cleanly.
+  Existing shadow identity findings for the Coord3D copy and group add remain;
+  no debt retirement is claimed.
+
+The deleted basename and complete path have no active references in tools,
+hooks, workflows, includes or build/configuration files. The ledger source
+cells resolve to the destination. Intentional old references remain in the
+census, deleted-row and attempt histories, this evidence, and `// ---- from`
+provenance comments in AIStatCollector.cpp and TerrainLogic.cpp. The nearby
+helper comment now points to this TU. The containing Common directory remains
+present, so directory-derived consumers and globs retain their scope.
