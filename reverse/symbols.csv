@@ -3165,7 +3165,6 @@ name,address,notes
 ??1Rva0052B7B3Dtor@@QAE@XZ,0x0052B7B3,dtor thunk stub at 0x0052B7B3 to 0x0052B6FE (target of thunk 0x007B9298)
 ??1Rva005333F@@UAE@XZ,0x005333F,opaque null-check tail-jmp (19B: test [ecx+4], lea +0x88, jmp 0x50ED3); called by scalar-deleting-dtor at 0x53FB6; identity unproven, address-derived name
 ??1Rva00539926Base@@UAE@XZ,0x004E84A4,ICF twin of rowed apply identical 7B mov plus ret via dtor 0x00539926 call
-??1Rva00557CCC@@QAE@XZ,0x00557CCC,destructor called by the vtable-referenced scalar deleting dtor 0x00558F6E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva005635CD@@QAE@XZ,0x000B3FD0,Native cleanup7B7E99 loads receiverE02934 then tail-jumps directly to rowed empty RET B3FD0; same noarg nonvirtual void-thiscall destructor ABI; original publisher type unknown
 ??1Rva00563D2E@@QAE@XZ,0x000B3FD0,Native cleanup7B7E8F loads receiverE0293C then tail-jumps directly to rowed empty RET B3FD0; same noarg nonvirtual void-thiscall destructor ABI; original publisher type unknown
 ??1Rva0056850D@@QAE@XZ,0x0056850D,member destructor at +0xC called by the destructor 0x005685EE (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
