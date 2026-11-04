@@ -34756,7 +34756,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00432976,17,code,Code/GameEngine/Source/Common/AptTranslator.cpp,approved,C,C=0x0043287E..0x00432987 provisional,Code/GameEngine/Source/Common/AptTranslator.cpp
 0x00432987,152,code,Code/GameEngine/Source/Common/AptTranslator.cpp,approved,N,N=Code/GameEngine/Source/Common/AptTranslator.cpp W=Code/GameEngine/Source/GameClient/MessageStream/AptTranslator.cpp provisional,Code/GameEngine/Source/Common/AptTranslator.cpp
 0x00432A1F,28,code,Code/GameEngine/Source/Common/AptTranslator.cpp,approved,N,N=Code/GameEngine/Source/Common/AptTranslator.cpp provisional,Code/GameEngine/Source/Common/AptTranslator.cpp
-0x00432A3B,103,code,Code/GameEngine/Source/Common/AptTranslator.cpp,approved,N,N=Code/GameEngine/Source/Common/AptTranslator.cpp provisional,Code/GameEngine/Source/Common/Rva00432A3BHandler.cpp
+0x00432A3B,103,code,Code/GameEngine/Source/Common/AptTranslator.cpp,approved,N,N=Code/GameEngine/Source/Common/AptTranslator.cpp provisional,Code/GameEngine/Source/Common/AptTranslator.cpp
 0x00432AA2,35,code,Code/GameEngine/Source/GameClient/GUI/AptTranslator.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptTranslator.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
 0x00432AC5,38,code,Code/GameEngine/Source/GameClient/GUI/AptTranslator.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptTranslator.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
 0x00432AEB,45,code,,,-,,Code/GameEngine/Source/Common/Rva00432AEBSet.cpp

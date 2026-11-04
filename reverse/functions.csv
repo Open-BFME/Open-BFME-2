@@ -26795,7 +26795,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?Rva004328D8Emit@@YGXPAURva004328D8Payload@@@Z,,0x004328D8,89,Code/GameEngine/Source/Common/AptTranslator.cpp,matched,two messages 0xC3 and type pixel int time via subsystem
 ??0AnimationSoundModuleManager@@QAE@XZ,,0x00432FA7,72,Code/GameEngine/Source/Common/AnimationSoundModuleManager.cpp,matched,ctor baseConstruct vtable FLT_MAX floats singleton
 ?rva00432EC0@AnimationSoundModuleManager@@QAEXPAVRva00432F23Node@@@Z,,0x00432EC0,99,Code/GameEngine/Source/Common/AnimationSoundModuleManager.cpp,matched,move node list1 to head list2 honest Rva
-?rva00432A3B@AptTranslator@@QAEXPBVGameMessage@@@Z,,0x00432A3B,103,Code/GameEngine/Source/Common/Rva00432A3BHandler.cpp,matched,handler types 4 6 14 16 pixel int int via getArgument
+?rva00432A3B@AptTranslator@@QAEXPBVGameMessage@@@Z,,0x00432A3B,103,Code/GameEngine/Source/Common/AptTranslator.cpp,matched,handler types 4 6 14 16 pixel int int via getArgument
 ?rva000B3C61@Rva000B3C61@@QAEXH@Z,,0x000B3C61,110,Code/GameEngine/Source/Common/Rva000B3C61.cpp,matched,neighbours 0x000B3A68 array at 0x110 stride 28 release plus float zero fold
 ?Get_Obj_Space_Bounding_Box@RenderObjClass@@UBEXAAVAABoxClass@@@Z,,0x001A1420,39,Code/Libraries/Source/WWVegas/WW3D2/RenderObjGetObjSpaceBoundingBox.cpp,matched,Target vftables 0x00BD2F68 and 0x00BD69F8 slot 68 share this 39-byte zero-box body; folds with ParticleEmitter bounding box
 ?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z,,0x0050B238,3,Code/Libraries/Source/WWVegas/WW3D2/RenderObjAddDependenciesToList.cpp,matched,Target vftable 0x00BD2F68 slot 126 is RET 8; folds with SkipBadBlock; retail no-op diverges from BFME1 dependency work
