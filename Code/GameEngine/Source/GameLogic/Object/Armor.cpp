@@ -173,3 +173,27 @@ void armorMapDestructorAnchor(_STL::hash_map<NameKeyType, ArmorTemplate, rts::ha
 }
 
 #pragma inline_depth(8)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// unit's Drawable.h copy 0x007ACFE5 (static 0x00DFDBCC after TheArmorStore),
+// then this node's entry 0x007ACFF5 (node 0x00DB8A74), then its pool-init
+// marker 0x007AD00A.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theArmorBlockParse( "Armor", ArmorStore::parseArmorDefinition );

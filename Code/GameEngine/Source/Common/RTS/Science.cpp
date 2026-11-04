@@ -884,3 +884,26 @@ void Rva001FF6D7::rva001FF55F(Rva001FF6D7Node *head)
 // tu-skeleton: 0x0076C2DF 11B Unwind@00b6c2df -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C2EA 10B __ehhandler$??1Rva001FFE93@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// node's entry 0x007AD594 (node 0x00DB9434) after the pool-less INITerrainRoad
+// node, then 0x007AD5A9, then the unit's pool-init marker 0x007AD5C3.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theScienceBlockParse( "Science", ScienceStore::friend_parseScienceDefinition );

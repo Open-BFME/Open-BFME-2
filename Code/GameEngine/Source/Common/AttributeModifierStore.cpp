@@ -506,3 +506,27 @@ void famgenDelete00214ADC(Rva00214ADC *p) { delete p; }
 // tu-skeleton: 0x0076E0A7 8B $L4396 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E0AF 10B __ehhandler$??1?$vector@URva00214B22Record@@V?$allocator@URva00214B22Record@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// unit's Drawable.h copy 0x007AD97D (static 0x00DFE1DC after
+// TheAttributeModifierStore), then this node's entry 0x007AD98D (node
+// 0x00DB9AD0), then its pool-init marker 0x007AD9A2.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theModifierListBlockParse( "ModifierList", AttributeModifierStore::parseModifierListDefinition );

@@ -10,7 +10,9 @@ private-view units adopt the canonical Drawable.h and row their copies, bridged 
 more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`;
 halilkkaya-fix-o1: 7 round-2 includes moved below their units' Snapshot includes, restoring the
 vtables they had shifted, bridged 699 unchanged; halilkkaya-in-o5 then 7 units free since round 2,
-bridged 699 -> 692; next seat continues).
+bridged 699 -> 692; halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whose `.text$yc` run
+holds them, bridged 692 -> 685, and the ZeroInits masks traced to a giant-bird header, not
+AerialPathfinder.h; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -71,7 +73,7 @@ places it.
 | Grab-bag file | Rows |
 | --- | ---: |
 | `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2, 314 after in-o5) |
-| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3, 88 after in-o4) |
+| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3, 88 after in-o4, 81 after in-o6) |
 | `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 (0 after in-o4) |
 | `Rva007AD295ZeroInits.cpp` | 56 (attribution notes below) |
@@ -288,6 +290,39 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 - *Next leads.* Use a unit's own Drawable.h copy as the anchor. Each copy is followed in `.text$yc`
   by that unit's other initializers and then its pool-init marker. The handoff TSV names each
   copy's unit, so any grab-bag entry between a copy and the next marker belongs to that unit.
+- *Runs end at the marker (halilkkaya-in-o6, target facts).* The 26-byte pool-init marker closes
+  each unit's `.text$yc` run. GameLOD shows it: its Drawable.h copy 0x007AD6F3, then its rowed nodes
+  `_$E27`..`_$E39`, then the marker 0x007AD796. The `INI*.cpp` wrappers emit no marker. INIAiData's
+  `_$E1` (0x007ACFD0) sits directly before Armor's copy, and INITerrainRoad's `_$E1` directly before
+  the Science node. So a run between two markers can hold one wrapper's nodes, then one unit.
+- *Rowed by in-o6 (7).* Each node's run, read between markers, holds only that node's unit:
+  - Armor (`Armor.cpp` `_$E16`), ModifierList (`AttributeModifierStore.cpp` `_$E1`) and BannerType
+    (`BannerUI.cpp` `_$E1`) follow their unit's own Drawable.h copy. Each copy's `.bss` static
+    follows TheArmorStore (0x00DFDBCC), TheAttributeModifierStore (0x00DFE1DC) or TheBannerUI
+    (0x00DFE330).
+  - PlayerTemplate (`PlayerTemplate.cpp`), Rank (`RankInfo.cpp`) and LivingWorldRegionCampaign
+    (`LivingWorldRegionManager.cpp`) are the only entry of their run. Science (`Science.cpp`)
+    comes before 0x007AD5A9 in its run. Each callback's approved TU in tu_map is that unit.
+  - Each owner defines the node at the end of the file, as in-o3 did. RankInfo.cpp's
+    RankInfoStore view gains only the static `friend_parseRankDefinition` declaration. Every
+    `??_7` the 7 objects emit keeps its pre-edit digest.
+  - Verified: link_check passes for all 7 owners and the grab-bag. They gain 7 x 21 bytes, and
+    the grab-bag loses the same. image_report: bridged 692 -> 685, and exactly these 7 RVAs leave
+    `not_registered_rvas`. No touched object registers anything twice or unidentified.
+- *Attributed but held (in-o6).* These follow the same rule. They wait only for the owner's
+  claim:
+  - Locomotor 0x007AD2EF: `Locomotor.cpp`'s run is its copy 0x007AD285, five ZeroInits and the
+    node. Held by Burachi-3D.
+  - ObjectCreationList 0x007AD4CC: `ObjectCreationList.cpp`, run [copy 0x007AD4BC, node]. Held
+    by yasinschroeder-claude.
+  - AwardSystem 0x007AFE2E: `AwardSystemManager.cpp`, run [copy 0x007AFE1E, node]. Held by
+    yasinschroeder-claudeb.
+  - ArmySummaryDescription 0x007ADB1D: `CreateAHeroManager.cpp`. The run is its rowed `_$E1`
+    copy 0x007ADB01, then 0x007ADB11, then the node. The node's .data follows
+    `_CreateAHeroSubClassFieldParse`. Held by halilkkaya-nw-o2.
+
+  FXList stays in the grab-bag (above). The other runs hold several callbacks' nodes, or a copy
+  whose unit tu_map does not settle, for example AptButtonTooltipMap's run.
 - *Hazard.* A unit that later takes Drawable.h, or adds a dynamic initializer before these nodes,
   moves their ordinals. Read each `_$E<n>`'s relocation target (its node) again.
 
@@ -348,8 +383,45 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   One more run, 0x007AEDE7..0x007AEE2F in `Rva007ADC9CMaskInits.cpp` (statics 0x00E01EC0..0x00E01ED0),
   is read and written: the GiantBirdAIUpdate constructor 0x0036B717 ORs flag bits into all five, and
   the giant-bird states read them. The header is not identified yet.
-- *Next.* Identify the header from the giant-bird AI sources. Then each run moves with its unit's
-  Drawable.h copy, in the same lane as HalfRate.
+- *Runs by marker (halilkkaya-in-o6, target facts).* Twelve runs of five, each read between
+  pool-init markers, with each unit taken from the `.bss` data just before the statics:
+  - Locomotor (0x007AD295, after TheLocomotorStore's unit data);
+  - ModuleFactory (0x007ADD18, after TheModuleFactory and two half-rate copies);
+  - Drawable.cpp (0x007ADF06, after 0x00DFEB98, the constant `Drawable::updateDrawable` reads);
+  - GiantBirdAIUpdate (0x007AEDE7);
+  - AerialPathfinder (0x007AEF03; statics 0x00E01F14.. right after TheAerialPathfinder 0x00E01F10;
+    no Drawable.h copy in its run);
+  - the unit after Rva0037FE3D's statics, ArmyPlacerPlaceObjects.cpp (0x007AF063, no copy);
+  - StrafeAreaUpdate (0x007AF3D7, after its pool key; no copy);
+  - ActionManager (0x007B015F, after TheActionManager and two copies);
+  - SpecialAbilityUpdate (0x007B079B, after its statics and its copy);
+  - AutoAbilityBehavior (0x007B0A6A, after its statics; no copy);
+  - GiantBirdSlowDeathBehavior (0x007B0CB7);
+  - SquishCollide (0x007B25BC).
+
+  Four runs have no Drawable.h copy, so the masks come from their own header, not one tied to
+  Drawable.h. 0x007B3162 is a lone copy in a run of its own. 0x007AF7ED (17 bytes, ArgCtorInits) only
+  starts with the same `push 4; push 0` bytes and is not one of these.
+- *What the masks are (target facts).* Only giant-bird code reads them. They are the `mask` argument
+  `Rva00368C7A::rva003681F2` (0x003681F2) passes to `AerialPathfinder::computeAerialPath`
+  (0x0037609C). AerialPathfinder's constructor 0x0022C987 builds a 4-byte BitFlags member at +0x0C
+  through 0x003B31AD (the ICF-folded `BitFlags<N <= 32>` constructor) and ORs in 0x28. The giant-bird
+  constructor ORs the same 0x28 into mask 0 before it propagates it to masks 1 to 3.
+- *Not AerialPathfinder.h (target facts).* `GameEngine::init` allocates the pathfinder inline
+  (`push 0x14`, `new` at 0x0022F3F2, ctor call 0x0022F405) and stores TheAerialPathfinder at
+  0x0022F42B, so GameEngine.cpp includes the class. GameEngine.cpp's run (copy 0x007ADBC1 with
+  static 0x00DFE714 after TheGameEngine, then 0x007ADBD1, then the marker 0x007ADBE5) has no masks.
+- *Donor facts.* A search of Zero Hour's `GameEngine/Include` for `static` object definitions
+  finds only static class members. A search of the BFME 1 reference for a memset zero-init family
+  finds none.
+- *Inference.* The header is a giant-bird module header, most likely GiantBirdAIUpdate.h, with five
+  internal-linkage flag sets that the GiantBirdAIUpdate constructor fills. The string
+  "GiantBirdAIUpdate" is read only by `ModuleFactory::init` and GiantBirdAIUpdate's own code, and
+  both units have a run. Nothing names the header or the five objects, so the rows stay.
+- *Next.* Recover GiantBirdAIUpdate.h (class plus the five sets) once a name source exists. Each
+  run's unit then includes it. GiantBirdAIUpdate's own five are `g_00E01EC0`..`g_00E01ED0`, shared
+  today by its split fragments, and they need its TU merged first: per-fragment copies would split
+  the constructor's writes from the states' reads.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.

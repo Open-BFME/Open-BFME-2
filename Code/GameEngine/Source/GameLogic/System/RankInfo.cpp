@@ -95,8 +95,14 @@ private:
 	IntVector m_sciencesGranted; // +0x38
 };
 
+class INI;
+
 class RankInfoStore : public SubsystemInterface
 {
+public:
+ // The INI callback 0x0020038E (rowed in RankInfoParse.cpp); this unit's
+ // Rank BlockParse node names it.
+ static void friend_parseRankDefinition(INI *ini);
 protected:
  virtual ~RankInfoStore();
 private:
@@ -194,3 +200,26 @@ RankInfoStore::~RankInfoStore()
 // tu-skeleton: 0x0076C311 8B uw_0076c311 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C319 11B uw_0076c319 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// node's entry 0x007AD5DD (node 0x00DB947C) as the unit's only initializer
+// before its pool-init marker 0x007AD5F2.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theRankBlockParse( "Rank", RankInfoStore::friend_parseRankDefinition );

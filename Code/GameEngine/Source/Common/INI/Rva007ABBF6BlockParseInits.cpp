@@ -41,7 +41,6 @@ void parseAerialPathfindNoFlyZoneDefinition(INI *);
 void Rva00202BB2Parse(INI *);
 void parseScriptAction(INI *);
 void parseScriptCondition(INI *);
-void parseLivingWorldRegionCampaignDefinition(INI *);
 void parseLivingWorldMapInfoDefinition(INI *);
 void Rva0021376BParse(INI *);
 void parseCloudEffectDefinition(INI *);
@@ -89,26 +88,15 @@ void parseFontSubstitutionDefinition(INI *);
 void parseCloudBreakEffectDefinition(INI *);
 void parseFormationAssistantDefinition(INI *);
 namespace StrategicHUD { void ParseSettings(INI *); }
-class ArmorStore
-{
-public:
-	static void parseArmorDefinition(INI *);
-};
 class ArmyDefinitionManager
 {
 public:
 	static void parseArmyDefinition(INI *);
 };
-#include "../../../Include/GameLogic/AttributeModifierStore.h"
 class AudioEventInfo
 {
 public:
 	static void parseMultisoundDefinition(INI *);
-};
-class BannerUI
-{
-public:
-	static void ParseBannerTypeInfo(INI *);
 };
 #include "../../../Include/GameClient/ControlBar.h"
 class CrateSystem
@@ -198,22 +186,11 @@ class ObjectCreationListStore
 public:
 	static void parseObjectCreationListDefinition(INI *);
 };
-class PlayerTemplateStore
-{
-public:
-	static void parsePlayerTemplateDefinition(INI *);
-};
-class RankInfoStore
-{
-public:
-	static void friend_parseRankDefinition(INI *);
-};
 class Rva00425F10
 {
 public:
 	static void parseStanceTemplateDefinition(INI *);
 };
-#include "../../../Include/Common/ScienceStore.h"
 class ScoredKillEvaAnnouncerController
 {
 public:
@@ -233,7 +210,6 @@ public:
 BlockParse theAudioSettingsBlockParse = { 0, "AudioSettings", INI::parseAudioSettingsDefinition };	// VA 0x00DB3A08 "AudioSettings", parse 0x0004171A
 BlockParse theShadowMapBlockParse = { 0, "ShadowMap", parseShadowMapBlock };	// VA 0x00DB4488 "ShadowMap", parse 0x0007BE1E
 BlockParse theLoadSubsystemBlockParse = { 0, "LoadSubsystem", parseSubsystemLegendDefinition };	// VA 0x00DB7034 "LoadSubsystem", parse 0x001B4E07
-BlockParse theArmorBlockParse = { 0, "Armor", ArmorStore::parseArmorDefinition };	// VA 0x00DB8A74 "Armor", parse 0x001D9484
 BlockParse theBridgeBlockParse = { 0, "Bridge", INI::parseTerrainBridgeDefinition };	// VA 0x00DB8B8C "Bridge", parse 0x001DAEB8
 BlockParse theCommandSetBlockParse = { 0, "CommandSet", ControlBar::parseCommandSetDefinition };	// VA 0x00DB8C50 "CommandSet", parse 0x0031EC03
 BlockParse theControlBarSchemeBlockParse = { 0, "ControlBarScheme", INI::parseControlBarSchemeDefinition };	// VA 0x00DB8C80 "ControlBarScheme", parse 0x001DB68C
@@ -249,9 +225,6 @@ BlockParse theLinearCampaignBlockParse = { 0, "LinearCampaign", LinearCampaignMa
 BlockParse theOnlineChatColorsBlockParse = { 0, "OnlineChatColors", INI::parseOnlineChatColorDefinition };	// VA 0x00DB918C "OnlineChatColors", parse 0x001EF471
 BlockParse theObjectCreationListBlockParse = { 0, "ObjectCreationList", ObjectCreationListStore::parseObjectCreationListDefinition };	// VA 0x00DB9344 "ObjectCreationList", parse 0x001F0C0B
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
-BlockParse thePlayerTemplateBlockParse = { 0, "PlayerTemplate", PlayerTemplateStore::parsePlayerTemplateDefinition };	// VA 0x00DB93BC "PlayerTemplate", parse 0x001FEFEC
-BlockParse theScienceBlockParse = { 0, "Science", ScienceStore::friend_parseScienceDefinition };	// VA 0x00DB9434 "Science", parse 0x001FFF3A
-BlockParse theRankBlockParse = { 0, "Rank", RankInfoStore::friend_parseRankDefinition };	// VA 0x00DB947C "Rank", parse 0x0020038E
 BlockParse theSpecialPowerBlockParse = { 0, "SpecialPower", SpecialPowerStore::parseSpecialPowerDefinition };	// VA 0x00DB94A4 "SpecialPower", parse 0x003B15D6
 BlockParse theShellMenuSchemeBlockParse = { 0, "ShellMenuScheme", INI::parseShellMenuSchemeDefinition };	// VA 0x00DB94D4 "ShellMenuScheme", parse 0x00200984
 BlockParse theUpgradeBlockParse = { 0, "Upgrade", UpgradeCenter::parseUpgradeDefinition };	// VA 0x00DB94F8 "Upgrade", parse 0x0026FA05
@@ -265,15 +238,12 @@ BlockParse theSkyboxTextureSetBlockParse = { 0, "SkyboxTextureSet", iniParseEnvi
 BlockParse theGlowEffectBlockParse = { 0, "GlowEffect", parseGlowEffect };	// VA 0x00DB9858 "GlowEffect", parse 0x00309FB3
 BlockParse theRingEffectBlockParse = { 0, "RingEffect", parseRingEffect };	// VA 0x00DB9864 "RingEffect", parse 0x00309FFD
 BlockParse theFireEffectBlockParse = { 0, "FireEffect", parseFireEffect };	// VA 0x00DB9870 "FireEffect", parse 0x0030A040
-BlockParse theLivingWorldRegionCampaignBlockParse = { 0, "LivingWorldRegionCampaign", parseLivingWorldRegionCampaignDefinition };	// VA 0x00DB993C "LivingWorldRegionCampaign", parse 0x00210A14
 BlockParse theLivingWorldObjectBlockParse = { 0, "LivingWorldObject", Rva0021376BParse };	// VA 0x00DB9A20 "LivingWorldObject", parse 0x0021376B
 BlockParse theLivingWorldMapInfoBlockParse = { 0, "LivingWorldMapInfo", parseLivingWorldMapInfoDefinition };	// VA 0x00DB9A2C "LivingWorldMapInfo", parse 0x00210F64
-BlockParse theModifierListBlockParse = { 0, "ModifierList", AttributeModifierStore::parseModifierListDefinition };	// VA 0x00DB9AD0 "ModifierList", parse 0x00214C4E
 BlockParse theCloudEffectBlockParse = { 0, "CloudEffect", parseCloudEffectDefinition };	// VA 0x00DB9B68 "CloudEffect", parse 0x0021526C
 BlockParse thePlayerAITypeBlockParse = { 0, "PlayerAIType", parsePlayerAITypeDefinition };	// VA 0x00DB9B74 "PlayerAIType", parse 0x00215C38
 BlockParse theVictorySystemDataBlockParse = { 0, "VictorySystemData", iniParseVictorySystemDefinition };	// VA 0x00DB9BA4 "VictorySystemData", parse 0x00215C54
 BlockParse theFactionVictoryDataBlockParse = { 0, "FactionVictoryData", iniParseFactionVictoryDefinition };	// VA 0x00DB9BB0 "FactionVictoryData", parse 0x00215D0B
-BlockParse theBannerTypeBlockParse = { 0, "BannerType", BannerUI::ParseBannerTypeInfo };	// VA 0x00DB9BF8 "BannerType", parse 0x00217194
 BlockParse theFontDefaultSettingsBlockParse = { 0, "FontDefaultSettings", FontLibrary::ParseFontDefaultSettings };	// VA 0x00DB9C04 "FontDefaultSettings", parse 0x00218C82
 BlockParse theFontSubstitutionBlockParse = { 0, "FontSubstitution", parseFontSubstitutionDefinition };	// VA 0x00DB9C10 "FontSubstitution", parse 0x00219005
 BlockParse theCreateAHeroSystemBlockParse = { 0, "CreateAHeroSystem", CreateAHeroManager::iniParseCreateAHeroSystem };	// VA 0x00DB9D38 "CreateAHeroSystem", parse 0x0022044C

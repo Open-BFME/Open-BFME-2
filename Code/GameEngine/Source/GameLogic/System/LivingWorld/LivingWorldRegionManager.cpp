@@ -707,3 +707,27 @@ bool LivingWorldRegionManager::rva0020E813(RegionBattleView *region) const
  }
  return true;
 }
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// node's entry 0x007AD8FA (node 0x00DB993C) as the unit's only initializer
+// before its pool-init marker 0x007AD90F.
+void parseLivingWorldRegionCampaignDefinition( INI *ini );
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theLivingWorldRegionCampaignBlockParse( "LivingWorldRegionCampaign", parseLivingWorldRegionCampaignDefinition );

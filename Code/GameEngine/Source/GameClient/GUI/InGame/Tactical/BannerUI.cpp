@@ -1496,3 +1496,27 @@ Rva00216BF5::~Rva00216BF5()
 // tu-skeleton: 0x0076E211 8B uw_0076e211 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E2A4 8B uw_0076e2a4 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// unit's Drawable.h copy 0x007ADA3C (static 0x00DFE330 after TheBannerUI), then
+// this node's entry 0x007ADA4C (node 0x00DB9BF8), then its pool-init marker
+// 0x007ADA61.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theBannerTypeBlockParse( "BannerType", BannerUI::ParseBannerTypeInfo );
