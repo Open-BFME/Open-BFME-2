@@ -566,6 +566,13 @@ Recorded as a false reject in `reverse/re_attempts.log`. Next check (tooling
 seat): admit TU-scoped C static function names, repoint the row, delete the
 union owner and retire the four piNextID keys. No clearance is claimed.
 
+**piNextID extern trial (2026-11-04, `claude`):** making pingerMain.c's counter
+external (peerPing.c extern, Rva006B2150 through a view) breaks `_pingerPing`
+and `_piProcessTrip1`: retail's dword counter load needs a TU-static `uint16`.
+Next step is therefore the pinger TU approval and merge of peerPing.c's pinger
+rows, plus the TU-scoped C-static row names above (`re_attempts.log`, `_piNextID`
+0x00A0C0EC). Reverted; no clearance is claimed.
+
 #### Debug dialog flag ownership follow-up (2026-10-28)
 
 The shared external-flag trial remains blocked at base `2451819902`.
