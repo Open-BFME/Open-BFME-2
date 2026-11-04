@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?rva00171720@MeshModelClass@@QAE_NXZ retail 0x00171720 55B unlock lane.
 // MeshModelClass predicate using CurMatDesc fields +0xB8/+0x108 and +0xBC,
@@ -7,18 +7,7 @@
 // The two material-description gates return m_bc by implicit int-to-bool
 // conversion, which is what keeps retail's `cmp [ecx+0xbc],0; setne al`
 // free of the register-zeroing `xor eax,eax` an explicit `!= 0` emits.
-class MeshMatDescClass
-{
-public:
-	bool Do_Mappers_Need_Normals();
-	friend class MeshModelClass;
-
-private:
-	unsigned char m_padB8[0xB8];
-	int m_b8;
-	unsigned char m_padBC[0x108 - 0xBC];
-	int m_108;
-};
+#include "MeshMatDescClass.h"
 
 class MeshModelClass
 {
@@ -39,9 +28,9 @@ private:
 
 bool MeshModelClass::rva00171720()
 {
-	if (CurMatDesc->m_b8 != 0)
+	if (CurMatDesc->field_B8[0] != 0)
 		return m_bc;
-	if (CurMatDesc->m_108 != 0)
+	if (CurMatDesc->field_108[0] != 0)
 		return m_bc;
 	return m_listFirst != (void *)&m_listHead;
 }

@@ -3,18 +3,10 @@
 // BFME2 D206A is a complete 35B owning-handle return via CurMatDesc at +0x94.
 // Its callee is the MeshMatDesc peek D2026, as ZH meshmdl.h forwards.
 // Keep the callee out of this TU so the retail call and register saves survive.
-class TextureBaseClass { public: void Release_Ref(); };
+#include "MeshMatDescClass.h"
+
+class TextureBaseClass { public: void Add_Ref(); void Release_Ref(); };
 class TextureClass : public TextureBaseClass {};
-template<class T> class RefCountPtr {
-public:
-    T *p;
-    RefCountPtr(const RefCountPtr&);
-    ~RefCountPtr() { if(p) p->Release_Ref(); }
-};
-class MeshMatDescClass {
-public:
-    RefCountPtr<TextureClass> Peek_Single_Texture(int pass,int stage) const;
-};
 #include "MeshModelClass.h"
 // Emitted as a noinline inline COMDAT so MaterialCollectorCollectMaterials.cpp's
 // visible in-class copy (kept there for its codegen) folds instead of colliding.
