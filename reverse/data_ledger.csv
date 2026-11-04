@@ -18131,8 +18131,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EBBC0,4,.data,global,?TheW3DPropDrawPoolKey@?1??rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp,owned,,1,2
 0x009EBBC4,4,.data,global,?$S1@?1??rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp,owned,,1,4
 0x009EBBC8,4,.data,global,_s_rva007AC4E5,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009EBBCC,4,.data,global,?TheW3DFloorDrawPoolKey@?1??getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawPoolKey.cpp,owned,,1,2
-0x009EBBD0,4,.data,global,?$S1@?1??getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawPoolKey.cpp,owned,,1,4
+0x009EBBCC,4,.data,global,?TheW3DFloorDrawPoolKey@?1??getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp,owned,,1,2
+0x009EBBD0,4,.data,global,?$S1@?1??getModuleNameKey@W3DFloorDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp,owned,,1,4
 0x009EBBD4,4,.data,global,_s_rva007AC50F,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009EBBD8,4,.data,global,?TheW3DLightDrawPoolKey@?1??getModuleNameKey@W3DLightDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLightDrawPoolKey.cpp,owned,,1,2
 0x009EBBDC,4,.data,global,?$S1@?1??getModuleNameKey@W3DLightDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DLightDrawPoolKey.cpp,owned,,1,4
