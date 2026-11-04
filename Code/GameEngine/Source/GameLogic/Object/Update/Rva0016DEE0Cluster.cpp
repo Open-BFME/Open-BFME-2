@@ -116,18 +116,9 @@ enum NameKeyType
     FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class DamageFX
-{
-public:
-    int m_valueWords[0x1E0];
-};
+#include "../../../../Include/Common/DamageFXClass.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline pair<NameKeyType const ,DamageFX>::pair(NameKeyType const &a,DamageFX const &b) : first(a), second(b) {} }
-
-inline bool operator==(const DamageFX &x, const DamageFX &y)
-{
-    return x.m_valueWords[0] == y.m_valueWords[0];
-}
 
 namespace rts
 {

@@ -66,27 +66,7 @@ extern const char * const DamageFXDamageTypeNames[] = {
 #define LEVEL_FIRST 0
 #define LEVEL_LAST 3
 
-struct DamageDFX
-{
-	Real m_amountForMajorFX;
-	void *m_majorDamageFXList;
-	void *m_minorDamageFXList;
-	UnsignedInt m_damageFXThrottleTime;
-};
-
-class Object;
-class FXList;
-class DamageFX
-{
-public:
-	static void parseAmount(INI *ini, void *instance, void *store, const void *userData);
-	static void parseMajorFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseMinorFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseTime(INI *ini, void *instance, void *store, const void *userData);
-	void *rva003605E3(int damageType, float amount, const Object *unused);
-	bool rva003608DF(int damageType, float amount, const Object *a, const Object *victim);
-	DamageDFX m_dfx[DAMAGE_NUM_TYPES][4];
-};
+#include "../../Include/Common/DamageFXClass.h"
 class FXList
 {
 public:
@@ -141,7 +121,7 @@ void DamageFX::parseMajorFXList(INI *ini, void *instance, void *store, const voi
 	ConstCharPtrArray names = (ConstCharPtrArray)userData;
 	int vetFirst, vetLast, damageFirst, damageLast;
 	parseCommonStuff(ini, names, vetFirst, vetLast, damageFirst, damageLast);
-	void *fx;
+	const FXList *fx;
 	INI::parseFXList(ini, 0, &fx, 0);
 	for (Int dt = damageFirst; dt <= damageLast; ++dt)
 	{
@@ -158,7 +138,7 @@ void DamageFX::parseMinorFXList(INI *ini, void *instance, void *store, const voi
 	ConstCharPtrArray names = (ConstCharPtrArray)userData;
 	int vetFirst, vetLast, damageFirst, damageLast;
 	parseCommonStuff(ini, names, vetFirst, vetLast, damageFirst, damageLast);
-	void *fx;
+	const FXList *fx;
 	INI::parseFXList(ini, 0, &fx, 0);
 	for (Int dt = damageFirst; dt <= damageLast; ++dt)
 	{
@@ -194,8 +174,8 @@ void *DamageFX::rva003605E3(int damageType, float amount, const Object *unused)
 	if (amount == 0.0f)
 		return 0;
 	if (amount >= m_dfx[damageType][0].m_amountForMajorFX)
-		return m_dfx[damageType][0].m_majorDamageFXList;
-	return m_dfx[damageType][0].m_minorDamageFXList;
+		return (void *)m_dfx[damageType][0].m_majorDamageFXList;
+	return (void *)m_dfx[damageType][0].m_minorDamageFXList;
 }
 
 // ?rva003608DF@DamageFX@@QAE_NHMPBVObject@@0@Z @0x003608DF 50B: DamageFX doFX wrapper

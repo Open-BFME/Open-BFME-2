@@ -10,16 +10,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class DamageFX
-{
-public:
-	int m_valueWords[0x1E0];
-};
-
-inline bool operator==(const DamageFX &x, const DamageFX &y)
-{
-	return x.m_valueWords[0] == y.m_valueWords[0];
-}
+#include "../../Include/Common/DamageFXClass.h"
 
 namespace rts
 {
