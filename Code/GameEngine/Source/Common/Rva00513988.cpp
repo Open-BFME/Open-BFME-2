@@ -3,12 +3,7 @@
 // AptMyHero::rva005B1A6C (rowed in AptMyHero.cpp) on the embedded hero at
 // this+0x27C, then invokes virtual slot 1 on five pointers at this+0x418.
 // The containing class identity and member meanings are unknown.
-class AptMyHero {
-public:
-    void rva005B1A6C();
-    void FrameUpdate();
-    void rva005B1019();
-};
+#include "../../Include/GameClient/AptMyHero.h"
 
 class Rva005B02B5 {
 public:
@@ -32,7 +27,7 @@ public:
 private:
     char m_pad0[0x27c];
     AptMyHero m_hero;                   // +0x27C
-    char m_pad27D[0x410 - 0x27d];
+    char m_pad40C[0x410 - 0x40c];
     Rva00513988Part *m_selected;        // +0x410
     char m_pad414[4];
     Rva00513988Part *m_parts[5];        // +0x418

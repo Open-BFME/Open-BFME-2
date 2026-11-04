@@ -22,12 +22,14 @@ extern int g_00E06468;
 // g_00E06468: matched references place it at VA 0xe06468 (zero-filled .bss).
 int g_00E06468;
 
-class AptMyHero {
-    char _pad[0x15c];
-    _STL::vector<BfmePod8> _vec;
-public:
-    BfmePod8 *GetObjectInfo(int idx);
-};
+#include "../../../../GameEngine/Include/GameClient/AptMyHero.h"
+
+// The canonical header keeps the +0x15C vector opaque (field15C); this TU
+// reads it as the STLport vector of 8-byte entries the body indexes.
+static __forceinline _STL::vector<BfmePod8> &AptMyHeroObjectInfo(AptMyHero *hero)
+{
+    return *reinterpret_cast<_STL::vector<BfmePod8> *>(hero->field15C);
+}
 
 BfmePod8 *AptMyHero::GetObjectInfo(int idx)
 {
@@ -36,7 +38,7 @@ BfmePod8 *AptMyHero::GetObjectInfo(int idx)
         g_00E06460.a = 0;
         g_00E06460.b = 0.0f;
     }
-    if ((unsigned int)idx >= _vec.size())
+    if ((unsigned int)idx >= AptMyHeroObjectInfo(this).size())
         return &g_00E06460;
-    return &_vec[idx];
+    return &AptMyHeroObjectInfo(this)[idx];
 }

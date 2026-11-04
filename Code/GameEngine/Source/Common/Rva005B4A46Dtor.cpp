@@ -23,7 +23,7 @@ class Rva00406F12 {public:bool rva00406F12(int);};
 class Rva00406F27 {public:bool rva00406F27(int);};
 class Rva00406F3C {public:bool rva00406F3C(int);};
 class AppearanceHeroView {public:virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void refresh(bool);virtual void refresh14();char unknown04[0x2C-4];unsigned m_hairColor,m_skinColor,m_paintColor;};
-class AptMyHero {public:void AdjustBling(int,int,int);void rva005B0FCD(int);void rva005B0923(int);void rva005B097F(int);};
+#include "../../Include/GameClient/AptMyHero.h"
 class CreateAHeroHero {public:bool SetDefaultColors();};
 class Rva005B4BDB {public:void rva005B4C3C();void rva005B4BDB();void rva005B4AD9(int);};
 class Rva005B5C02Box {public:void Run();};
@@ -131,8 +131,8 @@ protected:
 // WorldBuilder: AptCreateAHero::Appearance (WB VA 0x0157AE60 for ExternFunc,
 // callgraph lead score 4); the command-map strings in the constructor below
 // spell the same scope.
-namespace AptCreateAHero {
-class Appearance : public Rva005B253F
+#include "../../Include/Common/AptCreateAHero.h"
+class AptCreateAHero::Appearance : public Rva005B253F
 {
 public:
 	Appearance(AppearanceOwner*);
@@ -154,7 +154,6 @@ private:
 	char m_pad0C;
 	bool m_imeActive;
 };
-}
 
 AptCreateAHero::Appearance::~Appearance()
 {
