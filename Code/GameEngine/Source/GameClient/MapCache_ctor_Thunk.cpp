@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -54,11 +54,17 @@ template <> Lk6AsciiSetTree::~_Rb_tree();
 template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 }
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/MapUtil.h
-struct MapMetaData
-{
-	unsigned char m_data[252];
-};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
+
+// Declaration-only: the map<AsciiString, MapMetaData> tree teardown is
+// emitted by the cache units that own it; this TU only references it.
+namespace _STL {
+typedef pair<const AsciiString, MapMetaData> MapCacheValue;
+typedef _Rb_tree<AsciiString, MapCacheValue, _Select1st<MapCacheValue>, less<AsciiString>, allocator<MapCacheValue> > MapCacheTree;
+template <> _Rb_tree_base<MapCacheValue, allocator<MapCacheValue> >::~_Rb_tree_base();
+template <> void MapCacheTree::_M_erase(_Rb_tree_node<MapCacheValue> *);
+}
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/MapUtil.h
 class MapCache : public std::map<AsciiString, MapMetaData>
