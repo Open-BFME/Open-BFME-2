@@ -21,6 +21,7 @@ struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;
 #define aptValueStack (*(AptBasePtrStack *)&g_aptDateInterpreter)
 
+#include "../../../Libraries/Source/Apt/AptValue.h"
 #include "../../Include/Common/AptInteger.h"
 
 // The growth helper 0x006D9500 is rowed as Rva006D9500::rva006D9500.
