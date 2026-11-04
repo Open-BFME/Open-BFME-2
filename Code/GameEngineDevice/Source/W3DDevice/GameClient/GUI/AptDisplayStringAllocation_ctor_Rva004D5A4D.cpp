@@ -8,26 +8,14 @@
 // Rect/size aggregate initialization preserves the native store order. The
 // two volatile rectangle stores retain retail's y-before-right write ordering.
 // Existing display-string shims put getSize at +0x30; this body calls +0x3C
-// and +0x48, so its observed virtual interface is kept local. The text fetch
-// by-value ABI at +0x24 also agrees with GameTextFetchAscii.cpp (0x00436F90).
-// UnicodeString's canonical four-byte view forwards the native StringBase
-// construction directly; placement-new would introduce a spurious null check.
+// and +0x48, so its observed virtual interface is kept local. This split
+// unit emits only setSize and uses the shared BFME2 text and string declarations.
 
 #include <string>
 #include <string.h>
 #include <new>
-#include "string_base.h"
-template<> inline char StringBase<char>::getCharAt(int i) const { return m_data ? m_data->data[i] : 0; }
-template<> inline bool StringBase<char>::isEmpty() const { return !m_data || m_data->length==0; }
-template<> inline void StringBase<char>::set(const char *s) { set(s,s?strlen(s):0); }
-#include "ascii_string.h"
-inline AsciiString::AsciiString(const char *s,int n):StringBase<char>(s,n) {}
-#include "unicode_string.h"
-inline UnicodeString::UnicodeString() { new(this) StringBase<unsigned short>(); }
-inline UnicodeString::UnicodeString(const UnicodeString &unicodeString) { ((StringBase<unsigned short>*)this)->StringBase<unsigned short>::StringBase(*(const StringBase<unsigned short>*)&unicodeString); }
-inline UnicodeString::~UnicodeString() { ((StringBase<unsigned short>*)this)->~StringBase<unsigned short>(); }
-inline UnicodeString &UnicodeString::operator=(const UnicodeString &s) { ((StringBase<unsigned short>*)this)->set(*(const StringBase<unsigned short>*)&s); return *this; }
-inline UnicodeString &UnicodeString::operator=(const wchar_t *s) { ((StringBase<unsigned short>*)this)->set((const unsigned short*)s,s?wcslen(s):0); return *this; }
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 std::wstring MultiByteToWideCharSingleLine(const char*);
 class GameFont;
 class FontLibrary { public: GameFont *getFont(AsciiString*,float,unsigned char); };
@@ -56,13 +44,7 @@ public:
  virtual DisplayString *newDisplayString();
 };
 extern DisplayStringManager *TheDisplayStringManager;
-class GameTextInterface {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();
- virtual UnicodeString fetch(AsciiString,bool*);
-};
-extern GameTextInterface *TheGameText;
+#include "../../../../../GameEngine/Include/GameClient/GameText.h"
 class AptTextListener;
 class WindowManager { public: void bfme_bindAptText(const AsciiString&,const UnicodeString&,AptTextListener*); };
 extern WindowManager *g_rva012F19E8WindowManager;

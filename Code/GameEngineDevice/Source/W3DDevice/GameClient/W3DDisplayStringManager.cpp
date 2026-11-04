@@ -51,19 +51,7 @@ struct DrawGroupInfo
 // holds.
 DrawGroupInfo *TheDrawGroupInfo = 0;
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void vslot01() = 0; virtual void vslot02() = 0; virtual void vslot03() = 0;
-	virtual void vslot04() = 0; virtual void vslot05() = 0; virtual void vslot06() = 0;
-	virtual void vslot07() = 0; virtual void vslot08() = 0; virtual void vslot09() = 0;
-	virtual void vslot10() = 0; virtual void vslot11() = 0; virtual void vslot12() = 0;
-	// cl 7.1 lays overloaded virtuals out in reverse declaration order:
-	// fetch(const char *) is slot 13, fetch(const AsciiString &) slot 14.
-	virtual UnicodeString fetch( const AsciiString &label, Bool *exists = 0 ) = 0;
-	virtual UnicodeString fetch( const char *label, Bool *exists = 0 ) = 0;
-};
+#include "../../../../GameEngine/Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
