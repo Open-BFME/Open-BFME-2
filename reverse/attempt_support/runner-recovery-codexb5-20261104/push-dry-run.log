@@ -1,0 +1,40 @@
+check_csv: OK (functions.csv 99433 rows, symbols.csv 9341 rows, data_rows.csv 2269 rows)
+Pin consistency: OK (5 multi-pinned symbols of 9336; 0 baselined, 0 new, 0 stale)
+Pin baseline: OK (0 entries, 0 removed vs 53af3e7376712a460f6ba49af3c9cfcc2391d4c0, 0 added)
+pin admission: OK
+reverse/gate_baseline.txt: OK (no line added)
+EH baseline: OK (outgoing shrink-only; 0 new key(s))
+pre-push: static checks and scope (concurrent) 4.32s
+pre-push: receipt lookup 0.00s
+pre-push: 0 of 2 source(s) proven by receipts
+pre-push: receipts (2 of 2 left to verify) 0.09s
+pre-push: source binding 0.01s
+Source claims: OK (2 sources, scoped byte-verified)
+Funclet pins: 6 row(s) verified past a renumbered $L label
+    Unwind@00b7a6a7 (Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp): $L44539 was renumbered; verified parent EH data places $L86992 at 0x0077A6A7
+    Unwind@00b7a6af (Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp): $L44540 was renumbered; verified parent EH data places $L86993 at 0x0077A6AF
+    Unwind@00b7a6b7 (Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp): $L44541 was renumbered; verified parent EH data places $L86994 at 0x0077A6B7
+    Unwind@00b7a5b5 (Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp): $L44028 was renumbered; verified parent EH data places $L86556 at 0x0077A5B5
+    Unwind@00b7a5c0 (Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp): $L44029 was renumbered; verified parent EH data places $L86557 at 0x0077A5C0
+Functions: OK 34/34 matched across 2 source file(s)
+String-ref verify: OK (27 literals + 2 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (3 named imports verified)
+pre-push: byte-verify (2 sources, full=0) 16.99s
+pre-push: carried cross-checks 0.00s
+scoped DIR32: no receipt index in this clone; judging the verified sources alone
+scoped DIR32: 34 verified row(s) and 0 witness row(s)
+DIR32 consistency: OK (30 symbols; 0 whitelisted, 0 PE-verified duplicate import(s), 0 new)
+EH verify: 6 row(s) with EH data (EXACT 6); 0 not exact, 0 in baseline; 0 row(s) without an object; 0.4s
+data_check (converged, enforced): 2 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+link batch audit: INCONCLUSIVE baseline: index at 8661f15284, outgoing base 53af3e7376712a460f6ba49af3c9cfcc2391d4c0; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 2 source object(s) lack current receipts; first: Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+pre-push: scoped DIR32 + eh + data audits, link_batch_audit, replay_check (concurrent) 3.96s
+pre-push: receipt record 0.00s
+pre-push: landing window wait 0.49s
+PRE-PUSH OK (2 outgoing source(s) byte-verified)
+pre-push: publisher_hook 0.03s
+To https://github.com/Open-BFME/Open-BFME-2.git
+   53af3e7376..871c12002a  HEAD -> master
+push: attempt 1: landed 4 commit(s) at 871c12002a in 27.2 s (rebase 0.6 s, hook and push 26.6 s)
