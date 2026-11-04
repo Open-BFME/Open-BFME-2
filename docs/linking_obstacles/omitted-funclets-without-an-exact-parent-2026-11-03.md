@@ -15,6 +15,13 @@ parent; none is inferred from adjacency:
   ever enters the second state, and ours emits one. Basing `Rva006D6360Base` on
   `BfmeAptValue006DCD20` gives the right first target but not the second state.
 
+Cleared 2026-11-04, seat ancalgonn-ops-srv1: `uw_007a8dc0`, `uw_007a8dc8`. Retail's second state, which no write
+enters, belongs to a middle class: `RVA_APT_CTOR` now derives through `Rva006D6470Owner`, whose destructor is
+0x006D6470, with that constructor inlined. The compiler keeps the state only when something after the middle
+class could throw at the point it assigns states, so the body carries `if(0){throw 0;}`, as `RVA_APT_FLAG_CTOR`
+already did. `AptValue.cpp` redefines the macro locally. Result: 30/30 rows, `eh_verify` EXACT on all ten EH
+rows, and `kept_funclet_locations` finds both RVAs emitted by the six constructors. Not yet measured by a real link.
+
 Tried without effect on the state count: empty-dtor locals and temporaries beside the lock or in
 the dead loop, constant-false and after-return locks (W3DMouse); a dtor or dtor-bearing member on
 `Rva006DBits`, an inline `clear()`, an inline setter in the macro body, an out-of-line base dtor
