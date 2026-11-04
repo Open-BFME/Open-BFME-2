@@ -59,14 +59,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 { allocator<char>::deallocate(__p, __n); }
 }
 
-class File {
-public:
-    virtual ~File();
-    virtual bool open(const char *n, int a = 0);
-    virtual void close();
-    virtual int read(void *b, int bsz);
-    virtual int write(const void *b, int bsz);
-};
+#include "../../Include/Common/File.h"
 #include "../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
 extern "C" void __cdecl free(void *p);
