@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-//
+// stlport
 // BFME2's online login screen Apt callback "AptOnline::Login::AcceptLocale",
 // 0x00572571, bound by that name as a member pointer by the screen's
 // registration; that binding is its only reference. Unlike the link
@@ -12,24 +12,8 @@ class GameWindow;
 void GadgetListBoxGetSelected(GameWindow *listBox, int *selected);
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-};
-
-class GameSpyMiscPreferences : public UserPreferences
-{
-public:
-	GameSpyMiscPreferences();
-	virtual ~GameSpyMiscPreferences();
-
-	// Rowed 0x005597CB (stores the locale).
-	void rva005597CB(int locale);
-
-	unsigned char m_rest[0x14 - 0x04];
-};
+#include "../../../../../Include/Common/UserPreferences.h"
+#include "../../../../../Include/Common/GameSpyMiscPreferencesClass.h"
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 

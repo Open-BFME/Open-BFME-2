@@ -17,7 +17,7 @@ class PSPlayerAllStats{public:~PSPlayerAllStats();Rva003844D7 rva00389DF1()const
 class Rva005537BA{public:unsigned short rva005537BA();};class Rva005537EB{public:unsigned short rva005537EB();};class Rva00553D26{public:unsigned char rva00553D26();};
 class Rva00559D0CRankWeights{public:int rva00559E48(const Rva00553E47StatsCore*)const;int rva00559DA0(const Rva00553E47StatsCore*,int)const;private:char table[0x34];};
 extern Rva00559D0CRankWeights g_00E05FCC,g_00E06000;
-class GameSpyMiscPreferences{public:GameSpyMiscPreferences();virtual ~GameSpyMiscPreferences();int rva00559782();private:char fields[0x10];};
+#include "../../../../Include/Common/GameSpyMiscPreferencesClass.h"
 #define S(n) virtual void slot##n();
 class GameSpyPSMessageQueueInterface{public:S(0)S(1)S(2)S(3)S(4)S(5)S(6)S(7)S(8)S(9)S(10)S(11)virtual PSPlayerAllStats get(int);};
 #undef S

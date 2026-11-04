@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-//
+// stlport
 // BFME2's online shell Apt callbacks "AptOnline::ShellUnloadScreen",
 // 0x005171A3, and "AptOnline::ShellLoadScreen", 0x00517724, bound by those
 // names as member pointers by the shell's registration; that binding is
@@ -46,25 +46,8 @@ struct AptOnlineSubScreen
 
 class AptOnline;
 
-// The GameSpy misc preferences file and the UserPreferences members it
-// keeps (all rowed).
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual void setBool(const AsciiString &key, bool value);
-	virtual bool write();
-	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
-};
-
-class GameSpyMiscPreferences : public UserPreferences
-{
-public:
-	GameSpyMiscPreferences();
-	virtual ~GameSpyMiscPreferences();
-
-	unsigned char m_rest[0x14 - 0x04];
-};
+#include "../../../../../Include/Common/UserPreferences.h"
+#include "../../../../../Include/Common/GameSpyMiscPreferencesClass.h"
 
 // The shell's sub-screens by name (0x00DD1568, ended by a null name): each
 // is made by its factory and sets the shell's mode at +0x2B4.
