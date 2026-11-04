@@ -22,23 +22,7 @@ struct Parent0056B218
 	Rva005A0B4CList holder;
 };
 
-class Rva0056AC26
-{
-public:
-	Rva0056AC26(Rva0056AC26Owner *owner);
-	virtual ~Rva0056AC26();
-private:
-	char m_pad04[4];
-};
-
-class __declspec(novtable) Rva0056B218B1
-{
-public:
-	virtual ~Rva0056B218B1() {}
-	virtual void b1Anchor();
-	int m_a8;
-	int m_bC;
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 class Rva0056B218B2
 {
@@ -47,7 +31,7 @@ public:
 	virtual ~Rva0056B218B2() {}
 };
 
-class Rva0056B218 : public Rva0056AC26, public Rva0056B218B1, public Rva0056B218B2
+class Rva0056B218 : public Rva0056AC26, public Rva0056B218B2
 {
 public:
 	Rva0056B218(Rva0056AC26Owner *owner, Parent0056B218 *first, Parent0056B218 *second);

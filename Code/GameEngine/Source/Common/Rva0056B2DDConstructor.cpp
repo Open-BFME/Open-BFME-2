@@ -23,22 +23,7 @@ struct Parent0056B2DD
 	Rva005A0B4CList holder;
 };
 
-class Rva0056AC26
-{
-public:
-	Rva0056AC26(Rva0056AC26Owner *owner);
-	virtual ~Rva0056AC26();
-private:
-	char m_pad04[4];
-};
-
-class __declspec(novtable) Rva0056B2DDB1
-{
-public:
-	virtual ~Rva0056B2DDB1() {}
-	int m_a8;
-	int m_bC;
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 class Rva0056B2DDB2
 {
@@ -63,7 +48,7 @@ public:
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
-class Rva0056B2DD : public Rva0056AC26, public Rva0056B2DDB1, public Rva0056B2DDB2
+class Rva0056B2DD : public Rva0056AC26, public Rva0056B2DDB2
 {
 public:
 	Rva0056B2DD(Rva0056AC26Owner *owner, Parent0056B2DD *parent, int value);

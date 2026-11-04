@@ -12,20 +12,9 @@ struct Parent0056B0BF {
     char pad[8];
     Rva002B7250 holder;
 };
-class Rva0056AC26 {
-public:
-    virtual ~Rva0056AC26();
-private:
-    char m_pad04[4];
-};
-class __declspec(novtable) Rva0056B0BFB1 {
-public:
-    virtual ~Rva0056B0BFB1() {}
-    int m_a8;
-    int m_bC;
-};
+#include "../../Include/Common/Rva0056AC26.h"
 #include "../../Include/Common/LivingWorldBattleListener.h"
-class Rva0056B0BF : public Rva0056AC26, public Rva0056B0BFB1, public LivingWorldBattleListener {
+class Rva0056B0BF : public Rva0056AC26, public LivingWorldBattleListener {
 public:
     virtual ~Rva0056B0BF();
 private:

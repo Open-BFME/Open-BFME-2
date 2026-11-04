@@ -77,35 +77,7 @@ TargetRef00217D4C *m_ref;
  }
 ;
 
-class Rva0056AC26A
-{
-
-public:
-virtual ~Rva0056AC26A();
-
-private:
-int m_04;
-}
-;
-
-class Rva0056AC26B
-{
-
-public:
-virtual ~Rva0056AC26B();
-
-private:
-int m_04,m_08;
-}
-;
-
-class Rva0056AC26:public Rva0056AC26A,public Rva0056AC26B
-{
-
-public:
-virtual ~Rva0056AC26();
-}
-;
+#include "../../../../Include/Common/Rva0056AC26.h"
 
 struct Parent0056B126;
  struct Parent0056B218;
@@ -117,6 +89,7 @@ class Rva0056B126:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056B126(Rva0056AC26Owner *,Parent0056B126 *,int);
 
 private:
@@ -128,6 +101,7 @@ class Rva0056B188:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056B188(Rva0056AC26Owner *,int,Rva0056B188Owner *);
 
 private:
@@ -139,6 +113,7 @@ class Rva0056B218:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056B218(Rva0056AC26Owner *,Parent0056B218 *,Parent0056B218 *);
 
 private:
@@ -150,6 +125,7 @@ class Rva0056B2DD:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056B2DD(Rva0056AC26Owner *,Parent0056B2DD *,int);
 
 private:
@@ -161,6 +137,7 @@ class Rva0056B0BF:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056B0BF(Rva0056AC26Owner *,Parent0056B0BF *);
 
 private:
@@ -174,6 +151,7 @@ class Rva0056ACC5:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056ACC5(Rva0056AC26Owner *,LivingWorldPendingBattle *);
 
 private:
@@ -185,6 +163,7 @@ class Rva0056AF4B:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056AF4B(void *,int,int);
 
 private:
@@ -196,6 +175,7 @@ class Rva0056AF94:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056AF94(void *);
 }
 ;
@@ -204,6 +184,7 @@ class Rva0056AC82:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056AC82(Rva0056AC26Owner *,void *,void *);
 }
 ;
@@ -212,6 +193,7 @@ class Rva0056ADF1:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056ADF1(void *,int);
 
 private:
@@ -223,6 +205,7 @@ class Rva0056AD19:public Rva0056AC26
 {
 
 public:
+virtual bool ac26Slot1();
 Rva0056AD19(Rva0056AC26Owner *);
 
 private:
