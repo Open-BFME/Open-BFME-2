@@ -86,7 +86,9 @@ class AptString { public: static AptString *Create(); };
 
 class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); int count,capacity; BfmeAptValue006DCD20 **elements; };
 
-struct AptActionInterpreter { AptBasePtrStack stack; };
+// Retail's constructor (0x006FE980) zeroes words out to +0x3C and the ledger's gap is 72 bytes. This view names
+// only the stack, so the rest is storage: as 12 bytes the constructor overwrote its neighbours at startup.
+struct AptActionInterpreter { AptBasePtrStack stack; char m_rest[72 - sizeof(AptBasePtrStack)]; };
 
 // g_aptDateInterpreter: matched references place it at VA 0xe182e0 (zero-filled; a plain-data view).
 AptActionInterpreter g_aptDateInterpreter;
