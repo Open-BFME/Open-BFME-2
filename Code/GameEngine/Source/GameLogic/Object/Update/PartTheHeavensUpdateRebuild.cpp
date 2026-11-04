@@ -15,7 +15,7 @@
 class FCurve
 {
 public:
-	float operator()(float v);
+	float operator()(float t);
 };
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
