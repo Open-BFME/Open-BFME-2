@@ -26,21 +26,22 @@ public:
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;
 
-template <int N> class Rva004C9E1FSlots : public Rva004C9E1FSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Rva004C9E1FSlots<1>
-{
-public:
-	virtual void gap(char (*)[1]) = 0;
-};
-
-class ModuleData;
+struct ModuleData;
 class Drawable;
 
-#include "../../../../Include/Common/DrawableModule.h"
+class Rva0049B47C
+{
+public:
+	virtual ~Rva0049B47C();
+	const ModuleData *data;
+	Drawable *drawable;
+};
+
+class Rva004C9DC9Primary : public Rva0049B47C
+{
+public:
+	~Rva004C9DC9Primary() {}
+};
 
 class Rva004C9E33Iface
 {
@@ -49,33 +50,31 @@ public:
 	virtual void rva004C9E48() = 0;
 };
 
-class AnimationSoundClientBehavior : public DrawableModule, public Rva004C9E33Iface
+class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E33Iface
 {
 public:
 	virtual void rva004C9E1F(int a1, int a2, int a3);
 	virtual void rva004C9E33();
 	virtual void rva004C9E48();
-private:
-	Rva00432F23Node *node() { return (Rva00432F23Node *)(DrawableModule *)this; }
 };
 
 // ?rva004C9E1F@AnimationSoundClientBehavior@@UAEXHHH@Z @0x004C9E1F
 void AnimationSoundClientBehavior::rva004C9E1F(int, int, int)
 {
 	if (TheAnimationSoundModuleManager)
-		TheAnimationSoundModuleManager->rva00432E5D(node());
+		TheAnimationSoundModuleManager->rva00432E5D((Rva00432F23Node *)this);
 }
 
 // ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ @0x004C9E33
 void AnimationSoundClientBehavior::rva004C9E33()
 {
 	if (TheAnimationSoundModuleManager)
-		TheAnimationSoundModuleManager->rva00432E5D(node());
+		TheAnimationSoundModuleManager->rva00432E5D((Rva00432F23Node *)this);
 }
 
 // ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ @0x004C9E48
 void AnimationSoundClientBehavior::rva004C9E48()
 {
 	if (TheAnimationSoundModuleManager)
-		TheAnimationSoundModuleManager->rva00432EC0(node());
+		TheAnimationSoundModuleManager->rva00432EC0((Rva00432F23Node *)this);
 }

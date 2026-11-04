@@ -266,6 +266,8 @@ class AnimationSoundClientBehavior : public Rva004C9DC9Primary, public Rva004C9E
 {
 public:
     virtual ~AnimationSoundClientBehavior();
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void rva004C9E1F(int a1, int a2, int a3);
     virtual void rva004C9E33();
     virtual void rva004C9E48();
     void updateAnimationSounds();
