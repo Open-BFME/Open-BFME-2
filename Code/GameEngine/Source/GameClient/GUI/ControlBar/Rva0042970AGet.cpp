@@ -11,7 +11,7 @@ extern class ControlBar *TheControlBar;
 class Rva0031D5F8
 {
 public:
-	void *rva0031D5F8(const AsciiString *key);
+	void* rva0031D5F8(const AsciiString*);
 };
 
 class CommandButton;

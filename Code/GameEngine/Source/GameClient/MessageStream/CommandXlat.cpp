@@ -481,7 +481,11 @@ static __forceinline bool contextKind(const Object*unitObject,int bit) { return 
 class Rva0055A88BDwordField { public: int get() const; };
 class Rva0006EE7A : public BitFlags<69> { public: Rva0006EE7A(int,int,int); };
 bool Rva0027DC65Check(float*);
-class Rva0031D5F8 { public: void* rva0031D5F8(const AsciiString*); };
+class Rva0031D5F8
+{
+public:
+	void* rva0031D5F8(const AsciiString*);
+};
 class CommandSet { public: const CommandButton* getCommandButton(int) const; };
 class Rva0026F0F0 { public: void* rva0026F0F0(const void*); };
 class Rva0029DE76 { public: bool rva0029DE76(const Coord3D*); };
