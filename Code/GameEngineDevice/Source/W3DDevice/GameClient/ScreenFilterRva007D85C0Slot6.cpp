@@ -12,6 +12,7 @@
 
 struct IDirect3DBaseTexture8
 {
+public:
 	virtual long __stdcall QueryInterface(const void *riid, void **ppv) = 0;
 	virtual unsigned long __stdcall AddRef() = 0;
 	virtual unsigned long __stdcall Release() = 0;
