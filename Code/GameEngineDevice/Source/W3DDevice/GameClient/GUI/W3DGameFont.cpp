@@ -5,16 +5,28 @@
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 #include <stdlib.h>
 #include "Common/Debug.h"
-#include "W3DDevice/GameClient/W3DGameFont.h"
+#include "../../../../../GameEngine/Include/GameClient/GameFontClass.h"
+#include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
 #include "WW3D2/WW3D.h"
 #include "WW3D2/AssetMgr.h"
 #include "W3DGameFontRender2DSentence.h"
-#include "GameClient/GlobalLanguage.h"
+#include "../../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 #include <new>
 #include "../../../../../Libraries/Source/WWVegas/WWLib/simplevec.h"
 #include "simplevec.h"
 #include "../../../../../Libraries/Source/WWVegas/WWLib/always.h"
 #pragma comment(linker, "/alternatename:?Grow@?$SimpleDynVecClass@VVector3@@@@QAE_NH@Z=?Grow@?$SimpleDynVecClass@UBfmePod4@@@@IAE_NH@Z")
+
+// FontLibrary's slots 14/15 (FontLibrary.h); W3DFontLibrary overrides both.
+class W3DFontLibrary : public FontLibrary
+{
+public:
+	virtual ~W3DFontLibrary();
+
+protected:
+	virtual bool loadFontData(GameFont *font);
+	virtual void releaseFontData(GameFont *font);
+};
 
 class Rva0090034
 {
