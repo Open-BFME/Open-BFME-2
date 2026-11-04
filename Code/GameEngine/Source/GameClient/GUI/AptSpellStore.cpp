@@ -44,8 +44,8 @@ class CreateAHeroData;
 // The destructor is 0x0043D193 (state 2 of AptSpellStore's unwind map);
 // retail never stores state 1 before the constructor call, so the spell
 // store's constructor treats it as unable to throw.
-class Rva0043D193 { public: ~Rva0043D193(); };
-class __declspec(novtable) Rva0043D16F
+class __declspec(novtable) Rva0043D193 { public: ~Rva0043D193(); };
+class Rva0043D16F
 {
 public:
 	Rva0043D16F() throw();

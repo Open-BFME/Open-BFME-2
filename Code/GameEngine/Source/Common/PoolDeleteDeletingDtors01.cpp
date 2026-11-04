@@ -35,7 +35,7 @@ public:
 	};
 };
 
-class __declspec(novtable) Rva006DE350
+class Rva006DE350
 {
 public:
 	virtual ~Rva006DE350();

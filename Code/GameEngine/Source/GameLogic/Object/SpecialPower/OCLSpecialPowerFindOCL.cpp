@@ -38,7 +38,7 @@ class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterfac
  virtual bool rva0049466D(const Coord3D*);
 };
 class Rva004C31A8ScienceSelector { public: unsigned select() const; private: void *vtable; Rva004C31A8DataWords *m_data; Object *m_object; };
-class OCLSpecialPower:public SpecialPowerModule {protected:
+class __declspec(novtable) OCLSpecialPower:public SpecialPowerModule {protected:
  
 public:
  virtual void doSpecialPower(unsigned);
