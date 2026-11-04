@@ -7,6 +7,10 @@
   27 registrations are not in retail's table and 113 could not be identified. Next step: register
   them in retail's order. A table generated at exit-link time from retail's list needs no source
   change and can count down as real statics replace it; `??__E` rows should recover first.
+  Corrected 2026-11-04 (`212c0525c0`): those 54 rows, and the 60 "unreachable" entries, were already
+  registered. The report credited every object's `_$E1` to one ledger row. On `993e6014c8`: 228
+  registered, 938 bridged, 116 registered twice. Method and remaining families: LINK-236
+  (`link-236-static-initializers-the-exit-link-bridges.md`).
 - **Vtables: the link keeps a short copy of 1,734 (measured 2026-11-03 at `083582aacd`'s objects).** A
   private view declares only the slots it calls, so `??_7Snapshot@@6B@` has copies of 1, 2, 3, 4 and 8
   words where retail has 4. 9,804 of 9,808 copies are SELECT_ANY, so the first object in link order wins,
