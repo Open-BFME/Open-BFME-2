@@ -108,23 +108,7 @@ class Rva00271B03
  
 }
 ;
-class Rva000421C8
-{
- public:Rva000421C8():m_next(0)
- {
-  
- }
- virtual~Rva000421C8()
- {
-  
- }
- virtual bool allow(Object*)=0;
- virtual int getPlayerMask();
- Rva000421C8*link(Rva000421C8*);
- Rva000421C8*m_next;
- 
-}
-;
+#include "../../Include/GameLogic/PartitionFilter.h"
 class Rva00271B3CFilter:public Rva000421C8
 {
  public:Rva00271B3CFilter(int e):event(e)

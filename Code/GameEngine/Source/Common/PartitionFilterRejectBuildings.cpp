@@ -16,14 +16,7 @@ public:
 	int m_field5C;
 };
 #include "../GameLogic/Object/object.h"
-class Rva000421C8 {
-public:
- Rva000421C8():m_next(0){}
- virtual ~Rva000421C8(){}
- virtual bool allow(Object *)=0;
- virtual int getPlayerMask();
- Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 class PartitionFilterRejectBuildings:public Rva000421C8 {
 public:
  PartitionFilterRejectBuildings(Object *obj);

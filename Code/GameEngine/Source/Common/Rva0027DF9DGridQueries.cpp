@@ -576,16 +576,7 @@ class Player;
 class Team;
 class ThingTemplate;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next; // +0x04
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 class Rva0026119DFilter : public Rva000421C8
 {

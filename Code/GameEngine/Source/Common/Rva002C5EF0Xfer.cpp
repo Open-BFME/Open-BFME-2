@@ -92,16 +92,7 @@ template<class T> __forceinline volatile T &orderedMemberWrite(T &value)
     return *(volatile T *)&value;
 }
 
-class Rva000421C8
-{
-public:
-    Rva000421C8() : m_next(0) {}
-    virtual ~Rva000421C8() {}
-    virtual bool allow(Object *obj) = 0;
-    virtual int getPlayerMask(); // real row at 0x0036CC7A
-    Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
-    Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // Native BFAD10 slot1 tests effective-death status; donor purpose: alive filter.
 class Rva0026119DFilter : public Rva000421C8

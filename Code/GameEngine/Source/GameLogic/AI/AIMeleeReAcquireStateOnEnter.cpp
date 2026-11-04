@@ -16,16 +16,7 @@ class Object;
 class Player;
 class Weapon;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 
 // vftable 0x00BF8FE4, allow 0x0026109D; the out-of-line ctor 0x00261058.
