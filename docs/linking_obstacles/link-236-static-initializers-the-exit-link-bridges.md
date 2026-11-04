@@ -437,12 +437,16 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   flags. `* 2` (`add`), `* 3`/`* 5`/`* 10` (`imul`), `* 4` (`shl`) and `/ 4` (`push 4; pop ecx;
   idiv`) need the owner's own flags; blended `/O1` emits `lea`. Sixteen are the `/ 2` shape. Twelve
   of those divide `BfmeLogicFramesPerSecond`, and each directly follows a unit's Drawable.h copy in
-  its run. Nothing in .text reads ten of them (0x007ADD08, 0x007ADE88, 0x007AE043, 0x007AE2CE,
-  0x007AEE6B, 0x007B014F, 0x007B042B, 0x007B08B2, 0x007B1122, 0x007B1328). That suggests a second
-  header constant (inference). By the attribution TSV its includers would be ModuleFactory,
-  AIUpdate, TacticalAI, GettingBuiltBehavior, RebuildHoleBehavior and RebuildHoleExposeDie, among
-  others. W3DDisplay's updateAverageFPS reads its copy (0x00DE1B50) and SpawnBehavior::update reads
-  its own (0x00E035C8). The header is not identified, so the ten wait.
+  its run. Nothing in .text reads eleven of them (0x007ABC6F, 0x007ADD08, 0x007ADE88, 0x007AE043,
+  0x007AE2CE, 0x007AEE6B, 0x007B014F, 0x007B042B, 0x007B08B2, 0x007B1122, 0x007B1328). That suggests
+  a second header constant (inference). By the attribution TSV its includers would be W3DDisplay,
+  ModuleFactory, AIUpdate, TacticalAI, GettingBuiltBehavior, RebuildHoleBehavior and
+  RebuildHoleExposeDie, among others. Only SpawnBehavior::update reads its own copy (0x00E035C8).
+  The header is not identified, so the eleven wait.
+- *Correction: W3DDisplay does not read 0x00DE1B50.* The one DIR32 to it in updateAverageFPS is
+  `fstp qword [esi*8 + 0x00DE1B50]` at 0x0004380F, which stores `fpsHistory[historyOffset++]`. esi
+  is the index already incremented, so the array starts at 0x00DE1B58. The BFME 1 name
+  START_CUMU_FRAME for this static (round 1 above) is therefore unsupported.
 - *GlobalInits (17): mixed.* Most are `T g;` objects (`mov ecx, g; call ctor; push cleanup; call
   atexit`). 0x007B6670/0x007B6680 register only an atexit cleanup (a trivial ctor and a real
   dtor). 0x007AE7FB stores an address constant (`g = &x`). 0x007B6800 is `Random3Class(0, 0)`.
@@ -511,10 +515,26 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   moves. Taken alone, AttributeModifierStore, BannerUI and the untouched Armor all report the
   grab-bag's stale copy of their node as a duplicate. With it, 7/7 link. image_report: bridged
   679 -> 677, twice and unidentified unchanged; both units' `??_7` digests are unchanged.
+- *Not attributed (in-o7).* 0x007B3B50 (`g_00E05F24`, client / 2) is alone in its run, after
+  ControlBarCommandProcessing's run, which ends with its rowed copy `_$E1` (static 0x00E05E18). Its
+  static follows `g_00E05E24` and precedes getCommandAvailability's keys, so it is the next unit's
+  own copy. processCommandUI reads it anyway, so the unit and the name are open.
 - *Next.* Units whose global is already ledger-owned are the cheap ones: 0x007B1A27 (SlavedUpdate's
   `BfmeSlavedUpdateIntervalFrames` in SlavedUpdateRepair.cpp, held by another seat), 0x007B51EB
   (Rva005F0152ImageGet) and 0x007B67A0 (`g_aptDateInterpreter`, AptDate.cpp's POD view). The
   ctor/dtor families need the owner to declare the real class and take the cleanup row too.
+  These ctor entries have a rowed ctor and cleanup, and a run that names a unit:
+  - 0x007AD7DD `TheFXParticleEditor`: `BfmeDualVtableReleaseDtor` ctor 0x00203618, cleanup
+    0x007B75E2. It is in ScriptEngine's run and defined in ScriptEngine_init.cpp; ScriptEngine.cpp
+    is held by another seat.
+  - 0x007AC022 `g_Va00DE2008`: WaterDraw shader-parameter namespace, ctor 0x0007EBFB, cleanup
+    0x007B6BF5. It follows the copy 0x007AC012, which the TSV gives to W3DGameClient.
+  - 0x007ADCAE `g_Va00DFE7A8`: timing-log object, ctor 0x0023DBF9, cleanup 0x007B7786. It shares a
+    run with a 0x10-byte MaskInits memset and a copy the TSV gives to BoneFXUpdate (unchecked).
+  - The two `ios_base` pairs come from `<iostream>` includers. Their runs' copies have no unit yet.
+
+  The library tail (0x007B5xxx..0x007B6830) is 16-byte-aligned objects with no pool-init markers
+  between them, so the marker method does not attribute entries there.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
