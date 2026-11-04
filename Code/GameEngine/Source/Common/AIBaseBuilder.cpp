@@ -16,7 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "vector3.h"
 extern Coord3DBase Gen00DD0870;
 // Retail inlines this three-float copy; the canonical Coord3D::set is the out-of-line owner.
-static inline void inlineSet(Coord3D &c, const Coord3DBase *source) { c.x = source->x; c.y = source->y; c.z = source->z; }
+static inline void inlineSet(Coord3D &destination, const Coord3DBase *source) { destination.x = source->x; destination.y = source->y; destination.z = source->z; }
 // Retail inlines this clamp. Keep its helper local rather than emitting a
 // competing WWMath::Clamp body with different compiler settings.
 static inline float inlineClamp(float val, float minimum, float maximum)
@@ -424,8 +424,8 @@ void AIBaseBuilder::notifyBuildingDestroyed(Object *destroyedBuilding)
 		reinterpret_cast<Rva005AD99C *>(*baseIt)->rva005AD99C(buildingTemplateName, (_STL::vector<const ModuleData *> *)&hits);
 	if (!hits.empty()) {
 		Rva002A8B59Data *data = TheSkirmishAIManager->rva002A8B59(m_08);
-		for (Rva00506FE9Hit **h = hits.begin(); h != hits.end(); ++h) {
-			Rva00506FE9Hit *hit = *h;
+		for (Rva00506FE9Hit **hitIt = hits.begin(); hitIt != hits.end(); ++hitIt) {
+			Rva00506FE9Hit *hit = *hitIt;
 			if (hit->m_24 == ((Rva00506FE9ObjectView *)destroyedBuilding)->m_id) {
 				hit->unRegisterWithBuilder(m_08);
 				float previousHitValue = hit->m_04;
