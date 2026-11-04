@@ -321,3 +321,17 @@ W3DTerrainVisual's.
     Rva005CCC07Base, LivingWorldLogicObserver) are the same tables as the constructor's (Rva0007DF07,
     IconMouseObserver, LivingWorldBuildPlotObserver) under other names, so one spelling has to be
     chosen.
+- **W3DMouse.cpp (1): resolved.** `56af6ee282` gave initD3DAssets retail's second, action-less unwind
+  state with a Zero Hour `AsciiString` local in the dead cursor loop. That emitted out-of-line ZH
+  `releaseBuffer`/`set` COMDATs calling ZH-only `AsciiString::freeBytes`, so W3DMouse.obj was the first
+  copy in link order. The local is now BFME 2's `StringBase<char>` from the canonical
+  `reference/shims/bfme2_ascii/string_base.h`; its release is the out-of-line 0x00036410. The rows stay
+  22/22 exact, and eh_verify is EXACT 4/4 with initD3DAssets EXACT. A TU-local type with an inline
+  destructor (inline, `noinline`, or a noinline `operator=`) loses the state, because cl drops it
+  once it can see that nothing in the scope throws. First-copy check: W3DMouse led only
+  `?releaseBuffer@AsciiString@@IAEXXZ` (next copy ProductionPrerequisite.obj, the only other toucher,
+  which calls freeBytes too) and `?set@AsciiString@@QAEXABV1@@Z` (its only copy, verdict wrong, no
+  other toucher). The new `??0?$StringBase@D@@QAE@XZ` copy matches the first copy (W3DDisplay.obj,
+  position 804) by digest. `freeBytes` stays unresolved until ProductionPrerequisite.cpp (Codex's
+  slice) stops emitting its own ZH `releaseBuffer` copy. `reverse/eh_baseline.csv` still lists
+  initD3DAssets, though it has been EXACT since `56af6ee282`.

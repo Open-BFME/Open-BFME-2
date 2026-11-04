@@ -884,6 +884,14 @@ void W3DMouse::initPolygonAssets(void)
 /**Load the textures required to display the selected cursor*/
 // byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseLoadD3DCursorTexturesThunk.cpp
 
+// The dead loop in initD3DAssets holds a BFME 2 string local, whose release
+// is retail's out-of-line StringBase<char> destructor (0x00036410). Zero
+// Hour's inline AsciiString would leave releaseBuffer and operator= copies
+// here that call the Zero Hour-only AsciiString::freeBytes.
+#define BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
+
 void W3DMouse::initD3DAssets(void)
 {
 	//Nothing to do here unless we want to preload all possible cursors which would
@@ -907,7 +915,7 @@ void W3DMouse::initD3DAssets(void)
 			{
 				// The test above is never true (cursorTextures[1] is an array), so this loop compiles
 				// away. This string's unwind state survives without an action: retail's table has it.
-				{ AsciiString deadName; deadName = m_cursorInfo[i].textureName; }
+				{ StringBase<char> deadName; deadName.set(m_cursorInfo[i].textureName.str()); }
 				cursorTextures[i][j]=NULL;//am->Get_Texture(m_cursorInfo[i].textureName.str());
 				m_currentD3DSurface[i]=NULL;
 			}
