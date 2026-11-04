@@ -772,3 +772,4 @@ Code/GameEngine/Source/Common/PortNegotiationSchema.cpp	unverified	unverified	1	
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	adapt	unknown	1	0	1	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand	3: reference/shims/bfmealloc/stl/_algobase.h:51 stl/_pair.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:55 stl/_iterator_base.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:573 stl/_algobase.c(unknown)		_strcmpi:source
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp	conflicting	mangle	1	0	0	0	0	1	0	0	0	0	0	<string.h>	no	yes	hand			strcmp:mangle
+Code/Libraries/Source/WWVegas/WWLib/_STL.cpp	adapt	unknown	1	0	1	0	0	0	0	0	0	0	0	<stdio.h>	no	yes	hand	1: Code/Libraries/Source/WWVegas/WWLib/_STL.cpp:45 stl/_alloc.h(unknown)		size_t:source
