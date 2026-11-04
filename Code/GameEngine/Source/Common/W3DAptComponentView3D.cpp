@@ -495,14 +495,10 @@ public:
 	virtual void rc00();
 	int NumRefs;
 };
-class MultiListObjectClass
+#include "../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
+class MultiListNodeClass
 {
 public:
-	virtual ~MultiListObjectClass();
-	void *ListNode;
-};
-struct MultiListNodeClass
-{
 	MultiListNodeClass *Prev;
 	MultiListNodeClass *Next;
 	MultiListNodeClass *NextList;
