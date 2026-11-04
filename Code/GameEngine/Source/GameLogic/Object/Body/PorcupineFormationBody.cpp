@@ -119,6 +119,11 @@ class PorcupineFormationBodyModule : public ActiveBody
 public:
 	PorcupineFormationBodyModule( Thing *thing, const ModuleData *moduleData );
 	virtual ~PorcupineFormationBodyModule();
+	virtual void attemptDamage(DamageInfo *damageInfo);
+	virtual bool rva004C2127(Object *other);
+	bool rva004C2095();
+	void rva004C21A9(DamageInfo *damageInfo);
+	bool Rva004C20D5IsWithin(float range, const Coord3D *a, const Coord3D *b);
 
 protected:
 	virtual void xfer( Xfer *xfer );
