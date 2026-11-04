@@ -937,6 +937,52 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### A worked base-clause conflict: mapper.cpp's TextureMapperClass family (2026-11-04)
+
+One of the 16 non-canonical base-clause conflicts, written out so the next seat
+starts from the real question instead of the diff. Nothing here is resolved; what
+follows is the evidence and the one measurement that would settle it.
+
+`mapper.cpp`'s TU holds two incompatible models of the same four classes.
+
+`TextureMapperApply.cpp` carries the hierarchy, and it reads like recovered
+source: `TextureMapperClass : public RefCountClass` with a virtual destructor,
+then `Mapper_ID`, `Clone`, `Is_Time_Variant`, `Apply`, `Reset`, `Needs_Normals`,
+`RetailSlot20`, `Calculate_Texture_Matrix`, and `unsigned int Stage`;
+`GridTextureMapperClass` and `ScaleTextureMapperClass` derive from it;
+`LinearOffsetTextureMapperClass` derives from `ScaleTextureMapperClass` and adds
+the UV offset fields.
+
+`TextureMapperFXShaderConvert.cpp` carries flattened views of the same three
+derived classes, each with no base, each naming its virtuals by vftable byte
+offset - `slot00`, `slot04`, `Mapper_ID`, `slot0C`, `slot10`, `slot14`, `slot18`,
+`slot1C` - then one method of its own (`rva00187AD0`, `rva00187690`,
+`rva00187850`), and an inline `Get_Stage()` returning `Stage`.
+
+`TextureMapperSlot8.cpp` carries a third, minimal view: `TextureMapperClass` with
+no base and a single virtual `_bfme_mapper_v8(int)`.
+
+The two models cannot both be right about the vftable, and the disagreement is
+specific enough to measure. The flattened views put `Mapper_ID` at **+8**, two
+slots in. The hierarchy puts the virtual destructor first and `Mapper_ID` second,
+which is **+4**. And each flattened view carries a **ninth** virtual after
+`slot1C`, where the hierarchy's list ends at `Calculate_Texture_Matrix`. So either
+the hierarchy is missing a slot ahead of `Mapper_ID` (and one at the end), or the
+flattened views are off by one. Every body involved byte-matches today, so neither
+spelling is refutable from the bytes alone.
+
+What settles it is `python3 tools/class_layouts.py` on this TU's files: it reports
+the introducing virtual slots and `vslots` per class from CodeView, which names
+the real occupant of each offset. That is one compiler run, and it decides the
+whole family at once, since all four classes share the chain. Until someone does
+it, this is not a candidate for any mechanical pass, and the `-` views are not
+"silent" - they are a competing claim about where the slots live.
+
+Worth noting for whoever picks it up: `RefCountClass` is not in
+`reverse/canonical_classes.csv`, so this family needs no header-lane work. It is
+the cheapest shape of base-clause conflict available, which is why it is written
+up rather than one of the module-data cases.
+
 ### What the base-clause conflicts are made of, and why no tool change clears them (2026-11-04)
 
 `base clause differs` is the largest group in the CONFLICT census - 48 of the
