@@ -1,5 +1,14 @@
 ### LINK-055: map and set sweep wrappers bind differently named existing tree workers
 
+**2026-11-04, halilkkaya-codex:** the W6 0x0016DEC0 claim is repaired by
+retracting the disproven string-keyed set lower_bound model, then admitting
+the actual reference tree-find operation. Both its 21-byte wrapper and existing
+108-byte callee are exact; nine-source base/tip preview is 8 -> 9 LINKS with
+no loss. The old missing comparison and false lower-bound pin disappear.
+The application key/outer container names remain unproven; the existing
+Gen_p12pod spelling is retained. The separate W4 blocker below remains open.
+[Audit](../../reverse/attempt_support/tree-find-16dec0-20261104-codex.md).
+
 Status: Blocked on row and receiver identity reconciliation. Updated: 2026-10-26; inspected revision: `896af216804e`.
 Evidence / affected units: `StlSweepW4Rva00464431.cpp` and `StlSweepW6Rva0016DEC0.cpp`. Raw retail calls and current-provider previews: `build/link-worker-w5/retail-probe-final.log`, `before-extra-providers.log` and `after-cohort.log`.
 Completed: diagnosis only. The 29-byte map wrapper calls 0x00463E4D, already rowed as the 294-byte `Rva00463782::rva00463E4D` in `Rva00463E4DHintInsert.cpp`. The 21-byte set wrapper calls 0x0016D6A0, already rowed as the 108-byte `_Rb_tree<Gen_p12pod,pair<const Gen_p12pod,int>>::_M_find<Gen_p12pod>` in `RvaTreeFindGenP12pod00927790.cpp`. Both actual providers LINKS; the sweep units each retain U1/L1/S1. The latter provider compares three integer fields, which does not establish the sweep's string-containing record identity.

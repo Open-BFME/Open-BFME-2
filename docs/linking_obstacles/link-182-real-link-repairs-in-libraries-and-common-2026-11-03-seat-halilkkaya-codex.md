@@ -2,6 +2,23 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
+
+After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the
+actual STLport const tree-find operation at 0x0016DEC0 in the existing source
+path. It reuses the existing Gen_p12pod key and `_M_find` provider; the latter
+also compiles to all 108 native bytes in the new normal object. No application
+key/container name, pin or helper alias is invented. The missing string-shaped
+element comparison from artifact `612abfbebb` disappears.
+
+Normal checks pass all nine family rows and the frozen check; true base/tip
+preview preserves all eight LINKS peers and adds the wrapper's existing 21
+bytes (4,332 -> 4,353). Scoped DIR32 passes nine rows with no DIR32 references.
+The two commits retain final unique coverage, retire one false pin, and change
+no source path. Original application type/outer container names remain unknown;
+no full-image/census result is claimed.
+[Retraction and readmission evidence](../../reverse/attempt_support/tree-find-16dec0-20261104-codex.md).
+
 ### Disproven W6 set-lookup retraction (2026-11-04, halilkkaya-codex)
 
 Base `c0b890798f`: retire the wrong `set<...>::lower_bound` claim at

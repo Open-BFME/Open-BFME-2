@@ -39,3 +39,18 @@ Local receipts: `build/seat_tree_find.{cpp,obj}`, the scoped provider build,
 `build/seat_tree_old_orphans.json` and the nine-source base preview including
 the first copies of both the old and replacement COMDAT sets. Readmission
 verification is appended with that commit. No full real-link/census claim.
+
+Readmission base: `39508a56f6`. `add_match.py` verifies and rows the actual
+reference operation under its emitted template name, at the same source path.
+The normal object again proves the complete 108-byte helper byte-for-byte,
+with zero relocations and zero undefined symbols. No helper alias or pin is
+needed: its name is already the existing provider's name.
+
+Normal family verification passes 9/9 rows in five sources. The frozen check
+passes. True base/tip preview across nine sources, including the first copies
+of both old and new COMDAT sets, preserves all eight base LINKS units and
+adds this unit's 21 bytes (4,332 -> 4,353 preview bytes). Scoped DIR32 passes
+nine rows with no DIR32 symbols. The missing element comparison disappears
+with the disproven model. Final unique matching coverage is retained; no
+global real-link or census result is claimed. Receipts:
+`build/seat_tree_{base,tip,family_build}.log` and `build/seat_tree_cohort.txt`.
