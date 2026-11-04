@@ -6,14 +6,7 @@
 // theAptButtonTooltipMapBlockParse from packet, flags /O1 /arch:SSE /G7.
 #include "ascii_string.h"
 
-class INI;
-struct FieldParse
-{
-	const char *m_token;
-	void (*m_func)(INI *, class Rva002241D6 *);
-	const void *m_userData;
-	int m_offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 class INI;
 
@@ -60,13 +53,13 @@ void Rva00224A3F::rva00224A3F(INI *ini)
 	if ((g_00DFE6D8 & 1) == 0)
 	{
 		g_00DFE6D8 |= 1;
-		theAptButtonTooltipMapBlockParse.m_fields[0].m_func = rva00224A31;
-		theAptButtonTooltipMapBlockParse.m_fields[0].m_userData = 0;
-		theAptButtonTooltipMapBlockParse.m_fields[0].m_offset = 0;
-		theAptButtonTooltipMapBlockParse.m_fields[1].m_token = 0;
-		theAptButtonTooltipMapBlockParse.m_fields[1].m_func = 0;
-		theAptButtonTooltipMapBlockParse.m_fields[1].m_userData = 0;
-		theAptButtonTooltipMapBlockParse.m_fields[1].m_offset = 0;
+		theAptButtonTooltipMapBlockParse.m_fields[0].parse = reinterpret_cast<INIFieldParseProc>(rva00224A31);
+		theAptButtonTooltipMapBlockParse.m_fields[0].userData = 0;
+		theAptButtonTooltipMapBlockParse.m_fields[0].offset = 0;
+		theAptButtonTooltipMapBlockParse.m_fields[1].token = 0;
+		theAptButtonTooltipMapBlockParse.m_fields[1].parse = 0;
+		theAptButtonTooltipMapBlockParse.m_fields[1].userData = 0;
+		theAptButtonTooltipMapBlockParse.m_fields[1].offset = 0;
 	}
 	ini->initFromINI(this, theAptButtonTooltipMapBlockParse.m_fields);
 }

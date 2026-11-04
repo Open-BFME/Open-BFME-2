@@ -345,13 +345,7 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../../../Include/Common/INI/INI.h"
 
@@ -370,11 +364,6 @@ extern const FieldParse g_00C178D8[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 // Instantiate the recovered operations only. Retail's single insertion calls
 // the node creator; the forced-inline list shim would emit another body here.
