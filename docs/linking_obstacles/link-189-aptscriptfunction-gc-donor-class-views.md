@@ -1,4 +1,4 @@
-### LINK-187: AptScriptFunction GC donor needs compatible AptValue and receiver views
+### LINK-189: AptScriptFunction GC donor needs compatible AptValue and receiver views
 
 Status: Blocked. Updated: 2026-11-03; inspected revision: 7c99285f90.
 Scope: AptObject/AptScriptFunction.cpp and Common/Rva00709C10Cluster.cpp, RVA 0x00709D80.
