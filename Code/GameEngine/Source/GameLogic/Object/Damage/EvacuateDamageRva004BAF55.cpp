@@ -110,11 +110,7 @@ void EvacuateDamage::onDamage(DamageInfo *damageInfo)
 // Shared one-pointer AsciiString + StringBase<char> (compare row 0x000069D6).
 #include "ascii_string.h"
 
-struct WeaponTemplate
-{
-	unsigned char m_pad[8];
-	AsciiString m_name;   // +8 (compared against our data name)
-};
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
 
 struct Rva004BAFE5Data
 {
