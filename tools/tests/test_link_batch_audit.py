@@ -292,3 +292,17 @@ def test_push_hook_honors_audit_exit_status(status, blocked):
     assert (done.returncode != 0) == blocked, done.stderr
     if status in (2, 124):
         assert "UNVERIFIED" in done.stderr
+
+
+def test_omitted_references_names_a_changed_object_reaching_an_omitted_row(monkeypatch, tmp_path):
+    omitted, kept = tmp_path / "thunks.obj", tmp_path / "kept.obj"
+    kept.write_bytes(b"")
+    monkeypatch.setattr(A.exit_link, "placement_objects", lambda rows: {omitted: "thunks.cpp"})
+    monkeypatch.setattr(A.exit_link, "placement_rows", lambda rows: [{"name": "?j_0052b7b3@@YAXXZ"}])
+    monkeypatch.setattr(A.build, "ledger_object_symbol", lambda row: row["name"])
+    monkeypatch.setattr(A.exit_link, "coff_view", lambda path: ([], {}, b""))
+    monkeypatch.setattr(A.exit_link, "coff_references",
+                        lambda path, data: {"?j_0052b7b3@@YAXXZ", "?real@@YAXXZ"})
+    assert A.omitted_references([], [kept]) == [("kept.obj", "?j_0052b7b3@@YAXXZ")]
+    assert A.omitted_references([], [omitted]) == []
+

@@ -14,6 +14,7 @@ from pathlib import Path
 import build
 import link_census
 import link_check
+import exit_link
 
 
 def git(*args):
@@ -118,6 +119,23 @@ def reorder(index, rank):
     index["objects"] = [old[i] for i in positions]
 
 
+def omitted_references(rows, objects):
+    """[(object name, symbol)] the objects reference that the real link's omitted objects define.
+    exit_link.py's omission proof refuses to link while any kept object does this."""
+    omitted = set(exit_link.placement_objects(rows))
+    names = {build.ledger_object_symbol(row) for row in exit_link.placement_rows(rows)}
+    for path in omitted:
+        if path.is_file():
+            names |= exit_link.external_definitions(exit_link.coff_view(path)[1])
+    if not names:
+        return []
+    found = []
+    for path in objects:
+        if path not in omitted:
+            found.extend((path.name, name) for name in sorted(exit_link.coff_references(path, exit_link.coff_view(path)[2]) & names))
+    return found
+
+
 def audit(base, tip, verified):
     changes = changed_sources(base, tip)
     identities = changed_identities(base, tip)
@@ -167,6 +185,13 @@ def audit(base, tip, verified):
         print(f"link batch audit: INCONCLUSIVE: {len(missing)} source object(s) lack current receipts; "
               f"first: {missing[0]}")
         return 2
+    refused = omitted_references(rows, replacements)
+    if refused:
+        for obj, name in refused[:20]:
+            print(f"  OMITTED {obj} references {name}, defined in a placement object the real link leaves out")
+        print(f"link batch audit: FAILED: {len(refused)} reference(s) to omitted objects; "
+              "exit_link.py would refuse to link. Reach the row the omitted thunk jumps to instead")
+        return 1
     # A changed ledger may remove an object without deleting its source path.
     current_objects = {build.obj_path(link_check.ROOT / source).name for source in sources}
     removed |= {obj for source, obj in old_by_source.items() if source not in sources and obj not in current_objects}
