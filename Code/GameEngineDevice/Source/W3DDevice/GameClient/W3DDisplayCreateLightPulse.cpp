@@ -6,15 +6,8 @@
 // Display vslotBC LightPulseFXNugget consumers prove Coord3D/RGBColor ABI;
 // light slot58 is RenderObjClass Set_Position. Direct Vector3 temporary
 // passed by const reference preserves native LEA and third-store schedule.
-struct Vector3
-{
-	float x;
-	float y;
-	float z;
- Vector3(){}
- Vector3(float a,float b,float c):x(a),y(b),z(c){}
-};
-
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 #include "Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
@@ -59,12 +52,6 @@ public:
 	bool m_b146;
 };
 
-class RTS3DScene
-{
-public:
-	W3DDynamicLight *getADynamicLight(void);
-};
-
 class W3DDisplay
 {
 public:
@@ -83,20 +70,20 @@ void W3DDisplay::createLightPulse(const Coord3D *pos, const RGBColor *color, flo
 	W3DDynamicLight *light = m_3DScene->getADynamicLight();
 	light->setEnabled(true);
 	Vector3 tmp;
-	tmp.x = color->red;
-	tmp.y = color->green;
-	tmp.z = color->blue;
+	tmp.X = color->red;
+	tmp.Y = color->green;
+	tmp.Z = color->blue;
 	Vector3 *ambient = &light->Ambient;
-	ambient->x = tmp.x;
-	ambient->y = tmp.y;
-	ambient->z = tmp.z;
-	tmp.x = color->red;
-	tmp.y = color->green;
-	tmp.z = color->blue;
+	ambient->X = tmp.X;
+	ambient->Y = tmp.Y;
+	ambient->Z = tmp.Z;
+	tmp.X = color->red;
+	tmp.Y = color->green;
+	tmp.Z = color->blue;
 	Vector3 *diffuse = &light->Diffuse;
-	diffuse->x = tmp.x;
-	diffuse->y = tmp.y;
-	diffuse->z = tmp.z;
+	diffuse->X = tmp.X;
+	diffuse->Y = tmp.Y;
+	diffuse->Z = tmp.Z;
 light->Set_Position(Vector3(pos->x,pos->y,pos->z));
 	light->FarAttenStart = innerRadius;
 	light->FarAttenEnd = range;
