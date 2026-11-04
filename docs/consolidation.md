@@ -613,6 +613,72 @@ composition is still compile- and byte-checked -- but it is one TU, not a lane.
 
 Measurement only; nothing was edited to produce the table.
 
+### Spelling conflicts: the mechanical half of `blocked-by-classes` (2026-11-03)
+
+`tu_views.py` refuses a whole class when the TU's views disagree on anything
+that could change mangling or codegen, and two of those disagreements are
+mechanical enough to fix in bulk: the class key (`struct` against `class`) and
+`__declspec(novtable)`. Landed `07bf66e496d`, `40fec3c11e4` and `92b341a9179`:
+28 classes in 30 TUs, 40 blocked donors touched, 18 of them left with an empty
+blocking set.
+
+**Scope it per TU, never by name.** 882 classes under `Code/` are spelled both
+ways somewhere in the tree, but only a disagreement inside one approved TU's
+file set blocks that TU's merge, and the same name in two TUs is usually two
+unrelated types: `Code/Libraries/Source/Apt/AptAnimationRebase.cpp` declares a
+`struct Object` of `int kind,marker` and a union, which has nothing to do with
+the game's `Object` (position at `+0x38`, id at `+0x74`). A tree-wide sweep by
+name would have unified two different classes' spellings and churned files no
+merge is waiting on.
+
+**The class key is forced wherever a mangled name uses the class as a type**,
+`U` for `struct` and `V` for `class`. Read that evidence ledger-wide rather
+than per TU, because the forcing row usually lives elsewhere: `Rva00087A93`'s
+`V` spelling is carried by `MeshClass`'s rows, not by the TU declaring the
+private view. A name the ledger spells both ways is two types sharing a name
+(`Rva00587375`: `U` eleven times, `V` four) and must be left alone. Where no
+row spells it at all, either key byte-matches and the TU's majority is as good
+a choice as any; a tie is no evidence.
+
+Match that evidence as a literal `U<name>@@` or `V<name>@@`. The key letter
+follows the pointer and reference modifiers, as in `ABU0@`, `PAVRva00587375@@`
+and `XURva00087A93@@`, so it is not at a word boundary and a `(?<![\w?])`
+lookbehind silently finds almost nothing. A scan with that bug pointed three
+classes the wrong way and `./build.sh` refused all three
+(`??0BfmeObject544@@QAE@ABU0@@Z` reported `symbol not found`,
+`?Render_With_FX_Material@MeshClass@@QAEXURva00087A93@@H@Z` reported an
+unresolved call), which is the check working, not a reason to trust the scan.
+
+**A key change must not move any member's effective access**, because MSVC
+mangles access into member names. Converting `struct` to `class` therefore
+needs an explicit `public:` when the first member region has no specifier, and
+`class` to `struct` an explicit `private:`; 20 of the 26 sites in
+`40fec3c11e4` needed one. A `friend` declaration first in the region is
+unaffected either way.
+
+**For novtable the majority rule is backwards.** It omits the vftable stores in
+the class's own constructors and destructor, so it changes generated code, and
+the outlier is almost always the `...Ctor.cpp` or `...Dtor.cpp` file where that
+matters. The authority is the file owning the class's `??0`/`??1`/`??_G`/`??_E`
+rows, so the fix adds novtable to the files that lack it. Two of seven
+candidates were real conflicts: novtable on `Rva0074104CBase` broke
+`??0Rva0074104C` and on `Rva00740555` broke
+`?rva007402C0@W3DAptComponentView3D`, because a base can need it in the file
+defining its own constructor and not in a file that builds a derived object.
+Those TUs need two spellings and the refusal is correct. Skip a class whose
+ctor/dtor owners already disagree.
+
+Both passes are detection-only until `./build.sh` runs; propose, build the
+whole edited set, and revert per class on failure, exactly as `tu_views` does.
+Neither pass removes a `blocked-by-classes` item on its own when the donor has
+other blocking classes, and neither touches a class in
+`reverse/canonical_classes.csv`: that is header-lane work.
+
+A caution on reading the queue's own counters while doing this: a `file:` claim
+moves its donors from `blocked-by-classes` into `claimed`, so holding the scope
+you are working on makes the blocker you are clearing appear to shrink. Release
+the scope and re-measure before quoting a figure.
+
 ## Consolidation verification checks
 
 During the audit before pushing, check the complete consolidation batch:

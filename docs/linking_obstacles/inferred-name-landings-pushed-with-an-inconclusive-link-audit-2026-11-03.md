@@ -55,3 +55,24 @@ reason: "11 source object(s) lack current receipts; first:
 Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetUiTextBody.cpp", index
 `8661f15284`, outgoing base `14d304ffc61`. Changed declarations change objects, so these
 11 join the carry list above. All 12 sources byte-verified (109/109 rows, EH EXACT 24).
+
+The class-key unification (`120d078bdc`, two commits, 27 sources) reported the same
+verdict a third time: "25 source object(s) lack current receipts; first:
+Code/GameEngine/Source/Common/System/DataChunk.cpp", index `8661f15284`, outgoing base
+`9f09ad90206`. The cause is the same and is worth stating plainly for this kind of change:
+a class key is part of the mangled name of anything that takes the class as a type, so
+unifying `struct` to `class` can rename an external symbol even when every byte of every
+body is unchanged. That is a link-identity edit, not a cosmetic one, and an index built
+before it cannot carry a receipt for it.
+
+What is positive evidence here: `DIR32 consistency: OK (105 symbols; 0 whitelisted, 0
+PE-verified duplicate imports, 0 new)` across the batch's 258 verified rows, and
+`EH verify: 38 EXACT`. No row's bytes moved (233/233 plus 25/25). What is not evidence:
+the audit itself, which stays INCONCLUSIVE and so counts as unverified. Carry all 25
+objects into the next scheduled census alongside the earlier 38 and 11. No linking gain is
+claimed.
+
+The three classes the same pass pointed the wrong way were refused by the byte check
+before any push, and two of them are recorded above as reverted
+(`BfmeObject544`, `Rva00087A93`); the third, `Rva00587375`, is a name the ledger spells
+both `U` and `V`, so it is two distinct types and no single spelling can serve the TU.
