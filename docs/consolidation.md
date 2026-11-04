@@ -1541,3 +1541,51 @@ rules out.
 **Initializers.** The 52 "registered twice" from `FXParticleSystemFactories.obj` were a counting
 error (LINK-236, `b4d81c1215`). Merging these files would retire emission scaffolding (146
 unidentified registrations), not double construction.
+
+### The view lane's unit of work was the TU, and that is what capped it (2026-11-04)
+
+The whole-TU sweep in `driver_log.tsv` looks as though contention stopped it: 513 of its
+1074 rows say "another seat holds one of its files", against 105 landings. Both readings of
+that are wrong, and the second one matters.
+
+**The 513 are 92 TUs, not 513 refusals.** A contended verdict is not terminal, so the driver
+retried it on each of its eight passes; 36 of those TUs contributed exactly 8 rows each. A
+snapshot of the live claim table taken after the sweep blocks 26 of the 268 TUs that have
+anything to share, which is the real rate.
+
+**But 46 TUs were refused on every pass and never attempted once**, and they are not a random
+46. The 523 TUs that ran have a median of 3 files and a maximum of 73. The 46 have a median of
+8, a mean of 31 and a maximum of 318, and every one of the ten largest candidates is among
+them: `ScriptActions.cpp` (318 files), `Object.cpp` (223), `Player.cpp` (159),
+`InGameUI.cpp` (121), `Scripts.cpp` (70), `Drawable.cpp` (60), `ScriptEngine.cpp` and
+`Team.cpp` (50), `Locomotor.cpp` (38), `OpenContain.cpp` (36). Between them they hold 272 of
+the 640 shareable classes still on offer, including all 44 of `Object.cpp`'s.
+
+The cause was in `tu_views` itself, not in the fleet. `--class` narrowed which classes were
+written but nothing else: the claim, the CodeView layout read and the unmatched audit all ran
+over the TU's whole file list. Across those 268 TUs the full lists name 2661 distinct files
+while the classes being written live in 1008, so 1653 files - 62% - were claimed and compiled
+for runs that could not touch them. `Object.cpp` is the extreme: 223 files to write a view of
+`Energy`, which lives in 2.
+
+A large footprint does not need any particular file to be held. It needs *some* file to be
+held each time it is tried, and with a few hundred file claims live across the fleet that is
+close to certain for a 223-file list and close to impossible for a 2-file one. That is why the
+sweep harvested the small TUs and could never reach the large ones, however many passes it
+made.
+
+**Fixed in `b415326627`.** A `--class` run now works on the union of the selected classes' own
+files and reports it as `files`, so a caller claims that set and nothing more; `touched` says
+the same whether or not `--class` was given. Without `--class` the whole TU is still the unit,
+and a test holds that. `--class Energy` on `Object.cpp` now plans in 4 seconds.
+
+**What this does and does not buy.** It makes the remaining 272 classes reachable, which eight
+passes of the TU driver could not do. It does not change any verdict: a class that conflicts
+still conflicts, and the lane still moves 0 merge donors (see "Sharing views does not move the
+merge"). The unit being wrong capped how much of the lane could be *attempted*, not how much of
+it was real.
+
+A cached plan row from a TU that did run is mostly spent - the sweep applied what it could and
+the rest reverted or conflicted - with one exception worth testing: in a whole-TU run an
+earlier class's renames can block a later one ("its renames would change the shared view of
+..."), which cannot happen to a class run on its own.
