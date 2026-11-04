@@ -31,7 +31,7 @@ enum UpdateSleepTime
 template<int N> class BitFlags
 {
 };
-typedef BitFlags<13> DisabledMaskType;
+typedef BitFlags<11> DisabledMaskType;
 
 class BehaviorModuleOther
 {
