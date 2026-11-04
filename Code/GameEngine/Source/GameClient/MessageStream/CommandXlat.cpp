@@ -816,7 +816,10 @@ struct Rva00429276Holder {Rva00429276Entry*first;Rva00429276Entry*second;};
 
 int Rva00429276(Rva00429276Entry*,Rva00429276Holder*);
 
-extern void *DrawableListFreeNodes;
+// The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
+class FreelistPool;
+extern FreelistPool g_freelistPool00DBA5E0;
+#define DrawableListFreeNodes (*(void **)((char *)&g_freelistPool00DBA5E0 + 8))
 
 namespace _STL {
 template<> list<Drawable*,allocator<Drawable*> >::list(const list<Drawable*,allocator<Drawable*> >&);

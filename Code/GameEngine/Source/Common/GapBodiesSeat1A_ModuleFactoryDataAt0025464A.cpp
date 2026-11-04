@@ -539,7 +539,6 @@ struct PoolNode002ABAC0
 {
 	PoolNode002ABAC0 *m_next;
 };
-extern PoolNode002ABAC0 *g_00DBBD34;
 
 // --- 0x002AAEB5 (16B): the indexed 0x24-byte record at *(+0x324).
 // --- 0x002ABB86 (24B): one node from the freelist pool at VA 0x00DBBD2C,

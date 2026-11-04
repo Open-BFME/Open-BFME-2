@@ -12,9 +12,10 @@ public:
 	void rva00239368(void *node, int dummy);
 	void rva00239380();
 };
-extern void *DrawableListFreeNodes;
-// DrawableListFreeNodes: VA 0xdba5e8 (retail .data initial value 0).
-void * DrawableListFreeNodes;
+// The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
+class FreelistPool;
+extern FreelistPool g_freelistPool00DBA5E0;
+#define DrawableListFreeNodes (*(void **)((char *)&g_freelistPool00DBA5E0 + 8))
 // ?rva00239AF4@Rva00239AF4@@QAEXXZ @0x00239AF4 29B: dispose of the same
 // circular-list holder cleared by 0x00239380 above (calls it on ecx, then
 // pushes the head node at this+0 onto freelist 0x009BA5E8 when non-null).

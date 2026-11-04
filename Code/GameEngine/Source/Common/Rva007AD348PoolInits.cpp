@@ -18,6 +18,14 @@ class FreelistPool
 {
 	friend struct Rva007AD348PoolInits;
 
+public:
+	int m_00;
+	void *m_04;
+	void *m_head;
+	void *(__cdecl *m_alloc)(int, int);
+	void (__cdecl *m_free)(void *, int);
+	int m_14;
+
 private:
 	bool grow( int arena, int size );
 };
@@ -28,12 +36,18 @@ public:
 	bool rva001EAF7B();
 };
 
+void *__cdecl Rva0002FFC0Alloc(int size, int ignored);
+void __cdecl Rva0002FFE0Free(void *ptr, int ignored);
 extern FreelistPool g_freelistPool009BBD2C;
 extern FreelistPool g_freelistPool00DB8FEC;
 extern FreelistPool g_freelistPool00DBA5E0;
-FreelistPool g_freelistPool009BBD2C;
+FreelistPool g_freelistPool009BBD2C = {
+	0x80, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0
+};
 // The complete object-list pool is owned by Rva001EB130Clear.cpp.
-FreelistPool g_freelistPool00DBA5E0;
+FreelistPool g_freelistPool00DBA5E0 = {
+	0x80, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0
+};
 
 struct Rva007AD348PoolInits
 {

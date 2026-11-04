@@ -35,7 +35,10 @@ namespace _STL { template <> PlayerTeamList::iterator PlayerTeamList::erase(Play
 // pushes it onto the pool's free list at VA 0x00DBBD34 instead of calling
 // STLport's node allocator (same pool as PlayerUpdate.cpp's team list).
 struct PoolNode002ABAC0;
-extern PoolNode002ABAC0 *g_00DBBD34;
+// The free-list head is the +8 member of the complete pool at VA 0xDBBD2C.
+class FreelistPool;
+extern FreelistPool g_freelistPool009BBD2C;
+#define g_00DBBD34 (*(PoolNode002ABAC0 **)((char *)&g_freelistPool009BBD2C + 8))
 namespace _STL {
 template <> __declspec(noinline) inline PlayerTeamList::iterator PlayerTeamList::erase(iterator position)
 {

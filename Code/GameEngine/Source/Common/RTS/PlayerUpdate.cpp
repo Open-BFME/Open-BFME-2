@@ -52,7 +52,10 @@ struct Rva002AE577PointerTarget;
 // (0x002AAC74) and destructor (0x002ABB44) are that pool's; retail calls the
 // destructor with no EH state transition before it (see AIPlayerTeamBuild.cpp).
 struct PoolNode002ABAC0;
-extern PoolNode002ABAC0 *g_00DBBD34;
+// The free-list head is the +8 member of the complete pool at VA 0xDBBD2C.
+class FreelistPool;
+extern FreelistPool g_freelistPool009BBD2C;
+#define g_00DBBD34 (*(PoolNode002ABAC0 **)((char *)&g_freelistPool009BBD2C + 8))
 class FreelistPool { public: void *pop(); };
 extern FreelistPool g_freelistPool009BBD2C;
 namespace _STL {

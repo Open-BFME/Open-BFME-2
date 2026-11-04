@@ -83,6 +83,18 @@ and `g_Va00DEDC80`.
 The measured figures predate these repairs. `constructed_undersized` in the next real link's `image_report.json` gives
 the current count; the source pattern only sees direct construction, so it can miss others.
 
+#### Object pools, repaired 2026-11-04
+
+`g_freelistPool00DBA5E0` and `g_freelistPool009BBD2C` (VA 0x00DBBD2C) were 1-byte zero-filled views. Retail's images are 24 bytes: 0x80, 0, 0, the allocate function at 0x0042FFC0, the free function at
+0x0042FFE0, 0. `grow` (0x001EAEF9) calls through +0xC and `pop` (0x002393E2) reads the head at +8, so ours would have called
+through neighbouring memory the first time a pool grew. The heads were also recorded as
+`DrawableListFreeNodes` and `g_00DBBD34`, so `pop` and the code naming a head used different memory. Each is now one
+object, as `36c6b5aa26` did for `g_freelistPool00DB8FEC`; the head names are per-file macros over the pool's +8 field.
+Evidence is retail's bytes and the matched pool code. No build has run with this yet.
+
+Still open: `g_freelistPool` (VA 0x00DA60E8, 1,459 references) has the same fault and needs the same repair, with its head
+`g_freeList` at 0x00DA60F0. Two of `g_freeList`'s files were held by other workers on 2026-11-04.
+
 2026-11-04 scoped preview: the current `g_Va00E06E60` provider resolves the old blocker in all three selected filesystem consumers; the provider's separate `g_Va00DF2984` index blocker remains ([evidence](../../reverse/attempt_support/chat-header-adoption-20261104-codex5.md)); no census confirmation claimed.
 
 

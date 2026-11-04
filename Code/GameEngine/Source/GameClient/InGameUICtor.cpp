@@ -133,7 +133,10 @@ template<> __declspec(noinline) _List_base<Drawable*,allocator<Drawable*> >::_Li
 // existing Drawable node freelist at DBA5E8; only this element type differs
 // from generic STLport deallocation. Whole29B and all owner relocations exact.
 class Rva00239380Holder { public: void rva00239380(); };
-extern void *DrawableListFreeNodes;
+// The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
+class FreelistPool;
+extern FreelistPool g_freelistPool00DBA5E0;
+#define DrawableListFreeNodes (*(void **)((char *)&g_freelistPool00DBA5E0 + 8))
 namespace _STL {
 template <> __declspec(noinline)
 _List_base<Drawable *, allocator<Drawable *> >::~_List_base()

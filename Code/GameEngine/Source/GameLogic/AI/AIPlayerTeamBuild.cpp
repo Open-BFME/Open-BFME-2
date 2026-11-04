@@ -252,7 +252,10 @@ class TeamPrototype;
 class FreelistPool { public: void *pop(); };
 extern FreelistPool g_freelistPool009BBD2C;
 struct PoolNode002ABAC0;
-extern PoolNode002ABAC0 *g_00DBBD34;
+// The free-list head is the +8 member of the complete pool at VA 0xDBBD2C.
+class FreelistPool;
+extern FreelistPool g_freelistPool009BBD2C;
+#define g_00DBBD34 (*(PoolNode002ABAC0 **)((char *)&g_freelistPool009BBD2C + 8))
 namespace _STL {
 template <> inline _List_node<TeamPrototype *> *allocator<_List_node<TeamPrototype *> >::allocate(size_t, const void *) const
 {

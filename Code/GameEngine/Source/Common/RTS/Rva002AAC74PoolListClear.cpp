@@ -26,7 +26,10 @@
 struct PoolNode002ABAC0;
 
 // Rva002ABAC0Free.cpp defines this free list, VA 0x00DBBD34.
-extern PoolNode002ABAC0 *g_00DBBD34;
+// The free-list head is the +8 member of the complete pool at VA 0xDBBD2C.
+class FreelistPool;
+extern FreelistPool g_freelistPool009BBD2C;
+#define g_00DBBD34 (*(PoolNode002ABAC0 **)((char *)&g_freelistPool009BBD2C + 8))
 
 class Rva002AAC74PoolList
 {

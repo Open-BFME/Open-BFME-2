@@ -7,7 +7,10 @@ struct ListNode0029DFE9
 	void *m_prev;
 	void *m_next;
 };
-extern void *DrawableListFreeNodes;
+// The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
+class FreelistPool;
+extern FreelistPool g_freelistPool00DBA5E0;
+#define DrawableListFreeNodes (*(void **)((char *)&g_freelistPool00DBA5E0 + 8))
 void __stdcall removeRecycleRva0029DFE9(void *outParam, void *nodeParam)
 {
 	ListNode0029DFE9 *node = (ListNode0029DFE9 *)nodeParam;
