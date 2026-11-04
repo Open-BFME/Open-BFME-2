@@ -60,3 +60,31 @@ Additional allocated dry-run blockers:
 The prior shard handoff records the first sampled candidates and their
 prerequisites. Dry runs and split trials wrote no sources or ledgers; no claims
 remain. No identity, header, link or debt retirement is claimed.
+
+Further allocated trials in this pass (no source changes or claims):
+
+- `Made002CCB67.cpp`: the ctor donor was rejected by LinkGuard because its
+  move leaves three `Rva00507823` vslot symbols unresolved in the census-linked
+  unit (`vslot01`, `vslot02`, `vslot03`).
+- `Common/AISimpleExpansionTactic.cpp`: its pull donor lacks class members
+  `startCreateNewBase` and `m_owner`. The `0x005AAAD6` mixed split failed byte
+  verification; the `0x005AA9DB` split was refused by LinkGuard because the
+  moved selected vftable COMDAT lacks matching private/weak-free context.
+- `Object/Contain/AODHordeContain.cpp`: no donor was accepted. The onContaining,
+  xfer and pool-key donors require absent class-view members; the large body
+  requires `LocomotorSet`'s Snapshot prerequisites; dtor, allocator and vector
+  donors fail bytes. Mixed trials: ConstIntGetters4 fails on missing
+  `Object::m_geometry`; GapBodiesGE22 would grow an escape hatch; the
+  `EmissionInfoCopyCtors.cpp` split passes, but no merge donor is accepted;
+  HordeContain split fails on missing `ModuleFactoryHookAt00469B9F`.
+- `ProductionSpeedBonus.cpp`: its slot donor fails because `BehaviorModule` is
+  undefined in the seed view; class reconciliation is required.
+- `StatusBitsUpgradeIfEldestKindof.cpp`: the slot donor's
+  `rva004CE2B0` method is absent from the class view; reconciliation is
+  required. No mixed split was applied.
+- `DetachableRiderBody.cpp` was re-read and its dry-run repeated the already
+  recorded ctor/field-parse acceptance and link/class-view blockers; no new
+  donor became acceptable.
+
+No TU merge, split, file reduction, matched-row movement, identity retirement or
+link improvement is claimed. No live claims remain from this pass.
