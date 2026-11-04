@@ -1,0 +1,329 @@
+{
+ "bases": [
+  "HashableClass"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "W3DShadowGeometry",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2094": {
+    "4": 2
+   },
+   "0x2098": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0xf1e48"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "HashableClass",
+       "offset": 8,
+       "own_vftable": "0x7ceff4",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xf1e48"
+     ],
+     "value": 8348
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xf1e48"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x2094": [
+       4
+      ],
+      "0x2098": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xf1e48"
+     ],
+     "value": {
+      "0x0": [
+       "??_L@YGXPAXIHP6EX0@Z1@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0xf1e48"
+     ],
+     "value": {
+      "0x0": "0x7ceffc",
+      "0x8": "0x7ceff4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7ceffc"
+     ],
+     "value": {
+      "count": 2,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GW3DShadowGeometry@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0xf1ee4"
+       }
+      ],
+      "table": "0x7ceffc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x7ceff4": {
+    "offset": 8,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7ceffc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GW3DShadowGeometry@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "8340": 3,
+   "8344": 2,
+   "8348": 3,
+   "8376": 1
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "NextHash",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "HashableClass*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<char>::Header*"
+    }
+   ],
+   "name": "m_namebuf",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_meshList",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 8320,
+   "type": "W3DShadowGeometryMesh[8320]",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_meshList",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 8320,
+   "type": "W3DShadowGeometryMesh[8320]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_meshCount",
+   "name_by": "majority",
+   "offset": 8340,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numTotalsVerts",
+   "name_by": "majority",
+   "offset": 8344,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 8368,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowUpdateMeshVolume.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8372,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowUpdateMeshVolume.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "m_namebuf": 1,
+    "m_namebuf.m_data": 1,
+    "nameStorage.m_buffer": 1
+   },
+   "class": "W3DShadowGeometry"
+  },
+  {
+   "attribute": "straddle@0x30",
+   "candidates": {},
+   "class": "W3DShadowGeometry"
+  },
+  {
+   "attribute": "straddle@0x2094",
+   "candidates": {},
+   "class": "W3DShadowGeometry"
+  },
+  {
+   "attribute": "straddle@0x2098",
+   "candidates": {},
+   "class": "W3DShadowGeometry"
+  }
+ ],
+ "size": 8376,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
