@@ -35,5 +35,7 @@ private:
 	unsigned char m_64;
 };
 
-template void _STL::_Construct<Rva0040AF66, Rva0040AF66>(
-	Rva0040AF66 *, const Rva0040AF66 &);
+template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, const Rva0040AF66 &__val)
+{
+	new (__p) Rva0040AF66(__val);
+}
