@@ -42,8 +42,10 @@ extern unsigned g_Va00DEC1DC;
 
 // g_Va00DEC1F0: the 0x1C-byte Rva000FD58A object the third initializer
 // builds (zero-filled .bss in retail).
-extern unsigned g_Va00DEC1F0[7];
 unsigned g_Va00DEC1F0[7];
+
+// VA 0x00DB4350: the filter list W3DShaderManager::init walks for this object.
+void *g_filterList2[2] = { (void *)g_Va00DEC1F0, 0 };
 
 // ?rva007B6F27@@YAXXZ @ 0x007B6F27 (1B): the cleanup the third initializer
 // registers; the object's destructor leaves nothing to run.

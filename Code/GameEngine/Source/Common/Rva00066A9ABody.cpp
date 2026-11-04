@@ -72,8 +72,15 @@ public:
 	virtual int init();
 };
 
-extern Rva00077F80Shader **g_Va00DB43A4[];
-extern Rva00077F80Filter **g_Va00DB43AC[];
+// Retail's master lists (VA 0x00DB43A4 and 0x00DB43AC), each entry a null-terminated list of alternatives.
+extern void *g_shaderList0[], *g_filterList0[], *g_filterList1[], *g_filterList2[], *g_filterList3[], *g_filterList4[],
+	*g_filterList5[], *g_filterList6[], *g_filterList7[], *g_filterList8[];
+Rva00077F80Shader **g_Va00DB43A4[2] = { (Rva00077F80Shader **)g_shaderList0, 0 };
+Rva00077F80Filter **g_Va00DB43AC[10] = {
+	(Rva00077F80Filter **)g_filterList0, (Rva00077F80Filter **)g_filterList1, (Rva00077F80Filter **)g_filterList2,
+	(Rva00077F80Filter **)g_filterList3, (Rva00077F80Filter **)g_filterList4, (Rva00077F80Filter **)g_filterList5,
+	(Rva00077F80Filter **)g_filterList6, (Rva00077F80Filter **)g_filterList7, (Rva00077F80Filter **)g_filterList8, 0
+};
 
 #include <d3d9.h>
 
