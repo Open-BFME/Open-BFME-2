@@ -29,12 +29,15 @@ extern GameSpyPSMessageQueueInterface*TheGameSpyPSMessageQueue;extern GameSpyInf
 
 void dispatchIndexedValue(void*,int,void*,int,int*,int*);
 struct PeerLogin{char*data,*finish,*end;const char*c_str()const{return data;}};
-class PeerThreadClass{private:static const char*s_keys[9],*s_values[9];static char s_valueBuffers[9][20];public:void pushStatsToRoom(void*);char gap[0x54];PeerLogin login;char gap60[0x34];bool publishing;};
+// Login string at +0x54 and the publishing flag at +0x94 (the canonical m_054/m_094).
+struct BfmePeerPushState{unsigned char unknown[0x54];PeerLogin login;unsigned char gap60[0x34];bool publishing;};
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 void PeerThreadClass::pushStatsToRoom(void*peer){
+ BfmePeerPushState*state=reinterpret_cast<BfmePeerPushState*>(this);
  if(!TheGameSpyPSMessageQueue||!TheGameSpyInfo)return;
  PSPlayerAllStats all=TheGameSpyPSMessageQueue->get(TheGameSpyInfo->getLocalProfileID());
  Rva0038454E strategic(0);Rva003844D7 open(0);
- strategic=all.rva00389E0F();open=all.rva00389DF1();publishing=true;
+ strategic=all.rva00389E0F();open=all.rva00389DF1();state->publishing=true;
  if(!TheGameSpyGame)return;
  Rva00553E47StatsCore*stats=0;
  switch(TheGameSpyGame->m_field5C){case 1:stats=&strategic;break;case 0:stats=&open;break;default:return;}
@@ -47,5 +50,5 @@ void PeerThreadClass::pushStatsToRoom(void*peer){
  else if(TheGameSpyGame->m_field5C==0){int key=g_00E06000.rva00559E48(stats);_snprintf(s_valueBuffers[6],20,"%d",key);_snprintf(s_valueBuffers[3],20,"%d",g_00E06000.rva00559DA0(stats,key));}
  _snprintf(s_valueBuffers[4],20,"%d",reinterpret_cast<Rva00553D26*>(stats)->rva00553D26());
  _snprintf(s_valueBuffers[5],20,"%d",premium);
- dispatchIndexedValue(peer,1,(void*)login.c_str(),7,reinterpret_cast<int*>(s_keys),reinterpret_cast<int*>(s_values));dispatchIndexedValue(peer,2,(void*)login.c_str(),7,reinterpret_cast<int*>(s_keys),reinterpret_cast<int*>(s_values));publishing=false;
+ dispatchIndexedValue(peer,1,(void*)state->login.c_str(),7,reinterpret_cast<int*>(s_keys),reinterpret_cast<int*>(s_values));dispatchIndexedValue(peer,2,(void*)state->login.c_str(),7,reinterpret_cast<int*>(s_keys),reinterpret_cast<int*>(s_values));state->publishing=false;
 }

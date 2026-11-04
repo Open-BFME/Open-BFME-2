@@ -28,9 +28,10 @@ namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::al
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-// Partial class view: only the independently witnessed stats maps are modeled.
-class PeerThreadClass { public: void pushStatsToRoom(PEER); void getStatsFromRoom(PEER, RoomType); void clearPlayerStats(RoomType); std::wstring getLocalStagingServerName(void); unsigned char unknown[0x98]; std::map<std::string, int> group, staging; };
-__declspec(noinline) inline void PeerThreadClass::clearPlayerStats(RoomType type) { switch (type) { case GroupRoom: group.clear(); break; case StagingRoom: staging.clear(); break; } }
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
+// Stats map view: only the independently witnessed maps at +0x98/+0xA4 are modeled.
+struct BfmePeerRoomStats { unsigned char unknown[0x98]; std::map<std::string, int> group, staging; };
+__declspec(noinline) inline void PeerThreadClass::clearPlayerStats(RoomType type) { BfmePeerRoomStats *stats = reinterpret_cast<BfmePeerRoomStats *>(this); switch (type) { case GroupRoom: stats->group.clear(); break; case StagingRoom: stats->staging.clear(); break; } }
 
 void updateBuddyStatus(GameSpyBuddyStatus, Int groupRoom = 0, std::string gameName = "");
 void stagingRoomPlayerEnum(PEER, PEERBool, RoomType, int, const char *, int, void *);
@@ -61,7 +62,7 @@ void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result, RoomTy
 		case GroupRoom:
 			{
 #ifdef USE_BROADCAST_KEYS
-				t->group.clear();
+				reinterpret_cast<BfmePeerRoomStats *>(t)->group.clear();
 #endif // USE_BROADCAST_KEYS
 				PeerResponse resp;
 				resp.peerResponseType = PeerResponse::PEERRESPONSE_JOINGROUPROOM;

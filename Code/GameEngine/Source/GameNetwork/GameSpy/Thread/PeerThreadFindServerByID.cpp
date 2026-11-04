@@ -26,7 +26,7 @@ struct Rva003896BDNode
 	SBServer second;	// +0x14
 };
 
-class PeerThreadClass;
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
 
 // The int-keyed map's lookup is the rowed STLport map<int,int> _M_find<int>
 // 0x00388F63: it takes the key's address and returns the node or the
@@ -55,20 +55,18 @@ struct Rva003896BDServerMap
 	Rva003896BDNode *m_header;
 };
 
-class PeerThreadClass
+// Staging-server map view at +0x278 (the canonical m_278).
+struct Rva003896BDState
 {
-public:
-	SBServer findServerByID(int id);
-
-private:
 	char m_pad00[0x278];
 	Rva003896BDServerMap m_stagingServers; // +0x278
 };
 
 SBServer PeerThreadClass::findServerByID(int id)
 {
-	Rva003896BDNode *it = (Rva003896BDNode *)((MapIntIntTree *)&m_stagingServers)->_M_find(id);
-	if (it != m_stagingServers.end())
+	Rva003896BDServerMap &stagingServers = reinterpret_cast<Rva003896BDState *>(this)->m_stagingServers;
+	Rva003896BDNode *it = (Rva003896BDNode *)((MapIntIntTree *)&stagingServers)->_M_find(id);
+	if (it != stagingServers.end())
 	{
 		SBServer server = it->second;
 		if (server && !server->keyvals)

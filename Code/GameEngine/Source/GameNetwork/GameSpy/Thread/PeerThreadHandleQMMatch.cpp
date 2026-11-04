@@ -123,17 +123,12 @@ public:
 extern "C" void peerLeaveRoomA(PEER peer, int roomType, const char *msg);
 extern "C" void peerMessagePlayerA(PEER peer, const char *nick, const char *msg, int type);
 
-class PeerThreadClass
+#include "../../../../Include/GameNetwork/GameSpy/PeerThreadClass.h"
+// Login string view at +0x54 (the canonical m_054).
+struct BfmePeerQMLogin
 {
 	char prefix[0x54];
 	std::string m_loginName;
-	char gap[0x294 - 0x54 - 12];
-	QMStatus m_qmStatus;
-public:
-	void handleQMMatch(PEER peer, Int mapIndex, Int seed,
-		char *playerName[MAX_SLOTS], char *playerIP[MAX_SLOTS],
-		char *playerSide[MAX_SLOTS], char *playerColor[MAX_SLOTS],
-		char *playerNAT[MAX_SLOTS], char *playerExtra[MAX_SLOTS]);
 };
 
 void PeerThreadClass::handleQMMatch(PEER peer, Int mapIndex, Int seed,
@@ -144,7 +139,7 @@ void PeerThreadClass::handleQMMatch(PEER peer, Int mapIndex, Int seed,
 		m_qmStatus = QM_MATCHED;
 		peerLeaveRoomA(peer, GroupRoom, "");
 		for (Int i = 0; i < MAX_SLOTS; ++i) {
-			if (playerName[i] && _strcmpi(playerName[i], m_loginName.c_str()))
+			if (playerName[i] && _strcmpi(playerName[i], reinterpret_cast<BfmePeerQMLogin *>(this)->m_loginName.c_str()))
 				peerMessagePlayerA(peer, playerName[i], "We're matched!", NormalMessage);
 		}
 		PeerResponse resp;

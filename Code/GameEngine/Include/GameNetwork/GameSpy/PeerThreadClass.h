@@ -68,6 +68,11 @@ private:
     PeerThreadString packStatKey(const char *nick, const char *key);
     void doQuickMatch(void *peer);
 
+    // Room broadcast key tables: data rows 0x00DC078C (values) and VA 0x00E025E0 (buffers).
+    static const char *s_keys[9];
+    static char s_valueBuffers[9][20];
+    static const char *s_values[9];
+
     bool m_050, m_051;
     void *m_054[3], *m_060[3], *m_06C[3], *m_078[3];
     int m_084, m_088;
