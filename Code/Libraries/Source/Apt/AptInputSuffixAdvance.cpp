@@ -13,7 +13,8 @@ class AsciiString;
 class Rva006DBB30SarDwordField {public:int get()const;};
 class AptNativeHash {public:struct Entry {EAStringC key;BfmeAptValue006DCD20 *value;};AsciiString *rva0070AA40();Entry *rva0070AAA0(Entry*);};
 struct AptInputInst {char unknown00[0x10];AptNativeHash *hash;};
-class AptCIH {public:virtual void AddRef();virtual void Release();char unknown04[4];EAStringC name;char unknown0C[0x3C];AptCIH *parent;AptInputInst *inst;bool rva006CFCD0()const;void rva006E1F00(int);};
+#include "AptCIHClass.h"
+static __forceinline EAStringC *cihName(AptCIH *cih){return &cih->field08;}
 struct Rva006E3710Node;
 class Rva006E3710 {public:bool rva006E3710(Rva006E3710Node*);};
 class Rva006E34D0;
@@ -42,7 +43,7 @@ static __declspec(noinline) bool rva006F97F0Parse(EAStringC *value,int *first,in
 void AptAnimationPoolData::setValidFocusButton()
 {
  int first,second;
- if(current && rva006F97F0Parse(&current->name,&first,&second))return;
+ if(current && rva006F97F0Parse(cihName(current),&first,&second))return;
  if(current) {current->rva006E1F00(1);rva006FA100(current,2);}
  if(current)current->Release();
  current=0;
@@ -51,7 +52,7 @@ void AptAnimationPoolData::setValidFocusButton()
   if(seen==count)break;
   AptCIH *item=entries[i];
   if(item) {
-   if(!item->name.IsEmpty() && rva006F97F0Parse(&entries[i]->name,&first,&second)) {
+   if(!cihName(item)->IsEmpty() && rva006F97F0Parse(cihName(entries[i]),&first,&second)) {
     current=entries[i];current->AddRef();break;
    }
    ++seen;
@@ -96,8 +97,8 @@ AptCIH *rva006F99D0(int direction,AptCIH *current,AptCIH *reference)
   int referenceFirst=0,referenceSecond=0;
   bestNode=0;
   INPUT_ASSERT(current->rva006CFCD0(),"pCIH->isSpriteInstBase()",0xA3);
-  if(reference){bool bRet=rva006F97F0Parse(&reference->name,&referenceFirst,&referenceSecond);INPUT_ASSERT(bRet,"bRet",0xAB);}
-  for(AptNativeHash::Entry *iterator=(AptNativeHash::Entry*)current->inst->hash->rva0070AA40();iterator;iterator=current->inst->hash->rva0070AAA0(iterator)){
+  if(reference){bool bRet=rva006F97F0Parse(cihName(reference),&referenceFirst,&referenceSecond);INPUT_ASSERT(bRet,"bRet",0xAB);}
+  for(AptNativeHash::Entry *iterator=(AptNativeHash::Entry*)((AptInputInst *)current->field4C)->hash->rva0070AA40();iterator;iterator=((AptInputInst *)current->field4C)->hash->rva0070AAA0(iterator)){
    BfmeAptValue006DCD20 *value=iterator->value;
    if(!(unsigned char)value->isCIH(false))continue;
    AptCIH *candidate=(AptCIH*)value->rva006DCF60(false);
@@ -117,7 +118,7 @@ AptCIH *rva006F99D0(int direction,AptCIH *current,AptCIH *reference)
   if(bestNode){
    if(((Rva006DBB30SarDwordField*)bestNode)->get()!=13 || ((BfmeAptValue006DCD20*)bestNode)->isUndefined())goto found;
    reference=0;current=bestNode;
-  }else{reference=current;current=current->parent;}
+  }else{reference=current;current=current->field48;}
  }
  empty:return 0;
  found:return bestNode;
