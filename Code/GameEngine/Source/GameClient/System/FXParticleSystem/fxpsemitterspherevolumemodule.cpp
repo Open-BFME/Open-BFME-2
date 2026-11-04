@@ -6,6 +6,8 @@
 // prove hollow +0x20, radius +0x24, RET 0x14, the full source literal at
 // line 86, and calls to the existing random and unit-vector providers.
 #include "Lib/Coord3DCtorView.h"
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
+#include "../../../../Include/GameClient/SphereEmissionVolumeInfo.h"
 
 float __cdecl GetGameClientRandomValueReal(float low, float high, char *file, int line);
 Coord3D *__cdecl Rva003AFA64FillUnitVector(Coord3D *out);
@@ -42,22 +44,6 @@ class DefaultParticleModule
 {
 };
 
-class __declspec(novtable) EmissionVolumeInfo
-{
-public:
-	virtual ~EmissionVolumeInfo() = 0;
-
-protected:
-	bool m_is_hollow;
-	unsigned char m_alignment[3];
-};
-
-class SphereEmissionVolumeInfo : public EmissionVolumeInfo
-{
-protected:
-	float m_radius;
-};
-
 class SphereEmissionVolumeModule
 	: public DefaultParticleModule<5>, public SphereEmissionVolumeInfo
 {
@@ -74,7 +60,7 @@ Coord3D SphereEmissionVolumeModule::getPosition(float, float, float, float)
 {
 	char *source =
 		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\System\\FXParticleSystem\\fxpsemitterspherevolumemodule.cpp";
-	float radius = m_is_hollow ? m_radius :
+	float radius = m_04 ? m_radius :
 		GetGameClientRandomValueReal(0.0f, m_radius, source, 86);
 	Coord3D randomPoint;
 	Coord3D unit;
