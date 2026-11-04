@@ -8,13 +8,7 @@ struct FieldParse;
 
 class INI;
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 class Rva000B937E
 {
@@ -29,16 +23,6 @@ struct BfmeObject544 : Rva000B937E
 {
 	BfmeObject544();
 	~BfmeObject544();
-};
-
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *parse, unsigned int extraOffset);
-
-private:
-	unsigned char m_storage[0x84];
 };
 
 #include "../../../../Include/Common/INI/INI.h"

@@ -111,7 +111,7 @@ void SpawnArmy::xfer(Xfer *stream)
 // Table C616C0: all 304 bytes, 18 full strings and callback bindings,
 // all offsets, zero user data and the null terminator independently verified.
 #include "../../../../Include/Common/INI/INI.h"
-struct FieldParse { const char *name; void (*parse)(INI*,void*,void*,const void*); const void *userData; int offset; };
+#include "../../../../Include/Common/INI/FieldParse.h"
 const FieldParse SpawnArmy::m_fieldParseTable[]={
  {"Icon",INI::parseAsciiString,0,0x04},
  {"Banner",INI::parseAsciiString,0,0x08},
@@ -133,7 +133,6 @@ const FieldParse SpawnArmy::m_fieldParseTable[]={
  {"SpawnAtActStart",INI::parseBool,0,0x55},
  {0,0,0,0}
 };
-#include "Common/INIException.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002B3171BumpCounter { public:int bump(); };

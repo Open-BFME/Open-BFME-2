@@ -156,15 +156,7 @@ public:
 
 class INI;
 
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../../Include/Common/INI/INI.h"
 
@@ -173,16 +165,6 @@ class WeaponTemplate;
 #include "../../../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;
-
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 

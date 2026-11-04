@@ -27,7 +27,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "FixedStorage128.h"
 #include "ascii_string.h"
 #include "unicode_string.h"
-#include "Common/INIException.h"
+#include "../../../../Include/Common/INI/FieldParse.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *,allocator<void *> >::size()const  { return (unsigned int)(this->_M_finish - this->_M_start); } }
 // Bind to the kept retail copy instead of emitting this unit's own.
@@ -238,13 +238,6 @@ class Rva002E0CD4 { public: Int get() const; };
 // ThrowInfo anchor with this named static callback and ordinary C++ throws.
 // The record's original class/type names remain unknown; keep its rowed views.
 // Retail body241B and EH handler778800 remain under their existing boundaries.
-struct FieldParse
-{
-	const char *token;
-	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
 
 #include "../../../../Include/Common/INI/INI.h"
 

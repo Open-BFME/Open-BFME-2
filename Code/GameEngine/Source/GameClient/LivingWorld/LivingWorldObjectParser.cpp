@@ -7,14 +7,8 @@
 // independently proves load type +8, override +4/+8, object 0x1C and map +2B4.
 // Existing address-derived providers retain their unknown original names;
 // the clone and field-table getter use the method ABI witnessed by this caller.
-#include "Common/INIException.h"
+#include "../../../Include/Common/INI/FieldParse.h"
 class INI;
-struct FieldParse {
- const char *token;
- void (__cdecl *parse)(INI *, void *, void *, const void *);
- const void *userData;
- int offset;
-};
 class INI {
 public:
  const char *getNextToken(const char *seps);

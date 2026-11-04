@@ -205,9 +205,8 @@ bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
 }
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../../Include/Common/INI/FieldParse.h"
 #include "../../../../Include/Common/INI/INI.h"
-#include "../../../../../../reference/shims/iniexception/Common/INIException.h"
 // The scenario object ParseINI allocates (0xB0 bytes); its constructor keeps
 // the address-derived name of the banked 0x004FD0DA attempt.
 class Rva004FD1BC { public: Rva004FD1BC(); private: char unknown00[0xB0]; };

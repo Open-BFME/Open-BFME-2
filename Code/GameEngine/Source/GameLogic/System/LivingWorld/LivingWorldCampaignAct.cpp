@@ -93,7 +93,7 @@ Rva0056616B::~Rva0056616B() {}
 // all use the registered four-argument ABI, with no casts or extra pins.
 struct FieldParse;
 #include "../../../../Include/Common/INI/INI.h"
-#include "Common/INIException.h"
+#include "../../../../Include/Common/INI/FieldParse.h"
 struct Rva0052D801Record;
 class Rva0052D83B { public:void rva0052D83B(const Rva0052D801Record &); };
 void ParseEnableRegion(INI*,void*,void*,const void*);
@@ -108,7 +108,6 @@ void ParseAudioEventBlock(INI*,void*,void*,const void*);
 void Rva004E1A33Parse(INI*,void*,void*,const void*);
 void ParseEyeTowerPointData(INI*,void*,void*,const void*);
 void Rva004E1C7BParse(INI*,void*,void*,const void*);
-struct FieldParse { const char *name; void (*parse)(INI*,void*,void*,const void*); const void *userData; int offset; };
 const FieldParse Rva0056616B::m_fieldParseTable[]={
  {"EnableRegion",ParseEnableRegion,0,0},
  {"ForceBattle",ParseForceBattle,0,0},

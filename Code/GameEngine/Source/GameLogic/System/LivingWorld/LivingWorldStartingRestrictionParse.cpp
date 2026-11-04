@@ -9,16 +9,9 @@
 // table at VA 0x00C71178, finished by the rowed 0x0059E848 and handed to the
 // owner's list through the rowed 0x004FD4C1. The owner type is unknown.
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../../../Include/Common/INI/FieldParse.h"
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../Include/Common/INI/INI.h"
-#include "../../../../../../reference/shims/iniexception/Common/INIException.h"
 
 class Rva0059E920 { public: Rva0059E920(); private: char unknown00[0x20]; };
 class Rva0059E848 { public: void rva0059E848(); };

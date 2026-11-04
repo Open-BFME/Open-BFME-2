@@ -571,14 +571,7 @@ public:
     int loadType08;
     int getLoadType() const { return loadType08; }
 };
-class INIException {
-public:
-    INIException(int, const char *, ...);
-    INIException(const INIException &);
-    ~INIException();
-    char *message;
-    int argumentCount;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 class ExperienceLevelSystem;
 // GameEngine::init registers this singleton under its native literal name.
 // VA DFECC4 is one zero-initialized pointer; original class layout is opaque.
@@ -614,8 +607,6 @@ class Rva00289902 { public: Rva00289902 &rva00289902(const Rva00289902 &); };
 // 0x00BFBAC0, .rdata). Its 22 16-byte entries and zero terminator were read
 // from the retail image; every parser pointer resolves to a rowed body. The
 // table name is descriptive (no donor or retail name is known).
-typedef void (*ExperienceLevelFieldParser)(INI *, void *, void *, const void *);
-struct FieldParse { const char *token; ExperienceLevelFieldParser parse; const void *userData; int offset; };
 #include "../../../Include/GameClient/RadiusDecalTemplate.h"
 class EmotionNuggetTemplate { public: static void IniParseEmotionType(INI *, void *, void *, const void *); };
 void Rva00289C24Parse(INI *, void *, void *, const void *);

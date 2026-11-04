@@ -43,7 +43,7 @@ public:
     _STL::vector<unsigned int> m_values;
 };
 Rva004211CA::Rva004211CA() : m_name(), m_label(), m_values() {}
-#include "Common/INIException.h"
+#include "../../../Include/Common/INI/FieldParse.h"
 class ModuleData;
 struct Rva00421263Vec { const ModuleData **begin, **end; };
 class INI;
@@ -59,7 +59,6 @@ class Rva00421520;
 extern Rva00421520 *TheLightPointSystem;
 #include "../../../Include/Common/Overridable.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 extern "C" {
 void __identifier("?parseAndTranslateLabel@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?Rva00339B50_ParseSpecialAbilities@INI@@SAXPAV1@PAX1PBX@Z")();

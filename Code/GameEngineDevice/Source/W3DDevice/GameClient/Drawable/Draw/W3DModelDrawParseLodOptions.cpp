@@ -5,19 +5,11 @@
 // parser and retail error string establish the LOW/MEDIUM/HIGH field semantics.
 
 #include "ascii_string.h"
-#include "Common/INIException.h"
+#include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 #include <string.h>
 
 class INI;
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-struct FieldParse
-{
-	const char *token;
-	INIFieldParseProc parse;
-	const void *userData;
-	int offset;
-};
 
 #include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 

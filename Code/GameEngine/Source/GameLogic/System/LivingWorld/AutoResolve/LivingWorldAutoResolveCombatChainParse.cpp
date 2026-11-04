@@ -12,11 +12,10 @@
 // ADD receiver before PUSH result; target bytes and all EH states verified.
 #include "ascii_string.h"
 class INI;
-struct FieldParse {const char *name;void (*parse)(INI*,void*,void*,const void*);const void *data;int offset;};
+#include "../../../../../Include/Common/INI/FieldParse.h"
 void Rva00418F7DParse(INI*,void*,void*,const void*);
 static const FieldParse combatChainFields[]={ {"Target",Rva00418F7DParse,0,0},{0,0,0,0} };
 #include "../../../../../Include/Common/INI/INI.h"
-class INIException {public:char *message;int code;INIException(int,const char*,...);INIException(const INIException&);~INIException();};
 class Rva0022D05F {public:~Rva0022D05F();};
 class Rva004190DA {
 public:Rva004190DA(const AsciiString&,const Rva004190DA*);

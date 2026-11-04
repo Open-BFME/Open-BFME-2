@@ -48,12 +48,7 @@ namespace _STL { template <> void * * vector<void *,allocator<void *> >::begin()
 namespace _STL { template <> void * & vector<void *,allocator<void *> >::operator[](unsigned int); }
 
 class INI;
-struct FieldParse {
-    const char *name;
-    void (__cdecl *parse)(INI *, void *, void *, const void *);
-    const void *data;
-    int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
 void Rva0041F316Parse(INI *, void *, void *, const void *);
 void Rva0041F32DParse(INI *, void *, void *, const void *);

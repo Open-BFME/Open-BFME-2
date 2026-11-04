@@ -13,14 +13,7 @@
 // preserves VC7.1's separate8-byte exception and16-byte record EH slots.
 typedef int Int;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse
-{
-    const char *token;
-    FieldParseProc parse;
-    const void *userData;
-    int offset;
-};
-#include "../../../../../reference/shims/iniexception/Common/INIException.h"
+#include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 struct _s__ThrowInfo;
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");

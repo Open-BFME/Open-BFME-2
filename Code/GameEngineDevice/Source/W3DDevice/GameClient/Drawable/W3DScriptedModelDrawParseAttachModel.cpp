@@ -16,7 +16,7 @@
 // is defined below.
 // Pass actual providers/consumers, full bytes, EH, strings and normal linking.
 #include "ascii_string.h"
-#include "Common/INIException.h"
+#include "../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 typedef int Int;
 struct WeightedModel { AsciiString name; Int probability; };
 struct WeightedModels { WeightedModel *m_start, *m_finish, *m_end; };
@@ -46,13 +46,6 @@ public:
 };
 
 // Zero Hour's FieldParse record (INI.h).
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
 
 // Retail's table at VA 0x00BCA790 (RVA 0x007CA790): Bone and Offset fill the
 // record's AsciiString (+0) and Coord3D (+4); Model goes to the rowed
