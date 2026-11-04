@@ -190,24 +190,10 @@ ThingTemplate *ThingFactory::findTemplateInternal( const AsciiString& name, Bool
 		return tIt->second;
 	}
 
-#ifdef LOAD_TEST_ASSETS
-	if (!strncmp(name.str(), TEST_STRING, strlen(TEST_STRING))) 
-	{
-		ThingTemplate *thingTemplate = newTemplate( AsciiString( "Un-namedTemplate" ) );
-
-		// load the values
-		thingTemplate->initForLTA( name );
-
-		// Kinda lame, but necessary.
-		m_templateHashMap.erase("Un-namedTemplate");
-		m_templateHashMap[name] = thingTemplate;
-
-		// add tmplate template to the database
-		return findTemplateInternal( name );
-
-	}
-	
-#endif
+// BFME 2's lookup has no Zero Hour load-test-assets branch: retail
+// ThingFactory::findTemplate (0x002D06CA, 38 bytes) is the hash find and
+// returns the node's template or NULL. Its initForLTA/public newTemplate
+// callees have no BFME 2 definer (newTemplate is private, 0x002D1B2E).
 	
 	if( check && name.isNotEmpty() )
 	{
