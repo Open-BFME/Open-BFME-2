@@ -1088,8 +1088,6 @@ Rva007401F6::Rva007401F6()
 {
 }
 
-// tu-skeleton: 0x00740226 28B ??_GRva007401F6@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-e282.cpp (not merged yet)
-
 // tu-skeleton: 0x007402C0 661B ?rva007402C0@W3DAptComponentView3D@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp (not merged yet)
 
 // tu-skeleton: 0x007405A9 312B ?Render@W3DAptComponentView3D@@QAEXHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)

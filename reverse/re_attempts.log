@@ -99447,3 +99447,4 @@ tu-merge:Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	0x000
 ??1Rva007401F6@@UAE@XZ	0x007401F6	48	landed	add_match verified Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp 48B
 ??1Rva007401F6@@UAE@XZ	0x007401F6	48	landed	add_match verified Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp 48B; implicit dtor AsciiString at 8 restores base vtable callers 0x740229 0x7402AE; rehomed from Rva007401F6Dtor.cpp
 __ehhandler$??1Rva007401F6@@UAE@XZ	0x007AB44B	10	landed	add_match verified Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp 10B; gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x007401F6; retail parent installs handler 0x007AB44B (EH prologue immediate)
+??_GRva007401F6@@UAEPAXI@Z	0x00740226	28	landed	add_match verified Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp 28B; deleting dtor calls rowed dtor 0x7401F6 plus rowed delete; rehomed from FamilyDeletingDtors_muse-e282.cpp
