@@ -2,7 +2,6 @@
 // Element identity and unconstrained fields remain address-derived structural inference.
 // cl: /O2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-#include <algorithm>
 #include <vector>
 
 struct Rva00626EF0Element { int words[6]; bool operator<(const Rva00626EF0Element&b)const { return words[0]<b.words[0]; } bool operator==(const Rva00626EF0Element&b)const {return words[0]==b.words[0];} };

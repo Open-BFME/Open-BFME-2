@@ -9,7 +9,7 @@
 // call out of line, so the helper is declared here and not instantiated.
 // The partition manager's closest-object query (0x00628040) uses the same
 // 24-byte heap element and comparator.
-#include <algorithm>
+#include <iterator>
 
 struct S4SortElem24
 {
@@ -26,9 +26,20 @@ public:
 	}
 };
 
+// Keep only STLport's public wrapper here. Including <algorithm> would also
+// define the heap implementation templates recovered in PartitionManagerImpl.
 namespace _STL {
-template <> void __push_heap_aux<S4SortElem24 *, S4Cmp009F4BF0, int, S4SortElem24>(
-	S4SortElem24 *, S4SortElem24 *, S4Cmp009F4BF0, int *, S4SortElem24 *);
+template <class RandomAccessIterator, class Compare, class Distance, class Tp>
+__declspec(noinline) void __push_heap_aux(RandomAccessIterator, RandomAccessIterator, Compare, Distance *, Tp *);
+
+template <class RandomAccessIterator, class Compare>
+void push_heap(RandomAccessIterator first, RandomAccessIterator last, Compare comp)
+{
+    __push_heap_aux(first, last, comp,
+        _STLP_DISTANCE_TYPE(first, RandomAccessIterator),
+        _STLP_VALUE_TYPE(first, RandomAccessIterator));
+}
+
 }
 
 template void _STL::push_heap(S4SortElem24 *, S4SortElem24 *, S4Cmp009F4BF0);
