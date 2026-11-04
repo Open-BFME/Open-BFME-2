@@ -667,12 +667,34 @@ public:
 	RefCountClass *m_p0; // +0x00
 	RefCountClass *m_p1; // +0x04
 };
-class Rva007401F6
+#include "ascii_string.h"
+// Base of Rva007401F6: retail vtable 0x0083962C holds one slot (scalar
+// deleting dtor 0x004102AB); ctor 0x00410297 stores -1 at +4 and the empty
+// dtor 0x004102A4 only restores the vptr. Same view as Rva004103E7Finish.cpp.
+class Rva0045EF90Base
 {
 public:
-	virtual ~Rva007401F6();
+	Rva0045EF90Base() : m_base((unsigned)-1) {}
+	virtual ~Rva0045EF90Base() {}
+protected:
+	unsigned m_base;
+};
+class Xfer;
+// Retail vtable 0x008F15E8: scalar deleting dtor 0x00740226, then __purecall
+// in slots 1-3, which the W3DAptComponentView3D vtable 0x008F1600 fills
+// (slot 1 0x007402C0, slot 3 0x00740BCD); slot 4 is its own SetLight.
+// No user-declared destructor: retail's ~Rva007401F6 (0x007401F6, 48 B) is the
+// compiler-generated one, which skips the derived vptr store a written
+// destructor makes, then releases m_str08 and restores the base vtable.
+class Rva007401F6 : public Rva0045EF90Base
+{
+public:
+	Rva007401F6();
+	virtual void crc(Xfer *xfer) = 0;
+	virtual void xfer(Xfer *xfer) = 0;
+	virtual void loadPostProcess() = 0;
 private:
-	char m_pad04[8];
+	AsciiString m_str08;
 };
 class W3DAptComponentView3D : public Rva007401F6
 {
@@ -771,15 +793,6 @@ public:
 	unsigned int m_24; // +0x24 +0x24
 	unsigned int m_28; // +0x28 +0x28
 	unsigned int m_2c; // +0x2C +0x2C
-};
-#include "../../Include/Common/BfmeStringData.h"
-template <typename T>
-class StringBase
-{
-public:
-	int compareNoCase(const char *other) const;
-private:
-	BfmeStringData<T> *m_data;
 };
 const char *g_Rva00740A60Table[] = { "MANUAL", "LOOP", "ONCE", "LOOP_PINGPONG", "PLAY_TO_FRAME", "LOOP_BACKWARDS", "ONCE_BACKWARDS", 0 };
 // ?SetLight@W3DAptComponentView3D@@UAEXHMMM@Z, retail 0x00740169, 58 bytes.
