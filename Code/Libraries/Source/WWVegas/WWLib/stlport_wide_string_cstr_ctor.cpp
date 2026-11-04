@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport 4.5.3 basic_string<wchar_t>::basic_string(const wchar_t *, const
@@ -9,7 +9,9 @@
 // passed as a named local so MSVC 7.1 hands over the address of the dead `s`
 // parameter slot rather than zeroing a fresh temporary.
 
-extern "C" void __cdecl free(void *block) throw(...);
+// Built without /MD: the base destructor calls the game's own free
+// (GameMemory.cpp, 0x00030830) with a direct e8, as a static-CRT build does.
+#include <stdlib.h>
 
 namespace _STL
 {
