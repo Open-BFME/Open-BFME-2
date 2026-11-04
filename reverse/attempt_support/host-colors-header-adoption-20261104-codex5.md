@@ -38,3 +38,16 @@ No census gain or runtime validation is claimed. The default pick's unrelated
 BridgeBehavior standalone-free-head blocker was checked first: its already
 landed repair predicts LINKS (4,673 -> 4,673 bytes), matching the existing
 obstacle evidence. That source was not changed and its claims were released.
+
+Post-commit identity follow-up: the commit hook passed in shadow mode but
+reported `Unwind@00b88cea` binding `??1Rva0043EA9C@@QAE@XZ` to retail target
+`0x00440012` as `wrong/extent`. A normal `./build.sh` of the parent source
+and another of the final source both pass 4/4; scoped `allowed_symbols.py`
+reports exactly the same 21 references (17 owner, 1 EH, 1 alias, 1 fold,
+1 wrong). Its complete scoped `refs.tsv` outputs are byte-identical.
+The final source and current build object were restored. This confirms the
+warning predates these header adoptions; no identity key was changed or
+retired. The ledger owns `0x00440012` as the five-byte
+`Rva00440012::rva00440012` wrapper, whose current source in
+`RvaTreeDtorFamily.cpp` calls the destructor at `0x0043FE62`. Resolving that
+remaining identity discrepancy is outside these two header retirements.
