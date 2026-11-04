@@ -18,30 +18,7 @@ struct IDirect3DDevice8;
 #define SURFACE9_OUT(slot) (reinterpret_cast<IDirect3DSurface9 **>(slot))
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
-class DX8Wrapper
-{
-public:
-	static void Set_Render_Target(IDirect3DSurface8 *renderTarget, IDirect3DSurface8 *depthBuffer);
-
-private:
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-private:
-protected:
-	static IDirect3DSurface8 *CurrentRenderTarget;
-private:
-protected:
-	static IDirect3DSurface8 *CurrentDepthBuffer;
-private:
-protected:
-	static IDirect3DSurface8 *DefaultRenderTarget;
-private:
-protected:
-	static IDirect3DSurface8 *DefaultDepthBuffer;
-private:
-protected:
-	static bool IsRenderToTexture;
-};
+#include "DX8WrapperClass.h"
 
 // The DX8 call counter at 0x9EDA98 (the ledger's ?number_of_DX8_calls@@3IA).
 extern unsigned number_of_DX8_calls;

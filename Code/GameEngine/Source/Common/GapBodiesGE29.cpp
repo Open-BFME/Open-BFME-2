@@ -122,13 +122,7 @@ float rva0006607A(float angle)
 class DX8_CleanupHook;
 class Rva0006614F;
 
-class DX8Wrapper
-{
-	friend class Rva0006614F;
-protected:
-	static DX8_CleanupHook *m_pCleanupHook;
-	static bool FogEnable;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
@@ -149,12 +143,12 @@ public:
 
 void Rva0006614F::rva0006614F(DX8_CleanupHook *hook)
 {
-	DX8Wrapper::m_pCleanupHook = hook;
+	DX8Wrapper::SetCleanupHook(hook);
 }
 
 bool Rva0006614F::rva00066159()
 {
-	return DX8Wrapper::FogEnable;
+	return DX8Wrapper::Get_Fog_Enable();
 }
 
 void Rva0006614F::rva0006E153()

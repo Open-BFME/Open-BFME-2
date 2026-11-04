@@ -123,16 +123,7 @@ private:
 	}
 };
 
-class DX8Wrapper
-{
-public:
-	static unsigned int Get_Resolution_Width() { return ResolutionWidth; }
-	static unsigned int Get_Resolution_Height() { return ResolutionHeight; }
-
-protected:
-	static int ResolutionWidth;
-	static int ResolutionHeight;
-};
+#include "DX8WrapperClass.h"
 
 class Render2DSentenceClass
 {
@@ -303,7 +294,7 @@ void Render2DSentenceClass::Draw_Sentence(uint32 color1, uint32 color2, uint32 c
 			if (found == false)
 			{
 				curr_renderer = new Render2DClass;
-				curr_renderer->Set_Coordinate_Range(RectClass(0, 0, (float)DX8Wrapper::Get_Resolution_Width(), (float)DX8Wrapper::Get_Resolution_Height()));
+				curr_renderer->Set_Coordinate_Range(RectClass(0, 0, (float)(unsigned)DX8Wrapper::Get_Device_Resolution_Width(), (float)(unsigned)DX8Wrapper::Get_Device_Resolution_Height()));
 
 				RendererDataStruct render_info;
 				render_info.Renderer = curr_renderer;

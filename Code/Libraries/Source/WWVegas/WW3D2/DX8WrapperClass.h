@@ -33,6 +33,13 @@
  * The fog setter (RVA 0x0006F0BB) writes FogEnable at VA 0x00DEDA21 and FogColor
  * at 0x00DEDA24. RTS3DScene::renderOneObject tests FogEnable at VA 0x0046FBF2.
  * Rva00116E40Set (RVA 0x00116E40) writes TextureBitDepth at VA 0x00DB5FE0.
+ * Set_Render_Target (0x0011E250, 0x0011E3E0) reads and stores CurrentRenderTarget
+ * at VA 0x00DEDA38, CurrentDepthBuffer at 0x00DEDA3C, DefaultRenderTarget at
+ * 0x00DEDA40 and DefaultDepthBuffer at 0x00DEDA44. Do_Onetime_Device_Dependent_Inits
+ * (0x001245A0) reads DisplayFormat at VA 0x00DEDA08. Get_Device_Resolution and
+ * Get_Render_Target_Resolution (0x00121860) read BitDepth at VA 0x00DB5FDC.
+ * Set_Ambient (0x00117F50) stores Ambient_Color at VA 0x00DEDC70. Reset_Device
+ * (0x00122600) reads m_pCleanupHook at VA 0x00DEDA90.
  *
  * The matched Get_Transform row uses the enum tag D3DTRANSFORMSTATETYPE, whereas
  * the matched Set_Transform rows use _D3DTRANSFORMSTATETYPE. The declarations
@@ -42,7 +49,14 @@
  * Donor facts: GeneralsMD WW3D2/dx8wrapper.h declares a class with only static
  * members and no bases. Its sizeof 1 is a donor/compiler fact, not a retail
  * allocation measurement. It proves the names of the four inline accessors
- * Set_Texture_Bitdepth, Get_Current_Caps, Get_Fog_Enable and _Get_D3D_Device8.
+ * Set_Texture_Bitdepth, Get_Current_Caps, Get_Fog_Enable and _Get_D3D_Device8,
+ * and of _Get_D3D8, Get_Device_Resolution_Width, Get_Device_Resolution_Height,
+ * Get_Texture_Bitdepth, _Is_Triangle_Draw_Enabled, Get_Fog_Color, Is_Initted
+ * and SetCleanupHook. BFME2 code reads or stores their statics inline:
+ * D3DInterface at 0x004752F2, ResolutionWidth at 0x005184D7, ResolutionHeight at
+ * 0x005184F5, TextureBitDepth at 0x00517C30, the triangle-draw byte at
+ * 0x004F08C0, FogColor at 0x004EE734, IsInitted at 0x0055A9F3 and m_pCleanupHook
+ * (store) at 0x0046CDC2. No out-of-line copy of any of them is in the ledger.
  * The named static data also follows that declaration, with BFME2 extents read
  * from Init. No donor or shim header is included here.
  *
@@ -216,6 +230,14 @@ public:
     static __forceinline const DX8Caps *Get_Current_Caps() { return CurrentCaps; }
     static __forceinline bool Get_Fog_Enable() { return FogEnable; }
     static __forceinline IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+    static __forceinline IDirect3D8 *_Get_D3D8() { return D3DInterface; }
+    static __forceinline int Get_Device_Resolution_Width() { return ResolutionWidth; }
+    static __forceinline int Get_Device_Resolution_Height() { return ResolutionHeight; }
+    static __forceinline int Get_Texture_Bitdepth() { return TextureBitDepth; }
+    static __forceinline bool _Is_Triangle_Draw_Enabled() { return _EnableTriangleDraw; }
+    static __forceinline unsigned long Get_Fog_Color() { return FogColor; }
+    static __forceinline bool Is_Initted() { return IsInitted; }
+    static __forceinline void SetCleanupHook(DX8_CleanupHook *hook) { m_pCleanupHook = hook; }
     static bool Init(void *, bool lite = false);
     static void Shutdown();
     static void Do_Onetime_Device_Dependent_Inits();
@@ -363,6 +385,14 @@ protected:
     static bool IsRenderToTexture;
     static float ZNear;
     static float ZFar;
+    static _D3DFORMAT DisplayFormat;
+    static IDirect3DSurface8 *CurrentRenderTarget;
+    static IDirect3DSurface8 *CurrentDepthBuffer;
+    static IDirect3DSurface8 *DefaultRenderTarget;
+    static IDirect3DSurface8 *DefaultDepthBuffer;
+    static int BitDepth;
+    static Vector3 Ambient_Color;
+    static DX8_CleanupHook *m_pCleanupHook;
 
 private:
     static void Get_Render_Target_Resolution(int &, int &, int &, bool &);

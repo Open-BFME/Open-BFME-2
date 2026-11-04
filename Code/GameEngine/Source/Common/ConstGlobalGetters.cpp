@@ -14,20 +14,9 @@
 struct IDirect3D8;
 
 // 0x00DB5FD4/0x00DB5FD8 are the data ledger's DX8Wrapper::ResolutionWidth
-// and ResolutionHeight (dx8wrapper.cpp's protected statics, @@1): a minimal
-// view of the real class reads them through an inline accessor.
-class DX8Wrapper {
-public:
-	static __forceinline int Get_Device_Resolution_Width() { return ResolutionWidth; }
-	static __forceinline int Get_Device_Resolution_Height() { return ResolutionHeight; }
-	static __forceinline int Get_Texture_Bit_Depth() { return TextureBitDepth; }
-	static __forceinline IDirect3D8 *Get_D3D8() { return D3DInterface; }
-protected:
-	static int ResolutionWidth;
-	static int ResolutionHeight;
-	static int TextureBitDepth;			// 0x009B5FE0
-	static IDirect3D8 *D3DInterface;	// 0x009EDA30
-};
+// and ResolutionHeight (dx8wrapper.cpp's protected statics, @@1), read
+// through the header's inline accessors.
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // 0x009B5F9C is the data ledger's WW3D::TextureFilter (ww3d.cpp's private
 // static, @@0).
@@ -38,7 +27,7 @@ protected:
 // no branch sources. Opaque address-derived name.
 int Rva000752F2Get(void)
 {
-	return (int)DX8Wrapper::Get_D3D8();
+	return (int)DX8Wrapper::_Get_D3D8();
 }
 
 // ?Rva00116E20Get@@YAHXZ @ 0x00116E20 (6B): returns global at 0x9B5FD4.
@@ -62,7 +51,7 @@ int Rva00116E30Get(void)
 // no branch sources. Opaque address-derived name.
 int getTextureBitDepth(void)
 {
-	return DX8Wrapper::Get_Texture_Bit_Depth();
+	return DX8Wrapper::Get_Texture_Bitdepth();
 }
 
 // ?getTextureFilter@@YAHXZ @ 0x0011C450 (6B): returns global at 0x9B5F9C.

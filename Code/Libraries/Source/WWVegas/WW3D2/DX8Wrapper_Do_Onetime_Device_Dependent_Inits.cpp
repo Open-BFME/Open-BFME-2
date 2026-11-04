@@ -93,15 +93,7 @@ enum _D3DFORMAT
 	D3DFMT_UNKNOWN = 0
 };
 
-class DX8Wrapper
-{
-public:
-	static void Do_Onetime_Device_Dependent_Inits( void );
-
-protected:
-	static void Set_Default_Global_Render_States( void );
-	static _D3DFORMAT DisplayFormat; // 0x00DEDA08, defined in dx8wrapper.cpp
-};
+#include "DX8WrapperClass.h"
 
 void __cdecl Rva001207B0Init( void *device );
 void __cdecl Rva0017E210Init( void );

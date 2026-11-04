@@ -34,16 +34,7 @@ struct IDirect3DSurface8;
 // this TU recovers the DX8Wrapper body it jumps to (private static, hence
 // the CAX mangling). The globals it reads are DX8Wrapper's protected static
 // members, defined in dx8wrapper.cpp.
-class DX8Wrapper
-{
-	static void Get_Render_Target_Resolution(Int &width, Int &height, Int &bitDepth, Bool &windowed);
-protected:
-	static IDirect3DSurface8 *CurrentRenderTarget; // 0x00DEDA38
-	static Int ResolutionWidth;                    // 0x00DB5FD4
-	static Int ResolutionHeight;                   // 0x00DB5FD8
-	static Int BitDepth;                           // 0x00DB5FDC
-	static Bool IsWindowed;                        // 0x00DEDA06
-};
+#include "DX8WrapperClass.h"
 
 // ?Get_Render_Target_Resolution@DX8Wrapper@@CAXAAH00AA_N@Z
 void DX8Wrapper::Get_Render_Target_Resolution(Int &width, Int &height, Int &bitDepth, Bool &windowed)
