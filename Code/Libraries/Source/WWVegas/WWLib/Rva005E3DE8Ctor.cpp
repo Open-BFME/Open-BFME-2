@@ -32,9 +32,3 @@ Rva005E3DE8::Rva005E3DE8() : Rva00221635((int)&AsciiString("ArmyDetailsPanel")),
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?pure@Rva005E3DE8@@UAEXXZ=??_GRva005E3DE8@@QAEPAXI@Z")
-
-// Placeholder names this unit's own object settles.  In retail each one holds
-// what the unit's matched code references or installs: the rowed function of
-// the vftable slot it occupies, or the function or datum the instruction
-// reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?pure@Rva005E3DE8@@UAEXXZ=??_GRva005E3DE8@@QAEPAXI@Z")

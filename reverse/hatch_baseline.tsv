@@ -3889,7 +3889,7 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054103ECopy.cpp	??4Rva0054
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054152DErase.cpp	??4Rva0054107FRecord@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054A0D8Insert.cpp	?cmp@Comp0054A0D8@@QAEEPAX0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005680DERangeForward.cpp	?Rva005680DERangeCallee@@YAPAURva005680DEOutput@@PAU1@IPBURva005680DEInput@@ABURva005680DEIteratorTag@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp	?pure@Rva005E3DE8@@UAEXXZ	2
+alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp	?pure@Rva005E3DE8@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005EDA8AEraseRange.cpp	??$__copy_ptrs@PAUBfmeStringRecord005ED5F3@@PAU1@@_STL@@YAPAUBfmeStringRecord005ED5F3@@PAU1@00ABU__false_type@0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva008FB570DequePushBackAux.cpp	?_M_reallocate_map@?$deque@UGen_t_008fb570_p8pod@@V?$allocator@UGen_t_008fb570_p8pod@@@_STL@@@_STL@@IAEXI_N@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp	?erase@Rva006DF050Slot@@QAEIABH@Z	1
