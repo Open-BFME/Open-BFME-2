@@ -46,9 +46,12 @@
 #include "../WWLib/RefCountData.h"
 
 #include "../WWLib/GenericMultiListClass.h"
-
 #include "../WWLib/MultiListObjectClass.h"
 
+// These canonical list declarations replace the reference multilist header
+// that MeshGeometryClass.h includes for its secondary base.
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 class DX8PolygonRendererList : public GenericMultiListClass
 {
@@ -56,25 +59,9 @@ public:
 	virtual ~DX8PolygonRendererList();
 };
 
-
 #include "MeshMatDescClass.h"
 
 #include "MaterialInfoClass.h"
-
-// Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
-// + MultiListObjectClass (vptr +8); Flags unsigned at +0x18 (the skin-bit
-// extraction needs the shr form); total 0x8C per the proven sizeof.
-class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass
-{
-public:
-	MeshGeometryClass();
-	virtual ~MeshGeometryClass();
-
-protected:
-	char m_pad10[0x18 - sizeof(RefCountClass) - sizeof(MultiListObjectClass)];
-	unsigned int Flags;
-	char m_pad1C[0x8C - 0x1C];
-};
 
 class MeshModelClass;
 
@@ -144,7 +131,7 @@ MeshModelClass::~MeshModelClass(void)
 	if (CurMatDesc->field_0C != NULL) {
 		rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
 	}
-	Reset(0, 0, 0, (Flags >> SKIN_BIT_INDEX) & true);
+	Reset(0, 0, 0, (static_cast<unsigned int>(Flags) >> SKIN_BIT_INDEX) & true);
 	if (MatInfo != NULL) {
 		MatInfo->Release_Ref();
 		MatInfo = NULL;

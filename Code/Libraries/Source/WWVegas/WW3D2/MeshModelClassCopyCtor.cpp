@@ -81,17 +81,10 @@ typedef Rva00144690 DX8PolygonRendererList;
 
 #include "MeshMatDescClass.h"
 
-// Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
-// + MultiListObjectClass (vptr +8); total 0x8C per the proven sizeof.
-class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass
-{
-public:
-	MeshGeometryClass(const MeshGeometryClass &that);
-	virtual ~MeshGeometryClass();
-
-private:
-	char m_pad[0x8C - sizeof(RefCountClass) - sizeof(MultiListObjectClass)];
-};
+// The list declarations above supply the secondary base without the
+// reference multilist header's duplicate class definitions.
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 class GapFillerClass;
 

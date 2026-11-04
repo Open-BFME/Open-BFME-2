@@ -30,8 +30,12 @@
 #include "../WWLib/RefCountData.h"
 
 #include "../WWLib/GenericMultiListClass.h"
-
 #include "../WWLib/MultiListObjectClass.h"
+
+// These canonical list declarations replace the reference multilist header
+// that MeshGeometryClass.h includes for its secondary base.
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // The derived list owns the native vptr; its base's emitted table and deleting
 // destructor belong to the retail provider, not this local layout view.
@@ -47,28 +51,6 @@ typedef Rva00144690 DX8PolygonRendererList;
 #include "MeshMatDescClass.h"
 
 #include "MaterialInfoClass.h"
-
-// Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
-// + MultiListObjectClass (vptr +8); Flags int at +0x18 per the meshgeom
-// shim; total 0x8C per the proven sizeof.
-class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass
-{
-public:
-	enum FlagsType
-	{
-		DIRTY_BOUNDS = 0x00000001
-	};
-
-	MeshGeometryClass();
-	virtual ~MeshGeometryClass();
-
-	__declspec(dllimport) __forceinline void Set_Flag(FlagsType flag, bool onoff) { if (onoff) { Flags |= flag; } else { Flags &= ~flag; } }
-
-private:
-	char m_pad10[0x18 - sizeof(RefCountClass) - sizeof(MultiListObjectClass)];
-	int Flags;
-	char m_pad1C[0x8C - 0x1C];
-};
 
 class GapFillerClass;
 
@@ -116,7 +98,7 @@ MeshModelClass::MeshModelClass(void) :
 		NextMesh->PrevMeshLink = &NextMesh;
 	}
 
-	Set_Flag(DIRTY_BOUNDS, true);
+	Set_Flag(static_cast<int>(DIRTY_BOUNDS), true);
 
 	DefMatDesc = new MeshMatDescClass;
 	CurMatDesc = DefMatDesc;
