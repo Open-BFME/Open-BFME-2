@@ -19,7 +19,7 @@
 // dword bit2 clear check. Evidence: vtable slot, MI vptrs +0/+0xC/+0x10
 // family precedent Rva004B8CDEDerived.cpp, prev Rva004B8F92, next 0x004B9093.
 #include "PreRTS.h"
-#include "GameLogic/Module/CreateModule.h"
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 #include "ascii_string.h"
 
 class Player;
@@ -50,15 +50,8 @@ public:
 class GrantUpgradeCreate : public CreateModule
 {
 public:
-	GrantUpgradeCreate(Thing *thing, const ModuleData *moduleData);
 	virtual void onCreate();
 	virtual void onBuildComplete();
-
-protected:
-	virtual ~GrantUpgradeCreate();
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
 };
 
 void GrantUpgradeCreate::onCreate()

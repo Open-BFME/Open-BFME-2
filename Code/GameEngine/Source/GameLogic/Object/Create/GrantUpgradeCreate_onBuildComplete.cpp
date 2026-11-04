@@ -40,6 +40,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 class GrantUpgradeCreate : public CreateModule
 {
 public:
+	virtual void onCreate();
 	virtual void onBuildComplete();
 };
 
