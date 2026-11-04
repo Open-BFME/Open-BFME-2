@@ -1124,6 +1124,52 @@ is `size=40` with `NumRefs@4, Stage@8, FPS@12, m_10@16, m_14@20`; the hierarchy'
 the **incomplete** one here: it has the base chain and the real method names, and
 the flattened views have the data members it lacks.
 
+**The slot-8 identity, confirmed by the file itself.**
+`TextureMapperFXShaderConvert.cpp`'s own header comment opens: "The BFME2 texture
+mappers' FXShader conversion virtual (**vtable +0x20**; WB 0x00A33B70 by its
+strings)", and says the conversion's original name is not recovered. Slot 8 is
+vtable +0x20, which is exactly the slot the hierarchy view calls `RetailSlot20`.
+So `RetailSlot20` is not a mystery: it is the FXShader conversion virtual, and
+`rva00187690` (Scale), `rva00187850` (LinearOffset) and `rva00187AD0` (Grid) are
+its three per-class overrides. That is a naming-lane lead with the evidence
+already in the tree.
+
+**The target declarations, from the measured layouts.** Written out so the edit is
+mechanical rather than exploratory. Sizes and offsets are `class_layouts.py`
+output, not inference:
+
+```
+RefCountClass                       vfptr +0x00, NumRefs +0x04, size 8
+  slot 0                            its own virtual
+TextureMapperClass : RefCountClass  Stage +0x08, size 12
+  slot 1 __vecDelDtor   slot 2 Mapper_ID       slot 3 Clone
+  slot 4 Is_Time_Variant slot 5 Apply          slot 6 Reset
+  slot 7 Needs_Normals   slot 8 RetailSlot20 (+0x20, the FXShader conversion)
+  slot 9 Calculate_Texture_Matrix
+ScaleTextureMapperClass : TextureMapperClass
+  ScaleX +0x0C, ScaleY +0x10, size 20          (hierarchy spells these Vector2 Scale +0x0C)
+GridTextureMapperClass : TextureMapperClass
+  FPS +0x0C, m_10 +0x10, m_14 +0x14, m_18 +0x18,
+  LogGridWidth +0x1C, LastFrame +0x20, FrameOffset +0x24, size 40
+LinearOffsetTextureMapperClass : ScaleTextureMapperClass
+  CurrentUVOffset{X,Y} +0x14/+0x18, UVOffsetDeltaPerMS{X,Y} +0x1C/+0x20,
+  LastUsedSyncTime +0x24, UOffset +0x28, VOffset +0x2C, ClampFix +0x30, size 52
+                                               (hierarchy spells +0x28 StartingUVOffset)
+```
+
+Both views are consistent with this; each is missing a different part of it. The
+hierarchy lacks **all seven of Grid's fields** - it reports `size=12` where the
+layout says 40 - and the flattened views lack the base chain.
+
+**Scope warning, which is why this was not attempted in a short window.**
+`TextureMapperFXShaderConvert.cpp` declares neither `RefCountClass` nor
+`TextureMapperClass`, so the edit introduces two class declarations and rewrites
+three, preserving an exact vtable across all five in an `/O2` TU where every body
+must still match. Each derived view also declares its own `Mapper_ID`. Budget
+several build iterations, and do `GridTextureMapperClass` first: its 28 missing
+bytes in the hierarchy view are the one place the two models give different sizes,
+so it is the real test of this reading.
+
 So the resolution is not a tool relaxation and not a coin flip. It is: give each
 flattened view its real base (`: public TextureMapperClass`, and
 `: public ScaleTextureMapperClass` for the linear-offset one), delete the
