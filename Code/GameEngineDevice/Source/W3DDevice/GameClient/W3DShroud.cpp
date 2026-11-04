@@ -66,10 +66,6 @@ class ShroudManager;
 extern class PartitionManager *TheShroudManager;
 #define TheShroudManager (*(ShroudManager * *)&TheShroudManager)
 #include <d3d9.h>
-//
-// ?rva000731AE@Rva000731AE@@QAEXXZ @0x000731AE 70B via tail clear plus three array deletes
-// Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x00066700 0x000668AB 0x0006D668
-// Retail frees +0x18 +0x38 +0x3C via delete[] then zeroes then sets +0x35 to 1 then tail-jmps to clear of embedded map at +0x4C
 #include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 #include <new>
 #include <set>
@@ -287,20 +283,44 @@ private:
 typedef int Int;
 typedef unsigned int UnsignedInt;
 #include "../../../../GameEngine/Include/Common/Overridable.h"
-
 // VA 0x00DFF488 is the ledger's TheWaterTransparency (data_rows.csv); its
 // single word is the held object pointer read below.
 class WaterTransparencySetting;
-
 template <class T> class OVERRIDE;
-
 extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
-
 #include "../../../../GameEngine/Include/GameClient/Water.h"
-
-// slot at 0x00222D26: writes the +0x04 object's leading byte, then its +0x04
-// pair through the rowed Rva000B3F84Pair::write; returns the bytes written.
 #include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
+#include <map>
+namespace _STL {
+// Keep the vendor bodies inline without emitting additional int/int tree
+// COMDAT copies. The matched callers already inline these two helpers.
+typedef pair<const int, int> EraseIntPair;
+typedef _Rb_tree_iterator<EraseIntPair, _Nonconst_traits<EraseIntPair> > EraseIntIterator;
+typedef _Rb_tree<int, EraseIntPair, _Select1st<EraseIntPair>, less<int>, allocator<EraseIntPair> > EraseIntTree;
+
+// ?_STL::EraseIntIterator::_Rb_tree_iterator present-unmatched
+template <> __declspec(dllimport) __forceinline
+EraseIntIterator::_Rb_tree_iterator(const EraseIntIterator &it)
+{ _M_node = it._M_node; }
+
+// ?_STL::EraseIntTree::upper_bound present-unmatched
+template <> __declspec(dllimport) __forceinline
+EraseIntTree::iterator EraseIntTree::upper_bound(const int &key)
+{ return iterator(_M_upper_bound(key)); }
+}
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+struct Rva00072F7CNode {
+  unsigned _M_color;
+  Rva00072F7CNode *parent04;
+  Rva00072F7CNode *left08;
+  Rva00072F7CNode *right0C;
+};
 
 // slot at 0x0033F504: the rowed BfmeSub932C query of the +0x20 object, 0
 // without one.
@@ -428,6 +448,24 @@ private:
 	unsigned char m_trackDirtyCells;		// +0x48
 	_STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;	// +0x4C
 };
+
+// The single-iterator erase provider is rowed at 0x005530A8 in
+// stlport_map_int_ptr_o1.cpp. Keep calls to that body when this donor joins
+// the shroud TU, whose /G7 flags would emit a different COMDAT copy.
+namespace _STL {
+template <> void _Rb_tree<int, Rva00072FE6::V,
+    _Select1st<Rva00072FE6::V>, less<int>, allocator<Rva00072FE6::V> >::erase(iterator);
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
+
+//
+// ?rva000731AE@Rva000731AE@@QAEXXZ @0x000731AE 70B via tail clear plus three array deletes
+// Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x00066700 0x000668AB 0x0006D668
+// Retail frees +0x18 +0x38 +0x3C via delete[] then zeroes then sets +0x35 to 1 then tail-jmps to clear of embedded map at +0x4C
+
+// slot at 0x00222D26: writes the +0x04 object's leading byte, then its +0x04
+// pair through the rowed Rva000B3F84Pair::write; returns the bytes written.
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 
@@ -719,40 +757,6 @@ void Rva00072F49::rva00072F64()
 	m_0C->m_44 = 0;
 }
 
-// tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072E84 103B ?rva00072E84@Rva00072B3A@@QAEXEPAVRva00116680@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072EEB 94B ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
-
-// tu-skeleton: 0x00072F7C 45B ?rva00072F7C@Rva00072FE6@@QAEXPAURva00072F7CNode@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FA9 28B ??_GRva0072AED@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FC5 28B ??_GRva00072FE1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FE1 5B ??1Rva00072FE1@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00072FE6 41B ?rva00072FE6@Rva00072FE6@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0007300F 68B ?rva0007300F@Rva00072FE6@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp (not merged yet)
-
-// tu-skeleton: 0x00073053 134B ?insert_unique@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@_N@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp (not merged yet)
-
-// tu-skeleton: 0x000730D9 5B ?rva000730D9@Rva00073421@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
-
-// tu-skeleton: 0x000730DE 56B ??1Rva00072FE6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00073116 5B ?rva00073116@Rva00073116@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0007311B 147B ??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp
 
 // ?? W3DShroud::W3DShroud retail 0x00073320..0x000733D8 (184B). Identity: WB
@@ -800,8 +804,6 @@ void W3DShroud::setShroudLevel(int x, int y, UnsignedByte level, bool textureOnl
 	}
 }
 
-// tu-skeleton: 0x000732AC 12B ?rva000732AC@Rva000732ACOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor_W3DShroud.cpp
 
 // ?? W3DShroud::W3DShroud retail 0x00073320..0x000733D8 (184B). Identity: WB
@@ -827,7 +829,69 @@ W3DShroud::W3DShroud()
 {
 }
 
-// tu-skeleton: 0x000733D8 73B ?rva000733D8@Rva00072FE6@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp (not merged yet)
+// tu-skeleton: 0x00072988 68B ?getShroudLevel@W3DShroud@@QAEEHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x000729EB 9B ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072D5D 179B ?Rva00072D5DShroudPixel@@YAGE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072E10 116B ?fillShroudData@Rva00072B3A@@QAEXE@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072E84 103B ?rva00072E84@Rva00072B3A@@QAEXEPAVRva00116680@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072EEB 94B ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp (not merged yet)
+
+// tu-skeleton: 0x00072F7C 45B ?rva00072F7C@Rva00072FE6@@QAEXPAURva00072F7CNode@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FA9 28B ??_GRva0072AED@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FC5 28B ??_GRva00072FE1@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FE1 5B ??1Rva00072FE1@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00072FE6 41B ?rva00072FE6@Rva00072FE6@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp
+
+//
+// ?rva0007300F@Rva00072FE6@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z @0x0007300F 68B via STLPort range erase plus rowed clear
+// Evidence: vendor/stlport/stl/_tree.h erase(first last) calls clear on full range else loops via increment plus single erase
+// Retail calls clear 0x00072FE6 plus increment 0x00024250 plus single erase 0x005530A8 for map int to voidptr
+// Same 68B shape as rowed range erase 0x004ABC85 in stlport_map_int_ptr_o1.cpp modulo clear callee
+// Contiguous with clear 0x00072FE6 and set insert 0x00073053 and unblocks caller 0x000733D8
+
+void Rva00072FE6::rva0007300F(iterator first, iterator last) {
+  typedef V VV;
+  typedef _STL::_Rb_tree<int, VV, _STL::_Select1st<VV>, _STL::less<int>, _STL::allocator<VV> > Tree;
+  if (first._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(header00->left08) &&
+      last._M_node == reinterpret_cast<_STL::_Rb_tree_node_base *>(header00))
+    rva00072FE6();
+  else
+    while (first != last)
+      ((Tree*)this)->erase(first++);
+}
+
+unsigned int Rva00072FE6::rva000733D8(const int &key) {
+  typedef _STL::pair<const int, int> V2;
+  typedef _STL::_Rb_tree<int, V2, _STL::_Select1st<V2>, _STL::less<int>, _STL::allocator<V2> > TreeIntInt;
+  typedef _STL::_Rb_tree_iterator<V2, _STL::_Nonconst_traits<V2> > IterIntInt;
+  _STL::pair<IterIntInt, IterIntInt> p = ((TreeIntInt*)this)->equal_range(key);
+  unsigned int n = _STL::distance(*(iterator*)&p.first, *(iterator*)&p.second);
+  rva0007300F(*(iterator*)&p.first, *(iterator*)&p.second);
+  return n;
+}
+
+// tu-skeleton: 0x00073053 134B ?insert_unique@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@_N@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp (not merged yet)
+
+// tu-skeleton: 0x000730D9 5B ?rva000730D9@Rva00073421@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
+
+// tu-skeleton: 0x000730DE 56B ??1Rva00072FE6@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00073116 5B ?rva00073116@Rva00073116@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0007311B 147B ??1Rva0007311B@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva0007311BDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000732AC 12B ?rva000732AC@Rva000732ACOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00073421 5B ?rva00073421@Rva00073421@@QAEIABH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
 

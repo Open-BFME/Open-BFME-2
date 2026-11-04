@@ -259,3 +259,5 @@ e8931880e6's carry-over (claude2's 80 units). The 40 local declarations only sto
 object publishing a non-retail /G7 copy, which keeps those units linking whatever the
 link order. Do not count them as new linked bytes. Do not extend the batch
 to the remaining `_floorf` or PendingSurfaceStruct consumers. Confirm them at the next census.
+
+2026-11-04: W3DShroud's erase-donor composition now preserves the existing 0x005530A8 provider instead of emitting a non-retail /G7 COMDAT; scoped merge guard and 2,030-byte link preview pass, with no census gain claimed. [Audit and remaining interpolation prerequisite](../../reverse/attempt_support/shroud-erase-consolidation-20261104.md).

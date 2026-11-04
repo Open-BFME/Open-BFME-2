@@ -4172,7 +4172,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00072FC5,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072FE1,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp
 0x00072FE1,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00072FE6,Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp
 0x00072FE6,41,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x0007300F,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
-0x0007300F,68,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00073053,Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp
+0x0007300F,68,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00073053,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 0x00073053,134,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x000730D9,Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp
 0x000730D9,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x000730DE,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x000730DE,56,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00072EEB..0x00073116,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
@@ -4183,7 +4183,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000732AC,12,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x000731F4..0x000732B8,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x000732B8,104,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x000731F4..0x00073320,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 0x00073320,184,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
-0x000733D8,73,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00073320..0x00073421,Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp
+0x000733D8,73,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00073320..0x00073421,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp
 0x00073421,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,C,C=0x00073320..0x00073426,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x00073426,514,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudInterpolate.cpp
 0x00073628,494,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp

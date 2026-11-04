@@ -12972,6 +12972,8 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	RTS3DScene::setGlobalLight	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	RTS3DScene::updatePlayerColorPasses	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp	DX8Wrapper::Set_Fog	1
+present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
+present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp	_STL::EraseIntTree::upper_bound	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleBoundingSphere.cpp	0W3DStatusCircle@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleBoundingSphere.cpp	4W3DStatusCircle@@QAEAAV0@ABV0@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleBoundingSphere.cpp	Cast_Ray@W3DStatusCircle@@UAE_NAAVRayCollisionTestClass@@@Z	1
@@ -13704,8 +13706,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Local
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Locale_extract_time_name	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp	OwnedBucketStorage::~OwnedBucketStorage	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0000234DVectorDeletingDtors.cpp	bfmeVectorDeleteAnchor0000234D@@YAXPAVRva0000234DElem@@PAVRva00001E13@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntTree::upper_bound	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00136642HintInsert.cpp	0Rva001364F7Iter@@QAE@PAURvaNode1364F7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	Rva00151248String::Rva00151248String	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C262HeaderOwner::~Rva0018C262HeaderOwner	1
