@@ -71,6 +71,8 @@ MemoryPoolFactory *TheMemoryPoolFactory = 0;
 
 class Rva006C1F60 { public: void *rva00033ED0(unsigned int size, int flags); };
 
+#include "../../../Include/Common/GeneralAllocator.h"
+
 namespace EA
 {
 namespace Allocator
@@ -94,161 +96,62 @@ struct Rva00031BF0Chunk {
  Rva00031BF0Chunk* previous;
  Rva00031BF0Chunk* next;
 };
-class GeneralAllocator
+// The allocator is the canonical EA::Allocator::GeneralAllocator
+// (Common/GeneralAllocator.h, offset-named fields). The views below give this
+// unit's walks the shapes the target code reads at those offsets.
+// Intrusive list node proven by 0x00031680 (size at +4 next at +0x18)
+// and 0x00031660 (next at +0x18 prev at +0x1C); sentinel embedded
+// at +0x448 (m_448) with its next at +0x460 and prev at +0x464.
+// Labels are descriptive; only offsets are target facts.
+struct MemoryPoolListNode
 {
-public:
-	struct Snapshot
-	{
-		// The type name is donor-derived. Target evidence establishes these
-		// offsets and writes; field labels below are descriptive only.
-		unsigned int m_magic;
-		unsigned int m_size;
-		void *m_arg2;
-		unsigned char m_state[4];
-		unsigned int m_values[5];
-
-		Snapshot(unsigned int size, void *context);
-	};
-
-	// Godfather PPMalloc 1.03.01 PDB name; retail stores the two arguments
-	// at +0x4B8 and +0x4BC. Their callback contract remains donor-derived.
-	void SetAssertionFailureFunction(void *function, void *context);
-	// Donor PDB name; target caller at 0x32D7F and the chunk-header stores
-	// support the fencepost role. The precise chunk type remains unknown.
-	static void AddDoubleFencepost(void *chunk, unsigned int flags);
-	// Donor PDB name; target allocator call sites and the size-bin thresholds
-	// support its role. Its parameter meaning is carried from the donor.
-	static unsigned int GetLargeBinIndexFromChunkSize(unsigned int size);
-	bool rva00032830(const void *block, int addressType);	// ValidateAddress-like
-	bool rva00032920(const void *block);			// owns-address test
-	bool rva000329E0(int level);				// ValidateHeap-like
-	int rva000321F0(int level);				// heap validator 0x329E0 wraps (address-derived name)
-	int rva000327E0(const void *blockData, char *dst, unsigned int left);
-	// True (block, dst, left) order proven by the WB debug build; the row
-	// below owns this name and address.
-	int rva00031430(const void *block, char *dst, unsigned int left);
-	unsigned int rva000311E0(const void *src, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap);
-	unsigned int rva00032A20(const void *block);		// GetUsableSize-like
-	int rva00031D00(void *block);				// chunk check error count, callee of 0x32160 (address-derived name)
-	int rva00031F90(void *block);				// locked 0x31D00 count plus used-chunk neighbour checks
-	int rva00031E60(const void *block);			// free-chunk check error count over 0x31D00 (address-derived name)
-	unsigned int rva00032160(void *block);		// locked 0x31D00 count plus fencepost bit and second-list membership test
-	unsigned int rva00032050(void *chunk, unsigned int flags);	// locked per-chunk check count (address-derived name)
-	unsigned int rva000320E0(void *chunk, unsigned int flags, bool checkPrev, bool skipPrev);	// locked 0x32050 count plus free-chunk bits
-	unsigned int rva006C1D10(const void *block);		// fast usable-size with tail call to 0x32A20 caller 0x6C36FD
-	void *rva00031B60(const void *block);
-	void *rva00031680(const void *block);	// intrusive-list search unblocking 0x31BB0 0x31D00 0x32920
-	void rva00031660(void *node);			// intrusive unlink; called with ecx=this by teardown 0x33D50
-	bool rva000316B0(void *block, bool release);	// conditional core-release callback / VirtualFree
-	int rva00031BF0(const void *block);
-	bool rva00031BB0(const void *block);	// small-block fencepost check via 0x31680 caller 0x3324E
-	void rva00033150(const void *block);		// Free engine (address-derived name)
-	unsigned int rva00032C60(unsigned int pad);	// core trim (Rva00032C60Purge.cpp)
-	void *rva000344A0(unsigned int, unsigned int, unsigned int, int);
-	void rva000338F0(void *block);				// Free-like
-	void rva000338D0(Snapshot *snapshot);			// snapshot release
-	void *rva00035080(unsigned int size, int flags);	// Malloc-like
-	void *rva00035190(void *block, unsigned int size, int flags);	// Realloc-like
-	void *rva00035210(unsigned int count, unsigned int size, int flags);	// Calloc-like
-	void *rva000353B0(void *context, int blockTypes, bool copy, void *storage, unsigned int storageSize);	// ReportBegin-like
-	void rva00032EC0(const void *block, BlockInfo *out);	// chunk -> BlockInfo for the report
-	const BlockInfo *rva00032F60(void *context, int blockTypes);	// ReportNext-like
-	void rva00033E90(void *context);			// ReportEnd-like
-	// ReportHeap-like walk over blocks of the given types (unrowed 0x00035540).
-	bool reportHeap(bool (*callback)(const BlockInfo *info, void *context), void *context, int blockTypes, bool copy, char *storage, unsigned int storageSize);
-
-private:
-	// Intrusive list node proven by 0x00031680 (size at +4 next at +0x18)
-	// and 0x00031660 (next at +0x18 prev at +0x1C); sentinel embedded
-	// at +0x448 with its next at +0x460 (0x448+0x18) and prev at +0x464.
-	// Labels are descriptive; only offsets are target facts.
-	struct ListNode
-	{
-		unsigned int m_unk0;
-		unsigned int m_size;
-		// 0x316B0 independently consumes these fields. Names describe their
-		// observed use; the original field names and flag meanings are unknown.
-		unsigned int m_releaseSize;
-		unsigned char m_unknownC;
-		bool m_releaseDirect;
-		bool m_releaseAllowed;
-		unsigned char m_unknownF;
-		void (__cdecl *m_releaseCallback)(GeneralAllocator *, void *, unsigned int, void *);
-		void *m_releaseContext;
-		ListNode *m_next;
-		ListNode *m_prev;
-	};
-	// 1 when the chunk lies in none of the sentinel regions from s up to end.
-	static int ChunkOutsideRegions(Rva00031BF0Chunk *c, ListNode *listNode, ListNode *end)
-	{
-		while (listNode != end)
-		{
-			if ((unsigned int)c >= (unsigned int)listNode &&
-				(unsigned int)c < (unsigned int)listNode + listNode->m_size)
-				return 0;
-			listNode = listNode->m_next;
-		}
-		return 1;
-	}
-	unsigned int m_unknown0;
-	unsigned int m_maxFastSize;
-	Rva00031BF0Chunk* m_fastBins[10];
-	Rva00031BF0Chunk* m_bins[256];
-	// +0x430: one bit per bin, which 0x321F0 checks against each bin's ring.
-	unsigned int m_binmap[4];
-	// +0x440: the distinguished chunk 0x31BF0 classifies as kind 3 and
-	// 0x31D00 checks for self-linked fd/bk (label descriptive).
-	void *m_topChunk;
-	char m_pad444[4];
-	ListNode m_sentinel;
-	// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at
-	// +0x4E4 with a use count at +0x18 of the wrapper.
-	struct Lock
-	{
-		unsigned char m_pad[0x18];
-		int volatile m_count;
-	};
-public:
-	// Option fields written by 0x000317F0 (SetOption-like).
-	unsigned int m_option468;
-	bool m_state46C;
-	bool m_option46D;
-	unsigned char m_pad46E[0x470 - 0x46E];
-	// +0x470: recursion guard 0x31D00 raises around its checks.
-	int m_checkDepth;
-	unsigned char m_pad474[0x488 - 0x474];
-	// +0x488: count 0x321F0 requires to be non-negative and at most +0x490.
-	unsigned int m_count488;
-	// +0x48C: bytes of those mapped chunks; 0x33150 drops both on release.
-	unsigned int m_bytes48C;
-	unsigned int m_option490;
-	unsigned int m_option494;
-	bool m_option498;
-	unsigned char m_pad499[0x49C - 0x499];
-	struct RegionLink
-	{
-		unsigned int m_base;
-		unsigned int m_size;	// 0x321F0 counts an error when bit 1 is clear
-		unsigned char m_pad[4];
-		RegionLink *m_next;
-	};
-	RegionLink m_regions;
-	unsigned char m_pad4AC[0x4B4 - (0x49C + sizeof(RegionLink))];
-	unsigned int m_option4B4;
-	unsigned char m_pad4B8[0x4C8 - 0x4B8];
-	unsigned int m_option4C8;
-	unsigned int m_option4CC;
-	unsigned int m_unknown4D0;	// 0x321F0 requires it non-zero
-	unsigned int m_pageSize;
-	unsigned int m_coreSize;
-	unsigned int m_growSize;
-	bool m_option4E0;
-	Lock *m_4E4;
-	unsigned char m_lockStorage[0x1C];
-public:
-	void rva000317F0(int option, unsigned int value);
-	friend class ::Rva00031790;
+	unsigned int m_unk0;
+	unsigned int m_size;
+	// 0x316B0 independently consumes these fields. Names describe their
+	// observed use; the original field names and flag meanings are unknown.
+	unsigned int m_releaseSize;
+	unsigned char m_unknownC;
+	bool m_releaseDirect;
+	bool m_releaseAllowed;
+	unsigned char m_unknownF;
+	void (__cdecl *m_releaseCallback)(GeneralAllocator *, void *, unsigned int, void *);
+	void *m_releaseContext;
+	MemoryPoolListNode *m_next;
+	MemoryPoolListNode *m_prev;
 };
+// 1 when the chunk lies in none of the sentinel regions from s up to end.
+static inline int ChunkOutsideRegions(Rva00031BF0Chunk *c, MemoryPoolListNode *listNode, MemoryPoolListNode *end)
+{
+	while (listNode != end)
+	{
+		if ((unsigned int)c >= (unsigned int)listNode &&
+			(unsigned int)c < (unsigned int)listNode + listNode->m_size)
+			return 0;
+		listNode = listNode->m_next;
+	}
+	return 1;
+}
+// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at
+// +0x4E4 (m_pLock) with a use count at +0x18 of the wrapper.
+struct MemoryPoolLock
+{
+	unsigned char m_pad[0x18];
+	int volatile m_count;
+};
+// Region list head at +0x49C (m_49C), next at +0xC.
+struct MemoryPoolRegionLink
+{
+	unsigned int m_base;
+	unsigned int m_size;	// 0x321F0 counts an error when bit 1 is clear
+	unsigned char m_pad[4];
+	MemoryPoolRegionLink *m_next;
+};
+// Field roles at the offsets this unit uses (labels descriptive):
+//   m_004 max fast size, m_008 fast bins, m_030 bins, m_430 bin map,
+//   m_440 top chunk (0x31BF0 kind 3), m_470 recursion guard of 0x31D00,
+//   m_488/m_48C mapped chunk count/bytes, m_4D0 must be non-zero (0x321F0),
+//   m_4D4 page size, m_4D8 core size, m_4DC grow size; 0x000317F0 writes
+//   the options m_468, m_46D, m_490, m_494, m_498, m_4B4, m_4C8, m_4CC, m_4E0.
 
 GeneralAllocator::Snapshot::Snapshot(unsigned int size, void *context)
 {
@@ -319,7 +222,7 @@ unsigned int GeneralAllocator::GetLargeBinIndexFromChunkSize(unsigned int size)
 // Success means that a release was attempted; VirtualFree's result is ignored.
 bool GeneralAllocator::rva000316B0(void *block, bool release)
 {
-	ListNode *core = (ListNode *)block;
+	MemoryPoolListNode *core = (MemoryPoolListNode *)block;
 	bool result = false;
 	if (core->m_releaseDirect || (release && core->m_releaseAllowed))
 	{
@@ -339,8 +242,8 @@ bool GeneralAllocator::rva000316B0(void *block, bool release)
 // (+0x448+0x18); node size at +4 and next at +0x18.
 void *GeneralAllocator::rva00031680(const void *block)
 {
-	ListNode *cur = m_sentinel.m_next;
-	ListNode *sentinel = &m_sentinel;
+	MemoryPoolListNode *cur = ((MemoryPoolListNode *)m_448)->m_next;
+	MemoryPoolListNode *sentinel = (MemoryPoolListNode *)m_448;
 	while (cur != sentinel)
 	{
 		if ((unsigned int)block >= (unsigned int)cur)
@@ -412,7 +315,7 @@ bool GeneralAllocator::rva00031BB0(const void *block)
 // The allocator receiver and lock layout agree with the 0x32A20 sibling.
 int GeneralAllocator::rva000327E0(const void *blockData, char *dst, unsigned int left)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -493,7 +396,7 @@ int GeneralAllocator::rva00031430(const void *block, char *dst, unsigned int lef
 // compare is a scheduling lever (retail keeps the sentinel test in its own branch).
 unsigned int GeneralAllocator::rva00032160(void *block)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -502,8 +405,8 @@ unsigned int GeneralAllocator::rva00032160(void *block)
 
 	unsigned int result = rva00031D00(block);
 	result += ((unsigned char)~(((unsigned int *)block)[1] >> 1)) & 1 && 1;
-	RegionLink *sentinel = &m_regions;
-	RegionLink *cur = m_regions.m_next;
+	MemoryPoolRegionLink *sentinel = (MemoryPoolRegionLink *)m_49C;
+	MemoryPoolRegionLink *cur = ((MemoryPoolRegionLink *)m_49C)->m_next;
 	if (cur != sentinel)
 	{
 		unsigned int key = (unsigned int)block - *(unsigned int *)block;
@@ -529,7 +432,7 @@ unsigned int GeneralAllocator::rva00032160(void *block)
 // not reach this one, plus the top-chunk bit/size checks.
 int GeneralAllocator::rva00031F90(void *block)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -573,7 +476,7 @@ int GeneralAllocator::rva00031F90(void *block)
 // prev-in-use bit is clear. Argument labels are descriptive only.
 unsigned int GeneralAllocator::rva000320E0(void *chunk, unsigned int flags, bool checkPrev, bool skipPrev)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -599,7 +502,7 @@ unsigned int GeneralAllocator::rva000320E0(void *chunk, unsigned int flags, bool
 // [masked+block-4] gates size-4, else 0. Caller _GetBlockSize at 0x0003061D.
 unsigned int GeneralAllocator::rva00032A20(const void *block)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -713,11 +616,11 @@ const BlockInfo *GeneralAllocator::rva00032F60(void *context, int blockTypes)
 		if (snapshot->m_state[2])
 		{
 			blockTypes &= (int)snapshot->m_arg2;
-			while ((ListNode *)snapshot->m_values[0] != &m_sentinel)
+			while ((MemoryPoolListNode *)snapshot->m_values[0] != (MemoryPoolListNode *)m_448)
 			{
-				ListNode *const core = (ListNode *)snapshot->m_values[0];
+				MemoryPoolListNode *const core = (MemoryPoolListNode *)snapshot->m_values[0];
 				const char *chunkEnd = 0;
-				if (((ListNode *)snapshot->m_values[0])->m_size)
+				if (((MemoryPoolListNode *)snapshot->m_values[0])->m_size)
 				{
 					chunkEnd = (const char *)core + core->m_size - 0x10;
 					if (snapshot->m_values[1])
@@ -750,23 +653,23 @@ const BlockInfo *GeneralAllocator::rva00032F60(void *context, int blockTypes)
 				if (!core->m_size || (const char *)snapshot->m_values[1] == chunkEnd)
 				{
 					do
-						snapshot->m_values[0] = (unsigned int)((ListNode *)snapshot->m_values[0])->m_prev;
-					while ((ListNode *)snapshot->m_values[0] != &m_sentinel && !((ListNode *)snapshot->m_values[0])->m_size);
+						snapshot->m_values[0] = (unsigned int)((MemoryPoolListNode *)snapshot->m_values[0])->m_prev;
+					while ((MemoryPoolListNode *)snapshot->m_values[0] != (MemoryPoolListNode *)m_448 && !((MemoryPoolListNode *)snapshot->m_values[0])->m_size);
 					snapshot->m_values[1] = 0;
 				}
 			}
-			if ((ListNode *)snapshot->m_values[0] != &m_sentinel)
+			if ((MemoryPoolListNode *)snapshot->m_values[0] != (MemoryPoolListNode *)m_448)
 			{
 				BlockInfo *const info = (BlockInfo *)(snapshot + 1);
 				rva00032EC0((const void *)snapshot->m_values[1], info);
 				return info;
 			}
-			if ((blockTypes & 2) && (RegionLink *)snapshot->m_values[2] != &m_regions)
+			if ((blockTypes & 2) && (MemoryPoolRegionLink *)snapshot->m_values[2] != (MemoryPoolRegionLink *)m_49C)
 			{
-				RegionLink *const region = (RegionLink *)snapshot->m_values[2];
+				MemoryPoolRegionLink *const region = (MemoryPoolRegionLink *)snapshot->m_values[2];
 				BlockInfo *const info = (BlockInfo *)(snapshot + 1);
 				rva00032EC0((const char *)region - region->m_base, info);
-				snapshot->m_values[2] = (unsigned int)((RegionLink *)snapshot->m_values[2])->m_next;
+				snapshot->m_values[2] = (unsigned int)((MemoryPoolRegionLink *)snapshot->m_values[2])->m_next;
 				return info;
 			}
 		}
@@ -827,7 +730,7 @@ unsigned int GeneralAllocator::rva006C1D10(const void *block)
 // and release the whole mapping. Name and labels are descriptive.
 // The __assume states the accounting invariant the mapped arm relies on; it
 // generates no code, and without it cl folds the mapping size into the byte
-// subtraction (m_bytes48C + (-16 - prevSize - size)) instead of computing it
+// subtraction (m_48C + (-16 - prevSize - size)) instead of computing it
 // with lea ahead of the unlink as retail does. About 60 spellings without it
 // (helpers, references, temporaries, statement orders) all stay at 375 B.
 void GeneralAllocator::rva00033150(const void *block)
@@ -838,10 +741,10 @@ void GeneralAllocator::rva00033150(const void *block)
 	Chunk *chunk = (Chunk *)((char *)block - 8);
 	unsigned int header = chunk->size;
 	unsigned int size = header & 0x7FFFFFF8;
-	if (size <= m_maxFastSize)
+	if (size <= m_004)
 	{
-		m_maxFastSize |= 1;
-		Chunk **bin = &m_fastBins[(size >> 3) - 2];
+		m_004 |= 1;
+		Chunk **bin = &((Rva00031BF0Chunk **)m_008)[(size >> 3) - 2];
 		chunk->next = *bin;
 		chunk->size |= 0x80000004;
 		*bin = chunk;
@@ -874,7 +777,7 @@ void GeneralAllocator::rva00033150(const void *block)
 			chunk->size = size | 1;
 			*(unsigned int *)((char *)chunk + size) = size;
 		}
-		if (chunk != m_topChunk && next != m_topChunk)
+		if (chunk != ((void *)m_440) && next != ((void *)m_440))
 		{
 			Chunk *unsorted = (Chunk *)((char *)this + 0x30);
 			Chunk *first = unsorted->next;
@@ -885,7 +788,7 @@ void GeneralAllocator::rva00033150(const void *block)
 		}
 		else
 		{
-			m_topChunk = chunk;
+			m_440 = (Rva00031010Node *)chunk;
 			chunk->next = chunk;
 			chunk->previous = chunk;
 			chunk->size = size | 1;
@@ -893,8 +796,8 @@ void GeneralAllocator::rva00033150(const void *block)
 		}
 		if (size >= 0x10000)
 		{
-			if (rva00031BB0((char *)chunk + size) && size >= m_option4C8)
-				rva00032C60(m_option4CC);
+			if (rva00031BB0((char *)chunk + size) && size >= m_4C8)
+				rva00032C60(m_4CC);
 		}
 	}
 	else
@@ -905,9 +808,9 @@ void GeneralAllocator::rva00033150(const void *block)
 		unsigned int mappingSize = prevSize + size + 0x10;
 		fence->previous->next = fence->next;
 		fence->next->previous = fence->previous;
-		__assume(m_bytes48C >= mappingSize);
-		m_bytes48C -= mappingSize;
-		--m_count488;
+		__assume(m_48C >= mappingSize);
+		m_48C -= mappingSize;
+		--m_488;
 		VirtualFree(mapping, 0, 0x8000);
 	}
 }
@@ -928,7 +831,7 @@ void GeneralAllocator::rva000338D0(Snapshot *snapshot)
 // Evidence: caller _Free 0x000305D6 plus 3 unclaimed; Enter/LeaveCriticalSection IAT; inc/dec at +0x18.
 __declspec(noinline) void GeneralAllocator::rva000338F0(void *block)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -1100,7 +1003,7 @@ void *GeneralAllocator::rva000344A0(unsigned int size, unsigned int alignment, u
 				}
 				else
 				{
-					Chunk *bck = (Chunk *)m_bins;
+					Chunk *bck = (Chunk *)m_030;
 					Chunk *fwd = bck->next;
 					rem->previous = bck;
 					rem->next = fwd;
@@ -1422,7 +1325,7 @@ public:
 	Rva00031790(void *param);
 	~Rva00031790()
 	{
-		EA::Allocator::GeneralAllocator::Lock *lock = (EA::Allocator::GeneralAllocator::Lock *)m_0000;
+		EA::Allocator::MemoryPoolLock *lock = (EA::Allocator::MemoryPoolLock *)m_0000;
 		if (lock != 0)
 		{
 			--lock->m_count;
@@ -1437,7 +1340,7 @@ Rva00031790::Rva00031790(void *param)
 	if (param != 0)
 	{
 		EnterCriticalSection(param);
-		++((EA::Allocator::GeneralAllocator::Lock *)param)->m_count;
+		++((EA::Allocator::MemoryPoolLock *)param)->m_count;
 	}
 }
 
@@ -1489,66 +1392,66 @@ void GeneralAllocator::rva000317F0(int option, unsigned int value)
 	case 1:
 		if (value)
 		{
-			if (!m_4E4)
-				m_4E4 = (Lock *)Rva00030D90Init((Rva00030DD0Lock *)m_lockStorage);
+			if (!m_pLock)
+				m_pLock = Rva00030D90Init((Rva00030DD0Lock *)m_lockStorage);
 		}
-		else if (m_4E4)
+		else if (m_pLock)
 		{
-			Rva00030DD0AddRef((Rva00030DD0Lock *)m_4E4);
-			Lock *lock = m_4E4;
-			m_4E4 = 0;
+			Rva00030DD0AddRef((Rva00030DD0Lock *)m_pLock);
+			MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
+			m_pLock = 0;
 			Rva00030DF0Release((Rva00030DD0Lock *)lock);
 			DeleteCriticalSection(lock);
 		}
 		break;
 	case 2:
 	{
-		Rva00031790 guard(m_4E4);
+		Rva00031790 guard(m_pLock);
 		if (value)
 		{
-			if (!m_state46C && !m_option468)
-				m_option468 = 1;
+			if (!m_46C && !m_468)
+				m_468 = 1;
 		}
 		else
-			m_option468 = 0;
+			m_468 = 0;
 		break;
 	}
 	case 3:
-		m_option46D = value != 0;
+		m_46D = value != 0;
 		break;
 	case 4:
 		if (!value)
-			m_coreSize = 0x1000000;
+			m_4D8 = 0x1000000;
 		else
 		{
-			m_coreSize = rva000317F0Align(value > m_pageSize ? value : m_pageSize, m_pageSize);
+			m_4D8 = rva000317F0Align(value > m_4D4 ? value : m_4D4, m_4D4);
 		}
 		break;
 	case 5:
 		if (!value)
-			m_growSize = 0x400000;
+			m_4DC = 0x400000;
 		else
 		{
-			m_growSize = value > m_pageSize ? value : m_pageSize;
-			m_growSize = rva000317F0Align(m_growSize, m_pageSize);
-			if (m_growSize > m_coreSize)
-				m_growSize = m_coreSize;
+			m_4DC = value > m_4D4 ? value : m_4D4;
+			m_4DC = rva000317F0Align(m_4DC, m_4D4);
+			if (m_4DC > m_4D8)
+				m_4DC = m_4D8;
 		}
 		break;
 	case 6:
 	{
-		Rva00031790 guard(m_4E4);
+		Rva00031790 guard(m_pLock);
 		((Rva00034C90 *)this)->consolidate();
 		((Rva00030D10 *)this)->rva00030D10(value);
 		break;
 	}
-	case 7: m_option4C8 = value; break;
-	case 8: m_option4CC = value; break;
-	case 9: m_option494 = value; break;
-	case 10: m_option490 = value; break;
-	case 11: m_option498 = value != 0; break;
-	case 12: m_option4E0 = value != 0; break;
-	case 13: m_option4B4 = value; break;
+	case 7: m_4C8 = value; break;
+	case 8: m_4CC = value; break;
+	case 9: m_494 = value; break;
+	case 10: m_490 = value; break;
+	case 11: m_498 = value != 0; break;
+	case 12: m_4E0 = value != 0; break;
+	case 13: m_4B4 = value; break;
 	}
 }
 }
@@ -1571,24 +1474,24 @@ int GeneralAllocator::rva00031BF0(const void* block) {
  if(chunk==*(Chunk**)((char*)this+0x440)) return 3;
  unsigned size=chunk->size&0x7ffffff8;
  
- if(size>=0x10 && size<=m_maxFastSize) {
-  for(Chunk* p=m_fastBins[(size>>3)-2];p;p=p->next)
+ if(size>=0x10 && size<=m_004) {
+  for(Chunk* p=((Rva00031BF0Chunk **)m_008)[(size>>3)-2];p;p=p->next)
    if(p==chunk) return 1;
  }
  
  unsigned index;
- if((unsigned)chunk>=(unsigned)m_bins && (unsigned)chunk<(unsigned)this+0x430)
+ if((unsigned)chunk>=(unsigned)m_030 && (unsigned)chunk<(unsigned)this+0x430)
   index=(((const char*)chunk-(const char*)this-0x30)>>4)+2;
  else if(size<0x200) index=size>>3;
  else index=GetLargeBinIndexFromChunkSize(size);
- Chunk* head=m_bins[index];
+ Chunk* head=((Rva00031BF0Chunk **)m_030)[index];
  for(Chunk* p=head->next;p!=head;p=p->next)
   if(p==chunk) return 2;
  for(int i=0;i<10;++i)
-  for(Chunk* p=m_fastBins[i];p;p=p->next)
+  for(Chunk* p=((Rva00031BF0Chunk **)m_008)[i];p;p=p->next)
    if(p==chunk) return 1;
  for(int i=2;i<256;i+=2) {
-  Chunk* head=m_bins[i];
+  Chunk* head=((Rva00031BF0Chunk **)m_030)[i];
   for(Chunk* p=head->next;p!=head;p=p->next)
    if(p==chunk) return 2;
  }
@@ -1609,50 +1512,50 @@ int GeneralAllocator::rva00031BF0(const void* block) {
 // dlmalloc-family chunk checks; only offsets and operations are target facts.
 int GeneralAllocator::rva00031D00(void *block)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
 		++lock->m_count;
 	}
 	int errors = 0;
-	int depth = m_checkDepth;
+	int depth = m_470;
 	if (depth <= 1)
 	{
 		++depth;
-		m_checkDepth = depth;
+		m_470 = depth;
 		const unsigned int *header = (const unsigned int *)block;
 		unsigned int size = header[1] & 0x7FFFFFF8;
 		errors += (size >= 0x40000000) && 1;
 		if ((header[1] & 2) != 0)
 		{
 			errors += (rva00031680(block) != 0) && 1;
-			errors += ((((unsigned int)block - header[0]) & (m_pageSize - 1)) != 0) && 1;
-			errors += ((((unsigned int)block + size + 0x10) & (m_pageSize - 1)) != 0) && 1;
+			errors += ((((unsigned int)block - header[0]) & (m_4D4 - 1)) != 0) && 1;
+			errors += ((((unsigned int)block + size + 0x10) & (m_4D4 - 1)) != 0) && 1;
 			errors += (((unsigned char)(unsigned int)block & 7) != 0) && 1;
 		}
 		else
 		{
-			ListNode *region = (ListNode *)rva00031680(block);
+			MemoryPoolListNode *region = (MemoryPoolListNode *)rva00031680(block);
 			errors += (region == 0) && 1;
 			errors += ((unsigned int)block < region->m_unk0) && 1;
 			unsigned int regionEnd = region->m_unk0 + region->m_size;
 			errors += ((unsigned int)block >= regionEnd) && 1;
 			unsigned int blockEnd = (unsigned int)block + size;
 			errors += (blockEnd >= regionEnd) && 1;
-			if (block == m_topChunk)
+			if (block == ((void *)m_440))
 			{
 				errors += (header[2] != (unsigned int)block || header[3] != (unsigned int)block) && 1;
 				errors += (size < 0x10) && 1;
 				errors += (((unsigned char)~*(const unsigned char *)(header + 1)) & 1) && 1;
 			}
-			else if (m_sentinel.m_prev == m_sentinel.m_next)
+			else if (((MemoryPoolListNode *)m_448)->m_prev == ((MemoryPoolListNode *)m_448)->m_next)
 			{
 				errors += ((unsigned int)block < region->m_unk0) && 1;
 				errors += ((unsigned int)region + region->m_size - 0x10 < blockEnd) && 1;
 			}
 		}
-		m_checkDepth = depth - 1;
+		m_470 = depth - 1;
 	}
 	if (lock != 0)
 	{
@@ -1685,7 +1588,7 @@ static inline int CheckCount(bool ok)
 // from the intermediate sum; the last check uses the requested size argument.
 unsigned int GeneralAllocator::rva00032050(void *block, unsigned int requested)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -1710,7 +1613,7 @@ unsigned int GeneralAllocator::rva00032050(void *block, unsigned int requested)
 
 int GeneralAllocator::rva00031E60(const void *block)
 {
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -1728,7 +1631,7 @@ int GeneralAllocator::rva00031E60(const void *block)
 		errors += CheckCount(((unsigned char)(unsigned int)block & 7) == 0);
 		errors += CheckCount(*(const unsigned int *)blockEnd == size);
 		errors += CheckCount((*(const unsigned char *)((const char *)block + 4) & 1) != 0);
-		errors += CheckCount(block == m_topChunk || (*(const unsigned char *)((*(const unsigned int *)(blockEnd + 4) & 0x7FFFFFF8) + blockEnd + 4) & 1));
+		errors += CheckCount(block == ((void *)m_440) || (*(const unsigned char *)((*(const unsigned int *)(blockEnd + 4) & 0x7FFFFFF8) + blockEnd + 4) & 1));
 		const unsigned int *next = *(const unsigned int **)((const char *)block + 8);
 		const unsigned int *previous = *(const unsigned int **)((const char *)block + 0xC);
 		errors += CheckCount(previous[2] == (unsigned int)block);
@@ -1736,7 +1639,7 @@ int GeneralAllocator::rva00031E60(const void *block)
 		if (block == previous || block == next)
 		{
 			errors += CheckCount(next == previous);
-			errors += CheckCount(block == m_topChunk);
+			errors += CheckCount(block == ((void *)m_440));
 		}
 	}
 	else
@@ -1762,7 +1665,7 @@ int GeneralAllocator::rva000321F0(int level)
 {
 	int errors = 0;
 	int index;
-	Lock *lock = m_4E4;
+	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(lock);
@@ -1772,7 +1675,7 @@ int GeneralAllocator::rva000321F0(int level)
 	if (level >= 1)
 	{
 		unsigned int totalFast = 0;
-		if (m_topChunk == 0 || m_topChunk == (void *)m_bins)
+		if (m_440 == 0 || ((void *)m_440) == (void *)m_030)
 		{
 			if (lock != 0)
 			{
@@ -1781,7 +1684,7 @@ int GeneralAllocator::rva000321F0(int level)
 			}
 			return 0;
 		}
-		unsigned int maxFast = m_maxFastSize;
+		unsigned int maxFast = m_004;
 		errors += CheckCount(maxFast < 0x50);
 		if (level >= 2)
 		{
@@ -1789,13 +1692,13 @@ int GeneralAllocator::rva000321F0(int level)
 			// carry the expected size flags.
 			for (index = 0; index < 10; ++index)
 			{
-				Rva00031BF0Chunk *c = m_fastBins[index];
+				Rva00031BF0Chunk *c = ((Rva00031BF0Chunk **)m_008)[index];
 				int guard = 0;
 				while (c != 0)
 				{
 					if (guard >= 0x1e8480)
 						break;
-					errors += ChunkOutsideRegions(c, m_sentinel.m_next, &m_sentinel);
+					errors += ChunkOutsideRegions(c, ((MemoryPoolListNode *)m_448)->m_next, (MemoryPoolListNode *)m_448);
 					unsigned int size = c->size;
 					c = c->next;
 					errors += CheckCount(((int)size & (int)0x80000000) != 0);
@@ -1806,7 +1709,7 @@ int GeneralAllocator::rva000321F0(int level)
 			}
 
 			Rva00031BF0Chunk **link;
-			for (index = 0, link = m_bins; index < 0x100; index += 2, link += 2)
+			for (index = 0, link = (Rva00031BF0Chunk **)m_030; index < 0x100; index += 2, link += 2)
 			{
 				Rva00031BF0Chunk *c = *link;
 				if (index < 2)
@@ -1825,7 +1728,7 @@ int GeneralAllocator::rva000321F0(int level)
 							++count;
 						else
 						{
-							errors += ChunkOutsideRegions(p, m_sentinel.m_next, &m_sentinel);
+							errors += ChunkOutsideRegions(p, ((MemoryPoolListNode *)m_448)->m_next, (MemoryPoolListNode *)m_448);
 						}
 						p = p->next;
 					}
@@ -1833,15 +1736,15 @@ int GeneralAllocator::rva000321F0(int level)
 				}
 			}
 
-			errors += CheckCount(m_option4CC < 0x186a0);
-			errors += CheckCount(m_unknown4D0 != 0);
-			errors += CheckCount((m_pageSize & (m_pageSize - 1)) == 0);
+			errors += CheckCount(m_4CC < 0x186a0);
+			errors += CheckCount(m_4D0 != 0);
+			errors += CheckCount((m_4D4 & (m_4D4 - 1)) == 0);
 			maxFast &= ~1u;
 			int maxFastIndex = (maxFast >> 3) - 2;
 			errors += CheckCount(maxFast <= 0x58);
 			for (index = 0; index < 10; ++index)
 			{
-				Rva00031BF0Chunk *c = m_fastBins[index];
+				Rva00031BF0Chunk *c = ((Rva00031BF0Chunk **)m_008)[index];
 				if (index > maxFastIndex)
 					errors += CheckCount(c == 0);
 				while (c != 0)
@@ -1853,16 +1756,16 @@ int GeneralAllocator::rva000321F0(int level)
 				}
 			}
 			if (totalFast != 0)
-				errors += CheckCount((m_maxFastSize & 1) != 0);
+				errors += CheckCount((m_004 & 1) != 0);
 
 			// Bin heads and the binmap must agree, and every bin list node
 			// must be a valid chunk of its bin's size class.
 			for (index = 1; index < 0x80; ++index)
 			{
-				Rva00031BF0Chunk *head = (Rva00031BF0Chunk *)((char *)&m_bins[index << 1] - 8);
+				Rva00031BF0Chunk *head = (Rva00031BF0Chunk *)((char *)&m_030[index << 1] - 8);
 				if (index >= 2)
 				{
-					bool binbit = (m_binmap[index >> 5] & (1u << (index & 0x1f))) != 0;
+					bool binbit = (m_430[index >> 5] & (1u << (index & 0x1f))) != 0;
 					bool nonEmpty = head != head->previous;
 					if (!binbit)
 						errors += CheckCount(!nonEmpty);
@@ -1906,8 +1809,8 @@ int GeneralAllocator::rva000321F0(int level)
 						unsigned int runSize = run->size & 0x7ffffff8u;
 						if (runSize < 0x10)
 						{
-							ListNode *listNode = m_sentinel.m_next;
-							for (; listNode != &m_sentinel; listNode = listNode->m_next)
+							MemoryPoolListNode *listNode = ((MemoryPoolListNode *)m_448)->m_next;
+							for (; listNode != (MemoryPoolListNode *)m_448; listNode = listNode->m_next)
 							{
 								if ((unsigned int)run >= (unsigned int)listNode &&
 									(unsigned int)run < (unsigned int)listNode + listNode->m_size)
@@ -1929,8 +1832,8 @@ runDone:
 			}
 
 			// Sentinel region counters.
-			RegionLink *regionLink = m_regions.m_next;
-			RegionLink *rend = &m_regions;
+			MemoryPoolRegionLink *regionLink = ((MemoryPoolRegionLink *)m_49C)->m_next;
+			MemoryPoolRegionLink *rend = (MemoryPoolRegionLink *)m_49C;
 			while (regionLink != rend)
 			{
 				errors += CheckCount((regionLink->m_size & 2) != 0);
@@ -1940,16 +1843,16 @@ runDone:
 				errors += CheckCount((prev->size & 2) != 0);
 			}
 		}
-		errors += rva00031D00(m_topChunk);
-		errors += CheckCount((int)m_count488 >= 0);
-		errors += CheckCount((int)m_count488 <= (int)m_option490);
+		errors += rva00031D00(m_440);
+		errors += CheckCount((int)m_488 >= 0);
+		errors += CheckCount((int)m_488 <= (int)m_490);
 	}
 
 	if (level >= 3)
 	{
 		// Region link list: each link must report a valid owner.
-		RegionLink *regionLink = m_regions.m_next;
-		RegionLink *rend = &m_regions;
+		MemoryPoolRegionLink *regionLink = ((MemoryPoolRegionLink *)m_49C)->m_next;
+		MemoryPoolRegionLink *rend = (MemoryPoolRegionLink *)m_49C;
 		while (regionLink != rend)
 		{
 			void *owner = (char *)regionLink - regionLink->m_base;
@@ -1958,8 +1861,8 @@ runDone:
 		}
 
 		// Full sentinel walk: every chunk run must be valid and end at the top.
-		ListNode *listNode = m_sentinel.m_prev;
-		ListNode *end = &m_sentinel;
+		MemoryPoolListNode *listNode = ((MemoryPoolListNode *)m_448)->m_prev;
+		MemoryPoolListNode *end = (MemoryPoolListNode *)m_448;
 		while (listNode != end)
 		{
 			unsigned int size = listNode->m_size;
@@ -1975,7 +1878,7 @@ runDone:
 					errors += rva00031E60(c);
 				if (!inUse && c == c->next)
 				{
-					errors += CheckCount(c == m_topChunk);
+					errors += CheckCount(c == ((void *)m_440));
 					break;
 				}
 				c = (Rva00031BF0Chunk *)((char *)c + (c->size & 0x7ffffff8u));
