@@ -13,16 +13,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class InGameUI
-{
-public:
-	bool rva0029FCD9(const char *cursorName);				// 0x0029FCD9
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void __cdecl message(UnicodeString format, ...);
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -70,7 +61,7 @@ bool CrowdResponseReloader::rva0041516C(int)
 {
 	if (s2())
 	{
-		TheInGameUI->message(UnicodeString((const unsigned short *)L"RIF: CrowdResponses reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString((const unsigned short *)L"RIF: CrowdResponses reloaded"));
 		m_reloaded = true;
 	}
 	return m_reloaded;

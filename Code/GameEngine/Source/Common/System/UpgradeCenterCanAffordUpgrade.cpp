@@ -13,25 +13,7 @@ public:
 #include "ascii_string.h"
 
 
-class InGameUI {
-public:
-    virtual void __stdcall slot0();
-    virtual void __stdcall slot1();
-    virtual void __stdcall slot2();
-    virtual void __stdcall slot3();
-    virtual void __stdcall slot4();
-    virtual void __stdcall slot5();
-    virtual void __stdcall slot6();
-    virtual void __stdcall slot7();
-    virtual void __stdcall slot8();
-    virtual void __stdcall slot9();
-    virtual void __stdcall slot10();
-    virtual void __stdcall slot11();
-    virtual void __stdcall slot12();
-    virtual void __stdcall slot13();
-    virtual void __stdcall slot14();
-    virtual void __cdecl message(AsciiString);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -45,7 +27,7 @@ bool __stdcall bfmeCanAffordUpgrade(Player *player,
     unsigned money = player->m_money;
     if (money < upgrade->calcCostToBuild(player, context)) {
         if (displayReason)
-            TheInGameUI->message(AsciiString("GUI:NotEnoughMoneyToUpgrade"));
+            TheInGameUI->rva0029E656(AsciiString("GUI:NotEnoughMoneyToUpgrade"));
         return false;
     }
     return true;
@@ -68,7 +50,7 @@ bool UpgradeCenter::rva0026F11A(Player *player,
     unsigned money = player->m_money;
     if (money < upgrade->calcCostToBuild(player, (unsigned)obj)) {
         if (displayReason)
-            TheInGameUI->message(AsciiString("GUI:NotEnoughMoneyToUpgrade"));
+            TheInGameUI->rva0029E656(AsciiString("GUI:NotEnoughMoneyToUpgrade"));
         return false;
     }
     return true;

@@ -59,59 +59,7 @@ extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 
 // ?rva0042E804@BfmeOwnVVD@@QAEXXZ @0x0042E804 88B evidence: same BfmeOwnVVD layout m_1c m_38 m_39 m_148 callers 0x0042EA56 0x0042ED42 TheInGameUI slot 0xa4 TheTacticalView slot 0x1a4 TheMouse slot 0x4c StatsCollector endScrollTime row
-class InGameUI
-{
-public:
-	virtual void i0();
-	virtual void i1();
-	virtual void i2();
-	virtual void i3();
-	virtual void i4();
-	virtual void i5();
-	virtual void i6();
-	virtual void i7();
-	virtual void i8();
-	virtual void i9();
-	virtual void i10();
-	virtual void i11();
-	virtual void i12();
-	virtual void i13();
-	virtual void i14();
-	virtual void i15();
-	virtual void __cdecl i16(UnicodeString, ...);
-	virtual void i17();
-	virtual void i18();
-	virtual void i19();
-	virtual void i20();
-	virtual void i21();
-	virtual void i22();
-	virtual void i23();
-	virtual void i24();
-	virtual void i25();
-	virtual void i26();
-	virtual void i27();
-	virtual void i28();
-	virtual void i29();
-	virtual void i30();
-	virtual void i31();
-	virtual void i32();
-	virtual void i33();
-	virtual void i34();
-	virtual void i35();
-	virtual void i36();
-	virtual void i37();
-	virtual void i38();
-	virtual void i39();
- virtual void i40();
- virtual void i41(int);
- bool getInputEnabled() const {return m_15 && m_16;}
- virtual void i42();
- virtual void i43();
- virtual bool i44();
- char m_pad04[0x11];
- unsigned char m_15;
- unsigned char m_16;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -538,7 +486,7 @@ void BfmeOwnVVD::rva0042E804()
 {
  m_38 = 0;
  m_1c = 0;
- TheInGameUI->i41(0);
+ TheInGameUI->setScrolling(0);
  if (m_39 == 0)
   ((TacticalView *)TheTacticalView)->t105(0);
  TheMouse->m19(g_00DC8874);
@@ -551,9 +499,9 @@ void BfmeOwnVVD::rva0042E804()
 // ?rva0042E75F@BfmeOwnVVD@@QAEXI@Z @0x0042E75F 165B evidence: same BfmeOwnVVD layout m_38 m_39 m_148 callers 0x0042EBEC 0x0042ED6E 0x0042F187 TheInGameUI +0x15 +0x16 slot 0xa4 TheTacticalView slot 0x1cc 0x1a4 TheGameClient +0xc0 TheMouse +0x4fa4 StatsCollector startScrollTime row timeGetTime IAT
 void BfmeOwnVVD::rva0042E75F(unsigned int arg)
 {
- if (TheInGameUI->m_15 == 0)
+ if (TheInGameUI->field015 == 0)
   return;
- if (TheInGameUI->m_16 == 0)
+ if (TheInGameUI->field016 == 0)
   return;
  if (((TacticalView *)TheTacticalView)->t115())
   return;
@@ -562,7 +510,7 @@ void BfmeOwnVVD::rva0042E75F(unsigned int arg)
  void *tmp = TheMouse->m_4fa4;
  m_38 = 1;
  g_00DC8874 = tmp;
- TheInGameUI->i41(1);
+ TheInGameUI->setScrolling(1);
  if (m_39 == 0)
   ((TacticalView *)TheTacticalView)->t105(1);
  if (arg != m_148)
@@ -591,7 +539,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
   case 200:scrollDir[0]=pressed;break; case 208:scrollDir[1]=pressed;break;
   case 203:scrollDir[2]=pressed;break; case 205:scrollDir[3]=pressed;break;
   }
-  if(TheInGameUI->i44() || (m_38 && m_148!=2)) break;
+  if(TheInGameUI->isSelecting() || (m_38 && m_148!=2)) break;
   int n=0;for(int i=0;i<4;++i) if(scrollDir[i]) ++n;
   if(n && !m_38) rva0042E75F(2);
   else if(!n && m_38) rva0042E804();
@@ -601,7 +549,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
   m_150=TheGameLogic->getFrame();
   const Rva001EDD80Pair &p=msg->getArgument(0)->pixel;
   m_14=p.x; m_18=p.y; m_04=m_14; m_08=m_18;
-  if(!TheInGameUI->i44() && !m_38) m_1c=1;
+  if(!TheInGameUI->isSelecting() && !m_38) m_1c=1;
   break;
  }
  case 16:
@@ -643,7 +591,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
    } else {const Rva001EDD80Pair &p=msg->getArgument(0)->pixel;m_14=p.x;m_18=p.y;}
    unsigned int height=TheDisplay->d17(),width=TheDisplay->d16();
    if(TheInGameUI->getInputEnabled()==false) {if(m_38) rva0042E804();break;}
-   bool selecting=TheInGameUI->i44();
+   bool selecting=TheInGameUI->isSelecting();
    if(selecting) {
     Mouse::MouseStatus *s=&TheMouse->m_status;
     if(s && s->event!=1) selecting=false;
@@ -700,7 +648,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
   if(slot>0 && slot<=8) {
    ((TacticalView *)TheTacticalView)->t92(&m_bfme48[slot-1]);
    UnicodeString text;text.format(TheGameText->fetchPtr("GUI:BookmarkXSet",0),slot);
-   TheInGameUI->i16(text);
+   TheInGameUI->rva0029E846(text);
   }
   disp=1;break;
  }

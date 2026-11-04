@@ -735,14 +735,7 @@ public:
 	void rva002D9531(int id);
 };
 
-class InGameUI
-{
-public:
-	char m_pad[0x8B0];
-	bool m_8B0;
-	char m_pad8B1[8];
-	bool m_8B9;
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 struct Rva004DA57AVictimSource
@@ -1131,7 +1124,7 @@ static void doPickAndPlayForMoveCommand(int command, Rva004DA57ATarget *target, 
 		return;
 	}
 
-	if (!isSiege && TheInGameUI->m_8B9 && !(player && player->m_750 == 2))
+	if (!isSiege && TheInGameUI->field8B9 && !(player && player->m_750 == 2))
 	{
 		if (target && target->m_04)
 		{
@@ -1157,7 +1150,7 @@ static void doPickAndPlayForMoveCommand(int command, Rva004DA57ATarget *target, 
 	if (!ai)
 		return;
 	bool moving = ai->isMoving() || ai->m_3B1;
-	if (!isSiege && TheInGameUI->m_8B0 && moving)
+	if (!isSiege && TheInGameUI->field8B0 && moving)
 		return;
 	if (*pending > 0)
 		return;

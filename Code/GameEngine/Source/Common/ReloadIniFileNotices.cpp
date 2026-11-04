@@ -35,15 +35,7 @@ class GameMessage;
 #include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;	// VA 0x00E00950
 
-class InGameUI
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void message(UnicodeString format, ...);
-};
+#include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;	// VA 0x00DFEDF0
 
 class RifStore
@@ -63,7 +55,7 @@ bool Rva001E2AD9::rva001E0DB9(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: FXList reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: FXList reloaded"));
 		return true;
 	}
 	return false;
@@ -79,7 +71,7 @@ bool ObjectCreationListStore::rva001F04D9(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: ObjectCreationList reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: ObjectCreationList reloaded"));
 		return true;
 	}
 	return false;
@@ -102,7 +94,7 @@ bool PlayerTemplateStore::attemptReload(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: PlayerTemplate reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: PlayerTemplate reloaded"));
 		g_Va00DFE0D4 = true;
 	}
 	return g_Va00DFE0D4;
@@ -122,7 +114,7 @@ bool Rva001FF909::rva001FF625(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: Sciences reloaded (requires map restart if any were removed)"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Sciences reloaded (requires map restart if any were removed)"));
 		g_Va00DFE0E4 = true;
 	}
 	return g_Va00DFE0E4;
@@ -142,7 +134,7 @@ bool Rva0022CA95::rva0021494B(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: AttributeModifier reloaded (requires map restart if any entries reordered)"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: AttributeModifier reloaded (requires map restart if any entries reordered)"));
 		g_Va00DFE1D8 = true;
 	}
 	return g_Va00DFE1D8;
@@ -162,7 +154,7 @@ bool UpgradeCenter::attemptReload(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: Upgrades reloaded (ALL but the simplest of changes require a map restart)"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Upgrades reloaded (ALL but the simplest of changes require a map restart)"));
 		g_Va00DFEB64 = true;
 	}
 	return g_Va00DFEB64;
@@ -182,7 +174,7 @@ bool Rva002CCD56::rva002CAE34(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: Weapon reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Weapon reloaded"));
 		g_Va00DFEFE0 = true;
 	}
 	return g_Va00DFEFE0;
@@ -192,7 +184,7 @@ bool Rva002CCD56::rva002CAE6C()
 {
 	if (g_Va00DFEFE0)
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: Weapons reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Weapons reloaded"));
 		g_Va00DFEFE0 = false;
 		return true;
 	}
@@ -233,8 +225,8 @@ bool PlayerTemplateStore::attemptRefresh()
 {
 	if (g_Va00DFE0D4)
 	{
-		TheInGameUI->message(UnicodeString(L"Reloaded PlayerTemplates require a map RESTART."));
-		TheInGameUI->message(UnicodeString(L"Use the Pause menu to RESTART at any time.."));
+		TheInGameUI->rva0029E846(UnicodeString(L"Reloaded PlayerTemplates require a map RESTART."));
+		TheInGameUI->rva0029E846(UnicodeString(L"Use the Pause menu to RESTART at any time.."));
 		TheMessageStream->appendMessage(0x70);
 		g_Va00DFE0D4 = false;
 		return true;
@@ -265,7 +257,7 @@ bool Rva004263CA::rva004263CA(int reason)
 	if (rva001B5384Slot2())
 	{
 		g_rva00426378Pending = true;
-		TheInGameUI->message(UnicodeString(L"RIF: Emotions reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Emotions reloaded"));
 	}
 	return g_rva00426378Pending;
 }

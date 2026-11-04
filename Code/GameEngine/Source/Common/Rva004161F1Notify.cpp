@@ -124,30 +124,7 @@ public:
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class InGameUI
-{
-public:
-	virtual ~InGameUI() {}
-	virtual void i00() = 0;
-	virtual void i04() = 0;
-	virtual void i08() = 0;
-	virtual void i0c() = 0;
-	virtual void i10() = 0;
-	virtual void i14() = 0;
-	virtual void i18() = 0;
-	virtual void i1c() = 0;
-	virtual void i20() = 0;
-	virtual void i24() = 0;
-	virtual void i28() = 0;
-	virtual void i2c() = 0;
-	virtual void i30() = 0;
-	virtual void i34() = 0;
-	virtual void i38() = 0;
-	virtual void i3c() = 0;
-	virtual void __cdecl slot44(const RGBColor *color, UnicodeString fmt, const wchar_t *txt) = 0;
-	virtual void i48() = 0;
-	virtual void __cdecl slot4c(UnicodeString fmt, const wchar_t *txt) = 0;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern GameInfo *TheGameInfo;
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -163,7 +140,7 @@ void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString message)
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player == 0)
 	{
-		TheInGameUI->slot4c(UnicodeString(L"%s"), message.str());
+		TheInGameUI->message(UnicodeString(L"%s"), message.str());
 	}
 	else
 	{
@@ -175,7 +152,7 @@ void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString message)
 			goto done;
 		RGBColor color;
 		color.setFromInt(player->m_color280);
-		TheInGameUI->slot44(&color, UnicodeString(L"%s"), message.str());
+		TheInGameUI->messageColor(&color, UnicodeString(L"%s"), message.str());
 	done:;
 	}
 }

@@ -92,18 +92,7 @@ class PlayerList {
     Player *getNthPlayer(int);
 };
 extern PlayerList *ThePlayerList;
-class InGameUI {
-  public:
-#define SLOT(n) virtual void slot##n();
-    SLOT(0)
-    SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11)
-        SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21)
-            SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
-                SLOT(31) SLOT(32) SLOT(33) SLOT(34) SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39)
-                    SLOT(40) SLOT(41) SLOT(42) SLOT(43) SLOT(44) SLOT(45) SLOT(46)
-#undef SLOT
-                        virtual void dispatchBC(bool);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 class GlobalData {
   public:
@@ -167,7 +156,7 @@ void Rva002AB5C7Player::rva002AB44A() {
         return;
     }
     if (this == ThePlayerList->local)
-        TheInGameUI->dispatchBC(false);
+        TheInGameUI->setGUICommand(false);
     Rva0039B683 *stats = &score;
     if (stats) {
         Player *other = ThePlayerList->getNthPlayer(stats->opponent);
