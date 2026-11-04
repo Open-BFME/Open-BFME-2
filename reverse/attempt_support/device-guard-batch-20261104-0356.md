@@ -97,3 +97,14 @@ Code/Libraries/Source/WWVegas/WW3D2/texture.cpp: LINKS  LINKED 1,979 -> 1,995 by
 Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp: LINKS  LINKED 4,980 -> 4,980 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 4,980)
 link_check: 18 of 18 link cleanly; LINKED 78,009 -> 78,025 bytes (3.4s)
 ```
+
+
+#### Outgoing native batch audit
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base 9f09ad902069704754e50c9d5aec04ee0629a13d; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
+```
+
+Inconclusive cases are carried forward to the next maintainer census. They
+are unverified consumers, not evidence of a clean complete-image link.

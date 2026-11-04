@@ -77,3 +77,14 @@ code/EH rows and complete non-debug object contents are retained. The original
 header, locking algorithm, pin or alias change is made. The old index-buffer
 shim prerequisite and broader merge obstacle stay open. The held W3DShroud
 source is excluded. [Scoped batch evidence](../../reverse/attempt_support/device-guard-batch-20261104-0356.md).
+
+
+#### Native outgoing guard audit, run0356
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base 9f09ad902069704754e50c9d5aec04ee0629a13d; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
+```
+
+The affected consumer remains unverified. Carry it into the next census;
+no complete-image linking gain or runtime proof follows from this batch.
