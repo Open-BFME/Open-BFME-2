@@ -1,0 +1,10 @@
+{
+  "baseline_revision": "9b69c33f2d",
+  "scope": "external code definitions; full COFF bodies and relocations",
+  "before_object_sha256": "2f0eb2b64e69a3723593988efefa4c37a618b23c9932ed1192549b9e09cb54c4",
+  "after_object_sha256": "cadc4bc0bd01e20eb2b3d5e6a540338d9731a7eadcf0ec8c4ee1b351ff446b09",
+  "removed": [],
+  "added": [],
+  "retained": 66,
+  "changed": []
+}

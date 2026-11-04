@@ -53,12 +53,7 @@ protected:
 	static unsigned RenderStates[256];
 	static unsigned render_state_changes;
 };
-class Vector3
-{
-public:
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X, Y, Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../Include/GameLogic/Module/DieModule.h"
 // Native5EA85A tail-jumps to5FC1E4, whose C7A064 constructor/destructor
@@ -453,11 +448,7 @@ class __declspec(novtable) Rva006F7DC0 : public Rva006ED150
 public:
 	virtual ~Rva006F7DC0();
 };
-class SimpleSceneClass
-{
-public:
-	virtual ~SimpleSceneClass();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 class __declspec(novtable) Rva00740555 : public SimpleSceneClass
 {
 public:
@@ -496,21 +487,7 @@ public:
 	int NumRefs;
 };
 #include "../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	MultiListObjectClass *Object;
-};
-class GenericMultiListClass
-{
-public:
-	virtual ~GenericMultiListClass();
-	MultiListNodeClass Head;
-	int m_extra;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 class GenericMultiListIterator
 {
 public:
@@ -645,17 +622,7 @@ private:
 // ??1W3DAptComponentView3D@@UAE@XZ, retail 0x00740242, 126 bytes.
 // Derived dtor releasing three RefCounts then Rva0074011F at +0x20 then base Rva007401F6.
 // Evidence: vtable 0x008F1600 at +0; callees rowed 0x0074011F 0x007401F6; caller 0x00740590 deleting dtor.
-class RefCountClass
-{
-public:
-	virtual void Delete_This() = 0;
-	void Release_Ref()
-	{
-		if (--m_refs == 0)
-			Delete_This();
-	}
-	int m_refs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class Rva0074011F
 {
 public:
