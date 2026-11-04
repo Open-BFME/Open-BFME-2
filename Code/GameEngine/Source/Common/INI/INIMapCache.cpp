@@ -25,14 +25,13 @@ struct MapPlayers {PlayerPosition items[8];MapPlayers&operator=(const MapPlayers
 
 class WaypointMap:public _STL::map<AsciiString,Coord3D> {public:int numStartSpots;};
 
-class MapMetaData {public:MapMetaData();~MapMetaData();MapMetaData&operator=(const MapMetaData&);
- UnicodeString displayName,description;Region3D extent;int numPlayers;
- unsigned char isMultiplayer,isScenarioMP,isOfficial;
- unsigned filesize,crc,timestampLo,timestampHi;
- WaypointMap waypoints;_STL::list<Coord3D> supplyPositions,techPositions;
- AsciiString fileName;MapPlayers players;unsigned wordF4;
- UnicodeString cachedDisplayName,cachedDescription;
-};
+#include "../../../Include/GameClient/MapMetaData.h"
+
+// The canonical header keeps the STL members opaque; this TU's typed views.
+static inline WaypointMap &waypointsOf(MapMetaData &md) {return reinterpret_cast<WaypointMap&>(md.field38);}
+static inline _STL::list<Coord3D> &supplyOf(MapMetaData &md) {return reinterpret_cast<_STL::list<Coord3D>&>(md.field48);}
+static inline _STL::list<Coord3D> &techOf(MapMetaData &md) {return reinterpret_cast<_STL::list<Coord3D>&>(md.field4C);}
+static inline MapPlayers &playersOf(MapMetaData &md) {return reinterpret_cast<MapPlayers&>(md.field54);}
 
 class INI;
 
@@ -140,30 +139,30 @@ void INI::parseMapCacheDefinition(INI *ini)
  const char *c=ini->getNextToken(" \n\r\t");
  ((StringBase<char>*)&name)->set(c);
  name=QuotedPrintableToAsciiString(name);
- md.waypoints.clear();
+ waypointsOf(md).clear();
  ini->initFromINI(&mdr,mdr.fieldTable);
- md.extent=mdr.extent;
- md.isOfficial=mdr.official!=0;md.isMultiplayer=mdr.multiplayer!=0;
- md.isScenarioMP=mdr.scenarioMP;md.numPlayers=mdr.numPlayers;
- md.filesize=mdr.filesize;md.crc=mdr.crc;
- md.timestampLo=mdr.timestampLo;md.timestampHi=mdr.timestampHi;
- reinterpret_cast<Coord3D&>((*reinterpret_cast<CoordMapProvider*>(&md.waypoints))[TheNameKeyGenerator->keyToName(TheKey_InitialCameraPosition.key())])=mdr.camera;
- md.displayName=QuotedPrintableToUnicodeString(mdr.displayName);
- md.description=QuotedPrintableToUnicodeString(mdr.nameTag);
+ md.m_extent=mdr.extent;
+ md.m_isOfficial=mdr.official!=0;md.m_isMultiplayer=mdr.multiplayer!=0;
+ md.m_isScenarioMP=mdr.scenarioMP;md.m_numPlayers=mdr.numPlayers;
+ md.m_filesize=mdr.filesize;md.m_CRC=mdr.crc;
+ md.field30=mdr.timestampLo;md.field34=mdr.timestampHi;
+ reinterpret_cast<Coord3D&>((*reinterpret_cast<CoordMapProvider*>(&waypointsOf(md)))[TheNameKeyGenerator->keyToName(TheKey_InitialCameraPosition.key())])=mdr.camera;
+ md.m_displayName=QuotedPrintableToUnicodeString(mdr.displayName);
+ md.m_description=QuotedPrintableToUnicodeString(mdr.nameTag);
  AsciiString startingCamName;
- for(int i=0;i<md.numPlayers;++i) {
+ for(int i=0;i<md.m_numPlayers;++i) {
   startingCamName.format("Player_%d_Start",i+1);
-  reinterpret_cast<Coord3D&>((*reinterpret_cast<CoordMapProvider*>(&md.waypoints))[startingCamName])=mdr.waypoints[i];
+  reinterpret_cast<Coord3D&>((*reinterpret_cast<CoordMapProvider*>(&waypointsOf(md)))[startingCamName])=mdr.waypoints[i];
  }
  _STL::list<Coord3D>::iterator it=mdr.supplyPositions.begin();
- while(it!=mdr.supplyPositions.end()){md.supplyPositions.push_front(*it);it++;}
+ while(it!=mdr.supplyPositions.end()){supplyOf(md).push_front(*it);it++;}
  it=mdr.techPositions.begin();
- while(it!=mdr.techPositions.end()){md.techPositions.push_front(*it);it++;}
- md.players=mdr.players;
- const StringDataView *display=*reinterpret_cast<const StringDataView*const*>(&md.displayName);
+ while(it!=mdr.techPositions.end()){techOf(md).push_front(*it);it++;}
+ playersOf(md)=mdr.players;
+ const StringDataView *display=*reinterpret_cast<const StringDataView*const*>(&md.m_displayName);
  if(TheMapCache && display && display->length) {
-  AsciiString lowerName=name;((StringBase<char> &)(lowerName)).toLower();md.fileName=lowerName;
-  if(!md.isOfficial || TheFileSystem->doesFileExist(md.fileName.str()))
+  AsciiString lowerName=name;((StringBase<char> &)(lowerName)).toLower();md.m_fileName=lowerName;
+  if(!md.m_isOfficial || TheFileSystem->doesFileExist(md.m_fileName.str()))
    reinterpret_cast<MapMetaData&>((*reinterpret_cast<Rva00304DC7Map*>(TheMapCache))[lowerName])=md;
  }
 }
