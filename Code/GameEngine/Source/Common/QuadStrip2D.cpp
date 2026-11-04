@@ -4,14 +4,12 @@
 // ??0QuadStrip2D@@QAE@ABV0@@Z @0x005388C2 53B
 // Holder copy ctor via rowed Rva005386F5 vector copy then byte and conditional region float copy.
 // Evidence: callee 0x005386F5 row Rva005386F5; caller none; prev reserve Float4 next slot4; layout matches Rva005386B7Swap.
-class Rva005386F5
+#include <vector>
+#include "../../../Libraries/Include/Lib/BfmeE16.h"
+class Rva005386F5 : public _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >
 {
 public:
 	Rva005386F5(const Rva005386F5 &other);
-private:
-	void *m_p1;
-	void *m_p2;
-	void *m_p3;
 };
 #include "../../../Libraries/Include/Lib/Region2D.h"
 // ?rva005386B7@Rva005386B7@@QAEXPAU1@@Z, retail 0x005386B7, 62 bytes.
