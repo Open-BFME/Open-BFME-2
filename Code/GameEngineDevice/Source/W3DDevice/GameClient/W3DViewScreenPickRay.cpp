@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // Native 0x001028AA..0x00102A12, 360 bytes, RET16; ECX is unused.
 // Primary source guide: ZH W3DView::getPickRay in W3DView.cpp (543-559),
 // through verified BFME1 donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f.
@@ -13,11 +13,11 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
-class RenderObjClass {public: Vector3 Get_Position() const;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 class CameraClass:public RenderObjClass {
 public:
     void Un_Project(Vector3 &,const Vector2 &) const;
-    char unknown00[0xF0]; float depth;
+    char unknownC4[0xF0 - 0xC4]; float depth;
 };
 struct Rva001028AAView {
     char unknown00[0xBC];

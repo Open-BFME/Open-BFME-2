@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // Target 0x0006669F..0x00066808, RET 4 (361 bytes). Zero Hour's
 // BaseHeightMapRenderObjClass::adjustTerrainLOD (BaseHeightMap.cpp) in its
 // BFME2 form: the LOD steps clamp to 1..7, automatic (8) becomes 7, and only
@@ -199,11 +199,7 @@ class BfmeTaintModeView;
 extern BfmeTaintModeView *g_bfmeTaintModeView;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class RenderObjClass
-{
-public:
-	virtual void Notify_Added(SceneClass *scene);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 struct WorldHeightMapView
 {
@@ -218,9 +214,7 @@ public:
 	virtual void adjustTerrainLOD(Int adj);
 
 private:
-	char m_pad04[0x78 - 4];
-	SceneClass *m_scene;	// +0x78
-	char m_pad7C[0x37C0 - 0x7C];
+	char m_padC4[0x37C0 - 0xC4];
 	WorldHeightMapView *m_map;	// +0x37C0
 	char m_pad37C4[0x3878 - 0x37C4];
 	Rva000731AE *m_shroud;	// +0x3878
@@ -247,7 +241,7 @@ void BaseHeightMapRenderObjClass::adjustTerrainLOD(Int adj)
 	if (TheWritableGlobalData->m_terrainLOD == 5)
 		newROBJ = 0;
 
-	SceneClass *scene = m_scene;
+	SceneClass *scene = Scene;
 	if (scene) {
 		scene->Remove_Render_Object(this);
 		scene->Unregister(this, 0);

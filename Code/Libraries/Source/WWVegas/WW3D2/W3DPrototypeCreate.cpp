@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 //
 // The Create slots (slot 15) of two BFME 2 W3D asset prototypes, Zero Hour's
 // HLodPrototypeClass::Create and BoxPrototypeClass::Create behind BFME 2's
@@ -14,19 +14,17 @@
 // ?Create@Gen_dtor_00972460@@UAEPAVRenderObjClass@@XZ, retail 0x00180794
 // (129 bytes): the box definition's attribute bit 0 (W3D_BOX_ATTRIBUTE_ORIENTED)
 // picks OBBoxRenderObjClass (0x148 bytes) over AABoxRenderObjClass (0x124).
-class RenderObjClass
-{
-public:
-	virtual ~RenderObjClass();
-};
+#include "rendobj.h"
 
 class HLodDefClass;
 class HLodClass : public RenderObjClass
 {
 public:
 	HLodClass(const HLodDefClass &def);
+	virtual RenderObjClass *Clone(void) const;
+	virtual void Render(RenderInfoClass &rinfo);
 private:
-	unsigned char m_pad004[0x16C - 0x04];
+	unsigned char m_padC4[0x16C - 0xC4];
 };
 
 struct W3dBoxStruct
@@ -38,15 +36,19 @@ class OBBoxRenderObjClass : public RenderObjClass
 {
 public:
 	OBBoxRenderObjClass(const W3dBoxStruct &def);
+	virtual RenderObjClass *Clone(void) const;
+	virtual void Render(RenderInfoClass &rinfo);
 private:
-	unsigned char m_pad004[0x148 - 0x04];
+	unsigned char m_padC4[0x148 - 0xC4];
 };
 class AABoxRenderObjClass : public RenderObjClass
 {
 public:
 	AABoxRenderObjClass(const W3dBoxStruct &def);
+	virtual RenderObjClass *Clone(void) const;
+	virtual void Render(RenderInfoClass &rinfo);
 private:
-	unsigned char m_pad004[0x124 - 0x04];
+	unsigned char m_padC4[0x124 - 0xC4];
 };
 
 enum

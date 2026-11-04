@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // ??1Rva008F00D@@UAE@XZ, retail 0x0008F00D..0x0008F0BB (174 bytes, EH):
 // by shape Zero Hour's W3DInGameUI::~W3DInGameUI (W3DInGameUI.cpp; name kept
 // address-derived to agree with the opaque pin of 0x0008F379): release every
@@ -7,14 +7,7 @@
 // arrow (+0xABC), and run the rowed InGameUI destructor (0x002A5B30, the
 // unwind map's only state). Tables 0x00BC7A88, 0x00BC7A78 (+0xC) and
 // 0x00BC7A64 (+0x10).
-class RenderObjClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
-private:
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class HAnimClass
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 //
 // ?Render@WaterRenderObjClass@@UAEXAAVRenderInfoClass@@@Z, retail 0x001017E7
 // (113 bytes, RET 4): the RenderObjClass Render slot of the water render
@@ -40,11 +40,7 @@ public:
 	virtual void crc();
 };
 
-class RenderObjClass
-{
-public:
-	virtual void Render(RenderInfoClass &rinfo);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class WaterRenderObjClass : public WaterRenderObjSnapshotView, public RenderObjClass
 {
@@ -53,7 +49,7 @@ public:
 protected:
 	void rva001014A9(RenderInfoClass &rinfo, bool flag);
 private:
-	unsigned char m_pad008[0xF4 - 0x08];
+	unsigned char m_padC8[0xF4 - 0xC8];
 	int m_waterType;				// +0xF4
 	unsigned char m_padF8[0x100 - 0xF8];
 	WaterTracksRenderSystem *m_waterTrackSystem;	// +0x100

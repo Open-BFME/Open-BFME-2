@@ -248,48 +248,7 @@ __declspec(dllimport) __forceinline unsigned int DX8Wrapper::Convert_Color(const
 }
 
 class RenderInfoClass;
-class RenderObjClass {
-public:
-    virtual void Delete_This();
-#define V(n) virtual void slot##n();
-    V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10)
-    V(11)
-    virtual void Render(RenderInfoClass&);
-    V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20)
-    virtual void Set_Transform(const Matrix3D&);
-    V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30)
-    V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
-    V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50)
-    V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60)
-    V(61) V(62) V(63) V(64) V(65) V(66)
-    virtual void Get_Obj_Space_Bounding_Sphere(SphereClass&) const;
-    virtual void Get_Obj_Space_Bounding_Box(AABoxClass&) const;
-    virtual void Update_Obj_Space_Bounding_Volumes();
-    V(70)
-    V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80)
-    V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90)
-    // MSVC emits this overload group in reverse declaration order:
-    // target slots 91/92 are three-axis/scalar Scale.
-    virtual void Scale(float);
-    virtual void Scale(float, float, float);
-    V(93)
-#undef V
-    virtual int Get_Sort_Level() const;
-    virtual void Set_Sort_Level(int);
-    virtual int Is_Really_Visible();
-    virtual int Is_Not_Hidden_At_All();
-    // Retail code accesses flags@0x12, Transform@0x18, Container@0x7C,
-    // and the Line3D members begin at 0xC4. Names follow the donor view.
-    char beforeFlags[0x0E];
-    unsigned char Flags;
-    char beforeTransform[5];
-    Matrix3D Transform;
-    char beforeContainer[0x34];
-    RenderObjClass* Container;
-    char trailing[0x44];
-    void Invalidate_Cached_Bounding_Volumes() { Flags &= 0xFD; }
-    RenderObjClass* Get_Container() { return Container; }
-};
+#include "rendobj.h"
 
 class Line3DClass : public RenderObjClass {
 public:

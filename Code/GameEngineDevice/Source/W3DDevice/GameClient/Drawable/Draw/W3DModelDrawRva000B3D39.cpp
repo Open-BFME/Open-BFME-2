@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 //
 // ?rva000B3D39@W3DModelDraw@@UAEXXZ, retail 0x000B3D39 (329 bytes): slot 62
 // (+0xF8) of the W3DModelDraw vftable 0x007CBC40 and of the six derived draw
@@ -28,13 +28,7 @@ template <> class Rva000B3D39Slots<0>
 {
 };
 
-class RenderObjClass : public Rva000B3D39Slots<79>
-{
-public:
-	virtual void rva000B3D39Slot79(int level);	// +0x13C
-	virtual void rva000B3D39Slot80();
-	virtual int rva000B3D39Slot81();	// +0x144
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 class View : public Rva000B3D39Slots<71>
 {
@@ -90,7 +84,7 @@ void W3DModelDraw::rva000B3D39()
 		return;
 
 	const Rva000B3D39ModuleData *d = getModuleData();
-	int state = m_renderObject->rva000B3D39Slot81();
+	int state = m_renderObject->Get_LOD_Count();
 	if (d->m_useDrawableQuery)
 	{
 		int level = Rva000B2BA3Get((const Rva000B2BE5Src *)getDrawable(), 0);
@@ -119,7 +113,7 @@ void W3DModelDraw::rva000B3D39()
 
 	if (state == 3)
 	{
-		m_renderObject->rva000B3D39Slot79(level);
+		m_renderObject->Set_LOD_Level(level);
 		m_appliedLevel = level;
 		m_level = level;
 	}

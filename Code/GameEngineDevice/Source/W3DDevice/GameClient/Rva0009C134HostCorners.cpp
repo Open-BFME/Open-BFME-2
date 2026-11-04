@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // ?rva0009B7EA@Rva0009C134Host@@QAEXPAUCoord3D@@@Z retail 0x0009B7EA..0x0009BAA4 (698 B, ret 4).
 // Projects the four camera-frustum corner rays of the +0xC0 camera onto z=0
 // (outputs Coord3D[4]). Shape follows ZH HeightMap's visible-area projection:
@@ -10,32 +10,7 @@
 // +0x50) and the matrix at +0x18. Owner/method names not established.
 #include "matrix3d.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class RenderObjClass {public:
-virtual void v0();
-virtual void v1();
-virtual void v2();
-virtual void v3();
-virtual void v4();
-virtual void v5();
-virtual void v6();
-virtual void v7();
-virtual void v8();
-virtual void v9();
-virtual void v10();
-virtual void v11();
-virtual void v12();
-virtual void v13();
-virtual void v14();
-virtual void v15();
-virtual void v16();
-virtual void v17();
-virtual void v18();
-virtual void v19();
-virtual void Validate_Transform()const;
-Vector3 Get_Position()const;
-const Matrix3D&Get_Transform()const {Validate_Transform();return transform;}
-char pad[0x18-4];Matrix3D transform;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 class ViewportClass {public:Vector2 Min;Vector2 Max;};
 class CameraClass:public RenderObjClass {public:
 void Get_View_Plane(Vector2&,Vector2&)const;
