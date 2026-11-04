@@ -6,8 +6,8 @@
 // (BFME1 0x005D1D10): the key comes from the rowed AsciiString lowercase-key
 // wrapper at 0x2D91AF through TheNameKeyGenerator (global 0xDF36A4, DIR32
 // from retail), then a map<unsigned,Image*>::find with a NULL-on-miss return.
-// The map sits at +0xC behind the retail-proven 12-byte SubsystemInterface
-// base (vptr + byte@4 + dword@8 zeroed by 0x001B4E63).
+// Image and ImageCollection (map at +0xC behind the 12-byte
+// SubsystemInterface base) come from the canonical GameClient/Image.h.
 
 #include <map>
 // Preserve the native inline unsigned comparison without an external copy.
@@ -29,33 +29,9 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Image
-{
-public:
-	virtual ~Image();
-	const AsciiString &getName() const { return m_name; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the
-	// original copy loses to the first-in-order copy. No flags touched.
-	const AsciiString &bfme_image_name_fi() const { return m_name; }
-
-private:
-	AsciiString m_name;
-};
+#include "../../../Include/GameClient/Image.h"
 
 typedef _STL::map<unsigned int, Image *> ImageNameMap;
-// TU-local BFME2 SubsystemInterface (12-byte base, retail-proven).
-#define __SUBSYSTEMINTERFACE_H_
-#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
-
-class ImageCollection : public SubsystemInterface
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-	void addImage(Image *image);
-
-protected:
-	ImageNameMap m_imageMap;
-};
 
 // Declaration-only view of ImageNameMap whose subscript stays out-of-line:
 // retail folds every unsigned-key pointer-map operator[] into the single
@@ -73,5 +49,5 @@ const Image *ImageCollection::findImageByName(const AsciiString &name)
 // ?addImage@ImageCollection@@QAEXPAVImage@@@Z, retail 0x002D9457 (48B).
 void ImageCollection::addImage(Image *image)
 {
-	((ImageSubscriptMap *)&m_imageMap)->operator[](TheNameKeyGenerator->Rva002D91AF(image->bfme_image_name_fi())) = image;
+	((ImageSubscriptMap *)&m_imageMap)->operator[](TheNameKeyGenerator->Rva002D91AF(image->getName())) = image;
 }
