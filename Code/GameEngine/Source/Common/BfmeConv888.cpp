@@ -64,18 +64,18 @@ public:
 
 private:
 	unsigned char m_bfmeHead[0x44];
-	unsigned int m_bfmeFlags;
+	unsigned int m_flags;
 };
 
 void Rva0030E2ECFlags::rva0030E2EC()
 {
-	m_bfmeFlags &= ~0x10U;
+	m_flags &= ~0x10U;
 	reinterpret_cast<BfmeNodeEYE *>(this)->bfmeRunEYE();
 }
 
 void Rva0030E2ECFlags::rva0030E2F5()
 {
-	m_bfmeFlags |= 0x10U;
+	m_flags |= 0x10U;
 	reinterpret_cast<BfmeNodeEYE *>(this)->bfmeRunEYE();
 }
 
