@@ -5,7 +5,7 @@
 struct Rva0052DB73Obj
 {
 	char _pad00[0x74];
-	int m_74;
+	int m_id;
 };
 
 struct Rva0052DB73Node
@@ -36,7 +36,7 @@ bool Rva0052DB73::rva0052DB73(int arg)
 		return true;
 	for (Rva0052DB73Node *n = h->m_14; n; n = n->m_next)
 	{
-		if (((Rva0052DB73Obj *)n->m_8)->m_74 != arg)
+		if (((Rva0052DB73Obj *)n->m_8)->m_id != arg)
 			return false;
 	}
 	return true;
