@@ -43,13 +43,21 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
+// The rows retail's _M_fill_insert reaches for its elements: its destructor call at +0xD7 and fill's assignment.
+struct BfmeStringRecord00111ACF { ~BfmeStringRecord00111ACF(); };
+struct BfmeAssignRecord28 { BfmeAssignRecord28 &operator=( const BfmeAssignRecord28 & ); };
+
 struct EvaMessageInfo
 {
 	char m_unported[ 28 ];
 	EvaMessageInfo();
 	EvaMessageInfo( const EvaMessageInfo & );
-	~EvaMessageInfo();
-	EvaMessageInfo &operator=( const EvaMessageInfo & );
+	__declspec(noinline) ~EvaMessageInfo() { ( (BfmeStringRecord00111ACF *)this )->~BfmeStringRecord00111ACF(); }
+	__declspec(noinline) EvaMessageInfo &operator=( const EvaMessageInfo &other )
+	{
+		( (BfmeAssignRecord28 *)this )->operator=( *(const BfmeAssignRecord28 *)&other );
+		return *this;
+	}
 };
 
 // Only the two placed members are instantiated; the donor's whole-class
