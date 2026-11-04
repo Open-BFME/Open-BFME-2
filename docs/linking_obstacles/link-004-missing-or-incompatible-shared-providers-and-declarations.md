@@ -241,6 +241,13 @@
   frozen-file check refused its newly exposed unrowed helper; it was restored
   before any further composition trial. Full receiver reconciliation remains.
   No merge, debt retirement, census gain or later Luna landing is claimed.
+  On 2026-11-04, an allocated consolidation trial accepted three unchanged
+  constructor donors (12 approved rows), but the commit hook rejected the
+  composed TU for a private `AITNGuardInnerState` copy; the trial was restored.
+  Four other donors still require the xfer declaration, visible `TheAI` type,
+  or machine constructor declaration. See the
+  [trial evidence](../../reverse/attempt_support/aitnguard-partial-merge-20261104.md).
+  The census-linked LinkGuard passed; no merge or census gain is claimed.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the
