@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // ??0Rva00109C27@@QAE@PBD@Z @0x00109C27 60B
 // Native60B owner zeroes inherited NextHash at+4 and constructs StringClass at+8.
 // Native state0 cleanup7645D7 calls complete7B virtual Hashable destructorEF9CF,
@@ -9,15 +9,7 @@
 // EH graph are exact; caller109CDC and existing54B destructor109C7F agree.
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 // WWLib hash.h base: native8B layout and BCEF94 table.
-class HashableClass
-{
-public:
-    HashableClass() : NextHash(0) {}
-    virtual ~HashableClass() {}
-    virtual const char *Get_Key() = 0;
-private:
-    HashableClass *NextHash;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"
 class Rva00109C27 : public HashableClass
 {
 public:

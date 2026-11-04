@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // Complete54B destructor109C7F belongs to the60B constructor109C27:
 // native BCFA0C is [deleting109C63, key30F45F]. Both use StringClass at+8
 // above the8B HashableClass base. Its full8B BCEF94 table is deletingEF9D6
@@ -12,15 +12,7 @@
 
 __forceinline StringClass::~StringClass() { Free_String(); }
 inline StringClass::operator const char *() const { return m_Buffer; }
-class HashableClass
-{
-public:
-    HashableClass() : NextHash(0) {}
-    virtual ~HashableClass() {}
-    virtual const char *Get_Key() = 0;
-private:
-    HashableClass *NextHash;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"
 class Rva00109C27 : public HashableClass
 {
 public:
