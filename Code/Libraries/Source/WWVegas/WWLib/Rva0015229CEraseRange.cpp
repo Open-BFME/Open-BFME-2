@@ -54,13 +54,14 @@ void _Destroy(ForwardIter first, ForwardIter last);
 
 }
 
-class Rva0015229CVector {
+class Rva0015229CVector
+{
 public:
-	Rva0007BB16Record *EraseRange(Rva0007BB16Record *first, Rva0007BB16Record *last);
+	Rva0007BB16Record *EraseRange(Rva0007BB16Record *, Rva0007BB16Record *);
 private:
-	void *m_start;
-	Rva0007BB16Record *m_finish;
-	void *m_end;
+	void *m_start; // +0x00
+	Rva0007BB16Record *m_finish; // +0x04
+	void *m_end; // +0x08
 };
 
 Rva0007BB16Record *Rva0015229CVector::EraseRange(Rva0007BB16Record *first, Rva0007BB16Record *last)

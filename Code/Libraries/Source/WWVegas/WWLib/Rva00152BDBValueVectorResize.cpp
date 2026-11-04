@@ -2,7 +2,16 @@
 // stlport
 #include <vector>
 struct Rva00152BDBEntry { Rva00152BDBEntry(); Rva00152BDBEntry(const Rva00152BDBEntry&); ~Rva00152BDBEntry(); private: unsigned char storage[36]; };
-class Rva00152BDBVector { Rva00152BDBEntry*start,*finish,*end; public: void resize(unsigned,Rva00152BDBEntry); void resize(unsigned); };
+class Rva00152BDBVector
+{
+public:
+	void resize(unsigned);
+	void resize(unsigned,Rva00152BDBEntry);
+private:
+	Rva00152BDBEntry *start; // +0x00
+	Rva00152BDBEntry *finish; // +0x04
+	Rva00152BDBEntry *end; // +0x08
+};
 // Native1524F9 owns the fill helper for the same36-byte element frame.
 // Keep this caller's opaque value type and bind only that operation.
 struct Rva001524F9Element;

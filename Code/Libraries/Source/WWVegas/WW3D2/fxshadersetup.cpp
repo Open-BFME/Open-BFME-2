@@ -244,7 +244,15 @@ typedef _STL::vector<Rva0007BB16Record> FXShaderParameterVector;
 namespace _STL { template<> vector<Rva0007BB16Record> &vector<Rva0007BB16Record>::operator=(const vector<Rva0007BB16Record> &); }
 
 // EraseRange at 0x0015229C uses the record's rowed copy and destroy helpers.
-class Rva0015229CVector { public: Rva0007BB16Record *EraseRange(Rva0007BB16Record *, Rva0007BB16Record *); };
+class Rva0015229CVector
+{
+public:
+	Rva0007BB16Record *EraseRange(Rva0007BB16Record *, Rva0007BB16Record *);
+private:
+	void *m_start; // +0x00
+	Rva0007BB16Record *m_finish; // +0x04
+	void *m_end; // +0x08
+};
 namespace _STL {
 template <> __declspec(dllimport) __forceinline Rva0007BB16Record *
 vector<Rva0007BB16Record>::erase(Rva0007BB16Record *first, Rva0007BB16Record *last)
@@ -253,7 +261,17 @@ vector<Rva0007BB16Record>::erase(Rva0007BB16Record *first, Rva0007BB16Record *la
 
 // resize(n) is the rowed 0x00152DC6 body, which owns the 36-byte record's
 // default value; call it there rather than instantiate a local copy.
-class Rva00152BDBVector { public: void resize(unsigned); };
+struct Rva00152BDBEntry;
+class Rva00152BDBVector
+{
+public:
+	void resize(unsigned);
+	void resize(unsigned,Rva00152BDBEntry);
+private:
+	Rva00152BDBEntry *start; // +0x00
+	Rva00152BDBEntry *finish; // +0x04
+	Rva00152BDBEntry *end; // +0x08
+};
 
 // Preserve STLport's resize operations without another out-of-line copy.
 namespace _STL {
