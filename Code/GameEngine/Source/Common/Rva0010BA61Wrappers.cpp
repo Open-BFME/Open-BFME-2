@@ -274,11 +274,7 @@ void Rva005E6B8F::rva005E6B8F()
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class RAMFile
-{
-public:
-	virtual int write(const void *a, int b);
-};
+#include "../../Include/Common/RAMFileClass.h"
 
 class Rva005E5884
 {
@@ -286,18 +282,18 @@ public:
 	int rva005E5884(void *a1, int a2);
 };
 
-class Rva005E5920 : public RAMFile
+class Rva005E5920
 {
 public:
 	int rva005E5920(void *buffer, int size);
 private:
-	char m_pad04[4];
+	char m_pad00[8];
 	Rva005E5884 *m_8;
 };
 
 int Rva005E5920::rva005E5920(void *buffer, int size)
 {
-	int writeResult = RAMFile::write(buffer, size);
+	int writeResult = reinterpret_cast<RAMFile *>(this)->RAMFile::write(buffer, size);
 	_ReadWriteBarrier();
 	if ((writeResult == -1) && (m_8 != 0 || m_8 == 0))
 		return (size ? m_8 : m_8)->rva005E5884(buffer, size);
