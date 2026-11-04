@@ -17,10 +17,12 @@
 // Original diagnostic owner names remain address-derived donor views.
 
 #include "ascii_string.h"
-extern "C" __declspec(dllimport) void * __cdecl fopen(const char *, const char *);
-extern "C" __declspec(dllimport) int __cdecl fclose(void *);
-extern "C" __declspec(dllimport) int __cdecl fprintf(void *, const char *, ...);
-extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(void);
+// Retail closes the stats file through the CRT import.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 
 class Rva0013A820
@@ -57,7 +59,7 @@ public:
 	~INIStatsRecord() { fclose(m_file); }
 	void bfmeDump1191(void);
 	void rva0050C90D();
-	char *m_file;
+	FILE *m_file;
 };
 
 // Native string copy-outs use the same shared four-byte AsciiString contract.
