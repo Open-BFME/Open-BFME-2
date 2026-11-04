@@ -70,28 +70,7 @@ struct ElevatedAreaPolygon
  
 }
 ;
-class Rva001E35DFView 
-{
- public:const Rva001E35DFView *getFinalOverride() const 
- {
-  if(next)return next->getFinalOverride();
-  return this;
-  
- }
- void *vptr;
- Rva001E35DFView *next;
- bool overrideFlag;
- 
-}
-;
-class WaterTransparencySetting : public Rva001E35DFView 
-{
- public:char opaque0c[0x3c-12];
- AsciiString defaultTexture;
- float defaultHeight;
- 
-}
-;
+#include "../../Include/GameClient/Water.h"
 template<class T>class OVERRIDE 
 {
  public: __declspec(dllimport) __forceinline operator const T*()const 
@@ -152,7 +131,7 @@ void rva00328E96(DataChunkInput &file,int version,Rva00328E96WaterRecord *out)
  }
  else 
  {
-  out->textures[0]=((const WaterTransparencySetting*)TheWaterTransparency)->defaultTexture;
+  out->textures[0]=((const WaterTransparencySetting*)TheWaterTransparency)->m_standingWaterTexture;
   out->textures[1]="Noise0000.tga";
   out->textures[2]="TWAlphaEdge.tga";
   out->textures[3]="WaterSurfaceBubbles.tga";
@@ -169,7 +148,7 @@ void rva00328E96(DataChunkInput &file,int version,Rva00328E96WaterRecord *out)
   static const float defaultRippleScale=0.06f;
   out->value3c=*(const volatile float*)&defaultRippleScale;
   out->value40=*(const volatile float*)&defaultRippleScale;
-  out->height=((const WaterTransparencySetting*)TheWaterTransparency)->defaultHeight;
+  out->height=((const WaterTransparencySetting*)TheWaterTransparency)->m_riverTransparencyMultiplier;
   
  }
  if(version>=6)out->polygon.parse(file,1);

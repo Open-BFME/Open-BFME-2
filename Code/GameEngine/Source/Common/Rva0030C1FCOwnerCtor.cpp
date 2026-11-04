@@ -68,29 +68,14 @@ private:
 	unsigned char m_pad1C[0x30 - 0x1C];
 };
 
-class Overridable
-{
-public:
-	Overridable *friend_getFinalOverride();
-	// Keep the retail inline walk without an extra competing outline.
-	__declspec(dllimport) __forceinline const Overridable *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-private:
-	void *m_vtbl;
-	Overridable *m_nextOverride;	// +0x04
-};
+#include "../../Include/GameClient/Water.h"
 
-class WaterTransparencySetting : public Overridable
+static __forceinline const Overridable *finalOverride(const Overridable *self)
 {
-public:
-	unsigned char m_pad08[0x3C - 0x08];
-	AsciiString m_3C;	// +0x3C
-	int m_40;		// +0x40
-};
+	if (Overridable *next = const_cast<Overridable *>(self)->friend_getNextOverride())
+		return next->friend_getFinalOverride();
+	return self;
+}
 
 template <class T> class OVERRIDE
 {
@@ -99,7 +84,9 @@ public:
 	{
 		if (!m_overridable)
 			return 0;
-		return (const T *)m_overridable->getFinalOverride();
+		// Retail inlines the first step of the walk and calls the outline
+		// friend_getFinalOverride (0x001E35DF) for the rest.
+		return (const T *)finalOverride(m_overridable);
 	}
 private:
 	T *m_overridable;
@@ -141,17 +128,17 @@ private:
 	float m_50;			// +0x50
 	float m_54;
 	float m_58;
-	int m_5C;			// +0x5C
+	float m_5C;			// +0x5C
 	int m_60;			// +0x60
 	int m_64;			// +0x64
 	mutable Rva005388AB m_68;		// +0x68
 };
 
 Rva0030C1FCOwner::Rva0030C1FCOwner(int count)
-	: m_50(1.0f), m_54(1.0f), m_58(1.0f), m_5C(TheWaterTransparency->m_40), m_60(-1), m_64(0)
+	: m_50(1.0f), m_54(1.0f), m_58(1.0f), m_5C(TheWaterTransparency->m_riverTransparencyMultiplier), m_60(-1), m_64(0)
 {
 	reinterpret_cast<QuadStrip2D *>(&m_68)->rva0053892C(count);
-	m_40[0] = TheWaterTransparency->m_3C;
+	m_40[0] = TheWaterTransparency->m_standingWaterTexture;
 	m_40[1] = "Noise0000.tga";
 	m_40[2] = "TWAlphaEdge.tga";
 	m_40[3] = "WaterSurfaceBubbles.tga";
