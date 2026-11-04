@@ -23803,3 +23803,10 @@ Code/GameEngine/Source/Common/GapBodiesGE34.cpp|function|0x005B0608|rva005B0608,
 Code/GameEngine/Source/Common/GapBodiesGE34.cpp|function|0x005B0648|rva005B0648,715efcae75e6c199baa6fbd3,claude-opus-5-5,claude3-20261104-200608-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/GapBodiesGE34.cpp|function|0x005B068E|rva005B068E,e7f5b373b33c6675509d5b82,claude-opus-5-5,claude3-20261104-200608-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp|member|Rva00480093GameLogicView|m_9F,cd483086944348d2cf7475e9,claude-opus-5-5,claude3-20261104-203451-6,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListDestructor.cpp|class||Rva003B793AReadInfo,11a52dffce390701e840a05f,claude-opus-5-5,claude3-20261104-204833-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp|function|0x003BB141|Rva003BB141Notify,c0573c3e23dd18f07f0346a8,claude-opus-5-5,claude3-20261104-204833-2,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp|function|0x003BB641|Rva003BB641,925131f1717f6779c42e9733,claude-opus-5-5,claude3-20261104-204833-2,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp|function|0x003BB654|Rva003BB654,9bf927c4730d9c0d62593234,claude-opus-5-5,claude3-20261104-204833-2,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003328EDChain.cpp|member|Rva002628C3Object74|m_74,e44596c2f403e165c8f6c8ee,claude-opus-5-5,claude3-20261104-204833-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBC81|Rva003BBC81Set,0ab5f3af23c37d6f4ea761f5,claude-opus-5-5,claude3-20261104-204833-4,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBCD2|Rva003BBCD2Set,654db11ad73ccd8a03e7b15d,claude-opus-5-5,claude3-20261104-204833-4,w-29a6ae2a2f9f,2026-11-04
