@@ -597,177 +597,29 @@ static Bool doSingleBoneName(RenderObjClass* robj, const AsciiString& boneName, 
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?validateCachedBones@ModelConditionInfo@@ present-unmatched
-void ModelConditionInfo::validateCachedBones(RenderObjClass* robj, Real scale) const
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// These rows rest in this unit, and only the Zero Hour ModelConditionInfo bodies that stood here
+// made it emit them. A function nothing runs keeps them, and inline_depth keeps its calls out of line.
+#pragma inline_depth(0)
+static Bool callInlineRows(ModelConditionInfo::TurretInfo *turret, std::vector<ModelConditionFlags> *flags)
 {
-	//DEBUG_ASSERTCRASH(isValidTimeToCalcLogicStuff(), ("calling validateCachedBones() from in GameClient!"));
-	if (m_validStuff & PRISTINE_BONES_VALID)
-		return;
-
-	if (!isValidTimeToCalcLogicStuff())
-	{
-		m_pristineBones.clear();
-		m_validStuff &= ~PRISTINE_BONES_VALID;
-		return;
-	}
-
-	setFPMode();
-
-	BONEPOS_LOG(("Validating bones for %s: %s", m_modelName.str(), getDescription().str()));
-	//BONEPOS_LOG(("Passing in valid render obj: %d\n", (robj != 0)));
-	BONEPOS_DUMPREAL(scale);
-
-	m_pristineBones.clear();
-
-	// go ahead and set this here, in case we return early.
-	m_validStuff |= PRISTINE_BONES_VALID;
-
-	Bool tossRobj = false;
-	if (robj == NULL)
-	{
-		if (m_modelName.isEmpty())
-		{
-			//BONEPOS_LOG(("Bailing: model name is empty\n"));
-			return;
-		}
-
-		robj = W3DDisplay::m_assetManager->Create_Render_Obj(m_modelName.str(), scale, 0);
-		DEBUG_ASSERTCRASH(robj, ("*** ASSET ERROR: Model %s not found!\n",m_modelName.str()));
-		if (!robj)
-		{
-			//BONEPOS_LOG(("Bailing: could not load render object\n"));
-			return;
-		}
-		tossRobj = true;
-	}
-
-	Matrix3D			originalTransform = robj->Get_Transform();	// save the transform
-	HLodClass*		hlod = NULL;
-	HAnimClass*		curAnim = NULL;
-	int						numFrames = 0;
-	float					frame = 0.0f;
-	int						mode = 0;
-	float					mult = 1.0f;
-
-	if (robj->Class_ID() == RenderObjClass::CLASSID_HLOD)
-	{
-		hlod = (HLodClass*)robj;
-		curAnim = hlod->Peek_Animation_And_Info(frame, numFrames, mode, mult);
-	}
-
-	// if we have any animations in this state, always choose the first, since the animations
-	// vary on a per-client basis.
-	HAnimClass* animToUse;
-	if (m_animations.size() > 0)
-	{
-		animToUse = m_animations.front().getAnimHandle();	// return an AddRef'ed handle
-	}
-	else
-	{
-		animToUse = curAnim;	// Peek_Animation_And_Info does not addref, so we must do so here
-		if (animToUse)
-			animToUse->Add_Ref();
-	}
-	if (animToUse != NULL)
-	{
-		// make sure we're in frame zero.
-		Int whichFrame = testFlagBit(m_flags, PRISTINE_BONE_POS_IN_FINAL_FRAME) ? animToUse->Get_Num_Frames()-1 : 0;
-		robj->Set_Animation(animToUse, whichFrame, RenderObjClass::ANIM_MODE_MANUAL);
-		// must balance the addref, above
-		REF_PTR_RELEASE(animToUse);
-		animToUse = NULL;
-	}
-
-	Matrix3D tmp(true);
-	tmp.Scale(scale);
-	robj->Set_Transform(tmp);					// set to identity transform
-
-	if (TheGlobalData)
-	{
-		for (std::vector<AsciiString>::const_iterator it = TheGlobalData->m_standardPublicBones.begin(); it != TheGlobalData->m_standardPublicBones.end(); ++it)
-		{
-			if (!doSingleBoneName(robj, *it, m_pristineBones))
-			{
-				// don't crash here, since these are catch-all global bones and won't be present in most models.
-				//DEBUG_CRASH(("public bone %s (and variations thereof) not found in model %s!\n",it->str(),m_modelName.str()));
-			}
-			//else
-			//{
-			//	DEBUG_LOG(("global bone %s (or variations thereof) found in model %s\n",it->str(),m_modelName.str()));
-			//}
-		}
-	}
-	for (std::vector<AsciiString>::const_iterator it = m_publicBones.begin(); it != m_publicBones.end(); ++it)
-	{
-		if (!doSingleBoneName(robj, *it, m_pristineBones))
-		{
-			// DO crash here, since we specifically requested this bone for this model
-			DEBUG_CRASH(("*** ASSET ERROR: public bone '%s' (and variations thereof) not found in model %s!\n",it->str(),m_modelName.str()));
-		}
-		//else
-		//{
-		//	DEBUG_LOG(("extra bone %s (or variations thereof) found in model %s\n",it->str(),m_modelName.str()));
-		//}
-	}
-
-	robj->Set_Transform(originalTransform);			// restore previous transform
-	if (curAnim != NULL)
-	{
-		robj->Set_Animation(curAnim, frame, mode);
-		hlod->Set_Animation_Frame_Rate_Multiplier(mult);
-	}
-
-	if (tossRobj)
-	{
-		REF_PTR_RELEASE(robj);
-	}
+	turret->clear();
+	flags->clear();
+	return testFlagBit(0, 0);
 }
+#pragma inline_depth()
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?clear@ModelConditionInfo@@ present-unmatched
-void ModelConditionInfo::clear()
-{ 
-	int i;
-#if defined(_DEBUG) || defined(_INTERNAL)
-	m_description.clear();
-#endif
-	m_conditionsYesVec.clear();
-	m_modelName.clear();
-	for (i = 0; i < MAX_TURRETS; ++i)
-	{
-		m_turrets[i].clear();
-	}
-	m_hideShowVec.clear();
-	for (i = 0; i < WEAPONSLOT_COUNT; ++i)
-	{
-		m_weaponFireFXBoneName[i].clear();
-		m_weaponRecoilBoneName[i].clear();
-		m_weaponMuzzleFlashName[i].clear();
-		m_weaponProjectileLaunchBoneName[i].clear();
-		m_weaponBarrelInfoVec[i].clear();
-		m_hasRecoilBonesOrMuzzleFlashes[i] = false;
-	}
-	m_particleSysBones.clear();
-	m_animations.clear();
-	m_flags = 0;
-	m_transitionKey = NAMEKEY_INVALID;
-	m_allowToFinishKey = NAMEKEY_INVALID;
-	m_iniReadFlags = 0;
-	m_mode = RenderObjClass::ANIM_MODE_ONCE;
-	m_transitionSig = NO_TRANSITION;
-	m_animMinSpeedFactor = 1.0f;
-	m_animMaxSpeedFactor = 1.0f;
-	m_pristineBones.clear();
-	m_validStuff = 0;
-}
+extern const void *const g_modelDrawRowsAnchor = (const void *)&callInlineRows;
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
 // W3DModelDrawModuleData's destructor is retail 0x000C8BE0, rowed and emitted by
 // Code/Libraries/Source/WWVegas/WWLib/W3DModelDrawModuleDataDtorRva000C8BE0.cpp. The Zero
 // Hour body that stood here (m_conditionStateMap.clear()) was a second strong definition
