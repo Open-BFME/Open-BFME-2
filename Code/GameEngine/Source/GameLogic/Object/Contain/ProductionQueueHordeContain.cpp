@@ -139,17 +139,7 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
 
 
-class HordeGarrisonContainModuleData
-{
-public:
-	HordeGarrisonContainModuleData();
-	virtual ~HordeGarrisonContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-
-protected:
-	// +0x00 vptr; remainder opaque to 0x58 (rowed base size).
-	unsigned char m_opaque[0x54];
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 class ProductionQueueHordeContainModuleData : public HordeGarrisonContainModuleData
 {
@@ -159,8 +149,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
-	// +0x58 pad to the vector member.
-	unsigned char m_pad58[0x7C];
 	// +0xD4 vector (implicit default init; ends at the rowed 0xE0 size).
 	_STL::vector<int> m_vectorD4;
 public:
