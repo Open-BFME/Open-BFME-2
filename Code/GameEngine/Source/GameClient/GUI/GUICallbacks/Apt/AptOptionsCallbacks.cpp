@@ -189,8 +189,8 @@ void Rva005186E1Format(OptionPreferences *prefs, AsciiString *text);
 class Rva005183A0
 {
 public:
-	bool rva005183A0();
 	void rva005183FA();
+	bool rva005183A0();
 };
 
 // The LOD manager calls AptOptions::Save makes (Rva00202058.cpp,
