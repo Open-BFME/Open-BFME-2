@@ -23689,3 +23689,4 @@ Code/GameEngine/Source/Common/Rva0052DE5BState.cpp|member|Rva0052DEEFArg|m_254,e
 Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|member|Node002BBBE7|m_next08,7b5ab679ee187bf94b98071a,claude-opus-5-5,claude3-20261104-023505-10,w-29a6ae2a2f9f,2026-11-04
 Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp|member|Node002BBBE7|m_child0C,843f3db2ad61d1425a1d5fa3,claude-opus-5-5,claude3-20261104-023505-10,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0041097BDelete.cpp|function|0x0041097B|rva0041097B,cf442464e8730054d1476fb7,claude-opus-5-5,claude3-20261104-023505-10,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva003EF9DCFill.cpp|function|0x003EF9DC|Rva003EF9DCFill,fd3e99f4363ab4c7d0223ddb,claude-opus-5-5,claude3-20261104-031131-9,w-29a6ae2a2f9f,2026-11-04
