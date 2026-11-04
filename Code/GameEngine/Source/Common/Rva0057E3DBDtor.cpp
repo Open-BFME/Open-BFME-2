@@ -13,11 +13,8 @@ struct TargetRef00217D4C
 	int m_08;
 };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-class MapMetaData
-{
-public:
-	~MapMetaData();
-};
+#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 #define _CRTIMP
 #include <stdlib.h>
 #include <new>
