@@ -462,6 +462,7 @@ linking peers stay linked in true A/B; this consumer retains three base-view
 unresolveds. Its32B constructor installs native fifteen-slot Apt tableCE8BA0,
 so the old DrawableModule/Snapshot constructor context needs complete identity
 reconciliation. No whole-image/census credit is claimed. [Proof and boundary](../reverse/attempt_support/real-link-apt-laser-donor-20261103.md).
+2026-11-04 claudeb2: Laser port replaced by the 0x006CBCB0 Apt value constructor; link_check predicts LINKS 0->410 B, awaiting census. [Evidence](../reverse/attempt_support/apt-name-entry-ctor-reidentify-20261104.md).
 
 
 ### Vslot AG native FieldParse providers (2026-11-03, halilkkaya-codex)

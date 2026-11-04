@@ -3587,7 +3587,6 @@ alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	
 alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	?vtableSlot0@Rva006D8860BoolValue@@UAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueConstructorBFME2.cpp	??0Rva006DCD20@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueDonorBitsBFME2.cpp	?rva006dbd80@AptCIH@@QAEXXZ	1
-alternatename	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?loadPostProcess@Rva006DCD20@@MAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?GetBool@AptBoolean@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?GetInt@AptInteger@@QBEHXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?c_integer@AptValue@@QBEPAVAptInteger@@XZ	1
@@ -13059,9 +13058,6 @@ present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp	AptValueW
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptObject::AptObject	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueGC::AptValueGC	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueWithHash::AptValueWithHash	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::crc	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::loadPostProcess	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	RvaLaserAnchor	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp	Rva006DA4D0::Rva006DA4D0	1
 present_unmatched	Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp	1HuffStat@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp	0Rva006560E0@@QAE@XZ	1
