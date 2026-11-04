@@ -234,10 +234,15 @@ public:
 	virtual void attackTargetNow(Object *target, int select);
 };
 
+enum NameKeyType;
+
 class HordeContainPrimary
 {
 public:
-	SLOT08(s00,s01,s02,s03,s04,s05,s06,s07)
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	// Retail primary tables C45050/C45C38 put the name-key getter in slot 4.
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void s05(); virtual void s06(); virtual void s07();
 	SLOT08(s08,s09,s0A,s0B,s0C,s0D,s0E,s0F)
 	SLOT08(s10,s11,s12,s13,s14,s15,s16,s17)
 	SLOT08(s18,s19,s1A,s1B,s1C,s1D,s1E,s1F)
@@ -260,6 +265,7 @@ public:
 class HorseHordeContain : public HordeContain
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	void _horseUpdatePosition(Object*,const Coord3D*,float);
  bool moving,state121;char pad122[0x2a0-0x122];int mode;
  virtual void s27();
