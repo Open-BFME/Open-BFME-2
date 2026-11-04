@@ -185,3 +185,50 @@ split landed; file reduction and matched-row movement remain zero.
 - `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
   and `Object::id`, which are absent from the TU class view (MSVC C2039).
   Manual class-view reconciliation is required; no merge was applied.
+
+Continuation on 2026-11-04 (same allocated shard; no sources changed):
+- `Common/AptObject.cpp`: `AptObject_DestroyGCPointers.cpp` fails C2039/C2352
+  because its seed view has no `DestroyGCPointers`; mixed
+  `Rva004B96CCDerived.cpp` split fails C2653/C2270 without AptObject class
+  context. No merge or split.
+- `GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp`: constructor
+  donor fails C2511 and execute donor needs absent `executeCrateBehavior`
+  (C2039). Both exact mixed splits are refused by LinkGuard for selected
+  COMDAT context (`HealCrateCollide` string constant; destructor and two
+  vftables). No change.
+- `GameLogic/Object/Behavior/WargBehavior.cpp`: ctor donor C2511; getter split
+  is exact alone but LinkGuard rejects `WargBehavior` string COMDAT context.
+- `GameEngineDevice/Source/W3DDevice/GameClient/BfmeHub982.cpp`: renderer donor
+  lacks `DX8Wrapper::bfmeRva00120650` (C2039/C3861); renderer-reset split has
+  duplicate `D3DTRANSFORMSTATETYPE` (C2371); W3DAptAux split would grow a hatch.
+- `GameClient/Drawable/Update/AnimatedParticleSysBoneClientUpdate.cpp`: ctor
+  donor C2511; exact getter split refused by LinkGuard for its string COMDAT.
+- `GameLogic/Object/Made002CCB04.cpp`: ctor donor fails bytes; mixed split
+  cannot compile without Made002CCB04 class members `rva0050B4E2` and
+  `rva0050B479` (C2039/C3861).
+- `GameLogic/Object/Damage/HordeTransportContainDamage.cpp`: ctor donor C2511,
+  callback donor lacks `rva004BB176` (C2039); mixed derived split is exact
+  alone but LinkGuard rejects selected destructor and two vftables for missing
+  private/weak-free COMDAT context. No merge/split.
+- `GameLogic/Object/Made002CCB67.cpp`: sole ctor donor is refused by LinkGuard;
+  it would regress census link with unresolved `Rva00507823::vslot01/02/03`.
+- `GameLogic/Object/Update/FloodUpdate.cpp`: ModuleData ctor has duplicate
+  `_STL::allocator`/list declarations (C2953); ModuleData dtor, update ctor,
+  helper ctor and update dtor require manual class members. Mixed getter split
+  lacks `Matrix3D::buildTransformMatrix` (C2039); INI parser split loses
+  residual matched row 0x0048DC07; field-parse split fails on missing
+  FloodUpdate module-data declaration (C2143/C2501). No merge/split.
+- `GameLogic/Object/Update/AssistedTargetingUpdate.cpp`: pool-key donor has
+  duplicate `SubsystemInterface` (C2011); ctor lacks `m_vtable`/`m_secondary0C`
+  and feedback donor has duplicate Coord3D/Thing (C2011). Field-parse mixed
+  split duplicates `FieldParse`; ModuleNameGetters split duplicates the
+  destination class; derived split has no approved row for this TU. No change.
+- `GameLogic/Object/Collide/CrateCollide/ShroudCrateCollide.cpp`: ctor donor
+  fails because base `CrateCollide` is undefined in the seed view (C2504).
+  Getter split is exact alone but LinkGuard rejects the `ShroudCrateCollide`
+  string COMDAT; derived split is exact alone but LinkGuard rejects its
+  destructor and two vftable COMDAT contexts. No merge/split.
+
+All these dry runs and split trials left tracked sources and ledgers unchanged;
+no claims were taken. The blocked causes require class-view/declaration work,
+manual source repair, or LinkGuard context work outside this mechanical lane.
