@@ -76,9 +76,9 @@ bool Rva00541579::rva00541579(int key)
     int cachedIndex = m_hint1C;
     if (cachedIndex >= 0 && (unsigned)cachedIndex < m_keys.size()) {
         BfmePod28 *keyBegin = m_keys.m_begin;
-        int cur = keyBegin[cachedIndex].key;
-        if (key >= cur && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].key))
-            return cur == key;
+        int cachedKey = keyBegin[cachedIndex].key;
+        if (key >= cachedKey && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].key))
+            return cachedKey == key;
     }
     if (m_keys.empty())
     {
@@ -115,9 +115,9 @@ bool Rva005418CB::rva00541641(int key)
     int cachedIndex = m_hint1C;
     if (cachedIndex >= 0 && (unsigned)cachedIndex < m_keys.size()) {
         BfmePod20 *keyBegin = m_keys.m_begin;
-        int cur = keyBegin[cachedIndex].key;
-        if (key >= cur && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].key))
-            return cur == key;
+        int cachedKey = keyBegin[cachedIndex].key;
+        if (key >= cachedKey && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].key))
+            return cachedKey == key;
     }
     if (m_keys.empty())
     {

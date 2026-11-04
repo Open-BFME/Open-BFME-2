@@ -103,10 +103,10 @@ static inline void cameraTrackSeek(void *track, int frame, const Rva0053FDE6 *)
 {
 	((Rva0054034A *)track)->rva0054034A(frame);
 }
-static inline Rva0053FDE6 cameraTrackInterpolate(float t, Rva0053FDE6 *a, int ta, Rva0053FDE6 *b, int tb,
-	Rva0053FDE6 *c, int tc, Rva0053FDE6 *d, int td)
+static inline Rva0053FDE6 cameraTrackInterpolate(float fraction, Rva0053FDE6 *prevKey, int prevFrameNum, Rva0053FDE6 *startKey, int startFrameNum,
+	Rva0053FDE6 *endKey, int endFrameNum, Rva0053FDE6 *nextKey, int nextFrameNum)
 {
-	return Rva0053FE64Get(t, a, ta, b, tb, c, tc, d, td);
+	return Rva0053FE64Get(fraction, prevKey, prevFrameNum, startKey, startFrameNum, endKey, endFrameNum, nextKey, nextFrameNum);
 }
 static inline void cameraTrackSeek(void *track, int frame, const Rva00540D94 *)
 {
@@ -116,15 +116,15 @@ static inline void cameraTrackSeek(void *track, int frame, const Rva00540E9D *)
 {
 	((Rva005418CB *)track)->rva00541641(frame);
 }
-static inline Rva00540D94 cameraTrackInterpolate(float fraction, Rva00540D94 *prevKey, int ta, Rva00540D94 *startKey, int tb,
-	Rva00540D94 *endKey, int tc, Rva00540D94 *nextKey, int td)
+static inline Rva00540D94 cameraTrackInterpolate(float fraction, Rva00540D94 *prevKey, int prevFrameNum, Rva00540D94 *startKey, int startFrameNum,
+	Rva00540D94 *endKey, int endFrameNum, Rva00540D94 *nextKey, int nextFrameNum)
 {
-	return Rva00540DCAGet(fraction, prevKey, ta, startKey, tb, endKey, tc, nextKey, td);
+	return Rva00540DCAGet(fraction, prevKey, prevFrameNum, startKey, startFrameNum, endKey, endFrameNum, nextKey, nextFrameNum);
 }
-static inline Rva00540E9D cameraTrackInterpolate(float fraction, Rva00540E9D *prevKey, int ta, Rva00540E9D *startKey, int tb,
-	Rva00540E9D *endKey, int tc, Rva00540E9D *nextKey, int td)
+static inline Rva00540E9D cameraTrackInterpolate(float fraction, Rva00540E9D *prevKey, int prevFrameNum, Rva00540E9D *startKey, int startFrameNum,
+	Rva00540E9D *endKey, int endFrameNum, Rva00540E9D *nextKey, int nextFrameNum)
 {
-	return rva00540EBD(fraction, prevKey, (void *)ta, (Rva005C71ADView *)startKey, (void *)tb, endKey, (void *)tc, nextKey, (void *)td);
+	return rva00540EBD(fraction, prevKey, (void *)prevFrameNum, (Rva005C71ADView *)startKey, (void *)startFrameNum, endKey, (void *)endFrameNum, nextKey, (void *)nextFrameNum);
 }
 
 template <class T>

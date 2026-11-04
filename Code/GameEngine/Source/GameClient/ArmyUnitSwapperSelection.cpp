@@ -148,9 +148,9 @@ static void SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Selection *sele
 }
 bool StrategicInGameUI::CanUpgradeAny(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
  Rva003F287F *region=reinterpret_cast<Rva003F287F*>(reinterpret_cast<Rva00318C79Owner*>(army)->rva00318C32());
- int countA,countB;
- TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(region,reinterpret_cast<Rva002B2B66*>(TheLivingWorldLogic)->rva002B2B66(),&countA,&countB);
- if(countA<=0)return false;
+ int upgradeableCount,countB;
+ TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(region,reinterpret_cast<Rva002B2B66*>(TheLivingWorldLogic)->rva002B2B66(),&upgradeableCount,&countB);
+ if(upgradeableCount<=0)return false;
  Rva0040CB3AIndexedField *summary=army->summary;
  SelectedMemberSet::iterator end=selection->members.end();
  for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
@@ -194,9 +194,9 @@ int Rva005F5A32Anchor(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
 }
 void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
  Rva003F287F *region=reinterpret_cast<Rva003F287F*>(reinterpret_cast<Rva00318C79Owner*>(army)->rva00318C32());
- int countA,countB;
- TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(region,reinterpret_cast<Rva002B2B66*>(TheLivingWorldLogic)->rva002B2B66(),&countA,&countB);
- if(countA>0) {
+ int upgradeableCount,countB;
+ TheLivingWorldLogic->GetNumUpgradeableTroopsInRegionForPlayer(region,reinterpret_cast<Rva002B2B66*>(TheLivingWorldLogic)->rva002B2B66(),&upgradeableCount,&countB);
+ if(upgradeableCount>0) {
   Rva0040CB3AIndexedField *summary=army->summary;
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
@@ -205,7 +205,7 @@ void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Sel
     GameMessage *message=TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x6BF));
     message->appendIntegerArgument(army->id);
     message->appendIntegerArgument(*it);
-    if(--countA<=0)break;
+    if(--upgradeableCount<=0)break;
    }
   }
  }
@@ -219,7 +219,7 @@ void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Sel
 class Rva005F5B77 {
 public:void rva005F5B77();
  char prefix[0x20];LivingWorldArmy *army;Rva005F56B0Selection *selection;
- __forceinline int enabled(){LivingWorldArmy*livingWorldArmy=army;Rva005F56B0Selection*b=selection;return (StrategicInGameUI::CanCancelAnyUpgrades(livingWorldArmy,b)||StrategicInGameUI::CanUpgradeAny(livingWorldArmy,b))?1:0;}
+ __forceinline int enabled(){LivingWorldArmy*livingWorldArmy=army;Rva005F56B0Selection*memberSelection=selection;return (StrategicInGameUI::CanCancelAnyUpgrades(livingWorldArmy,memberSelection)||StrategicInGameUI::CanUpgradeAny(livingWorldArmy,memberSelection))?1:0;}
 };
 void Rva005F5B77::rva005F5B77(){
  int word=enabled();bool flag;memcpy(&flag,&word,sizeof flag);

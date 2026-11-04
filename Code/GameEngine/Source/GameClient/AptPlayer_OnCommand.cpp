@@ -15,12 +15,12 @@ public:
 class AptPlayer
 {
 public:
-	void OnCommand(const char *name, int v);
+	void OnCommand(const char *name, int value);
 	char m_pad[0xC];
 	Rva00056F61 m_table;
 };
 
-void AptPlayer::OnCommand(const char *name, int v)
+void AptPlayer::OnCommand(const char *name, int value)
 {
 	if (name == 0)
 		return;
@@ -31,5 +31,5 @@ void AptPlayer::OnCommand(const char *name, int v)
 	}
 	if (node == 0)
 		return;
-	((Rva0057CC15Ref *)((char *)node + 8))->invoke(v);
+	((Rva0057CC15Ref *)((char *)node + 8))->invoke(value);
 }

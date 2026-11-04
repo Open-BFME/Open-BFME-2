@@ -139,7 +139,7 @@ static inline SubtitleDisplayFactoryView *theDisplayStringManagerView()
 class GameSubTitle : public SubtitleEntry
 {
 public:
-	static Int getXFromAlignment(Int alignment, Int base, Int unused, Real low, Real high);
+	static Int getXFromAlignment(Int alignment, Int textWidth, Int unused, Real low, Real high);
 	virtual ~GameSubTitle();
  void rva0025FCBA(GameFont *font);
 	GameSubTitle(GameFont *font, const UnicodeString &text,
@@ -151,7 +151,7 @@ private:
 	Int m_displayStringCount;
 	Int m_displayStringCapacity;
 };
-Int GameSubTitle::getXFromAlignment(Int alignment, Int base, Int unused, Real low, Real high)
+Int GameSubTitle::getXFromAlignment(Int alignment, Int textWidth, Int unused, Real low, Real high)
 {
 	Int difference = (Int)fabs(high - low);
 
@@ -164,14 +164,14 @@ Int GameSubTitle::getXFromAlignment(Int alignment, Int base, Int unused, Real lo
 		Int highInt = (Int)high;
 		Int lowInt = (Int)low;
 		const Int &minimum = bfmeMin(highInt, lowInt);
-		return minimum + ((difference - base) >> 1);
+		return minimum + ((difference - textWidth) >> 1);
 	}
 	case 2:
 	{
 		Int highInt = (Int)high;
 		Int lowInt = (Int)low;
 		const Int &minimum = bfmeMin(highInt, lowInt);
-		return minimum - base + difference;
+		return minimum - textWidth + difference;
 	}
 	default:
 		_bfme_debugRecordCallsite(1);
@@ -714,22 +714,22 @@ void BfmeItemKA::rva0025FBBC(unsigned *out,unsigned value,Int mode) {
 // BF1 f98983a7d Rva00435270SetRange.cpp clean guide. Target caller260787
 // proves existing BfmeItemKA private ABI. Native adds split68/count24 start,
 // iterated alpha masks and floor rounding; virtual offsets independently read.
-void BfmeItemKA::rva0025FCE8(Int mode,Int from,Int to) {
- Int storage[4];storage[0]=(Int)left;storage[2]=(Int)right;storage[1]=from;storage[3]=to;
+void BfmeItemKA::rva0025FCE8(Int mode,Int clipTop,Int clipBottom) {
+ Int clipRect[4];clipRect[0]=(Int)left;clipRect[2]=(Int)right;clipRect[1]=clipTop;clipRect[3]=clipBottom;
  float start=split68-(float)((count-1)*field30)+baseline;
  for(Int i=0;i<count;++i) {
-  unsigned generated[4];unsigned masked[4]={0,0,0,0};
+  unsigned lineColors[4];unsigned masked[4]={0,0,0,0};
   Int index=(displayed+i)%count;
-  rva0025FBBC(generated,values[index],mode);
-  for(Int j=0;j<4;++j)masked[j]|=generated[j]&0xff000000;
-  lines[index]->colors(generated);
+  rva0025FBBC(lineColors,values[index],mode);
+  for(Int j=0;j<4;++j)masked[j]|=lineColors[j]&0xff000000;
+  lines[index]->colors(lineColors);
   lines[(displayed+i)%count]->shadowColors(masked);
-  lines[(displayed+i)%count]->clip(storage);
-  Int product=field30*i;
+  lines[(displayed+i)%count]->clip(clipRect);
+  Int lineOffset=field30*i;
   // Native FISTP obeys x87 rounding; VC7.1 rejects /QIfist with SSE.
   // Reuse the donor WWMath primitive; the draw algorithm remains C++.
-  Int y=WWMath::Float_To_Long((float)floor((float)product+start+0.5f));
-  lines[(displayed+i)%count]->position((Int)((float)(field30>>1)+(float)storage[0]),y,1,1);
+  Int y=WWMath::Float_To_Long((float)floor((float)lineOffset+start+0.5f));
+  lines[(displayed+i)%count]->position((Int)((float)(field30>>1)+(float)clipRect[0]),y,1,1);
  }
 }
 
@@ -784,13 +784,13 @@ void BfmeItemKA::rva0025FE30(float x0,float y0,float x1,float y1,Int color,Int b
 // float fabs overload (rather than (float) of an extern double fabs) is what lets
 // the x87 result stay in ST0 across the flag test and spill after the first pop.
 
-int __cdecl Rva0026003EGet(int a, void *objRaw, float f1, float f2)
+int __cdecl Rva0026003EGet(int a, void *objRaw, float low, float high)
 {
     Rva0026003EState *obj = (Rva0026003EState *)objRaw;
-    float diff = fabs(f2 - f1);
+    float diff = fabs(high - low);
     if (obj->m_flag60) {
-        int i2 = (int)f2;
-        int i1 = (int)f1;
+        int i2 = (int)high;
+        int i1 = (int)low;
         int *p;
         if (i2 < i1)
             p = &i2;
@@ -798,11 +798,11 @@ int __cdecl Rva0026003EGet(int a, void *objRaw, float f1, float f2)
             p = &i1;
         return (int)(obj->m_vals[a] * diff) + *p;
     } else {
-        int i2 = (int)f2;
-        int i1 = (int)f1;
-        int m = (a < 15) ? a : 15;
+        int i2 = (int)high;
+        int i1 = (int)low;
+        int cappedIndex = (a < 15) ? a : 15;
         int clamped;
-        if (m > 0)
+        if (cappedIndex > 0)
             clamped = (a < 15) ? a : 15;
         else
             clamped = 0;

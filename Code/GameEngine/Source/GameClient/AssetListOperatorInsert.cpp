@@ -80,8 +80,8 @@ public:
 
 __forceinline const char *GetStr000B937E(const AsciiString &asciiString)
 {
-	char *t = *(char * *)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *data = *(char * *)(void *)&asciiString;
+	return data ? data + 8 : "";
 }
 
 class Rva000B664E
