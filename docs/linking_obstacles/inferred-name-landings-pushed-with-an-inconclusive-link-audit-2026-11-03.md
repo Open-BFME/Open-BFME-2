@@ -33,3 +33,18 @@ receipts for the objects as they were when the census ran, so the first push tha
 an object necessarily lacks a current receipt for it and the batch audit cannot close.
 Refetching the index does not help for the object you just edited. Carry both units into
 the next scheduled census. No linking, debt or census gain is claimed for either.
+
+**The 38-donor Scripts.cpp merge, same shape at scale (2026-11-03, landed `e1ffb0b1df6`):**
+`tu_skeleton --merge-all` absorbed 38 sources and 83 rows into
+`Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp`. The push hook byte-verified
+the result whole — functions 83/83 matched, EH EXACT on all 10 rows carrying EH data,
+string/float/import refs OK, DIR32 consistent, `data_check` converged — and the batch
+audit still reported `linking UNVERIFIED`: "38 source object(s) lack current receipts;
+first: Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp", index `984a4cdc4d`,
+outgoing base `2be2d0e6d26`. This is the second half of the trap above at its limit: a
+merge deletes the donor objects outright, so the count of missing receipts equals the
+number of donors absorbed and no refetch can close it. Note also that the worker worktree
+carried the 2026-11-02 index (`984a4cdc4d`) rather than the day's newer one — worth
+refreshing per worktree, though it would not have changed this verdict. Carry this TU and
+all 38 absorbed donors into the next scheduled census. No linking, debt or census gain is
+claimed.

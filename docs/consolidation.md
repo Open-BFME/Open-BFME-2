@@ -457,7 +457,9 @@ the first two are the same mechanism seen from opposite sides:
   '-G7 -arch:SSE'". `Geometry.cpp` rejected all 21 donors this way with an empty carried set
   against donors needing `-O2`, `-O2 -G6` and `-Ox -G6`. Only 187 of 17,324 sources under
   `Code/` carry a `// cl:` line with an optimisation flag, so the overrides are the exception
-  that blocks the rule.
+  that blocks the rule. **Corrected below:** queue-wide this stops 14 of 723 items and 14 of
+  1,453 file removals, so it is a real mechanism with almost none of the weight this bullet
+  implies; see "The whole queue measured".
 - **The residual's flag-region vote (splits).** Three of five splits carved their rows cleanly
   and were still refused with "the residual loses matched rows (flag region or a shared
   helper)": removing rows re-votes the region for what stays behind. `MeshLoadContextCtor.cpp`
@@ -480,6 +482,75 @@ is the out-of-line 0x0006F3CC. Each unit needs byte verification, and
 `header_adopt_lane.py adopt` cannot drive it, reporting "no private view found" because these
 units include a header rather than declaring a class.
 
+
+### Scripts.cpp merged, 2026-11-03 (38 files, 83 rows, landed `e1ffb0b1df6`)
+
+The queue's largest item went through: `tu_skeleton.py --merge-all` composed
+`GameLogic/ScriptEngine/Scripts.cpp` from 350 approved rows over roughly three hours and
+absorbed 38 of its candidate donors, 83 rows, deleting 38 sources and repointing 69 rows
+each in `functions.csv` and `tu_map.csv`. The push hook verified it whole: functions
+83/83 matched, EH EXACT on all 10 rows with EH data, string and float refs OK, DIR32
+consistent, `data_check` converged over 11 addresses.
+
+Two things are open and neither is a defect in the merge. The batch link audit came back
+INCONCLUSIVE: 38 source objects lack current receipts, which is the unavoidable shape of
+the trap recorded in
+[the inconclusive-audit note](linking_obstacles/inferred-name-landings-pushed-with-an-inconclusive-link-audit-2026-11-03.md)
+— a published index carries receipts for objects as the census found them, so absorbing
+38 objects necessarily leaves 38 without one. Carry this TU and its absorbed donors into
+the next scheduled census; no linking or census gain is claimed. Second, 42 classes still
+hold donor-private views here and the rejected donors need step 4
+(`tools/tu_views.py Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp --dry-run`);
+`adopt_first` names `ScriptList` and `Parameter` as the first to resolve.
+
+### The whole queue measured, 2026-11-03 (723 items; supersedes the flag reading above)
+
+The same run measured every candidate before starting work and wrote
+`build/merge_all/decisions.json` (`{kind: [items, files freed]}`, 723 items at master
+`2be2d0e6d26`). Ranked by files freed -- the consolidation payoff -- the picture is not the
+one the ten-TU sample above suggested:
+
+    kind                items  files freed  rows
+    claimed                52         1168  4835
+    blocked-by-classes     92           92   314
+    split                 477           52  1688
+    other                   1           49   404
+    baseline               42           42    60
+    compile-error          34           34    62
+    flags                  14           14   111
+    link-regression         5            5     5
+    refused                 4            4     0
+    row-loss                2            2     5
+
+**Carried flags are not the ceiling.** They stop 14 of 723 items and 14 of the 1,453 file
+removals the queue offers, under one percent of both. The bullet above has the mechanism
+right and its weight wrong: it generalised from a five-merge sample that happened to draw
+`Geometry.cpp`. The ledgers agree independently -- of 2,277 TUs holding assigned rows,
+1,854 have no donor in `reverse/flag_overrides.csv` at all and 384 have donors whose
+overrides all agree, leaving 39 where overridden donors disagree. Of those 39 exactly one,
+`WWVegas/WW3D2/camera.cpp`, is split only by token order: the overrides file records 33
+files under both `-G7 -arch:SSE` and `-arch:SSE -G7`, and 9 under both
+`-O2 -G7 -arch:SSE` and `-O2 -arch:SSE -G7`, while the merge weights those raw strings
+(`weight[e["flags"]]` in `tu_skeleton.py`), so one flag set is counted as two. Folding the
+order would recover that one TU and could not admit an unverified merge, since the
+composition is still compile- and byte-checked -- but it is one TU, not a lane.
+
+**The ceiling, in order of what it costs:**
+
+- **Contention, 1,168 of 1,453 file removals.** 52 items are refused because another seat
+  holds one of their scope keys, and they are the valuable ones: `ScriptActions.cpp` (715
+  rows, 317 files freed), `Object.cpp` (540 rows, 222 files). This is the wall
+  `PartitionManager.cpp` hit above, now measured instead of inferred: about four fifths of
+  the queue's value is held by other contributors at any given moment, so a seat drawing
+  from the top of the queue will mostly draw held items. Prefer `--queue` entries without
+  `HELD`, and check the claim immediately before spending a compile budget.
+- **Donor-private class views, 92 items.** The largest technical cause, one file freed
+  each, and the lane with the clearest tool: `tools/tu_views.py TU --dry-run`.
+  `SubsystemInterface` (above) is its biggest single instance.
+- **A split first, 477 items.** The row sits in a mixed file that has to be carved before a
+  merge can take it; these overlap the split refusals above.
+
+Measurement only; nothing was edited to produce the table.
 
 ## Consolidation verification checks
 
