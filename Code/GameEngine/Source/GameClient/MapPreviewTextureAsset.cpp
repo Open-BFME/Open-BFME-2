@@ -45,7 +45,7 @@ private:
     Rva0013107A *m_impl;
     const char *m_name18;
     char m_pad1C[0x14];
-    int m_30;
+    int m_mipLevelCount;
     int m_34;
     int m_38;
 };
@@ -53,7 +53,7 @@ private:
 void MapPreviewTextureAssetFactory::PreLoad()
 {
     m_impl = new Rva0013107A;
-    m_impl->m_44 = m_30;
+    m_impl->m_44 = m_mipLevelCount;
     m_impl->m_4C = m_34;
     m_impl->m_48 = m_38;
     const char *filename = m_name18;
