@@ -367,46 +367,46 @@ void *Rva00181450ReturnThis::get() const
 void *BfmeFVFDescriptor::rva001818C0()
 {
  _STL::vector<ICoord2D> elements;
- FxVertexElement e;
+ FxVertexElement element;
  unsigned format;
  elements.reserve(16);
- e.stream=0;e.offset=0;e.type=0;e.method=0;e.usage=0;e.index=0;
- unsigned f0=fvf; if((f0&0xff)&2) {e.type=2;e.usage=0;elements.push_back(*(const ICoord2D *)&e);e.offset=12;}
- unsigned fb=fvf;if((fb&0xff)&4) {e.type=3;e.usage=9;elements.push_back(*(const ICoord2D *)&e);e.offset+=16;}
- format=fvf;if((format&0x4002)==0x4002) {e.type=3;e.usage=0;elements.push_back(*(const ICoord2D *)&e);e.offset+=16;}
+ element.stream=0;element.offset=0;element.type=0;element.method=0;element.usage=0;element.index=0;
+ unsigned positionFormat=fvf; if((positionFormat&0xff)&2) {element.type=2;element.usage=0;elements.push_back(*(const ICoord2D *)&element);element.offset=12;}
+ unsigned transformedPositionFormat=fvf;if((transformedPositionFormat&0xff)&4) {element.type=3;element.usage=9;elements.push_back(*(const ICoord2D *)&element);element.offset+=16;}
+ format=fvf;if((format&0x4002)==0x4002) {element.type=3;element.usage=0;elements.push_back(*(const ICoord2D *)&element);element.offset+=16;}
  if(elements.empty())return 0;
- if(fvf&0x10) {e.type=2;e.usage=3;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;}
- if(fvf&0x20) {e.type=0;e.usage=4;elements.push_back(*(const ICoord2D *)&e);e.offset+=4;}
- unsigned fb2=fvf;if((fb2&0xff)&0x40) {e.type=4;e.usage=10;elements.push_back(*(const ICoord2D *)&e);e.offset+=4;}
- if(fvf&0x80) {e.type=4;e.usage=10;e.index=1;elements.push_back(*(const ICoord2D *)&e);e.offset+=4;}
- format=fvf; int textures=(format>>8)&15;
- e.usage=5;e.index=0;
- while(e.index<textures) {
+ if(fvf&0x10) {element.type=2;element.usage=3;elements.push_back(*(const ICoord2D *)&element);element.offset+=12;}
+ if(fvf&0x20) {element.type=0;element.usage=4;elements.push_back(*(const ICoord2D *)&element);element.offset+=4;}
+ unsigned diffuseFormat=fvf;if((diffuseFormat&0xff)&0x40) {element.type=4;element.usage=10;elements.push_back(*(const ICoord2D *)&element);element.offset+=4;}
+ if(fvf&0x80) {element.type=4;element.usage=10;element.index=1;elements.push_back(*(const ICoord2D *)&element);element.offset+=4;}
+ format=fvf; int textureCount=(format>>8)&15;
+ element.usage=5;element.index=0;
+ while(element.index<textureCount) {
   int dimension=0;
-  unsigned code=(fvf>>(16+e.index*2))&3;
-  if(code==3)dimension=1;
-  else if(0 == code)dimension=2;
-  else if(code==1)dimension=3;
-  else if(code==2)dimension=4;
-  e.type=dimension-1;
-  elements.push_back(*(const ICoord2D *)&e);
-  ++e.index;e.offset+=dimension*4;
+  unsigned textureSizeCode=(fvf>>(16+element.index*2))&3;
+  if(textureSizeCode==3)dimension=1;
+  else if(0 == textureSizeCode)dimension=2;
+  else if(textureSizeCode==1)dimension=3;
+  else if(textureSizeCode==2)dimension=4;
+  element.type=dimension-1;
+  elements.push_back(*(const ICoord2D *)&element);
+  ++element.index;element.offset+=dimension*4;
  }
- e.index=0;
+ element.index=0;
  if(additionalBasis) {
-  e.type=2;e.usage=6;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;
-  e.type=2;e.usage=7;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;
+  element.type=2;element.usage=6;elements.push_back(*(const ICoord2D *)&element);element.offset+=12;
+  element.type=2;element.usage=7;elements.push_back(*(const ICoord2D *)&element);element.offset+=12;
  }
  if(extensionCount>0) {
-  e.type=4;e.usage=2;elements.push_back(*(const ICoord2D *)&e);e.offset+=4;
+  element.type=4;element.usage=2;elements.push_back(*(const ICoord2D *)&element);element.offset+=4;
   if(extensionCount>1) {
-   e.type=extensionCount-1;e.usage=1;elements.push_back(*(const ICoord2D *)&e);e.offset+=extensionCount*4;
-   e.type=2;e.usage=0;e.index=1;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;
-   e.type=2;e.usage=3;e.index=1;elements.push_back(*(const ICoord2D *)&e);
+   element.type=extensionCount-1;element.usage=1;elements.push_back(*(const ICoord2D *)&element);element.offset+=extensionCount*4;
+   element.type=2;element.usage=0;element.index=1;elements.push_back(*(const ICoord2D *)&element);element.offset+=12;
+   element.type=2;element.usage=3;element.index=1;elements.push_back(*(const ICoord2D *)&element);
   }
  }
- e.stream=0xff;e.offset=0;e.type=17;e.method=0;e.usage=0;e.index=0;
- elements.push_back(*(const ICoord2D *)&e);
+ element.stream=0xff;element.offset=0;element.type=17;element.method=0;element.usage=0;element.index=0;
+ elements.push_back(*(const ICoord2D *)&element);
  void *result=0;
  if(((FxDeclarationDevice*)DX8Wrapper::D3DDevice)->CreateVertexDeclaration((const FxVertexElement *)&elements[0],&result)<0)return 0;
  return result;
