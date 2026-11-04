@@ -85,17 +85,7 @@ class BfmeParticleSystemHandle
 };
 class BeaconClientUpdate;
 class ParticleSystemTemplate;
-class ParticleSystemManager
-{
-    friend class BeaconClientUpdate;
-
-  public:
-    ParticleSystemTemplate *findTemplate(const AsciiString &) const;
-    BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *, bool) throw();
-
-  private:
-    BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID) throw();
-};
+#include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva0055A88BDwordField;
 class Rva001F3C20Slot
