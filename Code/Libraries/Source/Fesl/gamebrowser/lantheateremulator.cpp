@@ -79,6 +79,49 @@ public:
 void *Rva007F93E0( void *message, void *route, void *owner );
 #include <string.h>
 #pragma comment(linker, "/alternatename:?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z=?bfmeGoSKA@BfmeThingSKA@@QAEXHH@Z")
+// Retail 0x008097D0 / 450B: LAN-theater removal transaction.
+// The matched 0x008036D0 caller supplies the transaction ID through the
+// existing BfmeSinkTCA view. Preserve the observed message-payload store order
+// with volatile accesses, matching the recovered BfmeC994 field view.
+
+extern "C" void _WriteBarrier( void );
+#pragma intrinsic( _WriteBarrier )
+class BfmeC994
+{
+public:
+	BfmeC994( char *buffer, int capacity );
+public:
+	void *m_vft;
+public:
+	int m_field04;
+public:
+	int m_field08;
+public:
+	int m_field0c;
+public:
+	char *m_buffer;
+public:
+	int m_capacity;
+public:
+	int m_field18;
+public:
+	int m_category;
+public:
+	int m_field20;
+public:
+	int m_field24;
+public:
+	int m_field28;
+public:
+	int m_field2c;
+public:
+	char m_field30;
+public:
+	void addInt( const char *key, int value );
+public:
+	void clear();
+};
+#pragma comment(linker, "/alternatename:??1Gen00809750@@UAE@XZ=??1Rva00808920LanGame@@QAE@XZ")
 
 class BfmeC994;
 
@@ -311,6 +354,7 @@ public:
 // Open-BFME5 conversions.
 
 class BfmeSub1045;
+
 class BfmeSubSKA
 {
 public:
@@ -363,26 +407,6 @@ struct Rva00674E90
 	unsigned int m_header;
 	unsigned int m_fields[3];
 	void copyFields(const Rva00674E90 &source);
-};
-
-class BfmeC994
-{
-public:
-	BfmeC994( char *buffer, int capacity );
-
-	void *m_vft;
-	int m_field04;
-	int m_field08;
-	int m_field0c;
-	char *m_buffer;
-	int m_capacity;
-	int m_field18;
-	int m_category;
-	int m_field20;
-	int m_field24;
-	int m_field28;
-	int m_field2c;
-	char m_field30;
 };
 
 class BfmeThingCIB
@@ -478,15 +502,183 @@ public:
 	int m_bfme0c; // +0x0C
 };
 
+class Rva007F93E0MessageSender
+{
+};
+
+extern "C" void Rva0080F0D0( unsigned char *object );
+
+void sendFeslMessage( void *message, const char *kind, void *owner );
+
+class Rva007EFFC0Allocator
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void *allocate( unsigned int size, int flags );
+	virtual void release( void *block, int flags );
+};
+
+class GenAlloc;
+
+ GenAlloc *Gen007EFFC0();
+
+class Gen00809750
+{
+public:
+	static void operator delete( void *block, unsigned int size );
+};
+
+struct Rva008097D0Player
+{
+	char m_pad00[ 4 ];
+	int m_field04;
+	int m_field08;
+	int m_field0c;
+	int m_playerId;
+	int m_gameId;
+};
+
+class Rva00808920LanGame
+{
+public:
+	~Rva00808920LanGame();
+
+	int m_state;
+	int m_maxPlayers;
+	Rva008097D0Player **m_players;
+	char m_name[ 0x80 ];
+	char m_ugid[ 0x25 ];
+	char m_tail[ 3 ];
+};
+
+class Rva008097D0Item
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual int *getValue( int *value );
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual int isReady();
+};
+
+class Rva008097D0Registry
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual int count();
+	virtual Rva008097D0Item *at( int index );
+};
+
+struct Rva008097D0Manager
+{
+	char m_pad00[ 0x2D8 ];
+	Rva008097D0Registry *m_registry;
+};
+
+class Rva00808CB0Entry : public Rva007E86B0Base
+{
+public:
+	int m_field08;
+	int m_field0c;
+	int m_field10;
+	int m_field14;
+	char m_tail18[ 8 ];
+};
+
+class BfmeSinkTCA
+{
+public:
+	void bfmeUseTCA( void *value );
+
+	char m_pad00[ 4 ];
+	BfmeSinkSKA *m_sender;
+	Rva008097D0Manager *m_manager;
+	void *m_field0c;
+	Rva007F93E0MessageSender *m_field10;
+	char m_pad14[ 4 ];
+	Rva00808CB0Entry *m_current;
+	char m_pad1c[ 0x3C ];
+	Rva00808920LanGame *m_game;
+};
+
+// A search over a list of pointers.
+//
+// BFME1 byte-identical donor (reference/open-bfme-1
+// Code/GameEngine/Source/Common/Bfme5EightySeven.cpp); trimmed to the single
+// T1 body the sweep places.
+
+class BfmeThingHA
+{
+public:
+	int m_bfmeGap[2];							// +0x00
+	int m_bfmeA;								// +0x08
+	int m_bfmeB;								// +0x0c
+};
+
+class Gen_00808E90
+{
+public:
+	BfmeThingHA *bfmeFind(const BfmeThingHA *key) const;
+private:
+	int m_bfmeGap;								// +0x00
+	int m_bfmeCount;							// +0x04
+	BfmeThingHA **m_bfmeList;					// +0x08
+};
+
+//
+// Retail 0x00809690: BfmeSubSKA::bfmeTestSKA.  Walks the pointer array at +8
+// (count at +4) for an element whose dword at +0x10 equals the argument, then
+// runs that element's destructor and sized delete (0x38) and nulls the slot.
+
+class BfmeSub1045
+{
+public:
+	void bfmeDone1045();
+	int m_gap00;
+	int m_gap04;
+	int m_gap08;
+	int m_gap0c;
+	int m_id;
+};
+
+void bfmeFreeSizedVF( void *block, unsigned int size );
+
 // tu-skeleton: 0x00674C00 330B ?apply@Rva00803620Sink@@QAEXHPADHH0@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D50 36B ?rva00674D50@@YAPADDPAPAD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D80 44B ?find@Rva00808E60Owner@@QAEPAURva00808C80Item@@H@Z -- matched in Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp (not merged yet)
 
-// tu-skeleton: 0x00674DB0 57B ?bfmeFind@Gen_00808E90@@QBEPAVBfmeThingHA@@PBV2@@Z -- matched in Code/GameEngine/Source/Common/Bfme5EightySeven.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Bfme5EightySeven.cpp
+
+BfmeThingHA *Gen_00808E90::bfmeFind(const BfmeThingHA *key) const
+{
+	for (int index = 0; index < m_bfmeCount; ++index)
+	{
+		BfmeThingHA *thing = m_bfmeList[index];
+		if (thing != 0 && thing->m_bfmeA == key->m_bfmeA && thing->m_bfmeB == key->m_bfmeB)
+			return thing;
+	}
+	return 0;
+}
 
 // tu-skeleton: 0x00674DF0 127B ?accept@Rva00809500Sink@@QAEXPAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_accept.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
 // ---- from Code/GameEngine/Source/Common/UnclaimedSmallLeaves02.cpp
 
@@ -503,16 +695,6 @@ void Rva00674E90::copyFields(const Rva00674E90 &source)
 	m_fields[1] = source.m_fields[1];
 	m_fields[2] = source.m_fields[2];
 }
-
-// tu-skeleton: 0x00674EB0 32B ??_GGen00808FB0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x00674ED0 62B ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1338.cpp (not merged yet)
-
-// tu-skeleton: 0x00674F10 59B ?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp (not merged yet)
-
-// tu-skeleton: 0x00674F50 163B ?rva00809050@Rva00803620Sink@@QAEPAVRva00808CB0LanGameEntry@@PAURva00809050Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp (not merged yet)
-
-// tu-skeleton: 0x00675000 191B ?bfmeUseSA@BfmeSinkSA@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva006750C0Finish.cpp
 
@@ -785,13 +967,172 @@ void BfmeThingSKA::bfmeGoSKA(int a, int b)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x00675590 84B ?bfmeTestSKA@BfmeSubSKA@@QAEDH@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslSubTest.cpp (not merged yet)
 
-// tu-skeleton: 0x006755F0 91B ??1Rva00808920LanGame@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1387.cpp
+
+void BfmeThingVJJ::bfmeGoVJJ(BfmeMsgVJJ *out)
+{
+	char buf[0x20];
+	bfmeFmtVJJ(buf, 0x20);
+	out->m_bfme04 = m_bfme04;
+	out->m_bfme08 = m_bfme08;
+	out->m_bfme0c = m_bfme0c;
+	out->bfmeSetVJJ("IP", buf);
+}
+
+// tu-skeleton: 0x00674EB0 32B ??_GGen00808FB0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00674ED0 62B ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1338.cpp (not merged yet)
+
+// tu-skeleton: 0x00674F10 59B ?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp (not merged yet)
+
+// tu-skeleton: 0x00674F50 163B ?rva00809050@Rva00803620Sink@@QAEPAVRva00808CB0LanGameEntry@@PAURva00809050Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp (not merged yet)
+
+// tu-skeleton: 0x00675000 191B ?bfmeUseSA@BfmeSinkSA@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/Y4FeslSubTest.cpp
+
+char BfmeSubSKA::bfmeTestSKA( int id )
+{
+	BfmeSub1045 *elem;
+	BfmeSub1045 **slot;
+	int i;
+	int n;
+
+	n = m_count;
+	i = 0;
+	if ( n > 0 )
+	{
+		slot = m_array;
+		do
+		{
+			elem = *slot;
+			if ( elem != 0 )
+			{
+				if ( elem->m_id == id )
+				{
+					elem->bfmeDone1045();
+					bfmeFreeSizedVF( elem, 0x38 );
+					m_array[ i ] = 0;
+					return 1;
+				}
+			}
+			++i;
+			++slot;
+		} while ( i < n );
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp
+
+Rva00808920LanGame::~Rva00808920LanGame()
+{
+	int index;
+	Rva007E86B0Base *player;
+
+	for ( index = 0; index < m_maxPlayers; ++index )
+	{
+		player = (Rva007E86B0Base *)m_players[ index ];
+		if ( player != 0 )
+		{
+			player->Rva007E86B0Base::~Rva007E86B0Base();
+			Gen00809750::operator delete( player, 0x38 );
+		}
+		m_players[ index ] = 0;
+	}
+
+	((Rva007EFFC0Allocator *)Gen007EFFC0())->release( m_players, 0 );
+	m_players = 0;
+}
+
+static __forceinline Rva008097D0Player *Rva008097D0FindPlayer(
+	const Rva00808920LanGame *game, int playerId )
+{
+	for ( int index = 0; index < game->m_maxPlayers; ++index )
+	{
+		Rva008097D0Player *player = game->m_players[ index ];
+		if ( player != 0 && player->m_playerId == playerId )
+			return player;
+	}
+	return 0;
+}
+
+void BfmeSinkTCA::bfmeUseTCA( void *value )
+{
+	char buffer[ 0x40 ];
+	Rva008097D0Registry *registry = m_manager->m_registry;
+
+	for ( int index = 0; index < registry->count(); ++index )
+	{
+		Rva008097D0Item *item = registry->at( index );
+		if ( item->isReady() )
+		{
+			int itemValue;
+			int itemId = *item->getValue( &itemValue );
+			Rva008097D0Player *player = Rva008097D0FindPlayer( m_game, itemId );
+			if ( player == 0 )
+			{
+				Rva007EB810Get()->fail(
+					"hlp",
+					"\\views\\feslbuild_main\\jabba\\fesl\\source\\gamebrowser\\lantheateremulator.cpp",
+					0x1C9 );
+			}
+			else
+			{
+				BfmeC994 message( buffer, sizeof( buffer ) );
+				message.m_category = 'GREM';
+				message.addInt( "LID", -2 );
+				message.addInt( "GID", player->m_gameId );
+				*reinterpret_cast< volatile int * >( &message.m_field04 ) = player->m_field04;
+				_WriteBarrier();
+				*reinterpret_cast< volatile int * >( &message.m_field08 ) = *reinterpret_cast< volatile int * >( &player->m_field08 );
+				const volatile int *field0c = &player->m_field0c;
+				message.m_field0c = *field0c;
+				sendFeslMessage( &message, "->L", m_field10 );
+				message.clear();
+			}
+		}
+	}
+
+	Rva00808CB0Entry *current = m_current;
+	if ( current != 0 )
+	{
+		if ( current->m_field14 != 0 )
+			((Rva007EFFC0Allocator *)Gen007EFFC0())->release( (void *)current->m_field14, 0 );
+		current->m_field14 = 0;
+		current->m_field10 = 0;
+		current->Rva007E86B0Base::~Rva007E86B0Base();
+		Gen00809750::operator delete( current, 0x20 );
+	}
+	m_current = 0;
+
+	if ( m_game != 0 )
+	{
+		Rva00808920LanGame *game = m_game;
+		game->Rva00808920LanGame::~Rva00808920LanGame();
+		Gen00809750::operator delete( game, 0xB4 );
+	}
+	m_game = 0;
+	Rva0080F0D0( (unsigned char *)m_field0c );
+	BfmeSinkSKA *sender = m_sender;
+	sender->bfmeSendSKA( 'RGAM', (int)value, 0 );
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x00675650 35B ??_GGen00809750@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x006756D0 450B ?bfmeUseTCA@BfmeSinkTCA@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp (not merged yet)
 
 // tu-skeleton: 0x00675AF0 102B ?notify@Rva00809BF0Owner@@QAEXPAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp (not merged yet)
 
@@ -806,18 +1147,6 @@ void BfmeThingSKA::bfmeGoSKA(int a, int b)
 // tu-skeleton: 0x006762C0 703B ?rva0080A3C0@BfmeThingUNC@@QAEXPAURva0080A3C0Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp (not merged yet)
 
 // tu-skeleton: 0x00676580 345B ?rva0080A680@BfmeThingUNC@@UAEXPAURva0080A680Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/BfmeConv1387.cpp
-
-void BfmeThingVJJ::bfmeGoVJJ(BfmeMsgVJJ *out)
-{
-	char buf[0x20];
-	bfmeFmtVJJ(buf, 0x20);
-	out->m_bfme04 = m_bfme04;
-	out->m_bfme08 = m_bfme08;
-	out->m_bfme0c = m_bfme0c;
-	out->bfmeSetVJJ("IP", buf);
-}
 
 // tu-skeleton: 0x00676730 264B ??1Gen0080ACD0@@UAE@XZ -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
 

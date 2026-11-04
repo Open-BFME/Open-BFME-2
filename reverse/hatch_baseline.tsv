@@ -3285,7 +3285,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp	?Rva00809
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp	??0Rva007E86B0Base@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp	??1Rva007E86B0Base@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp	??1Rva00808CB0LanGameEntry@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp	??1Gen00809750@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp	??1BfmeC994@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva0080A110Route.cpp	??1BfmeC994@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp	??1BfmeC994@@UAE@XZ	1
@@ -3669,6 +3668,7 @@ alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_b
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045B	2
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??1Gen008030A0@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	??1Gen00809750@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z	1
 alternatename	Code/Libraries/Source/Fesl/servicehub.cpp	?bfmeAddVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/servicehub.cpp	?bfmeRemoveVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1

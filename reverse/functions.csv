@@ -8351,7 +8351,7 @@ _VP6_DeleteFrameInfo,,0x001B92D0,129,Code/Libraries/Source/VP6/DeleteFrameInfo.c
 ??1ServiceHubImpl@@QAE@XZ,,0x00657690,625,Code/GameEngine/Source/GameNetwork/ServiceHubImpl.cpp,matched,BFME1 byte-identical donor; b1 0x007EA6F0; 34 DIR32 string literal(s) agree
 ?bfmeDelTWC@BfmeThingTWC@@QAEPAXE@Z,,0x00674A80,73,Code/GameEngine/Source/Common/BfmeConv1325TWC.cpp,matched,BFME1 byte-identical donor extract; b1 0x00808B30
 ?setID@Object@@IAEXW4ObjectID@@@Z,,0x0028B532,55,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,BFME1 byte-identical donor; b1 0x001BEC70
-??1Rva00808920LanGame@@QAE@XZ,,0x006755F0,91,Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp,matched,BFME1 byte-identical donor; b1 0x008096F0
+??1Rva00808920LanGame@@QAE@XZ,,0x006755F0,91,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor; b1 0x008096F0
 ?skipWhitespace@@YAPADPAD@Z,,0x000357C0,42,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,matched,BFME1 byte-identical donor; b1 0x00887260
 ?AsObject@@YAPAVObject@@PAVThing@@@Z,,0x00306A5E,16,Code/GameEngine/Source/Common/Thing/Module_AsObject.cpp,matched,BFME1 byte-identical donor; b1 0x00113BC0
 ?onAccept@Rva007FA2C0@@QAEHPAX@Z,,0x00666520,401,Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp,matched,BFME1 byte-identical donor; b1 0x007F9FD0; 2 DIR32 string literal(s) agree
@@ -8454,7 +8454,7 @@ _VP6_AllocateTmpBuffers,,0x001B55E0,179,Code/Libraries/Source/VP6/TmpBuffers.cpp
 ?bfmeApplyVNB@BfmeXformVNB@@QAEXPAUBfmeVecVNB@@M@Z,,0x006BD390,134,Code/GameEngine/Source/Common/BfmeConv1501.cpp,matched,BFME1 byte-identical donor; b1 0x0087DB10
 ??$__find_end@PBDPBDU?$_Eq_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD000ABUbidirectional_iterator_tag@0@1U?$_Eq_traits@V?$char_traits@D@_STL@@@0@@Z,,0x00026FF0,144,Code/GameEngine/Source/Common/BfmeConv1466.cpp,matched,stlport-4.6 _algobase.c:319 bidirectional __find_end<const char*;const char*;_Eq_traits> via search 0x00026340; was placeholder ?bfmeFwdV26@@YAPAXHHHHHHD@Z
 ?setFlag@BfmeObjF9@@QAEXABVBfmeStrF9@@D@Z,,0x006BF3C0,143,Code/GameEngine/Source/Common/Rva0087F9C0Flag.cpp,matched,BFME1 byte-identical donor; b1 0x0087F9C0
-?bfmeTestSKA@BfmeSubSKA@@QAEDH@Z,,0x00675590,84,Code/GameEngine/Source/GameNetwork/Y4FeslSubTest.cpp,matched,BFME1 byte-identical donor; b1 0x00809690
+?bfmeTestSKA@BfmeSubSKA@@QAEDH@Z,,0x00675590,84,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor; b1 0x00809690
 ??0Rva007F0CB0BlobRecord@@QAE@PAVRva007E8810Message@@@Z,,0x0065D8D0,470,Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp,matched,BFME1 byte-identical donor; b1 0x007F0D40; 17 DIR32 string literal(s) agree
 ?rva00809400@BfmeThingUNC@@QAEXPAVBfmeC994@@HPAVRva00802680Owner@@@Z,,0x00675300,244,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor; b1 0x00809400; 6 DIR32 string literal(s) agree
 ?rva00809330@BfmeThingUNC@@QAEXPAVBfmeC994@@H@Z,,0x00675230,198,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor; b1 0x00809330; 4 DIR32 string literal(s) agree
@@ -9034,7 +9034,7 @@ _bfmeGoUPC,,0x007478E0,59,Code/Libraries/Source/Lua/lapi.c,matched,identity-corr
 ?bfmeGoEHAa@@YAPAXPAVBfmeObjEHA@@@Z,,0x00327CFE,29,Code/GameEngine/Source/Common/BfmeConv812.cpp,matched,BFME1 byte-identical donor; b1 0x004BBE50
 ?bfmeGoEHAb@@YAPAXPAVBfmeObjEHA@@@Z,,0x00327D39,29,Code/GameEngine/Source/Common/BfmeConv812.cpp,matched,BFME1 byte-identical donor; b1 0x004BBEB0
 ??$__find_if@PBDU?$_Eq_char_bound@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,,0x00025B80,349,Code/GameEngine/Source/Common/BfmeTwoHundredFiftySeven_FindByteCore.cpp,matched,stlport-4.6 _algobase.c:136 random-access __find_if<const char*;_Eq_char_bound>; was placeholder ?bfmeFindByteCore@@YAPADPAD0D0@Z
-?bfmeFind@Gen_00808E90@@QBEPAVBfmeThingHA@@PBV2@@Z,,0x00674DB0,57,Code/GameEngine/Source/Common/Bfme5EightySeven.cpp,matched,BFME1 byte-identical donor; b1 0x00808E90
+?bfmeFind@Gen_00808E90@@QBEPAVBfmeThingHA@@PBV2@@Z,,0x00674DB0,57,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor; b1 0x00808E90
 ?bfmeSet@Gen_00750550@@QAEX_N@Z,,0x000B19C3,17,Code/GameEngine/Source/Common/S3GuardedSetters.cpp,matched,BFME1 byte-identical donor; b1 0x00750550
 ?bfmeSet@Gen_00750570@@QAEX_N@Z,,0x000B19D4,17,Code/GameEngine/Source/Common/S3GuardedSetters.cpp,matched,BFME1 byte-identical donor; b1 0x00750570
 ?bfmeSet@Gen_0092D450@@QAEX_N@Z,,0x0014A090,20,Code/GameEngine/Source/Common/S3GuardedSetters.cpp,matched,BFME1 donor with +0xC4 offset repair (retail mov proves impl slot; donor 0xC8); b1 0x0092D450
@@ -11223,7 +11223,7 @@ _VP6_DeletePBInstance,,0x001B56A0,66,Code/Libraries/Source/VP6/PbInstanceTeardow
 ?SendNewPort@Cftp@@QAEHXZ,,0x006CA250,480,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,matched,BFME1 donor file-unit with BFME2 string and SendCommand cast repairs
 ?RemoveAll@Rva009F68C6PointerArray@@QAEXXZ,,0x00628C25,29,Code/GameEngine/Source/Common/Rva009F68C6PointerArray.cpp,matched,BFME1 byte-identical donor; b1 0x009F68C6
 ?helper@Rva007FA2C0@@QAEXPAXH@Z,,0x006666C0,195,Code/GameEngine/Source/GameNetwork/Rva007FA240Walk.cpp,matched,BFME1 donor append all callees pinned
-?bfmeUseTCA@BfmeSinkTCA@@QAEXPAX@Z,,0x006756D0,450,Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp,matched,BFME1 byte-identical donor body already in TU
+?bfmeUseTCA@BfmeSinkTCA@@QAEXPAX@Z,,0x006756D0,450,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,matched,BFME1 byte-identical donor body already in TU
 ??1ProgressIndicator@@UAE@XZ,,0x00355C77,23,Code/GameEngine/Source/Common/ProgressIndicator.cpp,matched,BFME1 donor trimmed to dtor; b1 0x004902A0; list head at 0xE01E1C
 ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x0018B4F0,245,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,BFME1 meshmdlio port as bool reader family with inline 16B MatInfo Read plus CurMatDesc PassCount store and 3 switch-case pins same commit
 ?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ,,0x00620870,63,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,BFME1 byte-identical donor; b1 0x009EDD30
