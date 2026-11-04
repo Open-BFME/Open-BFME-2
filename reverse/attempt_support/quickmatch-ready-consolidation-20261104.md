@@ -31,6 +31,12 @@ Verification after the move:
   literals and four imports verified; 18 funclet rows verified.
 - `find_declared_unmatched.py`: all definitions already matched.
 - `check_csv.py`: valid, 99,440 function rows.
+- The commit hook passed, including seven exact EH records. Its code-identity
+  check remains in shadow and reports 14 unregistered helper/binding findings
+  (AsciiString destructor bindings, STL helper variants and duplicate helper
+  definitions). These are not claimed repaired or proven new regressions by
+  this source move; the merge guard separately checks provider and selected
+  COMDAT preservation. Data checks report no findings.
 - `link_check.py` destination: LINKS, 2,864 own bytes, using census
   `2026-11-04 07:28` at `a62ac1c10b`. Its three allocator/vector diagnostics
   have equal bytes and differing relocations, are unreferenced and are not
