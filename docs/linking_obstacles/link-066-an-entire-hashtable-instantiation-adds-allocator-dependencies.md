@@ -6,6 +6,8 @@ Completed: explicitly instantiate only the existing member from the same STLport
 Remaining / next check: confirm this unit and the removed-provider scope in the next scheduled census. The build, frozen-file, EH and data checks pass; CSV and pin consistency pass. Full local receipt: `build/link-report.md`.
 Clearance: cleared in ordinary-preview scope; census confirmation pending. No census headline change is claimed.
 
+2026-11-04: removed 100 unused helper-scaffolding lines with identical COMDATs and link facts; seed/helper composition now preserves all 22 seed rows, but the helper still needs public/private member-name reconciliation before merging. [Checks and next prerequisite](../../reverse/attempt_support/xfersave-hash-helper-cleanup-20261104-codexb.md).
+
 #### Assignment-only R3 hashtables, 2026-10-26
 
 Status: the unrelated equality-dependency scope is cleared in ordinary-preview scope; census confirmation pending. Both whole units remain blocked on native helper identities. Inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`; index `d1f046749a`, `retail-truth-4`.
