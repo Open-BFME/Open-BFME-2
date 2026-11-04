@@ -4408,9 +4408,10 @@ def repoint_all(root, gone, tu):
     """Point path-keyed columns, fold-proof tokens and doxygen INPUTs at the TU.
     Returns {file: records}; protected registries retain their normal gates.
     A functions.csv row's notes token `fold-proof=<donor>` moves with it: the
-    absorbed donor's body now compiles in the TU's object."""
+    absorbed donor's body now compiles in the TU's object. Naming provenance
+    keeps its evidence but follows the source, which rename.revert uses."""
     moved = {}
-    for rel, column in rename.PATH_COLUMNS:
+    for rel, column in (*rename.PATH_COLUMNS, (rename.NAME_BASIS, "source")):
         path = Path(root) / rel
         if not path.exists():
             continue

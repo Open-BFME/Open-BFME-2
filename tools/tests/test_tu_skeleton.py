@@ -1,5 +1,6 @@
 """tu_skeleton's merge lane: verified flags, redefinition repair, repointing and claims."""
 import contextlib
+import csv
 import os
 import re
 import sys
@@ -1103,6 +1104,30 @@ class CompileTimeoutTests(unittest.TestCase):
 
 
 class RepointTests(unittest.TestCase):
+    def test_merge_preserves_naming_revert_binding_and_historical_evidence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "reverse").mkdir()
+            path = root / T.rename.NAME_BASIS
+            path.write_bytes(
+                b'kind,old,new,basis,evidence,source,rva\n'
+                b'param,Connection::ack::p,Connection::ack::msg,inferred,'
+                b'"direct:nd-0123456789abcdef01234567 inspected Code/A.cpp, retail packet",Code/A.cpp,0x1000\n'
+                b'param,Other::ack::p,Other::ack::msg,inferred,agree:nl-two,Code/Keep.cpp,0x2000\n')
+            before = path.read_bytes()
+            votes = root / "reverse/name_votes.csv"
+            votes.write_bytes(b'Code/A.cpp|param|Connection::ack|p,original-vote\n')
+            moved = T.repoint_all(root, ["Code/A.cpp"], "Code/T.cpp")
+            self.assertEqual(moved, {T.rename.NAME_BASIS: 1})
+            self.assertEqual(path.read_bytes(), before.replace(b',Code/A.cpp,', b',Code/T.cpp,'))
+            self.assertEqual(votes.read_bytes(), b'Code/A.cpp|param|Connection::ack|p,original-vote\n')
+            with path.open(newline="") as stream:
+                rows = list(csv.DictReader(stream))
+            ctx = SimpleNamespace(dicts=lambda rel: rows)
+            landed = T.rename.landing(ctx, "nd-0123456789abcdef01234567")
+            self.assertEqual((landed.source, landed.target), ("Code/T.cpp", "Connection::ack::p"))
+            self.assertEqual(T.repoint_all(root, ["Code/A.cpp"], "Code/T.cpp"), {})
+
     def test_fold_proof_moves_only_exact_source_tokens_in_notes(self):
         raw = (b'name,address,notes\n'
                b'"?a@@YAXXZ",0x1000,"fold-proof=Code/A.cpp; from Code/A.cpp, ""EA"""\n'
