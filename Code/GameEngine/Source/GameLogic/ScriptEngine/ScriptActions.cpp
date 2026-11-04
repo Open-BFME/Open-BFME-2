@@ -1073,11 +1073,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;	// 0x0026F26D
-};
+#include "../../../Include/Common/Upgrade.h"
 class CastleBehavior
 {
 public:

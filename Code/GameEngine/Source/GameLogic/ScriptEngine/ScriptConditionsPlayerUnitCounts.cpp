@@ -193,11 +193,7 @@ enum ObjectStatusTypes
 // ThingFactory's template lookup (ledger 0x002D06CA, held under this name).
 class UpgradeTemplate;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 #include "../../../Include/Common/ThingFactory.h"

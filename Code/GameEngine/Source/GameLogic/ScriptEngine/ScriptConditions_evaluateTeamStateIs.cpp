@@ -770,11 +770,7 @@ private:
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 int __cdecl Rva003BD46ESum(void *range);
