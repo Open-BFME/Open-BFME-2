@@ -444,15 +444,18 @@ public:
 
 #include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
+#include "Lib/BfmeE16.h"
+
 class Rva0059A85C : public Rva00506B1B
 {
 public:
+	Rva0059A85C(void *outer);
 	virtual ~Rva0059A85C();
 	virtual void v1();
 private:
-	_STL::vector<void *> m_vec;
+	_STL::vector<BfmeE16> m_vec;
 	void *m_outer;
-	char m_set[25];
+	Rva002EE9B7 m_set;
 };
 
 struct Node00599FAA
@@ -619,11 +622,10 @@ bool AITeamBuilder::defineUnitsNormal_old(TeamPrototype* prototype) {
 
 // ??1Rva0059A85C@@UAE@XZ @0x0059A40D 98B (the opaque pin spelling). Destructor
 // of the class Rva0059A85CCtor.cpp constructs (vtable 0x00C70DE4, base
-// Rva00506B1B restored out of line by 0x00506B28): the pointer vector at +8
-// is cleared through the shared range erase 0x0031BD55 and the +0x18 set is
-// destroyed by an explicit call to 0x002F0B52 -- retail tracks no unwind state
-// for it (entry state 1), so this unit views it as raw storage; the vector
-// buffer frees inline. Identity of the class is the ctor TU's.
+// Rva00506B1B restored out of line by 0x00506B28): the vector at +8 is
+// cleared through the shared 4-byte range erase 0x0031BD55, then the members
+// die implicitly: the +0x18 Rva002EE9B7 set through 0x002F0B52 and the vector
+// buffer inline. Members as the ctor (0x0059A85C) constructs them.
 
 // bfme link decl-only end
 
@@ -631,13 +633,12 @@ bool AITeamBuilder::defineUnitsNormal_old(TeamPrototype* prototype) {
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline Rva0059A85C::~Rva0059A85C()
 {
-	m_vec.clear();
-	((Rva002EE9B7 *)m_set)->~Rva002EE9B7();
+	((_STL::vector<void *> &)m_vec).clear();
 }
 
 void Rva0059A85C::v1()
 {
-	m_vec.clear();
+	((_STL::vector<void *> &)m_vec).clear();
 }
 
 // ?bfmeAnchorRva0059A85CDtor absent-from-retail
