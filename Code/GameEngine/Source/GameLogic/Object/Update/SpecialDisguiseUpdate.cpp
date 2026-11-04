@@ -264,14 +264,28 @@ protected:
 
 class FXList;
 
-class SpecialDisguiseUpdateModuleData
+// The destructor fragment proves the 0xC8 polymorphic base and the two string
+// members. Keep its existing base spelling until that identity is recovered.
+class Rva0044ECCE
 {
 public:
-	unsigned char m_pad00[0xD0];
+	virtual ~Rva0044ECCE();
+private:
+	unsigned char m_pad[0xC8 - 4];
+};
+
+class __declspec(novtable) SpecialDisguiseUpdateModuleData : public Rva0044ECCE
+{
+public:
+	virtual ~SpecialDisguiseUpdateModuleData();
+	bool m_triggerInstantlyOnCreate; // +0xC8
+	unsigned char m_padC9[3];
+	float m_opacityTarget; // +0xCC
 	AsciiString m_disguiseAsTemplate; // +0xD0
 	AsciiString m_disguisedAsEnemy; // +0xD4
 	const FXList *m_disguiseFX; // +0xD8
 	bool m_forceMounted; // +0xDC
+	unsigned char m_padDD[3];
 };
 
 class SpecialDisguiseUpdate : public SpecialAbilityUpdate
