@@ -23656,3 +23656,5 @@ Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp|member|Rv
 Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp|member|Rva004F0681Mid|m_30,06a7d71455dfdd8e4c49280a,claude-opus-5-5,claude3-20261103-234145-9,w-29a6ae2a2f9f,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C68|rva004C1C68,704faf8c73a82b759613d52c,claude-opus-5-5,claude3-20261103-234145-10,w-29a6ae2a2f9f,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C75|rva004C1C75,b4c5f730eb8aa16849dcacf9,claude-opus-5-5,claude3-20261103-234145-10,w-29a6ae2a2f9f,2026-11-03
+Code/Libraries/Source/Apt/AptValue/Rva006DF470Initialize.cpp|class||Rva006DE2C0,55b6d0fc2190b9e79cd1b3df,claude-opus-5-5,claude3-20261103-235334-4,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AC9AFCreate.cpp|function|0x003AD03B|rva003AD03B,80284ad72846ff26ff28ed3c,claude-opus-5-5,claude3-20261103-235334-5,w-29a6ae2a2f9f,2026-11-04
