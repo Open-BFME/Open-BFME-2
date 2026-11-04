@@ -16,7 +16,6 @@
 // 0x25342C construct.
 
 extern "C" const void *const __identifier("??_7RadiateFearUpdateModuleData@@6B@")[];
-// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 // ?getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ @0x49BFDD
@@ -111,18 +110,11 @@ class Snapshot;
 	}
 #pragma inline_depth(0)
 #pragma inline_depth()
-
 #include "../../../../Include/Common/XferVersion.h"
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-
 class RadiateFearUpdate;
-
 class UpgradeMux
 {
 	friend class RadiateFearUpdate;
@@ -136,11 +128,8 @@ protected:
 private:
 	bool m_upgradeExecuted;
 };
-
 class Player;
-
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-
 // vftable 0x00BF91BC, allow 0x002611BF.
 class Rva002611BFFilter : public Rva000421C8
 {
@@ -149,7 +138,6 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
-
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags, +0x0C whether a hit allows.
 class Rva00261409Filter : public Rva000421C8
@@ -163,20 +151,15 @@ public:
 	bool m_match;
 	int m_flags;
 };
-
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
 #include "../../../Common/PartitionRangeQueryCallView.h"
-
 extern PartitionManager *ThePartitionManager;
-
 // 0x00362437, the object filter's acceptance test.
 class Rva2225E0Filter
 {
 public:
 	bool accepts(Object *obj, Player *player);	// 0x00362437
 };
-
 class Object
 {
 public:
@@ -193,9 +176,7 @@ public:
 	char m_pad078[0x438 - 0x78];
 	unsigned char m_438;	// +0x438
 };
-
 class RadiateFearUpdateModuleData;
-
 class RadiateFearUpdate : public UpdateModule, public UpgradeMux
 {
 public:
@@ -212,13 +193,9 @@ private:
 		return (const RadiateFearUpdateModuleData *)m_moduleData;
 	}
 };
-
 template <int N> class BitFlags;
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-
 class Rva003623E5Filter
 {
 public:
@@ -228,27 +205,17 @@ public:
 private:
 	int m_filterData; // +0x00
 };
-
 #include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
-
 class UpdateModuleData
 {
 public:
 	__declspec(dllimport) __forceinline UpdateModuleData() {}
 	~UpdateModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 };
-
 enum NameKeyType;
-
-// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
-// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
-// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049C058ByteChase32Field, 0x1C, 0x12C)
-
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049C062ByteChase32Field, 0x1C, 0x12D)
-
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
 // buildFieldParse, then registers its own FieldParse table with
@@ -291,62 +258,37 @@ BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0049C062ByteChase32Field, 0x1C, 0x12D)
 // friend_newModuleData factory pushes its class proc immediate.
 
 class MultiIniFieldParse;
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-
 #include "../../../../Include/Common/INI/FieldParse.h"
-
 #include "../../../../Include/Common/INI/INI.h"
-
 void Rva000B9468Parse(INI *, void *, void *, const void *);
-
 void Rva002567EAParse(INI *, void *, void *, const void *);
-
 void Rva002C8C06Parse(INI *, void *, void *, const void *);
-
 void Rva00464081ParseMask(INI *, void *, void *, const void *);
-
 void Rva00464574Parse(INI *, void *, void *, const void *);
-
 void iniParseObjectFilter(INI *, void *, void *, const void *);
-
 void rva004649A1(INI *, void *, void *, const void *);
-
 void rva004B5293(INI *, void *, void *, const void *);
-
 void Rva0049B51EParse(INI *, void *, void *, const void *);
-
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-
 class DockUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
-
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
-
 #include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
-
 class SupplyWarehouseDockUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 #include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
-
 int Rva004CE29DGet(void);
-
 int Rva004CE52EGet(void);
-
 #include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
-
 class RadiateFearUpdateModuleData : public UpdateModuleData
 {
 private:
@@ -384,7 +326,6 @@ private:
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 // Retail VA 0x00C510B8: 8 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies
 // every token, offset and callback. Global spelling is descriptive.
@@ -399,12 +340,53 @@ extern const FieldParse BfmeRadiateFearUpdateFields[] = {
 	{ "VictimFilter", &iniParseObjectFilter, 0, 0x1C },
 	{ 0, 0, 0, 0 }
 };
-
 int Rva0033A495Get(void);
-
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
-
 #include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
+#pragma inline_depth(0)
+#pragma inline_depth()
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
@@ -498,9 +480,7 @@ RadiateFearUpdate::RadiateFearUpdate(Thing *thing, const ModuleData *moduleData)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
 
@@ -517,22 +497,44 @@ void RadiateFearUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // collided with select-any copies. The anchor keeps this unit's row copies;
 // it is not retail code.
 
+// tu-skeleton: 0x0049C022 39B ?getUpgradeActivationMasks@RadiateFearUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C049 15B ?performUpgradeFX@RadiateFearUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
 // tu-skeleton: 0x0049C179 28B ??_GRva0049BFB7@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // tu-skeleton: 0x0049C1EE 48B ??1RadiateFearUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049C21E 342B ?update@RadiateFearUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp
+
+UpdateSleepTime RadiateFearUpdate::update()
+{
+	Object *obj = m_object;
+	const RadiateFearUpdateModuleData *data = getRadiateFearUpdateModuleData();
+	if (obj->isEffectivelyDead())
+		return UPDATE_SLEEP_FOREVER;
+	if (!isAlreadyUpgraded())
+		return UPDATE_SLEEP_FOREVER;
+	if (data->m_generateTerror || data->m_generateFear || data->m_generateUncontrollableFear) {
+		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_emotionPulseRadius, 0,
+			Rva00261409Filter(m_object->getControllingPlayer(), true, 4).link(&Rva002611BFFilter(m_object)), 0);
+		Object *other;
+		while ((other = hits.next()) != 0) {
+			if (((Rva2225E0Filter &)data->m_victimFilter).accepts(other, obj->getControllingPlayer())) {
+				if (data->m_generateTerror)
+					other->applyFrom(6, m_object, data->m_emotionPulseInterval);
+				if (data->m_generateFear)
+					other->applyFrom(4, m_object, data->m_emotionPulseInterval);
+				if (data->m_generateUncontrollableFear)
+					other->applyFrom(5, m_object, data->m_emotionPulseInterval);
+			}
+		}
+	}
+	return (UpdateSleepTime)(obj->getID() % 5 + data->m_emotionPulseInterval);
+}
 
 // tu-skeleton: 0x0078D7E3 8B uw_0078d7e3 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D7F5 8B Unwind@00b8d7f5 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D7FD 10B __ehhandler$??1RadiateFearUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D807 8B Unwind@00b8d807 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D80F 8B Unwind@00b8d80f -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D817 8B uw_0078d817 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D81F 10B __ehhandler$?update@RadiateFearUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp (not merged yet)

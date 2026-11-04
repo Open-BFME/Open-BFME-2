@@ -38316,7 +38316,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0049C195,61,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 0x0049C1D2,28,code,,displaced,-,N=Code/GameEngine/Source/Common/RadiateFearUpdate.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7f75.cpp
 0x0049C1EE,48,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp
-0x0049C21E,342,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp
+0x0049C21E,342,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 0x0049C374,22,code,,,-,,Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp
 0x0049C38A,7,code,,,-,,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp
 0x0049C391,27,code,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
@@ -80661,10 +80661,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078D7EB,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C106@FuncInfo0x0093D8DC provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 0x0078D7F5,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C1EE@FuncInfo0x0093D900 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp
 0x0078D7FD,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C1EE@FuncInfo0x0093D900 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateModuleDataDtor.cpp
-0x0078D807,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp
-0x0078D80F,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp
-0x0078D817,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp
-0x0078D81F,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdateUpdate.cpp
+0x0078D807,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+0x0078D80F,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+0x0078D817,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
+0x0078D81F,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,approved,P,P=0x0049C21E@FuncInfo0x0093D944 provisional,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 0x0078D829,13,code,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,approved,P,P=0x0049C471@FuncInfo0x0093D968 provisional,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp
 0x0078D836,10,code,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,approved,P,P=0x0049C471@FuncInfo0x0093D968 provisional,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp
 0x0078D840,8,code,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,approved,P,P=0x0049C640@FuncInfo0x0093D98C provisional,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp
