@@ -36,13 +36,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define Coord2D ZHTrivialCoord2D
 #include "Lib/BaseType.h"
 #undef Coord2D
-struct Coord2D {
-    Coord2D() {}
-    // Matched empty destructor: coord2d.cpp, RVA 0x000B3FD0.
-    ~Coord2D() {}
-    Coord2D(const Coord2D& other): x(other.x), y(other.y) {}
-    float x,y;
-};
+#define COORD2D_VIEW_DTOR
+#include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
+#undef COORD2D_VIEW_DTOR
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 // PreRTS includes the shared STL iterator shim; restore this TU's verified

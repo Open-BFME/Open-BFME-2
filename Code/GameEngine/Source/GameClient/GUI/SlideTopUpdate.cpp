@@ -4,9 +4,9 @@
 // Target boundary 0x005C6106..0x005C61EE; offsets and ordering are retail facts.
 // Constructor5C55A5 and C74884 slot3 prove the target virtual method.
 // Existing getVel at 0x005C5046 has an 8-byte hidden output and ret 4.
-// Keep its struct-return declaration incomplete; use a typed output view below
-// rather than inventing copy traits for the canonical Coord2D class.
-struct Coord2D;
+// The typed output view below preserves the verified hidden-result call
+// and stack layout.
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct RvaTopVelocity { float x,y; };
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 class GameWindow { public: int winSetPosition(int,int); };

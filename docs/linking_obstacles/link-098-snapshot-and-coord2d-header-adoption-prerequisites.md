@@ -1,5 +1,7 @@
 ### LINK-098: Snapshot and Coord2D header adoption prerequisites
 
+2026-11-04: six-unit Coord2D animation source adoption preserves 89 rows with AI and seven ordinary LINKS previews (8,065 bytes); AI's header row retires, but the two animation rows remain because the debt check omits the debt-free setAnimData provider from its preview. Next: retire after the scheduled census includes the coordinated providers or a separate checker repair; Rva00062B17Init remains open. [Evidence and false rejection](../../reverse/attempt_support/coord2d-animation-header-20261104-codexb.md).
+
 2026-10-30 math-header follow-up (base `a5f5309dbd`): coord2d.cpp now selects
 an explicit math declaration view in the registered Coord2D header instead
 of declaring its own class. The view transfers its existing non-POD lifetime,

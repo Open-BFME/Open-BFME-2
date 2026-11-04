@@ -90,6 +90,12 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 //-----------------------------------------------------------------------------
 // USER INCLUDES //////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
+// Retain the POD coordinate operations while using the canonical class key.
+#define Coord2D ZHTrivialCoord2D
+#include "Lib/BaseType.h"
+#undef Coord2D
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "GameClient/AnimateWindowManager.h"

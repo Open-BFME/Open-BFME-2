@@ -1,12 +1,6 @@
 // cl: /MD /EHsc /DNDEBUG
 
-struct Coord2D
-{
-	Coord2D() {}
-	Coord2D(const Coord2D &other) : x(other.x), y(other.y) {}
-	float x;
-	float y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
 
 class AnimateWindow
 {

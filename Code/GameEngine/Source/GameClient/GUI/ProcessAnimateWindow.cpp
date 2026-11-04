@@ -6,6 +6,11 @@
 // (0x0002FBC0/0x0002FBB0). Exported, they would be the first in retail-truth-5 link order.
 static float __cdecl cos(float);
 static float __cdecl sin(float);
+// Retain the POD coordinate operations while using the canonical class key.
+#define Coord2D ZHTrivialCoord2D
+#include "Lib/BaseType.h"
+#undef Coord2D
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "GameClient/ProcessAnimateWindow.h"
 #include "GameClient/AnimateWindowManager.h"

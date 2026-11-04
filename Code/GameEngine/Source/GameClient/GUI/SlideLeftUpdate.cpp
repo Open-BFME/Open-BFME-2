@@ -4,9 +4,9 @@
 // Target boundary 0x005C53DD..0x005C54BC; offsets and ordering are retail facts.
 // Matched ctor0x005C52CE installs C7486C; slots3/4 prove Left update/reverse.
 // Existing getVel at 0x005C5046 has an 8-byte hidden output and ret 4.
-// Keep its struct-return declaration incomplete; use a typed output view below
-// rather than inventing copy traits for the canonical Coord2D class.
-struct Coord2D;
+// The typed output view below preserves the verified hidden-result call
+// and stack layout.
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct RvaLeftVelocity { float x,y; };
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 class GameWindow { public: int winSetPosition(int,int); };
