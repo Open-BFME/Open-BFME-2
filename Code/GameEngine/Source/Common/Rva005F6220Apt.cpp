@@ -94,10 +94,10 @@ class Rva005F6306
 	char m_pad00[8];
 	StrategicHUD::HeroArmyDetailsMovieClip::Impl *m_ptr08;
 public:
-	void rva005F6306();
+	void hideLeaderRankProgress();
 };
 
-void Rva005F6306::rva005F6306()
+void Rva005F6306::hideLeaderRankProgress()
 {
 	m_ptr08->HideLeaderRankProgress();
 }

@@ -94,7 +94,7 @@ struct Rva005F01D6In;
 const Image *Rva005F01D6Get(Rva005F01D6In *);
 class Rva005F62EE {public:void rva005F62EE(const Image *);void rva005F62F6(const Image *);};
 class Rva005F64C0 {public:void setLeaderRank(int);void rva005F64C8(float);};
-class Rva005F6306 {public:void rva005F6306();};
+class Rva005F6306 {public:void hideLeaderRankProgress();};
 class Rva005F601BByteChaseField {public:unsigned char get() const;};
 class Rva001FF3A9 {public:void rva001FF3A9(const TreeHintRef00217D4C &);};
 struct Rva002BA8F1Listener;
@@ -157,7 +157,7 @@ Rva005E6D0D::Rva005E6D0D(void *slot,HeroDetailsInput *input):m_slot(slot),m_owne
  ((Rva005F64C0 *)button)->setLeaderRank(m_leaderEntry->rank);
  float progress=StrategicInGameUI::ComputeRankProgress(m_leaderEntry);
  if(progress>=0.0f)((Rva005F64C0 *)button)->rva005F64C8(progress);
- else ((Rva005F6306 *)button)->rva005F6306();
+ else ((Rva005F6306 *)button)->hideLeaderRankProgress();
  if(((Rva005F601BByteChaseField *)button)->get()) {
   m_held=StrategicInGameUI::Rva005E6A23(m_leaderEntry);
   if(m_held.m_ptr)((Rva001FF3A9 *)m_owner)->rva001FF3A9(m_held);
