@@ -54,9 +54,7 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIFollowWaypointPathState : public AIInternalMoveToState
 {
 public:

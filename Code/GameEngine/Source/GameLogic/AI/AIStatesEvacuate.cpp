@@ -71,11 +71,7 @@ void Rva0033FA79Do(const Object0033FA79 *obj);
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual void onExit(StateExitType status);
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIMoveToState : public AIInternalMoveToState
 {

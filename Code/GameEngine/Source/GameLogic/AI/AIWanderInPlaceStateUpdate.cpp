@@ -110,16 +110,7 @@ private:
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x4C - 0x2C];
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIWanderInPlaceState : public AIInternalMoveToState
 {
 public:
