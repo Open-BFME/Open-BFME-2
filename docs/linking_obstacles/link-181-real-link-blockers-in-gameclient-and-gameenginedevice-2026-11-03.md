@@ -287,3 +287,9 @@ W3DTerrainVisual's.
 **Row 0x001EC981 re-identified (2026-11-04).** Done as this entry's fix proposed, plus the real terrain pair it left open; evidence and remaining census check in LINK-090. Not done: rehoming 0x001EC98E, 0x001EC99B, 0x001EC9AC's address-named classes.
 
 2026-11-04: the W3DGameClient newDrawable and createGameDisplay (0x0008FCAE) items are resolved pending census; see LINK-179's 2026-11-04 line.
+
+**Seat halilkkaya-rl-o4 (2026-11-04, real link 41813987742 at `612abfbebb`: 65 unresolved, 1 duplicate).**
+- **Rva0057621ACtor.cpp (10): resolved.** The file was a stale duplicate of the PlanningPhaseBehavior::Impl
+  constructor 0x0057621A, which `Rva00575F38Dtor.cpp` already rows. It is retired, and its EH rows are
+  re-rowed under the surviving constructor. Details are in LINK-060's 0x0057621A entry.
+- **W3DVideoBuffer.cpp (7)** was already repaired on master by `353684d23f`, after the measured run.

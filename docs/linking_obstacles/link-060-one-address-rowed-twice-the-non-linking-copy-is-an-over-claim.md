@@ -90,3 +90,18 @@ is claimed.
 **Assigned retired-unit recheck (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `StlSweepR3Rva004F715B.cpp` is absent and has no current row; its retirement is recorded in `reverse/deleted_rows.csv`. The surviving `stlport_pop_heap_rva004f7e61.cpp` remains byte-exact and LINKS in the paired current-provider preview. The two hashtable over-claims at 0x001DE3E3 and 0x001FDEBC remain; their bounded emission cleanup is recorded under LINK-066 and does not settle ownership. Evidence: `build/c136-r3sweep/before-retired-004f715b.log`, `native-evidence-03.log`, `after-expanded-cohort.log` and `final-assigned-build.log`. No new retirement or census gain is claimed; the next check is the normal ownership/naming decision for the surviving duplicates.
 
 **GUI-package recheck (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `Rva00576DF1Ctor.cpp` is absent; current history records its retirement as `febea697c2a`. The surviving `Rva00576C4BDtor.cpp` remains LINKS and passes all 25 byte rows. The two remaining constructor views now bind their 0x005CD7DA cleanup directly to that owner's existing `Wrap2000576C4B` destructor, clearing that record subset as detailed in LINK-085. The duplicate planning constructor and its three unique EH rows remain untouched. Approved ownership and coherent class naming are still prerequisites for retiring that duplicate; no row move or retirement was attempted here. Raw receipts: `build/c136-gui-w2/expanded-before.log`, `expanded-after.log`, `final-provider-build.log` and `build/link-report.md`. Census confirmation remains pending.
+
+**0x0057621A cleared (seat halilkkaya-rl-o4, 2026-11-04, base `efb5fcbb60`).** `Rva0057621ACtor.cpp`
+is retired and its four rows are tombstoned in `reverse/deleted_rows.csv`. The surviving
+`Rva00575F38Dtor.cpp` now rows the handler 0x0079B403 and the funclets 0x0079B3ED/0x0079B3F8 itself:
+eh_verify finds its constructor's EH graph EXACT and binds those labels to those addresses. The
+blocker from 2026-10-26 was funclet 0x0079B3ED, which jumped to the owner's inline +0x30 record
+destructor. That record now declares its destructor out of line under the existing row spelling
+`??1Wrap2000576C4B@@QAE@XZ` (0x005CD7DA), as LINK-085 did for the sibling constructors. Retail's
+destructor 0x00575F38 and that funclet both reach 0x005CD7DA directly, so no naming decision was
+needed. Results: 29/29 rows exact, EH EXACT 2/2, find_declared_unmatched clean, scoped DIR32 OK.
+link_check: Rva00575F38Dtor.cpp LINKS 540 -> 550 B; Rva00576C4BDtor, Rva005770F7Dtor, Rva005763EDCtor,
+OpaqueScalarDeletingDtorsB13 and Rva005CD7DAMethod are unchanged (LINKS). The orphan scan finds 0
+lost definitions, and the retired object was first in link order for no COMDAT. The real link loses
+the unit's 10 unresolved names. tu_map rows 0x0079B3ED/0x0079B3F8/0x0079B403 now name the parent's
+source; they had no approved TU before and have none now.

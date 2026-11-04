@@ -229,14 +229,19 @@ private:
 	void *m_words[4];
 };
 
-class Rva005CD7DA
+// The +0x30 record. Retail's destructor calls its 39-byte cleanup 0x005CD7DA
+// directly, and so does the constructor's unwind funclet 0x0079B3ED (jmp
+// 0x005CD7DA), so the cleanup is the record's own out-of-line destructor. It
+// is bound to that row's existing destructor spelling, as the sibling phase
+// units Rva00576C4BDtor.cpp, Rva005776A7Ctor.cpp and Rva005770F7Dtor.cpp do
+// (LINK-085); an inline forwarder would emit a body retail does not have.
+class Wrap2000576C4B
 {
 public:
-	__forceinline Rva005CD7DA(void *source, Rva005CD1A9 *owner)
+	__forceinline Wrap2000576C4B(void *source, Rva005CD1A9 *owner)
 		: m_record(((Rva00574A98 *)source)->rva00574A98(),
 			((Rva00328A83PtrChaseField *)source)->get(), (int)owner) {}
-	~Rva005CD7DA() { rva005CD7DA(); }
-	void rva005CD7DA();
+	~Wrap2000576C4B();
 
 private:
 	Rva005CD7BD m_record;
@@ -271,7 +276,7 @@ private:
 	Rva0055076F m_24;      // +0x24
 	Rva000AD6F4 m_28;  // +0x28
 	Rva000AD6F4 m_2C;  // +0x2C
-	Rva005CD7DA m_30;      // +0x30
+	Wrap2000576C4B m_30;   // +0x30
 	Rva005CD651 m_40;      // +0x40
 };
 
