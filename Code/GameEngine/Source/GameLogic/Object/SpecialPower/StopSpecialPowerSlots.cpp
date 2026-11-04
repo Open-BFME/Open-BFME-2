@@ -4,11 +4,11 @@
 // matched ctor 0x004C676C installs at +0x10, compiled with that subobject
 // this. The ctor clears the +0x34 pointer these use: the behavior module of
 // our Object (from the null-terminated module array at Object +0x244) whose
-// +0x0C interface's slot 8 answers slot 0 for the module data's +0x7C value.
+// +0x0C interface's slot 8 answers slot 0 for the module data's +0x7C StopPowerTemplate value.
 // Names are by address.
 //
 // ?isReady@StopSpecialPower@@UAE_NXZ, retail 0x004C683C, 111 bytes:
-// slot 1; finds and keeps that module (false without a +0x7C value or a
+// slot 1; finds and keeps that module (false without a +0x7C StopPowerTemplate value or a
 // match), then answers slot 2 of what its +0x0C interface's slot 25 gives,
 // true when that is null.
 // ?doSpecialPower@StopSpecialPower@@UAEXH@Z, retail 0x004C67B9, 34 bytes:
@@ -61,11 +61,14 @@ public:
 	Rva004C683CModule **m_modules; // +0x244 (null-terminated)
 };
 
-class StopSpecialPowerModuleData
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
+
+class StopSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
-	unsigned char m_pad00[0x7C];
-	int m_7C; // +0x7C
+	StopSpecialPowerModuleData();
+
+	int m_stopPowerTemplate;	// +0x7C
 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -100,12 +103,12 @@ bool StopSpecialPower::isReady()
 {
 	if (!m_34)
 	{
-		if (reinterpret_cast<const StopSpecialPowerModuleData *>(m_moduleData)->m_7C == 0)
+		if (reinterpret_cast<const StopSpecialPowerModuleData *>(m_moduleData)->m_stopPowerTemplate == 0)
 			return false;
 		for (Rva004C683CModule **m = m_object->m_modules; *m; ++m)
 		{
 			Rva004C683CPower *power = (*m)->m_iface.slot8();
-			if (power && power->slot0(reinterpret_cast<const StopSpecialPowerModuleData *>(m_moduleData)->m_7C))
+			if (power && power->slot0(reinterpret_cast<const StopSpecialPowerModuleData *>(m_moduleData)->m_stopPowerTemplate))
 			{
 				m_34 = *m;
 				break;
