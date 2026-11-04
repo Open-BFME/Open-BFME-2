@@ -58,34 +58,7 @@ public:
 	Real m_field[6];
 };
 
-class WeaponTemplate
-{
-public:
-	__declspec(dllimport) __forceinline Int getClipSize() const { return m_clipSize; }
-	Int getClipReloadTime(const WeaponBonus &bonus) const;
-	bool getFlag80() const { return m_flag80; }
-private:
-	char m_pad00[0x68];
-public:
-	float m_weaponSpeed;
-private:
-	char m_pad6C[0x80-0x6C];
-	bool m_flag80;
-	char m_pad81[0xB8-0x81];
-public:
-	const FXList *m_fireFX;
-private:
-	char m_padBC[0xE4-0xBC];
-	Int m_clipSize;
-	char m_padE8[0x130-0xE8];
-public:
-	bool m_leechRangeWeapon;
-	char m_pad131[7];
-	int m_preAttackDelay;
-	int m_preAttackRandom;
-	char m_pad140[4];
-	int m_timingExtra;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "object.h"
 
@@ -108,7 +81,7 @@ void Weapon::reloadWithBonus(const Object *sourceObj, const WeaponBonus &bonus, 
 	m_projectileStreamID = curFrame;
 	m_whenWeCanFireAgain = curFrame + reloadTime;
 
-	if (reloadTime > 0.0f && m_template->getFlag80())
+	if (reloadTime > 0.0f && m_template->m_field80)
 		const_cast<Object *>(sourceObj)->setDisabledUntil(DISABLED_AWESTRUCK, m_whenWeCanFireAgain);
 
 	rebuildScatterTargets();
@@ -139,21 +112,21 @@ void Weapon::preFireWeapon(const Object *source, const Object *victim,
 
 	const WeaponTemplate *weaponTemplate = m_template;
 	m_whenPreAttackFinished = TheGameLogic->getFrame() + delay;
-	int timingExtra = weaponTemplate->m_timingExtra;
+	int timingExtra = weaponTemplate->m_field144;
 	if (timingExtra > 0)
 		m_lastFireFrame = TheGameLogic->getFrame() + timingExtra + delay;
 
 	if (weaponTemplate->m_leechRangeWeapon)
 	{
 		int leechRangeDuration = (int)((float)weaponTemplate->m_preAttackDelay * bonus.m_field[4]);
-		int leechTimingExtra = weaponTemplate->m_timingExtra;
+		int leechTimingExtra = weaponTemplate->m_field144;
 		m_leechWeaponRangeActive = TheGameLogic->getFrame() + leechRangeDuration + leechTimingExtra;
 	}
 
 	((Rva002CA9CA *)weaponTemplate)->rva002CA970(reinterpret_cast<int>(this), reinterpret_cast<int>(source), victim,
 		reinterpret_cast<int>(position));
 
-	const FXList *fireFX = weaponTemplate->m_fireFX;
+	const FXList *fireFX = weaponTemplate->m_fieldB8[0];
 	float weaponSpeed = weaponTemplate->m_weaponSpeed;
 	FXList::doFXPos(fireFX, source->getDrawable()->getPosition(),
 		source->getDrawable()->getTransformMatrix(), weaponSpeed,
