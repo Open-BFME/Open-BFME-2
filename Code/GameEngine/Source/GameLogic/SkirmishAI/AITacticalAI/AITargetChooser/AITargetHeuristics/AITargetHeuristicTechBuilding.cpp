@@ -97,22 +97,8 @@ class Object
  
 }
 ;
-class BfmeFixedStorage0004543D
-
-{
- char bytes[28];
- public:BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&)throw();
- 
-}
-;
-class Rva00045411BitSet
-
-{
- char bytes[28];
- public:Rva00045411BitSet(int,int);
- 
-}
-;
+#include "../../../../../../Include/Common/BfmeFixedStorage0004543D.h"
+#include "../../../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D:public Rva000421C8
 

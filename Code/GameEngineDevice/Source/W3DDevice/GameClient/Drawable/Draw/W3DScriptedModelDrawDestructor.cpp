@@ -214,13 +214,7 @@ typedef char ScriptedModelTreeHeaderSizeCheck[sizeof(Rva000C0DD8TreeHeader) == 1
 // Pointer-chain handle at +0x1C: unlinked through 0x0004CBC0 when set.
 class ParticleSystem;
 #include "../../../../../../GameEngine/Include/GameClient/BfmeParticleSystemHandle.h"
-class ParticleSystem 
-{
- public:char pad[0x9C];
- BfmeParticleSystemHandle*first,*last;
- 
-}
-;
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSystemClass.h"
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct W3DScriptedModelDrawHandle
 
@@ -344,35 +338,7 @@ class RadiusDecalTemplate
 }
 ;
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
-
-{
- public:
- __forceinline Matrix3D() 
- {
-  
- }
- __forceinline Matrix3D &operator=(const Matrix3D &m)
- 
- {
-  Row[0] = m.Row[0];
-  Row[1] = m.Row[1];
-  Row[2] = m.Row[2];
-  return *this;
-  
- }
- void Make_Identity()
- 
- {
-  Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-  Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-  Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-  
- }
- Vector4 Row[3];
- 
-}
-;
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class ThingTemplate 
 {
  public:char pad[0x4A8];
@@ -401,14 +367,7 @@ class Drawable
  
 }
 ;
-class DrawableModule
-{
- protected:virtual ~DrawableModule();
- const ModuleData*m_moduleData;
- Drawable*m_drawable;
- 
-}
-;
+#include "../../../../../../GameEngine/Include/Common/DrawableModule.h"
 class DrawModule:public DrawableModule 
 {
  public:DrawModule(Thing*,const ModuleData*);

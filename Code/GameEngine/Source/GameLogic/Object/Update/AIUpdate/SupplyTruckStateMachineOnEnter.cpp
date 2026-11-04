@@ -341,15 +341,7 @@ struct FindPositionOptions
 // BFME 2's findPositionAround is static (cdecl, pinned at 0x00285202).
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 struct State;
-struct StateConditionInfo
-
-{
- Bool (*test)(State *thisState, void *userData);
- StateID toStateID;
- void *userData;
- 
-}
-;
+#include "../../../../../Include/Common/StateConditionInfo.h"
 // A dead local with a destructor gives onEnter retail's unwind bookkeeping
 // (the esp saves around the by-value BitFlags arguments) without emitting a
 // StateMachine vftable copy of its own.

@@ -74,23 +74,7 @@ class RenderObjClass
  
 }
 ;
-class Debug
-
-{
- public:
- class Format
- 
- {
-  public:
-  Format(const char *format, ...);
-  private:
-  char m_text[0x200];
-  
- }
- ;
- 
-}
-;
+#include "../../../../../../GameEngine/Source/Common/debug.h"
 class SubObjectReport
 
 {
@@ -181,22 +165,7 @@ static __forceinline void reportSubObject(const char *format, const char *name, 
 		reportSubObject(format, a, b); \
 	} \
 }
-class ThingTemplate
-
-{
- public:
- const AsciiString &getName() const 
- {
-  return m_name;
-  
- }
- private:
- char m_pad00[0x64];
- AsciiString m_name;
-// +0x64
- 
-}
-;
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 class Drawable
 
 {

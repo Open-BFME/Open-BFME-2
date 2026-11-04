@@ -6,17 +6,7 @@
 
 class Object;
 
-class GeometryInfo 
-{
- public: GeometryInfo(const GeometryInfo&);
- virtual ~GeometryInfo();
- void rva004BBA15(float);
- void rva004BBA3D(float);
- bool CollidesWith(const Coord3D&,float,const GeometryInfo&,const Coord3D&,float)const;
- private: char unknown04[0x58];
- 
-}
-;
+#include "../../../../Include/Common/Geometry.h"
 
 class DamageInfo;
 
@@ -69,12 +59,7 @@ enum WeaponSlotType
 }
 ;
 
-class StateMachine 
-{
- public:Object* getGoalObject();
- 
-}
-;
+#include "../../../../Include/Common/StateMachineClass.h"
 
 class AIUpdateInterface 
 {

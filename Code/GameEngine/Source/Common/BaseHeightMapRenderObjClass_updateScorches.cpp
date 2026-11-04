@@ -37,31 +37,7 @@ struct VertexFormatXYZDUV1
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern bool ShaderOverbrightEnabled;
-class VertexBufferClass
-
-{
- public:
- class WriteLockClass
- 
- {
-  public:
-  WriteLockClass(VertexBufferClass *vertex_buffer, int flags);
-  ~WriteLockClass();
-  void *Get_Vertex_Array() 
-  {
-   return Vertices;
-   
-  }
-  private:
-  VertexBufferClass *VertexBuffer;
-  void *Vertices;
-  int m_08;
-  
- }
- ;
- 
-}
-;
+#include "../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 // The world height map view retail reads: border at +0x10, extents at +8/+0xC;
 // 0x0006653B is its clamped 16-bit height lookup, 0x004ADF41 the flip-state query.
@@ -85,22 +61,7 @@ class Gen_0074B410
  
 }
 ;
-class Vector3
-
-{
- public:
- Real X, Y, Z;
- Vector3() 
- {
-  
- }
- __forceinline Vector3(const Vector3 &vec) : X(vec.X), Y(vec.Y), Z(vec.Z) 
- {
-  
- }
- 
-}
-;
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 struct BFMEScorchEntry
 
 {

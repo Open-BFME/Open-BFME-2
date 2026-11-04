@@ -97,52 +97,11 @@ class AICommandInterface
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.
 struct Rva003642DFNode;
-struct Rva003642DFResult
-
-{
- Rva003642DFResult();
- Rva003642DFNode *m_node;
-// +0x00
- Coord3D m_pos;
-// +0x04
- 
-}
-;
-class Path
-
-{
- public:
- Rva003642DFResult rva003642DF(float dist);
- 
-}
-;
+#include "../../../Include/GameLogic/Rva003642DFResult.h"
+#include "../../../Include/GameLogic/PathfindPath.h"
 class Object;
-class Pathfinder
-
-{
- public:
- bool getClosestPointOnLand(const Coord3D *,Object *,Coord3D *);
- bool IsBuildRestrictedCell(const Coord3D *pos, bool flagA, bool flagB, int layer);
- 
-}
-;
-class AI
-
-{
- public:
- Pathfinder *pathfinder() 
- 
- {
-  return m_pathfinder;
-  
- }
- private:
- unsigned char m_pad00[0x10];
- Pathfinder *m_pathfinder;
-// +0x10
- 
-}
-;
+#include "../../../Include/GameLogic/AIPathfind.h"
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 class ObjectRingNode 
 

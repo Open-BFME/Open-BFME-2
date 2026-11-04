@@ -77,21 +77,9 @@ enum EvaEventID
  EVA_INVALID=-1
 }
 ;
-class Eva
-{
- public:bool isEventBlockedByTimeout(EvaEventID)const;
- bool isEventAboutToPlay(EvaEventID)const;
- bool reportEvaEvent(EvaEventID,const Coord3D*,const Coord3D*);
- 
-}
-;
+#include "../../Include/GameClient/Eva.h"
 extern Eva*TheEva;
-class Radar
-{
- public:void tryUnderAttackEvent(const Object*);
- 
-}
-;
+#include "../../Include/Common/Radar.h"
 extern Radar*TheRadar;
 extern GameLogic *TheGameLogic;
 class Rva002D3756

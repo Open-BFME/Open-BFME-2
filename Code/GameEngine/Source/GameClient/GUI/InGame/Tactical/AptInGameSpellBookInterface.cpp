@@ -57,40 +57,10 @@ class GameWindow;
 #include "../../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
-class CommandSet 
-{
- public:const CommandButton *getCommandButton(int) const;
- 
-}
-;
+#include "../../../../../Include/GameClient/CommandSet.h"
 
 class Image;
-class CommandButton 
-{
- public:
- unsigned getOptions() const 
- {
-  return options;
-  
- }
- int getFlashCount() const 
- {
-  return flashTicks;
-  
- }
- void setFlashCount(int value) const 
- {
-  flashTicks=value;
-  
- }
- const Image *rva0035B19E() const;
- char unknown0[0x1c];
- unsigned options;
- char unknown20[0xd8];
- mutable int flashTicks;
- 
-}
-;
+#include "../../../../../Include/GameClient/CommandButton.h"
 class GameWindow;
 class SpellFrameClock 
 {

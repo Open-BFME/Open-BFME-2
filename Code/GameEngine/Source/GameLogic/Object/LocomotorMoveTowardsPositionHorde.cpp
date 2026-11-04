@@ -743,28 +743,8 @@ class TerrainLogic
 };
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIPathfind.h"
-class AIGroup
-
-{
- public:
- void add(Object *obj);
- void rva00372BB9(const void *target, int mode);
- 
-}
-;
-class AI
-
-{
- public:
- AIGroup *createGroup();
- void destroyGroup(AIGroup *group);
- Pathfinder *pathfinder() { return m_pathfinder; }
- private:
- char m_pad00[0x10];
- Pathfinder *m_pathfinder; // +0x10
- 
-}
-;
+#include "../../../Include/GameLogic/AIGroup.h"
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"

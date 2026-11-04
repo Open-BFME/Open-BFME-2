@@ -47,13 +47,7 @@ enum CommandSourceType
  CMD_FROM_PLAYER=0, CMD_FROM_AI=2 
 }
 ;
-struct BfmeFixedStorage128 
-{
- BfmeFixedStorage128(const BfmeFixedStorage128 &);
- unsigned char bytes[128];
- 
-}
-;
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 namespace _STL 
 {
  template<unsigned N> struct _Base_bitset;
@@ -66,22 +60,8 @@ namespace _STL
  ;
  
 }
-class ExperienceTracker 
-{
- public:
- bool rva0039B4EC(int,bool,bool);
- char pad[0x24];
- int level;
- int getVeterancyLevel() const { return level; }
- 
-}
-;
-class Thing 
-{
- public: void setTransformMatrix(const Matrix3D *);
- 
-}
-;
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
+#include "../../../Common/Thing/thing.h"
 template<int N> class Slots : public Slots<N-1> 
 {
  public: virtual void gap(char (*)[N]) = 0;
@@ -219,12 +199,7 @@ class Rva002D06CA
  
 }
 ;
-class Pathfinder 
-{
- public: void AddObjectToPathfindMap(Object *);
- 
-}
-;
+#include "../../../../Include/GameLogic/AIPathfind.h"
 class AI 
 {
  public: char pad[0x10];

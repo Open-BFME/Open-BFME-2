@@ -113,13 +113,7 @@ __declspec(noinline) inline void PolygonTrigger::rva002E36B7(int count)
  
 }
 struct DataChunkInfo;
-class DataChunkInput 
-{
- public: int readInt();
- AsciiString readAsciiString();
- 
-}
-;
+#include "../../Include/Common/DataChunk.h"
 struct PolygonPointView 
 {
  float x,y;

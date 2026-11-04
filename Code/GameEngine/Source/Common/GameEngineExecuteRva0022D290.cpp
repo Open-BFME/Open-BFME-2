@@ -37,38 +37,13 @@ struct TreeHintOpaque0043671B
  
 }
 ;
-class GameState 
-
-{
- public: bool getSaveGameInfoFromFile(UnicodeString,BfmeSubobject0022CE19*);
- int rva002DE3C1(TreeHintOpaque0043671B);
- 
-}
-;
+#include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
-class Shell 
-
-{
- public: void rva0035BF4C(bool);
- 
-}
-;
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
-class Mouse 
-
-{
- public: void _bfme_setEngineVisibility(bool);
- 
-}
-;
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
-class GlobalLanguage 
-
-{
- public: void onGameEngineExit();
- 
-}
-;
+#include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
@@ -350,14 +325,7 @@ struct Bfme939Helper
 class RecorderClass;
 extern RecorderClass *TheRecorder;
 class Rva000B3FD0 { public: void rva000B3FD0(); };
-class RecorderClass 
-
-{
- public: bool isMultiplayer();
- void cleanUpReplayFile();
- 
-}
-;
+#include "../../Include/Common/RecorderClass.h"
 class BfmeDfe6e4 
 
 {

@@ -37,16 +37,7 @@ struct AptScoreListData
  
 }
 ;
-class GameWindow
-
-{
- public:
- int winEnable(bool enable);
- void *winGetUserData();
- void winSetUserData(void *data);
- 
-}
-;
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *listbox, int x, int y, int &row, int &column);
@@ -54,15 +45,7 @@ void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
 #include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 // The Apt player's rowed call 0x00222A8B on a movie's level.
-class Rva00222A8BTarget
-
-{
- public:
- int invoke(void *level, const char *function, int argc, const char *a0,
- void *a1, void *a2, void *a3, void *a4);
- 
-}
-;
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 extern class Rva00222A8BTarget *TheRva00222A8BTarget;
 // TheGameText's fetch by label (vslot 14).
 class GameTextInterface

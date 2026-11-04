@@ -16,15 +16,7 @@ extern "C" void _ReadWriteBarrier();
 #include "Lib/Coord2D.h"
 #include "Lib/RGBColor.h"
 namespace _STL { void free(void*); }
-class DataChunkInput 
-{
- public:AsciiString readAsciiString();
- int readInt();
- unsigned char readByte();
- float readReal();
- 
-}
-;
+#include "../../Include/Common/DataChunk.h"
 struct BfmeE8 
 {
  int a[2];

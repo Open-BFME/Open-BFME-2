@@ -89,17 +89,7 @@ class BodyModuleFloatInterface
  
 }
 ;
-class AICommandInterface
-
-{
- public:
- void aiIdle(CommandSourceType source);
- void aiAttackPosition(const Coord3D *position, Int maxShots,
- CommandSourceType source);
- void rva0045003E(Int value, CommandSourceType source);
- 
-}
-;
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class AIUpdateInterfaceView
 
 {
@@ -243,14 +233,7 @@ class Object : public Thing
  
 }
 ;
-class UpgradeCenter
-
-{
- public:
- const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
- 
-}
-;
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 __forceinline const float &rampageMax(const float &a, const float &b) 
 {

@@ -198,20 +198,7 @@ class Bridge
  
 }
 ;
-class TerrainLogic 
-{
- public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual float slot7(float,float,bool,Coord3D*,bool);
- 
-}
-;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // ZH BaseType.h fast_float2long_round, preserved for the proven x87
 // conversion blocker: C++ casts call _ftol2 and /QIfist rejects /arch:SSE.

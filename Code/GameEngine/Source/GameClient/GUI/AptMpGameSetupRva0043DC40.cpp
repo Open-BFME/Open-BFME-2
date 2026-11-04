@@ -45,17 +45,7 @@ namespace _STL
 }
 class WinInstanceData;
 class BfmeKeyLC;
-class GameWindow
-
-{
- public:
- int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *instData, unsigned int mouse));
- int winEnable(bool enable);
- int winHide(bool hide);
- int winBringToTop();
- 
-}
-;
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 // The map list box tooltip set by 0x00443BF3 (defined below).
 void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
 // Zero Hour's GadgetListBoxGetEntryBasedOnXY (GadgetListBox.cpp): the
@@ -63,15 +53,7 @@ void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned 
 // pinned by address.
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *listBox, int x, int y, int &row, int &column);
 struct RGBColor;
-class Mouse
-
-{
- public:
-// Rowed 0x001EEA6D (sets the cursor tooltip).
- void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
- 
-}
-;
+#include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 void *bfmeGo925A(BfmeKeyLC *comboBox);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
@@ -83,14 +65,7 @@ enum SlotState
  
 }
 ;
-struct GameSlotConnectInfo
-
-{
- unsigned int m_nat;
- unsigned short m_port;
- 
-}
-;
+#include "../../../Include/GameNetwork/GameSlotConnectInfo.h"
 #include "../../../Include/GameNetwork/GameInfo.h"
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
 // The slot's +0x5C setter (rowed as a Disp8 dword setter).
@@ -102,22 +77,7 @@ bool Rva00300E42Check(GameInfo *game);
 // digest it is filed under at +0xDAC, the rules at +0xDBC and the +0xDE8
 // value 0x0043E750 restores; the rowed setters 0x00401FAF, 0x00381D02 and
 // 0x00381CED take it or its parts.
-struct TreeHintOpaque0043671B
-
-{
- unsigned char m_pad00[0x4C];
- GameSlot m_slots[8];
-// +0x4C
- unsigned char m_digest[16];
-// +0xDAC
- unsigned char m_rules[0x28];
-// +0xDBC
- unsigned char m_padde4[0xDE8 - 0xDE4];
- int m_de8;
-// +0xDE8
- 
-}
-;
+#include "../../../Include/GameClient/TreeHintOpaque0043671B.h"
 // Unrowed 0x004361B3 (41 bytes; prints the digest through MD5Print and
 // looks the saved game up by that name), pinned by address.
 TreeHintOpaque0043671B *Rva004361B3(const unsigned char *digest);
@@ -166,14 +126,7 @@ class Image;
 extern ImageCollection *TheMappedImageCollection;
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
-class Rva00222A8BTarget
-
-{
- public:
- int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
- 
-}
-;
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 // The owning screen's interface at +0x58, by vslot.
 class MpGameSetupOwner
 
@@ -219,17 +172,7 @@ struct CreateAHeroName
 ;
 // The hero list at the hero manager's +0x174 (Rva0040A3F9Find.cpp's
 // vector of CreateAHeroData pointers).
-class Rva0040A3F9
-
-{
- public:
-// Unrowed 0x0040A32F (28 bytes; the pointer at an index, or 0 past the
-// end), pinned by address.
- CreateAHeroData *rva0040A32F(int index);
- int findIndex(CreateAHeroData *value) const;
- 
-}
-;
+#include "../../../Include/Common/Rva0040A3F9.h"
 // The side mask 0x00219F8E returns: bitset words, tested as STLport's
 // bitset does (word pos / 32, bit pos % 32).
 struct Rva00219F8EMask
@@ -246,38 +189,8 @@ struct Rva00219F8EMask
 }
 ;
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
-class CreateAHeroManager
-
-{
- public:
-// Unrowed 0x0021F797 (16 bytes; runs 0x0021F47E and returns +0x174),
-// pinned by address.
- Rva0040A3F9 *rva0021F797();
- void *GetFactionMaskType(unsigned int a, unsigned int b);
- __forceinline bool allowsSide(unsigned int a, unsigned int b, int side)
- 
- {
-  return ((Rva00219F8EMask *)GetFactionMaskType(a, b))->test(side);
-  
- }
-// CreateAHeroManager::GetDefaultHero 0x0021A6C8 (a hero for a side,
-// scanning the +0x174 list).
- CreateAHeroData *GetDefaultHero(int side);
-// CreateAHeroManager::GetSubClassNameTag 0x0021B13A (the label for a
-// class/subclass key, a static default when unknown).
- const AsciiString &GetSubClassNameTag(unsigned int classIndex, unsigned int subClassIndex);
- 
-}
-;
-class PlayerTemplate
-
-{
- public:
- int rva001FD234() const;
- UnicodeString getDisplayName() const;
- 
-}
-;
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
+#include "../../../Include/Common/PlayerTemplate.h"
 class PlayerTemplateStore
 
 {
@@ -419,35 +332,7 @@ struct MpGameSetupRules
 }
 ;
 // The game's rules setter (rowed under its address name).
-class GameTextInterface
-
-{
- public:
- virtual ~GameTextInterface() 
- 
- {
-  
- }
- virtual void slot01() = 0;
- virtual void slot02() = 0;
- virtual void slot03() = 0;
- virtual void slot04() = 0;
- virtual void slot05() = 0;
- virtual void slot06() = 0;
- virtual void slot07() = 0;
- virtual void slot08() = 0;
- virtual void slot09() = 0;
- virtual void slot10() = 0;
- virtual void slot11() = 0;
- virtual void slot12() = 0;
- virtual void slot13() = 0;
- virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0) = 0;
- virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
- virtual void slot16() = 0;
- virtual const UnicodeString *slot44(const char *label, bool *exists) = 0;
- 
-}
-;
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 // Rva00511730Save.cpp's text entry helper.
@@ -629,20 +514,7 @@ struct TargetRef00217D4C;
 // refcounted holder rowed 0x0057BC63 builds from it.
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);
-struct FunctorBinding
-
-{
- FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) 
- 
- {
-  
- }
- FunctorTarget *m_target;
- unsigned int m_pad;
- FunctorMethod m_method;
- 
-}
-;
+#include "../../../Include/GameClient/FunctorBinding.h"
 class FunctorWrapperHead
 
 {
