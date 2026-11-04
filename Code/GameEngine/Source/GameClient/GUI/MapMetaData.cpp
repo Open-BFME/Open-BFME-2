@@ -48,9 +48,7 @@ public:
 	AsciiString rva00300D7A();
 };
 
-class MapCache : public Rva00300D7A
-{
-};
+#include "../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 
@@ -233,7 +231,7 @@ bool __cdecl Rva00300E42Check(GameInfo *info)
 	if (readNativeOperand(info->m_flag4D) & 2) {
 		return false;
 	}
-	return ((const StringBase<char> *)&info->getMap())->startsWithNoCase(*(const StringBase<char> *)&TheMapCache->rva00300D7A());
+	return ((const StringBase<char> *)&info->getMap())->startsWithNoCase(*(const StringBase<char> *)&((Rva00300D7A *)TheMapCache)->rva00300D7A());
 }
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
