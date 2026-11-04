@@ -773,22 +773,11 @@ public:
 	virtual void slot18(Real *value, unsigned *position);
 };
 
-class WorldHeightMap
-{
-public:
-	unsigned char m_padding00[0x08];
-	int m_width;
-	int m_height;
-	int m_borderSize;
-	unsigned char m_padding14[0x20 - 0x14];
-	int m_dataSize;
-	unsigned short *m_data;
-	__forceinline int getWidth() const { return m_width; }
-	__forceinline int getHeight() const { return m_height; }
-	__forceinline int getBorderSize() const { return m_borderSize; }
-	__forceinline int getDataSize() const { return m_dataSize; }
-	__forceinline const unsigned short *getData() const { return m_data; }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// The height count reaches Initialize through an inline read (retail loads
+// it before the data pointer); a direct member read reorders the loads.
+static __forceinline int heightDataSize(const WorldHeightMap *map) { return map->m_dataSize; }
 
 class BfmeA1087
 {
@@ -839,8 +828,8 @@ void W3DView::initHeightForMap()
 	WorldHeightMap *map = ((BfmeA1087 *)TheTerrainRenderObject)->m_map;
 	if (map != 0)
 	{
-		m_heightField.Initialize(map->getData(), map->getDataSize(), map->getWidth(),
-			map->getHeight(), map->getBorderSize());
+		m_heightField.Initialize(map->getDataPtr(), heightDataSize(map), map->getXExtent(),
+			map->getYExtent(), map->getBorderSize());
 	}
 
 	m_groundLevel = TheTerrainLogic->getGroundHeight(m_pos.x, m_pos.y, 0);
