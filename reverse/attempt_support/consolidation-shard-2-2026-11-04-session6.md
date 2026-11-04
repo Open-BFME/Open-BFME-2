@@ -88,3 +88,10 @@ Further allocated trials in this pass (no source changes or claims):
 
 No TU merge, split, file reduction, matched-row movement, identity retirement or
 link improvement is claimed. No live claims remain from this pass.
+- `Object/GlowMaterial.cpp`: `Rva003628A6Free.cpp` fails because `HeaderHolder`
+  lacks `operator->`. All five mixed files were inspected: SnapshotXfers rows
+  match alone but their split composition fails on duplicate `Xfer::Version`;
+  RvaTreeEraseRangeFamily would grow a hatch; both tree-family residual splits
+  fail on `_errno` linkage and duplicate STL pair templates; the map donor has
+  no spelled definition for its candidate row. No split is accepted for use
+  with this destination.
