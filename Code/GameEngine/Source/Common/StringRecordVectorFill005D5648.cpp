@@ -22,9 +22,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "unicode_string.h"
 
 struct BfmeStringRecord005D511F {
-    UnicodeString text0; unsigned int word0, word1; UnicodeString text1; unsigned int word2;
-    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &o);
-    BfmeStringRecord005D511F(const UnicodeString &t0, unsigned int w0, unsigned int w1, const UnicodeString &t1, unsigned int w2);
+    UnicodeString text0;
+    unsigned int word0, word1;
+    UnicodeString text1;
+    unsigned int word2;
+    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &);
+    BfmeStringRecord005D511F(const UnicodeString &, unsigned int,
+        unsigned int, const UnicodeString &, unsigned int);
     ~BfmeStringRecord005D511F();
 };
 
@@ -41,10 +45,20 @@ unsigned int g_00DB91B0 = 0xFFFF0000;
 // A ChatWindowsLan member that never reads `this`: both retail callers in
 // ChatWindowsLan (0x005D5715 in 0x005D56D0 and 0x005D579A in 0x005D574C) load
 // ECX=this once for it and the GetLobbyPlayers member call they share.
+class GameWindow;
 class ChatWindowsLan
 {
 public:
-    void rva005D5648(_STL::vector<BfmeStringRecord005D511F> *vec, GameInfo *info);
+	void GetLobbyPlayers(_STL::vector<BfmeStringRecord005D511F> *);
+	bool PopulatePlayerList(_STL::vector<BfmeStringRecord005D511F>*);
+	bool rva005D56D0();
+	bool rva005D574C();
+	// 0x005D5648 (StringRecordVectorFill005D5648.cpp): a member that never
+	// reads ECX; this caller sets ECX=this for it (retail hoists that into the
+	// loop test it shares with PopulatePlayerList).
+	void rva005D5648(_STL::vector<BfmeStringRecord005D511F> *, GameInfo *);
+	char m_pad00[0x10];
+	class GameWindow *playerList10; // +0x10
 };
 
 void ChatWindowsLan::rva005D5648(_STL::vector<BfmeStringRecord005D511F> *vec, GameInfo *info)

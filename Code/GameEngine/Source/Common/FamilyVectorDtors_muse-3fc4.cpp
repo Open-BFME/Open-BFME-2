@@ -5,6 +5,16 @@
 // Same EH shape (and/or -1 states) as BfmeStringRecord00111ACF vector dtor @0x003F6936 and Prereq vector dtor @0x002D040C.
 // Callers 0x005D56D0 and 0x005D574C.
 #include <vector>
-// 0x14-byte record (the rowed _Destroy loop steps by 0x14), as the other views lay it out.
-struct BfmeStringRecord005D511F { ~BfmeStringRecord005D511F(); char m_pad[0x14]; };
+#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
+// 0x14-byte record (the rowed _Destroy loop steps by 0x14), spelled as ChatWindowsLan.cpp does.
+struct BfmeStringRecord005D511F {
+    UnicodeString text0;
+    unsigned int word0, word1;
+    UnicodeString text1;
+    unsigned int word2;
+    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &);
+    BfmeStringRecord005D511F(const UnicodeString &, unsigned int,
+        unsigned int, const UnicodeString &, unsigned int);
+    ~BfmeStringRecord005D511F();
+};
 template _STL::vector<BfmeStringRecord005D511F>::~vector();
