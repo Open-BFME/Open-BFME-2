@@ -64,20 +64,7 @@ void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int) = 0;
 // g_bfmeAptFreeSizeAtE17730: VA 0xe17730 (zero-filled .data tail).
 void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void *, unsigned int) = 0;
 
-class Rva006DB270 {
-    void **m_table;
-    _DOGMA_MemPool *m_firstPool;
-    int m_unk08;
-    unsigned int m_maxSize;
-    union {
-        unsigned int m_cfg;
-        struct { unsigned char m_nextIdx; unsigned char m_sizeIdx; unsigned char m_prevIdx; unsigned char m_minByte; };
-    };
-    int m_used;
-    int m_count;
-public:
-    void freeBlock(void *pNowFree, int nSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 // tu-skeleton: 0x006DAFE0 172B ?rva006DAFE0@Rva006DB160@@QAEPAXI@Z -- matched in Code/Libraries/Source/Apt/DogmaPoolAllocBlock.cpp (not merged yet)
 
@@ -164,14 +151,14 @@ void Rva006DB270::freeBlock(void *pNowFree, int nSize)
     int aligned = nSize;
     if ((aligned & 3) != 0)
         aligned = (aligned & ~3) + 4;
-    unsigned int low = (unsigned int)m_minByte & 0xf;
+    unsigned int low = (unsigned int)byte13 & 0xf;
     if ((unsigned int)aligned < low)
         aligned = (int)low;
-    if ((unsigned int)aligned > m_maxSize) {
+    if ((unsigned int)aligned > field0C) {
         g_bfmeAptFreeSizeAtE17730(pNowFree, (unsigned int)nSize);
         return;
     }
-    _DOGMA_MemPool *pool = m_firstPool;
+    _DOGMA_MemPool *pool = field04;
     for (;;) {
         unsigned char *start = (unsigned char *)pool + 12;
         if ((unsigned char *)pNowFree >= start) {
@@ -188,7 +175,7 @@ void Rva006DB270::freeBlock(void *pNowFree, int nSize)
             break;
         }
     }
-    --m_used;
+    --field14;
     memset(pNowFree, 0xcd, (unsigned int)aligned);
     ((Rva006DB090 *)this)->rva006DB090(pNowFree, (unsigned int)aligned);
 }
