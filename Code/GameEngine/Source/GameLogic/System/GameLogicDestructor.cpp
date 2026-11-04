@@ -82,10 +82,16 @@ extern ScriptConditions *TheScriptConditions;
 extern LargeGroupAudio *TheLargeGroupAudio;
 extern BuffLogic *TheBuffLogic;
 
+struct Rva0023E7D9Link;
 class Rva0023E7D9
 {
 public:
 	void rva0023E7D9();
+	void rva0023F88C(bool loadingSaveGame);
+	char m_lead[0x48]; // +0x00
+	Rva0023E7D9Link *m_head; // +0x48
+	_STL::list<int, _STL::allocator<int> >::iterator m_cur; // +0x4C
+	_STL::list<int, _STL::allocator<int> > m_list; // +0x50
 };
 
 // GameLogicInit.cpp's view of the retail 0x00BEE130 slots, so this unit's copy
