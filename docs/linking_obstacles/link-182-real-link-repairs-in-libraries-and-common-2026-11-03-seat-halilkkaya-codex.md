@@ -2,6 +2,18 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### Disproven W6 set-lookup retraction (2026-11-04, halilkkaya-codex)
+
+Base `c0b890798f`: retire the wrong `set<...>::lower_bound` claim at
+0x0016DEC0 and the lower-bound pin wrongly bound to the existing 108-byte
+find helper. Its final equality rejection and three-integer key disprove the
+old string-shaped model. The twelve removed definitions have no outside
+consumer losing its provider; the actual Gen_p12pod provider family remains
+exact. A separate reference reconstruction already matches the full 21-byte
+wrapper and 108-byte helper, and is readmitted next. No constructor/operator
+alias or invented application name is introduced.
+[Native proof, orphan/path/debt audit and reconstruction](../../reverse/attempt_support/tree-find-16dec0-20261104-codex.md).
+
 ### Experience sort comparator in the mixed Crate unit (2026-11-04, halilkkaya-codex)
 
 `CrateCreationEntryList.cpp`'s 0x00288E8D sort is called only by
