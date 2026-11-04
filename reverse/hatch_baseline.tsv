@@ -1874,8 +1874,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00135E35Ctor.cpp	??1Rva00135E35@@
 alternatename	Code/GameEngine/Source/Common/Rva0013A820Reset.cpp	?clear@Rva0036CA00Str@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001505CDDtor.cpp	?s0@Gen_uw_000e14bd@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001514B2Chain.cpp	?rva0015326D@Rva0015326D@@QAEPAXHH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva00152DC6Adapter.cpp	?rva00151597@Rva00151597@@QAEPAXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00152DC6Adapter.cpp	?rva00152BDB@Rva00152BDB@@QAEXHURva00152DC6Tmp@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00170BFFInsertFinish.cpp	?rva00170B4E@Rva00170BFF@@QAEPAXABVRva00170999@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00170D0FTextureEntryErase.cpp	?rva00170AA9@Rva00170D0FTree@@QAEXURva00170D0FIterator@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00170D0FTextureEntryErase.cpp	?rva00357180@Rva00170D0FTree@@QBEPAURva00170D0FNode@@ABI@Z	1
@@ -3792,6 +3790,11 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?bfmeThrow2V56@
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?rva001216E7ShutdownPhase@@YAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	_bfmeDirectXErrorName@4	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	_bfmeDtorCbDMC	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp	??0Rva00152BDBEntry@@QAE@XZ	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp	??1Rva00152BDBEntry@@QAE@XZ	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp	?erase@?$vector@URva00152BDBEntry@@V?$allocator@URva00152BDBEntry@@@_STL@@@_STL@@QAEPAURva00152BDBEntry@@PAU3@0@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp	?rva00151597@Rva00151597@@QAEPAXXZ	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp	?rva00152BDB@Rva00152BDB@@QAEXHURva00152DC6Tmp@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp	?Class_ID@Line3DClass@@UBEHXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp	?bfmeInit1039@BfmeC1039@@QAEXPAVBfmeD1039@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	??0ParticleBufferClass@@QAE@PAVParticleEmitterClass@@IAAU?$ParticlePropertyStruct@VVector3@@@@AAU?$ParticlePropertyStruct@M@@22M22VVector3@@MMABVBFME2ParticleTextureHandle@@VShaderClass@@_NHHPBUW3dEmitterLinePropertiesStruct@@@Z	1
@@ -3860,9 +3863,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva000C24EAVectorErase.cpp	?Rv
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	??1Rva00151248String@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?assign@Rva00151248String@@QAEXPBD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?clear@Rva00151248String@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp	??0Rva00152BDBEntry@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp	??1Rva00152BDBEntry@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp	?erase@?$vector@URva00152BDBEntry@@V?$allocator@URva00152BDBEntry@@@_STL@@@_STL@@QAEPAURva00152BDBEntry@@PAU3@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00174A8ADefaultResize.cpp	??0Rva0017480CRecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DEE3CRangeForward.cpp	?Rva001DEE3CRangeCallee@@YAPAURva001DEE3COutput@@PAURva001DEE3CInput@@0PAU1@ABURva001DEE3CIteratorTag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva001DEF6BDtorFinish.cpp	?__destroy_aux@_STL@@YAXPAURva00414BDBElement@@0@Z	1
