@@ -798,7 +798,7 @@ struct ChecklistIteratorView
 
 struct ChecklistFontDesc;
 
-extern unsigned int g_Va00E06360[5];
+extern unsigned int g_Va00E06360[9];
 
 class Rva005D1A6C
 {
