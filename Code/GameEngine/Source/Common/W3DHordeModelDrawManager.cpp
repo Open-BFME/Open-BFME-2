@@ -859,7 +859,23 @@ template <> void _Construct<basic_string<char>, basic_string<char> >(basic_strin
 
 extern const FieldParse s_hordeModelDrawFieldTable[];
 
+//
+// ??0W3DHordeModelDrawModuleData@@QAE@XZ, retail 0x000789E3, 159 bytes.
+// ModuleData ctor over the pinned W3DModelDrawModuleData base (0xC8EEF):
+// three 0x14 LOD settings at +0x188/+0x19C/+0x1B0 (AllowMultipleModels bool
+// at +0, MaxRandomTextures/Animations ints at +4/+8, MaxAnimFrameDelta float
+// at +0xC via literal pool 15.0f/8.0f/0.5f, RandomStartFramePercent int at
+// +0x10), vtable 0x00BC6870 explicitly (novtable, shared-fold with Sail).
+// Layout from retail FieldParse tables (own LodOptions table 0xBC6B80 via
+// parse 0x79305 selecting +0x188 stride 0x14 from table 0xBC6B00, base table
+// 0xBCB3C8); values match BFME1 donor W3DHordeModelDrawModuleDataConstructor
+// shifted +0x2C for the 0x188 base. Factory at 0x64EBB news 0x1C4 sole caller.
+// Row supersedes the ctor pin.
 
+// Vtable 0x00BC6870: the table whose slot 0 is ??_GRva000D089D (vftable_map); bound to the ??_7 the ledger's deleting-dtor unit emits.
+extern "C" const void *__identifier("??_7Rva000D089D@@6B@")[];
+
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
@@ -1606,7 +1622,49 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
 
-// tu-skeleton: 0x000789E3 159B ??0W3DHordeModelDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataParse.cpp
+
+// ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000793E5
+void W3DHordeModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(s_hordeModelDrawFieldTable, 0);
+	W3DModelDrawModuleData::buildFieldParse(parse);
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp
+
+W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
+	: W3DModelDrawModuleData()
+{
+	float f15 = 15.0f;
+	float f8 = 8.0f;
+	float f05 = 0.5f;
+	*(unsigned int *)this = (unsigned int)__identifier("??_7Rva000D089D@@6B@");
+	m_lods[0].m_allow = false;
+	m_lods[0].m_maxTex = 1;
+	m_lods[0].m_maxAnim = 1;
+	m_lods[0].m_delta = f15;
+	m_lods[0].m_start = 0;
+	m_lods[1].m_allow = true;
+	m_lods[1].m_maxTex = 2;
+	m_lods[1].m_maxAnim = 2;
+	m_lods[1].m_delta = f8;
+	m_lods[1].m_start = 50;
+	m_lods[2].m_allow = true;
+	m_lods[2].m_maxTex = 999;
+	m_lods[2].m_maxAnim = 999;
+	m_lods[2].m_delta = f05;
+	m_lods[2].m_start = 100;
+}
 
 // tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
 
@@ -1623,15 +1681,6 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 // tu-skeleton: 0x000791E5 8B ?rva000791E5@Rva000791E5Forwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x000791ED 50B ?Rva000791EDCopy@@YAPAVRva00752630@@PAV1@00@Z -- matched in Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp (not merged yet)
-
-// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataParse.cpp
-
-// ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000793E5
-void W3DHordeModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(s_hordeModelDrawFieldTable, 0);
-	W3DModelDrawModuleData::buildFieldParse(parse);
-}
 
 // tu-skeleton: 0x000793FA 53B ??1ShadowTypeInfo@Shadow@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp (not merged yet)
 
