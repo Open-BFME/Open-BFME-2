@@ -16,30 +16,14 @@ enum WeaponSlotType
 	WEAPON_SLOT_PRIMARY = 0
 };
 
-class WeaponTemplate
-{
-public:
-	float getMinTargetPitch() const { return m_minPitch; }
-	float getMaxTargetPitch() const { return m_maxPitch; }
-	int getShotsPerBarrel() const { return m_shotsPerBarrel; }
-	// LINK: same-body helpers under TU-unique names (identical inlined
-	// bytes). This TU's copies lose (first-copy); the six call sites below
-	// inline them but still emit loser COMDATs. Rebinding there emits only
-	// unique (trivially kept) copies. No flags touched.
-	float bfme_min_pitch() const { return m_minPitch; }
-	float bfme_max_pitch() const { return m_maxPitch; }
-	int bfme_shots_per_barrel() const { return m_shotsPerBarrel; }
-	unsigned int getSuspendFXDelay() const { return m_suspendFXDelay; }
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
-private:
-	char m_pad00[0x88];
-	float m_minPitch; // +0x88
-	float m_maxPitch; // +0x8C
-	char m_pad90[0x108 - 0x90];
-	int m_shotsPerBarrel; // +0x108
-	char m_pad10C[0x150 - 0x10C];
-	unsigned int m_suspendFXDelay; // +0x150
-};
+// LINK: read the pitch limits and shots per barrel through TU-local inlines
+// (identical inlined bytes) so this TU emits no loser COMDATs of the
+// header's getters. No flags touched.
+static __forceinline float weaponTemplateMinPitch(const WeaponTemplate *wt) { return wt->m_minTargetPitch; }
+static __forceinline float weaponTemplateMaxPitch(const WeaponTemplate *wt) { return wt->m_maxTargetPitch; }
+static __forceinline int weaponTemplateShotsPerBarrel(const WeaponTemplate *wt) { return wt->m_shotsPerBarrel; }
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
@@ -96,10 +80,10 @@ Weapon::Weapon(const Weapon &that)
 	m_whenWeCanFireAgain = 0;
 	m_leechWeaponRangeActive = 0;
 	m_unknown54 = 0;
-	m_pitchLimited = m_template->bfme_min_pitch() > -3.14159265f || m_template->bfme_max_pitch() < 3.14159265f;
+	m_pitchLimited = weaponTemplateMinPitch(m_template) > -3.14159265f || weaponTemplateMaxPitch(m_template) < 3.14159265f;
 	m_curBarrel = 0;
 	m_maxShotCount = 0x7fffffff;
-	m_numShotsForCurBarrel = m_template->bfme_shots_per_barrel();
+	m_numShotsForCurBarrel = weaponTemplateShotsPerBarrel(m_template);
 	m_unknown2C = 0;
 	unsigned int suspend = that.m_suspendFXFrame;
 	m_extra5C = 0;
@@ -130,10 +114,10 @@ Weapon::Weapon(const WeaponTemplate *weaponTemplate, WeaponSlotType wslot)
 	m_projectileStreamID = 0;
 	m_leechWeaponRangeActive = 0;
 	m_unknown54 = 0;
-	m_pitchLimited = weaponTemplate && (weaponTemplate->bfme_min_pitch() > -3.14159265f || weaponTemplate->bfme_max_pitch() < 3.14159265f);
+	m_pitchLimited = weaponTemplate && (weaponTemplateMinPitch(weaponTemplate) > -3.14159265f || weaponTemplateMaxPitch(weaponTemplate) < 3.14159265f);
 	m_maxShotCount = 0x7fffffff;
 	m_curBarrel = 0;
-	m_numShotsForCurBarrel = weaponTemplate ? weaponTemplate->bfme_shots_per_barrel() : 1;
+	m_numShotsForCurBarrel = weaponTemplate ? weaponTemplateShotsPerBarrel(weaponTemplate) : 1;
 	m_unknown2C = 0;
 	unsigned int suspend = weaponTemplate ? TheGameLogic->getFrame() + weaponTemplate->getSuspendFXDelay() : 0;
 	m_extra5C = 0;
