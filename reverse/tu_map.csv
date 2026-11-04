@@ -19508,12 +19508,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00287519,57,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x002873DF..0x00287552,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 0x00287552,1496,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
 0x00287B2A,35,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,proposed,K,K=Rva00286214,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
-0x00287B4D,184,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00287f76_overflow.cpp
+0x00287B4D,184,code,,,-,,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 0x00287C05,28,code,Code/GameEngine/Source/Common/FireLogicSystem.cpp,proposed,N,N=Code/GameEngine/Source/Common/FireLogicSystem.cpp noncontiguous,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp
 0x00287C21,24,code,Code/GameEngine/Source/Common/FireLogicSystem.cpp,proposed,N,N=Code/GameEngine/Source/Common/FireLogicSystem.cpp noncontiguous,Code/GameEngine/Source/Common/FireLogicSystem.cpp
 0x00287C39,24,code,Code/GameEngine/Source/Common/FireLogicSystem.cpp,proposed,N,N=Code/GameEngine/Source/Common/FireLogicSystem.cpp noncontiguous,Code/GameEngine/Source/Common/FireLogicSystem.cpp
 0x00287C51,805,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp W=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
-0x00287F76,55,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00287C51..0x00287FAD,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00287f76_overflow.cpp
+0x00287F76,55,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00287C51..0x00287FAD,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 0x00287FAD,1599,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp W=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 0x002885EC,7,code,,,-,,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x002885F3,7,code,,,-,,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
