@@ -33,10 +33,7 @@ public:
 	UnsignedByte m_version;
 	UnsignedByte m_currentVersion;
 };
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../Common/GameLogicObjectLookupView.h"
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
@@ -46,8 +43,8 @@ class AttachUpdate : public UpdateModule
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
-	ObjectID m_attachedID;		// +0x20
-	int m_evaHandle;		// +0x24
+	ObjectID m_parentID;		// +0x20
+	int m_diedEvaEvent;		// +0x24
 };
 void AttachUpdate::xfer(Xfer *xfer)
 {
@@ -56,12 +53,12 @@ void AttachUpdate::xfer(Xfer *xfer)
 	version.m_currentVersion = 3;
 	xfer->operator==(version);
 	UpdateModule::xfer(xfer);
-	XferObjectID(xfer, &m_attachedID);
+	XferObjectID(xfer, &m_parentID);
 	if (version.m_currentVersion < 2)
 	{
 		Bool dropped = false;
 		xfer->operator==(dropped);
 	}
 	if (version.m_currentVersion >= 3)
-		TheEva->xferEvaEventID(xfer, &m_evaHandle);
+		TheEva->xferEvaEventID(xfer, &m_diedEvaEvent);
 }

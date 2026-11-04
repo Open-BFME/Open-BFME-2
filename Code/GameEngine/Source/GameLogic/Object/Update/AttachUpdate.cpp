@@ -187,6 +187,8 @@ public:
 	virtual UpdateSleepTime update();
 	void rva00491AD0();	// 0x00491AD0
 	void rva00491C84(Coord3D *out, const Object *parent);	// 0x00491C84, the anchor point
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
 	const AttachUpdateModuleData *getAttachUpdateModuleData() const
 	{
