@@ -21,13 +21,8 @@ public:
 };
 extern FileSystem *TheFileSystem;
 
-class MapMetaData
-{
-public:
-	char m_unrecovered00[0x25];
-	bool m_bfme25;
-	bool m_bfme26;
-};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 
 #include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
@@ -156,7 +151,7 @@ void GameInfo::setMap(AsciiString mapName)
 				fp = NULL;
 			}
 
-			if (mapData->m_bfme25 || mapData->m_bfme26)
+			if (mapData->m_isScenarioMP || mapData->m_isOfficial)
 				m_mapMask |= 512;
 		}
 		else
