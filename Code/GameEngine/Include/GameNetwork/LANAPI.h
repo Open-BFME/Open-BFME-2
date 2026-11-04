@@ -171,6 +171,8 @@ private:
 public:
  void handleGameOptions(LANMessage *,const BfmeNetAddress *);
  void handleGameStartTimer(LANMessage *,const BfmeNetAddress *);
+ void Rva004495A2(LANMessage *message, unsigned int ip);	// 0x004495A2 (ZH sendMessage)
+ void rva00581641(LANMessage *message, const BfmeNetAddress *address);	// 0x00581641
 protected:
 	LANPlayer *m_lobbyPlayers;		// +0x0C
 	LANGameInfo *m_games;		// +0x10
