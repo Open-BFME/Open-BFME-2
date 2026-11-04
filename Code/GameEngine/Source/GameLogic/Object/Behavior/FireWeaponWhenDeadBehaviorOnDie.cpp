@@ -96,18 +96,7 @@ extern WeaponStore *TheWeaponStore;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class UpgradeMux
-{
-public:
-	virtual Bool isUpgradeActive() const;
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void slot10();
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
-protected:
-	Bool m_upgradeExecuted; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class DieModuleInterface
 {
@@ -143,7 +132,7 @@ public:
 	// WorldBuilder 0x011BB480 reaches slot 0 through the full object
 	// (this-0x28, then its +0x20 UpgradeMux) rather than directly as the
 	// later slot-11 call does: an inline helper of the module.
-	Bool isActiveUpgrade() const { return isUpgradeActive(); }
+	Bool isActiveUpgrade() const { return isAlreadyUpgraded(); }
 private:
 	const FireWeaponWhenDeadBehaviorModuleData *getFireWeaponWhenDeadBehaviorModuleData() const { return (const FireWeaponWhenDeadBehaviorModuleData *)m_moduleData; }
 

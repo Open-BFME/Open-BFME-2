@@ -44,3 +44,5 @@ index; AIBuildable.cpp lacks a current local receipt. Direct scope remains
 17/17 LINKS with 453/453 rows and seven EXACT EH checks. Carry the changed
 provider scope and that consumer into the next scheduled census; the wider
 verdict is unverified, not clean.
+
+2026-11-04: onDie now adopts canonical UpgradeMux; 310/310 bytes and its existing LINKS preview are preserved, and accept retires one header row. Merge still blocked; seed UpdateModule adoption now passes a read-only trial but its class is peer-held, with Player adoption and the +0x2C member views still prerequisites. [Current repair and merge handoff](../../reverse/attempt_support/fireweapon-upgrademux-adoption-20261104-codexb5.md).
