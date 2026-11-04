@@ -14,9 +14,8 @@
 // (8 and 7 direct callers).
 // Retail 0x004CE4B0 (36 bytes): slot 3 of the UpgradeMux vtable at +0x10
 // (inherited by FireWeaponWhenDeadBehavior and DynamicPortalBehaviour): when the
-// matched placeholder base test 0x004CE342 accepts the mask, remove the
-// condition and return true. The UpgradeMux subobject keeps that row's
-// placeholder class name so the call is a plain this conversion.
+// base UpgradeMux::resetUpgrade 0x004CE342 accepts the mask, remove the
+// condition and return true.
 
 enum ModelConditionFlagType
 {
@@ -102,16 +101,7 @@ public:
 	unsigned int m_data[32];
 };
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
-class UpgradeModule : public BehaviorModule, public UpgradeMux
-{
-public:
-	void rva004CE41E(bool apply);
-	void rva004CE4A0();
-	void rva004CE4A8();
-	virtual bool resetUpgrade(const BitFlags<128> &keyMask);
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 void UpgradeModule::rva004CE41E(bool apply)
 {
 	Object *object = m_object;
