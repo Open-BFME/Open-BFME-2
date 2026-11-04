@@ -145,7 +145,7 @@ def class_span(text, name, code=None):
         while depth and i < len(code):
             depth += (code[i] == "{") - (code[i] == "}")
             i += 1
-        tail = re.match(r"[ \t]*;[ \t]*\r?\n?", code[i:])
+        tail = re.match(r"[ \t\r\n\v\f]*;[ \t]*\r?\n?", code[i:])
         if depth or not tail:
             raise Refused(f"{name}: unterminated definition")
         found.append((m.start(), i + tail.end()))

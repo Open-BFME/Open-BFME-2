@@ -49,3 +49,9 @@ Rva000B3F84Pair: unterminated definition`. `tu_views.class_span` independently
 requires horizontal whitespace between the closing brace and semicolon. The
 source and header queue remain unchanged. Repair this second parser with the
 same valid-whitespace and invalid-declarator boundaries before retrying adoption.
+
+The downstream parser regression tests reproduce all five whitespace failures
+before the repair and retain four negative declarator/directive cases. After
+the repair, `test_tu_views.py`, `test_header_adopt_lane.py` and
+`test_gate_exploits.py` pass together: 251 passed, 1 existing skip and 9
+subtests passed. No layout, byte or link check is bypassed.

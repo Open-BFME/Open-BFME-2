@@ -184,6 +184,19 @@ class Rollback(unittest.TestCase):
 
 
 class LineEndings(unittest.TestCase):
+    def test_class_span_accepts_whitespace_before_the_semicolon(self):
+        for separator in ("\n", "\r\n", "\n\t\n", "\v\f", "\n/* end of view */\n"):
+            with self.subTest(separator=separator):
+                prefix = "void before();\n"
+                view = "class Pair { public: Pair() {} const char *ptr; int len; }" + separator + ";\n"
+                text = prefix + view + "struct Holder { Pair value; };\n"
+                self.assertEqual(V.class_span(text, "Pair"), (len(prefix), len(prefix + view)))
+
+    def test_class_span_refuses_declarators_and_missing_semicolons(self):
+        for tail in ("\nPair value;\n", "\nvalue;\n", "\n*value;\n", "\n#define END ;\n"):
+            with self.subTest(tail=tail), self.assertRaises(V.Refused):
+                V.class_span("class Pair { int len; }" + tail, "Pair")
+
     def test_crlf_files_keep_their_bytes_on_revert_and_their_endings_on_apply(self):
         seed, donor = SEED.replace("\n", "\r\n"), DONOR.replace("\n", "\r\n")
         for ok in (False, True):
