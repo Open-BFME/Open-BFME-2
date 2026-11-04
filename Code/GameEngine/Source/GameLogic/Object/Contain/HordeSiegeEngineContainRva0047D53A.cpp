@@ -26,9 +26,10 @@ class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
 class AIUpdateInterface {public:void ignoreObstacle(const Object*);char pad[0x178];unsigned ignoreUntil;char pad17c[0x1cc-0x17c];LocomotorSet *locomotorView(){return (LocomotorSet*)((char*)this+0x1cc);}};
 class Rva0035149F;
 class AICommandInterface {public:void rva0036EE16(const Rva0035149F*,Object*,CommandSourceType);void aiHunt(CommandSourceType);};
-class Thing {public:void setPosition(const Coord3D*);void setOrientation(float);const Coord3D *getUnitDirectionVector2D() const;};
+#include "../../../Common/Thing/thing.h"
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object:public Thing {protected:friend class HordeSiegeEngineContain;Module*findModule(NameKeyType) const;public:Player*getControllingPlayer() const;bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*) const;void rva0028D412(const Matrix3D*);void setLayer(PathfindLayerEnum);void setStatus(ObjectStatusTypes,bool);void rva0028ACDC(int);
- void *vtable;void *type;char pad8[0x38-8];Coord3D position;float angle;char pad48[0xcc-0x48];float radius;char padd0[0x258-0xd0];AIUpdateInterface *ai;};
+ char pad60[0xcc-0x60];float radius;char padd0[0x258-0xd0];AIUpdateInterface *ai;};
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
@@ -49,8 +50,8 @@ void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
  SiegeContainData *md=data;
  if(md->filter.accepts(rider,me->getControllingPlayer()) && md->active>0){
   ((Rva00463509*)((char*)this+0x20))->removeFromContain(rider,false);
-  Coord3D destination;destination.x=rider->position.x;destination.y=rider->position.y;destination.z=rider->position.z;
-  { Coord3D delta;delta.x=destination.x-me->position.x;delta.y=destination.y-me->position.y;delta.z=destination.z-me->position.z;
+  Coord3D destination;destination.x=rider->m_cachedPos.x;destination.y=rider->m_cachedPos.y;destination.z=rider->m_cachedPos.z;
+  { Coord3D delta;delta.x=destination.x-me->m_cachedPos.x;delta.y=destination.y-me->m_cachedPos.y;delta.z=destination.z-me->m_cachedPos.z;
   delta.normalize();
   float dx=delta.x*50.0f;float dy=delta.y*50.0f;destination.x+=dx;destination.y+=dy;destination.z=0; }
   AIUpdateInterface *ai=rider->ai;
@@ -65,9 +66,9 @@ void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
   }
  }else if(deployment && ((const Rva004C5772CmpBoolField*)deployment)->get()){
   ((ExitInterface*)((char*)this+0x20))->remove(rider,false);
-  float angle=me->angle;
+  float angle=me->m_cachedAngle;
   Coord3D position;
-  if(*((unsigned char*)me->type+0x113)&0x20){
+  if(me->m_template->m_kindof[2]&0x20000000){
    Matrix3D transform;
    me->getSingleLogicalBonePosition("Ladder04",&position,&transform);
    rider->rva0028D412(&transform);
@@ -76,7 +77,7 @@ void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
    TheAI->m_pathfinder->AddObjectToPathfindMap(rider);
    if(ai){ai->ignoreObstacle(0);ai->ignoreUntil=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;((AICommandInterface*)((char*)ai+0x20))->aiHunt(COMMAND2);}
   }else{
-   position=me->position;
+   position=me->m_cachedPos;
    Coord3D direction;const Coord3D *dir=me->getUnitDirectionVector2D();float radius=me->radius;direction.x=dir->x;direction.y=dir->y;
    position.x+=direction.x*radius;position.y+=direction.y*radius;
    Pathfinder *wallFinder=TheAI->m_pathfinder;position.z=wallFinder->GetWallHeight(LAYER17,&position,0);
@@ -88,7 +89,7 @@ void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
    AIUpdateInterface *ai=rider->ai;
    if(ai){ai->ignoreUntil=TheGameLogic->getFrame()+3*BfmeLogicFramesPerSecond;ai->ignoreObstacle(0);((AICommandInterface*)((char*)ai+0x20))->aiHunt(COMMAND2);}
   }
-  if(*((unsigned char*)rider->type+0x115)&0x20)rider->setStatus(STATUS60,false);
+  if(rider->m_template->m_kindof[3]&0x2000)rider->setStatus(STATUS60,false);
  }else{
   ((HordeTransportContain*)((char*)this+0x30))->HordeTransportContain::exitObjectViaDoor(rider,arg);
  }

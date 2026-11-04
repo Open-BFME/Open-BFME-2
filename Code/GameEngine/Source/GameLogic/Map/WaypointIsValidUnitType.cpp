@@ -36,14 +36,7 @@ private:
 // Thing::isAnyKindOf's rowed spelling takes BitFlags<69>.
 template <int N> class BitFlags;
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;	// 0x0030ADC7
-
-private:
-	unsigned char m_pad00[0x48];
-};
+#include "../../Common/Thing/thing.h"
 
 enum Relationship { ENEMIES = 0, NEUTRAL, ALLIES };
 
@@ -61,7 +54,7 @@ public:
 	Player *getControllingPlayer() const;			// 0x0028AFA9
 	bool testStatusBit22() const { return ((m_status124 >> 22) & 1) != 0; }
 
-	unsigned char m_pad48[0x124 - 0x48];
+	unsigned char m_pad60[0x124 - 0x60];
 	unsigned int m_status124;		// +0x124
 	unsigned char m_pad128[0x258 - 0x128];
 	Rva003A2BD4Owner *m_owner258;		// +0x258

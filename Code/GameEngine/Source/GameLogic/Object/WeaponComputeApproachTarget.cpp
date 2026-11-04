@@ -74,17 +74,7 @@ struct AIView
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	Real getOrientation() const { return m_cachedAngle; }
-	Bool isAboveTerrain() const;				///< retail 0x000B19E5
-private:
-	char m_unreconstructed_00[0x38];
-	Coord3D m_cachedPos;						///< +0x38
-	Real m_cachedAngle;							///< +0x44
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -94,7 +84,7 @@ public:
 	Real getBoundingSphereRadius() const { return m_boundingSphereRadius; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 private:
-	char m_unreconstructed_48[0xbc - 0x48];
+	char m_unreconstructed_60[0xbc - 0x60];
 	Real m_boundingSphereRadius;				///< +0xBC
 	char m_unreconstructed_c0[0x258 - 0xc0];
 	AIUpdateInterface *m_ai;					///< +0x258

@@ -207,9 +207,9 @@ class AIUpdateInterface {public:
  AICommandInterface *commands(){return reinterpret_cast<AICommandInterface*>(reinterpret_cast<char*>(this)+0x20);}
  char pad[0x178];unsigned int movementFrame;
 };
-class Thing {public:const Coord3D *getUnitDirectionVector2D()const;void setOrientation(float);};
+#include "../../../Common/Thing/thing.h"
+#include "../../../../Include/Common/ThingTemplate.h"
 class Rva004C5772CmpBoolField {public:bool get()const;};
-struct SiegeExitTemplate {char pad[0x108];unsigned int kinds[7];};
 class ModelConditionFlags {public:
  unsigned int test(unsigned int bit)const{return m_words[bit>>5]&(1U<<(bit&0x1f));}
  void clear(unsigned int bit){m_words[bit>>5]&=~(1U<<(bit&0x1f));}
@@ -248,9 +248,8 @@ class Object:public Thing {public:
  bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*)const;
  void rva0028AE6D();void rva0028D412(const Matrix3D*);void setLayer(PathfindLayerEnum);
  void teleportTo(const Coord3D*,bool);void rva0028ACDC(int);
- char pad[4];SiegeExitTemplate *tmplate;char pad8[0x38-8];Coord3D position;float orientation;
  ObjectID getID()const{return m_id;}
- char pad48[0x74-0x48];ObjectID m_id;char pad78[0xcc-0x78];float radius;char padD0[0x10c-0xd0];ModelConditionFlags mcf;
+ char pad60[0x74-0x60];ObjectID m_id;char pad78[0xcc-0x78];float radius;char padD0[0x10c-0xd0];ModelConditionFlags mcf;
  char pad158[0x258-0x158];AIUpdateInterface *ai;
  __forceinline void clearModelConditionState(unsigned int mc){if(mcf.test(mc)!=0){mcf.clear(mc);rva0028AE6D();}}
 };
@@ -368,8 +367,8 @@ void SiegeEngineContain::exitObjectViaDoor(Object *exitObj,ExitDoorType door)
  Object *me=object();const SiegeExitData *md=data();
  if(const_cast<Rva2225E0Filter&>(md->filter).accepts(exitObj,me->getControllingPlayer()) && md->count>0){
    remove(exitObj);
-   Coord3D pos;pos.x=exitObj->position.x;pos.y=exitObj->position.y;pos.z=exitObj->position.z;
-   {Coord3D diff;diff.x=pos.x-me->position.x;diff.y=pos.y-me->position.y;diff.z=pos.z-me->position.z;
+   Coord3D pos;pos.x=exitObj->m_cachedPos.x;pos.y=exitObj->m_cachedPos.y;pos.z=exitObj->m_cachedPos.z;
+   {Coord3D diff;diff.x=pos.x-me->m_cachedPos.x;diff.y=pos.y-me->m_cachedPos.y;diff.z=pos.z-me->m_cachedPos.z;
    diff.normalize();float dx=diff.x*50.0f,dy=diff.y*50.0f;pos.x+=dx;pos.y+=dy;pos.z=0;}
    AIUpdateInterface *ai=exitObj->ai;
    TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
@@ -382,19 +381,19 @@ void SiegeEngineContain::exitObjectViaDoor(Object *exitObj,ExitDoorType door)
    }
  }else if(deploy && deploy->get()){
    remove(exitObj);Object *me=object();Coord3D pos;
-   if(me->tmplate->kinds[4]&0x800){Matrix3D transform;
+   if(me->m_template->m_kindof[4]&0x800){Matrix3D transform;
      me->getSingleLogicalBonePosition("Ladder04",&pos,&transform);
      exitObj->clearModelConditionState(3*32+0);
      exitObj->rva0028D412(&transform);exitObj->setLayer(LAYER_WALL);
      AIUpdateInterface *ai=exitObj->ai;TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
      if(ai){if(exitObj->getControllingPlayer()->type==1){ai->ignoreObstacle(0);ai->commands()->aiHunt(CMD_FROM_AI);}else ai->commands()->aiIdle(CMD_FROM_AI);}
    }else{
-     Coord3D dest;{pos=me->position;Coord3D direction=*me->getUnitDirectionVector2D();
+     Coord3D dest;{pos=me->m_cachedPos;Coord3D direction=*me->getUnitDirectionVector2D();
      float radius=me->radius;pos.x+=direction.x*radius;pos.y+=direction.y*radius;
      pos.z=(TheAI->pathfinder ? TheAI->pathfinder : TheAI->pathfinder)->GetWallHeight(LAYER_WALL,&pos,0);
      dest=pos;pos.x+=direction.x*20.0f;pos.y+=direction.y*20.0f;
      dest.x+=direction.x*40.0f;dest.y+=direction.y*40.0f;}
-     exitObj->teleportTo(&pos,false);exitObj->setOrientation(me->orientation);exitObj->setLayer(LAYER_WALL);
+     exitObj->teleportTo(&pos,false);exitObj->setOrientation(me->m_cachedAngle);exitObj->setLayer(LAYER_WALL);
      AIUpdateInterface *ai=exitObj->ai;TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
      if(ai){ai->ignoreObstacle(0);ai->movementFrame=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;Pathfinder *pathfinder=TheAI->pathfinder;pathfinder->adjustToPossibleDestination(exitObj,ai->set(),&dest);}
      {_STL::vector<Coord3D> path;path.push_back(dest);path.push_back(dest);

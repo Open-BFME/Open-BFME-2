@@ -18,11 +18,7 @@ extern GameLogic *TheGameLogic;
 
 class Matrix3D;
 
-class Thing
-{
-public:
-	void setTransformMatrix(const Matrix3D *mtx);
-};
+#include "../../Common/Thing/thing.h"
 
 class Rva002747F9
 {
@@ -61,7 +57,7 @@ public:
 	void rva0028D412(const Matrix3D *mtx);
 
 private:
-	unsigned char m_pad00[0x84];
+	unsigned char m_pad60[0x84 - 0x60];
 	Rva002747F9 *m_partitionData84;			// +0x84
 	unsigned char m_pad88[0x250 - 0x88];
 	Rva0028D412Module *m_module250;			// +0x250

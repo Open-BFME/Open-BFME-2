@@ -6,17 +6,17 @@
 
 class Drawable;
 
-class Thing
+#include "thing.h"
+
+// Object, which derives from Thing at offset 0, keeps its Drawable at +0x84.
+class Object : public Thing
 {
 public:
-	Drawable *getDrawable(void) const;
-
-private:
-	char m_pad00[0x84];
+	char m_pad60[0x84 - 0x60];
 	Drawable *m_drawable;	// +0x84
 };
 
 Drawable *Thing::getDrawable(void) const
 {
-	return m_drawable;
+	return static_cast<const Object *>(this)->m_drawable;
 }

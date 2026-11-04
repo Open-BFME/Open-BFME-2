@@ -241,12 +241,7 @@ class Rva001E42F2
  
 }
 ;
-class Thing
-{
- public: void setPositionZ(float);
- 
-}
-;
+#include "../../../Common/Thing/thing.h"
 class TerrainLogic 
 {
  public:

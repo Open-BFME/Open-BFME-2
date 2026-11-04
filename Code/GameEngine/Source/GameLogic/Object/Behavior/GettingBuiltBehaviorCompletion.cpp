@@ -36,7 +36,8 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Drawable;
-class Thing { public:Drawable *getDrawable() const; };
+#include "../../../Common/Thing/thing.h"
+#include "../../../../Include/Common/ThingTemplate.h"
 enum ObjectStatusTypes { STATUS_NONE=0 };
 enum CommandSourceType { SOURCE_NONE=0 };
 class AICommandInterface { public:void aiIdle(CommandSourceType); };
@@ -53,7 +54,6 @@ class CompletionBodyView {
 public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
  virtual float health();virtual void slot5();virtual float maxHealth();
 };
-struct CompletionTemplateView {unsigned char pad[0x108];unsigned int kind[7];};
 struct CompletionModelFlags {
  unsigned int words[19];
  __forceinline unsigned test(int i)const{return words[i>>5]&(1u<<(i&31));}
@@ -68,9 +68,7 @@ public:
  float rva00263763(const void *)const;
  __forceinline void clearCondition(int i){if(flags.test(i)){flags.clear(i);rva0028AE6D();}}
  __forceinline void setCondition(int i){if(!flags.test(i)){flags.set(i);rva0028AE6D();}}
- unsigned char pad0[4];CompletionTemplateView *tmplate;
- unsigned char pad8[0x38-8];Coord3D position;
- unsigned char pad44[0x7c-0x44];ObjectID builderID;
+ unsigned char pad60[0x7c-0x60];ObjectID builderID;
  unsigned char pad80[0xb8-0x80];float radius;
  unsigned char padBC[0x10c-0xbc];CompletionModelFlags flags;
  unsigned char pad158[0x254-0x158];CompletionBodyView *body;AIUpdateInterface *ai;
@@ -113,7 +111,7 @@ void GettingBuiltBehavior::rva00454B5C()
  if(flag3d && (complete || body->health()>=body->maxHealth()) &&
     (obj->construction>=100.0f || obj->construction==-1.0f)) {
    obj->setBuilder(builder);
-   if(builder && builder->ai && builder!=obj && (builder->tmplate->kind[0]&0x4000)) {
+   if(builder && builder->ai && builder!=obj && (builder->m_template->m_kindof[0]&0x4000)) {
      if(flag3c){
        builder->ai->ignoreObstacle(obj);
        AIUpdateInterface *workerAI=builder->ai;
@@ -121,7 +119,7 @@ void GettingBuiltBehavior::rva00454B5C()
        flag30=true;
      } else {obj->setBuilder(0);flag3c=false;}
    } else if(!builder)flag3c=false;
-   if(!complete || !(obj->tmplate->kind[0]&0x20000)) {obj->clearCondition(3);obj->clearCondition(4);}
+   if(!complete || !(obj->m_template->m_kindof[0]&0x20000)) {obj->clearCondition(3);obj->clearCondition(4);}
    obj->clearCondition(67);obj->clearCondition(69);obj->clearCondition(68);
    obj->setStatus((ObjectStatusTypes)0x14,false);
    obj->setStatus((ObjectStatusTypes)2,false);
@@ -138,7 +136,7 @@ void GettingBuiltBehavior::rva00454B5C()
  if(!flag33 && !flag30 && builder && builder!=obj && (workerAI=builder->ai) && workerAI->completionMoveEnabled()) {
    const float &radius=builder->radius*1.5f;
    if(obj->rva00263763(builder)>radius*radius)builder->setCondition(100);
-   builder->ai->locomotor->rva001E702E(builder,(int)&obj->position,0);
+   builder->ai->locomotor->rva001E702E(builder,(int)&obj->m_cachedPos,0);
  }
  }
 }

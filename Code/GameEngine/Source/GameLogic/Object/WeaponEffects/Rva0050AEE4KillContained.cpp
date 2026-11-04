@@ -31,12 +31,12 @@ class Rva00294D61 {public:void report(Object*,int);};
 enum DamageType{UNRESISTABLE=8};enum DeathType{NORMAL=0};
 template<int N>class VGap:public VGap<N-1>{public:virtual void gap(char(*)[N]);};template<>class VGap<0>{};
 class Contain:public VGap<4>{public:virtual bool slot4();virtual void slot5();virtual void slot6();virtual bool slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();virtual void slot16();virtual void slot17();virtual void slot18();virtual void slot19();virtual void slot20();virtual void slot21();virtual void slot22();virtual void slot23();virtual void slot24();virtual void slot25();virtual void slot26();virtual void slot27();virtual void slot28();virtual void slot29();virtual void slot30();virtual void slot31();virtual void slot32();virtual void slot33();virtual void slot34();virtual void slot35();virtual void slot36();virtual void slot37();virtual void slot38();virtual void slot39();virtual void slot40();virtual void slot41();virtual void slot42();virtual void slot43();virtual void slot44();virtual void slot45();virtual void slot46();virtual void slot47();virtual void slot48();virtual void slot49();virtual void slot50();virtual void slot51();virtual void slot52();virtual void slot53();virtual void slot54();virtual void slot55();virtual void slot56();virtual void slot57();virtual void slot58();virtual void slot59();virtual void slot60();virtual void slot61();virtual void slot62();virtual void slot63();virtual void slot64();virtual void slot65();virtual void slot66();virtual void slot67();virtual void slot68();virtual unsigned getCount(bool);virtual Rva0036AE51ListView getList();};
-struct TargetTemplate {char pad[0x115];unsigned char bits115;};
 extern GameLogic*TheGameLogic;
 template<int N>class BitFlags {public:unsigned words[7];};
 class Module;
-class Thing {public:bool isKindOfMulti(const BitFlags<116>&,const BitFlags<116>&)const;};
-class Object:public Thing {protected:Module*findModule(NameKeyType)const;friend class Rva0050AEE4Nugget;public:void kill(DamageType,DeathType);char pad[4];TargetTemplate*data;char pad8[0x250-8];Contain*contain;char pad254[0x438-0x254];unsigned char deadBits;};
+#include "../../../Common/Thing/thing.h"
+#include "../../../../Include/Common/ThingTemplate.h"
+class Object:public Thing {protected:Module*findModule(NameKeyType)const;friend class Rva0050AEE4Nugget;public:void kill(DamageType,DeathType);char pad60[0x250-0x60];Contain*contain;char pad254[0x438-0x254];unsigned char deadBits;};
 struct SourceRecord {char pad[8];ObjectID source;};
 class Rva0050AEE4Nugget {public:void rva0050AEE4(SourceRecord*,Object*);bool rva0050ADEE(SourceRecord*,Object*);char prefix[0x128];int limit;BitFlags<116> mask;BitFlags<116> forbidden;DeathType death;};
 void Rva0050AEE4Nugget::rva0050AEE4(SourceRecord*record,Object*target){
@@ -50,7 +50,7 @@ void Rva0050AEE4Nugget::rva0050AEE4(SourceRecord*record,Object*target){
  for(ContainmentList::iterator i=list.begin();i!=list.end()&&processed<limit;){
   Object*child=(Object*)containmentFirstWord(*i++);
   if(!child || (child->deadBits&1) || !child->isKindOfMulti(mask,forbidden))continue;
-  if(child->data->bits115&0x20){
+  if(child->m_template->m_kindof[3]&0x2000){
    static NameKeyType key=(NameKeyType)TheNameKeyGenerator->nameToKey("HordeContain");
    void*module=child->findModule(key);
    if(module){

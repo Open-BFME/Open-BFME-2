@@ -52,11 +52,7 @@ class RunOffBodyView { public:
  virtual void v14();
  virtual const DamageInfoSourceView *lastDamage() const;
 };
-class Thing { public:
- const Coord3D *getUnitDirectionVector2D() const;
- const Coord3D *position() const { return &m_position; }
- protected: char pad00[0x38];Coord3D m_position;
-};
+#include "../../../Common/Thing/thing.h"
 struct RunOffModelFlagsView {
  unsigned words[19];
  __forceinline bool test(unsigned bit) const {if(words[bit>>5] & (1U<<(bit&31)))return true;return false;}
@@ -70,7 +66,7 @@ class Object : public Thing {public:
  void rva0028AE6D();
  
  friend class RunOffMapBehavior;
- private:char pad44[0x10c-0x44];RunOffModelFlagsView m_conditions;char pad158[0x254-0x158];RunOffBodyView *m_body;AIUpdateInterface *m_ai;
+ private:char pad60[0x10c-0x60];RunOffModelFlagsView m_conditions;char pad158[0x254-0x158];RunOffBodyView *m_body;AIUpdateInterface *m_ai;
 };
 class Rva00294D61 {public:void report(Object *,int);};
 
@@ -154,12 +150,12 @@ void RunOffMapBehavior::triggerFlee()
 		Coord3D *dir = &direction;
 		dir->x *= 500.0f;
 		dir->y *= 500.0f;
-		destination.x = obj->position()->x + direction.x;
-		destination.y = obj->position()->y + direction.y;
+		destination.x = obj->getPosition()->x + direction.x;
+		destination.y = obj->getPosition()->y + direction.y;
 		destination.z = ((RunOffTerrainView *)TheTerrainLogic)->groundHeight(destination.x, destination.y, 0);
 	}
 	Pathfinder *pf = ((RunOffAIView *)TheAI)->pathfinder;
-	if (!pf->QuickDoesPathExist(obj, obj->position(), &destination, 0))
+	if (!pf->QuickDoesPathExist(obj, obj->getPosition(), &destination, 0))
 	{
 		ObjectID source = obj->body()->lastDamage() ? obj->body()->lastDamage()->id : INVALID_OBJECT_ID;
 		Object *killer = TheGameLogic->findObjectByID(source);

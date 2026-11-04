@@ -26,23 +26,15 @@ public:
 	static float __fastcall Inv_Sqrt(float value); // 0x0004233A
 };
 
-class Thing
-{
-public:
-	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
-		Coord3D *worldPos, Matrix3D *worldTransform) const; // 0x0030A528
-};
+#include "../../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
 	bool isUsingAirborneLocomotor() const; // 0x0028B81E
-	const Coord3D *getPosition() const { return &m_position; }
 	float getMajorRadius() const { return m_majorRadius; }
 private:
-	unsigned char m_pad04[0x38 - sizeof(Thing)];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0xB8 - 0x44];
+	unsigned char m_pad60[0xB8 - 0x60];
 	float m_majorRadius; // +0xB8
 };
 

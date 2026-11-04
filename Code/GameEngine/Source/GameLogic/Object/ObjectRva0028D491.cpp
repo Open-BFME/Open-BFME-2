@@ -21,21 +21,9 @@ public:
 	unsigned int m_words[7];
 };
 
-class ThingTemplateStub
-{
-public:
-	char m_pad00[0x108];
-	unsigned char m_108;
-};
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-protected:
-	char m_pad00[4];
-	const ThingTemplateStub *m_template; // +0x04
-};
+#include "../../Common/Thing/thing.h"
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object : public Thing
 {
@@ -58,7 +46,7 @@ bool Object::isFactionStructure() const
 // +0x108 gates the KindOf helper above; a false helper result reports true.
 int Object::isNonFactionStructure() const
 {
-	if ((m_template->m_108 & 0x80) != 0)
+	if ((m_template->m_kindof[0] & 0x80) != 0)
 	{
 		if (!isFactionStructure())
 		{

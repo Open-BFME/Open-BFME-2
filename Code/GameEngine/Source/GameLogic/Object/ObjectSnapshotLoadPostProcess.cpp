@@ -31,9 +31,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 extern GameLogic*TheGameLogic;
 enum ObjectStatusTypes{STATUS_51=51};
-struct LoadTemplate{char pad[0x10f];unsigned char kind10F;char pad110[15];unsigned char kind11F;};
 class Object;
-class Thing { public: virtual ~Thing(); LoadTemplate *templ; char pad08[0x58]; };
+#include "../../Common/Thing/thing.h"
+#include "../../../Include/Common/ThingTemplate.h"
 class PathfinderPosGoalManager{public:void LoadPostProcess();};
 struct CameraMarker{~CameraMarker();CameraMarker*index;AsciiString name;};
 namespace _STL {
@@ -94,8 +94,8 @@ void Object::loadPostProcess(){
  int index=(int)it->index;AsciiString name=it->name;binding[index].region=TheTerrainLogic->slot39(name);it=names.erase(it);
  }
  weapons.updateWeaponSet(original());if(original()->rva0028B511()!=1)((Rva0022AEE4Subsystem *)TheAI)->pathfinder->AdjustLayer(original());
- if(!(original()->templ->kind10F&0x10))((Rva0022AEE4Subsystem *)TheAI)->pathfinder->AddObjectToPathfindMap(original());
- if(original()->templ->kind11F&0x40){
+ if(!(original()->m_template->m_kindof[1]&0x10000000))((Rva0022AEE4Subsystem *)TheAI)->pathfinder->AddObjectToPathfindMap(original());
+ if(original()->m_template->m_kindof[5]&0x40000000){
  LoadDelayedFlagBackup delayed;
  TheCreateAHeroManager->BindHeroToObjectAndUpdate(original());
  bool scoring=((LoadScoringView*)TheGameLogic)->enabled;((LoadScoringView*)TheGameLogic)->enabled=false;
