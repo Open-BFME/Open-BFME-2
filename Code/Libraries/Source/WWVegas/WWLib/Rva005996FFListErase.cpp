@@ -23,11 +23,10 @@ public:
 private:
 	void *m_data;
 };
-typedef StringBase<char> AsciiString;
 struct Inner64
 {
 	char m_pad[0x64];
-	AsciiString m_str;
+	StringBase<char> m_str;
 };
 struct Rva005996FFArg
 {
@@ -43,7 +42,7 @@ public:
 private:
 	_STL::list<int, _STL::allocator<int> > m_list;
 	char m_pad04[4];
-	AsciiString m_08;
+	StringBase<char> m_08;
 	char m_pad0C[0x10 - 0x0C];
 	unsigned char m_10;
 };
