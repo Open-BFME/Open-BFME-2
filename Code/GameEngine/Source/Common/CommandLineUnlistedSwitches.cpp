@@ -19,8 +19,8 @@ struct CommandLineSwitchPair
 {
     int m_00;
     int m_04;
-    int m_08;
-    int m_0C;
+    int m_buildNum;
+    int m_localBuildNum;
 };
 
 struct CommandLineSwitchView
@@ -177,8 +177,8 @@ int Rva003B9A3DParse(char *args[],int num) {
 int Rva003B9A62Parse(char *args[],int num) {
     if(TheWritableGlobalData) {
         CommandLineSwitchPair *pair=&TheSwitches->m_bfmeB08;
-        pair->m_08=0;
-        pair->m_0C=0;
+        pair->m_buildNum=0;
+        pair->m_localBuildNum=0;
         TheSwitches->m_bfmeB38=0xBAADEC4C;
         TheSwitches->m_bfmeB04=0xBAADEC4C;
     }

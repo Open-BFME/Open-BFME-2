@@ -8784,3 +8784,5 @@ function,?Rva0010416EFloat@@YAMMM@Z,?angleDifference@@YAMMM@Z,inferred,agree:nl-
 member,Rva001087BBNode::m_next114,Rva001087BBNode::m_next,inferred,agree:nl-d97a2b702001,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,
 member,Rva002A7588Mid::m_i618,Rva002A7588Mid::m_commandPoints,inferred,agree:nl-c4e8c508f441,Code/GameEngine/Source/GameLogic/Object/Rva002A7588Query.cpp,
 member,MapPreviewTextureAssetFactory::m_30,MapPreviewTextureAssetFactory::m_mipLevelCount,inferred,agree:nl-2be7649cbc40,Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp,
+member,CommandLineSwitchPair::m_08,CommandLineSwitchPair::m_buildNum,inferred,agree:nl-56911bb9aa3e,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,
+member,CommandLineSwitchPair::m_0C,CommandLineSwitchPair::m_localBuildNum,inferred,agree:nl-de1d647c7d7e,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,
