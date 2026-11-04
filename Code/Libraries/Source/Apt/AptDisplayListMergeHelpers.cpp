@@ -5,7 +5,7 @@
 // The original helper spelling is unproven; callback/provider names are owned.
 #include "EAStringC.h"
 class AptCIH;
-class AptValue {public:virtual void AddRef();virtual void Release();bool isUndefined()const;};
+class AptValue;
 class Rva006DBB30SarDwordField {public:int get()const;};
 class AptNativeHash {public:void Set(const EAStringC*const,AptValue*const);AptValue *Lookup(const EAStringC*const)const;void Unset(const EAStringC*const);};
 struct AptCharacter {int type;AptCharacter *parent;char animation[8];};
@@ -20,7 +20,16 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class AptCIH:public AptValue {public:char unknown04[4];EAStringC name;int matrix[6];float colors[8];int unknown44;AptCIH *parent;AptCharacterInst *inst;AptCIH *prev,*next;int depth:17;int created:14;unsigned top:1;short unknown5c;unsigned char changed;int GetDepth()const{return depth;}int GetCreatedOnFrame()const{return created;}AptCIH *GetDisplayListNext()const{return next;}bool GetASChanged()const{return (changed&1)!=0;}bool IsSpriteInstBase()const;int Type()const{return ((const Rva006DBB30SarDwordField *)this)->get();}AptCharacterInst *getSpriteInstBase()const{if(!IsSpriteInstBase()){g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}return inst;}};
+#include "AptCIHClass.h"
+struct AptCIHKeyBits {int depth:17;int created:14;unsigned top:1;};
+static __forceinline AptCIHKeyBits &cihKeyBits(AptCIH *cih){return *(AptCIHKeyBits *)&cih->field58;}
+static __forceinline int cihDepth(const AptCIH *cih){return ((const AptCIHKeyBits *)&cih->field58)->depth;}
+static __forceinline int cihCreated(const AptCIH *cih){return ((const AptCIHKeyBits *)&cih->field58)->created;}
+static __forceinline AptCIH *cihNext(const AptCIH *cih){return cih->field54;}
+static __forceinline bool cihASChanged(const AptCIH *cih){return (((const unsigned char *)&cih->field5C)[2]&1)!=0;}
+static __forceinline int cihType(const AptCIH *cih){return ((const Rva006DBB30SarDwordField *)cih)->get();}
+static __forceinline AptCharacterInst *cihInst(const AptCIH *cih){return (AptCharacterInst *)cih->field4C;}
+static __forceinline AptCharacterInst *cihSpriteInstBase(const AptCIH *cih){if(!cih->IsSpriteInstBase()){g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}return (AptCharacterInst *)cih->field4C;}
 class BfmeSubmitter1283 {public:void bfmeSubmitColors1283(int,int,int,int,int,int,int,const unsigned int*,int,int,int);};
 struct AptDisplayListState {AptCIH *head;};
 class AptPseudoDisplayList {public:AptPseudoCIH_t *head;AptCIH *parent;};
@@ -37,7 +46,7 @@ AptCIH *AptDisplayList::rva006F91F0(AptPseudoCIH_t *item,AptCIH *parent)
  typedef AptCIH *(BfmeSubmitter1283::*Submit)(int,int,int,int,int,int,int,const unsigned int*,int,int,int);
  Submit submit=reinterpret_cast<Submit>(&BfmeSubmitter1283::bfmeSubmitColors1283);
  AptCIH *result=(reinterpret_cast<BfmeSubmitter1283*>(this)->*submit)(0,item->depth,item->info->character,(int)pName,(int)parent,1,item->info->clip,item->info->cxform,(int)item->info->matrix,item->info->actions,item->info->ratio);
- result->created=item->info->created;
+ cihKeyBits(result).created=item->info->created;
  return result;
 }
 
@@ -48,9 +57,9 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 // then append/AddRef/increment in the existing animation-pool root.
 AptCIH *AptDisplayList::AddToDisplayList(AptNativeHash *hash,AptPseudoCIH_t *item,AptCIH *parent)
 {
- reinterpret_cast<AptCharacterAnimation*>(parent->inst->character->parent->animation)->ExecuteInitActions(parent,item->control->place.character);
+ reinterpret_cast<AptCharacterAnimation*>(cihInst(parent)->character->parent->animation)->ExecuteInitActions(parent,item->control->place.character);
  AptCIH *result=rva006F91F0(item,parent);
- if(!result->name.IsEmpty())hash->Set(&result->name,result);
+ if(!result->field08.IsEmpty())hash->Set(&result->field08,result);
  g_bfmeAptPtrAtE176D0->data[g_bfmeAptPtrAtE176D0->count]=result;
  g_bfmeAptPtrAtE176D0->data[g_bfmeAptPtrAtE176D0->count]->AddRef();
  ++g_bfmeAptPtrAtE176D0->count;
@@ -62,7 +71,7 @@ void bfmeUnpackTwoColors1280(float*,const unsigned int*);
 // placement can update the original CIH's colors/matrix in place.
 void AptDisplayList::rva006F9350(AptNativeHash *hash,AptCIH *original,AptPseudoCIH_t *item,AptCIH *parent)
 {
- if(item->depth!=original->GetDepth())
+ if(item->depth!=cihDepth(original))
  {
   g_bfmeAptAssertAtE17734("pNewItem->nDepth == pOriginalItem->nDepth","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp",0x67D);
   if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
@@ -73,12 +82,12 @@ void AptDisplayList::rva006F9350(AptNativeHash *hash,AptCIH *original,AptPseudoC
   AddToDisplayList(hash,item,parent);
   return;
  }
- if(!(original->changed&1))
+ if(!cihASChanged(original))
  {
-  if(item->info->flags&8)bfmeUnpackTwoColors1280(original->colors,item->info->cxform);
+  if(item->info->flags&8)bfmeUnpackTwoColors1280(&original->field24,item->info->cxform);
   if(item->info->flags&4)
   {
-   *(BfmeMatrix6 *)(void *)original->matrix = *(const BfmeMatrix6 *)(const void *)item->info->matrix;
+   *(BfmeMatrix6 *)(void *)&original->field0C = *(const BfmeMatrix6 *)(const void *)item->info->matrix;
   }
  }
 }
@@ -96,12 +105,12 @@ class AptCIHHashOwner {public:virtual void v00();virtual void v01();virtual void
 void AptDisplayList::mergeState(AptPseudoDisplayList *incoming,AptNativeHash *hash,bool ahead)
 {
  AptPseudoCIH_t *control=incoming->head->next;
- AptCIH *current=state->head->next;
+ AptCIH *current=state->head->field54;
  while(current)
  {
-  if(current->GetDepth()>=16384)
+  if(cihDepth(current)>=16384)
   {
-   while(control && control->depth<current->GetDepth()){if(control->control->type==3)AddToDisplayList(hash,control,incoming->parent);control=control->next;}
+   while(control && control->depth<cihDepth(current)){if(control->control->type==3)AddToDisplayList(hash,control,incoming->parent);control=control->next;}
    if(!(control==0))
    {
     g_bfmeAptAssertAtE17734("pNewControl == NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp",0x6c7);
@@ -109,31 +118,31 @@ void AptDisplayList::mergeState(AptPseudoDisplayList *incoming,AptNativeHash *ha
    }
    break;
   }
-  if(control && control->depth==current->GetDepth())
+  if(control && control->depth==cihDepth(current))
   {
-   if(!current->isUndefined() && (current->Type()==13 || current->Type()==18) && current->getSpriteInstBase()->dynamic){current=current->GetDisplayListNext();control=control->next;continue;}
-   AptCIH *next=current->GetDisplayListNext();
+   if(!current->isUndefined() && (cihType(current)==13 || cihType(current)==18) && cihSpriteInstBase(current)->dynamic){current=cihNext(current);control=control->next;continue;}
+   AptCIH *next=cihNext(current);
    if(control->control->type==3)
    {
-    if(control->info && (control->info->created==current->GetCreatedOnFrame() || current->Type()==18))
+    if(control->info && (control->info->created==cihCreated(current) || cihType(current)==18))
     {
      if(control->info->character==0)
      {
-      if(!current->GetASChanged())
+      if(!cihASChanged(current))
       {
-       if(control->info->flags&8)bfmeUnpackTwoColors1280(current->colors,control->info->cxform);
-       if(control->info->flags&4)*(BfmeMatrix6 *)(void *)current->matrix=*(const BfmeMatrix6 *)(const void *)control->info->matrix;
+       if(control->info->flags&8)bfmeUnpackTwoColors1280(&current->field24,control->info->cxform);
+       if(control->info->flags&4)*(BfmeMatrix6 *)(void *)&current->field0C=*(const BfmeMatrix6 *)(const void *)control->info->matrix;
       }
      }
      else
      {
       int mappedType=Rva006F67E0(((AptCharacter *)control->info->character)->type);
-      if((current->Type()==mappedType && (AptCharacter *)control->info->character==current->inst->character && control->info->created==current->GetCreatedOnFrame())||current->Type()==18)
+      if((cihType(current)==mappedType && (AptCharacter *)control->info->character==cihInst(current)->character && control->info->created==cihCreated(current))||cihType(current)==18)
       {
-       if(!current->GetASChanged())
+       if(!cihASChanged(current))
        {
-        if(control->info->flags&8)bfmeUnpackTwoColors1280(current->colors,control->info->cxform);
-        if(control->info->flags&4)*(BfmeMatrix6 *)(void *)current->matrix=*(const BfmeMatrix6 *)(const void *)control->info->matrix;
+        if(control->info->flags&8)bfmeUnpackTwoColors1280(&current->field24,control->info->cxform);
+        if(control->info->flags&4)*(BfmeMatrix6 *)(void *)&current->field0C=*(const BfmeMatrix6 *)(const void *)control->info->matrix;
        }
       }
       else rva006F9350(hash,current,control,incoming->parent);
@@ -145,17 +154,17 @@ void AptDisplayList::mergeState(AptPseudoDisplayList *incoming,AptNativeHash *ha
    control=control->next;
    current=next;
   }
-  else if(control==0 || control->depth>current->GetDepth())
+  else if(control==0 || control->depth>cihDepth(current))
   {
-   AptCIH *next=current->GetDisplayListNext();
+   AptCIH *next=cihNext(current);
    if(!ahead)
    {
     if(!current->isUndefined())
     {
-     if(current->parent)
+     if(current->field48)
      {
-      AptNativeHash *lookup=((AptCIHHashOwner *)current->parent)->Hash();
-      EAStringC &key=current->name;
+      AptNativeHash *lookup=((AptCIHHashOwner *)current->field48)->Hash();
+      EAStringC &key=current->field08;
       if(!key.IsEmpty() && lookup && lookup->Lookup(&key)==current)lookup->Unset(&key);
      }
      bfmeUnlinkNestedBE((BfmeNestedBE *)current);
@@ -166,7 +175,7 @@ void AptDisplayList::mergeState(AptPseudoDisplayList *incoming,AptNativeHash *ha
   }
   else
   {
-   while(control){if(control->depth>=current->GetDepth())break;if(control->control->type==3)AddToDisplayList(hash,control,incoming->parent);control=control->next;}
+   while(control){if(control->depth>=cihDepth(current))break;if(control->control->type==3)AddToDisplayList(hash,control,incoming->parent);control=control->next;}
   }
  }
  if(control){while(control){if(control->control->type==3)AddToDisplayList(hash,control,incoming->parent);control=control->next;}}
