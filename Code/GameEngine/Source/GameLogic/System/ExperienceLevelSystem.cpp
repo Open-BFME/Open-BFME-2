@@ -182,7 +182,15 @@ public:
 	const Overridable *rva0028951F(int);
 	const Overridable *rva002897A8(void *list, int level);
 };
-class Rva0028881C { public: void rva002889BB(); };
+class Rva0028881C
+{
+public:
+	~Rva0028881C();
+	void rva002889BB();
+private:
+	void *m_00Head;
+	int m_04Flag;
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 Int SplitUpgrades(void *, const AsciiString &);
 Int SplitString(_STL::vector<AsciiString> &, const AsciiString &);

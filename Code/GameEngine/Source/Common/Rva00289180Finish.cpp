@@ -49,6 +49,7 @@ typedef std::hash_map<const GameWindow *, WindowVideo *, WindowVideoManager::has
 class Rva0028881C
 {
 public:
+	~Rva0028881C();
 	void rva002889BB();
 private:
 	void *m_00Head;

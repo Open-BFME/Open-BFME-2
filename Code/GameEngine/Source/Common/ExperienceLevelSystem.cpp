@@ -33,10 +33,11 @@ private:
 class Rva0028881C
 {
 public:
-    ~Rva0028881C();
+	~Rva0028881C();
+	void rva002889BB();
 private:
-    void *m_header;
-    int m_flag;
+	void *m_00Head;
+	int m_04Flag;
 };
 
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
