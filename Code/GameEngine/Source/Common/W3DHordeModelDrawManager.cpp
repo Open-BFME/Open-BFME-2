@@ -813,7 +813,13 @@ public:
 
 typedef Rva005CEA1CHolder Rva005CEA1C;
 
-struct Rva0007989CRecord {  int word0;int word1;int word2; };
+struct Rva0007989CRecord
+{
+public:
+	int word0; // +0x00
+	int word1; // +0x04
+	int word2; // +0x08
+};
 
 // Declared only: retail's element copy is the rowed body at this name's pinned
 // address; this TU's copy is not retail's.
@@ -843,10 +849,14 @@ template <> void _Construct<basic_string<char>, basic_string<char> >(basic_strin
 
 extern const FieldParse s_hordeModelDrawFieldTable[];
 
-class W3DModelDrawModuleData
+class __declspec(novtable) W3DModelDrawModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	W3DModelDrawModuleData();
+	virtual ~W3DModelDrawModuleData();
+private:
+	unsigned char m_opaque[0x184]; // +0x04
 };
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp

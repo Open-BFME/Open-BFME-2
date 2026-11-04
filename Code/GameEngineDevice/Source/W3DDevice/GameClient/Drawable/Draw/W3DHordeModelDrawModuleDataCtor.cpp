@@ -15,14 +15,15 @@
 // Vtable 0x00BC6870: the table whose slot 0 is ??_GRva000D089D (vftable_map); bound to the ??_7 the ledger's deleting-dtor unit emits.
 extern "C" const void *__identifier("??_7Rva000D089D@@6B@")[];
 
+class MultiIniFieldParse;
 class __declspec(novtable) W3DModelDrawModuleData
 {
 public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	W3DModelDrawModuleData();
 	virtual ~W3DModelDrawModuleData();
-
 private:
-	unsigned char m_opaque[0x184];
+	unsigned char m_opaque[0x184]; // +0x04
 };
 
 class __declspec(novtable) W3DHordeModelDrawModuleData : public W3DModelDrawModuleData

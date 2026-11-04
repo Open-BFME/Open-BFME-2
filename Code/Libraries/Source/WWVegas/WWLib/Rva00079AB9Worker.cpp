@@ -36,7 +36,13 @@ public:
 // Its 0x20 allocation and 0x10 value offset establish a 16-byte pair payload;
 // the record's application meaning and original owning tree remain unresolved.
 class Rva00079D14Tree;
-struct Rva0007989CRecord { int word0, word1, word2; };
+struct Rva0007989CRecord
+{
+public:
+	int word0; // +0x00
+	int word1; // +0x04
+	int word2; // +0x08
+};
 namespace _STL {
 template<class A, class B> struct pair;
 template<class T> struct _Select1st;
@@ -59,15 +65,16 @@ struct Rva00079D14Iter
 	Rva00079D14Iter(Rva00079D14Node *p) : node(p) {}
 };
 
+struct Rva00079D14Out;
 class Rva00079D14Tree
 {
 public:
-	Rva00079D14Iter rva00079AB9(Rva00079D14Node *hintNode,
-		Rva00079D14Node *parent, const Rva00079D14Value &value,
-		Rva00079D14Node *w);
+	Rva00079D14Iter rva00079AB9(Rva00079D14Node *x, Rva00079D14Node *y, const Rva00079D14Value &value, Rva00079D14Node *w);
+	Rva00079D14Out rva00079B41(const Rva00079D14Value &value);
+	Rva00079D14Iter rva00079D14(Rva00079D14Iter position, const Rva00079D14Value &value);
 private:
-	Rva00079D14Node *m_header;
-	int m_count;
+	Rva00079D14Node *m_header; // +0x00
+	unsigned int m_count; // +0x04
 };
 
 Rva00079D14Iter Rva00079D14Tree::rva00079AB9(Rva00079D14Node *hintNode,

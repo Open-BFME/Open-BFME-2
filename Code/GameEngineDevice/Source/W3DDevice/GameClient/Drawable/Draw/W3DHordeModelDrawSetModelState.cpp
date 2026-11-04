@@ -46,12 +46,18 @@ template<> void vector<NarrowString>::push_back(const NarrowString&);
 template<> AsciiString *find(AsciiString *,AsciiString *,const char *const &);
 
 }
-struct BfmeNarrowRecord00079C23 {
- NarrowString text0,text1,text2; unsigned word0,word1;
- BfmeNarrowRecord00079C23();
- BfmeNarrowRecord00079C23(const BfmeNarrowRecord00079C23&);
- ~BfmeNarrowRecord00079C23();
- BfmeNarrowRecord00079C23 &operator=(const BfmeNarrowRecord00079C23&);
+struct BfmeNarrowRecord00079C23
+{
+public:
+	BfmeNarrowRecord00079C23();
+	BfmeNarrowRecord00079C23(const BfmeNarrowRecord00079C23&);
+	~BfmeNarrowRecord00079C23();
+	BfmeNarrowRecord00079C23 &operator=(const BfmeNarrowRecord00079C23&);
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_00; // +0x00
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_0C; // +0x0C
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_18; // +0x18
+	int m_24; // +0x24
+	int m_28; // +0x28
 };
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
@@ -67,7 +73,14 @@ struct Rva000C3886Range {int *begin,*end;};
 struct Rva000C3886Obj;
 class Rva000C3886 {public:void rva000C3886(void*,float,Rva000C3886Range*,Rva000C3886Obj*,void*);};
 class W3DModelDraw {public:void rva000B7C24();};
-class Rva00270260 {public:bool rva00270260();};
+class Rva00270260
+{
+public:
+	bool rva00270260();
+	char m_pad00[0x440];
+	unsigned char m_440; // +0x440
+	unsigned char m_441; // +0x441
+};
 class HAnimClass {public:virtual void deleteThis();int refs;void ReleaseRef(){if(--refs==0)deleteThis();}};
 class AnimationAsset {public:static HAnimClass *GetAnim(const char*);};
 class RenderObjClass;
@@ -389,13 +402,13 @@ bool W3DHordeModelDraw::setModelState(HordeModelState *newState,bool force,Rva00
   else
   {
    name=rva000C2E3A(name);
-   if(draw->testModel(191) && !md->damaged.text0.empty())
+   if(draw->testModel(191) && !md->damaged.m_00.empty())
    {
     Strings first,second,empty;
     BfmeNarrowRecord00079C23 selected(md->damaged);
-    text54=selected.text0.c_str();
-    first.push_back(AsciiString(selected.text0.c_str()));
-    if(!selected.text1.empty())second.push_back(AsciiString(selected.text1.c_str()));
+    text54=selected.m_00.c_str();
+    first.push_back(AsciiString(selected.m_00.c_str()));
+    if(!selected.m_0C.empty())second.push_back(AsciiString(selected.m_0C.c_str()));
     render=RenderAsset::CreateRenderObj(name.str(),((Rva000788D3FloatField*)draw)->get(),options,empty,first,second);
    }
    else if(newTextures || !swaps.empty())
@@ -431,7 +444,7 @@ bool W3DHordeModelDraw::setModelState(HordeModelState *newState,bool force,Rva00
     for(_STL::vector<BfmeNarrowRecord00079C23>::iterator it=md->variants.begin();it!=md->variants.end();++it)
     {
      BfmeNarrowRecord00079C23 candidate(*it);
-     if(((HordeGlobalDataView*)TheWritableGlobalData)->selector==candidate.word0)
+     if(((HordeGlobalDataView*)TheWritableGlobalData)->selector==candidate.m_24)
      {
       found=true;
       selected=candidate;
@@ -439,9 +452,9 @@ bool W3DHordeModelDraw::setModelState(HordeModelState *newState,bool force,Rva00
      }
     }
     Strings first,second,empty;
-    text54=selected.text0.c_str();
-    first.push_back(AsciiString(selected.text0.c_str()));
-    if(!selected.text1.empty())second.push_back(AsciiString(selected.text1.c_str()));
+    text54=selected.m_00.c_str();
+    first.push_back(AsciiString(selected.m_00.c_str()));
+    if(!selected.m_0C.empty())second.push_back(AsciiString(selected.m_0C.c_str()));
     if(found)render=RenderAsset::CreateRenderObj(name.str(),((Rva000788D3FloatField*)draw)->get(),options,empty,first,second);
     else render=Rva00137364CreateRenderObj(name.str(),((Rva000788D3FloatField*)draw)->get(),options);
    }
