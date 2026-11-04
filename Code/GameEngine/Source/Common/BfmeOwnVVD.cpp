@@ -308,28 +308,8 @@ union GameMessageArgumentType {
 
 #include "../../Include/Common/MessageStream.h"
 
-class Display {public:
-virtual void d0();
-virtual void d1();
-virtual void d2();
-virtual void d3();
-virtual void d4();
-virtual void d5();
-virtual void d6();
-virtual void d7();
-virtual void d8();
-virtual void d9();
-virtual void d10();
-virtual void d11();
-virtual void d12();
-virtual void d13();
-virtual void d14();
-virtual void d15();
-virtual unsigned int d16();
-virtual unsigned int d17();
-};
+#include "../../Include/GameClient/Display.h"
 
-extern Display *TheDisplay;
 
 #include "../../Include/Common/GlobalData.h"
 
@@ -589,7 +569,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
     const Rva001EDD80Pair &p=msg->getArgument(0)->pixel; m_14=p.x;m_18=p.y;
     m_04=m_14+dx;m_08=m_18+dy;m_3a=0;
    } else {const Rva001EDD80Pair &p=msg->getArgument(0)->pixel;m_14=p.x;m_18=p.y;}
-   unsigned int height=TheDisplay->d17(),width=TheDisplay->d16();
+   unsigned int height=TheDisplay->getHeight(),width=TheDisplay->getWidth();
    if(TheInGameUI->getInputEnabled()==false) {if(m_38) rva0042E804();break;}
    bool selecting=TheInGameUI->isSelecting();
    if(selecting) {
