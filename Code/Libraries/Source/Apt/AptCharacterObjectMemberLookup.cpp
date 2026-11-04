@@ -33,20 +33,7 @@ public:static AptString *Create();
  __forceinline EAStringC &value(){return *(EAStringC*)((char*)this+8);}
 };
 #include "AptNativeHash.h"
-class AptCIH {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual AptNativeHash *slot3();
- char unknown04[8]; float matrix[6];
- char unknown24[0x44-0x24]; float *properties; AptCIH *parent;
- void *instance;char unknown50[0x60-0x50];
- bool rva006CFCD0()const;
- bool IsSpriteInst(bool)const; bool IsAnimationInst(bool)const;
- void factorySetProperty(int,float,bool);
- void factoryEnsureProperties();void *rva006CFF40()const;bool IsCharacterInst()const; void rva006E1DD0(void*);
- void SetEventHandler(int); void RemoveEventHandler(int);
- bool rva006E1F90(int);
-};
+#include "AptCIHClass.h"
 static __forceinline AptCIH *lookupCheckedCIH(AptValue *v,bool b){return (AptCIH*)((BfmeAptValue006DCD20*)v)->rva006DCF60(b);}
 
 static __forceinline bool isText(AptCIH *cih){
@@ -167,7 +154,7 @@ AptValue *__cdecl Rva006EF6D0TextFormat(AptValue *,int);
 AptValue *__cdecl Rva006EF920TextFormat(AptValue *,int);
 
 static __forceinline void refreshText(AptValue *context,TextInstance *text){
- if(text->dirty&4){AptCIH *parent=lookupCheckedCIH(context,false)->parent;((Rva006E1260*)lookupCheckedCIH(context,false))->call(parent);}
+ if(text->dirty&4){AptCIH *parent=lookupCheckedCIH(context,false)->field48;((Rva006E1260*)lookupCheckedCIH(context,false))->call(parent);}
 }
 static __forceinline AptValue *makeLookupString(const EAStringC &s){AptString *v=AptString::Create();v->value()=s;return v;}
 AptValue *__cdecl Rva006EFBC0ObjectMemberLookup(AptValue *context,const EAStringC *name){
@@ -217,12 +204,12 @@ return AptInteger::Create(text->text.rva006D3750());
 
    case 8:goto undef8;
 
-   case 9:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->parent);
+   case 9:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->field48);
 return AptInteger::Create(text->maxScroll);
 
    case 10:{result=AptBoolean::Create((text->definition->multiline&0xFFFFFF)!=0);goto done;}
 
-   case 11:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->parent);
+   case 11:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->field48);
 {result=AptInteger::Create(text->scroll);goto d11;}
 
    case 12:((Rva006EBFF0*)text)->rva006EBFF0((AptValue*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)));
@@ -230,10 +217,10 @@ return makeLookupString(text->text);
 
    case 13:{result=AptInteger::Create(text->textColor&0xFFFFFF);goto d13;}
 
-   case 14:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->parent);
+   case 14:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->field48);
 {result=Rva008A4EA0MakeFloat(*(float*)((char*)text+0x48));goto d14;}
 
-   case 15:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->parent);
+   case 15:if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->field48);
 {result=Rva008A4EA0MakeFloat(*(float*)((char*)text+0x44));goto d15;}
 
    case 16:{
@@ -248,7 +235,7 @@ return gpUndefinedValue;
    case 18:{result=AptBoolean::Create((text->definition->wordWrap&0xFFFFFF)!=0);goto d18;}
 
    case 19:{
-if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->parent);
+if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->field48);
 Rect r;
 ((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->rva006E1DD0(&r);
 float n=r.bottom-r.top;
@@ -257,7 +244,7 @@ result=Rva008A4EA0MakeFloat(n);goto d19;
 }
 
    case 20:{
-if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->parent);
+if(text->dirty&4)((Rva006E1260*)((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false)))->call(((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->field48);
 Rect r;
 ((AptCIH*)((BfmeAptValue006DCD20*)context)->rva006DCF60(false))->rva006E1DD0(&r);
 float n=r.right-r.left;
@@ -281,32 +268,32 @@ result=Rva008A4EA0MakeFloat(n);goto d20;
 
  if(!(unsigned char)((BfmeAptValue006DCD20*)cih)->isCharacterInst())aptAssert("isCharacterInst()",CIH_FILE,0xA5);
 
- CharacterInstance *inst=(CharacterInstance*)cih->instance;
+ CharacterInstance *inst=(CharacterInstance*)cih->field4C;
 
  switch(word->id){
 
  case 1:{
 if((unsigned char)((BfmeAptValue006DCD20*)cih)->rva006E02B0()){
 TextInstance *text=(TextInstance*)((BfmeAptValue006DCD20*)cih)->rva006E0F40();
-if(text->autoSize!=3 && text->autoSize!=0 && text->dirty&4)((Rva006E1260*)cih)->call(cih->parent);
+if(text->autoSize!=3 && text->autoSize!=0 && text->dirty&4)((Rva006E1260*)cih)->call(cih->field48);
 }
-number=cih->matrix[4];
+number=cih->field1C;
 break;
 }
 
- case 2:number=cih->matrix[5];
+ case 2:number=cih->field20;
 break;
 
- case 3:number=cih->properties?cih->properties[2]:cih->matrix[0]*100.0f;
+ case 3:number=cih->field44?cih->field44[2]:cih->field0C*100.0f;
 break;
 
- case 4:number=cih->properties?cih->properties[3]:cih->matrix[3]*100.0f;
+ case 4:number=cih->field44?cih->field44[3]:cih->field18*100.0f;
 break;
 
- case 7:number=cih->properties?cih->properties[7]:*(float*)((char*)cih+0x24)*100.0f;
+ case 7:number=cih->field44?cih->field44[7]:cih->field24*100.0f;
 break;
 
- case 8:number=cih->properties?cih->properties[11]:1.0f;
+ case 8:number=cih->field44?cih->field44[11]:1.0f;
 break;
 
  case 5:number=(float)(*(int*)((char*)cih->rva006CFF40()+0x18)+1);
@@ -347,7 +334,7 @@ break;
 }
 
  case 11:cih->factoryEnsureProperties();
-number=cih->properties[6];
+number=cih->field44[6];
 break;
 
  case 6:number=(float)inst->definition->frames;
@@ -360,7 +347,7 @@ break;
 BfmeM1208 m=*(const BfmeM1208*)&g_bfmeD1206;
 for(AptCIH *p=cih;
 p;
-p=p->parent)bfmeMul1208(&m,(BfmeM1208*)p->matrix,&m);
+p=p->field48)bfmeMul1208(&m,(BfmeM1208*)&p->field0C,&m);
 number=((float)((LookupMouse*)g_bfmeAptPtrAtE176D0)->x-m.e)*m.a-((float)((LookupMouse*)g_bfmeAptPtrAtE176D0)->y-m.f)*m.b;
 break;
 }
@@ -369,7 +356,7 @@ break;
 BfmeM1208 m=*(const BfmeM1208*)&g_bfmeD1206;
 for(AptCIH *p=cih;
 p;
-p=p->parent)bfmeMul1208(&m,(BfmeM1208*)p->matrix,&m);
+p=p->field48)bfmeMul1208(&m,(BfmeM1208*)&p->field0C,&m);
 number=((float)((LookupMouse*)g_bfmeAptPtrAtE176D0)->x-m.e)*m.c+((float)((LookupMouse*)g_bfmeAptPtrAtE176D0)->y-m.f)*m.d;
 break;
 }
