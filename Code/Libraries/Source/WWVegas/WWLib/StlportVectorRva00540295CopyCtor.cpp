@@ -19,4 +19,24 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00540295Element { unsigned char bytes[40]; };
 
+class Rva0054000B;
+namespace _STL {
+template <> void _Construct<Rva0054000B, Rva0054000B>(
+    Rva0054000B *, const Rva0054000B &) throw();
+
+// Retail constructs each camera-track key through the rowed 0x00540070
+// worker; copying the size-only element view would skip its nontrivial copy.
+template <> inline Rva00540295Element *__uninitialized_copy<
+    const Rva00540295Element *, Rva00540295Element *>(
+    const Rva00540295Element *first, const Rva00540295Element *last,
+    Rva00540295Element *result, const __false_type &)
+{
+    Rva00540295Element *current = result;
+    for (; first != last; ++first, ++current)
+        _Construct(reinterpret_cast<Rva0054000B *>(current),
+            *reinterpret_cast<const Rva0054000B *>(first));
+    return current;
+}
+}
+
 template class _STL::vector<Rva00540295Element, _STL::allocator<Rva00540295Element> >;
