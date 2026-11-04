@@ -282,3 +282,5 @@ W3DTerrainVisual's.
   `??0Rva00212379` and `??0Rva00211FA3` reach the ICF-folded STLport constructors 0x00213E11
   (hash_map) and 0x0033C432 (map) only through pins. The member types need to be the real
   containers in both the constructor and destructor views, together with their EH funclets.
+
+**Row 0x001EC981 re-identified (2026-11-04).** Done as this entry's fix proposed, plus the real terrain pair it left open; evidence and remaining census check in LINK-090. Not done: rehoming 0x001EC98E, 0x001EC99B, 0x001EC9AC's address-named classes.

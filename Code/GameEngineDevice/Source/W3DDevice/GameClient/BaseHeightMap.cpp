@@ -163,7 +163,7 @@ class RtsTreeBufferView { public: char pad[0x45c5c]; unsigned char m_45C5C; };
 
 // ?rva0006840A@Rva0006840A@@QAEXQAVVector3@@W4DrawableID@@_N@Z retail 0x0006840A 11B,
 // ?rva00068415@Rva00068415@@QAEXXZ retail 0x00068415 11B,
-// ?rva00068420@Rva00068420@@QAEXXZ retail 0x00068420 11B,
+// ?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ retail 0x00068420 11B,
 // ?rva0006842B@Rva0006842B@@QAEXW4ObjectID@@@Z retail 0x0006842B 11B,
 // ?rva00068436@Rva00068436@@QAEXH@Z retail 0x00068436 11B.
 // Five 11B tail-jmp forwarders via the +0x385C W3DBibBuffer member, same offset
@@ -218,11 +218,9 @@ private:
 	W3DBibBuffer *m_bib;
 };
 
-class Rva00068420
+class BaseHeightMapBibView
 {
 public:
-	void rva00068420();
-private:
 	unsigned char m_pad[0x385C];
 	W3DBibBuffer *m_bib;
 };
@@ -397,6 +395,8 @@ extern unsigned int number_of_DX8_calls;
 
 class BaseHeightMapRenderObjClass
 {
+public:
+	void removeAllTerrainBibs();
 public:
 	void rva0006B895(RenderInfoClass &rinfo);
 public:
@@ -751,9 +751,10 @@ void Rva00068415::rva00068415()
 	m_bib->removeHighlighting();
 }
 
-void Rva00068420::rva00068420()
+// Retail reaches this from W3DTerrainVisual's removeAllBibs slot (0x00091DFB).
+void BaseHeightMapRenderObjClass::removeAllTerrainBibs()
 {
-	m_bib->clearAllBibs();
+	reinterpret_cast<BaseHeightMapBibView *>(this)->m_bib->clearAllBibs();
 }
 
 void Rva0006842B::rva0006842B(ObjectID id)

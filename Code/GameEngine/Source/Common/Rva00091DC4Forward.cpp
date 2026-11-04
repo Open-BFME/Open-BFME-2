@@ -24,12 +24,6 @@ public:
 	void rva00068415();
 };
 
-class Rva00068420
-{
-public:
-	void rva00068420();
-};
-
 enum ObjectID
 {
 	INVALID_ID = 0,
@@ -54,7 +48,6 @@ class Rva00091DC4
 public:
 	void rva00091DC4(Rva0055A88BDwordField *p);
 	void rva00091DE3(Rva00091DE3Arg *p);
-	void rva00091DFB();
 	void rva00091E0A();
 
 private:
@@ -76,13 +69,6 @@ void Rva00091DC4::rva00091DE3(Rva00091DE3Arg *p)
 {
 	if (m_1C)
 		((Rva0006842B *)m_14)->rva0006842B((ObjectID)p->m_objectID);
-}
-
-// ?rva00091DFB@Rva00091DC4@@QAEXXZ
-void Rva00091DC4::rva00091DFB()
-{
-	if (m_1C)
-		((Rva00068420 *)m_14)->rva00068420();
 }
 
 // ?rva00091E0A@Rva00091DC4@@QAEXXZ

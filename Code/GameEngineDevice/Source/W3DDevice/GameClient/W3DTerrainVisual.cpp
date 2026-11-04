@@ -293,10 +293,22 @@ void W3DTerrainVisual::setWaterTransform( const Matrix3D *transform )
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
+// Retail 0x00091DFB, vtable slot 14 of 0x00BC80A0: BFME 2's class keeps the
+// terrain object at +0x14 and guards on the pointer at +0x1C, not the Zero
+// Hour layout this port's header declares.
+struct W3DTerrainVisualBibView
+{
+	char m_pad00[0x14];
+	BaseHeightMapRenderObjClass *m_terrain;
+	void *m_water;
+	void *m_logicHeightMap;
+};
+
 void W3DTerrainVisual::removeAllBibs(void)
 {
-	if (m_terrainRenderObject) {
-		m_terrainRenderObject->removeAllTerrainBibs();
+	W3DTerrainVisualBibView *view = reinterpret_cast<W3DTerrainVisualBibView *>(this);
+	if (view->m_logicHeightMap) {
+		view->m_terrain->removeAllTerrainBibs();
 	}
 }
 

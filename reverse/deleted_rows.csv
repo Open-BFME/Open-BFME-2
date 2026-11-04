@@ -4710,3 +4710,6 @@ __ehhandler$?Rva005D7E45FindWaypoint@@YAPAVWaypoint@@VAsciiString@@@Z,0x007A27C3
 ?rva00201DAA@@YAXPAVINI@@PAX1PBX@Z,0x00201DAA,"Renamed to ?parseStaticGameLODLevel@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
 ?s4ParseFieldsRva0059D1F0@@YAXPAVINI@@PAUGen_00489270@@@Z,0x0035D35D,"Renamed to ?parseFreezePostLoadSoundsTransition@@YAXPAVINI@@PAUGen_00489270@@@Z by tools/rename.py (inferred)"
 __ehhandler$?s4ParseFieldsRva0059D1F0@@YAXPAVINI@@PAUGen_00489270@@@Z,0x0077DE1B,"Renamed to __ehhandler$?parseFreezePostLoadSoundsTransition@@YAXPAVINI@@PAUGen_00489270@@@Z by tools/rename.py (inferred)"
+?removeAllBibs@W3DTerrainVisual@@UAEXXZ,0x001EC981,"Renamed to ?rva001EC981@LinearCampaignManager@@QAEXXZ: identity correction; forwards through this+0x10 to LinearCampaign::onCurrentMissionWon, WB 0x00AF9130, both callers load TheLinearCampaignManager"
+?rva00091DFB@Rva00091DC4@@QAEXXZ,0x00091DFB,"Renamed to ?removeAllBibs@W3DTerrainVisual@@UAEXXZ: retail vtable 0x00BC80A0 slot 14, Zero Hour name for the terrain-object forwarder"
+?rva00068420@Rva00068420@@QAEXXZ,0x00068420,"Renamed to ?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ: sole caller is removeAllBibs slot 14; forwards to W3DBibBuffer::clearAllBibs as Zero Hour's method does"

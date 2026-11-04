@@ -5970,7 +5970,6 @@ name,address,notes
 ?releaseTrack@WaterTracksRenderSystem@@IAEXPAVWaterTracksObj@@@Z,0x000FE001,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?remove@Dict@@QAE_NW4NameKeyType@@@Z,0x003137A8,callee of ?verifyValidTeam@MapObject@@QAEXXZ at retail 0x0030D6C7 read from its REL32 displacement; donor NameKeyType ABI view of the rowed ?remove@Dict@@QAE_NH@Z body at this address
 ?remove@Rva005EE11EIcons@@QAEXABVAsciiString@@@Z,0x00524306,Native306B playercount method scopedABI; consumed call verified fullprovider67B; original application type names unproved
-?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ,0x001EC3B5
 ?removeAll_TeamBuildQueue@AIPlayer@@IAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F042F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?removeAll_TeamReadyQueue@AIPlayer@@IAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F0499,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?removeFromList@NetCommandWrapperList@@IAEXPAVNetCommandWrapperListNode@@@Z,0x0058C1A5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1

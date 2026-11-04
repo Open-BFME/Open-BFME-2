@@ -153,6 +153,7 @@ struct FieldParse;
 class LinearCampaignManager {
 public: void DoXfer(Xfer*);
  static void parseLinearCampaignIniBlock(INI *ini);
+ void rva001EC981();
 private: unsigned char prefix00[0x10]; CampaignSlot current;
  _STL::vector<Rva001ED03C> campaigns; // +0x14
 };
@@ -947,6 +948,16 @@ void Rva0023D6D5Callee::thru()
 {
 	if (m_member)
 		m_member->addCarryoverStuffToMap();
+}
+
+// ?rva001EC981@LinearCampaignManager@@QAEXXZ @0x001EC981 13B
+// WB 0x00AF9130 (unnamed) tests this+0x10, reads it through the slot accessor
+// and calls LinearCampaign::onCurrentMissionWon. Both script callers load
+// TheLinearCampaignManager; the operation's original name is not recovered.
+void LinearCampaignManager::rva001EC981()
+{
+	if (current.valid())
+		reinterpret_cast<LinearCampaign *>(current.get())->onCurrentMissionWon();
 }
 
 void *Rva001EC99B::rva001EC99B(Int a0, Int a1)

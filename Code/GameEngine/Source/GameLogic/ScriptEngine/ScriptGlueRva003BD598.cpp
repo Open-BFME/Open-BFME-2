@@ -5,8 +5,8 @@
 // pinned GameLogic 0x00376D49 member, re-enters through the pinned 0x003BBAD3
 // member (retail passes this in ecx although the callee body only reads
 // globals, so the rowed free-function name cannot spell the call), drops
-// bibs through a qualified direct call to rowed virtual
-// W3DTerrainVisual::removeAllBibs when the visual global is set, flags the
+// the current campaign's mission-won handler through the manager forwarder
+// 0x001EC981 when the manager global is set, flags the
 // campaign manager byte, applies the rowed 0x002036A9 imm setter, and
 // tail-jumps the pinned 0x0021A54A member on the hero-manager global.
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -18,9 +18,11 @@ public:
 	void rva003BBAD3();
 };
 
-#include "../../../Include/GameClient/TerrainVisualClass.h"
-#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
-class LinearCampaignManager;
+class LinearCampaignManager
+{
+public:
+	void rva001EC981();
+};
 extern LinearCampaignManager *TheLinearCampaignManager;
 
 class Rva00E02D6C
@@ -60,12 +62,10 @@ void Rva003BD598::rva003BD598()
 	TheGameLogic->rva00376D49();
 	((Rva003BBAD3 *)this)->rva003BBAD3();
 	if (TheLinearCampaignManager != 0)
-		reinterpret_cast<W3DTerrainVisual *>(TheLinearCampaignManager)->W3DTerrainVisual::removeAllBibs();
+		TheLinearCampaignManager->rva001EC981();
 	TheCampaignManager->m_flag2D = true;
 	(*(Rva002036A9DwordImmSetter **)&TheScriptEngine)->apply();
 	(*(Rva0021A54A **)&TheCreateAHeroManager)->rva0021A54A();
 }
 
 // Native global DFDC8C is registered as TheLinearCampaignManager by22F3A1.
-// Existing helper facades carry their historical names; those names do not
-// establish a terrain identity for this campaign-manager data access.
