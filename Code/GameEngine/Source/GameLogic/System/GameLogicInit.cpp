@@ -1183,16 +1183,13 @@ struct MapStartPosition
 };
 typedef char MapStartPositionSizeCheck[sizeof(MapStartPosition) == 0x14 ? 1 : -1];
 
-class MapMetaData
-{
-public:
-	char m_pad00[0x20];
-	int m_numPlayers;
-	char m_pad24[0x38 - 0x24];
-	WaypointMap m_waypoints;
-	char m_padWaypoints[0x54 - 0x38 - sizeof(WaypointMap)];
-	MapStartPosition m_startPositions[8];                                // +0x54
-};
+#include "../../../Include/GameClient/MapMetaData.h"
+
+// The canonical header keeps the STL members opaque; this TU's typed views.
+static inline const WaypointMap &waypointsOf(const MapMetaData *md)
+{ return reinterpret_cast<const WaypointMap &>(md->field38); }
+static inline const MapStartPosition *startPositionsOf(const MapMetaData *md)
+{ return reinterpret_cast<const MapStartPosition *>(md->field54); }
 
 #include "../../../Include/GameClient/MapCache.h"
 
@@ -1290,9 +1287,9 @@ void populateRandomStartPosition(GameInfo *game)
 				AsciiString w1, w2;
 				w1.format("Player_%d_Start", i + 1);
 				w2.format("Player_%d_Start", j + 1);
-				WaypointMap::const_iterator c1 = md->m_waypoints.find(w1);
-				WaypointMap::const_iterator c2 = md->m_waypoints.find(w2);
-				if (c1 == md->m_waypoints.end() || c2 == md->m_waypoints.end()) {
+				WaypointMap::const_iterator c1 = waypointsOf(md).find(w1);
+				WaypointMap::const_iterator c2 = waypointsOf(md).find(w2);
+				if (c1 == waypointsOf(md).end() || c2 == waypointsOf(md).end()) {
 					startSpotDistance[i][j] = 1000000.0f;
 				} else {
 					float x1 = c1->second.x;
@@ -3996,7 +3993,7 @@ void GameLogic::CreateMPPlayers(bool isSkirmish, int progressCount)
 			const MapMetaData *md = TheMapCache->findMap(game->getMap());
 			if (md)
 			{
-				const MapStartPosition *pos = &md->m_startPositions[startPos];
+				const MapStartPosition *pos = &startPositionsOf(md)[startPos];
 				if (!pos->m_2)
 					d.setAsciiString(TheKey_playerAIType.get(), AsciiString::TheEmptyString);
 			}
@@ -4106,7 +4103,7 @@ void populateRandomSideAndColor(GameInfo *game)
 			const MapMetaData *md = TheMapCache->findMap(game->getMap());
 			if (md)
 			{
-				const MapStartPosition &position = md->m_startPositions[slot->getStartPos()];
+				const MapStartPosition &position = startPositionsOf(md)[slot->getStartPos()];
 				const _STL::set<AsciiString> &factions = position.m_factions;
 				if (factions.size() != 0)
 				{
