@@ -70,7 +70,8 @@ struct AptMainMenuMiscAudio
 class GameWindowTransitionsHandler
 {
 public:
-	void setGroup(AsciiString groupName, bool immediate);
+	void setGroup(AsciiString name, bool immediate);
+	bool isFinished();
 	void reverse(AsciiString groupName);
 };
 
