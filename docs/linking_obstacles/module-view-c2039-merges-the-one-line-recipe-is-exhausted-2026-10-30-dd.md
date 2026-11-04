@@ -83,6 +83,12 @@ Two concrete hand reconciles, both verified and both still short of a merge:
   Unifying them is naming-lane work and has to come before that donor can
   merge. `PillageModuleRva00484FE2.cpp` compiles `/O1 /G7 /arch:SSE` against a
   flat +0x10 subobject view.
+  **2026-11-04 consolidation recheck:** current allocation still accepts no
+  donor: the ctor view lacks its constructor and the `/O1` donor hits the
+  `GeometryInfo` slot contract. Splitting the mixed getter/destructor files is
+  refused by LinkGuard because the destination would move selected string,
+  destructor and vftable COMDATs without private/weak-free context. Exact trial
+  evidence: [seat 1 continuation](../attempt_support/consolidation-seat1-trials-20261104.md).
 - **GiantBirdSlowDeathBehavior** (2026-10-30, not committed). The rewritten
   ctor byte-matches 1/1 over the seed's views, plus declared `SlowDeathBehavior`
   and `GiantBirdSlowDeathBehavior` ctors. It does not link: the seed's placeholder

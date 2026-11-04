@@ -204,3 +204,8 @@ matched alone but the destination compile hit duplicate `AsciiString`
 declarations; LinkGuard compared residual and destination. No source edits or
 claims were made. See the trial note for exact errors; continue to another
 allocated TU.
+
+The PillageModule recheck confirmed class-view/compiler prerequisites remain;
+both mixed splits are refused by LinkGuard for selected string, destructor and
+vftable COMDATs. The existing obstacle entry now links the exact trial note.
+No source edits or claims were made. Continue to the next allocated TU.

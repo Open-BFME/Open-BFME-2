@@ -180,3 +180,19 @@ The mixed `FireWeaponWhenDeadBehaviorDerived.cpp` split carved destructor
 `0x004B85D4` and both carved rows matched alone, but the destination compile
 failed on duplicate `AsciiString` class declarations. LinkGuard compared both
 split sides. No changes or claims were applied.
+
+## Continuation: PillageModule
+
+Allocation and scoped planner checks passed (11 approved rows, three donors,
+two mixed files). Merge dry run accepted no donor: the ctor lacks the
+`PillageModule` constructor declaration (`C2511`), and the `/O1 /G7 /arch:SSE`
+method donor fails the `GeometryInfo requires Snapshot LoadPostProcess,
+non-const GetSnapshotName and DoXfer(Xfer&) slots` contract. The existing
+naming/class-view prerequisites are documented in `docs/linking_obstacles/
+module-view-c2039-merges-the-one-line-recipe-is-exhausted-2026-10-30-dd.md`.
+Both mixed splits matched their carved rows alone but LinkGuard refused them:
+`ConstIntGetters4.cpp` would move selected string COMDAT
+`??_C@_0O@NMPJBACK@PillageModule?$AA@` without private/weak-free context;
+`Rva0049B47CThreeVptrDerived.cpp` would move selected destructor and two
+vftable COMDATs without private/weak-free context. No changes or claims were
+applied.
