@@ -188,20 +188,14 @@ public:
 	AsciiString &rva004650A0(const int &key);
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-private:
-	char m_pad04[0x38 - 0x04];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class OpenContain : public UpdateModule
 {
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
+	char m_unrecovered20[0x38 - 0x20]; // +0x20, unrecovered bytes before this class's fields
 	Int m_unk38;
 	Rva004650A0 m_objectNames; // +0x3C
 	_STL::map<Int, Int> m_objectValues; // +0x48

@@ -129,20 +129,14 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x24 - 0x04 ];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class BattlePlanUpdate : public UpdateModule
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
+	char m_unrecovered20[0x24 - 0x20]; // +0x20, unrecovered bytes before this class's fields
 	BattlePlanStatus m_currentPlan;																						///< 0x24
 	BattlePlanStatus m_desiredPlan;																						///< 0x28
 	BattlePlanStatus m_planAffectingArmy;																			///< 0x2C

@@ -16,6 +16,8 @@
 // 0x25342C construct.
 
 extern "C" const void *const __identifier("??_7RadiateFearUpdateModuleData@@6B@")[];
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 // ?getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ @0x49BFDD
 // (69B): cached pool-name key for RadiateFearUpdate. The class
@@ -41,8 +43,6 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Thing;
 class ModuleData;
 class Object;
-// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
-#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 //
 // ?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z, retail 0x0049C195, 61 bytes.

@@ -63,20 +63,14 @@ enum StructureCollapseStateType
 	COLLAPSESTATE_STANDING
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x24 - 0x04 ];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class StructureCollapseUpdate : public UpdateModule
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
+	char m_unrecovered20[0x24 - 0x20]; // +0x20, unrecovered bytes before this class's fields
 	UnsignedInt m_collapseFrame;																							///< 0x24
 	UnsignedInt m_burstFrame;																									///< 0x28
 	StructureCollapseStateType m_collapseState;																///< 0x2C

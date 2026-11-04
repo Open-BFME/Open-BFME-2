@@ -87,20 +87,14 @@ struct GettingBuiltWorkList
 	GettingBuiltWorkNode *m_node;
 };
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer( Xfer *xfer );
-private:
-	unsigned char m_pad[0x20];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class GettingBuiltBehavior : public UpdateModule
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
+	char m_unrecovered20[0x24 - 0x20]; // +0x20, unrecovered bytes before this class's fields
 	AudioHandle m_audio24;
 	float m_f28;
 	unsigned int m_x2C;
