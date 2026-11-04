@@ -16,7 +16,7 @@ class Rva004D6119 : public NetCommandMsg
 public:
 	UnicodeString rva004D6119() const;
 private:
-	UnicodeString m_str1c;
+	UnicodeString m_str1c; // +0x1C
 };
 
 class NetCommandRef

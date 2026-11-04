@@ -75,10 +75,12 @@ public:
 // add* bodies below call them under these names: getData (+0x1C dword),
 // getDataLength (+0x20) and getDataOffset (+0x24).
 // UnicodeString getter at +0x1C (rowed under its address name).
-class Rva004D6119
+class Rva004D6119 : public NetCommandMsg
 {
 public:
 	UnicodeString rva004D6119() const;
+private:
+	UnicodeString m_str1c; // +0x1C
 };
 // UnicodeString getter at +0x24 (rowed under its address name).
 class Rva0023E928
