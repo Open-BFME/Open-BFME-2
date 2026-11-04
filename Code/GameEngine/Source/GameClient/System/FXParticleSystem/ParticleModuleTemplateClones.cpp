@@ -60,23 +60,139 @@ Rva003AEB9C *Rva003AEB9C::clone() const
 	return new Rva003AEB9C( *this );
 }
 
-class Rva003AECE6Slot0	{ public: virtual void s0(); int m_a[ 4 ]; };
-class Rva003AECE6Slot1	{ public: virtual void s0(); };
-class Rva003AECE6Slot2	{ public: virtual void s0(); };
-class Rva003AECE6Slot3	{ public: virtual void s0(); };
+// Retail's tables, each slot the ledger row at the native address. These constructors store them
+// themselves because the compiler's own tables would name members nothing defines yet.
+extern "C" {
+void __identifier("??1Region2D@@QAE@XZ")();
+void __identifier("??_ERva003ABA4C@@WBI@AEPAXI@Z")();
+void __identifier("??_ERva003ACB6F@@WBM@AEPAXI@Z")();
+void __identifier("??_ERva003ACEF7@@WBI@AEPAXI@Z")();
+void __identifier("??_GRva003ABA4C@@UAEPAXI@Z")();
+void __identifier("??_GRva003ACB6F@@UAEPAXI@Z")();
+void __identifier("??_GRva003ACEF7@@UAEPAXI@Z")();
+void __identifier("?Rva003A5572@Rva003AED3E@@UAEXXZ")();
+void __identifier("?Rva003A59ADGet@@YAHXZ")();
+void __identifier("?Rva003ABBF5Get@@YAHXZ")();
+void __identifier("?clone@Rva003AE928@@QBEPAV1@XZ")();
+void __identifier("?clone@Rva003AECE6@@QBEPAV1@XZ")();
+void __identifier("?doParticles@GpuDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z")();
+void __identifier("?get@Rva00094A98FloatField@@QBEMXZ")();
+void __identifier("?getClass@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$DefaultModuleTag@$06@FXParticleSystem@@@2@XZ")();
+void __identifier("?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@2@XZ")();
+void __identifier("?getData@NetWrapperCommandMsg@@QAEPAEXZ")();
+void __identifier("?getDataLength@NetWrapperCommandMsg@@QAEIXZ")();
+void __identifier("?rva003A5757@Rva003A5757@@UAEXPAVXfer@@@Z")();
+void __identifier("?rva003A5757@Rva003A5757@@WBM@AEXPAVXfer@@@Z")();
+void __identifier("?rva003AD03B@Rva003AD03BTemplate@@UAEPAVRva003AD03BModule@@I@Z")();
+void __identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ")();
+void __identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ")();
+void __identifier("?rva0056394A@Rva0056394A@@QAE?AVAsciiString@@XZ")();
+void __identifier("?xfer@Rva003AE928@@UAEXPAVXfer@@@Z")();
+void __identifier("?xfer@Rva003AE94E@@WBI@AEXPAVXfer@@@Z")();
+void __identifier("__purecall")();
+}
+
+// VA 0x00C1CEF8
+extern "C" const void *const g_emitterCloneTable00[4] = {
+	(const void *)&__identifier("??_GRva003ACB6F@@UAEPAXI@Z"), // slot 0, RVA 0x003AD3F7
+	(const void *)&__identifier("?Rva003A5572@Rva003AED3E@@UAEXXZ"), // slot 1, RVA 0x003A5572
+	(const void *)&__identifier("?clone@Rva003AECE6@@QBEPAV1@XZ"), // slot 2, RVA 0x003AECE6
+	(const void *)&__identifier("?rva003A5757@Rva003A5757@@UAEXPAVXfer@@@Z"), // slot 3, RVA 0x003A5757
+};
+
+// VA 0x00C1C608
+extern "C" const void *const g_emitterCloneTable14[1] = {
+	(const void *)&__identifier("?rva003AD03B@Rva003AD03BTemplate@@UAEPAVRva003AD03BModule@@I@Z"), // slot 0, RVA 0x003AD03B
+};
+
+// VA 0x00C1BFB4
+extern "C" const void *const g_emitterCloneTable18[1] = {
+	(const void *)&__identifier("?getClass@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$DefaultModuleTag@$06@FXParticleSystem@@@2@XZ"), // slot 0, RVA 0x003AD0C5
+};
+
+// VA 0x00C1CEE8
+extern "C" const void *const g_emitterCloneTable1C[4] = {
+	(const void *)&__identifier("??_ERva003ACB6F@@WBM@AEPAXI@Z"), // slot 0, RVA 0x003A59B3
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
+	(const void *)&__identifier("?Rva003A59ADGet@@YAHXZ"), // slot 2, RVA 0x003A59AD
+	(const void *)&__identifier("?rva003A5757@Rva003A5757@@WBM@AEXPAVXfer@@@Z"), // slot 3, RVA 0x003A59BB
+};
+
+// VA 0x00C1D588
+extern "C" const void *const g_gpuDrawBaseTable00[11] = {
+	(const void *)&__identifier("??_GRva003ABA4C@@UAEPAXI@Z"), // slot 0, RVA 0x003AE9BF
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
+	(const void *)&__identifier("__purecall"), // slot 2, RVA 0x0003B810
+	(const void *)&__identifier("?xfer@Rva003AE928@@UAEXPAVXfer@@@Z"), // slot 3, RVA 0x00563965
+	(const void *)&__identifier("?doParticles@GpuDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z"), // slot 4, RVA 0x005639A4
+	(const void *)&__identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ"), // slot 5, RVA 0x00560ABA
+	(const void *)&__identifier("?rva0056394A@Rva0056394A@@QAE?AVAsciiString@@XZ"), // slot 6, RVA 0x0056394A
+	(const void *)&__identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ"), // slot 7, RVA 0x0055C44F
+	(const void *)&__identifier("?getData@NetWrapperCommandMsg@@QAEPAEXZ"), // slot 8, RVA 0x0030F2C7
+	(const void *)&__identifier("?getDataLength@NetWrapperCommandMsg@@QAEIXZ"), // slot 9, RVA 0x0030D377
+	(const void *)&__identifier("?get@Rva00094A98FloatField@@QBEMXZ"), // slot 10, RVA 0x00094A98
+};
+
+// VA 0x00C1C780
+extern "C" const void *const g_secondaryModuleBaseTable[1] = {
+	(const void *)&__identifier("__purecall"), // slot 0, RVA 0x0003B810
+};
+
+// VA 0x00C1D5B4
+extern "C" const void *const g_gpuDrawBaseTable18[4] = {
+	(const void *)&__identifier("??_ERva003ABA4C@@WBI@AEPAXI@Z"), // slot 0, RVA 0x003AE9B7
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
+	(const void *)&__identifier("?Rva003ABBF5Get@@YAHXZ"), // slot 2, RVA 0x003ABBF5
+	(const void *)&__identifier("?xfer@Rva003AE94E@@WBI@AEXPAVXfer@@@Z"), // slot 3, RVA 0x003ABBFB
+};
+
+// VA 0x00C1CD90
+extern "C" const void *const g_gpuDrawTable00[11] = {
+	(const void *)&__identifier("??_GRva003ACEF7@@UAEPAXI@Z"), // slot 0, RVA 0x003ACEDB
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
+	(const void *)&__identifier("?clone@Rva003AE928@@QBEPAV1@XZ"), // slot 2, RVA 0x003AE8F1
+	(const void *)&__identifier("?xfer@Rva003AE928@@UAEXPAVXfer@@@Z"), // slot 3, RVA 0x00563965
+	(const void *)&__identifier("?doParticles@GpuDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z"), // slot 4, RVA 0x005639A4
+	(const void *)&__identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ"), // slot 5, RVA 0x00560ABA
+	(const void *)&__identifier("?rva0056394A@Rva0056394A@@QAE?AVAsciiString@@XZ"), // slot 6, RVA 0x0056394A
+	(const void *)&__identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ"), // slot 7, RVA 0x0055C44F
+	(const void *)&__identifier("?getData@NetWrapperCommandMsg@@QAEPAEXZ"), // slot 8, RVA 0x0030F2C7
+	(const void *)&__identifier("?getDataLength@NetWrapperCommandMsg@@QAEIXZ"), // slot 9, RVA 0x0030D377
+	(const void *)&__identifier("?get@Rva00094A98FloatField@@QBEMXZ"), // slot 10, RVA 0x00094A98
+};
+
+// VA 0x00C1C290
+extern "C" const void *const g_gpuDrawTable14[1] = {
+	(const void *)&__identifier("?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@2@XZ"), // slot 0, RVA 0x003ACEB5
+};
+
+// VA 0x00C1CD80
+extern "C" const void *const g_gpuDrawTable18[4] = {
+	(const void *)&__identifier("??_ERva003ACEF7@@WBI@AEPAXI@Z"), // slot 0, RVA 0x003ABC03
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 1, RVA 0x000B3FD0
+	(const void *)&__identifier("?Rva003ABBF5Get@@YAHXZ"), // slot 2, RVA 0x003ABBF5
+	(const void *)&__identifier("?xfer@Rva003AE94E@@WBI@AEXPAVXfer@@@Z"), // slot 3, RVA 0x003ABBFB
+};
 
 class Rva003AED3E
-	: public Rva003AECE6Slot0, public Rva003AECE6Slot1,
-	  public Rva003AECE6Slot2, public Rva003AECE6Slot3
 {
 public:
 	Rva003AED3E( const Rva003AED3E &other );
+
+private:
+	char m_storage00[ 0x20 ];
 };
 
 class Rva003AECE6 : public Rva003AED3E
 {
 public:
-	__forceinline Rva003AECE6( const Rva003AECE6 &other ) : Rva003AED3E( other ) {}
+	__forceinline Rva003AECE6( const Rva003AECE6 &other ) : Rva003AED3E( other )
+	{
+		*(const void *const **)((char *)this + 0x00) = g_emitterCloneTable00;
+		*(const void *const **)((char *)this + 0x14) = g_emitterCloneTable14;
+		*(const void *const **)((char *)this + 0x18) = g_emitterCloneTable18;
+		*(const void *const **)((char *)this + 0x1C) = g_emitterCloneTable1C;
+	}
 	Rva003AECE6 *clone() const;
 
 private:
@@ -155,31 +271,35 @@ public:
 };
 }
 
-class Rva003AE94E : public ParticleModule005F2CA0, public FXParticleSystem::GpuDrawModuleInfo
+class __declspec(novtable) Rva003AE94E : public ParticleModule005F2CA0, public FXParticleSystem::GpuDrawModuleInfo
 {
 public:
 	Rva003AE94E( const Rva003AE94E &other );
     Rva003AE94E(void *, void *);
-	virtual ~Rva003AE94E();
 };
 
 Rva003AE94E::Rva003AE94E( const Rva003AE94E &other )
 	: ParticleModule005F2CA0( other )
 	, FXParticleSystem::GpuDrawModuleInfo( (const FXParticleSystem::GpuDrawModuleInfo &)other )
 {
+	*(const void *const **)((char *)this + 0x18) = g_gpuDrawBaseTable18;
+	*(const void *const **)((char *)this + 0x00) = g_gpuDrawBaseTable00;
+	*(const void *const **)((char *)this + 0x14) = g_secondaryModuleBaseTable;
 }
 
-class Rva003AE928 : public Rva003AE94E
+class __declspec(novtable) Rva003AE928 : public Rva003AE94E
 {
 public:
 	Rva003AE928( const Rva003AE928 &other );
-	virtual ~Rva003AE928();
 	Rva003AE928 *clone() const;
 };
 
 Rva003AE928::Rva003AE928( const Rva003AE928 &other )
 	: Rva003AE94E( other )
 {
+	*(const void *const **)((char *)this + 0x00) = g_gpuDrawTable00;
+	*(const void *const **)((char *)this + 0x14) = g_gpuDrawTable14;
+	*(const void *const **)((char *)this + 0x18) = g_gpuDrawTable18;
 }
 
 Rva003AE928 *Rva003AE928::clone() const
@@ -189,6 +309,9 @@ Rva003AE928 *Rva003AE928::clone() const
 
 struct GpuInput3CAF {char unknown00[12];int frames,framesPerRow;AsciiString detail;float speed;};
 Rva003AE94E::Rva003AE94E(void *first,void *second):ParticleModule005F2CA0(first,second),FXParticleSystem::GpuDrawModuleInfo(){
+ *(const void *const **)((char *)this + 0x00) = g_gpuDrawBaseTable00;
+ *(const void *const **)((char *)this + 0x14) = g_secondaryModuleBaseTable;
+ *(const void *const **)((char *)this + 0x18) = g_gpuDrawBaseTable18;
  const GpuInput3CAF &input=*(const GpuInput3CAF *)second;
  frames=input.frames;
  framesPerRow=input.framesPerRow;
