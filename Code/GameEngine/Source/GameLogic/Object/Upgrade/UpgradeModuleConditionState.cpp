@@ -102,19 +102,7 @@ public:
 	unsigned int m_data[32];
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 // The +0x10 UpgradeMux subobject; the matched placeholder row 0x004CE342 is
 // its non-virtual base test, so the subobject keeps that row's class name.
 class Rva004CE342
@@ -126,7 +114,7 @@ public:
 	virtual bool rva004CE4B0(Rva00406F9C *mask) = 0;
 	bool rva004CE342(Rva00406F9C *mask);
 };
-class UpgradeModule : public BehaviorModule, public UpgradeModuleInterface, public Rva004CE342
+class UpgradeModule : public BehaviorModule, public Rva004CE342
 {
 public:
 	void rva004CE41E(bool apply);

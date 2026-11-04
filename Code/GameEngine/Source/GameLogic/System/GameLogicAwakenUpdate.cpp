@@ -30,27 +30,8 @@ class Object;
 
 // processDestroyList's retail module interface is embedded at +0x0C;
 // slot +0x24 returns an interface 0x10 bytes into the UpdateModule.
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void *getUpdate();
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModule
-{
-public:
-	char m_pad00[12];
-	BehaviorModuleInterface m_behavior;
-};
 
 // Retain the established callee identities until these owners are named.
 class Rva0023C420
@@ -278,7 +259,7 @@ void GameLogic::processDestroyList()
 		Object *obj = *it;
 		for (BehaviorModule **behaviorModule = obj->m_modules; *behaviorModule; ++behaviorModule)
 		{
-			void *iface = (*behaviorModule)->m_behavior.getUpdate();
+			void *iface = (*behaviorModule)->getUpdate();
 			UpdateModule *updateModule = iface
 				? reinterpret_cast<UpdateModule *>(static_cast<char *>(iface) - 0x10)
 				: 0;
