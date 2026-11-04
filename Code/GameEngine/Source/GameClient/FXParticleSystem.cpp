@@ -14,6 +14,7 @@ void operator delete[](void *p);
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../Include/GameClient/WindModuleInfo.h"
 
 class GameClientRandomVariable
 {
@@ -860,42 +861,6 @@ template class CategoryModuleInfo<6>;
 template class CategoryModuleInfo<7>;
 template class CategoryModuleInfo<8>;
 
-// Seventeen members and no grouping anywhere: the generated assignment copies
-// every one of them with its own move rather than blocking any run together,
-// which is what separates loose scalars from a sub-object here.
-class WindModuleInfo : public ::Snapshot
-{
-public:
-    // Declared only: retail has a real one at 0x003A53C4 and this file has no
-    // claim on it yet, but the file-scope wind template instance needs the name
-    // to exist before it can force the destructor out.
-    WindModuleInfo();
-    WindModuleInfo(const WindModuleInfo &that);
-
-    virtual ~WindModuleInfo();
-    virtual void LoadPostProcess();
-    virtual void DoXfer(::Xfer &);
-
-    float m_unknown04;
-    float m_unknown08;
-    float m_unknown0C;
-    float m_unknown10;
-    float m_unknown14;
-    float m_unknown18;
-    float m_unknown1C;
-    float m_unknown20;
-    float m_unknown24;
-    float m_unknown28;
-    float m_unknown2C;
-    float m_unknown30;
-    float m_unknown34;
-    float m_unknown38;
-    bool m_unknown3C;
-    float m_unknown40;
-    float m_unknown44;
-    virtual const char *GetSnapshotName();
-};
-
 const char *WindModuleInfo::GetSnapshotName()
 {
     return "WindModuleInfo";
@@ -910,23 +875,46 @@ inline WindModuleInfo::~WindModuleInfo() {}
 
 WindModuleInfo::WindModuleInfo(const WindModuleInfo &that)
 {
-    m_unknown04 = that.m_unknown04;
-    m_unknown08 = that.m_unknown08;
-    m_unknown0C = that.m_unknown0C;
-    m_unknown10 = that.m_unknown10;
-    m_unknown14 = that.m_unknown14;
-    m_unknown18 = that.m_unknown18;
-    m_unknown1C = that.m_unknown1C;
-    m_unknown20 = that.m_unknown20;
-    m_unknown24 = that.m_unknown24;
-    m_unknown28 = that.m_unknown28;
-    m_unknown2C = that.m_unknown2C;
-    m_unknown30 = that.m_unknown30;
-    m_unknown34 = that.m_unknown34;
-    m_unknown38 = that.m_unknown38;
-    m_unknown3C = that.m_unknown3C;
-    m_unknown40 = that.m_unknown40;
-    m_unknown44 = that.m_unknown44;
+    m_04 = that.m_04;
+    m_08 = that.m_08;
+    m_0C = that.m_0C;
+    m_10 = that.m_10;
+    m_14 = that.m_14;
+    m_18 = that.m_18;
+    m_1C = that.m_1C;
+    m_20 = that.m_20;
+    m_24 = that.m_24;
+    m_28 = that.m_28;
+    m_2C = that.m_2C;
+    m_30 = that.m_30;
+    m_34 = that.m_34;
+    m_38 = that.m_38;
+    m_3C = that.m_3C;
+    m_40 = that.m_40;
+    m_44 = that.m_44;
+}
+
+// The shared header declares assignment; retain this unit's native memberwise provider.
+inline WindModuleInfo &WindModuleInfo::operator=(const WindModuleInfo &that)
+{
+    m_04 = that.m_04;
+    m_08 = that.m_08;
+    m_0C = that.m_0C;
+    m_10 = that.m_10;
+    m_14 = that.m_14;
+    m_18 = that.m_18;
+    m_1C = that.m_1C;
+    m_20 = that.m_20;
+    m_24 = that.m_24;
+    m_28 = that.m_28;
+    m_2C = that.m_2C;
+    m_30 = that.m_30;
+    m_34 = that.m_34;
+    m_38 = that.m_38;
+    m_3C = that.m_3C;
+    m_40 = that.m_40;
+    m_44 = that.m_44;
+    return *this;
 }
 
 typedef WindModuleInfo &(WindModuleInfo::*WindModuleAssign)(const WindModuleInfo &);

@@ -39,35 +39,7 @@ void XferWindMotion(Xfer *xfer, int *value);
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-namespace FXParticleSystem {
-class WindModuleInfo : public ::Snapshot
-{
-public:
-	WindModuleInfo();
-	virtual ~WindModuleInfo();
-	virtual void LoadPostProcess();
-	virtual const char *GetSnapshotName();
-	virtual void DoXfer(Xfer &);
-	int m_04;
-	float m_08;
-	float m_windMotion;
-	float m_windStrength;
-	float m_windFullStrengthDist;
-	float m_windZeroStrengthDist;
-	float m_1c;
-	float m_20;
-	float m_windAngleChangeMin;
-	float m_windAngleChangeMax;
-	float m_2c;
-	float m_windMotionStartAngleMin;
-	float m_windMotionStartAngleMax;
-	float m_38;
-	char m_windMotionEndAngleMin;
-	float m_windMotionEndAngleMax;
-	float m_44;
-};
-
-} // namespace FXParticleSystem
+#include "../../../../Include/GameClient/WindModuleInfo.h"
 
 // Retail export names this owner; BE15A4 slot3 and the same field accesses
 // independently establish WindModuleInfo and its reference-transfer ABI.
@@ -79,20 +51,20 @@ void FXParticleSystem::WindModuleInfo::DoXfer(Xfer &stream)
 	xfer->Version1();
 	XferWindMotion(xfer, &m_04);
 	*xfer == m_08;
-	*xfer == m_windMotion;
-	*xfer == m_windStrength;
-	*xfer == m_windFullStrengthDist;
-	*xfer == m_windZeroStrengthDist;
-	*xfer == m_1c;
+	*xfer == m_0C;
+	*xfer == m_10;
+	*xfer == m_14;
+	*xfer == m_18;
+	*xfer == m_1C;
 	*xfer == m_20;
-	*xfer == m_windAngleChangeMin;
-	*xfer == m_windAngleChangeMax;
-	*xfer == m_2c;
-	*xfer == m_windMotionStartAngleMin;
-	*xfer == m_windMotionStartAngleMax;
+	*xfer == m_24;
+	*xfer == m_28;
+	*xfer == m_2C;
+	*xfer == m_30;
+	*xfer == m_34;
 	*xfer == m_38;
-	*xfer == m_windMotionEndAngleMin;
-	*xfer == m_windMotionEndAngleMax;
+	*xfer == m_3C;
+	*xfer == m_40;
 	*xfer == m_44;
 }
 

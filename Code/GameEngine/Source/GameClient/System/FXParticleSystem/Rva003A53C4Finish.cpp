@@ -33,19 +33,12 @@
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/WindModuleInfo.h"
+
 namespace FXParticleSystem {
-class WindModuleInfo : public Snapshot
-{
-public:
-    WindModuleInfo();
-    virtual ~WindModuleInfo() {}
-    // Exports and native BE15A4 give these three Snapshot overrides.
-    virtual void LoadPostProcess() {}
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(Xfer &);
-    int m04; float m08; float m0C; float m10; float m14; float m18; float m1C; float m20;
-    float m24; float m28; float m2C; float m30; float m34; float m38; bool m3C; float m40; float m44;
-};
+inline WindModuleInfo::~WindModuleInfo() {}
+inline void WindModuleInfo::LoadPostProcess() {}
+
 extern "C" const float kG1; const float kG1 = 2.0;
 extern "C" const float kG2; const float kG2 = 75.0;
 extern "C" const float kG3; const float kG3 = 200.0;
@@ -61,23 +54,23 @@ float windDefault_00DC0A9C = 5.4977874755859375f;
 
 WindModuleInfo::WindModuleInfo()
 {
-	m04 = 1;
-	m08 = kG1;
-	m0C = kG2;
-	m10 = kG3;
-	m14 = 0.0f;
-	m18 = kG4;
-	m1C = kG4;
-	m20 = kG5;
-	m28 = 0.0f;
-	m2C = kG6;
-	m24 = windDefault_00E02904;
-	m34 = kG8;
-	m38 = kG9;
-	m30 = windDefault_00DC0A9C;
-	m3C = true;
-	m40 = 0.0f;
-	m44 = 0.0f;
+	m_04 = 1;
+	m_08 = kG1;
+	m_0C = kG2;
+	m_10 = kG3;
+	m_14 = 0.0f;
+	m_18 = kG4;
+	m_1C = kG4;
+	m_20 = kG5;
+	m_28 = 0.0f;
+	m_2C = kG6;
+	m_24 = windDefault_00E02904;
+	m_34 = kG8;
+	m_38 = kG9;
+	m_30 = windDefault_00DC0A9C;
+	m_3C = true;
+	m_40 = 0.0f;
+	m_44 = 0.0f;
 }
 }
 
