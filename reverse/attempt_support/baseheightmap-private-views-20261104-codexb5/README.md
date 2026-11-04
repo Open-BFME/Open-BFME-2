@@ -74,3 +74,7 @@ and the private-view conflicts identified by the existing TU plan (including
 W3DTreeBuffer, W3DBridgeBuffer, SceneClass and the terrain projection views).
 Finish those prerequisites before rerunning the broad supported merge. Debt
 register ownership and source-path consumers are unchanged by this batch.
+
+The passing commit hook also reported four unresolved identity findings in
+shadow mode; [the findings and investigation scope](hook-identity-findings.md)
+must accompany the next identity/census review.
