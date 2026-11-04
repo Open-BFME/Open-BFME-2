@@ -18,7 +18,7 @@ typedef unsigned int UnsignedInt;
 class SpecialPowerTemplate;
 class UnpauseSpecialPowerUpgrade;
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class Rva004B555F;
 #include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -49,23 +49,11 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // +0x118, ObeyRechageOnTrigger false at +0x11C (own table 0x00857EF0 both
 // fields; the UnpauseSpecialPowerUpgrade pool-key function at 0x4B5405 ends
 // where this ctor begins; factory at 0x25018E news 0x120 and pushes the
-// rowed chained proc). The TU-local base keeps an explicit vtable slot
-// (DestroyEnvironment precedent, so no vtable is emitted); the and-zero
-// floats above the vtable on its own (GiveOrRestore inverse: no barrier).
+// rowed chained proc). The canonical 0x118-byte base supplies the native
+// 31-slot interface; the compiler emits the derived vptr store. The and-zero
+// floats above that store as in retail (GiveOrRestore inverse: no barrier).
 
-extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];
-
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class Rva004CE3B9
 {
@@ -85,55 +73,6 @@ private:
 extern GameLogic *TheGameLogic;
 
 class ModuleData;
-
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-protected:
-	virtual void onCreate();
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
-
-template <int N> class UnpauseSpecialPowerUpgradeMuxSlots : public UnpauseSpecialPowerUpgradeMuxSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-
-template <> class UnpauseSpecialPowerUpgradeMuxSlots<0>
-{
-};
-
-// UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
-// setUpgradeExecuted, slot 10 upgradeImplementation.
-class UpgradeMuxIface : public UnpauseSpecialPowerUpgradeMuxSlots<0>
-{
-protected:
-	virtual Bool slot00() const = 0;
-	virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
-	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-};
-
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-};
 
 class UnpauseSpecialPowerUpgradeModuleData : public Rva00253487Base
 {
@@ -171,12 +110,9 @@ NameKeyType UnpauseSpecialPowerUpgrade::getModuleNameKey() const
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UnpauseSpecialPowerUpgradeModuleDataCtor.cpp
 
-  // ??_7WeaponSetUpgradeModuleData@@6B@
-
 // ??0UnpauseSpecialPowerUpgradeModuleData@@QAE@XZ @0x4B544A
 UnpauseSpecialPowerUpgradeModuleData::UnpauseSpecialPowerUpgradeModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
 	m_specialPowerTemplate = 0;
 	m_obeyRechargeOnTrigger = false;
 }
@@ -226,7 +162,7 @@ void UnpauseSpecialPowerUpgrade::upgradeImplementation()
 
 void UnpauseSpecialPowerUpgrade::upgradeRemovalImplementation()
 {
-	if (!slot00())
+	if (!isAlreadyUpgraded())
 		return;
 	for (BehaviorModule **behaviorModule = getObject()->m_behaviors; *behaviorModule; ++behaviorModule)
 	{
