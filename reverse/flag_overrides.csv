@@ -361,7 +361,6 @@ Code/GameEngine/Source/GameNetwork/Rva00802A90FeslBrowserQuery.cpp,,1,1,region d
 Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva0080A110Route.cpp,-O2,2,1,region default loses rows
@@ -515,7 +514,7 @@ Code/Libraries/Source/Fesl/blobservice.cpp,,11,4,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,16,14,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,,7,7,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,4,4,region default loses rows
-Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,9,9,region default loses rows
+Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,10,10,region default loses rows
 Code/Libraries/Source/Fesl/servicehub.cpp,-O2,3,3,region default loses rows
 Code/Libraries/Source/Fesl/transactor.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Fesl/util.cpp,,4,4,region default loses rows

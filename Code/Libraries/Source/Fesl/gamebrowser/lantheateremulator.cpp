@@ -79,13 +79,17 @@ public:
 void *Rva007F93E0( void *message, void *route, void *owner );
 #include <string.h>
 #pragma comment(linker, "/alternatename:?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z=?bfmeGoSKA@BfmeThingSKA@@QAEXHH@Z")
+#pragma intrinsic( _WriteBarrier )
+#pragma comment(linker, "/alternatename:??1Gen00809750@@UAE@XZ=??1Rva00808920LanGame@@QAE@XZ")
+#pragma comment(linker, "/alternatename:?Rva00809010Find@@YGPAURva00809500Sink@@PAURva00809500Entry@@@Z=?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z")
+
 // Retail 0x008097D0 / 450B: LAN-theater removal transaction.
 // The matched 0x008036D0 caller supplies the transaction ID through the
 // existing BfmeSinkTCA view. Preserve the observed message-payload store order
 // with volatile accesses, matching the recovered BfmeC994 field view.
 
 extern "C" void _WriteBarrier( void );
-#pragma intrinsic( _WriteBarrier )
+
 class BfmeC994
 {
 public:
@@ -121,7 +125,6 @@ public:
 public:
 	void clear();
 };
-#pragma comment(linker, "/alternatename:??1Gen00809750@@UAE@XZ=??1Rva00808920LanGame@@QAE@XZ")
 
 class BfmeC994;
 
@@ -657,11 +660,29 @@ public:
 
 void bfmeFreeSizedVF( void *block, unsigned int size );
 
+class BfmeThingRF
+{
+public:
+	void *bfmeGoRF( void *key, void *defaultValue );
+};
+
+struct Rva00809500Entry;
+
+class Rva00809010Finder
+{
+public:
+	Rva00809500Sink *find( Rva00809500Entry *entry );
+	char m_pad00[0x18];
+	Rva00809500Sink *m_sinks[ 16 ]; // +0x18
+};
+
 // tu-skeleton: 0x00674C00 330B ?apply@Rva00803620Sink@@QAEXHPADHH0@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D50 36B ?rva00674D50@@YAPADDPAPAD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D80 44B ?find@Rva00808E60Owner@@QAEPAURva00808C80Item@@H@Z -- matched in Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
 // ---- from Code/GameEngine/Source/Common/Bfme5EightySeven.cpp
 
@@ -675,8 +696,6 @@ BfmeThingHA *Gen_00808E90::bfmeFind(const BfmeThingHA *key) const
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x00674DF0 127B ?accept@Rva00809500Sink@@QAEXPAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_accept.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
@@ -990,16 +1009,6 @@ void BfmeThingVJJ::bfmeGoVJJ(BfmeMsgVJJ *out)
 	out->bfmeSetVJJ("IP", buf);
 }
 
-// tu-skeleton: 0x00674EB0 32B ??_GGen00808FB0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x00674ED0 62B ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1338.cpp (not merged yet)
-
-// tu-skeleton: 0x00674F10 59B ?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp (not merged yet)
-
-// tu-skeleton: 0x00674F50 163B ?rva00809050@Rva00803620Sink@@QAEPAVRva00808CB0LanGameEntry@@PAURva00809050Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp (not merged yet)
-
-// tu-skeleton: 0x00675000 191B ?bfmeUseSA@BfmeSinkSA@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Y4FeslSubTest.cpp
 
 char BfmeSubSKA::bfmeTestSKA( int id )
@@ -1131,6 +1140,35 @@ void BfmeSinkTCA::bfmeUseTCA( void *value )
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x00674DF0 127B ?accept@Rva00809500Sink@@QAEXPAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_accept.cpp (not merged yet)
+
+// tu-skeleton: 0x00674EB0 32B ??_GGen00808FB0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00674ED0 62B ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1338.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp
+
+Rva00809500Sink *Rva00809010Finder::find( Rva00809500Entry *entry )
+{
+	void *match = reinterpret_cast< BfmeThingRF * >( entry )->bfmeGoRF(
+		// Retail's key is the pooled "GID" literal (not an image pointer).
+		const_cast< char * >( "GID" ), 0 );
+	for( int index = 0; index < 16; ++index )
+	{
+		Rva00809500Sink *sink = m_sinks[ index ];
+		if( sink != 0 && sink->m_match == match )
+			return sink;
+	}
+	return 0;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x00674F50 163B ?rva00809050@Rva00803620Sink@@QAEPAVRva00808CB0LanGameEntry@@PAURva00809050Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp (not merged yet)
+
+// tu-skeleton: 0x00675000 191B ?bfmeUseSA@BfmeSinkSA@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp (not merged yet)
 
 // tu-skeleton: 0x00675650 35B ??_GGen00809750@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
 
