@@ -196,3 +196,30 @@ Both mixed splits matched their carved rows alone but LinkGuard refused them:
 `Rva0049B47CThreeVptrDerived.cpp` would move selected destructor and two
 vftable COMDATs without private/weak-free context. No changes or claims were
 applied.
+
+## Accepted split: StructureBody
+
+Allocation and current scoped planner checks passed (nine approved rows, two
+donors, four mixed files). The merge dry run accepted no donors: the ctor donor
+fails `C2511` because the `StructureBody` view lacks its constructor. Of the
+mixed-file split proposals, only `GapBodiesGE24.cpp` into `StructureBody.cpp`
+was accepted unchanged. It moved row `0x004C09A1`; the other three split trials
+were refused: the getter at `0x004C0982` would move the selected
+`StructureBody` string COMDAT without private/weak-free context; the Xfer at
+`0x004C0A16` fails because `xfer` is absent/private in the destination view;
+and the destructor at `0x004C0988` would move its selected destructor and
+vftable COMDATs without private/weak-free context. LinkGuard compared residual
+and destination for each split.
+
+The accepted split passed `./build.sh StructureBody.cpp` (4/4 rows),
+`./build.sh GapBodiesGE24.cpp` (20/20 rows), and
+`find_declared_unmatched.py` (all definitions matched). `check_csv.py` passed;
+staged code identity checked 24 rows with zero new findings; staged data check
+found zero findings and converged data check covered 11 addresses with no
+second names or unjudged rows. The ownership shadow scan was clean. Header queue
+inspection found no StructureBody entry; the nearby existing ActiveBody rows
+remain with their owners. The Microsoft-header scan refreshed both files with
+zero local Microsoft declarations. No active path consumer references the
+moved row; the remaining source mentions are provenance comments. This split
+retained both files (net source-file change zero), preserved all 24 matched rows
+and retired no identity debt.

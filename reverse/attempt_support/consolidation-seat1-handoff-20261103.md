@@ -209,3 +209,11 @@ The PillageModule recheck confirmed class-view/compiler prerequisites remain;
 both mixed splits are refused by LinkGuard for selected string, destructor and
 vftable COMDATs. The existing obstacle entry now links the exact trial note.
 No source edits or claims were made. Continue to the next allocated TU.
+
+The StructureBody TU has one accepted split: `0x004C09A1` moved from
+`GapBodiesGE24.cpp`; both source builds and ledger/identity/data checks passed,
+and LinkGuard compared the residual and destination. Its other split proposals
+were blocked by class-view compilation or selected COMDAT context; the merge
+ctor needs `StructureBody` view reconciliation. No files were removed and no
+identity debt was retired. Full evidence is in the linked trial note. Continue
+to the next allocated TU after checking wind-down.
