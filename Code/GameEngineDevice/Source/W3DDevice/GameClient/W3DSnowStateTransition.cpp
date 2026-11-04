@@ -8,8 +8,8 @@
 // in ECX at both calls and receiver accesses. BFME1 transitionTBA supports
 // its purpose; the10B CFG near miss is banked separately and not counted.
 // Existing reset93349, override1E35DF and named weather globals bind the rest.
-class Overridable { public: void *vtable; const Overridable *m_nextOverride; const Overridable *getFinalOverride() const; };
-class WeatherSetting : public Overridable { public: char pad08[0x6c-8]; bool enabled; char pad6d[3]; int duration; };
+#include "../../../../GameEngine/Include/Common/Overridable.h"
+class WeatherSetting : public Overridable { public: char pad10[0x6c-0x10]; bool enabled; char pad6d[3]; int duration; };
 template<class T> class OVERRIDE { public: const T *ptr; };
 extern OVERRIDE<WeatherSetting> TheWeatherSetting;
 class GlobalWeatherSystem { public: char pad00[0x10]; int state; };
@@ -22,7 +22,7 @@ class W3DSnowManager { public:
  private: void target_00094652();
 };
 static __forceinline const WeatherSetting *walk(const WeatherSetting *weatherSetting) {
- if(weatherSetting && weatherSetting->m_nextOverride) return (const WeatherSetting *)weatherSetting->m_nextOverride->getFinalOverride();
+ if(weatherSetting && weatherSetting->getNextOverride()) return (const WeatherSetting *)const_cast<Overridable *>(weatherSetting->getNextOverride())->friend_getFinalOverride();
  return weatherSetting;
 }
 void W3DSnowManager::target_00094652() {
