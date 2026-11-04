@@ -6,12 +6,12 @@ namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 { return a < b ? b : a; }
 }
-class Rva00360D26Member {
+class Rva00360D26Member
+{
 public:
 	Rva00360D26Member();
 	~Rva00360D26Member();
-private:
-	unsigned int m_handle;
+	unsigned int m_handle; // +0x00
 };
 struct Rva002A76A0Element {
 	float m_a, m_b;

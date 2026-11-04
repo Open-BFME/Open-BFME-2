@@ -17,8 +17,9 @@ enum ObjectID
 class Rva00360D26Member
 {
 public:
+	Rva00360D26Member();
 	~Rva00360D26Member();
-	unsigned int m_handle;
+	unsigned int m_handle; // +0x00
 };
 
 class Rva002A7400
