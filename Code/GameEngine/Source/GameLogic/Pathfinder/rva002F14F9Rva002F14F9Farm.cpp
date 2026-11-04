@@ -435,20 +435,7 @@ public:
 };
 struct IRegion2D;
 class Xfer;
-class PathfindLayer
-{
-public:
-	void ClassifyWallCells();
-	void ClassifyBridgeCells();
-	void allocateCells(const IRegion2D *extent);
-	__declspec(noinline) void rva000B3FD0();
-	bool setDestroyed(bool destroyed);
-	void rva003666FD(Xfer *xfer);
-	void rva00366DEC();
-	PathfindCell *getCell(int,int);
-private:
-	char storage[0x40]; // +0x00
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 struct Rva002EBC7FPair
 {
