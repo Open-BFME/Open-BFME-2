@@ -47,16 +47,16 @@ public:
 	void rva004AC18D(float value);
 
 private:
-	unsigned int m_frame;
-	float m_state28;
-	float m_state2C;
-	float m_state30;
-	float m_state34;
+	unsigned int frame;
+	float darkness;
+	float scale;
+	float pending;
+	float ramp;
 };
 
 RainOfFireUpdate::~RainOfFireUpdate()
 {
-	m_state2C = 0.0f;
+	scale = 0.0f;
 	rva004AC18D(0.0f);
 }
 
