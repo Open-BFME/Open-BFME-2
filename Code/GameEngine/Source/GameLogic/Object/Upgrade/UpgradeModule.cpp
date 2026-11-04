@@ -25,7 +25,7 @@ public:
 	bool rva00406F9C(const void *other);
 	unsigned m_data[32];
 };
-// ?rva004CE2B0@Rva004CE2B0@@QAE_NPAVRva00406F9C@@@Z @0x004CE2B0 146B: dual mask check.
+// ?wouldUpgrade@UpgradeMux@@UBE_NABV?$BitFlags@$0IA@@@@Z @0x004CE2B0 146B: dual mask check.
 // Clears two 0x80 buffers via rowed 0x001EAE6F, fills via virtual +0x2C,
 // returns false if buf80 all zero or byte at +4 set, then dispatches on
 // virtual +0x38 with mask as this and buf100 as other via rowed 0x002AA292
@@ -39,52 +39,11 @@ public:
 private:
 	int m_bits[32];
 };
-class Rva004CE2B0
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11(void *a, void *b);
-	virtual void v12();
-	virtual bool v13();
-	virtual bool v14();
-	bool rva004CE2B0(Rva00406F9C *mask);
-private:
-	bool m_b04;
-};
-// ?rva004CE342@Rva004CE342@@QAE_NPAVRva00406F9C@@@Z @0x004CE342 85B: consume-once mask check.
+// ?resetUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z @0x004CE342 85B: consume-once mask check.
 // Clears two 0x80 buffers via rowed 0x001EAE6F, fills via virtual +0x2C,
 // returns false if buf80 vs mask via rowed 0x00406F9C is false or byte at
 // +4 is zero, else clears byte and returns true. Slot 3 of many Update
 // vtables. Chain from 0x00406F9C. Sibling of 0x004B4130 0x004CE2B0.
-class Rva004CE342
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11(void *a, void *b);
-	bool rva004CE342(Rva00406F9C *mask);
-private:
-	bool m_b04;
-};
 #include "../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
@@ -178,44 +137,45 @@ void UpgradeModule::xfer(Xfer *xfer)
 	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
-bool Rva004CE2B0::rva004CE2B0(Rva00406F9C *mask)
+bool UpgradeMux::wouldUpgrade(const BitFlags<128> &keyMask) const
 {
+	Rva00406F9C *mask = (Rva00406F9C *)&keyMask;
 	Rva00406F9C conflicting;
 	Rva00406F9C activation;
 	((Rva001EAE6FHelper *)&activation)->clear80();
 	((Rva001EAE6FHelper *)&conflicting)->clear80();
-	v11(&activation, &conflicting);
+	getUpgradeActivationMasks(*(UpgradeMaskType *)&activation, *(UpgradeMaskType *)&conflicting);
 	for (unsigned i = 0; i < 32; ++i) {
 		if (activation.m_data[i] != 0)
 			goto haveBits;
 	}
 	return false;
 haveBits:
-	if (m_b04)
+	if (m_upgradeExecuted)
 		return false;
 	bool disp1;
-	if (v14())
+	if (requiresAllConflictingUpgrades())
 		disp1 = ((Rva002AA292 *)mask)->rva002AA292((const int *)&conflicting);
 	else
 		disp1 = mask->rva00406F9C(&conflicting);
 	if (disp1)
 		return false;
-	if (v13())
+	if (requiresAllActivationUpgrades())
 		return ((Rva002AA292 *)mask)->rva002AA292((const int *)&activation);
 	return mask->rva00406F9C(&activation);
 }
 
-bool Rva004CE342::rva004CE342(Rva00406F9C *mask)
+bool UpgradeMux::resetUpgrade(const BitFlags<128> &keyMask)
 {
 	Rva00406F9C conflicting;
 	Rva00406F9C activation;
 	((Rva001EAE6FHelper *)&activation)->clear80();
 	((Rva001EAE6FHelper *)&conflicting)->clear80();
-	v11(&activation, &conflicting);
-	if (!activation.rva00406F9C(mask))
+	getUpgradeActivationMasks(*(UpgradeMaskType *)&activation, *(UpgradeMaskType *)&conflicting);
+	if (!activation.rva00406F9C(&keyMask))
 		return false;
-	if (m_b04) {
-		m_b04 = false;
+	if (m_upgradeExecuted) {
+		m_upgradeExecuted = false;
 		return true;
 	}
 	return false;
@@ -264,4 +224,4 @@ const AsciiString &Rva004CE3B9::rva004CE3B9()
 
 // tu-skeleton: 0x004CE4A8 8B ?rva004CE4A8@UpgradeModule@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleConditionState.cpp (not merged yet)
 
-// tu-skeleton: 0x004CE4B0 36B ?rva004CE4B0@UpgradeModule@@UAE_NPAVRva00406F9C@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleConditionState.cpp (not merged yet)
+// tu-skeleton: 0x004CE4B0 36B ?resetUpgrade@UpgradeModule@@UAE_NABV?$BitFlags@$0IA@@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleConditionState.cpp (not merged yet)

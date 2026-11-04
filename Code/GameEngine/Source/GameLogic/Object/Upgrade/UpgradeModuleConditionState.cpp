@@ -103,24 +103,14 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-// The +0x10 UpgradeMux subobject; the matched placeholder row 0x004CE342 is
-// its non-virtual base test, so the subobject keeps that row's class name.
-class Rva004CE342
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual bool rva004CE4B0(Rva00406F9C *mask) = 0;
-	bool rva004CE342(Rva00406F9C *mask);
-};
-class UpgradeModule : public BehaviorModule, public Rva004CE342
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+class UpgradeModule : public BehaviorModule, public UpgradeMux
 {
 public:
 	void rva004CE41E(bool apply);
 	void rva004CE4A0();
 	void rva004CE4A8();
-	virtual bool rva004CE4B0(Rva00406F9C *mask);
+	virtual bool resetUpgrade(const BitFlags<128> &keyMask);
 };
 void UpgradeModule::rva004CE41E(bool apply)
 {
@@ -151,9 +141,9 @@ void UpgradeModule::rva004CE4A8()
 {
 	rva004CE41E(false);
 }
-bool UpgradeModule::rva004CE4B0(Rva00406F9C *mask)
+bool UpgradeModule::resetUpgrade(const BitFlags<128> &keyMask)
 {
-	if (rva004CE342(mask))
+	if (UpgradeMux::resetUpgrade(keyMask))
 	{
 		rva004CE41E(false);
 		return true;

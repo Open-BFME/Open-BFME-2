@@ -17,6 +17,7 @@ enum NameKeyType
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;
 class Rva00406F9C;
+template <int NUMBITS> class BitFlags;
 struct Rva004B4AFFDataHead
 {
 	unsigned char m_pad00[0x138];
@@ -48,18 +49,16 @@ class UpgradeModuleInterface
 public:
 	virtual void upgradeModuleInterfaceAnchor();
 };
-// UpgradeMux's base body at 0x004CE2B0 is rowed as Rva004CE2B0::rva004CE2B0.
-class Rva004CE2B0
-{
-public:
-	Bool rva004CE2B0(Rva00406F9C *arg);
-};
+// UpgradeMux's base body at 0x004CE2B0 is rowed as UpgradeMux::wouldUpgrade.
 class UpgradeMux
 {
 public:
 	virtual Bool isAlreadyUpgraded() const = 0;
 	virtual void m01() = 0;
 	virtual Bool rva004CE2B0(Rva00406F9C *arg);
+	// The base's slot-2 body (0x004CE2B0); slot 2 itself keeps the overrides'
+	// placeholder spelling above, so this declaration only names the direct call.
+	virtual Bool wouldUpgrade(const BitFlags<128> &keyMask) const;
 };
 class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMux
 {
@@ -81,6 +80,6 @@ Bool StatusBitsUpgradeIfEldestKindof::rva004CE2B0(Rva00406F9C *arg)
 		(const StatusBitsUpgradeIfEldestKindofModuleData *)m_moduleData;
 	Object *obj = m_object;
 	if (m_eldestFrame.rva00485C19(obj, data, &TheStatusBitsUpgradeIfEldestKindofKey))
-		return ((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(arg); // the UpgradeMux base at +0x10, no null test
+		return UpgradeMux::wouldUpgrade(*(const BitFlags<128> *)arg); // the UpgradeMux base at +0x10, no null test
 	return false;
 }

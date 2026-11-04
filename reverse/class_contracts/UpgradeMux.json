@@ -75,12 +75,12 @@
         "target": "0x4ce27c"
        },
        {
-        "name": "?rva004CE2B0@Rva004CE2B0@@QAE_NPAVRva00406F9C@@@Z",
+        "name": "?wouldUpgrade@UpgradeMux@@UBE_NABV?$BitFlags@$0IA@@@@Z",
         "slot": 2,
         "target": "0x4ce2b0"
        },
        {
-        "name": "?rva004CE342@Rva004CE342@@QAE_NPAVRva00406F9C@@@Z",
+        "name": "?resetUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z",
         "slot": 3,
         "target": "0x4ce342"
        },
@@ -168,8 +168,8 @@
     "slots": {
      "0": "?Is_Valid@RegistryClass@@QAE_NXZ",
      "1": "?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z",
-     "2": "?rva004CE2B0@Rva004CE2B0@@QAE_NPAVRva00406F9C@@@Z",
-     "3": "?rva004CE342@Rva004CE342@@QAE_NPAVRva00406F9C@@@Z",
+     "2": "?wouldUpgrade@UpgradeMux@@UBE_NABV?$BitFlags@$0IA@@@@Z",
+     "3": "?resetUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z",
      "4": "?IsCRC@Xfer@@UBE_NXZ",
      "5": "?forceRefreshUpgrade@UpgradeMux@@UAEXXZ",
      "6": "??1Region2D@@QAE@XZ",

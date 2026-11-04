@@ -123,6 +123,7 @@ private:
 };
 extern PartitionManager *ThePartitionManager;
 class Rva00406F9C;
+template <int NUMBITS> class BitFlags;
 class ReplaceSelfUpgradeModuleData
 {
 public:
@@ -235,13 +236,9 @@ public:
 	virtual Bool rva004CE2B0(Rva00406F9C *mask);	// slot 2
 	virtual void m3();virtual void m4();virtual void m5();virtual void m6();virtual void m7();virtual void m8();
 	virtual void upgradeImplementation();
-};
-
-// The base check 0x004CE2B0 is rowed as Rva004CE2B0::rva004CE2B0 (non-virtual spelling).
-class Rva004CE2B0
-{
-public:
-	Bool rva004CE2B0(Rva00406F9C *mask);
+	// The base's slot-2 body (0x004CE2B0); slot 2 itself keeps the overrides'
+	// placeholder spelling above, so this declaration only names the direct call.
+	virtual Bool wouldUpgrade(const BitFlags<128> &keyMask) const;
 };
 
 class ReplaceSelfUpgrade : public Rva004B7110ModuleBase, public Rva004B7110UpgradeInterface, public UpgradeMux
@@ -300,7 +297,7 @@ public:
 
 Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 {
-	if (!((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(mask)) // the UpgradeMux base at +0x10, no null check
+	if (!UpgradeMux::wouldUpgrade(*(const BitFlags<128> *)mask)) // the UpgradeMux base at +0x10, no null check
 		return false;
 
 	Object *obj = m_object;

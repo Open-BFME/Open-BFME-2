@@ -126,7 +126,7 @@ void __identifier("?requiresAllActivationUpgrades@UpgradeModule@@MBE_NXZ")();
 void __identifier("?requiresAllConflictingUpgrades@UpgradeModule@@MBE_NXZ")();
 void __identifier("?rva00452354@UpgradeMux@@QAEX_N@Z")();
 void __identifier("?rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z")();
-void __identifier("?rva004CE4B0@UpgradeModule@@UAE_NPAVRva00406F9C@@@Z")();
+void __identifier("?resetUpgrade@UpgradeModule@@UAE_NABV?$BitFlags@$0IA@@@@Z")();
 void __identifier("?upgradeImplementation@StatusBitsUpgrade@@MAEXXZ")();
 void __identifier("?upgradeMuxXfer@UpgradeMux@@MAEXPAVXfer@@@Z")();
 void __identifier("?upgradeRemovalImplementation@StatusBitsUpgrade@@MAEXXZ")();
@@ -136,7 +136,7 @@ extern "C" const void *const vtbl_00C579D8[18] = {
 	(const void *)&__identifier("?isAlreadyUpgraded@UpgradeMux@@UBE_NXZ"),
 	(const void *)&__identifier("?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z"),
 	(const void *)&__identifier("?rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z"),
-	(const void *)&__identifier("?rva004CE4B0@UpgradeModule@@UAE_NPAVRva00406F9C@@@Z"),
+	(const void *)&__identifier("?resetUpgrade@UpgradeModule@@UAE_NABV?$BitFlags@$0IA@@@@Z"),
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
 	(const void *)&__identifier("?forceRefreshUpgrade@UpgradeMux@@UAEXXZ"),
 	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"),

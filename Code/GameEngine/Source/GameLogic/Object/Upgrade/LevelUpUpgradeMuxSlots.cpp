@@ -5,8 +5,8 @@
 // being the Object's +0x264 (its level at +0x24).
 // Retail 0x004B3E7F (33 bytes), slot 2: false once the tracker's level has
 // reached the module data's +0x11C cap, else the UpgradeMux base 0x004CE2B0
-// (tail jump; rowed as Rva004CE2B0::rva004CE2B0 and pinned for UpgradeMux by
-// address). The slot is named after that base.
+// (tail jump; rowed as UpgradeMux::wouldUpgrade). The override keeps the
+// placeholder spelling its row has.
 // Retail 0x004B3E15 (106 bytes), slot 10 upgradeImplementation: grants the
 // lower of the module data's +0x118 level count and the room left under the
 // cap through the tracker's 0x0039B4EC (with 1, 0), then, when the Object's
@@ -14,6 +14,7 @@
 typedef bool Bool;
 class ModuleData;
 class Rva00406F9C;
+template <int NUMBITS> class BitFlags;
 class ExperienceTracker
 {
 public:
@@ -73,12 +74,10 @@ protected:
 	virtual void upgradeRemovalImplementation() = 0;
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
-};
-// The base check 0x004CE2B0 is rowed as Rva004CE2B0::rva004CE2B0 (non-virtual spelling).
-class Rva004CE2B0
-{
 public:
-	Bool rva004CE2B0(Rva00406F9C *arg);
+	// The base's slot-2 body (0x004CE2B0); slot 2 itself keeps the overrides'
+	// placeholder spelling above, so this declaration only names the direct call.
+	virtual Bool wouldUpgrade(const BitFlags<128> &keyMask) const;
 };
 class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMux
 {
@@ -98,7 +97,7 @@ Bool LevelUpUpgrade::rva004CE2B0(Rva00406F9C *mask)
 {
 	if (m_object->getExperienceTracker()->m_level >= getData()->m_levelCap)
 		return false;
-	return ((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(mask); // the UpgradeMux base at +0x10
+	return UpgradeMux::wouldUpgrade(*(const BitFlags<128> *)mask); // the UpgradeMux base at +0x10
 }
 void LevelUpUpgrade::upgradeImplementation()
 {
