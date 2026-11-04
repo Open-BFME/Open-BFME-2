@@ -6,10 +6,7 @@ typedef int Int;
 
 #include "../../../Include/GameNetwork/Rva003844D7.h"
 
-struct Rva0038454E
-{
-	char m_pad[0x208];
-};
+#include "../../../Include/GameNetwork/Rva0038454E.h"
 
 struct Rva00385333
 {
