@@ -81,7 +81,12 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include <math.h>
-struct PathfinderCostCellInfo { Int x,y; };
+struct PathfinderCostCellInfo
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 class Waypoint;
 struct PathfinderGroundInfo
 {
@@ -294,8 +299,9 @@ Rva002E6C79 *next() { return (Rva002E6C79 *)rva002E6C79(); }
 };
 struct Rva002F35AFHop
 {
-Int m_zone;
-PathfinderCostCellInfo m_position;
+public:
+	int m_zone; // +0x00
+	PathfinderCostCellInfo m_position; // +0x04
 };
 class Rva005348AD
 {
@@ -417,7 +423,7 @@ private:
 class Rva0006E009DwordField
 {
 public:
-	int get()const;
+	int get() const;
 };
 union PathfinderCheckCoordinates {
 Coord3D point;
@@ -457,7 +463,22 @@ public:
 	char m_pad33[0x1];
 	int m_34; // +0x34
 };
-class Rva002EAB6F {public:Rva002EAB6F(Int,const Rva002E8BCFSrc *,unsigned char,Int,Object *,unsigned char,Int,Int);int m0;Rva002E8BCF m4;unsigned char m14,m15;int m18;Object*m1C;int m20,m24;char pad28[8];int m30;};
+class Rva002EAB6F
+{
+public:
+	Rva002EAB6F(int a1, Rva002E8BCFSrc const *src, unsigned char a3, int a4, Object *obj, unsigned char a6, int a7, int a8);
+	int m0; // +0x00
+	Rva002E8BCF m4; // +0x04
+	unsigned char m14; // +0x14
+	unsigned char m15; // +0x15
+	char m_pad16[0x2];
+	int m18; // +0x18
+	Object *m1C; // +0x1C
+	int m20; // +0x20
+	int m24; // +0x24
+	char _28[8]; // +0x28
+	int m30; // +0x30
+};
 struct Rva002F5925Info;
 struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};

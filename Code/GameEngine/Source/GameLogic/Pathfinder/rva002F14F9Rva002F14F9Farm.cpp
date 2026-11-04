@@ -162,7 +162,9 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 extern "C" double __cdecl fabs(double);
 struct PathfinderCostCellInfo
 {
- Int x,y;
+public:
+	int x; // +0x00
+	int y; // +0x04
 };
 struct PathfinderGroundInfo
 {
@@ -410,8 +412,9 @@ Int Rva002E8C23Call(Int,unsigned char,Rva002E8C23Param *);
 // The 12-byte record +0x1C1CC collects per hop (zone, next cell x/y).
 struct Rva002F35AFHop
 {
- Int m_zone;
- PathfinderCostCellInfo m_position;
+public:
+	int m_zone; // +0x00
+	PathfinderCostCellInfo m_position; // +0x04
 };
 // The 0x14-byte hierarchical path (rowed constructor 0x005348AD); 0x00534557
 // adds a cell and 0x00534AAE finishes it (WorldBuilder: computeOrderMap).

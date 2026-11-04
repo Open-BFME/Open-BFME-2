@@ -86,7 +86,12 @@ struct Rva002E93A7Info
 class PathfindCell;
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-struct PathfinderCostCellInfo { Int x,y; };
+struct PathfinderCostCellInfo
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 void ji_00629952();
 #include "../../../Include/GameLogic/PathfindCell.h"
 
@@ -272,8 +277,9 @@ public:
 // The 12-byte record +0x1C1CC collects per hop (zone, next cell x/y).
 struct Rva002F35AFHop
 {
-	Int m_zone;
-	PathfinderCostCellInfo m_position;
+public:
+	int m_zone; // +0x00
+	PathfinderCostCellInfo m_position; // +0x04
 };
 // The 0x14-byte hierarchical path (rowed constructor 0x005348AD); 0x00534557
 // adds a cell and 0x00534AAE finishes it (WorldBuilder: computeOrderMap).

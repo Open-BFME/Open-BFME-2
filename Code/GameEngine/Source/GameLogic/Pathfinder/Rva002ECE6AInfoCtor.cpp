@@ -11,7 +11,7 @@ class Object {public:Bool rva0028AC62()const;Bool rva0028AFBB()const;
 class Rva0006E009DwordField
 {
 public:
-	int get()const;
+	int get() const;
 };
 class Rva002E6FDF
 {

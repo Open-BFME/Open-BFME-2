@@ -15,7 +15,7 @@ public:
 class Rva002F57E6Query
 {
 public:
-	bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
+	bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int cellX,int cellY,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
 	char m_pad00[0x24];
 	int minX; // +0x24
 	int minY; // +0x28
