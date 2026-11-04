@@ -4,7 +4,7 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #define DEFINE_OBJECT_STATUS_NAMES
-#include "Common/Player.h"
+#include "../../../../Include/Common/Player.h"
 #include "Common/Upgrade.h"
 #include "Common/Xfer.h"
 #include "GameLogic/Module/GrantUpgradeCreate.h"
