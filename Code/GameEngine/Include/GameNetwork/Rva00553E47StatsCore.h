@@ -20,7 +20,8 @@ class Rva00553E47StatsCore
 public:
     Rva00553E47StatsCore(const Rva00553E47StatsCore &);
     Rva00553E47StatsCore(int id);
-    ~Rva00553E47StatsCore();
+    // No user-declared destructor: retail's 0x00383D71 is the implicit one,
+    // which stores no vptr; an explicit empty body adds that store.
 
     virtual void reset();
     virtual void rva005550A0(XferStub *);
