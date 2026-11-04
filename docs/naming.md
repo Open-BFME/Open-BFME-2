@@ -96,6 +96,17 @@ inventory is not a complete C++ parser, so unsupported declarations must be
 reported rather than described as renamed. Already meaningful names need no
 cosmetic replacement.
 
+Preview saves its scoped candidate plans in the session's `.plans.json`; the
+review form binds that artifact with `plan_sha256`. Apply validates the source,
+read dependencies, tracked searches, header closure, compiler flags and planner
+rules before reusing candidates. Parent keeps drop candidates; corrected names
+are planned normally without repeating the other names' analysis. Stale, missing
+or modified artifacts fall back to normal planning. Older sessions still work.
+Keep the generated `plan_sha256` when acknowledging the review form.
+Claims, journaling, rollback and combined byte/link/ledger verification remain
+on the ordinary transaction path. The result reports `reused_sources` and
+`reused_names`; neither is a verification receipt.
+
 For an unclear binding, request a small amount of additional context:
 
 ```sh

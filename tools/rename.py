@@ -6568,7 +6568,11 @@ def plan_local(ctx, source, name, new, basis, evidence, *, function=None, rva=No
                        expected_source_sha=expected_source_sha)
 
 
-def plan_scoped_set(ctx, source, entries, expected_source_sha, basis="inferred", evidence=""):
+def scoped_entry_key(entry):
+    return json.dumps(entry, sort_keys=True, separators=(",", ":"))
+
+
+def plan_scoped_set(ctx, source, entries, expected_source_sha, basis="inferred", evidence="", prepared=None):
     """Plan reviewed scoped names against one original source, then compose.
 
     Each entry retains the ordinary scoped planner's binding, protection and
@@ -6599,10 +6603,14 @@ def plan_scoped_set(ctx, source, entries, expected_source_sha, basis="inferred",
                 raise Refusal("scoped-set entries require direct: scoped review evidence")
             if set(entry) - {"kind", "function", "name", "new", "evidence", "local_binding"}:
                 raise Refusal("unknown scoped-set entry fields")
-            candidate = plan_scoped(entry["kind"], ctx, rel, entry.get("name"), entry.get("new"),
-                basis, entry["evidence"], function=entry.get("function"),
-                local_binding=entry.get("local_binding", entry["kind"] == "local"),
-                expected_source_sha=expected_source_sha)
+            candidate = (prepared or {}).get(scoped_entry_key(entry))
+            if isinstance(candidate, str):
+                raise Refusal(candidate)
+            if candidate is None:
+                candidate = plan_scoped(entry["kind"], ctx, rel, entry.get("name"), entry.get("new"),
+                    basis, entry["evidence"], function=entry.get("function"),
+                    local_binding=entry.get("local_binding", entry["kind"] == "local"),
+                    expected_source_sha=expected_source_sha)
             binding = candidate.old
             target = candidate.new
             if binding in seen_bindings or target in targets:
@@ -7765,7 +7773,7 @@ def _batch_source_edits(ctx, plan, edits):
 
 
 def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks, session=None,
-              source_edits=None):
+              source_edits=None, scoped_plans=None):
     """Plan each name normally, then claim/apply/verify the complete union.
 
     Planning refusals affect only their request. A failed combined transaction
@@ -7774,12 +7782,16 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
     Source moves are excluded. Optional source_edits puts owned preparatory C++
     changes in the same journal, claims, staging and normal byte verification.
     Such preparations require every coupled request to plan successfully.
+    scoped_plans supplies dependency-validated preview candidates only for scoped
+    batches; composition, claims, journal, checks and verification are unchanged.
     """
     from portable_lock import lock, unlock
 
     batch_started = time.perf_counter()
     refuse_pending_journal(ctx)
     requests = list(requests)
+    if scoped_plans is not None and any(kind != "scoped-set" for kind, _ in requests):
+        raise Refusal("preview candidates require a scoped-set-only batch")
     result = RunBatchResult()
     own_session = session is None
     session = session or RunBatchSession(ctx)
@@ -7834,6 +7846,8 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
         with ctx.path(LOCK).open("a") as handle:
             lock(handle, exclusive=True, wait_notice="rename: waiting for the ledger lock...")
             try:
+                if scoped_plans is not None:
+                    scoped_plans.begin()
                 prepared_sources = _batch_source_edits(ctx, combined, source_edits)
                 if prepared_sources:
                     prepared_base.update({rel: combined.after[rel] for rel in source_edits})
@@ -7871,7 +7885,9 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                             git_searches.clear()
                             view._cache.clear()
                             view._object_queries = []
-                            plan = plan_rename(kind, ctx=view, **kwargs)
+                            scoped = scoped_plans.get(view, kwargs) if kind == "scoped-set" and scoped_plans else None
+                            plan = plan_rename(kind, ctx=view, **kwargs,
+                                **({"prepared": scoped} if scoped is not None else {}))
                             session.prepared[key] = (plan, dict(reads), dict(searches), dict(git_searches),
                                                      list(view._object_queries), session.object_generation)
                             del view._object_queries

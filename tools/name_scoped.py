@@ -4,9 +4,12 @@ This module deliberately has no model runner or vote/approval writer. Review is
 one acknowledgement of the complete mapping/diff, with decisions only for
 questionable names. All edits use rename's ordinary journal and verifier.
 """
+import base64
 import collections
+import csv
 import difflib
 import hashlib
+import io
 import json
 import posixpath
 import re
@@ -14,7 +17,7 @@ import shlex
 import subprocess
 import sys
 import time
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 
 import claims
 import name_metric
@@ -169,7 +172,8 @@ def next_batch(lane, args):
                     "it preserves each binding's actual proposer. Do not list several children on every name. "
                     "Resolve coverage warnings and report unsupported bindings; never invent coverage. "
                     "The parent scans the full mapping/diff, investigates only questionable names, "
-                    "then submits one review acknowledgement. No votes or external reviewer CLI."))
+                    "then edits the generated review form, preserving proposal_sha256 and plan_sha256. "
+                    "No votes or external reviewer CLI."))
     if functions:
         packet["related_functions"] = list(functions)
     count = chars = 0
@@ -462,26 +466,195 @@ def context(lane, args):
     return 0
 
 
+def planner_state():
+    """Fence saved decisions against changes to any planner/helper implementation."""
+    tools = Path(__file__).resolve().parent
+    state = hashlib.sha256(sys.version.encode())
+    try:
+        for path in sorted(tools.rglob("*.py")):
+            state.update(path.relative_to(tools).as_posix().encode() + b"\0")
+            state.update(hashlib.sha256(path.read_bytes()).digest())
+    except OSError:
+        return None
+    return state.hexdigest()
+
+
+def fingerprint(raw):
+    return digest(raw) if raw is not None else None
+
+
+class PreviewContext(rename.Context):
+    """Fresh caches ensure every dependency used by a preview is recorded."""
+    def __init__(self, base, tables=None):
+        super().__init__(base.root, object_scan=base.object_scan, sweep_dirs=base.sweep_dirs)
+        self.base, self.reads, self.queries = base, {}, {}
+        self.tables = tables if tables is not None else {}
+
+    def read(self, rel):
+        raw = self.base.read(rel)
+        self.reads[rel] = fingerprint(raw)
+        return raw
+
+    def git(self, *args):
+        output = self.base.git(*args)
+        self.queries[args] = digest(output.encode("utf-8", "surrogateescape"))
+        return output
+
+    def dicts(self, rel):
+        # Retain preview's existing shared ledger parsing without losing the
+        # per-source read footprint. Key by content so mid-preview changes
+        # never pair an old table with a new dependency fingerprint.
+        if rel not in self._cache:
+            raw = self.read(rel)
+            key = (rel, fingerprint(raw))
+            if key not in self.tables:
+                self.tables[key] = list(csv.DictReader(io.StringIO(raw.decode("utf-8")))) if raw else []
+            self._cache[rel] = self.tables[key]
+        return self._cache[rel]
+
+
+HISTORY = {rename.NAME_BASIS: rename.NAME_BASIS_HEADER,
+           rename.NAME_BINDINGS: rename.NAME_BINDINGS_HEADER}
+
+
+def saved_candidate(plan):
+    """Store only a scoped identifier edit and append-only evidence, never a pickle."""
+    if plan.kind not in ("param", "local") or set(plan.after) - {plan.source, *HISTORY}:
+        raise ValueError("not a scoped candidate")
+    metadata = {key: getattr(plan, key) for key in (
+        "kind", "old", "new", "basis", "evidence", "source", "rva", "old_word", "new_word",
+        "source_counts", "claims")}
+    rows = {}
+    for rel, header in HISTORY.items():
+        if rel not in plan.after:
+            continue
+        initial = plan.before[rel]
+        initial = (header + "\n").encode() if initial is None else initial
+        if not plan.after[rel].startswith(initial):
+            raise ValueError("saved scoped history is not append-only")
+        rows[rel] = base64.b64encode(plan.after[rel][len(initial):]).decode("ascii")
+    return dict(metadata=metadata, source_after=base64.b64encode(plan.after[plan.source]).decode("ascii"), rows=rows)
+
+
+def restored_candidate(ctx, rel, item):
+    metadata = item["metadata"]
+    if metadata["source"] != rel or metadata["kind"] not in ("param", "local") or metadata["basis"] != "inferred":
+        raise ValueError("wrong scoped candidate")
+    plan = rename.Plan(**metadata)
+    plan.edit(ctx, rel, base64.b64decode(item["source_after"], validate=True))
+    for path, encoded in item["rows"].items():
+        if path not in HISTORY:
+            raise ValueError("saved scoped plan edits another ledger")
+        plan.edit(ctx, path, rename.appended(ctx.read(path),
+            [base64.b64decode(encoded, validate=True)], header=HISTORY[path]))
+    plan.verify = [rel]
+    return plan
+
+
+class PreviewPlans:
+    """One session's reviewed candidates; validated inside each transaction's lock."""
+    def __init__(self, lane, path, review):
+        self.base, self.cache = lane.ctx, {}
+        self.reused_sources, self.reused_names = set(), 0
+        try:
+            raw = path.read_bytes()
+            if review.get("plan_sha256") != digest(raw):
+                return
+            cache = json.loads(raw)
+            if isinstance(cache, dict) and cache.get("version") == 1 and cache.get("root") == str(lane.root):
+                self.cache = cache
+        except (OSError, ValueError, TypeError):
+            pass  # Older sessions and damaged/missing artifacts use ordinary planning.
+
+    def begin(self):
+        # A restored retry takes a new lock interval and must see intervening changes.
+        self.reads, self.queries = {}, {}
+        rules = planner_state()
+        self.current = bool(self.cache) and rules is not None and self.cache.get("rules") == rules
+
+    def get(self, ctx, request):
+        if not self.current:
+            return None
+        rel = request["source"]
+        try:
+            record = self.cache["sources"][rel]
+            if record["source_sha256"] != request["expected_source_sha"]:
+                return None
+            for path, expected in record["reads"].items():
+                if path in HISTORY:
+                    # Earlier requests append only inferred scoped history. Validate
+                    # against the disk baseline, then append to the current view.
+                    # Foreign history changes (including canonical approvals) invalidate.
+                    if path not in self.reads:
+                        self.reads[path] = fingerprint(self.base.read(path))
+                    actual = self.reads[path]
+                else:
+                    actual = fingerprint(ctx.read(path))
+                if actual != expected:
+                    return None
+            for args, expected in record["queries"]:
+                args = tuple(args)
+                if args not in self.queries:
+                    self.queries[args] = digest(ctx.git(*args).encode("utf-8", "surrogateescape"))
+                if self.queries[args] != expected:
+                    return None
+            if sorted(rename.header_closure(ctx, rel)) != record["headers"]:
+                return None  # Also recheck donor header trust and pin/worktree state.
+            if rename.compile_flags(ctx, rel) != record["flags"]:
+                return None
+            found = {}
+            for entry in request["entries"]:
+                key = rename.scoped_entry_key(entry)
+                if key in record["candidates"]:
+                    found[key] = restored_candidate(ctx, rel, record["candidates"][key])
+                elif key in record["refused"]:
+                    found[key] = record["refused"][key]
+            self.reused_names += sum(isinstance(p, rename.Plan) for p in found.values())
+            if found:
+                self.reused_sources.add(rel)
+            return found
+        except (KeyError, ValueError, TypeError, OSError, rename.Refusal):
+            return None
+
+
 def preview(lane, args):
     path = session_path(lane, args.session)
     raw = lane.path(args.answer).read_bytes()
     packet, answers = load(path), json.loads(raw)
     requests, report = prepare(lane, packet, answers)
     report.update(proposal_sha256=digest(raw), sources={}, refused={})
+    cache = dict(version=1, root=str(lane.root), rules=planner_state(), sources={})
+    tables = {}
     for _, request in requests:
+        context = PreviewContext(lane.ctx, tables)
         try:
-            plan = rename.plan_scoped_set(lane.ctx, **request)
+            plan = rename.plan_scoped_set(context, **request)
         except rename.Refusal as exc:
             report["refused"][request["source"]] = str(exc)
             continue
         rel = request["source"]
+        headers = sorted(rename.header_closure(context, rel))
+        flags = rename.compile_flags(context, rel)
+        # build.py reads these directly when using the real repository root.
+        context.read(rename.FLAG_OVERRIDES)
+        context.read("reverse/retail_inventory/flag_regions.csv")
+        cache["sources"][rel] = dict(source_sha256=request["expected_source_sha"],
+            reads=context.reads, queries=list(context.queries.items()), headers=headers, flags=flags,
+            candidates={rename.scoped_entry_key(request["entries"][index]): saved_candidate(candidate)
+                        for index, candidate in plan.scoped_plans},
+            refused={rename.scoped_entry_key(request["entries"][int(index)]): reason
+                     for index, reason in plan.scoped_refused.items()})
         report["sources"][rel] = dict(diff="".join(difflib.unified_diff(
             packet["sources"][rel]["text"].splitlines(True),
             plan.after[rel].decode("utf-8", "surrogateescape").splitlines(True),
             fromfile=rel, tofile=rel)), refused=getattr(plan, "scoped_refused", {}))
     save(path.with_suffix(".preview.json"), report)
-    save(path.with_suffix(".review.json"), dict(proposal_sha256=digest(raw),
-        scan_complete=False, decisions={}, coverage_checked=False))
+    form = dict(proposal_sha256=digest(raw), scan_complete=False, decisions={}, coverage_checked=False)
+    if cache["rules"] is not None and cache["rules"] == planner_state():
+        saved = path.with_suffix(".plans.json")
+        save(saved, cache)
+        form["plan_sha256"] = digest(saved.read_bytes())
+    save(path.with_suffix(".review.json"), form)
     print(f"scoped: preview {report['proposed']} proposed, {len(report['retained'])} retained; "
           f"read {path.with_suffix('.preview.json')}; parent scans all, resolves exceptions only")
     return 0
@@ -500,6 +673,7 @@ def apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks
         raise ValueError("parent must check inventory coverage warnings before applying")
     requests, report = prepare(lane, packet, answers, review)
     report.update(sources={}, refused={}, verification_runs=0)
+    saved = PreviewPlans(lane, path.with_suffix(".plans.json"), review)
     if requests:
         # Existing run transaction provides one claim, journal, build and ledger
         # verification. A failed combined build restores all sources; do not
@@ -507,7 +681,7 @@ def apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks
         def counted_verify(ctx, sources):
             report["verification_runs"] += 1
             return verify(ctx, sources)
-        result = rename.run_batch(lane.ctx, requests, verify=counted_verify, checks=checks)
+        result = rename.run_batch(lane.ctx, requests, verify=counted_verify, checks=checks, scoped_plans=saved)
         # A compiler location identifies a source group, never an individual
         # variable. Retry unaffected groups together once; unknown failures
         # stop after rollback rather than triggering hundreds of rebuilds.
@@ -524,7 +698,7 @@ def apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks
                 for index, reason in result.refused.items():
                     report["refused"][requests[index][1]["source"]] = reason
                 first = result
-                result = rename.run_batch(lane.ctx, survivors, verify=counted_verify, checks=checks)
+                result = rename.run_batch(lane.ctx, survivors, verify=counted_verify, checks=checks, scoped_plans=saved)
                 requests = survivors
                 result.planning_seconds += first.planning_seconds
                 result.claims_seconds += first.claims_seconds
@@ -542,6 +716,7 @@ def apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks
     else:
         report["landed"] = 0
     report["total_seconds"] = round(time.perf_counter() - started, 3)
+    report.update(reused_sources=len(saved.reused_sources), reused_names=saved.reused_names)
     # Do not repeatedly serve already reviewed files during a continuous run.
     # This is a local picker hint, never evidence or an admission. Explicit
     # --files revisits it; changed source bytes invalidate it automatically.

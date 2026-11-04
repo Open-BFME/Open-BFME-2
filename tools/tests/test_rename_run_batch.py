@@ -592,7 +592,7 @@ def preparation_source(repo):
     extra = "Code/Game/Extra.cpp"
     (repo / extra).write_text("int extra() { return 7; }\n")
     p = repo / rename.FUNCTIONS
-    p.write_text(p.read_text() + f"?extra@@YAHXZ,,0x00403000,6,{extra},matched,existing\n")
+    p.write_bytes(p.read_bytes() + f"?extra@@YAHXZ,,0x00403000,6,{extra},matched,existing\n".encode())
     subprocess.run(["git", "-C", str(repo), "add", "--", extra], check=True)
     return extra
 

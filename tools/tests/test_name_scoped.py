@@ -167,6 +167,171 @@ def test_preview_is_read_only_and_produces_one_review_form(batch):
     assert not (lane.root / rename.NAME_BASIS).exists()
 
 
+def acknowledge_preview(lane, args, decisions=None):
+    assert name_scoped.preview(lane, args) == 0
+    form = name_scoped.load(name_scoped.session_path(lane, args.session).with_suffix(".review.json"))
+    form.update(scan_complete=True, coverage_checked=True, decisions=decisions or {})
+    write_review(args, form)
+    return form
+
+
+def watch_scoped_planner(monkeypatch):
+    calls = []
+    original = rename.plan_scoped
+    def counted(*args, **kwargs):
+        calls.append((args[0], args[3]))
+        return original(*args, **kwargs)
+    monkeypatch.setattr(rename, "plan_scoped", counted)
+    return calls
+
+
+def test_preview_candidates_reused_in_fresh_process_context_with_one_verification(batch, monkeypatch):
+    lane, args, *_ = batch
+    acknowledge_preview(lane, args)
+    fresh = name_lane.Lane(lane.root, rename.Context(lane.root, object_scan=False))
+    calls = watch_scoped_planner(monkeypatch)
+    builds = []
+    assert name_scoped.apply(fresh, args, verify=lambda _c, paths: builds.append(paths) or True,
+                             checks=lambda *_: []) == 0
+    result = name_scoped.load(name_scoped.session_path(fresh, "large").with_suffix(".result.json"))
+    assert result["landed"] == result["reused_names"] == 202
+    assert result["reused_sources"] == 1 and not calls
+    assert builds == [[SOURCE]]
+
+
+@pytest.mark.parametrize("keep", [False, True])
+def test_review_changes_replan_only_changed_binding_and_keep_other_candidates(batch, monkeypatch, keep):
+    lane, args, packet, answers, _ = batch
+    key = next(iter(answers["names"]))
+    decision = {"keep": "Parent retained this binding"} if keep else {
+        "name": "finalInput", "reason": "Parent resolved the input role"}
+    acknowledge_preview(lane, args, {key: decision})
+    calls = watch_scoped_planner(monkeypatch)
+    assert name_scoped.apply(lane, args, verify=lambda *_: True, checks=lambda *_: []) == 0
+    result = name_scoped.load(name_scoped.session_path(lane, "large").with_suffix(".result.json"))
+    assert result["reused_names"] == 201
+    assert len(calls) == (0 if keep else 1)
+    assert result["landed"] == (201 if keep else 202)
+    text = (lane.root / SOURCE).read_text()
+    assert ("int f," in text) if keep else ("int finalInput," in text)
+
+
+@pytest.mark.parametrize("late_header", [False, True])
+def test_changed_header_invalidates_saved_candidates_and_preserves_macro_guard(batch, monkeypatch, late_header):
+    lane, args, packet, *_ = batch
+    header = lane.root / "Code/Game/Guard.h"
+    if not late_header:
+        header.write_text("#pragma once\n")
+        subprocess.run(["git", "-C", str(lane.root), "add", "Code/Game/Guard.h"], check=True)
+    source = lane.root / SOURCE
+    source.write_text('#include "Guard.h"\n' + source.read_text())
+    packet["sources"][SOURCE] = name_scoped.inventory(lane, SOURCE)
+    name_scoped.save(name_scoped.session_path(lane, "large"), packet)
+    acknowledge_preview(lane, args)
+    header.write_text("#pragma once\n#define inputValue 17\n")
+    if late_header:
+        subprocess.run(["git", "-C", str(lane.root), "add", "Code/Game/Guard.h"], check=True)
+    calls = watch_scoped_planner(monkeypatch)
+    assert name_scoped.apply(lane, args, verify=lambda *_: True, checks=lambda *_: []) == 1
+    result = name_scoped.load(name_scoped.session_path(lane, "large").with_suffix(".result.json"))
+    assert result["reused_names"] == 0 and len(calls) == 202
+    assert result["landed"] == 201 and "int f," in source.read_text()
+    assert any("macro" in reason for reason in result["sources"][SOURCE]["refused"].values())
+
+
+def test_preview_shared_tables_observe_a_canonical_approval_between_sources(batch):
+    lane, *_ = batch
+    tables = {}
+    first = name_scoped.PreviewContext(lane.ctx, tables)
+    assert rename.is_protected(first, "param", "calculate::f") is None
+    (lane.root / rename.NAME_BASIS).write_text(rename.NAME_BASIS_HEADER + "\n"
+        "param,calculate::old,calculate::f,canonical:export,evidence," + SOURCE + ",\n")
+    second = name_scoped.PreviewContext(lane.ctx, tables)
+    assert "canonical" in rename.is_protected(second, "param", "calculate::f")
+
+
+def test_new_canonical_history_invalidates_saved_plan_and_is_not_overwritten(batch, monkeypatch):
+    lane, args, *_ = batch
+    acknowledge_preview(lane, args)
+    canonical = "param,calculate::old,calculate::f,canonical:export,evidence," + SOURCE + ",\n"
+    (lane.root / rename.NAME_BASIS).write_text(rename.NAME_BASIS_HEADER + "\n" + canonical)
+    calls = watch_scoped_planner(monkeypatch)
+    assert name_scoped.apply(lane, args, verify=lambda *_: True, checks=lambda *_: []) == 1
+    result = name_scoped.load(name_scoped.session_path(lane, "large").with_suffix(".result.json"))
+    assert result["reused_names"] == 0 and result["landed"] == 201 and len(calls) == 202
+    assert canonical in (lane.root / rename.NAME_BASIS).read_text()
+
+
+def test_changed_optimization_flags_cannot_reuse_local_plans(batch, monkeypatch):
+    lane, args, *_ = batch
+    acknowledge_preview(lane, args)
+    (lane.root / rename.FLAG_OVERRIDES).write_text("source,flags\n" + SOURCE + ",/Od\n")
+    calls = watch_scoped_planner(monkeypatch)
+    assert name_scoped.apply(lane, args, verify=lambda *_: True, checks=lambda *_: []) == 1
+    result = name_scoped.load(name_scoped.session_path(lane, "large").with_suffix(".result.json"))
+    assert result["landed"] == 2 and result["reused_names"] == 0 and len(calls) == 202
+    assert "int iVar199" in (lane.root / SOURCE).read_text()
+
+
+@pytest.mark.parametrize("change", ["missing", "damaged", "legacy", "rules"])
+def test_missing_stale_or_modified_artifact_falls_back_to_full_planning(batch, monkeypatch, change):
+    lane, args, *_ = batch
+    form = acknowledge_preview(lane, args)
+    path = name_scoped.session_path(lane, "large").with_suffix(".plans.json")
+    if change == "missing":
+        path.unlink()
+    elif change == "damaged":
+        path.write_text('{"source_after":"unreviewed"}')
+    elif change == "legacy":
+        form.pop("plan_sha256")
+        write_review(args, form)
+    else:
+        monkeypatch.setattr(name_scoped, "planner_state", lambda: "changed rules")
+    calls = watch_scoped_planner(monkeypatch)
+    assert name_scoped.apply(lane, args, verify=lambda *_: True, checks=lambda *_: []) == 0
+    result = name_scoped.load(name_scoped.session_path(lane, "large").with_suffix(".result.json"))
+    assert result["reused_names"] == 0 and len(calls) == result["landed"] == 202
+
+
+def test_cached_fast_path_keeps_normal_verification_failure_rollback(batch, monkeypatch):
+    lane, args, *_ = batch
+    acknowledge_preview(lane, args)
+    before = (lane.root / SOURCE).read_bytes()
+    calls = watch_scoped_planner(monkeypatch)
+    builds = []
+    assert name_scoped.apply(lane, args, verify=lambda _c, paths: builds.append(paths) or False,
+                             checks=lambda *_: []) == 1
+    assert not calls and builds == [[SOURCE]]
+    assert (lane.root / SOURCE).read_bytes() == before
+    assert not (lane.root / rename.NAME_BASIS).exists()
+
+
+def test_two_cached_sources_append_history_without_losing_earlier_records(batch, monkeypatch):
+    lane, args, packet, answers, _ = batch
+    second = "Code/Game/Other.cpp"
+    (lane.root / second).write_text("// cl: /O2\nint other(int a) { return a; }\n")
+    with (lane.root / rename.FUNCTIONS).open("a") as stream:
+        stream.write("?other@@YAHH@Z,,0x00402000,20," + second + ",matched,\n")
+    subprocess.run(["git", "-C", str(lane.root), "add", second], check=True)
+    lane.ctx._cache.clear()
+    packet["sources"][second] = name_scoped.inventory(lane, second)
+    for target in packet["sources"][second]["targets"]:
+        answers["names"][target["key"]] = dict(name="secondInput")
+    name_scoped.save(name_scoped.session_path(lane, "large"), packet)
+    name_scoped.save(Path(args.answer), answers)
+    acknowledge_preview(lane, args)
+    calls = watch_scoped_planner(monkeypatch)
+    builds = []
+    assert name_scoped.apply(lane, args, verify=lambda _c, paths: builds.append(paths) or True,
+                             checks=lambda *_: []) == 0
+    result = name_scoped.load(name_scoped.session_path(lane, "large").with_suffix(".result.json"))
+    assert result["reused_names"] == result["landed"] == 203 and result["reused_sources"] == 2
+    assert not calls and builds == [[second, SOURCE]]
+    history = (lane.root / rename.NAME_BASIS).read_text()
+    assert history.count(rename.NAME_BASIS_HEADER) == 1
+    assert "calculate::f,calculate::inputValue" in history and "other::a,other::secondInput" in history
+
+
 def test_canonical_parameter_stays_protected(batch):
     lane, args, packet, answers, review = batch
     path = lane.root / rename.NAME_BASIS
