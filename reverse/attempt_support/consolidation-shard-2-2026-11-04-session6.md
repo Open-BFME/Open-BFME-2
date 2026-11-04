@@ -100,3 +100,7 @@ link improvement is claimed. No live claims remain from this pass.
   `W3DTornadoDraw` base clause (`public Rva000B19A1` versus no base) between
   the destructor and radius donors. Manual class-view reconciliation is
   required; no merge was applied.
+- `GameLogic/Object/Made002CCC2D.cpp`: its sole destructor donor is rejected
+  because `Made002CCC2D::Made002CCC2D` is a compiler-generated constructor
+  not declared in the seed class view (MSVC C2600). Manual class-view
+  reconciliation is required; no merge was applied.
