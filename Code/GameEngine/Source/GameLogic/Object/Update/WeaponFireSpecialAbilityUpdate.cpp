@@ -158,7 +158,7 @@ public:
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
 		const Waypoint *way);	// slot 0
-	virtual Bool rva0044EDA6(int value);	// slot 8
+	virtual Bool vslot08(int value);	// slot 8
 };
 
 // Primary table: retail's 0x00C4E090 has 23 slots (base 0x00C3FBA8); the retail slot numbers of the declared ones are noted.
@@ -181,7 +181,7 @@ public:
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
 		const Waypoint *way);	// 0x004500A3
-	virtual Bool rva0044EDA6(int value);	// 0x0044EDA6
+	virtual Bool vslot08(int value);	// 0x0044EDA6
 protected:
 	int m_24; // +0x24
 	unsigned char m_pad28[0x30 - 0x28];
@@ -212,7 +212,7 @@ public:
 	virtual void startPacking(Bool flag);
 	virtual void startUnpacking();
 	virtual UpdateSleepTime update();
-	virtual Bool rva0044EDA6(int value);
+	virtual Bool vslot08(int value);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -569,15 +569,15 @@ void WeaponFireSpecialAbilityUpdate::onExit(bool a, bool b)
 // otherwise the position must lie no nearer than the Weapon's minimum range
 // (0x002C957E) by the Object's shrunken distance 0x002C97E8 and, when bit 2
 // of the Object template's +0x108 byte is set, within its attack range less
-// 2.5 (0x002C9BF8), before the base decides. Named by the base's address,
-// like GiveUpgradeUpdateSlot8.cpp.
-Bool WeaponFireSpecialAbilityUpdate::rva0044EDA6(int value)
+// 2.5 (0x002C9BF8), before the base decides. Named vslot08 after the
+// canonical SpecialPowerUpdateInterface slot 8 (no donor name).
+Bool WeaponFireSpecialAbilityUpdate::vslot08(int value)
 {
 	Weapon *weapon = m_weapon;
 	if (weapon == 0)
 		return false;
 	if (value == 0)
-		return SpecialAbilityUpdate::rva0044EDA6(value);
+		return SpecialAbilityUpdate::vslot08(value);
 	Object *obj = m_object;
 	if (obj == 0)
 		return false;
@@ -592,7 +592,7 @@ Bool WeaponFireSpecialAbilityUpdate::rva0044EDA6(int value)
 		if (obj->rva002C97E8(&obj->m_pos, pos) > range * range)
 			return false;
 	}
-	return SpecialAbilityUpdate::rva0044EDA6(value);
+	return SpecialAbilityUpdate::vslot08(value);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateSlot17.cpp

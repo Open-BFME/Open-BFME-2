@@ -1,14 +1,14 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva0044EDA6@Rva00492C59@@UAE_NH@Z, retail 0x00492E79 (132 bytes): slot 8
+// ?vslot08@Rva00492C59@@UAE_NH@Z, retail 0x00492E79 (132 bytes): slot 8
 // of the +0x20 interface table of the teleport special ability update whose
 // constructor is rowed as Rva00492C59 (its xfer 0x00492E10 and update
 // 0x00492D11 share the class), so `this` is that subobject (module data at
 // -0x1C, the Object at -0x18). With a target position and a positive maximum
 // distance in the module data (+0xD4), a target farther than that from the
 // Object's position (+0x38) is refused; otherwise the SpecialAbilityUpdate
-// +0x20 slot-8 base 0x0044EDA6 decides. Named by the base's address, like
-// WeaponFireSpecialAbilityUpdateSlot8.cpp.
+// +0x20 slot-8 base 0x0044EDA6 decides. Named vslot08 after the canonical
+// SpecialPowerUpdateInterface slot 8 (no donor name).
 typedef bool Bool;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 typedef float Real;
@@ -27,24 +27,18 @@ protected:
 	Object *m_object;				// +0x08
 	unsigned char m_pad0C[0x20 - 0x0C];
 };
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void u0(); virtual void u1(); virtual void u2(); virtual void u3();
-	virtual void u4(); virtual void u5(); virtual void u6(); virtual void u7();
-	virtual Bool rva0044EDA6(int value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual Bool rva0044EDA6(int value);
+	virtual Bool vslot08(int value);
 };
 class Rva00492C59 : public SpecialAbilityUpdate
 {
 public:
-	virtual Bool rva0044EDA6(int value);
+	virtual Bool vslot08(int value);
 };
-Bool Rva00492C59::rva0044EDA6(int value)
+Bool Rva00492C59::vslot08(int value)
 {
 	const Coord3D *pos = (const Coord3D *)value;
 	if (pos)
@@ -63,5 +57,5 @@ Bool Rva00492C59::rva0044EDA6(int value)
 			}
 		}
 	}
-	return SpecialAbilityUpdate::rva0044EDA6(value);
+	return SpecialAbilityUpdate::vslot08(value);
 }

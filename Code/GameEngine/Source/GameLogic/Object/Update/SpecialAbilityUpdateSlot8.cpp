@@ -13,17 +13,11 @@ typedef bool Bool;
 class Object;
 class Rva0044EDA6ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void u0(); virtual void u1(); virtual void u2(); virtual void u3();
-	virtual void u4(); virtual void u5(); virtual void u6(); virtual void u7();
-	virtual Bool rva0044EDA6(int value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual Bool rva0044EDA6(int value);
+	virtual Bool vslot08(int value);
 };
 class Overridable
 {
@@ -72,7 +66,7 @@ struct Rva0044EDA6Outer
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-Bool SpecialAbilityUpdate::rva0044EDA6(int targetPos)
+Bool SpecialAbilityUpdate::vslot08(int targetPos)
 {
 if ((m_moduleData != 0 || m_moduleData == 0)) {
  const Rva0044EDA6Outer *data=(const Rva0044EDA6Outer *)m_moduleData;

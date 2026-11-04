@@ -13157,7 +13157,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?rva00450635@WeaponFireSpecialAbilityUpdate@@UAEX_N@Z,0x004925DB,address,placeholder
 ?rva0044FC52@WeaponFireSpecialAbilityUpdate@@UAE_NXZ,0x004927D0,address,placeholder
 ?rva0049283E@WeaponFireSpecialAbilityUpdate@@UAEXXZ,0x0049283E,address,placeholder
-?rva0044EDA6@WeaponFireSpecialAbilityUpdate@@UAE_NH@Z,0x004929D1,address,placeholder
+?vslot08@WeaponFireSpecialAbilityUpdate@@UAE_NH@Z,0x004929D1,address,placeholder
 ??0Rva00492C59@@QAE@PAVThing@@PBVModuleData@@@Z,0x00492C59,address,placeholder
 ?Rva00492C8AGet@@YAHXZ,0x00492C8A,address,placeholder
 ??1Rva00492C90@@UAE@XZ,0x00492C90,address,placeholder
@@ -13317,7 +13317,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?Rva0049C3F6Get@@YAHXZ,0x0049C3F6,address,placeholder
 ??1Rva0049C3FC@@UAE@XZ,0x0049C3FC,address,placeholder
 ??_GRva0049C3FC@@UAEPAXI@Z,0x0049C4B6,address,placeholder
-?rva0044EDA6@GiveUpgradeUpdate@@UAE_NH@Z,0x0049C553,address,placeholder
+?vslot08@GiveUpgradeUpdate@@UAE_NH@Z,0x0049C553,address,placeholder
 ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z,0x0049C5F4,address,placeholder
 ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z,0x0049C6E1,address,placeholder
 ?rva0049C73A@GiveUpgradeUpdate@@QAEXXZ,0x0049C73A,address,placeholder
@@ -13542,7 +13542,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ??1Rva004AE4E2@@UAE@XZ,0x004AE4E2,address,placeholder
 ?rva004AE502@ToggleDeploySpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ,0x004AE502,address,placeholder
 ??_GRva004AE4E2@@UAEPAXI@Z,0x004AE567,address,placeholder
-?rva0044EDA6@ToggleDeploySpecialAbilityUpdate@@UAE_NH@Z,0x004AE583,address,placeholder
+?vslot08@ToggleDeploySpecialAbilityUpdate@@UAE_NH@Z,0x004AE583,address,placeholder
 ?rva004AE5B8@ToggleDeploySpecialAbilityUpdate@@QAEXPAX@Z,0x004AE5B8,address,placeholder
 ?rva004AE5B8@ToggleDeploySpecialAbilityUpdate@@UAEXPAVObject@@@Z,0x004AE5B8,address,placeholder
 ?rva0045108D@ToggleDeploySpecialAbilityUpdate@@UAEXXZ,0x004AE634,address,placeholder

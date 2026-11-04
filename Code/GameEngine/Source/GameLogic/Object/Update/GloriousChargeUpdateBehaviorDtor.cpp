@@ -25,7 +25,7 @@ void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
 void __identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z")();
 void __identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z")();
-void __identifier("?rva0044EDA6@SpecialAbilityUpdate@@UAE_NH@Z")();
+void __identifier("?vslot08@SpecialAbilityUpdate@@UAE_NH@Z")();
 }
 extern "C" const void *const vtbl_00C552A4[9] = {
 	(const void *)&__identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z"), // slot 0 0x004500A3
@@ -36,7 +36,7 @@ extern "C" const void *const vtbl_00C552A4[9] = {
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5 0x0047A69C
 	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // slot 6 0x0044EECA
 	(const void *)&__identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z"), // slot 7 0x0044F09F
-	(const void *)&__identifier("?rva0044EDA6@SpecialAbilityUpdate@@UAE_NH@Z"), // slot 8 0x0044EDA6
+	(const void *)&__identifier("?vslot08@SpecialAbilityUpdate@@UAE_NH@Z"), // slot 8 0x0044EDA6
 };
 
 class Thing;

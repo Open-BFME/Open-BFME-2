@@ -22,24 +22,18 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void u0(); virtual void u1(); virtual void u2(); virtual void u3();
-	virtual void u4(); virtual void u5(); virtual void u6(); virtual void u7();
-	virtual bool rva0044EDA6(int value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual bool rva0044EDA6(int value);
+	virtual bool vslot08(int value);
 };
 
 class ToggleDeploySpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual bool rva0044EDA6(int value);
+	virtual bool vslot08(int value);
 	virtual NameKeyType getModuleNameKey() const;
 };
 
@@ -48,8 +42,8 @@ public:
 // 0x00C55348, retail 0x004AE583 (53 bytes), so `this` is that subobject (the
 // Object at -0x18): false for an Object of kind 0x5E or 0x60, otherwise the
 // SpecialAbilityUpdate +0x20 slot-8 base 0x0044EDA6 (the slot-8 entry of the
-// special-ability +0x20 tables; pinned by address). Named by the base's
-// address.
+// special-ability +0x20 tables; pinned by address). Named vslot08 after the
+// canonical SpecialPowerUpdateInterface slot 8 (no donor name).
 typedef bool Bool;
 
 enum KindOfType
@@ -129,12 +123,12 @@ NameKeyType ToggleDeploySpecialAbilityUpdate::getModuleNameKey() const
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateSlot8.cpp
 
-Bool ToggleDeploySpecialAbilityUpdate::rva0044EDA6(int value)
+Bool ToggleDeploySpecialAbilityUpdate::vslot08(int value)
 {
 	Object *obj = m_object;
 	if (obj->isKindOf(KINDOF_BFME_5E) || obj->isKindOf(KINDOF_BFME_60))
 		return false;
-	return SpecialAbilityUpdate::rva0044EDA6(value);
+	return SpecialAbilityUpdate::vslot08(value);
 }
 
 // tu-skeleton: 0x004AE547 32B ??0ToggleDeploySpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)

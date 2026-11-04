@@ -53,7 +53,7 @@ extern WeaponStore *TheWeaponStore;
 class SpecialAbilityUpdate
 {
 public:
-	virtual Bool rva0044EDA6(int v);
+	virtual Bool vslot08(int v);
 };
 
 class Rva004906CD : public SpecialAbilityUpdate
@@ -74,7 +74,7 @@ Bool Rva004906CD::rva004906CD(const Coord3D *pos)
 		return false;
 	}
 	if (pos == 0) {
-		return SpecialAbilityUpdate::rva0044EDA6(0);
+		return SpecialAbilityUpdate::vslot08(0);
 	}
 	Object *obj = *(Object **)(base - 0x18);
 	if (obj == 0) {
@@ -96,5 +96,5 @@ Bool Rva004906CD::rva004906CD(const Coord3D *pos)
 			return false;
 		}
 	}
-	return SpecialAbilityUpdate::rva0044EDA6((int)pos);
+	return SpecialAbilityUpdate::vslot08((int)pos);
 }
