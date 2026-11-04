@@ -39,12 +39,7 @@ namespace _STL { template <> void allocator<long>::deallocate(long *,unsigned in
 namespace _STL { template <> void vector<long,_STL::allocator<long> >::push_back(long const &); }
 // bfme link decl-only end
 
-class WeaponTemplate
-{
-public:
-    char m_pad00[0x40];
-    _STL::vector<Coord2D> m_scatterTargets;
-};
+#include "../../Include/GameLogic/WeaponTemplate.h"
 
 class Weapon
 {
@@ -60,7 +55,7 @@ private:
 void Weapon::rebuildScatterTargets()
 {
     m_scatterTargetsUnused.clear();
-    ScatterIndex scatterTargetsCount = m_template->m_scatterTargets.size();
+    ScatterIndex scatterTargetsCount = ((const _STL::vector<Coord2D> *)m_template->m_field40)->size();
     if (scatterTargetsCount)
     {
         for (ScatterIndex targetIndex = 0; targetIndex < scatterTargetsCount; targetIndex++)
