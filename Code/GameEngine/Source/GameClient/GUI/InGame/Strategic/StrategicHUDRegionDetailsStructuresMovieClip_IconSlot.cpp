@@ -99,22 +99,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapBinding(const AsciiString &name, FunctorBinding binding)
-	{
-		AddCommandMap(name, binding);
-	}
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc) { AddCommandMap(name, &desc); }
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
@@ -354,10 +344,10 @@ StrategicHUD::RegionDetailsStructuresMovieClip::Impl::Impl(RegionDetailsStructur
 	StrategicHUD::SetBuildingNameString(m_level, (Rva005F066COuter *)&m_name, m_buildingName);
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
-	m_commands.AddCommandMapDelegate(prefix + m_name + "_OnRegionFortressRollOver", DelegateDesc((Rva005F141D *)this, &Rva005F141D::OnRegionFortressRollOver));
-	m_commands.AddCommandMapDelegate(prefix + m_name + "_OnRegionFortressRollOut", DelegateDesc((InGameCommandButtonMovieClip::Impl *)this, &InGameCommandButtonMovieClip::Impl::OnOverButton));
-	m_commands.AddCommandMapDelegate(prefix + m_name + "_OnRegionFortressTypeRollOver", DelegateDesc((Rva005F141D *)this, &Rva005F141D::rva005F057A));
-	m_commands.AddCommandMapDelegate(prefix + m_name + "_OnRegionFortressTypeRollOut", DelegateDesc((StrategicHUD::ArmyMemberIconMovieClip::Impl *)this, &StrategicHUD::ArmyMemberIconMovieClip::Impl::OnRollOver));
+	AddCommandMapDelegate(m_commands, prefix + m_name + "_OnRegionFortressRollOver", DelegateDesc((Rva005F141D *)this, &Rva005F141D::OnRegionFortressRollOver));
+	AddCommandMapDelegate(m_commands, prefix + m_name + "_OnRegionFortressRollOut", DelegateDesc((InGameCommandButtonMovieClip::Impl *)this, &InGameCommandButtonMovieClip::Impl::OnOverButton));
+	AddCommandMapDelegate(m_commands, prefix + m_name + "_OnRegionFortressTypeRollOver", DelegateDesc((Rva005F141D *)this, &Rva005F141D::rva005F057A));
+	AddCommandMapDelegate(m_commands, prefix + m_name + "_OnRegionFortressTypeRollOut", DelegateDesc((StrategicHUD::ArmyMemberIconMovieClip::Impl *)this, &StrategicHUD::ArmyMemberIconMovieClip::Impl::OnRollOver));
 }
 
 
