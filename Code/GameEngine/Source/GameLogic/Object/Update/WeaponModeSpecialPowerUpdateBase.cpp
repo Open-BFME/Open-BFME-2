@@ -163,14 +163,7 @@ private:
 	float m_10;
 };
 
-class Rva002390CB
-{
-public:
-	Rva002390CB(const Rva002390CB &other);
-	~Rva002390CB();
-private:
-	void *m_data;
-};
+#include "../../../../Include/Common/Rva002390CB.h"
 
 struct Rva00494A97ModuleData
 {
