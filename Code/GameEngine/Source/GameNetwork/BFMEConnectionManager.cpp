@@ -48,20 +48,7 @@ class NetKeepAliveCommandMsg : public NetCommandMsg
 public:
 	NetKeepAliveCommandMsg();
 };
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	NetFrameCommandMsg();
-	UnsignedInt getFrame() const { return m_frame; }
-	void setFrame(UnsignedInt frame) { m_frame = frame; }
-	void setPlayerFrame(UnsignedInt frame) { m_playerFrame = frame; }
-	void setCommandCount(UnsignedInt count) { m_commandCount = count; }
-
-private:
-	UnsignedInt m_frame;
-	UnsignedInt m_playerFrame;
-	UnsignedInt m_commandCount;
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 class BFMENetRouterFallbackCommandMsg : public NetCommandMsg
 {
 public:

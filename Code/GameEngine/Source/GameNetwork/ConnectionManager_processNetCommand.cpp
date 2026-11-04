@@ -70,18 +70,7 @@ public:
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	UnsignedInt getFrame() const { return m_frame; }
-	UnsignedInt getPlayerFrame() const { return m_playerFrame; }
-	UnsignedInt getCommandCount() const { return m_commandCount; }
-
-private:
-	UnsignedInt m_frame;
-	UnsignedInt m_playerFrame;
-	UnsignedInt m_commandCount;
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 
 class NetWrapperCommandMsg;
 class NetProgressCommandMsg;

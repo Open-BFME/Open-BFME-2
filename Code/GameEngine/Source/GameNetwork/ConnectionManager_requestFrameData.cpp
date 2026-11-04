@@ -62,18 +62,7 @@ private:
 
 #include "../../Include/GameNetwork/NetCommandListClass.h"
 
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	NetFrameCommandMsg();
-	void setFrame(UnsignedInt frame) { m_frame = frame; }
-	void setCommandCount(UnsignedInt count) { m_commandCount = count; }
-
-private:
-	UnsignedInt m_frame;
-	UnsignedInt m_playerFrame;
-	UnsignedInt m_commandCount;
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 
 // The folded dword getters at +0x1C and +0x20.
 #include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
