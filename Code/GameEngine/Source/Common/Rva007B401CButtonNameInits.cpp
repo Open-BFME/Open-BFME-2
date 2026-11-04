@@ -22,9 +22,9 @@ void __cdecl rva007B94B4();
 // Owned here: the two 16-byte button-name statics this unit constructs (zero-filled .data;
 // their initialisers below fill them).
 // Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E062FC@@3IA")[4];
+extern "C" { unsigned int __identifier("?g_Va00E062FC@@3IA")[4]; }
 // Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E0630C@@3IA")[4];
+extern "C" { unsigned int __identifier("?g_Va00E0630C@@3IA")[4]; }
 
 class Rva00221635
 {

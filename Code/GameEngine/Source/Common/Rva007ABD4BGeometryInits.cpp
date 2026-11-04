@@ -29,9 +29,9 @@ void __cdecl rva007B6B23();
 // Owned here: the two 0x60-byte GeometryInfo statics this unit constructs (zero-filled .data;
 // their initialisers below fill them).
 // Retail's object extends 96 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DE1D00@@3IA")[24];
+extern "C" { unsigned int __identifier("?g_Va00DE1D00@@3IA")[24]; }
 // Retail's object extends 96 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DE1D60@@3IA")[24];
+extern "C" { unsigned int __identifier("?g_Va00DE1D60@@3IA")[24]; }
 
 struct Rva007ABD4BGeometryInits
 {

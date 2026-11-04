@@ -239,7 +239,7 @@ public:
 
 // g_Va00DEDC80: matched references place it at VA 0xdedc80 (zero-filled .bss).
 // Retail's object extends 656 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEDC80@@3IA")[164];
+extern "C" { unsigned int __identifier("?g_Va00DEDC80@@3IA")[164]; }
 // DX8Wrapper::render_state (VA 0x00DEE5D8, protected static, defined in
 // dx8wrapper.cpp): the global the next thunk destroys.
 struct RenderStateStruct;
@@ -273,7 +273,7 @@ public:
 
 // g_Va009F6F30: matched references place it at VA 0xdf6f30 (zero-filled .bss).
 // Retail's object extends 80 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va009F6F30@@3IA")[20];
+extern "C" { unsigned int __identifier("?g_Va009F6F30@@3IA")[20]; }
 
 // ?rva007B71C0@@YAXXZ @ 0x007B71C0 (10B). Global SegLineRenderer dtor thunk: ecx=&g_Va009F6F30 then tail-jmp to rowed ??1SegLineRendererClass@@QAE@XZ (0x001911C0). No callers. Prev is our 0x007B6FD0 row in this TU (same page). Honest address name.
 // The deleting-dtor COMDAT copy this TU emits must match part_buf.cpp's /O2-style (add esp,4) copy, while the file stays /O1 for the other thunks: pragma on the caller controls the compiler-generated ??_G.
@@ -5865,7 +5865,7 @@ void __cdecl rva007B9CB2()
 }
 
 // Retail's object extends 80 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00A1F4E8@@3IA")[20];
+extern "C" { unsigned int __identifier("?g_Va00A1F4E8@@3IA")[20]; }
 
 // ?rva007B9CC0@@YAXXZ @ 0x007B9CC0 (10B). Global SegLineRendererClass dtor thunk: ecx=&g_Va00A1F4E8 then tail-jmp to rowed ??1SegLineRendererClass@@QAE@XZ (0x001911C0).
 #pragma optimize("t", on)
@@ -6203,7 +6203,7 @@ public:
 }
 
 // Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DFDD0C@@3IA")[4];
+extern "C" { unsigned int __identifier("?g_Va00DFDD0C@@3IA")[4]; }
 
 // ?rva007B7588@@YAXXZ @ 0x007B7588 (10B). Global Rva001F4B01 dtor thunk: ecx=&g_Va00DFDD0C then tail-jmp to pinned ??1Rva001F4B01@@UAE@XZ (0x001F4B01; scalar deleting dtor 0x001F4B47, vtable 0x00BE171C#0). No callers. Honest address name.
 void __cdecl rva007B7588()
@@ -6562,7 +6562,7 @@ public:
 };
 
 // Retail's object extends 112 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E0669C@@3IA")[28];
+extern "C" { unsigned int __identifier("?g_Va00E0669C@@3IA")[28]; }
 
 // ?rva007B993D@@YAXXZ @ 0x007B993D (10B). Global Rva005E9F7B dtor thunk: ecx=&g_Va00E0669C then tail-jmp to pinned ??1Rva005E9F7B@@UAE@XZ (0x005E9F7B; scalar deleting dtor 0x005EA68B). No callers. Honest address name.
 void __cdecl rva007B993D()
@@ -6572,7 +6572,7 @@ void __cdecl rva007B993D()
 }
 
 // Retail's object extends 12 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E06778@@3IA")[3];
+extern "C" { unsigned int __identifier("?g_Va00E06778@@3IA")[3]; }
 
 // ?rva007B9997@@YAXXZ @ 0x007B9997 (10B). Global Rva005E9F7B dtor thunk: ecx=&g_Va00E06778 then tail-jmp to pinned ??1Rva005E9F7B@@UAE@XZ (0x005E9F7B; scalar deleting dtor 0x005EA68B). No callers. Honest address name.
 void __cdecl rva007B9997()
@@ -6690,7 +6690,7 @@ public:
 };
 
 // Retail's object extends 12 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DE2008@@3IA")[3];
+extern "C" { unsigned int __identifier("?g_Va00DE2008@@3IA")[3]; }
 
 // ?rva007B6BF5@@YAXXZ @ 0x007B6BF5 (10B). WaterDraw global cleanup registered by startup thunk 0x007AC022; tail-calls the verified destructor at 0x0007EC44.
 void __cdecl rva007B6BF5()
@@ -6775,7 +6775,7 @@ public:
 };
 
 // Retail's object extends 44 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC174@@3IA")[11];
+extern "C" { unsigned int __identifier("?g_Va00DEC174@@3IA")[11]; }
 
 // ?rva007B6EF4@@YAXXZ @ 0x007B6EF4 (10B). Global Rva004E5A24 dtor thunk: ecx=&g_Va00DEC174 then tail-jmp to rowed ??1Rva004E5A24@@UAE@XZ (0x000FB86C). No callers. Honest address name.
 void __cdecl rva007B6EF4()
@@ -6845,7 +6845,7 @@ public:
 };
 
 // Retail's object extends 12 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E03168@@3IA")[3];
+extern "C" { unsigned int __identifier("?g_Va00E03168@@3IA")[3]; }
 
 // ?rva007B82D3@@YAXXZ @ 0x007B82D3 (10B). Tree teardown: ecx=&g_Va00E03168 then tail-jmp to the 0x00422CE9 stub for tree dtor ??1Rva00421BF7@@QAE@XZ (0x0042263D). No callers. Honest address name.
 void __cdecl rva007B82D3()
@@ -6931,7 +6931,7 @@ public:
 };
 
 // Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC1CC@@3IA")[4];
+extern "C" { unsigned int __identifier("?g_Va00DEC1CC@@3IA")[4]; }
 
 // ?rva007B6F08@@YAXXZ @ 0x007B6F08 (10B). Global dtor thunk: ecx=&g_Va00DEC1CC then tail-jmp to pinned ??1Rva000FC5AADtor@@QAE@XZ (0x000FC5AA). No callers. Honest address name.
 void __cdecl rva007B6F08()
@@ -6941,7 +6941,7 @@ void __cdecl rva007B6F08()
 }
 
 // Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC1DC@@3IA")[4];
+extern "C" { unsigned int __identifier("?g_Va00DEC1DC@@3IA")[4]; }
 
 // ?rva007B6F12@@YAXXZ @ 0x007B6F12 (10B). Global dtor thunk: ecx=&g_Va00DEC1DC then tail-jmp to pinned ??1Rva000FC5AADtor@@QAE@XZ (0x000FC5AA). No callers. Honest address name.
 void __cdecl rva007B6F12()
@@ -6957,7 +6957,7 @@ public:
 };
 
 // Retail's object extends 104 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC018@@3IA")[26];
+extern "C" { unsigned int __identifier("?g_Va00DEC018@@3IA")[26]; }
 
 // ?rva007B6EAE@@YAXXZ @ 0x007B6EAE (10B). Global dtor thunk: ecx=&g_Va00DEC018 then tail-jmp to pinned ??1Rva000F82F5Dtor@@QAE@XZ (0x000F82F5). No callers. Honest address name.
 void __cdecl rva007B6EAE()
@@ -6973,7 +6973,7 @@ public:
 };
 
 // Retail's object extends 88 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC080@@3IA")[22];
+extern "C" { unsigned int __identifier("?g_Va00DEC080@@3IA")[22]; }
 
 // ?rva007B6EC2@@YAXXZ @ 0x007B6EC2 (10B). Global dtor thunk: ecx=&g_Va00DEC080 then tail-jmp to pinned ??1Rva000F9BD7Dtor@@QAE@XZ (0x000F9BD7). No callers. Honest address name.
 void __cdecl rva007B6EC2()
@@ -6989,7 +6989,7 @@ public:
 };
 
 // Retail's object extends 96 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC0E0@@3IA")[24];
+extern "C" { unsigned int __identifier("?g_Va00DEC0E0@@3IA")[24]; }
 
 // ?rva007B6ED6@@YAXXZ @ 0x007B6ED6 (10B). Global dtor thunk: ecx=&g_Va00DEC0E0 then tail-jmp to pinned ??1Rva000FA7E8Dtor@@QAE@XZ (0x000FA7E8). No callers. Honest address name.
 void __cdecl rva007B6ED6()
@@ -7007,7 +7007,7 @@ public:
 };
 
 // Retail's object extends 52 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DEC140@@3IA")[13];
+extern "C" { unsigned int __identifier("?g_Va00DEC140@@3IA")[13]; }
 
 // ?rva007B6EEA@@YAXXZ @ 0x007B6EEA (10B). Global dtor thunk: ecx=&g_Va00DEC140 then tail-jmp to pinned ??1Rva000FB85DDtor@@QAE@XZ (0x000FB85D). No callers. Honest address name.
 void __cdecl rva007B6EEA()
@@ -7023,7 +7023,7 @@ public:
 };
 
 // Retail's object extends 12 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DF29B4@@3IA")[3];
+extern "C" { unsigned int __identifier("?g_Va00DF29B4@@3IA")[3]; }
 
 // ?rva007B70D3@@YAXXZ @ 0x007B70D3 (10B). Global dtor thunk: ecx=&g_Va00DF29B4 then tail-jmp to pinned ??1Rva00136768Dtor@@QAE@XZ (0x00136768). No callers. Honest address name.
 void __cdecl rva007B70D3()
@@ -7089,7 +7089,7 @@ public:
 };
 
 // Retail's object extends 20 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00DFF494@@3IA")[5];
+extern "C" { unsigned int __identifier("?g_Va00DFF494@@3IA")[5]; }
 
 // ?rva007B7AE1@@YAXXZ @ 0x007B7AE1 (10B). Global dtor thunk: ecx=&g_Va00DFF494 then tail-jmp to pinned ??1Rva0030A0FCDtor@@QAE@XZ (0x0030A0FC). No callers. Honest address name.
 void __cdecl rva007B7AE1()
@@ -7133,7 +7133,7 @@ public:
 };
 
 // Retail's object extends 40 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E04508@@3IA")[10];
+extern "C" { unsigned int __identifier("?g_Va00E04508@@3IA")[10]; }
 
 // ?rva007B9049@@YAXXZ @ 0x007B9049 (10B). Global dtor thunk: ecx=&g_Va00E04508 then tail-jmp to pinned ??1Rva00502D03Dtor@@QAE@XZ (0x00502D03). No callers. Honest address name.
 void __cdecl rva007B9049()
@@ -7166,7 +7166,7 @@ public:
 };
 
 // Retail's object extends 20 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E04938@@3IA")[5];
+extern "C" { unsigned int __identifier("?g_Va00E04938@@3IA")[5]; }
 
 // ?rva007B91F8@@YAXXZ @ 0x007B91F8 (10B). Global dtor thunk: ecx=&g_Va00E04938 then tail-jmp to pinned ??1Rva00524CC1Dtor@@QAE@XZ (0x00524CC1). No callers. Honest address name.
 void __cdecl rva007B91F8()
@@ -7328,7 +7328,7 @@ void __cdecl rva007B80F1()
 typedef _STL::deque<void *, _STL::allocator<void *> > Rva003B55F9Deque;
 
 // Retail's object extends 40 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E03174@@3IA")[10];
+extern "C" { unsigned int __identifier("?g_Va00E03174@@3IA")[10]; }
 
 // ?rva007B82C9@@YAXXZ @ 0x007B82C9 (10B). Global dtor thunk: ecx=&g_Va00E03174 then tail-jmp to rowed ??1?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ (0x003B55F9). No callers. Honest address name.
 void __cdecl rva007B82C9()
@@ -7348,7 +7348,7 @@ void __cdecl rva007B92A2()
 }
 
 // Retail's object extends 40 bytes; the mangled name stays the one its other users declare.
-extern "C" unsigned int __identifier("?g_Va00E06E60@@3IA")[10];
+extern "C" { unsigned int __identifier("?g_Va00E06E60@@3IA")[10]; }
 
 // ?rva007B9A37@@YAXXZ @ 0x007B9A37 (10B). Global dtor thunk: ecx=&g_Va00E06E60 then tail-jmp to rowed ??1?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ (0x003B55F9). No callers. Honest address name.
 void __cdecl rva007B9A37()
