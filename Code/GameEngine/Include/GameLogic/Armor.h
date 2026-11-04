@@ -20,7 +20,7 @@ public:
 	static void parseArmorCoefficients(INI *ini, void *instance, void *store, const void *userData);
 	static void parseDamageScalar(INI *ini, void *instance, void *store, const void *userData);
 	bool rva001D8E7F() const;
-	float rva001D8E88() const;
+	float getFlankedPenalty() const;
 	float getDamageCoefficient(const Rva001D8E8BInput &input) const;
 
 	float m_flankedPenalty; // +0x00

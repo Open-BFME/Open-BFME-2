@@ -155,7 +155,7 @@ bool ArmorTemplate::rva001D8E7F() const
 }
 
 // 0x001D8E88 (3B): the +0x00 float.
-float ArmorTemplate::rva001D8E88() const
+float ArmorTemplate::getFlankedPenalty() const
 {
 	return m_flankedPenalty;
 }
