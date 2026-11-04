@@ -12,10 +12,10 @@ public:
 	void *m_field04;
 };
 class Rva005772BF;
-class Rva005776A7
+class Rva005770F7
 {
 public:
-	Rva005776A7(Rva005772BF *owner, int arg);
+	Rva005770F7(Rva005772BF *owner, int arg);
 private:
 	char m_storage[0x3c];
 };
@@ -30,5 +30,5 @@ private:
 Rva005772BF::Rva005772BF(void *held, int arg)
 	: Rva00575383(held)
 {
-	m_unmodelled_08 = new Rva005776A7(this, arg);
+	m_unmodelled_08 = new Rva005770F7(this, arg);
 }

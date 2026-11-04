@@ -4,7 +4,7 @@
 // Rva00574A98::rva00574A98() at retail 0x00574A98 (13B): returns the
 // address of the sub-record at +0x14 of the object stored at this+4, or 0
 // when that object is null. Callers: 0x005762C1, 0x00576E68, 0x005776FF
-// (Rva005776A7's ctor among them).
+// (Rva005770F7's ctor among them).
 //
 // Codegen: an unsigned local tested by a conditional expression gives
 // retail's lea / neg / sbb / and branchless form; the cast-to-base and

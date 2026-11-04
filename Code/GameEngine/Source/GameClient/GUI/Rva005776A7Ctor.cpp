@@ -1,5 +1,5 @@
 // cl: /O1 /MD /EHsc /DNDEBUG
-// ??0Rva005776A7@@QAE@PAVRva005772BF@@H@Z, retail 0x005776A7..0x00577747
+// ??0Rva005770F7@@QAE@PAVRva005772BF@@H@Z, retail 0x005776A7..0x00577747
 // (160 bytes, EH): the constructor of the strategic UI phase object whose
 // body ends in the rowed StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::
 // CreateChecklistItems (pinned name; constructed by ??0Rva005772BF). Over an
@@ -108,11 +108,11 @@ public:
 	};
 };
 
-class Rva005776A7 : public Rva005776A7Interface, public Rva005CD1A9
+class Rva005770F7 : public Rva005776A7Interface, public Rva005CD1A9
 {
 public:
-	Rva005776A7(Rva005772BF *owner, int value);
-	virtual ~Rva005776A7();
+	Rva005770F7(Rva005772BF *owner, int value);
+	virtual ~Rva005770F7();
 private:
 	Rva005772BF *m_owner;				// +0x0C
 	int m_value;					// +0x10
@@ -122,7 +122,7 @@ private:
 	bool m_38;					// +0x38
 };
 
-Rva005776A7::Rva005776A7(Rva005772BF *owner, int value)
+Rva005770F7::Rva005770F7(Rva005772BF *owner, int value)
 	: m_owner(owner), m_value(value),
 	  m_18(m_owner->m_04, this),
 	  m_28(((const Rva00328A83PtrChaseField *)m_owner->m_04)->get())

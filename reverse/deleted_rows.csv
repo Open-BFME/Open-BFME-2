@@ -4764,3 +4764,5 @@ __ehhandler$??1Rva00557CCC@@UAE@XZ,0x0079933D,"Renamed to __ehhandler$??1BFMENet
 ??_GRva005E278E@@UAEPAXI@Z,0x005E283B,"Renamed to ??_GIcon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C77B28)"
 ??1Rva005E278E@@UAE@XZ,0x005E278E,"Renamed to ??1Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C77B28)"
 __ehhandler$??1Rva005E278E@@UAE@XZ,0x007A3531,"Renamed to __ehhandler$??1Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C77B28)"
+??0Rva005776A7@@QAE@PAVRva005772BF@@H@Z,0x005776A7,"Renamed to ??0Rva005770F7@@QAE@PAVRva005772BF@@H@Z by tools/rename.py (fold: retail vftable 0x00C6E8F8)"
+__ehhandler$??0Rva005776A7@@QAE@PAVRva005772BF@@H@Z,0x0079B6EC,"Renamed to __ehhandler$??0Rva005770F7@@QAE@PAVRva005772BF@@H@Z by tools/rename.py (fold: retail vftable 0x00C6E8F8)"
