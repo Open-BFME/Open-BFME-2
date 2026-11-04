@@ -30,9 +30,9 @@ class PhysicsBehavior
 public:
 	void setExtraBounciness(Real bounciness) { m_extraBounciness = bounciness; }
 	void setExtraFriction(Real friction) { m_extraFriction = friction; }
-
+	bool rva0039051E() const;
+	char m_pad00[0x74];
 private:
-	unsigned char m_pad00[0x74];
 	Real m_extraBounciness; // +0x74
 	Real m_extraFriction; // +0x78
 };
