@@ -58,3 +58,22 @@ consumers still have aggregate-view, naming and helper-surface prerequisites;
 the incompatible seed/donor compiler flags recorded in the earlier handoff
 still block consolidation. No TU merge, source-path move, census run or smoke
 run was performed.
+
+## Outgoing consumer-audit handoff
+
+After publication handoff of `f8d3dbf86e`, `link_check.py --prepare-current`
+passed all three explicit providers, including the ordinary nine-row byte
+and reference gates, and produced strict reusable receipts without changing
+census/index/status. This resolved the first audit's missing-receipt report
+for the edited sources.
+
+The subsequent `link_batch_audit.py --base 807dc34382 --tip f8d3dbf86e`
+remains **INCONCLUSIVE** (exit 2): the official index at `f12552d0a7` is not
+the outgoing base, and affected outside consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Thus no clean whole-consumer audit or proven consumer regression is
+claimed. The normal three-source prediction and header-adoption acceptance
+above still pass. Carry this scope into the next official census with current
+outside-consumer objects; the fleet publisher will also run its normal batch
+audit on the actual rebased outgoing bundle. No verifier was changed and no
+maintainer-only measurement was run.
