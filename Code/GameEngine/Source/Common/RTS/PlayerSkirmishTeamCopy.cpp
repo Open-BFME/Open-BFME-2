@@ -152,18 +152,7 @@ AptTextPlusStringPlusString operator+(const Rva002226E5TextPlusString &left, con
 // Rowed with int parameters: compares a string with a text-plus-string node.
 bool Rva002ACFC1Equal(int string, int node);
 
-class Player
-{
-public:
-	bool rva002AC43F(int *index);
-	void rva002AD25B(const AsciiString &playerName);
-
-private:
-	char m_pad[0x4C];
-	AsciiString m_4c;
-	int m_nameKey;
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 inline __declspec(noinline) SidesInfo *SidesList::getSkirmishSideInfo(int i) { return i >= 0 && i < m_numSkirmishSides ? &m_skirmishSides[i] : 0; }
 
@@ -175,7 +164,7 @@ inline __declspec(noinline) bool Player::rva002AC43F(int *index)
 	for (int i = 0; i < count; i++) {
 		Dict *dict = TheSidesList->getSkirmishSideInfo(i)->getDict();
 		AsciiString name = dict->getAsciiString(((Rva00148F5ECache *)&TheKey_playerName)->get());
-		if (name.compare(m_4c) == 0) {
+		if (name.compare(m_playerName) == 0) {
 			*index = i;
 			return true;
 		}

@@ -87,13 +87,7 @@ public:
 	Team *m_team;
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *team) const;
-	char m_pad00[0x4C];
-	AsciiString m_playerName;
-};
+#include "../../../../Include/Common/Player.h"
 enum NameKeyType {INVALID_KEY=0};
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

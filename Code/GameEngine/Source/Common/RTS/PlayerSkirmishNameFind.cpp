@@ -52,15 +52,7 @@ private:
 
 extern SidesList *TheSidesList;
 
-class Player
-{
-public:
-	bool rva002AC43F(int *index);
-
-private:
-	unsigned char m_pad[0x4C];
-	AsciiString m_4c;
-};
+#include "../../../Include/Common/Player.h"
 
 inline __declspec(noinline) SidesInfo *SidesList::getSkirmishSideInfo(int i){return i>=0 && i<m_numSkirmishSides?&sides[i]:0;}
 
@@ -71,7 +63,7 @@ __declspec(noinline) inline bool Player::rva002AC43F(int *index)
 	for (int i = 0; i < count; i++) {
 		Dict *dict=TheSidesList->getSkirmishSideInfo(i)->getDict();
 		AsciiString name=dict->getAsciiString(((Rva00148F5ECache *)&TheKey_playerName)->get());
-		if (name.compare(m_4c) == 0) {
+		if (name.compare(m_playerName) == 0) {
 			*index = i;
 			return true;
 		}

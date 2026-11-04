@@ -19,17 +19,7 @@
 
 extern TeamFactory *TheTeamFactory;
 
-class Player
-{
-public:
-	void setDefaultTeam();
-
-private:
-	char m_pad000[0x4C];
-	AsciiString m_playerName; // +0x4C
-	char m_pad050[0x2EC - 0x50];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::setDefaultTeam()
 {
