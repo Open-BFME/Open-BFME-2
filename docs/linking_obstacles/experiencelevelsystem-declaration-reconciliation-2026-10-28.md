@@ -34,3 +34,5 @@ broader consumer/census limitation remains open.
 2026-11-04: final hash-clear batch audit is INCONCLUSIVE against the older index; both ExperienceLevelSystem units, GapJmpThunksSeat8 and OwnedBucketTableDtorsO1 need current receipts and next-census provider confirmation. [Audit handoff](../../reverse/attempt_support/experience-level-hashclear-merge-20261104/README.md#final-outgoing-audit-and-publication-prerequisites).
 
 2026-11-04: Rva0028881C now has the same eight-byte declaration in all three private views; 52/52 rows and both data rows match, external symbols/COMDAT digests are unchanged, and 3/3 units preview LINKS. Remaining work is the system base/virtual view, header adoption and container composition. [Evidence](../../reverse/attempt_support/experiencelevel-tree-view-20261104-codex3.md).
+
+2026-11-04: Common/Rva00288940Find.cpp now uses canonical Overridable with its original const overload; acceptance retires one header debt row and the unit retains LINKS (56 bytes). Other consumers and the base/virtual/container prerequisites remain. [Evidence](../../reverse/attempt_support/experiencelevel-find-header-20261104-codex3.md).

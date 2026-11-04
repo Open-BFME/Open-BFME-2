@@ -5,15 +5,7 @@
 // Evidence: callers at 0x00288D0F and 0x0028D7CF pass one pointer with dead TheLevelSys this
 // and consume +0x18 and +0xFC from the returned Overridable; same walk as Rva002897A8Find.
 extern class GameLogic *TheGameLogic;
-class Overridable
-{
-public:
-const Overridable *friend_getFinalOverride() const;
-void *m_v0;
-Overridable *m_next;
-char m_pad08[0x10];
-int m_val18;
-};
+#include "../../Include/Common/Overridable.h"
 struct Node
 {
 Node *m_prev;
@@ -51,7 +43,8 @@ if (node != *(Node **)node)
 {
 do
 {
-const Overridable *overridable = ((Overridable *)((char *)node->m_next + 8))->friend_getFinalOverride();
+// Retail calls the const overload at 0x00288609.
+const Overridable *overridable = ((const Overridable *)((char *)node->m_next + 8))->friend_getFinalOverride();
 if (Rva0028867DCheck(overridable))
 return overridable;
 node = node->m_next;
