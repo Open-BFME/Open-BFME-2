@@ -1,17 +1,10 @@
 // cl: /DNDEBUG /MD /EHsc
 // ?Rva00895050@Gen_uw_00893e70@@QAEXPAV1@@Z @0x006D0040 301B evidence donor Rva00895050InlineContainerSwap plus callers 0x006D03E8 plus Rva006CD5A0Copy row plus AptValueNameEntry ctor row
-class EAStringC
-{
-public:
-    EAStringC &operator=(const EAStringC &other);
-    EAStringC &clear();
-    ~EAStringC();
-    void *m_pData;
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 class AptValueNameEntry
 {
 public:
-    AptValueNameEntry() throw() { m_name.clear(); m_value = 0; }
+    AptValueNameEntry() throw() { m_value = 0; }
     EAStringC m_name;
     int m_value;
 };

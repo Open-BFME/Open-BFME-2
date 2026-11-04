@@ -48,11 +48,7 @@ public:
 	unsigned char cmp(int value);							// 0x006D3860
 };
 
-class EAStringC
-{
-public:
-	void rva006D3470();										// 0x006D3470
-};
+#include "../../../Libraries/Source/Apt/EAStringC.h"
 
 class Rva006D6D20;
 extern Rva006D6D20 *g_AptStringFreeList;
@@ -64,7 +60,6 @@ public:
 private:
 	int m_04;
 	EAStringC m_string;										// +0x08
-	char m_pad09[3];
 	Rva006D6D20 *m_nextFree;								// +0x0C
 };
 
