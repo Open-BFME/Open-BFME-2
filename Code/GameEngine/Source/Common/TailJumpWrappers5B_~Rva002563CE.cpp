@@ -417,11 +417,7 @@ public:
 };
 
 
-class RespawnBodyModuleData
-{
-public:
-	virtual ~RespawnBodyModuleData();
-};
+#include "../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 
 class __declspec(novtable) Rva004C1B7B : public RespawnBodyModuleData
 {
