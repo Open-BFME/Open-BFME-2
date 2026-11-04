@@ -21,8 +21,14 @@ template <class Char, class Traits, class Allocator>
 class basic_string
 {
 public:
+	 basic_string();
 	 basic_string(const basic_string &that);
 	 ~basic_string();
+
+private:
+	Char *_M_start;
+	Char *_M_finish;
+	Char *_M_end_of_storage;
 };
 
 template <bool threads, int inst>
@@ -195,28 +201,6 @@ public:
 	void *volatile m_24;
 };
 
-class BFMENetworkState
-{
-public:
-	BFMENetworkState();
-	__forceinline ~BFMENetworkState()
-	{
-		char *start = m_start;
-		unsigned int bytes = (unsigned int)(m_capacity - start);
-		if (start != 0) {
-			if (bytes > 128)
-				::operator delete(start);
-			else
-				_STL::__node_alloc<true, 0>::_M_deallocate(start, bytes);
-		}
-	}
-
-private:
-	char *m_start;
-	char *m_finish;
-	char *m_capacity;
-};
-
 struct BFMENetworkPayloadList
 {
 	BFMENetworkPayloadList() : head(0)
@@ -302,9 +286,9 @@ private:
 	BFMENetworkQueue1 m_queue1;
 	BFMENetworkBackend *m_backend;
 	void *m_unknown68;
-	BFMENetworkState m_state6c;
-	BFMENetworkState m_state78;
-	BFMENetworkState m_state84;
+	BFMENetworkString m_state6c;
+	BFMENetworkString m_state78;
+	BFMENetworkString m_state84;
 	BFMENetworkPayloadList m_list90;
 	MutexClass m_lock9c;
 	BFMENetworkLockRefOwner m_backendLockRef;

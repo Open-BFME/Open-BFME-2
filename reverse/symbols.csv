@@ -1258,7 +1258,6 @@ name,address,notes
 ??0BFMENetRequestGameSpyStatsAuthKeyCommandMsg@@QAE@XZ,0x004D64F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0BFMENetworkPayloadList@@QAE@XZ,0x00558D6B,callee of ??0BFMENetwork@@QAE@XZ at retail 0x00558EC1 read from its REL32 displacement; body unrowed
 ??0BFMENetworkQueue@@QAE@XZ,0x00558D41,callee of ??0BFMENetwork@@QAE@XZ at retail 0x00558EC1 read from its REL32 displacement; body unrowed
-??0BFMENetworkState@@QAE@XZ,0x00007850,callee of ??0BFMENetwork@@QAE@XZ at retail 0x00558EC1 read from its REL32 displacement; ICF alias onto ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ (matched)
 ??0BFMERetailAsciiString@@QAE@PBD@Z,0x00037BA0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0BFU_BehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0BaseUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B371C,(Thing*;ModuleData*) ctor called by BaseUpgrade::friend_newModuleInstance (0x0024FDFF); class from the ModuleFactory registration literal

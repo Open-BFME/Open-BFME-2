@@ -16253,9 +16253,6 @@ uw_007990d8,,0x007990D8,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;obje
 uw_0079913e,,0x0079913E,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L3690
 uw_00799498,,0x00799498,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L5787
 uw_007994a3,,0x007994A3,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L5797
-uw_007994ae,,0x007994AE,11,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L9420
-uw_007994b9,,0x007994B9,11,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L9422
-uw_007994c4,,0x007994C4,14,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L9424
 uw_007994d2,,0x007994D2,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L5807
 uw_00799791,,0x00799791,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L4777
 uw_00799887,,0x00799887,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L12325
@@ -99437,3 +99434,6 @@ __ehhandler$??1Rva007401F6@@UAE@XZ,,0x007AB44B,10,Code/GameEngine/Source/Common/
 ??$__destroy_aux@PAURva0052D801Record@@@_STL@@YAXPAURva0052D801Record@@0ABU__false_type@0@@Z,,0x0052BCE7,29,Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp,matched,ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp;virtual-dtor range loop stride 0xB8 under _M_clear 0x0052CAAB;no unique coverage added
 ??$_Destroy@PAURva0052D801Record@@@_STL@@YAXPAURva0052D801Record@@0@Z,,0x0052C24E,24,Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp,matched,ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp;range destroy called by _M_clear 0x0052CAAB; replaces the _Destroy alternatename;no unique coverage added
 ?_M_clear@?$vector@URva0052D801Record@@V?$allocator@URva0052D801Record@@@_STL@@@_STL@@IAEXXZ,,0x0052CAAB,30,Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp,matched,ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp;storage release of the vector growth path at 0x0052D742;no unique coverage added
+$L949,,0x007994AE,11,Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp,matched,gen-funclet;parent=??0BFMENetwork@@QAE@XZ; Matched parent 0x00558EC1 EH graph is EXACT (eh_verify) and binds compiler label $L949 to retail 0x007994AE (m_state6c string unwind: jmp rowed ??1basic_string 0x00142D70); members respelled as narrow basic_string; replaces generated uw_007994ae; LINK-095
+$L950,,0x007994B9,11,Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp,matched,gen-funclet;parent=??0BFMENetwork@@QAE@XZ; Matched parent 0x00558EC1 EH graph is EXACT (eh_verify) and binds compiler label $L950 to retail 0x007994B9 (m_state78 string unwind: jmp rowed ??1basic_string 0x00142D70); members respelled as narrow basic_string; replaces generated uw_007994b9; LINK-095
+$L951,,0x007994C4,14,Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp,matched,gen-funclet;parent=??0BFMENetwork@@QAE@XZ; Matched parent 0x00558EC1 EH graph is EXACT (eh_verify) and binds compiler label $L951 to retail 0x007994C4 (m_state84 string unwind: jmp rowed ??1basic_string 0x00142D70); members respelled as narrow basic_string; replaces generated uw_007994c4; LINK-095
