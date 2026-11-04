@@ -4,40 +4,35 @@
 // protected ~GameWindow 0x00314A0C (the unwind funclet / vtable slot 0 target).
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class __declspec(novtable) BfmeAptScreenBase
+#include "ascii_string.h"
+
+// The native primary base occupies GameWindow's 0x218-byte extent.
+// Its context constructor is rowed at 0x00313847; teardown is GameWindow's.
+class __declspec(novtable) BfmeAptScreenBase : public GameWindow
 {
 public:
-	BfmeAptScreenBase(void *context);
-	virtual ~BfmeAptScreenBase() { ((GameWindow *)this)->GameWindow::~GameWindow(); }
-private:
-	char m_pad[0x218 - 4];
+    BfmeAptScreenBase(void *context);
+    virtual ~BfmeAptScreenBase() {}
 };
 
 #include "../../../Include/GameClient/Rva005248D0.h"
 
-extern "C" const void *const __identifier("??_7_bfme_AptGameWindow@@6BGameWindow@@@")[];
-extern "C" const void *const __identifier("??_7_bfme_AptGameWindow@@6BRva005248D0@@@")[];
-
-class _bfme_AptGameWindow
-{
+class _bfme_AptGameWindow : public BfmeAptScreenBase, public Rva005248D0 {
 public:
-	_bfme_AptGameWindow(void *context);
+	virtual ~_bfme_AptGameWindow();
 private:
-	BfmeAptScreenBase m_primary;
-	char m_sec[0x58];
-	int m_270;
+	AsciiString filename270;
 	int m_274;
 	char m_278;
+public:
+	_bfme_AptGameWindow(void *context);
+public:
+	int rva0051274F(int message, unsigned int data1, unsigned int data2);
 };
 
 _bfme_AptGameWindow::_bfme_AptGameWindow(void *context)
-	: m_primary(context)
+    : BfmeAptScreenBase(context)
 {
-	Rva005248D0 *sec = (Rva005248D0 *)m_sec;
-	sec->Rva005248D0::Rva005248D0();
-	*(const void **)this = __identifier("??_7_bfme_AptGameWindow@@6BGameWindow@@@");
-	*(const void **)sec = __identifier("??_7_bfme_AptGameWindow@@6BRva005248D0@@@");
-	m_270 = 0;
-	m_274 = -1;
-	m_278 = 0;
+    m_274 = -1;
+    m_278 = 0;
 }
