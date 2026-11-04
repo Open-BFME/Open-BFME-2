@@ -228,50 +228,7 @@ bool operator<(const AsciiString &left, const AsciiString &right);
 
 extern MapCache *TheMapCache;
 
-// TheGameSpyInfo 0x00A02320: slot 29 (+0x74) returns an AsciiString as the
-// BFME1 donor's getLocalName; slots 51 (+0xCC), 53 (+0xD4) and 55 (+0xDC)
-// as the BFME1 donor's amIHost / getCurrentStagingRoom / setGameOptions.
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28)
-	virtual AsciiString getLocalName() = 0; // slot 29 (+0x74)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48)
-	// RequestJoinGame passes the selected room ID through slot 49 (+0xC4).
-	virtual void gs49(int);
-	V(50)
-	virtual bool amIHost() = 0;
-	V(52)
-	virtual GameSpyStagingRoom *getCurrentStagingRoom() = 0;
-	V(54)
-	virtual void setGameOptions() = 0;
-	V(56) V(57) V(58) V(59) V(60)
-	// Slot 61 (+0xF4): text with a color (PrintMessage kinds 0 and 1).
-	virtual void v61(UnicodeString text, int color) = 0;
-	V(62) V(63) V(64)
-	// Slot 65 (+0x104): text alone (PrintMessage kind 2).
-	virtual void v65(UnicodeString text) = 0;
-	V(66) V(67) V(68) V(69)
-	V(70)
-	virtual const AsciiString &v71() = 0; // +0x11C, the host ping string
-	V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
-	V(80) V(81) V(82) V(83) V(84)
-	// Slots 85/86 (+0x154/+0x158) seed the room's +0x38/+0x3C when state 12
-	// creates the NAT; 88 (+0x160), 89 (+0x164) and 93 (+0x174) serve
-	// state 14's disconnect drain (address-derived names).
-	virtual int v85() = 0;
-	virtual unsigned short v86() = 0;
-	V(87)
-	virtual bool v88(bool) = 0;
-	virtual void v89(int reason) = 0;
-	V(90) V(91) V(92)
-	virtual int v93() = 0;
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -978,15 +935,15 @@ void AptOnlineCustomMatch::MpOwnerPrintMessage(const UnicodeString &text, int ki
 	switch (kind)
 	{
 	case 0:
-		TheGameSpyInfo->v61(text, GameSpyColor[0]);
+		TheGameSpyInfo->addText(text, GameSpyColor[0]);
 		break;
 	case 1:
 		if (!AptMessenger::s_instance)
 			MessageBoxOk(UnicodeString(L""), text, 0);
-		TheGameSpyInfo->v61(text, (&g_00DB91B4)[17]);
+		TheGameSpyInfo->addText(text, (&g_00DB91B4)[17]);
 		break;
 	case 2:
-		TheGameSpyInfo->v65(text);
+		TheGameSpyInfo->slot65(text);
 		break;
 	}
 }
@@ -1389,7 +1346,7 @@ bool AptOnlineCustomMatch::RequestJoinGame(const char *password)
 	GameSpyStagingRoom *room = GetGameToJoin();
 	if (!room)
 		return false;
-	TheGameSpyInfo->gs49(m_gameToJoinID);
+	TheGameSpyInfo->markAsStagingRoomJoiner(m_gameToJoinID);
 	((Rva003821E2 *)TheGameSpyGame)->assign(
 		((Rva0022C4DF *)room)->rva0022C4DF());
 	((Rva0059F2EB *)TheGameSpyGame)->rva0059F2EB(
@@ -1530,8 +1487,8 @@ void AptOnlineCustomMatch::Update()
 		{
 			TheNAT = (NAT *)new Rva005A734B;
 			GameInfo::Address38 address;
-			address.ip = TheGameSpyInfo->v85();
-			address.port = TheGameSpyInfo->v86();
+			address.ip = TheGameSpyInfo->getInternalIP();
+			address.port = TheGameSpyInfo->getInternalPort();
 			TheGameSpyGame->m_38 = address;
 			((Rva005A6D47 *)TheNAT)->m_observers.append(&m_observer);
 		}
@@ -1543,9 +1500,9 @@ void AptOnlineCustomMatch::Update()
 	case 14:
 		if (TheGameSpyGame && TheGameSpyGame->m_11)
 		{
-			if (!TheGameSpyInfo->v88(false))
+			if (!TheGameSpyInfo->isDisconnectedAfterGameStart(0))
 			{
-				int count = TheGameSpyInfo->v93();
+				int count = TheGameSpyInfo->getMaxMessagesPerUpdate();
 				bool done = false;
 				PeerResponse resp;
 				while (count--)
@@ -1559,7 +1516,7 @@ void AptOnlineCustomMatch::Update()
 						done = true;
 						AsciiString reason;
 						reason.format("GUI:GSDisconReason%d", resp.discon.reason);
-						TheGameSpyInfo->v89(resp.discon.reason);
+						TheGameSpyInfo->markAsDisconnectedAfterGameStart(resp.discon.reason);
 						break;
 					}
 					}
@@ -1646,13 +1603,13 @@ void AptOnlineCustomMatch::rva005A2899()
 	((Rva005A2899GlobalView *)TheWritableGlobalData)->m_version.rva00237E28(&req.creation.version);
 	req.creation.exeCRC = ((Rva005A2899GlobalView *)TheWritableGlobalData)->m_exeCRC;
 	req.creation.iniCRC = ((Rva005A2899GlobalView *)TheWritableGlobalData)->m_iniCRC;
-	req.creation.gameVersion = TheGameSpyInfo->v85();
+	req.creation.gameVersion = TheGameSpyInfo->getInternalIP();
 	req.creation.restrictGameList = TheGameSpyConfig->v13();
 	req.unknown_4c = "localhost";
 	req.creation.ladPort = 0;
 	((Rva0059F2EB *)TheGameSpyGame)->rva0059F2EB(AsciiString(req.unknown_4c.c_str()));
 	TheGameSpyGame->m_1008 = req.creation.ladPort;
-	req.unknown_58 = TheGameSpyInfo->v71().str();
+	req.unknown_58 = TheGameSpyInfo->getPingString().str();
 	int slot = m_70.m_7c;
 	TheGameSpyGame->rva003FF1A7(slot);
 	req.creation.localSlot = slot;

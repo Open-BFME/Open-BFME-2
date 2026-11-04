@@ -201,60 +201,7 @@ bool operator<(const AsciiString &left, const AsciiString &right);
 
 extern MapCache *TheMapCache;
 
-// TheGameSpyInfo 0x00A02320: slot 29 (+0x74) returns an AsciiString as the
-// BFME1 donor's getLocalName; slots 51 (+0xCC), 53 (+0xD4) and 55 (+0xDC)
-// as the BFME1 donor's amIHost / getCurrentStagingRoom / setGameOptions.
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5)
-	virtual void gs6(int itemData) = 0;		// +0x18
-	virtual void gs7() = 0;					// +0x1C
-	V(8) V(9)
-	V(10) V(11)
-	virtual int gs12() = 0;					// +0x30
-	virtual void setRoomName(AsciiString name) = 0; // +0x34
-	virtual AsciiString gs14() = 0;			// +0x38
-	V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28)
-	virtual AsciiString getLocalName() = 0; // slot 29 (+0x74)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	virtual void leaveRoom() = 0;			// +0xA0
-	// Slot 41 (+0xA4): the staging rooms by ID (Zero Hour's getStagingRoomList).
-	virtual std::map<int, GameSpyStagingRoom *> *v41() = 0;
-	V(42) V(43) V(44) V(45) V(46) V(47) V(48)
-	// RequestJoinGame passes the selected room ID through slot 49 (+0xC4).
-	virtual void gs49(int);
-	V(50)
-	virtual bool amIHost() = 0;
-	V(52)
-	virtual GameSpyStagingRoom *getCurrentStagingRoom() = 0;
-	V(54)
-	virtual void setGameOptions() = 0;
-	V(56) V(57) V(58) V(59) V(60)
-	// Slot 61 (+0xF4): text with a color (PrintMessage kinds 0 and 1).
-	virtual void v61(UnicodeString text, int color) = 0;
-	V(62) V(63) V(64)
-	// Slot 65 (+0x104): text alone (PrintMessage kind 2).
-	virtual void v65(UnicodeString text) = 0;
-	V(66) V(67) V(68) V(69)
-	V(70)
-	virtual const AsciiString &v71() = 0; // +0x11C, the host ping string
-	V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
-	V(80) V(81) V(82) V(83) V(84)
-	// Slots 85/86 (+0x154/+0x158) seed the room's +0x38/+0x3C when state 12
-	// creates the NAT; 88 (+0x160), 89 (+0x164) and 93 (+0x174) serve
-	// state 14's disconnect drain (address-derived names).
-	virtual int v85() = 0;
-	virtual unsigned short v86() = 0;
-	V(87)
-	virtual bool v88(bool) = 0;
-	virtual void v89(int reason) = 0;
-	V(90) V(91) V(92)
-	virtual int v93() = 0;
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -915,7 +862,7 @@ int AptOnlineCustomMatch::GameWindowSystem(GameWindow *window, unsigned int msg,
 			L.room = 0;
 			if ((int)mData2 >= 0)
 			{
-				std::map<int, GameSpyStagingRoom *> *rooms = TheGameSpyInfo->v41();
+				std::map<int, GameSpyStagingRoom *> *rooms = TheGameSpyInfo->getStagingRoomList();
 				L.id = (int)GadgetListBoxGetItemData((GameWindow *)mData1, mData2, 3);
 				std::map<int, GameSpyStagingRoom *>::iterator it = rooms->find(L.id);
 				if (it != rooms->end())
@@ -1041,24 +988,24 @@ void Rva005A5B38Box::DoRefresh(int ladder, void *password)
 {
 	AsciiString &name = *(AsciiString *)password;
 	bool differs;
-	if (ladder && (ladder != TheGameSpyInfo->gs12() || name.compare(TheGameSpyInfo->gs14()) != 0))
+	if (ladder && (ladder != TheGameSpyInfo->getCurrentGroupRoom() || name.compare(TheGameSpyInfo->rva0038616D()) != 0))
 		differs = true;
 	else
 		differs = false;
 	if (differs)
 	{
-		TheGameSpyInfo->gs7();
-		TheGameSpyInfo->gs6(ladder);
+		TheGameSpyInfo->leaveGroupRoom();
+		TheGameSpyInfo->joinGroupRoom(ladder);
 		if (TheGameSpyConfig->v13())
 		{
-			TheGameSpyInfo->leaveRoom();
+			TheGameSpyInfo->clearStagingRoomList();
 			((AptOnlineCustomMatch *)this)->PopulateGamesListBox();
 			PeerRequest req;
 			req.peerRequestType = 7;
 			req.isStagingRoom = true;
 			req.unknown_f8 = name.str();
 			TheGameSpyPeerMessageQueue->addRequest(req);
-			TheGameSpyInfo->setRoomName(AsciiString(name.str()));
+			TheGameSpyInfo->rva00386139(AsciiString(name.str()));
 		}
 	}
 }
