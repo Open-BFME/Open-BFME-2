@@ -765,8 +765,52 @@ unresolved.
 That is worth knowing before spending a wave: the top of the queue is where the
 mixed files are, so a merge there moves rows out of objects the census still
 references and `link_batch_audit` correctly refuses it. The 142 approved rows of
-`BuddyThread.cpp` sat behind eleven mixed donors. Carve the mixed files first
-(the split lane) rather than paying a compile budget per TU to be told no.
+`BuddyThread.cpp` sat behind eleven mixed donors.
+
+**Correcting the advice this section first gave:** it said to carve the mixed
+files first instead. You cannot. `split()` ends by calling `_merge()` with its
+own applier, so a split IS a merge with the mixed file carved as one of its
+donors, and it lands only if the destination verifies. A carve whose destination
+is blocked reports the merge's verdict and writes nothing:
+`ConstIntGetters4.cpp` into `ElvenWoodSpecialPower.cpp` plans cleanly and even
+reports `alone: 7/7 carved rows match beside the TU under its flags`, then stops
+at `blocked: no verified merge of two or more donors`, because the destination
+does not compile with the carved bodies (`'rva001E42F2' : is not a member of
+'Object'`).
+
+So the order runs the other way: whatever blocks the destination has to go
+first, and for 231 of the queue's 547 split destinations that includes a
+`blocked-by-classes` donor. Note also that the destination's class views are
+reconciled by `tu_views` only across the TU's OWN files; a member that only the
+carved body needs is not in that set, so a view fix there does not necessarily
+clear the carve. 54 destinations have nothing recorded against them but the
+split itself, and those are the ones to try.
+
+A practical caution on choosing a target: rank from the decision queue's full
+paths, not from basenames. `W3DGhostObjectScene.cpp` lives under
+`W3DDevice/GameLogic/`, not beside its TU in `W3DDevice/GameClient/`, and a
+reconstructed path earns a flat `no matched rows in that file`.
+
+Four carves tried from the top of that ranking stopped at four different gates,
+which is the shape of the lane rather than bad luck:
+
+- `ConstIntGetters4.cpp` into `ElvenWoodSpecialPower.cpp`: the destination's
+  merge is blocked, as above.
+- `W3DGhostObjectScene.cpp` into `W3DGhostObject.cpp` (26 of 40 rows carvable):
+  `an escape-hatch count would grow (hatch_counters rule 3)`. The datum
+  `animationDisableOverride` travels with the carved bodies and carries a
+  hatch, so that hatch has to be retired before the carve.
+- `IngameNoticeDisplay.cpp` into `Common/Bfme/IngameNoticeDisplay.cpp`:
+  `the residual loses matched rows (flag region or a shared helper)`, with
+  `residual_keeps: 0` against three rows that cannot ride, one of which no
+  definition spells.
+- the same file's listing shows the fourth: 110 of `ConstIntGetters4.cpp`'s 259
+  rows have no approved TU at all, so `--shatter` cannot empty and delete it
+  however many destinations verify.
+
+So a seat should not plan a sweep of carves. Each one needs its own prerequisite
+retired first - a class view, a hatch, an unrowed body, a TU approval - and the
+dry run names which. Budget one carve at a time and read its gate.
 
 ## Consolidation verification checks
 
