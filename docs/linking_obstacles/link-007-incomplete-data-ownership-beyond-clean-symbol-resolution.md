@@ -188,6 +188,11 @@
   LINKS (79 authored bytes) against index `bf3dd31211`. This subset's index
   repair is verified; broader data closure and census confirmation remain open.
   No new linked-byte or image-ownership gain is claimed.
+  A shard-2 trial for the ctor and field-parse donors passed bytes and LinkGuard
+  but was restored: `tu_ownership.py --staged` routes two EH rows to
+  `ImmortalBody.cpp` and rejects private `ActiveBody`/`UpgradeMux` bodies.
+  Resolve those routing and canonical-header prerequisites before retrying.
+  [Checks and remaining blockers](../../reverse/attempt_support/consolidation-shard-2-2026-11-04-session5.md).
 
 - **RiderChangeContain local-static index repair (2026-10-27, `67587e56fd`):**
   [The current-owner check](../../reverse/attempt_support/rider-poolkey-data-retirement-20261027-codexb4.md)
