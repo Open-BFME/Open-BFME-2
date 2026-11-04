@@ -16,9 +16,23 @@
 #include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
 class _bfme_AptGameWindow { public: virtual ~_bfme_AptGameWindow(); private: char storage[0x218-4]; };
 class AptSkirmishSecondaryView { public: virtual void marker()=0; private: char storage[0x64-4]; };
-class Rva004444D2 { public: virtual ~Rva004444D2(); private: char storage[8]; };
+class Rva004444D2
+{
+public:
+	Rva004444D2();
+	virtual ~Rva004444D2();
+private:
+	char storage[8]; // +0x04
+};
 #include "../../../../../Include/GameClient/AptMpGameSetup.h"
-class Rva005C1A36 { public: virtual ~Rva005C1A36(); private: char storage[0x30-4]; };
+class Rva005C1A36
+{
+public:
+	Rva005C1A36(void *owner, int kind);
+	virtual ~Rva005C1A36();
+private:
+	char storage[0x30-4]; // +0x04
+};
 class Rva0031455E { public: virtual ~Rva0031455E(); private: char storage[0x10-4]; };
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;

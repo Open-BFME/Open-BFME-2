@@ -164,11 +164,10 @@ private:
 class Rva005C1A36
 {
 public:
-	virtual void vslot0();
-	virtual void vslot1();
-	virtual void vslot2();
-	virtual void vslot3();
-	void rva005C1ABA(const UnicodeString &name);
+	Rva005C1A36(void *owner, int kind);
+	virtual ~Rva005C1A36();
+private:
+	char storage[0x30-4]; // +0x04
 };
 // Target memberwise assignment at 0x005232D0 copies the 0x20-byte preference
 // record shape; its owning type remains address-derived in the ledger.
