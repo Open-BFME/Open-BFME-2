@@ -335,3 +335,24 @@ W3DTerrainVisual's.
   position 804) by digest. `freeBytes` stays unresolved until ProductionPrerequisite.cpp (Codex's
   slice) stops emitting its own ZH `releaseBuffer` copy. `reverse/eh_baseline.csv` still lists
   initD3DAssets, though it has been EXACT since `56af6ee282`.
+- **Rva005776A7Ctor.cpp (3): blocked on class identity tooling.** Vftable 0x00C6E8F8 holds
+  PlanRetreatsPhaseBehavior::Impl::translateGameMessage (0x005771F4) at slot 0 and
+  `OnMouseLeftClick` (0x0057723C) at slot 18. The constructor 0x005776A7 and the destructor 0x005770F7
+  (`??1Rva005770F7`, Rva005770F7Dtor.cpp) both install it, so both placeholders are
+  `StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl` over the canonical 26-slot UserInputTranslator.
+  `s0`/`r0` are that translator's slots under a 2-slot private view; `??1Rva005776A7` is the
+  destructor's other spelling. `rename.py class --fold Rva005776A7 --into Rva005770F7` refuses (the
+  constructor's +0 stores install 0x00C6E430 before 0x00C6E8F8), and a nested NEW is not accepted.
+  Prerequisite: nested-class `--fold` support, or a reviewed reconciliation like `a5901cee17` for
+  PlanningPhaseBehavior::Impl (constructor beside destructor, UserInputTranslator base,
+  ManualPhaseEnder record bound to `??1Wrap2000576C4B`).
+- **LivingWorldManagerCtor.cpp (1): blocked.** `Rva0022B12DSubsystem` is LivingWorldManager: the
+  constructor installs 0x00BE5234, whose slot 0 is the `??_G` of `??1LivingWorldManager` (0x00214405).
+  `--fold Rva0022B12DSubsystem --into LivingWorldManager` refuses: that slot is rowed
+  `??_GRva00214405` in OpaqueScalarDeletingDtorsB04.cpp, which carries
+  `/alternatename:??1Rva00214405=??1LivingWorldManager`. `--fold Rva00214405` refuses too (no
+  installing row). The placeholder is also a template argument in SubsystemInterface.cpp's
+  `initSubsystem`/`SubsystemSlot` rows. Prerequisites: respell the `??_G` row under LivingWorldManager
+  and retire the alternatename, then fold the constructor class and its template-argument rows.
+- **T1Base005F3750Ctor.cpp (1):** unchanged; see rl-o3's analysis above (mixed placeholder classes).
+- Claims released: Rva005776A7Ctor.cpp and Rva005770F7Dtor.cpp (no edit).
