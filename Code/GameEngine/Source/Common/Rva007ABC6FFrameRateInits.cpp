@@ -51,7 +51,6 @@ extern unsigned g_00E063CC;
 unsigned g_00E063CC = 0;	// owned here; retail .data starts it at 0
 extern unsigned int g_00DFEE08;
 unsigned int g_00DFEE08 = 0;	// owned here; retail .data starts it at 0
-extern unsigned int g_00E06648;
 
 static int s_rva007ADD08;
 static int s_rva007ADD72;
@@ -95,7 +94,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007B4316();
 	static void rva007B43BD();
 	static void rva007B440F();
-	static void rva007B4BC6();
 };
 
 // ?rva007ABC6F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007ABC6F (16B): global at VA 0x00DE1B50, also read elsewhere in .text
@@ -260,8 +258,3 @@ void Rva007ABC6FFrameRateInits::rva007B440F()
 	g_00E063E8 = BfmeClientFramesPerSecond / 2;
 }
 
-// ?rva007B4BC6@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B4BC6 (14B): global at VA 0x00E06648, named as the TU that reads it names it
-void Rva007ABC6FFrameRateInits::rva007B4BC6()
-{
-	g_00E06648 = BfmeLogicFramesPerSecond * 10;
-}
