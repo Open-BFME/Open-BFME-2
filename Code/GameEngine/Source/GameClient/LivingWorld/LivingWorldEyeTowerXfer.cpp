@@ -12,7 +12,12 @@
 // LEA[-10] JMP guard dtor42262. Guard depth is GameLogic+1B4.
 // The method keeps an address-derived name: WB does not name this body.
 #include <vector>
-struct BfmeE8 {unsigned int a,b;};
+struct BfmeE8
+{
+public:
+	unsigned int a; // +0x00
+	unsigned int b; // +0x04
+};
 struct BfmePod8 {int a[2];};
 namespace _STL {
 template<> BfmePod8 *vector<BfmePod8>::erase(BfmePod8*,BfmePod8*);
