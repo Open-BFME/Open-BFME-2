@@ -23665,3 +23665,6 @@ Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|member|Rva0029B380Elem|m_
 Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBuildQueueDetailsMovieClip.cpp|function|0x005F6899|rva005F6899,d638b92a5d9ff25d33c00a96,claude-opus-5-5,claude3-20261104-010234-10,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0033F83DSetter.cpp|function|0x0033F83D|rva0033F83D,e6f86afac048c6a1aebc195e,claude-opus-5-5,claude3-20261104-010234-12,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateRva004906CD.cpp|member|Rva004906CDTemplate|m_108,a9e86bb33699a6e10ce6c30b,claude-opus-5-5,claude3-20261104-010234-17,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp|member|MapPreviewTextureAssetFactory|m_38,a572b13ca0276e49f4443558,claude-opus-5-5,claude3-20261104-013209-6,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp|member|ParticleView|flag16C,f015cb22c58a6548fbcb326f,claude-opus-5-5,claude3-20261104-013209-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp|member|ParticleView|flag1A1,2b5a1e3e22965a24a572af0c,claude-opus-5-5,claude3-20261104-013209-9,w-29a6ae2a2f9f,2026-11-04
