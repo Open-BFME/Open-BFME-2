@@ -38,8 +38,8 @@ struct AptCharacterAnimation { AptMovie movie; int unknown8,nCharacters; AptChar
 };
 struct AptCharacter { int type; AptCharacter *parent; union { AptCharacterAnimation animation; void *sound; }; };
 struct AptCharacterInst { char pad[12]; AptCharacter *character; int hash,unknown,frame; };
-class AptCIH { public: char pad[0x4c]; AptCharacterInst *inst; const AptCIH *rva006E0CB0() const; bool IsSpriteInstBase() const;
- AptCharacterInst *Sprite() const {if(!IsSpriteInstBase()){g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}return inst;} };
+#include "AptCIHClass.h"
+static __forceinline AptCharacterInst *cihSprite(const AptCIH *cih) {if(!cih->IsSpriteInstBase()){g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}return (AptCharacterInst *)cih->field4C;}
 struct AptControlPlaceObject2 {int flags,depth,character; float matrix[6]; int cxform[2]; float ratio; const char *name;int clip;void *actions;};
 struct AptControl {int type; union {struct {int sprite,stream;} init; AptControlPlaceObject2 place; int value;};};
 struct AptFrame {int count; AptControl **controls;};
@@ -69,9 +69,9 @@ void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {
   AptControl *control=frames[frame].controls[i];
   switch(control->type) {
    case 5: if(!g_aptBackgroundSet){g_aptBackgroundCallback(control->value);g_aptBackgroundSet=true;} break;
-   case 3: inst->inst->character->parent->animation.ExecuteInitActions(inst,control->place.character);display->placeObject(&control->place,inst);break;
+   case 3: ((AptCharacterInst *)inst->field4C)->character->parent->animation.ExecuteInitActions(inst,control->place.character);display->placeObject(&control->place,inst);break;
    case 4: display->removeObject(&control->value);break;
-   case 6: g_bfmeAptFreeAtE17784(inst->inst->character->parent->animation.characters[control->value]->sound,0);break;
+   case 6: g_bfmeAptFreeAtE17784(((AptCharacterInst *)inst->field4C)->character->parent->animation.characters[control->value]->sound,0);break;
    case 7: Rva006CC110Log(3,"warning: soundstream level is always 0\n");break;
    case 1:case 2:case 8:break;
    default: CHECK(0,0x178,"NOT_REACHED");
@@ -100,14 +100,14 @@ void AptMovie::DoTemporaryFrameControls(AptPseudoDisplayList *display,int frame)
  AptCIH *sprite=display->parent;
  for(int i=0;i<frames[frame].count;++i){
   AptControl *control=frames[frame].controls[i];
-  CHECK(frame==sprite->Sprite()->frame,0xc0,"nFrame == pSprInst->getSpriteInstBase()->nFrame");
+  CHECK(frame==cihSprite(sprite)->frame,0xc0,"nFrame == pSprInst->getSpriteInstBase()->nFrame");
   switch(control->type) {
    case 3: {
     AptCharacter *character=0;
     AptPseudoCIH_t *prev,*item;
     AptControlPlaceObject2 *place=&control->place;
     display->FindInst(place->depth,&prev,&item);
-    if(place->character!=-1)character=sprite->inst->character->parent->animation.characters[place->character];
+    if(place->character!=-1)character=((AptCharacterInst *)sprite->field4C)->character->parent->animation.characters[place->character];
     if(item && place->character==-1 && (place->flags & 1 | 0x98)) {
      CHECK(item->info!=0,0xd3,"pItem->pControlInfo != NULL");
      CHECK(item->control->type==3,0xd4,"pItem->pControl->eType == AptControlType_PlaceObject2");
@@ -244,7 +244,7 @@ __declspec(noinline) int Rva008A1CF0::rva008A1CF0(int idx)
 
 void AptCharacterAnimation::ExecuteInitActions(AptCIH *inst,int id) {
  AptCharacterAnimation *animation=this;
- const AptMovie *movie=&inst->inst->character->animation.movie;
+ const AptMovie *movie=&((AptCharacterInst *)inst->field4C)->character->animation.movie;
  int imported=animation->IsImport(id);
  if(imported!=-1) {
   id=((Rva008A1CF0 *)animation)->rva008A1CF0(imported);
@@ -376,8 +376,8 @@ inline __declspec(noinline) void BfmeQuery1279::bfmeQuery1279(int nDepth, int na
 // ?placeObject@AptDisplayList@@QAEPAVAptCIH@@PAUAptControlPlaceObject2@@PAV2@@Z
 AptCIH *AptDisplayList::placeObject(AptControlPlaceObject2 *place,AptCIH *parent){
  if(place->flags&2){
-  DL_CHECK(place->character>=0 && place->character<parent->inst->character->parent->animation.nCharacters,0x3c1,"pPlaceObject2->nCharacterID >= 0 && pPlaceObject2->nCharacterID < pParent->pData->pCharacter->pParentAnim->animation.nCharacters");
-  AptCharacter *character=parent->inst->character->parent->animation.characters[place->character];
+  DL_CHECK(place->character>=0 && place->character<((AptCharacterInst *)parent->field4C)->character->parent->animation.nCharacters,0x3c1,"pPlaceObject2->nCharacterID >= 0 && pPlaceObject2->nCharacterID < pParent->pData->pCharacter->pParentAnim->animation.nCharacters");
+  AptCharacter *character=((AptCharacterInst *)parent->field4C)->character->parent->animation.characters[place->character];
   DL_CHECK(character,0x3c3,"pCharacter");if(!character)return 0;
   EAStringC name;EAStringC *pName=0;
   if(place->flags&0x20){name=place->name;pName=&name;}
@@ -385,8 +385,8 @@ AptCIH *AptDisplayList::placeObject(AptControlPlaceObject2 *place,AptCIH *parent
  }else if(place->flags&1){
   AptCIH *cur,*prev;((BfmeQuery1279 *)state)->bfmeQuery1279(place->depth,0,(void **)&prev,(void **)&cur);
   if(cur==0){
-   DL_CHECK(place->character>=0 && place->character<parent->inst->character->parent->animation.nCharacters,0x3e8,"pPlaceObject2->nCharacterID >= 0 && pPlaceObject2->nCharacterID < pParent->pData->pCharacter->pParentAnim->animation.nCharacters");
-   AptCharacter *character=parent->inst->character->parent->animation.characters[place->character];
+   DL_CHECK(place->character>=0 && place->character<((AptCharacterInst *)parent->field4C)->character->parent->animation.nCharacters,0x3e8,"pPlaceObject2->nCharacterID >= 0 && pPlaceObject2->nCharacterID < pParent->pData->pCharacter->pParentAnim->animation.nCharacters");
+   AptCharacter *character=((AptCharacterInst *)parent->field4C)->character->parent->animation.characters[place->character];
    DL_CHECK(character,0x3ea,"pCharacter");
    EAStringC name;EAStringC *pName=0;
    if(place->flags&0x20){name=place->name;pName=&name;}
