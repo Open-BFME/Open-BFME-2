@@ -9,7 +9,6 @@ class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 inline Rva000421C8::~Rva000421C8() {}
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-// Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva00261409Filter : public Rva000421C8
 {
@@ -112,7 +111,6 @@ template<int N>class BitFlags;
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 enum KindOfType { KINDOF_37 = 0x25, KINDOF_61 = 0x3D };
 enum SpecialPowerType { SPECIAL_POWER_39 = 0x27 };
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 class BodyModuleInterface
@@ -258,20 +256,11 @@ class Snapshot;
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
-
 #include "../../../../Include/Common/XferVersion.h"
-
 typedef int Int;
-
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
-
-// Inherited module data is at +0x04 and the object is at +0x08.
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-
-
 class AutoPickUpUpdateInterface
 {
 public:
@@ -279,6 +268,74 @@ public:
 	virtual void slot1() = 0;
 	virtual void rva00495C6E() = 0;
 };
+// ?destroyRange@@YAXPAX0@Z 0x00496292 25B destroy range stride 12 via dtor pin
+// Evidence: callers at 0x004962C5 and 0x004962F2; calls dtor pin ??1BfmeStringRecord00426A5B@@QAE@XZ at 0x00495C43; add esi 0xc.
+
+struct BfmeStringRecord00426A5B {
+	~BfmeStringRecord00426A5B();
+	char m_pad[12];
+};
+void destroyRange(void *first, void *last);
+class Rva004962EA {
+public:
+	~Rva004962EA();
+	BfmeStringRecord00426A5B *m_first;
+	BfmeStringRecord00426A5B *m_last;
+};
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva00495DCDByteChaseField, 0x1C, 0x21)
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
+typedef float Real;
+#include "../../../../Include/Common/INI/INI.h"
+inline const char *INI::getSepsColon() const { return m_sepsColon; }
+#include "../../../../Include/Common/INI/FieldParse.h"
+namespace _STL
+{
+template <class T> class allocator
+{
+};
+
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	void push_back(const T &value);
+};
+}
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+// ?getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ @0x495cec
+// (69B): cached pool-name key for AutoPickUpUpdate. The class
+// identity comes from the pool-name string the body pushes
+// ("AutoPickUpUpdate"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "../../../../Include/Common/NameKeyGenerator.h"
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+#define BFME_SNAPSHOT_NAME_SLOT
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00495DC6PtrChaseField, 0x1C, 0x24)
+
+// Address-named indexed pointer-chase getter at retail 0x005F6B12.
+// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
+// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
+// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
+// tail-jump to virtual slot 1; else return the chased pointer.
+// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
+// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
+struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 
 class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
 {
@@ -303,86 +360,24 @@ private:
 	bool m_flag29;
 };
 
-// ?destroyRange@@YAXPAX0@Z 0x00496292 25B destroy range stride 12 via dtor pin
-// Evidence: callers at 0x004962C5 and 0x004962F2; calls dtor pin ??1BfmeStringRecord00426A5B@@QAE@XZ at 0x00495C43; add esi 0xc.
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp
 
-struct BfmeStringRecord00426A5B {
-	~BfmeStringRecord00426A5B();
-	char m_pad[12];
-};
+// ??1AutoPickUpUpdate@@UAE@XZ @0x00495C48
+AutoPickUpUpdate::~AutoPickUpUpdate()
+{
+}
 
-void destroyRange(void *first, void *last);
+// tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-class Rva004962EA {
-public:
-	~Rva004962EA();
-	BfmeStringRecord00426A5B *m_first;
-	BfmeStringRecord00426A5B *m_last;
-};
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 
-BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva00495DCDByteChaseField, 0x1C, 0x21)
+// Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
+
+// Inherited module data is at +0x04 and the object is at +0x08.
 
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
 // VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
 // template's trainable flag): the byte at +0x5E7 of the +0x04 template.
-#include "../../../../Include/GameLogic/ExperienceTracker.h"
-
-typedef float Real;
-
-#include "../../../../Include/Common/INI/INI.h"
-inline const char *INI::getSepsColon() const { return m_sepsColon; }
-
-#include "../../../../Include/Common/INI/FieldParse.h"
-
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
-}
-
-void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
-
-// ?getModuleNameKey@AutoPickUpUpdate@@UBE?AW4NameKeyType@@XZ @0x495cec
-// (69B): cached pool-name key for AutoPickUpUpdate. The class
-// identity comes from the pool-name string the body pushes
-// ("AutoPickUpUpdate"); the body guards a function-local static
-// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
-// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
-// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
-// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
-// from retail, no pins; nameToKey resolves via its matched row).
-
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-
-#include "../../../../Include/Common/NameKeyGenerator.h"
-
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00495DC6PtrChaseField, 0x1C, 0x24)
-
-// Address-named indexed pointer-chase getter at retail 0x005F6B12.
-// Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
-// Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-// Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
-// tail-jump to virtual slot 1; else return the chased pointer.
-// Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
-// je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
-// establish complete RET boundaries and each raw field operation and ABI.
-// Address-owned carriers retain unknown original receiver identity and bounds.
-
-// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
-struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 
 // Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
 // Rva00537850IndirectGet.cpp suggests the first operation; list iterator
@@ -392,9 +387,7 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // and6F6830..6F6836. They read raw words through independently proved offsets.
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-// tu-skeleton: 0x00495C48 32B ??1AutoPickUpUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 
@@ -700,8 +693,6 @@ void AutoPickUpUpdateModuleData::iniParseEatObjectEntry(INI *ini, void *instance
 
 	((_STL::vector<AutoPickUpEatObjectEntry> *)store)->push_back(entry);
 }
-
-// tu-skeleton: 0x00495DAA 28B ??_GAutoPickUpUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
 
