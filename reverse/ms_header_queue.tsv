@@ -172,7 +172,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp
 Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgradeImplementation.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B7167Dtor.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseTemplate.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand	3: reference/shims/bfmealloc/stl/_algobase.h:51 stl/_pair.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:55 stl/_iterator_base.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:573 stl/_algobase.c(unknown)		free:unverified
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIRoamingDefenseTacticRoam.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIProcessRetreats.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
@@ -787,3 +786,4 @@ Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	conflicting	abi	1	0	0	0	0	0	1
 Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	1	0	<crtdbg.h>	no	yes	hand	22: Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp:5 PreRTS.h(unknown); Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp:33 Lib/BaseType.h(unknown); Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp:38 Common/BorderColors.h(unknown)		free:unverified
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	conflicting	mangle	2	2	0	0	0	0	0	0	0	1	0	<windows.h>	yes	yes	hand			EnterCriticalSection:same,LeaveCriticalSection:same
 Code/GameEngine/Source/Common/PortNegotiationSchema.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
