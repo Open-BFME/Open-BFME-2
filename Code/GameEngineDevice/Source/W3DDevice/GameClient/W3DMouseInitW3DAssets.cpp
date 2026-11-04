@@ -44,6 +44,7 @@
 
 #include <d3d9.h>
 #include "ascii_string.h"
+#include "../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 typedef int Int;
 typedef float Real;
@@ -450,12 +451,12 @@ public:
 	};
 };
 
-class ThreadClass
+class MouseThreadClass : public ThreadClass
 {
 public:
-	virtual void Execute( void );
-	void Stop( void );
-	bool Is_Running( void );
+	MouseThreadClass();
+	void Thread_Function();
+	virtual ~MouseThreadClass();
 };
 
 class Rva0009990D
@@ -468,7 +469,7 @@ extern unsigned int g_Va009E5DF8;
 
 extern "C" CriticalSectionClass mutex;
 extern "C" MutexClass threadMutex;
-extern "C" ThreadClass thread;
+extern "C" MouseThreadClass thread;
 // The mouse-thread flag (retail 0x009E4B30, .bss). W3DMouse.cpp keeps its own copy
 // file-static (see there), so the C name this body reads is defined here.
 extern "C" { Bool isThread; }
