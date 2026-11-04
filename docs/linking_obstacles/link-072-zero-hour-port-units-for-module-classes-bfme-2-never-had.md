@@ -46,9 +46,15 @@ shape outside the module tree, is recorded under LINK-065.)
 
   Both units LINK in preview. Details are in
   `real-link-blockers-in-gamelogic-gamenetwork-2026-11-03-seat-halilkkaya.md`.
-  JetAIUpdate and DumbProjectileBehavior stay parked: `Matrix3D(bool)` 0x0004C91A
-  is still only `proposed`, and `getUpdatePhase` 0x0022C4CB still has no
-  approved unit.
+- **Repaired 2026-11-03, seat ancalgonn-ops-srv1:** DumbProjectileBehavior.cpp and
+  JetAIUpdate.cpp now hold only their rows, 2/2 and 1/1 matched, with every Zero Hour
+  body and hatch gone. A row without an approved unit does not need the class to keep
+  it: a file-local function nothing runs makes the unit emit the COMDAT, held by an
+  extern pointer. `getUpdatePhase` is a virtual, whose address would be a call thunk, so
+  its caller makes a qualified direct call under `/Ob0`. `Matrix3D(bool)` needs its
+  inlined `Make_Identity`, so its caller constructs a local under `/O1`, which keeps the
+  constructor out of line. Both rows stay in place until their addresses get an approved
+  unit. Expected at the next real link: 10 and 9 fewer unresolved names; not yet measured.
 - **Remaining / next check:** same test passes for SpectreGunshipUpdate,
   RailedTransportDockUpdate, DeliverPayloadAIUpdate, JetAIUpdate,
   FlightDeckBehavior, DumbProjectileBehavior, HelicopterSlowDeathUpdate and
@@ -79,12 +85,13 @@ shape outside the module tree, is recorded under LINK-065.)
     W3DGameClient.cpp's approved cluster but is itself only `proposed` to a
     non-existent `AIUpdate/Matrix3D.cpp`; a ctor cannot be pointer-anchored, and
     `reference/shims/bfme_matrix3d_bool_link` keeps every other consumer inline
-    so JetAIUpdate.cpp is its sole emitter. Parked until the address gets an
-    approved unit.
+    so JetAIUpdate.cpp is its sole emitter. Was parked until the address gets an
+    approved unit; superseded by the repair above.
   - DumbProjectileBehavior: `UpdateModule::getUpdatePhase` (0x0022C4CB, the
     ICF-shared PUSH 2/POP EAX/RET slot) is a displaced COMDAT with no approved
     unit (3092d4a84c moved it here); `sqr<float>` alone could stay by explicit
-    instantiation. Parked with the getUpdatePhase home.
+    instantiation. Was parked with the getUpdatePhase home; superseded by the
+    repair above.
   - Also failing test 4 (other units need the class's symbols):
     DeliverPayloadAIUpdate (ObjectCreationList.cpp's DeliverPayloadNugget uses
     `DeliverPayloadData::getFieldParse` and the AI update), StickyBombUpdate
