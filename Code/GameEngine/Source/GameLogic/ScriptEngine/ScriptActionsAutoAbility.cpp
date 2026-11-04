@@ -59,7 +59,8 @@ extern PlayerList *ThePlayerList;
 extern NameKeyGenerator *TheNameKeyGenerator;
 class CommandButton { public: unsigned char m_pad[0x10C]; bool m_10C; };
 class CommandSet { public: const CommandButton *getCommandButton(int) const; };
-class ControlBar { public: const CommandButton *findCommandButton(const AsciiString &); }; extern ControlBar *TheControlBar;
+#include "../../../Include/GameClient/ControlBar.h"
+extern ControlBar *TheControlBar;
 class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
 #include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 

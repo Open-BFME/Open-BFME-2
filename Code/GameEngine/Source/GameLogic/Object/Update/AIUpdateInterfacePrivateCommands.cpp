@@ -369,10 +369,7 @@ public:
 	void *rva0031D5F8(const AsciiString *name);
 };
 
-class ControlBar
-{
-public:
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

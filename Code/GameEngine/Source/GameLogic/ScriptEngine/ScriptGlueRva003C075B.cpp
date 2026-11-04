@@ -24,11 +24,7 @@ enum CommandSourceType
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 class AIGroup;

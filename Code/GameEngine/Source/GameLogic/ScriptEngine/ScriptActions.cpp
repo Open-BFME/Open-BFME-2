@@ -1307,11 +1307,7 @@ public:
 	unsigned int m_options;	// +0x1C
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);	// 0x0031BE3C
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 // Native 0x27F108 takes four 32-bit argument slots and returns a result word the caller only

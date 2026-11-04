@@ -211,11 +211,7 @@ public:
 	const SpecialPowerTemplate *m_specialPower;		// +0x44
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);	// 0x0031BE3C
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 #include "../../../Include/GameLogic/AIGroup.h"

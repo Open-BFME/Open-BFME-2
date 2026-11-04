@@ -133,11 +133,7 @@ public:
 	unsigned int m_options;	// +0x1C
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);	// 0x0031BE3C
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

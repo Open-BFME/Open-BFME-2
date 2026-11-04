@@ -9,11 +9,7 @@ enum NameKeyType { NK_NONE = 0 };
 class Object;
 class Module;
 #include "../../../Include/GameClient/CommandButton.h"
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 class Object

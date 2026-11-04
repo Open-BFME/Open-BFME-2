@@ -62,11 +62,7 @@ public:
 extern ScriptEngine *TheScriptEngine;
 
 class CommandButton;
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 struct Coord3D;

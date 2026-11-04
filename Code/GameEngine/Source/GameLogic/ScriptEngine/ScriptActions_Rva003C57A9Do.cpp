@@ -28,9 +28,7 @@ class Rva0031D5F8
 public:
 	void *rva0031D5F8(const AsciiString *name);	// rowed 0x0031D5F8 (ControlBar::findCommandSet)
 };
-class ControlBar
-{
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 #include "../Object/object.h"

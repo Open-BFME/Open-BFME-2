@@ -23,10 +23,7 @@ struct BfmeWorldRV;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class ControlBar {
-public:
-	const CommandButton *findCommandButton(const AsciiString &);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 
 #include "../../../Include/Common/Overridable.h"
 

@@ -46,11 +46,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/GameClient/CommandSet.h"
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);	// 0x0031BE3C
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 // The rowed 0x0031D5F8 lookup on TheControlBar (BFME 1: findCommandSet).
