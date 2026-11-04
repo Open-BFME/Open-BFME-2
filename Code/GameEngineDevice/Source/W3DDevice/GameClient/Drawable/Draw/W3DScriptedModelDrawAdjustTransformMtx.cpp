@@ -85,16 +85,7 @@ public:
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
-class GameClient
-{
-public:
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	virtual Drawable *findDrawableByID(unsigned int id);
-	SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
-	SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
-	virtual unsigned int getFrame();
-};
+#include "../../../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 class W3DScriptedModelDraw;
 
@@ -242,7 +233,7 @@ void W3DScriptedModelDraw::rva000B710D(Matrix3D &mtx)
 {
 	if (m_parentID)
 	{
-		Drawable *parent = TheGameClient->findDrawableByID(m_parentID);
+		Drawable *parent = TheGameClient->findDrawableByID((DrawableID)m_parentID);
 		if (parent)
 		{
 			Object *obj = parent->m_object;

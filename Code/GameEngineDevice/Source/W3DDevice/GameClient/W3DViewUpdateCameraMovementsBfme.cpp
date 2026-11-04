@@ -43,39 +43,7 @@ public:
 	void rva00086EBD();
 };
 class Rva00086C4A {public:void rva00086C4A();};
-class GameClient {public:
-virtual void slot000();
-virtual void slot004();
-virtual void slot008();
-virtual void slot00C();
-virtual void slot010();
-virtual void slot014();
-virtual void slot018();
-virtual void slot01C();
-virtual void slot020();
-virtual void slot024();
-virtual void slot028();
-virtual void slot02C();
-virtual void slot030();
-virtual void slot034();
-virtual void slot038();
-virtual void slot03C();
-virtual void slot040();
-virtual void slot044();
-virtual void slot048();
-virtual void slot04C();
-virtual void slot050();
-virtual void slot054();
-virtual void slot058();
-virtual void slot05C();
-virtual void slot060();
-virtual void slot064();
-virtual void slot068();
-virtual void slot06C();
-virtual void slot070();
-virtual void slot074();
-virtual void slot078();
-virtual unsigned getTimestamp();};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 extern int BfmeClientFramesPerSecond;
 class CameraMotion {public:virtual ~CameraMotion();virtual void update(float);char pad[0x18];bool active;};
@@ -162,7 +130,7 @@ Bool W3DView::updateCameraMovements(void)
 	switch (m_cameraMovementMode) {
     case 4:
         if(motion){
-            unsigned timestamp=TheGameClient->getTimestamp();
+            unsigned timestamp=TheGameClient->getFrame();
             motion->update((timestamp-motionTimestamp)*(30.0f/BfmeClientFramesPerSecond));
             motionTimestamp=timestamp;
             if(!motion->active){::delete motion;motion=0;m_cameraMovementMode=0;goto camera_movement_finished;}
@@ -178,7 +146,7 @@ Bool W3DView::updateCameraMovements(void)
 		moveCameraOrLocatorAlongSplinePath(TheW3DFrameLengthInMsec, false);
 		goto camera_movement_updated;
 	case 3:
-        {unsigned timestamp=TheGameClient->getTimestamp();
+        {unsigned timestamp=TheGameClient->getFrame();
          if(timestamp!=lastTimestamp){reinterpret_cast<Rva00086C4A*>(this)->rva00086C4A();lastTimestamp=timestamp;}}
 		goto camera_movement_updated;
 	}

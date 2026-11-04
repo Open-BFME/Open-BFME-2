@@ -81,12 +81,7 @@ extern Keyboard *TheKeyboard;
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class GameClient
-{
-public:
-	V16(a)
-	virtual Drawable *findDrawableByID(Int id);	// +0x40
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 extern GameLogic *TheGameLogic;
@@ -344,7 +339,7 @@ void W3DDisplay::gatherAnimationDebuggingInfo()
 	Drawable *drawable = 0;
 	int lockedID;
 	if (TheKeyboard->isCtrl() || TheKeyboard->isShift()) {
-		drawable = TheGameClient->findDrawableByID(TheInGameUI->getMousedOverDrawableID());
+		drawable = TheGameClient->findDrawableByID((DrawableID)TheInGameUI->getMousedOverDrawableID());
 		if (drawable) {
 			object = drawable->m_object;
 			s_lockedID = 0;
@@ -369,7 +364,7 @@ void W3DDisplay::gatherAnimationDebuggingInfo()
 selection:
 		s_lockedID = 0;
 		if (TheInGameUI->getSelectCount() != 1) {
-			drawable = TheGameClient->findDrawableByID(TheInGameUI->getMousedOverDrawableID());
+			drawable = TheGameClient->findDrawableByID((DrawableID)TheInGameUI->getMousedOverDrawableID());
 			if (drawable)
 				object = drawable->m_object;
 		} else {
