@@ -1,0 +1,32 @@
+{
+  "Rva0004CB1EParticleForward.cpp": {
+    "complete_code_symbols": 2,
+    "changed_complete_code_symbols": [],
+    "definitions_added": [],
+    "definitions_removed": [],
+    "references_added": [],
+    "references_removed": [],
+    "weak_externals_equal": true,
+    "alternate_names_added": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "alternate_names_removed": {}
+  },
+  "W3DDisplaySmallSlots.cpp": {
+    "complete_code_symbols": 12,
+    "changed_complete_code_symbols": [],
+    "definitions_added": [],
+    "definitions_removed": [],
+    "references_added": [],
+    "references_removed": [],
+    "weak_externals_equal": true,
+    "alternate_names_added": {},
+    "alternate_names_removed": {}
+  }
+}

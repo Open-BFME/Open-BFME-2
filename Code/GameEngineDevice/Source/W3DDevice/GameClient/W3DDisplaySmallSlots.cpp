@@ -109,14 +109,7 @@ public:
 };
 extern LivingWorldManager *TheLivingWorldManager;
 
-class ParticleSystemManager
-{
-public:
-	VSLOTS4(s0) VSLOTS4(s1)
-	virtual void s20(); virtual void s21();
-	virtual void rva000453D2Slot();	// slot 10 (+0x28)
-};
-extern ParticleSystemManager *TheParticleSystemManager;
+#include "../../../../GameEngine/Include/GameClient/ParticleSys.h"
 
 class W3DDisplay
 {
@@ -198,7 +191,7 @@ void W3DDisplay::rva000453AC()
 {
 	TheLivingWorldManager->rva000453B4Slot();
 	if (DX8Wrapper::_Get_D3D_Device8() && reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->TestCooperativeLevel() == D3D_OK)
-		TheParticleSystemManager->rva000453D2Slot();
+		TheParticleSystemManager->update();
 }
 
 // vtable 0x00BC3C80#27
