@@ -42,10 +42,7 @@ class ModuleData;
 namespace _STL {
 template <> void vector<const ModuleData *>::push_back(const ModuleData * const &);
 }
-struct INIException { char *message; int code; INIException(int argCount, const char *format, ...); };
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct SplitThrowInfoAnchor { int a,b,c,d; };
-static const SplitThrowInfoAnchor splitThrowInfoAnchor = {0,0,0,0};
+#include "../../../../Include/Common/INI/FieldParse.h"
 void parseHordeContainSplitResult(INI *ini, void *instance, void *store, const void *userData)
 {
   {
@@ -67,12 +64,10 @@ void parseHordeContainSplitResult(INI *ini, void *instance, void *store, const v
   }
 invalidResult:
     {
-        INIException e(3, "'Result' expected");
-        _CxxThrowException(&e, (const _s__ThrowInfo *)&splitThrowInfoAnchor); __assume(0);
+        throw INIException(3, "'Result' expected");
     }
 invalidTarget:
     {
-        INIException e(3, "'Target' expected");
-        _CxxThrowException(&e, (const _s__ThrowInfo *)&splitThrowInfoAnchor); __assume(0);
+        throw INIException(3, "'Target' expected");
     }
 }

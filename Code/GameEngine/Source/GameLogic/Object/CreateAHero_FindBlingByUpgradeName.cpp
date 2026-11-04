@@ -151,13 +151,7 @@ class Xfer;
 
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 
-struct FieldParse
-{
-	const char *name;
-	void (*parse)(class INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct BlockFieldParse
 {
@@ -367,15 +361,6 @@ extern "C" const CreateAHeroSystemFieldParseTable CreateAHeroSystemFieldParse;
 
 bool Rva00219453Validate(int stat, const char *name);	// 0x00219453
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);	// 0x0002F681
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(const INIException &that);
-	~INIException();
-};
 
 class UpgradeTemplate;
 

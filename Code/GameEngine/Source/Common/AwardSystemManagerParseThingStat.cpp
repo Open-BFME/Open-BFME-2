@@ -43,15 +43,7 @@ enum INILoadType
 class Xfer;
 #include "../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	INIException(int,const char *,...);
-	INIException(const INIException &);
-	~INIException();
-	char *mFailureMessage; // +0x00
-	int mErrorCode; // +0x04
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // The thing statistic (0x68 bytes): its name key at +0x00, the included and
 // excluded template key lists at +0x04 / +0x10. The ledger rows its default
@@ -113,14 +105,6 @@ extern ThingFactory *TheThingFactory;
 // 0x009C1E88); every parser is rowed.
 typedef void (*ThingStatFieldParser)(INI *, void *, void *, const void *);
 typedef void (*AwardFieldParser)(INI *,void *,void *,const void *);
-struct FieldParse
-{
-public:
-	const char *name; // +0x00
-	AwardFieldParser parse; // +0x04
-	const void *userData; // +0x08
-	unsigned offset; // +0x0C
-};
 void Rva00149002Parse(INI *, void *, void *, const void *);
 void Rva002567EAParse(INI *, void *, void *, const void *);
 #define BFME_INI_PARSER(name) reinterpret_cast<ThingStatFieldParser>(&name)

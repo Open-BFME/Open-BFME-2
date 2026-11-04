@@ -75,7 +75,7 @@ template <> struct hash<NameKeyType>
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva00427157
 {
@@ -178,25 +178,13 @@ void LivingWorldAutoResolveArmorStore::parseArmorDefinition(INI *ini)
 }
 
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
-
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva00427294ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva00427294ThrowInfoAnchor rva00427294ThrowInfoAnchor = { 0, 0, 0, 0 };
-
 void __cdecl Rva00427294Parse(INI *ini, void *dummy1, void *instance, void *dummy2)
 {
 	const char *token = ini->getNextToken(0);
 	*(const Rva00427157 **)instance = TheLivingWorldAutoResolveArmorStore->find(AsciiString(token));
 	if (*(const Rva00427157 **)instance == 0)
 	{
-		INIException e(1, "Unknown LivingWorldAutoResolveArmor %s", token);
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&rva00427294ThrowInfoAnchor);
+		throw INIException(1, "Unknown LivingWorldAutoResolveArmor %s", token);
 	}
 }
 

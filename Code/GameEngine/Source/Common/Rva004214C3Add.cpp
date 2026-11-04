@@ -32,17 +32,7 @@ public:
 };
 }
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-};
-
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva004214C3ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva004214C3ThrowInfoAnchor rva004214C3ThrowInfoAnchor = { 0, 0, 0, 0 };
+#include "../../Include/Common/INI/FieldParse.h"
 
 
 class Rva004214C3
@@ -60,8 +50,7 @@ void Rva004214C3::rva004214C3(const ModuleData *data)
 	if (found) {
 		char *t = *(char **)&found->m_name;
 		const char *s = t ? t + 8 : "";
-		INIException exc(3, "A light point level %s already exists.", s);
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva004214C3ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "A light point level %s already exists.", s);
 	}
 	m_vec.push_back(data);
 }

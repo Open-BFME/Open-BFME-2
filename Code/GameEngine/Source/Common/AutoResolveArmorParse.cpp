@@ -7,7 +7,7 @@
 // the same shape with its own table. Evidence: packet disassembly, caller
 // 0x00542BA1 (4 __cdecl args, caller cleans 0x10), prev/next flags.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
 
@@ -34,18 +34,6 @@ extern const FieldParse g_autoResolveWeaponFieldParse[4] = {
 	{ 0, 0, 0, 0 }
 };
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-};
-
-extern "C" void rva002f681_fill(void *e, int argCount, const char *format, ...);
-
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva00542B61ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva00542B61ThrowInfoAnchor rva00542B61ThrowInfoAnchor = { 0, 0, 0, 0 };
-
 class Rva005429D7
 {
 public:
@@ -71,12 +59,10 @@ public:
 
 void __cdecl Rva00542B61Parse(INI *ini, void *unusedFormal, void *armorEntry, void *unusedParseData)
 {
-	INIException exception;
 	ini->initFromINI(armorEntry, g_autoResolveArmorFieldParse);
 	if (*(void **)armorEntry == 0)
 	{
-		rva002f681_fill(&exception, 8, "AutoResolveArmor entry in Object block: Armor name MUST be specified");
-		_CxxThrowException(&exception, (const _s__ThrowInfo *)&rva00542B61ThrowInfoAnchor);
+		throw INIException(8, "AutoResolveArmor entry in Object block: Armor name MUST be specified");
 	}
 }
 
@@ -99,12 +85,10 @@ void __cdecl Rva00542BA1Parse(INI *ini, void *unusedFormal, void *armorEntries, 
 // caller 0x00542B56 (4 __cdecl args), prev/next flags, sibling armor parser.
 void __cdecl Rva00542997Parse(INI *ini, void *unusedFormal, void *weaponEntry, void *unusedParseData)
 {
-	INIException exception;
 	ini->initFromINI(weaponEntry, g_autoResolveWeaponFieldParse);
 	if (*(void **)weaponEntry == 0)
 	{
-		rva002f681_fill(&exception, 8, "AutoResolveWeapon entry in Object block: Weapon name MUST be specified");
-		_CxxThrowException(&exception, (const _s__ThrowInfo *)&rva00542B61ThrowInfoAnchor);
+		throw INIException(8, "AutoResolveWeapon entry in Object block: Weapon name MUST be specified");
 	}
 }
 

@@ -1,15 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 // ?Rva00219453Validate@@YA_NHPBD@Z @0x00219453 90B CreateAHero stat validator throws INIException 3 callers 0x00220484
-struct INIException
-{
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-};
-
-struct _s__ThrowInfo;
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
+#include "../../../Include/Common/INI/FieldParse.h"
 
 class Rva0040BAD0
 {
@@ -28,15 +19,11 @@ bool __cdecl Rva00219453Validate(int stat, const char *name)
 {
 	if (stat == 0)
 	{
-		INIException e(3, "%s has not been set in CreateAHeroSystem.ini.", name);
-		_CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
-		__assume(0);
+		throw INIException(3, "%s has not been set in CreateAHeroSystem.ini.", name);
 	}
 	if (TheAwardSystemManager->rva0040AAF8(stat) == 0)
 	{
-		INIException e(3, "%s is not a valid statInfo in CreateAHeroSystem.ini.");
-		_CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
-		__assume(0);
+		throw INIException(3, "%s is not a valid statInfo in CreateAHeroSystem.ini.");
 	}
 	return true;
 }

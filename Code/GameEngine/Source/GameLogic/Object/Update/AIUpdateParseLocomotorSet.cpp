@@ -13,8 +13,8 @@
 // INI_LOAD_CREATE_OVERRIDES (2); the map subscript is the out-of-line
 // rowed 0x1EA05B; the clear lowers to the folded voidptr erase 0x31BD55;
 // pushes lower to the folded const-pointer push_back 0x4DFCB0; the
-// "not found" and re-specify throws build INIException(3, ...) inline
-// and throw through the pinned _CxxThrowException 0x629094.
+// "not found" and re-specify throws are throw INIException(3, ...)
+// through _CxxThrowException 0x629094.
 
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -115,26 +115,11 @@ private:
 	BfmeLocomotorSetMap m_locomotorTemplates;
 };
 
-class INIException
-{
-public:
-	INIException(int argumentCount, const char *format, ...);
-
-	char *mFailureMessage;
-	int m_argumentCount;
-};
-
-__declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 extern const char *TheLocomotorSetNames[];
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern LocomotorStore *TheLocomotorStore;
-
-// Address anchor only: the throw sites push this object's address as an
-// immediate (DIR32, filled from retail by the gate -- Crate precedent).
-// Its content is never compared.
-struct ParseLocomotorThrowInfoAnchor { int a; int b; int c; int d; };
-static const ParseLocomotorThrowInfoAnchor parseLocomotorThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // ?parseLocomotorSet@AIUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z
 void AIUpdateModuleData::parseLocomotorSet(INI *ini, void *instance, void *, const void *)
@@ -143,8 +128,7 @@ void AIUpdateModuleData::parseLocomotorSet(INI *ini, void *instance, void *, con
 	AIUpdateModuleData *self = tt->friend_getAIModuleInfo();
 	if (!self)
 	{
-		INIException e(3, "Attempted to specify a locomotor for object %s without an AIUpdate block.", tt->getName().str());
-		_CxxThrowException(&e, (void *)&parseLocomotorThrowInfoAnchor);
+		throw INIException(3, "Attempted to specify a locomotor for object %s without an AIUpdate block.", tt->getName().str());
 	}
 
 	LocomotorSetType set = (LocomotorSetType)ini->scanIndexList(ini->getNextToken(0), TheLocomotorSetNames);
@@ -152,8 +136,7 @@ void AIUpdateModuleData::parseLocomotorSet(INI *ini, void *instance, void *, con
 	{
 		if (ini->getLoadType() != INI_LOAD_CREATE_OVERRIDES && ini->getLoadType() != INI_LOAD_UNKNOWN_4)
 		{
-			INIException e(3, "re-specifying a LocomotorSet is no longer allowed\n");
-			_CxxThrowException(&e, (void *)&parseLocomotorThrowInfoAnchor);
+			throw INIException(3, "re-specifying a LocomotorSet is no longer allowed\n");
 		}
 	}
 
@@ -167,14 +150,13 @@ void AIUpdateModuleData::parseLocomotorSet(INI *ini, void *instance, void *, con
 		const LocomotorTemplate *lt = TheLocomotorStore->findLocomotorTemplate(locoKey);
 		if (!lt)
 		{
-			INIException e(3, "Locomotor %s not found!\n", locoName);
-			_CxxThrowException(&e, (void *)&parseLocomotorThrowInfoAnchor);
+			throw INIException(3, "Locomotor %s not found!\n", locoName);
 		}
 		self->m_locomotorTemplates[set].push_back(lt);
 	}
 }
 
-// The (void *, void *) declaration above is a C++ overload, so calls spell
-// ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
+// Units that declare _CxxThrowException(void *, void *) as a C++ overload
+// call ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
 // __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
 #pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")

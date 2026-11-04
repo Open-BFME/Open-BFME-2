@@ -307,20 +307,7 @@ enum
  INI_LOAD_CREATE_OVERRIDES = 2
 }
 ;
-class INIException
-
-{
- public:
- INIException(int argCount, const char *format, ...);
-// 0x0002F681
- INIException(const INIException &that);
- ~INIException();
- private:
- char *m_failureMessage;
- int m_argCount;
-
-}
-;
+#include "../../Include/Common/INI/FieldParse.h"
 // The info record's push_back, default constructor and destructor are rowed
 // under three placeholder spellings of the one 0x30-byte record.
 struct Rva001DF3F1Element

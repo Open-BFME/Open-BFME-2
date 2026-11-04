@@ -15,20 +15,11 @@
 // .bss VA 0x00DDF9D0; the next datum starts 0x800 bytes later.
 char g_bfmeFormatBuffer[2048];
 
-class INIException
-{
-public:
-    char *mFailureMessage;
-    int m_argCount;
-    INIException(int argCount, const char *format, ...);
-    INIException(const INIException &that);
-    ~INIException();
-    INIException &operator=(const INIException &that);
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 INIException::INIException(int argCount, const char *format, ...)
 {
-    m_argCount = argCount;
+    field04 = argCount;
     mFailureMessage = 0;
     if (format != 0) {
         va_list args;
@@ -74,7 +65,7 @@ INIException &INIException::operator=(const INIException &that)
         }
         else
             mFailureMessage = 0;
-        m_argCount = that.m_argCount;
+        field04 = that.field04;
     }
     return *this;
 }

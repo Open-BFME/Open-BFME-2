@@ -6,21 +6,9 @@
 // 0x00C61B78 plus dtor 0x004E179A plus DoXfer pattern.
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
-
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
-
-struct _s__ThrowInfo;
-
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
 
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -59,9 +47,7 @@ void Rva004E17EBParse(INI *ini, void *instance, void *, const void *)
 	}
 	else
 	{
-		INIException e(3, "ParseSpawnBuilding::Invalid data passed in.");
-		_CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
-		__assume(0);
+		throw INIException(3, "ParseSpawnBuilding::Invalid data passed in.");
 	}
 }
 
