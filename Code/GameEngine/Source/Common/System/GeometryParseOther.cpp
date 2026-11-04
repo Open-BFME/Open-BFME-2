@@ -15,34 +15,14 @@
 // this identity is independently checked, not inferred from a masked call.
 #include <vector>
 #include <string.h>
-class INI {
-public:
-    char unused[0x420]; const char *colon;
-    const char *getSepsColon() const { return colon; }
-    const char *getNextTokenOrNull(const char *);
-    int scanIndexList(const char *, const char *const *);
-    bool scanBool(const char *);
-    float scanReal(const char *);
-};
+#include "../../../Include/Common/Geometry.h"
+#include "../../../Include/Common/INI/INI.h"
+// Preserve the retail inlined accessor in this TU.
+inline const char *INI::getSepsColon() const { return m_sepsColon; }
 extern const char *const GeometryNames[];
-enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
 struct GeometryShape {
     int type; float height, majorRadius, minorRadius, x, y, z;
     char *name; bool active; char padding[3];
-};
-class GeometryInfo {
-public:
-    GeometryInfo(GeometryType, bool, float, float, float);
-    GeometryInfo(const GeometryInfo &);
-    virtual ~GeometryInfo();
-    static void parseGeometryOther(INI *, void *, void *, const void *);
-    bool isSmall; char padding[3]; char head[0x24];
-    GeometryShape *begin, *end, *capacity;
-    char tail[0x24];
-private:
-	void calcBoundingStuff();
-	friend class GeometryShape;
-	friend class INI;
 };
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Construct<GeometryInfo,GeometryInfo>(GeometryInfo *p,GeometryInfo const &v) { new (p) GeometryInfo(v); } }
@@ -52,14 +32,14 @@ void GeometryInfo::parseGeometryOther(INI *ini, void *, void *store, const void 
     while(token) {
         const char *value=ini->getNextTokenOrNull(ini->getSepsColon());
         if(!value) break;
-        if(!strcmp(token,"GeomType")) geometry.begin->type=ini->scanIndexList(value,GeometryNames);
-        else if(!strcmp(token,"IsSmall")) geometry.isSmall=ini->scanBool(value);
-        else if(!strcmp(token,"Height")) geometry.begin->height=ini->scanReal(value);
-        else if(!strcmp(token,"MajorRadius")) geometry.begin->majorRadius=ini->scanReal(value);
-        else if(!strcmp(token,"MinorRadius")) geometry.begin->minorRadius=ini->scanReal(value);
-        else if(!strcmp(token,"OffsetX")) geometry.begin->x=ini->scanReal(value);
-        else if(!strcmp(token,"OffsetY")) geometry.begin->y=ini->scanReal(value);
-        else if(!strcmp(token,"OffsetZ")) geometry.begin->z=ini->scanReal(value);
+        if(!strcmp(token,"GeomType")) static_cast<GeometryShape *>(geometry.field2c[0])->type=ini->scanIndexList(value,GeometryNames);
+        else if(!strcmp(token,"IsSmall")) geometry.m_isSmall=ini->scanBool(value);
+        else if(!strcmp(token,"Height")) static_cast<GeometryShape *>(geometry.field2c[0])->height=ini->scanReal(value);
+        else if(!strcmp(token,"MajorRadius")) static_cast<GeometryShape *>(geometry.field2c[0])->majorRadius=ini->scanReal(value);
+        else if(!strcmp(token,"MinorRadius")) static_cast<GeometryShape *>(geometry.field2c[0])->minorRadius=ini->scanReal(value);
+        else if(!strcmp(token,"OffsetX")) static_cast<GeometryShape *>(geometry.field2c[0])->x=ini->scanReal(value);
+        else if(!strcmp(token,"OffsetY")) static_cast<GeometryShape *>(geometry.field2c[0])->y=ini->scanReal(value);
+        else if(!strcmp(token,"OffsetZ")) static_cast<GeometryShape *>(geometry.field2c[0])->z=ini->scanReal(value);
         token=ini->getNextTokenOrNull(ini->getSepsColon());
     }
     geometry.calcBoundingStuff();
