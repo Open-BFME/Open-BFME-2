@@ -23,21 +23,15 @@ class Object;
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(void *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
-class Rva004051BCFilter : public Rva000421C8
+// The player filter whose vftable slots are allow 0x00260E2A and
+// getPlayerMask 0x00260E1E, spelled as SpecialAbilityUpdate.cpp spells it.
+class Rva00260E2AFilter : public Rva000421C8
 {
 public:
-	Rva004051BCFilter(Player *player) : m_player(player) {}
-	virtual bool allow(void *obj);
+	Rva00260E2AFilter(Player *player) : m_player(player) {}
+	virtual bool allow(Object *obj);
 	virtual int getPlayerMask();
 	Player *m_player;
 };
@@ -76,7 +70,7 @@ void Rva004051BC::rva004051BC(int playerIndex, const Coord3D *pos)
 	if ((m_guards[playerIndex].flag & 0x80) != 0)
 		return;
 	Player *player = ThePlayerList->getNthPlayer(playerIndex);
-	Rva004051BCFilter filter(player);
+	Rva00260E2AFilter filter(player);
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, m_radius20, 1, &filter, 0);
 	for (Object *other = hits.next(); other != 0; other = hits.next()) {
 		ExperienceTracker *tracker = other->m_experienceTracker;
@@ -85,9 +79,3 @@ void Rva004051BC::rva004051BC(int playerIndex, const Coord3D *pos)
 		tracker->rva0039B4EC(1, true, false);
 	}
 }
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?allow@Rva004051BCFilter@@UAE_NPAX@Z=?allow@Rva00260E2AFilter@@UAE_NPAVObject@@@Z")
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva004051BCFilter@@UAEHXZ=?getPlayerMask@Rva00260E2AFilter@@UAEHXZ")
