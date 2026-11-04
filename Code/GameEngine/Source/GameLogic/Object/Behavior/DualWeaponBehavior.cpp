@@ -81,13 +81,7 @@ enum KindOfType
 
 }
 ;
-class AIUpdateInterface
-
-{
- public: Object *getCurrentVictim() const;
-
-}
-;
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva0028B7AELeaGetter
 
 {
@@ -226,15 +220,7 @@ class Object
 ;
 class AttackPriorityInfo;
 class PartitionFilter;
-class AI
-
-{
- public: Object *findClosestEnemy(const Object *, float, unsigned int,
- const AttackPriorityInfo *, PartitionFilter *, int);
-
-}
-;
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 //
 // ?xfer@Rva0045ADC1@@MAEXPAVXfer@@@Z, retail 0x0045AEC9, 75 bytes. Virtual
