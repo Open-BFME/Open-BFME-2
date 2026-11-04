@@ -285,12 +285,7 @@ int WeatherSetting::getFieldParse()
 // Follows a leave/ret plus a sibling B8-6 (pair, 6 apart) with a
 // frame-style function after. Carried at 0x7E2BA0, no direct callers,
 // no branch sources. Opaque address-derived name.
-class WaterTransparencySetting
-{
-public:
-	virtual int Rva00200BBAGet();
-	static const FieldParse m_waterTransparencySettingFieldParseTable[];
-};
+#include "../../Include/GameClient/Water.h"
 
 int WaterTransparencySetting::Rva00200BBAGet()
 {

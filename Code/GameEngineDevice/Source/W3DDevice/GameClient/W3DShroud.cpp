@@ -307,11 +307,7 @@ template <class T> class OVERRIDE;
 
 extern OVERRIDE<WaterTransparencySetting> TheWaterTransparency;
 
-class WaterTransparencySetting
-{
-public:
-	virtual void rva00200BD9();
-};
+#include "../../../../GameEngine/Include/GameClient/Water.h"
 
 // slot at 0x00222D26: writes the +0x04 object's leading byte, then its +0x04
 // pair through the rowed Rva000B3F84Pair::write; returns the bytes written.
