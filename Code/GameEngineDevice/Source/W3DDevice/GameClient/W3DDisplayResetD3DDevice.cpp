@@ -18,19 +18,7 @@ void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);
 void __cdecl clipCursorToClient(void);
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock(void)
-	{
-		BFME_DX8_Thread_Lock();
-	}
-
-	~BFMEDX8DeviceLock(void)
-	{
-		BFME_DX8_Thread_Assert();
-	}
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // BFME2 Display carries three more virtuals ahead of getWidth than ZH's, so
 // getWidth/getHeight/getBitDepth/getWindowed land at +0x40/+0x44/+0x4C/+0x54

@@ -2029,11 +2029,7 @@ bool BFME_DX8_Thread_Assert(void)
 }
 
 // Existing reconstructed guard contract from reference/shims/indexbuffercount/dx8indexbuffer.h.
-class BFMEDX8DeviceLock {
-public:
- BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
- ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // 0x0011FC20: the HRESULT translator Init registers with the debug library
 // (priority 100): hex value, then the DirectX error name.  Role name;

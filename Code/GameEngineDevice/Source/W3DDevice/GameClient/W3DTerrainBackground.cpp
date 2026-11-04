@@ -111,12 +111,7 @@ typedef float Real;
 #define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 extern void BFME_DX8_Thread_Lock(void);
 extern bool BFME_DX8_Thread_Assert(void);
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 void bfmeReleaseQueuedDeviceInterfaces();
 class BfmeDynamicNativeVB : public VertexBufferClass
 {

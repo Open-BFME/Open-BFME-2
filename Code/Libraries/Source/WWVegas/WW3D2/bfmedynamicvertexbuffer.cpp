@@ -140,11 +140,7 @@ extern unsigned short bfmeSortingVBSize;
 static unsigned short bfmeSortingVBOffset;
 extern void BFME_DX8_Thread_Lock();
 extern bool BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock {
-public:
- BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
- ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 struct BfmeSortingVertex { float x,y,z,nx,ny,nz;unsigned diffuse;float u1,v1,u2,v2; };
 class DynamicVBAccessClass
 {

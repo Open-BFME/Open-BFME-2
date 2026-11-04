@@ -17,19 +17,7 @@ typedef bool Bool;
 void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock(void)
-	{
-		BFME_DX8_Thread_Lock();
-	}
-
-	~BFMEDX8DeviceLock(void)
-	{
-		BFME_DX8_Thread_Assert();
-	}
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (TestCooperativeLevel, vtable slot 3).

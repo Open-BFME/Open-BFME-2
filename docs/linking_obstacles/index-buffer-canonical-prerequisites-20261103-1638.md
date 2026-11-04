@@ -66,3 +66,14 @@ link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/Ga
 
 This supersedes the earlier two-own-source receipt gap; any remaining affected
 consumer gap still stays unverified and is carried to the next census.
+
+
+#### Eighteen further guard adoptions, 2026-11-04, run0356
+
+The already corrected canonical header is adopted in18 more independent
+sources. Native acceptance retires exactly18 header keys; all732 existing
+code/EH rows and complete non-debug object contents are retained. The original
+31-source private-guard inventory now has13 definitions. No shared
+header, locking algorithm, pin or alias change is made. The old index-buffer
+shim prerequisite and broader merge obstacle stay open. The held W3DShroud
+source is excluded. [Scoped batch evidence](../../reverse/attempt_support/device-guard-batch-20261104-0356.md).

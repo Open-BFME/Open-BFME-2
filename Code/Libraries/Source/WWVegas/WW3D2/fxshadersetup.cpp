@@ -123,12 +123,7 @@ void Rva00129670Inc();						// 0x00129670, render statistics counter
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 class ChunkLoadClass
 {
