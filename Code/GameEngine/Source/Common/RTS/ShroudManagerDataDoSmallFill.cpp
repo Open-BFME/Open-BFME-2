@@ -98,11 +98,10 @@ public:
 };
 
 class UpdateOwner;
-class ShroudManager
+#include "../../../Include/Common/ShroudManagerClass.h"
+
+class ShroudManager::Data
 {
-public:
-	class Data
-	{
 	public:
 		bool DoSmallFill(float x, float y, float radius);
         void UpdateCellsTouched();
@@ -123,7 +122,6 @@ public:
         unsigned changeMasks[3],changeAmounts[3];
         bool forceUpdate;
 	};
-};
 
 // Link each cell of [first, last) to the next free COI; returns the end iterator.
 __forceinline BfmeCellFD *smallFillRow(SmallFillCOI *&out, BfmeCellFD *first, BfmeCellFD *const &last)
