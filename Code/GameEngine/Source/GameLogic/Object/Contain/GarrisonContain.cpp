@@ -254,15 +254,6 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 enum NameKeyType { NK_UNKNOWN = 0 };
-class ConditionBits
-{
-public:
-    unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
-    void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
-    void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
-private:
-    unsigned int m_words[4];
-};
 enum ObjectStatusTypes
 {
     OBJECT_STATUS_NONE = 0
@@ -563,23 +554,20 @@ void XferDrawableID( Xfer *xfer, Int *value );
 #include <string.h>
 #pragma intrinsic(memset)
 #include "../object.h"
-// object.h keeps these three fields private; the offsets come from the matched
-// bodies: validateRallyPoint 0x00478141 (+0xB8), redeployOccupants 0x00479395
-// (+0x10C), onContaining 0x00478C2C (+0x380).
-struct GarrisonObjectFields
+#include "../../../../Include/Common/Player.h"
+#include "../../../../Include/Common/PlayerList.h"
+extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
+class ConditionBits
 {
-    unsigned char m_pad00[0xB8];
-    float m_boundingCircleRadius; // +0xB8
-    unsigned char m_padBC[0x10C - 0xBC];
-    ConditionBits m_conditionBits; // +0x10C
-    unsigned char m_pad11C[0x25C - 0x11C];
-    class PhysicsBehavior *m_physics; // +0x25C
-    unsigned char m_pad260[0x274 - 0x260];
-    void *m_274; // +0x274
-    unsigned char m_pad278[0x380 - 0x278];
-    unsigned int m_380; // +0x380
-    unsigned char m_pad384[0x428 - 0x384];
-    unsigned int m_safeOcclusionFrame; // +0x428
+public:
+    unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
+    void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+    void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
+private:
+    unsigned int m_words[4];
 };
 
 class Team;
@@ -619,6 +607,35 @@ public:
     virtual void h60(); virtual void h61(); virtual void h62(); virtual void h63();
     virtual void h64(); virtual void h65();
     virtual Rva0046247DPair &slot108(Rva0046247DPair &p);
+};
+
+struct VisLookupNode { VisLookupNode *next; ObjectID key; Object *object; };
+
+struct VisLookupBuckets {
+ VisLookupNode **begin,**end,**capacity;
+ unsigned int size() const { return end-begin; }
+ VisLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
+};
+
+struct VisLookupMap { unsigned char hashEqual[4]; VisLookupBuckets buckets; };
+
+// object.h keeps these three fields private; the offsets come from the matched
+// bodies: validateRallyPoint 0x00478141 (+0xB8), redeployOccupants 0x00479395
+// (+0x10C), onContaining 0x00478C2C (+0x380).
+struct GarrisonObjectFields
+{
+    unsigned char m_pad00[0xB8];
+    float m_boundingCircleRadius; // +0xB8
+    unsigned char m_padBC[0x10C - 0xBC];
+    ConditionBits m_conditionBits; // +0x10C
+    unsigned char m_pad11C[0x25C - 0x11C];
+    class PhysicsBehavior *m_physics; // +0x25C
+    unsigned char m_pad260[0x274 - 0x260];
+    void *m_274; // +0x274
+    unsigned char m_pad278[0x380 - 0x278];
+    unsigned int m_380; // +0x380
+    unsigned char m_pad384[0x428 - 0x384];
+    unsigned int m_safeOcclusionFrame; // +0x428
 };
 
 // OpenContain's nine vftable-bearing bases, positional. The GarrisonContain
@@ -782,16 +799,6 @@ protected:
     virtual void loadPostProcess();
 };
 
-struct VisLookupNode { VisLookupNode *next; ObjectID key; Object *object; };
-
-struct VisLookupBuckets {
- VisLookupNode **begin,**end,**capacity;
- unsigned int size() const { return end-begin; }
- VisLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
-};
-
-struct VisLookupMap { unsigned char hashEqual[4]; VisLookupBuckets buckets; };
-
 // GarrisonContain over the 0xFC-byte OpenContain. Offsets from the matched
 // bodies: +0xFC original team id (xfer 0x00478260), +0x100 point records,
 // +0x420 points in use, +0x424 the 3x40 garrison points (put 0x00477DA1,
@@ -850,6 +857,8 @@ private:
     bool m_hideGarrisonedStateFromNonallies; // +0x9DD
     bool m_rallyValid; // +0x9DE
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -2003,14 +2012,6 @@ GarrisonContain::GarrisonContain(Thing *thing, const ModuleData *moduleData)
 	zeroCoord(m_exitRallyPoint);
 }
 
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x004787B0 160B ?onObjectCreated@GarrisonContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnObjectCreated.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp
 
 // Provider46247D is the already rowed26-byte pair writer: its inline/noinline
@@ -2104,10 +2105,6 @@ void GarrisonContain::onContaining(Object *obj, bool wasSelected)
     }
 }
 
-// tu-skeleton: 0x00478D0A 717B ?onRemoving@GarrisonContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp (not merged yet)
-
-// tu-skeleton: 0x0047901B 631B ?loadGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainLoadGarrisonPoints.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveInvalidObjects.cpp
 
 inline ObjectIdNode *ObjectIdMap::find(const ObjectID &id) {
@@ -2145,7 +2142,112 @@ void GarrisonContain::removeInvalidObjectsFromGarrisonPoints()
     }
 }
 
-// tu-skeleton: 0x00479432 529B ?recalcApparentControllingPlayer@GarrisonContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRecalcApparentControllingPlayer.cpp (not merged yet)
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x004787B0 160B ?onObjectCreated@GarrisonContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnObjectCreated.cpp (not merged yet)
+
+// tu-skeleton: 0x00478D0A 717B ?onRemoving@GarrisonContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x0047901B 631B ?loadGarrisonPoints@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainLoadGarrisonPoints.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRecalcApparentControllingPlayer.cpp
+
+// GarrisonContain::recalcApparentControllingPlayer (0x00479432, 529 bytes),
+// after the BFME1/ZH GarrisonContain.cpp body (BFME1 reference revision
+// 1399ad37d42ea52a63829e417c46a1ba9ed2cd20).
+//
+// Target facts: entered through the Contain interface at +0x20 (vtable slot
+// +0x50). The original team is kept as an ID at +0xFC: it is refreshed from
+// the object's team (+0x304, team ID +0x34) when zero or when
+// TeamFactory::findTeamByID 0x0039F761 no longer finds it, and cleared when
+// the object has no team. With a positive contain count (slot +0x114, arg 0)
+// the first occupant from the pair helper 0x0046247D decides the hidden byte
+// at +0x9DD (0x002933CD and status 0x11 versus slot +0x124 against the count)
+// and gives the object its controlling player's default team (+0x2EC) through
+// Object::setTeam 0x00298AE4; otherwise the original team is restored or its
+// ID dropped. With a drawable (0x005508E2) condition bit 0x400 of the object
+// word at +0x10C is set (notifier 0x0028AE6D) when that occupant is detected
+// or the apparent controller (slot +0x4C, local player at ThePlayerList+0x10)
+// is the object's controller; the indicator colour (Drawable 0x002741DE) is
+// the apparent controller's +0x284 at TheGlobalData+0x134 == 4, else +0x280;
+// finally loadGarrisonPoints 0x0047901B runs on the full object when the
+// count is positive and +0x9DC is clear.
+//
+// Carried from the donor: the method name, the m_originalTeam and
+// m_hideGarrisonedStateFromNonallies roles and the order of the tests.
+// Structural inference: retail shares one 8-byte pair slot between both list
+// reads and reuses its second word for the apparent-controller temporary,
+// which MSVC 7.1 does when the pair lives in a forced-inline getter; the
+// stealth comparison is written in the donor's operand order.
+
+void GarrisonContain::recalcApparentControllingPlayer()
+{
+    if (getObject()->getTeam())
+    {
+        if (m_originalTeamID == 0 || TheTeamFactory->findTeamByID(m_originalTeamID) == 0)
+            m_originalTeamID = getObject()->getTeam()->getID();
+    }
+    if (getObject()->getTeam() == 0)
+        m_originalTeamID = 0;
+
+    if (getContainCount(0) > 0)
+    {
+        const _STL::list<Object *> *list = getContainList();
+        _STL::list<Object *>::const_iterator it = list->begin();
+        Object *rider = *it;
+        if (it != list->end() && rider)
+        {
+            bool detected = (unsigned char)rider->rva002933CD() || rider->testStatus((ObjectStatusTypes)0x11);
+            m_hideGarrisonedStateFromNonallies = !detected && getStealthUnitsContained() == getContainCount(0);
+            Player *controller = rider->getControllingPlayer();
+            Team *team = controller ? controller->getDefaultTeam() : 0;
+            if (team)
+                getObject()->setTeam(team);
+        }
+    }
+    else
+    {
+        Team *team = TheTeamFactory->findTeamByID(m_originalTeamID);
+        if (team)
+            getObject()->setTeam(team);
+        else
+            m_originalTeamID = 0;
+        m_hideGarrisonedStateFromNonallies = false;
+    }
+
+    Drawable *draw = getObject()->getDrawable();
+    if (draw)
+    {
+        if (getContainCount(0) > 0)
+        {
+            const _STL::list<Object *> *list = getContainList();
+            _STL::list<Object *>::const_iterator it = list->begin();
+            Object *occupant = *it;
+            if (it != list->end() && occupant)
+            {
+                bool detected = (unsigned char)occupant->rva002933CD() || occupant->testStatus((ObjectStatusTypes)0x11);
+                if (detected || getApparentControllingPlayer(ThePlayerList->getLocalPlayer()) == getObject()->getControllingPlayer())
+                    setCondition(getObject(), 10);
+            }
+        }
+
+        const Player *controller = getApparentControllingPlayer(ThePlayerList->getLocalPlayer());
+        if (controller)
+        {
+            if (TheGlobalData->m_timeOfDay == 4)
+                draw->setIndicatorColor(*(const int *)((const char *)controller + 0x284));
+            else
+                draw->setIndicatorColor(controller->getPlayerColor());
+        }
+
+        if (getContainCount(0) > 0 && !m_garrisonPointsInitialized)
+            loadGarrisonPoints();
+    }
+}
 
 // tu-skeleton: 0x00479643 217B ?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainUpdate.cpp (not merged yet)
 
