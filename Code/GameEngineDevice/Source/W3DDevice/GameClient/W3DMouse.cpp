@@ -89,14 +89,13 @@ public:
 };
 #include "../../../../GameEngine/Source/GameClient/Rva000869CF.h"
 #include <new>
-//Since there can't be more than 1 mouse, might as well keep these static.
-// W3DMouseCtor.cpp and W3DMouseInitW3DAssets.cpp, split out of this unit, name the
-// thread and the world-cursor tables, so those have C linkage here.
-static CriticalSectionClass mutex;
-static MutexClass threadMutex;
-// isThread stays file-static: retail W3DMouse::reset stores it after the redraw-mode
-// compare, which the compiler only schedules so for a static. W3DMouseInitW3DAssets.cpp
-// defines the C name its body reads.
+// Shared with the split constructor, asset and cleanup units through C linkage.
+extern "C" {
+CriticalSectionClass mutex;
+MutexClass threadMutex;
+}
+// isThread stays file-static: retail W3DMouse::init stores it after the redraw-mode
+// compare. Sharing the split asset unit's C name changes that instruction order.
 static Bool isThread;
 static TextureClass *cursorTextures[Mouse::NUM_MOUSE_CURSORS][MAX_2D_CURSOR_ANIM_FRAMES];
 	///<Textures for each cursor type
