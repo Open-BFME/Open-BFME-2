@@ -496,11 +496,11 @@ template <> void vector<Rva0040AF66>::push_back(const Rva0040AF66 &);
 class Rva0040BAD0
 {
 public:
-    bool rva0040BAD0(Rva0040AF66 *newRecord);
-    int rva0040AAF8(int key);
+	bool rva0040BAD0(Rva0040AF66 *newRecord);
+	int rva0040AAF8(int key);
+	char m_pad00[0x18];
 private:
-    char m_pad00[0x18];
-    _STL::vector<Rva0040AF66> m_vec18;
+	_STL::vector<Rva0040AF66> m_vec18; // +0x18
 };
 
 namespace _STL
