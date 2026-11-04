@@ -204,7 +204,7 @@ private:
 class Rva004E97C6
 {
 public:
-	Rva00596B05 *rva004E97C6(void *a1, void *a2, int a3, int a4);
+	Rva00596B05 *rva004E97C6(void *lenderPlayer, void *borrowerPlayer, int amount, int rate);
 private:
 	char m_pad00[0x18];
 	_STL::vector<LivingWorldArmy *, _STL::allocator<LivingWorldArmy *> > m_members;	// +0x18
@@ -371,9 +371,9 @@ void AIGameTeam::rva004E9446()
 // by reference, so retail spills the new pointer into the dead fourth
 // argument slot. The owner and the element's role are unknown (address names).
 
-Rva00596B05 *Rva004E97C6::rva004E97C6(void *a1, void *a2, int a3, int a4)
+Rva00596B05 *Rva004E97C6::rva004E97C6(void *lenderPlayer, void *borrowerPlayer, int amount, int rate)
 {
-	Rva00596B05 *member = new Rva00596B05(a1, a2, a3, a4);
+	Rva00596B05 *member = new Rva00596B05(lenderPlayer, borrowerPlayer, amount, rate);
 	m_members.push_back(reinterpret_cast<LivingWorldArmy *>(member));
 	return member;
 }

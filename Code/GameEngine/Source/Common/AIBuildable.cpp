@@ -27,7 +27,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 class Rva00506FE9Hit
 {
 public:
-	void unRegisterWithBuilder(void *x);
+	void unRegisterWithBuilder(void *owner);
 };
 
 // ?failBuild@Rva0055ADD8@@QAEHH@Z @ 0x0055ADD8, 10 bytes.
@@ -301,10 +301,10 @@ protected:
 
 // ---- from Code/GameEngine/Source/Common/Rva0055ADBAWrapper.cpp
 
-void Rva00506FE9Hit::unRegisterWithBuilder(void *x)
+void Rva00506FE9Hit::unRegisterWithBuilder(void *owner)
 {
 	Rva002A8F24 *aiManager = TheSkirmishAIManager;
-	Rva002A8AB1Record *ownerAIRecord = aiManager->rva002A8AB1(x);
+	Rva002A8AB1Record *ownerAIRecord = aiManager->rva002A8AB1(owner);
 	((Rva004EC276 *)ownerAIRecord)->rva004EC276(this);
 }
 
