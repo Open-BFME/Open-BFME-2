@@ -20,7 +20,6 @@
 
 typedef float Real;
 
-// class-gate: allow Region3D codegen view declaring the rowed out-of-line copy constructor 0x0009AC04 (the canonical header has only the implicit inline copy); same 24-byte lo/hi layout
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
