@@ -199,11 +199,7 @@ public:
 
 
 // 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
-class Rva00507823
-{
-public:
-	unsigned char rva005075D6(const void *arg, Object *target);
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 class Rva00508F1E : public Rva00507823
 {
@@ -232,7 +228,6 @@ class Rva005092D4 : public Rva00507823
 public:
 	bool rva005092D4(const void *arg, Object *target);
 private:
-	char m_pad00[0x128];
 	Rva002CA9CA *m_128;
 };
 
@@ -255,7 +250,6 @@ class Rva0050B92D : public Rva00507823
 public:
 	unsigned char rva0050B92D(const void *arg, Object *target);
 private:
-	char m_pad00[0x128];
 	Rva2225E0Filter m_filter128;
 };
 

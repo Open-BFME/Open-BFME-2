@@ -141,19 +141,14 @@ struct Rva005084FCWeaponView
  Rva005086CETemplate *parameters;
  int sourceID08;
 };
-class Rva00507823
-{
-public:
- virtual ~Rva00507823();
- unsigned char rva005075D6(const void*,Object*);
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 class DamageNugget : public Rva00507823
 {
 public:
  bool rva005084FC(void *weapon, Object *target, const Coord3D *position);
  bool rva005086CE(void *weapon,Object *target);
 private:
- unsigned char pad04[0x178 - 4];
+ unsigned char pad128[0x178 - 0x128];
  BitFlags<116> filter178;
  bool flag194;
  unsigned char pad195[3];

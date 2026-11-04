@@ -36,11 +36,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class Made002CCA37;
 class DamageNugget : public Rva00507823
@@ -49,7 +45,7 @@ class DamageNugget : public Rva00507823
 public:
 	bool rva005084FC(void *weapon, Object *target, const Coord3D *position);
 private:
-	unsigned char m_pad04[0x1A4 - 4];
+	unsigned char m_pad128[0x1A4 - 0x128];
 	bool generateDamageInfo(void *weapon, Object *target, DamageInfo *info, bool flag, const Coord3D *position);
 };
 
