@@ -83,3 +83,4 @@ forty-byte E06E60 provider is present. The unchanged Rva0060147B source now
 predicts LINKS with177 ->177 bytes. No new datum, identity, alias or link-census
 credit is taken; the pending official whole-image result remains separate.
 [Scoped review](../../reverse/attempt_support/link-picker-review-20261104-1242.md).
+2026-11-04: current-object preview confirms the two DEC1CC/DEC1DC consumers ScreenFilterRva000FC63DSet.cpp and Rva007AC9B0FilterInits.cpp link with the existing providers; broader thunk unit still has an unrelated DF2984 array-name blocker ([evidence](../../reverse/attempt_support/screenfilter-link-header-20261104.md)).

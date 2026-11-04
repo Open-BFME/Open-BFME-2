@@ -161,3 +161,5 @@
   prerequisite. The audit completes with 89 retired objects, 287 provisional
   disappeared-provider reports and 30 possible-loss lines against the older
   `763dc8759f` index. No aggregate loss, global clearance or census gain follows.
+
+2026-11-04: ScreenFilterRva000FC63DSet.cpp ShaderClass adoption now reaches the inactive `Ole2.h`/`macname1.h` inventory blocker after an unused-macro trial; trial reverted, no debt retired ([evidence](../../reverse/attempt_support/screenfilter-link-header-20261104.md)).
