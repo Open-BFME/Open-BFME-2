@@ -198,19 +198,7 @@ struct AptCIHProperties
     float alpha; // +0x2C
 };
 
-class AptCIH : public AptValue
-{
-public:
-    bool IsSpriteInstBase() const; // 0x006CFCD0
-    void *rva006E1100() const;     // 0x006E1100
-    void *rva006E1090() const;     // 0x006E1090
-    void *rva006E0FB0() const;     // 0x006E0FB0
-    void *rva006E1020() const;     // 0x006E1020
-    char pad8[0x44 - 8];
-    AptCIHProperties *m_44; // +0x44
-    char pad48[4];
-    AptSprite *m_4C;        // +0x4C
-};
+#include "AptCIHClass.h"
 #include "BfmeAptValue006DCD20.h"
 
 struct AptActionInterpreter
@@ -228,12 +216,12 @@ public:
 
 void Rva006E15C0::call(void *ctx, void *arg1, int arg2)
 {
-    if (m_44 && m_44->alpha < 0.5f)
+    if (field44 && ((AptCIHProperties *)field44)->alpha < 0.5f)
         return;
     const BfmeAptValue006DCD20 *self = (const BfmeAptValue006DCD20 *)this;
     if (IsSpriteInstBase()) {
         APT_ASSERT(IsSpriteInstBase(), "isSpriteInstBase()", APT_CIH_H, 0x7D)
-        AptSprite *sprite = m_4C;
+        AptSprite *sprite = (AptSprite *)field4C;
         if (!sprite->nRectMode) {
             AptNativeHash *pHash = sprite->pHash;
             AptValue *pHandler = pHash ? pHash->Lookup(Rva0070B4F0GetString(0x12)) : 0;
