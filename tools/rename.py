@@ -4772,14 +4772,47 @@ def this_stores(body, start, eh_prolog=()):
             target = ins.operands[0].imm
             if start <= target < start + size:
                 (incoming[target].append(ins.address) if target > ins.address else loops.add(target))
+    # The null-guarded cast `this ? this + d : 0` reads `mov r,this; neg r;
+    # lea s,[this+d]; sbb r,r; and r,s`: neg sets CF when this is nonzero, so
+    # sbb leaves a mask (cf_this: the last flag write was that neg; masks:
+    # registers holding the mask) and the and leaves this + d.
     out, alias, snapshots, falls = {}, {x86.X86_REG_ECX: 0}, {}, True
+    masks, cf_this = set(), False
     for ins in code:
         if ins.address in loops:
-            alias = {}
+            alias, masks, cf_this = {}, set(), False
         elif ins.address in incoming:
             ways = [snapshots.get(src, {}) for src in incoming[ins.address]] + ([alias] if falls else [])
             alias = {r: d for r, d in ways[0].items() if all(w.get(r) == d for w in ways[1:])}
+            masks, cf_this = set(), False
         ops = ins.operands
+        written = {_full_register(reg) for reg in ins.regs_access()[1]}
+        flags = x86.X86_REG_EFLAGS in written
+        regs = len(ops) == 2 and ops[0].type == ops[1].type == x86.X86_OP_REG and ops[0].size == 4
+        if ins.id == x86.X86_INS_NEG and len(ops) == 1 and ops[0].type == x86.X86_OP_REG and ops[0].size == 4:
+            reg = _full_register(ops[0].reg)
+            cf_this = alias.get(reg) == 0
+            alias.pop(reg, None)
+            masks.discard(reg)
+            continue
+        if ins.id == x86.X86_INS_SBB and regs and _full_register(ops[0].reg) == _full_register(ops[1].reg):
+            reg = _full_register(ops[0].reg)
+            alias.pop(reg, None)
+            (masks.add if cf_this else masks.discard)(reg)
+            cf_this = False
+            continue
+        if ins.id == x86.X86_INS_AND and regs:
+            dst, src = _full_register(ops[0].reg), _full_register(ops[1].reg)
+            cf_this = False
+            if dst in masks and src in alias:
+                alias[dst] = alias[src]
+                masks.discard(dst)
+                continue
+            if src in masks and dst in alias:
+                continue
+        if flags:
+            cf_this = False
+        masks -= written
         falls = ins.id not in (x86.X86_INS_JMP, x86.X86_INS_RET)
         if ins.id in jumps:
             snapshots[ins.address] = dict(alias)
@@ -4807,6 +4840,8 @@ def this_stores(body, start, eh_prolog=()):
             helper = ops and ops[0].type == x86.X86_OP_IMM and ops[0].imm in eh_prolog
             for reg in (x86.X86_REG_EAX,) if helper else (x86.X86_REG_EAX, x86.X86_REG_ECX, x86.X86_REG_EDX):
                 alias.pop(reg, None)
+                masks.discard(reg)
+            cf_this = False
             continue
         for reg in ins.regs_access()[1]:
             alias.pop(_full_register(reg), None)

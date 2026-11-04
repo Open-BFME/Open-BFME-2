@@ -996,3 +996,29 @@ def test_a_third_class_constructor_owning_the_table_is_still_an_icf_fold(tree, m
                          0x00405002: 0, 0x00405008: 0})
     with pytest.raises(Refusal, match="also the own vftable of Other"):
         plan(tree)
+
+
+# A destructor whose own vptr store the compiler dropped (0x003ABA36): it
+# restores only the +0x18 base's table through the null-guarded cast
+# `this ? this + 0x18 : 0`, then tail-jumps to the primary base destructor.
+GUARDED_BODY = bytes.fromhex(
+    "8BC1"              # 1000 mov eax,ecx
+    "F7D8"              # 1002 neg eax                  CF = this != 0
+    "8D5118"            # 1004 lea edx,[ecx+0x18]
+    "1BC0"              # 1007 sbb eax,eax              this ? -1 : 0
+    "23C2"              # 1009 and eax,edx              this ? this+0x18 : 0
+    "C70054B5BB00"      # 100B mov [eax],T              +0x18
+    "E900000000")       # 1011 jmp base dtor
+
+
+def test_this_stores_reads_the_null_guarded_cast():
+    assert rename.this_stores(GUARDED_BODY, 0x1000) == {0x100B: 0x18}
+
+
+def test_this_stores_needs_the_carry_of_the_neg():
+    # a flag write between neg and sbb: the mask no longer says this != 0
+    body = GUARDED_BODY[:7] + bytes.fromhex("85C9") + GUARDED_BODY[7:]
+    assert rename.this_stores(body, 0x1000) == {}
+    # nor does a neg of anything but this
+    body = bytes.fromhex("8B4508F7D88D51181BC023C2C70054B5BB00C3")
+    assert rename.this_stores(body, 0x1000) == {}
