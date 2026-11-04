@@ -359,9 +359,7 @@ extern ThingTemplate *(ThingTemplate::*const _bfmeInlineAnchorFriendNext)() cons
 
 // The same for the header-inline rows that the ZH ThingTemplate::operator=
 // used to pull in: compile anchors, not retail data claims.
-extern ProductionPrerequisite &(ProductionPrerequisite::*const _bfmeInlineAnchorPrereqAssign)(const ProductionPrerequisite &) =
-    &ProductionPrerequisite::operator=;
-extern DynamicAudioEventRTS &(DynamicAudioEventRTS::*const _bfmeInlineAnchorDynAudioAssign)(const DynamicAudioEventRTS &) =
-    &DynamicAudioEventRTS::operator=;
+// (0x0042816E is VersionBlockEntry's op= in VersionBlockParser.cpp's range, not
+// ProductionPrerequisite's; 0x00200BC0 lives in INIWater.cpp.)
 extern std::vector<ProductionPrerequisite>::size_type (std::vector<ProductionPrerequisite>::*const _bfmeInlineAnchorPrereqSize)() const =
     &std::vector<ProductionPrerequisite>::size;

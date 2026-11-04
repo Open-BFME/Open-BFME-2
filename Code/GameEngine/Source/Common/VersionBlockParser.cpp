@@ -139,10 +139,15 @@ struct BfmeNarrowRecord00427F75
 	~BfmeNarrowRecord00427F75();
 };
 
+// Retail's 0x0042816E assigns the entry's two strings; the ledger keeps the
+// ProductionPrerequisite name its callers were verified against.
 class ProductionPrerequisite
 {
 public:
 	ProductionPrerequisite &operator=(const ProductionPrerequisite &other);
+private:
+	_STL::basic_string<char> m_key;
+	_STL::basic_string<char> m_value;
 };
 
 struct VersionBlockEntry : public BfmeNarrowRecord00427F75
@@ -662,7 +667,15 @@ NarrowString VersionBlockParser::rva00427F46Text(const Rva00427F14KeyPrefix &key
 // (copy) and 0x004284AC (fill) inside FUN_0082843e.
 // Retail's loops carry no try blocks: STLport's no-exceptions configuration.
 
-// tu-skeleton: 0x0042816E 33B ??4ProductionPrerequisite@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
+// ??4ProductionPrerequisite@@QAEAAV0@ABV0@@Z @0x0042816E 33B: both strings
+// through basic_string<char> op= 0x000120C0; callers are this unit's sort and
+// heap helpers 0x0042818F..0x0042872D.
+ProductionPrerequisite &ProductionPrerequisite::operator=(const ProductionPrerequisite &other)
+{
+	m_key = other.m_key;
+	m_value = other.m_value;
+	return *this;
+}
 
 // tu-skeleton: 0x0042818F 75B ?Rva0042818FSwap@@YAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0042818FSwap.cpp (not merged yet)
 

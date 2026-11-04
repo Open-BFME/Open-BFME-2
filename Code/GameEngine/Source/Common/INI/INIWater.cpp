@@ -151,7 +151,14 @@ private:
 
 // tu-skeleton: 0x00200BBA 6B ?Rva00200BBAGet@WaterTransparencySetting@@UAEHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00200BC0 25B ??4DynamicAudioEventRTS@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
+// ??4DynamicAudioEventRTS@@QAEAAV0@ABV0@@Z @0x00200BC0 25B. Copies only the
+// string at +0x04 through AsciiString op= 0x000366F0; callers are this unit's
+// Rva00200CB1 op= (0x00200CB1), WeatherSetting op= and 0x00564CA5.
+DynamicAudioEventRTS &DynamicAudioEventRTS::operator=(const DynamicAudioEventRTS &other)
+{
+	m_04 = other.m_04;
+	return *this;
+}
 
 // tu-skeleton: 0x00200BD9 18B ?rva00200BD9@WaterTransparencySetting@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
 
