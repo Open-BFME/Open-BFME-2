@@ -44,14 +44,7 @@ public:
 };
 
 // SpawnArmy: 88-byte record (LivingWorldCampaignObjects.cpp).
-class SpawnArmy
-{
-public:
-	SpawnArmy(int index);
-	virtual ~SpawnArmy();
-
-	char m_pad04[0x58 - 0x04];
-};
+#include "../../../../Include/Common/SpawnArmy.h"
 
 class Rva004FA935Listener
 {
