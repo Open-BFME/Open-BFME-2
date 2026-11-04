@@ -455,10 +455,10 @@ void AICommandInterface::aiFollowPathAppend(const Coord3D *position, CommandSour
 // ?aiGoProne@AICommandInterface@@QAEXPBVRva003427DD@@W4CommandSourceType@@@Z, retail 0x0036F400, 106 bytes.
 // Gap between aiExit and aiGuardPosition in this TU: AICMD 0x1D plus m_3C at +0x3C via rowed 0x003427DD copy plus slot-0 aiDoCommand.
 // Class proven by caller at 0x003703BE via lea ecx,[eax+0x20] (AICommandInterface subobject); callers forward (info, source).
-void AICommandInterface::aiGoProne(const Rva003427DD *info, CommandSourceType cmdSource)
+void AICommandInterface::aiGoProne(const Rva003427DD *damageInfo, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x1D, cmdSource);
-	parms.m_3C = *info;
+	parms.m_3C = *damageInfo;
 	aiDoCommand(&parms);
 }
 
@@ -513,11 +513,11 @@ void AICommandInterface::aiHarvest(const Coord3D *position, CommandSourceType cm
 // ?aiGuardObject@AICommandInterface@@QAEXPAVObject@@HW4CommandSourceType@@@Z, retail 0x0036F4DF, 110 bytes.
 // Same 110B object-plus-int shape as aiForceAttackObject in this TU: AICMD 0x1F plus m_obj at +0x14 plus m_intValue at +0x34 plus slot-0 aiDoCommand.
 // Class proven by gap between aiGuardPosition and rva0036F6A7 plus same TU flags; callers at 0x00370440 0x003C8A0C 0x003C9D01.
-void AICommandInterface::aiGuardObject(Object *target, Int value, CommandSourceType cmdSource)
+void AICommandInterface::aiGuardObject(Object *target, Int guardMode, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x1F, cmdSource);
 	parms.m_obj = target;
-	parms.m_intValue = value;
+	parms.m_intValue = guardMode;
 	aiDoCommand(&parms);
 }
 
@@ -535,22 +535,22 @@ void AICommandInterface::rva0036F54D(const Team *team, Int value, CommandSourceT
 // ?aiGuardArea@AICommandInterface@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@@Z, retail 0x0036F5BB, 110 bytes.
 // Same 110B polygon-plus-int shape: AICMD 0x21 plus m_polygon at +0x30 plus m_intValue at +0x34 plus slot-0 aiDoCommand.
 // Class proven by gap between rva0036F54D and rva0036F6A7 plus same TU flags; callers at 0x003704C2 0x003C8A8A.
-void AICommandInterface::aiGuardArea(const PolygonTrigger *area, Int value, CommandSourceType cmdSource)
+void AICommandInterface::aiGuardArea(const PolygonTrigger *area, Int guardMode, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x21, cmdSource);
 	parms.m_polygon = area;
-	parms.m_intValue = value;
+	parms.m_intValue = guardMode;
 	aiDoCommand(&parms);
 }
 
 // ?aiGuardAreaFromPosition@AICommandInterface@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@PBUCoord3D@@@Z, retail 0x0036F629, 126 bytes.
 // Same TU polygon-plus-int-plus-pos shape: AICMD 0x44 plus m_polygon at +0x30 plus m_intValue at +0x34 plus m_pos at +0x08 plus slot-0 aiDoCommand.
 // Class proven by gap between aiGuardArea and rva0036F6A7 plus same TU flags; callers at 0x00370505 0x003C8A7E forward 4 args.
-void AICommandInterface::aiGuardAreaFromPosition(const PolygonTrigger *area, Int value, CommandSourceType cmdSource, const Coord3D *pos)
+void AICommandInterface::aiGuardAreaFromPosition(const PolygonTrigger *area, Int guardMode, CommandSourceType cmdSource, const Coord3D *pos)
 {
 	AICommandParms parms((AICommandType)0x44, cmdSource);
 	parms.m_polygon = area;
-	parms.m_intValue = value;
+	parms.m_intValue = guardMode;
 	parms.m_pos = *pos;
 	aiDoCommand(&parms);
 }
@@ -558,10 +558,10 @@ void AICommandInterface::aiGuardAreaFromPosition(const PolygonTrigger *area, Int
 // ?rva0036F6A7@AICommandInterface@@QAEXMW4CommandSourceType@@@Z, retail 0x0036F6A7, 105 bytes.
 // Same TU single-store shape with float: AICMD 0x50 plus m_float38 at +0x38 plus slot-0 aiDoCommand.
 // Class proven by caller at 0x0037077B via lea ecx [edi+0x20] from AIUpdate+0x258 with ACos float plus source.
-void AICommandInterface::rva0036F6A7(float value, CommandSourceType cmdSource)
+void AICommandInterface::rva0036F6A7(float angle, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x50, cmdSource);
-	parms.m_float38 = value;
+	parms.m_float38 = angle;
 	aiDoCommand(&parms);
 }
 
@@ -570,11 +570,11 @@ void AICommandInterface::rva0036F6A7(float value, CommandSourceType cmdSource)
 // Same TU pos-plus-float shape (aiGuardPosition pos-first order); class proven by slot-0
 // aiDoCommand virtual call plus opaque 0x351BD0 ctor plus inline free at 0x30830.
 // Callers at 0x00372ABF 0x00379946 0x00547F2B.
-void AICommandInterface::aiMoveToPositionAndFaceDirection(const Coord3D *position, CommandSourceType cmdSource, float value)
+void AICommandInterface::aiMoveToPositionAndFaceDirection(const Coord3D *position, CommandSourceType cmdSource, float angle)
 {
 	AICommandParms parms((AICommandType)0x4E, cmdSource);
 	parms.m_pos = *position;
-	parms.m_float38 = value;
+	parms.m_float38 = angle;
 	aiDoCommand(&parms);
 }
 
@@ -583,12 +583,12 @@ void AICommandInterface::aiMoveToPositionAndFaceDirection(const Coord3D *positio
 // plus slot-0 aiDoCommand. Same TU pos-first order; class proven by slot-0 aiDoCommand
 // plus opaque 0x351BD0 ctor plus inline free at 0x30830.
 // Callers at 0x00372AA5 0x00547F23.
-void AICommandInterface::aiAttackMoveToPositionAndFaceDirection(const Coord3D *position, Int value, CommandSourceType cmdSource, float floatValue)
+void AICommandInterface::aiAttackMoveToPositionAndFaceDirection(const Coord3D *position, Int maxShotsToFire, CommandSourceType cmdSource, float angle)
 {
 	AICommandParms parms((AICommandType)0x51, cmdSource);
 	parms.m_pos = *position;
-	parms.m_intValue = value;
-	parms.m_float38 = floatValue;
+	parms.m_intValue = maxShotsToFire;
+	parms.m_float38 = angle;
 	aiDoCommand(&parms);
 }
 
@@ -684,10 +684,10 @@ void AICommandInterface::aiMoveToPositionSA(const Coord3D *pos, Int cmdSource)
 // AICMD 0x09 plus coord-vector at +0x20 via rowed 0x0035149F copy plus m_obj at +0x14
 // plus slot-0 aiDoCommand plus inline free at 0x30830. Class proven by gap plus same TU flags.
 // Callers 7 unclaimed; landing unblocks 5.
-inline void AICommandInterface::rva0036EE16(const Rva0035149F *info, Object *target, CommandSourceType cmdSource)
+inline void AICommandInterface::rva0036EE16(const Rva0035149F *path, Object *target, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)9, cmdSource);
-	((Rva0035149F *)&parms.m_coordsStart)->rva0035149F(*info);
+	((Rva0035149F *)&parms.m_coordsStart)->rva0035149F(*path);
 	parms.m_obj = target;
 	aiDoCommand(&parms);
 }
@@ -697,10 +697,10 @@ inline void AICommandInterface::rva0036EE16(const Rva0035149F *info, Object *tar
 // AICMD 0x24 plus coord-vector at +0x20 via rowed 0x0035149F copy plus m_obj at +0x14
 // plus m_pos.x at +0x08 via movss plus slot-0 aiDoCommand plus inline free at 0x30830.
 // Class proven by gap plus same TU flags. Caller at 0x00371AA6.
-inline void AICommandInterface::rva0036EE89(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource)
+inline void AICommandInterface::rva0036EE89(const Rva0035149F *path, Object *target, float value, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x24, cmdSource);
-	((Rva0035149F *)&parms.m_coordsStart)->rva0035149F(*info);
+	((Rva0035149F *)&parms.m_coordsStart)->rva0035149F(*path);
 	parms.m_obj = target;
 	parms.m_pos.x = value;
 	aiDoCommand(&parms);
@@ -710,10 +710,10 @@ inline void AICommandInterface::rva0036EE89(const Rva0035149F *info, Object *tar
 // Gap between rva0036EE89 0x0036EE89 and aiFollowPathAppend 0x0036EF89 in this TU.
 // Same 128B shape as rva0036EE89: AICMD 0x25 plus coord-vector plus m_obj plus m_pos.x plus slot-0.
 // Class proven by gap plus same TU flags. Callers at 0x00371A6E 0x00465685.
-inline void AICommandInterface::rva0036EF09(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource)
+inline void AICommandInterface::rva0036EF09(const Rva0035149F *path, Object *target, float value, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x25, cmdSource);
-	((Rva0035149F *)&parms.m_coordsStart)->rva0035149F(*info);
+	((Rva0035149F *)&parms.m_coordsStart)->rva0035149F(*path);
 	parms.m_obj = target;
 	parms.m_pos.x = value;
 	aiDoCommand(&parms);

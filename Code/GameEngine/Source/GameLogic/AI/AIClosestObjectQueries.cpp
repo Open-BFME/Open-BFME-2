@@ -162,8 +162,8 @@ public:
 class Rva00260FD0Filter : public Rva000421C8
 {
 public:
-	Rva00260FD0Filter(const Object *obj, int attackType, int source)
-		: m_obj(obj), m_attackType(attackType), m_source(source) {}
+	Rva00260FD0Filter(const Object *obj, int attackType, int commandSource)
+		: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 	int m_attackType;
@@ -175,7 +175,7 @@ public:
 class Rva00261246Filter : public Rva000421C8
 {
 public:
-	Rva00261246Filter(bool a, bool b) : m_a(a), m_b(b) {}
+	Rva00261246Filter(bool allowNonBuildings, bool allowInsignificant) : m_a(allowNonBuildings), m_b(allowInsignificant) {}
 	virtual bool allow(Object *obj);
 	bool m_a;
 	bool m_b;
@@ -329,9 +329,9 @@ int AI::rva002FEEAD(Object *me, float range, unsigned int qualifiers)
 	if ((qualifiers & 2) && me->testStatus(OBJECT_STATUS_RVA002FEEAD_37)) {
 		Object *container = me->m_274;
 		if (container) {
-			Rva002FEEADInterface *iface = container->m_250;
+			Rva002FEEADInterface *contain = container->m_250;
 			Object *target;
-			if (iface && iface->slot55(me, &target)) {
+			if (contain && contain->slot55(me, &target)) {
 				if (!target)
 					return 0;
 				return filterObvious.allows(target) ? 1 : 0;
