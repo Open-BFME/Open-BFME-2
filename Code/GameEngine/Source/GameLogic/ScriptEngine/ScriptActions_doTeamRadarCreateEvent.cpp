@@ -19,11 +19,7 @@ extern ScriptEngine *TheScriptEngine;
 
 // Rowed 0x002D88A4: Radar::createEvent (Radar_createEvent.cpp).
 enum RadarEventType { RADAR_EVENT_INVALID };
-class Radar
-{
-public:
-	void createEvent(const Coord3D *world, RadarEventType type, float secondsToLive);
-};
+#include "../../../Include/Common/Radar.h"
 extern class Radar *TheRadar;
 
 class Rva001DDAE1

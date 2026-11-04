@@ -225,7 +225,7 @@ struct PlayerListView { unsigned char m_pad[0x18]; DefaultTeamPlayer *m_neutral;
 class PlayerList;
 extern PlayerList *ThePlayerList;
 
-class Radar { public: void addObject(Object *obj); };
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 #include "../../../Include/GameLogic/ObjectFilter.h"

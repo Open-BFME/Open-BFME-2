@@ -89,12 +89,7 @@ extern class LuaScriptEngine *TheLuaScriptEngine;
 #define g_rva00A01DBCLuaState (*(LuaDrawableState * *)&TheLuaScriptEngine)
 
 struct Rva002D76C6Owner;
-class Radar
-{
-public:
-	void removeObject(Rva002D76C6Owner *obj);	// 0x002D7714
-	void addObject(Object *obj);	// 0x002D7FEC
-};
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 class Rva002D7FAEOwner { public: void rva002D7FAE(Object *obj); };
 

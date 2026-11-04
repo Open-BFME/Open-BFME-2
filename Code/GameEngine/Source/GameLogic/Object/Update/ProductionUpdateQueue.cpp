@@ -651,7 +651,7 @@ enum EvaEventID { EVA_NONE=0 };
 class Eva { public: bool reportEvaEvent(EvaEventID,const Coord3D *,const Coord3D *); };
 extern Eva *TheEva;
 enum RadarEventType { RADAR_NONE=0 };
-class Radar { public: void createEvent(const Coord3D *,RadarEventType,float); };
+#include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 class FXList { public: static void doFXObj(const FXList *,const Object *,const Object *); };
 class FXListStore { public: const FXList *findFXList(const char *) const; };
