@@ -111,3 +111,10 @@ refused for `Coord3D` and `Thing` redefinitions. The split of
 `Rva004B8CDEDerived.cpp` carved `0x004B8EA8`; the link guard refused its
 constructor and selected vtable COMDAT contexts. No merge or split was applied.
 These blockers need source/header or link-context repair outside this seat.
+
+A fresh allocated `Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp`
+trial accepted no donors. Its constructor donor fails because the class view
+lacks the compiler-generated special-member declaration. The mixed
+`VslotSmallBodiesAM.cpp` split carved `0x0050BD7C` but was blocked because a
+copied helper or datum would grow the escape-hatch count. No source changes
+were applied.
