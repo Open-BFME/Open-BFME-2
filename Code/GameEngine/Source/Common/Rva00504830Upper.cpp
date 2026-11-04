@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Oi-
-// ?Rva00504830UpperBound@@YAPAURva00504830Item@@PAU1@0PBMEH@Z @ 0x00504830 (64B):
+// ?__upper_bound@@YAPAURva00504830Item@@PAU1@0PBMEH@Z @ 0x00504830 (64B):
 // Upper-bound binary search over 16-byte records keyed by first float.
 // len=(last-first); while len>0 { half=len>>1; mid=first+half;
 // if mid->key<=*value { first=mid+1; len=len-half-1 } else len=half }
@@ -11,7 +11,7 @@ struct Rva00504830Item
 	char pad[12];
 };
 
-Rva00504830Item *__cdecl Rva00504830UpperBound(Rva00504830Item *first, Rva00504830Item *last, const float *value, unsigned char unused1, int unused2)
+Rva00504830Item *__cdecl __upper_bound(Rva00504830Item *first, Rva00504830Item *last, const float *value, unsigned char unused1, int unused2)
 {
 	int len = last - first;
 	while (len > 0)
@@ -36,16 +36,16 @@ Rva00504830Item *__cdecl Rva00504830UpperBound(Rva00504830Item *first, Rva005048
 // Evidence: 5 pushes then call 0x504830 then add esp 0x14; chain from 0x00504830.
 Rva00504830Item *__cdecl Rva005048F9Forward(Rva00504830Item *first, Rva00504830Item *last, const float *value, unsigned char b)
 {
-	return Rva00504830UpperBound(first, last, value, b, 0);
+	return __upper_bound(first, last, value, b, 0);
 }
 
-// ?Rva00504870LowerBound@@YAPAURva00504830Item@@PAU1@0PBMEH@Z @ 0x00504870 (64B):
+// ?__lower_bound@@YAPAURva00504830Item@@PAU1@0PBMEH@Z @ 0x00504870 (64B):
 // Lower-bound binary search over 16-byte records keyed by first float.
 // len=(last-first); while len>0 { half=len>>1; mid=first+half;
 // if mid->key<*value { first=mid+1; len=len-half-1 } else len=half }
 // return first. Evidence: sar 4/shl 4 stride 16; movss value/comiss mid/jbe;
 // caller at 0x00504926 pushes 5 args; unlocks 0x00504914.
-Rva00504830Item *__cdecl Rva00504870LowerBound(Rva00504830Item *first, Rva00504830Item *last, const float *value, unsigned char unused1, int unused2)
+Rva00504830Item *__cdecl __lower_bound(Rva00504830Item *first, Rva00504830Item *last, const float *value, unsigned char unused1, int unused2)
 {
 	int len = last - first;
 	while (len > 0)
@@ -70,7 +70,7 @@ Rva00504830Item *__cdecl Rva00504870LowerBound(Rva00504830Item *first, Rva005048
 // Evidence: 5 pushes then call 0x504870 then add esp 0x14; chain from 0x00504870.
 Rva00504830Item *__cdecl Rva00504914Forward(Rva00504830Item *first, Rva00504830Item *last, const float *value, unsigned char b)
 {
-	return Rva00504870LowerBound(first, last, value, b, 0);
+	return __lower_bound(first, last, value, b, 0);
 }
 
 // Native5049A4..5049C6 RET4: upper-bound wrapper over the sixteen-byte
