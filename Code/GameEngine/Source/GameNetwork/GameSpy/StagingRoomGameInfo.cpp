@@ -5,6 +5,7 @@
 #include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include <cstddef>
 // Split from GameSpyStagingRoomSlotInit.cpp: these definitions reference a callee with no matched body yet,
@@ -334,49 +335,6 @@ struct AsciiComparator
 };
 
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
-
-class GameSpyInfoSlot22 : public VSlots<21>
-{
-public:
-	virtual PlayerInfoMap *getPlayerInfoMap(void) = 0;		// slot 21 (+0x54)
-	virtual PlayerInfo *rva00382CCE(const char *key) = 0;		// slot 22 (+0x58)
-};
-
-class GameSpyInfoSlot29 : public VPad<GameSpyInfoSlot22, 6>
-{
-public:
-	virtual AsciiString getLocalName(void) = 0; // slot 29 (+0x74)
-};
-
-class GameSpyInfoSlot31 : public VPad<GameSpyInfoSlot29, 1>
-{
-public:
-	virtual int getLocalProfileID(void) = 0;			// slot 31 (+0x7C)
-};
-
-class GameSpyInfoSlot47 : public VPad<GameSpyInfoSlot31, 15>
-{
-public:
-	virtual void leaveStagingRoom(void) = 0;			// slot 47 (+0xBC)
-};
-
-class GameSpyInfoSlot53 : public VPad<GameSpyInfoSlot47, 5>
-{
-public:
-	virtual GameSpyStagingRoom *getCurrentStagingRoom(void) = 0;	// slot 53 (+0xD4)
-};
-
-class GameSpyInfoSlot72 : public VPad<GameSpyInfoSlot53, 18>
-{
-public:
-	virtual int _M_slot_120(const AsciiString &name); // slot 72 (+0x120)
-};
-
-class GameSpyInfoInterface : public VPad<GameSpyInfoSlot72, 17>
-{
-public:
-	virtual bool didPlayerPreorder(int profileID) const = 0;	// slot 90 (+0x168)
-};
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -2006,14 +1964,14 @@ void Rva004FDB57::rva004FDB57(AsciiString arg)
 {
 	AsciiString &slot = m_name1000;
 	slot = arg;
-	m_id1004 = TheGameSpyInfo->_M_slot_120(arg);
+	m_id1004 = TheGameSpyInfo->getPingValue(arg);
 }
 
 void Rva004FDB04::rva004FDB04(AsciiString arg)
 {
 	AsciiString &slot = m_name1B8;
 	slot = arg;
-	m_id1BC = TheGameSpyInfo->_M_slot_120(arg);
+	m_id1BC = TheGameSpyInfo->getPingValue(arg);
 }
 
 // ---- from Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp

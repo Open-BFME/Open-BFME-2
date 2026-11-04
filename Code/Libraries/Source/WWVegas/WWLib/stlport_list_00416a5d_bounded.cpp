@@ -26,24 +26,12 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 struct BfmeStringRecord00415F34 { unsigned char m_data[24]; };
 namespace _STL { template <> void list<BfmeStringRecord00415F34>::pop_front(); }
 
-template <int N> class VSlots : public VSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class VSlots<0>
-{
-};
-class GameSpyInfoInterface : public VSlots<26>
-{
-public:
-	virtual _STL::list<BfmeStringRecord00415F34> *GetList(void);
-};
+#include "../../../../GameEngine/Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 void __cdecl Rva00416A5DPush(const BfmeStringRecord00415F34 &rec)
 {
-	_STL::list<BfmeStringRecord00415F34> *lst = TheGameSpyInfo->GetList();
+	_STL::list<BfmeStringRecord00415F34> *lst = (_STL::list<BfmeStringRecord00415F34> *)TheGameSpyInfo->getBuddyMessages();
 	lst->push_back(rec);
 	if (lst->size() > 100)
 		lst->pop_front();
