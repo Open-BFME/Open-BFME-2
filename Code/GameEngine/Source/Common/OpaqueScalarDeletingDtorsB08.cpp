@@ -72,7 +72,7 @@ public:
 	int m_count;
 };
 
-class __declspec(novtable) Rva0072AED : public BfmeDynamicVBRefCount
+class Rva0072AED : public BfmeDynamicVBRefCount
 {
 public:
 	__declspec(dllimport) __forceinline Rva0072AED() : m_ref(0) {}

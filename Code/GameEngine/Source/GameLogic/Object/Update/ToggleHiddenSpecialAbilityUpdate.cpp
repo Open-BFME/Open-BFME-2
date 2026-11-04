@@ -149,7 +149,7 @@ static const ObjectStatusTypes HIDDEN_STATUS = (ObjectStatusTypes)0x10;
 
 static const WeaponSetType HIDDEN_WEAPONSET = (WeaponSetType)0x3D;
 
-struct ToggleHiddenSpecialAbilityUpdateModuleData
+struct __declspec(novtable) ToggleHiddenSpecialAbilityUpdateModuleData
 {
 	unsigned char m_pad00[0x38];
 	const SpecialPowerTemplate *m_38; // +0x38

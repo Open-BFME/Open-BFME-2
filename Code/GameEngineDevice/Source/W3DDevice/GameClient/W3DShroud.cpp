@@ -205,7 +205,7 @@ public:
 	virtual ~BfmeDynamicVBRefCount();
 	int m_count;
 };
-class __declspec(novtable) Rva0072AED : public BfmeDynamicVBRefCount
+class Rva0072AED : public BfmeDynamicVBRefCount
 {
 public:
 	Rva0072AED() : m_ref(0) {}

@@ -122,7 +122,7 @@ public:
 	unsigned char m_438;
 };
 
-struct FlingPassengerSpecialAbilityUpdateModuleData
+struct __declspec(novtable) FlingPassengerSpecialAbilityUpdateModuleData
 {
 	unsigned char m_pad00[0xD4];
 	const WeaponTemplate *m_D4;

@@ -63,7 +63,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CallHelpOnDamage
+class __declspec(novtable) CallHelpOnDamage
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;

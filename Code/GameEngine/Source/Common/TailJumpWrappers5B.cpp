@@ -378,7 +378,7 @@ public:
 	virtual ~UpgradeModuleData();
 };
 
-class __declspec(novtable) Rva002563CE : public UpgradeModuleData
+class Rva002563CE : public UpgradeModuleData
 {
 public:
 	virtual ~Rva002563CE();

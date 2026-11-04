@@ -6,7 +6,7 @@
 
 extern int BfmeClientFramesPerSecond;
 
-class __declspec(novtable) Rva0059675ABase
+class Rva0059675ABase
 {
 public:
     virtual ~Rva0059675ABase();
