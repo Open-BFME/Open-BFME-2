@@ -26,3 +26,24 @@ its method is absent from the destination declaration. Weapon-header work
 is held by a peer, so no Weapon definition or provider is changed here.
 The mixed donors remain out of scope. Retry the guarded merge after this
 prerequisite, retaining only its independently verified composition.
+
+## Supported composition and claim outcome
+
+After cleanup, `tu_skeleton.py --merge .../FireWeaponUpdate.cpp --dry-run`
+accepts the destination plus `string_base_clear.cpp`, preserving 27 rows under
+the destination flags. It rejects the other two donors with C2039/C2065 and
+C2373, respectively. The merger's census link guard accepts this trial.
+
+The actual `--merge` at `a0fd3c01c9` refuses before writing because peers hold
+`0x000B3FD0` and `0x0048BA39`. It reports no accepted or rejected donors and
+releases its acquired scope. Thus no file is removed, no ledger path changes,
+and no source-reduction gain is claimed. Retry only when those claims are free;
+the verified shared-header prerequisite is independently published.
+
+A path-consumer survey found no active tool, hook, workflow or include that
+hard-codes this donor. Remaining mentions are comments, historical evidence,
+the census status, and STLport trial records. Because no path move was applied,
+no consumer repointing or protected-register transfer is needed. Code identity
+reports 10 rows and zero new findings; data identity reports zero findings.
+Ledger validation remains clean (99,440 function rows). Header queues and
+existing hatch/register ownership are unchanged.
