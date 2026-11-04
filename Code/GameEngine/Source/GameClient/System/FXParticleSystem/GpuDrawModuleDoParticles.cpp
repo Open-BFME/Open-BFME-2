@@ -112,13 +112,7 @@ struct GpuTransformRow : Vector4
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 // DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
-struct RenderStateStruct
-{
-	char m_shaderToLights[0x1EC];
-	Matrix4 world;
-	Matrix4 view;
-	char m_buffers[0x290 - 0x26C];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 void BFME2Set_Device_Transform(int transform, const Matrix4 &m);
 
 class DX8Wrapper

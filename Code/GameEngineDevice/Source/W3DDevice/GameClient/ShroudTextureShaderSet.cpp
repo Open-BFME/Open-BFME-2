@@ -142,13 +142,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 extern unsigned number_of_DX8_calls;
 
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass *material;
-	char pad08[0x1EC - 0x08];
-	Matrix4 world, view;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class DX8Wrapper
 {

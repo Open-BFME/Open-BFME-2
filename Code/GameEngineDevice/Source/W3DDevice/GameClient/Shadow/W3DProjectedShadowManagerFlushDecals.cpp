@@ -120,13 +120,7 @@ class IndexBufferClass;
 // RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
 // Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
 // (0x00DEE7C4).
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass *material;
-	unsigned char m_pad08[0x1EC - 0x08];
-	Matrix4 world;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class DX8Wrapper
 {

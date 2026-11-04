@@ -132,16 +132,7 @@ private:
 	int NumRefs;
 };
 
-class ShaderClass
-{
-	friend class BfmeB1137;
-	friend class DX8Wrapper;
-public:
-	static ShaderClass _PresetMultiplicativeSpriteShader;
-	unsigned ShaderBits;
-protected:
-	static bool ShaderDirty;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class TextureBaseClass
 {
@@ -182,13 +173,6 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 extern unsigned number_of_DX8_calls;
 
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass *material;
-	char pad08[0x1EC - 0x08];
-	Matrix4 world, view;
-};
 
 class DX8Wrapper
 {

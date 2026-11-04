@@ -65,7 +65,7 @@ static __forceinline void BindTexture(unsigned stage,const RvaTextureHandleView 
 // The device keeps its D3D8 type name but is a Direct3D 9 device.
 struct IDirect3DDevice8;
 extern unsigned number_of_DX8_calls;
-struct RenderStateStruct {char pad[0x1EC];Matrix4 world,view;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 class DX8Wrapper {
 public:
  static void Get_DX8_Texture_Stage_State_Value_Name(StringClass&,unsigned long,unsigned);
