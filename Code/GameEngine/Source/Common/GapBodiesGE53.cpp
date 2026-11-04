@@ -75,7 +75,7 @@ void setLODMeshCacheSetting(unsigned char value)
 
 extern const char *rva00202B6CNames[];
 
-void rva00201DAA(INI *ini, void *instance, void *store, const void *userData)
+void parseStaticGameLODLevel(INI *ini, void *instance, void *store, const void *userData)
 {
 	INI::parseIndexList(ini, instance, store, rva00202B6CNames);
 }
