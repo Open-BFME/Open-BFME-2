@@ -157,11 +157,7 @@ struct __declspec(novtable) ToggleHiddenSpecialAbilityUpdateModuleData
 	unsigned int m_delay; // +0x7C
 };
 
-class SpecialPowerUpdateInterface : public Rva004AE2D0Slots<8>
-{
-public:
-	virtual bool rva004AE394Slot8(const void *button) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 class Xfer;
 
@@ -325,7 +321,7 @@ void ToggleHiddenSpecialAbilityUpdate::turnOff()
 // ?turnOn@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE394
 void ToggleHiddenSpecialAbilityUpdate::turnOn()
 {
-	if (!rva004AE394Slot8(0))
+	if (!vslot08(0))
 		return;
 	Object *obj = m_object;
 	if (!obj || obj->testStatus(HIDDEN_STATUS))

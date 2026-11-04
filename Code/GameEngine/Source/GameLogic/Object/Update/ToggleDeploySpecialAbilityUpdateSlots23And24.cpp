@@ -98,11 +98,7 @@ struct ToggleDeploySpecialAbilityUpdateModuleData
 	OpaqueRefElement4 m_soundCC; // +0xCC
 };
 
-class SpecialPowerUpdateInterface : public Rva004AE5B8Slots<8>
-{
-public:
-	virtual bool rva004AE6D7Slot8(const void *button) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 class UpdateModuleView
 {
@@ -135,7 +131,7 @@ void ToggleDeploySpecialAbilityUpdate::rva004AE5B8(Object *obj)
 // ?rva004AE6D7@ToggleDeploySpecialAbilityUpdate@@UAEXPAVObject@@@Z @0x004AE6D7
 void ToggleDeploySpecialAbilityUpdate::rva004AE6D7(Object *obj)
 {
-	if (!rva004AE6D7Slot8(0))
+	if (!vslot08(0))
 		return;
 	DeployStyleAIUpdate *ai = obj->m_ai;
 	if (!ai)
