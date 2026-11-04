@@ -45,20 +45,14 @@ struct AutoAbilityData {
  char data10[0x1C-0x10]; _STL::_Base_bitset<4> forbiddenStatus;
  char data2C[0x5F-0x2C]; bool allowSelf;
 };
-class BfmeWideResult;
-class AutoAbilityBehavior {
-public:
- bool rva0045A57C();
- Object *rva0045A447(BfmeWideResult*,const CommandButton*);
- char data00[4]; const AutoAbilityData *data; Object *object;
- char data0C[0x20-0xC]; AsciiString command;
-};
+#include "../../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 bool AutoAbilityBehavior::rva0045A57C()
 {
+ const AutoAbilityData *data=(const AutoAbilityData *)m_moduleData;
  const _STL::_Base_bitset<4> &mask=(data?data:data)->forbiddenStatus;
- Object *obj=object;
+ Object *obj=m_object;
  if(mask._M_is_any() && ((const Rva00331682Holder*)&mask)->test(obj->status)) return false;
- const CommandButton *button=TheControlBar->findCommandButton(command);
+ const CommandButton *button=TheControlBar->findCommandButton(m_20);
  if(!button->isReady(obj)) return false;
  if(!obj->rva002922D9(button)) return false;
  if((unsigned char)(obj->model[4])&1) return false;
