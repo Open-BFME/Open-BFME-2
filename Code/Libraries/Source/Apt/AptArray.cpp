@@ -48,7 +48,12 @@ public:
 	virtual ~Rva006D6470Owner();
 };
 
-class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *, int); };
+class Rva006D2A60
+{
+public:
+	void *allocBlock(int);
+	void freeBlock(void *, int);
+};
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
@@ -105,12 +110,11 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *a, const char *b, int
 class Rva006D9500
 {
 public:
-    void rva006D9500(int requested);
-
+	void rva006D9500(int requested);
+	char m_pad00[0x20];
 private:
-    char _pad0[0x20];
-    void *m_array20;
-    int m_count24;
+	void *m_array20; // +0x20
+	int m_count24; // +0x24
 };
 
 // ?rva008B8F80AtoiOrZero@@YAHPBD@Z

@@ -7,12 +7,25 @@
 // cl: /O2 /MD
 extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
 class BfmeAptValue006DCD20 { public: void SetAt(int, BfmeAptValue006DCD20 *); };
-class Rva006D9500 { public: void rva006D9500(int); };
+class Rva006D9500
+{
+public:
+	void rva006D9500(int requested);
+	char m_pad00[0x20];
+private:
+	void *m_array20; // +0x20
+	int m_count24; // +0x24
+};
 // AptValue's AddRef/Release come first in these vtables, as in the five units
 // (Rva006D6360Ctor.cpp, ...) that emit the same ??_7Rva006D6470Owner@@6B@.
 class AptValue { public: virtual void AddRef(); virtual void Release(); };
 class Rva006D6360 : public AptValue { public: Rva006D6360(int type, int size); virtual ~Rva006D6360(); char m_pad[0x18]; };
-class Rva006D2A60 { public: void freeBlock(void *, int); };
+class Rva006D2A60
+{
+public:
+	void *allocBlock(int);
+	void freeBlock(void *, int);
+};
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class Rva006D6470Owner : public Rva006D6360
 {
