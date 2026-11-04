@@ -49,3 +49,6 @@ in `consolidation-seat1-current-probes-20261104.md`.
 
 This session’s follow-on candidate and mixed-file trials are recorded in
 `consolidation-seat1-session-20261104.md`.
+
+The later continuation probes, including the completed StealthUpdate dry run,
+are recorded in `consolidation-seat1-final-probes-20261104.md`.
