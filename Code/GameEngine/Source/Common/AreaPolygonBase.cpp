@@ -16,11 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
 
-struct BfmeE8 {
-    float x, y;
-    BfmeE8() {}
-    BfmeE8(const BfmeE8& value): x(value.x), y(value.y) {}
-};
+#include "../../Include/Common/AreaPolygonBase.h"
 
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> vector<BfmeE8,allocator<BfmeE8> >::vector(vector<BfmeE8,allocator<BfmeE8> > const &); }
@@ -54,32 +50,7 @@ template<> inline void vector<BfmeE8>::_M_insert_overflow(
 // copies. Pointer stride and the point caller establish the eight-byte ABI;
 // the original point type name remains unknown.
 
-// Retail 0x0030B8E4..0x0030B92C copies the same 0x0C..0x1C block and the
-// two floats at 0x1C/0x20 under the same dirty-flag gate as the rowed
-// operator= at 0x0030B92C; the bounds block's member names are unknown.
-struct AreaPolygonBounds { float v[4]; };
-
-// The rowed rva0030B135 keeps its own eight-byte point spelling in the signature.
-struct BfmePod8;
-
-class DataChunkInput;
-
-struct AreaPolygonBase {
-    _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
-    AreaPolygonBounds m_bounds;
-    float m_1c;
-    float m_20;
-    bool m_dirty;
-    AreaPolygonBase(const AreaPolygonBase& that);
-    void insertPoint(int index, const BfmeE8& point);
-    void reserve(int pointCapacity);
-    void setPoint(int pointIndex, const BfmeE8& point);
-    void parse(DataChunkInput& file, int unused);
-    void rva0030B135(const BfmePod8* offset);
-    void rva0030B1A7(float scaleFactor);
-    void rva0030B232(const class Matrix3D& matrix);
-    void deletePoint(int pointIndex);
-};
+// AreaPolygonBase: canonical header Code/GameEngine/Include/Common/AreaPolygonBase.h.
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0030B2B6@Rva0030B2B6@@QAEXPAVDataChunkOutput@@@Z retail 0x0030B2B6 72B: writes Elem array count then each pair via writeInt/writeReal.
@@ -244,7 +215,7 @@ void AreaPolygonBase::rva0030B135(const BfmePod8 *offset)
 	}
 	if (m_dirty != 0)
 		return;
-	float *boundsCoordinates = m_bounds.v;
+	float *boundsCoordinates = &m_bounds.lo.x;
 	const float *offsetCoordinates = &offset->x;
 	boundsCoordinates[0] = boundsCoordinates[0] + offsetCoordinates[0];
 	boundsCoordinates[1] = boundsCoordinates[1] + offsetCoordinates[1];
@@ -267,12 +238,12 @@ void AreaPolygonBase::rva0030B1A7(float scaleFactor)
 	}
 	if (m_dirty != 0)
 		return;
-	m_bounds.v[0] *= scaleFactor;
-	m_bounds.v[1] *= scaleFactor;
-	m_bounds.v[2] *= scaleFactor;
-	m_bounds.v[3] *= scaleFactor;
-	m_1c *= scaleFactor;
-	m_20 *= scaleFactor;
+	m_bounds.lo.x *= scaleFactor;
+	m_bounds.lo.y *= scaleFactor;
+	m_bounds.hi.x *= scaleFactor;
+	m_bounds.hi.y *= scaleFactor;
+	m_innerRadius *= scaleFactor;
+	m_radius *= scaleFactor;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0030B232Transform.cpp
@@ -358,13 +329,13 @@ void __cdecl Rva0030B31ASwap(Region2D *leftRegion, Region2D *rightRegion)
 AreaPolygonBase::AreaPolygonBase(const AreaPolygonBase& that)
     : m_points(that.m_points)
 {
-    m_1c = 0.0f;
-    m_20 = 0.0f;
+    m_innerRadius = 0.0f;
+    m_radius = 0.0f;
     m_dirty = that.m_dirty;
     if (!that.m_dirty) {
         m_bounds = that.m_bounds;
-        m_1c = that.m_1c;
-        m_20 = that.m_20;
+        m_innerRadius = that.m_innerRadius;
+        m_radius = that.m_radius;
     }
 }
 
