@@ -22,6 +22,9 @@ typedef bool Bool;
 typedef unsigned short UnsignedShort;
 
 #include "../../Include/GameNetwork/Transport.h"
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
+#include "../../Include/GameNetwork/NetCommandListClass.h"
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 #include <new>
 void *__cdecl operator new(UnsignedInt size);
@@ -32,24 +35,6 @@ class Rva004D060B
 {
 public:
 	~Rva004D060B();
-};
-
-// Vtable slot 0 is the scalar deleting destructor: flag 0 destroys without
-// freeing and hands back the object, which the caller then frees.
-class FrameDataManager
-{
-public:
-	virtual void *destroy(UnsignedInt flags);
-};
-
-class NetCommandList
-{
-public:
-	NetCommandList();
-	void reset();
-
-private:
-	char m_data[0x10];
 };
 
 class NetCommandWrapperList
@@ -69,36 +54,6 @@ public:
 	void clear();
 };
 
-class ConnectionManager
-{
-public:
-	virtual void slot0();
-	virtual void reset();
-
-private:
-	Rva004D060B *m_connections[8];			// +0x04
-	char m_pad024[0x12024 - 0x24];
-	Transport *m_transport;					// +0x12024
-	Int m_localSlot;						// +0x12028
-	Int m_packetRouterSlot;					// +0x1202C
-	Int m_packetRouterFallback[8];			// +0x12030
-	char m_pad12050[0x1205C - 0x12050];
-	UnsignedInt m_frameCeiling;				// +0x1205C
-	Int m_playerLatestFrame[8];				// +0x12060
-	Int m_slotWords12080[8];				// +0x12080
-	Int m_slotWords120A0[8];				// +0x120A0
-	Int m_playerClientFrame[8];				// +0x120C0
-	Int m_slotWords120E0[8];				// +0x120E0
-	char m_pad12100[0x12104 - 0x12100];
-	FrameDataManager *m_frameData[8];		// +0x12104
-	NetCommandList *m_pendingCommands;		// +0x12124
-	NetCommandList *m_relayedCommands;		// +0x12128
-	NetCommandWrapperList *m_netCommandWrapperList;	// +0x1212C
-	UnsignedInt m_timerStamp;				// +0x12130
-	Bool m_flag12134;
-	Bool m_flag12135;
-};
-
 void ConnectionManager::reset()
 {
 	if (m_transport != 0) {
@@ -109,14 +64,15 @@ void ConnectionManager::reset()
 	Int i;
 	for (i = 0; i < 8; ++i) {
 		if (m_connections[i] != 0) {
-			delete m_connections[i];
+			delete (Rva004D060B *)m_connections[i];
 			m_connections[i] = 0;
 		}
 	}
 
 	for (i = 0; i < 8; ++i) {
 		if (m_frameData[i] != 0) {
-			operator delete(m_frameData[i]->destroy(0));
+			// Global deletion calls slot zero with flag 0, then frees its result.
+			::delete m_frameData[i];
 			m_frameData[i] = 0;
 		}
 	}
@@ -141,16 +97,16 @@ void ConnectionManager::reset()
 
 	m_localSlot = -1;
 	m_packetRouterSlot = -1;
-	m_frameCeiling = 0;
+	field1205C = 0;
 	for (i = 0; i < 8; ++i) {
 		m_packetRouterFallback[i] = -1;
-		m_playerLatestFrame[i] = 0;
-		m_playerClientFrame[i] = 0;
-		m_slotWords120E0[i] = 0;
-		m_slotWords12080[i] = 0;
-		m_slotWords120A0[i] = 1;
+		field12060[i] = 0;
+		field120C0[i] = 0;
+		field120E0[i] = 0;
+		field12080[i] = 0;
+		field120A0[i] = 1;
 	}
-	m_timerStamp = 0;
-	m_flag12134 = false;
-	m_flag12135 = true;
+	field12130 = 0;
+	field12134 = false;
+	field12135 = true;
 }
