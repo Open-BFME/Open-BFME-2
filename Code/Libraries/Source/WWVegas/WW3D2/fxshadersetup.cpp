@@ -499,6 +499,22 @@ public:
 	void rva00152DC6(int n);
 };
 
+// ??4Rva00151DAB@@QAEAAV0@ABV0@@Z at 0x00151E30 (29B).
+// Copy assign: copy +0 dword then RefCountPtr<TextureClass> assign at +4.
+// Evidence: RefCountPtr assign row 0x424D0, single caller 0x15201D,
+// prev/next stlport record bodies.
+
+class TextureClass;
+
+namespace _STL
+{
+struct random_access_iterator_tag;
+template <class Input, class Output, class Distance>
+Output __copy(Input, Input, Output, const random_access_iterator_tag &, Distance *);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
 
 // "string + text"
@@ -757,24 +773,6 @@ bool FXShaderSetup::Load_W3D(ChunkLoadClass &cload)
 	return true;
 }
 
-// tu-skeleton: 0x00151D1A 69B ?UpdateDynamicParameterSet@FXShaderSetup@@UAEXI@Z -- matched in Code/GameEngine/Source/Common/FXShaderSetup_UpdateDynamicParameterSet.cpp (not merged yet)
-
-// tu-skeleton: 0x00151DB8 7B ?get@Rva00151DB8SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00151DBF 12B ?get@Rva00151DBFDivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00151DCB 45B ??$_M_allocate_and_copy@PAURva0007BB16Record@@@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@IAEPAURva0007BB16Record@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00151DF8 29B ??$fill@PAUBfmeAssignRecord36@@U1@@_STL@@YAXPAUBfmeAssignRecord36@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00151E15 27B ??$uninitialized_fill_n@PAURva0007BB16Record@@IU1@@_STL@@YAPAURva0007BB16Record@@PAU1@IABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x00151E30 29B ??4Rva00151DAB@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00151E30Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x00151E4D 50B ??$__copy@PAURva00151E4DElement@@PAU1@H@_STL@@YAPAURva00151E4DElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00151E4D.cpp (not merged yet)
-
-// tu-skeleton: 0x00151E7F 50B ??$__copy_backward@PAUBfmeAssignRecord36@@PAU1@H@_STL@@YAPAUBfmeAssignRecord36@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b4f6.cpp
 
 void famgenDelete(Rva00151DAB *p) { delete p; }
@@ -808,8 +806,6 @@ int Rva00151FA8::rva00151FA8() const
 	return a + m_vec28.size() * sizeof(Rva00151FA8Elem8);
 }
 
-// tu-skeleton: 0x00151FCA 29B ??$__copy_ptrs@PAUBfmeAssignRecord36@@PAU1@@_STL@@YAPAUBfmeAssignRecord36@@PAU1@00U__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00151FE7.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
@@ -817,14 +813,6 @@ int Rva00151FA8::rva00151FA8() const
 // __copy_backward<BfmeAssignRecord36 *> at 0x00151E7F (stlport_asciistring_record_bodies.cpp).
 
 template BfmeAssignRecord36 *_STL::__copy_backward_ptrs<BfmeAssignRecord36 *, BfmeAssignRecord36 *>(BfmeAssignRecord36 *, BfmeAssignRecord36 *, BfmeAssignRecord36 *, const _STL::__false_type &);
-
-// tu-skeleton: 0x00152004 47B ??$__copy@PAVRva00151DAB@@PAV1@H@_STL@@YAPAVRva00151DAB@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00152004Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00152033 38B ??$__uninitialized_copy@PAVRva00151DAB@@PAV1@@_STL@@YAPAVRva00151DAB@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00152059 37B ??$__uninitialized_fill_n@PAVRva00151DAB@@IV1@@_STL@@YAPAVRva00151DAB@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x0015207E 29B ??$__copy_ptrs@PAVRva00151DAB@@PAV1@@_STL@@YAPAVRva00151DAB@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00151dab_destroy.cpp
 
@@ -844,8 +832,6 @@ template void _STL::_Destroy<Rva00151DAB *>(Rva00151DAB *, Rva00151DAB *);
 
 template _STL::vector<Rva00151DAB>::~vector();
 
-// tu-skeleton: 0x00152157 51B ?erase@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAEPAVRva00151DAB@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00151dab_clear.cpp
 
 // ?_M_clear@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@IAEXXZ, retail 0x0015218A, 30 bytes.
@@ -853,20 +839,6 @@ template _STL::vector<Rva00151DAB>::~vector();
 // Same 30B Destroy-plus-free shape as rowed _M_clear 0x00153BCF for Rva00153729.
 
 template void _STL::vector<Rva00151DAB>::_M_clear();
-
-// tu-skeleton: 0x001521A8 11B ?clear@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x001521B3 178B ?_M_insert_overflow@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@IAEXPAVRva00151DAB@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00152265 55B ?push_back@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAEXABVRva00151DAB@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x0015229C 51B ?EraseRange@Rva0015229CVector@@QAEPAURva0007BB16Record@@PAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0015229CEraseRange.cpp (not merged yet)
-
-// tu-skeleton: 0x001522CF 206B ??4?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_assign.cpp (not merged yet)
-
-// tu-skeleton: 0x0015239D 116B ?reserve@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x001524BE 12B ?rva001524BE@Rva001524BE@@QAEXVRva00087A93@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Rva001524CAEmptyHelp.cpp
 
@@ -885,14 +857,6 @@ TreeHintRef00217D4C Rva001524CA::rva001524CA()
     return TreeHintRef00217D4C(0);
 }
 
-// tu-skeleton: 0x001524DC 18B ??0Rva001524DC@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE45.cpp (not merged yet)
-
-// tu-skeleton: 0x001524EE 11B ?clear@Rva0015229CVector@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE45.cpp (not merged yet)
-
-// tu-skeleton: 0x001524F9 258B ?_M_fill_insert@?$vector@URva001524F9Element@@V?$allocator@URva001524F9Element@@@_STL@@@_STL@@QAEXPAURva001524F9Element@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001524F9.cpp (not merged yet)
-
-// tu-skeleton: 0x00152659 5B ?insert@Rva00152659@@QAEXPAURva001524F9Element@@IABU2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001524F9.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp
 
 void Rva00152BDBVector::resize(unsigned n) {resize(n,Rva00152BDBEntry());}
@@ -910,7 +874,6 @@ void Rva00152BDBVector::resize(unsigned n,Rva00152BDBEntry value) {
 // application field layout or original type name. Existing providers are
 // linked by aliases wherever a matched native body already owns the call.
 
-// tu-skeleton: 0x00152D1C 170B ?rva152d1c@Rva00152D1CObj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00152D1C.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00152DC6Adapter.cpp
 
@@ -926,6 +889,80 @@ void Rva00152DC6::rva00152DC6(int n)
 //   0x00151597 reads ??0Rva00151248@@QAE@XZ
 
 //   0x00152BDB reads ?resize@Rva00152BDBVector@@QAEXIURva00152BDBEntry@@@Z
+
+// tu-skeleton: 0x00151D1A 69B ?UpdateDynamicParameterSet@FXShaderSetup@@UAEXI@Z -- matched in Code/GameEngine/Source/Common/FXShaderSetup_UpdateDynamicParameterSet.cpp (not merged yet)
+
+// tu-skeleton: 0x00151DB8 7B ?get@Rva00151DB8SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00151DBF 12B ?get@Rva00151DBFDivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00151DCB 45B ??$_M_allocate_and_copy@PAURva0007BB16Record@@@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@IAEPAURva0007BB16Record@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00151DF8 29B ??$fill@PAUBfmeAssignRecord36@@U1@@_STL@@YAXPAUBfmeAssignRecord36@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00151E15 27B ??$uninitialized_fill_n@PAURva0007BB16Record@@IU1@@_STL@@YAPAURva0007BB16Record@@PAU1@IABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_destroy.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00151E30Assign.cpp
+
+Rva00151DAB &Rva00151DAB::operator=(Rva00151DAB const &rhs)
+{
+	m_parameter = rhs.m_parameter;
+	m_texture = rhs.m_texture;
+	return *this;
+}
+
+// tu-skeleton: 0x00151E4D 50B ??$__copy@PAURva00151E4DElement@@PAU1@H@_STL@@YAPAURva00151E4DElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00151E4D.cpp (not merged yet)
+
+// tu-skeleton: 0x00151E7F 50B ??$__copy_backward@PAUBfmeAssignRecord36@@PAU1@H@_STL@@YAPAUBfmeAssignRecord36@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00151FCA 29B ??$__copy_ptrs@PAUBfmeAssignRecord36@@PAU1@@_STL@@YAPAUBfmeAssignRecord36@@PAU1@00U__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00152004Copy.cpp
+
+template <>
+Rva00151DAB *_STL::__copy<Rva00151DAB *, Rva00151DAB *, int>(
+    Rva00151DAB *first, Rva00151DAB *last, Rva00151DAB *dest,
+    const _STL::random_access_iterator_tag &, int *)
+{
+	int n = (int)(last - first);
+	if (n <= 0)
+		return dest;
+	for (; n > 0; --n, ++first, ++dest)
+		*dest = *first;
+	return dest;
+}
+
+// tu-skeleton: 0x00152033 38B ??$__uninitialized_copy@PAVRva00151DAB@@PAV1@@_STL@@YAPAVRva00151DAB@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00152059 37B ??$__uninitialized_fill_n@PAVRva00151DAB@@IV1@@_STL@@YAPAVRva00151DAB@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x0015207E 29B ??$__copy_ptrs@PAVRva00151DAB@@PAV1@@_STL@@YAPAVRva00151DAB@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00152157 51B ?erase@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAEPAVRva00151DAB@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x001521A8 11B ?clear@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x001521B3 178B ?_M_insert_overflow@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@IAEXPAVRva00151DAB@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00152265 55B ?push_back@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAEXABVRva00151DAB@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x0015229C 51B ?EraseRange@Rva0015229CVector@@QAEPAURva0007BB16Record@@PAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0015229CEraseRange.cpp (not merged yet)
+
+// tu-skeleton: 0x001522CF 206B ??4?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_assign.cpp (not merged yet)
+
+// tu-skeleton: 0x0015239D 116B ?reserve@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001524BE 12B ?rva001524BE@Rva001524BE@@QAEXVRva00087A93@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp (not merged yet)
+
+// tu-skeleton: 0x001524DC 18B ??0Rva001524DC@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE45.cpp (not merged yet)
+
+// tu-skeleton: 0x001524EE 11B ?clear@Rva0015229CVector@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE45.cpp (not merged yet)
+
+// tu-skeleton: 0x001524F9 258B ?_M_fill_insert@?$vector@URva001524F9Element@@V?$allocator@URva001524F9Element@@@_STL@@@_STL@@QAEXPAURva001524F9Element@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001524F9.cpp (not merged yet)
+
+// tu-skeleton: 0x00152659 5B ?insert@Rva00152659@@QAEXPAURva001524F9Element@@IABU2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001524F9.cpp (not merged yet)
+
+// tu-skeleton: 0x00152D1C 170B ?rva152d1c@Rva00152D1CObj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00152D1C.cpp (not merged yet)
 
 // tu-skeleton: 0x00766C94 8B $L4705 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001524F9.cpp (not merged yet)
 

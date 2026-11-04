@@ -22945,7 +22945,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva00151ECDLen@@YAHPBD@Z,,0x00151ECD,21,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp,matched,pair init length helper
 ?Rva0052CEF6Clear@@YAXPAVRva004E366E@@0@Z,,0x0052CEF6,25,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,unlock range destroy step 0xC
 ??1Rva0032C4D5@@QAE@XZ,,0x0032C4D5,30,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,matched,container dtor destroy range plus free non-EH twin
-??4Rva00151DAB@@QAEAAV0@ABV0@@Z,,0x00151E30,29,Code/Libraries/Source/WWVegas/WWLib/Rva00151E30Assign.cpp,matched,copy assign via texture ref
+??4Rva00151DAB@@QAEAAV0@ABV0@@Z,,0x00151E30,29,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp,matched,copy assign via texture ref
 ?Rva002A14FAFree@@YGXPAX@Z,,0x002A14FA,28,Code/GameEngine/Source/Common/Rva002A14FAFree.cpp,matched,free wrapper around rowed dtor plus free
 ?rva005DE96B@Rva005DE96B@@QAEXXZ,,0x005DE96B,26,Code/Libraries/Source/WWVegas/WWLib/stlport_rva005de96b_apply.cpp,matched,chain range apply caller via pinned fn
 ?rva0056614D@Rva0056614DVec@@QAEXXZ,,0x0056614D,30,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,matched,chain scrap storage via range clear plus free
@@ -22972,7 +22972,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??1Rva000C20A3@@QAE@XZ,,0x000C20A3,30,Code/Libraries/Source/WWVegas/WWLib/Rva000C20A3Dtor.cpp,matched,container dtor via rowed Destroy plus free
 ??0Made002CCB04@@QAE@XZ,,0x0050B59B,43,Code/GameEngine/Source/GameLogic/Object/Made002CCB04Ctor.cpp,matched,leaf ctor base plus vtable plus defaults
 ?rva0028D8EB@Rva0028D8EB@@QAE_NH@Z,,0x0028D8EB,21,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,unlock bittest forward via rowed test
-??$__copy@PAVRva00151DAB@@PAV1@H@_STL@@YAPAVRva00151DAB@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x00152004,47,Code/Libraries/Source/WWVegas/WWLib/Rva00152004Copy.cpp,matched,array copy via rowed assign
+??$__copy@PAVRva00151DAB@@PAV1@H@_STL@@YAPAVRva00151DAB@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x00152004,47,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp,matched,array copy via rowed assign
 ?Rva003821A0Copy@@YAXPAX0@Z,,0x003821A0,25,Code/GameEngine/Source/Common/System/Rva003821A0Copy.cpp,matched,caller 0x00382BA1 pushes dst-src pair
 ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z,,0x005CA950,73,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,matched,"map<AsciiString,list<AsciiString>> tree erase key via equal_range 0x5C9F41 distance 0xD20DB list-pair range-erase 0x5CA7A9 (only caller of 0x5CA7A9); caller GameSpyLoginPreferences 0x5CABF9; set tree erase key is 0x5B5EA (calls set range erase 0x57D5C)"
 ??1Made002CCC90@@UAE@XZ,,0x0050BD9D,56,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,matched,novtable string plus base same as Rva00508CF7

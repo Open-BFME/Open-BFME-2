@@ -9915,7 +9915,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00151DCB,45,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151DF8 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x00151DF8,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151E15 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x00151E15,27,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151E30 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_destroy.cpp
-0x00151E30,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151E4D provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00151E30Assign.cpp
+0x00151E30,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151E4D provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
 0x00151E4D,50,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151E7F provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00151E4D.cpp
 0x00151E7F,50,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151EB1 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x00151EB1,28,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151D85..0x00151ECD provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
@@ -9924,7 +9924,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00151FA8,34,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x00151FCA provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
 0x00151FCA,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x00151FE7 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x00151FE7,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x00152004 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
-0x00152004,47,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x00152033 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00152004Copy.cpp
+0x00152004,47,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x00152033 provisional,Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
 0x00152033,38,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x00152059 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x00152059,37,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x0015207E provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x0015207E,29,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.cpp,approved,C,C=0x00151EE2..0x0015209B provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
