@@ -21,12 +21,7 @@ struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;
 #define aptValueStack (*(AptBasePtrStack *)&g_aptDateInterpreter)
 
-class AptValue;
-class AptInteger
-{
-public:
-	static AptValue *Create(int value);
-};
+#include "../../Include/Common/AptInteger.h"
 
 // The growth helper 0x006D9500 is rowed as Rva006D9500::rva006D9500.
 class Rva006D9500
@@ -44,25 +39,6 @@ public:
 	bool get() const;
 };
 
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-	virtual void unused2();
-	virtual void unused3();
-	virtual void unused4();
-	virtual void unused5();
-	virtual void unused6();
-	virtual void unused7();
-	virtual void unused8();
-	virtual void unused9();
-	virtual void unused10();
-	virtual void unused11();
-	virtual void unused12();
-	virtual void unused13();
-	void setGCMark(bool value);
-};
 
 // The Rva006D6360 base forwarder 0x006DCC00 (slot 0x34 native-hash mark);
 // retail calls it through its one-jump vtable thunk 0x0070DFD0, rowed as
@@ -325,7 +301,7 @@ void BfmeAptValue006DCD20::rva006D94A0()
 		if (rva006D8A50(i) && !((const Rva006DBB40ShrAndField *)rva006D8A50(i))->get())
 		{
 			((AptValue *)rva006D8A50(i))->setGCMark(true);
-			((AptValue *)rva006D8A50(i))->unused13();
+			((AptValue *)rva006D8A50(i))->vslot13();
 		}
 	}
 }

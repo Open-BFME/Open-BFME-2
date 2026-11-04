@@ -2,17 +2,7 @@
 // Apt action-stream relocate/unrelocate (_BfmeAux006FC670, retail 0x006FC670, 2512B with its tables);
 // WB 0x0175B510 (AptActionInterpreter::_parseStream, asserts 0x13E..0x2B7) gives the statement and case structure.
 
-class AptString;
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-	AptString *c_string() const;
-	bool isString() const;
-protected:
-	unsigned int m_valueFlags;
-};
+#include "AptValue.h"
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
@@ -31,12 +21,8 @@ void __debugbreak();
 #include "AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 
-class AptInteger { public: static AptValue *Create(int value); };
-class AptBoolean
-{
-public:
-	static AptValue *Create(bool value);
-};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
+#include "AptBoolean.h"
 AptValue *Rva008A4EA0MakeFloat(float value);
 extern AptValue *gpUndefinedValue;
 
@@ -64,6 +50,8 @@ class Rva006FB9C0 : public AptValue
 {
 public:
 	Rva006FB9C0(int value);
+	virtual bool vslot12() const;
+	virtual void vslot13() const;
 	static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
 	static void operator delete(void *p, unsigned int n) { Rva006D8680Free(p, n); }
 private:
@@ -74,6 +62,8 @@ class Rva006FB960 : public AptValue
 {
 public:
 	Rva006FB960(int value);
+	virtual bool vslot12() const;
+	virtual void vslot13() const;
 	static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
 	static void operator delete(void *p, unsigned int n) { Rva006D8680Free(p, n); }
 private:

@@ -7,16 +7,12 @@
 // Each extent is 55 bytes through RET, followed by INT3 padding; Ghidra's
 // 52-byte entries truncate the loop branch and omit POP/RET. Partial views.
 #include "../AptValue.h"
-class AptInteger : public AptValue {
-public:
-    AptInteger *nextFree;
-    static void ClearPool();
-};
+#include "../../../../GameEngine/Include/Common/AptInteger.h"
 extern AptInteger *g_aptIntegerFreeList;
 void AptInteger::ClearPool()
 {
     while (g_aptIntegerFreeList != 0) {
-        AptInteger *next = g_aptIntegerFreeList->nextFree;
+        AptInteger *next = g_aptIntegerFreeList->field08_next;
         g_aptIntegerFreeList->DestroyGCPointers();
         delete g_aptIntegerFreeList;
         g_aptIntegerFreeList = next;
@@ -37,16 +33,12 @@ void AptFloat::ClearPool()
         g_aptFloatFreeList = next;
     }
 }
-class AptBoolean : public AptValue {
-public:
-    AptBoolean *nextFree;
-    static void ClearPool();
-};
+#include "../AptBoolean.h"
 extern AptBoolean *g_aptBooleanFreeList;
 void AptBoolean::ClearPool()
 {
     while (g_aptBooleanFreeList != 0) {
-        AptBoolean *next = g_aptBooleanFreeList->nextFree;
+        AptBoolean *next = g_aptBooleanFreeList->field08_next;
         g_aptBooleanFreeList->DestroyGCPointers();
         delete g_aptBooleanFreeList;
         g_aptBooleanFreeList = next;

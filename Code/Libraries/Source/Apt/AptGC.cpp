@@ -16,26 +16,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class AptValue {
-public:
-    virtual void unused0();
-    virtual void unused1();
-    virtual void ForceDelete();
-    virtual void unused3();
-    virtual void unused4();
-    virtual void unused5();
-    virtual void unused6();
-    virtual void unused7();
-    virtual void unused8();
-    virtual void unused9();
-    virtual void PreDestroy();
-    virtual void DestroyGCPointers();
-    virtual void unused12();
-    virtual void unused13();
-public:
-    unsigned int getRefCount() const;
-    void setGCMark(bool value);
-};
+#include "AptValue.h"
 
 #include "BfmeAptValue006DCD20.h"
 
@@ -52,9 +33,9 @@ public:
     AptValue *GetNextAptValue(const AptValue *pValue);
 };
 
-class AptBoolean { public: static void ClearPool(); };
+#include "AptBoolean.h"
 
-class AptInteger { public: static void ClearPool(); };
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 class AptFloat { public: static void ClearPool(); };
 
@@ -88,7 +69,7 @@ void __cdecl Rva006E6E20Collect()
             if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
                 if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
                     pValue->setGCMark(true);
-                    pValue->unused13();
+                    pValue->vslot13();
                 }
             }
         }
@@ -110,7 +91,7 @@ void __cdecl Rva006E6E20Collect()
     while (pValue) {
         if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
             ++cleaned;
-            pValue->unused9();
+            pValue->DeleteThis();
         } else {
             pValue->setGCMark(false);
         }
