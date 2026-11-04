@@ -285,7 +285,7 @@ public:
 	UnsignedInt m_bits[(N + 31) / 32];
 };
 
-class WeaponTemplate { public: char m_pad000[0xec]; Int m_clipSize; };
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../../Include/GameLogic/Weapon.h"
 class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const; };
 
@@ -905,7 +905,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			UnsignedInt now;
 			Weapon *weapon = obj->m_weaponSet.getWeaponInWeaponSlot(command->m_weaponSlot);
 			now = TheGameLogic->getFrame();
-			if (weapon && weapon->m_template->m_clipSize == 0 && !weapon->rva002C96D8())
+			if (weapon && weapon->m_template->m_maxClipReloadTime == 0 && !weapon->rva002C96D8())
 				return COMMAND_AVAILABLE;
 			if ((weapon == 0 || weapon->computeStatus(0) != READY_TO_FIRE || weapon->m_whenWeCanFireAgain == now || weapon->m_whenWeCanFireAgain == now - 1) && weapon != 0)
 			{

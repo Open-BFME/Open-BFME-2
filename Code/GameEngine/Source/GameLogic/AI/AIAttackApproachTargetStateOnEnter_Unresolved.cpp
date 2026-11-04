@@ -444,21 +444,8 @@ class Rva002C9407ByteField
 public:
 	unsigned char get() const;
 };
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const;
-	unsigned char m_pad00[0x2C];
-	Real m_aimDelta; // +0x2C
-	Real m_aimOffset; // +0x30
-	unsigned char m_pad34[0x148 - 0x34];
-	Real m_continueAttackRange; // +0x148
-	unsigned char m_pad14C[0x161 - 0x14C];
-	Bool m_finishAttackOnceStarted; // +0x161 (keeps attacking a dead victim)
-	unsigned char m_pad162[0x16B - 0x162];
-	Bool m_16b; // +0x16B
-	Bool is16b() const { return m_16b; }
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
+static __forceinline Bool weaponTemplateIs16B(const WeaponTemplate *wt) { return wt->m_field16B; }
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -1081,7 +1068,7 @@ StateReturnType AIAttackFireWeaponState::update()
 		return STATE_FAILURE;
 
 	Bool holdFire;
-	if (weapon->getTemplate()->is16b() && !(victim && victim->isKindOfImmobile()))
+	if (weaponTemplateIs16B(weapon->getTemplate()) && !(victim && victim->isKindOfImmobile()))
 	{
 		holdFire = true;
 	}
@@ -1098,9 +1085,9 @@ StateReturnType AIAttackFireWeaponState::update()
 			if (((((const unsigned char *)victim->getTemplate()->m_kindof)[7] & 0x10) || (((const unsigned char *)victim->getTemplate()->m_kindof)[0x11] & 2)) &&
 				(weapon->getTemplate()->isContactWeapon() || ((const Rva002C9400ByteField *)weapon->getTemplate())->get()))
 				victim->getWorldspaceBestContactPoint(&target, obj->getPosition(), "Ram", 0, 0x2a, false);
-			if (weapon->getTemplate()->m_aimOffset > 0.0f)
+			if (weapon->getTemplate()->m_field30 > 0.0f)
 			{
-				Real offset = weapon->getTemplate()->m_aimOffset;
+				Real offset = weapon->getTemplate()->m_field30;
 				Real relative = obj->GetRelativeAngle(&target) - offset;
 				Real angle = obj->getOrientation() + relative;
 				target = *obj->getPosition();
@@ -1113,7 +1100,7 @@ StateReturnType AIAttackFireWeaponState::update()
 		}
 		if (m_att && m_att->isAttackingObject() &&
 			(!victim || (victim->m_438 & 1) || victim->testStatus(OBJECT_STATUS_32)) &&
-			!weapon->getTemplate()->m_finishAttackOnceStarted)
+			!weapon->getTemplate()->m_field161)
 		{
 			getMachine()->setGoalObject(0);
 			return STATE_SUCCESS;

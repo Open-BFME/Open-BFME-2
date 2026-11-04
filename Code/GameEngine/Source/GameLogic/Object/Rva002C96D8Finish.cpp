@@ -23,19 +23,7 @@ public:
 	Coord3D m_position; // +0x38
 };
 
-class WeaponTemplate
-{
-public:
-	float getMinimumAttackRange() const;
-	char m_pad00[0x82];
-	bool m_canFireWhileCharging; // +0x82
-	char m_pad83[0x13c - 0x83];
-	int m_preAttackRandomAmount; // +0x13c
-	char m_pad140[0x155 - 0x140];
-	bool m_forceDisplayPercentReady; // +0x155
-	char m_pad156[0x157 - 0x156];
-	bool m_157; // +0x157
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -94,8 +82,8 @@ int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 void Weapon::rva002C959E()
 {
 	int randomValue;
-	if (m_template->m_preAttackRandomAmount)
-		randomValue = GetGameLogicRandomValue(0, m_template->m_preAttackRandomAmount, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3644);
+	if (m_template->m_field13C)
+		randomValue = GetGameLogicRandomValue(0, m_template->m_field13C, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3644);
 	else
 		randomValue = 0;
 	m_tailState = randomValue;
@@ -120,7 +108,7 @@ public:
 };
 bool Weapon::rva002C969D(const void *target, int b)
 {
-    if (!m_template->m_157)
+    if (!m_template->m_field157)
         return false;
     if (!b)
         return false;
@@ -149,11 +137,11 @@ bool Weapon::rva002C9586()
 // Evidence: same Weapon TU and flags; [ecx+4] template like siblings; offsets +0x82/+0x155 on template.
 bool Weapon::rva002C96D8()
 {
-	if (m_template->m_canFireWhileCharging)
+	if (m_template->m_field82)
 		return true;
 	if (m_template)
 	{
-		if (m_template->m_forceDisplayPercentReady)
+		if (m_template->m_field155)
 			return true;
 	}
 	return false;

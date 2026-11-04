@@ -35,17 +35,7 @@ public:
 	Real m_field[6];
 };
 class Weapon;
-class WeaponTemplate
-{
-	friend class Weapon;
-public:
-	Int rva002C93DF(const WeaponBonus &bonus) const;
-private:
-	char m_pad00[0x138];
-	Int m_preAttackDelay;
-	char m_pad13C[0x144 - 0x13C];
-	Int m_firingDuration; // +0x144: FieldParse FiringDuration at RVA0x00800E98
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 Int WeaponTemplate::rva002C93DF(const WeaponBonus &bonus) const
 {
 	return m_preAttackDelay * bonus.getField(WeaponBonus::PRE_ATTACK);
@@ -64,5 +54,5 @@ class Object;
 #include "../../../Include/GameLogic/Weapon.h"
 Int Weapon::rva002C9D3B(const Object *, unsigned) const
 {
-	return m_template->m_firingDuration;
+	return m_template->m_field144;
 }
