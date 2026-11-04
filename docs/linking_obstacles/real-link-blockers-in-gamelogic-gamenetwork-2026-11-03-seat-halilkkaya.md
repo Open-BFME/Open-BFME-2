@@ -244,3 +244,22 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
   - 0x004D272E is the hint-insert fold, rowed as `map<int,Rva004D272ERecord>::insert`.
   - Settle 0x00156680's identity first, then add ICF twin rows for the two FileCommandMap names at
     0x0046A9AB and 0x004D272E, and drop the adapters.
+
+#### Seat halilkkaya-lk23 follow-up (2026-11-04, real link 41825144174 at `efbd3f2cb2`)
+
+- **LockWeaponCreate.cpp (2): unchanged.**
+  - With `8a94b4fdd4`, `rename.py class --fold Rva004B8C3E --into LockWeaponCreate` plans on vftable
+    0x00C592FC: the destructor's first store, named `??_7LockWeaponCreate@@6BObjectModule@@@` in
+    data_ledger.csv.
+  - Not applied. It resolves no name, and the rows would read `UAE`, while Zero Hour's destructor is
+    protected (`MAE`).
+  - `function --to-class LockWeaponCreate` refuses `onBuildComplete` (0x004B8CC9) because the Zero
+    Hour view compiles no table matching 0x00C592EC. It refuses `xfer` (0x004851E3) because the body is
+    shared by AnnounceBirthAndDeathBehavior, SupplyCenterCreate and SupplyWarehouseCreate.
+  - The canonical `CreateModuleClass.h` view in retail slot order still comes first.
+- **ConnectionManager.cpp (2): 0x00156680 is unreferenced.** The whole retail image holds no rel32
+  call or jmp to it and no absolute VA 0x00556680.
+  - It sits in the WW3D2 template-COMDAT area, beside `map<ushort,AsciiString>::_M_find` (0x001559C0).
+  - 0x0046A9AB has 5 rel32 callers. One is this operator[], at 0x004D2957.
+  - The `<ushort,AsciiString>` name at 0x00156680 is therefore unproven. That identity decision still
+    comes before the ICF twin rows.

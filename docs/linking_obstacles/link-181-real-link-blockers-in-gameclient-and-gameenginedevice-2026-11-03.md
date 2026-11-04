@@ -393,3 +393,41 @@ W3DTerrainVisual's.
 
    PlanningPhaseBehavior::Impl was reconciled by hand in `a5901cee17` (pre-tool); its unit
    Rva00575F38Dtor.cpp is the template for the prepared sources.
+
+**Seat halilkkaya-lk23 (2026-11-04, real link 41825144174 at `efbd3f2cb2`: 55 unresolved, 1 duplicate).**
+- **Tool: `rename.py class --fold` takes a nested class (`ea1cc82ec2`).** Use `--into A::B::C` and pass
+  every unit that spells OLD as `--prepared REL=FILE`, declaring the enclosing scopes and no longer
+  spelling OLD. Mangled names take the decorated scope (`C@B@A`). A respelled symbol may carry no name
+  back-reference, and the result may not spell one of NEW's names twice. All other gates are unchanged.
+- **Tool: vftable stores are read relative to `this` (`8a94b4fdd4`).** `this_stores` follows registers
+  that hold `this + d` (`lea edi,[esi+4]; mov [edi],T` is a +4 store). That was the PlanRetreats +4
+  adjustor false reject. A constructor whose every store is proven owns its last +0 store. The design
+  note's plain "last +0 store" would have picked 0x00C6E8EC, the +4 table, for 0x005776A7.
+- **RegionDetailsStructuresIconCtor.cpp (1): resolved** (`7e3f21faab`, fold Rva005E278E into
+  `StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon`, vftable 0x00C77B28). The unit goes
+  0 → 231 B LINKS.
+- **Rva005776A7Ctor.cpp: `??1Rva005776A7` resolved** (`a68e83af11`, fold Rva005776A7 into Rva005770F7,
+  vftable 0x00C6E8F8). Still open: `r0`, `s0` and the `??_7Gen_uwm_00429191` COMDAT variant.
+  - The +0 base is canonical UserInputTranslator: retail 0x00C6E430's 26 slots are
+    `UserInputTranslator.h`'s.
+  - Adopting that header alone gives the derived table UserInputTranslator's bodies at slots 0 and 18,
+    where retail has Impl's 0x005771F4 and 0x0057723C. That is a runtime-wrong table. Overriding them
+    under the placeholder spells `?translateGameMessage@Rva005770F7@@...`, which nothing defines.
+  - So the class must first be named `StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl`.
+    `--fold Rva005770F7 --into` that name refuses: nothing names 0x00C6E8F8 for Impl. There is no
+    data_ledger row, and the installers' objects bind only the placeholders' tables.
+  - The remaining evidence is the slots: 0 and 18 hold Impl's rowed virtuals, and no other table holds
+    them. It is not encoded as a gate. An intermediate base whose empty destructor drops its own vptr
+    store cannot be told apart. Retail `~UserInputTranslator` (0x00429191, 7 bytes) stores only Base0's
+    0x00BDBA74.
+  - Maintainers must decide: accept slot evidence for these Impl names (`a5901cee17` did so by hand),
+    or a WorldBuilder-basis naming route.
+- **Gate caveat (not fixed).** The destructor rule "first +0 store is its own table" misreads a
+  destructor whose own vptr store is elided: `~UserInputTranslator` above, and 0x003ABA36.
+  - 0x003ABA36 stores 0x00BBB554 at `[this ? this+0x18 : 0]` (`neg/sbb/and`), then tail-jumps.
+    `this_stores` does not follow the null-guarded cast idiom, so that store keeps its raw +0.
+  - The "T names NEW" check is the backstop. With the copy constructor now proven, Rva003ABA36's two
+    rows own different tables (0x00BBB554 and 0x00C1D55C). That agrees with rl-o3: the placeholders are
+    mixed.
+- **LivingWorldManagerCtor.cpp:** unchanged. `--fold Rva0022B12DSubsystem --into LivingWorldManager`
+  still stops at slot 0's `??_GRva00214405`.
