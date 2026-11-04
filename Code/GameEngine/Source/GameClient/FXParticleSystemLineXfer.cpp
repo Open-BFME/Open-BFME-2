@@ -34,14 +34,14 @@ public:
 private:
 	char m_pad[0x1C];
 	bool m_20;
-	Coord3DBase m_24;
-	Coord3DBase m_30;
+	Coord3DBase m_startPoint;
+	Coord3DBase m_endPoint;
 };
 
 void Rva0055CD38::rva0055CD38(Xfer *xfer)
 {
 	xfer->Version1();
 	*xfer == m_20;
-	*xfer == m_24;
-	*xfer == m_30;
+	*xfer == m_startPoint;
+	*xfer == m_endPoint;
 }
