@@ -105,24 +105,27 @@ public:
  DLINK_ITERATOR<Team> iterate_TeamInstanceList() const { return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList); }
 };
 struct Arg;
-class AITeamBuilder {
+class AITeamBuilder
+{
 public:
- void recruitPreDefined(Team*,int*,TeamPrototype*);
- bool defineUnitsNormal_old(TeamPrototype*);
- void recruitUnDefined(Team*,int*);
- void distanceSortUnits(void*,const void*,const Coord3D*);
- void registerTeamPrototype(Arg *);
- int getCurNumUnits(Team *);
- int doesTeamMeetThreat(Team *);
- bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
- void checkIdleTeams();
- void update();
- void rva0059ABC9(void *);
- void rva0059AC4D(void *);
- Team *rva00599F74(TeamPrototype *);
- void rva0059A153(TeamPrototype *);
- char prefix[8]; _STL::vector<TeamPrototype *> prototypes;
- Player* owner14; _STL::set<int> busy;
+	void recruitPreDefined(Team*,int*,TeamPrototype*);
+	bool defineUnitsNormal_old(TeamPrototype*);
+	void recruitUnDefined(Team*,int*);
+	void distanceSortUnits(void*,const void*,const Coord3D*);
+	void registerTeamPrototype(Arg *);
+	int getCurNumUnits(Team *);
+	int doesTeamMeetThreat(Team *);
+	bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
+	void checkIdleTeams();
+	void update();
+	void rva0059ABC9(void *);
+	void rva0059AC4D(void *);
+	Team *rva00599F74(TeamPrototype *);
+	void rva0059A153(TeamPrototype *);
+	char prefix[8]; // +0x00
+	_STL::vector<TeamPrototype *> prototypes; // +0x08
+	Player * owner14; // +0x14
+	_STL::set<int> busy; // +0x18
 };
 // Native599F74..599FAA54B; WB1529260 getTeamForAIPrototype asserts157..166.
 // Head334 and callback5C4AF5 use the proven zero-adjusted8B member pointer.

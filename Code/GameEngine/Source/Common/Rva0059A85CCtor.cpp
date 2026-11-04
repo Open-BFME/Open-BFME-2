@@ -33,10 +33,34 @@ template <> Lk6AsciiSetTree::~_Rb_tree();
 template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 }
 struct Arg;
+class Team;
+class TeamPrototype;
+struct Coord3D;
+class Object;
+struct AITeamRequirementView;
+struct AITargetView;
+class Player;
 class AITeamBuilder
 {
 public:
-	void registerTeamPrototype(Arg *arg);
+	void recruitPreDefined(Team*,int*,TeamPrototype*);
+	bool defineUnitsNormal_old(TeamPrototype*);
+	void recruitUnDefined(Team*,int*);
+	void distanceSortUnits(void*,const void*,const Coord3D*);
+	void registerTeamPrototype(Arg *);
+	int getCurNumUnits(Team *);
+	int doesTeamMeetThreat(Team *);
+	bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
+	void checkIdleTeams();
+	void update();
+	void rva0059ABC9(void *);
+	void rva0059AC4D(void *);
+	Team *rva00599F74(TeamPrototype *);
+	void rva0059A153(TeamPrototype *);
+	char prefix[8]; // +0x00
+	_STL::vector<TeamPrototype *> prototypes; // +0x08
+	Player * owner14; // +0x14
+	_STL::set<int> busy; // +0x18
 };
 struct Node
 {
