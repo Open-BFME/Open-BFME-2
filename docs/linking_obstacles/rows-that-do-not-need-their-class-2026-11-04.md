@@ -73,8 +73,22 @@ not verified targets:
 | `0x0052B7B3` | `??1Rva0052B7B3Dtor@@QAE@XZ` | `Rva007B6880Thunks.cpp` | `?j_0052b7b3@@YAXXZ` |
 | `0x0052BB9A` | `??0Elem003AF9E0@@QAE@ABU0@@Z` | `PAVectorEraseRangeFamily003AF.cpp` | `??0Rva003A6360Record@@QAE@ABV0@@Z` |
 
-**Limits.** Neither repair helps when the missing names are base destructors an EH unwind calls by name
-(`Rva0057621ACtor.cpp`), or with real virtual inheritance (`Rva005F422CDtor.cpp`). A hand table is a
+**6. Virtual slots a view declares but retail's table fills with other rows.** Read the table the rowed constructor
+stores (or the base's, for slots it inherits): each word is a row, or a `sub ecx,[ecx-4]; jmp` vtordisp stub to one.
+Declare the view's slots in retail's order, as retail's table has them, and give each an in-class body reaching that row.
+The order matters at run time as well as at link: `Rva005E39F3Ctor.cpp` declared four slots where retail has eight, so
+its tables would have called the wrong functions. Repaired in `Rva005F422CDtor.cpp`, `ArmyHeroIconCtor.cpp` and
+`Rva005E39F3Ctor.cpp` from tables 0x00879448, 0x00879468, 0x00877C50 and 0x00877C74.
+
+**In a class with a virtual base, never forward with a cast.** The compiler subtracts the base's offset from `this` on
+entry, and retail's rows take the virtual base's pointer and subtract it themselves, so a cast applies it twice. The
+build still byte-matches, because forwarders have no row. Declare the row `extern "C" { void __identifier("<row>")(); }`
+and call it with no arguments: confirm in the object that the body is a bare `e9` jump. A destructor must run its own
+vtable stores first, so it passes `(char *)this + <offset>` to the row's class instead. A slot that takes stack arguments
+or returns through a hidden pointer needs a real typed call, which only works in a class with no virtual base.
+
+**Limits.** None of these helps when the missing names are base destructors an EH unwind calls by name
+(`Rva0057621ACtor.cpp`). A hand table is a
 step toward linking, not the final source: when the class's members get real names, go back to the
 compiler's table. Repair 1 removes retained COMDATs, so read the push hook's `link_batch_audit` and the
 next real link for any provider a consumer loses.
