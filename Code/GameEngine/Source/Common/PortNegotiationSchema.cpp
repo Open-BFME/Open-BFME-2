@@ -78,7 +78,8 @@ private:
 class Rva005DBCD1
 {
 public:
-	Rva005DBCD1(const Rva005DBCD1 &other);
+	// Native 0x005DBCD1 installs the vptr and copies two shorts without calls.
+	Rva005DBCD1(const Rva005DBCD1 &other) throw();
 	Rva005DBCD1();
 	Rva005DBCD1 &operator=(const Rva005DBCD1 &);
 	virtual ~Rva005DBCD1();
@@ -379,7 +380,7 @@ bool PortNegotiationSchema::rva005DBA9C(bool flag)
 
 // ---- from Code/GameEngine/Source/Common/Rva005DBD4FUninitCopy.cpp
 
-inline void *__cdecl operator new(unsigned int, void *p) { return p; }
+#include <new>
 
 Rva005DBCD1 *__cdecl Rva005DBD4FUninitCopy(Rva005DBCD1 *first, Rva005DBCD1 *last, Rva005DBCD1 *result, const _STL::__false_type &)
 {
