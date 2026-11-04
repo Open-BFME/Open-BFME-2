@@ -183,3 +183,24 @@ Tried and reverted:
   +0x14/+0x38 offsets it is embedded at. 29/29, link_check 649 B kept.
 - accept retires 2 BfmeNetAddress rows. GameInfo.cpp and GameSlotApparent.cpp
   were claimed by another worker and left alone.
+
+## Batch 10: LANAPICallbacks.cpp (2026-11-04)
+
+- LANAPI.h's LANAPIInterface declares the rowed non-virtual
+  `getErrorStringFromReturnType(ReturnType)` (0x00248EC3,
+  `?getErrorStringFromReturnType@LANAPIInterface@@QAE?AVUnicodeString@@W4ReturnType@1@@Z`).
+- LANAPICallbacks.cpp drops its private BfmeNetAddress, LANAPIInterface and
+  the BFME_VSLOT LANAPI view for BfmeNetAddress.h/LANAPI.h (after GlobalData.h).
+  NoAddress stays a TU-local zeroing subclass; RequestGameOptions passes it as
+  `(UnsignedInt)NoAddress().self()` and RequestGameJoin gets it explicitly.
+  The 0x00248CDD compare keeps its address-named owner class: the three call
+  sites view the addresses through reinterpret_cast (as LANAPIRva00449693.cpp
+  does). An inline helper reorders OnGameOptions' `push sender` after the
+  getLocalAddress call, so the casts stay at the call sites.
+- 50/50, EH 9 EXACT, link_check 5,570 B kept; all 34 LANAPI.h includers
+  442/442. accept retires 2 rows (LANAPI, BfmeNetAddress).
+- LANAPIhandlers.cpp left: it defines a private GlobalData view (clashes with
+  the include-order guard LANAPI.h's short SubsystemInterface needs), calls
+  slot 48 as OnNameChange(BfmeNetAddress *) where the ledger row is
+  `(unsigned int, UnicodeString)`, and its 13 handle* methods plus
+  addPlayer/removePlayer/addGame are not yet declared in LANAPI.h.

@@ -34,6 +34,7 @@ public:
 		RET_GAME_GONE,
 		RET_BUSY
 	};
+	UnicodeString getErrorStringFromReturnType(ReturnType ret);	// 0x00248EC3
  virtual ~LANAPIInterface();
  virtual void init() = 0; //1
  virtual bool loadIniFilesFromLegend(); //2

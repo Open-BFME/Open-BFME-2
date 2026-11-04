@@ -129,53 +129,21 @@ typedef unsigned short WideChar;
 #include "unicode_string.h"
 
 // The ledger's inequality test of two addresses (0x00248CDD) is a method of
-// a class named by its address; an empty base puts it on BfmeNetAddress.
+// a class named by its address with BfmeNetAddress's dword/word key; the
+// callers below view their addresses as one.
 class Rva00248CDD
 {
 public:
 	Bool rva00248CDD( const Rva00248CDD &other ) const;
 };
 
-struct BfmeNetAddress : public Rva00248CDD
-{
-	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
-	const BfmeNetAddress *self( void ) const { return this; }
-
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 // The zero address of a SYSTEM line nobody sent, built as a temporary.
 struct NoAddress : public BfmeNetAddress
 {
-	NoAddress( void ) { m_ip = 0; m_port = 0; }
-};
-
-class LANAPIInterface
-{
-public:
-	enum ChatType
-	{
-		LANCHAT_NORMAL = 0,
-		LANCHAT_TYPE1,
-		LANCHAT_EMOTE,
-		LANCHAT_SYSTEM
-	};
-	enum ReturnType
-	{
-		RET_OK = 0,
-		RET_TIMEOUT,
-		RET_GAME_FULL,
-		RET_DUPLICATE_NAME,
-		RET_CRC_MISMATCH,
-		RET_SERIAL_DUPE,
-		RET_GAME_STARTED,
-		RET_GAME_EXISTS,
-		RET_GAME_GONE,
-		RET_BUSY
-	};
-
-	UnicodeString getErrorStringFromReturnType( ReturnType ret );
+	NoAddress( void ) { ip = 0; port = 0; }
+	const BfmeNetAddress *self( void ) const { return this; }
 };
 
 enum FirewallType
@@ -274,6 +242,8 @@ extern MapCache *TheMapCache;
 
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
+
+#include "../../Include/GameNetwork/LANAPI.h"
 
 class GameInfo
 {
@@ -554,60 +524,6 @@ void MessageBoxOk( UnicodeString titleString, UnicodeString bodyString, void (*o
 Bool DoAnyMapTransfers( GameInfo *game );
 void InitGameLogicRandom( UnsignedInt seed );
 
-#define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
-
-class LANAPI
-{
-public:
-	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
-	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
-	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
-	BFME_VSLOT(15)
-	virtual void RequestGameJoin( LANGameInfo *game, const BfmeNetAddress &ip = NoAddress() ) = 0;
-	BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
-	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22) BFME_VSLOT(23) BFME_VSLOT(24)
-	virtual void RequestGameOptions( AsciiString gameOptions, Bool isPublic,
-		const BfmeNetAddress &ip = NoAddress() ) = 0;
-	virtual void RequestGameOptionsPacked( Bool isPublic, BfmeNetAddress *ip ) = 0;
-	BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
-	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32) BFME_VSLOT(33)
-	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
-	BFME_VSLOT(35) BFME_VSLOT(36)
-	virtual void OnPlayerLeave( UnicodeString player );
-	BFME_VSLOT(38)
-	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
-	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
-		const UnicodeString &message, LANAPIInterface::ChatType format );
-	virtual void rva00249B08( LivingWorldBattle *battle );
-	virtual void OnGameStart( void );
-	virtual void OnWOTRGameStart( void );
-	BFME_VSLOT(44)
-	virtual void OnGameOptions( const BfmeNetAddress &sender, Int playerSlot, AsciiString options );
-	virtual Bool OnGameOptionsPacked( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );
-	BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
-	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
-	virtual Int AmIHost( void ) = 0;
-	BFME_VSLOT(55)
-	virtual LANGameInfo *GetMyGame( void ) = 0;
-	BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
-	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62) BFME_VSLOT(63)
-	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
-
-protected:
-	UnsignedByte m_pre14[0x14 - 4];
-	UnicodeString m_name;				// +0x14
-	AsciiString m_userName;				// +0x18
-	AsciiString m_hostName;				// +0x1C
-	UnsignedByte m_pre3C[0x3C - 0x20];
-	UnsignedInt m_lastResendTime;			// +0x3C
-	Bool m_isInLANMenu;				// +0x40
-	Bool m_inLobby;					// +0x41
-	LANGameInfo *m_currentGame;			// +0x44
-
-	void removeGame( LANGameInfo *game );
-};
-
-#undef BFME_VSLOT
 extern LANAPI *TheLAN;
 
 void LANAPI::OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg )
@@ -631,28 +547,28 @@ void LANAPI::OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, 
 		if( !TheLAN->GetMyGame()->m_bfme8C )
 		{
 			options.format( "PlayerTemplate=%d", pref.rva0044D88C() );
-			RequestGameOptions( options, true );
+			RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 			options.format( "Color=%d", pref.rva0044D836() );
-			RequestGameOptions( options, true );
+			RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 			GameSlot slot;
 			pref.rva0044D774( &slot );
 			options.format( "Hero=%d", slot.encodeHero() );
-			RequestGameOptions( options, true );
+			RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 			if( g_Va00E0333C )
 				((AptMpGameSetup *)g_Va00E0333C)->m_pendingHero = slot.m_hero[3];
 		}
 		options.format( "User=%s", m_userName.str() );
-		RequestGameOptions( options, true );
+		RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 		options.format( "Host=%s", m_hostName.str() );
-		RequestGameOptions( options, true );
+		RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 		options.format( "NAT=%d", FIREWALL_TYPE_SIMPLE );
-		RequestGameOptions( options, true );
+		RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 	}
 	else if( ret != LANAPIInterface::RET_BUSY )
 	{
 		if( getenv( "_EA_RTS_HEADLESS" ) && ret == LANAPIInterface::RET_TIMEOUT && theGame )
 		{
-			RequestGameJoin( theGame );
+			RequestGameJoin( theGame, NoAddress() );
 			return;
 		}
 
@@ -691,8 +607,8 @@ void LANAPI::OnPlayerLeave( UnicodeString player )
 			m_lastResendTime = 0;
 			Rva00248D84Enable();
 			BfmeNetAddress noAddress;
-			noAddress.m_ip = 0;
-			noAddress.m_port = 0;
+			noAddress.ip = 0;
+			noAddress.port = 0;
 			RequestGameOptionsPacked( true, &noAddress );
 		}
 	}
@@ -869,7 +785,7 @@ void LANAPI::OnGameStart( void )
 
 		CreateTheNetwork();
 		BfmeNetAddress localAddress = *getLocalAddress();
-		localAddress.m_port += 8;
+		localAddress.port += 8;
 		TheNetwork->setLocalAddress( &localAddress );
 		TheNetwork->initTransport();
 		LANGameInfo *game = m_currentGame;
@@ -881,7 +797,7 @@ void LANAPI::OnGameStart( void )
 			if( m_currentGame->getSlot( i )->isHuman() )
 			{
 				BfmeNetAddress address = slot->m_address;
-				address.m_port += 8;
+				address.port += 8;
 				slot->m_address = address;
 			}
 		}
@@ -950,7 +866,7 @@ void LANAPI::OnWOTRGameStart( void )
 
 		CreateTheNetwork();
 		BfmeNetAddress localAddress = *getLocalAddress();
-		localAddress.m_port += 8;
+		localAddress.port += 8;
 		TheNetwork->setLocalAddress( &localAddress );
 		TheNetwork->initTransport();
 		LANGameInfo *game = m_currentGame;
@@ -962,7 +878,7 @@ void LANAPI::OnWOTRGameStart( void )
 			if( m_currentGame->getSlot( i )->isHuman() )
 			{
 				BfmeNetAddress address = slot->m_address;
-				address.m_port += 8;
+				address.port += 8;
 				slot->m_address = address;
 			}
 		}
@@ -1013,7 +929,7 @@ Bool LANAPI::OnGameOptionsPacked( const BfmeNetAddress &sender, Int playerSlot, 
 	LANGameInfo *game = m_currentGame;
 	if( !game )
 		return false;
-	if( game->getSlotAddress( playerSlot )->rva00248CDD( sender ) )
+	if( reinterpret_cast<const Rva00248CDD *>( game->getSlotAddress( playerSlot ) )->rva00248CDD( reinterpret_cast<const Rva00248CDD &>( sender ) ) )
 		return false;
 	if( game->isGameInProgress() )
 		return false;
@@ -1064,7 +980,7 @@ void LANAPI::OnGameOptions( const BfmeNetAddress &sender, Int playerSlot, AsciiS
 	LANGameInfo *game = m_currentGame;
 	if( !game )
 		return;
-	if( game->getSlotAddress( playerSlot )->rva00248CDD( sender ) )
+	if( reinterpret_cast<const Rva00248CDD *>( game->getSlotAddress( playerSlot ) )->rva00248CDD( reinterpret_cast<const Rva00248CDD &>( sender ) ) )
 		return;
 	if( game->isGameInProgress() )
 		return;
@@ -1094,7 +1010,7 @@ void LANAPI::OnGameOptions( const BfmeNetAddress &sender, Int playerSlot, AsciiS
 	}
 
 	// Parse player requests (side, color, etc)
-	if( !(UnsignedByte)AmIHost() || !getLocalAddress()->rva00248CDD( sender ) )
+	if( !(UnsignedByte)AmIHost() || !reinterpret_cast<const Rva00248CDD *>( getLocalAddress() )->rva00248CDD( reinterpret_cast<const Rva00248CDD &>( sender ) ) )
 		return;
 	if( options.compare( "HELLO" ) == 0 )
 	{
@@ -1211,8 +1127,8 @@ void LANAPI::OnGameOptions( const BfmeNetAddress &sender, Int playerSlot, AsciiS
 			if( shouldUnaccept )
 				m_currentGame->resetAccepted();
 			BfmeNetAddress noAddress;
-			noAddress.m_ip = 0;
-			noAddress.m_port = 0;
+			noAddress.ip = 0;
+			noAddress.port = 0;
 			RequestGameOptionsPacked( true, &noAddress );
 			Rva00248D84Enable();
 		}
