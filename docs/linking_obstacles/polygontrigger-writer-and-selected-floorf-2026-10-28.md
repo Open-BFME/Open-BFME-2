@@ -21,3 +21,5 @@ cohort into the next census. [Composition, remaining donor blockers and
 verification](../../reverse/attempt_support/area-polygon-consolidation-20261028-codexb4.md).
 
 2026-11-04 allocated AreaPolygonBase dry-run hit a new LinkGuard refusal: its composition removes the Point constructor provider required by the currently linking Rva0030B7C2PointQuery unit; no donors accepted. Reconcile point-query provider bindings and the listed class views before retrying. [Evidence](../../reverse/attempt_support/area-polygonbase-linkguard-20261104-codex.md).
+
+2026-11-04 follow-up: record views now agree; a fresh guarded dry-run accepts three donors (28 rows), but application stopped before writing on another worker's 0x0007FAB3 claim. Retry that accepted plan after the claim clears; parser bytes and point-copy COMDAT binding remain blocked. [Evidence](../../reverse/attempt_support/area-polygonbase-merge-screen-20261104-codexb4.md).
