@@ -26,43 +26,44 @@ inline RefCountClass::~RefCountClass() {}
 // The canonical class view declares the destructor out of line. This unit
 // emits the instantiation retail keeps: the CPU's vptr stores around the
 // buffer free, no EH frame (the free cannot throw) and no null test.
-template <class T>
+template <class Type>
 class ShareBufferClass : public RefCountClass
 {
 public:
-	ShareBufferClass(int count, const char *msg, int alignment);
-	virtual ~ShareBufferClass();
+	ShareBufferClass(int count, const char *msg, int alignment = 0);
+	~ShareBufferClass();
 
 protected:
-	T *m_rawBuffer; // +0x08
-	T *m_array; // +0x0C
-	int m_count; // +0x10
-	int m_alignment; // +0x14
+	Type *RawBuffer; // +0x08
+	Type *Array; // +0x0C
+	int Count; // +0x10
+	int Alignment; // +0x14
 };
 
-template <class T>
-ShareBufferClass<T>::ShareBufferClass(int count, const char *msg, int alignment) :
-	m_count(count),
-	m_alignment(alignment)
+// The unsigned specialization uses raw allocation; the Vector2 generic
+// constructor must run the element constructor for every array slot.
+template <>
+ShareBufferClass<unsigned>::ShareBufferClass(int count, const char *msg, int alignment) :
+	Count(count),
+	Alignment(alignment)
 {
 	(void)msg;
-	if (m_alignment == 0)
+	if (Alignment == 0)
 	{
-		m_rawBuffer = (T *)operator new[](m_count * sizeof(T));
-		m_array = m_rawBuffer;
+		RawBuffer = (unsigned *)operator new[](Count * sizeof(unsigned));
+		Array = RawBuffer;
 	}
 	else
 	{
-		m_rawBuffer = (T *)operator new[](m_count * sizeof(T) + m_alignment);
-		m_array = (T *)(((unsigned int)m_rawBuffer + m_alignment - 1) &
-			~(m_alignment - 1));
+		RawBuffer = (unsigned *)operator new[](Count * sizeof(unsigned) + Alignment);
+		Array = (unsigned *)(((unsigned int)RawBuffer + Alignment - 1) &
+			~(Alignment - 1));
 	}
 }
 
 template <> inline
 ShareBufferClass<unsigned>::~ShareBufferClass()
 {
-	::operator delete[](m_rawBuffer);
+	::operator delete[](RawBuffer);
 }
 
-template ShareBufferClass<unsigned>::ShareBufferClass(int, const char *, int);
