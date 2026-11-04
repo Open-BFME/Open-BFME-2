@@ -17232,7 +17232,6 @@ Code/Libraries/Source/WWVegas/WWLib/hash.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/ini.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/ini_PutPKey.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/ini_duplicate_crc_error.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/md5.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/mem_ops_new_array_tagged.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,yes,0,0,0,0,0

@@ -8,9 +8,12 @@ struct MD5_CTX
 {
 	char m_pad[0x58];
 };
+// GameSpy md5c.c (C linkage)
+extern "C" {
 void __cdecl MD5Final(unsigned char digest[16], MD5_CTX *context);
 void __cdecl MD5Init(MD5_CTX *context);
 void __cdecl MD5Update(MD5_CTX *context, unsigned char *input, unsigned int inputLen);
+}
 class XferSave
 {
 public:

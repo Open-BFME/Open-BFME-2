@@ -2,7 +2,7 @@
 /// \ingroup grp_wwlib_thirdparty
 /// \brief Two standard hash functions with the same streaming interface:
 ///        the RSA reference MD5, which the reconstruction builds from
-///        WWLib's md5.cpp, and DirtySock's CryptSha1 SHA-1 in cryptsha1.c.
+///        GameSpy's md5c.c, and DirtySock's CryptSha1 SHA-1 in cryptsha1.c.
 ///
 /// Both modules turn a byte stream of any length into a fixed-size digest:
 /// 16 bytes for MD5 and 20 bytes for SHA-1. Both work the same way. An init
@@ -13,11 +13,14 @@
 /// compression function. The two modules share no code and come from
 /// different libraries. They are grouped here because they do the same job.
 ///
-/// MD5 is RSA Data Security's reference implementation of RFC 1321, as
-/// Zero Hour's WWLib carries it (md5.cpp, md5.h and the RSAREF types header
-/// global.h). It has C++ linkage. BFME 2's copy differs from Zero Hour's in
-/// one place: MD5_memcpy calls memcpy where Zero Hour keeps RSA's byte loop.
-/// The Open-BFME-1 reference copy of md5.cpp is identical to BFME 2's.
+/// MD5 is RSA Data Security's reference implementation of RFC 1321. Retail
+/// holds one set of its bodies (0x00606220..0x00606E19), reached by GameSpy's
+/// C callers and by the C++ save code alike. The reconstruction builds them
+/// from the GameSpy SDK's md5c.c, with C linkage: every body compiles byte
+/// for byte, the function order equals retail's, and its MD5Final references
+/// the one PADDING table retail's body uses. Its MD5_memcpy calls memcpy where
+/// Zero Hour's WWLib md5.cpp keeps RSA's byte loop. WWLib's md5.h stays as the
+/// C++ callers' view of MD5_CTX.
 ///
 /// SHA-1 is the CryptSha1 module of EA's DirtySDK networking library, with
 /// C linkage. Its bodies are imported unchanged, apart from whitespace, from
@@ -35,8 +38,7 @@
 ///   hexadecimal characters, and MD5Digest, which hashes a buffer in one
 ///   call and writes that text to the caller's buffer. In retail, GameSpy
 ///   code calls the same MD5Init, MD5Update and MD5Final bodies that are
-///   documented here. Which of the two source files retail actually
-///   compiled them from has not been established. MD5Digest serves
+///   documented here. MD5Digest serves
 ///   GameSpy's login and authentication code: the chat, peer and presence
 ///   (GP) logins and connection handshakes, and the stats SDK's
 ///   authentication helpers. GP's file transfer hashes each file while
@@ -93,7 +95,7 @@
 /// - MD5 and SHA-1 are no longer considered secure. Neither should be used
 ///   for new authentication or integrity checks.
 
-/// \file WWVegas/WWLib/md5.cpp
+/// \file GameSpy/md5c.c
 /// \ingroup grp_w2_wwlib_md5_sha1
 /// \brief RSA Data Security's reference MD5 (RFC 1321): the public init,
 ///        update and final calls and their static helpers.

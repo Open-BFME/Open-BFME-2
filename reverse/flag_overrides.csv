@@ -307,6 +307,7 @@ Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c,,14,2,region def
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gp.c,,76,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiInfo.c,,16,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiSearch.c,,13,1,region default loses rows
+Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,,10,9,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,,37,6,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing/sb_serverlist.c,,57,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00661650AriesUdp.cpp,-O2,1,1,region default loses rows
@@ -588,7 +589,6 @@ Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendString.cpp,-Od,1,1,region
 Code/Libraries/Source/WWVegas/WWLib/bufffile.cpp,-arch:SSE -G7,9,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,-arch:SSE -G7,33,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/ini.cpp,-arch:SSE -G7,109,4,region default loses rows
-Code/Libraries/Source/WWVegas/WWLib/md5.cpp,,7,6,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,-arch:SSE -G7,61,2,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp,,3,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,-arch:SSE -G7,30,2,region default loses rows

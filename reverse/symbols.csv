@@ -6576,9 +6576,6 @@ _GdipGetImagePixelFormat@8,0x00628F38,GDI+ flat-API import thunk; retail target 
 _GdipGetImageWidth@8,0x00628F2C,GDI+ flat-API import thunk; retail target of Gdiplus::Image::GetWidth
 _GdiplusStartup@12,0x00628F68,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 _GetCurrentThreadId@0,0x006105D0,kernel32 GetCurrentThreadId IAT thunk; REL32 from BFME_DX8_Thread_Assert
-_MD5Final,0x00606D00,RSA MD5 C-linkage alias of existing byte-verified WWLib C++ body; independently compiled entire GameSpy source body and all direct calls agree
-_MD5Init,0x00606220,GameSpy C-linkage alias; all 40 compiled MD5Init bytes exactly equal the held WWLib C++ body at this address including every RFC1321 initialization word; no relocations
-_MD5Update,0x00606C40,RSA MD5 C-linkage alias of existing byte-verified WWLib C++ body; independently compiled entire GameSpy source body and all direct calls agree
 _Netbios@4,0x00687CD8,address read from the REL32 displacements in DirtySock Y2NetConn at 0x006584C0; netbios LAN adapter API; body not yet converted
 _PeerOperationsComplete,0x0069FF40,
 _Rva00053F6ECopyRecords,0x00053F6E,"Native wrapper00054E23 calls existing ledger worker00053F6E; 5 cdecl arguments first last result empty iterator tag address null distance. Alias binds existing verified source provider; address-derived ABI route only."

@@ -64,12 +64,6 @@ _inflate_trees_dynamic,,0x006961D0,387,Code/Libraries/Source/Compression/ZLib/in
 _inflate_trees_fixed,,0x00696360,46,Code/Libraries/Source/Compression/ZLib/inftrees.c,matched,vendored=zlib-1.1.4
 _inflate_flush,,0x00696390,300,Code/Libraries/Source/Compression/ZLib/infutil.c,matched,vendored=zlib-1.1.4
 _inflate_fast,,0x006964C0,917,Code/Libraries/Source/Compression/ZLib/inffast.c,matched,vendored=zlib-1.1.4
-?MD5Init@@YAXPAUMD5_CTX@@@Z,,0x00606220,40,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
-?Encode@@YAXPAEPAKI@Z,,0x00606250,49,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
-?Decode@@YAXPAKPAEI@Z,,0x00606290,57,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
-?MD5Transform@@YAXQAKQAE@Z,,0x00606360,2268,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
-?MD5Update@@YAXPAUMD5_CTX@@PAEI@Z,,0x00606C40,185,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,Open-BFME5 canonical C++ conversion using retail intrinsic memcpy
-?MD5Final@@YAXQAEPAUMD5_CTX@@@Z,,0x00606D00,174,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,
 ?getCompressionType@CompressionManager@@SA?AW4CompressionType@@PBXH@Z,,0x0068A1B0,233,Code/Libraries/Source/Compression/CompressionManager.cpp,matched,promoted from exact clean C++ proxy; proper CompressionManager owner
 ?getUncompressedSize@CompressionManager@@SAHPBXH@Z,,0x0068A320,49,Code/Libraries/Source/Compression/CompressionManager.cpp,matched,promoted from exact clean C++ proxy; proper CompressionManager owner
 ?decompressData@CompressionManager@@SAHPBXHPAXH@Z,,0x0068A4E0,240,Code/Libraries/Source/Compression/CompressionManager.cpp,matched,reference body unchanged; named by a byte-true call site in CachedFileInputStream_open_Thunk.cpp and confirmed arm for arm by the compression-type constants
@@ -484,7 +478,6 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ?capacity@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ,,0x00626EE0,9,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,matched,vendored=stlport-4.5.3
 ??A?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAU?$pair@HH@1@I@Z,,0x006272C0,12,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,matched,vendored=stlport-4.5.3
 ?_wrap@LZBuffer@@KAHK@Z,,0x00690F50,10,Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp,matched,vendored=stlport-4.5.3
-?MD5_memcpy@@YAXPAE0I@Z,,0x006062D0,23,Code/Libraries/Source/WWVegas/WWLib/md5.cpp,matched,vendored=stlport-4.5.3
 ??0?$CategoryModuleTemplate@$00@FXParticleSystem@@QAE@XZ,0x00001D69,0x00001D69,23,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<1> default constructor
 ??0?$CategoryModuleTemplate@$07@FXParticleSystem@@QAE@XZ,0x00001EF9,0x00001EF9,31,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<8> default constructor
 ??1?$CategoryModuleTemplate@$00@FXParticleSystem@@UAE@XZ,0x00001F18,0x00001F18,24,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp,matched,Open-BFME5 clean C++; CategoryModuleTemplate<1> destructor
@@ -99436,3 +99429,10 @@ __ehhandler$??1?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@XZ,,
 $L5650,,0x00774EAF,8,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_subscript_002a6a2d.cpp,matched,gen-funclet;parent=??1?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@XZ; Matched parent 0x002A12E1's EH graph binds compiler label $L5650 to retail 0x00774EAF; moved from the retired ThingTemplate.cpp AudioEventRTS-pair duplicate ($L74359); retail FuncInfo 0x0091C040 is shared by 5 parent frames
 ??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@0@@Z,,0x002A1D94,9,Code/GameEngine/Source/Common/DestroyInstances.cpp,matched,Native9 2A1D94..2A1D9D cdecl STLport _Destroy tail jump to rowed list-valued pair<const AsciiString;TreeHintOpaque002A484A> dtor 2A12E1; migrated=stlport-4.6
 ??_G?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAEPAXI@Z,,0x002A14B9,28,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,matched,unique masked-byte placement (locate.py sweep); scalar deleting dtor of the list-valued pair whose dtor is 0x002A12E1; migrated=stlport-4.6
+_MD5Final,,0x00606D00,174,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp
+_MD5Init,,0x00606220,40,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp
+_Encode,,0x00606250,49,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp
+_Decode,,0x00606290,57,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp
+_MD5_memcpy,,0x006062D0,23,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp
+_MD5Transform,,0x00606360,2268,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp
+_MD5Update,,0x00606C40,185,Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c,matched,vendored=gamespy-2004; RSA Data Security Inc. MD5 Message-Digest Algorithm; identity corrected from WWLib md5.cpp

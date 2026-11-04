@@ -9,7 +9,7 @@
 #include <string.h>
 
 struct MD5_CTX;
-void MD5Init(MD5_CTX *context);
+extern "C" void MD5Init(MD5_CTX *context);	// GameSpy md5c.c
 
 class Xfer;
 
