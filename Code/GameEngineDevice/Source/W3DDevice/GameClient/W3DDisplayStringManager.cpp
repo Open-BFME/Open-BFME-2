@@ -4,7 +4,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 typedef bool Bool;
-#include "subsystem_interface.h"
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 #include <windows.h>
 #include <new>
 
@@ -34,11 +34,6 @@ extern GameClient *TheGameClient;
 
 class GameFont;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont( const AsciiString *name, float pointSize, Bool bold );
-};
 
 extern FontLibrary *TheFontLibrary;
 
