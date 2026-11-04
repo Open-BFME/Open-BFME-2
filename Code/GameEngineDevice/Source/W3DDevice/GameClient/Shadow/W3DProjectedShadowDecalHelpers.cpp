@@ -753,15 +753,7 @@ struct MeshModelView10C841
 };
 struct MeshView10C841 { char m_pad[0xc4]; MeshModelView10C841 *m_model; };
 
-class GameClient
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s0a(); virtual void s0b();
-	virtual void s0c(); virtual void s0d(); virtual void s0e(); virtual void s0f();
-	virtual Drawable *findDrawableByID(Int id);	// +0x40
-};
+#include "../../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 struct ShadowRenderEntry10DF33
@@ -945,7 +937,7 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 			Int id = shadow->m_casterDrawableID[caster];
 			if (!id)
 				break;
-			Drawable *draw = TheGameClient->findDrawableByID(id);
+			Drawable *draw = TheGameClient->findDrawableByID((DrawableID)id);
 			if (!draw)
 				continue;
 			BridgeView10C841 *bridge = shadow->m_casterBridge[caster];

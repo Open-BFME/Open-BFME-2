@@ -258,12 +258,7 @@ public:
 
 
 
-class GameClient
-{
-public:
-	virtual void s000(); virtual void s001(); virtual void s002(); virtual void s003(); virtual void s004(); virtual void s005(); virtual void s006(); virtual void s007(); virtual void s008(); virtual void s009(); virtual void s010(); virtual void s011(); virtual void s012(); virtual void s013(); virtual void s014(); virtual void s015();
-	virtual Drawable *findDrawableByID(int id);
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 class PlayerList
 {
@@ -433,13 +428,13 @@ afterHit:;
 			goto pickedDone;
 
 		if (ghost->m_flagA && ghost->m_flagB)
-			draw = TheGameClient->findDrawableByID(0x5F5E0FF);
+			draw = TheGameClient->findDrawableByID((DrawableID)0x5F5E0FF);
 		else if (ghost->m_flagA && !ghost->m_flagB)
-			draw = TheGameClient->findDrawableByID(0x5F5E0FC);
+			draw = TheGameClient->findDrawableByID((DrawableID)0x5F5E0FC);
 		else if (!ghost->m_flagA && ghost->m_flagB)
-			draw = TheGameClient->findDrawableByID(0x5F5E0FD);
+			draw = TheGameClient->findDrawableByID((DrawableID)0x5F5E0FD);
 		else
-			draw = TheGameClient->findDrawableByID(0x5F5E0FE);
+			draw = TheGameClient->findDrawableByID((DrawableID)0x5F5E0FE);
 	}
 pickedDone:
 	return draw;

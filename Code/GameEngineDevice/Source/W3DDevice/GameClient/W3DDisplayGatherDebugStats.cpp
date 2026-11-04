@@ -28,28 +28,7 @@ struct BodyView { virtual void v00(); virtual void v04(); virtual void v08(); vi
 
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 
-class GameClient
-{
-public:
-	virtual void v000();
-	virtual void v004();
-	virtual void v008();
-	virtual void v00C();
-	virtual void v010();
-	virtual void v014();
-	virtual void v018();
-	virtual void v01C();
-	virtual void v020();
-	virtual void v024();
-	virtual void v028();
-	virtual void v02C();
-	virtual void v030();
-	virtual void v034();
-	virtual void v038();
-	virtual void v03C();
-	virtual Drawable *findDrawableByID(int id);
-	char m_pad[0xC4 - 4]; int m_onScreenObjectCount;
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 class View
 {
@@ -684,10 +663,10 @@ void W3DDisplay::gatherDebugStats(void)
 		if (io->rightState)
 		{
 			unibuffer.concat(W("RMB "));
-			draw = TheGameClient->findDrawableByID(TheInGameUI->getMousedOverDrawableID());
+			draw = TheGameClient->findDrawableByID((DrawableID)TheInGameUI->getMousedOverDrawableID());
 		}
 		else
-			draw = TheGameClient->findDrawableByID(TheInGameUI->getMousedOverDrawableID());
+			draw = TheGameClient->findDrawableByID((DrawableID)TheInGameUI->getMousedOverDrawableID());
 
 		Object *obj;
 		if (draw && (obj = draw->m_object) != 0)
@@ -738,7 +717,7 @@ void W3DDisplay::gatherDebugStats(void)
 		m_displayStrings[8]->setText(unibuffer);
 
 		unsigned int objectCount = TheGameLogic->getObjectCount();
-		int onScreen = TheGameClient->m_onScreenObjectCount;
+		int onScreen = TheGameClient->m_renderedObjectCount;
 		int localObjects = 0;
 		Player *localPlayer = ThePlayerList->m_local;
 		if (localPlayer)
