@@ -117,6 +117,20 @@ GpStatus WINGDIPAPI GdipCreateBitmapFromFileICM(GDIPCONST WCHAR * filename, GpBi
  return __identifier("_imp__GdipCreateBitmapFromFileICM@8")(filename, bitmap);
 }
 
+// _GdipCreateBitmapFromScan0@24
+typedef GpStatus (WINGDIPAPI *PFN_GdipCreateBitmapFromScan0)(INT, INT, INT, PixelFormat, BYTE *, GpBitmap **);
+extern PFN_GdipCreateBitmapFromScan0 __identifier("_imp__GdipCreateBitmapFromScan0@24");
+GpStatus WINGDIPAPI GdipCreateBitmapFromScan0(INT width, INT height, INT stride, PixelFormat format, BYTE * scan0, GpBitmap ** bitmap) {
+ return __identifier("_imp__GdipCreateBitmapFromScan0@24")(width, height, stride, format, scan0, bitmap);
+}
+
+// _GdipBitmapLockBits@20
+typedef GpStatus (WINGDIPAPI *PFN_GdipBitmapLockBits)(GpBitmap *, GDIPCONST GpRect *, UINT, PixelFormat, BitmapData *);
+extern PFN_GdipBitmapLockBits __identifier("_imp__GdipBitmapLockBits@20");
+GpStatus WINGDIPAPI GdipBitmapLockBits(GpBitmap * bitmap, GDIPCONST GpRect * rect, UINT flags, PixelFormat format, BitmapData * lockedBitmapData) {
+ return __identifier("_imp__GdipBitmapLockBits@20")(bitmap, rect, flags, format, lockedBitmapData);
+}
+
 // _GdipBitmapUnlockBits@8
 typedef GpStatus (WINGDIPAPI *PFN_GdipBitmapUnlockBits)(GpBitmap *, BitmapData *);
 extern PFN_GdipBitmapUnlockBits __identifier("_imp__GdipBitmapUnlockBits@8");

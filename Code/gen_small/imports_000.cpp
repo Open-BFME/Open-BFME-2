@@ -9,8 +9,6 @@
 extern "C" __declspec(dllimport) void AVIFileRelease();
 extern "C" __declspec(dllimport) void AVIStreamWrite();
 extern "C" __declspec(dllimport) void DirectInput8Create();
-extern "C" __declspec(dllimport) void GdipBitmapLockBits();
-extern "C" __declspec(dllimport) void GdipCreateBitmapFromScan0();
 extern "C" __declspec(dllimport) void _CIacos();
 extern "C" __declspec(dllimport) void _CIasin();
 extern "C" __declspec(dllimport) void _CIfmod();
@@ -48,8 +46,6 @@ extern "C" __declspec(dllimport) void sscanf();
 extern "C" __declspec(dllimport) void strtoul();
 extern "C" __declspec(dllimport) void tan();
 
-void ji_00628f56() { GdipCreateBitmapFromScan0(); }
-void ji_00628f5c() { GdipBitmapLockBits(); }
 void ji_0062909a() { abs(); }
 void ji_00629176() { _mbscpy(); }
 void ji_00629182() { __CxxFrameHandler(); }
