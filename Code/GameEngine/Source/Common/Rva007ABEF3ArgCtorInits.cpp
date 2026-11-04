@@ -89,7 +89,8 @@ unsigned g_Va00DEBE24;	// retail RVA 0x009EBE24 (.bss), defined here
 // VA 0x00E01E08: the 16-byte Rva00346BC0 record rva007AEBB7 constructs at
 // static-init time; defined here, its initializer's unit, so the burning-death
 // state (AIBurningDeathStateUpdate.cpp) that passes it on resolves it.
-unsigned g_Va00E01E08;
+// Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
+extern "C" { unsigned int __identifier("?g_Va00E01E08@@3IA")[4]; }
 unsigned g_Va00E02D64;	// retail RVA 0x00A02D64 (.bss), defined here
 // The two GameSpy rank-weight tables this unit's arg-ctor bodies build and the
 // default rank table beside them. Retail's storage for all three is the zero
@@ -226,7 +227,7 @@ void Rva007ABEF3ArgCtorInits::rva007ACF20()
 // 0x007AEBB7 (21B): Rva00346BC0(0, 5, 0x17, 0x3C, 3) on VA 0x00E01E08
 void Rva007ABEF3ArgCtorInits::rva007AEBB7()
 {
-	( (Rva00346BC0 *)&g_Va00E01E08 )->Rva00346BC0::Rva00346BC0( 0, 5, 0x17, 0x3C, 3 );
+	( (Rva00346BC0 *)__identifier("?g_Va00E01E08@@3IA") )->Rva00346BC0::Rva00346BC0( 0, 5, 0x17, 0x3C, 3 );
 }
 
 // 0x007AF7ED (17B): BitFlags<11>(kInit, 0, 4) on VA 0x00E02D64
