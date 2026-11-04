@@ -1,6 +1,38 @@
 ### LINK-161: delayed spline event constructor retains a partial hierarchy (2026-10-30, seat codexb4)
 
-Status: map dependency repaired; native hierarchy and census confirmation open.
+Status: map dependency repaired; destructor placeholder folded; virtual
+destructor blocked on a one-unit shape (below); census confirmation open.
+
+**2026-11-04, halilkkaya-lk24:** `rename.py class --fold` gained a
+destructor-only route ("fold a destructor-only placeholder by its slot"). `Rva002BAEAB` (dtor 0x002BAEAB and
+deleting dtor 0x002BAE8F, no vptr store) now folds into `Rva003C2F40Owner`
+("Fold class Rva002BAEAB into Rva003C2F40Owner") because its `??_G` is slot 0 of 0x00BFE408, the ctor 0x002BAE57's
+own table. `BfmeRectVNI` (ctor 0x003FD64D) also installs that table and stays
+unfolded: two ctor placeholders are overloads or ICF, which the narrow mode
+does not merge. The anchor in `Rva002BAEAB.cpp` now deletes only. Its
+`new` emitted an implicit `??0Rva003C2F40Owner@@QAE@XZ` COMDAT that link_check
+flagged as a duplicate, non-retail body. link_check over Rva002BAEAB,
+TreeCtor and BfmeRectVNI: 163 -> 163 B.
+
+The QAE -> UAE respell (`function --virtual`, now with `--prepared`) is
+still blocked:
+- A Snapshot-based view with `virtual ~Rva003C2F40Owner() {}` compiles a
+  `mov [esi],vftable` that retail's 0x002BAEAB lacks.
+- With `__declspec(novtable)` on that view (the `Rva003ABA36Dtor.cpp`
+  precedent), `??1...UAE@XZ` and its EH funclet match exactly. However, the
+  unit then emits no vftable, so `??_GRva003C2F40Owner@@UAEPAXI@Z` is missing.
+
+Retail lays out ctor 0x002BAE57, name slot 0x002BAE89, `??_G` 0x002BAE8F and
+dtor 0x002BAEAB contiguously. That reads as one TU whose class declares no
+destructor: the implicit virtual destructor, which has no vptr store, is
+generated beside `??_G` from the ctor's vftable.
+
+Prerequisite: put both units in one source (approved TU
+`GameLogic/System/LivingWorld/LivingWorldLogic.cpp`, through `tu_skeleton.py`)
+with no user-declared destructor and a +0xC member whose destructor binds
+0x002B80CE. Then run `rename.py function --rva 0x002BAEAB --virtual
+--prepared <unit>=<file>`. Never move the rows into `Rva003C2F40TreeCtor.cpp`:
+it is not the approved unit.
 
 **2026-11-04, halilkkaya-codex:** the constructor now uses the canonical
 constructor-only Snapshot base, whose existing 0x0049B47C destructor is the
