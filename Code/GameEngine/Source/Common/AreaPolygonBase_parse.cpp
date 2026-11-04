@@ -23,7 +23,7 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(
 // Likewise reserve 0x0030B876, whose _M_allocate_and_copy copy here is not retail's.
 namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::reserve(unsigned int); }
 // bfme link decl-only end
-struct BfmeE12 { int a[3]; };
+struct BfmeE12 { float x, y, z; };
 #include "../../Include/Common/DataChunk.h"
 struct AreaPolygonBounds { float v[4]; };
 void AreaPolygonBase::parse(DataChunkInput &file, int unused)

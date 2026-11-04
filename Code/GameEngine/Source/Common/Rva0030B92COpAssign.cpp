@@ -5,7 +5,7 @@
 // Evidence: calls rowed Pod8 vector op=; cmp [ebx+0x24]; callers 0x00330B59; unblocks 0x00330B50.
 #include <vector>
 #include "../../Include/Common/AreaPolygonBase.h"
-struct BfmePod8 { int a[2]; };
+struct BfmePod8 { float x; float y; };
 // Use the rowed assignment provider at 0x001D9BEE, which retail's
 // eight-byte point vector shares under this element spelling.
 namespace _STL {
