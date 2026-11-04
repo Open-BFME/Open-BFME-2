@@ -35,11 +35,6 @@ class Rva006EBD30
 public:
 	void bounds(AptRenderingContext *ctx, void *a, void *b);
 };
-class Rva006CFCD0
-{
-public:
-	bool isSpriteInstBase(void) const;
-};
 class Rva006DBB30SarDwordField
 {
 public:
@@ -51,23 +46,8 @@ public:
 	char pad00[0x0c];
 	Rva006EBD30 *m_c;
 };
-class BfmeAptValue006DCD20
-{
-public:
-	char pad00[0x4c];
-	Rva006E1C40Holder *m_4c;
-	bool isUndefined(void) const;
-	int isCharacterInst(void) const;
-	int rva006E02B0(void) const;
-	void *rva006E0F40(void) const;
-	int rva006E0350(void) const;
-};
-class AptCIH : public BfmeAptValue006DCD20
-{
-public:
-	void rva006E1C40(AptRenderingContext *ctx, int arg2);
-	void *rva006E1090(void) const;
-};
+#include "AptCIHClass.h"
+#include "BfmeAptValue006DCD20.h"
 void AptCIH::rva006E1C40(AptRenderingContext *ctx, int arg2)
 {
 	if (this == 0) {
@@ -79,21 +59,21 @@ void AptCIH::rva006E1C40(AptRenderingContext *ctx, int arg2)
 		if (!isUndefined())
 			return;
 	}
-	if (!(char)isCharacterInst()) {
+	if (!IsCharacterInst()) {
 		g_bfmeAptAssertAtE17734("isCharacterInst()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xa5);
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	Rva006E1C40Holder *holder = m_4c;
+	Rva006E1C40Holder *holder = (Rva006E1C40Holder *)field4C;
 	ctx->pushVertexMatrix();
 	((BfmeThingDXH *)ctx)->bfmeGoDXH((char *)this + 0x0c);
-	if (((Rva006CFCD0 *)this)->isSpriteInstBase()) {
-		if (!((Rva006CFCD0 *)this)->isSpriteInstBase()) {
+	if (IsSpriteInstBase()) {
+		if (!IsSpriteInstBase()) {
 			g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7d);
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();
 		}
-		((AptDisplayList *)((char *)m_4c + 0x24))->rva006F79B0(ctx, (void *)arg2);
+		((AptDisplayList *)((char *)field4C + 0x24))->rva006F79B0(ctx, (void *)arg2);
 		ctx->popVertexMatrix();
 		return;
 	}
@@ -103,13 +83,13 @@ void AptCIH::rva006E1C40(AptRenderingContext *ctx, int arg2)
 		ctx->popVertexMatrix();
 		return;
 	}
-	if ((char)rva006E02B0()) {
-		char *subObject = (char *)rva006E0F40();
+	if ((char)((const BfmeAptValue006DCD20 *)this)->rva006E02B0()) {
+		char *subObject = (char *)((const BfmeAptValue006DCD20 *)this)->rva006E0F40();
 		((BfmeThingXS *)ctx)->bfmeApplyXS((void *)arg2, subObject + 0x50);
 		ctx->popVertexMatrix();
 		return;
 	}
-	if ((char)rva006E0350()) {
+	if ((char)((const BfmeAptValue006DCD20 *)this)->rva006E0350()) {
 		Rva006CC110Log(4, " [APT] Attempting to get the bounding box or shape morphed object\n [APT] bounding box calculation on morphs is not supported...\n");
 		ctx->popVertexMatrix();
 		return;

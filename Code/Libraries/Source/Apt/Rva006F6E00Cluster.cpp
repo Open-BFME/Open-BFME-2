@@ -12,18 +12,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class BfmeAptValue006DCD20
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	bool isUndefined() const;
-	unsigned int m_flags;
-};
-
-class AptValue : public BfmeAptValue006DCD20
-{
-};
+#include "AptCIHClass.h"
 
 class Rva006D2A60
 {
@@ -33,7 +22,7 @@ public:
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4; // VA 0x00E176F4
 
-class Rva006CBDE0 : public AptValue
+class Rva006CBDE0
 {
 public:
 	Rva006CBDE0(int type, void *p1, AptValue *p2);
@@ -43,20 +32,7 @@ public:
 		return g_pChainBlockAllocatorF4->allocBlock((int)size);
 	}
 
-	char m_pad08[0x48 - 0x08];
-	AptValue *m_48;
-	void *m4C;
-	Rva006CBDE0 *m_50;
-	Rva006CBDE0 *m_54;
-	unsigned int m_58;
-	unsigned int m_5c;
-};
-
-class AptCIH
-{
-public:
-	char m_pad00[0x4c];
-	unsigned int m_key;
+	char m_storage[0x60];
 };
 
 class BfmeQuery1279
@@ -65,12 +41,12 @@ public:
 	AptCIH *insert(AptCIH *pOldItem, AptCIH *pNewItem);
 	AptCIH *rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth);
 
-	Rva006CBDE0 *m_root;
+	AptCIH *m_root;
 };
 
 AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem, AptValue *pItemAtDepth)
 {
-	Rva006CBDE0 *node = new Rva006CBDE0(type, p1, 0);
+	AptCIH *node = (AptCIH *)new Rva006CBDE0(type, p1, 0);
 
 	if (!(pItemAtDepth == 0 || pItemAtDepth->isUndefined())) {
 		g_bfmeAptAssertAtE17734("pItemAtDepth == NULL || pItemAtDepth->isUndefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x1EC);
@@ -78,7 +54,7 @@ AptCIH *BfmeQuery1279::rva006F6E00(int key, int type, void *p1, AptCIH *pOldItem
 			__debugbreak();
 	}
 
-	node->m4C = p1;
-	node->m_58 = node->m_58 ^ ((node->m_58 ^ (unsigned int)key) & 0x1FFFFu);
-	return insert(pOldItem, (AptCIH *)node);
+	node->field4C = p1;
+	node->field58 = node->field58 ^ ((node->field58 ^ (unsigned int)key) & 0x1FFFFu);
+	return insert(pOldItem, node);
 }

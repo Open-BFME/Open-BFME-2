@@ -24,14 +24,9 @@ inline void *operator new(unsigned int size,PropertyAllocation) {return (*(Rva00
 inline void operator delete(void *,PropertyAllocation) {}
 // ?PropertyArray::PropertyArray present-unmatched
 struct PropertyArray {float value[12];PropertyArray(){memset(value,0,sizeof(value));}};
-class AptCIH {
-public:
-    char pad[0xc];float a,b,c,d,tx,ty;
-    float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;
-    float alphaOffset,redOffset,greenOffset,blueOffset;
-    float *properties;
-    void factoryEnsureProperties();
-};
+#include "../AptCIHClass.h"
+// Canonical fields: matrix a,b,c,d = field0C..field18, translation field1C/field20,
+// colour multipliers field24..field30, offsets field34..field40, property array field44.
 // ?normalizeProceduralRotation absent-from-retail
 static inline float normalizeProceduralRotation(float angle) {
     angle=(float)fmod(angle,3.14159274f);
@@ -52,19 +47,19 @@ static __forceinline void normalizeProceduralRotationInPlace(float &angle) {
     } else return;
 }
 void AptCIH::factoryEnsureProperties() {
-    if(!properties) {
-        properties=(float *)new(propertyAllocation) PropertyArray;
-        properties[0]=tx;properties[1]=ty;
-        float x=atan2f(b,a);normalizeProceduralRotationInPlace(x);
-        float y=atan2f(-c,d);normalizeProceduralRotationInPlace(y);
+    if(!field44) {
+        field44=(float *)new(propertyAllocation) PropertyArray;
+        field44[0]=field1C;field44[1]=field20;
+        float x=atan2f(field10,field0C);normalizeProceduralRotationInPlace(x);
+        float y=atan2f(-field14,field18);normalizeProceduralRotationInPlace(y);
         float rotation=y+normalizeProceduralRotation(x-y)*0.5f;
-        properties[6]=rotation*57.2957763671875f;
+        field44[6]=rotation*57.2957763671875f;
         float cs=cosf(rotation),sn=sinf(rotation);
         if(cs > -0.0001f && cs < 0.0001f) {
-            if(sn > -0.0001f && sn < 0.0001f) {properties[2]=100.f;properties[3]=100.f;}
-            else {float inv=1.f/sn;properties[2]=inv*b*100.f;properties[3]=inv*c*-100.f;}
-        }else{float inv=1.f/cs;properties[2]=inv*a*100.f;properties[3]=inv*d*100.f;}
-        properties[7]=alphaMultiplier*100.f;
-        properties[8]=redOffset*255.f;properties[9]=greenOffset*255.f;properties[10]=blueOffset*255.f;properties[11]=1.f;
+            if(sn > -0.0001f && sn < 0.0001f) {field44[2]=100.f;field44[3]=100.f;}
+            else {float inv=1.f/sn;field44[2]=inv*field10*100.f;field44[3]=inv*field14*-100.f;}
+        }else{float inv=1.f/cs;field44[2]=inv*field0C*100.f;field44[3]=inv*field18*100.f;}
+        field44[7]=field24*100.f;
+        field44[8]=field38*255.f;field44[9]=field3C*255.f;field44[10]=field40*255.f;field44[11]=1.f;
     }
 }

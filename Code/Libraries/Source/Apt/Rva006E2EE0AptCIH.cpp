@@ -28,12 +28,7 @@ void __debugbreak();
 
 #include "EAStringC.h"
 
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-};
+#include "AptCIHClass.h"
 
 #include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField { public: int get() const; };
@@ -171,44 +166,33 @@ static __forceinline bool isFunction(void *value)
 	return (((Rva006DBB60ShrNAndField *)value)->*reinterpret_cast<bool (Rva006DBB60ShrNAndField::*)() const>(&Rva006DBB60ShrNAndField::get))();
 }
 
-class AptCIH : public AptValue
+// AptCIH.h inline accessors over the canonical +0x4C instance pointer.
+static __forceinline AptCharacterSpriteInstBase *getCharacterInst(AptCIH *cih)
 {
-public:
-	virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5();
-	virtual void refresh(int full);		// slot 0x18
-	void rva006E2D60();
-	void rva006E2EE0();
-
-	__forceinline AptCharacterSpriteInstBase *getCharacterInst()
-	{
-		// The owned int-returning predicate is tested as a bool (retail tests al).
-		APT_CHECK((((BfmeAptValue006DCD20 *)this)->*reinterpret_cast<bool (BfmeAptValue006DCD20::*)() const>(&BfmeAptValue006DCD20::isCharacterInst))(), "isCharacterInst()", 0xa5);
-		return m_character;
-	}
-	__forceinline AptCharacterSpriteInstBase *getSpriteInstBase()
-	{
-		APT_CHECK(((Rva006CFCD0 *)this)->isSpriteInstBase(), "isSpriteInstBase()", 0x7d);
-		return m_character;
-	}
-	__forceinline bool isSprite() const
-	{
-		return ((const Rva006DBB30SarDwordField *)this)->get() == 0xd && !((const BfmeAptValue006DCD20 *)this)->isUndefined();
-	}
-	__forceinline bool isMovieClip() const
-	{
-		return ((const Rva006DBB30SarDwordField *)this)->get() == 0x12 && !((const BfmeAptValue006DCD20 *)this)->isUndefined();
-	}
-
-	unsigned char m_pad04[0x4c - 4];
-	AptCharacterSpriteInstBase *m_character;	// +0x4C
-};
+	// The owned int-returning predicate is tested as a bool (retail tests al).
+	APT_CHECK((((BfmeAptValue006DCD20 *)cih)->*reinterpret_cast<bool (BfmeAptValue006DCD20::*)() const>(&BfmeAptValue006DCD20::isCharacterInst))(), "isCharacterInst()", 0xa5);
+	return (AptCharacterSpriteInstBase *)cih->field4C;
+}
+static __forceinline AptCharacterSpriteInstBase *getSpriteInstBase(AptCIH *cih)
+{
+	APT_CHECK(((Rva006CFCD0 *)cih)->isSpriteInstBase(), "isSpriteInstBase()", 0x7d);
+	return (AptCharacterSpriteInstBase *)cih->field4C;
+}
+static __forceinline bool isSprite(const AptCIH *cih)
+{
+	return ((const Rva006DBB30SarDwordField *)cih)->get() == 0xd && !((const BfmeAptValue006DCD20 *)cih)->isUndefined();
+}
+static __forceinline bool isMovieClip(const AptCIH *cih)
+{
+	return ((const Rva006DBB30SarDwordField *)cih)->get() == 0x12 && !((const BfmeAptValue006DCD20 *)cih)->isUndefined();
+}
 
 void AptCIH::rva006E2EE0()
 {
-	AptCharacterSpriteInstBase *inst = getCharacterInst();
-	if (!isSprite() && !isMovieClip())
+	AptCharacterSpriteInstBase *inst = getCharacterInst(this);
+	if (!isSprite(this) && !isMovieClip(this))
 		return;
-	if (getSpriteInstBase()->mode != 0)
+	if (getSpriteInstBase(this)->mode != 0)
 		return;
 
 	AptCharacter *character = inst->character;
@@ -237,7 +221,7 @@ void AptCIH::rva006E2EE0()
 			inst->nativeHash->Set__Proto__((AptValue *)prototype);
 		AptValue *constructor = (AptValue *)function->rva006DCEE0();
 		rva006E2D60();
-		refresh(1);
+		setHasClass(1);
 		const char *name = movie->exports[i].name;
 		_ReadWriteBarrier();
 		{
