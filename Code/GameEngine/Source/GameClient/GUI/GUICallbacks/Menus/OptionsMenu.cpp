@@ -27,7 +27,6 @@ enum GameDifficulty
 };
 #include "../../../../../Include/GameLogic/ScriptEngine.h"
 #pragma comment(linker, "/alternatename:?find@CustomPreferenceMapShim@@QAEPAUCustomMapNodeShim@@PAUCustomAsciiStringShim@@@Z=??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@1@ABVAsciiString@@@Z")
-
 // Retail's tree frees nodes through a direct _free; the dllimport+forceinline
 // specialization takes __malloc_alloc<0>::deallocate inline so this TU emits
 // no copy of its own (retail's is the unoptimized import entry, 0x00023A70).
@@ -36,7 +35,6 @@ template <> __declspec(dllimport) __forceinline
 void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -44,32 +42,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-// GadgetSliderGetMinMax, retail 0x0051822B (27 bytes).
-// Retain the rowed helper from the Zero Hour OptionsMenu port. The unrelated
-// imported callbacks are not BFME 2 reconstructions; EnumeratedIP's folded
-// string getter is provided by OptionPreferences_getLANIPAddress.cpp.
-
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-
 // Zero Hour Gadget.h supplies these first two SliderData fields. The helper's
 // retail loads independently confirm maxVal at +4 and minVal at +0.
 struct SliderData
@@ -77,9 +50,7 @@ struct SliderData
     int minVal;
     int maxVal;
 };
-
 bool operator<(const AsciiString &left, const AsciiString &right);
-
 namespace _STL
 {
 template <> struct less<AsciiString>
@@ -90,9 +61,7 @@ template <> struct less<AsciiString>
 	}
 };
 }
-
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
-
 struct BfmeEnumTableEntry
 {
 public:
@@ -100,10 +69,8 @@ public:
 	const void *m_subtable; // +0x04
 	int m_count; // +0x08
 };
-
 // GameLOD.cpp's LOD name lists, which retail lays end to end at RVA 0x009B960C.
 extern const char *const g_00DB960C[];
-
 // Retail enum-dispatch table at 0xDBD120: each option's name, its value names and their count.
 BfmeEnumTableEntry BfmeEnumTable[9] = {
 	{ "ModelLOD", g_00DB960C + 0, 4 },
@@ -116,17 +83,13 @@ BfmeEnumTableEntry BfmeEnumTable[9] = {
 	{ "ShaderLOD", g_00DB960C + 32, 4 },
 	{ "DecalLOD", g_00DB960C + 14, 3 },
 };
-
 // Declaration-only: the rowed map<AsciiString,AsciiString>::operator[] is bound,
 // this TU emits no per-flag copy of it or of the tree internals it pulls in.
 namespace _STL {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &);
 }
-
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
-
 typedef unsigned int UnsignedInt;
-
 class EnumeratedIP
 {
 public:
@@ -142,7 +105,6 @@ private:
 	UnsignedInt m_IP; // +0x04
 	EnumeratedIP *m_next; // +0x08
 };
-
 class IPEnumeration
 {
 public:
@@ -154,32 +116,25 @@ private:
 	EnumeratedIP *m_IPlist;
 	bool m_isWinsockInitialized;
 };
-
 extern class GlobalData *TheWritableGlobalData;
-
 namespace _STL
 {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 template <> unsigned int _Rb_tree<AsciiString, pair<const AsciiString, AsciiString>, _Select1st<pair<const AsciiString, AsciiString> >, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::erase(const AsciiString &key);
 }
-
 // 0x009B95F4 is the LOD name table defined in Rva00202B6CGet.cpp.
 extern const char *rva00202B6CNames[];
-
 namespace _STL
 {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
-
 // The 5-by-20-byte volume key table (SFX/Voice/Music/Ambient/MovieVolume),
 // defined once in OptionPreferences_getVolume.cpp.
 extern const char g_volumePreferenceKeys[5][20];
-
 // Retail LOD level-name table (VeryLow, Low, Medium, High, UltraHigh,
 // Custom) at 0xDB95F4. COMMON merges across TUs; the address patches
 // from retail.
 extern const char *rva00202B6CNames[7];
-
   // defined in OptionPreferences_setStaticGameLOD.cpp
 
 struct Rva00DFE144Globals
@@ -187,20 +142,15 @@ struct Rva00DFE144Globals
 	char m_pad[0x1768];
 	Int m_staticLODLevel;
 };
-
 // COMMON merges across TUs; the address patches from retail.
 // The global at this VA is TheGameLODManager; this name aliases it rather than
 // defining a second variable the rest of the game never sees.
 extern class GameLODManager *TheGameLODManager;
-
 extern GameLODManager *TheGameLODManager;
-
 typedef unsigned char UnsignedByte;
-
 extern const char g_volumePreferenceKeys[5][20] = {
 	"SFXVolume", "VoiceVolume", "MusicVolume", "AmbientVolume", "MovieVolume",
 };
-
 // Custom string/map shims, verbatim from reference/open-bfme-1's
 // OptionsMenu.cpp: explicit init/destroy instead of a destructor so no
 // unwind frame is needed, and the mapped characters read in place.
@@ -210,24 +160,20 @@ struct CustomAsciiStringShim
 	void init(const char *s);
 	void destroy();
 };
-
 struct CustomStringDataShim
 {
 	UnsignedByte m_header[8]; ///< characters follow at +8
 };
-
 struct CustomMapNodeShim
 {
 	UnsignedByte m_unreconstructed_00[0x14];
 	CustomStringDataShim *m_value; ///< retail node+0x14
 };
-
 struct CustomPreferenceMapShim
 {
 	CustomMapNodeShim *m_header;
 	CustomMapNodeShim *find(CustomAsciiStringShim *key);
 };
-
 // BFME2's audio settings carry five default volumes at +0x1C (retail
 // measured); BFME1's older layout kept three at +0x80.
 struct BfmeAudioSettings
@@ -235,7 +181,6 @@ struct BfmeAudioSettings
 	UnsignedByte m_unreconstructed_00[0x1C];
 	Real m_defaultVolumes[5];
 };
-
 class BfmeAudioVtblIndexed
 {
 public:
@@ -318,23 +263,15 @@ public:
 	virtual void _a120_76() = 0;
 	virtual const BfmeAudioSettings *getAudioSettings() = 0;
 };
-
 extern class AudioManager *TheAudio;
-
 #include "../../../../../Include/Common/GameLODManager.h"
-
 // Retail enum-dispatch table at 0xDBD120, defined in
 // OptionPreferences_enumDispatch.cpp; this TU only references it.
 extern BfmeEnumTableEntry BfmeEnumTable[];
-
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 #include "../../../../../Include/Common/UserPreferences.h"
-
 int strcmp(const char *a, const char *b);
-
 class GlobalData
 {
 public:
@@ -360,7 +297,6 @@ public:
 	Bool m_refreshNet;
 	Bool m_displayForeignLanguage;
 };
-
 struct ScriptEngineDifficultyView
 {
 	char m_pad[0x1A4C4];
@@ -371,8 +307,32 @@ struct ScriptEngineDifficultyView
 	// first-in-order one. No flags touched.
 	GameDifficulty bfme_global_difficulty() const { return m_gameDifficulty; }
 };
-
 #include "../../../../../Include/Common/OptionPreferences.h"
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// GadgetSliderGetMinMax, retail 0x0051822B (27 bytes).
+// Retain the rowed helper from the Zero Hour OptionsMenu port. The unrelated
+// imported callbacks are not BFME 2 reconstructions; EnumeratedIP's folded
+// string getter is provided by OptionPreferences_getLANIPAddress.cpp.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 
@@ -1380,18 +1340,6 @@ void OptionPreferences::setOnlineIPAddress(unsigned int ip)
 	slot = text;
 }
 
-// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
-
-// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_mapFind.cpp
 
 //
@@ -1433,6 +1381,18 @@ Int OptionPreferences::getCampaignDifficulty(void)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
+// tu-skeleton: 0x002E42D2 28B ??_GRva002E4272@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x002E4482 59B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44BD 53B ?_M_erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E44F2 41B ?clear@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E451B 20B ?upper_bound@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp (not merged yet)
+
+// tu-skeleton: 0x002E452F 68B ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
 // tu-skeleton: 0x002E4874 90B ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallPortAllocationDelta.cpp (not merged yet)
 
 // tu-skeleton: 0x002E4928 103B ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getFirewallNeedToRefresh.cpp (not merged yet)
@@ -1441,10 +1401,32 @@ Int OptionPreferences::getCampaignDifficulty(void)
 
 // tu-skeleton: 0x002E4F1A 5B ?erase@?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
-// tu-skeleton: 0x002E553D 155B ?setSetting@OptionPreferences@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/OptionPreferences.cpp
 
-// tu-skeleton: 0x00778C9B 8B Unwind@00b78c9b -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
+// ?setSetting@OptionPreferences@@QAEXHH@Z @0x002E553D 155B.
+// WB 0x00DCD180 names OptionPreferences::setSetting in this file; assertion
+// line 605 identifies the value-range check against s_CustomLODSettings.
+// Retail 0x002E553D..0x002E55D8 has thiscall/ret 8 and two integer-width
+// arguments. The original enum spelling for the setting index is unproven;
+// this view preserves its signed 32-bit ABI without inventing an enum name.
+// Target table layout comes independently from existing enum-dispatch/erase
+// siblings: VA 0x00DBD120, stride 12, key +0, values +4, count +8. Reuse their
+// owned BfmeEnumTable symbol and the same map base at this+4.
+// A value outside the range erases the key; otherwise retain the selected
+// text across map::operator[] before calling BFME2's StringBase::set(text).
 
-// tu-skeleton: 0x00778CA3 8B Unwind@00b78ca3 -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x00778CAB 10B __ehhandler$?setSetting@OptionPreferences@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/OptionPreferences.cpp (not merged yet)
+void OptionPreferences::setSetting(int setting, int value)
+{
+    if (value < 0 || value >= BfmeEnumTable[setting].m_count)
+    {
+        AsciiString key(BfmeEnumTable[setting].m_key);
+        erase(key);
+    }
+    else
+    {
+        AsciiString key(BfmeEnumTable[setting].m_key);
+        const char *selected = ((const char **)BfmeEnumTable[setting].m_subtable)[value];
+        AsciiString &entry = (*this)[key];
+        ((StringBase<char> *)&entry)->set(selected);
+    }
+}
