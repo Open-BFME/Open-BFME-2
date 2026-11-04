@@ -1,7 +1,7 @@
 // ?render@W3DSmudgeManager@@QAEXAAVRenderInfoClass@@@Z
 // dxsdk
 // platformsdk
-// cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
 //
 // W3DSmudgeManager::render, retail 0x000A6E08, 2447 bytes.
 // Ported from Open-BFME-1's
@@ -157,25 +157,7 @@ struct IDirect3DDevice8;
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	virtual ~RefCountClass(void);
-	__forceinline void Add_Ref(void)
-	{
-		++m_numRefs;
-	}
-	__forceinline void Release_Ref(void)
-	{
-		--m_numRefs;
-		if (m_numRefs == 0)
-			Delete_This();
-	}
-
-private:
-	int m_numRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class W3DMPO
 {
