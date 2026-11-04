@@ -38,7 +38,7 @@ Verification and batch audit:
   breadcrumb, attempt evidence/logs, the published census status snapshot and
   LINK-168's historical repair. Historical measurements and attempts stay intact.
   No alias or named table provider was removed. Core ledger repointing is the
-  merge tool's output; no deleted-row coverage or debt retirement is needed.
+  merge tool's output; no code rows were deleted or require tombstones.
 
 The module-data destructor still fails combined byte verification and remains
 separate. Its private ModuleData/base and member views need reconciliation
@@ -50,3 +50,13 @@ next step are unchanged, so its entry is not edited.
 Two initial merge applications stopped before editing on an unconfirmed claim
 refresh. The next normal merge claimed the complete scope and succeeded; no
 claim or verification bypass was used.
+
+Publication follow-up: the outgoing debt hook refused the bundle because the
+earlier accepted UpdateModule queue row still named the now-absorbed constructor
+source. Its original `header_adopt_lane.py accept` passed before the merge, and
+the same owning-tool acceptance on the combined destination passed again after
+the refusal. A follow-up commit records the permitted per-key `Debt-Retired`
+accounting for that vanished source; it does not retire another queue row or
+change a verifier. All of the source's rows survive in the approved destination,
+so adding deleted-row tombstones would misrepresent this merge. The two earlier
+commits remain intact.
