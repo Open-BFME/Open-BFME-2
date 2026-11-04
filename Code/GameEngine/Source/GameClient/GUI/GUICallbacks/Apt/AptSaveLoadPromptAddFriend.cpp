@@ -54,35 +54,7 @@ class RvaFriendProfileMap : public _STL::map<int, int>
 {
 };
 
-class GameSpyInfoInterface
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual void slot38() = 0;
-	virtual void slot3c() = 0;
-	virtual void slot40() = 0;
-	virtual void slot44() = 0;
-	virtual void slot48() = 0;
-	virtual void slot4c() = 0;
-	virtual void slot50() = 0;
-	virtual void slot54() = 0;
-	virtual void slot58() = 0;
-	virtual void slot5c() = 0;
-	virtual RvaFriendProfileMap *getFriendProfiles() = 0;
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -134,7 +106,7 @@ bool AptSaveLoad::PromptAddFriend()
 	if (!slot)
 		goto declined;
 
-	profiles = TheGameSpyInfo->getFriendProfiles();
+	profiles = (RvaFriendProfileMap *)TheGameSpyInfo->getBuddyMap();
 	if (!profiles)
 		goto declined;
 	int profile;
