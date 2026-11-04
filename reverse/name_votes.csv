@@ -23773,3 +23773,4 @@ Code/Libraries/Source/WWVegas/WWLib/Rva0054A67BSiftUp.cpp|function|0x0054A79A|Rv
 Code/GameEngine/Source/Common/Rva0039597COpAssign.cpp|function|0x00395D45|Rva00395D45Copy,28fec3aa918a4aa881accf54,claude-opus-5-5,claude3-20261104-120657-7,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/BfmeConv940.cpp|member|BfmeThing940G|m_bfmeFlag,38b145022e7c364cb8a69d13,claude-opus-5-5,claude3-20261104-122207-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp|member|Rva0060038E|m_08,a1b8f3758bf64584ec73a89a,claude-opus-5-5,claude3-20261104-122207-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva004B8732Getter.cpp|member|XProductionInfo|m_64,452c3784154b64ce17ac9b0d,claude-opus-5-5,claude3-20261104-124001-6,w-29a6ae2a2f9f,2026-11-04
