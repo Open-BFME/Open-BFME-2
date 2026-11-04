@@ -211,11 +211,7 @@ public:
 	StateMachine *m_stateMachine;   // +0x30
 };
 
-class Weapon
-{
-public:
-	AsciiString getName() const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet
 {
