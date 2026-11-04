@@ -48,7 +48,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma comment(linker, "/alternatename:?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00ABUTag@@@Z=?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00@Z")
 #define FX_SLOT(n) virtual HRESULT __stdcall slot##n()
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
+#include "../../Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 struct Rva005F8F96
 {
@@ -146,20 +151,6 @@ class Rva001531F2Ref
 public:
 	int invoke(int a, int b);
 	Rva001531F2Op *m_op; // +0x00
-};
-
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
 };
 
 struct Rva00153252
