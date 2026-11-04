@@ -2,6 +2,8 @@
 
 2026-11-04: AIUpdateInterface adopted in two AI consumers; eight existing adoptions reverified, ten header rows retired, 5,269 preview-linked bytes preserved. [Cohort receipts and remaining prerequisites](../../reverse/attempt_support/aiupdate-header-cohort-20261104-codexb4.md).
 
+2026-11-04: RebuildHoleExposeDie now adopts canonical ModuleData/DestroyDieModuleData and eight further module-data headers; ten header-queue rows retire with 11/11 functions and its data row exact, and a passing link preview. Factory/Dock base conflicts and LINK-167 remain open. [Scoped evidence](../../reverse/attempt_support/rebuild-hole-moduledata-headers-20261104.md).
+
 2026-11-04: Team.cpp now adopts canonical NameKeyGenerator (156/156 exact; 7,862 preview-linked bytes preserved; one header-queue row retired); its remaining merge prerequisites and the claim-blocked five-donor trial are recorded in [scoped evidence](../../reverse/attempt_support/team-namekey-header-20261104-codexb4.md).
 
 2026-11-04: InstantDeathBehavior's constructor/onDie/pool-key leaf declarations now agree (8/8 rows exact; 521 preview-linked bytes unchanged); its merge still needs the seed's legacy headers and module-data views reconciled. [Scoped evidence and audit boundary](../../reverse/attempt_support/instantdeath-leaf-views-20261104-codex4.md).
