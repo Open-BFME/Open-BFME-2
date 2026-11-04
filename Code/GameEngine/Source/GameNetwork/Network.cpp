@@ -494,12 +494,13 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GameSlot
-{
-public:
-	char m_pad[0x34];
-	AsciiString m_name;
-};
+#ifndef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#endif
+#ifndef BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NAME_SLOT
+#endif
+#include "../../Include/GameNetwork/GameInfo.h"
 
 template <int N> class Rva0025E75FSlots : public Rva0025E75FSlots<N - 1>
 {
@@ -511,12 +512,6 @@ template <> class Rva0025E75FSlots<0>
 {
 };
 
-class GameInfo : public Rva0025E75FSlots<19>
-{
-public:
-	GameSlot *getSlot(int n);
-	virtual bool rva0025E75FSlot13(); // +0x4C
-};
 
 extern GameInfo *TheGameInfo;
 
@@ -1225,7 +1220,7 @@ void NetworkInterface::ProcessDestroyPlayerCommand(NetWrapperCommandMsg *msg)
 	if (idx >= 8)
 		return;
 	GameSlot *slot = TheGameInfo->getSlot((int)idx);
-	AsciiString tmp(slot->m_name);
+	AsciiString tmp(slot->m_field34);
 	NameKeyType key = TheNameKeyGenerator->nameToKey(tmp);
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player)

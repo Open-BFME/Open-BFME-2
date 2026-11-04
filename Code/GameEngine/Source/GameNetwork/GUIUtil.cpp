@@ -58,43 +58,7 @@ enum { PLAYERTEMPLATE_RANDOM = -1, MAX_SLOTS = 8 };
 #endif
 enum { FALSE = 0, TRUE = 1 };
 
-class GameSlot
-{
-public:
-	Bool isAI() const;
-	Bool isHuman() const;
-	Int getState() const { return m_state; }
-	Bool isAccepted() const { return m_isAccepted; }
-	Bool hasMap() const { return m_hasMap; }
-	Int getColor() const { return m_color; }
-	Int getPlayerTemplate() const { return m_playerTemplate; }
-	Int getTeamNumber() const { return m_teamNumber; }
-	const UnicodeString &getName() const { return m_name; }
-private:
-	unsigned char m_00[0x04];
-	Int m_state;			// +0x04
-	Bool m_isAccepted;		// +0x08
-	Bool m_hasMap;			// +0x09
-	unsigned char m_0a[0x02];
-	Int m_color;			// +0x0C
-	unsigned char m_10[0x08];
-	Int m_playerTemplate;	// +0x18
-	Int m_teamNumber;		// +0x1C
-	unsigned char m_20[0x10];
-	UnicodeString m_name;	// +0x30
-};
-class GameInfo
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual Bool amIHost(void) const;
-	virtual Int getLocalSlotNum(void) const;
-	GameSlot *getSlot(Int index);
-	const GameSlot *getConstSlot(Int index) const;
-	AsciiString getMap(void) const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../Include/Common/NameKeyGenerator.h"
@@ -390,7 +354,7 @@ void UpdateSlotList( GameInfo *myGame, GameWindow *comboPlayer[],
 			}
 			if(slot && slot->isHuman())
 			{
-				UnicodeString newName = slot->getName();
+				UnicodeString newName = slot->m_name;
 				UnicodeString oldName = GadgetComboBoxGetText(comboPlayer[i]);
 				if (comboPlayer[i] && newName.compare(oldName))
 				{

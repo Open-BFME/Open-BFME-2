@@ -9,37 +9,17 @@
 // it does not assign TheGameInfo. Canonical strings preserve result lifetimes.
 #include "ascii_string.h"
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-	bool hasMap() const { return m_hasMap; }
-
-private:
-	char m_pad[9];
-	bool m_hasMap;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 // No authored GameInfo header covers this measured BFME layout. Keep the
 // local accessor out of the external GameInfo COMDAT contract.
 class GameInfo;
 static __forceinline int getMapContentsMask(const GameInfo *game);
 
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int slot) const;
-	AsciiString getMap() const;
-	friend int getMapContentsMask(const GameInfo *game);
-
-private:
-	char m_pad[0x4c];
-	int m_mapContentsMask;
-};
 
 static __forceinline int getMapContentsMask(const GameInfo *game)
 {
-	return game->m_mapContentsMask;
+	return game->m_mapMask;
 }
 
 

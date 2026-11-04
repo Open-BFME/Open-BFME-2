@@ -56,11 +56,7 @@ public:
 };
 extern CommandList *TheCommandList;
 
-class GameInfo : public Rva0025E75FSlots<19>
-{
-public:
-	virtual bool rva0025E75FSlot13();	// +0x4C
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 
 enum PlayerLeaveCode
@@ -211,7 +207,7 @@ void Rva0025E4CD::rva0025E75F()
 	}
 
 	bool leaving = false;
-	if (m_conMgr != 0 && m_conMgr->getNumPlayers() <= 1 && TheGameInfo != 0 && TheGameInfo->rva0025E75FSlot13()
+	if (m_conMgr != 0 && m_conMgr->getNumPlayers() <= 1 && TheGameInfo != 0 && TheGameInfo->isMultiPlayer()
 		&& ((Rva00210C66CmpBoolField *)TheGameLogic)->get() && TheLivingWorldLogic != 0
 		&& ((BfmeSelectionState *)TheLivingWorldLogic)->isSelectionLocked())
 	{

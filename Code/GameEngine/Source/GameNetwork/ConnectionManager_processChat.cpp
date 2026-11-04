@@ -50,25 +50,8 @@ private:
 
 #include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
-class GameSlot
-{
-public:
-	Bool isMuted() const { return m_isMuted; }
-	const AsciiString &getPlayerNameKey() const { return m_playerNameKey; }
+#include "../../Include/GameNetwork/GameInfo.h"
 
-private:
-	char m_pad00[0x0a];
-	Bool m_isMuted;
-	char m_pad0B[0x34 - 0x0b];
-	AsciiString m_playerNameKey;
-};
-
-class GameInfo
-{
-public:
-	GameSlot *getSlot(Int index);
-	const GameSlot *getConstSlot(Int index) const;
-};
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
@@ -98,7 +81,7 @@ void ConnectionManager::processChat(NetChatCommandMsg *msg)
 	if ((unsigned int)msg->getPlayerID() >= 8)
 		return;
 
-	AsciiString playerName = TheGameInfo->getSlot(msg->getPlayerID())->getPlayerNameKey();
+	AsciiString playerName = TheGameInfo->getSlot(msg->getPlayerID())->m_field34;
 	const Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(playerName));
 	if (!player)
 	{

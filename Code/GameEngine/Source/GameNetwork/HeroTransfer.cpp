@@ -25,19 +25,7 @@ class CreateAHeroData;
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Rva003FF0E7DwordSlot {public:void set(int);};
-class GameSlot {public:
- bool isOccupied() const;
- bool isAI() const;
- char before[0x18];int playerTemplate;char beforeKind[0x50-0x1C];int kind,first,second,index;
-};
-class GameInfo {public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11)
-#undef V
- virtual bool amIHost() const;
- virtual int getLocalSlotNum() const;
- GameSlot *getSlot(int);
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../Include/Common/PlayerTemplate.h"
 class PlayerTemplateStore {public:const PlayerTemplate *getNthPlayerTemplate(int) const;};
@@ -49,10 +37,10 @@ void SelectRandomHero() {
  if(!TheGameInfo)return;
  for(int i=0;i<8;++i) {
   GameSlot *slot=TheGameInfo->getSlot(i);
-  if(!slot || slot->kind!=1 || !slot->isOccupied())continue;
+  if(!slot || slot->m_field50!=1 || !slot->isOccupied())continue;
   if(i!=TheGameInfo->getLocalSlotNum() && !(TheGameInfo->amIHost() && slot->isAI()))continue;
   std::vector<unsigned int> available;
-  const PlayerTemplate *playerTemplate=ThePlayerTemplateStore->getNthPlayerTemplate(slot->playerTemplate);
+  const PlayerTemplate *playerTemplate=ThePlayerTemplateStore->getNthPlayerTemplate(slot->m_playerTemplate);
   int faction=playerTemplate?playerTemplate->rva001FD234():-1;
   TheCreateAHeroManager->GetAvailableHeroesForFaction(&available,faction);
   if(available.size()>0) {
