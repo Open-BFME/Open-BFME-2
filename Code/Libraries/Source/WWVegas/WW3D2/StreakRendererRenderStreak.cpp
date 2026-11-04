@@ -446,27 +446,7 @@ public:
 	}
 };
 #endif
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass* material;
-	TextureBaseClass * Textures[MAX_TEXTURE_STAGES];
-	D3DLIGHT8 Lights[4];
-	bool LightEnable[4];
-	Matrix4x4 world;
-	Matrix4x4 view;
-	unsigned vertex_buffer_types[MAX_VERTEX_STREAMS];
-	unsigned index_buffer_type;
-	unsigned short vba_offset;
-	unsigned short vba_count;
-	unsigned short iba_offset;
-	VertexBufferClass* vertex_buffers[MAX_VERTEX_STREAMS];
-	IndexBufferClass* index_buffer;
-	unsigned short index_base_offset;
-	RenderStateStruct();
-	~RenderStateStruct();
-	RenderStateStruct& operator= (const RenderStateStruct& src);
-};
+#include "RenderStateStruct.h"
 class DX8Wrapper {
 enum ChangedStates {
 		WORLD_CHANGED	=	1<<0,

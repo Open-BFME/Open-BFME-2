@@ -424,14 +424,7 @@ private:
 	static bool IsCurrentlyRenderingShadowMap;
 };
 
-class ShaderClass
-{
-	friend class W3DBuffBuffer;
-public:
-	unsigned ShaderBits;
-protected:
-	static bool ShaderDirty;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class TextureBaseClass
 {
@@ -1340,7 +1333,7 @@ void W3DBuffBuffer::rva000D28FA(RenderInfoClass &rinfo, bool flag)
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZENABLE, 1);
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZFUNC, 4);
 	bfmeSetProjectionDepthBias(savedBias);
-	ShaderClass::ShaderDirty = true;
+	ShaderClass::Invalidate();
 }
 
 // tu-skeleton: 0x000D3940 5B ?rva000D3940@Rva000D3940@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)

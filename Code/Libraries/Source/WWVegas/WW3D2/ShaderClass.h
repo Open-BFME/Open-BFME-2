@@ -18,19 +18,20 @@
 // Other rowed entries: Init_From_Material3 0x00137550, Guess_Sort_Level
 // 0x001381B0, Get_SS_Category 0x00138130, Enable_Fog 0x00138200,
 // Get_Description 0x00138280, Is_Backface_Culling_Inverted 0x001381F0,
-// operator== 0x00143240, operator!= 0x001541B0. Set_Depth_Compare, Set_Color_Mask,
+// operator== 0x00143240, operator!= 0x001541B0. Set_Color_Mask,
 // Set_Post_Detail_Alpha_Func, Set_Post_Detail_Color_Func, Set_Alpha_Test,
 // Set_Cull_Mode, Set_Dst_Blend_Func, Set_Fog_Func, Set_Primary_Gradient,
 // Set_Secondary_Gradient, Set_Src_Blend_Func, Set_Texturing and Set_NPatch_Enable
-// are rowed at 0x00065F66, 0x00065F85, 0x00065F97, 0x00065FAC, 0x00065FC1,
-// 0x00065FD6, 0x00065FEB, 0x00065FFD, 0x00066010, 0x00066023, 0x00066036,
-// 0x00066049 and 0x0006605E respectively. Rowed methods are declared
-// out of line. Enum, field, preset and unrowed inline names follow Zero Hour's
-// GeneralsMD WW3D2/shader.h; its one-bit alpha-test layout is not used here.
+// are rowed at 0x00065F85, 0x00065F97, 0x00065FAC, 0x00065FC1, 0x00065FD6, 0x00065FEB,
+// 0x00065FFD, 0x00066010, 0x00066023, 0x00066036, 0x00066049 and 0x0006605E and are
+// declared out of line. Set_Depth_Compare's row 0x00065F66 has no retail caller, and
+// testHardwareSupport inlines it (`or al, 7` at 0x000A651E). Enum, field, preset and
+// unrowed inline names follow Zero Hour's GeneralsMD WW3D2/shader.h; its one-bit
+// alpha-test layout is not used here.
 
 #pragma once
-#ifndef __BFME2_SHADER_H_
-#define __BFME2_SHADER_H_
+// WW3D2's shader.h guard: a unit that includes the reference shader.h first keeps its
+// ShaderClass (same layout and decorated names), and this header then adds nothing.
 
 #ifndef SHADER_H
 #define SHADER_H
@@ -59,7 +60,7 @@ enum ShaderShiftConstants {
      (alpha_test) << SHIFT_ALPHATEST | (cullmode) << SHIFT_CULLMODE | \
      (post_det_color) << SHIFT_POSTDETAILCOLORFUNC | \
      (post_det_alpha) << SHIFT_POSTDETAILALPHAFUNC)
-#endif
+
 
 class DX8Wrapper;
 class BfmeB1137;
@@ -281,7 +282,7 @@ public:
         return Get_Post_Detail_Color_Func() != DETAILCOLOR_DISABLE || Get_Post_Detail_Alpha_Func() != DETAILALPHA_DISABLE;
     }
 
-    void Set_Depth_Compare(DepthCompareType value);
+    void Set_Depth_Compare(DepthCompareType x) { ShaderBits &= ~MASK_DEPTHCOMPARE; ShaderBits |= (x << SHIFT_DEPTHCOMPARE); }
     void Set_Depth_Mask(DepthMaskType value) { ShaderBits = (ShaderBits & ~MASK_DEPTHMASK) | (value << 3); }
     void Set_Color_Mask(ColorMaskType value);
     void Set_Post_Detail_Alpha_Func(DetailAlphaFuncType value);
@@ -342,4 +343,4 @@ protected:
     static unsigned long CurrentShader;
 };
 
-#endif
+#endif // SHADER_H

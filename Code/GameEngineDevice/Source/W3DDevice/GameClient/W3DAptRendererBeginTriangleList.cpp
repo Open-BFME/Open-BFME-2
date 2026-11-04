@@ -23,14 +23,7 @@ extern "C" void _ReadWriteBarrier(void);
 struct BFME2TextureResource;
 struct BFME2TextureRef { BFME2TextureResource* Ptr; };
 void BFME2Set_Texture(unsigned,const BFME2TextureRef&);
-// DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
-struct RenderStateStruct
-{
-	char m_shaderToLights[0x1EC];
-	Matrix4 world;
-	Matrix4 view;
-	char m_buffers[0x290 - 0x26C];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 // render_state_changed is protected in dx8wrapper.h (mangled @@1IA, as dx8wrapper.cpp defines it).
 class DX8Wrapper {
 protected:

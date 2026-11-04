@@ -195,12 +195,7 @@ extern int g_stat1;
 
 extern int g_stat8;
 
-class ShaderClass
-{
-public:
-	unsigned char pad[2];
-	unsigned char flags;
-};
+#include "ShaderClass.h"
 
 class DX8Caps
 {
@@ -560,7 +555,7 @@ void Debug_Statistics::Record_DX8_Skin_Polys_And_Vertices(int pcount, int vcount
 void Debug_Statistics::Record_DX8_Polys_And_Vertices(int polys, int verts, const ShaderClass &shader)
 {
 	int n;
-	if (shader.flags & 2)
+	if (shader.field02 & 2)
 	{
 		const DX8Caps *caps = DX8Wrapper::Get_Current_Caps();
 		if (caps->SupportNPatches)

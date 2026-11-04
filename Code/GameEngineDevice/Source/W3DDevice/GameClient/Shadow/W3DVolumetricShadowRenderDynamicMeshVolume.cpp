@@ -252,13 +252,7 @@ protected:
 };
 typedef Matrix4 Matrix4x4;
 
-class ShaderClass
-{
-public:
-	static ShaderClass _PresetOpaqueShader;
-private:
-	unsigned ShaderBits;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 namespace Debug_Statistics
 {

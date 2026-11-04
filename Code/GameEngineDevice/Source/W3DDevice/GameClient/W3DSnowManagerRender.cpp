@@ -21,11 +21,7 @@
 #include <d3d9.h>
 #include "Coord3D.h"
 class RenderInfoClass;
-class ShaderClass
-{
-public:
-	unsigned int ShaderBits;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
@@ -128,7 +124,7 @@ struct BFME2TextureRef
 void BFME2Set_Texture(unsigned int stage, const BFME2TextureRef &texture);
 
 // Native snow point-sprite shader, initialized bits verified at VA DB4720.
-ShaderClass BfmeSnowPointSpriteShader = { 0x000198B3 };
+ShaderClass BfmeSnowPointSpriteShader(0x000198B3);
 
 class W3DSnowManager
 {

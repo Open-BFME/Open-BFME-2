@@ -445,27 +445,7 @@ public:
 };
 
 
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass* material;
-	TextureBaseClass * Textures[MAX_TEXTURE_STAGES];
-	D3DLIGHT8 Lights[4];
-	bool LightEnable[4];
-	Matrix4x4 world;
-	Matrix4x4 view;
-	unsigned vertex_buffer_types[MAX_VERTEX_STREAMS];
-	unsigned index_buffer_type;
-	unsigned short vba_offset;
-	unsigned short vba_count;
-	unsigned short iba_offset;
-	VertexBufferClass* vertex_buffers[MAX_VERTEX_STREAMS];
-	IndexBufferClass* index_buffer;
-	unsigned short index_base_offset;
-	RenderStateStruct();
-	~RenderStateStruct();
-	RenderStateStruct& operator= (const RenderStateStruct& src);
-};
+#include "RenderStateStruct.h"
 
 
 class DX8Wrapper
@@ -1225,47 +1205,6 @@ WWINLINE unsigned flimby( char* name, unsigned crib )
 }
 
 
-WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruct& src)
-{
-	unsigned i;
-	REF_PTR_SET(material,src.material);
-	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
-		REF_PTR_SET(vertex_buffers[i],src.vertex_buffers[i]);
-	}
-	REF_PTR_SET(index_buffer,src.index_buffer);
-	for (i=0;i<MAX_TEXTURE_STAGES;++i) 
-	{
-		REF_PTR_SET(Textures[i],src.Textures[i]);
-	}
-	LightEnable[0]=src.LightEnable[0];
-	LightEnable[1]=src.LightEnable[1];
-	LightEnable[2]=src.LightEnable[2];
-	LightEnable[3]=src.LightEnable[3];
-	if (LightEnable[0]) {
-		Lights[0]=src.Lights[0];
-		if (LightEnable[1]) {
-			Lights[1]=src.Lights[1];
-			if (LightEnable[2]) {
-				Lights[2]=src.Lights[2];
-				if (LightEnable[3]) {
-					Lights[3]=src.Lights[3];
-				}
-			}
-		}
-	}
-	shader=src.shader;
-	world=src.world;
-	view=src.view;
-	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
-		vertex_buffer_types[i]=src.vertex_buffer_types[i];
-	}
-	index_buffer_type=src.index_buffer_type;
-	vba_offset=src.vba_offset;
-	vba_count=src.vba_count;
-	iba_offset=src.iba_offset;
-	index_base_offset=src.index_base_offset;
-	return *this;
-}
 #endif
 #if defined(_MSC_VER)
 #endif
