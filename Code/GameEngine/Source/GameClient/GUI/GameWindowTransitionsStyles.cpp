@@ -183,11 +183,7 @@ public:
 	Real m_percent;			// +0x28
 	Int m_drawState;		// +0x2c
 };
-struct WinDrawData
-{
-	const Image *image;
-	unsigned char m_unreconstructed_04[0x8];
-};
+#include "../../../Include/GameClient/WinDrawData.h"
 class WinInstanceData
 {
 public:
