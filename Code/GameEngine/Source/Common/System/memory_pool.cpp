@@ -1,4 +1,5 @@
-// cl: /EHsc
+// cl: /EHsc /MD
+// platformsdk
 // stlport46
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
@@ -22,6 +23,8 @@
 // after the record stores when the records and buckets share one object.
 // The variable names are descriptive; retail's are not recoverable.
 
+#include <windows.h>
+#include <stdio.h>
 #include <string.h>
 
 // Native [0x00030E20,0x00030E88): cdecl byte predicate used by allocator
@@ -56,13 +59,6 @@ unsigned char rva00030E20Fill(void *memory, unsigned int size, unsigned char val
 	return 1;
 }
 
-extern "C" __declspec(dllimport) void *__stdcall TlsGetValue(unsigned long index);
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
-extern "C" __declspec(dllimport) int __stdcall VirtualFree(void *address, unsigned int size, unsigned int type);
-extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
-struct _iobuf;
-extern "C" __declspec(dllimport) int __cdecl fprintf(_iobuf *file, const char *format, ...);
 
 class MemoryPoolFactory;
 class Rva00031790;
@@ -318,14 +314,14 @@ int GeneralAllocator::rva000327E0(const void *blockData, char *dst, unsigned int
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 	int result = rva00031430((const char *)blockData - 8, dst, left);
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return result;
 }
@@ -399,7 +395,7 @@ unsigned int GeneralAllocator::rva00032160(void *block)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 
@@ -421,7 +417,7 @@ unsigned int GeneralAllocator::rva00032160(void *block)
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return total;
 }
@@ -435,7 +431,7 @@ int GeneralAllocator::rva00031F90(void *block)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 
@@ -464,7 +460,7 @@ int GeneralAllocator::rva00031F90(void *block)
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return result;
 }
@@ -479,7 +475,7 @@ unsigned int GeneralAllocator::rva000320E0(void *chunk, unsigned int flags, bool
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 
@@ -491,7 +487,7 @@ unsigned int GeneralAllocator::rva000320E0(void *chunk, unsigned int flags, bool
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return result;
 }
@@ -505,7 +501,7 @@ unsigned int GeneralAllocator::rva00032A20(const void *block)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 	if (block != 0)
@@ -518,7 +514,7 @@ unsigned int GeneralAllocator::rva00032A20(const void *block)
 			if (lock != 0)
 			{
 				--lock->m_count;
-				LeaveCriticalSection(lock);
+				LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 			}
 			return usable;
 		}
@@ -530,7 +526,7 @@ unsigned int GeneralAllocator::rva00032A20(const void *block)
 			if (lock != 0)
 			{
 				--lock->m_count;
-				LeaveCriticalSection(lock);
+				LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 			}
 			return usable;
 		}
@@ -538,7 +534,7 @@ unsigned int GeneralAllocator::rva00032A20(const void *block)
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return 0;
 }
@@ -834,14 +830,14 @@ __declspec(noinline) void GeneralAllocator::rva000338F0(void *block)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 	rva00033150(block);
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 }
 
@@ -1329,7 +1325,7 @@ public:
 		if (lock != 0)
 		{
 			--lock->m_count;
-			LeaveCriticalSection(lock);
+			LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		}
 	}
 };
@@ -1339,7 +1335,7 @@ Rva00031790::Rva00031790(void *param)
 	m_0000 = param;
 	if (param != 0)
 	{
-		EnterCriticalSection(param);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(param));
 		++((EA::Allocator::MemoryPoolLock *)param)->m_count;
 	}
 }
@@ -1372,7 +1368,6 @@ Rva00030DD0Lock *Rva00030D90Init(Rva00030DD0Lock *storage);
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 class Rva00034C90 { public: void consolidate(); };	// pinned callee 0x00033930
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void *section);
 
 inline unsigned int rva000317F0Align(unsigned int size, unsigned int alignment)
 {
@@ -1401,7 +1396,7 @@ void GeneralAllocator::rva000317F0(int option, unsigned int value)
 			MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 			m_pLock = 0;
 			Rva00030DF0Release((Rva00030DD0Lock *)lock);
-			DeleteCriticalSection(lock);
+			DeleteCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		}
 		break;
 	case 2:
@@ -1515,7 +1510,7 @@ int GeneralAllocator::rva00031D00(void *block)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 	int errors = 0;
@@ -1560,7 +1555,7 @@ int GeneralAllocator::rva00031D00(void *block)
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return errors;
 }
@@ -1591,7 +1586,7 @@ unsigned int GeneralAllocator::rva00032050(void *block, unsigned int requested)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 
@@ -1606,7 +1601,7 @@ unsigned int GeneralAllocator::rva00032050(void *block, unsigned int requested)
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return total;
 }
@@ -1616,7 +1611,7 @@ int GeneralAllocator::rva00031E60(const void *block)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 	unsigned int size = ((const unsigned int *)block)[1] & 0x7FFFFFF8;
@@ -1647,7 +1642,7 @@ int GeneralAllocator::rva00031E60(const void *block)
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return errors;
 }
@@ -1668,7 +1663,7 @@ int GeneralAllocator::rva000321F0(int level)
 	MemoryPoolLock *lock = (MemoryPoolLock *)m_pLock;
 	if (lock != 0)
 	{
-		EnterCriticalSection(lock);
+		EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 		++lock->m_count;
 	}
 
@@ -1680,7 +1675,7 @@ int GeneralAllocator::rva000321F0(int level)
 			if (lock != 0)
 			{
 				--lock->m_count;
-				LeaveCriticalSection(lock);
+				LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 			}
 			return 0;
 		}
@@ -1890,7 +1885,7 @@ runDone:
 	if (lock != 0)
 	{
 		--lock->m_count;
-		LeaveCriticalSection(lock);
+		LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION *>(lock));
 	}
 	return errors;
 }
@@ -1944,7 +1939,6 @@ void _AddHeap(unsigned int id, unsigned int size)
 // '/'), then ", " and the line through sprintf("%d"), then, when a function
 // name is given, ", " and the name, copied up to the buffer end without a NUL
 // test as retail does; returns the characters written. Name address-derived.
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
 
 unsigned int __stdcall Rva006C1BE0FormatLocation(char *buffer, unsigned int size, const char *file, int line, const char *function)
 {
