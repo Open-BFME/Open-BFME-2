@@ -937,6 +937,64 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### The declspec conflicts are not a mechanical lane (2026-11-04)
+
+The CONFLICT census groups 9 "class declspec differs" and 1 "member declspec
+differs" rows, and they look like the cheapest pile in it: `__declspec(novtable)`
+suppresses the vftable stores in a class's own constructor and destructor, so it
+changes generated code only in the file holding those bodies, and the
+authoritative spelling should simply be whichever file owns the class's
+`??0`/`??1`/`??_G`/`??_E` rows. That rule settled four classes earlier the same
+day (`5ab85e1f799`). Applied to all eleven, it settles **three**:
+
+| class | spelling | evidence |
+| --- | --- | --- |
+| `DamageFieldUpdate` | novtable | one file owns both the ctor and the dtor rows |
+| `Rva0043D16F` | plain | single ctor owner is plain; the novtable spelling owns nothing |
+| `DetachableRiderBody` | novtable | single ctor owner, and no dtor row exists at all |
+
+**Seven are undecidable, and all seven fail the same way: the ctor owner says
+plain and the dtor owner says novtable.** Seven out of seven in that direction is
+not noise. `GrantUpgradeCreateModuleData`, `InheritUpgradeCreateModuleData`,
+`DamageFieldUpdateModuleData`, `PartTheHeavensUpdateModuleData`,
+`RespawnUpdateModuleData`, `RousingSpeechUpdateModuleData` and `RankInfo` each
+have their constructor in a file spelling the class plain and their destructor in
+a file spelling it novtable, and **both files byte-match retail today**.
+
+That is coherent rather than contradictory, and it is a property of the
+one-function-per-file tree: a spelling only reaches the bodies in its own file, so
+two files can hold incompatible spellings and each still be locally exact. What it
+means is that retail's constructor stores the vftable where its destructor does
+not, and no ledger row says why. Merging forces one spelling and breaks whichever
+body loses. Explaining it is reverse engineering, not a lookup, so none of these
+seven should be touched by a mechanical pass.
+
+Three of the seven are not really declspec cases at all: their ctor and dtor files
+give the class **different bases** - `CreateModuleData` against `Snapshot` for the
+two UpgradeCreate module datas, `SpecialAbilityUpdateModuleData` against
+`Rva0044ECCE` for `RousingSpeechUpdateModuleData`. The layouts are compatible
+enough that `tu_views` reported the declspec first, but the base clause is the
+primary disagreement and has to be settled before the keyword means anything.
+`RankInfo` and `RespawnUpdateModuleData` are the pure cases, identical bases and
+nothing differing but the keyword.
+
+The eleventh, `EvaMessageInfo`, is a different animal: one file marks its
+destructor `__declspec(dllimport)` with an inline body, another only declares it,
+and **no file under `Code/` defines it**. There is no `functions.csv` row for
+`??1EvaMessageInfo@@`; the single `symbols.csv` row is recorded in
+`reverse/re_attempts.log` as really being
+`??1BfmeStringRecord00111ACF@@`, a placeholder shared by other 28-byte record
+views, and already blocked there as a class-identity question for the naming lane.
+So the dllimport is an identity claim the ledger does not support. Leave it to
+that lane.
+
+**The general lesson, which cost three wrong estimates today.** The conflicts that
+reach this census are survivors: `tu_views` already wrote everything it could
+settle, so what remains is selected for being hard. Every subset of it that looks
+mechanical has shrunk on inspection - "ledger-decidable" went 15 of 94, then 11,
+then 3. Price a conflict category only after opening its evidence, never from its
+label.
+
 ### Eleven TUs worked: what the plan count is worth (2026-11-04)
 
 Eleven TUs were claimed, reconciled and landed in one pass, which is enough to
