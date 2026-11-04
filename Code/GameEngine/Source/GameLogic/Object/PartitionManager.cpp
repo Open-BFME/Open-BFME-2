@@ -1052,10 +1052,6 @@ private:
 // Evidence: body
 // bytes match the template instruction for instruction except the field
 // offsets, the scale member and the final E8 displacement.
-extern "C" __declspec(dllimport) double __cdecl floor(double value);
-
-extern "C" __declspec(dllimport) double __cdecl ceil(double value);
-
 struct BfmePointFC
 {
 	float x;
