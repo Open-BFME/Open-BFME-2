@@ -30,7 +30,7 @@ class Version { public: UnicodeString getFullUnicodeVersion(); UnicodeString get
 extern Version *TheVersion;
 class GlobalData {public:AsciiString rva002360DE() const;char p0[0xc];AsciiString m_mapName;char p10[0xac0-0x10];AsciiString pendingFile;char pAC4[0xb04-0xac4];unsigned int field0b04;char pB08[0x1100-0xb08];bool field1100;char p1101[3];int field1104;};
 extern GlobalData *TheWritableGlobalData;
-struct BfmeNetAddress { unsigned int address,port;bool Rva00248CBF(const BfmeNetAddress*) const;};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 // Target compares the complete address through rowed248CBF; donor IP-only
 // comparison would omit the port. Native GameSlot/GameInfo address is38.
 class CreateAHeroData;
@@ -49,8 +49,7 @@ public:
     void setCRCInterval(int n) { m_crcInterval = n < 100 ? n : 100; }
 };
 class GameSpyStagingRoom : public GameInfo {};
-class LANAPI {public:
-virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();virtual void slot16();virtual void slot17();virtual void slot18();virtual void slot19();virtual void slot20();virtual void slot21();virtual void slot22();virtual void slot23();virtual void slot24();virtual void slot25();virtual void slot26();virtual void slot27();virtual void slot28();virtual void slot29();virtual void slot30();virtual void slot31();virtual void slot32();virtual void slot33();virtual void slot34();virtual void slot35();virtual void slot36();virtual void slot37();virtual void slot38();virtual void slot39();virtual void slot40();virtual void slot41();virtual void slot42();virtual void slot43();virtual void slot44();virtual void slot45();virtual void slot46();virtual void slot47();virtual void slot48();virtual void slot49();virtual void slot50();virtual void slot51();virtual void slot52();virtual void slot53();virtual void slot54();virtual void slot55();virtual GameInfo *GetMyGame();};
+#include "../../Include/GameNetwork/LANAPI.h"
 class NetworkInterface;
 extern NetworkInterface *TheNetwork;
 extern LANAPI *TheLAN;
@@ -1133,7 +1132,7 @@ void RecorderClass::startRecording(int difficulty, int gameMode, int rankPoints,
     int localIndex=-1;
     if (TheNetwork) {
         if (TheLAN) {
-            GameInfo *game=TheLAN->GetMyGame();
+            GameInfo *game=reinterpret_cast<GameInfo *>(TheLAN->GetMyGame());
             theSlotList=GameInfoToAsciiString(game);
             for (int i=0;i<8;++i) {
                 GameSlot *slot=game->getSlot(i);

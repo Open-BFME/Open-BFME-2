@@ -80,21 +80,7 @@ protected:
 	UnicodeString m_name;
 };
 
-template <int N> class VSlots : public VSlots<N - 1>
-{
-public:
-	virtual void gap( char (*)[N] ) = 0;
-};
-
-template <> class VSlots<0>
-{
-};
-
-class LANAPI : public VSlots<64>
-{
-public:
-	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
-};
+#include "../../Include/GameNetwork/LANAPI.h"
 
 extern LANAPI *TheLAN;
 

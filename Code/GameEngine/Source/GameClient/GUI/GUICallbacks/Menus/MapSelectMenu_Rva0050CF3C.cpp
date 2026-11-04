@@ -25,69 +25,6 @@ typedef int Int;
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 
-class LANAPI
-{
-public:
-	LANAPI();
-	virtual void v00();
-	virtual void init(void); // slot 1
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void reset(void); // slot 9
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void RequestLocations(void); // slot 15
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void RequestGameCreate(UnicodeString gameName, Bool isDirectConnect); // slot 27
-	virtual void v28();
-	virtual void RequestSetName(UnicodeString newName); // slot 29
-	virtual void v30();
-	virtual void v31();
-	virtual void v32();
-	virtual void v33();
-	virtual void v34();
-	virtual void v35();
-	virtual void v36();
-	virtual void v37();
-	virtual void v38();
-	virtual void v39();
-	virtual void v40();
-	virtual void v41();
-	virtual void v42();
-	virtual void v43();
-	virtual void v44();
-	virtual void v45();
-	virtual void v46();
-	virtual void v47();
-	virtual void v48();
-	virtual void v49();
-	virtual void v50();
-	virtual void v51();
-	virtual void SetLocalIP(AsciiString localIP); // slot 52
-
-	unsigned char m_unreconstructed[0x60 - 4];
-};
-
-extern LANAPI *TheLAN;
-
 class GameModePreferences
 {
 public:
@@ -114,6 +51,10 @@ extern GlobalData *TheWritableGlobalData;
 #include "../../../../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
+
+#include "../../../../../Include/GameNetwork/LANAPI.h"
+
+extern LANAPI *TheLAN;
 
 // MapSelectMenu's headless client count, VA 0x00E045C8 (RVA 0x00A045C8, .data's
 // zero tail past raw end 0x009DE008). MapSelectMenu.cpp owns that object under

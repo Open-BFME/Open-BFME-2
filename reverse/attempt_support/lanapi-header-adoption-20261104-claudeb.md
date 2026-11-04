@@ -125,3 +125,32 @@ vtable change.
   every touched unit. link_check: every touched unit LINKS with bytes kept
   (373 + 202 + 800 B).
 - accept PASS: LANAPI x6, BfmeNetAddress x2 (8 rows retired).
+
+## Batch 7 (2026-11-04)
+
+- MapSelectMenu_Rva0050CF3C.cpp: drops its one-slot view (SetLocalIP) for
+  LANAPI.h, included after GlobalData.h/GameEngine.h because GlobalData.h
+  refuses to follow the short SubsystemInterface. 1/1 matched, EH EXACT,
+  LINKS 345 -> 345 B.
+- LANGameInfo.cpp: drops VSlots<64> and the {m_ip, m_port as dword} address
+  for BfmeNetAddress.h + LANAPI.h; the `*getLocalAddress()` copy is unchanged.
+  17/17 matched, EH 3 EXACT, link_check LINKED 476 -> 550 B (prediction).
+- Recorder.cpp: the address struct and 57-slot view become BfmeNetAddress.h +
+  LANAPI.h, and GetMyGame is cast to the unit's GameInfo view. 139/139 matched,
+  EH 20 EXACT, LINKS 11,294 -> 11,294 B.
+- accept PASS: LANAPI x3, BfmeNetAddress x2 (5 rows retired).
+
+Tried and reverted:
+- LANAPIConstructor.cpp + LANAPICompleteDestructor.cpp (the vtable emitters)
+  compile and match 15/15 against LANAPI.h, with the dtor TU defining
+  `LANAPIInterface::~LANAPIInterface` out of line (row 0x0044954D). The link
+  drops both units (376 -> 0 B). The emitted tables then need
+  LANAPIInterface's own slot 2-8/11-13 overrides (`loadIniFilesFromLegend`,
+  `postProcessLoad`, `vslot04`..`vslot13`) and LANAPI's `_bfme_lan58`/
+  `_bfme_lan62`, and nothing provides any of them (12 unresolved). Retail
+  holds ICF folds there. The header must keep those slots provider-less for
+  consumers, so the emitters need the providers first: the folded bodies
+  bound under these names, or slots inherited rather than redeclared.
+- MapSelectMenu.cpp (ZH reference include paths, bfme2_ascii_common shim)
+  stops compiling once LANAPI.h's relative ascii/unicode includes follow its
+  Common/ string headers (CharSource redefinition). Unit not touched.
