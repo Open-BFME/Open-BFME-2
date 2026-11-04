@@ -61,42 +61,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *                                                                                             *
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
- *   CollectionClass::CollectionClass -- default constructor for collection render object      *
- *   CollectionClass::CollectionClass -- constructor for collection render object              *
- *   CollectionClass::CollectionClass -- copy constructor                                      *
- *   CollectionClass::CollectionClass -- assignment operator                                   *
- *   CollectionClass::~CollectionClass -- destructor                                           *
- *   CollectionClass::Clone -- virtual copy constructor                                        *
- *   CollectionClass::Free -- releases all assets in use by this collection                    *
- *   CollectionClass::Class_ID -- returns class id for collection render objects               *
- *   CollectionClass::Get_Num_Polys -- returns the number of polygons in this collection       *
- *   CollectionClass::Render -- render this collection                                         *
- *   CollectionClass::Special_Render -- passes the special render call to all sub-objects      *
- *   CollectionClass::Set_Transform -- set the transform for this collection                   *
- *   CollectionClass::Set_Position -- set the position for this collection                     *
- *   CollectionClass::Get_Num_Sub_Objects -- returns the number of sub objects                 *
- *   CollectionClass::Get_Sub_Object -- returns a pointer to the desired sub object            *
- *   CollectionClass::Add_Sub_Object -- adds another object into this collection               *
- *   CollectionClass::Remove_Sub_Object -- removes a sub object from this collection           *
- *   CollectionClass::Cast_Ray -- passes the ray test to each sub object                       *
- *   CollectionClass::Cast_AABox -- passes the axis-aligned box test to each sub object        *
- *   CollectionClass::Cast_OBBox -- passes the oriented box test to each sub object            *
- *   CollectionClass::Intersect_AABox -- test for intersection with an AABox                   *
- *   CollectionClass::Intersect_OBBox -- test for intersection with an OBBox                   *
- *   CollectionClass::Get_Obj_Space_Bounding_Sphere -- returns the object space bounding spher *
- *   CollectionClass::Get_Obj_Space_Bounding_Box -- returns the object-space bounding box      *
- *   CollectionClass::Snap_Point_Count -- returns the number of snap points in this collecion  *
- *   CollectionClass::Get_Snap_Point -- return the desired snap point                          *
- *   CollectionClass::Scale -- scale the objects in this collection                            *
- *   CollectionClass::Scale -- scale the objects in this collection                            *
- *   CollectionClass::Update_Obj_Space_Bounding_Volumes -- recomputes the object space boundin *
- *   CollectionClass::Update_Sub_Object_Transforms -- recomputes all sub object transforms     *
- *   CollectionLoaderClass::Load -- reads a collection from a w3d file                         *
- *   CollectionDefClass::CollectionDefClass -- constructor                                     *
- *   CollectionDefClass::~CollectionDefClass -- destructor for collection definition           *
- *   CollectionDefClass::Free -- releases assets in use by a collection definition             *
- *   CollectionDefClass::Get_Name -- returns name of the collection                            *
- *   CollectionDefClass::Load -- loads a collection definition from a w3d file                 *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -184,123 +148,26 @@ template <> int VectorClass<ProxyClass>::ID(ProxyClass const *);
 // scalar deleting destructor copy, ??_G?$VectorClass@VProxyClass@@@@UAEPAXI@Z.
 template <> VectorClass<ProxyClass>::~VectorClass();
 // bfme link decl-only end
-//#include "sr.hpp"
 
-
-CollectionLoaderClass _CollectionLoader;
-
-/*
-** CollectionDefClass.  This is the "blueprint" for a collection object
-** The asset manager will store these until someone actually asks it to
-** create an instance of the collection object
-*/
-class CollectionDefClass
-{
-public:
-
-	CollectionDefClass(void);
-	~CollectionDefClass(void);
-
-	const char *	Get_Name(void) const;
-	WW3DErrorType	Load(ChunkLoadClass & cload);
-
-protected:
-
-	void				Free(void);
-
-	char								Name[W3D_NAME_LEN];
-	DynamicVectorClass<char *> ObjectNames;
-	SnapPointsClass *				SnapPoints;
-
-	DynamicVectorClass <ProxyClass>	ProxyList;
-
-	friend class CollectionClass;
-};
-
-
-/*
-** CollectionPrototypeClass this is the render object prototype for 
-** Collections.
-*/
-class CollectionPrototypeClass : public W3DMPO, public PrototypeClass
-{
-	W3DMPO_GLUE(CollectionPrototypeClass)
-public:
-	CollectionPrototypeClass(CollectionDefClass * def)		{ ColDef = def; WWASSERT(ColDef); }
-
-	virtual const char *			Get_Name(void) const			{ return ColDef->Get_Name(); }	
-	virtual int								Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_COLLECTION; }
-	virtual RenderObjClass *	Create(void)							{ return NEW_REF( CollectionClass, (*ColDef)); }	
-	virtual void							DeleteSelf()							{ delete this; }
-
-	CollectionDefClass *			ColDef;
-
-protected:
-	virtual ~CollectionPrototypeClass(void)					{ delete ColDef; }						 
-};
-
-
-/***********************************************************************************************
- * CollectionClass::CollectionClass -- constructor for collection render object                *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/8/98    GTH : Created.                                                                 *
- *=============================================================================================*/
-// ?CollectionClass::CollectionClass present-unmatched
-CollectionClass::CollectionClass(const CollectionDefClass & def) :
-	SubObjects(def.ObjectNames.Count()),	
-	SnapPoints(NULL)
-{
-	// Set our name
-	Set_Name (def.Get_Name ());
-
-	// create the sub objects
-	SubObjects.Resize(def.ObjectNames.Count());
-	for (int i=0; i<def.ObjectNames.Count(); i++) {
-		WWASSERT(SubObjects.Count() == i);
-		SubObjects.Add(WW3DAssetManager::Get_Instance()->Create_Render_Obj(def.ObjectNames[i]));
-		SubObjects[i]->Set_Container(this);
-	}
-
-	// Copy the list of placeholder objects from the definition
-	ProxyList = def.ProxyList;
-		
-	// grab ahold of the snap points.	
-	SnapPoints = def.SnapPoints;
-	if (SnapPoints) SnapPoints->Add_Ref();
-
-	// set up our collision typeas the union of all of our sub-objects
-	Update_Sub_Object_Bits();
-
-	// update the object bounding volumes
-	Update_Obj_Space_Bounding_Volumes();
-}
-
-
-/***********************************************************************************************
- * CollectionClass::Get_Num_Sub_Objects -- returns the number of sub objects                   *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/8/98    GTH : Created.                                                                 *
- *=============================================================================================*/
+// game.dat has no string naming a collection render object and no unit in this tree uses
+// one, so the Zero Hour class is gone. What rests in this file are the rows a masked search
+// placed here. The bodies follow the header definitions.
 int CollectionClass::Get_Num_Sub_Objects(void) const
 {
 	return SubObjects.Count();
 }
 
+// A virtual's address is a call thunk and a constructor has none, so direct calls from a
+// function nothing runs make this unit emit the inline rows, and inline_depth keeps the
+// calls out of line.
+#pragma inline_depth(0)
+static void callInlineRows(RenderObjClass *object, DynamicVectorClass<ProxyClass> *proxies, const DynamicVectorClass<ProxyClass> *other)
+{
+	object->RenderObjClass::Set_Native_Screen_Size(0.0f);
+	object->RenderObjClass::Set_ObjectScale(0.0f);
+	*proxies = *other;
+	new DynamicVectorClass<char *>(0, 0);
+}
+#pragma inline_depth()
 
-// Keep the ledger-owned char-pointer vector constructor without the unrowed
-// CollectionDefClass constructor that previously caused its emission.
-template DynamicVectorClass<char *>::DynamicVectorClass(unsigned, char * const *);
+extern const void *const g_collectRowsAnchor = (const void *)&callInlineRows;
