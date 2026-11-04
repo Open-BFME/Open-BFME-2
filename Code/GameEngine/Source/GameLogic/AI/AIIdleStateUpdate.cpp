@@ -220,7 +220,7 @@ private:
 
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
-extern int g_00E01E04;
+extern int IDLE_COUNTDOWN_DELAY;
 
 class StateMachine
 {
@@ -323,7 +323,7 @@ StateReturnType AIIdleState::update()
 	}
 
 	int oldSleepOffset = m_initialSleepOffset;
-	UnsignedInt timeToSleep = g_00E01E04 + oldSleepOffset;
+	UnsignedInt timeToSleep = IDLE_COUNTDOWN_DELAY + oldSleepOffset;
 	m_initialSleepOffset = 0;
 
 	if (m_shouldLookForTargets && !getMachine()->isLocked())

@@ -4694,3 +4694,4 @@ __ehhandler$?updateFormationPreview@InGameUI@@QAEXXZ,0x00775081,"Renamed to __eh
 ?rva0050EE23@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,0x0050EE23,"Renamed to ?compareNoCase@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z by tools/rename.py (inferred)"
 ?rva004C1C68@DetachableRiderBody@@MBE_NXZ,0x004C1C68,"Renamed to ?requiresAllActivationUpgrades@DetachableRiderBody@@MBE_NXZ by tools/rename.py (inferred)"
 ?rva004C1C75@DetachableRiderBody@@MBE_NXZ,0x004C1C75,"Renamed to ?requiresAllConflictingUpgrades@DetachableRiderBody@@MBE_NXZ by tools/rename.py (inferred)"
+?g_00E01E04@@3HA,0x00A01E04,"Renamed to ?IDLE_COUNTDOWN_DELAY@@3HA by tools/rename.py (inferred)"

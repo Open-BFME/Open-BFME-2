@@ -24,7 +24,7 @@ extern unsigned BfmeHealingIconDisplayFrames;
 unsigned BfmeHealingIconDisplayFrames = 0;	// owned here; retail .data starts it at 0
 extern int g_00DFEFCC;
 int g_00DFEFCC = 0;	// owned here; retail .data starts it at 0
-extern int g_00E01E04;
+extern int IDLE_COUNTDOWN_DELAY;
 // Retail's half-the-frame-rate divisor, VA 0x00E02D9C (RVA 0x00A02D9C): the rowed
 // ScriptActions bodies divide by it (`idivl 0xe02d9c`, retail 0x003BB5F14), and
 // this very unit's rowed initialiser writes BfmeClientFramesPerSecond / 2 into it. RVA
@@ -181,7 +181,7 @@ void Rva007ABC6FFrameRateInits::rva007AE2CE()
 // ?rva007AEBAA@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AEBAA (13B): global at VA 0x00E01E04, named as the TU that reads it names it
 void Rva007ABC6FFrameRateInits::rva007AEBAA()
 {
-	g_00E01E04 = BfmeLogicFramesPerSecond * 2;
+	IDLE_COUNTDOWN_DELAY = BfmeLogicFramesPerSecond * 2;
 }
 
 // ?rva007AEE6B@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AEE6B (16B): TU-local static at VA 0x00E01ED8, never read in .text

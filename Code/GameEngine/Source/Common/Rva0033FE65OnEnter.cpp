@@ -63,9 +63,9 @@ extern "C" struct FILE_dummy00346FD0;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-extern int g_00E01E04;
+extern int IDLE_COUNTDOWN_DELAY;
 // g_00E01E04: matched references place it at VA 0xe01e04 (zero-filled .bss).
-int g_00E01E04;
+int IDLE_COUNTDOWN_DELAY;
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 int __cdecl GetGameLogicRandomValue(int a, int b, char *c, int d);
 class __declspec(novtable) Rva0033FE65 : public State
@@ -105,6 +105,6 @@ StateReturnType Rva0033FE65::onEnter()
 			name = "";
 		fprintf(logFile, "AIIdleState::onEnter() called for object %s(%d) at location %g,%g,%g.", name, id, obj->m_positionX, obj->m_positionY, obj->m_positionZ);
 	}
-	m_20 = (unsigned short)GetGameLogicRandomValue(0, g_00E01E04, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp", 0x94A);
+	m_20 = (unsigned short)GetGameLogicRandomValue(0, IDLE_COUNTDOWN_DELAY, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp", 0x94A);
 	return STATE_CONTINUE;
 }
