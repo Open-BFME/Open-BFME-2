@@ -51,10 +51,30 @@ struct FxDeclarationDevice {
 #undef V
  virtual long __stdcall CreateVertexDeclaration(const FxVertexElement *,void **);
 };
-class BfmeFVFDescriptor {
+class BfmeFVFDescriptor
+{
 public:
- void *rva001818C0();
- unsigned fvf;bool basis;unsigned count;char rest[0x60-0xc];
+	BfmeFVFDescriptor(unsigned,unsigned,bool,unsigned);
+	__declspec(noinline) void Initialize(unsigned,unsigned,bool,unsigned);
+	void *rva001818C0();
+	unsigned fvf; // +0x00
+	bool additionalBasis; // +0x04
+	char m_pad05[0x3];
+	unsigned extensionCount; // +0x08
+	unsigned stride; // +0x0C
+	unsigned locationOffset; // +0x10
+	unsigned extensionOffset; // +0x14
+	unsigned normalOffset; // +0x18
+	unsigned extensionEnd; // +0x1C
+	unsigned blendOffset; // +0x20
+	unsigned textureOffsets[8]; // +0x24
+	unsigned diffuseOffset; // +0x44
+	unsigned specularOffset; // +0x48
+	unsigned basisOffset; // +0x4C
+	unsigned basisSecondOffset; // +0x50
+	unsigned basisEnd; // +0x54
+	unsigned extensionDataOffset; // +0x58
+	unsigned formatIndex; // +0x5C
 };
 void *BfmeFVFDescriptor::rva001818C0()
 {
@@ -85,14 +105,14 @@ void *BfmeFVFDescriptor::rva001818C0()
   ++e.index;e.offset+=dimension*4;
  }
  e.index=0;
- if(basis) {
+ if(additionalBasis) {
   e.type=2;e.usage=6;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;
   e.type=2;e.usage=7;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;
  }
- if(count>0) {
+ if(extensionCount>0) {
   e.type=4;e.usage=2;elements.push_back(*(const ICoord2D *)&e);e.offset+=4;
-  if(count>1) {
-   e.type=count-1;e.usage=1;elements.push_back(*(const ICoord2D *)&e);e.offset+=count*4;
+  if(extensionCount>1) {
+   e.type=extensionCount-1;e.usage=1;elements.push_back(*(const ICoord2D *)&e);e.offset+=extensionCount*4;
    e.type=2;e.usage=0;e.index=1;elements.push_back(*(const ICoord2D *)&e);e.offset+=12;
    e.type=2;e.usage=3;e.index=1;elements.push_back(*(const ICoord2D *)&e);
   }
