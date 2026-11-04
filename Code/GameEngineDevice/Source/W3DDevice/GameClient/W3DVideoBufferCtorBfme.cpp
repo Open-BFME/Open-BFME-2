@@ -61,12 +61,8 @@ class VideoBuffer
 {
 public:
     VideoBuffer(int format);
+    virtual void slot0() = 0;
     virtual ~VideoBuffer();
-    virtual bool allocate(unsigned int width, unsigned int height) = 0;
-    virtual void free() = 0;
-    virtual void *lock() = 0;
-    virtual void unlock() = 0;
-    virtual bool valid() = 0;
 
 protected:
     unsigned int m_x_pos;
@@ -85,18 +81,35 @@ protected:
 
 extern Display *TheDisplay;
 
+// The rows in retail's table 0x007C64D8. None has stack arguments, and each takes this object in ecx.
+extern "C" {
+void __identifier("?bfmeSwapBits@Gen_0073A2E0@@QAEXXZ")();
+void __identifier("?rva00072559@Rva00072559@@QAEXXZ")();
+bool __identifier("?rva00072566@Rva00072566@@UAE_NXZ")();
+int __identifier("?get@Rva00072756MaskedChaseField@@QBEHXZ")();
+int *__identifier("?rva00072740@Rva00072740@@QAEPAHXZ")();
+int *__identifier("?rva0007274B@Rva00072740@@QAEPAHXZ")();
+}
+class BfmeOwnerCC { public: virtual ~BfmeOwnerCC(); };
+
+// The slots in retail's order, since the constructor installs the table built from them.
 class W3DVideoBuffer : public VideoBuffer
 {
 public:
     W3DVideoBuffer(int format);
-    virtual ~W3DVideoBuffer();
-    virtual bool allocate(unsigned int width, unsigned int height);
-    virtual void free();
-    virtual void *lock();
-    virtual void unlock();
-    virtual bool valid();
+    __declspec(noinline) virtual void slot0() { __identifier("?bfmeSwapBits@Gen_0073A2E0@@QAEXXZ")(); }
+    __declspec(noinline) virtual ~W3DVideoBuffer() { ((BfmeOwnerCC *)this)->BfmeOwnerCC::~BfmeOwnerCC(); }
+    virtual bool allocate(unsigned int width, unsigned int height, bool flag);
+    __declspec(noinline) virtual void slot3() { rva00072583(); }
+    __declspec(noinline) virtual void slot4() { __identifier("?rva00072559@Rva00072559@@QAEXXZ")(); }
     virtual void Rva000723FB();
+    __declspec(noinline) virtual bool slot6() { return __identifier("?rva00072566@Rva00072566@@UAE_NXZ")(); }
+    __declspec(noinline) virtual int slot7() { return __identifier("?get@Rva00072756MaskedChaseField@@QBEHXZ")(); }
+    virtual bool slot8() { return false; }
+    __declspec(noinline) virtual int *slot9() { return __identifier("?rva00072740@Rva00072740@@QAEPAHXZ")(); }
+    __declspec(noinline) virtual int *slot10() { return __identifier("?rva0007274B@Rva00072740@@QAEPAHXZ")(); }
     virtual void Rva00072472();
+    virtual void Rva00072480();
     void rva00072583();
 
 private:
@@ -135,12 +148,9 @@ void W3DVideoBuffer::Rva000723FB()
 // ?Rva00072472@W3DVideoBuffer@@UAEXXZ @0x00072472 14B
 // Virtual slot 11 (offset 0x2C) of vtable 0x007C64D8 (class of ??0W3DVideoBuffer).
 // Calls slot 3 (offset 0xC, retail 0x00072583) then sets +0x4A to 1.
-// In this simplified 6-virtual model slot 3 is lock(); retail has 17 slots
-// so its slot 3 (0x72583, 57B reset-like, unclaimed) is a different method;
-// lock() is used here only to reproduce the slot-3 call offset for byte match.
 void W3DVideoBuffer::Rva00072472()
 {
-    lock();
+    slot3();
     m_flag_4a = true;
 }
 
