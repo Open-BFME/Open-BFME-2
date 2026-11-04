@@ -20,7 +20,9 @@ AsciiString g_00DFE7B0;
 // Retail's storage sits in .data's zero-filled tail (the section's raw data ends
 // at RVA 0x009DE008, so the address loads as zero), so the definition that owns
 // the symbol is zero-initialised, exactly as retail's image holds it.
-unsigned char g_00DFE7A8;
+// The first byte of a larger object: retail constructs it here with 0x0023DBF9, which writes out to +0x88, and
+// the ledger's next object starts at +0x98. Its readers declare the byte under this name.
+extern "C" { unsigned char __identifier("?g_00DFE7A8@@3EA")[0x98]; }
 
 struct Rva003B9EC4Arg { char m_pad00[4]; const char *m_04; };
 
@@ -32,7 +34,7 @@ int __cdecl rva003B9EC4(Rva003B9EC4Arg *arg, int argc)
 			AsciiString text(arg->m_04);
 			((StringBase<char> *)&g_00DFE7B0)->set(reinterpret_cast<const StringBase<char> &>(text));
 		}
-		g_00DFE7A8 = 1;
+		__identifier("?g_00DFE7A8@@3EA")[0] = 1;
 		((unsigned char *)TheWritableGlobalData)[0x2C] = 1;
 		((unsigned char *)TheWritableGlobalData)[0xAF0] = 0;
 		return 2;
