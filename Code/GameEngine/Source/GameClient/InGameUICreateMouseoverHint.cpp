@@ -356,10 +356,7 @@ class LookAtTranslator;
 class BfmeOwnVVD { public: unsigned char Rva0042E8C1(); };
 // Use the canonical translator global; casts retain the verified local member view.
 class LookAtTranslator; extern LookAtTranslator *TheLookAtTranslator;
-class GlobalData { public:
- unsigned char pad0[0x9b8]; int tooltipFlag;
- unsigned char pad1[0xa5c-0x9bc]; int baseValuePerSupplyBox;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 class TooltipBase { public: virtual ~TooltipBase() {} };
@@ -520,7 +517,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    SupplyWarehouseDockUpdate* warehouseModule=(SupplyWarehouseDockUpdate*)obj->findModule(warehouseModuleKey);
    if(warehouseModule) {
     int boxes=warehouseModule->getBoxesStored();
-    int value=boxes*TheGlobalData->baseValuePerSupplyBox;
+    int value=boxes*TheGlobalData->m_valuePerSupplyBox;
     warehouseFeedback.format(TheGameText->fetchRef("TOOLTIP:SupplyWarehouse"),value);
     str.concat(warehouseFeedback);
    }
@@ -557,7 +554,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
           obj->getTemplate()->testByte(6,4)) {
         { TooltipRecord record(obj->getID(),m_tooltipContext);
         reinterpret_cast<Rva00405A50*>(TheControlBar)->rva00405C04((BfmeThingGX*)&record); }
-        if(!TheGlobalData->tooltipFlag && !warehouseModule)sendOrdinaryTooltip=false;
+        if(!TheGlobalData->field09B8 && !warehouseModule)sendOrdinaryTooltip=false;
        }
       }
       if(sendOrdinaryTooltip)TheMouse->rva001EEA6D(tooltip,-1,&rgb);

@@ -33,23 +33,7 @@ struct TerrainLighting
 	Coord3D lightPos;
 };
 
-class GlobalData
-{
-public:
-	Bool setTimeOfDay( TimeOfDay tod );
-    Bool rva00235312(TimeOfDay from,TimeOfDay to,Real t);
-
-private:
-	unsigned char m_unreconstructed_000[ 0x134 ];
-	TimeOfDay m_timeOfDay;
-	unsigned char m_unreconstructed_138[ 0x8 ];
-	TerrainLighting m_terrainLighting[ TIME_OF_DAY_COUNT ][ MAX_GLOBAL_LIGHTS ];
-	TerrainLighting m_lighting3C8[TIME_OF_DAY_COUNT][MAX_GLOBAL_LIGHTS];
-    TerrainLighting m_lighting650[TIME_OF_DAY_COUNT][MAX_GLOBAL_LIGHTS];
-	RGBColor m_terrainAmbient[ MAX_GLOBAL_LIGHTS ];
-	RGBColor m_terrainDiffuse[ MAX_GLOBAL_LIGHTS ];
-	Coord3D m_terrainLightPos[ MAX_GLOBAL_LIGHTS ];
-};
+#include "../../Include/Common/GlobalData.h"
 
 // Target1060 blend uses native erroneous red/blue stores; the setTimeOfDay
 // donor supplies the table/copy guide only. Original method name is unknown.
@@ -84,31 +68,31 @@ Bool GlobalData::rva00235312(TimeOfDay from, TimeOfDay to, Real t)
 		m_terrainLighting[TIME_OF_DAY_INTERPOLATE][i].lightPos.z = blendedZ;
 
 		{
-		const TerrainLighting &oa = m_lighting3C8[from][i];
-		const TerrainLighting &ob = m_lighting3C8[to][i];
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.red + t * ob.diffuse.red;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].diffuse.green = inv * oa.diffuse.green + t * ob.diffuse.green;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.blue + t * ob.diffuse.blue;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.red + t * ob.diffuse.red;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].diffuse.green = inv * oa.diffuse.green + t * ob.diffuse.green;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.blue + t * ob.diffuse.blue;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].lightPos.x = oa.lightPos.x * inv + ob.lightPos.x * t;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].lightPos.y = oa.lightPos.y * inv + ob.lightPos.y * t;
-		m_lighting3C8[TIME_OF_DAY_INTERPOLATE][i].lightPos.z = oa.lightPos.z * inv + ob.lightPos.z * t;
+		const TerrainLighting &oa = m_terrainObjectsLighting[from][i];
+		const TerrainLighting &ob = m_terrainObjectsLighting[to][i];
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.red + t * ob.diffuse.red;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].diffuse.green = inv * oa.diffuse.green + t * ob.diffuse.green;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.blue + t * ob.diffuse.blue;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.red + t * ob.diffuse.red;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].diffuse.green = inv * oa.diffuse.green + t * ob.diffuse.green;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = inv * oa.diffuse.blue + t * ob.diffuse.blue;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].lightPos.x = oa.lightPos.x * inv + ob.lightPos.x * t;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].lightPos.y = oa.lightPos.y * inv + ob.lightPos.y * t;
+		m_terrainObjectsLighting[TIME_OF_DAY_INTERPOLATE][i].lightPos.z = oa.lightPos.z * inv + ob.lightPos.z * t;
 		}
 
 		{
-		const TerrainLighting &ua = m_lighting650[from][i];
-		const TerrainLighting &ub = m_lighting650[to][i];
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].ambient.red = ua.ambient.red * inv + ub.ambient.red * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].ambient.green = ua.ambient.green * inv + ub.ambient.green * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].ambient.red = ua.ambient.blue * inv + ub.ambient.blue * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = ua.diffuse.red * inv + ub.diffuse.red * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].diffuse.green = ua.diffuse.green * inv + ub.diffuse.green * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = ua.diffuse.blue * inv + ub.diffuse.blue * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].lightPos.x = ua.lightPos.x * inv + ub.lightPos.x * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].lightPos.y = ua.lightPos.y * inv + ub.lightPos.y * t;
-		m_lighting650[TIME_OF_DAY_INTERPOLATE][i].lightPos.z = ua.lightPos.z * inv + ub.lightPos.z * t;
+		const TerrainLighting &ua = field0650[from][i];
+		const TerrainLighting &ub = field0650[to][i];
+		field0650[TIME_OF_DAY_INTERPOLATE][i].ambient.red = ua.ambient.red * inv + ub.ambient.red * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].ambient.green = ua.ambient.green * inv + ub.ambient.green * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].ambient.red = ua.ambient.blue * inv + ub.ambient.blue * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = ua.diffuse.red * inv + ub.diffuse.red * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].diffuse.green = ua.diffuse.green * inv + ub.diffuse.green * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].diffuse.red = ua.diffuse.blue * inv + ub.diffuse.blue * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].lightPos.x = ua.lightPos.x * inv + ub.lightPos.x * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].lightPos.y = ua.lightPos.y * inv + ub.lightPos.y * t;
+		field0650[TIME_OF_DAY_INTERPOLATE][i].lightPos.z = ua.lightPos.z * inv + ub.lightPos.z * t;
 		}
 	}
 

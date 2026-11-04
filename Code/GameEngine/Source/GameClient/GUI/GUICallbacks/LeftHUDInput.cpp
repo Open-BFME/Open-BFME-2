@@ -126,12 +126,7 @@ public:
 
 #include "../../../../Include/GameClient/View.h"
 
-class GlobalData
-{
-public:
-	char m_pad00[0x5C];
-	Bool m_useAlternateMouse;       // +0x5C
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern PlayerList *ThePlayerList;
 extern Radar *TheRadar;
@@ -262,7 +257,7 @@ WindowMsgHandledType LeftHUDInput( GameWindow *window, UnsignedInt msg,
 				const DrawableList *drawableList = TheInGameUI->getAllSelectedLocalDrawables();
 
 				if (	drawableList->empty()
-					||	msg == (TheGlobalData->m_useAlternateMouse ? GWM_LEFT_DOWN : GWM_RIGHT_DOWN)	)
+					||	msg == (TheGlobalData->field005C ? GWM_LEFT_DOWN : GWM_RIGHT_DOWN)	)
 				{
 					TheTacticalView->lookAt( &world );
 					break;

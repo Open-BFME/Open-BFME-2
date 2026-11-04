@@ -133,12 +133,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class GlobalData
-{
-public:
-	char m_opaque000[0xA94];
-	int m_maxLineBuildObjects;				// +0xA94
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
 

@@ -81,7 +81,7 @@ class Image;
 
 extern ImageCollection* TheMappedImageCollection;
 
-class GlobalData {public:unsigned char pad[0x9d4];int modeFlags;};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -174,7 +174,7 @@ AptMpGameSetup::AptMpGameSetup(MpGameSetupOwner*owner,int flags):
  ping3bc=TheMappedImageCollection->findImageByName(AsciiString("AptPing02"));
  ping3c0=TheMappedImageCollection->findImageByName(AsciiString("AptPing01"));
  ((Rva0043F20C*)&map60)->rva0043F20C(FunctorBinding(&Rva0043E0C5::rva0043E6C9,reinterpret_cast<Rva0043E0C5*>(this)));
- if(TheGlobalData->modeFlags&3) flags3a4&=~0x40;
+ if(TheGlobalData->field09D4&3) flags3a4&=~0x40;
  if(flags3a4&0x40) {if(!g_Va00E03340) flags3a4&=~0x40;}
  if(!(flags3a4&0x40)) ((Rva0057E97A*)&rulesD0)->rva0057E9ED(1,3);
 }

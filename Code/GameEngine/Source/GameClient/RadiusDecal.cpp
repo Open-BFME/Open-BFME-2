@@ -204,7 +204,7 @@ extern GameClient *TheGameClient;
 
 extern GameLogic *TheGameLogic;
 
-class GlobalData { public: char pad00[0x5C];volatile bool at5C; };
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -514,7 +514,7 @@ void RadiusDecal::update() {
   bool special=m_shadow->type==0x1000;
   unsigned value=*(const volatile unsigned *)&m_decalTemplate->m_unmodelled28;
   if(value>0) special=true;
-  if(!special && TheWritableGlobalData->at5C && ((BfmeOwnVVD *)TheLookAtTranslator)->slot2()) opacity=0;
+  if(!special && TheWritableGlobalData->field005C && ((BfmeOwnVVD *)TheLookAtTranslator)->slot2()) opacity=0;
  }
  set_opacity:
  m_shadow->setOpacity(opacity);

@@ -307,28 +307,7 @@ public:
 };
 #undef V
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x30];
-	int m_xResolution; // +0x30
-	int m_yResolution; // +0x34
-	unsigned char m_pad038[0x5C - 0x38];
-	bool m_5c; // +0x5C, cleared by AlternateMouseSetup
-	unsigned char m_pad05d[0x9BE - 0x5D];
-	bool m_allHealthBars; // +0x9BE
-	unsigned char m_pad9bf[0xA54 - 0x9BF];
-	int m_firewallPortOverride; // +0xA54
-	unsigned char m_padA58[0xA9C - 0xA58];
-	float m_horizontalScrollSpeedFactor; // +0xA9C
-	float m_keyboardScrollFactor; // +0xAA0
-	unsigned char m_padAA4[0xAFC - 0xAA4];
-	float m_keyboardDefaultScrollFactor; // +0xAFC
-	unsigned char m_padB00[0xB6B - 0xB00];
-	bool m_sendDelay; // +0xB6B
-	unsigned char m_padB6C[0xBCC - 0xB6C];
-	float m_gamma; // +0xBCC
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern AudioManager *TheAudio;
 extern Display *TheDisplay;
@@ -557,7 +536,7 @@ void AptOptions::Reset(const char *unused)
 			}
 		}
 		if (m_scrollSlider)
-			Rva0050E776Send(m_scrollSlider, (int)(TheWritableGlobalData->m_keyboardDefaultScrollFactor * 50.0f));
+			Rva0050E776Send(m_scrollSlider, (int)(TheWritableGlobalData->m_keyboardDefaultScrollSpeedFactor * 50.0f));
 		if (m_2c0)
 			GadgetCheckBoxSetChecked(m_2c0, false);
 		if (m_2b8)
@@ -654,15 +633,15 @@ void AptOptions::Save(const char *unused)
 			AsciiString prefString;
 			prefString.format("%d", val);
 			pref["Brightness"] = prefString;
-			if (TheWritableGlobalData->m_gamma != gammaval)
-				TheWritableGlobalData->m_gamma = gammaval;
+			if (TheWritableGlobalData->field0BCC != gammaval)
+				TheWritableGlobalData->field0BCC = gammaval;
 		}
 
 		val = m_scrollSlider ? GadgetSliderGetPosition(m_scrollSlider) : -1;
 		if (val != -1)
 		{
 			val = _STL::max(val, 1);
-			TheWritableGlobalData->m_keyboardScrollFactor = val / 50.0f;
+			TheWritableGlobalData->m_verticalScrollSpeedFactor = val / 50.0f;
 			TheWritableGlobalData->m_horizontalScrollSpeedFactor = val / 50.0f;
 			AsciiString prefString;
 			prefString.format("%d", val);
@@ -684,7 +663,7 @@ void AptOptions::Save(const char *unused)
 				AsciiString prefString;
 				prefString = checked ? AsciiString("yes") : AsciiString("no");
 				pref["AllHealthBars"] = prefString;
-				TheWritableGlobalData->m_allHealthBars = checked != 0;
+				TheWritableGlobalData->field09BE = checked != 0;
 			}
 		}
 
@@ -694,7 +673,7 @@ void AptOptions::Save(const char *unused)
 			AsciiString prefString;
 			prefString = checked ? AsciiString("yes") : AsciiString("no");
 			pref["AlternateMouseSetup"] = prefString;
-			TheWritableGlobalData->m_5c = checked == 0;
+			TheWritableGlobalData->field005C = checked == 0;
 		}
 
 		checked = m_eaxCheckBox ? GadgetCheckBoxIsChecked(m_eaxCheckBox) : -1;
@@ -726,7 +705,7 @@ void AptOptions::Save(const char *unused)
 			AsciiString prefString;
 			prefString = checked ? AsciiString("yes") : AsciiString("no");
 			pref["SendDelay"] = prefString;
-			TheWritableGlobalData->m_sendDelay = checked != 0;
+			TheWritableGlobalData->field0B6B = checked != 0;
 		}
 
 		if (m_ipCombo)

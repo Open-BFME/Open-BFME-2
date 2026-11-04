@@ -94,11 +94,7 @@ class PlayerList {
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
-class GlobalData {
-  public:
-    char pad[0x11B8];
-    float factor;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva0023C666 {
   public:
@@ -165,7 +161,7 @@ void Rva002AB5C7Player::rva002AB44A() {
             Rva0039B683::Record *begin = array->begin;
             int count = array->end - begin;
             if (count > 0)
-                other->score.rva0039B6A8(begin[count - 1].value * TheWritableGlobalData->factor);
+                other->score.rva0039B6A8(begin[count - 1].value * TheWritableGlobalData->m_scoreKeeper_PlayerEliminatedMultiplier);
         }
     }
 }

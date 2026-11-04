@@ -905,20 +905,7 @@ private:
 	char m_pad295[0x3];
 };
 
-class GlobalData
-{
-	char pad116c[0x116c];
-public:
-	float scale116c;
-private:
-	char pad1170[4];
-public:
-	float scale1174;
-private:
-	char pad1178[0x1c];
-public:
-	float scale1194;
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 struct Rva000AD6F4Base
 {
@@ -2258,9 +2245,9 @@ float Rva0051E73E::value(int index)
 			case 3:
 				return record->m04;
 			case 4:
-				return record->m04 * TheWritableGlobalData->scale1194
-					+ record->m08 * TheWritableGlobalData->scale1174
-					+ record->m06 * TheWritableGlobalData->scale116c;
+				return record->m04 * TheWritableGlobalData->m_scoreKeeper_RegionResourcesMultiplier
+					+ record->m08 * TheWritableGlobalData->m_scoreKeeper_StructuresBuiltMultiplier
+					+ record->m06 * TheWritableGlobalData->m_scoreKeeper_UnitsBuiltMultiplier;
 			}
 		}
 	}

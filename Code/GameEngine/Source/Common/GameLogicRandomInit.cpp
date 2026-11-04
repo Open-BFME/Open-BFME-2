@@ -43,12 +43,7 @@ UnsignedInt GetGameLogicRandomSeed(void)
 // TheWritableGlobalData at VA 0x00DFE758: the matched -randomSeed parser
 // (CommandLineRandomSeed.cpp, 0x003B9D2C) writes the same +0x1228 field of
 // that global. Only that offset is modeled; everything else is padding.
-class GlobalData
-{
-public:
-	unsigned char m_pad[0x1228];
-	UnsignedInt m_fixedSeed;	// +0x1228
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
@@ -75,8 +70,8 @@ static void seedRandom(UnsignedInt seed, UnsignedInt *seeds)
 // ?InitRandom@@YAXI@Z
 void InitRandom(UnsignedInt seed)
 {
-	if (TheGlobalData != 0 && TheGlobalData->m_fixedSeed != (UnsignedInt)-1)
-		seed = TheGlobalData->m_fixedSeed;
+	if (TheGlobalData != 0 && TheGlobalData->field1228 != (UnsignedInt)-1)
+		seed = TheGlobalData->field1228;
 	seedRandom(seed, theGameAudioSeed);
 	seedRandom(seed, theGameClientSeed);
 	seedRandom(seed, theGameLogicSeed);
@@ -86,8 +81,8 @@ void InitRandom(UnsignedInt seed)
 // ?InitGameLogicRandom@@YAXI@Z
 void InitGameLogicRandom(UnsignedInt seed)
 {
-	if (TheGlobalData != 0 && TheGlobalData->m_fixedSeed != (UnsignedInt)-1)
-		seed = TheGlobalData->m_fixedSeed;
+	if (TheGlobalData != 0 && TheGlobalData->field1228 != (UnsignedInt)-1)
+		seed = TheGlobalData->field1228;
 	seedRandom(seed, theGameLogicSeed);
 	theGameLogicBaseSeed = seed;
 }

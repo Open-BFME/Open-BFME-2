@@ -310,12 +310,7 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-class GlobalData
-{
-public:
-	char m_pad[0x5C];
-	bool m_flag5C;
-};
+#include "../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -466,7 +461,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	bool isDown = msg->m_type == 4;
 	bool cancelCommand;
 	bool executeCommand;
-	if (command->m_commandType == 0xA && TheWritableGlobalData->m_flag5C)
+	if (command->m_commandType == 0xA && TheWritableGlobalData->field005C)
 	{
 		cancelCommand = gameMessageArgumentType;
 		executeCommand = rightClick;

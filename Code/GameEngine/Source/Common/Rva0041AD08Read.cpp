@@ -217,7 +217,7 @@ extern LivingWorldLogic*TheLivingWorldLogic;
 extern LinearCampaignManager*TheLinearCampaignManager;
 extern GameState *TheGameState;
 extern GameLogic *TheGameLogic;
-class GlobalData {public:char prefix[0xC];AsciiString m_mapName;};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData*TheWritableGlobalData;
 class GameClient {public:char prefix[0x2C];int drawableCounter;};
 extern GameClient*TheGameClient;

@@ -196,13 +196,7 @@ private:
 enum TimeOfDay { TIME_OF_DAY_NIGHT = 4 };
 enum Weather { WEATHER_SNOWY = 1 };
 
-class GlobalData
-{
-public:
-	char m_unrecovered0000[ 0x134 ];
-	TimeOfDay m_timeOfDay;	///< 0x134
-	Weather m_weather;		///< 0x138
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)

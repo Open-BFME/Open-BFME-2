@@ -140,12 +140,7 @@ public:
 
 extern Rva000E6AC0 *g_009EBC90;
 
-class GlobalData
-{
-public:
-	char m_pad000[0xd45];
-	bool m_D45;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -233,7 +228,7 @@ void Rva000E6878IsAlphaBlendEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E6AC0 *buffer = g_009EBC90;
 	if (TheWritableGlobalData && buffer)
-		effect->SetBool(handle, !TheWritableGlobalData->m_D45 && !buffer->slot04());
+		effect->SetBool(handle, !TheWritableGlobalData->field0D45 && !buffer->slot04());
 	else
 		effect->SetBool(handle, TRUE);
 }

@@ -90,12 +90,7 @@ public:
 	                            float scale, void *b);
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_unknown000[0x9EC];
-	float m_value9EC;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class Rva001F54C5Holder
@@ -152,7 +147,7 @@ Rva003AFA0BVector ParticleSystem::rva001F54C5(const Rva003AFA0BVector *pos)
 		if (m_holder1C0 != 0) {
 			return m_receiver1BC->rva003AFA0B(
 				const_cast<Rva003AFA0BVector *>(pos), &m_factors130,
-				(TheWritableGlobalData->m_value9EC + 1.0f) * 0.5f,
+				(TheWritableGlobalData->m_particleScale + 1.0f) * 0.5f,
 				rva001F54C5Slot18(m_holder1C0));
 		}
 	}

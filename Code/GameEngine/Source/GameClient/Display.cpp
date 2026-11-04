@@ -164,12 +164,7 @@ public:
 
 void NetworkDebugDisplay(DebugDisplayInterface *dd, void *userData, FILE *fp);
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xBBC];
-	bool m_networkDebugDisplay;		// +0xBBC
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -458,7 +453,7 @@ void Display::setDebugDisplayCallback(DebugDisplayCallback *callback, void *user
 {
 	m_debugDisplayCallback = callback;
 	m_debugDisplayUserData = userData;
-	TheWritableGlobalData->m_networkDebugDisplay = (callback == NetworkDebugDisplay);
+	TheWritableGlobalData->field0BBC = (callback == NetworkDebugDisplay);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0025C8D3.cpp

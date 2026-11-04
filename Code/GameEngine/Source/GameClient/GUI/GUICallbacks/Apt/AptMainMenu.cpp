@@ -150,14 +150,7 @@ public:
 
 extern GameClient *TheGameClient;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0xAF0];
-	bool m_shellMapOn; // +0xAF0
-	unsigned char m_padAF1[0xD36 - 0xAF1];
-	bool m_D36; // +0xD36
-};
+#include "../../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -786,7 +779,7 @@ AptMainMenu::AptMainMenu(void *context)
 	unsigned short path[260] = { 0 };
 	GetModuleFileNameW(0, path, sizeof(path));
 	((Rva005B6F1E *)&m_title)->rva005B6F1E(TheGameText->fetch("GUI:Command&ConquerGenerals").str(), path);
-	TheWritableGlobalData->m_D36 = false;
+	TheWritableGlobalData->field0D36 = false;
 	TheMouse->_bfme_setEngineVisibility(false);
 	OptionPreferences preferences;
 	int timesInGame = preferences.getInt(AsciiString("TimesInGame"), 0) + 1;

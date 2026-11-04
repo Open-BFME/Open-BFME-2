@@ -302,12 +302,7 @@ public:
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
-class GlobalData
-{
-public:
-	char m_pad[0x9D4];
-	unsigned char m_flag9D4;
-};
+#include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -315,7 +310,7 @@ Int GameModePreferences::rva0044D88C(void)
 {
 	PreferenceMap::const_iterator it = find(makeKey("PlayerTemplate"));
 	if (it == end()) {
-		if ((TheWritableGlobalData->m_flag9D4 & 3) == 0)
+		if ((TheWritableGlobalData->field09D4 & 3) == 0)
 			return -1;
 		return ThePlayerTemplateStore->m_map.begin()->first;
 	}
@@ -329,7 +324,7 @@ Int GameModePreferences::rva0044D88C(void)
 		else if (pt->m_playableSide == 0)
 			v = -1;
 	}
-	if (v == -1 && (TheWritableGlobalData->m_flag9D4 & 3) != 0)
+	if (v == -1 && (TheWritableGlobalData->field09D4 & 3) != 0)
 		return ThePlayerTemplateStore->m_map.begin()->first;
 	return v;
 }

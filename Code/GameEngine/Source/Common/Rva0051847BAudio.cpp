@@ -38,12 +38,7 @@ public:
 	virtual void s24();
 	virtual void v64(float a, float b, float c, int d);
 };
-class GlobalData
-{
-public:
-	char m_pad[0xBCC];
-	float m_BCC;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern Display *TheDisplay;
 class AudioManager
@@ -96,7 +91,7 @@ void Rva0051847B::rva0051847B(int unused)
 		return;
 	}
 	OptionPreferences prefs;
-	TheDisplay->v64(TheWritableGlobalData->m_BCC, 0.0f, 1.0f, 0);
+	TheDisplay->v64(TheWritableGlobalData->field0BCC, 0.0f, 1.0f, 0);
 	for (int i = 0; i < 5; ++i)
 	{
 		int iv = (int)prefs.getVolume(i);

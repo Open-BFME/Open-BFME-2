@@ -20,14 +20,7 @@ struct Global40Holder {
     char pad[0x40];
     unsigned m_val40;
 };
-class GlobalData {
-  public:
-    char prefix[0x116C];
-    float unitsBuilt, unitsDestroyed, structuresBuilt, structuresDestroyed, heroesVetted,
-        unitsVetted, objectivesCompleted, suppliesCollected, powerPoints, regionResources,
-        regionPowerPoints, regionCommandPoints, timeTaken, maxTimeScore, minTimeScore, totalVictory,
-        normalVictory, objectivesPercentage;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva0039B709 {
   public:
@@ -70,33 +63,33 @@ unsigned Rva0039B709::rva0039B6EE() {
 int Rva0039B709::rva0039B9D1() { return (int)rva0039B6EE() / 60; }
 int Rva0039B709::getTimeTakenScore() {
     GlobalData *gd = TheWritableGlobalData;
-    int score = (int)gd->maxTimeScore;
-    score = (int)((float)score - (float)rva0039B9D1() * gd->timeTaken);
-    if ((float)score < gd->minTimeScore)
-        score = (int)gd->minTimeScore;
+    int score = (int)gd->m_scoreKeeper_TimeTakenMaximumScore;
+    score = (int)((float)score - (float)rva0039B9D1() * gd->m_scoreKeeper_TimeTakenMultiplier);
+    if ((float)score < gd->m_scoreKeeper_TimeTakenMinimumScore)
+        score = (int)gd->m_scoreKeeper_TimeTakenMinimumScore;
     return score;
 }
 int Rva0039B709::calculateScore() {
     GlobalData *gd = TheWritableGlobalData;
-    int score = (int)((float)moneyEarned * gd->suppliesCollected);
-    score = (int)((float)score + (float)unitsBuilt * gd->unitsBuilt);
-    score = (int)((float)score + (float)buildingsBuilt * gd->structuresBuilt);
-    score = (int)((float)score + (float)heroesVetted * gd->heroesVetted);
-    score = (int)((float)score + (float)unitsVetted * gd->unitsVetted);
-    score = (int)((float)score + (float)powerPoints * gd->powerPoints);
+    int score = (int)((float)moneyEarned * gd->m_scoreKeeper_SuppliesCollectedMultiplier);
+    score = (int)((float)score + (float)unitsBuilt * gd->m_scoreKeeper_UnitsBuiltMultiplier);
+    score = (int)((float)score + (float)buildingsBuilt * gd->m_scoreKeeper_StructuresBuiltMultiplier);
+    score = (int)((float)score + (float)heroesVetted * gd->m_scoreKeeper_HeroesVettedMultiplier);
+    score = (int)((float)score + (float)unitsVetted * gd->m_scoreKeeper_UnitsVettedMultiplier);
+    score = (int)((float)score + (float)powerPoints * gd->m_scoreKeeper_PowerPointsMultiplier);
     score = (int)((float)score +
-                  (float)countMissionObjectives(0) * TheWritableGlobalData->objectivesCompleted);
+                  (float)countMissionObjectives(0) * TheWritableGlobalData->m_scoreKeeper_ObjectivesCompletedMultiplier);
     gd = TheWritableGlobalData;
     score += getTimeTakenScore();
     for (int i = 0; i < 20; ++i) {
         if (i == playerIdx)
             continue;
-        score = (int)((float)score + (float)unitsDestroyed[i] * gd->unitsDestroyed);
-        score = (int)((float)score + (float)buildingsDestroyed[i] * gd->structuresDestroyed);
+        score = (int)((float)score + (float)unitsDestroyed[i] * gd->m_scoreKeeper_UnitsDestroyedMultiplier);
+        score = (int)((float)score + (float)buildingsDestroyed[i] * gd->m_scoreKeeper_StructuresDestroyedMultiplier);
     }
-    score = (int)((float)score + (float)regionResources * gd->regionResources);
-    score = (int)((float)score + (float)regionPowerPoints * gd->regionPowerPoints);
-    score = (int)((float)score + (float)regionCommandPoints * gd->regionCommandPoints);
+    score = (int)((float)score + (float)regionResources * gd->m_scoreKeeper_RegionCommandPointsMultiplier);
+    score = (int)((float)score + (float)regionPowerPoints * gd->m_scoreKeeper_RegionResourcesMultiplier);
+    score = (int)((float)score + (float)regionCommandPoints * gd->m_scoreKeeper_RegionPowerPointsMultiplier);
     currentScore = score;
     return score;
 }
@@ -106,11 +99,11 @@ int Rva0039B709::getVictoryType() {
     int completed = countMissionObjectives(&total);
     GlobalData *gd = TheWritableGlobalData;
     int tier = 2;
-    if ((float)score < gd->totalVictory || completed < total)
+    if ((float)score < gd->m_scoreKeeper_TotalVictoryRequiredScore || completed < total)
         tier = 1;
-    if ((float)score < gd->normalVictory)
+    if ((float)score < gd->m_scoreKeeper_NormalVictoryRequiredScore)
         tier = 0;
-    else if ((float)completed < (float)total * gd->objectivesPercentage * 0.01f)
+    else if ((float)completed < (float)total * gd->m_scoreKeeper_NormalVictoryRequiredObjectivesPercentage * 0.01f)
         tier = 0;
     return tier;
 }
