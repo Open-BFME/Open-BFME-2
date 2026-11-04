@@ -54167,8 +54167,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006203D0,189,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp
 0x00620490,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp
 0x006204B0,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva006204B0.cpp
-0x006204D0,8,code,,,-,,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp
-0x006204E0,30,code,,,-,,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp
+0x006204D0,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
+0x006204E0,30,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x00620500,187,code,,displaced,-,Z=Code/GameEngine/Source/Common/NameKeyGenerator.cpp S=Code/GameEngine/Source/Common/NameKeyGenerator.cpp N=Code/GameEngine/Source/Common/NameKeyGenerator.cpp,Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp
 0x006205C0,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x006205D0,42,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x00620600 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp
@@ -54182,7 +54182,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006207D0,41,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x00620800 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp
 0x00620800,51,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x00620870 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp
 0x00620840,38,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WWLib/_STL.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int_insert_overflow.cpp
-0x00620870,63,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x006208B0 provisional,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp
+0x00620870,63,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x006208B0 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x006208B0,268,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x006209C0 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp
 0x006209C0,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x006209D0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp
 0x006209D0,46,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,approved,C,C=0x006205C0..0x00620A00 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp

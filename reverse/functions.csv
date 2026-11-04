@@ -11233,7 +11233,7 @@ _VP6_DeletePBInstance,,0x001B56A0,66,Code/Libraries/Source/VP6/PbInstanceTeardow
 ?bfmeUseTCA@BfmeSinkTCA@@QAEXPAX@Z,,0x006756D0,450,Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp,matched,BFME1 byte-identical donor body already in TU
 ??1ProgressIndicator@@UAE@XZ,,0x00355C77,23,Code/GameEngine/Source/Common/ProgressIndicator.cpp,matched,BFME1 donor trimmed to dtor; b1 0x004902A0; list head at 0xE01E1C
 ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x0018B4F0,245,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,BFME1 meshmdlio port as bool reader family with inline 16B MatInfo Read plus CurMatDesc PassCount store and 3 switch-case pins same commit
-?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ,,0x00620870,63,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,matched,BFME1 byte-identical donor; b1 0x009EDD30
+?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ,,0x00620870,63,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,BFME1 byte-identical donor; b1 0x009EDD30
 ??_GRva004907C0@@UAEPAXI@Z,,0x00490A58,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors2.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva004C0988@@UAEPAXI@Z,,0x004C09FA,28,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva004DF324@@UAEPAXI@Z,,0x004DF480,28,Code/GameEngine/Source/Common/Rva004DF324Dtor.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
@@ -11248,7 +11248,7 @@ _VP6_DeletePBInstance,,0x001B56A0,66,Code/Libraries/Source/VP6/PbInstanceTeardow
 ??0MaterialInfoClass@@QAE@XZ,,0x001708D0,132,Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoClassCtor.cpp,matched,BFME1 donor reconstruction; vtable immediates repaired to BFME2 values
 ?bfmeCopyVIA@@YAPAUBfmeElemVIA@@PAU1@00@Z,,0x00689450,125,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,matched,BFME1 donor members copy via AsciiString op assign pin
 ??1Rva009A4620VDBView@@QAE@XZ,,0x00759D30,75,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,matched,BFME1 donor trimmed free helper is scalar delete; target parent 0x0075A080 normal and EH member cleanup establish destructor ownership; address-derived view name retained; former clear name replaced not aliased
-??_GNode@?$SList@VTagBlockIndex@@@@QAEPAXI@Z,,0x006204E0,30,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,matched,scalar deleting dtor emitted by Remove_All TU; dtor is the rowed 0x6204D0 thunk
+??_GNode@?$SList@VTagBlockIndex@@@@QAEPAXI@Z,,0x006204E0,30,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,scalar deleting dtor emitted by Remove_All TU; dtor is the rowed 0x6204D0 thunk
 ?bfmeGoVGP@BfmeThingVGP@@QAEHXZ,,0x00176E90,70,Code/GameEngine/Source/Common/BfmeConv1356.cpp,matched,BFME1 donor imports are direct C imports
 ?rfind@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDII@Z,,0x00029850,206,Code/GameEngine/Source/Common/BfmeConv1480.cpp,matched,stlport-4.6 _string.c:367 basic_string<char>::rfind(const char*;size_type;size_type) const via find_end 0x00027F30; was placeholder ?bfmeFindV39@@YGHPADII@Z
 ?bfmeDropYQ@PartitionManagerImpl@@QAEXPAVBfmeThingYQ@@@Z,,0x006278A0,65,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,matched,BFME1 donor unhook helper is rowed bfmeUnhookZU
@@ -13213,7 +13213,7 @@ _bfmeHash1228,,0x0070F880,1528,Code/GameEngine/Source/Common/BfmeConv1228.cpp,ma
 ?bfmeGetEME@BfmeObjEME@@QAEPAXPAX@Z,,0x006212E0,200,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,
 ?calcHashForLowercaseString@@YAIPBD@Z,,0x0061FCA0,49,Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,matched,
 ?addObjectToLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00242AC2,39,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup add; setID sibling calls it; map at +0xB4 via findSlot pin
-??1Node@?$SList@VTagBlockIndex@@@@QAE@XZ,,0x006204D0,8,Code/GameEngine/Source/Common/SListTagBlockIndexRemoveAllThunk.cpp,matched,this-adjust thunk add ecx 8 tail-jump StringBase dtor 0x36410; StringBase member at +8; called from Remove_All and ??_G
+??1Node@?$SList@VTagBlockIndex@@@@QAE@XZ,,0x006204D0,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,this-adjust thunk add ecx 8 tail-jump StringBase dtor 0x36410; StringBase member at +8; called from Remove_All and ??_G
 ?removeObjectFromLookupTable@GameLogic@@QAEXPAVObject@@@Z,,0x00240144,35,Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp,matched,GameLogic lookup remove; setID sibling calls it; map at +0xB4 via eraseSlot pin
 ?LZHLCompressorCalcMaxBuf@@YAII@Z,,0x0068ED50,13,Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp,matched,
 ?getAbleToUseWeaponAgainstTarget@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@PBUCoord3D@@W4CommandSourceType@@@Z,,0x0028AF2B,31,Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp,matched,
