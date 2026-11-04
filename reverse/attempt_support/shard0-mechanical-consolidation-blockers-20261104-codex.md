@@ -158,3 +158,17 @@ Next: source/header owners should reconcile the tabled declaration, view, STLpor
 and byte prerequisites. Recheck allocation after inputs change. Carry
 W3DGameClient into the scheduled census and review the publish hook's link audit;
 do not claim link progress from the old per-file census row.
+
+## AITNGuard ownership refusal on `5914fe65d8d5a562821d94563477fa7bf755c9d3`
+
+`Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp` passed allocation and its
+scoped plan. Dry-run accepted three unchanged donor files (12 rows); four donors
+were rejected for missing `AITNGuardMachine::xfer`, `TheAI` declarations, or the
+`AITNGuardMachine(Object *)` overload. LinkGuard retained all eight
+census-linked objects. The applied subset built 12/12 and passed
+`find_declared_unmatched.py`, but `tu_ownership.py --staged` refused:
+`private body of registered class AITNGuardInnerState (header
+Code/GameEngine/Include/GameLogic/AITNGuard.h)`. Restored the complete trial,
+including transferred hatch/header/ledger changes, and released all 48 claims.
+No source or ledger change remains. The canonical class/TU ownership prerequisite
+is outside this mechanical lane; do not retry until its owner resolves it.
