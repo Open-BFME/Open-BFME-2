@@ -30,3 +30,5 @@ broader consumer/census limitation remains open.
 2026-11-04: real STLport pair and three hash-table views reconciled; scoped bytes/link preview preserved. The next hash-clear merge blocker is a qualified nested-type key collision in tu_skeleton; fix it separately before retrying. [Evidence](../../reverse/attempt_support/experience-level-hashtable-20261104.md).
 
 2026-11-04: the separately tested qualified-type parser fix clears the hash-clear false reject; the supported merge absorbs its two rows, removes one source, and preserves the full 3172-byte preview scope. The wider blockers and next-census requirement remain. [Composition and binding audit](../../reverse/attempt_support/experience-level-hashclear-merge-20261104/README.md).
+
+2026-11-04: final hash-clear batch audit is INCONCLUSIVE against the older index; both ExperienceLevelSystem units, GapJmpThunksSeat8 and OwnedBucketTableDtorsO1 need current receipts and next-census provider confirmation. [Audit handoff](../../reverse/attempt_support/experience-level-hashclear-merge-20261104/README.md#final-outgoing-audit-and-publication-prerequisites).

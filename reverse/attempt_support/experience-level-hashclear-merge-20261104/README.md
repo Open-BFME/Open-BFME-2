@@ -60,3 +60,22 @@ results. hatch_counters --update leaves the hatch register unchanged. No debt
 is retired, no baseline line is removed, and no Debt-Retired trailer is used.
 The existing wider TU blockers remain; this clears only the hash-clear donor
 and its qualified nested-type composition prerequisite.
+
+## Final outgoing audit and publication prerequisites
+
+At composed revision ef3a973ed9, the final link batch audit against the parent
+of this three-commit repair series (53be049d76) exits 2, INCONCLUSIVE. Its
+index at 5a13f2cd61 predates that base; four sources lack census-grade current
+receipts: both ExperienceLevelSystem.cpp units, GapJmpThunksSeat8.cpp and
+OwnedBucketTableDtorsO1.cpp. See [batch-audit.log](batch-audit.log) and
+[missing-receipts.txt](missing-receipts.txt). The verified scope and preserved
+COMDAT digests above remain the scoped evidence. Carry these affected units
+and the removed donor's provider selection into the next scheduled census;
+no full-batch link clearance or new census coverage is claimed.
+
+Publication preflight also found three stale providers for the earlier,
+already committed armor identity retirement. Ordinary build.sh verification
+refreshes Armor.cpp, ArmorStoreCtor.cpp and ArmorStoreParse.cpp: 34/34 function
+rows and one data row pass ([log](armor-provider-refresh.log)). The owning
+repair_queue.py verify-removed --range origin/master HEAD then exits 0
+([log](outgoing-debt-verification.log)). No register key is edited here.
