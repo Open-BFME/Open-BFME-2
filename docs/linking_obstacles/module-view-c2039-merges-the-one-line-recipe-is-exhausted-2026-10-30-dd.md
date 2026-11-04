@@ -43,6 +43,7 @@ Two concrete hand reconciles, both verified and both still short of a merge:
   `??_7AttackObjectGroupOrder@@6BGroupOrder@@@`. Blocked on the "Module base
   chain" entry below; GarrisonObjectGroupOrder, SynchronizeGroupOrder and
   ChangeStanceGroupOrder have the same shape.
+  2026-11-04: retired the seed's two stale AI-interface header rows through passing adoption verdicts; hierarchy/vftable merge blocker remains ([verification](../../reverse/attempt_support/attackobjectgrouporder-header-debt-20261104-codex.md)).
 - **AptLoadScreen** (55 rows, picker item). `tu_views.py` applies and verifies
   four shared views (Rva00355D66, AptMapPreview, BfmeAptWindowManager,
   GameSpyStagingRoom) and reverts Rva0057E3DB (its funclet is not exact). The
