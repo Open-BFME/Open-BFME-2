@@ -272,31 +272,7 @@ extern BfmeEnumTableEntry BfmeEnumTable[];
 extern GlobalData *TheWritableGlobalData;
 #include "../../../../../Include/Common/UserPreferences.h"
 int strcmp(const char *a, const char *b);
-class GlobalData
-{
-public:
-	unsigned char m_unreconstructed_000[ 0x30 ];
-	Int m_xResolution;
-	Int m_yResolution;
-	unsigned char m_unreconstructed_038[ 0x24 ];
-	Bool m_alternateMouseSetup;
-	unsigned char m_unreconstructed_05D[ 0x9EB ];
-	UnsignedInt m_defaultIP;
-	Int m_firewallBehavior;
-	Bool m_firewallSendDelay;
-	unsigned char m_unreconstructed_051[ 3 ];
-	unsigned short m_firewallPortOverride;
-	short m_firewallPortAllocationDelta;
-	unsigned char m_unreconstructed_05A[ 0xA2 ];
-	Real m_keyboardDefaultScrollFactor;
-	unsigned char m_unreconstructed_B00[ 0x68 ];
-	Bool m_languageFilter;
-	Bool m_turnOffMessengerInGame;
-	Bool m_doubleClickGuard;
-	unsigned char m_unreconstructed_B6B[ 1 ];
-	Bool m_refreshNet;
-	Bool m_displayForeignLanguage;
-};
+#include "../../../../../Include/Common/GlobalData.h"
 struct ScriptEngineDifficultyView
 {
 	char m_pad[0x1A4C4];
@@ -775,7 +751,7 @@ UnsignedInt OptionPreferences::getLANIPAddress(void)
 		}
 		IPlist = IPlist->getNext();
 	}
-	return TheWritableGlobalData->m_defaultIP;
+	return TheWritableGlobalData->field0A48;
 }
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setStaticGameLOD.cpp
@@ -933,7 +909,7 @@ UnsignedInt OptionPreferences::getOnlineIPAddress(void)
 			return IPlist->getIP();
 		IPlist = IPlist->getNext();
 	}
-	return TheWritableGlobalData->m_defaultIP;
+	return TheWritableGlobalData->field0A48;
 }
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_ctor.cpp
@@ -1021,7 +997,7 @@ Real OptionPreferences::getScrollFactor(void)
 {
 	OptionPreferences::const_iterator it = find("ScrollFactor");
 	if (it == end())
-		return TheWritableGlobalData->m_keyboardDefaultScrollFactor;
+		return TheWritableGlobalData->m_keyboardDefaultScrollSpeedFactor;
 
 	Int factor = atoi(it->second.str());
 	if (factor < 0)
@@ -1048,7 +1024,7 @@ Bool OptionPreferences::getSendDelay(void)
 {
 	OptionPreferences::const_iterator it = find("SendDelay");
 	if (it == end())
-		return TheWritableGlobalData->m_firewallSendDelay;
+		return TheWritableGlobalData->field0A50;
 
 	if (_strcmpi(it->second.str(), "yes") == 0) {
 		return true;
@@ -1149,7 +1125,7 @@ Bool OptionPreferences::getLanguageFilter(void)
 {
 	OptionPreferences::const_iterator it = find("LanguageFilter");
 	if (it == end())
-		return TheWritableGlobalData->m_languageFilter;
+		return TheWritableGlobalData->field0B68;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;
@@ -1172,7 +1148,7 @@ Bool OptionPreferences::getTurnOffMessengerInGame(void)
 {
 	OptionPreferences::const_iterator it = find("TurnOffMessengerInGame");
 	if (it == end())
-		return TheWritableGlobalData->m_turnOffMessengerInGame;
+		return TheWritableGlobalData->field0B69;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;
@@ -1196,7 +1172,7 @@ Bool OptionPreferences::getDoubleClickGuard(void)
 {
 	OptionPreferences::const_iterator it = find("DoubleClickGuard");
 	if (it == end())
-		return TheWritableGlobalData->m_doubleClickGuard;
+		return TheWritableGlobalData->field0B6A;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;
@@ -1221,7 +1197,7 @@ Bool OptionPreferences::getAlternateMouseSetup(void)
 {
 	OptionPreferences::const_iterator it = find("AlternateMouseSetup");
 	if (it == end())
-		return TheWritableGlobalData->m_alternateMouseSetup;
+		return TheWritableGlobalData->field005C;
 
 	if (strcmp(it->second.str(), "yes") != 0) {
 		return true;
@@ -1245,7 +1221,7 @@ Bool OptionPreferences::getRefreshNet(void)
 {
 	OptionPreferences::const_iterator it = find("RefreshNet");
 	if (it == end())
-		return TheWritableGlobalData->m_refreshNet;
+		return TheWritableGlobalData->field0B6C;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;
@@ -1269,7 +1245,7 @@ Bool OptionPreferences::getDisplayForeignLanguage(void)
 {
 	OptionPreferences::const_iterator it = find("DisplayForeignLanguage");
 	if (it == end())
-		return TheWritableGlobalData->m_displayForeignLanguage;
+		return TheWritableGlobalData->field0B6D;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;

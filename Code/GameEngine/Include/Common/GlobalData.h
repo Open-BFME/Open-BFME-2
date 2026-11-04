@@ -611,7 +611,7 @@ public:
     unsigned char field0054;
     unsigned char storage0055[0x3];
     int m_terrainLODTargetTimeMS;
-    unsigned char field005C;
+    bool field005C;
     bool m_rightMouseAlwaysScrolls;
     unsigned char field005E;
     bool m_useCloudPlane;
@@ -778,7 +778,7 @@ public:
     int field0A44;
     unsigned int field0A48;
     int m_firewallBehavior;
-    unsigned char field0A50;
+    bool field0A50;
     unsigned char storage0A51[0x3];
     unsigned int m_firewallPortOverride;
     short m_firewallPortAllocationDelta;
@@ -848,12 +848,12 @@ public:
     float m_cameraAudibleRadius;
     float m_groupMoveClickToGatherAreaFactor;
     unsigned int field0B64;
-    unsigned char field0B68;
-    unsigned char field0B69;
-    unsigned char field0B6A;
+    bool field0B68;
+    bool field0B69;
+    bool field0B6A;
     unsigned char field0B6B;
-    unsigned char field0B6C;
-    unsigned char field0B6D;
+    bool field0B6C;
+    bool field0B6D;
     unsigned char field0B6E;
     unsigned char field0B6F;
     unsigned char field0B70;
