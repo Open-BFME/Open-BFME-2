@@ -16,13 +16,15 @@
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 
-class Display
+#include "../../Include/GameClient/Display.h"
+
+// Display keeps its +0x140 flag protected; this unit writes it through a view
+// of the real TheDisplay.
+struct DisplayFlag140View
 {
-public:
 	char m_pad00[0x140];
 	unsigned char m_140;
 };
-extern Display *TheDisplay;
 
 #include "GameLogicObjectLookupView.h"
 class BfmeGlob939D : public GameLogic
@@ -49,7 +51,7 @@ void VictoryConditions::rva00420110()
 	{
 		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke((void *)13, "HideEndGame", 0, 0, 0, 0, 0, 0);
 		m_10 = 0;
-		TheDisplay->m_140 = 1;
+		((DisplayFlag140View *)TheDisplay)->m_140 = 1;
 		if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() != 0 && m_singleAllianceRemaining != 0)
 		{
 			TheTransitionHandler->setGroup(AsciiString("MPorSkirmishFadeToScoreScreen"), 0);

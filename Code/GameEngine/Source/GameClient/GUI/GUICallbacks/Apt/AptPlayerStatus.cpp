@@ -162,7 +162,12 @@ private:
 	GameWindow *m_mute[8]; // +0x28C
 	signed char m_slot[8]; // +0x2AC
 };
+#include "../../../../../Include/GameClient/Display.h"
+// Display.h brings stdio.h's non-imported sprintf (/D_CRTIMP=); this caller
+// imports it directly, as GameWindowManagerScript.cpp does.
+namespace AptPlayerStatusCrt {
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+}
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
@@ -313,31 +318,7 @@ public:
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 // TheDisplay's vslots 87 and 88 (a movie or a letterbox up).
-class Display
-{
-public:
-#define DISPLAY_SLOT(N) virtual void slot##N();
-	DISPLAY_SLOT(00) DISPLAY_SLOT(01) DISPLAY_SLOT(02) DISPLAY_SLOT(03) DISPLAY_SLOT(04) DISPLAY_SLOT(05)
-	DISPLAY_SLOT(06) DISPLAY_SLOT(07) DISPLAY_SLOT(08) DISPLAY_SLOT(09) DISPLAY_SLOT(10) DISPLAY_SLOT(11)
-	DISPLAY_SLOT(12) DISPLAY_SLOT(13) DISPLAY_SLOT(14) DISPLAY_SLOT(15) DISPLAY_SLOT(16) DISPLAY_SLOT(17)
-	DISPLAY_SLOT(18) DISPLAY_SLOT(19) DISPLAY_SLOT(20) DISPLAY_SLOT(21) DISPLAY_SLOT(22) DISPLAY_SLOT(23)
-	DISPLAY_SLOT(24) DISPLAY_SLOT(25) DISPLAY_SLOT(26) DISPLAY_SLOT(27) DISPLAY_SLOT(28) DISPLAY_SLOT(29)
-	DISPLAY_SLOT(30) DISPLAY_SLOT(31) DISPLAY_SLOT(32) DISPLAY_SLOT(33) DISPLAY_SLOT(34) DISPLAY_SLOT(35)
-	DISPLAY_SLOT(36) DISPLAY_SLOT(37) DISPLAY_SLOT(38) DISPLAY_SLOT(39) DISPLAY_SLOT(40) DISPLAY_SLOT(41)
-	DISPLAY_SLOT(42) DISPLAY_SLOT(43) DISPLAY_SLOT(44) DISPLAY_SLOT(45) DISPLAY_SLOT(46) DISPLAY_SLOT(47)
-	DISPLAY_SLOT(48) DISPLAY_SLOT(49) DISPLAY_SLOT(50) DISPLAY_SLOT(51) DISPLAY_SLOT(52) DISPLAY_SLOT(53)
-	DISPLAY_SLOT(54) DISPLAY_SLOT(55) DISPLAY_SLOT(56) DISPLAY_SLOT(57) DISPLAY_SLOT(58) DISPLAY_SLOT(59)
-	DISPLAY_SLOT(60) DISPLAY_SLOT(61) DISPLAY_SLOT(62) DISPLAY_SLOT(63) DISPLAY_SLOT(64) DISPLAY_SLOT(65)
-	DISPLAY_SLOT(66) DISPLAY_SLOT(67) DISPLAY_SLOT(68) DISPLAY_SLOT(69) DISPLAY_SLOT(70) DISPLAY_SLOT(71)
-	DISPLAY_SLOT(72) DISPLAY_SLOT(73) DISPLAY_SLOT(74) DISPLAY_SLOT(75) DISPLAY_SLOT(76) DISPLAY_SLOT(77)
-	DISPLAY_SLOT(78) DISPLAY_SLOT(79) DISPLAY_SLOT(80) DISPLAY_SLOT(81) DISPLAY_SLOT(82) DISPLAY_SLOT(83)
-	DISPLAY_SLOT(84) DISPLAY_SLOT(85) DISPLAY_SLOT(86)
-#undef DISPLAY_SLOT
-	virtual bool slot87();
-	virtual bool slot88();
-};
 
-extern Display *TheDisplay;
 
 // TheMouse's vslot 19 (the cursor).
 class Mouse
@@ -500,7 +481,7 @@ void AptPlayerStatus::rva004E434C(int query, char *result, bool set)
 	{
 	case 0:
 		if (!set && m_state == 1)
-			sprintf(result, "%d", m_colors.size());
+			AptPlayerStatusCrt::sprintf(result, "%d", m_colors.size());
 		break;
 	case 1:
 		if (!set)
