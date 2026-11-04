@@ -83,13 +83,10 @@ void Rva005E6B3E::updateTooltip(){
  }
 }
 
-struct TargetRef00217D4C {void*vtable;int count;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() {if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-struct TreeHintRef00217D4C {
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
- TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);
- TargetRef00217D4C*m_ptr;
-};
+
 namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*);}
 class Rva003FE20FBase {public:virtual void slot1(void*);};
 class Rva005E4157 {public:void rva005E4157(int);};

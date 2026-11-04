@@ -5,22 +5,13 @@
 // Evidence: vslot slot 3 of vtable 0x00879CBC (class of rowed ??1Rva005F86C3 0x005F86C3), bounds via start/finish at +0x20/+0x24 stride 8, TreeHintRef assign 0x002174A4 and Release 0x0007DEEF, forwarder 0x005C39C4, clear 0x002BED91.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned flags);
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
+
 struct Rva002BED91
 {
 	TargetRef00217D4C *m_ptr;

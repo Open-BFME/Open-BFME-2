@@ -48,14 +48,9 @@ static __declspec(noinline) bool compareHeroEntries(const Rva005E4300Entry *a,co
  return keyA<keyB;
 }
 }
-struct TargetRef00217D4C { void *vtable; int count; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TreeHintRef00217D4C(TargetRef00217D4C *p=0):m_ptr(p){if(p)++p->count;}
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
- TargetRef00217D4C *m_ptr;
-};
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() {if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+
 struct ExperienceLevelHandle {
  ExperienceLevelHandle() {}
  ExperienceLevelHandle(const ExperienceLevelHandle &experienceLevelHandle):list(experienceLevelHandle.list),node(experienceLevelHandle.node){}

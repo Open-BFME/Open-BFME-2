@@ -187,14 +187,9 @@ class UpgradeTemplate { public: char pad[0x2c]; AsciiString label; };
 class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 void Rva004E74E0Append(UnicodeString *, const UnicodeString *);
-struct TargetRef00217D4C { void *vtable; int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TreeHintRef00217D4C(TargetRef00217D4C *p):m_ptr(p){ if(m_ptr)++m_ptr->references; }
- TreeHintRef00217D4C(const TreeHintRef00217D4C &v):m_ptr(v.m_ptr){if(m_ptr)++m_ptr->references;}
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
- TargetRef00217D4C *m_ptr;
-};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() {if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+
 class InGameSimpleHelp { public: InGameSimpleHelp(const UnicodeString &,const UnicodeString &); char bytes[12]; };
 class Rva004E7506 { public: TreeHintRef00217D4C rva004E7506(); char beforeId[4]; ObjectID id; };
 struct HelpWideHeader445 { int refs; unsigned short length,capacity; unsigned short data[1]; };

@@ -33,26 +33,21 @@ namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const
 class Rva00221A58 { public: Rva00221A58(const Rva00221A58 &other); private: char m_pad[0x1C]; };
 class Rva00221B42 { private: char m_pad[0x20]; };
 class Rva00221C15 { public: Rva00221C15(const AsciiString &a, const Rva00221A58 &b, INI *ini); const void *m_vtable; int m_refs; Rva00221B42 m_08; };
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other)
 {
-	TreeHintRef00217D4C(TargetRef00217D4C *target) : m_ptr(target) { if (m_ptr) ++m_ptr->references; }
-	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-	__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other)
+	if (this != &other)
 	{
-		if (this != &other)
-		{
-			if (other.m_ptr)
-				++other.m_ptr->references;
-			if (m_ptr)
-				ReleaseTreeHintRef00217D4C(m_ptr);
-			m_ptr = other.m_ptr;
-		}
-		return *this;
+		if (other.m_ptr)
+			++other.m_ptr->references;
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+		m_ptr = other.m_ptr;
 	}
-	TargetRef00217D4C *m_ptr;
-};
+	return *this;
+}
+
 struct TreeHintRef00221D6B { TargetRef00217D4C *m_ptr; };
 typedef _STL::map<AsciiString, TreeHintRef00221D6B, _STL::less<AsciiString>, _STL::allocator<_STL::pair<const AsciiString, TreeHintRef00221D6B> > > Map00221D6B;
 typedef _STL::map<AsciiString, AsciiString, _STL::less<AsciiString>, _STL::allocator<_STL::pair<const AsciiString, AsciiString> > > AsciiMap;
