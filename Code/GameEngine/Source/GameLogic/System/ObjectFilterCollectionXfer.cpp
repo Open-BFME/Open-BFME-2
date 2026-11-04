@@ -172,13 +172,7 @@ class Team;
 enum Relationship { Relationship0, Relationship1, Relationship2 };
 // This is a measured field view, not an assertion of the template's class name.
 struct FilterPlayerTemplateView { char unknown00[0x1bc]; bool alignment; };
-class Player {
-public:
- Relationship getRelationship(const Team *) const;
- char unknown00[0x34]; FilterPlayerTemplateView *playerTemplate;
- char unknown38[0x54-0x38]; int playerID;
- char unknown58[0x2ec-0x58]; Team *team;
-};
+#include "../../../Include/Common/Player.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 // Native361B12..361CA5 and WB ED3050 ObjectFilter::testKindOf. The existing
 // 69/116 mask-provider spellings both operate on seven native words. Reload
@@ -192,7 +186,7 @@ bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player,
  Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
  int alignment=data->m_alignment;
  if(alignment) {
-  bool flag=player->playerTemplate->alignment;
+  bool flag=reinterpret_cast<const FilterPlayerTemplateView *>(player->getPlayerTemplate())->alignment;
   switch(alignment) {
    case 1: if(!flag) return false; break;
    case 2: if(flag) return false; break;
@@ -201,9 +195,9 @@ bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player,
  
  if(data->m_relationship) {
   if(!player || !context) return false;
-  switch(context->getRelationship(player->team)) {
+  switch(context->getRelationship(player->getDefaultTeam())) {
    case Relationship2:
-    if(!(data->m_relationship&1) && !(context->playerID==player->playerID && (data->m_relationship&8))) return false;
+    if(!(data->m_relationship&1) && !(context->getPlayerIndex()==player->getPlayerIndex() && (data->m_relationship&8))) return false;
     break;
    case Relationship0: if(!(data->m_relationship&2)) return false; break;
    case Relationship1: if(!(data->m_relationship&4)) return false; break;
@@ -233,7 +227,7 @@ bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player
  Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
  int alignment=data->m_alignment;
  if(alignment) {
-  bool flag=player->playerTemplate->alignment;
+  bool flag=reinterpret_cast<const FilterPlayerTemplateView *>(player->getPlayerTemplate())->alignment;
   switch(alignment) {
    case 1: if(!flag) return false; break;
    case 2: if(flag) return false; break;
@@ -242,9 +236,9 @@ bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player
  
  if(data->m_relationship) {
   if(!player || !context) return false;
-  switch(context->getRelationship(player->team)) {
+  switch(context->getRelationship(player->getDefaultTeam())) {
    case Relationship2:
-    if(!(data->m_relationship&1) && !(context->playerID==player->playerID && (data->m_relationship&8))) return false;
+    if(!(data->m_relationship&1) && !(context->getPlayerIndex()==player->getPlayerIndex() && (data->m_relationship&8))) return false;
     break;
    case Relationship0: if(!(data->m_relationship&2)) return false; break;
    case Relationship1: if(!(data->m_relationship&4)) return false; break;
