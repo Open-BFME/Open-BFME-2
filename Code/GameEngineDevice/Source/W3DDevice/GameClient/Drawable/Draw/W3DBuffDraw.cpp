@@ -21,10 +21,16 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class W3DBuffDraw
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+
+class W3DBuffDraw : public DrawModule
 {
 public:
+	W3DBuffDraw(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+
+private:
+	bool m_unmodelled_0C; // +0x0C
 };
 
 class W3DBuffDrawModuleDataBase

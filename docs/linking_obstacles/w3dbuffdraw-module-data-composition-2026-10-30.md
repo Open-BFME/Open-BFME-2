@@ -30,3 +30,9 @@ receipts, first Common/Rva003A5DA0Write.cpp. Carry the merged provider, retired
 donor and affected consumers into the next scheduled census/current-receipt
 audit; full consumer selection/loss verification remains open.
 [Target facts and scope](../../reverse/attempt_support/w3dbuffdraw-consolidation-20261030-codexb4.md).
+
+2026-11-04: Instance-view prerequisite reconciled at base `12088e72b6`;
+9/9 rows, two EXACT EH graphs and 2/2 current LINKS remain; the supported
+merge now accepts the constructor. Next: apply the merge; mixed getter,
+generated unwind and full consumer-audit prerequisites remain.
+[Evidence and audit limits](../../reverse/attempt_support/w3dbuffdraw-instance-composition-20261104-codexb4.md).

@@ -16,10 +16,11 @@ class ModuleData;
 class W3DBuffDraw : public DrawModule
 {
 public:
-	W3DBuffDraw( Thing *thing, const ModuleData *moduleData );
+	W3DBuffDraw(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
 
 private:
-	bool m_unmodelled_0C;			// +0x0C
+	bool m_unmodelled_0C; // +0x0C
 };
 
 W3DBuffDraw::W3DBuffDraw( Thing *thing, const ModuleData *moduleData )
