@@ -352,7 +352,14 @@ virtual void slot67();
 virtual void getBounds(ShadowBounds&);
 };
 
-class Rva0010BC90ShadowManager { public: W3DShadowTexture *getTexture(const char*); };
+class HAnimManagerClass;
+class Rva0010BC90ShadowManager
+{
+public:
+	W3DShadowTexture *getTexture(const char*);
+	char prefix[0x24c]; // +0x00
+	HAnimManagerClass *manager; // +0x24C
+};
 
 class Rva0010BB11ShadowFactory
 {
@@ -1032,12 +1039,12 @@ public:
 	Rva0010BB11DecalView *m_next;		// +0x114
 };
 
-class BfmeDynamicNativeVB
+class BfmeDynamicNativeVB : public RefCountClass
 {
 public:
 	BfmeDynamicNativeVB(unsigned fvf, unsigned short count, unsigned usage, unsigned fvfSize);
 private:
-	unsigned char m_pad[0x20];
+	char _t[0x18]; // +0x08
 };
 
 // Retail manager table 0x00BCF9C4 places these forwards at slots 4 and 5;

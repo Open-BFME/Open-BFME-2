@@ -12,20 +12,44 @@
 class W3DShadowTexture;
 class RenderObjClass;
 class W3DProjectedShadow;
-class Shadow { public: struct ShadowTypeInfo; };
+class Shadow
+{
+public:
+	struct ShadowTypeInfo;
+	void setOpacity(int value);
+	virtual void vslot00(void);
+	virtual void vslot04(void);
+	virtual void release(void);
+	char m_pad04[0x30];
+	unsigned int m_type; // +0x34
+	unsigned int m_value38; // +0x38
+	unsigned int m_value3C; // +0x3C
+	unsigned int m_value40; // +0x40
+	unsigned int m_value44; // +0x44
+	unsigned int m_value48; // +0x48
+	unsigned int m_value4C; // +0x4C
+	unsigned int m_value50; // +0x50
+	unsigned int m_value54; // +0x54
+};
 
+class HAnimManagerClass;
 class Rva0010BC90ShadowManager
 {
 public:
-	W3DShadowTexture *getTexture(const char *name);			// 0x0010BC90
+	W3DShadowTexture *getTexture(const char*);
+	char prefix[0x24c]; // +0x00
+	HAnimManagerClass *manager; // +0x24C
 };
 
 class Rva0010BB11ShadowFactory
 {
 public:
-	W3DProjectedShadow *create(W3DShadowTexture *texture, RenderObjClass *robj, int type,
-		unsigned char flag, float sizeX, float sizeY, float value, float offsetU, float offsetV,
-		void *list, unsigned char flag84, int secondTexture, unsigned char flag85);	// 0x0010BB11
+	W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);
+	char m_pad00[0x10];
+private:
+	W3DProjectedShadow *m_freeList; // +0x10
+	char m_pad14[0x23C];
+	int m_counted; // +0x250
 };
 
 struct Rva0010C065Info

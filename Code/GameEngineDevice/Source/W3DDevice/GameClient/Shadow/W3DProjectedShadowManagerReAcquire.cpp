@@ -15,9 +15,9 @@ void *__cdecl operator new(Uint s);
 class BfmeDynamicNativeVB : public RefCountClass
 {
 public:
-	BfmeDynamicNativeVB(Uint a, UShort b, Uint c, Uint d);
+	BfmeDynamicNativeVB(unsigned fvf, unsigned short count, unsigned usage, unsigned fvfSize);
 private:
-	char _t[0x18];
+	char _t[0x18]; // +0x08
 };
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"

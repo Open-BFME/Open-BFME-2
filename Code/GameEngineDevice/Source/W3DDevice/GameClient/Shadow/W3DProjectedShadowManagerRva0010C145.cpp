@@ -27,39 +27,57 @@ class Shadow
 {
 public:
 	struct ShadowTypeInfo;
+	void setOpacity(int value);
+	virtual void vslot00(void);
+	virtual void vslot04(void);
+	virtual void release(void);
+	char m_pad04[0x30];
+	unsigned int m_type; // +0x34
+	unsigned int m_value38; // +0x38
+	unsigned int m_value3C; // +0x3C
+	unsigned int m_value40; // +0x40
+	unsigned int m_value44; // +0x44
+	unsigned int m_value48; // +0x48
+	unsigned int m_value4C; // +0x4C
+	unsigned int m_value50; // +0x50
+	unsigned int m_value54; // +0x54
 };
 
 struct ShadowNameBuffer
 {
-	int refs;
-	unsigned short length;
-	unsigned short capacity;
-	char text[1];
+public:
+	int refs; // +0x00
+	unsigned short length; // +0x04
+	unsigned short capacity; // +0x06
+	char text[1]; // +0x08
+	char m_pad09[0x3];
 };
 
 struct ShadowDecalInfoView
 {
+public:
 	const char *name() const { return m_name ? m_name->text : ""; }
 	const char *secondName() const { return m_secondName ? m_secondName->text : ""; }
-
 	ShadowNameBuffer *m_name; // +0x00
 	ShadowNameBuffer *m_secondName; // +0x04
 	int m_type; // +0x08
-	Real m_sizeX; // +0x0C
-	Real m_sizeY; // +0x10
-	Real m_offsetX; // +0x14
-	Real m_offsetY; // +0x18
-	Real m_unused1C;
-	Real m_height; // +0x20
+	float m_sizeX; // +0x0C
+	float m_sizeY; // +0x10
+	float m_offsetX; // +0x14
+	float m_offsetY; // +0x18
+	char m_pad1C[0x4];
+	float m_height; // +0x20
 	unsigned char m_force; // +0x24
-	unsigned char m_pad25;
+	char m_pad25[0x1];
 	unsigned char m_byte26; // +0x26
+	char m_pad27[0x1];
 };
 
 struct ShadowBounds
 {
-	Real center[3];
-	Real extent[3];
+public:
+	float center[3]; // +0x00
+	float extent[3]; // +0x0C
 };
 
 class ShadowBoundsCall
@@ -107,10 +125,9 @@ Rva000B3F84Pair Rva00108B93Make(const char*);
 WinMainTitlePair operator+(const Rva000B3F84Pair&,const char*);
 class TextureBaseClass
 {
- public: void Release_Ref();
-
-}
-;
+public:
+	void Release_Ref(void);
+};
 class TextureClass : public TextureBaseClass
 {
 
@@ -184,20 +201,22 @@ class W3DShadowTexture
 ;
 class Rva0010BC90ShadowManager
 {
- public: char prefix[0x24c];
- HAnimManagerClass *manager;
- W3DShadowTexture *getTexture(const char*);
-
-}
-;
+public:
+	W3DShadowTexture *getTexture(const char*);
+	char prefix[0x24c]; // +0x00
+	HAnimManagerClass *manager; // +0x24C
+};
 
 
 class Rva0010BB11ShadowFactory
 {
 public:
-	W3DProjectedShadow *create(W3DShadowTexture *texture, RenderObjClass *object, int type,
-		unsigned char flag, float sizeX, float sizeY, float height, float offsetX, float offsetY,
-		void *list, unsigned char a, int b, unsigned char c);
+	W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);
+	char m_pad00[0x10];
+private:
+	W3DProjectedShadow *m_freeList; // +0x10
+	char m_pad14[0x23C];
+	int m_counted; // +0x250
 };
 
 struct Rva0010C065Info;

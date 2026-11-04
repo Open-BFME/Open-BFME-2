@@ -59,21 +59,21 @@ extern GameClient *TheGameClient;
 class Shadow
 {
 public:
+	struct ShadowTypeInfo;
+	void setOpacity(int value);
 	virtual void vslot00(void);
 	virtual void vslot04(void);
 	virtual void release(void);
-	void setOpacity(Int value);
-
-	unsigned char m_pad04[0x30];
-	UnsignedInt m_type;
-	UnsignedInt m_value38;
-	UnsignedInt m_value3C;
-	UnsignedInt m_value40;
-	UnsignedInt m_value44;
-	UnsignedInt m_value48;
-	UnsignedInt m_value4C;
-	UnsignedInt m_value50;
-	UnsignedInt m_value54;
+	char m_pad04[0x30];
+	unsigned int m_type; // +0x34
+	unsigned int m_value38; // +0x38
+	unsigned int m_value3C; // +0x3C
+	unsigned int m_value40; // +0x40
+	unsigned int m_value44; // +0x44
+	unsigned int m_value48; // +0x48
+	unsigned int m_value4C; // +0x4C
+	unsigned int m_value50; // +0x50
+	unsigned int m_value54; // +0x54
 };
 
 class W3DProjectedShadow : public Shadow

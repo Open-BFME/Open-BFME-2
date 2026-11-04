@@ -29,20 +29,37 @@ class Shadow
 {
 public:
 	struct ShadowTypeInfo;
+	void setOpacity(int value);
+	virtual void vslot00(void);
+	virtual void vslot04(void);
+	virtual void release(void);
+	char m_pad04[0x30];
+	unsigned int m_type; // +0x34
+	unsigned int m_value38; // +0x38
+	unsigned int m_value3C; // +0x3C
+	unsigned int m_value40; // +0x40
+	unsigned int m_value44; // +0x44
+	unsigned int m_value48; // +0x48
+	unsigned int m_value4C; // +0x4C
+	unsigned int m_value50; // +0x50
+	unsigned int m_value54; // +0x54
 };
 
 struct ShadowNameBuffer
 {
-	int refs;
-	unsigned short length;
-	unsigned short capacity;
-	char text[1];
+public:
+	int refs; // +0x00
+	unsigned short length; // +0x04
+	unsigned short capacity; // +0x06
+	char text[1]; // +0x08
+	char m_pad09[0x3];
 };
 
 struct ShadowDecalInfoView
 {
+public:
 	const char *name() const { return m_name ? m_name->text : ""; }
-
+	const char *secondName() const { return m_secondName ? m_secondName->text : ""; }
 	ShadowNameBuffer *m_name; // +0x00
 	ShadowNameBuffer *m_secondName; // +0x04
 	int m_type; // +0x08
@@ -50,12 +67,19 @@ struct ShadowDecalInfoView
 	float m_sizeY; // +0x10
 	float m_offsetX; // +0x14
 	float m_offsetY; // +0x18
+	char m_pad1C[0x4];
+	float m_height; // +0x20
+	unsigned char m_force; // +0x24
+	char m_pad25[0x1];
+	unsigned char m_byte26; // +0x26
+	char m_pad27[0x1];
 };
 
 struct ShadowBounds
 {
-	float center[3];
-	float extent[3];
+public:
+	float center[3]; // +0x00
+	float extent[3]; // +0x0C
 };
 
 class ShadowBoundsCall
@@ -148,16 +172,23 @@ public:
 	void rva0010953E();
 };
 
+struct Rva007AED00Entry;
 class Rva007AED00Table
 {
 public:
-	void updateOffsets(int index, float first, float second);
+	void updateOffsets( int index, float first, float second );
+	char m_pad00[0x58];
+private:
+	Rva007AED00Entry *m_entries[1]; // +0x58
 };
 
+class HAnimManagerClass;
 class Rva0010BC90ShadowManager
 {
 public:
-	W3DShadowTexture *getTexture(const char *name);
+	W3DShadowTexture *getTexture(const char*);
+	char prefix[0x24c]; // +0x00
+	HAnimManagerClass *manager; // +0x24C
 };
 
 struct Rva0010C065Info;
