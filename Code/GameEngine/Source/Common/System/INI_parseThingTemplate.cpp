@@ -17,31 +17,7 @@ extern class ThingFactory *TheThingFactory;
 
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 
-class Debug
-{
-public:
-	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
-	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
-	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
-	virtual void pad12(); virtual void pad13();
-	virtual Debug &operator<<(const char *str);
-	virtual void pad15(); virtual void pad16(); virtual void pad17(); virtual void pad18();
-	virtual bool CrashDone(int mode);
-	virtual void pad20(); virtual void pad21(); virtual void pad22();
-	virtual void SetCrashAddress(void *returnAddress, int set);
-	virtual void SkipNext();
-	virtual void pad25(); virtual void pad26();
-	virtual Debug &CrashBegin(const char *file, int line, int reserved);
-	class Format
-	{
-	public:
-		Format(const char *format, ...);
-		char m_buffer[512];
-	};
-	Debug &operator<<(const Format &f) { return operator<<(f.m_buffer); }
-};
-
-extern Debug *theDebug;
+#include "../debug.h"
 void __cdecl _bfme_debugRecordCallsite(int kind);
 bool __cdecl bfmeRva000387C0(void);
 // Retail VA 0x00C0EA88: complete format string and trailing zero padding.
@@ -68,7 +44,7 @@ void INI::parseThingTemplate(INI *ini, void *, void *store, const void *)
 		_bfme_debugRecordCallsite(1);
 		theDebug->SkipNext();
 		Debug &dbg = theDebug->CrashBegin(0, 0, 0);
-		dbg << Debug::Format("ThingTemplate %s not found!\n", token);
+		dbg << (const char *)Debug::Format("ThingTemplate %s not found!\n", token);
 		dbg.CrashDone(2);
 	}
 	*(void **)store = result;

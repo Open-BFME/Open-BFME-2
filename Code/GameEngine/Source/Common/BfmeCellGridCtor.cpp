@@ -24,41 +24,7 @@ Rva00404781::~Rva00404781()
 {
 }
 
-class Debug
-{
-public:
-	static bool SkipNext(bool skip);
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual Debug &slot38(const char *text);
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C(int report);
-	virtual void slot50();
-	virtual void slot54();
-	virtual void slot58();
-	virtual void slot5C();
-	virtual void slot60();
-	virtual void slot64();
-	virtual void slot68();
-	virtual Debug &slot6C(int first, int second, int third);
-};
-
-extern Debug *theDebug;
+#include "debug.h"
 
 struct CellPoint
 {
@@ -143,14 +109,14 @@ CellGrid::CellGrid(int width, int height, float cellSize, float offset)
 		}
 		if (m_cells == 0) {
 			_bfme_debugRecordCallsite(1);
-			theDebug->slot60();
-			theDebug->slot6C(0, 0, 0).slot38("Could not create Cell Grid for VictorySystem!").slot4C(1);
+			theDebug->SkipNext();
+			(theDebug->CrashBegin(0, 0, 0) << "Could not create Cell Grid for VictorySystem!").CrashDone(1);
 		}
 		m_cellValues = new unsigned int[m_cellCount];
 		if (m_cellValues == 0) {
 			_bfme_debugRecordCallsite(1);
-			theDebug->slot60();
-			theDebug->slot6C(0, 0, 0).slot38("Could not create Cell Grid for VictorySystem!").slot4C(1);
+			theDebug->SkipNext();
+			(theDebug->CrashBegin(0, 0, 0) << "Could not create Cell Grid for VictorySystem!").CrashDone(1);
 		}
 		memset(m_cellValues, 0, m_cellCount * sizeof(*m_cellValues));
 	}
