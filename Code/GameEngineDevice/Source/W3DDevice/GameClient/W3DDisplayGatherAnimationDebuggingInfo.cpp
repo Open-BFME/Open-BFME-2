@@ -260,12 +260,13 @@ public:
 	virtual Object *getContainedObject();	// +0x110
 };
 
-struct WeaponTemplate
+#include "../../../../GameEngine/Include/GameLogic/WeaponTemplate.h"
+// The +0x08 name string's text, read through the header's opaque slot.
+static __forceinline const char *weaponTemplateNameText(const WeaponTemplate *wt)
 {
-	char m_unreconstructed_000[8];
-	char *m_nameData;		// +0x08
-	const char *getNameText() const { return m_nameData ? m_nameData + 8 : ""; }
-};
+	const char *data = (const char *)wt->m_field08;
+	return data ? data + 8 : "";
+}
 
 class Weapon
 {
@@ -438,7 +439,7 @@ selection:
 				if (theLogicRandomLogFile)
 					fprintf((FprintfTarget *)theLogicRandomLogFile, "LeaveLogic() called.");
 			}
-			text.format(L"Weapon: %S(%S), NextShot:%d(%d%%), Status:%S", weapon->m_template->getNameText(),
+			text.format(L"Weapon: %S(%S), NextShot:%d(%d%%), Status:%S", weaponTemplateNameText(weapon->m_template),
 				TheWeaponSlotTypeNames[slot], nextShot, percent, TheWeaponStatusNames[status]);
 			m_animDebugStrings[2]->setText(text);
 		} else {
