@@ -22,14 +22,7 @@ public:
 	void rva005CCEB6();
 };
 
-namespace StrategicInGameUI
-{
-class ManualPhaseEnder
-{
-public:
-	void Update();
-};
-}
+#include "../../Include/GameLogic/ManualPhaseEnder.h"
 
 class Rva005CD708
 {
@@ -90,7 +83,6 @@ private:
 	unsigned char m_pad10[0x14 - 0x10];
 	Rva000B3FD0 *m_hook14;					// +0x14
 	StrategicInGameUI::ManualPhaseEnder m_phaseEnder18;	// +0x18
-	unsigned char m_pad19[0x28 - 0x19];
 	Rva005CD708 m_notifier28;				// +0x28
 	unsigned char m_pad29[0x38 - 0x29];
 	bool m_done38;							// +0x38
