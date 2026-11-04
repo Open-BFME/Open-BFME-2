@@ -118,7 +118,8 @@ private:
  bool m_sorted;
  int m_cycle;
 };
-class LANAPI { public: virtual void *deleteObject(int); };
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+#include "../../../../../Include/GameNetwork/LANAPI.h"
 extern LANAPI *TheLAN;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -199,8 +200,7 @@ typedef char CheckSize[(sizeof(AptLanLobby)==0x6C4)?1:-1];
 AptLanLobby::~AptLanLobby() {
  if (s_instance == this) {
   rva004443E7();
-  void *dead=TheLAN ? TheLAN->deleteObject(0) : 0;
-  ::operator delete(dead);
+  ::delete TheLAN;
   TheLAN=0;
   entry.active=0;
   { AsciiString gadget("AptLanLobby::InitGadgets"); _bfme_closeAptScreen(gadget); }
@@ -217,7 +217,6 @@ void AptLanLobby::rva004443E7() {
  TheGameEngine->stopHeadlessClients();
 }
 
-#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void Rva00512069Register();

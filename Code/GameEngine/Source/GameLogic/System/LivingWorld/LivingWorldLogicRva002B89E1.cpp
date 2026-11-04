@@ -40,13 +40,7 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class LANAPI
-{
-public:
-	V4(0) V4(1) V4(2) V4(3) V4(4) V4(5) V4(6) V4(7) V4(8) V4(9)
-	virtual void v40();
-	virtual void slotA4(LivingWorldBattle *battle);	// +0xA4
-};
+#include "../../../../Include/GameNetwork/LANAPI.h"
 extern LANAPI *TheLAN;
 
 class GameSpyStagingRoom
@@ -117,7 +111,7 @@ bool LivingWorldLogic::rva002B89E1(int battleArg)
 	PrepareBattleForLoading(battle);
 	int mode = TheGameLogic->m_114;
 	if (mode == 1)
-		TheLAN->slotA4(battle);
+		TheLAN->rva00249B08(battle);
 	else if (mode == 2)
 		TheGameSpyGame->rva004FDEFF(battle);
 	else

@@ -11,3 +11,4 @@ Clearance: OnNameChange adoption only; broader class scope remains open. Census 
 
 2026-11-04: GetMyName, Reset and Rva00581641 adopt LANAPI.h (header declares the rowed Rva004495A2/rva00581641 helpers); 3 rows retired, LINKS 421 -> 421 B. Slot-64 callers still wait on a named `_bfme_lan64`: [evidence](../../reverse/attempt_support/lanapi-header-adoption-20261104-claudeb.md).
 2026-11-04: AptLanLobby GetValidSelectedGameInfo and MPOwnerValidatGameInfo adopt it via the protected ValidateGameInfo plus `friend class AptLanLobby`; 2 rows retired, LINKS 95 -> 95 B. SetOption: retail passes slot 19 an unnormalised int, the header has RequestAccept(bool).
+2026-11-04: LivingWorldLogicRva002B89E1 (slot 41 rva00249B08) and AptLanLobbyDestructor (`::delete TheLAN`, window-manager include first) adopt it too; 2 rows retired, LINKS 1,767 -> 1,767 B.

@@ -50,3 +50,14 @@ ambiguity, so the header cannot be included until those reconcile.
   RequestAccept(bool): the compiled call normalises the int argument
   (`83 7c 24 04 00 .. 0f 95 c2 52`) where retail pushes it raw
   (`ff 74 24 04`). File restored; logged as blocked in re_attempts.log.
+
+## Third batch (no header change)
+
+- LivingWorldLogicRva002B89E1.cpp: private `slotA4` is the header's slot 41
+  `rva00249B08(LivingWorldBattle *)` (rowed 0x00249B08). 1/1 matched.
+- AptLanLobbyDestructor.cpp: private `void *deleteObject(int)` was slot 0 called
+  with flag 0 and its return passed to `::operator delete`; that is MSVC's code
+  for `::delete TheLAN;` on a polymorphic class, now spelled so. The include
+  guard needs BfmeAptWindowManager.h before LANAPI.h's short
+  SubsystemInterface, so that include moved up. 38/38 matched, EH 2 EXACT.
+- accept PASS retires 2 rows; link_check LINKED 1,767 -> 1,767 bytes.
