@@ -7,6 +7,7 @@
 class Rva001363CC
 {
 public:
+	~Rva001363CC();
 	void rva001364CE();
 };
 extern unsigned int g_Va00DF29B4;

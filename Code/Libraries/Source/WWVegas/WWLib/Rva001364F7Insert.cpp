@@ -34,12 +34,14 @@ public:
 	static void _Rebalance(_Rb_tree_node_base *x, _Rb_tree_node_base *&root);
 };
 }
-struct Rva001364F7 {
-	RvaNode1364F7 *m_root;
-	unsigned m_count;
+struct Rva001364F7
+{
+public:
 	Rva001364F7Iter rva001364F7(RvaNode1364F7 *left, RvaNode1364F7 *parent, const TreeKey00242F5E *key, RvaNode1364F7 *right);
 	RvaOut13657F *rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v);
 	Rva001364F7Iter rva00136642(Rva001364F7Iter position, const TreeKey00242F5E &value);
+	RvaNode1364F7 *m_root; // +0x00
+	unsigned m_count; // +0x04
 };
 
 Rva001364F7Iter Rva001364F7::rva001364F7(RvaNode1364F7 *left, RvaNode1364F7 *parent, const TreeKey00242F5E *key, RvaNode1364F7 *right)
