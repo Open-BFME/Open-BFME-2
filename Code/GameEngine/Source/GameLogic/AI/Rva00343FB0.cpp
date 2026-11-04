@@ -195,13 +195,7 @@ public:
 	unsigned char get() const;
 };
 
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const;
-	unsigned char m_pad00[0x16B];
-	Bool m_noVictimNeeded; // +0x16B
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -458,7 +452,7 @@ __declspec(noinline) inline StateReturnType AIAttackApproachTargetState::onEnter
 	}
 	else
 	{
-		if (!weapon || !weapon->getTemplate()->m_noVictimNeeded)
+		if (!weapon || !weapon->getTemplate()->m_field16B)
 			return STATE_FAILURE;
 		if (weapon->isWithinAttackRange(source, (void *)getMachineGoalPosition(), 0.0f, 1))
 			return STATE_SUCCESS;
