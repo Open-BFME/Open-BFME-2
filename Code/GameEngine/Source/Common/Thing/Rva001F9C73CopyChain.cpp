@@ -19,12 +19,14 @@ class Rva001F4206
 public:
     void rva001F4206();
 };
+struct Rva001F41AFHelper;
 class Rva001F41AF
 {
 public:
-    void *m_ptr;
-    Rva001F41AF(const Rva001F41AF &other);
-    ~Rva001F41AF();
+	Rva001F41AF &operator=(const Rva001F41AF &other);
+	Rva001F41AF(const Rva001F41AF &other);
+	~Rva001F41AF();
+	Rva001F41AFHelper *m_ptr; // +0x00
 };
 // ??1Rva001F41AF@@QAE@XZ present-unmatched
 inline Rva001F41AF::~Rva001F41AF()

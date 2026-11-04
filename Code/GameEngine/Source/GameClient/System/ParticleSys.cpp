@@ -669,10 +669,13 @@ struct Rva001F41AFHelper {
     virtual void f0();
     virtual void *clone();
 };
-class Rva001F41AF {
+class Rva001F41AF
+{
 public:
-    Rva001F41AFHelper *m_ptr;
-    Rva001F41AF &operator=(const Rva001F41AF &other);
+	Rva001F41AF &operator=(const Rva001F41AF &other);
+	Rva001F41AF(const Rva001F41AF &other);
+	~Rva001F41AF();
+	Rva001F41AFHelper *m_ptr; // +0x00
 };
 struct Rva001F41CDHelper {
     virtual void *func0(int x);
@@ -1581,11 +1584,13 @@ BFME_LITERAL_NAME_GETTER(Rva001FC179Named, "FXParticle")
 #pragma pack(push, 1)
 struct InsertRet001F8F2A
 {
+public:
 	InsertRet001F8F2A(void *node, void *owner, unsigned char found)
-		: m_node(node), m_owner(owner), m_found(found) {}
-	void *m_node;
-	void *m_owner;
-	unsigned char m_found;
+	: m_node(node), m_owner(owner), m_found(found) {}
+	void *m_node; // +0x00
+	void *m_owner; // +0x04
+	unsigned char m_found; // +0x08
+	char m_pad09[0x3];
 };
 #pragma pack(pop)
 #include "../../../Include/GameLogic/Rva000427195.h"
