@@ -87,17 +87,14 @@ public:
 struct BfmeResetAnyRef
 {
 	BfmeResetTagged *pointer;
+	BfmeResetAnyRef() : pointer(0) {}
+	~BfmeResetAnyRef();
 };
 
-class Rva00180649Base
-{
-public:
-	void *pointer;
-	Rva00180649Base() : pointer(0) {}
-	~Rva00180649Base();
-};
-
-struct BfmeResetTextureRef : public Rva00180649Base
+// The constructor's native cleanup at 0x007682C7 releases the four-byte
+// base through 0x0017098D, the existing BfmeResetAnyRef destructor owner.
+// This reuses the established counted-holder ABI view, not a retail name.
+struct BfmeResetTextureRef : public BfmeResetAnyRef
 {
 	void clear();
 	BfmeResetTextureRef &rva001805AE(const BfmeResetAnyRef &rhs);
@@ -378,7 +375,6 @@ int Rva0018077E::rva0018077E()
 
 // tu-skeleton: 0x007682AB 10B __ehhandler$??1Rva001805E0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x007682C7 8B uw_007682c7 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x007682D9 25B ?rva007682D9@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
 
