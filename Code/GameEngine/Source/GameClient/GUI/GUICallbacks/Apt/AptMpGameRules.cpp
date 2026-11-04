@@ -10,38 +10,28 @@
 int Rva00559F7EGet(int mode);
 int Rva00559F95Get(int mode);
 #include "AptMpGameRulesView.h"
-
 void GadgetComboBoxGetSelectedPos(GameWindow *window, int *selection);
-
 void *GadgetComboBoxGetItemData(GameWindow *window, int selection);
-
 bool GadgetCheckBoxIsChecked(GameWindow *window);
-
 // A typed view of a rule widget list.
 // Retail/WB vector access uses a separate begin pointer per subscript.
 template<class T> struct RuleVectorView { T *m_begin; T *m_end; T *m_capacity; T &operator[](unsigned int i) {T *begin=m_begin; return begin[i];} unsigned int size() const {return m_end-m_begin;} };
-
 // Rowed 0x00559FAC in Common/RTS/MpGameRules.cpp: resets rules at +0x8C
 // for the mode at +0x60; existing cdecl caller ABI.
 class MpGameRules { public: static void GetDefaults(int mode, void *rules); static UnicodeString GetRuleString(int rule); };
-
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an
 // object and an eight-byte multiple-inheritance member pointer, and the
 // refcounted holder rowed 0x0057BC63 builds from it.
 class __multiple_inheritance FunctorTarget;
-
 typedef void (FunctorTarget::*FunctorMethod)(void);
-
 #include "../../../../../Include/GameClient/FunctorBinding.h"
-
 class FunctorWrapperHead
 {
 public:
 	void *m_vtbl;
 	int m_refCount; // +0x04
 };
-
 class Rva0057BC63FunctorHolder
 {
 public:
@@ -54,11 +44,8 @@ public:
 
 	FunctorWrapperHead *m_ptr;
 };
-
 struct TargetRef00217D4C;
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
-
 template <class T> class AptRef : public Rva0057BC63FunctorHolder
 {
 public:
@@ -69,11 +56,8 @@ public:
 			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
 	}
 };
-
 class AptCommandMap;
-
 class AptExternHandler;
-
 class AptCommandMapAdder
 {
 public:
@@ -82,7 +66,6 @@ public:
 private:
 	_STL::vector<AsciiString> m_names;
 };
-
 class AptExternHandlerAdder
 {
 public:
@@ -91,14 +74,10 @@ public:
 private:
 	_STL::vector<AsciiString> m_names;
 };
-
 // 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
 // reference under the name.
 class AptScreenInitGadgets;
-
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
-
-// The Apt player (0x00DFE4CC) and its rowed text setter.
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -127,52 +106,6 @@ virtual void slot9();
 virtual void slot10();
 virtual void slot11();
 virtual bool amIHost() const;
-};
-
-class AptMpGameRules
-{
-public:
-	virtual void v00();
-	// vslot 1: a rule changed (the derived +0xD0 member forwards it to the
-	// panel, 0x0043FE01).
-	virtual void ruleChanged(int rule, bool silent);
-
-	void Reset(const char *unused);
-	void InitGadgets(const char *name, void *argument, GameWindow *window);
-	void rva0057E6C1();
-	// Bound as "MpGameRules::NumComboBoxes" (query 0) and
-	// "MpGameRules::NumCheckBoxes" (query 1), so it keeps its address.
-	void ExternFunc(int query, char *result, bool skip);
-
-	// Retail 0x0057E5B5: refreshes one rule widget; WB names UpdateRuleGadget.
-	void UpdateRuleGadget(int rule);
-    void PopulateComboBoxes();
-    void PopulateCheckBoxes();
-	// Unrowed 0x0057EF46 (files a widget under its index), 0x0057EF18 and
-	// 0x0057ED2B, pinned by address.
-	void rva0057EF46(AptMpGameRulesWidgets *widgets, const char *index, GameWindow *window);
-	void rva0057EF18();
-	bool rva0057ED2B();	// row 0x0057ED2B (AptMpGameRulesRefreshWidgets.cpp) returns bool
-
-	void rva0057F0AA();
-    int GetGadgetValue(int rule);
-    bool rva0057E707(int message, GameWindow *window, int unused);
-
-private:
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-	unsigned char m_pad01c[0x58 - 0x1C];
-    Rva0043DA65 *m_game; // +0x58: native validated GameInfo handle
-    unsigned char m_pad05c[4];
-	int m_mode; // +0x60
-	AptMpGameRulesWidgets m_comboBoxes; // +0x64
-	AptMpGameRulesWidgets m_checkBoxes; // +0x70
-    AptMpGameRulesWidgets m_ruleWindows; // +0x7C: GameWindow pointer bits
-    bool m_88; // +0x88: native message-input gate
-	bool m_89; // +0x89
-	unsigned char m_pad08a[0x8C - 0x8A];
-	unsigned char m_rules[0x28]; // +0x8C
-    AptMpGameRulesWidgets m_ruleStates; // +0xB4: retail integer state vector
 };
 
 // Native 57EAAD..57ED2B, complete638B. WB159E9E0 names this callback.
@@ -289,6 +222,64 @@ private:
 	char m_pad88[0x8C - 0x88];
 	int m_8C[10];
 };
+
+class AptMpGameRules
+{
+public:
+	virtual void v00();
+	// vslot 1: a rule changed (the derived +0xD0 member forwards it to the
+	// panel, 0x0043FE01).
+	virtual void ruleChanged(int rule, bool silent);
+
+	void Reset(const char *unused);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	void rva0057E6C1();
+	// Bound as "MpGameRules::NumComboBoxes" (query 0) and
+	// "MpGameRules::NumCheckBoxes" (query 1), so it keeps its address.
+	void ExternFunc(int query, char *result, bool skip);
+
+	// Retail 0x0057E5B5: refreshes one rule widget; WB names UpdateRuleGadget.
+	void UpdateRuleGadget(int rule);
+    void PopulateComboBoxes();
+    void PopulateCheckBoxes();
+	// Unrowed 0x0057EF46 (files a widget under its index), 0x0057EF18 and
+	// 0x0057ED2B, pinned by address.
+	void rva0057EF46(AptMpGameRulesWidgets *widgets, const char *index, GameWindow *window);
+	void rva0057EF18();
+	bool rva0057ED2B();	// row 0x0057ED2B (AptMpGameRulesRefreshWidgets.cpp) returns bool
+
+	void rva0057F0AA();
+    int GetGadgetValue(int rule);
+    bool rva0057E707(int message, GameWindow *window, int unused);
+
+private:
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	unsigned char m_pad01c[0x58 - 0x1C];
+    Rva0043DA65 *m_game; // +0x58: native validated GameInfo handle
+    unsigned char m_pad05c[4];
+	int m_mode; // +0x60
+	AptMpGameRulesWidgets m_comboBoxes; // +0x64
+	AptMpGameRulesWidgets m_checkBoxes; // +0x70
+    AptMpGameRulesWidgets m_ruleWindows; // +0x7C: GameWindow pointer bits
+    bool m_88; // +0x88: native message-input gate
+	bool m_89; // +0x89
+	unsigned char m_pad08a[0x8C - 0x8A];
+	unsigned char m_rules[0x28]; // +0x8C
+    AptMpGameRulesWidgets m_ruleStates; // +0xB4: retail integer state vector
+};
+
+class Rva0052493F
+{
+public:
+	void rva0052493F();
+};
+
+void _bfme_closeAptScreen(const AsciiString &name);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameRules.cpp
+
+// The Apt player (0x00DFE4CC) and its rowed text setter.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameRules.cpp
 
@@ -640,10 +631,6 @@ void Rva0057E97A::rva0057E59B(int index, bool enable)
 		gameWindow->winEnable(enable);
 }
 
-// tu-skeleton: 0x0057E6D8 5B ?rva0057E6D8@Rva0057EE5C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
-
-// tu-skeleton: 0x0057E779 40B ?rva0057E779@AptMpGameRules@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE32.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0057E97AEnable.cpp
 
 // ?rva0057E97A@Rva0057E97A@@QAEXXZ @0x0057E97A 115B
@@ -679,7 +666,28 @@ void Rva0057E97A::rva0057E97A()
 	m_updating = true;
 }
 
-// tu-skeleton: 0x0057E9ED 34B ?rva0057E9ED@Rva0057E97A@@QAEXIH@Z -- matched in Code/GameEngine/Source/Common/Rva0057E9ED.cpp (not merged yet)
+// tu-skeleton: 0x0057E6D8 5B ?rva0057E6D8@Rva0057EE5C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
+
+// tu-skeleton: 0x0057E779 40B ?rva0057E779@AptMpGameRules@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE32.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0057E9ED.cpp
+
+// ?rva0057E9ED@Rva0057E97A@@QAEXIH@Z @0x0057E9ED 34B
+// Bounded store to the +0xB4 int vector of the Rva0057E97A window holder:
+// size is (finish-start)/4 via sub+sar, index in [esp+4] checked against it,
+// then start[index] = value in [esp+8]. Same class and flags as the neighbour
+// 0x0057E97A TU (which reads the same +0xB4 flags), next is a vector<ObjectID>
+// TU. Evidence: packet disasm, single caller 0x00441ECE, prev/next rows.
+
+void Rva0057E97A::rva0057E9ED(unsigned int index, int value)
+{
+	int **flags = &m_enableFlags; // begin, end
+	int size = flags[1] - flags[0];
+	if (index >= (unsigned int)size)
+		return;
+	_ReadWriteBarrier();
+	flags[0][index] = value;
+}
 
 // tu-skeleton: 0x0057ED87 43B ??0?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@IABW4ObjectID@@ABV?$allocator@W4ObjectID@@@1@@Z -- matched in Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp (not merged yet)
 
@@ -693,9 +701,45 @@ void Rva0057E97A::rva0057E97A()
 
 // tu-skeleton: 0x0057EF0A 14B ?rva0057EF0A@Rva0057EF0A@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE32.cpp (not merged yet)
 
-// tu-skeleton: 0x0057EF18 46B ?rva0057EF18@AptMpGameRules@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0057EF18.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0057EF18.cpp
 
-// tu-skeleton: 0x0057EF87 123B ?rva0057EF87@Rva0057EE5C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0057EF87.cpp (not merged yet)
+// ?rva0057EF18@AptMpGameRules@@QAEXXZ @0x0057EF18 46B
+// Clears the +0x7C widget vector via rowed voidptr erase then rowed Drawable
+// resize to 10, clears +0x89, then tail jmps to pinned 0x0057ED2B. Evidence:
+// packet disasm with rowed callees 0x0031BD55 and 0x000E6D39; callers
+// 0x0057EF95 0x0057F02D and InitGadgets; AptMpGameRules layout in
+// AptMpGameRules.cpp; neighbours in Common.
+
+void AptMpGameRules::rva0057EF18()
+{
+	m_89 = false;
+	_STL::vector<void *> *v = (_STL::vector<void *> *)&m_ruleWindows;
+	v->erase(v->begin(), v->end());
+	((_STL::vector<Drawable *> *)&m_ruleWindows)->resize(10, (Drawable *)0);
+	rva0057ED2B();
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0057EF87.cpp
+
+// ?rva0057EF87@Rva0057EE5C@@QAEXXZ @0x0057EF87 123B
+// Shutdown of the AptMpGameSetup +0xD0 member: refresh via pinned 0x0057EF18,
+// clear +0x58 target +8, resize Drawable vector +0x7C to 10, rowed clear
+// 0x0052493F, close AptMpGameRules::InitGadgets screen, erase voidptr vectors
+// +0x64/+0x70. Evidence: pin name, caller 0x0043DE41 in AptMpGameSetup::InitGadgets,
+// prev/next Rva0057EE5C.cpp // cl: /O1 /DNDEBUG /MD /GX, all callees rowed/pinned.
+
+void Rva0057EE5C::rva0057EF87()
+{
+	((AptMpGameRules *)this)->rva0057EF18();
+	m_holder->m_08 = 0;
+	m_7C.resize(10, (Drawable *)0);
+	((Rva0052493F *)this)->rva0052493F();
+	_bfme_closeAptScreen(AsciiString("AptMpGameRules::InitGadgets"));
+	_STL::vector<void *> &v64 = m_64;
+	v64.erase(v64.begin(), v64.end());
+	_STL::vector<void *> &v70 = m_70;
+	v70.erase(v70.begin(), v70.end());
+}
 
 // tu-skeleton: 0x0057F002 52B ?rva0057F002@Rva0057EE5C@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva0057EE5C.cpp (not merged yet)
 
@@ -724,7 +768,3 @@ void Rva0057E97A::rva0057E97A()
 // tu-skeleton: 0x0079C51F 11B Unwind@00b9c51f -- matched in Code/GameEngine/Source/Common/Rva0057EE5C.cpp (not merged yet)
 
 // tu-skeleton: 0x0079C52A 10B __ehhandler$??1Rva0057EE5C@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0057EE5C.cpp (not merged yet)
-
-// tu-skeleton: 0x0079C534 8B $L1296 -- matched in Code/GameEngine/Source/Common/Rva0057EF87.cpp (not merged yet)
-
-// tu-skeleton: 0x0079C53C 10B __ehhandler$?rva0057EF87@Rva0057EE5C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0057EF87.cpp (not merged yet)
