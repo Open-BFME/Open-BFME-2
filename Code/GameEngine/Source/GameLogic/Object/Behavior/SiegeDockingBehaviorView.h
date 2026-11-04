@@ -43,6 +43,7 @@ protected:
 
 
 private:
+	void stopDocking() throw();
 	_STL::vector<int> m_vector; // +0x24
 	bool m_enabled; // +0x30
 };

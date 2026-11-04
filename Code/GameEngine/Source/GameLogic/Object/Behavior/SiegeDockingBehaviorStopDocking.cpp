@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include /ICode/GameEngine/Source
 // stlport
 // ?stopDocking@SiegeDockingBehavior@@AAEXXZ @0x00459C27 49B.
 // Clears the +0x24 entry vector: deletes each entry via rowed ??3 0x0002FD60
@@ -16,20 +16,15 @@ namespace _STL
 template <> void **vector<void *, allocator<void *> >::erase(void **first, void **last);
 }
 
-class SiegeDockingBehavior
-{
-private:
-	void stopDocking() throw();
-
-private:
-	unsigned char m_pad[0x24];
-	_STL::vector<void *, _STL::allocator<void *> > m_entries; // +0x24
-};
+#include "SiegeDockingBehaviorView.h"
 
 void SiegeDockingBehavior::stopDocking() throw()
 {
-	_STL::vector<void *, _STL::allocator<void *> > *entries = &m_entries;
-	for (void **it = m_entries.begin(); it != m_entries.end(); ++it)
+	// The constructor's view stores the same three vector words at +0x24.
+	_STL::vector<void *, _STL::allocator<void *> > *entries =
+		reinterpret_cast<_STL::vector<void *, _STL::allocator<void *> > *>(&m_vector);
+	for (void **it = reinterpret_cast<void **>(m_vector.begin());
+		it != reinterpret_cast<void **>(m_vector.end()); ++it)
 	{
 		if (*it)
 			::operator delete(*it);
