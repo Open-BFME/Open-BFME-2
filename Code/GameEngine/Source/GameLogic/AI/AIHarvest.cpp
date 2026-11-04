@@ -12,38 +12,7 @@ class Xfer;
 
 class LocomotorSet;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
-
-class __declspec(novtable) State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void xfer(Xfer *xfer);
-	virtual StateReturnType onEnter();
-	virtual void slot05();
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual bool isIdle() const;
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-	unsigned char m_pad1D[0x20 - 0x1D];
-};
+#include "../../../Include/Common/StateMachine.h"
 
 // The goal point the base move state keeps at +0x20.
 class AIInternalMoveToState : public State

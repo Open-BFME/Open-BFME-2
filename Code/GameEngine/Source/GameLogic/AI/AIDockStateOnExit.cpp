@@ -18,21 +18,6 @@
 // whose other slots are its own (BFME1 derives AIHarvestState from State), so
 // the two identical update bodies are folded there; the name here is the
 // AIDockState one, whose Zero Hour source this is.
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-#define IS_STATE_SLEEP(ret) ((int)(ret) > 0)
-inline StateReturnType CONVERT_SLEEP_TO_CONTINUE(StateReturnType s)
-{
-	return IS_STATE_SLEEP(s) ? STATE_CONTINUE : s;
-}
 class DockUpdateInterface;
 class Object;
 class AIUpdateInterface
@@ -71,6 +56,12 @@ class RGBAColorInt;
 #include "Common/Snapshot.h"
 
 #include "../../../Include/Common/BfmeXfer.h"
+#include "../../../Include/Common/StateMachine.h"
+#define IS_STATE_SLEEP(ret) ((int)(ret) > 0)
+inline StateReturnType CONVERT_SLEEP_TO_CONTINUE(StateReturnType s)
+{
+	return IS_STATE_SLEEP(s) ? STATE_CONTINUE : s;
+}
 
 
 class AIDockMachine : public Snapshot
@@ -96,16 +87,7 @@ public:
 private:
 	unsigned char m_machinePad[0x40 - sizeof(Snapshot)];
 };
-class State
-{
-public:
-	virtual ~State();
-protected:
-	virtual void xfer(Xfer *xfer);
-	unsigned char m_stateFields04[0x14];
-	StateMachine *m_machine; // +0x18
-	unsigned char m_stateFields1C[4];
-};
+
 class AIDockState : public State
 {
 public:

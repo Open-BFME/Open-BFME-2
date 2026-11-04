@@ -18,8 +18,7 @@
 
 typedef bool Bool;
 #include "../../Common/GameLogicObjectLookupView.h"
-enum StateExitType { EXIT_NORMAL = 0 };
-enum StateReturnType { STATE_CONTINUE = 0 };
+#include "../../../Include/Common/StateMachineClass.h"
 enum GuardTargetType { GUARDTARGET_LOCATION = 0, GUARDTARGET_OBJECT };
 class Object;
 template <int N> class VSlots : public VSlots<N - 1>
@@ -53,35 +52,12 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 extern GameLogic *TheGameLogic;
-class StateMachine
-{
-public:
-	virtual void *deleteInstance(int flags);
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+
 class AIGuardState : public State
 {
 public:
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_guardMachine; // +0x20
 };
 
@@ -94,8 +70,7 @@ void AIGuardState::onExit( StateExitType status )
 	if (guardee && ai->getGuardTargetType() == GUARDTARGET_OBJECT)
 		owner->rva0028BBF3(guardee);
 
-	// m_guardMachine->deleteInstance(): the machine's virtual slot-0 release
-	// (flags 0), whose result is then freed through the global operator delete.
-	::operator delete(m_guardMachine ? m_guardMachine->deleteInstance(0) : 0);
+	// The machine's virtual slot-0 release (flags 0), then the global operator delete.
+	::delete m_guardMachine;
 	m_guardMachine = 0;
 }

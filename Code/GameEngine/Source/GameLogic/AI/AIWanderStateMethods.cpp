@@ -65,16 +65,8 @@ extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 typedef float Real;
 typedef int Int;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 enum LocomotorSetType
 {
 	LOCOMOTORSET_NORMAL = 0,
@@ -173,59 +165,14 @@ private:
 };
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	void setGoalPosition(const Coord3D *pos);
-protected:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+
 class AIStateMachine : public StateMachine
 {
 public:
 	const Waypoint *getGoalWaypoint() { return m_goalWaypoint; }
 private:
-	unsigned char m_pad18[0x48 - 0x18];
+	unsigned char m_pad3C[0x48 - 0x3C];
 	const Waypoint *m_goalWaypoint; // +0x48
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
 };
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 // Waypoint (target evidence): location +0x0C, link count +0x4C; getLink is
@@ -238,7 +185,6 @@ public:
 	Real calcExtraPathDistance(void);
 	const Waypoint *getNextWaypoint(void);
 protected:
-	unsigned char m_pad2C[0x4C - 0x2C];
 	Coord2D m_groupOffset; // +0x4C
 	unsigned char m_pad54[0x5C - 0x54];
 	const Waypoint *m_currentWaypoint; // +0x5C
