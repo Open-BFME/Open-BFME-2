@@ -6,7 +6,6 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #pragma comment(linker, "/alternatename:?rva00451B92@SpecialAbilityUpdate@@UAEXXZ=??_GSpecialAbilityUpdate@@UAEPAXI@Z")
-
 // Shared ToggleMountedSpecialAbilityUpdate unit view: one declaration of each
 // class for every body retail built into this unit.
 
@@ -14,55 +13,40 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0
 };
-
 enum KindOfType
 {
 	KIND_UNKNOWN = -1
 };
-
 enum WeaponSetType
 {
 	WEAPON_UNKNOWN = 0
 };
-
 enum ArmorSetType
 {
 	ARMORSET_NONE = 0
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class Module;
-
 class Player;
-
 class SpecialPowerTemplate;
-
 class SpecialPowerModuleInterface;
-
 class Waypoint;
-
 struct Rva0028AC4EEntry;
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 template <int N>
 class MountedSlots : public MountedSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <>
 class MountedSlots<0>
 {
 };
-
 class MountedAIView : public MountedSlots<110>
 {
 public:
@@ -100,7 +84,6 @@ public:
 	virtual void a141() = 0;
 	virtual void slot142(int) = 0;
 };
-
 class MountedContainView : public MountedSlots<42>
 {
 public:
@@ -133,7 +116,6 @@ public:
 	virtual void c68() = 0;
 	virtual unsigned slot69(int) const = 0;
 };
-
 class MountedBodyView : public MountedSlots<4>
 {
 public:
@@ -177,7 +159,6 @@ public:
 	virtual void b41() = 0;
 	virtual void slot42(float) = 0;
 };
-
 class Rva003BD306Target
 {
 public:
@@ -187,14 +168,12 @@ public:
 	char pad14[0x28];
 	bool enabled;
 };
-
 class Rva001EAFC1
 {
 public:
 	Rva001EAFC1 &operator=(const Rva001EAFC1 &);
 	char bytes[24];
 };
-
 struct MountedFlags
 {
 	unsigned words[19];
@@ -202,10 +181,7 @@ struct MountedFlags
 	__forceinline void clear(unsigned bit) { words[bit >> 5] &= ~(1U << (bit & 31)); }
 	__forceinline void set(unsigned bit) { words[bit >> 5] |= (1U << (bit & 31)); }
 };
-
 #include "../../../../Include/GameClient/Drawable.h"
-
-
 class Object : public Thing
 {
 public:
@@ -258,13 +234,11 @@ public:
 	char pad268[0x468 - 0x268];
 	Rva001EAFC1 record; // +0x468
 };
-
 struct MountedPowerNames
 {
 	AsciiString *begin, *end, *capacity;
 	bool empty() const { return begin == end; }
 };
-
 // ToggleMountedSpecialAbilityUpdateModuleData fields this unit reads.
 struct MountedDataView
 {
@@ -274,9 +248,7 @@ struct MountedDataView
 	StringBase<char> mountedTemplate; // +0xD0 MountedTemplate
 	MountedPowerNames names; // +0xD4 SynchronizeTimerOnSpecialPower
 };
-
 class Rva004AD9B0;
-
 class SpecialAbilityUpdate : public MountedSlots<17>
 {
 public:
@@ -298,12 +270,10 @@ public:
 	char pad28[0x8C - 0x28];
 	bool flag8C;
 };
-
 // The constructor's real provider is still rowed as Rva0044EF5E. Keep that
 // base identity while sharing its retail +0x88 prefix with the behavior bodies.
 class Thing;
 class ModuleData;
-
 class __declspec(novtable) Rva0044EF5E : public MountedSlots<17>
 {
 public:
@@ -314,7 +284,6 @@ public:
     int state;
     char pad28[0x88 - 0x28];
 };
-
 class __declspec(novtable) ToggleMountedSpecialAbilityUpdate : public Rva0044EF5E
 {
 public:
@@ -328,7 +297,6 @@ protected:
     const void *m_slotBase;
     bool flag8C;
 };
-
 class Rva0044ECCE
 {
 public:
@@ -337,7 +305,6 @@ public:
 private:
 	unsigned char m_pad[0xC8 - 4];
 };
-
 class __declspec(novtable) ToggleMountedSpecialAbilityUpdateModuleData : public Rva0044ECCE
 {
 public:
@@ -351,7 +318,6 @@ private:
 	AsciiString m_mountedTemplate;
 	_STL::vector<AsciiString> m_synchronizeTimer;
 };
-
 // ?getModuleNameKey@ToggleMountedSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ @0x4ADA70
 // (69B): cached pool-name key for ToggleMountedSpecialAbilityUpdate. The class
 // identity comes from the pool-name string the body pushes
@@ -380,7 +346,6 @@ class BuildListInfo
 public:
 	int getDesiredGatherers();
 };
-
 class Rva004AD9B0
 {
 protected:
@@ -389,15 +354,10 @@ private:
 	char m_pad04[4];
 	void *m_08;
 };
-
 extern GameLogic *TheGameLogic;
-
 #include "../../../../Include/GameLogic/AIPathfind.h"
-
 #include "../../../../Include/GameLogic/AI.h"
-
 extern AI *TheAI;
-
 class Rva004ADC88
 {
 public:
@@ -411,52 +371,30 @@ private:
 	char m_padC[0x8C - 0x0C];
 	unsigned char m_flag;
 };
-
 #include "../../../../Include/GameLogic/LocomotorClass.h"
-
 class Rva004ADC38
 {
 public:
 	void rva004ADC38(int a, int b, int c, int d, int e);
 };
-
 class Rva00493BD4 { public: void rva00493BD4(Rva00493BD4 *); };
-
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-
 class SpecialPowerStore { public: const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString); };
-
 extern SpecialPowerStore *TheSpecialPowerStore;
-
 class ThingTemplate;
-
 class ScoreKeeper {public:void addObjectBuilt(Object*,int);};
-
 #include "../../../../Include/Common/Player.h"
-
 #include "../../../../Include/Common/ThingFactory.h"
-
  extern ThingFactory *TheThingFactory;
-
 #include "../../../../Include/Common/BuildAssistantClass.h"
-
 extern BuildAssistant *TheBuildAssistant;
-
 #include "../../../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 #include "../../../../Include/Common/MessageStream.h"
-
-
 extern MessageStream *TheMessageStream;
-
 #include "../../../../Include/GameClient/ControlBar.h"
-
 extern ControlBar *TheControlBar;
-
 class SpecialDisguiseUpdate { public: void rva004B05F5(bool); };
-
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch U: overrides reached through a secondary base, so
@@ -467,13 +405,9 @@ class SpecialDisguiseUpdate { public: void rva004B05F5(bool); };
 // names the slot in a sibling table. Meanings are not recovered.
 
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
 class Object;
-
 class AsciiString;
-
 // A primary base of the given size: vtable, module data, object.
 template <int SIZE>
 class Rva00452EDDPrimary
@@ -485,7 +419,6 @@ protected:
 	Object *m_object; // +0x08
 	char m_pad0C[SIZE - 0x0C];
 };
-
 struct Rva00452EDDData
 {
 	char m_pad00[0x14];
@@ -493,7 +426,6 @@ struct Rva00452EDDData
 	void *m_18; // AsciiString
 	void *m_1C; // AsciiString
 };
-
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's
 // slots): whether the module data's +0x38 equals the argument.
 // UpgradeMux slots: the activation and conflicting masks (0x80 bytes each)
@@ -505,7 +437,6 @@ struct UpgradeMaskType
 {
 	UnsignedInt m_words[0x20];
 };
-
 class UpgradeMuxData
 {
 public:
@@ -521,19 +452,16 @@ public:
 	bool m_requiresAllTriggers; // +0x10C, INI RequiresAllTriggers
 	bool m_requiresAllConflictingTriggers; // +0x10D, INI RequiresAllConflictingTriggers
 };
-
 struct Rva00452460Data
 {
 	char m_pad00[0x08];
 	UpgradeMuxData m_upgradeMuxData; // +0x08
 };
-
 struct Rva0045F46AData
 {
 	char m_pad00[0x5C];
 	UpgradeMuxData m_upgradeMuxData; // +0x5C
 };
-
 class Rva00452460Iface
 {
 public:
@@ -542,18 +470,7 @@ public:
 	virtual bool requiresAllActivationUpgrades() const = 0;
 	virtual bool requiresAllConflictingUpgrades() const = 0;
 };
-
-// UpgradeModule (BehaviorModule at +0x00, UpgradeMux at +0x10): slots 11 and
-// 12 of ??_7UpgradeModule@@6BUpgradeMux@@@ (0x00842720), inherited unchanged
-// by the UpgradeMux table of every UpgradeModule subclass that does not
-// override them (ArmorUpgrade, AttributeModifierUpgrade, ... 32 tables).
-// Donor ZH UpgradeModule.h inlines; BFME 1 names the same pair. Slots 13 and
-// 14 hand out the two RequiresAll flags (UpgradeMuxData field table at VA
-// 0x00C5FE50: +0x10C RequiresAllTriggers, +0x10D RequiresAllConflictingTriggers)
-// that the rowed wouldUpgrade 0x004CE2B0 reads through +0x34 and +0x38; slot 13
-// is ZH's requiresAllActivationUpgrades, slot 14's spelling follows its INI key.
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
-
 // 0x004839F9 (interface at +0x20): virtual slot 14 of the complete object
 // when the third argument is 2, else slot 15 when the second is 2.
 // 0x004ADBD7 (interface at +0x88): virtual slot 17 of the complete object
@@ -563,13 +480,11 @@ struct Rva004ADBD7Data
 	char m_pad00[0xCC];
 	bool m_CC;
 };
-
 class Rva004ADBD7Iface
 {
 public:
 	virtual void rva004ADBD7() = 0;
 };
-
 class Rva004ADBD7 : public Rva00452EDDPrimary<0x88>, public Rva004ADBD7Iface
 {
 public:
@@ -592,18 +507,52 @@ public:
 	virtual void v17();
 	void rva004ADBD7();
 };
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+
+extern "C"
+{
+	void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+}
+
+static int s_slotBase;
+
+static int s_vtable;
+
+static int s_secondary10;
+
+// The data ledger assigns these provisional table symbols to ModuleUpdateDtors.
+// Share those definitions rather than allocating another datum for each table.
+extern "C"
+{
+	extern int s_dummy5188;
+	extern int s_dummy5198;
+	extern const void *const s_dummy62D8[47];
+}
+
+struct MountedDataView;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp
+
+// UpgradeModule (BehaviorModule at +0x00, UpgradeMux at +0x10): slots 11 and
+// 12 of ??_7UpgradeModule@@6BUpgradeMux@@@ (0x00842720), inherited unchanged
+// by the UpgradeMux table of every UpgradeModule subclass that does not
+// override them (ArmorUpgrade, AttributeModifierUpgrade, ... 32 tables).
+// Donor ZH UpgradeModule.h inlines; BFME 1 names the same pair. Slots 13 and
+// 14 hand out the two RequiresAll flags (UpgradeMuxData field table at VA
+// 0x00C5FE50: +0x10C RequiresAllTriggers, +0x10D RequiresAllConflictingTriggers)
+// that the rowed wouldUpgrade 0x004CE2B0 reads through +0x34 and +0x38; slot 13
+// is ZH's requiresAllActivationUpgrades, slot 14's spelling follows its INI key.
 
 // 0x005E1CF8 (interface at +0x08): the rowed 0x005E1C6F of the +0x10 object
 // with the complete object (the argument is unused).
 // 0x00497805: a module's loadPostProcess that only chains to the rowed
 // UpdateModule::loadPostProcess (the slot after the scalar destructor in
 // many module tables).
-#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp
 
@@ -796,40 +745,34 @@ void ToggleMountedSpecialAbilityUpdate::createMountedTemplate(){
 void ToggleMountedSpecialAbilityUpdate::triggerAbilityEffect()
 {
  ((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::triggerAbilityEffect();
- Object *obj=owner;
- MountedAIView *ai=obj->ai;
+ Object *owningObject=owner;
+ MountedAIView *ai=owningObject->ai;
  flag8C=false;
  if(!ai->isIdle()) return;
  const MountedDataView *mountedDataView=data;
  if(state!=1) return;
  if(!mountedDataView->mountedTemplate.isEmpty()) createMountedTemplate();
- else if(obj->isKindOf((KindOfType)214)) {
-  MountedContainView *contain=obj->contain;
-  if(contain && contain->slot69(0)>0) obj->contain->slot42(0);
-  obj->clearCondition214();
-  obj->ai->slot142(0);
-  obj->clearWeaponSetFlag((WeaponSetType)21);
-  obj->clearArmorSetFlag((ArmorSetType)6);
-  if(mountedDataView->cancelDisguise && obj->isKindOf((KindOfType)300)) {
+ else if(owningObject->isKindOf((KindOfType)214)) {
+  MountedContainView *contain=owningObject->contain;
+  if(contain && contain->slot69(0)>0) owningObject->contain->slot42(0);
+  owningObject->clearCondition214();
+  owningObject->ai->slot142(0);
+  owningObject->clearWeaponSetFlag((WeaponSetType)21);
+  owningObject->clearArmorSetFlag((ArmorSetType)6);
+  if(mountedDataView->cancelDisguise && owningObject->isKindOf((KindOfType)300)) {
    static const NameKeyType key=TheNameKeyGenerator->nameToKey("SpecialDisguiseUpdate");
-   SpecialDisguiseUpdate *disguise=(SpecialDisguiseUpdate*)obj->findModule(key);
+   SpecialDisguiseUpdate *disguise=(SpecialDisguiseUpdate*)owningObject->findModule(key);
    if(disguise) disguise->rva004B05F5(true);
   }
  } else {
-  obj->setCondition214();
-  obj->ai->slot142(7);
-  obj->setWeaponSetFlag((WeaponSetType)21);
-  obj->setArmorSetFlag((ArmorSetType)6);
+  owningObject->setCondition214();
+  owningObject->ai->slot142(7);
+  owningObject->setWeaponSetFlag((WeaponSetType)21);
+  owningObject->setArmorSetFlag((ArmorSetType)6);
  }
- Drawable *drawable=obj->getDrawable();
+ Drawable *drawable=owningObject->getDrawable();
  if(drawable && drawable->m_selected) TheControlBar->field28=true;
 }
-
-// tu-skeleton: 0x004ADAB5 74B ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADAFF 28B ??_GRva004AD9B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADB1B 188B ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp
 
@@ -838,6 +781,26 @@ void Rva004ADBD7::rva004ADBD7()
 	if (((const Rva004ADBD7Data *)m_moduleData)->m_CC)
 		v17();
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp
+
+// ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4ADAB5
+ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
+	: Rva0044EF5E(thing, moduleData)
+{
+	m_slotBase = &s_slotBase;
+	_ReadWriteBarrier();
+	m_slotBase = &s_dummy5188;
+	*(const void **)this = &s_vtable;
+	*(const void **)((char *)this + 0x0C) = s_dummy62D8;
+	*(const void **)((char *)this + 0x10) = &s_secondary10;
+	*(const void **)((char *)this + 0x20) = &s_dummy5198;
+	flag8C = false;
+}
+
+// tu-skeleton: 0x004ADAFF 28B ??_GRva004AD9B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004ADB1B 188B ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE0AC 67B ??0ToggleMountedSpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
 
