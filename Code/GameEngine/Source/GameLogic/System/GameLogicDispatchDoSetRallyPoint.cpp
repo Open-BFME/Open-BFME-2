@@ -116,19 +116,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class InGameUI
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14) V(15)
-#undef V
-	virtual void message(UnicodeString message, ...);	// +0x40
-	virtual void v17();
-	virtual void v18();
-	// F4BB40/3774AB use this distinct variadic message slot. Its original
-	// identifier is unresolved; it is not the +0x40 feedback overload.
-	virtual void rvaVirtual4C(UnicodeString message, ...);	// +0x4C
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 struct AudioSettings
@@ -196,7 +184,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 		{
 			if (isLocal && showFeedback)
 			{
-				TheInGameUI->message(TheGameText->fetch("GUI:RallyPointNoPath"));
+				TheInGameUI->rva0029E846(TheGameText->fetch("GUI:RallyPointNoPath"));
 
 				static BfmeAudioEventPrefix136 rallyNotSet(TheAudio->getAudioSettings()->m_unableToSetRallyPoint, 0);
 				((Rva002D9508 *)&rallyNotSet)->rva002D9508(&rallyPosition);
@@ -227,7 +215,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 			text = *(void *const *)object->getDisplayName();
 		const unsigned short *substitute = text ? (const unsigned short *)((const char *)text + 8) : L"";
 		message.format(&TheGameText->fetchRef("GUI:RallyPointSet"), substitute);
-		TheInGameUI->message(message);
+		TheInGameUI->rva0029E846(message);
 
 		static BfmeAudioEventPrefix136 rallyPointSet(TheAudio->getAudioSettings()->m_rallyPointSet, 0);
 		((Rva002D9508 *)&rallyPointSet)->rva002D9508(&rallyPosition);
@@ -276,7 +264,7 @@ void Rva003774ABSetGlobalRallyPoint(Object *object, const Coord3D *position)
 	{
 		UnicodeString message;
 		message.format(&TheGameText->fetchRef("GUI:GlobalRallyPointSet"));
-		TheInGameUI->rvaVirtual4C(message);
+		TheInGameUI->message(message);
 		static BfmeAudioEventPrefix136 globalRallyPointSet(TheAudio->getAudioSettings()->m_rallyPointSet, 0);
 		((Rva002D9508 *)&globalRallyPointSet)->rva002D9508(position);
 		((Rva0033F15DDwordSlot *)&globalRallyPointSet)->set(object->getControllingPlayer()->m_playerIndex);
