@@ -16,18 +16,24 @@
 // ?rva005B1019@AptMyHero@@QAEXXZ
 
 #include "ascii_string.h"
-struct BfmePod8 {
-	int a;
-	float b;
+struct BfmePod8
+{
+public:
+	int a; // +0x00
+	float b; // +0x04
 };
 class Object;
 class Rva004076EE {
 	public:
 	Object *rva004076EE();
 };
-struct Rva005B0473View {
-	char pad[0x68];
-	int field68;
+struct Rva005B0473View
+{
+public:
+	char opaque[0x60]; // +0x00
+	float field60; // +0x60
+	int field64; // +0x64
+	int field68; // +0x68
 };
 class Thing {
 	public:

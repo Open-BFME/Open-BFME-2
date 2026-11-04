@@ -13,7 +13,13 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
 class Rva00407E28 {public: int rva00407E28(int id);bool rva00407E53(int id);bool rva00407DE0(int id,int value);};
-class CreateAHeroHero {public: void ConstructHeroBlingList();const class CommandButton *GetButtonForLevel(int);};
+class CreateAHeroHero
+{
+public:
+	void ConstructHeroBlingList();
+	const class CommandButton *GetButtonForLevel(int);
+	void rva005B0357(int, char *, int);
+};
 // A bling binder (20 bytes): its name key, the game-text label, and the
 // slot and category it fills.
 struct BlingBinder {int key;AsciiString label;int pad08;unsigned int slot;int category;};
@@ -40,11 +46,23 @@ protected:
 };
 // Native vector cleanup uses the game CRT allocator at00030830.
 extern "C" void __cdecl free(void *) throw(...);
-struct BfmePod8 {int a;float b;};
+struct BfmePod8
+{
+public:
+	int a; // +0x00
+	float b; // +0x04
+};
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
 class Rva00406E47 {public: bool rva00406E47(int);};
-struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
+struct Rva005B0473View
+{
+public:
+	char opaque[0x60]; // +0x00
+	float field60; // +0x60
+	int field64; // +0x64
+	int field68; // +0x68
+};
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
 class Rva002195E6;
@@ -82,7 +100,17 @@ class Object {public: char pad00[0x44];float field44;char pad48[0x74-0x48];int f
 class CommandButton;
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
 bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
-class Rva005B1A07 {public: void rva005B1B26(unsigned int);};
+struct BfmePod20;
+class Rva005B1A07
+{
+public:
+	void rva005B1B26(unsigned int);
+	void rva005B1A07(unsigned int index, BfmePod20 val);
+private:
+	BfmePod20 *m_0; // +0x00
+	BfmePod20 *m_4; // +0x04
+	BfmePod20 *m_8; // +0x08
+};
 // Sun-direction helper views (retail 0x005B0A95): the WWMath Vector3/Vector4/
 // Matrix3D inlines are carried from ZH's vector3.h/vector4.h/matrix3d.h shapes
 // (axis-angle Set with cosf/sinf locals, mul via submul); Rotate_Vector is the
@@ -1032,7 +1060,6 @@ private:
 };
 
 // ?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z @0x005B1908 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005B1748.
-struct BfmePod20;
 
 class Rva005B1908
 {
@@ -1248,22 +1275,28 @@ class Rva005B045D
 public:
 	void *rva005B045D();
 	void rva005B04B6();
+	char m_pad00[0x144];
 private:
-	char m_pad[0x144];
-	void *m_ptr144;
-	char m_gap148[4];
-	int m_flag14c;
-	char m_gap150[8];
-	int m_val158;
+	void *m_ptr144; // +0x144
+	char m_pad148[0x4];
+	int m_flag14c; // +0x14C
+	char m_pad150[0x8];
+	int m_val158; // +0x158
 };
 
 // Call the single retained erase owner at 0x005B129F. Record identity is
 // address-derived; only the pointer ABI is needed in this caller.
 struct Rva005B09D8Record;
 
-class Rva005B129FVector {
+class Rva005B129FVector
+{
 public:
-    Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+	Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+	void resize(unsigned int,Rva005B09D8Record);
+private:
+	Rva005B09D8Record *start; // +0x00
+	Rva005B09D8Record *finish; // +0x04
+	Rva005B09D8Record *endStorage; // +0x08
 };
 
 class Rva005B129FClass

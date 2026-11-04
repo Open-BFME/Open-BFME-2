@@ -20,11 +20,15 @@ return _STL::__copy(first,last,result,_STL::random_access_iterator_tag(),(int*)0
 // stores its result at receiver+4 and returns first. No element destructor
 // is called on this path. The three-pointer view follows STLport vector;
 // application owner and element identity remain unknown.
-class Rva005B129FVector {
+class Rva005B129FVector
+{
 public:
- Rva005B09D8Record* erase(Rva005B09D8Record*,Rva005B09D8Record*);
- void resize(unsigned int,Rva005B09D8Record);
-private: Rva005B09D8Record*start,*finish,*endStorage;
+	Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+	void resize(unsigned int,Rva005B09D8Record);
+private:
+	Rva005B09D8Record *start; // +0x00
+	Rva005B09D8Record *finish; // +0x04
+	Rva005B09D8Record *endStorage; // +0x08
 };
 Rva005B09D8Record* Rva005B129FVector::erase(Rva005B09D8Record*first,Rva005B09D8Record*last) {
 finish=copyPointersRva005B09D8(last,finish,first,_STL::__false_type());

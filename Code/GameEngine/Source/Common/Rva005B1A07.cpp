@@ -13,9 +13,15 @@ struct BfmePod20
 // Call the single retained erase owner at 0x005B129F. Record identity is
 // address-derived; only the pointer ABI is needed in this caller.
 struct Rva005B09D8Record;
-class Rva005B129FVector {
+class Rva005B129FVector
+{
 public:
-    Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+	Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+	void resize(unsigned int,Rva005B09D8Record);
+private:
+	Rva005B09D8Record *start; // +0x00
+	Rva005B09D8Record *finish; // +0x04
+	Rva005B09D8Record *endStorage; // +0x08
 };
 namespace _STL
 {
@@ -27,13 +33,12 @@ template <> void vector<BfmePod20>::_M_fill_insert(BfmePod20 *, unsigned int, co
 class Rva005B1A07
 {
 public:
+	void rva005B1B26(unsigned int);
 	void rva005B1A07(unsigned int index, BfmePod20 val);
-	void rva005B1B26(unsigned int index);
-
 private:
-	BfmePod20 *m_0;
-	BfmePod20 *m_4;
-	BfmePod20 *m_8;
+	BfmePod20 *m_0; // +0x00
+	BfmePod20 *m_4; // +0x04
+	BfmePod20 *m_8; // +0x08
 };
 
 void Rva005B1A07::rva005B1A07(unsigned int index, BfmePod20 val)

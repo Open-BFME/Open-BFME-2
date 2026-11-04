@@ -9,7 +9,12 @@
 // returned on out-of-range. Matches BfmePod size-only convention.
 #include <vector>
 
-struct BfmePod8 { int a; float b; };
+struct BfmePod8
+{
+public:
+	int a; // +0x00
+	float b; // +0x04
+};
 
 // g_00E06460: matched references place it at VA 0xe06460 (zero-filled; a plain-data view).
 BfmePod8 g_00E06460;

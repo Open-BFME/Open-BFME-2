@@ -20,7 +20,13 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
-class CreateAHeroHero {public: void ConstructHeroBlingList();const class CommandButton *GetButtonForLevel(int);};
+class CreateAHeroHero
+{
+public:
+	void ConstructHeroBlingList();
+	const class CommandButton *GetButtonForLevel(int);
+	void rva005B0357(int, char *, int);
+};
 // A bling binder (20 bytes): its name key, the game-text label, and the
 // slot and category it fills.
 struct BlingBinder {int key;AsciiString label;int pad08;unsigned int slot;int category;};
@@ -52,10 +58,22 @@ protected:
 };
 // Native vector cleanup uses the game CRT allocator at00030830.
 extern "C" void __cdecl free(void *) throw(...);
-struct BfmePod8 {int a;float b;};
+struct BfmePod8
+{
+public:
+	int a; // +0x00
+	float b; // +0x04
+};
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
-struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
+struct Rva005B0473View
+{
+public:
+	char opaque[0x60]; // +0x00
+	float field60; // +0x60
+	int field64; // +0x64
+	int field68; // +0x68
+};
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
 class Rva002195E6;
@@ -94,7 +112,11 @@ class CommandButton;
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
 bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
 class Rva00223A94 {public: int rva00223A94(const AsciiString *);};
-class Rva005241DF {public: void rva005241DF(const StringBase<char> &);};
+class Rva005241DF
+{
+public:
+	void rva005241DF(const StringBase<char> &val);
+};
 class Rva005B1830 {public: void rva005B1830();};
 // Sun-direction helper views (retail 0x005B0A95): the WWMath Vector3/Vector4/
 // Matrix3D inlines are carried from ZH's vector3.h/vector4.h/matrix3d.h shapes
