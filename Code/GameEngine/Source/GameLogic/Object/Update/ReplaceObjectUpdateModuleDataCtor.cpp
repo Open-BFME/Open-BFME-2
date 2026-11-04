@@ -2,14 +2,12 @@
 // stlport
 //
 // ??0ReplaceObjectUpdateModuleData@@QAE@XZ, retail 0x004B2AC4, 61 bytes.
-// Frameless ctor: true opaque base 0x44EB54 called first (declared throw()
-// so it takes no EH state), vtable 0x00C56C78 init-listed second, vector
+// Frameless ctor: canonical SpecialAbilityUpdateModuleData base at 0x44EB54
+// called first, compiler installs vtable 0x00C56C78 second, vector
 // member at +0xC8 implicitly built through the folded Vector_base<int> row
 // (normal STL materializes the temp allocator; NO_EXCEPTIONS inlines it,
 // which V1 proved wrong), 0.0f at +0xD4, 0 at +0xD8, 0 at +0xDC. Factory
 // 0x24FCEA news 0xE0. Element type is a TU-local stand-in (fold-identical).
-
-extern "C" const void *const __identifier("??_7ReplaceObjectUpdateModuleData@@6B@")[];  // vftable 0x00C56C78
 
 #include <vector>
 
@@ -32,20 +30,15 @@ template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 
 typedef int Int;
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData() throw();
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class ReplaceObjectUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ReplaceObjectUpdateModuleData();
+	virtual ~ReplaceObjectUpdateModuleData(); // Defined by the rowed destructor TU.
 
 private:
-	void *m_vtable;
-	unsigned char m_pad[0xC8 - 4];
 	_STL::vector<Int> m_members;
 	float m_radius;
 	int m_count;
@@ -54,7 +47,7 @@ private:
 
 // ??0ReplaceObjectUpdateModuleData@@QAE@XZ
 ReplaceObjectUpdateModuleData::ReplaceObjectUpdateModuleData()
-	: m_vtable(reinterpret_cast<void *>(((unsigned int)__identifier("??_7ReplaceObjectUpdateModuleData@@6B@"))))
+	: SpecialAbilityUpdateModuleData()
 {
 	m_radius = 0.0f;
 	m_count = 0;
