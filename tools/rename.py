@@ -4580,8 +4580,13 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 #     FIRST +0 store (MSVC stores the class's own table before member and
 #     base destructors restore theirs), or a constructor's +0 stores when they
 #     all install T (a constructor that also installs a base's or a member's
-#     table proves nothing and must merely include T); every other special
-#     member row of OLD or NEW agrees (none owns another table);
+#     table proves nothing and must merely include T), or a constructor's
+#     last +0 store when every vftable store in it is through a register
+#     that provably holds this + d (this_stores: inlined base constructors
+#     store first, and no store into another object is among them);
+#     every other special member row of OLD or NEW agrees (none owns another
+#     table); a store's displacement is read from this, not from its
+#     instruction (`lea edi,[esi+4]; mov [edi],S` is a +4 store);
 #   * T's `??_7X@@6B@` names (data_rows.csv, and the data_ledger.csv names the
 #     matched rows' DIR32 relocations bind there) name NEW, and no class but
 #     OLD and NEW;
@@ -4695,36 +4700,152 @@ def _all_installs(ctx, tables):
     return ctx._cache[key]
 
 
-def own_secondary(ctx, row, tables, disp):
-    """The table special member `row`'s retail body installs as its own at
-    `+disp` (disp != 0): a destructor's or deleting destructor's first store
-    there, a constructor's last (an inlined base constructor stores the base's
-    table first); None when the body stores nothing there."""
+# retail_vtables reads each install's displacement from its own instruction,
+# so `lea edi,[esi+4]; mov dword ptr [edi],T` reads as a +0 store of T. A
+# class with a second base whose subobject address sits in a register stores
+# its secondary table that way (PlanRetreatsPhaseBehavior::Impl, 0x005770F7:
+# `lea edi,[esi+4]` ... `mov [esi],0xC6E8F8; mov [edi],0xC6E8EC`). The special
+# member's own body is therefore read once more, tracking which registers hold
+# `this + d` (ecx at entry; mov and lea copy it, a call clobbers eax/ecx/edx,
+# any other write ends it, and a branch join keeps only what every way in
+# agrees on): a store through such a register is at `d + k`.
+_SUBREGISTER = {}
+
+
+def _full_register(reg):
+    """The 32-bit register a capstone x86 register id is part of."""
+    if not _SUBREGISTER:
+        from capstone import x86
+        for full, parts in (("EAX", "AL AH AX"), ("ECX", "CL CH CX"), ("EDX", "DL DH DX"),
+                            ("EBX", "BL BH BX"), ("ESI", "SI SIL"), ("EDI", "DI DIL"), ("EBP", "BP BPL"),
+                            ("ESP", "SP SPL")):
+            target = getattr(x86, f"X86_REG_{full}")
+            _SUBREGISTER[target] = target
+            for part in parts.split():
+                if hasattr(x86, f"X86_REG_{part}"):
+                    _SUBREGISTER[getattr(x86, f"X86_REG_{part}")] = target
+    return _SUBREGISTER.get(reg, reg)
+
+
+def this_displacements(ctx, row):
+    """{store rva: displacement from this} for every `mov dword ptr
+    [reg+k], imm32` in special member `row`'s retail body whose base register
+    provably holds `this + d` there (see above); a store through any other
+    register is absent (its install keeps the displacement retail_vtables
+    read). Empty for a scratch root, which has no retail image of its own."""
+    if ctx.root != ROOT.resolve():
+        return {}
+    start = _rva(row.get("target_rva"))
+    try:
+        size = int(row.get("target_size") or 0)
+    except (TypeError, ValueError):
+        return {}
+    key = ("_this_displacements", start, size)
+    if key in ctx._cache:
+        return ctx._cache[key]
+    import build
+    image, sections = build.exe_image()
+    offset = build.rva_to_file_offset(sections, start)
+    # `mov eax,<FuncInfo>; call __EH_prolog` opens an EH frame and clobbers
+    # eax only: ecx still holds this after it.
+    eh_prolog = {_rva(r.get("target_rva")) for r in ctx.rows() if r["name"] == "__EH_prolog"}
+    ctx._cache[key] = this_stores(bytes(image[offset:offset + size]), start, eh_prolog)
+    return ctx._cache[key]
+
+
+def this_stores(body, start, eh_prolog=()):
+    """{store address: displacement from this} for every `mov dword ptr
+    [reg+k], imm32` in the thiscall body `body` (loaded at `start`) whose base
+    register provably holds `this + d` (see above); `eh_prolog` holds the
+    addresses of the EH frame helper, whose call clobbers eax only."""
+    import capstone
+    from capstone import x86
+    size = len(body)
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    code = list(md.disasm(body, start))
+    jumps = {x86.X86_INS_JMP} | {getattr(x86, n) for n in dir(x86) if n.startswith("X86_INS_J") and n != "X86_INS_JMP"}
+    incoming = collections.defaultdict(list)          # target -> [forward branch sources]
+    loops = set()                                       # targets of backward branches
+    for ins in code:
+        if ins.id in jumps and ins.operands and ins.operands[0].type == x86.X86_OP_IMM:
+            target = ins.operands[0].imm
+            if start <= target < start + size:
+                (incoming[target].append(ins.address) if target > ins.address else loops.add(target))
+    out, alias, snapshots, falls = {}, {x86.X86_REG_ECX: 0}, {}, True
+    for ins in code:
+        if ins.address in loops:
+            alias = {}
+        elif ins.address in incoming:
+            ways = [snapshots.get(src, {}) for src in incoming[ins.address]] + ([alias] if falls else [])
+            alias = {r: d for r, d in ways[0].items() if all(w.get(r) == d for w in ways[1:])}
+        ops = ins.operands
+        falls = ins.id not in (x86.X86_INS_JMP, x86.X86_INS_RET)
+        if ins.id in jumps:
+            snapshots[ins.address] = dict(alias)
+        if ins.id == x86.X86_INS_MOV and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM:
+            mem = ops[0].mem
+            if (ops[1].type == x86.X86_OP_IMM and ops[0].size == 4 and not mem.index and not mem.segment
+                    and mem.base in alias):
+                out[ins.address] = alias[mem.base] + mem.disp
+            continue
+        if ins.id == x86.X86_INS_MOV and len(ops) == 2 and ops[0].type == ops[1].type == x86.X86_OP_REG:
+            dst, src = _full_register(ops[0].reg), _full_register(ops[1].reg)
+            if ops[0].size == 4 and src in alias:
+                alias[dst] = alias[src]
+            else:
+                alias.pop(dst, None)
+            continue
+        if ins.id == x86.X86_INS_LEA and len(ops) == 2:
+            dst, mem = _full_register(ops[0].reg), ops[1].mem
+            if not mem.index and not mem.segment and mem.base in alias:
+                alias[dst] = alias[mem.base] + mem.disp
+            else:
+                alias.pop(dst, None)
+            continue
+        if ins.id == x86.X86_INS_CALL:
+            helper = ops and ops[0].type == x86.X86_OP_IMM and ops[0].imm in eh_prolog
+            for reg in (x86.X86_REG_EAX,) if helper else (x86.X86_REG_EAX, x86.X86_REG_ECX, x86.X86_REG_EDX):
+                alias.pop(reg, None)
+            continue
+        for reg in ins.regs_access()[1]:
+            alias.pop(_full_register(reg), None)
+    return out
+
+
+def row_installs(ctx, row, tables):
+    """[(store rva, table, displacement)] of the retail vftable installs in
+    special member `row`'s body, in store order; a store through a register
+    holding `this + d` reads at its displacement from this
+    (this_displacements). Each entry also says whether that displacement is
+    proven (True) or only read from the instruction (False)."""
     import bisect
     start = _rva(row.get("target_rva"))
     try:
         end = start + int(row.get("target_size") or 0)
     except (TypeError, ValueError):
-        return None
+        return []
     installs = _all_installs(ctx, tables)
     k = bisect.bisect_left(installs, (start, -1, -1))
-    stored = []
+    found = []
     while k < len(installs) and installs[k][0] < end:
-        if installs[k][2] == disp:
-            stored.append(installs[k][1])
+        found.append(installs[k])
         k += 1
+    if not found:
+        return []
+    resolved = this_displacements(ctx, row)
+    return [(store, table, resolved.get(store, disp), store in resolved) for store, table, disp in found]
+
+
+def own_secondary(ctx, row, tables, disp):
+    """The table special member `row`'s retail body installs as its own at
+    `+disp` (disp != 0): a destructor's or deleting destructor's first store
+    there, a constructor's last (an inlined base constructor stores the base's
+    table first); None when the body stores nothing there."""
+    stored = [table for _store, table, at, _proven in row_installs(ctx, row, tables) if at == disp]
     if not stored:
         return None
     return stored[-1] if special_member(row["name"])[0] == "0" else stored[0]
-
-
-def _primary_installs(ctx, tables):
-    """sorted [(store rva, table)] of every retail +0 vftable install."""
-    key = "_primary_installs"
-    if key not in ctx._cache:
-        ctx._cache[key] = sorted((store, table) for table, (_slots, installs) in tables.items()
-                                 for store, disp in installs.items() if disp == 0)
-    return ctx._cache[key]
 
 
 def special_member(name):
@@ -4738,23 +4859,18 @@ def own_table(ctx, row, tables):
     """(own table or None, [tables installed at +0, in store order]) of the
     retail body of special member `row`: a destructor's or deleting
     destructor's first +0 store; a constructor's table when all its +0 stores
-    install that one table, else None (ambiguous)."""
-    import bisect
-    start = _rva(row.get("target_rva"))
-    try:
-        end = start + int(row.get("target_size") or 0)
-    except (TypeError, ValueError):
-        return None, []
-    installs = _primary_installs(ctx, tables)
-    k = bisect.bisect_left(installs, (start, -1))
-    stored = []
-    while k < len(installs) and installs[k][0] < end:
-        stored.append(installs[k][1])
-        k += 1
+    install that one table, or, when every store in it is proven relative to
+    this (this_displacements), its last +0 store: inlined base constructors
+    store their tables there first, and no store through another object's
+    pointer is among them. Otherwise None (ambiguous)."""
+    installs = row_installs(ctx, row, tables)
+    stored = [table for _store, table, at, _proven in installs if at == 0]
     if not stored:
         return None, stored
     if special_member(row["name"])[0] == "0":
-        return (stored[0] if len(set(stored)) == 1 else None), stored
+        if len(set(stored)) == 1:
+            return stored[0], stored
+        return (stored[-1] if all(proven for *_rest, proven in installs) else None), stored
     return stored[0], stored
 
 
@@ -4844,7 +4960,10 @@ def fold_evidence(ctx, old, new):
     evidence = []
     for row in owns[table]:
         role = special_member(row["name"])[0]
-        how = "its only +0 install" if role == "0" else "its first +0 store"
+        how = "its first +0 store"
+        if role == "0":
+            how = ("its only +0 install" if len(set(own_table(ctx, row, tables)[1])) == 1 else
+                   "its last +0 store; every vftable store in it is through this")
         evidence.append(f"{at(row)} installs retail vftable {va} as its own ({how})")
     for cls in (old, new):
         for row in members[cls]:

@@ -861,3 +861,138 @@ def test_cli_nested_dry_run_reads_prepared_files(tmp_path, monkeypatch, capsys):
         rename.main(["class", "--name", N_OLD, "--new", "Icon", "--basis", "inferred", "--evidence", "x",
                      "--prepared", f"Code/Game/IconDtor.cpp={prepared}", "--root", str(root), "--no-claim",
                      "--dry-run"])
+
+
+# ------------------------------------------------------------ stores through this + d
+
+# retail_vtables reads each install's displacement from its own instruction.
+# PlanRetreatsPhaseBehavior::Impl's destructor (0x005770F7) holds its +4
+# subobject in edi: `lea edi,[esi+4]` ... `mov [esi],0xC6E8F8; mov
+# [edi],0xC6E8EC`, which read as two +0 stores. this_stores follows the
+# registers holding this + d from the thiscall entry.
+THIS_BODY = bytes.fromhex(
+    "B800000000"        # 1000 mov eax,<FuncInfo>
+    "E8F60F0000"        # 1005 call 0x2000 (__EH_prolog: clobbers eax only)
+    "56"                # 100A push esi
+    "8BF1"              # 100B mov esi,ecx              esi = this
+    "8D7E04"            # 100D lea edi,[esi+4]          edi = this+4
+    "C706F8E8C600"      # 1010 mov [esi],T              +0
+    "C707ECE8C600"      # 1016 mov [edi],S              +4
+    "E8DF1F0000"        # 101C call 0x3000              clobbers eax, ecx, edx
+    "C70674BABD00"      # 1021 mov [esi],B              +0
+    "8B4508"            # 1027 mov eax,[ebp+8]
+    "C70011111100"      # 102A mov [eax],X              another object: absent
+    "C70122222200"      # 1030 mov [ecx],X              ecx clobbered: absent
+    "85C0"              # 1036 test eax,eax
+    "7403"              # 1038 je 0x103D
+    "8D7E08"            # 103A lea edi,[esi+8]          on one way in only
+    "C70733333300"      # 103D mov [edi],X              the ways disagree: absent
+    "C7460C44444400"    # 1043 mov [esi+0xC],X          +0xC
+    "C3")               # 104A ret
+
+
+def test_this_stores_follows_this_through_registers():
+    assert rename.this_stores(THIS_BODY, 0x1000, {0x2000}) == {0x1010: 0, 0x1016: 4, 0x1021: 0, 0x1043: 12}
+
+
+def test_this_stores_trusts_no_register_after_an_unknown_call():
+    # without the EH helper's address, the first call clobbers ecx before
+    # `mov esi,ecx`: nothing is proven
+    assert rename.this_stores(THIS_BODY, 0x1000, ()) == {}
+
+
+def test_this_displacements_reads_no_image_for_a_scratch_root(tree):
+    ctx = ctx_of(tree)
+    assert rename.this_displacements(ctx, ctx.rows()[0]) == {}
+
+
+def proven(monkeypatch, mapping):
+    """this_displacements as the retail bodies would give it: {store: d}."""
+    monkeypatch.setattr(rename, "this_displacements",
+                        lambda ctx, row: {s: d for s, d in mapping.items()
+                                          if rename._rva(row["target_rva"]) <= s <
+                                          rename._rva(row["target_rva"]) + int(row["target_size"])})
+
+
+def mi_aliased_tables():
+    """MI_STORES with every +0xC store read as +0, as retail_vtables reads a
+    store through a register holding this + 0xC."""
+    tables = mi_tables()
+    for table in (MI_SECOND, MI_BASE2):
+        for store in list(tables[table][1]):
+            if tables[table][1][store] == 0xC:
+                tables[table][1][store] = 0
+    return tables
+
+
+MI_PROVEN = {0x00501002: 0xC, 0x00501008: 0, 0x0050100F: 0xC,
+             0x00502003: 0, 0x0050200A: 0xC, 0x00502020: 0xC}
+
+
+def test_a_secondary_table_stored_through_a_register_ties_the_thunk(tmp_path, monkeypatch):
+    """The false reject of 2026-11-04 (LINK-181, ??_ERva005770F7@@W3AEPAXI@Z):
+    the rows owning the class's table install its +4 table through `edi`, so
+    the instruction reads +0 and no row seemed to install anything at +4."""
+    root = make_mi_tree(tmp_path)
+    retail(monkeypatch, mi_aliased_tables())
+    with pytest.raises(Refusal, match=r"adjusts this by 0xC, but no row owning 0x00C00400 installs a table at \+0xC"):
+        mi_plan(root)
+    proven(monkeypatch, MI_PROVEN)
+    p = mi_plan(root)
+    assert (f"??_E{MI_OLD}@@WM@AEPAXI@Z at 0x00502060 is slot 0 of secondary vftable 0x00C00300 "
+            f"(installed at +0xC by ??1{MI_OLD}@@UAE@XZ at 0x00502000)") in p.evidence
+
+
+def test_still_refused_when_the_proven_secondary_store_is_elsewhere(tmp_path, monkeypatch):
+    # the register holds this + 0x10, not this + 0xC: the thunk's subobject
+    # is still not one the owning rows have
+    root = make_mi_tree(tmp_path)
+    retail(monkeypatch, mi_aliased_tables())
+    proven(monkeypatch, {s: (0x10 if d else 0) for s, d in MI_PROVEN.items()})
+    with pytest.raises(Refusal, match=r"adjusts this by 0xC, but no row owning 0x00C00400 installs a table at \+0xC"):
+        mi_plan(root)
+
+
+# A constructor-only placeholder (PlanRetreatsPhaseBehavior::Impl's
+# 0x005776A7): an inlined base constructor stores the base's table first, then
+# the class stores its own. Each store's base register provably holds this,
+# so the last +0 store is the class's own table.
+BASE_FIRST = 0x00401001
+
+
+def base_first_tables():
+    tables = {t: (list(s), dict(i)) for t, (s, i) in STORES.items()}
+    tables[OTHER_TABLE] = ([PURECALL], {BASE_FIRST: 0})
+    return tables
+
+
+def test_a_constructor_storing_a_base_table_first_owns_its_last_table(tree, monkeypatch):
+    retail(monkeypatch, base_first_tables())
+    with pytest.raises(Refusal, match="installs no vftable retail shows as its own"):
+        plan(tree)
+    proven(monkeypatch, {BASE_FIRST: 0, 0x00401002: 0, 0x00402000: 0, 0x00402018: 0})
+    p = plan(tree)
+    assert (f"??0{OLD}@@QAE@XZ at 0x00401000 installs retail vftable 0x00C00000 as its own (its last +0 store; "
+            "every vftable store in it is through this)") in p.evidence
+
+
+def test_a_constructor_with_an_unproven_store_owns_nothing(tree, monkeypatch):
+    # one store's base register is not this + d (a new'ed object's [eax]):
+    # the constructor stays ambiguous
+    retail(monkeypatch, base_first_tables())
+    proven(monkeypatch, {0x00401002: 0, 0x00402000: 0, 0x00402018: 0})
+    with pytest.raises(Refusal, match="installs no vftable retail shows as its own"):
+        plan(tree)
+
+
+def test_a_third_class_constructor_owning_the_table_is_still_an_icf_fold(tree, monkeypatch):
+    # Other's constructor stores a base table and then TABLE, each through
+    # this: TABLE is Other's own too, so retail folded two classes' tables
+    tables = base_first_tables()
+    tables[OTHER_TABLE][1][0x00405002] = 0
+    tables[TABLE][1][0x00405008] = 0
+    retail(monkeypatch, tables)
+    proven(monkeypatch, {BASE_FIRST: 0, 0x00401002: 0, 0x00402000: 0, 0x00402018: 0,
+                         0x00405002: 0, 0x00405008: 0})
+    with pytest.raises(Refusal, match="also the own vftable of Other"):
+        plan(tree)
