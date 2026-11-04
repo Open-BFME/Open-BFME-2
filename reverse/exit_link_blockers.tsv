@@ -1,4 +1,4 @@
-# real link at 19466620085ed5e0d8705e4fd1d21333f490d9e4: tools/exit_link.py --blockers
+# real link at b62127680c511ebe54fa25dcec06f5677d0dd3b2: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameClient/GUI/Rva0057621ACtor.cpp	10	??1Rva005753E2Listener@@QAE@XZ
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp	10	??1ArmyHeroIcon@StrategicInGameUI@@UAE@XZ
@@ -37,5 +37,4 @@ Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBo
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDCD7Get.cpp	1	?g_00DB5BD4@@3VRva000FDCD7Filter@@A
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	1	?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	1	?freeBytes@AsciiString@@AAEXXZ
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	1	?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	1	??MRva0016DEC0Element@@QBE_NABU0@@Z
