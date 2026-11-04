@@ -29,16 +29,8 @@ struct ZeroedRGBColor
 	float blue;
 };
 
-class GameClientRandomVariable
-{
-public:
-	GameClientRandomVariable() { m_type = 0; m_low = 0.0f; m_high = 0.0f; }
-
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
+#include "../../Include/GameClient/GameClientRandomVariableInlines.h"
 
 // A position pair (the settings parse it with parseCoord2D) whose inline
 // default constructor zeroes it; retail's Coord2D() (0x0047A6A9) is empty, so

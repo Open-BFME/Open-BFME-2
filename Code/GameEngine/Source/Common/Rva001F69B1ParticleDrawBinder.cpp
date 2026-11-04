@@ -139,14 +139,8 @@ struct RGBColorKeyframe
 	unsigned int frame;
 };
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-
-private:
-	char m_pad[0x10];
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
+#include "../../Include/GameClient/GameClientRandomVariableInlines.h"
 
 // Rowed ParticleSystem methods under address-derived classes.
 class Rva001F5300 { public: void rva001F5300(float *out); };
@@ -321,11 +315,12 @@ void Rva001F6EB7ColorKeys(ID3DXEffect *effect, D3DXHANDLE handle)
 			for (int i = 0; i < 4; i++)
 				colors[i] = D3DXVECTOR4(keys[i].color.red, keys[i].color.green, keys[i].color.blue, 1.0f);
 		}
-		const GameClientRandomVariable *alpha = (const GameClientRandomVariable *)TheParticleSystemManager->get()->rva001F53BC();
+		// Alpha keys have a 12-byte random value followed by a four-byte frame.
+		const char *alpha = (const char *)TheParticleSystemManager->get()->rva001F53BC();
 		if (alpha)
 		{
 			for (int i = 0; i < 4; i++)
-				colors[i].w = alpha[i].getValue();
+				colors[i].w = ((const GameClientRandomVariable *)(alpha + i * 0x10))->getValue();
 		}
 	}
 	effect->SetVectorArray(handle, colors, 4);

@@ -4,6 +4,7 @@
 // type in the first four bytes, then the two Real bounds. The comparison
 // bodies read exactly [ecx], [ecx+4] and [ecx+8].
 #include "../../Include/GameClient/GameClientRandomVariable.h"
+#include "../../Include/GameClient/GameClientRandomVariableInlines.h"
 
 float GameClientRandomVariable::getMinimumValue() const
 {
@@ -18,13 +19,6 @@ float GameClientRandomVariable::getMaximumValue() const
 GameClientRandomVariable::DistributionType GameClientRandomVariable::getDistributionType() const
 {
     return m_type;
-}
-
-inline GameClientRandomVariable::GameClientRandomVariable()
-{
-    m_type = CONSTANT;
-    m_low = 0.0f;
-    m_high = 0.0f;
 }
 
 // 12-byte block copy; retail emits three movsd, which is what a struct

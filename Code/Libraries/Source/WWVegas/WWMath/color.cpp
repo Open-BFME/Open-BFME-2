@@ -96,21 +96,8 @@ Debug &operator<<(Debug &debug, const RGBAColorInt &color)
     return debug;
 }
 
-class GameClientRandomVariable
-{
-public:
-    enum DistributionType
-    {
-        CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-    };
-
-    void setRange(float low, float high, DistributionType type = UNIFORM);
-
-public:
-    DistributionType m_type;
-    float m_low;
-    float m_high;
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientRandomVariable.h"
+#include "../../../../GameEngine/Include/GameClient/GameClientRandomVariableInlines.h"
 
 namespace FXParticleSystem {
 

@@ -125,14 +125,7 @@ struct Matrix3DView
 	}
 };
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType { CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS };
-	float getValue(void) const;
-	void setRange(float low, float high, DistributionType type);
-	char data[0x20]; // +0x00
-};
+#include "../../../Include/GameClient/GameClientRandomVariable.h"
 
 struct Rva0007BB16Record;
 
@@ -970,8 +963,10 @@ public:
 	void rva001F465E(void *val);
 	int getSystemID()const{return systemID;}
 	char m_pad00[0x14];
-	GameClientRandomVariable lifetime; // +0x14 +0x14
-	GameClientRandomVariable sizeBonusRate; // +0x34 +0x34
+	GameClientRandomVariable lifetime; // +0x14
+	char m_pad20[0x14];
+	GameClientRandomVariable sizeBonusRate; // +0x34
+	char m_pad40[0x14];
 	char m_pad54[0x2E];
 	char upFlag82; // +0x82 +0x82
 	char m_pad83[0x15];

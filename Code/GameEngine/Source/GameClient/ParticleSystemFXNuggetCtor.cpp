@@ -29,31 +29,8 @@ protected:
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT,
-		UNIFORM,
-		GAUSSIAN,
-		TRIANGULAR,
-		LOW_BIAS,
-		HIGH_BIAS
-	};
-
-	GameClientRandomVariable()
-	{
-		m_type = CONSTANT;
-		m_low = 0.0f;
-		m_high = 0.0f;
-	}
-	void setRange(float low, float high, DistributionType type);
-private:
-	DistributionType m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../Include/GameClient/GameClientRandomVariable.h"
+#include "../../Include/GameClient/GameClientRandomVariableInlines.h"
 
 class ParticleSystemFXNugget : public Rva001DFEAABase
 {

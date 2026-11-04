@@ -8,22 +8,8 @@
 // 0x002341E7. Needs /EHsc (outlined prologue with unwind state), unlike
 // the /GX- copy ctors in EmissionInfoCopyCtors.cpp.
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-	};
-
-	GameClientRandomVariable() : m_type(CONSTANT), m_low(0.0f), m_high(0.0f) {}
-	void setRange(float low, float high, DistributionType type = UNIFORM);
-
-private:
-	DistributionType m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
+#include "../../../../Include/GameClient/GameClientRandomVariableInlines.h"
 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_NAME_SLOT

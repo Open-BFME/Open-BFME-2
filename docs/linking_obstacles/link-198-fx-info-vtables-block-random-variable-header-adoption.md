@@ -1,0 +1,8 @@
+### LINK-198: FX info vtables block random-variable header adoption
+Status: Blocked on coherent first-provider vtable contracts. Updated: 2026-11-04; inspected revision: db163cbec375.
+Evidence / affected units: [adoption and pristine-source control](../../reverse/attempt_support/gameclientrandomvariable-headers-20261104-codexb.md), index 5a13f2cd61 (2026-11-04 02:25).
+Completed: 12 GameClientRandomVariable header queue rows accepted; 638/638 function rows exact across the cohort and provider; accepted subset and provider preserve 10,831 preview bytes.
+Remaining / next check: DefaultUpdateModuleInfoDefaultCtor.cpp, LightningDrawModuleInfoDefaultCtor.cpp and RenderObjectUpdateModuleInfoDefaultCtor.cpp byte-match with canonical random-variable headers but their vtable COMDATs differ from the first providers. All-pristine control reproduces the failures; trials reverted, queue rows retained. Compare native slots and reconcile Snapshot overrides in the selected providers before retrying.
+Remaining / tooling: FXParticleSystem.cpp, INIBfmeSettingsParsers.cpp, Rva003AEE16CopyCtor.cpp and ParticleSystemConstructor.cpp also remain unchanged and queued: inline-assignment trials pass combined acceptance with ClientRandomValue.cpp, but the hook's debt cohort omits that changed provider and reports duplicate assignment. Recorded false-reject leads; reconcile preview inputs before retrying. The final batch retains the original strong assignment provider.
+Clearance: accepted subset only; seven source trials reverted and queue rows retained.
+Census confirmation: awaiting; no measured linking gain claimed.
