@@ -18,7 +18,7 @@ public:
 };
 struct Rva0029B380Elem {
 	StringBase<unsigned short> m_0;
-	void *m_4;
+	void *m_displayString;
 	int m_8;
 	int m_C;
 };
@@ -33,10 +33,10 @@ private:
 void Rva0029B380::rva0029B380(int idx)
 {
  	m_items[idx].m_0.~StringBase<unsigned short>();
- 	void *displayString = m_items[idx].m_4;
+ 	void *displayString = m_items[idx].m_displayString;
  	if (displayString != 0)
  		(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(displayString);
- 	m_items[idx].m_4 = 0;
+ 	m_items[idx].m_displayString = 0;
  	m_items[idx].m_8 = 0;
 }
 
@@ -47,10 +47,10 @@ void Rva0029B380::rva0029B34B()
 {
 	for (int i = 0; i < 6; ++i) {
 		m_items[i].m_0.~StringBase<unsigned short>();
-		void *displayString = m_items[i].m_4;
+		void *displayString = m_items[i].m_displayString;
 		if (displayString != 0)
 			(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(displayString);
-		m_items[i].m_4 = 0;
+		m_items[i].m_displayString = 0;
 		m_items[i].m_8 = 0;
 	}
 }
