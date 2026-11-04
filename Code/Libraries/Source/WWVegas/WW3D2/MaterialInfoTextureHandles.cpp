@@ -32,18 +32,13 @@ public:
     const RefCountPtr &operator=(const RefCountPtr&);
 };
 typedef char TextureHandleWidth[sizeof(RefCountPtr<TextureClass>) == 4 ? 1 : -1];
-class MaterialInfoClass {
-    char prefix[0x24];
-    RefCountPtr<TextureClass> *Textures;
-public:
-    RefCountPtr<TextureClass> Peek_Texture(int);
-    void Replace_Texture(int,const RefCountPtr<TextureClass>&);
-};
+#include "MaterialInfoClass.h"
+
 RefCountPtr<TextureClass> MaterialInfoClass::Peek_Texture(int index) {
-    return RefCountPtr<TextureClass>(Textures[index].m_native);
+    return RefCountPtr<TextureClass>(field24[index].m_native);
 }
 inline void MaterialInfoClass::Replace_Texture(int index,const RefCountPtr<TextureClass>& texture) {
-    Textures[index]=texture;
+    field24[index]=texture;
 }
 
 // Header inlines that the units including the header emit as select-any

@@ -91,62 +91,21 @@ private:
 	TextureMapperClass *Mapper[8];
 };
 
-template <class T>
-class VectorClass
-{
-public:
-	virtual ~VectorClass()
-	{
-	}
-
-	T *Vector;
-	int VectorMax;
-	bool IsValid;
-	bool IsAllocated;
-	bool VectorClassPad[2];
-};
-
-template <class T>
-class DynamicVectorClass : public VectorClass<T>
-{
-public:
-	int ActiveCount;
-	int GrowthStep;
-
-	int Count() const
-	{
-		return ActiveCount;
-	}
-};
-
-class MaterialInfoClass
-{
-public:
-	virtual ~MaterialInfoClass()
-	{
-	}
-
-	void Reset_Texture_Mappers();
-	bool Has_Time_Variant_Texture_Mappers();
-
-private:
-	unsigned char m_pad[0x08 - 4];
-	DynamicVectorClass<VertexMaterialClass *> VertexMaterials;
-};
+#include "MaterialInfoClass.h"
 
 void MaterialInfoClass::Reset_Texture_Mappers()
 {
-	int vmatCount = VertexMaterials.Count();
+	int vmatCount = field18;
 	for (int materialIndex = 0; materialIndex < vmatCount; materialIndex++) {
-		VertexMaterials.Vector[materialIndex]->Reset_Mappers();
+		field0c[materialIndex]->Reset_Mappers();
 	}
 }
 
 bool MaterialInfoClass::Has_Time_Variant_Texture_Mappers()
 {
-	int vmatCount = VertexMaterials.Count();
+	int vmatCount = field18;
 	for (int materialIndex = 0; materialIndex < vmatCount; materialIndex++) {
-		if (VertexMaterials.Vector[materialIndex]->Are_Mappers_Time_Variant()) {
+		if (field0c[materialIndex]->Are_Mappers_Time_Variant()) {
 			return true;
 		}
 	}
