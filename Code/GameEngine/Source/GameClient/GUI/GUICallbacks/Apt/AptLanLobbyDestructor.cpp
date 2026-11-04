@@ -217,7 +217,7 @@ void AptLanLobby::rva004443E7() {
  TheGameEngine->stopHeadlessClients();
 }
 
-class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString&,const UnicodeString&,bool); };
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void Rva00512069Register();

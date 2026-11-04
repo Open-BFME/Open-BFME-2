@@ -629,7 +629,7 @@ void AptCreateAHero::Powers::rva005B455D(bool active)
  }
 }
 
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // Native writable seven-entry label table DD3A9C: zero followed by the six

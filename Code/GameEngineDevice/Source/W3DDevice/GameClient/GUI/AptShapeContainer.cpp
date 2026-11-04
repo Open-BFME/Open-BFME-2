@@ -888,11 +888,7 @@ extern FontLibrary *TheFontLibrary;
 
 extern GameTextInterface *TheGameText;
 
-class BfmeAptWindowManager
-{
-public:
-	void rva00225299(const AsciiString &name, const UnicodeString &text, Rva00222CCB *displayString);
-};
+#include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class Rva000A97A9
 {
