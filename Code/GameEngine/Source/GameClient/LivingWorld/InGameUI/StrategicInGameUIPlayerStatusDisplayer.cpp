@@ -17,21 +17,7 @@ enum GameMessageDisposition
 
 #include "../../../../Include/Common/MessageStream.h"
 
-class Rva005CD649Button;
-
-namespace StrategicInGameUI
-{
-class PlayerStatusDisplayer
-{
-public:
-	virtual void OnObjectivesButtonLeftClicked(Rva005CD649Button &button);
-	GameMessageDisposition rva005CD690(const GameMessage *msg);
-	bool rva005CD625();
-private:
-	unsigned char m_pad04[0x0C - 0x04];
-	bool m_shown0C;
-};
-}
+#include "../../../../Include/GameClient/PlayerStatusDisplayer.h"
 
 void StrategicInGameUI::PlayerStatusDisplayer::OnObjectivesButtonLeftClicked(Rva005CD649Button &button)
 {
@@ -69,7 +55,7 @@ public:
 
 bool StrategicInGameUI::PlayerStatusDisplayer::rva005CD625()
 {
-	if (!m_shown0C || !TheLivingWorldLogic)
+	if (!m_field0C || !TheLivingWorldLogic)
 		return false;
 	if ((unsigned char)reinterpret_cast<Rva002B254F *>(TheLivingWorldLogic)->rva002B254F())
 		return false;
