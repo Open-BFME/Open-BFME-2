@@ -431,3 +431,8 @@ W3DTerrainVisual's.
     against T1Base's 0x00C1D3F4. That agrees with rl-o3: the placeholders are mixed.
 - **LivingWorldManagerCtor.cpp:** unchanged. `--fold Rva0022B12DSubsystem --into LivingWorldManager`
   still stops at slot 0's `??_GRva00214405`.
+- **T1Base005F3750Ctor.cpp: resolved by method 2.** The class is `__declspec(novtable)`. Its constructor
+  stores retail's 0x00C1D3F4, 0x00C1C780 and 0x00C1D3E4 by hand from `extern "C"` tables whose slots
+  name the rowed bodies. `??1T1Base_005F3750` and `??_GT1Base_005F3750` are no longer referenced, and
+  5/5 rows match. `link_check` names no unresolved symbol; the only remaining verdict is the pre-existing
+  `??_7DefaultDrawModuleInfo@FXParticleSystem` comdat order note. The class identity fold above stays open.
