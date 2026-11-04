@@ -109,14 +109,7 @@ public:
 
 #include "../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 
-class W3DShroud
-{
-public:
-	bool ReAcquireResources();
-	W3DShroud();
-	void init(WorldHeightMap*,float,float);
-	char data[88]; // +0x00
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 
 class W3DTaint
 {

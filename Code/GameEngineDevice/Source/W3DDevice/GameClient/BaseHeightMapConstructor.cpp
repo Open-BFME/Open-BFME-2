@@ -102,14 +102,7 @@ public:
 	void rva000D3A17();
 	char data[272]; // +0x00
 };
-class W3DShroud
-{
-public:
-	bool ReAcquireResources();
-	W3DShroud();
-	void init(WorldHeightMap*,float,float);
-	char data[88]; // +0x00
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 class W3DTaint
 {
 public:

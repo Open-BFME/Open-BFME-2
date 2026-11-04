@@ -6,7 +6,7 @@
 // Identity: Zero Hour W3DShroud.cpp interpolateFogLevels(RECT *) (protected; the
 // timeGetTime static, the 255 clamp, setShroudLevel(i, j, level, TRUE) per changed
 // cell) and the BFME 1 9cbfb551 W3DShroudBfme.cpp body of the same name, which adds
-// the m_dirty walk. Target evidence: WB 0x7FDD90 (unnamed) called from the shroud
+// the (*reinterpret_cast<_STL::set<int> *>(m_4C)) walk. Target evidence: WB 0x7FDD90 (unnamed) called from the shroud
 // render body WB 0x7FD800 = retail 0x00073628 with a local RECT address; retail
 // rate 0.255f, dirty flag +0x48, dirty set +0x4C.
 // Same-TU lever: the visible STLport push_back body proves it does not keep the
@@ -58,39 +58,7 @@ inline void appendFogIndex(_STL::vector<int> &values, const int &index)
 // set<int>::erase(const key_type &), rowed at 0x000733D8.
 #include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
-class W3DShroud
-{
-public:
-	void setShroudLevel(int, int, unsigned char, bool);
-
-protected:
-	void interpolateFogLevels(RECT *rect);
-
-private:
-	int m_numCellsX;
-	int m_numCellsY;
-	int m_numMaxVisibleCellsX;
-	int m_numMaxVisibleCellsY;
-	Real m_cellWidth;
-	Real m_cellHeight;
-	unsigned short *m_shroudData;
-	ShroudTextureHandle m_dstTexture;
-	int m_dstTextureWidth;
-	int m_dstTextureHeight;
-	int m_shroudFilter;
-	Real m_drawOriginX;
-	Real m_drawOriginY;
-	unsigned char m_drawFogOfWar;
-	unsigned char m_clearDstTexture;
-	unsigned char m_borderShroudLevel;
-	unsigned char m_pad37;
-	unsigned char *m_finalFogData;
-	unsigned char *m_currentFogData;
-	unsigned char m_partialRenderer[8];
-	unsigned char m_trackDirtyCells;
-	unsigned char m_pad49[3];
-	_STL::set<int> m_dirty;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 
 void W3DShroud::interpolateFogLevels(RECT *rect)
 {
@@ -107,16 +75,16 @@ void W3DShroud::interpolateFogLevels(RECT *rect)
 
 	unsigned char *startLevel = m_currentFogData;
 	unsigned char *finalLevel = m_finalFogData;
-	if (m_trackDirtyCells)
+	if (m_48)
 	{
-		int dirtyCount = (int)m_dirty.size();
+		int dirtyCount = (int)(*reinterpret_cast<_STL::set<int> *>(m_4C)).size();
 		int width = m_numCellsX;
 		if (width <= 0 || dirtyCount <= 0)
 			return;
 
 		_STL::vector<int> remove;
-		for (_STL::set<int>::iterator it = m_dirty.begin();
-			it != m_dirty.end(); ++it)
+		for (_STL::set<int>::iterator it = (*reinterpret_cast<_STL::set<int> *>(m_4C)).begin();
+			it != (*reinterpret_cast<_STL::set<int> *>(m_4C)).end(); ++it)
 		{
 			int index = *it;
 			unsigned char *current = startLevel + index;
@@ -156,7 +124,7 @@ void W3DShroud::interpolateFogLevels(RECT *rect)
 
 		for (_STL::vector<int>::iterator it = remove.begin();
 			it != remove.end(); ++it)
-			reinterpret_cast<Rva00072FE6 *>(&m_dirty)->rva000733D8(*it);
+			reinterpret_cast<Rva00072FE6 *>(&(*reinterpret_cast<_STL::set<int> *>(m_4C)))->rva000733D8(*it);
 	}
 	else
 	{

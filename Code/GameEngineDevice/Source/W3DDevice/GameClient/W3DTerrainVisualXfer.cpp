@@ -325,25 +325,16 @@ struct Rva00072988Cell
 	unsigned short rest : 12;
 };
 
-class W3DShroud
-{
-public:
-	unsigned char getShroudLevel(int x, int y);
-private:
-	int width;
-	int height;
-	unsigned char pad[16];
-	Rva00072988Cell *data;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 
 unsigned char W3DShroud::getShroudLevel(int x, int y)
 {
-	if (!data)
+	if (!m_shroudData)
 		return 0;
-	if (x >= width || y >= height)
+	if (x >= m_numCellsX || y >= m_numCellsY)
 		return 0;
-	int value = y * width + x;
-	value = data[value].level;
+	int value = y * m_numCellsX + x;
+	value = reinterpret_cast<Rva00072988Cell *>(m_shroudData)[value].level;
 	float scaled = (float)value;
 	scaled *= 17.0f;
 	return (unsigned char)(int)scaled;

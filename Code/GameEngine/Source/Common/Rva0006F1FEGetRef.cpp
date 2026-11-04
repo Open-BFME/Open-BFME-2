@@ -26,16 +26,9 @@ private:
 
 namespace FXShader { class RenderingMethod : public RefCountClass {}; }
 
-class W3DShroud
-{
-public:
-	RefCountPtr<FXShader::RenderingMethod> rva0006F1FE(void);
-private:
-	char m_pad00[0x40];
-	RefCountPtr<FXShader::RenderingMethod> m_renderingMethod;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShroudClass.h"
 
 RefCountPtr<FXShader::RenderingMethod> W3DShroud::rva0006F1FE(void)
 {
-	return m_renderingMethod;
+	return *reinterpret_cast<const RefCountPtr<FXShader::RenderingMethod> *>(&m_renderingMethod);
 }
