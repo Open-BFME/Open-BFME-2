@@ -58,3 +58,23 @@ mask layout/offsets. Those data repairs remain separate work.
 
 The local functions retained in the seed are unchanged. This repair removes a
 body and introduces no local or parameter bindings to name.
+
+## Committed-repair audit follow-up
+
+Repair commit: `b09b6cab89`. After stopping the optional old-seed merge trial
+(no verdict and no applied move), `link_check.py --prepare-current WeaponSet.cpp`
+passes: all five rows have strict reusable receipts. The committed batch audit
+(`--base b09b6cab89^ --tip b09b6cab89`) remains **inconclusive**, not clean:
+the index at `2f0cb97f52` predates the outgoing base, so its provisional
+since-index scope reaches `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp`,
+which lacks a current receipt. Log: `build/weaponset-dtor-committed-audit.log`.
+The six-source preview above is the bounded evidence for this repair; the
+publisher's hook and the next census still decide wider link retention.
+
+The supported consolidation planner completed at
+`build/consolidation/weaponset`; its `--check` passes. Its WeaponSet packet flags
+stale committed TU-map inputs, duplicate class views, compiler-setting
+conflicts and path-keyed data/hatch registers. Placement alternatives remain
+hints until current TU routing is rebuilt and corroborated. This repair neither
+approves a placement nor removes a source file. A future merge must refresh the
+planner and reconcile these prerequisites before running `tu_skeleton.py`.
