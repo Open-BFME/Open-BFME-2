@@ -486,11 +486,7 @@ public:
 	char m_pad00[0x164];
 	Rva002C5FBA *target; // +0x164
 };
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class Script

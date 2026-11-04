@@ -166,11 +166,7 @@ extern TeamFactory *TheTeamFactory;
 
 struct Rva002A8AB1Record;
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class SkirmishAI

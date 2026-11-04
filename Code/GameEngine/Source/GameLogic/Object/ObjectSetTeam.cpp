@@ -132,12 +132,7 @@ public:
 extern ScriptEngine *TheScriptEngine;
 
 // The skirmish-AI object registry behind 0x00DFEEF8 (UnRegister 0x002A8F56, Register 0x002A9365).
-class Rva002A8F24
-{
-public:
-	void UnRegister(Object *obj);
-	void rva002A9365(Object *obj);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // RVO getter 0x00291775 over the prototype's attack-priority name (+0x318).
