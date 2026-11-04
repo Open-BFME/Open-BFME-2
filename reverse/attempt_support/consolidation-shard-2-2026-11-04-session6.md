@@ -133,6 +133,47 @@ link improvement is claimed. No live claims remain from this pass.
 - `GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp`: its pool-key
   donor is missing `getModuleNameKey` from the class view (MSVC C2509); the
   mixed `Rva00493DEFDerived.cpp` has no row approved for this TU. No change.
+- `GameLogic/Object/Update/SiegeAIUpdate.cpp`: its sole ctor-thunk donor is
+  refused by LinkGuard because moving it leaves `AIUpdateInterface`'s
+  `GetSnapshotName`, `vslot094` and `vslot095` unresolved. The destructor split
+  matches alone but LinkGuard rejects the residual/destination composition
+  (new unresolved `GetSnapshotName` and `vslot094`). No change.
+- `GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp`: its
+  constructor donor needs canonical `BehaviorModule` reconciliation
+  (`behaviorModuleAnchor` missing, C2039) and registered module/class views.
+  The `ModuleDataBuildFieldParseChained.cpp` split for 0x004A0DAC matches alone
+  and passes LinkGuard, but no merge donor is accepted; the getter split fails
+  on missing `Object::m_conditionBits` (C2039), the destructor split has a
+  compile failure, and the RailedTransport row has no spelled definition.
+  Nothing applied.
+- `GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPower.cpp`: both
+  constructor donors fail seed-view compilation (`m_vtable` undeclared, C2065;
+  `SpecialAbilityUpdate` lacks a default constructor, C2512). The mixed getter
+  split is byte-exact alone but LinkGuard rejects its moved selected COMDAT
+  `??_C@_0CB@LPGPLBGO@GiveOrRestoreUpgradeSpecialPower@` without private/weak-free
+  context. No change.
+- `W3DDevice/GameClient/W3DTaint.cpp`: no donor is accepted: the destructor
+  has conflicting STL `set` specializations (C2908/C2766), the interpolation
+  donor fails compilation, and the matrix-set donor fails bytes. Its mixed
+  destructor split would grow a hatch. No change.
+- `WWVegas/WW3D2/animobj.cpp`: `AnimatableGetBoneTransform.cpp` has
+  incompatible `Get_Bone_Transform` return declarations (C2556); the other
+  donor lacks `Animatable3DObjClass::Rva001A5460` and `_slave` declarations
+  (C2039/C2065). Class-view reconciliation and donor repair are required.
+- `WWVegas/WWLib/registry.cpp`: `RegistryDeleteValues.cpp` is rejected for
+  byte mismatch; no mixed files or other accepted donors. No change.
+- `GameClient/GUI/ChatWindowsInGame.cpp`: the `Rva005AFE86Ctor.cpp` donor
+  collides on `Rva005AFE3F` vftable type (C2373) and ctor declaration (C2511).
+  The one-row mixed split matches alone, but with no accepted merge it would
+  only increase file count. No change.
+- `GameClient/GUI/GUICallbacks/Apt/AptMpGameRules.cpp`: two donors duplicate
+  `_STL::allocator` declarations (C2953/C2913); `GameClient.cpp` conflicts on
+  `HMODULE`/`HINSTANCE` (C2371). Mixed split trials fail on duplicate
+  `_STL::vector` (C2953), missing `Rva0057EE5C` class context (C2653/C2065), or
+  no spelled definition for 0x0057ED87. No change.
+
+These trials wrote no sources or ledgers and took no claims. No TU merge or
+split landed; file reduction and matched-row movement remain zero.
 - `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
   and `Object::id`, which are absent from the TU class view (MSVC C2039).
   Manual class-view reconciliation is required; no merge was applied.
