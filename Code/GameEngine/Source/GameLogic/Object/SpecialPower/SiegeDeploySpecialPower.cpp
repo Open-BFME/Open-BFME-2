@@ -41,8 +41,6 @@ class Module;
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-// A KindOfMaskType built from its set bits (0x00045411 one bit; the first
-// argument is unused).
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x45411; same 28-byte mask.
 struct Rva00045411BitSet
@@ -93,7 +91,6 @@ class AIUpdateInterfaceHead
 {
 	unsigned char m_pad00[0x20];
 };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "ContainmentListView.h"
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
@@ -224,25 +221,15 @@ class AIUpdateInterfaceHead
 	{ \
 		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
 	}
-
 namespace _STL {
 template<class T,class Traits> static inline bool operator!=(const _List_iterator<T,Traits>&a,const _List_iterator<T,Traits>&b){return a._M_node!=b._M_node;}
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
 }
-
 class Rva001E46E1 {public:void rva001E53D8(float,Object*);};
-
 template<int N> class SiegePhaseSlots : public SiegePhaseSlots<N-1> {public:virtual void gap(char(*)[N])=0;};
-
 template<> class SiegePhaseSlots<0> {};
-
 class SiegePhaseContain : public SiegePhaseSlots<70> {public:virtual Rva0036AE51ListView slot70()=0;virtual Rva0036AE51ListView slot71()=0;};
-
-
-
-
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-
 class SpecialPowerStopInterface
 {
 public:
@@ -265,7 +252,6 @@ public:
     virtual void gap16() = 0;
     virtual void stopSpecialPower() = 0;
 };
-
 class WeaponModeSpecialPowerUpdateBase : public UpdateModule,
     public SpecialPowerUpdateInterface, public SpecialPowerStopInterface
 {
@@ -277,7 +263,6 @@ protected:
     unsigned int m_30;
     float m_34;
 };
-
 struct SiegeDeployModuleDataView
 {
 public:
@@ -292,17 +277,11 @@ public:
 	float m_pushDistance; // +0x28 +0x28 +0x28
 	float m_approachScale; // +0x2C
 };
-
 enum DisabledType { DISABLED_ZERO=0 };
-
 struct Rva0028AC4EEntry;
-
 class SiegePhaseContain;
-
 class AIUpdateInterface;
-
 struct SiegePhaseConditions {unsigned words[19];__forceinline unsigned test(int i)const{return words[i>>5]&(1u<<(i&31));}__forceinline void set(int i){words[i>>5]|=1u<<(i&31);}__forceinline void clear(int i){words[i>>5]&=~(1u<<(i&31));}};
-
 class Object
 {
 	friend class SiegeDeploySpecialPower;
@@ -332,7 +311,6 @@ public:
 protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
-
 // LINK: the owner call binds the rowed 0x0046094C (DynamicPortalBehaviour::rva0046094C, DynamicPortalBehaviour.cpp).
 class DynamicPortalBehaviour
 {
@@ -342,9 +320,188 @@ public:
 	void createWaypoints();
 	bool IsEndPortalAboveWall(Coord3D *pos);
 };
-
 class ModuleData;
+//
+// ??0SiegeDeploySpecialPowerModuleData@@QAE@XZ, retail 0x004C5815 (70 bytes).
+// Frameless ModuleData ctor over the rowed AIUpdateModuleData base
+// (0x0058925D, size 0x18): installs vtable 0x00C5DAB0 explicitly (novtable),
+// clears two int slots and two byte slots, loads two float slots from
+// compiler literals (500.0/200.0, DIR32-masked like the retail globals),
+// sets the +0x20 flag, and zeroes the trailing float slot. /GX- keeps the
+// body frameless (declared virtual dtor plus calls would otherwise emit an
+// __EH_prolog frame); /arch:SSE selects the retail movss/xorps float idiom.
+// Donor: BFME1 SpecialPower files (BFME2 appends its own int/float tail past
+// the 0x18 base).
 
+extern "C" const void *const __identifier("??_7DeflectSpecialPowerModuleData@@6B@")[];
+class __declspec(novtable) AIUpdateModuleData
+{
+public:
+	AIUpdateModuleData();
+	virtual ~AIUpdateModuleData();
+
+private:
+	unsigned char m_opaque[0x18 - 4];
+};
+//
+// SiegeDeploySpecialPowerModuleData parse-unit.
+//
+// ?buildFieldParse@SiegeDeploySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x004C569F, 27 bytes. Chained on the Rva005890EDBase proc at
+// 0x5890ED, then the own table at 0x00C5DBD8 (LowerDelay, RaiseDelay,
+// EvacuatePassengersOnDeploy, EvacuateCrewOnDeploy, SkipAdjustPosition,
+// WallSearchDistance, AwayFromWallWaitDist, ExtraWallDistance), through
+// the rowed MultiIniFieldParse::add at 0x2BC6E. The owning factory pushes
+// this proc VA; ModuleFactory registers it under "SiegeDeploySpecialPower".
+// Row supersedes the parse pin.
+
+class MultiIniFieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+#include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/Common/INI/INI.h"
+// Retail VA 0x00C5DBD8 (.rdata): 8 field records and a zero sentinel.
+extern const FieldParse g_00C5DBD8[] = {
+	{ "LowerDelay", &INI::parseDurationUnsignedInt, 0, 0x18 },
+	{ "RaiseDelay", &INI::parseDurationUnsignedInt, 0, 0x1C },
+	{ "EvacuatePassengersOnDeploy", &INI::parseBool, 0, 0x20 },
+	{ "EvacuateCrewOnDeploy", &INI::parseBool, 0, 0x21 },
+	{ "SkipAdjustPosition", &INI::parseBool, 0, 0x22 },
+	{ "WallSearchDistance", &INI::parseReal, 0, 0x24 },
+	{ "AwayFromWallWaitDist", &INI::parseReal, 0, 0x28 },
+	{ "ExtraWallDistance", &INI::parseReal, 0, 0x2C },
+	{ 0, 0, 0, 0 }
+};
+class Rva005890EDBase
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+class __declspec(novtable) SiegeDeploySpecialPowerModuleData : public AIUpdateModuleData
+{
+public:
+	SiegeDeploySpecialPowerModuleData();
+private:
+	int m_int18;
+private:
+	int m_int1C;
+private:
+	bool m_flag20;
+private:
+	bool m_byte21;
+private:
+	bool m_byte22;
+private:
+	float m_float24;
+private:
+	float m_float28;
+private:
+	float m_float2C;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+//
+// Three SiegeDeploySpecialPower overrides on the interface vtables its matched
+// ctor 0x004C56BA installs over WeaponModeSpecialPowerUpdateBase: 0x00C5DCCC
+// at +0x20 and 0x00C5DC68 at +0x24. Each is compiled with its subobject this.
+// The deploy state int sits at +0x38 (the matched xfer saves it first; the
+// unrowed setter 0x004C5BE3 compares its argument with it), the bool at +0x70.
+// Names are by address.
+//
+// ?isActive@SiegeDeploySpecialPower@@UBE_NXZ, retail 0x004C575F, 19 bytes:
+// +0x20 slot 2; true unless the state is 0 or 1.
+// ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C5751, 14 bytes:
+// +0x24 slot 1; the negation of +0x20 slot 2, called virtually.
+// ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ, retail 0x004C5E41, 33 bytes:
+// +0x24 slot 17; states 0/1 call the setter with 0, states 2/3 set +0x70.
+
+class Object;
+BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004C5772CmpBoolField, 0x38, 3, ==)
+// Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
+// Keep the existing slot placeholder: no original method name is proven.
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+class WinInstanceData;
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
+#include "../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
+//
+// ?xfer@SiegeDeploySpecialPower@@MAEXPAVXfer@@@Z, retail 0x004C5B39, 170 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x0085DCFC (class of rowed ctor
+// ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z at 0x004C56BA).
+// Base Rva00589079 xfer via rowed 0x00589215 then IsLightCRC early-out via
+// Xfer slot 0x10 then Version(1,2) via Xfer slot 0x28 then int at +0x38 via
+// XferRawBytes slot 0x24 then int at +0x3C via Xfer slot 0x78 then ObjectIDs
+// at +0x40/+0x44 via rowed XferObjectID 0x003060B2 plus float at +0x48 via
+// Xfer slot 0x60 plus bools at +0x70/+0x60 via Xfer slot 0x90 plus
+// version-gated floats at +0x54/+0x64 via Xfer slot 0x60. Layout is the rowed
+// 0x74-byte class from SiegeDeploySpecialPowerCtor.cpp (Rva00589079 base
+// 0x38 plus ints/ObjectIDs/floats/bools). Donor pattern is
+// SiegeDeployHordeSpecialPowerXfer plus DeflectSpecialPowerXfer (IsLightCRC
+// plus Version plus gated tail).
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+// ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
+// Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
+// (1/2/4/8); returns true when a set field lacks its bit, false when covered.
+// Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
+class Rva00050D86
+{
+public:
+	bool rva00050D86(unsigned char mask);
+	char m_lead[0x49];
+	unsigned char m_49;
+	unsigned char m_4A;
+	unsigned char m_4B;
+	unsigned char m_4C;
+};
+
+class Rva00589079_E1
+{
+public:
+	virtual void fe();
+};
+
+class Rva00589079_E2
+{
+public:
+	virtual void fe();
+};
+
+class Rva00589079 : public UpdateModule, public Rva00589079_E1, public Rva00589079_E2
+{
+	friend class SiegeDeploySpecialPower;
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_28;
+	int m_2C;
+	unsigned int m_30;
+	float m_34;
+};
 
 class SiegeDeploySpecialPower : public WeaponModeSpecialPowerUpdateBase
 {
@@ -378,143 +535,15 @@ private:
     bool m_stop; // +0x70
 };
 
-//
-// ??0SiegeDeploySpecialPowerModuleData@@QAE@XZ, retail 0x004C5815 (70 bytes).
-// Frameless ModuleData ctor over the rowed AIUpdateModuleData base
-// (0x0058925D, size 0x18): installs vtable 0x00C5DAB0 explicitly (novtable),
-// clears two int slots and two byte slots, loads two float slots from
-// compiler literals (500.0/200.0, DIR32-masked like the retail globals),
-// sets the +0x20 flag, and zeroes the trailing float slot. /GX- keeps the
-// body frameless (declared virtual dtor plus calls would otherwise emit an
-// __EH_prolog frame); /arch:SSE selects the retail movss/xorps float idiom.
-// Donor: BFME1 SpecialPower files (BFME2 appends its own int/float tail past
-// the 0x18 base).
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPower.cpp
 
-extern "C" const void *const __identifier("??_7DeflectSpecialPowerModuleData@@6B@")[];
-
-class __declspec(novtable) AIUpdateModuleData
-{
-public:
-	AIUpdateModuleData();
-	virtual ~AIUpdateModuleData();
-
-private:
-	unsigned char m_opaque[0x18 - 4];
-};
-
-//
-// SiegeDeploySpecialPowerModuleData parse-unit.
-//
-// ?buildFieldParse@SiegeDeploySpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z,
-// retail 0x004C569F, 27 bytes. Chained on the Rva005890EDBase proc at
-// 0x5890ED, then the own table at 0x00C5DBD8 (LowerDelay, RaiseDelay,
-// EvacuatePassengersOnDeploy, EvacuateCrewOnDeploy, SkipAdjustPosition,
-// WallSearchDistance, AwayFromWallWaitDist, ExtraWallDistance), through
-// the rowed MultiIniFieldParse::add at 0x2BC6E. The owning factory pushes
-// this proc VA; ModuleFactory registers it under "SiegeDeploySpecialPower".
-// Row supersedes the parse pin.
-
-class MultiIniFieldParse;
-
-class INI;
-
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
-#include "../../../../Include/Common/INI/FieldParse.h"
-
-#include "../../../../Include/Common/INI/INI.h"
-
-// Retail VA 0x00C5DBD8 (.rdata): 8 field records and a zero sentinel.
-extern const FieldParse g_00C5DBD8[] = {
-	{ "LowerDelay", &INI::parseDurationUnsignedInt, 0, 0x18 },
-	{ "RaiseDelay", &INI::parseDurationUnsignedInt, 0, 0x1C },
-	{ "EvacuatePassengersOnDeploy", &INI::parseBool, 0, 0x20 },
-	{ "EvacuateCrewOnDeploy", &INI::parseBool, 0, 0x21 },
-	{ "SkipAdjustPosition", &INI::parseBool, 0, 0x22 },
-	{ "WallSearchDistance", &INI::parseReal, 0, 0x24 },
-	{ "AwayFromWallWaitDist", &INI::parseReal, 0, 0x28 },
-	{ "ExtraWallDistance", &INI::parseReal, 0, 0x2C },
-	{ 0, 0, 0, 0 }
-};
-
-
-class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class __declspec(novtable) SiegeDeploySpecialPowerModuleData : public AIUpdateModuleData
-{
-public:
-	SiegeDeploySpecialPowerModuleData();
-private:
-	int m_int18;
-private:
-	int m_int1C;
-private:
-	bool m_flag20;
-private:
-	bool m_byte21;
-private:
-	bool m_byte22;
-private:
-	float m_float24;
-private:
-	float m_float28;
-private:
-	float m_float2C;
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-//
-// Three SiegeDeploySpecialPower overrides on the interface vtables its matched
-// ctor 0x004C56BA installs over WeaponModeSpecialPowerUpdateBase: 0x00C5DCCC
-// at +0x20 and 0x00C5DC68 at +0x24. Each is compiled with its subobject this.
-// The deploy state int sits at +0x38 (the matched xfer saves it first; the
-// unrowed setter 0x004C5BE3 compares its argument with it), the bool at +0x70.
-// Names are by address.
-//
-// ?isActive@SiegeDeploySpecialPower@@UBE_NXZ, retail 0x004C575F, 19 bytes:
-// +0x20 slot 2; true unless the state is 0 or 1.
-// ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C5751, 14 bytes:
-// +0x24 slot 1; the negation of +0x20 slot 2, called virtually.
-// ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ, retail 0x004C5E41, 33 bytes:
-// +0x24 slot 17; states 0/1 call the setter with 0, states 2/3 set +0x70.
-
-class Object;
-
-BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004C5772CmpBoolField, 0x38, 3, ==)
-
-// Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
-// Keep the existing slot placeholder: no original method name is proven.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-
-class WinInstanceData;
-
-#include "../../../../Include/GameClient/Bfme2GameWindow.h"
+// A KindOfMaskType built from its set bits (0x00045411 one bit; the first
+// argument is unused).
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
-#include "../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
-
-// ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
-// Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
-// (1/2/4/8); returns true when a set field lacks its bit, false when covered.
-// Unlocks 0x00053448. Caller 0x00053459. Flags /O1 like the getters above.
-class Rva00050D86
-{
-public:
-	bool rva00050D86(unsigned char mask);
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
 
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
@@ -741,10 +770,6 @@ void SiegeDeploySpecialPower::setPhase(int next)
  }
 }
 
-// tu-skeleton: 0x004C56BA 124B ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C5736 6B ?Rva004C5736Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 
 // Disp8 compare bool getters: frameless __thiscall members in three shapes:
@@ -766,13 +791,37 @@ void SiegeDeploySpecialPower::setPhase(int next)
 // `this` and the inner byte is tested through it (probe-proven; a direct
 // backward cast would fold the two offsets into one read).
 
+// tu-skeleton: 0x004C56BA 124B ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C5736 6B ?Rva004C5736Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x004C57C1 84B ??1SiegeDeploySpecialPower@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C585B 28B ??_GSiegeDeploySpecialPower@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C5877 706B ?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerComputeApproachPoint.cpp (not merged yet)
 
-// tu-skeleton: 0x004C5B39 170B ?xfer@SiegeDeploySpecialPower@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerXfer.cpp
+
+void SiegeDeploySpecialPower::xfer(Xfer *xfer)
+{
+	((Rva00589079 *)this)->Rva00589079::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	xfer->XferRawBytes(&m_phase, 4);
+	*xfer == m_frame;
+	XferObjectID(xfer, &m_dockID);
+	XferObjectID(xfer, &m_44);
+	*xfer == m_48;
+	*xfer == m_stop;
+	*xfer == m_docked;
+	if (version.m_minimum >= 2) {
+		*xfer == (Coord3DBase &)m_approachPoint;
+		*xfer == (Coord3DBase &)m_dockPosition;
+	}
+}
 
 // tu-skeleton: 0x004C5E80 691B ?update@SiegeDeploySpecialPower@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerUpdate.cpp (not merged yet)
 
