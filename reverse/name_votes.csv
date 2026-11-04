@@ -23738,3 +23738,5 @@ Code/GameEngine/Source/Common/Rva00469C07Free.cpp|function|0x00469C07|rva00469C0
 Code/GameEngine/Source/Common/Rva002E00F9Method.cpp|function|0x002E00F9|rva002E00F9,539ce9766b21e54ddf80365f,claude-opus-5-5,claude3-20261104-081239-1,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0010416EFloat.cpp|function|0x0010416E|Rva0010416EFloat,2139a41c372193ab2972c288,claude-opus-5-5,claude3-20261104-081239-5,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005CB288|rva005CB288,d3fd2b5eb4c71be30df3946c,claude-opus-5-5,claude3-20261104-081239-8,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/T4LeafPredicatesAndMath.cpp|function|0x0055D3D9|t4IsZero005F4180,d16e580ff5aa378030588e5b,claude-opus-5-5,claude3-20261104-082308-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva000AD6F4Members.cpp|function|0x0057792E|rva0057792E,c7814cd078a267e7e881e5c8,claude-opus-5-5,claude3-20261104-082308-1,w-29a6ae2a2f9f,2026-11-04
