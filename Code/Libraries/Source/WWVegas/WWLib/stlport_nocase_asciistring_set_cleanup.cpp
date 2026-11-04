@@ -23,7 +23,8 @@ bool operator<(const AsciiString &, const AsciiString &);
 
 struct BfmeStringNoCaseLess
 {
-    bool operator()(const AsciiString &, const AsciiString &) const;
+public:
+	bool operator()(const AsciiString &a, const AsciiString &b) const;
 };
 
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > NoCaseSetTree;
