@@ -6,7 +6,6 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "RainOfFireUpdateView.h"
-
 //
 // ??0RainOfFireUpdateModuleData@@QAE@XZ, retail 0x004AC03D, 89 bytes.
 // Frameless SSE ctor: two global floats into +0x10/+0x14, vtable literal,
@@ -19,44 +18,25 @@
 // them onto the shared literal at 0x00BBB8D8 per the Prone precedent.
 
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
-
 extern GameLogic *TheGameLogic;
-
 extern int BfmeLogicFramesPerSecond;
-
 float GetGameLogicRandomValueReal(float,float,char *,int);
-
 float Cos(float);
-
 float Sin(float);
-
 enum WeaponSlotType {PRIMARY_WEAPON=0};
-
 enum PathfindLayerEnum {GROUND=0};
-
 class Object;
-
 #include "../../../../Include/GameLogic/Weapon.h"
-
 #include "../../../../Include/GameLogic/WeaponSetClass.h"
-
 #include "../../../Common/Thing/thing.h"
-
 class Object:public Thing {public:__forceinline Weapon *getWeapon()const{return ((const WeaponSet*)((const char*)this+0x330))->getWeaponInWeaponSlot(PRIMARY_WEAPON);} };
-
 template<int N>class RainSlots:public RainSlots<N-1>{public:virtual void gap(char (*)[N])=0;};
-
 template<>class RainSlots<0>{};
-
 // The camera-position global at DFEA3C is the tactical View, as in the reference.
 class View:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};
-
 extern View *TheTacticalView;
-
 class TerrainLogic:public RainSlots<7>{public:virtual float rvaSlot7(float,float,PathfindLayerEnum,Coord3D *,bool)=0;PathfindLayerEnum getHighestLayerForDestination(const Coord3D *,bool);};
-
 extern TerrainLogic *TheTerrainLogic;
-
 class Display
 {
 public:
@@ -74,12 +54,38 @@ public:
 	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
 	virtual void setLevel(float v);
 };
-
 extern Display *TheDisplay;
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+//
+// ??1RainOfFireUpdate@@UAE@XZ, retail 0x004AC24D, 91 bytes.
+// Dtor reinstalls primary 0x00854C74 plus secondaries 0x00854BB8/0x00854BA8
+// plus +0x20 slot 0x00854BA0 then zeroes +0x2C and calls honest setter
+// 0x004AC18D with 0.0 then rowed base 0x0024A797. Layout is the rowed
+// 0x38-byte class (UpdateModule base 0x20 plus +0x20 secondary plus frame
+// plus four floats); caller is the slot-0 deleting dtor at 0x004AC5D9.
+// Recipe is the PartTheHeavensUpdateDtor MI pattern with the setter ride.
+
+class Thing;
+class ModuleData;
+class BehaviorModuleBase
+{
+public:
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#pragma comment(linker, "/alternatename:?setFloat@Secondary20@@UAEXM@Z=?set@Rva00101CCCFloatField@@QAEXM@Z")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 
@@ -218,12 +224,6 @@ UpdateSleepTime RainOfFireUpdate::update() {
  return (UpdateSleepTime)1;
 }
 
-// tu-skeleton: 0x004AC097 17B ?buildFieldParse@RainOfFireUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC0A8 135B ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp
 
 // ?getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ
@@ -234,10 +234,20 @@ NameKeyType RainOfFireUpdate::getModuleNameKey() const
 	return TheRainOfFireUpdatePoolKey;
 }
 
-// tu-skeleton: 0x004AC24D 91B ??1RainOfFireUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
+// tu-skeleton: 0x004AC097 17B ?buildFieldParse@RainOfFireUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004AC5D9 28B ??_GRainOfFireUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
+// tu-skeleton: 0x004AC0A8 135B ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0078E325 8B Unwind@00b8e325 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
+// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x0078E32D 10B __ehhandler$??1RainOfFireUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp
+
+RainOfFireUpdate::~RainOfFireUpdate()
+{
+	scale = 0.0f;
+	rva004AC18D(0.0f);
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.

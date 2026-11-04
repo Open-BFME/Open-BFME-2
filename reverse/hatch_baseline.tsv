@@ -3057,7 +3057,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataDtor.cpp	??1Rva002BB6BE20Rec@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	??0Rva00045411BitSet@@QAE@HHH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	?allow@Rva00265150RJFilter@@UAE_NPAVObject@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp	?setFloat@Secondary20@@UAEXM@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp	?setFloat@Secondary20@@UAEXM@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva002553F6Ctor.cpp	_kF7C	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva00262176Activity.cpp	?rva00262176@Rva003638BA@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva0029FB3BMemberInit.cpp	?init@Rva0029FB3BMember@@QAEXPAX@Z	1

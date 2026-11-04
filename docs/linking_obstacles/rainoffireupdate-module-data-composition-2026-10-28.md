@@ -21,3 +21,5 @@ normal census; review the outgoing batch audit for any additional limitations.
 2026-11-04: the main TU now uses the canonical module hierarchy (9/9 rows exact, link preview unchanged); retry the destructor composition next, while the constructor's explicit table conflict remains. [Prerequisite evidence](../../reverse/attempt_support/rainoffire-canonical-module-chain-20261104.md).
 
 2026-11-04: destructor fields and its explicit declaration are reconciled; the supported dry run now accepts that donor with all 13 rows and its link guard passing. Apply the merge next; the constructor table conflict remains. [Composition prerequisite](../../reverse/attempt_support/rainoffire-destructor-composition-prerequisite-20261104.md).
+
+2026-11-04: destructor composition is verified: one source removed, 13/13 rows exact, both EH graphs EXACT, constructor link preview preserved and alias key transferred. Constructor and mixed-source prerequisites remain; external selection awaits the normal census. [Merge audit](../../reverse/attempt_support/rainoffire-destructor-merge-audit-20261104.md).
