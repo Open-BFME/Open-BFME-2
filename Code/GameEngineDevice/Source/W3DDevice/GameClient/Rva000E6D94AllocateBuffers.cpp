@@ -54,14 +54,7 @@ private:
 	char m_storage[0x20];
 };
 
-class DX8IndexBufferClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0, USAGE_DYNAMIC = 1 };
-	DX8IndexBufferClass(unsigned int index_count, UsageType usage);
-private:
-	char m_storage[0x18];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 struct Rva0007BB16Record;
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
