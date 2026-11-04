@@ -35,52 +35,44 @@ extern "C" void _ReadWriteBarrier(void);
 //   sete bl on the equality arm; low byte of addressType tested directly
 //   (sibling Rva006C1E20 tag spelling) for the cmp-byte-on-stack-slot form.
 
+#include "../../../Include/Common/GeneralAllocator.h"
+
+// Intrusive list node proven by 0x00031680 (size at +4, next at +0x18) and by
+// retail's scan here (node base at +0, next at +0xC); its sentinel is the
+// canonical base's m_448.
+struct Rva00032830ListNode
+{
+	unsigned int m_unk0;
+	unsigned int m_size;
+	unsigned char m_pad[16];
+	Rva00032830ListNode *m_next;
+	Rva00032830ListNode *m_prev;
+};
+// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at +0x4E4
+// (m_pLock) with the use count at +0x18 of the wrapper.
+struct Rva00032830Lock
+{
+	CRITICAL_SECTION m_section;
+	int volatile m_count;
+};
+
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-	bool rva00032830(const void *block, int addressType);	// ValidateAddress-like
-
-private:
-	// Intrusive list node proven by 0x00031680 (size at +4, next at +0x18) and
-	// by retail's scan here (node base at +0, next at +0xC).
-	struct ListNode
-	{
-		unsigned int m_unk0;
-		unsigned int m_size;
-		unsigned char m_pad[16];
-		ListNode *m_next;
-		ListNode *m_prev;
-	};
-	unsigned char m_pad0[0x448];
-	ListNode m_sentinel;
-	// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at
-	// +0x4E4 with the use count at +0x18 of the wrapper.
-	struct Lock
-	{
-		CRITICAL_SECTION m_section;
-		int volatile m_count;
-	};
-	unsigned char m_pad468[0x4E4 - (0x448 + sizeof(ListNode))];
-	Lock *m_4E4;
-};
-
 bool GeneralAllocator::rva00032830(const void *block, int addressType)
 {
 	GeneralAllocator *self = this;
-	Lock *lock = self->m_4E4;
+	Rva00032830Lock *lock = (Rva00032830Lock *)self->m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(&lock->m_section);
 		++lock->m_count;
 	}
-	ListNode *cur = self->m_sentinel.m_next;
+	Rva00032830ListNode *cur = ((Rva00032830ListNode *)self->m_448)->m_next;
 	self = (GeneralAllocator *)((char *)self + 0x448);
-	ListNode *sent = (ListNode *)self;
+	Rva00032830ListNode *sent = (Rva00032830ListNode *)self;
 	while (cur != sent)
 	{
 		if ((unsigned int)block >= (unsigned int)cur)

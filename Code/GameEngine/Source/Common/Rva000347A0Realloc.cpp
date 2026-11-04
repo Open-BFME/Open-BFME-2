@@ -1,6 +1,6 @@
 // cl: /O2 /MD /DNDEBUG
 //
-// The top-extend branch stores the new top into m_top and reads it back into the
+// The top-extend branch stores the new top into m_440 (+0x440) and reads it back into the
 // local it initialises (retail keeps the stored register as the SIB base of the
 // foot store); a single exit `return newMem` with newMem function-scope gives the
 // dead EBP stores and pop order; computing the remainder pointer before
@@ -42,24 +42,9 @@ struct Rva000347A0Chunk
 	Rva000347A0Chunk *bk;
 };
 
-namespace EA
-{
-namespace Allocator
-{
-class GeneralAllocator
-{
-public:
-	void *realloc(void *oldMem, unsigned int bytes, int flags);
-	void rva00033150(const void *block);	// free engine, 0x00033150
-
-private:
-	unsigned char m_pad000[0x440];
-	Rva000347A0Chunk *m_top;		// +0x440
-	unsigned char m_pad444[0x478 - 0x444];
-	int m_478;				// +0x478
-};
-}
-}
+// The top chunk is the canonical base's +0x440 node pointer, read through this
+// unit's chunk view.
+#include "../../Include/Common/GeneralAllocator.h"
 
 void *EA::Allocator::GeneralAllocator::realloc(void *oldMem, unsigned int bytes, int flags)
 {
@@ -77,17 +62,17 @@ void *EA::Allocator::GeneralAllocator::realloc(void *oldMem, unsigned int bytes,
 			newSize = oldSize;
 		} else {
 			Rva000347A0Chunk *next = (Rva000347A0Chunk *)((char *)oldp + oldSize);
-			if (next == m_top && (newSize = oldSize + (next->head & 0x7ffffff8)) >= nb + 16) {
+			if (next == (Rva000347A0Chunk *)m_440 && (newSize = oldSize + (next->head & 0x7ffffff8)) >= nb + 16) {
 				oldp->head = (oldp->head & 0x80000007) | nb;
-				m_top = (Rva000347A0Chunk *)((char *)oldp + nb);
+				m_440 = (Rva00031010Node *)((char *)oldp + nb);
 				unsigned int topSize = newSize - nb;
-				Rva000347A0Chunk *top = m_top;
+				Rva000347A0Chunk *top = (Rva000347A0Chunk *)m_440;
 				top->bk = top;
 				top->fd = top;
 				top->head = topSize | 1;
 				*(unsigned int *)((char *)top + topSize) = topSize;
 				return oldMem;
-			} else if (next != m_top && !(((Rva000347A0Chunk *)((char *)next + (next->head & 0x7ffffff8)))->head & 1) && (newSize = oldSize + (next->head & 0x7ffffff8)) >= nb) {
+			} else if (next != (Rva000347A0Chunk *)m_440 && !(((Rva000347A0Chunk *)((char *)next + (next->head & 0x7ffffff8)))->head & 1) && (newSize = oldSize + (next->head & 0x7ffffff8)) >= nb) {
 				newp = oldp;
 				next->fd->bk = next->bk;
 				next->bk->fd = next->fd;

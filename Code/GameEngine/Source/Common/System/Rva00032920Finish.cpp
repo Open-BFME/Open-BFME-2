@@ -39,50 +39,29 @@
 // return (the previous pass's best) is byte-identical to the bank.
 #include <windows.h>
 
+#include "../../../Include/Common/GeneralAllocator.h"
+
+// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at +0x4E4
+// (m_pLock) with the use count at +0x18 of the wrapper.
+struct Rva00032920Lock
+{
+	CRITICAL_SECTION m_section;
+	int volatile m_count;
+};
+
+// Small-block list proven by 0x00032920: sentinel at +0x49C (m_49C) with its
+// next at +0x4A8 (+0xC), nodes with their stored base at +0 and next at +0xC.
+struct Rva00032920SmallNode
+{
+	unsigned int m_0;
+	unsigned char m_pad[8];
+	Rva00032920SmallNode *m_next;
+};
+
 namespace EA
 {
 namespace Allocator
 {
-
-class GeneralAllocator
-{
-public:
-	bool rva00032920(const void *block);	// owns-address test
-	void *rva00031680(const void *block);	// intrusive circular-list search
-
-private:
-	// Intrusive list node proven by 0x00031680 (size at +4, next at +0x18) and
-	// by retail's scan here (node base at +0, next at +0xC).
-	struct ListNode
-	{
-		unsigned int m_unk0;
-		unsigned int m_size;
-		unsigned char m_pad[16];
-		ListNode *m_next;
-		ListNode *m_prev;
-	};
-	unsigned char m_pad0[0x448];
-	ListNode m_sentinel;
-	// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at
-	// +0x4E4 with the use count at +0x18 of the wrapper.
-	struct Lock
-	{
-		CRITICAL_SECTION m_section;
-		int volatile m_count;
-	};
-	// Small-block list proven by 0x00032920: sentinel at +0x49C with its next
-	// at +0x4A8 (+0xC), nodes with their stored base at +0 and next at +0xC.
-	struct SmallNode
-	{
-		unsigned int m_0;
-		unsigned char m_pad[8];
-		SmallNode *m_next;
-	};
-	unsigned char m_pad468a[0x49C - (0x448 + sizeof(ListNode))];
-	SmallNode m_49C;
-	unsigned char m_pad4AC[0x4E4 - (0x49C + sizeof(SmallNode))];
-	Lock *m_4E4;
-};
 
 // ?rva00032920@GeneralAllocator@Allocator@EA@@QAE_NPBX@Z @0x00032920 (190B):
 // owns-address test. Header bit1 at block-4 selects the small-list scan at
@@ -100,7 +79,7 @@ private:
 //
 bool GeneralAllocator::rva00032920(const void *block)
 {
-	Lock *lock = m_4E4;
+	Rva00032920Lock *lock = (Rva00032920Lock *)m_pLock;
 	const char *const blk = (const char *)block;
 	const char *const p8 = blk - 8;
 	unsigned int header = *(const unsigned int *)(p8 + 4);
@@ -111,8 +90,8 @@ bool GeneralAllocator::rva00032920(const void *block)
 	}
 	if ((header & 2) != 0)
 	{
-		SmallNode *sent = &m_49C;
-		SmallNode *cur = m_49C.m_next;
+		Rva00032920SmallNode *sent = (Rva00032920SmallNode *)m_49C;
+		Rva00032920SmallNode *cur = ((Rva00032920SmallNode *)m_49C)->m_next;
 		if (cur != sent)
 		{
 			unsigned int v = *(const unsigned int *)p8;

@@ -52,21 +52,10 @@ public:
 
 // Rva006C1F60 is itself a GeneralAllocator: memory_pool.cpp proves +0x448 as
 // that class's list sentinel and +0x4E4 as its Lock*, and 0x00033D50 reads both
-// through `this`. The base carries no fields, so it does not change any offset
-// below; the banked 0x006C3940 body needed 0x00035080 through it and that pin
+// through `this`. The canonical base is 0x510 bytes, so the derived members
+// below start at +0x510; the banked 0x006C3940 body needed 0x00035080 through it and that pin
 // already exists under the GeneralAllocator name.
-namespace EA
-{
-namespace Allocator
-{
-class GeneralAllocator
-{
-public:
-	bool rva00033D50();	// 0x00033D50
-	void *rva00035080(unsigned int size, int flags);
-};
-}
-}
+#include "../../Include/Common/GeneralAllocator.h"
 
 class Rva006C1F60 : public EA::Allocator::GeneralAllocator
 {
@@ -77,12 +66,7 @@ public:
 	void rva006C33D0(int a, int b);
 
 private:
-	unsigned char m_pad0[0x478];
-	int m_478;
-	unsigned char m_pad1[0x4E4 - 0x478 - 4];
-	Rva00030DD0Lock *m_lock;
-	unsigned char m_pad2[0x510 - 0x4E4 - 4];
-	unsigned char m_510;
+	unsigned char m_510;		// +0x510, the first member past the base
 	unsigned char m_pad3[0x548 - 0x510 - 1];
 	char *m_548;
 	char *m_54C;

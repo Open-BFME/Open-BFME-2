@@ -32,19 +32,12 @@ public:
 	void rva006C2FB0(const char *text, const char *extra);
 };
 
+#include "../../Include/Common/GeneralAllocator.h"
+
 namespace EA { namespace Allocator {
 struct BlockInfo
 {
 	void *mpCore; // +0x00
-};
-class GeneralAllocator
-{
-public:
-	void *rva000353B0(void *core, int types, bool b, void *d, unsigned int e);
-	const BlockInfo *rva00032F60(void *handle, int types);
-	void rva00033E90(void *handle);
-	bool rva000329E0(int level);
-	int rva00031F90(void *data);
 };
 }}
 
@@ -54,14 +47,6 @@ struct GeneralAllocatorChunk
 	unsigned int m_size; // +0x04
 	GeneralAllocatorChunk *m_prev; // +0x08
 	GeneralAllocatorChunk *m_next; // +0x0C
-};
-
-struct GeneralAllocatorCore
-{
-	char *m_first; // +0x00
-	unsigned int m_size; // +0x04
-	unsigned char m_pad08[0x1C - 0x08];
-	GeneralAllocatorCore *m_next; // +0x1C
 };
 
 class GeneralAllocatorDebugLockGuard
@@ -91,6 +76,8 @@ struct Rva006C17B0
 	int m_10; // +0x10
 };
 
+// Canonical base fields read here: m_484 the in-verify flag, m_pLock the lock,
+// m_508[3] (+0x50B) the guard fill byte.
 class GeneralAllocatorDebug : public EA::Allocator::GeneralAllocator
 {
 public:
@@ -99,19 +86,7 @@ public:
 	void *rva006C25F0Run6(void *runBlock, int kind, int zero3, int zero2,
 		unsigned int *outLen, int zero1);
 private:
-	unsigned char m_base000[0x448];
-	GeneralAllocatorCore m_coreSentinel; // +0x448
-	unsigned char m_pad468[0x484 - 0x468];
-	bool m_inVerify; // +0x484
-	unsigned char m_pad485[0x4E4 - 0x484 - 1];
-	Rva00030DD0Lock *m_lock; // +0x4E4
-	unsigned char m_pad4E8[0x508 - 0x4E8];
-	unsigned char m_fillFree; // +0x508
-	unsigned char m_fillDelayedFree; // +0x509
-	unsigned char m_fillNew; // +0x50A
-	unsigned char m_fillGuard; // +0x50B
-	unsigned char m_fillUnusedCore; // +0x50C
-	unsigned char m_pad50D[0x548 - 0x50D];
+	unsigned char m_pad510[0x548 - 0x510];
 	GeneralAllocatorChunk m_delayedFree; // +0x548
 	unsigned char m_pad558[0x680 - 0x558];
 	bool m_680; // +0x680
@@ -121,11 +96,11 @@ private:
 bool GeneralAllocatorDebug::rva006C3220(int level)
 {
 	bool ok = true;
-	if (!m_inVerify)
+	if (!m_484)
 	{
-		m_inVerify = true;
+		m_484 = true;
 		{
-			GeneralAllocatorDebugLockGuard guard(m_lock);
+			GeneralAllocatorDebugLockGuard guard(m_pLock);
 			for (GeneralAllocatorChunk *chunk = m_delayedFree.m_next; chunk != &m_delayedFree; chunk = chunk->m_next)
 				VerifyDelayedFreeFill(chunk);
 			if (level > 1)
@@ -145,7 +120,7 @@ bool GeneralAllocatorDebug::rva006C3220(int level)
 							if (len >= 0x40)
 								len = 0x40;
 							char *end = run + len;
-							if (!rva00030E20Fill(run, end - run, m_fillGuard))
+							if (!rva00030E20Fill(run, end - run, m_508[3]))
 							{
 								((Rva006C2D20Sink *)this)->rva006C2FB0((const char *)core, "GeneralAllocatorDebug::VerifyGuardFill failure.");
 								ok = false;
@@ -164,7 +139,7 @@ bool GeneralAllocatorDebug::rva006C3220(int level)
 				}
 			}
 		}
-		m_inVerify = false;
+		m_484 = false;
 		if (!rva000329E0(level))
 			ok = false;
 	}

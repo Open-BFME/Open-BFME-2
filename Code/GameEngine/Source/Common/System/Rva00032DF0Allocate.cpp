@@ -10,32 +10,20 @@
 
 #include <windows.h>
 
+#include "../../../Include/Common/GeneralAllocator.h"
+
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
+// A mapped block's end node, linked into the list headed at +0x49C.
+struct MappedNode
 {
-public:
-	void *rva00032DF0(unsigned int size);
-
-private:
-	struct SmallNode
-	{
-		unsigned int m_base;
-		unsigned int m_size;
-		SmallNode *m_prev;
-		SmallNode *m_next;
-	};
-
-	unsigned char m_pad0[0x488];
-	unsigned int m_mapCount;
-	unsigned int m_mapBytes;
-	unsigned char m_pad490[0x498 - 0x490];
-	unsigned char m_topDown;
-	unsigned char m_pad499[0x49C - 0x499];
-	SmallNode m_mapList;
+	unsigned int m_base;
+	unsigned int m_size;
+	MappedNode *m_prev;
+	MappedNode *m_next;
 };
 
 void *GeneralAllocator::rva00032DF0(unsigned int size)
@@ -45,13 +33,13 @@ void *GeneralAllocator::rva00032DF0(unsigned int size)
 	if (total >= size)
 	{
 		unsigned long type = 0x3000;
-		if (m_topDown)
+		if (m_498)
 			type = 0x103000;
 		void *memory = VirtualAlloc(0, total, type, 4);
 		if (memory != 0)
 		{
-			++m_mapCount;
-			m_mapBytes += total;
+			++m_488;
+			m_48C += total;
 			total -= 0x10;
 			unsigned int *header;
 			unsigned int misalign = (unsigned int)memory & 7;
@@ -69,11 +57,11 @@ void *GeneralAllocator::rva00032DF0(unsigned int size)
 				header[0] = 0;
 				header[1] = total | 2;
 			}
-			SmallNode *node = (SmallNode *)((char *)header + total);
+			MappedNode *node = (MappedNode *)((char *)header + total);
 			node->m_base = total;
 			node->m_size = 0x13;
-			SmallNode *head = m_mapList.m_next;
-			SmallNode *list = &m_mapList;
+			MappedNode *head = ((MappedNode *)m_49C)->m_next;
+			MappedNode *list = (MappedNode *)m_49C;
 			node->m_prev = list;
 			node->m_next = head;
 			list->m_next = node;

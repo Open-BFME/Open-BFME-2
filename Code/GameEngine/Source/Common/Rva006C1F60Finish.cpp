@@ -76,21 +76,12 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 
+#include "../../Include/Common/GeneralAllocator.h"
+
 namespace EA { namespace Allocator {
 struct BlockInfo
 {
 	void *mpCore; // +0x00
-};
-class GeneralAllocator
-{
-public:
-	void rva000317F0(int option, unsigned int value);
-	unsigned int rva00032A20(const void *block);
-	void *rva000353B0(void *core, int types, bool b, void *d, unsigned int e);
-	const BlockInfo *rva00032F60(void *handle, int types);
-	void rva00033E90(void *handle);
-	void *realloc(void *block, unsigned int size, int flags);
-	void rva00033150(const void *block);
 };
 }}
 
@@ -147,6 +138,9 @@ struct GeneralAllocatorMetricCounters
 	unsigned __int64 totalFreeCount, totalFreeBytes;
 };
 
+// Canonical base fields used here: m_448 the core list sentinel (+0x448),
+// m_pLock the lock, m_508[0..4] the free, delayed-free, new, guard and
+// unused-core fill bytes.
 class GeneralAllocatorDebug : public EA::Allocator::GeneralAllocator
 {
 public:
@@ -204,17 +198,7 @@ private:
 		return rva00032A20(data);
 	}
 
-	unsigned char m_base000[0x448];
-	GeneralAllocatorCore m_coreSentinel; // +0x448
-	unsigned char m_pad468[0x4E4 - 0x468];
-	Rva00030DD0Lock *m_lock; // +0x4E4
-	unsigned char m_pad4E8[0x508 - 0x4E8];
-	unsigned char m_fillFree; // +0x508
-	unsigned char m_fillDelayedFree; // +0x509
-	unsigned char m_fillNew; // +0x50A
-	unsigned char m_fillGuard; // +0x50B
-	unsigned char m_fillUnusedCore; // +0x50C
-	unsigned char m_pad50D[0x514 - 0x50D];
+	unsigned char m_pad510[0x514 - 0x510];
 	unsigned int m_flags; // +0x514
 	unsigned char m_pad518[0x540 - 0x518];
 	unsigned int m_delayedFreeTotal; // +0x540
@@ -237,15 +221,15 @@ private:
 void GeneralAllocatorDebug::rva006C2AA0(unsigned char fillFree, unsigned char fillDelayedFree,
 	unsigned char fillNew, unsigned char fillGuard, unsigned char fillUnusedCore)
 {
-	GeneralAllocatorDebugLockGuard guard(m_lock);
+	GeneralAllocatorDebugLockGuard guard(m_pLock);
 
-	m_fillNew = fillNew;
-	m_fillUnusedCore = fillUnusedCore;
+	m_508[2] = fillNew;
+	m_508[4] = fillUnusedCore;
 
-	if (m_fillFree != fillFree)
+	if (m_508[0] != fillFree)
 	{
-		m_fillFree = fillFree;
-		for (GeneralAllocatorCore *core = m_coreSentinel.m_next; core != &m_coreSentinel; core = core->m_next)
+		m_508[0] = fillFree;
+		for (GeneralAllocatorCore *core = ((GeneralAllocatorCore *)m_448)->m_next; core != (GeneralAllocatorCore *)m_448; core = core->m_next)
 		{
 			char *end = (char *)core + core->m_size - 0x10;
 			for (char *chunk = core->m_first; chunk < end;
@@ -253,27 +237,27 @@ void GeneralAllocatorDebug::rva006C2AA0(unsigned char fillFree, unsigned char fi
 			{
 				unsigned int size = ((GeneralAllocatorChunk *)chunk)->m_size & 0x7FFFFFF8;
 				if (!(((GeneralAllocatorChunk *)(chunk + size))->m_size & 1))
-					memset(chunk + 0x10, m_fillFree, size - 0x10);
+					memset(chunk + 0x10, m_508[0], size - 0x10);
 			}
 		}
 	}
 
-	if (m_fillDelayedFree != fillDelayedFree)
+	if (m_508[1] != fillDelayedFree)
 	{
-		m_fillDelayedFree = fillDelayedFree;
+		m_508[1] = fillDelayedFree;
 		if (fillDelayedFree == 1)
 			m_delayedFreeTotal = 0;
 		for (GeneralAllocatorChunk *chunk = m_delayedFree.m_next; chunk != &m_delayedFree; chunk = chunk->m_next)
 		{
 			char *data = (char *)chunk + 8;
 			unsigned int size = getDebugDataSize(data);
-			memset(data + 8, m_fillDelayedFree, size - 8);
+			memset(data + 8, m_508[1], size - 8);
 		}
 	}
 
-	if (m_fillGuard != fillGuard)
+	if (m_508[3] != fillGuard)
 	{
-		m_fillGuard = fillGuard;
+		m_508[3] = fillGuard;
 		if (fillGuard == 1)
 			m_flags &= ~0x800;
 		void *walk = rva000353B0(0, 2, false, 0, 0);
@@ -288,7 +272,7 @@ void GeneralAllocatorDebug::rva006C2AA0(unsigned char fillFree, unsigned char fi
 				char *end = run + len;
 				if (run < data + 8)
 					run = data + 8;
-				memset(run, m_fillGuard, end - run);
+				memset(run, m_508[3], end - run);
 			}
 		}
 		rva00033E90(walk);
@@ -328,7 +312,7 @@ void *GeneralAllocatorDebug::rva006C2010Run6(void *block, unsigned int size, uns
 // their owned address-derived linkage identities.
 void *GeneralAllocatorDebug::rva006C25F0Run6(void *block,int kind,int a3,int a4,unsigned int *outLen,int mode)
 {
- Rva00030DD0Lock *lock=m_lock;
+ Rva00030DD0Lock *lock=m_pLock;
  if(lock)Rva00030DD0AddRef(lock);
  void *result=0;
  if((unsigned char)((Rva006C1F60*)this)->rva006C1DC0((unsigned int)block)) {
@@ -378,7 +362,7 @@ success:return 1;
 // reader at 006C1FE0. The original public method name remains unproved.
 unsigned int GeneralAllocatorDebug::rva006C2510(char *block, int mode, char **outBody)
 {
-	Rva00030DD0Lock *lock = m_lock;
+	Rva00030DD0Lock *lock = m_pLock;
 	if (lock)
 		Rva00030DD0AddRef(lock);
 	unsigned int result = 0;
@@ -504,7 +488,7 @@ void GeneralAllocatorDebug::rva006C1B60(int option, unsigned int value)
 // the block-table record (+0x680/+0x684) and books the new block in.
 void *GeneralAllocatorDebug::rva006C4730(void *data, unsigned int size, int flags)
 {
-	GeneralAllocatorDebugLockGuard guard(m_lock);
+	GeneralAllocatorDebugLockGuard guard(m_pLock);
 	void *backupAllocation = 0;
 	void *backup = 0;
 	unsigned int backupLength;

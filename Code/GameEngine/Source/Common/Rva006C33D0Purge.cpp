@@ -25,16 +25,7 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *);
 int Rva00030DF0Release(Rva00030DD0Lock *);
 
-namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	unsigned rva00032A20(const void *);
-	typedef void (*TraceFunction)(const char *text, void *context);
-	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
-};
-} }
+#include "../../Include/Common/GeneralAllocator.h"
 
 struct GeneralAllocatorDebugBlock;
 
@@ -74,9 +65,7 @@ public:
 	void TraceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
 	void *TakeSnapshot(int blockTypes, bool copy, void *storage, unsigned int storageSize);
 
-	char unknown0[0x4e4];
-	Rva00030DD0Lock *lock;
-	char unknown4e8[0x530 - 0x4e8];
+	char unknown510[0x530 - 0x510];
 	unsigned depth;
 	char unknown534[0x548 - 0x534];
 	DelayedChunk head;
@@ -96,7 +85,7 @@ public:
 
 void Rva006C1F60::rva006C33D0(int policy, int limit)
 {
-	Guard guard(lock);
+	Guard guard(m_pLock);
 	++depth;
 	if (policy == 0) {
 		while (head.next != &head)

@@ -41,13 +41,7 @@ private:
 	Rva00030DD0Lock *m_lock;
 };
 
-namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	int rva00031430(const void *block, char *buffer, unsigned int size); // 0x00031430
-};
-}}
+#include "../../Include/Common/GeneralAllocator.h"
 
 class GeneralAllocatorDebug : public EA::Allocator::GeneralAllocator
 {
@@ -67,23 +61,16 @@ class Rva006C2D20Sink : public EA::Allocator::GeneralAllocator
 {
 public:
 	int rva006C2D20(const char *block, const char *buffer, unsigned int bufferLength);
-
-private:
-	unsigned char m_pad0[0x474];
-	unsigned char m_separator; // +0x474
-	unsigned char m_lineEnd;   // +0x475
-	unsigned char m_pad476[0x4E4 - 0x476];
-	Rva00030DD0Lock *m_lock;   // +0x4E4
 };
 
 int Rva006C2D20Sink::rva006C2D20(const char *block, const char *buffer, unsigned int bufferLength)
 {
-	Rva00034C90Lock guard(m_lock);
+	Rva00034C90Lock guard(m_pLock);
 	void *data = (void *)(block + 8);
 	char *end = (char *)buffer + bufferLength;
 	unsigned int baseLength = rva00031430(block, (char *)buffer, bufferLength);
 	char *writePosition = (char *)buffer + baseLength;
-	if (writePosition > buffer && writePosition[-1] == m_lineEnd)
+	if (writePosition > buffer && writePosition[-1] == m_475)
 		*--writePosition = 0;
 
 	unsigned int len;
@@ -100,7 +87,7 @@ int Rva006C2D20Sink::rva006C2D20(const char *block, const char *buffer, unsigned
 				strcpy(writePosition, " end-fit");
 				writePosition += 8;
 			}
-			*writePosition++ = m_separator;
+			*writePosition++ = m_474;
 			*writePosition = 0;
 		}
 	}
@@ -109,14 +96,14 @@ int Rva006C2D20Sink::rva006C2D20(const char *block, const char *buffer, unsigned
 	char name[0x200];
 	if (((GeneralAllocatorDebug *)this)->rva006C25F0Run6(data, 5, (int)name, len, &len, 2) && len
 		&& (unsigned int)(end - writePosition) >= len + 12) {
-		unsigned int charsWritten = _snprintf(writePosition, end - writePosition, "name: %s%c", name, m_separator);
+		unsigned int charsWritten = _snprintf(writePosition, end - writePosition, "name: %s%c", name, m_474);
 		writePosition += charsWritten;
 	}
 
 	SourceLocation loc;
 	if (((GeneralAllocatorDebug *)this)->rva006C25F0Run6(data, 6, (int)&loc, 8, 0, 2)) {
 		if ((unsigned int)(end - writePosition) >= strlen(loc.file) + 0x16) {
-			unsigned int charsWritten = _snprintf(writePosition, end - writePosition, "loc: %s, %d%c", loc.file, loc.line, m_separator);
+			unsigned int charsWritten = _snprintf(writePosition, end - writePosition, "loc: %s, %d%c", loc.file, loc.line, m_474);
 			writePosition += charsWritten;
 		}
 	}
@@ -128,12 +115,12 @@ int Rva006C2D20Sink::rva006C2D20(const char *block, const char *buffer, unsigned
 			strcpy(writePosition, "stack: ");
 			writePosition += 7;
 			writePosition += Rva006C50D0Describe(stack, stackLen >> 2, writePosition, end - writePosition - 4);
-			*writePosition++ = m_separator;
+			*writePosition++ = m_474;
 			*writePosition = 0;
 		}
 	}
 
-	*writePosition++ = m_lineEnd;
+	*writePosition++ = m_475;
 	*writePosition = 0;
 	return 0;
 }

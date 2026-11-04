@@ -38,65 +38,51 @@
 // instruction/register encoding mismatch).
 #include <windows.h>
 
+#include "../../../Include/Common/GeneralAllocator.h"
+
+// Unit views of the canonical base's raw fields: the free-chunk bins and
+// +0x440 top (FreeChunk), the +0x448 core list (LargeNode) and the +0x4E4 lock.
+struct Rva00032C60FreeChunk
+{
+	unsigned int m_0;
+	unsigned int m_size4;
+	Rva00032C60FreeChunk *m_next8;
+	Rva00032C60FreeChunk *m_prevC;
+};
+struct Rva00032C60LargeNode
+{
+	unsigned int m_unk0;
+	unsigned int m_size4;
+	unsigned char m_pad8[5];
+	unsigned char m_flagD;
+	unsigned char m_padE;
+	unsigned char m_flagF;
+	unsigned char m_pad10[8];
+	Rva00032C60LargeNode *m_next;
+	Rva00032C60LargeNode *m_prev1C;
+};
+struct Rva00032C60Lock
+{
+	CRITICAL_SECTION m_cs;
+	int volatile m_count;
+};
+
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-	static void AddDoubleFencepost(void *chunk, unsigned int flags);
-	unsigned int rva00032C60(unsigned int size);
-
-private:
-	struct FreeChunk
-	{
-		unsigned int m_0;
-		unsigned int m_size4;
-		FreeChunk *m_next8;
-		FreeChunk *m_prevC;
-	};
-	struct LargeNode
-	{
-		unsigned int m_unk0;
-		unsigned int m_size4;
-		unsigned char m_pad8[5];
-		unsigned char m_flagD;
-		unsigned char m_padE;
-		unsigned char m_flagF;
-		unsigned char m_pad10[8];
-		LargeNode *m_next;
-		LargeNode *m_prev1C;
-	};
-	struct Lock
-	{
-		CRITICAL_SECTION m_cs;
-		int volatile m_count;
-	};
-	unsigned char m_pad0[0x30];
-	FreeChunk m_bin30;
-	unsigned char m_pad40[0x440 - 0x40];
-	FreeChunk *m_head440;
-	unsigned char m_pad444[0x448 - 0x444];
-	LargeNode m_sentinel448;
-	unsigned char m_pad468[0x4DC - 0x468];
-	unsigned int m_grow4DC;
-	unsigned char m_pad4E0[0x4E4 - 0x4E0];
-	Lock *m_lock4E4;
-};
-
 unsigned int GeneralAllocator::rva00032C60(unsigned int size)
 {
-	Lock *lock = m_lock4E4;
+	Rva00032C60Lock *lock = (Rva00032C60Lock *)m_pLock;
 	if (lock != 0)
 	{
 		EnterCriticalSection(&lock->m_cs);
 		++lock->m_count;
 	}
 	unsigned int acc = 0;
-	LargeNode *sent = &m_sentinel448;
-	for (LargeNode *node = m_sentinel448.m_next; node != sent; node = node->m_next)
+	Rva00032C60LargeNode *sent = (Rva00032C60LargeNode *)m_448;
+	for (Rva00032C60LargeNode *node = ((Rva00032C60LargeNode *)m_448)->m_next; node != sent; node = node->m_next)
 	{
 		if (node->m_flagD == 0)
 			continue;
@@ -114,7 +100,7 @@ unsigned int GeneralAllocator::rva00032C60(unsigned int size)
 		unsigned int need = size + 0x40;
 		if (usable <= need)
 			continue;
-		unsigned int round = ((m_grow4DC >> 1) + 0xFFFF) & 0xFFFF0000;
+		unsigned int round = ((m_4DC >> 1) + 0xFFFF) & 0xFFFF0000;
 		unsigned int need2 = usable - need;
 		unsigned int commit = round;
 		if (round + round < need2)
@@ -129,12 +115,12 @@ unsigned int GeneralAllocator::rva00032C60(unsigned int size)
 		if (commit >= need2)
 			continue;
 		void *addr = (char *)node + (saved - commit);
-		if (VirtualFree( (m_lock4E4 ? addr : addr), commit, 0x4000) == 0)
+		if (VirtualFree( (m_pLock ? addr : addr), commit, 0x4000) == 0)
 			continue;
 		acc += commit;
 		node->m_size4 -= commit;
-		FreeChunk *fc = (FreeChunk *)chunk;
-		if (fc != m_head440)
+		Rva00032C60FreeChunk *fc = (Rva00032C60FreeChunk *)chunk;
+		if (fc != (Rva00032C60FreeChunk *)m_440)
 		{
 			fc->m_next8->m_prevC = fc->m_prevC;
 			fc->m_prevC->m_next8 = fc->m_next8;
@@ -145,10 +131,10 @@ unsigned int GeneralAllocator::rva00032C60(unsigned int size)
 		remain |= (oldTag & 0x80000007);
 		fc->m_size4 = remain;
 		AddDoubleFencepost(fc, 0);
-		if (fc != m_head440)
+		if (fc != (Rva00032C60FreeChunk *)m_440)
 		{
-			FreeChunk *old = *(FreeChunk **)((char *)this + 0x3C);
-			FreeChunk *bin = (FreeChunk *)((char *)this + 0x30);
+			Rva00032C60FreeChunk *old = *(Rva00032C60FreeChunk **)((char *)this + 0x3C);
+			Rva00032C60FreeChunk *bin = (Rva00032C60FreeChunk *)((char *)this + 0x30);
 			fc->m_next8 = bin;
 			fc->m_prevC = old;
 			bin->m_prevC = fc;

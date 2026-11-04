@@ -48,33 +48,20 @@ private:
 
 // 0x00032830 is the rowed EA::Allocator::GeneralAllocator::rva00032830
 // (ValidateAddress-like) in memory_pool.cpp; this class derives from that base
-// so the inherited call keeps the base's own decorated name.
-namespace EA
-{
-namespace Allocator
-{
-class GeneralAllocator
-{
-public:
-	bool rva00032830(const void *block, int addressType);
-};
-}
-}
+// so the inherited call keeps the base's own decorated name, and the guard takes
+// the base's lock at +0x4E4.
+#include "../../Include/Common/GeneralAllocator.h"
 
 class Rva006C1F60 : public EA::Allocator::GeneralAllocator
 {
 public:
 	bool rva006C1E20(const void *block, int addressType);
 	int rva006C1DC0(unsigned int block);
-
-private:
-	unsigned char m_pad0[0x4E4];
-	Rva00030DD0Lock *m_lock;                               // +0x4E4
 };
 
 bool Rva006C1F60::rva006C1E20(const void *block, int addressType)
 {
-	Rva006C1E20Guard guard(m_lock);
+	Rva006C1E20Guard guard(m_pLock);
 	unsigned char *tag = (unsigned char *)&addressType;
 	bool result;
 	if (*tag != 0)
