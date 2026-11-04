@@ -63,10 +63,51 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 	return node->object;
 }
 
-class AIUpgrade
+class Rva0055B0CC
 {
 public:
+	Rva0055B0CC();
+	virtual ~Rva0055B0CC();
+	virtual void Rva0055AED6(Xfer *x, void *p);
+	float m_04; // +0x04
+	ObjectID m_builderID; // +0x08
+	AsciiString m_0C; // +0x0C
+	int m_remaining10; // +0x10
+	char m_pad14[0x4];
+	float m_18; // +0x18
+	char m_pad1C[0x4];
+	bool m_20; // +0x20
+	bool m_21; // +0x21
+	char m_pad22[0x2];
+	ObjectID m_24; // +0x24
+	bool m_28; // +0x28
+	char m_pad29[0x3];
+};
+
+// Table 0x00870BD0 places getCostPerTick at slot 8, DoXfer at slot 12 and
+// build at slot 15; the base slots between them are not recovered, so the
+// declaration order states no slot positions.
+class AIUpgrade : public Rva0055B0CC
+{
+public:
+	AIUpgrade();
 	virtual ~AIUpgrade();
+	virtual float getCostPerTick(void *p);
+	virtual void DoXfer(Xfer *x, void *p);
+	virtual bool build(void *context);
+	int rva005973D8();
+	void rva005975C0();
+	int m_2C; // +0x2C
+	const CommandButton *m_commandButton; // +0x30
+};
+
+// Table 0x00870BD0 slot 7 (+0x1C) is inherited from Rva0055B0CC's table
+// 0x0086B900 (body 0x005F69CE); its name is not recovered, so the dispatch
+// goes through this slot-position view of the same object.
+class AIUpgradeSlot7Dispatch
+{
+public:
+	virtual void slot0();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
@@ -74,25 +115,6 @@ public:
 	virtual void slot5();
 	virtual void slot6();
 	virtual void slot7(int value);
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual bool build(void *context); // native slot15
-	virtual void slot16();
-	int rva005973D8();
-	void rva005975C0();
-
-private:
-	unsigned char m_pad04[0x08 - 0x04];
-	ObjectID m_builderID; // +0x08
-	unsigned char m_pad0C[0x10 - 0x0C];
-	int m_remaining10; // +0x10
-	unsigned char m_pad14[0x30 - 0x14];
-	const CommandButton *m_commandButton; // +0x30
 };
 
 bool AIUpgrade::build(void *context)
@@ -126,9 +148,9 @@ int AIUpgrade::rva005973D8()
 // second callee name or a different declaration for its return type.
 // Constructor597331 installs C70BD0: the complete17-entry table places
 // this dispatch at1C and build at3C; the following word is float400.
-// Unused slot declarations above express positions only, not their ABI.
+// The dispatch view's slot declarations express positions only, not their ABI.
 void AIUpgrade::rva005975C0()
 {
     if (static_cast<unsigned char>(rva005973D8()))
-        slot7(2);
+        ((AIUpgradeSlot7Dispatch *)this)->slot7(2);
 }

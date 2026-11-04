@@ -20,3 +20,10 @@ COMDAT. `tu_views.py --dry-run` also reports incompatible AIUpgrade base
 clauses. No reconciliation or path move was retained. Details and the
 reference-freshness limitation are in
 `reverse/attempt_support/ai-upgrade-merge-recheck-20261030-codexb5.md`.
+
+2026-11-04 at `39bbb0abb2`: the three donors now share one AIUpgrade view
+(base clause conflict gone) and two adopt `CommandButton.h`; the merge stays
+blocked on the `??_7AIUpgrade@@6B@` copies in the seed and
+`Rva0055B0CCDerived.cpp`, and splitting that file's dtor rows is refused by the
+split guard. Next: a retail-exact vtable or a guard rule for an unchanged moved
+copy. Details: `reverse/attempt_support/ai-upgrade-vtable-merge-20261104-claudec2.md`.
