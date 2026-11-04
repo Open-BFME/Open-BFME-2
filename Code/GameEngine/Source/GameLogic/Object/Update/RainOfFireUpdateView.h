@@ -35,32 +35,8 @@ struct RainOfFireUpdateModuleData
     Coord2D offset;
 };
 
-class ObjectModule
-{
-public:
-    virtual ~ObjectModule();
-    const RainOfFireUpdateModuleData *data;
-    Object *object;
-};
-class BehaviorModuleInterface { public: virtual void slot0() = 0; };
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-    virtual ~BehaviorModule();
-};
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
-class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-    virtual ~UpdateModule();
-    void xfer(Xfer *);
-protected:
-    virtual void loadPostProcess();
-private:
-    unsigned nextWake;
-    int index, reserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 // The two-slot interface is installed at +0x20 by the retail constructors.
 class Secondary20
 {

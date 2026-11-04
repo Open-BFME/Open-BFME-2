@@ -17,3 +17,5 @@ Scoped data checking reports no findings; the destination has no EH rows.
 The guarded composition and preview do not establish selection for all external
 consumers. Carry the moved constructor provider and its consumers into the next
 normal census; review the outgoing batch audit for any additional limitations.
+
+2026-11-04: the main TU now uses the canonical module hierarchy (9/9 rows exact, link preview unchanged); retry the destructor composition next, while the constructor's explicit table conflict remains. [Prerequisite evidence](../../reverse/attempt_support/rainoffire-canonical-module-chain-20261104.md).

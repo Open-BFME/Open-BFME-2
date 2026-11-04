@@ -149,11 +149,11 @@ void RainOfFireUpdate::rva004AC135(float delta)
 void RainOfFireUpdate::rva004AC18D(float value)
 {
 	darkness = value;
-	if (data == 0)
+	if (m_moduleData == 0)
 		return;
 	if (TheDisplay == 0)
 		return;
-	TheDisplay->setLevel(1.0 - (data->darkness * scale * value));
+	TheDisplay->setLevel(1.0 - (reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData)->darkness * scale * value));
 }
 
 void RainOfFireUpdate::loadPostProcess()
@@ -184,7 +184,7 @@ void RainOfFireUpdate::xfer(Xfer *xfer)
 // native module-data table offsets and terrain/weapon calls guide this body.
 
 UpdateSleepTime RainOfFireUpdate::update() {
- Object *obj=object;const RainOfFireUpdateModuleData *rainOfFireUpdateModuleData=data;
+ Object *obj=m_object;const RainOfFireUpdateModuleData *rainOfFireUpdateModuleData=reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData);
  if(!rainOfFireUpdateModuleData)return UPDATE_SLEEP_FOREVER;
  unsigned elapsed=TheGameLogic->getFrame()-frame;
  if(elapsed<=rainOfFireUpdateModuleData->darknessFadeTime) {
