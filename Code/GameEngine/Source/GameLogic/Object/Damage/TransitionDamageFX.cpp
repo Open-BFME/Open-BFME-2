@@ -550,14 +550,7 @@ enum DamageType
 	DAMAGE_EXPLOSION = 1
 };
 
-class DamageInfo
-{
-public:
-	char m_unknown00[0x08];
-	ObjectID m_sourceID;			// +0x08
-	char m_unknown0C[0x04];
-	DamageType m_damageType;		// +0x10
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 class FXList
 {
@@ -1183,7 +1176,7 @@ static __declspec(noinline) Rva004B9C4DPoint getLocalEffectPos(
     return loc->field0C;
 }
 
-inline bool getDamageTypeFlag(UnsignedInt flags, DamageType dt)
+inline bool getDamageTypeFlag(UnsignedInt flags, int dt)
 {
 	return (flags & (1 << (dt - 1))) != 0;
 }

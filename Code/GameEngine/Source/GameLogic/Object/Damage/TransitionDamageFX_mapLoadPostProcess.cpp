@@ -29,10 +29,15 @@ class Rva004BA1D0;
 namespace _STL {template <> void vector<Rva004BA1D0, allocator<Rva004BA1D0> >::push_back(const Rva004BA1D0 &);}
 #include "../../../Common/Thing/thing.h"
 class Object:public Thing {public:unsigned getID()const{return *(const unsigned*)((const char*)this+0x74);}};
-class Rva004BA1D0 {public:
- Rva004BA1D0(const Rva004BA1D0&);
- unsigned objectID;_STL::vector<AsciiString,_STL::allocator<AsciiString> >names;
- const ObjectCreationList*ocl;Coord3D neighborOffset;Coord3D oclOffset;
+class Rva004BA1D0
+{
+public:
+	Rva004BA1D0(const Rva004BA1D0 &other);
+	int m_objectID; // +0x00
+	_STL::vector<AsciiString> m_subObjects; // +0x04
+	const ObjectCreationList *m_ocl; // +0x10
+	Coord3D m_neighborOffset; // +0x14
+	Coord3D m_oclOffset; // +0x20
 };
 struct TransitionDamageFXModuleDataView {char pad00[0x1034];_STL::vector<Rva004BA1D0,_STL::allocator<Rva004BA1D0> >neighbors;};
 class BfmeFixedStorage0004543D {public:unsigned words[7];};
@@ -94,13 +99,13 @@ void TransitionDamageFX::mapLoadPostProcess(const Dict *)
  if(!data)return;
  BfmeFixedStorage0004543D mask;memset(&mask,0,28);mask.words[0]|=1U<<7;mask.words[1]|=1U<<28;
  for(const Rva004BA1D0*it=data->neighbors.begin();it!=data->neighbors.end();++it) {
-  if(it->names.empty()||!it->ocl)continue;
-  const Coord3D&offset=it->neighborOffset;Coord3D pos;pos.x=offset.x;pos.y=offset.y;pos.z=offset.z;
+  if(it->m_subObjects.empty()||!it->m_ocl)continue;
+  const Coord3D&offset=it->m_neighborOffset;Coord3D pos;pos.x=offset.x;pos.y=offset.y;pos.z=offset.z;
   Object*owner=m_object;
   owner->convertBonePosToWorldPos(&pos,0,&pos,0);
   Object*other=ThePartitionManager->getClosestObject(&pos,30000.f,0,&Rva003959FA(mask));
   if(other&&other!=m_object) {
-   Rva004BA1D0 neighbor(*it);neighbor.objectID=other->getID();
+   Rva004BA1D0 neighbor(*it);neighbor.m_objectID=other->getID();
    (this?this:this)->resolvedNeighbors.push_back(neighbor);
   }
  }

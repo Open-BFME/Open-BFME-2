@@ -1,5 +1,7 @@
 ### LINK-002: distinct container element identities and exception contracts
 
+**TransitionDamageFX (2026-11-04, `d6e57b77c0`):** the verified map-load record alignment preserves its five rows and 339-byte LINKS preview; merging now reaches the distinct Rva004BA1D0/Rva004BA1C8 vector identity conflict (zero donors accepted). [Evidence and native-contract prerequisites](../../reverse/attempt_support/transitiondamagefx-views-20261104-codex5.md).
+
 **Status: Open. Updated: 2026-10-26; inspected revision: 896af216804e1f1e34de28bd318285fbbbfcc536.**
 
 **Auto-resolve armor store (2026-11-04, inspected `c02844f60c`):** exact 47-byte lookup repair retires two identity keys; subscript retirement still needs the recursive resize shape reconciled (191 emitted bytes versus 184 native). All 13 rows, three EH parents and the 691-byte LINKS preview are preserved. [Evidence and next check](../../reverse/attempt_support/auto-resolve-armor-identity-20261104/README.md).
