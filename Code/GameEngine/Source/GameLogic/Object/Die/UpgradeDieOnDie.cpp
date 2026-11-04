@@ -30,6 +30,12 @@
 
 class DamageInfo;
 class Player;
+class Thing;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
 
 #include "../../../../Include/Common/Upgrade.h"
 
@@ -54,6 +60,8 @@ struct UpgradeDieModuleData
 class UpgradeDie : public DieModule
 {
 public:
+	UpgradeDie(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie(const DamageInfo *damageInfo);
 	const UpgradeDieModuleData *getUpgradeDieModuleData() const
 	{
