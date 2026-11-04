@@ -7,6 +7,7 @@
 // matches map size 12, node+0x14/+0x18 begin/end, virtual call [edx] slot 0,
 // caller at 0x005EAB7C passes ebx/edi/eax.
 #include <map>
+#include "../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
@@ -23,17 +24,9 @@ public:
 	virtual bool check(int val);
 };
 
-class LivingWorldAutoResolveBattle
-{
-public:
-	void enumerateReinforcementUnits(int side, int round, Rva004F76EAPred *pred);
-private:
-	_STL::map<int, int> m_maps[5];
-};
-
 void LivingWorldAutoResolveBattle::enumerateReinforcementUnits(int side, int round, Rva004F76EAPred *pred)
 {
-	_STL::map<int, int> *m = &m_maps[side + 3];
+	_STL::map<int, int> *m = &((_STL::map<int, int> *)field24)[side];
 	_STL::map<int, int>::iterator it = m->find(round);
 	if (it == m->end())
 		return;
