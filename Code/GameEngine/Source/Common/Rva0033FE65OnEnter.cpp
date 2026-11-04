@@ -65,7 +65,10 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 extern int IDLE_COUNTDOWN_DELAY;
 // g_00E01E04: matched references place it at VA 0xe01e04 (zero-filled .bss).
-int IDLE_COUNTDOWN_DELAY;
+// Retail builds it with AIStates.cpp's .text$yc initializer 0x007AEBAA, after
+// the unit's Drawable.h copy 0x007AEB9A in its run (LINK-236).
+extern int BfmeLogicFramesPerSecond;
+int IDLE_COUNTDOWN_DELAY = BfmeLogicFramesPerSecond * 2;
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 int __cdecl GetGameLogicRandomValue(int a, int b, char *c, int d);
 class __declspec(novtable) Rva0033FE65 : public State
