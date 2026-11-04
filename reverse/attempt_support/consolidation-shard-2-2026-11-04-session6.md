@@ -232,3 +232,29 @@ Continuation on 2026-11-04 (same allocated shard; no sources changed):
 All these dry runs and split trials left tracked sources and ledgers unchanged;
 no claims were taken. The blocked causes require class-view/declaration work,
 manual source repair, or LinkGuard context work outside this mechanical lane.
+- `GameLogic/Object/Body/PorcupineFormationBody.cpp`: three donors fail C2511
+  because the module constructor is absent from the seed view. The ConstInt
+  getter split is LinkGuard-refused for `PorcupineFormationBodyModule` string
+  COMDAT context; the getter-name split fails on missing `ActiveBody` context
+  (C2504/C2509). The `VslotSmallBodiesAJ.cpp` split is accepted and matches
+  alone, but no merge donor is accepted, so it was not applied without a merge
+  to pair it with.
+- `Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp`: donor `AngleFXInfoVectorInsertOverflow.cpp`
+  is refused because its flag override costs the TU one row; the vertex
+  declaration and finish donors fail on duplicate `operator new[]` (C2084),
+  and `StructureToppleUpdate.cpp` has duplicate `HMODULE`/`HINSTANCE` (C2371).
+  `GapLeavesSeat8.cpp` offers an accepted split for 0x00181490 but there is no
+  accepted merge to pair it with; `MapUtil.cpp` has no definition spelling the
+  approved 0x00181770 row, and `stlport_vector_pair.cpp` cannot be carved
+  because it is vendored. No split applied.
+- `GameLogic/Object/Behavior/AutoAbilityBehavior.cpp`: ModuleData ctor is
+  rejected as an undeclared compiler-generated special member (C2600); three
+  behavior donors lack `m_str20`; update donor lacks its member declaration
+  (C2509). The module-data dtor mixed rows are flag-bound, the name-getter split
+  needs missing class members (`xfer`, C2039/C2352), and field-parse split
+  needs missing module-data declaration (C2143/C2501). No merge or split.
+
+These additional planner, compile, split, and LinkGuard trials left sources and
+ledgers unchanged and took no claims. Remaining allocated shard-2 TUs still
+need review; manual class-view/declaration repairs and vendor/path constraints
+remain outside this mechanical seat.
