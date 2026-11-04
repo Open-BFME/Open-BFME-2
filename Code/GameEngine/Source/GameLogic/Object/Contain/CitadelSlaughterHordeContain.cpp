@@ -94,7 +94,7 @@ template<> class CitadelDieSlots<0> {};
 
 class CitadelContainedView : public CitadelDieSlots<67> {public:virtual void slot67(ContainmentList&)=0;};
 
-class ThingTemplate {public:char unknown00[0x115];unsigned char kindByte;};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object {
 public:
@@ -254,7 +254,7 @@ void CitadelSlaughterHordeContain::onDie(const DamageInfo*)
  ContainmentList objects=contain()->slot70().rva0036AE51();
  for (ContainmentList::iterator it=objects.begin();it!=objects.end();++it) {
   Object *object=reinterpret_cast<Object*>(containmentFirstWord(*it));
-  if (object && (object->thingTemplate->kindByte & 0x20)) {
+  if (object && (object->thingTemplate->m_kindof[3] & 0x2000U)) {
    CitadelContainedView *nested=reinterpret_cast<CitadelContainedView*>(object->rva0028C197());
    if (nested) {
     ContainmentList children;

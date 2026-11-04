@@ -20,17 +20,7 @@ struct Rva002A7588In;
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x11F];
-	unsigned char m_11F; // +0x11F
-	unsigned char m_pad120[0x610 - 0x120];
-	float m_shockwaveResistance; // +0x610
-	unsigned char m_pad614[4]; // +0x614
-	int m_commandPoints; // +0x618
-	int m_commandPointBonus; // +0x61C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 #include "object.h"
 
 void Object::rva0028DA67()
@@ -69,7 +59,7 @@ bool Object::rva0028DB0F(bool arg) const
 {
 	if (m_template->m_shockwaveResistance >= 100.0f)
 	{
-		if (!arg || !(m_template->m_11F & 0x80))
+		if (!arg || !(m_template->m_kindof[5] & 0x80000000U))
 			return true;
 	}
 	return false;

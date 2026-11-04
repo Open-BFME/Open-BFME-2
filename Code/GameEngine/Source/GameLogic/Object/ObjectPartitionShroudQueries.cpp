@@ -36,15 +36,7 @@ enum ObjectPrivateStatusBits
 	UNDETECTED_DEFECTOR = 0x02
 };
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-private:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x20]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -105,7 +97,7 @@ class Object : public ObjectThingBase, public Rva007FC2D8ShroudStorageView, publ
 public:
 	Player *getControllingPlayer() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (((unsigned char)(getTemplate()->m_kindof[t >> 5] >> (t & 24)) & (1 << (t & 7))) != 0); }
 	bool isUndetectedDefector() const { return (m_privateStatus & UNDETECTED_DEFECTOR) != 0; }
 
 	virtual bool ShroudHideIfFogged(int playerIndex) const;
@@ -142,7 +134,7 @@ bool Object::ShroudHideIfFogged(int playerIndex) const
 	if (player->getRelationship(m_team) == NEUTRAL)
 	{
 		const ThingTemplate *thingTemplate = getTemplate();
-		if (!thingTemplate->isKindOf(KINDOF_2) || thingTemplate->isKindOf(KINDOF_180))
+		if (!(((unsigned char)(thingTemplate->m_kindof[KINDOF_2 >> 5] >> (KINDOF_2 & 24)) & (1 << (KINDOF_2 & 7))) != 0) || (((unsigned char)(thingTemplate->m_kindof[KINDOF_180 >> 5] >> (KINDOF_180 & 24)) & (1 << (KINDOF_180 & 7))) != 0))
 			return true;
 	}
 	else

@@ -188,14 +188,7 @@ public:
 	virtual Rva0028EA91Horde *getHorde();	// vtable +0x7C
 };
 
-class ThingTemplate
-{
-public:
-	int getCommandPointBonus() const { return m_commandPointBonus; }
-private:
-	unsigned char m_pad[0x61c];
-	int m_commandPointBonus;		// +0x61C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -231,7 +224,7 @@ bool Object::addAttributeModifierToPool(const AsciiString &name, int value)
 	if (pool)
 	{
 		Player *player = getControllingPlayer();
-		bool commandPoints = player && getTemplate()->getCommandPointBonus() > 0;
+		bool commandPoints = player && getTemplate()->m_commandPointBonus > 0;
 		if (commandPoints)
 			((Player *)player)->removeCommandPoints((Rva002A7588In *)this);
 		if (pool->addModifierToPool(name, value))
@@ -261,7 +254,7 @@ void Object::removeAttributeModifierFromPool(const AsciiString &name)
 	if (pool)
 	{
 		Player *player = getControllingPlayer();
-		bool commandPoints = player && getTemplate()->getCommandPointBonus() > 0;
+		bool commandPoints = player && getTemplate()->m_commandPointBonus > 0;
 		if (commandPoints)
 			((Player *)player)->removeCommandPoints((Rva002A7588In *)this);
 		pool->rva00403744(name);

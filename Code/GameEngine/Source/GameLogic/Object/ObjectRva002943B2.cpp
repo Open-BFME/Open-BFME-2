@@ -53,11 +53,7 @@ enum Relationship
 	ALLIES = 2
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x114];
-	unsigned int m_flags114;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -223,7 +219,7 @@ bool Object::rva002943B2(const Player *other)
 	else
 		return false;
 template_gate:
-	if ((m_template->m_pad[0x113] & 1) == 0)
+	if ((m_template->m_kindof[2] & 0x1000000U) == 0)
 		return true;
 	Rva00373EC6 *r = rva0028F4BC();
 	if (r == 0)

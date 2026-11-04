@@ -271,7 +271,7 @@ public:
 	int m_5C;
 };
 
-struct ThingTemplate { char m_pad[0x108]; unsigned char m_kindBits[0x10]; };
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class Object : public Thing {
 public:
@@ -388,10 +388,10 @@ bool CrateCollide::isValidToExecute(const Object *other) const
 		if (other->isNeutralControlled())
 			return false;
 		const BfmeCrateCollideModuleData *md = getCrateCollideModuleData();
-		bool validBuildingAttempt = md->m_isBuildingPickup && ((other->m_template->m_kindBits[0] & 0x80) != 0);
+		bool validBuildingAttempt = md->m_isBuildingPickup && ((other->m_template->m_kindof[0] & 0x80U) != 0);
 		if (other->getAIUpdateInterface() == 0 && !validBuildingAttempt)
 			return false;
-		if ((other->m_template->m_kindBits[0x15] & 0x40) != 0) {
+		if ((other->m_template->m_kindof[5] & 0x4000U) != 0) {
 			Player *ctrl = other->getControllingPlayer();
 			if (ctrl == 0)
 				return false;

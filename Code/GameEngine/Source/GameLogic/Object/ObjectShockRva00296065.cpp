@@ -81,7 +81,7 @@ enum PathfindLayerEnum { LAYER_UNKNOWN0 = 0 };
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class ThingTemplate { public: char pad0[0x11c]; unsigned kinds; };
+#include "../../../Include/Common/ThingTemplate.h"
 class Rva001E438B { public: float *rva00261988(float *, Rva001E438B *); };
 enum DamageType { DAMAGE_UNKNOWN8 = 8 };
 enum DeathType { DEATH_UNKNOWN0 = 0 };
@@ -234,7 +234,7 @@ void Object::rva00296065(Rva00297612Entry *entry)
 					forceVector.z = vertical;
 				}
 			}
-			if (templ->kinds & 0x80000000)
+			if (templ->m_kindof[5] & 0x80000000)
 			{
 				if (forceVector.z > 0.0f) forceVector.z = -forceVector.z;
 			}

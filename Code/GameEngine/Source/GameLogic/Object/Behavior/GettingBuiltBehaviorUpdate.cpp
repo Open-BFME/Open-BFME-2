@@ -13,7 +13,7 @@ extern GameLogic *TheGameLogic;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
 class Player;
 class WeaponTemplate;
-class ThingTemplate {public:unsigned char pad[0x108];unsigned int kind[7];};
+#include "../../../../Include/Common/ThingTemplate.h"
 class GettingBuiltUpdateBody {
 public:
  virtual void v0();virtual void v1();virtual void v2();virtual void v3();
@@ -94,7 +94,7 @@ UpdateSleepTime GettingBuiltBehavior::update()
  bool worker=false;
  if(obj->builder!=obj->id && !m_b3C){
    Object *builder=TheGameLogic->findObjectByID(obj->builder);
-   if(builder && !(builder->tmplate->kind[4]&0x10000000))worker=true;
+   if(builder && !(builder->tmplate->m_kindof[4]&0x10000000))worker=true;
  }
  if(!dead){
    if(data->duration>=0.0f && busy && !m_b36)goto cleanup;
@@ -107,7 +107,7 @@ UpdateSleepTime GettingBuiltBehavior::update()
    GettingBuiltUpdateBody *body=obj->body;
    if(body){
      float health=body->maxHealth()/(float)m_x2C;
-     if(obj->tmplate->kind[5]&0x20000000){
+     if(obj->tmplate->m_kindof[5]&0x20000000){
        float minimum=body->maxHealth()*0.2f;
        if(body->health()>=minimum && body->health()<minimum+health){
          TheAI->m_pathfinder->RemoveObjectFromPathfindMap(obj);

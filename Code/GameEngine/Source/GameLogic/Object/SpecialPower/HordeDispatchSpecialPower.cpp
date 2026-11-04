@@ -17,7 +17,7 @@ class Object;
 extern GameLogic *TheGameLogic;
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
-struct ThingTemplate {char p00[0x115];unsigned char flag;};
+#include "../../../../Include/Common/ThingTemplate.h"
 class BfmeVec3EJ {public:float x,y,z;};
 class Gen_000E5A50 {public:inline __declspec(noinline) float Get3DCenterDistanceSquared(const BfmeVec3EJ*p)const{float dx=x-p->x;float dy=y-p->y;float dz=z-p->z;return dx*dx+dy*dy+dz*dz;}char pad[0x38];float x,y,z;};
 class Object {public:
@@ -119,7 +119,7 @@ void Rva004C8A95::xfer(Xfer *xfer)
 
 void HordeDispatchSpecialPower::doSpecialPower(unsigned options){
  Object *owner=getObject();
- if(!owner || !(owner->data->flag&0x20))return;
+ if(!owner || !(owner->data->m_kindof[3] & 0x2000U))return;
  ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
  if(!contain)return;
  SpecialPowerModule::doSpecialPower(options);
@@ -137,7 +137,7 @@ void HordeDispatchSpecialPower::doSpecialPower(unsigned options){
 // Base4949D8 and child slot12 forward location/options, canonical Coord3D.
 void HordeDispatchSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned options){
  Object *owner=getObject();
- if(!owner || !(owner->data->flag&0x20))return;
+ if(!owner || !(owner->data->m_kindof[3] & 0x2000U))return;
  ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
  if(!contain)return;
  SpecialPowerModule::doSpecialPowerAtLocation(location,options);
@@ -159,7 +159,7 @@ void HordeDispatchSpecialPower::doSpecialPowerAtLocation(const Coord3D *location
 // neutral name and target-tested layout at +0x38/+0x3C/+0x40 are retained.
 void HordeDispatchSpecialPower::doSpecialPowerAtObject(Object *target,unsigned options){
  Object *owner=getObject();
- if(!owner || !(owner->data->flag&0x20))return;
+ if(!owner || !(owner->data->m_kindof[3] & 0x2000U))return;
  ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
  if(!contain)return;
  const SpecialPowerTemplate *power=getTemplate();

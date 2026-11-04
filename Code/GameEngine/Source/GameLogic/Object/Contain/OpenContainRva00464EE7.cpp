@@ -83,14 +83,7 @@ struct OpenContainModuleDataView
 	float m_threshold68;
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x10C];
-	unsigned char m_kindFlags;
-	char m_pad10D[0x11F - 0x10D];
-	unsigned char m_byte11F;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object;
 #include "../../../../Include/GameLogic/Module/StealthUpdate.h"
@@ -292,7 +285,7 @@ const Coord3D *OpenContainActionIface::rva004626AF()
 {
 	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
 	Object *owner = contain->m_object;
-	if ((owner->m_template->m_byte11F & 0x80) != 0)
+	if (((unsigned char)(owner->m_template->m_kindof[5] >> 24) & 0x80) != 0)
 		return rva004626CA();
 	return &owner->m_pos38;
 }
@@ -422,7 +415,7 @@ void OpenContainActionIface::rva00463138()
 	while (it != contain->m_containList.end())
 	{
 		Object *rider = (Object *)containmentFirstWord(*it);
-		const bool flagged = (rider->m_template->m_kindFlags & 2) != 0;
+		const bool flagged = ((unsigned char)rider->m_template->m_kindof[1] & 2) != 0;
 		++it;
 		if (flagged)
 		{
@@ -443,7 +436,7 @@ bool OpenContain::rva00464EE7(Object *object)
 		if (rider->getControllingPlayer() == object->getControllingPlayer())
 			continue;
 
-		if ((rider->m_template->m_kindFlags & 2) != 0)
+		if (((unsigned char)rider->m_template->m_kindof[1] & 2) != 0)
 		{
 			if (rider->m_ai != 0)
 			{

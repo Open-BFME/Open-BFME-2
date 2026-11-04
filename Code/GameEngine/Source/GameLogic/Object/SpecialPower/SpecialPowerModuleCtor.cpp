@@ -44,14 +44,7 @@ enum ObjectStatusTypes
 
 #include "../../../../Include/Common/SpecialPower.h"
 
-class ThingTemplate
-{
-public:
-	Bool isStructure() const { return (m_kindOf108 & 0x80) != 0; }
-private:
-	char m_pad[0x108];
-	unsigned char m_kindOf108; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../Include/Common/Player.h"
 
@@ -61,7 +54,7 @@ public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Player *getControllingPlayer() const;
 	ObjectID getID() const { return m_id; }
-	Bool isKindOfStructure() const { return m_template->isStructure(); }
+	Bool isKindOfStructure() const { return (((unsigned char)m_template->m_kindof[0] & 0x80) != 0); }
 private:
 	void *m_vptr;
 	const ThingTemplate *m_template; // +0x04

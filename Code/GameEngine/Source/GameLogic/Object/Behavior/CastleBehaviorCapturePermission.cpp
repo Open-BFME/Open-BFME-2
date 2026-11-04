@@ -10,7 +10,7 @@
 extern "C" int __cdecl fprintf(void *,const char *,...);
 extern "C" void *theLogicRandomLogFile;
 class Player { public: char pad[0x4C]; AsciiString name; };
-class ThingTemplate { public: char pad[0x64]; AsciiString name; };
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object {
 public:
  Player *getControllingPlayer() const;
@@ -33,7 +33,7 @@ bool Rva00397EAC::isPlayerAllowedToCapture(Player *player,int arg)
  if (theLogicRandomLogFile) {
   const char *callerName=object->getControllingPlayer()->name.str();
   int id=object->id;
-  const char *castleName=object->type->name.str();
+  const char *castleName=object->type->m_nameString.str();
   fprintf(theLogicRandomLogFile,
    "CAMP: Frame %d: Castle %s(%d) ::isPlayerAllowedToCapture() called by %s -- alreadyMyCastle=%d, playerAllowedToCapture=%d",
    TheGameLogic->getFrame(),castleName,id,callerName,alreadyMyCastle,decision.allowed);

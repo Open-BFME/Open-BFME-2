@@ -47,21 +47,14 @@ public:
 
 enum KindOfType { KINDOF_STRUCTURE = 7 };
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
 	ObjectID getID() const { return m_id; }
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (((unsigned char)(m_template->m_kindof[t >> 5] >> (t & 24)) & (1 << (t & 7))) != 0); }
 private:
 	void *m_vptr;
 	const ThingTemplate *m_template;

@@ -105,7 +105,7 @@ class Object {public:
  char pad00[0x250];TransportContainView*contain;TransportBodyView*body;
  char pad258[0x304-0x258];Team*team;
 };
-class ThingTemplate {public:char pad00[0x5F1];signed char transportSlots;};
+#include "../../../../Include/Common/ThingTemplate.h"
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct TransportGlobalView{char pad00[0xD45];bool flag;};
 class AI;extern AI*TheAI;	// 0x009FF0F8 under its converged name; the LOD record view is cast where used
@@ -142,7 +142,7 @@ void TransportContain::UpdateUpgradeCreationTriggers()
   }
   unsigned total=record->count;
   for(unsigned j=0;j<total;++j) {
-   if(!((Rva00466D50*)this)->rva00466D50((unsigned)thingTemplate->transportSlots))break;
+   if(!((Rva00466D50*)this)->rva00466D50((unsigned)thingTemplate->m_transportSlotCount))break;
    Object*created=TheThingFactory->newObject(thingTemplate,(i ? obj->team : obj->team),&mask,(ObjectID)0);
    if(!created)break;
    if(iface.s98(created,false,false)) {

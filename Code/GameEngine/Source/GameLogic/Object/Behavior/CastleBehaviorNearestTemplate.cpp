@@ -28,9 +28,7 @@ extern "C" void _WriteBarrier();
 #include "ascii_string.h"
 #include "Common/GameLogicObjectLookupView.h"
 #include "Common/RTS/XYDistanceCallView.h"
-class ThingTemplate {public:const AsciiString&getName()const{return *(const AsciiString*)((const char*)this+0x64);}
- __forceinline bool isKindOf(int bit)const{return (((const unsigned char*)this)[0x108+(bit>>3)]&(1<<(bit&7)))!=0;}
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 // The interface 0x0028BCF4 returns; slot 3 answers a bool.
 class CastleMemberState {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual bool slot3();};
 class Object {public:
@@ -74,13 +72,13 @@ Object*CastleBehavior::rva0039815B(ThingTemplate*thingTemplate,const Coord3D*pos
  }
  ObjectID bestID=INVALID_OBJECT_ID;
  const CastleMemberList*ids=getNormalMembers();
- if(thingTemplate->isKindOf(0x40))
+ if(((thingTemplate->m_kindof[2] & 0x1U)!=0))
   ids=getAlternateMembers();
  for(const ObjectID*it=ids->begin();it!=ids->end();++it) {
   Object*obj=TheGameLogic->findObjectByID(*it);
   if(obj==0)
    continue;
-  if(obj->getTemplate()->isKindOf(0x96))
+  if(((obj->getTemplate()->m_kindof[4] & 0x400000U)!=0))
    continue;
   CastleMemberState*state=(CastleMemberState*)obj->rva0028BCF4();
   if(state==0||state->slot3())

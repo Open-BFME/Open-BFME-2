@@ -88,19 +88,7 @@ struct Rva00396C43Name
 	Rva00396C43NameData *m_data;
 };
 
-class ThingTemplate
-{
-public:
-	const Rva00396C43Name &getName() const { return m_name; }
-	// KindOf bit 0x2F of the BitFlags at +0x108.
-	bool testKindOf2F() const { return (m_kindOf[0x2F >> 3] & (1 << (0x2F & 7))) != 0; }
-
-private:
-	char m_pad00[0x64];
-	Rva00396C43Name m_name;	// +0x64
-	char m_pad68[0x108 - 0x68];
-	unsigned char m_kindOf[0x20];	// +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // Slot 0 of the interface AI slot 96 returns: false is logged "not scared".
 class Rva00396C43Critter
@@ -207,7 +195,7 @@ void Rva00396E4A::onTriggerEntered(Object *obj)
 {
 	if (obj == 0)
 		return;
-	if (obj->getTemplate()->testKindOf2F())
+	if (((obj->getTemplate()->m_kindof[1] & 0x8000U) != 0))
 	{
 		Object *source = TheGameLogic->findObjectByID(m_fleeFromObjectID);
 		if (source == 0)
