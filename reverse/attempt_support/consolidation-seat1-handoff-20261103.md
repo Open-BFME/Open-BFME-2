@@ -134,3 +134,14 @@ checked after `BattlePlanUpdate.cpp`. The next candidate after `EvacuateDamage.c
 is `Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp`; its
 allocation check passed, but recheck wind-down before starting. Progress and
 final session checks remain to be run.
+
+## Continuation 4 (2026-11-04)
+
+Detailed evidence for the next 13 allocated dry runs and one mixed-file split
+refusal is in [consolidation-seat1-trials-20261104.md](consolidation-seat1-trials-20261104.md).
+Each planner/check was current and each merge accepted zero donors; no source,
+ledger, or claim changes were made. Next checked allocation:
+`Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp`.
+Its `--check-tu` passed; recheck wind-down, then run the scoped planner and
+inspect its plan before trying it. Progress was unchanged: net source files 0,
+TUs merged 0, matched rows preserved 0 by this continuation.
