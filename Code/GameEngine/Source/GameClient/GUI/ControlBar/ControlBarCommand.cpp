@@ -410,16 +410,7 @@ extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 
 BFME_ASCII_FIELD_CLEAR(Rva0053BB0EStringField, 0x7C)
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
+#include "../../../../Include/Common/XferException.h"
 
 typedef _STL::vector<const ModuleData *> ModuleDataPtrVector;
 

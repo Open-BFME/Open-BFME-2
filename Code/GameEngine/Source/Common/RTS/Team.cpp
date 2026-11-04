@@ -767,16 +767,7 @@ struct TeamTemplateGenericScriptsView
 	AsciiString m_teamGenericScripts[MAX_GENERIC_SCRIPTS]; // +0x118, prototype +0x244
 };
 #include "../../../Include/Common/XferVersion.h"
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException(void);
-
-	char *text;
-	int tagValue;
-};
+#include "../../../Include/Common/XferException.h"
 enum { TEAM_FACTORY_PROTOTYPE_SLOTS = 40 };
 //
 // ?getTargetableCount@Team@@QBEHXZ @0x0039D9E3 (71B).
