@@ -71,25 +71,7 @@ public:
 		bool flag1D, bool flag1C);
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-class W3DFloorDraw
-{
-private:
-	void *m_vtable;
-	FloorDrawModuleDataView *m_moduleData;
-	Rva0055A88BDwordField *m_drawable;
-	char m_pad0C[8];
-	bool m_flag14;
-	bool m_flag15;
-	bool m_flag16;
-	bool m_flag17;
-
-public:
-	void rva000CF20C(AsciiString *out);
-	void rva000CF2CF();
-	void rva000CF25F(unsigned int, unsigned int, unsigned int);
-	void rva000CF4AE(bool value);
-	void rva000CF4C2(bool value);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DFloorDraw.h"
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 // Storage deallocation cannot throw; keep the STLport cleanup inline.
@@ -315,7 +297,7 @@ bool Rva000CF0D6::test(const Rva000CF0D6 *other) const
 // ?rva000CF20C@W3DFloorDraw@@QAEXPAVAsciiString@@@Z @0x000CF20C
 void W3DFloorDraw::rva000CF20C(AsciiString *out) {
  *out="";
- FloorDrawModuleDataView *moduleData=m_moduleData;
+ FloorDrawModuleDataView *moduleData=(FloorDrawModuleDataView *)m_moduleData;
  unsigned int count=(unsigned int)(moduleData->m_end-moduleData->m_begin);
  if(count>0) {
   _ReadWriteBarrier();
@@ -329,14 +311,14 @@ void W3DFloorDraw::rva000CF20C(AsciiString *out) {
 
 void W3DFloorDraw::rva000CF2CF()
 {
-	FloorDrawModuleDataView *moduleData = m_moduleData;
+	FloorDrawModuleDataView *moduleData = (FloorDrawModuleDataView *)m_moduleData;
 	if (moduleData != 0)
 	{
-		Rva0055A88BDwordField *drawable = m_drawable;
+		Rva0055A88BDwordField *drawable = (Rva0055A88BDwordField *)m_drawable;
 		if (drawable != 0)
 		{
 			TheTerrainRenderObject->rva0006B76C(drawable, moduleData->m_name);
-			if (m_flag15 == 0 && m_flag16 == 0 && m_flag17 == 0)
+			if (m_15 == 0 && m_16 == 0 && m_17 == 0)
 			{
 				AsciiString terrainName;
 				rva000CF20C(&terrainName);
@@ -349,10 +331,10 @@ void W3DFloorDraw::rva000CF2CF()
 }
 
 void W3DFloorDraw::rva000CF25F(unsigned int, unsigned int, unsigned int) {
- Rva0055A88BDwordField *drawable=m_drawable;
- if(!m_flag14) {
-  FloorDrawModuleDataView *data=m_moduleData;
-  m_flag14=true;
+ Rva0055A88BDwordField *drawable=(Rva0055A88BDwordField *)m_drawable;
+ if(!m_14) {
+  FloorDrawModuleDataView *data=(FloorDrawModuleDataView *)m_moduleData;
+  m_14=true;
   if(data) {
    AsciiString terrainName;
    rva000CF20C(&terrainName);
@@ -366,18 +348,18 @@ void W3DFloorDraw::rva000CF25F(unsigned int, unsigned int, unsigned int) {
 // +0x16 flag and refresh through 0x000CF2CF above.
 void W3DFloorDraw::rva000CF4AE(bool value)
 {
-	if (value != m_flag15)
+	if (value != m_15)
 	{
-		m_flag15 = value;
+		m_15 = value;
 		rva000CF2CF();
 	}
 }
 
 void W3DFloorDraw::rva000CF4C2(bool value)
 {
-	if (value != m_flag16)
+	if (value != m_16)
 	{
-		m_flag16 = value;
+		m_16 = value;
 		rva000CF2CF();
 	}
 }
