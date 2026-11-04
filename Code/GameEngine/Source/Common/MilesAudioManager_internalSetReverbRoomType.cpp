@@ -3,16 +3,7 @@
 // WorldBuilder 0x0078DC90 names it (MilesAudioManager.cpp:6327);
 // the full retail body shares its LOD gate, provider layout, AIL calls
 // and reverb-enabled/dirty byte updates at +0x6A7/+0x6A8.
-class GameLODManager
-{
-public:
-	struct Entry { unsigned char flag; char _q[7]; };
-	char _p0[0x21d];
-	Entry entries[3];
-	char _p1[0x1770 - 0x235];
-	int m_1770;
-};
-extern GameLODManager *TheGameLODManager;
+#include "../../Include/Common/GameLODManager.h"
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_room_type(int room, int unk);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_digital_master_room_type(int room, int unk);
 
@@ -49,7 +40,7 @@ void MilesAudioManager::internalSetReverbRoomType(int a)
 				int idx = mgr->m_1770;
 				if (idx >= 0 && idx <= 2)
 				{
-					if (mgr->entries[idx].flag == 0)
+					if (mgr->audioInfo[idx].allowReverb == 0)
 						edi = 0;
 				}
 			}

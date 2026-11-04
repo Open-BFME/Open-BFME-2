@@ -68,7 +68,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-class GameLODManager { public: char m_pad[0x1778]; int m_level; int getLevel() { return m_level; } };
+#include "../../../../GameEngine/Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 
 int Rva00309E4BGet();
@@ -238,7 +238,7 @@ void W3DView::draw( void )
 	}
 
 	Bool lowLOD = false;
-	if (TheGameLODManager && TheGameLODManager->getLevel() <= 1)
+	if (TheGameLODManager && TheGameLODManager->word1778 <= 1)
 		lowLOD = true;
 
 	Bool specialFilter = false;

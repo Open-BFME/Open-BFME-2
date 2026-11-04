@@ -68,7 +68,7 @@ class ParticleSystemTemplate;
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
-class GameLODManager { public: __forceinline int getLevel() const { return level; } char unmodelled[0x1778]; int level; };
+#include "../../../../GameEngine/Include/Common/GameLODManager.h"
 
 extern GameLODManager *TheGameLODManager;
 
@@ -174,7 +174,7 @@ bool Rva00098690::createParticleSystems()
             m_first.get()->rva001F45F4(false);
             reinterpret_cast<Rva001F384AByteZeroSetter *>(m_first.get())->disable();
         }
-        if (TheGameLODManager && TheGameLODManager->level > 1)
+        if (TheGameLODManager && TheGameLODManager->word1778 > 1)
         {
             AsciiString other = reinterpret_cast<const FXParticleSystem::ParticleSystemTemplate *>(this)->getTextureFilename();
             const ParticleSystemTemplate *second = TheParticleSystemManager->findTemplate(other);
@@ -195,7 +195,7 @@ void Rva00098690::update()
 		createParticleSystems();
 	if (!m_active || !TheGameLODManager)
 		return;
-	int lodLevel = TheGameLODManager->level;
+	int lodLevel = TheGameLODManager->word1778;
 	if (lodLevel <= 1)
 		return;
 	bool due = ((W3DFireClientView *)TheGameClient)->getFrame() > m_nextScorchFrame;

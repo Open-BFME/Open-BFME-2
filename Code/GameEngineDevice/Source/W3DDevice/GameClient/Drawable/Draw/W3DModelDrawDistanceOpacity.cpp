@@ -122,12 +122,7 @@ public:
 	virtual const Coord3D *t71();
 };
 
-class GameLODManager
-{
-public:
-	char _p00[0x1778];
-	int m1778;
-};
+#include "../../../../../../GameEngine/Include/Common/GameLODManager.h"
 
 class View;
 extern View *TheTacticalView;
@@ -197,7 +192,7 @@ void Rva000B5C41::rva000B5A72(Arg000B5A72 *moduleData)
   res=((d1-d2)*moduleData->m14C+d2)/d1;
  }
 	GameLODManager *lm = TheGameLODManager;
-	if (lm != 0 && lm->m1778 <= 1) {
+	if (lm != 0 && lm->word1778 <= 1) {
 		m08->rva002707FA(0);
 		m50->s101(1);
 		if (moduleData->m_staticSortLevelWhileFading < 0)
