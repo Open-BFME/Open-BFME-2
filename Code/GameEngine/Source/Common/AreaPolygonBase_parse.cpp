@@ -14,7 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
-struct BfmeE8 { float x; float y; };
+#include "../../Include/Common/AreaPolygonBase.h"
 // bfme link decl-only begin
 // The rowed body calls the 8-byte push_back 0x00539A2E
 // (stlport_vector_e8_allocate_copy.cpp); this unit's /EH copy of its
@@ -26,15 +26,6 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::reserve(un
 struct BfmeE12 { int a[3]; };
 #include "../../Include/Common/DataChunk.h"
 struct AreaPolygonBounds { float v[4]; };
-struct AreaPolygonBase
-{
-	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
-	AreaPolygonBounds m_bounds;
-	float m_1c;
-	float m_20;
-	bool m_dirty;
-	void parse(DataChunkInput &file, int unused);
-};
 void AreaPolygonBase::parse(DataChunkInput &file, int unused)
 {
 	int count = file.readInt();
