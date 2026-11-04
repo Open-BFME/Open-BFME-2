@@ -57,7 +57,13 @@ Rva0057EE5C::~Rva0057EE5C()
 {
 }
 
-class MpGameRules { public: static void GetDefaults(int arg, void *ctx); };
+class UnicodeString;
+class MpGameRules
+{
+public:
+	static void GetDefaults(int mode, void *rules);
+	static UnicodeString GetRuleString(int rule);
+};
 
 class AptMpGameRules
 {
