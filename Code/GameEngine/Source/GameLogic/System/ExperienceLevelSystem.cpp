@@ -28,18 +28,6 @@ public:
 	unsigned char m_pad00[0xc];
 	AsciiString m_name;			// +0x0C
 };
-// STLport vector<ExperienceScalarTable *> view.
-class ExperienceScalarTableVector
-{
-public:
-	Int size() const { return m_finish - m_start; }
-	ExperienceScalarTable *operator[](UnsignedInt i) const { return m_start[i]; }
-
-private:
-	ExperienceScalarTable **m_start;
-	ExperienceScalarTable **m_finish;
-	ExperienceScalarTable **m_endOfStorage;
-};
 #include "../../../Include/Common/Overridable.h"
 // Zero Hour's inline getFinalOverride walk as retail inlines it here: the
 // first level only, then the out-of-line friend_getFinalOverride
@@ -196,32 +184,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 Int SplitUpgrades(void *, const AsciiString &);
 Int SplitString(_STL::vector<AsciiString> &, const AsciiString &);
 class INI;
-class ExperienceLevelStore
-{
-public:
-    bool CreateNewExpLevel(const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &);
-    void AddExperienceLevel(void *, const BfmePod264 *);
-    void rva002891DB(const Rva002894A2 *);
-    static void friend_parseExperienceLevelDefinition(INI *);
-	Int GetLevelRank(ExperienceLevelHandle levelHandle) const;
-	Int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
-	Int GetExperienceAwardForLevel(ExperienceLevelHandle levelHandle) const;
-	ExperienceLevelHandle GetNextLevel(ExperienceLevelHandle levelHandle) const;
-	bool IsValid(ExperienceLevelHandle levelHandle) const;	// 0x0028891F
-	ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &name) const;
-	ExperienceLevelList *FindExperienceLevelList(const ExperienceTracker *tracker) const;	// 0x00288C34
-	ExperienceLevelHandle FindCurrentLevel(const ExperienceTracker *tracker) const;
-	Int rva00288CA6(const ExperienceTracker *tracker, Int rank, Int *pastEnd) const;
-	ExperienceLevelList *rva00288C68(int object);
-	int rva00289BE0(const ExperienceTracker *tracker, int *out);
-
-private:
-	unsigned char m_pad00[0xc];
-	NameKeyGenerator::KeyToBucketMap *m_levelLists;	// +0x0C
-	NameKeyGenerator::KeyToBucketMap *m_reloadLevelLists;
-	ExperienceScalarTableVector m_scalarTables;	// +0x14
-	ExperienceScalarTable *m_defaultScalarTable;	// +0x20
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 // The address-derived singleton view at 0x288CFA is called by the matched
 // ExperienceTracker forwarder at 0x39ABFF. Its direct call to
 // FindExperienceLevelList at 0x288C34 supports the shared store layout.
@@ -428,7 +391,7 @@ ExperienceLevelList *ExperienceLevelStore::FindExperienceLevelList(const Experie
 	if (tracker)
 	{
 		NameKeyGenerator::KeyToBucketMap::Slot it;
-		m_levelLists->find(it, &tracker->m_levelListKey);
+		((NameKeyGenerator::KeyToBucketMap *)m_levelLists)->find(it, &tracker->m_levelListKey);
 		NameKeyGenerator::KeyToBucketMap::Slot found = it;
 		if (found.node)
 			return (ExperienceLevelList *)((char *)found.node + 8);
@@ -439,7 +402,7 @@ ExperienceLevelList *ExperienceLevelStore::rva00288C68(int object)
 {
 	NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)(object + 0x64));
 	NameKeyGenerator::KeyToBucketMap::Slot it;
-	m_levelLists->find(it, key);
+	((NameKeyGenerator::KeyToBucketMap *)m_levelLists)->find(it, key);
 	if (it.node)
 		return (ExperienceLevelList *)((char *)it.node + 8);
 	return 0;
@@ -478,7 +441,7 @@ bool ExperienceLevelStore::CreateNewExpLevel(const AsciiString &sourceName, cons
 void ExperienceLevelStore::rva002891DB(const Rva002894A2 *level)
 {
     NameKeyGenerator::KeyToBucketMap::Slot found;
-    m_levelLists->find(found, &level->key14);
+    ((NameKeyGenerator::KeyToBucketMap *)m_levelLists)->find(found, &level->key14);
     if (found.node) {
         _STL::_S_sort(*reinterpret_cast<_STL::list<crateCreationEntry> *>((char *)found.node + 8), _STL::less<crateCreationEntry>());
         ((Rva0028881C *)((char *)this + 0x28))->rva002889BB();

@@ -20,6 +20,20 @@ class ThingTemplate;
 
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
+// The owner's scalar-table vector occupies +0x14..+0x1F. This pointer-only
+// view needs no definition of the scalar-table element.
+class ExperienceScalarTableVector
+{
+public:
+    int size() const { return m_finish - m_start; }
+    ExperienceScalarTable *operator[](unsigned int i) const { return m_start[i]; }
+
+private:
+    ExperienceScalarTable **m_start;
+    ExperienceScalarTable **m_finish;
+    ExperienceScalarTable **m_endOfStorage;
+};
+
 class ExperienceLevelStore
 {
 public:
@@ -42,6 +56,16 @@ public:
     void AddExperienceLevel(void *map, const BfmePod264 *level);
     static void friend_parseExperienceLevelDefinition(INI *ini);
     bool CreateNewExpLevel(const AsciiString &source, const AsciiString &name, const AsciiString &target, const AsciiString &upgrades, const AsciiString &attributes);
+
+private:
+    // Proven owner prefix only, not the complete ExperienceLevelSystem size
+    // or evidence of a separately constructed Store. Map implementations are
+    // deliberately opaque here; the member bodies select their existing view.
+    unsigned char m_pad00[0x0C];
+    void *m_levelLists;                         // +0x0C
+    void *m_reloadLevelLists;                   // +0x10, reload/parser paths
+    ExperienceScalarTableVector m_scalarTables; // +0x14
+    ExperienceScalarTable *m_defaultScalarTable; // +0x20
 };
 
 #endif
