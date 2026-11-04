@@ -20573,8 +20573,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04144,4,.data,global,_s_rva007B27B8,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04148,4,.data,global,?TheRespawnBodyPoolKey@?1??getModuleNameKey@RespawnBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,owned,,1,2
 0x00A0414C,4,.data,global,?$S1@?1??getModuleNameKey@RespawnBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,owned,,1,4
-0x00A04150,4,.data,global,?respawnKey@?BB@??internalChangeHealth@RespawnBody@@UAEXMPAVDamageInfo@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Body/RespawnBodyApply.cpp,owned,,1,2
-0x00A04154,4,.data,global,?$S1@?BB@??internalChangeHealth@RespawnBody@@UAEXMPAVDamageInfo@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Body/RespawnBodyApply.cpp,owned,,1,2
+0x00A04150,4,.data,global,?respawnKey@?BB@??internalChangeHealth@RespawnBody@@UAEXMPAVDamageInfo@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/RespawnBody.cpp,owned,,1,2
+0x00A04154,4,.data,global,?$S1@?BB@??internalChangeHealth@RespawnBody@@UAEXMPAVDamageInfo@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RespawnBody.cpp,owned,,1,2
 0x00A04158,4,.data,global,?TheDelayedDeathBodyPoolKey@?1??getModuleNameKey@DelayedDeathBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,owned,,1,2
 0x00A0415C,4,.data,global,?$S1@?1??getModuleNameKey@DelayedDeathBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,owned,,1,4
 0x00A04160,4,.data,global,?TheFreeLifeBodyPoolKey@?1??getModuleNameKey@FreeLifeBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,owned,,1,2
