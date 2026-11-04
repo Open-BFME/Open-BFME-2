@@ -58,21 +58,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -216,8 +207,8 @@ StrategicHUD::StatsDisplayImpl::StatsDisplayImpl(int level, const AsciiString &n
 
 	AsciiString prefix;
 	prefix.format("_level%u.", m_04);
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnStatRollOver", DelegateDesc(this, &StatsDisplayImpl::OnStatRollOver));
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnStatRollOut", DelegateDesc(this, &StatsDisplayImpl::OnStatRollOut));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnStatRollOver", DelegateDesc(this, &StatsDisplayImpl::OnStatRollOver));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnStatRollOut", DelegateDesc(this, &StatsDisplayImpl::OnStatRollOut));
 
 	SetRowText(0, FormatCommandPointsText(m_commandPoints, m_commandPointsMax));
 	SetRowText(4, FormatResourceMultiplierText(m_resourceMultiplier));

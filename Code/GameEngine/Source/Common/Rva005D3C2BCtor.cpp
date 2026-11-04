@@ -57,21 +57,12 @@ private:
 	T *m_ptr;
 };
 
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 
@@ -151,7 +142,7 @@ Rva005D3C2B::Rva005D3C2B(int level, const AsciiString &name)
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_04);
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnRollOver", DelegateDesc(reinterpret_cast<Rva005D3A91 *>(this), &Rva005D3A91::rva005D3C07));
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnRollOut", DelegateDesc(reinterpret_cast<Rva005D3AF2 *>(this), &Rva005D3AF2::rva005D3C1F));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnRollOver", DelegateDesc(reinterpret_cast<Rva005D3A91 *>(this), &Rva005D3A91::rva005D3C07));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnRollOut", DelegateDesc(reinterpret_cast<Rva005D3AF2 *>(this), &Rva005D3AF2::rva005D3C1F));
 	StrategicHUD::SetCommandPointsString(m_04, (Rva005D2FD0Outer *)&m_08, m_28, m_2C);
 }

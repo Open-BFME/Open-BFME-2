@@ -59,21 +59,12 @@ private:
 	T *m_ptr;
 };
 
-class AptCommandMapAdder
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[12];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 class Rva005242D7
 {
@@ -172,5 +163,5 @@ Rva005FE750::Rva005FE750(int level, const AsciiString &name)
 	StrategicHUD::SetPlayerNameString(m_level04, (Rva005FDF1COuter *)&m_08, UnicodeString::TheEmptyString);
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level04);
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnTabClicked", DelegateDesc(this, &Rva005FE750::OnTabClicked));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnTabClicked", DelegateDesc(this, &Rva005FE750::OnTabClicked));
 }

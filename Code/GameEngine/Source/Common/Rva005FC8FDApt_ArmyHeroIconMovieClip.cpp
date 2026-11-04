@@ -71,21 +71,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -343,12 +334,12 @@ StrategicHUD::ArmyMemberIconMovieClip::Impl::Impl(ArmyMemberIconMovieClip *owner
 
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnInitialized", DelegateDesc(this, &Impl::OnInitialized));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnClicked", DelegateDesc(this, &Impl::OnClicked));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnRollOver", DelegateDesc(this, &Impl::OnRollOver));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnRollOut", DelegateDesc(this, &Impl::OnRollOut));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnTypeRollOver", DelegateDesc(this, &Impl::OnTypeRollOver));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnTypeRollOut", DelegateDesc(this, &Impl::OnTypeRollOut));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnInitialized", DelegateDesc(this, &Impl::OnInitialized));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnClicked", DelegateDesc(this, &Impl::OnClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnRollOver", DelegateDesc(this, &Impl::OnRollOver));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnRollOut", DelegateDesc(this, &Impl::OnRollOut));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnTypeRollOver", DelegateDesc(this, &Impl::OnTypeRollOver));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnTypeRollOut", DelegateDesc(this, &Impl::OnTypeRollOut));
 	g_bfmeAptWindowManager->bfmeSetText("APT:" + prefix + m_name + "_Quantity", UnicodeString::TheEmptyString, true);
 }
 

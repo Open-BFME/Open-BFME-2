@@ -54,21 +54,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, desc);
-	}
-
-private:
-	void *m_pad[3];
-};
+	adder.AddCommandMap(name, desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -150,8 +141,8 @@ private: RollOverListener *m_listener; bool m_rollOver; AptCommandMapAdder m_0C;
 Rva005D2EA8::Rva005D2EA8(int level,const AsciiString &name,const char *stat):m_listener(0),m_rollOver(false)
 {
  AsciiString prefix; prefix.format("_level%u.",level);
- m_0C.AddCommandMapDelegate(prefix+name+"_On"+stat+"RollOver",DelegateDesc(this,&Rva005D2EA8::OnRollOver));
- m_0C.AddCommandMapDelegate(prefix+name+"_On"+stat+"RollOut",DelegateDesc(this,&Rva005D2EA8::onRollOut));
+ AddCommandMapDelegate(m_0C, prefix+name+"_On"+stat+"RollOver",DelegateDesc(this,&Rva005D2EA8::OnRollOver));
+ AddCommandMapDelegate(m_0C, prefix+name+"_On"+stat+"RollOut",DelegateDesc(this,&Rva005D2EA8::onRollOut));
 }
 Rva005D2EA8::~Rva005D2EA8() {if(m_listener) m_listener->notify(this);}
 void Rva005D2EA8::onRollOut(const char *) {m_rollOver=false;if(m_listener) m_listener->rollOut(this);}

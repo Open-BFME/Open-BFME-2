@@ -76,18 +76,12 @@ public:
 private:
  T *m_ptr;
 };
-class AptCommandMapAdder {
-public:
- AptCommandMapAdder();
- ~AptCommandMapAdder();
- void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
- __forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
- {
-  AddCommandMap(name, &desc);
- }
-private:
- char m_pad[0xC];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
+{
+	adder.AddCommandMap(name, &desc);
+}
 class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);
  char m_pad000[0x312]; bool m_flag312;};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -276,14 +270,14 @@ Rva0054CFB8Target::Rva0054CFB8Target(int level, const AsciiString &movie)
  Impl *impl = static_cast<Impl *>(this);
  AsciiString prefix;
  prefix.format("_level%u.", m_level00);
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonOk", DelegateDesc(impl, &Impl::OnButtonOk));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonCancel", DelegateDesc(impl, &Impl::OnButtonCancel));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonYes", DelegateDesc(impl, &Impl::OnButtonYes));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonNo", DelegateDesc(impl, &Impl::OnButtonNo));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnShowing", DelegateDesc(impl, &Impl::OnShowing));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnShown", DelegateDesc(impl, &Impl::OnShown));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnHiding", DelegateDesc(impl, &Impl::OnHiding));
- m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnHidden", DelegateDesc(impl, &Impl::OnHidden));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnButtonOk", DelegateDesc(impl, &Impl::OnButtonOk));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnButtonCancel", DelegateDesc(impl, &Impl::OnButtonCancel));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnButtonYes", DelegateDesc(impl, &Impl::OnButtonYes));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnButtonNo", DelegateDesc(impl, &Impl::OnButtonNo));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnShowing", DelegateDesc(impl, &Impl::OnShowing));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnShown", DelegateDesc(impl, &Impl::OnShown));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnHiding", DelegateDesc(impl, &Impl::OnHiding));
+ AddCommandMapDelegate(m_commands08, prefix + m_movie04 + "_OnHidden", DelegateDesc(impl, &Impl::OnHidden));
 }
 
 // Native176B [54C99A,54CA4A), EH+RET4. Existing level/movie/state

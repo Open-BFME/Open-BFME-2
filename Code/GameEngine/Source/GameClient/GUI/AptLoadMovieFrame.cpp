@@ -64,21 +64,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[12]; // +0x0C size 12 so +0x18 flag follows
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 
@@ -179,6 +170,6 @@ AptLoadMovieFrame::Impl::Impl(int level, const AsciiString &name)
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
-	m_bindings.AddCommandMapDelegate(prefix + m_name + "_OnContentLoaded", DelegateDesc(this, &AptLoadMovieFrame::Impl::OnContentLoaded));
+	AddCommandMapDelegate(m_bindings, prefix + m_name + "_OnContentLoaded", DelegateDesc(this, &AptLoadMovieFrame::Impl::OnContentLoaded));
 }
 

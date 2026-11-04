@@ -58,21 +58,12 @@ private:
 	T *m_ptr;
 };
 
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 
@@ -145,11 +136,11 @@ StrategicHUD::HeroArmyDetailsMovieClip::Impl::Impl(void *owner, unsigned int lev
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level04);
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnLeaderIconClicked", DelegateDesc(reinterpret_cast<Rva005F5FD9 *>(this), &Rva005F5FD9::rva005F5FD9));
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnLeaderIconRollOver", DelegateDesc(reinterpret_cast<Rva005F5FF1 *>(this), &Rva005F5FF1::rva005F5FFF));
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnLeaderIconRollOut", DelegateDesc(reinterpret_cast<Rva005F5FF1 *>(this), &Rva005F5FF1::rva005F5FF1));
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnLeaderTypeRollOver", DelegateDesc(reinterpret_cast<Rva005F600D *>(this), &Rva005F600D::rva005F6014));
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnLeaderTypeRollOut", DelegateDesc(reinterpret_cast<Rva005F600D *>(this), &Rva005F600D::rva005F600D));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnLeaderIconClicked", DelegateDesc(reinterpret_cast<Rva005F5FD9 *>(this), &Rva005F5FD9::rva005F5FD9));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnLeaderIconRollOver", DelegateDesc(reinterpret_cast<Rva005F5FF1 *>(this), &Rva005F5FF1::rva005F5FFF));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnLeaderIconRollOut", DelegateDesc(reinterpret_cast<Rva005F5FF1 *>(this), &Rva005F5FF1::rva005F5FF1));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnLeaderTypeRollOver", DelegateDesc(reinterpret_cast<Rva005F600D *>(this), &Rva005F600D::rva005F6014));
+	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnLeaderTypeRollOut", DelegateDesc(reinterpret_cast<Rva005F600D *>(this), &Rva005F600D::rva005F600D));
 	UnicodeString quantity;
 	quantity.format(L"%d", 1);
 	SetLeaderQuantityString(quantity);

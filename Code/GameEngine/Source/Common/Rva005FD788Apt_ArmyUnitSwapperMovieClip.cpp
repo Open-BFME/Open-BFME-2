@@ -67,21 +67,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -202,14 +193,14 @@ StrategicHUD::ArmyUnitSwapperMovieClip::Impl::Impl(ArmyUnitSwapperMovieClip *own
 
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level4);
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnOpen", DelegateDesc(this, &Impl::OnOpen));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnClosed", DelegateDesc(this, &Impl::OnClosed));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnExitButtonClicked", DelegateDesc(this, &Impl::OnExitButtonClicked));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnMoveDownButtonClicked", DelegateDesc(this, &Impl::OnMoveDownButtonClicked));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnMoveUpButtonClicked", DelegateDesc(this, &Impl::OnMoveUpButtonClicked));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnSwapButtonClicked", DelegateDesc(this, &Impl::OnSwapButtonClicked));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnTopPanelLoaded", DelegateDesc(this, &Impl::OnTopPanelLoaded));
-	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnBottomPanelLoaded", DelegateDesc(this, &Impl::OnBottomPanelLoaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnOpen", DelegateDesc(this, &Impl::OnOpen));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnClosed", DelegateDesc(this, &Impl::OnClosed));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnExitButtonClicked", DelegateDesc(this, &Impl::OnExitButtonClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnMoveDownButtonClicked", DelegateDesc(this, &Impl::OnMoveDownButtonClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnMoveUpButtonClicked", DelegateDesc(this, &Impl::OnMoveUpButtonClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnSwapButtonClicked", DelegateDesc(this, &Impl::OnSwapButtonClicked));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnTopPanelLoaded", DelegateDesc(this, &Impl::OnTopPanelLoaded));
+	AddCommandMapDelegate(m_commandMaps, prefix + m_name + "_OnBottomPanelLoaded", DelegateDesc(this, &Impl::OnBottomPanelLoaded));
 
 	for (int slot = 0; slot < 2; ++slot)
 	{

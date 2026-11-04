@@ -90,21 +90,12 @@ private:
 	T *m_ptr;
 };
 
-class AptCommandMapAdder
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
-	{
-		AddCommandMap(name, &desc);
-	}
-
-private:
-	char m_pad[12];
-};
+	adder.AddCommandMap(name, &desc);
+}
 
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 
@@ -198,11 +189,11 @@ Rva00527FA7::Rva00527FA7(int level, const AsciiString &name)
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level00);
-	m_0C.AddCommandMapDelegate(prefix + m_04 + "_OnOpened", DelegateDesc(this, &Rva00527FA7::OnOpened));
-	m_0C.AddCommandMapDelegate(prefix + m_04 + "_OnClosed", DelegateDesc(this, &Rva00527FA7::OnClosed));
-	m_0C.AddCommandMapDelegate(prefix + m_04 + "_OnCancel", DelegateDesc(this, &Rva00527FA7::OnCancel));
-	m_0C.AddCommandMapDelegate(prefix + m_04 + "_OnDeleteAction", DelegateDesc(this, &Rva00527FA7::OnDeleteAction));
-	m_0C.AddCommandMapDelegate(prefix + m_04 + "_OnExecute", DelegateDesc(this, &Rva00527FA7::OnExecute));
+	AddCommandMapDelegate(m_0C, prefix + m_04 + "_OnOpened", DelegateDesc(this, &Rva00527FA7::OnOpened));
+	AddCommandMapDelegate(m_0C, prefix + m_04 + "_OnClosed", DelegateDesc(this, &Rva00527FA7::OnClosed));
+	AddCommandMapDelegate(m_0C, prefix + m_04 + "_OnCancel", DelegateDesc(this, &Rva00527FA7::OnCancel));
+	AddCommandMapDelegate(m_0C, prefix + m_04 + "_OnDeleteAction", DelegateDesc(this, &Rva00527FA7::OnDeleteAction));
+	AddCommandMapDelegate(m_0C, prefix + m_04 + "_OnExecute", DelegateDesc(this, &Rva00527FA7::OnExecute));
 }
 
 // tu-skeleton: 0x00796B0C 10B $L2025 -- matched in Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp (not merged yet)
