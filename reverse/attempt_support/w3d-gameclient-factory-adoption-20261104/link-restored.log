@@ -1,0 +1,6 @@
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 351)
+  unresolved  ?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z
+  duplicate   ?setFrameRate@Rva0004C6C6@@QAEXM@Z
+  comdat      ?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ  (retail: not retail's body)
+  selected    ?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ  (the definition the link keeps is not retail's)
+link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.6s)

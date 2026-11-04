@@ -1,0 +1,6 @@
+Source claims: OK (1 sources, scoped byte-verified)
+  FAIL ?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp)
+    target:   b8 2d fe b5 00 e8 d0 94 59 00 51 68 d8 00 00 00 e8 dd 00 fa ff 59 8b c8 89 4d f0 33 c0 3b c8 89 45 fc 74 05 e8 e8 51 07 00 8b 4d f4 64 89 0d 00 00 00 00 c9 c3
+    compiled: b8 2d fe b5 00 e8 d0 94 59 00 51 68 dc 00 00 00 e8 dd 00 fa ff 59 8b c8 89 4d f0 33 c0 3b c8 89 45 fc 74 05 e8 e8 51 07 00 8b 4d f4 64 89 0d 00 00 00 00 c9 c3
+Functions: FAIL 1/6
+1 function(s) failed byte comparison

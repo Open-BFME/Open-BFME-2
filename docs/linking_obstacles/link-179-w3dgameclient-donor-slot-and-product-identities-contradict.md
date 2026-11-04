@@ -42,3 +42,5 @@ census together with that one. The tooling audit over the whole outgoing range f
 added, deleted or renamed path, so no consumer repointing was required beyond the
 repoints the split tool applied to `functions.csv`, `tu_map.csv` and the doxygen input
 list. No linking, debt or census gain is claimed.
+
+2026-11-04: canonical factory adoption now reaches object generation; five rows stay exact, but refuted display factory8FCAE allocates DC instead of D8 with the canonical base. Reverted; paired display identity/TU correction is the next prerequisite. [Trial and restored checks](../../reverse/attempt_support/w3d-gameclient-factory-adoption-20261104/README.md).
