@@ -1,0 +1,125 @@
+{
+  "before": {
+    "definitions": [
+      [
+        "?Compute_Ram_Size@MeshModelClass@@QAEHXZ",
+        0,
+        2,
+        32
+      ]
+    ],
+    "comdats": [
+      [
+        "?Compute_Ram_Size@MeshModelClass@@QAEHXZ",
+        "0a86ac051d6e",
+        67
+      ]
+    ],
+    "roots": [
+      "?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ",
+      "?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ",
+      "?bfmeTotalVNQ@BfmeThingVNQ@@QAEHXZ",
+      "___DebugIncludeInLink1"
+    ],
+    "edges": {},
+    "nondebug_sections": [
+      [
+        ".drectve",
+        1051136,
+        98,
+        "31e3fb49d1e782864ce03c61089c4e3bbde7d9f749d1ef4043219c2da9764790",
+        []
+      ],
+      [
+        ".text",
+        1615859744,
+        67,
+        "094aebd81347de2a2eb629a90e11ecd12d629d954a3e8c9187f57578ae5254c4",
+        [
+          [
+            5,
+            "?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ",
+            20
+          ],
+          [
+            22,
+            "?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ",
+            20
+          ],
+          [
+            39,
+            "?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ",
+            20
+          ],
+          [
+            56,
+            "?bfmeTotalVNQ@BfmeThingVNQ@@QAEHXZ",
+            20
+          ]
+        ]
+      ]
+    ]
+  },
+  "after": {
+    "definitions": [
+      [
+        "?Compute_Ram_Size@MeshModelClass@@QAEHXZ",
+        0,
+        2,
+        32
+      ]
+    ],
+    "comdats": [
+      [
+        "?Compute_Ram_Size@MeshModelClass@@QAEHXZ",
+        "0a86ac051d6e",
+        67
+      ]
+    ],
+    "roots": [
+      "?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ",
+      "?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ",
+      "?bfmeTotalVNQ@BfmeThingVNQ@@QAEHXZ",
+      "___DebugIncludeInLink1"
+    ],
+    "edges": {},
+    "nondebug_sections": [
+      [
+        ".drectve",
+        1051136,
+        98,
+        "31e3fb49d1e782864ce03c61089c4e3bbde7d9f749d1ef4043219c2da9764790",
+        []
+      ],
+      [
+        ".text",
+        1615859744,
+        67,
+        "094aebd81347de2a2eb629a90e11ecd12d629d954a3e8c9187f57578ae5254c4",
+        [
+          [
+            5,
+            "?Compute_Ram_Size@MeshGeometryClass@@QAEHXZ",
+            20
+          ],
+          [
+            22,
+            "?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ",
+            20
+          ],
+          [
+            39,
+            "?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ",
+            20
+          ],
+          [
+            56,
+            "?bfmeTotalVNQ@BfmeThingVNQ@@QAEHXZ",
+            20
+          ]
+        ]
+      ]
+    ]
+  },
+  "identical": true
+}
