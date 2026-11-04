@@ -1,6 +1,6 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /D_CRTIMP=
 
-void __cdecl free(void *block);
+#include <stdlib.h>
 
 class Rva00500D30
 {

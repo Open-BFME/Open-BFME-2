@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // LivingWorldRegionConnection destructor + deleting dtor.
@@ -23,7 +23,7 @@ class Xfer;
 
 #include "ascii_string.h"
 
-extern "C" void free(void *block);
+#include <stdlib.h>
 
 struct DetourPoints
 {

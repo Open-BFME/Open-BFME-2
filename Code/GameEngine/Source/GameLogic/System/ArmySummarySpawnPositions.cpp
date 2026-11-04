@@ -5,7 +5,7 @@
 // WB1089D3C spells the owner-friendly branch as !reinforcement; WB1089E64
 // spells the at-home branch as reinforcement. This asymmetry reproduces
 // retail's out-of-line defender arm at 40CEFB without a codegen workaround.
-// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/GameLogic/System /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/GameLogic/System /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep /D_CRTIMP=
 // stlport
 #include "ArmyPlacerWaypoints.h"
 #include <vector>
@@ -14,7 +14,7 @@
 #include "ascii_string.h"
 #define BFME_SNAPSHOT_NAME_SLOT 1
 #include "Common/Snapshot.h"
-extern "C" void __cdecl free(void*);
+#include <stdlib.h>
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva004F69C3Target { unsigned char unknown0[4]; AsciiString templateName; unsigned char opaque[0xAC-8]; TargetRef00217D4C ref; };

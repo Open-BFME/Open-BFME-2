@@ -6,11 +6,12 @@
 // different files so not a gap; boundary is proven by ret plus int3 pad (ghidra
 // size 11 matches bytes-to-next 11). Callers are 4 jmps from Unwind funclets
 // (0x00764CB6 0x00764CC1 0x00764EA6 0x00764EB1) suggesting EH cleanup use.
-// Identity unproven so the class and method keep honest Rva names. Defaults
-// (no // cl: line) are load-bearing: /O1 emits push [ecx] (10B) while defaults
-// emit mov eax,[ecx]; push eax (11B exact).
-// No // cl: line (defaults match the frameless 11-byte shape).
-extern "C" __declspec(dllimport) void __cdecl free(void *block);
+// Identity unproven so the class and method keep honest Rva names. Default
+// optimization is load-bearing: /O1 emits push [ecx] (10B) while defaults
+// emit mov eax,[ecx]; push eax (11B exact). /MD only makes <stdlib.h> declare
+// free as the msvcr71 import.
+// cl: /MD
+#include <stdlib.h>
 
 class Rva00118CA0
 {

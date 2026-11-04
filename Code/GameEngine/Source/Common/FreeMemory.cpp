@@ -1,5 +1,6 @@
+// cl: /MD
 int __cdecl Rva008791E0Remove(void *key, void **out);
-extern "C" __declspec(dllimport) void __cdecl free(void *memory);
+#include <stdlib.h>
 
 // nbench sysspec.c FreeMemory: drop the block from mem_array, then free
 // the true (unaligned) address the removal hands back.

@@ -1,5 +1,5 @@
 // ??1Rva003F2D03@@QAE@XZ
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /EHs /arch:SSE /ICode/Libraries/Include/Lib /Ireference/shims/bfmealloc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /EHs /arch:SSE /ICode/Libraries/Include/Lib /Ireference/shims/bfmealloc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ??1Rva003F2D03@@QAE@XZ @0x003F2D03 545B
 // Target bytes show two DeleteRange calls over members at +0xfc/+0x100 and
@@ -22,7 +22,7 @@
 #include "ascii_string.h"
 #include "Coord2D.h"
 
-extern "C" void __cdecl free(void *block);
+#include <stdlib.h>
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"

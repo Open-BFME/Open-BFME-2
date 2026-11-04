@@ -1,10 +1,10 @@
-// cl: /MD /EHs
+// cl: /MD /EHs /D_CRTIMP=
 // Native 0x0028279F..0x002827F3: clear, notify slot-zero listeners with
 // this, destroy the record vector at +0x14, then release the listener buffer.
 // Caller 0x002833E7 owns this object's lifetime. The separate clear helper
 // at 0x002827F3 has pointer vectors at +4/+0x10, unlike this object's layout;
 // its address-derived class name is therefore not this destructor's identity.
-extern "C" void __cdecl free(void *block);
+#include <stdlib.h>
 
 struct TargetRef00217D4C;
 struct Rva0027EA49
