@@ -62,6 +62,7 @@ private:
 // ?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z, retail 0x004CE27C, 33 bytes.
 // ?isAlreadyUpgraded@UpgradeMux@@UBE_NXZ, retail 0x00098CBC, 4 bytes.
 // ?postUpgradeCheck@UpgradeMux@@UAEXXZ, retail 0x000B3FD0, 1 byte.
+// ?upgradeMuxLoadPostProcess@UpgradeMux@@MAEXXZ, retail 0x000B3FD0, 1 byte.
 // UpgradeMux slots 5, 1 and 0 of vftable 0x00C5FF10 (installed by the rowed
 // ??0UpgradeMux at 0x004CE2A3); both are shared by the 17 behavior
 // vftables that embed an UpgradeMux. Donor ZH UpgradeModule.cpp:
@@ -96,6 +97,13 @@ void UpgradeMux::forceRefreshUpgrade()
 
 // ?postUpgradeCheck@UpgradeMux@@UAEXXZ @0x000B3FD0
 void UpgradeMux::postUpgradeCheck()
+{
+}
+
+// ?upgradeMuxLoadPostProcess@UpgradeMux@@MAEXXZ @0x000B3FD0
+// Slot 17 (+0x44) of UpgradeMux table 0x00C5FF10 holds the same shared empty
+// RET; ZH UpgradeModule.cpp's UpgradeMux::upgradeMuxLoadPostProcess is empty.
+void UpgradeMux::upgradeMuxLoadPostProcess()
 {
 }
 
