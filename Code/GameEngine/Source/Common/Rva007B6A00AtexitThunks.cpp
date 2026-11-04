@@ -132,7 +132,7 @@ public:
 #include "../../Include/Common/Geometry.h"
 
 extern unsigned int g_00DDE0AC;
-unsigned g_Va00DEBC64;	// retail RVA 0x009EBC64 (.bss), defined here
+unsigned int g_Va00DEBC64[10];	// retail RVA 0x009EBC64 (.bss), defined here
 unsigned g_Va00DFE490;	// retail RVA 0x009FE490 (.bss), defined here
 unsigned g_Va00DFE49C;	// retail RVA 0x009FE49C (.bss), defined here
 class Rva00575674;
@@ -166,17 +166,17 @@ unsigned g_Va00E049A0;	// retail RVA 0x00A049A0 (.bss), defined here
 unsigned g_Va00E049A4;	// retail RVA 0x00A049A4 (.bss), defined here
 extern unsigned g_Va00E062FC;
 extern unsigned g_Va00E0630C;
-extern unsigned g_Va00E0631C;
-unsigned g_Va00E06360;	// retail RVA 0x00A06360 (.bss), defined here
+extern unsigned int g_Va00E0631C[14];
+unsigned int g_Va00E06360[5];	// retail RVA 0x00A06360 (.bss), defined here
 extern unsigned g_Va00E063D4;
 unsigned g_Va00E06458;	// retail RVA 0x00A06458 (.bss), defined here
-extern unsigned g_Va00E065EC;
-extern unsigned g_Va00E06620;
+extern unsigned int g_Va00E065EC[8];
+extern unsigned int g_Va00E06620[5];
 extern unsigned g_Va00E06710;
 unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined here
 extern unsigned g_Va00E06734;
 extern unsigned g_Va00E06748;
-unsigned g_Va00E08D48;	// retail RVA 0x00A08D48 (.bss), defined here
+unsigned int g_Va00E08D48[5];	// retail RVA 0x00A08D48 (.bss), defined here
 extern unsigned g_Va00E09E60;
 extern unsigned GeometryContactSphere;
 

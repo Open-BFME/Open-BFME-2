@@ -129,7 +129,7 @@ unsigned g_Va00E06610;	// retail RVA 0x00A06610 (.bss), defined here
 unsigned g_Va00E06614;	// retail RVA 0x00A06614 (.bss), defined here
 unsigned g_Va00E06618;	// retail RVA 0x00A06618 (.bss), defined here
 unsigned g_Va00E0661C;	// retail RVA 0x00A0661C (.bss), defined here
-unsigned g_Va00DF2984;	// retail RVA 0x009F2984 (.bss), defined here
+unsigned int g_Va00DF2984[9];	// retail RVA 0x009F2984 (.bss), defined here
 // VA 0x00E00944: the Dict that Rva003B242CGet.cpp defines (8 bytes).
 extern Dict g_Va00E00944;
 // Owned by W3DFontCharsCache.cpp; the initializer uses the existing ABI view.

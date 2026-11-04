@@ -50,7 +50,7 @@ struct Rva005CC3C0In
 	int m_04;
 };
 
-extern unsigned g_Va00E06620;
+extern unsigned int g_Va00E06620[5];
 extern const void *const g_00C7A630[];
 extern const void *const g_00C74E38[];
 extern const void *const g_00C74E18[];

@@ -44,7 +44,7 @@ public:
 	Rva0057A4E7();
 };
 
-extern unsigned g_Va00DEBC64;
+extern unsigned int g_Va00DEBC64[10];
 void __cdecl rva007B6DFA();
 
 // ?rva007AC6DD@@YAXXZ @0x007AC6DD 22B: ctor 0x000E188F on &g_Va00DEBC64, atexit(0x007B6DFA).
@@ -126,7 +126,7 @@ void __cdecl rva007B94C8();
 void rva007B4100();
 
 
-extern unsigned g_Va00E06360;
+extern unsigned int g_Va00E06360[5];
 void __cdecl rva007B94D2();
 
 // ?rva007B4116@@YAXXZ @0x007B4116 22B: ctor 0x0057AA45 on &g_Va00E06360, atexit(0x007B94D2).

@@ -127,7 +127,7 @@ extern unsigned int g_00E06664;
 // initializer below runs the rowed _Loc_init ctor on it.
 unsigned char g_00E06665;
 extern unsigned g_Va00E06724[4];
-extern unsigned g_Va00E08D48;
+extern unsigned int g_Va00E08D48[5];
 
 struct Rva007AB81ACtorInits
 {

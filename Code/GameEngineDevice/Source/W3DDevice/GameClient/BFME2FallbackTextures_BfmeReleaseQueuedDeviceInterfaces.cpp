@@ -60,7 +60,7 @@ public:
 };
 class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
-extern unsigned g_Va00DF2984;
+extern unsigned int g_Va00DF2984[9];
 extern unsigned g_Va00DF29A8;
 static __forceinline CriticalSection *deferredDeviceMutex() {
  return reinterpret_cast<CriticalSection *>(&g_Va00DF2984);

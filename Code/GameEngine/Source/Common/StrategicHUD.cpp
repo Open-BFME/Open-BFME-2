@@ -763,13 +763,13 @@ public:
 	TreeHintRef00217D4C rva00579770(int);
 };
 
-extern unsigned g_Va00E0631C;
+extern unsigned int g_Va00E0631C[14];
 
 	// the StatsDisplay instance at 0x00E0631C
 // Defined here: nothing else in the tree did. Retail's 56-byte zero-filled
 // .bss object (RVA 0x00A0631C), constructed in place by the 0x007AC6DD
 // initializer; its referencing units spell it as this scalar.
-unsigned g_Va00E0631C;
+unsigned int g_Va00E0631C[14];
 
 class Rva003FE20FBase
 {
@@ -798,7 +798,7 @@ struct ChecklistIteratorView
 
 struct ChecklistFontDesc;
 
-extern unsigned g_Va00E06360;
+extern unsigned int g_Va00E06360[5];
 
 class Rva005D1A6C
 {

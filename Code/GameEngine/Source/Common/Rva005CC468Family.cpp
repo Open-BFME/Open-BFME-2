@@ -18,7 +18,7 @@ public:
 
 // One storage owner per retail address. Keep the getter's established view
 // only at the call, rather than introducing another datum with its class name.
-extern unsigned g_Va00E06620;
+extern unsigned int g_Va00E06620[5];
 class Rva005E16DA;
 extern Rva005E16DA g_cancelArmyMoveButton;
 extern Rva005E16DA g_cancelArmyMemberMoveButton;

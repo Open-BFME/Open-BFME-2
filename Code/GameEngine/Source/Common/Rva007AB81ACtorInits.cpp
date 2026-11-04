@@ -114,7 +114,7 @@ extern Rva0030ADED TheFireSettings;			// 0x00DFF4F8 (Rva007B6880Thunks.cpp)
 extern Rva0030ADED TheFireSettingsSaved;		// 0x00DFF4B8
 extern Rva00214E02 TheCloudEffectSettings;		// 0x00DFE280 (Rva007B6880Thunks.cpp)
 extern Rva00214E02 TheCloudEffectSettingsSaved;	// 0x00DFE1E8
-extern unsigned g_Va00E065EC;
+extern unsigned int g_Va00E065EC[8];
 
 struct Rva007AB81ACtorInits
 {

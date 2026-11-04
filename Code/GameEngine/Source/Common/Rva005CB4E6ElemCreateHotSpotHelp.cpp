@@ -56,8 +56,8 @@ public:
 // Defined here: nothing else in the tree did. Retail's 32-byte zero-filled
 // .bss object (RVA 0x00A065EC), constructed in place by the 0x007B494C
 // initializer; its referencing units spell it as this scalar.
-extern unsigned int g_Va00E065EC;
-unsigned int g_Va00E065EC;
+extern unsigned int g_Va00E065EC[8];
+unsigned int g_Va00E065EC[8];
 
 class Rva005E755E { public: UnicodeString rva005e755e(); };
 class Rva005E3DE8 { public: UnicodeString rva005E3E1D(); };

@@ -251,7 +251,7 @@ void rva007AC956()
 	atexit(rva007B6EF4);
 }
 
-extern unsigned g_Va00E0631C;
+extern unsigned int g_Va00E0631C[14];
 void __cdecl rva007B94C8();
 
 // ?rva007B4100@@YAXXZ @0x007B4100 22B: ctor 0x00579C52 on &g_Va00E0631C, atexit(0x007B94C8).

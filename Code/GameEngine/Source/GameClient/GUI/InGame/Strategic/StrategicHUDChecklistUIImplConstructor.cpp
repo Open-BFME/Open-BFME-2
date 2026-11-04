@@ -148,7 +148,7 @@ struct GlobalObj {virtual ~GlobalObj() {} virtual void *d1(); virtual void *d2()
 // (rva0057ABD0's spill schedule, DoCreateNewItem's st(1) sum).
 class Rva0057A24A {public:__declspec(noinline) float rva0057A24A() const;private:char m_pad[0x20];float m_20;};
 float Rva0057A24A::rva0057A24A() const { return (*(GlobalObj **)&g_bfmeAptWindowManager)->slot15()->m_4 * m_20; }
-extern unsigned g_Va00E06360;
+extern unsigned int g_Va00E06360[5];
 namespace AptUtils {const char *SkipLevelN(const char *);int LevelIndexFromTarget(const char *);}
 int __cdecl Rva0052519DFire(void *,void *,const char *,const char *,int *);
 namespace StrategicHUD {
