@@ -5,7 +5,9 @@ Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halil
 fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40
 rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are
 file-scope objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records
-of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; next seat continues).
+of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; halilkkaya-in-o5: 17
+private-view units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700; next
+seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -65,7 +67,7 @@ places it.
 
 | Grab-bag file | Rows |
 | --- | ---: |
-| `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2) |
+| `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2, 324 after in-o5) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3, 88 after in-o4) |
 | `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 (0 after in-o4) |
@@ -146,9 +148,45 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   compile with the header: W3DDebrisDraw, W3DLightDraw, ProjectileStreamUpdate, AutoHealBehavior,
   BridgeBehavior, AODHordeContain, AssistedTargetingUpdate and ModelConditionAudioLoopClientBehavior.
   36 are held by other seats, and 9 include another `Drawable.h` that builds no copy.
-- *Next.* The units that fail to compile need their private `Thing`/`Drawable` views reconciled
-  with the canonical header (header-adoption lane) before the include. Held units can follow the
-  same steps once free. The handoff table lists each copy.
+- *Private views (round 5, halilkkaya-in-o5).* 17 of the 29 refused units now take the canonical
+  header without editing it, and each copy is rowed as its unit's `_$E1` (W3DDebrisDraw `_$E2`).
+  Three causes explained every refusal fixed so far:
+  - *DamageInfo class-key.* Drawable.h forward-declares `struct DamageInfo` for its rowed
+    `rva0027B18C` (`PAU`). MSVC mangles with the first key it sees, so an include before the
+    unit's own `class DamageInfo;` renames `onDie`/`beginSlowDeath`/`attemptDamage` to `PBU`
+    names the ledger lacks (133 rows spell `PBV`). Put the include after that declaration:
+    HeroDie, RefundDie, UpgradeDie, CitadelSlaughterHordeContain, AODCrushCollide, TunnelContain.
+    GiantBirdSlowDeathBehavior moves its declaration and the include above its `#define inline
+    static inline`.
+  - *Snapshot slot spelling.* When Drawable.h is the first to include the Snapshot shim, it
+    defines `BFME_SNAPSHOT_NAME_SLOT` and `BFME_SNAPSHOT_CAPITALIZED_SLOTS`. The unit's own
+    Snapshot classes then gain slots (RespawnUpdate `[eax+0x1b8]` -> `0x1c0`) or turn abstract
+    (SupplyTruckAIUpdate). Put the include after the unit's first Snapshot include: RespawnUpdate,
+    W3DTankDraw (after View.h), SupplyTruckAIUpdate, ModelConditionAudioLoopClientBehavior (after
+    TurretAI.h). OilSpillUpdate's include goes after its Coord3D ctor view.
+  - *Private and older headers.* TunnelContainView.h, ClickReactionObjectView.h and
+    GeometryUpgradeView.h held private `Drawable` (and `Thing`) copies; each view has one
+    includer and now includes the canonical header. TooltipUpgrade.cpp and BfmeDebrisDrawView.h
+    included `DrawableBFME2.h`, which builds no copy.
+  - AODHordeContain needed only the include. Its fragment AODHordeContainOnContaining.cpp still
+    compiles a second, unidentified copy until the merge.
+- *Still refused (round 5).*
+  - PlaceEventTranslator compiles with the include at every position tried, but
+    `translateGameMessage` swaps two spill slots. Its FreelistPool comment records the same
+    declaration-count sensitivity. Its `??__FnoCanDoSound` cleanup would also move from `_$E2` to
+    `_$E4`.
+  - Zero Hour-shaped units (`PreRTS.h`, Zero Hour `Thing.h`/`Coord3D`): PhysicsUpdate,
+    ProjectileStreamUpdate, AssistedTargetingUpdate, FlammableUpdate, AutoHealBehavior,
+    BridgeBehavior and SlavedUpdate. The canonical header collides with Zero Hour's `Thing`,
+    `Coord3D` and `ModelConditionFlags`. AutoHealBehavior, BridgeBehavior and SlavedUpdate already
+    include Zero Hour's `GameClient/Drawable.h`, whose constant is not dynamic.
+  - Private `Thing` layouts: SquishCollide and RebuildHoleExposeDie (whose private `Object` carries
+    its own `m_vptr`). These need a Thing adoption first.
+  - `Matrix3D`: thing.h's `Matrix3DData.h` lacks members that ActiveBody (`Get_Y_Vector`) and
+    W3DLightDraw (BFME 1 `sphere.h`/`aabox.h`) use.
+- *Next.* The handoff table lists each copy's state. The units above need their `Thing` view,
+  `Matrix3D` view or Zero Hour header graph reconciled first. Held units follow the same steps
+  once they are free.
 
 **BlockParseInits (130 rows): per-unit `BlockParse` nodes (halilkkaya-in-o3, 2026-11-04).**
 - *Target facts.* All 130 entries are one 21-byte body, `mov eax, [0x00DDF578]; mov [node], eax;
@@ -254,7 +292,7 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   StealthUpdate, UnitRevivalTracker, FadeAndDieOrnamentUpdate, AptMpGameSetup,
   SiegeDockingBehavior, GiantBirdSlowDeathBehavior and SquishCollide, plus the FrameRate copies
   0x007ADD08 and 0x007ADEF6. Most of these units do not compile with the canonical Drawable.h yet,
-  or they are claimed.
+  or they are claimed. GiantBirdSlowDeathBehavior compiles it since in-o5, and its copy is rowed.
 - *What it is (inference).* There are five 4-byte objects per includer, each with a memset default
   constructor. That suggests five internal-linkage `BitFlags<n <= 32>`-style objects from one header.
   One more run, 0x007AEDE7..0x007AEE2F in `Rva007ADC9CMaskInits.cpp` (statics 0x00E01EC0..0x00E01ED0),
