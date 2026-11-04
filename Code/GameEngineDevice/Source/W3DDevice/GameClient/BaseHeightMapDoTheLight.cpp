@@ -112,11 +112,7 @@ public:
 	Int NumRefs;
 };
 
-class MultiListObjectClass
-{
-public:
-	void *ListNode;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 
 class RenderObjClass : public RenderObjRefCountView, public MultiListObjectClass
 {
@@ -129,7 +125,7 @@ public:
 	virtual void Validate_Transform() const;	// slot 20
 	__forceinline const Matrix3D &Get_Transform() const { Validate_Transform(); return Transform; }
 	Vector3 Get_Position() const;
-	char m_pad0C[0x18 - 0x0C];
+	char m_pad10[0x18 - 0x10];
 	Matrix3D Transform;			// +0x18
 };
 
@@ -148,8 +144,9 @@ public:
 	Real FarAttenEnd;			// +0x104
 };
 
-struct MultiListNodeClass
+class MultiListNodeClass
 {
+public:
 	MultiListNodeClass *Prev;
 	MultiListNodeClass *Next;
 	MultiListNodeClass *NextList;

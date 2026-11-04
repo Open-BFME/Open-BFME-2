@@ -195,11 +195,7 @@ public:
 	int refs;
 };
 
-class MultiListObjectClass
-{
-public:
-	struct MultiListNodeClass *node;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 
 class RenderObjClass : public RefCountClass, public MultiListObjectClass
 {
@@ -310,8 +306,9 @@ public:
 	virtual int Is_Force_Visible() const; // +0x1A0
 };
 
-struct MultiListNodeClass
+class MultiListNodeClass
 {
+public:
 	MultiListNodeClass *prev, *next, *nextList;
 	MultiListObjectClass *object;
 	void *list;

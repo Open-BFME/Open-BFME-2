@@ -96,14 +96,7 @@ private:
 
 namespace FXShader { class RenderingMethod : public RefCountClass {}; }
 
-struct MultiListNodeClass;
-
-class MultiListObjectClass
-{
-public:
-	MultiListNodeClass *ListNode;
-};
-
+#include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 
 
@@ -155,7 +148,7 @@ public:
 	Vector3 Get_Position(void) const;
 	const Matrix3D &Get_Transform(void) const { Validate_Transform(); return Transform; }
 
-	char m_pad0C[0x18 - 0x0C];
+	char m_pad10[0x18 - 0x10];
 	Matrix3D Transform;													// +0x18
 };
 
