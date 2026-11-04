@@ -19,21 +19,8 @@ enum StateReturnType
 	STATE_SUCCESS = -1,
 	STATE_FAILURE = -2
 };
-template <int N> class AIStateMachineAISlots : public AIStateMachineAISlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class AIStateMachineAISlots<0>
-{
-};
-// AIUpdateInterface virtual slots 0..152 are placeholders; slot 153 (+0x264)
-// is the state-machine-changed notification.
-class AIUpdateInterface : public AIStateMachineAISlots<153>
-{
-public:
-	virtual void friend_notifyStateMachineChanged() = 0;
-};
+// The canonical header places the state-machine notification at slot 153.
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -92,7 +79,7 @@ StateReturnType AIStateMachine::resetToDefaultState()
 
 	AIUpdateInterface *ai = Object::getAI(getOwner());
 	if (ai)
-		ai->friend_notifyStateMachineChanged();
+		ai->vslot153();
 
 	return tmp;
 }
@@ -109,7 +96,7 @@ StateReturnType AIStateMachine::setState(unsigned int newStateID)
 
 	AIUpdateInterface *ai = Object::getAI(getOwner());
 	if (ai && oldID != newStateID)
-		ai->friend_notifyStateMachineChanged();
+		ai->vslot153();
 
 	return tmp;
 }

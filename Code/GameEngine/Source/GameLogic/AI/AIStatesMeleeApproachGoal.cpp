@@ -59,13 +59,7 @@ public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x1CC];
-	LocomotorSet &getLocomotorSet() { return *(LocomotorSet *)((char *)this + 0x1CC); }
- LocomotorSet *locomotorSet() { return (LocomotorSet *)((char *)this + 0x1CC); }
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -187,7 +181,7 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 	if (!adjusted && newDist + 20.0f > goalDist)
 		return false;
 
-	TheAI->pathfinder()->adjustToPossibleDestination(source, *ai->locomotorSet(), &pos);
+	TheAI->pathfinder()->adjustToPossibleDestination(source, ai->getLocomotorSet(), &pos);
 	*goal = pos;
 	return true;
 }
