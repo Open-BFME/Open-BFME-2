@@ -257,14 +257,7 @@ extern const FieldParse g_00BD9F1C[] =
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	OpaqueRefElement4() : referent(0) {}
-	~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-	class Rva001DA379 *operator->() const { return (class Rva001DA379 *)referent; }
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 
 class Rva001DA379
 {
@@ -294,6 +287,8 @@ public:
 	char m_pad50[0xB0 - 0x50];
 	int m_soundType;
 };
+// The audio event an owning handle refers to.
+inline Rva001DA379 *audioInfo(const OpaqueRefElement4 &handle) { return (Rva001DA379 *)handle.referent; }
 
 class AudioManager
 {
@@ -995,41 +990,41 @@ void __cdecl helper001DA770(INI *ini, int kind, AsciiString *defName, const char
 		return;
 	OpaqueRefElement4 defInfo = TheAudio->findAudioEventInfo(*defName);
 	if (defInfo.referent != 0) {
-		track->rva001DA379((const Rva001DA379 &)*(Rva001DA379 *)defInfo.referent);
-		track->m_type &= ~0x400;
+		audioInfo(track)->rva001DA379((const Rva001DA379 &)*(Rva001DA379 *)defInfo.referent);
+		audioInfo(track)->m_type &= ~0x400;
 	}
-	track->m_audioName = name;
-	track->m_soundType = kind;
+	audioInfo(track)->m_audioName = name;
+	audioInfo(track)->m_soundType = kind;
 	ini->initFromINI(track.referent, g_00BD9D68);
-	if (kind == 2 && (track->m_control & 4)) {
+	if (kind == 2 && (audioInfo(track)->m_control & 4)) {
 		if (bfmeRva000387C0()) {
 			_bfme_debugRecordCallsite(1);
 			theDebug->SkipNext();
 			(theDebug->CrashBegin(0, 0, 0) << "Control flag 'RANDOMSTART' is not valid for " << typeName << ". Streaming sound types only, please.").CrashDone(2);
 		}
-		track->m_control &= ~4;
+		audioInfo(track)->m_control &= ~4;
 	}
-	if (track->m_control & 0x80)
-		track->m_control &= ~0x80;
-	if (track->m_delayMin < 0) {
-		track->m_delayMin = 0;
-		if (track->m_delayMax < 0)
-			track->m_delayMax = 0;
+	if (audioInfo(track)->m_control & 0x80)
+		audioInfo(track)->m_control &= ~0x80;
+	if (audioInfo(track)->m_delayMin < 0) {
+		audioInfo(track)->m_delayMin = 0;
+		if (audioInfo(track)->m_delayMax < 0)
+			audioInfo(track)->m_delayMax = 0;
 	}
-	if (track->m_pitchShiftMin <= -100.0f) {
-		track->m_pitchShiftMin = -99.0f;
-		if (track->m_pitchShiftMax <= -100.0f)
-			track->m_pitchShiftMax = -99.0f;
+	if (audioInfo(track)->m_pitchShiftMin <= -100.0f) {
+		audioInfo(track)->m_pitchShiftMin = -99.0f;
+		if (audioInfo(track)->m_pitchShiftMax <= -100.0f)
+			audioInfo(track)->m_pitchShiftMax = -99.0f;
 	}
-	if (track->m_pitchShift2Min <= -100.0f) {
-		track->m_pitchShift2Min = -99.0f;
-		if (track->m_pitchShift2Max <= -100.0f)
-			track->m_pitchShift2Max = -99.0f;
+	if (audioInfo(track)->m_pitchShift2Min <= -100.0f) {
+		audioInfo(track)->m_pitchShift2Min = -99.0f;
+		if (audioInfo(track)->m_pitchShift2Max <= -100.0f)
+			audioInfo(track)->m_pitchShift2Max = -99.0f;
 	}
-	if (track->m_volumeShift < -100.0f || track->m_volumeShift > 0.0f)
-		track->m_volumeShift = 0.0f;
-	if (track->m_volumeShift2 < -100.0f || track->m_volumeShift2 > 0.0f)
-		track->m_volumeShift2 = 0.0f;
+	if (audioInfo(track)->m_volumeShift < -100.0f || audioInfo(track)->m_volumeShift > 0.0f)
+		audioInfo(track)->m_volumeShift = 0.0f;
+	if (audioInfo(track)->m_volumeShift2 < -100.0f || audioInfo(track)->m_volumeShift2 > 0.0f)
+		audioInfo(track)->m_volumeShift2 = 0.0f;
 }
 
 // ---- from Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp
