@@ -28,8 +28,6 @@ private:
 }
 typedef _STL::vector<AsciiString, _STL::allocator<AsciiString> > BuildingWindowName;
 extern "C" const void *const __identifier("??_7BuildingBehaviorModuleData@@6B@")[];
-// Retail's module tables hold GetSnapshotName in Snapshot slot 2 (see
-// UpdateModule.h); spell it so before the shim is first read.
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 class UnicodeString;
@@ -97,7 +95,6 @@ public:
 // (string, state, 1, 0.0f, 0.0f).
 class AsciiString;
 #include "../../../../Include/GameClient/Drawable.h"
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
@@ -106,7 +103,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF 
 // 0x004562F8..0x00456489 (401 bytes). It is slot 0 of
 // ??_7BuildingBehavior@@6BBB_Iface2@@@ (0x008406C8; the update interface at +0x10,
 // so this-0x10 is the module). WB 0x01174050 has the same body (named after its
-// inlined BitFlags test). Layout as in the rowed BuildingBehaviorCtorThunk.cpp
+// inlined BitFlags test). Layout as in the rowed BuildingBehavior ctor below
 // / BuildingBehaviorModuleDataCtor.cpp (four 12-byte window-name lists at
 // module data +0x08: Night / Fire / Glow / FireName).
 // - No object, an object with the +0x438 flag that lacks status 0x58, or no
@@ -145,7 +142,14 @@ public:
 	unsigned char m_flags438;							// +0x438
 };
 #include "../../../../Include/Common/GlobalData.h"
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+class BB_Iface1 { public: virtual void slot(); };
+class BB_Iface2 { public: virtual void slot(); };
+#pragma comment(linker, "/alternatename:?slot@BB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?slot@BB_Iface2@@UAEXXZ=?update@BuildingBehavior@@UAE?AW4UpdateSleepTime@@XZ")
+
 extern GlobalData *TheWritableGlobalData;
+
 class BuildingBehaviorModuleData : public BuildingBehaviorModuleDataBase
 {
 public:
@@ -184,6 +188,11 @@ private:
 	bool m_field20; // +0x20
 	bool m_field21; // +0x21
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
+
+// Retail's module tables hold GetSnapshotName in Snapshot slot 2 (see
+// UpdateModule.h); spell it so before the shim is first read.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 
@@ -256,12 +265,6 @@ BuildingBehaviorModuleData::BuildingBehaviorModuleData()
 {
 }
 
-// tu-skeleton: 0x00456206 17B ?buildFieldParse@BuildingBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00456217 89B ??0BuildingBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00456270 28B ??_GRva004561A2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorUpdate.cpp
 
 UpdateSleepTime BuildingBehavior::update()
@@ -315,10 +318,27 @@ UpdateSleepTime BuildingBehavior::update()
 	return UPDATE_SLEEP_NONE;
 }
 
+// tu-skeleton: 0x00456206 17B ?buildFieldParse@BuildingBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
+
+// ??0BuildingBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
+BuildingBehavior::BuildingBehavior(Thing *thing, const ModuleData *moduleData)
+    : UpdateModule(thing, moduleData)
+{
+    m_field20 = false;
+    m_field21 = true;
+    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x00456270 28B ??_GRva004561A2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
 // tu-skeleton: 0x004564E6 58B ??1BuildingBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00789FC7 8B Unwind@00b89fc7 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00789FCF 10B __ehhandler$??0BuildingBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp (not merged yet)
 
 // tu-skeleton: 0x00789FD9 8B uw_00789fd9 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)

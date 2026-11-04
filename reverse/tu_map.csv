@@ -35808,7 +35808,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004561BB,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,proposed,C,C=0x004561A2..0x004561C1,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 0x004561C1,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 0x00456206,17,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp
-0x00456217,89,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp
+0x00456217,89,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 0x00456270,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,C,C=0x00456217..0x0045628C provisional,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 0x0045628C,52,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 0x004562C0,56,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,C,C=0x0045628C..0x004562F8 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
@@ -79257,8 +79257,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00789FA6,10,code,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp,approved,P,P=0x00455C98@FuncInfo0x0093851C provisional,Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdate.cpp
 0x00789FB0,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,P,P=0x004561C1@FuncInfo0x00938540 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 0x00789FBD,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,P,P=0x004561C1@FuncInfo0x00938540 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
-0x00789FC7,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,P,P=0x00456217@FuncInfo0x00938564 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp
-0x00789FCF,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,P,P=0x00456217@FuncInfo0x00938564 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp
+0x00789FC7,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,P,P=0x00456217@FuncInfo0x00938564 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
+0x00789FCF,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,approved,P,P=0x00456217@FuncInfo0x00938564 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 0x00789FD9,8,code,,,-,,Code/gen_small/uw_gen_013.cpp
 0x00789FE1,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp
 0x00789FEB,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,approved,P,P=0x0045679B@FuncInfo0x009385AC,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
