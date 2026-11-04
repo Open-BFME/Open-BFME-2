@@ -293,3 +293,11 @@ W3DTerrainVisual's.
   constructor 0x0057621A, which `Rva00575F38Dtor.cpp` already rows. It is retired, and its EH rows are
   re-rowed under the surviving constructor. Details are in LINK-060's 0x0057621A entry.
 - **W3DVideoBuffer.cpp (7)** was already repaired on master by `353684d23f`, after the measured run.
+- **W3DAnimationInfoVectorInsert.cpp (1): resolved.** `??0W3DAnimationInfo@@QAE@ABV0@@Z` was only a pin
+  at 0x0004254E, Region2D's 31-byte copy that ICF folded with the other 16-byte memberwise copies.
+  QuadStrip2D.cpp, whose strip vector this element type belongs to, now defines it out of line with a
+  `fold-proof` row (`--icf-owner ??0Region2D@@QAE@ABU0@@Z`). It cannot be defined in the insert unit:
+  with the body in view, cl hoists insert's `[ebx+4]` load above the call, and the 149-byte row
+  fails. That holds for an inline `noinline` and for an out-of-line definition after the
+  instantiation alike. The unit still fails link_check on two COMDAT bodies (`_Construct`,
+  `_M_insert_overflow`: not retail's). Those are census matters, not real-link errors.

@@ -24,13 +24,18 @@ struct BfmeE12 { float x, y, z; };
 // Evidence: callee 0x00538782 row vector<BfmePod16> assign; prev 0x005388C2 holder copy same layout region+flag; next 0x00538A0B holder load same layout.
 struct BfmePod16 { int a[4]; };
 struct BfmeE8 { float x; float y; };
+// The 16-byte strip record vector<W3DAnimationInfo> holds (the BFME 1 donor's
+// element name). Its copy is four dword moves; see the definition at the end.
 class W3DAnimationInfo
 {
 public:
 	W3DAnimationInfo(const W3DAnimationInfo &other);
 
 private:
-	char m_bfmeBody[0x10];
+	unsigned int m_field00;
+	unsigned int m_field04;
+	unsigned int m_field08;
+	unsigned int m_field0C;
 };
 #include <new>
 #define _OPERATOR_NEW_DEFINED_
@@ -416,4 +421,16 @@ void QuadStrip2D::parse(DataChunkInput &file, int unused)
 	}
 	((_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&m_vec)->swap(*(_STL::vector<BfmeE12, _STL::allocator<BfmeE12> > *)&tmp);
 	m_20 = true;
+}
+
+// ??0W3DAnimationInfo@@QAE@ABV0@@Z, retail 0x0004254E (31 bytes, RET 4): the
+// record's out-of-line copy, four dword moves that /OPT:ICF folded with
+// Region2D's copy constructor and the other 16-byte memberwise copies there.
+// vector<W3DAnimationInfo>::insert (0x00538944) and its _Construct (0x00469C61)
+// call it rather than inline it, so it is defined here, outside the unit that
+// instantiates them: with the body in view, cl schedules insert differently.
+W3DAnimationInfo::W3DAnimationInfo(const W3DAnimationInfo &other)
+	: m_field00(other.m_field00), m_field04(other.m_field04),
+	  m_field08(other.m_field08), m_field0C(other.m_field0C)
+{
 }
