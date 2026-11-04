@@ -1,4 +1,4 @@
-### LINK-215: RespawnBody header acceptance awaits a census destination object
+### LINK-216: RespawnBody header acceptance awaits a census destination object
 Status: Blocked. Updated: 2026-11-04; inspected revision: 10b67cc307d6.
 Evidence / affected units: `Code/GameEngine/Source/GameLogic/Object/Update/RespawnBody.cpp`; [verification and consolidation handoff](../../reverse/attempt_support/respawn-body-damageinfo-20261104-codex5.md).
 Completed: canonical DamageInfo include replaces its private view; six rows byte-match, both EH parents are EXACT, and the complete runtime object is identical. The header queue row is retained.
