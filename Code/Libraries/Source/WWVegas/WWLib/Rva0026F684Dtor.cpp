@@ -11,8 +11,10 @@
 
 struct OpaqueRefPtr
 {
-	OpaqueRefCounted *m_ptr;
+public:
+	OpaqueRefPtr() : m_ptr(0) {}
 	~OpaqueRefPtr() { if (m_ptr) m_ptr->Release_Ref(); }
+	OpaqueRefCounted *m_ptr; // +0x00
 };
 
 struct MallocPtr
