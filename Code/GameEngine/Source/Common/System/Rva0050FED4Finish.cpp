@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva0050FED4@Rva0050F0AB@@QAEHIPAVGameWindow@@I@Z retail 0x0050FED4 72B
 // Window-message router: msg 0x400C (slider drag) forwards to m_78 via
 // rva0050F420 when window matches; msg 0x4031/0x4032 (edit done) forwards to
@@ -14,7 +14,7 @@ class GameWindow;
 
 void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
-extern "C" __declspec(dllimport) int __cdecl _wtoi(const wchar_t *s);
+#include <stdlib.h>
 
 class Rva0050F0AB
 {

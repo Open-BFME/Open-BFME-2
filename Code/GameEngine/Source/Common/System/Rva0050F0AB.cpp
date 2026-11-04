@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD
 // ?rva0050F0AB@Rva0050F0AB@@QAEXXZ, retail 0x0050F0AB, 96 bytes.
 // If m_7c null return; else format m_6c via UnicodeString::format L"%d" into
 // local buf and GadgetTextEntrySetText(m_7c buf by value). Evidence: EH prolog
@@ -39,7 +39,7 @@ void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
 
 void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
-extern "C" __declspec(dllimport) int __cdecl _wtoi(const wchar_t *s);
+#include <stdlib.h>
 
 // The money a player holds sits at Player+0x90; like Zero Hour's Money it
 // starts with a vtable, and countMoney() reads the amount at +4.
