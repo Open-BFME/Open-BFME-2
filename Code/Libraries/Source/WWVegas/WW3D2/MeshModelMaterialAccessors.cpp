@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later
@@ -10,39 +10,16 @@
 // These accessors are unique full-body placements: 0x1434F0..0x14350B and
 // 0x16EB70..0x16EB93, each followed by int3 padding. The descriptor getter
 // remains inline so the single-material accessor retains its native loads.
-class VertexMaterialClass {
-public:
-    virtual void Delete_This();
-    void addMaterialReference() { ++References; }
-private:
-    unsigned int References;
-};
-class MeshModelMaterialDescriptor {
-    char beforeMaterial[0xA8];
-    VertexMaterialClass *Material[4];
-    char beforeMaterialArray[0x30];
-    void *MaterialArray[4];
-public:
-    VertexMaterialClass *getMaterial(int pass) const {
-        if (Material[pass]) Material[pass]->addMaterialReference();
-        return Material[pass];
-    }
-    bool hasMaterialArray(int pass) const { return MaterialArray[pass] != 0; }
-};
-class MeshModelClass {
-    char beforeCurrentDescription[0x94];
-    MeshModelMaterialDescriptor *CurMatDesc;
-public:
-    VertexMaterialClass *Get_Single_Material(int pass) const;
-    bool Has_Material_Array(int pass) const;
-};
+#include "VertexMaterialClass.h"
+#include "MeshMatDescClass.h"
+#include "MeshModelClass.h"
 inline VertexMaterialClass *MeshModelClass::Get_Single_Material(int pass) const
 {
-    return CurMatDesc->getMaterial(pass);
+    return CurMatDesc->Get_Single_Material(pass);
 }
 inline bool MeshModelClass::Has_Material_Array(int pass) const
 {
-    return CurMatDesc->hasMaterialArray(pass);
+    return CurMatDesc->Has_Material_Array(pass);
 }
 
 // Emit the inline accessors as foldable copies, like their original headers.
