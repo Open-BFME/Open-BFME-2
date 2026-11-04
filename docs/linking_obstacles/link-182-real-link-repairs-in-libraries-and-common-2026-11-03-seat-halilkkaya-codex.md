@@ -613,3 +613,5 @@ Real link 41813987742 (`612abfbebb`): 6 errors.
   the 41-byte `basic_string<char>` `operator=`, which is not a vector assignment.
 - Both need the unit's `AudioEventRTS` and `ProductionPrerequisite` member views corrected. Those
   classes are shared with the rest of this unit's Zero Hour ThingTemplate code.
+
+- 2026-11-04: the 0x0051F7AD caller now lives in AptTimeLine.cpp after a verified TU merge; its assignment uses real STLport vector, retaining the bounded external allocation specialization. PerTurnStats caller/header reconciliation is still required. [Updated caller scope and checks](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md).

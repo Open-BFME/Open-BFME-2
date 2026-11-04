@@ -145,11 +145,8 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 	{ \
 		return m_value - IMM; \
 	}
-
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0051E3D9DivAvgField, 0x04, 0x00, 0x50)
-
 BFME_DISP8_DIV_AVG_DWORD_GETTER(Rva0051E42BDivAvgField, 0x08, 0x00, 0x50)
-
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -158,7 +155,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-
 // Local consuming series view: retail calls count at slot0 and float value
 // at slot4. The original series and graph class names remain unknown.
 // Consuming two-slot interface; original class and inheritance names remain unknown.
@@ -168,7 +164,6 @@ public:
     virtual int count() = 0;
     virtual float value(int index) = 0;
 };
-
 // Existing constructor owners: native 12-byte series, table RVAs 867268/867270.
 // The opaque row points at the player's native record ranges; it is not a new
 // claim about the original source type or ownership of those fields in a base.
@@ -181,7 +176,6 @@ public:
     void *m_array;
     int m_selector;
 };
-
 class Rva0051E73E : public Rva0051E716
 {
 public:
@@ -189,7 +183,6 @@ public:
     virtual int count();
     virtual float value(int index);
 };
-
 class Rva0051E354
 {
 public:
@@ -204,9 +197,7 @@ public:
 	int frames; // +0x10
 	float maximum; // +0x14
 };
-
 class Image {public:char beforeDimensions[0x24];int width,height;};
-
 class Rva0051E664ScaleView {
 public:
  virtual void slot00()=0;virtual void slot04()=0;virtual void slot08()=0;virtual void slot0C()=0;
@@ -215,13 +206,9 @@ public:
  virtual void slot30()=0;virtual void slot34()=0;virtual void slot38()=0;
  virtual const Vector2&scale()=0;
 };
-
 extern class BfmeAptWindowManager*g_bfmeAptWindowManager;
-
 class W3DDisplay {public:void rva0004D6B3(Image*,float,float,float,float,int,int);};
-
 extern class Display*TheDisplay;
-
 class Render2DClass
 {
 public:
@@ -232,9 +219,7 @@ public:
 	bool flag; // +0x48
 	char m_pad49[0x3];
 };
-
 class Rva0011A040Target {public:void rva0011A040();};
-
 // Consuming Display view: native slot17C supplies the Render2D batch. All
 // other slots are intentionally unnamed; the actual Display global keeps
 // its established type and is cast only at this virtual interface.
@@ -337,7 +322,6 @@ public:
  virtual void slot94()=0;
  virtual Render2DClass*renderer()=0;
 };
-
 struct Rva0051E96BRecord
 {
 	int m00;
@@ -347,7 +331,6 @@ struct Rva0051E96BRecord
 	short m0E;
 	char mPad10[0x14 - 0x10];
 };
-
 template <class T>
 struct Rva0051E716Range
 {
@@ -355,13 +338,11 @@ struct Rva0051E716Range
 	T *m_begin;
 	T *m_end;
 };
-
 struct Rva0051E96BArray
 {
 	char pad[0x14];
 	Rva0051E716Range<Rva0051E96BRecord> m_range;
 };
-
 class Rva0051E437
 {
 public:
@@ -371,13 +352,11 @@ public:
 	short m06;
 	short m08;
 };
-
 struct Rva0051E9D2Array
 {
 	char pad[0x20];
 	Rva0051E716Range<Rva0051E437> m_range;
 };
-
 // vector<int>/char destruction otherwise instantiates per-TU allocator
 // deallocate COMDATs (one byte shape per TU flags); explicit
 // dllimport+forceinline specializations take those calls inline so this
@@ -388,17 +367,11 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
     if (__p != 0) __sgi_alloc::deallocate((void*)__p, __n * sizeof(value_type));
 }
 }
-
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-
 template <class T> class AptRef;
-
 class AptCommandMap;
-
 class AptExternHandler;
-
 class AptOverButtonHandler;
-
 class AptCommandMapAdder
 {
 public:
@@ -406,7 +379,6 @@ public:
 private:
 	_STL::vector<AsciiString> m_names;
 };
-
 class AptExternHandlerAdder
 {
 public:
@@ -414,7 +386,6 @@ public:
 private:
 	_STL::vector<AsciiString> m_names;
 };
-
 class AptOverButtonHandlerAdder
 {
 public:
@@ -422,7 +393,6 @@ public:
 private:
 	_STL::vector<AsciiString> m_names;
 };
-
 // The image binder at +0x40 of the Apt window half (0x00524306 family), +0x258
 // of the screen: window name to image name, with its rowed setter 0x00524725.
 // The screen's Apt image table at +0x258 and its rowed setter 0x00524725.
@@ -434,7 +404,6 @@ public:
 private:
 	_STL::vector<AsciiString> m_names;
 };
-
 class Rva005248D0
 {
 public:
@@ -449,7 +418,6 @@ public:
 private:
 	unsigned char m_pad04C[0x58 - 0x4C];
 };
-
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {
 public:
@@ -461,24 +429,16 @@ private:
 	char m_278; // +0x278
 	char m_pad279[0x3];
 };
-
 class Image;
-
 class ImageCollection
 {
 public:
 	const Image *findImageByName(const AsciiString &name);
 };
-
 extern ImageCollection *TheMappedImageCollection;
-
-// The Apt window manager (0x00DFE4CC) and its background switch 0x002233A6.
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
-
 class BfmeAptWindowManager;
-
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 class Rva005BEA06
 {
 public:
@@ -486,14 +446,12 @@ public:
 private:
 	unsigned char m_pad[0x18];
 };
-
 struct Rva0051C0E7
 {
 	Rva0051C0E7();
 	~Rva0051C0E7();
 	unsigned char m_pad[0x30];
 };
-
 class BfmeWideString000543F5
 {
 public:
@@ -502,7 +460,6 @@ public:
 private:
 	char *m_text;
 };
-
 class Rva0039C151Subobject
 {
 public:
@@ -511,7 +468,6 @@ public:
 private:
 	char m_pad[12];
 };
-
 class Rva004EE501Subobject
 {
 public:
@@ -520,9 +476,7 @@ public:
 private:
 	char m_pad[12];
 };
-
 void __cdecl Rva00030830GameFree(void *);
-
 struct Rva00520211FreeOwner
 {
 	void *m_block;
@@ -535,7 +489,6 @@ struct Rva00520211FreeOwner
 			Rva00030830GameFree(m_block);
 	}
 };
-
 // Native destroy/fill helpers advance by 0x50; field identities stay opaque.
 struct Rva00520211Element
 {
@@ -553,17 +506,14 @@ struct Rva00520211Element
 	Rva00520211Element &operator=(const Rva00520211Element &);
 	~Rva00520211Element();
 };
-
 // Use the already owned whole destructor at 0x0052012B.
 namespace _STL {
 template<> vector<Rva00520211Element>::~vector();
 }
-
 struct RvaVector
 {
 	void rva0030E910(unsigned n, float value);
 };
-
 class Rva005202C8 : public _bfme_AptGameWindow
 {
 public:
@@ -585,55 +535,41 @@ private:
 	_STL::vector<int> m_focus;		// +0x2B8
 	Rva0051C0E7 m_2C4;
 };
-
 // s_instance: the singleton the constructor sets and AptTimeLineCallbacks reads;
 // retail .data VA 0x00E0491C, zero-filled.
 Rva005202C8 *Rva005202C8::s_instance;
-
 namespace _STL {
 template<> inline _Vector_base<int, allocator<int> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
 }
-
 #include "../../../../../Include/GameClient/Shell.h"
-
 extern Shell *TheShell;
-
 struct Rva005334A4Element
 {
 	unsigned char m_data[0x10];
 };
-
 namespace _STL {
 template<> vector<Rva005334A4Element>::iterator vector<Rva005334A4Element>::erase(iterator first, iterator last);
 }
-
 // Use the data ledger owner; the vector remains a local view.
 extern unsigned int g_Va00E04920;
-
 class Rva005BEA22
 {
 public:
 	~Rva005BEA22();
 };
-
 class AptCampaignMenu { public: static bool OpenScreen(); };
-
 class Rva00222A8BTarget;
-
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-
 class Rva002246B1
 {
 public:
 	int RemoveCustomRender(const AsciiString *key);
 };
-
 class Rva0052493F
 {
 public:
 	void rva0052493F();
 };
-
 // 0x005BE264 ignores ECX, but this caller reaches it as a member of the
 // +0x280 object (it loads that pointer into ECX); thiscall pin spelling.
 class Rva005BE264Owner
@@ -641,7 +577,6 @@ class Rva005BE264Owner
 public:
 	void rva005BE264();
 };
-
 class Rva0051E4B0
 {
 public:
@@ -649,9 +584,7 @@ public:
 	char m_pad[0x280];
 	Rva005BE264Owner *m_280;
 };
-
 struct BfmePod80 { int a[20]; };
-
 class Rva0054103E
 {
 public:
@@ -661,12 +594,10 @@ public:
 	int m0C;
 	int m10;
 };
-
 struct PrereqUnitRec
 {
 	unsigned int m_data[3];
 };
-
 // Declared only: the rowed bases 0x00211E58, 0x004FF36C and 0x005C8C37 serve these calls.
 namespace _STL {
 template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(const allocator<Rva0054103E> &) throw();
@@ -674,7 +605,6 @@ template <> _Vector_base<Rva0054103E, allocator<Rva0054103E> >::_Vector_base(siz
 template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(const allocator<PrereqUnitRec> &) throw();
 template <> _Vector_base<PrereqUnitRec, allocator<PrereqUnitRec> >::_Vector_base(size_t, const allocator<PrereqUnitRec> &) throw();
 }
-
 class Rva0039C151 : public _STL::_Vector_base<Rva0054103E, _STL::allocator<Rva0054103E> >
 {
 public:
@@ -682,7 +612,6 @@ public:
 	Rva0039C151(const Rva0039C151 &x);
 	~Rva0039C151();
 };
-
 class Rva004EE501 : public _STL::_Vector_base<PrereqUnitRec, _STL::allocator<PrereqUnitRec> >
 {
 public:
@@ -690,9 +619,7 @@ public:
 	Rva004EE501(const Rva004EE501 &x);
 	~Rva004EE501();
 };
-
 class Xfer0051FFF5;
-
 class Rva0051F87B
 {
 public:
@@ -711,81 +638,59 @@ private:
 	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_38;
 	_STL::vector<unsigned int, _STL::allocator<unsigned int> > m_44;
 };
-
 namespace _STL {
 template <> inline void _Construct<BfmePod80, BfmePod80>(BfmePod80 *__p, const BfmePod80 &__val)
 {
 	new ((void *)__p) Rva0051F87B((const Rva0051F87B &)__val);
 }
 }
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0051E458PowFloat@@YAMHH@Z @0x0051E458 25B: float wrapper over rowed int pow; fild converts to FPU return
 int Rva0051E3F8Pow(int base, int exp);
-
 // Reference-derived iterator forwarding shape from STLport4.5.3.
 // Original template spelling is unknown. Input/output tokens are opaque pointers,
 // not inferred game classes. Native calls and the existing matched callee fix behavior.
 // The callee does not read iterator-metadata stack slots; the link alias preserves
 // its existing provider instead of introducing another range-loop definition.
 struct Rva0051EC31Input;
-
 struct Rva0051EC31Output;
-
 struct Rva0051EC31IteratorTag {};
-
 Rva0051EC31Output* __cdecl Rva0051EC31RangeCallee(Rva0051EC31Input*first,Rva0051EC31Input*last,Rva0051EC31Output*result,const Rva0051EC31IteratorTag&,int*);
-
 struct Rva0051FC54Element { char m_bytes[80]; Rva0051FC54Element &operator=(const Rva0051FC54Element &); ~Rva0051FC54Element(); };
-
 // Declared only: the rowed copy serves the call.
 namespace _STL { template <> Rva0051FC54Element *__copy_backward<Rva0051FC54Element *, Rva0051FC54Element *, int>(Rva0051FC54Element *, Rva0051FC54Element *, Rva0051FC54Element *, const random_access_iterator_tag &, int *); }
-
 template Rva0051FC54Element *_STL::__copy_backward_ptrs<Rva0051FC54Element *, Rva0051FC54Element *>(Rva0051FC54Element *, Rva0051FC54Element *, Rva0051FC54Element *, const _STL::__false_type &);
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva0051FC54Element * _STL::__copy<Rva0051FC54Element *, Rva0051FC54Element *, int>(Rva0051FC54Element *, Rva0051FC54Element *, Rva0051FC54Element *, _STL::random_access_iterator_tag const &, int *);
-
 enum ScienceType { SCIENCE_INVALID = -1 };
-
 // The native call targets ThingTemplate.cpp's rowed push_back (0x002E01C6).
 namespace _STL { template <> void vector<ScienceType>::push_back(ScienceType const &); }
-
 // Retail calls the shared push_back at 0x002E01C6; keep its growth helper there.
 namespace _STL { template <> void vector<ScienceType>::push_back(const ScienceType &); }
-
 struct BfmePod40;
-
 class Rva0040AAD5
 {
 public:
 	struct BfmePod40 *rva0040AAD5(int key);
 };
-
 extern class Rva0040AAD5 *TheAwardSystemManager;
-
 struct Pair0051E31A
 {
 	int word;
 	float scalar;
 };
-
 // Vtable 0x00867268 (slots 0x0051E72C / 0x0051E96B).
 
 // Vtable 0x00867270 (slots 0x0051E754 / 0x0051E9D2).
 
 class Vector2;
-
 class Rva0051E31A
 {
 public:
 	void writeFields(const Pair0051E31A &a, const Pair0051E31A &b, int word, float scalar);
 };
-
 #include "../../../../../Include/GameClient/GameText.h"
-
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
-
 struct WideStringView
 {
 	struct Header
@@ -798,30 +703,19 @@ struct WideStringView
 	__forceinline unsigned short charAt(int index) const { return m_data ? m_data->data[index] : 0; }
 	Header *m_data;
 };
-
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
-
 float Rva0051E458PowFloat(int base, int exp);
-
 extern GameTextInterface *TheGameText;
-
 extern int BfmeLogicFramesPerSecond;
-
 struct Rva0051F7ADRecord;
-
 struct Rva0026F4F4Element;
-
 class AptTimeLineStats;
-
 class LivingWorldPlayer;
-
 class Rva00520923Source;
-
 struct Rva0026F4F4Element
 {
 	unsigned int m_value;
 };
-
 // One player's row of the time line (0x50 bytes): name, color, faction name,
 // status, and the score vectors; m_eventsA and m_eventsB hold the graph's event frames.
 // One player's row of the time line (0x50 bytes).
@@ -838,7 +732,6 @@ struct AptTimeLinePlayer
 	_STL::vector<Rva0026F4F4Element> m_eventsB; // +0x38
 	_STL::vector<Rva0026F4F4Element> m_44; // +0x44
 };
-
 class AptTimeLine : public _bfme_AptGameWindow
 {
 public:
@@ -875,24 +768,19 @@ private:
 	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player
 	char m_extra[48];                   // +0x2C4
 };
-
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 struct Rva0051E766GlobalView
 {
 	char m_pad000[0x9D4];
 	unsigned char m_9D4;
 };
-
 struct Rva0051E766Record
 {
 	char m_pad00[0x10];
 	int m_10;
 	char m_pad14[0x50 - 0x14];
 };
-
 class Rva0051E766
 {
 public:
@@ -904,16 +792,12 @@ private:
 	bool m_294; // +0x294
 	char m_pad295[0x3];
 };
-
 #include "../../../../../Include/Common/GlobalData.h"
-
 struct Rva000AD6F4Base
 {
 	virtual void *virt0(unsigned int);
 };
-
 #include "../../../../../Include/Common/Rva000AD6F4.h"
-
 // The score screen the time line belongs to (0x00E0491C); its +0x284 says
 // how the game ended.
 struct AptTimeLineScoreScreen
@@ -921,11 +805,9 @@ struct AptTimeLineScoreScreen
 	unsigned char m_pad000[0x284];
 	int m_mode; // +0x284
 };
-
 // TheLivingWorldLogic (0x00DFEF10): the pinned 0x002B3740 and rowed
 // 0x002B3753 queries.
 class Rva002E2903Player;
-
 class Rva002BA8F1Logic
 {
 public:
@@ -933,37 +815,23 @@ public:
 	char m_pad00[0x8C];
 	_STL::vector<LivingWorldPlayer*> m_players; // +0x8C
 };
-
 class LivingWorldLogic;
-
 extern LivingWorldLogic *TheLivingWorldLogic;
-
 // The main menu (OpaqueScalarDeletingDtorsB12.cpp's g_Va00E048DC); its
 // verified 0x005158A7 picks the credits menu.
 extern int g_Va00E048DC;
-
 extern GameLogic *TheGameLogic;
-
 // TheShell (the ledger's g_Va00A01E48): +0x54.
 struct AptTimeLineShell
 {
 	unsigned char m_pad00[0x54];
 	bool m_54; // +0x54
 };
-
 class Shell;
-
 #include "../../../../../Include/GameClient/Mouse.h"
-
 extern Mouse *TheMouse;
-
-// A counted callback holder (Rva00080221Ctor.cpp's view); the verified
-// 0x003FE7E6 registers one and answers its id through the pointer, and
-// 0x003FEC05 is the callback registered here (both pinned by address).
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
 class Rva00211E75
 {
 public:
@@ -975,22 +843,16 @@ public:
 private:
 	TargetRef00217D4C *m_impl;
 };
-
 class Rva00211E75Callback : public Rva00211E75 { public: Rva00211E75Callback(const int*p) : Rva00211E75(p) {} };
-
 bool __cdecl Rva003FE7E6(Rva00211E75Callback callback, int *id);
-
 int __cdecl Rva003FEC05FadeScreenRegionToMapBlack(int,bool);
-
 extern int g_00E02EC4;
-
 // Retail 0x0051EC4E, 117 bytes: "TimeLine:PlayerFaction:%d" for each player,
 // an Apt variable read as the player's faction name ("" when out of range).
 // Retail pushes the first empty string and materialises str()'s empty-string
 // arm separately instead of keeping one "" address in EDI: the first copy reads
 // its own array, so the compiler sees two addresses under string pooling too.
 static const char s_noFaction[] = "";
-
 // Complete native51FA13..51FAFC updates each row's name and faction icon;
 // WB's weak CollectAllPlayerData lead names a different larger body, so
 // retain an address spelling. The twelve-byte concatenation node uses an
@@ -1000,9 +862,7 @@ struct Rva002226E5TextPlusString {
  const char *text;int length;const AsciiString *string;
  operator AsciiString();
 };
-
 Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
-
 // AptTimeLine::OpenScreen (WB 0x013DB420, AptTimeLine.cpp; static bool),
 // retail 0x00520F7D (367 bytes), kept under the address name the rowed caller
 // GameLogic 0x00376E92 already calls. Unless the screen is up, it picks the
@@ -1015,19 +875,15 @@ Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
 // rowed predicates let cl 7.1 keep it (and the game type) in registers across
 // those calls, as retail does.
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
-
 #include "../../../../../Include/Common/RecorderClass.h"
-
 	// 0x0030F2C7
 extern RecorderClass *TheRecorder;
-
 // ?get@Rva00210C66CmpBoolField@@QBE_NXZ, rowed 0x00210C66 (LivingWorldLogic.cpp)
 class Rva00210C66CmpBoolField
 {
 public:
 	__declspec(noinline) bool get() const { int value = *(const int *)((const char *)this + 0x114); return value == 1 || value == 2; }
 };
-
 // ?isSelectionLocked@BfmeSelectionState@@QBE_NXZ, rowed 0x0004253A
 class BfmeSelectionState
 {
@@ -1038,9 +894,7 @@ private:
 	unsigned char m_first;
 	unsigned char m_second;
 };
-
 class AptTimeLineScreen { public: void rva00520CD1(); };
-
 class Rva0039B893
 {
 public:
@@ -1053,28 +907,20 @@ public:
 	short m_field10; // +0x10
 	char m_pad12[0x2];
 };
-
 Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &tag) throw();
-
 // The copy tag argument: an empty temporary the compiler leaves uninitialized.
 struct UninitCopyTag : _STL::__false_type { UninitCopyTag() {} };
-
 // Declared only: the rowed get_allocator 0x0021983A serves the call.
 namespace _STL { template <> vector<AsciiString, allocator<AsciiString> >::allocator_type vector<AsciiString, allocator<AsciiString> >::get_allocator() const; }
-
 class ProductionPrerequisite
 {
 public:
 	struct PrereqUnitRec;
 };
-
 // Declared only: the rowed nested uninitialized copy 0x004EE1E2 serves the call.
 namespace _STL { template <> ProductionPrerequisite::PrereqUnitRec *__uninitialized_copy<ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *>(ProductionPrerequisite::PrereqUnitRec *first, ProductionPrerequisite::PrereqUnitRec *last, ProductionPrerequisite::PrereqUnitRec *result, const __false_type &tag) throw(); }
-
 class Rva0039B893;
-
 struct BfmeStringRecord002CF4C6;
-
 class Rva0051ED51Holder
 {
 public:
@@ -1084,22 +930,16 @@ private:
 	char m_pad00[8];
 	_STL::allocator<BfmeStringRecord002CF4C6> m_alloc08;
 };
-
 // Declared only: the rowed 0x00395960 serves the call.
 namespace _STL { template <> BfmeStringRecord002CF4C6 *allocator<BfmeStringRecord002CF4C6>::allocate(size_t n, const void *hint) const; }
-
 struct Rva0052BF9BElem;
-
 void __cdecl Rva0039BD9BCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result);
-
 void __cdecl Rva0022C8E3DestroyRange(Rva0052BF9BElem *first, Rva0052BF9BElem *last);
-
 class Rva00565A42
 {
 public:
 	void rva00565A42();
 };
-
 class Rva0051F6DF
 {
 public:
@@ -1110,14 +950,11 @@ private:
 	Rva0039B893 *m_finish;
 	Rva0039B893 *m_end;
 };
-
 typedef Rva0039B893 *(__cdecl *Copy4Fn)(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, void *tag);
-
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void allocator<Rva00520211Element>::deallocate(Rva00520211Element *__p, size_t) const { if (__p != 0) Rva00030830GameFree(__p); }
 }
-
 namespace _STL {
 template <> __declspec(noinline) inline void _Construct<Rva00520211Element, Rva00520211Element>(
 	Rva00520211Element *p, const Rva00520211Element &value)
@@ -1125,36 +962,25 @@ template <> __declspec(noinline) inline void _Construct<Rva00520211Element, Rva0
  new ((void *)p) Rva0051F87B((const Rva0051F87B &)value);
 }
 }
-
 template void _STL::_Destroy<Rva00520211Element *>(
 	Rva00520211Element *, Rva00520211Element *);
-
 template void _STL::vector<Rva00520211Element>::_M_clear();
-
 template void _STL::vector<Rva00520211Element>::_M_insert_overflow(
 	Rva00520211Element *, const Rva00520211Element &,
 	const _STL::__false_type &, unsigned int, bool);
-
 namespace _STL { template <> vector<Rva0026F4F4Element,allocator<Rva0026F4F4Element> > & vector<Rva0026F4F4Element,allocator<Rva0026F4F4Element> >::operator=(vector<Rva0026F4F4Element,allocator<Rva0026F4F4Element> > const &); }
-
 namespace _STL { template <> void vector<Rva0051F7ADRecord,allocator<Rva0051F7ADRecord> >::_M_clear(); }
-
 namespace _STL { template <> template <> Rva0051F7ADRecord * vector<Rva0051F7ADRecord,allocator<Rva0051F7ADRecord> >::_M_allocate_and_copy<Rva0051F7ADRecord const *>(unsigned int,Rva0051F7ADRecord const *,Rva0051F7ADRecord const *); }
-
 namespace _STL { template <> vector<Rva0051F7ADRecord,allocator<Rva0051F7ADRecord> > & vector<Rva0051F7ADRecord,allocator<Rva0051F7ADRecord> >::operator=(vector<Rva0051F7ADRecord,allocator<Rva0051F7ADRecord> > const &); }
-
 namespace _STL { template <> Rva0051F7ADRecord * __copy<Rva0051F7ADRecord const *,Rva0051F7ADRecord *,int>(Rva0051F7ADRecord const *,Rva0051F7ADRecord const *,Rva0051F7ADRecord *,random_access_iterator_tag const &,int *); }
-
 struct Rva0051F7ADRecord
 {
 	char bytes[12];
 };
-
-// vector<Rva0051F7ADRecord>::operator= is rowed at 0x0051F7AD
-// (StlSweepR3Rva0051F7AD.cpp); declared only, so this unit emits no copy of it
-// nor of the _Destroy and __uninitialized_copy it would pull in.
+// vector<Rva0051F7ADRecord>::operator= is specialized below at 0x0051F7AD.
+// Declare it before use to avoid instantiating the generic assignment and
+// its opaque-element _Destroy and __uninitialized_copy helpers.
 namespace _STL { template <> vector<Rva0051F7ADRecord, allocator<Rva0051F7ADRecord> > &vector<Rva0051F7ADRecord, allocator<Rva0051F7ADRecord> >::operator=(const vector<Rva0051F7ADRecord, allocator<Rva0051F7ADRecord> > &); }
-
 struct SaveMapPreview
 {
 	int m00;
@@ -1163,11 +989,9 @@ struct SaveMapPreview
 	int m0C;
 	int m10;
 };
-
 // The census's consumers of vector<SaveMapPreview> take its base constructor and
 // allocator proxy from this unit's COMDAT copies; retail folds them at 0x00211E58.
 template _STL::_Vector_base<SaveMapPreview, _STL::allocator<SaveMapPreview> >::_Vector_base(const _STL::allocator<SaveMapPreview> &);
-
 // The holder constructor (row 0x0057BC63, Rva0057BC63FunctorHolder.cpp) is
 // defined here inline. Retail's compiler knew
 // it only reads the binding: that is what keeps the per-player bindings
@@ -1192,11 +1016,8 @@ public:
 	}
 	FunctorWrapperHead *m_ptr;
 };
-
 struct TargetRef00217D4C;
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
-
 template <class T> class AptRef : public Rva0057BC63FunctorHolder
 {
 public:
@@ -1207,13 +1028,9 @@ public:
 			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
 	}
 };
-
 class AptCustomRender;
-
 #include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
-
 class Player;
-
 class AptTimeLineStats
 {
 public:
@@ -1221,9 +1038,7 @@ public:
 	void CollectPlayerData(int index, LivingWorldPlayer *player);
 	void CollectPlayerData(int index, class Player *player);
 };
-
 struct Pair0051E31A;
-
 // The six status queries, by index (0x00C671A0).
 static const char *s_statusQueries[] = {
 	"TimeLine:StrategicEnd",
@@ -1233,7 +1048,6 @@ static const char *s_statusQueries[] = {
 	"TimeLine:ShowSaveReplay",
 	"TimeLine:ScreenMode"
 };
-
 // Native callback words 0091E3A3 and 0091E766 already have rowed owners.
 // Both bindings use the complete time-line receiver without adjustment.
 class BfmeM1020
@@ -1241,9 +1055,7 @@ class BfmeM1020
 public:
 	void bfmeGo1020M(int unused);
 };
-
 struct Rva0051E766Record;
-
 class Xfer0051FFF5
 {
 public:
@@ -1280,21 +1092,15 @@ public:
 	virtual void slot30();
 	virtual void slot31(void *out);
 };
-
 void Rva0039C4F7(Xfer0051FFF5 *x, void *out);
-
 void Rva004EE9E9(Xfer0051FFF5 *x, void *out);
-
 void Rva0040E269(Xfer0051FFF5 *x, void *out);
-
 struct __declspec(novtable) Rva005205DAElement : Rva0051F87B {
  __forceinline Rva005205DAElement() {}
  Rva005205DAElement(const Rva005205DAElement&);
  ~Rva005205DAElement();
 };
-
 typedef char TimelineRecordExtent[sizeof(Rva005205DAElement)==80?1:-1];
-
 class Rva00520703Vector
 {
 public:
@@ -1305,27 +1111,20 @@ private:
 	Rva005205DAElement *finish; // +0x04
 	Rva005205DAElement *end; // +0x08
 };
-
 namespace _STL { template <> Rva0051F7ADRecord * __uninitialized_copy<Rva0051F7ADRecord const *,Rva0051F7ADRecord *>(Rva0051F7ADRecord const *,Rva0051F7ADRecord const *,Rva0051F7ADRecord *,__false_type const &); }
-
 namespace _STL { template <> void _Construct<Rva0051F7ADRecord,Rva0051F7ADRecord>(Rva0051F7ADRecord *,Rva0051F7ADRecord const &); }
-
 // The records' range destroy is the rowed 0x0052C37A body.
 struct Rva0052BFB5Elem;
-
 void __cdecl Rva0052C37ADestroyRange(Rva0052BFB5Elem *, Rva0052BFB5Elem *);
-
 namespace _STL {
 template <> __declspec(dllimport) __forceinline void _Destroy<Rva0051F7ADRecord *>(Rva0051F7ADRecord *first, Rva0051F7ADRecord *last)
 { Rva0052C37ADestroyRange((Rva0052BFB5Elem *)first, (Rva0052BFB5Elem *)last); }
 }
-
 struct Rva00520923Faction
 {
 	unsigned char m_pad00[4];
 	AsciiString m_name; // +0x04, the player template's name
 };
-
 class LivingWorldPlayer
 {
 public:
@@ -1345,26 +1144,22 @@ public:
 	bool m_3C5; // +0x3C5, set once the player has left
 	bool hasLeft() const { return m_3C5; }
 };
-
 class Rva002E0687
 {
 public:
 	bool rva002E0687() const; // the local (observing) player
 };
-
 class Rva002E1046
 {
 public:
 	bool rva002E1046();
 };
-
 class StatsReporter
 {
 public:
 	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer *player);
 	static void ProcessOnlineGameResults(class Player *player);
 };
-
 // The caller's second argument: its display name is at +0x30.
 class Rva00520923Source
 {
@@ -1372,31 +1167,26 @@ public:
 	unsigned char m_pad00[0x30];
 	UnicodeString m_displayName; // +0x30
 };
-
 class Rva003F83B5
 {
 public:
 	UnicodeString rva003F83B5();
 };
-
 class Rva004FCBA9
 {
 public:
 	UnicodeString rva004fcba9();
 };
-
 struct Rva00520923Scenario
 {
 	unsigned char m_pad00[4];
 	AsciiString m_name; // +0x04
 };
-
 struct Rva00520923Campaign
 {
 	unsigned char m_pad00[0x1C];
 	Rva00520923Scenario *m_scenario; // +0x1C
 };
-
 class Rva00E02D6C
 {
 public:
@@ -1405,22 +1195,10 @@ public:
 	Rva00520923Campaign **m_campaigns; // +0x14
 	Rva00520923Campaign **getCampaigns() const { return m_campaigns; }
 };
-
 extern Rva00E02D6C *TheCampaignManager;
-
 // resize(n) is the rowed 0x0052076F body.
 struct Rva005205DAElement;
-
-// RTS CollectPlayerData: native 0x00520792..0x00520923 is a complete
-// 401B RET8 body. WB 0x013DE9F0 names the overload (AptTimeLine.cpp:1312,
-// 1321), and independently shows the local-player row and results reporting.
-// Target fields: Player name38/side58/color280, graph vectors6D8/6E4;
-// timeline stats280/mode284/80B rows288. The existing strategic overload
-// supplies the row ABI only; its LivingWorldPlayer layout is kept separate.
-// All direct calls use their admitted provider names. The flag reader and
-// victory interface retain consuming views; their original types are unknown.
 #include "../../../../../Include/Common/Player.h"
-
 class GameSlot
 {
 public:
@@ -1432,17 +1210,11 @@ public:
 	char m_pad38[0x14];
 	void *m_template; // +0x4C
 };
-
 class Rva001EB0CAHolder { public: unsigned char rva001EB0D9(); };
-
 class LinearCampaignManager;
-
 extern LinearCampaignManager *TheLinearCampaignManager;
-
 class VictoryConditionsInterface;
-
  extern VictoryConditionsInterface *TheVictoryConditions;
-
 class TimelineVictoryView {
 public:
 #define TIMELINE_VS(N) virtual void v##N();
@@ -1453,7 +1225,6 @@ public:
  virtual bool hasWon(Player*); TIMELINE_VS(15) virtual bool hasLost(Player*);
 #undef TIMELINE_VS
 };
-
 struct TimelineRTSPlayerView {
  unsigned char pad000[0x38]; UnicodeString name;
  unsigned char pad03C[0x58-0x3C]; AsciiString side;
@@ -1461,21 +1232,15 @@ struct TimelineRTSPlayerView {
  unsigned char pad284[0x6D8-0x284];
  unsigned char graph[12]; _STL::vector<Rva0026F4F4Element> values;
 };
-
 void __cdecl Rva005BF4BCProcess(Player*);
-
 // Declared only: the rowed range erase and reserve serve these calls.
 namespace _STL {
 template <> Rva00520211Element *vector<Rva00520211Element>::erase(Rva00520211Element *, Rva00520211Element *);
 template <> void vector<Rva00520211Element>::reserve(unsigned int);
 }
-
 struct Rva0051C0E7;
-
 class AptScoreScreen {public: static void PreCollectGameData(Rva0051C0E7*);};
-
 class IDBufferClass {public:void Enable_Two_Sided_Rendering(bool);};
-
 #include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
@@ -1518,6 +1283,87 @@ struct Rva003B3F66WordOffset
     unsigned int word4;
     unsigned int getBits() const;
 };
+
+struct Rva0051EC31IteratorTag;
+
+namespace _STL {
+// Only the external allocation member's existing ABI is known for this
+// spelling. Declaring its member specialization on the complete vector ICEs
+// cl 7.1 (C1001, P2 main.c:148). Keep this view bounded; the assignment's
+// vector<Rva0051F7ADRecord> uses STLport's complete definition above.
+template <> class vector<ProductionPrerequisite::PrereqUnitRec, allocator<ProductionPrerequisite::PrereqUnitRec> >
+{
+protected:
+    template <class I> ProductionPrerequisite::PrereqUnitRec *_M_allocate_and_copy(unsigned int, I, I);
+};
+template <> ProductionPrerequisite::PrereqUnitRec *
+__uninitialized_copy<ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *>(ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *, const __false_type &) throw();
+}
+
+// A user-provided constructor avoids zero-filling the opaque tag temporary.
+struct Rva0051F7ADCopyTag : _STL::__false_type { Rva0051F7ADCopyTag() {} };
+
+class Rva004EE540 { public: void rva004EE540(); };
+
+Rva0051EC31Output *Rva0051EC31RangeForward(Rva0051EC31Input *, Rva0051EC31Input *, Rva0051EC31Output *, const Rva0051EC31IteratorTag &);
+
+void Rva0052C37ADestroyRange(Rva0052BFB5Elem *, Rva0052BFB5Elem *);
+
+// Access the protected member under the allocation owner's existing spelling.
+struct Rva0051F7ADAllocate : _STL::vector<ProductionPrerequisite::PrereqUnitRec, _STL::allocator<ProductionPrerequisite::PrereqUnitRec> >
+{
+    using _STL::vector<ProductionPrerequisite::PrereqUnitRec, _STL::allocator<ProductionPrerequisite::PrereqUnitRec> >::_M_allocate_and_copy;
+};
+
+namespace _STL {
+template <>
+vector<Rva0051F7ADRecord, allocator<Rva0051F7ADRecord> > &
+vector<Rva0051F7ADRecord, allocator<Rva0051F7ADRecord> >::operator=(const vector<Rva0051F7ADRecord, allocator<Rva0051F7ADRecord> > &__x)
+{
+    if (&__x != this) {
+        const size_type __xlen = __x.size();
+        if (__xlen > capacity()) {
+            pointer __tmp = (pointer)((Rva0051F7ADAllocate *)this)->_M_allocate_and_copy<ProductionPrerequisite::PrereqUnitRec *>(__xlen,
+                (ProductionPrerequisite::PrereqUnitRec *)__x._M_start, (ProductionPrerequisite::PrereqUnitRec *)__x._M_finish);
+            ((Rva004EE540 *)this)->rva004EE540();
+            _M_start = __tmp;
+            _M_end_of_storage._M_data = _M_start + __xlen;
+        }
+        else if (size() >= __xlen) {
+            pointer __i = (pointer)Rva0051EC31RangeForward((Rva0051EC31Input *)__x._M_start,
+                (Rva0051EC31Input *)__x._M_finish, (Rva0051EC31Output *)_M_start,
+                (const Rva0051EC31IteratorTag &)Rva0051F7ADCopyTag());
+            Rva0052C37ADestroyRange((Rva0052BFB5Elem *)__i, (Rva0052BFB5Elem *)_M_finish);
+        }
+        else {
+            Rva0051EC31RangeForward((Rva0051EC31Input *)__x._M_start,
+                (Rva0051EC31Input *)(__x._M_start + size()), (Rva0051EC31Output *)_M_start,
+                (const Rva0051EC31IteratorTag &)Rva0051F7ADCopyTag());
+            __uninitialized_copy((ProductionPrerequisite::PrereqUnitRec *)(__x._M_start + size()),
+                (ProductionPrerequisite::PrereqUnitRec *)__x._M_finish, (ProductionPrerequisite::PrereqUnitRec *)_M_finish, Rva0051F7ADCopyTag());
+        }
+        _M_finish = _M_start + __xlen;
+    }
+    return *this;
+}
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp
+
+// The Apt window manager (0x00DFE4CC) and its background switch 0x002233A6.
+
+// A counted callback holder (Rva00080221Ctor.cpp's view); the verified
+// 0x003FE7E6 registers one and answers its id through the pointer, and
+// 0x003FEC05 is the callback registered here (both pinned by address).
+
+// RTS CollectPlayerData: native 0x00520792..0x00520923 is a complete
+// 401B RET8 body. WB 0x013DE9F0 names the overload (AptTimeLine.cpp:1312,
+// 1321), and independently shows the local-player row and results reporting.
+// Target fields: Player name38/side58/color280, graph vectors6D8/6E4;
+// timeline stats280/mode284/80B rows288. The existing strategic overload
+// supplies the row ABI only; its LivingWorldPlayer layout is kept separate.
+// All direct calls use their admitted provider names. The flag reader and
+// victory interface retain consuming views; their original types are unknown.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp
 
@@ -2769,7 +2615,10 @@ void AptTimeLine::rva00520CD1()
 
 // tu-skeleton: 0x0051F6D7 8B ?OnButtonContinue@AptTimeLine@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp (not merged yet)
 
-// tu-skeleton: 0x0051F7AD 206B ??4?$vector@URva0051F7ADRecord@@V?$allocator@URva0051F7ADRecord@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0051F7AD.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0051F7AD.cpp
+
+// STLport 4.5.3 vector assignment shape (_vector.c:90).
+// Element identity remains opaque; target calls prove the provider bindings below.
 
 // tu-skeleton: 0x0051F94D 37B ??$__uninitialized_fill_n@PAUBfmePod80@@IU1@@_STL@@YAPAUBfmePod80@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 

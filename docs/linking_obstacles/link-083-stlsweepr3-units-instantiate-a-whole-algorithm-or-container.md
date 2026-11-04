@@ -150,3 +150,5 @@ inspected `d16a31e4dc`, index `73061d9452`, retail-truth-4):**
 
 2026-11-04: 0x00627B10 now belongs to `Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp`; byte/link preview and consolidation audit: [partition STL merge](../../reverse/attempt_support/partition-stl-merge-20261104-codexb5.md).
 - 2026-11-04: 0051F7AD now uses STLport vector without losing its 206-byte match or preview link; AptTimeLine merge dry run accepts it. [Prerequisite evidence](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md); no census gain claimed.
+
+- 2026-11-04: 0051F7AD is merged into its approved AptTimeLine.cpp TU (one source removed; 136/136 functions exact; destination and assignment consumer preview LINKS). Broader audit remains inconclusive on the stale 0CreateAHeroManager21FE49.cpp receipt and older index; carry to census. [Merge audit](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md).
