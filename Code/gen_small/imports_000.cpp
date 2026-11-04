@@ -8,7 +8,6 @@
 
 extern "C" __declspec(dllimport) void AVIFileRelease();
 extern "C" __declspec(dllimport) void AVIStreamWrite();
-extern "C" __declspec(dllimport) void DirectInput8Create();
 extern "C" __declspec(dllimport) void _CIacos();
 extern "C" __declspec(dllimport) void _CIasin();
 extern "C" __declspec(dllimport) void _CIfmod();
@@ -79,7 +78,6 @@ void ji_00629ae4() { atan(); }
 void ji_00629b0e() { log(); }
 void ji_00629b14() { printf(); }
 void ji_00629b6e() { isxdigit(); }
-void ji_0062af20() { DirectInput8Create(); }
 void ji_0065477e() { AVIFileRelease(); }
 void ji_0065478a() { AVIFileRelease(); }
 void ji_006547a2() { AVIStreamWrite(); }

@@ -5808,7 +5808,6 @@ name,address,notes
 ?j_0004a37c@@YAXXZ,0x002B37B4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?j_00800660@@YAXXZ,0x0066CA80
 ?ji_006291ae@@YAPAXPAXHI@Z,0x006291AE,twin of rowed YAXXZ same 6B jmp thunk call site 0x00265254 memset
-?ji_0062af20@@YGJPAXKPBXPAPAX0@Z,0x0062AF20,twin of rowed YAXXZ same 6B jmp thunk call site 0x00098BD4 DirectInput8Create
 ?ji_00879190@@YAXXZ,0x006B8A30,address read from the REL32 displacement at a placed body
 ?ji_008793a0@@YAXXZ,0x006B8C30,address read from the REL32 displacement at a placed body
 ?ji_009facad@@YAXXZ,0x0062AF26,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoVKH@BfmeThingVKH@@QAE?AUBfmeMat4VKH@@H@Z (0x00075295)

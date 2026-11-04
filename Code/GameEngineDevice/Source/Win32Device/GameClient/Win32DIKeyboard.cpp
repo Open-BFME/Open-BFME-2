@@ -9,7 +9,6 @@
 #define DIERR_NOTACQUIRED ((HRESULT)0x8007000CL)
 #define KEY_STATE_CAPSLOCK 0x0200
 #include "DirectInputKeyboardFormat.h"
-#pragma comment(linker, "/alternatename:?ji_0062af20@@YGJPAXKPBXPAPAX0@Z=?ji_0062af20@@YAXXZ")
 
 typedef bool Bool;
 
@@ -125,7 +124,9 @@ extern const DIDATAFORMAT g_00C7C9A4 = {
 	24, 16, 2, 256, 256, BFMEKeyboardObjectFormats
 };
 
-long __stdcall ji_0062af20(void *hinst, unsigned long ver, const void *riid, void **ppv, void *punk);
+// dinput8.dll!DirectInput8Create (row 0x0062AF20, Dinput8ImportThunks.cpp); this TU
+// views the IID as raw bytes, so it declares the C name without dinput.h.
+extern "C" long __stdcall DirectInput8Create(void *hinst, unsigned long ver, const void *riid, void **ppv, void *punk);
 
 struct DI8Obj;
 
@@ -358,7 +359,7 @@ void DirectInputKeyboard::getKey(KeyboardIO *key)
 void DirectInputKeyboard::openKeyboard()
 {
 	long hr;
-	hr = ji_0062af20(ApplicationHInstance, 0x800, g_00CDF7E8, (void **)&m_pDirectInput, 0);
+	hr = DirectInput8Create(ApplicationHInstance, 0x800, g_00CDF7E8, (void **)&m_pDirectInput, 0);
 	if (hr < 0)
 	{
 		closeKeyboard();

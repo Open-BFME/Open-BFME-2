@@ -3393,7 +3393,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectSce
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?slot04@W3DGhostObject@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?updateOrphanedObjects@GhostObjectManager@@UAEXPAHH@Z	1
 alternatename	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp	??RRva006038D4Less@@QBE_NPBD0@Z	1
-alternatename	Code/GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp	?ji_0062af20@@YGJPAXKPBXPAPAX0@Z	1
 alternatename	Code/Libraries/Source/ATL/atlbase.cpp	??0Rva00800630Owner@@QAE@XZ	1
 alternatename	Code/Libraries/Source/ATL/atlbase.cpp	?m@Gen_00800540@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/ATL/atlimage.cpp	??1Bitmap@Gdiplus@@UAE@XZ	1

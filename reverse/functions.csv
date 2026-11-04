@@ -18083,7 +18083,6 @@ _DeblockNonFilteredBandNewFilter_MMX,,0x001CA000,4240,Code/Libraries/Source/VP6/
 ?ji_00629b0e@@YAXXZ,,0x00629B0E,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA484;dll=msvcr71.dll;import=log;target=log
 ?ji_00629b14@@YAXXZ,,0x00629B14,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA480;dll=msvcr71.dll;import=printf;target=printf
 ?ji_00629b6e@@YAXXZ,,0x00629B6E,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA42C;dll=msvcr71.dll;import=isxdigit;target=isxdigit
-?ji_0062af20@@YAXXZ,,0x0062AF20,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA078;dll=dinput8.dll;import=DirectInput8Create;target=DirectInput8Create
 ?ji_0065477e@@YAXXZ,,0x0065477E,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA064;dll=avifil32.dll;import=AVIFileRelease;target=AVIFileRelease
 ?ji_0065478a@@YAXXZ,,0x0065478A,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA05C;dll=avifil32.dll;import=AVIFileRelease;target=AVIFileRelease
 ?ji_006547a2@@YAXXZ,,0x006547A2,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA04C;dll=avifil32.dll;import=AVIStreamWrite;target=AVIStreamWrite
@@ -99451,3 +99450,4 @@ _GdipBitmapLockBits@20,,0x00628F5C,6,Code/Libraries/Source/Win32/GdiplusImportTh
 ?underflow@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,,0x00013D90,10,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_underflow.cpp,matched,STLport 4.5.3 narrow filebuf underflow - slot 7 of the narrow filebuf vtable which lines up with the wide vtable slot for slot. Ten bytes forwarding to _Underflow::_M_doit at 0x0001E560. Needs /Ob0 like its wide twin or cl inlines _M_doit into it; migrated=stlport-4.6
 _htonl@4,,0x00655670,6,Code/Libraries/Source/Win32/Wsock32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__htonl@4 using VS2003 __identifier; retail IAT slot 0x00BBA998 names wsock32.dll!htonl (gen-import row); complete 6B tail
 _htons@4,,0x00655682,6,Code/Libraries/Source/Win32/Wsock32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__htons@4 using VS2003 __identifier; retail IAT slot 0x00BBA98C names wsock32.dll!htons (gen-import row); complete 6B tail
+_DirectInput8Create@20,,0x0062AF20,6,Code/Libraries/Source/Win32/Dinput8ImportThunks.cpp,matched,Typed DX SDK stdcall forwarding through the genuine __imp__DirectInput8Create@20 using VS2003 __identifier; retail IAT slot 0x00BBA078 names dinput8.dll!DirectInput8Create (gen-import row); complete 6B tail under the file's O2 override

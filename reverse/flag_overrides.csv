@@ -664,6 +664,7 @@ Code/Libraries/Source/WWVegas/WWMath/tri.cpp,-G7 -arch:SSE2,3,3,region default l
 Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,,4,3,region default loses rows
 Code/Libraries/Source/WWVegas/WWMath/vp.cpp,-arch:SSE -G7,26,21,region default loses rows
 Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp,,1,1,region default loses rows
+Code/Libraries/Source/Win32/Dinput8ImportThunks.cpp,-O2 -G7,1,1,region default loses rows
 Code/Libraries/Source/Win32/GdiplusImportThunks.cpp,-O2 -G7,19,2,region default loses rows
 Code/Libraries/Source/assetmanager/AssetManagerImplRefresh.cpp,-O2 -G6 -arch:SSE,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/AssetManagerImplUpdate.cpp,-O2 -G6 -arch:SSE,1,1,region default loses rows
