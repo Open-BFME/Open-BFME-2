@@ -165,7 +165,7 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Constr
 // Preserve the separately rowed allocator and copy worker while using the
 // library's vector, allocator, pair and tag definitions.
 template <> CopyNoCasePair *allocator<CopyNoCasePair>::allocate(unsigned int, const void *) const;
-template <> template <> CopyNoCasePair *
+template <> template <> inline __declspec(noinline) CopyNoCasePair *
 vector<CopyNoCasePair, allocator<CopyNoCasePair> >::_M_allocate_and_copy<const CopyNoCasePair *>(
     size_type n, const CopyNoCasePair *first, const CopyNoCasePair *last)
 {
@@ -176,6 +176,10 @@ vector<CopyNoCasePair, allocator<CopyNoCasePair> >::_M_allocate_and_copy<const C
                          reinterpret_cast<Rva00317CF2Element *>(result), tag);
     return result;
 }
+}
+
+namespace _STL {
+template CopyNoCasePair *vector<CopyNoCasePair, allocator<CopyNoCasePair> >::_M_allocate_and_copy<const CopyNoCasePair *>(size_type, const CopyNoCasePair *, const CopyNoCasePair *);
 }
 
 // Native 0x0021C21B is owned by the non-POD-traited four-byte record
