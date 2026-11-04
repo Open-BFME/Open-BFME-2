@@ -8764,3 +8764,5 @@ local,BFME2Encoding2MotionChannel::rva001B27AB::f,BFME2Encoding2MotionChannel::r
 member,SubQ00346FD0::m_bits20,SubQ00346FD0::m_consecutiveShots,inferred,agree:nl-8a90cb6657c7,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,
 function,?rva004F61B1@LivingWorldAutoResolveBattle@@QAEXXZ,?determineWinner@LivingWorldAutoResolveBattle@@QAEXXZ,inferred,agree:nl-77be215df40c,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,0x004F61B1
 member,BfmeThingVJQ::m_bfme14,BfmeThingVJQ::m_transactor,inferred,agree:nl-058b05cb074b,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJQ.cpp,
+local,AITactic::calcLastTeamPos::n,AITactic::calcLastTeamPos::count,inferred,agree:nl-1e580845e304,Code/GameEngine/Source/Common/Rva004EDDD3.cpp,0x004EDDD3
+local,PlayerAITypeSet::rva00215B14::p,PlayerAITypeSet::rva00215B14::src,inferred,agree:nl-950eaf488e9d,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp,0x00215B14

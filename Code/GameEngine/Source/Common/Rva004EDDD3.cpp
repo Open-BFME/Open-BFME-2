@@ -125,8 +125,8 @@ void AITactic::calcLastTeamPos()
 		m_38.y += p->y;
 		m_38.z += p->z;
 	}
-	unsigned n = (unsigned)tmp.size();
-	float inv = g_Va00BBB8D8 / (float)n;
+	unsigned count = (unsigned)tmp.size();
+	float inv = g_Va00BBB8D8 / (float)count;
 	m_38.x *= inv;
 	m_38.y *= inv;
 	m_38.z *= inv;

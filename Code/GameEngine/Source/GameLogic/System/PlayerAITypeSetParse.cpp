@@ -46,9 +46,9 @@ void PlayerAITypeSet::rva00215B14(INI *ini) {
    _STL::vector<BfmeVectorRecord0002154F3> tmp;
    tmp.reserve(records.size()+records.size()/2+8);
    reinterpret_cast<Rva00215AF1&>(tmp).resize(records.size());
-   BfmeVectorRecord0002154F3 *p=records.begin(),*end=records.end(),*dst=tmp.begin();
-   for(;p!=end;++p,++dst)
-    reinterpret_cast<Rva0021545C*>(dst)->rva0021545C(reinterpret_cast<Rva0021545C*>(p));
+   BfmeVectorRecord0002154F3 *src=records.begin(),*end=records.end(),*dst=tmp.begin();
+   for(;src!=end;++src,++dst)
+    reinterpret_cast<Rva0021545C*>(dst)->rva0021545C(reinterpret_cast<Rva0021545C*>(src));
    reinterpret_cast<_STL::vector<BfmeE12>&>(records).swap(reinterpret_cast<_STL::vector<BfmeE12>&>(tmp));
   }
   index=records.size();
