@@ -22,16 +22,7 @@
 class Object;
 class Player;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags, +0x0C whether a hit allows.

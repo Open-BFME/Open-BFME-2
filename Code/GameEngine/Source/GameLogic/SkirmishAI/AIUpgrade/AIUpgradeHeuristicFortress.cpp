@@ -27,15 +27,7 @@ template<int N> class BitFlags { public: unsigned int bits[7]; struct BfmeNoInit
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeFixedStorage0004543D { char bytes[28]; public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw(); };
 class Rva00045411BitSet { char bytes[28]; public: Rva00045411BitSet(int,int); };
-class Rva000421C8 {
-public:
- Rva000421C8():m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object *)=0;
- virtual int getPlayerMask() { return -1; }
- Rva000421C8 *link(Rva000421C8 *);
- Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class PartitionFilterRejectByKindOf:public Rva000421C8 {
  BfmeFixedStorage0004543D a,b;
 public:

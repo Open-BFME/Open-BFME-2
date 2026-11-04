@@ -674,15 +674,7 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 	m_numDecalVertsInBatch += numVerts;
 	m_numDecalIndicesInBuffer += numIndex;
 }
-class Rva000421C8 {
-public:
- Rva000421C8():m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object*)=0;
- virtual int getPlayerMask();
- Rva000421C8* link(Rva000421C8*);
- Rva000421C8* m_next;
-};
+#include "../../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 #include "../../../../../GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h"
 class BfmeFixedStorage0004543D {
 public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();

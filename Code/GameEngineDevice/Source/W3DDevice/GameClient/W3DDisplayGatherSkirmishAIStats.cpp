@@ -141,15 +141,7 @@ extern const char *AITargetTypeNames[];
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *next;
-};
+#include "../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 class Rva0004584D : public Rva000421C8
 {
 public:

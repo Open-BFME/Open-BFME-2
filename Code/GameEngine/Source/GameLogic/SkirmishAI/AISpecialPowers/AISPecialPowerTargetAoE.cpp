@@ -44,16 +44,7 @@ void __stdcall Rva005EE317(Coord3D *out)
 // BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
 // a vptr, the +0x04 link to the next filter, then each filter's own members.
 class Object;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 

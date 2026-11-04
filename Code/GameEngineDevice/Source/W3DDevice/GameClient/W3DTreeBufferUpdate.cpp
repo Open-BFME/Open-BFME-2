@@ -28,15 +28,7 @@ class Object;
 class Player;
 class Team;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
 // player, +0x10 whether a hit allows.
