@@ -261,7 +261,7 @@ class BuildAssistant; extern BuildAssistant *TheBuildAssistant;
 #define UI ((CommandUI*)TheInGameUI)
 #define STREAM ((CommandStream*)TheMessageStream)
 #define BUILD ((CommandBuildAssistant*)TheBuildAssistant)
-#define MSG(n) STREAM->appendMessage((GameMessage::Type)(n))
+#define APPEND_GAME_MESSAGE(n) STREAM->appendMessage((GameMessage::Type)(n))
 #define VOICE(n,p) pickAndPlayUnitVoiceResponse(UI->getSelectedDrawables(),(GameMessage::Type)(n),(p))
 class ThingTemplate { public:
 
@@ -492,17 +492,17 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         const ThingTemplate *what=commandButton->rva0035B570();
         if (!what || !obj->getControllingPlayer() || !obj->getControllingPlayer()->canBuild(what)) break;
         if (!(obj->getTemplate()->kind[0xd]&1)) break;
-        GameMessage *msg=MSG(0x419);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x419);
         msg->appendIntegerArgument(what->typeKey);
         msg->appendLocationArgument(obj->position);
         msg->appendRealArgument(obj->transform.Get_Z_Rotation());
-        GameMessage *clear=MSG(0x3ec);
+        GameMessage *clear=APPEND_GAME_MESSAGE(0x3ec);
         clear->appendBooleanArgument(true);
         UI->clearSelection();
         break;
     }
     case 2:
-        if (primary && obj) { Player *local=ThePlayerList->getLocalPlayer(); if (obj->getControllingPlayer()==local) MSG(0x41b); }
+        if (primary && obj) { Player *local=ThePlayerList->getLocalPlayer(); if (obj->getControllingPlayer()==local) APPEND_GAME_MESSAGE(0x41b); }
         break;
     case 0x35: {
         if (!selectedDrawable || !obj) break;
@@ -517,16 +517,16 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         UI->setCommand(commandButton);
         break;
     }
-    case 0x22: MSG(0x43e); break;
-    case 0x21: MSG(0x43d); break;
+    case 0x22: APPEND_GAME_MESSAGE(0x43e); break;
+    case 0x21: APPEND_GAME_MESSAGE(0x43d); break;
     case 0x32: {
         const ThingTemplate *what=commandButton->rva0035B570();
-        if (what) { GameMessage *msg=MSG(0x43f); msg->appendIntegerArgument(what->typeKey); }
+        if (what) { GameMessage *msg=APPEND_GAME_MESSAGE(0x43f); msg->appendIntegerArgument(what->typeKey); }
         break;
     }
-    case 0x33: MSG(0x45d); break;
-    case 0x3b: MSG(0x46e); break;
-    case 0x3c: MSG(0x46f); break;
+    case 0x33: APPEND_GAME_MESSAGE(0x45d); break;
+    case 0x3b: APPEND_GAME_MESSAGE(0x46e); break;
+    case 0x3c: APPEND_GAME_MESSAGE(0x46f); break;
     case 3: case 4: case 0x2e: {
         bool revival=commandButton->getCommandType()==0x2e;
         const ThingTemplate *what=revival ? 0 : commandButton->rva0035B570();
@@ -544,7 +544,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             bool multiple=TheKeyboard->isShift() && !revival && what && what->hero==0;
             if (repeated && !multiple) return CBC_COMMAND_NOT_USED;
             bool horde=commandButton->getCommandType()==4;
-            GameMessage *msg=MSG(0x417);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x417);
             msg->appendBooleanArgument(revival);
             if (revival) msg->appendIntegerArgument(revivalID);
             else msg->appendIntegerArgument(what->typeKey);
@@ -554,7 +554,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         } else if (commandButton->getOptions()&0x80000000) {
             Player *local=ThePlayerList->getLocalPlayer();
             if (obj->getControllingPlayer()!=local) break;
-            GameMessage *msg=MSG(0x418);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x418);
             msg->appendBooleanArgument(revival);
             if (revival) msg->appendIntegerArgument(revivalID);
             else msg->appendIntegerArgument(what->typeKey);
@@ -573,12 +573,12 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             if (production && production->canQueue(upgrade)==4) {
                 UI->message(AsciiString("GUI:ProductionQueueFull")); break;
             }
-            GameMessage *msg=MSG(0x415);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x415);
             msg->appendObjectIDArgument(obj->getID());
             msg->appendIntegerArgument(upgrade->id);
         } else if (options&0x80000000) {
             Player *local=ThePlayerList->getLocalPlayer();
-            if (obj->getControllingPlayer()==local) { GameMessage *msg=MSG(0x416); msg->appendIntegerArgument(upgrade->id); }
+            if (obj->getControllingPlayer()==local) { GameMessage *msg=APPEND_GAME_MESSAGE(0x416); msg->appendIntegerArgument(upgrade->id); }
         }
         break;
     }
@@ -605,12 +605,12 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             }
             Player *payer=ThePlayerList->getLocalPlayer();
             if (!TheUpgradeCenter->rva0026F11A(payer,upgrade,obj,true)) break;
-            GameMessage *msg=MSG(0x415);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x415);
             msg->appendObjectIDArgument(INVALID_OBJECT_ID);
             msg->appendIntegerArgument(upgrade->id);
         } else if (options&0x80000000) {
             Player *local=ThePlayerList->getLocalPlayer();
-            if (obj->getControllingPlayer()==local) { GameMessage *msg=MSG(0x416); msg->appendIntegerArgument(upgrade->id); }
+            if (obj->getControllingPlayer()==local) { GameMessage *msg=APPEND_GAME_MESSAGE(0x416); msg->appendIntegerArgument(upgrade->id); }
         }
         break;
     }
@@ -629,16 +629,16 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             struct CastleMemberView { char pad[0x18]; ObjectID castleID; };
             CastleMemberView *member=(CastleMemberView*)obj->module(castleMemberKey);
             if (!member || !TheGameLogic->findObjectByID(member->castleID)) break;
-            GameMessage *msg=MSG(0x415);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x415);
             msg->appendObjectIDArgument(obj->getID());
             msg->appendIntegerArgument(upgrade->id);
         } else if (options&0x80000000) {
             Player *local=ThePlayerList->getLocalPlayer();
-            if (obj->getControllingPlayer()==local) { GameMessage *msg=MSG(0x416); msg->appendIntegerArgument(upgrade->id); }
+            if (obj->getControllingPlayer()==local) { GameMessage *msg=APPEND_GAME_MESSAGE(0x416); msg->appendIntegerArgument(upgrade->id); }
         }
         break;
     }
-    case 0xe: MSG(0x435); break;
+    case 0xe: APPEND_GAME_MESSAGE(0x435); break;
     case 0xf: break;
     case 0x10: {
         int key=commandButton->exitKey;
@@ -647,33 +647,33 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         for (int i=0;i<32;++i) if ((int)ControlBarInventoryEntries[i].window==key) id=(ObjectID)ControlBarInventoryEntries[i].objectID;
         Object *contained=TheGameLogic->findObjectByID(id);
         if (!contained) break;
-        GameMessage *msg=MSG(0x41d);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x41d);
         msg->appendObjectIDArgument(contained->getID());
         msg->appendObjectIDArgument(obj->getID());
         break;
     }
     case 0x11: {
         UI->setCommand(0);
-        if (!(commandButton->getOptions()&0x20)) { GameMessage::Type type=(GameMessage::Type)0x41e; VOICE(type,0); MSG(type); }
+        if (!(commandButton->getOptions()&0x20)) { GameMessage::Type type=(GameMessage::Type)0x41e; VOICE(type,0); APPEND_GAME_MESSAGE(type); }
         break;
     }
     case 0x28: {
         UI->setCommand(0);
-        if (!(commandButton->getOptions()&0x20)) { GameMessage::Type type=(GameMessage::Type)0x455; VOICE(type,0); MSG(type); }
+        if (!(commandButton->getOptions()&0x20)) { GameMessage::Type type=(GameMessage::Type)0x455; VOICE(type,0); APPEND_GAME_MESSAGE(type); }
         break;
     }
     case 0x2a: {
         if (!obj) break;
         GameMessage::Type type=(GameMessage::Type)0x439;
         if (TheInGameUI) { UI->setCommand(0); VOICE(type,0); }
-        GameMessage *msg=MSG(type); msg->appendObjectIDArgument(obj->getID());
+        GameMessage *msg=APPEND_GAME_MESSAGE(type); msg->appendObjectIDArgument(obj->getID());
         break;
     }
     case 0x2b: {
         if (!obj) break;
         GameMessage::Type type=(GameMessage::Type)0x437;
         if (TheInGameUI) { UI->setCommand(0); VOICE(type,0); }
-        GameMessage *msg=MSG(type); msg->appendObjectIDArgument(obj->getID());
+        GameMessage *msg=APPEND_GAME_MESSAGE(type); msg->appendObjectIDArgument(obj->getID());
         break;
     }
     case 0x2c: {
@@ -691,10 +691,10 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             UI->setCommand(0);
             if (gate->isOpen()) {
                 VOICE(0x439,0);
-                msg=MSG(0x439);
+                msg=APPEND_GAME_MESSAGE(0x439);
             } else {
                 VOICE(0x437,0);
-                msg=MSG(0x437);
+                msg=APPEND_GAME_MESSAGE(0x437);
             }
             msg->appendObjectIDArgument(obj->getID());
         }
@@ -702,16 +702,16 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     }
     case 0x12: {
         UI->setCommand(0);
-        if (!(commandButton->getOptions()&0x20)) { GameMessage::Type type=(GameMessage::Type)0x41f; VOICE(type,0); MSG(type); }
+        if (!(commandButton->getOptions()&0x20)) { GameMessage::Type type=(GameMessage::Type)0x41f; VOICE(type,0); APPEND_GAME_MESSAGE(type); }
         break;
     }
     case 0x15: break;
-    case 0x16: if (primary) MSG(0x41c); break;
+    case 0x16: if (primary) APPEND_GAME_MESSAGE(0x41c); break;
     case 0x14: break;
     case 0xb: case 0xc: case 0xd: case 0x1a: break;
     case 0x1b: {
         GameMessage::Type type=(GameMessage::Type)0x43a;
-        GameMessage *msg=MSG(type);
+        GameMessage *msg=APPEND_GAME_MESSAGE(type);
         PickAndPlayInfo info;
         int weapon=commandButton->weapon;
         info.weaponSlot=&weapon;
@@ -722,7 +722,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 0x23: {
         if (!obj) break;
         GameMessage::Type type=(GameMessage::Type)0x43a;
-        GameMessage *msg=MSG(type);
+        GameMessage *msg=APPEND_GAME_MESSAGE(type);
         PickAndPlayInfo info;
         int weapon=commandButton->weapon;
         info.weaponSlot=&weapon;
@@ -733,13 +733,13 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         break;
     }
     case 0x2d: {
-        GameMessage *msg=MSG(0x457);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x457);
         msg->appendObjectIDArgument(obj ? obj->getID() : INVALID_OBJECT_ID);
         if (obj) const_cast<CommandButton*>(commandButton)->rva0035B5C2(obj,true);
         break;
     }
     case 0x31: {
-        GameMessage *msg=MSG(0x45c);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x45c);
         int value=0;
         if (commandButton->getOptions()&0x2000) value=1;
         else if (commandButton->getOptions()&0x4000) value=2;
@@ -748,7 +748,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         break;
     }
     case 0x30: {
-        GameMessage *msg=MSG(0x45b);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x45b);
         msg->appendObjectIDArgument(obj ? obj->getID() : INVALID_OBJECT_ID);
         if (obj) const_cast<CommandButton*>(commandButton)->rva0035B6FA(obj->getID(),true);
         break;
@@ -756,12 +756,12 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 0x17: {
         if (!primary) {
             if (cancellable && obj) {
-                GameMessage *msg=MSG(0x459);
+                GameMessage *msg=APPEND_GAME_MESSAGE(0x459);
                 msg->appendIntegerArgument(commandButton->weapon);
                 msg->appendObjectIDArgument(obj->getID());
             }
         } else {
-            GameMessage *msg=MSG(0x40d);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x40d);
             msg->appendIntegerArgument(commandButton->weapon);
             msg->appendIntegerArgument(commandButton->weaponFlags);
         }
@@ -770,7 +770,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 0x20: {
         Object *center=ThePlayerList->getLocalPlayer()->findNaturalCommandCenter();
         if (!center) break;
-        GameMessage *msg=MSG(0x410);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x410);
         msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
         msg->appendIntegerArgument(commandButton->getOptions());
         msg->appendObjectIDArgument(center->getID());
@@ -779,7 +779,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     }
     case 0x26: {
         GameMessage::Type type=(GameMessage::Type)0x456;
-        GameMessage *msg=MSG(type);
+        GameMessage *msg=APPEND_GAME_MESSAGE(type);
         msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
         msg->appendIntegerArgument(commandButton->getOptions());
         msg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -787,7 +787,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         if (!extraCommands.empty()) {
             for (unsigned int i=0;i<extraCommands.size();++i) {
                 const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
-                GameMessage *extraMsg=MSG(type);
+                GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
                 extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
                 extraMsg->appendIntegerArgument(extra->options);
                 extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -799,13 +799,13 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         const_cast<CommandButton*>(commandButton)->rva0035B5C2(obj,true);
         if (!primary) {
             if (cancellable && obj) {
-                GameMessage *msg=MSG(0x458);
+                GameMessage *msg=APPEND_GAME_MESSAGE(0x458);
                 msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
                 msg->appendObjectIDArgument(obj->getID());
             }
         } else {
             GameMessage::Type type=(GameMessage::Type)0x410;
-            GameMessage *msg=MSG(type);
+            GameMessage *msg=APPEND_GAME_MESSAGE(type);
             msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
             msg->appendIntegerArgument(commandButton->getOptions());
             msg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -815,7 +815,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
                 for (unsigned int i=0;i<extraCommands.size();++i) {
                     const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
                     if (extra && extra->type==0x18) {
-                        GameMessage *extraMsg=MSG(type);
+                        GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
                         extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
                         extraMsg->appendIntegerArgument(extra->options);
                         extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -837,7 +837,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             }
         }
         if (science==SCIENCE_INVALID) { switchToContext(0,0); break; }
-        GameMessage *msg=MSG(0x414);
+        GameMessage *msg=APPEND_GAME_MESSAGE(0x414);
         msg->appendIntegerArgument(player->playerIndex);
         msg->appendIntegerArgument(science);
         dirty=true;
@@ -846,7 +846,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             GameMessage::Type type=(GameMessage::Type)0x456;
             for (unsigned int i=0;i<extraCommands.size();++i) {
                 const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
-                GameMessage *extraMsg=MSG(type);
+                GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
                 extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
                 extraMsg->appendIntegerArgument(extra->options);
                 extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -886,7 +886,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
                         if (selected) {
                             void *change=selected->rva0028C197();
                             if (change) {
-                                GameMessage *msg=MSG(0x460);
+                                GameMessage *msg=APPEND_GAME_MESSAGE(0x460);
                                 msg->appendObjectIDArgument(selected->getID());
                                 msg->appendIntegerArgument(chosen);
                             }
@@ -894,19 +894,19 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
                     }
                 }
             }
-        } else if (obj) { GameMessage *msg=MSG(0x453); msg->appendObjectIDArgument(obj->getID()); }
+        } else if (obj) { GameMessage *msg=APPEND_GAME_MESSAGE(0x453); msg->appendObjectIDArgument(obj->getID()); }
         if (obj) const_cast<CommandButton*>(commandButton)->rva0035B5C2(obj,true);
         break;
     }
     case 0x25: {
         if (!primary) {
             if (!cancellable || !obj) break;
-            GameMessage *msg=MSG(0x458);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x458);
             msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
             msg->appendObjectIDArgument(obj->getID());
         } else {
             GameMessage::Type type=(GameMessage::Type)0x410;
-            GameMessage *msg=MSG(type);
+            GameMessage *msg=APPEND_GAME_MESSAGE(type);
             msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
             msg->appendIntegerArgument(commandButton->getOptions());
             msg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -916,7 +916,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
                 for (unsigned int i=0;i<extraCommands.size();++i) {
                     const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
                     if (extra && extra->type==0x18) {
-                        GameMessage *extraMsg=MSG(type);
+                        GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
                         extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
                         extraMsg->appendIntegerArgument(extra->options);
                         extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -930,12 +930,12 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     }
     case 0x34:
         if (commandButton->rva0035B570()) {
-            GameMessage *msg=MSG(0x460);
+            GameMessage *msg=APPEND_GAME_MESSAGE(0x460);
             msg->appendIntegerArgument(0);
             msg->appendIntegerArgument(commandButton->rva0035B570()->typeKey);
         }
         break;
-    case 0x27: MSG(0x454); break;
+    case 0x27: APPEND_GAME_MESSAGE(0x454); break;
     case 0x37:
         contextStack.push_back(commandButton->context);
         switchToContext(context,selectedDrawable);

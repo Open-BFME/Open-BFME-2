@@ -31,7 +31,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing/sb_serverlist.c	adapt	
 Code/Libraries/Source/COM/ComInvokeError.cpp	adapt	source	2	2	0	0	0	0	0	0	1	0	0	<windows.h>,<invkprxy.h>	yes	yes	hand	1: Code/Libraries/Source/COM/ComError.h:11 _com_error(source)		IID_IErrorInfo:same,IID_IDispatch:same
 Code/Libraries/Source/CRT/RtcPdbLookup.cpp	adapt	source	2	0	2	0	0	0	0	0	0	0	0	<Psapi.h>	yes	yes	hand			GetModuleInformation:source,EnumProcessModules:source
 Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	adapt	unknown	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	no	hand	1: Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h:11 ascii_string.h(unknown)		InterlockedIncrement:same
-Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp	adapt	unknown	1	0	0	1	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			MSG:unknown
 Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp	adapt	source	1	0	1	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand			CreateDirectoryW:source
 Code/GameEngine/Source/GameLogic/System/ArmySummary.h	adapt	unknown	1	1	0	0	0	0	0	0	0	0	0	<stdlib.h>	no	no	hand	1: Code/GameEngine/Source/GameLogic/System/ArmySummary.h:5 ascii_string.h(unknown)		free:same
 Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c	adapt	unknown	1	0	0	1	0	0	0	0	0	0	0	<SCardSsp.h>	yes	yes	hand	1: Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c:77 nonport.h(unknown)		RESET:unknown
