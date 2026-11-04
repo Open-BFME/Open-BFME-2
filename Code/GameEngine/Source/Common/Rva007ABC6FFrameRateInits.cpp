@@ -15,7 +15,6 @@ extern int BfmeClientFramesPerSecond;
 
 extern int g_00DE1B50;
 int g_00DE1B50 = 0;	// owned here; retail .data starts it at 0
-extern int g_00DFEB98;
 // Native initializer7ADF60 multiplies logic FPS by3; the only retail
 // consumers are drawHealing273DCF. ZH HEALING_ICON_DISPLAY_TIME has exactly
 // that role and expression. Keep writable storage for the separately recovered
@@ -72,8 +71,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007ADD08();
 	static void rva007ADD72();
 	static void rva007ADE88();
-	static void rva007ADEF6();
-	static void rva007ADF60();
 	static void rva007AE043();
 	static void rva007AE0AD();
 	static void rva007AE27C();
@@ -124,18 +121,6 @@ void Rva007ABC6FFrameRateInits::rva007ADD72()
 void Rva007ABC6FFrameRateInits::rva007ADE88()
 {
 	s_rva007ADE88 = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007ADEF6@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007ADEF6 (16B): global at VA 0x00DFEB98, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007ADEF6()
-{
-	g_00DFEB98 = BfmeClientFramesPerSecond / 2;
-}
-
-// ?rva007ADF60@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007ADF60 (14B): global at VA 0x00DFEBB0, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007ADF60()
-{
-	BfmeHealingIconDisplayFrames = BfmeLogicFramesPerSecond * 3;
 }
 
 // ?rva007AE043@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AE043 (16B): TU-local static at VA 0x00DFECD8, never read in .text
