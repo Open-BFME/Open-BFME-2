@@ -1,6 +1,8 @@
 ### LINK-236: static initializers the exit link bridges
 
-Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; next seat continues).
+Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
+`f2cec2a7f8`: report tie fix, Drawable.h constant and 29 rowed copies, bridged 969 -> 940 on the
+fixed report; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -60,7 +62,7 @@ places it.
 
 | Grab-bag file | Rows |
 | --- | ---: |
-| `Rva007AB7F0HalfRateInits.cpp` | 425 |
+| `Rva007AB7F0HalfRateInits.cpp` | 425 (396 after in-o2) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 |
 | `StaticTagInitializers.cpp` | 63 |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
@@ -104,6 +106,18 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 - *Measurement.* The header alone moves no figure (`image_report` `a0399b2d38`). The 256 copies stay
   unidentified until a row names each one. The old report credited them by the shared rate vote
   (bridged 937 -> 681), which was false.
+- *Rowed (29, `6aa90adf0b` + next).* An entry is attributed only when all of these hold:
+  - its static directly follows a function-local static guard (`$S<n>`) of the unit's own class;
+  - no other copy claims that TU;
+  - the approved TU file is the only file of its TU that includes Drawable.h;
+  - its object compiles the copy.
+
+  The row retracts the HalfRateInits body and readmits `_$E1`/`_$E2` in that file.
+  `reverse/attempt_support/link236-drawable-frames-per-flash-attribution-20261104.tsv` gives every
+  remaining copy's neighbour, its TU and why it waits. 144 wait for their TU to include Drawable.h,
+  and 55 for a merge or a stale receipt. 85 have no neighbour with a TU, and 112 sit where tu_map
+  gives one TU to several copies, so that neighbour data is mis-assigned. For these, use the
+  .text$yc pool-init markers before trusting tu_map.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
