@@ -20,13 +20,8 @@ public:
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad[0x54];
-	float m_54;
-};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 #include "../../Include/Common/PlayerList.h"
 
@@ -60,11 +55,11 @@ void ScriptActions::doSkirmishFireSpecialPowerAtMostCost(const AsciiString &asci
 	if (specialPowerTemplate == 0)
 		return;
 	float costLimit = 50.0f;
-	const Overridable *ov = ((const Overridable *)specialPowerTemplate)->friend_getFinalOverride();
-	float g = ov->m_54;
+	const SpecialPowerTemplate *ov = (const SpecialPowerTemplate *)specialPowerTemplate->friend_getFinalOverride();
+	float g = ov->m_radiusCursorRadius;
 	if (g > 50.0f) {
-		ov = ((const Overridable *)specialPowerTemplate)->friend_getFinalOverride();
-		costLimit = ov->m_54;
+		ov = (const SpecialPowerTemplate *)specialPowerTemplate->friend_getFinalOverride();
+		costLimit = ov->m_radiusCursorRadius;
 	}
 	int mask = TheScriptEngine->rva00357475(asciiString, 0);
 	if (mask == 0)

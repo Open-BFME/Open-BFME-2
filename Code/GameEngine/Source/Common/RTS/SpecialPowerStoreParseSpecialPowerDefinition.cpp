@@ -52,25 +52,21 @@ enum { INI_LOAD_CREATE_OVERRIDES = 2 };
 
 typedef void (*INIFieldParseProc)( INI *ini, void *instance, void *store, const void *userData );
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
-class Overridable
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
+
+// Retail inlines Zero Hour's override walk and markAsOverride here (the
+// out-of-line owners are 0x001E35DF and 0x00248D08).
+inline Overridable *Overridable::friend_getFinalOverride()
 {
-public:
-	virtual ~Overridable();
-
-	Overridable *friend_getFinalOverride()
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-	void setNextOverride( Overridable *nextOverride ) { m_nextOverride = nextOverride; }
-	void markAsOverride() { m_isOverride = true; }
-
-private:
-	Overridable *m_nextOverride;				// +0x04
-	Bool m_isOverride;					// +0x08
-};
+	if (m_nextOverride)
+		return m_nextOverride->friend_getFinalOverride();
+	return this;
+}
+__forceinline void Overridable::markAsOverride()
+{
+	m_isOverride = true;
+}
 
 class Rva003B1101 { public:
  Rva003B1101(); Rva003B1101 &operator=(const Rva003B1101 &other);
@@ -78,26 +74,6 @@ class Rva003B1101 { public:
 };
 class Rva003B0FAC { public: void rva003B0FAC(const AsciiString &,int); };
 class ModuleData;
-// ZH SpecialPower.h is the semantic guide; target template size80/name10/id14.
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	
-
-	static const FieldParse *getFieldParse() { return m_specialPowerFieldParse; }
-	void friend_setNameAndID( const AsciiString &name, UnsignedInt id )
-	{
-		((Rva003B0FAC *)this)->rva003B0FAC(name,id);
-	}
-
-private:
-	template<class T> friend struct DataRowPrivateProbe;
- static const FieldParse m_specialPowerFieldParse[];
-	char m_unknown0C[4];
- AsciiString m_name; // +0x10
-	UnsignedInt m_id;					// +0x14
-	char m_unmodelled18[ 0x80 - 0x18 ];			// target allocation80
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
@@ -228,7 +204,7 @@ void SpecialPowerStore::parseSpecialPowerDefinition( INI *ini )
 				*(Rva003B1101 *)specialPower = *(const Rva003B1101 *)defaultTemplate;
 				g_00E01EA8 = false;
 			}
-			specialPower->friend_setNameAndID(name, ++TheSpecialPowerStore->m_nextSpecialPowerID);
+			((Rva003B0FAC *)specialPower)->rva003B0FAC(name, ++TheSpecialPowerStore->m_nextSpecialPowerID);
 			specialPower->markAsOverride();
 			TheSpecialPowerStore->m_specialPowerTemplates.push_back((const ModuleData *const &)specialPower);
 		}
@@ -249,7 +225,7 @@ void SpecialPowerStore::parseSpecialPowerDefinition( INI *ini )
 				*(Rva003B1101 *)specialPower = *(const Rva003B1101 *)defaultTemplate;
 				g_00E01EA8 = false;
 			}
-			specialPower->friend_setNameAndID(name, ++TheSpecialPowerStore->m_nextSpecialPowerID);
+			((Rva003B0FAC *)specialPower)->rva003B0FAC(name, ++TheSpecialPowerStore->m_nextSpecialPowerID);
 			TheSpecialPowerStore->m_specialPowerTemplates.push_back((const ModuleData *const &)specialPower);
 		}
 	}

@@ -7,17 +7,6 @@
 // The template override's flag bit 6 gates Pathfinder::QuickDoesPathExist.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	void *m_vptr00;
-	Overridable *m_next04;
-	unsigned char m_alloc08;
-	char m_pad09[0x18 - 0x09];
-	unsigned int m_18;
-};
-
 class Object
 {
 public:
@@ -33,13 +22,13 @@ extern AI *TheAI;
 
 #include "../../Include/GameLogic/AIPathfind.h"
 
-class SpecialPowerTemplate : public Overridable {};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 #include "../../Include/GameLogic/ActionManager.h"
 
 bool ActionManager::rva0041C9C4(const Object *obj, const Coord3D *coord, const SpecialPowerTemplate *over)
 {
-	const Overridable *final = over->friend_getFinalOverride();
-	if ((((unsigned char)(final->m_18 >> 6)) & 1) == 0)
+	if ((((unsigned char)(over->getFO()->m_flags >> 6)) & 1) == 0)
 		return true;
 	Pathfinder *pf = TheAI->m_pathfinder;
 	return pf->QuickDoesPathExist((Object *)obj, &obj->m_pos38, coord, 0);

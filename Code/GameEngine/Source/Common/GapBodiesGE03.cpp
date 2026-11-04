@@ -157,21 +157,20 @@ Rva0052A7C1 &Rva0052A7C1::rva0052AC29(DelegateDesc desc)
 }
 
 // --- 0x0028864F (46B): whether this override's final override has a higher
-// +0x18 value than the other's.
-class Overridable
+// +0x18 value than the other's. The +0x18 int belongs to a derived template
+// class that is not recovered; this view names only that member.
+#include "../../Include/Common/Overridable.h"
+
+struct Rva0028864FOverride : public Overridable
 {
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-	bool rva0028864F(const Overridable *other) const;
-private:
-	char m_pad[0x18];
-	int m_18;
+	char m_pad10[8];
+	int m_18;	// +0x18
 };
 
 bool Overridable::rva0028864F(const Overridable *other) const
 {
-	const Overridable *mine = friend_getFinalOverride();
-	const Overridable *theirs = other->friend_getFinalOverride();
+	const Rva0028864FOverride *mine = (const Rva0028864FOverride *)friend_getFinalOverride();
+	const Rva0028864FOverride *theirs = (const Rva0028864FOverride *)other->friend_getFinalOverride();
 	if (mine && theirs)
 		return mine->m_18 > theirs->m_18;
 	return false;

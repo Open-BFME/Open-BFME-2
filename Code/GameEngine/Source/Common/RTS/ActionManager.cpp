@@ -352,24 +352,8 @@ struct Rva0041BB87Iface
 
 enum SpecialPowerType { SPECIAL_INVALID = 0 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	__declspec(dllimport) __forceinline SpecialPowerType getSpecialPowerType() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_type;
-	}
-
-private:
-	unsigned char m_pad00[0x1C];
-	SpecialPowerType m_type; // +0x1C
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
@@ -692,7 +676,7 @@ bool ActionManager::canDoSpecialPower(const Object *obj, const SpecialPowerTempl
 
 	if (checkSourceRequirements)
 	{
-		if (!obj->hasSpecialPower(spTemplate->getSpecialPowerType()))
+		if (!obj->hasSpecialPower(((const SpecialPowerTemplate *)spTemplate->friend_getFinalOverride())->m_type))
 			return false;
 	}
 
@@ -711,7 +695,7 @@ bool ActionManager::canDoSpecialPower(const Object *obj, const SpecialPowerTempl
 			return false;
 	}
 
-	switch (spTemplate->getSpecialPowerType())
+	switch (((const SpecialPowerTemplate *)spTemplate->friend_getFinalOverride())->m_type)
 	{
 		case 27:
 		case 37:

@@ -17,41 +17,24 @@ typedef unsigned int UnsignedInt;
 typedef int Int;
 #include <windows.h>
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	Overridable *friend_getFinalOverride()
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-	const Overridable *friend_getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 
-private:
-	Overridable *m_nextOverride; // +0x04, native override walkers
-	bool m_isOverride; // +0x08, donor layout
-};
-
-class SpecialPowerTemplate : public Overridable
+// Retail inlines Zero Hour's override walks here: both bodies stay visible, and
+// their emitted copies match the 24-byte const (0x00288609) and 14-byte mutable
+// (0x001E35DF) owners.
+inline Overridable *Overridable::friend_getFinalOverride()
 {
-public:
-	const AsciiString &getName() const { return getFO()->m_name; }
-	// Retail inlines the override-aware lookup here; keep its body visible
-	// without emitting a competing standalone accessor.
-	__declspec(dllimport) __forceinline UnsignedInt getID() const { return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_id; }
-private:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	unsigned char m_pad0C[4];
-	AsciiString m_name; // +0x10
-	UnsignedInt m_id; // +0x14
-};
+	if (m_nextOverride)
+		return m_nextOverride->friend_getFinalOverride();
+	return this;
+}
+inline const Overridable *Overridable::friend_getFinalOverride() const
+{
+	if (m_nextOverride)
+		return m_nextOverride->friend_getFinalOverride();
+	return this;
+}
 
 class SpecialPowerStore
 {

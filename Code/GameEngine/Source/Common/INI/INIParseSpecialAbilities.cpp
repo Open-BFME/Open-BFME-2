@@ -14,20 +14,12 @@
 
 typedef unsigned int UnsignedInt;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	UnsignedInt getID() const { return m_id; }
-private:
-	unsigned char m_unreconstructed_00[0x14];
-	UnsignedInt m_id;	// +0x14
-};
+// getID's read without its own final-override walk: the caller already holds
+// the final override, and the by-value return is the pushed temporary.
+static inline UnsignedInt idOf(const SpecialPowerTemplate *final) { return final->m_id; }
 
 class SpecialPowerStore
 {
@@ -66,8 +58,8 @@ void INI::Rva00339B50_ParseSpecialAbilities(INI *ini, void *, void *store, const
 		const SpecialPowerTemplate *power = TheSpecialPowerStore->findSpecialPowerTemplate(AsciiString(token));
 		if (power)
 		{
-			const SpecialPowerTemplate *final = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
-			ids->push_back(final->getID());
+			const SpecialPowerTemplate *final = power->getFO();
+			ids->push_back(idOf(final));
 		}
 	}
 }

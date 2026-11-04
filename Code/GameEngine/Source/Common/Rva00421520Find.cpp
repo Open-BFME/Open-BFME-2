@@ -32,15 +32,7 @@ public:
 	void rva004213DB(const ModuleData *data);
 };
 
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const;
-	void *m_vtable;
-	Overridable *m_nextOverride;
-	int m_isOverride;
-	int m_extra0C;
-};
+#include "../../Include/Common/Overridable.h"
 
 class ModuleData : public Overridable
 {
@@ -63,8 +55,8 @@ void Rva00421520::rva00421520(Rva004210B0 *holder, const StringBase<char> *name)
 		_ReadWriteBarrier();
 		const ModuleData *md = m_begin[i];
 		const Overridable *target = md;
-		if (md->m_nextOverride) {
-			target = md->m_nextOverride->getFinalOverride();
+		if (md->getNextOverride()) {
+			target = ((Overridable *)md->getNextOverride())->friend_getFinalOverride();
 		}
 		if (((const ModuleData *)target)->m_10.compare(*name) == 0) {
 			holder->rva004213DB((const ModuleData *)i);
@@ -98,8 +90,8 @@ void Rva00421292::rva00421292(Gen_0039BE00 *holder, const StringBase<char> *name
 		_ReadWriteBarrier();
 		const ModuleData *md = m_begin[i];
 		const Overridable *target = md;
-		if (md->m_nextOverride) {
-			target = md->m_nextOverride->getFinalOverride();
+		if (md->getNextOverride()) {
+			target = ((Overridable *)md->getNextOverride())->friend_getFinalOverride();
 		}
 		if (((const ModuleData *)target)->m_10.compare(*name) == 0) {
 			holder->bfmeRemove(i);

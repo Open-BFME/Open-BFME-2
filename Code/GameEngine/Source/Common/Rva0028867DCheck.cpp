@@ -44,23 +44,19 @@ static bool Rva0028867DCaller(const void *level)
 // two-word handle result ABI. Native query00288C68 takes one object word
 // and returns the list; its original parameter spelling remains unknown.
 // Handle/list/node/override layout copied from the verified ExperienceLevelSystem.cpp.
-class Overridable
+#include "../../Include/Common/Overridable.h"
+// Zero Hour's inline getFinalOverride walk as retail inlines it here: the
+// first level only, then the out-of-line friend_getFinalOverride (0x001E35DF).
+static inline Overridable *firstLevelFinalOverride(Overridable *overridable)
 {
-public:
-    Overridable *friend_getFinalOverride();
-    Overridable *getFinalOverride()
-    {
-        if (next) return next->friend_getFinalOverride();
-        return this;
-    }
-private:
-    void *vptr;
-    Overridable *next;
-};
+    if (overridable->friend_getNextOverride())
+        return overridable->friend_getNextOverride()->friend_getFinalOverride();
+    return overridable;
+}
 class ExperienceLevel : public Overridable
 {
 public:
-    char unknown08[0x18-8];
+    char unknown10[0x18-0x10];
     int required;
     char unknown1C[0xFC-0x1C];
     int rank;
@@ -104,7 +100,7 @@ ExperienceLevelHandle ExperienceLevelStore::rva00288D88(int object, int limit)
     ExperienceLevelNode *end = list->sentinel;
     for (ExperienceLevelNode *node=end->next; node!=end; node=node->next)
     {
-        ExperienceLevel *level = static_cast<ExperienceLevel *>(node->data.getFinalOverride());
+        ExperienceLevel *level = static_cast<ExperienceLevel *>(firstLevelFinalOverride(&node->data));
         if (level && Rva0028867DCheck(level))
         {
             int required = level->required;
@@ -132,7 +128,7 @@ ExperienceLevelHandle ExperienceLevelStore::rva00288E21(const ThingTemplate *obj
     ExperienceLevelNode *end = list->sentinel;
     for (ExperienceLevelNode *node=end->next; node!=end; node=node->next)
     {
-        ExperienceLevel *level = static_cast<ExperienceLevel *>(node->data.getFinalOverride());
+        ExperienceLevel *level = static_cast<ExperienceLevel *>(firstLevelFinalOverride(&node->data));
         if (level && Rva0028867DCheck(level) && level->rank == rank)
         {
             ExperienceLevelIterator iter;

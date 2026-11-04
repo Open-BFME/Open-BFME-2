@@ -228,6 +228,7 @@ struct Rva00080168Owner
 };
 extern void *W3DGCData00DE2000;
 
+#include "../../Include/Common/Overridable.h"
 #include "../../Include/GameClient/Water.h"
 
 template <class T> class OVERRIDE

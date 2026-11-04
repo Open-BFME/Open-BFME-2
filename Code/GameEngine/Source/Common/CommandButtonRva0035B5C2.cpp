@@ -22,12 +22,7 @@ unsigned short g_00DBFDC8 = 0xFFFF;
 #include "../../Include/Common/ThingFactory.h"
 class LocomotorTemplate;
 template<class T> class OVERRIDE { public: const T *operator->() const; };
-class Overridable {
-public:
-    Overridable *friend_getFinalOverride();
-    void *vptr;
-    Overridable *next;
-};
+#include "../../Include/Common/Overridable.h"
 
 enum ObjectStatusTypes { STATUS_0035B5C2 = 0x17 };
 enum KindOfType { KIND_0035B5C2_A = 0x91, KIND_0035B5C2_B = 0x92 };
@@ -165,7 +160,7 @@ const ThingTemplate *CommandButton::rva0035B570() const
         result = TheThingFactory->findTemplate(*((const AsciiString *)((const char *)ref->operator->() + 0x64)));
     else
         result = (const ThingTemplate *)ref->operator->();
-    Overridable *next = ((const Overridable *)result)->next;
+    Overridable *next = ((Overridable *)result)->friend_getNextOverride();
     if (next) return (const ThingTemplate *)next->friend_getFinalOverride();
     return result;
 }

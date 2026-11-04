@@ -83,13 +83,8 @@ public:
 
 #include "../../Include/GameClient/Drawable.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad00[0x14];
-	int m_id14;
-};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 class CommandButton
 {
@@ -97,7 +92,7 @@ public:
 	char m_pad00[0x1C];
 	unsigned int m_options;
 	char m_pad20[0x44 - 0x20];
-	Overridable *m_over44;
+	const SpecialPowerTemplate *m_over44;
 	char m_pad48[0x80 - 0x48];
 	int m_weapon80;
 	char m_pad84[0xA0 - 0x84];
@@ -212,8 +207,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 		if (commandType == DO_COMMAND)
 		{
 			GameMessage *msg = TheMessageStream->createMessage(0x40D);
-			const Overridable *finalOverride = command->m_over44->friend_getFinalOverride();
-			msg->appendIntegerArgument(finalOverride->m_id14);
+			msg->appendIntegerArgument(command->m_over44->getID());
 
 			PickAndPlayInfo info;
 			info.m_04 = target;

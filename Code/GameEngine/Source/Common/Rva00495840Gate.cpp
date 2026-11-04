@@ -4,23 +4,17 @@
 // The argument's slot 110 gates the command-button path. A null scan
 // returns 0x3FFFFFFF. Every other exit returns the int at holder+8.
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-
-	char m_pad[0x1c];
-	int m_code;
-};
+enum SpecialPowerType {};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 class CommandButton
 {
 public:
 	char m_pad[0x44];
-	Overridable *m_ov;
+	SpecialPowerTemplate *m_ov;
 };
 
-enum SpecialPowerType {};
 class SpecialAbilityUpdate;
 #include "../GameLogic/Object/object.h"
 
@@ -181,9 +175,9 @@ int Rva00495840::rva00495840(Arg *arg)
 	Object *obj = m_obj;
 	if (arg->s110() == 0)
 		return holder->m_val;
-	Overridable *ov = m_btn->m_ov;
+	SpecialPowerTemplate *ov = m_btn->m_ov;
 	if (ov != 0) {
-		void *found = obj->findSpecialAbilityUpdate((SpecialPowerType)(ov->friend_getFinalOverride()->m_code));
+		void *found = obj->findSpecialAbilityUpdate(ov->getFO()->m_type);
 		if (found == 0)
 			return 0x3FFFFFFF;
 		if (((Gate *)((char *)found + 0x20))->s2())

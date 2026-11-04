@@ -68,6 +68,7 @@ private:
 	unsigned char m_pad1C[0x30 - 0x1C];
 };
 
+#include "../../Include/Common/Overridable.h"
 #include "../../Include/GameClient/Water.h"
 
 static __forceinline const Overridable *finalOverride(const Overridable *self)

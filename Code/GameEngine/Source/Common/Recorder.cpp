@@ -219,9 +219,8 @@ struct Rva002CF1FBNode {char pad[0x64];AsciiString name;};
 
 struct Rva002CF1FB {Rva002CF1FBNode*findByTemplateID(unsigned short);};
 
-class Overridable {public:const Overridable*friend_getFinalOverride()const;};
-
-class SpecialPowerTemplate:public Overridable {public:char pad0[0x10];AsciiString name;const AsciiString&getName()const{return ((const SpecialPowerTemplate*)friend_getFinalOverride())->name;} };
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 class SpecialPowerStore {public:const SpecialPowerTemplate*findSpecialPowerTemplateByID(unsigned);};
 

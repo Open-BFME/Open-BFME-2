@@ -48,6 +48,7 @@ private:
 // The copy 0x00200CB1 is rowed as Rva00200CB1::operator=; call it.
 
 
+#include "../../../Include/Common/Overridable.h"
 #include "../../../Include/GameClient/Water.h"
 
 // Native200EE4 consumes these canonical accessors inline. Keep the identical
