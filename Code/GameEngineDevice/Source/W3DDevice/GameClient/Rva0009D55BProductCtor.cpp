@@ -87,16 +87,7 @@ struct Rva0009D6FATexture
 };
 #define D55B_REF_PTR_RELEASE(x) { if (x) { x->Release_Ref(); x = 0; } }
 
-class LivingWorld
-{
-public:
-	LivingWorld();
-	virtual ~LivingWorld();
-	virtual void rva002BF391(bool active);	// the state handler 0x002BF391
-
-private:
-	char m_body[0xC0 - 4];
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldClass.h"
 
 class Rva0009D55BProduct : public LivingWorld
 {
