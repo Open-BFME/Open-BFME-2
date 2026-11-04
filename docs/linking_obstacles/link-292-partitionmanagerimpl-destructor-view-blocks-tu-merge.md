@@ -1,0 +1,7 @@
+### LINK-292: PartitionManagerImpl destructor view blocks its TU merge
+Status: Blocked on manager ABI reconciliation; standalone destructor preview LINKS. Updated: 2026-11-04; inspected revision: 11dd6c6970.
+Evidence / affected units: Common/PartitionManagerImpl.cpp and Libraries/Source/partitionmanager/PartitionManagerImpl.cpp; [prerequisite evidence](../../reverse/attempt_support/partition-impl-string-prerequisite-20261104-codexb.md).
+Completed: replaced the destructor donor's private STLport string declaration with its real header and existing allocator configuration; 3/3 rows exact, preview LINKS 84 -> 84 bytes. Duplicate-template merge error removed.
+Remaining / next check: seed lacks the destructor declaration (C2600); class reconciler refuses seed m_buckets at +0 beneath donor vfptr. Prove the retail manager ABI before unifying views; flag/result/byte prerequisites for other donors remain in the evidence.
+Clearance: standalone linking preserved; no TU merge or filename approval claimed.
+Census confirmation: no new measurement claimed.

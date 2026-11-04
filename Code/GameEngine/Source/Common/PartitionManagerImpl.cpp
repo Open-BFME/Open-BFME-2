@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 
 // Retail 0x009F5970 is the complete destructor of the partition manager,
 // PartitionManagerImpl. It first calls the object's cleanup operation, then
@@ -9,17 +9,11 @@
 // B2 0x00627DE0 84B, immediate-only drift at +0x30 (push 0x11 vs 0x15).
 
 // The element destructor retail hands the EH vector iterator is 0x00142D70,
-// the rowed STLport narrow basic_string destructor: each twelve-byte
-// element is a string.
-namespace _STL {
-template <class _Tp> class allocator;
-template <class _CharT> class char_traits;
-template <class _CharT, class _Traits, class _Alloc> class basic_string
-{
-public:
-	~basic_string();
-};
-}
+// the rowed STLport narrow basic_string destructor. Keep that existing
+// ICF-equivalent callee; identical destructor bytes do not prove the element
+// type. The recovered tree operations use twelve-byte vector storage.
+// stlport
+#include <string>
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > Rva00142D70String;
 
 struct Gen_uw_009f5690
