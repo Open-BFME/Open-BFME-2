@@ -301,3 +301,23 @@ W3DTerrainVisual's.
   fails. That holds for an inline `noinline` and for an out-of-line definition after the
   instantiation alike. The unit still fails link_check on two COMDAT bodies (`_Construct`,
   `_M_insert_overflow`: not retail's). Those are census matters, not real-link errors.
+- **RegionDetailsStructuresIconCtor.cpp (3): 2 resolved, 1 open.** The Icon constructor's unwind
+  funclets 0x007A3555/0x007A3560 call 0x005E211F and 0x00238D97, the 7-byte vptr stores of C77E7C and
+  BED658. The view's `IconMouseObserver` and `LivingWorldBuildPlotObserver` now restore their vptr
+  inline, and each destructor gets a `fold-proof` row there (`--icf-owner` the `Disp0DwordImmSetters`
+  apply rows). This follows the `Rva005CE804Observer` and `Rva0023A128Listener` precedent at
+  0x00238D97. Both scaffold funclets moved off `Code/gen_small` onto the constructor's own labels
+  (eh_verify EXACT); they were blocked on these rows (re_attempts, LINK-095). link_check over
+  Rva005E278EDtor, Disp0DwordImmSetters, LivingWorldScoreKeeper, Rva0023A128Ctor,
+  Rva005CE804Constructor, the RegionDetailsStructuresPage TU and OpaqueScalarDeletingDtorsB16 shows
+  no change; all stay LINKS.
+  - Still open: `??1Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAE@XZ`. The destructor is
+    rowed `??1Rva005E278E@@UAE@XZ` (0x005E278E, Rva005E278EDtor.cpp), with its `??_G` 0x005E283B, its
+    handler 0x007A3531 and four funclet parents. `rename.py class --fold Rva005E278E --into Icon`
+    refuses because T = 0x00C77B28 is named `??_7Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@6B...`,
+    not `??_7Icon@@6B@`. A nested NEW name is "not a type identifier", so `--into` with the full
+    `StrategicInGameUI::...::Icon` refuses too. Prerequisite: nested-class support in `class --fold`,
+    or a reviewed reconciliation like `a5901cee17`. The destructor view's bases (Rva005E278EBase0,
+    Rva005CCC07Base, LivingWorldLogicObserver) are the same tables as the constructor's (Rva0007DF07,
+    IconMouseObserver, LivingWorldBuildPlotObserver) under other names, so one spelling has to be
+    chosen.

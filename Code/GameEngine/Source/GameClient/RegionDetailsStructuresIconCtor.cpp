@@ -28,13 +28,16 @@ class Rva005E261C { public: void rva005E261C(); };
 // The primary base uses the canonical consumed eight-byte lifetime: its
 // constructor zeros +4 and its EH cleanup restores BC6F20 at 0x004E84A4.
 // The observer names below remain TU-scoped roles, not canonical contracts.
+// Their implicit destructors only restore the base vptr: the constructor's
+// unwind funclets call them, and retail folded them (ICF) with the 7-byte
+// vptr stores 0x005E211F (C77E7C) and 0x00238D97 (BED658).
 #include "../../Include/Common/Rva0007DF07.h"
 class IconMouseObserver {
-public: ~IconMouseObserver(); virtual void onUnknown(int) = 0; virtual void OnLeft(int) = 0; virtual void OnRight(int) = 0;
+public: ~IconMouseObserver() {} virtual void onUnknown(int) = 0; virtual void OnLeft(int) = 0; virtual void OnRight(int) = 0;
 virtual void OnRollOut(int) = 0; virtual void OnRollOver(int) = 0; virtual void OnTypeRollOut(int) = 0; virtual void OnTypeRollOver(int) = 0;
 };
 class LivingWorldBuildPlotObserver {
-public: ~LivingWorldBuildPlotObserver(); virtual void OnBuildPlotBuildingChanged(LivingWorldBuildPlot &) = 0; virtual void onUnknown(LivingWorldBuildPlot &) = 0;
+public: ~LivingWorldBuildPlotObserver() {} virtual void OnBuildPlotBuildingChanged(LivingWorldBuildPlot &) = 0; virtual void onUnknown(LivingWorldBuildPlot &) = 0;
 };
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
