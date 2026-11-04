@@ -13,11 +13,7 @@
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class ThingFactory
-{
-public:
- const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 class CommandButton;
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;

@@ -115,12 +115,7 @@ struct CreateMask
 	unsigned int m_bits[4];
 };
 enum ObjectID;
- class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID flag);
-};
+#include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 template <int N> class RebuildHoleBodySlots : public RebuildHoleBodySlots<N - 1>
 {

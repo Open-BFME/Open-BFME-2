@@ -349,13 +349,7 @@ public:
 	int rva0033B479() const;
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	class Object *newObject(const ThingTemplate *tmplate, class Team *team,
-		const struct CreateMask *mask, ObjectID flag);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 // WB/ZH ScriptActions::doIdleAllPlayerUnits @0x003BBB7E (114B) and

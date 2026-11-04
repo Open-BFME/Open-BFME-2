@@ -180,11 +180,7 @@ public:
 
 class ThingTemplate;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 enum KindOfType { KINDOF_HORDE = 109, KINDOF_COMBO_HORDE = 110 };

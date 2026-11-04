@@ -64,7 +64,7 @@ private:
 
 enum BuildableStatus { BSTATUS_YES, BSTATUS_IGNORE_PREREQUISITES, BSTATUS_NO, BSTATUS_ONLY_BY_AI };
 #include "../../Include/Common/ThingTemplate.h"
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../Include/Common/ThingFactory.h"
 #include "../../Include/GameClient/CommandButton.h"
 class Rva005DAB30Production {
 public: virtual void v0(); virtual void v1(); virtual void v2(); virtual bool busy();

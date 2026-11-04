@@ -101,11 +101,7 @@ private:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

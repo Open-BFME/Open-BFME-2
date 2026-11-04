@@ -684,15 +684,7 @@ public:
 	virtual ProductionEntry *firstProduction() const;	// +0x54
 };
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	ThingTemplate *firstTemplate() const { return m_firstTemplate; }
-private:
-	char m_pad00[0x0C];
-	ThingTemplate *m_firstTemplate;		// +0x0C
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 struct Rva002A8AB1Record

@@ -136,11 +136,7 @@ struct AssetLoadMode
 
 void bfmeMergeReceiverKeys(int value);
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
