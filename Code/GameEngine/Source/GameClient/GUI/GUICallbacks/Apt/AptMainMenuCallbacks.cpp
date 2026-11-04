@@ -764,7 +764,7 @@ int AptMainMenu::rva00514950(int msg, int p1, int p2)
 // this BFME2-specific callback is reconstructed from retail and WB evidence.
 class LivingWorldCampaignManager {public:int rva003B8F20();};
 class Rva00E02D6C;extern Rva00E02D6C *TheCampaignManager;
-class LivingWorldManager {public:void rva0021427A();};
+#include "../../../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;
 class TutorialControlView {public:

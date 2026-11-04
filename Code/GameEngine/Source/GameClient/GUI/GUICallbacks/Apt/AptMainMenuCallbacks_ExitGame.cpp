@@ -415,7 +415,7 @@ extern "C" int __cdecl abs(int value);
 // BFME1 10b888 main-menu callbacks provide subsystem/API context only;
 // this BFME2-specific callback is reconstructed from retail and WB evidence.
 class Rva00E02D6C;extern Rva00E02D6C *TheCampaignManager;
-class LivingWorldManager {public:void rva0021427A();};
+#include "../../../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;
 // Retail 0x00515980..0x00515B0A (394 bytes, RET0; EH). Name unknown: the
