@@ -93,17 +93,7 @@ private:
 	BfmeNetAddress m_address;
 };
 
-class ConnectionManager
-{
-private:
-	void ackCommand(NetCommandRef *ref, const BfmeNetAddress *source);
-
-	void *m_vptr;
-	Connection *m_connections[MAX_SLOTS];
-	char m_pad00024[0x12028 - 0x24];
-	UnsignedInt m_localSlot;
-	UnsignedInt m_packetRouterSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::ackCommand(NetCommandRef *ref, const BfmeNetAddress *source)
 {

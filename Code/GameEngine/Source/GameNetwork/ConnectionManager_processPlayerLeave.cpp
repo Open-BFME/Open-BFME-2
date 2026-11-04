@@ -91,23 +91,7 @@ extern GameLogic *TheGameLogic;
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
-class ConnectionManager
-{
-public:
-	PlayerLeaveCode processPlayerLeave(UnsignedByte playerID);
-	PlayerLeaveCode disconnectPlayer(Int slot);
-	Bool isPlayerConnected(Int playerID);
-	Int getNumPlayers();
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-
-private:
-	void *m_vptr;
-	Connection *m_connections[MAX_SLOTS];
-	char m_pad00024[0x12028 - 0x24];
-	Int m_localSlot;
-	char m_pad1202C[0x12104 - 0x1202c];
-	FrameDataManager *m_frameData[MAX_SLOTS];
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 Bool ConnectionManager::isPlayerConnected(Int playerID)
 {

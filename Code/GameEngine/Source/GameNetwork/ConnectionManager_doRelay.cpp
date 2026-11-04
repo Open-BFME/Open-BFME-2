@@ -151,29 +151,7 @@ public:
 	void relayCommand(void *ref);
 };
 
-class ConnectionManager
-{
-public:
-	void doRelay();
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-	void rva004D316A(NetCommandList *list, const BfmeNetAddress *source);
-
-private:
-	void ackCommand(NetCommandRef *ref, const BfmeNetAddress *source);
-	Bool processNetCommand(NetCommandRef *ref);
-
-	void *m_vptr;
-	void *m_connections[MAX_SLOTS];
-	char m_pad00024[0x12024 - 0x24];
-	Transport *m_transport;
-	Int m_localSlot;
-	Int m_packetRouterSlot;
-	char m_pad12030[0x12080 - 0x12030];
-	Int m_playerState[MAX_SLOTS];
-	UnsignedInt m_playerLeaveValue[MAX_SLOTS];
-	char m_pad120C0[0x1212c - 0x120c0];
-	NetCommandWrapperList *m_netCommandWrapperList;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::rva004D316A(NetCommandList *list, const BfmeNetAddress *source)
 {
@@ -215,7 +193,7 @@ void ConnectionManager::doRelay()
 			leave->setPlayerID(m_localSlot);
 			sendLocalCommand(leave, 0xff);
 			leave->detach();
-			if (m_playerLeaveValue[i] == 0)
+			if (field120A0[i] == 0)
 			{
 				Rva004D57AE *destroy = new Rva004D57AE;
 				if (DoesCommandRequireACommandID(destroy->getNetCommandType()))
@@ -225,7 +203,7 @@ void ConnectionManager::doRelay()
 				sendLocalCommand(destroy, 0xff);
 				destroy->detach();
 			}
-			m_playerState[i] = 2;
+			field12080[i] = 2;
 		}
 	}
 

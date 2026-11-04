@@ -132,37 +132,7 @@ public:
 	void processRequestFrameDataCommand(void *command);
 };
 
-class ConnectionManager
-{
-public:
-	void rva004CF35D(NetWrapperCommandMsg *msg);
-	void processHero(NetCommandMsg *command);
-
-private:
-	Bool processNetCommand(NetCommandRef *ref);
-	void processWrapper(NetCommandRef *ref);
-	void processProgress(NetProgressCommandMsg *msg);
-	void processDisconnectChat(NetDisconnectChatCommandMsg *msg);
-	void processChat(NetChatCommandMsg *msg);
-	void processFile(NetFileCommandMsg *msg);
-	void processFileAnnounce(NetFileAnnounceCommandMsg *msg);
-	void processFileProgress(NetFileProgressCommandMsg *msg);
-
-	void *m_vptr;
-	Connection *m_connections[MAX_SLOTS];
-	char m_pad00024[0x12028 - 0x24];
-	Int m_localSlot;
-	Int m_packetRouterSlot;
-	UnsignedInt m_packetRouterFallback[MAX_SLOTS];
-	char m_pad12050[0x1205c - 0x12050];
-	UnsignedInt m_frameCeiling;
-	UnsignedInt m_playerLatestFrame[MAX_SLOTS];
-	char m_pad12080[0x120c0 - 0x12080];
-	UnsignedInt m_playerClientFrame[MAX_SLOTS];
-	char m_pad120E0[0x12100 - 0x120e0];
-	DisconnectManager *m_disconnectManager;
-	FrameDataManager *m_frameData[MAX_SLOTS];
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 Bool ConnectionManager::processNetCommand(NetCommandRef *ref)
 {
@@ -193,21 +163,21 @@ Bool ConnectionManager::processNetCommand(NetCommandRef *ref)
 		NetFrameCommandMsg *frameMsg = (NetFrameCommandMsg *)msg;
 		if (m_localSlot == m_packetRouterSlot)
 		{
-			if (frameMsg->getFrame() > m_playerLatestFrame[playerID])
+			if (frameMsg->getFrame() > field12060[playerID])
 			{
-				m_playerLatestFrame[playerID] = frameMsg->getFrame();
-				m_playerClientFrame[playerID] = frameMsg->getPlayerFrame();
+				field12060[playerID] = frameMsg->getFrame();
+				field120C0[playerID] = frameMsg->getPlayerFrame();
 			}
 		}
 		else
 		{
-			if (frameMsg->getFrame() > m_playerLatestFrame[playerID])
+			if (frameMsg->getFrame() > field12060[playerID])
 			{
-				m_playerLatestFrame[playerID] = frameMsg->getFrame();
-				m_playerClientFrame[playerID] = frameMsg->getPlayerFrame();
+				field12060[playerID] = frameMsg->getFrame();
+				field120C0[playerID] = frameMsg->getPlayerFrame();
 			}
-			if (m_frameCeiling < frameMsg->getFrame())
-				m_frameCeiling = frameMsg->getFrame();
+			if (field1205C < frameMsg->getFrame())
+				field1205C = frameMsg->getFrame();
 			if (frameMsg->getFrame() > TheGameLogic->getFrame() &&
 				frameMsg->getCommandCount() != -1)
 				m_frameData[m_localSlot]->setFrameCommandCount(

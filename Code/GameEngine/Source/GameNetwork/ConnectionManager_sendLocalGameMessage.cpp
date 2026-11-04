@@ -40,23 +40,14 @@ extern GameLogic *TheGameLogic;
 bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	void sendLocalGameMessage(GameMessage *msg);
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-private:
-	void *m_vptr;
-	char m_pad04[0x12028 - 4];
-	UnsignedInt m_localPlayerID;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::sendLocalGameMessage(GameMessage *msg)
 {
 	NetGameCommandMsg *cmd = new NetGameCommandMsg(msg);
 	cmd->m_timestamp = TheGameLogic->getTimestamp();
 	cmd->m_executionFrame = (UnsignedInt)-1;
-	cmd->m_playerID = m_localPlayerID;
+	cmd->m_playerID = m_localSlot;
 	if (DoesCommandRequireACommandID(cmd->m_commandType))
 		cmd->m_id = GenerateNextCommandID();
 	sendLocalCommand(cmd, 0xff);
