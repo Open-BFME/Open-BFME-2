@@ -40,3 +40,10 @@ was applicable.
 Remaining work for these candidates is prerequisite repair by other lanes
 (class/header/signature/include reconciliation, byte repair, or census index
 availability). Do not repeat unchanged dry runs before those inputs change.
+
+Additional full-allocation trials after the first handoff commit:
+
+| TU | Dry-run result |
+| --- | --- |
+| `Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp` | `Code/Libraries/Source/WWVegas/WWLib/wwmath.cpp` donor rejected byte verification. |
+| `Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp` | No accepted donor; duplicate `BehaviorModuleInterface`, `BehaviorModule`, and `Rva001EAE6FHelper` declarations plus compiler-generated member definitions. |
