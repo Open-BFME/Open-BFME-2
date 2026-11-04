@@ -1,0 +1,29 @@
+{
+  "seed": {
+    "definitions": 47,
+    "definition_differences": [],
+    "externals_removed": [],
+    "externals_added": []
+  },
+  "load": {
+    "definitions": 1,
+    "definition_differences": [
+      [
+        "?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ",
+        "body or relocation differs"
+      ]
+    ],
+    "externals_removed": [
+      [
+        "?validate@?$StringBase@G@@ABEXXZ",
+        false
+      ]
+    ],
+    "externals_added": [
+      [
+        "?upgradeMuxLoadPostProcess@UpgradeMux@@MAEXXZ",
+        false
+      ]
+    ]
+  }
+}

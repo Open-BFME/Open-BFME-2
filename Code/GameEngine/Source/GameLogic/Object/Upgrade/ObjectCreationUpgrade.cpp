@@ -73,6 +73,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 class ObjectCreationUpgradeModuleData;
+class ModuleData;
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
@@ -83,9 +84,13 @@ protected:
 	virtual UpdateSleepTime update();
 	const ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return (const ObjectCreationUpgradeModuleData *)getModuleData(); }
 	Object *getObject() const { return m_object; }
+public:
+	ObjectCreationUpgrade(Thing *thing, const ModuleData *moduleData);
+protected:
+	virtual void loadPostProcess();
 private:
-	unsigned int m_status28; // +0x28 +0x28
-	bool m_flag2C; // +0x2C +0x2C
+	unsigned int m_status28; // +0x28
+	bool m_flag2C; // +0x2C
 	char m_pad2D[0x3];
 };
 //
@@ -258,7 +263,6 @@ enum NameKeyType
 class Team;
 class ThingTemplate;
 class Object;
-class ModuleData;
 #include "../../../../Include/Common/ThingFactory.h"
 #include "../../../../Include/Common/Upgrade.h"
 #include "../../../../Include/GameClient/Drawable.h"
