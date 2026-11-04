@@ -17,15 +17,16 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 class Thing;
 class ModuleData;
 
+class INI;
 class UpgradeSoundSelectorClientBehaviorModuleData
 {
 public:
 	UpgradeSoundSelectorClientBehaviorModuleData();
+	static void parseVoicePriority(INI*,void*,void*,const void*);
+	static void parseSoundUpgrade(INI *, void *, void *, const void *);
 	virtual ~UpgradeSoundSelectorClientBehaviorModuleData();
-
-private:
-	int m_unused04;
-	_STL::vector<BfmeE16> m_vec08;
+	char m_pad04[0x4];
+	_STL::vector<BfmeE16> m_vec08; // +0x08
 };
 
 UpgradeSoundSelectorClientBehaviorModuleData::UpgradeSoundSelectorClientBehaviorModuleData()

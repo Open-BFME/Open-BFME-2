@@ -12,9 +12,19 @@ struct BfmePod900 { int a[225]; };
 namespace _STL {
 template<> void vector<BfmePod900, allocator<BfmePod900> >::push_back(const BfmePod900 &);
 }
-class UpgradeSoundSelectorClientBehaviorModuleData {
-public: static void parseSoundUpgrade(INI *, void *, void *, const void *);
-private: char pad[8]; _STL::vector<BfmePod900> entries;
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+// The +0x08 vector holds the 900-byte records; its element type stays the
+// BfmeE16 placeholder the matched ctor's vector base 0x00211E58 is rowed with,
+// and the append goes through the rowed BfmePod900 push_back 0x004CBB1A.
+class UpgradeSoundSelectorClientBehaviorModuleData
+{
+public:
+	UpgradeSoundSelectorClientBehaviorModuleData();
+	static void parseVoicePriority(INI*,void*,void*,const void*);
+	static void parseSoundUpgrade(INI *, void *, void *, const void *);
+	virtual ~UpgradeSoundSelectorClientBehaviorModuleData();
+	char m_pad04[0x4];
+	_STL::vector<BfmeE16> m_vec08; // +0x08
 };
 void UpgradeSoundSelectorClientBehaviorModuleData::parseSoundUpgrade(INI *ini, void *instance, void *, const void *)
 {
@@ -22,5 +32,5 @@ void UpgradeSoundSelectorClientBehaviorModuleData::parseSoundUpgrade(INI *ini, v
     if (!self) return;
     BfmeRecordOwner900 value;
     reinterpret_cast<Rva004CB572 *>(&value)->parse(ini);
-    self->entries.push_back(reinterpret_cast<const BfmePod900 &>(value));
+    reinterpret_cast<_STL::vector<BfmePod900> &>(self->m_vec08).push_back(reinterpret_cast<const BfmePod900 &>(value));
 }

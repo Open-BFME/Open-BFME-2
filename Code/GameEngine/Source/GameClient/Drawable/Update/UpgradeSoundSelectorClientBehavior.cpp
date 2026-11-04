@@ -51,9 +51,12 @@ struct Rva002C99FB
 };
 
 // The entry test 0x004CB333 is rowed as UpgradeMuxData::rva004CB333.
-struct UpgradeMuxData
+struct UpgradeMaskType;
+class UpgradeMuxData
 {
+public:
 	bool rva004CB333(Object *obj);
+	void getUpgradeActivationMasks(UpgradeMaskType&,UpgradeMaskType&)const;
 };
 
 struct Rva004CB51CEntry
@@ -63,11 +66,18 @@ struct Rva004CB51CEntry
 	unsigned char m_pad000[0x384];
 };
 
-struct UpgradeSoundSelectorClientBehaviorModuleData
+// The +0x08 vector holds the 0x384-byte entries; its element type stays the
+// BfmeE16 placeholder the matched ctor's vector base 0x00211E58 is rowed with.
+class INI;
+class UpgradeSoundSelectorClientBehaviorModuleData
 {
-	unsigned char m_pad00[0x08];
-	Rva004CB51CEntry *m_begin; // +0x08
-	Rva004CB51CEntry *m_end; // +0x0C
+public:
+	UpgradeSoundSelectorClientBehaviorModuleData();
+	static void parseVoicePriority(INI*,void*,void*,const void*);
+	static void parseSoundUpgrade(INI *, void *, void *, const void *);
+	virtual ~UpgradeSoundSelectorClientBehaviorModuleData();
+	char m_pad04[0x4];
+	_STL::vector<BfmeE16> m_vec08; // +0x08
 };
 
 #include "../../../../Include/GameClient/Drawable.h"
@@ -187,7 +197,7 @@ bool UpgradeSoundSelectorClientBehavior::rva004CB3F8(int index, Rva002C99FB *out
 	Object *obj = m_drawable->getObject();
 	if (obj == 0)
 		return false;
-	for (Rva004CB51CEntry *e = upgradeSoundSelectorClientBehaviorModuleData->m_begin, *end = upgradeSoundSelectorClientBehaviorModuleData->m_end; e != end; ++e)
+	for (Rva004CB51CEntry *e = (Rva004CB51CEntry *)upgradeSoundSelectorClientBehaviorModuleData->m_vec08.begin(), *end = (Rva004CB51CEntry *)upgradeSoundSelectorClientBehaviorModuleData->m_vec08.end(); e != end; ++e)
 	{
 		if (((UpgradeMuxData *)e)->rva004CB333(obj))
 		{
@@ -205,7 +215,7 @@ bool UpgradeSoundSelectorClientBehavior::rva004CB48A(const AsciiString &name, Rv
 	Object *obj = m_drawable->getObject();
 	if (obj == 0)
 		return false;
-	for (Rva004CB51CEntry *e = upgradeSoundSelectorClientBehaviorModuleData->m_begin, *end = upgradeSoundSelectorClientBehaviorModuleData->m_end; e != end; ++e)
+	for (Rva004CB51CEntry *e = (Rva004CB51CEntry *)upgradeSoundSelectorClientBehaviorModuleData->m_vec08.begin(), *end = (Rva004CB51CEntry *)upgradeSoundSelectorClientBehaviorModuleData->m_vec08.end(); e != end; ++e)
 	{
 		if (((UpgradeMuxData *)e)->rva004CB333(obj))
 		{

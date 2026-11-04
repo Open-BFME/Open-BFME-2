@@ -22,12 +22,28 @@ typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
 #include "../../Include/GameClient/ModelConditionFlags.h"
 class Rva001EAE6FHelper { char bytes[128];public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80(); };
 struct UpgradeMaskType: Rva001EAE6FHelper {};
-class UpgradeMuxData {public:void getUpgradeActivationMasks(UpgradeMaskType&,UpgradeMaskType&)const;};
+class Object;
+class UpgradeMuxData
+{
+public:
+	bool rva004CB333(Object *obj);
+	void getUpgradeActivationMasks(UpgradeMaskType&,UpgradeMaskType&)const;
+};
 class UpgradeCenter;extern UpgradeCenter*TheUpgradeCenter;
 int Rva0033A495Get();
 void Rva0033DC9CParse(INI*,void*,void*,const void*);
 void Rva000B9468Parse(INI*,void*,void*,const void*);
-class UpgradeSoundSelectorClientBehaviorModuleData {public:static void parseVoicePriority(INI*,void*,void*,const void*);};
+struct BfmeE16;
+class UpgradeSoundSelectorClientBehaviorModuleData
+{
+public:
+	UpgradeSoundSelectorClientBehaviorModuleData();
+	static void parseVoicePriority(INI*,void*,void*,const void*);
+	static void parseSoundUpgrade(INI *, void *, void *, const void *);
+	virtual ~UpgradeSoundSelectorClientBehaviorModuleData();
+	char m_pad04[0x4];
+	_STL::vector<BfmeE16> m_vec08; // +0x08
+};
 extern const FieldParse BfmeSoundUpgradeEntryFields[]={
  {"UnitSpecificSounds",Rva0033DC9CParse,0,0x370},
  {"ExcludedUpgrades",INI::parseAsciiStringVectorAppend,0,0x10C},
