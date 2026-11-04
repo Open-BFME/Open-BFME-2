@@ -15,7 +15,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma function(memset)
 #include "../../Include/Common/WeaponTemplateSetHead.h"
-inline void *__cdecl operator new(unsigned int, void *p) { return p; }
+#include <new>
 template <class T> class StringBase;
 #include "../../Include/GameLogic/AttributeModifierStore.h"
 // ?getFX@AttributeModifierStore@@QAEPAXHPAVObject@@@Z retail 0x002147A1 48B sibling
