@@ -1,7 +1,7 @@
-// ??1Rva00557CCC@@UAE@XZ
+// ??1BFMENetwork@@UAE@XZ
 // cl: /O1 /arch:SSE /G7 /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ??1Rva00557CCC@@UAE@XZ @0x00557CCC 204B
+// ??1BFMENetwork@@UAE@XZ @0x00557CCC 204B
 // The address-derived class identity comes from its vtable/deleting-destructor
 // anchor. Member order and offsets below follow the retail cleanup calls;
 // unnamed storage and owned-pointer meanings remain structural inferences.
@@ -83,9 +83,9 @@ struct Rva00142D70 {
 	~Rva00142D70() { if (value) free(value); }
 };
 
-class Rva00557CCC : public Rva00552C0FBase {
+class BFMENetwork : public Rva00552C0FBase {
 public:
-	~Rva00557CCC();
+	~BFMENetwork();
 private:
 	MutexClass m_mutex0;
 	MutexClass m_mutex1;
@@ -100,7 +100,7 @@ private:
 	Rva006609D0LockHolder m_clearA4;
 };
 
-Rva00557CCC::~Rva00557CCC()
+BFMENetwork::~BFMENetwork()
 {
 	reinterpret_cast<Rva00553222 *>(this)->rva00553222();
 }

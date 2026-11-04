@@ -4752,3 +4752,6 @@ __ehhandler$?rva000820CA@Rva000820CA@@QAEXPAXH@Z,0x0075F5C2,"Renamed to __ehhand
 __ehhandler$??0Rva0057621A@@QAE@PAVRva00575D45@@H@Z,0x0079B403,EH handler of the retired Rva0057621ACtor.cpp duplicate of constructor 0x0057621A; re-rowed as __ehhandler$??0Impl@PlanningPhaseBehavior@StrategicInGameUI@@QAE@PAVRva00575D45@@H@Z under the surviving constructor in Rva00575F38Dtor.cpp
 $L644,0x0079B3ED,EH unwind funclet of the retired Rva0057621ACtor.cpp duplicate of constructor 0x0057621A; re-rowed under the surviving constructor in Rva00575F38Dtor.cpp (eh_verify EXACT binds its label to 0x0079B3ED)
 $L645,0x0079B3F8,EH unwind funclet of the retired Rva0057621ACtor.cpp duplicate of constructor 0x0057621A; re-rowed under the surviving constructor in Rva00575F38Dtor.cpp (eh_verify EXACT binds its label to 0x0079B3F8)
+??1Rva00557CCC@@UAE@XZ,0x00557CCC,"Renamed to ??1BFMENetwork@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C6B318)"
+??_GRva00557CCC@@UAEPAXI@Z,0x00558F6E,"Renamed to ??_GBFMENetwork@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C6B318)"
+__ehhandler$??1Rva00557CCC@@UAE@XZ,0x0079933D,"Renamed to __ehhandler$??1BFMENetwork@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C6B318)"

@@ -326,7 +326,7 @@ extern BfmeAwakenDebug *TheBfmeAwakenDebug;
 
 // tu-skeleton: 0x0079932F 14B uw_0079932f -- matched in Code/GameEngine/Source/Common/Rva00557CCCDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0079933D 10B __ehhandler$??1Rva00557CCC@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00557CCCDtor.cpp (not merged yet)
+// tu-skeleton: 0x0079933D 10B __ehhandler$??1BFMENetwork@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00557CCCDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00799465 11B Unwind@00b99465 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecordDeque.cpp (not merged yet)
 
