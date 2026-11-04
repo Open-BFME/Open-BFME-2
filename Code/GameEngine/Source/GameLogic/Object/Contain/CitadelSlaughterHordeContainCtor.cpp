@@ -13,6 +13,11 @@
 
 class Thing;
 class ModuleData;
+class Xfer;
+class DamageInfo;
+class CitadelContainDieView;
+enum ObjectID { INVALID_ID = 0 };
+enum NameKeyType { NK_UNKNOWN = 0 };
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -27,16 +32,25 @@ static int s_secondary2C;
 static int s_secondary30;
 static int s_secondary34;
 
-// Rowed SlaughterHordeContain base; ctor resolves to its row. The explicit
-// m_vtable member stands in for the inherited vptr so body order is source
-// order.
+// Rowed SlaughterHordeContain base; the inherited vptr occupies +0.
+// Keep the seed TU's primary virtual slots and the ctor's proven secondary
+// table offsets in one view. novtable on the derived class preserves retail
+// ordering: clear +0x9EC, then explicitly install its primary/secondary tables.
 class SlaughterHordeContain
 {
 public:
 	SlaughterHordeContain(Thing *thing, const ModuleData *moduleData);
+	virtual ~SlaughterHordeContain();
 
 protected:
-	const void *m_vtable;
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer(Xfer *xfer);
+
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
 	Thing *m_owner;
 	int m_pad08;
 	const void *m_p0C;
@@ -51,23 +65,29 @@ protected:
 	unsigned char m_pad38[0x9EC - 0x38];
 };
 
-class CitadelSlaughterHordeContain : public SlaughterHordeContain
+class __declspec(novtable) CitadelSlaughterHordeContain : public SlaughterHordeContain
 {
 public:
 	CitadelSlaughterHordeContain(Thing *thing, const ModuleData *moduleData);
+	virtual ~CitadelSlaughterHordeContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo*);
+	CitadelContainDieView *contain() { return reinterpret_cast<CitadelContainDieView*>(reinterpret_cast<char*>(this)-8); }
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
-	int m_9EC;
-	unsigned char m_pad9F0[0x9F0 - 0x9EC - 4];
+	ObjectID m_9EC; // +0x9EC, factory 0x0024C0C5 news 0x9F0
 };
 
 // ??0CitadelSlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x48059F
 CitadelSlaughterHordeContain::CitadelSlaughterHordeContain(Thing *thing, const ModuleData *moduleData)
 	: SlaughterHordeContain(thing, moduleData)
 {
-	m_9EC = 0;
+	m_9EC = INVALID_ID;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
+	*reinterpret_cast<const void **>(this) = &s_vtable;
 	m_p0C = &s_secondary0C;
 	m_p10 = &s_secondary10;
 	m_p20 = &s_secondary20;

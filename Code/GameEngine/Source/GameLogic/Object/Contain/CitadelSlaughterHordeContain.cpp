@@ -196,6 +196,7 @@ public:
 class SlaughterHordeContain
 {
 public:
+	SlaughterHordeContain(Thing *thing, const ModuleData *moduleData);
 	virtual ~SlaughterHordeContain();
 
 protected:
@@ -207,7 +208,18 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 
 protected:
-	char m_unrecovered04[0x9EC - 0x04];
+	Thing *m_owner;
+	int m_pad08;
+	const void *m_p0C;
+	const void *m_p10;
+	unsigned char m_pad14[0x20 - 0x14];
+	const void *m_p20;
+	const void *m_p24;
+	const void *m_p28;
+	const void *m_p2C;
+	const void *m_p30;
+	const void *m_p34;
+	unsigned char m_pad38[0x9EC - 0x38];
 };
 
 // Retail stores no vptr in the 5-byte dtor (novtable). onDie is the die
@@ -216,6 +228,7 @@ protected:
 class __declspec(novtable) CitadelSlaughterHordeContain : public SlaughterHordeContain
 {
 public:
+	CitadelSlaughterHordeContain(Thing *thing, const ModuleData *moduleData);
 	virtual ~CitadelSlaughterHordeContain();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie(const DamageInfo*);
