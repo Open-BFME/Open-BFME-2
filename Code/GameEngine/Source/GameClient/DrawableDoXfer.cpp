@@ -79,12 +79,7 @@ public:
 class ModelConditionFlags : public BitFlags<591> {};
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
-{
-public:
-	__declspec(dllimport) __forceinline Matrix3D(const Matrix3D &m) : Row0(m.Row0), Row1(m.Row1), Row2(m.Row2) {}
-	Vector4 Row0, Row1, Row2;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 // Retail references every icon-name entry at 0x009BB660.
 extern const char *TheDrawableIconNames[14];

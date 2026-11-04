@@ -40,25 +40,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	__forceinline Matrix3D &operator=(const Matrix3D &other)
-	{
-		Row[0] = other.Row[0];
-		Row[1] = other.Row[1];
-		Row[2] = other.Row[2];
-		return *this;
-	}
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-	Vector4 Row[3];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct ModelConditionInfo
 {

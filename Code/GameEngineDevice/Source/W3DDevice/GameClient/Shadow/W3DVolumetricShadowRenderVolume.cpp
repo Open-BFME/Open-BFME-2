@@ -80,11 +80,7 @@ public:
 // the ten 48-byte static matrices (480 bytes: Identity, RotateX90 ...
 // RotateZ270) that matrix3d.cpp defines in that order, so it is
 // Matrix3D::Identity.
-class Matrix3D
-{
-public:
-	static const Matrix3D Identity;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct W3DShadowGeometryMesh
 {

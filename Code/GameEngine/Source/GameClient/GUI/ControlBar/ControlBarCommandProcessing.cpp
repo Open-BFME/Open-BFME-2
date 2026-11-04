@@ -51,7 +51,7 @@ enum ScienceType { SCIENCE_INVALID=-1 };
 enum NameKeyType { NAMEKEY_INVALID=0 };
 enum EvaEventID { EVA_INVALID=0 };
 enum CBCommandStatus { CBC_COMMAND_NOT_USED=0, CBC_COMMAND_USED=1 };
-class Matrix3D { public: float Get_Z_Rotation() const; float m[12]; };
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Object; class Player; class ThingTemplate; class Drawable; class CommandButton;
 class GameWindow; class Module; class Rva0043D3A8;
 #include "../../../../Include/Common/MessageStream.h"

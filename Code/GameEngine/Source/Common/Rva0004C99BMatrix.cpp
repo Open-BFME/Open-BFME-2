@@ -5,11 +5,7 @@
 // the same-this 0x0023A1BB helper.
 // Row spellings: 0x00713290 is Matrix3D::Get_Inverse(Matrix3D &) const and
 // 0x0023A1BB is the virtual GameClient::init (called directly).
-class Matrix3D
-{
-public:
-	void Get_Inverse(Matrix3D &inverse) const;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../Include/GameClient/GameClientClass.h"
 class Rva0004C99B
 {

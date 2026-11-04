@@ -40,24 +40,7 @@ typedef float Real;
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	__forceinline Matrix3D &operator = ( const Matrix3D &m )
-	{
-		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]);
-		return *this;
-	}
-	__declspec(dllimport) __forceinline void Scale( float scale )
-	{
-		Row[0].X *= scale; Row[1].X *= scale; Row[2].X *= scale;
-		Row[0].Y *= scale; Row[1].Y *= scale; Row[2].Y *= scale;
-		Row[0].Z *= scale; Row[1].Z *= scale; Row[2].Z *= scale;
-	}
-private:
-	Vector4 Row[3];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class HAnimClass;
 

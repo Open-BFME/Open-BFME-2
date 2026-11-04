@@ -37,13 +37,7 @@ struct IDirect3DIndexBuffer8;
 // SetStreamSource 100, SetIndices 104; buffer Lock / Unlock 11 / 12.
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	const Vector4 &operator[](int i) const { return Row[i]; }
-protected:
-	Vector4 Row[3];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Matrix4
 {

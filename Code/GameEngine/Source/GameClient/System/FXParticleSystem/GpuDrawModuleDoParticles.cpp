@@ -128,21 +128,7 @@ struct GpuTransformRow : Vector4
 };
 }
 
-class Matrix3D
-{
-public:
-	__forceinline explicit Matrix3D(bool identity)
-	{
-		if (identity)
-		{
-			Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-			Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-			Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-		}
-	}
-	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
-	Vector4 Row[3];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Matrix4
 {

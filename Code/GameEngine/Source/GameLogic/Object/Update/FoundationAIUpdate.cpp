@@ -6,7 +6,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
 class Module;
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Matrix3D { public: float Get_Z_Rotation() const; };
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class ModuleData;
 class Team;
 class ThingTemplate;

@@ -82,11 +82,7 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class Matrix3D
-{
-public:
-	void Set_Z_Translation(float z);
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct BfmePoolHolder
 {

@@ -26,44 +26,7 @@ static __forceinline void ContactSet(Coord3D *out,float x,float y,float z){out->
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	void Get_Orthogonal_Inverse(Matrix3D &inverse) const;
-
-	static __forceinline void Transform_Vector(
-		const Matrix3D &matrix, const Vector3 &input, Vector3 *output)
-	{
-		Vector3 temporary;
-		Vector3 *value;
-
-		if (output == &input)
-		{
-			temporary = input;
-			value = &temporary;
-		}
-		else
-		{
-			value = (Vector3 *)&input;
-		}
-
-		output->X = matrix.Row[0].X * value->X
-			+ matrix.Row[0].Y * value->Y
-			+ matrix.Row[0].Z * value->Z
-			+ matrix.Row[0].W;
-		output->Y = matrix.Row[1].X * value->X
-			+ matrix.Row[1].Y * value->Y
-			+ matrix.Row[1].Z * value->Z
-			+ matrix.Row[1].W;
-		output->Z = matrix.Row[2].X * value->X
-			+ matrix.Row[2].Y * value->Y
-			+ matrix.Row[2].Z * value->Z
-			+ matrix.Row[2].W;
-	}
-
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 __forceinline Vector3 operator *(const Matrix3D &matrix, const Vector3 &input)
 {

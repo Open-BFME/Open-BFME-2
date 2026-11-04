@@ -49,11 +49,7 @@ struct GrabRotation {
     }
     __forceinline void rotate(float angle) { rotate(sinf(angle),cosf(angle)); }
 };
-class Matrix3D {
-  public:
-    float Get_Z_Rotation() const;
-    float values[12];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Drawable {
   public:
     const Matrix3D *getTransformMatrix() const;

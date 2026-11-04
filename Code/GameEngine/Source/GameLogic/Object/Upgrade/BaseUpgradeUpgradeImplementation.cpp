@@ -38,18 +38,7 @@ struct Rva004B37CAPosition : Coord3D {
 };
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	Real Get_X_Translation() const { return Row[0].W; }
-	Real Get_Y_Translation() const { return Row[1].W; }
-	Real Get_Z_Translation() const { return Row[2].W; }
-	Real Get_Z_Rotation() const;
-
-private:
-	Vector4 Row[3];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct WorldMatrix
 {

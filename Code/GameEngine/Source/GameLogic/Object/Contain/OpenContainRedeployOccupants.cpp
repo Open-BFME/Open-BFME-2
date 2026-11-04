@@ -46,34 +46,7 @@ extern template class _STL::_Rb_tree<int,_STL::pair<const int,int>,_STL::_Select
 // Read-only BF1/GeneralsMD matrix3d.h supplies the 3-by-4 float copy contract.
 // Native32 arrays each invoke three16B default row constructors.
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
-{
-public:
-    Vector4 rows[3];
-    __forceinline Matrix3D()
-    {
-    }
-    __forceinline Matrix3D &operator=(const Matrix3D &r)
-    {
-        rows[0].X=r.rows[0].X;
-        rows[0].Y=r.rows[0].Y;
-        rows[0].Z=r.rows[0].Z;
-        rows[0].W=r.rows[0].W;
-        rows[1].X=r.rows[1].X;
-        rows[1].Y=r.rows[1].Y;
-        rows[1].Z=r.rows[1].Z;
-        rows[1].W=r.rows[1].W;
-        rows[2].X=r.rows[2].X;
-        rows[2].Y=r.rows[2].Y;
-        rows[2].Z=r.rows[2].Z;
-        rows[2].W=r.rows[2].W;
-        return *this;
-    }
-    const float *operator[](int i)const
-    {
-        return (const float*)&rows[i];
-    }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "Lib/Coord3D.h"
 enum ObjectStatusTypes
 {
@@ -302,9 +275,9 @@ void OpenContain::privateRedeployOccupants(const _STL::list<Object*> *objects,_S
         else
         {
             if(((RedeployContain44*)&contain)->getStatus(object).test(1)&&!((RedeployContain44*)&contain)->getStatus(object).test(61))object->setStatus((ObjectStatusTypes)5,true);
-            placement.rows[0]=owner->transform.rows[0];
-            placement.rows[1]=owner->transform.rows[1];
-            placement.rows[2]=owner->transform.rows[2];
+            placement.Row[0]=owner->transform.Row[0];
+            placement.Row[1]=owner->transform.Row[1];
+            placement.Row[2]=owner->transform.Row[2];
             ((RedeployContain27*)contain)->placement(object,true);
         }
         if(!((RedeployContain44*)&contain)->getStatus(0).test(61)&&orient(object))((Thing*)object)->setTransformMatrix(&placement);

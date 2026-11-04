@@ -12,13 +12,7 @@ private:
 	Real m_out;
 };
 
-class Matrix3D
-{
-public:
-	static void Lerp(const Matrix3D &a, const Matrix3D &b, float factor, Matrix3D &result);
-private:
-	char m_data[0x30];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Rva00086C4AView
 {

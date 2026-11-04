@@ -207,17 +207,7 @@ public:
 };
 class Team;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D(const Matrix3D &matrix3D)
-	{
-		Row[0] = matrix3D.Row[0];
-		Row[1] = matrix3D.Row[1];
-		Row[2] = matrix3D.Row[2];
-	}
-	Vector4 Row[3];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 // The Drawable's position, under its placeholder pin.
 class Rva00276470Drawable
 {

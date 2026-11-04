@@ -130,11 +130,7 @@ typedef bool Bool;
 
 typedef float Real;
 
-class Matrix3D
-{
-public:
-	Real Get_Z_Rotation() const;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 void adjustVector(Coord3D *vec, const Matrix3D *mtx);
 

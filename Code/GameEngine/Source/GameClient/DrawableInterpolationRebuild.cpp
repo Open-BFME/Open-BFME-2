@@ -21,19 +21,7 @@ static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
 {
     row.X=other.X; row.Y=other.Y; row.Z=other.Z; row.W=other.W;
 }
-class Matrix3D
-{
-public:
-    Vector4 Row[3];
-    __forceinline Matrix3D &operator=(const Matrix3D &other)
-    {
-        copyVector4(Row[0], other.Row[0]);
-        copyVector4(Row[1], other.Row[1]);
-        copyVector4(Row[2], other.Row[2]);
-        return *this;
-    }
-    static void Lerp(const Matrix3D &, const Matrix3D &, float, Matrix3D &);
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Rva00271C8A { public: void rva00271C8A(const int *, const int *); };
 class Rva002722AA { public: void *get() const; };

@@ -403,12 +403,7 @@ class ThingTemplate
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Matrix3D
-{
-  public:
-    float Get_Z_Rotation() const;
-    float m_row[3][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Object
 {

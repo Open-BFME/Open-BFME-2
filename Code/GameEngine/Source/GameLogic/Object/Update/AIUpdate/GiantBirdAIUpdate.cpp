@@ -50,13 +50,7 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
-class Matrix3D
-{
-public:
-	Real Get_Z_Rotation() const;
-private:
-	Real Row[3][4];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class ThingTemplateView
 {

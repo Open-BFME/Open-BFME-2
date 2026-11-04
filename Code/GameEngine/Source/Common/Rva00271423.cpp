@@ -4,12 +4,7 @@
 // else Lerp(m_170, m_1a0, TheGameEngine+0x3c, m_1d0), cache time, return m_1d0.
 // Evidence: callers 0x0027BF32 in 0x0027BED0, callee Lerp rowed 0x00713AB0, TheGameClient slot 0x7c GetTime, TheGameEngine float +0x3c.
 
-class Matrix3D
-{
-public:
-	static void Lerp(const Matrix3D &A, const Matrix3D &B, float factor, Matrix3D &result);
-	float m[12];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class ClientFrameSubsystem
 {

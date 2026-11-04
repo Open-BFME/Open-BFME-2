@@ -109,13 +109,7 @@ Rva0028C5CC *Rva0028C5CCGet(Rva0028C5CC *xfer, char *bytes);
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
-{
-public:
-	__declspec(dllimport) __forceinline Matrix3D(const Matrix3D &m) { Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; }
-
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 template <int NUMBITS> class BitFlags
 {

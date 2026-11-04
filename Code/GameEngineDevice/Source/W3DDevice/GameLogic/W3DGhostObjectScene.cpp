@@ -125,14 +125,7 @@ void XferDrawableID(Xfer *xfer, Int *drawableID);
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	__declspec(dllimport) __forceinline Matrix3D( void ) {}
-	__forceinline Matrix3D &operator=(const Matrix3D &m) { Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; return *this; }
-
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 // The BFME 2 TextureMapperClass, VertexMaterialClass and MaterialInfoClass
 // members disableUVAnimations reads: Mapper_ID is slot 2, the stage-0 mapper

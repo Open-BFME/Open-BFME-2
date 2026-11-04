@@ -74,15 +74,7 @@ class Rva0046E6EA { public: bool rva0046E6EA(Rva0046E6EAObject *,const Rva0046E6
 
 #define COORD3D_INLINE_ASSIGN
 #include "Lib/Coord3DInline.h"
-class Matrix3D {
-public:
-    float m[3][4];
-    __forceinline Matrix3D(const Matrix3D &other) {
-        m[0][0]=other.m[0][0]; m[0][1]=other.m[0][1]; m[0][2]=other.m[0][2]; m[0][3]=other.m[0][3];
-        m[1][0]=other.m[1][0]; m[1][1]=other.m[1][1]; m[1][2]=other.m[1][2]; m[1][3]=other.m[1][3];
-        m[2][0]=other.m[2][0]; m[2][1]=other.m[2][1]; m[2][2]=other.m[2][2]; m[2][3]=other.m[2][3];
-    }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Thing {
 public:
     const Coord3D *getUnitDirectionVector2D() const;
@@ -683,9 +675,9 @@ void Rva00475F61Iface::rva00475F61(_STL::vector<Object *> &out)
             ((Rva0046E6EA *)((char *)this-0x11C))->rva0046E6EA((Rva0046E6EAObject *)replacement,
                 (Rva0046E6EACoord *)&pos,(Rva0046E6EACoord *)getObject(),true);
             replacement->setPosition(&pos);
-            transform.m[0][3]=pos.x;
-            transform.m[1][3]=pos.y;
-            transform.m[2][3]=pos.z;
+            transform.Row[0][3]=pos.x;
+            transform.Row[1][3]=pos.y;
+            transform.Row[2][3]=pos.z;
         }
         bool weaponFlag=false;
         for(unsigned i=0;i<groups.size();++i) {

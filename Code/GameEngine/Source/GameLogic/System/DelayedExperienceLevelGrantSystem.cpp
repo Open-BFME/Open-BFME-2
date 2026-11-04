@@ -71,15 +71,7 @@ private:
 // corroborates the clean reference algorithm; no original helper-name claim.
 // The rowed caller inlines the identity constructor; dllimport keeps this
 // is not retail's (0x0004C91A builds Vector4 rows first) and held the link.
-class Matrix3D {
-public:
- float row[3][4];
- __declspec(dllimport) __forceinline explicit Matrix3D(bool init) { if(init) {
-  row[0][0]=1;row[0][1]=0;row[0][2]=0;row[0][3]=0;
-  row[1][0]=0;row[1][1]=1;row[1][2]=0;row[1][3]=0;
-  row[2][0]=0;row[2][1]=0;row[2][2]=1;row[2][3]=0;
- } }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Drawable {public:bool rva00272835(int,int);};
 
@@ -306,7 +298,7 @@ void DelayedExperienceLevelGrantSystem::rva00420B61(ExperienceLevelView *level,O
    Matrix3D matrix(true);
    ((const Thing *)obj)->getDrawable()->rva00272835((int)info.bone.str(),(int)&matrix);
    Coord3D pos;
-   pos.x=matrix.row[0][3];pos.y=matrix.row[1][3];pos.z=matrix.row[2][3];
+   pos.x=matrix.Row[0][3];pos.y=matrix.Row[1][3];pos.z=matrix.Row[2][3];
    FXList::doFXPos(info.fx,&pos,&matrix,0.0f,0);
   } else FXList::doFXObj(info.fx,obj,0);
  }

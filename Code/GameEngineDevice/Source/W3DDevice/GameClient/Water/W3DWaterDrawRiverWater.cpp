@@ -116,18 +116,7 @@ struct IDirect3DDevice8
 
 extern unsigned number_of_DX8_calls;
 
-struct Matrix3D
-{
-	Real Row[3][4];
-	__declspec(dllimport) __forceinline Matrix3D(bool identity)
-	{
-		if (identity) {
-			Row[0][0] = 1.0f; Row[0][1] = 0.0f; Row[0][2] = 0.0f; Row[0][3] = 0.0f;
-			Row[1][0] = 0.0f; Row[1][1] = 1.0f; Row[1][2] = 0.0f; Row[1][3] = 0.0f;
-			Row[2][0] = 0.0f; Row[2][1] = 0.0f; Row[2][2] = 1.0f; Row[2][3] = 0.0f;
-		}
-	}
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Matrix4
 {

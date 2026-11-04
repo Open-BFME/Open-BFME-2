@@ -61,11 +61,7 @@ class Team;
 class Player;
 class Object;
 
-class Matrix3D
-{
-public:
-	Real Get_Z_Rotation() const;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
@@ -199,7 +195,6 @@ private:
 	void *m_vptr;
 	const ThingTemplate *m_template; // +0x04
 	Matrix3D m_transform; // +0x08
-	unsigned char m_pad009[0x38 - 0x09];
 	Coord3D m_position; // +0x38
 };
 

@@ -55,19 +55,7 @@ public:
 // The rebuild helper remains address-named; its source identity is unproved.
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D
-{
-public:
-    Vector4 Row[3];
-    __forceinline Matrix3D &operator=(const Matrix3D &other)
-    {
-        Row[0]=other.Row[0];
-        Row[1]=other.Row[1];
-        Row[2]=other.Row[2];
-        return *this;
-    }
-    static void Lerp(const Matrix3D &, const Matrix3D &, float, Matrix3D &);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class ClientFrameSubsystem
 {

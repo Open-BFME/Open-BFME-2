@@ -42,17 +42,7 @@ struct Vector3
     void scale(float factor) { X *= factor; Y *= factor; Z *= factor; }
 };
 
-struct Matrix3D
-{
-    float Row[3][4];
-    // Retain inline initialization without emitting a competing constructor.
-    __declspec(dllimport) __forceinline Matrix3D(bool)
-    {
-        Row[0][0]=1.0f; Row[0][1]=0.0f; Row[0][2]=0.0f; Row[0][3]=0.0f;
-        Row[1][0]=0.0f; Row[1][1]=1.0f; Row[1][2]=0.0f; Row[1][3]=0.0f;
-        Row[2][0]=0.0f; Row[2][1]=0.0f; Row[2][2]=1.0f; Row[2][3]=0.0f;
-    }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 #define LIGHT_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define LIGHT_SLOTS16(p) LIGHT_SLOTS4(p##0) LIGHT_SLOTS4(p##1) LIGHT_SLOTS4(p##2) LIGHT_SLOTS4(p##3)

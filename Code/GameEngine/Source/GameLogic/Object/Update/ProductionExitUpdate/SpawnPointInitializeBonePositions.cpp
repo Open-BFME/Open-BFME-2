@@ -17,24 +17,7 @@ struct BfmeAsciiStringData
 // Use the existing canonical 16-byte row, empty ctor and Set implementation.
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-
-	float Get_X_Translation() const { return Row[0].W; }
-	float Get_Y_Translation() const { return Row[1].W; }
-	float Get_Z_Translation() const { return Row[2].W; }
-	float Get_Z_Rotation() const;
-
-	Vector4 Row[3];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Drawable
 {
