@@ -1,4 +1,4 @@
-### LINK-201: SpawnArmy composition changes string COMDAT selection
+### LINK-203: SpawnArmy composition changes string COMDAT selection
 
 Status: Blocked for the Equal and Notify donor merges; standalone units remain separate. Inspected `5001bb6e79`, 2026-11-04.
 The merge guard rejects Rva004E20ABEqual.cpp's non-retail AsciiString::compare selection and Rva004E35D5Notify.cpp's StringBase operator< reference / less<AsciiString> selection. Reconcile their declaration and inline-overload bindings before retrying.
