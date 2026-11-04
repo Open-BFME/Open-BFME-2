@@ -13,7 +13,8 @@
 // UpgradeMux's root table 0x00C5FF10 has the same eighteen positions, with 3=0x004CE342, 7=false and 8/10-15=pure. giveSelfUpgrade 0x0045230C dispatches slots 12,15,10,9 in that order, supplying true to slot 9. The ledger names its nonvirtual setter spelling rva00452354 at 0x00452354; setUpgradeExecuted is the donor name for the virtual setter operation.
 // The +0x18 table 0x00C58790 has three entries followed by zero: 0/1=0x0047A69C (ret 4), 2=0x000D1407 (ret 12). Its class and method names are unproved, so they remain neutral. Neither this interface nor UpgradeMux has a virtual destructor.
 // xfer 0x004CE3F9 calls BehaviorModule xfer 0x004C9C7D, then upgradeMuxXfer 0x004CE397 with this+0x10. The rowed condition helpers are 0x004CE41E, 0x004CE4A0 and 0x004CE4A8; the reset wrapper 0x004CE4B0 subtracts 0x10 before calling the first. Module data +4 and object +8 are also read by 0x004CE41E; 0x00460AAC/0x00460AD3 read them at -0x0C/-8 from the mux receiver.
-// Donor facts: Zero Hour UpgradeModule.h supplies BehaviorModule/UpgradeMux inheritance and the matching operation names. BFME2's mask argument is a reference (ledger attemptUpgrade), its rowed getUpgradeActivationMasks uses struct UpgradeMaskType, and its extra slots and +0x18 interface come from the target, not the donor. Slots 7 and 15 retain neutral names because the donor signatures disagree with retail. The BitFlags forward declaration follows the rowed UpgradeMuxAttemptUpgrade.cpp and the registered Thing header; an already included Zero Hour BitFlags definition supplies its own declaration. The decorated name records the template value, not the parameter's signedness.
+// Donor facts: Zero Hour UpgradeModule.h supplies BehaviorModule/UpgradeMux inheritance and the matching operation names. BFME2's mask argument is a reference (ledger attemptUpgrade), its rowed getUpgradeActivationMasks uses struct UpgradeMaskType, and its extra slots and +0x18 interface come from the target, not the donor.
+// The UpgradeMux base is the registered UpgradeMux.h, so both headers spell every +0x10 slot alike: UpgradeModule overrides slot 3 (resetUpgrade, 0x004CE4B0), slot 7 (vslot07, 0x00460AE2) and slot 15 (processUpgradeRemoval, 0x00460AD3) under the base's names. Slot 7 keeps the base's neutral name.
 
 #pragma once
 #ifndef __BFME2_UPGRADEMODULE_H_
@@ -21,48 +22,14 @@
 
 #include "BehaviorModule.h"
 
+#include "UpgradeMux.h"
+
 class Thing;
 class ModuleData;
 class Object;
 class Xfer;
 class UpgradeModuleInterface;
 class DamageModuleInterface;
-class Rva00406F9C;
-struct UpgradeMaskType;
-#ifndef __BitFlags_H_
-template <int NUMBITS> class BitFlags;
-#endif
-
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual bool isAlreadyUpgraded() const;
-	virtual bool attemptUpgrade(const BitFlags<128> &keyMask);
-	virtual bool wouldUpgrade(const BitFlags<128> &keyMask) const;
-	virtual bool rva004CE4B0(Rva00406F9C *mask);
-	virtual bool isSubObjectsUpgrade();
-	virtual void forceRefreshUpgrade();
-	virtual void postUpgradeCheck();
-	virtual unsigned char slot07() const;
-
-	void giveSelfUpgrade();
-	void rva00452354(bool executed);
-
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(bool executed);
-	virtual void upgradeImplementation() = 0;
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-	virtual void performUpgradeFX() = 0;
-	virtual bool requiresAllActivationUpgrades() const = 0;
-	virtual bool requiresAllConflictingUpgrades() const = 0;
-	virtual void muxSlot15() = 0;
-	virtual void upgradeMuxXfer(Xfer *xfer);
-	virtual void upgradeMuxLoadPostProcess();
-
-	bool m_upgradeExecuted; // +0x04
-};
 
 class UpgradeModuleInterface18
 {
@@ -87,8 +54,8 @@ public:
 	void rva004CE41E(bool apply);
 	void rva004CE4A0();
 	void rva004CE4A8();
-	virtual bool rva004CE4B0(Rva00406F9C *mask);
-	virtual unsigned char slot07() const;
+	virtual bool resetUpgrade(const BitFlags<128> &keyMask);
+	virtual bool vslot07() const;
 	virtual void vslot18_00(void *) { }
 	virtual void vslot18_01(void *) { }
 	virtual void vslot18_02(void *, void *, void *) { }
@@ -106,7 +73,7 @@ protected:
 	virtual void performUpgradeFX();
 	virtual bool requiresAllActivationUpgrades() const;
 	virtual bool requiresAllConflictingUpgrades() const;
-	virtual void muxSlot15();
+	virtual void processUpgradeRemoval();
 };
 
 #endif
