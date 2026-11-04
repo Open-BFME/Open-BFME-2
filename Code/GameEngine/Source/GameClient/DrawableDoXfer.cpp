@@ -237,13 +237,7 @@ class Rva002716Holder { public: void rva00271547(); };
 class Rva00279354Host { public: void rva00279354(bool b); };
 class Rva0027974B { public: void rva0027974B(); };
 
-class Thing
-{
-public:
-	virtual ~Thing();
-	void setTransformMatrix(const Matrix3D *mx);
-	unsigned char m_pad04[0x5C];
-};
+#include "../Common/Thing/thing.h"
 
 class Drawable : public Thing, public Snapshot
 {
