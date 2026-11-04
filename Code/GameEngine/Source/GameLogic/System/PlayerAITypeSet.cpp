@@ -25,9 +25,6 @@ private:
     _STL::vector<PlayerAITypeRecord> m_types;
 };
 struct BfmeVectorRecord0002154F3;
-namespace _STL {
-template <> BfmeVectorRecord0002154F3 *__copy_backward<BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, int>(BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, const random_access_iterator_tag &, int *);
-}
 template BfmeVectorRecord0002154F3 *_STL::__copy_backward_ptrs<BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *>(BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, const _STL::__false_type &);
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
@@ -96,11 +93,15 @@ private:
 // record's vector bodies and reaches its rowed providers: allocate-and-copy 0x00215614
 // -> uninitialized_copy 0x002155C9 -> placement copy 0x0021559C; clear 0x0021580E
 // -> destroy range 0x00215783. Both loops step 0x10.
-struct BfmeVectorRecord0002154F3 { BfmeVectorRecord0002154F3(); BfmeVectorRecord0002154F3(const BfmeVectorRecord0002154F3&); ~BfmeVectorRecord0002154F3(); BfmeVectorRecord0002154F3&operator=(const BfmeVectorRecord0002154F3&); private: char bytes[16]; };
+struct BfmeVectorRecord0002154F3 {
+    AsciiString text;
+    _STL::vector<AsciiString> names;
+    BfmeVectorRecord0002154F3();
+    BfmeVectorRecord0002154F3(const BfmeVectorRecord0002154F3 &);
+    BfmeVectorRecord0002154F3 &operator=(const BfmeVectorRecord0002154F3 &);
+};
 
 namespace _STL {template<> void _Construct<BfmeVectorRecord0002154F3,BfmeVectorRecord0002154F3>(BfmeVectorRecord0002154F3*,const BfmeVectorRecord0002154F3&);}
-
-namespace _STL {template<> void _Destroy<BfmeVectorRecord0002154F3*>(BfmeVectorRecord0002154F3*,BfmeVectorRecord0002154F3*);}
 
 namespace _STL {
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
@@ -134,8 +135,6 @@ template <class _In, class _Out, class _Dist> _Out __copy(_In, _In, _Out, const 
 
 namespace _STL {
 template <class InputIter, class OutputIter> OutputIter __copy_ptrs(InputIter, InputIter, OutputIter, const __false_type &);
-template <> BfmeVectorRecord0002154F3 *__copy<BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, int>(BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, const random_access_iterator_tag &, int *);
-template <> void _Destroy<BfmeVectorRecord0002154F3 *>(BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *);
 }
 
 // A declaration-only specialization stops this TU emitting its own
