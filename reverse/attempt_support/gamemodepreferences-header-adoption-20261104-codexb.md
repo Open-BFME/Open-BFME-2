@@ -3,7 +3,7 @@
 Inspected source revision: `41e9e8268d`. Claim owner: `yasinschroeder-codexb`.
 
 Replaced all twelve queued private GameModePreferences declarations with the
-existing canonical header. Enabled STLport in the seven consumers lacking its
+existing canonical header. Enabled STLport in the eight consumers lacking its
 build marker. GameModePreferences.cpp now uses the header's neutral `field14`
 and `field18` spellings at their unchanged offsets. MapSelectMenu and PeerThread
 use the existing target OptionPreferences header instead of the donor
@@ -35,6 +35,17 @@ their retail offsets. These are padding adjustments, not recovered field names.
   Diagnostic variants are classified unreferenced and not blockers by that
   preview. This is a bounded prediction, not a new census or real-link/runtime
   result; no headline linking increase is claimed.
+
+## Final commit hook
+
+The commit hook passed, including all 539 code rows and 95/95 EXACT EH graphs
+(zero baselined or non-exact EH graphs). Converged data checking passed across
+twelve sources and eleven addresses, with no second names or unjudged entries.
+Non-enforcing checks reported nineteen code-identity findings outside the
+baseline and two data findings (one outside its baseline). These findings were
+not audited against the parent revision in this pass, so their introduction is
+undetermined. This work retires only the thirteen header-queue rows; it claims
+no code-identity or data-debt retirement.
 
 ## Sources
 
