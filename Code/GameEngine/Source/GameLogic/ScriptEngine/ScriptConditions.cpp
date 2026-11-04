@@ -203,13 +203,7 @@ public:
 };
 extern SpecialPowerStore *TheSpecialPowerStore;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI };
-class ActionManager
-{
-public:
-	Bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
-		const SpecialPowerTemplate *spTemplate, const Object *objectInWay, UnsignedInt commandOptions,
-		Bool checkSourceRequirements = true);		// 0x0041D60B
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 extern ScriptEngine *TheScriptEngine;
 // Player::iterateObjects callback, retail 0x003E6032 (rowed under its

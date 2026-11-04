@@ -230,11 +230,7 @@ Bool Rva00260F1BFilter::allow(Object *objOther)
 // equals the +0x0C expectation byte.
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
-class ActionManager
-{
-public:
-	Bool canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 
 class Rva00261478Filter : public Rva000421C8

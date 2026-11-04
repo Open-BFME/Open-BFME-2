@@ -491,12 +491,7 @@ public:
 // The shared singleton uses its defining GameClient.cpp type. These two
 // rowed predicates use the real ActionManager spelling; unrowed interface
 // methods above retain their existing borrowed view until recovered.
-class ActionManager
-{
-public:
-	Bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
-	Bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
-};
+#include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 
 // ZH's AIUpdateInterface derives from AICommandInterface at +0x20. The two
