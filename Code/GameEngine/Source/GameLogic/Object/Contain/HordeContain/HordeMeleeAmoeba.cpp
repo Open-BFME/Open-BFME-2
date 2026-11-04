@@ -104,27 +104,14 @@ struct AmoebaAttackEntry {
  int groupValue; bool arrived,active; unsigned char pad3A[2];
 };
 struct AmoebaData { int unused; float angleWeight,alignment,preferredDistance,maxDistance,maxBuildingDistance; int mask[19]; int groupValue,minRest,maxRest; };
-class HordeMeleeAmoeba {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void startMeleeAttack(Object *);
- virtual void slot4(); virtual void updateMeleeAttack(Object *);
- void AttackUnit(Object *,Object *);
- virtual void notifyOfMemberDeath(Object *);
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual bool rva0058776E(int,Coord3D *);
- AmoebaHeld *held;
- _STL::vector<AmoebaAttackEntry> attacks;
- bool force; AmoebaData *data;
-};
+#include "../../../../../Include/GameLogic/HordeMeleeAmoeba.h"
+// The canonical vector owns the same native 60-byte records. Keep this
+// consumer's field view without declaring a second HordeMeleeAmoeba layout.
+typedef char AmoebaAttackEntrySizeCheck[sizeof(AmoebaAttackEntry)==sizeof(BfmePod60)?1:-1];
 void HordeMeleeAmoeba::startMeleeAttack(Object *victim)
 {
- held->active=true;
- force=true;
+ static_cast<AmoebaHeld *>(held)->active=true;
+ flag14=true;
  AmoebaRange range;
  ((AmoebaListProvider *)((char *)held+0x20))->fill(&range);
  for(AmoebaNode *node=range.list->head->next;node!=range.list->head;node=node->next) {
@@ -133,12 +120,12 @@ void HordeMeleeAmoeba::startMeleeAttack(Object *victim)
   AmoebaAI *ai=unit->m_ai;
   if(!ai) continue;
   int index=((Rva0046ACF6 *)held)->rva0046ACF6(unit->m_id);
-  if(index<0 || index>=attacks.size()) continue;
-  AmoebaAttackEntry &entry=attacks[index];
+  if(index<0 || index>=slots.size()) continue;
+  AmoebaAttackEntry &entry=reinterpret_cast<AmoebaAttackEntry &>(slots[index]);
   entry.position=unit->m_position;
   entry.active=true;
   entry.needsPosition=true;
-  entry.groupValue=data->groupValue;
+  entry.groupValue=static_cast<AmoebaData *>(this->other)->groupValue;
   entry.arrived=false;
   entry.timer=0;
   if(*(int *)((char *)ai+0x1fc)==4 && *(int *)((char *)ai+0x140)) continue;
@@ -166,14 +153,14 @@ void HordeMeleeAmoeba::notifyOfMemberDeath(Object *deadUnit)
     if (obj->m_ai)
     {
      int offsetIndex = ((Rva0046ACF6 *)held)->rva0046ACF6(obj->m_id);
-     if (offsetIndex >= 0 && (unsigned int)offsetIndex < attacks.size())
+     if (offsetIndex >= 0 && (unsigned int)offsetIndex < slots.size())
      {
-      AmoebaAttackEntry &entry = attacks[offsetIndex];
+      AmoebaAttackEntry &entry = reinterpret_cast<AmoebaAttackEntry &>(slots[offsetIndex]);
       if (entry.arrived)
       {
        entry.arrived = false;
-       entry.groupValue = data->groupValue;
-       obj->rva001E42F2(data->mask);
+       entry.groupValue = static_cast<AmoebaData *>(this->other)->groupValue;
+       obj->rva001E42F2(static_cast<AmoebaData *>(this->other)->mask);
       }
      }
     }
@@ -199,8 +186,8 @@ void AmoebaAttackEntry::rva005872CF(const ICoord2DBase &cell)
 // method name remains unknown; active39 controls whether a position exists.
 bool HordeMeleeAmoeba::rva0058776E(int index,Coord3D *result)
 {
- if(index>=0 && index<attacks.size() && attacks[index].active) {
-  *result=attacks[index].position;
+ if(index>=0 && index<slots.size() && reinterpret_cast<AmoebaAttackEntry &>(slots[index]).active) {
+  *result=reinterpret_cast<AmoebaAttackEntry &>(slots[index]).position;
   return true;
  }
  return false;
@@ -219,7 +206,7 @@ ICoord2D *Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
 Object *Rva0058723D(Object *,Object *);
 int GetGameLogicRandomValue(int,int,char *,int);
 
-static __forceinline Object *amoebaLeader(AmoebaHeld *held) { return *(Object **)((char *)held+8); }
+static __forceinline Object *amoebaLeader(void *held) { return *(Object **)((char *)held+8); }
 void HordeMeleeAmoeba::updateMeleeAttack(Object *victim)
 {
  if(!victim) return;
@@ -239,8 +226,8 @@ void HordeMeleeAmoeba::updateMeleeAttack(Object *victim)
   AmoebaAI *ai=unit->m_ai;
   if(!ai) goto advanceNode;
   int index=((Rva0046ACF6 *)held)->rva0046ACF6(unit->m_id);
-  if(index<0 || index>=attacks.size()) goto completeBody;
-  AmoebaAttackEntry &entry=attacks[index];
+  if(index<0 || index>=slots.size()) goto completeBody;
+  AmoebaAttackEntry &entry=reinterpret_cast<AmoebaAttackEntry &>(slots[index]);
   if(*(int *)((char *)ai+0x1fc)==4 && *(int *)((char *)ai+0x140)) { entry.needsPosition=true; entry.timer=0; goto completeBody; }
   if(unit->testStatus(AMOEBA_STATUS_1C) || unit->testStatus(AMOEBA_STATUS_45)) goto advanceNode;
   if(!ai->idleBlocked()) {
@@ -255,26 +242,26 @@ void HordeMeleeAmoeba::updateMeleeAttack(Object *victim)
 // Keep the two completion edges: their shared cursor copy produces the
 // retail spill and frame slots before MSVC merges the identical tails.
 completeBody:
- if(force) {
+ if(flag14) {
 advanceNode:
  next=node;
  } else { next=node; }
  node=next->next;
  }
  _STL::sort(ordered,ordered+count);
- bool forcePosition=force;
- force=false;
+ bool forcePosition=flag14;
+ flag14=false;
  for(int n=0;n<count;++n) {
   Object *unit=(Object *)ordered[n].m_08;
-  AmoebaAttackEntry &entry=attacks[ordered[n].m_04];
+  AmoebaAttackEntry &entry=reinterpret_cast<AmoebaAttackEntry &>(slots[ordered[n].m_04]);
   Object *attack=Rva0058723D(unit,victim);
   if(attack) {
-   if(entry.arrived) { entry.arrived=false; entry.groupValue=data->groupValue; ((Rva001E42F2 *)unit)->rva001E42F2(data->mask); }
+   if(entry.arrived) { entry.arrived=false; entry.groupValue=static_cast<AmoebaData *>(this->other)->groupValue; ((Rva001E42F2 *)unit)->rva001E42F2(static_cast<AmoebaData *>(this->other)->mask); }
    unit->rva0028CDB6(); entry.needsPosition=true; entry.timer=0; AttackUnit(unit,attack); continue;
   }
   if(forcePosition) {
    unit->rva0028CDB6(); entry.needsPosition=true;
-   if(entry.arrived) { entry.arrived=false; entry.groupValue=data->groupValue; ((Rva001E42F2 *)unit)->rva001E42F2(data->mask); }
+   if(entry.arrived) { entry.arrived=false; entry.groupValue=static_cast<AmoebaData *>(this->other)->groupValue; ((Rva001E42F2 *)unit)->rva001E42F2(static_cast<AmoebaData *>(this->other)->mask); }
   }
   ICoord2D bestCell;
   ICoord2D current;
@@ -286,14 +273,14 @@ advanceNode:
   if(!entry.arrived) {
    if(!entry.groupValue) {
     entry.arrived=true;
-    entry.groupValue=GetGameLogicRandomValue(data->minRest,data->maxRest,(char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\HordeContain\\HordeMeleeAmoeba.cpp",0x123);
-    ((Rva001E431E *)unit)->rva001E431E(data->mask);
+    entry.groupValue=GetGameLogicRandomValue(static_cast<AmoebaData *>(this->other)->minRest,static_cast<AmoebaData *>(this->other)->maxRest,(char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\HordeContain\\HordeMeleeAmoeba.cpp",0x123);
+    ((Rva001E431E *)unit)->rva001E431E(static_cast<AmoebaData *>(this->other)->mask);
    } else --entry.groupValue;
   }
   if(entry.arrived) {
    if(!entry.groupValue) {
-    entry.arrived=false; entry.groupValue=data->groupValue;
-    ((Rva001E42F2 *)unit)->rva001E42F2(data->mask);
+    entry.arrived=false; entry.groupValue=static_cast<AmoebaData *>(this->other)->groupValue;
+    ((Rva001E42F2 *)unit)->rva001E42F2(static_cast<AmoebaData *>(this->other)->mask);
    } else --entry.groupValue;
   }
   if(!entry.arrived) {
@@ -307,7 +294,7 @@ advanceNode:
      ICoord2D cell=current; cell.x+=i; cell.y+=j;
      if(((Rva0058729D *)&entry)->rva0058729D(reinterpret_cast<const ICoord2DBase &>(cell))) { valid[i+1][j+1]=false; continue; }
      valid[i+1][j+1]=true;
-     float score=10000.0f-fabs(unit->GetRelativeAngle(&candidate))*data->angleWeight*0.31836995f;
+     float score=10000.0f-fabs(unit->GetRelativeAngle(&candidate))*static_cast<AmoebaData *>(this->other)->angleWeight*0.31836995f;
      Object *other;
      if((*(unsigned char *)((char *)victim->m_template+0x115))&0x20) {
       AmoebaRangeQuery *query=(AmoebaRangeQuery *)victim->rva0028C197();
@@ -327,7 +314,7 @@ advanceNode:
       left.Normalize();
       right-=perpendicular;
       right.Normalize();
-      if(toward.x*left.x+toward.y*left.y<data->alignment && toward.x*right.x+toward.y*right.y<data->alignment) continue;
+      if(toward.x*left.x+toward.y*left.y<static_cast<AmoebaData *>(this->other)->alignment && toward.x*right.x+toward.y*right.y<static_cast<AmoebaData *>(this->other)->alignment) continue;
      }
      Object *destination=other?other:victim;
      score-=sqrt(unit->rva002636F6(&candidate,destination,&destination->m_position));
@@ -336,9 +323,9 @@ advanceNode:
      group.x=leaderPos->x-candidate.x;
      group.y=leaderPos->y-candidate.y;
      float distance=group.x*group.x+group.y*group.y;
-     float maximum=other && (*(unsigned char *)((char *)other->m_template+0x108)&0x80)?data->maxBuildingDistance:data->maxDistance;
+     float maximum=other && (*(unsigned char *)((char *)other->m_template+0x108)&0x80)?static_cast<AmoebaData *>(this->other)->maxBuildingDistance:static_cast<AmoebaData *>(this->other)->maxDistance;
      if(distance>maximum*maximum) { outside=true; continue; }
-     if(distance>data->preferredDistance*data->preferredDistance) score-=sqrt(distance);
+     if(distance>static_cast<AmoebaData *>(this->other)->preferredDistance*static_cast<AmoebaData *>(this->other)->preferredDistance) score-=sqrt(distance);
      if(score>bestScore) { bestScore=score; best=candidate; bestCell=cell; }
     }
    }
@@ -367,7 +354,7 @@ advanceNode:
    }
   Object *fallback=Rva0058723D(unit,0);
   if(fallback) {
-   if(entry.arrived) { entry.arrived=false; entry.groupValue=data->groupValue; ((Rva001E42F2 *)unit)->rva001E42F2(data->mask); }
+   if(entry.arrived) { entry.arrived=false; entry.groupValue=static_cast<AmoebaData *>(this->other)->groupValue; ((Rva001E42F2 *)unit)->rva001E42F2(static_cast<AmoebaData *>(this->other)->mask); }
    unit->rva0028CDB6(); entry.needsPosition=true; entry.timer=0; AttackUnit(unit,fallback);
   } else entry.rva005872CF(reinterpret_cast<const ICoord2DBase &>(current));
  }

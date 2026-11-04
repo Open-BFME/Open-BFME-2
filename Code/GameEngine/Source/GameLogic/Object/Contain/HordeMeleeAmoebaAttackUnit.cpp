@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD
+// stlport
 // HordeMeleeAmoeba::AttackUnit, retail 0x00587253 (74 bytes):
 // ?AttackUnit@HordeMeleeAmoeba@@QAEXPAVObject@@0@Z
 // Identity (target): WorldBuilder's debug HordeMeleeAmoeba.cpp:618..624
@@ -34,11 +35,7 @@ enum WeaponSlotType
 
 #include "../object.h"
 
-class HordeMeleeAmoeba
-{
-public:
-	void AttackUnit(Object *attacker, Object *victim);
-};
+#include "../../../../Include/GameLogic/HordeMeleeAmoeba.h"
 
 void HordeMeleeAmoeba::AttackUnit(Object *attacker, Object *victim)
 {
