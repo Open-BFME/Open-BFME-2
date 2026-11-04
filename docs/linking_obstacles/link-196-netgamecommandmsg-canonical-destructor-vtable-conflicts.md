@@ -7,3 +7,5 @@ Clearance: only the three accepted source units; destructor adoption remains blo
 Census confirmation: awaiting; no measured linking gain claimed.
 
 2026-11-04: NetPacket now passes canonical NetGameCommandMsg, NetWrapperCommandMsg and NetFrameCommandMsg acceptance; its three queue rows are retired with 209/209 exact and 33,226 preview-linked bytes preserved. Constructor/destructor vtable work remains the next step ([evidence](../../reverse/attempt_support/netpacket-command-headers-20261104-codex.md)).
+
+NetPacket publication carry (`f728572445`): batch audit INCONCLUSIVE at index `5a13f2cd61` because the source object lacks a current strict receipt; carry the unit and affected consumers into the next scheduled census ([audit evidence](../../reverse/attempt_support/netpacket-command-headers-batch-audit-20261104-codex.md)).
