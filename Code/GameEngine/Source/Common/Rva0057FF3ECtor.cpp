@@ -10,19 +10,21 @@ public:
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Holder58
+class Rva0057FE6B_P64;
+
+struct Rva0057FE6B_Holder58
 {
 	TargetRef00217D4C *m_ptr;
-	Holder58(TargetRef00217D4C *target)
+	Rva0057FE6B_Holder58(TargetRef00217D4C *target)
 	{
 		m_ptr = target;
 		if (target)
 			++target->references;
 	}
-	~Holder58() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+	~Rva0057FE6B_Holder58() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
-class __declspec(novtable) Rva005248D0
+class Rva005248D0
 {
 public:
 	Rva005248D0();
@@ -37,10 +39,10 @@ public:
 	Rva0057FE6B(TargetRef00217D4C *target, int b, bool c);
 private:
 	char m_pad0[84];
-	Holder58 m_58;
+	Rva0057FE6B_Holder58 m_58;
 	int m_5C;
 	int m_60;
-	void *m_64;
+	Rva0057FE6B_P64 *m_64;
 	unsigned char m_68;
 };
 

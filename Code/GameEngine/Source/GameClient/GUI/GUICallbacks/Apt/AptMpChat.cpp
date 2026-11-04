@@ -193,6 +193,7 @@ private:
 class Rva005248D0
 {
 public:
+	Rva005248D0();
 	virtual ~Rva005248D0();
 };
 
@@ -207,34 +208,26 @@ public:
 struct Rva0057FE6B_Holder58
 {
 	TargetRef00217D4C *m_ptr;
-	__forceinline ~Rva0057FE6B_Holder58() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
-
-struct Rva0057FE6B_Holder64
-{
-	Rva0057FE6B_P64 *m_ptr;
-	__forceinline ~Rva0057FE6B_Holder64()
+	Rva0057FE6B_Holder58(TargetRef00217D4C *target) : m_ptr(target)
 	{
-		void *allocation;
-		if (m_ptr != 0) {
-			allocation = m_ptr->f2(0);
-		} else {
-			allocation = 0;
-		}
-		::operator delete(allocation);
-		m_ptr = 0;
+		if (target)
+			++target->references;
 	}
+	__forceinline ~Rva0057FE6B_Holder58() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
 class Rva0057FE6B : public Rva005248D0
 {
 public:
 	virtual ~Rva0057FE6B();
+	Rva0057FE6B(TargetRef00217D4C *target, int b, bool c);
 private:
 	char m_pad0[84];
 	Rva0057FE6B_Holder58 m_58;
-	char m_pad1[8];
-	Rva0057FE6B_Holder64 m_64;
+	int m_5C;
+	int m_60;
+	Rva0057FE6B_P64 *m_64;
+	unsigned char m_68;
 };
 
 void _bfme_closeAptScreen(const AsciiString &name);
@@ -337,6 +330,14 @@ void AptMpChat::OnInit()
 
 Rva0057FE6B::~Rva0057FE6B()
 {
+	void *allocation;
+	if (m_64 != 0) {
+		allocation = m_64->f2(0);
+	} else {
+		allocation = 0;
+	}
+	::operator delete(allocation);
+	m_64 = 0;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0057FECE.cpp
