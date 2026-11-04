@@ -22,19 +22,10 @@ public:
 class Rva0040450E;
 class ModuleData;
 class INI;
-class AttributeModifierStore
-{
-public:
-	Bool getModifier(Int index, void *key, float *value, const StringBase<char> *name);
-	Rva0040450E *replaceModifier(Int index);
-	Int rva00214713(Int key);
-	static void parseModifierListDefinition(INI *ini);
-
-private:
-	unsigned char m_pad00[0xc];
-	std::vector<Rva004036B1 *> m_modifiers;		// +0x0C
-	std::vector<const ModuleData *> m_retired; // +0x18 native four-byte pointer slots
-};
+#include "../../Include/GameLogic/AttributeModifierStore.h"
+// The canonical words at +0x0C and +0x18 hold these two vectors.
+#define m_modifiers (*reinterpret_cast<std::vector<Rva004036B1 *> *>(&m_0C))
+#define m_retired (*reinterpret_cast<std::vector<const ModuleData *> *>(&m_18))
 // AttributeModifierStore::getModifier, retail 0x00214762.
 Bool AttributeModifierStore::getModifier(Int index, void *key, float *value, const StringBase<char> *name)
 {
@@ -45,7 +36,6 @@ Bool AttributeModifierStore::getModifier(Int index, void *key, float *value, con
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-#include "subsystem_interface.h"
 
 struct Rva00214B22Record;
 
