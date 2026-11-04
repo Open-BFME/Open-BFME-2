@@ -14,7 +14,6 @@
 		return base ? (int)field : 0; \
 	}
 #include "../../../../Include/GameLogic/Module/DieModule.h"
-
 // ?getModuleNameKey@DamageFilteredCreateObjectDie@@UBE?AW4NameKeyType@@XZ @0x485efd
 // (69B): cached pool-name key for DamageFilteredCreateObjectDie. The class
 // identity comes from the pool-name string the body pushes
@@ -29,8 +28,21 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/Common/Player.h"
+#include "../object.h"
+extern GameLogic *TheGameLogic;
+#include "../../../../Include/GameLogic/Damage.h"
+class ModuleData;
+class ModuleBase
+{
+public:
+	virtual ~ModuleBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	void *m_object;			// +0x08
+};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -78,8 +90,8 @@ private:
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva00485EE9LeaNegSbbField, 12, 0x08)
 
 // The +0x14 subobject is DamageFilteredCreateObjectDie's damage-module
-// interface (table 0x00C4AA84, per the matched ctor); its overrides live in
-// DamageFilteredCreateObjectDieDamageSlots.cpp, so this TU only declares.
+// interface (table 0x00C4AA84, per the matched ctor); its overrides are
+// defined below.
 class Rva00C4AA84Iface
 {
 public:
@@ -100,6 +112,8 @@ private:
 	int m_playerValue;		// +0x1C
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDtor.cpp
 
 //
@@ -114,8 +128,6 @@ private:
 DamageFilteredCreateObjectDie::~DamageFilteredCreateObjectDie()
 {
 }
-
-// tu-skeleton: 0x00485EE3 6B ?name@DamageFilteredCreateObjectDie@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp
 
@@ -158,7 +170,46 @@ DamageFilteredCreateObjectDieModuleData::DamageFilteredCreateObjectDieModuleData
 	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7ObjectHelperModuleData@@6B@")));
 }
 
-// tu-skeleton: 0x00485EF6 7B ?onHealing@DamageFilteredCreateObjectDie@@UAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDamageSlots.cpp (not merged yet)
+// tu-skeleton: 0x00485EE3 6B ?name@DamageFilteredCreateObjectDie@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDamageSlots.cpp
+
+//
+// DamageFilteredCreateObjectDie's +0x14 damage-module interface overrides
+// (table 0x00C4AA84, installed by the matched ctor 0x00485F87, which also
+// zeroes +0x18 and sets +0x1C to -1; the matched xfer saves both), so `this`
+// is that subobject (module data at -0x10).
+//   slot 0, retail 0x004860E9 (77 bytes), onDamage: for damage whose +0x18
+//           value equals the module data's +0x40, records the frame (+0x18)
+//           and, when the source Object (+0x08) and its controlling Player
+//           still exist, the Player's +0x54 value (+0x1C).
+//   slot 1, retail 0x00485EF6 (7 bytes): clears the recorded frame; its
+//           argument is unused.
+// Slot names by address.
+
+void DamageFilteredCreateObjectDie::onDamage(DamageInfo *damageInfo)
+{
+	if (damageInfo == 0)
+		return;
+	const DamageFilteredCreateObjectDieModuleData *data =
+		(const DamageFilteredCreateObjectDieModuleData *)m_moduleData;
+	if (data && data->m_damageTypeTriggersForDuration == damageInfo->field18)
+	{
+		m_frame = TheGameLogic->getFrame();
+		Object *source = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
+		if (source)
+		{
+			Player *player = source->getControllingPlayer();
+			if (player)
+				m_playerValue = player->m_playerIndex;
+		}
+	}
+}
+
+void DamageFilteredCreateObjectDie::onHealing(void *arg)
+{
+	m_frame = 0;
+}
 
 // tu-skeleton: 0x00485F65 34B ?buildFieldParse@DamageFilteredCreateObjectDieModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
@@ -167,5 +218,3 @@ DamageFilteredCreateObjectDieModuleData::DamageFilteredCreateObjectDieModuleData
 // tu-skeleton: 0x00485FE3 50B ?xfer@DamageFilteredCreateObjectDie@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00486015 212B ?onDie@DamageFilteredCreateObjectDie@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004860E9 77B ?onDamage@DamageFilteredCreateObjectDie@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieDamageSlots.cpp (not merged yet)
