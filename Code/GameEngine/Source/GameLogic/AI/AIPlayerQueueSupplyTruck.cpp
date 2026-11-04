@@ -476,11 +476,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // The rowed body at 0x001FF5F2 under its pinned address spelling
 // (Zero Hour's getInternalNameForScience).
-class ScienceStore
-{
-public:
-	AsciiString rva001FF5F2(ScienceType science) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);

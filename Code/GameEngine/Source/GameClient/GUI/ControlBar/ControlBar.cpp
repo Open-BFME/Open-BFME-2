@@ -410,12 +410,7 @@ class Rva0043D3A8;
 // Native science range is +A4/+A8/+AC. Only this consumed prefix is
 // represented; neither the full CommandButton extent nor container spelling
 // is inferred from the BFME1 +84 range. Value access follows the donor.
-class ScienceStore
-{
-public:
-    bool playerHasRootPrereqsForScience(const Player *, ScienceType) const;
-    bool rva001FF4D3(Rva0043D3A8 *, ScienceType) const;
-};
+#include "../../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 // ?rva0031AFDE@Rva0031AFDE@@QAEHXZ @0x0031AFDE 83B: toggle int at +0x29c between 0 and 1 then MSG 0x3ec bool true then InGameUI slot 0x110 then return field. Evidence: packet disasm with rowed appendBoolean 0x0030F963 and globals MessageStreamSubsystem TheInGameUI.
 class GameMessage

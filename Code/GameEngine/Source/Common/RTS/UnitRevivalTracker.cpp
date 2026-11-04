@@ -38,7 +38,7 @@ enum ScienceType { SCIENCE_INVALID=-1 };
 #include "../../../Include/Common/Player.h"
 
 #include "ascii_string.h"
-class ScienceStore { public: ScienceType getScienceFromInternalName(const AsciiString&) const; };
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 
 #include "../../../Include/Common/ThingTemplate.h"

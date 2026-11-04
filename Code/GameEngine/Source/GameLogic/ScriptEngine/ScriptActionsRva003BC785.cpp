@@ -10,11 +10,7 @@
 enum ScienceType { SCIENCE_INVALID = -1 };
 enum ScienceAvailabilityType { SCIENCE_AVAILABILITY_INVALID = -1 };
 
-class ScienceStore
-{
-public:
-	ScienceType getScienceFromInternalName(const AsciiString &name) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

@@ -720,11 +720,7 @@ class Rva004DF17F
 public:
     bool rva004DF17F() const;
 };
-class ScienceStore
-{
-public:
-    ScienceType getScienceFromInternalName(const AsciiString &name) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 class CommandButton;
 class CommandSet;

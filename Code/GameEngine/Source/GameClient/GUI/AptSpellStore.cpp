@@ -70,17 +70,7 @@ private:
 	_STL::vector<ScienceType> m_sciences;
 	int m_unk14;
 };
-class ScienceStore
-{
-public:
-	// Unrowed 0x001FF4D3 (58 bytes; ret 8): the prerequisites check
-	// 0x001FF47D, then the holder's vslot 1 points against
-	// getSciencePurchaseCost; pinned by address.
-	bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType science) const;
-	int getSciencePurchaseCost(ScienceType science) const;
-	// Rowed 0x001FFC55; BFME 2 passes the science holder for the player.
-	bool playerHasRootPrereqsForScience(const Player *player, ScienceType science) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 // TheGameLogic (0x009FE78C): the end flag at +0x6D and the game mode at
 // +0x110 (6 never pauses for the store) in the shared view, and the rowed

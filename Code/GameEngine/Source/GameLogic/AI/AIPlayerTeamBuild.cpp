@@ -698,11 +698,7 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // Zero Hour's ScienceStore::getInternalNameForScience, rowed at 0x001FF5F2.
-class ScienceStore
-{
-public:
-	AsciiString getInternalNameForScience(ScienceType science) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
