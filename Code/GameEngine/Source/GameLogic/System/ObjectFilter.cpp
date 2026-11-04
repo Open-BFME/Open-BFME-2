@@ -89,6 +89,8 @@ struct BfmeAttributeBits
 	UnsignedInt m_values[7];	// BitFlags<218>
 };
 
+class ModuleData;
+
 class Rva00360F55
 {
 public:
@@ -96,9 +98,12 @@ public:
 	~Rva00360F55();
 	bool rva00360E64(const Rva00360F55 &other);
 
-	AsciiStringVector m_names;			// +0x00
-	AsciiStringVector m_values;			// +0x0C
-	AsciiStringVector m_lists[4];		// +0x18
+	AsciiStringVector m_inclusionNames;							// +0x00
+	AsciiStringVector m_exclusionNames;							// +0x0C
+	_STL::vector<const ModuleData *> m_inclusionSTemplates;	// +0x18
+	_STL::vector<const ModuleData *> m_exclusionSTemplates;	// +0x24
+	_STL::vector<const ModuleData *> m_inclusionTemplates;		// +0x30
+	_STL::vector<const ModuleData *> m_exclusionTemplates;		// +0x3C
 	BfmeAttributeBits m_firstPlain;		// +0x48
 	BfmeAttributeBits m_secondPlain;	// +0x64
 	UnsignedInt m_kind;					// +0x80
@@ -187,19 +192,7 @@ extern class ThingFactory *TheThingFactory;
 
 
 
-class ObjectFilter
-{
-public:
-	static void rva003611EFResolveNames(ObjectFilter *filter);
-
-	_STL::vector<AsciiString> m_inclusionNames;
-	_STL::vector<AsciiString> m_exclusionNames;
-	_STL::vector<const ModuleData *> m_inclusionSTemplates;
-	_STL::vector<const ModuleData *> m_exclusionSTemplates;
-	_STL::vector<const ModuleData *> m_inclusionTemplates;
-	_STL::vector<const ModuleData *> m_exclusionTemplates;
-	char m_tail[0x94 - 0x48];
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 
 struct BfmeStringHeadRecord148 { AsciiString s; int a[36]; };
 
@@ -333,12 +326,12 @@ bool Rva00360F55::rva00360E64(const Rva00360F55 &other)
 	if ((unsigned char)Rva00360C1FEqual(&m_firstPlain, &other.m_firstPlain)) {
 	if ((unsigned char)Rva00360C1FEqual(&m_secondPlain, &other.m_secondPlain)) {
 	typedef _STL::vector<ScienceType, _STL::allocator<ScienceType> > SciVec;
-	if ((const SciVec &)m_lists[2] == (const SciVec &)other.m_lists[2]) {
-	if ((const SciVec &)m_lists[3] == (const SciVec &)other.m_lists[3]) {
-	if ((const SciVec &)m_lists[0] == (const SciVec &)other.m_lists[0]) {
-	if ((const SciVec &)m_lists[1] == (const SciVec &)other.m_lists[1]) {
-	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_names, (const AsciiRange002ADD75 *)&other.m_names)) {
-	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_values, (const AsciiRange002ADD75 *)&other.m_values)) {
+	if ((const SciVec &)m_inclusionTemplates == (const SciVec &)other.m_inclusionTemplates) {
+	if ((const SciVec &)m_exclusionTemplates == (const SciVec &)other.m_exclusionTemplates) {
+	if ((const SciVec &)m_inclusionSTemplates == (const SciVec &)other.m_inclusionSTemplates) {
+	if ((const SciVec &)m_exclusionSTemplates == (const SciVec &)other.m_exclusionSTemplates) {
+	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_inclusionNames, (const AsciiRange002ADD75 *)&other.m_inclusionNames)) {
+	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_exclusionNames, (const AsciiRange002ADD75 *)&other.m_exclusionNames)) {
 		return true;
 	}
 	}
@@ -444,11 +437,12 @@ Rva0036105B *Rva003614F4Copy(Rva0036105B *first, Rva0036105B *last, Rva0036105B 
 
 void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 {
+	Rva00360F55 *record = (Rva00360F55 *)filter;
 	int i;
-	int count = filter->m_inclusionNames.size();
+	int count = record->m_inclusionNames.size();
 	for (i = 0; i < count; ++i)
 	{
-		AsciiString &name = filter->m_inclusionNames[i];
+		AsciiString &name = record->m_inclusionNames[i];
 		if (name.startsWith("S:") && (unsigned)name.getLength() >= 3)
 		{
 			const char *templateName = name.str();
@@ -462,7 +456,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified +S:%s but template %s doesn't exist! Typo?", templateName, templateName);
 			}
-			filter->m_inclusionSTemplates.push_back(moduleData);
+			record->m_inclusionSTemplates.push_back(moduleData);
 		}
 		else
 		{
@@ -471,15 +465,15 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified +%s but this template doesn't exist! Typo?", name.str());
 			}
-			filter->m_inclusionTemplates.push_back(moduleData);
+			record->m_inclusionTemplates.push_back(moduleData);
 		}
 	}
-	filter->m_inclusionNames.clear();
+	record->m_inclusionNames.clear();
 
-	count = filter->m_exclusionNames.size();
+	count = record->m_exclusionNames.size();
 	for (i = 0; i < count; ++i)
 	{
-		AsciiString &name = filter->m_exclusionNames[i];
+		AsciiString &name = record->m_exclusionNames[i];
 		if (name.startsWith("S:") && (unsigned)name.getLength() >= 3)
 		{
 			const char *templateName = name.str();
@@ -493,7 +487,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified -S:%s but template %s doesn't exist! Typo?", templateName, templateName);
 			}
-			filter->m_exclusionSTemplates.push_back(moduleData);
+			record->m_exclusionSTemplates.push_back(moduleData);
 		}
 		else
 		{
@@ -502,10 +496,10 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified -%s but this template doesn't exist! Typo?", name.str());
 			}
-			filter->m_exclusionTemplates.push_back(moduleData);
+			record->m_exclusionTemplates.push_back(moduleData);
 		}
 	}
-	filter->m_exclusionNames.clear();
+	record->m_exclusionNames.clear();
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00361439Resolve.cpp
@@ -683,7 +677,7 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *)
 			}
 			else
 			{
-				entry.m_names.push_back(AsciiString(token));
+				entry.m_inclusionNames.push_back(AsciiString(token));
 				entry.m_enabled = true;
 			}
 		}
@@ -696,7 +690,7 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *)
 			if (bit != -1)
 				entry.m_secondPlain.m_values[(UnsignedInt)bit >> 5] |= 1 << (bit & 31);
 			else
-				entry.m_values.push_back(AsciiString(token));
+				entry.m_exclusionNames.push_back(AsciiString(token));
 		}
 		else
 		{
