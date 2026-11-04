@@ -38,19 +38,8 @@ private:
 // (pop ecx after the delete call); compile just the base class for size so
 // this unit's COMDAT matches the first copy in link order (hlod.cpp).
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	RefCountClass(const RefCountClass &) : NumRefs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-private:
-	int NumRefs;
-};
+#include "RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)
 
 template <class Type>

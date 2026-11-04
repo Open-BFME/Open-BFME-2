@@ -5,19 +5,8 @@
 // The tail is written in retail store order: +0x28, +0x2C, +0x34, then +0x30.
 
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	RefCountClass() : m_numRefs(1) {}
-
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-private:
-	int m_numRefs;
-};
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)
 
 class MaterialPassStage

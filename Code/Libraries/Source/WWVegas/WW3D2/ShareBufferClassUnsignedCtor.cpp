@@ -20,17 +20,8 @@
 
 #include <new>
 
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	RefCountClass(const RefCountClass &) : NumRefs(1) {}
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int NumRefs; // +0x04
-};
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 // The canonical class view declares the destructor out of line. This unit
 // emits the instantiation retail keeps: the CPU's vptr stores around the

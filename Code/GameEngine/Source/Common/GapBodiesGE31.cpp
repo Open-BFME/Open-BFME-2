@@ -18,16 +18,8 @@
 // is slot zero, followed by the protected destructor. Keep the constructor
 // inline so byte-identical consumer copies remain interchangeable COMDATs;
 // leave Delete_This to its existing providers rather than emitting a helper.
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int NumRefs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 class Rva000728B6 : public RefCountClass
 {

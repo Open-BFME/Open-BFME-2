@@ -15,19 +15,8 @@
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	RefCountClass(const RefCountClass &) : NumRefs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-private:
-	int NumRefs;
-};
+#include "RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/sharebuf.h,

@@ -10,17 +10,8 @@ public:
 	void Release_Ref(void);
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-
-protected:
-	virtual ~RefCountClass(void) {}
-
-private:
-	int m_refs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"
 

@@ -1,0 +1,19 @@
+--- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp
++++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp
+@@ -83,15 +83,7 @@
+ 
+ #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+ 
+-class RefCountClass
+-{
+-public:
+-	virtual void Delete_This(void);
+-	void Add_Ref(void) { NumRefs++; }
+-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
+-protected:
+-	int NumRefs;
+-};
++#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+ 
+ template <class T>
+ class RefCountPtr

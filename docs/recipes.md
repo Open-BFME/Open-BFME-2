@@ -831,3 +831,20 @@ three project headers relative to the source. The ordinary8/8 gate, complete
 non-debug-section comparison, EH check, strict version2 receipt and owning
 acceptance then pass. No optimization/ABI switch, shared header or checker edit.
 [Evidence](../reverse/attempt_support/siegedockingbehaviorinitializebones-matrix3d-20261102-2256.md).
+
+
+### A canonical base can expose a duplicated derived deleting slot
+
+In the20261104 RefCountClass/RenderingMethod batch, directly adopting the
+eight-byte RefCountClass header shifted RenderingMethod Begin and later calls
+by four bytes. The old private base omitted deleting slot1, and the private
+derived interface used a dummy slot1. Adopting both existing target-backed
+headers preserves the inherited0/1 and actual2/3/4/5/6 dispatch offsets; six
+rendering consumers retain complete native code and EH. Keep existing inline
+base teardown visible where required and retain its optimization context.
+Out-of-class inline teardown can reorder COFF COMDAT sections without changing
+their bodies. Prove symbol/section/relocation/association/weak-fallback/SafeSEH
+identity rather than treating ordinal differences as code changes. Native
+acceptance still governs; no repository verifier was altered. The separate
+RTS3DScene RenderObj projection remains blocked and is not generalized away.
+Evidence: reverse/attempt_support/refcount-rendering-batch-20261104-1410.md.

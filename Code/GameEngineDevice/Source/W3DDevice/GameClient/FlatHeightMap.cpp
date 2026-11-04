@@ -44,28 +44,8 @@ private:
 };
 // The texture handle's copy constructor is the out-of-line 0x000424BB.
 template <> RefCountPtr<TextureClass>::RefCountPtr(const RefCountPtr<TextureClass> &rhs);
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
-namespace FXShader {
-class RenderingMethod : public RefCountClass
-{
-public:
-	virtual void slot1();
-	virtual bool Begin(Int *passCount, Int flags);	// slot 2
-	virtual void Begin_Pass(Int pass);	// slot 3
-	virtual void rvaSlot4(int);
-	virtual void End_Pass(void);	// slot 5
-	virtual void End(void);	// slot 6
-};
-}
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderingMethod.h"
 class LightEnvironmentClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 // Callees taking the rendering-method stack as (first element, count) around

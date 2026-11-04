@@ -12,17 +12,8 @@
 // (fxshadersetup.cpp, 0x001525FB has the same three-store prologue) -- keeps
 // retail's +4, vptr, +8 store order; a plain pointer initializer is hoisted.
 
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-	int NumRefs;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 class Rva00072A08Inner;
 

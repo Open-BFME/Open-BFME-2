@@ -431,23 +431,8 @@ extern int LODTextureReduction;
 // The technique-name suffix per LOD: low, medium, high, ultra.
 static const char s_lodSuffixes[4][4] = { "_L", "_M", "", "_U" };
 
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 class FXShaderSetup : public RefCountClass
 {
