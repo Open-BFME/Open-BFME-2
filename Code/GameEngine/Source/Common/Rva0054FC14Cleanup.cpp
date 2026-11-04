@@ -28,7 +28,10 @@ struct ProgressValue0054FCA5 { int opaque[2]; int value; };
 class Rva0009990D
 {
 public:
+	void set(void *object); // 0x000998EA
 	void clear();
+private:
+	void *m_object; // +0x00
 };
 
 struct Rva0054FC14
