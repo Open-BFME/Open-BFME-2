@@ -22,4 +22,7 @@ Remaining / next check: both units retain unresolved record copy/destructor name
 under LINK-060. Its complete assignment remains owned by
 `Rva000427195Dtor.cpp`; the current clear owner is now in `Common/RTS/Team.cpp`.
 No native element name or layout is recovered by removing the sweep. The
-`StlSweepR3Rva001DE3E3.cpp` reconciliation remains open.
+`StlSweepR3Rva001DE3E3.cpp` was retired on 2026-11-04 after rebinding its sole
+Eva consumer to the existing exact 31-byte owner (LINK-060/182). Both real-link
+record-special-member errors disappear; native element identity remains open.
+[Audit](../../reverse/attempt_support/hashtable-1de3e3-overclaim-20261104-codex.md).

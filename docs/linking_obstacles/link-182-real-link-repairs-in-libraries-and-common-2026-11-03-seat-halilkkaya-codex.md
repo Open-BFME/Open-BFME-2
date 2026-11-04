@@ -2,6 +2,23 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### R3 0x001DE3E3 duplicate-claim retirement (2026-11-04, halilkkaya-codex)
+
+Base `bd37f44974`: retire `StlSweepR3Rva001DE3E3.cpp` and its unsupported
+one-byte-element assignment claim, retaining the existing full 31-byte owner
+in `Rva001DE3E3Guard.cpp`. The orphan scan found Eva's reset as the sole
+assignment consumer; it now calls that owner's existing spelling and remains
+exact. Fourteen other private definitions have no outside census touch and
+no surviving source use. Both unused clear/copy pins are retired. The two
+record copy/destructor errors from real-link artifact `612abfbebb` disappear
+with the false instantiation. Source count falls by one, unique coverage is
+unchanged, and no name or layout is invented.
+
+Normal checks pass 29 rows; true base/tip 50/49-source previews retain all
+47 LINKS units and 165,621 preview bytes; scoped DIR32 passes 29+24 witnesses.
+Native element recovery and full-image/census confirmation remain open.
+[Ownership, orphan, path/debt audit and verification](../../reverse/attempt_support/hashtable-1de3e3-overclaim-20261104-codex.md).
+
 ### AerialPathfinder constructor base (2026-11-04, halilkkaya-codex)
 
 Base `efb5fcbb60`: replace the constructor's private `Rva0022C987Base`

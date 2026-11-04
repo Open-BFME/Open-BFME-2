@@ -268,22 +268,19 @@ struct EvaEventReport
 	Vec001DCDAF m_secondPosition;				// +0x14
 };
 
-// The existing STLport owners define these opaque record spellings. Their
-// vector and hash-table assignments are rowed at 0x001DEF89 and 0x001DE3E3;
-// call those owners directly rather than adding container aliases.
+// The vector assignment is rowed at 0x001DEF89. The name-map assignment
+// at 0x001DE3E3 has a receiver-only owner; its element type is still unknown.
+// Call that owner without the retired sweep's unsupported one-byte record.
 struct Rva001DEF89Record { Rva001DEF89Record(); Rva001DEF89Record(const Rva001DEF89Record&); ~Rva001DEF89Record(); Rva001DEF89Record&operator=(const Rva001DEF89Record&); char bytes[48]; };
-struct Rva001DE3E3Record { Rva001DE3E3Record(); Rva001DE3E3Record(const Rva001DE3E3Record&); ~Rva001DE3E3Record(); Rva001DE3E3Record&operator=(const Rva001DE3E3Record&); char bytes[1]; bool operator<(const Rva001DE3E3Record&)const; bool operator==(const Rva001DE3E3Record&)const; };
+class Rva001DE3E3 { public: Rva001DE3E3 *rva001DE3E3(Rva001DE3E3 *other); };
 typedef _STL::vector<Rva001DEF89Record, _STL::allocator<Rva001DEF89Record> > EvaInfoRecords;
-typedef _STL::hashtable<_STL::pair<const int,Rva001DE3E3Record>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<const int,Rva001DE3E3Record> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int,Rva001DE3E3Record> > > EvaEventTable;
 namespace _STL {
 template<> EvaInfoRecords &EvaInfoRecords::operator=(const EvaInfoRecords &);
-template<> EvaEventTable &EvaEventTable::operator=(const EvaEventTable &);
 template<> void _List_base<int, allocator<int> >::clear();
 }
 class Rva001DEE92Member { public: void rva001DEE92(int count); char *m_begin; char *m_end; char *m_storage; };
 class Rva001DD70F { public: void rva001DD846(); };
 typedef char EvaInfoRecordsWidth[(sizeof(EvaInfoRecords)==12)?1:-1];
-typedef char EvaEventTableWidth[(sizeof(EvaEventTable)==20)?1:-1];
 typedef char EvaListWidth[(sizeof(_STL::_List_base<int,_STL::allocator<int> >)==4)?1:-1];
 
 // Eva.ini parsing (iniParseNewEvaEvent).
@@ -679,7 +676,8 @@ void Eva::reset()
 {
  EvaInfoRecords &records = *reinterpret_cast<EvaInfoRecords *>(&m_allEventInfos);
  records = *reinterpret_cast<const EvaInfoRecords *>(reinterpret_cast<char *>(this)+0x28);
- *reinterpret_cast<EvaEventTable *>(reinterpret_cast<char *>(this)+0x34) = *reinterpret_cast<const EvaEventTable *>(reinterpret_cast<char *>(this)+0x48);
+ reinterpret_cast<Rva001DE3E3 *>(reinterpret_cast<char *>(this)+0x34)->rva001DE3E3(
+     reinterpret_cast<Rva001DE3E3 *>(reinterpret_cast<char *>(this)+0x48));
  int count = (int)records.size();
  Rva001DEE92Member *status = reinterpret_cast<Rva001DEE92Member *>(&m_eventStatus);
  status->rva001DEE92(count);

@@ -1,5 +1,12 @@
 ### LINK-060: one address rowed twice; the non-linking copy is an over-claim
 Status: Open (14 retired, leads below). Updated: 2026-10-27; inspected revision: b1071e9a26; index d1f046749a.
+
+**2026-11-04, halilkkaya-codex:** the 0x001DE3E3 sweep copy is now retired.
+Its sole assignment consumer, Eva, is rebound to the existing 31-byte
+`Rva001DE3E3Guard.cpp` owner. All 29 checked rows stay exact; all 47 LINKS
+peers survive true base/tip preview; scoped DIR32 passes. Two private pins and
+one source are removed, with no unique coverage loss. Native element identity
+is still unknown. [Audit](../../reverse/attempt_support/hashtable-1de3e3-overclaim-20261104-codex.md).
 Evidence / affected units: a scan of `reverse/functions.csv` for `matched` rows sharing a `target_rva`
 (notes without alias/ICF/fold/dup-of/object-symbol) against `reverse/link_status.csv` finds addresses
 where one row's unit links and a second row's unit never did. The second row is usually an older
