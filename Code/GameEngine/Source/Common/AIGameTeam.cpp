@@ -24,19 +24,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include <new>
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > > _Rb_tree<int,pair<int const ,int>,_Select1st<pair<int const ,int> >,less<int>,allocator<pair<int const ,int> > >::insert_unique(_Rb_tree_iterator<pair<int const ,int>,_Nonconst_traits<pair<int const ,int> > >,pair<int const ,int> const &); }
-
 // bfme link decl-only begin
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > >, bool>::pair(_Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > > const &, bool const &); }
-
 namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > > & _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > >::operator++(); }
-
 namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > > & _Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > >::operator--(); }
-
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<int const, int>, _Nonconst_traits<pair<int const, int> > >, bool> _Rb_tree<int, pair<int const, int>, _Select1st<pair<int const, int> >, less<int>, allocator<pair<int const, int> > >::insert_unique(pair<int const, int> const &); }
-
 // bfme link decl-only end
 
 // map/set<int> internals otherwise instantiate the less<int>::operator()
@@ -47,23 +41,16 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-
 class AsciiString;
-
 class ModuleData;
-
 class ArmorTemplate;
-
 class Player;
-
 class ArmorStore
 {
 public:
 	const ArmorTemplate *rva0041F474(const AsciiString &name) const;
 };
-
 ArmorStore *g_00E0312C = 0;
-
 class SkirmishAI
 {
 public:
@@ -72,7 +59,6 @@ public:
 private:
 	char m_pad[0x188];
 };
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -80,7 +66,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 class Rva004E9600
 {
 public:
@@ -88,13 +73,12 @@ public:
     void *rva004E95D4(void *record);
     bool rva004E9600(void *record);
 };
-
 // ?rva004E94CA@Rva004E94CA@@QAE_NPAVPlayer@@@Z @0x004E94CA 49B if +4==0 false else nth=getNthPlayer([[[this]+8]+0x10]) return arg->getRelationship(nth)==ALLIES callees 0x002A7A29 0x002AC3E0 global ThePlayerList caller 0x002A949F
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
-
 #include "../../Include/Common/Player.h"
-
 #include "../../Include/Common/PlayerList.h"
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 
 extern PlayerList *ThePlayerList;
 
@@ -210,6 +194,44 @@ private:
 	_STL::vector<LivingWorldArmy *, _STL::allocator<LivingWorldArmy *> > m_members;	// +0x18
 };
 
+void Rva00030830GameFree(void*);
+
+namespace _STL {template<> inline void allocator<void*>::deallocate(void**p,size_t)const{if(p)Rva00030830GameFree(p);}}
+
+// The two member vectors are not vector<void*>: retail's unwind actions for
+// +0x0C and +0x18 jump to the 14-byte free-first-pointer body 0x0007FAB3, not
+// vector<void*>'s /Od destructor 0x00027370. They are spelled with pointer
+// element types (the +0x0C element is not established) and the same
+// GameFree deallocation.
+class TeamOwnedPoly;
+
+struct Rva004E9657Entry0C;
+
+namespace _STL {
+template<> inline void allocator<TeamOwnedPoly*>::deallocate(TeamOwnedPoly**p,size_t)const{if(p)Rva00030830GameFree(p);}
+template<> inline void allocator<Rva004E9657Entry0C*>::deallocate(Rva004E9657Entry0C**p,size_t)const{if(p)Rva00030830GameFree(p);}
+}
+
+class Rva004E9419 {public:~Rva004E9419();void rva004E94A1();};
+
+struct TeamMapStorage {unsigned words[3];__forceinline ~TeamMapStorage(){reinterpret_cast<Rva004E9419*>(this)->~Rva004E9419();}};
+
+class Rva002C6E4E {public:~Rva002C6E4E() throw();};
+
+class TeamOwnedPoly {public:virtual ~TeamOwnedPoly() throw();};
+
+class RvaVector {public:void**erase(void**,void**) throw();};
+
+class Rva004E9657 {
+public:~Rva004E9657();
+ TeamMapStorage map00;
+ _STL::vector<Rva004E9657Entry0C*> vector0c;
+ _STL::vector<TeamOwnedPoly*> vector18;
+ bool flag24;
+};
+
+// ---- from Code/GameEngine/Source/Common/AIGameTeam.cpp
+
 // ---- from Code/GameEngine/Source/Common/AIGameTeam.cpp
 
 // ---- from Code/GameEngine/Source/Common/AIGameTeam_getMasterPlayer.cpp
@@ -307,8 +329,6 @@ Rva004E962A::Rva004E962A() : m_24(true)
 {
 }
 
-// tu-skeleton: 0x004E9419 45B ?rva004E9419@Rva004E9419@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004E9446Erase.cpp
 
 //
@@ -342,24 +362,6 @@ void AIGameTeam::rva004E9446()
 	}
 }
 
-// tu-skeleton: 0x004E94A1 41B ?rva004E94A1@Rva004E9419@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004E94FB 33B ?rva004E94FB@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
-
-// tu-skeleton: 0x004E951C 67B ?rva004E951C@AIGameTeam@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
-
-// tu-skeleton: 0x004E955F 51B ?getTargetByIndexForPlayer@AIGameTeam@@QAEPAXHH@Z -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
-
-// tu-skeleton: 0x004E9592 5B ?rva004E9592@Rva004E9592@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004E9597 56B ??1Rva004E9419@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004E95CF 5B ?rva004E95CF@Rva004E95CF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004E9657 185B ??1Rva004E9657@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004E9710 182B ?update@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004E97C6Create.cpp
 
 //
@@ -378,14 +380,47 @@ Rva00596B05 *Rva004E97C6::rva004E97C6(void *lenderPlayer, void *borrowerPlayer, 
 	return member;
 }
 
+// tu-skeleton: 0x004E9419 45B ?rva004E9419@Rva004E9419@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004E94A1 41B ?rva004E94A1@Rva004E9419@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004E94FB 33B ?rva004E94FB@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
+
+// tu-skeleton: 0x004E951C 67B ?rva004E951C@AIGameTeam@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
+
+// tu-skeleton: 0x004E955F 51B ?getTargetByIndexForPlayer@AIGameTeam@@QAEPAXHH@Z -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
+
+// tu-skeleton: 0x004E9592 5B ?rva004E9592@Rva004E9592@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004E9597 56B ??1Rva004E9419@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004E95CF 5B ?rva004E95CF@Rva004E95CF@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp
+
+// ??1Rva004E9657@@QAE@XZ
+// Native4E9657..4E9710,185B. Reset2A9072 deletes this owner; ctor4E962A
+// independently proves map00 and vectors0C/18 plus flag24. Element identities
+// remain opaque. Native second loop never advances its iterator. Global delete
+// intentionally invokes virtual destruction with flag0 then operator delete.
+// A scheduling barrier before erase requires fresh range loads; the local
+// vector pointer preserves native ESI+4 end addressing. No donor identity claimed.
+
+Rva004E9657::~Rva004E9657(){
+ typedef _STL::map<int,Rva002C6E4E*> Map;
+ Map&map=*reinterpret_cast<Map*>(&map00);
+ Map::iterator end=map.end();
+ for(Map::iterator i=map.begin();i!=end;++i)delete i->second;
+ reinterpret_cast<Rva004E9419*>(&map00)->rva004E94A1();
+ TeamOwnedPoly**i=vector18.begin();TeamOwnedPoly**teamOwnedPoly=vector18.end();
+ for(;i!=teamOwnedPoly;)::delete *i;
+ _ReadWriteBarrier();_STL::vector<void*>*vec=reinterpret_cast<_STL::vector<void*>*>(&vector18);reinterpret_cast<RvaVector*>(vec)->erase(vec->begin(),vec->end());
+}
+
+// tu-skeleton: 0x004E9710 182B ?update@AIGameTeam@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp (not merged yet)
+
 // tu-skeleton: 0x0079250A 8B $L3110 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00792512 10B __ehhandler$??1Rva004E9419@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x0079251C 8B $L6433 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792524 11B $L6434 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0079252F 11B uw_0079252f -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x0079253A 10B __ehhandler$??1Rva004E9657@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAITeamOwnedDtor.cpp (not merged yet)
