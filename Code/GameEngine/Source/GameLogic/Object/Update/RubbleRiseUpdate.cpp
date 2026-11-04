@@ -149,17 +149,13 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class DieMuxData
-{
-public:
-	bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const; // 0x004CE588
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 class RubbleRiseUpdateModuleData
 {
 public:
 	unsigned char m_pad000[0x08];
 	DieMuxData m_dieMuxData; // +0x08
-	unsigned char m_pad009[0x40 - 0x09];
+	unsigned char m_pad009[0x40 - 0x38];
 	UnsignedInt m_minBurstDelay; // +0x40
 	UnsignedInt m_maxBurstDelay; // +0x44
 	Int m_bigBurstFrequency; // +0x48

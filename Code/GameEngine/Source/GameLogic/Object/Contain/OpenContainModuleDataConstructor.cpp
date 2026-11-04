@@ -71,14 +71,7 @@ template<> vector<AsciiString, allocator<AsciiString> >::~vector();
 template<> vector<AsciiString, allocator<AsciiString> >::iterator vector<AsciiString, allocator<AsciiString> >::erase(iterator first, iterator last);
 }
 
-class DieMuxData
-{
-public:
-	__declspec(dllimport) __forceinline DieMuxData() { init(); }
-	DieMuxData *init();
-private:
-	unsigned char m_data[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 

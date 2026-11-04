@@ -23,16 +23,14 @@ template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List
 class DamageInfo;
 class Object;
 class Drawable;
-class DieMuxData {
-public: bool isDieApplicable(const Object*,const DamageInfo*) const;
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 #include "../object.h"
 #include "../../../../Include/GameClient/Drawable.h"
 extern GameLogic *TheGameLogic;
 struct OpenContainDieData {
  char unknown00[8];
  DieMuxData dieMux;
- char unknown09[0x6C-9];
+ char unknown09[0x6C-0x38];
  float damageFraction;
  char unknown70[0x82-0x70];
  bool releaseContents;

@@ -35,14 +35,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
 
-class DieMuxData
-{
-public:
-	DieMuxData *init();
-
-private:
-	unsigned char m_pad[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 #include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
@@ -86,7 +79,6 @@ private:
 inline SpawnBehaviorModuleData::SpawnBehaviorModuleData()
 	: m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00BF4128))
 {
-	m_dieMuxData.init();
 	m_slaveBlock.construct();
 	m_spawnNumberData = 0;
 	m_spawnReplaceDelayData = 0;
