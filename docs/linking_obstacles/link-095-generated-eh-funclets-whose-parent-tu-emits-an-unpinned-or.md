@@ -186,6 +186,8 @@ Rva003A59C3Ctor) need a class reconciliation first. Pre-existing, not from this 
 W3DTreeBuffer.cpp previews duplicates of four `W3DTreeBuffer::rva000EA*` bodies with
 VslotNullCheckedForwarders3.cpp after 85a69439e9.
 
+2026-11-04 GroupOrder: Snapshot class reconciliation is byte/link verified; default and copy constructors merge into the approved TU (-2 sources). Holder composition now stops at a duplicate vector-base destructor specialization; reconcile that allocator contract next. [Evidence](../../reverse/attempt_support/grouporder-tu-merge-20261104.md).
+
 **Renumbered-label relabel (2026-10-27, K9):** 166 parent-emitted `$L` rows in 16 units
 verified only through the renumbered-label fallback and held the names their gen_uw
 neighbours needed. Each was retracted (tombstoned) and re-added under the label a fresh

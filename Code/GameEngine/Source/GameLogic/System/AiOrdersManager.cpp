@@ -159,7 +159,7 @@ public: void addOrderToObjectQueues(int,GroupOrder*);
 private: unsigned char opaque[0x10]; ObjectLookupMap orders; QueueMap queues;
 };
 
-// Existing counter provider: GroupOrderCopyCtor.cpp owns this data symbol.
+// Existing counter provider: GroupOrder.cpp owns this data symbol.
 extern int g_Va00E05F74;
 
 Xfer *Rva0035552AXfer(Xfer *xfer, void *map);
