@@ -2326,7 +2326,15 @@ class Comparer:
                     if SEVERITY[res[0]] < SEVERITY["unverified"] else res
             res = self._signature_best(d, local, proven)
             return ("same", "identical inline body", res[2]) if res and res[0] == "same" else res
-        return self._signature_best(d, local, fns)
+        res = self._signature_best(d, local, fns)
+        if d.d.get("static") and res and res[0] == "same" and res[2]["d"].get("body"):
+            # A bodyless static prototype before the real header configures
+            # its inline function's linkage; the header still supplies the
+            # implementation. Apt's sinf/cosf use this to avoid exporting
+            # non-retail x87 helpers. Copied bodies take the branch above,
+            # and mismatched signatures or ordinary CRT prototypes stay debt.
+            return ("config", "internal linkage for header-defined inline function", res[2])
+        return res
 
     def _signature_best(self, d, local, fns):
         best = None

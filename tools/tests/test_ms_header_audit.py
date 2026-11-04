@@ -814,6 +814,33 @@ def test_check_ignores_forward_declarations_and_config_macros():
     assert mha.check(["Code/Game/Fixture.cpp"], read_new=lambda p: new, read_old=lambda p: old, index=INDEX) == []
 
 
+def test_static_prototypes_configure_header_inline_linkage():
+    header = ('extern "C" {\n'
+              'inline float sinf(float x) {return (float)sin((double)x);}\n'
+              'inline float cosf(float x) {return (float)cos((double)x);}\n}\n')
+    index = index_from(header, label="Vc7/include/math.h")
+    text = ('extern "C" {\nstatic float __cdecl sinf(float);\n'
+            'static float __cdecl cosf(float);\n}\n#include <math.h>\n')
+    res = mha.scan_text("Code/AptMath.cpp", text, index)
+    helpers = [o for o in res["occ"] if o[1] in ("sinf", "cosf")]
+    assert len(helpers) == 2
+    assert all(o[3] == "config" and "internal linkage" in o[4] for o in helpers)
+    assert mha.check(["Code/AptMath.cpp"], read_new=lambda p: text,
+                     read_old=lambda p: None, index=index) == []
+
+
+@pytest.mark.parametrize("declaration", [
+    "static inline float sin(float x) {return (sinf(x));}",
+    "static inline float sin(float x) {return 0.0f;}",
+    "static int sin(float);",
+    "static double sqrt(double);",
+])
+def test_static_does_not_exempt_copied_bodies_or_other_prototypes(declaration):
+    problems = mha.check(["Code/Fixture.cpp"], read_new=lambda p: declaration,
+                         read_old=lambda p: None, index=INDEX)
+    assert len(problems) == 1 and "local function" in problems[0]
+
+
 def test_incomplete_analysis_is_failed_and_refused(monkeypatch, tmp_path):
     # a timeout or recursion is an explicit failure, never an empty list
     big = "typedef unsigned long DWORD;\n" + "int x;\n" * 5000
