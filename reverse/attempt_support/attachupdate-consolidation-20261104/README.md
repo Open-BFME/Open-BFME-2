@@ -62,3 +62,23 @@ ownership is repointed by the merge tool. Header queues retain only surviving
 owners, and no donor-specific flag override or fold proof needs moving here.
 The matching 789-byte link previews before and after composition provide the
 local binding check; pre-push link-batch admission remains required.
+
+## Second pass (62b71edda5)
+
+Two view reconciles (0c5bc58f74, bba50f553d) let `AttachUpdateModuleDataDtor.cpp`
+and `Rva00491C84Calc.cpp` merge: the seed adopts Geometry.h, an Object view with
+`m_geometryInfo` (+0xA8) and the +0x250 interface, and a novtable
+`AttachUpdateModuleData : Snapshot` with a declared virtual dtor and an
+`Rva003623E5Member` ObjectFilter (+0x08). `./build.sh`: 14/14 rows in one file.
+No debt register, tool, hook, workflow or doc names either removed path; only
+`reverse/link_status.csv` census records and TU provenance comments do.
+
+Still separate:
+
+- `AttachUpdateModuleDataCtor.cpp`: besides the `_Base_bitset` clash, retail
+  ctor 0x491968 stores only its own vptr and dtor 0x491AA0 stores none at entry.
+  In probes only a non-novtable class with an implicit dtor gives both, which
+  emits vtable/`??_G` COMDATs whose rows would move with it.
+- `AttachUpdateCtor.cpp`: a real ctor in the seed emits AttachUpdate's own
+  vtables, while retail's +0x0C slot is the 80-class folded 0x00BEFF90 table and
+  slot 0 is the hand `vtbl_00C4DB20` data row: vtable identity work first.
