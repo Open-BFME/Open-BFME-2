@@ -5,3 +5,5 @@ Completed: canonical NetGameCommandMsg adoption in constructGameMessage, Connect
 Remaining / next check: NetGameCommandMsgDtor trial matches both rows but drops 91 -> 0 preview bytes on MemoryPoolObject and NetGameCommandMsg vtable COMDAT conflicts; restored. Inspect first providers and reconcile vtables before retrying; constructor and NetPacket queued prerequisites remain.
 Clearance: only the three accepted source units; destructor adoption remains blocked.
 Census confirmation: awaiting; no measured linking gain claimed.
+
+2026-11-04: NetPacket now passes canonical NetGameCommandMsg, NetWrapperCommandMsg and NetFrameCommandMsg acceptance; its three queue rows are retired with 209/209 exact and 33,226 preview-linked bytes preserved. Constructor/destructor vtable work remains the next step ([evidence](../../reverse/attempt_support/netpacket-command-headers-20261104-codex.md)).

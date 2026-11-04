@@ -225,18 +225,7 @@ public:
 
 #include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
-// Frame message addFrameCommand serializes: three dwords after the base.
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	NetFrameCommandMsg();	// 0x004CEEC3
-	UnsignedInt get1c() { return m_1c; }
-	UnsignedInt get20() { return m_20; }
-	UnsignedInt get24() { return m_24; }
-	UnsignedInt m_1c;
-	UnsignedInt m_20;
-	UnsignedInt m_24;
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 
 struct NetPacketAddress
 {
@@ -2888,15 +2877,15 @@ NetCommandMsg *NetPacket::readFrameMessage(unsigned char *data, int &readOffset)
 	unsigned int v0 = 0;
 	memcpy(&v0, data + readOffset, 4);
 	readOffset += 4;
-	msg->m_1c = v0;
+	msg->m_frame = v0;
 	unsigned int v1 = 0;
 	memcpy(&v1, data + readOffset, 4);
 	readOffset += 4;
-	msg->m_20 = v1;
+	msg->m_playerFrame = v1;
 	unsigned int v2 = 0;
 	memcpy(&v2, data + readOffset, 4);
 	readOffset += 4;
-	msg->m_24 = v2;
+	msg->m_commandCount = v2;
 	return (NetCommandMsg *)msg;
 }
 
@@ -4526,13 +4515,13 @@ Bool NetPacket::addFrameCommand(NetCommandRef *msg)
 		m_lastCommandID = cmdMsg->getID();
 		m_packet[m_packetLen] = 'D';
 		++m_packetLen;
-		UnsignedInt value1C = cmdMsg->get1c();
+		UnsignedInt value1C = cmdMsg->getFrame();
 		memcpy(m_packet + m_packetLen, &value1C, sizeof(UnsignedInt));
 		m_packetLen += sizeof(UnsignedInt);
-		UnsignedInt value20 = cmdMsg->get20();
+		UnsignedInt value20 = cmdMsg->getPlayerFrame();
 		memcpy(m_packet + m_packetLen, &value20, sizeof(UnsignedInt));
 		m_packetLen += sizeof(UnsignedInt);
-		UnsignedInt value24 = cmdMsg->get24();
+		UnsignedInt value24 = cmdMsg->getCommandCount();
 		memcpy(m_packet + m_packetLen, &value24, sizeof(UnsignedInt));
 		m_packetLen += sizeof(UnsignedInt);
 		if (m_lastCommand != 0) {
