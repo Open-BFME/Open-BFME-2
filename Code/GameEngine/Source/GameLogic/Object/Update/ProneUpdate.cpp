@@ -117,6 +117,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class ProneUpdate : public UpdateModule
 {
 public:
+	ProneUpdate(Thing *thing, const ModuleData *moduleData);
 	void goProne(const DamageInfo *damageInfo);
 	virtual UpdateSleepTime update();
 	virtual NameKeyType getModuleNameKey() const;
