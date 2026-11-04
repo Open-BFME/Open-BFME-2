@@ -23771,3 +23771,5 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AF841CellFlip.cpp|global
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001041BDASlot1.cpp|function|0x00104BDA|rva00104BDA,e0316aad2b6055e28acc6975,claude-opus-5-5,claude3-20261104-114539-4,w-29a6ae2a2f9f,2026-11-04
 Code/Libraries/Source/WWVegas/WWLib/Rva0054A67BSiftUp.cpp|function|0x0054A79A|Rva0054A79APushHeap,a35b151172a9b15212576355,claude-opus-5-5,claude3-20261104-114539-13,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0039597COpAssign.cpp|function|0x00395D45|Rva00395D45Copy,28fec3aa918a4aa881accf54,claude-opus-5-5,claude3-20261104-120657-7,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/BfmeConv940.cpp|member|BfmeThing940G|m_bfmeFlag,38b145022e7c364cb8a69d13,claude-opus-5-5,claude3-20261104-122207-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp|member|Rva0060038E|m_08,a1b8f3758bf64584ec73a89a,claude-opus-5-5,claude3-20261104-122207-5,w-29a6ae2a2f9f,2026-11-04
