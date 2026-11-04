@@ -59,7 +59,7 @@ public:
 	BfmeAssignRecord172(const BfmeAssignRecord172 &);
 	~BfmeAssignRecord172();
 	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
-	int a[43];
+	int a[43]; // +0x00
 };
 struct BfmePod172
 {

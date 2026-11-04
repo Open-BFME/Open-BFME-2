@@ -15,7 +15,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // Retail's operation calls these rows for its element, spelled under separate placeholder
 // names. The local element forwards to them, so the rows' own bodies run.
 #include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
-struct BfmeAssignRecord172 { BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &); };
+struct BfmeAssignRecord172
+{
+public:
+	BfmeAssignRecord172(const BfmeAssignRecord172 &);
+	~BfmeAssignRecord172();
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
+	int a[43]; // +0x00
+};
 struct Rva001EBEABElement
 {
 public:
