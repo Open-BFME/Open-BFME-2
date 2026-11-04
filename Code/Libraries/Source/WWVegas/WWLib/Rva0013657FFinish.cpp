@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva0013657F@Rva001364F7@@QAEPAURvaOut13657F@@PAU2@PBUTreeKey00242F5E@@@Z @0x0013657F 134B
 //
 // Finish draft for the banked near miss reverse/attempts/0x0013657f.cpp.
@@ -11,6 +12,7 @@
 // recast to the iterator-returning ABI restores the hidden-return call at the
 // call site while still naming the rowed void symbol for the REL32 relocation;
 // the compiler folds the constant pointer to a direct call.
+#include <map>
 #include "TreeKey00242F5E.h"
 struct RvaNode1364F7 {
 	int _c0;
@@ -23,13 +25,6 @@ struct RvaOut13657F {
 	RvaNode1364F7 *node;
 	bool inserted;
 };
-namespace _STL {
-struct _Rb_tree_node_base {};
-template <typename D> class _Rb_global {
-public:
-	static _Rb_tree_node_base *_M_decrement(_Rb_tree_node_base *__x);
-};
-}
 // Non-trivial class returned by value: MSVC hands it back through a hidden
 // pointer, which is the ABI the worker's explicit out reference already
 // matches.

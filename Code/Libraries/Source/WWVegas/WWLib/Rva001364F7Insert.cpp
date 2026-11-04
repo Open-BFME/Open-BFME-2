@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva001364F7@Rva001364F7@@QAE?AURva001364F7Iter@@PAURvaNode1364F7@@0PBUTreeKey00242F5E@@0@Z @0x001364F7 136B.
 // Tree insert worker over set<TreeKey00242F5E> nodes (base 0x10 plus 8-byte
 // key at +0x10): picks the right-child path unless y is the root, the
@@ -10,6 +11,7 @@
 // this then unblocks 0x0013657F and 0x00136642. Pattern follows manual worker
 // Rva00418C33Insert.cpp (create call through the rowed factory name,
 // _Rb_global<bool>::_Rebalance with the parent-slot cast).
+#include <map>
 #include "TreeKey00242F5E.h"
 struct RvaNode1364F7 {
 	int _c0;
@@ -27,13 +29,6 @@ struct Rva001364F7Iter {
 	Rva001364F7Iter(RvaNode1364F7 *node) : m_node(node) {}
 };
 class Rva001364AC { public: void *rva001364AC(const TreeKey00242F5E *src); };
-namespace _STL {
-struct _Rb_tree_node_base {};
-template <typename D> class _Rb_global {
-public:
-	static void _Rebalance(_Rb_tree_node_base *x, _Rb_tree_node_base *&root);
-};
-}
 struct Rva001364F7
 {
 public:
