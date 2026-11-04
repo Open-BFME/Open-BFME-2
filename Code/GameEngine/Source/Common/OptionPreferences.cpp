@@ -43,6 +43,10 @@ template <> struct less<AsciiString>
         return left < right;
     }
 };
+}
+
+namespace _STL
+{
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>,
     allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
