@@ -1,3 +1,3 @@
-### LINK-198: stats-core header provider destructor emission
+### LINK-200: stats-core header provider destructor emission
 Status: Blocked for `PersistentStorageThread.cpp`; updated 2026-11-04 at `b0cc08ec59`.
 `Rva00553E47StatsCore` header adoption passes PeerDefs and PeerThreadPushStatsBfme (two queue rows retired; 7,921 census-linked bytes preserved). The provider's implicit destructor at 0x00383D71 gains a non-retail vptr store with an empty explicit definition; its trial was restored and its queue row remains. Next: reconcile the shared destructor declaration/emission contract before adopting the provider. No census gain claimed. [Scoped verification and trial evidence](../../reverse/attempt_support/statscore-header-adoption-20261104.md).
