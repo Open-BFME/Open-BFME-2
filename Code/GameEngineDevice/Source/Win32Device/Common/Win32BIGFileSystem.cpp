@@ -197,47 +197,8 @@ struct Rva00603E50 {
 
 typedef bool Bool;
 
-class File
-{
-public:
-	enum { READ = 0x01, WRITE = 0x02, TEXT = 0x20, BINARY = 0x40, STREAMING = 0x100 };
-
-	virtual ~File();
-	virtual Bool open(const char *filename, int access);
-	virtual void close(void);
-	virtual int read(void *buffer, int bytes);
-	virtual int write(const void *buffer, int bytes);
-	virtual int seek(int bytes, int mode);
-	virtual void nextLine(char *buf, int bufSize);
-	virtual Bool scanInt(int &newInt);
-	virtual Bool scanReal(float &newReal);
-	virtual Bool scanString(AsciiString &newString);
-	virtual Bool print(const char *format, ...);
-	virtual int size(void);
-	virtual int position(void);
-	virtual char *readEntireAndClose(void);
-	virtual File *convertToRAMFile(void);
-	virtual void lock(void);
-	virtual void unlock(void);
-
-	void deleteOnClose(void) { m_deleteOnClose = true; }
-
-protected:
-	char m_head[0x09];
-	Bool m_deleteOnClose;
-	char m_tail[0x06];
-};
-
-class RAMFile : public File
-{
-public:
-	RAMFile();
-	virtual void reserved17(void);
-	virtual Bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
-	virtual Bool copyDataToFile(File *localFile);
-protected:
-	char m_ramFileFields[0x0c];
-};
+#include "../../../../GameEngine/Include/Common/File.h"
+#include "../../../../GameEngine/Include/Common/RAMFileClass.h"
 
 class StreamingArchiveFile : public RAMFile
 {
