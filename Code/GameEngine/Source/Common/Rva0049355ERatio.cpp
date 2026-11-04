@@ -4,17 +4,8 @@
 // Early outs return the global at VA 0x00BBAEAC, 1, or the float at +0x14.
 // Otherwise 1 minus the unsigned ready delta over the unsigned at +4.
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad[0x59];
-	unsigned char m_59;
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 class Rva002AC6B1PlayerTimers
 {
@@ -33,7 +24,7 @@ extern GameLogic *TheGameLogic;
 struct Rva0049355EHolder
 {
 	char m_pad[8];
-	Overridable *m_ov;
+	const Overridable *m_ov;
 };
 
 class Rva0049355E
@@ -71,7 +62,7 @@ float Rva0049355E::rva0049355E()
 	if (obj != 0)
 	{
 		Player *player = obj->getControllingPlayer();
-		if (player != 0 && holder->m_ov->friend_getFinalOverride()->m_59 != 0)
+		if (player != 0 && ((const SpecialPowerTemplate *)holder->m_ov->friend_getFinalOverride())->m_sharedSyncedTimer != 0)
 			value = ((Rva002AC6B1PlayerTimers *)player)->getOrStart(s6());
 		value -= TheGameLogic->getFrame();
 		return 1.0f - (float)value / (float)m_reloadTime;

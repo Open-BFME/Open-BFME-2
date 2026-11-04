@@ -5,17 +5,8 @@
 // frame. Otherwise a positive count or a disabled-mask bit returns
 // TheGameLogic frame minus +0x10 plus +8, and a clear mask returns +8.
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad[0x59];
-	unsigned char m_59;
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 class Rva002AC6B1PlayerTimers
 {
@@ -59,8 +50,8 @@ private:
 
 unsigned int Rva00493AB7::rva00493AB7()
 {
-	const Overridable *finalOverride = s6()->friend_getFinalOverride();
-	if (finalOverride->m_59 != 0)
+	const Overridable *finalOverride = static_cast<const Overridable *>(s6())->friend_getFinalOverride();
+	if (static_cast<const SpecialPowerTemplate *>(finalOverride)->m_sharedSyncedTimer != 0)
 	{
 		Object *obj = *(Object **)((char *)this - 8);
 		if (obj != 0)
