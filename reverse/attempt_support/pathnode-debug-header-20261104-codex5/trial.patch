@@ -1,0 +1,52 @@
+diff --git a/Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp b/Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp
+index cfdf26ab97..7230752e12 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp
+@@ -6,30 +6,17 @@
+ // optimized chain (followed through each one's +0x08 link), each node's
+ // +0x0C position through the rowed Coord3D operator<< (0x000050BA), and a
+ // closing "]\n". Every string goes through Debug's const char * slot (+0x38).
+-// The Debug view repeats coord3d.cpp's slot layout; Path and PathNode keep
+-// only the members read here (structural inference from Zero Hour's
+-// PathNode, whose optimized link this mirrors).
++// The Debug view repeats coord3d.cpp's slot layout; Path and PathNode use
++// their canonical target layouts, including the optimized link at +0x08.
+ 
+ #include "../../Common/debug.h"
+ 
++// Declare the existing stream overload before Coord3D's definition: its
++// out-of-line provider retains MSVC 7.1's class-key spelling.
+ class Coord3D;
+ Debug &operator<<(Debug &debug, const Coord3D &coord);
+ 
+-struct Coord3DView
+-{
+-    float x;
+-    float y;
+-    float z;
+-};
+-
+-class PathNode
+-{
+-public:
+-    PathNode *m_next; // +0x00
+-    PathNode *m_prev; // +0x04
+-    PathNode *m_nextOptimized; // +0x08
+-    Coord3DView m_pos; // +0x0C
+-};
++#include "../../../Include/GameLogic/PathNode.h"
+ 
+ #include "../../../Include/GameLogic/PathfindPath.h"
+ 
+@@ -43,9 +30,9 @@ Debug &operator<<(Debug &debug, const Path &path)
+         if (node == optimized)
+         {
+             debug << "(opt)";
+-            optimized = optimized->m_nextOptimized;
++            optimized = optimized->m_nextOpti;
+         }
+-        debug << *(const Coord3D *)&node->m_pos;
++        debug << node->m_pos;
+     }
+     debug << "]\n";
+     return debug;

@@ -71,3 +71,5 @@ and `Bridge::createTower` (0x0027EDBC) are U-keyed, so no single Coord3D
 definition compiles all four. The prerequisites are, in order, the Coord3D key
 flip with its ledger renames, then each Zero Hour seed moving off `PreRTS.h`.
 No source or ledger changed and no census gain is claimed.
+
+2026-11-04: PathDebugOutput's queued PathNode adoption reaches the same U/V-keyed debug-streamer prerequisite; trials reverted and its 93-byte control restored. [Consumer evidence](../../reverse/attempt_support/pathnode-debug-header-20261104-codex5/readme.md).
