@@ -2,6 +2,25 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### Delayed spline event's Snapshot base (2026-11-04, halilkkaya-codex)
+
+Base `35cb072fd7`: replace `Rva003C2F40TreeCtor.cpp`'s private base with the
+canonical constructor-only Snapshot view. Both native constructor unwind and
+the existing complete destructor reach Snapshot's 0x0049B47C body. Explicit
+padding preserves the witnessed map offset +0x0C. This removes the synthetic
+`Rva003C2F40Base` destructor error from artifact `612abfbebb` and the stale
+empty-base constructor definition, without a new row, name, pin or alias.
+
+All 13 rows across constructor, existing destructor, event-transfer consumer
+and map provider verify; constructor EH is EXACT and its frozen check is clean.
+True base/tip preview over those units and first-copy COMDAT peers (11 units,
+index `a62ac1c10b`) preserves all nine LINKS units and 10,772 preview bytes.
+Scoped DIR32 passes 13 rows plus eight witnesses. The owner destructor name
+still lacks a provider; the native 53-byte body is already rowed under
+`Rva002BAEAB`. Native seven-slot event identity/ownership reconciliation is
+still required (LINK-161); this only repairs the proven base edge and does
+not claim a complete native table. Receipts: `build/seat_spline_*`.
+
 ### Player's UnitRevivalTracker cleanup (2026-11-04, halilkkaya-codex)
 
 Base `6a4bb58f9f`: `PlayerCtorBFME2.cpp` no longer declares an unsupported

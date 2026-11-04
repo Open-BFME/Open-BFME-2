@@ -1,6 +1,15 @@
 ### LINK-161: delayed spline event constructor retains a partial hierarchy (2026-10-30, seat codexb4)
 
 Status: map dependency repaired; native hierarchy and census confirmation open.
+
+**2026-11-04, halilkkaya-codex:** the constructor now uses the canonical
+constructor-only Snapshot base, whose existing 0x0049B47C destructor is the
+native unwind target. This removes the false `Rva003C2F40Base` destructor
+reference. Thirteen family rows and EH remain exact; all nine LINKS peers
+survive an 11-unit true base/tip preview, and scoped DIR32 passes 13+8.
+The owner destructor and complete seven-slot event table remain open as
+described below; no full-image/census closure is claimed. LINK-182 records
+the bounded repair and local receipts.
 `Common/Rva003C2F40TreeCtor.cpp` (0x002BAE57, 50 B) previously had three
 unresolved names. Its map call at 0x002BAE75 reaches the existing 25-byte
 provider at 0x005011C1 in `StlportIntMapDefaultCtor.cpp`. Using that provider's

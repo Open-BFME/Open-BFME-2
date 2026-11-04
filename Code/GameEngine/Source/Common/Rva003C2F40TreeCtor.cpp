@@ -30,27 +30,21 @@ private:
 typedef _STL::map<int, BfmePod24, _STL::less<int>,
 	_STL::allocator<_STL::pair<const int, BfmePod24> > > Rva003C2F40Tree;
 
-class Rva003C2F40Base
-{
-public:
-	Rva003C2F40Base();
-	virtual ~Rva003C2F40Base();
-	virtual void handle() = 0;
+#define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-	unsigned m_bfme04;
-	char m_bfme08;
-};
-
-// ??0Rva003C2F40Base@@QAE@XZ absent-from-retail (empty scaffold base, emits no code)
-Rva003C2F40Base::Rva003C2F40Base()
-{
-}
-
-class Rva003C2F40Owner : public Rva003C2F40Base
+// Constructor unwind and the existing complete destructor both reach the
+// Snapshot destructor at 0x0049B47C. Preserve the two words before the map;
+// the event's own remaining virtual slots still need owner reconciliation.
+class Rva003C2F40Owner : public Snapshot
 {
 public:
 	Rva003C2F40Owner();
 	virtual ~Rva003C2F40Owner();
+	unsigned m_bfme04;
+	char m_bfme08;
+	char m_padding09[3];
 	Rva003C2F40Tree m_tree;
 };
 // ??0Rva003C2F40Owner@@QAE@XZ
