@@ -76,31 +76,7 @@ class VertexBufferClass
  
 }
 ;
-class IndexBufferClass
-
-{
- public:
- class WriteLockClass
- 
- {
-  public:
-  WriteLockClass(IndexBufferClass *index_buffer, int flags);
-  ~WriteLockClass();
-  UnsignedShort *Get_Index_Array() 
-  {
-   return Indices;
-   
-  }
-  private:
-  IndexBufferClass *IndexBuffer;
-  UnsignedShort *Indices;
-  int m_08;
-  
- }
- ;
- 
-}
-;
+#include "../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 // The world height map view retail reads: border at +0x10, extents at +8/+0xC;
 // 0x0006653B is its clamped 16-bit height lookup, 0x004ADF41 the flip-state query.
 class Rva0006653B
