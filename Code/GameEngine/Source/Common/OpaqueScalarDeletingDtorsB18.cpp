@@ -160,13 +160,12 @@ public:
  __forceinline virtual ~Rva005FCF0EBase() {*(const void**)this=vtbl_00BC6F20;}
 protected: int word04;
 };
-class Rva00330757Member {
-public:
- Rva00330757Member();
- // ?<Rva00330757Member::~Rva00330757Member> present-unmatched
- __forceinline ~Rva00330757Member() {if(begin)free(begin);}
-private: void *begin,*unknown0C,*unknown10; int unknown14;
-};
+#include "../../Include/Common/Rva00330757Member.h"
+
+__forceinline Rva00330757Member::~Rva00330757Member()
+{
+    if (field00) free(field00);
+}
 class Rva005FCB2DReleaseView {
 public:
  Rva005FCB2DReleaseView() {}

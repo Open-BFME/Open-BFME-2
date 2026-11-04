@@ -11,15 +11,12 @@ BFME_LITERAL_NAME_GETTER(Rva004FC55DNamed, "LivingWorldBuildPlot")
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
 
-class Rva00330757Member
+#include "../../../../Include/Common/Rva00330757Member.h"
+
+inline Rva00330757Member::~Rva00330757Member()
 {
-public:
-    Rva00330757Member();
-    ~Rva00330757Member() { if (m_begin) free(m_begin); }
-private:
-    void *m_begin, *m_end, *m_capacity;
-    int m_index;
-};
+    if (field00) free(field00);
+}
 
 class LivingWorldPhaseObserver
 {

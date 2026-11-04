@@ -23,7 +23,7 @@ namespace _STL { template <> _Rb_tree<int, pair<int const, void *>, _Select1st<p
 // bfme link decl-only end
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-class Rva00330757Member {public:Rva00330757Member() throw();~Rva00330757Member() throw();char storage[16];};
+#include "../../../../Include/Common/Rva00330757Member.h"
 class Rva002B2294DwordImmSetter{public:void apply();};class Rva0002B221ADwordImmSetter{public:void apply();};class Rva002B228DDwordImmSetter{public:void apply();};
 #include "../../../../Include/Common/LivingWorldObservers.h"
 

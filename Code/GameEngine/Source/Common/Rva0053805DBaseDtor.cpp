@@ -58,16 +58,12 @@ public:
 	void forEach(void (Rva0053805DListener::*notify)(Rva0053805DBase *), Rva0053805DBase *owner);
 };
 
-class Rva00330757Member
+#include "../../Include/Common/Rva00330757Member.h"
+
+inline Rva00330757Member::~Rva00330757Member()
 {
-public:
-	~Rva00330757Member() { if (m_begin) Rva00030830GameFree(m_begin); }
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-	unsigned int m_index;
-};
+    if (field00) Rva00030830GameFree(field00);
+}
 
 struct Rva004FA1FObserver;
 namespace _STL
