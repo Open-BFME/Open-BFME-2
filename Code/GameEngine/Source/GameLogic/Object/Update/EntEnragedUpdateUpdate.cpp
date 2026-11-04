@@ -149,22 +149,32 @@ class BodyModuleInterface;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Xfer;
 class EntEnragedUpdate : public UpdateModule
 {
 public:
+	EntEnragedUpdate(Thing *, const ModuleData *);
+	virtual NameKeyType getModuleNameKey() const;
+	// Rowed in EntEnragedUpdateUpdate.cpp: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
 	virtual UpdateSleepTime update();
 	bool rva004B25C9();
 	bool rva004B266D();
-
+	virtual ~EntEnragedUpdate();
+	virtual void rva004B23C5(Xfer *xfer); // slot 3 of 0x00C56948
 private:
-	int m_value;
-	unsigned int m_sleepTime;
-	unsigned int m_field28;
-	bool m_field2C;
-	bool m_field2D;
-	bool m_field2E;
-	bool m_field2F;
-	bool m_field30;
+	unsigned int m_20; // +0x20
+	unsigned int m_24; // +0x24
+	unsigned int m_28; // +0x28
+	bool m_2C; // +0x2C
+	bool m_2D; // +0x2D
+	bool m_2E; // +0x2E
+	bool m_2F; // +0x2F
+	bool m_30; // +0x30
+	char m_pad31[0x3];
 };
 
 UpdateSleepTime EntEnragedUpdate::update()
@@ -175,34 +185,34 @@ UpdateSleepTime EntEnragedUpdate::update()
 	if (me->m_flags438 & 1)
 		return UPDATE_SLEEP_FOREVER;
 
-	bool mayRage = m_sleepTime <= TheGameLogic->getFrame() && !me->testStatus(OBJECT_STATUS_AFLAME);
-	if (m_field2D)
+	bool mayRage = m_24 <= TheGameLogic->getFrame() && !me->testStatus(OBJECT_STATUS_AFLAME);
+	if (m_2D)
 		mayRage = true;
 
-	if (m_field2C && mayRage)
+	if (m_2C && mayRage)
 	{
-		if (m_field30)
-			m_field2F = false;
-		if (!m_field2F)
+		if (m_30)
+			m_2F = false;
+		if (!m_2F)
 		{
 			me->setStatus(OBJECT_STATUS_STATUS_54, false);
 			me->clearWeaponSetFlag(WEAPONSET_SET_16);
 			AIView *ai = me->m_ai;
 			if (ai)
 				ai->slot142(0);
-			m_sleepTime = UPDATE_SLEEP_FOREVER;
-			m_field28 = TheGameLogic->getFrame() + data->m_timeUntilCanRageAgain;
-			m_field2C = false;
-			m_field2E = false;
+			m_24 = UPDATE_SLEEP_FOREVER;
+			m_28 = TheGameLogic->getFrame() + data->m_timeUntilCanRageAgain;
+			m_2C = false;
+			m_2E = false;
 			if (data->m_fxCalm)
 				FXList::doFXObj(data->m_fxCalm, me, 0);
 		}
 	}
 
-	if (m_field2C)
+	if (m_2C)
 		return UPDATE_SLEEP_NONE;
 
-	if (m_field28 < TheGameLogic->getFrame() || m_field2F)
+	if (m_28 < TheGameLogic->getFrame() || m_2F)
 	{
 		bool wantRage = false;
 		if (rva004B25C9())
@@ -213,7 +223,7 @@ UpdateSleepTime EntEnragedUpdate::update()
 		if (body && body->getHealthFraction() < 0.5)
 			wantRage = true;
 
-		if (m_field2E)
+		if (m_2E)
 		{
 			if (!me->isKindOf(KINDOF_KIND_4E))
 				wantRage = true;
@@ -221,14 +231,14 @@ UpdateSleepTime EntEnragedUpdate::update()
 		else
 		{
 			if (me->isKindOf(KINDOF_KIND_4E))
-				m_field2E = true;
+				m_2E = true;
 		}
 
 		if (me->testStatus(OBJECT_STATUS_AFLAME))
 			wantRage = false;
-		if (m_field2F)
+		if (m_2F)
 			wantRage = true;
-		if (m_field2D)
+		if (m_2D)
 			wantRage = false;
 
 		if (wantRage)
@@ -245,8 +255,8 @@ UpdateSleepTime EntEnragedUpdate::update()
 			AIView *ai = me->m_ai;
 			if (ai)
 				ai->slot142(8);
-			m_field2C = true;
-			m_sleepTime = TheGameLogic->getFrame() + data->m_enragedTime;
+			m_2C = true;
+			m_24 = TheGameLogic->getFrame() + data->m_enragedTime;
 			const FXList *fx = data->m_fxEnrage;
 			if (fx)
 				FXList::doFXObj(fx, me, 0);

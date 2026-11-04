@@ -129,23 +129,23 @@ class EntEnragedUpdate : public UpdateModule
 {
 public:
 	EntEnragedUpdate(Thing *, const ModuleData *);
-	virtual ~EntEnragedUpdate();
 	virtual NameKeyType getModuleNameKey() const;
-	virtual void rva004B23C5(Xfer *xfer); // slot 3 of 0x00C56948
 	// Rowed in EntEnragedUpdateUpdate.cpp: slot 0 of retail's UpdateModuleInterface table 0x00C5693C.
 	virtual UpdateSleepTime update();
 	bool rva004B25C9();
 	bool rva004B266D();
-
+	virtual ~EntEnragedUpdate();
+	virtual void rva004B23C5(Xfer *xfer); // slot 3 of 0x00C56948
 private:
-	unsigned int m_20;
-	unsigned int m_24;
-	unsigned int m_28;
-	bool m_2C;
-	bool m_2D;
-	bool m_2E;
-	bool m_2F;
-	bool m_30;
+	unsigned int m_20; // +0x20
+	unsigned int m_24; // +0x24
+	unsigned int m_28; // +0x28
+	bool m_2C; // +0x2C
+	bool m_2D; // +0x2D
+	bool m_2E; // +0x2E
+	bool m_2F; // +0x2F
+	bool m_30; // +0x30
+	char m_pad31[0x3];
 };
 
 bool EntEnragedUpdate::rva004B25C9()
