@@ -97,32 +97,8 @@ private:
 	unsigned char m_storage[0x20 - 0x08];
 };
 
-class IndexBufferClass : public RefCountClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(IndexBufferClass *buffer, int flags);
-		~WriteLockClass();
-		UnsignedShort *Get_Index_Array() { return m_indices; }
-
-	private:
-		IndexBufferClass *m_buffer;
-		UnsignedShort *m_indices;
-		int m_flags;
-	};
-};
-
-class DX8IndexBufferClass : public IndexBufferClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-	DX8IndexBufferClass(unsigned int index_count, UsageType usage);
-
-private:
-	unsigned char m_storage[0x18 - 0x08];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 struct VertexFormatXYZNDUV1
 {
