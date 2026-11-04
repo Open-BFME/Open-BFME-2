@@ -49,28 +49,8 @@ class Object;
 
 #include "../../../../Include/Common/TeamBFME2.h"
 
-class Player
-{
-public:
-    __declspec(dllimport) __forceinline int getPlayerColor() const { return m_color; }
-    __declspec(dllimport) __forceinline int getPlayerNightColor() const { return m_nightColor; }
-    Team *getDefaultTeam() const { return m_defaultTeam; }
-private:
-    unsigned char m_pad00[0x280];
-    int m_color; // +0x280
-    int m_nightColor; // +0x284
-    unsigned char m_pad288[0x2EC - 0x288];
-    Team *m_defaultTeam; // +0x2EC
-};
-
-class PlayerList
-{
-public:
-    Player *garrisonLocalPlayer() { return m_local; }
-private:
-    unsigned char m_pad00[0x10];
-    Player *m_local; // +0x10
-};
+#include "../../../../Include/Common/Player.h"
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../../Include/Common/TeamFactory.h"
@@ -247,16 +227,16 @@ void GarrisonContain::recalcApparentControllingPlayer()
             if (it != list->end() && occupant)
             {
                 bool detected = (unsigned char)occupant->rva002933CD() || occupant->testStatus((ObjectStatusTypes)0x11);
-                if (detected || getApparentControllingPlayer(ThePlayerList->garrisonLocalPlayer()) == getObject()->getControllingPlayer())
+                if (detected || getApparentControllingPlayer(ThePlayerList->getLocalPlayer()) == getObject()->getControllingPlayer())
                     setCondition(getObject(), 10);
             }
         }
 
-        const Player *controller = getApparentControllingPlayer(ThePlayerList->garrisonLocalPlayer());
+        const Player *controller = getApparentControllingPlayer(ThePlayerList->getLocalPlayer());
         if (controller)
         {
             if (TheGlobalData->m_timeOfDay == 4)
-                draw->setIndicatorColor(controller->getPlayerNightColor());
+                draw->setIndicatorColor(*(const int *)((const char *)controller + 0x284));
             else
                 draw->setIndicatorColor(controller->getPlayerColor());
         }
