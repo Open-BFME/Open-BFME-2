@@ -44,9 +44,13 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
+struct Coord3D;
 class RadiusDecal
 {
 public:
+	~RadiusDecal();
+	void setPosition(const Coord3D &pos);
+	void update();
 	void rva00330F7D(Xfer *xfer);
 };
 

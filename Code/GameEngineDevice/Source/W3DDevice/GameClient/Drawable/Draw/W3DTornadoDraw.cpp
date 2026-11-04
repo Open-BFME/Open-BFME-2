@@ -122,12 +122,14 @@ protected:
 	Drawable *m_ropeDrawable;
 };
 
+class Xfer;
 class RadiusDecal
 {
 public:
 	~RadiusDecal();
 	void setPosition(const Coord3D &pos);
 	void update();
+	void rva00330F7D(Xfer *xfer);
 };
 
 class W3DTornadoDraw : public DrawModule
