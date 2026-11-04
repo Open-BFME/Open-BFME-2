@@ -9,6 +9,9 @@ Globals and FieldParse tables: bytes against retail, each comparison bounded by 
 extent. A relocation's bytes are masked, so its target is compared with retail's pointer where the
 ledger knows the target's address: a table copied from another game can agree on every offset and
 hold its entries in the wrong order.
+Undersized globals: an object source constructs in place in a global smaller than the ledger's gap
+to the next symbol. The constructor overwrites whatever follows it in our image. The gap is an upper
+bound on retail's size, so read each row, but the source does construct an object there.
 Duplicates: strong data defined twice, and one retail address with several defined names.
 
 Usage: image_report.py [--out DIR]
@@ -30,6 +33,8 @@ import link_cycle
 UNINITIALIZED = 0x80
 COMDAT = 0x1000
 OUT = Path("build/exit_link")
+# `new (&g_x)` and `((T *)&g_x)->T::T(`
+CONSTRUCTED = re.compile(r"new\s*\(\s*&\s*(g_\w+)\s*\)|\(\s*(\w+)\s*\*\s*\)\s*&?\s*(g_\w+)\s*\)\s*->\s*\2::\2\s*\(")
 
 
 class Retail:
@@ -238,6 +243,17 @@ def initializer_report(retail, rows, registered):
             "plain_functions": plain, "unidentified": unmapped}
 
 
+def constructed_names(texts):
+    """The plain names these source texts construct an object in."""
+    return {m.group(1) or m.group(3) for text in texts for m in CONSTRUCTED.finditer(text)}
+
+
+def undersized(names, size, extent, constructed):
+    """True when one of a ledger row's names is constructed in storage smaller than the row's gap."""
+    plain = {found.group(1) for found in (re.match(r"\?(g_\w+)@@", n) for n in names) if found}
+    return extent < size and bool(plain & constructed)
+
+
 def known_addresses(rows):
     """{symbol: {rva}} from both ledgers. One name can have several addresses (folds)."""
     addresses = collections.defaultdict(set)
@@ -280,8 +296,9 @@ def bridge_entries(rows, paths):
     return entries, unreachable
 
 
-def ledger_report(retail, definitions, addresses):
+def ledger_report(retail, definitions, addresses, constructed=frozenset()):
     pointer_rows = []
+    undersized_rows = []
     vtables, vtable_rows = collections.Counter(), []
     data, data_rows = collections.Counter(), []
     tables = collections.Counter()
@@ -315,6 +332,9 @@ def ledger_report(retail, definitions, addresses):
                 tables["no_object_defines_it"] += is_table
                 continue
             name, found_def = found[0]
+            if undersized(names, size, found_def.extent, constructed):
+                data["constructed_undersized"] += 1
+                undersized_rows.append([hex(rva), name, found_def.extent, size, found_def.object])
             span = min(size, found_def.extent)
             retail_bytes = retail.read(rva, span)
             if retail_bytes is None:
@@ -335,7 +355,7 @@ def ledger_report(retail, definitions, addresses):
                                   retail_bytes[first:first + 4].hex(), span, found_def.object])
     strong = {n: [d.object for d in found] for n, found in definitions.items()
               if sum(1 for d in found if not d.comdat) > 1}
-    return ({**vtables, "rows": vtable_rows}, {**data, "rows": data_rows, "pointer_rows": pointer_rows}, dict(tables),
+    return ({**vtables, "rows": vtable_rows}, {**data, "rows": data_rows, "pointer_rows": pointer_rows, "undersized_rows": undersized_rows}, dict(tables),
             {"strong_data_defined_twice": len(strong), "strong": sorted(strong.items())[:200],
              "one_address_several_names": len(several), "several": several[:200]})
 
@@ -344,7 +364,7 @@ def summary(report):
     keys = {"initializers": ("retail", "registered_retail_entries", "not_registered"),
             "vtables": ("same_length", "ours_shorter", "ours_longer", "no_object_defines_it"),
             "globals": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",
-                        "pointers_unchecked", "no_object_retail_nonzero"),
+                        "pointers_unchecked", "no_object_retail_nonzero", "constructed_undersized"),
             "fieldparse": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",
                            "no_object_defines_it"),
             "duplicates": ("strong_data_defined_twice", "one_address_several_names")}
@@ -364,8 +384,9 @@ def main(argv=None):
     definitions, registered, _code = scan_objects(present)
     report = {"objects_kept": len(kept), "objects_missing": len(kept) - len(present),
               "initializers": initializer_report(retail, rows, registered)}
+    sources = (path.read_text(encoding="utf-8", errors="replace") for path in (build.ROOT / "Code").rglob("*.cpp"))
     report["vtables"], report["globals"], report["fieldparse"], report["duplicates"] = \
-        ledger_report(retail, definitions, known_addresses(rows))
+        ledger_report(retail, definitions, known_addresses(rows), constructed_names(sources))
     report["summary"] = summary(report)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "image_report.json").write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")

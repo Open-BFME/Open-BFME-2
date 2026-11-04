@@ -13,6 +13,18 @@ def test_data_verdict_masks_relocations_and_names_zeroed_data():
     assert ir.data_verdict(b"\x44\x00", b"\x5c\x00", set()) == "contents_differ"
 
 
+def test_constructed_names_reads_placement_new_and_cast_and_construct():
+    texts = ["new (&g_Placed) Filter;", "( (Widget *)&g_Cast )->Widget::Widget( 1 );", "((Widget *)&g_Called)->render();"]
+    assert ir.constructed_names(texts) == {"g_Placed", "g_Cast"}
+
+
+def test_undersized_needs_a_constructed_name_smaller_than_its_gap():
+    constructed = {"g_Placed"}
+    assert ir.undersized({"?g_Placed@@3IA"}, 52, 4, constructed)
+    assert not ir.undersized({"?g_Placed@@3PAIA"}, 52, 52, constructed)
+    assert not ir.undersized({"?g_Other@@3IA"}, 52, 4, constructed)
+
+
 def test_vtable_verdict_lets_the_shortest_copy_decide():
     assert ir.vtable_verdict(4, [16, 16]) == "same_length"
     assert ir.vtable_verdict(4, [4, 16]) == "ours_shorter"

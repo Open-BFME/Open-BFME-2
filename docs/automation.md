@@ -39,8 +39,8 @@ retail's order (`retail_initializers.obj`). That lets an image start, but it is 
 count must reach 0 for the exit test.
 
 `image_report.json` compares the kept objects with retail on what the linker cannot see
-(`tools/image_report.py`): initializers registered, vtable lengths, data contents, FieldParse tables
-and duplicate globals. These all pass a link and fail at run time. Its `rows` lists name each case.
+(`tools/image_report.py`): initializers registered, vtable lengths, data contents, FieldParse tables,
+duplicate globals and globals constructed in storage smaller than the ledger's gap. These all pass a link and fail at run time. Its `rows` lists name each case.
 
 ## When the census stops publishing
 
