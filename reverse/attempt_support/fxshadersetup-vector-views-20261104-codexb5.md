@@ -70,3 +70,29 @@ Recheck fresh routing evidence and these declarations before a future bounded
 merge trial. Neither this repair nor the baseline checks verify the complete
 TU's linking or any consumer family; the next ordinary census remains the
 source of linking headline figures.
+
+## Publication-time audit
+
+The runner accepted the repair as `841efef1fa` for fleet publication, together
+with the checkout's two existing GiantBird commits. No accepted commit was
+amended. The commit hook verified all 58 rows, eight EXACT EH graphs and the
+converged-data checks. Code identity remains in shadow mode and reported two
+unresolved bindings in the shader TU: `$L8585` to the record-vector destructor
+at `0x0007C632`, and `FXShaderSetup::InitializeShader` to `AsciiString::clear`
+at `0x00036410`. This pass did not determine whether those findings predate the
+declaration repair and claims no identity cleanup.
+
+A post-handover `link_batch_audit.py` check over all five outgoing source paths
+against `origin/master..HEAD` returned exit 2:
+
+```
+link batch audit: INCONCLUSIVE baseline: index at 8661f15284, outgoing base origin/master; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 4 source object(s) lack current receipts; first: Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
+
+```
+
+The input list was NUL-terminated as required by the audit. An initial
+newline-terminated list had been refused before analysis and was corrected.
+The stale-index/missing-receipt result supplies no link clearance. Carry the
+changed sources and affected consumers into the next normal census; the fleet
+publisher's hook still judges the outgoing batch on its landing inputs.
