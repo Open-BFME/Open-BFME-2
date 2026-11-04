@@ -290,11 +290,7 @@ private:
 };
 
 // BFME 2 giant-bird states and guard machine, named the same way.
-class AIGuardMachine : public StateMachine
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/GameLogic/AIGuardMachine.h"
 
 class GiantBirdGuardMachine : public AIGuardMachine
 {
