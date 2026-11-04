@@ -11,6 +11,7 @@
 // the sole caller. Row supersedes the ctor pin.
 extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];
 #include <cstring>
+#include "../../../../Include/GameClient/Drawable.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
 

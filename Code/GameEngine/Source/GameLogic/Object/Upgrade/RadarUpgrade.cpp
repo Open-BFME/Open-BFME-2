@@ -43,6 +43,7 @@
 class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 
 int Rva004CE29DGet();

@@ -17,6 +17,7 @@ enum NameKeyType
 };
 
 #include "../../../Include/Common/NameKeyGenerator.h"
+#include "../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

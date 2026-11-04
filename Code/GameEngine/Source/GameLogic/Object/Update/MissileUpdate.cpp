@@ -28,6 +28,7 @@
 class Thing;
 class ModuleData;
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../Common/Thing/thing.h"

@@ -24,6 +24,7 @@ class Thing;
 class ModuleData;
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class W3DDefaultDraw : public DrawModule
 {

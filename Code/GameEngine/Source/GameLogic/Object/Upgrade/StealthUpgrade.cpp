@@ -17,6 +17,7 @@ enum NameKeyType
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 // Slot 0 of the primary vtable 0x00857E30 is the scalar deleting dtor.
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 
 template <int N> class UpgradeMuxSlots : public UpgradeMuxSlots<N - 1>

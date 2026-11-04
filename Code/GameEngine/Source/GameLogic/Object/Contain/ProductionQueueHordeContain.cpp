@@ -31,6 +31,7 @@ public:
 	virtual ~OpenContain();
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #pragma comment(linker, "/alternatename:?b1@B1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?b6@B6@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GProductionQueueHordeContain@@UAEPAXI@Z")

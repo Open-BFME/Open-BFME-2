@@ -21,6 +21,7 @@
 		return TEXT; \
 	}
 #include "../../AI/WorkOrder.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../AI/TeamInQueue.h"
 
 class Thing;

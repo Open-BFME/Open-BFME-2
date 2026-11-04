@@ -15,6 +15,7 @@ class Thing;
 class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class UpgradeMux
 {

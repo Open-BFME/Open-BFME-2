@@ -51,6 +51,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
 #include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/Common/INI/INI.h"
 

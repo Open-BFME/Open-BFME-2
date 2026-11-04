@@ -81,6 +81,7 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/GameClient/Drawable.h"
 extern GameLogic *TheGameLogic;
 class ModuleData;
 struct RadarUpdateModuleData

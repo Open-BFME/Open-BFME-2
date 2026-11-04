@@ -12,6 +12,7 @@ class Object;
 typedef bool Bool;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern GameLogic *TheGameLogic;
 

@@ -31,6 +31,7 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/GameClient/Drawable.h"
 // ?getModuleNameKey@SpawnUnitBehavior@@UBE?AW4NameKeyType@@XZ @0x004B8752
 // (69B): cached pool-name key for SpawnUnitBehavior. The class
 // identity comes from the pool-name string the body pushes

@@ -35,6 +35,7 @@ class MultiIniFieldParse;
 struct FieldParse;
 
 #include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 // Retail VA 0x00C6BB18 is the empty FieldParse table: game.dat stores 16
 // zero bytes there. The matched parser below independently references it.

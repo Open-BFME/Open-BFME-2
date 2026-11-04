@@ -72,6 +72,7 @@ enum
 	OBJECT_STATUS_NO_ATTACK = 5
 };
 #include "../../../../Include/GameLogic/Damage.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #include "ProneUpdateModuleDataView.h"
 // ??0ProneUpdateModuleData@@QAE@XZ at retail 0x0049FEDF (16 bytes). The
 // module-data half of ProneUpdate: vtable immediate 0x00C4ED70 modelled as an

@@ -4,6 +4,7 @@
 #pragma comment(linker, "/alternatename:?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ=?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z")
 #include "ascii_string.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #include <cstdlib>
 #include <vector>
 #include <memory>
