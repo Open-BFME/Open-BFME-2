@@ -403,8 +403,8 @@ address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cp
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00E06778	1
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00E09E60	1
 address_global	Code/GameEngine/Source/Common/Rva007ABC6FFrameRateInits.cpp	g_Va00DFE18C	2
-address_global	Code/GameEngine/Source/Common/Rva007ABD4BGeometryInits.cpp	g_Va00DE1D00	3
-address_global	Code/GameEngine/Source/Common/Rva007ABD4BGeometryInits.cpp	g_Va00DE1D60	3
+address_global	Code/GameEngine/Source/Common/Rva007ABD4BGeometryInits.cpp	g_Va00DE1D00	2
+address_global	Code/GameEngine/Source/Common/Rva007ABD4BGeometryInits.cpp	g_Va00DE1D60	2
 address_global	Code/GameEngine/Source/Common/Rva007ABEF3ArgCtorInits.cpp	g_Va00DB9440	1
 address_global	Code/GameEngine/Source/Common/Rva007ABEF3ArgCtorInits.cpp	g_Va00DBD4C8	1
 address_global	Code/GameEngine/Source/Common/Rva007ABEF3ArgCtorInits.cpp	g_Va00DEBE0C	2
@@ -444,8 +444,8 @@ address_global	Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	g_Va00E04938	2
 address_global	Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp	g_Va00E01D60	3
 address_global	Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp	g_Va00E060B8	2
-address_global	Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp	g_Va00E062FC	3
-address_global	Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp	g_Va00E0630C	3
+address_global	Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp	g_Va00E062FC	2
+address_global	Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp	g_Va00E0630C	2
 address_global	Code/GameEngine/Source/Common/Rva007B49B3ButtonNameInits.cpp	g_Va00E06620	2
 address_global	Code/GameEngine/Source/Common/Rva007B6830SegLineInit.cpp	g_Va00A1F4E8	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va009E5DF8	3
@@ -6178,7 +6178,7 @@ pin	reverse/symbols.csv	0x00285177	1
 pin	reverse/symbols.csv	0x0028562E	1
 pin	reverse/symbols.csv	0x00285672	1
 pin	reverse/symbols.csv	0x00285BEC	1
-pin	reverse/symbols.csv	0x00286183	2	allow=fdc784c3a545202a0add99447e3e95258dad2b94
+pin	reverse/symbols.csv	0x00286183	2
 pin	reverse/symbols.csv	0x002861B0	1
 pin	reverse/symbols.csv	0x002861C9	1
 pin	reverse/symbols.csv	0x002861EF	1
@@ -6187,7 +6187,7 @@ pin	reverse/symbols.csv	0x00286297	1
 pin	reverse/symbols.csv	0x002862AD	1
 pin	reverse/symbols.csv	0x0028641F	1
 pin	reverse/symbols.csv	0x0028662D	1
-pin	reverse/symbols.csv	0x00286656	2	allow=fdc784c3a545202a0add99447e3e95258dad2b94
+pin	reverse/symbols.csv	0x00286656	2
 pin	reverse/symbols.csv	0x00286693	1
 pin	reverse/symbols.csv	0x00286921	1
 pin	reverse/symbols.csv	0x00286CC4	1

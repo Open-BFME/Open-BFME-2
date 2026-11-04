@@ -639,8 +639,6 @@ private:
 #pragma comment(linker, "/alternatename:?loadPostProcess@Rva000D3FA0Map@@MAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=?name@Rva002431A9Named@@QBEPBDXZ")
 #pragma comment(linker, "/alternatename:?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=__purecall")
-// BFME 1.03 GameLogic::processCommandList at RVA 0x00383050.
-
 #include "../../../Include/Common/MessageStream.h"
 class CommandList
 {
@@ -937,11 +935,8 @@ static const volatile float IdentityDiagonal=1.0f;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #define TheGlobalData TheWritableGlobalData
 #define TheVerifyClientCRC BfmeClientCRCCheckEnabled
-
 BFME_DISP8_SAR_AVG_DWORD_GETTER(Rva0023D6F0SarAvgField, 0x5C, 0x58, 2)
-
 class GameSlot;
-
 class GameInfo
 {
 public:
@@ -959,25 +954,15 @@ public:
 	int getSlotNum(AsciiString userName) const;
 	AsciiString getMap() const;
 };
-
 class BodyModuleInterface;
-
 class CollideModuleInterface;
-
 class ContainModuleInterface;
-
 class CreateModuleInterface;
-
 class DamageModuleInterface;
-
 class DestroyModuleInterface;
-
 class DieModuleInterface;
-
 class SpecialPowerModuleInterface;
-
 class UpdateModuleInterface;
-
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
@@ -1014,9 +999,7 @@ public:
 	}
 
 };
-
 typedef UpdateModule *UpdateModulePtr;
-
 class Rva00242D1DObjectView
 {
 public:
@@ -1036,9 +1019,7 @@ private:
 	char m_pad90[0x1b4];
 	BehaviorModule **m_behaviorModules;
 };
-
 class Rva00242D1DManager { public: virtual void slot0(); virtual void reset(); };
-
 class Rva00242D1DLoadView
 {
 
@@ -1068,57 +1049,37 @@ private:
 	Rva00242D1DManager *m_manager164;
 	Rva00242D1DManager *m_manager168;
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
-
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }
-
 namespace _STL { template <> vector<void *, allocator<void *> >::vector(unsigned int, void *const &, allocator<void *> const &); }
-
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
-
 namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_clear(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_fill_insert(void **, unsigned int, void *const &); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_overflow(void **, void *const &, __true_type const &, unsigned int, bool); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
-
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
-
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
-
 // Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> void *&_STL::vector<void*>::operator[](size_t);
 }
-
 // Suppress this TU's non-retail const-begin copy (row 47 family2-LK3): the
 // /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
 namespace _STL {
 template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 }
-
 // map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); a declaration-only specialization
 // stops this TU emitting its copy so callers bind the kept copy.
@@ -1126,7 +1087,6 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
-
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
@@ -1134,18 +1094,13 @@ template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
-
 struct Rva0024619AElement {Rva0024619AElement();Rva0024619AElement(const Rva0024619AElement&);Rva0024619AElement&operator=(const Rva0024619AElement&);~Rva0024619AElement(){}char bytes[8]; bool operator==(const Rva0024619AElement&)const;};
-
 // Only the rowed hashtable constructor is instantiated.
 template _STL::hashtable<_STL::pair<const int,Rva0024619AElement>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<const int,Rva0024619AElement> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,Rva0024619AElement> > >::hashtable(size_t, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<_STL::pair<const int,Rva0024619AElement> > &);
-
 namespace _STL { template <> void *& vector<void *, allocator<void *> >::operator[](unsigned int); }
-
 // Retail's Armor-shaped hashtable ctor twins destroy the bucket vector's
 // allocator temporary inline (no call, no EH state): keep its dtor trivial.
 namespace _STL { template <> inline allocator<void *>::~allocator() _STLP_NOTHROW {} }
-
 namespace rts
 {
 template <typename T> struct hash
@@ -1153,7 +1108,6 @@ template <typename T> struct hash
 	size_t operator()(const T &value) const;
 };
 }
-
 namespace Rva00246FD7Twin
 {
 template <typename T> struct equal_to
@@ -1161,42 +1115,30 @@ template <typename T> struct equal_to
 	bool operator()(const T &a, const T &b) const;
 };
 }
-
 #include "../../../Include/GameLogic/Armor.h"
-
 typedef _STL::hashtable<_STL::pair<const NameKeyType, ArmorTemplate>, NameKeyType, rts::hash<NameKeyType>, _STL::_Select1st<_STL::pair<const NameKeyType, ArmorTemplate> >, Rva00246FD7Twin::equal_to<NameKeyType>, _STL::allocator<_STL::pair<const NameKeyType, ArmorTemplate> > > ArmorHt00246FD7;
-
 class Rva00246FD7
 {
 public:
 	ArmorHt00246FD7 m_ht;
 	Rva00246FD7();
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
-
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?_M_create_node@?$_Rb_tree@UTreeKey00242F5E@@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapp:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct TreeKey00242F5E;
-
  struct TreeOpaqueMapped242F5E;
-
 namespace _STL { template <> _Rb_tree_node<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > * _Rb_tree<TreeKey00242F5E,pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Select1st<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> >,less<TreeKey00242F5E>,allocator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >::_M_create_node(pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> const &); }
-
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Nonconst_traits<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >,bool> _Rb_tree<TreeKey00242F5E,pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Select1st<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> >,less<TreeKey00242F5E>,allocator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >::insert_unique(pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> const &); }
-
 bool operator<(const TreeKey00242F5E &a, const TreeKey00242F5E &b);
-
 struct Rva0047A6A9Row16
 {
 	Rva0047A6A9Row16();										// 0x0047A6A9
 	float x, y, z, w;
 };
-
 struct Rva0024076DMatrix3D
 {
 	Rva0047A6A9Row16 Row[3];
@@ -1208,9 +1150,7 @@ struct Rva0024076DMatrix3D
 		Row[2].x = 0.0f; Row[2].y = 0.0f; Row[2].z = 1.0f; Row[2].w = 0.0f;
 	}
 };
-
 struct Rva004FA1FObserver;
-
 class Rva0024076D
 {
 public:
@@ -1232,7 +1172,6 @@ private:
 	int m_48;												// +0x48
 	int m_4C;												// +0x4C
 };
-
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take
 // those calls inline so this TU emits no external copies.
@@ -1244,9 +1183,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end()
 { return _M_finish; }
 }
-
 struct Rva00240E18Node {char unknown[0x18];unsigned index18,index1c;};
-
 namespace _STL {
 template<> void**vector<void*>::erase(void**,void**);
 // Preserve STLport's clear operation without emitting an unused competing
@@ -1254,13 +1191,11 @@ template<> void**vector<void*>::erase(void**,void**);
 template<> __declspec(dllimport) __forceinline void vector<void*>::clear()
 { erase(begin(),end()); }
 }
-
 class Rva00240E18 {public:void rva00240E18(bool);private:
  char unknown00[0x30];float scalar30,scalar34;char unknown38[8];unsigned value40;
  char unknown44[0x68];unsigned valueac;char unknownb0[0x18];
  _STL::vector<void*>groups[4];_STL::vector<void*>last;unsigned value104;char unknown108[4];unsigned value10c;
 };
-
 // The held value at +0x08 is GameLogicInit.cpp's timed transition reverse
 // (a group name and a frame; the copy at 0x0023FCBD goes through the folded
 // pair copy constructor 0x00466EA7).
@@ -1273,7 +1208,6 @@ private:
 	AsciiString m_groupName;
 	unsigned int m_frame;
 };
-
 class Rva0023FD06 : public Rva0007DF07
 {
 public:
@@ -1283,17 +1217,13 @@ public:
 private:
 	Rva0023E323 m_08;
 };
-
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);
-
 #include "../../../Include/GameLogic/Rva000427195.h"
-
 class Rva00240D0F
 {
 public:
 	void *rva00240D0F(const void *obj);
 };
-
 class Rva00242F1A
 {
 public:
@@ -1305,26 +1235,22 @@ private:
 	void **m_storageEnd; // +0x0C
 	unsigned int m_numElements; // +0x10
 };
-
 namespace _STL {
 static inline void _Construct(int *__p, const int &__val)
 { new (__p) int(__val); }
 }
-
 // Rva004393D6 is a reference-only view here: the only fact this body needs is
 // the destructor address, so the view claims no members.
 struct Rva004393D6
 {
 	~Rva004393D6();
 };
-
 struct Rva0023D377
 {
 	unsigned int m_00;
 	Rva004393D6 m_04;
 	~Rva0023D377();
 };
-
 struct Rva0023FBDBNode
 {
 	char m_pad00[8];
@@ -1332,13 +1258,11 @@ struct Rva0023FBDBNode
 	Rva0023FBDBNode *m_child0C;
 	Rva0023D377 m_value10;
 };
-
 class Rva0023FBDB
 {
 public:
 	void rva0023FBDB(Rva0023FBDBNode *pos);
 };
-
 class Sub184
 {
 public:
@@ -1347,16 +1271,11 @@ public:
 	virtual void s2();
 	virtual void xfer(Xfer *xfer);
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> _Vector_base<unsigned int,_STL::allocator<unsigned int> >::~_Vector_base(); }
-
 namespace _STL { template <> vector<unsigned int,_STL::allocator<unsigned int> >::~vector(); }
-
 namespace _STL { template <> void _STLP_alloc_proxy<unsigned int *,unsigned int,_STL::allocator<unsigned int> >::deallocate(unsigned int *,unsigned int); }
-
 namespace _STL { template <> void allocator<unsigned int>::deallocate(unsigned int *,unsigned int) const; }
-
 // bfme link decl-only end
 
 class Rva0040DBA9
@@ -1364,7 +1283,6 @@ class Rva0040DBA9
 public:
 	_STL::vector<unsigned int> rva0040DBA9();
 };
-
 class Rva002401C0
 {
 public:
@@ -1373,7 +1291,6 @@ private:
 	char m_pad[0x184];
 	Rva0040DBA9 m_inner;
 };
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -1383,11 +1300,8 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 struct Rva00240D34Element { unsigned int words[1];bool operator<(const Rva00240D34Element&)const;bool operator==(const Rva00240D34Element&)const; };
-
 template _STL::list<Rva00240D34Element>::list(const _STL::list<Rva00240D34Element> &);
-
 // ?rva0023D6D5@Rva0023D6D5@@QAEX_N@Z @0x0023D6D5 (27B): global-guarded call.
 // Retail: ecx=[0xDFDC8C]; cmp [ecx+0x10],0; je ret; cmp byte [esp+4],0;
 // jne ret; call 0x1EC98E (pinned TU-local); ret 4. Single stack arg, a bool
@@ -1399,25 +1313,19 @@ class Rva0023D6D5Callee
 public:
 	void thru();
 };
-
 class LinearCampaignManager;
-
 extern LinearCampaignManager *TheLinearCampaignManager;
-
 class Rva0023D6D5
 {
 public:
 	void rva0023D6D5(bool loadingSaveGame);
 };
-
 extern CommandList *TheCommandList;
-
 struct Rva0023E30A {
  AsciiString text;
  unsigned word;
  Rva0023E30A(const AsciiString &,unsigned);
 };
-
 // Four more tiny ones (trimmed to the placed free-test body; the other three
 // are declared-only here).
 
@@ -1428,7 +1336,6 @@ public:
 	short m_bfmeTag;					// +0x06
 	char m_bfmeRest[8];					// +0x08
 };
-
 class Gen_000EE620
 {
 public:
@@ -1438,40 +1345,32 @@ private:
 	int m_bfmeHead[3];					// +0x00
 	BfmeSlotCD *m_bfmeSlots;				// +0x0C
 };
-
 class Gen_000FB880
 {
 public:
 	int bfmeMatches(unsigned char mask) const;
 };
-
 class Gen_0014FD90
 {
 public:
 	void bfmeGetPair(int *out) const;
 };
-
 class BfmeSourceCD;
-
 class Gen_0016A350
 {
 public:
 	void bfmeTake(BfmeSourceCD *source);
 };
-
 namespace _STL {
 // clear is rowed in stlport_list_rva00243119_clear.cpp.
 template <> void _List_base<Rva0024076D, allocator<Rva0024076D> >::clear();
 }
-
 template _STL::_List_base<Rva0024076D, _STL::allocator<Rva0024076D> >::~_List_base();
-
 struct Rva0023E7D9Link
 {
 	char m_pad[0x14];
 	Rva0023E7D9Link *m_next;
 };
-
 class Rva0023E7D9
 {
 public:
@@ -1482,7 +1381,6 @@ public:
 	_STL::list<int, _STL::allocator<int> >::iterator m_cur; // +0x4C
 	_STL::list<int, _STL::allocator<int> > m_list; // +0x50
 };
-
 class Rva00A00958Obj
 {
 public:
@@ -1497,26 +1395,19 @@ public:
 	virtual void virt08();
 	virtual void virt09();
 };
-
 extern Rva00A00958Obj *g_Rva00A00958;
-
 // g_Rva00A00958: matched references place it at VA 0xe00958 (zero-filled .bss).
 Rva00A00958Obj * g_Rva00A00958;
-
 // TheDeepCRC (ZH GameLogic.cpp's -deepCRC switch): matched references place it
 // at VA 0xe02d86 (zero-filled .bss), next to TheLiteCRC.
 bool TheDeepCRC;
-
 extern bool TheLiteCRC;
-
 struct Rva009FE758Obj
 {
 	char m_pad[0xc18];
 	int m_c18;
 };
-
 extern class GlobalData *TheWritableGlobalData;
-
 class Rva000D3FA0Map : public Snapshot
 {
 public:
@@ -1530,9 +1421,7 @@ protected:
 private:
 	Rva00241C20 m_map;
 };
-
 class Xfer;
-
 class Rva00438758Interface
 {
 public:
@@ -1549,7 +1438,6 @@ public:
 	virtual void slot28(); virtual void slot29();
 	virtual void slot30(void *value); // +0x78
 };
-
 // Xfer::Version: the stored and the current version byte.
 class Rva00438592Version
 {
@@ -1558,7 +1446,6 @@ public:
 	unsigned char m_a;
 	unsigned char m_b;
 };
-
 template <int N> class BitFlags
 {
 public:
@@ -1567,13 +1454,9 @@ public:
 private:
 	char m_pad[0x10];
 };
-
 class Rva00291440;
-
 void XferInvisibilityType(Xfer *xfer, int *value);
-
 void xferUpgradeMask(Xfer *xfer, Rva00291440 *value);
-
 class FXList
 {
 public:
@@ -1583,15 +1466,12 @@ private:
 	char m_pad[0xc];
 	AsciiString m_name; // +0x0C
 };
-
 class FXListStore
 {
 public:
 	const FXList *findFXList(const char *name) const;
 };
-
 extern FXListStore *TheFXListStore;
-
 class Rva002542F3Member
 {
 public:
@@ -1608,9 +1488,7 @@ private:
 	const FXList *m_fxA4; // +0xA4
 	BitFlags<101> m_bitsA8; // +0xA8
 };
-
 BFME_DISP8_WORDCHASE_ZERO_GETTER(Rva0023DB58WordChaseField, 0x0C)
-
 // Native 2E6CB0..2E6CB7 and 2E6CB7..2E6CBE are independently complete
 // RET0 leaves after the RET4 at 2E6CAD and before the distinct initializer
 // at 2E6CBE. Each zero-extends an unsigned 16-bit pointee field, at +0x12
@@ -1622,14 +1500,12 @@ public:
     unsigned int getBits() const;
     void *holder;
 };
-
 class Rva002E6CB7PointeeValue
 {
 public:
     unsigned int getBits() const;
     void *holder;
 };
-
 class Rva0023DA79
 {
 public:
@@ -1637,7 +1513,6 @@ public:
 private:
 	unsigned int m_bits[4];
 };
-
 // BFME1 9cbfb551 OpenContain.cpp emits _Base_bitset<4>::_M_do_flip.
 // Native 332E83..332E8F is a complete leaf after bounded 332E60+35:
 // four consecutive 32-bit words are complemented in an unsigned loop.
@@ -1648,11 +1523,8 @@ public:
     void flip();
     unsigned int m_words[4];
 };
-
 typedef bool Bool;
-
 typedef float Real;
-
 class SizedForwarderSlots
 {
 public:
@@ -1790,7 +1662,6 @@ public:
 	virtual void slot131();
 	virtual void slot132();
 };
-
 class Rva00078AC6Forwarder
 {
 public:
@@ -1799,7 +1670,6 @@ private:
 	char m_lead[0x4];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva0008605ALead
 {
 public:
@@ -1807,13 +1677,11 @@ public:
 private:
 	char m_lead[0xB0];
 };
-
 class Rva0008605AForwarder : public Rva0008605ALead, public SizedForwarderSlots
 {
 public:
 	void rva0008605A();
 };
-
 class Rva0008615BLead
 {
 public:
@@ -1821,13 +1689,11 @@ public:
 private:
 	char m_lead[0x24C4];
 };
-
 class Rva0008615BForwarder : public Rva0008615BLead, public SizedForwarderSlots
 {
 public:
 	void rva0008615B();
 };
-
 class Rva0008BD2BLead
 {
 public:
@@ -1835,13 +1701,11 @@ public:
 private:
 	char m_lead[0x24C4];
 };
-
 class Rva0008BD2BForwarder : public Rva0008BD2BLead, public SizedForwarderSlots
 {
 public:
 	void rva0008BD2B();
 };
-
 class Rva00091D32Forwarder
 {
 public:
@@ -1850,7 +1714,6 @@ private:
 	char m_lead[0x14];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva000ABD68Forwarder
 {
 public:
@@ -1859,7 +1722,6 @@ private:
 	char m_lead[0x4];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva001EDDBBForwarder
 {
 public:
@@ -1868,7 +1730,6 @@ private:
 	char m_lead[0x4FA8];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva0024002ELead
 {
 public:
@@ -1876,13 +1737,11 @@ public:
 private:
 	char m_lead[0xC];
 };
-
 class Rva0024002EForwarder : public Rva0024002ELead, public SizedForwarderSlots
 {
 public:
 	void rva0024002E();
 };
-
 class Rva00240035Lead
 {
 public:
@@ -1890,13 +1749,11 @@ public:
 private:
 	char m_lead[0xC];
 };
-
 class Rva00240035Forwarder : public Rva00240035Lead, public SizedForwarderSlots
 {
 public:
 	void rva00240035();
 };
-
 class Rva0024003DLead
 {
 public:
@@ -1904,31 +1761,26 @@ public:
 private:
 	char m_lead[0xC];
 };
-
 class Rva0024003DForwarder : public Rva0024003DLead, public SizedForwarderSlots
 {
 public:
 	void rva0024003D();
 };
-
 class Rva0025C25AForwarder : public SizedForwarderSlots
 {
 public:
 	void rva0025C25A();
 };
-
 class Rva0029AC98Forwarder : public SizedForwarderSlots
 {
 public:
 	void rva0029AC98();
 };
-
 class Rva0030ADE8Forwarder : public SizedForwarderSlots
 {
 public:
 	void rva0030ADE8();
 };
-
 class Rva00328CC5Forwarder
 {
 public:
@@ -1937,7 +1789,6 @@ private:
 	char m_lead[0x18];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva00328CCCForwarder
 {
 public:
@@ -1946,7 +1797,6 @@ private:
 	char m_lead[0xC];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva0039AC9CForwarder
 {
 public:
@@ -1955,18 +1805,14 @@ private:
 	char m_lead[0x2C];
 	SizedForwarderSlots *m_inner;
 };
-
 class Drawable;
-
 class Rva0028BD3AInterface
 {
 public:
 	virtual void v00();
 	virtual void v01();
 };
-
 #include "../../../Include/GameLogic/AIGroup.h"
-
 class XferSave
 {
 public:
@@ -2007,7 +1853,6 @@ public:
 private:
 	char m_data[0x3C];
 };
-
 class BFMECRCWriter : public XferSave
 {
 public:
@@ -2015,75 +1860,53 @@ public:
 	bool m_full;
 	unsigned int m_crc;
 };
-
 class Rva0060D4C9
 {
 public:
 	unsigned char rva0060D4C9(Xfer *stream);
 };
-
 class Rva002CEC0A
 {
 public:
 	void rva002CED26(Xfer *xfer);
 };
-
 class Gen009D6DD0
 {
 public:
 	void Close();
 };
-
 class Rva00210C66CmpBoolField
 {
 public:
 	bool get() const;
 };
-
 extern "C" void *theLogicRandomLogFile;
-
 // g_00E02D7C is only an alias of the owned global TheXObjectCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXObjectCRC;
-
 // g_00E02D7D is only an alias of the owned global TheXPartitionCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXPartitionCRC;
-
 // g_00E02D7E is only an alias of the owned global TheXCollisionCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXCollisionCRC;
-
 // g_00E02D7F is only an alias of the owned global TheXShroudCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXShroudCRC;
-
 // g_00E02D80 is only an alias of the owned global TheXTaintCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXTaintCRC;
-
 // Native byte gate read by GameLogic::getCRC; original identifier unknown.
 unsigned char BfmeGameLogicCRCModeFlag = 0;
-
 // g_00E02D83 is only an alias of the owned global TheXPlayerCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXPlayerCRC;
-
 // g_00E02D84 is only an alias of the owned global TheXAICRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXAICRC;
-
 // g_00E02D88 is only an alias of the owned global TheXLWCRC (ledger names column); this unit reads the owner through its own view type.
 extern bool TheXLWCRC;
-
 extern PartitionManager *TheShroudManager;
-
 extern CollisionManager *TheCollisionManager;
-
 class BfmeTaintManager;
-
 extern BfmeTaintManager *TheTaintManager;
-
 // TheSkirmishAIManager is only an alias of the owned global TheSkirmishAIManager (ledger names column); this unit reads the owner through its own view type.
 extern class Rva002A8F24 *TheSkirmishAIManager;
-
 extern class AI *TheAI;
-
 #include "../../../Include/GameClient/Drawable.h"
-
 // sendObjectDestroyed reaches GameClient::destroyDrawable through slot 0x74 of
 // TheGameClient (0x00DFE77C).
 class GameClient
@@ -2102,13 +1925,9 @@ public:
 	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
 	virtual void s36(); // 0x90
 };
-
 extern GameClient *TheGameClient;
-
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
-
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
-
 class BfmeAudio
 {
 public:
@@ -2140,9 +1959,7 @@ public:
 	virtual void a92(); virtual void a93(); virtual void a94(); virtual void a95();
 	virtual void audioSlot180(int val);
 };
-
 extern class AudioManager *TheAudio;
-
 class Rva0023D661
 {
 public:
@@ -2151,27 +1968,22 @@ private:
 	char m_pad[0xAC];
 	Object *m_head;
 };
-
 bool canPlayersTransferMoneyYet();
-
 class Rva002AA22AByteField
 {
 public:
 	unsigned char get() const;
 };
-
 struct OpaqueRefElement4
 {
 	void *m_ptr;
 	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
 };
-
 struct Rva000A8C9B
 {
 	void *m_ptr;
 	void clear();
 };
-
 // Ghidra FUN_0063dc8e is a 64-byte conditional string setter: it applies the
 // empty-string/global-flag test to a single string member at +0x74. Its public
 // setter body at 0x0023DCCE lives in GameLogicInit.cpp, its retail COMDAT home.
@@ -2186,18 +1998,13 @@ private:
 	char m_pad73;
 	AsciiString m_string;
 };
-
 template _STL::_List_base<Rva0024076D, _STL::allocator<Rva0024076D> >::_List_base(const _STL::allocator<Rva0024076D> &);
-
 template _STL::list<Rva0024076D, _STL::allocator<Rva0024076D> >::list(const _STL::allocator<Rva0024076D> &);
-
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-
 // DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
 // vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
 // BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
 struct BfmeDelayedLuaEventList;
-
 struct DelayedLuaEventList
 {
 	DelayedLuaEventList();
@@ -2205,20 +2012,15 @@ struct DelayedLuaEventList
 
 	unsigned char m_data[0x48];
 };
-
 class BfmeObjectEventDispatch
 {
 public:
 	void rva003360D2(int event, void *obj, BfmeDelayedLuaEventList *list);
 };
-
 class LuaScriptEngine;
-
 extern LuaScriptEngine *TheLuaScriptEngine;
-
 // clear is the rowed out-of-line 0x0006AA1C.
 namespace _STL { template <> void _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::clear(); }
-
 // Native 0x0023FD63, 14B: clear the int->int tree at +0, then set +0x10.
 struct Rva0023FD63Holder
 {
@@ -2229,21 +2031,18 @@ struct Rva0023FD63Holder
 	int m_0c;
 	bool m_dirty; // +0x10
 };
-
 extern "C" {
 void __identifier("?rva0024002E@Rva0024002EForwarder@@QAEXXZ")();
 void __identifier("?rva00240035@Rva00240035Forwarder@@QAEXXZ")();
 void __identifier("?rva0024003D@Rva0024003DForwarder@@QAEXXZ")();
 void __identifier("?rva00240045@Rva00240045Forwarder@@QAEXXZ")();
 }
-
 extern const void *const g_00BEDCB4[4] = {
 	(const void *)&__identifier("?rva0024002E@Rva0024002EForwarder@@QAEXXZ"), // slot 0 0x0024002E
 	(const void *)&__identifier("?rva00240035@Rva00240035Forwarder@@QAEXXZ"), // slot 1 0x00240035
 	(const void *)&__identifier("?rva0024003D@Rva0024003DForwarder@@QAEXXZ"), // slot 2 0x0024003D
 	(const void *)&__identifier("?rva00240045@Rva00240045Forwarder@@QAEXXZ"), // slot 3 0x00240045
 };
-
 // The retail table at RVA 0x007EDAA8: 4 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
@@ -2252,26 +2051,21 @@ void __identifier("?slot04@Rva0023DB34@@UAEHXZ")();
 void __identifier("?slot08@Rva0023DB34@@UAE_NH@Z")();
 void __identifier("?slot0C@Rva0023DB34@@UAE_NXZ")();
 }
-
 extern const void *const g_00BEDAA8[4] = {
 	(const void *)&__identifier("?slot00@Rva0023DB34@@UAEHPAXH@Z"), // slot 0 0x00306C15
 	(const void *)&__identifier("?slot04@Rva0023DB34@@UAEHXZ"), // slot 1 0x00306C42
 	(const void *)&__identifier("?slot08@Rva0023DB34@@UAE_NH@Z"), // slot 2 0x00306C49
 	(const void *)&__identifier("?slot0C@Rva0023DB34@@UAE_NXZ"), // slot 3 0x00306C58
 };
-
 struct BfmeE12
 {
 	float x;
 	float y;
 	float z;
 };
-
 // The base ctor is the rowed out-of-line 0x0007FAEA; the allocator temporary dies inline with no EH state.
 namespace _STL { template <> _Vector_base<BfmeE12, allocator<BfmeE12> >::_Vector_base(const allocator<BfmeE12> &); }
-
 namespace _STL { template <> inline allocator<BfmeE12>::~allocator() _STLP_NOTHROW {} }
-
 class Rva00240000
 {
 public:
@@ -2284,48 +2078,36 @@ private:
 	int m_18;
 	int m_1C;
 };
-
 struct BfmeStringRecord00239B46;
-
 void Rva0023FC3EConstruct(BfmeStringRecord00239B46 *, const BfmeStringRecord00239B46 &);
-
 struct BfmeStringRecord00239B46
 {
 	char m_data[8];
 };
-
 struct Rva00240C89Node
 {
 	char m_pad[8];
 	BfmeStringRecord00239B46 m_val08;
 };
-
 struct Rva00240C89Node * __stdcall Rva00240C89Create(const struct BfmeStringRecord00239B46 &x);
-
 void __cdecl Rva0023FC6BConstruct(void *dest, const void *source);
-
 struct Rva00240D0FValue
 {
 	char m_data[8];
 };
-
 struct Rva00240D0FNode
 {
 	int m_next;
 	Rva00240D0FValue m_04;
 };
-
 struct Rva00240D0FNode * __stdcall createNode(const struct Rva00240D0FValue &x);
-
 enum { BRIDGE_MAX_TOWERS = 4 };
-
 struct BridgeInfo
 {
 	unsigned char m_pad00[0x54];
 	ObjectID bridgeObjectID;
 	ObjectID towerObjectID[BRIDGE_MAX_TOWERS];
 };
-
 class Bridge
 {
 public:
@@ -2335,14 +2117,11 @@ private:
 	unsigned char m_pad00[0x0C];
 	BridgeInfo m_bridgeInfo;
 };
-
 template Rva0024076D* _STL::uninitialized_fill_n(Rva0024076D*,unsigned int,const Rva0024076D&);
-
 enum BuildableStatus
 {
 	BUILDABLE_STATUS_UNKNOWN = 0
 };
-
 namespace rts
 {
 template <typename T> struct equal_to
@@ -2350,34 +2129,26 @@ template <typename T> struct equal_to
 	bool operator()(const T &left, const T &right) const;
 };
 }
-
 typedef _STL::pair<const AsciiString, BuildableStatus> BuildableStatusPair;
-
 typedef _STL::hash_map<AsciiString, BuildableStatus, rts::hash<AsciiString>,
 	rts::equal_to<AsciiString>, _STL::allocator<BuildableStatusPair> > BuildableMap;
-
 class Rva00056F61;
-
 struct Rva0041534BIter {
     void *m_node;
     Rva00056F61 *m_table;
     Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
 };
-
 class Rva00056F61 {
 public:
     __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
 };
-
 struct BuildableSlotPair {
     AsciiString name;
     BuildableStatus status;
     BuildableSlotPair(const AsciiString &asciiString, BuildableStatus s) : name(asciiString), status(s) {}
 };
-
 // Emit the owned specialization directly, without a synthetic GameLogic caller.
 template BuildableStatus &BuildableMap::operator[](const AsciiString &name);
-
 // Retail keeps this member out of line: insert 0x00247089 calls it, as list<int>'s does.
 namespace _STL {
 template <> __declspec(noinline) _List_node<Rva0024076D> *list<Rva0024076D, allocator<Rva0024076D> >::_M_create_node(const Rva0024076D &__x)
@@ -2387,19 +2158,13 @@ template <> __declspec(noinline) _List_node<Rva0024076D> *list<Rva0024076D, allo
 	return __p;
 }
 }
-
 template _STL::_List_node<Rva0024076D> * _STL::list<Rva0024076D, _STL::allocator<Rva0024076D> >::_M_create_node(Rva0024076D const &);
-
 // Suppress this TU's non-retail copy of ?_M_create_node@?$list@VRva0024076D@@V?$allocator@VRva0024076D@@@_STL@@@_STL@@IAEPAU?$_Lis:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Rva0024076D;
-
 namespace _STL { template <> _List_node<Rva0024076D> * list<Rva0024076D,allocator<Rva0024076D> >::_M_create_node(Rva0024076D const &); }
-
 template void _STL::list<Rva0024076D>::push_back(const Rva0024076D &);
-
 class NetworkInterface;
-
 class Mouse
 {
 public:
@@ -2426,45 +2191,34 @@ public:
 	bool rva001EDE26() const;
 	void _bfme_setEngineVisibility(bool visible);
 };
-
 extern Mouse *TheMouse;
-
 // MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
 
 extern MessageStream *TheMessageStream;
-
 // TheLinearCampaignManager (0x009FDC8C) and its rowed 0x001EB0B1.
 class Rva001EB0B1Holder
 {
 public:
 	void rva001EB0B1();
 };
-
 class TerrainVisual;
-
 // The living-world host (0x009FEF18): a war of the ring game.
 class Rva002D3627Host;
-
 class LivingWorld;
-
  extern LivingWorld *TheLivingWorld;
-
 class Rva0028D680
 {
 public:
 	void rva0028D680(void);
 };
-
 class Rva00DFE1C8Host
 {
 public:
 	bool rva00210DC9();
 	void rva00211FA8();
 };
-
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.
 extern class LivingWorldManager *TheLivingWorldManager;
-
 class Rva002D3627Host
 {
 public:
@@ -2474,21 +2228,15 @@ private:
 	unsigned char m_pad00[0x18];
 	unsigned char m_18;
 };
-
 class Rva0023D29F
 {
 public:
 	void sendEndSessionMsg();
 };
-
 struct Rva00243B52DestroyEntry;
-
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
-
 enum SleepyUpdatePhase;
-
 typedef _STL::vector<const ModuleData *> UpdateModuleVector;
-
 class Display
 {
 public:
@@ -2503,7 +2251,6 @@ public:
 	virtual int getLastFrameDrawCalls(); // +0x174
 	virtual void slot178(int *stats);    // +0x178
 };
-
 class View
 {
 public:
@@ -2522,7 +2269,6 @@ public:
 	virtual float slot12C();           // +0x12C
 	virtual void slot130(float value); // +0x130
 };
-
 class ParticleSystemManager
 {
 public:
@@ -2534,7 +2280,6 @@ public:
 	unsigned char m_pad04[0x50 - 4];
 	unsigned int m_particleCount; // +0x50
 };
-
 class G00DFF080Inner
 {
 public:
@@ -2543,54 +2288,40 @@ public:
 #undef V
 	virtual void slot24(); // +0x24
 };
-
 class G00DFF080Obj
 {
 public:
 	unsigned char m_pad00[4];
 	G00DFF080Inner m_inner; // +0x04
 };
-
 #include "../../../Include/Common/GameEngine.h"
-
 struct GameLogicObjectListView
 {
 	unsigned char m_pad00[0xAC];
 	Object *m_firstObject; // +0xAC
 };
-
 class Rva0023C641
 {
 public:
 	void rva0023C641(const char *line);
 };
-
 class Rva00382AA0
 {
 public:
 	void release();
 };
-
 void HideControlBar(bool immediate);
-
 extern GameEngine *TheGameEngine;
-
 extern Display *TheDisplay;
-
 extern View *TheTacticalView;
-
 extern ParticleSystemManager *TheParticleSystemManager;
-
 extern G00DFF080Obj *TheTerrainVisual;
-
 // Native benchmark saves/restores this view value and normalizes three display
 // counters for its CSV output. Descriptive names; original identifiers unknown.
 // Retail initial values are 100.0f at VA 0x00DBA6D0 and twelve zero bytes at
 // VA 0x00DFE948. The benchmark owns these cells; no other provider is rowed.
 float BfmeUnitTimingSavedViewValue = 100.0f;
-
 int BfmeUnitTimingDisplayStats[3] = { 0, 0, 0 };
-
 class Rva002431CB
 {
 public:
@@ -2627,7 +2358,6 @@ private:
 	float m_drawCallNoSpawn;             // +0x90
 	float m_drawCallLogic;               // +0x94
 };
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -2635,38 +2365,25 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 struct Out00524477 { int m_0; AsciiString m_4; };
-
 // Native three-word cdecl hidden-return ABI matches the recovered STLport
 // make_pair provider. Its generated linker alias retains this legacy view;
 // typed-return trials add EH data or trigger MSVC7.1 ICE in this flat-frame unit.
 int __cdecl Rva0023FC23(Out00524477 *out, int *a1, int a2);
-
 class CommandButton;
-
 namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &); }
-
 class PlayerTemplateStore
 {
 public:
 	const PlayerTemplate *getNthPlayerTemplate(Int index) const;
 };
-
 extern PlayerTemplateStore *ThePlayerTemplateStore;
-
 unsigned char Rva000308D0GetByte();
-
 extern Bool TheXObjectCRC;
-
 extern Bool TheXPartitionCRC;
-
 extern Bool TheXCollisionCRC;
-
 extern Bool TheXShroudCRC;
-
 extern Bool TheXTaintCRC;
-
 // The five flags and two intervals this unit still did not own, all now bound to
 // the objects retail's own bytes name (the rowed body below loads each of them;
 // see the references at 0x2477E0, 0x247834, 0x247887/8AE and 0x2478AE in
@@ -2688,33 +2405,20 @@ extern Bool TheXTaintCRC;
 //     each against -1 and skips the argument when they match, which is the
 //     default -1/-1 (off) pair.
 extern Bool TheXPlayerCRC;
-
 extern Bool TheXAICRC;
-
 extern Bool TheXLWCRC;
-
 extern Bool TheXTerrainLogicCRC;
-
 Bool TheXTerrainLogicCRC;
-
 extern unsigned char BfmeClientCRCCheckEnabled;
-
 extern bool TheDeepCRC;
-
 extern Bool TheLiteCRC;
-
 extern Bool TheBinaryDeepCRC;
-
 Int TheDebugCRCFromFrame = -1;
-
 Int TheDebugCRCUntilFrame = -1;
-
 // Native RVA 0x009BC800: mutable four-byte interval initially 100.
 // The command-line parser writes it and replay/game-info consumers read it.
 Int NET_CRC_INTERVAL = 100;
-
 BFME_DISP32_FIRST_WORDCHASE_ZERO_GETTER(Rva0023DB89WordChaseField, 0xF50)
-
 // ?rva0047EC5F@AnimalAIUpdate@@UBEEXZ: slot 0 of AnimalAIUpdate's +0x3E4
 // interface vftable 0x00C47B84, which the rowed dtor 0x0047EB78 and ctor
 // 0x0047ECA8 store last. An override of a non-primary base's virtual keeps
@@ -2726,7 +2430,6 @@ class Rva0047EB78_Interface3E4
 public:
 	virtual unsigned char rva0047EC5F() const = 0;
 };
-
 class AnimalAIUpdateHead
 {
 public:
@@ -2736,21 +2439,17 @@ protected:
 	const unsigned char *m_moduleData;
 	char m_pad08[0x3E4 - 0x08];
 };
-
 class AnimalAIUpdate : public AnimalAIUpdateHead, public Rva0047EB78_Interface3E4
 {
 public:
 	virtual unsigned char rva0047EC5F() const;
 };
-
 #include "../../../Include/Common/INI/INI.h"
-
 class Rva0049B6AE
 {
 public:
 	void append(const char *s, StringBase<char> *b);
 };
-
 class Rva003339CE
 {
 public:
@@ -2759,13 +2458,11 @@ public:
 private:
 	unsigned int m_words[4]; // Native worker clears/accesses the 16-byte bitset.
 };
-
 class Rva003B1017 : public Rva003339CE
 {
 public:
 	void rva003B1017(INI *ini, void *extra);
 };
-
 // Byte one-setters: eight-byte __thiscall members with one shape:
 //
 //     mov byte ptr [ecx+<DISP>],1 / ret
@@ -2786,7 +2483,6 @@ public:
 	char m_lead[0x145];
 	unsigned char m_enabled;
 };
-
 class Rva00042F5FByteOneSetter
 {
 public:
@@ -2795,7 +2491,6 @@ public:
 	char m_lead[0x146];
 	unsigned char m_enabled;
 };
-
 class Rva000203AD5ByteOneSetter
 {
 public:
@@ -2804,7 +2499,6 @@ public:
 	char m_lead[0x1A4D4];
 	unsigned char m_enabled;
 };
-
 class Rva000203ADDByteZeroSetter
 {
 public:
@@ -2813,7 +2507,6 @@ public:
 	char m_lead[0x1A4D4];
 	unsigned char m_enabled;
 };
-
 class Rva0033F971ByteOneSetter
 {
 public:
@@ -2822,7 +2515,6 @@ public:
 	char m_lead[0x3C6];
 	unsigned char m_enabled;
 };
-
 class Rva0033F979ByteZeroSetter
 {
 public:
@@ -2831,7 +2523,6 @@ public:
 	char m_lead[0x3C6];
 	unsigned char m_enabled;
 };
-
 class Rva0041FDDEByteZeroSetter
 {
 public:
@@ -2840,7 +2531,6 @@ public:
 	char m_lead[0x140];
 	unsigned char m_enabled;
 };
-
 class Rva0041FDE6ByteOneSetter
 {
 public:
@@ -2849,7 +2539,6 @@ public:
 	char m_lead[0x140];
 	unsigned char m_enabled;
 };
-
 class Rva0004CB16ByteOneSetter
 {
 public:
@@ -2858,7 +2547,6 @@ public:
 	char m_lead[0xA8];
 	unsigned char m_enabled;
 };
-
 class MilesAudioManager : public SizedForwarderSlots
 {
 public:
@@ -2866,7 +2554,6 @@ public:
 public:
 	char m_lead[0x6AB - sizeof(void *)];
 };
-
 class Rva00066517ByteOneSetter
 {
 public:
@@ -2875,7 +2562,6 @@ public:
 	char m_lead[0xD7B5];
 	unsigned char m_enabled;
 };
-
 class Rva0007DEAFByteOneSetter
 {
 public:
@@ -2884,7 +2570,6 @@ public:
 	char m_lead[0xA0];
 	unsigned char m_enabled;
 };
-
 class Rva0008BC93ByteOneSetter
 {
 public:
@@ -2893,7 +2578,6 @@ public:
 	char m_lead[0x23D0];
 	unsigned char m_enabled;
 };
-
 class Rva000B2B33ByteOneSetter
 {
 public:
@@ -2902,7 +2586,6 @@ public:
 	char m_lead[0x131C];
 	unsigned char m_enabled;
 };
-
 class Rva000B380CByteOneSetter
 {
 public:
@@ -2911,7 +2594,6 @@ public:
 	char m_lead[0x94];
 	unsigned char m_enabled;
 };
-
 class Rva000E0F16ByteOneSetter
 {
 public:
@@ -2920,7 +2602,6 @@ public:
 	char m_lead[0x4FB6D];
 	unsigned char m_enabled;
 };
-
 class Rva000E9C15ByteOneSetter
 {
 public:
@@ -2929,7 +2610,6 @@ public:
 	char m_lead[0x4FB5C];
 	unsigned char m_enabled;
 };
-
 class Rva000EDB3FByteOneSetter
 {
 public:
@@ -2938,7 +2618,6 @@ public:
 	char m_lead[0x44544];
 	unsigned char m_enabled;
 };
-
 class Rva001EADF7ByteOneSetter
 {
 public:
@@ -2947,7 +2626,6 @@ public:
 	char m_lead[0xC1];
 	unsigned char m_enabled;
 };
-
 class Rva001F3852ByteOneSetter
 {
 public:
@@ -2956,7 +2634,6 @@ public:
 	char m_lead[0x1A3];
 	unsigned char m_enabled;
 };
-
 class Rva00203BE1ByteOneSetter
 {
 public:
@@ -2965,7 +2642,6 @@ public:
 	char m_lead[0x1A4D7];
 	unsigned char m_enabled;
 };
-
 class Rva00222479ByteOneSetter
 {
 public:
@@ -2974,7 +2650,6 @@ public:
 	char m_lead[0x310];
 	unsigned char m_enabled;
 };
-
 class Rva00238D7BByteOneSetter
 {
 public:
@@ -2983,7 +2658,6 @@ public:
 	char m_lead[0x114];
 	unsigned char m_enabled;
 };
-
 class Rva0023CF83ByteOneSetter
 {
 public:
@@ -2992,7 +2666,6 @@ public:
 	char m_lead[0x150];
 	unsigned char m_enabled;
 };
-
 class Rva0025C0F7ByteOneSetter
 {
 public:
@@ -3001,7 +2674,6 @@ public:
 	char m_lead[0x10C];
 	unsigned char m_enabled;
 };
-
 class Rva002A87F1ByteOneSetter
 {
 public:
@@ -3010,7 +2682,6 @@ public:
 	char m_lead[0x168];
 	unsigned char m_enabled;
 };
-
 class Rva00406D5FByteOneSetter
 {
 public:
@@ -3019,7 +2690,6 @@ public:
 	char m_lead[0x1D8];
 	unsigned char m_enabled;
 };
-
 class Rva00433CF2ByteOneSetter
 {
 public:
@@ -3028,7 +2698,6 @@ public:
 	char m_lead[0x27D];
 	unsigned char m_enabled;
 };
-
 class Rva0043DB56ByteOneSetter
 {
 public:
@@ -3037,7 +2706,6 @@ public:
 	char m_lead[0x2BE];
 	unsigned char m_enabled;
 };
-
 class Rva0043DB5EByteOneSetter
 {
 public:
@@ -3046,7 +2714,6 @@ public:
 	char m_lead[0x2BB];
 	unsigned char m_enabled;
 };
-
 class Rva0043DB66ByteOneSetter
 {
 public:
@@ -3055,7 +2722,6 @@ public:
 	char m_lead[0x2B8];
 	unsigned char m_enabled;
 };
-
 class Rva0047709EByteOneSetter
 {
 public:
@@ -3064,7 +2730,6 @@ public:
 	char m_lead[0x104];
 	unsigned char m_enabled;
 };
-
 class Rva004BF8EDByteOneSetter
 {
 public:
@@ -3073,7 +2738,6 @@ public:
 	char m_lead[0xC6];
 	unsigned char m_enabled;
 };
-
 class Rva00513821ByteOneSetter
 {
 public:
@@ -3082,7 +2746,6 @@ public:
 	char m_lead[0x184];
 	unsigned char m_enabled;
 };
-
 class Rva00513829ByteOneSetter
 {
 public:
@@ -3091,7 +2754,6 @@ public:
 	char m_lead[0x42F];
 	unsigned char m_enabled;
 };
-
 class Rva0051AF03ByteOneSetter
 {
 public:
@@ -3100,7 +2762,6 @@ public:
 	char m_lead[0x3C5];
 	unsigned char m_enabled;
 };
-
 class Rva00085154ByteZeroSetter
 {
 public:
@@ -3109,7 +2770,6 @@ public:
 	char m_lead[0x5009];
 	unsigned char m_enabled;
 };
-
 class Rva0023C488ByteZeroSetter
 {
 public:
@@ -3118,7 +2778,6 @@ public:
 	char m_lead[0x115];
 	unsigned char m_enabled;
 };
-
 class Rva0029AB03ByteZeroSetter
 {
 public:
@@ -3127,7 +2786,6 @@ public:
 	char m_lead[0x554];
 	unsigned char m_enabled;
 };
-
 class Rva0036859FByteZeroSetter
 {
 public:
@@ -3136,7 +2794,6 @@ public:
 	char m_lead[0x558];
 	unsigned char m_enabled;
 };
-
 class Rva00513819ByteZeroSetter
 {
 public:
@@ -3145,7 +2802,6 @@ public:
 	char m_lead[0x184];
 	unsigned char m_enabled;
 };
-
 class Rva005B0232ByteZeroSetter
 {
 public:
@@ -3154,7 +2810,6 @@ public:
 	char m_lead[0x141];
 	unsigned char m_enabled;
 };
-
 class Rva001F384AByteZeroSetter
 {
 public:
@@ -3163,7 +2818,6 @@ public:
 	char m_lead[0x1A3];
 	unsigned char m_enabled;
 };
-
 class Rva0038896BByteOneSetter
 {
 public:
@@ -3172,7 +2826,6 @@ public:
 	char m_lead[0x48C];
 	unsigned char m_enabled;
 };
-
 class Rva000875CEByteZeroSetter
 {
 public:
@@ -3181,7 +2834,6 @@ public:
 	char m_lead[0x2439];
 	unsigned char m_enabled;
 };
-
 class Rva00210D0DByteZeroSetter
 {
 public:
@@ -3190,7 +2842,6 @@ public:
 	char m_lead[0x2C0];
 	unsigned char m_enabled;
 };
-
 class Rva00332B49ByteZeroSetter
 {
 public:
@@ -3199,7 +2850,6 @@ public:
 	char m_lead[0x3C5];
 	unsigned char m_enabled;
 };
-
 class Rva004690C8ByteZeroSetter
 {
 public:
@@ -3208,7 +2858,6 @@ public:
 	char m_lead[0x1A8];
 	unsigned char m_enabled;
 };
-
 class Rva000E43DFByteOneSetter
 {
 public:
@@ -3217,7 +2866,6 @@ public:
 	char m_lead[0x9D];
 	unsigned char m_enabled;
 };
-
 class Rva00210CB6ByteOneSetter
 {
 public:
@@ -3226,7 +2874,6 @@ public:
 	char m_lead[0x88];
 	unsigned char m_enabled;
 };
-
 // Native 39B78D is ScoreKeeper::LoadPostProcess, owned by ScoreKeeperDtor.cpp.
 
 class Rva0046F822ByteOneSetter
@@ -3237,7 +2884,6 @@ public:
 	char m_lead[0x188];
 	unsigned char m_enabled;
 };
-
 class Rva0052E112ByteOneSetter
 {
 public:
@@ -3246,7 +2892,6 @@ public:
 	char m_lead[0x1BA31];
 	unsigned char m_enabled;
 };
-
 class Rva0053997DByteOneSetter
 {
 public:
@@ -3255,7 +2900,6 @@ public:
 	char m_lead[0x43B];
 	unsigned char m_enabled;
 };
-
 class Rva005B022AByteOneSetter
 {
 public:
@@ -3264,7 +2908,6 @@ public:
 	char m_lead[0x141];
 	unsigned char m_enabled;
 };
-
 // BF1 9cb Rva000C3EF0ByteGetter.cpp is a structural lead only. Complete
 // native 2A87EA..2A87F1 follows a terminal JMP and reads raw byte+4B0 into
 // AL. Original owner and complete class bounds remain unknown.
@@ -3274,7 +2917,6 @@ struct Rva002A87EAFields
     unsigned char value;
     unsigned char get() const;
 };
-
 // ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z, retail 0x005E6A11 (18B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp
 // (BFME1 0x000DFB80), recompiled /Os by the bfme1_csweep placement.
@@ -3305,7 +2947,6 @@ public:
 	int m_first;
 	int m_second;
 };
-
 // Clean BF1 9cbfb551fe Common/MidTwoStoreCtors.cpp supplies two-field
 // initialization semantics only; donor constructor/class identity is not
 // asserted for these target bodies. Actual native ECX receiver/EAX return,
@@ -3319,12 +2960,10 @@ struct Rva001D976EFields {
     unsigned int word00; float value04;
     Rva001D976EFields *initialize();
 };
-
 struct Rva004689FAFields {
     unsigned int word00; unsigned int word04;
     Rva004689FAFields *initialize();
 };
-
 // BF1 9cbfb551fe Common/Q1ConstantFieldConstructors.cpp is the clean
 // zero-field/receiver-return semantic guide only. The target bodies are
 // independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
@@ -3334,12 +2973,10 @@ struct Rva0023DC7FFields {
     unsigned char unknown[0x18]; unsigned int word18;
     Rva0023DC7FFields *clear();
 };
-
 struct Rva00085524Fields {
     unsigned char unknown[0x28]; unsigned int word28;
     Rva00085524Fields *clear();
 };
-
 // BF1 9cbfb551fe Common/RTS/Player_resetOrStartSpecialPowerReadyFrame.cpp
 // emits the SpecialPowerReadyTimerType constructor, a two-field initialization
 // semantic guide only. The target 2AA3B5..2AA3BF follows RET2AA3B4 and stores
@@ -3349,7 +2986,6 @@ struct Rva002AA3B5Fields {
     unsigned int word00, word04;
     Rva002AA3B5Fields *initialize();
 };
-
 class Rva00225A79StringField
 {
 public:
@@ -3358,7 +2994,6 @@ private:
 	char m_pad[0x30];
 	UnicodeString m_str;
 };
-
 class Rva0023DC86StringField
 {
 public:
@@ -3367,30 +3002,24 @@ private:
 	char m_pad[0x18];
 	AsciiString m_str;
 };
-
 #include "../../../Include/GameClient/Eva.h"
-
 class W3DDebrisDraw
 {
 protected:
 	virtual const char *GetSnapshotName() const;
 };
-
 class FireLogicSystem
 {
 public:
 	virtual const char *GetSnapshotName() const;
 };
-
 class SequentialScript { public: virtual const char *GetSnapshotName(); };
-
 // LargeGroupAudio getter is owned by the complete subsystem unit.
 class GeometryInfo
 {
 public:
 	virtual const char *GetSnapshotName();
 };
-
 #include "../../../Include/GameLogic/Module/DrawModule.h"
 
 BFME_LITERAL_NAME_GETTER(Rva002431A9Named, "InvisibilityManager")
@@ -3431,6 +3060,43 @@ class Rva00240045Forwarder : public Rva00240045Lead, public SizedForwarderSlots
 public:
 	void rva00240045();
 };
+
+typedef short Short;
+
+struct Gen_000cd680_Element
+{
+	Short m_key;
+	char m_unknown02[10];
+	void *m_pointer;
+};
+
+class Gen_000cd680
+{
+public:
+	Int firstKeyA( void ) const;
+	Int keyAtA( Int index ) const;
+	void **pointerAtA( Int index ) const;
+
+	Int firstKeyB( void ) const;
+	Int keyAtB( Int index ) const;
+	void **pointerAtB( Int index ) const;
+
+	Int firstKeyC( void ) const;
+	Int keyAtC( Int index ) const;
+	void **pointerAtC( Int index ) const;
+
+private:
+	char m_unknown00[0x0C];
+	Gen_000cd680_Element *m_arrayA;			// +0x0C
+	char m_unknown10[0x63C - 0x10];
+	Gen_000cd680_Element *m_arrayB;			// +0x63C
+	char m_unknown640[0x658 - 0x640];
+	Gen_000cd680_Element *m_arrayC;			// +0x658
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
+
+// BFME 1.03 GameLogic::processCommandList at RVA 0x00383050.
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogic.cpp
 
@@ -5892,6 +5558,48 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp
+
+// vtable 0x00BEDCB4#3: base at +0x10 ->slot3()
+void Rva00240045Forwarder::rva00240045()
+{
+	slot3();
+}
+
 // tu-skeleton: 0x0023CAE7 69B ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory_newObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0023CD97 7B ?isGamePaused@GameLogic@@QAEEXZ -- matched in Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp (not merged yet)
@@ -5906,7 +5614,9 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 
 // tu-skeleton: 0x0023DB48 16B ?rva0023DB48@Rva0023DB48@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0023DB5F 17B ?keyAtA@Gen_000cd680@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Gen_000cd680.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Gen_000cd680.cpp
+
+Int Gen_000cd680::keyAtA( Int index ) const { return m_arrayA[index].m_key; }
 
 // tu-skeleton: 0x0023DB93 20B ?rva0023DB93@Rva0023DB93@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
 
@@ -5959,14 +5669,6 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 // tu-skeleton: 0x0023FD36 45B ??$_Construct@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
 
 // tu-skeleton: 0x0023FED9 295B ?SetUpCampaignPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp
-
-// vtable 0x00BEDCB4#3: base at +0x10 ->slot3()
-void Rva00240045Forwarder::rva00240045()
-{
-	slot3();
-}
 
 // tu-skeleton: 0x0024004D 247B ?rva0024004D@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
@@ -6079,6 +5781,10 @@ void Rva00240045Forwarder::rva00240045()
 // tu-skeleton: 0x00248558 546B ?startNewGame@GameLogic@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x0024877A 1349B ?rva0024877A@GameLogic@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00770EF0 10B $L1192 -- matched in Code/GameEngine/Source/GameLogic/System/Rva002419AB.cpp (not merged yet)
+
+// tu-skeleton: 0x00770EFA 10B __ehhandler$?rva00240D8C@Rva002419ABOwner@@QAEPAXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/Rva002419AB.cpp (not merged yet)
 
 // tu-skeleton: 0x00770F16 11B Unwind@00b70f16 -- matched in Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp (not merged yet)
 
@@ -6208,6 +5914,18 @@ void Rva00240045Forwarder::rva00240045()
 
 // tu-skeleton: 0x0077119C 10B __ehhandler$?rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
+// tu-skeleton: 0x007711A6 14B uw_007711a6 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x007711B4 10B __ehhandler$??$_Construct@U?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp (not merged yet)
+
+// tu-skeleton: 0x007711BE 8B $L6814 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x007711C6 10B __ehhandler$??0Rva0023FD06@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x0077120C 8B $L23844 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00771214 10B __ehhandler$?SetUpCampaignPlayers@GameLogic@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
 // tu-skeleton: 0x00771230 8B $L28028 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00771238 8B $L28029 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
@@ -6221,6 +5939,10 @@ void Rva00240045Forwarder::rva00240045()
 // tu-skeleton: 0x00771258 8B $L28033 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00771260 10B __ehhandler$?rva002401DD@GameLogic@@QAEXPAVBfmeThingEC@@IH@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00771300 11B uw_00771300 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
+
+// tu-skeleton: 0x0077130B 10B __ehhandler$??1Rva00242E71@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva000427195Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00771341 8B $L25154 -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (not merged yet)
 
