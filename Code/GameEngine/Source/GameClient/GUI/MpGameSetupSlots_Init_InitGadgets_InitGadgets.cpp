@@ -537,11 +537,7 @@ struct LANGameInfo;
 extern class GameInfo *TheGameInfo;
 #define g_Rva00E02EEC (*(LANGameInfo * *)&TheGameInfo)
 
-class MapCache
-{
-public:
-	void updateCache();
-};
+#include "../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 
