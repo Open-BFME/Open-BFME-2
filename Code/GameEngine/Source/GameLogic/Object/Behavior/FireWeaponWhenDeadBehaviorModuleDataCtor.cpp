@@ -13,20 +13,20 @@ extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[]; 
 
 #include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
-class DieMuxData
-{
-public:
-	DieMuxData *init();
-
-private:
-	unsigned char m_pad[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 class BehaviorModuleData
 {
 public:
 	__declspec(dllimport) __forceinline BehaviorModuleData() {}
 	~BehaviorModuleData();
+};
+
+// The block's rowed construct runs before the next member's constructor.
+class ConstructedMuxBlock : public Rva0025342CMember
+{
+public:
+	ConstructedMuxBlock() { construct(); }
 };
 
 class FireWeaponWhenDeadBehaviorModuleData : public BehaviorModuleData
@@ -37,7 +37,7 @@ public:
 private:
 	const void *m_vtable; // +0
 	unsigned int m_unused04; // +4
-	Rva0025342CMember m_muxData; // +8
+	ConstructedMuxBlock m_muxData; // +8
 	bool m_startsActive; // +0x118
 	bool m_activeDuringConstruction; // +0x119
 	unsigned char m_pad11A[2];
@@ -51,8 +51,6 @@ private:
 inline FireWeaponWhenDeadBehaviorModuleData::FireWeaponWhenDeadBehaviorModuleData()
 	: m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7ObjectHelperModuleData@@6B@"))))
 {
-	m_muxData.construct();
-	m_dieMuxData.init();
 	m_startsActive = false;
 	m_activeDuringConstruction = false;
 	m_delayTime = 0;

@@ -247,13 +247,13 @@ int Rva004CE52EGet(void);
 
 #include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 
-class DieMuxData
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
+
+// The block's rowed construct runs before the next member's constructor.
+class ConstructedMuxBlock : public Rva0025342CMember
 {
 public:
-	DieMuxData *init();
-
-private:
-	unsigned char m_pad[0x30];
+	ConstructedMuxBlock() { construct(); }
 };
 
 class AudioLoopUpgradeModuleData : public Snapshot
@@ -270,7 +270,7 @@ private:
 	unsigned int m_killAfterMS; // +0x0C
 	bool m_killOnDeath; // +0x10
 	unsigned char m_pad11[3];
-	Rva0025342CMember m_member14; // +0x14
+	ConstructedMuxBlock m_member14; // +0x14
 	DieMuxData m_die124; // +0x124
 };
 
@@ -412,12 +412,10 @@ void AudioLoopUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // ??0AudioLoopUpgradeModuleData@@QAE@XZ @0x004B7C00
 AudioLoopUpgradeModuleData::AudioLoopUpgradeModuleData()
-	: m_soundToPlay()
+	: m_soundToPlay(),
+	m_killAfterMS(0),
+	m_killOnDeath(true)
 {
-	m_killAfterMS = 0;
-	m_killOnDeath = true;
-	m_member14.construct();
-	m_die124.init();
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeCtorModuleFactory.cpp

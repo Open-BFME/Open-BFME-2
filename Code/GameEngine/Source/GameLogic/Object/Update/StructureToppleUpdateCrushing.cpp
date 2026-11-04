@@ -411,21 +411,13 @@ inline Bool getDamageTypeFlag(UnsignedInt flags, Int damageType)
 
 class ModuleData;
 
-class DieMuxData
-{
-public:
-	Bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const;
-
-private:
-	unsigned char m_pad[4];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 class StructureToppleUpdateModuleData
 {
 public:
 	unsigned char m_pad000[0x08];
 	DieMuxData m_dieMuxData; // +0x08
-	unsigned char m_pad00c[0x38 - 0x0C];
 	UnsignedInt m_minToppleDelay; // +0x38
 	UnsignedInt m_maxToppleDelay; // +0x3C
 	Real m_structuralIntegrity; // +0x40
