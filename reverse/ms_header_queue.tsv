@@ -755,3 +755,4 @@ Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	conflicting	abi	2	0
 Code/GameEngine/Source/GameNetwork/NetPacket.cpp	conflicting	abi	3	0	0	0	0	0	3	0	0	0	1	<string.h>,<new>,<mbstring.h>	no	yes	hand			memcpy:abi,_mbscpy:abi
 Code/GameEngine/Source/Common/VictorySystem.cpp	unverified	unverified	4	3	0	0	1	0	0	0	0	0	0	<math.h>	no	yes	hand			sqrt:unverified,fabs:same,sqrt:same,ceil:same
 Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	conflicting	abi	1	0	1	0	0	0	0	0	0	0	1	<string.h>,<new>	no	yes	hand	812: Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp:10 Lib/Basetype.h(unknown); Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp:11 Common/BitFlags.h(unknown); Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp:25 GameLogic/WeaponSet.h(unknown)		stricmp:source
+Code/GameEngine/Source/Common/System/TBuff.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified

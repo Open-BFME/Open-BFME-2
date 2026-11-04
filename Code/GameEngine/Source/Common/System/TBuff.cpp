@@ -115,7 +115,6 @@ Rva000D1D2BNode **_S_parent(Rva000D1D2BNode *node)
 {
 	return &node->m_parent;
 }
-// --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
 #include <math.h>
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *) throw(...); }
@@ -148,9 +147,7 @@ typedef float Real;
 #include "Common/Snapshot.h"
 typedef bool Bool;
 #include "subsystem_interface.h"
-
 extern PartitionManager *TheShroudManager;
-
 class Rva000D1BEA
 {
 public:
@@ -160,7 +157,6 @@ private:
 	unsigned char m_pad[0x48];
 	Coord3D m_pos; // +0x48
 };
-
 // ?rva000D1C10@Rva000D1C10@@QAEXXZ @0x000D1C10 115B
 // Leaf fade-step helper (no callees). State at +8 with value at +0xC ramped
 // by 1/12 per step clamped 0..1. Caller at 0x000D28BC in unclaimed 0x000D2301.
@@ -176,7 +172,6 @@ private:
 	int m_state; // +8
 	float m_value; // +0x0C
 };
-
 // ?allocateBuffBuffers@W3DBuffBuffer@@QAEXXZ @0x000D1C83 158B
 // VB/IB container init: releases existing pair via rowed Rva0074011F,
 // allocates BfmeDynamicNativeVB(0x142,0x7534,1,0) and DX8IndexBuffer(0xea64,1),
@@ -193,7 +188,6 @@ protected:
 	void *m_p0; // +0x00
 	void *m_p1; // +0x04
 };
-
 class BfmeDynamicNativeVB
 {
 public:
@@ -202,7 +196,6 @@ public:
 private:
 	unsigned char m_pad[0x20]; // sizeof 0x20 per BfmeDynamicNativeVBSize check
 };
-
 class DX8IndexBufferClass
 {
 public:
@@ -216,7 +209,6 @@ public:
 private:
 	unsigned char m_pad[0x18]; // sizeof 0x18 (new 0x18)
 };
-
 class W3DBuffBuffer : public Rva0074011F
 {
 public:
@@ -228,9 +220,7 @@ private:
 	int m_10; // +0x10
 	int m_14; // +0x14
 };
-
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-inline RefCountClass::~RefCountClass() {}
 
 // upstream layout: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib/sharebuf.h,
 // with BFME's RawBuffer/Alignment pair around Zero Hour's Array and Count.
@@ -247,10 +237,6 @@ protected:
 	int Count;
 	int Alignment;
 };
-
-template ShareBufferClass<Vector2>::ShareBufferClass(int, const char *, int);
-
-template ShareBufferClass<Vector2>::~ShareBufferClass();
 
 struct Rva006DB2F0Vec
 {
@@ -485,11 +471,7 @@ typedef _STL::pair<const unsigned int, Waypoint *> TerrainWaypointPair;
 
 typedef _STL::_Rb_tree_base<TerrainWaypointPair, _STL::allocator<TerrainWaypointPair> > TerrainWaypointTreeBase;
 
-template TerrainWaypointTreeBase::_Rb_tree_base(const _STL::allocator<TerrainWaypointPair> &);
-
 typedef _STL::_Rb_tree<unsigned int, TerrainWaypointPair, _STL::_Select1st<TerrainWaypointPair>, _STL::less<unsigned int>, _STL::allocator<TerrainWaypointPair> > TerrainWaypointTree;
-
-template TerrainWaypointTree::_Rb_tree(const _STL::less<unsigned int> &, const _STL::allocator<TerrainWaypointPair> &);
 
 //
 // Unnamed vtable slot targets that are pure virtual forwarders: each loads its
@@ -569,6 +551,20 @@ struct Rva00129440Target { Rva00129440Table *table; };
 // tu-skeleton: 0x000D1AF3 173B ??0TBuff@@QAE@PBUTBuffSource@@H@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x000D1BA0 6B ?name@Rva000D1BA0Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/TBuff.cpp
+
+// --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
+
+inline RefCountClass::~RefCountClass() {}
+
+template ShareBufferClass<Vector2>::ShareBufferClass(int, const char *, int);
+
+template ShareBufferClass<Vector2>::~ShareBufferClass();
+
+template TerrainWaypointTreeBase::_Rb_tree_base(const _STL::allocator<TerrainWaypointPair> &);
+
+template TerrainWaypointTree::_Rb_tree(const _STL::less<unsigned int> &, const _STL::allocator<TerrainWaypointPair> &);
 
 // ---- from Code/GameEngine/Source/Common/System/TBuff.cpp
 
@@ -764,22 +760,64 @@ int __cdecl Rva000D1D26Identity(int value)
 	return value;
 }
 
-// tu-skeleton: 0x000D1DE2 110B ??0?$ShareBufferClass@I@@QAE@HPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D1E6C 28B ??_G?$ShareBufferClass@I@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D1E88 26B ??1?$ShareBufferClass@I@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D204B 20B ?getUvArray@Rva000D204B@@QAEPAVVector2@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE37.cpp (not merged yet)
-
-// tu-skeleton: 0x000D20A9 45B ?rva000D20A9@Rva000D20A9@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp
 
 void Rva000D20D6::rva000D20D6()
 {
 	rva000D20D6_slot9();
 }
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp
+
+//
+// ShareBufferClass<unsigned>::ShareBufferClass, retail 0x00D1DE2 (110 bytes),
+// and its sibling destructor group in the same object: the scalar deleting
+// destructor at 0x00D1E6C (28 bytes) and the destructor at 0x00D1E88
+// (26 bytes, the vtable store 0xBCE330 identifies the instantiation).
+// Out-of-line dependency of MeshMatDescClass::Get_Color_Array (retail calls
+// it with the fresh 0x18-byte block, VertexCount and the
+// "MeshMatDescClass::ColorArray" message). BFME1 sweep sharebuf.h 3-arg
+// shape (Count/Alignment init-list, RawBuffer in-arm, Array sunk to the
+// join); msg is dead in retail, kept only for the signature. Both arms
+// allocate through an explicit operator new[] call (retail routes them to
+// vector-new 0x2FDE0): a plain array-new of a trivial element type would
+// emit scalar operator new instead. RawBuffer/Array/Count/Alignment sit at
+// +0x08/+0x0C/+0x10/+0x14 behind the vtable (retail installs 0xBCE330).
+// RefCountClass resets NumRefs to 1 on copy. This unit builds at /O1: at
+// /O2 the compiler picks the frameless SEH prologue, while retail opens
+// with the ebp-frame __EH_prolog sequence; the /O1 cleanup form (pop ecx,
+// not add esp,4) is what retail's kept deleting destructor shows.
+
+// The unsigned specialization uses raw allocation; the Vector2 generic
+// constructor must run the element constructor for every array slot.
+template <>
+ShareBufferClass<unsigned>::ShareBufferClass(int count, const char *msg, int alignment) :
+	Count(count),
+	Alignment(alignment)
+{
+	(void)msg;
+	if (Alignment == 0)
+	{
+		RawBuffer = (unsigned *)operator new[](Count * sizeof(unsigned));
+		Array = RawBuffer;
+	}
+	else
+	{
+		RawBuffer = (unsigned *)operator new[](Count * sizeof(unsigned) + Alignment);
+		Array = (unsigned *)(((unsigned int)RawBuffer + Alignment - 1) &
+			~(Alignment - 1));
+	}
+}
+
+template <> inline
+ShareBufferClass<unsigned>::~ShareBufferClass()
+{
+	::operator delete[](RawBuffer);
+}
+
+// tu-skeleton: 0x000D204B 20B ?getUvArray@Rva000D204B@@QAEPAVVector2@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE37.cpp (not merged yet)
+
+// tu-skeleton: 0x000D20A9 45B ?rva000D20A9@Rva000D20A9@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x000D20DB 33B ??$__distance@U?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@0@0ABUinput_iterator_tag@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 
@@ -788,7 +826,3 @@ void Rva000D20D6::rva000D20D6()
 // tu-skeleton: 0x00762A49 8B $L2156 -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x00762A51 10B __ehhandler$??0TBuff@@QAE@PBUTBuffSource@@H@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00762A95 8B Unwind@00b62a95 -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00762A9D 10B __ehhandler$??0?$ShareBufferClass@I@@QAE@HPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp (not merged yet)
