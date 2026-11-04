@@ -10,7 +10,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #define CHECK(c,s,n) if(!(c)){g_bfmeAptAssertAtE17734(s,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",n);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
 class AptCIH;
 #include "EAStringC.h"
-class AptValue {public:AptCIH *c_cih(bool);int toInteger()const;float toFloat()const;void toString(EAStringC &)const;bool isUndefined()const;};
+#include "AptValue.h"
 class Rva006DBB30SarDwordField
 {
 public:

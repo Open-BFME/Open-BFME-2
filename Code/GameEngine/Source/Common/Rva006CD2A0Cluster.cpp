@@ -55,13 +55,7 @@ void Rva006CD330()
 // pool is re-read from the global before the second copy, as native.
 // Address-derived name.
 class AptCIH;
-class AptValue
-{
-public:
-	bool isCIH(bool undefinedOK) const;
-	AptCIH *c_cih(bool undefinedOK);
-	void rva006DE870(char *buffer) const;
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 #include "../../../Libraries/Source/Apt/EAStringC.h"
 struct Rva006CD2C0Pool
 {

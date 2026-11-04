@@ -6,7 +6,7 @@
 // No new callback alias or body is asserted. This caller-only Date interface is
 // never constructed; the original full Date layout is not needed or claimed.
 // The37 cache fields reuse the owned plain-data view from AptDate.cpp.
-class AptValue {public:virtual void AddRef();virtual void Release();};
+#include "AptValue.h"
 #include "EAStringC.h"
 class BfmeAptValue006DCD20 {public:void setGCRootCount(unsigned int);};
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
