@@ -989,9 +989,17 @@ minified-against-formatted pair: `ws()` collapses whitespace runs but not
 whitespace presence, which is why `AptValue.cpp`'s reformat earlier the same day
 was a real landed change rather than a false positive.
 
-So the census's conflict total is about 8 lower than it reads above, and the
-`blocked-by-classes` ranking that seats pick work from was pointing at a handful
-of TUs whose named class was not blocking anything.
+Measured across every category rather than just that one, `spelled_alike()`
+turns **13 of 310 reported conflicts, 4%, into `already shared`**: 8 of the 17
+no-layout rows, 2 anonymous/nested, 1 vtable/vfptr and 2 others. So the census's
+conflict total is 13 lower than it reads above, and the `blocked-by-classes`
+ranking that seats pick work from was pointing at a handful of TUs whose named
+class was not blocking anything.
+
+The bound matters as much as the gain: **zero** of the four large categories had
+an identical pair - base clause (112), class declspec (30), virtual slot (22) and
+fields overlap (20) are genuine disagreements to a case. This fix cleans the
+reporting; it does not open the lane.
 
 The reason is structural and worth stating once: these conflicts are **survivors**.
 `tu_views` writes every class it can settle and refuses the rest, so the census is
