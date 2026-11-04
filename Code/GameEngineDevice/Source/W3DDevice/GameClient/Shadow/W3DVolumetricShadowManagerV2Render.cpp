@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // BFME1 de2635e79 BfmeVolumetricShadowRender.cpp supplies the two-pass
 // semantic lead. Native107F8B..1080B4 RET4 independently proves camera
 // argument, frustum100, flag60, enabled4/5, links6C/70 and manager8/C.
@@ -16,7 +17,8 @@ public: const FrustumClass &Get_Frustum() const {
  Update_Frustum();return *(const FrustumClass*)((const char*)this+0x100);
 }
 };
-class RenderInfoClass {public: CameraClass *camera;};
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class BaseHeightMapRenderObjClass {public:
  bool getMaximumVisibleBox(const FrustumClass&,AABoxClass*,bool);
 };
@@ -58,7 +60,7 @@ private:
 void W3DVolumetricShadowManagerV2::renderShadows(RenderInfoClass &info)
 {
  AABoxClass bbox;
- TheTerrainRenderObject->getMaximumVisibleBox(info.camera->Get_Frustum(),&bbox,true);
+ TheTerrainRenderObject->getMaximumVisibleBox(info.Camera.Get_Frustum(),&bbox,true);
  bool setupDone=false;
  if(((ShadowGlobalDataView*)TheWritableGlobalData)->volumes){
   W3DVolumetricShadowV2 *shadow=shadows;
@@ -69,7 +71,7 @@ void W3DVolumetricShadowManagerV2::renderShadows(RenderInfoClass &info)
     if(shadow->enabled&&!shadow->invisible){
      if((unsigned char)((W3DVolumetricShadow*)shadow)->bfmeIntersectsVisibleBounds(bbox)){
       shadow->rva001074D5();
-      if(shadow->rva00107046(&info.camera->Get_Position())){
+      if(shadow->rva00107046(&info.Camera.Get_Position())){
        shadow->bufferNext=bufferedShadow;
        bufferedShadow=shadow;
       }else{

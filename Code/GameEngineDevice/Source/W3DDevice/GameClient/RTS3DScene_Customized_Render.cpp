@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy- /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 //
 // ?Customized_Render@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z, retail 0x0007054f, 754 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -10,9 +11,8 @@
 // donor null-adjustment shape; common mode7/mode0 call must follow both guards.
 // Render helper 0x0006FB59 is RTS3DScene::renderOneObject (2550 B, ZH donor
 // name), four stack arguments; its fourth argument is unused in retail.
-class Vector3{public:float X,Y,Z;Vector3(){}Vector3(const Vector3&v):X(v.X),Y(v.Y),Z(v.Z){}__declspec(dllimport) __forceinline Vector3&operator=(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;return *this;}};
 class RenderObjClass;
-class RenderInfoClass{public:RenderObjClass*camera;char gap4[4];Vector3 FogColor;char gap14[0x14];void*light_environment;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class RefCountClass{public:virtual ~RefCountClass();int refs;};class MultiListObjectClass{public:struct MultiListNodeClass*node;};
 class RenderObjClass:public RefCountClass,public MultiListObjectClass{public:
 virtual void slot001();
@@ -176,15 +176,15 @@ virtual void Customized_Render(RenderInfoClass&);
 virtual void slot024();
 virtual void slot025();
 virtual void slot026();
-virtual void Visibility_Check(RenderObjClass*);
+virtual void Visibility_Check(CameraClass*);
 protected:void renderOneObject(RenderInfoClass&,RenderObjClass*,int,int);public:char gap4[0x14];int polygonMode;char gap1C[4];Vector3 FogColor;char gap2C[0x48];GenericMultiListClass UpdateList;char gap8C[0x60];GenericMultiListClass RenderList;char gap104[0x28];bool drawTerrainOnly;char gap12D[0x7EC-0x12D];int customPassMode;int translucentCount;char gap7F4[4];int occludedCount;};
 void RTS3DScene::Customized_Render(RenderInfoClass&rinfo)
 {
  RenderObjClass*terrainObject=0,*robj;
  translucentCount=0;occludedCount=0;
  int localPlayerIndex=ThePlayerList?((ScenePlayerListView*)ThePlayerList)->local->index:0;
- if(DX8Wrapper::Get_Fog_Enable())rinfo.FogColor=FogColor;
- if(customPassMode==0)Visibility_Check(rinfo.camera);
+ if(DX8Wrapper::Get_Fog_Enable()){rinfo.FogColor.X=FogColor.X;rinfo.FogColor.Y=FogColor.Y;rinfo.FogColor.Z=FogColor.Z;}
+ if(customPassMode==0)Visibility_Check(&rinfo.Camera);
  int preview=0;if(TheTerrainLogic)preview=((SceneTerrainView*)TheTerrainLogic)->preview;
  if(customPassMode==0){
   RefRenderObjListIterator it(&UpdateList);
@@ -193,7 +193,7 @@ void RTS3DScene::Customized_Render(RenderInfoClass&rinfo)
    if(!bfmeCameraProjectionOverride&&!WW3D::Is_Rendering_Shadow_Map())it.Peek_Obj()->On_Frame_Update();
   }
   if(terrainObject&&!((SceneGlobalView*)TheWritableGlobalData)->skipTerrain&&!preview){
-   rinfo.light_environment=0;rinfo.camera->Set_User_Data(this,false);
+   rinfo.light_environment=0;((RenderObjClass&)rinfo.Camera).Set_User_Data(this,false);
    if(customPassMode==3||customPassMode==4){if(terrainObject->TerrainMode()||((SceneWaterView*)Rva00309E4BGet())->active)terrainObject->Render(rinfo);}
    else if(customPassMode!=5&&customPassMode!=7&&customPassMode!=6)terrainObject->Render(rinfo);
   }

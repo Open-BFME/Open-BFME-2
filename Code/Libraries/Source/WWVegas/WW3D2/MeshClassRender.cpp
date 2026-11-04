@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /arch:SSE /G7 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 //
 // MeshClass::Render (MeshClass vtable 0xBD35A8), 0x0014BB90, and the two
 // RefCountPtr Create_Peek instances it calls (0x0014BA40, 0x0014BAB0).
@@ -21,10 +22,8 @@
 // RefCountPtr<class FXShader::RenderingMethod>, TheFXShaderRenderer,
 // Model->Is_FX_Shader_Material() and WW3D::Is_Currently_Rendering_Shadow_Map()
 // (the byte at 0x00DEC404, set around W3DShadowMapManager::UpdateShadowMap).
-// The RenderInfoClass view below is the BFME2 layout rinfo.cpp defines
-// (pass array +0x30, count +0xB0, override flag stack +0xB8 indexed by
-// +0x138, rendering-method stack vector at +0x13C), reduced to what Render
-// touches.
+// RenderInfoClass comes from the canonical WW3D2/RenderInfoClass.h; this
+// unit owns the out-of-line Get_Fog_Color row (0x001494D0).
 
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -155,35 +154,13 @@ protected:
 	mutable FrustumClass Frustum;	// +0x100
 };
 
-class RenderInfoClass
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "RenderInfoClass.h"
+
+Vector3 RenderInfoClass::Get_Fog_Color(void) const
 {
-public:
-	enum RINFO_OVERRIDE_FLAGS {
-		RINFO_OVERRIDE_DEFAULT = 0x0000,
-		RINFO_OVERRIDE_FORCE_TWO_SIDED = 0x0001,
-		RINFO_OVERRIDE_FORCE_SORTING = 0x0002,
-		RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY = 0x0004,
-		RINFO_OVERRIDE_SHADOW_RENDERING = 0x0008
-	};
-
-	int Additional_Pass_Count(void);
-	MaterialPassClass *Peek_Additional_Pass(int i);
-	RINFO_OVERRIDE_FLAGS &Current_Override_Flags(void);
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-	const RenderingMethodStackType &Get_Rendering_Method_Stack(void) const;
-	Vector3 Get_Fog_Color(void) const { return FogColor; }
-
-	CameraClass &Camera;
-	float fog_scale;	// +0x04; the fog float names follow rinfo.cpp
-	Vector3 FogColor;	// +0x08; WorldBuilder copies it to the mesh by value
-	float fog_start;	// +0x14
-	float fog_end;	// +0x18
-	float alphaOverride;	// +0x1C
-	float materialPassAlphaOverride;	// +0x20
-	float materialPassEmissiveOverride;	// +0x24
-	LightEnvironmentClass *light_environment;	// +0x28
-};
+	return FogColor;
+}
 
 class VertexMaterialClass
 {
