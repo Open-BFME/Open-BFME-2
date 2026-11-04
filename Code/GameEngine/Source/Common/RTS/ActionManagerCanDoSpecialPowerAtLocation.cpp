@@ -93,12 +93,7 @@ public:
  char pad[0x1c]; SpecialPowerType type; char pad20[0x30]; float range50,radius54;
 };
 #define V10(P) virtual void P##0();virtual void P##1();virtual void P##2();virtual void P##3();virtual void P##4();virtual void P##5();virtual void P##6();virtual void P##7();virtual void P##8();virtual void P##9();
-class SpecialPowerModuleInterface {
-public:
- virtual void v0(); virtual void v1(); virtual float getPercentReady() const;
- V10(a) virtual void v13();virtual void v14();virtual void v15();virtual void v16();virtual void v17();
- virtual bool ready(const Coord3D *);
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class Rva00368594CmpBoolField { public: bool get() const; };
 class ActionAIView { public: V10(a) V10(b) V10(c) V10(d) V10(e) V10(f) V10(g) V10(h) V10(i)
  virtual void v90();virtual void v91();virtual void v92();virtual void v93();virtual void v94();virtual void v95();virtual void v96();
@@ -154,9 +149,9 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
  if(mod) {
   if(checkSourceRequirements) {
    if(mod->getPercentReady()<1.0f) return false;
-   if(!mod->ready(0)) return false;
+   if(!mod->rva0049466D(0)) return false;
   }
-  if(!mod->ready(loc)) return false;
+  if(!mod->rva0049466D(loc)) return false;
   if(!rva0041CC65(spTemplate,loc)) return false;
   if(!rva0041CA9E(obj->position(),loc,spTemplate)) return false;
   if(!rva0041C9C4(obj,loc,spTemplate)) return false;
@@ -238,7 +233,7 @@ bool ActionManager::canDoSpecialPowerAtLocation(const Object *obj,const Coord3D 
    return TheShroudManager->getShroudStatusForPlayer(obj->getControllingPlayer()->getPlayerIndex(),loc)==CELLSHROUD_CLEAR;
   }
   case 0x41: {
-   if(!mod->ready(loc)) return false;
+   if(!mod->rva0049466D(loc)) return false;
    Rva0004584D filter(BfmeFixedStorage0004543D(0,7),STORAGE(KINDOFMASK_NONE));
    if(ThePartitionManager->getClosestObject(loc,obj->radius(),1,&filter)) return false;
    if(TheTerrainLogic->getLayerForDestination(0,loc)!=1) return false;

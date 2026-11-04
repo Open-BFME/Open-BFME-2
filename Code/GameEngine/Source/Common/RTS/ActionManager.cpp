@@ -371,18 +371,7 @@ private:
 	SpecialPowerType m_type; // +0x1C
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual float getPercentReady() const; // slot 0x08
-	virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06();
-	virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10();
-	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
-	virtual void v15(); virtual void v16(); virtual void v17();
-	virtual bool v18(int flags); // slot 0x48
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 // LINK: the counted object destroys through the rowed destructor of an STLport
 // vector<BfmeE8>; the head words are the vector plus its owner, so the delete
@@ -718,7 +707,7 @@ bool ActionManager::canDoSpecialPower(const Object *obj, const SpecialPowerTempl
 	{
 		if (spmInterface->getPercentReady() < 1.0f)
 			return false;
-		if (!spmInterface->v18(0))
+		if (!spmInterface->rva0049466D(0))
 			return false;
 	}
 
