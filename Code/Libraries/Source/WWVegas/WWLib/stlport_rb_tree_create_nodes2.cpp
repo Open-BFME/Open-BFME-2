@@ -21,7 +21,13 @@ public:
 
 struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class ArmorTemplateSet { public: unsigned char m_data[12]; };
+class ArmorTemplateSet {
+public:
+    // Retail's 0x002CA82C copies the three words one by one: a user-declared
+    // (memberwise) copy, as STLport's pair has; inferred from those bytes.
+    ArmorTemplateSet(const ArmorTemplateSet &o) : m_types(o.m_types), m_template(o.m_template), m_fx(o.m_fx) {}
+    unsigned int m_types; const void *m_template; const void *m_fx;
+};
 // ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
 typedef _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::_Select1st<_STL::pair<const AsciiString, NoCaseTreeValue4> >, _STL::less<AsciiString>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > VAsciiStringUNoCaseTreeValue4MapTree;
 void __cdecl Rva0022112DConstruct(void *dest, const void *source);
@@ -36,13 +42,12 @@ template VAsciiStringUNoCaseTreeValue4MapTree::_Link_type VAsciiStringUNoCaseTre
 
 // ?_M_create_node@?$_Rb_tree@VArmorTemplateSet@@V1@U?$_Identity@VArmorTemplateSet@@@_STL@@U?$less@VArmorTemplateSet@@@3@V?$allocator@VArmorTemplateSet@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VArmorTemplateSet@@@2@ABVArmorTemplateSet@@@Z
 typedef _STL::_Rb_tree<ArmorTemplateSet, ArmorTemplateSet, _STL::_Identity<ArmorTemplateSet>, _STL::less<ArmorTemplateSet>, _STL::allocator<ArmorTemplateSet> > VArmorTemplateSetSetTree;
-void __cdecl dup_002ca82c(void);
-typedef void (__cdecl *VArmorTemplateSetSetTreeConstructFn)(ArmorTemplateSet *, ArmorTemplateSet const &);
+namespace _STL { template <> void _Construct<ArmorTemplateSet, ArmorTemplateSet>(ArmorTemplateSet *, const ArmorTemplateSet &); }
 template <>
 VArmorTemplateSetSetTree::_Link_type VArmorTemplateSetSetTree::_M_create_node(const VArmorTemplateSetSetTree::value_type &value)
 {
 	_Link_type node = (_Link_type)_STL::allocator<char>::allocate(sizeof(_STL::_Rb_tree_node<VArmorTemplateSetSetTree::value_type>), 0);
-	((VArmorTemplateSetSetTreeConstructFn)&dup_002ca82c)(&node->_M_value_field, value);
+	_STL::_Construct(&node->_M_value_field, value);
 	return node;
 }
 template VArmorTemplateSetSetTree::_Link_type VArmorTemplateSetSetTree::_M_create_node(const VArmorTemplateSetSetTree::value_type &);
