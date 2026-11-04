@@ -186,14 +186,7 @@ extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 class Image;
-class ImageCollection
-
-{
- public:
- const Image *findImageByName(const AsciiString &name);
- 
-}
-;
+#include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
