@@ -40,3 +40,6 @@ No candidate passed the tool's requirement for a verified merge of two or more
 donors. These are handoffs for TU view, provider, or LinkGuard prerequisites;
 this seat made no manual repairs. The preceding shard trials and their evidence
 remain in `consolidation-seat1-tail-20261104.md`.
+
+Additional probes from the current shard reassessment are recorded in
+`consolidation-seat1-reassessment-20261104.md`.
