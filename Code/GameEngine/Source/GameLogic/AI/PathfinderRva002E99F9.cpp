@@ -24,22 +24,6 @@ private:
 	char m_pad[2];
 	int m_8;
 };
-class Rva00531A44
-{
-public:
-	Rva00531A44 &rva00531A44(unsigned short count);
-	void rva00531A93();
-	unsigned short FindSet(unsigned short idx);
-	unsigned short rva00531B20(unsigned short idx);
-	void MakeSet(unsigned short idx);
-private:
-	unsigned short m_count;
-	unsigned short m_zero;
-	unsigned short *m_p4;
-	unsigned char *m_p8;
-	unsigned short *m_pC;
-	unsigned short *m_p10;
-};
 struct PathfindZoneParams;
 // WB12D2AB0/12D2C50 and native531757/5317D7 establish predicate owners.
 #include "../../../Include/GameLogic/PathfindZoneManager.h"

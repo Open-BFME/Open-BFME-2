@@ -23,39 +23,7 @@ public:
     void *m_p38;
     char m_pad3C[0x44 - 0x3C];
 };
-struct Rva005312BECell
-{
-    unsigned short m_w;
-    char m_pad[0x14 - 2];
-};
-struct Rva005312BERect
-{
-    int x0;
-    int y0;
-    int x1;
-    int y1;
-};
-class PathfindZoneManager
-{
-public:
-    void rva005335D3();
-    unsigned short m_00;
-    unsigned short m_02;
-    unsigned short m_04;
-    unsigned short m_06;
-    char m_pad08[0x1B596 - 8];
-    Rva005312BECell m_grid[8][7];
-    unsigned short m_1B9F6;
-    char m_pad1BA00[0x1BA30 - 0x1B9F8];
-    unsigned char m_flag1BA30;
-    unsigned char m_flag1BA31;
-    char m_pad3[0x1BA34 - 0x1BA32];
-    Rva005312BEItem *m_pData;
-    Rva005312BEItem **m_ppItems;
-    int m_outer;
-    int m_inner;
-    Rva005312BERect m_rect;
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 
 void PathfindZoneManager::rva005335D3()
 {
@@ -63,22 +31,22 @@ void PathfindZoneManager::rva005335D3()
     int j;
     for (i = 0; i < 8; ++i)
         for (j = 0; j < 7; ++j)
-            m_grid[i][j].m_w = 0;
-    operator delete[](m_ppItems);
-    delete[] m_pData;
-    unsigned short saved = m_00;
-    m_pData = 0;
-    m_ppItems = 0;
-    m_inner = 0;
-    m_outer = 0;
-    m_06 = 0;
-    m_02 = 0;
-    m_1B9F6 = 0;
-    m_flag1BA30 = 0;
-    m_rect.x0 = 0;
-    m_rect.x1 = 0;
-    m_rect.y0 = 0;
-    m_rect.y1 = 0;
-    m_04 = saved;
-    m_flag1BA31 = 1;
+            field1B594[i][j].first = 0;
+    operator delete[](field1BA38);
+    delete[] field1BA34;
+    unsigned short saved = capacity;
+    field1BA34 = 0;
+    field1BA38 = 0;
+    field1BA40 = 0;
+    field1BA3C = 0;
+    end = 0;
+    first = 0;
+    field1B9F4.first = 0;
+    field1BA30 = 0;
+    field1BA44.lo.x = 0;
+    field1BA44.hi.x = 0;
+    field1BA44.lo.y = 0;
+    field1BA44.hi.y = 0;
+    second = saved;
+    field1BA31 = 1;
 }

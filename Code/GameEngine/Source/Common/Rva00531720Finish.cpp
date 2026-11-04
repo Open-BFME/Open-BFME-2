@@ -10,27 +10,15 @@
 // push esi / mov esi,[esp+0xc] bracket with the index still live at the lea.
 // Two scalar locals (the previous bank) collapse to the same shape at 53B with
 // no register save at all. See re_attempts.log row.
-class PathfindZoneManager
-{
-public:
-	unsigned char rva00531720(unsigned int a, unsigned int idx);
-	char m_pad[12];
-	struct Elem
-	{
-		unsigned char b0;
-		unsigned char b1;
-		unsigned char b2;
-		unsigned char b3;
-	};
-	Elem m_elems[1];
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
+
 unsigned char PathfindZoneManager::rva00531720(unsigned int a, unsigned int idx)
 {
 	unsigned int flags = a;
 	unsigned char m[2];
 	m[0] = (unsigned char)((flags >> 1) & 1);
 	m[1] = (unsigned char)((flags >> 2) & 1);
-	const unsigned char *element = &m_elems[idx].b0;
+	const unsigned char *element = (const unsigned char *)&field0C[idx].value;
 	if (m[0] && (element[1] & 0x80))
 		return 0;
 	if (m[1] && (element[2] & 1))

@@ -24,28 +24,22 @@ class DamageInfo;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/GameLogic/PathfindZoneManager.h"
 
-class PathfindZoneManager::CellType
-{
-public:
-	void DoXfer(Xfer *xfer);
-	unsigned int m_val;
-};
 void PathfindZoneManager::CellType::DoXfer(Xfer *xfer)
 {
 	if (!xfer->IsCRC())
 		return;
-	unsigned short t0 = (unsigned short)(m_val & 7u);
+	unsigned short t0 = (unsigned short)(value & 7u);
 	*xfer == t0;
-	unsigned short t1 = (unsigned short)((m_val >> 3) & 0x3fu);
+	unsigned short t1 = (unsigned short)((value >> 3) & 0x3fu);
 	*xfer == t1;
-	unsigned short t2 = (unsigned short)((m_val >> 9) & 0x3fu);
+	unsigned short t2 = (unsigned short)((value >> 9) & 0x3fu);
 	*xfer == t2;
-	unsigned short t3 = (unsigned short)((m_val >> 15) & 1u);
+	unsigned short t3 = (unsigned short)((value >> 15) & 1u);
 	*xfer == t3;
-	unsigned short t4 = (unsigned short)((m_val >> 16) & 1u);
+	unsigned short t4 = (unsigned short)((value >> 16) & 1u);
 	*xfer == t4;
-	unsigned short t5 = (unsigned short)((m_val >> 17) & 3u);
+	unsigned short t5 = (unsigned short)((value >> 17) & 3u);
 	*xfer == t5;
-	unsigned short t6 = (unsigned short)((m_val >> 19) & 1u);
+	unsigned short t6 = (unsigned short)((value >> 19) & 1u);
 	*xfer == t6;
 }
