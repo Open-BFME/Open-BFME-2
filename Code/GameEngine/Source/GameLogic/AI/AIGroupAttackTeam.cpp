@@ -181,12 +181,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_INVALID = -1
 };
 
-class WeaponTemplate
-{
-public:
-	char m_pad[0x16A];
-	bool m_shareTimers;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -347,7 +342,7 @@ bool AIGroup::setWeaponLockForGroup(WeaponSlotType weaponSlot, WeaponLockType lo
 			const Weapon *weapon = object->getCurrentWeapon(0);
 			if (object->setWeaponLock(weaponSlot, lockType))
 				any = true;
-			if (weapon && weapon->m_template->m_shareTimers) {
+			if (weapon && weapon->m_template->m_field16A) {
 				if (weapon->computeStatus(0)) {
 					Weapon *current = const_cast<Weapon *>(object->getCurrentWeapon(0));
 					current->m_whenWeCanFireAgain = weapon->m_whenWeCanFireAgain;
