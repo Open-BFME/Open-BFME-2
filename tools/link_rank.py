@@ -229,6 +229,11 @@ def main(argv=None):
         for entry in stale_views(index).get(args.file, ()):
             import link_check
             print(f"  V {entry['name']}  ({link_check.describe_differ(entry)}; not a blocker)")
+        import name_scoped
+        handoff = name_scoped.related_work(args.file, "link")
+        if handoff:
+            print("\nName locals/parameters while inspecting this unit: " + handoff["command"])
+            print(handoff["instructions"])
         return 0
     authored = {s: b for s, b in found.items() if not generated(s)}
     linked = [s for s, b in authored.items() if not b]

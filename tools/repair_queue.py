@@ -3036,6 +3036,13 @@ def main(argv=None):
               f"{item['function'][:80]}" + (f"  [claims {' '.join(item['claim'])}]" if item.get("claim") else ""))
         print(f"         {item['source']}: {item['why'][:400 if item.get('tier') == 'closure' else 160]}")
         print(f"         pass test: {item['pass_test']}")
+        if args.cmd == "link" and not BFME1:
+            tools_on_path()
+            import name_scoped
+            handoff = name_scoped.related_work(item.get("source", ""), "link", function=item.get("function"))
+            if handoff:
+                print("         naming while here: " + handoff["command"])
+                print("         " + handoff["instructions"])
     return 0
 
 

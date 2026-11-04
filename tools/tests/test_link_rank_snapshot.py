@@ -48,6 +48,8 @@ def test_known_unit_is_labelled_as_historical(snapshot, capsys):
     assert "Census blockers: 2026-10-24 02:54 at measured" in output
     assert "Provider index updated 2026-10-24 10:28 at refreshed" in output
     assert "current objects have not been checked" in output
+    assert "--files Code/known.cpp" in output
+    assert "Name locals/parameters while inspecting this unit" in output
 
 
 def test_legacy_index_uses_its_original_timestamp(snapshot, capsys):

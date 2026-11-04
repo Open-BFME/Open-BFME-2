@@ -49,7 +49,8 @@ Sections, in priority order:
        dx           reverse/dx_migration_queue.tsv; --tier dx keeps its own view
        stlport      whole files to move onto STLport 4.6 (repair_queue.py stlport, from
                     reverse/stlport_trial.csv): opt in, knobs, ./build.sh, repoint
-     Naming is not a default tier: --wb and tools/name_lane.py serve it on request.
+     Standalone naming is served on request. Link/consolidation tasks also carry a
+     scoped naming handoff for functions the worker is already inspecting.
   New matches (tiers 1-4, then the Zero Hour packets) appear only on regressions
   now; each is served only when its input file exists, and a tier whose input is
   absent is skipped with a one-line note, never an exit. They carry `dest`: the
@@ -1601,8 +1602,9 @@ TIER_LABELS = dict(zip(DEBT_TIERS, DEBT_LABELS))
 #                  `// stlport` units still compiled against 4.5.3 (retail linked 4.6).
 #                  Mechanical, file-local and byte-gated like ms-headers, with about half
 #                  its files, so a little less. Taken from dx.
-# Naming is not a default tier (it never was): --wb and tools/name_lane.py serve it on
-# request. BFME_TIER_WEIGHTS="link=30,stubs=15,..." overrides any subset; a tier at 0 is
+# Naming has no separate default tier; related link/consolidation tasks carry a
+# scoped handoff, while --wb and tools/name_lane.py retain standalone work on request.
+# BFME_TIER_WEIGHTS="link=30,stubs=15,..." overrides any subset; a tier at 0 is
 # still tried, last.
 # These are PRIORS since 2026-10-28: tools/tier_tuning.py moves each share within 0.5x-2x
 # of its prior toward the tiers whose landings moved a headline figure over the last 48 h
@@ -1851,6 +1853,15 @@ def scope_release_note(candidate, acquired):
 def emit_debt(args, ledger, picked):
     """Print (or --json) the debt pick and what it passed over."""
     candidate, label, pool = picked["candidate"], picked["label"], picked["pool"]
+    # Enrich at serving time so cached queue entries receive the current workflow too.
+    if candidate is not None and candidate.get("tier") in ("link", "closure", "consolidate"):
+        import name_scoped
+        candidate = dict(candidate)
+        handoff = name_scoped.related_work(candidate.get("source", ""),
+            "consolidation" if candidate["tier"] == "consolidate" else "link",
+            function=candidate.get("function") if candidate["tier"] != "consolidate" else None)
+        if handoff:
+            candidate["scoped_naming"] = handoff
     meta = {"pool": len(pool), "suppressed_logged": picked["suppressed"],
             "deferred_pool": sum(1 for c in pool if c.get("deferred_attempts")),
             "tiers_built": list(BUILT), "tiers_passed_over": picked["tried"],
@@ -1886,6 +1897,10 @@ def emit_debt(args, ledger, picked):
             print(hint)
     print()
     print_candidate(label, candidate, meta, pool)
+    if candidate.get("scoped_naming"):
+        handoff = candidate["scoped_naming"]
+        print(f"       naming while here: {handoff['command']}")
+        print(f"       {handoff['instructions']}")
 
 
 def cluster_of(candidate, candidates):

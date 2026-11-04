@@ -454,3 +454,65 @@ def test_context_rejects_stale_unknown_and_outside_paths(batch):
     (lane.root / SOURCE).write_bytes((lane.root / SOURCE).read_bytes() + b"\n")
     with pytest.raises(ValueError, match="changed"):
         name_scoped.context(lane, SimpleNamespace(session="large", key=[key]))
+
+
+def test_related_handoff_is_file_local_and_does_not_run_any_work(monkeypatch):
+    monkeypatch.setattr(name_scoped, "inventory", lambda *_a, **_k: pytest.fail("handoff must not inventory"))
+    monkeypatch.setattr(name_scoped.claims, "busy_keys", lambda *_a: pytest.fail("handoff must not claim"))
+    handoff = name_scoped.related_work("Code/Game/Object.cpp", "link", function="?update@Object@@QAEXXZ")
+    assert handoff["files"] == ["Code/Game/Object.cpp"]
+    assert handoff["argv"][-2:] == ["--functions", "Object::update"]
+    assert "--files Code/Game/Object.cpp" in handoff["command"]
+    assert "same worker identity" in handoff["instructions"]
+    assert name_scoped.related_work("Code/gen_small/unit.cpp", "link") is None
+    assert name_scoped.related_work("(no unit)", "link") is None
+    assert name_scoped.related_work(None, "link") is None
+
+
+def test_function_filter_selects_complete_overloads_without_unrelated_bindings(batch):
+    lane, args, *_ = batch
+    context_packet(lane, args, "// cl: /O2\nint calculate(int f)\n{int a=f; return a;}\n"
+        "int calculate(float f)\n{int b=(int)f; return b;}\nint unrelated(int g)\n{return g;}\n")
+    all_overloads = name_scoped.inventory(lane, SOURCE, functions=["calculate"])
+    assert {f["function"] for f in all_overloads["functions"]} == {"calculate#1", "calculate#2"}
+    assert {t["old"] for t in all_overloads["targets"]} == {"f", "a", "b"}
+    second = name_scoped.inventory(lane, SOURCE, functions=["calculate#2"])
+    assert len(second["functions"]) == 1 and second["functions"][0]["code"].endswith("}")
+    assert {t["old"] for t in second["targets"]} == {"f", "b"}
+
+
+def test_related_apply_verifies_once_and_keeps_other_functions_available_to_bulk_work(batch):
+    lane, args, *_ = batch
+    original_other = "int unrelated(int g)\n{int b=g; return b;}\n"
+    context_packet(lane, args, "// cl: /O2\nint calculate(int f, int existingCount)\n"
+        "{int a=f+existingCount; return a;}\n" + original_other)
+    pick = SimpleNamespace(session="related", model="test-model", files=[SOURCE], functions=["calculate"],
+                           under=None, target=200, max_files=1, max_chars=250000)
+    name_scoped.next_batch(lane, pick)
+    path = name_scoped.session_path(lane, "related")
+    packet = name_scoped.load(path)
+    assert packet["bindings"] == 3 and packet["related_functions"] == ["calculate"]
+    names = {"f": "inputValue", "existingCount": "inputCount", "a": "sumValue"}
+    name_scoped.save(path.with_suffix(".answers.json"), dict(proposed_by="/root/child", names={
+        t["key"]: dict(name=names[t["old"]]) for t in packet["sources"][SOURCE]["targets"]}))
+    name_scoped.save(path.with_suffix(".review.json"), dict(scan_complete=True, coverage_checked=True,
+        proposal_sha256=hashlib.sha256(path.with_suffix(".answers.json").read_bytes()).hexdigest(), decisions={}))
+    built = []
+    assert name_scoped.apply(lane, SimpleNamespace(session="related", answer=str(path.with_suffix(".answers.json")),
+        review=str(path.with_suffix(".review.json"))), verify=lambda _c, files: built.append(files) or True,
+        checks=lambda *_: []) == 0
+    assert built == [[SOURCE]]
+    assert original_other in (lane.root / SOURCE).read_text()
+    assert not lane.path(name_scoped.COMPLETED).exists()  # Only inspected functions were reviewed.
+    pick.session, pick.functions = "bulk-after-related", None
+    name_scoped.next_batch(lane, pick)
+    bulk = name_scoped.load(name_scoped.session_path(lane, pick.session))
+    assert any(t["function"] == "unrelated" for t in bulk["sources"][SOURCE]["targets"])
+
+
+def test_function_filter_cannot_start_an_unbounded_global_scan(batch, monkeypatch):
+    lane, *_ = batch
+    monkeypatch.setattr(lane.ctx, "ledger_sources", lambda: pytest.fail("must reject before global scan"))
+    with pytest.raises(ValueError, match="requires explicit --files"):
+        name_scoped.next_batch(lane, SimpleNamespace(session="bad", model="test-model", files=None,
+            functions=["calculate"], under=None, target=200, max_files=32, max_chars=250000))

@@ -10,6 +10,7 @@ import hashlib
 import json
 import posixpath
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -21,6 +22,45 @@ import rename
 
 DIRECTORY = "build/name_lane/scoped"
 COMPLETED = f"{DIRECTORY}/completed.json"
+
+
+def related_work(sources, work, function=None):
+    """A cheap, file-local handoff for an already selected repair or merge.
+
+    No inventory, claims, model or verifier runs when another lane emits this.
+    The worker takes a fresh scoped snapshot after its primary source edits.
+    """
+    if sources is None:
+        return None
+    files = []
+    for source in [sources] if isinstance(sources, str) else sources:
+        if not isinstance(source, str):
+            continue
+        try:
+            source_path(source)
+        except (ValueError, TypeError):
+            continue
+        if source not in files and not rename.is_generated(source):
+            files.append(source)
+    if not files:
+        return None
+    argv = ["python3", "tools/name_lane.py", "scoped", "next", "--session",
+            f"{work}-names-SESSION", "--model", "MODEL", "--files", *files,
+            "--max-files", str(len(files)), "--max-chars", "2000000"]
+    scope = (rename.scope_of(function) if function.startswith("?") else function) \
+        if isinstance(function, str) else None
+    if scope and re.fullmatch(r"(?:[A-Za-z_]\w*::)*~?[A-Za-z_]\w*(?:#\d+)?", scope):
+        argv += ["--functions", scope]
+    return dict(work=work, files=files, argv=argv, command=shlex.join(argv),
+        instructions="Reuse the code context from this work to clarify locals/parameters in the functions "
+                     "you inspected. Replace SESSION/MODEL; use --functions for exact scopes when needed. "
+                     "Keep clear names and uncertain roles; do not add unrelated files to meet a naming quota. "
+                     "A native child proposes; the parent reviews and resolves questions, then scoped apply "
+                     "verifies the names together. Keep the same worker identity and its existing claims; "
+                     "respect other workers' claims. Take the packet after primary edits, using final TU paths "
+                     "after consolidation; update --functions if a link fix changed the function's name. "
+                     "Publish verified moves promptly; naming does not replace or delay "
+                     "the primary repair/merge pass test. Shared names retain their existing workflow.")
 
 
 def proposer_of(answers, answer, worker):
@@ -61,7 +101,7 @@ def source_path(rel):
     return rel
 
 
-def inventory(lane, rel):
+def inventory(lane, rel, functions=None):
     """Read complete functions, including meaningful and donor-spelled names.
 
     The current C++ binding engine remains conservative. Repeated declarations
@@ -71,12 +111,15 @@ def inventory(lane, rel):
     raw = lane.ctx.read(rel)
     text = raw.decode("utf-8", "surrogateescape")
     code = name_metric.strip(text)
+    selected = set(functions or ())
     functions, targets, warnings = [], [], []
     spans = name_metric.functions_in(code)
     overloads = collections.Counter(scope.split("#")[0] for scope, *_ in spans)
     for scope, start, end, params in spans:
         if "#" not in scope and overloads[scope] > 1:
             scope += "#1"
+        if selected and scope not in selected and scope.split("#")[0] not in selected:
+            continue
         body = code[code.find("{", start):end]
         names = [("param", n) for n in rename.parameters(params)]
         names += [("local", n) for n in rename.scoped_local_names(body)]
@@ -103,6 +146,9 @@ def next_batch(lane, args):
     started = time.perf_counter()
     if args.target < 1 or args.max_files < 1 or args.max_chars < 1:
         raise ValueError("target, max-files and max-chars must be positive")
+    functions = getattr(args, "functions", None)
+    if functions and not args.files:
+        raise ValueError("--functions requires explicit --files from the related work")
     path = session_path(lane, args.session)
     if path.exists():
         raise ValueError("session already exists; use a fresh label")
@@ -124,6 +170,8 @@ def next_batch(lane, args):
                     "Resolve coverage warnings and report unsupported bindings; never invent coverage. "
                     "The parent scans the full mapping/diff, investigates only questionable names, "
                     "then submits one review acknowledgement. No votes or external reviewer CLI."))
+    if functions:
+        packet["related_functions"] = list(functions)
     count = chars = 0
     skipped = []
     for rel in files:
@@ -139,7 +187,7 @@ def next_batch(lane, args):
             continue
         if not args.files and completed.get(rel) == lane.ctx.resolution_source_sha(rel):
             continue
-        data = inventory(lane, rel)
+        data = inventory(lane, rel, functions=functions)
         if not data["targets"]:
             continue
         size = len(json.dumps(data))
@@ -505,7 +553,7 @@ def apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks
     else:
         complete.update(rel for rel, value in report["sources"].items()
                         if report["landed"] and not value["refused"] and rel not in report["refused"])
-    if complete:
+    if complete and not packet.get("related_functions"):
         from portable_lock import lock, unlock
         cache = lane.path(COMPLETED)
         cache.parent.mkdir(parents=True, exist_ok=True)
@@ -529,6 +577,7 @@ def configure_parser(parser):
     n.add_argument("--session", required=True)
     n.add_argument("--model", required=True)
     n.add_argument("--files", nargs="+")
+    n.add_argument("--functions", nargs="+", help="complete inspected function scopes; requires --files")
     n.add_argument("--under", help="source directory prefix")
     n.add_argument("--target", type=int, default=200, help="soft binding target; never cut a function")
     n.add_argument("--max-files", type=int, default=32)

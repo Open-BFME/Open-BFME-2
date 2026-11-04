@@ -36,6 +36,32 @@ Fully reviewed sources are remembered locally until their bytes change, so
 continuous batches advance rather than repeatedly reviewing completed files;
 explicit `--files` revisits a source.
 
+Link and consolidation work also supplies a `scoped_naming` handoff, in both
+selected-work JSON and human instructions; a successful TU merge points at its
+final TU path, including when applying a saved merge plan. Reuse the analysis and
+worker identity from the main task to clarify locals/parameters in the complete
+functions you inspected:
+
+```sh
+python3 tools/name_lane.py scoped next --session link-names-S --model M --files Code/Game/X.cpp --functions 'Object::update'
+```
+
+`--functions` requires explicit files. A bare scope includes all its overloads;
+`#1`, `#2`, etc. selects one complete overload. No function's binding inventory
+is cut to meet `--target`. A partial-function pass does not mark the whole file
+reviewed, so future bulk work still sees its other functions. Without the filter,
+the existing whole-file bulk workflow is unchanged. Run with the same claim owner
+as the main task and respect other workers' claims. Take the packet after primary
+edits; update a function selector if the repair renamed that function. For a merge,
+use the destination TU after application, never donors about to disappear.
+
+The handoff does not launch a model, inventory code, claim more files or run another
+verifier merely by being served. The worker follows the usual child-proposal,
+parent-review and batch-apply path when useful names can be established. Keep
+already clear names and uncertain roles; no unrelated files are added to fill a
+quota. Complete the primary pass test and publish verified moves promptly before
+lengthy naming work. Naming is not a link or consolidation success condition.
+
 Apply the complete reviewed batch and verify its changed sources together;
 hundreds of names can share one transaction and one commit. Do not split it
 into per-name votes or small application rounds. `--target` counts inventoried

@@ -5,6 +5,17 @@ linking pass, moved from AGENTS.md ("Make matched code link") in 2026-10.
 
 A matched row whose unit cannot link is half done.
 
+While inspecting a link repair, clarify unclear locals/parameters using the code
+context you already loaded. The default picker's selected-work JSON and text,
+`repair_queue.py link`, and `link_rank.py --file SOURCE` include a scoped naming
+handoff for that source. After the repair edits, use the same worker/claim owner
+and `name_lane.py scoped next --files SOURCE --functions 'Class::method'` for the
+complete functions inspected, followed by native-child proposals, parent review
+and combined application (`docs/naming.md`). Update the scope if the repair changed
+the function's name. Keep clear names and unknown roles; do not fill a quota from
+unrelated files. Naming does not clear a link blocker, replace link verification
+or delay publishing the primary fix.
+
 ## Shared obstacle register
 
 Search the [obstacle register](linking_obstacles.md) (one file per entry in

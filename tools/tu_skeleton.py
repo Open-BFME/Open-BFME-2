@@ -2038,6 +2038,13 @@ def view_hint(report, tu, don):
     refused) or that names a class the TU's files each declare their own view
     of is pointed at tools/tu_views.py: it gives every file the same verified
     view, so the merge emits the class once."""
+    if report.get("accepted") and not report.get("blocked"):
+        import name_scoped
+        handoff = name_scoped.related_work(tu, "consolidation")
+        if handoff:
+            report["scoped_naming"] = handoff
+            report.setdefault("follow-up", []).append("Name locals/parameters while the TU context is loaded: "
+                + handoff["command"] + ". " + handoff["instructions"])
     errors = [str(why) for why in report.get("rejected", {}).values() if str(why).startswith("compile")]
     if not errors:
         return report

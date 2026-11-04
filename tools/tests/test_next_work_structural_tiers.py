@@ -165,6 +165,42 @@ def test_a_structural_pick_prints_its_own_credit_not_bytes(capsys):
     assert "pass test: t" in out
 
 
+@pytest.mark.parametrize("tier", ["link", "closure", "consolidate"])
+def test_selected_related_work_including_cached_items_carries_a_scoped_handoff(tier, capsys):
+    candidate = item(tier, "Final")
+    picked = dict(candidate=candidate, label=next_work.TIER_LABELS.get(tier, "link"), pool=[candidate],
+                  suppressed=0, acquired=[], tried=[])
+    args = argparse.Namespace(json=True, claim=False, shard=None, tier=tier)
+    next_work.emit_debt(args, "ledger okay", picked)
+    doc = json.loads(capsys.readouterr().out)
+    handoff = doc["selection"]["scoped_naming"]
+    assert handoff["files"] == ["Code/Final.cpp"]
+    assert "--files Code/Final.cpp" in handoff["command"]
+    assert doc["selection"]["pass_test"] == candidate["pass_test"]
+    assert doc["selection"]["claim"] == candidate["claim"]
+    assert "scoped_naming" not in candidate  # Cached queue data is not mutated.
+
+
+def test_link_handoff_is_visible_in_human_picker_instructions(capsys):
+    candidate = item("link", "Final")
+    picked = dict(candidate=candidate, label=next_work.TIER_LABELS["link"], pool=[candidate],
+                  suppressed=0, acquired=[], tried=[])
+    next_work.emit_debt(argparse.Namespace(json=False, claim=False, shard=None, tier="link"), "okay", picked)
+    out = capsys.readouterr().out
+    assert "naming while here: python3 tools/name_lane.py scoped next" in out
+    assert "--files Code/Final.cpp" in out
+    assert "pass test: t" in out
+
+
+def test_direct_link_queue_also_prints_the_file_local_handoff(monkeypatch, capsys):
+    monkeypatch.setattr(rq, "BFME1", False)
+    monkeypatch.setattr(rq, "link_items", lambda: ([item("link", "Final")], "fixture"))
+    monkeypatch.setattr(rq, "link_source", lambda: ("census", "fixture", "fixture"))
+    assert rq.main(["link", "--limit", "1"]) == 0
+    out = capsys.readouterr().out
+    assert "naming while here:" in out and "--files Code/Final.cpp" in out
+
+
 def test_the_stlport_tier_claims_its_file_and_falls_through_when_a_peer_holds_it(picker, monkeypatch):
     files = [item("stlport", "S1"), item("stlport", "S2")]
     got = picker(["repair", "stlport"], stlport=files)

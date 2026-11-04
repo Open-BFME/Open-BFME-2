@@ -94,6 +94,14 @@ regenerated `tu_map.csv` from this lane.
    the tooling compatibility audit below once over the full outgoing batch
    immediately before pushing.
 7. **Name while you are there.** The rows of the TU are a natural naming group:
+   successful merge reports include a `scoped_naming` handoff for the final TU.
+   Reuse the code context and existing claim owner to clarify locals/parameters
+   with `name_lane.py scoped next --files TU --functions 'Class::method'`, then
+   the usual native-child proposal, parent review and combined application
+   (`docs/naming.md`). Take the packet after merging; donor paths are stale.
+   Keep clear names and uncertain roles. Publish verified moves promptly rather
+   than holding them for an unrelated naming quota. Shared names still require
+   their existing evidence/approval path:
    rename placeholder rows with `tools/rename.py` (`docs/naming.md`) in separate
    commits. A merged TU path is an approved retail TU, so `rename_files.py` never
    renames it, unless its name is provisional (see "Provisional names" below): then

@@ -323,6 +323,15 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
 - **Escape-hatch debt**: replace a hatch with real code or a real name and lower
   its count, preferably in files you are already in.
 - **Names**: `tools/rename.py`, `tools/name_lane.py` (`docs/naming.md`).
+  During linking or consolidation, clarify unclear locals/parameters in the
+  complete functions you are already inspecting, using the current code context.
+  Selected link/TU tasks and successful merges provide a `scoped_naming` handoff;
+  use its explicit `--files` and optional `--functions` scopes with the same
+  worker identity and existing claims. Take a fresh packet after primary edits,
+  using the final TU path after a merge. Keep clear names and unsupported roles;
+  do not add unrelated files to reach a naming quota or delay publishing a
+  verified move. Naming does not satisfy the primary repair/merge pass test.
+  Standalone bulk naming remains available.
   For locals/parameters, use `name_lane.py scoped next --session S --model M`
   (default target 200 bindings across complete functions), then `scoped preview`
   and `scoped apply`. A native sub-agent proposes the whole batch; the parent

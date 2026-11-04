@@ -16,14 +16,25 @@ HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
 
 class SavedMergePlanTests(unittest.TestCase):
+    def test_successful_merge_handoff_uses_the_final_tu_not_deleted_donors(self):
+        report = T.view_hint(dict(accepted=["Code/A.cpp", "Code/B.cpp"], rejected={}),
+                             "Code/Final.cpp", {})
+        self.assertEqual(report["scoped_naming"]["files"], ["Code/Final.cpp"])
+        self.assertIn("--files Code/Final.cpp", report["follow-up"][0])
+        self.assertNotIn("Code/A.cpp", report["scoped_naming"]["command"])
+
+    def test_blocked_merge_does_not_offer_a_naming_task(self):
+        report = T.view_hint(dict(accepted=["Code/A.cpp"], rejected={}, blocked="bytes"),
+                             "Code/Final.cpp", {})
+        self.assertNotIn("scoped_naming", report)
+
     def test_dry_run_plan_is_selected_after_claim_without_repeating_search(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)), \
                 patch.object(T, "merge_plan_state", return_value="same-tree"), \
                 patch.object(T, "skeleton", return_value=[]), \
                 patch.object(T, "donors", return_value=({"Code/T.cpp": [], "Code/A.cpp": []}, {}, {})), \
                 patch.object(T, "header_queue_rows", return_value={}), \
-                patch.object(T, "claim_scope", return_value=[]), \
-                patch.object(T, "view_hint", side_effect=lambda report, *args: report):
+                patch.object(T, "claim_scope", return_value=[]):
             calls = []
 
             def search(tu, sk, don, report, dry_run):
@@ -40,6 +51,8 @@ class SavedMergePlanTests(unittest.TestCase):
             self.assertEqual(calls, [True])
             self.assertEqual(reuse.call_count, 1)
             self.assertTrue(report["plan_reused"])
+            self.assertEqual(report["scoped_naming"]["files"], ["Code/T.cpp"])
+            self.assertNotIn("Code/A.cpp", report["scoped_naming"]["command"])
 
     def test_plan_requires_same_tree_and_tu_inputs(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)), \
