@@ -102,7 +102,7 @@ public:
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 // Native distribution reads the byte at GameLogic +0x9F.
-struct Rva00480093GameLogicView { char m_pad[0x9F]; bool m_9F; };
+struct Rva00480093GameLogicView { char m_pad[0x9F]; bool m_heroExperienceSharing; };
 extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
@@ -288,7 +288,7 @@ void ShareExperienceBehavior::rva00480093(float amount)
 	center.z = pos->z;
 	Object *other;
 	while (0 != (other = hits.next())) {
-		if (selfFlag && !((Rva00480093GameLogicView *)TheGameLogic)->m_9F && (other->m_template->m_kindof[2] & 0x04000000))
+		if (selfFlag && !((Rva00480093GameLogicView *)TheGameLogic)->m_heroExperienceSharing && (other->m_template->m_kindof[2] & 0x04000000))
 			continue;
 		ExperienceTracker *tracker = other->m_264;
 		if (!tracker || !((const Rva0039ADF3 *)tracker)->rva0039AE04())
