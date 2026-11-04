@@ -291,33 +291,27 @@ void InGameNotificationBoxMovieClip::DoClose()
 // this points at. In state 1 it is released through the Apt target's
 // 0x0022277D (pinned) and goes to state 0. In states 2 and 5 it runs
 // "CloseWindow" and goes to state 3.
-struct Rva005EC23EWindow
-{
-	char m_pad00[4];
-	void *m_owner;				// +0x04
-	int m_state;				// +0x08
-};
+#include "../../Include/GameClient/StrategicVeterancy.h"
 
-class StrategicVeterancy
+struct StrategicVeterancy::Impl
 {
-public:
-	void FadeOut();
-private:
-	Rva005EC23EWindow *m_window;	// +0x00
+	void *m_owner;
+	void *m_level;				// +0x04
+	int m_state;				// +0x08
 };
 
 void StrategicVeterancy::FadeOut()
 {
-	switch (m_window->m_state)
+	switch (field00->m_state)
 	{
 	case 1:
-		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m_window->m_owner);
-		m_window->m_state = 0;
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)field00->m_level);
+		field00->m_state = 0;
 		break;
 	case 2:
 	case 5:
-		Rva0043DB23(((Rva00222A8BTarget *)g_bfmeAptWindowManager), m_window->m_owner, "CloseWindow");
-		m_window->m_state = 3;
+		Rva0043DB23(((Rva00222A8BTarget *)g_bfmeAptWindowManager), field00->m_level, "CloseWindow");
+		field00->m_state = 3;
 		break;
 	}
 }

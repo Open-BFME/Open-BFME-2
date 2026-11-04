@@ -58,11 +58,9 @@ struct Record52 { char unknown[0x2c]; int m_sideIndex; int m_playerID; };
 struct Records52 { Record52 *first,*last; };
 class Rva004F92E3 { public: void rva004F92E3(void *); };
 class Rva005ECA91 { public: Rva005ECA91(); protected: virtual ~Rva005ECA91(); private: char observed04[24]; };
-class StrategicVeterancy {
-public:
- class Data : public Rva005ECA91 {
- public: class AutoResolve;
- };
+#include "../../../Include/GameClient/StrategicVeterancy.h"
+class StrategicVeterancy::Data : public Rva005ECA91 {
+public: class AutoResolve;
 };
 class StrategicVeterancy::Data::AutoResolve : public StrategicVeterancy::Data {
 public: AutoResolve(void *,void *,void *);

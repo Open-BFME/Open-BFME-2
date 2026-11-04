@@ -103,50 +103,40 @@ public:
 	Int rva002B254F();					// 0x002B254F
 };
 
-class StrategicVeterancy
+#include "../../../../../Include/GameClient/StrategicVeterancy.h"
+
+struct StrategicVeterancy::Impl
+{
+	Impl(StrategicVeterancy *owner, Data *data);
+	void *m_owner;
+	void *m_level;					// +0x04
+	Int m_state;					// +0x08
+	Int m_numRows;					// +0x0C
+	void OnFadeOut(const char *path);
+	void OnContinue(const char *path);
+	void ExternFunc(int index, char *buffer, bool lvalue);
+	void OnInitialized(const char *path);
+	Rva005FA874 timer;
+	AptCommandMapAdder maps;
+	Rva005241B0 externs;
+};
+
+class StrategicVeterancy::Data
 {
 public:
-	class Data;
-	Bool Show();						// 0x005EC1A4
-	void Hide();
-
+	class AutoResolve;
+	int size()const{return m_end-m_begin;}
+	void rva005EC296(); // Original name unknown: populates the six labels per row.
 private:
-	struct Impl
+	struct Row
 	{
-		Impl(StrategicVeterancy *owner, Data *data);
-		void *m_owner;
-		void *m_level;					// +0x04
-		Int m_state;					// +0x08
-		Int m_numRows;					// +0x0C
-		void OnFadeOut(const char *path);
-		void OnContinue(const char *path);
-		void ExternFunc(int index, char *buffer, bool lvalue);
-		void OnInitialized(const char *path);
-		Rva005FA874 timer;
-		AptCommandMapAdder maps;
-		Rva005241B0 externs;
+		UnicodeString name;
+		int level, battles, killsInBattle, killsInWar;
+		const Image *image;
 	};
-
-	Impl *m_impl;						// +0x00
-
-public:
-	class Data
-	{
-	public:
-		class AutoResolve;
-		int size()const{return m_end-m_begin;}
-		void rva005EC296(); // Original name unknown: populates the six labels per row.
-	private:
-		struct Row
-		{
-			UnicodeString name;
-			int level, battles, killsInBattle, killsInWar;
-			const Image *image;
-		};
-		void *m_vtbl;
-		Row *m_begin, *m_end, *m_capacity;
-		Rva00524306 m_images;
-	};
+	void *m_vtbl;
+	Row *m_begin, *m_end, *m_capacity;
+	Rva00524306 m_images;
 };
 
 // StrategicVeterancy::Data::AutoResolve (0x1C bytes; ctor 0x005ECE81,
@@ -165,10 +155,10 @@ StrategicVeterancy::Data *__cdecl Rva005ED15DCreateAutoResolve(void *a, void *b,
 // is hidden and the state cleared.
 void StrategicVeterancy::Hide()
 {
-	if (m_impl->m_state != 0)
+	if (field00->m_state != 0)
 	{
-		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m_impl->m_level);
-		m_impl->m_state = 0;
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)field00->m_level);
+		field00->m_state = 0;
 	}
 }
 
@@ -265,23 +255,23 @@ Bool StrategicVeterancy::Show()
     {
         if ((unsigned char)((Rva002B254F *)TheLivingWorldLogic)->rva002B254F() == 0)
         {
-            if (m_impl->m_numRows)
+            if (field00->m_numRows)
                 ready = true;
         }
     }
     if (!ready)
         return false;
-    switch (m_impl->m_state)
+    switch (field00->m_state)
     {
     case 3:
     case 4:
         Rva00516F21Invoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,
-            m_impl->m_level, "SetState", "_fadeIn");
-        m_impl->m_state = 2;
+            field00->m_level, "SetState", "_fadeIn");
+        field00->m_state = 2;
         break;
     case 0:
-        reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->ShowLevel((Int)m_impl->m_level);
-        m_impl->m_state = 1;
+        reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->ShowLevel((Int)field00->m_level);
+        field00->m_state = 1;
         break;
     }
     return true;

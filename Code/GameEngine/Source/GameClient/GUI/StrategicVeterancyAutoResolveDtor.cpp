@@ -27,14 +27,12 @@ private:
 	char m_unrecovered04[0x18];
 };
 
-class StrategicVeterancy
+#include "../../../Include/GameClient/StrategicVeterancy.h"
+
+class StrategicVeterancy::Data : public Rva005ECA91
 {
 public:
-	class Data : public Rva005ECA91
-	{
-	public:
-		class AutoResolve;
-	};
+	class AutoResolve;
 };
 
 class StrategicVeterancy::Data::AutoResolve : public StrategicVeterancy::Data
