@@ -405,7 +405,7 @@ class Rva000728E2 { public: void rva000728E2(); };
 class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
 class Rva006C0820 { public: void rva006C0820(); };
-extern "C" __declspec(dllimport) double __cdecl ceil(double value);
+#include <math.h>
 __forceinline float taintCeil(float value) { return float(ceil(double(value))); }
 #include <string.h>
 #include <d3d9.h>

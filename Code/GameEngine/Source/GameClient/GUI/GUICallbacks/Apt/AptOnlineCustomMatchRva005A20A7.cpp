@@ -56,7 +56,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 
-extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int size);
+#include <string.h>
 
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;

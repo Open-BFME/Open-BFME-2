@@ -12,8 +12,8 @@ public:
 	~Rva004D2344();
 };
 
-void *operator new(unsigned int size);
-void operator delete(void *p);
+#include <windows.h>
+#include <new>
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 
@@ -21,16 +21,6 @@ void operator delete(void *p);
 
 extern GameLogic *TheGameLogic;
 extern unsigned long g_00DFEA2C;
-
-struct LARGE_INTEGER
-{
-	int LowPart;
-	int HighPart;
-};
-
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(LARGE_INTEGER *freq);
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(LARGE_INTEGER *counter);
-extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime();
 
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"

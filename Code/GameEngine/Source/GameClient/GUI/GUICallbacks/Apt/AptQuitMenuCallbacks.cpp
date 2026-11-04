@@ -16,7 +16,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 // out-of-line predicate. The replay test retains this inline expression.
 template <> __declspec(dllimport) __forceinline bool StringBase<unsigned short>::isNotEmpty() const { return m_data && m_data->length != 0; }
 
-extern "C" char *__cdecl strcpy(char *destination, const char *source);
+#include <string.h>
 
 class AptSaveLoad
 {

@@ -9,7 +9,7 @@
 #include "../../Include/Common/Rva00041004Lock.h"
 #include "../../Include/Common/Rva002E8548Pool.h"
 
-extern "C" int __cdecl atexit(void (__cdecl *)(void));
+#include <stdlib.h>
 
 class Vector3;
 class Vector4;
