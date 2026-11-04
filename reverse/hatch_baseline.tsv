@@ -12096,7 +12096,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	1ThingFac
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	ThingFactory::findByTemplateID	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	findTemplateInternal@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	init@ThingFactory@@	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	newObject@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	update@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::calcCostToBuild	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::canPossiblyHaveAnyWeapon	1
