@@ -68,11 +68,7 @@ Rva0043DDE6 &Rva0043DDE6::operator=(const Rva0043DDE6 &that)
 
 // --- 0x004476E7 (40B): whether a kind-6 entry's +0x38 address equals the
 // peer's +0x14 address (rowed BfmeNetAddress 0x00248CBF).
-struct BfmeNetAddress
-{
-	bool Rva00248CBF(const BfmeNetAddress *that) const;	// 0x00248CBF
-	int m_words[4];
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 struct Rva004476E7Peer
 {

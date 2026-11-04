@@ -173,3 +173,13 @@ Tried and reverted:
 - LANGameInfo.cpp's private LANPlayer gives way to LANPlayerClass.h: 17/17, EH
   3 EXACT, link 476 -> 550 B (the batch 7 gain kept).
 - accept retires 6 rows (LANAPI 1, BfmeNetAddress 2, LANPlayer 3).
+
+## Batch 9: BfmeNetAddress in StagingRoomGameInfo and GapBodiesGE22 (2026-11-04)
+
+- StagingRoomGameInfo.cpp: private `{m_ip, m_port}` copy -> BfmeNetAddress.h
+  (`localAddress.port`). 81/81, EH 15 EXACT, link_check 6,143 B kept.
+- GapBodiesGE22.cpp: the private copy was 16 bytes (`int m_words[4]`) and only
+  ever passed by address to the compare; the canonical 8-byte struct keeps the
+  +0x14/+0x38 offsets it is embedded at. 29/29, link_check 649 B kept.
+- accept retires 2 BfmeNetAddress rows. GameInfo.cpp and GameSlotApparent.cpp
+  were claimed by another worker and left alone.

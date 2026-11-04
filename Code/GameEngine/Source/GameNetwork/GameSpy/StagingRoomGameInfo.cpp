@@ -96,11 +96,7 @@ struct NAT;
 class Transport;
 
 // An address as BFME 2's NetworkInterface::setLocalAddress takes it.
-struct BfmeNetAddress
-{
-	unsigned int m_ip;
-	unsigned short m_port;
-};
+#include "../../../Include/GameNetwork/BfmeNetAddress.h"
 
 // Vtable gaps: VSlots<N> declares slots 0..N-1 and VPad<B, N> the N slots
 // after B's.
@@ -1361,7 +1357,7 @@ void GameSpyStagingRoom::launchWOTRMPGame(void)
 	CreateTheNetwork();
 	BfmeNetAddress localAddress = m_localAddress;
 	if (((NAT *)TheNAT))
-		localAddress.m_port = ((NAT *)TheNAT)->get(getLocalSlotNum());
+		localAddress.port = ((NAT *)TheNAT)->get(getLocalSlotNum());
 	TheNetwork->setLocalAddress(&localAddress);
 	if (((NAT *)TheNAT))
 	{
@@ -1428,7 +1424,7 @@ void GameSpyStagingRoom::launchGame(void)
 	CreateTheNetwork();
 	BfmeNetAddress localAddress = m_localAddress;
 	if (((NAT *)TheNAT))
-		localAddress.m_port = ((NAT *)TheNAT)->get(getLocalSlotNum());
+		localAddress.port = ((NAT *)TheNAT)->get(getLocalSlotNum());
 	TheNetwork->setLocalAddress(&localAddress);
 	if (((NAT *)TheNAT))
 	{
