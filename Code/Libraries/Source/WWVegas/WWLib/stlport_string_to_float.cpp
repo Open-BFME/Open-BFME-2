@@ -12,7 +12,8 @@
 
 #include <string>
 
-_STLP_BEGIN_NAMESPACE
+namespace _STL
+{
 
 double __cdecl _Stl_string_to_double(const char *s);
 long double __cdecl _Stl_string_to_long_double(const char *s);
@@ -32,4 +33,4 @@ void __cdecl __string_to_float(const string &v, long double &val)
 	val = _Stl_string_to_long_double(v.c_str());
 }
 
-_STLP_END_NAMESPACE
+}

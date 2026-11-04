@@ -8,7 +8,8 @@
 // instantiation already landed at 0x00010F60.
 #include <algorithm>
 
-_STLP_BEGIN_NAMESPACE
+namespace _STL
+{
 
 bool __cdecl __get_fdigit(wchar_t &character, const wchar_t *digits)
 {
@@ -35,4 +36,4 @@ bool __cdecl __get_fdigit_or_sep(wchar_t &character, wchar_t separator,
 		return __get_fdigit(character, digits);
 }
 
-_STLP_END_NAMESPACE
+}
