@@ -523,11 +523,7 @@ public:
 	AsciiString resolveName(const AsciiString &s);
 };
 extern class ScriptEngine *TheScriptEngine;
-class TeamFactory
-{
-public:
-	TeamPrototype *findTeamPrototype(const AsciiString &a, const AsciiString &b);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 class Rva002A7461
 {

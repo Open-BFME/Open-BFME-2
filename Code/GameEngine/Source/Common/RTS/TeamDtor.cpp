@@ -157,11 +157,7 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class TeamFactory
-{
-public:
-	void markTeamDoneForTacticalAI(Team *team);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 struct Rva002A8AB1Record;

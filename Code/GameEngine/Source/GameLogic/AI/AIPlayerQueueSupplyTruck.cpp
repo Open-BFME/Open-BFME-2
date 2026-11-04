@@ -471,13 +471,7 @@ struct Rva002A8AB1Record
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *g_00DFEEF8;
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-	Team *findTeam(const AsciiString &owner, const AsciiString &name);
-	Team *createInactiveTeam(const AsciiString &owner, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 enum { MAX_KEY_SKILLS = 20 };

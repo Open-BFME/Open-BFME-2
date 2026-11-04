@@ -77,11 +77,7 @@ public:
 	AsciiString resolveName(const AsciiString &name);
 };
 
-class TeamFactory
-{
-public:
-	TeamPrototype *findTeamPrototype(const AsciiString &normalized, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 class Rva002041E1
 {

@@ -176,11 +176,7 @@ private:
 };
 
 inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head,&Object::dlink_next_TeamMemberList); }
-class TeamFactory
-{
-public:
-	Team *createInactiveTeam(const AsciiString &owner, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 struct TCreateUnitsInfo

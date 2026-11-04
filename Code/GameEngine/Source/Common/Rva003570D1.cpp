@@ -17,11 +17,7 @@ public:
 	AsciiString resolveName(const AsciiString &name);
 };
 
-class TeamFactory
-{
-public:
-	TeamPrototype *findTeamPrototype(const AsciiString &a, const AsciiString &b);
-};
+#include "../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

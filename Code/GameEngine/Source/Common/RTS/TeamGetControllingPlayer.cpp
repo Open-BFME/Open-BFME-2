@@ -439,12 +439,7 @@ private:
 	RetailPlayerRelationMap *m_playerRelations; // +0x11C
 };
 
-class TeamFactory
-{
-public:
-	void teamAboutToBeDeleted(Team *team);
-	void removeTeamPrototypeFromList(TeamPrototype *team);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 
