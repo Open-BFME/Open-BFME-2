@@ -25,9 +25,26 @@ public:
  char pad04[0x5C-4];unsigned word5C;
 };
 class Rva005801F6Probe;
-class Rva005801F6 {public:void rva005801F6(Rva005801F6Probe*,Rva005801F6Probe*);};
-class Rva00580316 {
-public: char pad00[12];int primarySort,secondarySort,word14,statusSort;
+struct Rva005801F6Owner;
+class Rva005801F6
+{
+public:
+	void rva005801F6(Rva005801F6Probe *first, Rva005801F6Probe *second);
+private:
+	Rva005801F6Owner *m_owner; // +0x00
+	int *m_begin; // +0x04
+	int *m_end; // +0x08
+};
+class Rva00580316
+{
+public:
+	void rva00580316(void *prefsVoid);
+	void rva00580263(void *prefsVoid);
+	char m_pad00[0xC];
+	int m_0c; // +0x0C
+	int m_10; // +0x10
+	int m_14; // +0x14
+	int m_18; // +0x18
 };
 class Rva000795C1Record {
  const Rva00580316 *key;
@@ -45,8 +62,8 @@ bool Rva000795C1Record::compareRva005803C0(void *lhs,void *rhs) const {
  int metric21Delta=gameInfo->metric21()-b->metric21();
  int maps=gameInfo->tag()==b->tag()?_strcmpi(gameInfo->getMap().str(),b->getMap().str()):0;
  reinterpret_cast<Rva005801F6 *>(const_cast<Rva000795C1Record *>(this))->rva005801F6(reinterpret_cast<Rva005801F6Probe *>(gameInfo),reinterpret_cast<Rva005801F6Probe *>(b));
- int mode=key->primarySort;
- for(int pass=0;pass<2;++pass,mode=key->secondarySort) {
+ int mode=key->m_0c;
+ for(int pass=0;pass<2;++pass,mode=key->m_10) {
   bool descending=(mode&0x10000)==0x10000;
   switch(mode&~0x10000) {
    case 1:if(names)return descending?names>0:names<0;break;

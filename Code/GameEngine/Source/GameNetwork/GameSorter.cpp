@@ -32,11 +32,11 @@ struct Rva005801F6Owner
 class Rva005801F6
 {
 public:
-    void rva005801F6(Rva005801F6Probe *first, Rva005801F6Probe *second);
+	void rva005801F6(Rva005801F6Probe *first, Rva005801F6Probe *second);
 private:
-    Rva005801F6Owner *m_owner;
-    int *m_begin;
-    int *m_end;
+	Rva005801F6Owner *m_owner; // +0x00
+	int *m_begin; // +0x04
+	int *m_end; // +0x08
 };
 
 // ?rva00580316@Rva00580316@@QAEXPAX@Z 0x00580316 170B
@@ -65,15 +65,13 @@ public:
 class Rva00580316
 {
 public:
-    void rva00580316(void *prefsVoid);
-    void rva00580263(void *prefsVoid);
-
-private:
-    char m_pad00[12];
-    int m_0c;
-    int m_10;
-    int m_14;
-    int m_18;
+	void rva00580316(void *prefsVoid);
+	void rva00580263(void *prefsVoid);
+	char m_pad00[0xC];
+	int m_0c; // +0x0C
+	int m_10; // +0x10
+	int m_14; // +0x14
+	int m_18; // +0x18
 };
 
 // bfme link decl-only begin
