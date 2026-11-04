@@ -55,3 +55,7 @@ are recorded in `consolidation-seat1-final-probes-20261104.md`.
 
 The late-session BuddyThread and GameInfo dry runs and the remaining shard
 candidates are recorded in `consolidation-seat1-probes-20261104-late.md`.
+
+The final StrategicHUD candidate and four late-session destination and split
+trials are recorded in `consolidation-seat1-final-reassessment-20261104.md` and
+`consolidation-seat1-late-session-20261104.md`.
