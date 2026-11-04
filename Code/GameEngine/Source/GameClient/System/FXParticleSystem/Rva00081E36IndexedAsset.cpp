@@ -111,9 +111,9 @@ class Rva000820CA {
  char m_pad08[0x1C-8];
  bool m_dirty;
 public:
- void rva000820CA(void *unused, int index);
+ void onRiverAreaTextureNameChanged(void *unused, int index);
 };
-void Rva000820CA::rva000820CA(void *, int index) {
+void Rva000820CA::onRiverAreaTextureNameChanged(void *, int index) {
  ((BfmeResetTextureRef *)((char *)this + 8 + index * 4))->clear();
  ((RenderableRiverArea *)((char *)this - 0x3C))->createTexture(index);
  AssetList assets;
