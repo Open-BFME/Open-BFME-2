@@ -1,7 +1,7 @@
 ### LINK-236: static initializers the exit link bridges
 
 Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
-`f2cec2a7f8`: report tie fix, Drawable.h constant and 29 rowed copies, bridged 969 -> 940 on the
+`f2cec2a7f8`: report tie fix, Drawable.h constant and 77 rowed copies, bridged 969 -> 892 on the
 fixed report; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
@@ -62,7 +62,7 @@ places it.
 
 | Grab-bag file | Rows |
 | --- | ---: |
-| `Rva007AB7F0HalfRateInits.cpp` | 425 (396 after in-o2) |
+| `Rva007AB7F0HalfRateInits.cpp` | 425 (348 after in-o2) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 |
 | `StaticTagInitializers.cpp` | 63 |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
@@ -118,6 +118,19 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   and 55 for a merge or a stale receipt. 85 have no neighbour with a TU, and 112 sit where tu_map
   gives one TU to several copies, so that neighbour data is mis-assigned. For these, use the
   .text$yc pool-init markers before trusting tu_map.
+- *Included (round 2).* 108 of the 144 "TU does not include Drawable.h yet" copies sit after a `$S<n>`
+  guard of their unit. Of those, 70 TU files were claimable (32 were held by other seats, 6 do not
+  exist). Each got `#include ".../GameClient/Drawable.h"` after its first include and was built on
+  its own:
+  - 48 stayed byte-exact and compile the copy; they are rowed in this series;
+  - StatusBitsUpgradeIfEldestKindof was held back. It already fails link_check (unresolved
+    `UpgradeMux::setUpgradeExecuted`, census 245 -> 0) without the include;
+  - 21 do not compile with the canonical header, or change bytes, and were reverted. Their
+    private `Thing`/`Drawable`/`Snapshot` views or other header conflicts come first: W3DTankDraw,
+    PhysicsUpdate, PlaceEventTranslator, ClickReactionBehavior, GiantBirdSlowDeathBehavior,
+    TunnelContain, CitadelSlaughterHordeContain, RefundDie, RebuildHoleExposeDie, UpgradeDie,
+    OilSpillUpdate, FlammableUpdate, SlavedUpdate, SupplyTruckAIUpdate, RespawnUpdate,
+    GeometryUpgrade, TooltipUpgrade, SquishCollide, AODCrushCollide, ActiveBody, HeroDie.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
