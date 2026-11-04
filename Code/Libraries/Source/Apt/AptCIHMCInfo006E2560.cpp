@@ -99,32 +99,7 @@ AptCIH *_AptGetAnimationAtLevel(int);
 void Rva006CC110Log(int,const char *,...);
 void Rva006CD200SetFlag();
 
-class AptCIH
-{
-public:
-	virtual void vtableSlot0();
-	virtual void vtableSlot1();
-	virtual void vtableSlot2();
-	virtual AptNativeHash *nativeHash();
-	virtual void vtableSlot4();
-	virtual void vtableSlot5();
-	virtual void clearNative(int);
-	void *rva006E1090() const;
-	void rva006E2560(int arg);
-	void ClearCIH(int arg);
-	bool queueClipEvents(int,int,int);
-	AptValue *findChild(const EAStringC *,AptValue *);
-
-private:
-	unsigned char m_pad4[4];
-	EAStringC name;
-	unsigned char m_pad0c[0x38];
-	void *m_44;
-	AptCIH *m_parent;
-	AptCharacterInst *m_4C;
-	unsigned char m_pad2[12];
-	int m_code;
-};
+#include "AptCIHClass.h"
 
 void AptCIH::rva006E2560(int pMCInfoArg)
 {
@@ -175,7 +150,7 @@ void AptCIH::rva006E2560(int pMCInfoArg)
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();
 		}
-		((AptTailBlock *)m_4C)->m_list->rva006F7AF0(pMCInfoArg);
+		((AptTailBlock *)field4C)->m_list->rva006F7AF0(pMCInfoArg);
 	}
 }
 
@@ -185,7 +160,7 @@ void AptCIH::rva006E2560(int pMCInfoArg)
 // Original member identity remains address-derived; WB name is provenance.
 void AptCIH::ClearCIH(int arg)
 {
-    if ((m_code & 0xC0000)==0x40000 || ((BfmeAptValue006DCD20 *)this)->isUndefined()) return;
+    if ((field5C & 0xC0000)==0x40000 || ((BfmeAptValue006DCD20 *)this)->isUndefined()) return;
     g_bfmeAptPtrAtE176D0->s8.rva006E0DE0((AptValue *)this);
     g_bfmeAptPtrAtE176D0->s28.rva006E0DE0((AptValue *)this);
     if (g_bfmeAptPtrAtE176D0->v60==(AptValue *)this)g_bfmeAptPtrAtE176D0->v60=gpUndefinedValue;
@@ -195,14 +170,14 @@ void AptCIH::ClearCIH(int arg)
     ((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->removeFromBIL(this);
     for(int i=0;i<g_bfmeAptPtrAtE176D0->count;++i) {
         if (g_bfmeAptPtrAtE176D0->array[i]==this) {
-            g_bfmeAptPtrAtE176D0->array[i]->vtableSlot1();
+            g_bfmeAptPtrAtE176D0->array[i]->Release();
             g_bfmeAptPtrAtE176D0->array[i]=g_bfmeAptPtrAtE176D0->array[g_bfmeAptPtrAtE176D0->count-1];
             --g_bfmeAptPtrAtE176D0->count;
         }
     }
     if (((Rva006DBB30SarDwordField *)this)->get()==0x12 && !((BfmeAptValue006DCD20 *)this)->isUndefined())
         ((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->removeTimerFunctions(this);
-    if (m_4C) {
+    if (field4C) {
         if ((unsigned char)arg==1 && ((Rva006DBB30SarDwordField *)this)->get()==0xD && !((BfmeAptValue006DCD20 *)this)->isUndefined()) {
             queueClipEvents(4,0,0);
             AptValue *child=((AptValue *)this)->findChild(Rva0070B4F0GetString(0x75),0);
@@ -212,22 +187,22 @@ void AptCIH::ClearCIH(int arg)
                 ((AptBasePtrStack *)&g_aptDateInterpreter)->rva006FE920();
             }
         }
-        if (!g_00E18348 && (m_code&0xFFFF)>0 && (unsigned char)((BfmeAptValue006DCD20 *)this)->rva006CBEE0(false) && this!=_AptGetAnimationAtLevel(0)) {
+        if (!g_00E18348 && (int)(field5C&0xFFFF)>0 && (unsigned char)((BfmeAptValue006DCD20 *)this)->rva006CBEE0(false) && this!=_AptGetAnimationAtLevel(0)) {
             if (g_aptOptionalValueVector && !((Rva008981E0Value *)g_aptOptionalValueVector)->aptHasAll()) {
                 ((AptDisplayList *)((char *)((Rva006CD650 *)this)->rva006CD650()+0x24))->clear(true);
-                nativeHash()->ClearData();
+                GetNativeHashVirtual()->ClearData();
                 if (((CullSystemClass *)g_releaseVectorAtE17710)->Get_First_Collected_Object_Internal()) g_releaseVectorAtE17710->ReleaseValues();
-                if ((m_code&0xFFFF)>0) {
-                    m_code&=~0x10000;
-                    clearNative(0);
+                if ((int)(field5C&0xFFFF)>0) {
+                    field5C&=~0x10000;
+                    setHasClass(0);
                     AptFileRecord *record=fileSlot(((Rva006CD650 *)this)->rva006CD650())->file;
                     int size=record->size;
                     AptFileRecord *fileName=fileSlot(((Rva006CD650 *)this)->rva006CD650())->file;
-                    Rva006CC110Log(3,"WARNING :: ANIMATION[name = %s  file = %s.swf  size = %d bytes] HAS %d EXTERNAL FUNCTION REFERENCES, THEREFORE IT WILL NOT BE REMOVED FROM MEMORY UNTIL THEY ARE REMOVED\n",name.rva00620090(),fileName->name.rva00620090(),size,m_code&0xFFFF);
+                    Rva006CC110Log(3,"WARNING :: ANIMATION[name = %s  file = %s.swf  size = %d bytes] HAS %d EXTERNAL FUNCTION REFERENCES, THEREFORE IT WILL NOT BE REMOVED FROM MEMORY UNTIL THEY ARE REMOVED\n",field08.rva00620090(),fileName->name.rva00620090(),size,field5C&0xFFFF);
                     Rva006CC110Log(3,"           REFER TO BUG253 ON COREFORGE FOR MORE INFORMATION [http://coreforge.eac.ad.ea.com/tracker/index.php?func=detail&aid=253&group_id=41&atid=247].  EVALUATION OF YOUR SWF FILES IS HIGHLY RECOMMENDED\n");
                     ((Rva006DBDB0DwordOrSetter *)this)->apply();
                     g_aptOptionalValueVector->rva006E6C00((AptValue *)this);
-                    m_code=(m_code&~0x80000)|0x40000;
+                    field5C=(field5C&~0x80000)|0x40000;
                     Rva006CD200SetFlag();
                     return;
                 }
@@ -235,14 +210,14 @@ void AptCIH::ClearCIH(int arg)
                 AptFileRecord *record=fileSlot(((Rva006CD650 *)this)->rva006CD650())->file;
                 int size=record->size;
                     AptFileRecord *fileName=fileSlot(((Rva006CD650 *)this)->rva006CD650())->file;
-                Rva006CC110Log(3,"WARNING :: ANIMATION[name = %s  file = %s.swf  size = %d bytes] HAS %d EXTERNAL FUNCTION REFERENCES.  THERE IS NO SPACE IS LEFT TO KEEP TRACK THEREFOR IT WILL BE REMOVED FROM MEMORY\n",name.rva00620090(),fileName->name.rva00620090(),size,m_code&0xFFFF);
+                Rva006CC110Log(3,"WARNING :: ANIMATION[name = %s  file = %s.swf  size = %d bytes] HAS %d EXTERNAL FUNCTION REFERENCES.  THERE IS NO SPACE IS LEFT TO KEEP TRACK THEREFOR IT WILL BE REMOVED FROM MEMORY\n",field08.rva00620090(),fileName->name.rva00620090(),size,field5C&0xFFFF);
                 Rva006CC110Log(3,"           REFER TO BUG253 ON COREFORGE FOR MORE INFORMATION [http://coreforge.eac.ad.ea.com/tracker/index.php?func=detail&aid=253&group_id=41&atid=247].  EVALUATION OF YOUR SWF FILES IS HIGHLY RECOMMENDED\n");
-                m_code=(m_code&~0x40000)|0x80000;
+                field5C=(field5C&~0x40000)|0x80000;
             }
         }
         ((BfmeAptValue006DCD20 *)this)->setGCRootCount(0);
-        m_4C->slot0();m_4C->slot8();delete m_4C;m_4C=0;
+        ((AptCharacterInst *)field4C)->slot0();((AptCharacterInst *)field4C)->slot8();delete (AptCharacterInst *)field4C;field4C=0;
     }
-    m_code&=~0x10000;
-    clearNative(0);
+    field5C&=~0x10000;
+    setHasClass(0);
 }
