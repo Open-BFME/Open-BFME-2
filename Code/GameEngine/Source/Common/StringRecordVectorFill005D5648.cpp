@@ -28,39 +28,9 @@ struct BfmeStringRecord005D511F {
     ~BfmeStringRecord005D511F();
 };
 
-class GameSlot
-{
-public:
-    bool isHuman() const;
-    void *m_vtable;                 // +0x00
-    int m_state;                    // +0x04
-    bool m_isAccepted;              // +0x08
-    bool m_hasMap;                  // +0x09
-    bool m_isMuted;                 // +0x0A
-    char m_pad0B;                   // +0x0B
-    int m_color;                    // +0x0C
-    int m_startPos;                 // +0x10
-    int m_bfme14;                   // +0x14
-    int m_playerTemplate;           // +0x18
-    int m_teamNumber;               // +0x1C
-    int m_bfme20;                   // +0x20
-    int m_origColor;                // +0x24
-    int m_origStartPos;             // +0x28
-    int m_origPlayerTemplate;       // +0x2C
-    UnicodeString m_name;           // +0x30
-    AsciiString m_ip;               // +0x34
-    unsigned int m_nat;             // +0x38
-    unsigned int m_port;            // +0x3C
-};
-
-class GameInfo
-{
-public:
-    GameSlot *getSlot(int slotNum);
-private:
-    char m_pad[0x18];
-    GameSlot *m_slot[8];
-};
+// Canonical GameSlot/GameInfo (GameInfo.h): name +0x30, NAT dword +0x38 and
+// the port +0x3C, whose 16-bit field retail reads as a whole dword with its padding.
+#include "../../Include/GameNetwork/GameInfo.h"
 
 extern unsigned int g_00DB91B4;
 extern unsigned int g_00DB91B0;
@@ -90,7 +60,9 @@ void ChatWindowsLan::rva005D5648(_STL::vector<BfmeStringRecord005D511F> *vec, Ga
             continue;
         if (!slot->isHuman())
             continue;
-        BfmeStringRecord005D511F tmp(slot->m_name, slot->m_nat, slot->m_port, UnicodeString::TheEmptyString, arg);
+        BfmeStringRecord005D511F tmp(slot->m_name, slot->m_field38,
+            *reinterpret_cast<const unsigned int *>(&slot->m_field3C),
+            UnicodeString::TheEmptyString, arg);
         vec->push_back(tmp);
         arg = g_00DB91B0;
     }
