@@ -137,7 +137,7 @@ inline MathCoord2D operator-(MathCoord2D left, const MathCoord2D &right)
 
 float __cdecl Rva0010410FWrap(float a);
 float __cdecl Rva0010414CGet(float *p);
-float __cdecl Rva0010416EFloat(float a, float b);
+float __cdecl angleDifference(float a, float b);
 
 inline float angleOf(const MathCoord2D &mathCoord2D) { return Rva0010414CGet((float *)&mathCoord2D); }
 
@@ -174,8 +174,8 @@ void Rva0010461F::rva00104359()
 		{
 			float nextAngle = angleOf(*next - *cur);
 			float prevAngle = angleOf(*prev - *cur);
-			float bisector = Rva0010410FWrap(Rva0010416EFloat(prevAngle, nextAngle) * 0.5f + nextAngle);
-			float half = Rva0010416EFloat(bisector, nextAngle);
+			float bisector = Rva0010410FWrap(angleDifference(prevAngle, nextAngle) * 0.5f + nextAngle);
+			float half = angleDifference(bisector, nextAngle);
 			if (fabs(half) > 0.00001f)
 			{
 				float dist = size * 0.5f / sinf(half);

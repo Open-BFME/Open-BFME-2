@@ -4755,3 +4755,4 @@ $L645,0x0079B3F8,EH unwind funclet of the retired Rva0057621ACtor.cpp duplicate 
 ??1Rva00557CCC@@UAE@XZ,0x00557CCC,"Renamed to ??1BFMENetwork@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C6B318)"
 ??_GRva00557CCC@@UAEPAXI@Z,0x00558F6E,"Renamed to ??_GBFMENetwork@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C6B318)"
 __ehhandler$??1Rva00557CCC@@UAE@XZ,0x0079933D,"Renamed to __ehhandler$??1BFMENetwork@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C6B318)"
+?Rva0010416EFloat@@YAMMM@Z,0x0010416E,"Renamed to ?angleDifference@@YAMMM@Z by tools/rename.py (inferred)"

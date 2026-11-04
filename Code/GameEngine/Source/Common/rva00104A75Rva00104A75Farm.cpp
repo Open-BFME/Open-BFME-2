@@ -281,7 +281,7 @@ inline MathCoord2D operator-(MathCoord2D left, const MathCoord2D &right)
 
 float __cdecl Rva0010410FWrap(float a);
 float __cdecl Rva0010414CGet(float *p);
-float __cdecl Rva0010416EFloat(float a, float b);
+float __cdecl angleDifference(float a, float b);
 
 inline float angleOf(const MathCoord2D &mathCoord2D) { return Rva0010414CGet((float *)&mathCoord2D); }
 
