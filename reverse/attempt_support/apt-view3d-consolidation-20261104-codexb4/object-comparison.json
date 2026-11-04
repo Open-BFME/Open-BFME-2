@@ -1,0 +1,370 @@
+{
+  "new_object": "/work4/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^w3^d^apt^component^view3^d.obj",
+  "groups": {
+    "code": {
+      "removed": [],
+      "added": [],
+      "symbols": [
+        {
+          "symbol": "??0Rva00789900Init@@QAE@E@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 51,
+          "after_size": 51,
+          "before_sha256": "58c7efb6c29ca05eb3e6127f9250c8ee77619686509e54725c805ae26163276d",
+          "after_sha256": "58c7efb6c29ca05eb3e6127f9250c8ee77619686509e54725c805ae26163276d",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??0Vector3@@QAE@MMM@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 37,
+          "after_size": 37,
+          "before_sha256": "f27f09434454af94fcd0827a76049dd99262561cc10f7e567f5123291d97c9f0",
+          "after_sha256": "f27f09434454af94fcd0827a76049dd99262561cc10f7e567f5123291d97c9f0",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??1Rva0074011F@@QAE@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 5,
+          "after_size": 5,
+          "before_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "after_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??1Rva00740555@@UAE@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 5,
+          "after_size": 5,
+          "before_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "after_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??1StringClass@@QAE@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 5,
+          "after_size": 5,
+          "before_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "after_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??1W3DAptComponentView3D@@UAE@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 126,
+          "after_size": 126,
+          "before_sha256": "8da06dad1fc928c44d3cff1dc66878e7ce114869e59875275f4438b85d44e82e",
+          "after_sha256": "8da06dad1fc928c44d3cff1dc66878e7ce114869e59875275f4438b85d44e82e",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_GW3DAptComponentView3D@@UAEPAXI@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 28,
+          "after_size": 28,
+          "before_sha256": "b1f2dfffceac86ab8070b4d17a9fcf4af9f50f15a3b19837426400bbb57a3a22",
+          "after_sha256": "b1f2dfffceac86ab8070b4d17a9fcf4af9f50f15a3b19837426400bbb57a3a22",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 34,
+          "after_size": 34,
+          "before_sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d",
+          "after_sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Current_Object@GenericMultiListIterator@@IAEPAVMultiListObjectClass@@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 7,
+          "after_size": 7,
+          "before_sha256": "a4135f0ad799c471e983acec30c5741029cf73e42dbcd79f5cf026d4db987442",
+          "after_sha256": "a4135f0ad799c471e983acec30c5741029cf73e42dbcd79f5cf026d4db987442",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?CustomizedRender@Rva007406E1@@QAEXAAVRenderInfoClass@@@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 868,
+          "after_size": 868,
+          "before_sha256": "40e884d9d55466a1b11d442784fd4135d7bf03a4e472aaf99c1631ffe8809abc",
+          "after_sha256": "40e884d9d55466a1b11d442784fd4135d7bf03a4e472aaf99c1631ffe8809abc",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?First@GenericMultiListIterator@@QAEXPAVGenericMultiListClass@@@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 15,
+          "after_size": 15,
+          "before_sha256": "195f9fbf7a52cced3931c1a9fa65857d763bb3f9e905d3ad251f63d7d77799e2",
+          "after_sha256": "195f9fbf7a52cced3931c1a9fa65857d763bb3f9e905d3ad251f63d7d77799e2",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Get_Transform@CameraClass@@QBEABVMatrix3D@@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 13,
+          "after_size": 13,
+          "before_sha256": "864819397c7b50e605b86cff1c41a04e51521aa6727b7dcbb3a9290f1d043dde",
+          "after_sha256": "864819397c7b50e605b86cff1c41a04e51521aa6727b7dcbb3a9290f1d043dde",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Is_Done@GenericMultiListIterator@@QAE_NXZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 16,
+          "after_size": 16,
+          "before_sha256": "c1fd568c4a400a104d074bf339f1991f4ed24c5a9f22440dd9153c234273d16b",
+          "after_sha256": "c1fd568c4a400a104d074bf339f1991f4ed24c5a9f22440dd9153c234273d16b",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Is_Snapshot_Activated@WW3D@@SA_NXZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 6,
+          "after_size": 6,
+          "before_sha256": "4025b1e5c0728f2fc63d79bc2a670d7e2305fe56c2a3a12d54ab13554ee30d40",
+          "after_sha256": "4025b1e5c0728f2fc63d79bc2a670d7e2305fe56c2a3a12d54ab13554ee30d40",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Peek_Obj@RefRenderObjListIterator@@QAEPAVRenderObjClass@@XZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 16,
+          "after_size": 16,
+          "before_sha256": "e07138256a6e224a5fb40002f00b290b24c621c6966c297264fc7def4928b2d1",
+          "after_sha256": "e07138256a6e224a5fb40002f00b290b24c621c6966c297264fc7def4928b2d1",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Release_Ref@RefCountClass@@QAEXXZ",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 10,
+          "after_size": 10,
+          "before_sha256": "96a13c032b62951f48b5cc4b643dc4ef2fc2af39de75909f6c26e477098924f5",
+          "after_sha256": "96a13c032b62951f48b5cc4b643dc4ef2fc2af39de75909f6c26e477098924f5",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Reset@LightEnvironmentClass@@QAEXABVVector3@@0@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 5,
+          "after_size": 5,
+          "before_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "after_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Rva00740A45Create@@YAPAVRva00789900Init@@E@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 27,
+          "after_size": 27,
+          "before_sha256": "b546006e4f6117918de023a06e7848f379b74adb9759a205d073b748e7c484d9",
+          "after_sha256": "b546006e4f6117918de023a06e7848f379b74adb9759a205d073b748e7c484d9",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Rva00740A60Get@@YAHABV?$StringBase@D@@@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 54,
+          "after_size": 54,
+          "before_sha256": "21ef11351b9ca1bdd15282dfb771045226626efad947dfd128e838314080c9d9",
+          "after_sha256": "21ef11351b9ca1bdd15282dfb771045226626efad947dfd128e838314080c9d9",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?SetFrame@Rva007401A3@@QAEXHH@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 66,
+          "after_size": 66,
+          "before_sha256": "e02c14f26c4900970115db5b5baededf6f9792027cee4683983823547c63a124",
+          "after_sha256": "e02c14f26c4900970115db5b5baededf6f9792027cee4683983823547c63a124",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?SetLight@W3DAptComponentView3D@@UAEXHMMM@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 58,
+          "after_size": 58,
+          "before_sha256": "3c28ad4480020a51ac8df660aa92742a6026ff73e564ad27fc4f7a6b07eb9b0a",
+          "after_sha256": "3c28ad4480020a51ac8df660aa92742a6026ff73e564ad27fc4f7a6b07eb9b0a",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 126,
+          "after_size": 126,
+          "before_sha256": "b19d66f912f6ea56d259507deeabe202db998dce28898b79e75413efe1d499c4",
+          "after_sha256": "b19d66f912f6ea56d259507deeabe202db998dce28898b79e75413efe1d499c4",
+          "relocation_differences": null
+        }
+      ]
+    },
+    "data": {
+      "removed": [],
+      "added": [],
+      "symbols": [
+        {
+          "symbol": "??_7W3DAptComponentView3D@@6B@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 8,
+          "after_size": 8,
+          "before_sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "after_sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_04GHGHGAKN@ONCE?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 5,
+          "after_size": 5,
+          "before_sha256": "e5c8cdce76a5ebce8a3e7397bc677854591635b11c275f088771f32fff8c4c57",
+          "after_sha256": "e5c8cdce76a5ebce8a3e7397bc677854591635b11c275f088771f32fff8c4c57",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_04KGNEGCGI@LOOP?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 5,
+          "after_size": 5,
+          "before_sha256": "f43b9bfea8a4a8d147641d73e378e2c57c6bab2116c886e52509049242ac9f9f",
+          "after_sha256": "f43b9bfea8a4a8d147641d73e378e2c57c6bab2116c886e52509049242ac9f9f",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_06LFMPBDLH@MANUAL?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 7,
+          "after_size": 7,
+          "before_sha256": "35de67cb936285336fc5f52a652d2c4777ec2ec9ce3cf3a8a5bb05061a7a04ec",
+          "after_sha256": "35de67cb936285336fc5f52a652d2c4777ec2ec9ce3cf3a8a5bb05061a7a04ec",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_0O@IJPKBGDK@PLAY_TO_FRAME?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 14,
+          "after_size": 14,
+          "before_sha256": "cc8e8524a2112551f6e08ef474fd9d0ad7c244f1b34c0e0b9ff3d0bfea604a17",
+          "after_sha256": "cc8e8524a2112551f6e08ef474fd9d0ad7c244f1b34c0e0b9ff3d0bfea604a17",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_0O@NBBCNOPC@LOOP_PINGPONG?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 14,
+          "after_size": 14,
+          "before_sha256": "53866cca87886675a2c490bfdf1863940baa1563b40c1fa862f12200f09d0f77",
+          "after_sha256": "53866cca87886675a2c490bfdf1863940baa1563b40c1fa862f12200f09d0f77",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_0P@DOBNHDKO@ONCE_BACKWARDS?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 15,
+          "after_size": 15,
+          "before_sha256": "f15119bb4b4d03d0036aad5a61d7b7700b3fed02e00a7621b7d48c60b8bb5af1",
+          "after_sha256": "f15119bb4b4d03d0036aad5a61d7b7700b3fed02e00a7621b7d48c60b8bb5af1",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "??_C@_0P@LMGONLLG@LOOP_BACKWARDS?$AA@",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 15,
+          "after_size": 15,
+          "before_sha256": "53001b08b7d3fde79d93fb3077947609e0cd919513b54364ccf2da63abc966b9",
+          "after_sha256": "53001b08b7d3fde79d93fb3077947609e0cd919513b54364ccf2da63abc966b9",
+          "relocation_differences": null
+        },
+        {
+          "symbol": "?g_Rva00740A60Table@@3PAPBDA",
+          "bytes_equal": true,
+          "relocations_equal": true,
+          "before_size": 32,
+          "after_size": 32,
+          "before_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+          "after_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+          "relocation_differences": null
+        }
+      ]
+    },
+    "static": {
+      "removed": [],
+      "added": [],
+      "symbols": [
+        {
+          "symbol": "?$S1@?5??CustomizedRender@Rva007406E1@@QAEXAAVRenderInfoClass@@@Z@4IA",
+          "zero_initialized_storage_equal": true,
+          "before": {
+            "name": ".bss",
+            "size": 4,
+            "value": 0,
+            "characteristics": 3224375424,
+            "relocations": 0
+          },
+          "after": {
+            "name": ".bss",
+            "size": 4,
+            "value": 0,
+            "characteristics": 3224375424,
+            "relocations": 0
+          }
+        },
+        {
+          "symbol": "?lenv@?5??CustomizedRender@Rva007406E1@@QAEXAAVRenderInfoClass@@@Z@4VLightEnvironmentClass@@A",
+          "zero_initialized_storage_equal": true,
+          "before": {
+            "name": ".bss",
+            "size": 552,
+            "value": 0,
+            "characteristics": 3225424000,
+            "relocations": 0
+          },
+          "after": {
+            "name": ".bss",
+            "size": 552,
+            "value": 0,
+            "characteristics": 3225424000,
+            "relocations": 0
+          }
+        }
+      ]
+    }
+  },
+  "note": "Static BSS has no raw bytes. Its sizes, attributes, offsets, zero initialization and absence of relocations are compared instead. External code/data compare complete COFF section tails and relocation tuples."
+}
