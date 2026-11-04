@@ -25,7 +25,10 @@
 // globals below name-mangle identically to DX8Wrapper's real static members
 // regardless of which header declared them.
 #include <string.h>
+// Keep the SDK typedef distinct from DX8Wrapper's native transform enum tags.
+#define D3DTRANSFORMSTATETYPE D3D9TransformStateType
 #include <d3d9.h>
+#undef D3DTRANSFORMSTATETYPE
 
 struct IDirect3DDevice8;
 
@@ -33,16 +36,7 @@ struct IDirect3DDevice8;
 
 extern unsigned number_of_DX8_calls;
 
-class DX8Wrapper
-{
-public:
-	static void Set_Pixel_Shader_Constant(int reg, const void *data, int count);
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-
-protected:	// as dx8wrapper.h: the statics mangle as protected members
-	static IDirect3DDevice8 *D3DDevice;
-	static Vector4 Pixel_Shader_Constants[8];
-};
+#include "DX8WrapperClass.h"
 
 // ?Set_Pixel_Shader_Constant@DX8Wrapper@@SAXHPBXH@Z
 // A dx8wrapper.h inline (WWINLINE): the shader-manager units emit the same select-any copy.
