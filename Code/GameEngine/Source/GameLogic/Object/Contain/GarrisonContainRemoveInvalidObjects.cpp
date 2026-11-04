@@ -18,12 +18,16 @@ class Rva002C9400ByteField { public: unsigned char get() const; };
 class Weapon
 {
 public:
-    const Rva002C9400ByteField *getTemplate() const { return m_template; }
+    const void *getTemplate() const { return m_template; }
 private:
     void *m_vtable;
-    const Rva002C9400ByteField *m_template;
+    const void *m_template;
 };
-#include "../object.h"
+class Object
+{
+public:
+    const Weapon *getCurrentWeapon(WeaponSlotType *slot = 0) const;
+};
 #include "../../../Common/GameLogicObjectLookupView.h"
 struct VisLookupNode { VisLookupNode *next; ObjectID key; Object *object; };
 struct VisLookupBuckets {
@@ -82,7 +86,7 @@ void GarrisonContain::removeInvalidObjectsFromGarrisonPoints()
         if (obj)
         {
             const Weapon *weapon = obj->getCurrentWeapon(0);
-            if (weapon && weapon->getTemplate()->get())
+            if (weapon && ((const Rva002C9400ByteField *)weapon->getTemplate())->get())
                 removeObjectFromGarrisonPoint(obj, i);
         }
     }

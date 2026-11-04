@@ -318,8 +318,8 @@ private:
 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 // Measured target helpers used by retail trackTargets at 0x00478ADB.
-struct Rva0046247DPair { void *first; void *second; };
-class Rva0046247D { public: void rva0046247D(Rva0046247DPair &result); };
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
+class Rva0046247D { public: inline __declspec(noinline) void rva0046247D(Rva0046247DPair&result){void*base=this;result.m00=base?(ContainModuleInterface*)((char*)base+0x20):0;result.m04=(char*)base+0x54;} };
 class Rva00264E93 { public: void *rva00264E93(); };
 // Retail dispatches the object-ID lookup through primary-vtable slot +0x6C.
 // The prefix records only that call slot; it does not name the implementation.
@@ -572,6 +572,8 @@ public:
     virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
     virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
     virtual int getObjectGarrisonPointIndex(ObjectID id);
+    void rva00478BE0();
+    void rva00478FD7();
 protected:
     enum { GARRISON_INDEX_INVALID = -1 };
     virtual void xfer(Xfer *xfer);
@@ -1125,8 +1127,8 @@ void GarrisonContain::trackTargets( void )
         Object *object;
     };
     for (GarrisonContainTrackNode *node =
-             (*reinterpret_cast<GarrisonContainTrackNode **>(listView.second))->next;
-         node != *reinterpret_cast<GarrisonContainTrackNode **>(listView.second);
+             (*reinterpret_cast<GarrisonContainTrackNode **>(listView.m04))->next;
+         node != *reinterpret_cast<GarrisonContainTrackNode **>(listView.m04);
          node = node->next)
     {
         Object *obj = *reinterpret_cast<Object **>(
@@ -1752,7 +1754,7 @@ Int GarrisonContain::getObjectGarrisonPointIndex(ObjectID objectID)
             {
                 Rva0046247DPair members;
                 horde->slot108(members);
-                for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)members.second)->begin(); it != ((const _STL::list<Object *> *)members.second)->end(); ++it)
+                for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)members.m04)->begin(); it != ((const _STL::list<Object *> *)members.m04)->end(); ++it)
                 {
                     Object *member = *it;
                     for (Int j = 0; j < MAX_GARRISON_POINTS; ++j)
@@ -1775,7 +1777,7 @@ void GarrisonContain::redeployOccupants()
 {
     Rva0046247DPair contained;
     reinterpret_cast<Rva0046247D *>(this)->rva0046247D(contained);
-    if (((const _STL::list<Object *> *)contained.second)->size() > 0)
+    if (((const _STL::list<Object *> *)contained.m04)->size() > 0)
         setCondition(getObject(), 10);
 
     GarrisonPointData garrisonPointDataCopy[MAX_GARRISON_POINTS];
@@ -1832,9 +1834,9 @@ void GarrisonContain::addValidObjectsToGarrisonPoints()
 {
     Rva0046247DPair pair;
     ((Rva0046247D *)this)->rva0046247D(pair);
-    if (((const _STL::list<Object *> *)pair.second)->empty())
+    if (((const _STL::list<Object *> *)pair.m04)->empty())
         return;
-    for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)pair.second)->begin(); it != ((const _STL::list<Object *> *)pair.second)->end(); ++it)
+    for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)pair.m04)->begin(); it != ((const _STL::list<Object *> *)pair.m04)->end(); ++it)
     {
         Object *obj = *it;
         if (obj->testStatus((ObjectStatusTypes)0x25))
@@ -1846,7 +1848,7 @@ void GarrisonContain::addValidObjectsToGarrisonPoints()
                 continue;
             Rva0046247DPair members;
             iface->slot108(members);
-            for (_STL::list<Object *>::const_iterator it2 = ((const _STL::list<Object *> *)members.second)->begin(); it2 != ((const _STL::list<Object *> *)members.second)->end(); ++it2)
+            for (_STL::list<Object *>::const_iterator it2 = ((const _STL::list<Object *> *)members.m04)->begin(); it2 != ((const _STL::list<Object *> *)members.m04)->end(); ++it2)
             {
                 Object *member = *it2;
                 const Weapon *weapon = member->getCurrentWeapon();
