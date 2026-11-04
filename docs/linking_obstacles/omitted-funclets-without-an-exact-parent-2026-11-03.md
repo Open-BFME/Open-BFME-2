@@ -22,6 +22,12 @@ class could throw at the point it assigns states, so the body carries `if(0){thr
 already did. `AptValue.cpp` redefines the macro locally. Result: 30/30 rows, `eh_verify` EXACT on all ten EH
 rows, and `kept_funclet_locations` finds both RVAs emitted by the six constructors. Not yet measured by a real link.
 
+Cleared 2026-11-04, seat ancalgonn-ops-srv1: `uw_007604bd`. Retail's `initD3DAssets` is 48 bytes because its
+loop is dead: `cursorTextures[1]` is an array, so its test is never true. A local with a real destructor in that
+loop leaves a state whose action the optimizer removed, `{toState 0, action NULL}`. An `AsciiString` local
+assigned in a nested scope gives `eh_verify` EXACT; a dead throw, a temporary and the `Get_Texture` call each
+differ by five table bytes. Earlier tries used empty destructors, which leave no state.
+
 Tried without effect on the state count: empty-dtor locals and temporaries beside the lock or in
 the dead loop, constant-false and after-return locks (W3DMouse); a dtor or dtor-bearing member on
 `Rva006DBits`, an inline `clear()`, an inline setter in the macro body, an out-of-line base dtor
