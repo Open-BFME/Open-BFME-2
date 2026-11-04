@@ -117,9 +117,8 @@ public:
 
 extern LivingWorldLogic* TheLivingWorldLogic;
 
-class GameSlot { public: unsigned char opaque[0x4c]; int playerId; };
+#include "../../../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo { public: const GameSlot* getConstSlot(int) const; };
 
 extern GameInfo* TheGameInfo;
 
@@ -216,7 +215,7 @@ int RegionAwardDispute::GetResolvableBy() {
         if (!TheGameInfo) return -1;
         const GameSlot* slot=TheGameInfo->getConstSlot(0);
         if (!slot) return -1;
-        int id=slot->playerId;
+        int id=slot->m_field4C;
         Rva002E2903Player* player=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->find(id,0);
         if (!player) return -1;
         if (_STL::find((Rva002E2903Player**)m_players.begin(), (Rva002E2903Player**)m_players.end(), player)==(Rva002E2903Player**)m_players.end()) return -1;

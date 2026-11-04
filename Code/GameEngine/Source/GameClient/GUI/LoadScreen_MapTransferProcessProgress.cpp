@@ -81,31 +81,7 @@ extern GameWindowManager *TheWindowManager;
 #include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-	Int getApparentColor() const;
-	bool hasMap() const { return m_hasMap; }
-	const UnicodeString &getName() const { return m_name; }
-private:
-	unsigned char m_00[0x09];
-	bool m_hasMap;			// +0x09
-	unsigned char m_0a[0x30 - 0x0A];
-	UnicodeString m_name;	// +0x30
-};
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual int getLocalSlotNum();
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 
 #include "../../../Include/Common/GameState.h"
@@ -232,7 +208,7 @@ void MapTransferLoadScreen::init(GameInfo *game)
 		Int houseColor = TheMultiplayerSettings->getColor(slot->getApparentColor())->getColor();
 		GadgetProgressBarSetEnabledBarColor(m_progressBars[netSlot], houseColor);
 
-		UnicodeString name = slot->getName();
+		UnicodeString name = slot->m_name;
 		GadgetStaticTextSetText(m_playerNames[netSlot], name);
 		m_playerNames[netSlot]->winSetEnabledTextColors(houseColor, m_playerNames[netSlot]->winGetEnabledTextBorderColor());
 

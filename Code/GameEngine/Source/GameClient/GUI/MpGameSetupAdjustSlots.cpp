@@ -15,38 +15,8 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class GameSlot
-{
-public:
-	bool isAI() const;
-	bool isOpen() const;
-	bool isHuman() const;
-	bool isObserver() const;
-	void setPlayerTemplate(int playerTemplate);
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual bool v12();
-	GameSlot *getSlot(int index);
-	AsciiString getMap() const;
-public:
-	unsigned char m_pad04[0x8C - 0x04];
-	unsigned char m_8c;
-};
 
 #include "../../../Include/GameClient/MapMetaData.h"
 
@@ -87,9 +57,9 @@ void AptMpGameSetup::rva0043EDB4()
 		return;
 	if (field7c == 1)
 		return;
-	if (!game->v12())
+	if (!game->amIHost())
 		return;
-	if (game->m_8c)
+	if (game->m_field8C)
 		return;
 	const MapMetaData *meta = TheMapCache->findMap(game->getMap());
 	if (!meta)

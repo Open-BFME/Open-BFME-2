@@ -88,28 +88,7 @@ enum SlotState { SLOT_OPEN = 0 };
 // Retail passes a zero DWORD and zero port WORD to GameSlot::setState.
 #include "../../../../../Include/GameNetwork/GameSlotConnectInfo.h"
 
-class GameSlot
-{
-public:
-	GameSlot();
-	virtual ~GameSlot();
-	unsigned char encodeHero() const;
-	void setMapAvailability(bool available);
-	void setPlayerTemplate(int playerTemplate);
-	void setState(SlotState, UnicodeString, const GameSlotConnectInfo *);
-
-	int m_state;				// +0x04
-	bool m_isAccepted;		  // +0x08
-	unsigned char m_pad09[0x0C - 0x09];
-	int m_color;				// +0x0C
-	unsigned char m_pad10[0x30 - 0x10];
-	UnicodeString m_name;	   // +0x30
-	unsigned char m_pad34[0x40 - 0x34];
-	int m_natBehavior;		  // +0x40
-	unsigned char m_pad44[0x5C - 0x44];
-	int m_5c;				   // +0x5C
-	unsigned char m_pad60[0x1AC - 0x60];
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
 // The GameSpy slot's ping string setter (address-named row).
 class Rva004FDB04
@@ -124,29 +103,6 @@ public:
 	int m_1ac; // +0x1AC
 };
 
-class GameInfo
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void adjustSlotsForMap(); // slot 16
-
-	void setMap(AsciiString mapName);
-	void setMapCRC(unsigned int crc);
-	void setMapSize(unsigned int size);
-
-	unsigned char m_pad04[0x11 - 0x04];
-	bool m_inProgress;				   // +0x11
-	unsigned char m_pad12[0x44 - 0x12];
-	unsigned int m_mapCRC;			   // +0x44
-	unsigned int m_mapSize;			  // +0x48
-	unsigned char m_pad4c[0x58 - 0x4C];
-	int m_strategicScenario;			 // +0x58
-	unsigned char m_pad5c[0x60 - 0x5C];
-	int m_rules[10];					 // +0x60
-};
 
 class GameSpyStagingRoom : public GameInfo
 {
@@ -358,10 +314,10 @@ void AptOnlineCustomMatch::rva005A20A7()
 				slot->setState(SLOT_OPEN, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
 			}
 			if (m_gameMode == 1)
-				game->m_strategicScenario = m_prefs.getStrategicScenario();
+				game->m_field58 = m_prefs.getStrategicScenario();
 			int rules[10];
 			m_prefs.rva0044DB54(rules);
-			memcpy(game->m_rules, rules, sizeof(rules));
+			memcpy(game->m_field60, rules, sizeof(rules));
 		}
 
 		AsciiString mapName;
@@ -380,7 +336,7 @@ void AptOnlineCustomMatch::rva005A20A7()
 			if (!loaded)
 				game->adjustSlotsForMap();
 		}
-		hostSlot->m_natBehavior = natPref.getFirewallBehavior();
+		hostSlot->m_field40 = natPref.getFirewallBehavior();
 		((Rva004FDB04 *)hostSlot)->rva004FDB04(TheGameSpyInfo->getPingString());
 		hostSlot->m_1ac = TheGameSpyInfo->gs31();
 	}
@@ -410,7 +366,7 @@ void AptOnlineCustomMatch::rva005A20A7()
 			options.format("Hero=%d", heroSlot.encodeHero());
 			req.options = options.str();
 			TheGameSpyPeerMessageQueue->addRequest(req);
-			m_heroSlotValue = heroSlot.m_5c;
+			m_heroSlotValue = heroSlot.m_field5C;
 		}
 		options.format("NAT=%d", natPref.getFirewallBehavior());
 		req.options = options.str();

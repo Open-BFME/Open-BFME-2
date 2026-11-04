@@ -14,18 +14,8 @@ enum NameKeyType
 	NAMEKEY_ZERO = 0
 };
 
-class GameSlot
-{
-public:
-	char m_pad00[0x34];
-	AsciiString m_name34;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(Int slotNum);
-};
 
 extern GameInfo *TheGameInfo;
 
@@ -44,7 +34,7 @@ GameSlot *Rva0021B37AFind(const Player *player)
 		for (UnsignedInt i = 0; found == 0 && i < 8; ++i)
 		{
 			{
-				AsciiString s(TheGameInfo->getSlot(i)->m_name34);
+				AsciiString s(TheGameInfo->getSlot(i)->m_field34);
 				NameKeyType key = TheNameKeyGenerator->nameToKey(s);
 				if (player->m_playerNameKey == (Int)key)
 					found = TheGameInfo->getSlot(i);

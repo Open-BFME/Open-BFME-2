@@ -206,17 +206,7 @@ class Rva0023C6A4 { public: Bool rva00200084(); };
 class Rva0023C666 { public: bool rva0023C666(); };
 class Rva00210C66CmpBoolField { public: Bool get() const; };
 class PlayerTemplate { public: char pad[0x1BC]; Bool m_1bc; };
-class GameSlot { public: Bool isAI() const; char pad34[0x34]; AsciiString m_name; char pad38[0x44 - 0x38]; UnsignedInt m_frame; };
-class GameInfo {
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual Bool slot20();	// +0x50
-	GameSlot *getSlot(Int slot);
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -273,7 +263,7 @@ void VictoryConditions::update()
 		{
 			m_singleAllianceRemaining = true; // don't check again
 			m_endFrame = frame;
-			if (!TheGameInfo->slot20())
+			if (!TheGameInfo->isSandbox())
 				((VictoryUpdateGameLogicView *)TheGameLogic)->m_isScoringEnabled = false;
 		}
 	}
@@ -355,8 +345,8 @@ void VictoryConditions::update()
 				GameSlot *slot = TheGameInfo ? TheGameInfo->getSlot(scan) : NULL;
 				if (slot && slot->isAI())
 				{
-					name = slot->m_name;
-					slot->m_frame = frame;
+					name = slot->m_field34;
+					slot->m_lastFrameInGame = frame;
 				}
 			}
 		}

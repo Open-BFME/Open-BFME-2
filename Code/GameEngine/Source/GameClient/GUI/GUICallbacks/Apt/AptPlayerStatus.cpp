@@ -232,29 +232,8 @@ class ParticleSystem { public: bool isSaveable() const; };
 
 extern PlayerList *ThePlayerList;
 
-class GameSlot
-{
-public:
-	bool isOccupied() const;
-	bool isHuman() const;
-	bool isAI() const;
-	UnicodeString getApparentPlayerTemplateDisplayName() const;
-	int getApparentColor() const;
-	const UnicodeString &getName() const { return m_name; }
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-	unsigned char m_pad00[0x1C];
-	int m_teamNumber; // +0x1C
-	unsigned char m_pad20[0x30 - 0x20];
-	UnicodeString m_name; // +0x30
-	AsciiString m_playerName; // +0x34
-};
-
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
-};
 
 extern GameInfo *TheGameInfo;
 
@@ -552,7 +531,7 @@ void AptPlayerStatus::rva004E476C()
 		const GameSlot *slot = TheGameInfo->getConstSlot(i);
 		if (!slot || !slot->isOccupied())
 			continue;
-		AsciiString name = TheGameInfo->getSlot(i)->m_playerName;
+		AsciiString name = TheGameInfo->getSlot(i)->m_field34;
 		if (name.isEmpty())
 			continue;
 		Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));
@@ -565,7 +544,7 @@ void AptPlayerStatus::rva004E476C()
 			connected = true;
 		bool alive = !((UnknownE03138 *)TheVictoryConditions)->hasBeenDefeated(player);
 		bool observer = ((const ParticleSystem *)player)->isSaveable();
-		(this->*tableCallback.member)(row, 0, slot->getName());
+		(this->*tableCallback.member)(row, 0, slot->m_name);
 		(this->*tableCallback.member)(row, 1, slot->getApparentPlayerTemplateDisplayName());
 		AsciiString team;
 		team.format("Team:%d", slot->m_teamNumber + 1);

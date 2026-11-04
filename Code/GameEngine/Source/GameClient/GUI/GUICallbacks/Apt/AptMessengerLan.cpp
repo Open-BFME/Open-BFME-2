@@ -4,8 +4,7 @@
 // flag2A0, GameSlot name30, and both text bindings establish behavior.
 #include "ascii_string.h"
 #include "unicode_string.h"
-class GameSlot {public: char unknown00[0x30]; UnicodeString name;};
-class GameInfo {public: const GameSlot *getConstSlot(int) const;};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 template<int N> class LanSlots:public LanSlots<N-1> {public:virtual void gap(char (*)[N])=0;};
 template<> class LanSlots<0> {};
 class LANAPI:public LanSlots<56> {public:virtual GameInfo *slotE0()=0;};
@@ -33,7 +32,7 @@ int AptMessengerLan::OnUpdateData()
    if(!slot) return result;
    {
     AsciiString name("APT:CurrentLobbyName");
-    g_bfmeAptWindowManager->bfmeSetText(name,slot->name,false);
+    g_bfmeAptWindowManager->bfmeSetText(name,slot->m_name,false);
    }
    showLobby=false;
   }

@@ -349,12 +349,7 @@ struct Rva00506C82Arg
 	int m_50;
 };
 
-class GameSlot
-{
-public:
-	char _pad[0x50];
-	int m_50;
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
 
@@ -570,7 +565,7 @@ void Rva00598CBC::rva00598CBC()
 	_STL::vector<AsciiString> &src = rec->m_160->m_vec;
 	m_vec = src;
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_30);
-	if (slot && slot->m_50 != 0) {
+	if (slot && slot->m_field50 != 0) {
 		m_vec.push_back(g_00E063D4);
 	}
 }

@@ -110,14 +110,8 @@ void GadgetListBoxSetTopVisibleEntry(GameWindow *,int);
 
 void Rva00326F9BSet(GameWindow *,const int **);
 
-class GameSlot { public:
-    bool isHuman() const;
-    char unknown00[0xc]; int color0C;
-    char unknown10[0xc]; int team1C;
-    char unknown20[0x10]; UnicodeString name30;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo { public: GameSlot *getSlot(int); };
 
 extern GameInfo *TheGameInfo;
 
@@ -397,16 +391,16 @@ bool ChatWindowsInGame::PopulatePlayerList()
         GameSlot *slot=TheGameInfo->getSlot(i);
         if(!slot || !slot->isHuman()) continue;
         UnicodeString team;
-        int number=slot->team1C;
+        int number=slot->m_teamNumber;
         if(number>=0) team.format(TheGameText->slot17("APT:CurrentTeam",0),number);
         else team=TheGameText->fetch("APT:CurrentTeamNone",0);
-        int color=TheMultiplayerSettings->getColor(slot->color0C)->m_color;
+        int color=TheMultiplayerSettings->getColor(slot->m_color)->m_color;
         int user=i;
         if(TheGameSpyGame) {
             GameSpyGameSlot *online=TheGameSpyGame->getGameSpySlot(i);
             if(online) user=online->profile1AC;
         }
-        int row=rva005AFDC5(user,slot->name30,team,color);
+        int row=rva005AFDC5(user,slot->m_name,team,color);
         int *found=_STL::find(oldIDs.begin(),oldIDs.end(),user);
         if(found!=oldIDs.end())
             reinterpret_cast<_STL::vector<const ModuleData *> *>(&newRows)->push_back(

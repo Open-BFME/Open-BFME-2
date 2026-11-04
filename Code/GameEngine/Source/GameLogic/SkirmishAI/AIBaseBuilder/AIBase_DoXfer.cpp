@@ -139,14 +139,7 @@ public:
 	void unRegisterWithBuilder(void *owner);
 };
 
-class GameSlot
-{
-public:
-	char m_pad00[0x10];
-	int m_10;		// +0x10, the slot's start position index
-	char m_pad14[4];
-	int m_18; // player template index
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 
 struct Rva00506C82Arg;
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
@@ -406,7 +399,7 @@ Rva0041E912Template *AIBase::rva005ADCBE(int notFirst, const _STL::vector<Rva004
 			if (tmpl->m_starts.begin() == tmpl->m_starts.end()) {
 				candidates.push_back(tmpl);
 			} else {
-				int start = Rva00506C82Find((const Rva00506C82Arg *)m_owner)->m_10 + 1;
+				int start = Rva00506C82Find((const Rva00506C82Arg *)m_owner)->m_startPos + 1;
 				int *end = tmpl->m_starts.end();
 				if (_STL::find(tmpl->m_starts.begin(), end, start) != end)
 					candidates.push_back(tmpl);
@@ -457,7 +450,7 @@ __forceinline Rva00573E7C*heldOwned(Rva00573E7C*const&p){Rva00573E7C*q=p;_ReadWr
 void AIBase::buildFortressIfNeeded()
 {
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_owner);
-	const AsciiString &side = ThePlayerTemplateStore->getNthPlayerTemplate(slot->m_18)->m_side;
+	const AsciiString &side = ThePlayerTemplateStore->getNthPlayerTemplate(slot->m_playerTemplate)->m_side;
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(side);
 	if (!((Player *)m_owner)->canBuild(thingTemplate))
 		return;

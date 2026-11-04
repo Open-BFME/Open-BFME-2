@@ -75,14 +75,7 @@ public:
 private:
 	char m_data[0x18];
 };
-class GameSlot
-{
-public:
-	char m_pad00[0x10];
-	int m_10;		// +0x10, the slot's start position index
-	char m_pad14[4];
-	int m_18; // player template index
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 struct Rva00506C82Arg;
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
 struct Rva002A8AB1Record;
@@ -350,7 +343,7 @@ bool AIBase::rva005AD964()
 {
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_owner);
 	if (slot) {
-		int start = slot->m_10 + 1;
+		int start = slot->m_startPos + 1;
 		_STL::vector<int> &used = TheSkirmishAIManager->m_usedStarts;
 		int *end = used.end();
 		for (int *it = used.begin(); it != end; ++it) {

@@ -20,7 +20,7 @@ class Rva004444D2 { public: virtual ~Rva004444D2(); private: char storage[8]; };
 #include "../../../../../Include/GameClient/AptMpGameSetup.h"
 class Rva005C1A36 { public: virtual ~Rva005C1A36(); private: char storage[0x30-4]; };
 class Rva0031455E { public: virtual ~Rva0031455E(); private: char storage[0x10-4]; };
-class GameInfo { public: virtual void* deleteObject(int); };
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern GameInfo *TheGameInfo;
 extern int g_00E04930;
@@ -42,7 +42,7 @@ private:
 AptSkirmish::~AptSkirmish() {
  if ((void*)g_00E04930 == this) {
   GameInfo *info=(*(GameInfo * *)&TheSkirmishGameInfo);
-  void *dead=info ? info->deleteObject(0) : 0;
+  void *dead=info ? info->__vecDelDtor(0) : 0;
   ::operator delete(dead);
   (*(GameInfo * *)&TheSkirmishGameInfo)=0;
   TheGameInfo=0;

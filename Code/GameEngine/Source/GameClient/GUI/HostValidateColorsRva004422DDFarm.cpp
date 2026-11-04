@@ -42,9 +42,7 @@ typedef _Rb_tree<int, pair<const int, void *>, _Select1st<pair<const int, void *
 template <> HostReservedTree::~_Rb_tree();
 }
 
-class GameSlot {public: bool isHuman() const; bool isObserver() const;
- char pad00[4]; int state; char pad08[4]; int color;};
-class GameInfo {public: GameSlot *getSlot(int);};
+#include "../../../Include/GameNetwork/GameInfo.h"
 class Rva0043DA65 {public: int rva0043DA65(); char data[12];};
 class ColorSetupOwner {public: virtual void slot0(); virtual bool amIHost();
  virtual void slot2(); virtual void slot3(); virtual void SetColor(GameSlot*,int);};
@@ -85,9 +83,9 @@ void AptMpGameSetup::HostValidateColors() {
  for(i=0;i<8;i++) {
   GameSlot *slot=info->getSlot(i);
   if(!slot) continue;
-  int color=slot->color;
+  int color=slot->m_color;
   if(color<0) {
-   if(!special && !slot->isObserver() && slot->state != 1) repair=true;
+   if(!special && !slot->isObserver() && slot->m_state != 1) repair=true;
    continue;
   }
   ImageSubscriptMap *map=(ImageSubscriptMap*)&reserved;
@@ -103,8 +101,8 @@ void AptMpGameSetup::HostValidateColors() {
    GameSlot *slot=info->getSlot(i);
    if((0 == slot)) continue;
    ImageSubscriptMap *map=(ImageSubscriptMap*)&reserved;
-   int color=(i ? slot->color : slot->color);
-   if(color<0 && (special || slot->isObserver() || slot->state==1)) continue;
+   int color=(i ? slot->m_color : slot->m_color);
+   if(color<0 && (special || slot->isObserver() || slot->m_state==1)) continue;
     if((GameSlot*)(*map)[(unsigned)color]==slot) continue;
    if(special) owner->SetColor(slot,-1);
    else {

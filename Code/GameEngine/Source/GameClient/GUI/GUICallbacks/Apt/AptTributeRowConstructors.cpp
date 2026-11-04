@@ -94,8 +94,8 @@ class Rva0050FAEC:public Rva005248D0 {public:Rva0050FAEC(int level,const AsciiSt
 Rva0050FAEC::Rva0050FAEC(int level,const AsciiString&name):m_color(0){AsciiString key;key.format("_level%u.%s_color",level,name.str());FunctorMethod method=reinterpret_cast<FunctorMethod>(&Rva0050FAEC::color);m_externHandlers.AddExternHandler(key,0,AptRef<AptExternHandler>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));}
 
 #include "unicode_string.h"
-class GameSlot {public:bool isAI()const;UnicodeString getApparentPlayerTemplateDisplayName()const;int getApparentColor()const;char pad[0x1C];int team;char pad2[0x30-0x20];UnicodeString playerName;};
-class GameInfo {public:const GameSlot*getConstSlot(int)const;};extern GameInfo*TheGameInfo;
+#include "../../../../../Include/GameNetwork/GameInfo.h"
+extern GameInfo*TheGameInfo;
 struct UnknownE03138 {public:
 virtual void slot0();
 virtual void slot1();
@@ -176,8 +176,8 @@ void Rva0050EE72Set(int,const AsciiString&,int,const UnicodeString&);
 class Rva0050F909:public Rva0050FAEC {public:Rva0050F909(int,const AsciiString&,int,int);virtual~Rva0050F909(){}};
 Rva0050F909::Rva0050F909(int level,const AsciiString&path,int slotIndex,int stateWord):Rva0050FAEC(level,path){
  const GameSlot*slot=TheGameInfo->getConstSlot(slotIndex);bool alive=!((UnknownE03138 *)TheVictoryConditions)->isDefeated((void*)stateWord);bool observer=((const Player*)stateWord)->isPlayerObserver();
- Rva0050EE72Set(level,path,0,slot->playerName);Rva0050EE72Set(level,path,1,slot->getApparentPlayerTemplateDisplayName());
- AsciiString text;text.format("Team:%d",slot->team+1);if(slot->isAI()&&slot->team==-1)text="Team:AI";
+ Rva0050EE72Set(level,path,0,slot->m_name);Rva0050EE72Set(level,path,1,slot->getApparentPlayerTemplateDisplayName());
+ AsciiString text;text.format("Team:%d",slot->m_teamNumber+1);if(slot->isAI()&&slot->m_teamNumber==-1)text="Team:AI";
  Rva0050EE72Set(level,path,2,TheGameText->fetch(text,0));text.clear();
  bool ok;
  if(slot->isAI())ok=true;else if(!TheNetwork)ok=true;else ok=TheNetwork->connected(slotIndex);

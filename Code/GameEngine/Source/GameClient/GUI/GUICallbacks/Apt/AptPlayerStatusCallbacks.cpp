@@ -32,20 +32,8 @@ struct AptPlayerStatusColors
 
 void GadgetCheckBoxSetChecked(GameWindow *checkBox, bool checked);
 
-class GameSlot
-{
-public:
-	bool isAI() const;
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-	unsigned char m_pad00[0x0A];
-	bool m_muted; // +0x0A
-};
-
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int index) const;
-};
 
 // The game being played (LANAPIRemoveGame.cpp's g_Rva00E02EEC).
 struct LANGameInfo;
@@ -119,7 +107,7 @@ void AptPlayerStatus::InitGadgets(const char *name, void *argument, GameWindow *
 	if (gameSlot && !gameSlot->isAI())
 	{
 		window->winHide(false);
-		GadgetCheckBoxSetChecked(window, gameSlot->m_muted);
+		GadgetCheckBoxSetChecked(window, gameSlot->m_isMuted);
 	}
 }
 

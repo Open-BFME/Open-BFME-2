@@ -182,29 +182,7 @@ void Rva002A8F24::findPreSpawnedObjects() {
     }
 }
 
-class GameInfo {
-public:
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual void slot20();
-    virtual void slot24();
-    virtual void slot28();
-    virtual void slot2C();
-    virtual void slot30();
-    virtual void slot34();
-    virtual void slot38();
-    virtual void slot3C();
-    virtual void slot40();
-    virtual void slot44();
-    virtual bool slot48();
-    virtual bool slot4c();
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 class GameLogic;
 extern GameLogic *TheGameLogic;
@@ -215,7 +193,7 @@ class AIGameTeam { public: void rva004E94FB();void rva004E951C(void*); };
 // multiplayer/replay guards and AI/collector split before team startup.
 // addNewAIForPlayer remains a separately banked unconverted dependency.
 void Rva002A8F24::rva002A95F9() {
-    if (!TheGameInfo || (!TheGameInfo->slot48() && !TheGameInfo->slot4c()) ||
+    if (!TheGameInfo || (!TheGameInfo->isSkirmish() && !TheGameInfo->isMultiPlayer()) ||
         ((Rva0023C6A4 *)TheGameLogic)->rva00200084())
         return;
     Rva004ECE14Clear();
