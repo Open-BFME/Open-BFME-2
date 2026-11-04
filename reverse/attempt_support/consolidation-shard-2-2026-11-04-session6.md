@@ -104,3 +104,6 @@ link improvement is claimed. No live claims remain from this pass.
   because `Made002CCC2D::Made002CCC2D` is a compiler-generated constructor
   not declared in the seed class view (MSVC C2600). Manual class-view
   reconciliation is required; no merge was applied.
+- `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
+  and `Object::id`, which are absent from the TU class view (MSVC C2039).
+  Manual class-view reconciliation is required; no merge was applied.
