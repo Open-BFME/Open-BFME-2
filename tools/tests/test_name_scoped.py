@@ -122,7 +122,8 @@ def test_every_binding_needs_name_or_explicit_retention(batch):
         name_scoped.prepare(lane, packet, answers)
     answers["names"][key] = dict(keep="already clear")
     _, report = name_scoped.prepare(lane, packet, answers)
-    assert report["retained"] == [dict(key=key, reason="already clear")]
+    assert report["retained"] == [dict(key=key, reason="already clear", proposed_by="/root/proposer",
+                                      reviewed_by=None, proposed_name=None)]
 
 
 def test_source_race_rejected_before_planning(batch):
@@ -292,3 +293,164 @@ def test_picker_skips_foreign_claim_before_serving_code(batch, monkeypatch):
                            target=200, max_files=32, max_chars=250000)
     with pytest.raises(ValueError, match="no available complete functions"):
         name_scoped.next_batch(lane, args)
+
+
+def test_multi_child_merge_records_actual_proposer_and_parent_correction(batch):
+    lane, args, packet, answers, review = batch
+    entries = list(answers["names"].items())
+    paths = []
+    for index, subset in enumerate((entries[:100], entries[100:])):
+        path = lane.root / f"part{index}.json"
+        name_scoped.save(path, dict(proposed_by=f"/root/child{index}", names=dict(subset),
+                                   coverage_notes=[f"checked part {index}"]))
+        paths.append(str(path))
+    assert name_scoped.merge(lane, SimpleNamespace(session="large", parts=paths)) == 0
+    merged = name_scoped.session_path(lane, "large").with_suffix(".answers.json")
+    answers = name_scoped.load(merged)
+    assert len(answers["coverage_notes"]) == 2
+    key = entries[0][0]
+    original = entries[0][1]["name"]
+    review["decisions"][key] = dict(name="verifiedInput", reason="Body and callers establish the input role")
+    review["proposal_sha256"] = hashlib.sha256(merged.read_bytes()).hexdigest()
+    write_review(args, review)
+    args.answer = str(merged)
+    builds = []
+    assert name_scoped.apply(lane, args, verify=lambda _c, files: builds.append(files) or True,
+                             checks=lambda *_: []) == 0
+    assert builds == [[SOURCE]]
+    import csv, io
+    rows = list(csv.DictReader(io.StringIO((lane.root / rename.NAME_BASIS).read_text())))
+    assert len(rows) == 202
+    assert sum("proposed-by /root/child0" in row["evidence"] for row in rows) == 100
+    assert sum("proposed-by /root/child1" in row["evidence"] for row in rows) == 102
+    corrected = next(row for row in rows if row["new"].endswith("::verifiedInput"))
+    evidence = corrected["evidence"]
+    assert "parent-reviewed-by " + lane.worker() in evidence
+    assert json.loads(evidence.split(" parent-decision ", 1)[1]) == dict(
+        proposed=original, reason=review["decisions"][key]["reason"])
+    assert name_scoped.load(Path(paths[0]))["names"][key]["name"] == original
+    # Added attribution must preserve the existing direct-record proof and inverse path.
+    record = rename.inferred_record(evidence)
+    inverse = rename.plan_param(lane.ctx, SOURCE, "verifiedInput", "f", rename.RESTORED,
+                               f"revert:{record} undo the reviewed landing", function="calculate")
+    assert b"int calculate(int f" in inverse.after[SOURCE]
+
+
+@pytest.mark.parametrize("bad", ["/root/a,/root/b", "/root/a /root/b", "", ["a", "b"]])
+def test_ambiguous_proposer_is_rejected_before_planning(batch, bad):
+    lane, args, packet, answers, review = batch
+    answers["proposed_by"] = bad
+    with pytest.raises(ValueError, match="one proposing sub-agent"):
+        name_scoped.prepare(lane, packet, answers, review)
+    assert not (lane.root / rename.NAME_BASIS).exists()
+
+
+def test_merge_rejects_duplicate_and_missing_bindings_without_overwriting_output(batch):
+    lane, args, packet, answers, review = batch
+    output = name_scoped.session_path(lane, "large").with_suffix(".answers.json")
+    before = output.read_bytes()
+    path = lane.root / "part.json"
+    name_scoped.save(path, answers)
+    with pytest.raises(ValueError, match="duplicate binding"):
+        name_scoped.merge(lane, SimpleNamespace(session="large", parts=[str(path), str(path)]))
+    answers["names"].pop(next(iter(answers["names"])))
+    name_scoped.save(path, answers)
+    with pytest.raises(ValueError, match="every inventoried binding"):
+        name_scoped.merge(lane, SimpleNamespace(session="large", parts=[str(path)]))
+    assert output.read_bytes() == before
+
+
+def test_parent_cannot_attribute_its_own_proposal_to_a_child(batch):
+    lane, args, packet, answers, review = batch
+    key = next(iter(answers["names"]))
+    answers["names"][key]["proposed_by"] = lane.worker()
+    with pytest.raises(ValueError, match="different agent"):
+        name_scoped.prepare(lane, packet, answers, review)
+
+
+def test_parent_rejection_preserves_original_proposal_and_responsibility(batch):
+    lane, args, packet, answers, review = batch
+    key = next(iter(answers["names"]))
+    original = answers["names"][key]["name"]
+    review["decisions"][key] = dict(keep="The proposed units are not established")
+    _, report = name_scoped.prepare(lane, packet, answers, review)
+    assert report["retained"] == [dict(key=key, reason=review["decisions"][key]["keep"],
+        proposed_by="/root/proposer", reviewed_by=lane.worker(), proposed_name=original)]
+
+
+def context_packet(lane, args, source):
+    (lane.root / SOURCE).write_bytes(source.encode())
+    lane.ctx._cache.clear()
+    packet = name_scoped.load(name_scoped.session_path(lane, args.session))
+    packet["sources"][SOURCE] = name_scoped.inventory(lane, SOURCE)
+    name_scoped.save(name_scoped.session_path(lane, args.session), packet)
+    return packet["sources"][SOURCE]["targets"][0]["key"]
+
+
+def test_targeted_context_resolves_relevant_signatures_members_and_string_keys(batch, capsys, monkeypatch):
+    lane, args, *_ = batch
+    capsys.readouterr()
+    header = lane.root / "Code/Game/Sink.h"
+    raw = b"struct Sink {\r\n unsigned getCount() { return byteCount; }\r\n unsigned byteCount;\r\n virtual void send(const void *buffer, unsigned bytes) = 0;\r\n};\r\n"
+    header.write_bytes(raw)
+    key = context_packet(lane, args, '// cl: /O2\n#include "Sink.h"\nvoid calculate(void *a)\n{\n'
+        ' Sink *sink = 0;\n sink->send(a, sink->byteCount);\n label("payload", a);\n}\n')
+    # Context must neither build, inspect every source/header nor consult model runtimes.
+    monkeypatch.setattr(lane.ctx, "git", lambda *_a, **_k: pytest.fail("no global index"))
+    assert name_lane.main(["scoped", "context", "--session", "large", "--key", key], lane=lane) == 0
+    result = json.loads(capsys.readouterr().out)
+    hints = result["bindings"][key]
+    send = next(c for c in hints["calls"] if c["callee"] == "send")
+    assert 'send(a, sink->byteCount)' == send["expression"]
+    declaration = send["declarations"][0]
+    assert "unsigned bytes" in declaration["declaration"]
+    assert declaration["source"] == "Code/Game/Sink.h"
+    assert declaration["sha256"] == hashlib.sha256(raw).hexdigest()
+    assert declaration["line"] == 4
+    field = next(m for m in hints["members"] if m["name"] == "byteCount")
+    assert "unsigned byteCount" in field["declarations"][0]["declaration"]
+    assert field["declarations"][0]["line"] == 3
+    assert any('"payload"' in line for line in hints["uses"])
+    assert "not canonical" in declaration["basis"]
+    assert not (lane.root / rename.NAME_BASIS).exists()
+
+
+def test_context_preserves_ambiguous_overloads_and_explicit_extra_context(batch, capsys):
+    lane, args, *_ = batch
+    capsys.readouterr()
+    key = context_packet(lane, args, '// cl: /O2\nvoid calculate(int a)\n{\n send(a);\n}\n')
+    path = lane.root / "Code/Game/Other.h"
+    path.write_text('void send(int index);\nvoid send(const char *text);\n', encoding="utf-8")
+    name_scoped.context(lane, SimpleNamespace(session="large", key=[key], context_files=["Code/Game/Other.h"]))
+    hints = json.loads(capsys.readouterr().out)["bindings"][key]
+    declarations = hints["calls"][0]["declarations"]
+    assert len(declarations) == 2
+    assert all(d["source"] == "Code/Game/Other.h" for d in declarations)
+    assert not any(d["source"] == SOURCE for d in declarations)  # send(a) is a call, not a prototype.
+
+
+def test_context_is_bounded_and_reports_omitted_headers(batch, capsys):
+    lane, args, *_ = batch
+    capsys.readouterr()
+    includes = ""
+    for index in range(20):
+        name = f"Header{index}.h"
+        (lane.root / "Code/Game" / name).write_text(f"void send(int index{index});\n")
+        includes += f'#include "{name}"\n'
+    key = context_packet(lane, args, '// cl: /O2\n' + includes + 'void calculate(int a)\n{\n send(a);\n}\n')
+    name_scoped.context(lane, SimpleNamespace(session="large", key=[key], context_files=None))
+    result = json.loads(capsys.readouterr().out)
+    assert any("budget" in row["reason"] for row in result["omitted"])
+    assert len(result["bindings"][key]["calls"][0]["declarations"]) <= 4
+
+
+def test_context_rejects_stale_unknown_and_outside_paths(batch):
+    lane, args, packet, *_ = batch
+    key = packet["sources"][SOURCE]["targets"][0]["key"]
+    with pytest.raises(ValueError, match="belong"):
+        name_scoped.context(lane, SimpleNamespace(session="large", key=["not-a-binding"]))
+    with pytest.raises(ValueError, match="repository code context"):
+        name_scoped.context(lane, SimpleNamespace(session="large", key=[key], context_files=["../private.h"]))
+    (lane.root / SOURCE).write_bytes((lane.root / SOURCE).read_bytes() + b"\n")
+    with pytest.raises(ValueError, match="changed"):
+        name_scoped.context(lane, SimpleNamespace(session="large", key=[key]))

@@ -42,6 +42,22 @@ into per-name votes or small application rounds. `--target` counts inventoried
 bindings, including names retained as already clear; it is not a rename quota.
 
 Answers are `{"proposed_by":"/root/naming-child","names":{"KEY":{"name":"descriptiveName"}}}`.
+For several children, keep their original part files and combine them with:
+
+```sh
+python3 tools/name_lane.py scoped merge --session S --parts PART_A.json PART_B.json
+```
+
+The combined `S.answers.json` records one `proposed_by` on each binding. A
+per-binding identity overrides the single-child default; listing several
+children as one identity is refused. Duplicate or missing bindings are refused
+before overwriting the output. Preserve the child proposals; make final parent
+corrections in the review file rather than rewriting the child's proposed name.
+The naming history records the actual proposer and reviewing parent. Parent
+decisions also preserve the original proposed name (or keep) and the decision's
+reason in the existing evidence field. Routine accepted names need no essay,
+new voting round or additional ledger.
+
 Account for every inventoried binding; use `{"keep":"already clear"}` to retain
 one. Add `"question":"uncertain units"` to questionable proposals. The parent
 quickly scans all mappings and diffs; only questionable entries need deeper
@@ -53,6 +69,25 @@ Coverage warnings require `coverage_checked:true` after inspection; regex
 inventory is not a complete C++ parser, so unsupported declarations must be
 reported rather than described as renamed. Already meaningful names need no
 cosmetic replacement.
+
+For an unclear binding, request a small amount of additional context:
+
+```sh
+python3 tools/name_lane.py scoped context --session S --key 'Code/X.cpp|param|functionName|a'
+# Optionally add --context-files Code/Game/Relevant.h for a known external declaration.
+```
+
+This read-only command shows the binding's uses, relevant call signatures and
+member declaration candidates from the source and locally resolvable includes.
+It accepts up to four binding keys and eight explicit context files; reads at
+most twelve extra files within a byte budget; and reports unresolved or omitted
+includes. It does not build a repository-wide declaration index, run a model,
+refresh a reference checkout or change the normal packet size. Use it only when
+the supplied full source leaves the role unclear. Returned declarations carry
+their path, line and content hash. Multiple overloads/owners remain candidates;
+inferred, donor and conditionally compiled declarations do not become canonical
+proof. The syntax-limited lookup can miss declarations; a missing hint is not
+evidence that a declaration does not exist.
 
 The grouped planner reuses the original source analysis and composes independent
 binding-proved changes together. One run transaction claims the union, writes

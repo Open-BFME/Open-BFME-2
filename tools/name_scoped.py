@@ -8,6 +8,7 @@ import collections
 import difflib
 import hashlib
 import json
+import posixpath
 import re
 import subprocess
 import sys
@@ -20,6 +21,17 @@ import rename
 
 DIRECTORY = "build/name_lane/scoped"
 COMPLETED = f"{DIRECTORY}/completed.json"
+
+
+def proposer_of(answers, answer, worker):
+    """One actual proposer per binding, including merged multi-child packets."""
+    proposer = answer.get("proposed_by", answers.get("proposed_by"))
+    if not isinstance(proposer, str) or not re.fullmatch(r"[A-Za-z0-9_./:@+-]{1,160}", proposer):
+        raise ValueError("proposed_by must identify one proposing sub-agent; "
+                         "use names[KEY].proposed_by or scoped merge for multiple children")
+    if proposer == worker:
+        raise ValueError("parent must review proposals from a different agent")
+    return proposer
 
 
 def digest(data):
@@ -103,8 +115,12 @@ def next_batch(lane, args):
                   model=args.model, sources={}, target=args.target,
                   instructions=("Analyze every parameter/local in these complete functions. "
                     "Do not rename members, globals, functions, classes or types. "
-                    "Return proposed_by and names keyed by each target key: {name: descriptiveName}, "
+                    "Return one proposed_by identity and names keyed by each target key: {name: descriptiveName}, "
                     "or {keep: reason}. Mark uncertain proposals with question: reason. "
+                    f"For unclear roles, request bounded declarations with python3 tools/name_lane.py "
+                    f"scoped context --session {args.session} --key KEY. These are hints, not canonical proof. "
+                    "When combining children, use scoped merge --session S --parts PART.json ...; "
+                    "it preserves each binding's actual proposer. Do not list several children on every name. "
                     "Resolve coverage warnings and report unsupported bindings; never invent coverage. "
                     "The parent scans the full mapping/diff, investigates only questionable names, "
                     "then submits one review acknowledgement. No votes or external reviewer CLI."))
@@ -155,11 +171,6 @@ def next_batch(lane, args):
 def prepare(lane, packet, answers, review=None):
     if packet["worker"] != lane.worker():
         raise ValueError("session belongs to another parent worker")
-    proposer = answers.get("proposed_by")
-    if not isinstance(proposer, str) or not proposer.strip() or any(c in proposer for c in "\r\n"):
-        raise ValueError("proposed_by must identify the proposing sub-agent")
-    if proposer == lane.worker():
-        raise ValueError("parent must review proposals from a different agent")
     targets = {t["key"]: (rel, t) for rel, source in packet["sources"].items() for t in source["targets"]}
     names = answers.get("names")
     if not isinstance(names, dict) or names.keys() != targets.keys():
@@ -177,6 +188,7 @@ def prepare(lane, packet, answers, review=None):
             answer = dict(name=answer)
         if not isinstance(answer, dict):
             raise ValueError(f"{key}: provide a name or explicit keep reason")
+        proposer = proposer_of(answers, answer, lane.worker())
         question = target.get("question") or answer.get("question")
         if question:
             questioned[key] = question
@@ -190,7 +202,9 @@ def prepare(lane, packet, answers, review=None):
         if "keep" in decision:
             if not isinstance(decision["keep"], str) or not decision["keep"].strip():
                 raise ValueError(f"{key}: keep requires a reason")
-            retained.append(dict(key=key, reason=decision["keep"]))
+            retained.append(dict(key=key, reason=decision["keep"], proposed_by=proposer,
+                                 reviewed_by=lane.worker() if review else None,
+                                 proposed_name=answer.get("name")))
             continue
         new = decision.get("name")
         if new == target["old"]:
@@ -198,16 +212,206 @@ def prepare(lane, packet, answers, review=None):
         if not isinstance(new, str) or not rename.IDENT.fullmatch(new):
             raise ValueError(f"{key}: invalid proposed identifier")
         evidence_id = digest(f"{key}|{new}|{packet['sources'][rel]['sha256']}".encode())[:24]
+        attribution = dict(proposed_by=proposer, proposed_name=answer.get("name"),
+                           reviewed_by=lane.worker() if review else None)
+        correction = ""
+        if key in decisions:
+            detail = dict(proposed=answer.get("name"), reason=decision["reason"])
+            if "keep" in answer:
+                detail["proposed_keep"] = answer["keep"]
+            attribution["parent_decision"] = detail
+            correction = " parent-decision " + json.dumps(detail, ensure_ascii=True, separators=(",", ":"))
         entry = dict(kind=target["kind"], function=target["function"],
                      name=target["old"], new=new,
                      evidence=f"direct:nd-{evidence_id} parent-reviewed-by {lane.worker()} "
-                              f"{packet['model']} proposed-by {proposer}")
+                              f"{packet['model']} proposed-by {proposer}{correction}")
         groups[rel].append(entry)
-        mapping.append(dict(key=key, old=target["old"], new=new))
+        mapping.append(dict(key=key, old=target["old"], new=new, **attribution))
     requests = [("scoped-set", dict(source=rel, entries=entries,
         expected_source_sha=packet["sources"][rel]["sha256"])) for rel, entries in groups.items()]
     return requests, dict(inventoried=len(targets), proposed=len(mapping), retained=retained,
                           questioned=questioned, mapping=mapping)
+
+
+def merge(lane, args):
+    """Combine disjoint native-child answers without inventing joint attribution."""
+    path = session_path(lane, args.session)
+    output = path.with_suffix(".answers.json")
+    answers = dict(names={}, coverage_notes=[])
+    for part_path in args.parts:
+        part_path = lane.path(part_path)
+        if part_path.resolve() == output.resolve():
+            raise ValueError("keep original parts separate from the merged answers output")
+        part = load(part_path)
+        if not isinstance(part.get("names"), dict):
+            raise ValueError("each part must contain a names mapping")
+        for key, value in part["names"].items():
+            if key in answers["names"]:
+                raise ValueError(f"duplicate binding across proposal parts: {key}")
+            if not isinstance(value, (str, dict)):
+                raise ValueError(f"{key}: provide a name or explicit keep reason")
+            answer = dict(name=value) if isinstance(value, str) else dict(value)
+            answer["proposed_by"] = proposer_of(part, answer, lane.worker())
+            answers["names"][key] = answer
+        if part.get("coverage_notes"):
+            answers["coverage_notes"].append(dict(part=part_path.name, notes=part["coverage_notes"]))
+    prepare(lane, load(path), answers)  # Coverage, source freshness and ordinary answer validation.
+    save(output, answers)
+    print(f"scoped: merged {len(answers['names'])} bindings with per-binding attribution; {output}")
+    return 0
+
+
+def context_documents(lane, rel, source, extra=()):
+    """Bounded include lookup on demand; no global scan, build or reference refresh."""
+    if len(extra) > 8:
+        raise ValueError("request at most eight extra context files")
+    documents = {rel: source}
+    omitted = []
+    flags = " ".join(line for line in source.splitlines()[:8] if re.match(r"\s*//\s*cl:", line))
+    include_dirs = re.findall(r'(?:/I|-I)\s*(?:"([^"]+)"|(\S+))', flags)
+    include_dirs = [a or b for a, b in include_dirs]
+    queue = [(path, 0) for path in extra]
+    queue.insert(0, (rel, 0))
+    total = 0
+    seen = set()
+    while queue:
+        current, depth = queue.pop(0)
+        if current in seen:
+            continue
+        seen.add(current)
+        if current != rel:
+            if (not current.startswith(("Code/", "reference/"))
+                    or PurePosixPath(current).suffix.lower() not in (".h", ".hpp", ".inl", ".cpp", ".c")
+                    or ".." in PurePosixPath(current).parts or "\\" in current):
+                raise ValueError(f"not a repository code context path: {current}")
+            path = rename._safe_component_path(lane.root, current)
+            if path is None or not path.is_file():
+                omitted.append(dict(source=current, reason="missing or unsafe context path"))
+                continue
+            size = path.stat().st_size
+            if len(documents) >= 13 or size > 96000 or total + size > 256000:
+                omitted.append(dict(source=current, reason="context file/byte budget"))
+                continue
+            documents[current] = path.read_bytes().decode("utf-8", "surrogateescape")
+            total += size
+        if depth >= 2:
+            continue
+        for name in re.findall(r'^[ \t]*#[ \t]*include\s*[<"]([^>"]+)[>"]', documents[current], re.M):
+            candidates = [posixpath.join(posixpath.dirname(current), name), name]
+            candidates += [posixpath.join(directory, name) for directory in include_dirs]
+            found = None
+            for candidate in candidates:
+                candidate = posixpath.normpath(candidate)
+                if not candidate.startswith(("Code/", "reference/")):
+                    continue
+                path = rename._safe_component_path(lane.root, candidate)
+                if path is not None and path.is_file():
+                    found = candidate
+                    break
+            if found:
+                queue.append((found, depth + 1))
+            else:
+                omitted.append(dict(source=current, include=name, reason="include not resolved locally"))
+    return documents, omitted[:40] + ([dict(reason="more omitted includes", count=len(omitted) - 40)]
+                                      if len(omitted) > 40 else [])
+
+
+def declaration_hints(documents, callees, members):
+    """Syntax-limited candidate declarations; never assert overload/type resolution."""
+    signatures, fields = collections.defaultdict(list), collections.defaultdict(list)
+    head = name_metric.FUNC.pattern.removesuffix(r"\{").replace(
+        r"^[ \t]*", r"(?:^|(?<=[;{}]))[ \t]*", 1)
+    pattern = re.compile(head + r"(?:(?:override|final|noexcept)\s*)*(?:=\s*0\s*)?(?:\{|;)", re.M)
+    for rel, text in documents.items():
+        code = name_metric.strip(text)
+        types = list(rename.type_bodies(code))
+        sha = digest(text.encode("utf-8", "surrogateescape"))
+        def hint(at, declaration, **extra):
+            return dict(source=rel, line=code.count("\n", 0, at) + 1 if at is not None else None,
+                        declaration=" ".join(declaration.split())[:384], sha256=sha,
+                        basis="declaration candidate; not canonical naming proof", **extra)
+        parsed = re.sub(r"\b(?:public|private|protected)\s*:", lambda m: " " * len(m[0]), code)
+        for match in pattern.finditer(parsed):
+            method = match[2]
+            if method not in callees:
+                continue
+            prefix = code[match.start():match.start(1)].strip()
+            containers = [(name, begin, end) for name, begin, end in types
+                          if begin <= match.start() < end]
+            owner = min(containers, key=lambda t: t[2] - t[1])[0] if containers else ""
+            qualified_owner = match[1].rstrip(":").split("::")[-1]
+            if ((not prefix and method not in (owner, qualified_owner))
+                    or prefix.split()[:1] in (["return"], ["throw"], ["delete"])):
+                continue  # An invocation is not a declaration.
+            if len(signatures[method]) < 4:
+                signatures[method].append(hint(match.start(), text[match.start():match.end() - 1],
+                                               owner=match[1].rstrip(":") or owner))
+        for owner, begin, end in types:
+            for member in members:
+                if len(fields[member]) >= 4:
+                    continue
+                for statement in rename.member_statements(code[begin:end], member):
+                    declaration = re.search(r"\s+".join(re.escape(token) for token in statement.split()),
+                                            code[begin:end])
+                    at = begin + declaration.start() if declaration else None
+                    fields[member].append(hint(at, statement, owner=owner))
+                    if len(fields[member]) >= 4:
+                        break
+    return signatures, fields
+
+
+def context(lane, args):
+    packet = load(session_path(lane, args.session))
+    keys = list(dict.fromkeys(args.key))
+    if not 1 <= len(keys) <= 4:
+        raise ValueError("request context for one to four unclear binding keys at a time")
+    targets = {t["key"]: (rel, t) for rel, s in packet["sources"].items() for t in s["targets"]}
+    if set(keys) - targets.keys():
+        raise ValueError("context keys must belong to this scoped session")
+    result = dict(session=args.session, bindings={}, omitted=[],
+        notice="Bounded context hints only. Declarations may be inferred, overloaded or from an inactive "
+               "preprocessor branch; inspect candidate owners. Donor declarations are not BFME 2 naming proof. "
+               "Missing snippets do not establish absence; no canonical tier is assigned.")
+    cached = {}
+    for key in keys:
+        rel, target = targets[key]
+        source = packet["sources"][rel]
+        if lane.ctx.resolution_source_sha(rel) != source["sha256"]:
+            raise ValueError(f"{rel} changed; prepare a fresh batch")
+        function = next(f for f in source["functions"] if key in f["keys"])
+        text = function["code"]
+        code = name_metric.strip(text)
+        body_at = code.find("{") + 1
+        word = rename.word_re(target["old"])
+        pairs = dict(rename._bracket_pairs(code, "(", ")"))
+        calls, members = [], set()
+        for match in re.finditer(r"\b([A-Za-z_]\w*)\s*\(", code[body_at:]):
+            name = match[1]
+            begin = body_at + match.end() - 1
+            end = pairs.get(begin, len(code))
+            if name in name_metric.KEYWORDS or not word.search(code[begin + 1:end]):
+                continue
+            calls.append(dict(callee=name, expression=" ".join(text[body_at + match.start():end + 1].split())[:384]))
+            if len(calls) >= 6:
+                break
+        uses = []
+        lines = text.splitlines()
+        for index, line in enumerate(code.splitlines()):
+            if word.search(line):
+                uses.append(lines[index].strip()[:240])
+                members.update(re.findall(r"(?:->|\.)\s*([A-Za-z_]\w*)", line))
+                members.update(re.findall(r"\bm_[A-Za-z_]\w*", line))
+        members = set(sorted(members)[:8])
+        if rel not in cached:
+            cached[rel] = context_documents(lane, rel, source["text"], getattr(args, "context_files", ()) or ())
+        documents, omitted = cached[rel]
+        signatures, fields = declaration_hints(documents, {c["callee"] for c in calls}, members)
+        result["bindings"][key] = dict(function=target["function"], old=target["old"], uses=uses[:6],
+            calls=[dict(c, declarations=signatures[c["callee"]]) for c in calls],
+            members=[dict(name=name, declarations=fields[name]) for name in sorted(members)])
+        result["omitted"].extend(item for item in omitted if item not in result["omitted"])
+    print(json.dumps(result, indent=2, ensure_ascii=True))
+    return 0
 
 
 def preview(lane, args):
@@ -329,6 +533,13 @@ def configure_parser(parser):
     n.add_argument("--target", type=int, default=200, help="soft binding target; never cut a function")
     n.add_argument("--max-files", type=int, default=32)
     n.add_argument("--max-chars", type=int, default=250000)
+    c = sub.add_parser("context", help="show bounded declaration hints for unclear scoped bindings")
+    c.add_argument("--session", required=True)
+    c.add_argument("--key", action="append", required=True, help="one served binding key; repeat for up to four")
+    c.add_argument("--context-files", nargs="+", help="up to eight explicitly relevant code/header paths")
+    m = sub.add_parser("merge", help="combine native-child parts with exact per-binding attribution")
+    m.add_argument("--session", required=True)
+    m.add_argument("--parts", nargs="+", required=True)
     for command in ("preview", "apply"):
         p = sub.add_parser(command)
         p.add_argument("--session", required=True)
@@ -338,4 +549,5 @@ def configure_parser(parser):
 
 
 def run(lane, args):
-    return {"next": next_batch, "preview": preview, "apply": apply}[args.scoped_cmd](lane, args)
+    return {"next": next_batch, "context": context, "merge": merge,
+            "preview": preview, "apply": apply}[args.scoped_cmd](lane, args)
