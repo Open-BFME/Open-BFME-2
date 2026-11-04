@@ -14,11 +14,15 @@
 // constructed in the outgoing argument slot, the returned temp released
 // through 0x00036E70). Class and member names are address-derived or
 // descriptive; the original spellings are unknown.
-// Use the native 17-byte specialization at RVA 0x00013740 rather than
-// emitting a separately optimized copy from this text-binding unit.
+// vector::_M_insert_overflow inlines max(size(), n), as retail's shared copy
+// at 0x002DFCF6 does. A file-static unsigned overload takes the call instead,
+// so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
 namespace _STL {
-template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
 }
 
 #include "ascii_string.h"
