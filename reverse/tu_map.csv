@@ -27109,11 +27109,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00358B65,57,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358ACB..0x00358B9E,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358B9E,194,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp S=Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp N=Code/GameEngine/Source/GameClient/MessageStream/HotKeyManager.cpp,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358C60,27,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358C7B,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
-0x00358C7B,9,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358C84,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
+0x00358C7B,9,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358C84,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358C84,28,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358CA0,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358CA0,45,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358B9E..0x00358CCD,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358CCD,90,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp S=Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp N=Code/GameEngine/Source/GameClient/MessageStream/HotKeyManager.cpp,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
-0x00358D27,59,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358D62,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
+0x00358D27,59,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358D62,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358D62,53,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358D97,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358D97,9,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358DA0,Code/GameEngine/Source/Common/DestroyInstances.cpp
 0x00358DA0,34,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358DC2,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
@@ -49681,14 +49681,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005C670C,28,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva005C66A8Dtor.cpp
 0x005C6728,34,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_create_node.cpp
 0x005C674A,758,code,,,-,,Code/GameEngine/Source/Common/Rva005C6CCC.cpp
-0x005C6A40,53,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
+0x005C6A40,53,code,,,-,,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x005C6A75,136,code,,,-,,Code/GameEngine/Source/Common/Rva005C6CCC.cpp
 0x005C6AFD,134,code,,,-,,Code/GameEngine/Source/Common/Rva005C6CCC.cpp
-0x005C6B83,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
-0x005C6BAC,68,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
+0x005C6B83,41,code,,,-,,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
+0x005C6BAC,68,code,,,-,,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x005C6BF0,5,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
 0x005C6BF5,56,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_dtor_twins.cpp
-0x005C6C2D,73,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
+0x005C6C2D,73,code,,,-,,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x005C6C76,5,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
 0x005C6C7B,14,code,,,-,,Code/GameEngine/Source/Common/Rva005C6C7BDtor.cpp
 0x005C6C89,62,code,,,-,,Code/GameEngine/Source/Common/Rva005C6C89.cpp

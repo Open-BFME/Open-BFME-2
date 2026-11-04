@@ -24,7 +24,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <memory>
 #include <vector>
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
 // specialization takes those calls inline so this TU emits no external copy.
@@ -33,38 +32,25 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-
 typedef int Int;
-
 typedef bool Bool;
-
 typedef unsigned char UnsignedByte;
-
 typedef unsigned short WideChar;
-
 enum GameMessageDisposition
 {
 	KEEP_MESSAGE,
 	DESTROY_MESSAGE
 };
-
 extern GameLogic *TheGameLogic;
-
 #include "../../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 #include "../../../Include/GameClient/KeyboardClass.h"
-
 extern Keyboard *TheKeyboard;
-
 union GameMessageArgumentType
 {
 	Int integer;
 };
-
 #include "../../../Include/Common/MessageStream.h"
-
 // Zero Hour's KeyDefs.h key states.
 enum
 {
@@ -72,7 +58,6 @@ enum
 	KEY_STATE_ALT = 0x00C0,
 	KEY_STATE_SHIFT = 0x0430
 };
-
 // Zero Hour's MetaEvent.h modifier mask bits.
 enum
 {
@@ -80,7 +65,6 @@ enum
 	SHIFT = 0x10,
 	ALT = 0x40
 };
-
 // The bound action; slot 0 is the handle's deleting destructor.
 class HotKeyAction
 {
@@ -91,63 +75,50 @@ public:
 	virtual Bool vslot03(Bool shift);		// +0x0C
 	int references;
 };
-
-// The reference-counted action handle (rowed under this address name).
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
 	if (m_ptr)
 		ReleaseTreeHintRef00217D4C(m_ptr);
 }
-
 // The handle's referent viewed as the bound action.
 __forceinline HotKeyAction *boundAction(const TreeHintRef00217D4C &handle)
 {
 	return (HotKeyAction *)handle.m_ptr;
 }
-
 struct HotKeyNode
 {
 	char m_links[0x10];
 	AsciiString m_key;		// +0x10
 	TreeHintRef00217D4C m_action;		// +0x14
 };
-
 struct HotKeyMessageActionNode
 {
 	char m_links[0x10];
 	Int m_messageType;		// +0x10
 	TreeHintRef00217D4C m_action;		// +0x14
 };
-
 // The AsciiString-keyed search is STLport's _M_find, rowed at 0x001F8437
 // as the map<AsciiString,AsciiString> instantiation; this unit instantiates
 // the same COMDAT (byte-identical to that row) through the tree's find.
 typedef _STL::pair<const AsciiString, AsciiString> HotKeyStringValue;
-
 typedef _STL::_Rb_tree<AsciiString, HotKeyStringValue, _STL::_Select1st<HotKeyStringValue>,
 	_STL::less<AsciiString>, _STL::allocator<HotKeyStringValue> > HotKeyStringTreeView;
-
 // The int-keyed search is STLport's _M_find, which retail folds for every
 // int-keyed tree into 0x00388F63 (rowed as the map<int,int> instantiation);
 // its body has to be visible here for the frame retail's translate has.
 typedef _STL::map<int, int> HotKeyIntMapView;
-
 // The message-action subscript 0x003596AD, rowed in Rva005C6CCC.cpp under
 // this address-derived handle type; declared only.
 struct TargetRef00217D4C;
-
 struct TreeHintRef003596AD
 {
 	TargetRef00217D4C *m_ptr;
 };
-
 typedef _STL::map<int, TreeHintRef003596AD> TreeHintMap003596AD;
-
 namespace _STL {
 template <> TreeHintRef003596AD &TreeHintMap003596AD::operator[](const int &key);
 }
-
 class HotKeyMap
 {
 public:
@@ -161,7 +132,6 @@ private:
 	int m_count;		// +0x04
 	int m_compare;		// +0x08
 };
-
 // View of the STLport map from message type to action handle.
 class HotKeyMessageActionMap
 {
@@ -180,7 +150,6 @@ private:
 	int m_count;		// +0x04
 	int m_compare;		// +0x08
 };
-
 // The audio manager's misc sounds (+0x80 hot key ran, +0x84 hot key failed).
 struct HotKeyMiscAudioView
 {
@@ -188,11 +157,8 @@ struct HotKeyMiscAudioView
 	OpaqueRefElement4 m_hotKeySuccess;		// +0x80
 	OpaqueRefElement4 m_hotKeyFail;		// +0x84
 };
-
 class AudioManager;
-
 extern AudioManager *TheAudio;
-
 class HotKeyAudioView
 {
 public:
@@ -221,12 +187,9 @@ public:
 	// Slot 78 (+0x138).
 	virtual const HotKeyMiscAudioView *getMiscAudio();
 };
-
 typedef _STL::pair<const AsciiString,TreeHintRef00217D4C> Pair358C60;
-
 // pair dtor inline so this TU emits no external copy; the owner is 0x002175CE (stlport_rb_tree_hint_00218022.cpp)
 namespace _STL { template<> Pair358C60::pair(const AsciiString &,const TreeHintRef00217D4C &); template<> __declspec(dllimport) __forceinline Pair358C60::~pair() { second.~TreeHintRef00217D4C(); first.~AsciiString(); } }
-
 // ?rva00358E6A@Rva00358E6A@@QAEXPAUNode00358E6A@@@Z @0x00358E6A
 // (53B): rb_tree clear via recursive left plus dtor plus free plus right loop.
 // Identity via dtor 0x00358B65 plus free 0x00030830 plus self recursion;
@@ -240,7 +203,6 @@ private:
 	AsciiString m_00;
 	TargetRef00217D4C *m_04;
 };
-
 struct Node00358E6A
 {
 	void *m_pad00[2];
@@ -248,7 +210,6 @@ struct Node00358E6A
 	Node00358E6A *m_left;
 	Rva00358B65 m_value;
 };
-
 struct Header00358E6A
 {
 	char m_00[4];
@@ -256,7 +217,6 @@ struct Header00358E6A
 	Header00358E6A *m_08;
 	Header00358E6A *m_0c;
 };
-
 class Rva00358E6A
 {
 public:
@@ -266,7 +226,6 @@ private:
 	Header00358E6A *m_00;
 	int m_04;
 };
-
 // ?rva00358D62@Rva00358D62@@QAEXPAURva00358D62Node@@@Z @0x00358D62 (53B):
 // List clear with recursion on +0xc: for each node recurse on child, destroy
 // embedded Rva0027EA49 at +0x10 via rowed dtor, free node via rowed _free,
@@ -280,7 +239,6 @@ struct Rva0027EA49
 	int m_00;
 	void *m_04;
 };
-
 struct Rva00358D62Node
 {
 	char m_00[8];
@@ -288,7 +246,6 @@ struct Rva00358D62Node
 	Rva00358D62Node *m_0c;
 	Rva0027EA49 m_10;
 };
-
 struct Rva00358D62Header
 {
 	char m_00[4];
@@ -296,7 +253,6 @@ struct Rva00358D62Header
 	Rva00358D62Header *m_08;
 	Rva00358D62Header *m_0c;
 };
-
 class Rva00358D62
 {
 public:
@@ -306,7 +262,6 @@ private:
 	Rva00358D62Header *m_00;
 	int m_04;
 };
-
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -316,33 +271,26 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-
 struct Rva00358E26Record { char word;
 // ?Rva00358E26Record::operator< present-unmatched
 bool operator<(const Rva00358E26Record&b)const{return word<b.word;}
 // ?Rva00358E26Record::operator== present-unmatched
 bool operator==(const Rva00358E26Record&b)const{return word==b.word;}
 };
-
 namespace _STL {template<>struct __type_traits<Rva00358E26Record>:__type_traits_aux<1>{};}
-
 typedef _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>,
 	_STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >,
 	_STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > > Rva00359269Tree;
-
 // Retail's range erase calls the rowed tree clear at 0x00358DFD and node erase at
 // 0x00358D27; suppress this TU's own copies and bind the template names to those rows.
 namespace _STL {
 template <> void _Rb_tree<int, pair<int const, Rva00358E26Record>, _Select1st<pair<int const, Rva00358E26Record> >, less<int>, allocator<pair<int const, Rva00358E26Record> > >::clear();
 template <> void _Rb_tree<int, pair<int const, Rva00358E26Record>, _Select1st<pair<int const, Rva00358E26Record> >, less<int>, allocator<pair<int const, Rva00358E26Record> > >::erase(_Rb_tree<int, pair<int const, Rva00358E26Record>, _Select1st<pair<int const, Rva00358E26Record> >, less<int>, allocator<pair<int const, Rva00358E26Record> > >::iterator);
 }
-
 // Instantiate the recovered member; retain only its required template dependencies.
 template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva00358E26Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00358E26Record> > >, _STL::_Rb_tree_iterator<_STL::pair<int const, Rva00358E26Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00358E26Record> > >);
-
 // Incidental target placement 0x00358FA5: donor member spelling/layout remains an inference.
 template unsigned int _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > >::erase(int const &);
-
 // Native 0x00359269..0x0035926E is an independent tail entry to the
 // verified key erase at 0x00358FA5, with ECX and its reference argument
 // unchanged. The existing tree view establishes the forwarding interface;
@@ -353,42 +301,32 @@ class Rva00359269 : public Rva00359269Tree
 public:
 	unsigned int rva00359269(const int &key);
 };
-
 struct Rva00358FEERecord { char word;
 // ?Rva00358FEERecord::operator< present-unmatched
 bool operator<(const Rva00358FEERecord&b)const{return word<b.word;}
 // ?Rva00358FEERecord::operator== present-unmatched
 bool operator==(const Rva00358FEERecord&b)const{return word==b.word;}
 };
-
 namespace _STL {template<>struct __type_traits<Rva00358FEERecord>:__type_traits_aux<1>{};}
-
 // Retail's range erase calls the rowed tree clear at 0x00358F7C and node erase at
 // 0x00358DC2; suppress this TU's own copies and bind the template names to those rows.
 namespace _STL {
 template <> void _Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::clear();
 template <> void _Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::erase(_Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::iterator);
 }
-
 // Instantiate the recovered member; retain only its required template dependencies.
 template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00358FEERecord>, _STL::_Select1st<_STL::pair<int const, Rva00358FEERecord> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358FEERecord> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva00358FEERecord>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00358FEERecord> > >, _STL::_Rb_tree_iterator<_STL::pair<int const, Rva00358FEERecord>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00358FEERecord> > >);
-
 class AsciiString;
-
 bool __cdecl operator<(const AsciiString &left, const AsciiString &right);
-
 // Bounded ABI view: retail copies this 8-byte value through pair 0x00358B43,
 // including the counted handle at +4. This does not establish original inheritance.
 namespace _STL { template <> Pair358C60::pair(const Pair358C60 &); }
 struct Rva00359032Value : public Pair358C60 {};
-
 typedef _STL::_Rb_tree<Rva00359032Value, Rva00359032Value,
 	_STL::_Identity<Rva00359032Value>, _STL::less<Rva00359032Value>,
 	_STL::allocator<Rva00359032Value> > Rva00359032Tree;
-
 template _STL::pair<Rva00359032Tree::iterator, bool>
 Rva00359032Tree::insert_unique(const Rva00359032Tree::value_type &value);
-
 // Retail 0x00359218/20 (RET 8): an insert over the same tree held at +0
 // that forwards the hidden return pair and the value straight to the
 // insert_unique above. STLport's set::insert would copy the pair through a
@@ -401,7 +339,6 @@ public:
 private:
 	Rva00359032Tree m_tree;
 };
-
 class Rva0035922C
 {
 public:
@@ -409,12 +346,10 @@ public:
 private:
 	Rva00358E6A m_tree;
 };
-
 // ?rva003592E6@Rva003592E6@@QAEXXZ @0x003592E6 (20B):
 // Clear two embedded rb-tree maps at +0xc and +0x18 via rowed 0x00358F7C; second is tail jmp.
 // Evidence: calls 0x00358F7C twice (call plus jmp); same /O1 /GX- /arch:SSE2 as neighbours.
 struct Header00358E6A;
-
 class Rva003592E6
 {
 	char m_00[12];
@@ -424,17 +359,12 @@ class Rva003592E6
 public:
 	void rva003592E6();
 };
-
 #include "../../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
 struct Rva00358DC2Node : public _STL::_Rb_tree_node_base
 {
 };
-
 class Rva00358DC2
 {
 	_STL::_Rb_tree_node_base *m_header;
@@ -443,7 +373,6 @@ public:
 	void rva00358DC2(Rva00358DC2Node *pos);
 	void rva00358F33(struct Rva00358F33Iterator pos);
 };
-
 // ?rva00358F33@Rva00358DC2@@QAEXURva00358F33Iterator@@@Z @0x00358F33 (17B):
 // the map-level erase(iterator) over the erase-one above (its call at
 // 0x00358F3C). Retail copies a by-value iterator class into the argument
@@ -456,31 +385,22 @@ struct Rva00358F33Iterator
 	Rva00358DC2Node *m_node;
 	Rva00358F33Iterator(const Rva00358F33Iterator &other) : m_node(other.m_node) {}
 };
-
 typedef void (Rva00358DC2::*Rva00358F33EraseFn)(Rva00358F33Iterator);
-
 typedef float Real;
-
 class Object;
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_1C = 0x1C
 };
-
 enum KindOfType
 {
 	KINDOF_INVALID = -1
 };
-
 #include "../../GameLogic/Object/object.h"
-
 // 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
 // 0x00288CFA accepts the argument's +0x264 word.
 class ExperienceLevelSystem;
-
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
-
 // Slot 1 (allow) of partition filter vftable 0x00C5A99C.
 // 0x0026156C: filter slot1 of native vftable C600A0. Its caller preserves
 // Object::rva0029493F's AL result; the older void/int view dropped that ABI fact.
@@ -491,7 +411,6 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 // MessageStream/HotKey.cpp) of the manager at VA 0x00E01E28 with the
 // argument, 0 without the manager.
 class GameMessage;
-
 class HotKeyManager
 {
 public:
@@ -509,28 +428,21 @@ private:
 	HotKeyMap m_altMap;		// +0x18
 	HotKeyMessageActionMap m_messageActionMap;		// +0x24
 };
-
 extern HotKeyManager *TheHotKeyManager;
-
 class HotKeyTranslator
 {
 public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 };
-
 // 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
 // at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified
 // in ParticleSystemManagerGetShaderSetup.cpp (1F4002 and 1F40AF).
 struct IDirect3DVertexDeclaration9;
-
 class DX8IndexBufferClass;
-
 namespace FXParticleSystem {
 #include "../../../Include/GameClient/ParticleSys.h"
 }
-
 extern class ParticleSystemManager *TheParticleSystemManager;
-
 // 0x003C35F7: the pinned 0x003C35AA with both arguments and true.
 // 0x0040E0C5: for the argument's +0x78 object in state 4 (+0x2C), the
 // pinned 0x0040DF77 then the rowed 0x0040E02B; answers true.
@@ -540,7 +452,6 @@ extern class ParticleSystemManager *TheParticleSystemManager;
 // the pinned 0x0035A292 of TheGameLogic's +0x170 object with the +0x08 word
 // and the +0x04 object's +0x08 Real.
 class GameLogic;
-
 // 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both
 // arguments then the pinned 0x004CDDBA(1); resp. only the latter while
 // +0x08 is set.
@@ -548,18 +459,8 @@ class GameLogic;
 // object with the first argument.
 // 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
 class Player;
-
-// 0x003AFF06 (28B): a vtable slot that forwards both of its arguments to the
-// ParticleSystem member at 0x001F9BA4 (unrowed, pinned) through the system
-// held at +0x4, when one is held. The test goes through the conversion
-// operator, the call through operator->, which falls back to the rowed
-// null-system factory 0x001FCBD7 and re-reads +0x4 (volatile read), as the
-// sibling ParticleSystem::destroy (0x001F462C) does. Class and method names
-// are address-derived; the meaning is not recovered.
 #include "../../../Include/GameClient/ParticleSystemClass.h"
-
 ParticleSystem *Make001FCBD7(void);
-
 class Rva003AFF06SystemPtr
 {
 public:
@@ -579,7 +480,6 @@ public:
 private:
 	ParticleSystem *m_target;
 };
-
 class Rva003AFF06
 {
 public:
@@ -588,18 +488,14 @@ public:
 private:
 	Rva003AFF06SystemPtr m_system;				///< +0x4
 };
-
 struct Rva00358DA0Element { short words[1]; bool operator<(const Rva00358DA0Element&b)const { return words[0]<b.words[0]; } bool operator==(const Rva00358DA0Element&b)const {return words[0]==b.words[0];} };
-
 // Declared only: retail's element copy is the rowed body at this name's pinned
 // address; this TU's copy is not retail's.
 namespace _STL { template <> void _Construct<pair<const Rva00358DA0Element, int> , pair<const Rva00358DA0Element, int> >(pair<const Rva00358DA0Element, int>  *, const pair<const Rva00358DA0Element, int>  &); }
-
 // Instantiate the recovered operation and its required template dependencies.
 // The node's element copy is retail 0x00358CA0, rowed as ?Rva00358CA0Construct@@YAXPAXPBX@Z; bind the
 // call to that row instead of emitting this unit's own _Construct copy.
 void Rva00358CA0Construct(void *dest, const void *source);
-
 namespace _STL {
 // ?_STL::_Construct absent-from-retail
 static __forceinline void _Construct(_STL::pair<Rva00358DA0Element const, int> *dest, const _STL::pair<Rva00358DA0Element const, int> &source)
@@ -607,15 +503,13 @@ static __forceinline void _Construct(_STL::pair<Rva00358DA0Element const, int> *
 	Rva00358CA0Construct(dest, &source);
 }
 }
-
 template _STL::_Rb_tree_node<_STL::pair<Rva00358DA0Element const, int> > * _STL::_Rb_tree<Rva00358DA0Element, _STL::pair<Rva00358DA0Element const, int>, _STL::_Select1st<_STL::pair<Rva00358DA0Element const, int> >, _STL::less<Rva00358DA0Element>, _STL::allocator<_STL::pair<Rva00358DA0Element const, int> > >::_M_create_node(_STL::pair<Rva00358DA0Element const, int> const &);
-
 struct BfmePod88
 {
 	char m_body[88];
 };
-
 #include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
+#define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 
 struct TreeHintPayload003012F0
 {
@@ -639,6 +533,20 @@ template <> ConstructPodVec::vector(const ConstructPodVec &);
 template <> ConstructPairHP::pair(const ConstructPairHP &);
 
 }
+
+typedef _STL::_Rb_tree<Rva0027EA49, Rva0027EA49, _STL::_Identity<Rva0027EA49>, _STL::less<Rva0027EA49>, _STL::allocator<Rva0027EA49> > Rva0027EA49Tree;
+
+// ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
+
+// The reference-counted action handle (rowed under this address name).
+
+// 0x003AFF06 (28B): a vtable slot that forwards both of its arguments to the
+// ParticleSystem member at 0x001F9BA4 (unrowed, pinned) through the system
+// held at +0x4, when one is held. The test goes through the conversion
+// operator, the call through operator->, which falls back to the rowed
+// null-system factory 0x001FCBD7 and re-reads +0x4 (volatile read), as the
+// sibling ParticleSystem::destroy (0x001F462C) does. Class and method names
+// are address-derived; the meaning is not recovered.
 
 template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec *, const ConstructPodVec &);
 
@@ -1058,9 +966,7 @@ GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
-// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
 
-// tu-skeleton: 0x00358C7B 9B ??$_Destroy@URva0027EA49@@@_STL@@YAXPAURva0027EA49@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp
 
@@ -1079,11 +985,36 @@ void Rva00358CA0Construct(void *dest, const void *source)
     ::new (dest) ConstructPairHR(*static_cast<const ConstructPairHR *>(source));
 }
 
-// tu-skeleton: 0x00358D27 59B ?erase@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva0027EA49@@U?$_Nonconst_traits@URva0027EA49@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
+// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp
+
+// ?_M_erase@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@URva0027EA49@@@2@@Z, retail 0x005C6A40 53B.
+// Rb_tree _M_erase for set of Rva0027EA49 holders (8B: int at +0 plus TargetRef pointer at +4).
+// Evidence: recurse-right via [esi+0x0C] walk-left via [esi+0x08] destroy value at node+0x10 via rowed
+// ??1Rva0027EA49@@QAE@XZ at 0x0027EA49 release node via GameMemory free 0x00030830 ret 4.
+// Reached from rowed clear 0x005C6B83 pattern and vector destroy sharing same element dtor.
+
+// Retail's erase(key) 0x005C6C2D calls 0x002F1C89, the equal_range ICF-shared
+// with map<int, int>'s: elements order by the int at +0.
+inline bool operator<(const Rva0027EA49 &a, const Rva0027EA49 &b) { return a.m_00 < b.m_00; }
+
+template void Rva0027EA49Tree::_M_erase(Rva0027EA49Tree::_Link_type);
+
+template void Rva0027EA49Tree::clear();
+
+// Instantiate the rowed erase operations without unrelated insertion members.
+// This unit has no retail insertion body or node-construction provider.
+template void Rva0027EA49Tree::erase(Rva0027EA49Tree::iterator,
+                                    Rva0027EA49Tree::iterator);
+
+template void Rva0027EA49Tree::erase(Rva0027EA49Tree::iterator);
+
+template Rva0027EA49Tree::size_type Rva0027EA49Tree::erase(const Rva0027EA49 &);
+
+template void _STL::_Destroy<Rva0027EA49>(Rva0027EA49 *);
 
 // tu-skeleton: 0x00358D97 9B ??$_Destroy@VRva00358B65@@@_STL@@YAXPAVRva00358B65@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00358E9F 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x00358F44 56B ??1Rva00358D62@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
 
@@ -1110,6 +1041,18 @@ void Rva00358CA0Construct(void *dest, const void *source)
 // tu-skeleton: 0x0035973D 79B ??0Rva00359290@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0035978C 28B ??_GRva00359290@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077D8A7 8B $L963 -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077D8AF 10B __ehhandler$??1Rva00358D62@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077D8B9 8B $L5102 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077D8C1 11B $L5099 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077D8CC 11B $L5100 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077D8D7 10B __ehhandler$??1Rva00359290@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D8E1 8B Unwind@00b7d8e1 -- matched in Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp (not merged yet)
 
