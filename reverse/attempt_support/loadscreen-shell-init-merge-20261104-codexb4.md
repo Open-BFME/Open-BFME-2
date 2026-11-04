@@ -71,3 +71,12 @@ Remaining donors were not edited:
 
 The two mixed donors remain satellites. No existing obstacle family is declared
 cleared by this consolidation.
+
+Publication accounting: the runner rebased the prerequisite and merge to
+`5614b976b6` and `830bc73f09`. The batch's final-state debt gate then refused
+the vanished donor's ImageCollection retirement despite its earlier acceptance.
+`header_adopt_lane.py accept --class ImageCollection
+Code/GameEngine/Source/GameClient/GUI/LoadScreen.cpp` also passes on the final TU.
+A follow-up commit supplies the documented per-key `Debt-Retired` explanation
+for this vanished-source case; neither existing commit was manually rewritten,
+and no register key or verifier code is changed by that accounting.
