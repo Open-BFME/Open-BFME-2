@@ -1,19 +1,13 @@
 // cl: /MD /EHsc
 // ?rva000F1AD8@W3DShadowGeometryManager@@QAEXXZ @0x000F1AD8 95B
 // Evidence: unlock lane calls rowed First Next Reset plus virtual release; table at +0; iterator on stack.
-class HashableClass {
-public:
+#include "../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"
+// The hashed objects carry their HashableClass at +8, behind a vptr whose slot
+// 0 releases them and a reference count at +4; the loops step back to that
+// owner. View only, named for this unit.
+struct Rva000F1AD8RefOwner {
  virtual void release();
  int m_ref;
- HashableClass *m_next;
-};
-class HashTableClass {
-public:
- void Reset();
- __declspec(noinline) ~HashTableClass();
-private:
- int HashTableSize;
- HashableClass **HashTable;
 };
 struct IterBase {
  const HashTableClass *m_table;
@@ -63,7 +57,7 @@ void W3DShadowGeometryManager::rva000F1AD8()
  it.First();
  while (!it.Is_Done()) {
  HashableClass *hashable = it.Get_Current();
- HashableClass *b = hashable ? (HashableClass*)((char*)hashable - 8) : 0;
+ Rva000F1AD8RefOwner *b = hashable ? (Rva000F1AD8RefOwner*)((char*)hashable - 8) : 0;
  if (--b->m_ref == 0)
  b->release();
  it.Next();
@@ -94,7 +88,7 @@ void BfmeSub928F::bfmeTail928F()
     while (!it.Is_Done())
     {
         HashableClass *hashable = it.Get_Current();
-        HashableClass *b = hashable ? (HashableClass*)((char*)hashable - 8) : 0;
+        Rva000F1AD8RefOwner *b = hashable ? (Rva000F1AD8RefOwner*)((char*)hashable - 8) : 0;
         if (--b->m_ref == 0)
             b->release();
         it.Next();
