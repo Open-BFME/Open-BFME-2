@@ -61,28 +61,7 @@ public:
 	bool m_texturing48;
 };
 
-class Display
-{
-public:
-	virtual void setHeight(unsigned int height);
-	virtual void setWidth(unsigned int width);
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual unsigned int getWidth();
-	virtual unsigned int getHeight();
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 class W3DDisplay : public Display
 {
@@ -91,7 +70,7 @@ public:
 	virtual void setHeight(unsigned int height);
 	void queueImage(Rva000465CEBuffer *buffer, float startX, float startY, float endX, float endY, int color);
 private:
-	char m_pad14[0x164];
+	char m_pad144[0x168 - 0x144];
 	Render2DClass *m_render2D;
 };
 

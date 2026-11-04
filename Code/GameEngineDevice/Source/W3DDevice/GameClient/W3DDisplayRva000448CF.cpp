@@ -21,28 +21,7 @@ bool ClipLine2D(ICoord2D *start,ICoord2D *end,ICoord2D *returnStart,ICoord2D *re
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
-class Display
-{
-public:
-	virtual void setHeight(unsigned int height);
-	virtual void setWidth(unsigned int width);
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual unsigned int getWidth();
-	virtual unsigned int getHeight();
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 class W3DDisplay : public Display
 {
@@ -50,7 +29,7 @@ public:
 	virtual void drawLine(float x1, float y1, float x2, float y2, float width, uint32 color);
 	virtual void drawLine(float x1, float y1, float endX, float endY, float width, uint32 color0, uint32 color1);
 private:
-	char m_pad14[0x164];
+	char m_pad144[0x168 - 0x144];
 	Render2DClass *m_render2D;
 	IRegion2D m_clipRegion; // native +0x16C
 	bool m_isClippedEnabled; // native +0x17C

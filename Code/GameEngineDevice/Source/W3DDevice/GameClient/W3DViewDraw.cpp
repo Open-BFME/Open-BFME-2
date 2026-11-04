@@ -54,15 +54,13 @@ public:
 #define SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define SLOTS16(p) SLOTS4(p##a) SLOTS4(p##b) SLOTS4(p##c) SLOTS4(p##d)
 
-class Display {
-public:
-	SLOTS16(s)
-	virtual UnsignedInt getWidth();
-	virtual UnsignedInt getHeight();
-	__forceinline void drawLine(Real x0, Real y0, Real x1, Real y1, Real width, UnsignedInt color)
-	{ ((W3DDisplay *)this)->rva0004D664(x0, y0, x1, y1, width, color); }
-};
-extern Display *TheDisplay;
+#include "../../../../GameEngine/Include/GameClient/Display.h"
+
+// The overlays call W3DDisplay's rowed line drawer 0x0004D664 directly.
+static __forceinline void drawDisplayLine(Display *display, Real x0, Real y0, Real x1, Real y1, Real width, UnsignedInt color)
+{
+	((W3DDisplay *)display)->rva0004D664(x0, y0, x1, y1, width, color);
+}
 
 class BaseHeightMapRenderObjClass { public: char m_pad[0x37E8]; float m_minWaterOpacity; Real getMinOpacity() const { return m_minWaterOpacity; } };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
@@ -342,10 +340,10 @@ void W3DView::draw( void )
 			PathNode *prevNode = TheAI->pathfinder()->getDebugPath()->getFirstNode();
 
 			if (worldToScreenTriReturn( prevNode->getPosition(), &start ) == 0) {
-				TheDisplay->drawLine( start.x-3, start.y-3, start.x+3, start.y-3, 1.0f, color );
-				TheDisplay->drawLine( start.x+3, start.y-3, start.x+3, start.y+3, 1.0f, color );
-				TheDisplay->drawLine( start.x+3, start.y+3, start.x-3, start.y+3, 1.0f, color );
-				TheDisplay->drawLine( start.x-3, start.y+3, start.x-3, start.y-3, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x-3, start.y-3, start.x+3, start.y-3, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x+3, start.y-3, start.x+3, start.y+3, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x+3, start.y+3, start.x-3, start.y+3, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x-3, start.y+3, start.x-3, start.y-3, 1.0f, color );
 			}
 			for( PathNode *node = prevNode->getNext(); node; node = node->getNext() )
 			{
@@ -381,26 +379,26 @@ void W3DView::draw( void )
 					ICoord2D clipStart, clipEnd;
 
 					if( ClipLine2D( &start, &end, &clipStart, &clipEnd, &clipRegion ) ) {
-						TheDisplay->drawLine( clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, color );
+						drawDisplayLine( TheDisplay, clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, color );
 					}
 				}
 				prevNode = node;
 				if (node->getNext()) {
 					if (worldToScreenTriReturn( node->getPosition(), &start ) == 0) {
-						TheDisplay->drawLine( start.x-4, start.y, start.x+3, start.y, 1.0f, color );
+						drawDisplayLine( TheDisplay, start.x-4, start.y, start.x+3, start.y, 1.0f, color );
 					}
 				}
 			}
 			color = 0xFFFFFF00;
 			if (prevNode && worldToScreenTriReturn( prevNode->getPosition(), &start ) == 0) {
-				TheDisplay->drawLine( start.x-4, start.y, start.x+3, start.y, 1.0f, color );
-				TheDisplay->drawLine( start.x, start.y-4, start.x, start.y+3, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x-4, start.y, start.x+3, start.y, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x, start.y-4, start.x, start.y+3, 1.0f, color );
 			}
 			color = 0xFFFF0000;  //0xAARRGGBB
 			const Coord3D *debugPos = TheAI->pathfinder()->getDebugPathPosition();
 			if (worldToScreenTriReturn( debugPos, &start ) == 0) {
-				TheDisplay->drawLine( start.x-3, start.y, start.x+3, start.y, 1.0f, color );
-				TheDisplay->drawLine( start.x, start.y-3, start.x, start.y+3, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x-3, start.y, start.x+3, start.y, 1.0f, color );
+				drawDisplayLine( TheDisplay, start.x, start.y-3, start.x, start.y+3, 1.0f, color );
 			}
 		}
 
@@ -417,7 +415,7 @@ void W3DView::draw( void )
 				Bool onScreen1 = worldToScreenTriReturn( &goalPos, &start ) == 0;
 				Bool onScreen2 = worldToScreenTriReturn( &pathPos, &end ) == 0;
 				if ((onScreen1 || onScreen2) && ClipLine2D( &start, &end, &clipStart, &clipEnd, &clipRegion ))
-					TheDisplay->drawLine( clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, color );
+					drawDisplayLine( TheDisplay, clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, color );
 			}
 		}
 
@@ -462,7 +460,7 @@ void W3DView::draw( void )
 							continue;
 						ICoord2D clipStart, clipEnd;
 						if (ClipLine2D( &start, &end, &clipStart, &clipEnd, &clipRegion ))
-							TheDisplay->drawLine( clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, i < 0 ? 0xFFFF0000 : 0xFFFFFF00 );
+							drawDisplayLine( TheDisplay, clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, i < 0 ? 0xFFFF0000 : 0xFFFFFF00 );
 					}
 				}
 			}
@@ -502,7 +500,7 @@ void W3DView::draw( void )
 						continue;
 					ICoord2D clipStart, clipEnd;
 					if (ClipLine2D( &start, &end, &clipStart, &clipEnd, &clipRegion ))
-						TheDisplay->drawLine( clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, color );
+						drawDisplayLine( TheDisplay, clipStart.x, clipStart.y, clipEnd.x, clipEnd.y, 1.0f, color );
 				}
 			}
 		}

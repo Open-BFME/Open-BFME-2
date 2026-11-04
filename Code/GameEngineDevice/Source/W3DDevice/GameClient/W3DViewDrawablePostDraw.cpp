@@ -77,14 +77,14 @@ public:
 		UnsignedInt color, Int a, Int b);	// slot 11 (+0x2C)
 };
 
-class Display
+#include "../../../../GameEngine/Include/GameClient/Display.h"
+
+// Display keeps +0x2C as opaque protected storage; drawTerrainNormal reads it
+// as the debug line drawer.
+class W3DViewDrawablePostDrawDisplayAccess : public Display
 {
 public:
-	DebugLineDrawer *getLineDrawer() { return m_lineDrawer; }
-
-private:
-	unsigned char m_pad00[0x2C];
-	DebugLineDrawer *m_lineDrawer;			// +0x2C
+	__forceinline DebugLineDrawer *getLineDrawer() { return (DebugLineDrawer *)field2C; }
 };
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
@@ -114,7 +114,7 @@ static void drawTerrainNormal(Drawable *draw, void *userData)
 		normal.x = pos.x + normal.x * NORMLEN;
 		normal.y = pos.y + normal.y * NORMLEN;
 		normal.z = pos.z + normal.z * NORMLEN;
-		TheDisplay->getLineDrawer()->drawLine(&pos, &normal, color, 0, 0);
+		static_cast<W3DViewDrawablePostDrawDisplayAccess *>(TheDisplay)->getLineDrawer()->drawLine(&pos, &normal, color, 0, 0);
 	}
 }
 
