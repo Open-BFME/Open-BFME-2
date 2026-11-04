@@ -45,10 +45,8 @@ private:
 
 void AIUnitBuilder::build()
 {
-	Rva00598C3AItem *item = 0;
-	if (!m_34)
-		item = createBestHeroToBuild();
-	if (item == 0)
+	Rva00598C3AItem *item;
+	if (m_34 || (item = createBestHeroToBuild()) == 0)
 		item = createBestUnitToMake();
 	if (item != 0)
 	{
