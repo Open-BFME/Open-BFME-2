@@ -29,21 +29,8 @@ struct MapEntry
 {
 	char data[0x14];
 };
-class MapMetaData
-{
-public:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0c;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	int m_20;
-	char m_24[0x30];
-	MapEntry m_entries[1];
-};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 #include "../../Include/GameClient/MapCache.h"
 class Rva002BA8F1Logic;
 
@@ -95,8 +82,8 @@ void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 			} else {
 				const MapMetaData *md = TheMapCache->findMap(info->getMap());
 				if (md) {
-					if (v10 >= 0 && v10 < md->m_20)
-						return (void *)&md->m_entries[v10];
+					if (v10 >= 0 && v10 < md->m_numPlayers)
+						return (void *)&reinterpret_cast<const MapEntry *>(md->field54)[v10];
 				}
 			}
 		}
@@ -126,7 +113,7 @@ int AptMapPreview::GetMaxNumPlayers()
 	const MapMetaData *md = TheMapCache->findMap(info->getMap());
 	if (!md)
 		return 0;
-	return md->m_20;
+	return md->m_numPlayers;
 }
 
 // ?rva0043DC07@Rva0043DC07Owner@@QAEPAXH@Z @0x0043DC07 8B: offsets this to the AptMapPreview embedded at +0x60, then tail-jumps AptMapPreview::GetStartPositionInfoForSlot above.
