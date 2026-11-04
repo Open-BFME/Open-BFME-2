@@ -1,7 +1,7 @@
 ### LINK-135: GameResultsThread complete donors remain incompatible in composition
 
-Status: Worker composition repaired; teardown EH and startup includes remain blocked.
-Updated: 2026-11-04; inspected revision: `fbe9ceac7e`.
+Status: Worker merged into its approved TU; teardown EH and startup includes remain blocked.
+Updated: 2026-11-04; inspected revision: `705b6236a8`.
 Evidence / affected units: GameResultsThread.cpp, its worker, queue startup,
 NarrowStringRecord0041A5D2Dtor.cpp and NarrowStringRecord28DequeDestroy.cpp.
 [Scoped cleanup and trials](../../reverse/attempt_support/gameresults-cleanup-20261028-codexb.md).
@@ -13,11 +13,14 @@ The verified private-view trial accepted zero additional donors and was reverted
 Worker allocator/CRT bindings now compose: ordinary dry-run accepts the worker
 with the seed (19 primary rows), retaining the census-linked units' link guard.
 [Allocator/CRT evidence](../../reverse/attempt_support/gameresults-worker-allocator-20261104-codex3.md).
-Remaining / next check: apply the verified worker merge; inspect teardown EH;
+Worker merged: one source file removed, all 20 rows exact; batch audit remains
+INCONCLUSIVE pending current consumer receipts and the next census.
+[Merge and path audit](../../reverse/attempt_support/gameresults-worker-merge-20261104-codex3.md).
+Remaining / next check: inspect teardown EH;
 reconcile startup's AsciiString include closure. An SDK-first include-order
 trial still reaches nested sweep/windows.h and fails redefinitions; it was
 reverted. Replace that closure coherently before retrying SDK migration.
 Clearance: seed local declaration cleanup only. Batch audit is INCONCLUSIVE:
 index predates the base and Common/0CreateAHeroManager21FE49.cpp lacks a
 current receipt. Carry this provider/consumer scope into the next census.
-Census confirmation: no linking, ownership or source-file reduction claimed.
+Census confirmation: no linking or ownership gain claimed; source-file count falls by one.

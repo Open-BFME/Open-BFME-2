@@ -33877,7 +33877,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0041A7DB,28,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,C,C=0x0041A617..0x0041A7F7,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp
 0x0041A7F7,41,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,C,C=0x0041A617..0x0041A820,Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp
 0x0041A820,35,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,C,C=0x0041A617..0x0041A843,Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp
-0x0041A843,298,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp S=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClass.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp
+0x0041A843,298,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp S=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClass.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
 0x0041A967,6,code-unledgered,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,proposed,C,C=0x0041A843..0x0041A96D,
 0x0041A96D,123,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,proposed,C,C=0x0041A843..0x0041A9E8,Code/GameEngine/Source/Common/NarrowStringRecordDequePush.cpp
 0x0041A9E8,135,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,proposed,C,C=0x0041A843..0x0041AA6F,Code/GameEngine/Source/Common/Rva0041A9E8PushBackAux.cpp
@@ -77806,10 +77806,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00786895,11,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp
 0x007868A0,14,code,,,-,,Code/gen_small/uw_gen_010.cpp
 0x007868AE,10,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp
-0x007868B8,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp
-0x007868C0,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp
-0x007868C8,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp
-0x007868D0,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp
+0x007868B8,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
+0x007868C0,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
+0x007868C8,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
+0x007868D0,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A843@FuncInfo0x00933A1C,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
 0x007868DA,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A96D@FuncInfo0x00933A40 p-group,Code/GameEngine/Source/Common/NarrowStringRecordDequePush.cpp
 0x007868E2,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A96D@FuncInfo0x00933A40 p-group,Code/GameEngine/Source/Common/NarrowStringRecordDequePush.cpp
 0x007868EC,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp,approved,P,P=0x0041A9E8@FuncInfo0x00933A64 p-group,Code/GameEngine/Source/Common/Rva0041A9E8PushBackAux.cpp
