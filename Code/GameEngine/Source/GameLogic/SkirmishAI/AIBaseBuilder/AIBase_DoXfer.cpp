@@ -111,11 +111,13 @@ public:
 	void update();
 };
 
+class Xfer;
 class Rva005DCE08 : public BuildPhase
 {
 public:
 	~Rva005DCE08();
 	Rva005AD9C0Hit *rva005DCC86(void *arg);
+	void rva005DCEAD(Xfer *xfer);
 	void rva005DCE62(Rva00573E7C *order);
 };
 
@@ -210,12 +212,13 @@ extern ThingFactory *TheThingFactory;
 
 #include "../../../../Include/Common/Player.h"
 
+struct Rva005AD9E6Node;
 class Rva005AD9E6
 {
 public:
 	int rva005AD9E6();
 private:
-	void *m_head;
+	Rva005AD9E6Node *m_head; // +0x00
 };
 
 struct Rva002A8AB1Target
@@ -302,9 +305,11 @@ public:
 };
 // The per-item xfer 0x005DCEAD is rowed under the Rva005DCE72 view of the item.
 class Rva005DCEB7Arg;
+class ModuleData;
 class Rva005DCE72
 {
 public:
+	void rva005DCE72(const AsciiString &name, _STL::vector<const ModuleData *> *out);
 	void rva005DCEB7(Rva005DCEB7Arg *xfer);
 };
 
@@ -319,16 +324,16 @@ public:
 	void rva005ADC63();
 	void DoXfer(Xfer *xfer);
 	Rva0041E912Template *rva005ADCBE(int notFirst, const _STL::vector<Rva0041E912Template *> &list);
-	void parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E912Template *tmpl);
+	void parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E912Template *baseTemplate);
 	void loadBestFitTemplate(Coord3D *point, float angle, int notFirst);
 private:
-	_STL::vector<Rva005DCE08 *> m_items;	// +0x00
-	int m_index;				// +0x0C
-	Rva0041E912Template *m_10;		// +0x10
-	void *m_owner;				// +0x14
-	Coord3D m_point;			// +0x18
-	float m_angle;				// +0x24
-	Rva00573E7C *m_owned;			// +0x28
+	_STL::vector<Rva005DCE08 *> m_items; // +0x00
+	int m_index; // +0x0C
+	Rva0041E912Template *m_10; // +0x10
+	void *m_owner; // +0x14
+	Coord3D m_point; // +0x18
+	float m_angle; // +0x24
+	Rva00573E7C *m_owned; // +0x28
 };
 
 

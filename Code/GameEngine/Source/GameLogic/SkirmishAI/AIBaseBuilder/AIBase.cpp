@@ -152,7 +152,7 @@ class Rva005AD9E6
 public:
 	int rva005AD9E6();
 private:
-	Rva005AD9E6Node *m_head;
+	Rva005AD9E6Node *m_head; // +0x00
 };
 
 struct Rva002A8AB1Target
@@ -248,10 +248,12 @@ private:
 
 class ModuleData;
 
+class Rva005DCEB7Arg;
 class Rva005DCE72
 {
 public:
 	void rva005DCE72(const AsciiString &name, _STL::vector<const ModuleData *> *out);
+	void rva005DCEB7(Rva005DCEB7Arg *xfer);
 };
 
 class Rva005AD99C
