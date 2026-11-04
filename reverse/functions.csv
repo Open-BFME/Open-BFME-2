@@ -20412,7 +20412,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?getNthUnicodeString@Dict@@QBE?AVUnicodeString@@H@Z,,0x00313665,56,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict nth unicode via Ascii twin and writeDict caller at 0x00307E3F
 ?rva000D1C10@Rva000D1C10@@QAEXXZ,,0x000D1C10,115,Code/GameEngine/Source/Common/System/TBuff.cpp,matched,leaf fade-step helper via float constants plus caller
 ?allocateNewWeapon@WeaponStore@@QBEPAVWeapon@@PBVWeaponTemplate@@W4WeaponSlotType@@@Z,,0x0028AA81,58,Code/GameEngine/Source/GameLogic/Object/WeaponStoreAllocateNewWeapon.cpp,matched,BFME1 allocate thunk plus ZH friendship; size 0x60 via 0x0002FDA0 and pinned ctor 0x002CC23D
-?rva00452354@UpgradeMux@@QAEX_N@Z,,0x00452354,10,Code/GameEngine/Source/GameLogic/Object/Update/Rva00452354Setter.cpp,matched,shared UpgradeMux slot9 bool setter honest name
+?setUpgradeExecuted@UpgradeMux@@UAEX_N@Z,,0x00452354,10,Code/GameEngine/Source/GameLogic/Object/Update/Rva00452354Setter.cpp,matched,UpgradeMux table 0x00C5FF10 slot 9; ZH UpgradeModule.h setUpgradeExecuted
 ?Rva00271619Broadcast@Rva002716Holder@@QAEXHHH@Z,,0x00271619,53,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,honest Rva holder broadcast slot 0x1C via virtual 0xA8
 ?Rva0027164EBroadcast@Rva002716Holder@@QAEXHH@Z,,0x0027164E,49,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,honest Rva holder broadcast slot 0x20 via virtual 0xA8
 ?Rva0027167FBroadcast@Rva002716Holder@@QAEXH@Z,,0x0027167F,45,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,honest Rva holder broadcast slot 0x40 via virtual 0xA8

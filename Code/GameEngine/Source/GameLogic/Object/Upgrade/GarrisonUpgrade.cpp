@@ -5,7 +5,7 @@
 // GarrisonUpgrade::upgradeRemovalImplementation, retail 0x004B58FF (131 bytes):
 // slot 8 of the +0x10 UpgradeMux vtable 0x00C58040 installed by the matched
 // GarrisonUpgrade ctor 0x004B5839 (slot 9 is the rowed bool setter
-// UpgradeMux::rva00452354, setUpgradeExecuted).
+// UpgradeMux::setUpgradeExecuted at 0x00452354).
 // Donor: BFME1 game/GameEngine/Source/GameLogic/Object/Upgrade/
 // GarrisonUpgradeRemovalImplementation.cpp (open-bfme-1 068db38bb4), same
 // body: for every behavior module whose contain is garrisonable, clear the
@@ -130,7 +130,7 @@ template <> class GarrisonUpgradeMuxSlots<0>
 };
 
 // UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
-// setUpgradeExecuted (the rowed bool setter UpgradeMux::rva00452354), slot 10
+// setUpgradeExecuted (the rowed bool setter at 0x00452354), slot 10
 // upgradeImplementation.
 class UpgradeMuxIface : public GarrisonUpgradeMuxSlots<8>
 {

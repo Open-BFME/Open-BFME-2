@@ -110,7 +110,7 @@
         "target": "0x3b810"
        },
        {
-        "name": "?rva00452354@UpgradeMux@@QAEX_N@Z",
+        "name": "?setUpgradeExecuted@UpgradeMux@@UAEX_N@Z",
         "slot": 9,
         "target": "0x452354"
        },
@@ -175,7 +175,7 @@
      "6": "??1Region2D@@QAE@XZ",
      "7": "?IsCRC@Xfer@@UBE_NXZ",
      "8": "__purecall",
-     "9": "?rva00452354@UpgradeMux@@QAEX_N@Z",
+     "9": "?setUpgradeExecuted@UpgradeMux@@UAEX_N@Z",
      "10": "__purecall",
      "11": "__purecall",
      "12": "__purecall",

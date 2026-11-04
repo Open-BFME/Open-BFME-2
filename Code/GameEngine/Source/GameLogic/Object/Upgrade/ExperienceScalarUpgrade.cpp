@@ -49,7 +49,7 @@ private:
 // ExperienceScalarUpgrade::upgradeImplementation, retail 0x004B6213 (35 bytes), and
 // ExperienceScalarUpgrade::upgradeRemovalImplementation, retail 0x004B6236 (35 bytes): slots 10 and
 // 8 of the +0x10 UpgradeMux vtable 0x00C584A0 installed by the matched ExperienceScalarUpgrade
-// ctor (slot 9 is setUpgradeExecuted, the rowed UpgradeMux::rva00452354).
+// ctor (slot 9 is setUpgradeExecuted, the rowed UpgradeMux::setUpgradeExecuted).
 // Bodies: the Zero Hour ExperienceScalarUpgrade.cpp body adding the module data scalar
 // (+0x118) to the experience tracker's scalar (Object+0x264, tracker +0x1C);
 // the removal subtracts it.

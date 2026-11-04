@@ -56,7 +56,7 @@ enum MaxHealthChangeType
 // MaxHealthUpgrade::upgradeRemovalImplementation, retail 0x004B638A (51 bytes):
 // slots 10 and 8 of the +0x10 UpgradeMux vtable 0x00C58548 installed by the
 // matched MaxHealthUpgrade ctor (slot 9 is setUpgradeExecuted, the rowed
-// UpgradeMux::rva00452354). The implementation is the Zero Hour
+// UpgradeMux::setUpgradeExecuted). The implementation is the Zero Hour
 // MaxHealthUpgrade.cpp body (body module setMaxHealth(getMaxHealth() + add,
 // change type)); the removal subtracts. BFME2 layout: body module at
 // Object+0x254 with getMaxHealth/setMaxHealth at vslots 6/22, module data

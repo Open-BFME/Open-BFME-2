@@ -31,7 +31,7 @@ template <> class UpgradeMuxSlots<0>
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
 // The +0x10 interface (vtable 0x00857DE8): slot 8 upgradeRemovalImplementation,
-// slot 9 setUpgradeExecuted (the rowed UpgradeMux::rva00452354), slot 10
+// slot 9 setUpgradeExecuted (the rowed UpgradeMux::setUpgradeExecuted), slot 10
 // upgradeImplementation.
 class UpgradeMux : public UpgradeMuxSlots<8>
 {
@@ -139,7 +139,7 @@ NameKeyType StealthUpgrade::getModuleNameKey() const
 // StealthUpgrade::upgradeImplementation, retail 0x004B53C5 (13 bytes), and
 // StealthUpgrade::upgradeRemovalImplementation, retail 0x004B53D2 (13 bytes): slots 10 and
 // 8 of the +0x10 UpgradeMux vtable 0x00C57DE8 installed by the matched StealthUpgrade
-// ctor (slot 9 is setUpgradeExecuted, the rowed UpgradeMux::rva00452354).
+// ctor (slot 9 is setUpgradeExecuted, the rowed UpgradeMux::setUpgradeExecuted).
 // Bodies: set and clear object status 0x12 (the Zero Hour OBJECT_STATUS_CAN_STEALTH setStatus
 // of StealthUpgrade.cpp, here through the rowed setStatus(ObjectStatusTypes, bool)).
 void StealthUpgrade::upgradeImplementation()

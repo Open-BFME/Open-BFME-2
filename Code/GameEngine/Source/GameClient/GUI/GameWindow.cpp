@@ -1278,7 +1278,7 @@ WindowMsgHandledType GameWinBlockInput( GameWindow *window, UnsignedInt msg,
 	if (msg == GWM_LEFT_UP)
 	{
 		//stop drag selecting
-		reinterpret_cast<UpgradeMux *>( TheSelectionTranslator )->rva00452354( false );
+		reinterpret_cast<UpgradeMux *>( TheSelectionTranslator )->UpgradeMux::setUpgradeExecuted( false );
 		reinterpret_cast<BfmeSelectionTranslator *>( TheSelectionTranslator )->setDragSelecting();
 
 		TheTacticalView->setMouseLock( false );

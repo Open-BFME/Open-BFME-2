@@ -20,7 +20,7 @@
 // UpgradeModule condition removal 0x004CE4A8 (tail jump). The slot name is the
 // BFME1 one (GarrisonUpgradeRemovalImplementation.cpp: upgradeRemovalImplementation
 // directly before setUpgradeExecuted, which is BFME2 slot 9, the rowed bool
-// setter UpgradeMux::rva00452354).
+// setter UpgradeMux::setUpgradeExecuted).
 enum ArmorSetType
 {
 	ARMORSET_NONE = 0
