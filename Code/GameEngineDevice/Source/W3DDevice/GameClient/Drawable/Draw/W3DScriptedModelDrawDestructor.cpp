@@ -213,16 +213,7 @@ typedef char ScriptedModelTreeHeaderSizeCheck[sizeof(Rva000C0DD8TreeHeader) == 1
 
 // Pointer-chain handle at +0x1C: unlinked through 0x0004CBC0 when set.
 class ParticleSystem;
-struct BfmeParticleSystemHandle
-
-{
- ~BfmeParticleSystemHandle();
- void *m_system;
- void *m_previous;
- void *m_next;
- 
-}
-;
+#include "../../../../../../GameEngine/Include/GameClient/BfmeParticleSystemHandle.h"
 class ParticleSystem 
 {
  public:char pad[0x9C];
