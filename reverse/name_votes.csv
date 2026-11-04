@@ -23791,3 +23791,6 @@ Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyDamageState.cpp|member|Rv
 Code/GameEngine/Source/Common/Rva002E15E6Method.cpp|member|Rva002E15E6Inner|m_08,70e8dcb3d7570adf27ec926f,claude-opus-5-5,claude3-20261104-154830-5,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva002E15E6Method.cpp|member|Rva002E15E6Inner|m_0C,d1d5c08748ce3281b6a9e449,claude-opus-5-5,claude3-20261104-154830-5,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0043E0C5.cpp|member|Rva0043E6C9Arg|m_12c,3c0b7e7c19f8c27cf8aa78ae,claude-opus-5-5,claude3-20261104-155529-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/GapBodiesGE05.cpp|member|Rva00363A78Node|m_20,0792989821a82556cc7d26df,claude-opus-5-5,claude3-20261104-174729-7,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0042C833Dtor.cpp|function|0x0042C879|rva0042C879,619ffe685f0d2ff9713309e6,claude-opus-5-5,claude3-20261104-174729-7,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva004B8732Getter.cpp|member|XPlayerView|m_735,53c7cca26b201babb26ba489,claude-opus-5-5,claude3-20261104-174729-11,w-29a6ae2a2f9f,2026-11-04
