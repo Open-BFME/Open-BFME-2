@@ -1,22 +1,15 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva005DAC85@@UAE@XZ @0x005DAC85 59B evidence: vtable VA 0x008765F8 at +0; StringBase char releaseBuffer at +0x3C via 0x00036410; base Rva0055B0CC dtor pin at 0x0055B0CC; unblocks deleting dtor 0x005DADD1
 
-template <typename T>
-class StringBase
-{
-	friend class Rva005DAC85;
-private:
-	void releaseBuffer();
-	void *m_data;
-};
+#include "ascii_string.h"
 
 class Xfer;
 
 class Rva0055B0CC
 {
-	friend class Rva005DAC85;
 public:
-	virtual void slot0();
+	Rva0055B0CC();
+	virtual ~Rva0055B0CC();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
@@ -29,39 +22,30 @@ public:
 	virtual void slot10();
 	virtual void slot11();
 	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
-	virtual ~Rva0055B0CC();
-private:
-	float m_04;
-	int m_08;
-	void *m_0C;
-	unsigned int m_10;
-	int m_pad14;
-	float m_18;
-	int m_pad1C;
-	bool m_20;
-	bool m_21;
-	int m_24;
-	bool m_28;
+protected:
+	char m_pad04[0x2C - 0x04];
 };
 
+// The +0x3C string is destroyed by its own inline ~AsciiString (the
+// releaseBuffer worker 0x00036410) before the base dtor runs.
 class Rva005DAC85 : public Rva0055B0CC
 {
 public:
+	void updatePriority();
 	virtual ~Rva005DAC85();
-private:
 	char m_pad2C[0x10];
-	StringBase<char> m_3C;
+private:
+	AsciiString m_3C; // +0x3C
+	void *m_40; // +0x40
 };
 
 Rva005DAC85::~Rva005DAC85()
 {
-	m_3C.releaseBuffer();
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?slot0@Rva0055B0CC@@UAEXXZ=??_GRva005DAC85@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?slot4@Rva0055B0CC@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?slot7@Rva0055B0CC@@UAEXXZ=?friend_setNext@Upgrade@@QAEXPAV1@@Z")
 #pragma comment(linker, "/alternatename:?slot11@Rva0055B0CC@@UAEXXZ=?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")

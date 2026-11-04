@@ -68,17 +68,37 @@ class BuildAssistant;
 
 extern BuildAssistant *TheBuildAssistant;
 
+class Xfer;
+
+// Vtable 0x00C765F8 (installed by the ctor 0x005DAC38 and the dtor
+// 0x005DAC85) holds the deleting dtor in slot 0, so the virtual dtor is
+// declared first; slots 1..11 keep placeholder names bound to their rows.
 class Rva0055B0CC
 {
 public:
 	Rva0055B0CC();					// 0x0055B048
 	virtual ~Rva0055B0CC();				// 0x0055B0CC
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void Slot6(void *arg1, bool arg2);
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
 
 protected:
-	unsigned char m_pad04[4];
+	float m_04;					// +0x04
 	ObjectID m_factoryID;				// +0x08
 	AsciiString m_templateName;			// +0x0C
-	unsigned char m_pad10[0x2c - 0x10];
+	unsigned int m_10;				// +0x10
+	unsigned char m_pad14[4];
+	float m_18;					// +0x18
+	unsigned char m_pad1C[0x2c - 0x1C];
 };
 
 struct AIBuildableVector

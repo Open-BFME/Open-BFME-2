@@ -75,11 +75,11 @@ class Xfer;
 
 class Rva0055B0CC
 {
-	friend class Rva005DAC85;
 public:
-	virtual void slot0();
+	Rva0055B0CC();
+	virtual ~Rva0055B0CC();
 	virtual void slot1();
-	virtual float slot2();
+	virtual void slot2();
 	virtual void slot3();
 	virtual void slot4();
 	virtual void slot5();
@@ -90,24 +90,36 @@ public:
 	virtual void slot10();
 	virtual void slot11();
 	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
-	virtual ~Rva0055B0CC();
-private:
+protected:
 	float m_04;
-	int m_08;
-	AsciiString m_0C;
+	int m_factoryID;
+	AsciiString m_templateName;
 	unsigned int m_10;
 	char m_pad14[4];
 	float m_18;
 	char m_pad1C[0x10];
 };
 
+// The +0x3C string is destroyed by its own inline ~AsciiString (the
+// releaseBuffer worker 0x00036410) before the base dtor runs.
 class Rva005DAC85 : public Rva0055B0CC
 {
 public:
 	void updatePriority();
+	virtual ~Rva005DAC85();
+	char m_pad2C[0x10];
 private:
-	char m_pad2C[0x14];
-	void *m_40;
+	AsciiString m_3C; // +0x3C
+	void *m_40; // +0x40
+};
+
+// Slot 2 (0x0055B0B9, a float getter) is spelled void in the base view to keep
+// its vtable alias; read it through a float-typed view of the same table.
+struct Rva005DAC85Slot2View
+{
+	virtual void s0();
+	virtual void s1();
+	virtual float slot2() const;
 };
 
 inline float maxv(float leftValue, float rightValue) { return leftValue >= rightValue ? leftValue : rightValue; }
@@ -122,7 +134,7 @@ void Rva005DAC85::updatePriority()
 	IntMap *map = *(IntMap **)((char *)TheSkirmishAIManager->rva002A8F24((Player *)m_40) + 0xC);
 	if (map->bucket_count() < 2)
 		return;
-	const ThingTemplate *found = TheThingFactory->findTemplate(*(const AsciiString *)&m_0C);
+	const ThingTemplate *found = TheThingFactory->findTemplate(m_templateName);
 	if ((*(unsigned char *)((char *)found + 0x11F) & 0x80) != 0)
 		return;
 	if ((*(unsigned char *)((char *)found + 0x113) & 4) != 0)
@@ -133,7 +145,7 @@ void Rva005DAC85::updatePriority()
 	float div = fa / (float)((Rva002A7461 *)&pv->sk)->rva002A7461();
 	float priorityAdjustment = rec->m_160->arrA[rec->m_16C] - div;
 	priorityAdjustment *= rec->m_160->arrB[rec->m_16C];
-	float sum = slot2() + priorityAdjustment;
+	float sum = ((const Rva005DAC85Slot2View *)this)->slot2() + priorityAdjustment;
 	float priority;
 	if (!(sum >= rec->m_160->arrA[3])) priority = rec->m_160->arrA[3];
 	else priority = sum;
