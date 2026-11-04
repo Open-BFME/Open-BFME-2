@@ -20,12 +20,7 @@ struct CreateMask
 class Object;
 class Player;
 
-class WeaponTemplate
-{
-public:
-	char m_pad00[0x178];
-	AsciiString m_name178;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 class Weapon
 {
@@ -62,7 +57,8 @@ extern ThingFactory *TheThingFactory;
 // WorldBuilder Weapon::prepareProjectileStreamForFiring, WB VA 0x00BBA3B0 (callgraph lead, score 2; no args).
 void Weapon::prepareProjectileStreamForFiring()
 {
-	const AsciiString &asciiString = (m_template ? m_template : m_template)->m_name178;
+	// The header keeps the +0x178 projectile-stream name as opaque storage.
+	const AsciiString &asciiString = *(const AsciiString *)&(m_template ? m_template : m_template)->m_field178;
 	if ((m_template ? (((const StringBase<char> *)&asciiString)->isEmpty()) : (((const StringBase<char> *)&asciiString)->isEmpty())))
 		return;
 	Object *owner;
