@@ -69,6 +69,7 @@ emitter), then rebuild, compare the old and new objects' undefined sets, run the
   `INI::scanIndexList`). The rest of that table still differs from retail's (OnlyAgainst,
   OnlyInCondition, ReadyStatusSharedWithinSet, DefaultWeaponChoiceCritera are missing). The census still
   blocks the unit on its `??_7WeaponSet` copy.
+  2026-11-04: removing the obsolete three-slot destructor clears this seed's vtable blocker in the current-object preview (65 B); native providers retain linking, census confirmation pending. [Evidence and remaining TU prerequisites](../../reverse/attempt_support/weaponset-obsolete-destructor-20261104-codex3.md).
 - **StealthUpdate.cpp, 18 names: repaired**, together with SpawnBehavior.cpp's unrowed
   `areAllSlavesStealthed`, the only outside caller of `allowedToStealth` (SpawnBehavior.obj emits no
   vtable). `getPlayerNightColor` (0x00509D29, no approved TU) kept by an anchor. `link_check`

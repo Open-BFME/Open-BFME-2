@@ -406,13 +406,8 @@ Bool WeaponTemplateSet::testWeaponSetFlag( WeaponSetType wst ) const
 // WeaponSet::WeaponSet: defined in WeaponSetCtor.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
-// ?WeaponSet::~WeaponSet present-unmatched
-WeaponSet::~WeaponSet()
-{
-	for (Int i = 0; i < WEAPONSLOT_COUNT; ++i)
-		if (m_weapons[i])
-			m_weapons[i]->deleteInstance();
-}
+// WeaponSet::~WeaponSet is defined in WeaponSetDtor.cpp with retail's
+// six-slot Snapshot layout (0x002C7311). Keep this seed declaration-only.
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
