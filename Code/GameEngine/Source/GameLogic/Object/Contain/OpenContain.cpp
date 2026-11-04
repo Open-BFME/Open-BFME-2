@@ -1421,7 +1421,10 @@ unsigned int Rva004643C9::rva004643C9(const Rva00463D9BElement &key)
 
 // tu-skeleton: 0x004633FC 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp (not merged yet)
 
-// tu-skeleton: 0x00463425 68B ?dup_00463425@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
+// Range erase of the contain name set (0x00463425), called by its key erase
+// 0x00463D9B. Retail's copy clears through 0x00286656 and 0x00286183, the
+// ObjectID/int map's byte-identical clear and _M_erase that the linker folded.
+template void _STL::_Rb_tree<Rva00463D9BElement, Rva00463D9BElement, _STL::_Identity<Rva00463D9BElement>, _STL::less<Rva00463D9BElement>, _STL::allocator<Rva00463D9BElement> >::erase(_STL::_Rb_tree<Rva00463D9BElement, Rva00463D9BElement, _STL::_Identity<Rva00463D9BElement>, _STL::less<Rva00463D9BElement>, _STL::allocator<Rva00463D9BElement> >::iterator, _STL::_Rb_tree<Rva00463D9BElement, Rva00463D9BElement, _STL::_Identity<Rva00463D9BElement>, _STL::less<Rva00463D9BElement>, _STL::allocator<Rva00463D9BElement> >::iterator);
 
 // tu-skeleton: 0x0046348D 45B ??$_Construct@UBfmeContainerRecord00462D62@@U1@@_STL@@YAXPAUBfmeContainerRecord00462D62@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
 
