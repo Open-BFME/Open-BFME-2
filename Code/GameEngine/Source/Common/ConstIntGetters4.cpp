@@ -736,12 +736,13 @@ int Rva00460827Get(void)
 	return (int)"WargBehavior";
 }
 
-// ?Rva00460B4AGet@@YAHXZ @ 0x00460b4a (6B): returns 0x00c42798.
-// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva00460B4AGet(void)
+// ?GetSnapshotName@UpgradeModule@@MBEPBDXZ @ 0x00460b4a (6B): slot 2 of
+// UpgradeModule's primary vtable 0xC42768, which its ctor 0x00460AEC stores.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Include/GameLogic/Module/UpgradeModule.h"
+const char *UpgradeModule::GetSnapshotName() const
 {
-	return (int)"UpgradeModule";
+	return "UpgradeModule";
 }
 
 // ?Rva00460BCDGet@@YAHXZ @ 0x00460bcd (6B): returns 0x00bf5aac.

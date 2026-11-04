@@ -8,6 +8,8 @@ class BehaviorModule
 public:
 	virtual ~BehaviorModule();
 	void xfer(Xfer *xfer);
+protected:
+	virtual void loadPostProcess();
 
 private:
 	unsigned char m_pad[0xC];
@@ -17,6 +19,7 @@ class UpgradeModule : public BehaviorModule, public UpgradeMux
 {
 protected:
 	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 };
 #include "../../../../Include/Common/Rva001EAE6FHelper.h"
 class Rva00406F9C
@@ -233,3 +236,17 @@ const AsciiString &Rva004CE3B9::rva004CE3B9()
 // tu-skeleton: 0x004CE4A8 8B ?rva004CE4A8@UpgradeModule@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleConditionState.cpp (not merged yet)
 
 // tu-skeleton: 0x004CE4B0 36B ?resetUpgrade@UpgradeModule@@UAE_NABV?$BitFlags@$0IA@@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleConditionState.cpp (not merged yet)
+
+// ?loadPostProcess@UpgradeModule@@MAEXXZ: slot 1 of UpgradeModule's primary vtable
+// 0xC42768 is 0x0058B03E, this same tail jump (ICF fold with UpdateModule's).
+void UpgradeModule::loadPostProcess()
+{
+	BehaviorModule::loadPostProcess();
+}
+
+// ?isSubObjectsUpgrade@UpgradeMux@@UAE_NXZ: slot 4 of the UpgradeMux vtable 0xC42720
+// is 0x0047A699, the image's shared false return.
+bool UpgradeMux::isSubObjectsUpgrade()
+{
+	return false;
+}

@@ -125,7 +125,7 @@
         "target": "0x58b03e"
        },
        {
-        "name": "?Rva00460B4AGet@@YAHXZ",
+        "name": "?GetSnapshotName@UpgradeModule@@MBEPBDXZ",
         "slot": 2,
         "target": "0x460b4a"
        },
@@ -188,7 +188,7 @@
     "slots": {
      "0": "??_GUpgradeModule@@MAEPAXI@Z",
      "1": "?loadPostProcess@UpdateModule@@MAEXXZ",
-     "2": "?Rva00460B4AGet@@YAHXZ",
+     "2": "?GetSnapshotName@UpgradeModule@@MBEPBDXZ",
      "3": "?xfer@UpgradeModule@@MAEXPAVXfer@@@Z",
      "4": "__purecall",
      "5": "??1Region2D@@QAE@XZ",

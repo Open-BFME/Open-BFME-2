@@ -12559,7 +12559,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?rva004608E0@DynamicPortalBehaviour@@SAPAVModule@@PAVObject@@@Z,0x004608E0,address,placeholder
 ?getUpgradeActivationMasks@Rva00460AAC@@UBEXAAUUpgradeMaskType@@0@Z,0x00460AAC,address,placeholder
 ?performUpgradeFX@Rva00460AAC@@UAEXXZ,0x00460AD3,address,placeholder
-?Rva00460B4AGet@@YAHXZ,0x00460B4A,address,placeholder
+?GetSnapshotName@UpgradeModule@@MBEPBDXZ,0x00460B4A,address,placeholder
 ?Rva00460BCDGet@@YAHXZ,0x00460BCD,address,placeholder
 ?rva00461284@DynamicPortalBehaviour@@UAEXH@Z,0x00461284,address,placeholder
 ?rva0046132F@DynamicPortalBehaviour@@UAEXXZ,0x0046132F,address,placeholder
