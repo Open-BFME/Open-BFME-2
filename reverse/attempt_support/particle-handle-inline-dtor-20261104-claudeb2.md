@@ -46,3 +46,22 @@ consumers of the header compiled and matched; DestroyInstances.cpp failed on
 Landed alongside: `RvaSmartPtr12.h` adopted in
 `Code/GameEngine/Source/Common/System/SmartPtrCopyCtor.cpp`;
 `Rva001F458BText.h` adopted in ParticleSys.cpp.
+
+## Later finding (same session)
+
+- Six more consumers inline the destructor too: CPUParticleLoadPostProcess
+  (0x001F6201: `cmp [ebp-20h],0; je; call 0x0004CBC0`), DefaultModuleHeadBase
+  (0x003A57E7, member modelled trivial for that reason),
+  ParticleSystemLoadPostProcessBfme2 and W3DModelDrawParticles (private
+  handle with inline destructor). None of them can take `RvaSmartPtr12.h` as
+  long as its destructor is out of line: a derived inline-destructor handle
+  would add the base destructor call.
+- 0x002115C5 is already an ICF fold of six `??1` names (ledger fold-proofs),
+  so retail plausibly had two layout-identical classes: one with an out-of-line
+  destructor (the `_Destroy` instance's) and the particle handle with an
+  inline one, both using unlink 0x0004CBC0. The obstacle is the unlink's
+  owner: it is named `RvaSmartPtr12::rva0004CBC0`, so an inline handle
+  destructor needs the complete `RvaSmartPtr12` in `BfmeParticleSystemHandle.h`.
+  Untried alternative: move the unlink (and attach) to the handle class via
+  `tools/rename.py` and let `RvaSmartPtr12` call them through it.
+- `SmartPtrAttach.cpp` adopted `RvaSmartPtr12.h` (1/1, accept PASS).
