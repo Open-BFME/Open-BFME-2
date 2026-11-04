@@ -11,6 +11,8 @@ class Rva001B4CD8
 {
 public:
 	void rva001B4CD8();
+private:
+	void *m_ptr; // +0x00 +0 freed if non-null
 };
 
 namespace _STL
