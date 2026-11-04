@@ -47,7 +47,7 @@ class CreateAHeroData;
 class __declspec(novtable) Rva0043D193 { public: ~Rva0043D193(); };
 // The out-of-line constructor installs the retail vtable; this forwarding
 // destructor must leave that ownership to the rowed destructor at 0x0043D193.
-class __declspec(novtable) Rva0043D16F
+class Rva0043D16F
 {
 public:
 	Rva0043D16F() throw();
