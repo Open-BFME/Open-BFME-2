@@ -160,7 +160,8 @@ public:
     Rva00136F5BOptions options;
     RenderObjClass *rendObj;
 };
-void ModifiedRenderFactory::PostLoad()
+}
+void RenderAsset::ModifiedRenderFactory::PostLoad()
 {
     rendObj = Create_Render_Obj(baseName.str());
     if (!rendObj) return;
@@ -180,7 +181,3 @@ void ModifiedRenderFactory::PostLoad()
         }
     }
 }
-}
-
-
-
