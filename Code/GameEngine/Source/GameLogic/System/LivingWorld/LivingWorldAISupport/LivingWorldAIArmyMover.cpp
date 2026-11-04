@@ -72,7 +72,16 @@ struct ArmyMoverDistanceLookup { IntMap::iterator find(int id){return ((IntMap*)
 extern unsigned g_Va00E04544;
 int GetGameLogicRandomValue(int,int,char*,int);
 struct ArmyMoverRegion {char pad[0x12c];int id;char gap130[12];int owner;char gap140[0x62];bool enabled;};
-struct BfmePod20 {int m_id;bool m_flag;int m_08,m_0c,m_step;};
+struct BfmePod20
+{
+public:
+	int m_id; // +0x00
+	bool m_flag; // +0x04
+	char m_pad05[0x3];
+	int m_08; // +0x08
+	int m_0c; // +0x0C
+	int m_step; // +0x10
+};
 struct Elem0059BD85
 {
 	void *m_key;
@@ -84,7 +93,11 @@ struct Range0059BD85
 	Elem0059BD85 *m_end;
 };
 
-class Rva004FF997Owner {public:int rva004FF997(int);};
+class Rva004FF997Owner
+{
+public:
+	int rva004FF997(int);
+};
 class Rva004FF9B6 {public:void*rva004FF9B6(int);};
 class Rva0020E89C;
 class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};

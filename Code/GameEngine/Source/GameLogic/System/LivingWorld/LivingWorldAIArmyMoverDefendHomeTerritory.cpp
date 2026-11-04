@@ -40,11 +40,13 @@ class Rva002E2903Player;
 
 struct BfmePod20
 {
-	int m_id;
-	bool m_flag;
-	int m_08;
-	int m_0c;
-	int m_step;
+public:
+	int m_id; // +0x00
+	bool m_flag; // +0x04
+	char m_pad05[0x3];
+	int m_08; // +0x08
+	int m_0c; // +0x0C
+	int m_step; // +0x10
 };
 // The caller uses the complete retail push_back provider at 0x0059B8C6.
 namespace _STL {
@@ -95,7 +97,7 @@ extern Rva00E02D6C *TheCampaignManager;
 class Rva004FF997Owner
 {
 public:
-	int rva004FF997(int id);
+	int rva004FF997(int);
 };
 
 struct Rva004FFB00Hero
