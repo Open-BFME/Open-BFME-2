@@ -80,6 +80,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 class Object;
 #include "../../../../../Include/Common/StateMachineClass.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 enum
 {
 	ST_IDLE = 0,

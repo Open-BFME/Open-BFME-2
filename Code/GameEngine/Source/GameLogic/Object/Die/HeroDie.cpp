@@ -22,6 +22,7 @@ class Thing;
 class ModuleData;
 class Object;
 class DamageInfo;
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 class SpecialPowerTemplate;
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"

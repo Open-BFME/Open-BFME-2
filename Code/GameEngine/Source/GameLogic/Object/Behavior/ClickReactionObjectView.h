@@ -44,11 +44,7 @@ public:
 	void *get() const; // 0x0028B7AE
 };
 
-class Drawable
-{
-public:
-	void rva00274176(bool flag);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class ModelConditionFlags
 {

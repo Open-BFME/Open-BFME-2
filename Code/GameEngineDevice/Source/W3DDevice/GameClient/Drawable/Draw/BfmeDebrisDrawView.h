@@ -36,7 +36,7 @@ class Object;
 class HAnimClass;
 class RenderObjClass;
 class Shadow;
-#include "../../../../../../GameEngine/Include/GameClient/DrawableBFME2.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 // The transform donor uses DrawableModule: its drawable is at +0x08.
 class DrawableModule {
 public:

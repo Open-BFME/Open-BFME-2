@@ -166,6 +166,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 class MultiIniFieldParse;
 #include "Common/Snapshot.h"
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 class Rva00360D26Member
 {
 public:

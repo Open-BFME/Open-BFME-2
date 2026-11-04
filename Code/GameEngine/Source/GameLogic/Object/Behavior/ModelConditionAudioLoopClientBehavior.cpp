@@ -87,6 +87,7 @@ enum ObjectID { INVALID_ID = 0 };
 struct LivingWorldArmy;
 
 #include "../../../../Include/GameLogic/Module/TurretAI.h"
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class LivingWorldBattle
 {

@@ -24,6 +24,7 @@ class FXList;
 #define COORD3D_VIEW_INLINE
 #include "../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 // bfme link decl-only begin
 namespace _STL { template <> Coord3D * __copy_backward<Coord3D *, Coord3D *, int>(Coord3D *, Coord3D *, Coord3D *, random_access_iterator_tag const &, int *); }
 namespace _STL { template <> void fill<Coord3D *, Coord3D>(Coord3D *, Coord3D *, Coord3D const &); }

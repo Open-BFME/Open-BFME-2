@@ -96,22 +96,12 @@ public:
 
 class DrawModule;
 
-class Drawable
-{
-public:
-    DrawModule **getDrawModules();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva002B224BDwordField
 {
 public:
     int get() const;
-};
-
-class Thing
-{
-public:
-    Drawable *getDrawable() const;
 };
 
 class Player

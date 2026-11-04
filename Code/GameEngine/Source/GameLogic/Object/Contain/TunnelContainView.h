@@ -116,11 +116,11 @@ public:
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Drawable { public: void setDrawableHidden(bool hidden); };
+class DamageInfo;
+#include "../../../../Include/GameClient/Drawable.h"
 struct Rva0047DD2DTemplate { char pad[0x115]; unsigned char m_kindOf115; char pad116[0x554 - 0x116]; unsigned int occlusionDelay; };
 #include "../../../Common/Thing/thing.h"
 enum DisabledType { DISABLED_HELD = 3 };
-class DamageInfo;
 struct TunnelDamageInfoView { char pad[8]; ObjectID sourceID; };
 class BodyModuleInterface {
 public:

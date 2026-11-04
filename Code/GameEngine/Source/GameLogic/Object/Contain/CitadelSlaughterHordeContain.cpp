@@ -39,6 +39,7 @@ template<class T,class Traits> static inline bool operator!=(const _List_iterato
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
 }
 class DamageInfo;
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 class Object;
 class UnicodeString;
 class PooledString;

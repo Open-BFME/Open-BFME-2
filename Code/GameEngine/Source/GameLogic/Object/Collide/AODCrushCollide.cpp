@@ -133,6 +133,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 class Drawable;
  class DamageInfo;
  class Player;
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 enum KindOfType { KIND_RAW_D7=0xd7 };
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 template<class T> static __forceinline T &rawField(void *base, int offset) { return *(T *)((char *)base+offset); }

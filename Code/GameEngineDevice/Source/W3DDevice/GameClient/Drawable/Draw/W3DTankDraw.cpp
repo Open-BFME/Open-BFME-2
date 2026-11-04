@@ -401,6 +401,7 @@ struct ParticleSystemView
 };
 
 #include "../../../../../../GameEngine/Include/GameClient/View.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 extern View *TheTacticalView;
 

@@ -67,6 +67,7 @@ struct RefundDieModuleData {char pad00[0x38];const UpgradeTemplate *upgradeRequi
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
 class DamageInfo;
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
 

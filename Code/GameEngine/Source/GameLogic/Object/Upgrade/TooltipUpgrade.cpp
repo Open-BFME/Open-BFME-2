@@ -41,7 +41,7 @@ public:
 };
 
 
-#include "../../../../Include/GameClient/DrawableBFME2.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva002793AF
 {

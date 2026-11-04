@@ -62,6 +62,7 @@ enum NameKeyType
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 class DamageInfo;
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 class Player;
 #include "../../../../Include/Common/Upgrade.h"
 #include "../object.h"
