@@ -14,10 +14,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 struct Rva006E3230Action { char data[24]; };
-class AptValue {
-public:
-    virtual void unused0();
-};
+#include "AptValue.h"
 class Rva006DBB60ShrNAndField
 {
 public:
@@ -60,9 +57,9 @@ void AptActionQueueC::enqueueFront(AptValue *pContext, AptValue *pA, AptValue *p
         ((Rva006E3740Slot *)m_pCurrent)->eActionType = 2;
         ((Rva006E3740Slot *)m_pCurrent)->field8 = iE;
         ((Rva006E3740Slot *)m_pCurrent)->pValue0 = pContext;
-        ((Rva006E3740Slot *)m_pCurrent)->pValue0->unused0();
+        ((Rva006E3740Slot *)m_pCurrent)->pValue0->AddRef();
         ((Rva006E3740Slot *)m_pCurrent)->pValue1 = pA;
-        ((Rva006E3740Slot *)m_pCurrent)->pValue1->unused0();
+        ((Rva006E3740Slot *)m_pCurrent)->pValue1->AddRef();
         ((Rva006E3740Slot *)m_pCurrent)->pValue2 = pB;
         ((Rva006E3740Slot *)m_pCurrent)->field4 = iD;
         return;

@@ -16,12 +16,7 @@ struct Rva006E3230Action
 	char data[24];
 };
 
-class AptValue
-{
-public:
-	virtual void unused0();
-	virtual void unused1();
-};
+#include "AptValue.h"
 
 struct Rva006E3230ActionFull
 {
@@ -67,12 +62,12 @@ AptActionQueueC::AptActionQueueC(int nSize)
 
 // AptActionQueueC::ClearActions (WorldBuilder name, its __FUNCTION__ string) @0x006E4A90 (239B). Drains the action pool
 // from m_pCurrent to m_pEnd: validates the cursor via rowed rva006E3230, then
-// per action releases the slot-1 virtual of values[2] (type 1) or values[0]
+// per action calls AptValue::Release of values[2] (type 1) or values[0]
 // and values[1] (type 2), asserting at AptAnimation.cpp:0x62D otherwise;
 // clears the type, advances with wrap at pool+size and revalidates the cursor
 // with the _Apt.h 0x4E0/0x4E1 asserts, then resets current/end to the pool.
-// Layout/stride/virtual shape shared with Rva006E3230Validate.cpp; slot-1
-// virtual name unproven so honest unused1. Caller 0x006E503A is this constructor.
+// Layout/stride/virtual shape shared with Rva006E3230Validate.cpp; slot 1
+// is AptValue::Release (rowed 0x006DCB20). Caller 0x006E503A is this constructor.
 void AptActionQueueC::ClearActions()
 {
 	rva006E3230(m_pCurrent);
@@ -85,12 +80,12 @@ void AptActionQueueC::ClearActions()
 			int t = a->eActionType;
 			if (t == 1)
 			{
-				a->m_pValues[2]->unused1();
+				a->m_pValues[2]->Release();
 			}
 			else if (t == 2)
 			{
-				a->m_pValues[0]->unused1();
-				a->m_pValues[1]->unused1();
+				a->m_pValues[0]->Release();
+				a->m_pValues[1]->Release();
 			}
 			else
 			{
