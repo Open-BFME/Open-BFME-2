@@ -237,9 +237,10 @@ public:
 	bool weHaveGollum();
 	bool rva005ACA92();
 	bool enemyHasRingHeroUpgrade();
+	bool rva005ACA28();
 private:
 	ObjectID m_hero;	// +0x58
-	int m_5C;		// +0x5C
+	Player *m_5C;		// +0x5C
 	bool m_escorting;	// +0x60
 	unsigned char m_pad61[3];
 	Object *m_escort;	// +0x64
