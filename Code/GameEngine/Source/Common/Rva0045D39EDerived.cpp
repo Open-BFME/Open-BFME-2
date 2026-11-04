@@ -54,13 +54,13 @@ public:
 	virtual ~Rva0045D39E();
 };
 
-class Rva0045EA3F : public Rva0045D39E
+class ShipSlowDeathBehavior : public Rva0045D39E
 {
 public:
-	virtual ~Rva0045EA3F();
+	virtual ~ShipSlowDeathBehavior();
 };
 
-Rva0045EA3F::~Rva0045EA3F()
+ShipSlowDeathBehavior::~ShipSlowDeathBehavior()
 {
 }
 

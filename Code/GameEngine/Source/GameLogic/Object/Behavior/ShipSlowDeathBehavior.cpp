@@ -192,4 +192,4 @@ NameKeyType ShipSlowDeathBehavior::getModuleNameKey() const
 	return TheShipSlowDeathBehaviorPoolKey;
 }
 
-// tu-skeleton: 0x0045EA3F 39B ??1Rva0045EA3F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
+// tu-skeleton: 0x0045EA3F 39B ??1ShipSlowDeathBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
