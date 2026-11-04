@@ -2,6 +2,27 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### Player's UnitRevivalTracker cleanup (2026-11-04, halilkkaya-codex)
+
+Base `6a4bb58f9f`: `PlayerCtorBFME2.cpp` no longer declares an unsupported
+virtual UnitRevivalTracker destructor. The actual constructor 0x0037F27B
+installs a one-slot xfer table, and Player's native unwind destroys the +0x738
+member through the existing nonvirtual eight-byte owner at 0x002B0B8E.
+The local constructor view now declares the real xfer slot and expands its
+nonvirtual teardown to that existing owner. No row, pin, alias or original
+destructor name is invented. The sole real-link tracker-destructor error
+from artifact `612abfbebb` disappears.
+
+Player's 29 rows, owned data and complete EH graph stay exact; the three-unit
+family build passes 72 rows and the frozen check is clean. True current-object
+base/tip preview over constructor, destructor, tracker initializer and all
+first-copy COMDAT providers (29 units, `a62ac1c10b` index) preserves all 27
+base LINKS units and adds Player's 593 existing bytes (87,442 -> 88,035).
+Scoped DIR32 passes 72 rows plus ten witnesses. The existing table/element
+recovery issues in other family units remain; no census or full-image result
+is claimed. Receipts: `build/seat_tracker_{base,tip,build,family_build}.log`
+and `build/seat_tracker_cohort.{txt,json}`.
+
 ### XferSave constructor teardown providers (2026-11-04, halilkkaya-codex)
 
 Base `2a94cc974e`: `BfmeConv881O1.cpp` now gives its two twenty-byte members

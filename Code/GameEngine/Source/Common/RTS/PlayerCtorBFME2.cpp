@@ -158,7 +158,20 @@ namespace _STL { template <> vector<BfmeVectorRecord002AF478>::~vector(); }
 class ScoreKeeper {public:ScoreKeeper();virtual ~ScoreKeeper();private:unsigned words[0x330/4];};
 struct ReadyTimer {int power,ready;};
 struct ProductionCostModifier;
-class UnitRevivalTracker {public:UnitRevivalTracker(Player*);virtual ~UnitRevivalTracker();private:unsigned words[4];};
+// The native constructor 0x0037F27B initializes this twenty-byte member,
+// whose unwind cleanup is the existing nonvirtual 0x002B0B8E wrapper.
+// That wrapper destroys its vector at +4 without resetting the xfer vptr;
+// declaring a virtual UnitRevivalTracker destructor invented another name.
+class Rva002B0B8E { public: ~Rva002B0B8E(); };
+class UnitRevivalTracker {
+public:
+ UnitRevivalTracker(Player *owner);
+ __forceinline ~UnitRevivalTracker() { ((Rva002B0B8E *)this)->Rva002B0B8E::~Rva002B0B8E(); }
+protected:
+ virtual void xfer(Xfer *);
+private:
+ unsigned words[4];
+};
 class Squad;
 class Player : public Snapshot, public Rva002B0F3CIface, public Rva00380200 {
 public:
