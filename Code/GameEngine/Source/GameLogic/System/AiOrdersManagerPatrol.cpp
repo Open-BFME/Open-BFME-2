@@ -25,7 +25,11 @@ bool Rva00354EB9(const Coord3D *,const Coord3D *);
 enum NameKeyType { NK_NONE=0 };
 class ArmorTemplate; // opaque return identity inherited from existing providers
 class Rva0035516C { public: const ArmorTemplate *rva0035516C(NameKeyType) const; };
-class Rva00355B61 { public: const ArmorTemplate *rva00355155(NameKeyType) const; };
+class Rva00355B61
+{
+public:
+	const ArmorTemplate* rva00355155(NameKeyType) const;
+};
 class CreateAHeroData;
 typedef _STL::list<CreateAHeroData*> ListHeroPtr;
 class Rva00548800 { public:

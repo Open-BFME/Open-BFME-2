@@ -113,7 +113,11 @@ enum NameKeyType { NK_NONE=0 };
 
 class ArmorTemplate;
 
-class Rva00355B61 { public: const ArmorTemplate* rva00355155(NameKeyType) const; };
+class Rva00355B61
+{
+public:
+	const ArmorTemplate* rva00355155(NameKeyType) const;
+};
 
 class Object;
 
