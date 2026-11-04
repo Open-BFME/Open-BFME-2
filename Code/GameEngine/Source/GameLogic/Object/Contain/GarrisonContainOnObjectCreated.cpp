@@ -33,36 +33,13 @@ public:
 
 extern ThingFactory *TheThingFactory;
 
-class Player
-{
-public:
-	Team *getDefaultTeam() { return m_defaultTeam; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getDefaultTeam copy is not retail's; the call below
-	// inlines it but still emits the loser COMDAT. Rebinding there emits only
-	// this unique (trivially kept) copy. No flags touched.
-	Team *bfme_default_team() { return m_defaultTeam; }
-
-private:
-	unsigned char m_pad000[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../object.h"
 
-struct InitialRoster
-{
-	AsciiString templateName; // +0xA4
-	int count; // +0xA8
-};
-
-struct GarrisonContainModuleData
-{
-	unsigned char m_pad00[0xA4];
-	InitialRoster m_initialRoster; // +0xA4
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 class GarrisonContain
 {
@@ -88,7 +65,7 @@ void GarrisonContain::onObjectCreated()
 		// We are creating a garrison that comes with an initial roster, so add it now!
 		CreateMask mask;
 		memset(&mask, 0, sizeof(mask));
-		Object *payload = TheThingFactory->newObject(rosterTemplate, object->getControllingPlayer()->bfme_default_team(), &mask, (ObjectID)0);
+		Object *payload = TheThingFactory->newObject(rosterTemplate, object->getControllingPlayer()->getDefaultTeam(), &mask, (ObjectID)0);
 		if (object->getContain() && object->getContain()->isValidContainerFor(payload, true, 0))
 			object->getContain()->addToContain(payload);
 	}

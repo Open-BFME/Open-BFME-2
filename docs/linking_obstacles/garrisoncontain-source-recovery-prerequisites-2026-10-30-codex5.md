@@ -28,3 +28,5 @@ SlaughterHordeContainAddHordeMember.cpp receipt. Carry that consumer and the
 earlier Common receipt gap into the next scheduled census. The remaining native
 class contracts, canonical-class adoption and mixed-source splits remain open.
 [Scoped evidence](../../reverse/attempt_support/garrison-composition-20261030-codex5.md).
+
+2026-11-04: onObjectCreated adopted canonical Player/GarrisonContainModuleData (two header debts retired; 160 bytes exact, link preview unchanged); seed module-data/view reconciliation remains a merge prerequisite. [Evidence](../../reverse/attempt_support/garrison-created-header-adoption-20261104-codex3.md).
