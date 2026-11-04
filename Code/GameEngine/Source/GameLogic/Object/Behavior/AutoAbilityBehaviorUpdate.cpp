@@ -22,7 +22,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "PartitionRangeQueryCallView.h"
 // A by-value re-read of a data member: the retail range pick loads the module data's
 // value again for the store instead of reusing the compare's register.
-template<class T> static __forceinline T __cp(const T &x) { T t = x; return t; }
+template<class T> static __forceinline T __cp(const T &value) { T result = value; return result; }
 #include <string.h>
 
 class Player;
@@ -69,8 +69,8 @@ public:
 class Rva00261513Filter : public Rva000421C8
 {
 public:
-	Rva00261513Filter(const Object *obj, bool flag, float value)
-		: m_obj(obj), m_flag(flag), m_value(value) {}
+	Rva00261513Filter(const Object *obj, bool flag, float range)
+		: m_obj(obj), m_flag(flag), m_value(range) {}
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 	bool m_flag;
@@ -254,9 +254,9 @@ UpdateSleepTime AutoAbilityBehavior::update()
 		rva0045A413();
 		return UPDATE_SLEEP_FOREVER;
 	}
-	unsigned int kinds = button->m_flags1C;
+	unsigned int options = button->m_flags1C;
 	bool flagged = ((obj->m_model.m_words[6] >> 22) & 1) != 0;
-	if (((kinds & 0x4000000) != 0 && !flagged) || ((kinds & 0x8000000) != 0 && flagged))
+	if (((options & 0x4000000) != 0 && !flagged) || ((options & 0x8000000) != 0 && flagged))
 	{
 		rva0045A413();
 		return UPDATE_SLEEP_FOREVER;
@@ -336,8 +336,8 @@ UpdateSleepTime AutoAbilityBehavior::update()
 			TheAI->m_pathfinder->adjustToMeleeDestination(obj, *(const LocomotorSet *)((char *)ai + 0x1CC), &dest);
 		unsigned int buttonFlags = button->m_flags1C;
 		_ReadWriteBarrier();
-		unsigned char flagBit = (unsigned char)(buttonFlags >> 5);
-		if ((flagBit & 1) != 0)
+		unsigned char needTargetPosBit = (unsigned char)(buttonFlags >> 5);
+		if ((needTargetPosBit & 1) != 0)
 			obj->doCommandButtonAtPosition(button, &dest, 2, 1);
 		else if ((buttonFlags & 7) != 0)
 			obj->rva00297000(button, target, 2, 1);
