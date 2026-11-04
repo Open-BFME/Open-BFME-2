@@ -409,10 +409,11 @@ private:
 // element identity remain unknown.
 struct BfmeVectorRecord00319C84
 {
-	virtual ~BfmeVectorRecord00319C84();
-	char m_body[12];
+public:
 	BfmeVectorRecord00319C84();
 	BfmeVectorRecord00319C84(const BfmeVectorRecord00319C84 &);
+	virtual ~BfmeVectorRecord00319C84();
+	char m_body[12]; // +0x04
 };
 
 class Rva00318B5C
