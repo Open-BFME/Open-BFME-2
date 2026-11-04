@@ -411,7 +411,7 @@ class ThingTemplate;
 
 class ScoreKeeper {public:void addObjectBuilt(Object*,int);};
 
-class Player {public:char pad[0x3BC];ScoreKeeper score;};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/ThingFactory.h"
 
@@ -735,7 +735,7 @@ void ToggleMountedSpecialAbilityUpdate::createMountedTemplate(){
  Player *player=original->getControllingPlayer();
  Object *replacement=TheBuildAssistant->buildObjectNow(original,what,&original->m_cachedPos,angle,player);
  if(!replacement)return;
- player->score.addObjectBuilt(original,-1);
+ ((ScoreKeeper *)((char *)player + 0x3BC))->addObjectBuilt(original,-1);
  replacement->name.set(original->name);
  replacement->record=original->record;
  replacement->experience->enabled=false;
