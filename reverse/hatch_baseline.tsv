@@ -8668,9 +8668,7 @@ pin	reverse/symbols.csv	0x00557C63	1
 pin	reverse/symbols.csv	0x00557CBD	1
 pin	reverse/symbols.csv	0x00557CC2	1
 pin	reverse/symbols.csv	0x00557CC7	1
-pin	reverse/symbols.csv	0x00557CCC	1
 pin	reverse/symbols.csv	0x00558D41	1
-pin	reverse/symbols.csv	0x00558D6B	1
 pin	reverse/symbols.csv	0x00558E10	1
 pin	reverse/symbols.csv	0x00558EC1	1
 pin	reverse/symbols.csv	0x00559076	1
@@ -12595,8 +12593,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHord
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	crc@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	findLocomotorTemplateVector@AIUpdateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	isIdle@AIUpdateInterface@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	needToRotate@AIUpdateInterface@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	privateAttackMoveToPosition@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp	getIgnoredObstacleID@AIUpdateInterface@@QBE?AW4ObjectID@@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	1DozerAIUpdate@@	1
