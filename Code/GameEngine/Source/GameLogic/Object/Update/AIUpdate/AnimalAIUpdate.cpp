@@ -153,16 +153,7 @@ class Rva00045411BitSet { char bytes[28]; public: Rva00045411BitSet(int unused, 
 
 struct Rva0006EE7A { unsigned m_bits[7]; Rva0006EE7A(int unused, int b1, int b2, int b3, int b4); };
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../../Include/GameLogic/PartitionFilter.h"
 
 // Alive filter: vftable 0x00BFAD10, allow 0x0026119D.
 class Rva0026119DFilter : public Rva000421C8

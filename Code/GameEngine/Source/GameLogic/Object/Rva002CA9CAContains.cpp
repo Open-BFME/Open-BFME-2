@@ -351,15 +351,7 @@ public:
 };
 
 // BFME 2's partition filters (the view AIPlayerIsLocationSafe.cpp documents).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 
