@@ -116,6 +116,76 @@ this slice. Neither has a supported fix today. No source changed.
   LivingWorldScoreKeeper.cpp LINKS today (3,347 B), so run base/tip
   `link_check` around every step.
 
+### PerTurnStats readmission blocked by its callers (2026-11-04, halilkkaya-pt-o1)
+
+Base `b675551755`. **Status: blocked.** No source, ledger or pin changed.
+`freeBytes` stays unresolved.
+
+The tu_map check passes: 0x004EE1D0, 0x004EE1E2, 0x004EE20B and 0x004EE233
+are all approved for `LivingWorldScoreKeeper.cpp`. What blocks the plan is
+something it does not cover: the callers of the three PrereqUnitRec spellings.
+
+- **Callers (retail E8 scan).**
+  - 0x004EE1E2 is called from:
+    - 0x004EE6D0 (`Rva004EE6D0Insert.cpp`);
+    - 0x0051ED0A, the `Rva004EE501` copy ctor in `AptTimeLine.cpp`;
+    - 0x0051F7AD, in `StlSweepR3Rva0051F7AD.cpp`, whose approved TU is
+      AptTimeLine.cpp.
+  - 0x004EE20B is called from 0x004EE6D0.
+  - 0x004EE233 is called from 0x004EE55E (`StlVectorReserveProviderRepairs.cpp`)
+    and 0x0051F7AD.
+  - 0x004EE1D0 has no direct caller.
+- **A retraction alone is refused.** I simulated step 1 against a scratch
+  ledger and restored it afterwards.
+  - `name_dependents --staged` lists six units. ThingFactory.cpp is not one
+    of them.
+  - Each caller fails `./build.sh`: 0x004EE6D0, 0x004EE55E, 0x0051F7AD and
+    0x0051ED0A.
+  - The reason: the copy and fill names fall back to their pins 0x004F5097 and
+    0x004F50BD (the real PrereqUnitRec helpers), and `_M_allocate_and_copy`
+    falls back to nothing.
+  - So steps 1 and 2 must be one commit, and every caller must be respelled to
+    PerTurnStats in that same commit.
+- **Some callers cannot name PerTurnStats.**
+  - `Rva004EE6D0Insert.cpp` can: it already carries a private
+    LivingWorldScoreKeeper stub.
+  - A nested-forward stub in `StlSweepR3Rva0051F7AD.cpp` is refused by
+    `class_gate`. I tested this and reverted it.
+  - StlSweepR3Rva0051F7AD.cpp and StlVectorReserveProviderRepairs.cpp cannot
+    include the canonical header either. Its `<vector>`/`<map>` clash with the
+    `_STL` templates those files declare by hand.
+  - `AptTimeLine.cpp` cannot include the canonical header either, because both
+    define `Rva004EE501` on different bases: `_Vector_base<PrereqUnitRec>`
+    against `_Vector_base<int>`. Its copy ctor needs the 12-byte count base
+    at 0x005C8C37.
+- **What `Rva004EE501` really is.** It is retail's
+  `vector<LivingWorldScoreKeeper::PerTurnStats>` (structural inference):
+  - 0x0051ED0A copies through 0x004EE1E2.
+  - That helper's element copy, 0x004EE1A9, installs vftable 0x00C62A28,
+    whose slots 2 and 3 are the rowed `PerTurnStats::GetSnapshotName` and
+    `xfer`.
+  - The dtor 0x004EE501, operator= 0x0051F7AD, reserve 0x004EE55E, overflow
+    0x004EE6D0 and push_back 0x004EE9B1 use the same helpers.
+- **Prerequisite.**
+  1. Give the canonical header a nested PerTurnStats and a
+     `vector<PerTurnStats>` member at +0x28.
+  2. Fold the `Rva004EE501` views (header, AptTimeLine.cpp,
+     RvaVectorDtorFamily.cpp) and their rows onto that vector.
+  3. Then run the plan's steps 1 and 2 as one commit, together with the caller
+     respellings, and step 3 after it.
+- **ThingFactory.** Main asked for a check. The plan would not change
+  ThingFactory's PrereqUnitRec name: its unresolved
+  `??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@...` is pinned at
+  0x000120C0 and is outside this family.
+- **Correction to the plan.** The allocate alias's callee
+  `?allocate@?$allocator@D@_STL@@SAPADIPBX@Z` is rowed: `GameMemory.cpp`,
+  0x000307F0.
+- **Link baseline.** The four callers, StlportConstructCopySiblings.cpp,
+  Rva004EE233AllocateCopy.cpp and LivingWorldScoreKeeper.cpp all LINK.
+  ProductionPrerequisite.cpp (429 B) and ThingFactory.cpp (118 B) do not.
+
+[Evidence](../../reverse/attempt_support/perturnstats-readmission-callers-20261104.md).
+
 ### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
 
 After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the
