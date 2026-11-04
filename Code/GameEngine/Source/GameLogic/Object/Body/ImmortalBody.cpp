@@ -37,11 +37,9 @@ class Player;
 
 typedef float Real;
 
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/Common/Geometry.h"
 
 class ThingTemplate
 {
@@ -49,7 +47,7 @@ public:
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	unsigned char m_pad000[0xA0];
 	GeometryInfo m_geometryInfo; // +0xA0
-	unsigned char m_padA1[0x5F7 - 0xA1];
+	unsigned char m_padA1[0x5F7 - 0xfc];
 	signed char m_structureRubbleHeight; // +0x5F7
 };
 

@@ -3,12 +3,8 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/PartitionRangeQueryCallView.h"
 
-class GeometryInfo
-{
-public:
-	char prefix[0x14]; // +0x00
-	float radius; // +0x14
-};
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Include/Common/Geometry.h"
 
 struct AerialMotionInfo { char prefix[0x48]; float height; };
 
@@ -105,7 +101,7 @@ static __forceinline void nativeNormalize(Coord3D*p) throw(){p->normalize();}
 bool AerialPathfinder::rva00375C28(Object*obj,const Coord3D*pos,float*worstOverlap,Coord3D*push){
  bool clear=true;
  AerialAI* ai=(AerialAI *)obj->m_ai;
- float radius=((GeometryInfo *)obj->m_geometryInfo)->radius;
+ float radius=((GeometryInfo *)obj->m_geometryInfo)->m_boundingSphereRadius;
  unsigned partnerID=0;
  if(ai){AerialPartner*partner=ai->getPartner();if(partner)partnerID=partner->id;}
  const BfmeWideResult& found=ThePartitionManager->iterateObjectsInRange(pos,radius,3,
@@ -122,7 +118,7 @@ bool AerialPathfinder::rva00375C28(Object*obj,const Coord3D*pos,float*worstOverl
    if(((Gen_000E5A50*)them)->Get3DCenterDistanceSquared((BfmeVec3EJ*)&obj->m_cachedPos)>range*range)continue;
   }
   Coord3D delta;((Rva001E438B*)them)->rva001E438B(&delta.x,&pos->x);
-  float overlap=((GeometryInfo *)them->m_geometryInfo)->radius*2.0f+((GeometryInfo *)obj->m_geometryInfo)->radius-nativeLength(&delta);
+  float overlap=((GeometryInfo *)them->m_geometryInfo)->m_boundingSphereRadius*2.0f+((GeometryInfo *)obj->m_geometryInfo)->m_boundingSphereRadius-nativeLength(&delta);
   if(*worstOverlap<overlap)*worstOverlap=overlap;
   nativeNormalize(&delta);
   delta.x*=overlap;delta.y*=overlap;delta.z*=overlap;
@@ -184,7 +180,7 @@ int AerialPathfinder::rva00375ED7(Object*obj,const Coord3D*pos,Coord3D*push)
  if(!ai)return 2;
  push->x=0;push->y=0;push->z=0;
  float height=ai->motion->height;
- float radius=((GeometryInfo *)obj->m_geometryInfo)->radius;
+ float radius=((GeometryInfo *)obj->m_geometryInfo)->m_boundingSphereRadius;
  Coord3D sample={0,0,0};
  float worst=0;
  sample.z=pos->z-height*0.5f;

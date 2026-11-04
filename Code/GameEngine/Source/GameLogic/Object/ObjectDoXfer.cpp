@@ -224,11 +224,7 @@ public:
 	const ModuleData *m_moduleData; // +0x04
 };
 
-class GeometryInfo
-{
-public:
-	char m_data[0x64];
-};
+#include "../../../Include/Common/Geometry.h"
 
 struct TriggerInfo
 {
@@ -352,6 +348,7 @@ public:
 	BitFlags<101> m_status; // +0x094
 	PathfinderPosGoalManager *m_posGoal; // +0x0A4
 	GeometryInfo m_geometryInfo; // +0x0A8
+	char m_pad104[0x10C - 0x104];
 	BitFlags<591> m_modelConditionFlags; // +0x10C
 	char m_pad158[0x54];
 	float m_field1AC; // +0x1AC

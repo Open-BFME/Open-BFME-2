@@ -125,11 +125,7 @@ public:
 	Real rva002627E8() const;
 };
 
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-};
+#include "../../Include/Common/Geometry.h"
 
 class Object
 {
@@ -142,10 +138,7 @@ public:
 
 	char m_pad000[0xA8];
 	GeometryInfo m_geometryInfo;		// +0xA8
-	char m_padA9[0xCC - 0xA9];
-	Real m_boxMajorRadius;			// +0xCC
-	Real m_boxMinorRadius;			// +0xD0
-	char m_padD4[0x258 - 0xD4];
+	char m_padD4[0x258 - 0x104];
 	Rva002627E8 *m_ai;			// +0x258
 	void *m_physics;			// +0x25C
 	char m_pad260[0x438 - 0x260];
@@ -319,8 +312,8 @@ void Drawable::rva00272FB6(const Locomotor *locomotor, PhysicsXformInfo &info)
 	m_locoInfo->m_pitchModulator += PITCH_BOB_RATE;
 	info.m_totalPitch += cos(m_locoInfo->m_pitchModulator) * PITCH_BOB_AMPLITUDE;
 
-	Real length = obj->m_boxMajorRadius;
-	Real width = obj->m_boxMinorRadius;
+	Real length = obj->m_geometryInfo.field24;
+	Real width = obj->m_geometryInfo.field28;
 	Real height = obj->m_geometryInfo.getMaxHeightAbovePosition();
 	Real pitchHeight = Sin(info.m_totalPitch) * length;
 	Real rollHeight = Sin(info.m_totalRoll) * width;

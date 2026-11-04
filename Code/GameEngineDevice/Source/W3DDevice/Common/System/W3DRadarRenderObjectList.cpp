@@ -59,16 +59,9 @@ public:
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
-class GeometryInfo {
-public:
-	bool CollidesWith(const Coord3D &pos, Real angle, const GeometryInfo &other,
-		const Coord3D &otherPos, Real otherAngle) const;
-	// Native radar callers inline +0x10; the generic accessor's other views
-	// read +0x18, so this implementation helper needs its own name.
-	Real radarCircleRadius() const { return m_boundingCircleRadius; }
-	char m_pad00[0x10];
-	Real m_boundingCircleRadius;
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../../GameEngine/Include/Common/Geometry.h"
 
 class ThingTemplate;
 #include "../../../../../GameEngine/Include/Common/Player.h"
@@ -198,7 +191,7 @@ static void rva0004DF6F(const Object *obj, void *surface, Int width, Int height,
 		return;
 
 	const Coord3D *pos = obj->getPosition();
-	Int radius = (Int)obj->getGeometryInfo().radarCircleRadius();
+	Int radius = (Int)obj->getGeometryInfo().getBoundingCircleRadius();
 	ICoord2D center;
 	center.x = (Int)(pos->x * scaleX);
 	center.y = (Int)(pos->y * scaleY);
@@ -428,7 +421,7 @@ void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot 
 		else if (drawRadius)
 		{
 			Int minRadius = 2;
-			Int radius = fast_float2long_round(floor(obj->getGeometryInfo().radarCircleRadius() * scaleX + 0.5f));
+			Int radius = fast_float2long_round(floor(obj->getGeometryInfo().getBoundingCircleRadius() * scaleX + 0.5f));
 			DiscreteCircle circle(radarPoint.x, radarPoint.y, std::max(radius, minRadius));
 			RadarEndpointColor = c;
 			Int twoY = radarPoint.y * 2;

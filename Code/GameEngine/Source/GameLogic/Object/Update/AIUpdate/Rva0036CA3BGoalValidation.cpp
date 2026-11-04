@@ -4,7 +4,9 @@
 // prove its5C-byte layout and14 radius. Existing neutral filter providers own
 // their28-byte masks. Original state and helper names remain unproven.
 #include "Coord3D.h"
-class GeometryInfo{public:GeometryInfo(const GeometryInfo&);virtual ~GeometryInfo();float getMaxHeightAbovePosition()const;char pad4[0x14-4];float radius;char pad18[0x5c-0x18];};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../../Include/Common/Geometry.h"
 class Object{public:char pad0[0xa8];GeometryInfo geometry;};
 class BfmeFixedStorage0004543D{public:unsigned words[7];};template<int N>class BitFlags{public:unsigned words[7];};extern BitFlags<116> KINDOFMASK_NONE;
 class Rva002618A2{public:Rva002618A2*rva002618A2(int,int,int,int);unsigned words[7];};
@@ -15,4 +17,4 @@ extern PartitionManager*ThePartitionManager;
 template<int N>class Slots:public Slots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class Slots<0>{};class TerrainView:public Slots<6>{public:virtual float height(float,float,Coord3D*)=0;};class TerrainLogic;extern TerrainLogic*TheTerrainLogic;
 #include "../../../../../Include/Common/StateMachineClass.h"
 class Rva0036C6AFState{public:char pad0[0x18];StateMachine*machine;bool rva0036CA3B(const Coord3D*,float);};
-bool Rva0036C6AFState::rva0036CA3B(const Coord3D*position,float desired){float ground=((TerrainView*)TheTerrainLogic)->height(position->x,position->y,0);if(ground>desired)return false;GeometryInfo ownerGeometry(machine->m_owner->geometry);Rva002618A2 mask;Object*closest=ThePartitionManager->getClosestObject(position,ownerGeometry.radius,0,&Rva0004584D(*reinterpret_cast<BfmeFixedStorage0004543D*>(mask.rva002618A2(0,7,10,11)),*reinterpret_cast<const BfmeFixedStorage0004543D*>(&KINDOFMASK_NONE)));if(closest){GeometryInfo geometry(closest->geometry);if(geometry.getMaxHeightAbovePosition()+ground>desired)return false;}return true;}
+bool Rva0036C6AFState::rva0036CA3B(const Coord3D*position,float desired){float ground=((TerrainView*)TheTerrainLogic)->height(position->x,position->y,0);if(ground>desired)return false;GeometryInfo ownerGeometry(machine->m_owner->geometry);Rva002618A2 mask;Object*closest=ThePartitionManager->getClosestObject(position,ownerGeometry.m_boundingSphereRadius,0,&Rva0004584D(*reinterpret_cast<BfmeFixedStorage0004543D*>(mask.rva002618A2(0,7,10,11)),*reinterpret_cast<const BfmeFixedStorage0004543D*>(&KINDOFMASK_NONE)));if(closest){GeometryInfo geometry(closest->geometry);if(geometry.getMaxHeightAbovePosition()+ground>desired)return false;}return true;}

@@ -38,7 +38,9 @@ struct ActionLocationCoord:Coord3D {
 enum CommandSourceType { CMD_FROM_PLAYER };
 enum SpecialPowerType { SPECIAL_INVALID };
 enum NameKeyType { NAMEKEY_INVALID };
-enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Include/Common/Geometry.h"
 enum PathfindLayerEnum { LAYER_GROUND };
 enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED };
 class Object; class Module; class Player; class SpecialPowerTemplate;
@@ -76,13 +78,6 @@ class BfmeRefCF { public: BfmeRefCF *bfmeAssignCF(const BfmeRefCF &); void *data
 #include "PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 extern PartitionManager *TheShroudManager;
-class GeometryInfo {
-public:
- GeometryInfo(GeometryType,bool,float,float,float);
- virtual ~GeometryInfo();
- bool CollidesWith(const Coord3D &,float,const GeometryInfo &,const Coord3D &,float) const;
- char fields[0x58];
-};
 class Overridable { public: const Overridable *friend_getFinalOverride() const throw(); };
 class SpecialPowerTemplate:public Overridable {
 public:

@@ -10,9 +10,10 @@ extern PartitionManager *ThePartitionManager;
 
 class Object {public:char pad[0x38]; Coord3D position;const Coord3D *getPosition() const {return &position;}};
 
-enum GeometryType {GEOMETRY_SPHERE,GEOMETRY_CYLINDER,GEOMETRY_BOX};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../Include/Common/Geometry.h"
 
-class GeometryInfo {public:GeometryInfo(GeometryType,bool,float,float,float);virtual ~GeometryInfo();char data[0x58];};
 
 class Rva000421C8 {public:Rva000421C8():m_next(0) {} virtual ~Rva000421C8() {} virtual bool allow(Object *)=0; virtual int getPlayerMask();Rva000421C8 *m_next;};
 

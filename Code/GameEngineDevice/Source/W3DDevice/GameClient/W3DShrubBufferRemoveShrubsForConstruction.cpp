@@ -27,12 +27,8 @@ static inline void setCoord(Coord3D &c, Real nx, Real ny, Real nz)
 
 #include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER,
-	GEOMETRY_BOX
-};
+#include "Common/Snapshot.h"
+#include "../../../../GameEngine/Include/Common/Geometry.h"
 
 // The canonical frozen StringBase replaces the private copy; its switch makes
 // the member dtor reachable and keeps the teardown an out-of-line call to the
@@ -61,48 +57,11 @@ struct GeometryRecord
 	~GeometryRecord();
 };
 
-#include "Common/Snapshot.h"
 // bfme link decl-only begin
 namespace _STL { template <> vector<GeometryRecord, allocator<GeometryRecord> >::~vector(); }
 namespace _STL { template <> vector<GeometryShape, allocator<GeometryShape> >::~vector(); }
 // bfme link decl-only end
 
-class GeometryInfo : public Snapshot
-{
-public:
-	GeometryInfo(GeometryType type, Bool is_small, Real height,
-		Real major_radius, Real minor_radius);
-
-	Bool CollidesWith(const Coord3D &this_pos, Real this_angle,
-		const GeometryInfo &that, const Coord3D &that_pos, Real that_angle) const;
-
-protected:
-	virtual void crc( Xfer *xfer );
-	virtual void xfer( Xfer *xfer );
-	virtual void loadPostProcess( void );
-
-private:
-	Bool m_is_small;
-	int m_scalar08;
-	int m_scalar0c;
-	int m_scalar10;
-	int m_scalar14;
-	int m_scalar18;
-	int m_scalar1c;
-	int m_scalar20;
-	int m_scalar24;
-	int m_scalar28;
-	std::vector<GeometryShape> m_shapes;
-	std::vector<GeometryRecord> m_records;
-	int m_cached44;
-	int m_cached48;
-	int m_cached4c;
-	int m_cached50;
-	int m_cached54;
-	int m_cached58;
-public:
-	virtual ~GeometryInfo();	// rowed elsewhere; declared so this unit binds to it
-};
 
 
 void W3DShrubBuffer::rva000E9D18(const Coord3D *pos, const GeometryInfo &geom, Real angle)

@@ -177,39 +177,13 @@ class Drawable
 public:
 void setAnimationLoopDuration(UnsignedInt numFrames);
 };
-enum GeometryType
-{
-GEOMETRY_SPHERE=0,
-GEOMETRY_CYLINDER,
-GEOMETRY_BOX
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Include/Common/Geometry.h"
 class BfmeThingTemplateShadowSelector
 {
 public:
 Bool usePluralShadowName()const;
-};
-class GeometryInfo
-{
-public:
-GeometryInfo(GeometryType type,Bool isSmall,Real height,Real majorRadius,Real minorRadius);
-GeometryInfo(const GeometryInfo&that);
-virtual ~GeometryInfo();
-Real getMajorRadius()const{return m_majorRadius;}
-__declspec(dllimport)__forceinline Real getBoundingCircleRadius()const{return m_boundingCircleRadius;}
-Real getBoxMajorRadius()const{return m_boxMajorRadius;}
-Real getBoxMinorRadius()const{return m_boxMinorRadius;}
-__forceinline Bool isSingleBox()const{return((const BfmeThingTemplateShadowSelector*)this)->usePluralShadowName();}
-Real getMaxHeightAbovePosition()const;
-void expandFootprint(Real radius);
-bool CollidesWith(const Coord3D&pos,Real angle,const GeometryInfo&other,const Coord3D&otherPos,Real otherAngle)const;
-private:
-unsigned char m_pad04[0x10 - 0x04];
-Real m_majorRadius;
-Real m_boundingCircleRadius;
-unsigned char m_pad18[0x24 - 0x18];
-Real m_boxMajorRadius;
-Real m_boxMinorRadius;
-unsigned char m_pad2C[0x5C - 0x2C];
 };
 class ModuleData;
 class ThingTemplate
@@ -779,9 +753,9 @@ Rva00260E2AFilter(builder->getControllingPlayer()).link(&Rva0004584D(
 Bool endAtObject=false;
 Coord3D endPoint;endPoint.x=end->x;endPoint.y=end->y;endPoint.z=end->z;
 Real nearRadius=0.f;
-Real hubHalf=hubTemplate->getTemplateGeometryInfo().getBoxMinorRadius();
+Real hubHalf=hubTemplate->getTemplateGeometryInfo().field28;
 if(nearObject){
-nearRadius=nearObject->getGeometryInfo().getMajorRadius();
+nearRadius=nearObject->getGeometryInfo().getBoundingCircleRadius();
 Rva0039380FModule*nearModule=(Rva0039380FModule*)((Rva00293330*)nearObject)->rva00293330(0);
 if(nearModule)nearRadius=nearModule->getInitialStep();
 if(nearRadius >=hubHalf*.666f){
@@ -822,11 +796,11 @@ remaining-=hubHalf;
 while(progress < remaining&&index < TheWritableGlobalData->m_wallCount-1){
 const ThingTemplate*segment=module->getSegment(index);
 if(!segment)segment=builder->getTemplate();
-Real half=segment->getTemplateGeometryInfo().getBoxMinorRadius();half-=1.f;
+Real half=segment->getTemplateGeometryInfo().field28;half-=1.f;
 if(progress+half*2.f > remaining){
 segment=module->getEnd();
 if(!segment)segment=builder->getTemplate();
-half=segment->getTemplateGeometryInfo().getBoxMinorRadius();half-=1.f;
+half=segment->getTemplateGeometryInfo().field28;half-=1.f;
 }
 Coord3D step(unit.x*half,unit.y*half,0.f);
 previous=current;

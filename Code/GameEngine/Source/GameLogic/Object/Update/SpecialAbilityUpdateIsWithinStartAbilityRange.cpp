@@ -30,11 +30,9 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_5B = 0x5B
 };
 
-class GeometryInfo
-{
-public:
-	Bool CollidesWith(const Coord3D &pos, Real a, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/Common/Geometry.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
@@ -65,9 +63,7 @@ public:
 	Real m_angle;						// +0x44
 	unsigned char m_pad048[0xA8 - 0x48];
 	GeometryInfo m_geometry;			// +0xA8
-	unsigned char m_pad0A9[0xB8 - 0xA9];
-	Real m_radiusB8;					// +0xB8
-	unsigned char m_pad0BC[0x258 - 0xBC];
+	unsigned char m_pad0BC[0x258 - 0x104];
 	AIUpdateInterface *m_ai;			// +0x258
 };
 
@@ -194,7 +190,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 					fDistSquared = target->rva0044E6B8(self);
 				else if ((self->getTemplate()->m_kindof[3] & (1U << 13)) && data->m_addRadiusC5)
 				{
-					Real radius = self->m_radiusB8;
+					Real radius = self->m_geometry.m_boundingCircleRadius;
 					fDistSquared = ((Rva000CBA20 *)target)->distSq((const Rva000CBA20Point *)self->getPosition()) + radius;
 				}
 				else

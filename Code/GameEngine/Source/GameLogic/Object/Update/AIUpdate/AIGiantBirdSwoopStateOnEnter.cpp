@@ -89,17 +89,9 @@ extern unsigned char g_00E01EC0[4];
 extern unsigned char g_00E01EC8[4];
 extern unsigned char g_00E01ED0[4];
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &other);
-	virtual ~GeometryInfo();
-	Real getBoundingCircleRadiusRV() const { return m_boundingCircleRadius; }
-private:
-	unsigned char m_pad04[0x10 - 4];
-	Real m_boundingCircleRadius; // +0x10
-	unsigned char m_pad14[0x5C - 0x14];
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../../Include/Common/Geometry.h"
 
 class Rva0073A1C0FloatField
 {
@@ -605,7 +597,7 @@ StateReturnType AIGiantBirdSwoopState::update()
 	Real dy = m_pos.y - owner->getPosition()->y;
 	Real dz = m_pos.z - owner->getPosition()->z;
 	Real distSq = dx * dx + dy * dy + dz * dz;
-	if (distSq < geometry.getBoundingCircleRadiusRV() * geometry.getBoundingCircleRadiusRV() * 0.5f)
+	if (distSq < geometry.getBoundingCircleRadius() * geometry.getBoundingCircleRadius() * 0.5f)
 		rva0036C438(true);
 
 	Real range = ai->m_swoopRadius538;

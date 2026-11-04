@@ -11,13 +11,10 @@ class ModuleData;
 class Team;
 class ThingTemplate;
 #include "Code/Libraries/Include/Lib/Coord3D.h"
-enum GeometryType { GEOMETRY_SPHERE=0, GEOMETRY_CYLINDER=1, GEOMETRY_BOX=2 };
-class GeometryInfo { public:
- GeometryInfo(GeometryType, bool, float, float, float);
- virtual ~GeometryInfo();
- char m_pad04[0xC]; float m_radius10; float m_radius;
- char m_pad18[0xC]; float m_major24, m_minor28; char m_tail2C[0x30];
-};
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/Common/Geometry.h"
 enum Relationship { ENEMIES=0, ALLIES=1, NEUTRAL=2 };
 enum CommandSourceType { CMD_FROM_PLAYER=0, CMD_FROM_SCRIPT=1, CMD_FROM_AI=2 };
 class AICommandInterface { public: void aiMoveToPositionEvenIfSleeping(const Coord3D *, CommandSourceType); };
@@ -42,7 +39,7 @@ class ThingTemplate
 public:
  const GeometryInfo &getGeometryInfo() const { return *reinterpret_cast<const GeometryInfo *>(m_pad000 + 0xA0); }
  unsigned int constructionWord118() const { return m_kindOf[4]; }
- __declspec(dllimport) __forceinline float getBoundingCircleRadius() const { return getGeometryInfo().m_radius; }
+ __declspec(dllimport) __forceinline float getBoundingCircleRadius() const { return getGeometryInfo().m_boundingSphereRadius; }
  __forceinline bool constructionKind(unsigned int bit) const { return (reinterpret_cast<const unsigned char *>(m_kindOf)[bit >> 3] & (1U << (bit & 7))) != 0; }
 	unsigned char m_pad000[0x108];
 	unsigned int m_kindOf[5]; // +0x108, the KindOf mask every other Object::isKindOf copy reads
@@ -395,7 +392,7 @@ public:
 };
 static __forceinline Rva000421C8 *linkKeepingRadius(Rva000421C8 *first, Rva000421C8 *second, const GeometryInfo &geom, float &radius)
 {
- radius = geom.m_radius;
+ radius = geom.m_boundingSphereRadius;
  return first->link(second);
 }
 // Primary vtable slot16; FoundationAIUpdate searches an overlapping kind105
@@ -407,7 +404,7 @@ void FoundationAIUpdate::rva0045537F()
  Object *self = m_object;
  const GeometryInfo &geom = self->getTemplate()->getGeometryInfo();
  const Coord3D *pos = self->getPosition();
- float radius = geom.m_radius;
+ float radius = geom.m_boundingSphereRadius;
  Object *obj = ThePartitionManager->getClosestObject(pos, radius * 1.1F, 1,
   linkKeepingRadius(&Rva0004584D(reinterpret_cast<const BfmeFixedStorage0004543D &>(Rva00045411BitSet(0, 105)), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)),
    &Rva00261603Filter(*pos, geom, self->getTransformMatrix()->Get_Z_Rotation(), true), geom, radius));
@@ -595,11 +592,11 @@ NameKeyType FoundationAIUpdate::getModuleNameKey() const
 // WB's paired Foundation body supplies the two destinations and line-build branch.
 bool FoundationAIUpdate::rva00455C98(const ThingTemplate *thingTemplate, const Coord3D *pos, float angle, Player *owner)
 {
- float minor=thingTemplate->getGeometryInfo().m_minor28, major=thingTemplate->getGeometryInfo().m_major24;
+ float minor=thingTemplate->getGeometryInfo().field28, major=thingTemplate->getGeometryInfo().field24;
  GeometryInfo gi(GEOMETRY_BOX,false,50.0F,major*1.5F,minor*1.5F);
- float radius=gi.m_radius10*1.5F;
+ float radius=gi.m_boundingCircleRadius*1.5F;
  bool anyUnmovables=false;
- BfmeWideResult hits=ThePartitionManager->iterateObjectsInRange(pos,gi.m_radius*1.5F,3,&Rva00261603Filter(*pos,gi,angle,true),0);
+ BfmeWideResult hits=ThePartitionManager->iterateObjectsInRange(pos,gi.m_boundingSphereRadius*1.5F,3,&Rva00261603Filter(*pos,gi,angle,true),0);
  for(Object *obj=hits.next();obj;obj=hits.next()) {
   if (obj->container()) obj=obj->container();
   if (!obj) continue;
