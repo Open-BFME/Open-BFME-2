@@ -6,14 +6,8 @@
 // are address-derived; identity is not recovered. No // cl: line: the
 // frameless /O2 shape is the default.
 
-struct CRITICAL_SECTION
-{
-	unsigned char data[24];
-};
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
+#include <windows.h>
+#include <mmsystem.h>
 
 int bfmeRva0011F600();
 bool BFME_DX8_Thread_Assert();
@@ -59,10 +53,6 @@ void Rva0061FFD0::rva0061FFD0()
 // whole MHz. Its one caller is the asset thread function at 0x00623600, which
 // caches the result behind a local-static guard (0x00E09C18, value at
 // 0x00E09C10). The name stays address-derived: retail keeps no string for it.
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *count);
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64 *freq);
-
 __forceinline void ProfileGetTime(__int64 &t)
 {
 	_asm
@@ -87,17 +77,17 @@ __int64 rva0061FCE0GetClockCyclesFast(void)
 		while (timeGetTime() < timeEnd);
 
 		__int64 start, startQPC, endQPC;
-		QueryPerformanceCounter(&startQPC);
+		QueryPerformanceCounter((LARGE_INTEGER *)&startQPC);
 		ProfileGetTime(start);
 		timeEnd += 20;
 		while (timeGetTime() < timeEnd);
 		ProfileGetTime(n[k]);
 		n[k] -= start;
 
-		if (QueryPerformanceCounter(&endQPC))
+		if (QueryPerformanceCounter((LARGE_INTEGER *)&endQPC))
 		{
 			__int64 freq;
-			QueryPerformanceFrequency(&freq);
+			QueryPerformanceFrequency((LARGE_INTEGER *)&freq);
 			n[k] = (n[k] * freq) / (endQPC - startQPC);
 		}
 		else
