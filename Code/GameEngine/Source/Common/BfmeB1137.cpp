@@ -158,18 +158,40 @@ public:
 	}
 };
 
-class BfmeB1137
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
+
+class BfmeTexHold1137
 {
 public:
-	virtual void slot00(void);
-	virtual void slot01(void);
-	virtual void slot02(void);
+	~BfmeTexHold1137(void)
+	{
+		if (m_texture)
+			m_texture->Release_Ref();
+	}
+
+private:
+	TextureClass *m_texture;
+};
+
+// Retail ctor 0x00094EBF and dtor 0x00094F38 establish the 0x38-byte
+// MaterialPassClass base and four owning texture holders at +0x58..+0x64.
+// UnInstall_Materials reads +0x54 and clears +0x68; retain those accesses
+// while exposing the same owning members to the destructor.
+class BfmeB1137 : public MaterialPassClass
+{
+public:
+	virtual ~BfmeB1137(void);
+	virtual void Install_Materials(void) const;
 	virtual void UnInstall_Materials(void) const;
 
 private:
-	char m_pad04[0x50];
+	char m_pad38[0x1C];
 	mutable volatile unsigned char m_guard54;
-	char m_pad55[0x13];
+	char m_pad55[3];
+	BfmeTexHold1137 m_tex0;
+	BfmeTexHold1137 m_tex1;
+	BfmeTexHold1137 m_tex2;
+	BfmeTexHold1137 m_tex3;
 	mutable volatile unsigned char m_clear68;
 };
 
