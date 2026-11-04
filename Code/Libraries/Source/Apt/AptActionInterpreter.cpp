@@ -329,7 +329,6 @@ typedef char AptInterpreterCallFrameSize[sizeof(AptInterpreterCallFrame) == 16 ?
 // Sound/Array/String/Date/TextFormat/Color/MovieClip/XML/LoadVars/Error, then
 // the shared prototype/hash/with-stack tail. Classes and call names follow the
 // rowed Apt views in AptActionInterpreterConstantHandlers.cpp.
-extern "C" double __cdecl fmod(double,double);
 
 class BfmeN1034;
 
@@ -806,16 +805,9 @@ class AptCIH;
 // provisional because the target has no named direct callers.
 extern "C" int __cdecl strncmp(const char *, const char *, unsigned int);
 
-extern "C" unsigned int __cdecl strlen(const char *);
-
 // The retail cell at VA 0x00DDC920 (pointing to "FSCommand:") is defined in
 // AptActionInterpreterConstantHandlers.cpp.
 extern const char *g_bfmeAptFSCommandAtDDC920;
-
-// Native equality threshold is double0.001 at VA BC6E68, not the later float macro.
-extern "C" int __cdecl strcmp(const char *,const char *);
-
-extern "C" double __cdecl fabs(double);
 
 class EAStringC;
 
@@ -910,8 +902,6 @@ BfmeAptValue006DCD20 *rva007064f0(int,int,EAStringC *);
 __declspec(noinline) void rva007065e0(int a,int b,BfmeAptValue006DCD20 *value,BfmeAptValue006DCD20 **out);
 
 void rva006ffce0(AptValue *,EAStringC &);
-
-extern "C" char *__cdecl strcpy(char *,const char *);
 
 __declspec(noinline) unsigned char rva006FD100(int current,int with,EAStringC *var,int *out,char *name);
 
