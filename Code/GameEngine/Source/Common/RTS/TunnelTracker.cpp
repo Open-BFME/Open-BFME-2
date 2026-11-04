@@ -101,13 +101,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #include "../../../Include/Common/XferVersion.h"
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 typedef unsigned short UnsignedShort;
 // The native four-byte append is the rowed list<int> member at 0x0005548F,
 // also used by TunnelTracker's other ID list. Keep it out of line here.

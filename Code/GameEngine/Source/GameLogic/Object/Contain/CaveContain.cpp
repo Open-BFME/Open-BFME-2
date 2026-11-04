@@ -213,13 +213,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 class XferException
 {
 public:

@@ -49,12 +49,7 @@ struct StrafeDirection {float x,y,z;
  __forceinline void sub(const Coord3D &v){x-=v.x;y-=v.y;z-=v.z;}
 };
 #include "../../../../Include/Common/XferVersion.h"
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
