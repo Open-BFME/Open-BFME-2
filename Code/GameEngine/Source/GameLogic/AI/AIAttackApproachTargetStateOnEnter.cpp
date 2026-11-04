@@ -616,7 +616,7 @@ public:
 	virtual StateReturnType update();
 protected:
 	virtual Bool computePath();
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
+	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
@@ -1889,8 +1889,8 @@ enum AbleToAttackType
 class PartitionFilterPossibleToAttack : public Rva000421C8
 {
 public:
-	PartitionFilterPossibleToAttack(AbleToAttackType t, const Object *obj, Int commandSource)
-		: m_obj(obj), m_commandSource(commandSource), m_attackType(t) {}
+	PartitionFilterPossibleToAttack(AbleToAttackType attackType, const Object *obj, Int commandSource)
+		: m_obj(obj), m_commandSource(commandSource), m_attackType(attackType) {}
 	virtual Bool allow(Object *objOther);
 private:
 	const Object *m_obj; // +0x08
@@ -2207,4 +2207,4 @@ template <int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 // Select-any: other units compile copies of onEnter; the anchor keeps this unit's rowed bodies emitted.
 // ?bfmeAnchorAIAttackApproachTargetStateOnEnter absent-from-retail
-StateReturnType bfmeAnchorAIAttackApproachTargetStateOnEnter(AIAttackApproachTargetState *aIAttackApproachTargetState) { return aIAttackApproachTargetState->AIAttackApproachTargetState::onEnter(); }
+StateReturnType bfmeAnchorAIAttackApproachTargetStateOnEnter(AIAttackApproachTargetState *state) { return state->AIAttackApproachTargetState::onEnter(); }

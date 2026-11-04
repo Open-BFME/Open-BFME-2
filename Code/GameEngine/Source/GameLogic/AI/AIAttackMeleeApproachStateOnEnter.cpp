@@ -128,18 +128,18 @@ public:
 
 Bool Rva0034311ECheck(Object *obj);
 
-static __forceinline void coordSet(Coord3D *a, const Coord3D *b)
+static __forceinline void coordSet(Coord3D *dest, const Coord3D *src)
 {
-	a->x = b->x;
-	a->y = b->y;
-	a->z = b->z;
+	dest->x = src->x;
+	dest->y = src->y;
+	dest->z = src->z;
 }
 
-static __forceinline void coordSub(Coord3D *a, const Coord3D *b)
+static __forceinline void coordSub(Coord3D *dest, const Coord3D *src)
 {
-	a->x -= b->x;
-	a->y -= b->y;
-	a->z -= b->z;
+	dest->x -= src->x;
+	dest->y -= src->y;
+	dest->z -= src->z;
 }
 
 class StateMachine
@@ -208,7 +208,7 @@ class AIInternalMoveToState : public State
 public:
 	virtual StateReturnType onEnter();
 protected:
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
+	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
 	unsigned char m_pad1C[0x48 - 0x1C];
 	Bool m_adjustsDestination; // +0x48
 	Bool m_waitingForPath; // +0x49
