@@ -6,13 +6,6 @@
 // This split consumer refers to that same retail object at VA 0x00E06404.
 extern AsciiString AIBasePenetrationTroopsTactic_IsRunning;
 
-struct Rva005A990BRecord
-{
-	char m_pad00[0x0C];
-	char m_point0C[0x0C];	// +0x0C
-	bool m_18;		// +0x18
-};
-
 struct Rva002A8AB1Record
 {
 	void rva002C717E(const AsciiString &key, int value);
@@ -65,41 +58,13 @@ struct Rva005A990BUnit
 	TacticKindMask m_2E0, m_2FC;
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(Rva005A990BUnit *unit, void *unused);
-	virtual void v4(); virtual void v5();
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	unsigned char rva004ED169();
-	void rva004ED372(const struct Coord3D *point);	// row 0x004ED372 spelling
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	unsigned char checkTarget(void *request);
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x20 - 0x11];
-	Rva005A990BRecord *m_record;	// +0x20
-	void *m_owner;			// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIBasePenetrationTroopsTactic : public AITacticOffensive
 {
 public:
 	virtual ~AIBasePenetrationTroopsTactic();
-	virtual bool initializeTeamTemplate(Rva005A990BUnit *, void *);
 	virtual bool canRun(void *request);
 	virtual void cleanUp();
 	virtual void run();
@@ -145,12 +110,12 @@ public:
 
 bool AIBasePenetrationTroopsTactic::canRun(void *request)
 {
-	Rva002A8AB1Record *runningStateRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *runningStateRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	if (runningStateRecord->rva002C7196(AIBasePenetrationTroopsTactic_IsRunning))
 		return false;
 	if (!checkTarget(request))
 		return false;
-	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	if (!ownerAIRecord || ownerAIRecord->m_16C < 1)
 		return false;
 	Object *requestedObject = ((Rva002C589B *)request)->rva002C5DA6();

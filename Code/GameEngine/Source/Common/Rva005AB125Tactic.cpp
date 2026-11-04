@@ -115,30 +115,8 @@ class Player;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual void initializeTeamTemplate();
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x24 - 4];
-	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIStartWoTRBattleTactic : public AITacticOffensive
 {
@@ -147,11 +125,12 @@ public:
 	virtual bool canRun(void *request);
 	virtual void xfer(Xfer *xfer);
 	virtual void run();
+	virtual AITactic *create();
 };
 
 bool AIStartWoTRBattleTactic::canRun(void *)
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	return !record->rva002C7196(StartWoTRBattleTacticHasRun)
 		&& TheGameLogic->m_114 != 3
 		&& TheGameLogic->getFrame() > 5;
@@ -166,10 +145,10 @@ void AIStartWoTRBattleTactic::xfer(Xfer *xfer)
 
 void AIStartWoTRBattleTactic::run()
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	if (!record->rva002C7196(StartWoTRBattleTacticHasRun)) {
 		record->rva002C717E(StartWoTRBattleTacticHasRun, 1);
-		Rva005AB125IDs *ids = (Rva005AB125IDs *)(*(Rva005C4AD1LeaField **)TheSkirmishAIManager->rva002A8F24(m_owner))->get();
+		Rva005AB125IDs *ids = (Rva005AB125IDs *)(*(Rva005C4AD1LeaField **)TheSkirmishAIManager->rva002A8F24((Player *)m_field24))->get();
 		Coord3D base = ((Rva004EBF4B *)record)->rva004EBF4B();
 		ObjectID *last = ids->m_end;
 		for (ObjectID *it = ids->m_begin; it != last; ++it) {

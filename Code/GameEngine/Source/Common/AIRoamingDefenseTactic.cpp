@@ -198,32 +198,8 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(void *unit, int count);
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x24 - 0x11];
-	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIRoamingDefenseTactic : public AITacticOffensive
 {
@@ -264,8 +240,8 @@ private:
 
 bool AIRoamingDefenseTactic::canRun(void *)
 {
-	if (!((Rva002A9BF2 *)m_owner)->rva002A9BF2()) {
-		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	if (!m_field24->rva002A9BF2()) {
+		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 		int isRunning = ownerAIRecord->rva002C7196(AsciiString("AIRoamingDefenseTactic_IsRunning"));
 		unsigned int nextRunFrame = ownerAIRecord->rva002C7196(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"));
 		if (!nextRunFrame) {
@@ -280,14 +256,14 @@ bool AIRoamingDefenseTactic::canRun(void *)
 
 void AIRoamingDefenseTactic::cleanUp()
 {
-	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 0);
 	ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"), 0);
 }
 
 bool AIRoamingDefenseTactic::initializeTeamTemplate(void *unit, int count)
 {
-	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	ownerAIRecord->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 1);
 	return AITactic::initializeTeamTemplate(unit, count);
 }
@@ -300,7 +276,7 @@ void AIRoamingDefenseTactic::xfer(Xfer *xfer)
 
 void AIRoamingDefenseTactic::run()
 {
-	m_running = true;
+	m_field10 = true;
 	m_roaming = true;
 }
 

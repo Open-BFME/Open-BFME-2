@@ -8,19 +8,34 @@
 // the ctors are pinned at their addresses, and the tactic names their ctors
 // pass to the base are noted from the ctor bodies.
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual AITactic *create();
-};
+#include "../../Include/Common/AITactic.h"
 
+// Every tactic created here is concrete, so it overrides the four pure
+// AITactic slots (canRun, cleanUp, run, update) somewhere in its chain;
+// only the slot-9 create body is defined in this unit.
+#define TACTIC_OVERRIDES(name) \
+	public: \
+		name(); \
+		virtual bool canRun(void *request); \
+		virtual void cleanUp(); \
+		virtual void run(); \
+		virtual void update(); \
+		virtual AITactic *create();
+
+// A tactic that adds no storage to AITactic's 0x58 bytes.
+#define TACTIC_BASE(name) \
+	class name : public AITactic \
+	{ \
+	TACTIC_OVERRIDES(name) \
+	}; \
+	AITactic *name::create() \
+	{ \
+		return new name; \
+	}
 #define TACTIC(name, size) \
 	class name : public AITactic \
 	{ \
-	public: \
-		name(); \
-		virtual AITactic *create(); \
+	TACTIC_OVERRIDES(name) \
 	private: \
 		unsigned char m_data[size - sizeof(AITactic)]; \
 	}; \
@@ -30,7 +45,7 @@ public:
 	}
 
 // 0x005A9A57, ctor 0x005A9988 (AIBasePenetrationTroopsTactic), 0x58 bytes
-TACTIC(AIBasePenetrationTroopsTactic, 0x58)
+TACTIC_BASE(AIBasePenetrationTroopsTactic)
 
 // 0x005A9C71, ctor 0x005A9C1E (SiegeGates), 0x60 bytes
 TACTIC(AISiegeGatesTactic, 0x60)
@@ -42,7 +57,7 @@ TACTIC(AISimpleSiegeTactic, 0x60)
 TACTIC(AIFlankAttackTactic, 0x5C)
 
 // 0x005AA82E, ctor 0x005AA7DF (SimpleDefense), 0x58 bytes
-TACTIC(Rva005AA735, 0x58)
+TACTIC_BASE(Rva005AA735)
 
 // 0x005AAAD6, ctor 0x005AA9DB (SimpleExpansion), 0x60 bytes
 TACTIC(AISimpleExpansionTactic, 0x60)
@@ -59,9 +74,7 @@ TACTIC(AIRingHeroTactic, 0x68)
 #define TACTIC_COPY(name, size, type, offset) \
 	class name : public AITactic \
 	{ \
-	public: \
-		name(); \
-		virtual AITactic *create(); \
+	TACTIC_OVERRIDES(name) \
 	private: \
 		unsigned char m_pad[offset - sizeof(AITactic)]; \
 		type m_copied; \
