@@ -1440,23 +1440,7 @@ void GameSpyInfo::markAsStagingRoomJoiner(Int id)
 typedef _STL::map<unsigned char, short> StatsShortMap;
 typedef _STL::map<unsigned char, float> StatsFloatMap;
 class XferStub;
-class Rva00553E47StatsCore {
-public:
-    Rva00553E47StatsCore(const Rva00553E47StatsCore &);
-    Rva00553E47StatsCore(int);
-    ~Rva00553E47StatsCore();
-    virtual void reset();
-    virtual void rva005550A0(XferStub *);
-    virtual void rva00555109(XferStub *);
-    virtual void rva00554AF2(const Rva00553E47StatsCore *);
-    StatsShortMap m_maps04[6];
-    StatsShortMap m_maps4c[6];
-    StatsShortMap m_maps94[6];
-    StatsFloatMap m_mapsdc[8];
-    unsigned m_13c, m_140;
-    unsigned short m_144, m_146, m_148, m_14a, m_14c, m_14e;
-    Int m_id;
-};
+#include "../../../Include/GameNetwork/Rva00553E47StatsCore.h"
 class Rva0038454E : public Rva00553E47StatsCore {
 public:
     virtual void reset();
@@ -1498,8 +1482,8 @@ void SendStatsToOtherPlayers(GameInfo *game)
     AsciiString data;
     Rva00553E47StatsCore stats = TheGameSpyPSMessageQueue->rvaSlot3CStrategicStats(TheGameSpyInfo->getLocalProfileID());
     Rva00553E47StatsCore sentStats(0);
-    sentStats.m_maps04[0] = stats.m_maps04[0];
-    sentStats.m_maps04[1] = stats.m_maps04[1];
+    sentStats.m_maps04_0 = stats.m_maps04_0;
+    sentStats.m_maps04_1 = stats.m_maps04_1;
     sentStats.m_13c = stats.m_13c;
     sentStats.m_140 = stats.m_140;
     sentStats.m_144 = stats.m_144;
