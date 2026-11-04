@@ -222,7 +222,7 @@ Rva0040AAD5 *TheAwardSystemManager=0;
 
 class Image;
 
-class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
+#include "../../Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 
