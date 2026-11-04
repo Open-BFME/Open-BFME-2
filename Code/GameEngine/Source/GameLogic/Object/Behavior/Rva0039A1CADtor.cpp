@@ -16,14 +16,7 @@ public:
 protected:
     unsigned m_words[7];
 };
-class Rva00045411BitSet : public Rva002618A2
-{
-public:
-    Rva00045411BitSet() {}
-    Rva00045411BitSet(int, int);
-    Rva00045411BitSet(const Rva00045411BitSet &);
-    __declspec(noinline) Rva00045411BitSet(int a, int b, int c, int d, int e, int f);
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;
 // Existing seven-dword zero-mask provider at native DFEFA4.
