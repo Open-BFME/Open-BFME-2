@@ -67,30 +67,36 @@ enum UpdateSleepTime
 };
 
 // TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
+class INI;
+class MultiIniFieldParse;
 class TurretAIData
 {
 public:
 	TurretAIData();
-	float m_turnRate;									// +0x00
-	float m_pitchRate;									// +0x04
-	float m_naturalTurretAngle;							// +0x08
-	float m_naturalTurretPitch;							// +0x0C
-	float m_turretFireAngleSweep[WEAPONSLOT_COUNT];		// +0x10
-	float m_turretSweepSpeedModifier[WEAPONSLOT_COUNT];	// +0x28
-	float m_firePitch;									// +0x40
-	float m_minPitch;									// +0x44
-	float m_groundUnitPitch;							// +0x48
-	unsigned int m_turretWeaponSlots;					// +0x4C
-	float m_minIdleScanAngle;							// +0x50
-	float m_maxIdleScanAngle;							// +0x54
-	unsigned int m_minIdleScanInterval;					// +0x58
-	unsigned int m_maxIdleScanInterval;					// +0x5C
-	unsigned int m_recenterTime;						// +0x60
-	bool m_initiallyDisabled;							// +0x64
-	bool m_firesWhileTurning;							// +0x65
-	bool m_isAllowsPitch;								// +0x66
-	float m_maxDeflectionCW;							// +0x68
-	float m_maxDeflectionACW;							// +0x6C
+	static void parseTurretSweep(INI *ini, void *instance, void *store, const void *userData);
+	static void parseTurretSweepSpeed(INI *ini, void *instance, void *store, const void *userData);
+	static void buildFieldParse(MultiIniFieldParse &p);
+	float m_turnRate; // +0x00
+	float m_pitchRate; // +0x04
+	float m_naturalTurretAngle; // +0x08
+	float m_naturalTurretPitch; // +0x0C
+	float m_turretFireAngleSweep[WEAPONSLOT_COUNT]; // +0x10
+	float m_turretSweepSpeedModifier[WEAPONSLOT_COUNT]; // +0x28
+	float m_firePitch; // +0x40
+	float m_minPitch; // +0x44
+	float m_groundUnitPitch; // +0x48
+	unsigned int m_turretWeaponSlots; // +0x4C
+	float m_minIdleScanAngle; // +0x50
+	float m_maxIdleScanAngle; // +0x54
+	unsigned int m_minIdleScanInterval; // +0x58
+	unsigned int m_maxIdleScanInterval; // +0x5C
+	unsigned int m_recenterTime; // +0x60
+	bool m_initiallyDisabled; // +0x64
+	bool m_firesWhileTurning; // +0x65
+	bool m_isAllowsPitch; // +0x66
+	char m_pad67[0x1];
+	float m_maxDeflectionCW; // +0x68
+	float m_maxDeflectionACW; // +0x6C
 };
 
 enum TurretStateType
