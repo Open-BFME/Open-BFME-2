@@ -45,5 +45,17 @@ the duplicate-ID check; the complete outgoing range passes
 Keep the ID repair with the adoption when publishing this recovery. The runner's
 documented retry selection tests all pending commits after a follow-up repair
 commit; this recovery handoff makes the complete batch a fresh candidate.
-No published commit is amended, reworded, squashed or dropped, no LINK ID is
-allocated again, and no verifier is changed or bypassed.
+That follow-up did not amend, reword, squash or drop a published commit,
+allocate another LINK ID, or change or bypass a verifier.
+
+
+## Upstream ID collision during publication
+
+The publisher tested all twelve commits at 18:16:18 UTC. Its hook refused at
+18:17:45 because newer upstream already had the RadarMarkerClientUpdate entry
+under LINK-254. Keep that older upstream entry unchanged. After rebasing all
+twelve commits without conflicts, `/opt/runner/link-id` reserved LINK-264.
+This recovery renames only this seat's BattlePromptMovieClip entry and updates
+its heading and publication prerequisite. LINK-254 above describes the earlier
+historical repair; the active BattlePromptMovieClip entry is now
+[LINK-264](../../docs/linking_obstacles/link-264-battlepromptmovieclip-header-adoption.md).
