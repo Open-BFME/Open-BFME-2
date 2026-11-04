@@ -23735,3 +23735,6 @@ Code/GameEngine/Source/Common/Rva007AF1DEFrameScaleSseInits.cpp|global||g_00E027
 Code/GameEngine/Source/Common/Rva00285BECDtor.cpp|function|0x00285703|vslot06,36e16978e6461ceedbde2a9b,claude-opus-5-5,claude3-20261104-074005-10,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp|member|SubQ00346FD0|m_bits20,215c88a2947701f01223d490,claude-opus-5-5,claude3-20261104-074941-1,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva00469C07Free.cpp|function|0x00469C07|rva00469C07,7aaacc8239871d2402977c6d,claude-opus-5-5,claude3-20261104-074941-2,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva002E00F9Method.cpp|function|0x002E00F9|rva002E00F9,539ce9766b21e54ddf80365f,claude-opus-5-5,claude3-20261104-081239-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0010416EFloat.cpp|function|0x0010416E|Rva0010416EFloat,2139a41c372193ab2972c288,claude-opus-5-5,claude3-20261104-081239-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005CB288|rva005CB288,d3fd2b5eb4c71be30df3946c,claude-opus-5-5,claude3-20261104-081239-8,w-29a6ae2a2f9f,2026-11-04
