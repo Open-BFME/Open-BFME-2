@@ -43,61 +43,23 @@ class AptArray;
 class AptNativeHash;
 class AptCIH;
 enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 };
-class AptValue {
-    unsigned int m_valueFlags;
-public:
-    virtual void AddRef();
-    virtual void Release();
-    virtual void ForceDelete();
-    virtual AptNativeHash *GetNativeHashVirtual();
-    virtual bool ContainsNativeHashVirtual() const;
-    virtual int getHasClass() const;
-    virtual void setHasClass(int);
-    AptValue *findChild(const EAStringC *,AptValue *);
-    AptCIH *c_cih(bool=false);
-    AptArray *c_array() const;
-    bool getIsDefined() const; bool isBoolean() const; bool isNone() const; bool isScriptFunction() const; bool isNativeFunction() const;
-    bool isArray() const;
-    AptVirtualFunctionTable_Indices getVtblIndex() const;
-    bool isPrototype() const;
-    AptPrototype *c_prototype() const;
-    bool isLookup() const;
-    bool isRegister() const;
-    AptLookup *c_lookup() const;
-    AptRegister *c_register() const;
-    bool isExtern() const;
-    AptCIH *c_cih(bool=false) const;
-    unsigned int getRefCount() const;
-    bool isCIH(bool=false) const;
-    bool isObject() const;
-    AptString *c_string() const;
-    AptInteger *c_integer() const;
-    bool isUndefined() const;
-    bool isInteger() const;
-    bool isFloat() const;
-    bool isString() const;
-    void SetString(const char *);
-    float toFloat() const;
-    bool toBool() const;
-    int toInteger() const;
-    void toString(EAStringC &) const;
-};
+#include "AptValue.h"
 struct AptCharacterInst;
 class EAStringC { void *mpData; public: bool rva006D3510(const char *) const; EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); EAStringC &Append(const char *const,unsigned int); bool IsEmpty() const; bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
 // AptArray vtableCEA778 and slots+20/+24/+28. Unaccessed state stays opaque.
-class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *block,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(block,n); } AptValue *get(int); void set(int,AptValue *); };
+class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); virtual bool vslot12() const; virtual void vslot13() const; static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *block,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(block,n); } AptValue *get(int); void set(int,AptValue *); };
 // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
 // Member handlers establish the getter/setter ABI; later source names their role.
 AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char *)=0;
 void (__cdecl *g_bfmeAptSetExternAtE17764)(const char *,const char *)=0;
 class AptString : public AptValue { public: static AptString *Create(); EAStringC str; __forceinline EAStringC *GetInternalString() { return &str; } };
-class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 int Rva006CD220Get();
 bool rva006fc370(AptValue *);
-class AptBoolean { public: static AptValue *Create(bool); bool GetBool() const; };
+#include "AptBoolean.h"
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
 extern void *g_eaStringAtE177D4Storage;
@@ -1876,6 +1838,8 @@ class AptPrototype : public AptValue {
     AptValue *mp__constructor__;
 public:
     AptPrototype();
+    virtual bool vslot12() const;
+    virtual void vslot13() const;
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static void operator delete(void *,unsigned int);
     __forceinline AptValue *GetSuperConstructor() const { return mp__constructor__; }
