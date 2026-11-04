@@ -1061,21 +1061,45 @@ offset - `slot00`, `slot04`, `Mapper_ID`, `slot0C`, `slot10`, `slot14`, `slot18`
 `TextureMapperSlot8.cpp` carries a third, minimal view: `TextureMapperClass` with
 no base and a single virtual `_bfme_mapper_v8(int)`.
 
-The two models cannot both be right about the vftable, and the disagreement is
-specific enough to measure. The flattened views put `Mapper_ID` at **+8**, two
-slots in. The hierarchy puts the virtual destructor first and `Mapper_ID` second,
-which is **+4**. And each flattened view carries a **ninth** virtual after
-`slot1C`, where the hierarchy's list ends at `Calculate_Texture_Matrix`. So either
-the hierarchy is missing a slot ahead of `Mapper_ID` (and one at the end), or the
-flattened views are off by one. Every body involved byte-matches today, so neither
-spelling is refutable from the bytes alone.
+**Measured, 2026-11-04.** An earlier version of this section guessed that the two
+models disagree about slot positions - that the flattened views put `Mapper_ID`
+at +8 where the hierarchy put it at +4 - and said one compiler run would decide
+the family. The compiler run happened and **the guess was wrong**: those offsets
+were counted off the source text, not read from a layout.
+`python3 tools/class_layouts.py` on the three files reports:
 
-What settles it is `python3 tools/class_layouts.py` on this TU's files: it reports
-the introducing virtual slots and `vslots` per class from CodeView, which names
-the real occupant of each offset. That is one compiler run, and it decides the
-whole family at once, since all four classes share the chain. Until someone does
-it, this is not a candidate for any mechanical pass, and the `-` views are not
-"silent" - they are a competing claim about where the slots live.
+- Hierarchy (`TextureMapperApply.cpp`): `TextureMapperClass` is `size=12`,
+  `bases=[[RefCountClass, 0]]`, and its vslots run
+  `1=__vecDelDtor(uint), 2=Mapper_ID(), 3=Clone(), 4=Is_Time_Variant(),
+  5=Apply(int), 6=Reset(), 7=Needs_Normals(), 8=RetailSlot20(),
+  9=Calculate_Texture_Matrix(Matrix4*)`, with `Stage` at +8. Slot 0 is
+  `RefCountClass`'s own, which is why the list starts at 1.
+- Flattened (`TextureMapperFXShaderConvert.cpp`): each derived view is
+  `bases=[]`, `vfptr=True`, with vslots
+  `0=slot00(), 1=slot04(), 2=Mapper_ID(), ... 8=rva...(Rva00082EB8*)`.
+
+**The slots agree.** `Mapper_ID` is slot 2 in both. The flattened `slot00` is
+`RefCountClass`'s slot and `slot04` is the deleting destructor, so the placeholder
+names are just unrecovered spellings of the inherited slots, not a competing
+claim. The flattened views also name slot 8, which the hierarchy calls
+`RetailSlot20`, and they name it **differently per derived class**
+(`rva00187AD0`, `rva00187690`, `rva00187850`) - so that slot is an override point,
+and those three are its real identities.
+
+The genuine disagreement is **size and fields**, which `tu_views` never reached
+because the textual base clause refused first. Flattened `GridTextureMapperClass`
+is `size=40` with `NumRefs@4, Stage@8, FPS@12, m_10@16, m_14@20`; the hierarchy's
+`GridTextureMapperClass` is `size=12` with no fields of its own. The hierarchy is
+the **incomplete** one here: it has the base chain and the real method names, and
+the flattened views have the data members it lacks.
+
+So the resolution is not a tool relaxation and not a coin flip. It is: give each
+flattened view its real base (`: public TextureMapperClass`, and
+`: public ScaleTextureMapperClass` for the linear-offset one), delete the
+placeholder slot declarations that belong to the base, keep its own slot-8
+override and its fields, and carry those fields into the hierarchy view. Then both
+views agree and the byte check arbitrates. That is per-class reverse engineering
+with a clear target, which is the honest description of this whole category.
 
 Worth noting for whoever picks it up: `RefCountClass` is not in
 `reverse/canonical_classes.csv`, so this family needs no header-lane work. It is
