@@ -1,9 +1,9 @@
-// cl: /Od
+// cl: /Od /MD
 // The byte at a place taken out by pulling everything after it down one, built
 // without optimisation. The mover's answer is kept in a temporary nothing
 // reads.
 
-extern "C" __declspec(dllimport) void *__cdecl memmove(void *to, const void *from, unsigned int many);
+#include <string.h>
 
 class BfmeThingOO
 {

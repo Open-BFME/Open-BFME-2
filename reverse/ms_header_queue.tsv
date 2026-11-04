@@ -414,8 +414,6 @@ Code/GameEngine/Source/Common/Bfme5FindAndErase.cpp	conflicting	abi	1	0	0	0	0	0	
 Code/GameEngine/Source/Common/BfmeConv1304.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdlib.h>	no	no	hand			abort:abi
 Code/GameEngine/Source/Common/BfmeConv1671.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdio.h>	no	no	hand			vsprintf:abi
 Code/GameEngine/Source/Common/BfmeConv796.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<string.h>	no	no	hand			_strcmpi:abi
-Code/GameEngine/Source/Common/BfmeTwoHundredFiftyOne.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<string.h>	no	no	hand			memmove:abi
-Code/GameEngine/Source/Common/BfmeTwoHundredFiftyTwo.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<string.h>	no	no	hand			memmove:abi
 Code/GameEngine/Source/Common/DamageFX.cpp	conflicting	abi	1	0	1	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand	815: Code/GameEngine/Source/Common/DamageFX.cpp:64 Common/INI.h(unknown); Code/GameEngine/Source/Common/DamageFX.cpp:65 Common/ThingFactory.h(unknown); Code/GameEngine/Source/Common/DamageFX.cpp:66 Common/ThingTemplate.h(unknown)		stricmp:source
 Code/GameEngine/Source/Common/FreeMemory.cpp	conflicting	abi	1	0	0	0	0	0	1	0	1	0	0	<stdlib.h>,<netmon.h>	yes	no	hand			free:abi
 Code/GameEngine/Source/Common/FunctorRefInvoke005D388B.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<exception>	no	yes	hand			exception:abi

@@ -1,6 +1,6 @@
-// cl: /Od
+// cl: /Od /MD
 
-extern "C" __declspec(dllimport) void *__cdecl memmove(void *to, const void *from, unsigned int many);
+#include <string.h>
 
 class BfmeThingON
 {
