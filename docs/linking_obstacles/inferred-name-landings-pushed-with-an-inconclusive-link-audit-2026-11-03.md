@@ -96,16 +96,24 @@ are stale. Both carry. Positive evidence for this one: `DIR32 consistency: OK (1
 0 new)`, `EH verify: 7 EXACT`, and `Functions: OK 34/34`. Carry both objects into the next
 scheduled census with the earlier 38, 11 and 25. No linking gain is claimed.
 
-The practical note for seats in this lane: all four verdicts above were read against the
-same index, `8661f15284`, which by 2026-11-04 was days and several hundred commits stale,
-so every consolidation push read INCONCLUSIVE regardless of merit. That is a refreshable
-condition, and no seat in these four pushes refreshed it. Running
-`python3 tools/link_check.py --fetch-index` in this worktree moved it to `328bb2bbe4`
-(2026-11-04 12:49) and added 18,285 compiled objects to the object store, which are used
-when they match the tree.
+**Correction, same day.** The paragraph that stood here blamed a stale index and told
+seats to run `python3 tools/link_check.py --fetch-index` before reading the verdict. That
+was wrong, and the next push disproved it within the hour. The fetch did move this
+worktree's index from `8661f15284` to `328bb2bbe4` (2026-11-04 12:49, 18,285 objects added
+to the store). The very next push (`7c76d63c30`) then read INCONCLUSIVE again, against the
+fresh index: "3 source object(s) lack current receipts".
 
-So the first thing to do about an INCONCLUSIVE audit is to check the index id it prints
-against a fresh fetch, per worktree, before reading anything into the verdict. It is only
-after a fetch that "lacks current receipts" says something about the edit rather than about
-the index. When it does still read INCONCLUSIVE, the real signal is in the DIR32, EH and
-byte lines, and the objects still carry into the next census.
+The number is what gives it away. That push changed exactly three sources, and the audit
+named exactly three objects; the push before it changed exactly two and the audit named
+exactly two. The count is the batch's own changed sources, every time. That is structural,
+not staleness: an object you just recompiled cannot have a receipt in an index built before
+you compiled it, however new the index is. No fetch can ever cover the sources a push is
+currently changing.
+
+So an INCONCLUSIVE audit naming your own changed objects is the expected verdict for every
+source-changing push, and it carries no information about the edit. Do not read merit into
+it and do not chase it with a fetch. The fetch is still worth doing for its object store,
+and a stale index does matter for the *other* objects in a batch - the absorbed donors and
+consumers in the 38, 11 and 25 carry lists above, which are not the ones being recompiled.
+The real signal for the changed sources stays where it always was: the DIR32, EH and byte
+lines. Those objects carry into the next census regardless.
