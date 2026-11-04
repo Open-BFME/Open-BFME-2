@@ -2,7 +2,9 @@
 """What the linker cannot see: kept objects against retail. Reads no game assets; called by real-link.yml.
 
 Initializers: retail's `.CRT$XCU` table against what our objects register. A body that exists only
-as a plain function compiles, matches and links, and never runs. Order needs an image.
+as a plain function compiles, matches and links, and never runs. Order needs an image. A `_$E<n>`
+is looked up in its own object (every object numbers its own); an unrowed one by its shape and
+its relocations' targets. `twice` lists registrations that build an entry another object registers.
 Vtables: every kept copy's length against retail's run of code pointers. COMDAT selection may keep
 any copy, so the shortest one counts.
 Globals and FieldParse tables: bytes against retail, each comparison bounded by the symbol's own
@@ -27,6 +29,7 @@ from pathlib import Path
 
 import build
 import exit_link
+import ledger_io
 import link_census as census
 import link_cycle
 
@@ -188,40 +191,107 @@ def scan_objects(paths):
                         if target and not target.flags & UNINITIALIZED else b"")
                 masked = ({off - symbol.value + k for off, _i, _t in target.relocs for k in range(4)}
                           if target else set())
-                registered.append((path.name, symbol.name, body, masked))
+                relocs = ([(off - symbol.value, symbols[i].name, kind,
+                            struct.unpack_from("<i", raw, target.ptr + off)[0])
+                           for off, i, kind in target.relocs if i in symbols and off >= symbol.value]
+                          if target and not target.flags & UNINITIALIZED else [])
+                registered.append((path.name, symbol.name, body, masked, relocs))
     return definitions, registered, code
 
 
-def initializer_report(retail, rows, registered):
+def relocation_votes(retail, rva, relocs, places):
+    """(agree, disagree) over a body's relocations whose targets the ledger places, read at rva.
+
+    A DIR32 operand holds its target's address; a REL32 one its distance from the next instruction.
+    `places(name)` is the set of RVAs the ledger gives that name, empty when it does not know it.
+    """
+    agree = disagree = 0
+    for offset, target, kind, addend in relocs:
+        known = places(target)
+        raw = retail.read(rva + offset, 4) if known and kind in (link_cycle.DIR32, link_cycle.REL32) else None
+        if raw is None:
+            continue
+        value = struct.unpack("<i", raw)[0]
+        if kind == link_cycle.DIR32:
+            got = (value & 0xFFFFFFFF) - retail.base - addend
+        else:
+            got = rva + offset + 4 + value - addend
+        if got in known:
+            agree += 1
+        else:
+            disagree += 1
+    return agree, disagree
+
+
+def initializer_report(retail, rows, registered, addresses=None):
+    addresses = addresses or {}
     in_order = retail.initializers()
     table = set(in_order)
-    rva_of, row_at = {}, {}
+    rva_of, row_at, local_of = {}, {}, {}
     for row in rows:
         try:
             rva = int(row["target_rva"], 16)
         except ValueError:
             continue
-        rva_of.setdefault(build.ledger_object_symbol(row) or row["name"], rva)
-        rva_of.setdefault(row["name"], rva)
+        # Every object numbers its own `_$E<n>`: two TUs' `_$E1` are different initializers, so a
+        # compiler-local name is looked up only in the row's own object, never across the ledger.
+        for symbol in {build.ledger_object_symbol(row) or row["name"], row["name"]}:
+            if ledger_io.LOCAL_STATIC.fullmatch(symbol):
+                local_of.setdefault((build.row_object(row).name, symbol), rva)
+            else:
+                rva_of.setdefault(symbol, rva)
         row_at.setdefault(rva, row)
     mapped, pending, unmapped = set(), [], []
     for entry in registered:
-        rva = rva_of.get(entry[1])
+        rva = (local_of.get((entry[0], entry[1])) if ledger_io.LOCAL_STATIC.fullmatch(entry[1])
+               else rva_of.get(entry[1]))
         if rva is None:
             pending.append(entry)
         else:
             mapped.add(rva)
-    # A compiler-local `_$E37` has no ledger name: its masked bytes say which entry it is.
-    bodies = {rva: retail.read(rva, 4096) for rva in table}
-    for obj, symbol, body, masked in pending:
-        hit = None
-        if len(body) >= 5:
-            hit = next((rva for rva, theirs in bodies.items() if rva not in mapped
-                        and all(k in masked or body[k] == theirs[k] for k in range(len(body)))), None)
-        if hit is None:
-            unmapped.append([obj, symbol])
-        else:
+    # A compiler-local `_$E37` with no row in its own object: its masked bytes narrow it to retail
+    # entries of the same shape, and its relocations' targets, where the ledger places them, pick
+    # one. Many entries share a shape (`mov ecx, g; call ctor; push cleanup; call atexit`), so a
+    # shape alone credits an arbitrary entry: those are taken last, in retail's order, and listed.
+    bodies = {rva: retail.read(rva, 4096) for rva in in_order}
+
+    def places(obj):
+        def known(name):
+            if ledger_io.LOCAL_STATIC.fullmatch(name):
+                return {local_of[(obj, name)]} if (obj, name) in local_of else set()
+            return addresses.get(name, set())
+        return known
+
+    def shaped(body, masked, taken=False):
+        return [rva for rva in in_order if len(body) >= 5 and (rva in mapped) == taken
+                and all(k in masked or body[k] == bodies[rva][k] for k in range(len(body)))]
+
+    by_shape = []
+    for strong in (True, False):
+        waiting = []
+        for entry in pending:
+            obj, symbol, body, masked, relocs = entry
+            votes = [(relocation_votes(retail, rva, relocs, places(obj)), rva) for rva in shaped(body, masked)]
+            votes = [(agree, rva) for (agree, disagree), rva in votes if not disagree]
+            best = max((agree for agree, _rva in votes), default=-1)
+            hit = next((rva for agree, rva in votes if agree == best), None)
+            if hit is None or (strong and best <= 0):
+                waiting.append(entry)
+                continue
             mapped.add(hit)
+            if not strong:
+                by_shape.append([obj, symbol, hex(hit)])
+        pending = waiting
+    unmapped = [[obj, symbol] for obj, symbol, *_rest in pending]
+    # One left over whose relocations agree with an entry another registration already took builds
+    # that entry's global a second time.
+    twice = []
+    for obj, symbol, body, masked, relocs in pending:
+        for rva in shaped(body, masked, taken=True):
+            agree, disagree = relocation_votes(retail, rva, relocs, places(obj))
+            if agree and not disagree:
+                twice.append([obj, symbol, hex(rva)])
+                break
     kinds = collections.Counter()
     plain = []
     for rva in sorted(table - mapped):
@@ -238,7 +308,9 @@ def initializer_report(retail, rows, registered):
     return {"retail": len(table), "registered_entries": len(registered),
             "registered_retail_entries": len(table & mapped), "not_registered": len(table - mapped),
             "not_registered_kinds": dict(kinds), "registered_not_in_retail": len(mapped - table),
-            "registered_unidentified": len(unmapped), "order": "needs an image",
+            "registered_unidentified": len(unmapped), "registered_by_shape_only": len(by_shape),
+            "registered_twice": len(twice), "twice": twice,
+            "order": "needs an image", "by_shape_only": by_shape,
             "not_registered_rvas": [hex(rva) for rva in in_order if rva not in mapped],
             "plain_functions": plain, "unidentified": unmapped}
 
@@ -277,7 +349,7 @@ def bridge_entries(rows, paths):
     built at link time; [rva] of those no kept object defines externally)."""
     retail = Retail(build.EXE.read_bytes())
     _definitions, registered, code = scan_objects(paths)
-    report = initializer_report(retail, rows, registered)
+    report = initializer_report(retail, rows, registered, known_addresses(rows))
     symbols = collections.defaultdict(list)
     for row in rows:
         try:
@@ -361,7 +433,7 @@ def ledger_report(retail, definitions, addresses, constructed=frozenset()):
 
 
 def summary(report):
-    keys = {"initializers": ("retail", "registered_retail_entries", "not_registered"),
+    keys = {"initializers": ("retail", "registered_retail_entries", "not_registered", "registered_twice"),
             "vtables": ("same_length", "ours_shorter", "ours_longer", "no_object_defines_it"),
             "globals": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",
                         "pointers_unchecked", "no_object_retail_nonzero", "constructed_undersized"),
@@ -382,11 +454,12 @@ def main(argv=None):
     present = [path for path in kept if path.exists()]
     retail = Retail(build.EXE.read_bytes())
     definitions, registered, _code = scan_objects(present)
+    addresses = known_addresses(rows)
     report = {"objects_kept": len(kept), "objects_missing": len(kept) - len(present),
-              "initializers": initializer_report(retail, rows, registered)}
+              "initializers": initializer_report(retail, rows, registered, addresses)}
     sources = (path.read_text(encoding="utf-8", errors="replace") for path in (build.ROOT / "Code").rglob("*.cpp"))
     report["vtables"], report["globals"], report["fieldparse"], report["duplicates"] = \
-        ledger_report(retail, definitions, known_addresses(rows), constructed_names(sources))
+        ledger_report(retail, definitions, addresses, constructed_names(sources))
     report["summary"] = summary(report)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "image_report.json").write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")

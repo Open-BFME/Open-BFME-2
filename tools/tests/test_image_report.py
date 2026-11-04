@@ -87,3 +87,70 @@ def test_initializer_table_is_an_object_of_named_slots(tmp_path, monkeypatch):
     slots = [(offset, symbols[index].name, kind) for offset, index, kind in sections[0].relocs]
     assert slots == [(0, "?b@@YAXXZ", link_cycle.DIR32), (4, "?a@@YAXXZ", link_cycle.DIR32)]
 
+
+
+def test_initializer_report_reads_a_compiler_local_name_in_its_own_object():
+    # Two TUs each register their own `_$E1`; the ledger rows them at 0x10 and 0x20 by
+    # object-symbol=. A ledger-wide name lookup credited both to whichever row came first.
+    import build
+
+    class Image:
+        def initializers(self):
+            return [0x10, 0x20, 0x30]
+
+        def read(self, rva, size):
+            return bytes(size)
+
+    rows = [{"name": "??__Eg_a@@YAXXZ", "target_rva": "0x10", "source": "Code/A.cpp", "notes": "object-symbol=_$E1"},
+            {"name": "??__Eg_b@@YAXXZ", "target_rva": "0x20", "source": "Code/B.cpp", "notes": "object-symbol=_$E1"},
+            {"name": "?plain@@YAXXZ", "target_rva": "0x30", "source": "Code/C.cpp", "notes": ""}]
+    a, b, c = (build.row_object(row).name for row in rows)
+    registered = [(b, "_$E1", b"", set(), []), (a, "_$E1", b"", set(), []), (c, "?plain@@YAXXZ", b"", set(), [])]
+    report = ir.initializer_report(Image(), rows, registered)
+    assert report["registered_retail_entries"] == 3 and report["not_registered"] == 0
+    assert report["registered_not_in_retail"] == 0 and report["unidentified"] == []
+    # A `_$E1` from an object with no row of that name is not another object's `_$E1`.
+    report = ir.initializer_report(Image(), rows, [(c, "_$E1", b"", set(), [])])
+    assert report["registered_retail_entries"] == 0 and report["unidentified"] == [[c, "_$E1"]]
+
+
+def test_initializer_report_lets_relocation_targets_pick_among_same_shaped_entries():
+    # Three retail entries share `mov ecx, g; call ctor; ret`. An unrowed `_$E7` constructing
+    # g_two is retail's second one: its DIR32 target is where the ledger puts g_two and its REL32
+    # target the ctor. Shape alone would take the first.
+    import link_cycle
+
+    base, ctor = 0x400000, 0x5000
+
+    def body(at, global_rva):
+        call = (ctor - (at + 10)) & 0xFFFFFFFF
+        return (bytes([0xB9]) + (base + global_rva).to_bytes(4, "little") + bytes([0xE8])
+                + call.to_bytes(4, "little") + bytes([0xC3]))
+
+    image = {0x100: body(0x100, 0x9000), 0x200: body(0x200, 0x9004), 0x300: body(0x300, 0x9008)}
+
+    class Image:
+        def __init__(self):
+            self.base = base
+
+        def initializers(self):
+            return [0x100, 0x200, 0x300]
+
+        def read(self, rva, size):
+            for start, raw in image.items():
+                if start <= rva < start + len(raw):
+                    return (raw[rva - start:] + bytes(size))[:size]
+            return bytes(size)
+
+    ours = bytes([0xB9]) + bytes(4) + bytes([0xE8]) + bytes(4) + bytes([0xC3])
+    masked = set(range(1, 5)) | set(range(6, 10))
+    relocs = [(1, "?g_two@@3VThing@@A", link_cycle.DIR32, 0), (6, "??0Thing@@QAE@XZ", link_cycle.REL32, 0)]
+    addresses = {"?g_two@@3VThing@@A": {0x9004}, "??0Thing@@QAE@XZ": {ctor}}
+    report = ir.initializer_report(Image(), [], [("x.obj", "_$E7", ours, masked, relocs)], addresses)
+    assert report["not_registered_rvas"] == ["0x100", "0x300"] and report["registered_by_shape_only"] == 0
+    # With no target the ledger places, the shape still credits an entry, and says so.
+    report = ir.initializer_report(Image(), [], [("x.obj", "_$E7", ours, masked, [])], {})
+    assert report["not_registered_rvas"] == ["0x200", "0x300"] and report["by_shape_only"] == [["x.obj", "_$E7", "0x100"]]
+    # A target the ledger places elsewhere rules every entry out.
+    report = ir.initializer_report(Image(), [], [("x.obj", "_$E7", ours, masked, relocs)], {**addresses, "?g_two@@3VThing@@A": {0x7000}})
+    assert report["registered_retail_entries"] == 0 and report["unidentified"] == [["x.obj", "_$E7"]]
