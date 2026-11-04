@@ -1,4 +1,4 @@
-### LINK-240: RefCountClass provider and caller-context prerequisites
+### LINK-241: RefCountClass provider and caller-context prerequisites
 
 Evidence / affected units: [native candidate/refusal handoff](../../reverse/attempt_support/refcount-prerequisites-20261104-1514.md).
 Completed: six independent views adopt the unchanged header with complete
