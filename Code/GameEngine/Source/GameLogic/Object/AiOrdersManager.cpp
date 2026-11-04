@@ -123,24 +123,24 @@ public:
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00355201.cpp
 
-void AiOrdersManager::rva00355201(int kind, void *a2, GroupOrder *groupOrder)
+void AiOrdersManager::rva00355201(int kind, void *rawIdHolder, GroupOrder *groupOrder)
 {
 	if (kind == 0)
 		return;
-	Arg200355201 *arg2 = (Arg200355201 *)a2;
-	KeyRange00355201 *range = (KeyRange00355201 *)groupOrder;
-	NameKeyType *cur = range->m_begin;
-	NameKeyType *end = range->m_end;
+	Arg200355201 *idHolder = (Arg200355201 *)rawIdHolder;
+	KeyRange00355201 *keyRange = (KeyRange00355201 *)groupOrder;
+	NameKeyType *cur = keyRange->m_begin;
+	NameKeyType *end = keyRange->m_end;
 	for (; cur != end; ++cur) {
-		const ArmorTemplate *armor = reinterpret_cast<Rva0035516C *>(TheAiOrdersManager)->rva0035516C(*cur);
-		if (!armor)
+		const ArmorTemplate *armorTemplate = reinterpret_cast<Rva0035516C *>(TheAiOrdersManager)->rva0035516C(*cur);
+		if (!armorTemplate)
 			continue;
 		int flags = 0;
 		if (kind == 1)
 			flags = 1;
 		else if (kind == 2)
 			flags = 2;
-		((Rva00548117 *)armor)->rva005481F9(arg2->m_id, flags);
+		((Rva00548117 *)armorTemplate)->rva005481F9(idHolder->m_id, flags);
 	}
 }
 
@@ -163,8 +163,8 @@ bool Rva00355B61::rva003552C2(NameKeyType key)
 	if (((unsigned char)((ArmorTemplate *)armorTemplate)->rva00355290()) == 0)
 		return false;
 	ArmorListNode *head = ((ArmorTemplate *)armorTemplate)->m_head;
-	ArmorListNode *first = head->m_next;
-	const ArmorTemplate *otherArmorTemplate = rva00355155((NameKeyType)first->m_8);
+	ArmorListNode *firstNode = head->m_next;
+	const ArmorTemplate *otherArmorTemplate = rva00355155((NameKeyType)firstNode->m_8);
 	if (otherArmorTemplate) {
 		((ArmorTemplate *)otherArmorTemplate)->vslot10(key);
 		return true;
@@ -174,45 +174,45 @@ bool Rva00355B61::rva003552C2(NameKeyType key)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva0035530F.cpp
 
-void AiOrdersManager::rva0035530F(int a, void *holder)
+void AiOrdersManager::rva0035530F(int kind, void *holder)
 {
-	int code;
-	switch (a) {
+	int clearCode;
+	switch (kind) {
 	case 0:
-		code = 3;
+		clearCode = 3;
 		break;
 	case 1:
-		code = 2;
+		clearCode = 2;
 		break;
 	default:
 		return;
 	}
 	BcastNode *head = *(BcastNode **)((char *)holder + 4);
-	BcastNode *cur = head->m_next;
-	if (cur == head)
+	BcastNode *node = head->m_next;
+	if (node == head)
 		return;
 	do {
-		void *content = cur->m_08;
-		if (content)
-			clearOrders(code, *(int *)((char *)content + 0x74));
-		cur = cur->m_next;
-	} while (cur != *(BcastNode **)((char *)holder + 4));
+		void *entryObject = node->m_08;
+		if (entryObject)
+			clearOrders(clearCode, *(int *)((char *)entryObject + 0x74));
+		node = node->m_next;
+	} while (node != *(BcastNode **)((char *)holder + 4));
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00355358Broadcast.cpp
 
-void AiOrdersManager::rva00355358(int a, void *holder)
+void AiOrdersManager::rva00355358(int clearCode, void *holder)
 {
 	BcastNode *head = *(BcastNode **)((char *)holder + 4);
-	BcastNode *cur = head->m_next;
-	if (cur == head)
+	BcastNode *node = head->m_next;
+	if (node == head)
 		return;
 	do {
-		void *content = cur->m_08;
-		if (content)
-			clearOrders(a, *(int *)((char *)content + 0x74));
-		cur = cur->m_next;
-	} while (cur != *(BcastNode **)((char *)holder + 4));
+		void *entryObject = node->m_08;
+		if (entryObject)
+			clearOrders(clearCode, *(int *)((char *)entryObject + 0x74));
+		node = node->m_next;
+	} while (node != *(BcastNode **)((char *)holder + 4));
 }
 
 // tu-skeleton: 0x00355257 57B (unledgered) -- unmatched, no code, never credited

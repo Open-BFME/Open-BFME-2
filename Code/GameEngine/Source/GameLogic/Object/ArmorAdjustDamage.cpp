@@ -150,12 +150,12 @@ template <class T> inline const T &armorMin(const T &lhs, const T &rhs)
 class Armor
 {
 public:
-	Real adjustDamage(const DamageInfoInput *input, const Object *obj, Bool flag) const;
+	Real adjustDamage(const DamageInfoInput *input, const Object *owner, Bool skipBonus) const;
 private:
 	AsciiString m_name;
 };
 
-Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool flag) const
+Real Armor::adjustDamage(const DamageInfoInput *input, const Object *owner, Bool skipBonus) const
 {
 	DamageType type = input->m_damageType;
 	Real amount = input->m_amount;
@@ -163,7 +163,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool f
 		return amount;
 
 	Real setScale = 1.0f;
-	const ArmorTemplateSet *set = (const ArmorTemplateSet *)((const Rva0033DCB8 *)obj->getTemplate())->rva0033DCB8(obj->getBody()->getArmorSetFlags());
+	const ArmorTemplateSet *set = (const ArmorTemplateSet *)((const Rva0033DCB8 *)owner->getTemplate())->rva0033DCB8(owner->getBody()->getArmorSetFlags());
 	if (set)
 	{
 		const ArmorTemplate *setArmor = TheArmorStore->rva001D901B(set->m_armorName);
@@ -174,10 +174,10 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool f
 	Real unused;
 	Real bonus = 0.0f;
 	const ArmorTemplate *armor = TheArmorStore->rva001D901B(m_name);
-	if (armor && !flag)
+	if (armor && !skipBonus)
 	{
 		ObjectID sourceID = input->m_sourceID;
-		if (sourceID && obj->rva0028F44C(TheGameLogic->findObjectByID(sourceID)))
+		if (sourceID && owner->rva0028F44C(TheGameLogic->findObjectByID(sourceID)))
 			bonus = armor->m_bonus;
 	}
 	Real factor = 1.0f - bonus;
@@ -187,7 +187,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool f
 		Bool immune;
 		{
 			AsciiString name(TheDamageNames[type]);
-			immune = const_cast<Object *>(obj)->rva0028C149(27, &unused, reinterpret_cast<Int>(&name));
+			immune = const_cast<Object *>(owner)->rva0028C149(27, &unused, reinterpret_cast<Int>(&name));
 		}
 		if (immune)
 			return 0.0f;
@@ -207,7 +207,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool f
 			Real attribute = 0.0f;
 			{
 				AsciiString name(TheDamageNames[type]);
-				const_cast<Object *>(obj)->rva0028C149(1, &attribute, reinterpret_cast<Int>(&name));
+				const_cast<Object *>(owner)->rva0028C149(1, &attribute, reinterpret_cast<Int>(&name));
 			}
 			amount *= 1.0f - (1.0f - (1.0f - armorMin(TheWritableGlobalData->m_attributeDamageCap, attribute))) * factor;
 		}

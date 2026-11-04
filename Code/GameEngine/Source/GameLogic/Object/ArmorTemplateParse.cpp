@@ -120,8 +120,8 @@ void bfmeAnchorArmorTemplateDtor(ArmorTemplate *armorTemplate)
 		return;
 	}
 
-	int dt = ini->scanIndexList(damageName, TheDamageNames);
-	self->m_damageCoefficient[dt] = pct;
+	int damageType = ini->scanIndexList(damageName, TheDamageNames);
+	self->m_damageCoefficient[damageType] = pct;
 }
 
 // ?parseDamageScalar@ArmorTemplate@@SAXPAVINI@@PAX1PBX@Z

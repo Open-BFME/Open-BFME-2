@@ -6,9 +6,9 @@
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &lhs, const unsigned int &rhs)
 {
-    return a < b ? b : a;
+    return lhs < rhs ? rhs : lhs;
 }
 }
 
@@ -104,14 +104,14 @@ ArmorTemplate::ArmorTemplate()
 
 //-------------------------------------------------------------------------------------------------
 // ?ArmorTemplate::adjustDamage present-unmatched
-Real ArmorTemplate::adjustDamage(DamageType t, Real damage) const 
+Real ArmorTemplate::adjustDamage(DamageType damageType, Real damage) const 
 { 
-	if (t == DAMAGE_UNRESISTABLE)
+	if (damageType == DAMAGE_UNRESISTABLE)
 		return damage;
-	if (t == DAMAGE_SUBDUAL_UNRESISTABLE)
+	if (damageType == DAMAGE_SUBDUAL_UNRESISTABLE)
 		return damage;
 
-	damage *= m_damageCoefficient[t];
+	damage *= m_damageCoefficient[damageType];
 
 	if (damage < 0.0f)
 		damage = 0.0f;

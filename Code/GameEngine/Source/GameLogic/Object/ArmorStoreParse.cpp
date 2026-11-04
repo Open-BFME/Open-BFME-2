@@ -122,8 +122,8 @@ extern ArmorStore *TheArmorStore;
 		{ NULL, NULL, NULL, 0 }
 	};
 
-	const char *c = ini->getNextToken(NULL);
-	NameKeyType key = TheNameKeyGenerator->nameToKey(c);
+	const char *armorName = ini->getNextToken(NULL);
+	NameKeyType key = TheNameKeyGenerator->nameToKey(armorName);
 	ArmorTemplate *armorTmpl;
 	ArmorTemplateMap::const_iterator it = TheArmorStore->m_armorTemplates.find(key);
 	if (it != TheArmorStore->m_armorTemplates.end())
@@ -132,21 +132,21 @@ extern ArmorStore *TheArmorStore;
 		if (ini->getLoadType() == 5)
 		{
 			armorTmpl->m_flag = 1;
-			armorTmpl = new ArmorTemplate(c);
+			armorTmpl = new ArmorTemplate(armorName);
 			armorTmpl->m_flag = 0;
 			// Pointer-vector push_back through the rowed four-byte provider 0x004DFCB0.
 			reinterpret_cast<_STL::vector<const ModuleData *> &>(TheArmorStore->m_pending).push_back(reinterpret_cast<const ModuleData * const &>(armorTmpl));
 		}
 		else
 		{
-			ArmorTemplate temp(c);
+			ArmorTemplate temp(armorName);
 			ini->initFromINI(&temp, myFieldParse);
 			return;
 		}
 	}
 	else
 	{
-		armorTmpl = new ArmorTemplate(c);
+		armorTmpl = new ArmorTemplate(armorName);
 		TheArmorStore->m_armorTemplates[key] = armorTmpl;
 	}
 	ini->initFromINI(armorTmpl, myFieldParse);

@@ -62,7 +62,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 };
 struct ObjectHack : public Object {
-	static Module *find(const Object *object, NameKeyType k) { return ((ObjectHack*)object)->findModule(k); }
+	static Module *find(const Object *object, NameKeyType moduleKey) { return ((ObjectHack*)object)->findModule(moduleKey); }
 };
 
 #include "../../../Include/Common/NameKeyGenerator.h"
@@ -73,7 +73,7 @@ extern unsigned int g_00DFDCD4;
 class RadiusDecalUpdate : public Module {
 public:
 	void createRadiusDecal(const RadiusDecalTemplate &tmpl, Real radius, const Coord3D &pos);
-	void killWhenNoLongerAttacking(bool k) { m_kill = k; }
+	void killWhenNoLongerAttacking(bool shouldKill) { m_kill = shouldKill; }
 private:
 	unsigned char m_pad[0x30 - 8];
 	bool m_kill;
@@ -95,19 +95,19 @@ Object *AttackNugget::create(const Object *primaryObj, const Coord3D *primary, c
 {
 	if (primaryObj && primary && secondary)
 	{
-		Object *obj = const_cast<Object*>(primaryObj);
-		char *container = obj->getContainer258();
+		Object *primaryObject = const_cast<Object*>(primaryObj);
+		char *container = primaryObject->getContainer258();
 		if (container) {
-			obj->setWeaponLock(m_slot, LOCKED_TEMPORARILY);
+			primaryObject->setWeaponLock(m_slot, LOCKED_TEMPORARILY);
 			Int shots = m_shots;
 			AIUpdateInterface *ai = (AIUpdateInterface*)(container + 0x20);
 			ai->aiAttackPositionInlined(secondary, shots, CMD_FROM_AI);
 		}
 		static NameKeyType key_RadiusDecalUpdate = TheNameKeyGenerator->nameToKey("RadiusDecalUpdate");
-		RadiusDecalUpdate *rd = (RadiusDecalUpdate*)ObjectHack::find(obj, key_RadiusDecalUpdate);
-		if (rd) {
-			rd->createRadiusDecal(m_template, m_radius, *secondary);
-			rd->killWhenNoLongerAttacking(true);
+		RadiusDecalUpdate *radiusDecalUpdate = (RadiusDecalUpdate*)ObjectHack::find(primaryObject, key_RadiusDecalUpdate);
+		if (radiusDecalUpdate) {
+			radiusDecalUpdate->createRadiusDecal(m_template, m_radius, *secondary);
+			radiusDecalUpdate->killWhenNoLongerAttacking(true);
 		}
 	}
 }

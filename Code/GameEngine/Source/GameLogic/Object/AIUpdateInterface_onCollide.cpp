@@ -28,14 +28,14 @@ struct Coord3D;
 class AIUpdateInterface
 {
 public:
-	virtual void onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal);
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 	bool rva0026CF11(Object *obj);
 	void rva00262989(unsigned value);
 };
 
-void AIUpdateInterface::onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal)
+void AIUpdateInterface::onCollide(Object *other, const Coord3D *loc, const Coord3D *normal)
 {
-	if (obj == 0)
+	if (other == 0)
 		return;
 	if (g_00DFE7A8 != 0)
 		return;
@@ -48,24 +48,24 @@ void AIUpdateInterface::onCollide(Object *obj, const Coord3D *loc, const Coord3D
 	Object *self = *(Object **)((char *)this - 0x1c);
 	if (self->rva002931BA())
 		return;
-	if (obj->rva002931BA())
+	if (other->rva002931BA())
 		return;
 	if ((*(ObjectView **)((char *)self + 4))->m_113 & 0x20)
 	{
 		if (self->testStatus(STATUS_3B))
 			return;
 	}
-	if (self->getRelationship(obj) != 0)
+	if (self->getRelationship(other) != 0)
 		return;
 	Object *rel = self->rva0028ACA0();
 	if (rel != 0)
 	{
-		if (obj == rel)
+		if (other == rel)
 			return;
-		if (*(Object **)((char *)obj + 0x274) == rel)
+		if (*(Object **)((char *)other + 0x274) == rel)
 			return;
 	}
-	rel = obj->rva0028ACA0();
+	rel = other->rva0028ACA0();
 	if (rel != 0)
 	{
 		if (self == rel)
@@ -73,7 +73,7 @@ void AIUpdateInterface::onCollide(Object *obj, const Coord3D *loc, const Coord3D
 		if (*(Object **)((char *)self + 0x274) == rel)
 			return;
 	}
-	int key = *(int *)((char *)obj + 0x74);
+	int key = *(int *)((char *)other + 0x74);
 	int i = 0;
 	if (*(unsigned *)((char *)this + 0x1a4) > 0)
 	{
@@ -88,17 +88,17 @@ void AIUpdateInterface::onCollide(Object *obj, const Coord3D *loc, const Coord3D
 	}
 	if ((unsigned)i < *(unsigned *)((char *)this + 0x1a4))
 	{
-		int *slot = (int *)((char *)this + 0x194 + i * 4);
-		if (*slot + 1 == TheGameLogic->getFrame())
+		int *frameSlot = (int *)((char *)this + 0x194 + i * 4);
+		if (*frameSlot + 1 == TheGameLogic->getFrame())
 		{
-			*slot = *slot + 1;
+			*frameSlot = *frameSlot + 1;
 			return;
 		}
-		*slot = *(int *)((char *)this + 0x190 + *(unsigned *)((char *)this + 0x1a4) * 4);
+		*frameSlot = *(int *)((char *)this + 0x190 + *(unsigned *)((char *)this + 0x1a4) * 4);
 		*(int *)((char *)this + 0x184 + i * 4) = *(int *)((char *)this + 0x180 + *(unsigned *)((char *)this + 0x1a4) * 4);
 		(*(unsigned *)((char *)this + 0x1a4))--;
 	}
 	AIUpdateInterface *ai = (AIUpdateInterface *)((char *)this - 0x24);
-	if (ai->rva0026CF11(obj))
+	if (ai->rva0026CF11(other))
 		ai->rva00262989(key);
 }
