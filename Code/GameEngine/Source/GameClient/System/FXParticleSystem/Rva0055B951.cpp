@@ -23,16 +23,14 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class Rva0055B8CD
-{
-public:
-	virtual void rva0055B8CD(Xfer *xfer);
-};
+namespace FXParticleSystem {
+class DefaultColorModuleInfo { public: virtual void DoXfer(Xfer &); };
+}
 
 class Rva0055B951
 {
 	char m_pad[0x18];
-	Rva0055B8CD m_inner;
+	FXParticleSystem::DefaultColorModuleInfo m_inner;
 public:
 	virtual void rva0055B951(Xfer *xfer);
 };
@@ -40,5 +38,5 @@ public:
 void Rva0055B951::rva0055B951(Xfer *xfer)
 {
 	xfer->Version1();
-	m_inner.Rva0055B8CD::rva0055B8CD(xfer);
+	m_inner.FXParticleSystem::DefaultColorModuleInfo::DoXfer(*xfer);
 }

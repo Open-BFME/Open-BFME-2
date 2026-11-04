@@ -1,6 +1,7 @@
 // cl: /MD
+// Retail export 1162 names Snapshot slot 3 as DefaultColorModuleInfo::DoXfer(Xfer &).
 //
-// ?rva0055B8CD@Rva0055B8CD@@QAEXPAVXfer@@@Z, retail 0x0055B8CD, 70 bytes.
+// ?DoXfer@DefaultColorModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z, retail 0x0055B8CD, 70 bytes.
 // Evidence: vtable slots 7 of 0x0081BF20 plus 3 of 0x0081BA90 (DoXfer);
 // callee Version1 rowed 0x000053EE plus Xfer slots 0x3C RGBColor and 0x78 uint
 // over 8x0x10 elems at +0x04/+0x10 plus xferRandomVariable rowed 0x00306183
@@ -37,23 +38,26 @@ struct Rva0055B8CDElem
 	unsigned int m_b;
 };
 
-class Rva0055B8CD
+namespace FXParticleSystem
+{
+class DefaultColorModuleInfo
 {
 	Rva0055B8CDElem m_elems[8];
 	GameClientRandomVariable m_var;
 public:
-	virtual void rva0055B8CD(Xfer *xfer);
+	virtual void DoXfer(Xfer &xfer);
 };
+}
 
-void Rva0055B8CD::rva0055B8CD(Xfer *xfer)
+void FXParticleSystem::DefaultColorModuleInfo::DoXfer(Xfer &xfer)
 {
-	xfer->Version1();
+	xfer.Version1();
 	unsigned int *pVal = &m_elems[0].m_b;
 	int n = 8;
 	do {
-		*xfer == *(RGBColor *)(pVal - 3);
-		*xfer == *pVal;
+		xfer == *(RGBColor *)(pVal - 3);
+		xfer == *pVal;
 		pVal += 4;
 	} while (--n != 0);
-	xferRandomVariable(*xfer, m_var);
+	xferRandomVariable(xfer, m_var);
 }

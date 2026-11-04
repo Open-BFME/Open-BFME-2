@@ -1,0 +1,13 @@
+Source claims: OK (8 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 5 of 8 TU(s) (deps-cache: 3 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Funclet pins: 2 row(s) verified past a renumbered $L label
+    $L356 (Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultAlphaModuleInfoCtorThunk.cpp): $L356 was renumbered; verified parent EH data places $L359 at 0x00799777
+    $L386 (Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultColorModuleInfoCtorThunk.cpp): $L386 was renumbered; verified parent EH data places $L407 at 0x007997D5
+Functions: OK 403/403 matched across 8 source file(s)
+String-ref verify: OK (19 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (10 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

@@ -6,6 +6,8 @@
 // default at 0x00001E67, then an inline-zeroed trailing random variable.
 // The element's declared (never defined) destructor carries the EH frame.
 
+class Xfer;
+
 class Rva0049B47C
 {
 public:
@@ -35,6 +37,7 @@ public:
 	virtual ~DefaultColorModuleInfo();
 	virtual void LoadPostProcess(); // slot 1: the exported empty callback FXParticleSystem.cpp rows at 0x000B3FD0
 	virtual const char *GetSnapshotName();
+	virtual void DoXfer(Xfer &); // retail export: Snapshot slot 3
 
 private:
 	RGBColorKeyframe m_keys[8];

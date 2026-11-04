@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva0055B266@Rva0055B266@@UAEXPAVXfer@@@Z @0x0055B266 54B
+// Retail export 1161 names Snapshot slot 3 as DefaultAlphaModuleInfo::DoXfer(Xfer &).
+// ?DoXfer@DefaultAlphaModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z @0x0055B266 54B
 // Unlock FX DoXfer loop 8x via Version1 plus xferRandomVariable plus Xfer slot 0x78.
 // Evidence: thiscall 1 Xfer arg ret 4; push 8 pop ebx countdown plus add esi 0x10;
 // lea [esi-0xc] for GameClientRandomVariable plus push esi for second slot;
@@ -36,22 +37,25 @@ struct Rva0055B266Elem
 	unsigned int m_val;
 };
 
-class Rva0055B266
+namespace FXParticleSystem
+{
+class DefaultAlphaModuleInfo
 {
 public:
-	virtual void rva0055B266(Xfer *xfer);
+	virtual void DoXfer(Xfer &xfer);
 private:
 	Rva0055B266Elem m_elems[8];
 };
+}
 
-void Rva0055B266::rva0055B266(Xfer *xfer)
+void FXParticleSystem::DefaultAlphaModuleInfo::DoXfer(Xfer &xfer)
 {
-	xfer->Version1();
+	xfer.Version1();
 	unsigned int *pVal = &m_elems[0].m_val;
 	int count = 8;
 	do {
-		xferRandomVariable(*xfer, *(GameClientRandomVariable *)(pVal - 3));
-		*xfer == *pVal;
+		xferRandomVariable(xfer, *(GameClientRandomVariable *)(pVal - 3));
+		xfer == *pVal;
 		pVal += 4;
 	} while (--count != 0);
 }

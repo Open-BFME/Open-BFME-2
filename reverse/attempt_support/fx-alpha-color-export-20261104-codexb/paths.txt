@@ -1,0 +1,8 @@
+Code/GameEngine/Source/GameClient/FXParticleSystem.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B266Xfer.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B8CD.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B30FXfer.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B951.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultAlphaModuleInfoCtorThunk.cpp
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultColorModuleInfoCtorThunk.cpp

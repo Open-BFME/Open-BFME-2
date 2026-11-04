@@ -24,11 +24,9 @@ class Snapshot;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class Rva0055B266
-{
-public:
-	virtual void rva0055B266(Xfer *xfer);
-};
+namespace FXParticleSystem {
+class DefaultAlphaModuleInfo { public: virtual void DoXfer(Xfer &); };
+}
 
 class Rva0055B30F
 {
@@ -36,11 +34,11 @@ public:
 	virtual void rva0055B30F(Xfer *xfer);
 private:
 	char m_pad[0x18];
-	Rva0055B266 m_member;
+	FXParticleSystem::DefaultAlphaModuleInfo m_member;
 };
 
 void Rva0055B30F::rva0055B30F(Xfer *xfer)
 {
 	xfer->Version1();
-	m_member.Rva0055B266::rva0055B266(xfer);
+	m_member.FXParticleSystem::DefaultAlphaModuleInfo::DoXfer(*xfer);
 }

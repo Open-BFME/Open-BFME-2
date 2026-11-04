@@ -423,7 +423,9 @@ public:
     virtual void DoXfer(Xfer &) = 0;
 private: char m_unmodelled_04[0x1C - 4];
 };
-class Rva0055B266 { public: virtual void rva0055B266(Xfer *); };
+namespace FXParticleSystem {
+class DefaultAlphaModuleInfo { public: virtual void DoXfer(Xfer &); };
+}
 class __declspec(novtable) Rva003AEA42 : public Rva003AEEB3, public Snapshot
 {
 public:
@@ -432,7 +434,9 @@ public:
 };
 class Rva003AEF9B { public: Rva003AEF9B(const RvaSmartPtr12 &a, int b); };
 
-class Rva0055B8CD { public: virtual void rva0055B8CD(Xfer *); };
+namespace FXParticleSystem {
+class DefaultColorModuleInfo { public: virtual void DoXfer(Xfer &); };
+}
 class __declspec(novtable) Rva0055BF4B : public Rva003AEEB3, public Snapshot {
 public: Rva0055BF4B(const RvaSmartPtr12 &a, const Rva0055BF4BSrc *b);
 virtual ~Rva0055BF4B();
@@ -464,7 +468,7 @@ public:
 };
 void Rva003ABCB5::DoXfer(Xfer &stream) {
  stream.Version1();
- reinterpret_cast<Rva0055B8CD *>((char *)this+0x1C)->Rva0055B8CD::rva0055B8CD(&stream);
+ reinterpret_cast<FXParticleSystem::DefaultColorModuleInfo *>((char *)this+0x1C)->FXParticleSystem::DefaultColorModuleInfo::DoXfer(stream);
 }
 
 Rva003ABCB5::Rva003ABCB5(void *a, void *moduleTemplate)
@@ -564,7 +568,7 @@ public:
 void Rva003ABC6E::DoXfer(Xfer &stream)
 {
     stream.Version1();
-    reinterpret_cast<Rva0055B266 *>((char *)this + 0x1C)->Rva0055B266::rva0055B266(&stream);
+    reinterpret_cast<FXParticleSystem::DefaultAlphaModuleInfo *>((char *)this + 0x1C)->FXParticleSystem::DefaultAlphaModuleInfo::DoXfer(stream);
 }
 
 Rva003ABC6E::Rva003ABC6E(void *a, void *moduleTemplate)

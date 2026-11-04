@@ -1192,7 +1192,7 @@ struct FXKeyframe
     unsigned int m_frame;
 };
 
-class DefaultAlphaModuleInfo : public Snapshot
+class DefaultAlphaModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultAlphaModuleInfo();
@@ -1200,6 +1200,7 @@ public:
 
     FXKeyframe m_keys[8];
     virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 };
 
 const char *DefaultAlphaModuleInfo::GetSnapshotName()
@@ -1219,7 +1220,7 @@ DefaultAlphaModuleInfo *fxCopyDefaultAlphaModuleInfo(void *storage,
     return new (storage) DefaultAlphaModuleInfo(that);
 }
 
-class DefaultColorModuleInfo : public Snapshot
+class DefaultColorModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultColorModuleInfo();
@@ -1229,6 +1230,7 @@ public:
     FXKeyframe m_keys[8];
     GameClientRandomVariable m_colorScale;
     virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 };
 
 const char *DefaultColorModuleInfo::GetSnapshotName()
