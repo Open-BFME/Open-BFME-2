@@ -1,5 +1,5 @@
 ### LINK-242: ActiveBody-derived vtables need unrowed ActiveBody slot providers
-Status: Blocked. Updated: 2026-11-04; inspected revision: 49dfd905bf.
+Status: Blocked (naming rules and a rename.py false reject). Updated: 2026-11-04; inspected revision: 49dfd905bf.
 Evidence / affected units: `Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp`
 defines PorcupineFormationBodyModule's constructor, so it emits the class vtables, and their
 inherited ActiveBody slots reference three symbols nothing defines:
@@ -21,3 +21,31 @@ table 0x00C5B5B0 is not in `vftable_map.py`'s output), and find applyDamageScala
 re-run the dry run; the merge removes three files.
 Clearance: pending.
 Census confirmation: not claimed.
+
+2026-11-04 (revision c7d8498c81), retail tables read from game.dat:
+
+- Slot 26, `applyDamageScalar`: BodyModule's own body-interface table 0x00C5AC18 (installed by
+  ctor 0x004BD7FD) holds 0x004BD77C; its BodyModuleInterface base table 0x00C5AB68 has
+  `_purecall` there. ActiveBody 0x00C5B5B0 and PorcupineFormationBodyModule 0x00C5C318 inherit
+  the same entry. So the row `?multiply@Rva004BD77CFloatField@@QAEXM@Z` is
+  `BodyModule::applyDamageScalar` (Zero Hour's BodyModule inline), and ActiveBody.h's
+  `applyDamageScalar` override is phantom. `rename.py function --rva 0x004BD77C --to-class
+  BodyModule --new applyDamageScalar` with prepared BodyModuleCtor.cpp, BodyModuleClass.h (the
+  override) and ActiveBody.h (the phantom removed) refuses: HighlanderBody, ImmortalBody and
+  SymbioticStructuresBody tables hold the address too and their views declare no BodyModule base.
+  Recorded as a false reject in `reverse/re_attempts.log` (tooling seat: the relatedness test
+  should follow retail's own installer table, or those views must declare their real bases).
+- Slot 28, `Rva004BE67E`: BodyModule's 0x00C5AC18 has `_purecall`; ActiveBody's 0x00C5B5B0 holds
+  0x004BE67E, as do DetachableRiderBody's and Porcupine's tables. The owner is ActiveBody; the row is
+  spelled under DetachableRiderBody. No rename.py mode moves a row between two real classes
+  (`--to-class` needs a placeholder class), so this needs a tool mode or a maintainer decision.
+- Slot 2, `GetSnapshotName`: ActiveBody's primary table 0x00C5B038 slot 2 is 0x004BF88D, rowed
+  `?name@ActiveBody@@QBEPBDXZ` by the BFME_LITERAL_NAME_GETTER macro in
+  Common/ModuleNameGetters.cpp. `rename.py` refuses to replace `name` (an unrecorded real name,
+  which neither canonical nor inferred evidence may replace), and `--virtual` refuses because
+  the macro hides the declaration. Vtable-slot evidence is only a hint under docs/naming.md, so
+  this needs a maintainer decision on correcting an unrecorded agent label.
+
+Next check once the three providers exist: `tu_skeleton.py --merge
+Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp --dry-run` (compile and
+bytes already pass for all three donors).
