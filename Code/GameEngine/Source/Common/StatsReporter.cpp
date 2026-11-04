@@ -211,7 +211,14 @@ class Rva002E2903Player;
 
 class Rva0021937DTarget;
 
-class Rva0021937D {public:void rva002193D9(Rva0021937DTarget*);void rva00219407(Rva0021937DTarget*);};
+class Rva0021937D
+{
+public:
+	void rva002193D9(Rva0021937DTarget*);
+	void rva00219407(Rva0021937DTarget*);
+	void rva0021937D(Rva0021937DTarget*);
+	void rva002193AB(Rva0021937DTarget*);
+};
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 
@@ -269,7 +276,12 @@ extern BitFlags<116>KINDOFMASK_NONE;
 // WB lead identifies ProcessOnlineGameResults. ZH ScoreScreen.cpp is the
 // wins/losses reference spine. Native5C062E..5C1860 supplies BFME2 conditions,
 // member offsets, record types and call ordering; donor9cbfb551fe20.
-class StatsReporter {public:static void ProcessOnlineGameResults(Player*);};
+class StatsReporter
+{
+public:
+	static void ProcessOnlineGameResults(Player*);
+	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);
+};
 
 // tu-skeleton: 0x005BFD35 2297B ?ProcessStrategicSinglePlayerGame@StatsReporter@@SAXPAVLivingWorldPlayer@@@Z -- matched in Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp (not merged yet)
 

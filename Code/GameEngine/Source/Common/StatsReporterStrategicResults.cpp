@@ -54,7 +54,14 @@ class Rva002E2903Player;
 class Rva002E071E {public:bool rva002E071E(const Rva002E071E*)const;};
 class Rva0009AAA4DwordField {public:int get()const;};
 class Rva0021937DTarget;
-class Rva0021937D {public:void rva0021937D(Rva0021937DTarget*);void rva002193AB(Rva0021937DTarget*);};
+class Rva0021937D
+{
+public:
+	void rva002193D9(Rva0021937DTarget*);
+	void rva00219407(Rva0021937DTarget*);
+	void rva0021937D(Rva0021937DTarget*);
+	void rva002193AB(Rva0021937DTarget*);
+};
 class LivingWorldLogic {public:
  char beforePlayers[0x8c];_STL::vector<LivingWorldPlayer*>players;
  char beforeFrame[0x64];int frame;
@@ -69,7 +76,13 @@ extern CreateAHeroManager*TheCreateAHeroManager;
 extern BitFlags<116>KINDOFMASK_NONE; // 0x009FEFA4, defined by ThingIsAnyKindOf.cpp
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-class StatsReporter {public:static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);};
+class Player;
+class StatsReporter
+{
+public:
+	static void ProcessOnlineGameResults(Player*);
+	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);
+};
 template<class T>inline const T&counterMax(const T&a,const T&b){return a>b?a:b;}
 inline bool allied(const LivingWorldPlayer*firstPlayer,const LivingWorldPlayer*secondPlayer){return reinterpret_cast<const Rva002E071E*>(firstPlayer)->rva002E071E(reinterpret_cast<const Rva002E071E*>(secondPlayer));}
 inline const int&clampPoints(const int&points,const int&minimum){return points<minimum?minimum:points;}
