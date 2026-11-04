@@ -118,3 +118,16 @@ lacks the compiler-generated special-member declaration. The mixed
 `VslotSmallBodiesAM.cpp` split carved `0x0050BD7C` but was blocked because a
 copied helper or datum would grow the escape-hatch count. No source changes
 were applied.
+
+A fresh allocated `Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp`
+trial accepted no donors. The four object donors need manual declarations, view
+reconciliation or access fixes: `Made002CC5E1Rva00507991.cpp` lacks
+`rva0050774A` and a constructor declaration; `Made002CC5E1Rva00507A04.cpp`
+needs `DamageNugget::v4` and protected access; `DamageNugget_generateDamageInfo.cpp`
+needs its constructor declared; and `Made002CC5E1Rva005084FC.cpp` references
+an absent `Object::m_template` view. The plan also lists five mixed files; all
+were inspected. `GapBodiesGE28.cpp` split was compile-blocked by duplicate STL
+vector definitions. `Rva0042700FParse.cpp`, `StlportVectorDtorFamily.cpp`, and
+`stlport_vector_e8_o1.cpp` could not spell their selected symbol definitions.
+`Made002CC5E1DamageScalar.cpp` could carve `0x00508862`, but the residual would
+lose five matched rows. No split or merge was applied.
