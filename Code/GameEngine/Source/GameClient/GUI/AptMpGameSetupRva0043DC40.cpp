@@ -514,14 +514,7 @@ UnicodeString Rva0055A04C(int kind);
 // The game being set up, spelled as LANAPIRemoveGame.cpp's pin does.
 struct LANGameInfo;
 extern class GameInfo *TheGameInfo;
-class MapCache
-
-{
- public:
- void updateCache();
- 
-}
-;
+#include "../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 // The panel instance (g_Va00E0333C, cleared by ??1Rva004421E1).
 extern int g_Va00E0333C;
