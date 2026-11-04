@@ -4,6 +4,7 @@
 #include <vector>
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
+#include "IngameNoticeDisplayVector.h"
 // bfme link decl-only begin
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
@@ -296,12 +297,6 @@ struct Rva004E5CB0Deleter
 template Rva004E5CB0Deleter _STL::for_each<Rva004E5A78 **, Rva004E5CB0Deleter>(Rva004E5A78 **, Rva004E5A78 **, Rva004E5CB0Deleter);
 
 namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void **vector<void *, allocator<void *> >::begin()
-{ return _M_start; }
-template <> __declspec(dllimport) __forceinline
-void **vector<void *, allocator<void *> >::end()
-{ return _M_finish; }
 template <> void **vector<void *, allocator<void *> >::erase(void **, void **);
 }
 
