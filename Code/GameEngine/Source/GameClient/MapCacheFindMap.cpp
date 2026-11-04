@@ -6,8 +6,7 @@
 // at 0x002DC1AB (global 0x9FF12C map, result used as MapMetaData* for
 // getBaseDisplayName 0x300AEA) and 0x0030406F plus the inline twin at
 // 0x00303F12-0x00303F29 calling the same _M_find 0x1F8437 then MapMetaData
-// copy 0x3039E8 from node+0x14; MapMetaData is the 256B record proven by
-// MapMetaDataCopy.cpp SizeCheck, modeled here as opaque bytes.
+// copy 0x3039E8 from node+0x14; MapMetaData is the registered 256B record.
 #include <map>
 
 typedef bool Bool;
@@ -31,11 +30,8 @@ template <> struct less<AsciiString>
 };
 }
 
-class MapMetaData
-{
-public:
-	unsigned char opaque[0x100];
-};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 
 #include "../../Include/GameClient/MapCache.h"
 

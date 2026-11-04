@@ -21,12 +21,8 @@ typedef float Real;
 
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class MapMetaData
-{
-	public:
-	char m_beforeExtent[8];
-	Region3D m_extent;
-};
+#include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 void findDrawPositions(Int startX, Int startY, Int width, Int height,
 	Region3D extent, ICoord2D *ul, ICoord2D *lr);

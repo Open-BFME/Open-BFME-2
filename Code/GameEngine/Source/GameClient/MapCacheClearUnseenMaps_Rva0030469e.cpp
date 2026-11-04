@@ -50,14 +50,8 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 typedef bool Bool;
 typedef int Int;
 
-class MapMetaData
-{
-public:
-	~MapMetaData();
-
-private:
-	char m_opaque[256];
-};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 
 extern "C" void _free(void *);
 

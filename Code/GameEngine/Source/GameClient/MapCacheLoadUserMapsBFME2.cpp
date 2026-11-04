@@ -33,7 +33,8 @@ struct TreeHintPayload00207343{unsigned char value;TreeHintPayload00207343():val
 typedef _STL::map<AsciiString,TreeHintPayload00207343> SeenMap;
 namespace _STL{template<>TreeHintPayload00207343&SeenMap::operator[](const AsciiString&);}
 class Rva00206667{public:void rva00206F6B();};
-class MapMetaData{char storage[256];};
+#include "unicode_string.h"
+#include "../../Include/GameClient/MapMetaData.h"
 struct FileInfo{unsigned sizeHigh,sizeLow,timestampHigh,timestampLow;};
 #include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
