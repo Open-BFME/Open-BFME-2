@@ -1,10 +1,12 @@
 # hcanim consolidation, 2026-11-04
 
 Scope: `Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp` and its sampler donor.
-Prerequisites published through the runner: `efa347d52a` adopts the canonical
-`BFME2MotionChannel` header and retires one header-queue row through
-`header_adopt_lane.py accept`; `14bf38b4b8` makes the four-component sampler
-definitions explicit specializations without changing their symbols or bytes.
+Prerequisites published through the runner: "Adopt canonical BFME2MotionChannel
+in hcanim" adopts the canonical header and retires one header-queue row through
+`header_adopt_lane.py accept`; "Specialize the four-component adaptive-delta
+sampler" makes the sampler definitions explicit specializations without changing
+their symbols or bytes. Commit subjects identify these prerequisites across
+the runner publisher's rebases.
 
 The supported `tu_skeleton.py --merge` absorbs `hcanimGetFrame4.cpp`, repointing
 its two rows (0x0018F9C0, 222 B; 0x0018FCC0, 194 B) and their TU-map source
