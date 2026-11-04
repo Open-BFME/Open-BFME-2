@@ -1,0 +1,26 @@
+[
+  {
+    "object": "build/objectcreation-loadpostprocess-merge-20261104/seed-before.obj",
+    "snapshot_root": false,
+    "snapshot_edges": []
+  },
+  {
+    "object": "build/objectcreation-loadpostprocess-merge-20261104/donor-before.obj",
+    "snapshot_root": false,
+    "snapshot_edges": []
+  },
+  {
+    "object": "/work3/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^upgrade_^object^creation^upgrade.obj",
+    "snapshot_root": false,
+    "snapshot_edges": []
+  },
+  {
+    "merged_snapshot_all_section_relocations": [
+      {
+        "section": ".debug$F",
+        "offset": 0,
+        "type": 7
+      }
+    ]
+  }
+]

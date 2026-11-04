@@ -164,7 +164,6 @@ public:
 #include "Lib/Coord3D.h"
 #include "../../../../Include/Common/ModuleData.h"
 inline ModuleData::~ModuleData() {}
-
 class __declspec(novtable) ObjectCreationUpgradeModuleData : public ModuleData
 {
 private:
@@ -322,18 +321,23 @@ class SlaveWatcherBehavior
 public:
 	void rva00484869(int objectID);
 };
-
 BFME_DISP8_BYTECHASE_GETTER(Rva004B4061ByteChase32Field, 0xC, 0x11C)
-
 BFME_DISP8_BYTECHASE_GETTER(Rva004B406BByteChase32Field, 0xC, 0x11D)
-
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
 // vtables, so it is virtual (same body).
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B3FBALeaNegSbbField, 20, 0x04)
-
 BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
-
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
+// ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ @0x004B3FCB 17B evidence vtable 0x0085762C slot 1 plus base loadPostProcess plus UpgradeMux hook
+// ObjectCreationUpgrade::loadPostProcess: slot 1 of its UpdateModule vtable at
+// +8, the loadPostProcess slot (198 of 223 named sibling tables). It is
+// compiled with that subobject this: it calls
+// UpdateModule::loadPostProcess on this, then tail-jmps to upgradeMuxLoadPostProcess
+// on this-8 (the UpgradeMux head). Layout from ObjectCreationUpgradeDtor.cpp:
+// UpgradeMux at +0, UpdateModule at +8. The mux hook is the rowed empty
+// method at 0x000B3FD0, folded with other empty methods. The base calls give
+// push esi / mov esi,ecx / call / lea ecx,[esi-8] / pop esi / jmp at /O1.
+class Thing;
 
 namespace _STL { template<unsigned N> struct _Base_bitset { unsigned long words[N]; void _M_do_or(const _Base_bitset &); }; }
 
@@ -372,6 +376,8 @@ extern BuildAssistant *TheBuildAssistant;
 // tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
@@ -598,24 +604,6 @@ void ObjectCreationUpgrade::xfer(Xfer *xfer)
 	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
-// tu-skeleton: 0x004B3FCB 17B ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp (not merged yet)
-
-// tu-skeleton: 0x004B3FDC 17B ?notContains@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
-// tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B40EA 28B ??_GObjectCreationUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004B425B 128B ??0ObjectCreationUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp
 
 // ObjectCreationUpgrade::update, retail 0x004B42DB (753 B): slot 0 of the
@@ -701,5 +689,29 @@ UpdateSleepTime ObjectCreationUpgrade::update()
 	}
 	return UPDATE_SLEEP_NONE;
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp
+
+void ObjectCreationUpgrade::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+	UpgradeMux::upgradeMuxLoadPostProcess();
+}
+
+// tu-skeleton: 0x004B3FDC 17B ?notContains@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B40EA 28B ??_GObjectCreationUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B425B 128B ??0ObjectCreationUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B45CC 28B ??_GObjectCreationUpgradeModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDtors.cpp (not merged yet)
