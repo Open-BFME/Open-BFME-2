@@ -133,14 +133,7 @@ private:
 
 extern int g_Va00E06550;
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-#undef V
-	virtual void slot10(int value, int mode) = 0;
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -263,11 +256,11 @@ void AptOnline::ShellLoadScreen(const char *name)
 }
 
 // Retail 0x00516F08, 25 bytes. Name unknown: hands the shell's mode to
-// TheGameSpyInfo's vslot 10.
+// TheGameSpyInfo->joinPreferredGroupRoom (vslot 10).
 void AptOnline::rva00516F08()
 {
 	if (TheGameSpyInfo)
-		TheGameSpyInfo->slot10(1, m_mode);
+		TheGameSpyInfo->joinPreferredGroupRoom(true, m_mode);
 }
 
 // Retail 0x00517207, 263 bytes. Bound as the Apt variables
