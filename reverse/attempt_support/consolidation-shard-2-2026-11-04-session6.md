@@ -116,6 +116,10 @@ link improvement is claimed. No live claims remain from this pass.
   donor from `Common` fails byte verification. The mixed namespace split
   carves six matching rows, but is refused because copying `MakeDesc` and
   `g_Va00DEDA28` would grow a hatch. No merge or split was applied.
+- `GameLogic/Object/Behavior/ClickReactionBehavior.cpp`: its ctor donor
+  encounters a duplicate `UpdateModule` definition. The field-parse split
+  matches alone but fails because the module-data view lacks `m_fieldParse`;
+  `Rva0024A797Grandchildren.cpp` has no row approved for this TU. No change.
 - `GameLogic/AI/Squad.cpp`: its contained-members donor requires `Object::contain`
   and `Object::id`, which are absent from the TU class view (MSVC C2039).
   Manual class-view reconciliation is required; no merge was applied.
