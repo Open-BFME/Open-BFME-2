@@ -76,25 +76,7 @@ public:
 	virtual void freeSnapShot(int playerIndex);
 };
 
-class PartitionData
-{
-public:
-	ObjectShroudStatus getShroudedStatus(int playerIndex);
-
-private:
-	void *m_owner;
-	ShroudObject *m_object;
-	ShroudGhost *m_ghost;
-	void *m_next;
-	void *m_prev;
-	void *m_prevDirty;
-	void *m_nextDirty;
-	CellAndObjectIntersection *m_coiArray;
-	int m_coiInUseCount;
-	int m_shroudedness[20];
-	int m_shroudednessPrevious[20];
-	unsigned char m_everSeen[20];
-};
+#include "../../Include/GameLogic/PartitionData.h"
 
 ObjectShroudStatus PartitionData::getShroudedStatus(int playerIndex)
 {
@@ -127,34 +109,34 @@ ObjectShroudStatus PartitionData::getShroudedStatus(int playerIndex)
 		if (total == 0 || shroudedCells == total)
 		{
 			m_shroudedness[playerIndex] = OBJECTSHROUD_SHROUDED;
-			m_everSeen[playerIndex] = 0;
-			if (m_ghost && m_shroudednessPrevious[playerIndex] == OBJECTSHROUD_FOGGED)
-				m_ghost->freeSnapShot(playerIndex);
+			m_everSeenByPlayer[playerIndex] = 0;
+			if (((ShroudGhost *)m_field08) && m_shroudednessPrevious[playerIndex] == OBJECTSHROUD_FOGGED)
+				((ShroudGhost *)m_field08)->freeSnapShot(playerIndex);
 		}
 		else if (shroudedCells + foggedCells == total)
 		{
 			m_shroudedness[playerIndex] = OBJECTSHROUD_FOGGED;
-			if (m_object && m_ghost)
+			if (((ShroudObject *)m_field04) && ((ShroudGhost *)m_field08))
 			{
-				if (m_object->checkVisible(playerIndex))
+				if (((ShroudObject *)m_field04)->checkVisible(playerIndex))
 					m_shroudedness[playerIndex] = OBJECTSHROUD_SHROUDED;
 				else if (m_shroudednessPrevious[playerIndex] != OBJECTSHROUD_FOGGED)
-					m_ghost->snapShot(playerIndex);
+					((ShroudGhost *)m_field08)->snapShot(playerIndex);
 			}
 		}
 		else if (shroudedCells == 0 && foggedCells == 0)
 		{
-			m_everSeen[playerIndex] = 1;
+			m_everSeenByPlayer[playerIndex] = 1;
 			m_shroudedness[playerIndex] = OBJECTSHROUD_CLEAR;
-			if (m_ghost && m_shroudednessPrevious[playerIndex] != OBJECTSHROUD_CLEAR)
-				m_ghost->freeSnapShot(playerIndex);
+			if (((ShroudGhost *)m_field08) && m_shroudednessPrevious[playerIndex] != OBJECTSHROUD_CLEAR)
+				((ShroudGhost *)m_field08)->freeSnapShot(playerIndex);
 		}
 		else
 		{
-			m_everSeen[playerIndex] = 1;
+			m_everSeenByPlayer[playerIndex] = 1;
 			m_shroudedness[playerIndex] = OBJECTSHROUD_PARTIAL_CLEAR;
-			if (m_ghost && m_shroudednessPrevious[playerIndex] != OBJECTSHROUD_PARTIAL_CLEAR)
-				m_ghost->freeSnapShot(playerIndex);
+			if (((ShroudGhost *)m_field08) && m_shroudednessPrevious[playerIndex] != OBJECTSHROUD_PARTIAL_CLEAR)
+				((ShroudGhost *)m_field08)->freeSnapShot(playerIndex);
 		}
 
 		if (total)

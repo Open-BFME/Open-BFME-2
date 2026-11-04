@@ -20,27 +20,17 @@ namespace ShroudManager
 	};
 }
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
-class PartitionData
-{
-public:
-	void friend_updateCellsTouched();
-
-private:
-	unsigned char m_bfmePrefix[0x14];
-	PartitionData **m_bfmeDirtyPrevLink; // +0x14
-	PartitionData *m_bfmeDirtyNext;      // +0x18
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 // ?friend_updateCellsTouched@PartitionData@@QAEXXZ
 inline void PartitionData::friend_updateCellsTouched()
 {
-	if (m_bfmeDirtyPrevLink != 0)
+	if (m_prevDirty != 0)
 	{
-		*m_bfmeDirtyPrevLink = m_bfmeDirtyNext;
-		if (m_bfmeDirtyNext != 0)
-			m_bfmeDirtyNext->m_bfmeDirtyPrevLink = m_bfmeDirtyPrevLink;
-		m_bfmeDirtyPrevLink = 0;
+		*m_prevDirty = m_nextDirty;
+		if (m_nextDirty != 0)
+			m_nextDirty->m_prevDirty = m_prevDirty;
+		m_prevDirty = 0;
 	}
 	((ShroudManager::Data *)this)->UpdateCellsTouched();
 }
