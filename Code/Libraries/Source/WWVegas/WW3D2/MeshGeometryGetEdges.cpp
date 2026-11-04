@@ -101,21 +101,11 @@ struct TriangleIndices {
  unsigned short vertex[3];
  unsigned short &operator[](int n) { return vertex[n]; }
 };
-class Debug {
-public:
- virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
- virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
- virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2c();
- virtual void slot30(); virtual void slot34(); virtual Debug &slot38(const char *);
- virtual void slot3c(); virtual void slot40(); virtual void slot44(); virtual void slot48();
- virtual void slot4c(int); virtual void slot50(); virtual void slot54(); virtual void slot58();
- virtual void slot5c(); virtual void slot60(); virtual void slot64(); virtual void slot68();
- virtual Debug &slot6c(int,int,int);
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 extern Debug *theDebug;
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int);
-#define GEOMETRY_REPORT(message) if(bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->slot60(); theDebug->slot6c(0,0,0).slot38("Geometry for model ").slot38(Get_Name()).slot38(message).slot4c(2); }
+#define GEOMETRY_REPORT(message) if(bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->SkipNext(); (theDebug->CrashBegin(0, 0, 0) << "Geometry for model " << Get_Name() << message).CrashDone(2); }
 class Rva0016E450Source {
 public:
  void *GetEdges(int *edgeCount);

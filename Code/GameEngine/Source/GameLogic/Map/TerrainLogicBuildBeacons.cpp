@@ -82,63 +82,8 @@ public:
 	Int m_dword_60;
 };
 
-class BfmeAwakenLog
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual BfmeAwakenLog *slot38(const char *text);
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C(int report);
-};
 
-class Debug
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual void slot38();
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C();
-	virtual void slot50();
-	virtual void slot54();
-	virtual void slot58();
-	virtual void slot5C();
-	virtual void slot60();
-	virtual void slot64();
-	virtual void slot68();
-	virtual BfmeAwakenLog *slot6C(int first, int second, int third);
-};
+#include "../../Common/debug.h"
 
 extern Debug *theDebug;
 #define TheDebug theDebug
@@ -219,9 +164,8 @@ void TerrainLogic::buildBeacons(void)
 				if (bfmeRva000387C0())
 				{
 					_bfme_debugRecordCallsite(1);
-					TheDebug->slot60();
-					TheDebug->slot6C(0, 0, 0)->slot38(
-						"TerrainLogic::buildBeacons - A beacon waypoint path has more than one link. Not allowed.")->slot4C(2);
+					TheDebug->SkipNext();
+					(TheDebug->CrashBegin(0, 0, 0) << "TerrainLogic::buildBeacons - A beacon waypoint path has more than one link. Not allowed.").CrashDone(2);
 				}
 
 				path.clear();
