@@ -60,6 +60,7 @@ public:
 
 class DamageFilteredCreateObjectDieModuleData : public DestroyDieModuleData
 {
+	friend class DamageFilteredCreateObjectDie;
 public:
 	DamageFilteredCreateObjectDieModuleData();
 
