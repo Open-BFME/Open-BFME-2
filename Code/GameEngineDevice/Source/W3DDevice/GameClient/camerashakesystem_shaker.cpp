@@ -114,11 +114,17 @@
 */
 
 // The shaker pool's allocate is the rowed 0x000658DB body (137 bytes, a
-// different shape from this template's), so call it there.
-class Rva00065964ObjectPool { public: void *rva000658DB(); };
+// different shape from this template's), so call it there. Its free is the
+// rowed 0x00065964 body (BFME's locked free); routing it there keeps this
+// unit's AutoPoolClass operator delete (reached from Add_Camera_Shake's
+// unwind) identical to retail's 0x00065D0E.
+class Rva00065964ObjectPool { public: void *rva000658DB(); void FreeObject(void *); };
 template <> __declspec(dllimport) __forceinline CameraShakeSystemClass::CameraShakerClass *
 ObjectPoolClass<CameraShakeSystemClass::CameraShakerClass, 256>::Allocate_Object_Memory()
 { return (CameraShakeSystemClass::CameraShakerClass *)((Rva00065964ObjectPool *)this)->rva000658DB(); }
+template <> __declspec(dllimport) __forceinline void
+ObjectPoolClass<CameraShakeSystemClass::CameraShakerClass, 256>::Free_Object_Memory(CameraShakeSystemClass::CameraShakerClass *obj)
+{ ((Rva00065964ObjectPool *)this)->FreeObject(obj); }
 
 DEFINE_AUTO_POOL(CameraShakeSystemClass::CameraShakerClass,256);
 
