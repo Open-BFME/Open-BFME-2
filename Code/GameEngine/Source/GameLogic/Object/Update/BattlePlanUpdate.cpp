@@ -266,7 +266,7 @@ public:
 	unsigned char m_data[0x1C];
 };
 
-struct BattlePlanUpdateModuleData
+class BattlePlanUpdateModuleData
 {
 public:
 	BattlePlanUpdateModuleData();
@@ -713,7 +713,7 @@ class Drawable;
 
 class Player;
 
-struct BattlePlanUpdateModuleData;
+class BattlePlanUpdateModuleData;
 
 class AIUpdateInterface;
 
