@@ -9,14 +9,32 @@
 // 0x2E9042 call is an equal-arm conditional (late-folded ?:), which reproduces
 // retail's argument register order (W7-R1's lever, found by W7-S2's sweep).
 #include <vector>
+#include <map>
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Rva00373373Portal {
+class Rva00373373Portal
+{
 public:
-    virtual void *destroy(unsigned int flags);
-    unsigned int id;
+	virtual void *destroy(unsigned int flags);
+	unsigned int id; // +0x04
+	char m_pad08[0x4];
+	float x; // +0x0C
+	float y; // +0x10
+	float z; // +0x14
 };
-class Rva00372CA8 { public: void remove(int value); };
-class Rva002E9042 { public: void rva002E9042(void *portal); };
+class Rva00372CA8
+{
+public:
+	void remove(int value);
+	bool contains(int value);
+};
+class Rva002E9042
+{
+public:
+	void rva002E9042(void *portal);
+	void AddPortal(void *portal);
+};
 class Rva004618D4Caller { public: void rva002E7023(); };
 class AI { public: char pad[0x10]; Rva002E9042 *pathfinder; };
 extern AI *TheAI;
@@ -63,42 +81,38 @@ extern TerrainLogic *TheTerrainLogic;
 struct Rva00373158Group : public _STL::vector<ObjectID> { bool changed; };
 struct Rva00373158Node { char pad[0x14]; Rva00373158Group *group; };
 class MineshaftPortalNetworkManager;
-namespace _STL {
-template <class T1, class T2> struct pair;
-template <class T> struct _Select1st;
-template <class T> struct less;
-template <class T> class allocator;
-template <class _Value> struct _Rb_tree_node;
-template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
-class _Rb_tree {
-    friend class ::MineshaftPortalNetworkManager;
-public:
-    ~_Rb_tree();
-private:
-    template <class _KT> _Rb_tree_node<_Value> *_M_find(const _KT &) const;
-};
-}
 // The player-keyed map's lookup is the rowed STLport map<int,int> _M_find<int> 0x00388F63.
 typedef _STL::pair<const int, int> IntIntPair;
 typedef _STL::_Rb_tree<int, IntIntPair, _STL::_Select1st<IntIntPair>, _STL::less<int>, _STL::allocator<IntIntPair> > MapIntIntTree;
+// Keep the existing out-of-line signed-key lookup; find exposes its iterator.
+template <> template <class Key> _STL::_Rb_tree_node<IntIntPair> *
+MapIntIntTree::_M_find(const Key &) const;
 class Rva0037381CMap {
 public:
     void *header;
     unsigned int count;
 };
 class Player { public: char pad[0x54]; int key; };
-class MineshaftPortalNetworkManager {
+class Waypoint;
+class MineshaftPortalNetworkManager : public SubsystemInterface, public Snapshot
+{
 public:
+    MineshaftPortalNetworkManager();
+    virtual ~MineshaftPortalNetworkManager();
+    virtual void xfer(Xfer *xfer);
+    virtual void reset();
+    virtual void update();
     void rva00373158(Rva00373373Portal *portal, int key);
     void rva003731CB(Rva00373373Portal *portal, Player *player);
-private:
-    char pad[0x10]; Rva0037381CMap map;
+    bool hasUsableNetwork(void *p);
+    void addWaypoint(Waypoint *waypoint, Player *player);
+    _STL::map<int, void *> m_map; // +0x10, after the 0xC subsystem base and the Snapshot pointer
 };
 // Manager map10/count14 and group vector0/changedC are target facts.
 // Terrain slot8C and reciprocal372CA8 removal establish portal-network maintenance.
 void MineshaftPortalNetworkManager::rva00373158(Rva00373373Portal *portal, int key)
 {
-    Rva00373158Group *group = ((Rva00373158Node *)((MapIntIntTree *)&map)->_M_find(key))->group;
+    Rva00373158Group *group = ((Rva00373158Node *)((MapIntIntTree *)&m_map)->find(key)._M_node)->group;
     Rva00373373Portal &current=*portal;
     ObjectID *end = group->end();
     for (ObjectID *it=group->begin(); it!=end; ++it) {
