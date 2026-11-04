@@ -243,7 +243,7 @@ inline bool operator!=(const BfmePod4 &x, const BfmePod4 &y) { return x.a[0] != 
 
 // tu-skeleton: 0x0009023C 106B ??1W3DFontLibrary@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x000902A6 186B ?loadFontData@W3DFontLibrary@@QAE_NPAUGameFont@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryLoadFontData.cpp (not merged yet)
+// tu-skeleton: 0x000902A6 186B ?loadFontData@W3DFontLibrary@@MAE_NPAVGameFont@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryLoadFontData.cpp (not merged yet)
 
 // tu-skeleton: 0x0075FE4B 8B uw_0075fe4b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryDestructor.cpp (not merged yet)
 

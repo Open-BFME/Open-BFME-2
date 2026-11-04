@@ -20,17 +20,9 @@
 // of the same logic save at first use and desync the whole head.
 
 
-struct GameFont
-{
-	int m_reserved0;          // +0x00, untouched by this body
-	int m_reserved1;          // +0x04, untouched by this body
-	const char *m_nameData;   // +0x08, inline AsciiString buffer pointer
-	float m_pointSize;        // +0x0C
-	int m_height;             // +0x10, handle word at +0x2C
-	void *m_fontData;         // +0x14
-	unsigned char m_bold;     // +0x18
-	int m_extra;              // +0x1C
-};
+#include "../../../../../GameEngine/Include/GameClient/GameFontClass.h"
+#include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
+#include "../../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 
 struct FontCharsHandle
 {
@@ -40,19 +32,15 @@ struct FontCharsHandle
 	int m_cachedHeight;       // +0x2C
 };
 
-struct GlobalLanguageData
-{
-	char m_pad[0x18];
-	const char *m_unicodeNameData;  // +0x18, inline AsciiString buffer pointer
-};
-
-class GlobalLanguage;
-extern GlobalLanguage *TheGlobalLanguageData;
-
-class W3DFontLibrary
+// FontLibrary's slots 14/15 (FontLibrary.h); W3DFontLibrary overrides both.
+class W3DFontLibrary : public FontLibrary
 {
 public:
-	bool loadFontData(GameFont *font);
+	virtual ~W3DFontLibrary();
+
+protected:
+	virtual bool loadFontData(GameFont *font);
+	virtual void releaseFontData(GameFont *font);
 };
 
 void *Rva0009017D(const char *name, float pointSize, bool bold, int extra);
@@ -65,26 +53,26 @@ bool W3DFontLibrary::loadFontData(GameFont *font)
 	if (font == 0)
 		return false;
 
-	if ((unsigned int)font->m_pointSize > 100)
+	if ((unsigned int)font->pointSize > 100)
 		fontChar = 0;
 	else
-		fontChar = (FontCharsHandle *)Rva0009017D(font->m_nameData ? font->m_nameData + 8 : (char *)"",
-			font->m_pointSize, font->m_bold ? true : false, font->m_extra);
+		fontChar = (FontCharsHandle *)Rva0009017D(font->nameString.str(),
+			font->pointSize, font->bold ? true : false, font->m_1C);
 
 	if (fontChar == 0)
 		return false;
 
-	font->m_fontData = fontChar;
-	font->m_height = fontChar->m_cachedHeight;
+	font->fontData = fontChar;
+	font->height = fontChar->m_cachedHeight;
 
 	FontCharsHandle *unicodeFontChar;
-	GlobalLanguageData *language = (GlobalLanguageData *)TheGlobalLanguageData;
+	GlobalLanguage *language = TheGlobalLanguageData;
 	if (language)
-		unicodeFontChar = (FontCharsHandle *)Rva0009017D(language->m_unicodeNameData ? language->m_unicodeNameData + 8 : (char *)"",
-			font->m_pointSize, font->m_bold ? true : false, font->m_extra);
+		unicodeFontChar = (FontCharsHandle *)Rva0009017D(language->m_unicodeFontName.str(),
+			font->pointSize, font->bold ? true : false, font->m_1C);
 	else
 		unicodeFontChar = (FontCharsHandle *)Rva0009017D("Arial Unicode MS",
-			font->m_pointSize, font->m_bold ? true : false, font->m_extra);
+			font->pointSize, font->bold ? true : false, font->m_1C);
 
 	if (unicodeFontChar)
 		fontChar->m_alternate = unicodeFontChar;
