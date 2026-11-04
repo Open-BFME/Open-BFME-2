@@ -1,0 +1,5 @@
+# dx8fvf consolidation trial (2026-11-04)
+
+Allocated destination: `Code/Libraries/Source/WWVegas/WW3D2/dx8fvf.cpp`; `consolidation_queue.py --check-tu` passed. The fresh WW3D2 scoped consolidation planner and its `--check` passed. The plan had 16 approved rows, five pull donors and three mixed files.
+
+`tu_skeleton.py --merge ... --dry-run` accepted no donors. `AngleFXInfoVectorInsertOverflow.cpp` was refused because its flag override costs the TU one row; `BfmeFVFDescriptorVertexDeclaration.cpp` and `Rva00181500Finish.cpp` failed on duplicate placement-new bodies; `StructureToppleUpdate.cpp` failed on conflicting Windows type declarations. The three mixed files were inspected: `MapUtil.cpp` cannot carve the row because no definition spells its name; `stlport_vector_pair.cpp` is vendored/SDK code and cannot be carved; the `GapLeavesSeat8.cpp` row can pass an isolated guarded split, but no donor merges, so applying it would increase source count without an eligible batch. No split or merge was applied. No claims were acquired, no identity/link progress is claimed, and the blockers should not be retried without a changed prerequisite.
