@@ -100,9 +100,27 @@ BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char*,int,int);
 class ShroudFilter;
 class ShroudTexture { public: ShroudFilter *getFilter(); };
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
+// _Rb_tree_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _RbVal, class _RbLeft, class _RbRight>
+static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
+                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
+{ return a._M_node != b._M_node; }
+}
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+#include "../../../Include/Common/NameKeyGenerator.h"
+
 struct ImageTextureOptions { unsigned char pad[12]; int optionC,option10; };
+
 typedef Rva001408C0Target *Rva001408C0Key;
+
 typedef _STL::set<Rva001408C0Key,_STL::less<Rva001408C0Key>,_STL::allocator<Rva001408C0Key> > Rva001408C0Set;
+
 struct AssetList00208F90 {
  Rva001408C0Set m_prototypes;
  unsigned m_treeLayoutPad;
@@ -110,10 +128,12 @@ struct AssetList00208F90 {
  AssetList00208F90():m_treeLayoutPad(0),m_changed(true) {}
  AssetList00208F90 &operator<<(const AsciiString&);
 };
-class Rva009EB960;
-extern Rva009EB960 *Rva0134FAA0;
-void bfmeMergeReceiverKeys(int);
 
+class Rva009EB960;
+
+extern Rva009EB960 *Rva0134FAA0;
+
+void bfmeMergeReceiverKeys(int);
 
 class INI;
 
@@ -132,6 +152,22 @@ private:
 };
 
 class BfmeMapPictureTexture;
+
+typedef _STL::map<unsigned int, Image *> ImageNameMap;
+
+// Image.h supplies the retail 12-byte base and 14-slot collection vtable.
+// bfme link decl-only begin
+namespace _STL { template <> _Rb_tree<unsigned int,_STL::pair<unsigned int const,Image *>,_STL::_Select1st<_STL::pair<unsigned int const,Image *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,Image *> > >::~_Rb_tree(); }
+
+namespace _STL { template <> _Rb_tree_base<_STL::pair<unsigned int const,Image *>,_STL::allocator<_STL::pair<unsigned int const,Image *> > >::~_Rb_tree_base(); }
+
+namespace _STL { template <> void _Rb_tree<unsigned int,_STL::pair<unsigned int const,Image *>,_STL::_Select1st<_STL::pair<unsigned int const,Image *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,Image *> > >::_M_erase(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *); }
+
+namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,unsigned int); }
+
+namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,unsigned int) const; }
+
+// ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
@@ -381,16 +417,6 @@ void Rva002D927EImageTree::rva002D927ECleanup()
     value.~ImageTree();
 }
 
-// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
-
-// tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
-
-// tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x002D9283 115B ??1ImageCollection@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002D92F6 53B ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/System/ImageRva002D937E.cpp
 
 //
@@ -419,14 +445,35 @@ void Image::rva002D937E()
  }
 }
 
+// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
+
+// tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
+
+// tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp
+
+//
+// ImageCollection::~ImageCollection, BFME2 retail 0x002D9283 (115B), slot 0
+// of vtable 0x00C03878 through ??_G at 0x002D9362. Zero Hour's destructor
+// (GameClient/System/Image.cpp) walks the image map and frees every image;
+// BFME 2 frees them with a global delete (virtual destructor with flag 0,
+// then operator delete) where Zero Hour returned them to their pool. The
+// map's destructor (0x002D922A) and SubsystemInterface's (0x001B4E74) follow.
+// ImageCollection and NameKeyGenerator use their canonical headers below.
+
+// bfme link decl-only end
+
+ImageCollection::~ImageCollection()
+{
+	for (ImageNameMap::iterator it = m_imageMap.begin(); it != m_imageMap.end(); ++it)
+		::delete it->second;
+}
+
+// tu-skeleton: 0x002D92F6 53B ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
+
 // tu-skeleton: 0x002D9457 48B ?addImage@ImageCollection@@QAEXPAVImage@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
 
 // tu-skeleton: 0x00777AC1 8B $L5516 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
 
 // tu-skeleton: 0x00777AC9 10B __ehhandler$??1?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x00777AD3 8B $L6057 -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00777ADB 11B $L6058 -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00777AE6 10B __ehhandler$??1ImageCollection@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
