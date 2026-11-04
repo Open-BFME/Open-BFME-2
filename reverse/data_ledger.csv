@@ -2712,7 +2712,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007D4E4C,16,.rdata,global,_IID_IUnknown,Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComCreateInstance.cpp,provisional,_IID_IUnknown;__GUID_00000000_0000_0000_c000_000000000046,1,2
 0x007D4E5C,20,.rdata,string,??_C@_0BC@NPBLIDJ@DllRegisterServer?$AA@,,literal,,0,1
 0x007D4E70,20,.rdata,string,??_C@_0BC@KDIMPPDG@BrowserEngine?4DLL?$AA@,,literal,,0,1
-0x007D4E84,16,.rdata,global,__GUID_2b2cc8b0_2dc0_48c6_b6fd_c07820a6477e,Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp,owned,,0,2
+0x007D4E84,16,.rdata,global,__GUID_2b2cc8b0_2dc0_48c6_b6fd_c07820a6477e,Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp,owned,,0,2
 0x007D4E94,4,.rdata,vtable,??_7PointGroupClass@@6B@,,literal,,0,2
 0x007D4E98,4,.rdata,float,__real@3f7f0069,,literal,,0,1
 0x007D4E9C,24,.rdata,vtable,??_7?$VectorClass@E@@6B@,,literal,??_7?$VectorClass@E@@6B@;_RvaBd4e9cVtable@Code/GameEngine/Source/Common/System/Rva007B7280Siblings.cpp,1,5
