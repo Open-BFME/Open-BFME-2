@@ -198,19 +198,7 @@ public:
 	LivingWorldBuildingTemplate *m_template;   // +0x28
 };
 
-class LivingWorldRegion
-{
-public:
-	int rva003F1053();
-	LivingWorldBuilding *GetBuildingByIndex(int index) const;
-
-	char m_pad000[0x58];
-	int m_58;                                  // +0x58
-	char m_pad05c[0x12C - 0x5C];
-	int m_regionID;                            // +0x12C
-	char m_pad130[0x13C - 0x130];
-	int m_ownerID;                             // +0x13C
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegion.h"
 
 class Rva003F287F
 {
@@ -338,11 +326,11 @@ void LWAIWorldInformation::GatherWorldInformation()
 	{
 		LivingWorldRegion *region = (*regions)[i];
 		Rva00501656 info;
-		int regionID = region->m_regionID;
+		int regionID = region->m_field12C;
 		info.m_regionID = regionID;
-		int ownerID = region->m_ownerID;
+		int ownerID = region->m_field13C;
 		info.m_ownerID = (1 ? ownerID : ownerID);
-		info.m_08 = region->m_58;
+		info.m_08 = region->m_field58;
 		info.m_0c = region->rva003F1053();
 		info.m_1c.clear();
 		info.m_10.clear();
