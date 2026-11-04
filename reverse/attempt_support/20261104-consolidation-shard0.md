@@ -90,3 +90,24 @@ candidate checked for continuation is
 `Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgrade.cpp`
 (allocation check exit 0). Refresh allocator and scoped planner evidence before
 working it.
+
+## Follow-up session, continued
+
+`Code/GameEngine/Source/GameLogic/Object/Upgrade/SpellRechargeModifierUpgrade.cpp`
+passed its allocation check and the refreshed scoped planner check. Its merge
+dry run accepted no donors: the constructor donor fails because the destination
+view lacks `SpellRechargeModifierUpgrade(Thing *, const ModuleData *)`. The
+`FireWeaponWhenDeadBehaviorDerived.cpp` mixed-file split for this TU was refused
+because no row is approved for the destination. The
+`UpgradeModuleDataGetterBuildFieldParse.cpp` split carved `0x004B60FA`, but the
+link guard refused it: the moved `buildFieldParse` selected COMDAT lacks
+matching private/weak-free context. Nothing was applied.
+
+A fresh allocated `Code/GameEngine/Source/GameLogic/Object/Create/SupplyWarehouseCreate.cpp`
+trial also accepted no donors. `SupplyWarehouseCreatePoolKey.cpp` fails to
+compile together because `SubsystemInterface` is redefined. The split of
+`ConstIntGetters4.cpp` for this TU carved `0x004B8EA2` but compilation was
+refused for `Coord3D` and `Thing` redefinitions. The split of
+`Rva004B8CDEDerived.cpp` carved `0x004B8EA8`; the link guard refused its
+constructor and selected vtable COMDAT contexts. No merge or split was applied.
+These blockers need source/header or link-context repair outside this seat.
