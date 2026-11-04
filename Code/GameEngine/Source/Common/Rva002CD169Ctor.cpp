@@ -44,16 +44,7 @@ struct Rva002CD169RefSlot { unsigned address; __forceinline Rva002CD169RefSlot()
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class CashHackSpecialPowerModuleData
-{
-public:
-	struct Upgrades
-	{
-		Upgrades();
-		int m_science;
-		int m_amount;
-	};
-};
+#include "../../Include/GameLogic/Module/CashHackSpecialPowerModuleData.h"
 
 // The existing Upgrades constructor is a byte-identical two-word initializer
 // (-1, null). This containment view transports that existing call; it does
@@ -62,7 +53,7 @@ public:
 // Weapon destructor at 002CD4A6 (+D4 and +DC).
 struct Rva002CD169RefWords {
  CashHackSpecialPowerModuleData::Upgrades words;
- __forceinline ~Rva002CD169RefWords(){if(words.m_amount)((OpaqueRefCounted*)words.m_amount)->Release_Ref();}
+ __forceinline ~Rva002CD169RefWords(){if(words.m_amountToSteal)((OpaqueRefCounted*)words.m_amountToSteal)->Release_Ref();}
 };
 #include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
