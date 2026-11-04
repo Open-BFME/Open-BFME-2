@@ -138,7 +138,8 @@ public:
 	bool empty() const { return m_head->m_next == m_head; }
 	Rva004AD613Iterator begin() const { Rva004AD613Iterator it; it.m_node = m_head->m_next; return it; }
 	Rva004AD613Iterator end() const { Rva004AD613Iterator it; it.m_node = m_head; return it; }
-	void reset();
+	void init(void *context);
+	void reset() throw();
 	Rva004AD613Node *m_head;
 };
 
@@ -188,9 +189,23 @@ private:
 	unsigned char m_pad24[0x88 - 0x24];
 };
 
-class GloriousChargeUpdate : public SpecialAbilityUpdate
+// The spelling the derived ctors use for SpecialAbilityUpdate's ctor (row
+// 0x0044EF5E); ??1Rva0044EF5E is bound to the complete dtor 0x00451F45.
+class Rva0044EF5E : public SpecialAbilityUpdate
 {
 public:
+	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva0044EF5E();
+};
+
+// The ctor 0x004AD680 and dtor 0x004AD58C store retail's four (folded)
+// vtables themselves: this view models only some primary slots, so it must
+// not emit a vtable of its own.
+class __declspec(novtable) GloriousChargeUpdate : public Rva0044EF5E
+{
+public:
+	GloriousChargeUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~GloriousChargeUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void startPreparation();
 	void rva004AD613();
