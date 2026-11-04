@@ -938,38 +938,7 @@ public:
 	Matrix3D Transform;
 };
 
-class Rva000BE245Report;
-
-class Debug
-{
-public:
-#define S(n) virtual void s##n();
-	S(00) S(04) S(08) S(0C) S(10) S(14) S(18) S(1C) S(20) S(24) S(28) S(2C) S(30) S(34) S(38) S(3C)
-	S(40) S(44) S(48) S(4C) S(50) S(54) S(58) S(5C)
-	virtual void beginReport();
-	S(64) S(68)
-#undef S
-	virtual Rva000BE245Report *getReport(int, int, int);
-
-	class Format
-	{
-	public:
-		Format(const char *format, ...);
-	private:
-		char m_text[0x200];
-	};
-};
-class Rva000BE245Report
-{
-public:
-#define S(n) virtual void s##n();
-	S(00) S(04) S(08) S(0C) S(10) S(14) S(18) S(1C) S(20) S(24) S(28) S(2C) S(30) S(34)
-	virtual Rva000BE245Report *setText(const char *text);
-	S(3C) S(40) S(44) S(48)
-#undef S
-	virtual void show(int mode);
-	Rva000BE245Report &operator<<(const Debug::Format &value) { setText((const char *)&value); return *this; }
-};
+#include "debug.h"
 
 extern Debug *theDebug;
 bool bfmeRva000387C0();
@@ -1075,10 +1044,10 @@ void Rva000C3886::rva000BE245(void *first, float scale, Rva000C3886Obj *obj, voi
 			if (bfmeRva000387C0())
 			{
 				_bfme_debugRecordCallsite(1);
-				theDebug->beginReport();
+				theDebug->SkipNext();
 				const char *name = getModelName(which)->str();
-				Rva000BE245Report *out = theDebug->getReport(0, 0, 0);
-				(*out << Debug::Format("ASSET ERROR: Model %s not found!\n", name)).show(2);
+				Debug &out = theDebug->CrashBegin(0, 0, 0);
+				(out << Debug::Format("ASSET ERROR: Model %s not found!\n", name)).CrashDone(2);
 			}
 			return;
 		}
@@ -1114,14 +1083,14 @@ void Rva000C3886::rva000BE245(void *first, float scale, Rva000C3886Obj *obj, voi
 				if (bfmeRva000387C0())
 				{
 					_bfme_debugRecordCallsite(1);
-					theDebug->beginReport();
-					theDebug->getReport(0, 0, 0)
-						->setText("Animation ")
-						->setText(((const Rva000B4926 *)&obj->m_animations.front())->rva000B4926().str())
-						->setText(" in ")
-						->setText(getModelName(which)->str())
-						->setText(" not found.\n")
-						->show(2);
+					theDebug->SkipNext();
+					(theDebug->CrashBegin(0, 0, 0)
+						<< "Animation "
+						<< ((const Rva000B4926 *)&obj->m_animations.front())->rva000B4926().str()
+						<< " in "
+						<< getModelName(which)->str()
+						<< " not found.\n"
+						).CrashDone(2);
 				}
 				goto anim_done;
 			}
@@ -1164,14 +1133,14 @@ anim_done:
 			if (bfmeRva000387C0())
 			{
 				_bfme_debugRecordCallsite(1);
-				theDebug->beginReport();
-				theDebug->getReport(0, 0, 0)
-					->setText("A bone named '")
-					->setText(it->str())
-					->setText("' is needed in model ")
-					->setText(getModelName(which)->str())
-					->setText(" but it's not there.\nThis is either an art error (missing bone) or a design error (INI references the wrong bone).\n")
-					->show(2);
+				theDebug->SkipNext();
+				(theDebug->CrashBegin(0, 0, 0)
+					<< "A bone named '"
+					<< it->str()
+					<< "' is needed in model "
+					<< getModelName(which)->str()
+					<< " but it's not there.\nThis is either an art error (missing bone) or a design error (INI references the wrong bone).\n"
+					).CrashDone(2);
 			}
 		}
 	}

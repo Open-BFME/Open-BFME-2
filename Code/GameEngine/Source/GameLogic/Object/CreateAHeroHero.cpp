@@ -410,58 +410,7 @@ void Rva0040718FForward(void *,const AsciiString &,int,Rva00407137 *);
 class Rva00407218 { public: void rva00407218(void *,void *); };
 class Rva00407E28 { public: bool rva00407E53(int); bool rva00407DE0(int,int); };
 class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); bool rva00408A55(); };
-class HeroTransferLog { public:
-virtual void slot00();
-virtual void slot01();
-virtual void slot02();
-virtual void slot03();
-virtual void slot04();
-virtual void slot05();
-virtual void slot06();
-virtual void slot07();
-virtual void slot08();
-virtual void slot09();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual HeroTransferLog *message(const char *);
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual void slot18();
-virtual void severity(int);
-};
-class Debug { public:
-virtual void slot00();
-virtual void slot01();
-virtual void slot02();
-virtual void slot03();
-virtual void slot04();
-virtual void slot05();
-virtual void slot06();
-virtual void slot07();
-virtual void slot08();
-virtual void slot09();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual void slot18();
-virtual void slot19();
-virtual void slot20();
-virtual void slot21();
-virtual void slot22();
-virtual void slot23();
-virtual void slot24();
-virtual void slot25();
-virtual void slot26();
-virtual HeroTransferLog *record(int,int,int);
-};
+#include "../../Common/debug.h"
 extern Debug *theDebug;
 void _bfme_debugRecordCallsite(int);
 
@@ -948,8 +897,8 @@ void CreateAHeroHero::DoXfer(Xfer &xfer)
             AsciiString group;
             { AsciiString tag("GroupName"); Rva0040718FForward(&xfer,group,(int)&tag,(Rva00407137*)&crc); }
             if(group.isNone() || group.isEmpty()) {
-                _bfme_debugRecordCallsite(1); theDebug->slot24();
-                theDebug->record(0,0,0)->message("Fatal error in CreateAHeroHero::DoXfer(Xfer& xfer). Invalid or empty bling group name.")->severity(1);
+                _bfme_debugRecordCallsite(1); theDebug->SkipNext();
+                (theDebug->CrashBegin(0, 0, 0) << "Fatal error in CreateAHeroHero::DoXfer(Xfer& xfer). Invalid or empty bling group name.").CrashDone(1);
             }
             NameKeyType key=TheNameKeyGenerator->nameToKey(group);
             unsigned index=0;
@@ -963,8 +912,8 @@ void CreateAHeroHero::DoXfer(Xfer &xfer)
         for(_STL::map<int,int>::iterator i=m_bling.begin();i!=m_bling.end();++i) {
             AsciiString group(TheNameKeyGenerator->keyToName((NameKeyType)i->first));
             if(group.isNone() || group.isEmpty()) {
-                _bfme_debugRecordCallsite(1); theDebug->slot24();
-                theDebug->record(0,0,0)->message("Fatal error in CreateAHeroHero::DoXfer(Xfer& xfer). Invalid or empty bling group name.")->severity(1);
+                _bfme_debugRecordCallsite(1); theDebug->SkipNext();
+                (theDebug->CrashBegin(0, 0, 0) << "Fatal error in CreateAHeroHero::DoXfer(Xfer& xfer). Invalid or empty bling group name.").CrashDone(1);
             }
             { AsciiString tag("GroupName"); Rva0040718FForward(&xfer,group,(int)&tag,(Rva00407137*)&crc); }
             unsigned index=i->second;
