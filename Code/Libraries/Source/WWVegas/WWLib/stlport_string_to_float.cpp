@@ -10,34 +10,9 @@
 // thing separating it from the double one, since MSVC 7.1 stores both as
 // eight bytes.
 
-namespace _STL
-{
+#include <string>
 
-template <class T>
-class char_traits {};
-
-template <class T>
-class allocator {};
-
-template <class Pointer, class Value, class Alloc>
-class _STLP_alloc_proxy : public Alloc
-{
-public:
-	Pointer _M_data;
-};
-
-template <class CharT, class Traits, class Alloc>
-class basic_string
-{
-public:
-	const CharT *c_str() const { return _M_start; }
-
-	CharT *_M_start;
-	CharT *_M_finish;
-	_STLP_alloc_proxy<CharT *, CharT, Alloc> _M_end_of_storage;
-};
-
-typedef basic_string<char, char_traits<char>, allocator<char> > string;
+_STLP_BEGIN_NAMESPACE
 
 double __cdecl _Stl_string_to_double(const char *s);
 long double __cdecl _Stl_string_to_long_double(const char *s);
@@ -57,4 +32,4 @@ void __cdecl __string_to_float(const string &v, long double &val)
 	val = _Stl_string_to_long_double(v.c_str());
 }
 
-}
+_STLP_END_NAMESPACE
