@@ -12275,7 +12275,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::DEBUG_addFloatingText	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::buildRegion	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::cameoVideoBuffer	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::clearFloatingText	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::crc	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::createAttackHint	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::createForceAttackHint	1
@@ -12299,7 +12298,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::isSel
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::playMovie	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::registerWindowLayout	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::removeMessageAtIndex	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::removeNamedTimer	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::resetIdleWorker	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByType	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossMap	1

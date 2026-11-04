@@ -39,3 +39,5 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
   so those two copies and `freeBlock` remain; the host still does not link.
 - **Clearance:** none. No census-linked byte gained or lost.
 - **Census confirmation:** not applicable yet.
+
+- **2026-11-04 prerequisite cleanup:** removed unused donor `removeNamedTimer` / `clearFloatingText` bodies and the host's conflicting `deleteInstance` copy; four rows stay exact, preview blockers 2 -> 1, LINKED 0 -> 0. Next: `BitFlags<116>` and the merge guard's `Drawable::isSelected` conflict; [provider audit and handoff](../../reverse/attempt_support/ingameui-donor-prune-20261104-codex5.md).

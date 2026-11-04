@@ -486,21 +486,6 @@ Bool InGameUI::getSuperweaponDisplayEnabledByScript(void) const
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::removeNamedTimer present-unmatched
-void InGameUI::removeNamedTimer( const AsciiString& timerName )
-{
-	NamedTimerMapIt mapIt = m_namedTimers.find(timerName);
-	if (mapIt != m_namedTimers.end())
-	{
-		TheDisplayStringManager->freeDisplayString( mapIt->second->displayString );
-		mapIt->second->deleteInstance();
-		m_namedTimers.erase(mapIt);
-		return;
-	}
-}
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
 // ?InGameUI::showNamedTimerDisplay present-unmatched
 void InGameUI::showNamedTimerDisplay( Bool show )
 {
@@ -1550,23 +1535,6 @@ try_again:
 /** Itterates through and draws each floating text */
 //-------------------------------------------------------------------------------------------------
 // InGameUI::drawFloatingText: defined in InGameUI_drawFloatingText.cpp (its row's unit).
-
-//-------------------------------------------------------------------------------------------------
-/** ittereate through and clear out the list of floating text */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::clearFloatingText present-unmatched
-void InGameUI::clearFloatingText( void )
-{
-	FloatingTextData *ftd;
-	// loop through and draw all the texts
-	for(FloatingTextListIt it = m_floatingTextList.begin(); it != m_floatingTextList.end();)
-	{
-		ftd = *it;
-		it = m_floatingTextList.erase(it);
-		ftd->deleteInstance();
-	}
-	
-}
 
 // NOTE (link lane): the Zero Hour bodies of InGameUI::popupMessage (both
 // overloads) and InGameUI::clearPopupMessageData were dropped. No row holds
