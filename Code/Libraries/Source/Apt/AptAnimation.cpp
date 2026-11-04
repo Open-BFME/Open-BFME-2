@@ -26,11 +26,8 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #define PCHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
 #define QCHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_Apt.h",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
 
-class AptValue {
-public:
-    virtual void AddRef();
-    virtual void Release();
-};
+#include "AptValue.h"
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 #include "BfmeAptValue006DCD20.h"
 class Rva006DBB30SarDwordField {
 public:
@@ -107,10 +104,6 @@ struct AptActionInterpreter {
 };
 extern AptActionInterpreter g_aptDateInterpreter;
 
-class AptInteger {
-public:
-    static AptValue *Create(int);
-};
 class Rva006E34D0 {
 public:
     char unknown[0x68];
@@ -195,8 +188,8 @@ struct AptIntervalTimer {
 // 0x006D0B40; sprite and movie characters forward to 0x0070E900 and button
 // action streams to 0x006FD060. The receiver and record views are local
 // data-format views, not a claimed donor layout. The import key temp needs
-// /EHsc; defined here ahead of the pool members (appended after them the
-// character-loop head reloads pBase/pConstantFile in swapped order).
+// /EHsc. With the canonical scalar headers, define the fixup after the pool
+// members to preserve the character-loop pBase/pConstantFile load order.
 #define AOFFSET(field) if(field)(unsigned &)(field)+=(unsigned)pBase
 extern void *g_aptLoadRenderingUnitSlot;
 extern void *g_aptLoadSoundSlot;
@@ -257,109 +250,6 @@ class Rva006E58D0 {
 public:
  void rva006E5050(void *pBase,void *pConstantFile,void *pLoadContext);
 };
-void Rva006E58D0::rva006E5050(void *pBase,void *pConstantFile,void *pLoadContext)
-{
- ACHECK((unsigned)apCharacters < 0xfffff,0x28,"(unsigned)apCharacters < 0xfffff");
- AOFFSET(apCharacters);
- ACHECK((unsigned)aExports < 0xfffff,0x2c,"(unsigned)aExports < 0xfffff");
- AOFFSET(aExports);
- int i;
- for(i=0;i<nExports;i++) {
-  ACHECK((unsigned)aExports[i].szName < 0xfffff,0x2f,"(unsigned)aExports[i].szName < 0xfffff");
-  AOFFSET(aExports[i].szName);
- }
- for(i=0;i<nCharacters;i++) {
-  ACHECK((unsigned)apCharacters[i] < 0xfffff,0x35,"(unsigned)apCharacters[i] < 0xfffff");
-  AOFFSET(apCharacters[i]);
-  if(apCharacters[i]) {
-   ACHECK((unsigned int)apCharacters[i]->pParentAnim == 0x09876543,0x38,"(unsigned int)apCharacters[i]->pParentAnim == 0x09876543");
-   apCharacters[i]->pParentAnim=apCharacters[0];
-   switch(apCharacters[i]->type) {
-   case 1:
-    ACHECK((int)apCharacters[i]->shape.zID == i,0x3f,"(int)apCharacters[i]->shape.zID == i");
-    apCharacters[i]->shape.zID=((AptLoadIdFn)g_aptLoadRenderingUnitSlot)(pLoadContext,i);
-    break;
-   case 2:
-    ACHECK((unsigned)apCharacters[i]->text.szInitialText < 0xfffff,0x45,"(unsigned)apCharacters[i]->text.szInitialText < 0xfffff");
-    AOFFSET(apCharacters[i]->text.szInitialText);
-    ACHECK((unsigned)apCharacters[i]->text.szVariable < 0xfffff,0x46,"(unsigned)apCharacters[i]->text.szVariable < 0xfffff");
-    AOFFSET(apCharacters[i]->text.szVariable);
-    break;
-   case 3:
-    ACHECK((unsigned)apCharacters[i]->font.szName < 0xfffff,0x4b,"(unsigned)apCharacters[i]->font.szName < 0xfffff");
-    AOFFSET(apCharacters[i]->font.szName);
-    ACHECK((unsigned)apCharacters[i]->font.apGlyphs < 0xfffff,0x4c,"(unsigned)apCharacters[i]->font.apGlyphs < 0xfffff");
-    AOFFSET(apCharacters[i]->font.apGlyphs);
-    break;
-   case 4:
-    {
-    ACHECK((unsigned)apCharacters[i]->button.mHitTestVertexTable < 0xfffff,0x54,"(unsigned)apCharacters[i]->button.mHitTestVertexTable < 0xfffff");
-    AOFFSET(apCharacters[i]->button.mHitTestVertexTable);
-    ACHECK((unsigned)apCharacters[i]->button.mHitTestIndexTable < 0xfffff,0x55,"(unsigned)apCharacters[i]->button.mHitTestIndexTable < 0xfffff");
-    AOFFSET(apCharacters[i]->button.mHitTestIndexTable);
-    ACHECK((unsigned)apCharacters[i]->button.aButtonRecords < 0xfffff,0x57,"(unsigned)apCharacters[i]->button.aButtonRecords < 0xfffff");
-    AOFFSET(apCharacters[i]->button.aButtonRecords);
-    ACHECK((unsigned)apCharacters[i]->button.aActionConditions < 0xfffff,0x58,"(unsigned)apCharacters[i]->button.aActionConditions < 0xfffff");
-    AOFFSET(apCharacters[i]->button.aActionConditions);
-    for(int j=0;j<apCharacters[i]->button.nActionConditions;j++) {
-     ACHECK((unsigned)apCharacters[i]->button.aActionConditions[j].actions.aActionStream < 0xfffff,0x5b,"(unsigned)apCharacters[i]->button.aActionConditions[j].actions.aActionStream < 0xfffff");
-     AOFFSET(apCharacters[i]->button.aActionConditions[j].actions.aActionStream);
-     Rva006FD060Forward(apCharacters[i]->button.aActionConditions[j].actions.aActionStream,pBase,pConstantFile,&m_field30);
-    }
-    ACHECK((unsigned)apCharacters[i]->button.pButtonSound < 0xfffff,0x5e,"(unsigned)apCharacters[i]->button.pButtonSound < 0xfffff");
-    AOFFSET(apCharacters[i]->button.pButtonSound);
-    }
-    break;
-   case 5:
-    apCharacters[i]->sprite.rva0070E900(pBase,pConstantFile,&m_field30);
-    break;
-   case 6:
-    {
-    const char *szName=0;
-    ACHECK((int)apCharacters[i]->sound.zID == i,0x6f,"(int)apCharacters[i]->sound.zID == i");
-    for(int j=0;j<nExports;j++)
-     if(aExports[j].zID==i)
-      szName=aExports[j].szName;
-    apCharacters[i]->sound.zID=((AptLoadSoundFn)g_aptLoadSoundSlot)(pLoadContext,i,szName);
-    }
-    break;
-   case 7:
-    ACHECK((int)apCharacters[i]->bitmap.zID == i,0x8c,"(int)apCharacters[i]->bitmap.zID == i");
-    apCharacters[i]->bitmap.zID=((AptLoadIdFn)g_aptLoadTextureSlot)(pLoadContext,i);
-    break;
-   case 8:
-    break;
-   case 9:
-    apCharacters[i]->movie.rva0070E900(pBase,pConstantFile,&m_field30);
-    ACHECK(i == 0,0x97,"i == 0");
-    break;
-   case 10:
-    ACHECK((unsigned)apCharacters[i]->statictext.aRecords < 0xfffff,0x9e,"(unsigned)apCharacters[i]->statictext.aRecords < 0xfffff");
-    AOFFSET(apCharacters[i]->statictext.aRecords);
-    for(int j=0;j<apCharacters[i]->statictext.nRecords;j++) {
-     ACHECK((unsigned)apCharacters[i]->statictext.aRecords[j].aGlyphs < 0xfffff,0xa1,"(unsigned)apCharacters[i]->statictext.aRecords[j].aGlyphs < 0xfffff");
-     AOFFSET(apCharacters[i]->statictext.aRecords[j].aGlyphs);
-    }
-    break;
-   case 12:
-    break;
-   default:
-    ACHECK(0,0xa9,"NOT_REACHED");
-    break;
-   }
-  }
- }
- ACHECK((unsigned)aImports < 0xfffff,0xaf,"(unsigned)aImports < 0xfffff");
- AOFFSET(aImports);
- for(i=0;i<nImports;i++) {
-  ACHECK((unsigned)aImports[i].szFile < 0xfffff,0xb2,"(unsigned)aImports[i].szFile < 0xfffff");
-  AOFFSET(aImports[i].szFile);
-  ACHECK((unsigned)aImports[i].szName < 0xfffff,0xb3,"(unsigned)aImports[i].szName < 0xfffff");
-  AOFFSET(aImports[i].szName);
-  aImports[i].movie=((Rva006D0A30List *)g_rva00893030Manager)->rva006D0B40(EAStringC(aImports[i].szFile));
- }
-}
-
 class AptAnimationPoolData {
 public:
     char unknown[0x34];
@@ -503,4 +393,107 @@ void AptAnimationPoolData::removeTimerFunctions(AptCIH *cih)
         if (--left == 0)
             break;
     }
+}
+
+void Rva006E58D0::rva006E5050(void *pBase,void *pConstantFile,void *pLoadContext)
+{
+ ACHECK((unsigned)apCharacters < 0xfffff,0x28,"(unsigned)apCharacters < 0xfffff");
+ AOFFSET(apCharacters);
+ ACHECK((unsigned)aExports < 0xfffff,0x2c,"(unsigned)aExports < 0xfffff");
+ AOFFSET(aExports);
+ int i;
+ for(i=0;i<nExports;i++) {
+  ACHECK((unsigned)aExports[i].szName < 0xfffff,0x2f,"(unsigned)aExports[i].szName < 0xfffff");
+  AOFFSET(aExports[i].szName);
+ }
+ for(i=0;i<nCharacters;i++) {
+  ACHECK((unsigned)apCharacters[i] < 0xfffff,0x35,"(unsigned)apCharacters[i] < 0xfffff");
+  AOFFSET(apCharacters[i]);
+  if(apCharacters[i]) {
+   ACHECK((unsigned int)apCharacters[i]->pParentAnim == 0x09876543,0x38,"(unsigned int)apCharacters[i]->pParentAnim == 0x09876543");
+   apCharacters[i]->pParentAnim=apCharacters[0];
+   switch(apCharacters[i]->type) {
+   case 1:
+    ACHECK((int)apCharacters[i]->shape.zID == i,0x3f,"(int)apCharacters[i]->shape.zID == i");
+    apCharacters[i]->shape.zID=((AptLoadIdFn)g_aptLoadRenderingUnitSlot)(pLoadContext,i);
+    break;
+   case 2:
+    ACHECK((unsigned)apCharacters[i]->text.szInitialText < 0xfffff,0x45,"(unsigned)apCharacters[i]->text.szInitialText < 0xfffff");
+    AOFFSET(apCharacters[i]->text.szInitialText);
+    ACHECK((unsigned)apCharacters[i]->text.szVariable < 0xfffff,0x46,"(unsigned)apCharacters[i]->text.szVariable < 0xfffff");
+    AOFFSET(apCharacters[i]->text.szVariable);
+    break;
+   case 3:
+    ACHECK((unsigned)apCharacters[i]->font.szName < 0xfffff,0x4b,"(unsigned)apCharacters[i]->font.szName < 0xfffff");
+    AOFFSET(apCharacters[i]->font.szName);
+    ACHECK((unsigned)apCharacters[i]->font.apGlyphs < 0xfffff,0x4c,"(unsigned)apCharacters[i]->font.apGlyphs < 0xfffff");
+    AOFFSET(apCharacters[i]->font.apGlyphs);
+    break;
+   case 4:
+    {
+    ACHECK((unsigned)apCharacters[i]->button.mHitTestVertexTable < 0xfffff,0x54,"(unsigned)apCharacters[i]->button.mHitTestVertexTable < 0xfffff");
+    AOFFSET(apCharacters[i]->button.mHitTestVertexTable);
+    ACHECK((unsigned)apCharacters[i]->button.mHitTestIndexTable < 0xfffff,0x55,"(unsigned)apCharacters[i]->button.mHitTestIndexTable < 0xfffff");
+    AOFFSET(apCharacters[i]->button.mHitTestIndexTable);
+    ACHECK((unsigned)apCharacters[i]->button.aButtonRecords < 0xfffff,0x57,"(unsigned)apCharacters[i]->button.aButtonRecords < 0xfffff");
+    AOFFSET(apCharacters[i]->button.aButtonRecords);
+    ACHECK((unsigned)apCharacters[i]->button.aActionConditions < 0xfffff,0x58,"(unsigned)apCharacters[i]->button.aActionConditions < 0xfffff");
+    AOFFSET(apCharacters[i]->button.aActionConditions);
+    for(int j=0;j<apCharacters[i]->button.nActionConditions;j++) {
+     ACHECK((unsigned)apCharacters[i]->button.aActionConditions[j].actions.aActionStream < 0xfffff,0x5b,"(unsigned)apCharacters[i]->button.aActionConditions[j].actions.aActionStream < 0xfffff");
+     AOFFSET(apCharacters[i]->button.aActionConditions[j].actions.aActionStream);
+     Rva006FD060Forward(apCharacters[i]->button.aActionConditions[j].actions.aActionStream,pBase,pConstantFile,&m_field30);
+    }
+    ACHECK((unsigned)apCharacters[i]->button.pButtonSound < 0xfffff,0x5e,"(unsigned)apCharacters[i]->button.pButtonSound < 0xfffff");
+    AOFFSET(apCharacters[i]->button.pButtonSound);
+    }
+    break;
+   case 5:
+    apCharacters[i]->sprite.rva0070E900(pBase,pConstantFile,&m_field30);
+    break;
+   case 6:
+    {
+    const char *szName=0;
+    ACHECK((int)apCharacters[i]->sound.zID == i,0x6f,"(int)apCharacters[i]->sound.zID == i");
+    for(int j=0;j<nExports;j++)
+     if(aExports[j].zID==i)
+      szName=aExports[j].szName;
+    apCharacters[i]->sound.zID=((AptLoadSoundFn)g_aptLoadSoundSlot)(pLoadContext,i,szName);
+    }
+    break;
+   case 7:
+    ACHECK((int)apCharacters[i]->bitmap.zID == i,0x8c,"(int)apCharacters[i]->bitmap.zID == i");
+    apCharacters[i]->bitmap.zID=((AptLoadIdFn)g_aptLoadTextureSlot)(pLoadContext,i);
+    break;
+   case 8:
+    break;
+   case 9:
+    apCharacters[i]->movie.rva0070E900(pBase,pConstantFile,&m_field30);
+    ACHECK(i == 0,0x97,"i == 0");
+    break;
+   case 10:
+    ACHECK((unsigned)apCharacters[i]->statictext.aRecords < 0xfffff,0x9e,"(unsigned)apCharacters[i]->statictext.aRecords < 0xfffff");
+    AOFFSET(apCharacters[i]->statictext.aRecords);
+    for(int j=0;j<apCharacters[i]->statictext.nRecords;j++) {
+     ACHECK((unsigned)apCharacters[i]->statictext.aRecords[j].aGlyphs < 0xfffff,0xa1,"(unsigned)apCharacters[i]->statictext.aRecords[j].aGlyphs < 0xfffff");
+     AOFFSET(apCharacters[i]->statictext.aRecords[j].aGlyphs);
+    }
+    break;
+   case 12:
+    break;
+   default:
+    ACHECK(0,0xa9,"NOT_REACHED");
+    break;
+   }
+  }
+ }
+ ACHECK((unsigned)aImports < 0xfffff,0xaf,"(unsigned)aImports < 0xfffff");
+ AOFFSET(aImports);
+ for(i=0;i<nImports;i++) {
+  ACHECK((unsigned)aImports[i].szFile < 0xfffff,0xb2,"(unsigned)aImports[i].szFile < 0xfffff");
+  AOFFSET(aImports[i].szFile);
+  ACHECK((unsigned)aImports[i].szName < 0xfffff,0xb3,"(unsigned)aImports[i].szName < 0xfffff");
+  AOFFSET(aImports[i].szName);
+  aImports[i].movie=((Rva006D0A30List *)g_rva00893030Manager)->rva006D0B40(EAStringC(aImports[i].szFile));
+ }
 }
