@@ -43,21 +43,12 @@ struct Rva0057DA21Waypoint
 	Coord3D pos;
 };
 
-class MapMetaData
-{
-public:
-	MapMetaData(const MapMetaData &);
-	~MapMetaData();
-	UnicodeString getDescription();
-	UnicodeString bfme_getDisplayName(bool includePlayerCount);
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
-	char m_pad00[0x20];
-	int m_numPlayers;		// +0x20
-	bool m_isMultiplayer;	// +0x24
-	char m_pad25[0x38 - 0x25];
-	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
-	char m_pad44[0x100 - 0x44];
-};
+// MapMetaData +0x38 (opaque in the canonical header): the waypoint map.
+typedef _STL::map<AsciiString, Rva0057DA21Waypoint> WaypointMap;
+static inline WaypointMap &waypoints(MapMetaData &mmd)
+{ return reinterpret_cast<WaypointMap &>(mmd.field38); }
 
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
@@ -152,8 +143,8 @@ void positionStartSpots(AsciiString mapName, GameWindow **buttonMapStartPosition
 		for (int i = 0; i < mmd.m_numPlayers && mmd.m_isMultiplayer; ++i)
 		{
 			waypointName.format("Player_%d_Start", i + 1);
-			_STL::map<AsciiString, Rva0057DA21Waypoint>::iterator wmIt = mmd.m_waypoints.find(waypointName);
-			if (wmIt != mmd.m_waypoints.end())
+			WaypointMap::iterator wmIt = waypoints(mmd).find(waypointName);
+			if (wmIt != waypoints(mmd).end())
 			{
 				Coord3D *pos = &(*wmIt).second.pos;
 				positionStartSpotControls(buttonMapStartPositions[i], mapWindow, pos, &mmd, buttonMapStartPositions);
