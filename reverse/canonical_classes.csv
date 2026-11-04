@@ -654,3 +654,4 @@ GettingBuiltBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GettingB
 W3DTerrainVisual,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisualClass.h,existing header; contract class_contracts/W3DTerrainVisual.json; 3/13 sampled units adopt
 AttributeModifierAuraUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h,existing header; contract class_contracts/AttributeModifierAuraUpdateModuleData.json; 4/10 sampled units adopt
 HashableClass,Code/Libraries/Source/WWVegas/WWLib/HashableClass.h,existing header; contract class_contracts/HashableClass.json; 6/9 sampled units adopt
+HashTableClass,Code/Libraries/Source/WWVegas/WWLib/HashableClass.h,existing header; contract class_contracts/HashTableClass.json; 3/4 sampled units adopt
