@@ -3,7 +3,9 @@
 Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
 `f2cec2a7f8`: report tie fix, Drawable.h constant and 84 rowed copies, bridged 969 -> 885 on the
 fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40
-rowed in their units, bridged 885 -> 845; next seat continues).
+rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are
+file-scope objects of the 0x0065D090 constructor, 64 registered, bridged 845 -> 781; next seat
+continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -65,7 +67,7 @@ places it.
 | --- | ---: |
 | `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3) |
-| `StaticTagInitializers.cpp` | 63 |
+| `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
 | `Rva007AD295ZeroInits.cpp` | 56 |
 | `Rva007ABC6FFrameRateInits.cpp` | 31 |
@@ -190,6 +192,35 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   seat. The rest (about 85) follow the same steps once a node's unit is clear.
 - *Hazard.* A unit that later takes Drawable.h, or adds a dynamic initializer before these nodes,
   moves their ordinals. Read each `_$E<n>`'s relocation target (its node) again.
+
+**StaticTagInitializers (63 + 1 rows): online-service records (halilkkaya-in-o4, 2026-11-04).**
+- *Target facts.* 64 table entries (0x007B5DF0..0x007B6170 and 0x007B61A0..0x007B65E0) share one
+  22-byte body: `mov eax, [type]; push code; push eax; mov ecx, &record; call 0x0065D090; ret`. The
+  type global is `[0x00DD8290]` (VA 0x00CE34C8, "msgr") for AUTH..PING and `[0x00DD8318]` ("thtr")
+  for CONN..HGAM. The codes are four-character constants. 0x0065D090 stores {type, "", code} and
+  returns this. A raw E8 scan finds it called from these 64 initializers only. Its neighbour
+  0x0065D070 stores {type, name, 0} and is called only from the 62 TxnNameInits initializers, so
+  both families are one three-word record with two constructors.
+- *What it is.* Each entry is the `.text$yc` dynamic initializer of a file-scope
+  `Rva007F0210 record(type, 'CODE');`. MSVC 7.1 compiles the out-of-line constructor call to exactly
+  this body, and the ordinals step by two. The row at 0x0065D090 was a placeholder `set` and is now
+  `??0Rva007F0210@@QAE@HH@Z` (hand rename, tombstoned, body unchanged).
+- *Layout (target facts).* Each service run in .data is [codec object][service type][record
+  table]: 0x00DD828C/0x00DD8290/0x00DD8298 for msgr and 0x00DD8314/0x00DD8318/0x00DD8320 for thtr.
+  The record table lists the records in .CRT$XCU order. Each run's table entries start with the
+  codec object's atexit-only initializer: 0x007B5DE0 for msgr and 0x007B6190 for thtr.
+- *Folding hazard.* If an object defines the type value, MSVC 7.1 folds it into the first dynamic
+  initializer that reads it (`push 0x00CE34C8`, no load). The value is reloaded only after an earlier
+  initializer in that object has made a call. Retail reloads it in AUTH. So the msgr type
+  `bfmeRva012C3B38TagValue` moved beside the msgr codec object in
+  `Rva007B5DE0StaticInstance.cpp`, its .data neighbour, and AUTH reads it as an extern.
+- *Rowed (64).* `StaticTagInitializers.cpp` defines the 63 records in retail order: msgr DISC..PING
+  `_$E1`..`_$E55` and thtr CONN..HGAM `_$E57`..`_$E125`. `StaticTagInitializerC6D010.cpp` defines
+  AUTH as `_$E1`. tu_map gives these records no TU, so they stay in their files.
+- *Next.* The records, codec objects and type values belong in one TU per service, together with
+  the record tables and the codec code (for example `findEntry` 0x00667FC0 reads 0x00DD8298, and
+  0x00669410 reads 0x00DD8320). Merge them when tu_map approves those TUs. The 0x007B6190 thtr codec
+  initializer sits in `Rva007AC6DDGlobalInits.cpp`.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
