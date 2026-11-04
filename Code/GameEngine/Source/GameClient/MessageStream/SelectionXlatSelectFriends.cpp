@@ -29,37 +29,8 @@ class Object
 }
 ;
 #include "../../../Include/GameClient/Drawable.h"
-class GameMessage
-
-{
- public:
- void appendObjectIDArgument(ObjectID id);
- 
-}
-;
-class GameTextInterface
-
-{
- public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual UnicodeString fetch(const char *label, Bool *exists = 0);
- 
-}
-;
+#include "../../../Include/Common/MessageStream.h"
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class InGameUI
 
@@ -175,9 +146,9 @@ Bool SelectionTranslator::selectFriends(Drawable *draw, GameMessage *createTeamM
     
     {
      m_displayedMaxWarning = true;
-     UnicodeString msg;
-     msg.format(TheGameText->fetch("GUI:MaxSelectionSize").str(), TheInGameUI->getMaxSelectCount());
-     TheInGameUI->message(msg);
+     UnicodeString maxSelectionWarning;
+     maxSelectionWarning.format(TheGameText->fetch("GUI:MaxSelectionSize").str(), TheInGameUI->getMaxSelectCount());
+     TheInGameUI->message(maxSelectionWarning);
      
     }
     return false;

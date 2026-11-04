@@ -8,3 +8,5 @@ inlines size(). Its current incoming-reference closure is retained in evidence.
 The213->305B destination preview is transfer, not new coverage. Constructor,
 friends and Translate donors retain the documented layout/include prerequisites.
 [Fresh merge and complete two-path audit](../../reverse/attempt_support/selection-two-donor-merge-20261103/README.md).
+
+2026-11-04: friends donor adopts three canonical headers and retires four header-queue rows; its remaining adoption prerequisite is InGameUI (byte trial reverted), and the supported merge still accepts no donors. [Checks and remaining composition blockers](../../reverse/attempt_support/selection-friends-header-prerequisites-20261104.md).
