@@ -30,6 +30,8 @@ link loss except the explicit `XferMD5CRC` donor noted below.
 | `WW3D2/agg_def.cpp` | donor `AggregateDefRva001A3930.cpp` defines `rva001A3930`, absent from the destination class view. |
 | `GameLogic/Object/Upgrade/SpellRechargeModifierUpgrade.cpp` | constructor donor signature is absent from the destination class view. |
 | `GameLogic/Object/Update/ModelConditionSoundSelectorClientBehavior.cpp` | module-data dtor and STLport vector donors both failed compilation without diagnostics; LinkGuard retained all three linked objects. |
+| `GameLogic/Object/Create/SupplyWarehouseCreate.cpp` | `SupplyWarehouseCreatePoolKey.cpp` donor has duplicate `SubsystemInterface` declarations; LinkGuard retained both census-linked objects. |
+| `GameLogic/Object/Behavior/BridgeTowerBehavior.cpp` | Pool-key donor has `SubsystemInterface` redefinition; Xfer donor has `Xfer` redefinition and missing `Version1`; OnDamage/OnHealing donors have `GameLogic` redefinition. LinkGuard retained all five census-linked objects; canonical header adoption/class reconciliation remain registered prerequisites. |
 
 Also not retried because the obstacle register already records an unchanged
 prerequisite: `MemoryReadFile.cpp` (missing current consumer/index receipt),
@@ -37,6 +39,10 @@ prerequisite: `MemoryReadFile.cpp` (missing current consumer/index receipt),
 The previously handed-off shard entries for W3DMouse, Command, matpass,
 GrabPassengerSpecialPower, ToggleHiddenSpecialAbilityUpdate,
 BfmeResourceEnumerator, LinearCampaignManager and AptLoadScreen were not retried.
+DelayedDeathBody was not rerun because LINK-211 already records its missing
+census-index prerequisite. BridgeTowerBehavior's canonical header and class
+prerequisites are already recorded in LINK-168 and the canonical-module header
+handoff.
 
 Next useful check: have the responsible code/header owners reconcile the stated
 declarations, class layouts, STLport or byte prerequisites, then recheck the
