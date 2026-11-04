@@ -23714,3 +23714,5 @@ Code/GameEngine/Source/Common/Rva0052B4B6XferOpen.cpp|member|Rva0052B4B6|m_41,a9
 Code/GameEngine/Source/Common/Rva006C4300Malloc.cpp|function|0x006C4300|rva006C4300,64e0242947f71c18591f45a0,claude-opus-5-5,claude3-20261104-054735-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva006C4300Malloc.cpp|function|0x006C4530|rva006C4530,705d8a4c0c81451dbcf17da5,claude-opus-5-5,claude3-20261104-054735-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0030CAF8Chain.cpp|member|Rva0030CAF8Area|m_s9C,40023d5ec23b5ab83732c733,claude-opus-5-5,claude3-20261104-054735-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0006E52ASet.cpp|function|0x0006E52A|rva0006E52A,29bf46621fc0bd09995f97e9,claude-opus-5-5,claude3-20261104-054735-4,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/BfmeConv940Go940D.cpp|function|0x00483BCD|bfmeGo940D,a6001d343991e02dec27439b,claude-opus-5-5,claude3-20261104-054735-8,w-29a6ae2a2f9f,2026-11-04
