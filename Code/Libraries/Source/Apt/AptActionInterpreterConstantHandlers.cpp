@@ -1255,52 +1255,37 @@ class AptMovie { public: int labelToFrame(const EAStringC *) const; void runFram
 struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
 class AptDisplayList { public: void removeClonedObject(AptCIH *); };
 struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; void *clipActions; AptDisplayList displayList; };
-class AptCIH : public AptValue {
-public:
-    unsigned char prefix[0x1C-8];
-    float matrixTX,matrixTY;
-    unsigned char matrixToParent[0x48-0x24];
-    AptCIH *mpDisplayListParent;
-    void *mpCharacterInst;
-    bool IsLevelInst() const;
-    bool IsSpriteInst(bool=false) const;
-    bool IsAnimationInst(bool=false) const;
-    AptSpriteInstBase *GetSpriteInstBase() const;
-    bool IsSpriteInstBase() const;
-    bool IsCharacterInst() const;
-    void *rva006E1020() const;
-    __forceinline AptSpriteInstBase *GetCharacterInst() const {
-        if (!IsCharacterInst()) {
-            g_bfmeAptAssertAtE17734("isCharacterInst()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xA5);
-            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
-        }
-        return (AptSpriteInstBase *)mpCharacterInst;
+#include "AptCIHClass.h"
+static __forceinline AptSpriteInstBase *cihGetCharacterInst(const AptCIH *cih) {
+    if (!cih->IsCharacterInst()) {
+        g_bfmeAptAssertAtE17734("isCharacterInst()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xA5);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
     }
-    void jumpToFrame(int);
-    __forceinline AptSpriteInstBase *SpriteBaseInline() const {
-        if (!IsSpriteInstBase()) {
-            g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
-            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
-        }
-        return (AptSpriteInstBase *)mpCharacterInst;
+    return (AptSpriteInstBase *)cih->field4C;
+}
+static __forceinline AptSpriteInstBase *cihSpriteBaseInline(const AptCIH *cih) {
+    if (!cih->IsSpriteInstBase()) {
+        g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
     }
-    __forceinline void SetIsPlaying(bool play) {
-        GetSpriteInstBase()->mbIsPlaying=play ? 1 : 0;
-    }
-};
+    return (AptSpriteInstBase *)cih->field4C;
+}
+static __forceinline void cihSetIsPlaying(AptCIH *cih, bool play) {
+    cih->GetSpriteInstBase()->mbIsPlaying=play ? 1 : 0;
+}
 void AptActionInterpreter::_FunctionAptActionPlay(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
     AptCIH *current=localContext->pCurrentContext;
     if (!current->isUndefined() && !current->IsLevelInst()) {
-        if(localContext->pCurWith && localContext->pCurWith->isCIH()) localContext->pCurWith->c_cih()->SetIsPlaying(true);
-        else if(localContext->pCurrentContext->isCIH()) current->c_cih()->SetIsPlaying(true);
+        if(localContext->pCurWith && localContext->pCurWith->isCIH()) cihSetIsPlaying(localContext->pCurWith->c_cih(),true);
+        else if(localContext->pCurrentContext->isCIH()) cihSetIsPlaying(current->c_cih(),true);
     }
 }
 void AptActionInterpreter::_FunctionAptActionStop(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
     AptCIH *current=localContext->pCurrentContext;
-    if (!current->isUndefined() && !current->IsLevelInst() && current->mpCharacterInst)
-        current->c_cih()->SetIsPlaying(false);
+    if (!current->isUndefined() && !current->IsLevelInst() && current->field4C)
+        cihSetIsPlaying(current->c_cih(),false);
 }
 #pragma comment(linker, "/alternatename:?c_cih@AptValue@@QAEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 #pragma comment(linker, "/alternatename:?IsLevelInst@AptCIH@@QBE_NXZ=?rva006E03A0@BfmeAptValue006DCD20@@QBEHXZ")
@@ -1309,14 +1294,14 @@ void AptActionInterpreter::_FunctionAptActionStop(AptActionInterpreter *const in
 void AptActionInterpreter::_FunctionAptActionNextFrame(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
     AptCIH *cih=localContext->pCurrentContext->c_cih();
-    cih->jumpToFrame(cih->SpriteBaseInline()->mnFrame+1);
-    cih->SpriteBaseInline()->mbIsPlaying=0;
+    cih->jumpToFrame(cihSpriteBaseInline(cih)->mnFrame+1);
+    cihSpriteBaseInline(cih)->mbIsPlaying=0;
 }
 void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *const interpreter, LocalContextT *const localContext)
 {
     AptCIH *cih=localContext->pCurrentContext->c_cih();
-    cih->jumpToFrame(cih->SpriteBaseInline()->mnFrame-1);
-    cih->SpriteBaseInline()->mbIsPlaying=0;
+    cih->jumpToFrame(cihSpriteBaseInline(cih)->mnFrame-1);
+    cihSpriteBaseInline(cih)->mbIsPlaying=0;
 }
 #pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")
 
@@ -1344,7 +1329,7 @@ void AptActionInterpreter::_FunctionAptActionGotoFrame(AptActionInterpreter *con
     else if(localContext->pCurrentContext->isCIH()) cih=localContext->pCurrentContext->c_cih();
     if(cih) {
         cih->jumpToFrame(*frame);
-        cih->SpriteBaseInline()->mbIsPlaying=0;
+        cihSpriteBaseInline(cih)->mbIsPlaying=0;
     }
     if(g_releaseVectorAtE17710->GetNumValues()!=0 && interpreter->stack.count==0) g_releaseVectorAtE17710->ReleaseValues();
 }
@@ -1490,10 +1475,10 @@ void AptActionInterpreter::_FunctionAptActionGotoLabel(AptActionInterpreter *con
     AptCIH *target;
     if(localContext->pCurWith && localContext->pCurWith->isCIH()) target=localContext->pCurWith->c_cih();
     else target=localContext->pCurrentContext;
-    int frame=target->SpriteBaseInline()->character->movie.labelToFrame(&label)+1;
+    int frame=cihSpriteBaseInline(target)->character->movie.labelToFrame(&label)+1;
     if(frame-1>=0) {
         target->jumpToFrame(frame-1);
-        target->SpriteBaseInline()->mbIsPlaying=0;
+        cihSpriteBaseInline(target)->mbIsPlaying=0;
     }
 }
 #pragma comment(linker, "/alternatename:?labelToFrame@AptMovie@@QBEHPBVEAStringC@@@Z=?bfmeGo1034F@BfmeF1034@@QAEHH@Z")
@@ -1506,14 +1491,14 @@ void AptActionInterpreter::_FunctionAptActionCallFrame(AptActionInterpreter *con
         AptValue *labelContext;
         EAStringC name;
         getContext(localContext->pCurrentContext,localContext->pCurWith,value->c_string()->GetInternalString(),&labelContext,name);
-        frame=labelContext->c_cih()->GetCharacterInst()->character->movie.labelToFrame(&name);
+        frame=cihGetCharacterInst(labelContext->c_cih())->character->movie.labelToFrame(&name);
     } else if(value->isInteger()) frame=value->toInteger();
     else {
         g_bfmeAptAssertAtE17734("NOT_REACHED", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1EFD);
         if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
     }
     interpreter->stack.Pop();
-    if(frame!=-1) localContext->pCurrentContext->GetCharacterInst()->character->movie.runFrameActions(localContext->pCurrentContext,frame);
+    if(frame!=-1) cihGetCharacterInst(localContext->pCurrentContext)->character->movie.runFrameActions(localContext->pCurrentContext,frame);
 }
 #pragma comment(linker, "/alternatename:?IsCharacterInst@AptCIH@@QBE_NXZ=?isCharacterInst@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?runFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z=?rva0070F5C0@Rva0070F5C0@@QAEXPAVAptCIH@@H@Z")
@@ -1562,8 +1547,8 @@ void AptActionInterpreter::_FunctionAptActionSetTarget(AptActionInterpreter *con
         if((*data)[0]=='/' || (*data)[0]=='.') {
             const char *path=*data;
             AptCIH *t=localContext->pCurrentContext;
-            while(path[0]=='.' && path[1]=='.' && t->mpDisplayListParent) {
-                t=t->mpDisplayListParent;
+            while(path[0]=='.' && path[1]=='.' && t->field48) {
+                t=t->field48;
                 path+=2;
             }
             target=t;
@@ -1970,7 +1955,7 @@ void AptActionInterpreter::_FunctionAptActionGotoFrame2(AptActionInterpreter *co
     } else if(value->isInteger()) frame=value->toInteger();
     if(frame!=-1) {
         cih->jumpToFrame(frame);
-        cih->SpriteBaseInline()->mbIsPlaying=(*data!=0) ? 1 : 0;
+        cihSpriteBaseInline(cih)->mbIsPlaying=(*data!=0) ? 1 : 0;
     }
     interpreter->stack.Pop();
 }
@@ -2017,7 +2002,7 @@ void AptActionInterpreter::_FunctionAptActionRemoveSprite(AptActionInterpreter *
         AptValue *resolved=object;
         if(resolved && resolved->isCIH()) {
             AptCIH *cih=resolved->c_cih();
-            AptSpriteInstBase *parent=cih->mpDisplayListParent->GetSpriteInstBase();
+            AptSpriteInstBase *parent=cih->field48->GetSpriteInstBase();
             parent->displayList.removeClonedObject(cih);
         }
     }
@@ -2127,9 +2112,9 @@ void AptActionInterpreter::_FunctionAptActionStartDragMovie(AptActionInterpreter
     g_bfmeAptPtrAtE176D0->d=-9999.f;
     if(!interpreter->stack.At(1)->isInteger()) {
         float mouse=(float)g_bfmeAptPtrAtE176D0->mouseX;
-        g_bfmeAptPtrAtE176D0->tx=mouse-target->c_cih()->matrixTX;
+        g_bfmeAptPtrAtE176D0->tx=mouse-target->c_cih()->field1C;
         mouse=(float)g_bfmeAptPtrAtE176D0->mouseY;
-        g_bfmeAptPtrAtE176D0->ty=mouse-target->c_cih()->matrixTY;
+        g_bfmeAptPtrAtE176D0->ty=mouse-target->c_cih()->field20;
     }
     if(interpreter->stack.At(2)->isInteger()) {
         n+=4;
@@ -2729,7 +2714,7 @@ void AptActionInterpreter::_FunctionAptActionCallMethod(AptActionInterpreter *co
             if(interpreter->withStack.count==0) { if(value==localContext->pSuper) { EAStringC thisName("this"); value=interpreter->getVariable((AptValue *)localContext->pCurrentContext,0,&thisName); } }
             else {
                 AptValue *top=interpreter->withStack.top();
-                if(value->isCIH() && ((const AptValue *)value)->c_cih()->mpDisplayListParent==(AptCIH *)top) {}
+                if(value->isCIH() && ((const AptValue *)value)->c_cih()->field48==(AptCIH *)top) {}
                 else if(value!=top) {
                     AptNativeHash *hash=top->GetNativeHashVirtual();
                     while(hash) { AptValue *proto=hash->mp__proto__; if(proto && proto==value) { good=false; break; } hash=proto?proto->GetNativeHashVirtual():0; }
@@ -2782,16 +2767,16 @@ void AptActionInterpreter::rva007092F0(AptCIH *context,AptValue *with,AptValue *
     target->toString(name);
     if(value) {
         AptCIH *child=value->c_cih(false);
-        if(!child->mpDisplayListParent)
+        if(!child->field48)
             return;
         float morphFloat=static_cast<unsigned char>(((BfmeAptValue006DCD20*)child)->rva006E0350()) ? *(float*)((char*)child->rva006E1020()+0x18) : 0.0f; int morph=*(int*)&morphFloat;
         int actions=child->IsSpriteInstBase() ? (int)child->GetSpriteInstBase()->clipActions : 0;
-        AptSpriteInstBase *definition=child->SpriteBaseInline();
-        AptSpriteInstBase *parentDefinition=(child->mpDisplayListParent)->SpriteBaseInline();
-        ((BfmeSubmitter1283*)&parentDefinition->displayList)->bfmeSubmit1283(0,depth,(int)definition->character,(int)&name,(int)(child->mpDisplayListParent),1,-1,(float*)child->matrixToParent,(int)((char*)child+0xc),actions,morph,(int)init);
-        if(((((Rva007092F0Character*)child->SpriteBaseInline())->flag2c))==1) {
+        AptSpriteInstBase *definition=cihSpriteBaseInline(child);
+        AptSpriteInstBase *parentDefinition=cihSpriteBaseInline(child->field48);
+        ((BfmeSubmitter1283*)&parentDefinition->displayList)->bfmeSubmit1283(0,depth,(int)definition->character,(int)&name,(int)(child->field48),1,-1,(float*)&child->field24,(int)((char*)child+0xc),actions,morph,(int)init);
+        if(((((Rva007092F0Character*)cihSpriteBaseInline(child))->flag2c))==1) {
             AptCIH *clone=0,*prev=0;
-            (*(BfmeQuery1279**)&child->mpDisplayListParent->GetSpriteInstBase()->displayList)->bfmeQuery1279(depth,(int)&name,(void**)&prev,(void**)&clone);
+            (*(BfmeQuery1279**)&child->field48->GetSpriteInstBase()->displayList)->bfmeQuery1279(depth,(int)&name,(void**)&prev,(void**)&clone);
             if(clone->isCIH(false)) ((Rva007092F0Character*)((Rva006E3C80*)clone)->rva006E3C80())->flag2c=1;
         }
         ((AptAnimationPoolData*)g_bfmeAptPtrAtE176D0)->_tickNewInsts();
