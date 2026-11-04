@@ -7,8 +7,9 @@ rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr servic
 file-scope objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records
 of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; halilkkaya-in-o5: 17
 private-view units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700, then 3
-more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`; next seat
-continues).
+more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`;
+halilkkaya-fix-o1: 7 round-2 includes moved below their units' Snapshot includes, restoring the
+vtables they had shifted, bridged 699 unchanged; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -191,6 +192,33 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   - ActiveBody defines private `Matrix3D` (with `Get_Y_Vector`), `Drawable`, `Thing` and `Object`
     views. thing.h's `Matrix3DData.h` lacks `Get_Y_Vector`, so the unit needs the WWMath
     `matrix3d.h` before the header, and then its other views reconciled.
+- *Vtable regression from round 2 (halilkkaya-fix-o1, 2026-11-04).* Seven of the round-2 units
+  that put Drawable.h first took the capitalized Snapshot slots. Byte verification and their own
+  link_check passed, but one vtable in each changed:
+  - W3DTruckDraw, W3DBuffDraw, AssaultTransportAIUpdate, SpawnPointProductionExitUpdate and
+    UnpauseSpecialPowerUpgradeModuleData now had `__purecall` at slots 1 and 3, with
+    `loadPostProcess`/`xfer` moved later.
+  - DynamicPortalBehaviour and EvacuateDamage had `xfer` moved from slot 3 to slot 12 and slot 10.
+  - W3DTruckDraw is first in link order, so its wrong copy beat W3DTruckDrawDtor.cpp's, and the
+    Dtor stopped linking (188 B).
+
+  Each include now follows the unit's first include that reaches the Snapshot shim:
+  - W3DTruckDraw and W3DBuffDraw: DrawModule.h;
+  - DynamicPortalBehaviour and SpawnPointProductionExitUpdate: AIPathfind.h;
+  - EvacuateDamage: ObjectModule.h;
+  - AssaultTransportAIUpdate: GameInfo.h;
+  - UnpauseSpecialPowerUpgrade: UpgradeModule.h.
+
+  Every `??_7` the seven units emit has its pre-include digest again (read from the object
+  store's build of the parent commit), and W3DTruckDrawDtor links again. Their `_$E1` rows stay
+  valid. in-o5's unlanded WallHubBehavior include had the same shift (xfer slot 3 -> 10) and is
+  held for the same fix.
+- *Rule.* After adding or moving an include, compare every `??_7` the unit emits with the unit's
+  object before the edit, not only its bytes and its own link_check. A vtable has no row and no
+  byte gate, and most of these tables have no sibling copy that link_check could compare against.
+  Where a sibling does emit the table (Ctor/Dtor files), run link_check over the unit and the
+  sibling together: alone, the sibling is judged against the index's stale copy. The object store
+  (`build._objstore_dir` keyed by the old source's md5) holds the pre-edit object.
 - *Next.* The handoff table lists each copy's state. ActiveBody and the Zero Hour-shaped units
   need their views or header graph reconciled first. Held units follow the same steps once they
   are free.
