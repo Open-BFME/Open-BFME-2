@@ -421,7 +421,7 @@ class Player {public:char pad[0x3BC];ScoreKeeper score;};
 
 extern BuildAssistant *TheBuildAssistant;
 
-class InGameUI : public MountedSlots<66> {public:virtual void slot66(Drawable*)=0;virtual void slot67(Drawable*)=0;};
+#include "../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -745,11 +745,11 @@ void ToggleMountedSpecialAbilityUpdate::createMountedTemplate(){
  replacementBody->slot42(original->body->slot4());
  replacement->getDrawable()->fadeIn(10);
  if(selected){
- TheInGameUI->slot67(original->getDrawable());
+ TheInGameUI->deselectDrawable(original->getDrawable());
  GameMessage *message=TheMessageStream->appendMessage(1001);
  message->appendBooleanArgument(true);
  message->appendObjectIDArgument(replacement->id);
- TheInGameUI->slot66(replacement->getDrawable());
+ TheInGameUI->selectDrawable(replacement->getDrawable());
  }
  rva004ADCE8(replacement);
  flag8C=true;

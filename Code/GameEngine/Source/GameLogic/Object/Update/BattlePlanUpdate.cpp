@@ -310,26 +310,7 @@ public:
 
 #include "../../../../Include/GameClient/GameText.h"
 
-class InGameUI {
-public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void __cdecl message(UnicodeString,...);
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 
 struct Rva002D893BColorSource;
 
@@ -981,20 +962,20 @@ void BattlePlanUpdate::setStatus(TransitionStatus newStatus)
             obj->setModelConditionState(21);
             obj->getDrawable()->setAnimationLoopDuration(modData->m_bombardmentPlanAnimationFrames);
             m_nextReadyFrame = now + modData->m_bombardmentPlanAnimationFrames;
-            TheInGameUI->message(TheGameText->fetch(modData->m_bombardmentMessageLabel, 0));
+            TheInGameUI->rva0029E846(TheGameText->fetch(modData->m_bombardmentMessageLabel, 0));
             break;
         case HOLDTHELINE:
             obj->setModelConditionState(25);
             obj->getDrawable()->setAnimationLoopDuration(modData->m_holdTheLinePlanAnimationFrames);
             m_nextReadyFrame = now + modData->m_holdTheLinePlanAnimationFrames;
-            TheInGameUI->message(TheGameText->fetch(modData->m_holdTheLineMessageLabel, 0));
+            TheInGameUI->rva0029E846(TheGameText->fetch(modData->m_holdTheLineMessageLabel, 0));
             break;
         case SEARCHANDDESTROY:
             obj->setModelConditionState(29);
             obj->getDrawable()->setAnimationLoopDuration(
                 modData->m_searchAndDestroyPlanAnimationFrames);
             m_nextReadyFrame = now + modData->m_searchAndDestroyPlanAnimationFrames;
-            TheInGameUI->message(TheGameText->fetch(modData->m_searchAndDestroyMessageLabel, 0));
+            TheInGameUI->rva0029E846(TheGameText->fetch(modData->m_searchAndDestroyMessageLabel, 0));
             break;
         }
         {

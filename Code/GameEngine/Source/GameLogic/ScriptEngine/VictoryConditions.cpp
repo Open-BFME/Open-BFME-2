@@ -218,16 +218,7 @@ public:
 	GameSlot *getSlot(Int slot);
 };
 extern GameInfo *TheGameInfo;
-class InGameUI {
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void message(AsciiString text, ...);	// +0x3C
-	virtual void s16(); virtual void s17();
-	virtual void messageArg(AsciiString text, ...);	// +0x48
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 struct Coord3D;
 enum EvaEventID { EVA_EVENT_0 = 0 };
@@ -301,9 +292,9 @@ void VictoryConditions::update()
 			TheShroudManager->revealMapForPlayerPermanently(p->m_playerIndex);
 			if ((((Rva0023C6A4 *)TheGameLogic)->rva00200084() || ((VictoryUpdateGameLogicView *)TheGameLogic)->m_network == 0)
 				&& p->isLocalPlayer())
-				TheInGameUI->message(AsciiString("GUI:YouHaveBeenDefeated"));
+				TheInGameUI->rva0029E656(AsciiString("GUI:YouHaveBeenDefeated"));
 			else if (!((Rva0023C666 *)TheGameLogic)->rva0023C666() && ((VictoryUpdateGameLogicView *)TheGameLogic)->m_network != 0)
-				TheInGameUI->messageArg(AsciiString("GUI:PlayerHasBeenDefeated"), p->getDisplayNameStr());
+				TheInGameUI->message(AsciiString("GUI:PlayerHasBeenDefeated"), p->getDisplayNameStr());
 
 			if ((TheGameLogic->isInMultiplayerGame() || ((VictoryUpdateGameLogicView *)TheGameLogic)->m_mode == 2)
 				&& ThePlayerList && TheEva && p->getDefaultTeam())

@@ -95,22 +95,7 @@ public:
 	virtual GameMessage *appendType(int type);
 };
 extern class MessageStream *TheMessageStream;
-class InGameUI
-{
-public:
-	SLOT08(w00,w01,w02,w03,w04,w05,w06,w07)
-	SLOT08(w08,w09,w10,w11,w12,w13,w14,w15)
-	SLOT08(w16,w17,w18,w19,w20,w21,w22,w23)
-	SLOT08(w24,w25,w26,w27,w28,w29,w30,w31)
-	SLOT08(w32,w33,w34,w35,w36,w37,w38,w39)
-	SLOT08(w40,w41,w42,w43,w44,w45,w46,w47)
-	SLOT08(w48,w49,w50,w51,w52,w53,w54,w55)
-	SLOT08(w56,w57,w58,w59,w60,w61,w62,w63)
-	virtual void w64();
-	virtual void w65();
-	virtual void w66();
-	virtual void slot10C(Drawable *d);
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 #include "../object.h"
 struct ObjectLayout
@@ -130,7 +115,7 @@ void Rva0047A040Base9E0::rva00588D99(Object *obj)
 			GameMessage *msg = TheMessageStream->appendType(0x3ED);
 			ObjectLayout *objectLayout = (ObjectLayout *)obj;
 			msg->appendObjectIDArgument(objectLayout->m_id);
-			TheInGameUI->slot10C(drawable);
+			TheInGameUI->deselectDrawable(drawable);
 		}
 		obj->setStatus((ObjectStatusTypes)3, true);
 	}

@@ -88,11 +88,7 @@ extern Eva *TheEva;
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class InGameUI : public Rva004389DBSlots<16>
-{
-public:
-	virtual void message(UnicodeString format, ...);	// slot 16
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class Drawable
@@ -179,7 +175,7 @@ void Rva00439E0C::rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback)
 			BfmeAudioEventPrefix136 neutralizedSound(TheAudio->getMiscAudio()->m_stealthNeutralizedSound, obj->getID());
 			((Rva0033F15DDwordSlot *)&neutralizedSound)->set(localPlayer->getPlayerIndex());
 			TheAudio->addAudioEvent(&neutralizedSound);
-			TheInGameUI->message(TheGameText->fetch("MESSAGE:StealthNeutralized"));
+			TheInGameUI->rva0029E846(TheGameText->fetch("MESSAGE:StealthNeutralized"));
 			Int message = obj->getTemplate()->m_evaEventDetectedOwner;
 			TheEva->reportEvaEvent((EvaEventID)message, obj->getPosition(), 0);
 		}
@@ -194,7 +190,7 @@ void Rva00439E0C::rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback)
 				BfmeAudioEventPrefix136 discoveredSound(TheAudio->getMiscAudio()->m_stealthDiscoveredSound, info->m_detector->getID());
 				((Rva0033F15DDwordSlot *)&discoveredSound)->set(localPlayer->getPlayerIndex());
 				TheAudio->addAudioEvent(&discoveredSound);
-				TheInGameUI->message(TheGameText->fetch("MESSAGE:StealthDiscovered"));
+				TheInGameUI->rva0029E846(TheGameText->fetch("MESSAGE:StealthDiscovered"));
 				Int message = obj->getTemplate()->m_evaEventDetectedEnemy;
 				TheEva->reportEvaEvent((EvaEventID)message, info->m_detector->getPosition(), obj->getPosition());
 			}

@@ -106,11 +106,7 @@ template <> class Rva0045527AUISlots<1>
 public:
 	virtual void gap(char (*)[1]) = 0;
 };
-class InGameUI : public Rva0045527AUISlots<67>
-{
-public:
-	virtual void slot67(Drawable *draw) = 0;
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 class Rva0039B795;
 struct Rva0039BAD2Input;
@@ -332,7 +328,7 @@ void FoundationAIUpdate::rva0045527A(ObjectID id)
 			{
 				GameMessage *msg = TheMessageStream->appendMessage(0x3ED);
 				msg->appendObjectIDArgument(m_object->getID());
-				TheInGameUI->slot67(draw);
+				TheInGameUI->deselectDrawable(draw);
 			}
 		}
 	}
@@ -671,7 +667,7 @@ UpdateSleepTime FoundationAIUpdate::update()
  if (self->isEffectivelyDead() && self->getTemplate()->constructionKind(150)) {
   m_object->setConstructionState00455477(AsciiString("empty"));
   Drawable *draw = self->getDrawable();
-  if (draw && draw->isSelectable()) TheInGameUI->slot67(draw);
+  if (draw && draw->isSelectable()) TheInGameUI->deselectDrawable(draw);
   return UPDATE_SLEEP_NONE;
  }
  if (m_28 != INVALID_ID && TheGameLogic->findObjectByID(m_28)) return UPDATE_SLEEP_NONE;
@@ -685,7 +681,7 @@ UpdateSleepTime FoundationAIUpdate::update()
  } else {
   m_object->setConstructionState00455477(AsciiString("empty"));
   Drawable *draw = self->getDrawable();
-  if (draw && draw->isSelectable()) TheInGameUI->slot67(draw);
+  if (draw && draw->isSelectable()) TheInGameUI->deselectDrawable(draw);
  }
  return UPDATE_SLEEP_NONE;
 }

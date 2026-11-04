@@ -435,26 +435,7 @@ extern Eva *TheEva;
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class InGameUIMessage : public StealthUpdateSlots<16>
-{
-public:
-	virtual void message(UnicodeString format, ...); // slot 16
-};
-
-template <int N> class InGameUISlots : public InGameUISlots<N - 1>
-{
-public:
-	virtual void gapUI(char (*)[N]) = 0;
-};
-template <> class InGameUISlots<0> : public InGameUIMessage
-{
-};
-
-class InGameUI : public InGameUISlots<49>
-{
-public:
-	virtual void selectDrawable(Drawable *draw); // slot 66
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 #include "../../../../Include/GameClient/GameClientClass.h"
@@ -1153,7 +1134,7 @@ void StealthUpdate::markAsDetected(UnsignedInt numFrames, Int feedback, Object *
 					BfmeAudioEventPrefix136 neutralizedSound(TheAudio->getMiscAudio()->m_stealthNeutralizedSound, self->getID());
 					((Rva0033F15DDwordSlot *)&neutralizedSound)->set(ThePlayerList->getLocalPlayer()->getPlayerIndex());
 					TheAudio->addAudioEvent(&neutralizedSound);
-					TheInGameUI->message(TheGameText->fetch("MESSAGE:StealthNeutralized"));
+					TheInGameUI->rva0029E846(TheGameText->fetch("MESSAGE:StealthNeutralized"));
 					TheEva->reportEvaEvent((EvaEventID)data->m_evaEventDetectedOwner, self->getPosition(), 0);
 				}
 			}
@@ -1167,7 +1148,7 @@ void StealthUpdate::markAsDetected(UnsignedInt numFrames, Int feedback, Object *
 						BfmeAudioEventPrefix136 discoveredSound(TheAudio->getMiscAudio()->m_stealthDiscoveredSound, detector->getID());
 						((Rva0033F15DDwordSlot *)&discoveredSound)->set(ThePlayerList->getLocalPlayer()->getPlayerIndex());
 						TheAudio->addAudioEvent(&discoveredSound);
-						TheInGameUI->message(TheGameText->fetch("MESSAGE:StealthDiscovered"));
+						TheInGameUI->rva0029E846(TheGameText->fetch("MESSAGE:StealthDiscovered"));
 						TheEva->reportEvaEvent((EvaEventID)data->m_evaEventDetectedEnemy, detector->getPosition(), self->getPosition());
 					}
 				}

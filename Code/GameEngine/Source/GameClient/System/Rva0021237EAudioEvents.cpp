@@ -153,7 +153,8 @@ class Rva0053B8E5LeaField { public:void *get()const; };
 struct OpaqueRefElement4;
 class Rva0023DC8E {public:void rva0023DC8E(const AsciiString&);};
 class Rva0023DCCE {public:void rva0023DCCE(const AsciiString&,const OpaqueRefElement4&,const OpaqueRefElement4&);};
-class InGameUI {public:virtual void v00();virtual void v04();virtual void v08();virtual void v0C();virtual void v10();virtual void v14();virtual void v18();virtual void v1C();virtual void v20();virtual void v24();};extern InGameUI *TheInGameUI;
+#include "../../../Include/GameClient/InGameUI.h"
+extern InGameUI *TheInGameUI;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 struct LogicMissionView {char pad[0xEC];int mission;};
 struct Rva0021246DInput {char pad[0x18];AsciiString name;};
@@ -175,7 +176,7 @@ void Rva0021237E::rva0021246D(Rva0021246DInput *input)
  ((Rva0023DC8E*)TheGameLogic)->rva0023DC8E(*(const AsciiString*)((Rva0049CB86LeaField*)input)->get());
  ((Rva0023DCCE*)TheGameLogic)->rva0023DCCE(*(const AsciiString*)((Rva0053B8E5LeaField*)input)->get(),*(const OpaqueRefElement4*)((Rva003EFDD7LeaField*)input)->get(),*(const OpaqueRefElement4*)&((AudioEventInfo*)input)->getSoundsVector());
  theRadarWindowOverrideSource->rva002D4240(true);
- TheInGameUI->v24();
+ TheInGameUI->reset();
  TheMouse->rva001EEA6D(UnicodeString::TheEmptyString,-1,0,1.0f);
  if(TheGameInfo && TheGameLogic->m_114==1) message->appendIntegerArgument(1);
  else if(TheGameInfo && TheGameLogic->m_114==2) message->appendIntegerArgument(5);

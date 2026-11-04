@@ -14,15 +14,7 @@
 #include "unicode_string.h"
 #include "ascii_string.h"
 
-class InGameUI
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void message(UnicodeString format, ...);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;	// VA 0x00DFEDF0
 
 class RifStore
@@ -91,7 +83,7 @@ bool Rva001D9670Store::vslot04(int reason)
 {
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: Armor reloaded"));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Armor reloaded"));
 		g_Va00DFDBC8 = true;
 	}
 	return g_Va00DFDBC8;

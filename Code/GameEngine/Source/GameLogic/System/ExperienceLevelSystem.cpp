@@ -484,15 +484,7 @@ void ExperienceLevelStore::rva002891DB(const Rva002894A2 *level)
     }
 }
 #include "unicode_string.h"
-class InGameUI
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void message(UnicodeString format, ...);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 	// VA 0x00DFEDF0
 
@@ -542,7 +534,7 @@ bool ExperienceLevelSystem::rva00289812(bool *needsRestart)
 	m_table10->clear();
 	if (rva001B5384Slot2())
 	{
-		TheInGameUI->message(UnicodeString(L"RIF: ExperienceLevels reloaded. All units will need to be refreshed."));
+		TheInGameUI->rva0029E846(UnicodeString(L"RIF: ExperienceLevels reloaded. All units will need to be refreshed."));
 		g_Va00DFECC8 = true;
 		m_reloaded24 = true;
 		if (g_Va00DFECC9)

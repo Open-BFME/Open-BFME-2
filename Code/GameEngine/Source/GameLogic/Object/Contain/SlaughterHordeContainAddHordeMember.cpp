@@ -41,7 +41,8 @@ class Object{public:Player *getControllingPlayer()const;bool rva0028C15E(int,flo
 };
 template<int N>class SlaughterAddSlots:public SlaughterAddSlots<N-1>{public:virtual void gap(char(*)[N]);};template<>class SlaughterAddSlots<0>{};
 class GameTextInterface:public SlaughterAddSlots<17>{public:virtual const UnicodeString *text(const char*,bool*);};extern GameTextInterface *TheGameText;
-class InGameUI:public SlaughterAddSlots<104>{public:virtual void floating(const UnicodeString*,const Coord3D*,unsigned int);};extern InGameUI *TheInGameUI;
+#include "../../../../Include/GameClient/InGameUI.h"
+extern InGameUI *TheInGameUI;
 struct BfmeDelayedLuaEventList;
 struct BfmeDispatchDelayedLuaEvent{void *m_vtable;float m_number;unsigned char m_boolean;unsigned m_objectID;AsciiString m_string;unsigned m_type;};
 struct DelayedLuaEventList{DelayedLuaEventList();virtual ~DelayedLuaEventList();BfmeDispatchDelayedLuaEvent m_events[3];};
@@ -95,7 +96,7 @@ void SlaughterHordeContain::AddHordeMember(Object *member)
    pos.x+=GetGameClientRandomValueReal(-10,10,file,254);
    pos.y+=GetGameClientRandomValueReal(-10,10,file,255);
    pos.z+=GetGameClientRandomValueReal(10,20,file,256);
-   unsigned int color=(unsigned)me->getControllingPlayer()->color|0xe6000000;TheInGameUI->floating(&moneyString,&pos,color);
+   unsigned int color=(unsigned)me->getControllingPlayer()->color|0xe6000000;TheInGameUI->addFloatingText(moneyString,&pos,color);
    ExperienceTracker *tracker=me->tracker;
    if(tracker && ((Rva0039ADF3*)tracker)->rva0039AE04())tracker->rva0039B315((float)REAL_TO_INT_CEIL(money),true,true,true,false);
  }
