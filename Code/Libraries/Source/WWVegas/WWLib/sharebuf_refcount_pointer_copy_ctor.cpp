@@ -13,19 +13,8 @@ class RefCountClass;
 // Retail's RefCountClass inline copies (scalar deleting dtor 0x00072899) are
 // the size form: compile this class for size, as hlod.cpp does.
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	RefCountClass() : m_refs(1) {}
-	RefCountClass(const RefCountClass &) : m_refs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-private:
-	int m_refs;
-};
+#include "RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)
 
 template <class T>

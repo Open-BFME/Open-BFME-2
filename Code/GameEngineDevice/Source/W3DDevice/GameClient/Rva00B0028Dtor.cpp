@@ -20,17 +20,8 @@
 void __cdecl Rva00030830GameFree(void *);
 #include <new>
 
-class RefCountClass
-{
-public:
-	RefCountClass() : m_refs(1) {}
-	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int m_refs; // +0x04
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 class TileData : public RefCountClass
 {

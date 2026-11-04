@@ -41,17 +41,8 @@ namespace _STL { template <> vector<int, allocator<int> >::~vector(); }
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class RefCountClass
-{
-public:
-	RefCountClass() : m_refs(1) {}
-	void Release_Ref() { if (--m_refs == 0) Delete_This(); }
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int m_refs; // +0x04
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 class TileData;
 

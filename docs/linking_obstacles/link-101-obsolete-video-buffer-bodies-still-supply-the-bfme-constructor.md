@@ -7,3 +7,9 @@ Next step (2026-11-03): the table is 13 slots (0x007C64D8; base VideoBuffer 0x00
 Next step (2026-11-04, inspected `784151b2eb`): `353684d23f` removed the donor bodies and the seed now preview LINKS (47 B), but the constructor needs `??1VideoBuffer@@UAE@XZ`; reconcile its existing 0x000723C0/0x000723C7 owners before retrying consolidation (0/12 donors accepted; two state declarations reconciled). [Current evidence and remaining layout/flag prerequisites](../../reverse/attempt_support/w3dvideobuffer-consolidation-20261104-codex4/README.md).
 Clearance: pending; the temporary valid()-only LINKS result is not retained.
 Census confirmation: not claimed.
+
+
+Further native identity planning,20261104-1514: both existing base/derived
+fold paths have explicit prerequisites, not uncovered bodies. The base lacks
+an own installer row; the derived provider contains two target-class views.
+No source is edited or alias added. [Handoff](../../reverse/attempt_support/video-owner-fold-prerequisites-20261104-1514.md).

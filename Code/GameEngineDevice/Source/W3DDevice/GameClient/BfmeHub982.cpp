@@ -31,24 +31,7 @@ void Rva00118BA0();
 
 void Rva00118C20();
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	__forceinline void Add_Ref(void)
-	{
-		++m_numRefs;
-	}
-	__forceinline void Release_Ref(void)
-	{
-		--m_numRefs;
-		if (m_numRefs == 0)
-			Delete_This();
-	}
-
-private:
-	int m_numRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 class VertexMaterialClass : public W3DMPO, public RefCountClass
 {

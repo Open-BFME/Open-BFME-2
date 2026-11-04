@@ -138,15 +138,7 @@ private:
 // 0x00BC6C40): stores a by-value ref-counted holder into the member at +8
 // through the rowed assignment ??4Rva00072A94 (0x00072A94); the argument's
 // destructor then drops the caller's reference under EH protection.
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class Rva00072A94
 {
 public:

@@ -11,19 +11,8 @@
 class VertexMaterialClass;
 
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	RefCountClass() : m_refs(1) {}
-	RefCountClass(const RefCountClass &) : m_refs(1) {}
-	virtual void Delete_This();
-
-protected:
-	virtual ~RefCountClass() {}
-
-private:
-	int m_refs;
-};
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)
 
 template <class T>
