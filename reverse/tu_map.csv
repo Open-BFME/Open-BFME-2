@@ -50544,15 +50544,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005D521B,38,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,C,C=0x005D51B9..0x005D5241 provisional,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp
 0x005D5241,37,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,C,C=0x005D51B9..0x005D5266 provisional,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp
 0x005D5266,28,code,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp provisional,Code/GameEngine/Source/Common/BfmeStringRecord005D511F.cpp
-0x005D5282,9,code,,,-,,Code/GameEngine/Source/Common/FamilyVectorDtors_muse-3fc4.cpp
+0x005D5282,9,code,,,-,,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x005D528B,400,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp W=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x005D541B,25,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,C,C=0x005D528B..0x005D5434 provisional,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
-0x005D5434,63,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,C,C=0x005D528B..0x005D5473 provisional,Code/GameEngine/Source/Common/FamilyVectorDtors_muse-3fc4.cpp
+0x005D5434,63,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,C,C=0x005D528B..0x005D5473 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x005D5473,30,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeRecordRange005D5473.cpp provisional,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x005D5491,183,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,C,C=0x005D5473..0x005D5548 provisional,Code/GameEngine/Source/Common/StringRecordVectorGrowthG7.cpp
 0x005D5548,55,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,C,C=0x005D5473..0x005D557F provisional,Code/GameEngine/Source/Common/StringRecordVectorGrowthG7.cpp
 0x005D557F,201,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp W=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
-0x005D5648,136,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,U,N=Code/GameEngine/Source/Common/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/Common/StringRecordVectorFill005D5648.cpp
+0x005D5648,136,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,U,N=Code/GameEngine/Source/Common/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x005D56D0,124,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x005D574C,135,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x005D57D3,24,code,,,-,,Code/GameEngine/Source/Common/Rva005D583CCtor.cpp
@@ -89270,13 +89270,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A2577,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D528B@FuncInfo0x00959FF8 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A257F,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D528B@FuncInfo0x00959FF8 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A2587,10,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D528B@FuncInfo0x00959FF8 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
-0x007A2591,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5434@FuncInfo0x0095A01C provisional,Code/GameEngine/Source/Common/FamilyVectorDtors_muse-3fc4.cpp
-0x007A2599,10,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5434@FuncInfo0x0095A01C provisional,Code/GameEngine/Source/Common/FamilyVectorDtors_muse-3fc4.cpp
+0x007A2591,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5434@FuncInfo0x0095A01C provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
+0x007A2599,10,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5434@FuncInfo0x0095A01C provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A25A3,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D557F@FuncInfo0x0095A048 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A25AB,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D557F@FuncInfo0x0095A048 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A25B3,10,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D557F@FuncInfo0x0095A048 provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
-0x007A25BD,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5648@FuncInfo0x0095A06C provisional,Code/GameEngine/Source/Common/StringRecordVectorFill005D5648.cpp
-0x007A25C5,10,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5648@FuncInfo0x0095A06C provisional,Code/GameEngine/Source/Common/StringRecordVectorFill005D5648.cpp
+0x007A25BD,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5648@FuncInfo0x0095A06C provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
+0x007A25C5,10,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp,approved,P,P=0x005D5648@FuncInfo0x0095A06C provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A25CF,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A25D7,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 0x007A25E1,8,code,Code/GameEngine/Source/GameClient/GUI/ChatWindowsOnline.cpp,approved,P,P=0x005D58E6@FuncInfo0x0095A0BC p-group provisional,Code/GameEngine/Source/GameClient/GUI/ChatWindowsOnlineBuddy.cpp
