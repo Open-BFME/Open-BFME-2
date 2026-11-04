@@ -90,11 +90,7 @@ private:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &message, Bool forcePause);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 static const Real HUGE_DIST = 1000000.0f;
 // The locomotor set lives at AIUpdateInterface +0x1CC; Pathfinder's rowed
