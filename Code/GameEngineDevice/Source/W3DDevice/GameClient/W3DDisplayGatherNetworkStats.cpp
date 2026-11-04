@@ -37,36 +37,19 @@ extern GlobalLanguage *TheGlobalLanguageData;
 #include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
-class NetworkInterface
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C();
-	virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1C();
-	virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2C();
-	virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3C();
-	virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4C();
-	virtual void v50(); virtual void v54(); virtual void v58(); virtual void v5C();
-	virtual void v60(); virtual void v64(); virtual void v68(); virtual void v6C();
-	virtual void v70(); virtual void v74(); virtual void v78(); virtual void v7C();
-	virtual void v80(); virtual void v84(); virtual void v88(); virtual void v8C();
-	virtual void v90(); virtual void v94(); virtual void v98(); virtual void v9C();
-	virtual void vA0(); virtual void vA4(); virtual void vA8();
-	virtual Bool isPacketRouter();				// +0xAC
-	virtual UnsignedInt getPacketRouterSlot();		// +0xB0
-	virtual void vB4(); virtual void vB8();
-	virtual UnicodeString getPlayerName(Int slot);		// +0xBC
-	virtual void vC0(); virtual void vC4(); virtual void vC8(); virtual void vCC();
-	virtual void vD0();
-	virtual Real getIncomingBytesPerSecond();		// +0xD4
-	virtual Real getIncomingPacketsPerSecond();		// +0xD8
-	virtual Real getOutgoingBytesPerSecond();		// +0xDC
-	virtual Real getOutgoingPacketsPerSecond();		// +0xE0
-	virtual void vE4(); virtual void vE8();
-	virtual Int getFramesBehindPacketRouter();		// +0xEC
-	virtual Int getRunAheadCeilingHits();			// +0xF0
-	virtual Int getSequentialBuffer(Int index);		// +0xF4
-	virtual Int getSlotFrame(Int slot);			// +0xF8
-};
+// NetworkInterface slot uses in this unit (private-view names; original names unproved):
+//   slot43 = isPacketRouter
+//   slot44 = getPacketRouterSlot
+//   slot47 = getPlayerName
+//   slot53 = getIncomingBytesPerSecond
+//   slot54 = getIncomingPacketsPerSecond
+//   slot55 = getOutgoingBytesPerSecond
+//   slot56 = getOutgoingPacketsPerSecond
+//   slot59 = getFramesBehindPacketRouter
+//   slot60 = getRunAheadCeilingHits
+//   slot61 = getSequentialBuffer
+//   slot62 = getSlotFrame
+#include "../../../../GameEngine/Include/GameNetwork/NetworkInterfaceClass.h"
 extern NetworkInterface *TheNetwork;
 
 #include "../../../../GameEngine/Include/Common/GameEngine.h"
@@ -199,20 +182,20 @@ void W3DDisplay::gatherNetworkStats()
 	if (TheNetwork)
 	{
 		unibuffer.format(L"Bandwidth IN: %.2f bytes/sec, %.2f packets/sec",
-			TheNetwork->getIncomingBytesPerSecond(), TheNetwork->getIncomingPacketsPerSecond());
+			TheNetwork->slot53(), TheNetwork->slot54());
 		m_networkDebugString[2]->setText(unibuffer);
 		unibuffer.format(L"Bandwidth OUT: %.2f bytes/sec, %.2f packets/sec",
-			TheNetwork->getOutgoingBytesPerSecond(), TheNetwork->getOutgoingPacketsPerSecond());
+			TheNetwork->slot55(), TheNetwork->slot56());
 		m_networkDebugString[3]->setText(unibuffer);
 
-		UnsignedInt packetRouterSlot = TheNetwork->getPacketRouterSlot();
+		UnsignedInt packetRouterSlot = TheNetwork->slot44();
 		if (packetRouterSlot >= 8)
 			return;
 
-		if (TheNetwork->isPacketRouter())
+		if (TheNetwork->slot43())
 		{
 			UnicodeString unused;
-			AsciiString routerName(TheNetwork->getPlayerName(packetRouterSlot));
+			AsciiString routerName(TheNetwork->slot47(packetRouterSlot));
 			unibuffer.format(L"**** I (Slot %d:%S) am the packet router ****", packetRouterSlot, routerName.str());
 			m_networkDebugString[7]->setText(unibuffer);
 			unibuffer.format(L"Session/Frame: %d/%d", TheGameLogic->getTimestamp(), TheGameLogic->getFrame());
@@ -220,13 +203,13 @@ void W3DDisplay::gatherNetworkStats()
 		}
 		else
 		{
-			AsciiString routerName(TheNetwork->getPlayerName(packetRouterSlot));
+			AsciiString routerName(TheNetwork->slot47(packetRouterSlot));
 			unibuffer.format(L"---- Other machine (Slot %d:%S) is the packet router ----", packetRouterSlot, routerName.str());
 			m_networkDebugString[7]->setText(unibuffer);
-			unibuffer.format(L"Frames behind the packet router: %d", TheNetwork->getFramesBehindPacketRouter());
+			unibuffer.format(L"Frames behind the packet router: %d", TheNetwork->slot59());
 			m_networkDebugString[8]->setText(unibuffer);
 			unibuffer.format(L"Total # of times we've hit the run-ahead ceiling: %d times within %d frames",
-				TheNetwork->getRunAheadCeilingHits(), TheGameLogic->getFrame());
+				TheNetwork->slot60(), TheGameLogic->getFrame());
 			m_networkDebugString[9]->setText(unibuffer);
 		}
 
@@ -249,15 +232,15 @@ void W3DDisplay::gatherNetworkStats()
 				{
 					unibuffer.format(L"AIPlayer %d(%S)", i, status->m_playerName.str());
 				}
-				else if (TheNetwork->isPacketRouter())
+				else if (TheNetwork->slot43())
 				{
-					Int framesAhead = TheNetwork->getSlotFrame(i) - TheGameLogic->getFrame() + 1;
+					Int framesAhead = TheNetwork->slot62(i) - TheGameLogic->getFrame() + 1;
 					if (framesAhead == -10)
 						unibuffer.format(L"Player %d(%S) is on frame#: %d (%d) -- NETWORK SIGNAL FLATLINED (WAITING...)",
-							i, status->m_playerName.str(), TheNetwork->getSlotFrame(i), framesAhead);
+							i, status->m_playerName.str(), TheNetwork->slot62(i), framesAhead);
 					else
 						unibuffer.format(L"Player %d(%S) is on frame#: %d (%d)",
-							i, status->m_playerName.str(), TheNetwork->getSlotFrame(i), framesAhead);
+							i, status->m_playerName.str(), TheNetwork->slot62(i), framesAhead);
 				}
 				else
 				{
@@ -281,9 +264,9 @@ void W3DDisplay::gatherNetworkStats()
 			m_networkDebugString[9 + i]->setText(unibuffer);
 		}
 
-		if (BfmeLastRunAheadCeilingHits != TheNetwork->getRunAheadCeilingHits() && TheGameLogic->getFrame() > 5)
+		if (BfmeLastRunAheadCeilingHits != TheNetwork->slot60() && TheGameLogic->getFrame() > 5)
 		{
-			BfmeLastRunAheadCeilingHits = TheNetwork->getRunAheadCeilingHits();
+			BfmeLastRunAheadCeilingHits = TheNetwork->slot60();
 			BfmeNetworkRunAheadChangeFrame = TheGameLogic->getFrame();
 		}
 		unibuffer.format(L"No Run Ahead");
@@ -292,7 +275,7 @@ void W3DDisplay::gatherNetworkStats()
 		unibuffer = L"SequentialBuffers: ";
 		for (Int j = 0; j < 9; ++j)
 		{
-			unibuffer2.format(L"%d ", TheNetwork->getSequentialBuffer(j));
+			unibuffer2.format(L"%d ", TheNetwork->slot61(j));
 			unibuffer.concat(unibuffer2);
 		}
 		m_networkDebugString[5]->setText(unibuffer);

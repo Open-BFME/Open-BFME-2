@@ -346,72 +346,9 @@ public:
 	virtual int getNumExtraBlendTiles();
 };
 
-class NetworkInterface
-{
-public:
-	virtual void v000();
-	virtual void v004();
-	virtual void v008();
-	virtual void v00C();
-	virtual void v010();
-	virtual void v014();
-	virtual void v018();
-	virtual void v01C();
-	virtual void v020();
-	virtual void v024();
-	virtual void v028();
-	virtual void v02C();
-	virtual void v030();
-	virtual void v034();
-	virtual void v038();
-	virtual void v03C();
-	virtual void v040();
-	virtual void v044();
-	virtual void v048();
-	virtual void v04C();
-	virtual void v050();
-	virtual void v054();
-	virtual void v058();
-	virtual void v05C();
-	virtual void v060();
-	virtual void v064();
-	virtual void v068();
-	virtual void v06C();
-	virtual void v070();
-	virtual void v074();
-	virtual void v078();
-	virtual void v07C();
-	virtual void v080();
-	virtual void v084();
-	virtual void v088();
-	virtual void v08C();
-	virtual void v090();
-	virtual void v094();
-	virtual void v098();
-	virtual void v09C();
-	virtual void v0A0();
-	virtual void v0A4();
-	virtual void v0A8();
-	virtual void v0AC();
-	virtual void v0B0();
-	virtual void v0B4();
-	virtual void v0B8();
-	virtual void v0BC();
-	virtual void v0C0();
-	virtual void v0C4();
-	virtual void v0C8();
-	virtual void v0CC();
-	virtual void v0D0();
-	virtual void v0D4();
-	virtual void v0D8();
-	virtual void v0DC();
-	virtual void v0E0();
-	virtual void v0E4();
-	virtual void v0E8();
-	virtual void v0EC();
-	virtual void v0F0();
-	virtual int getSequentialBufferCount(int i);
-};
+// NetworkInterface slot uses in this unit (private-view names; original names unproved):
+//   slot61 = getSequentialBufferCount
+#include "../../../../GameEngine/Include/GameNetwork/NetworkInterfaceClass.h"
 
 class ParticleSystemManager
 {
@@ -814,7 +751,7 @@ void W3DDisplay::gatherDebugStats(void)
 			unibuffer.set(W("SequentialBuffers: "));
 			for (int i = 0; i < 9; i++)
 			{
-				unibuffer2.format(W("%d "), TheNetwork->getSequentialBufferCount(i));
+				unibuffer2.format(W("%d "), TheNetwork->slot61(i));
 				unibuffer.concat(unibuffer2);
 			}
 			m_displayStrings[5]->setText(unibuffer);
