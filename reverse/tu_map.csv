@@ -54342,7 +54342,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00626E40,75,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626E90 provisional,Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp
 0x00626E90,71,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626EE0 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp
 0x00626EE0,9,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626EF0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp
-0x00626EF0,96,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626F50 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp
+0x00626EF0,96,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626F50 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00626F50,50,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626F90 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp
 0x00626F90,24,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x00626AF0..0x00626FB0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp
 0x00626FB0,100,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,U,N=Code/Libraries/Source/partitionmanager/BfmeHostER.cpp provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
@@ -54371,7 +54371,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00627A10,133,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627AA0 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627AA0,57,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627AE0 provisional,Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp
 0x00627AE0,43,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627B10 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp
-0x00627B10,28,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627B30 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00627B10.cpp
+0x00627B10,28,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627B30 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627B30,73,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627B80 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627B80,13,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627B90 provisional,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 0x00627B90,33,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,C,C=0x006278A0..0x00627BC0 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp

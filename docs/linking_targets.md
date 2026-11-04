@@ -1315,7 +1315,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005CE7CE.cpp` | 28 | 3 (U=3) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005DA663.cpp` | 28 | 3 (U=3) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005E96DC.cpp` | 28 | 3 (U=3) | Open |
-| `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00627B10.cpp` | 28 | 6 (U=4, C=1, S=1) | 2026-10-27 at `d16a31e4dc`: row is `push_heap<S4SortElem24 *, S4Cmp009F4BF0>`, its callee 0x006279B0 `__push_heap_aux`; both respelled, one pin dropped; previews LINKS 0 -> 28 B (LINK-083); census pending |
+| `Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp` (`push_heap`, 0x00627B10) | 28 | 6 (U=4, C=1, S=1) | 2026-10-27 at `d16a31e4dc`: row is `push_heap<S4SortElem24 *, S4Cmp009F4BF0>`, its callee 0x006279B0 `__push_heap_aux`; both respelled, one pin dropped; previews LINKS 0 -> 28 B (LINK-083); census pending |
 | `Code/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic.cpp` | 27 | 15 (U=4, C=5, S=6) | Open |
 | `Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp` | 27 | 8 (U=8) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0033A7DC.cpp` | 27 | 5 (U=5) | 2026-10-26 at `58598f540f`: Pair-only instantiation verified; U5 to U1. Native key copy 0x002CF0F0 has a different row name; LINK-054. No whole-unit clearance. Evidence: `build/c136-w4sweep/`, `build/link-report.md`; census pending. |

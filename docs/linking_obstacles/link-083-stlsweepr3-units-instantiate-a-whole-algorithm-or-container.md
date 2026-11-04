@@ -147,3 +147,5 @@ inspected `d16a31e4dc`, index `73061d9452`, retail-truth-4):**
   stay blocked on TU approval (LINK-078); the 0x001DE3E3/0x001FDEBC hashtable
   assignments are second claims of linked rows (LINK-060).
 - Census confirmation: awaiting the next census.
+
+2026-11-04: 0x00627B10 now belongs to `Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp`; byte/link preview and consolidation audit: [partition STL merge](../../reverse/attempt_support/partition-stl-merge-20261104-codexb5.md).

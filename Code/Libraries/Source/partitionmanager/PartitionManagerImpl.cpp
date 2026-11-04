@@ -12,7 +12,6 @@
 #pragma comment(linker, "/alternatename:?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z=?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z")
 #pragma comment(linker, "/alternatename:?m@T_009f4fb0@@QAEXXZ=?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z")
 #include "../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
-
 // Partition calculate recovery: BFME1 donor commit 63c2207a252634a8d48d248b11d81d5e5f6f8241,
 // at verified reference 644b1863ec6ec70c7eb3313432ab438c5735d347, from
 // game/Libraries/Source/partitionmanager/Gen009F5040Calculate.cpp.
@@ -31,21 +30,17 @@ struct Rva009F4900Stage
     // ??0Rva009F4900Stage@@QAE@IH@Z absent-from-retail
     Rva009F4900Stage(unsigned int value, int result) : v(value), r(result) {}
 };
-
 struct Gen009F5040Item;
-
 struct Gen009F4900Value0
 {
 	char m_pad00[0x10];
 	float m_value10;
 };
-
 struct Gen009F4900Value1
 {
 	float m_value00;
 	float m_value04;
 };
-
 struct Gen009F5040Node
 {
 public:
@@ -61,7 +56,6 @@ public:
 	int m_result28; // +0x28
 	int m_result2c; // +0x2C
 };
-
 struct Gen009F5040Item
 {
 	virtual void *getValue0();
@@ -73,22 +67,18 @@ struct Gen009F5040Item
 	virtual void *getValue6();
 	virtual int getIndex();
 };
-
 class BfmeRecEQR;
-
 struct Gen009F5040Counter
 {
 	int m_value;
 	Gen009F5040Node *m_head;
 };
-
 struct Gen009F5040Bucket
 {
 	Gen009F5040Counter *m_counter;
 	int m_pad04;
 	int m_pad08;
 };
-
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined
 // (only .debug$F bound this TU's copy, which differs from the copy the link keeps).
 namespace _STL {
@@ -96,17 +86,14 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline
 void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
-
 struct Gen_p8cd
 {
 	int a[2];
 };
-
 struct T_009f59d0
 {
 	void m();
 };
-
 class Rva009F5970State
 {
 public:
@@ -125,7 +112,6 @@ private:
 	unsigned m_mask;
 	void *m_tail;
 };
-
 // ?bfmeAddEQR@BfmeHostEQR@@QAEXPAVBfmeThingEQR@@@Z
 //
 // BFME1 donor BfmeConv1945.cpp shape: null/slot6 guards, allocate a link
@@ -144,7 +130,6 @@ public:
 
 	unsigned char m_bfmeBodyEQR[0x30];
 };
-
 class BfmeThingEQR
 {
 public:
@@ -156,7 +141,6 @@ public:
 	virtual void bfmeSlot5EQR(BfmeRecEQR *rec);
 	virtual void *bfmeSlot6EQR();
 };
-
 class BfmeHostEQR
 {
 public:
@@ -165,7 +149,6 @@ public:
 	unsigned char m_bfmeHeadEQR[0x114]; // +0x00
 	BfmeRecEQR *m_bfmeListEQR; // +0x114
 };
-
 // STLport __pop_heap over the same24-byte element/comparator view as the
 // matched push/adjust-heap family. Historical element names are unknown.
 // Full133-byte body at0x009F5440; direct caller0x009F5C00+0x319;
@@ -176,7 +159,6 @@ struct S4SortElem24
     int m_key;
     int m_values[5];
 };
-
 struct S4Cmp009F4BF0
 {
 public:
@@ -185,7 +167,6 @@ public:
 		return a.m_key < b.m_key;
 	}
 };
-
 namespace _STL
 {
 
@@ -207,7 +188,6 @@ template void __pop_heap<S4SortElem24 *, int, S4SortElem24, S4Cmp009F4BF0>(
     S4Cmp009F4BF0, int *);
 
 }
-
 // PartitionManagerImpl::_GetObjectsInRange, the recursive wide-result query at RVA 0x00626AF0.
 // The caller supplies a result, four-way node storage, bounds, and an optional distance path.
 // WorldBuilder names it: its body carries the __FUNCTION__ string
@@ -218,15 +198,12 @@ struct Rva009F4130Point
 {
     float x, y;
 };
-
 struct Rva009F39F0Payload;
-
 struct Rva009F39F0Result
 {
 	Rva009F39F0Payload *m_value;
 	void append(int first, int second);
 };
-
 class Rva009F4130Item
 {
 public:
@@ -235,7 +212,6 @@ public:
 	virtual void slot002(void) = 0;
 	virtual void *value(void) = 0;
 };
-
 struct Rva009F4130Node
 {
 	void *m_unused00;
@@ -245,7 +221,6 @@ struct Rva009F4130Node
 	void *m_unused10;
 	Rva009F4130Node *m_next;
 };
-
 struct Rva009F4130Range
 {
 	float m_x0;
@@ -259,23 +234,15 @@ struct Rva009F4130Range
         out->y = (m_y0 + m_y1) * 0.5f;
     }
 };
-
 struct Rva009F4130NodeList
 {
 	int m_hasChildren;
 	Rva009F4130Node *m_head;
 };
-
 class BfmeThingEQ;
-
 class Object;
-
-// Partition filter base: allows (0x00625720) runs the chain from this filter
-// along the +0x04 links.
 #include "../../../GameEngine/Include/GameLogic/PartitionFilter.h"
-
 typedef float (__cdecl *Rva009F4130Distance)(void *context, void *item, float threshold);
-
 // Open-BFME5 conversions - BfmeHostER float-bucket index.
 //
 // Near-miss donor from Open-BFME-1 BfmeConv2039.cpp
@@ -297,7 +264,6 @@ public:
 	float m_bfmeInvER; // +0x118 +0x118
 	unsigned int m_bfmeCountER; // +0x11C +0x11C
 };
-
 class BfmeHostES
 {
 public:
@@ -308,7 +274,6 @@ public:
 	float m_bfmeInvES; // +0x118 +0x118
 	unsigned int m_bfmeCountES; // +0x11C +0x11C
 };
-
 // Open-BFME5 conversions - BfmeThing912C list walk.
 // Near-miss donor from Open-BFME-1 BfmeConv912.cpp (InsertAllObjects @0x009F4F80):
 // retail member m_bfmeHead is at +0x114 (not +0xE4).
@@ -319,9 +284,7 @@ public:
 	char m_bfmePad[0xc]; // +0x00
 	BfmeNode912C *m_bfmeNext; // +0x0C
 };
-
 struct Gen009F5040Node;
-
 class BfmeThing912C
 {
 public:
@@ -329,7 +292,6 @@ public:
 	char m_bfmePad[0x114];
 	BfmeNode912C *m_bfmeHead;
 };
-
 // The data ledger identifies the shared read-only operand as float +0.0.
 
 class BfmePosEJ
@@ -338,41 +300,35 @@ public:
 	float m_bfmeXEJ;
 	float m_bfmeYEJ;
 };
-
 class BfmeDataEJ
 {
 public:
 	unsigned char m_bfmeHeadEJ[0x10];
 	float m_bfmeRadiusEJ;
 };
-
 class BfmeObjEJ
 {
 public:
 	virtual BfmeDataEJ *bfmeDataEJ();
 	virtual BfmePosEJ *bfmePosEJ();
 };
-
 class BfmeBoundaryGeometry3D
 {
 public:
 	char m_prefix[0x14];
 	float m_radius;
 };
-
 class Rva0073A1C0FloatField
 {
 public:
 	float get(void) const;
 };
-
 class Object
 {
 public:
 	virtual BfmeBoundaryGeometry3D *getGeometry(void) const = 0;
 	virtual Coord3D *getPosition(void) const = 0;
 };
-
 namespace _STL
 {
 
@@ -391,7 +347,6 @@ template void __push_heap_aux<S4SortElem24 *, S4Cmp009F4BF0, int, S4SortElem24>(
 	S4SortElem24 *, S4SortElem24 *, S4Cmp009F4BF0, int *, S4SortElem24 *);
 
 }
-
 namespace _STL
 {
 
@@ -438,7 +393,6 @@ template void __adjust_heap<S4SortElem24 *, int, S4SortElem24, S4Cmp009F4BF0>(
 	S4SortElem24 *, int, int, S4SortElem24, S4Cmp009F4BF0);
 
 }
-
 // ?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z @ 0x006276E0 (129B)
 //
 // BFME1 donor reference/open-bfme-1/Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp
@@ -453,11 +407,8 @@ struct Rva009F5970StateInit
 {
 	float value[6];
 };
-
 class BfmeThingEQR;
-
 static float g_bfmeDefaultBU;
-
 class T_009f4fb0
 {
 public:
@@ -470,13 +421,11 @@ public:
 	int m_flags;
 	void *m_tail;
 };
-
 class BfmeThingZU
 {
 public:
 	void bfmeUnhookZU();
 };
-
 class BfmeThingYQ
 {
 public:
@@ -488,7 +437,6 @@ public:
 	virtual void bfmeClearYQ(int flag) = 0;
 	virtual Gen009F5040Node *bfmeTakeYQ() = 0;
 };
-
 class __declspec(novtable) PartitionManagerImpl
 {
 public:
@@ -523,11 +471,8 @@ public:
 public:
 	void bfmeDropYQ(BfmeThingYQ *t);
 };
-
-// WB1107620 RadarMarker::AddReference increments its +8 reference count.
-// Native smart-pointer assignment4C9B8F calls this four-byte body before
-// the adjacent RadarMarker::DeleteReference body2D76BB.
 #include "../../../GameEngine/Include/GameClient/RadarMarker.h"
+#include <iterator>
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
@@ -540,13 +485,41 @@ public:
 // ?subtract24@Rva006272D0Fields@@QAEXXZ
 struct Rva006272D0Fields { char pad[4]; unsigned int word4; void subtract24(); };
 
+struct Rva00626EF0Element { int words[6]; bool operator<(const Rva00626EF0Element&b)const { return words[0]<b.words[0]; } bool operator==(const Rva00626EF0Element&b)const {return words[0]==b.words[0];} };
+
+// Keep only STLport's public wrapper here. Including <algorithm> would also
+// define the heap implementation templates recovered in PartitionManagerImpl.
+namespace _STL {
+template <class RandomAccessIterator, class Compare, class Distance, class Tp>
+__declspec(noinline) void __push_heap_aux(RandomAccessIterator, RandomAccessIterator, Compare, Distance *, Tp *);
+
+template <class RandomAccessIterator, class Compare>
+void push_heap(RandomAccessIterator first, RandomAccessIterator last, Compare comp)
+{
+    __push_heap_aux(first, last, comp,
+        _STLP_DISTANCE_TYPE(first, RandomAccessIterator),
+        _STLP_VALUE_TYPE(first, RandomAccessIterator));
+}
+
+}
+
+// tu-skeleton: 0x00626AA0 72B ?_ClearNumObjBelow@PartitionManagerImpl@@QAEXPAPAXI@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
+
+// Partition filter base: allows (0x00625720) runs the chain from this filter
+// along the +0x04 links.
+
+// WB1107620 RadarMarker::AddReference increments its +8 reference count.
+// Native smart-pointer assignment4C9B8F calls this four-byte body before
+// the adjacent RadarMarker::DeleteReference body2D76BB.
+
 // Whole clean BF1 f989 Rva001A6BD0VectorDtor.cpp emits pop_back for
 // several opaque eight-byte element names under O2/SSE2/G7. This is a
 // source guide only: native539A13..539A18 follows a complete RET4 and
 // ends its own RET0 before a distinct stack-based body. It subtracts8
 // modulo32 from receiver word4; no vector, pointer, element or owner
 // identity is asserted. Unsigned storage preserves the witnessed bits.
-// tu-skeleton: 0x00626AA0 72B ?_ClearNumObjBelow@PartitionManagerImpl@@QAEXPAPAXI@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 
@@ -1024,28 +997,6 @@ void PartitionManagerImpl::bfmeDropYQ(BfmeThingYQ *t)
 	::operator delete(n);
 }
 
-// tu-skeleton: 0x00626D90 30B ??_GRva00625800Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
-
-// tu-skeleton: 0x00626DE0 9B ?size@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
-
-// tu-skeleton: 0x00626DF0 25B ?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
-
-// tu-skeleton: 0x00626E10 47B ??$_Construct@UFlightDeckInfo@FlightDeckBehavior@@U12@@_STL@@YAXPAUFlightDeckInfo@FlightDeckBehavior@@ABU12@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
-
-// tu-skeleton: 0x00626E40 75B ??$__uninitialized_copy@PAUFlightDeckInfo@FlightDeckBehavior@@PAU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
-
-// tu-skeleton: 0x00626E90 71B ??$__uninitialized_fill_n@PAUFlightDeckInfo@FlightDeckBehavior@@IU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
-
-// tu-skeleton: 0x00626EE0 9B ?capacity@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
-
-// tu-skeleton: 0x00626EF0 96B ??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp (not merged yet)
-
-// tu-skeleton: 0x00626F50 50B ??$__copy@PBU?$pair@HH@_STL@@PAU12@H@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
-
-// tu-skeleton: 0x00626F90 24B ??R?$less@H@_STL@@QBE_NABH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp (not merged yet)
-
-// tu-skeleton: 0x006272C0 12B ??A?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAU?$pair@HH@1@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp
 
 // Disp8 dword inc/dec: four-byte __thiscall members with one shape:
@@ -1068,6 +1019,34 @@ void PartitionManagerImpl::bfmeDropYQ(BfmeThingYQ *t)
 
 void Rva006272D0Fields::subtract24() { word4 -= 24u; }
 
+// tu-skeleton: 0x00626D90 30B ??_GRva00625800Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x00626DE0 9B ?size@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x00626DF0 25B ?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x00626E10 47B ??$_Construct@UFlightDeckInfo@FlightDeckBehavior@@U12@@_STL@@YAXPAUFlightDeckInfo@FlightDeckBehavior@@ABU12@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// tu-skeleton: 0x00626E40 75B ??$__uninitialized_copy@PAUFlightDeckInfo@FlightDeckBehavior@@PAU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// tu-skeleton: 0x00626E90 71B ??$__uninitialized_fill_n@PAUFlightDeckInfo@FlightDeckBehavior@@IU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
+
+// tu-skeleton: 0x00626EE0 9B ?capacity@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva00626EF0Element * _STL::__copy<Rva00626EF0Element *, Rva00626EF0Element *, int>(Rva00626EF0Element *, Rva00626EF0Element *, Rva00626EF0Element *, _STL::random_access_iterator_tag const &, int *);
+
+// tu-skeleton: 0x00626F50 50B ??$__copy@PBU?$pair@HH@_STL@@PAU12@H@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x00626F90 24B ??R?$less@H@_STL@@QBE_NABH0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp (not merged yet)
+
+// tu-skeleton: 0x006272C0 12B ??A?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAU?$pair@HH@1@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
+
 // tu-skeleton: 0x006272E0 32B ??$__copy_ptrs@PAV?$BitFlags@$0HF@@@PAV1@@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00U__false_type@0@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
 
 // tu-skeleton: 0x00627300 39B ??$__uninitialized_fill_n@PAU?$pair@HH@_STL@@IU12@@_STL@@YAPAU?$pair@HH@0@PAU10@IABU10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
@@ -1082,7 +1061,19 @@ void Rva006272D0Fields::subtract24() { word4 -= 24u; }
 
 // tu-skeleton: 0x00627AE0 43B ?erase@?$vector@V?$BitFlags@$0HF@@@V?$allocator@V?$BitFlags@$0HF@@@@_STL@@@_STL@@QAEPAV?$BitFlags@$0HF@@@PAV3@0@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
 
-// tu-skeleton: 0x00627B10 28B ??$push_heap@PAUS4SortElem24@@US4Cmp009F4BF0@@@_STL@@YAXPAUS4SortElem24@@0US4Cmp009F4BF0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00627B10.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00627B10.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+//
+// 0x00627B10 is _STL::push_heap<S4SortElem24 *, S4Cmp009F4BF0>: it forwards
+// first, last and the comparator with the two null distance/value type tags
+// to __push_heap_aux at 0x006279B0 (stlport_push_heap_s4sortelem24.cpp),
+// which copies last[-1] and calls __push_heap 0x00627330. Retail keeps that
+// call out of line, so the helper is declared here and not instantiated.
+// The partition manager's closest-object query (0x00628040) uses the same
+// 24-byte heap element and comparator.
+
+template void _STL::push_heap(S4SortElem24 *, S4SortElem24 *, S4Cmp009F4BF0);
 
 // tu-skeleton: 0x00627B90 33B ?clear@?$vector@V?$BitFlags@$0HF@@@V?$allocator@V?$BitFlags@$0HF@@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
 
