@@ -415,11 +415,7 @@ class GameLODManager;
 extern GameLODManager *TheGameLODManager;
 void BFME_DX8_Thread_Lock();
 
-class DX8IndexBufferClass {
- public:enum UsageType{USAGE_DEFAULT=0};
- char record[24];
- DX8IndexBufferClass(unsigned,UsageType);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 class VertexBufferClass {public:
  class WriteLockClass {
   VertexBufferClass *buffer;public: void *vertices;private:BFMEDX8DeviceLock lock;
