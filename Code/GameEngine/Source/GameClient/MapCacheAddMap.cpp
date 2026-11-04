@@ -59,16 +59,11 @@ namespace _STL { template <> void allocator<_List_node<Coord3D> >::deallocate(_L
 class WaypointMap : public _STL::map<AsciiString,Coord3D> {public: void update(); int numStartSpots;};
 struct PlayerPosition { unsigned char human,computer,loadAIScripts; int forceTeam; _STL::set<AsciiString> factions; };
 struct MapPlayers { PlayerPosition items[8]; };
-class MapMetaData {
-public:
-    MapMetaData(); ~MapMetaData(); MapMetaData &operator=(const MapMetaData &);
-    UnicodeString displayName,description; Region3D extent; int numPlayers;
-    unsigned char isMultiplayer,isScenarioMP,isOfficial;
-    unsigned filesize,crc,timestampLo,timestampHi;
-    WaypointMap waypoints; _STL::list<Coord3D> supplyPositions,techPositions;
-    AsciiString fileName; MapPlayers players; unsigned wordF4;
-    UnicodeString cachedDisplayName,cachedDescription;
-};
+#include "../../Include/GameClient/MapMetaData.h"
+// The canonical header keeps the STL members opaque; this TU's typed views.
+static inline WaypointMap &waypointsOf(MapMetaData &md) { return reinterpret_cast<WaypointMap &>(md.field38); }
+static inline _STL::list<Coord3D> &supplyOf(MapMetaData &md) { return reinterpret_cast<_STL::list<Coord3D> &>(md.field48); }
+static inline _STL::list<Coord3D> &techOf(MapMetaData &md) { return reinterpret_cast<_STL::list<Coord3D> &>(md.field4C); }
 typedef char CheckMetadata256[(sizeof(MapMetaData)==256)?1:-1];
 class Rva00304DC7Record { char data[256]; };
 class Rva00304DC7Map { public: Rva00304DC7Record &operator[](const AsciiString &); };
@@ -106,26 +101,26 @@ bool MapCache::addMap(AsciiString dirName,AsciiString fname,FileInfo *info,bool 
     unsigned filesize=info->sizeLow;
     if (it!=end()) {
         md=it->second;
-        if (md.filesize==filesize && md.crc!=0) return false;
+        if (md.m_filesize==filesize && md.m_CRC!=0) return false;
     }
     loadMap(fname,&md);
-    md.fileName=lowerFname;
-    md.filesize=filesize;
-    md.isOfficial=official;
-    md.waypoints.update();
-    md.numPlayers=md.waypoints.numStartSpots;
-    md.isMultiplayer=md.numPlayers>=2;
-    if (strstr(md.fileName.str(),"\\map sps ")) md.isMultiplayer=false;
-    md.timestampHi=info->timestampHigh;
-    md.timestampLo=info->timestampLow;
-    md.supplyPositions=m_supplyPositions;
-    md.techPositions=m_techPositions;
-    md.crc=calcCRC(dirName,fname);
+    md.m_fileName=lowerFname;
+    md.m_filesize=filesize;
+    md.m_isOfficial=official;
+    waypointsOf(md).update();
+    md.m_numPlayers=waypointsOf(md).numStartSpots;
+    md.m_isMultiplayer=md.m_numPlayers>=2;
+    if (strstr(md.m_fileName.str(),"\\map sps ")) md.m_isMultiplayer=false;
+    md.field34=info->timestampHigh;
+    md.field30=info->timestampLow;
+    supplyOf(md)=m_supplyPositions;
+    techOf(md)=m_techPositions;
+    md.m_CRC=calcCRC(dirName,fname);
     bool exists=false;
-    md.isScenarioMP=worldDict.getBool(key(TheKey_isScenarioMultiplayer),&exists);
-    if (!exists) md.isScenarioMP=false;
+    md.m_isScenarioMP=worldDict.getBool(key(TheKey_isScenarioMultiplayer),&exists);
+    if (!exists) md.m_isScenarioMP=false;
     AsciiString name=worldDict.getAsciiString(key(TheKey_mapName),&exists);
-    if (exists && !name.isEmpty()) md.displayName.translate(name);
+    if (exists && !name.isEmpty()) md.m_displayName.translate(name);
     else {
         AsciiString leaf=((const StringBase<char> &)(fname)).reverseFind('\\')+1;
         const char *p=leaf.str();
@@ -137,10 +132,10 @@ bool MapCache::addMap(AsciiString dirName,AsciiString fname,FileInfo *info,bool 
                 reinterpret_cast<StringBase<char> *>(&tag)->concat(&ch,1);
             }
         }
-        md.displayName.translate(tag);
+        md.m_displayName.translate(tag);
     }
     AsciiString description=worldDict.getAsciiString(key(TheKey_mapDescription),&exists);
-    if (exists && !description.isEmpty()) md.description.translate(description);
+    if (exists && !description.isEmpty()) md.m_description.translate(description);
     else {
         AsciiString leaf=((const StringBase<char> &)(fname)).reverseFind('\\')+1;
         const char *p=leaf.str();
@@ -153,13 +148,13 @@ bool MapCache::addMap(AsciiString dirName,AsciiString fname,FileInfo *info,bool 
             }
         }
         reinterpret_cast<StringBase<char> *>(&tag)->concat("/Desc");
-        md.description.translate(tag);
+        md.m_description.translate(tag);
     }
-    md.extent.lo.x=0.0f;md.extent.lo.y=0.0f;
-    md.extent.hi.x=m_mapDX*10.0f;md.extent.hi.y=m_mapDY*10.0f;
-    md.extent.lo.z=0.0f;md.extent.hi.z=0.0f;
+    md.m_extent.lo.x=0.0f;md.m_extent.lo.y=0.0f;
+    md.m_extent.hi.x=m_mapDX*10.0f;md.m_extent.hi.y=m_mapDY*10.0f;
+    md.m_extent.lo.z=0.0f;md.m_extent.hi.z=0.0f;
     record(lowerFname)=md;
-    for (WaypointMap::iterator waypoint=md.waypoints.begin();waypoint!=md.waypoints.end();++waypoint) {}
+    for (WaypointMap::iterator waypoint=waypointsOf(md).begin();waypoint!=waypointsOf(md).end();++waypoint) {}
     resetMap();
     return true;
 }
