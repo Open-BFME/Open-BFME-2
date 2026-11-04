@@ -359,11 +359,6 @@ void AITeamBuilder::recruitUnDefined(Team* teamToBuild,int* curNumUnits) {
 #undef free
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-//
-// ?getCurNumUnits@AITeamBuilder@@QAEHPAVTeam@@@Z @0x00599FD7 69B
-// Count team members whose template kind bytes have bit 8 at +0x108 or bit 4
-// at +0x113. Evidence: unlock lane, iterate at 0x00263864 plus advance,
-// ret-4 single Team arg, 2 callers, OR of two byte tests, honest Count verb.
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
@@ -414,25 +409,17 @@ struct Arg
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-
 void Rva00030830FreeAllocation(void *);
-
 class Rva0039D761DwordClearer { public: void clear(); };
-
 namespace _STL { template<> unsigned int hash_map<int,int>::bucket_count() const; }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
-
 // bfme link decl-only begin
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-
 class Rva00506B1B
 {
 public:
@@ -441,10 +428,9 @@ public:
 	virtual void v1();
 	bool m_04;
 };
-
 #include "../../../../Include/GameLogic/Rva002EE9B7.h"
-
 #include "Lib/BfmeE16.h"
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 
 class Rva0059A85C : public Rva00506B1B
 {
@@ -537,6 +523,27 @@ template <> void vector<Object *>::_M_clear()
 }
 
 }
+
+struct Rva0059A85CNode
+{
+	Rva0059A85CNode *m_next;
+	char m_pad[4];
+	Arg *m_val;
+};
+
+struct Rva0059A85COuter
+{
+	char m_pad[0x32c];
+	Rva0059A85CNode *m_head;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp
+
+//
+// ?getCurNumUnits@AITeamBuilder@@QAEHPAVTeam@@@Z @0x00599FD7 69B
+// Count team members whose template kind bytes have bit 8 at +0x108 or bit 4
+// at +0x113. Evidence: unlock lane, iterate at 0x00263864 plus advance,
+// ret-4 single Team arg, 2 callers, OR of two byte tests, honest Count verb.
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp
 
@@ -706,14 +713,6 @@ int AITeamBuilder::doesTeamMeetThreat(Team *team)
 	return sum >= vmax;
 }
 
-// tu-skeleton: 0x0059A258 41B ?rva0059A258@Rva00599FAA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A281 56B ??1Rva00599FAA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A2B9 5B ?rva0059A2B9@Rva0059A2B9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0059A47D 28B ??_GRva0059A85C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/AITeamBuilder_registerTeamPrototype.cpp
 
 // ?registerTeamPrototype@AITeamBuilder@@QAEXPAUArg@@@Z @0x0059A71C (90B)
@@ -784,8 +783,6 @@ void AITeamBuilder::distanceSortUnits(void *sortedStorage,
     }
 }
 
-// tu-skeleton: 0x0059A85C 123B ??0Rva0059A85C@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp
 
 static inline Object **FillObjectPointers(Object **first, unsigned int n, Object * const &value)
@@ -832,6 +829,38 @@ void AITeamBuilder::checkIdleTeams() {
  }
 }
 
+// tu-skeleton: 0x0059A258 41B ?rva0059A258@Rva00599FAA@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0059A281 56B ??1Rva00599FAA@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0059A2B9 5B ?rva0059A2B9@Rva0059A2B9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp
+
+// Fix over the banked 0.97 attempt, from the retail unwind map: state 0
+// destroys the Rva00506B1B base through its 7-byte vptr setter 0x00506B28, so
+// the base declares a virtual destructor; that restores the missing state-0
+// store and the state numbering of the vector (+0x08) and set (+0x18).
+// ??0Rva0059A85C@@QAE@PAX@Z @0x0059A85C (123B)
+// Derived ctor calls base Rva00506B1B then vector BfmeE16 at +8 then sets
+// vtable g_00C70DE4 then set AsciiString at +0x18. Stores void arg to +0x14
+// then walks circular list at arg+0x32c calling rowed registerTeamPrototype on each
+// node+8 value. Ret 4. Caller 0x004EC430. Evidence chain lane calls just
+// landed 0x0059A71C plus EH prolog plus vector_base set rows.
+
+// ??0Rva0059A85C@@QAE@PAX@Z @0x0059A85C
+Rva0059A85C::Rva0059A85C(void *outer) : m_vec(), m_outer(outer), m_set()
+{
+	Rva0059A85CNode *sent = ((Rva0059A85COuter *)m_outer)->m_head;
+	Rva0059A85CNode *cur = *(Rva0059A85CNode **)sent;
+	if (cur == sent)
+		return;
+	do {
+		((AITeamBuilder *)this)->registerTeamPrototype(cur->m_val);
+		cur = cur->m_next;
+	} while (cur != ((Rva0059A85COuter *)m_outer)->m_head);
+}
+
 // tu-skeleton: 0x0059ABC9 132B ?rva0059ABC9@AITeamBuilder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
 
 // tu-skeleton: 0x0059AC4D 33B ?rva0059AC4D@AITeamBuilder@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059ADB9.cpp (not merged yet)
@@ -842,10 +871,4 @@ void AITeamBuilder::checkIdleTeams() {
 
 // tu-skeleton: 0x0079D6D5 11B uw_0079d6d5 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
-// tu-skeleton: 0x0079D71E 8B Unwind@00b9d71e -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D726 11B $L5826 -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0079D731 11B uw_0079d731 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D73C 10B __ehhandler$??0Rva0059A85C@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp (not merged yet)
