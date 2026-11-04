@@ -174,7 +174,13 @@ AICommandInterface*command(){return (AICommandInterface*)((char*)this+0x20);}
 };
 struct LocoTemplate {char pad[0x70];int appearance;};
 class Locomotor {public:float getMaxSpeed(Object*)const;bool rva001E4194(Object*);char pad[4];const LocoTemplate*data;};
-class Rva001E46E1 {public:float rva001E4845(Object*);float rva001E46E1(Object*);};
+class Rva001E46E1
+{
+public:
+	float rva001E4845(Object*);
+	float rva001E46E1(Object*);
+	bool rva001E543F(Object*);
+};
 #include "../../../../Include/GameClient/View.h"
 #include "../../../Common/Thing/thing.h"
 enum KindOfType {KINDOF_0088=0x88};
