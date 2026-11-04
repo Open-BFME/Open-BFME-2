@@ -837,12 +837,7 @@ struct Rva00359302Result
     void *m_node;
     bool m_alt;
 };
-class HotKeyManager
-{
-public:
-    AsciiString searchHotKey(const AsciiString &);
-    Rva00359302Result addHotKey(const TreeHintRef00217D4C &,const AsciiString &,bool);
-};
+#include "../../../../Include/GameClient/HotKeyManager.h"
 extern HotKeyManager *TheHotKeyManager;
 #include "../../../../Include/GameClient/View.h"
 extern View *TheTacticalView;
