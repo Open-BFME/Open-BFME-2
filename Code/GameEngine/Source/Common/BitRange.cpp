@@ -195,35 +195,35 @@ void Rva003ED9B1::rva003ED9B1(Rva003ED9B1 const &src)
 {
 	BitRange const *srcRange = (BitRange const *)&src.m_vec;
 	BitRange const *thisRange = (BitRange const *)&m_vec;
-	int argCount = (int)(srcRange->m_end - srcRange->m_begin);
-	unsigned thisCount = (unsigned)(thisRange->m_end - thisRange->m_begin);
-	if (thisCount < (unsigned)argCount)
-		m_vec.resize((unsigned)argCount, 0);
+	int sourceWordCount = (int)(srcRange->m_end - srcRange->m_begin);
+	unsigned destinationWordCount = (unsigned)(thisRange->m_end - thisRange->m_begin);
+	if (destinationWordCount < (unsigned)sourceWordCount)
+		m_vec.resize((unsigned)sourceWordCount, 0);
 	_STL::_Rb_tree_node_base *header = reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0]);
-	_STL::_Rb_tree_node_base *n = header->_M_left;
-	if (n == header)
+	_STL::_Rb_tree_node_base *node = header->_M_left;
+	if (node == header)
 		return;
 	do
 	{
-		TreeNode *tn = (TreeNode *)n;
-		unsigned bits = tn->m_14;
-		int word = (int)(bits >> 5);
-		unsigned mask = 1u << (bits & 31);
-		if (argCount > word)
+		TreeNode *recordNode = (TreeNode *)node;
+		unsigned bitIndex = recordNode->m_14;
+		int wordIndex = (int)(bitIndex >> 5);
+		unsigned mask = 1u << (bitIndex & 31);
+		if (sourceWordCount > wordIndex)
 		{
-			unsigned const *argBits = ((BitRange const *)&src.m_vec)->m_begin;
-			if ((argBits[word] & mask) != 0)
+			unsigned const *sourceWords = ((BitRange const *)&src.m_vec)->m_begin;
+			if ((sourceWords[wordIndex] & mask) != 0)
 			{
-				unsigned const *thisBits = ((BitRange const *)&m_vec)->m_begin;
-				if ((thisBits[word] & mask) == 0)
+				unsigned const *destinationWords = ((BitRange const *)&m_vec)->m_begin;
+				if ((destinationWords[wordIndex] & mask) == 0)
 				{
-					++tn->m_18;
-					((unsigned *)((BitRange const *)&m_vec)->m_begin)[word] |= mask;
+					++recordNode->m_18;
+					((unsigned *)((BitRange const *)&m_vec)->m_begin)[wordIndex] |= mask;
 				}
 			}
 		}
-		n = _STL::_Rb_global<bool>::_M_increment(n);
-	} while (n != header);
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	} while (node != header);
 }
 
 // tu-skeleton: 0x003EDA2F 20B ?rva003EDA2F@Rva003EDA2F@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmeStringRecord004071F7@@U?$_Nonconst_traits@UBfmeStringRecord004071F7@@@_STL@@@_STL@@_N@_STL@@ABUBfmeStringRecord004071F7@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp (not merged yet)
