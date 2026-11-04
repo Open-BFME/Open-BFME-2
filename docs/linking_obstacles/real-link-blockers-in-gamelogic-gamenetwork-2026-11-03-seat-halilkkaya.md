@@ -303,3 +303,17 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
     4. Let operator[] reach it through plain STLport and drop the `Rva0046A9ABMapLowerBound` pin.
   - The insert half stays blocked on 0x0016E310
     (`reverse/attempt_support/connectionmanager-filecommandmap-chain-20261103/README.md`).
+
+#### Seat claudeb follow-up (2026-11-04): ConnectionManager.cpp's 2 names repaired without the identity steps
+
+- operator[] 0x004D2941 now reaches both helpers under their current row names, by method 5 of
+  `rows-that-do-not-need-their-class-2026-11-04.md`. `lower_bound` goes through the
+  `FileMaskMap` (`map<ushort,uchar>`) view, so it calls the 0x0046A9AB `_M_lower_bound` row. The hint
+  insert goes through `map<int,Rva004D272ERecord>`, so it calls the 0x004D272E row. Both stay
+  declared only.
+- The two adapter pins are dropped (pin register 9331 -> 9329). 32/32 rows byte-match.
+- ConnectionManager.obj leaves only those two names undefined, which link_check resolves. Its
+  "does not link" now comes only from the anchor's `<ushort,AsciiString>` COMDAT selection, as
+  before.
+- The FontCharsClass identity and 0x0016E310 steps above are still open for naming. They no
+  longer block the real link.

@@ -114,19 +114,24 @@ namespace _STL { template <> void _Rb_tree<unsigned short, pair<unsigned short c
 namespace _STL { template <> void _Rb_tree<unsigned short, pair<unsigned short const, int>, _Select1st<pair<unsigned short const, int> >, less<unsigned short>, allocator<pair<unsigned short const, int> > >::clear(); }
 // bfme link decl-only end
 
-class Rva004D272EMapHintInsert
+// FileCommandMap::operator[]'s two out-of-line helpers are rows spelled for
+// trees whose code is the same: 0x0046A9AB is the map<ushort, uchar> tree's
+// _M_lower_bound (StlO1Instantiations.cpp) and 0x004D272E the hinted
+// map<int, Rva004D272ERecord>::insert (StlSweepR3Rva004D272E.cpp). The
+// subscript reaches them through those types; both stay declared only.
+struct Rva004D272ERecord { char bytes[1]; };
+typedef _STL::map<int, Rva004D272ERecord> Rva004D272EMap;
+namespace _STL {
+template <> _Rb_tree_node<pair<unsigned short const, unsigned char> > *
+_Rb_tree<unsigned short, pair<unsigned short const, unsigned char>,
+	_Select1st<pair<unsigned short const, unsigned char> >, less<unsigned short>,
+	allocator<pair<unsigned short const, unsigned char> > >::_M_lower_bound(const unsigned short &) const;
+template <> Rva004D272EMap::iterator Rva004D272EMap::insert(Rva004D272EMap::iterator, const Rva004D272EMap::value_type &);
+}
+static __forceinline const Rva004D272EMap::value_type &asRva004D272EValue(const FileCommandMap::value_type &value)
 {
-public:
-	typedef FileCommandMap::iterator iterator;
-	typedef FileCommandMap::value_type value_type;
-	iterator insert(iterator position, const value_type &value);
-};
-
-class Rva0046A9ABMapLowerBound
-{
-public:
-	_STL::_Rb_tree_node<FileCommandMap::value_type> *lower_bound(const unsigned short &key) const;
-};
+	return *(const Rva004D272EMap::value_type *)&value;
+}
 
 class Rva004D5973WordField
 {
@@ -176,10 +181,13 @@ template <> pair<unsigned short const, AsciiString>::pair(unsigned short const &
 }
 template <> AsciiString &FileCommandMap::operator[](const unsigned short &key)
 {
-	iterator i(((Rva0046A9ABMapLowerBound *)this)->lower_bound(key));
+	typedef _STL::_Rb_tree_node<value_type> *Node;
+	typedef _STL::_Rb_tree_node<Rva004D272EMap::value_type> *RecordNode;
+	iterator i((Node)((FileMaskMap *)this)->lower_bound(key)._M_node);
 	if (i == end() || key_comp()(key, (*i).first))
-		i = ((Rva004D272EMapHintInsert *)this)->insert(
-			i, value_type(key, AsciiString()));
+		i = iterator((Node)((Rva004D272EMap *)this)->insert(
+			Rva004D272EMap::iterator((RecordNode)i._M_node),
+			asRva004D272EValue(value_type(key, AsciiString())))._M_node);
 	return (*i).second;
 }
 #pragma optimize("", on)
