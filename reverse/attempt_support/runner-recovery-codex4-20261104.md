@@ -21,3 +21,19 @@ outgoing hook is checked with `BFME_PUSH_SPACING_S=0 python3 tools/push.py
 --dry-run` before `/opt/runner/publish --now`; runner finish records its result.
 Local transient logs are `build/runner-recovery-dry-run.log` (initial refusal)
 and `build/runner-recovery-final-dry-run.log` (repaired batch).
+
+The successful dry run rebased onto `d67c09ebed`: 97/97 rows across seven
+sources, 17 exact EH checks, and PRE-PUSH OK. Its link audit is INCONCLUSIVE:
+the index is at `a62ac1c10b` and six sources lack current receipts. This is
+unverified linking, not a clearance or a census gain.
+
+The rebase preserved upstream BuddyDefs.cpp and PeerThreadPushStatsBfme.cpp
+adoptions (589ee6aa39 and d3c623e79e); RequestBuddyAddRva004178C1.cpp was also
+already adopted upstream (d3c623e79e). The saved GameSpy commit retains only
+StagingRoomGameInfo.cpp and stlport_list_00416a5d_bounded.cpp plus its evidence.
+
+After the seven-commit handover, upstream `9e671822ba` took LINK-234 and
+LINK-235 for the vector-copy and Horde entries. A new follow-up commit leaves
+the handed-over commits intact and assigns ClickReactionBehavior LINK-236 and
+VertexMaterialClass LINK-237, updating the same material evidence reference.
+Repository searches again find no consumers of the two former filenames.

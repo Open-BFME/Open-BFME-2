@@ -50,4 +50,4 @@ is to reconcile the material header's StringClass dependency with the canonical
 declaration-only storage header while preserving other consumers' required
 inline bodies. This shared-header work needs a separate claim and consumer
 verification. No failed adoption is left in Code/. The remaining assignment
-boundary is tracked as LINK-235.
+boundary is tracked as LINK-237.

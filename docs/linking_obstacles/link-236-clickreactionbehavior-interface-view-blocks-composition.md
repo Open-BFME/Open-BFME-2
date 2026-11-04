@@ -1,4 +1,4 @@
-### LINK-234: ClickReactionBehavior interface view blocks constructor composition
+### LINK-236: ClickReactionBehavior interface view blocks constructor composition
 Status: Open. Updated: 2026-11-04; inspected revision: 97b17f4a9e.
 Completed: canonical UpdateModule base and existing field vocabulary reconciled; both separate units retain exact bytes and their census-linked scope.
 Remaining / next check: recover the interface/leaf virtual declarations from native tables and current owners; composition now compiles but the guard refuses three unresolved virtual methods. Preserve existing link-wide aliases.

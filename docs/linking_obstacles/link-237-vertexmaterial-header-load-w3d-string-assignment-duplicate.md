@@ -1,4 +1,4 @@
-### LINK-235: VertexMaterialClass header adoption duplicates StringClass assignment in Load_W3D
+### LINK-237: VertexMaterialClass header adoption duplicates StringClass assignment in Load_W3D
 
 Status: Blocked. Updated: 2026-11-04; inspected revision: `9acaa20c92`.
 Scope: `Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialLoadW3D.cpp`, RVA `0x0013E8B0`; adopting VertexMaterialClass.h introduces duplicate `??4StringClass@@QAEABV0@PBD@Z` through wwstring.h, dropping 308 census-linked bytes in the preview despite exact row bytes.
