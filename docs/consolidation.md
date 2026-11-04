@@ -929,6 +929,35 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### Eleven TUs worked: what the plan count is worth (2026-11-04)
+
+Eleven TUs were claimed, reconciled and landed in one pass, which is enough to
+price the lane properly rather than from the dry run's plan count.
+
+| | classes |
+| --- | --- |
+| applied and byte-verified | 20 |
+| tried and reverted by the byte check | 16 |
+| refused as CONFLICT | 26 |
+| already shared, nothing to write | 27 |
+
+Of the 36 classes `tu_views` actually attempted, **20 landed - 56%**. That is the
+figure to plan with, not the plan count: a dry run that promises six classes is
+promising about three. The sweep's 87 plan classes over the 70 worst TUs are
+therefore worth roughly 49 landed classes, with the other 38 failing the byte
+check, and a separate population of 26-per-11-TUs conflicts that needs its own
+work.
+
+Reverts are not distributed evenly, and the ranking is close to useless for
+picking a target. `LinearCampaignManager.cpp`, which the sweep ranked **first**
+on plan count, landed **1 of 6**: five reverted and six more were CONFLICT.
+`SiegeDeploySpecialPower.cpp` landed 5 of 6. `Display.cpp` landed both of its
+two and produced the pass's largest name gain. So plan count predicts neither
+landed classes nor value, and a seat is better off taking any free TU with a
+plan of two or three than queueing for the top of the list.
+
+All eleven measured 0 donors before and after, as the section above predicts.
+
 ### What sharing a view does to declared names (2026-11-04)
 
 Worth measuring, because the superset block rewrites every method declaration in
