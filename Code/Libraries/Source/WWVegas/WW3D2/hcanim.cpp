@@ -155,12 +155,10 @@ void _bfme_debugRecordCallsite(int kind);
 #define W3D_CHUNK_BFME2_MOTION_CHANNEL	(W3D_CHUNK_COMPRESSED_BIT_CHANNEL + 1)
 #include <new>
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
-
 // The normalized quaternion lerp at 0x00717550 (ledger
 // ?BFME2_Nlerp@@YAXAAVQuaternion@@ABV1@1M@Z) that BFME2 blends with where Zero
 // Hour calls Fast_Slerp.
 void BFME2_Nlerp(Quaternion &result, const Quaternion &p, const Quaternion &q, float alpha);
-
 class TimeCodedMotionChannelClass : public W3DMPO
 {
 public:
@@ -193,11 +191,9 @@ private:
 
 	friend class HCompressedAnimClass;
 };
-
 // The adaptive-delta filter table, owned by AdaptiveDeltaMotionChannelFinish.cpp
 // (retail 0x00DB67D8).
 extern float bfme2AdaptiveDeltaFilterTable[256];
-
 // Decoded values for two consecutive frames of an N-float adaptive-delta
 // channel. The caller owns it and starts Frame at 0x0FFFFFFF, an index no
 // channel reaches. Descriptive name: retail only shows the 4 + 2*N*4 byte layout.
@@ -206,59 +202,6 @@ template <int N> struct AdaptiveDeltaCacheStruct
 	uint32	Frame;
 	float		Value[2 * N];
 };
-
-/*
-** BFME2's AdaptiveDeltaMotionChannelClass (0x1C bytes, see the matched
-** constructor at 0x00195F60). Retail compiles each sampler once per vector
-** length: the scalar copies have no vector loop and 9-byte packet strides, the
-** quaternion copies count four vectors over 36-byte strides. That is a
-** compile-time length, so the bodies below are templates on it.
-*/
-class AdaptiveDeltaMotionChannelClass : public W3DMPO
-{
-public:
-
-	AdaptiveDeltaMotionChannelClass(void);
-	~AdaptiveDeltaMotionChannelClass(void);
-
-	bool	Load_W3D(ChunkLoadClass & cload);
-	int	Get_Type(void) { return Type; }
-	int	Get_Pivot(void) { return PivotIdx; }
-	void	Get_Vector(float32 frame, float * setvec);
-	Quaternion Get_QuatVector(float32 frame);
-	void	Get_Vector(float32 frame, float * setvec, AdaptiveDeltaCacheStruct<1> & cache);
-	void	Get_QuatVector(float32 frame, Quaternion & q, AdaptiveDeltaCacheStruct<4> & cache);
-
-	int		Get_Channel_Memory_Usage(void);
-
-private:
-
-	enum { PACKET_SIZE = 9 };
-
-	uint32	PivotIdx;			// what pivot is this channel applied to
-	uint32	Type;					// what type of channel is this
-	int		VectorLen;			// size of each individual vector
-	uint32	NumFrames;			// Number of frames
-	uint32	DataByteCount;
-	float		Scale;				// Scale Filter, this much
-	uint32  *Data;				 	// pointer to packet data
-
-	void 		Free(void);
-
-	template <int N> void getframe(uint32 frame_idx, AdaptiveDeltaCacheStruct<N> & cache);
-	template <int N> void decompress(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata);
-	// The four-float instance lives in hcanimGetFrame4.cpp beside the decompress<4>
-	// it instantiates, whose generic body is not yet retail's. The in-class
-	// declaration keeps cl from instantiating it here (out of class it ICEs).
-	template <> void getframe<4>(uint32 frame_idx, AdaptiveDeltaCacheStruct<4> & cache);
-
-	friend class HCompressedAnimClass;
-};
-
-/*
-** BFME2's newer per-pivot channels (VectorMotion). The type names are the
-** descriptive ones of BFME2MotionChannelFactory.cpp; slot 3 samples one float.
-*/
 #include "../../../../GameEngine/Include/GameClient/BFME2MotionChannel.h"
 
 // The factory at 0x001A46B4 (BFME2MotionChannelFactory.cpp).
@@ -343,6 +286,62 @@ typedef char NodeStrideIs28[(sizeof(NodeCompressedMotionStruct) == 28) ? 1 : -1]
 typedef char VectorStrideIs24[(sizeof(BFME2CompressedMotionChannels) == 24) ? 1 : -1];
 
 BFME_DISP8_FLOAT_GETTER(Rva0018F180FloatField, 0x50)
+
+typedef unsigned long uint32;
+
+/*
+** BFME2's AdaptiveDeltaMotionChannelClass (0x1C bytes, see the matched
+** constructor at 0x00195F60). Retail compiles each sampler once per vector
+** length: the scalar copies have no vector loop and 9-byte packet strides, the
+** quaternion copies count four vectors over 36-byte strides. That is a
+** compile-time length, so the bodies below are templates on it.
+*/
+class AdaptiveDeltaMotionChannelClass : public W3DMPO
+{
+public:
+
+	AdaptiveDeltaMotionChannelClass(void);
+	~AdaptiveDeltaMotionChannelClass(void);
+
+	bool	Load_W3D(ChunkLoadClass & cload);
+	int	Get_Type(void) { return Type; }
+	int	Get_Pivot(void) { return PivotIdx; }
+	void	Get_Vector(float32 frame, float * setvec);
+	Quaternion Get_QuatVector(float32 frame);
+	void	Get_Vector(float32 frame, float * setvec, AdaptiveDeltaCacheStruct<1> & cache);
+	void	Get_QuatVector(float32 frame, Quaternion & q, AdaptiveDeltaCacheStruct<4> & cache);
+
+	int		Get_Channel_Memory_Usage(void);
+
+private:
+
+	enum { PACKET_SIZE = 9 };
+
+	uint32	PivotIdx;			// what pivot is this channel applied to
+	uint32	Type;					// what type of channel is this
+	int		VectorLen;			// size of each individual vector
+	uint32	NumFrames;			// Number of frames
+	uint32	DataByteCount;
+	float		Scale;				// Scale Filter, this much
+	uint32  *Data;				 	// pointer to packet data
+
+	void 		Free(void);
+
+	template <int N> void getframe(uint32 frame_idx, AdaptiveDeltaCacheStruct<N> & cache);
+	template <int N> void decompress(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata);
+	// The four-float specialization is defined below beside decompress<4>.
+	// Declare it here to prevent earlier calls from instantiating the generic body.
+	template <> void getframe<4>(uint32 frame_idx, AdaptiveDeltaCacheStruct<4> & cache);
+
+	friend class HCompressedAnimClass;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
+
+/*
+** BFME2's newer per-pivot channels (VectorMotion). The type names are the
+** descriptive ones of BFME2MotionChannelFactory.cpp; slot 3 samples one float.
+*/
 
 // Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
 // Native 006C03D0..006C03DB is a complete independently bounded RET leaf.
@@ -1529,8 +1528,103 @@ bool HCompressedAnimClass::Is_Node_Motion_Present(int pivot)
 
 // tu-skeleton: 0x0018F640 54B ?Has_VisibilityF@HCompressedAnimClass@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesX.cpp (not merged yet)
 
-// tu-skeleton: 0x0018F9C0 222B ??$decompress@$03@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hcanimGetFrame4.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/hcanimGetFrame4.cpp
+
+//
+// AdaptiveDeltaMotionChannelClass::getframe<4>, retail 0x0018FCC0 (194 bytes),
+// and decompress<4> (retail 0x0018F9C0, 222 bytes). These explicit
+// specializations coexist with the scalar template definitions above.
+
+// ??$decompress@$03@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z
+// The packet cursor is taken from base only on the decoding path: declaring
+// it at the top of the vector loop keeps base and the cursor in separate
+// webs, and the register colouring of the whole head changes with it.
+template <>
+void AdaptiveDeltaMotionChannelClass::decompress<4>(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata)
+{
+	unsigned char *base = (unsigned char *) Data;
+	float *src = srcdata;
+	uint32 start;
+	if (srcdata == NULL) {
+		start = 0;
+		src = (float *) Data;
+		base = (unsigned char *) Data;
+	} else {
+		start = src_idx;
+	}
+	if (frame_idx >= NumFrames) {
+		start = frame_idx;
+	}
+
+	base += sizeof(float) * 4;										// skip non-compressed header information
+	base += (PACKET_SIZE * 4) * (start >> 4);					// skip out to current packet
+
+	for (int vi = 0; vi < 4; vi++) {
+		float last_value = src[vi];
+		if (start < frame_idx) {
+			unsigned char *pPacket = base;
+			int fi = start & 0xF;
+			uint32 frame = start;
+			do {
+			uint32 filter_index = *pPacket;
+			pPacket++;
+			float filter = bfme2AdaptiveDeltaFilterTable[filter_index] * Scale;	// decompression filter
+
+			// data is grouped in sets of 16 nybbles
+			do {
+				int factor = pPacket[fi >> 1] << 24;
+				if ((fi & 1) == 0) {
+					factor <<= 4;
+				}
+				factor >>= 28;									// sign-extended nybble, -8 to +7
+
+				last_value += factor * filter;
+
+				frame++;
+				if (frame >= frame_idx) break;
+				fi++;
+			} while (fi < 16);
+
+			fi = 0;
+			pPacket += (PACKET_SIZE * 4) - 1;					// skip to next packet
+			} while (frame < frame_idx);
+		}
+
+		outdata[vi] = last_value;
+		base += PACKET_SIZE;
+	}
+}
+
+// ??$getframe@$03@AdaptiveDeltaMotionChannelClass@@AAEXKAAU?$AdaptiveDeltaCacheStruct@$03@@@Z
+template <>
+void AdaptiveDeltaMotionChannelClass::getframe<4>(uint32 frame_idx, AdaptiveDeltaCacheStruct<4> & cache)
+{
+	if (VectorLen != 4) {
+		memset(cache.Value, 0, sizeof(cache.Value));
+		return;
+	}
+
+	if (frame_idx >= NumFrames) frame_idx = NumFrames - 1;
+
+	if (cache.Frame + 1 == frame_idx) {
+		// Sliding window
+		cache.Frame++;
+		memcpy(&cache.Value[0], &cache.Value[4], 4 * sizeof(float));
+		decompress<4>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[4]);
+		return;
+	}
+
+	if (frame_idx == cache.Frame) return;
+
+	if (frame_idx < cache.Frame) {
+		cache.Frame = frame_idx;
+		decompress<4>(0, NULL, frame_idx, &cache.Value[0]);
+	} else {
+		decompress<4>(cache.Frame + 1, &cache.Value[4], frame_idx, &cache.Value[0]);
+		cache.Frame = frame_idx;
+	}
+
+	decompress<4>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[4]);
+}
 
 // tu-skeleton: 0x0018FB70 166B ?rva0018FB70@HCompressedAnimClass@@UAEHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp (not merged yet)
-
-// tu-skeleton: 0x0018FCC0 194B ??$getframe@$03@AdaptiveDeltaMotionChannelClass@@AAEXKAAU?$AdaptiveDeltaCacheStruct@$03@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hcanimGetFrame4.cpp (not merged yet)

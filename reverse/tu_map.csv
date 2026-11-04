@@ -11450,13 +11450,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0018F8C0,60,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BFME2CompressedMotionChannels.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018F900,9,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018F8C0..0x0018F910,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018F910,173,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018F8C0..0x0018F9C0,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
-0x0018F9C0,222,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018F8C0..0x0018FB10,Code/Libraries/Source/WWVegas/WW3D2/hcanimGetFrame4.cpp
+0x0018F9C0,222,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018F8C0..0x0018FB10,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FAA0,8,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FAB0,84,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/NodeCompressedMotionStruct.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FB10,84,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/BFME2CompressedMotionChannels.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FB70,166,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp
 0x0018FC20,154,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018FB70..0x0018FCC0,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
-0x0018FCC0,194,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018FB70..0x0018FE30,Code/Libraries/Source/WWVegas/WW3D2/hcanimGetFrame4.cpp
+0x0018FCC0,194,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,C,C=0x0018FB70..0x0018FE30,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FD90,68,code,,displaced,-,Z=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp S=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AdaptiveDeltaMotionChannelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FDE0,65,code,,displaced,-,Z=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp S=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp N=Code/Libraries/Source/WWVegas/WW3D2/AdaptiveDeltaMotionChannelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x0018FE30,93,code,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp

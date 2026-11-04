@@ -68,3 +68,5 @@ refused it on bytes. Verified: `./build.sh hrawanim.cpp` 35/35, `eh_verify`
 EXACT 5/5, `link_check --staged` LINKS with 6,766 own bytes, full gate green.
 Census confirmation pending. The shared-view reconciliation above (one
 `HAnimClass` layout across hcanim/hrawanim/htree) remains open.
+
+2026-11-04: hcanim adopts the canonical motion-channel header and absorbs the two exact sampler rows; the memory donor still needs its existing 0x0018FB70 virtual method reconciled into the owning HCompressedAnimClass view before merging. [Evidence](../../reverse/attempt_support/hcanim-consolidation-20261104-codexb5.md).
