@@ -7,56 +7,12 @@
 
 typedef unsigned short wchar_t;
 
-template <typename T>
-class StringBase
-{
-public:
-    void clear();
-    void debugIgnoreLeaks();
-
-private:
-    StringBase();
-    void releaseBuffer();
-    void validate() const;
-    ~StringBase();
-
-    struct Header
-    {
-        int ref_count;
-        unsigned short length;
-        unsigned short capacity;
-        T data[1];
-    };
-
-    Header *m_data;
-};
-
-template <typename T>
-StringBase<T>::StringBase()
-{
-    m_data = 0;
-}
-
-template <typename T>
-void StringBase<T>::clear()
-{
-    releaseBuffer();
-}
+// Reuse the shared declaration so this donor composes with string users.
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 template <typename T>
 void StringBase<T>::debugIgnoreLeaks()
 {
-}
-
-template <typename T>
-void StringBase<T>::validate() const
-{
-}
-
-template <typename T>
-StringBase<T>::~StringBase()
-{
-    releaseBuffer();
 }
 
 template void StringBase<char>::clear();

@@ -15,3 +15,5 @@ preparing both OilSpillUpdate consumers. Carry the moved scope and table change
 into the next normal census. Three rejected donors need private-view reconciliation;
 five mixed sources remain separate. No census gain is claimed.
 [Verification, binding and path audit](../../reverse/attempt_support/fireweapon-consolidation-20261028-codex.md).
+
+2026-11-04: the StringBase cleanup donor now uses the frozen shared header (10/10 rows, ordinary preview LINKS 18 B), removing its duplicate-template prerequisite; the two FireWeaponUpdate view donors still need reconciliation. [Evidence](../../reverse/attempt_support/fireweapon-stringbase-header-20261104-codex.md).
