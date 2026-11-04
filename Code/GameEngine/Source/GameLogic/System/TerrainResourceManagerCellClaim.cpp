@@ -10,6 +10,7 @@
 // ?isCellClaimable@TerrainResourceManager@@QAE_NHHHH_NH@Z
 #include <vector>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Region3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../Common/PartitionRangeQueryCallView.h"
 class Object {public: CellShroudStatus getShroudStatusForPlayer(int) const;};
@@ -23,10 +24,13 @@ public:
 namespace _STL {
 template<> BfmePod8 *vector<BfmePod8,allocator<BfmePod8> >::erase(BfmePod8*,BfmePod8*);
 }
-struct ResourceCell { _STL::vector<BfmePod8> values; int state; };
+class Rva0035A18D {
+public: Rva0035A18D();~Rva0035A18D();
+ _STL::vector<BfmePod8> values; int state;
+};
 class TerrainResourceManager {
 public: bool isCellClaimable(int,int,int,int,bool,int);
-private: char pad00[0x1c];float originX1C,originY20;char pad24[0x10];int width34,height38;float cell3C;ResourceCell *cells40;
+private: char pad00[0x1c];Region3D region;int width34,height38;float cell3C;Rva0035A18D *cells40;
 };
 bool TerrainResourceManager::isCellClaimable(int x,int y,int id,int ownId,bool force,int player)
 {
@@ -36,13 +40,13 @@ bool TerrainResourceManager::isCellClaimable(int x,int y,int id,int ownId,bool f
  int shroud=0;
  if(!force && player>=0) {
     Coord3D point;
-    point.x=(x+0.5f)*cell3C+originX1C;
-    point.y=(y+0.5f)*cell3C+originY20;
+    point.x=(x+0.5f)*cell3C+region.lo.x;
+    point.y=(y+0.5f)*cell3C+region.lo.y;
     point.z=0;
     shroud=(int)TheShroudManager->getShroudStatusForPlayer(player,&point);
     if(shroud==2) return false;
  }
- ResourceCell& cell=cells40[y*width34+x];
+ Rva0035A18D& cell=cells40[y*width34+x];
  switch(cell.state) {
  case 0:return true;
  case 1:return false;
