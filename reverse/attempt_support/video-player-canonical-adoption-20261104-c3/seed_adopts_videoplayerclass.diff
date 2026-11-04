@@ -1,0 +1,124 @@
+diff --git a/Code/GameEngine/Source/GameClient/VideoPlayer.cpp b/Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+index 267b9e3def..a3c116b96e 100644
+--- a/Code/GameEngine/Source/GameClient/VideoPlayer.cpp
++++ b/Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+@@ -8,10 +8,7 @@
+ #define g_bfmeBeginJD ((BfmeRecJD *)g_videoTable.begin)
+ #define g_bfmeEndJD ((BfmeRecJD *)g_videoTable.end)
+ #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+-// The approved Rva006892F0 donor needs this existing 14-slot base view;
+-// the data-oriented canonical header would truncate its emitted vtable.
+-typedef bool Bool;
+-#include "subsystem_interface.h"
++#include "../../Include/GameClient/VideoPlayerClass.h"
+ #pragma comment(linker, "/alternatename:?g_Va00CE4918@@3DA=??_7VideoPlayer@@6B@")
+ #include <new.h>
+ #include "../../Include/GameClient/BfmeVideoRecord.h"
+@@ -43,47 +40,6 @@ public:
+ 	virtual void close() = 0;
+ };
+ 
+-class VideoStreamInterface;
+-
+-class SubtitleEntry;
+-
+-typedef SubtitleEntry *(__cdecl *CreateSubtitleEntry)(AsciiString *, int,
+-    const AsciiString &, unsigned int, int, int, int, int, int);
+-
+-class VideoPlayer
+-{
+-public:
+-	virtual ~VideoPlayer() = 0;
+-	virtual void init();
+-	virtual void slot02() = 0;
+-	virtual void slot03() = 0;
+-	virtual void slot04() = 0;
+-	virtual void slot05() = 0;
+-	virtual void slot06() = 0;
+-	virtual void slot07() = 0;
+-	virtual void slot08() = 0;
+-	virtual void Rva00689180() = 0;
+-	virtual void slot10() = 0;
+-	virtual void slot11() = 0;
+-	virtual void slot12() = 0;
+-	virtual void slot13() = 0;
+-	virtual void slot14() = 0;
+-	virtual void slot15() = 0;
+-	virtual void slot16() = 0;
+-	virtual void slot17() = 0;
+-	virtual VideoStreamInterface *firstStream() = 0;
+-	virtual void closeAllStreams() = 0;
+-
+-	void rva00689580(AsciiString &out);
+-
+-private:
+-	unsigned char m_pad04[8];
+-	AsciiString (__cdecl *m_movieName)();
+-	int m_second;
+-	CreateSubtitleEntry m_createSubtitleEntry;
+-	bool m_flag18;
+-};
+-
+ // Keep __node_alloc<true,0>::allocate inline-only: every call here is inlined,
+ // and this TU's COMDAT copy differs from the copy the link keeps.
+ namespace _STL {
+@@ -209,12 +165,6 @@ private:
+ 	int m_14;
+ };
+ 
+-class Rva006892F0 : public SubsystemInterface
+-{
+-public:
+-	virtual ~Rva006892F0();
+-};
+-
+ // 36-byte copy walk, retail 0x00161150, 45 bytes.
+ //
+ // Bounded-by-end-pointer walk handing each 36-byte slot to the helper at
+@@ -280,7 +230,7 @@ extern void parseSubtitle(INI*,void*,void*,const void*);
+ class SubtitleManager
+ {
+ public:
+- SubtitleManager(CreateSubtitleEntry,int,const AsciiString&);
++ SubtitleManager(VideoPlayerSubtitleFactory,int,const AsciiString&);
+ private:
+  char storage[0x64];
+ };
+@@ -308,7 +258,7 @@ static unsigned char s_videoPlayerInitialised;
+ 
+ // ---- from Code/GameEngine/Source/GameClient/VideoPlayerRva00689180.cpp
+ 
+-void VideoPlayer::Rva00689180()
++void VideoPlayer::reset()
+ {
+ 	if (!m_flag18)
+ 	{
+@@ -488,8 +438,8 @@ Elem28 *rva00689750CopyWalk(Elem28 *first, Elem28 *last, Elem28 *dest)
+ 
+ void VideoPlayer::rva00689580(AsciiString &out)
+ {
+- if(m_movieName != 0)
+-  out.format("Data/%s/Movies/", m_movieName().str());
++ if(m_field0C != 0)
++  out.format("Data/%s/Movies/", m_field0C().str());
+ }
+ 
+ void VideoPlayer::init(void)
+@@ -509,7 +459,7 @@ void VideoPlayer::init(void)
+ 			Video *video = g_bfmeVideoTableBegin + index;
+ 			if (video->m_hasSubtitles)
+ 			{
+-				if (m_createSubtitleEntry != 0 && m_second != 0)
++				if (m_field14 != 0 && m_field10 != 0)
+ 				{
+ 					AsciiString path;
+ 					rva00689580(path);
+@@ -523,7 +473,7 @@ void VideoPlayer::init(void)
+ 					((StringBase<char> *)&path)->concat(".ini", 4);
+ 
+ 					video->m_subtitleManager =
+-						new SubtitleManager(m_createSubtitleEntry, m_second, path);
++						new SubtitleManager(m_field14, m_field10, path);
+ 
+ 					{
+ 						INI subtitleIni;

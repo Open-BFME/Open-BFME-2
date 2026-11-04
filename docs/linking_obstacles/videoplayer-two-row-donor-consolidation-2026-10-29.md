@@ -16,3 +16,8 @@ The outgoing audit is INCONCLUSIVE: the index predates the base and
 Common/0CreateAHeroManager21FE49.cpp lacks a current consumer receipt. Carry
 that consumer and the moved provider scope into the next scheduled census.
 [Verification, trials and complete path audit](../../reverse/attempt_support/video-player-consolidation-20261029-bce2/README.md).
+
+2026-11-04: the other donors include VideoPlayerClass.h, so the seed must adopt
+it first. That adoption byte-matches 34/34 once row 0x00689180 is spelled
+`?reset@VideoPlayer@@UAEXXZ`; next step is an agreed name for that row.
+[Seed adoption trial](../../reverse/attempt_support/video-player-canonical-adoption-20261104-c3/README.md).
