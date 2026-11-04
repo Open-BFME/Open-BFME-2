@@ -37,23 +37,10 @@ class Gen_0074BB30 { public: bool bfmeBitA(int xIndex, int yIndex) const; };
 class Rva000AE234 { public: char rva000AE234(int xIndex, int yIndex); };
 class Gen_0074BA50 { public: bool bfmeBitA(int xIndex, int yIndex) const; };
 
-class WorldHeightMap
-{
-public:
-	bool getCliffState(int xIndex, int yIndex) const;
-	bool rva000AE1DC(int xIndex, int yIndex) const;
-	int getXExtent() const { return m_width; }
-	int getYExtent() const { return m_height; }
-	__declspec(dllimport) __forceinline int getBorderSizeInline() const { return m_borderSize; }
-	unsigned short *getDataPtr() const { return m_data; }
-private:
-	char m_unknown00[8];
-	int m_width;
-	int m_height;
-	int m_borderSize;
-	char m_unknown14[0x10];
-	unsigned short *m_data;
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// Use the canonical RefCountClass above instead of the donor refcount.h.
+#define REFCOUNT_H
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 

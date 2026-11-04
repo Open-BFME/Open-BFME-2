@@ -65,16 +65,10 @@ extern AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h
-class WorldHeightMap
-{
-public:
-	char m_padding00[8];
-	Int m_width;
-	Int m_height;
-	Int m_borderSize;
-	char m_padding14[0x10];
-	UnsignedShort *m_data;
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// Use the canonical RefCountClass above instead of the donor refcount.h.
+#define REFCOUNT_H
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
