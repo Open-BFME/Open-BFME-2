@@ -1,0 +1,11 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 6 row(s) verified past a renumbered $L label
+    $L844 (Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp): $L844 was renumbered; verified parent EH data places $L2499 at 0x0078934A
+    ?rva007892ea@@YAXXZ (Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp): $L2435 was renumbered; verified parent EH data places $L2626 at 0x007892EA
+    Unwind@00b892e2 (Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp): $L2434 was renumbered; verified parent EH data places $L2625 at 0x007892E2
+    Unwind@00b89305 (Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp): $L2436 was renumbered; verified parent EH data places $L2627 at 0x00789305
+    Unwind@00b8927c (Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp): $L1193 was renumbered; verified parent EH data places $L2481 at 0x0078927C
+Functions: OK 17/17 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

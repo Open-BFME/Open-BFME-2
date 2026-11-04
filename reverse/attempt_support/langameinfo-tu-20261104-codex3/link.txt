@@ -1,0 +1,2 @@
+Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp: LINKS  LINKED 476 -> 550 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 550)
+link_check: 1 of 1 link cleanly; LINKED 476 -> 550 bytes (6.6s)

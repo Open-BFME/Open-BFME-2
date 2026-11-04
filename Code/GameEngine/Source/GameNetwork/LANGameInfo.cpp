@@ -225,13 +225,35 @@ private:
 
 // tu-skeleton: 0x004477E0 47B ?resetAccepted@LANGameInfo@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x00447B0E 74B ??1LANGameSlot@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp
+
+//
+// ??1LANGameSlot@@UAE@XZ @0x00447B0E 74B: Zero Hour's LANGameSlot declares
+// no destructor (GameNetwork/LANGameInfo.h), so this is the implicit virtual
+// one. Target evidence: slot 0 of vtable 0x00C3E4FC, which the slot
+// constructors 0x00448150 and 0x0044B27F install, is the scalar deleting
+// destructor 0x0044818B calling this body; LANGameInfo's destructor
+// 0x004482FB destroys its eight 0x1D0-byte slots with it. It releases the
+// AsciiString at +0x1C8 (releaseBuffer 0x00036410), destroys the LANPlayer at
+// +0x1AC (0x00447ACA) and runs ~GameSlot (0x002294FD) without re-storing the
+// vtable, which is how MSVC 7.1 compiles an implicit destructor (a
+// user-written one stores it first). Base size 0x1AC proven by
+// SaveGameInfoCopyBFME2.
+
+// Makes this unit emit the implicit destructor; not retail code.
+// ?<LANGameSlot::~LANGameSlot anchor> absent-from-retail
+void bfmeAnchorLANGameSlotDtor(LANGameSlot *slot)
+{
+	slot->LANGameSlot::~LANGameSlot();
+}
 
 // tu-skeleton: 0x00447B58 69B ?rva00447B58@Rva00447B0E@@QAEAAU1@ABU1@@Z -- matched in Code/GameEngine/Source/Common/Rva00447B58Assign.cpp (not merged yet)
 
 // tu-skeleton: 0x00447BE0 102B ?rva00401015@LANGameInfo@@UAEPBVImage@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoListImage.cpp (not merged yet)
 
 // tu-skeleton: 0x00447CA9 812B ?GameInfoToByteBuffer@@YAXPAVLANGameInfo@@PADH@Z -- matched in Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp
 
@@ -293,8 +315,6 @@ void LANGameInfo::setSlot(int slotNum, LANGameSlot slotInfo)
     m_LANSlot[0].setMapAvailability(true);
 }
 
-// tu-skeleton: 0x00448276 6B ?name@Rva00448276Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004482B7Finish.cpp
 
 // ?rva004482B7@Rva004482B7@@QAE?AVUnicodeString@@H@Z retail 0x004482B7 40B
@@ -334,15 +354,11 @@ UnicodeString Rva00448280::rva00448280()
 	return m_wide;
 }
 
+// tu-skeleton: 0x00448276 6B ?name@Rva00448276Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x004482DF 28B ??_GLANGameInfo@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoDeleter.cpp (not merged yet)
 
 // tu-skeleton: 0x004482FB 87B ??1LANGameInfo@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004482FBDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078927C 8B Unwind@00b8927c -- matched in Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00789284 14B Unwind@00b89284 -- matched in Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00789292 10B __ehhandler$??1LANGameSlot@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00447B0EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007892AE 8B Unwind@00b892ae -- matched in Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp (not merged yet)
 
