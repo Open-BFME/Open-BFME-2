@@ -57,10 +57,8 @@ enum NameKeyType
 // sibling dtor at 0xCAF30 tears it down through the AsciiString dtor at
 // 0x36410, proving the type). Layout is the base 0x188 bytes plus one
 // AsciiString; the factory at 0x64A61 news 0x18C (= 0x188 + 4) and is the
-// sole caller of this ctor. Same opaque-base + explicit-vtable recipe as
-// the landed W3DTruckDrawModuleData ctor.
-
-extern "C" const void *const __identifier("??_7W3DSupplyDrawModuleData@@6B@")[];
+// sole caller of this ctor. The vptr store comes from the virtual
+// destructors the class declares (the dtor and deleting dtor share the unit).
 
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 
@@ -124,6 +122,7 @@ class W3DModelDrawModuleData
 {
 public:
 	W3DModelDrawModuleData();
+	virtual ~W3DModelDrawModuleData();
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
@@ -132,10 +131,11 @@ class W3DSupplyDrawModuleData : public W3DModelDrawModuleData
 {
 public:
 	W3DSupplyDrawModuleData();
+	virtual ~W3DSupplyDrawModuleData();
 private:
-	const void *m_vtable;
-private:
-	unsigned char m_basePad[0x188 - 4];
+	// Base (shared vptr at +0x00) occupies +0x00..+0x03; its real members
+	// fill +0x04..+0x187 through the pinned base ctor/dtor.
+	unsigned char m_basePad[0x188 - 4]; // +0x04
 private:
 	AsciiString m_supplyBonePrefix;
 public:
@@ -184,7 +184,6 @@ W3DSupplyDraw::W3DSupplyDraw(Thing *thing, const ModuleData *moduleData) :
 
 // ??0W3DSupplyDrawModuleData@@QAE@XZ @0xCAF17
 W3DSupplyDrawModuleData::W3DSupplyDrawModuleData()
-	: m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7W3DSupplyDrawModuleData@@6B@"))))
 {
 }
 
