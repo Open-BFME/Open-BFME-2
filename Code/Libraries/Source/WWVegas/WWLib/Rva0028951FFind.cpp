@@ -66,21 +66,13 @@ template <> size_t vector<void*>::size() const;
 class GameWindow;
 class WindowVideo;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	void *m_v0;
-	Overridable *m_next;
-};
+#include "../../../../GameEngine/Include/Common/Overridable.h"
 
 struct ListNode
 {
 	ListNode *m_next;
 	int m_pad04;
 	Overridable m_over;
-	int m_pad10;
-	int m_pad14;
 	int m_pad18;
 	int m_key1C;
 };
@@ -138,7 +130,7 @@ const Overridable *Rva0028951F::rva0028951F(int key)
 		{
 			if (n->m_key1C == key)
 			{
-				const Overridable *f = ((Overridable *)((char *)n + 8))->friend_getFinalOverride();
+				const Overridable *f = ((const Overridable *)((char *)n + 8))->friend_getFinalOverride();
 				m_map[key] = (int)f;
 				return f;
 			}

@@ -11,21 +11,12 @@
 // ecx through plus pushes list ptr and int key (thiscall with ret 8).
 extern class GameLogic *TheGameLogic;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	void *m_v0;
-	Overridable *m_next;
-	char m_pad08[0x10];
-	int m_val18;
-};
+#include "../../../../GameEngine/Include/Common/Overridable.h"
 
 struct ListNode
 {
 	ListNode *m_next;
 	int m_pad04;
-	Overridable m_over;
 };
 
 struct Inner
@@ -73,7 +64,8 @@ const Overridable *Rva0028951F::rva002897A8(void *outer, int key)
 	const Overridable *overridable = rva0028951F(key);
 	int threshold = 0;
 	if (overridable)
-		threshold = overridable->m_val18;
+		// +0x18 belongs to the complete object, beyond the Overridable base.
+		threshold = *(const int *)((const char *)overridable + 0x18);
 	const Overridable *best = 0;
 	int bestVal = 0x7fffffff;
 	Outer *o = (Outer *)outer;
@@ -81,10 +73,10 @@ const Overridable *Rva0028951F::rva002897A8(void *outer, int key)
 	ListNode *listNode = inner->m_head;
 	for (; listNode != (ListNode *)o->m_inner; listNode = listNode->m_next)
 	{
-		const Overridable *g = ((Overridable *)((char *)listNode + 8))->friend_getFinalOverride();
+		const Overridable *g = ((const Overridable *)((char *)listNode + 8))->friend_getFinalOverride();
 		if (!Rva0028867DCheck(g))
 			continue;
-		int v = g->m_val18;
+		int v = *(const int *)((const char *)g + 0x18);
 		if (v <= threshold)
 			continue;
 		if (v >= bestVal)
