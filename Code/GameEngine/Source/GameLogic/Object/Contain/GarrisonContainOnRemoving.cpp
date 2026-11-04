@@ -161,10 +161,10 @@ private:
 class ConditionBits
 {
 public:
-    unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
-    void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
-    void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
-    unsigned int m_words[4];
+	unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
+	void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+	void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
+	unsigned int m_words[4]; // +0x00
 };
 
 class Object : public Thing
