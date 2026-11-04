@@ -51,3 +51,5 @@ and `g_Va00DEDC80`.
 
 The measured figures predate these repairs. `constructed_undersized` in the next real link's `image_report.json` gives
 the current count; the source pattern only sees direct construction, so it can miss others.
+
+2026-11-04 scoped preview: the current `g_Va00E06E60` provider resolves the old blocker in all three selected filesystem consumers; the provider's separate `g_Va00DF2984` index blocker remains ([evidence](../../reverse/attempt_support/chat-header-adoption-20261104-codex5.md)); no census confirmation claimed.

@@ -65,24 +65,7 @@ enum GameSpyColors
 };
 extern Color GameSpyColor[];
 
-class PlayerInfo
-{
-public:
-	~PlayerInfo();
-	AsciiString m_00;
-	AsciiString m_name;									// +0x04
-	AsciiString m_08;
-	int m_0C;
-	int m_10;
-	int m_profileID;									// +0x14
-	unsigned int m_flags;								// +0x18
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 
 typedef _STL::map<Int, Int> BuddyInfoMap;
 
@@ -131,12 +114,12 @@ private:
 void GameSpyInfo::addChat(PlayerInfo p, UnicodeString msg, Bool isPublic, Bool isAction)
 {
 	Int style;
-	Bool isMe = p.m_name.compare(((GameSpyInfo *)TheGameSpyInfo)->getLocalName()) == 0;
-	if (!isMe && (isSavedIgnored(p.m_profileID) || isIgnored(p.m_name)))
+	Bool isMe = p.m_at04.compare(((GameSpyInfo *)TheGameSpyInfo)->getLocalName()) == 0;
+	if (!isMe && (isSavedIgnored(p.m_at14) || isIgnored(p.m_at04)))
 		return;
 
-	Bool isOwner = (p.m_flags >> 5) & 1;
-	Bool isBuddy = getBuddyMap()->find(p.m_profileID) != getBuddyMap()->end();
+	Bool isOwner = (static_cast<unsigned int>(p.m_at18) >> 5) & 1;
+	Bool isBuddy = getBuddyMap()->find(p.m_at14) != getBuddyMap()->end();
 
 	if (!isMe)
 	{
@@ -188,7 +171,7 @@ void GameSpyInfo::addChat(PlayerInfo p, UnicodeString msg, Bool isPublic, Bool i
 		style = isOwner ? GSCOLOR_CHAT_PRIVATE_OWNER : GSCOLOR_CHAT_PRIVATE;
 
 	UnicodeString name;
-	name.translate(p.m_name);
+	name.translate(p.m_at04);
 	TheLanguageFilter->filterLine(msg);
 	UnicodeString fullMsg;
 	if (isAction)
