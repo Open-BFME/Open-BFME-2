@@ -296,19 +296,9 @@ ShaderClass Vertex_Split_Table::Peek_Shader(unsigned int index,unsigned int pass
 	return shader;
 }
 
-class IndexBufferClass {
-public:
- virtual ~IndexBufferClass(); char pad[20];
- class AppendLockClass {
- public:
-  IndexBufferClass *buffer; unsigned short *indices; char deviceLock;
-  AppendLockClass(IndexBufferClass*,unsigned,unsigned,int);
-  ~AppendLockClass();
-  unsigned short *Get_Index_Array() const {return indices;}
- };
-};
-class SortingIndexBufferClass:public IndexBufferClass {public: SortingIndexBufferClass(unsigned short);};
-class DX8IndexBufferClass:public IndexBufferClass {public: enum UsageType {USAGE_DEFAULT=0,USAGE_NPATCHES=4}; DX8IndexBufferClass(unsigned,UsageType);};
+#include "IndexBufferClass.h"
+#include "DX8IndexBufferClass.h"
+class SortingIndexBufferClass:public IndexBufferClass {public: SortingIndexBufferClass(unsigned short); unsigned short *index_buffer;};
 
 class DX8TextureCategoryClass;
 class DX8FVFCategoryContainer;
