@@ -18,7 +18,7 @@
 static __forceinline void particleRotateX(Matrix3D&matrix,const float& sinTheta,float cosTheta){matrix.Rotate_X(sinTheta,cosTheta);}
 static __forceinline void particleRotateY(Matrix3D&matrix,const float&sinTheta,float cosTheta){matrix.Rotate_Y(sinTheta,cosTheta);}
 static __forceinline void particleRotateZ(Matrix3D&matrix,float sinTheta,const float&cosTheta){matrix.Rotate_Z(sinTheta,cosTheta);}
-class ParticleSystem {public: void rotateLocalTransformX(float);void rotateLocalTransformY(float);void rotateLocalTransformZ(float);private:char before[0xBC];Matrix3D m_localTransform;char after[0x1A0-0xEC];unsigned char m_isLocalIdentity;};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 void ParticleSystem::rotateLocalTransformX(float theta){float sinTheta;particleRotateX(m_localTransform,sinTheta,(sinTheta=(float)sin((double)theta),(float)cos((double)theta)));m_isLocalIdentity=false;}
 void ParticleSystem::rotateLocalTransformY(float theta){float sinTheta;particleRotateY(m_localTransform,sinTheta,(sinTheta=(float)sin((double)theta),(float)cos((double)theta)));m_isLocalIdentity=false;}
 void ParticleSystem::rotateLocalTransformZ(float theta){float cosTheta;particleRotateZ(m_localTransform,(cosTheta=(float)cos((double)theta),(float)sin((double)theta)),cosTheta);m_isLocalIdentity=false;}

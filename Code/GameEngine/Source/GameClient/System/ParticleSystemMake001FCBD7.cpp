@@ -34,16 +34,7 @@ enum ParticleSystemID
     INVALID_PARTICLE_SYSTEM_ID = 0
 };
 
-class ParticleSystem
-{
-public:
-    ParticleSystem(const FXParticleSystem::ParticleSystemTemplate *systemTemplate,
-                   ParticleSystemID id, bool createSlaves);
-    virtual ~ParticleSystem(void);
-
-private:
-    unsigned char m_unmodelled_004[0x1DC];
-};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 
 // ?Make001FCBD7@@YAPAVParticleSystem@@XZ
 ParticleSystem *Make001FCBD7(void)
