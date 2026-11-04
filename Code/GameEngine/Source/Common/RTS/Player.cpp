@@ -1434,17 +1434,6 @@ static void countExisting( Object *obj, void *userData )
 // Player::canBuild is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp (0x002ABEF1).
 
 //=================================================================================================
-// ?canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z present-unmatched
-Bool Player::canAffordBuild( const ThingTemplate *whatToBuild ) const
-{
-	// make sure we have enough money to build this
-	const Money *money = getMoney();
-	if( whatToBuild->calcCostToBuild( this ) <= money->countMoney() )
-	{
-		return true;
-	}
-	return false;
-}
 
 //=================================================================================================
 

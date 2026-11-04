@@ -588,23 +588,8 @@ const FXList *ThingTemplate::getPerUnitFX(const AsciiString& fxName) const
 //-------------------------------------------------------------------------------------------------
 
 
-//-------------------------------------------------------------------------------------------------
-/** NOTE that we're not paying attention to m_override here, instead the portions
-	* that retrieve template data values use the get() wrappers, which *DO* pay
-	* attention to the override values */
-//-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::calcCostToBuild present-unmatched
-Int ThingTemplate::calcCostToBuild( const Player* player) const
-{
-	if (!player)
-		return 0;
-
-	// changePercent format is "-.2 equals 20% cheaper"
-	Real factionModifier = 1 + player->getProductionCostChangePercent( getName() );
-	factionModifier *= player->getProductionCostChangeBasedOnKindOf( m_kindof );
-	return getBuildCost() * factionModifier * player->getHandicap()->getHandicap(Handicap::BUILDCOST, this);
-}
-
+// Retail's build-cost body (0x0033A69A) is rowed in ThingTemplateBuildCost.cpp;
+// the Zero Hour calcCostToBuild donor body was not retail and is removed.
 //-------------------------------------------------------------------------------------------------
 /** NOTE that we're not paying attention to m_override here, instead the portions
 	* that retrieve template data values use the get() wrappers, which *DO* pay
