@@ -1,4 +1,4 @@
-### LINK-226: Horde canonical-header adoption exposes unresolved vtable providers (2026-11-04, codexb)
+### LINK-227: Horde canonical-header adoption exposes unresolved vtable providers (2026-11-04, codexb)
 
 **Status: blocked for `HordeWorkerAIUpdateDtor.cpp`.** Adopting `HordeAIUpdate.h`
 can preserve both destructor rows, but the resulting vtables reference four
