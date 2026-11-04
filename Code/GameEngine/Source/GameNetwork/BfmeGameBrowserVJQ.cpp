@@ -119,7 +119,7 @@ public:
 
 	char m_pad00[0x10];
 	BfmeAVJQ *m_protocol;
-	BfmeBVJQ *m_bfme14;
+	BfmeBVJQ *m_transactor;
 	char m_pad18[4];
 	union
 	{
@@ -143,7 +143,7 @@ void BfmeThingVJQ::bfmeGoVJQ(int a) throw()
 	if (m_useInternet && m_state >= 3)
 	{
 		m_protocol->sendOne(&msg, a);
-		m_bfme14->send(&msg, BfmeGameBrowserVJQCallback, this, m_requestTimeout);
+		m_transactor->send(&msg, BfmeGameBrowserVJQCallback, this, m_requestTimeout);
 		return;
 	}
 	if (m_useLan)

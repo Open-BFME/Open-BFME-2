@@ -8763,3 +8763,4 @@ local,BFME2Encoding2MotionChannel::rva001B27AB::p,BFME2Encoding2MotionChannel::r
 local,BFME2Encoding2MotionChannel::rva001B27AB::f,BFME2Encoding2MotionChannel::rva001B27AB::currentFrame,inferred,direct:nd-422301fc12a3fe228258a764 parent-reviewed-by w-85ac5a290b20 claude-opus-5-5 proposed-by /root/naming-child,Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannel.cpp,0x001B27AB
 member,SubQ00346FD0::m_bits20,SubQ00346FD0::m_consecutiveShots,inferred,agree:nl-8a90cb6657c7,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,
 function,?rva004F61B1@LivingWorldAutoResolveBattle@@QAEXXZ,?determineWinner@LivingWorldAutoResolveBattle@@QAEXXZ,inferred,agree:nl-77be215df40c,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,0x004F61B1
+member,BfmeThingVJQ::m_bfme14,BfmeThingVJQ::m_transactor,inferred,agree:nl-058b05cb074b,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJQ.cpp,
