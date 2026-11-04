@@ -388,14 +388,7 @@ struct Rva0031BE07
 // Chain from 0x0031BE07; two StringBase temps from Command_StructureExit and
 // Command_TransportExit literals; each find result pushed via 0x0035B750.
 // Evidence: callers at 0x0031BE85 0x0031BEC0 are this body; caller 0x0031ED9E.
-class ModuleData
-{
-public:
-	char m_pad00[0xC];
-	int m_removed; // +0x0C
-	char m_pad10[0x8];
-	ModuleData *m_next; // +0x18
-};
+#include "../../../../Include/Common/ModuleData.h"
 class Rva0035B750
 {
 public:
