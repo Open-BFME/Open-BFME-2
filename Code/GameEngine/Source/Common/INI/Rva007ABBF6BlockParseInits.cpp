@@ -7,9 +7,12 @@
 // parse pointer are constant-initialized in .data, so each registration's
 // dynamic initializer is only the link: node.next = head; head = &node
 // (21 bytes). Retail holds 130 such initializers from 0x007ABBF6; each node
-// name below is its token, read from the string its +4 slot points at. The
-// owning units are not recovered (most sit in one contiguous run, the INI
-// unit's own table), so each initializer keeps an honest address name.
+// name below is its token, read from the string its +4 slot points at. Each is
+// really the .text$yc initializer of a file-scope `BlockParse node(token,
+// parse);` with an inline constructor, so it belongs to the unit that defines
+// the node (LINK-236). Attributed nodes move to their unit with the registering
+// constructor and are rowed there as `_$E<n>`; the rest keep an honest
+// address name here until their unit is clear.
 
 typedef void (*INIBlockParse)( class INI *ini );
 
@@ -232,48 +235,26 @@ public:
 BlockParse theAudioSettingsBlockParse = { 0, "AudioSettings", INI::parseAudioSettingsDefinition };	// VA 0x00DB3A08 "AudioSettings", parse 0x0004171A
 BlockParse theShadowMapBlockParse = { 0, "ShadowMap", parseShadowMapBlock };	// VA 0x00DB4488 "ShadowMap", parse 0x0007BE1E
 BlockParse theLoadSubsystemBlockParse = { 0, "LoadSubsystem", parseSubsystemLegendDefinition };	// VA 0x00DB7034 "LoadSubsystem", parse 0x001B4E07
-BlockParse theAIDataBlockParse = { 0, "AIData", INI::parseAIDataDefinition };	// VA 0x00DB8934 "AIData", parse 0x001D8E7A
 BlockParse theArmorBlockParse = { 0, "Armor", ArmorStore::parseArmorDefinition };	// VA 0x00DB8A74 "Armor", parse 0x001D9484
-BlockParse theMusicTrackBlockParse = { 0, "MusicTrack", parseMusicTrackDefinition };	// VA 0x00DB8B08 "MusicTrack", parse 0x001DA980
-BlockParse theAudioEventBlockParse = { 0, "AudioEvent", parseAudioEventDefinition };	// VA 0x00DB8B14 "AudioEvent", parse 0x001DA9CA
-BlockParse theDialogEventBlockParse = { 0, "DialogEvent", parseDialogDefinition };	// VA 0x00DB8B20 "DialogEvent", parse 0x001DAA14
-BlockParse theAmbientStreamBlockParse = { 0, "AmbientStream", parseAmbientStreamDefinition };	// VA 0x00DB8B2C "AmbientStream", parse 0x001DAA5E
-BlockParse theStreamedSoundBlockParse = { 0, "StreamedSound", parseStreamedSoundDefinition };	// VA 0x00DB8B38 "StreamedSound", parse 0x001DAAA8
-BlockParse theMultisoundBlockParse = { 0, "Multisound", AudioEventInfo::parseMultisoundDefinition };	// VA 0x00DB8B44 "Multisound", parse 0x001DA4DE
 BlockParse theBridgeBlockParse = { 0, "Bridge", INI::parseTerrainBridgeDefinition };	// VA 0x00DB8B8C "Bridge", parse 0x001DAEB8
-BlockParse theCommandButtonBlockParse = { 0, "CommandButton", ControlBar::parseCommandButtonDefinition };	// VA 0x00DB8BBC "CommandButton", parse 0x001DAF81
-BlockParse theCommandMapBlockParse = { 0, "CommandMap", MetaMap::parseMetaMap };	// VA 0x00DB8C14 "CommandMap", parse 0x001DB5A2
-BlockParse theDebugCommandMapBlockParse = { 0, "DebugCommandMap", parseDebugCommandMap };	// VA 0x00DB8C20 "DebugCommandMap", parse 0x001DB4CF
 BlockParse theCommandSetBlockParse = { 0, "CommandSet", ControlBar::parseCommandSetDefinition };	// VA 0x00DB8C50 "CommandSet", parse 0x0031EC03
 BlockParse theControlBarSchemeBlockParse = { 0, "ControlBarScheme", INI::parseControlBarSchemeDefinition };	// VA 0x00DB8C80 "ControlBarScheme", parse 0x001DB68C
 BlockParse theControlBarResizerBlockParse = { 0, "ControlBarResizer", (INIBlockParse)Rva000B3FD0AptFreeSound };	// VA 0x00DB8CB0 "ControlBarResizer", parse 0x000B3FD0
 BlockParse theCrateDataBlockParse = { 0, "CrateData", CrateSystem::parseCrateTemplateDefinition };	// VA 0x00DB8CBC "CrateData", parse 0x0035CFEA
 BlockParse theWindowTransitionBlockParse = { 0, "WindowTransition", INI::parseWindowTransitions };	// VA 0x00DB8CEC "WindowTransition", parse 0x001DC66F
 BlockParse theDamageFXBlockParse = { 0, "DamageFX", DamageFXStore::parseDamageFXDefinition };	// VA 0x00DB8D1C "DamageFX", parse 0x00360B0F
-BlockParse theDrawGroupInfoBlockParse = { 0, "DrawGroupInfo", INI::parseDrawGroupNumberDefinition };	// VA 0x00DB8D28 "DrawGroupInfo", parse 0x001DCC9F
-BlockParse thePredefinedEvaEventBlockParse = { 0, "PredefinedEvaEvent", Eva::iniParsePredefinedEvaEvent };	// VA 0x00DB8D70 "PredefinedEvaEvent", parse 0x001DEA96
-BlockParse theNewEvaEventBlockParse = { 0, "NewEvaEvent", Eva::iniParseNewEvaEvent };	// VA 0x00DB8D7C "NewEvaEvent", parse 0x001DF42D
-BlockParse theEvaEventForwardReferenceBlockParse = { 0, "EvaEventForwardReference", Eva::iniParseEvaEventForwardReference };	// VA 0x00DB8D88 "EvaEventForwardReference", parse 0x001DF6A8
 BlockParse theMiscEvaDataBlockParse = { 0, "MiscEvaData", INI::parseMiscEvaData };	// VA 0x00DB8D94 "MiscEvaData", parse 0x001DCFE5
 BlockParse theFXListBlockParse = { 0, "FXList", FXListStore::parseFXListDefinition };	// VA 0x00DB8DDC "FXList", parse 0x001E2CAE
 BlockParse theGameDataBlockParse = { 0, "GameData", GlobalData::parseGameDataDefinition };	// VA 0x00DB8DF4 "GameData", parse 0x00237AB1
 BlockParse theLocomotorBlockParse = { 0, "Locomotor", LocomotorStore::parseLocomotorTemplateDefinition };	// VA 0x00DB8F84 "Locomotor", parse 0x001E8A94
 BlockParse theLanguageBlockParse = { 0, "Language", INI::parseLanguageDefinition };	// VA 0x00DB8F98 "Language", parse 0x001EA3F4
 BlockParse theLinearCampaignBlockParse = { 0, "LinearCampaign", LinearCampaignManager::parseLinearCampaignIniBlock };	// VA 0x00DB8FE0 "LinearCampaign", parse 0x001ED580
-BlockParse theMappedImageBlockParse = { 0, "MappedImage", INI::parseMappedImageDefinition };	// VA 0x00DB9004 "MappedImage", parse 0x001ED63C
-BlockParse theMiscAudioBlockParse = { 0, "MiscAudio", INI::parseMiscAudio };	// VA 0x00DB9010 "MiscAudio", parse 0x001ED6EE
 BlockParse theMouseCursorBlockParse = { 0, "MouseCursor", INI::parseMouseCursorDefinition };	// VA 0x00DB9138 "MouseCursor", parse 0x001EF2CB
 BlockParse theMouseBlockParse = { 0, "Mouse", INI::parseMouseDefinition };	// VA 0x00DB9144 "Mouse", parse 0x001EE050
-BlockParse theMultiplayerSettingsBlockParse = { 0, "MultiplayerSettings", INI::parseMultiplayerSettingsDefinition };	// VA 0x00DB9150 "MultiplayerSettings", parse 0x001EF367
-BlockParse theMultiplayerColorBlockParse = { 0, "MultiplayerColor", INI::parseMultiplayerColorDefinition };	// VA 0x00DB915C "MultiplayerColor", parse 0x001EF3BF
 BlockParse theOnlineChatColorsBlockParse = { 0, "OnlineChatColors", INI::parseOnlineChatColorDefinition };	// VA 0x00DB918C "OnlineChatColors", parse 0x001EF471
-BlockParse theObjectBlockParse = { 0, "Object", INI::parseObjectDefinition };	// VA 0x00DB9248 "Object", parse 0x001EFFC6
-BlockParse theObjectReskinBlockParse = { 0, "ObjectReskin", INI::parseObjectReskinDefinition };	// VA 0x00DB9254 "ObjectReskin", parse 0x001F0016
-BlockParse theChildObjectBlockParse = { 0, "ChildObject", INI::parseChildObjectDefinition };	// VA 0x00DB9260 "ChildObject", parse 0x001F008C
 BlockParse theObjectCreationListBlockParse = { 0, "ObjectCreationList", ObjectCreationListStore::parseObjectCreationListDefinition };	// VA 0x00DB9344 "ObjectCreationList", parse 0x001F0C0B
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
 BlockParse thePlayerTemplateBlockParse = { 0, "PlayerTemplate", PlayerTemplateStore::parsePlayerTemplateDefinition };	// VA 0x00DB93BC "PlayerTemplate", parse 0x001FEFEC
-BlockParse theRoadBlockParse = { 0, "Road", INI::parseTerrainRoadDefinition };	// VA 0x00DB9404 "Road", parse 0x001FF288
 BlockParse theScienceBlockParse = { 0, "Science", ScienceStore::friend_parseScienceDefinition };	// VA 0x00DB9434 "Science", parse 0x001FFF3A
 BlockParse theRankBlockParse = { 0, "Rank", RankInfoStore::friend_parseRankDefinition };	// VA 0x00DB947C "Rank", parse 0x0020038E
 BlockParse theSpecialPowerBlockParse = { 0, "SpecialPower", SpecialPowerStore::parseSpecialPowerDefinition };	// VA 0x00DB94A4 "SpecialPower", parse 0x003B15D6
@@ -281,19 +262,10 @@ BlockParse theShellMenuSchemeBlockParse = { 0, "ShellMenuScheme", INI::parseShel
 BlockParse theTerrainBlockParse = { 0, "Terrain", INI::parseTerrainDefinition };	// VA 0x00DB94E0 "Terrain", parse 0x00200A65
 BlockParse theWaterTextureListBlockParse = { 0, "WaterTextureList", iniParseWaterTexturesDefinition };	// VA 0x00DB94EC "WaterTextureList", parse 0x00200AEA
 BlockParse theUpgradeBlockParse = { 0, "Upgrade", UpgradeCenter::parseUpgradeDefinition };	// VA 0x00DB94F8 "Upgrade", parse 0x0026FA05
-BlockParse theWaterSetBlockParse = { 0, "WaterSet", INI::parseWaterSettingDefinition };	// VA 0x00DB9504 "WaterSet", parse 0x00200BEB
-BlockParse theWaterTransparencyBlockParse = { 0, "WaterTransparency", INI::parseWaterTransparencyDefinition };	// VA 0x00DB9510 "WaterTransparency", parse 0x00200EE4
 BlockParse theAerialPathfindNoFlyZoneBlockParse = { 0, "AerialPathfindNoFlyZone", parseAerialPathfindNoFlyZoneDefinition };	// VA 0x00DB9558 "AerialPathfindNoFlyZone", parse 0x00200FE3
 BlockParse theWeatherBlockParse = { 0, "Weather", INI::parseWeatherDefinition };	// VA 0x00DB9588 "Weather", parse 0x0020187A
 BlockParse theWeaponBlockParse = { 0, "Weapon", WeaponStore::parseWeaponTemplateDefinition };	// VA 0x00DB95B8 "Weapon", parse 0x002CE102
 BlockParse theHeaderTemplateBlockParse = { 0, "HeaderTemplate", INI::parseHeaderTemplateDefinition };	// VA 0x00DB95C4 "HeaderTemplate", parse 0x00201CAF
-BlockParse theReallyLowMHzBlockParse = { 0, "ReallyLowMHz", parseReallyLowMHz };	// VA 0x00DB9740 "ReallyLowMHz", parse 0x00201E56
-BlockParse theAudioLowMHzBlockParse = { 0, "AudioLowMHz", parseAudioLowMHz };	// VA 0x00DB974C "AudioLowMHz", parse 0x00201E81
-BlockParse theBenchProfileBlockParse = { 0, "BenchProfile", INI::parseBenchProfile };	// VA 0x00DB9758 "BenchProfile", parse 0x002026D4
-BlockParse theLODPresetBlockParse = { 0, "LODPreset", INI::parseLODPreset };	// VA 0x00DB9764 "LODPreset", parse 0x00202E23
-BlockParse theStaticGameLODBlockParse = { 0, "StaticGameLOD", Rva00202BB2Parse };	// VA 0x00DB9770 "StaticGameLOD", parse 0x00202BB2
-BlockParse theDynamicGameLODBlockParse = { 0, "DynamicGameLOD", INI::parseStaticGameLODDefinition };	// VA 0x00DB977C "DynamicGameLOD", parse 0x00202F05
-BlockParse theAudioLODBlockParse = { 0, "AudioLOD", INI::parseAudioLODDefinition };	// VA 0x00DB9788 "AudioLOD", parse 0x00202F8A
 BlockParse theScriptActionBlockParse = { 0, "ScriptAction", parseScriptAction };	// VA 0x00DB97D0 "ScriptAction", parse 0x00206DFF
 BlockParse theScriptConditionBlockParse = { 0, "ScriptCondition", parseScriptCondition };	// VA 0x00DB97DC "ScriptCondition", parse 0x00206E63
 BlockParse theSkyboxTextureSetBlockParse = { 0, "SkyboxTextureSet", iniParseEnvironmentSkyboxTextureDefinition };	// VA 0x00DB984C "SkyboxTextureSet", parse 0x0020D6F5

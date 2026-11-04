@@ -114,3 +114,25 @@ void INI::parseMiscAudio(INI *ini)
 {
 	ini->initFromINI(TheAudio->friend_getMiscAudio(), MiscAudio::m_fieldParseTable);
 }
+
+// INI block registration. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD391,
+// node 0x00DB9010).
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theMiscAudioBlockParse( "MiscAudio", INI::parseMiscAudio );

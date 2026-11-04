@@ -144,6 +144,8 @@ public:
 	const SubsoundsList &getSubsoundVector() const;
 public:
 	int getVolumeSlider();
+public:
+	static void parseMultisoundDefinition(INI *ini);
 private:
 	char m_pad00[0x34];
 private:
@@ -1398,3 +1400,31 @@ void Rva004362B0StrideAdd::add(int *value, int index)
 // tu-skeleton: 0x00787B30 14B Unwind@00b87b30 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004335BCFinish.cpp (not merged yet)
 
 // tu-skeleton: 0x00787B3E 10B __ehhandler$??0Rva001DA2D5@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004335BCFinish.cpp (not merged yet)
+
+// INI block registrations. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD024..0x007AD08D,
+// nodes 0x00DB8B08..0x00DB8B44 in definition order, right after this unit's
+// name lists).
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theMusicTrackBlockParse( "MusicTrack", parseMusicTrackDefinition );
+BlockParse theAudioEventBlockParse( "AudioEvent", parseAudioEventDefinition );
+BlockParse theDialogEventBlockParse( "DialogEvent", parseDialogDefinition );
+BlockParse theAmbientStreamBlockParse( "AmbientStream", parseAmbientStreamDefinition );
+BlockParse theStreamedSoundBlockParse( "StreamedSound", parseStreamedSoundDefinition );
+BlockParse theMultisoundBlockParse( "Multisound", AudioEventInfo::parseMultisoundDefinition );

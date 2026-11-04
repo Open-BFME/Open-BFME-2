@@ -1398,3 +1398,34 @@ StaticGameLODLevel GameLODManager::findStaticLODLevel()
 // tu-skeleton: 0x0076C641 8B Unwind@00b6c641 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C649 10B __ehhandler$??A?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAEAAVAsciiString@@ABV2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
+
+// INI block registrations. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD703..0x007AD781,
+// nodes 0x00DB9740..0x00DB9788 in definition order).
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+void parseReallyLowMHz( INI *ini );
+void parseAudioLowMHz( INI *ini );
+void Rva00202BB2Parse( INI *ini );
+
+BlockParse theReallyLowMHzBlockParse( "ReallyLowMHz", parseReallyLowMHz );
+BlockParse theAudioLowMHzBlockParse( "AudioLowMHz", parseAudioLowMHz );
+BlockParse theBenchProfileBlockParse( "BenchProfile", INI::parseBenchProfile );
+BlockParse theLODPresetBlockParse( "LODPreset", INI::parseLODPreset );
+BlockParse theStaticGameLODBlockParse( "StaticGameLOD", Rva00202BB2Parse );
+BlockParse theDynamicGameLODBlockParse( "DynamicGameLOD", INI::parseStaticGameLODDefinition );
+BlockParse theAudioLODBlockParse( "AudioLOD", INI::parseAudioLODDefinition );

@@ -2,7 +2,8 @@
 
 Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
 `f2cec2a7f8`: report tie fix, Drawable.h constant and 84 rowed copies, bridged 969 -> 885 on the
-fixed report; next seat continues).
+fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 31
+rowed in their units, bridged 885 -> 854; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -63,7 +64,7 @@ places it.
 | Grab-bag file | Rows |
 | --- | ---: |
 | `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2) |
-| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 |
+| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (99 after in-o3) |
 | `StaticTagInitializers.cpp` | 63 |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
 | `Rva007AD295ZeroInits.cpp` | 56 |
@@ -146,6 +147,44 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 - *Next.* The units that fail to compile need their private `Thing`/`Drawable` views reconciled
   with the canonical header (header-adoption lane) before the include. Held units can follow the
   same steps once free. The handoff table lists each copy.
+
+**BlockParseInits (130 rows): per-unit `BlockParse` nodes (halilkkaya-in-o3, 2026-11-04).**
+- *Target facts.* All 130 entries are one 21-byte body, `mov eax, [0x00DDF578]; mov [node], eax;
+  mov [0x00DDF578], node; ret`. Each links one 12-byte `{ next, token, parse }` node onto
+  `theBlockParseList`. Retail holds the node's token and parse pointer in .data and next = 0.
+  A function-local registration (`Pathfinder::Pathfinder`, 0x002F6F0B) stores all three fields at
+  run time instead.
+- *What it is.* It is not a header constant. It is a file-scope `BlockParse theXBlockParse("X",
+  parse);` whose inline constructor does `next(theBlockParseList)` and `theBlockParseList = this`.
+  For a namespace-scope object, MSVC 7.1 builds the constant members in .data and emits only the
+  link as `_$E<n>`; a scratch compile gives EXACT 21/21 against 0x007ABBF6. Each object also emits
+  the constructor's COMDAT (retail 0x0004147D). So every entry belongs to the unit that defines its
+  node. Ordinals step by two (`_$E1`, `_$E3`, ...), after whatever the unit already numbers.
+- *Attribution.* The node's callback has an approved TU in tu_map, and the node sits in that TU's
+  contiguous .data and .text$yc run in link order (the INI*.cpp files run 0x00DB8934..0x00DB9788).
+  INIAudioEventInfo's nodes follow its own name lists at 0x00DB8A80. MiscEvaData's callback
+  (0x001DCFE5) comes before Eva's code while its node comes after Eva's nodes, so Eva owns it.
+  Zero Hour's `INI*.cpp` wrappers explain the nodes whose callback lives elsewhere: in CommandSet,
+  CrateData and DamageFX, the node calls the store's parser directly. These nodes still wait for an
+  `INI*.cpp` unit our tree does not have.
+- *Rowed (31, this series).* Each owner defines the struct with its inline constructor (a
+  TU-scoped view; there is no canonical declaration yet). Each owner also defines the node at the
+  end of the file, so no earlier ordinal moves. Each node's data row is repointed to its owner, and
+  the address is readmitted as `_$E<n>`:
+  - GameLOD: ReallyLowMHz..AudioLOD (`_$E27`..`_$E39`);
+  - INIAudioEventInfo: MusicTrack..Multisound (`_$E2`..`_$E12`);
+  - INIObject: Object, ObjectReskin, ChildObject (`_$E10`..`_$E14`);
+  - Eva: PredefinedEvaEvent, NewEvaEvent, EvaEventForwardReference;
+  - INIWater, INIMultiplayer and MetaEvent: two each;
+  - INIAiData, INICommandButton, INIDrawGroupInfo, INIMappedImage, INIMiscAudio and INITerrainRoad:
+    one each.
+- *Waiting.* MiscEvaData needs `INI::parseMiscEvaData` in Eva.cpp's INI view. These need their
+  wrapper unit or a claimable owner: AudioSettings, ShadowMap, LoadSubsystem, Armor (Armor.cpp),
+  Bridge (INITerrainBridge.cpp is approved but missing), CommandSet, ControlBarScheme,
+  ControlBarResizer, CrateData, WindowTransition and DamageFX. ScriptEngine.cpp is held by another
+  seat. The rest (about 85) follow the same steps once a node's unit is clear.
+- *Hazard.* A unit that later takes Drawable.h, or adds a dynamic initializer before these nodes,
+  moves their ordinals. Read each `_$E<n>`'s relocation target (its node) again.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.

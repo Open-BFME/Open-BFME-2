@@ -791,3 +791,26 @@ GameMessage::Type MetaMap::findGameMessageMetaType(const char* name)
 // tu-skeleton: 0x007697E8 8B uw_007697e8 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
 
 // tu-skeleton: 0x007697F0 10B __ehhandler$??0MetaEventTranslator@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp (not merged yet)
+
+// INI block registrations. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD0DC..0x007AD0F1,
+// nodes 0x00DB8C14..0x00DB8C20 in definition order).
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theCommandMapBlockParse( "CommandMap", MetaMap::parseMetaMap );
+BlockParse theDebugCommandMapBlockParse( "DebugCommandMap", parseDebugCommandMap );

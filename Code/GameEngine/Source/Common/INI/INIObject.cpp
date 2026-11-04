@@ -49,3 +49,27 @@ void INI::parseObjectReskinDefinition( INI* ini )
 	AsciiString reskinFrom( ini->getNextToken() );
 	ThingFactory::parseObjectDefinition( ini, name, reskinFrom, AsciiString::TheEmptyString );
 }
+
+// INI block registrations. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD463..0x007AD48D,
+// nodes 0x00DB9248..0x00DB9260 in definition order).
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theObjectBlockParse( "Object", INI::parseObjectDefinition );
+BlockParse theObjectReskinBlockParse( "ObjectReskin", INI::parseObjectReskinDefinition );
+BlockParse theChildObjectBlockParse( "ChildObject", INI::parseChildObjectDefinition );
