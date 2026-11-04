@@ -158,19 +158,6 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-// Opaque UpdateModule-derived intermediate.
-class Rva0044EF5E : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva0044EF5E();
-
-protected:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
-
 class SpecialPowerTemplate;
 
 class Waypoint;
@@ -183,7 +170,7 @@ struct Coord3D;
 // retail's +0x10 and +0x20 tables (0x0084DEE8, 0x008552A4) keep
 // SpecialAbilityUpdate::update (0x00451FA2) and
 // SpecialAbilityUpdate::initiateIntentToDoSpecialPower (0x004500A3) in slot 0.
-class SpecialAbilityUpdate : public Rva0044EF5E, public SpecialPowerUpdateInterface
+class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
 	virtual ~SpecialAbilityUpdate();
@@ -192,6 +179,15 @@ public:
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
 		const Waypoint *way);
+};
+
+// The spelling the derived ctors use for SpecialAbilityUpdate's ctor (row
+// 0x0044EF5E), as in WeaponFireSpecialAbilityUpdate.cpp.
+class Rva0044EF5E : public SpecialAbilityUpdate
+{
+public:
+	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva0044EF5E();
 };
 
 enum NameKeyType
@@ -296,9 +292,10 @@ class Rva00523825;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class StoreObjectsSpecialPower : public SpecialAbilityUpdate
+class StoreObjectsSpecialPower : public Rva0044EF5E
 {
 public:
+	StoreObjectsSpecialPower(Thing *thing, const ModuleData *moduleData);
 	virtual void triggerAbilityEffect();
 private:
 	const StoreObjectsSpecialPowerModuleData *getStoreObjectsSpecialPowerModuleData() const
