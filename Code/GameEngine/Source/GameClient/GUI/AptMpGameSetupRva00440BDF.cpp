@@ -802,7 +802,7 @@ private:
 
 #include "../../../Include/GameClient/MapMetaData.h"
 struct StartPositionFactionView { char beforeReady[12]; int ready; };
-class GlobalData { public: unsigned char pad[0x9d4]; int factionRestrictions; char rest[0xa44-0x9d8]; int minPlayers; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData* TheWritableGlobalData;
 namespace _STL {
 template<> set<int>::set();
@@ -867,10 +867,10 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
   if(countdown) m_3a8=numHumans;
   if(!allHaveMap) {rva0043E49C(TheGameText->fetch("GUI:CouldNotTransferMap"));return false;}
   if(maxPlayers<numUsers) {text.format(TheGameText->slot44("LAN:TooManyPlayers",0),maxPlayers);rva0043E49C(text);return false;}
-  if(TheWritableGlobalData->minPlayers && !numHumans) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
+  if(TheWritableGlobalData->field0A44 && !numHumans) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
   if(mode1 && !allSpots) {text=TheGameText->fetch("GUI:NeedStartSpots");rva0043E49C(text);m_owner->v17(text,2);return false;}
-  if(numUsers<TheWritableGlobalData->minPlayers) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
-  if(teams.size()+numRandom<(unsigned int)TheWritableGlobalData->minPlayers) {text=TheGameText->fetch("LAN:NeedMoreTeams");rva0043E49C(text);m_owner->v17(text,2);return false;}
+  if(numUsers<TheWritableGlobalData->field0A44) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
+  if(teams.size()+numRandom<(unsigned int)TheWritableGlobalData->field0A44) {text=TheGameText->fetch("LAN:NeedMoreTeams");rva0043E49C(text);m_owner->v17(text,2);return false;}
   if(teams.size()+numRandom<2) {
    if(wotrEnemy) {text=TheGameText->fetch("GUI:NeedWOTREnemy");rva0043E49C(text);m_owner->v17(text,2);return false;}
    text=TheGameText->fetch("GUI:SandboxMode");m_owner->v17(text,0);
@@ -924,7 +924,7 @@ void AptMpGameSetup::PopulatePlayerTemplateCombo(int index)
   if(mode1) allowRandom=false;
   else allowRandom=start->ready!=1;
  }
- if(TheWritableGlobalData->factionRestrictions&3) allowRandom=false;
+ if(TheWritableGlobalData->field09D4&3) allowRandom=false;
  if(allowRandom) {
   newIndex=GadgetComboBoxAddEntry(combo,TheGameText->fetch("GUI:Random"),def->getColor());
   GadgetComboBoxSetItemData(combo,newIndex,(void*)-1);

@@ -20,17 +20,7 @@
 #include "Coord3D.h"
 class AsciiString;
 #include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
-struct LightingColor { float red,green,blue; };
-struct LightingRecord { LightingColor ambient,diffuse; Coord3D lightPos; };
-class GlobalData {
-public:
- char prefix[0x134]; int m_timeOfDay; char pad[8];
- LightingRecord m_terrainLighting[6][3];
- LightingRecord m_terrainObjectsLighting[6][3];
- LightingRecord m_thirdLighting[6][3];
- char padTail[0x944-0x8d8]; float finalValues[3];
- char padFlag[0xd34-0x950]; unsigned char chunkFlag;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern bool ShaderOverbrightEnabled;
 class W3DShadowManager { public: void *vptr; int shadowColor; };
@@ -85,19 +75,19 @@ void WriteGlobalLighting_Rva000AD112(DataChunkOutput &chunkWriter) {
   chunkWriter.writeReal(TheWritableGlobalData->m_terrainLighting[i+1][j].lightPos.z);
   }
   for(int j=0;j<3;++j) {
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].ambient.red);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].ambient.green);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].ambient.blue);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].diffuse.red);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].diffuse.green);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].diffuse.blue);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].lightPos.x);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].lightPos.y);
-  chunkWriter.writeReal(TheWritableGlobalData->m_thirdLighting[i+1][j].lightPos.z);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].ambient.red);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].ambient.green);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].ambient.blue);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].diffuse.red);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].diffuse.green);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].diffuse.blue);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].lightPos.x);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].lightPos.y);
+  chunkWriter.writeReal(TheWritableGlobalData->field0650[i+1][j].lightPos.z);
   }
  }
  chunkWriter.writeReal(ShaderOverbrightEnabled ? 2.0f : 1.0f);
- chunkWriter.writeInt(TheWritableGlobalData->chunkFlag != 0);
+ chunkWriter.writeInt(TheWritableGlobalData->field0D34 != 0);
  x = GlobalLightingChunkVectors[0].components.x; y = GlobalLightingChunkVectors[0].components.y; z = GlobalLightingChunkVectors[0].components.z;
  chunkWriter.writeReal(x); chunkWriter.writeReal(y); chunkWriter.writeReal(z);
  x = GlobalLightingChunkVectors[1].components.x; y = GlobalLightingChunkVectors[1].components.y; z = GlobalLightingChunkVectors[1].components.z;
@@ -105,9 +95,9 @@ void WriteGlobalLighting_Rva000AD112(DataChunkOutput &chunkWriter) {
  x = GlobalLightingChunkVectors[2].components.x; y = GlobalLightingChunkVectors[2].components.y; z = GlobalLightingChunkVectors[2].components.z;
  chunkWriter.writeReal(x); chunkWriter.writeReal(y); chunkWriter.writeReal(z);
  chunkWriter.writeInt(TheW3DShadowManager->shadowColor);
- chunkWriter.writeReal(TheWritableGlobalData->finalValues[0]);
- chunkWriter.writeReal(TheWritableGlobalData->finalValues[1]);
- chunkWriter.writeReal(TheWritableGlobalData->finalValues[2]);
+ chunkWriter.writeReal(TheWritableGlobalData->field0944[0]);
+ chunkWriter.writeReal(TheWritableGlobalData->field0944[1]);
+ chunkWriter.writeReal(TheWritableGlobalData->field0944[2]);
  chunkWriter.closeDataChunk();
 }
 
@@ -130,8 +120,8 @@ struct DataChunkInfo { char labels[8]; unsigned short version; };
 static __forceinline void storeLightingOverbright(bool enabled) { ShaderOverbrightEnabled = enabled; }
 bool __stdcall ReadGlobalLighting_Rva000ACAF7(DataChunkInput &file, DataChunkInfo *info) {
  float x,y,z;
- TheWritableGlobalData->m_timeOfDay = file.readInt();
- LightingRecord initLightValues = {{0,0,0},{0,0,0},{0,0,-1.0f}};
+ TheWritableGlobalData->m_timeOfDay = (TimeOfDay)file.readInt();
+ GlobalData::TerrainLighting initLightValues = {{0,0,0},{0,0,0},{0,0,-1.0f}};
  for(int i=0;i<4;++i) {
   for(int j=0;j<3;++j) {
    TheWritableGlobalData->m_terrainObjectsLighting[i+1][j] = initLightValues;
@@ -185,26 +175,26 @@ bool __stdcall ReadGlobalLighting_Rva000ACAF7(DataChunkInput &file, DataChunkInf
   }
   if(info->version >= 4) {
    for(int j=0;j<3;++j) {
-  TheWritableGlobalData->m_thirdLighting[i+1][j].ambient.red = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].ambient.green = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].ambient.blue = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].diffuse.red = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].diffuse.green = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].diffuse.blue = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].lightPos.x = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].lightPos.y = file.readReal();
-  TheWritableGlobalData->m_thirdLighting[i+1][j].lightPos.z = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].ambient.red = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].ambient.green = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].ambient.blue = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].diffuse.red = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].diffuse.green = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].diffuse.blue = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].lightPos.x = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].lightPos.y = file.readReal();
+  TheWritableGlobalData->field0650[i+1][j].lightPos.z = file.readReal();
    }
   }
-  else { for(int j=0;j<3;++j) TheWritableGlobalData->m_thirdLighting[i+1][j] = TheWritableGlobalData->m_terrainObjectsLighting[i+1][j]; }
+  else { for(int j=0;j<3;++j) TheWritableGlobalData->field0650[i+1][j] = TheWritableGlobalData->m_terrainObjectsLighting[i+1][j]; }
  }
  if(info->version >= 5) storeLightingOverbright(file.readReal() > 1.0f);
  else ShaderOverbrightEnabled = false;
  if(info->version >= 6) {
-  TheWritableGlobalData->chunkFlag = file.readInt() != 0;
+  TheWritableGlobalData->field0D34 = file.readInt() != 0;
   x = file.readReal(); y = file.readReal(); z = file.readReal();
   GlobalLightingChunkVectors[0].components.x = x; GlobalLightingChunkVectors[0].components.y = y; GlobalLightingChunkVectors[0].components.z = z;
- } else TheWritableGlobalData->chunkFlag = 0;
+ } else TheWritableGlobalData->field0D34 = 0;
  if(info->version >= 7) {
   x = file.readReal(); y = file.readReal(); z = file.readReal();
   GlobalLightingChunkVectors[1].components.x = x; GlobalLightingChunkVectors[1].components.y = y; GlobalLightingChunkVectors[1].components.z = z;
@@ -216,13 +206,13 @@ bool __stdcall ReadGlobalLighting_Rva000ACAF7(DataChunkInput &file, DataChunkInf
   if(TheW3DShadowManager) TheW3DShadowManager->shadowColor = shadowColor;
  }
  if(info->version >= 8) {
-  TheWritableGlobalData->finalValues[0] = file.readReal();
-  TheWritableGlobalData->finalValues[1] = file.readReal();
-  TheWritableGlobalData->finalValues[2] = file.readReal();
+  TheWritableGlobalData->field0944[0] = file.readReal();
+  TheWritableGlobalData->field0944[1] = file.readReal();
+  TheWritableGlobalData->field0944[2] = file.readReal();
  } else {
-  TheWritableGlobalData->finalValues[0] = 1.0f;
-  TheWritableGlobalData->finalValues[1] = 1.0f;
-  TheWritableGlobalData->finalValues[2] = 1.0f;
+  TheWritableGlobalData->field0944[0] = 1.0f;
+  TheWritableGlobalData->field0944[1] = 1.0f;
+  TheWritableGlobalData->field0944[2] = 1.0f;
  }
  return true;
 }

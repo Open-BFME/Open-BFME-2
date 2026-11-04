@@ -61,16 +61,7 @@ enum FilterTypes
 	FT_NULL_FILTER = 0
 };
 
-class GlobalData
-{
-public:
-	Bool setTimeOfDay(TimeOfDay tod);
-
-	unsigned char m_pad000[0x134];
-	TimeOfDay m_timeOfDay;			// +0x134
-	unsigned char m_pad138[0xD34 - 0x138];
-	Bool m_D34;				// +0xD34
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -261,7 +252,7 @@ Rva000FC63DFilter::Rva000FC63DFilter() :
 
 Int Rva000FC63DFilter::set(FilterModes mode)
 {
-	TheWritableGlobalData->m_D34 = false;
+	TheWritableGlobalData->field0D34 = false;
 	Bool newFrame = false;
 	UnsignedInt frame = TheGameLogic->getFrame();
 	if (BfmeScreenTransitionLastLogicFrame != frame)

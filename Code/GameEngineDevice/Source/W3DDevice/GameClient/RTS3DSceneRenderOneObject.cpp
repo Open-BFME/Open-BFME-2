@@ -269,15 +269,7 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
-class GlobalData
-{
-public:
-	char m_pad000[0x944];
-	Real m_lightScale[3];												// +0x944
-	char m_pad950[0xBE8 - 0x950];
-	unsigned char m_fogAlpha;											// +0xBE8
-	unsigned char m_clearAlpha;											// +0xBE9
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 enum CellShroudStatus
@@ -420,7 +412,7 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 			ss = OBJECTSHROUD_FOGGED;
 	}
 
-	Real foggedLightFrac = (Real)TheWritableGlobalData->m_clearAlpha / (Real)TheWritableGlobalData->m_fogAlpha;
+	Real foggedLightFrac = (Real)TheWritableGlobalData->m_fogAlpha / (Real)TheWritableGlobalData->m_clearAlpha;
 	if (DX8Wrapper::Get_Fog_Enable())
 		rinfo.fogColor = m_fogColor;
 
@@ -510,9 +502,9 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 			}
 			if (LODTextureReduction < 2)
 			{
-				scale.X *= TheWritableGlobalData->m_lightScale[0];
-				scale.Y *= TheWritableGlobalData->m_lightScale[1];
-				scale.Z *= TheWritableGlobalData->m_lightScale[2];
+				scale.X *= TheWritableGlobalData->field0944[0];
+				scale.Y *= TheWritableGlobalData->field0944[1];
+				scale.Z *= TheWritableGlobalData->field0944[2];
 			}
 
 			for (Int globalLightIndex = 0; globalLightIndex < m_numGlobalLights; globalLightIndex++)
@@ -596,7 +588,7 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 			lightEnv.Reset(sph.Center, ambient);
 			if (LODTextureReduction < 2)
 			{
-				Vector3 lightScale(TheWritableGlobalData->m_lightScale[0], TheWritableGlobalData->m_lightScale[1], TheWritableGlobalData->m_lightScale[2]);
+				Vector3 lightScale(TheWritableGlobalData->field0944[0], TheWritableGlobalData->field0944[1], TheWritableGlobalData->field0944[2]);
 				for (Int globalLightIndex = 0; globalLightIndex < m_numGlobalLights; globalLightIndex++)
 				{
 					Vector3 temp;

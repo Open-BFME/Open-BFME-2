@@ -183,20 +183,7 @@ public:
 };
 struct QueueObjectView {char pad00[0x258];AIUpdateInterface *ai;};
 #include "../../../Include/GameLogic/TerrainLogic.h"
-class GlobalData
-{
-public:
-	char prefix[0x9b8]; // +0x00
-	int m_flag9B8; // +0x9B8
-	char m_pad9BC[0x804];
-	unsigned int limitMs; // +0x11C0
-	char m_pad11C4[0x24];
-	int cellsPerFrame; // +0x11E8
-	char m_pad11EC[0xC];
-	int m_maxCellsAdjustTargetDestination; // +0x11F8
-	char m_pad11FC[0x20];
-	unsigned callbackLimit; // +0x121C
-};
+#include "../../../Include/Common/GlobalData.h"
 class PathfindCell;
 class PathfindLayer;
 class PathfindZoneManager {public:void Update(PathfindCell **,PathfindLayer *,const IRegion2D &);char pad[4];};
@@ -230,7 +217,7 @@ void Pathfinder::ProcessPathfindQueue()
  --bounds.hi.x;--bounds.hi.y;
  logicalExtent=bounds;
  cumulative=0;word40=0;word44=0;
- int quota=TheWritableGlobalData->cellsPerFrame;
+ int quota=TheWritableGlobalData->m_maxPathfindCellsPerFrame;
  if(TheGameLogic->getFrame()<(unsigned int)(5*BfmeLogicFramesPerSecond))quota*=100;
  while(cumulative<quota/2 && !priorityQueue.empty()) {
   Object *obj=TheGameLogic->findObjectByID((ObjectID)(int)priorityQueue.rva002EAC7C());
@@ -243,14 +230,14 @@ void Pathfinder::ProcessPathfindQueue()
    if(ai) {
     LARGE_INTEGER startTime,endTime,freq;
     startTime.QuadPart=0;endTime.QuadPart=0;freq.QuadPart=0;
-    if(TheWritableGlobalData->limitMs) {QueryPerformanceFrequency(&freq);QueryPerformanceCounter(&startTime);}
+    if(TheWritableGlobalData->m_tintUnitIfPathingForMoreThan) {QueryPerformanceFrequency(&freq);QueryPerformanceCounter(&startTime);}
     Profile::StartRange("pathfind");
     ai->slot230(this);
     Profile::StopRange("pathfind");
-    if(TheWritableGlobalData->limitMs) {
+    if(TheWritableGlobalData->m_tintUnitIfPathingForMoreThan) {
      QueryPerformanceCounter(&endTime);
      double elapsed=(double)(endTime.QuadPart-startTime.QuadPart)*1000.0/(double)freq.QuadPart;
-     if(elapsed>=TheWritableGlobalData->limitMs)Rva002EBD99(obj,0);
+     if(elapsed>=TheWritableGlobalData->m_tintUnitIfPathingForMoreThan)Rva002EBD99(obj,0);
     }
    }
   }

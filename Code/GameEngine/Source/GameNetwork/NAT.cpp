@@ -98,12 +98,7 @@ struct Rva005A695FValue
 // 0x005A671D ignores incoming ecx (loads its context from the 0xE063FC
 // global first thing), so it is spelled as a free function: no ecx setup.
 int Rva005A671DNext();
-class GlobalData
-{
-public:
-    unsigned char m_prefix[0xA54];
-    unsigned int m_forcedPort;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva005A687FCmpBoolField, 0x94C, 1, ==)
 // Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
@@ -973,13 +968,13 @@ void NAT::attachSlotList(GameInfo *gameInfo, int localSlot, unsigned int localIP
     else
         m_hostSlot = 8;
     m_04 = new Transport;
-    if (TheWritableGlobalData->m_forcedPort > 0)
-        m_startingPortNumber = (unsigned short)TheWritableGlobalData->m_forcedPort;
+    if (TheWritableGlobalData->m_firewallPortOverride > 0)
+        m_startingPortNumber = (unsigned short)TheWritableGlobalData->m_firewallPortOverride;
     else
         m_startingPortNumber = (unsigned short)(8088 + ((timeGetTime() / 1000) % 20000));
     generatePortNumbers(m_slotList, localSlot);
-    if (TheWritableGlobalData->m_forcedPort != 0) {
-        unsigned short port = (unsigned short)TheWritableGlobalData->m_forcedPort;
+    if (TheWritableGlobalData->m_firewallPortOverride != 0) {
+        unsigned short port = (unsigned short)TheWritableGlobalData->m_firewallPortOverride;
         unsigned int ip = m_localIP;
         TransportAddress address = {ip, port};
         m_04->init(&address);
@@ -1005,9 +1000,9 @@ void NAT::generatePortNumbers(GameSlot **slotList, int localSlot)
 {
     for (int i = 0; i < 8; ++i) {
         if (slotList[i]) {
-            if (i == localSlot && TheWritableGlobalData->m_forcedPort != 0) {
+            if (i == localSlot && TheWritableGlobalData->m_firewallPortOverride != 0) {
                 NetPacketAddress address = slotList[i]->m_address;
-                address.port = (unsigned short)TheWritableGlobalData->m_forcedPort;
+                address.port = (unsigned short)TheWritableGlobalData->m_firewallPortOverride;
                 slotList[i]->m_address = address;
                 if (!m_addresses[i])
                     m_addresses[i] = new NetPacketAddress(address);

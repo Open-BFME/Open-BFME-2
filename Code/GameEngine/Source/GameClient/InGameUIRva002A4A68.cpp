@@ -94,14 +94,7 @@ extern unsigned int g_00DFEE08;
 
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 
-class GlobalData {
-public:
-    char _pad0[0xda4];
-    GameClientRandomVariable m_rand;
-    unsigned char m_particleCursorPerFrameSize;
-    char _pad1[3];
-    int m_particleCursorAlpha;
-};
+#include "../../Include/Common/GlobalData.h"
 
 class Rva002D7127 {
 public:
@@ -159,7 +152,7 @@ void InGameUI::rva002A4A68()
         }
         int v;
         if (TheWritableGlobalData->m_particleCursorPerFrameSize)
-            v = (int)(TheWritableGlobalData->m_rand.getValue() + 0.5f);
+            v = (int)(TheWritableGlobalData->m_particleCursorParticleSize.getValue() + 0.5f);
         else
             v = payload->m_20;
         Rva002D7127 *o2 = payload->m_obj;

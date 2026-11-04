@@ -34,21 +34,7 @@ struct VertexFormatXYZDUV1
 }
 ;
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-class GlobalData
-
-{
- public:
- unsigned char m_pad000[0x8D8];
- RGBColor m_terrainAmbient[3];
-// +0x8D8
- RGBColor m_terrainDiffuse[3];
-// +0x8FC
- unsigned char m_pad920[0x944 - 0x920];
- RGBColor m_scale944;
-// +0x944
- 
-}
-;
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern bool ShaderOverbrightEnabled;
 class VertexBufferClass
@@ -197,9 +183,9 @@ void BaseHeightMapRenderObjClass::updateScorches()
  m_curNumScorchVertices = 0;
  m_curNumScorchIndices = 0;
  Real shadeR, shadeG, shadeB;
- shadeR = TheWritableGlobalData->m_scale944.red * TheWritableGlobalData->m_terrainDiffuse[0].red;
- shadeG = TheWritableGlobalData->m_scale944.green * TheWritableGlobalData->m_terrainDiffuse[0].green;
- shadeB = TheWritableGlobalData->m_scale944.blue * TheWritableGlobalData->m_terrainDiffuse[0].blue;
+ shadeR = TheWritableGlobalData->field0944[0] * TheWritableGlobalData->m_terrainDiffuse[0].red;
+ shadeG = TheWritableGlobalData->field0944[1] * TheWritableGlobalData->m_terrainDiffuse[0].green;
+ shadeB = TheWritableGlobalData->field0944[2] * TheWritableGlobalData->m_terrainDiffuse[0].blue;
  shadeR = shadeR * 0.5f + TheWritableGlobalData->m_terrainAmbient[0].red;
  shadeG = shadeG * 0.5f + TheWritableGlobalData->m_terrainAmbient[0].green;
  shadeB = shadeB * 0.5f + TheWritableGlobalData->m_terrainAmbient[0].blue;

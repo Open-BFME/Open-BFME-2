@@ -135,21 +135,7 @@ public:
 	bool m_18;          // +0x18
 };
 
-class GlobalData
-{
-public:
-	char m_pad0[0xA9C];
-	float m_horizontalScrollSpeedFactor; // +0xA9C
-	float m_verticalScrollSpeedFactor;   // +0xAA0
-	float m_screenEdgeScrollSpeedFactor;                         // +0xAA4
-	int m_edgeScrollTime;                // +0xAA8
-	char m_padAAC[0xAF8 - 0xAAC];
-	float m_keyboardScrollFactor;        // +0xAF8
-	char m_padAFC[0xB70 - 0xAFC];
-	bool m_saveCameraInReplay;           // +0xB70
-	char m_padB71[0xC2C - 0xB71];
-	float m_keyboardCameraRotateSpeed;                         // +0xC2C
-};
+#include "../../../Include/Common/GlobalData.h"
 
 #include "../../../Include/GameClient/Mouse.h"
 
@@ -248,41 +234,41 @@ void BfmeOwnVVD::rva0042F213()
 					vec.x = offset.x;
 					vec.y = offset.y;
 					vec.normalize();
-					offset.x += TheWritableGlobalData->m_horizontalScrollSpeedFactor * vec.x * sqr(TheWritableGlobalData->m_keyboardScrollFactor);
-					offset.y += TheWritableGlobalData->m_verticalScrollSpeedFactor * vec.y * sqr(TheWritableGlobalData->m_keyboardScrollFactor);
+					offset.x += TheWritableGlobalData->m_horizontalScrollSpeedFactor * vec.x * sqr(TheWritableGlobalData->m_keyboardScrollSpeedFactor);
+					offset.y += TheWritableGlobalData->m_verticalScrollSpeedFactor * vec.y * sqr(TheWritableGlobalData->m_keyboardScrollSpeedFactor);
 				}
 			}
 			break;
 		case 2:
 			{
 				if (scrollDir[0])
-					offset.y -= TheWritableGlobalData->m_verticalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollFactor;
+					offset.y -= TheWritableGlobalData->m_verticalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollSpeedFactor;
 				if (scrollDir[1])
-					offset.y += TheWritableGlobalData->m_verticalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollFactor;
+					offset.y += TheWritableGlobalData->m_verticalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollSpeedFactor;
 				if (scrollDir[2])
-					offset.x -= TheWritableGlobalData->m_horizontalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollFactor;
+					offset.x -= TheWritableGlobalData->m_horizontalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollSpeedFactor;
 				if (scrollDir[3])
-					offset.x += TheWritableGlobalData->m_horizontalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollFactor;
+					offset.x += TheWritableGlobalData->m_horizontalScrollSpeedFactor * 100.0f * TheWritableGlobalData->m_keyboardScrollSpeedFactor;
 			}
 			break;
 		case 3:
 			{
 				int elapsed = timeGetTime() - m_scrollStart;
 				int amount;
-				if (elapsed > TheWritableGlobalData->m_edgeScrollTime)
+				if (elapsed > TheWritableGlobalData->field0AA8)
 					amount = 100;
 				else
-					amount = elapsed * 100 / TheWritableGlobalData->m_edgeScrollTime;
+					amount = elapsed * 100 / TheWritableGlobalData->field0AA8;
 				unsigned int height = TheDisplay->getHeight();
 				unsigned int width = TheDisplay->getWidth();
 				if (m_currentPos.y < 3)
-					offset.y -= amount * TheWritableGlobalData->m_verticalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
+					offset.y -= amount * TheWritableGlobalData->m_verticalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollSpeedFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
 				if (m_currentPos.y >= height - 3)
-					offset.y += amount * TheWritableGlobalData->m_verticalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
+					offset.y += amount * TheWritableGlobalData->m_verticalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollSpeedFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
 				if (m_currentPos.x < 3)
-					offset.x -= amount * TheWritableGlobalData->m_horizontalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
+					offset.x -= amount * TheWritableGlobalData->m_horizontalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollSpeedFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
 				if (m_currentPos.x >= width - 3)
-					offset.x += amount * TheWritableGlobalData->m_horizontalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
+					offset.x += amount * TheWritableGlobalData->m_horizontalScrollSpeedFactor * TheWritableGlobalData->m_keyboardScrollSpeedFactor * TheWritableGlobalData->m_screenEdgeScrollSpeedFactor;
 			}
 			break;
 		}
@@ -335,7 +321,7 @@ void BfmeOwnVVD::rva0042F213()
 			TheTacticalView->slot138();
 	}
 
-	if (TheWritableGlobalData->m_saveCameraInReplay && TheGameEngine->rva00225D38() &&
+	if (TheWritableGlobalData->field0B70 && TheGameEngine->rva00225D38() &&
 		((unsigned char)((Rva0023C666 *)TheGameLogic)->rva0023C666() || TheGameLogic->m_110 == 2 || TheGameLogic->isInMultiplayerGame()))
 	{
 		BfmeViewLocation currentView;

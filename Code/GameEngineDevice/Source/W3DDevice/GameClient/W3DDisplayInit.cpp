@@ -185,37 +185,7 @@ public:
 	unsigned char m_bytes[0x130 - 0x28];
 };
 
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x2C];
-	Bool m_windowed;			// +0x2C
-	unsigned char m_pad2d[3];
-	UnsignedInt m_xResolution;		// +0x30
-	UnsignedInt m_yResolution;		// +0x34
-	unsigned char m_pad38[0x62 - 0x38];
-	Bool m_streaks;				// +0x62
-	unsigned char m_pad63[0x134 - 0x63];
-	Int m_timeOfDay;			// +0x134
-	unsigned char m_pad138[0x988 - 0x138];
-	Int m_numGlobalLights;			// +0x988
-	unsigned char m_pad98c[0x9C3 - 0x98C];
-	Bool m_debugStats;			// +0x9C3
-	Bool m_debug9C4;			// +0x9C4
-	unsigned char m_pad9c5[3];
-	Bool m_debugAnim;			// +0x9C8
-	unsigned char m_pad9c9[0xB01 - 0x9C9];
-	Bool m_minVertexBuffer;			// +0xB01
-	unsigned char m_padb02[0xBCC - 0xB02];
-	Real m_gamma;				// +0xBCC
-	unsigned char m_padbd0[0xD38 - 0xBD0];
-	AsciiString m_assetRoot;		// +0xD38
-	AsciiString m_assetArchive;		// +0xD3C
-	unsigned char m_padd40[0xD48 - 0xD40];
-	Int m_assetFlag;			// +0xD48
-	unsigned char m_padd4c[0x11C8 - 0xD4C];
-	Bool m_11C8;				// +0x11C8
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
@@ -278,19 +248,19 @@ void W3DDisplay::init()
 	m_3DScene = new RTS3DScene;
 
 	Int i;
-	for (i = 0; i < TheGlobalData->m_numGlobalLights; i++)
+	for (i = 0; i < TheGlobalData->m_numberGlobalLights; i++)
 	{
 		m_myLight[i] = new LightClass(LightClass::DIRECTIONAL);
 		m_myLight2[i] = new LightClass(LightClass::DIRECTIONAL);
 	}
 	setTimeOfDay(TheGlobalData->m_timeOfDay);
-	for (i = 0; i < TheGlobalData->m_numGlobalLights; i++)
+	for (i = 0; i < TheGlobalData->m_numberGlobalLights; i++)
 	{
 		((Rva0006E52A *)m_3DScene)->rva0006E52A((Rva0006E52AObj *)m_myLight[i], i);
 		((Rva0006E567 *)m_3DScene)->rva0006E567((Rva0006E567Obj *)m_myLight2[i], i);
 	}
 
-	if (TheGlobalData->m_minVertexBuffer)
+	if (TheGlobalData->field0B01)
 		SortingRendererClass::SetMinVertexBufferSize(1);
 
 	if (WW3D::Init(ApplicationHWnd, 0, false) != true)
@@ -337,19 +307,19 @@ void W3DDisplay::init()
 	m_2DRender->Set_Coordinate_Range(RectClass(0.0f, 0.0f, (Real)getWidth(), (Real)getHeight()));
 
 	Rva0134FAA0 = (Rva009EB960 *)new Rva0061EEE0;
-	InitializeAssetManager(TheGlobalData->m_assetRoot, TheGlobalData->m_assetArchive, TheGlobalData->m_assetFlag > 0);
-	if (TheGlobalData->m_11C8)
+	InitializeAssetManager(TheGlobalData->m_modDir, TheGlobalData->m_modBIG, TheGlobalData->field0D48 > 0);
+	if (TheGlobalData->field11C8)
 		bfmeClearReceiverFlag(0);
 
-	if (TheGlobalData->m_gamma != 1.0f)
-		setGamma(TheGlobalData->m_gamma, 0.0f, 1.0f, false);
+	if (TheGlobalData->field0BCC != 1.0f)
+		setGamma(TheGlobalData->field0BCC, 0.0f, 1.0f, false);
 
 	{
 		BFMEDX8DeviceLock lock;
 		W3DShaderManager::init();
 	}
 
-	SimpleStreakRendererClass::Init(TheGlobalData->m_streaks);
+	SimpleStreakRendererClass::Init(TheGlobalData->m_useShadowMapping);
 
 	m_nativeDebugDisplay = new Rva0007517F;
 	m_debugDisplay = m_nativeDebugDisplay;
@@ -369,10 +339,10 @@ void W3DDisplay::init()
 
 	m_initialized = true;
 
-	if (TheGlobalData->m_debugStats)
+	if (TheGlobalData->field09C3)
 		m_debugDisplayCallback = StatDebugDisplay;
-	else if (TheGlobalData->m_debug9C4)
+	else if (TheGlobalData->field09C4)
 		m_debugDisplayCallback = rva000B3FD0DebugDisplay;
 	else
-		m_debugDisplayCallback = TheGlobalData->m_debugAnim ? AnimDebugDisplay : 0;
+		m_debugDisplayCallback = TheGlobalData->field09C8 ? AnimDebugDisplay : 0;
 }

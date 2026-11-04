@@ -43,14 +43,7 @@ extern MapCache *TheMapCache;
 
 enum TimeOfDay { TIME_OF_DAY_INVALID = 0 };
 
-class GlobalData
-{
-public:
-	Bool setTimeOfDay(TimeOfDay tod);
-
-	unsigned char m_pad00[0x134];
-	TimeOfDay m_timeOfDay;
-};
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData

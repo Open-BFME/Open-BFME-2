@@ -94,7 +94,7 @@
 // +0x0128, 4 bytes, m_getHealedAnimationName: INI VA 0xbe8ab0: GetHealedAnimationName, parseAsciiString RVA 0x2f11e.
 // +0x012C, 4 bytes, m_getHealedAnimationTime: INI VA 0xbe8ac0: GetHealedAnimationTime, parseReal RVA 0x2efc0.
 // +0x0130, 4 bytes, m_getHealedAnimationZRise: INI VA 0xbe8ad0: GetHealedAnimationZRise, parseReal RVA 0x2efc0.
-// +0x0134, 4 bytes, m_timeOfDay: setTimeOfDay RVA 0x002352CA stores +0x134.
+// +0x0134, 4 bytes, m_timeOfDay: setTimeOfDay(TimeOfDay) RVA 0x002352CA stores its argument to +0x134; INI VA 0xbe8a20: TimeOfDay, parseIndexList RVA 0x2ec4e; Zero Hour declares TimeOfDay m_timeOfDay.
 // +0x0138, 4 bytes, m_weather: INI VA 0xbe8a30: Weather, parseIndexList RVA 0x2ec4e.
 // +0x013C, 1 bytes, m_makeTrackMarks: INI VA 0xbe8a40: MakeTrackMarks, parseBool RVA 0x2e850.
 // +0x013D, 1 bytes, m_hideGarrisonFlags: INI VA 0xbe8a50: HideGarrisonFlags, parseBool RVA 0x2e850.
@@ -106,6 +106,7 @@
 // +0x08D8, 36 bytes, m_terrainAmbient: setTimeOfDay 0x002352D3..0x00235305 copies three twelve-byte ambient, diffuse and position records to +0x8D8/+0x8FC/+0x920; Zero Hour GlobalData.h supplies these names and RGBColor/Coord3D types.
 // +0x08FC, 36 bytes, m_terrainDiffuse: setTimeOfDay 0x002352D3..0x00235305; three RGBColor records at +0x8FC.
 // +0x0920, 36 bytes, m_terrainLightPos: setTimeOfDay 0x002352D3..0x00235305; three Coord3D records at +0x920.
+// +0x0944, 12 bytes, field0944: constructor 0x00236673..0x00236682 stores 1.0f (VA 0x00BBB8D8) to +0x944/+0x948/+0x94C through one base pointer; updateScorches 0x00067929..0x00067951 multiplies them per channel with m_terrainDiffuse[0], renderOneObject 0x0006FF69..0x0006FF95 scales three floats by them.
 // +0x0950, 4 bytes, field0950: 0x0023668f: movss dword ptr [esi + 0x950], xmm1.
 // +0x0954, 4 bytes, m_humanSoloPlayerHealthBonus_Easy: INI VA 0xbe9400: HumanSoloPlayerHealthBonus_Easy, parsePercentToReal RVA 0x2f1ba.
 // +0x0958, 4 bytes, m_humanSoloPlayerHealthBonus_Normal: INI VA 0xbe9410: HumanSoloPlayerHealthBonus_Normal, parsePercentToReal RVA 0x2f1ba.
@@ -161,7 +162,7 @@
 // +0x09D0, 1 bytes, field09D0: 0x002367c3: mov byte ptr [esi + 0x9d0], bl.
 // +0x09D1, 1 bytes, field09D1: 0x002367c9: mov byte ptr [esi + 0x9d1], bl.
 // +0x09D2, 1 bytes, field09D2: 0x002367cf: mov byte ptr [esi + 0x9d2], bl.
-// +0x09D4, 4 bytes, field09D4: 0x002367d5: mov dword ptr [esi + 0x9d4], ebx.
+// +0x09D4, 4 bytes, field09D4: 0x002367d5: mov dword ptr [esi + 0x9d4], ebx; signed: parsePlayerTemplateDefinition 0x001FF151/0x001FF156 jle/jg.
 // +0x09D8, 1 bytes, field09D8: 0x002367db: mov byte ptr [esi + 0x9d8], bl.
 // +0x09DC, 4 bytes, m_defaultUnitHealingBuffFxList: INI VA 0xbe8860: DefaultUnitHealingBuffFxList, parseAsciiString RVA 0x2f11e.
 // +0x09E0, 4 bytes, m_defaultStructureRepairBuffFxList: INI VA 0xbe8870: DefaultStructureRepairBuffFxList, parseAsciiString RVA 0x2f11e.
@@ -189,11 +190,11 @@
 // +0x0A38, 4 bytes, m_autoAflameParticlePrefix: INI VA 0xbe9210: AutoAflameParticlePrefix, parseAsciiString RVA 0x2f11e.
 // +0x0A3C, 4 bytes, m_autoAflameParticleSystem: INI VA 0xbe9220: AutoAflameParticleSystem, parseAsciiString RVA 0x2f11e.
 // +0x0A40, 4 bytes, m_autoAflameParticleMax: INI VA 0xbe9230: AutoAflameParticleMax, parseInt RVA 0x2ef56.
-// +0x0A44, 4 bytes, field0A44: 0x00236883: mov dword ptr [esi + 0xa44], eax.
+// +0x0A44, 4 bytes, field0A44: 0x00236883: mov dword ptr [esi + 0xa44], eax; signed: AptMpGameSetup::OnHostStartGame 0x00440F5E jge against an int count.
 // +0x0A48, 4 bytes, field0A48: 0x00236889: mov dword ptr [esi + 0xa48], ebx.
 // +0x0A4C, 4 bytes, m_firewallBehavior: INI VA 0xbe94f0: FirewallBehavior, parseInt RVA 0x2ef56.
 // +0x0A50, 1 bytes, field0A50: 0x00236895: mov byte ptr [esi + 0xa50], bl.
-// +0x0A54, 4 bytes, m_firewallPortOverride: INI VA 0xbe9500: FirewallPortOverride, parseInt RVA 0x2ef56.
+// +0x0A54, 4 bytes, m_firewallPortOverride: INI VA 0xbe9500: FirewallPortOverride, parseInt RVA 0x2ef56; unsigned: NAT::attachSlotList 0x005A6B97 jbe; Zero Hour declares UnsignedInt.
 // +0x0A58, 2 bytes, m_firewallPortAllocationDelta: constructor 0x002368A1 stores a word; OptionPreferences::getFirewallPortAllocationDelta reads a word at 0x002E48AA and returns short; INI VA 0xbe9510: FirewallPortAllocationDelta, parseInt RVA 0x2ef56.
 // +0x0A5C, 4 bytes, m_valuePerSupplyBox: INI VA 0xbe8fd0: ValuePerSupplyBox, parseInt RVA 0x2ef56.
 // +0x0A60, 4 bytes, m_supplyBoxesPerTree: INI VA 0xbe8fe0: SupplyBoxesPerTree, parseInt RVA 0x2ef56.
@@ -214,11 +215,11 @@
 // +0x0A9C, 4 bytes, m_horizontalScrollSpeedFactor: INI VA 0xbe9330: HorizontalScrollSpeedFactor, parseReal RVA 0x2efc0.
 // +0x0AA0, 4 bytes, m_verticalScrollSpeedFactor: INI VA 0xbe9340: VerticalScrollSpeedFactor, parseReal RVA 0x2efc0.
 // +0x0AA4, 4 bytes, m_screenEdgeScrollSpeedFactor: INI VA 0xbe9350: ScreenEdgeScrollSpeedFactor, parseReal RVA 0x2efc0.
-// +0x0AA8, 4 bytes, field0AA8: 0x00236942: mov dword ptr [esi + 0xaa8], 0x12c.
+// +0x0AA8, 4 bytes, field0AA8: 0x00236942: mov dword ptr [esi + 0xaa8], 0x12c; INI VA 0xbe9360: ScreenEdgeScrollRampTime, RVA 0x2f0f7 stores __ftol2(seconds * 1000.0f); signed: 0x0042F2D1 jle, 0x0042F2DB cdq/idiv.
 // +0x0AAC, 4 bytes, m_scrollAmountCutoff: INI VA 0xbe9370: ScrollAmountCutoff, parseReal RVA 0x2efc0.
 // +0x0AB0, 4 bytes, m_cameraAdjustSpeed: INI VA 0xbe9380: CameraAdjustSpeed, parseReal RVA 0x2efc0.
 // +0x0AB4, 1 bytes, m_enforceMaxCameraHeight: INI VA 0xbe9390: EnforceMaxCameraHeight, parseBool RVA 0x2e850.
-// +0x0AB5, 1 bytes, field0AB5: 0x0023696a: mov byte ptr [esi + 0xab5], bl.
+// +0x0AB5, 1 bytes, field0AB5: 0x0023696a: mov byte ptr [esi + 0xab5], bl; bool: MapCache::loadUserMaps 0x003052C1 cmp byte ptr [eax + 0xab5], 0; Zero Hour Bool m_buildMapCache.
 // +0x0AB8, 4 bytes, field0AB8: constructor 0x00236970 clears +0xAB8; destructor 0x00237899 releases it through narrow releaseBuffer 0x00036410; parseFile 0x003BA25A passes it as the converter's second output.
 // +0x0ABC, 4 bytes, m_initialFile: constructor 0x00236976 clears +0xABC; destructor 0x0023788A releases it through 0x00036410; parseFile 0x003BA24A assigns args[1] to it, as Zero Hour's parseFile assigns m_initialFile.
 // +0x0AC0, 4 bytes, field0AC0: constructor 0x0023697C clears +0xAC0; cleanup at 0x00237650 and destructor 0x00237885 call narrow releaseBuffer 0x00036410 on +0xAC0.
@@ -330,7 +331,7 @@
 // +0x0C70, 4 bytes, field0C70: 0x00236d96: or dword ptr [esi + 0xc70], 0xffffffff.
 // +0x0C74, 1 bytes, field0C74: 0x00236d9d: mov byte ptr [esi + 0xc74], bl.
 // +0x0C75, 1 bytes, field0C75: 0x00236da3: mov byte ptr [esi + 0xc75], bl.
-// +0x0C78, 4 bytes, field0C78: 0x00236da9: mov dword ptr [esi + 0xc78], ebx.
+// +0x0C78, 4 bytes, field0C78: 0x00236da9: mov dword ptr [esi + 0xc78], ebx; signed: GameClient::update 0x0023C0AB jle.
 // +0x0C7C, 1 bytes, field0C7C: 0x00236daf: mov byte ptr [esi + 0xc7c], bl.
 // +0x0C7D, 1 bytes, field0C7D: 0x00236db5: mov byte ptr [esi + 0xc7d], bl.
 // +0x0C80, 4 bytes, field0C80: 0x00236dbb: mov dword ptr [esi + 0xc80], 0x20.
@@ -376,11 +377,18 @@
 // +0x0D44, 1 bytes, field0D44: 0x00236f12: mov byte ptr [esi + 0xd44], bl.
 // +0x0D45, 1 bytes, field0D45: 0x00236f18: mov byte ptr [esi + 0xd45], bl.
 // +0x0D46, 1 bytes, field0D46: 0x00236f1e: mov byte ptr [esi + 0xd46], 1.
-// +0x0D48, 4 bytes, field0D48: 0x00236f25: mov dword ptr [esi + 0xd48], ebx.
+// +0x0D48, 4 bytes, field0D48: 0x00236f25: mov dword ptr [esi + 0xd48], ebx; signed: W3DDisplay::init 0x00046EA1 setg.
 // +0x0D4C, 4 bytes, m_particleCursorAnim2DTemplateName: INI VA 0xbe98a0: ParticleCursorAnim2DTemplateName, parseAsciiString RVA 0x2f11e.
 // +0x0D50, 4 bytes, m_particleCursorBurstCount: INI VA 0xbe98b0: ParticleCursorBurstCount, parseUnsignedInt RVA 0x2ef72.
+// +0x0D54, 12 bytes, m_particleCursorBurstFactor: INI VA 0xbe98c0: ParticleCursorBurstFactor, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236f3e stores int 0 and two 0.0f at +0/+4/+8.
 // +0x0D60, 4 bytes, m_particleCursorStopBurstFactor: INI VA 0xbe98d0: ParticleCursorStopBurstFactor, parseReal RVA 0x2efc0.
 // +0x0D64, 4 bytes, m_particleCursorBurstFrequency: INI VA 0xbe98e0: ParticleCursorBurstFrequency, parseUnsignedInt RVA 0x2ef72.
+// +0x0D68, 12 bytes, m_particleCursorParticleLife: INI VA 0xbe98f0: ParticleCursorParticleLife, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236f5a stores int 0 and two 0.0f at +0/+4/+8.
+// +0x0D74, 12 bytes, m_particleCursorSystemLife: INI VA 0xbe9900: ParticleCursorSystemLife, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236f6c stores int 0 and two 0.0f at +0/+4/+8.
+// +0x0D80, 12 bytes, m_particleCursorDriftVelX: INI VA 0xbe9910: ParticleCursorDriftVelX, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236f7e stores int 0 and two 0.0f at +0/+4/+8.
+// +0x0D8C, 12 bytes, m_particleCursorDriftVelY: INI VA 0xbe9920: ParticleCursorDriftVelY, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236f90 stores int 0 and two 0.0f at +0/+4/+8.
+// +0x0D98, 12 bytes, m_particleCursorVelocityDrag: INI VA 0xbe9930: ParticleCursorVelocityDrag, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236fae stores int 0 and two 0.0f at +0/+4/+8.
+// +0x0DA4, 12 bytes, m_particleCursorParticleSize: INI VA 0xbe9940: ParticleCursorParticleSize, parseGameClientRandomVariable RVA 0x338a9d; constructor 0x00236fc0 stores int 0 and two 0.0f at +0/+4/+8. InGameUI 0x002A4B83..0x002A4B89 calls GameClientRandomVariable::getValue 0x002341A1 on it.
 // +0x0DB0, 1 bytes, m_particleCursorPerFrameSize: INI VA 0xbe9950: ParticleCursorPerFrameSize, parseBool RVA 0x2e850.
 // +0x0DB4, 4 bytes, m_particleCursorAlpha: INI VA 0xbe9960: ParticleCursorAlpha, parseInt RVA 0x2ef56.
 // +0x0DB8, 8 bytes, m_particleCursorOffset: INI VA 0xbe9970: ParticleCursorOffset, parseICoord2D RVA 0x2f5ba.
@@ -473,7 +481,7 @@
 // +0x11B4, 4 bytes, m_scoreKeeper_SkillPointsMultiplier: INI VA 0xbe9f70: ScoreKeeper_SkillPointsMultiplier, parseReal RVA 0x2efc0.
 // +0x11B8, 4 bytes, m_scoreKeeper_PlayerEliminatedMultiplier: INI VA 0xbe9f80: ScoreKeeper_PlayerEliminatedMultiplier, parseReal RVA 0x2efc0.
 // +0x11BC, 1 bytes, field11BC: 0x002372ba: mov byte ptr [esi + 0x11bc], 1.
-// +0x11C0, 4 bytes, m_tintUnitIfPathingForMoreThan: INI VA 0xbe9ff0: TintUnitIfPathingForMoreThan, parseInt RVA 0x2ef56.
+// +0x11C0, 4 bytes, m_tintUnitIfPathingForMoreThan: INI VA 0xbe9ff0: TintUnitIfPathingForMoreThan, parseInt RVA 0x2ef56; unsigned: Pathfinder::processPathfindQueue 0x002F1168..0x002F116D fild with the 2^32 correction.
 // +0x11C4, 4 bytes, m_clampedLOSHeightForCastleStructures: INI VA 0xbea000: ClampedLOSHeightForCastleStructures, parseReal RVA 0x2efc0.
 // +0x11C8, 1 bytes, field11C8: 0x002372d7: mov byte ptr [esi + 0x11c8], bl.
 // +0x11C9, 1 bytes, field11C9: 0x002372dd: mov byte ptr [esi + 0x11c9], bl.
@@ -531,6 +539,7 @@
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 #include "MultiPlayMults.h"
 #include "../GameLogic/ObjectFilter.h"
+#include "../GameClient/GameClientRandomVariable.h"
 
 enum TimeOfDay;
 class INI;
@@ -662,7 +671,7 @@ public:
     AsciiString m_getHealedAnimationName;
     float m_getHealedAnimationTime;
     float m_getHealedAnimationZRise;
-    int m_timeOfDay;
+    TimeOfDay m_timeOfDay;
     int m_weather;
     bool m_makeTrackMarks;
     bool m_hideGarrisonFlags;
@@ -675,7 +684,7 @@ public:
     RGBColor m_terrainAmbient[3];
     RGBColor m_terrainDiffuse[3];
     Coord3D m_terrainLightPos[3];
-    unsigned char storage0944[0xC];
+    float field0944[3];
     float field0950;
     float m_humanSoloPlayerHealthBonus_Easy;
     float m_humanSoloPlayerHealthBonus_Normal;
@@ -736,7 +745,7 @@ public:
     unsigned char field09D1;
     unsigned char field09D2;
     unsigned char storage09D3[0x1];
-    unsigned int field09D4;
+    int field09D4;
     unsigned char field09D8;
     unsigned char storage09D9[0x3];
     AsciiString m_defaultUnitHealingBuffFxList;
@@ -766,12 +775,12 @@ public:
     AsciiString m_autoAflameParticlePrefix;
     AsciiString m_autoAflameParticleSystem;
     int m_autoAflameParticleMax;
-    unsigned int field0A44;
+    int field0A44;
     unsigned int field0A48;
     int m_firewallBehavior;
     unsigned char field0A50;
     unsigned char storage0A51[0x3];
-    int m_firewallPortOverride;
+    unsigned int m_firewallPortOverride;
     short m_firewallPortAllocationDelta;
     unsigned char storage0A5A[0x2];
     int m_valuePerSupplyBox;
@@ -793,11 +802,11 @@ public:
     float m_horizontalScrollSpeedFactor;
     float m_verticalScrollSpeedFactor;
     float m_screenEdgeScrollSpeedFactor;
-    unsigned int field0AA8;
+    int field0AA8;
     float m_scrollAmountCutoff;
     float m_cameraAdjustSpeed;
     bool m_enforceMaxCameraHeight;
-    unsigned char field0AB5;
+    bool field0AB5;
     unsigned char storage0AB6[0x2];
     AsciiString field0AB8;
     AsciiString m_initialFile;
@@ -924,7 +933,7 @@ public:
     unsigned char field0C74;
     unsigned char field0C75;
     unsigned char storage0C76[0x2];
-    unsigned int field0C78;
+    int field0C78;
     unsigned char field0C7C;
     unsigned char field0C7D;
     unsigned char storage0C7E[0x2];
@@ -982,13 +991,18 @@ public:
     unsigned char field0D45;
     unsigned char field0D46;
     unsigned char storage0D47[0x1];
-    unsigned int field0D48;
+    int field0D48;
     AsciiString m_particleCursorAnim2DTemplateName;
     unsigned int m_particleCursorBurstCount;
-    unsigned char storage0D54[0xC];
+    GameClientRandomVariable m_particleCursorBurstFactor;
     float m_particleCursorStopBurstFactor;
     unsigned int m_particleCursorBurstFrequency;
-    unsigned char storage0D68[0x48];
+    GameClientRandomVariable m_particleCursorParticleLife;
+    GameClientRandomVariable m_particleCursorSystemLife;
+    GameClientRandomVariable m_particleCursorDriftVelX;
+    GameClientRandomVariable m_particleCursorDriftVelY;
+    GameClientRandomVariable m_particleCursorVelocityDrag;
+    GameClientRandomVariable m_particleCursorParticleSize;
     bool m_particleCursorPerFrameSize;
     unsigned char storage0DB1[0x3];
     int m_particleCursorAlpha;
@@ -1100,7 +1114,7 @@ public:
     float m_scoreKeeper_PlayerEliminatedMultiplier;
     unsigned char field11BC;
     unsigned char storage11BD[0x3];
-    int m_tintUnitIfPathingForMoreThan;
+    unsigned int m_tintUnitIfPathingForMoreThan;
     float m_clampedLOSHeightForCastleStructures;
     unsigned char field11C8;
     unsigned char field11C9;
