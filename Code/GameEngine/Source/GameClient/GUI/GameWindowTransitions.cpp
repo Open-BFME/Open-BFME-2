@@ -187,7 +187,7 @@ void s4ParseFieldsRva0059EE10(INI*, Gen_00489270*);
 
 void s5parse0059FB50(INI*, Gen_00489270*);
 
-void s4ParseFieldsRva0059D1F0(INI*, Gen_00489270*);
+void parseFreezePostLoadSoundsTransition(INI*, Gen_00489270*);
 
 // TransitionGroup's rowed bodies, on the address-named view.
 class Rva001DBDA4
@@ -733,7 +733,7 @@ void GameWindowTransitionsHandler::load() {
     *reinterpret_cast<Factory*>(m_table.slot(TheNameKeyGenerator->nameToKey("SCORESCALEUP"))) = reinterpret_cast<Factory>(&Rva0035D6F9Parse);
     *reinterpret_cast<Factory*>(m_table.slot(TheNameKeyGenerator->nameToKey("REVERSESOUND"))) = reinterpret_cast<Factory>(&s4ParseFieldsRva0059EE10);
     *reinterpret_cast<Factory*>(m_table.slot(TheNameKeyGenerator->nameToKey("SOUNDFADE"))) = reinterpret_cast<Factory>(&s5parse0059FB50);
-    *reinterpret_cast<Factory*>(m_table.slot(TheNameKeyGenerator->nameToKey("FREEZE_POST_LOAD_SOUNDS"))) = reinterpret_cast<Factory>(&s4ParseFieldsRva0059D1F0);
+    *reinterpret_cast<Factory*>(m_table.slot(TheNameKeyGenerator->nameToKey("FREEZE_POST_LOAD_SOUNDS"))) = reinterpret_cast<Factory>(&parseFreezePostLoadSoundsTransition);
     ini.loadFile(AsciiString("Data\\INI\\WindowTransitions.ini"),INI_LOAD_OVERWRITE,0);
 }
 

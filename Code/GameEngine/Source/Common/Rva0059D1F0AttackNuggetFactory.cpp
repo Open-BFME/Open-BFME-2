@@ -60,7 +60,7 @@ struct FreezePostLoadSoundsTransition : public Rva00489210
 	}
 };
 
-void s4ParseFieldsRva0059D1F0(INI *ini, Gen_00489270 *sink)
+void parseFreezePostLoadSoundsTransition(INI *ini, Gen_00489270 *sink)
 {
 	FreezePostLoadSoundsTransition *transition = new FreezePostLoadSoundsTransition;
 
