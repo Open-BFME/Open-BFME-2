@@ -34,7 +34,7 @@ class Rva005E3DE8 { public: UnicodeString rva005E3E1D(); };
 struct RGBColor;
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
-unsigned g_Va00E06710 = 0;  // retail 0x00A06710
+unsigned int g_Va00E06710[3] = {0};  // retail 0x00A06710
 class Rva005E39AE { public:
  void rva005E39AE(); void rva005E52FD(); void rva005E5424();
  char pad00[0x18]; Rva005F2767 *m_18; Rva005E5424Node *m_1c;

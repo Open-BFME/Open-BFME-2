@@ -51,8 +51,8 @@ extern Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), defined in Rva00
 extern unsigned char g_00DFE7A8;	// canonical byte owner, Rva003B9EC4.cpp
 struct BfmeUiResourceEntryState;
 extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
-extern int g_00E06734;	// data row 0x00A06734 (Rva005E8DB5.cpp)
-extern int g_00E06748;	// data row 0x00A06748 (Rva005E8DB5.cpp)
+extern int g_00E06734[5];	// data row 0x00A06734 (Rva005E8DB5.cpp)
+extern int g_00E06748[5];	// data row 0x00A06748 (Rva005E8DB5.cpp)
 extern unsigned GeometryContactSphere;
 
 void __cdecl rva007B6DFA();

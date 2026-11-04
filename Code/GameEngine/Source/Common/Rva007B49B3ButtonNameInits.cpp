@@ -19,8 +19,8 @@ void __cdecl rva007B9979();
 void __cdecl rva007B9983();
 
 unsigned int g_Va00E06620[5];	// retail RVA 0x00A06620 (.bss), defined here
-extern int g_00E06734;
-extern int g_00E06748;
+extern int g_00E06734[5];
+extern int g_00E06748[5];
 
 class Rva005E16DA
 {

@@ -180,7 +180,7 @@ void rva007B4FDA()
 	atexit(rva007B993D);
 }
 
-extern unsigned g_Va00E06710;
+extern unsigned int g_Va00E06710[3];
 void __cdecl rva007B9947();
 
 // ?rva007B5000@@YAXXZ @0x007B5000 22B: ctor 0x005E3D95 on &g_Va00E06710, atexit(0x007B9947).

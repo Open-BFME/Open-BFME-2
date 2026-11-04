@@ -10,8 +10,8 @@ struct Rva005E8DB5Param
 	unsigned char m_34;
 };
 
-int g_00E06734;	// retail RVA 0x00A06734 (.bss), defined here
-int g_00E06748;	// retail RVA 0x00A06748 (.bss), defined here
+int g_00E06734[5];	// retail RVA 0x00A06734 (.bss), defined here
+int g_00E06748[5];	// retail RVA 0x00A06748 (.bss), defined here
 
 class Rva005E8DB5
 {
@@ -25,6 +25,6 @@ void *Rva005E8DB5::rva005E8DB5()
 {
 	Rva005E8DB5Param *p = m_20;
 	if (p->m_20 == 0)
-		return &g_00E06748;
-	return p->m_34 == 0 ? &g_00E06734 : &g_00E06748;
+		return g_00E06748;
+	return p->m_34 == 0 ? g_00E06734 : g_00E06748;
 }
