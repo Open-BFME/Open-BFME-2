@@ -2,9 +2,7 @@
 // ?rva004E2CD5@Rva004E2CD5@@QAE_NABV?$StringBase@D@@@Z at 0x004E2CD5 (34B). Vector-contains via rowed Find.
 // Evidence: this+0x38/+0x3C as begin/end into Rva000BD22FFind at 0xBD22F; cmp against end plus setne;
 // chain lane via 0xBD22F; same last-first locals shape as 0x59E2FD and 0x376A62.
-template <typename T> class StringBase {
-	void *m_data;
-};
+template <typename T> class StringBase;
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
 
 class Rva004E2CD5 {
