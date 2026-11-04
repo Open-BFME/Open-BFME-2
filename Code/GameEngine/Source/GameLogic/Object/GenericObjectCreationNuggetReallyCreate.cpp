@@ -269,15 +269,7 @@ public:
 	void rva002D9531(Int objID);
 };
 
-class AudioManager
-{
-public:
-	OCL_SLOT(00) OCL_SLOT(01) OCL_SLOT(02) OCL_SLOT(03) OCL_SLOT(04) OCL_SLOT(05) OCL_SLOT(06) OCL_SLOT(07)
-	OCL_SLOT(08) OCL_SLOT(09) OCL_SLOT(10) OCL_SLOT(11) OCL_SLOT(12) OCL_SLOT(13) OCL_SLOT(14) OCL_SLOT(15)
-	OCL_SLOT(16) OCL_SLOT(17) OCL_SLOT(18) OCL_SLOT(19) OCL_SLOT(20) OCL_SLOT(21) OCL_SLOT(22) OCL_SLOT(23)
-	OCL_SLOT(24)
-	virtual Int addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd);	// +0x64
-};
+#include "../../../Include/Common/GameAudio.h"
 
 extern ThingFactory *TheThingFactory;
 extern PlayerList *ThePlayerList;

@@ -83,11 +83,7 @@ public:
 template <> class VSlots<0>
 {
 };
-class AudioManager : public VSlots<25>
-{
-public:
-	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;
-};
+#include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 #include "../../../../Include/GameLogic/ScriptEngine.h"
