@@ -594,10 +594,13 @@ void GadgetListBoxSetTopVisibleEntry(GameWindow *window, Int newPos)
 // adjustDisplayByDelta 0x00324B39 is rowed in its own unit.
 void Rva00324B39Add(GameWindow *window, Short delta, Bool updateSlider);
 
-// Zero Hour and BFME 1 name the shared OS double-click interval doubleClickTime.
-// Native 0x007AE9E6 writes VA 0x00E01D48, read by this callback at 0x00325F14.
-// Keep loader-zero storage here; the existing startup initializer supplies it.
-unsigned int doubleClickTime = 0;
+extern "C" __declspec(dllimport) unsigned int __stdcall GetDoubleClickTime(void);
+
+// Zero Hour and BFME 1 name the shared OS double-click interval doubleClickTime and
+// initialize it from GetDoubleClickTime() at file scope. Retail's .CRT$XCU table runs
+// 0x007AE9E6, which stores that call's result to VA 0x00E01D48, read by this callback
+// at 0x00325F14: this definition's compiler-emitted dynamic initializer.
+unsigned int doubleClickTime = GetDoubleClickTime();
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
