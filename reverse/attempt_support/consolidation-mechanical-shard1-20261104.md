@@ -40,6 +40,9 @@ changes were applied and no claims were taken.
 | `GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp` | The seed composition itself fails LinkGuard: the census-linked target would leave unresolved `??1DeflectSpecialPowerModuleData@@UAE@XZ`. | Resolve the module-data dtor provider before retrying; existing DeflectSpecialPower obstacle entries record related identity/interface prerequisites. |
 | `GameClient/Drawable/Update/SwayClientUpdate.cpp` | Constructor donor C2511, constructor overload undeclared in `SwayClientUpdate`. | Reconcile the class view. |
 | `GameLogic/Object/ObjectTypes.cpp` | `ObjectTypesCtor.cpp` C2600 compiler-generated constructor is undeclared. | Reconcile the class view; the existing ObjectTypes obstacle covers its next-census prerequisite. |
+| `GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp` | Constructor donor C2511, constructor overload undeclared; planner recommends `CrateCollide` / `VeterancyCrateCollide` view reconciliation. | Reconcile the class views. |
+| `Common/HordeAIUpdate.cpp` | Constructor donor C2512/C2614 because `AIUpdateInterface` has no default constructor and `HordeAIUpdate` member initialization does not fit the current view. Both units are census-linked. | Reconcile the class and interface views. |
+| `Libraries/Source/Apt/AptArray.cpp` | `AptArray_DestroyGCPointers.cpp` lacks `m_data`; `Rva006DA4D0Finish.cpp` has undefined `Rva006D6470Owner`. LinkGuard lists all three units census-linked. | Reconcile `AptArray`, `Rva006D2A60`, `Rva006D6470Owner` and `Rva006D9500` views. |
 
 Mixed-source split inspection was also completed for the relevant allocated
 plans. `BfmeConv1324.cpp` lists the gamebrowser destination row; its `--split
@@ -53,3 +56,13 @@ destinations: the split dry runs preserved each getter beside its TU but
 rejected compilation (missing `Object::m_conditionBits` for Deflect and
 duplicate `Module` / absent `ObjectModule::xfer` for Sway). No split was
 applied. These are tool refusals, not evidence of a safe move.
+
+For the `AptArray.cpp` plan, split inspection found three mixed files. The
+`Rva006D94A0AptCluster.cpp` split dry run preserved all five carved rows beside
+the destination but failed compilation (`atoi` linkage redefinition and
+duplicate `AptValue`); the `AptArrayConstructor.cpp` split dry run was blocked
+because copied helper/data would grow the hatch count. The
+`AptValueArrayAt.cpp` split dry run was accepted by compilation and LinkGuard
+for row `0x006D9B50`, but was not applied: it does not unblock the failed TU
+merge, so a split by itself would increase the source-file count without a
+merge it enables.
