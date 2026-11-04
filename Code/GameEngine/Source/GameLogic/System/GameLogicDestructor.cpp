@@ -185,10 +185,13 @@ struct Rva00207F08Dtor
 	_STL::list<AsciiString> m_list;
 };
 
-struct Rva0023DC86StringField
+class Rva0023DC86StringField
 {
+public:
 	~Rva0023DC86StringField();
-	unsigned char m_data[0x1C];
+private:
+	char m_pad[0x18];
+	AsciiString m_str;
 };
 
 class GameLogic : public SubsystemInterface, public Snapshot
