@@ -6,14 +6,7 @@ typedef bool Bool;
 
 #include "../../Include/Common/Player.h"
 #include "../GameLogic/Object/object.h"
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual Bool allow(Object *obj) = 0;
-	virtual Int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 class Rva002613AFFilter : public Rva000421C8
 {
 public:

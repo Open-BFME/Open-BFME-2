@@ -23,14 +23,7 @@ public:
 #include "object.h"
 
 class Object;
-class Rva000421C8 {
-public:
- Rva000421C8() : m_next(0) {}
- virtual ~Rva000421C8() {}
- virtual bool allow(Object *) = 0;
- virtual int getPlayerMask() { return -1; }
- Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 class PartitionFilterRejectByKindOf : public Rva000421C8 {
 public:
