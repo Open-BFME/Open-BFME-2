@@ -4,7 +4,6 @@
 #pragma comment(linker, "/alternatename:?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ=?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z")
 #include "ascii_string.h"
-#include "../../../../Include/GameClient/Drawable.h"
 #include <cstdlib>
 #include <vector>
 #include <memory>
@@ -235,6 +234,7 @@ typedef char PortalPointSize[(sizeof(BfmeRadarWorldPoint)==12)?1:-1];
 struct PortalQueryPoint {float x,y,z;__forceinline PortalQueryPoint(const Coord3D&r){x=r.x;y=r.y;z=r.z;}};
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct PortalAIView {char pad0[0x10];Pathfinder *pathfinder;};
 
