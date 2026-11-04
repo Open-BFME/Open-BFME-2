@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include
+// stlport
 //
 // ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAURva0008026BWaveInfo@@@Z,
 // retail 0x0008026B..0x00080637 (972B), thiscall ret 4 (`this` unused); sole
@@ -22,6 +23,7 @@
 
 #include "Lib/Coord2D.h"
 #include "Lib/Coord3D.h"
+#include "../../../../../GameEngine/Include/Common/AreaPolygonBase.h"
 
 // Existing neutral cdecl binding at7E394; independently verified29B twin of
 // the ledger-owned STL pair comparator. Visibility preserves caller scheduling.
@@ -170,21 +172,14 @@ public:
 	Int get() const;
 };
 
-class AreaPolygonBase
-{
-public:
-	Int getNumPoints() const { return m_points_last - m_points_first; }
-	const Coord2D *getPoint(Int i) const { return &m_points_first[i]; }
-private:
-	Coord2D *m_points_first;			// +0x00
-	Coord2D *m_points_last;				// +0x04
-};
-
 class StandingWaveArea
 {
 public:
 	Int isActive() const { return ((const Rva0030C94ADwordField *)this)->get(); }
 	const AreaPolygonBase &getPolygon() const { return m_polygon; }
+	// AreaPolygonBase::getNumPoints / getPoint, inlined by retail.
+	Int getNumPoints() const { return m_polygon.m_points.size(); }
+	const Coord2D *getPoint(Int i) const { return (const Coord2D *)&m_polygon.m_points[i]; }
 private:
 	unsigned char m_pad00[0x38];
 	AreaPolygonBase m_polygon;			// +0x38
@@ -290,13 +285,13 @@ void Rva0008026BStandingWaveQuery::rva0008026B(Rva0008026BWaveInfo *info)
 			StandingWaveArea *area = it.getPtr();
 			if (!area->isActive())
 				continue;
-			Int numPoints = area->getPolygon().getNumPoints();
+			Int numPoints = area->getNumPoints();
 			if (numPoints < 2)
 				continue;
 			for (Int i = 0; i < numPoints - 1; ++i)
 			{
-				const Coord2D *p0 = area->getPolygon().getPoint(i);
-				const Coord2D *p1 = area->getPolygon().getPoint(i + 1);
+				const Coord2D *p0 = area->getPoint(i);
+				const Coord2D *p1 = area->getPoint(i + 1);
 				StandingWaveVector3View a(p0->x, p0->y, info->z);
 				StandingWaveVector3View b(p1->x, p1->y, info->z);
 				StandingWaveVector3View mid = (a + b) * 0.5f;
