@@ -80,24 +80,7 @@ private:
 	PolygonTrigger *m_next;		// +0x3C
 };
 
-class PathfindLayer
-{
-public:
-	void allocateCells(const IRegion2D *extent);
-
-private:
-	PathfindCell *m_blockOfMapCells;	// +0x00
-	PathfindCellP *m_layerCells;		// +0x04
-	Int m_width;				// +0x08
-	Int m_height;				// +0x0C
-	Int m_xOrigin;				// +0x10
-	Int m_yOrigin;				// +0x14
-	unsigned char m_pad18[0x2C - 0x18];
-	UnsignedShort m_zone;			// +0x2C
-	unsigned char m_pad2E[0x34 - 0x2E];
-	Bridge *m_bridge;			// +0x34
-	PolygonTrigger *m_triggers;		// +0x38
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 void PathfindLayer::allocateCells(const IRegion2D *extent)
 {

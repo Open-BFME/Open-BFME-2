@@ -58,34 +58,7 @@ public:
 	virtual void *slot0(unsigned int flags);
 };
 
-class PathfindLayer
-{
-public:
-	bool ConnectsZones(class PathfindZoneManager *, const class LocomotorSet &, int, int);
-	PathfindLayer();
-	void ClassifyWallCells();
-	void ClassifyBridgeCells();
-	void rva00366DEC();
- ~PathfindLayer();
-	void rva003667D4();
-	void rva003666FD(Xfer *xfer);
-private:
-	void *m_blockOfMapCells;
-	PathfindCell **m_layerCells;
-	int m_width;
-	int m_height;
-	int m_xOrigin;
-	int m_yOrigin;
-	ICoord2D m_startCell;
-	ICoord2D m_endCell;
-	int m_layer;
-	int m_zone;
-	bool m_destroyed;
-	unsigned char m_pad31[3];
-	class Bridge *m_bridge;
-	Rva00366DECVirtual *m_triggers;
-	int m_triggerObjectID;
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 // Native 0x00366DEC..0x00366E2E, RET 0.
 void PathfindLayer::rva00366DEC()
@@ -94,14 +67,14 @@ void PathfindLayer::rva00366DEC()
 	rva003667D4();
 	m_layer = 1;
 	if (m_triggers)
-		::operator delete(m_triggers->slot0(0));
+		::operator delete(((Rva00366DECVirtual *)m_triggers)->slot0(0));
 	m_triggers = 0;
 	m_startCell.x = -1;
 	m_startCell.y = -1;
 	m_endCell.x = -1;
 	m_endCell.y = -1;
 	m_zone = -1;
-	m_triggerObjectID = -1;
+	height = -1;
 }
 
 // Native 0x003667D4..0x0036683D, RET 0. Reference algorithm:
@@ -123,7 +96,7 @@ void PathfindLayer::rva003667D4()
 		m_layerCells = 0;
 	}
 	if (m_blockOfMapCells)
-		delete[] static_cast<PathfindCell *>(m_blockOfMapCells);
+		delete[] m_blockOfMapCells;
 	m_zone = -1;
 	m_blockOfMapCells = 0;
 	m_width = 0;

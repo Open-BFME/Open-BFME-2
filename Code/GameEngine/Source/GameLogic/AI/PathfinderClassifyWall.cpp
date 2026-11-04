@@ -96,7 +96,7 @@ struct WallTemplate{char pad[0x64];AsciiString name;const AsciiString&getName()c
 class Object{public:Drawable*getDrawable()const;const WallTemplate*getTemplate()const{return templ;}char pad0[4];WallTemplate*templ;char pad8[0x74-8];int id;int getID()const{return id;}char pad78[0x94-0x78];unsigned status;};
 class Rva0036666B{public:bool rva0036666B();};
 class Rva0036658B{public:bool rva0036658B(void*,void*);};
-class PathfindLayer{public:bool DoBoundsOverlap(const IRegion2D*);void rva003667D4();void AddArea(void*);void allocateCells(const IRegion2D*);char pad[0x38];PolygonTrigger*areas;int height;int getHeight()const{return height;}};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 class Rva00366500{public:bool rva00366500(int);bool rva0036652D(int);};
 class Rva0052E001{public:bool rva0052E001(bool);};
 class PathfindZoneManager{public:void MarkDirty(int,int);};
@@ -148,7 +148,7 @@ void Pathfinder::ClassifyWall(Object*obj,bool insert)
    int layer=2;IRegion2D bounds;poly->getBounds(&bounds);
    for(;layer <= 15;layer++){
     PathfindLayer *entry = &layers[layer];
-    if(((Rva0036666B*)entry)->rva0036666B() && entry->areas && entry->DoBoundsOverlap(&bounds) && fabs(entry->getHeight()-h)<tolerance){
+    if(((Rva0036666B*)entry)->rva0036666B() && entry->m_triggers && entry->DoBoundsOverlap(&bounds) && fabs(entry->getHeight()-h)<tolerance){
      if(allocated)layers[layer].rva003667D4();
      layers[layer].AddArea(poly);
      if(allocated)layers[layer].allocateCells(&m_extent);

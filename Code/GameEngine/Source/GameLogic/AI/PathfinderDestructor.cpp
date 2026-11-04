@@ -17,7 +17,7 @@
 
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
-class PathfindLayer {public: ~PathfindLayer(); private:char storage[0x40];};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 class PathfindZoneManager {public: ~PathfindZoneManager(); private:char storage[0x1BA54];};
 class Rva002EE9B7 {public: ~Rva002EE9B7(); private:char storage[8];};
 struct PathfinderAllocation { void *pointer; ~PathfinderAllocation(){if(pointer)free(pointer);} };

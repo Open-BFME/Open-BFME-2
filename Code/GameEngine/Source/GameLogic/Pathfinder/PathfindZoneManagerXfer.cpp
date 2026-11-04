@@ -83,7 +83,7 @@ public:
 };
 
 #include "../../../Include/GameLogic/PathfindCell.h"
-class PathfindLayer {public: char unknown00[0x2C]; unsigned short zone; char unknown2E[0x40-0x2E]; unsigned short getZone()const{return zone;} };
+#include "../../../Include/GameLogic/PathfindLayer.h"
 bool Rva001E3679(int);
 class Rva005335B0 {public: void rva005335B0(unsigned short,unsigned short);};
 class BooleanBitmapSet {public: BooleanBitmapSet(int); ~BooleanBitmapSet() throw() { rva00530FAE(); } __declspec(nothrow) void rva00530FAE(); void SetBit(int); void rva00530FC5(); void ResetEnum() { bit=0; cursor=0; } bool DoEnum(int *); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
@@ -623,7 +623,7 @@ void PathfindZoneManager::rva00533664(Block *block,PathfindCell **map,PathfindLa
    }
    unsigned secondary=cellBits(cell).secondary;
    if(Rva001E3679(secondary) && cellBits(cell).type==0) {
-    unsigned short goal=layers[secondary].getZone();
+    unsigned short goal=(unsigned short)layers[secondary].m_zone;
     ((Rva005335B0*)block)->rva005335B0(cell->getZone(),goal);
     if(((Rva00532DF6*)((char*)this+0x1770C))->add(cell->getZone(),goal)) {
      changed.SetBit(cell->getZone());changed.SetBit(goal);
