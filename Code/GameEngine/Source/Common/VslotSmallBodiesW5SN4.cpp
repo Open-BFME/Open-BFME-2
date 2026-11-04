@@ -229,18 +229,12 @@ void Rva005ED849::rva005ED849(Int a0, Int a1)
 	m_04->rva005ED6B9(a0, a1);
 }
 
-namespace StrategicHUD
-{
-class BattlePromptMovieClip
+#include "../../Include/GameClient/BattlePromptMovieClip.h"
+class StrategicHUD::BattlePromptMovieClip::Impl
 {
 public:
-	class Impl
-	{
-	public:
-		void rva005F96D4();
-	};
+	void rva005F96D4();
 };
-}
 class Rva005F977D
 {
 public:

@@ -628,18 +628,13 @@ void Rva005B8002::rva005B8002()
 	m_60.AptStats::InitGadgets();
 }
 
-namespace StrategicHUD {
-class BattlePromptMovieClip
+#include "../../Include/GameClient/BattlePromptMovieClip.h"
+class StrategicHUD::BattlePromptMovieClip::Impl
 {
 public:
-	class Impl
-	{
-	public:
-		void rva005F963A(Int a);	// rowed 0x005F963A
-		void rva005F9687(Int a);	// rowed 0x005F9687
-	};
+	void rva005F963A(Int a);	// rowed 0x005F963A
+	void rva005F9687(Int a);	// rowed 0x005F9687
 };
-}
 class Rva005F97AC
 {
 public:
