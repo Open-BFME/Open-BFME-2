@@ -225,7 +225,8 @@ class SidesList {public:char pad[0x7c0];int skirmishCount;SidesInfo skirmishSide
 extern SidesList*TheSidesList;
 class PlayerTemplateStore{public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};extern PlayerTemplateStore*ThePlayerTemplateStore;
 class Rva002A9ACC {public:void rva002A9ACC(const Dict*);};
-struct Rva000B3F84Pair {const char *text;int len;};struct AsciiStringRef {const AsciiString *string;};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
+struct AsciiStringRef {const AsciiString *string;};
 struct Rva002226E5TextPlusString {Rva002226E5TextPlusString(){}Rva000B3F84Pair left;AsciiStringRef right;operator AsciiString();};
 Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
 bool Rva002ACFC1Equal(int,int);

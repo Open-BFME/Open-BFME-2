@@ -16,7 +16,7 @@ class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva
 template<class T> class AptRef:public Rva00579E47 {public:AptRef(DelegateDesc d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 class AptCommandMap;
 
-class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const char*); int write(char *); const char *ptr; int len;};
+#include "../../../../Include/Common/Rva000B3F84Pair.h"
 #include "../../../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusString:AsciiStringRef {int length()const;int write(char *);AsciiStringRef m_second;};
 struct AsciiStringPlusStringText:AsciiStringPlusString {int write(char *);operator AsciiString();Rva000B3F84Pair m_right;};
@@ -59,9 +59,9 @@ InGameCommandButtonMovieClip::Impl::Impl(InGameCommandButtonMovieClip*parent,Apt
  g_bfmeAptWindowManager->bfmeSetText(countKey,UnicodeString(L" "),false);
 }
 
-__declspec(noinline) inline AsciiStringPlusStringText::operator AsciiString(){AsciiString tmp;int extra=m_right.len;write(((StringBase<char> *)&tmp)->getBufferForRead(extra+AsciiStringPlusString::length()));return tmp;}
+__declspec(noinline) inline AsciiStringPlusStringText::operator AsciiString(){AsciiString tmp;int extra=m_right.m_len;write(((StringBase<char> *)&tmp)->getBufferForRead(extra+AsciiStringPlusString::length()));return tmp;}
 __declspec(noinline) inline AsciiStringRefWithChar::operator AsciiString(){AsciiString tmp;write(((StringBase<char> *)&tmp)->getBufferForRead(m_string->getLength()+1));return tmp;}
-__declspec(noinline) inline int Rva000B3F84Pair::write(char *dst){memcpy(dst,ptr,len);return len;}
+__declspec(noinline) inline int Rva000B3F84Pair::write(char *dst){memcpy(dst,m_ptr,m_len);return m_len;}
 __declspec(noinline) inline int AsciiStringRef::write(char *dst){int len=m_string->getLength();memcpy(dst,m_string->str(),len);return len;}
 __declspec(noinline) inline int AsciiStringRefWithChar::write(char *dst){int n=AsciiStringRef::write(dst);dst[n]=m_char;return n+1;}
 __declspec(noinline) inline int AsciiStringPlusString::length()const{return m_string->getLength()+m_second.m_string->getLength();}

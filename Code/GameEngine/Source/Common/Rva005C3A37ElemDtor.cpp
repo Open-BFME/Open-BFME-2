@@ -132,7 +132,7 @@ class Rva005C3D5F {public: void rva005C3D5F(const char *);};
 // ?AptRef::AptRef present-unmatched (inline delegate adapter; no unique retail body)
 template<class T> __forceinline AptRef<T>::AptRef(DelegateDesc d):Rva00579E47(d) {}
 static __forceinline void AddCommandMapBinding(AptCommandMapAdder &adder,const AsciiString &asciiString,DelegateDesc d) {adder.AddCommandMap(asciiString,d);}
-class Rva000B3F84Pair {public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *); const char *ptr; int size;};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString(); Rva000B3F84Pair m_right;};

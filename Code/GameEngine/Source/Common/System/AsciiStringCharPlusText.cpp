@@ -53,16 +53,7 @@ class UnicodeString;
 
 
 // The (pointer, length) text reference shared with the wide builders.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *init(const char *src);
-	int write(char *dst);
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 
 // A reference to an AsciiString operand.
 struct AsciiStringRef

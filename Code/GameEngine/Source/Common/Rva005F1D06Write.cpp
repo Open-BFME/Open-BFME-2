@@ -19,13 +19,7 @@ struct Rva005F1B75 : Rva002226E5TextPlusString
 	int write(char *dst);
 	AsciiStringRef m_third;
 };
-class Rva000B3F84Pair
-{
-public:
-	int write(char *dst);
-	char m_pad[4];
-	int m_extra;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 class Rva005F1D06 : public Rva005F1B75
 {
 public:
@@ -42,7 +36,7 @@ int Rva005F1D06::rva005F1D06(char *dst)
 AsciiString Rva005F1D06::rva005F1D47()
 {
 	AsciiString tmp;
-	int extra = m_10.m_extra;
+	int extra = m_10.length();
 	int total = Rva005F1B75::length() + extra;
 	char *buf = ((StringBase<char> &)tmp).getBufferForRead(total);
 	rva005F1D06(buf);
