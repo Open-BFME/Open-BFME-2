@@ -65,14 +65,7 @@ public:
 };
 #undef ROPAD
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix(void) const;
-	char m_pad00[0x441];
-	// Clear means refresh the robj transform (donor tests +0x3b1 instead).
-	unsigned char m_flag441; // +0x441
-};
+#include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 #include "../../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
@@ -127,7 +120,7 @@ void W3DVolumetricShadow::RenderVolume(int meshIndex, int lightIndex)
 	RenderObjClass *robj = m_robj;
 	if (robj && m_robj->Get_User_Data()) {
 		Drawable *draw = ((DrawableInfo *)m_robj->Get_User_Data())->m_drawable;
-		if (draw && !draw->m_flag441)
+		if (draw && !draw->m_441)
 			m_robj->Set_Transform(*draw->getTransformMatrix());
 	} else if (m_robj && m_robj->roSlot47()) {
 		m_robj->roSlot42();

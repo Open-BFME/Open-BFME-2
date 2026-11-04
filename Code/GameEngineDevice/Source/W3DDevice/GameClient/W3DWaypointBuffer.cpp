@@ -160,20 +160,7 @@ public:
 	AIUpdateInterface *m_ai;
 };
 
-class Drawable
-{
-public:
-	Object *getObject() { return m_object; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getObject copy loses to the first-in-order copy (no
-	// retail address); the call below inlines it but still emits the loser
-	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
-	// No flags touched.
-	Object *bfme_object() { return m_object; }
-
-	unsigned char m_unreconstructed_000[0xFC];
-	Object *m_object;
-};
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 typedef _STL::list<Drawable *> DrawableList;
 
@@ -261,7 +248,7 @@ void W3DWaypointBuffer::drawWaypoints(RenderInfoClass &rinfo)
 		for( DrawableListCIt it = selected->begin(); it != selected->end(); ++it )
 		{
 			draw = *it;
-			Object *obj = draw->bfme_object();
+			Object *obj = draw->getObject();
 			Int numPoints = 1;
 			if( obj && ! obj->bfme_is_kind_of( KINDOF_IGNORED_IN_GUI ))
 			{
