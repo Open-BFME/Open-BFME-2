@@ -26,7 +26,7 @@ enum WhichTurretType
 	TURRET_INVALID = -1
 };
 enum WeaponSlotType;
-typedef unsigned int ObjectID;
+enum ObjectID;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class Weapon;
@@ -88,11 +88,7 @@ struct Rva00351788RangeOwner
 	unsigned char m_pad00[0x250];
 	Rva00351788RangeTest *m_rangeTest;	// +0x250
 };
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 class Rva002C9400ByteField
 {
 public:
