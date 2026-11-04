@@ -99,31 +99,20 @@ template <int _Words> struct _Base_bitset
 };
 }
 #include "../../../Common/PartitionRangeQueryCallView.h"
-
 extern PartitionManager *ThePartitionManager;
-
 #include "../../../../Include/Common/Player.h"
-
 #include "../../../../Include/Common/PlayerList.h"
-
 extern PlayerList *ThePlayerList;
-
 #include "../../../../Include/Common/ThingTemplate.h"
-
 class FXList
 {
 public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
 };
-
 enum EvaEventID { EVA_EVENT_STUB = 0 };
-
 #include "../../../../Include/GameClient/Eva.h"
-
 extern Eva *TheEva;
-
 #include "../../../Common/Thing/thing.h"
-
 class Object : public Thing
 {
 public:
@@ -144,9 +133,7 @@ public:
 	char m_pad278[0x438 - 0x278];
 	unsigned char m_438;	// +0x438 (bit 0: effectively dead)
 };
-
 extern GameLogic *TheGameLogic;
-
 struct AttachUpdateModuleData
 {
 	char m_pad00[0x08];
@@ -163,21 +150,48 @@ struct AttachUpdateModuleData
 	int m_parentAllyDiedEvaEvent;	// +0x38
 	int m_parentEnemyDiedEvaEvent;	// +0x3C
 };
-
 class ModuleData;
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+//
+// AttachUpdate::xfer, retail 0x004918AC (102 bytes): slot 3 of the class's
+// primary vtable 0x00C4DB20. Version 3 over the UpdateModule base: the
+// attached Object's ID (+0x20); before version 2 a dropped bool; from version
+// 3 the +0x24 handle through TheEva's 0x001DEC48 (pinned by address; it runs
+// its own versioned xfer). The version block is the BFME2 two-byte form the
+// rowed Rva0054840AXfer.cpp uses.
+typedef unsigned char UnsignedByte;
+typedef bool Bool;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	UnsignedByte m_version;
+	UnsignedByte m_currentVersion;
+};
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -200,7 +214,26 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-// tu-skeleton: 0x004918AC 102B ?xfer@AttachUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateXfer.cpp
+
+void AttachUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version;
+	version.m_version = 1;
+	version.m_currentVersion = 3;
+	xfer->operator==(version);
+	UpdateModule::xfer(xfer);
+	XferObjectID(xfer, &m_parentID);
+	if (version.m_currentVersion < 2)
+	{
+		Bool dropped = false;
+		xfer->operator==(dropped);
+	}
+	if (version.m_currentVersion >= 3)
+		TheEva->xferEvaEventID(xfer, &m_diedEvaEvent);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdatePoolKey.cpp
 
@@ -211,16 +244,6 @@ NameKeyType AttachUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("AttachUpdate");
 	return TheAttachUpdatePoolKey;
 }
-
-// tu-skeleton: 0x00491957 17B ?buildFieldParse@AttachUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00491968 167B ??0AttachUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491A0F 89B ??0AttachUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491A68 28B ??_GRva0049188D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x00491AA0 48B ??1AttachUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp
 
@@ -291,6 +314,16 @@ UpdateSleepTime AttachUpdate::update()
 	}
 	return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x00491957 17B ?buildFieldParse@AttachUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00491968 167B ??0AttachUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00491A0F 89B ??0AttachUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00491A68 28B ??_GRva0049188D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x00491AA0 48B ??1AttachUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00491C84 171B ?rva00491C84@AttachUpdate@@QAEXPAUCoord3D@@PBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00491C84Calc.cpp (not merged yet)
 

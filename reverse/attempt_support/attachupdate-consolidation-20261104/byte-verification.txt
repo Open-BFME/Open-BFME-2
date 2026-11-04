@@ -1,0 +1,10 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    Unwind@00b8cb94 (Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp): $L910 was renumbered; verified parent EH data places $L3820 at 0x0078CB94
+    Unwind@00b8cb9c (Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp): $L911 was renumbered; verified parent EH data places $L3821 at 0x0078CB9C
+    Unwind@00b8cba4 (Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp): $L912 was renumbered; verified parent EH data places $L3822 at 0x0078CBA4
+    $L310 (Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp): $L310 was renumbered; verified parent EH data places $L3784 at 0x0078CB3C
+Functions: OK 10/10 matched across 1 source file(s)
+String-ref verify: OK (1 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
