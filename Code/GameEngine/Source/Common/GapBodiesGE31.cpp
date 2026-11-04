@@ -703,12 +703,7 @@ public:
 	NameKeyType get();
 };
 
-class Rva00072FE6
-{
-public:
-	void rva00072FE6();
-	unsigned int rva000733D8(const int &key);
-};
+#include "../../Include/Common/Rva00072FE6.h"
 
 class Rva00056DA2
 {

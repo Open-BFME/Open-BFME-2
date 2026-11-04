@@ -56,7 +56,7 @@ inline void appendFogIndex(_STL::vector<int> &values, const int &index)
 }
 
 // set<int>::erase(const key_type &), rowed at 0x000733D8.
-struct Rva00072FE6 { unsigned rva000733D8(const int &); };
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 class W3DShroud
 {

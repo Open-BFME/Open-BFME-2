@@ -55,7 +55,7 @@ inline void appendTaintIndex(_STL::vector<int> &values, const int &index)
 }
 
 // set<int>::erase(const key_type &), rowed at 0x000733D8.
-struct Rva00072FE6 { unsigned rva000733D8(const int &); };
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 // setTaintLevel, rowed at 0x00073CC0 (W3DTaint.cpp view).
 class Rva000729CC { public: void rva00073CC0(int x, int y, unsigned char level, bool textureOnly); };
 
