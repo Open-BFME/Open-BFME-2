@@ -302,10 +302,17 @@ struct BuddyErrorResponseArm
 };
 struct BfmeOpaqueOwnedRecord492
 {
+public:
 	BfmeOpaqueOwnedRecord492();
 	~BfmeOpaqueOwnedRecord492();
-	Int peerRequestType;
-	unsigned char m_04[492 - 4];
+	Int peerRequestType; // +0x00
+	std::string nick; // +0x04
+	unsigned char text[12]; // +0x10 +0x10 wide string
+	std::string password; // +0x1C
+	std::string email; // +0x28
+	unsigned char m_34[0x118 - 0x34]; // +0x34
+	Int loginProfileID; // +0x118
+	unsigned char m_11c[0x1EC - 0x11C]; // +0x11C
 };
 
 
