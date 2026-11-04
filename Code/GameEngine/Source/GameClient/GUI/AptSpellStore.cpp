@@ -45,7 +45,9 @@ class CreateAHeroData;
 // retail never stores state 1 before the constructor call, so the spell
 // store's constructor treats it as unable to throw.
 class __declspec(novtable) Rva0043D193 { public: ~Rva0043D193(); };
-class Rva0043D16F
+// The out-of-line constructor installs the retail vtable; this forwarding
+// destructor must leave that ownership to the rowed destructor at 0x0043D193.
+class __declspec(novtable) Rva0043D16F
 {
 public:
 	Rva0043D16F() throw();
