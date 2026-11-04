@@ -45,7 +45,11 @@ class Object {public:
  char unknown254[0x264-0x254];ExperienceTracker *experience264;
  char unknown268[0x44c-0x268];ObjectID leader44c;
 };
-class FXList {public:static void doFXObj(const FXList*,const Object*,const Object*);};
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
 class RousingSpeechUpdateModuleData {public:
  char unknown00[0xd8];const FXList *followerFX;char unknownDC[8];
  _STL::vector<AsciiString> modifiers;bool levelUp;
