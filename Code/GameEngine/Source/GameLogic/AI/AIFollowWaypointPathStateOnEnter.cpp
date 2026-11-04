@@ -88,17 +88,7 @@ static __forceinline long fast_float2long_round(Real f)
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AISTATES_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp"
 
-class LocomotorTemplate
-{
-public:
-	Real getWanderWidthFactor() const { return m_wanderWidthFactor; }
-	Real getWanderAboutPointRadius() const { return m_wanderAboutPointRadius; }
-private:
-	unsigned char m_pad00[0xF0];
-	Real m_wanderWidthFactor; // +0xF0
-	unsigned char m_padF4[0xF8 - 0xF4];
-	Real m_wanderAboutPointRadius; // +0xF8
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"
 class Waypoint;
 class LocomotorSet;
