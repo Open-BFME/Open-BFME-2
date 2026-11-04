@@ -12,41 +12,22 @@ void __debugbreak();
 void *__cdecl rva006d4d40(void *pBuffer, int count);
 int __cdecl rva006d4ca0(const char *pBuffer);
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	StringDataC *m_pData;
-
-public:
-	static void FreeData(StringDataC *data);
-
-	EAStringC()
-	{
-		extern StringDataC g_eaEmptyStringData;
-		m_pData = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
-	}
-	EAStringC(const EAStringC &other);
-	~EAStringC()
-	{
-		FreeData(m_pData);
-	}
-	EAStringC Mid(int start) const;
-	EAStringC Mid(int start, int count) const;
-	int Find(const char *s, int start);
-	EAStringC rva006d5f30(int start, int count) const;
-};
+#include "../../../Apt/EAStringC.h"
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
+
+// Retail inlines these lifetime members in this unit; the header keeps them out of line.
+
+inline EAStringC::EAStringC()
+{
+	data = &g_eaEmptyStringData;
+	++g_eaEmptyStringData.m_uRefCount;
+}
+
+inline EAStringC::~EAStringC()
+{
+	FreeData(data);
+}
 
 // ?rva006d5f30@EAStringC@@QBE?AV1@HH@Z @0x006D5F30 (174B). Codepoint substring:
 // converts a codepoint start/count to byte offsets through rva006d4d40 and
@@ -63,7 +44,7 @@ EAStringC EAStringC::rva006d5f30(int start, int count) const
 	}
 	if (adjustedCount <= 0)
 		return EAStringC();
-	const unsigned char *buffer = reinterpret_cast<const unsigned char *>(m_pData) + 8;
+	const unsigned char *buffer = reinterpret_cast<const unsigned char *>(data) + 8;
 	const unsigned char *first = (const unsigned char *)rva006d4d40((void *)buffer, effectiveStart);
 	if (first == 0)
 		return EAStringC();

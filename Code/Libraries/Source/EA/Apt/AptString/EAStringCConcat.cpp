@@ -30,40 +30,7 @@ class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006DB160 {public:void *allocBlock(int blockSize);};
 
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	static void FreeData(StringDataC *data);
-
-	StringDataC *m_pData;
-
-	EAStringC(const EAStringC &other);
-	EAStringC(unsigned int nSize);
-	EAStringC(const char *s) : m_pData(0) { Assign(s); }
-	~EAStringC()
-	{
-		FreeData(m_pData);
-	}
-	void SetSize(int size);
-	void Reserve(int size);
-	void Assign(const char *text);
-	unsigned int GetInternalMaxSize() const {return m_pData->m_uMaxSize;}
-	void setCapacityWord_Rva006D2E00(unsigned int value);
-	EAStringC operator+(const EAStringC &other) const;
-	EAStringC operator+(const char *other) const;
-	int rva006D47F0(const char *oldString, const char *newString);
-	char *buffer() const { return (char *)m_pData + sizeof(StringDataC); }
-	__declspec(dllimport) __forceinline EAStringC &operator=(const EAStringC &s);
-};
+#include "../../../Apt/EAStringC.h"
 
 // The four existing native helpers must be visible together: the sized
 // constructor follows Reserve and SetSize; the return copy reads that result.
@@ -71,28 +38,45 @@ public:
 // pointer across the copy. Each helper independently retains its whole retail
 // body and relocations. SetSize keeps its original assertion barrier.
 extern EAStringC::StringDataC g_eaEmptyStringData;
+
+// Retail inlines these members in this unit; the header keeps them out of line.
+inline EAStringC::EAStringC(const char *text) : data(0)
+{
+	Assign(text);
+}
+
+inline EAStringC::~EAStringC()
+{
+	FreeData(data);
+}
+
+inline unsigned int EAStringC::GetInternalMaxSize() const
+{
+	return data->m_uMaxSize;
+}
+
 __declspec(noinline) inline EAStringC::EAStringC(const EAStringC &other)
 {
-	StringDataC *otherData = other.m_pData;
-	m_pData = otherData;
+	StringDataC *otherData = other.data;
+	data = otherData;
 	if (otherData != &g_eaEmptyStringData) {
 		if (!(otherData->m_uRefCount <= 0xFFFE)) {
 			g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe", ".\\string\\EAString.inl", 0xE1);
 			if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
 		}
 	}
-	m_pData->m_uRefCount++;
+	data->m_uRefCount++;
 }
 __declspec(noinline) inline EAStringC::EAStringC(unsigned int nSize)
 {
-	m_pData = 0;
+	data = 0;
 	if (nSize) {
 		Reserve(nSize);
 		SetSize(0);
-		m_pData->m_uHash = 0;
-		reinterpret_cast<char *>(m_pData)[sizeof(StringDataC)] = 0;
+		data->m_uHash = 0;
+		reinterpret_cast<char *>(data)[sizeof(StringDataC)] = 0;
 	} else {
-		m_pData = &g_eaEmptyStringData;
+		data = &g_eaEmptyStringData;
 		++g_eaEmptyStringData.m_uRefCount;
 	}
 }
@@ -108,11 +92,11 @@ __declspec(noinline) inline void EAStringC::Reserve(int size)
 		g_bfmeAptAssertAtE17734("uAllocateSize < 0xffff", ".\\string\\EAString.inl", 0x4D2);
 		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
 	}
-	StringDataC *data = (StringDataC *)(*(Rva006DB160 * *)&g_pChainBlockAllocator)->allocBlock(rounded);
-	self->m_pData = data;
-	data->m_uRefCount = 1;
-	data = self->m_pData;
-	data->m_uMaxSize = (unsigned short)(rounded - 9);
+	StringDataC *current = (StringDataC *)(*(Rva006DB160 * *)&g_pChainBlockAllocator)->allocBlock(rounded);
+	self->data = current;
+	current->m_uRefCount = 1;
+	current = self->data;
+	current->m_uMaxSize = (unsigned short)(rounded - 9);
 }
 __declspec(noinline) inline void EAStringC::SetSize(int uSize)
 {
@@ -122,30 +106,30 @@ __declspec(noinline) inline void EAStringC::SetSize(int uSize)
 			__asm int 3
 		}
 	}
-	m_pData->m_uSize = (unsigned short)uSize;
+	data->m_uSize = (unsigned short)uSize;
 }
 void EAStringC::setCapacityWord_Rva006D2E00(unsigned int value)
 {
-    m_pData->m_uMaxSize = (unsigned short)value;
+    data->m_uMaxSize = (unsigned short)value;
 }
 
 EAStringC EAStringC::operator+(const EAStringC &other) const
 {
-	unsigned int size = m_pData->m_uSize;
+	unsigned int size = data->m_uSize;
 	if (size == 0)
 		return other;
-	unsigned int otherSize = other.m_pData->m_uSize;
+	unsigned int otherSize = other.data->m_uSize;
 	if (otherSize == 0)
 		return *this;
 	unsigned int total = size + otherSize;
 	EAStringC result(total);
-	const char *source = (char *)m_pData + sizeof(StringDataC);
-	char *text = (char *)result.m_pData + sizeof(StringDataC);
+	const char *source = (char *)data + sizeof(StringDataC);
+	char *text = (char *)result.data + sizeof(StringDataC);
 	memcpy(text, source, size);
-	memcpy(text + size, (char *)other.m_pData + sizeof(StringDataC), otherSize);
+	memcpy(text + size, (char *)other.data + sizeof(StringDataC), otherSize);
 	text[size + otherSize] = 0;
 	result.SetSize(total);
-	m_pData->m_uHash = 0;
+	data->m_uHash = 0;
 	return result;
 }
 
@@ -153,7 +137,7 @@ EAStringC EAStringC::operator+(const EAStringC &other) const
 // ownership as the verified 300-byte overload; no volatile pointer workaround.
 EAStringC EAStringC::operator+(const char *other) const
 {
-	unsigned int size = m_pData->m_uSize;
+	unsigned int size = data->m_uSize;
 	if (size == 0)
 		return other;
 	unsigned int otherSize = strlen(other);
@@ -161,12 +145,12 @@ EAStringC EAStringC::operator+(const char *other) const
 		return *this;
 	unsigned int total = size + otherSize;
 	EAStringC result(total);
-	char *text = (char *)(result.m_pData + 1);
-	memcpy(text, (char *)m_pData + sizeof(StringDataC), size);
+	char *text = (char *)(result.data + 1);
+	memcpy(text, (char *)data + sizeof(StringDataC), size);
 	memcpy(text + size, other, otherSize);
 	text[size + otherSize] = 0;
 	result.SetSize(total);
-	m_pData->m_uHash = 0;
+	data->m_uHash = 0;
 	return result;
 }
 
@@ -174,7 +158,7 @@ EAStringC EAStringC::operator+(const char *other) const
 // supports the argument order and return ABI; the original name is unknown.
 EAStringC rva006D5160(const char *left, const EAStringC &right)
 {
-	unsigned int size = right.m_pData->m_uSize;
+	unsigned int size = right.data->m_uSize;
 	if (size == 0)
 		return EAStringC(left);
 	unsigned int otherSize = strlen(left);
@@ -182,13 +166,13 @@ EAStringC rva006D5160(const char *left, const EAStringC &right)
 		return right;
 	unsigned int total = otherSize + size;
 	EAStringC result(total);
-	char *text = (char *)result.m_pData + sizeof(EAStringC::StringDataC);
+	char *text = (char *)result.data + sizeof(EAStringC::StringDataC);
 	memcpy(text, left, otherSize);
-	memcpy(text + otherSize, (char *)right.m_pData + sizeof(EAStringC::StringDataC), size);
+	memcpy(text + otherSize, (char *)right.data + sizeof(EAStringC::StringDataC), size);
 	text[otherSize + size] = 0;
 	EAStringC *presult = &result;
 	presult->SetSize(total);
-	presult->m_pData->m_uHash = 0;
+	presult->data->m_uHash = 0;
 	return *presult;
 }
 
@@ -212,22 +196,22 @@ static __forceinline void aptAssert(const char *test, const char *file, int line
 }
 static __forceinline void setSizeAndClearHash(EAStringC &eAStringC, unsigned int n)
 {
-	EAStringC::StringDataC *p = eAStringC.m_pData;
+	EAStringC::StringDataC *p = eAStringC.data;
 	if (n > p->m_uMaxSize)
 		aptAssert("uSize <= GetInternalMaxSize()", STRING_INL, 0x5C);
 	p->m_uSize = (unsigned short)n;
 	p->m_uHash = 0;
 }
-// Keep the native inlined assignment, without emitting a competing external
-// copy of the separately recovered 0x006D3030 assignment in EAStringCRefCount.
-__forceinline EAStringC &EAStringC::operator=(const EAStringC &s)
+// Keep the native inlined assignment (EAString.inl line 0xE1) without
+// emitting a competing external copy of the separately recovered 0x006D3030
+// operator= in EAStringCRefCount.
+static __forceinline void assignShared(EAStringC &self, const EAStringC &s)
 {
-	if (s.m_pData != &g_eaEmptyStringData && s.m_pData->m_uRefCount > 0xFFFE)
+	if (s.data != &g_eaEmptyStringData && s.data->m_uRefCount > 0xFFFE)
 		aptAssert("m_pData->m_uRefCount <= 0xfffe", STRING_INL, 0xE1);
-	++s.m_pData->m_uRefCount;
-	FreeData(m_pData);
-	m_pData = s.m_pData;
-	return *this;
+	++s.data->m_uRefCount;
+	EAStringC::FreeData(self.data);
+	self.data = s.data;
 }
 int EAStringC::rva006D47F0(const char *oldString, const char *newString)
 {
@@ -240,7 +224,7 @@ int EAStringC::rva006D47F0(const char *oldString, const char *newString)
 		return 0;
 	unsigned int newLength = strlen(newString);
 	int count = 0;
-	const char *src = buffer();
+	const char *src = (reinterpret_cast<char *>(data) + sizeof(StringDataC));
 	const char *occurrence;
 	while ((occurrence = strstr(src, oldString)) != 0) {
 		++count;
@@ -248,11 +232,11 @@ int EAStringC::rva006D47F0(const char *oldString, const char *newString)
 	}
 	if (!count)
 		return 0;
-	int resultSize = m_pData->m_uSize + (newLength - oldLength) * count;
+	int resultSize = data->m_uSize + (newLength - oldLength) * count;
 	EAStringC result(resultSize);
-	src = buffer();
+	src = (reinterpret_cast<char *>(data) + sizeof(StringDataC));
 	char *start;
-	char *dest = start = result.buffer();
+	char *dest = start = (reinterpret_cast<char *>(result.data) + sizeof(StringDataC));
 	for (int i = 0; i < count; ++i) {
 		occurrence = strstr(src, oldString);
 		if (!occurrence)
@@ -273,6 +257,6 @@ int EAStringC::rva006D47F0(const char *oldString, const char *newString)
 	}
 	*dest = 0;
 	setSizeAndClearHash(result, resultSize);
-	*this = result;
+	assignShared(*this, result);
 	return count;
 }

@@ -6,57 +6,28 @@
 // ChangeBuffer(size start size PUSH_ZERO size) then copy temp to output.
 // Callers 0x006D5A81 0x006D5D46 0x006D5F1B 0x006D5FB5 unclaimed.
 // Neighbour EAStringCase.cpp shares flags and ChangeBuffer/FreeData rows.
-class EAStringC
-{
-public:
-	class StringDataC
-	{
-	public:
-		unsigned short m_uRefCount;
-		unsigned short m_uSize;
-		unsigned short m_uMaxSize;
-		unsigned short m_uHash;
-	};
-
-	static void FreeData(StringDataC *data);
-
-	StringDataC *m_pData;
-
-private:
-	enum CBPushZero
-	{
-		CB_NO_PUSH_ZERO,
-		CB_PUSH_ZERO
-	};
-
-	void ChangeBuffer(unsigned int uSizeToReserve, unsigned int uOffsetCopy,
-		unsigned int uSizeCopy, CBPushZero ePushZero, unsigned int uInternalSize);
-
-public:
-	EAStringC()
-	{
-		extern StringDataC g_eaEmptyStringData;
-		m_pData = &g_eaEmptyStringData;
-		++g_eaEmptyStringData.m_uRefCount;
-	}
-	EAStringC(const EAStringC &other);
-	~EAStringC()
-	{
-		FreeData(m_pData);
-	}
-	EAStringC Mid(int start) const;
-	EAStringC rva006D5690(int count) const;
-	EAStringC Mid(int start, int count) const;
-	EAStringC rva006D5ED0(int start) const;
-};
+#include "../../../Apt/EAStringC.h"
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
+
+// Retail inlines these lifetime members in this unit; the header keeps them out of line.
+
+inline EAStringC::EAStringC()
+{
+	data = &g_eaEmptyStringData;
+	++g_eaEmptyStringData.m_uRefCount;
+}
+
+inline EAStringC::~EAStringC()
+{
+	FreeData(data);
+}
 
 EAStringC EAStringC::Mid(int start) const
 {
 	if (start <= 0)
 		return *this;
-	int size = m_pData->m_uSize - start;
+	int size = data->m_uSize - start;
 	if (size <= 0)
 		return EAStringC();
 	EAStringC result(*this);
@@ -75,7 +46,7 @@ EAStringC EAStringC::Mid(int start, int count) const
 	}
 	if (adjustedCount <= 0)
 		return EAStringC();
-	int size = m_pData->m_uSize - effectiveStart;
+	int size = data->m_uSize - effectiveStart;
 	if (size <= 0)
 		return EAStringC();
 	if (adjustedCount < size)
@@ -95,7 +66,7 @@ EAStringC EAStringC::rva006D5ED0(int start) const
 {
 	if (start < 0)
 		start = 0;
-	char *payload = (char *)m_pData + 8;
+	char *payload = (char *)data + 8;
 	char *cursor = (char *)rva006d4d40(payload, start);
 	if (cursor == 0)
 		return EAStringC();
@@ -111,7 +82,7 @@ EAStringC EAStringC::rva006D5690(int count) const
 {
     if (count <= 0)
         return EAStringC();
-    int start = m_pData->m_uSize - count;
+    int start = data->m_uSize - count;
     if (start <= 0)
         return *this;
     EAStringC result(*this);

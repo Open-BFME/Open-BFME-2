@@ -12,52 +12,34 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class EAStringC {
-    struct StringDataC {
-        unsigned short refCount,size,maxSize,hash;
-    };
-    StringDataC *data;
-    const char *buffer() const { return reinterpret_cast<const char *>(data)+8; }
-public:
-    bool operator<(const EAStringC &) const;
-    bool operator<=(const EAStringC &) const;
-    bool operator>(const EAStringC &) const;
-    bool operator>=(const EAStringC &) const;
-    bool operator<(const char *) const;
-    bool operator<=(const char *) const;
-    bool operator>(const char *) const;
-    bool operator>=(const char *) const;
-    int Compare(const EAStringC &) const;
-    int Compare(const char *) const;
-    int rva006D3670(const char *) const;
-};
+#include "../EAStringC.h"
 // ??MEAStringC@@QBE_NABV0@@Z
 bool EAStringC::operator<(const EAStringC &other) const
 {
     if(data==other.data) return false;
-    if(strcmp(buffer(),other.buffer())<0) return true;
+    if(strcmp((reinterpret_cast<const char *>(data) + 8),(reinterpret_cast<const char *>(other.data) + 8))<0) return true;
     return false;
 }
 // ??NEAStringC@@QBE_NABV0@@Z
 bool EAStringC::operator<=(const EAStringC &other) const
 {
     if(data==other.data) return true;
-    if(strcmp(buffer(),other.buffer())<=0) return true;
+    if(strcmp((reinterpret_cast<const char *>(data) + 8),(reinterpret_cast<const char *>(other.data) + 8))<=0) return true;
     return false;
 }
 // ??MEAStringC@@QBE_NPBD@Z
-bool EAStringC::operator<(const char *other) const { return strcmp(buffer(),other)<0; }
+bool EAStringC::operator<(const char *other) const { return strcmp((reinterpret_cast<const char *>(data) + 8),other)<0; }
 // ??NEAStringC@@QBE_NPBD@Z
-bool EAStringC::operator<=(const char *other) const { return strcmp(buffer(),other)<=0; }
+bool EAStringC::operator<=(const char *other) const { return strcmp((reinterpret_cast<const char *>(data) + 8),other)<=0; }
 // ??OEAStringC@@QBE_NPBD@Z
-bool EAStringC::operator>(const char *other) const { return strcmp(buffer(),other)>0; }
+bool EAStringC::operator>(const char *other) const { return strcmp((reinterpret_cast<const char *>(data) + 8),other)>0; }
 // ??PEAStringC@@QBE_NPBD@Z
-bool EAStringC::operator>=(const char *other) const { return strcmp(buffer(),other)>=0; }
+bool EAStringC::operator>=(const char *other) const { return strcmp((reinterpret_cast<const char *>(data) + 8),other)>=0; }
 // ?Compare@EAStringC@@QBEHABV1@@Z
 int EAStringC::Compare(const EAStringC &other) const
 {
     if(data==other.data) return 0;
-    return strcmp(buffer(),other.buffer());
+    return strcmp((reinterpret_cast<const char *>(data) + 8),(reinterpret_cast<const char *>(other.data) + 8));
 }
 // ??OEAStringC@@QBE_NABV0@@Z, retail 0x006D31F0 (18B). Gap body between the
 // rowed operator<= 0x006D3190 and the next unit: forwards its argument to that
@@ -84,7 +66,7 @@ int EAStringC::Compare(const char *text) const
         g_bfmeAptAssertAtE17734("pStrText != NULL", ".\\string\\EAString.inl", 0x412);
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
-    return strcmp(buffer(),text);
+    return strcmp((reinterpret_cast<const char *>(data) + 8),text);
 }
 // ?rva006D3670@EAStringC@@QBEHPBD@Z, retail 0x006D3670 (66B). Case-insensitive
 // counterpart: same non-null assert (line 0x447), then the rowed _strcmpi
@@ -95,5 +77,5 @@ int EAStringC::rva006D3670(const char *text) const
         g_bfmeAptAssertAtE17734("pStrText != NULL", ".\\string\\EAString.inl", 0x447);
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
-    return _strcmpi(buffer(),text);
+    return _strcmpi((reinterpret_cast<const char *>(data) + 8),text);
 }

@@ -28,30 +28,10 @@ extern "C" void __cdecl __debugbreak(void);
 #pragma intrinsic(strlen,__debugbreak)
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-class EAStringC {
-    class StringDataC { public: unsigned short refCount,size,maxSize,hash; };
-    StringDataC *data;
-public:
-    enum CBPushZero { CB_NO_PUSH_ZERO, CB_PUSH_ZERO };
-private:
-    void ChangeBuffer(unsigned int,unsigned int,unsigned int,CBPushZero,unsigned int);
-public:
-    void SetSize(int);
-    static void FreeData(StringDataC *);
-    EAStringC(const EAStringC &);
-    EAStringC &operator=(const EAStringC &);
-    ~EAStringC() { FreeData(data); }
-    EAStringC Left(int) const;
-    EAStringC Mid(int) const;
-    bool rva006D5CD0(const char *);
-    bool rva006D5DA0(const char *);
-    __declspec(noinline) void rva006D53F0(const char *,va_list);
-    void __cdecl rva006D62C0(const char *,...);
-    void __cdecl rva006D5300(const char *,...);
-    // Rowed at 0x006D47F0 (EAStringCConcat.cpp): two C strings, RET8.
-    int rva006D47F0(const char *,const char *);
+#include "../EAStringC.h"
 
-};
+// Retail inlines the destructor in this unit.
+inline EAStringC::~EAStringC() { FreeData(data); }
 
 // The call at retail 0x006D559A reaches the recovered EAStringC member
 // 0x006D47F0 with the unchanged ECX receiver, two C strings and RET8.
@@ -75,13 +55,13 @@ void EAStringC::rva006D53F0(const char *format,va_list args)
     for (;;) {
         ChangeBuffer(count,0,0,CB_NO_PUSH_ZERO,0);
         buffer = reinterpret_cast<char *>(data)+8;
-        result = _vsnprintf(buffer,data->maxSize,format,args);
+        result = _vsnprintf(buffer,data->m_uMaxSize,format,args);
         if (result>=0) break;
         count*=2;
     }
     buffer[result]=0;
     SetSize(result);
-    data->hash=0;
+    data->m_uHash=0;
 }
 
 // Native 0x006D5300 (225B), Ghidra-unlisted: the appending twin of the
@@ -97,7 +77,7 @@ void __cdecl EAStringC::rva006D5300(const char *format,...)
         if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
     unsigned int count = strlen(format)*4;
-    unsigned int oldSize = data->size;
+    unsigned int oldSize = data->m_uSize;
     va_list args;
     va_start(args,format);
     char *buffer;
@@ -105,13 +85,13 @@ void __cdecl EAStringC::rva006D5300(const char *format,...)
     for (;;) {
         ChangeBuffer(oldSize+count,0,0,CB_NO_PUSH_ZERO,0);
         buffer = reinterpret_cast<char *>(data)+8;
-        result = _vsnprintf(buffer+oldSize,data->maxSize-oldSize,format,args);
+        result = _vsnprintf(buffer+oldSize,data->m_uMaxSize-oldSize,format,args);
         if (result>=0) break;
         count*=2;
     }
     buffer[oldSize+result]=0;
     SetSize(oldSize+result);
-    data->hash=0;
+    data->m_uHash=0;
     va_end(args);
 }
 
@@ -145,7 +125,7 @@ bool EAStringC::rva006D5DA0(const char *pStrText)
 	}
 
 	StringDataC *rep = data;
-	unsigned int size = rep->size;
+	unsigned int size = rep->m_uSize;
 
 	unsigned int len = strlen(pStrText);
 
@@ -158,7 +138,7 @@ bool EAStringC::rva006D5DA0(const char *pStrText)
 	return false;
 
 matched:
-    *this = Left(rep->size - len);
+    *this = Left(rep->m_uSize - len);
     return true;
 }
 
@@ -178,7 +158,7 @@ bool EAStringC::rva006D5CD0(const char *pStrText)
 	}
 
 	unsigned int len = strlen(pStrText);
-	if (data->size >= len)
+	if (data->m_uSize >= len)
 	{
 		if (memcmp((char *)data + sizeof(StringDataC), pStrText, len) == 0)
 		{
