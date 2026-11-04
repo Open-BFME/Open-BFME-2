@@ -145,3 +145,24 @@ ledger, or claim changes were made. Next checked allocation:
 Its `--check-tu` passed; recheck wind-down, then run the scoped planner and
 inspect its plan before trying it. Progress was unchanged: net source files 0,
 TUs merged 0, matched rows preserved 0 by this continuation.
+
+## Continuation 5 (2026-11-04)
+
+`VeterancyCrateCollide.cpp` had no accepted merge donor: its ctor donor fails
+with `C2511` because the current class view has no matching constructor;
+`CrateCollide` and `VeterancyCrateCollide` need `tu_views` reconciliation,
+outside this seat. Both mixed files were inspected. The
+`ConstIntGetters4.cpp` split carved `0x004BCE5C` alone successfully but its
+destination compile failed with `C2664` converting `unsigned char[4]` to
+`const AsciiString&`. The `Rva004BC4FCDerived.cpp` split matched both carved
+rows in isolation but LinkGuard refused moving the selected destructor and
+two vftable COMDATs. Neither split was applied; no claims were taken.
+
+The next shard 1/5 listing begins at
+`Code/GameEngine/Source/Common/AIReturnTheRingTactic.cpp` (allocation listing
+shows it unheld, with one donor and four mixed files). Check allocation and
+wind-down before working it. Detailed evidence for this destination is recorded
+in the trial evidence linked above. Both it and `VeterancyCrateCollide.cpp`
+remain blocked on class/view or LinkGuard prerequisites; no split or merge was
+applied. The next unheld candidate was
+`Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrder.cpp`.

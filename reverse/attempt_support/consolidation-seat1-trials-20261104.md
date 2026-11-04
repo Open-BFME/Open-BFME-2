@@ -38,3 +38,24 @@ that narrower planner report. No matched-row preservation or file reduction is
 claimed because no trial was applied. Progress snapshot before this note:
 byte match 100%; linking figures unchanged; SOURCE FILES 18,540; TU-APPROVED
 51,048 rows / 1,447 of 2,297 TUs.
+
+## Continuation: AIReturnTheRingTactic
+
+The allocation passed for `AIReturnTheRingTactic.cpp`; the current Common
+planner passed currency check and the plan listed 21 approved rows, two
+donors, and four mixed files. Merge dry run rejected
+`AIReturnTheRingTactic_run.cpp` because the class view lacks `run` and `m_owner`;
+reconciliation is required for `AIReturnTheRingTactic` and
+`Rva005C4AD1LeaField`. Both donors were census-linked. All four mixed files
+were inspected and their split dry runs refused:
+
+| Mixed file | Split dry-run result |
+| --- | --- |
+| `Rva004ECECDTacticCreate.cpp` | Carved `0x005AB41F` matches alone, but destination lacks `findRingBearer` and `m_player`. |
+| `Rva004ECECDTacticCtors.cpp` | Carved `0x005AB3BE` matches alone, but destination lacks `findRingBearer` and `m_player`. |
+| `Rva005AB309Tactic.cpp` | Eight carved rows match alone, but destination lacks `canRun` and `m_owner`; proposal includes an `aiData` copy and data symbol `g_009BC1B8`, requiring path-keyed identity accounting outside this seat if accepted. |
+| `Rva005DCC24Derived.cpp` | No carved row matches under destination flags; rows `0x005AB309` and `0x005AB338` match only under donor flags. |
+
+No source, ledger, or claims changed. The next unheld shard-list candidate is
+`Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrder.cpp`; recheck its
+allocation and wind-down before its scoped planner.
