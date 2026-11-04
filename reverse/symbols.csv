@@ -1256,7 +1256,6 @@ name,address,notes
 ??0AudioLoopUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B7CBC,(Thing*;ModuleData*) ctor called by AudioLoopUpgrade::friend_newModuleInstance (0x00250760); class from the ModuleFactory registration literal
 ??0BFMENetGameSpyStatsAuthKeyCommandMsg@@QAE@XZ,0x004D65DC,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0BFMENetRequestGameSpyStatsAuthKeyCommandMsg@@QAE@XZ,0x004D64F5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??0BFMENetworkPayloadList@@QAE@XZ,0x00558D6B,callee of ??0BFMENetwork@@QAE@XZ at retail 0x00558EC1 read from its REL32 displacement; body unrowed
 ??0BFMENetworkQueue@@QAE@XZ,0x00558D41,callee of ??0BFMENetwork@@QAE@XZ at retail 0x00558EC1 read from its REL32 displacement; body unrowed
 ??0BFMERetailAsciiString@@QAE@PBD@Z,0x00037BA0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0BFU_BehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1

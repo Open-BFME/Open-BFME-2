@@ -40,13 +40,58 @@ class __node_alloc
 public:
 	static void _M_deallocate(void *p, unsigned int bytes);
 };
+
+template <class T> struct less { };
+
+// The rowed deque destructors (0x00557B4B / 0x00557BA7, emitted by
+// StlportConstructFamilyW3G15.cpp) own the element teardown.
+template <class T, class Alloc>
+class deque
+{
+public:
+	~deque();
+
+private:
+	void *m_fields[10];	// _M_start, _M_finish (iterators), _M_map, _M_map_size
+};
 }
+
+// Tree member of the +0x90 set: retail's destructor is the rowed 56-byte tree
+// teardown 0x00557BFE (Rva005562DDClear.cpp); BFMENetwork's own destructor
+// 0x00557CCC calls it directly for +0x90.
+struct Rva005562DD
+{
+	~Rva005562DD();
+
+	void *m_header;
+	unsigned int m_nodeCount;
+	unsigned int m_compareAndAllocator;
+};
+
+struct Rva00558D6BElement;
+
+namespace _STL
+{
+// Retail's constructor 0x00558EC1 builds +0x90 with the rowed set default
+// constructor 0x00558D6B (StlSweepW4Rva00558D6B.cpp); the implicit destructor
+// is retail's 5-byte 0x00557CC7, a jump to the tree teardown.
+template <class Key, class Compare, class Alloc>
+class set
+{
+public:
+	set();
+
+private:
+	Rva005562DD _M_t;
+};
+}
+
+struct BfmeOpaqueOwnedRecord1432;
+struct BfmeOpaqueOwnedRecord1408;
 
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > BFMENetworkString;
 
 class MutexClass;
-
-void *BFMENetworkAllocate(unsigned int bytes);
 
 struct BFMENetworkListNode
 {
@@ -159,65 +204,29 @@ private:
 	char m_data[0x1c4];
 };
 
+// The two request/response queues: an out-of-line default constructor each
+// (rowed 0x00558D41 / 0x00558D56) over one deque. Their implicit destructors
+// are retail's 5-byte jumps 0x00557CBD / 0x00557CC2 to the deque destructors;
+// the constructor's unwind states 0x00799498 / 0x007994A3 call them.
 class BFMENetworkQueue
 {
 public:
 	BFMENetworkQueue();
-	~BFMENetworkQueue();
 
-	Bool empty() const { return m_end == m_begin; }
-	void finishConstruct(void *unused);
-
-	void *volatile m_begin;
-	void *volatile m_04;
-	void *volatile m_08;
-	void *volatile m_0c;
-	char *volatile m_end;
-	void *volatile m_14;
-	char *volatile m_storageEnd;
-	void *volatile m_1c;
-	void *volatile m_20;
-	void *m_24;
+private:
+	_STL::deque<BfmeOpaqueOwnedRecord1432, _STL::allocator<BfmeOpaqueOwnedRecord1432> > m_records;
 };
 
 class BFMENetworkQueue1
 {
 public:
 	BFMENetworkQueue1();
-	~BFMENetworkQueue1();
 
-	Bool empty() const { return m_end == m_begin; }
-	void finishConstruct(void *unused);
-
-	void *volatile m_begin;
-	void *volatile m_04;
-	void *volatile m_08;
-	void *volatile m_0c;
-	char *volatile m_end;
-	void *volatile m_14;
-	char *volatile m_storageEnd;
-	void *volatile m_1c;
-	void *volatile m_20;
-	void *volatile m_24;
+private:
+	_STL::deque<BfmeOpaqueOwnedRecord1408, _STL::allocator<BfmeOpaqueOwnedRecord1408> > m_records;
 };
 
-struct BFMENetworkPayloadList
-{
-	BFMENetworkPayloadList() : head(0)
-	{
-		head = static_cast<BFMENetworkListNode *>(BFMENetworkAllocate(0x1d8));
-		size = 0;
-		head->flag = false;
-		head->value = 0;
-		head->next = head;
-		head->previous = head;
-	}
-	~BFMENetworkPayloadList();
-
-	BFMENetworkListNode *head;
-	int size;
-	int allocatorStorage;
-};
+typedef _STL::set<Rva00558D6BElement, _STL::less<Rva00558D6BElement>, _STL::allocator<Rva00558D6BElement> > BFMENetworkPayloadSet;
 
 class BFMENetworkThreadRunner
 {
@@ -255,11 +264,29 @@ public:
 	virtual void dispatchEvents();
 };
 
+// Retail's base table 0x00C6B090 has the destructor and fifteen pure slots
+// (Rva00557CCCDtor.cpp's view); declaring them here makes this unit's
+// ??_7BFMENetwork@@6B@ copy the same 16 slots as that unit's.
 class __declspec(novtable) Rva00552C0FBase
 {
 public:
 	__declspec(dllimport) __forceinline Rva00552C0FBase() {}
 	virtual ~Rva00552C0FBase();
+	virtual void pure1() = 0;
+	virtual void pure2() = 0;
+	virtual void pure3() = 0;
+	virtual void pure4() = 0;
+	virtual void pure5() = 0;
+	virtual void pure6() = 0;
+	virtual void pure7() = 0;
+	virtual void pure8() = 0;
+	virtual void pure9() = 0;
+	virtual void pure10() = 0;
+	virtual void pure11() = 0;
+	virtual void pure12() = 0;
+	virtual void pure13() = 0;
+	virtual void pure14() = 0;
+	virtual void pure15() = 0;
 };
 
 class BFMENetwork : public Rva00552C0FBase
@@ -289,7 +316,7 @@ private:
 	BFMENetworkString m_state6c;
 	BFMENetworkString m_state78;
 	BFMENetworkString m_state84;
-	BFMENetworkPayloadList m_list90;
+	BFMENetworkPayloadSet m_list90;
 	MutexClass m_lock9c;
 	BFMENetworkLockRefOwner m_backendLockRef;
 };
