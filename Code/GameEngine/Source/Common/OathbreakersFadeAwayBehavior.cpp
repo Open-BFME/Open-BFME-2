@@ -21,6 +21,7 @@
 		return TEXT; \
 	}
 #include "../GameLogic/AI/WorkOrder.h"
+#include "../../Include/GameClient/Drawable.h"
 #include "../GameLogic/AI/TeamInQueue.h"
 
 #include "../../Include/GameLogic/Module/UpdateModule.h"

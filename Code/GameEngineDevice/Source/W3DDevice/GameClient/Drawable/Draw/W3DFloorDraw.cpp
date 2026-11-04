@@ -4,6 +4,7 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 #include <vector>
 #include "../../../../../../Libraries/Include/Lib/BfmeE16.h"
 #include <string.h>
