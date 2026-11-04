@@ -1022,3 +1022,185 @@ def test_this_stores_needs_the_carry_of_the_neg():
     # nor does a neg of anything but this
     body = bytes.fromhex("8B4508F7D88D51181BC023C2C70054B5BB00C3")
     assert rename.this_stores(body, 0x1000) == {}
+
+
+
+# ------------------------------------------------------------ a destructor-only placeholder
+#
+# 0x00BFE408's class (DelayedSplineCameraEventModule's table): the constructor
+# 0x002BAE57 is rowed under one placeholder, the destructor 0x002BAEAB and the
+# deleting destructor 0x002BAE8F (slot 0) under another. MSVC dropped the
+# empty-bodied destructor's vptr store, so the destructor placeholder installs
+# no table; the deleting destructor in slot 0 of the constructor's own table
+# ties it there. A second constructor 0x003FD64D under a third placeholder
+# also installs the table as its own.
+D_OLD = "Rva00402000"           # destructor-only placeholder
+D_NEW = "Rva00401000"           # the constructor's placeholder; the vftable's name
+D_CO = "Rva00403000"            # a second constructor's placeholder on the same table
+D_DTOR, D_GDTOR = 0x00402000, 0x00402010
+
+
+def d_functions(extra=""):
+    return (f"""name,export_rva,target_rva,target_size,source,status,notes
+??0{D_NEW}@@QAE@XZ,,0x00401000,13,Code/Game/Ctor.cpp,matched,ctor installs vtable 0x00C00000
+??1{D_OLD}@@QAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched,dtor
+??_G{D_OLD}@@QAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched,deleting dtor
+__ehhandler$??1{D_OLD}@@QAE@XZ,,0x00402100,10,Code/Game/Dtor.cpp,matched,handler of the dtor
+??0Other@@QAE@XZ,,0x00405000,20,Code/Game/Other.cpp,matched,unrelated ctor
+""" + extra)
+
+
+def d_ledger(extra=""):
+    return ("address,size,section,kind,name,source,status,names,defs,refs\n"
+            f"0x00800000,12,.rdata,vtable,??_7{D_NEW}@@6B@,,literal,??_7{D_NEW}@@6B@,0,1\n" + extra)
+
+
+D_CTOR_SRC = f"class {D_NEW}\n{{\npublic:\n\t{D_NEW}();\n\tvirtual ~{D_NEW}();\n}};\n{D_NEW}::{D_NEW}() {{}}\n"
+D_DTOR_SRC = (f"class {D_OLD}\n{{\npublic:\n\t~{D_OLD}();\n}};\n{D_OLD}::~{D_OLD}() {{}}\n"
+              f"void anchor() {{ delete new {D_OLD}; }}\n")
+
+
+def make_dtor_tree(root, functions=None, ledger_text=None):
+    files = {
+        "reverse/functions.csv": functions or d_functions(),
+        "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/deleted_rows.csv": "name,target_rva,reason\n",
+        "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status,evidence,model\n",
+        "reverse/data_ledger.csv": ledger_text or d_ledger(),
+        "reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n",
+        "reverse/gate_baseline.txt": "",
+        "Code/Game/Ctor.cpp": D_CTOR_SRC,
+        "Code/Game/Dtor.cpp": D_DTOR_SRC,
+        "Code/Game/Other.cpp": OTHER,
+    }
+    for rel, text in files.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+    _git(root, "init", "-q")
+    _git(root, "add", "-A")
+    return root
+
+
+def d_tables(co_owner=False):
+    # slot 1 holds the deleting destructor; only the constructor(s) store
+    stores = {0x00401002: 0}
+    if co_owner:
+        stores[0x00403005] = 0
+    return {TABLE: ([PURECALL, D_GDTOR, PURECALL], stores)}
+
+
+def d_retail(monkeypatch, tables=None, calls=None):
+    retail(monkeypatch, d_tables() if tables is None else tables)
+    calls = {D_GDTOR: {D_DTOR, 0x0002FD60}} if calls is None else calls
+    monkeypatch.setattr(rename, "retail_calls", lambda ctx, rva, size: set(calls.get(rva, ())))
+
+
+def d_plan(root, old=D_OLD, new=D_NEW):
+    return rename.plan_rename("class", ctx=ctx_of(root), name=old, new=new, fold=True)
+
+
+def test_a_destructor_only_placeholder_folds_into_the_tables_owner(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path)
+    d_retail(monkeypatch)
+    p = d_plan(root)
+    assert p.fold == TABLE
+    assert f"??0{D_NEW}@@QAE@XZ at 0x00401000 installs retail vftable 0x00C00000 as its own" in p.evidence
+    assert f"??_G{D_OLD}@@QAEPAXI@Z at 0x00402010 is slot 1" in p.evidence
+    assert f"??1{D_OLD}@@QAE@XZ at 0x00402000 is called by ??_G{D_OLD}@@QAEPAXI@Z at 0x00402010" in p.evidence
+    assert f"{D_OLD} installs no vftable (destructor-only)" in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??1{D_NEW}@@QAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched," in fns
+    assert f"??_G{D_NEW}@@QAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched," in fns
+    assert f"__ehhandler$??1{D_NEW}@@QAE@XZ,,0x00402100" in fns
+    assert D_OLD not in fns
+    assert f"class {D_NEW}\n" in (root / "Code/Game/Dtor.cpp").read_text()
+    assert (root / "Code/Game/Ctor.cpp").read_text() == D_CTOR_SRC
+
+
+def test_a_second_constructors_class_on_the_table_stands_beside_the_fold(tmp_path, monkeypatch):
+    # 0x003FD64D's placeholder also installs the table as its own: overloads
+    # or an ICF fold, the slot's body is the owner's either way; not folded
+    root = make_dtor_tree(
+        tmp_path, d_functions(f"??0{D_CO}@@QAE@HD@Z,,0x00403000,40,Code/Game/Other.cpp,matched,second ctor\n"),
+        d_ledger().replace(f"??_7{D_NEW}@@6B@,0,1", f"??_7{D_NEW}@@6B@;??_7{D_CO}@@6B@,0,2"))
+    d_retail(monkeypatch, d_tables(co_owner=True))
+    p = d_plan(root)
+    assert f"also installed as its own by {D_CO} (??0{D_CO}@@QAE@HD@Z at 0x00403000)" in p.evidence
+    assert f"{D_CO} is not folded" in p.evidence
+    # the two constructor placeholders still never fold into each other here
+    with pytest.raises(Refusal):
+        d_plan(root, old=D_CO, new=D_NEW)
+
+
+def test_a_destructor_only_fold_needs_the_destructor_called_by_its_deleting_destructor(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path)
+    d_retail(monkeypatch, calls={D_GDTOR: {0x00499999, 0x0002FD60}})       # a base's destructor
+    with pytest.raises(Refusal, match="called by no deleting destructor"):
+        d_plan(root)
+
+
+def test_a_destructor_only_fold_needs_the_deleting_destructor_on_the_table(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path)
+    d_retail(monkeypatch, {TABLE: ([PURECALL, PURECALL, PURECALL], {0x00401002: 0})})
+    with pytest.raises(Refusal, match="on no slot of retail vftable 0x00C00000"):
+        d_plan(root)
+
+
+def test_a_destructor_only_fold_refuses_a_third_name_with_no_installer(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, ledger_text=d_ledger().replace(
+        f"??_7{D_NEW}@@6B@,0,1", f"??_7{D_NEW}@@6B@;??_7Rva00409999@@6B@,0,2"))
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="a third name for the table"):
+        d_plan(root)
+
+
+def test_a_destructor_only_fold_still_refuses_a_third_deleting_destructor_in_a_slot(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, d_functions(
+        "??_GOther@@UAEPAXI@Z,,0x00405100,28,Code/Game/Other.cpp,matched,del\n"))
+    d_retail(monkeypatch, {TABLE: ([PURECALL, D_GDTOR, 0x00405100], {0x00401002: 0})})
+    with pytest.raises(Refusal, match="slot 2 holds Other's deleting destructor"):
+        d_plan(root)
+
+
+def test_a_placeholder_with_a_method_is_not_destructor_only(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, d_functions(
+        f"?run@{D_OLD}@@QAEXXZ,,0x00402200,5,Code/Game/Dtor.cpp,matched,a method\n"))
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="installs no vftable retail shows as its own"):
+        d_plan(root)
+
+
+def test_a_placeholder_without_a_deleting_destructor_is_not_destructor_only(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, d_functions().replace(
+        f"??_G{D_OLD}@@QAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched,deleting dtor\n", ""))
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="installs no vftable retail shows as its own"):
+        d_plan(root)
+
+
+def test_a_destructor_storing_another_table_is_not_destructor_only(tmp_path, monkeypatch):
+    # the destructor stores a table at +0: the old route judges it (its first
+    # +0 store is its own table, not the constructor's)
+    root = make_dtor_tree(tmp_path)
+    tables = d_tables()
+    tables[OTHER_TABLE] = ([PURECALL], {0x00402003: 0})
+    d_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="nothing ties|not that class"):
+        d_plan(root)
+
+
+def test_a_destructor_only_fold_needs_a_table_owner(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path)
+    d_retail(monkeypatch, {TABLE: ([PURECALL, D_GDTOR, PURECALL], {})})
+    with pytest.raises(Refusal, match=f"and {D_NEW} installs none either"):
+        d_plan(root)
+
+
+def test_a_destructor_only_fold_into_a_class_with_its_own_destructor_is_refused(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, d_functions(
+        f"??1{D_NEW}@@UAE@XZ,,0x00406000,7,Code/Game/Ctor.cpp,matched,another dtor\n"))
+    d_retail(monkeypatch, calls={D_GDTOR: {D_DTOR}})
+    with pytest.raises(Refusal, match="one class has one"):
+        d_plan(root)

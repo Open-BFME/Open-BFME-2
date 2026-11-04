@@ -4607,6 +4607,19 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 #     a member kind of its own (keyed by its displacement), and the secondary
 #     table gets T's ICF and slot checks: no third class installs it as its
 #     own, and no slot holds a third class's deleting destructor.
+#   * a destructor-only OLD (every row of OLD is a destructor or deleting
+#     destructor, and none of them stores any vftable: MSVC drops the vptr
+#     store of an empty-bodied destructor) owns no table, so T comes from
+#     NEW's rows by the same own-table rules; OLD's deleting destructors must
+#     then sit in slots of T (a class's table holds the class's own deleting
+#     destructor), and every destructor of OLD must be called by one of them
+#     (the deleting destructor calls its class's complete destructor). Each
+#     body is then NEW's member: T is NEW's own table. A third class whose
+#     row also installs T as its own (overloaded constructors rowed under two
+#     placeholders, or an ICF fold of identical tables) does not refuse this
+#     route, because the slot's body is NEW's either way (ICF shares it); it
+#     is recorded in the evidence and is not folded. A name on T for a class
+#     that installs no T of its own still refuses.
 #
 # T's names come from data_rows.csv, data_ledger.csv and, because the ledger
 # is a tool-written cache that lags new rows, the DIR32 bindings of OLD's and
@@ -4963,6 +4976,46 @@ def vtable_names_at(ctx, table, rows=()):
     return out
 
 
+def destructor_only(ctx, old, rows, tables):
+    """True when placeholder class `old`'s rows are a destructor family that
+    stores no vftable: every special member row is a destructor or deleting
+    destructor (at least one deleting destructor), none installs any table,
+    and no other ledger row is a member of `old` (EH handlers and funclets of
+    those rows aside)."""
+    if not rows or any(special_member(r["name"])[0] not in ("1", "_G", "_E") for r in rows):
+        return False
+    if not any(special_member(r["name"])[0] in ("_G", "_E") for r in rows):
+        return False
+    if any(row_installs(ctx, r, tables) for r in rows):
+        return False
+    family = {r["name"] for r in rows}
+    member = re.compile(r"(?:^\?\?_?[0-9A-Z]|@)" + re.escape(old) + "@@")
+    for row in ctx.rows():
+        name = row["name"]
+        for prefix in FUNCLET_PREFIXES:
+            if name.startswith(prefix):
+                name = name[len(prefix):]
+        if name in family or "parent=" in row.get("notes", "") or name.startswith("$L"):
+            continue
+        if member.search(name):
+            return False
+    return True
+
+
+def third_owners(ctx, table, classes, tables):
+    """{class: [rows]} of the special member rows of classes outside `classes`
+    whose retail body installs `table` at +0 as their own (own_table)."""
+    found = collections.defaultdict(list)
+    for store, disp in sorted(tables[table][1].items()):
+        if disp:
+            continue
+        for row in owner_rows_at(ctx, store):
+            member = special_member(row["name"])
+            if member and member[1] not in classes and own_table(ctx, row, tables)[0] == table:
+                found[member[1]].append(row)
+    return dict(found)
+
+
 def fold_evidence(ctx, old, new):
     """(table rva, [evidence]) proving the class names `old` and `new` one
     retail class (see the section comment); raises Refusal."""
@@ -4982,14 +5035,28 @@ def fold_evidence(ctx, old, new):
         own, _stored = own_table(ctx, row, tables)
         if own is not None:
             owns[own].append(row)
+    table_owner = old
     if not owns:
-        raise Refusal(f"{old} installs no vftable retail shows as its own (through {len(members[old])} "
-                      "constructor, destructor or deleting destructor row(s)): nothing in retail ties it to a "
-                      "class table")
+        no_table = (f"{old} installs no vftable retail shows as its own (through {len(members[old])} "
+                    "constructor, destructor or deleting destructor row(s)): nothing in retail ties it to a "
+                    "class table")
+        if not destructor_only(ctx, old, members[old], tables):
+            raise Refusal(no_table)
+        # A destructor-only OLD: the table is NEW's own (see the section
+        # comment); its deleting destructors' slots tie OLD to it below.
+        table_owner = new
+        for row in members[new]:
+            own, _stored = own_table(ctx, row, tables)
+            if own is not None:
+                owns[own].append(row)
+        if not owns:
+            raise Refusal(no_table + f"; and {new} installs none either, so no table's slot can tie {old}'s "
+                          "deleting destructor to it")
     if len(owns) > 1:
-        raise Refusal(f"{old}'s rows install different own vftables (" + "; ".join(
+        raise Refusal(f"{table_owner}'s rows install different own vftables (" + "; ".join(
             f"0x{t + IMAGE_BASE:08X} by {', '.join(at(r) for r in rows)}" for t, rows in sorted(owns.items())) +
-            f"): {old} names more than one class")
+            f"): {table_owner} names more than one class")
+    via_slot = table_owner == new
     table = next(iter(owns))
     va = f"0x{table + IMAGE_BASE:08X}"
     evidence = []
@@ -5018,14 +5085,18 @@ def fold_evidence(ctx, old, new):
         match = GLOBAL_VTABLE.match(symbol)
         classes[scope_class(match.group(1)) if match else symbol].append(f"{symbol} ({where})")
     if new not in classes:
-        raise Refusal(f"retail vftable {va}, which {old}'s rows install as their own, is named "
+        raise Refusal(f"retail vftable {va}, which {table_owner}'s rows install as their own, is named "
                       f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv / the "
                       f"installing rows' objects, not ??_7{class_scope(new)}@@6B@: nothing ties {new} to it")
-    others = sorted(set(classes) - {old, new})
+    # The destructor-only route lets a third class that installs T as its own
+    # stand (see the section comment); it is named in the evidence, not folded.
+    co_owners = third_owners(ctx, table, (old, new), tables) if via_slot else {}
+    others = sorted(set(classes) - {old, new} - set(co_owners))
     if others:
         raise Refusal(f"retail vftable {va} is also named for {', '.join(others)} "
                       f"({'; '.join(w for o in others for w in classes[o])}): a third name for the table")
-    evidence.append(f"{va} is named " + ", ".join(w for c in (new, old) for w in classes.get(c, [])))
+    evidence.append(f"{va} is named " + ", ".join(w for c in [new, old] + sorted(co_owners)
+                                                  for w in classes.get(c, [])))
 
     # A deleting destructor's adjustor thunk sits on the class's own table for
     # the base subobject at its displacement, which the rows owning T install
@@ -5070,6 +5141,8 @@ def fold_evidence(ctx, old, new):
                 found = special_member(row["name"])
                 if not found or found[1] in (old, new):
                     continue
+                if disp == 0 and at_disp == 0 and found[1] in co_owners:
+                    continue                    # the destructor-only route's co-owner (evidence below)
                 if (at_disp == 0 and own_table(ctx, row, tables)[0] == checked) or \
                         (at_disp and own_secondary(ctx, row, tables, at_disp) == checked):
                     raise Refusal(f"{what} is also the own vftable of {found[1]} ({at(row)}): retail "
@@ -5091,6 +5164,28 @@ def fold_evidence(ctx, old, new):
                 raise Refusal(f"{at(row)} is on no slot of {what}: {cls}'s table is another one")
             evidence.append(f"{at(row)} is slot {slots.index(_rva(row['target_rva']))}" +
                             (f" of {what}" if checked != table else ""))
+
+    if via_slot:
+        # The destructor-only route: the slots tie OLD's deleting destructors
+        # to T (checked above); each destructor of OLD must be the one a
+        # deleting destructor of OLD on T calls.
+        deleting = [r for r in members[old] if special_member(r["name"])[0] in ("_G", "_E")]
+        for row in members[old]:
+            if special_member(row["name"])[0] != "1":
+                continue
+            target = _rva(row["target_rva"])
+            callers = [d for d in deleting if target in retail_calls(ctx, _rva(d["target_rva"]),
+                                                                     int(d.get("target_size") or 0))]
+            if not callers:
+                raise Refusal(f"{at(row)} is called by no deleting destructor of {old} on {va}: nothing ties "
+                              f"{old}'s destructor to the table (it may be a base's)")
+            evidence.append(f"{at(row)} is called by {at(callers[0])}")
+        evidence.append(f"{old} installs no vftable (destructor-only); {va} is {new}'s own table, so its slot "
+                        f"bodies are {new}'s members")
+        for cls, rows in sorted(co_owners.items()):
+            evidence.append(f"{va} is also installed as its own by {cls} (" + ", ".join(at(r) for r in rows) +
+                            f"): overloaded constructors under two placeholders or an ICF fold; the slot "
+                            f"bodies are {new}'s either way, and {cls} is not folded")
 
     def kind(row):
         return special_member(row["name"])[0], adjustor_of(row["name"]) or 0
