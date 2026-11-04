@@ -614,4 +614,10 @@ Real link 41813987742 (`612abfbebb`): 6 errors.
 - Both need the unit's `AudioEventRTS` and `ProductionPrerequisite` member views corrected. Those
   classes are shared with the rest of this unit's Zero Hour ThingTemplate code.
 
+**Resolved in the working tree (2026-11-04, claudeb), commit 0552b49319:** both bodies moved to their approved
+units, `DynamicAudioEventRTS::operator=` into INIWater.cpp and `ProductionPrerequisite::operator=` into
+VersionBlockParser.cpp, and ThingFactory.cpp's two anchors dropped. ThingFactory.obj now leaves only
+`InterlockedIncrement` and `AsciiString::releaseBuffer` undefined. link_check: ThingFactory 0 -> 60 B LINKS;
+VersionBlockParser LINKS. The next real link should confirm this.
+
 - 2026-11-04: the 0x0051F7AD caller now lives in AptTimeLine.cpp after a verified TU merge; its assignment uses real STLport vector, retaining the bounded external allocation specialization. PerTurnStats caller/header reconciliation is still required. [Updated caller scope and checks](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md).
