@@ -21,7 +21,8 @@ WHAT each attempt does:
      the tip before the rebase (BFME_PUSH_PREVIOUS), so a retry re-verifies
      only what master's new commits can affect;
   5. a lost race (cannot lock ref, fetch first, non-fast-forward, moved past
-     this push's base) goes straight back to 1; anything else stops.
+     this push's base) goes straight back to 1; GitHub failing the ref update
+     waits SERVER_ERROR_WAIT_S and goes back to 1; anything else stops.
 Same-account spacing: a successful push writes the shared clock file
 (<git common dir>/bfme-last-push, or $BFME_PUSH_CLOCK); every attempt waits
 until $BFME_PUSH_SPACING_S (default 300) have passed since the last one (the
@@ -45,6 +46,9 @@ SUBMODULE = "reference/open-bfme-1"
 # What git and GitHub say when master moved under a push (the ref update lost).
 LOST_RACE = re.compile(r"cannot lock ref|\(fetch first\)|non-fast-forward|moved past this push's base"
                        r"|incorrect old value provided|remote contains work that you do")
+# GitHub itself failed the ref update: nothing landed and no check refused this push.
+SERVER_ERROR = re.compile(r"fatal error in commit_refs|\(Internal Server Error\)")
+SERVER_ERROR_WAIT_S = 30
 NOREPLY = re.compile(r"^[^@\s]+@users\.noreply\.github\.com$")
 
 
@@ -207,6 +211,12 @@ def land(tries=20, email=None, dry_run=False, say=print, after_lost_race=False):
             say(f"push: attempt {attempt}: landed {outgoing} commit(s) at {tip[:10]} in {took:.1f} s "
                 f"(rebase {rebased - started:.1f} s, hook and push {time.time() - rebased:.1f} s)")
             return 0
+        if SERVER_ERROR.search(output):
+            say(f"push: attempt {attempt}: GitHub failed the ref update after {took:.1f} s; "
+                f"retrying in {SERVER_ERROR_WAIT_S} s")
+            previous = tip
+            time.sleep(SERVER_ERROR_WAIT_S)
+            continue
         if not LOST_RACE.search(output):
             say(f"push: attempt {attempt}: refused after {took:.1f} s (see above); not retrying")
             return 1

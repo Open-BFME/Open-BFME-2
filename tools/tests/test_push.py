@@ -265,3 +265,24 @@ def test_the_spacing_rereads_the_clock_after_sleeping(tmp_path, monkeypatch):
 def test_nothing_to_push(seat, capsys):
     code, out = run(capsys)
     assert code == 0 and "nothing to push" in out
+
+
+def test_a_github_server_error_is_retried_and_is_not_a_lost_race(seat, capsys, monkeypatch):
+    path, other, origin, state = seat
+    work(path)
+    real, flags, naps = push.push_once, [], []
+
+    def fails_once(previous, dry_run, lost_race):
+        flags.append(lost_race)
+        if len(flags) == 1:
+            return 1, "remote: fatal error in commit_refs\n ! [remote rejected] HEAD -> master (failure)\n"
+        return real(previous, dry_run, lost_race)
+
+    monkeypatch.setattr(push, "push_once", fails_once)
+    monkeypatch.setattr(push.time, "sleep", naps.append)
+    code, out = run(capsys)
+    assert code == 0, out
+    assert "attempt 1: GitHub failed the ref update" in out and "attempt 2: landed" in out
+    assert flags == [False, False]                # the hook's retry window keys on a real lost race
+    assert push.SERVER_ERROR_WAIT_S in naps
+
