@@ -404,15 +404,7 @@ public:
 // from replacing that sequence with SSE conversion or a double literal.
 static const volatile float letterboxAlphaScale = 255.0f;
 
-class RectClass
-{
-public:
-	RectClass(float x, float y, float w, float h) : X(x), Y(y), Width(w), Height(h) {}
-	float X;
-	float Y;
-	float Width;
-	float Height;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 class Render2DClass
 {

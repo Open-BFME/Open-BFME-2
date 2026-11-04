@@ -191,26 +191,7 @@ public:
 };
 
 // WWMath rect.h members used here.
-class RectClass
-{
-public:
-	float	Left;
-	float	Top;
-	float	Right;
-	float	Bottom;
-
-	// Constructors
-	RectClass( void )		{};
-	RectClass( const RectClass & rect )	{ Left = rect.Left; Top = rect.Top; Right = rect.Right; Bottom = rect.Bottom; }
-	RectClass( float left, float top, float right, float bottom )	{ Left = left; Top = top; Right = right; Bottom = bottom; }
-
-	// Assignment
-	RectClass & operator = (const RectClass & r) { Left = r.Left; Top = r.Top; Right = r.Right; Bottom = r.Bottom; return *this; }
-
-	// Access
-	float	Width(void) const		{ return Right - Left; }
-	float	Height(void) const	{ return Bottom - Top; }
-};
+#include "../WWMath/RectClass.h"
 class Image
 {
 public:
@@ -502,8 +483,14 @@ void W3DDisplay::Rva0004776F( const Image *image, float startX, float startY,
 			//
 			//	Use the clipped rectangles to render
 			//
-			screen_rect = clipped_rect;
-			uv_rect		= clipped_uv_rect;
+			screen_rect.Left = clipped_rect.Left;
+			screen_rect.Top = clipped_rect.Top;
+			screen_rect.Right = clipped_rect.Right;
+			screen_rect.Bottom = clipped_rect.Bottom;
+			uv_rect.Left = clipped_uv_rect.Left;
+			uv_rect.Top = clipped_uv_rect.Top;
+			uv_rect.Right = clipped_uv_rect.Right;
+			uv_rect.Bottom = clipped_uv_rect.Bottom;
 		}
 	}
 

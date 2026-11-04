@@ -1,13 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 
-class RectClass
-{
-public:
-	float left;
-	float top;
-	float right;
-	float bottom;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 class Render2DClass
 {
@@ -57,12 +50,12 @@ void Rva00044C9A::rva00044C9A(float x, float y, float width, float height, unsig
 			bottom = bottomLimit;
 		if (x > right || y > bottom)
 			return;
-		RectClass rect = { x, y, right, bottom };
+		RectClass rect(x, y, right, bottom);
 		m_renderer->Add_Quad(rect, color);
 	}
 	else
 	{
-		RectClass rect = { x, y, x + width, y + height };
+		RectClass rect(x, y, x + width, y + height);
 		m_renderer->Add_Quad(rect, color);
 	}
 }

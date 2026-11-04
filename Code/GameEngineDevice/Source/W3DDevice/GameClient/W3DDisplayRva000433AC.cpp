@@ -6,16 +6,7 @@
 // Set_Coordinate_Range.
 // Evidence: same-this setWidth 0x0025C391; vtable slots 0x40/0x44 with fild
 // unsigned fixup via const 0x007C26EC; rowed Set_Coordinate_Range 0x001188C0.
-class RectClass
-{
-public:
-	RectClass() {}
-	RectClass(float x, float y, float right, float bottom) : X(x), Y(y), Width(right), Height(bottom) {}
-	float X;
-	float Y;
-	float Width;
-	float Height;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
 class TextureClass;
 template<class T> class RefCountPtr;
@@ -107,10 +98,10 @@ void W3DDisplay::queueImage(Rva000465CEBuffer *buffer, float startX, float start
 	((Rva000456C9 *)m_render2D)->Set_Texture(buffer->texture());
 	float maxV = buffer->rva00042605() - inset;
 	RectClass uv;
-	uv.X = inset;
-	uv.Y = inset;
-	uv.Width = buffer->rva000425CB() - inset;
-	uv.Height = maxV;
+	uv.Left = inset;
+	uv.Top = inset;
+	uv.Right = buffer->rva000425CB() - inset;
+	uv.Bottom = maxV;
 
 	float scale = buffer->m_alpha20;
 	unsigned int &alpha = *(unsigned int *)&buffer;
