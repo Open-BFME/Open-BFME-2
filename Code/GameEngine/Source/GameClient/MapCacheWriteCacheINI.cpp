@@ -18,17 +18,12 @@ typedef _STL::list<Coord3D> Coord3DList;
 class WaypointMap : public _STL::map<AsciiString,Coord3D> { public: int numStartSpots; };
 struct PlayerPosition { bool human,computer,loadAIScripts; int forceTeam; _STL::set<AsciiString> factions; PlayerPosition(); ~PlayerPosition(); };
 struct MapPlayers { PlayerPosition items[8]; };
-class MapMetaData {
-public:
-    UnicodeString displayName,description; Region3D extent; int numPlayers;
-    bool isMultiplayer,isScenarioMP,isOfficial;
-    unsigned int filesize,crc,timestampLo,timestampHi;
-    WaypointMap waypoints; Coord3DList supplyPositions,techPositions;
-    AsciiString fileName; MapPlayers players; unsigned int wordF4;
-    UnicodeString cachedDisplayName,cachedDescription;
-    MapMetaData(); ~MapMetaData(); MapMetaData &operator=(const MapMetaData &);
-};
-typedef char SizeCheck[sizeof(MapMetaData)==0x100?1:-1];
+#include "../../Include/GameClient/MapMetaData.h"
+// The canonical header keeps the STL members opaque; this TU's typed views.
+static inline WaypointMap &waypointsOf(MapMetaData &md) { return reinterpret_cast<WaypointMap &>(md.field38); }
+static inline Coord3DList &supplyOf(MapMetaData &md) { return reinterpret_cast<Coord3DList &>(md.field48); }
+static inline Coord3DList &techOf(MapMetaData &md) { return reinterpret_cast<Coord3DList &>(md.field4C); }
+static inline MapPlayers &playersOf(MapMetaData &md) { return reinterpret_cast<MapPlayers &>(md.field54); }
 struct BfmeInnerSX { unsigned char m_bfmeRawSX[12]; };
 struct BfmeKeySX { char a,b,c,pad; int team; BfmeInnerSX factions; };
 int __cdecl bfmeEqualSX(const BfmeKeySX &,const BfmeKeySX &);
@@ -69,44 +64,44 @@ void MapCache::writeCacheINI(bool userDir)
         if (it->first.startsWithNoCase(mapDir.str())) {
             md = it->second;
             fprintf(fp,"\nMapCache %s\n",AsciiStringToQuotedPrintable(it->first.str()).str());
-            fprintf(fp,"  fileSize = %u\n",md.filesize);
-            fprintf(fp,"  fileCRC = %u\n",md.crc);
-            fprintf(fp,"  timestampLo = %d\n",md.timestampLo);
-            fprintf(fp,"  timestampHi = %d\n",md.timestampHi);
-            fprintf(fp,"  isOfficial = %s\n",md.isOfficial ? yes : no);
-            fprintf(fp,"  isMultiplayer = %s\n",md.isMultiplayer ? yes : no);
+            fprintf(fp,"  fileSize = %u\n",md.m_filesize);
+            fprintf(fp,"  fileCRC = %u\n",md.m_CRC);
+            fprintf(fp,"  timestampLo = %d\n",md.field30);
+            fprintf(fp,"  timestampHi = %d\n",md.field34);
+            fprintf(fp,"  isOfficial = %s\n",md.m_isOfficial ? yes : no);
+            fprintf(fp,"  isMultiplayer = %s\n",md.m_isMultiplayer ? yes : no);
             // Keep the last label selection explicit: VC7.1 then retains
             // retail's shared "no" register across all three map flags.
             {
                 const char *scenarioLabel = no;
-                if (md.isScenarioMP) scenarioLabel = yes;
+                if (md.m_isScenarioMP) scenarioLabel = yes;
                 fprintf(fp,"  isScenarioMP = %s\n",scenarioLabel);
             }
-            fprintf(fp,"  numPlayers = %d\n",md.numPlayers);
-            fprintf(fp,"  extentMin = X:%2.2f Y:%2.2f Z:%2.2f\n",md.extent.lo.x,md.extent.lo.y,md.extent.lo.z);
-            fprintf(fp,"  extentMax = X:%2.2f Y:%2.2f Z:%2.2f\n",md.extent.hi.x,md.extent.hi.y,md.extent.hi.z);
-            fprintf(fp,"  displayName = %s\n",UnicodeStringToQuotedPrintable(md.displayName).str());
-            fprintf(fp,"  description = %s\n",UnicodeStringToQuotedPrintable(md.description).str());
+            fprintf(fp,"  numPlayers = %d\n",md.m_numPlayers);
+            fprintf(fp,"  extentMin = X:%2.2f Y:%2.2f Z:%2.2f\n",md.m_extent.lo.x,md.m_extent.lo.y,md.m_extent.lo.z);
+            fprintf(fp,"  extentMax = X:%2.2f Y:%2.2f Z:%2.2f\n",md.m_extent.hi.x,md.m_extent.hi.y,md.m_extent.hi.z);
+            fprintf(fp,"  displayName = %s\n",UnicodeStringToQuotedPrintable(md.m_displayName).str());
+            fprintf(fp,"  description = %s\n",UnicodeStringToQuotedPrintable(md.m_description).str());
             Coord3D pos;
-            WaypointMap::iterator itw = md.waypoints.begin();
-            while (itw != md.waypoints.end()) {
+            WaypointMap::iterator itw = waypointsOf(md).begin();
+            while (itw != waypointsOf(md).end()) {
                 pos = itw->second;
                 fprintf(fp,"  %s = X:%2.2f Y:%2.2f Z:%2.2f\n",itw->first.str(),pos.x,pos.y,pos.z);
                 ++itw;
             }
-            Coord3DList::iterator itc3d = md.techPositions.begin();
-            while (itc3d._M_node != md.techPositions.end()._M_node) {
+            Coord3DList::iterator itc3d = techOf(md).begin();
+            while (itc3d._M_node != techOf(md).end()._M_node) {
                 pos = *itc3d;
                 fprintf(fp,"  techPosition = X:%2.2f Y:%2.2f Z:%2.2f\n",pos.x,pos.y,pos.z);
                 itc3d++;
             }
-            itc3d = md.supplyPositions.begin();
-            while (itc3d._M_node != md.supplyPositions.end()._M_node) {
+            itc3d = supplyOf(md).begin();
+            while (itc3d._M_node != supplyOf(md).end()._M_node) {
                 pos = *itc3d;
                 fprintf(fp,"  supplyPosition = X:%2.2f Y:%2.2f Z:%2.2f\n",pos.x,pos.y,pos.z);
                 itc3d++;
             }
-            const PlayerPosition *position=md.players.items;
+            const PlayerPosition *position=playersOf(md).items;
             for (int i=0;i<8;++i,++position) {
                 static PlayerPosition defaults;
                 if (!(unsigned char)bfmeEqualSX(*(const BfmeKeySX *)position,*(const BfmeKeySX *)&defaults)) {
