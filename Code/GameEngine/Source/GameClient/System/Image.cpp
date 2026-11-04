@@ -17,14 +17,11 @@
 // - The base is 12 bytes (vptr + byte@4 + dword@8, zeroed by 0x001B4E63),
 //   the same footprint as the sibling's SubsystemInterface, whose rowed
 //   ctor spelling the base call uses.
-// - The map constructor keeps the existing folded <int, void*> spelling;
-//   the member now uses the STLport declaration rather than a private template.
+// - ImageCollection, its map<unsigned, Image*> member and the 14-slot
+//   SubsystemInterface base come from the canonical GameClient/Image.h.
 
 // ??_GImageCollection@@UAEPAXI@Z present-unmatched
-// BFME2 SubsystemInterface (14-slot vtable 0x00BD77A0) from the subsystem shim,
-// so this unit emits the retail 14-slot ImageCollection vtable.
 typedef bool Bool;
-#include "subsystem_interface.h"
 // platformsdk
 //
 // ??0Image@@QAE@XZ, retail 0x002D8FE4, 122 bytes. Dedicated TU.
@@ -72,7 +69,7 @@ public:
 
 	TextureBaseClass *m_texture;
 };
-#include "../../../Include/GameClient/ImageClass.h"
+#include "../../../Include/GameClient/Image.h"
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. Taking each one's
 // address keeps this unit's copy for its row; these pointers are not retail
@@ -117,30 +114,6 @@ class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 void bfmeMergeReceiverKeys(int);
 
-namespace _STL
-{
-template <> map<int, void *, less<int>, allocator<pair<const int, void *> > >::map();
-template <> map<int, void *, less<int>, allocator<pair<const int, void *> > >::~map();
-template <> _Rb_tree<int, pair<const int, void *>, _Select1st<pair<const int, void *> >, less<int>, allocator<pair<const int, void *> > >::~_Rb_tree();
-}
-
-class ImageCollection : public SubsystemInterface
-{
-public:
-	ImageCollection();
-	void load(int textureSize);
-
-public:
-	virtual ~ImageCollection();
-	// Retail vtable 0x00C03878 slots 1/9/10 (init/reset/update) are the folded
-	// empty body at 0x000B3FD0, as in Zero Hour's ImageCollection.
-	virtual void init() {}
-	virtual void reset() {}
-	virtual void update() {}
-
-private:
-	_STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > m_imageMap;
-};
 
 class INI;
 
