@@ -23668,3 +23668,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateRva004906CD.cpp|m
 Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp|member|MapPreviewTextureAssetFactory|m_38,a572b13ca0276e49f4443558,claude-opus-5-5,claude3-20261104-013209-6,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp|member|ParticleView|flag16C,f015cb22c58a6548fbcb326f,claude-opus-5-5,claude3-20261104-013209-9,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp|member|ParticleView|flag1A1,2b5a1e3e22965a24a572af0c,claude-opus-5-5,claude3-20261104-013209-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp|member|Rva0009ACB8|m_pC0,88b33d24cdf2e7eb615e36e4,claude-opus-5-5,claude3-20261104-015631-1,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/FXParticleSystemLineXfer.cpp|member|Rva0055CD38|m_24,1b1eaa82e40bd9e2c596b982,claude-opus-5-5,claude3-20261104-015631-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/FXParticleSystemLineXfer.cpp|member|Rva0055CD38|m_30,36f16b9f4f136194bc2741bd,claude-opus-5-5,claude3-20261104-015631-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/Rva002237C7.cpp|function|0x002237C7|rva002237C7,5e274d0d5b3e9abc5d2220cd,claude-opus-5-5,claude3-20261104-015631-5,w-29a6ae2a2f9f,2026-11-04
