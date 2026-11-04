@@ -132,10 +132,16 @@ public:
 	unsigned char m_438;	// +0x438 (bit 0: effectively dead)
 };
 extern GameLogic *TheGameLogic;
-struct AttachUpdateModuleData
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
+// The module data (ctor 0x00491968, vftable 0x00C4DD18; its destructor
+// 0x00491AA0 destroys ObjectFilter, then Snapshot restores 0x00BBB554).
+class __declspec(novtable) AttachUpdateModuleData : public Snapshot
 {
-	char m_pad00[0x08];
-	char m_objectFilter[4];		// +0x08 ObjectFilter
+public:
+	virtual ~AttachUpdateModuleData();
+	int m_unused04;			// +0x04
+	Rva003623E5Member m_objectFilter;	// +0x08 ObjectFilter
 	_STL::_Base_bitset<4> m_parentStatus;	// +0x0C ParentStatus
 	float m_scanRange;		// +0x1C ScanRange
 	bool m_alwaysTeleport;		// +0x20 AlwaysTeleport
@@ -261,7 +267,7 @@ void AttachUpdate::rva00491AD0()
 	const Coord3D *pos = obj->getPosition();
 	Object *parent = ThePartitionManager->getClosestObject(pos, data->m_scanRange, 1,
 		Rva002614DFFilter(obj).link(Rva0026119DFilter().link(
-			&Rva002614ECFilter(data->m_objectFilter, obj->getControllingPlayer(), true))));
+			&Rva002614ECFilter(&data->m_objectFilter, obj->getControllingPlayer(), true))));
 	if (!parent)
 		return;
 	if (parent->rva002931BA() && parent->getRider() && (parent->getRider()->getTemplate()->m_kindof[3] & (1U << 13)))
