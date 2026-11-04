@@ -199,14 +199,7 @@ void __cdecl Rva0020DAE0(void *);
 
 // Keep the existing by-value descriptor identity; its twelve-byte view
 // and copy operation come from the rowed getter at286356 and copy3ED658.
-class Rva003ED658
-{
-public:
-    Rva003ED658(Rva003ED658 const &);
-    ~Rva003ED658();
-private:
-    char m_storage[12];
-};
+#include "../../../Include/GameLogic/Rva003ED658.h"
 class Rva002862C9
 {
 public:
