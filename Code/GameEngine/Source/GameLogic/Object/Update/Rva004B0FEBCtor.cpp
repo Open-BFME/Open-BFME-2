@@ -27,5 +27,4 @@ EmotionTrackerUpdate::TauntPointFilter::TauntPointFilter(EmotionTrackerUpdate *e
  allyCount=((Rva00739830 *)TheShroudManager)->rva00739830((const BfmePointFD *)&object->pos,1,allies);}
 }
 
-inline Rva000421C8::~Rva000421C8() {}
 int EmotionTrackerUpdate::TauntPointFilter::getPlayerMask(){if(object && player)return ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(),4,false);return 0;}

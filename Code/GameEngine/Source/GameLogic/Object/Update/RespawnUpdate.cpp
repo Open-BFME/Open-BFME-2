@@ -90,7 +90,6 @@ class INI;
 // inline destructors only restore the base vftable, which cl drops here.
 class Object;
 #include "Code/GameEngine/Include/GameLogic/PartitionFilter.h"
-inline Rva000421C8::~Rva000421C8() {}
 // vftable 0x00BFAD04, allow 0x00260E2A, slot 2 0x00260E1E: +0x08 a player.
 class Rva00260E2AFilter : public Rva000421C8
 {

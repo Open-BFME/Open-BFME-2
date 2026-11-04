@@ -32,10 +32,9 @@ class Rva000421C8
 {
 public:
 	Rva000421C8() : m_next(0) {}
-	Rva000421C8(const Rva000421C8 &);
-	virtual ~Rva000421C8();
+	virtual ~Rva000421C8() {}
 	virtual bool allow(Object *) = 0;
-	virtual int getPlayerMask();
+	virtual int getPlayerMask() { return -1; }
 	bool allows(Object *);
 	Rva000421C8 *link(Rva000421C8 *);
 

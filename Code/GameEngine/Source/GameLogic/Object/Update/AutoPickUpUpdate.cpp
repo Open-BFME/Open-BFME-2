@@ -7,7 +7,6 @@ template<class T>static __forceinline T w5Operand(const T&v){return *(const vola
 class Object;
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-inline Rva000421C8::~Rva000421C8() {}
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva00261409Filter : public Rva000421C8

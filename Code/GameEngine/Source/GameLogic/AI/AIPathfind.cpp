@@ -83,7 +83,6 @@ static void ComputeNormalRadialOffset(const Coord3D &from, Coord3D &insert, cons
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../Include/GameLogic/PartitionFilter.h"
-inline Rva000421C8::~Rva000421C8() {}
 class Rva0004584D : public Rva000421C8
 {
   public:
