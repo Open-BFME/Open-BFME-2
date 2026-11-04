@@ -14,149 +14,7 @@ struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 enum CommandSourceType {COMMAND_SOURCE_2=2};
-class AICommandInterface {public:void aiIdle(CommandSourceType);void rva0045003E(int,CommandSourceType);};
-class AIUpdateInterface {public:
-virtual void s000();
-virtual void s004();
-virtual void s008();
-virtual void s00C();
-virtual void s010();
-virtual void s014();
-virtual void s018();
-virtual void s01C();
-virtual void s020();
-virtual void s024();
-virtual void s028();
-virtual void s02C();
-virtual void s030();
-virtual void s034();
-virtual void s038();
-virtual void s03C();
-virtual void s040();
-virtual void s044();
-virtual void s048();
-virtual void s04C();
-virtual void s050();
-virtual void s054();
-virtual void s058();
-virtual void s05C();
-virtual void s060();
-virtual void s064();
-virtual void s068();
-virtual void s06C();
-virtual void s070();
-virtual void s074();
-virtual void s078();
-virtual void s07C();
-virtual void s080();
-virtual void s084();
-virtual void s088();
-virtual void s08C();
-virtual void s090();
-virtual void s094();
-virtual void s098();
-virtual void s09C();
-virtual void s0A0();
-virtual void s0A4();
-virtual void s0A8();
-virtual void s0AC();
-virtual void s0B0();
-virtual void s0B4();
-virtual void s0B8();
-virtual void s0BC();
-virtual void s0C0();
-virtual void s0C4();
-virtual void s0C8();
-virtual void s0CC();
-virtual void s0D0();
-virtual void s0D4();
-virtual void s0D8();
-virtual void s0DC();
-virtual void s0E0();
-virtual void s0E4();
-virtual void s0E8();
-virtual void s0EC();
-virtual void s0F0();
-virtual void s0F4();
-virtual void s0F8();
-virtual void s0FC();
-virtual void s100();
-virtual void s104();
-virtual void s108();
-virtual void s10C();
-virtual void s110();
-virtual void s114();
-virtual void s118();
-virtual void s11C();
-virtual void s120();
-virtual void s124();
-virtual void s128();
-virtual void s12C();
-virtual void s130();
-virtual void s134();
-virtual void s138();
-virtual void s13C();
-virtual void s140();
-virtual void s144();
-virtual void s148();
-virtual void s14C();
-virtual void s150();
-virtual void s154();
-virtual void s158();
-virtual void s15C();
-virtual void s160();
-virtual void s164();
-virtual void s168();
-virtual void s16C();
-virtual void s170();
-virtual void s174();
-virtual void s178();
-virtual void s17C();
-virtual void s180();
-virtual void s184();
-virtual void s188();
-virtual void s18C();
-virtual void s190();
-virtual void s194();
-virtual void s198();
-virtual void s19C();
-virtual void s1A0();
-virtual void s1A4();
-virtual void s1A8();
-virtual void s1AC();
-virtual void s1B0();
-virtual void s1B4();
-virtual bool s1B8();
-virtual bool s1BC();
-virtual void s1C0();
-virtual bool s1C4();
-virtual void s1C8();
-virtual void s1CC();
-virtual void s1D0();
-virtual void s1D4();
-virtual void s1D8();
-virtual void s1DC();
-virtual void s1E0();
-virtual void s1E4();
-virtual void s1E8();
-virtual void s1EC();
-virtual void s1F0();
-virtual void s1F4();
-virtual void s1F8();
-virtual void s1FC();
-virtual void s200();
-virtual void s204();
-virtual void s208();
-virtual void s20C();
-virtual void s210();
-virtual void s214(const Coord3D*);
-virtual void s218();
-virtual void s21C(float);
-virtual void s220();
-void rva00262AEA();int rva00260DED()const;bool isMoving()const;void setPathExtraDistance(float);
-char pad04[0x140-4];Path*path;char pad144[0x1dc-0x144];int movementType;char pad1e0[0x1f0-0x1e0];Locomotor*loco;char pad1f4[8];int goalType;
-AICommandInterface*command(){return (AICommandInterface*)((char*)this+0x20);}
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct LocoTemplate {char pad[0x70];int appearance;};
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 class Rva001E46E1 {public:bool rva001E543F(Object*);float rva001E4845(Object*);};
@@ -193,18 +51,18 @@ void HorseHordeContain::rva00476D77(Object*obj,const Coord3D*destination,float a
  if(obj->stun&&obj->stun->stunned)return;
  if(obj->dead&1)return;
  if(!leaderAI||!unitAI)return;
- if(unitAI->s1BC()){
+ if(unitAI->rva00262D8F()){
   bool status=obj->testStatus(STATUS_75);
   if(!leaderAI->isMoving()||!status){
    if(unitAI->isMoving())unitAI->rva00262AEA();
-   if(obj->flags10C.test(61)){_ReadWriteBarrier();obj->flags10C.clear(61);obj->rva0028AE6D();}unitAI->s220();return;
+   if(obj->flags10C.test(61)){_ReadWriteBarrier();obj->flags10C.clear(61);obj->rva0028AE6D();}unitAI->setLocomotorGoalNone();return;
   }
  }
  if(mode!=0){
-  if(unitAI->goalType==4 && unitAI->path && ((Rva001E3591*)unitAI->path)->rva001E3591()) {moving=true;return;}
+  if(unitAI->m_field1FC==4 && unitAI->m_path && ((Rva001E3591*)unitAI->m_path)->rva001E3591()) {moving=true;return;}
   ((HordeContain*)this)->_updatePosition(obj,destination,angle);return;
  }
- if(unitAI->goalType==4&&unitAI->path){moving=true;return;}
+ if(unitAI->m_field1FC==4&&unitAI->m_path){moving=true;return;}
  if(!((Rva001E46E1*)horde->rva0028AC4E())->rva001E543F(horde)){
   float currentAngle=obj->angle;
   float turn=((const Locomotor*)obj->rva0028AC4E())->getMaxTurnRate(obj);
@@ -212,11 +70,11 @@ void HorseHordeContain::rva00476D77(Object*obj,const Coord3D*destination,float a
   if(fabs(relative)>turn*0.5f){
    if(relative>turn)relative=turn;
    else if(relative < -turn)relative=-turn;
-   unitAI->s21C(currentAngle+relative);moving=true;return;
+   unitAI->setLocomotorGoalOrientation(currentAngle+relative);moving=true;return;
   }
  }
  if(!force&&!state121&&((Rva00469012*)this)->rva00469012(obj,destination)==1&&flag1a4==0&&(leaderAI->isMoving()||((Rva0046AFDEReceiver*)this)->rva0046AFDE(obj))){
-  if(unitAI->isMoving())unitAI->rva00262AEA();if(obj->flags10C.test(61)){_ReadWriteBarrier();obj->flags10C.clear(61);obj->rva0028AE6D();}unitAI->s220();moving=true;return;
+  if(unitAI->isMoving())unitAI->rva00262AEA();if(obj->flags10C.test(61)){_ReadWriteBarrier();obj->flags10C.clear(61);obj->rva0028AE6D();}unitAI->setLocomotorGoalNone();moving=true;return;
  }
  Coord3D goal;goal.x=destination->x;goal.y=destination->y;goal.z=destination->z;
  TheAI->pathfinder->rva002EF3EE(obj,&goal,horde,!force);

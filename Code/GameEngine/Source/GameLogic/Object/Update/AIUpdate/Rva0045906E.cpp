@@ -26,11 +26,7 @@ class BfmeVirtualSlots<0>
 {
 };
 
-class AIUpdateInterface : public BfmeVirtualSlots<142>
-{
-public:
-	virtual void slot142(int);
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -61,7 +57,7 @@ void Rva0045906E::rva0045906E(bool b)
 		AIUpdateInterface *aIUpdate = obj->m_258;
 		if (aIUpdate == 0)
 			return;
-		aIUpdate->slot142(8);
+		aIUpdate->chooseLocomotorSet(8);
 	}
 	else
 	{
@@ -70,6 +66,6 @@ void Rva0045906E::rva0045906E(bool b)
 		AIUpdateInterface *aIUpdate = obj->m_258;
 		if (aIUpdate == 0)
 			return;
-		aIUpdate->slot142(0);
+		aIUpdate->chooseLocomotorSet(0);
 	}
 }

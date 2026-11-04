@@ -78,11 +78,7 @@ class BodyModule : public Rva00469626Slots<13>
 public:
  virtual void rva00469E03Slot13(int value) = 0;
 };
-class AIUpdateInterface : public Rva00469626Slots<142>
-{
-public:
- virtual void slot142(int value) = 0;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva00469E03Bits
 {
 public:
@@ -225,7 +221,7 @@ void HordeContain::onRemoving(Object *object)
  if (m_moduleData && m_moduleData->m_234 != -1)
  {
   AIUpdateInterface *ai = object->m_ai;
-  if (ai) ai->slot142(0);
+  if (ai) ai->chooseLocomotorSet(0);
  }
  if (m_object)
  {

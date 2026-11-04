@@ -67,21 +67,13 @@ private:
 	unsigned char m_unrecovered00[ 0xC4 ];
 };
 
-class AIUpdateInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	unsigned char m_unrecovered04[ 0x3E4 - 0x04 ];
 	Coord3DBase m_3E4;								///< 0x3E4
 	Rva0026AFDAMember m_3F0;						///< 0x3F0
 	_STL::list<Int> m_4B4;							///< 0x4B4

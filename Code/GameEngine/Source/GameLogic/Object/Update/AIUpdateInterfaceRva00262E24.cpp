@@ -14,25 +14,15 @@ public:
     unsigned char m_prefix[0x38];
     Coord3D m_position;
 };
-class AIUpdateInterface {
-    unsigned char m_prefix[8];
-    Object *m_obj;
-    unsigned char m_pad0C[0x140 - 0x0C];
-    Path *m_path140;
-    unsigned char m_pad144[0x1FC - 0x144];
-    int m_field1FC;
-    Coord3D m_coord200;
-public:
-    Coord3D rva00262E24();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 Coord3D AIUpdateInterface::rva00262E24()
 {
-    Object *obj = m_obj;
+    Object *obj = m_object;
     int mode = m_field1FC;
     if (mode != 2 && mode != 4) {
         if (mode == 1) {
-            Path *path = m_path140;
+            Path *path = m_path;
             if (path != 0) {
                 Rva003642DFResult tmp = path->rva003642DF(40.0f);
                 return tmp.m_pos;
@@ -48,5 +38,5 @@ Coord3D AIUpdateInterface::rva00262E24()
         d.z += obj->m_position.z;
         return d;
     }
-    return m_coord200;
+    return m_field200;
 }

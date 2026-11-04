@@ -128,45 +128,10 @@ extern GameLogic *TheGameLogic;
 
 
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms) = 0;
-	void aiIdle(CommandSourceType cmdSource);
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // Primary vftable 0x008505F8 (HordeAIUpdate's), slot 0 the destructor; the
 // AICommandInterface at +0x20 uses vftable 0x00850528.
-class AIUpdateInterface : public UpdateModule, public AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms);
-protected:
-	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource); // slot 13
-	virtual void a014(); virtual void a015(); virtual void a016(); virtual void a017(); virtual void a018(); virtual void a019();
-	virtual void a020(); virtual void a021(); virtual void a022();
-	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource); // slot 23 (+0x5C)
-	virtual void a024(); virtual void a025(); virtual void a026(); virtual void a027(); virtual void a028(); virtual void a029();
-	SLOT_GAP10(a, 03)
-	virtual void a040(); virtual void a041(); virtual void a042(); virtual void a043();
-	virtual void privateRepair(Object *obj, CommandSourceType cmdSource); // slot 44 (+0xB0)
-	virtual void a045(); virtual void a046(); virtual void a047(); virtual void a048(); virtual void a049();
-	SLOT_GAP10(a, 05) SLOT_GAP10(a, 06)
-	SLOT_GAP10(a, 07) SLOT_GAP10(a, 08) SLOT_GAP10(a, 09) SLOT_GAP10(a, 10)
-public:
-	virtual bool isIdle() const; // slot 110 (+0x1B8)
-	virtual void a111(); virtual void a112(); virtual void a113(); virtual void a114();
-	virtual void a115(); virtual void a116(); virtual void a117(); virtual void a118(); virtual void a119();
-	virtual void a120(); virtual void a121(); virtual void a122(); virtual void a123(); virtual void a124();
-	virtual void a125(); virtual void a126(); virtual void a127(); virtual void a128(); virtual void a129();
-	SLOT_GAP10(a, 13)
-protected:
-	virtual void a140(); virtual void a141(); virtual void a142(); virtual void a143(); virtual void a144();
-	virtual void a145(); virtual void a146(); virtual void a147();
-	virtual bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const; // slot 148 (+0x250)
-private:
-	char m_unrecovered24[0x3E4 - 0x24];
-};
 
 class HordeAIInterface3E4
 {
@@ -627,7 +592,7 @@ UpdateSleepTime HordeWorkerAIUpdate::update()
 		{
 			Object *repairTarget = TheGameLogic->findObjectByID(m_3EC);
 			if (repairTarget)
-				privateRepair(repairTarget, CMD_FROM_AI);
+				vslot044(repairTarget, CMD_FROM_AI);
 			m_3E8 = INVALID_OBJECT_ID;
 			return UPDATE_SLEEP_NONE;
 		}

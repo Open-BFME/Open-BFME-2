@@ -130,11 +130,9 @@ static __declspec(noinline) Object *ModifyVictimForHorde(Object *target,Object *
 }
 class Squad {public:Squad();virtual void *slot0(int);void rva004D6DF3(Object*,bool);char pad4[0x18];};
 class AIStateMachine : public AttackSlots<5> {public:virtual void clear()=0;virtual void s6()=0;virtual void s7()=0;virtual void setState(int)=0;virtual void s9()=0;virtual void s10()=0;virtual void s11()=0;virtual void s12()=0;virtual void s13()=0;virtual void setGoalObject(Object*)=0;void setGoalSquad(const Squad*);};
-class AIUpdateInterface : public AttackSlots<34> {public:char pad0[4];Object *owner;char padC[0x30-0xC];AIStateMachine *machine;char pad34[0x48-0x34];CommandSourceType source;char pad4C[0x1A4-0x4C];ObjectID forcedTarget;
-protected:virtual void privateAttackObject(Object*,int,CommandSourceType);virtual void a35()=0;virtual void a36()=0;virtual void a37()=0;virtual void privateForceAttackObject(Object*,int,CommandSourceType);void playAttackVoiceResponse(Object*);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::privateAttackObject(Object *target,int shots,volatile CommandSourceType command){
- Object *obj=owner;
+ Object *obj=m_object;
  if(((const Rva0028B7AELeaGetter*)obj)->testBit8()||!target||(obj->flags438&8))return;
  obj->chooseBestWeaponForTarget(target,(WeaponChoiceCriteria)5,command);
  Weapon *weapon=const_cast<Weapon*>(obj->getCurrentWeapon(0));
@@ -142,19 +140,19 @@ void AIUpdateInterface::privateAttackObject(Object *target,int shots,volatile Co
  if(command==0 && target->testStatus(STATUS38) && weapon && !((const Rva002C9400ByteField *)weapon->m_template)->get())obj->victim=target->id;
  if(obj->ai && obj->ai->word34)return;
  bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
- machine->clear();
- if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);machine->setGoalSquad(squad);source=command;machine->setState(23);::operator delete(squad?squad->slot0(0):0);}
- else{machine->setGoalObject(target);source=command;machine->setState(10);}
- if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;if(((const Rva002C9400ByteField *)weapon->m_template)->get()&&(command==0||command==1))forcedTarget=target->id;}
+ m_stateMachine->clear();
+ if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);m_stateMachine->setGoalSquad(squad);m_lastCommandSource=command;m_stateMachine->setState(23);::operator delete(squad?squad->slot0(0):0);}
+ else{m_stateMachine->setGoalObject(target);m_lastCommandSource=command;m_stateMachine->setState(10);}
+ if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;if(((const Rva002C9400ByteField *)weapon->m_template)->get()&&(command==0||command==1))m_field1A4=target->id;}
  if(command==0||command==1)playAttackVoiceResponse(target);
  if(obj->thing->flag112&0x10){SpawnBehaviorInterface *spawn=obj->getSpawnBehaviorInterface();if(spawn)spawn->slot3(target,shots,command);}
 }
 void AIUpdateInterface::privateForceAttackObject(Object *target,int shots,CommandSourceType command){
  if(!target)return;
- if(((const Rva0028B7AELeaGetter*)owner)->testBit8())return;
- machine->clear();Object *obj=owner;bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
- if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);machine->setGoalSquad(squad);source=command;machine->setState(23);::operator delete(squad?squad->slot0(0):0);}
- else{machine->setGoalObject(target);source=command;machine->setState(11);}
- Weapon *weapon=const_cast<Weapon*>(owner->getCurrentWeapon(0));if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;}
+ if(((const Rva0028B7AELeaGetter*)m_object)->testBit8())return;
+ m_stateMachine->clear();Object *obj=m_object;bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
+ if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);m_stateMachine->setGoalSquad(squad);m_lastCommandSource=command;m_stateMachine->setState(23);::operator delete(squad?squad->slot0(0):0);}
+ else{m_stateMachine->setGoalObject(target);m_lastCommandSource=command;m_stateMachine->setState(11);}
+ Weapon *weapon=const_cast<Weapon*>(m_object->getCurrentWeapon(0));if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;}
  if(command==0||command==1)playAttackVoiceResponse(target);
 }

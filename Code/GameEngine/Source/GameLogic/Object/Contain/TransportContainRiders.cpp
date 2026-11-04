@@ -235,15 +235,7 @@ template <> class RiderSlots<0>
 {
 };
 
-class AIUpdateInterface : public RiderSlots<106>
-{
-public:
-	virtual AIFreeToExitType getAiFreeToExit(const Object *exiter) const; // +0x1A8
-	Locomotor *getCurLocomotor() const { return m_curLocomotor; }
-private:
-	char m_pad04[0x1F0 - 0x04];
-	Locomotor *m_curLocomotor; // +0x1F0
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -350,7 +342,7 @@ Bool TransportContain::isSpecificRiderFreeToExit(Object *specificObject)
 	// this is present solely for some transports to override, so that they can land before
 	// allowing people to exit...
 	const AIUpdateInterface *ai = me->getAIUpdateInterface();
-	if (ai && ai->getAiFreeToExit(specificObject) != FREE_TO_EXIT)
+	if (ai && ai->vslot106(specificObject) != FREE_TO_EXIT)
 		return FALSE;
 
 	// I can always kick people out if I am in the air, I know what I'm doing

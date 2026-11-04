@@ -47,20 +47,11 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class AIUpdateInterface {
-public:
-    char before[8];
-    Object *object;
-    char toDeadline[0x234 - 0xC];
-    unsigned deadline;
-
-    float getLocomotorDistanceToGoal();
-    int handleEngagedFlag();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 int AIUpdateInterface::handleEngagedFlag()
 {
-    Object *obj = object;
+    Object *obj = m_object;
     if (!obj)
         return 1;
 
@@ -92,17 +83,17 @@ int AIUpdateInterface::handleEngagedFlag()
         unsigned interval = (duration >> 1) + 1;
         if (disengage) {
             unsigned now = TheGameLogic->getFrame();
-            if (deadline <= now) {
+            if (m_field234 <= now) {
                 if (obj->flags[4] & 0x20000000) {
                     reinterpret_cast<unsigned char *>(mask)[19] &= 0xDF;
                     obj->rva0028AE6D();
                 }
             } else {
-                unsigned left = deadline - now;
+                unsigned left = m_field234 - now;
                 sleep = left > interval ? interval : left;
             }
         } else {
-            deadline = TheGameLogic->getFrame() + duration;
+            m_field234 = TheGameLogic->getFrame() + duration;
             sleep = interval;
         }
     } else if (active->rva00263546(mask)) {

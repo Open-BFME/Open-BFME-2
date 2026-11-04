@@ -81,11 +81,7 @@ public:
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AIUpdateInterfaceVtbl
 {
@@ -113,9 +109,6 @@ public:
 	unsigned char m_pad04[0x20 - 0x04];
 };
 
-class AIUpdateInterface : public AIUpdateInterfaceVtbl, public AICommandInterface
-{
-};
 
 #include "../object.h"
 
@@ -195,7 +188,7 @@ void CitadelSlaughterHordeContain::rva00480E9A(Object *obj)
 {
 	AIUpdateInterface *ai = obj->getAI();
 	Object *me = getObject();
-	ai->aiIdle(ai->rva143());
+	ai->aiIdle(ai->vslot143());
 	TheAiOrdersManager->rva003551D3(obj->getID());
 
 	const CitadelSlaughterHordeContainModuleData *citadelSlaughterHordeContainModuleData = getModuleData();

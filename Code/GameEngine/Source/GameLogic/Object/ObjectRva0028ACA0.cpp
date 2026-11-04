@@ -12,15 +12,7 @@ class BfmeVirtualSlots<0>
 {
 };
 class Object;
-class AIUpdateInterface : public BfmeVirtualSlots<111>
-{
-public:
-	virtual bool slot111() const;
-	Object *getCurrentVictim() const;
-private:
-	char m_pad[0x40 - 4 - 0];
-	int m_id40;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -33,7 +25,7 @@ Object *Object::rva0028ACA0() const
 {
 	Object *result = 0;
 	AIUpdateInterface *ai = m_258;
-	if (ai != 0 && ai->slot111())
+	if (ai != 0 && ai->rva00262D8F())
 		result = m_258->getCurrentVictim();
 	return result;
 }

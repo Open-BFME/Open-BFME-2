@@ -53,13 +53,7 @@ typedef void (*ContainIterateFunc)(Object *obj, void *userData);
 
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 
-class AICommandInterface
-{
-public:
-	void rva0036EBB8(Object *target, CommandSourceType cmdSource);
-	void rva0037379B(Object *obj, CommandSourceType cmdSource);
-	void aiExit(Object *obj, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class AIUpdateInterfaceVtbl
 {
@@ -87,11 +81,6 @@ public:
 	unsigned char m_pad04[0x20 - 0x04];
 };
 
-class AIUpdateInterface : public AIUpdateInterfaceVtbl, public AICommandInterface
-{
-public:
-	int rva00260DED() const;
-};
 
 class Rva0010CBits
 {
@@ -214,9 +203,9 @@ UpdateSleepTime CitadelSlaughterHordeContain::update()
 			Object *me = m_object;
 			AIUpdateInterface *ai = other->getAI();
 			if (other->getTemplate()->isKindOf((KindOfType)77))
-				ai->rva0037379B(me, ai->rva143());
+				ai->rva0037379B(me, ai->vslot143());
 			else
-				ai->aiExit(me, ai->rva143());
+				ai->aiExit(me, ai->vslot143());
 		}
 		m_9EC = INVALID_OBJECT_ID;
 	}

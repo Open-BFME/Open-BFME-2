@@ -15,12 +15,7 @@ enum WeaponSlotType{WEAPONSLOT_PRIMARY=0};
 enum Relationship{ENEMIES=0};
 bool rva00344EB2Gate(Object*,Thing*);
 template<int N>class Slots:public Slots<N-1>{public:virtual void gap(char(*)[N]);};template<>class Slots<0>{};
-class AIUpdateInterface:public Slots<110>{public:
- virtual bool slot110();virtual bool slot111();virtual void slot112();virtual bool slot113();
-virtual void slot114();virtual void slot115();virtual void slot116();virtual void slot117();virtual void slot118();virtual void slot119();virtual void slot120();virtual void slot121();virtual void slot122();virtual void slot123();virtual void slot124();virtual void slot125();virtual void slot126();virtual void slot127();virtual void slot128();virtual void slot129();virtual void slot130();virtual void slot131();virtual void slot132();virtual void slot133();virtual void slot134();virtual void slot135();virtual void slot136();
- unsigned getMoodMatrixValue()const;void rva0026D3FB(Object*);
- char pad04[0x3c7-4];bool m_flag3c7;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva002C9400ByteField{public:unsigned char get()const;};
 #include "../../../Include/GameLogic/Weapon.h"
 struct ThingTemplateView{char pad00[0x108];unsigned char kinds[28];bool isStructure()const{return(kinds[0]&0x80)!=0;}bool isKind55()const{return(kinds[6]&0x80)!=0;}};
@@ -36,17 +31,17 @@ void Object::rva00295A84(Object*victim){
   AIUpdateInterface *ai=m_ai;
   if(ai && !m_recursing && !rva00344EB2Gate(this,(Thing*)victim)){
    Object *related=rva0028ACA0();
-   if(!ai->m_flag3c7 && related){
+   if(!ai->m_field3C7 && related){
     bool same=(victim==related);
     if(victim->testStatus(STATUS_26)){
      related=related->rva002931F5(false);
      if(victim->rva002931F5(false)==related)same=true;
     }
-    if(!testStatus(STATUS_26) || (ai->m_flag3c7 ? victim->m_template : victim->m_template)->isStructure()){
+    if(!testStatus(STATUS_26) || (ai->m_field3C7 ? victim->m_template : victim->m_template)->isStructure()){
      if(!same)return;
     }
    }
-   if(ai->slot113())return;
+   if(ai->rva00262DA3())return;
    const Weapon *weapon=getCurrentWeapon(0);if(!weapon)return;
    if(!((const Rva002C9400ByteField *)weapon->m_template)->get())return;
    if(rva0029493F(victim,2) && rva0028CECF())return;
@@ -54,12 +49,12 @@ void Object::rva00295A84(Object*victim){
    if(testStatus(STATUS_26) && related && related->rva0029493F(victim,2) && related->rva0028CECF())return;
    if(ai->getMoodMatrixValue()&0x2000)return;
    if(!rva0028CC7C((int)victim))return;
-   if(!ai->slot110() && !ai->slot111())return;
+   if(!ai->isIdle() && !ai->rva00262D8F())return;
    if(testStatus(STATUS_45) || testStatus(STATUS_1C))return;
    if(victim->rva002943B2(getControllingPlayer()))return;
    if(rva0028F518())return;
    if(testStatus(STATUS_0F) && !testStatus(STATUS_11))return;
-   ai->rva0026D3FB(victim);rva0028CDB6();ai->slot136();
+   ai->rva0026D3FB(victim);rva0028CDB6();ai->setLocomotorGoalNone();
    m_recursing=true;
    if(victim->getRelationship(this)==ENEMIES && !victim->m_template->isKind55())victim->rva00295A84(this);
    m_recursing=false;

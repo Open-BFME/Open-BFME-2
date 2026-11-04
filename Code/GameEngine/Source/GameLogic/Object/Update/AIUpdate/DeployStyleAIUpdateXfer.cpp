@@ -83,21 +83,13 @@ private:
 	unsigned char m_unrecovered00[ 0xC4 ];
 };
 
-class AIUpdateInterface
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class DeployStyleAIUpdate : public AIUpdateInterface
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	unsigned char m_unrecovered04[ 0x3E4 - 0x04 ];
 	Rva0026AFDAMember m_lastOutsideCommand;																		///< 0x3E4
 	Bool m_bfmeFlag4A8;																												///< 0x4A8
 	Bool m_bfmeFlag4A9;																												///< 0x4A9

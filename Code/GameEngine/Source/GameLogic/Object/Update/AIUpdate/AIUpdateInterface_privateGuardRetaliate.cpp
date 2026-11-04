@@ -33,31 +33,18 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
-class AIUpdateInterface
-{
-public:
-	void rva00265667(const Coord3D *pos, int flag);
-protected:
-	virtual void privateGuardRetaliate(Object *victim, const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource);
-
-private:
-	char m_pad04[8 - 4];
-	Object *m_object;
-	char m_pad0C[0x30 - 0x0C];
-	StateMachine *m_machine;
-	char m_pad34[0x48 - 0x34];
-	CommandSourceType m_lastCommandSource;
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
 void AIUpdateInterface::privateGuardRetaliate(Object *victim, const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource)
 {
 	if (victim == 0)
 		return;
-	m_machine->clear();
-	m_machine->setGoalObject(victim);
+	m_stateMachine->clear();
+	m_stateMachine->setGoalObject(victim);
 	rva00265667(pos, cmdSource);
 	m_lastCommandSource = cmdSource;
-	m_machine->setState(62);
+	m_stateMachine->setState(62);
 	const Weapon *weapon = m_object->getCurrentWeapon((WeaponSlotType *)0);
 	if (weapon == 0)
 		return;

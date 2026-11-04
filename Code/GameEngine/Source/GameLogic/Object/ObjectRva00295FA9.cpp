@@ -106,12 +106,7 @@ template <> class Rva00295F05AISlots<0>
 {
 };
 
-class AIUpdateInterface : public Rva00295F05AISlots<113>
-{
-public:
-	virtual Bool rva00295F05Guard();
-	Int rva002632C7() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
@@ -164,7 +159,7 @@ void Object::rva00295FA9(Object *other)
 void Object::rva00295F05(Bool force)
 {
 	AIUpdateInterface *ai = m_ai;
-	if (ai != 0 && ai->rva00295F05Guard())
+	if (ai != 0 && ai->rva00262DA3())
 		return;
 	if ((m_flags438 & 1) != 0)
 		return;
