@@ -30,14 +30,13 @@ enum UpdateSleepTime
 // 0x00856D60 and 0x00856D50), module data at +4, object at +8.
 class BehaviorModuleBase
 {
-public:
-	virtual ~BehaviorModuleBase();
-
 protected:
 	Object *getObject() const { return m_object; }
-
-	const ModuleData *m_moduleData;
-	Object *m_object;
+public:
+	virtual ~BehaviorModuleBase();
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 class BehaviorModuleOther
 {

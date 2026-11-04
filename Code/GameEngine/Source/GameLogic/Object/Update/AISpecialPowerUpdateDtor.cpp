@@ -16,10 +16,13 @@ class ModuleData;
 class Object;
 class BehaviorModuleBase
 {
+protected:
+	Object *getObject() const { return m_object; }
 public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	virtual ~BehaviorModuleBase();
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 class BehaviorModuleOther
 {
