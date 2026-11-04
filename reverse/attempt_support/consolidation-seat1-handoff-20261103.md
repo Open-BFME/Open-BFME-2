@@ -100,3 +100,37 @@ allocation, the next destination is
 recheck it and the wind-down marker before proceeding. `git pull --rebase
 origin master` completed before this handoff update; no source files were
 touched by the rebase.
+
+## Continuation 3 (2026-11-04)
+
+Resumed with `DeflectSpecialPower.cpp`; after it, the following allocated
+destinations were checked. Allocation checks passed, planners were current for
+each relevant scope, and every merge dry run accepted zero donors:
+
+| Destination TU | Dry-run blocker |
+| --- | --- |
+| `DeflectSpecialPower.cpp` | constructor lacks default construction; module-data ctor loses `DeflectSpecialPowerModuleData` destructor under LinkGuard |
+| `BfmeItemKA.cpp` | GameSubTitle donors lack declarations/members; two STL donors fail bytes; candidates also lose rows or have no baseline match |
+| `W3DDebrisDraw.cpp` | vftable type mismatch, missing `getModuleNameKey`, incompatible destructor types, and set-model byte failure |
+| `SpecialDisguiseUpdate.cpp` | module-data special member undeclared, target ctor absent from view, module-data dtor byte failure |
+| `ExperienceScalarUpgrade.cpp` | LinkGuard unresolved `GetSnapshotName@UpgradeModule`, `isSubObjectsUpgrade@UpgradeMux`, and `loadPostProcess@UpgradeModule` |
+| `debug_io_con.cpp` | LinkGuard reports changed retail destructor and vftable copies |
+| `BattlePlanUpdate.cpp` | empty compile failure, missing methods/members and ctor view, `AsciiString*`/`const char**` mismatch, undefined `BitFlags<N>` |
+| `BfmeThingSVA.cpp` | `_STL::basic_string` redefinition in `Rva00028B90Siblings.cpp`; LinkGuard census-linked units |
+| `OldSchoolHelpBoxContentSource.cpp` | missing `m_2a4` and `get` declarations; ctor donor byte failure; class views need reconciliation |
+| `CastleUpgrade.cpp` | LinkGuard loses `GetSnapshotName@UpgradeModule`, `isSubObjectsUpgrade@UpgradeMux`, and `loadPostProcess@UpgradeModule` |
+| `StdioStreambufBase.cpp` | STLport `char_traits`/`fpos` redefinitions and `locale` redefinition / missing `facet`; LinkGuard census-linked units |
+| `CreateCrateDie.cpp` | donor compile fails on malformed `BitFlags` declaration; class view needs reconciliation |
+| `AptAnimData.cpp` | donor references undeclared `map` / missing `findSlot`; class view needs reconciliation |
+| `AptArray.cpp` | missing `m_data` and `Rva006D6470Owner` base declarations; multiple class views need reconciliation |
+| `EvacuateDamage.cpp` | `EmitVtableTag` undeclared and STL allocator specialization already instantiated; class views need reconciliation |
+
+No source/ledger changes or claims were made. Wind-down checks and allocation
+checks passed before each destination trial. Planner currency checks passed;
+no claims need release. Hidden `.tu_skeleton.cpp` scratch-file scan was empty.
+No merge or mixed-file split was applied. The latest listing still has allocated
+destinations beyond these trials; `BfmeThingSVA.cpp` was the first destination
+checked after `BattlePlanUpdate.cpp`. The next candidate after `EvacuateDamage.cpp`
+is `Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp`; its
+allocation check passed, but recheck wind-down before starting. Progress and
+final session checks remain to be run.
