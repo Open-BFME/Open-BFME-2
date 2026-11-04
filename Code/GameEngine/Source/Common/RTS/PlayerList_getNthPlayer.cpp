@@ -437,14 +437,7 @@ extern PartitionManager *TheShroudManager;
 class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
 
-class PointGroupClass
-{
-public:
-	enum PointModeEnum
-	{
-		TRIS = 0
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/PointGroupClass.h"
 class Rva00739730 { public: void rva00739730(int playerIndex, int callback); };
 class Rva006C0800 { public: void rva006C0800(PointGroupClass::PointModeEnum callback); };
 void rva002D7AE0(int a, int b, int c);
