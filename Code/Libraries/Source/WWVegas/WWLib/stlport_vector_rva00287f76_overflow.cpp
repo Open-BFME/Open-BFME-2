@@ -14,7 +14,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
-struct Rva00287F76Element { int a, b; };
+// Match the owning fire-logic TU's six-byte payload and eight-byte stride.
+// Its spread pass stores a cell pointer and a 16-bit pending heat value.
+struct Rva00287F76Element
+{
+    void *m_cell;
+    unsigned short m_value;
+};
 // Retail copies six bytes of each eight-byte slot through this rowed owner.
 void __cdecl Rva002861B0Copy(void *, const void *);
 namespace _STL {
