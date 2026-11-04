@@ -517,3 +517,68 @@ def test_cli_refuses_new_or_basis_with_virtual(tree):
     with pytest.raises(SystemExit):
         rename.main(["function", "--rva", "0x00401000", "--new", "countThings", "--root", str(tree),
                      "--no-claim", "--dry-run"])              # no --basis / --evidence: still required
+
+
+# ------------------------------------------------------------ a prepared view
+#
+# 0x002BAEAB's unit held the Snapshot base as a member at +0 with a
+# non-virtual destructor. A `virtual` keyword alone would add a vptr ahead of
+# that member and shift every field, so the unit comes prepared with the base
+# as a base class; the tool still respells, compiles and byte-gates it.
+PREPARED_DTOR = f"""// {DTOR} @ 0x00403000
+class WidgetBase {{ public: virtual ~WidgetBase(); }};
+class Widget : public WidgetBase
+{{
+public:
+    __declspec(noinline) virtual ~Widget();
+    virtual void spinUp();
+}};
+Widget::~Widget() {{}}
+"""
+DTOR_TABLES = ({TABLE: ([0x00403040, 0x00401000], {CTOR_STORE: 0})}, {0x00403040: {0x00403000}})
+
+
+def test_destructor_family_takes_a_prepared_view(tree, monkeypatch):
+    retail(monkeypatch, *DTOR_TABLES)
+    p = plan(tree, rva=0x00403000, prepared={"Code/Game/WidgetDtor.cpp": PREPARED_DTOR.encode()})
+    assert {(o, n) for o, n, _ in p.renamed_rows} == {
+        (DTOR, "??1Widget@@UAE@XZ"), (GDTOR, "??_GWidget@@UAEPAXI@Z")}
+    assert "Code/Game/WidgetDtor.cpp" in p.verify
+    assert "file:Code/Game/WidgetDtor.cpp" in p.claims
+    seen = []
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: seen.append(sources) or True)
+    assert seen == [p.verify]
+    dtor = (tree / "Code/Game/WidgetDtor.cpp").read_text()
+    assert "class Widget : public WidgetBase" in dtor           # the prepared shape, not a keyword edit
+    assert "// ??1Widget@@UAE@XZ @ 0x00403000" in dtor            # its old spelling respelled
+    assert "QAE" not in dtor
+
+
+def test_a_prepared_view_is_restored_when_the_bytes_change(tree, monkeypatch):
+    retail(monkeypatch, *DTOR_TABLES)
+    before = snapshot(tree)
+    p = plan(tree, rva=0x00403000, prepared={"Code/Game/WidgetDtor.cpp": PREPARED_DTOR.encode()})
+    with pytest.raises(VerifyFailed):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: False)
+    assert snapshot(tree) == before
+
+
+def test_a_prepared_view_needs_matched_rows(tree, monkeypatch):
+    retail(monkeypatch, *DTOR_TABLES)
+    (tree / "Code/Game/Loose.cpp").write_bytes(b"int loose;\n")
+    _git(tree, "add", "-A")
+    with pytest.raises(Refusal, match="no matched rows to verify"):
+        plan(tree, rva=0x00403000, prepared={"Code/Game/Loose.cpp": b"int loose2;\n"})
+
+
+def test_a_prepared_view_still_needs_the_retail_evidence(tree, monkeypatch):
+    retail(monkeypatch, {TABLE: ([0x00403040], {CTOR_STORE: 0})}, calls={0x00403040: {0x00409999}})
+    with pytest.raises(Refusal, match="no deleting destructor of Widget on a retail vtable slot calls it"):
+        plan(tree, rva=0x00403000, prepared={"Code/Game/WidgetDtor.cpp": PREPARED_DTOR.encode()})
+
+
+def test_prepared_goes_with_virtual_or_to_class_only(tree, monkeypatch):
+    retail(monkeypatch, *DTOR_TABLES)
+    with pytest.raises(Refusal, match="--prepared sources go with --to-class or --virtual only"):
+        rename.plan_rename("function", ctx=ctx_of(tree), rva=0x00401000, new="countAll", basis="inferred",
+                           evidence="agree:x", prepared={"Code/Game/WidgetDtor.cpp": PREPARED_DTOR.encode()})

@@ -2719,13 +2719,13 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
             raise Refusal("--to-class takes its evidence from retail's vftable: pass no --basis")
         return plan_to_class(ctx, rva, to_class, new, evidence=evidence, old=old, prepared=prepared,
                              max_files=max_files)
-    if prepared:
-        raise Refusal("--prepared sources go with --to-class only")
+    if prepared and not virtual:
+        raise Refusal("--prepared sources go with --to-class or --virtual only")
     if virtual:
         if new or basis:
             raise Refusal("--virtual keeps the identifier and takes its evidence from retail: "
                           "pass neither a new name nor a basis")
-        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files)
+        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files, prepared=prepared)
     rows = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva]
     if not rows:
         raise Refusal(f"no functions.csv row at 0x{rva:08X}")
@@ -3275,10 +3275,14 @@ def object_confirms(ctx, rel, symbols):
     return False
 
 
-def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
+def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None):
     """Plan respelling one row (and, for a destructor, its deleting
     destructors, or the reverse) from non-virtual to virtual on retail vtable
-    evidence; see the section comment. Raises Refusal; writes nothing."""
+    evidence; see the section comment. `prepared` ({rel: bytes}) supplies the
+    C++ of units whose view a `virtual` keyword alone cannot make virtual (a
+    base held as a member at +0 must become a base class, or the vptr would
+    shift every field); each is still respelled, compiled and byte-gated, and
+    must spell no old name afterwards. Raises Refusal; writes nothing."""
     owners = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva
               and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
     if old:
@@ -3371,6 +3375,8 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
 
     plan = Plan("function", first["name"], virtual_symbol(first["name"]), "virtual",
                 " ".join((evidence or "").split()), first["source"], rva, virtual=True)
+    prepared_rels = set(prepared or {})
+    _batch_source_edits(ctx, plan, prepared)
     plan.evidence = "; ".join(f"{old} -> {new}: {evidence_of[old]}" for old, new in pairs) + \
         (f"; {plan.evidence}" if plan.evidence else "")
 
@@ -3431,15 +3437,23 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
     search_word = "operator" if role == "stream" else word
     candidates |= declarers & set(ctx.grep_files(search_word, word=True)) if word else declarers
     by_object = object_referencers(ctx, set(olds))
-    candidates |= by_object | sources
-    headers, rewritten = [], set()
+    candidates |= by_object | sources | prepared_rels
+    headers, rewritten = [], set(prepared_rels)
     for rel in sorted(candidates):
-        data = ctx.read(rel)
+        data = plan.after.get(rel, ctx.read(rel))
         if data is None:
             raise Refusal(f"{rel} is listed but missing")
         text = data.decode("utf-8", errors="surrogateescape")
         new_text, made, respelled = respell_virtual_text(text, cls, word, pairs,
                                                       stream_operand=stream_operand)
+        if rel in prepared_rels:
+            left = [name for name in olds if name in new_text]
+            if left:
+                raise Refusal(f"prepared {rel} still spells {', '.join(left)} after the respell")
+        if new_text == text and rel in prepared_rels:
+            if rel not in ctx.ledger_sources():
+                headers.append(rel)
+            continue
         if new_text == text:
             # object_referencers widens to a text match where no current object
             # exists; only a current object naming an old symbol is a consumer
@@ -3453,7 +3467,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
             raise Refusal(f"generated source {rel} declares or spells {first['name']}; it is never edited")
         refuse_vendored(ctx, [rel], f"respelling {first['name']}")
         rewritten.add(rel)
-        plan.source_counts[rel] = {"virtual": made, "mangled": respelled}
+        plan.source_counts[rel] = dict(plan.source_counts.get(rel, {}), virtual=made, mangled=respelled)
         plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
         if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
             headers.append(rel)
@@ -3469,7 +3483,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
     if len(plan.verify) > max_files:
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows} | rvas) + \
-        sorted(f"file:{rel}" for rel in sources)
+        sorted(f"file:{rel}" for rel in sources | prepared_rels)
     written = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({rel for name in olds for rel in ctx.grep_files(name, roots=("docs", "reverse"))}
                            - written)
@@ -8539,7 +8553,9 @@ def main(argv=None):
                                "vftable names the new symbol there")
     function.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
                           help="with --to-class: the proposed bytes of Code source REL, read from FILE "
-                               "(repeatable): the definition under CLASS and any caller of the old member")
+                               "(repeatable): the definition under CLASS and any caller of the old member; "
+                               "with --virtual: a unit whose class view must change shape (not only gain "
+                               "`virtual`) for the respelled member to compile to retail's bytes")
     data = kinds.add_parser("global", parents=[common],
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
@@ -8641,15 +8657,15 @@ def main(argv=None):
         return 1 if problems else 0
     to_class = args.kind == "function" and args.to_class
     fold = args.kind == "class" and (args.fold is not None or args.into is not None)
-    if args.kind == "function" and args.prepared and not to_class:
-        parser.error("--prepared goes with --to-class")
+    if args.kind == "function" and args.prepared and not (to_class or args.virtual):
+        parser.error("--prepared goes with --to-class or --virtual")
     if args.kind == "class" and args.prepared and not fold:
         parser.error("--prepared goes with --fold")
     if to_class and (args.basis or not args.new):
         parser.error("function --to-class takes --new (the member's identifier in CLASS) and its evidence from "
                      "retail's vftable: pass no --basis")
     prepared = {}
-    for item in (args.prepared if to_class or fold else []):
+    for item in (args.prepared if to_class or fold or (args.kind == "function" and args.virtual) else []):
         rel, sep, path = item.partition("=")
         if not sep or not rel or not path:
             parser.error(f"--prepared {item!r} is not REL=FILE")
@@ -8678,7 +8694,8 @@ def main(argv=None):
     ctx = Context(args.root, object_scan=not args.no_object_scan, sweep_dirs=args.sweep_dir or ("build",))
     kwargs = dict(new=args.new, basis=args.basis, evidence=args.evidence, max_files=args.max_files)
     if virtual:
-        kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files)
+        kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
+                      prepared=prepared or None)
     if to_class:
         kwargs = dict(to_class=args.to_class, new=args.new, prepared=prepared, evidence=args.evidence or "",
                       max_files=args.max_files)
