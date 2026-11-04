@@ -49,6 +49,21 @@ census-index prerequisite. BridgeTowerBehavior's canonical header and class
 prerequisites are already recorded in LINK-168 and the canonical-module header
 handoff.
 
+## Follow-up dry runs after rebase onto `2ef33250353c722eeb98efd3b146d791bb4817dd`
+
+Four more allocated destinations passed `--check-tu`, used a current scoped
+planner report, and accepted no donors. LinkGuard retained all linked objects.
+
+| Destination | Dry-run blocker |
+|---|---|
+| `GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp` | Constructor donor signature is absent from the destination class view. |
+| `GameLogic/Object/Update/SlavedUpdate.cpp` | Pool-key donor redefines `AsciiString`; constructor donor needs absent `m_secondary20` / `m_24`; Rva donor needs `Object::m_modelConditionWords`; Xfer donor redefines `Xfer` and lacks `Version`; move-to-repair donor redefines `Coord3D` and `GameLogic`. |
+| `GameLogic/Object/Update/OCLUpdate.cpp` | Constructor donor signature is absent from the destination class view. |
+| `GameLogic/Object/Create/InheritUpgradeCreate.cpp` | Constructor signature and `xfer` / `onBuildComplete` are absent from the destination class view; module-data constructor is an undeclared compiler-generated special member. |
+
+These blockers need source/header owners to reconcile class declarations and
+private views. Do not retry these unchanged compositions.
+
 Next useful check: have the responsible code/header owners reconcile the stated
 declarations, class layouts, STLport or byte prerequisites, then recheck the
 destination's allocation and rerun the supported dry run. Do not apply any of
