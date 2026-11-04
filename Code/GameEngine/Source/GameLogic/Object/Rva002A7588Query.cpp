@@ -18,7 +18,7 @@ struct Rva002A7588Mid
 	char m_pad10C[9]; // 0x10C..0x114
 	unsigned char m_b115; // +0x115
 	char m_pad116[0x618 - 0x116];
-	int m_i618; // +0x618
+	int m_commandPoints; // +0x618
 };
 
 struct Rva002A7588In
@@ -44,7 +44,7 @@ int Rva002A7588::rva002A7588(Rva002A7588In *input)
 		return 0;
 	if ((q->m_b115 & 0x20) != 0)
 		return 0;
-	return q->m_i618;
+	return q->m_commandPoints;
 }
 
 // Add wrapper at retail 0x002A75B8 (17 bytes): forwards this plus its own

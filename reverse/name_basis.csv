@@ -8782,3 +8782,4 @@ function,?rva000820CA@Rva000820CA@@QAEXPAXH@Z,?onRiverAreaTextureNameChanged@Rva
 function,?rva0004C492@Rva004C743@@QAEPAXXZ,?createInGameUI@Rva004C743@@QAEPAXXZ,inferred,agree:nl-c64dcd4e5995,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,0x0004C492
 function,?Rva0010416EFloat@@YAMMM@Z,?angleDifference@@YAMMM@Z,inferred,agree:nl-7157eba98cd7,Code/GameEngine/Source/Common/Rva0010416EFloat.cpp,0x0010416E
 member,Rva001087BBNode::m_next114,Rva001087BBNode::m_next,inferred,agree:nl-d97a2b702001,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,
+member,Rva002A7588Mid::m_i618,Rva002A7588Mid::m_commandPoints,inferred,agree:nl-c4e8c508f441,Code/GameEngine/Source/GameLogic/Object/Rva002A7588Query.cpp,
