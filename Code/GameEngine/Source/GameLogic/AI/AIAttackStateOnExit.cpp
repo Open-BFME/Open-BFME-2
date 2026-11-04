@@ -111,12 +111,7 @@ class Rva002C9400ByteField
 public:
 	unsigned char get() const;
 };
-class WeaponTemplate
-{
-public:
-	unsigned char m_pad00[0x08];
-	AsciiString m_name; // +0x08
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 #include "../../../Include/GameLogic/Weapon.h"
 class ModelConditionFlags
 {
@@ -366,7 +361,7 @@ if (sourceAI && !victim->testStatus(OBJECT_STATUS_01) && victim->getContain() &&
 	{
 		if (!curWeapon)
 			return STATE_FAILURE;
-		if (((const StringBase<char> *)&m_weaponName)->compare(((const StringBase<char> *)&curWeapon->getTemplate()->m_name)->str()) != 0 &&
+		if (((const StringBase<char> *)&m_weaponName)->compare(((const StringBase<char> *)&curWeapon->getTemplate()->m_field08)->str()) != 0 &&
 			((const StringBase<char> *)&source->getTemplate()->m_nameString)->compare("GondorTrebuchet") != 0)
 			return STATE_FAILURE;
 	}
