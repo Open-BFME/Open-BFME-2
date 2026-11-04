@@ -69,19 +69,7 @@ class ModuleData;
 class Object;
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
-#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-
-struct SoundHolder
-{
-	SoundHolder() : m_ptr(0) {}
-	~SoundHolder()
-	{
-		if (m_ptr)
-			m_ptr->Release_Ref();
-	}
-
-	OpaqueRefCounted *m_ptr;
-};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 
 // ?getModuleNameKey@AudioLoopUpgrade@@UBE?AW4NameKeyType@@XZ @0x004B7BBB
 // (69B): cached pool-name key for AudioLoopUpgrade. The class
@@ -277,8 +265,8 @@ public:
 
 private:
 	unsigned int m_unused04;
-	SoundHolder m_soundToPlay; // +0x08
-	int m_killAfterMS; // +0x0C
+	OpaqueRefElement4 m_soundToPlay; // +0x08
+	unsigned int m_killAfterMS; // +0x0C
 	bool m_killOnDeath; // +0x10
 	unsigned char m_pad11[3];
 	Rva0025342CMember m_member14; // +0x14
