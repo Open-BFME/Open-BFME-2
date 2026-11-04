@@ -19,6 +19,7 @@ struct AreaPolygonBase {
  bool m_dirty; //24, native derived next field28
  __forceinline AreaPolygonBase() {}
  AreaPolygonBase(const AreaPolygonBase &);
+ AreaPolygonBase &operator=(const AreaPolygonBase &); // native30B92C
  void reserve(int);
  void rva0030B3D1();
  void insertPoint(int,const BfmeE8 &);
