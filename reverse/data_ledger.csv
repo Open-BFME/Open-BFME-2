@@ -19900,8 +19900,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A034C0,4,.data,global,?TheBezierProjectileBehaviorPoolKey@?1??getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp,owned,,1,2
 0x00A034C4,4,.data,global,?$S1@?1??getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp,owned,,1,4
 0x00A034C8,4,.data,global,_s_rva007B0B3C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A034CC,4,.data,global,?TheInstantDeathBehaviorPoolKey@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorPoolKey.cpp,owned,,1,2
-0x00A034D0,4,.data,global,?$S1@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorPoolKey.cpp,owned,,1,4
+0x00A034CC,4,.data,global,?TheInstantDeathBehaviorPoolKey@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp,owned,,1,2
+0x00A034D0,4,.data,global,?$S1@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp,owned,,1,4
 0x00A034D4,4,.data,global,_s_rva007B0B66,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A034D8,4,.data,global,?TheSlowDeathBehaviorPoolKey@?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Module/SlowDeathBehaviorPoolKey.cpp,owned,,1,2
 0x00A034DC,4,.data,global,?$S1@?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Module/SlowDeathBehaviorPoolKey.cpp,owned,,1,4
