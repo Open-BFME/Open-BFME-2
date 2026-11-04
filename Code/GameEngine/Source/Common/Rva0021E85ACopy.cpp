@@ -29,13 +29,7 @@ namespace _STL { template <> void _Destroy<pair<long const ,LadderPref> >(pair<l
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void _Construct<pair<long const ,LadderPref>,pair<long const ,LadderPref> >(pair<long const ,LadderPref> *,pair<long const ,LadderPref> const &); }
 
-class BfmeFixedStorage002CF0F0
-{
-public:
-	BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other) throw();
-private:
-	int m_00;
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 struct Tail108
 {
