@@ -43,7 +43,7 @@ static __forceinline void setCellPinched(PathfindCell *cell,bool b){if(b)cell->m
 static __forceinline bool getCellGate(const PathfindCell *cell){return ((cell->m_0C>>17)&1)!=0;}
 class Rva0052E001{public:bool rva0052E001(bool);};
 class Rva0052E02F{public:bool rva0052E02F(bool);};
-class PathfindZoneManager{public:void MarkDirty(int,int);};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 float Sin(float);float Cos(float);
 static __forceinline long float2long(float f){long i;__asm{
  fld f
@@ -54,7 +54,7 @@ static __forceinline long float2long(float f){long i;__asm{
 enum PathfindLayerEnum{LayerGround=1};
 class Pathfinder{public:
  void rva00530212(Object*,bool,bool,bool);void ClassifyWall(Object*,bool);void rva0052E4C9(Object*,bool);PathfindCell *getCell(PathfindLayerEnum,int,int);
- char pad0[0x10];PathfindCell**map;FootprintBounds extent;char pad24[0x460-0x24];PathfindZoneManager zones;char pad461[0x1beb4-0x461];bool changedWall,changedGate;
+ char pad0[0x10];PathfindCell**map;FootprintBounds extent;char pad24[0x460-0x24];PathfindZoneManager zones;bool changedWall,changedGate;
 };
 void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
 {

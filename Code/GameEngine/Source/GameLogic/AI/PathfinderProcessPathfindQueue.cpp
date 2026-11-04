@@ -186,7 +186,7 @@ struct QueueObjectView {char pad00[0x258];AIUpdateInterface *ai;};
 #include "../../../Include/Common/GlobalData.h"
 class PathfindCell;
 class PathfindLayer;
-class PathfindZoneManager {public:void Update(PathfindCell **,PathfindLayer *,const IRegion2D &);char pad[4];};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 class Rva002E713FOwner {public:void rva0052F294();};
 class Rva002EAC7CPool {public:void *rva002EAC7C();bool empty()const {return head==tail;}void *items[0x200];int head,tail;};
 extern TerrainLogic *TheTerrainLogic;
@@ -199,7 +199,7 @@ public:
  char pad00[8];bool ready;char pad09[0x10-9];void *map;IRegion2D extent;IRegion2D logicalExtent;
  char pad34[0x3C-0x34];int cumulative,word40,word44;
  char pad48[0x60-0x48];char layers[0x400];PathfindZoneManager zones;
- char pad464[0x1BEB4-0x464];bool flagA,flagB;
+ bool flagA,flagB;
  char pad1BEB6[0x1C1E0-0x1BEB6];Rva002EAC7CPool queue;
  Rva002EAC7CPool priorityQueue;
 };

@@ -273,14 +273,7 @@ char m_pad[0x14];
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
-class PathfindZoneManager
-{
-public:
-void rva005312BE(); void rva00531300();
-void rva00531481();
-void rva005314C6(Int x, Int y, unsigned char flag);
-unsigned char IsPassable(Int,Int);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 
 struct Rva002EBC7FPair { int x,y; };
@@ -413,7 +406,7 @@ MixFileInfoBuffer *m_closedList;Bool m_isTunneling;char m_pad039[0x48-0x39];Int 
 Bridge *m_bridges;
 PathfindLayer m_layers[16];
 PathfindZoneManager m_zoneManager;
-char m_pad461[0x1BEB6 - 0x461];
+char m_pad1BEB4[0x1BEB6 - 0x1BEB4];
 Bool m_1BEB6;		// +0x1BEB6: paths get a facing hint from the goal cell
 char m_pad1BEB7[5];
 float m_wallLayerHeights[48];

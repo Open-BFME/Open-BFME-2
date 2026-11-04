@@ -99,7 +99,7 @@ class Rva0036658B{public:bool rva0036658B(void*,void*);};
 #include "../../../Include/GameLogic/PathfindLayer.h"
 class Rva00366500{public:bool rva00366500(int);bool rva0036652D(int);};
 class Rva0052E001{public:bool rva0052E001(bool);};
-class PathfindZoneManager{public:void MarkDirty(int,int);};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic*TheGameLogic;
@@ -120,7 +120,7 @@ class Pathfinder
 public:
 	void ClassifyWall(Object *,bool);
 	bool rva0052E6E6(int,int,PathfindCell *,PolygonTrigger *,int,bool);
-	float &heightForLayer(int layer){return *((float*)((char*)this+0x1be78)+layer);}
+	float &heightForLayer(int layer){return heights[layer-17];}
 	const AsciiString &nameForLayer(int layer){return names[layer-17];}
 
 private:
@@ -129,7 +129,7 @@ private:
 	PathfindCell **m_map;
 	IRegion2D m_extent;
 	char pad24[0x5C-0x24];Bridge *bridges;PathfindLayer layers[16];PathfindZoneManager zones;
-	char pad461[0x1be91-0x461];bool changedLayer;char pad1BE92[0x1beb4-0x1be92];bool changedWall;char pad1BEB5[3];int heightCount;float heights[64];AsciiString names[64];char pad1C0BC[0x1c1c0-0x1c0bc];_STL::set<int>wallIDs;
+	bool changedWall;char pad1BEB5[3];int heightCount;float heights[64];AsciiString names[64];char pad1C0BC[0x1c1c0-0x1c0bc];_STL::set<int>wallIDs;
 };
 
 extern "C" void _ReadWriteBarrier();
@@ -160,7 +160,7 @@ void Pathfinder::ClassifyWall(Object*obj,bool insert)
      const PathfindLayer *entry = &layers[layer];
      if(!((Rva0036666B*)entry)->rva0036666B()){
       if(((Rva0036658B*)&layers[layer])->rva0036658B(poly,(void*)layer)){
-       if(allocated){layers[layer].allocateCells(&m_extent);changedLayer=true;}
+       if(allocated){layers[layer].allocateCells(&m_extent);zones.field1BA31=true;}
        break;
       }
       break;

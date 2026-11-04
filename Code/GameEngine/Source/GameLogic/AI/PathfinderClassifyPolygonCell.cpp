@@ -49,12 +49,7 @@ static __forceinline void cellUnpinch(PathfindCell *cell)
 {
  cell->m_0C&=~0x10000U;
 }
-class PathfindZoneManager 
-{
- public: void MarkDirty(Int,Int);
- 
-}
-;
+#include "Code/GameEngine/Include/GameLogic/PathfindZoneManager.h"
 class Pathfinder 
 {
  public:
@@ -62,8 +57,11 @@ class Pathfinder
  private:
  char prefix[0x460];
  PathfindZoneManager zones;
- char gap[0x1be78-0x461];
- float layerHeights[65];
+ // zones (0x1BA54 bytes) ends at +0x1BEB4; retail 0x0052E7B3/0x0052E7BC read
+ // this+0x1BE78+4*layer, i.e. heights[layer-17] below.
+ char pad1BEB4[0x1beb8-0x1beb4];
+ Int heightCount;
+ float heights[64];
  
 }
 ;
@@ -98,7 +96,7 @@ Bool Pathfinder::rva0052E6E6(Int x,Int y,PathfindCell *cell,PolygonTrigger *poly
  if(insert)
  {
   Int oldLayer=cell->getLayer();
-  if(!(unsigned char)Rva002E6E8AGet(oldLayer)||layerHeights[oldLayer]<layerHeights[layer])
+  if(!(unsigned char)Rva002E6E8AGet(oldLayer)||heights[oldLayer-17]<heights[layer-17])
   {
    if(reinterpret_cast<Rva00366500 *>(cell)->rva00366500(layer))zones.MarkDirty(x,y);
    

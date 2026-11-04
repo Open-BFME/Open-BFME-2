@@ -39,7 +39,7 @@ class Rva00366500{public:bool rva0036652D(int);bool rva00366500(int);};
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 bool Rva001E3679(int);
 #include "../../../Include/GameLogic/PathfindLayer.h"
-class PathfindZoneManager{public:void MarkDirty(int,int);char pad[4];};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 class Rva0052E001{public:bool rva0052E001(bool v);};
 class Object;
 struct Rva002ED236Pos {float x,y,z;Rva002ED236Pos(const Coord3D &p){x=p.x;y=p.y;z=p.z;}~Rva002ED236Pos(){}};
@@ -133,7 +133,7 @@ int BridgeUpdateNeighborY[8]={0,0,-1,1,-1,-1,1,1};
 class Rva002E713FOwner {public:
  void rva0052ED74(void *,int);
  char pad00[0x10];PathfindCell **map;int loX,loY,hiX,hiY;char pad24[0x5C-0x24];Bridge *bridges;
- PathfindLayer layers[16];PathfindZoneManager zones;char pad464[0x1BEB4-0x464];bool changed;
+ PathfindLayer layers[16];PathfindZoneManager zones;bool changed;
 };
 void Rva002E713FOwner::rva0052ED74(void *opaque,int flags)
 {

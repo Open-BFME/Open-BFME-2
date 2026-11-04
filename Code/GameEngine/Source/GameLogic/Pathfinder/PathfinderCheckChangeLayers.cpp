@@ -307,12 +307,7 @@ struct IRegion2D;
 class Xfer;
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
-class PathfindZoneManager
-{
-public:
-	void rva00531481();
-	void rva005314C6(Int x, Int y, unsigned char flag);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 
 struct Rva002EBC7FPair
@@ -511,7 +506,7 @@ private:
 	Bridge *m_bridges;
 	PathfindLayer m_layers[16];
 	PathfindZoneManager m_zoneManager;
-	char m_pad461[0x1BEB6 - 0x461];
+	char m_pad1BEB4[0x1BEB6 - 0x1BEB4];
 	Bool m_1BEB6;		// +0x1BEB6: paths get a facing hint from the goal cell
 	char m_pad1BEB7[5];
 	float m_wallLayerHeights[48];

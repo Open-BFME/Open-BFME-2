@@ -68,11 +68,7 @@ Xfer *Rva002F1CDDXfer(Xfer *xfer, PathfinderIntSet *values);
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
-class PathfindZoneManager
-{
-public:
-	void DoXfer(Xfer *xfer);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 class PathfindRequestRing
 {
@@ -113,7 +109,6 @@ public:
 	char m_pad48[0x5C - 0x48];
 	PathfindLayer m_layers[16];		// +5C
 	PathfindZoneManager m_zoneManager;	// +45C
-	char m_pad45D[0x1BEB0 - 0x45D];
 	bool m_1BEB0;				// +1BEB0
 	bool m_1BEB1;				// +1BEB1
 	char m_pad1BEB2[0x1BEB4 - 0x1BEB2];
