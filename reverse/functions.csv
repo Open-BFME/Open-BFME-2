@@ -8972,8 +8972,6 @@ _luaT_tag,,0x0074FDD0,28,Code/Libraries/Source/Lua/ltm.c,matched,call-free type 
 ?get@Rva005C4AE9DwordField@@QBEHXZ,,0x005C4AE9,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; b1 0x0099EC90; 2 DIR32 string literal(s) agree
 ?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,,0x0054B456,101,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,matched,stlport 4.5.3; dedicated TU with int-float element for movss copy and /Oy- ebp frame; a-then-b assignment order
-?narrowRange@T2NarrowCtype@@QBEPBDPBD0DPAD@Z,,0x00016C60,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,BFME1 byte-identical donor; b1 0x00840880
-?widenRange@T2NarrowCtype@@QBEPBDPBD0PAD@Z,,0x00016C20,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,BFME1 byte-identical donor; b1 0x00840840
 ??0Rva0040C1F0@@QAE@XZ,,0x005B72BE,41,Code/GameEngine/Source/GameClient/Credits.cpp,matched,BFME1 byte-identical donor; b1 0x0040C1F0
 ??0Rva00704980@@QAE@XZ,,0x000B6D26,37,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp,matched,BFME1 byte-identical donor; b1 0x00704980; provider rehomed for C48DB EDX lifetime
 ??0Rva0013A8B0@@QAE@XZ,,0x0050C4C6,34,Code/GameEngine/Source/Common/R3ScalarFieldConstructors3.cpp,matched,BFME1 byte-identical donor; b1 0x0013A8B0
@@ -99432,3 +99430,5 @@ ___TranslateToSystem,,0x00022320,57,Code/Libraries/Source/WWVegas/WWLib/stlport_
 ?do_tolower@?$ctype@G@_STL@@MBEPBGPAGPBG@Z,,0x00016DC0,50,Code/GameEngine/Source/Common/T2WideCtype.cpp,matched,stlport-4.6 src/ctype.cpp ctype<wchar_t> range form; vftable 0x007BBAD0 slot 7; migrated=stlport-4.6
 ?do_widen@?$ctype@G@_STL@@MBEPBDPBD0PAG@Z,,0x00016E10,36,Code/GameEngine/Source/Common/T2WideCtype.cpp,matched,stlport-4.6 src/ctype.cpp ctype<wchar_t> range form; vftable 0x007BBAD0 slot 9; migrated=stlport-4.6
 ?do_narrow@?$ctype@G@_STL@@MBEPBGPBG0DPAD@Z,,0x00016E60,57,Code/GameEngine/Source/Common/T2WideCtype.cpp,matched,stlport-4.6 src/ctype.cpp ctype<wchar_t> range form; vftable 0x007BBAD0 slot 11; migrated=stlport-4.6
+?do_widen@?$ctype@D@_STL@@MBEPBDPBD0PAD@Z,,0x00016C20,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,stlport-4.6 src/ctype.cpp ctype<char> range form (__copy_trivial); vftable 0x007BC3E4 slot 5; migrated=stlport-4.6
+?do_narrow@?$ctype@D@_STL@@MBEPBDPBD0DPAD@Z,,0x00016C60,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,stlport-4.6 src/ctype.cpp ctype<char> range form (__copy_trivial); vftable 0x007BC3E4 slot 7; migrated=stlport-4.6

@@ -3,29 +3,16 @@
 #include <locale>
 #include <string.h>
 
+// stlport46
+//
 // Character-classification members use STLport's two 256-byte case maps and a
 // 256-entry classification-mask table. Each table base is established by a
 // matched BFME2 DIR32 reference; the element widths and byte-range checks
 // establish the spans. All initialized table bytes match BFME2 retail.
 //
-// BFME1 byte-identical donor (reference/open-bfme-1
-// Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp); trimmed to the seven
-// bodies the sweep places. The donor's remaining sibling defs (under 16B or
-// ambiguous) are omitted: only declared here, never defined, so the
-// find_declared_unmatched gate stays green. The donor declares t2_block_copy
-// but retail reaches memmove, so the declaration is renamed to the real
-// import (Import-ref verify refuses it otherwise; no pin can fix this).
-
-// The matched narrow range helpers need no local ctype specialization.
-// The owning STLport unit supplies its real declaration during composition.
-
-struct T2NarrowCtype
-{
-	char toUpper(char c) const;
-	const char *toLowerRange(char *low, char *high) const;
-	const char *widenRange(const char *low, const char *high, char *to) const;
-	const char *narrowRange(const char *low, const char *high, char dflt, char *to) const;
-};
+// The range forms of do_widen and do_narrow copy with STLport 4.6's
+// __copy_trivial (src/ctype.cpp), whose empty-range test and memmove retail
+// keeps inline.
 
 namespace _STL
 {
@@ -62,7 +49,7 @@ char ctype<char>::do_widen(char __c) const
 const char *ctype<char>::do_widen(const char *__low, const char *__high,
                                   char *__to) const
 {
-	memcpy(__to, __low, __high - __low);
+	__copy_trivial(__low, __high, __to);
 	return __high;
 }
 
@@ -74,34 +61,12 @@ char ctype<char>::do_narrow(char __c, char) const
 const char *ctype<char>::do_narrow(const char *__low, const char *__high,
                                    char, char *__to) const
 {
-	memcpy(__to, __low, __high - __low);
+	__copy_trivial(__low, __high, __to);
 	return __high;
 }
 
 }
 
-// ---- from Code/GameEngine/Source/Common/T2NarrowCtype.cpp
-
-// ---- from Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp
-
-const char *T2NarrowCtype::widenRange(const char *low, const char *high, char *to) const
-{
-	if (high != low)
-		memmove(to, low, (unsigned int)(high - low));
-	return high;
-}
-
-const char *T2NarrowCtype::narrowRange(const char *low, const char *high, char, char *to) const
-{
-	if (high != low)
-		memmove(to, low, (unsigned int)(high - low));
-	return high;
-}
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ctype_virtuals.cpp
-
-// stlport46
-//
 // ctype<char>'s eight virtuals, from its vftable at 0x007BC3E4. The slot order
 // confirms the overload rule found in num_put: within one name MSVC lays the
 // overloads out in REVERSE declaration order, so each range form comes before
