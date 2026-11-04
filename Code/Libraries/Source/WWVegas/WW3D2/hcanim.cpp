@@ -259,18 +259,7 @@ private:
 ** BFME2's newer per-pivot channels (VectorMotion). The type names are the
 ** descriptive ones of BFME2MotionChannelFactory.cpp; slot 3 samples one float.
 */
-class BFME2MotionChannel
-{
-public:
-	virtual bool Load(ChunkLoadClass &);
-	virtual ~BFME2MotionChannel();
-	virtual int UnknownSlot2();
-	virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
-	virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
-	virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
-	virtual int UnknownSlot6();
-	int Type, Pivot, Count, Components;
-};
+#include "../../../../GameEngine/Include/GameClient/BFME2MotionChannel.h"
 
 // The factory at 0x001A46B4 (BFME2MotionChannelFactory.cpp).
 BFME2MotionChannel * Load_BFME2MotionChannel(ChunkLoadClass & cload);
@@ -958,9 +947,9 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 				{
 					BFME2MotionChannel * chan = Load_BFME2MotionChannel(cload);
 					if (chan) {
-						if (chan->Pivot < NumNodes) {
+						if (chan->m_08 < NumNodes) {
 							int idx;
-							switch (chan->Type) {
+							switch (chan->m_04) {
 								case ANIM_CHANNEL_X:		idx = 0; break;
 								case ANIM_CHANNEL_Y:		idx = 1; break;
 								case ANIM_CHANNEL_Z:		idx = 2; break;
@@ -968,8 +957,8 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 								case ANIM_CHANNEL_FADE:	idx = 4; break;
 								default:					idx = -1; break;
 							}
-							if (idx != -1 && VectorMotion[chan->Pivot].Channels[idx] == NULL) {
-								VectorMotion[chan->Pivot].Channels[idx] = chan;
+							if (idx != -1 && VectorMotion[chan->m_08].Channels[idx] == NULL) {
+								VectorMotion[chan->m_08].Channels[idx] = chan;
 							} else {
 								::delete chan;
 							}
