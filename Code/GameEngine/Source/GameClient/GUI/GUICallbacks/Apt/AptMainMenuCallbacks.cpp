@@ -739,7 +739,7 @@ int AptMainMenu::rva00514950(int msg, int p1, int p2)
 // neither original field names nor that receiver's class identity are known.
 // BFME1 10b888 main-menu callbacks provide subsystem/API context only;
 // this BFME2-specific callback is reconstructed from retail and WB evidence.
-class LivingWorldCampaignManager {public:int rva003B8F20();};
+#include "../../../../../Include/Common/LivingWorldCampaignManager.h"
 class Rva00E02D6C;extern Rva00E02D6C *TheCampaignManager;
 #include "../../../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;

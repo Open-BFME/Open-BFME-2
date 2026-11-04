@@ -11,7 +11,7 @@ class AsciiString;
 
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
-class LivingWorldCampaignManager { public: bool rva003B8CAC(); };
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
