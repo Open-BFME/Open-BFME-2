@@ -370,12 +370,7 @@ public:
 	void DispatchSpyEvent(void *object, int eventKey, int spyKey);	// 0x002628C3 pinned
 };
 #pragma function(strcmp)
-class GameState
-{
-	char m_pad00[0x2c];
-public:
-	AsciiString m_pristineMapName;                                       // +0x2C
-};
+#include "../../../Include/Common/GameState.h"
 class Rva002DC7C1
 {
 public:
