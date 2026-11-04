@@ -19,7 +19,7 @@ class Rva002A7DDEArg;
 class Rva002A7DDE {public:bool rva002A7DDE(Rva002A7DDEArg*);};
 class Rva00528C65 {public:AsciiString rva00528C65() const;int rva00528C85(Player*);void *vtable;struct Data {char unknown[0x128];bool percentage;};Data *data;};
 class Rva00528BDD {public:void rva00528BDD();};
-class Rva00222A8BTarget {public:int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface {public:

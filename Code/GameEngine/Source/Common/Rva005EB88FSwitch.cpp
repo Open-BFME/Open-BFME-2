@@ -2,12 +2,7 @@
 // cl: /O1 /MD /arch:SSE /G7
 // ?rva005EB88F@Rva005EB88F@@QAEXXZ, RVA 0x005EB88F, 59 bytes.
 // Address-based state dispatch. Evidence: retail reads the state at +8, invokes the rowed predicate at +0x34, uses the pinned manager method with +4, and tail-calls the rowed Rva005EB825 method through +0.
-class Rva00222A8BTarget
-{
-public:
-	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva005FA854

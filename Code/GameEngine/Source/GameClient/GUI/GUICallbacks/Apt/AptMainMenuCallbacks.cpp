@@ -574,12 +574,7 @@ public:
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);	// rowed 0x00222A8B
-	void rva00222F55(bool show);			// 0x00222F55, AptPlayer::HideBackground
-};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 class VideoPlayerInterface
 {

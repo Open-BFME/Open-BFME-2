@@ -72,11 +72,7 @@ void Rva005174E4::rva005174E4()
 // answers 1; with bit 0 of the third argument, state 1 at +0x27C runs the
 // rowed 0x0051847B(0) and state 2 first asks the Apt target at VA
 // 0x00DFE4CC to invoke "CloseAdvancedSettings" on the +0x274 movie.
-class Rva00222A8BTarget
-{
-public:
-	Int invoke(void *movie, const char *name, Int a, const char *b, void *c, void *d, void *e, void *f);
-};
+#include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0051847B
 {

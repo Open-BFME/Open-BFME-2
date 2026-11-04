@@ -378,14 +378,7 @@ class GameWindow;
 
 class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *window, const char *function, int argc, const char *arg,
-		void *arg1, void *arg2, void *arg3, void *arg4);
-	void rva00222F55(bool flag);
-	void rva002233A6(int mode);
-};
+#include "../../../Include/Common/Rva00222A8BTarget.h"
 
 // RegistryAsciiPath.cpp's "text + AsciiString" node (rowed 0x002226E5) and
 // its materializer 0x0022309D.
