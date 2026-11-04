@@ -43,14 +43,7 @@ void setFPMode();				// 0x00040EA9
 #include "../../Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 
-class GameWindowManager
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09();
-	virtual void slot10();				// slot 10 (+0x28)
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 
 extern __int64 g_bfmeVM0Quotient;
@@ -165,7 +158,7 @@ UnsignedInt Display::rva0025CF2A(Int force)
 					result = m_videoStream->advance(m_movieFlags);
 					if (result & 2)
 						m_5D = true;
-					TheWindowManager->slot10();
+					TheWindowManager->update();
 					render(false);
 					BFME_DX8_Thread_Assert();
 					setFPMode();

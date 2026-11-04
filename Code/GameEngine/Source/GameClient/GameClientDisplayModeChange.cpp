@@ -39,14 +39,7 @@ extern Mouse *TheMouse;
 void Rva0041267F();
 
 // Both window managers refresh through their vslot 10.
-class GameWindowManager
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09();
-	virtual void v10();
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 
@@ -130,7 +123,7 @@ void GameClient::rva00239759()
 		if (TheShell)
 			TheShell->init();
 
-		TheWindowManager->v10();
+		TheWindowManager->update();
 		g_bfmeAptWindowManager->v10();
 		TheInGameUI->recreateControlBar();
 

@@ -16,7 +16,8 @@ template<int N>class MovieSlots:public MovieSlots<N-1>{public:virtual void gap(c
 #include "../../Include/Common/GameAudio.h"
 extern AudioManager*TheAudio;
 class GlobalData;extern GlobalData*TheWritableGlobalData;struct MovieSettings{char pad0[0x11c8];bool enabled;};
-class GameWindowManager:public MovieSlots<10>{public:virtual void pump()=0;};extern GameWindowManager*TheWindowManager;
+#include "../../Include/GameClient/GameWindowManager.h"
+extern GameWindowManager*TheWindowManager;
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse*TheMouse;
 class GameWindowTransitionsHandler:public MovieSlots<9>{public:virtual void reset()=0;virtual void pump()=0;};extern GameWindowTransitionsHandler*TheTransitionHandler;
@@ -34,7 +35,7 @@ bool W3DDisplay::rva0025D6F5(AsciiString name,bool allowSkip,int flags){
  SendMessageA((HWND)ApplicationHWnd,15,0,0);g_bfmeVM0Scale=(1.0/30.0)/(double)g_bfmeVM0Total*1000.0;
  TheGameLogic->rva0023CD9E(true,0,false);bool active=bfmeGoEMEa(0);if(TheAudio)TheAudio->slot69();
  if(startMovie(name,flags|8,-1,-1)){
-  flag10c=true;unsigned pending=0;bool skipRequested=false;bool drawFrame=false;TheWindowManager->pump();TheMouse->_bfme_setEngineVisibility(false);bool alternateAudio=false;bool done;
+  flag10c=true;unsigned pending=0;bool skipRequested=false;bool drawFrame=false;TheWindowManager->update();TheMouse->_bfme_setEngineVisibility(false);bool alternateAudio=false;bool done;
   do{if(Rva0025CEEFCheck(allowSkip))skipRequested=true;done=((Display*)this)->rva0025CC7A(skipRequested);
    if(stream&&!(pending&2)){pending|=stream->advance(0);drawFrame=(pending&1)!=0;}else done=true;
    if(drawFrame){drawFrame=false;pending&=~1U;reinterpret_cast<Rva0025C3AA*>(this)->rva0025C3AA();render(true);TheTransitionHandler->pump();TheGameEngine->pump();if(alternateAudio){TheAudio->slot71();alternateAudio=false;}else alternateAudio=true;setFPMode();}
@@ -43,5 +44,5 @@ bool W3DDisplay::rva0025D6F5(AsciiString name,bool allowSkip,int flags){
   close();flag64=false;rva0025D2F6();TheKeyboard->pump();
  }
  if(TheAudio)TheAudio->slot70();if(!((MovieSettings*)TheWritableGlobalData)->enabled&&active)bfmeSetReceiverFlag(0);TheGameLogic->rva0023CD9E(false,0,false);
- if(flags&0x100000){TheTransitionHandler->reset();TheMouse->_bfme_setEngineVisibility(true);}TheWindowManager->pump();return true;
+ if(flags&0x100000){TheTransitionHandler->reset();TheMouse->_bfme_setEngineVisibility(true);}TheWindowManager->update();return true;
 }

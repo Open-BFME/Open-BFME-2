@@ -53,11 +53,7 @@ public:
 
 GameWindow *createGadget(char *type, void *data, GadgetCreateView *view, GameWindow *source);
 
-class GameWindowManager
-{
-public:
-	GameWindow *duplicateGadget(GameWindow *source, Int id);
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 GameWindow *GameWindowManager::duplicateGadget(GameWindow *source, Int id)
 {

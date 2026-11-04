@@ -24,20 +24,10 @@ protected:
  GameWindow *m_windows;
  unsigned char pad0c[0x24-0x0c];
 };
-class GameWindowManager {
-public:
-#define SLOT(n) virtual void slot##n();
- SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7)
- SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
- SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
- SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31)
- SLOT(32) SLOT(33) SLOT(34) SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39)
- SLOT(40) SLOT(41) SLOT(42) SLOT(43) SLOT(44) SLOT(45) SLOT(46) SLOT(47)
- SLOT(48) SLOT(49) SLOT(50) SLOT(51) SLOT(52) SLOT(53) SLOT(54) SLOT(55)
- SLOT(56) SLOT(57)
-#undef SLOT
- virtual void getWindow(GameWindow *,unsigned,unsigned,GameWindow **);
-};
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 #include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;
@@ -56,7 +46,7 @@ AptWindowLayout::AptWindowLayout(void *info) : BfmeQuickMatchScreenBase(info)
  m_gameWindow=0;
  m_flag28=false;
  GameWindow *window=m_windows;
- TheWindowManager->getWindow(window,29,2000,&m_gameWindow);
+ TheWindowManager->winSendSystemMsg(window,29,2000,(unsigned int)&m_gameWindow);
  if(m_gameWindow!=window) return;
  const AsciiString &filename=*reinterpret_cast<AsciiString *>(reinterpret_cast<char *>(m_gameWindow)+0x270);
  int level=reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddLevel(AsciiString("Apt\\"),filename,false,reinterpret_cast<int>(m_gameWindow));

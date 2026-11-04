@@ -82,21 +82,7 @@ public:
 	void enable();
 };
 
-class GameWindowManager
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual unsigned advance(Int flags);
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();			// +0x28
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 
 class Display
@@ -240,7 +226,7 @@ Bool Display::rva0025CC7A(Bool skip)
 				m_movieState = 2;
 				TheTransitionHandler->setGroup(group, false);
 				((Rva001DBB82OneSetter *)TheTransitionHandler)->enable();
-				TheWindowManager->slot10();
+				TheWindowManager->update();
 			}
 			else if (m_movieFlags & 0x200)
 			{
@@ -252,7 +238,7 @@ Bool Display::rva0025CC7A(Bool skip)
 				m_movieState = 2;
 				TheTransitionHandler->setGroup(group, false);
 				((Rva001DBB82OneSetter *)TheTransitionHandler)->enable();
-				TheWindowManager->slot10();
+				TheWindowManager->update();
 			}
 			else if (skip)
 			{

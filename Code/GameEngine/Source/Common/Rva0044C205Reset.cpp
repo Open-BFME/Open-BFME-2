@@ -66,21 +66,7 @@ public:
 };
 extern GameEngine *TheGameEngine;
 
-class GameWindowManager
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 
 #include "../../Include/Common/Rva00222A8BTarget.h"
@@ -111,7 +97,7 @@ void Rva0044C205Reset()
 		TheNetwork->slot40(0);
 	TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
 	TheGameEngine->slot5c();
-	TheWindowManager->slot28();
+	TheWindowManager->update();
 	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->slot28();
 	TheDisplay->slot28();
 	TheDisplay->slot30();
