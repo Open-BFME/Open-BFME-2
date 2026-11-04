@@ -145,3 +145,5 @@ prerequisite; other consumers above remain blocked. Carry the table/provider
 change into the next scheduled census; no new linked-byte gain is claimed.
 
 Clearance: only the named retained adoptions and their local preview scope are verified; no new linked-unit or headline gain claimed. Census confirmation: pending.
+
+2026-11-04: BuildPlot canonical-class adoption also needs its native slot providers: the destructor trial passes 11/11 byte rows but introduces three unresolved compatibility overrides (preview 194 -> 0); restored source preserves 194 -> 194. All seven queue rows remain. [Trial and next prerequisites](../../reverse/attempt_support/livingworldbuildplot-header-20261104-codex.md).

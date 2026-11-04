@@ -1,0 +1,60 @@
+diff --git a/Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp b/Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp
+index 0bca564bc2..fb36b261c3 100644
+--- a/Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp
++++ b/Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp
+@@ -13,11 +13,8 @@
+ // the polymorphic interface out at +4 yet constructs it last). Class name address-derived; the list is a 4-byte
+ // POD stand-in whose buffer retail frees.
+ #include <stdlib.h>
+-#include <vector>
+ #include "Common/Snapshot.h"
+ 
+-enum ObjectID { INVALID_ID = 0 };
+-
+ #include "../../Include/Common/RegionTurnObserverView.h"
+ 
+ class Rva004FC320Listener
+@@ -56,20 +53,16 @@ public:
+ };
+ extern LivingWorldLogic *TheLivingWorldLogic;
+ 
+-class LivingWorldBuildPlot : public Snapshot, public _STL::vector<ObjectID>, public RegionTurnObserverView
++#include "../../Include/GameLogic/LivingWorldBuildPlot.h"
++
++inline Rva00330757Member::~Rva00330757Member()
+ {
+-public:
+-	virtual ~LivingWorldBuildPlot();
+-	virtual void BeginTurn(int a, int b);
+-private:
+-	char m_pad14[0x20 - 0x14];
+-	Rva000AD6F4 m_20;
+-	Rva000AD6F4 m_24;
+-};
++	if (field00) free(field00);
++}
+ 
+ LivingWorldBuildPlot::~LivingWorldBuildPlot()
+ {
+-	((Rva004FC320List *)static_cast<_STL::vector<ObjectID> *>(this))->forEach(&Rva004FC320Listener::notify, this);
++	((Rva004FC320List *)static_cast<Rva00330757Member *>(this))->forEach(&Rva004FC320Listener::notify, this);
+ 	TheLivingWorldLogic->m_1C.rva002B7250((CreateAHeroData *)static_cast<RegionTurnObserverView *>(this));
+ }
+ 
+@@ -96,13 +89,13 @@ void LivingWorldBuildPlot::BeginTurn(int a, int b)
+ {
+ 	if (!a)
+ 	{
+-		Rva005392C2 *icon = (Rva005392C2 *)m_24.m_ptr;
++		Rva005392C2 *icon = (Rva005392C2 *)field24.m_ptr;
+ 		if (icon)
+-			icon->v08(m_20.m_ptr != 0, true);
++			icon->v08(field20.m_ptr != 0, true);
+ 	}
+ 	if (!b)
+ 	{
+-		Rva005392C2 *icon = (Rva005392C2 *)m_24.m_ptr;
++		Rva005392C2 *icon = (Rva005392C2 *)field24.m_ptr;
+ 		if (icon)
+ 			icon->rva005392C2();
+ 	}
