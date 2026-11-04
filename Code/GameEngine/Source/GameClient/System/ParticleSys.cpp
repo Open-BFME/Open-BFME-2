@@ -739,10 +739,7 @@ template <> void **vector<void*>::end();
 struct Rva001F4325Element { unsigned words[1];operator unsigned() const {return words[0];}bool operator<(const Rva001F4325Element& b)const{return words[0]<b.words[0];}bool operator==(const Rva001F4325Element& b)const{return words[0]==b.words[0];} };
 template class _STL::hash_set<Rva001F4325Element,_STL::hash<unsigned> >;
 #include "../../../Include/Common/File.h"
-struct Rva001F458BText {
-    const char* m_start;
-    const char* m_finish;
-};
+#include "../../../Include/GameClient/Rva001F458BText.h"
 // ?get@Rva001F45DFSlot@@QBEHXZ @0x001F45DF 16B.
 // Reads pointer at +0x3c, falls back to pinned ?Make001FCBD7@@YAPAVParticleSystem@@XZ
 // when null, then returns dword at +0x7c through it. Caller at 0x001F4892.
@@ -2116,7 +2113,7 @@ bool rva001F430A(const Rva001F430APointerCell *p) {return !p->word;}
 
 File& Rva001F458BWrite(File& file, const Rva001F458BText& text)
 {
-    file.write(text.m_start, (int)(text.m_finish - text.m_start));
+    file.write(text.field00, (int)(text.field04 - text.field00));
     return file;
 }
 
