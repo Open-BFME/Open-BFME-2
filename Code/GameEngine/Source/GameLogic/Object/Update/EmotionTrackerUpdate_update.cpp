@@ -25,10 +25,10 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 	if (id == INVALID_OBJECT_ID)
 		return 0;
 	ObjectPtrHash &map = *reinterpret_cast<ObjectPtrHash *>(reinterpret_cast<char *>(this) + 0xB4);
-	ObjectPtrHash::iterator it = map.find(id);
-	if (it == map.end())
+	ObjectPtrHash::iterator objectIterator = map.find(id);
+	if (objectIterator == map.end())
 		return 0;
-	return (*it).second;
+	return (*objectIterator).second;
 }
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
@@ -142,7 +142,7 @@ public:
 // providers and +8/+C/+10 fields are already recovered under these names.
 class Rva00261513Filter:public Rva000421C8 {
 public:
-    Rva00261513Filter(Object *o,float r):object(o),flag(true),range(r) {}
+    Rva00261513Filter(Object *sourceObject,float filterRange):object(sourceObject),flag(true),range(filterRange) {}
     virtual bool allow(Object *);
     Object *object;
     bool flag;
@@ -182,7 +182,7 @@ extern TerrainLogic *TheTerrainLogic;
 class View;
 extern View *TheTacticalView;
 extern PartitionManager *ThePartitionManager;
-inline unsigned long GameMakeColor(unsigned char r,unsigned char g,unsigned char b,unsigned char a) { return (a<<24)|(r<<16)|(g<<8)|b; }
+inline unsigned long GameMakeColor(unsigned char red,unsigned char green,unsigned char blue,unsigned char alpha) { return (alpha<<24)|(red<<16)|(green<<8)|blue; }
 extern PartitionManager *TheShroudManager;
 extern PlayerList *ThePlayerList;
 extern ThingFactory *TheThingFactory;
@@ -375,10 +375,10 @@ UpdateSleepTime EmotionTrackerUpdate::update()
                 active->OnActivation(TheGameLogic->findObjectByID(targetID[active->getType()]),0);
         }
     }
-    for(int i=0;i<12;++i) {
-        if(expiry[i] && TheGameLogic->getFrame()>=expiry[i]) {
-            flags[i]=false;
-            expiry[i]=0;
+    for(int emotionIndex=0;emotionIndex<12;++emotionIndex) {
+        if(expiry[emotionIndex] && TheGameLogic->getFrame()>=expiry[emotionIndex]) {
+            flags[emotionIndex]=false;
+            expiry[emotionIndex]=0;
         }
     }
     return (UpdateSleepTime)1;

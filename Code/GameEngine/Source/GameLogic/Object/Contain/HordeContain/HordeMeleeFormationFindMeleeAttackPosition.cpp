@@ -160,7 +160,7 @@ struct FormationNode { FormationNode *next,*prev; Object *object; };
 struct FormationList { FormationNode *head; };
 struct FormationRange {
  void *owner; FormationList *list;
- unsigned int size() const { unsigned int n=0; for(FormationNode *formationNode=list->head->next;formationNode!=list->head;formationNode=formationNode->next) ++n; return n; }
+ unsigned int size() const { unsigned int memberCount=0; for(FormationNode *formationNode=list->head->next;formationNode!=list->head;formationNode=formationNode->next) ++memberCount; return memberCount; }
 };
 class FormationListProvider : public FormationSlots<70> { public: virtual void fill(FormationRange *)=0; };
 class FormationLeaderProvider : public FormationSlots<38> { public: virtual void setLeader(Object *)=0; };
@@ -227,18 +227,18 @@ inline void Coord3D::scale(float s)
 	z *= s;
 }
 
-static __forceinline void copyCoord(Coord3D &c, const Coord3D *a)
+static __forceinline void copyCoord(Coord3D &destination, const Coord3D *source)
 {
-	c.x = a->x;
-	c.y = a->y;
-	c.z = a->z;
+	destination.x = source->x;
+	destination.y = source->y;
+	destination.z = source->z;
 }
 
-static __forceinline void subCoord(Coord3D &c, const Coord3D *a)
+static __forceinline void subCoord(Coord3D &coordinate, const Coord3D *subtrahend)
 {
-	c.x -= a->x;
-	c.y -= a->y;
-	c.z -= a->z;
+	coordinate.x -= subtrahend->x;
+	coordinate.y -= subtrahend->y;
+	coordinate.z -= subtrahend->z;
 }
 
 Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, Object *victim, const Coord3D *victimPos,
@@ -283,21 +283,21 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 	Bool blocked = !TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &pos, &pos);
 
 	Coord3D lastGood;
-	Int i, j;
+	Int xStep, j;
 	copyCoord(lastGood, &pos);
 	if (blocked)
 	{
 		for (Int r = 1; r <= 2 && blocked; r++)
 		{
-			for (i = -r; i <= r && blocked; i++)
+			for (xStep = -r; xStep <= r && blocked; xStep++)
 			{
 				for (j = -r; j <= r && blocked; j++)
 				{
-					if (i == r || j == r || i == -r || j == -r)
+					if (xStep == r || j == r || xStep == -r || j == -r)
 					{
 						Coord3D cand;
 						copyCoord(cand, &pos);
-						cand.x += (Real)i * 10.0f;
+						cand.x += (Real)xStep * 10.0f;
 						cand.y += (Real)j * 10.0f;
 						if (TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &cand, &cand))
 						{
@@ -313,28 +313,28 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 	PathfindLayerEnum objLayer = (PathfindLayerEnum)obj->rva0028B511();
 	for (Int r = 1; r <= rings; r++)
 	{
-		for (i = -r; i <= r; i++)
+		for (xStep = -r; xStep <= r; xStep++)
 		{
 			for (j = -r; j <= r; j++)
 			{
-				if ((i == 0 && j == 0 && r <= 1) || i == r || j == r || i == -r || j == -r)
+				if ((xStep == 0 && j == 0 && r <= 1) || xStep == r || j == r || xStep == -r || j == -r)
 				{
-					Real ox = (Real)i * 10.0f;
-					Real oy = (Real)j * 10.0f;
+					Real xOffset = (Real)xStep * 10.0f;
+					Real yOffset = (Real)j * 10.0f;
 					Coord3D delta;
-					delta.x = pos.x + ox;
-					delta.y = pos.y + oy;
+					delta.x = pos.x + xOffset;
+					delta.y = pos.y + yOffset;
 					delta.z = 0.0f;
 					subCoord(delta, victimPos);
 					delta.z = 0.0f;
 					Real candDist;
-					if (i == 0 && j == 0)
+					if (xStep == 0 && j == 0)
 					{
 						candDist = 0.0f;
 						delta.Normalize();
 						delta.scale(14.0f);
-						ox = -delta.x;
-						oy = -delta.y;
+						xOffset = -delta.x;
+						yOffset = -delta.y;
 					}
 					else
 					{
@@ -345,8 +345,8 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 
 					Coord3D cand;
 					copyCoord(cand, &pos);
-					cand.x += ox;
-					cand.y += oy;
+					cand.x += xOffset;
+					cand.y += yOffset;
 					leader->rva002C97E8(leader->getPosition(), &cand);
 
 					PathfindLayerEnum candLayer = TheTerrainLogic->getLayerForDestination(obj, &cand);
@@ -359,7 +359,7 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 							continue;
 					}
 
-					Bool ok = false;
+					Bool canUseCandidate = false;
 					Bool clear = TheAI->pathfinder()->rva002EDFF9(obj, &cand);
 					if (!clear && allowOverlap && weapon)
 					{
@@ -367,8 +367,8 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 						if (TheAI->pathfinder()->GetOverlapGoalUnits(obj, &cand, ids) == 2 && weapon)
 						{
 							Object *object = TheGameLogic->findObjectByID((ObjectID)ids[0]);
-							Object *b = TheGameLogic->findObjectByID((ObjectID)ids[1]);
-							if (object && b && object->getTeamValue() == b->getTeamValue() && obj->getTeamValue() == object->getTeamValue())
+							Object *secondOverlapUnit = TheGameLogic->findObjectByID((ObjectID)ids[1]);
+							if (object && secondOverlapUnit && object->getTeamValue() == secondOverlapUnit->getTeamValue() && obj->getTeamValue() == object->getTeamValue())
 							{
 								if (const_cast<Weapon *>(weapon)->isWithinAttackRange(obj, &cand, victim, victimPos, 0.0f, true))
 								{
@@ -381,15 +381,15 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 					if (clear)
 					{
 						if (blocked)
-							ok = true;
+							canUseCandidate = true;
 						else
-							ok = TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &lastGood, &cand);
+							canUseCandidate = TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &lastGood, &cand);
 					}
-					if (ok && candDist < bestDist)
+					if (canUseCandidate && candDist < bestDist)
 					{
 						best = cand;
 						bestDist = candDist;
-						bestOffset = (Real)sqrt(oy * oy + ox * ox);
+						bestOffset = (Real)sqrt(yOffset * yOffset + xOffset * xOffset);
 						bestGain = dist - candDist;
 						found = true;
 					}

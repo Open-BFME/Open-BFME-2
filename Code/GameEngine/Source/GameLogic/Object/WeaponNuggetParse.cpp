@@ -56,10 +56,10 @@ void q4Notify002CC774(void *ini, Made002CC774 *m, int c, int d);
 // ?parseDamageFieldNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseDamageFieldNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC774 *m = new Made002CC774;
-	m->m_owner = weapon;
-	q4Notify002CC774(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC774 *damageFieldNugget = new Made002CC774;
+	damageFieldNugget->m_owner = weapon;
+	q4Notify002CC774(ini, damageFieldNugget, 0, 0);
+	weapon->rva002CBA59(damageFieldNugget);
 	weapon->m_field114 = true;
 }
 
@@ -76,10 +76,10 @@ void q4Notify002CC7DE(void *ini, Made002CC7DE *m, int c, int d);
 // ?parseWeaponOCLNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseWeaponOCLNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC7DE *m = new Made002CC7DE;
-	m->m_owner = weapon;
-	q4Notify002CC7DE(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC7DE *weaponOclNugget = new Made002CC7DE;
+	weaponOclNugget->m_owner = weapon;
+	q4Notify002CC7DE(ini, weaponOclNugget, 0, 0);
+	weapon->rva002CBA59(weaponOclNugget);
 }
 
 // "ProjectileNugget": 0x002CC841, news 0x154, ctor 0x00509CC3, field parser 0x00509780
@@ -95,10 +95,10 @@ void q4Notify002CC841(void *ini, Made002CC841 *m, int c, int d);
 // ?parseProjectileNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseProjectileNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC841 *m = new Made002CC841;
-	m->m_owner = weapon;
-	q4Notify002CC841(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC841 *projectileNugget = new Made002CC841;
+	projectileNugget->m_owner = weapon;
+	q4Notify002CC841(ini, projectileNugget, 0, 0);
+	weapon->rva002CBA59(projectileNugget);
 }
 
 // "MetaImpactNugget": 0x002CC8A4, news 0x164, ctor 0x0050A39B, field parser 0x00509DAB
@@ -114,10 +114,10 @@ void q4Notify002CC8A4(void *ini, Made002CC8A4 *m, int c, int d);
 // ?parseMetaImpactNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseMetaImpactNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC8A4 *m = new Made002CC8A4;
-	m->m_owner = weapon;
-	q4Notify002CC8A4(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC8A4 *metaImpactNugget = new Made002CC8A4;
+	metaImpactNugget->m_owner = weapon;
+	q4Notify002CC8A4(ini, metaImpactNugget, 0, 0);
+	weapon->rva002CBA59(metaImpactNugget);
 }
 
 // "HordeAttackNugget": 0x002CCBCA, news 0x130, ctor 0x0050B8B3, field parser 0x0050B6F8
@@ -133,10 +133,10 @@ void q4Notify002CCBCA(void *ini, Made002CCBCA *m, int c, int d);
 // ?parseHordeAttackNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseHordeAttackNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCBCA *m = new Made002CCBCA;
-	m->m_owner = weapon;
-	q4Notify002CCBCA(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCBCA *hordeAttackNugget = new Made002CCBCA;
+	hordeAttackNugget->m_owner = weapon;
+	q4Notify002CCBCA(ini, hordeAttackNugget, 0, 0);
+	weapon->rva002CBA59(hordeAttackNugget);
 }
 
 // "SpawnAndFadeNugget": 0x002CCC2D, news 0x13C, ctor 0x0050BB0E, field parser 0x0050B8DB
@@ -152,10 +152,10 @@ void q4Notify002CCC2D(void *ini, Made002CCC2D *m, int c, int d);
 // ?parseSpawnAndFadeNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseSpawnAndFadeNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCC2D *m = new Made002CCC2D;
-	m->m_owner = weapon;
-	q4Notify002CCC2D(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCC2D *spawnAndFadeNugget = new Made002CCC2D;
+	spawnAndFadeNugget->m_owner = weapon;
+	q4Notify002CCC2D(ini, spawnAndFadeNugget, 0, 0);
+	weapon->rva002CBA59(spawnAndFadeNugget);
 }
 
 // "GrabNugget": 0x002CC907, news 0x140, ctor 0x0050AA97, field parser 0x0050A7E5
@@ -171,10 +171,10 @@ void q4Notify002CC907(void *ini, Made002CC907 *m, int c, int d);
 // ?parseGrabNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseGrabNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC907 *m = new Made002CC907;
-	m->m_owner = weapon;
-	q4Notify002CC907(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC907 *grabNugget = new Made002CC907;
+	grabNugget->m_owner = weapon;
+	q4Notify002CC907(ini, grabNugget, 0, 0);
+	weapon->rva002CBA59(grabNugget);
 	weapon->m_field157 = true;
 }
 
@@ -191,10 +191,10 @@ void q4Notify002CC64B(void *ini, Made002CC64B *m, int c, int d);
 // ?parseAttributeModifierNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseAttributeModifierNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC64B *m = new Made002CC64B;
-	m->m_owner = weapon;
-	q4Notify002CC64B(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC64B *attributeModifierNugget = new Made002CC64B;
+	attributeModifierNugget->m_owner = weapon;
+	q4Notify002CC64B(ini, attributeModifierNugget, 0, 0);
+	weapon->rva002CBA59(attributeModifierNugget);
 }
 
 // "SpecialModelConditionNugget": 0x002CC6AE, news 0x138, ctor 0x00508E11, field parser 0x00508D2F
@@ -210,10 +210,10 @@ void q4Notify002CC6AE(void *ini, Made002CC6AE *m, int c, int d);
 // ?parseSpecialModelConditionNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseSpecialModelConditionNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC6AE *m = new Made002CC6AE;
-	m->m_owner = weapon;
-	q4Notify002CC6AE(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC6AE *specialModelConditionNugget = new Made002CC6AE;
+	specialModelConditionNugget->m_owner = weapon;
+	q4Notify002CC6AE(ini, specialModelConditionNugget, 0, 0);
+	weapon->rva002CBA59(specialModelConditionNugget);
 }
 
 // "ParalyzeNugget": 0x002CC711, news 0x138, ctor 0x00508F51, field parser 0x00508EBF
@@ -229,10 +229,10 @@ void q4Notify002CC711(void *ini, Made002CC711 *m, int c, int d);
 // ?parseParalyzeNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseParalyzeNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC711 *m = new Made002CC711;
-	m->m_owner = weapon;
-	q4Notify002CC711(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC711 *paralyzeNugget = new Made002CC711;
+	paralyzeNugget->m_owner = weapon;
+	q4Notify002CC711(ini, paralyzeNugget, 0, 0);
+	weapon->rva002CBA59(paralyzeNugget);
 }
 
 // "LuaEventNugget": 0x002CCC90, news 0x134, ctor 0x0050BD45, field parser 0x0050BBEB
@@ -248,10 +248,10 @@ void q4Notify002CCC90(void *ini, Made002CCC90 *m, int c, int d);
 // ?parseLuaEventNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseLuaEventNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCC90 *m = new Made002CCC90;
-	m->m_owner = weapon;
-	q4Notify002CCC90(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCC90 *luaEventNugget = new Made002CCC90;
+	luaEventNugget->m_owner = weapon;
+	q4Notify002CCC90(ini, luaEventNugget, 0, 0);
+	weapon->rva002CBA59(luaEventNugget);
 }
 
 // "FireLogicNugget": 0x002CCCF3, news 0x1B4, ctor 0x0050BF8F, field parser 0x0050BDED
@@ -267,10 +267,10 @@ void q4Notify002CCCF3(void *ini, Made002CCCF3 *m, int c, int d);
 // ?parseFireLogicNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseFireLogicNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCCF3 *m = new Made002CCCF3;
-	m->m_owner = weapon;
-	q4Notify002CCCF3(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCCF3 *fireLogicNugget = new Made002CCCF3;
+	fireLogicNugget->m_owner = weapon;
+	q4Notify002CCCF3(ini, fireLogicNugget, 0, 0);
+	weapon->rva002CBA59(fireLogicNugget);
 }
 
 // "SlaveAttackNugget": 0x002CC971, news 0x128, ctor 0x0050ABF7, field parser 0x0050AAEA
@@ -286,10 +286,10 @@ void q4Notify002CC971(void *ini, Made002CC971 *m, int c, int d);
 // ?parseSlaveAttackNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseSlaveAttackNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC971 *m = new Made002CC971;
-	m->m_owner = weapon;
-	q4Notify002CC971(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC971 *slaveAttackNugget = new Made002CC971;
+	slaveAttackNugget->m_owner = weapon;
+	q4Notify002CC971(ini, slaveAttackNugget, 0, 0);
+	weapon->rva002CBA59(slaveAttackNugget);
 }
 
 // "DamageContainedNugget": 0x002CC9D4, news 0x168, ctor 0x0050AEAB, field parser 0x0050ADB9
@@ -305,10 +305,10 @@ void q4Notify002CC9D4(void *ini, Made002CC9D4 *m, int c, int d);
 // ?parseDamageContainedNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseDamageContainedNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CC9D4 *m = new Made002CC9D4;
-	m->m_owner = weapon;
-	q4Notify002CC9D4(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CC9D4 *damageContainedNugget = new Made002CC9D4;
+	damageContainedNugget->m_owner = weapon;
+	q4Notify002CC9D4(ini, damageContainedNugget, 0, 0);
+	weapon->rva002CBA59(damageContainedNugget);
 }
 
 // "DOTNugget": 0x002CCA37, news 0x1AC, ctor 0x0050B1FC, field parser 0x0050B13A
@@ -324,10 +324,10 @@ void q4Notify002CCA37(void *ini, Made002CCA37 *m, int c, int d);
 // ?parseDOTNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseDOTNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCA37 *m = new Made002CCA37;
-	m->m_owner = weapon;
-	q4Notify002CCA37(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCA37 *dotNugget = new Made002CCA37;
+	dotNugget->m_owner = weapon;
+	q4Notify002CCA37(ini, dotNugget, 0, 0);
+	weapon->rva002CBA59(dotNugget);
 	weapon->m_field114 = true;
 }
 
@@ -344,10 +344,10 @@ void q4Notify002CCAA1(void *ini, Made002CCAA1 *m, int c, int d);
 // ?parseOpenGateNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseOpenGateNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCAA1 *m = new Made002CCAA1;
-	m->m_owner = weapon;
-	q4Notify002CCAA1(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCAA1 *openGateNugget = new Made002CCAA1;
+	openGateNugget->m_owner = weapon;
+	q4Notify002CCAA1(ini, openGateNugget, 0, 0);
+	weapon->rva002CBA59(openGateNugget);
 }
 
 // "EmotionWeaponNugget": 0x002CCB04, news 0x134, ctor 0x0050B59B, field parser 0x0050B42C
@@ -363,10 +363,10 @@ void q4Notify002CCB04(void *ini, Made002CCB04 *m, int c, int d);
 // ?parseEmotionWeaponNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseEmotionWeaponNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCB04 *m = new Made002CCB04;
-	m->m_owner = weapon;
-	q4Notify002CCB04(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCB04 *emotionWeaponNugget = new Made002CCB04;
+	emotionWeaponNugget->m_owner = weapon;
+	q4Notify002CCB04(ini, emotionWeaponNugget, 0, 0);
+	weapon->rva002CBA59(emotionWeaponNugget);
 }
 
 // "StealMoneyNugget": 0x002CCB67, news 0x12C, ctor 0x0050B6B4, field parser 0x0050B5F6
@@ -382,8 +382,8 @@ void q4Notify002CCB67(void *ini, Made002CCB67 *m, int c, int d);
 // ?parseStealMoneyNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z
 void parseStealMoneyNugget(INI *ini, WeaponTemplate *weapon)
 {
-	Made002CCB67 *m = new Made002CCB67;
-	m->m_owner = weapon;
-	q4Notify002CCB67(ini, m, 0, 0);
-	weapon->rva002CBA59(m);
+	Made002CCB67 *stealMoneyNugget = new Made002CCB67;
+	stealMoneyNugget->m_owner = weapon;
+	q4Notify002CCB67(ini, stealMoneyNugget, 0, 0);
+	weapon->rva002CBA59(stealMoneyNugget);
 }

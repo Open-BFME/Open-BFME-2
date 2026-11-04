@@ -375,29 +375,29 @@ void Rva004FC275::rva004FC275(unsigned char v)
 	if (m_35 == v)
 		return;
 	m_35 = v;
-	Rva004FC275Helper *h = m_24;
-	if (h == 0)
+	Rva004FC275Helper *helper = m_24;
+	if (helper == 0)
 		return;
 	if (v != 0)
-		h->f3();
+		helper->f3();
 	else
-		h->f4();
+		helper->f4();
 }
 
 void Rva004FC275::rva004FC299()
 {
-	Rva004FC275Helper *h = m_24;
-	if (h == 0)
+	Rva004FC275Helper *helper = m_24;
+	if (helper == 0)
 		return;
-	return h->f1();
+	return helper->f1();
 }
 
 void Rva004FC275::rva004FC2A6()
 {
-	Rva004FC275Helper *h = m_24;
-	if (h == 0)
+	Rva004FC275Helper *helper = m_24;
+	if (helper == 0)
 		return;
-	return h->f2();
+	return helper->f2();
 }
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp

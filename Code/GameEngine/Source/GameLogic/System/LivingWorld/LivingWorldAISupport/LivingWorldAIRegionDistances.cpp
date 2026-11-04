@@ -15,7 +15,7 @@ enum ObjectID {};
 struct LocalPlacement
 {
 	void *where;
-	LocalPlacement(void *p) : where(p) {}
+	LocalPlacement(void *address) : where(address) {}
 };
 __forceinline void *operator new(unsigned int,LocalPlacement p) throw() {return p.where;}
 namespace _STL
@@ -35,7 +35,7 @@ struct pair
 };
 
 template <class T1, class T2>
-__forceinline pair<T1, T2> make_pair(const T1 &a, const T2 &b) { return pair<T1, T2>(a, b); }
+__forceinline pair<T1, T2> make_pair(const T1 &firstValue, const T2 &secondValue) { return pair<T1, T2>(firstValue, secondValue); }
 
 struct _Rb_tree_node_base
 {
@@ -54,10 +54,10 @@ template <class Value, class Traits>
 struct _Rb_tree_iterator : public _Rb_tree_base_iterator
 {
 	// Build the hint and its associated pair in the same inline context.
-	__forceinline _Rb_tree_iterator(_Rb_tree_node_base *node, Value *value, int a, int b)
+	__forceinline _Rb_tree_iterator(_Rb_tree_node_base *node, Value *value, int firstValue, int secondValue)
 	{
 		_M_node = node;
-		new(LocalPlacement(value)) Value(a, b);
+		new(LocalPlacement(value)) Value(firstValue, secondValue);
 	}
 	_Rb_tree_iterator(_Rb_tree_node_base *node) { _M_node = node; }
 	_Rb_tree_iterator(const _Rb_tree_iterator &other) { _M_node = other._M_node; }
@@ -89,9 +89,9 @@ public:
 	iterator begin() { return _M_t.begin(); }
 	unsigned int size() const { return _M_t.size(); }
 	__forceinline iterator insert(iterator position, const value_type &x) { return _M_t.insert_unique(position, x); }
-__forceinline iterator insertBuilt(_Rb_tree_node_base *node, int a, int b, void *storage)
+__forceinline iterator insertBuilt(_Rb_tree_node_base *node, int keyValue, int mappedValue, void *storage)
 	{
-		return _M_t.insert_unique(iterator(node, (value_type *)storage, a, b),
+		return _M_t.insert_unique(iterator(node, (value_type *)storage, keyValue, mappedValue),
 			*(value_type *)storage);
 	}
 	_Rep_type _M_t;
@@ -106,9 +106,9 @@ public:
 	typedef typename _Rep_type::iterator iterator;
 	iterator begin() { return _M_t.begin(); }
 	__forceinline iterator insert(iterator position, const value_type &x) { return _M_t.insert_equal(position, x); }
-__forceinline iterator insertBuilt(_Rb_tree_node_base *node, int a, int b, void *storage)
+__forceinline iterator insertBuilt(_Rb_tree_node_base *node, int keyValue, int mappedValue, void *storage)
 	{
-		return _M_t.insert_equal(iterator(node, (value_type *)storage, a, b),
+		return _M_t.insert_equal(iterator(node, (value_type *)storage, keyValue, mappedValue),
 			*(value_type *)storage);
 	}
 	_Rep_type _M_t;
@@ -258,12 +258,12 @@ void Rva005020CCBuildRegionDistances()
 	if (table->size() != 0)
 		return;
 	_STL::vector<LivingWorldRegion *> *regions = TheLivingWorldLogic->getRegions();
-	for (unsigned int i = 0; i < regions->size(); ++i) {
+	for (unsigned int regionIndex = 0; regionIndex < regions->size(); ++regionIndex) {
 		Rva0050055D distances;
-		LivingWorldRegion *region = (*regions)[i];
+		LivingWorldRegion *region = (*regions)[regionIndex];
 		if (region->m_1A2) {
-			for (unsigned int j = 0; j < regions->size(); ++j) {
-				LivingWorldRegion *other = (*regions)[j];
+			for (unsigned int otherRegionIndex = 0; otherRegionIndex < regions->size(); ++otherRegionIndex) {
+				LivingWorldRegion *other = (*regions)[otherRegionIndex];
 				Rva004FF33DCallback callback;
 				int distance = TheLivingWorldLogic->findShortestPath((LivingWorldSearchCallback*)&callback, -1, region->m_id, other->m_id, 0, 0);
 				if (distance >= 0) {

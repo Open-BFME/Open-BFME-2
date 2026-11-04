@@ -33,9 +33,9 @@
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &leftValue, const unsigned int &rightValue)
 {
-    return a < b ? b : a;
+    return leftValue < rightValue ? rightValue : leftValue;
 }
 }
 #include <math.h>
@@ -94,14 +94,14 @@ struct Rva0059D089Template
 	float m_20;	// +0x20
 	char m_pad24[0x30 - 0x24];
 	float m_30;	// +0x30
-	NameKeyType getKey(int i) const { return (&m_00)[i]; }
+	NameKeyType getKey(int keyIndex) const { return (&m_00)[keyIndex]; }
 };
 struct BfmeE16;
 class LivingWorldAIBuilder
 {
 public:
-	float rva0059CEE4(int a1, void *a2, void **a3);
-	float rva0059CF2F(int a1, void *a2, void **a3);
+	float rva0059CEE4(int playerId, void *armies, void **regionPointer);
+	float rva0059CF2F(int playerId, void *armies, void **regionPointer);
 	float rva0059CF34(int playerId, int count, Rva0059CFAACallee *armies,
 		Rva0059CFAARegion *const &region);
 	float rva0059CFAA(int playerId, int count, Rva0059CFAACallee *armies,
@@ -127,14 +127,14 @@ private:
 // the builder's +0x0C weight scaled by the closest hero's distance falloff.
 extern float g_Va007C26F0;
 // g_00BC8980 was the retail address alias (RVA 0x007C8980) of the constant 1.5f; the literal is the source.
-float LivingWorldAIBuilder::rva0059CEE4(int a1, void *a2, void **a3)
+float LivingWorldAIBuilder::rva0059CEE4(int playerId, void *armies, void **regionPointer)
 {
-	int out = 0;
-	float y = (float)m_0c;
-	int *info = (int *)((char *)*a3 + 0x14);
-	((Rva0059CFAACallee *)a2)->rva004FFB00(a1, info, &out);
-	float x = (float)out * g_Va007C26F0;
-	return (3.0f - x * x) * (*(const volatile float *)&y * 1.5f);
+	int heroDistance = 0;
+	float baseWeight = (float)m_0c;
+	int *regionId = (int *)((char *)*regionPointer + 0x14);
+	((Rva0059CFAACallee *)armies)->rva004FFB00(playerId, regionId, &heroDistance);
+	float scaledDistance = (float)heroDistance * g_Va007C26F0;
+	return (3.0f - scaledDistance * scaledDistance) * (*(const volatile float *)&baseWeight * 1.5f);
 }
 // ?rva0059CF34@LivingWorldAIBuilder@@QAEMHHPAVRva0059CFAACallee@@ABQAURva0059CFAARegion@@@Z
 // retail 0x0059CF34..0x0059CFAA (118 bytes; WorldBuilder twin 0x014FE300):
@@ -186,7 +186,7 @@ float LivingWorldAIBuilder::rva0059D089(int playerId, Rva0059D089Template *tmpl,
 	Rva0059CFAACallee *armies, Rva0059CFAARegion *const &region)
 {
 	float score = (float)m_08;
-	for (int i = 0; i < (int)region->m_info.Castles.size(); ++i)
+	for (int castleIndex = 0; castleIndex < (int)region->m_info.Castles.size(); ++castleIndex)
 		score *= 1.0f - 0.1f * tmpl->m_30;
 	int defenders = 0;
 	int distance = 0;
@@ -212,7 +212,7 @@ float LivingWorldAIBuilder::rva0059D1DD(int playerId, Rva0059D089Template *tmpl,
 	Rva0059CFAACallee *armies, Rva0059CFAARegion *const &region)
 {
 	float score = (float)m_08;
-	for (int i = 1; i < (int)region->m_info.Castles.size(); ++i)
+	for (int castleIndex = 1; castleIndex < (int)region->m_info.Castles.size(); ++castleIndex)
 		score *= 1.0f - 0.1f * tmpl->m_30;
 	int defenders = 0;
 	armies->rva00500659(playerId, &region->m_info.m_id, &defenders);
@@ -374,26 +374,26 @@ void LivingWorldAIBuilder::FillBuildingOrders(_STL::vector<BfmeE16> *orders, int
 
 		float buildScore = region->rva003F1BD3(tmpl->getKey(0), 0) ? rva0059CF34(playerId, buildCount, armies, node) : 0.0f;
 		float upgradeScore = region->rva003F1BD3(tmpl->getKey(1), 0) ? rva0059CFAA(playerId, upgradeCount, armies, node) : 0.0f;
-		float score3 = region->rva003F1BD3(tmpl->getKey(3), 0) ? rva0059CEE4(playerId, armies, (void **)&node) : 0.0f;
-		float score4 = region->rva003F1BD3(tmpl->getKey(2), 0) ? rva0059D089(playerId, tmpl, armies, node) : 0.0f;
+		float armoryBuildScore = region->rva003F1BD3(tmpl->getKey(3), 0) ? rva0059CEE4(playerId, armies, (void **)&node) : 0.0f;
+		float castleBuildScore = region->rva003F1BD3(tmpl->getKey(2), 0) ? rva0059D089(playerId, tmpl, armies, node) : 0.0f;
 
 		if (count > 0 && ((Rva003F07CEOwner *)region)->rva003F07CE())
 		{
 			LivingWorldBuildOrder order;
 			order.m_remove = false;
 			order.m_region = node->m_info.m_id;
-			if (upgradeScore >= buildScore && upgradeScore >= score3 && upgradeScore >= score4)
+			if (upgradeScore >= buildScore && upgradeScore >= armoryBuildScore && upgradeScore >= castleBuildScore)
 			{
 				order.m_template = tmpl->m_04;
 				--upgradeCount;
 			}
-			else if (buildScore >= score3 && buildScore >= score4)
+			else if (buildScore >= armoryBuildScore && buildScore >= castleBuildScore)
 			{
 				order.m_template = tmpl->m_00;
 				*cost += tmpl->m_1c;
 				--buildCount;
 			}
-			else if (score3 >= score4)
+			else if (armoryBuildScore >= castleBuildScore)
 				order.m_template = tmpl->m_0c;
 			else
 				order.m_template = tmpl->m_08;
@@ -401,48 +401,48 @@ void LivingWorldAIBuilder::FillBuildingOrders(_STL::vector<BfmeE16> *orders, int
 		}
 		else
 		{
-			float remove1 = regionInfo.Farms.size() > 0 ? rva0059D1A9(playerId, buildCount, armies, node) : -1.0f;
-			float remove2 = regionInfo.Barracks.size() > 0 ? rva0059D1C3(playerId, upgradeCount, armies, node) : -1.0f;
-			float remove3 = regionInfo.Armories.size() > 0 ? rva0059CEE4(playerId, armies, (void **)&node) : -1.0f;
-			float remove4 = regionInfo.Castles.size() > 0 ? rva0059D1DD(playerId, tmpl, armies, node) : -1.0f;
+			float farmRemovalScore = regionInfo.Farms.size() > 0 ? rva0059D1A9(playerId, buildCount, armies, node) : -1.0f;
+			float barracksRemovalScore = regionInfo.Barracks.size() > 0 ? rva0059D1C3(playerId, upgradeCount, armies, node) : -1.0f;
+			float armoryRemovalScore = regionInfo.Armories.size() > 0 ? rva0059CEE4(playerId, armies, (void **)&node) : -1.0f;
+			float castleRemovalScore = regionInfo.Castles.size() > 0 ? rva0059D1DD(playerId, tmpl, armies, node) : -1.0f;
 
-			float bestScore = _STL::max(_STL::max(_STL::max(score4, score3), upgradeScore), buildScore);
-			float bestRemove = _STL::max(_STL::max(_STL::max(remove4, remove3), remove2), remove1);
+			float bestScore = _STL::max(_STL::max(_STL::max(castleBuildScore, armoryBuildScore), upgradeScore), buildScore);
+			float bestRemove = _STL::max(_STL::max(_STL::max(castleRemovalScore, armoryRemovalScore), barracksRemovalScore), farmRemovalScore);
 			if (bestScore > bestRemove * 1.5f && bestScore > 20.0f && bestRemove >= 0.0f)
 			{
 				LivingWorldBuildOrder order;
 				order.m_remove = true;
 				order.m_region = node->m_info.m_id;
-				if (remove2 >= remove1 && remove2 >= remove3 && remove2 >= remove4)
+				if (barracksRemovalScore >= farmRemovalScore && barracksRemovalScore >= armoryRemovalScore && barracksRemovalScore >= castleRemovalScore)
 				{
 					order.m_object = regionInfo.Barracks[0];
 					++upgradeCount;
 				}
-				else if (remove1 >= remove3 && remove1 >= remove4)
+				else if (farmRemovalScore >= armoryRemovalScore && farmRemovalScore >= castleRemovalScore)
 				{
 					order.m_object = regionInfo.Farms[0];
 					*cost -= tmpl->m_1c;
 					++buildCount;
 				}
-				else if (remove3 >= remove4)
+				else if (armoryRemovalScore >= castleRemovalScore)
 					order.m_object = regionInfo.Armories[0];
 				else
 					order.m_object = regionInfo.Castles[0];
 				orders->push_back(reinterpret_cast<const BfmeE16 &>(order));
 
 				order.m_remove = false;
-				if (upgradeScore >= buildScore && upgradeScore >= score3 && upgradeScore >= score4)
+				if (upgradeScore >= buildScore && upgradeScore >= armoryBuildScore && upgradeScore >= castleBuildScore)
 				{
 					order.m_template = tmpl->m_04;
 					--upgradeCount;
 				}
-				else if (buildScore >= score3 && buildScore >= score4)
+				else if (buildScore >= armoryBuildScore && buildScore >= castleBuildScore)
 				{
 					order.m_template = tmpl->m_00;
 					*cost += tmpl->m_1c;
 					--buildCount;
 				}
-				else if (score3 >= score4)
+				else if (armoryBuildScore >= castleBuildScore)
 					order.m_template = tmpl->m_0c;
 				else
 					order.m_template = tmpl->m_08;
@@ -454,9 +454,9 @@ void LivingWorldAIBuilder::FillBuildingOrders(_STL::vector<BfmeE16> *orders, int
 
 // 0x0059CF2F 5B, directly after the body it enters (tail jump into rva0059CEE4); no referencing site found in
 // this pass; address-named.
-float LivingWorldAIBuilder::rva0059CF2F(int a1, void *a2, void **a3)
+float LivingWorldAIBuilder::rva0059CF2F(int playerId, void *armies, void **regionPointer)
 {
-	return rva0059CEE4(a1, a2, a3);
+	return rva0059CEE4(playerId, armies, regionPointer);
 }
 
 // tu-skeleton: 0x0059D2A3 55B ?push_back@?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAEXABUBfmeE16@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp (not merged yet)

@@ -58,11 +58,11 @@ struct BattleArmyRecord
 class ArmySummary;
 namespace _STL { template<> void swap<ArmySummary>(ArmySummary&, ArmySummary&); }
 
-template <class T> inline void swapValues(T &a, T &b)
+template <class T> inline void swapValues(T &left, T &right)
 {
-	T tmp = a;
-	a = b;
-	b = tmp;
+	T savedValue = left;
+	left = right;
+	right = savedValue;
 }
 
 class Rva003F41A4Elem
@@ -110,7 +110,7 @@ public:
 		std::vector<BattleArmyRecord>m_records; // +0x10
 		int counters[5]; // +0x1C
 	};
-	void rva003F5397(Int a0, Int a1, Int a2, Int a3);
+	void rva003F5397(Int sideIndex, Int playerIndex, Int firstArmyIndex, Int secondArmyIndex);
 	void rva003F4A46(int, int, Rva0020E20C *const &);
  void RemoveArmy(LivingWorldArmy*);
  void ComputeBattleResultsForPlayersAfterAutoBattle(Rva003F4E07Results*);
@@ -133,10 +133,10 @@ struct Rva003F5397Slot
 // Swap player armies then broadcast via rowed forEach 0x003F5224.
 // Evidence: retail imul 0x1C 0x30 plus rowed SwapArmies 0x003F427D plus
 // rowed forEach 0x003F5224 with func 0x005CB260 plus caller 0x002B41EB.
-void LivingWorldBattle::rva003F5397(Int a0, Int a1, Int a2, Int a3)
+void LivingWorldBattle::rva003F5397(Int sideIndex, Int playerIndex, Int firstArmyIndex, Int secondArmyIndex)
 {
-	((BattlePlayer *)((char *)m_table18[a0].m_players.begin() + a1 * 0x30))->SwapArmies(a2, a3);
-	m_list08.forEach((Rva003F41A4Fn)&Rva005CB260::rva005CB260, (int)this, a0, a1, a2, a3);
+	((BattlePlayer *)((char *)m_table18[sideIndex].m_players.begin() + playerIndex * 0x30))->SwapArmies(firstArmyIndex, secondArmyIndex);
+	m_list08.forEach((Rva003F41A4Fn)&Rva005CB260::rva005CB260, (int)this, sideIndex, playerIndex, firstArmyIndex, secondArmyIndex);
 }
 
 // LivingWorldBattle::BattlePlayer::SwapArmies, retail 0x003F427D.
@@ -269,8 +269,8 @@ Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<ArmySummary>*vec)
  UnsignedInt count=(UnsignedInt)vec->size();
  (*xfer == "std::vector") == count;
  if(xfer->IsStoring()) {
-  ArmySummary*end=vec->end();ArmySummary*cur=vec->begin();
-  while(cur!=end){(*xfer == *reinterpret_cast<Snapshot *>(cur));++cur;}
+  ArmySummary*end=vec->end();ArmySummary*currentSummary=vec->begin();
+  while(currentSummary!=end){(*xfer == *reinterpret_cast<Snapshot *>(currentSummary));++currentSummary;}
  }else{
   if(!vec->empty())throw XferException(4,"Vector must be empty on load");
   ((_STL::vector<BfmeAssignRecord104>*)vec)->reserve(count);
@@ -301,8 +301,8 @@ Xfer *Rva001EC0A0Xfer(Xfer*xfer, std::vector<CarryoverUnit>*vec)
  UnsignedInt count=(UnsignedInt)vec->size();
  (*xfer == "std::vector") == count;
  if(xfer->IsStoring()) {
-  CarryoverUnit*end=vec->end();CarryoverUnit*cur=vec->begin();
-  while(cur!=end){(*xfer == *reinterpret_cast<Snapshot *>(cur));++cur;}
+  CarryoverUnit*end=vec->end();CarryoverUnit*currentUnit=vec->begin();
+  while(currentUnit!=end){(*xfer == *reinterpret_cast<Snapshot *>(currentUnit));++currentUnit;}
  }else{
   if(!vec->empty())throw XferException(4,"Vector must be empty on load");
   ((_STL::vector<BfmeAssignRecord172>*)vec)->reserve(count);
@@ -326,9 +326,9 @@ void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &comp
  int count=(int)entry->m_armies.size();
  for (int first=0;first<count;++first) {
   for(int second=first+1;second<count;++second) {
-   void *a=entry->m_armies[first];
-   void *b=entry->m_armies[second];
-   if(!compare->Compare(a,b)) entry->SwapArmies(first,second);
+   void *firstArmy=entry->m_armies[first];
+   void *secondArmy=entry->m_armies[second];
+   if(!compare->Compare(firstArmy,secondArmy)) entry->SwapArmies(first,second);
   }
  }
 }

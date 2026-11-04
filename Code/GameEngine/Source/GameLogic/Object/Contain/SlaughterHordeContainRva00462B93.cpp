@@ -15,18 +15,18 @@ struct Rva00462B93Coord
 {
 	float x, y, z;
 
-	void set(const Rva00462B93Coord *a)
+	void set(const Rva00462B93Coord *source)
 	{
-		x = a->x;
-		y = a->y;
-		z = a->z;
+		x = source->x;
+		y = source->y;
+		z = source->z;
 	}
 
-	void sub(const Rva00462B93Coord *a)
+	void sub(const Rva00462B93Coord *subtrahend)
 	{
-		x -= a->x;
-		y -= a->y;
-		z -= a->z;
+		x -= subtrahend->x;
+		y -= subtrahend->y;
+		z -= subtrahend->z;
 	}
 };
 
@@ -39,9 +39,9 @@ struct Vector300462B93
 	{
 	}
 
-	static float Dot_Product(const Vector300462B93 &a, const Vector300462B93 &b)
+	static float Dot_Product(const Vector300462B93 &leftVector, const Vector300462B93 &rightVector)
 	{
-		return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+		return leftVector.X * rightVector.X + leftVector.Y * rightVector.Y + leftVector.Z * rightVector.Z;
 	}
 };
 
@@ -90,12 +90,12 @@ public:
 	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
 	virtual void iterateContained(void *func, void *userData, bool reverse);
 	SLOT16(s69)
-	virtual bool rva00462B93(const Rva00462B93Arg *arg);
+	virtual bool rva00462B93(const Rva00462B93Arg *candidate);
 };
 
-bool SlaughterHordeContain::rva00462B93(const Rva00462B93Arg *arg)
+bool SlaughterHordeContain::rva00462B93(const Rva00462B93Arg *candidate)
 {
-	if (arg == 0)
+	if (candidate == 0)
 		return false;
 	else
 	{
@@ -104,13 +104,13 @@ bool SlaughterHordeContain::rva00462B93(const Rva00462B93Arg *arg)
 			return false;
 
 		const Rva00462B93Owner *owner = *(Rva00462B93Owner *const *)((const char *)this - 0x18);
-		if (arg->m_coord38.z - owner->m_coord38.z > info->m_threshold68)
+		if (candidate->m_coord38.z - owner->m_coord38.z > info->m_threshold68)
 			return false;
 
-		Vector300462B93 dir = arg->m_matrix08.Get_X_Vector();
+		Vector300462B93 dir = candidate->m_matrix08.Get_X_Vector();
 		Rva00462B93Coord delta;
 		delta.set(&owner->m_coord38);
-		delta.sub(&arg->m_coord38);
+		delta.sub(&candidate->m_coord38);
 		delta.z = 0.0f;
 
 		if (Vector300462B93::Dot_Product(dir, Vector300462B93(delta.x, delta.y, delta.z)) < 0.0f)

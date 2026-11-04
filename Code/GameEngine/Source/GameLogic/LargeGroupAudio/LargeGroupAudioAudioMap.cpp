@@ -27,9 +27,9 @@ typedef bool Bool;
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &left, const unsigned int &right)
 {
-    return a < b ? b : a;
+    return left < right ? right : left;
 }
 }
 #include <cstdlib>
@@ -147,7 +147,7 @@ class Rva0056A4AA;
 class Rva003EDDD4
 {
 public:
-	void update(int arg);
+	void update(int flagAddress);
 private:
 	char m_pad[0x1C];
 	Rva0056A4AA **m_first1C;
@@ -214,9 +214,9 @@ struct Rva0020DXXXElem
 {
 	void rva003EDC31();
 	void rva003EDC16();
-	void rva003EDE44(int x);
-	void rva003EDF69(int x);
-	void rva003EDFD8(int x);
+	void rva003EDE44(int subjectAddress);
+	void rva003EDF69(int subjectAddress);
+	void rva003EDFD8(int subjectAddress);
 };
 
 // An 8-byte x/y pair returned through a hidden pointer (so not a POD in
@@ -342,7 +342,7 @@ class Rva003EE058Owner
 	Rva00568C36 **m_begin;
 	Rva00568C36 **m_end;
 public:
-	bool overlaps(const Rva00568C36Provider *arg);
+	bool overlaps(const Rva00568C36Provider *provider);
 };
 
 struct EmitVtableTag;
@@ -463,7 +463,7 @@ bool LargeGroupAudioAudioMap::rva003EE23C(Xfer *xfer, VersionPair *version)
 		if (count != m_soundKeyPairs.size())
 			complete = false;
 
-		for (int i = 0; i < count; ++i)
+		for (int pairIndex = 0; pairIndex < count; ++pairIndex)
 		{
 			AsciiString name;
 			*xfer == name;
@@ -570,59 +570,59 @@ void LargeGroupAudioAudioMap::parseSoundBlock(INI *ini, void *instance, void * /
 
 // ---- from Code/GameEngine/Source/Common/Rva003EDDD4Iterators.cpp
 
-void Rva003EDDD4::update(int arg)
+void Rva003EDDD4::update(int flagAddress)
 {
-	for (Rva0056A4AA **pp = m_first1C; pp != m_end20; ++pp)
-		((LargeGroupAudioSoundKeyPair *)*pp)->update((bool *)arg);
+	for (Rva0056A4AA **pairEntry = m_first1C; pairEntry != m_end20; ++pairEntry)
+		((LargeGroupAudioSoundKeyPair *)*pairEntry)->update((bool *)flagAddress);
 }
 
 void Rva003EDDF5::rva003EDDF5(int arg)
 {
-	for (Rva00569373 **pp = m_first1C; pp != m_end20; ++pp)
-		(*pp)->rva00569373((void *)arg);
+	for (Rva00569373 **elementEntry = m_first1C; elementEntry != m_end20; ++elementEntry)
+		(*elementEntry)->rva00569373((void *)arg);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva003EDE16Forward_muse-8c42.cpp
 
 bool Rva003EDE16::rva003EDE16(const void *other) const
 {
-	const Rva001DFE56 *o = (const Rva001DFE56 *)other;
-	return o->rva001DFE56(m_req, m_ban);
+	const Rva001DFE56 *mask = (const Rva001DFE56 *)other;
+	return mask->rva001DFE56(m_req, m_ban);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva003EDE2AForward_muse-8c42.cpp
 
 bool Rva003EDE2A::rva003EDE2A(const void *other) const
 {
-	const Rva0026157E *o = (const Rva0026157E *)other;
-	return o->testMasks(m_req, m_ban);
+	const Rva0026157E *mask = (const Rva0026157E *)other;
+	return mask->testMasks(m_req, m_ban);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/System/Rva003EDF69Family.cpp
 
-void Rva0020DXXXElem::rva003EDE44(int x)
+void Rva0020DXXXElem::rva003EDE44(int subjectAddress)
 {
-	Rva0020DXXXArg *arg = (Rva0020DXXXArg *)x;
+	Rva0020DXXXArg *subjectView = (Rva0020DXXXArg *)subjectAddress;
 	bool isIn;
-	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get0C())
-		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get14()))
+	if (((Rva003EDE16 *)this)->rva003EDE16(subjectView->get0C())
+		&& ((Rva003EDE2A *)this)->rva003EDE2A(subjectView->get14()))
 		isIn = true;
 	else
 		isIn = false;
 	bool wasIn;
-	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get08())
-		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get10()))
+	if (((Rva003EDE16 *)this)->rva003EDE16(subjectView->get08())
+		&& ((Rva003EDE2A *)this)->rva003EDE2A(subjectView->get10()))
 		wasIn = true;
 	else
 		wasIn = false;
 	if (*(unsigned char *)((char *)this + 0xE5) != 0)
 	{
-		if (arg->get20())
+		if (subjectView->get20())
 			isIn = false;
-		if (arg->get24())
+		if (subjectView->get24())
 			wasIn = false;
 	}
-	int frame = arg->get28();
+	int frame = subjectView->get28();
 	if (frame <= TheLargeGroupAudio->m_3C)
 		wasIn = false;
 
@@ -631,7 +631,7 @@ void Rva0020DXXXElem::rva003EDE44(int x)
 	{
 		if (wasIn)
 		{
-			if (arg->get04().isExactlyEqualTo(arg->get00()))
+			if (subjectView->get04().isExactlyEqualTo(subjectView->get00()))
 				return;
 			else
 				callback = &LargeGroupAudioSoundKeyPair::updateSubject;
@@ -644,50 +644,50 @@ void Rva0020DXXXElem::rva003EDE44(int x)
 
 	if (callback)
 	{
-		for (void **i = *(void ***)((char *)this + 0x1C);
-			i != *(void ***)((char *)this + 0x20); ++i)
-			(((LargeGroupAudioSoundKeyPair *)*i)->*callback)((LargeGroupAudioSubject *)arg);
+		for (void **pairEntry = *(void ***)((char *)this + 0x1C);
+			pairEntry != *(void ***)((char *)this + 0x20); ++pairEntry)
+			(((LargeGroupAudioSoundKeyPair *)*pairEntry)->*callback)((LargeGroupAudioSubject *)subjectView);
 	}
 }
 
-void Rva0020DXXXElem::rva003EDF69(int x)
+void Rva0020DXXXElem::rva003EDF69(int subjectAddress)
 {
-	Rva0020DXXXArg *arg = (Rva0020DXXXArg *)x;
+	Rva0020DXXXArg *subjectView = (Rva0020DXXXArg *)subjectAddress;
 	bool run;
-	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get0C())
-		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get14()))
+	if (((Rva003EDE16 *)this)->rva003EDE16(subjectView->get0C())
+		&& ((Rva003EDE2A *)this)->rva003EDE2A(subjectView->get14()))
 		run = true;
 	else
 		run = false;
-	if (*(unsigned char *)((char *)this + 0xE5) != 0 && arg->get20())
+	if (*(unsigned char *)((char *)this + 0xE5) != 0 && subjectView->get20())
 		run = false;
 	if (run)
 	{
-		for (void **i = *(void ***)((char *)this + 0x1C);
-			i != *(void ***)((char *)this + 0x20); ++i)
-			((LargeGroupAudioSoundKeyPair *)*i)->rva005697F7((LargeGroupAudioSubject *)arg);
+		for (void **pairEntry = *(void ***)((char *)this + 0x1C);
+			pairEntry != *(void ***)((char *)this + 0x20); ++pairEntry)
+			((LargeGroupAudioSoundKeyPair *)*pairEntry)->rva005697F7((LargeGroupAudioSubject *)subjectView);
 	}
 }
 
-void Rva0020DXXXElem::rva003EDFD8(int x)
+void Rva0020DXXXElem::rva003EDFD8(int subjectAddress)
 {
-	Rva0020DXXXArg *arg = (Rva0020DXXXArg *)x;
+	Rva0020DXXXArg *subjectView = (Rva0020DXXXArg *)subjectAddress;
 	bool run;
-	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get08())
-		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get10()))
+	if (((Rva003EDE16 *)this)->rva003EDE16(subjectView->get08())
+		&& ((Rva003EDE2A *)this)->rva003EDE2A(subjectView->get10()))
 		run = true;
 	else
 		run = false;
-	if (*(unsigned char *)((char *)this + 0xE5) != 0 && arg->get24())
+	if (*(unsigned char *)((char *)this + 0xE5) != 0 && subjectView->get24())
 		run = false;
-	int frame = arg->get28();
+	int frame = subjectView->get28();
 	if (frame <= TheLargeGroupAudio->m_3C)
 		run = false;
 	if (run)
 	{
-		for (void **i = *(void ***)((char *)this + 0x1C);
-			i != *(void ***)((char *)this + 0x20); ++i)
-			((LargeGroupAudioSoundKeyPair *)*i)->unregisterSubject((LargeGroupAudioSubject *)arg);
+		for (void **pairEntry = *(void ***)((char *)this + 0x1C);
+			pairEntry != *(void ***)((char *)this + 0x20); ++pairEntry)
+			((LargeGroupAudioSoundKeyPair *)*pairEntry)->unregisterSubject((LargeGroupAudioSubject *)subjectView);
 	}
 }
 
@@ -716,10 +716,10 @@ void *Rva003EE083::rva003EE083(const AsciiString &asciiString)
 
 // ---- from Code/GameEngine/Source/Common/Rva00568C36Overlap.cpp
 
-bool Rva003EE058Owner::overlaps(const Rva00568C36Provider *arg)
+bool Rva003EE058Owner::overlaps(const Rva00568C36Provider *provider)
 {
 	for (Rva00568C36 **p=m_begin; p!=m_end; ++p)
-		if ((*p)->rva00568C36(arg))
+		if ((*p)->rva00568C36(provider))
 			return true;
 	return false;
 }

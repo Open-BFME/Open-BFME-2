@@ -17,17 +17,17 @@ extern class ScriptEngine *TheScriptEngine;
 extern GameLogic *TheGameLogic;
 void ScriptActions::doNamedDelete(Parameter *p)
 {
-	Object *o = TheScriptEngine->getUnitNamed(p);
-	if (!o)
+	Object *unit = TheScriptEngine->getUnitNamed(p);
+	if (!unit)
 		return;
-	TheGameLogic->destroyObject(o);
+	TheGameLogic->destroyObject(unit);
 }
-void ScriptActions::Rva003BB4BDApply(Parameter *p, float a, float b, float c, int d)
+void ScriptActions::Rva003BB4BDApply(Parameter *p, float a, float b, float c, int stringAddress)
 {
-	Object *o = TheScriptEngine->getUnitNamed(p);
-	if (!o)
+	Object *unit = TheScriptEngine->getUnitNamed(p);
+	if (!unit)
 		return;
-	o->rva00291A8C(a, b, c, *(const AsciiString *)d);
+	unit->rva00291A8C(a, b, c, *(const AsciiString *)stringAddress);
 }
 
 // Member ABI proved at each native executeAction3CA4BE call site: ECX=this.

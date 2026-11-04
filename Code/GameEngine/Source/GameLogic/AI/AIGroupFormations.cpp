@@ -36,23 +36,23 @@ struct Rva005490D2 {
 int Rva005490D2::rva005490AE() const
 {
 	int best = 0;
-	for (int i = 0; i < count; ++i) {
-		int v = array[i]->leaf->field564;
-		if (v > best)
-			best = v;
+	for (int unitIndex = 0; unitIndex < count; ++unitIndex) {
+		int unitWidth = array[unitIndex]->leaf->field564;
+		if (unitWidth > best)
+			best = unitWidth;
 	}
 	return best;
 }
 int Rva005490D2::rva005490D2() const
 {
 	int total = 0;
-	int n = count;
-	if (n > 0) {
+	int remainingUnits = count;
+	if (remainingUnits > 0) {
 		Mid005490D2 **unitIter = (Mid005490D2 **)array;
 		do {
 			total += (*unitIter)->leaf->field568;
 			++unitIter;
-		} while (--n);
+		} while (--remainingUnits);
 	}
 	return total;
 }
@@ -127,24 +127,24 @@ public:
 void Rva00549252::rva00549252()
 {
 	int rowDepth = 0;
-	int i = 0;
+	int rowIndex = 0;
 	m_01B4 = 0;
 	if (m_00 > 0) {
 		Gen_0015A260 *slot = m_slots08;
 		do {
 			slot->m_count = 0;
-			++i;
+			++rowIndex;
 			slot++;
-		} while (i < m_00);
+		} while (rowIndex < m_00);
 	}
 	m_00 = 0;
-	int k = 0;
+	int formationKind = 0;
 	if (m_00 >= 10)
 		return;
-	while (k < 13) {
+	while (formationKind < 13) {
 		if (m_00 >= 10)
 			break;
-		int j = 0;
+		int unitIndex = 0;
 		if (m_0120 > 0) {
 			Mid00549252 **unitIter = m_array124;
 			do {
@@ -154,7 +154,7 @@ void Rva00549252::rva00549252()
 					Inner200549252 *s2 = s1->m_01F0;
 					if (s2 != 0) {
 						Gate00549252 *kindData = s2->m_04;
-						if (kindData->m_0078 == k) {
+						if (kindData->m_0078 == formationKind) {
 							rowDepth += unit->m_04->m_0568;
 							if (rowDepth > m_04) {
 								++m_00;
@@ -168,16 +168,16 @@ void Rva00549252::rva00549252()
 						}
 					}
 				}
-				++j;
+				++unitIndex;
 				++unitIter;
-			} while (j < m_0120);
+			} while (unitIndex < m_0120);
 		}
-		if (k == 3 || k == 6 || k == 0 || k == 9 || k == 12) {
+		if (formationKind == 3 || formationKind == 6 || formationKind == 0 || formationKind == 9 || formationKind == 12) {
 			if (rowDepth > 0)
 				++m_00;
 			rowDepth = 0;
 		}
-		++k;
+		++formationKind;
 	}
 	m_01B8 = 1;
 }
@@ -210,7 +210,7 @@ FormationDimensions FormationSquad::rva00549425(){
  FormationSpacingView*data=TheAI->data;
  float height=totalHeight*data->spacingA0;
  int widthTotal=0;
- for(int i=0;i<rows;++i)widthTotal+=reinterpret_cast<Rva005490D2*>(rowStorage)[0].rva005490AE();
+ for(int rowIndex=0;rowIndex<rows;++rowIndex)widthTotal+=reinterpret_cast<Rva005490D2*>(rowStorage)[0].rva005490AE();
  return FormationDimensions(widthTotal*data->spacingA4,height);
 }
 
@@ -235,7 +235,7 @@ int Rva00549493::get()const{return view.size();}
 // its 28B storage view preserves the provider declaration and original name
 // uncertainty. Width default is the target AI data field+B4 doubled.
 FormationSquad::FormationSquad():rows(0),width(TheAI->data->widthB4*2),unitCount(0),totalHeight(0),ready(false){
- for(int i=0;i<36;++i)units[i]=0;
+ for(int unitIndex=0;unitIndex<36;++unitIndex)units[unitIndex]=0;
 }
 
 // Native5490F1..5491E4 complete243B. Target unit+410 ID and+414
@@ -245,12 +245,12 @@ FormationSquad::FormationSquad():rows(0),width(TheAI->data->widthB4*2),unitCount
 struct FormationPosition:Coord2D {FormationPosition(const Coord2D&rhs){x=rhs.x;y=rhs.y;}};
 void Rva005490D2::rva005490F1(const Coord2D*origin,int formationId){
  int depth=0;
- for(int i=0;i<count;++i){
-  int height=array[i]->leaf->field568;
+ for(int unitIndex=0;unitIndex<count;++unitIndex){
+  int height=array[unitIndex]->leaf->field568;
   FormationSpacingView*data=TheAI->data;
-  FormationPosition position(*origin);position.y+=(depth+height*0.5f)*data->spacingA0;position.x-=array[i]->leaf->field564*data->spacingA4*0.5f;
-  array[i]->formationId=formationId;
-  Mid005490D2*unit=array[i];
+  FormationPosition position(*origin);position.y+=(depth+height*0.5f)*data->spacingA0;position.x-=array[unitIndex]->leaf->field564*data->spacingA4*0.5f;
+  array[unitIndex]->formationId=formationId;
+  Mid005490D2*unit=array[unitIndex];
   if(unit->gate&&unit->gate->update&&unit->gate->update->data->kind==0){position.x*=0.5f;position.y*=0.5f;}
   unit->formationOffset=position;
   depth+=height;
@@ -265,9 +265,9 @@ void FormationSquad::rva00549345(const Coord2D*origin,int formationId){
  float height=totalHeight*TheAI->data->spacingA0;
  int columns=0;
  if(rows>10)rows=10;
- for(int i=0;i<rows;++i){
+ for(int rowIndex=0;rowIndex<rows;++rowIndex){
   FormationSpacingView*data=TheAI->data;
-  Rva005490D2*row=reinterpret_cast<Rva005490D2*>(&rowStorage[i]);
+  Rva005490D2*row=reinterpret_cast<Rva005490D2*>(&rowStorage[rowIndex]);
   FormationPosition position(*origin);
   position.x-=columns*data->spacingA4;
   position.x+=halfColumn;
@@ -287,7 +287,7 @@ inline void Coord3D::normalize() {
  float len=length();
  if(len!=0.0f){float scale=1.0f/len;x*=scale;y*=scale;z*=scale;}
 }
-template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
+template<class T> inline volatile T &__vref(T &value){return *(volatile T *)&value;}
 class Object;
 struct Rva0028AC4EEntry;
 class Object { public: const Rva0028AC4EEntry *rva0028AC4E() const; };

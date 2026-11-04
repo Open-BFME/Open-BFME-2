@@ -9,7 +9,7 @@
 // retail copy 0x002CDF8A does; a file-static unsigned overload takes the call.
 #include <stl/_algobase.h>
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b) { return a < b ? b : a; }
+static inline const unsigned int &max(const unsigned int &leftValue, const unsigned int &rightValue) { return leftValue < rightValue ? rightValue : leftValue; }
 }
 #include <vector>
 
@@ -26,8 +26,8 @@ static __forceinline bool operator!=(const _List_iterator<T, L> &a, const _List_
 inline float Coord3D::length() const { return (float)sqrt(x * x + y * y + z * z); }
 inline float Coord3D::GetLength() const
 {
-    float a = x, b = y, c = z;
-    return (float)sqrt(a * a + b * b + c * c);
+    float xComponent = x, b = y, c = z;
+    return (float)sqrt(xComponent * xComponent + b * b + c * c);
 }
 inline void Coord3D::normalize()
 {
@@ -43,11 +43,11 @@ inline void Coord3D::normalize()
 struct Coord3DCopy : Coord3D
 {
     Coord3DCopy() {}
-    Coord3DCopy(const Coord3D &r)
+    Coord3DCopy(const Coord3D &sourceCoord)
     {
-        x = r.x;
-        y = r.y;
-        z = r.z;
+        x = sourceCoord.x;
+        y = sourceCoord.y;
+        z = sourceCoord.z;
     }
     Coord3DCopy(const Coord3DCopy &coord3DCopy)
     {
@@ -61,18 +61,18 @@ struct Coord3DCopy : Coord3D
         static_cast<Coord3D &>(*this) = r;
         return *this;
     }
-    Coord3DCopy &Sub(const Coord3D &r)
+    Coord3DCopy &Sub(const Coord3D &subtrahend)
     {
-        x -= r.x;
-        y -= r.y;
-        z -= r.z;
+        x -= subtrahend.x;
+        y -= subtrahend.y;
+        z -= subtrahend.z;
         return *this;
     }
-    Coord3DCopy &Add(const Coord3D &r)
+    Coord3DCopy &Add(const Coord3D &addend)
     {
-        x += r.x;
-        y += r.y;
-        z += r.z;
+        x += addend.x;
+        y += addend.y;
+        z += addend.z;
         return *this;
     }
     Coord3DCopy &Scale(float s)
@@ -295,7 +295,7 @@ class TerrainLogic
 };
 extern TerrainLogic *TheTerrainLogic;
 
-static const float &larger(const float &a, const float &b) { return a > b ? a : b; }
+static const float &larger(const float &leftValue, const float &rightValue) { return leftValue > rightValue ? leftValue : rightValue; }
 struct FormationOffset : Coord2D
 {
     FormationOffset() {}
@@ -304,10 +304,10 @@ struct FormationOffset : Coord2D
         x = formationOffset.x;
         y = formationOffset.y;
     }
-    FormationOffset(const Coord2D &r)
+    FormationOffset(const Coord2D &sourceOffset)
     {
-        x = r.x;
-        y = r.y;
+        x = sourceOffset.x;
+        y = sourceOffset.y;
     }
     ~FormationOffset() {}
     FormationOffset &Scale(float scale)
@@ -633,30 +633,30 @@ inline Rva0035149F &Rva0035149F::rva0035149F(const Rva0035149F &other)
     Copy copy = &_STL::__copy_ptrs<const BfmeE12 *, BfmeE12 *>;
     if (&other == this)
         return *this;
-    unsigned n = other.finish - other.start, cap = end - start;
-    if (n > cap)
+    unsigned elementCount = other.finish - other.start, cap = end - start;
+    if (elementCount > cap)
     {
-        BfmeE12 *fresh =
-            ((Rva000E016A *)this)->rva000E016A(n, (Coord3D *)other.start, (Coord3D *)other.finish);
+        BfmeE12 *newStorage =
+            ((Rva000E016A *)this)->rva000E016A(elementCount, (Coord3D *)other.start, (Coord3D *)other.finish);
         if (start)
             Rva00030830GameFree(start);
-        start = fresh;
-        end = fresh + n;
+        start = newStorage;
+        end = newStorage + elementCount;
     }
     else
     {
-        unsigned sz = finish - start;
-        if (sz >= n)
+        unsigned currentSize = finish - start;
+        if (currentSize >= elementCount)
         {
             copy((const BfmeE12 *)other.start, (const BfmeE12 *)other.finish, start, tag);
         }
         else
         {
-            copy((const BfmeE12 *)other.start, (const BfmeE12 *)(other.start + sz), start, tag);
+            copy((const BfmeE12 *)other.start, (const BfmeE12 *)(other.start + currentSize), start, tag);
             _STL::__uninitialized_copy((Coord3D *)(other.start + (finish - start)),
                                        (Coord3D *)other.finish, (Coord3D *)finish, tag);
         }
     }
-    finish = start + n;
+    finish = start + elementCount;
     return *this;
 }

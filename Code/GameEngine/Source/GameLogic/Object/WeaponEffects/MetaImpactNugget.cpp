@@ -222,7 +222,7 @@ private:
 };
 
 // Slot 14 of Made002CC8A4 vtable 0x008649A0; WB 0x10A6DC0 twin (set/sub per arm, rotation tail).
-static inline const float &bfmeMin(const float &a, const float &b) { return b < a ? b : a; }
+static inline const float &bfmeMin(const float &left, const float &right) { return right < left ? right : left; }
 unsigned char Made002CC8A4::rva00509F3A(void *weapon, Object *victim, DamageInfo *info)
 {
  if (!weapon || !victim) return 0;
@@ -240,10 +240,10 @@ unsigned char Made002CC8A4::rva00509F3A(void *weapon, Object *victim, DamageInfo
  if (m_144 != 0.0f) {
   float side = bfmeMin(m_144, 1.0f);
   float normal = 1.0f - side;
-  float a = dir.y * side;
-  float b = -dir.x * side;
-  dir.x = dir.x * normal + a * side;
-  dir.y = dir.y * normal + b * side;
+  float scaledY = dir.y * side;
+  float negatedScaledX = -dir.x * side;
+  dir.x = dir.x * normal + scaledY * side;
+  dir.y = dir.y * normal + negatedScaledX * side;
  }
  if (fabs(dir.x) < 0.0001f && fabs(dir.y) < 0.0001f && fabs(dir.z) < 0.0001f) {
   if (m_155) {
@@ -313,9 +313,9 @@ checkBit:
 		void *t250 = (void *)*(int *)((char *)t274 + 0x250);
 		if (!t250)
 			return;
-		Object *found2 = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)source + 8));
-		if (found2)
-			((Rva00294D61 *)found2)->report(object, 1);
+		Object *sourceObject = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)source + 8));
+		if (sourceObject)
+			((Rva00294D61 *)sourceObject)->report(object, 1);
 		((DamageInfoish *)((TargetIface *)t250)->v01())->v15(((TargetIface *)t250)->v31(object));
 		return;
         }
@@ -349,17 +349,17 @@ struct Vector3
 	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
 	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
 	float Length2() const { return X * X + Y * Y + Z * Z; }
-	static float Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X * b.X + a.Y * b.Y + a.Z * b.Z; }
+	static float Dot_Product(const Vector3 &left, const Vector3 &right) { return left.X * right.X + left.Y * right.Y + left.Z * right.Z; }
 };
 
 // This unit needs the header-inline SSE operation; retain the canonical
 // out-of-line Vector3::Normalize provider instead of emitting a second copy.
 static __forceinline void normalizeDirection(Vector3 &direction)
 {
- float len2 = direction.Length2();
- if (len2 != 0.0f) {
-  float oolen = WWMath::Inv_Sqrt(len2);
-  direction.X *= oolen; direction.Y *= oolen; direction.Z *= oolen;
+ float lengthSquared = direction.Length2();
+ if (lengthSquared != 0.0f) {
+  float inverseLength = WWMath::Inv_Sqrt(lengthSquared);
+  direction.X *= inverseLength; direction.Y *= inverseLength; direction.Z *= inverseLength;
  }
 }
 
@@ -399,31 +399,31 @@ void Made002CC8A4::rva0050A4A2(void *source, const Coord3D *pos)
 		radius = 1.0f;
 	PartitionFilterRejectByKindOf filter(Rva00045411BitSet(0, 0x59), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE);
 	bool centerDistance = m_144 != 0.0f;
-	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(pos, radius, centerDistance ? 1 : 3, &filter, 0);
-	Object *obj;
-	while ((obj = iter.next()) != 0)
+	BfmeWideResult objectIterator = ThePartitionManager->iterateObjectsInRange(pos, radius, centerDistance ? 1 : 3, &filter, 0);
+	Object *candidateObject;
+	while ((candidateObject = objectIterator.next()) != 0)
 	{
-		if (!((SelfIface *)this)->v01((int)source, obj))
+		if (!((SelfIface *)this)->v01((int)source, candidateObject))
 			continue;
 		if (m_130 < 3.14159265359f)
 		{
 			Coord3D toObj;
-			toObj.set(obj->getPosition());
+			toObj.set(candidateObject->getPosition());
 			toObj.sub(pos);
-			Object *src = TheGameLogic->findObjectByID(((const Rva0050A4A2Source *)source)->m_sourceID);
-			if (!src)
+			Object *sourceObject = TheGameLogic->findObjectByID(((const Rva0050A4A2Source *)source)->m_sourceID);
+			if (!sourceObject)
 				continue;
 			float px = pos->x, py = pos->y, pz = pos->z;
 			_ReadWriteBarrier();
 			Coord3D diff;
-			diff.x = px - src->getPosition()->x;
-			diff.y = py - src->getPosition()->y;
-			diff.z = pz - src->getPosition()->z;
+			diff.x = px - sourceObject->getPosition()->x;
+			diff.y = py - sourceObject->getPosition()->y;
+			diff.z = pz - sourceObject->getPosition()->z;
 			Coord3D diffCopy;
 			diffCopy.set(&diff);
 			Vector3 dir(diff.x, diff.y, diff.z);
 			if (diffCopy.length() == 0.0f)
-				dir.Set(src->m_transform[0][0], src->m_transform[1][0], src->m_transform[2][0]);
+				dir.Set(sourceObject->m_transform[0][0], sourceObject->m_transform[1][0], sourceObject->m_transform[2][0]);
 			Vector3 toV(toObj.x, toObj.y, toObj.z);
 			normalizeDirection(dir);
 			normalizeDirection(toV);
@@ -436,7 +436,7 @@ void Made002CC8A4::rva0050A4A2(void *source, const Coord3D *pos)
 			else if (m_134)
 				continue;
 		}
-		((SelfIface *)this)->v15(source, obj);
+		((SelfIface *)this)->v15(source, candidateObject);
 	}
 }
 

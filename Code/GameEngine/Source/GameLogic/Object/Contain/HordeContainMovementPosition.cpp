@@ -70,11 +70,11 @@ struct MovementPoint
         y = yComponent;
         z = zComponent;
     }
-    MovementPoint(const Coord3D &c)
+    MovementPoint(const Coord3D &coord)
     {
-        x = c.x;
-        y = c.y;
-        z = c.z;
+        x = coord.x;
+        y = coord.y;
+        z = coord.z;
     }
 };
 class Matrix3D
@@ -226,8 +226,8 @@ void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg
             clampedDistance = 200.0f;
         else if (clampedDistance <= 1.0f)
             clampedDistance = 1.0f;
-        float t = (200.0f - clampedDistance) / 200.0f;
-        moveRadius *= t * 0.8f + 0.2f;
+        float inverseDistanceFraction = (200.0f - clampedDistance) / 200.0f;
+        moveRadius *= inverseDistanceFraction * 0.8f + 0.2f;
         if (moveRadius > 10.0f)
             moveRadius = 10.0f;
         if (obj->m_template->m_11C & 0x10)

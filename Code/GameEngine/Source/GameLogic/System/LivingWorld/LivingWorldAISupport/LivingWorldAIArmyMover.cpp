@@ -189,11 +189,11 @@ void LivingWorldAIArmyMover::rva0059BE1F(ArmyMoverRegion*region,int maxDistance,
   IntTree&tree=*(IntTree*)&distances.find(region->id)->second;
   for(int distance=0;distance<=maxDistance;distance++) {
    _STL::pair<IntTree::const_iterator,IntTree::const_iterator> range=((const IntTree&)tree).equal_range(distance);
-   for(IntTree::const_iterator r=range.first;r!=range.second;r++) {
-    ArmyMoverRegionInfo*ri=info->get(r->second);
-    for(IntMap::iterator a=ri->armies.begin();a!=ri->armies.end();++a) {
-     const Rva002B488EResult*army=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B488E(a->second);
-     if((unsigned char)((Rva002E071E*)player)->rva002E0BC0(a->first)) {
+   for(IntTree::const_iterator regionIterator=range.first;regionIterator!=range.second;regionIterator++) {
+    ArmyMoverRegionInfo*regionInfo=info->get(regionIterator->second);
+    for(IntMap::iterator armyIterator=regionInfo->armies.begin();armyIterator!=regionInfo->armies.end();++armyIterator) {
+     const Rva002B488EResult*army=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B488E(armyIterator->second);
+     if((unsigned char)((Rva002E071E*)player)->rva002E0BC0(armyIterator->first)) {
       friendly->push_back((const ModuleData*const&)army);
       unsigned int owner=army->owner;bool found=false;
       for(unsigned j=0;j<players->size();++j) {
@@ -237,7 +237,7 @@ void LivingWorldAIArmyMover::rva0059C631(_STL::vector<BfmePod20>*moves,int playe
    if(r->owner==playerID)++owned;
    else if((unsigned char)((Rva002E071E*)player)->rva002E0BC0(r->owner)){owned=0;break;}
   }
-  float wa=float(bonus->a)*weightA;float wb=float(bonus->b)*weightB;float wc=float(bonus->c)*weightC;float score=float(owned)/float(count)+(wa+(wb+wc))*0.01f;
+  float weightedBonusA=float(bonus->a)*weightA;float weightedBonusB=float(bonus->b)*weightB;float weightedBonusC=float(bonus->c)*weightC;float score=float(owned)/float(count)+(weightedBonusA+(weightedBonusB+weightedBonusC))*0.01f;
   if(score>bestScore && owned<count) {bestScore=score;best=(*bonuses)[i];}
  }
  if(!best)return;
@@ -273,12 +273,12 @@ void LivingWorldAIArmyMover::rva0059C631(_STL::vector<BfmePod20>*moves,int playe
 // ?rva0059BD85@LivingWorldAIArmyMover@@QAE_NPAURange0059BD85@@HPAX@Z
 bool LivingWorldAIArmyMover::rva0059BD85(Range0059BD85 *range, int unused, void *key)
 {
-	unsigned int i = 0;
+	unsigned int entryIndex = 0;
 	int count = (char *)range->m_end - (char *)range->m_begin;
 	count /= (int)sizeof(Elem0059BD85);
-	for (; i < (unsigned int)count; ++i)
+	for (; entryIndex < (unsigned int)count; ++entryIndex)
 	{
-		if (range->m_begin[i].m_key == key)
+		if (range->m_begin[entryIndex].m_key == key)
 			return true;
 	}
 	return false;
@@ -318,29 +318,29 @@ void LivingWorldAIArmyMover::rva0059C93C(_STL::vector<BfmePod20>*moves,int playe
  int found=0;
  void*scenario=TheCampaignManager->getCurrentCampaign()->scenario;
  ((Rva004FD448*)scenario)->rva004FD571(faction,&targets,&found);
- for(int i=0;i<((PlayerListLogic*)TheLivingWorldLogic)->numPlayers();++i) {
-  Rva002E2903Player*other=((Rva002BA8F1Logic*)TheLivingWorldLogic)->GetPlayerAtIndex(i);
+ for(int playerIndex=0;playerIndex<((PlayerListLogic*)TheLivingWorldLogic)->numPlayers();++playerIndex) {
+  Rva002E2903Player*other=((Rva002BA8F1Logic*)TheLivingWorldLogic)->GetPlayerAtIndex(playerIndex);
   if(!(unsigned char)((Rva002E071E*)other)->rva002E0BC0(playerID)) {
    int count=0;
-   int otherID=((Rva002BA8F1Logic*)TheLivingWorldLogic)->GetPlayerAtIndex(i)->id;
+   int otherID=((Rva002BA8F1Logic*)TheLivingWorldLogic)->GetPlayerAtIndex(playerIndex)->id;
    ((Rva004FD4D4*)scenario)->rva004FD4D4(otherID,&targets,&count);
   }
  }
  StrategyArmies*armies=(StrategyArmies*)((Rva004FF9B6*)info)->rva004FF9B6(playerID);
- for(unsigned a=0;a<armies->size();++a) {
-  ArmyObject*army=(ArmyObject*)((Rva002E0A9FElem*)player)->rva002E0A9F((void*)(*armies)[a].id);
-  unsigned j;
-  for(j=0;j<moves->size();++j)if((*moves)[j].m_id==army->GetID())break;
-  if(j<moves->size())continue;
-  ArmyMoverRegionInfo*from=info->get((*armies)[a].region->id);
-  Rva004FF5B7Iter fromIt=info->GetRegionInfo((*armies)[a].region->id);
+ for(unsigned armyIndex=0;armyIndex<armies->size();++armyIndex) {
+  ArmyObject*army=(ArmyObject*)((Rva002E0A9FElem*)player)->rva002E0A9F((void*)(*armies)[armyIndex].id);
+  unsigned moveIndex;
+  for(moveIndex=0;moveIndex<moves->size();++moveIndex)if((*moves)[moveIndex].m_id==army->GetID())break;
+  if(moveIndex<moves->size())continue;
+  ArmyMoverRegionInfo*from=info->get((*armies)[armyIndex].region->id);
+  Rva004FF5B7Iter fromIt=info->GetRegionInfo((*armies)[armyIndex].region->id);
   int closestDistance=9999;
   int closest=((Rva005003DF*)info)->rva005003DF(playerID,from->id,&closestDistance);
   int targetID=-1,targetDistance=9999;
-  for(unsigned t=0;t<targets.size();++t) {
-   int distance=rva0050059A(from->id,((ArmyMoverRegion*)targets[t])->id);
-   if(distance<targetDistance && !(unsigned char)((Rva002E071E*)player)->rva002E0BC0(((ArmyMoverRegion*)targets[t])->owner)) {
-    targetDistance=distance;targetID=((ArmyMoverRegion*)targets[t])->id;
+  for(unsigned targetIndex=0;targetIndex<targets.size();++targetIndex) {
+   int distance=rva0050059A(from->id,((ArmyMoverRegion*)targets[targetIndex])->id);
+   if(distance<targetDistance && !(unsigned char)((Rva002E071E*)player)->rva002E0BC0(((ArmyMoverRegion*)targets[targetIndex])->owner)) {
+    targetDistance=distance;targetID=((ArmyMoverRegion*)targets[targetIndex])->id;
    }
   }
   Rva0050055D distances(*(Rva0050055D*)&((IntMap*)&g_Va00E04544)->find(from->id)->second);
@@ -349,8 +349,8 @@ void LivingWorldAIArmyMover::rva0059C93C(_STL::vector<BfmePod20>*moves,int playe
   int bestScore=from->m_08+from->m_1c.size()*3;
   if(((Rva004FFA6E*)info)->rva004FF9DC(playerID,1,(Rva004FFA6ESource*const&)fromIt.m_ptr))bestScore+=5+from->m_10.size()*5;
   _STL::pair<IntTree::iterator,IntTree::iterator> range=distances.first().equal_range(1);
-  for(IntTree::iterator it=range.first;it!=range.second;++it) {
-   Rva004FF5B7Iter region=info->GetRegionInfo(it->second);
+  for(IntTree::iterator adjacentRegionIterator=range.first;adjacentRegionIterator!=range.second;++adjacentRegionIterator) {
+   Rva004FF5B7Iter region=info->GetRegionInfo(adjacentRegionIterator->second);
    int score=region.m_ptr->region.m_08;
    ArmyMoverRegion*armyMoverRegion=(ArmyMoverRegion*)((Rva0020EAF6View*)((StrategyLogic*)TheLivingWorldLogic)->getManager())->rva0020EAF6(region.m_ptr->region.id);
    int outcome=WinTestBattle(armyMoverRegion,1,playerID,(const ModuleData*)army,unused,info,difficulty);
@@ -377,10 +377,10 @@ void LivingWorldAIArmyMover::rva0059C93C(_STL::vector<BfmePod20>*moves,int playe
    }
    } else score=0;
    if(outcome!=1) {
-    for(unsigned m=0;m<moves->size();++m)
-     if((*moves)[m].m_id!=army->GetID() && (*moves)[m].m_flag && (*moves)[m].m_step==it->second)score>>=1;
+    for(unsigned existingMoveIndex=0;existingMoveIndex<moves->size();++existingMoveIndex)
+     if((*moves)[existingMoveIndex].m_id!=army->GetID() && (*moves)[existingMoveIndex].m_flag && (*moves)[existingMoveIndex].m_step==adjacentRegionIterator->second)score>>=1;
    }
-   if(score>bestScore){bestScore=score;best=it;}
+   if(score>bestScore){bestScore=score;best=adjacentRegionIterator;}
   }
   if(best->first>0) {
    BfmePod20 move;move.m_id=army->GetID();move.m_flag=true;move.m_08=0;move.m_step=best->second;moves->push_back(move);

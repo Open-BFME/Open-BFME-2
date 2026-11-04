@@ -48,7 +48,7 @@ inline Coord3D &addCoord(Coord3D &p, const Coord3DBase &coord3DBase) {
 struct AerialCoord3D : public Coord3D
 {
     AerialCoord3D &operator+=(const Coord3D &o) { x += o.x; y += o.y; z += o.z; return *this; }
-    void set(const Coord3D *o) { x = o->x; y = o->y; z = o->z; }
+    void set(const Coord3D *source) { x = source->x; y = source->y; z = source->z; }
 };
 inline void Coord3D::set(const Coord3DBase *coord3DBase) {
     x = coord3DBase->x;
@@ -125,7 +125,7 @@ struct Rva00375A73Coord;
 #include "../../../Include/GameLogic/AerialPathfinder.h"
 
 bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00312C95 *route,
-    const unsigned char *label, const unsigned char *firstPointRaw, bool adjust)
+    const unsigned char *shapeFlags, const unsigned char *firstPointRaw, bool adjust)
 {
     {
         Rva006C65F0 whole("computeAerialPath", "The whole thing.", true);
@@ -141,9 +141,9 @@ bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00
             Object *obj = TheGameLogic->findObjectByID((ObjectID)*(unsigned *)(self + 0x74));
             if (!obj)
                 return false;
-            Pathfinder *pf = ((AerialAIView *)TheAI)->pathfinder;
+            Pathfinder *destinationPathfinder = ((AerialAIView *)TheAI)->pathfinder;
             float z = target.z;
-            pf->AdjustDestination(obj, *(const LocomotorSet *)((char *)ai + 0x1cc), &target, 0);
+            destinationPathfinder->AdjustDestination(obj, *(const LocomotorSet *)((char *)ai + 0x1cc), &target, 0);
             target.z = z;
             obj->rva0028ACEE((int)&target, 1);
         }
@@ -162,9 +162,9 @@ bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00
             p.scale(-(extension > 1500.0f ? 1500.0f : extension));
             static_cast<AerialCoord3D &>(p) += center;
             bool above = ((Object *)thing)->isSignificantlyAboveTerrain();
-            if (((const AerialShapeBits *)label)->test(2) && above)
+            if (((const AerialShapeBits *)shapeFlags)->test(2) && above)
                 p.z -= capExtension(extension);
-            else if (((const AerialShapeBits *)label)->test(7)) {
+            else if (((const AerialShapeBits *)shapeFlags)->test(7)) {
                 p.z = 1000.0f;
                 p.x = center.x;
                 p.y = center.y;
@@ -177,7 +177,7 @@ bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00
                 target = *(const Coord3D *)firstPointRaw;
             }
         }
-        if (((const AerialShapeBits *)label)->test(0)) {
+        if (((const AerialShapeBits *)shapeFlags)->test(0)) {
             ((AerialRouteCalls *)route)->append(&center);
             ((AerialRouteCalls *)route)->append(&target);
         } else {
@@ -190,8 +190,8 @@ bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00
             addCoord(probe, asBase(target));
             bool collides = rva00375ED7((Object *)thing, &probe, &push) != 0;
             if (collides) {
-                float base = atan2(delta.x, delta.y);
-                Coord3D &q = delta;
+                float baseAngle = atan2(delta.x, delta.y);
+                Coord3D &candidatePoint = delta;
                 Coord3D second;
                 bool tryPlus = true;
                 bool tryMinus = true;
@@ -200,46 +200,46 @@ bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00
                 float step = 0.2f;
                 for (float angle = 0; angle < 3.1415927f; angle += step) {
                     if (tryPlus) {
-                        float a = normalizeAngle(base + angle);
-                        q.x = sinf(a) * (float)radius + target.x;
-                        q.y = cosf(a) * (float)radius + target.y;
-                        q.z = target.z;
-                        if (!rva00375ED7((Object *)thing, &q, &push)) {
-                            q.x = sinf(a + 2 * step) * (float)radius + target.x;
-                            q.y = cosf(a + 2 * step) * (float)radius + target.y;
+                        float a = normalizeAngle(baseAngle + angle);
+                        candidatePoint.x = sinf(a) * (float)radius + target.x;
+                        candidatePoint.y = cosf(a) * (float)radius + target.y;
+                        candidatePoint.z = target.z;
+                        if (!rva00375ED7((Object *)thing, &candidatePoint, &push)) {
+                            candidatePoint.x = sinf(a + 2 * step) * (float)radius + target.x;
+                            candidatePoint.y = cosf(a + 2 * step) * (float)radius + target.y;
                             tryPlus = false;
                             if (havePoint) {
                                 haveSecond = true;
-                                second = q;
+                                second = candidatePoint;
                                 break;
                             }
                             havePoint = true;
-                            probe = q;
+                            probe = candidatePoint;
                         }
                     }
                     if (tryMinus) {
-                        float a = normalizeAngle(base - angle);
-                        q.x = sinf(a) * (float)radius + target.x;
-                        q.y = cosf(a) * (float)radius + target.y;
-                        q.z = target.z;
-                        if (!rva00375ED7((Object *)thing, &q, &push)) {
-                            q.x = sinf(a - 2 * step) * (float)radius + target.x;
-                            q.y = cosf(a - 2 * step) * (float)radius + target.y;
+                        float a = normalizeAngle(baseAngle - angle);
+                        candidatePoint.x = sinf(a) * (float)radius + target.x;
+                        candidatePoint.y = cosf(a) * (float)radius + target.y;
+                        candidatePoint.z = target.z;
+                        if (!rva00375ED7((Object *)thing, &candidatePoint, &push)) {
+                            candidatePoint.x = sinf(a - 2 * step) * (float)radius + target.x;
+                            candidatePoint.y = cosf(a - 2 * step) * (float)radius + target.y;
                             tryMinus = false;
                             if (havePoint) {
                                 haveSecond = true;
-                                second = q;
+                                second = candidatePoint;
                                 break;
                             }
                             havePoint = true;
-                            probe = q;
+                            probe = candidatePoint;
                         }
                     }
                 }
                 if (haveSecond)
                     ((AerialRouteCalls *)route)->append(&second);
             }
-            if (((const AerialShapeBits *)label)->test(1))
+            if (((const AerialShapeBits *)shapeFlags)->test(1))
                 probe.z -= capExtension(extension);
             ((AerialRouteCalls *)route)->append(&target);
             ((AerialRouteCalls *)route)->append(&probe);
@@ -298,7 +298,7 @@ bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00
     }
     if (*(int *)((char *)TheWritableGlobalData + 0x9b8) == 5) {
         ProfileHighLevel::Id id;
-        for (unsigned i = 0; ProfileHighLevel::EnumProfile(i, id); ++i) {
+        for (unsigned profileIndex = 0; ProfileHighLevel::EnumProfile(profileIndex, id); ++profileIndex) {
             UnicodeString str;
             str.format((const unsigned short *)L"%S took %S %S.", id.GetDescr(), id.GetCurrentValue(), id.GetUnit());
             if (strcmp(id.GetUnit(), "calls") != 0)

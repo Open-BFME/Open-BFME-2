@@ -42,18 +42,18 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 class Player;
 class Object;
 
-static inline void coordSet(Coord3D &dst, const Coord3D *a)
+static inline void coordSet(Coord3D &dst, const Coord3D *source)
 {
-	dst.x = a->x;
-	dst.y = a->y;
-	dst.z = a->z;
+	dst.x = source->x;
+	dst.y = source->y;
+	dst.z = source->z;
 }
 
-static inline void coordSub(Coord3D &dst, const Coord3D *a)
+static inline void coordSub(Coord3D &dst, const Coord3D *source)
 {
-	dst.x -= a->x;
-	dst.y -= a->y;
-	dst.z -= a->z;
+	dst.x -= source->x;
+	dst.y -= source->y;
+	dst.z -= source->z;
 }
 
 class Vector3
@@ -63,9 +63,9 @@ public:
 	__forceinline Vector3(void) {}
 	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
 	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	static __forceinline float Dot_Product(const Vector3 &a, const Vector3 &b)
+	static __forceinline float Dot_Product(const Vector3 &left, const Vector3 &right)
 	{
-		return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+		return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
 	}
 };
 
@@ -162,7 +162,7 @@ public:
 	virtual void slot29() {}
 	virtual void slot30() {}
 	virtual void slot31() {}
-	virtual void rva00465011(Object *object);
+	virtual void rva00465011(Object *commandSourceArgument);
 	virtual void rva00465078(CommandSourceType source);
 	virtual void slot34() {}
 	virtual void slot35() {}
@@ -306,8 +306,8 @@ bool OpenContainActionIface::rva004628AB(int a, int b)
 bool OpenContainActionIface::rva00462955(Object *obj, int)
 {
 	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
-	OpenContainModuleDataView *md = (OpenContainModuleDataView *)contain->m_moduleData;
-	if (md->m_filter44.accepts(obj, contain->m_object->getControllingPlayer()) == false)
+	OpenContainModuleDataView *containData = (OpenContainModuleDataView *)contain->m_moduleData;
+	if (containData->m_filter44.accepts(obj, contain->m_object->getControllingPlayer()) == false)
 		return false;
 	return true;
 }
@@ -317,12 +317,12 @@ char OpenContainActionIface::rva00462BFF(const Object *object, const Object *b) 
 	if (object && b)
 	{
 		const OpenContain *contain = (const OpenContain *)((const char *)this - 0x20);
-		const OpenContainModuleDataView *md = (const OpenContainModuleDataView *)contain->m_moduleData;
-		if (md->m_threshold68 < 0.0f)
+		const OpenContainModuleDataView *containData = (const OpenContainModuleDataView *)contain->m_moduleData;
+		if (containData->m_threshold68 < 0.0f)
 			return 0;
 
 		const Object *owner = contain->m_object;
-		if (object->m_pos38.z - owner->m_pos38.z > md->m_threshold68)
+		if (object->m_pos38.z - owner->m_pos38.z > containData->m_threshold68)
 			return 0;
 
 		Coord3D ab;
@@ -346,11 +346,11 @@ char OpenContainActionIface::rva00462BFF(const Object *object, const Object *b) 
 Object *OpenContainActionIface::rva00463291(Rva2225E0Filter *filter)
 {
 	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
-	for (IntList::iterator it = contain->m_containList.begin(); it != contain->m_containList.end(); ++it)
+	for (IntList::iterator riderIterator = contain->m_containList.begin(); riderIterator != contain->m_containList.end(); ++riderIterator)
 	{
-		if (filter == 0 || filter->accepts((Object *)containmentFirstWord(*it), contain->m_object->getControllingPlayer()))
+		if (filter == 0 || filter->accepts((Object *)containmentFirstWord(*riderIterator), contain->m_object->getControllingPlayer()))
 		{
-			Object *rider = (Object *)containmentFirstWord(*it);
+			Object *rider = (Object *)containmentFirstWord(*riderIterator);
 			rva00464EE7Action(rider, 0);
 			return rider;
 		}
@@ -361,10 +361,10 @@ Object *OpenContainActionIface::rva00463291(Rva2225E0Filter *filter)
 void OpenContainActionIface::rva00465078(CommandSourceType source)
 {
 	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
-	IntList::iterator it = contain->m_containList.begin();
-	if (it != contain->m_containList.end())
+	IntList::iterator riderIterator = contain->m_containList.begin();
+	if (riderIterator != contain->m_containList.end())
 	{
-		Object *rider = (Object *)containmentFirstWord(*it);
+		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		if (rider->m_ai != 0)
 			((AIUpdateInterfaceView *)rider->m_ai)->m_command.aiExit(contain->m_object, source);
 	}
@@ -380,18 +380,18 @@ void OpenContainActionIface::rva00465078(CommandSourceType source)
 // Structural inference: this is the interface subobject at parent+0x20, as
 // shown by the target's accesses at this+0x34 and this-0x18. OpenContain field
 // layout is carried from adjacent target-matched bodies in this TU.
-void OpenContainActionIface::rva00465011(Object *object)
+void OpenContainActionIface::rva00465011(Object *commandSourceArgument)
 {
 	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
 	ContainmentList riders(contain->m_containList);
-	for (IntList::iterator it = riders.begin(); it != riders.end(); ++it)
+	for (IntList::iterator riderIterator = riders.begin(); riderIterator != riders.end(); ++riderIterator)
 	{
-		Object *rider = (Object *)containmentFirstWord(*it);
+		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		if (rider->m_ai != 0)
 		{
 			AIUpdateInterfaceView *currentAI = (AIUpdateInterfaceView *)rider->m_ai;
 			Object *owner = contain->m_object;
-			currentAI->m_command.aiExit(owner, (CommandSourceType)(unsigned long)object);
+			currentAI->m_command.aiExit(owner, (CommandSourceType)(unsigned long)commandSourceArgument);
 		}
 	}
 }
@@ -411,12 +411,12 @@ void OpenContainActionIface::rva00465011(Object *object)
 void OpenContainActionIface::rva00463138()
 {
 	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
-	IntList::iterator it = contain->m_containList.begin();
-	while (it != contain->m_containList.end())
+	IntList::iterator riderIterator = contain->m_containList.begin();
+	while (riderIterator != contain->m_containList.end())
 	{
-		Object *rider = (Object *)containmentFirstWord(*it);
+		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		const bool flagged = ((unsigned char)rider->m_template->m_kindof[1] & 2) != 0;
-		++it;
+		++riderIterator;
 		if (flagged)
 		{
 			Rva00373EC6 *helper = rider->rva0028F4BC();
@@ -430,9 +430,9 @@ void OpenContainActionIface::rva00463138()
 bool OpenContain::rva00464EE7(Object *object)
 {
 	ContainmentList riders(m_containList);
-	for (IntList::iterator it = riders.begin(); it != riders.end(); ++it)
+	for (IntList::iterator riderIterator = riders.begin(); riderIterator != riders.end(); ++riderIterator)
 	{
-		Object *rider = (Object *)containmentFirstWord(*it);
+		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		if (rider->getControllingPlayer() == object->getControllingPlayer())
 			continue;
 
@@ -476,9 +476,9 @@ void OpenContain::onDelete()
 {
 	m_byteDF = 1;
 	ContainmentList riders(m_containList);
-	for (IntList::iterator it = riders.begin(); it != riders.end(); ++it)
+	for (IntList::iterator riderIterator = riders.begin(); riderIterator != riders.end(); ++riderIterator)
 	{
-		Object *rider = (Object *)containmentFirstWord(*it);
+		Object *rider = (Object *)containmentFirstWord(*riderIterator);
 		m_iface20.rva00464EE7Action(rider, 1);
 		rider->m_word274 &= 0;
 		if ((((unsigned char *)rider->m_template)[0x113] & 4) != 0)

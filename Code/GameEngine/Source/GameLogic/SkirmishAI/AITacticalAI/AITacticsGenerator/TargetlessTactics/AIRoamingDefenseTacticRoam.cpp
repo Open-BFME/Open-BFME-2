@@ -54,10 +54,10 @@ struct RoamVector3 {
  float X,Y,Z;
  __forceinline RoamVector3(float x,float y,float z):X(x),Y(y),Z(z){}
  __forceinline float length2()const{return X*X+Y*Y+Z*Z;}
- __forceinline void rotate(float angle){float s=sinf(angle);float c=cosf(angle);rotate(s,c);}
+ __forceinline void rotate(float angle){float s=sinf(angle);float cosine=cosf(angle);rotate(s,cosine);}
  __forceinline void rotate(float s_angle,float c_angle){float oldX=X;float oldY=Y;X=c_angle*oldX-s_angle*oldY;Y=s_angle*oldX+c_angle*oldY;}
  __forceinline RoamVector3 &operator*=(float k){X=X*k;Y=Y*k;Z=Z*k;return *this;}
- __forceinline void scale(float f){X*=f;Y*=f;Z*=f;}
+ __forceinline void scale(float scaleFactor){X*=scaleFactor;Y*=scaleFactor;Z*=scaleFactor;}
 };
 static __forceinline void RoamSet(Coord3D *pos,float x,float y,float z){pos->x=x;pos->y=y;pos->z=z;}
 static __forceinline void RoamAdd(Coord3D *pos,const Coord3D *delta){pos->x+=delta->x;pos->y+=delta->y;pos->z+=delta->z;}

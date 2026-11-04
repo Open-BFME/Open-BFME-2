@@ -182,7 +182,7 @@ public:
 class Rva00261513Filter : public Rva000421C8
 {
 public:
-	Rva00261513Filter(const Object *o, bool b, float r) : obj(o), flag(b), range(r) {}
+	Rva00261513Filter(const Object *object, bool b, float distanceRange) : obj(object), flag(b), range(distanceRange) {}
 	virtual bool allow(Object *);
 	const Object *obj;
 	bool flag;
@@ -195,7 +195,7 @@ class SkirmishAI;
 class PartitionFilterSkirmishAI : public Rva000421C8
 {
 public:
-	PartitionFilterSkirmishAI(Object *o, SkirmishAI *a) : owner(o), ai(a) {}
+	PartitionFilterSkirmishAI(Object *ownerObject, SkirmishAI *skirmishAI) : owner(ownerObject), ai(skirmishAI) {}
 	virtual bool allow(Object *);
 	Object *owner;
 	SkirmishAI *ai;
@@ -311,7 +311,7 @@ __forceinline BfmeWideResult::BfmeWideResult(const BfmeWideResult &other)
 	++((unsigned *)value)[4];
 	m_value = value;
 }
-__forceinline const float &MaxPriority(const float &a, const float &b) { return a > b ? a : b; }
+__forceinline const float &MaxPriority(const float &left, const float &right) { return left > right ? left : right; }
 
 class Rva002FFFCA
 {
@@ -320,7 +320,7 @@ public:
 };
 
 void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned qualifiers,
-	int infoAddress, int optionalAddress, int extra)
+	int infoAddress, int optionalAddress, int victimIndex)
 {
 	const AttackPriorityInfo *info = (const AttackPriorityInfo *)infoAddress;
 	Rva000421C8 *optional = (Rva000421C8 *)optionalAddress;
@@ -398,10 +398,10 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 	if (!info)
 	{
 		Object *found = ThePartitionManager->getClosestObject(pos, range, 1, &filterOwner);
-		return found && (qualifiers & 2) ? found->adjustVictim(me, 1, extra) : found;
+		return found && (qualifiers & 2) ? found->adjustVictim(me, 1, victimIndex) : found;
 	}
 
-	BfmeWideResult iter = range < 9000.0f
+	BfmeWideResult objectIterator = range < 9000.0f
 		? ThePartitionManager->iterateObjectsInRange(pos, range, 1, &filterOwner, 0)
 		: (((BfmeResultForwardB *)ThePartitionManager)->*reinterpret_cast<AllObjectsCall>(&BfmeResultForwardB::bfmeForwardResultB))((int)&filterOwner);
 	Object *best = 0;
@@ -409,7 +409,7 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 	bool bestApproachable = false;
 	const Weapon *weapon = me->getCurrentWeapon(0);
 	Object *enemy;
-	while ((enemy = iter.next()) != 0)
+	while ((enemy = objectIterator.next()) != 0)
 	{
 		float priority = info->getPriority(me, enemy, true);
 		if (enemy->testStatus(STATUS38))
@@ -468,20 +468,20 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 			if (radius > 0.0f)
 			{
 				BfmeWideResult splash = ThePartitionManager->rva006255D0(enemy->getPosition(), radius, 4, 0);
-				float friends = 0.0f, others = 0.0f;
-				Object *obj;
-				while ((obj = splash.next()) != 0)
+				float alliedHealth = 0.0f, otherHealth = 0.0f;
+				Object *splashObject;
+				while ((splashObject = splash.next()) != 0)
 				{
-					if (obj->flags438 & 1)
+					if (splashObject->flags438 & 1)
 						continue;
-					if (me->getRelationship(obj) == ALLY)
-						friends += obj->body->getHealth();
+					if (me->getRelationship(splashObject) == ALLY)
+						alliedHealth += splashObject->body->getHealth();
 					else
-						others += obj->body->getHealth();
+						otherHealth += splashObject->body->getHealth();
 				}
-				if (friends + others < 1.0f)
+				if (alliedHealth + otherHealth < 1.0f)
 					continue;
-				if (friends / (friends + others) >= ((AI *)this)->data->friendlyFireRatio)
+				if (alliedHealth / (alliedHealth + otherHealth) >= ((AI *)this)->data->friendlyFireRatio)
 					continue;
 			}
 		}
@@ -499,5 +499,5 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 		if (((Rva002C9400ByteField *)weapon->info)->get() || ((WeaponTemplate *)weapon->info)->isContactWeapon())
 			best = 0;
 	}
-	return best && (qualifiers & 2) && !(qualifiers & 0x10) ? best->adjustVictim(me, 1, extra) : best;
+	return best && (qualifiers & 2) && !(qualifiers & 0x10) ? best->adjustVictim(me, 1, victimIndex) : best;
 }

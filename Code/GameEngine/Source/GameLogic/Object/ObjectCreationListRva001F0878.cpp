@@ -75,21 +75,21 @@ void ObjectCreationList::create(void *a1, void *a2, void *a3, int a4)
 		cur = (ObjectCreationList *)found;
 		break;
 	}
-	for (ObjectCreationNugget **i = cur->m_nuggets.begin(); i != cur->m_nuggets.end(); ++i)
-		(*i)->v3(a1, a2, a3, a4);
+	for (ObjectCreationNugget **nuggetIterator = cur->m_nuggets.begin(); nuggetIterator != cur->m_nuggets.end(); ++nuggetIterator)
+		(*nuggetIterator)->v3(a1, a2, a3, a4);
 }
 
 void ObjectCreationList::rva001F0410(void *a1, void *a2)
 {
-	for (ObjectCreationNugget **i = m_nuggets.begin(); i != m_nuggets.end(); ++i)
-		(*i)->v4(a1, a2);
+	for (ObjectCreationNugget **nuggetIterator = m_nuggets.begin(); nuggetIterator != m_nuggets.end(); ++nuggetIterator)
+		(*nuggetIterator)->v4(a1, a2);
 }
 
-void __cdecl Rva004C309CForward(void *ocl, void *primaryObj, void *primary, void *secondary, void *a4, int a5)
+void __cdecl Rva004C309CForward(void *creationList, void *primaryObj, void *primary, void *secondary, void *a4, int a5)
 {
-	if (ocl == 0)
+	if (creationList == 0)
 		return;
-	((ObjectCreationList *)ocl)->create(primaryObj, primary, secondary, a4, a5);
+	((ObjectCreationList *)creationList)->create(primaryObj, primary, secondary, a4, a5);
 }
 
 void ObjectCreationList::create(void *primaryObj, void *primary, void *secondary, void *a4, int a5)
@@ -109,8 +109,8 @@ void ObjectCreationList::create(void *primaryObj, void *primary, void *secondary
 		cur = (ObjectCreationList *)found;
 		break;
 	}
-	for (ObjectCreationNugget **i = cur->m_nuggets.begin(); i != cur->m_nuggets.end(); ++i)
-		(*i)->v1(primaryObj, primary, secondary, a4, a5);
+	for (ObjectCreationNugget **nuggetIterator = cur->m_nuggets.begin(); nuggetIterator != cur->m_nuggets.end(); ++nuggetIterator)
+		(*nuggetIterator)->v1(primaryObj, primary, secondary, a4, a5);
 }
 
 void ObjectCreationList::create(void *primary, void *secondary, void *lifetimeFrames)
@@ -130,8 +130,8 @@ void ObjectCreationList::create(void *primary, void *secondary, void *lifetimeFr
 		cur = (ObjectCreationList *)found;
 		break;
 	}
-	for (ObjectCreationNugget **i = cur->m_nuggets.begin(); i != cur->m_nuggets.end(); ++i)
-		(*i)->v2(primary, secondary, lifetimeFrames);
+	for (ObjectCreationNugget **nuggetIterator = cur->m_nuggets.begin(); nuggetIterator != cur->m_nuggets.end(); ++nuggetIterator)
+		(*nuggetIterator)->v2(primary, secondary, lifetimeFrames);
 }
 
 void ObjectCreationList::rva001F0468(Rva001F0468Node *head)
