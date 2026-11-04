@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // dxsdk
 // platformsdk
 //
@@ -11,23 +12,14 @@
 // (as Zero Hour's renderOneObject does with sceneLights), which keeps cl from
 // strength-reducing the index.
 typedef float Real;
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-	Vector3(const Vector3 &v) : X(v.X), Y(v.Y), Z(v.Z) {}
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	void Scale(const Vector3 &scale) { X *= scale.X; Y *= scale.Y; Z *= scale.Z; }
-	Real X, Y, Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class Matrix3D;
 class RenderObjClass { public: virtual ~RenderObjClass(); };
 class LightClass : public RenderObjClass
 {
 public:
-	__declspec(noinline) void Get_Diffuse(Vector3 *color) const { if (color != 0) *color = Diffuse; }
-	void Set_Diffuse(const Vector3 &color) { Diffuse = color; }
+	__declspec(noinline) void Get_Diffuse(Vector3 *color) const { if (color != 0) color->Set(Diffuse); }
+	void Set_Diffuse(const Vector3 &color) { Diffuse.Set(color); }
 private:
 	char m_pad04[0xE0 - 0x04];
 	Vector3 Diffuse; // +0xE0
@@ -41,18 +33,13 @@ public:
 	~LightEnvironmentClass(void);
 	void Add_Light(const LightClass &light);
 	const Vector3 &Get_Output_Ambient(void) const { return m_outputAmbient; }
-	void Set_Output_Ambient(const Vector3 &ambient) { m_outputAmbient = ambient; }
+	void Set_Output_Ambient(const Vector3 &ambient) { m_outputAmbient.Set(ambient); }
 private:
 	char m_pad000[0x164];
 	Vector3 m_outputAmbient; // +0x164
 	char m_pad170[0x228 - 0x170];
 };
-class RenderInfoClass
-{
-public:
-	char m_pad00[0x28];
-	LightEnvironmentClass *light_environment; // +0x28
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class StringClass
 {
 	char *m_Buffer; static char *m_EmptyString; static char m_NullChar;
@@ -200,7 +187,7 @@ void RTS3DScene::Flush(RenderInfoClass &rinfo)
 		{
 			Rva0027070CData tmp;
 			const Rva0027070CData *p = TheCloudEffectManager->slot48(&tmp);
-			lodScale = Vector3(1.0f - p->a, 1.0f - p->b, 1.0f - p->c);
+			lodScale.Set(1.0f - p->a, 1.0f - p->b, 1.0f - p->c);
 		}
 		if (LODTextureReduction <= 1)
 		{
@@ -215,13 +202,17 @@ void RTS3DScene::Flush(RenderInfoClass &rinfo)
 			Vector3 diffuse;
 			lights[i]->Get_Diffuse(&diffuse);
 			Vector3 saved = diffuse;
-			diffuse.Scale(lodScale);
+			diffuse.X *= lodScale.X;
+			diffuse.Y *= lodScale.Y;
+			diffuse.Z *= lodScale.Z;
 			lights[i]->Set_Diffuse(diffuse);
 			lightEnv.Add_Light(*lights[i]);
 			lights[i]->Set_Diffuse(saved);
 		}
 		Vector3 outAmbient = lightEnv.Get_Output_Ambient();
-		outAmbient.Scale(lodScale);
+		outAmbient.X *= lodScale.X;
+		outAmbient.Y *= lodScale.Y;
+		outAmbient.Z *= lodScale.Z;
 		lightEnv.Set_Output_Ambient(outAmbient);
 		rinfo.light_environment = &lightEnv;
 		TheTerrainRenderObject->rva0006B895(rinfo);

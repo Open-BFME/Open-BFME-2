@@ -1,4 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 //
 // ?updateFixedLightEnvironments@RTS3DScene@@IAEXAAVRenderInfoClass@@@Z,
 // retail 0x0006E716..0x0006EB3B (1061 bytes, RET 4). Zero Hour's
@@ -18,36 +19,7 @@
 typedef int Int;
 typedef float Real;
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-	Vector3(const Vector3 &vec) : X(vec.X), Y(vec.Y), Z(vec.Z) {}
-	Vector3 &operator=(const Vector3 &vec)
-	{
-		X = vec.X;
-		Y = vec.Y;
-		Z = vec.Z;
-		return *this;
-	}
-	Vector3 &operator+=(const Vector3 &vec) { X += vec.X; Y += vec.Y; Z += vec.Z; return *this; }
-	Vector3 &operator-=(const Vector3 &vec) { X -= vec.X; Y -= vec.Y; Z -= vec.Z; return *this; }
-	friend Vector3 operator+(const Vector3 &a, const Vector3 &b) { return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z); }
-	friend Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z); }
-	void Scale(const Vector3 &scale)
-	{
-		X *= scale.X;
-		Y *= scale.Y;
-		Z *= scale.Z;
-	}
-	friend Vector3 operator*(const Vector3 &a, Real k) { return Vector3(a.X * k, a.Y * k, a.Z * k); }
-	friend Vector3 operator*(Real k, const Vector3 &a) { return Vector3(a.X * k, a.Y * k, a.Z * k); }
-
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "vector3.h"
 
 class Matrix3D;
 
@@ -93,11 +65,8 @@ class CameraClass : public RenderObjClass
 {
 };
 
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-};
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 // LightEnvironmentClass::Reset is rowed under its placeholder spelling. It is
 // called directly (an inline Reset wrapper over it loses retail's early
