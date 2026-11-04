@@ -17,26 +17,17 @@ struct ParticleSystemChain
 	class RvaSmartPtr12 *m_last; // +0xA0
 };
 
-class RvaSmartPtr12
-{
-public:
-	void attach();
+#include "../../../Include/Common/RvaSmartPtr12.h"
 
-private:
-	void *m_ptr; // +0x0
-	int m_pad04; // +0x4
-	int m_pad08; // +0x8
-};
-
-void RvaSmartPtr12::attach()
+void RvaSmartPtr12::attach() throw()
 {
-	ParticleSystemChain *sys = (ParticleSystemChain *)m_ptr;
+	ParticleSystemChain *sys = (ParticleSystemChain *)field00;
 	RvaSmartPtr12 *last = sys->m_last;
-	m_pad08 = 0;
-	m_pad04 = (int)last;
+	field08 = 0;
+	field04 = last;
 	sys->m_last = this;
-	if (m_pad04 != 0)
-		((RvaSmartPtr12 *)m_pad04)->m_pad08 = (int)this;
+	if (field04 != 0)
+		field04->field08 = this;
 	else
-		((ParticleSystemChain *)m_ptr)->m_first = this;
+		((ParticleSystemChain *)field00)->m_first = this;
 }
