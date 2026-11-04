@@ -194,16 +194,7 @@ class Display;
 extern Display *TheDisplay;
 #define TheDisplayManager ((DisplayManager *)TheDisplay)
 
-class AudioManager
-{
-public:
-	virtual void a00(); virtual void a01(); virtual void a02(); virtual void a03(); virtual void a04();
-	virtual void a05(); virtual void a06(); virtual void a07(); virtual void a08(); virtual void a09();
-	virtual void slot10();
-	virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15();
-	virtual void a16(); virtual void a17(); virtual void a18(); virtual void a19();
-	virtual void slot20(int which);
-};
+#include "../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 
@@ -246,8 +237,8 @@ void Rva003563A7::rva00356B16(int)
 	if (TheDisplay)
 		TheDisplayManager->slot72(m_str, 8388628); // 0x800014 int flags, not an image address
 	TheDisplayManager->m_10c = true;
-	TheAudio->slot20(2);
-	TheAudio->slot10();
+	TheAudio->setViewFocus(2);
+	TheAudio->update();
 }
 
 void Rva003563A7::rva00355EE1()

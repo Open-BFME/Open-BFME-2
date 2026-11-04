@@ -86,27 +86,9 @@ public:
 
 typedef _STL::map<Int, Int> BuddyInfoMap;
 
-struct GameSpyMiscAudio
-{
-	char m_pad00[0x78];
-	OpaqueRefElement4 m_privateMessage;					// +0x78
-};
 
-class AudioManager
-{
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24)
-	virtual void addAudioEvent(const BfmeAudioEventPrefix136 *event);		// slot 25
-	V(26) V(27) V(28) V(29) V10(3) V10(4) V10(5) V10(6)
-	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77)
-	virtual const GameSpyMiscAudio *getMiscAudio();							// slot 78
-#undef V10
-#undef V
-};
+#include "../../../Include/Common/GameAudio.h"
+#include "../../../Include/Common/MiscAudioClass.h"
 extern AudioManager *TheAudio;
 
 class LanguageFilter
@@ -188,7 +170,7 @@ void GameSpyInfo::addChat(PlayerInfo p, UnicodeString msg, Bool isPublic, Bool i
 		{
 			if (TheAudio)
 			{
-				BfmeAudioEventPrefix136 privMsgAudio(TheAudio->getMiscAudio()->m_privateMessage, 2);
+				BfmeAudioEventPrefix136 privMsgAudio(TheAudio->getMiscAudio()->m_78, 2);
 				TheAudio->addAudioEvent(&privMsgAudio);
 			}
 		}

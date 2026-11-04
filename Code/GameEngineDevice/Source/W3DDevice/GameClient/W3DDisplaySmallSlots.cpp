@@ -69,13 +69,7 @@ public:
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class AudioManager
-{
-public:
-	VSLOTS16(s0) VSLOTS16(s1) VSLOTS16(s2) VSLOTS16(s3) VSLOTS16(s4) VSLOTS16(s5)
-	virtual void s960(); virtual void s961(); virtual void s962();
-	virtual Bool rva0004672AQuery();	// slot 99
-};
+#include "../../../../GameEngine/Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 class Rva00049F4FObject
@@ -211,7 +205,7 @@ void W3DDisplay::rva000453AC()
 Bool W3DDisplay::rva000466FA()
 {
 	Bool result = false;
-	if ((m_184 && m_188 && m_188->rva00045837()) || (TheAudio && TheAudio->rva0004672AQuery()))
+	if ((m_184 && m_188 && m_188->rva00045837()) || (TheAudio && TheAudio->slot99()))
 		result = true;
 	return result;
 }

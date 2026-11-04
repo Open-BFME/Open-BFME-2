@@ -93,21 +93,7 @@ void Rva003560ED::rva00355E20(int, int)
 // Slot 5 of the derived vtable 0x00C14EBC (class of the rowed deleting dtor
 // 0x0035686D): true without TheAudio; otherwise TheAudio slot 10, then, unless
 // the +0x1C value is 1, true only when TheAudio slot 52 refuses that value.
-class AudioManager : public VirtualSlots<10>
-{
-public:
-	virtual void slot10();
-	virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14();
-	virtual void a15(); virtual void a16(); virtual void a17(); virtual void a18(); virtual void a19();
-	virtual void slot20(int which); virtual void a21(); virtual void a22(); virtual void a23(); virtual void a24();
-	virtual void a25(); virtual void a26(); virtual void slot27(int value); virtual void a28(); virtual void a29();
-	virtual void a30(); virtual void a31(); virtual void a32(); virtual void a33(); virtual void a34();
-	virtual void a35(); virtual void a36(); virtual void a37(); virtual void a38(); virtual void a39();
-	virtual void a40(); virtual void a41(); virtual void a42(); virtual void a43(); virtual void a44();
-	virtual void a45(); virtual void a46(); virtual void a47(); virtual void a48(); virtual void a49();
-	virtual void a50(); virtual void a51();
-	virtual bool slot52(int value);
-};
+#include "../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 class Rva003561BE
 {
@@ -130,9 +116,9 @@ bool Rva003561BE::rva00355E4C()
 	bool result = true;
 	if (TheAudio)
 	{
-		TheAudio->slot10();
+		TheAudio->update();
 		if (m_1c != 1)
-			result = !TheAudio->slot52(m_1c);
+			result = !TheAudio->isCurrentlyPlaying(m_1c);
 	}
 	return result;
 }
@@ -163,12 +149,12 @@ void Rva003561BE::rva00355E85()
 {
 	if (m_1c != 1)
 	{
-		TheAudio->slot27(m_1c);
+		TheAudio->removeAudioEvent(m_1c);
 		m_1c = 1;
 	}
 	if (m_20 != 1)
 	{
-		TheAudio->slot27(m_20);
+		TheAudio->removeAudioEvent(m_20);
 		m_20 = 1;
 	}
 	clearGameLogicFlag78();
@@ -190,8 +176,8 @@ void Rva003561BE::rva00355E85()
 // at (0.5, 1/32) through the rowed W3DDisplay text setter 0x0025D358.
 void Rva003561BE::rva00356889(GameInfo *)
 {
-	TheAudio->slot20(2);
-	TheAudio->slot10();
+	TheAudio->setViewFocus(2);
+	TheAudio->update();
 	AsciiString foregroundName("LoadScreenForeground");
 	const Image *foreground = TheMappedImageCollection->findImageByName(foregroundName);
 	if (foreground)
@@ -236,8 +222,8 @@ void Rva003560ED::rva00356724(GameInfo *)
 	if (!((const StringBase<char> *)&m_movieOverlay)->isEmpty())
 	{
 		TheDisplay->rva002B2466(0.4677734375f, 0.84114583f, 0.5302734375f, 0.92447917f);
-		TheAudio->slot20(2);
-		TheAudio->slot10();
+		TheAudio->setViewFocus(2);
+		TheAudio->update();
 	}
 	if (!((const StringBase<char> *)&m_image)->isEmpty())
 		TheDisplay->SetMovieImage((int)TheMappedImageCollection->findImageByName(m_image), 2, 0.0f, 0.0f, 1.0f, 1.0f);

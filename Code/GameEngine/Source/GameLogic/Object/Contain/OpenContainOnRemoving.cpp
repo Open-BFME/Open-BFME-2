@@ -73,7 +73,7 @@ typedef _STL::map<int,int> Rva00464D02Times;
 typedef _STL::map<int,void *> Rva00464D02EraseView;
 template<int N> class Rva00464D02Slots:public Rva00464D02Slots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class Rva00464D02Slots<0> {};
-class AudioManager:public Rva00464D02Slots<25> { public: virtual void event(const BfmeAudioEventPrefix136 *); };
+#include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 struct Rva00464D02Data { char unknown00[0x88]; AsciiString *bonusBegin; AsciiString *bonusEnd; void *capacity; unsigned minimumFrames; };
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
@@ -93,12 +93,12 @@ void OpenContain::onRemoving(Object *rider)
     if (object()->getDrawable()) {
         BfmeAudioEventPrefix136 sound(object()->getDrawable()->rva00462DAE().ref, 0);
         reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531(reinterpret_cast<Rva00464D02Object *>(object())->id74);
-        TheAudio->event(&sound);
+        TheAudio->addAudioEvent(&sound);
     }
     if (rider && rider->getDrawable()) {
         BfmeAudioEventPrefix136 sound(rider->getDrawable()->rva00462DC7().ref, 0);
         reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531(reinterpret_cast<Rva00464D02Object *>(rider)->id74);
-        TheAudio->event(&sound);
+        TheAudio->addAudioEvent(&sound);
         state1C.erase(rider->getID());
         names28.erase(opaqueKey(rider->getID()));
         reinterpret_cast<Rva001E42F2 *>(rider)->rva001E42F2(reinterpret_cast<const int *>(Rva000B6253().rva000B6253(0,194,195,196,197,198)));

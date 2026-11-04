@@ -16,36 +16,7 @@ public:
 	void rva002D9531(int v);
 };
 
-class AudioManager
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual int v25(BfmeAudioEventPrefix136 *p);
-};
+#include "../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 
@@ -62,6 +33,6 @@ void CastleBehavior::rva00455076(const OpaqueRefElement4 &opaqueRefElement4, int
 {
 	BfmeAudioEventPrefix136 tmp(opaqueRefElement4, 0);
 	((Rva002D9531 *)&tmp)->rva002D9531(v);
-	int r = TheAudio->v25(&tmp);
+	int r = TheAudio->addAudioEvent(&tmp);
 	m_24 = r;
 }

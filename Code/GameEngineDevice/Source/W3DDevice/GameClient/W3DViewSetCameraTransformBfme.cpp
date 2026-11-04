@@ -240,30 +240,8 @@ virtual void v133();
 virtual void updateCenter(std::vector<Rva0008B689Element >&,RefMultiListIterator<RenderObjClass>*);};
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class Rva00203B2BHost{public:void rva00203B2B();};class ScriptEngine;extern ScriptEngine *TheScriptEngine;
-class AudioManager{public:
-virtual void v000();
-virtual void v001();
-virtual void v002();
-virtual void v003();
-virtual void v004();
-virtual void v005();
-virtual void v006();
-virtual void v007();
-virtual void v008();
-virtual void v009();
-virtual void v010();
-virtual void v011();
-virtual void v012();
-virtual void v013();
-virtual void v014();
-virtual void v015();
-virtual void v016();
-virtual void v017();
-virtual void v018();
-virtual void v019();
-virtual void v020();
-virtual void v021();
-virtual void rva0008BE6BNotify();};extern AudioManager*TheAudio;
+#include "../../../../GameEngine/Include/Common/GameAudio.h"
+extern AudioManager*TheAudio;
 class GlobalData{public:char pad[0x950];float clipMultiplier;char pad954[0xea6-0x954];bool debug,unused;float debugFov,debugAngle;};extern GlobalData*TheWritableGlobalData;
 class W3DView{public:virtual void forceRedraw();private:char pad4[8];Coord3D position;char pad18[0x44-0x18];bool constrain;char pad45[0x6c-0x45];float fov;char pad70[0x104-0x70];CameraClass *camera;char pad108[0x2354-0x108];int mode;char pad2358[12];float modeFov;char pad2368[0x23d8-0x2368];bool moved;char pad23d9[0x240c-0x23d9];float loX,loY,hiX,hiY;bool valid;
  void buildCameraTransform(Matrix3D*);void calcCameraConstraints();void setCameraTransform();
@@ -285,7 +263,7 @@ void W3DView::setCameraTransform(){
   if(W3DGCData00DE2000){Rva0008B689Element extra=reinterpret_cast<Rva0007FD57Owner*>(W3DGCData00DE2000)->rva0007FD57(camera);if(!extra.isNull())cameras.push_back(extra);}
   TheTerrainRenderObject->updateCenter(*reinterpret_cast<std::vector<Rva0008B689Element>*>(&cameras),it);if(it)reinterpret_cast<Rva0006ED29*>(W3DDisplay::m_3DScene)->rva0006ED29(it);
  }
- reinterpret_cast<Rva00203B2BHost*>(TheScriptEngine)->rva00203B2B();if(TheAudio)TheAudio->rva0008BE6BNotify();
+ reinterpret_cast<Rva00203B2BHost*>(TheScriptEngine)->rva00203B2B();if(TheAudio)TheAudio->slot22();
 }
 
 // ?forceRedraw@W3DView@@UAEXXZ @0x0008D134 5B: slot 20 of the view table

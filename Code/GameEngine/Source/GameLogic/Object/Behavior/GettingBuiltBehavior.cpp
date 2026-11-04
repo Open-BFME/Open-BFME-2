@@ -114,11 +114,7 @@ public:
 #include <new>
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 extern GameLogic *TheGameLogic;
-class AudioManager : public Rva00454430Slots<27>
-{
-public:
-	virtual void rva004535B7Slot27(unsigned int handle) = 0;
-};
+#include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 extern int BfmeLogicFramesPerSecond;
 #include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
@@ -503,7 +499,7 @@ void GettingBuiltBehavior::rva004535B7()
 	obj->setStatus((ObjectStatusTypes)2, false);
 	if (TheAudio)
 	{
-		TheAudio->rva004535B7Slot27(m_soundHandle);
+		TheAudio->removeAudioEvent(m_soundHandle);
 		m_soundHandle = 1;
 	}
 }
@@ -724,7 +720,7 @@ void GettingBuiltBehavior::onDelete()
 	}
 	if (TheAudio && m_soundHandle >= 5)
 	{
-		TheAudio->rva004535B7Slot27(m_soundHandle);
+		TheAudio->removeAudioEvent(m_soundHandle);
 		m_soundHandle = 1;
 	}
 }

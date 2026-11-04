@@ -47,33 +47,7 @@ public:
 	virtual void _v21(Matrix3D *m);
 };
 
-class AudioManager
-{
-public:
-	virtual void _a00();
-	virtual void _a01();
-	virtual void _a02();
-	virtual void _a03();
-	virtual void _a04();
-	virtual void _a05();
-	virtual void _a06();
-	virtual void _a07();
-	virtual void _a08();
-	virtual void _a09();
-	virtual void _a10();
-	virtual void _a11();
-	virtual void _a12();
-	virtual void _a13();
-	virtual void _a14();
-	virtual void _a15();
-	virtual void _a16();
-	virtual void _a17();
-	virtual void _a18();
-	virtual void _a19();
-	virtual void _a20();
-	virtual void _a21();
-	virtual void _a22();
-};
+#include "../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 
@@ -105,7 +79,7 @@ void Rva00086C4A::rva00086C4A()
 		m_view->_v21(&tmp);
 		++m_cur;
 		if (TheAudio != 0)
-			TheAudio->_a22();
+			TheAudio->slot22();
 	}
 	if (m_cur >= m_total)
 		m_mode = 0;

@@ -42,11 +42,7 @@ template <> class Rva004AE5B8Slots<0>
 {
 };
 
-class AudioManager : public Rva004AE5B8Slots<25>
-{
-public:
-	virtual int rva004AE5B8Slot25(BfmeAudioEventPrefix136 *event) = 0;
-};
+#include "../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 
@@ -132,7 +128,7 @@ void ToggleDeploySpecialAbilityUpdate::rva004AE5B8(Object *obj)
 	BfmeAudioEventPrefix136 sound(data->m_soundCC, 0);
 	Object *me = m_object;
 	((Rva002D9531 *)&sound)->rva002D9531(me->m_id);
-	TheAudio->rva004AE5B8Slot25(&sound);
+	TheAudio->addAudioEvent(&sound);
 	obj->m_ai->rva0048E6D2();
 }
 
@@ -151,6 +147,6 @@ void ToggleDeploySpecialAbilityUpdate::rva004AE6D7(Object *obj)
 	BfmeAudioEventPrefix136 sound(data->m_soundC8, 0);
 	Object *me = m_object;
 	((Rva002D9531 *)&sound)->rva002D9531(me->m_id);
-	TheAudio->rva004AE5B8Slot25(&sound);
+	TheAudio->addAudioEvent(&sound);
 	ai->rva0048E6AB();
 }
