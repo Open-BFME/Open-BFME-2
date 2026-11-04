@@ -17,7 +17,6 @@
 #ifndef _UNIX
 #endif
 #include <string.h>
-#pragma comment(linker, "/alternatename:?stop@Rva006105F0@@QAEXXZ=?Stop@ThreadClass@@QAEXXZ")
 
 HANDLE test_event = ::CreateEvent (NULL, FALSE, FALSE, "");
 
