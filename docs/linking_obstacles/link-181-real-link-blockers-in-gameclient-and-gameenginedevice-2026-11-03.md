@@ -18,6 +18,7 @@ census unit takes were kept, and `link_check` over the consumers shows no loss.
   their last reference.
 - **WOLBuddyOverlay** (`75b05dbceb`): its 17 rows stay exact through address anchors. It still has
   two BuddyInfo-tree COMDAT variants that predate this change, so it does not link yet.
+  2026-11-04: retail insertion layout fixes the value-insert variant; node creation and identity/provider freshness still block the unit and debt retirement ([evidence](../../reverse/attempt_support/wolbuddyoverlay-retail-insert-layout-20261104.md)).
 - **W3DTerrainLogic**: drops `loadMap`, `getExtent`, `getMaximumPathfindExtent`,
   `getExtentIncludingBorder` and `crc`.
 
