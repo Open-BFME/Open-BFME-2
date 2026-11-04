@@ -189,13 +189,7 @@ public:
 	Object *m_object;
 };
 
-struct DrawableInfo
-{
-	Int m_pad00;
-	Drawable *m_drawable;
-	Int m_pad08;
-	Int m_flags;
-};
+#include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 
 class RenderObjClass
 {
