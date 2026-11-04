@@ -42,16 +42,20 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
+class AIUpdateInterface;
 class Object
 {
-public:
-	unsigned char m_pad000[0x244];
-	BehaviorModule **m_behaviors; // +0x244
-	unsigned char m_pad248[0x438 - 0x248];
-	unsigned char m_438; // +0x438
 protected:
-	Module *findModule(NameKeyType key) const;
 	friend class UnleashSpecialPower;
+	Module *findModule(NameKeyType key) const;
+	char m_pad00[0x244];
+public:
+	BehaviorModule **m_behaviors; // +0x244
+	char m_pad248[0x10];
+	AIUpdateInterface *m_ai; // +0x258
+	char m_pad25C[0x1DC];
+	unsigned char m_438; // +0x438
+	char m_pad439[0x3];
 };
 
 
