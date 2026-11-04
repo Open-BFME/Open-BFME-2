@@ -204,11 +204,7 @@ extern ScriptEngine *TheScriptEngine;
 
 struct Rva00336283Element;
 
-class LuaScriptEngine
-{
-public:
-	Rva00336283Element *rva00337DEF(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 static inline bool isEmpty(const AsciiString &asciiString)

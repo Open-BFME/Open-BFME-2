@@ -152,11 +152,7 @@ private:
 #include "../../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class LuaScriptEngine
-{
-public:
-	Rva00336283Element *rva00337DEF(const AsciiString &name);
-};
+#include "../../../../../Include/GameLogic/LuaScriptEngine.h"
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 class AIUpdateInterface : public UpdateModule, public AIUpdateInterfaceFourth, public AIUpdateInterfaceFifth
