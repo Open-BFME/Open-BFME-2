@@ -193,8 +193,6 @@ unsigned char unknown04[0x3c];BfmeRetBWF position;unsigned char unknown4c[0x10];
 
 class Rva004EB794 {public:bool rva004EB794(const ModuleData *);};
 
-// bfme link decl-only BfmeE16
-namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 #include "../../../../Include/GameLogic/Rva00506B1B.h"
 
