@@ -114,8 +114,8 @@ public:
 class Rva00260FD0Filter : public Rva000421C8
 {
 public:
-	Rva00260FD0Filter(const Object *obj, int attackType, int source)
-		: m_obj(obj), m_attackType(attackType), m_source(source) {}
+	Rva00260FD0Filter(const Object *obj, int attackType, int commandSource)
+		: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 	int m_attackType;
@@ -277,7 +277,7 @@ Object *AI::rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackP
 	BfmeWideResult iter = ((BfmeWideForwardB *)ThePartitionManager)->bfmeForwardWideB((int)&region, 1, (int)&filterOwner, 0);
 	Object *best = 0;
 	Real bestPriority = 0.0f;
-	Real bestRaw = 0.0f;
+	Real bestRawPriority = 0.0f;
 	for (Object *obj = iter.next(); obj; obj = iter.next())
 	{
 		Real priority = info->getPriority(owner, obj, true);
@@ -295,15 +295,15 @@ Object *AI::rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackP
 				priority = data.m_bestPriority;
 		}
 		Real dist = sqrt(owner->rva00263763(obj));
-		Int adjusted = (Int)(priority - (Int)(dist / TheAI->getAiData()->m_attackPriorityDistanceModifier));
-		if (adjusted < 1)
-			adjusted = 1;
-		if (adjusted > bestPriority || (adjusted == bestPriority && priority > bestRaw))
+		Int adjustedPriority = (Int)(priority - (Int)(dist / TheAI->getAiData()->m_attackPriorityDistanceModifier));
+		if (adjustedPriority < 1)
+			adjustedPriority = 1;
+		if (adjustedPriority > bestPriority || (adjustedPriority == bestPriority && priority > bestRawPriority))
 		{
 			if (filterArea.allows(obj))
 			{
-				bestPriority = (Real)adjusted;
-				bestRaw = priority;
+				bestPriority = (Real)adjustedPriority;
+				bestRawPriority = priority;
 				best = obj;
 			}
 		}

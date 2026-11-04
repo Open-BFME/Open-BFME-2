@@ -248,7 +248,7 @@ StateReturnType AIAttackAimAtTargetState::updateInternal(Bool stopBeforeAim)
 	if (source->testStatus(OBJECT_STATUS_4B))
 		return STATE_SUCCESS;
 	Coord3D goalPos;
-	const Coord3D *vp;
+	const Coord3D *victimPos;
 	const Coord3D *goalSource = getMachineGoalPosition();
 	goalPos.x = goalSource->x;
 	goalPos.y = goalSource->y;
@@ -260,8 +260,8 @@ StateReturnType AIAttackAimAtTargetState::updateInternal(Bool stopBeforeAim)
 		if (gotContact)
 			gotContact = victim->getWorldspaceBestContactPoint(&goalPos, source->getPosition(), "Ram", 0, 0x2A, false);
 		if (!((victim->getTemplate()->m_kindof[4] & (1U << 22)) != 0) && !gotContact) {
-			vp = victim->getPosition();
-			goalPos = *vp;
+			victimPos = victim->getPosition();
+			goalPos = *victimPos;
 		}
 	}
 	Real relAngle = source->GetRelativeAngle(&goalPos);

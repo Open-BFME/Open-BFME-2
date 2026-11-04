@@ -570,7 +570,7 @@ public:
 	virtual StateReturnType update();
 protected:
 	virtual Bool computePath();
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
+	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
@@ -1187,8 +1187,8 @@ enum AbleToAttackType
 class PartitionFilterPossibleToAttack : public Rva000421C8
 {
 public:
-	PartitionFilterPossibleToAttack(AbleToAttackType t, const Object *obj, Int commandSource)
-		: m_obj(obj), m_commandSource(commandSource), m_attackType(t) {}
+	PartitionFilterPossibleToAttack(AbleToAttackType attackType, const Object *obj, Int commandSource)
+		: m_obj(obj), m_commandSource(commandSource), m_attackType(attackType) {}
 	virtual Bool allow(Object *objOther);
 private:
 	const Object *m_obj; // +0x08
@@ -1242,9 +1242,9 @@ extern PartitionManager *ThePartitionManager;
 // The first member add followed by a pointer for y/z preserves native addressing.
 Bool rva00344EB2Gate(Object*,Thing*);
 struct ApproachCoordCopy : Coord3D {
- __forceinline ApproachCoordCopy(const Coord3D &r){x=r.x;y=r.y;z=r.z;}
- __forceinline void sub(const Coord3D *r){x-=r->x;y-=r->y;z-=r->z;}
- __forceinline void scale(float r){x*=r;y*=r;z*=r;}
+ __forceinline ApproachCoordCopy(const Coord3D &coord){x=coord.x;y=coord.y;z=coord.z;}
+ __forceinline void sub(const Coord3D *delta){x-=delta->x;y-=delta->y;z-=delta->z;}
+ __forceinline void scale(float factor){x*=factor;y*=factor;z*=factor;}
 };
 // Native344749..3449C5, complete636B. The static helper is compiled with its
 // rowed computePath caller to preserve their private register convention.
@@ -1261,11 +1261,11 @@ static Bool rva00344749(Coord3D *destination, Object *obj)
  static_cast<Coord3D&>(direction)=*destination;
  ApproachCoordCopy candidate(*destination);
  direction.sub(obj->getPosition());direction.z=0.0f;
- Int count=-(Int)(direction.length()*-0.05f)-1;
+ Int stepCount=-(Int)(direction.length()*-0.05f)-1;
  direction.Normalize();
  direction.scale(20.0f);
  Bool found=false;
- for(Int i=0;i<count;++i) {
+ for(Int i=0;i<stepCount;++i) {
   candidate.sub(&direction);
   if(TheAI->pathfinder()->QuickDoesPathExist(obj,obj->getPosition(),&candidate,0)){found=true;break;}
  }
