@@ -879,7 +879,7 @@ public:
 	int rva005D0507();
 };
 
-class Rva0002C9C2
+struct Rva0002C9C2
 {
 public:
 	int write(char *dst);

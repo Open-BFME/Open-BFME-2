@@ -6,7 +6,8 @@
 // and its unsigned ordering word at meshC4 are read here. The names below
 // describe an address-derived ABI view; the original record and method
 // spelling are unknown. Native EAX is the complete zero/one result.
-struct Rva0017368AMesh {
+class Rva0017368AMesh {
+public:
     char unknown[0xc4]; unsigned key;
     char unknownC8[0x310-0xc8]; unsigned *state310;
 };

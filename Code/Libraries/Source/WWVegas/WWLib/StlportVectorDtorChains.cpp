@@ -71,9 +71,10 @@ W3DStreakWeatherVec::~W3DStreakWeatherVec()
     _STL::_Destroy(this->_M_start, this->_M_finish);
 }
 
-struct CameraMarkerVec
+class CameraMarkerVec
     : public _STL::_Vector_base<CameraMarker, _STL::allocator<CameraMarker> >
 {
+public:
     ~CameraMarkerVec();
 };
 

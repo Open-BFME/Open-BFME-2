@@ -14,7 +14,8 @@
 #include "Common/Snapshot.h"
 void Rva00030830GameFree(void*);
 class Rva002BF33DListener {public:virtual void notify(void*);};
-struct Rva002BF33DList {
+class Rva002BF33DList {
+public:
  Rva002BF33DListener **first,**last,**capacity;unsigned index;
  void forEach(void(Rva002BF33DListener::*)(void*),void*);
  ~Rva002BF33DList(){if(first)Rva00030830GameFree(first);}
@@ -26,7 +27,7 @@ class AudioSlots {public:
  virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04();virtual void s05();virtual void s06();virtual void s07();virtual void s08();virtual void s09();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual void s15();virtual void s16();virtual void s17();virtual void s18();virtual void s19();virtual void s20(int);virtual int s21();
 };
 struct Rva002BF6D6 {~Rva002BF6D6();char data[20];};
-struct Rva002BF75A {~Rva002BF75A();char data[20];};
+class Rva002BF75A { public:~Rva002BF75A();char data[20];};
 struct BfmePod16 {int a[4];};
 
 namespace _STL {template<>BfmePod16*vector<BfmePod16>::erase(BfmePod16*,BfmePod16*); }

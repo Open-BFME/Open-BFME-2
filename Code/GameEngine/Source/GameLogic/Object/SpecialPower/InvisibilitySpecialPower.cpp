@@ -73,8 +73,9 @@ class ModuleData;
 #include "../object.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
-struct InvisibilitySpecialPowerModuleData
+class InvisibilitySpecialPowerModuleData
 {
+public:
 	char m_pad000[0x7C];
 	char m_7C[4];			// +0x7C
 	char m_pad080[0x134 - 0x80];

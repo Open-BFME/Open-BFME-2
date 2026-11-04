@@ -23,7 +23,7 @@ void __cdecl Rva00030830FreeAllocation(void *);
 #include <vector>
 #undef free
 #include <new>
-struct Rva00087A93 { void *m_data; };
+class Rva00087A93 { public: void *m_data; };
 struct BfmeAssignRecord32 {
  BfmeAssignRecord32(const BfmeAssignRecord32 &);
  BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &);

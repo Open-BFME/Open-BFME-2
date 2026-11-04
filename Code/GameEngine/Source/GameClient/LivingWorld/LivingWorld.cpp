@@ -135,7 +135,7 @@ typedef _STL::hash_map<int, Rva002C00C1Element, _STL::hash<int>, _STL::equal_to<
 // constructors are the rowed hash_map constructor 0x002C00C1.
 struct Rva002BF6D6 { LivingWorldTable m_table; ~Rva002BF6D6(); };
 
-struct Rva002BF75A { LivingWorldTable m_table; ~Rva002BF75A(); void rva002BF75A(void *p); void rva002BF7BE(); };
+class Rva002BF75A { public: LivingWorldTable m_table; ~Rva002BF75A(); void rva002BF75A(void *p); void rva002BF7BE(); };
 
 #include "../../../Include/Common/Rva00330757Member.h"
 

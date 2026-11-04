@@ -21,7 +21,7 @@ bool operator<(const BfmeStringRecord002CF550 &, const BfmeStringRecord002CF550 
 // declared rather than the old unsupported always-false implementation.
 struct BfmeObject544Array { Rva002390CB items[56]; };
 
-class BfmeObject544
+struct BfmeObject544
 {
 public:
 	~BfmeObject544();

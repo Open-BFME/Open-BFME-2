@@ -234,7 +234,7 @@ template void _STL::_Construct<BfmeStringRecord00239B46,BfmeStringRecord00239B46
 // shared string releaseBuffer at 0x36410, with /EHsc states. Identity unproven
 // beyond the string-pair layout shared with BfmeStringRecord001EA478, so
 // both land under an honest Rva address name in this TU (same flags).
-class Rva001EA443
+struct Rva001EA443
 {
 public:
 	~Rva001EA443();

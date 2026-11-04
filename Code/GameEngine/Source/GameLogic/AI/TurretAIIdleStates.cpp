@@ -240,8 +240,9 @@ extern TerrainLogic *TheTerrainLogic;
 Real normalizeAngle(Real angle);
 Real ASin(Real x);
 
-struct TurretAIData
+class TurretAIData
 {
+public:
 	unsigned char m_pad00[0x08];
 	Real m_naturalTurretAngle; // +0x08
 	Real m_naturalTurretPitch; // +0x0C

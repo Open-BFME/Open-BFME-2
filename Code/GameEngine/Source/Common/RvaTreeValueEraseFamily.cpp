@@ -275,7 +275,7 @@ void *__stdcall Rva00170B4EBuynode(const Rva00170999 &x)
 	return block;
 }
 
-class Rva0027EA49 { public: ~Rva0027EA49(); };
+struct Rva0027EA49 { public: ~Rva0027EA49(); };
 
 // owner Rva002177CD: erase 0x002177CD (value ??1Rva0027EA49@@QAE@XZ), clear 0x002179D9
 typedef Rva0027EA49 Rva002177CDValue;
@@ -680,11 +680,12 @@ void Rva005B3751::rva005B3947()
 // destructor), landed here as a placeholder pair whose empty destructor
 // tail-calls the member's. The key at +0 is not identified.
 
-class Rva0032BE80 { public: ~Rva0032BE80(); };
+struct Rva0032BE80 { public: ~Rva0032BE80(); };
 
 // ??1Rva0032C2F7@@QAE@XZ @0x0032C2F7 8B: pair value, second member Rva0032BE80 at +4
-struct Rva0032C2F7
+class Rva0032C2F7
 {
+public:
 	int m_first;
 	Rva0032BE80 m_second;
 	~Rva0032C2F7();

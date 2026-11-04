@@ -103,7 +103,7 @@ void Rva0010225F::rva00102284()
 	m_10 = 0;
 }
 
-class Rva00111B25Record { public: ~Rva00111B25Record(); };
+struct Rva00111B25Record { public: ~Rva00111B25Record(); };
 class Rva00111AA7 {
 public:
  Rva00111AA7(const char *,int);

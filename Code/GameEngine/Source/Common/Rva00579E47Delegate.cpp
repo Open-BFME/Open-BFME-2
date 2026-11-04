@@ -29,7 +29,8 @@ struct ImplBase {
     ImplBase() : m_ref(0) {}
 };
 
-struct Impl : ImplBase {
+class Impl : public ImplBase {
+public:
     virtual void invoke(const char *text);
     void *m_object;
     void *m_method;

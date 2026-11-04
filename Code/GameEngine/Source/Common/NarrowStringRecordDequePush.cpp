@@ -20,7 +20,8 @@ protected:
 };
 }
 #include "BfmeNarrowRecord0041A5D2.h"
-struct Rva0041A96D : _STL::deque<BfmePod28, _STL::allocator<BfmePod28> > {
+class Rva0041A96D : public _STL::deque<BfmePod28, _STL::allocator<BfmePod28> > {
+public:
     unsigned char m_pad0[0x10];
     BfmeNarrowRecord0041A5D2 *_M_cur10;
     BfmeNarrowRecord0041A5D2 *_M_first14;

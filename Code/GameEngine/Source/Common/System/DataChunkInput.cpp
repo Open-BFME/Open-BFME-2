@@ -133,8 +133,9 @@ class UserParser
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DataChunk.h
-struct Mapping
+class Mapping
 {
+public:
 	virtual ~Mapping();
 	Mapping *next;
 };

@@ -5,7 +5,7 @@
 // members selected by a rowed QAE dtor callee.
 
 // ??_GLockClass@MutexClass@@QAEPAXI@Z @0x99203
-struct MutexClass { struct LockClass { ~LockClass(); }; };
+class MutexClass { public: struct LockClass { ~LockClass(); }; };
 void famgenDelete(MutexClass::LockClass *p) { delete p; }
 
 // ??_GWriteLockClass@VertexBufferClass@@QAEPAXI@Z @0x107346

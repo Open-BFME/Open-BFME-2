@@ -45,7 +45,7 @@ Rva00572ED8::~Rva00572ED8()
 {
 }
 
-class AITargetHeuristicExpansionBase : public Rva005CB23C
+struct AITargetHeuristicExpansionBase : public Rva005CB23C
 {
 public:
 	virtual ~AITargetHeuristicExpansionBase();

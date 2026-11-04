@@ -117,8 +117,9 @@ public:
 	Int m_field44;				// +0x44
 	void *m_field48;			// +0x48
 };
-struct Rva00DFE1C8Host
+class Rva00DFE1C8Host
 {
+public:
 	char m_pad[0x268];
 	Rva003EF008 *m_field268;		// +0x268
 };

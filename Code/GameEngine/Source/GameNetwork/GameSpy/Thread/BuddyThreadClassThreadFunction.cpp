@@ -96,8 +96,9 @@ int gpSetStatusA(GPConnection *,int,const char *,const char *);
 }
 std::string WideCharStringToMultiByte(const unsigned short *);
 
-struct BuddyRequest
+class BuddyRequest
 {
+public:
     int kind;
     union {
         struct {

@@ -50,7 +50,7 @@ public:
 	void unRegisterProducedObject(Object *object);
 };
 
-class Rva002A8AB1Record
+struct Rva002A8AB1Record
 {
 public:
 	void rva004EC30E(Object *object);

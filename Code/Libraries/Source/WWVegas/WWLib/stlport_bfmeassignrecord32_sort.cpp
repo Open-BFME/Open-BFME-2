@@ -17,7 +17,7 @@
 
 #include <algorithm>
 
-struct Rva00087A93 { void *m_data; };
+class Rva00087A93 { public: void *m_data; };
 
 struct BfmeAssignRecord32
 {

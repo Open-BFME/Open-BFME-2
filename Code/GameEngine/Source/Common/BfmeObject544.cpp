@@ -31,7 +31,7 @@ private:
 	char m_pad[0x0C];
 };
 
-class BfmeObject544
+struct BfmeObject544
 {
 public:
 	BfmeObject544();

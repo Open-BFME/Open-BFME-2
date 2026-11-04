@@ -337,7 +337,7 @@ struct _Rva002E7261Arg
 	int m_pad04;
 	unsigned short m_w08;
 };
-class Rva002E7261Info
+struct Rva002E7261Info
 {
 public:
 	int cellCallback(PathfindCell *previous, PathfindCell *current, int a, int b);

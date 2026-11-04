@@ -7,7 +7,7 @@
 // Rva004FA830Ctor.cpp carries // cl: /O1 /MD.
 #include "../../Include/GameLogic/LivingWorldBuilding.h"
 
-class LivingWorldBuildingNuggetSpawnArmy
+struct LivingWorldBuildingNuggetSpawnArmy
 {
 public:
 	void rva004FA659();

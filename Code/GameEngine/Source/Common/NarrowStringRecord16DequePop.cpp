@@ -23,7 +23,8 @@ namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-struct Rva0041A3F7 {
+class Rva0041A3F7 {
+public:
     BfmeNarrowRecord0041A617 *_M_cur;
     BfmeNarrowRecord0041A617 *_M_first;
     BfmeNarrowRecord0041A617 *_M_last;
