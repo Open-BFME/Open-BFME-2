@@ -15,8 +15,7 @@
 // opaque adds those stores; removing ownership eliminates the whole EH frame.
 // No shared vendor header is changed.
 #include <vector>
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+#include "../../Apt/AptRefTarget.h"
 class Rva00567BD7
 {
 public:
@@ -39,14 +38,13 @@ namespace _STL {
  template<> Rva00567BD7 *uninitialized_fill_n<Rva00567BD7*,unsigned,Rva00567BD7>(Rva00567BD7*,unsigned,const Rva00567BD7 &);
 }
 
-struct TargetRef00217D4C { int unused; int count; };
 __declspec(noinline) Rva00567BD7::Rva00567BD7(const Rva00567BD7 &s)
 {
     action = s.action;
     unused = s.unused;
     ref = s.ref;
     if (ref)
-        ++ref->count;
+        ++ref->references;
     active = s.active;
 }
 

@@ -8,35 +8,23 @@
 #include <algorithm>
 #include <vector>
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../Apt/AptRefTarget.h"
 
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
-struct TreeHintRef00217D4C
+// The matched 0x002174A4 body (as in PAUTreeHintRef00217D4CRva004F9565.cpp),
+// visible so cl knows the assignments keep no reference to the inserted
+// value: retail's insert holds val.m_ptr in EDI across them.
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other)
 {
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other);
-	// The matched 0x002174A4 body (as in PAUTreeHintRef00217D4CRva004F9565.cpp),
-	// visible so cl knows the assignments keep no reference to the inserted
-	// value: retail's insert holds val.m_ptr in EDI across them.
-	__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other)
+	if (this != &other)
 	{
-		if (this != &other)
-		{
-			if (other.m_ptr)
-				++other.m_ptr->references;
-			if (m_ptr)
-				ReleaseTreeHintRef00217D4C(m_ptr);
-			m_ptr = other.m_ptr;
-		}
-		return *this;
+		if (other.m_ptr)
+			++other.m_ptr->references;
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+		m_ptr = other.m_ptr;
 	}
-	~TreeHintRef00217D4C();
-};
+	return *this;
+}
 
 // ??1TreeHintRef00217D4C@@QAE@XZ present-unmatched
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C()

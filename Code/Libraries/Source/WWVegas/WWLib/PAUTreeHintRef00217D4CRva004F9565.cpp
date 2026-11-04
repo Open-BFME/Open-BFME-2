@@ -17,15 +17,11 @@
 #pragma optimize("", on)
 #include <algorithm>
 struct Key004F9185 { int _00[3]; int m_key; };
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; const Key004F9185*key()const{return m_08;} Key004F9185 *m_08; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) { if (m_ptr) ++m_ptr->references; }
-	__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other) { if (this != &other) { if (other.m_ptr) ++other.m_ptr->references; if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); m_ptr = other.m_ptr; } return *this; }
-	__forceinline ~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
+#include "../../Apt/AptRefTarget.h"
+// These referents carry their key object at +0x08.
+struct KeyedTarget004F9185 : TargetRef00217D4C { const Key004F9185*key()const{return m_08;} Key004F9185 *m_08; };
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other) { if (this != &other) { if (other.m_ptr) ++other.m_ptr->references; if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); m_ptr = other.m_ptr; } return *this; }
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 struct ConstTreeHintRef00217D4C
 {
 	TargetRef00217D4C *m_ptr;
@@ -34,7 +30,7 @@ struct ConstTreeHintRef00217D4C
 };
 struct Rva004F9185Cmp
 {
-	__forceinline bool operator()(const ConstTreeHintRef00217D4C &a, const ConstTreeHintRef00217D4C &b) const { int ka = a.m_ptr->key()->m_key; int kb = b.m_ptr->key()->m_key; return ka > kb; }
+	__forceinline bool operator()(const ConstTreeHintRef00217D4C &a, const ConstTreeHintRef00217D4C &b) const { int ka = static_cast<const KeyedTarget004F9185 *>(a.m_ptr)->key()->m_key; int kb = static_cast<const KeyedTarget004F9185 *>(b.m_ptr)->key()->m_key; return ka > kb; }
 };
 // Native4F6590..4F6628,152B. STLport _algo.c unguarded insertion with
 // the established converting-handle comparison and owning-reference ABI.

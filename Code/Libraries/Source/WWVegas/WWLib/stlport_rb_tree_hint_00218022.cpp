@@ -21,19 +21,11 @@ bool operator<(const AsciiString &, const AsciiString &);
 // pointer through0x7DEEF before destroying the AsciiString key. The pointee
 // has a virtual destroy slot and a reference count at+4; its application
 // identity remains unknown.
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
-    TargetRef00217D4C *m_ptr;
-    TreeHintRef00217D4C() : m_ptr(0) {}
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) {
-        if (m_ptr) ++m_ptr->references;
-    }
-    TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-    __forceinline ~TreeHintRef00217D4C() {
-        if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
-    }
-};
+#include "../../Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
+    if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 // The 43-byte assignment at 0x002174A4 is provided by the existing
 // retail-exact copy in PAUTreeHintRef00217D4CRva004F9565.cpp.

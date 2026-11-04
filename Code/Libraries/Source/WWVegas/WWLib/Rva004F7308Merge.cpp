@@ -6,20 +6,17 @@ struct KeyObj004F7308
 	char m_pad[0xc];
 	int m_key;
 };
-struct TargetRef00217D4C
+#include "../../Apt/AptRefTarget.h"
+// The merged referents carry their key object at +0x08.
+struct KeyedTarget004F7308 : TargetRef00217D4C
 {
-	void *m_vtbl;
-	int m_refs;
 	KeyObj004F7308 *m_p08;
 };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) { if (m_ptr) ++m_ptr->m_refs; }
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 TreeHintRef00217D4C *Rva004F6E47Copy(TreeHintRef00217D4C *first, TreeHintRef00217D4C *last, TreeHintRef00217D4C *result);
 TreeHintRef00217D4C *Rva004F7308Merge(TreeHintRef00217D4C *first1, TreeHintRef00217D4C *last1, TreeHintRef00217D4C *first2, TreeHintRef00217D4C *last2, TreeHintRef00217D4C *result)
 {
@@ -28,8 +25,8 @@ TreeHintRef00217D4C *Rva004F7308Merge(TreeHintRef00217D4C *first1, TreeHintRef00
 		{
 			TreeHintRef00217D4C a = *first1;
 			TreeHintRef00217D4C b = *first2;
-			int kb = b.m_ptr->m_p08->m_key;
-			g = kb > a.m_ptr->m_p08->m_key;
+			int kb = static_cast<KeyedTarget004F7308 *>(b.m_ptr)->m_p08->m_key;
+			g = kb > static_cast<KeyedTarget004F7308 *>(a.m_ptr)->m_p08->m_key;
 		}
 		if (g) {
 			*result = *first2;
