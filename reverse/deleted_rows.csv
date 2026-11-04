@@ -4697,3 +4697,4 @@ __ehhandler$?updateFormationPreview@InGameUI@@QAEXXZ,0x00775081,"Renamed to __eh
 ?g_00E01E04@@3HA,0x00A01E04,"Renamed to ?IDLE_COUNTDOWN_DELAY@@3HA by tools/rename.py (inferred)"
 ?Rva005D7E45FindWaypoint@@YAPAVWaypoint@@VAsciiString@@@Z,0x005D7E45,"Renamed to ?findWaypointByName@@YAPAVWaypoint@@VAsciiString@@@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva005D7E45FindWaypoint@@YAPAVWaypoint@@VAsciiString@@@Z,0x007A27C3,"Renamed to __ehhandler$?findWaypointByName@@YAPAVWaypoint@@VAsciiString@@@Z by tools/rename.py (inferred)"
+?Rva00318D9BFill@@YAPAVRva00318B5C@@PAV1@IABV1@ABU__false_type@_STL@@@Z,0x00318D9B,"Renamed to ?__uninitialized_fill_n@@YAPAVRva00318B5C@@PAV1@IABV1@ABU__false_type@_STL@@@Z by tools/rename.py (inferred)"

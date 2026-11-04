@@ -442,7 +442,7 @@ template <> void _Destroy<BfmeVectorRecord00319C84 *>(BfmeVectorRecord00319C84 *
 
 Rva00318B5C *Rva00318D75Copy(Rva00318B5C *first, Rva00318B5C *last, Rva00318B5C *result, const _STL::__false_type &tag);
 
-Rva00318B5C *Rva00318D9BFill(Rva00318B5C *first, unsigned n, const Rva00318B5C &x, const _STL::__false_type &tag);
+Rva00318B5C *__uninitialized_fill_n(Rva00318B5C *first, unsigned n, const Rva00318B5C &x, const _STL::__false_type &tag);
 
 // 0x00319F5A is this vector's reallocating insert: _M_clear is its row 0x00565A60, allocate its pin 0x002226BE.
 class Rva00319F5A : public _STL::vector<BfmeVectorRecord00319C84>
@@ -1298,7 +1298,7 @@ void Rva00319F5A::rva00319F5A(Rva00318B5C *pos, const Rva00318B5C &x, int dummy,
 		Rva00318D63Copy(cur, x);
 		++cur;
 	} else {
-		cur = Rva00318D9BFill(cur, n, x, tag);
+		cur = __uninitialized_fill_n(cur, n, x, tag);
 	}
 	if (!flag) {
 		cur = Rva00318D75Copy(pos, (Rva00318B5C *)_M_finish, cur, tag);
