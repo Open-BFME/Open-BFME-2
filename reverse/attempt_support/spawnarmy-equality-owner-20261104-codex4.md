@@ -30,4 +30,20 @@ The first direct-owner trial included `string_base.h` itself. It passed
 independently but composition resolved that basename to WWLib's different
 header and refused the duplicate class definition. Retaining the existing
 `ascii_string.h` include selects its sibling shim header consistently.
-Composition and publication results follow in the consolidation commit.
+
+The prerequisite source repair was committed as `82cceb36c2` and handed to
+the runner publisher. After the runner's rebase, the full SpawnArmy unit
+still passes 68/68 code rows and all seven checked string literals.
+
+The final `tu_skeleton.py --merge ... --dry-run` accepts just the seed and
+`Rva004E20ABEqual.cpp`: 69 rows, preserving the census-linked units through
+the merge guard. The winning plan is cached locally; regenerate the naming
+planner if relevant inputs change. No source-path move has been applied.
+
+Applying the merge refuses shared folded RVA `0x0007FAB3`, held by
+`Burachi-3D@Burak/85351563` for the ArmyPlacer TU. The claimability check
+confirms the live claim (3.9 hours remaining). Retry the normal merge only
+after that claim releases, then verify the resulting TU, audit path consumers
+and protected-register transfers, and publish the move. Do not bypass the
+claim. Notify's existing declaration/overload blocker remains unchanged.
+There is no source-file reduction or census gain in this repair.

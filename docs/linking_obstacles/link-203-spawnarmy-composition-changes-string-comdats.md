@@ -5,4 +5,4 @@ The merge guard rejects Rva004E20ABEqual.cpp's non-retail AsciiString::compare s
 Evidence and the verified contains-helper merge: [2026-11-04 handoff](../../reverse/attempt_support/spawnarmy-consolidation-20261104.md).
 Batch linking remains unverified: strict receipts for SpawnArmy.cpp and its Glo012F1024Item.cpp consumer are missing against the older index; carry both into the next scheduled census. No census gain claimed.
 
-2026-11-04, codex4: Equal now calls the existing StringBase owner directly (76/76 bytes and standalone LINKS); retry its merge with the retained shim include. Notify remains blocked. [Scoped checks](../../reverse/attempt_support/spawnarmy-equality-owner-20261104-codex4.md).
+2026-11-04, codex4: Equal's owner repair passes 76/76 bytes, standalone LINKS and the merge trial; apply is deferred by another worker's live claim on shared RVA `0x0007FAB3`. Retry after release. Notify remains blocked. [Scoped checks and handoff](../../reverse/attempt_support/spawnarmy-equality-owner-20261104-codex4.md).
