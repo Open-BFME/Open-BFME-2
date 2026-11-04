@@ -1,4 +1,5 @@
 // ??0SimpleSceneClass@@QAE@XZ
+// stlport
 // cl: /arch:SSE /G7 /O2 /Ob2 /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfme2renderobj /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
@@ -183,12 +184,8 @@ SimpleSceneClass::SimpleSceneClass() : SceneClass(), m_104(1) {}
 class LightEnvironmentClass;
 // Partial target prefix only. Native reads camera0 and light_environment28;
 // donor has1C, so the twelve intervening bytes remain unnamed.
-class RenderInfoClass {
-public:
-    CameraClass &Camera;
-    unsigned char reserved[0x28-4];
-    LightEnvironmentClass *light_environment;
-};
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "RenderInfoClass.h"
 #include <stddef.h>
 typedef char SceneRenderInfoLightOffset[(offsetof(RenderInfoClass,light_environment)==0x28)?1:-1];
 #include "camera.h"

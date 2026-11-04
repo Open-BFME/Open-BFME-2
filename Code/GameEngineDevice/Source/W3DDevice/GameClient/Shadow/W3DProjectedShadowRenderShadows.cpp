@@ -1,4 +1,5 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS /O1 /G7 /arch:SSE -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/projectedshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow /ICode/Libraries/Include
+// stlport
 #include "always.h"
 typedef unsigned long DWORD;typedef long HRESULT;typedef unsigned int UINT;typedef DWORD D3DRENDERSTATETYPE;
 
@@ -22,7 +23,8 @@ typedef unsigned long DWORD;typedef long HRESULT;typedef unsigned int UINT;typed
 class FrustumClass;
 #include "frustum.h"
 class CameraClass {protected:void Update_Frustum() const;public:__declspec(dllimport) __forceinline const FrustumClass &Get_Frustum() const {const CameraClass *volatile p=this;Update_Frustum();return *(const FrustumClass *)((const char *)p+0x100);} };
-class RenderInfoClass { public: CameraClass &Camera; };
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 // Target uses a plain 16B sphere storage view; avoid instantiating the
 // donor public constructor COMDAT, which the code-identity gate rejects.

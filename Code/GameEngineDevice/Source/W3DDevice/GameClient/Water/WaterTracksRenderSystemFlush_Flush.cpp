@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /MD /EHsc /DEXTENDED_STATS /Ireference/shims/bfmestages /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// stlport
 // platformsdk
 // dxsdk
 // Split from WaterTracksRenderSystemFlush.cpp: these definitions reference a callee with no matched body yet,
@@ -18,6 +19,7 @@
 // for it with the same includes and snapshot macros.
 #define WW3D_H
 #include "always.h"
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include "vector3.h"
 #include "layer.h"
 #include "w3derr.h"
@@ -49,7 +51,7 @@ private:
 #include "dx8wrapper.h"
 #include "matrix3d.h"
 class CameraClass { public: void Apply(); };
-class RenderInfoClass { public: CameraClass &Camera; };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct WaterTracksGlobalDataView { char unknown00[0x85]; bool editor; };
