@@ -18088,8 +18088,6 @@ _DeblockNonFilteredBandNewFilter_MMX,,0x001CA000,4240,Code/Libraries/Source/VP6/
 ?ji_0065478a@@YAXXZ,,0x0065478A,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA05C;dll=avifil32.dll;import=AVIFileRelease;target=AVIFileRelease
 ?ji_006547a2@@YAXXZ,,0x006547A2,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA04C;dll=avifil32.dll;import=AVIStreamWrite;target=AVIStreamWrite
 ?ji_0065565e@@YAXXZ,,0x0065565E,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA9A4;dll=wsock32.dll;import=htonl;target=htonl
-?ji_00655670@@YAXXZ,,0x00655670,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA998;dll=wsock32.dll;import=htonl;target=htonl
-?ji_00655682@@YAXXZ,,0x00655682,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA98C;dll=wsock32.dll;import=htons;target=htons
 ?ji_006556b8@@YAXXZ,,0x006556B8,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA968;dll=wsock32.dll;import=htons;target=htons
 ?ji_006b8a30@@YAXXZ,,0x006B8A30,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA688;dll=msvcr71.dll;import=memmove;target=memmove
 ?ji_006b8c30@@YAXXZ,,0x006B8C30,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA418;dll=msvcr71.dll;import=clock;target=clock
@@ -99451,3 +99449,5 @@ _GdipBitmapLockBits@20,,0x00628F5C,6,Code/Libraries/Source/Win32/GdiplusImportTh
 ?_M_insert_overflow@?$vector@VRva005DBCD1@@V?$allocator@VRva005DBCD1@@@_STL@@@_STL@@IAEXPAVRva005DBCD1@@ABV3@ABU__false_type@2@I_N@Z,,0x005DC499,181,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp,matched,Stock STLport five-argument overflow; record constructor 005DBCD1 establishes vptr and shorts plus4 plus6; six helper providers independently exact; original application identity unknown; migrated=stlport-4.6
 ?out@?$codecvt@GDH@_STL@@QBE?AW4result@codecvt_base@2@HPBG0AAPBGPAD2AAPAD@Z,,0x0001D140,43,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_filebuf.cpp,matched,stlport-4.6; wide codecvt out (state by value)
 ?underflow@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ,,0x00013D90,10,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_underflow.cpp,matched,STLport 4.5.3 narrow filebuf underflow - slot 7 of the narrow filebuf vtable which lines up with the wide vtable slot for slot. Ten bytes forwarding to _Underflow::_M_doit at 0x0001E560. Needs /Ob0 like its wide twin or cl inlines _M_doit into it; migrated=stlport-4.6
+_htonl@4,,0x00655670,6,Code/Libraries/Source/Win32/Wsock32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__htonl@4 using VS2003 __identifier; retail IAT slot 0x00BBA998 names wsock32.dll!htonl (gen-import row); complete 6B tail
+_htons@4,,0x00655682,6,Code/Libraries/Source/Win32/Wsock32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__htons@4 using VS2003 __identifier; retail IAT slot 0x00BBA98C names wsock32.dll!htons (gen-import row); complete 6B tail

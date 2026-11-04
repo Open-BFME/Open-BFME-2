@@ -84,8 +84,6 @@ void ji_0065477e() { AVIFileRelease(); }
 void ji_0065478a() { AVIFileRelease(); }
 void ji_006547a2() { AVIStreamWrite(); }
 void ji_0065565e() { htonl(); }
-void ji_00655670() { htonl(); }
-void ji_00655682() { htons(); }
 void ji_006556b8() { htons(); }
 void ji_006b8a30() { memmove(); }
 void ji_006b8c30() { clock(); }

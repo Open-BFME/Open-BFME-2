@@ -24,6 +24,13 @@ int PASCAL FAR select(int nfds, fd_set FAR * readfds, fd_set FAR * writefds, fd_
  return __identifier("_imp__select@20")(nfds, readfds, writefds, exceptfds, timeout);
 }
 
+// _htonl@4
+typedef u_long (PASCAL FAR *PFN_htonl)(u_long);
+extern PFN_htonl __identifier("_imp__htonl@4");
+u_long PASCAL FAR htonl(u_long hostlong) {
+ return __identifier("_imp__htonl@4")(hostlong);
+}
+
 // _closesocket@4
 typedef int (PASCAL FAR *PFN_closesocket)(SOCKET);
 extern PFN_closesocket __identifier("_imp__closesocket@4");
@@ -36,6 +43,13 @@ typedef int (PASCAL FAR *PFN_bind)(SOCKET, const struct sockaddr FAR *, int);
 extern PFN_bind __identifier("_imp__bind@12");
 int PASCAL FAR bind(SOCKET s, const struct sockaddr FAR * addr, int namelen) {
  return __identifier("_imp__bind@12")(s, addr, namelen);
+}
+
+// _htons@4
+typedef u_short (PASCAL FAR *PFN_htons)(u_short);
+extern PFN_htons __identifier("_imp__htons@4");
+u_short PASCAL FAR htons(u_short hostshort) {
+ return __identifier("_imp__htons@4")(hostshort);
 }
 
 // _socket@12
