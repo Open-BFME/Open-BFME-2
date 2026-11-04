@@ -29,21 +29,11 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-class SubsystemInterface;
-
-class SubsystemInterfaceList
-{
-public:
-	void removeSubsystem(SubsystemInterface *sys);
-private:
-	typedef _STL::vector<SubsystemInterface *> SubsystemList;
-	SubsystemList m_subsystems;
-	SubsystemList m_allSubsystems;
-};
+#include "../../../Include/Common/SubsystemInterfaceList.h"
 
 void SubsystemInterfaceList::removeSubsystem(SubsystemInterface *sys)
 {
-	SubsystemList::iterator it =
+	_STL::vector<SubsystemInterface *>::iterator it =
 		_STL::find(m_allSubsystems.begin(), m_allSubsystems.end(), sys);
 	if (it != m_allSubsystems.end()) {
 		((_STL::vector<void *> *)&m_allSubsystems)->erase((void **)it);

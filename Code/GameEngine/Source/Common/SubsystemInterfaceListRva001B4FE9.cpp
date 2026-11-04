@@ -36,28 +36,16 @@ public:
  virtual void vf9();
 };
 
-struct SubsystemEntry8 {SubsystemInterface *object;unsigned extra;};
-
-class SubsystemInterfaceList
-{
-public:
-	void rva001B4FE9();
- void resetAll();
-
-private:
-	_STL::vector<SubsystemEntry8> m_primary;
- _STL::vector<void*> m_pending;
-	_STL::vector<void *> m_vec; // +0x18
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 void SubsystemInterfaceList::rva001B4FE9()
 {
-	for (void **it = m_vec.begin(); it != m_vec.end(); ++it) {
+	for (void **it = field18.begin(); it != field18.end(); ++it) {
 		void *obj = *it;
 		if (obj != 0)
 			((Rva001B4FE9Target *)obj)->vf8();
 	}
-	_STL::vector<void *> &v = m_vec;
+	_STL::vector<void *> &v = field18;
 	v.erase(v.begin(), v.end());
 }
 
@@ -66,6 +54,6 @@ void SubsystemInterfaceList::rva001B4FE9()
 // reverse calling reset; GameEngine::init and GameEngine.cpp call it here.
 void SubsystemInterfaceList::resetAll()
 {
- for(_STL::vector<SubsystemEntry8>::reverse_iterator i=m_primary.rbegin();i!=m_primary.rend();++i)
-  ((Rva001B4FE9Target *)i->object)->vf9();
+ for(_STL::vector<_STL::pair<SubsystemInterface *, void *> >::reverse_iterator i=m_subsystems.rbegin();i!=m_subsystems.rend();++i)
+  ((Rva001B4FE9Target *)i->first)->vf9();
 }

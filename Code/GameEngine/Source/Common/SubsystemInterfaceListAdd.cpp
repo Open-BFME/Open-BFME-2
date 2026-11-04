@@ -22,32 +22,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class SubsystemInterface;
 class ModuleData;
 
-struct SubsystemInterfaceRecord
-{
-	SubsystemInterface *m_subsystem;
-	int m_extra;
-};
-
-class SubsystemInterfaceList
-{
-public:
-	void rva001B5018(SubsystemInterface *subsystem);
-
-private:
-	_STL::vector<SubsystemInterfaceRecord> m_records;	// +0x00
-	_STL::vector<const ModuleData *> m_known;				// +0x0C
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 void SubsystemInterfaceList::rva001B5018(SubsystemInterface *subsystem)
 {
 	if (subsystem == 0)
 		return;
-	for (_STL::vector<SubsystemInterfaceRecord>::iterator it = m_records.begin(); it != m_records.end(); ++it) {
-		if (it->m_subsystem == subsystem)
+	for (_STL::vector<_STL::pair<SubsystemInterface *, void *> >::iterator it = m_subsystems.begin(); it != m_subsystems.end(); ++it) {
+		if (it->first == subsystem)
 			return;
 	}
 	const ModuleData *&item = (const ModuleData *&)subsystem;
-	const ModuleData **last = m_known.end();
-	if ((const ModuleData **)_STL::find((int *)m_known.begin(), (int *)last, (const int &)item) == last)
-		m_known.push_back(item);
+	const ModuleData **last = (const ModuleData **)m_allSubsystems.end();
+	if ((const ModuleData **)_STL::find((int *)m_allSubsystems.begin(), (int *)last, (const int &)item) == last)
+		reinterpret_cast<_STL::vector<const ModuleData *> &>(m_allSubsystems).push_back(item);
 }

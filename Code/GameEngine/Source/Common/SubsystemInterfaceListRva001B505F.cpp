@@ -59,24 +59,11 @@ public:
 	virtual void vf7(unsigned char flag);
 };
 
-struct SubsystemEntry8
-{
-	SubsystemInterface *object;
-	unsigned extra;
-};
+
 
 void Rva0002BBC9Update();
 
-class SubsystemInterfaceList
-{
-public:
-	unsigned char notifySubsystems();
-	unsigned char rva001B4E21(SubsystemInterface *obj, unsigned char *flag);
-
-private:
-	_STL::vector<SubsystemEntry8> m_primary;
-	_STL::vector<SubsystemInterface *> m_pending;
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 unsigned char SubsystemInterfaceList::notifySubsystems()
 {
@@ -85,9 +72,9 @@ unsigned char SubsystemInterfaceList::notifySubsystems()
 	unsigned char any = 0;
 	flag = any;
 	_STL::vector<const ModuleData *> collected;
-	for (SubsystemEntry8 *subsystemEntry8 = m_primary.begin(); subsystemEntry8 != m_primary.end(); ++subsystemEntry8)
+	for (_STL::pair<SubsystemInterface *, void *> *subsystemEntry8 = m_subsystems.begin(); subsystemEntry8 != m_subsystems.end(); ++subsystemEntry8)
 	{
-		obj = (const ModuleData *)subsystemEntry8->object;
+		obj = (const ModuleData *)subsystemEntry8->first;
 		if (obj != 0)
 		{
 			if (rva001B4E21((SubsystemInterface *)obj, &flag))
@@ -95,7 +82,7 @@ unsigned char SubsystemInterfaceList::notifySubsystems()
 			collected.push_back(obj);
 		}
 	}
-	for (SubsystemInterface **subsystem = m_pending.begin(); subsystem != m_pending.end(); ++subsystem)
+	for (SubsystemInterface **subsystem = m_allSubsystems.begin(); subsystem != m_allSubsystems.end(); ++subsystem)
 	{
 		obj = (const ModuleData *)*subsystem;
 		if (obj != 0)
