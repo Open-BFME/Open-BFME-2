@@ -139,11 +139,11 @@ public:
 class Rva00461DB5Owner
 {
 public:
- void rva00461DB5();
+	void rva00461DB5();
+	char m_pad00[0x30];
 private:
- char unknown00[0x30];
- bool flag30;
- bool flag31;
+	bool flag30; // +0x30
+	bool flag31; // +0x31
 };
 
 BFME_DISP8_BYTE_SETTER(Rva0046191DByteSetter, disable, 0xD, 0x0)

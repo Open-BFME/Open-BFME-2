@@ -23,6 +23,10 @@ class Rva00461DB5Owner
 {
 public:
 	void rva00461DB5();
+	char m_pad00[0x30];
+private:
+	bool flag30; // +0x30
+	bool flag31; // +0x31
 };
 
 class FakePathfindPortalTarget
