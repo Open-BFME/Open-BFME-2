@@ -12,13 +12,17 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 
+// Retail's operation calls these rows for its element, spelled under separate placeholder
+// names. The local element forwards to them, so the rows' own bodies run.
+#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
+struct BfmeAssignRecord172 { BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &); };
 struct Rva001EBEABElement
 {
 public:
 	Rva001EBEABElement();
-	Rva001EBEABElement(const Rva001EBEABElement&);
-	~Rva001EBEABElement();
-	Rva001EBEABElement&operator=(const Rva001EBEABElement&);
+	Rva001EBEABElement(const Rva001EBEABElement&other) { new (this) CarryoverUnit(*(const CarryoverUnit *)&other); }
+	~Rva001EBEABElement() { ((CarryoverUnit *)this)->CarryoverUnit::~CarryoverUnit(); }
+	Rva001EBEABElement&operator=(const Rva001EBEABElement&other) { ((BfmeAssignRecord172 *)this)->operator=(*(const BfmeAssignRecord172 *)&other); return *this; }
 	bool operator<(const Rva001EBEABElement&)const;
 	bool operator==(const Rva001EBEABElement&)const;
 	char bytes[172]; // +0x00
