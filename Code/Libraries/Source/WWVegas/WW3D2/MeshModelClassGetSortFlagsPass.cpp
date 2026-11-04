@@ -5,6 +5,7 @@
 // Shader[pass] is at MatDesc+0x98; ShaderArray[pass] at +0xF8.
 
 #include "MeshMatDescClass.h"
+#include "MeshModelClass.h"
 
 template <class T> class ShareBufferClass
 {
@@ -28,18 +29,15 @@ inline bool MeshMatDescClass::Has_Shader_Array(int pass) const
 	return ShaderArray[pass] != 0;
 }
 
-class MeshModelClass
+inline bool MeshModelClass::Has_Shader_Array(int pass) const
 {
-public:
-	bool Has_Shader_Array(int pass) const { return CurMatDesc->Has_Shader_Array(pass); }
-	ShaderClass Get_Single_Shader(int pass) const { return CurMatDesc->Get_Single_Shader(pass); }
+	return CurMatDesc->Has_Shader_Array(pass);
+}
 
-protected:
-	unsigned int get_sort_flags(int pass) const;
-
-	unsigned char Pad[0x94];
-	MeshMatDescClass *CurMatDesc;
-};
+inline ShaderClass MeshModelClass::Get_Single_Shader(int pass) const
+{
+	return CurMatDesc->Get_Single_Shader(pass);
+}
 
 unsigned int MeshModelClass::get_sort_flags(int pass) const
 {
