@@ -131,86 +131,6 @@ public:
 	bool amIHost() const;
 };
 
-struct TransportAddress
-{
-	TransportAddress() : m_ip(0), m_port(0) {}
-
-	unsigned int m_ip;
-	unsigned short m_port;
-};
-
-class LANAPI
-{
-public:
-	virtual void v00() = 0;
-	virtual void v01() = 0;
-	virtual void v02() = 0;
-	virtual void v03() = 0;
-	virtual void v04() = 0;
-	virtual void v05() = 0;
-	virtual void v06() = 0;
-	virtual void v07() = 0;
-	virtual void v08() = 0;
-	virtual void v09() = 0;
-	virtual void v10() = 0;
-	virtual void v11() = 0;
-	virtual void v12() = 0;
-	virtual void v13() = 0;
-	virtual void v14() = 0;
-	virtual void v15() = 0;
-	virtual void v16() = 0;
-	virtual void v17() = 0;
-	virtual void v18() = 0;
-	virtual void v19(int value) = 0;
-	virtual void v20() = 0;
-	virtual void v21(UnicodeString text, int kind, int unused) = 0;
-	virtual void v22(int value) = 0;
-	virtual void v23(bool value) = 0;
-	virtual void v24() = 0;
-	virtual void RequestGameOptions(AsciiString options, bool isPublic,
-		const TransportAddress &address = TransportAddress()) = 0;
-	virtual void requestSerializedGameInfo(bool unused, TransportAddress *destination) = 0;
-	virtual void v27() = 0;
-	virtual void v28() = 0;
-	virtual void v29() = 0;
-	virtual void v30() = 0;
-	virtual void v31() = 0;
-	virtual void v32() = 0;
-	virtual void v33() = 0;
-	virtual void v34() = 0;
-	virtual void v35() = 0;
-	virtual void v36() = 0;
-	virtual void OnPlayerLeave(UnicodeString player) = 0;
-	virtual void v38() = 0;
-	virtual void v39() = 0;
-	virtual void v40(const UnicodeString &name, int text) = 0;
-	virtual void v41() = 0;
-	virtual void v42() = 0;
-	virtual void v43() = 0;
-	virtual void v44() = 0;
-	virtual void v45() = 0;
-	virtual void v46() = 0;
-	virtual void v47() = 0;
-	virtual void v48() = 0;
-	virtual void v49() = 0;
-	virtual void v50() = 0;
-	virtual void v51() = 0;
-	virtual void v52() = 0;
-	virtual void v53() = 0;
-	virtual bool v54() = 0;
-	virtual UnicodeString GetMyName() = 0;
-	virtual LANGameInfo *GetMyGame() = 0;
-	virtual void v57() = 0;
-	virtual void v58() = 0;
-	virtual void v59() = 0;
-	virtual void v60() = 0;
-	virtual void v61() = 0;
-	virtual void v62() = 0;
-	virtual void v63() = 0;
-	virtual int v64(const UnicodeString &text, int kind) = 0;
-};
-
-class LANAPI; extern LANAPI *TheLAN;
 
 #include "../../../../../Include/GameClient/MapMetaData.h"
 
@@ -221,6 +141,17 @@ extern MapCache *TheMapCache;
 #include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
+
+#include "../../../../../Include/GameNetwork/BfmeNetAddress.h"
+#include "../../../../../Include/GameNetwork/LANAPI.h"
+
+// A zeroed address the lobby hands to LANAPI's option requests.
+struct TransportAddress : public BfmeNetAddress
+{
+	TransportAddress() { ip = 0; port = 0; }
+};
+
+extern LANAPI *TheLAN;
 
 // Address-derived calls through the pointer held at the matched, address-named
 // global at VA 0x00E032FC. The target class and member identities remain
@@ -382,13 +313,13 @@ bool AptLanLobby::MpOwnerSelectTeam(GameSlot *slot, int team)
 	if (game->amIHost())
 	{
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	else
 	{
 		AsciiString options;
 		options.format("Team=%d", slot->getTeamNumber());
-		TheLAN->RequestGameOptions(options, true);
+		TheLAN->RequestGameOptions(options, true, (unsigned int)&TransportAddress());
 	}
 	return true;
 }
@@ -411,13 +342,13 @@ bool AptLanLobby::MpOwnerSelectHandicap(GameSlot *slot, int handicap)
 	{
 		game->resetAccepted();
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	else
 	{
 		AsciiString options;
 		options.format("Handicap=%d", slot->getHandicap());
-		TheLAN->RequestGameOptions(options, true);
+		TheLAN->RequestGameOptions(options, true, (unsigned int)&TransportAddress());
 	}
 	return true;
 }
@@ -439,14 +370,14 @@ bool AptLanLobby::MpOwnerSelectStartPosition(GameSlot *slot, int startPos)
 	{
 		game->resetAccepted();
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 		m_0c.enable();
 	}
 	else
 	{
 		AsciiString options;
 		options.format("StartPos=%d", slot->getStartPos());
-		TheLAN->RequestGameOptions(options, true);
+		TheLAN->RequestGameOptions(options, true, (unsigned int)&TransportAddress());
 	}
 	return true;
 }
@@ -467,13 +398,13 @@ bool AptLanLobby::MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate
 	if (game->amIHost())
 	{
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	else
 	{
 		AsciiString options;
 		options.format("PlayerTemplate=%d", slot->getPlayerTemplate());
-		TheLAN->RequestGameOptions(options, true);
+		TheLAN->RequestGameOptions(options, true, (unsigned int)&TransportAddress());
 	}
 
 	GameSlot *local = game->getSlot(game->getLocalSlotNum());
@@ -501,7 +432,7 @@ bool AptLanLobby::MpOwnerSelectColor(GameSlot *slot, int color)
 	if (game->amIHost())
 	{
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	else
 	{
@@ -513,7 +444,7 @@ bool AptLanLobby::MpOwnerSelectColor(GameSlot *slot, int color)
 
 		AsciiString options;
 		options.format("Color=%d", slot->getColor());
-		TheLAN->RequestGameOptions(options, true);
+		TheLAN->RequestGameOptions(options, true, (unsigned int)&TransportAddress());
 	}
 
 	GameSlot *local = game->getSlot(game->getLocalSlotNum());
@@ -542,13 +473,13 @@ bool AptLanLobby::MpOwnerSelectHero(GameSlot *slot)
 	if (game->amIHost())
 	{
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	else
 	{
 		AsciiString options;
 		options.format("Hero=%d", slot->encodeHero());
-		TheLAN->RequestGameOptions(options, true);
+		TheLAN->RequestGameOptions(options, true, (unsigned int)&TransportAddress());
 	}
 
 	GameSlot *local = game->getSlot(game->getLocalSlotNum());
@@ -578,7 +509,7 @@ void AptLanLobby::saveRulesRva00444279()
 	if (!TheLAN)
 		return;
 	TransportAddress address;
-	TheLAN->requestSerializedGameInfo(true, &address);
+	TheLAN->RequestGameOptionsPacked(true, &address);
 	LANGameInfo *game = TheLAN->GetMyGame();
 	if (game && game->amIHost())
 	{
@@ -600,7 +531,7 @@ bool AptLanLobby::setScenarioRva0044440C(int scenario)
 	m_prefs.setStrategicScenario(scenario);
 	m_prefs.write();
 	TransportAddress address;
-	TheLAN->requestSerializedGameInfo(true, &address);
+	TheLAN->RequestGameOptionsPacked(true, &address);
 	return true;
 }
 
@@ -628,7 +559,7 @@ bool AptLanLobby::bfmeMapChanged(const AsciiString *mapName)
 		game->adjustSlotsForMap();
 		game->resetAccepted();
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	return true;
 }
@@ -665,7 +596,7 @@ bool AptLanLobby::MpOwnerSelectPlayer(GameSlot *slot, SlotState state, int unuse
 		if (slot->isAI() ^ wasAI)
 			game->resetAccepted();
 		TransportAddress address;
-		TheLAN->requestSerializedGameInfo(true, &address);
+		TheLAN->RequestGameOptionsPacked(true, &address);
 	}
 	return true;
 }
@@ -736,8 +667,8 @@ void AptLanLobby::rva00444DC3(bool starting)
 	if (starting)
 	{
 		Rva00437E84(4, TheGameText->fetch("APT:None"), TheGameText->fetch("QM:STARTINGGAME"));
-		if (TheLAN && TheLAN->v54())
-			TheLAN->v22(0);
+		if (TheLAN && (unsigned char)TheLAN->AmIHost())
+			TheLAN->RequestEnableMPSetupUI(false);
 	}
 	else
 	{
@@ -758,15 +689,15 @@ void AptLanLobby::MpOwnerPrintMessage(const UnicodeString &text, int kind)
 	switch (kind)
 	{
 	case 0:
-		TheLAN->v40(UnicodeString(L"SYSTEM"), TheLAN->v64(text, 3));
+		TheLAN->OnChat(UnicodeString(L"SYSTEM"), TheLAN->getLocalAddress(), text, LANAPI::LANCHAT_SYSTEM);
 		break;
 	case 1:
 		if (!AptMessenger::s_instance)
 			MessageBoxOk(UnicodeString(L""), text, 0);
-		TheLAN->v40(UnicodeString(L"SYSTEM"), TheLAN->v64(text, 3));
+		TheLAN->OnChat(UnicodeString(L"SYSTEM"), TheLAN->getLocalAddress(), text, LANAPI::LANCHAT_SYSTEM);
 		break;
 	case 2:
-		TheLAN->v21(text, 3, 0);
+		TheLAN->RequestChat(text, LANAPI::LANCHAT_SYSTEM, 0);
 		break;
 	}
 }
@@ -775,8 +706,8 @@ void AptLanLobby::MpOwnerPrintMessage(const UnicodeString &text, int kind)
 // the start notice's LANAPI vslot 54 test and vslot 22 call, with 1.
 void AptLanLobby::rva0044421C()
 {
-	if (TheLAN && TheLAN->v54())
-		TheLAN->v22(1);
+	if (TheLAN && (unsigned char)TheLAN->AmIHost())
+		TheLAN->RequestEnableMPSetupUI(true);
 }
 
 // Retail 0x004441C5, 67 bytes: vftable 0x00C3E098 slot 18. Name unknown;
@@ -788,7 +719,7 @@ void AptLanLobby::rva004441C5(bool flag, int unused)
 		return;
 	m_428 = 12;
 	if (flag)
-		TheLAN->v23(m_88 == 1);
+		TheLAN->RequestGameStart(m_88 == 1);
 	else
-		TheLAN->v19(1);
+		TheLAN->RequestAccept(true);
 }

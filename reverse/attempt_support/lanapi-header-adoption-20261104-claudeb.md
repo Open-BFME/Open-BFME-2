@@ -154,3 +154,22 @@ Tried and reverted:
 - MapSelectMenu.cpp (ZH reference include paths, bfme2_ascii_common shim)
   stops compiling once LANAPI.h's relative ascii/unicode includes follow its
   Common/ string headers (CharSource redefinition). Unit not touched.
+
+## Batch 8: AptLanLobby screen, BfmeNetAddress provider, LANPlayer (2026-11-04)
+
+- BfmeAptScreenLanLobby.cpp: the 65-slot view and TransportAddress give way to
+  LANAPI.h/BfmeNetAddress.h; TransportAddress stays TU-local as a zeroing
+  subclass of BfmeNetAddress. Slot mapping: v19 RequestAccept, v21 RequestChat
+  (LANCHAT_SYSTEM), v22 RequestEnableMPSetupUI, v23 RequestGameStart, 26
+  RequestGameOptionsPacked, v40/v64 OnChat(L"SYSTEM", getLocalAddress(), text,
+  LANCHAT_SYSTEM), v54 AmIHost read as its low byte like every other caller.
+  The default-argument address of RequestGameOptions is passed explicitly as
+  `(unsigned int)&TransportAddress()` (LANAPI.cpp's spelling). 41/41, EH 15
+  EXACT, link_check 3,243 -> 3,243 B.
+- BfmeNetAddressRva00248CBF.cpp (the compare's provider) includes the header:
+  1/1, link 30 -> 30 B.
+- LANPlayer_copy.cpp includes BfmeNetAddress.h and LANPlayerClass.h: 2/2, EH 1
+  EXACT, link 111 -> 111 B.
+- LANGameInfo.cpp's private LANPlayer gives way to LANPlayerClass.h: 17/17, EH
+  3 EXACT, link 476 -> 550 B (the batch 7 gain kept).
+- accept retires 6 rows (LANAPI 1, BfmeNetAddress 2, LANPlayer 3).
