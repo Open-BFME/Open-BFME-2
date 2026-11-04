@@ -37,19 +37,12 @@ int Rva000CF0FF::size() const
 {
 	return m_end - m_begin;
 }
-// --- 0x000A47AE (8B): cdecl read of the dword at +0x58 of its argument.
-// --- 0x000D1D2B / 0x000D1EA2 (8B each): cdecl addresses of the link words
-// at +8 and +4 of a tree-node-like record (the shape of STLport's
-// _Rb_tree _S_left / _S_parent; the instantiation is not recovered).
-// --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
 #include <math.h>
-
 struct FloorDrawTerrainPair
 {
 	int m_key;
 	AsciiString m_value;
 };
-
 struct FloorDrawModuleDataView
 {
 	char m_pad0[8];
@@ -61,13 +54,11 @@ struct FloorDrawModuleDataView
 	bool m_flag1C;
 	bool m_flag1D;
 };
-
 class Rva0055A88BDwordField
 {
 public:
 	int get() const;
 };
-
 class BaseHeightMapRenderObjClass
 {
 private:
@@ -79,9 +70,7 @@ public:
 	void rva00068395(int id, AsciiString *moduleName, AsciiString *terrainName,
 		bool flag1D, bool flag1C);
 };
-
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
 class W3DFloorDraw
 {
 private:
@@ -101,11 +90,8 @@ public:
 	void rva000CF4AE(bool value);
 	void rva000CF4C2(bool value);
 };
-
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 // Storage deallocation cannot throw; keep the STLport cleanup inline.
 namespace _STL {
 template <> __declspec(dllimport) __declspec(nothrow) __forceinline _Vector_base<BfmeE16, allocator<BfmeE16> >::~_Vector_base()
@@ -113,37 +99,27 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline _Vector_base
 template <> __declspec(dllimport) __forceinline vector<BfmeE16, allocator<BfmeE16> >::~vector()
 { _Destroy(this->_M_start, this->_M_finish); }
 }
-
 class CameraMarker
 {
 public:
 	~CameraMarker();
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> void _Destroy<CameraMarker *>(CameraMarker *,CameraMarker *); }
-
 namespace _STL { template <> void __destroy<CameraMarker *,CameraMarker>(CameraMarker *,CameraMarker *,CameraMarker *); }
-
 namespace _STL { template <> void __destroy_aux<CameraMarker *>(CameraMarker *,CameraMarker *,_STL::__false_type const &); }
-
 class INI;
-
 struct BfmePod76 { int a[19]; };
-
 namespace _STL {
 template <> void vector<BfmePod76, allocator<BfmePod76> >::push_back(const BfmePod76 &);
 }
-
 class Rva000B937E { public: void rva000B937E(INI *ini, void *userData); };
-
 class Rva000CF713Owner
 {
 public:
 	char m_pad[0x24];
 	_STL::vector<BfmePod76> m_records;
 };
-
 // ?test@Rva000CF0D6@@QBE_NPBV1@@Z @0x000CF0D6 41B
 // Honest Rva name; free function in 000CF page between W3DFloorDraw xfer
 // (0xCF074) and ctor (0xCF10B). Compares 19 dwords: (this[i] & other[i])==other[i].
@@ -155,7 +131,6 @@ public:
 	bool test(const Rva000CF0D6 *other) const;
 	unsigned int m_bits[19];
 };
-
 //
 // 0x000CF503 (38B): STLport's __uninitialized_copy loop over 0x8-byte records.
 // Each element goes through the placement copy at 0x000CF4D6, which the ledger owns
@@ -165,14 +140,10 @@ public:
 // pushed by the caller and never read.
 
 namespace _STL { struct __false_type; }
-
 #include "../../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
-
 void Rva000CF4D6Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source);
-
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-
 //
 // W3DFloorDrawModuleData file-unit (parse first; the ctor at 0xCF681
 // remains pinned for a follow-up).
@@ -183,11 +154,18 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 // MultiIniFieldParse::add at 0x2BC6E. Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// The native loop proves an eight-byte stride and calls the already verified
+// placement-copy owner directly. Keep only that neutral footprint here;
+// original element identity and the provider's inherited type view are unknown.
+struct Rva000CF529Element { unsigned words[2]; };
+struct TreeKey00242F5E;
+void Rva000CF4D6Construct(TreeKey00242F5E *, const TreeKey00242F5E &);
 
 extern const FieldParse s_floorDrawFieldTable[];
-
 
 class W3DPropDrawModuleData
 {
@@ -261,7 +239,41 @@ public:
 // (0x00DEC3D8); in the aabtreecull run, no direct caller.
 extern bool bfmeOnlyEmissiveDraws;
 
+namespace _STL {
+// Specialize the reference operation after its declaration so this forwarding
+// glue also applies when the containing TU has already included <vector>.
+// Its force-inlined body has no separate retail entry.
+// ?_STL::_Construct absent-from-retail
+template <> __forceinline void _Construct<Rva000CF529Element, Rva000CF529Element>(Rva000CF529Element *destination,
+                                    const Rva000CF529Element &value)
+{
+    Rva000CF4D6Construct(reinterpret_cast<TreeKey00242F5E *>(destination),
+        *reinterpret_cast<const TreeKey00242F5E *>(&value));
+}
+
+// The element has no destructor work. A direct specialization preserves the
+// reference loop without its empty cleanup/rethrow handler when another TU
+// has included STLport with exception support enabled.
+template <> Rva000CF529Element * __uninitialized_fill_n<Rva000CF529Element *, unsigned int, Rva000CF529Element>(
+    Rva000CF529Element *destination, unsigned int count,
+    const Rva000CF529Element &value, const __false_type &)
+{
+    Rva000CF529Element *current = destination;
+    for (; count > 0; --count, ++current)
+        _Construct(current, value);
+    return current;
+}
+}
+
 // tu-skeleton: 0x000CF074 98B ?xfer@W3DFloorDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp
+
+// --- 0x000A47AE (8B): cdecl read of the dword at +0x58 of its argument.
+// --- 0x000D1D2B / 0x000D1EA2 (8B each): cdecl addresses of the link words
+// at +8 and +4 of a tree-node-like record (the shape of STLport's
+// _Rb_tree _S_left / _S_parent; the instantiation is not recovered).
+// --- 0x000E0F0E (8B): sets the byte flag at +0x44555.
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw.cpp
 
@@ -477,7 +489,7 @@ void W3DFloorDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x000CF4D6 45B ?Rva000CF4D6Construct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
-// tu-skeleton: 0x000CF529 37B ??$__uninitialized_fill_n@PAURva000CF529Element@@IU1@@_STL@@YAPAURva000CF529Element@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva000CF529.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva000CF529.cpp
 
 // tu-skeleton: 0x000CF54E 189B ?_M_insert_overflow@?$vector@UBfmePod76@@V?$allocator@UBfmePod76@@@_STL@@@_STL@@IAEXPAUBfmePod76@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
