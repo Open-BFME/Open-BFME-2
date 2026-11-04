@@ -1036,6 +1036,37 @@ the retail idiom and the block does not preserve them.
 Neither is a reason to stop the pass. Both are reasons not to run it over a
 subsystem whose names are about to be recovered.
 
+### Two smaller conflict categories, anatomised (2026-11-04)
+
+**`virtual slot filled two ways` (22).** Six pit a named method against
+`__vecDelDtor(uint)`, which is one view claiming slot 0 holds the virtual
+destructor while the other gives it a method - usually because one view omits the
+virtual destructor and its slots shift. The ledger can only settle that where a
+destructor row exists, and it does for **2 of the 6** (`Rva009519B`,
+`InputChunk`); the other four have no `??1`/`??_G`/`??_E` row at all, so the
+`__vecDelDtor` claim is unbacked. Of the remaining 16, seven pit two real names
+against each other and seven are placeholder-against-placeholder. So about 2 of 22
+are evidence-backed, consistent with the ~2% ceiling above.
+
+**`fields overlap` (20).** Mostly not a contradiction: **16 of 20 are a
+granularity difference at the same offset** - one view names a field and another
+covers the same bytes with a single wider one, like `x +0x0..0x4` against
+`a +0x0..0xC`, or `blendNdx +0x0..0x4` against `m_data +0x0..0x10`. The wider
+field is usually opaque and placeholder-named (`a`, `f`, `m_data`, `pair68`,
+`unmodelled68`, `presets`), so the finer view is simply more resolved. Only 4
+straddle offsets in a way that genuinely conflicts.
+
+That makes the 16 a **candidate** for the same treatment `head_free()` gives a
+silent head: a placeholder-named span that another view subdivides is arguably no
+evidence about those bytes. It is recorded as a candidate and nothing more. Two
+cautions, both earned today: `tu_views` may already handle some of this (its
+doctrine does cover padding and unclaimed `sizeof`, and the one relaxation I
+proposed from a category shape this session - for base clauses - turned out to be
+a bug that `head_free()` already prevented), and a wide field may be a real object
+passed by value rather than a gap, in which case subdividing it changes member
+access. Anyone picking this up should read `plan()`'s field loop first and expect
+the answer to be no.
+
 ### A worked base-clause conflict: mapper.cpp's TextureMapperClass family (2026-11-04)
 
 One of the 16 non-canonical base-clause conflicts, written out so the next seat
