@@ -627,7 +627,7 @@ public: BuildListInfo();
 protected: virtual ~BuildListInfo(); friend class CastleBehavior;
 private: unsigned char storage[124];
 };
-class SidesList { public: bool rva0032BD64(NameKeyType,int,PolygonTrigger*); bool rva0032BD25(NameKeyType,int,BuildListInfo*); };
+#include "../../../Include/Common/SidesList.h"
 extern SidesList* TheSidesList;
 // Native 00399C6C..00399D54 (232B), WB 00EB9B60. The native trace
 // names initiateUnpack; the BFME 1 ba7ddda7 donor at

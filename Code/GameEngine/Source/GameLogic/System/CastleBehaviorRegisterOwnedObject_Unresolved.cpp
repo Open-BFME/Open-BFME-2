@@ -478,7 +478,7 @@ private: unsigned char storage[124];
 };
 // The rowed lookups (SidesListCastleBuildLists.cpp) take an int key and a PolygonalArea.
 class PolygonalArea;
-class SidesList { public: bool rva0032BD64(int,int,PolygonalArea*); bool rva0032BD25(int,int,BuildListInfo*); };
+#include "../../../Include/Common/SidesList.h"
 extern SidesList* TheSidesList;
 class Rva00396B0D { public: int rva00396B0D(); };
 void CastleBehavior::rva003993F2(bool instant) {

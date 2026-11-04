@@ -331,16 +331,7 @@ public:
 	void setScriptList(ScriptList *scriptList);
 };
 
-class SidesList
-{
-public:
-	__declspec(dllimport) __forceinline Int getNumSides() { return m_numSides; }
-	SidesInfo *getSideInfo(Int side);
-
-private:
-	char m_pad[0x3C];
-	Int m_numSides;						// +0x3C
-};
+#include "../../../Include/Common/SidesList.h"
 extern SidesList *TheSidesList;
 
 void ScriptEngine::reset()

@@ -185,16 +185,7 @@ private:
 	ScriptList m_scriptList;				// +0x08
 };
 
-class SidesList
-{
-public:
-	__declspec(dllimport) __forceinline Int getNumSides() { return m_numSides; }
-	SidesInfo *getSideInfo(Int ndx);			// 0x002035BA
-
-private:
-	unsigned char m_unknown00[0x3c];
-	Int m_numSides;						// +0x3C
-};
+#include "../../../Include/Common/SidesList.h"
 
 // The scope latch on m_currentScope: restores the saved string when it goes
 // out of scope (Rva002048A2Ctor.cpp).
