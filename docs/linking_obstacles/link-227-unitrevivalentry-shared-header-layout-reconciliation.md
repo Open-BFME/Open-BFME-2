@@ -5,3 +5,4 @@ Completed: UnitRevivalTrackerRva0037F2C0Finish.cpp and ArmySummaryRevivalSpawn.c
 Remaining / next check: eight consumers remain; reconcile +0x14/+0xB0 helper identities and lifetimes, inspect provider C2011 diagnostics, and map opaque views/member uses before retrying adoption.
 Clearance: the two changed consumers pass ordinary combined link preview, preserving 423 -> 423 linked bytes against index a62ac1c10b; remaining consumers are not cleared.
 Census confirmation: no new census; no linked-byte gain claimed.
+Existing shadow identity prerequisite: tracker finish has the same unverified push_back binding before and after adoption; [controlled comparison and next check](../../reverse/attempt_support/unitrevivalentry-identity-check-20261104-codex5.md).
