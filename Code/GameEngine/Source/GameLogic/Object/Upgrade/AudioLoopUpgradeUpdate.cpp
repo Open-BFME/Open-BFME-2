@@ -19,17 +19,18 @@ struct BfmeAudioEventPrefix136;
 class Xfer;
 
 #include "../../../../Include/Common/GameAudio.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 extern AudioManager *TheAudio;
 
 class Object;
 class AudioLoopUpgrade;
 
-class UpdateModule
+// Access-only view of the UpdateModule subobject; no instance or vtable is emitted.
+class AudioLoopUpdateAccess : public UpdateModule
 {
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
-	friend class AudioLoopUpgrade;
+public:
+	using UpdateModule::setWakeFrame;
 };
 
 class AudioLoopUpgrade
@@ -62,7 +63,7 @@ void AudioLoopUpgrade::upgradeRemovalImplementation()
 		TheAudio->removeAudioEvent(m_handle0C);
 		m_handle0C = 1;
 	}
-	UpdateModule *upd = (UpdateModule *)((char *)this - 0x20);
+	AudioLoopUpdateAccess *upd = (AudioLoopUpdateAccess *)((char *)this - 0x20);
 	Object *obj = *(Object **)((char *)this - 0x18);
 	upd->setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
 }
