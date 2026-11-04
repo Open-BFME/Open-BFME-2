@@ -140,18 +140,7 @@ extern int g_Va00E06550;
 #include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 extern GameSpyStagingRoom *TheGameSpyGame;
 
-class GameSpyInfoInterface
-{
-public:
-#define G(n) virtual void v##n();
-	G(00) G(01) G(02) G(03) G(04) G(05) G(06) G(07) G(08) G(09)
-	G(10) G(11) G(12) G(13) G(14) G(15) G(16) G(17) G(18) G(19)
-	G(20) G(21) G(22) G(23) G(24) G(25) G(26) G(27) G(28) G(29)
-	G(30) G(31) G(32) G(33) G(34) G(35) G(36) G(37) G(38) G(39)
-	G(40) G(41) G(42) G(43) G(44) G(45) G(46)
-#undef G
-	virtual void slot47(); // +0xBC
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 class Rva005A6D47
@@ -273,7 +262,7 @@ AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
 			TheNAT = 0;
 		}
 		if (TheGameSpyInfo)
-			TheGameSpyInfo->slot47();
+			TheGameSpyInfo->leaveStagingRoom();
 		shell()->rva00516F08();
 	}
 }
