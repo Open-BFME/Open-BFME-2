@@ -1,0 +1,136 @@
+{
+  "Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp": {
+    "copies": [
+      [
+        "??0BfmeAsciiString@@QAE@XZ",
+        "2cf42091f4b5",
+        9
+      ],
+      [
+        "??0BfmeCoord3D@@QAE@XZ",
+        "fd2dc41a70f4",
+        13
+      ],
+      [
+        "??0BfmeElem60@@QAE@XZ",
+        "89ec13cdda5a",
+        41
+      ],
+      [
+        "??_GAsciiString@@QAEPAXI@Z",
+        "70896600181f",
+        28
+      ],
+      [
+        "?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z",
+        "256087fcbb9b",
+        223
+      ]
+    ],
+    "strong": [
+      "?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z"
+    ],
+    "undefined": [
+      "??1AsciiString@@QAE@XZ",
+      "??3@YAXPAX@Z",
+      "??4GeometryShape@@QAEAAU0@ABU0@@Z",
+      "?calcBoundingStuff@GeometryInfo@@AAEXXZ",
+      "?resize@BfmeVec60@@QAEXIUBfmeElem60@@@Z",
+      "__fltused"
+    ],
+    "weak": []
+  },
+  "Code/GameEngine/Source/Common/System/GeometryParseActiveAndOffset.cpp": {
+    "copies": [
+      [
+        "?back@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAEAAUGeometryShape@@XZ",
+        "5b1e32dad762",
+        7
+      ],
+      [
+        "?end@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAEPAUGeometryShape@@XZ",
+        "78e4fbf1d9d9",
+        4
+      ],
+      [
+        "?parseGeometryActive@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "e12d51633b23",
+        61
+      ],
+      [
+        "?parseGeometryOffset@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "f09b14807297",
+        64
+      ],
+      [
+        "?shapeCount@GeometryShapeRange@@QBEIXZ",
+        "0b7a2f26297a",
+        25
+      ]
+    ],
+    "strong": [
+      "?parseGeometryActive@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+      "?parseGeometryOffset@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z"
+    ],
+    "undefined": [
+      "?parseBool@INI@@SAXPAV1@PAX1PBX@Z",
+      "?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"
+    ],
+    "weak": []
+  },
+  "Code/GameEngine/Source/Common/System/GeometryParseDimensions.cpp": {
+    "copies": [
+      [
+        "?back@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAEAAUGeometryShape@@XZ",
+        "5b1e32dad762",
+        7
+      ],
+      [
+        "?end@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAEPAUGeometryShape@@XZ",
+        "78e4fbf1d9d9",
+        4
+      ],
+      [
+        "?parseGeometryHeight@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "75a236e04036",
+        81
+      ],
+      [
+        "?parseGeometryIsSmall@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "1ff6a5e65c09",
+        35
+      ],
+      [
+        "?parseGeometryMajorRadius@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "0d0a00d24f56",
+        71
+      ],
+      [
+        "?parseGeometryMinorRadius@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "1c7ee10f7bbb",
+        71
+      ],
+      [
+        "?parseGeometryUsedForHealthBox@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+        "ae8dc04433a2",
+        63
+      ]
+    ],
+    "strong": [
+      "?parseGeometryHeight@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+      "?parseGeometryIsSmall@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+      "?parseGeometryMajorRadius@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+      "?parseGeometryMinorRadius@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z",
+      "?parseGeometryUsedForHealthBox@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z"
+    ],
+    "undefined": [
+      "?bfmeApplyEB@@YAXPAVBfmeObjEB@@@Z",
+      "?calcBoundingStuff@GeometryInfo@@AAEXXZ",
+      "?getNextToken@INI@@QAEPBDPBD@Z",
+      "?scanBool@INI@@QAE_NPBD@Z",
+      "?scanReal@INI@@QAEMPBD@Z",
+      "__fltused"
+    ],
+    "weak": []
+  }
+}

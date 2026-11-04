@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp: LINKS  LINKED 223 -> 223 bytes (census 2026-11-04 07:28 at a62ac1c10b; file's own bytes 223)
+Code/GameEngine/Source/Common/System/GeometryParseActiveAndOffset.cpp: LINKS  LINKED 125 -> 125 bytes (census 2026-11-04 07:28 at a62ac1c10b; file's own bytes 125)
+Code/GameEngine/Source/Common/System/GeometryParseDimensions.cpp: LINKS  LINKED 321 -> 321 bytes (census 2026-11-04 07:28 at a62ac1c10b; file's own bytes 321)
+link_check: 3 of 3 link cleanly; LINKED 669 -> 669 bytes (6.6s)

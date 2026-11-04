@@ -11,16 +11,7 @@
 // (type isSmall height major minor) signature and BOX-minor rule; callers at
 // 0x00050BDA in the rowed five-arg ctor and at 0x0029846C; prev/next rows
 // GeometryParseType/GeometryParseOther with the same // cl: line.
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER = 1,
-	GEOMETRY_BOX = 2
-};
-
-class Xfer;
-
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Include/Common/Geometry.h"
 
 struct BfmeCoord3D
 {
@@ -92,17 +83,6 @@ struct GeometryShape
 	GeometryShape &operator=(const GeometryShape &other);
 };
 
-class GeometryInfo : public Snapshot
-{
-public:
-	void set(GeometryType type, bool isSmall, float height, float majorRadius, float minorRadius);
-private:
-	void calcBoundingStuff();
-	bool m_isSmall;
-	char m_pad05[0x27];
-	BfmeVec60 m_shapes;
-};
-
 #pragma optimize("t", off)
 #pragma optimize("s", on)
 static __forceinline void DestroyTmpName(AsciiString *asciiString) { asciiString->~AsciiString(); }
@@ -116,7 +96,7 @@ void GeometryInfo::set(GeometryType type, bool isSmall, float height, float majo
 	tmp.m_majorRadius = majorRadius;
 	tmp.m_minorRadius = (type == GEOMETRY_BOX) ? minorRadius : majorRadius;
 	m_isSmall = isSmall;
-	BfmeVec60 &shapes = m_shapes;
+	BfmeVec60 &shapes = *reinterpret_cast<BfmeVec60 *>(field2c);
 	tmp.m_offset.x = 0.0f;
 	tmp.m_offset.y = 0.0f;
 	tmp.m_offset.z = 0.0f;

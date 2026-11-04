@@ -11,3 +11,5 @@ Repair composition ordering in a separate tooling commit with a regression test 
 **2026-11-04 prerequisite subset:** height-query consumer adopts canonical GeometryInfo; owning acceptance retires one queue row, both bodies match (209B), object link facts are unchanged and preview retains LINKS 209B; whole-TU flag/view blockers remain. [Evidence](../../reverse/attempt_support/geometry-height-canonical-header-20261104/README.md).
 
 2026-11-04 shard-2 retry: the current dry run still accepts no donor. Remaining candidates fail on flag/profile conflicts or byte mismatches; LinkGuard names the census-linked seed and donors. Retry after those source prerequisites change. [Trial handoff](../../reverse/attempt_support/consolidation-shard-2-2026-11-04-session5.md).
+
+2026-11-04 setter/parser prerequisite: three more GeometryInfo consumers adopt the canonical header; owning acceptance retires three queue rows, 8/8 bodies match (669B), object link facts are unchanged and preview retains LINKS 669B. Other shape/profile prerequisites remain. [Evidence](../../reverse/attempt_support/geometry-parsers-canonical-header-20261104/README.md).

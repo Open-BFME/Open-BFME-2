@@ -15,6 +15,7 @@
 // whose z the GeometryParseMinorRadius shim calls m_offsetZ.
 
 #include <vector>
+#include "../../../Include/Common/Geometry.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -46,47 +47,16 @@ public:
 	}
 };
 
-class Xfer;
-
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-
-class GeometryInfo : public Snapshot
-{
-public:
-	static void parseGeometryActive(INI *ini, void *instance, void *store, const void *userData);
-	static void parseGeometryOffset(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	Bool m_isSmall;
-	int m_scalar08;
-	int m_scalar0c;
-	int m_scalar10;
-	int m_scalar14;
-	int m_scalar18;
-	int m_scalar1c;
-	int m_scalar20;
-	int m_scalar24;
-	int m_scalar28;
-	GeometryShapeRange m_shapes;
-	std::vector<int> m_records;
-	int m_cached44;
-	int m_cached48;
-	int m_cached4c;
-	int m_cached50;
-	int m_cached54;
-	int m_cached58;
-};
-
 /*static*/ void GeometryInfo::parseGeometryActive(INI *ini, void *instance, void *store, const void *)
 {
 	GeometryInfo *geometry = (GeometryInfo *)store;
-	if (geometry->m_shapes.shapeCount() != 0)
-		INI::parseBool(ini, instance, &geometry->m_shapes.back().m_enabled, 0);
+	if (reinterpret_cast<GeometryShapeRange *>(geometry->field2c)->shapeCount() != 0)
+		INI::parseBool(ini, instance, &reinterpret_cast<GeometryShapeRange *>(geometry->field2c)->back().m_enabled, 0);
 }
 
 /*static*/ void GeometryInfo::parseGeometryOffset(INI *ini, void *instance, void *store, const void *userData)
 {
 	GeometryInfo *geometry = (GeometryInfo *)store;
-	if (geometry->m_shapes.shapeCount() != 0)
-		INI::parseCoord3D(ini, instance, &geometry->m_shapes.back().m_offset, userData);
+	if (reinterpret_cast<GeometryShapeRange *>(geometry->field2c)->shapeCount() != 0)
+		INI::parseCoord3D(ini, instance, &reinterpret_cast<GeometryShapeRange *>(geometry->field2c)->back().m_offset, userData);
 }
