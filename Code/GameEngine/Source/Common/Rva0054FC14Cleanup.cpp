@@ -2,6 +2,7 @@
 // stlport
 #include "ascii_string.h"
 #include "mutex.h"
+#include "ThreadClass.h"
 #include <map>
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
@@ -23,20 +24,11 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 struct ProgressValue0054FCA5 { int opaque[2]; int value; };
 // ?rva0054FC14@Rva0054FC14@@QAEXXZ retail 0x0054FC14 70B.
 // Clear lock at +0xB0 then stop plus virtual-destroy plus delete 10 thread slots at +0x80.
-// Evidence: clear 0x0009990D, Stop 0x006105F0, virtual slot 0 with 0, delete 0x0002FD60, caller 0x0054FFC3.
-#include <new>
-
+// Evidence: clear 0x0009990D, Stop 0x006105F0, ::delete (virtual destructor with flag 0, then delete 0x0002FD60), caller 0x0054FFC3.
 class Rva0009990D
 {
 public:
 	void clear();
-};
-
-class ThreadClass
-{
-public:
-	void Stop();
-	virtual void *virt0(int flags);
 };
 
 struct Rva0054FC14
@@ -61,12 +53,7 @@ void Rva0054FC14::rva0054FC14()
 		ThreadClass *t = *thread;
 		if (t != 0) {
 			t->Stop();
-			void *q;
-			if (*thread != 0)
-				q = (*thread)->virt0(0);
-			else
-				q = 0;
-			::operator delete(q);
+			::delete *thread;
 			*thread = 0;
 		}
 		++thread;
