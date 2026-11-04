@@ -57,33 +57,7 @@ class Player;
 
 class RadiusDecal;
 
-class RadiusDecalTemplate
-{
-public:
-	RadiusDecalTemplate();
-	float rva00330D3E(unsigned int index);
-	static void parseRadiusDecalTemplate(INI *ini, void *instance, void *store, const void *userData);
-	void rva00330CDD(const RadiusDecalTemplate &other);
-	bool rva00331578(const RadiusDecalTemplate &other) const;
-	void xferRadiusDecalTemplate(Xfer *xfer);
-	void createSelectionRadiusDecal(Coord3D pos, unsigned selected, int color, RadiusDecal *out, float scale);
-	void createDeathDecal(const Coord3D *pos, float angle, const unsigned *color, RadiusDecal *out);
-	void createRadiusDecal(const Coord3D &pos, float radius, const Player *player, RadiusDecal &out) const;
-
-	AsciiString m_name; // +0x00
-	AsciiString m_secondName; // +0x04
-	int m_shadowType; // +0x08
-	float m_minOpacity; // +0x0C
-	float m_maxOpacity; // +0x10
-	float m_opacityThrobTime; // +0x14
-	int m_color; // +0x18
-	bool m_onlyVisibleToOwningPlayer; // +0x1C
-	float m_unmodelled20; // +0x20
-	float m_unmodelled24; // +0x24
-	unsigned int m_unmodelled28; // +0x28
-	float m_unmodelled2C; // +0x2C
-	float m_unmodelled30; // +0x30
-};
+#include "../../Include/GameClient/RadiusDecalTemplate.h"
 
 class Shadow
 {
