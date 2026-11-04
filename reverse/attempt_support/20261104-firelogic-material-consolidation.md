@@ -40,6 +40,17 @@ map inputs and the generated TU's provenance comment also retain their original
 spelling. No linking-obstacle entry names these inputs or needs a changed next
 step: the merge guard passes and no link repair is claimed.
 
+## Inherited shadow findings
+
+The commit hook reports an existing `update` map-call identity concern at
+`0x0028932C` and a static-local data-name concern at `0x009FEC84`. Scratch
+compiles of the pre-merge TU at `eab7d513f8` and the merged TU both match all
+31 seed rows. Their update relocation at offset `0x300` names the same
+`map<ObjectID, int>::operator[]` at `0x0028932C`; the six data relocations
+at offsets `0x3B2`, `0x3D7`, `0x3DF`, `0x5A1`, `0x5D4`, `0x5E9` all retain
+the same compiler symbol `s_pending` (local discriminator `?DJ`) at `0x009FEC84`.
+These findings predate the merge; neither is retired or added to a baseline.
+
 ## Remaining donors
 
 `StlSweepR3Rva0028681A.cpp` and `stlport_map_int_ptr_tree_dtor.cpp` are rejected

@@ -796,7 +796,7 @@ _Construct<Rva00287F76Element, Rva00287F76Element>(
 
 static inline const void *materialMask(unsigned mask) { return reinterpret_cast<const void *>(mask); }
 
-void Rva00285FA9Parse(INI *ini,void *,void *store,const void *) {
+void Rva00285FA9Parse(INI *ini,void *,void *fireLogicSystem,const void *) {
  const char *token=ini->getNextToken(0);
  if(!token) throw INIException(3,"TerrainCellType index expected.");
  int index=FireLogicCRT::atoi(token);
@@ -810,7 +810,7 @@ void Rva00285FA9Parse(INI *ini,void *,void *store,const void *) {
   {"Resistance",INI::parseUnsignedInt,materialMask(0xff),20},
   {0,0,0,0}
  };
- ini->initFromINI((char *)store+0x10+index*24,fields);
+ ini->initFromINI((char *)fireLogicSystem+0x10+index*24,fields);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
