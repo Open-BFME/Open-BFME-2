@@ -63,23 +63,7 @@ struct MapHolder
 	_STL::_Rb_tree_node_base *m_header;
 };
 
-class GameSpyInfoInterface
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual MapHolder *s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual int s08();
-	virtual void s09();
-	virtual void s0A();
-	virtual void s0B();
-	virtual int s0C();
-};
+#include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -134,8 +118,8 @@ void AptOnlineCustomMatch::PopulateLobbyComboBox()
 		return;
 	GadgetComboBoxReset(combo);
 	int selected = -1;
-	_STL::_Rb_tree_node_base *node = TheGameSpyInfo->s03()->m_header->_M_left;
-	while (node != TheGameSpyInfo->s03()->m_header)
+	_STL::_Rb_tree_node_base *node = ((MapHolder *)TheGameSpyInfo->getGroupRoomList())->m_header->_M_left;
+	while (node != ((MapHolder *)TheGameSpyInfo->getGroupRoomList())->m_header)
 	{
 		{
 			AsciiUnicodePair tmp(((MapNode *)node)->m_14);
@@ -143,7 +127,7 @@ void AptOnlineCustomMatch::PopulateLobbyComboBox()
 			{
 				if (tmp.m_f == 1)
 				{
-					int cur = TheGameSpyInfo->s0C();
+					int cur = TheGameSpyInfo->getCurrentGroupRoom();
 					int pos;
 					if (tmp.m_a == cur)
 					{

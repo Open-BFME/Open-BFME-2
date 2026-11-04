@@ -7,7 +7,7 @@
 // its lobby: only when both +0x48C and +0x490 are set; notifies
 // TheGameSpyInfo (vslot 47), resets the +0x70 game setup panel, closes the
 // connection screen, lets the window manager drop the owner's windows and
-// the owner (AptOnline 0x00516F08) reset, tells TheGameSpyInfo (vslot 40),
+// the owner (AptOnline 0x00516F08) reset, clears TheGameSpyInfo's staging-room list (vslot 40),
 // queues peer request 7 (staging-room flag from TheGameSpyConfig vslot 13),
 // clears the info's room name (vslot 13 with ""), repopulates the lobby combo
 // box and the games list, drives the Apt movie ("ClosePassword",
@@ -62,21 +62,7 @@ int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, c
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3, const char *a4);
 void Rva00437421();
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12)
-	virtual void setRoomName(AsciiString name) = 0;  // slot 13 (+0x34)
-	V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	virtual void leaveRoom() = 0;                    // slot 40 (+0xA0)
-	V(41) V(42) V(43) V(44) V(45) V(46)
-	virtual void leaveStagingRoom() = 0;             // slot 47 (+0xBC)
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 class GameSpyConfigInterface
@@ -186,13 +172,13 @@ bool AptOnlineCustomMatch::rva005A1EEE()
 	TheWindowManager->rva002C5761((GameWindow *)m_owner);
 	m_popUp = false;
 	((AptOnline *)m_owner)->rva00516F08();
-	TheGameSpyInfo->leaveRoom();
+	TheGameSpyInfo->clearStagingRoomList();
 	PeerRequest req;
 	req.peerRequestType = 7;
 	req.unknown_f8 = "";
 	req.isStagingRoom = TheGameSpyConfig->stagingRoomFlag();
 	TheGameSpyPeerMessageQueue->addRequest(req);
-	TheGameSpyInfo->setRoomName("");
+	TheGameSpyInfo->rva00386139("");
 	PopulateLobbyComboBox();
 	PopulateGamesListBox();
 	void *movie = m_owner->m_movie;
