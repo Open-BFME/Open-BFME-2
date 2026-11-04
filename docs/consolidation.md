@@ -929,6 +929,39 @@ classes, in ones and twos, not the per-TU hauls the old count implied. Budget it
 as a long tail of small, cheap, independently verifiable edits, and do not expect
 any one of them to land a merge.
 
+### What sharing a view does to declared names (2026-11-04)
+
+Worth measuring, because the superset block rewrites every method declaration in
+the classes it touches and normalises their parameter spellings, so it can hand a
+name back weaker than it found it. A raw diff shows exactly that:
+`void rva00167EF8(const Rva00167EF8Rec &src)` came back as
+`(const Rva00167EF8Rec &)`, and in a TU left unlanded here, `void m( int value )`
+came back as `void m(int a)` - `value` is a strong name by
+`tools/name_metric.py`'s own predicate and `a` is weak.
+
+Measured through `name_metric.declared()` rather than off the diff, the lane is
+**net positive**: across the four TUs landed today it is +15 declared names with
++3 weak, so +12 strong. The gains are real member names propagated into views
+that had none (`m_delay`, `m_searchRadius`, `m_pushDistance`,
+`m_disabledDuration`, `m_evacuate`, `m_exit`, `config`, `owner`, `begin`, `end`,
+`m_refCount`), plus one parameter improved from `o` to `other`. One strong name
+was lost in all four commits put together (`enabled`, in AIUpgradeScienceBuilder).
+
+The reason the diff reads worse than the metric: `declared()` counts a class
+member's own name through `members()`, and counts parameter names only through
+`param_names()` on function *definitions*. Parameter names inside a member
+*declaration* are outside the metric entirely, so neither the dropped `src` nor
+`value` -> `a` moves READABLE NAMES at all. Do not reach for the metric to justify
+or to refuse one of these edits; it cannot see that part of the change.
+
+The human-readability point still stands on its own, and it is small: where the
+views disagree on a parameter name, the block takes the seed's, which may be the
+poorer one, and the authoritative name is usually the one on the out-of-line
+definition (`Gen_00489270::m` is defined with `val` in
+`InGameNotificationType.cpp`, while the views carry `a`, `value` and no name at
+all). Improving that is a naming-lane rename with its own approvals, not
+something to slip into a view commit.
+
 ### Evidence, without upgrading a hint into proof
 
 The baseline `game.dat` SHA-256 is
