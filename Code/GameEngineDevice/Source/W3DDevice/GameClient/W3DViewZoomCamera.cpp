@@ -14,7 +14,14 @@ typedef float Real;
 
 extern Int TheW3DFrameLengthInMsec;
 
-class ParabolicEase { public: void rva0030E51F(Real easeIn, Real easeOut, Real total); };
+class ParabolicEase
+{
+public:
+	void rva0030E51F(float easeIn, float easeOut, float total);
+	float operator()(float)const;
+	float in; // +0x00
+	float out; // +0x04
+};
 class Rva00086E24
 {
 public:
@@ -36,7 +43,6 @@ struct PitchCameraInfo
 	Real endPitch;		// +0x268
 	char m_pad26C[8];	// +0x26C
 	ParabolicEase ease;	// +0x274
-	char m_pad275[7];
 	bool doingPitchCamera;	// +0x27C
 	bool m_flag27D;		// +0x27D, the W3DView camera flag cleared with it
 };
@@ -50,7 +56,6 @@ struct ZoomCameraInfo
 	Real endZoom;		// +0x1F0
 	char m_pad1F4[8];	// +0x1F4
 	ParabolicEase ease;	// +0x1FC
-	char m_pad1FD[7];
 	bool doingZoomCamera;	// +0x204
 };
 

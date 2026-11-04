@@ -24,3 +24,5 @@ The stable post-rebase full gate passes every check (98,945 function rows and
 2,203 data rows). All 53 file-scope claims are released.
 
 2026-11-04: the supported trial completed with no accepted merge; Rva00089510 receiver views now agree with unchanged bytes/symbols and clean scoped link previews; reconcile the remaining compiler rejects before another exhaustive trial ([boundaries and checks](../../reverse/attempt_support/w3dview-consolidation-20261104-codexb5.md)).
+
+2026-11-04: three private ParabolicEase views now agree on the two-float prefix and existing method declarations, with 5/5 rows exact, identical runtime objects and clean scoped link previews; the seed's reference-header declaration and other recorded rejects still block merging ([repair and next checks](../../reverse/attempt_support/w3dview-parabolic-ease-20261104-codexb.md)).

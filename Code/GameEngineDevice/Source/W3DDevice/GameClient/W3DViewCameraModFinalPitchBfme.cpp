@@ -14,10 +14,13 @@ typedef bool Bool;
 extern Int TheW3DFrameLengthInMsec;
 #define TheAnimationMsPerStep (TheW3DFrameLengthInMsec)
 
-struct ParabolicEase
+class ParabolicEase
 {
-	Real in;
-	Real out;
+public:
+	void rva0030E51F(float easeIn, float easeOut, float total);
+	float operator()(float)const;
+	float in; // +0x00
+	float out; // +0x04
 };
 
 struct RotateCameraState
