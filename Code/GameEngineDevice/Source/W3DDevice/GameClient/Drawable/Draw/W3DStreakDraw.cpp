@@ -15,7 +15,14 @@ extern "C" void _ReadWriteBarrier();
 class Thing;
 class ModuleData;
 #include "ascii_string.h"
-class TextureClass { public: virtual void slot00(); unsigned short m_refCount; unsigned short m_pad06; void Release_Ref(); };
+class TextureClass
+{
+public:
+	void Release_Ref();
+	virtual void slot00();
+	unsigned short m_refCount; // +0x04
+	char m_pad06[0x2];
+};
 template<class T> class RefCountPtr { public:
 	RefCountPtr() : Ptr(0) {}
 	~RefCountPtr();
@@ -51,8 +58,18 @@ struct Rva00138GlobalView { char head[0x138]; int m_weather; };
 class Rva00126399 { public: TextureClass *Ptr; };
 class Rva00167EB9 { public: const Rva00126399 &rva00167EB9(const Rva00126399 &); };
 class Rva00167EFields { public: void setBound(float); };
-struct Rva00167EF8Rec { float x, y, z; };
-class Rva00167EF8 { public: void rva00167EF8(const Rva00167EF8Rec &); };
+struct Rva00167EF8Rec
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
+class Rva00167EF8
+{
+public:
+	void rva00167EF8(const Rva00167EF8Rec &);
+};
 class Rva00167F37FloatField { public: void set(float); };
 class Rva001684D6
 {

@@ -52,6 +52,9 @@ class TextureClass
 {
 public:
 	void Release_Ref();
+	virtual void slot00();
+	unsigned short m_refCount; // +0x04
+	char m_pad06[0x2];
 };
 
 class BFMETextureRef

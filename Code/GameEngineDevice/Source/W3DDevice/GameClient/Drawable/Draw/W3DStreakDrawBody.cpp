@@ -15,9 +15,10 @@
 
 struct Rva00167EF8Rec
 {
-	float x;
-	float y;
-	float z;
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 
@@ -42,7 +43,7 @@ public:
 class Rva00167EF8
 {
 public:
-	void rva00167EF8(const Rva00167EF8Rec &src);
+	void rva00167EF8(const Rva00167EF8Rec &);
 };
 
 class Rva00167F15FloatField
