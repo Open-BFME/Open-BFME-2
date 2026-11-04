@@ -356,3 +356,40 @@ W3DTerrainVisual's.
   and retire the alternatename, then fold the constructor class and its template-argument rows.
 - **T1Base005F3750Ctor.cpp (1):** unchanged; see rl-o3's analysis above (mixed placeholder classes).
 - Claims released: Rva005776A7Ctor.cpp and Rva005770F7Dtor.cpp (no edit).
+
+**Design note: nested-class `class --fold` (rl-o4, 2026-11-04; banked, not built).** It would unblock
+`??1Icon` (1) and Rva005776A7Ctor (3). The current gates and how each needs to change
+(`tools/rename.py`, `plan_fold`/`fold_evidence`):
+1. **NEW spelling.** Accept `A::B::C` with every part an IDENT; `plan_fold` checks `IDENT.fullmatch`
+   at its top. The mangled scope is the reversed parts: `Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@`.
+   OLD stays a global placeholder.
+2. **Ledger respelling.** `frag.sub(new, name)` swaps one token. For a nested NEW, replace only OLD's
+   scope token (`??1OLD@@`, `??_GOLD@@`, `??_EOLD@@W..`, `??_7OLD@@6B..`, `?m@OLD@@`). Refuse a symbol
+   that spells OLD in a type position (`V OLD@@`, `VOLD@` back-reference `0`) or carries any
+   name back-reference digit after the scope: the nested scope adds len(parts)-1 entries to MSVC's
+   name table, so later back-references shift. Also refuse a symbol whose remainder spells one of
+   NEW's components, because cl would compress it to a back-reference. Today's targets need none of
+   this: `??1Rva005E278E@@UAE@XZ`, `??_GRva005E278E@@UAEPAXI@Z`, `__ehhandler$`, `parent=` tokens,
+   `??0Rva005776A7@@QAE@PAVRva005772BF@@H@Z`.
+3. **Evidence regexes.** `SPECIAL_MEMBER` and `GLOBAL_VTABLE` (`\?\?_7([A-Za-z_]\w*)@@6B`) and the
+   T-names check (`??_7NEW@@6B@`) read one identifier. They need a scope form
+   `((?:[A-Za-z_]\w*@)+)@`, compared as the reversed `::` spelling. The data ledger already binds
+   0x00C77B28/0x00877B04/0x00877B0C to `??_7Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@6B...`,
+   so the "T names NEW" gate is satisfiable.
+4. **Sources.** `rewrite_tokens` cannot turn `class OLD : ...` into a nested definition, because it
+   does not know whether the enclosing scopes are namespaces or classes, or how the unit declares
+   them. Take the C++ as `--prepared REL=FILE`, the way `function --to-class` does, and keep the
+   tool to the ledger respelling and the gates. The build plus `commit_checks` decide.
+5. **PlanRetreats needs one more gate decision.** Neither direction passes today:
+   - `--fold Rva005776A7 --into Rva005770F7`: OLD's only row is the constructor, and it installs
+     0x00C6E430 before 0x00C6E8F8 at +0. The "all +0 stores install T" rule finds no own table.
+   - `--fold Rva005770F7 --into Rva005776A7`: refused because the adjustor `??_ERva005770F7@@W3AEPAXI@Z`
+     (0x00577185) has no owning row that installs a +4 table. The destructor restores +4 only through
+     the out-of-line base destructor, and the constructor is not an own-table row.
+
+   Possible rule: a constructor's last +0 store is its own table, which `own_secondary` already
+   assumes for +disp. That is a weaker-evidence gate change: Verifier-Change commit plus
+   `tools/tests` cases, including the 0x007CEFA0 three-class ICF table, which must still refuse.
+
+   PlanningPhaseBehavior::Impl was reconciled by hand in `a5901cee17` (pre-tool); its unit
+   Rva00575F38Dtor.cpp is the template for the prepared sources.
