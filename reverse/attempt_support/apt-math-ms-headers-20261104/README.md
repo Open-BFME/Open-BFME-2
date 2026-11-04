@@ -29,3 +29,22 @@ Verification of the trial:
 The source was restored. Next step: reproduce the declaration-only false reject
 in the tooling lane and distinguish linkage declarations from copied bodies;
 then reapply and reverify this trial. The broad LINK-135 history is unchanged.
+
+## Resolution
+
+The separate checker repair b7e88d5f0c recognizes only bodyless static
+prototypes whose signatures match a header-defined inline function as linkage
+configuration. Copied inline bodies, incompatible signatures and prototypes
+for ordinary CRT functions remain findings. The regression suite has 74 passes;
+its two failures (`test_extra_root_arguments` and
+`test_included_project_headers_are_inspected`) reproduce identically with the
+unchanged checker on this Linux runner. All gate-exploit cases still pass
+(61 passed, one skipped).
+
+With that repair committed separately, the attached source trial was reapplied.
+The file again passes all 20 byte checks, literal/import verification,
+`find_declared_unmatched.py`, and `ms_header_audit.py check`. The supported
+`ms_header_audit.py scan <source> --write-queue` refresh removes its 19-definition
+queue row; both bodyless prototypes now count as configuration. No debt baseline
+or admission was added. The object retains the same 24 external COMDATs and
+byte/relocation digests measured above; no linking gain is claimed.
