@@ -12,3 +12,5 @@ clear; no consumer regression. (The KeepObjectDie adoption and the
 CreateObjectDie_onDie adoption were covered by other seats' master commits
 6262bfcd98bb/787db7c5538c and 6399435ecad; both duplicate commits were
 skipped at rebase.)
+
+2026-11-04: UpgradeDieOnDie is consolidated into UpgradeDie.cpp; the next census should verify that merged TU (five rows byte-matched and link guard/preview passed): [audit](../../reverse/attempt_support/upgradedie-consolidation-20261104-codex3.md).
