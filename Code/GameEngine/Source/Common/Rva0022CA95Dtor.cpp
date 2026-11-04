@@ -19,7 +19,8 @@ template<> inline _Vector_base<Rva002146F7 *, allocator<Rva002146F7 *> >::~_Vect
 
 // Use the same proven twelve-byte subsystem base as the constructor.
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 struct Rva00214B22Record;
 class AsciiString;
