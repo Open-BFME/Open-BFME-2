@@ -68,12 +68,7 @@ private:
 
 class Rva004E0B60;
 
-class Rva000AD6F4
-{
-public:
-    void clear();
-    Rva004E0B60 *m_ptr;
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 class Rva00575674
 {
@@ -429,7 +424,7 @@ void Rva004FC470::rva004FC470(bool flag)
 {
 	bool result = false;
 	if (flag && m_member20.m_ptr)
-		result = m_member20.m_ptr->rva004E0CCB();
+		result = ((Rva004E0B60 *)m_member20.m_ptr)->rva004E0CCB();
 
 	m_member20.clear();
 	m_30 = 0;
