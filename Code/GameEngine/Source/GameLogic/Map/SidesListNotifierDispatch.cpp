@@ -39,50 +39,33 @@ public:
 	virtual void notify(void *owner);
 };
 
-class SidesListNotifier
-{
-public:
-	struct Post
-	{
-		void (SidesListListener::*callback)(void *);
-		void *owner;
-	};
-	struct PostIndexed
-	{
-		void (SidesListListener::*callback)(void *, int);
-		void *owner;
-		int index;
-	};
-	void dispatch(const Post *p);
-	void dispatchIndexed(const PostIndexed *p);
+#include "../../../Include/Common/SidesListNotifier.h"
 
-private:
-	SidesListListener **m_begin;		// +0x00
-	SidesListListener **m_end;		// +0x04
-	SidesListListener **m_capacity;	// +0x08
-	unsigned int m_index;			// +0x0C
-};
+// The shared header keeps the raw callback word and untyped listener storage.
+// These views restore the dispatch ABI without changing the canonical layout.
 
 void SidesListNotifier::dispatch(const Post *post)
 {
+	typedef void (SidesListListener::*Callback)(void *);
 	unsigned int i = 0;
-	LatchRestore<unsigned int> latch(m_index, i);
-	while (i < (unsigned int)(m_end - m_begin))
+	LatchRestore<unsigned int> latch(reinterpret_cast<unsigned int &>(field0C), i);
+	while (i < (unsigned int)(reinterpret_cast<SidesListListener **>(field04) - reinterpret_cast<SidesListListener **>(field00)))
 	{
-		m_index++;
-		(m_begin[i]->*post->callback)(post->owner);
-		i = m_index;
+		reinterpret_cast<unsigned int &>(field0C)++;
+		(reinterpret_cast<SidesListListener **>(field00)[i]->*reinterpret_cast<const Callback &>(post->callback))(post->owner);
+		i = field0C;
 	}
 }
 
 void SidesListNotifier::dispatchIndexed(const PostIndexed *postIndexed)
 {
+	typedef void (SidesListListener::*Callback)(void *, int);
 	unsigned int i = 0;
-	LatchRestore<unsigned int> latch(m_index, i);
-	while (i < (unsigned int)(m_end - m_begin))
+	LatchRestore<unsigned int> latch(reinterpret_cast<unsigned int &>(field0C), i);
+	while (i < (unsigned int)(reinterpret_cast<SidesListListener **>(field04) - reinterpret_cast<SidesListListener **>(field00)))
 	{
-		m_index++;
-		(m_begin[i]->*postIndexed->callback)(postIndexed->owner, postIndexed->index);
-		i = m_index;
+		reinterpret_cast<unsigned int &>(field0C)++;
+		(reinterpret_cast<SidesListListener **>(field00)[i]->*reinterpret_cast<const Callback &>(postIndexed->callback))(postIndexed->owner, postIndexed->index);
+		i = field0C;
 	}
 }

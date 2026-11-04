@@ -194,25 +194,7 @@ SidesInfo &SidesInfo::operator=(const SidesInfo &that)
 	return *this;
 }
 
-class SidesListNotifier
-{
-public:
-	struct Post
-	{
-		void (*callback)();
-		void *owner;
-	};
-	struct PostIndexed
-	{
-		void (*callback)();
-		void *owner;
-		int index;
-	};
-	void dispatch(const Post *p);
-	void dispatchIndexed(const PostIndexed *p);
-	void post(void (*callback)(), void *owner, int index);
-	void post(void (*callback)(), void *owner);
-};
+#include "../../../Include/Common/SidesListNotifier.h"
 
 void SidesListNotifier::post(void (*callback)(), void *owner)
 {
@@ -336,7 +318,7 @@ public:
 
 private:
 	SidesListNotifier m_notifier;             // +0x10
-	char m_pad[0x3C - 0x11];
+	char m_pad[0x3C - 0x20];
 	int m_numSides;                           // +0x3C
 	SidesInfo m_sides[20];                    // +0x40
 	int m_numSkirmishSides;                   // +0x7C0

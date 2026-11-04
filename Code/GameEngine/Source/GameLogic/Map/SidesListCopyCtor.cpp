@@ -52,25 +52,8 @@ typedef _STL::map<int, _STL::vector<_STL::vector<BfmeE8> > > MapType0032EF3E_B;
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class Rva00330757Member
-{
-public:
-	__declspec(nothrow) Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	char m_body[0x10];
-};
-
-class Rva00281A15Listener;
-class SidesListNotifier : public Rva00330757Member
-{
-public:
-	void post(void (*callback)(), void *owner, int index);
-	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
-	__forceinline SidesListNotifier() : Rva00330757Member() {}
-	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
-};
+#include "../../../Include/Common/Rva00330757Member.h"
+#include "../../../Include/Common/SidesListNotifier.h"
 
 typedef MapType0032EF3E Rva0032D3D3Map;
 typedef MapType0032EF3E_B Rva0032EAA1Map;

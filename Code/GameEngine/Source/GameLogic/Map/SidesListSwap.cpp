@@ -41,25 +41,8 @@ private:
 	char m_body[0x1C];
 };
 
-class Rva00330757Member
-{
-public:
-	__declspec(nothrow) Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	char m_body[0x10];
-};
-
-class Rva00281A15Listener;
-class SidesListNotifier : public Rva00330757Member
-{
-public:
-	void post(void (*callback)(), void *owner, int index);
-	void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
-	__forceinline SidesListNotifier() : Rva00330757Member() {}
-	__forceinline SidesListNotifier(const SidesListNotifier &) : Rva00330757Member() {}
-};
+#include "../../../Include/Common/Rva00330757Member.h"
+#include "../../../Include/Common/SidesListNotifier.h"
 
 struct SidesListExtra
 {
