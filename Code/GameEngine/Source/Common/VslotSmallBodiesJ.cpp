@@ -86,10 +86,7 @@ struct Rva00080637Object
 	char m_pad00[0x40];
 	Int m_40;
 };
-struct TreeHintRef00217D4C
-{
-	Rva00080637Object *m_object;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva004F70D1
 {
 public:
@@ -112,7 +109,7 @@ void Rva00080637::rva00080637(Int unused, Int id)
 {
 	for (TreeHintRef00217D4C *it = m_40.m_begin; it != m_40.m_end; ++it)
 	{
-		if (it->m_object->m_40 == id)
+		if (((Rva00080637Object *)it->m_ptr)->m_40 == id)
 		{
 			m_40.rva004F70D1(it);
 			return;
@@ -123,7 +120,7 @@ void Rva00080637::rva00080664(Int unused, Int id)
 {
 	for (TreeHintRef00217D4C *it = m_4C.m_begin; it != m_4C.m_end; ++it)
 	{
-		if (it->m_object->m_40 == id)
+		if (((Rva00080637Object *)it->m_ptr)->m_40 == id)
 		{
 			m_4C.rva004F70D1(it);
 			return;

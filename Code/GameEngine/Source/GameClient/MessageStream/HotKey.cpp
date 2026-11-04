@@ -127,13 +127,18 @@ public:
 };
 
 // The reference-counted action handle (rowed under this address name).
-struct TreeHintRef00217D4C
+#include "../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &that);	// 0x002174A4
-	HotKeyAction *operator->() const { return m_ptr; }
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-	HotKeyAction *m_ptr;
-};
+// The handle's referent viewed as the bound action.
+__forceinline HotKeyAction *boundAction(const TreeHintRef00217D4C &handle)
+{
+	return (HotKeyAction *)handle.m_ptr;
+}
 
 struct HotKeyNode
 {
@@ -183,7 +188,7 @@ public:
 	__forceinline HotKeyAction *findAction(const AsciiString &key)
 	{
 		HotKeyNode *node = (HotKeyNode *)((HotKeyStringTreeView *)this)->find(key)._M_node;
-		return node == m_header ? 0 : node->m_action.operator->();
+		return node == m_header ? 0 : boundAction(node->m_action);
 	}
 private:
 	HotKeyNode *m_header;		// +0x00
@@ -790,11 +795,11 @@ GameMessageDisposition HotKeyManager::translate(const GameMessage *msg)
 	if (it != m_messageActionMap.end())
 	{
 		TreeHintRef00217D4C &action = it->m_action;
-		if (!action->vslot01(false))
+		if (!boundAction(action)->vslot01(false))
 		{
-			if (action->vslot02(false))
+			if (boundAction(action)->vslot02(false))
 			{
-				if (action->vslot03(false))
+				if (boundAction(action)->vslot03(false))
 					rva00358A53();
 			}
 			else
