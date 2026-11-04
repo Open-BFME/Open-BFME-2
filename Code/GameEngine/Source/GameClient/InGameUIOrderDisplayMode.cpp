@@ -8,14 +8,14 @@
 class Player {public:char prefix[0x750];int orderMode;};
 class PlayerList {public:char prefix[0x10];Player *local;};
 extern PlayerList *ThePlayerList;
-class InGameUI {public:void updateOrderDisplayMode();char prefix[0x8b4];int orderDisplayMode;};
+#include "../../Include/GameClient/InGameUI.h"
 void InGameUI::updateOrderDisplayMode(){
  Player *player=ThePlayerList->local;
  if(player){
   switch(player->orderMode){
-  case 0:orderDisplayMode=0;break;
-  case 1:orderDisplayMode=1;break;
-  case 2:orderDisplayMode=2;break;
+  case 0:m_8B4=0;break;
+  case 1:m_8B4=1;break;
+  case 2:m_8B4=2;break;
   }
- }else orderDisplayMode=0;
+ }else m_8B4=0;
 }

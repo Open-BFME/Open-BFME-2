@@ -43,21 +43,7 @@ class ViewLocation
 
 #define V(n) virtual void v##n();
 
-class InGameUI
-{
-public:
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E) V(0F)
-	virtual void message(UnicodeString message, ...); // +0x40
-	V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(1A) V(1B) V(1C) V(1D) V(1E) V(1F)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(2A) V(2B)
-	virtual bool isSelecting(); // +0xB0
-
-	bool getInputEnabled() const { return m_15 && m_16; }
-
-	char m_pad04[0x15 - 4];
-	bool m_15; // +0x15
-	bool m_16; // +0x16
-};
+#include "../../../Include/GameClient/InGameUI.h"
 
 class View
 {
@@ -469,7 +455,7 @@ GameMessageDisposition BfmeOwnVVD::translateGameMessage(const GameMessage *msg)
 			TheTacticalView->getLocation(&m_viewLocation[slot - 1]);
 			UnicodeString text;
 			text.format(&TheGameText->fetchRef("GUI:BookmarkXSet"), slot);
-			TheInGameUI->message(text);
+			TheInGameUI->rva0029E846(text);
 		}
 		disp = DESTROY_MESSAGE;
 		break;

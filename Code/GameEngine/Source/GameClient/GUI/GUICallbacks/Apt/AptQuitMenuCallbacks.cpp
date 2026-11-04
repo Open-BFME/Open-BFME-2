@@ -156,38 +156,7 @@ public:
 
 // TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the quit menu (BFME1's
 // slot 84) and vslot 95 tells whether it is up.
-class InGameUI
-{
-public:
-#define IGUI_SLOT(N) virtual void slot##N();
-	IGUI_SLOT(00) IGUI_SLOT(01) IGUI_SLOT(02) IGUI_SLOT(03) IGUI_SLOT(04)
-	IGUI_SLOT(05) IGUI_SLOT(06) IGUI_SLOT(07) IGUI_SLOT(08) IGUI_SLOT(09)
-	IGUI_SLOT(10) IGUI_SLOT(11) IGUI_SLOT(12) IGUI_SLOT(13) IGUI_SLOT(14)
-	IGUI_SLOT(15) IGUI_SLOT(16) IGUI_SLOT(17) IGUI_SLOT(18) IGUI_SLOT(19)
-	IGUI_SLOT(20) IGUI_SLOT(21) IGUI_SLOT(22) IGUI_SLOT(23) IGUI_SLOT(24)
-	IGUI_SLOT(25) IGUI_SLOT(26) IGUI_SLOT(27) IGUI_SLOT(28) IGUI_SLOT(29)
-	IGUI_SLOT(30) IGUI_SLOT(31) IGUI_SLOT(32) IGUI_SLOT(33) IGUI_SLOT(34)
-	IGUI_SLOT(35) IGUI_SLOT(36) IGUI_SLOT(37) IGUI_SLOT(38) IGUI_SLOT(39)
-	IGUI_SLOT(40) IGUI_SLOT(41) IGUI_SLOT(42) IGUI_SLOT(43) IGUI_SLOT(44)
-	IGUI_SLOT(45) IGUI_SLOT(46) IGUI_SLOT(47) IGUI_SLOT(48) IGUI_SLOT(49)
-	IGUI_SLOT(50) IGUI_SLOT(51) IGUI_SLOT(52) IGUI_SLOT(53) IGUI_SLOT(54)
-	IGUI_SLOT(55) IGUI_SLOT(56) IGUI_SLOT(57) IGUI_SLOT(58) IGUI_SLOT(59)
-	IGUI_SLOT(60) IGUI_SLOT(61) IGUI_SLOT(62) IGUI_SLOT(63) IGUI_SLOT(64)
-	IGUI_SLOT(65) IGUI_SLOT(66) IGUI_SLOT(67) IGUI_SLOT(68) IGUI_SLOT(69)
-	IGUI_SLOT(70) IGUI_SLOT(71) IGUI_SLOT(72) IGUI_SLOT(73) IGUI_SLOT(74)
-	IGUI_SLOT(75) IGUI_SLOT(76) IGUI_SLOT(77) IGUI_SLOT(78) IGUI_SLOT(79)
-	IGUI_SLOT(80) IGUI_SLOT(81) IGUI_SLOT(82) IGUI_SLOT(83) IGUI_SLOT(84)
-	IGUI_SLOT(85) IGUI_SLOT(86) IGUI_SLOT(87) IGUI_SLOT(88) IGUI_SLOT(89)
-	IGUI_SLOT(90) IGUI_SLOT(91) IGUI_SLOT(92) IGUI_SLOT(93)
-#undef IGUI_SLOT
-	virtual void slot94(bool visible);
-	virtual bool slot95();
-
-	Rva005CB260 *rva000CF155();
-
-	unsigned char m_pad004[0x8C5 - 4];
-	bool m_clientQuiet; // +0x8C5
-};
+#include "../../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -596,7 +565,7 @@ AptQuitMenu::~AptQuitMenu()
 		return;
 	TheAptQuitMenu = 0;
 	if (TheInGameUI)
-		TheInGameUI->slot94(false);
+		TheInGameUI->rva0029AC03(false);
 	GameLogic *logic = TheGameLogic;
 	if (logic && !logic->isInMultiplayerGame())
 	{
@@ -693,7 +662,7 @@ void ShowQuitMenu()
 	TheMouse->setCursor(2);
 	TheShell->showShell(false);
 	TheShell->push(AsciiString("QuitMenu.apt"), false);
-	TheInGameUI->slot94(true);
+	TheInGameUI->rva0029AC03(true);
 }
 
 // Retail 0x0051B4F7, 23 bytes: closes the open quit menu (as its
@@ -755,7 +724,7 @@ void restartMissionMenu()
 		if (gameMode != 2)
 			InitRandom(0);
 	}
-	TheInGameUI->m_clientQuiet = true;
+	TheInGameUI->m_8C5 = true;
 }
 
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's

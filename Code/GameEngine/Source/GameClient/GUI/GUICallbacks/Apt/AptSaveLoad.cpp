@@ -347,15 +347,7 @@ void __cdecl Rva00437E9C(int value);
 
 #include "../../../../../Include/GameClient/GameText.h"
 
-class InGameUI
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
-	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2c();
-	virtual void slot30(); virtual void slot34(); virtual void slot38(); virtual void slot3c();
-	virtual void message(UnicodeString text, ...);
-};
+#include "../../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -785,7 +777,7 @@ void AptSaveLoad::rva00435819()
 				message.set(TheGameText->fetch("GUI:ReplaySaveComplete", 0));
 			else
 				message.set(TheGameText->fetch("GUI:ReplaySaveError", 0));
-			TheInGameUI->message(message);
+			TheInGameUI->rva0029E846(message);
 		}
 		else
 		{

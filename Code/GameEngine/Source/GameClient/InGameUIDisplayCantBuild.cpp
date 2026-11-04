@@ -40,28 +40,7 @@ enum LegalBuildCode
 	LBC_OBJECTS_IN_THE_WAY = 8,
 };
 
-class InGameUI
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void message(AsciiString format, ...);
-
-	virtual void displayCantBuildMessage(LegalBuildCode lbc);
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -71,25 +50,25 @@ void InGameUI::displayCantBuildMessage(LegalBuildCode lbc)
 	switch (lbc)
 	{
 		case LBC_NO_CLEAR_PATH:
-			TheInGameUI->message(AsciiString("GUI:CantBuildNoClearPath"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildNoClearPath"));
 			break;
 		case LBC_TOO_CLOSE_TO_SUPPLIES:
-			TheInGameUI->message(AsciiString("GUI:CantBuildTooCloseToSupplies"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildTooCloseToSupplies"));
 			break;
 		case LBC_SHROUD:
-			TheInGameUI->message(AsciiString("GUI:CantBuildShroud"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildShroud"));
 			break;
 		case LBC_NOT_FLAT_ENOUGH:
-			TheInGameUI->message(AsciiString("GUI:CantBuildNotFlatEnough"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildNotFlatEnough"));
 			break;
 		case LBC_RESTRICTED_TERRAIN:
-			TheInGameUI->message(AsciiString("GUI:CantBuildRestrictedTerrain"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildRestrictedTerrain"));
 			break;
 		case LBC_OBJECTS_IN_THE_WAY:
-			TheInGameUI->message(AsciiString("GUI:CantBuildObjectsInTheWay"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildObjectsInTheWay"));
 			break;
 		default:
-			TheInGameUI->message(AsciiString("GUI:CantBuildThere"));
+			TheInGameUI->rva0029E656(AsciiString("GUI:CantBuildThere"));
 			break;
 	}
 }

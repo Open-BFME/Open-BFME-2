@@ -208,31 +208,7 @@ public:
 
 // TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the menu, vslot 95
 // reports one already up.
-class InGameUI
-{
-public:
-#define UI_SLOT(N) virtual void slot##N();
-	UI_SLOT(00) UI_SLOT(01) UI_SLOT(02) UI_SLOT(03) UI_SLOT(04) UI_SLOT(05) UI_SLOT(06) UI_SLOT(07)
-	UI_SLOT(08) UI_SLOT(09) UI_SLOT(10) UI_SLOT(11) UI_SLOT(12) UI_SLOT(13) UI_SLOT(14) UI_SLOT(15)
-	UI_SLOT(16) UI_SLOT(17) UI_SLOT(18) UI_SLOT(19) UI_SLOT(20) UI_SLOT(21) UI_SLOT(22) UI_SLOT(23)
-	UI_SLOT(24) UI_SLOT(25) UI_SLOT(26) UI_SLOT(27) UI_SLOT(28) UI_SLOT(29) UI_SLOT(30) UI_SLOT(31)
-	UI_SLOT(32) UI_SLOT(33) UI_SLOT(34) UI_SLOT(35) UI_SLOT(36) UI_SLOT(37) UI_SLOT(38) UI_SLOT(39)
-	UI_SLOT(40) UI_SLOT(41) UI_SLOT(42) UI_SLOT(43) UI_SLOT(44) UI_SLOT(45) UI_SLOT(46) UI_SLOT(47)
-	UI_SLOT(48) UI_SLOT(49) UI_SLOT(50) UI_SLOT(51) UI_SLOT(52) UI_SLOT(53) UI_SLOT(54) UI_SLOT(55)
-	UI_SLOT(56) UI_SLOT(57) UI_SLOT(58) UI_SLOT(59) UI_SLOT(60) UI_SLOT(61) UI_SLOT(62) UI_SLOT(63)
-	UI_SLOT(64) UI_SLOT(65) UI_SLOT(66) UI_SLOT(67) UI_SLOT(68) UI_SLOT(69) UI_SLOT(70) UI_SLOT(71)
-	UI_SLOT(72) UI_SLOT(73) UI_SLOT(74) UI_SLOT(75) UI_SLOT(76) UI_SLOT(77) UI_SLOT(78) UI_SLOT(79)
-	UI_SLOT(80) UI_SLOT(81) UI_SLOT(82) UI_SLOT(83) UI_SLOT(84) UI_SLOT(85) UI_SLOT(86) UI_SLOT(87)
-	UI_SLOT(88) UI_SLOT(89) UI_SLOT(90) UI_SLOT(91) UI_SLOT(92) UI_SLOT(93)
-#undef UI_SLOT
-	virtual void slot94(bool visible);
-	virtual bool slot95();
-
-	Rva005CB260 *rva000CF155();
-
-	unsigned char m_pad04[0x16 - 4];
-	bool m_16; // +0x16
-};
+#include "../../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -553,7 +529,7 @@ void AptPlayerStatus::rva004E434C(int query, char *result, bool set)
 		break;
 	case 2:
 		if (!set)
-			_mbscpy(reinterpret_cast<unsigned char *>(result), reinterpret_cast<const unsigned char *>(TheGameLogic->m_110 != 6 || TheInGameUI->m_16 ? "1" : "0"));
+			_mbscpy(reinterpret_cast<unsigned char *>(result), reinterpret_cast<const unsigned char *>(TheGameLogic->m_110 != 6 || TheInGameUI->field016 ? "1" : "0"));
 		break;
 	}
 }
@@ -672,7 +648,7 @@ void Rva004E41AB()
 	}
 	if (g_Va00A04450 != 0)
 		((AptPlayerStatus *)g_Va00A04450)->m_state = mode;
-	TheInGameUI->slot94(true);
+	TheInGameUI->rva0029AC03(true);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004E44FBPlayerTable.cpp
@@ -771,7 +747,7 @@ AptPlayerStatus::~AptPlayerStatus()
 	{
 		g_Va00A04450 = 0;
 		if (TheInGameUI)
-			TheInGameUI->slot94(false);
+			TheInGameUI->rva0029AC03(false);
 		GameLogic *logic = TheGameLogic;
 		if (logic && !logic->isInMultiplayerGame() && (logic->m_110?logic->m_110:logic->m_110) != 6)
 			logic->rva0023CD9E(false, 0, true);
