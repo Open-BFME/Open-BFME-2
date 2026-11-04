@@ -1,4 +1,4 @@
-### LINK-217: AptValue constructor adoption needs canonical virtual providers
+### LINK-219: AptValue constructor adoption needs canonical virtual providers
 Status: Blocked. Updated: 2026-11-04; inspected revision: `4fad46fa2d`.
 Evidence: [predicate adoption and reverted constructor trial](../../reverse/attempt_support/aptvalue-header-predicates-20261104.md).
 Completed: three predicate units adopt BfmeAptValue006DCD20.h and retain 641 predicted linked bytes; three header debts retired through accept.
