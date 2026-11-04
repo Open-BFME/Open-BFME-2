@@ -21,3 +21,5 @@ terrain spelling at `0x001EC3B5` and the W3D-side duplicates suggest this forwar
 real owner is terrain/heightmap code rather than the campaign manager, so rehoming the
 cluster may settle both entries. No row, name, pin or source was changed, and no identity
 is asserted. No linking, debt or census gain is claimed.
+
+2026-11-04: LINK-181's campaign receiver is corroborated by both ScriptGlue callers; the next prerequisite is repairing the documented identity-correction path, whose `add_match.py --replace-rva` refuses real rows. [Current byte/link checks and exact refusal](../../reverse/attempt_support/campaign-forwarder-identity-20261104-codex5/README.md); no source, ledger or pin changes.
