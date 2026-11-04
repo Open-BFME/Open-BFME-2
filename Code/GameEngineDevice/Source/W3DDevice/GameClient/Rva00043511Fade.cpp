@@ -24,61 +24,7 @@ struct Rva0004353CColor
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 
-class Display
-{
-public:
-	virtual void v00(void);
-	virtual void v01(void);
-	virtual void v02(void);
-	virtual void v03(void);
-	virtual void v04(void);
-	virtual void v05(void);
-	virtual void v06(void);
-	virtual void v07(void);
-	virtual void v08(void);
-	virtual void v09(void);
-	virtual void v0a(void);
-	virtual void v0b(void);
-	virtual void v0c(void);
-	virtual void v0d(void);
-	virtual void v0e(void);
-	virtual void v0f(void);
-	virtual void v10(void);
-	virtual void v11(void);
-	virtual void v12(void);
-	virtual void v13(void);
-	virtual void v14(void);
-	virtual void v15(void);
-	virtual void v16(void);
-	virtual void v17(void);
-	virtual void v18(void);
-	virtual void v19(void);
-	virtual void v1a(void);
-	virtual void v1b(void);
-	virtual void v1c(void);
-	virtual void v1d(void);
-	virtual void v1e(void);
-	virtual void v1f(void);
-	virtual void v20(void);
-	virtual void v21(void);
-	virtual void v22(void);
-	virtual void v23(void);
-	virtual void v24(void);
-	virtual void v25(void);
-	virtual void v26(void);
-	virtual void v27(void);
-	virtual void v28(void);
-	virtual void v29(void);
-	virtual void v2a(void);
-	virtual void v2b(void);
-	virtual void v2c(void);
-	virtual void v2d(void);
-	virtual void v2e(void);
-	virtual void v2f(void);
-	virtual void v30(void);
-	virtual void setTerrainDiffuse(int index, float red, float green, float blue);	// slot 0xC4
-	virtual void setObjectDiffuse(int index, float red, float green, float blue);	// slot 0xC8
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 #include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
@@ -86,7 +32,6 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 extern GameClient *TheGameClient;
-extern Display *TheDisplay;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 extern float opacityLogicStepSeconds;
 
@@ -136,8 +81,8 @@ void Rva00043511::rva0004353C()
 		objectColor.z = toWeight * object[i].diffuse.blue + fromWeight * m_color[2];
 		objectColor.x = toWeight * object[i].diffuse.red + fromWeight * m_color[0];
 		objectColor.y = toWeight * object[i].diffuse.green + fromWeight * m_color[1];
-		TheDisplay->setTerrainDiffuse(i, terrainColor.x, terrainColor.y, terrainColor.z);
-		TheDisplay->setObjectDiffuse(i, objectColor.x, objectColor.y, objectColor.z);
+		TheDisplay->slot49(i, terrainColor.x, terrainColor.y, terrainColor.z);
+		TheDisplay->slot50(i, objectColor.x, objectColor.y, objectColor.z);
 		TheWritableGlobalData->m_terrainDiffuse[i] = blended;
 	}
 	if (TheTerrainRenderObject)

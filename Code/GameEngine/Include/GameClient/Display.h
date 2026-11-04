@@ -5,11 +5,11 @@
 // Slots 14/15 are ledger setHeight/setWidth (0x0025C378/0x0025C391), storing +0xC/+0x10 respectively. Slots 16/17 read those offsets (0x001DB0A8/0x001DB09D); retail callers 0x002B2466 and Drawable's drawImage users name them getWidth/getHeight. Neutral field names preserve this distinction from the setter row names.
 // Slots 18-21 set/read dword +0x14 and byte +0x18 (0x002B22A5, 0x0057E556, 0x00049F2B, 0x004C9990); Zero Hour supplies setBitDepth/getBitDepth/setWindowed/getWindowed. Slots 22/26 are rowed setDisplayMode 0x0025C262 and testMinSpecRequirements 0x00049F35.
 // Slot 35 is rowed rva0025C134 (0x0025C134); 36 reads +0x1C (0x0030F2C7); 37 follows the argument's slot 152 (0x00049F4F). The retail view walk 0x0008F0CA and Zero Hour establish getFirstView/getNextView. Slots 38-40 are rowed 0x0025C14D/0x0025C18B/0x0025C238.
-// Slots 66/72/73/74 are rowed 0x0025C97E/0x0025DA8D/0x0025CF2A/0x0025C6BD. Slots 68/89 point to nonvirtual ledger rows 0x0025D19E/0x00049F94; slot 68 uses Zero Hour's stopMovie name, while slot 89 stays neutral beside its out-of-line declaration. Slots 69-71 read +0x38/+0x5D/+0x5C (0x0052D843/0x00049F27/0x00094AD8); 75 reads +0x30 (0x003F3FE8); 87 returns false; 88 reads +0xD8 (0x00044235); 90/91 set +0xF4/+0xF8 (0x00049F66/0x00049F73). Remaining entries have neutral names.
+// Slots 66/72/73/74 are rowed 0x0025C97E/0x0025DA8D/0x0025CF2A/0x0025C6BD. Slots 68/89 point to nonvirtual ledger rows 0x0025D19E/0x00049F94; slot 68 uses Zero Hour's stopMovie name. Slots 89-91 (0x00049F94/0x00049F66/0x00049F73 in both tables) store the AsciiString +0xF0, dword +0xF4 and dword +0xF8; ScriptActions::doDisplayCinematicText (0x003BFDAB) calls them with the localized text, the font from TheFontLibrary and a frame count, matching Zero Hour's setCinematicText/setCinematicFont/setCinematicTextFrames. Slots 69-71 read +0x38/+0x5D/+0x5C (0x0052D843/0x00049F27/0x00094AD8); 75 reads +0x30 (0x003F3FE8); 87 returns false; 88 reads +0xD8 (0x00044235); 90/91 set +0xF4/+0xF8 (0x00049F66/0x00049F73). Remaining entries have neutral names.
 // Constructor writes 0x0025D4AB..0x0025D50C prove dwords +0xC..+0x58 and +0x60, bytes +0x18/+0x48/+0x5C/+0x5D/+0x64. 0x0025D4ED..0x0025D50F constructs three 0x18-byte elements at +0x68. 0x0025D514..0x0025D62A proves the scalar offsets through byte +0x141. Derived W3DDisplay constructor 0x00049DEA starts its own storage at +0x144, bounding Display to 0x144 bytes after alignment.
 // Destructor 0x0025D6B0..0x0025D6D8 releases AsciiString storage at +0xF0/+0xD0 and UnicodeString storage at +0xB0. These four-byte string members and the image records remain opaque here. The parent owns +0x4 and +0x8. Callback 0x0025C6BD stores +0x30/+0x34; its ledger signature proves DebugDisplayCallback.
 // Nonvirtual method declarations follow the ledger rows at 0x0025DA73, 0x0025D904, 0x0004B180, 0x002B2466, 0x0025C46E, 0x0025D9CB, 0x0025D10F, 0x0025D19E, 0x0025D358, 0x00049F94, 0x0025C6E2, 0x0025C72C, 0x0025C4A4, 0x0025C776, 0x0025D33B, 0x0025CC7A and 0x0025D3C8. No copy or assignment body is supplied.
-// Zero Hour supplies setClipRegion/isClippingEnabled/enableClipping (42-44), createLightPulse (47), drawOpenRect/drawFillRect (56/57), drawImage (62), stopMovie/isMoviePlaying (68/69) and getAverageFPS (92). W3DDisplay table 0x00BC3C80 maps these to 0x00044FB9/0x00049F80/0x00049F87, 0x0004423C, 0x00044A1A/0x00044C9A, 0x0004776F, 0x0025D19E/0x0052D843 and 0x0055F4B5. Retail callers 0x001E041E, 0x00277D31/0x00277D7A and 0x004379A9 confirm the light-pulse, rectangle and FPS dispatches; row 0x0004776F proves the float-coordinate image ABI. Unnamed pure entries reserve their slots without claiming an argument signature.
+// Zero Hour supplies setClipRegion/isClippingEnabled/enableClipping (42-44), createLightPulse (47), drawOpenRect/drawFillRect (56/57), drawImage (62), stopMovie/isMoviePlaying (68/69) and getAverageFPS (92). W3DDisplay table 0x00BC3C80 maps these to 0x00044FB9/0x00049F80/0x00049F87, 0x0004423C, 0x00044A1A/0x00044C9A, 0x0004776F, 0x0025D19E/0x0052D843 and 0x0055F4B5. Retail callers 0x001E041E, 0x00277D31/0x00277D7A and 0x004379A9 confirm the light-pulse, rectangle and FPS dispatches; row 0x0004776F proves the float-coordinate image ABI. Unnamed pure entries reserve their slots without claiming an argument signature. Exceptions: W3DDisplay slots 49/50 (0x0004450E/0x00044545) return with ret 16 and the fade caller 0x0004353C pushes an index and three floats; W3DDisplay slot 52 (0x0004488C) returns with ret 4 and ScriptActions 0x003BAA2D forwards one float to it.
 // The shared stub 0x001F01E8 at slots 24/25 returns with ret 16, fixing four opaque argument words; slot 30 at 0x00049F0F copies through one pointer and returns with ret 4. W3DDisplay rows at 0x00044D7F (slot 41), 0x00044E77 (65), 0x0025D6F5 (67) and 0x00047D04 (99) prove their parameter/return representations. Slot 75 reads the callback stored by 0x0025C6BD, and Zero Hour supplies getDebugDisplayCallback. Slot 65 retains a neutral name: its ledger calls it drawImage(Image*,float,float,float,float,int), while consumers call it drawVideoBuffer; this does not prove a second drawImage overload adjacent to slot 62.
 #ifndef BFME2_DISPLAY_H
 #define BFME2_DISPLAY_H
@@ -29,6 +29,7 @@ class VideoBuffer;
 class DisplayString;
 class DebugDisplayInterface;
 class Image;
+class GameFont;
 struct IRegion2D;
 struct Coord3D;
 struct RGBColor;
@@ -79,10 +80,10 @@ public:
     virtual void slot46() = 0;
     virtual void createLightPulse(const Coord3D *, const RGBColor *, float, float, unsigned int, unsigned int) = 0;
     virtual void slot48() = 0;
-    virtual void slot49() = 0;
-    virtual void slot50() = 0;
+    virtual void slot49(int, float, float, float) = 0;
+    virtual void slot50(int, float, float, float) = 0;
     virtual void slot51() = 0;
-    virtual void slot52() = 0;
+    virtual void slot52(float) = 0;
     virtual void slot53() = 0;
     virtual void slot54() = 0;
     virtual void slot55() = 0;
@@ -119,9 +120,9 @@ public:
     virtual void slot86() = 0;
     virtual bool slot87() { return false; }
     virtual bool slot88() { return fieldD8; }
-    virtual void slot89(AsciiString);
-    virtual void slot90(int);
-    virtual void slot91(int);
+    virtual void setCinematicText(AsciiString);
+    virtual void setCinematicFont(GameFont *);
+    virtual void setCinematicTextFrames(int);
     virtual float getAverageFPS() = 0;
     virtual void slot93() = 0;
     virtual void slot94() = 0;
