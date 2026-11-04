@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BFME2 MeshModelClass::install_materials, retail RVA 0x0018A070 (298 bytes through
 // the ret 4 at 0x0018A197). Adapted from BFME1 MeshModelInstallMaterials.cpp
 // (RVA 0x0096E7C0). Dedicated TU like MeshModelInstallAlternate.cpp: the shared
@@ -7,6 +7,8 @@
 // +0x98, context vertex materials +0xC8/+0xD4 and TextureCount +0x11C. Callees
 // resolve by name: install_alternate_material_desc 0x188290, Post_Load_Process
 // 0x15BB00, Peek_Texture 0x188700, MaterialInfoClass::Add_Texture 0x16FBF0.
+
+#include "MeshMatDescClass.h"
 
 class TextureClass
 {
@@ -38,16 +40,6 @@ public:
 	}
 };
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This(void);
-	__declspec(dllimport) __forceinline void Add_Ref(void) { ++RefCount; }
-
-private:
-	int RefCount;
-};
-
 class MeshModelClass;
 
 class MeshLoadContextClass
@@ -73,12 +65,6 @@ private:
 	int VertexMaterialGrowth;
 	char BeforeTextureCount[0x11c - 0xdc];
 	int TextureCount;
-};
-
-class MeshMatDescClass
-{
-public:
-	void Post_Load_Process(bool lighting_enabled, MeshModelClass *mesh);
 };
 
 class MaterialVector
