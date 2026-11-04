@@ -2,36 +2,14 @@
 // ?Rva00567B6DAdd@@YAXPAVRva005C3F02@@PBUPayload@Rva005677B9@@@Z, retail 0x00567B6D, 106 bytes.
 // Caller 0x00568021 passes container in first arg and 2-dword payload in second; twin new-0x10 plus refcount-add pattern of 0x005CE2BA family.
 
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-
-	TreeHintRef00217D4C(TargetRef00217D4C *p) : m_ptr(p)
-	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
-	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-
-	~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
 
 class Rva005677B9 : public TargetRef00217D4C
 {

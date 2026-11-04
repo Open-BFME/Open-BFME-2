@@ -7,22 +7,13 @@
 // Honest Rva name on proven base class. Row type note: get row declares int but result is used as object pointer; forwarder row declares 0 args but retail passes TreeHintRef const& which its slot0 target pops.
 
 #include <windows.h>
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	__forceinline ~TreeHintRef00217D4C()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
+
 
 class Rva0042D6B4PtrChaseField
 {

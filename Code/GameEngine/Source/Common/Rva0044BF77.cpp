@@ -11,12 +11,7 @@
 // Rva0051732ABase is the holder's by-value parameter view; this unit sees its
 // dtor (the callee releases the argument), callers see it as a plain copy
 // (their temp of the derived Rva0051732A owns the release).
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva0051732A;
 struct Rva0051732ABase

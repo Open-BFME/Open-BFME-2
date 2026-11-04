@@ -5,40 +5,25 @@
 // operator= 0x002174A4; the temp's unwind action is the only dtor reference (retail elides the normal-path release).
 // Structural inference: the callee row body is written inline+noinline in this TU so cl knows operator= does not
 // modify the temp (visible-callee lever); the ref is bound to a local reference before the assignment.
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned flags);
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
-struct TreeHintRef00217D4C
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other)
 {
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C() : m_ptr(0) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
+	if (this != &other)
 	{
-		if (m_ptr)
-			++m_ptr->references;
-	}
-	__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other)
-	{
-		if (this != &other)
-		{
-			if (other.m_ptr)
-				++other.m_ptr->references;
-			if (m_ptr)
-				ReleaseTreeHintRef00217D4C(m_ptr);
-			m_ptr = other.m_ptr;
-		}
-		return *this;
-	}
-	__forceinline ~TreeHintRef00217D4C()
-	{
+		if (other.m_ptr)
+			++other.m_ptr->references;
 		if (m_ptr)
 			ReleaseTreeHintRef00217D4C(m_ptr);
+		m_ptr = other.m_ptr;
 	}
-};
+	return *this;
+}
+
 
 namespace StrategicHUD
 {
