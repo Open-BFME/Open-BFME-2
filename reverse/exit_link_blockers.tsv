@@ -1,4 +1,4 @@
-# real link at 058e97f912ffa98fd2dd9c82f75fd4767aa9845f: tools/exit_link.py --blockers
+# real link at 530def71268674cc2e2a85af6bf42b51973d0f83: tools/exit_link.py --blockers
 source	missing	sample
 Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	41	??1?$VectorClass@VProxyClass@@@@UAE@XZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0008EF3FProductCtor_Unresolved.cpp	16	??1Rva0008EF3FProduct@@UAE@XZ
@@ -9,12 +9,12 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp	10	?
 Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	10	??0DefinitionFactoryClass@@QAE@XZ
 Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	9	?CreateMovieClip@Rva005F422C@@UAE?AUTreeHintRef00217D4C@@PAVAptMovieClipFrame@@@Z
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp	9	?friend_setAllowAirLoco@JetAIUpdate@@QAEX_N@Z
-Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	8	??0AudioEventRTS@@QAE@ABV0@@Z
 Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	7	?BaseVirt@AptOnlineCustomMatch@@UAEXXZ
 Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	7	??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp	7	??1ArmyHeroIcon@StrategicInGameUI@@UAE@XZ
 Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp	7	??0BFMENetworkState@@QAE@XZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp	7	??0TextureClass@@QAE@IIW4WW3DFormat@@W4MipCountType@@W4PoolType@TextureBaseClass@@_N3@Z
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	6	??0AudioEventRTS@@QAE@ABV0@@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateClones.cpp	6	??1Rva003AE928@@UAE@XZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	5	??0Rva00211FA3@@QAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	5	?computePointOnPath@Path@@QAEXPBVObject@@ABVLocomotorSet@@ABUCoord3D@@AAUClosestPointOnPathInfo@@@Z
@@ -61,3 +61,4 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDCD7Get.cpp	1	?g_00DB5B
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	1	?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	1	?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	1	??MRva0016DEC0Element@@QBE_NABU0@@Z
+Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes2.cpp	1	?dup_002ca82c@@YAXXZ
