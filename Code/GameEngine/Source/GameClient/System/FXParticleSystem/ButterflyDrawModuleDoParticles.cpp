@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
 // ?doParticles@ButterflyDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z
 // retail 0x00560B11..0x00561375 (2148 bytes, RET 0xC): two wing quads per particle.
 //
@@ -64,20 +64,7 @@ namespace FXParticleSystem {class ButterflyDrawModule;}
 class RenderInfoClass;
 class RefCountClass;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-class Vector4 {public:
- float X,Y,Z,W;
- // Constructors
- __forceinline Vector4() {}
- __forceinline Vector4(const Vector4 &vector4) {X=vector4.X;Y=vector4.Y;Z=vector4.Z;W=vector4.W;}
- __declspec(dllimport) __forceinline Vector4(float x,float y,float z,float w) {X=x;Y=y;Z=z;W=w;}
- // Assignment
- __forceinline Vector4 &operator=(const Vector4 &v) {X=v.X;Y=v.Y;Z=v.Z;W=v.W;return *this;}
- __forceinline void Set(float x,float y,float z,float w) {X=x;Y=y;Z=z;W=w;}
- // Array access
- __forceinline float &operator[](int i) {return (&X)[i];}
- __forceinline const float &operator[](int i) const {return (&X)[i];}
- __forceinline Vector4 &operator+=(const Vector4 &v) {X+=v.X;Y+=v.Y;Z+=v.Z;W+=v.W;return *this;}
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix4 {public:Vector4 Row[4];__forceinline Matrix4(){}__forceinline Matrix4(const Vector4&r0,const Vector4&r1,const Vector4&r2,const Vector4&r3){Row[0]=r0;Row[1]=r1;Row[2]=r2;Row[3]=r3;}__forceinline Matrix4 Transpose()const{return Matrix4(Vector4(Row[0][0],Row[1][0],Row[2][0],Row[3][0]),Vector4(Row[0][1],Row[1][1],Row[2][1],Row[3][1]),Vector4(Row[0][2],Row[1][2],Row[2][2],Row[3][2]),Vector4(Row[0][3],Row[1][3],Row[2][3],Row[3][3]));}__forceinline Matrix4&operator=(const Matrix4&m){Row[0]=m.Row[0];Row[1]=m.Row[1];Row[2]=m.Row[2];Row[3]=m.Row[3];return *this;}__forceinline const Vector4&operator[](int i)const{return Row[i];}__forceinline void identity(){Row[0].Set(1,0,0,0);Row[1].Set(0,1,0,0);Row[2].Set(0,0,1,0);Row[3].Set(0,0,0,1);}__forceinline void transposeFrom(const Matrix4&m){Row[0].Set(m.Row[0].X,m.Row[1].X,m.Row[2].X,m.Row[3].X);Row[1].Set(m.Row[0].Y,m.Row[1].Y,m.Row[2].Y,m.Row[3].Y);Row[2].Set(m.Row[0].Z,m.Row[1].Z,m.Row[2].Z,m.Row[3].Z);Row[3].Set(m.Row[0].W,m.Row[1].W,m.Row[2].W,m.Row[3].W);}};
 /*
 ** Multiply a Matrix4x4 by a Vector4
