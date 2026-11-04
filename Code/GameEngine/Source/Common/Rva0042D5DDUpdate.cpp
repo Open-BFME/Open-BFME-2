@@ -13,7 +13,7 @@ void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name,
 struct Rva0042D5DDInner
 {
 	char m_pad00[4];
-	void *m_04;
+	void *m_level;
 	int m_08;
 };
 
@@ -33,11 +33,11 @@ void StrategicHUD::HUD::Show()
 	int state = m_impl->m_08;
 	if (state != 0) {
 		if (state > 2 && state <= 4) {
-			Rva00516F21Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_impl->m_04, "SetState", "_fadeIn");
+			Rva00516F21Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_impl->m_level, "SetState", "_fadeIn");
 			m_impl->m_08 = 2;
 		}
 		return;
 	}
-	((AptPlayer *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->ShowLevel((int)m_impl->m_04);
+	((AptPlayer *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->ShowLevel((int)m_impl->m_level);
 	m_impl->m_08 = 1;
 }

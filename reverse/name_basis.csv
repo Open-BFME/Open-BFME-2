@@ -8667,3 +8667,4 @@ function,?s4ParseFieldsRva0059D1F0@@YAXPAVINI@@PAUGen_00489270@@@Z,?parseFreezeP
 carry,s4ParseFieldsRva0059D1F0::transition,parseFreezePostLoadSoundsTransition::transition,inferred,scope renamed by Rename s4ParseFieldsRva0059D1F0 to parseFreezePostLoadSoundsTransition (inferred),Code/GameEngine/Source/Common/Rva0059D1F0AttackNuggetFactory.cpp,0x0035D35D
 member,Rva0052B4B6::m_41,Rva0052B4B6::m_digest,inferred,agree:nl-13f18d58778b,Code/GameEngine/Source/Common/Rva0052B4B6XferOpen.cpp,
 member,Rva0030CAF8Area::m_s9C,Rva0030CAF8Area::m_textureName,inferred,agree:nl-a68938a4066d,Code/GameEngine/Source/Common/Rva0030CAF8Chain.cpp,
+member,Rva0042D5DDInner::m_04,Rva0042D5DDInner::m_level,inferred,agree:nl-fce6ae1a223c,Code/GameEngine/Source/Common/Rva0042D5DDUpdate.cpp,
