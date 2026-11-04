@@ -23747,3 +23747,8 @@ Code/GameEngine/Source/GameLogic/AI/Rva00343F8ADispatch.cpp|function|0x0033FDEB|
 Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp|function|0x001D8E88|rva001D8E88,2caf3fc4be0cb815a0f22a2d,claude-opus-5-5,claude3-20261104-095103-10,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp|member|Rva002A7557In|m_val618,8a273ccbbcb455c0242b89f2,claude-opus-5-5,claude3-20261104-095103-10,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp|function|0x003BAAD6|Rva003BAAD6,c21fd0efa33630a24a3a57b5,claude-opus-5-5,claude3-20261104-095103-12,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/InGameUI_Rva0042F9C6.cpp|member|Rva0030F099Value|flags1C,413a73118dccb15464575c39,claude-opus-5-5,claude3-20261104-101555-6,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/InGameUIRva0029AEF9.cpp|member|Rva0029AEF9Item|m_1C,2ad6348d69e1d812b31dc89c,claude-opus-5-5,claude3-20261104-101555-6,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp|function|0x0022356C|rva0022356C,d31a26d80e5c2ac483c9d6b7,claude-opus-5-5,claude3-20261104-101555-7,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp|member|Rva000B9B4ATemplatePrefix|flag5ED,51a0444af7dea5f1b1b5f55b,claude-opus-5-5,claude3-20261104-101555-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp|member|Rva000B9B4ATemplatePrefix|flag5EF,6d78136afad42df119f41da4,claude-opus-5-5,claude3-20261104-101555-9,w-29a6ae2a2f9f,2026-11-04
