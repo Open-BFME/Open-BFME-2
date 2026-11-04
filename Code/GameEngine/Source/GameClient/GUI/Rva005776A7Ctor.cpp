@@ -18,14 +18,14 @@
 class Gen_uwm_00429191
 {
 public:
-	virtual void s0();
+	virtual void s0() = 0;
 	~Gen_uwm_00429191() {}
 };
 
 class Rva005776A7Interface : public Gen_uwm_00429191
 {
 public:
-	virtual void r0();
+	virtual void r0() = 0;
 };
 
 class Rva005CD1A9

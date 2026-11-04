@@ -346,6 +346,9 @@ W3DTerrainVisual's.
   Prerequisite: nested-class `--fold` support, or a reviewed reconciliation like `a5901cee17` for
   PlanningPhaseBehavior::Impl (constructor beside destructor, UserInputTranslator base,
   ManualPhaseEnder record bound to `??1Wrap2000576C4B`).
+  Link cleared 2026-11-04 (claude2): `s0`/`r0` made pure in the private view, as
+  Rva00574CC1Dtor.cpp already spells the 0x00429191 carrier; 6/6 rows match and `link_check.py`
+  reports LINKS (0 -> 170 bytes). The Impl class identity above is still open.
 - **LivingWorldManagerCtor.cpp (1): blocked.** `Rva0022B12DSubsystem` is LivingWorldManager: the
   constructor installs 0x00BE5234, whose slot 0 is the `??_G` of `??1LivingWorldManager` (0x00214405).
   `--fold Rva0022B12DSubsystem --into LivingWorldManager` refuses: that slot is rowed
