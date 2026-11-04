@@ -9,6 +9,7 @@
 // 0x15BB00, Peek_Texture 0x188700, MaterialInfoClass::Add_Texture 0x16FBF0.
 
 #include "MeshMatDescClass.h"
+#include "MeshModelClass.h"
 
 class TextureClass
 {
@@ -39,8 +40,6 @@ public:
 		}
 	}
 };
-
-class MeshModelClass;
 
 class MeshLoadContextClass
 {
@@ -123,24 +122,6 @@ private:
 	MaterialVector VertexMaterials;
 };
 
-class MeshModelClass
-{
-private:
-	char BeforeFlags[0x18];
-	int Flags;
-	char BeforeDescriptors[0x8c - 0x1c];
-	MeshMatDescClass *DefMatDesc;
-	MeshMatDescClass *AlternateMatDesc;
-	char BeforeMaterialInfo[0x98 - 0x94];
-	MaterialInfoClass *MatInfo;
-
-	protected:
-	void install_alternate_material_desc(MeshLoadContextClass *context);
-	int Get_Flag(int flag) const { return Flags & flag; }
-
-	// ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z
-	void install_materials(MeshLoadContextClass *context);
-};
 
 void MeshModelClass::install_materials(MeshLoadContextClass *context)
 {
@@ -149,7 +130,7 @@ void MeshModelClass::install_materials(MeshLoadContextClass *context)
 	install_alternate_material_desc(context);
 
 	bool lighting_enabled = true;
-	if (Get_Flag(0x2000)) {
+	if (Flags & PRELIT_VERTEX) {
 		lighting_enabled = false;
 	}
 	DefMatDesc->Post_Load_Process(lighting_enabled, this);
