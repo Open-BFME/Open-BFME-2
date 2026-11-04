@@ -84,12 +84,7 @@ public:
 	Coord3D m_position;		// +0x38
 };
 
-class Pathfinder
-{
-public:
-	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int locomotorSet);
-	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *result);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 

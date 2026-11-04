@@ -296,13 +296,7 @@ public:
 	Int rva00294ADD(Int a);
 };
 
-class Pathfinder
-{
-public:
-	int GetOverlapGoalUnits(Object *,const Coord3D *,int *);
-	bool IsHordeMeleeLinePassable(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
-	bool rva002EDFF9(Object *obj, Coord3D *pos);
-};
+#include "../../../../GameEngine/Include/GameLogic/AIPathfind.h"
 
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 

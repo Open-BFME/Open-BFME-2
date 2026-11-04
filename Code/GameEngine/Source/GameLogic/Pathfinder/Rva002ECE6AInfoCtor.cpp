@@ -124,10 +124,7 @@ class Rva002872BA {public:
  char pad00[0x70];LineFireCell **cells;char pad74[4];Int width,height;
 };
 extern Rva002872BA *TheTriggerManager;
-class Pathfinder {public:
- Bool checkForMovement(Object *,TCheckMovementInfo &);
- Bool rva002EA658(Object *,TCheckMovementInfo &,const ICoord2D *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class Rva002E6DC4
 {
 public:

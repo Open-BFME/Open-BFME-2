@@ -148,7 +148,7 @@ class LocomotorSet{public:char pad0[0x10];int m_surfaces;char pad14;unsigned cha
 struct PathfindMovementProfile{int m_surfaces;bool m_crusher,m_terrainOnly;char pad6[2];int m_layer;unsigned char m_C;PathfindMovementProfile(int s):m_surfaces(s),m_crusher(false),m_terrainOnly(false),m_layer(-1){} };
 class Rva002E99F9Sub460{public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
  bool PathfindLayer::ConnectsZones(PathfindZoneManager *zoneManager,const LocomotorSet &locomotorSet,int zone1,int zone2)

@@ -18,11 +18,7 @@ struct PathTemplateView {char pad[0x108];unsigned flags108;};
 class Object {public:void *vtable;PathTemplateView *templ;};
 class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D pos;int layer;bool canOptimize;char pad1D[3];int portalID;bool hasPortal()const{return portalID!=0x7fffffff;}};
 enum PathfindLayerEnum {LAYER_GROUND=1};
-class Pathfinder {public:
- int IsNonPinchedCliffCell(int,int);
- int IsLinePassableForOptimize(void *,void *,PathfindLayerEnum,const Coord3D *,const Coord3D *,void *);
- bool IsGroundLineOnly(const Coord3D *,const Coord3D *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 int isGroundOrBridgeLayer(int);

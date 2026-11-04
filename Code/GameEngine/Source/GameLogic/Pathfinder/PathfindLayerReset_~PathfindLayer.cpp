@@ -152,7 +152,7 @@ enum PathfindLayerEnum{LAYER_INVALID=-1,LAYER_GROUND=1,LAYER_FIRST_BRIDGE=16};
 int isGroundOrBridgeLayer(int);
 #include "../../../Include/GameLogic/LocomotorSet.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
