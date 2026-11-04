@@ -115,36 +115,8 @@ class Player;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual void initializeTeamTemplate();
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	Team *rva004ECECD(int index);
-	unsigned char rva004ED169();
-	void teamGarrisonObject(int index, Object *target);
-	void rva004ED372(const Coord3D *point);
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x24 - 0x11];
-	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIReturnTheRingTactic : public AITacticOffensive
 {
@@ -170,7 +142,7 @@ private:
 
 // The owner's TheSkirmishAIManager record; retail loads the owner before
 // the record call's own arguments wherever this form is used.
-static inline Rva002A8AB1Record *aiData(Player *owner)
+static inline Rva002A8AB1Record *aiData(void *owner)
 {
 	return TheSkirmishAIManager->rva002A8AB1(owner);
 }
@@ -184,8 +156,8 @@ static inline Rva002A8AB1Record *aiData(Player *owner)
 
 void AIReturnTheRingTactic::run()
 {
-	if (!aiData(m_owner)->rva002C7196(AIReturnTheRingTactic_IsRunning)) {
-		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	if (!aiData(m_field24)->rva002C7196(AIReturnTheRingTactic_IsRunning)) {
+		Rva002A8AB1Record *ownerAIRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 		if (buildReturnTeam()) {
 			ownerAIRecord->rva002C717E(AIReturnTheRingTactic_IsRunning, 1);
 			moveToFortress();
