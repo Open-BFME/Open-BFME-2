@@ -10,21 +10,20 @@ class Rva00360F55 {
 public:
     Rva00360F55(); ~Rva00360F55();
     unsigned char vectors[0x48];
-    BfmeFixedStorage0004543D first,second;
+    BfmeFixedStorage0004543D m_firstPlain,m_secondPlain;
     int value80,value84; unsigned char flag88,pad89[3]; int useCount,word90;
 };
 extern unsigned char *g_validityBegin;
 extern unsigned char *g_validityEnd;
-static __forceinline int validityCount() { return (g_validityEnd-g_validityBegin)/static_cast<int>(sizeof(Rva00360F55)); }
 int Rva00361790(Rva00360F55 *);
 #include "../../../Include/GameLogic/ObjectFilter.h"
 bool ObjectFilter::isForbidden(KindOfType kind)
 {
-    if (m_objectFilterSlot00>=validityCount()) return true;
+    if (m_objectFilterSlot00>=(g_validityEnd-g_validityBegin)/static_cast<int>(sizeof(Rva00360F55))) return true;
     if (m_objectFilterSlot00==-1) {
         m_objectFilterSlot00=Rva00361790(&Rva00360F55());
     }
-    BfmeFixedStorage0004543D forbidden(reinterpret_cast<Rva00360F55 *>(g_validityBegin)[m_objectFilterSlot00].second);
+    BfmeFixedStorage0004543D forbidden(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&reinterpret_cast<Rva00360F55 *>(g_validityBegin)[m_objectFilterSlot00].m_secondPlain));
     unsigned bit=static_cast<unsigned>(kind);
     return (reinterpret_cast<const unsigned *>(forbidden.m_bytes)[bit>>5]&(1U<<(bit&31)))!=0;
 }
