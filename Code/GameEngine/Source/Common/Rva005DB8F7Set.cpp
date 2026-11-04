@@ -7,14 +7,15 @@
 #include <windows.h>
 struct Elem005DB98E
 {
-	int m_00;
-	float m_04;
-	float m_08;
-	float m_0C;
-	unsigned long m_10;
-	char m_14[4];
 public:
+	void rva005DB885(int a);
 	void rva005DB8F7(float a, float b, float c);
+	int m_00; // +0x00
+	float m_04; // +0x04
+	float m_08; // +0x08
+	float m_0C; // +0x0C
+	unsigned long m_10; // +0x10
+	char m_14[4]; // +0x14
 };
 
 void Elem005DB98E::rva005DB8F7(float a, float b, float c)
