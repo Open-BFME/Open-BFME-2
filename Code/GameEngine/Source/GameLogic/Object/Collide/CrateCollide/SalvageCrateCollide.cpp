@@ -102,9 +102,7 @@ class Snapshot;
 class Thing;
 class ModuleData;
 #include "../../../../../Include/Common/BfmeXfer.h"
-
 extern GameLogic *TheGameLogic;
-
 // The multiplayer-or-skirmish predicate at 0x0023C6FD is rowed as
 // BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). This call
 // goes through a TU-local derivation so it resolves to the rowed body
@@ -114,34 +112,23 @@ class BfmeGlob939D : public GameLogic
 public:
 	char bfmeCall939D();
 };
-
 #include "../../../../../Include/Common/PlayerList.h"
-
 extern PlayerList *ThePlayerList;
-
 #include "../../../../../Include/Common/MultiPlayMults.h"
-
 #include "../../../../../Include/Common/GlobalData.h"
-
 extern class GlobalData *TheWritableGlobalData;
-
 #include "../../../../../Include/Common/Upgrade.h"
-
-
 extern UpgradeCenter *TheUpgradeCenter;
-
 class Rva0039B7AD
 {
 	char m_pad[4];
 };
-
 class Rva003B0D7C
 {
 public:
 	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag);	// 0x003B0D7C
 	char m_pad[4];
 };
-
 class Player
 {
 public:
@@ -154,13 +141,9 @@ public:
 	char m_pad094[0x3BC - 0x94];
 	Rva0039B7AD m_3BC;		// +0x3BC
 };
-
 #include "../../../../../Include/GameLogic/ExperienceTracker.h"
-
 #include "../../../../../Include/Common/ThingTemplate.h"
-
 #include "../../object.h"
-
 struct SalvageCrateCollideModuleData
 {
 	char m_pad00[0x64];
@@ -172,15 +155,14 @@ struct SalvageCrateCollideModuleData
 	AsciiString m_upgrade;	// +0x78
 	bool m_allowComputerPickup;	// +0x7C
 };
-
 // Owner row ?rva004BCF92@Rva004BCF92@@QAEXPBVObject@@H@Z: the text arrives as an int.
 class Rva004BCF92 { public: void rva004BCF92(const Object *obj, int arg); };
-
 #include "../../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
+struct Coord3D;
+struct SalvageCrateCollideModuleData;
+struct BfmeWideResult;
 
 // The collide interface at +0x10. Retail's SalvageCrateCollide table there
 // (0x00C5A9A8) has six slots; slot 0 is CrateCollide::onCollide 0x004BC56D.
@@ -250,11 +232,19 @@ protected:
     virtual void xfer(Xfer *xfer);
 };
 
-// tu-skeleton: 0x004BD1D7 42B ??0SalvageCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollideCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollideCtor.cpp
+
+// ??0SalvageCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z
+SalvageCrateCollide::SalvageCrateCollide(Thing *thing, const ModuleData *moduleData)
+	: CrateCollide(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x004BD201 6B ?Rva004BD201Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004BD207 25B ??1Rva004BD207@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/SalvageCrateCollidePoolKey.cpp
 
@@ -265,8 +255,6 @@ NameKeyType SalvageCrateCollide::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("SalvageCrateCollide");
 	return TheSalvageCrateCollidePoolKey;
 }
-
-// tu-skeleton: 0x004BD265 28B ??_GRva004BD207@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp
 
@@ -405,3 +393,5 @@ void HealCrateCollide::xfer(Xfer *xfer)
     xfer->Version1();
     CrateCollide::xfer(xfer);
 }
+
+// tu-skeleton: 0x004BD265 28B ??_GRva004BD207@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
