@@ -1,11 +1,7 @@
 // cl: /O1 /MD /EHsc /DNDEBUG
 #include <cstring>
 
-class File {
-public:
-    char m_pad[0x0d];
-    unsigned char m_flag;
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 File *GetGameFile(const char *);
 
@@ -42,7 +38,7 @@ void TextureAsset::Impl::PreLoad(const char *name)
         }
     }
     if (m_file)
-        m_file->m_flag = 1;
+        m_file->deleteOnClose();
     if (m_fileAlpha)
-        m_fileAlpha->m_flag = 1;
+        m_fileAlpha->deleteOnClose();
 }

@@ -12,11 +12,7 @@
 #include "ascii_string.h"
 #include <string.h>
 template<class T> __forceinline void StringBase<T>::concat(T c) {concat(&c,1);}
-class File {
-public:
- virtual void slot0();virtual void slot4();virtual void close();
- virtual int read(void *,int);virtual int write(const void *,int);virtual int seek(int,int);
-};
+#include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 // Native300F6E passes TheGameState and3010A4 uses TheWritableGlobalData's
@@ -46,8 +42,8 @@ class Rva003006C4 { public: bool rva003006C4(const AsciiString &); };
 static void copyFromBigToDir(const AsciiString &infile,const AsciiString &outfile) {
  File *file=TheFileSystem->openFile(infile.str(),0x41);
  if(!file) throw XferException(5,0);
- int fileSize=file->seek(0,2);
- file->seek(0,0);
+ int fileSize=file->seek(0, File::END);
+ file->seek(0, File::START);
  char *buffer=new char[fileSize];
  if(!buffer) throw XferException(5,0);
  if(file->read(buffer,fileSize)<fileSize) throw XferException(5,0);

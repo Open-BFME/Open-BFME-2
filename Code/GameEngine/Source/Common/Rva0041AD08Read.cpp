@@ -10,16 +10,7 @@
 #include <new>
 #include "ascii_string.h"
 
-class File
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void close();
-	virtual int read(void *buf, int size);
-	virtual int write(const void *buf, int size);
-	virtual int seek(int offset, int origin);
-};
+#include "../../Include/Common/File.h"
 
 // The second parameter is the save game's Xfer, as in Zero Hour's and BFME 1's
 // GameStateMap.cpp (static void embedPristineMap(AsciiString, Xfer *)); WB's
@@ -71,8 +62,8 @@ static void __cdecl embedPristineMap(AsciiString path, Xfer *xfer)
 		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	unsigned int size = file->seek(0, 2);
-	file->seek(0, 0);
+	unsigned int size = file->seek(0, File::END);
+	file->seek(0, File::START);
 	char *buf = new char[size];
 	if (!buf)
 	{
@@ -130,8 +121,8 @@ static void __cdecl embedInUseMap(AsciiString path, Xfer *xfer)
 		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	unsigned int size = file->seek(0, 2);
-	file->seek(0, 0);
+	unsigned int size = file->seek(0, File::END);
+	file->seek(0, File::START);
 	char *buf = new char[size];
 	if (!buf)
 	{

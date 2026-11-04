@@ -158,22 +158,7 @@ private:
 // existence via TheFileSystem, opens (0x141/0x5a), reads size via File slot
 // 0x2c, runs rva00106A5C check and invokeForMode. Caller at 0x00106CD6 and
 // 0x000918E5. Prev/next are BfmeB996Range TUs with same flags.
-class File
-{
-public:
-	virtual ~File();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual int getSize();
-};
+#include "../../Include/Common/File.h"
 
 #include "../../Include/Common/FileSystem.h"
 
@@ -554,7 +539,7 @@ bool Rva00106AC9::rva00106AC9(const char *path, int openMode, bool validateRecor
 			p = GetStr00106AC9(m_path);
 			File *file = TheFileSystem->openFile(p, 0x141, 0);
 			m_file = file;
-			int sz = file->getSize();
+			int sz = file->size();
 			m_size = sz;
 			m_mode = 6;
 			if (sz >= 8) {

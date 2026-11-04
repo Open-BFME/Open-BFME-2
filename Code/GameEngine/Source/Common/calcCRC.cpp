@@ -4,14 +4,7 @@
 #include "ascii_string.h"
 class File;
 #include "../../Include/Common/FileSystem.h"
-class File
-{
-public:
-	virtual void vf0();
-	virtual void vf1();
-	virtual void closeFile();
-	virtual int readFile(void *buf, int len);
-};
+#include "../../Include/Common/File.h"
 extern FileSystem *TheFileSystem;
 unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
@@ -39,9 +32,9 @@ unsigned int __cdecl calcCRC(AsciiString a, AsciiString fileName)
 	File *file = TheFileSystem->openFile(ps, 1, 0);
 	if (file) {
 		int m_BytesRead;
-		while ((m_BytesRead = file->readFile(filebuf, 4096)) > 0)
+		while ((m_BytesRead = file->read(filebuf, 4096)) > 0)
 			crc = ComputeCRC((const unsigned char *)filebuf, (unsigned int)m_BytesRead, crc);
-		file->closeFile();
+		file->close();
 	}
 	return crc;
 }

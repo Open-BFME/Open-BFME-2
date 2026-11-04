@@ -77,16 +77,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 
 extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *, unsigned int, const char *, va_list);
 
-class File
-{
-public:
-	virtual ~File();
-	virtual Bool open(const char *name, Int access);
-	virtual void close();
-	virtual Int read(void *buffer, Int bytes);
-	virtual Int write(const void *buffer, Int bytes);
-	virtual Int seek(Int bytes, Int mode);
-};
+#include "../../../Include/Common/File.h"
 
 #include "../../../Include/Common/XferException.h"
 
@@ -364,7 +355,7 @@ Bool Rva0060DFB5(File *input, File *output)
 					names.push_back(value);
 				}
 				if (type == 'BLOK')
-					input->seek(4, 1);
+					input->seek(4, File::CURRENT);
 				if (type == 'BLOK' || !afterBlock)
 					taggedIndent(output, blocks.size());
 				if (type == 'BLOK')

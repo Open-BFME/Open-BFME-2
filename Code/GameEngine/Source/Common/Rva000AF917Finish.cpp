@@ -38,12 +38,7 @@ AsciiString makeNrmTextureName(const AsciiString &in);
 // Native AF917-AFA92 independently proves the additional normal stream,
 // third openFile argument,16-wide search and four-argument tile reader.
 #include <stdio.h>
-class File {
-public:
-    virtual void slot0(); virtual void slot1(); virtual void close();
-    virtual int read(void *,int); virtual void slot4();
-    virtual void seek(int,int);
-};
+#include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class InputStream { public: virtual int read(void *,int)=0; };
@@ -87,7 +82,7 @@ void WorldHeightMap::readTexClass(TXTextureClass *texClass,TileData **tileData)
     if (file) {
         GDIFileStream stream(file),normalStream(normalFile);
         int numTiles=WorldHeightMap::countTiles(&stream,0);
-        file->seek(0,0);
+        file->seek(0, File::START);
         if (numTiles>=texClass->numTiles) {
             numTiles=texClass->numTiles;
             int width;
