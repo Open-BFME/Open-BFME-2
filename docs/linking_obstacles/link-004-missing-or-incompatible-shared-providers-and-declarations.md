@@ -1050,6 +1050,8 @@ choice needs verification before another merge. The other eight declaration
 conflicts and seven mixed sources remain open; no paths, debt keys or coverage
 were removed. Existing duplicate audio-start/EH ownership also remains open.
 
+2026-11-04: FlammableUpdate's current three-donor merge remains blocked; TU-wide `/Oy-` loses six seed rows and was restored (31/31 pass); next prerequisite is the destructor's canonical TreeKey field view, whose class claim is held elsewhere ([evidence](../../reverse/attempt_support/flammable-frame-prerequisites-20261104-codex3.md)).
+
 2026-11-03, QueueProductionExitUpdate (inspected `785e1bf93f`): canonical ExperienceTracker and existing Player header adoption accepted, retiring two queue entries with unchanged runtime bindings and both link previews retained; TU composition remains blocked on Coord3D/Xfer, BitFlags and receiver/base reconciliation. [Evidence and next checks](../../reverse/attempt_support/queueproduction-headers-20261103/README.md).
 
 2026-11-04: AI script-header subset cleared: two private AI views replaced and 23 existing adoptions reverified; the owning acceptance tool retired 25 queue rows without predicted census-linked-byte loss. Class-wide closure and census confirmation remain pending. [Scope and checks](../../reverse/attempt_support/ai-script-header-20261104.md).
