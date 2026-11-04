@@ -20,16 +20,7 @@
 // Target facts: the boundaries, vtables, callees, member offsets and store
 // order are from retail; the class names are the ledger's own placeholders.
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/matpass.h
-class MaterialPassClass
-{
-public:
-	MaterialPassClass(void);
-	virtual ~MaterialPassClass(void);
-
-private:
-	unsigned char m_unmodelled[0x34];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 
 class TextureClass;
 
@@ -48,6 +39,8 @@ class BfmeB1137 : public MaterialPassClass
 public:
 	BfmeB1137(void);
 	virtual ~BfmeB1137(void);
+	virtual void Install_Materials(void) const;
+	virtual void UnInstall_Materials(void) const;
 
 private:
 	float m_38;
