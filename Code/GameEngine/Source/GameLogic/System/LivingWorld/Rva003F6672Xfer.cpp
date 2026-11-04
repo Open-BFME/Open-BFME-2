@@ -37,7 +37,8 @@ template<>class vector<Rva003F610FElement,allocator<Rva003F610FElement> > {publi
 }
 class Rva003F664FOwner {public:void rva003F664F(unsigned);};
 #include "../../../Common/BfmeIntVecG.h"
-class LivingWorldBattle {public:class BattlePlayer {public:void DoXfer(Xfer*);};};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
+class LivingWorldBattle::BattlePlayer {public:void DoXfer(Xfer*);};
 Xfer* Rva003F5A72Xfer(Xfer*,void*);
 struct Players48 {Rva003F610FElement*first,*last,*limit;int size(){return last-first;}void clear(){((_STL::vector<Rva003F610FElement,_STL::allocator<Rva003F610FElement> >*)this)->erase(first,last);}};
 class Rva003F6672 {public:void rva003F6672(Xfer*);int field00;Players48 players;BfmeIntVecG ids;};

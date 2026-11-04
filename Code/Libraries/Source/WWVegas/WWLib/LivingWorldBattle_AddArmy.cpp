@@ -45,8 +45,8 @@ namespace _STL {
 struct Rva003F6DF9Child {char pad98[0x98];unsigned field98;char pad9c[0xc];bool flaga8;};
 struct Rva003F6DF9Entry {unsigned word;Rva003F6DF9Child *child;};
 struct Rva003F6DF9Data {char pad2c[0x2c];unsigned dirty;char pad30[0x10];_STL::vector<Rva003F6DF9Entry> entries;char pad4c[0x1c];};
-struct Rva002BA8F1Listener {char opaque[4];};
-struct Rva003F6DF9OwnerBase {virtual void interface0()=0;};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldBattle.h"
+struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);private:void*words[3];};
 struct Rva003F6DF9Payload {char pad8[8];Rva005A0B4CList listeners;char pad14[0x64];Rva003F6DF9Data *data;};
 class Rva0040CB2CIndexedField {public:int get(int)const;};
@@ -54,9 +54,6 @@ struct Rva003F6D35Inner {
  unsigned word;_STL::vector<const ModuleData*> payloads;_STL::vector<BfmePod104> data;unsigned tail[5];
 };
 class Rva003F6D35Owner { public: Rva003F6D35Inner *findOrCreateRva003F6D35(void *); };
-class LivingWorldBattle:public Rva003F6DF9OwnerBase,public Rva002BA8F1Listener {public:
- void AddArmy(int,void*);
-};
 void LivingWorldBattle::AddArmy(int input,void *payload){
  Rva003F6D35Inner *inner=((Rva003F6D35Owner *)this)->findOrCreateRva003F6D35((void *)input);
  Rva003F6DF9Data *data=((Rva003F6DF9Payload *)payload)->data;
@@ -73,6 +70,6 @@ void LivingWorldBattle::AddArmy(int input,void *payload){
     child->field98=0;child->flaga8=false;
    }
   }
-  ((Rva003F6DF9Payload *)payload)->listeners.append(static_cast<Rva002BA8F1Listener*>(this));
+  ((Rva003F6DF9Payload *)payload)->listeners.append((Rva002BA8F1Listener*)static_cast<LivingWorldBattleListener*>(this));
  }
 }
