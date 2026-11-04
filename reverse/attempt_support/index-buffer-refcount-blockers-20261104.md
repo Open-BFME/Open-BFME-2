@@ -31,3 +31,22 @@ Next step: give rendobj.h and linegrp_headers.h (shared headers; full-gate
 hook) the canonical RefCountData.h, or a TU-scoped shim that does, plus the
 NEW_REF/REF_PTR_* macros those consumers use from the donor header. Then
 re-run accept for the six units.
+
+## DX8IndexBufferClass follow-up, same day
+
+Also accepted (DX8IndexBufferClass): BaseHeightMapScorchResources.cpp,
+W3DProjectedShadowManagerReAcquire.cpp,
+TerrainTracksRenderObjClassCreateBuffers.cpp, Rva000E6D94AllocateBuffers.cpp,
+BaseHeightMap.cpp (plus RefCountClass), W3DWater.cpp, W3DBuffBuffer.cpp, and
+W3DBufferManager.cpp, which swapped donor refcount.h for RefCountData.h plus a
+local REF_PTR_RELEASE.
+
+Not adopted:
+
+- System/TBuff.cpp: with canonical RefCountData.h,
+  `??1?$ShareBufferClass@VVector2@@@@UAE@XZ` fails, because the canonical
+  `~RefCountClass` is out of line and retail inlines it there. This needs an
+  inline-destructor decision in the shared header.
+- WWLib/FamilyDeletingDtorsO2.cpp: a generated deleting-dtor family whose
+  local novtable RefCountClass and EmitVtableTag ctor emit the table. This is
+  not a plain view swap.
