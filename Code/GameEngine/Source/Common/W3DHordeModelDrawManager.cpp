@@ -76,9 +76,12 @@ struct HordeLodEntry
 	int m_start;
 };
 
+class MultiIniFieldParse;
+
 class W3DHordeModelDrawModuleData
 {
 public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	__declspec(noinline) bool rva00079147();
 	__declspec(noinline) int rva00079157();
 	__declspec(noinline) int rva00079167();
