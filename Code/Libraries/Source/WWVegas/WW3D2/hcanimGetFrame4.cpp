@@ -40,8 +40,8 @@ private:
 // The packet cursor is taken from base only on the decoding path: declaring
 // it at the top of the vector loop keeps base and the cursor in separate
 // webs, and the register colouring of the whole head changes with it.
-template <int N>
-void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata)
+template <>
+void AdaptiveDeltaMotionChannelClass::decompress<4>(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata)
 {
 	unsigned char *base = (unsigned char *) Data;
 	float *src = srcdata;
@@ -57,10 +57,10 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
 		start = frame_idx;
 	}
 
-	base += sizeof(float) * N;										// skip non-compressed header information
-	base += (PACKET_SIZE * N) * (start >> 4);					// skip out to current packet
+	base += sizeof(float) * 4;										// skip non-compressed header information
+	base += (PACKET_SIZE * 4) * (start >> 4);					// skip out to current packet
 
-	for (int vi = 0; vi < N; vi++) {
+	for (int vi = 0; vi < 4; vi++) {
 		float last_value = src[vi];
 		if (start < frame_idx) {
 			unsigned char *pPacket = base;
@@ -87,7 +87,7 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
 			} while (fi < 16);
 
 			fi = 0;
-			pPacket += (PACKET_SIZE * N) - 1;					// skip to next packet
+			pPacket += (PACKET_SIZE * 4) - 1;					// skip to next packet
 			} while (frame < frame_idx);
 		}
 
@@ -97,10 +97,10 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
 }
 
 // ??$getframe@$03@AdaptiveDeltaMotionChannelClass@@AAEXKAAU?$AdaptiveDeltaCacheStruct@$03@@@Z
-template <int N>
-void AdaptiveDeltaMotionChannelClass::getframe(uint32 frame_idx, AdaptiveDeltaCacheStruct<N> & cache)
+template <>
+void AdaptiveDeltaMotionChannelClass::getframe<4>(uint32 frame_idx, AdaptiveDeltaCacheStruct<4> & cache)
 {
-	if (VectorLen != N) {
+	if (VectorLen != 4) {
 		memset(cache.Value, 0, sizeof(cache.Value));
 		return;
 	}
@@ -110,8 +110,8 @@ void AdaptiveDeltaMotionChannelClass::getframe(uint32 frame_idx, AdaptiveDeltaCa
 	if (cache.Frame + 1 == frame_idx) {
 		// Sliding window
 		cache.Frame++;
-		memcpy(&cache.Value[0], &cache.Value[N], N * sizeof(float));
-		decompress<N>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[N]);
+		memcpy(&cache.Value[0], &cache.Value[4], 4 * sizeof(float));
+		decompress<4>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[4]);
 		return;
 	}
 
@@ -119,13 +119,12 @@ void AdaptiveDeltaMotionChannelClass::getframe(uint32 frame_idx, AdaptiveDeltaCa
 
 	if (frame_idx < cache.Frame) {
 		cache.Frame = frame_idx;
-		decompress<N>(0, NULL, frame_idx, &cache.Value[0]);
+		decompress<4>(0, NULL, frame_idx, &cache.Value[0]);
 	} else {
-		decompress<N>(cache.Frame + 1, &cache.Value[N], frame_idx, &cache.Value[0]);
+		decompress<4>(cache.Frame + 1, &cache.Value[4], frame_idx, &cache.Value[0]);
 		cache.Frame = frame_idx;
 	}
 
-	decompress<N>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[N]);
+	decompress<4>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[4]);
 }
 
-template void AdaptiveDeltaMotionChannelClass::getframe<4>(uint32, AdaptiveDeltaCacheStruct<4> &);
