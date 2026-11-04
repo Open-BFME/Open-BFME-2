@@ -481,7 +481,7 @@ struct AudioInfoRange { float lo, hi; AudioInfoRange() : lo(0), hi(0) {} };
 
 struct AudioInfoDelay { int lo, hi; AudioInfoDelay() : lo(0), hi(0) {} };
 
-struct BfmeE8 { int a,b; };
+struct BfmeE8 { int m_slider; float m_multiplier; };
 
 class Rva001DA2D5 : public AudioInfoRefCountBase
 {
