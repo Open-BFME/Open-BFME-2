@@ -1,4 +1,4 @@
-### LINK-236: RefCountClass adoption shifts a private RenderObj hierarchy
+### LINK-237: RefCountClass adoption shifts a private RenderObj hierarchy
 
 Evidence / scope: `Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp`; [handoff](../../reverse/attempt_support/refcount-renderobj-prerequisite-20261104-1410.md).
 Completed: native whole-parent differences isolated to twelve dispatch offsets
