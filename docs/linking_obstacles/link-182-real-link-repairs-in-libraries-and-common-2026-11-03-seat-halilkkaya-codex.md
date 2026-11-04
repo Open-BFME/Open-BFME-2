@@ -2,6 +2,29 @@
 
 Notes Codex wrote for each commit, moved here from the pre-split register.
 
+### XferSave constructor teardown providers (2026-11-04, halilkkaya-codex)
+
+Base `2a94cc974e`: `BfmeConv881O1.cpp` now gives its two twenty-byte members
+the existing opaque lifetime views used by the rowed XferSave destructor.
+Construction still calls the same existing hash-map initializer names;
+the +0x18 unwind now calls its actual 0x0060D0AE owner. Declaration-only
+destructors for the construction-only map/table views prevent emission of
+their unused teardown trees. No kept object references those declarations.
+The nonexistent `Gen_t_009d80b0_p12cd` and `Gen_t_009d8120_p12cd` destructor
+references disappear, resolving both real-link artifact names in this unit.
+The twenty removed definitions have no outside consumer losing its provider.
+This recovers lifetime edges, not the unknown map element types or names.
+
+Normal verification passes all 121 rows in the constructor, native destructor,
+0x0060D0AE owner and System/XferSave; constructor EH is EXACT and its frozen
+check is clean. True base/tip checks of that family plus first-copy COMDAT
+providers (33 units, index `a62ac1c10b`) retain all 31 base LINKS units and add
+the constructor's 117 existing bytes (45,789 -> 45,906 preview bytes).
+Scoped DIR32 passes 121 rows plus six witnesses. System/XferSave's existing
+identity/selected-provider findings remain. No census/full-image claim.
+Receipts: `build/seat_xfer_{base,tip,build,family_build}.log`,
+`build/seat_xfer_cohort.{txt,json}`, `build/seat_xfer_removed.json`.
+
 ### R3 0x001DE3E3 duplicate-claim retirement (2026-11-04, halilkkaya-codex)
 
 Base `bd37f44974`: retire `StlSweepR3Rva001DE3E3.cpp` and its unsupported

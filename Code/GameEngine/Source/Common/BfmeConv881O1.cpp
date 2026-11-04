@@ -111,13 +111,54 @@ struct Gen_t_009d8120_p12cd
 };
 
 typedef _STL::pair<const int, Gen_t_009d80b0_p12cd> BfmeHashPairA009D83D0;
+typedef _STL::hashtable<BfmeHashPairA009D83D0, int, _STL::hash<int>,
+	_STL::_Select1st<BfmeHashPairA009D83D0>, _STL::equal_to<int>,
+	_STL::allocator<BfmeHashPairA009D83D0> > BfmeHashTableA009D83D0;
+typedef _STL::pair<const int, Gen_t_009d8120_p12cd> BfmeHashPairB009D83D0;
+typedef _STL::hashtable<BfmeHashPairB009D83D0, int, _STL::hash<int>,
+	_STL::_Select1st<BfmeHashPairB009D83D0>, _STL::equal_to<int>,
+	_STL::allocator<BfmeHashPairB009D83D0> > BfmeHashTableB009D83D0;
+namespace _STL {
+template <> BfmeHashTableA009D83D0::~hashtable();
+template <> BfmeHashTableB009D83D0::~hashtable();
+}
 typedef _STL::hash_map<int, Gen_t_009d80b0_p12cd, _STL::hash<int>,
 	_STL::equal_to<int>, _STL::allocator<BfmeHashPairA009D83D0> >
 	BfmeHashMapA009D83D0;
-typedef _STL::pair<const int, Gen_t_009d8120_p12cd> BfmeHashPairB009D83D0;
 typedef _STL::hash_map<int, Gen_t_009d8120_p12cd, _STL::hash<int>,
 	_STL::equal_to<int>, _STL::allocator<BfmeHashPairB009D83D0> >
 	BfmeHashMapB009D83D0;
+
+// Construction-only views: no object is destroyed through either of these
+// inferred template spellings. The actual member teardown uses the owners
+// below, so do not instantiate their unused, unsupported element teardown.
+namespace _STL {
+template <> BfmeHashMapA009D83D0::~hash_map();
+template <> BfmeHashMapB009D83D0::~hash_map();
+}
+
+// These hash-map spellings establish only the already-rowed construction
+// operation. Their guessed element destructors are not native providers.
+// Use the existing opaque lifetime views from XferSave's matched destructor:
+// +0x18 unwinds through 0x0060D0AE, and +0x2C through 0x0060CC99.
+// The qualified constructor call keeps the verified initializer without instantiating
+// destruction of either unsupported element type.
+class Rva0060D0AE
+{
+public:
+	__forceinline Rva0060D0AE() { ((BfmeHashMapA009D83D0 *)this)->BfmeHashMapA009D83D0::hash_map(); }
+	~Rva0060D0AE();
+private:
+	unsigned int m_storage[5];
+};
+class Rva0060CC99Member
+{
+public:
+	__forceinline Rva0060CC99Member() { ((BfmeHashMapB009D83D0 *)this)->BfmeHashMapB009D83D0::hash_map(); }
+	~Rva0060CC99Member();
+private:
+	unsigned int m_storage[5];
+};
 
 // XferSave: same primary vptr 0x00C7B010 as the rowed XferSave dtor 0x0060D0B3
 // and its deleting wrapper 0x0060D24D (XferSaveDeletingDtor.cpp), which
@@ -133,8 +174,8 @@ private:
 	unsigned char m_bfmeFlag;
 	unsigned char m_bfmePadTail[3];
 	_STL::vector<int> m_bfmeVector;
-	BfmeHashMapA009D83D0 m_bfmeB;
-	BfmeHashMapB009D83D0 m_bfmeC;
+	Rva0060D0AE m_bfmeB;
+	Rva0060CC99Member m_bfmeC;
 };
 
 XferSave::XferSave(void)
