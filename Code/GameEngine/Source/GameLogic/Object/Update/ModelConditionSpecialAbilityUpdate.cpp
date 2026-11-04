@@ -45,15 +45,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 const float c_emotionPulseRadiusDefault = 50.0f;
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-private:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
