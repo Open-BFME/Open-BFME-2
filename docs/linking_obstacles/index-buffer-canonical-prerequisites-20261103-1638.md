@@ -88,3 +88,14 @@ link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/Ga
 
 The affected consumer remains unverified. Carry it into the next census;
 no complete-image linking gain or runtime proof follows from this batch.
+
+
+#### IndexBufferClass adoption: seven units done, six need canonical refcount, 2026-11-04
+
+Seven further units accept the canonical IndexBufferClass header, and four of
+them also accept DX8IndexBufferClass. W3DTerrainBackground, W3DTreeBuffer,
+Render2DClassRender, both StreakRenderer RenderStreak units and linegrp remain.
+Each one sees the donor ZH RefCountClass through rendobj.h, linegrp_headers.h or
+an inlined copy, and the canonical header then fails with C2011. These units
+need the canonical RefCountData.h first.
+[Evidence](../../reverse/attempt_support/index-buffer-refcount-blockers-20261104.md).
