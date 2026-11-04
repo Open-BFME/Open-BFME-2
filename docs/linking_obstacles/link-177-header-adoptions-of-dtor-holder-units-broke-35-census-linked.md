@@ -389,3 +389,5 @@ untouched siblings that bind the same COMDAT names. Before adopting a header in 
 a class family's destructors, run `link_check` over every unit touching the family's `??_7` names
 (index `touches`), as LINK-168 recommends. Census confirmation: pending (the next census will
 record these losses).
+
+- **2026-11-04 LaserDraw consolidation:** typed storage and inline teardown now preserve all 23 combined bodies, but LinkGuard refuses `??_7DrawModule@@6B@` and the constructor's `??_7W3DLaserDraw@@6BDrawModule@@@` copy; standalone units still preview as linking. The shared table contract remains prerequisite. [Evidence](../../reverse/attempt_support/laserdraw-tu-contracts-20261104-codexb4.md).
