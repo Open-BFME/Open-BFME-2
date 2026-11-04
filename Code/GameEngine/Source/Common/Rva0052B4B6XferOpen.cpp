@@ -30,7 +30,7 @@ public:
 	bool rva0052B4B6(Xfer *stream);
 private:
 	char m_pad04[0x41 - 0x04];
-	unsigned char m_41[0x10];
+	unsigned char m_digest[0x10];
 	char m_pad51[0x54 - 0x51];
 	MD5_CTX *m_md5;	// +0x54
 	bool m_58;
@@ -40,7 +40,7 @@ bool Rva0052B4B6::rva0052B4B6(Xfer *stream)
 {
 	if (stream && !((XferSave *)this)->Open(stream, 1, !slot4()))
 		return false;
-	memset(m_41, 0, sizeof(m_41));
+	memset(m_digest, 0, sizeof(m_digest));
 	MD5Init(m_md5);
 	m_58 = false;
 	return true;
