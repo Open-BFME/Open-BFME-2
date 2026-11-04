@@ -448,16 +448,7 @@ Rva000657D9::Rva000657D9()
 }
 
 // ??0Rva0007DF07@@QAE@XZ @0x0007DF07 13B, vtable VA 0xbc6f20
-class Rva0007DF07 : public RvaSmallVtableZeroBase
-{
-public:
-	Rva0007DF07();
-	virtual ~Rva0007DF07() {}
-};
-
-inline Rva0007DF07::Rva0007DF07()
-{
-}
+#include "../../Include/Common/Rva0007DF07.h"
 
 // ??0Rva0023DAE8@@QAE@H@Z @0x0023DAE8 15B (RET4, unused word), vtable VA
 // 0xbedaa0 (the refcounted node table Bfme5NodeMakers.cpp stores by address).
