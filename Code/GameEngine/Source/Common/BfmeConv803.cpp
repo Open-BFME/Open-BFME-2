@@ -14,8 +14,9 @@ public:
 	void bfmeTwoEBK(void *x, void *b);
 };
 
-// Provides the storage its two bodies reference; no other TU defines it.
-void *g_bfmeXEBK;
+// Provides the storage its two bodies reference; no other TU defines it. Retail's
+// .data holds the literal's address at 0xDD83B0 and no code stores it.
+void *g_bfmeXEBK = (void *)"TID";
 
 class BfmeObjEBL
 {
