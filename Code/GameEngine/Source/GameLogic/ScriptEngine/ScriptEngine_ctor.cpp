@@ -53,7 +53,13 @@ struct Rva00205AF8 {PlayerMapTree tree;Rva00205AF8():tree(_STL::less<int>(),Play
 class Rva00207724:public MapHeaderB {public:__forceinline Rva00207724(){}~Rva00207724();};
 class Rva00207761:public MapHeaderB {public:__forceinline Rva00207761(){}~Rva00207761();};
 class Rva0020779EMap:public MapHeaderB {public:__forceinline Rva0020779EMap(){}~Rva0020779EMap();};
-struct RvaPair00207E26 {AsciiString text;int scalar;~RvaPair00207E26();};
+struct RvaPair00207E26
+{
+public:
+	~RvaPair00207E26();
+	AsciiString text; // +0x00
+	int scalar; // +0x04
+};
 struct BfmeStringRecord00204A30 {int word0;AsciiString text0;int word1;AsciiString text1;int word2;~BfmeStringRecord00204A30();};
 struct Rva00390729Element {int opaque[3];};
 struct SnapshotBlock {char opaque[12];};

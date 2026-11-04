@@ -9,7 +9,7 @@
 class Rva002046C0Owner
 {
 public:
-	AsciiString resolveName(const AsciiString &s);
+	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
 };
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

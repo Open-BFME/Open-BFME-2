@@ -10,7 +10,12 @@
 class Rva00203B08
 {
 public:
-    bool rva0020424FF();
+	bool rva00203B08();
+	bool rva00203AE5();
+	bool rva0020424FF();
+	char m_pad00[0x1A4D9];
+private:
+	bool m_flag; // +0x1A4D9
 };
 
 class ScriptEngine

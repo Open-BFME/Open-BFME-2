@@ -12,10 +12,38 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 enum ScienceType { SCIENCE_UNKNOWN=0 };
 class Script;
 class Rva0023DAA5List {public:void clear();void*head;};
-class Rva00206593 {public:void rva00206EC7();int header,count,compare;};
-class Rva002065C8 {public:void rva00206EF0();int header,count,compare;};
-class Rva002065FD {public:void rva00206F19();int header,count,compare;};
-class Rva00206632 {public:void rva00206F42();int header,count,compare;};
+class Rva00206593
+{
+public:
+	void rva00206EC7();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
+class Rva002065C8
+{
+public:
+	void rva00206EF0();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
+class Rva002065FD
+{
+public:
+	void rva00206F19();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
+class Rva00206632
+{
+public:
+	void rva00206F42();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
 class Player {public:char opaque[0x50];NameKeyType nameKey;};
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;

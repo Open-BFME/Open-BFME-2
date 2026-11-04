@@ -36,8 +36,9 @@
 
 struct FXBoneInfo
 {
-	AsciiString m_boneName;
-	const void *m_particleSystemTemplate;
+public:
+	AsciiString m_boneName; // +0x00
+	const void *m_template; // +0x04
 };
 
 struct RvaPair0032C0CA

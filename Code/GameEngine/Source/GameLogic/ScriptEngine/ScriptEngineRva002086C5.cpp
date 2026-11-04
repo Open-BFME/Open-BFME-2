@@ -46,7 +46,7 @@ typedef _STL::_Rb_tree_node<TeamValue002086C5> TeamNode002086C5;
 class Rva002046C0Owner
 {
 public:
-	AsciiString resolveName(const AsciiString &name);
+	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
 };
 
 struct Rva0002C4FD : public _STL::pair<const AsciiString, AsciiString>

@@ -70,7 +70,7 @@ public:
 class Rva002046C0Owner
 {
 public:
-	AsciiString resolveName(const AsciiString &name);
+	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
 };
 class ScriptEngine
 {

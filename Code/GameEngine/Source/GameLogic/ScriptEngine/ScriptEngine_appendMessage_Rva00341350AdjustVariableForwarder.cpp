@@ -240,7 +240,11 @@ enum TFade
 	FADE_NONE
 };
 
-class Rva00203B47Host { public: Bool rva00203B47(); };
+class Rva00203B47Host
+{
+public:
+	bool rva00203B47();
+};
 class ScriptEngine
 {
 public:

@@ -18,8 +18,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct FXBoneInfo
 {
-	AsciiString m_boneName;
-	const void *m_template;
+public:
+	AsciiString m_boneName; // +0x00
+	const void *m_template; // +0x04
 };
 
 // This TU only calls the erase implementation owned by FXBoneInfoVectorErase.cpp.

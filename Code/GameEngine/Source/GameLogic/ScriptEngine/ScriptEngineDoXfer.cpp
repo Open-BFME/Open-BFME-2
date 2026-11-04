@@ -163,8 +163,9 @@ struct BfmeStringRecord00204A30
 // through a declaration-only view so this unit emits no second erase copy.
 struct FXBoneInfo
 {
-	AsciiString m_boneName;
-	const void *m_template;
+public:
+	AsciiString m_boneName; // +0x00
+	const void *m_template; // +0x04
 };
 
 namespace _STL
@@ -195,11 +196,12 @@ struct Rva0020A227Element
 // unwind state around the allocation.
 struct SequentialScriptQuad
 {
-	int m_count0;
-	int m_index0;
-	int m_count1;
-	int m_index1;
+public:
 	SequentialScriptQuad() : m_count0(0), m_index0(-1), m_count1(0), m_index1(-1) {}
+	int m_count0; // +0x00
+	int m_index0; // +0x04
+	int m_count1; // +0x08
+	int m_index1; // +0x0C
 };
 
 // Snapshot occupies offset zero; this view spells its four retail slots.
@@ -261,10 +263,38 @@ Xfer *Rva00208081Xfer(Xfer *xfer, void *lists);
 Xfer *Rva002080DAXferList(Xfer *xfer, ListAsciiStringCoord3D *list);
 Xfer *Rva00209A09Xfer(Xfer *xfer, ListAsciiStringValue *lists);
 
-class Rva00206593 { public: void rva00206EC7(); };
-class Rva002065C8 { public: void rva00206EF0(); };
-class Rva002065FD { public: void rva00206F19(); };
-class Rva00206632 { public: void rva00206F42(); };
+class Rva00206593
+{
+public:
+	void rva00206EC7();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
+class Rva002065C8
+{
+public:
+	void rva00206EF0();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
+class Rva002065FD
+{
+public:
+	void rva00206F19();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
+class Rva00206632
+{
+public:
+	void rva00206F42();
+	int header; // +0x00
+	int count; // +0x04
+	int compare; // +0x08
+};
 class Rva00206667 { public: void rva00206F6B(); };
 class Rva0020669C { public: void rva00206F94(); };
 class Rva002066D1 { public: void rva00206FBD(); };

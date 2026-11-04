@@ -64,15 +64,15 @@ public:
 class Rva002046C0Owner
 {
 public:
-	AsciiString resolveName(const AsciiString &name);
+	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
 };
 
 class BfmeOwnZC : public Rva002046C0Owner
 {
 public:
-	ScriptList *rva00204E64(const AsciiString &name);
-	void *bfmeRunZC(BfmeRoomZC name, void *extra);
 	void *rva00204EBB(BfmeRoomZC name, void *extra);
+	void *bfmeRunZC(BfmeRoomZC name, void *extra);
+	ScriptList *rva00204E64(const AsciiString &name);
 };
 
 AsciiString Rva0032B389Join(const AsciiString &left, const AsciiString &right);
