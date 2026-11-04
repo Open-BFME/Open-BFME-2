@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /D_STLP_NO_EXCEPTIONS /Ireference/open-bfme-1/inputs/reference/shims/campaignmanagerascii /Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // ??A?$map@JVLadderPref@@...@QAEAAVLadderPref@@ABJ@Z retail 0x005E017A, 135 bytes.
 // Ported from the Open-BFME-1 donor game/Libraries/Source/WWVegas/WWLib/
@@ -18,8 +18,7 @@
 #include <stl/_config.h>
 #undef _STLP_DEFAULT_CONSTRUCTOR_BUG
 #include <map>
-#include "Common/AsciiString.h"
-#include "Common/UnicodeString.h"
+#include "../../Include/GameNetwork/LadderPref.h"
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
@@ -28,21 +27,9 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
-// Retail inlines ~AsciiString: temporaries are released by a direct call to
-// StringBase<char>::releaseBuffer (0x00887940), not the ??1AsciiString stub.
-inline AsciiString::~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
-// Retail inlines ~UnicodeString: temporaries are released by a direct call to
-// StringBase<unsigned short>::releaseBuffer (0x008881D0), not the ??1UnicodeString stub.
-inline UnicodeString::~UnicodeString() { ((StringBase<unsigned short> *)this)->releaseBuffer(); }
-
-class LadderPref
-{
-public:
-	UnicodeString name;
-	AsciiString address;
-	unsigned short port;
-	long lastPlayDate;
-};
+// Retail builds the default record inline and destroys it through LadderPref.
+inline LadderPref::LadderPref() {}
+inline LadderPref::~LadderPref() {}
 
 typedef std::map<long, LadderPref> LadderPrefMap;
 

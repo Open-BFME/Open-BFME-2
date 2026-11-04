@@ -487,16 +487,11 @@ public:
   char p[0x10];
   int getFirewallBehavior();
 };
-class LadderPref {
-public:
-  LadderPref() {}
-  LadderPref(const LadderPref &);
-  ~LadderPref();
-  UnicodeString name;
-  AsciiString address;
-  unsigned short port;
-  long lastPlayDate;
-};
+#include "../../../../../Include/GameNetwork/LadderPref.h"
+
+// Retail constructs the temporary recent-ladder record in place.
+inline LadderPref::LadderPref() {}
+
 class LadderPreferences {
 public:
   LadderPreferences();
