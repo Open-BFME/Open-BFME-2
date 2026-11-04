@@ -46,26 +46,20 @@ typedef int Int;
 #pragma optimize("", on)
 #include <memory>
 #define _STLP_NO_EXCEPTIONS 1
-
 struct Rva00078F95Item;
-
 struct Rva00078F95Cmp
 {
 public:
 	bool operator()(const Rva00078F95Item *a, const Rva00078F95Item *b) const;
 };
-
 // ??$sort@PAPAURva00078F95Item@@URva00078F95Cmp@@@_STL@@YAXPAPAURva00078F95Item@@0URva00078F95Cmp@@@Z @0x0007A3BE and its callees
 template void _STL::sort<Rva00078F95Item **, Rva00078F95Cmp>(Rva00078F95Item **, Rva00078F95Item **, Rva00078F95Cmp);
-
 struct Rva00DFE144Globals
 {
 	char m_pad[0x1788];
 	int m_1788;
 };
-
 extern class GameLODManager *TheGameLODManager;
-
 struct HordeLodEntry
 {
 	bool m_allow;
@@ -75,9 +69,7 @@ struct HordeLodEntry
 	float m_delta;
 	int m_start;
 };
-
 class MultiIniFieldParse;
-
 class W3DHordeModelDrawModuleData
 {
 public:
@@ -90,30 +82,22 @@ public:
 	char m_pad[0x188];
 	HordeLodEntry m_lods[3];
 };
-
 // 0x00079186 (59B), reached through the forwarder 0x000791E5: a client
 // random pick in [0, count-1] (W3DHordeModelDraw.cpp line 726) scaled by the
 // current LOD entry's percentage at +0x10. GetLODIndex is visible here, so
 // the pick stays in ecx across that call as in retail. Name address-derived.
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
-
 struct HordeModelObject {char p[0x200]; float scale;};
-
 struct HordeAnimation {void *animation;float frame;char p[8];int mode;int direction;unsigned char flag;char tail[3];};
-
 struct HordeModelDraw {char p[8];HordeModelObject *object;char q[0x18-12];void *sortKey;char r[0x110-0x1c];HordeAnimation animations[2];};
-
 struct W3DHordeModelDrawHandle {HordeModelDraw *model; int nameKey;
  bool rva00078CE0(const W3DHordeModelDrawHandle*) const;
  __forceinline bool PartOfSameGroup(const W3DHordeModelDrawHandle& first,float delta) const;
 };
-
 struct HordeGroupNode: _STL::_Rb_tree_node_base {W3DHordeModelDrawModuleData *data;W3DHordeModelDrawHandle **begin;W3DHordeModelDrawHandle **end;W3DHordeModelDrawHandle **capacity;};
-
 // Taking the member address retains the standalone body while the manager
 // below continues to use the same predicate inline.
 bool (W3DHordeModelDrawHandle::*g_HordePartOfSameGroupBody)(const W3DHordeModelDrawHandle&,float) const = &W3DHordeModelDrawHandle::PartOfSameGroup;
-
 // Native7A706..7A75E RET4, WB919920. Existing bfmeAttachYS pin is a
 // provisional BFME1 helper spelling, not an established original method name.
 // Target owns an 8-byte draw/key handle, inserts it into the unsigned-keyed
@@ -121,15 +105,10 @@ bool (W3DHordeModelDrawHandle::*g_HordePartOfSameGroupBody)(const W3DHordeModelD
 // are independently rowed: map7A26E, vector4DFCB0, nameToKey148E1A, new2FDA0.
 // Existing attachment source lead retained; no attachment body is claimed here.
 enum NameKeyType { NAMEKEY_INVALID = 0, NK_UNKNOWN = 0 };
-
 #include "../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 typedef _STL::vector<unsigned int> HordeHandleWordVector;
-
 typedef _STL::map<unsigned int,HordeHandleWordVector> HordeHandleWordMap;
-
 namespace _STL {
 template <> HordeHandleWordVector &HordeHandleWordMap::operator[](const unsigned int &);
 template <> void HordeHandleWordVector::push_back(const unsigned int &);
@@ -139,7 +118,6 @@ template <> __forceinline HordeHandleWordVector::~vector() { _Destroy(this->_M_s
 template <> __declspec(noinline) _Vector_base<unsigned int, allocator<unsigned int> >::_Vector_base(const allocator<unsigned int> &a) throw();
 template <> __declspec(dllimport) __forceinline HordeHandleWordVector::vector(const allocator<unsigned int> &a) throw() : _Vector_base<unsigned int, allocator<unsigned int> >(a) {}
 }
-
 class Gen_00755E70 {
 public:
  void *vtable;
@@ -147,7 +125,6 @@ public:
  char pad[0x2E8-8];
  W3DHordeModelDrawHandle *handle;
 };
-
 class BfmeHelperYS {
 public:
  BfmeHelperYS();
@@ -156,31 +133,24 @@ public:
  _STL::list<HordeHandleWordVector> groups;
  HordeHandleWordVector refs,models;
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(); }
-
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?_M_allocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void _String_base<char,allocator<char> >::_M_allocate_block(unsigned int); }
-
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
 }
-
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-
 struct BfmeNarrowRecord00079C23
 {
 public:
@@ -194,13 +164,11 @@ public:
 	int m_24; // +0x24
 	int m_28; // +0x28
 };
-
 class W3DHordeModelDraw
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
-
 // ?Rva00078BEEGet@@YAHXZ @ 0x00078BEE (6B): global dword getter reading
 // 0x001FDEB4 (mov eax,[mem]; ret). Ported from Open-BFME-1
 // Code/GameEngine/Source/Common/GlobalDwordGetters.cpp (same shape).
@@ -208,34 +176,23 @@ public:
 // inlines the load (Rva007EB810Get precedent).
 
 extern int TheW3DHordeModelDrawCount;
-
 // ?Rva00078BF4Get@@YAHXZ @ 0x00078BF4 (6B): same shape over 0x001FDEB0.
 
 extern int g_Va001FDEB0;
-
 // g_Va001FDEB0: matched references place it at VA 0xde1fb0 (zero-filled .bss).
 int g_Va001FDEB0;
-
 // bfme link decl-only begin
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(basic_string<char, char_traits<char>, allocator<char> > const &); }
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::assign(basic_string<char, char_traits<char>, allocator<char> > const &); }
-
 namespace _STL { template <> char * basic_string<char, char_traits<char>, allocator<char> >::erase(char *, char *); }
-
 namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, char const *, unsigned int); }
-
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowStr12;
-
 template NarrowStr12 &NarrowStr12::assign(const NarrowStr12 &);
-
 template NarrowStr12 *_STL::copy<const NarrowStr12 *, NarrowStr12 *>(const NarrowStr12 *, const NarrowStr12 *, NarrowStr12 *);
-
 // STLport's __lg<int> is emitted by the donor TU Q4IntrosortLoop.cpp (its
 // _STL::sort instantiations call it). The donor's macro-generated q4Sort*
 // callers are omitted here; an explicit instantiation forces the same body.
 template int _STL::__lg<int>(int);
-
 class BfmeSubA
 {
 public:
@@ -244,7 +201,6 @@ public:
 private:
 	void *m_item;
 };
-
 class Rva00752630
 {
 	BfmeSubA m_00;
@@ -257,7 +213,6 @@ class Rva00752630
 public:
 	Rva00752630(const Rva00752630 &other);
 };
-
 class Shadow
 {
 public:
@@ -284,7 +239,6 @@ public:
     void enableShadowRender(bool b) { enabled = b; }
     void enableShadowInvisible(bool b) { invisible = b; }
 };
-
 // Retail 0x00079985, 16 bytes. Name unknown. If the horde model-draw manager
 // singleton TheW3DHordeModelDrawManager (0x00DE1FB8) exists, tail-jump into
 // its matched clear member 0x00079911 (two vector releases plus list clear).
@@ -292,29 +246,19 @@ public:
 // not visible (it would inline) -- retail jumps to it.
 
 class W3DHordeModelDrawManager;
-
 extern W3DHordeModelDrawManager *TheW3DHordeModelDrawManager;
-
 // The native pair cleanup frees the mapped vector's storage at pair+4.
 // Its three-word footprint also agrees with the existing container owner.
 struct Rva00079995Element { _STL::vector<unsigned int> m_values; };
-
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00079995Element>, _STL::_Select1st<_STL::pair<int const, Rva00079995Element> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00079995Element> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva00079995Element>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00079995Element> > >);
-
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char,_STL::allocator<char> >::~_String_base(); }
-
 namespace _STL { template <> basic_string<char,_STL::char_traits<char>,_STL::allocator<char> >::~basic_string(); }
-
 namespace _STL { template <> void _String_base<char,_STL::allocator<char> >::_M_deallocate_block(); }
-
 namespace _STL { template <> void _STLP_alloc_proxy<_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > *,_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > >,_STL::allocator<_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > > >::deallocate(_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > *,unsigned int); }
-
 namespace _STL { template <> void allocator<_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > >::deallocate(_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > *,unsigned int) const; }
-
 namespace _STL { template <> void _List_base<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> >,_STL::allocator<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > >::clear(); }
-
 class Rva000799D0
 {
 public:
@@ -322,9 +266,7 @@ public:
 private:
 	_STL::list<_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > > m_list;
 };
-
 class Rva00079D14Value;
-
 struct Rva00079D14Node
 {
 	unsigned int _color;
@@ -333,7 +275,6 @@ struct Rva00079D14Node
 	Rva00079D14Node *_right;
 	unsigned int _key;
 };
-
 struct Rva00079D14Iter
 {
     ::_STL::_Rb_tree_node_base *_M_node;
@@ -346,7 +287,6 @@ struct Rva00079D14Iter
         return *this;
     }
 };
-
 struct Rva00079D14Out
 {
 	Rva00079D14Node *node;
@@ -354,7 +294,6 @@ struct Rva00079D14Out
 	Rva00079D14Out(const Rva00079D14Iter &iter, bool flag)
 		: node((Rva00079D14Node *)iter._M_node), inserted(flag) {}
 };
-
 class Rva00079D14Tree
 {
 public:
@@ -365,7 +304,6 @@ private:
 	Rva00079D14Node *m_header; // +0x00
 	unsigned int m_count; // +0x04
 };
-
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
 // specialization takes those calls inline so this TU emits no external copy.
@@ -374,16 +312,12 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-
 struct Rva00079ED4Record {  char bytes[1]; };
-
 // Instantiate the recovered member; retain only its required template dependencies.
 // Declared only (stl batch): retail's body for this name is the rowed one at its
 // pinned address; this TU's copy is not retail's.
 namespace _STL { template <> _STL::_Rb_tree_iterator<_STL::pair<int const,Rva00079ED4Record>,_STL::_Nonconst_traits<_STL::pair<int const,Rva00079ED4Record> > > _Rb_tree<int,_STL::pair<int const,Rva00079ED4Record>,_STL::_Select1st<_STL::pair<int const,Rva00079ED4Record> >,_STL::less<int>,_STL::allocator<_STL::pair<int const,Rva00079ED4Record> > >::insert_unique(_STL::_Rb_tree_iterator<_STL::pair<int const,Rva00079ED4Record>,_STL::_Nonconst_traits<_STL::pair<int const,Rva00079ED4Record> > >,_STL::pair<int const,Rva00079ED4Record> const &); }
-
 template _STL::_Rb_tree_iterator<_STL::pair<int const, Rva00079ED4Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00079ED4Record> > > _STL::map<int, Rva00079ED4Record, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00079ED4Record> > >::insert(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva00079ED4Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00079ED4Record> > >, _STL::pair<int const, Rva00079ED4Record> const &);
-
 //
 // ?rva0007894E@W3DHordeModelDrawManager@@QAE_NPAVRva0007894EOuter@@@Z @0x0007894E 61B probe v1
 // Native call sites79FE7 and7A0F1 pass manager in ECX before this RET4 helper.
@@ -399,7 +333,6 @@ public:
 	unsigned char m_440; // +0x440
 	unsigned char m_441; // +0x441
 };
-
 class Rva0007894EOuter
 {
 public:
@@ -456,11 +389,8 @@ public:
 	int m_04;
 	Rva00270260 *m_08;
 };
-
 class Rva000789A0Named;
-
 struct Rva000789A0KeyHolder { int m_unk; NameKeyType m_key; };
-
 class Rva000789A0Outer
 {
 public:
@@ -517,7 +447,6 @@ public:
 	char m_pad[0x2E4];
 	Rva000789A0KeyHolder *m_holder; // +0x2E8
 };
-
 class W3DScriptedModelDraw
 {
 public:
@@ -525,11 +454,8 @@ public:
 private:
 	char m_pad04[8];
 };
-
 class MiBase1 { public: virtual void f1(); };
-
 class Rva0078B83_B2 { public: virtual void f2(); private: char m_pad04[0x2D4]; };
-
 class Rva0078B83 : public W3DScriptedModelDraw, public MiBase1, public Rva0078B83_B2
 {
 public:
@@ -539,7 +465,6 @@ private:
 	int m_2EC;
 	int m_2F0;
 };
-
 // ?rva00078C10@Rva00078C10@@QAE_NPBV1@PAH1@Z @0x00078C10 114B
 //
 // Guarded LOD-index query: zero both out params, require the +0x18 handles to
@@ -553,17 +478,13 @@ class Rva0055A88BDwordField
 public:
 	int get() const;
 };
-
 class Rva000B49F9
 {
 public:
 	unsigned char rva000B49F9();
 };
-
 #include "../../Include/Common/GameLODManager.h"
-
 extern GameLODManager *TheGameLODManager;
-
 class Rva00078C10
 {
 public:
@@ -590,11 +511,8 @@ public:
     char m_pad1C[0x110 - 0x1C];
     Slot m_slots[2];
 };
-
 BFME_DISP_BYTE_SETTER(Rva00078ACEByteSlot, 0x28E)
-
 BFME_DISP_BYTE_SETTER(Rva00078B2BByteSlot, 0x28D)
-
 // Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
 // Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
 // Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
@@ -618,7 +536,6 @@ public:
 	virtual void na5();
 	virtual const char *getName();
 };
-
 class W3DHordeModelDrawManager {
 public:
 	int rva0007A54B();
@@ -639,11 +556,9 @@ public:
 public:
 	void rva000789A0Update(Rva000789A0Outer *obj);
 };
-
 // The manager entry7A7DD installs its static40B instance; guarded7A75E reads
 // the same pointer. Original singleton identifier is unknown.
 W3DHordeModelDrawManager *TheW3DHordeModelDrawManager;
-
 // ??RRva00078F95Cmp@@QBE_NPBURva00078F95Item@@0@Z @0x00078F95 380B
 //
 // Sort predicate of the sort<Rva00078F95Item**> family (rowed in
@@ -656,24 +571,17 @@ W3DHordeModelDrawManager *TheW3DHordeModelDrawManager;
 // drawable NULL") gives the comparison order; its single byte result local
 // (local_65) is the shared result variable kept here.
 class Rva0055A88BDwordField;
-
 class Rva000B49F9;
-
 struct Rva00078F95Item
 {
 	Rva00078C10 *m_draw;
 	int m_priority;
 };
-
 typedef Rva00079D14Out (Rva00079D14Tree::*Rva00079D14FindFn)(
 	const Rva00079D14Value &);
-
 typedef bool Bool;
-
 typedef float Real;
-
 typedef unsigned int UnsignedInt;
-
 class SizedForwarderSlots
 {
 public:
@@ -811,7 +719,6 @@ public:
 	virtual void slot131();
 	virtual void slot132();
 };
-
 class Rva00078AC6Forwarder
 {
 public:
@@ -820,7 +727,6 @@ private:
 	char m_lead[0x4];
 	SizedForwarderSlots *m_inner;
 };
-
 class Rva00078AE3
 {
 public:
@@ -831,7 +737,6 @@ private:
 	unsigned int bit30 : 1;
 	unsigned int word04, word08, word0C;
 };
-
 class Rva00078ADB
 {
 public:
@@ -840,23 +745,16 @@ private:
 	char m_pad00[0x1C];
 	Rva00078AE3 m_1C;
 };
-
 class DataChunkInput;
-
 struct DataChunkInfo;
-
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
-
 typedef WorldHeightMap Rva000B0F82;
-
 class Holder00527BA2
 {
 public:
 	void Rva00527BA2(char *firstValue, Int secondValue, Int thirdValue);
 };
-
 typedef Holder00527BA2 Rva00527BA2;
-
 namespace InGameSimpleHelp
 {
 class Impl
@@ -865,12 +763,10 @@ public:
 	Int rva0053973F(Int firstValue);
 };
 }
-
 typedef InGameSimpleHelp::Impl Rva0053973F;
-
 struct FloatPair;
-
 #include "../../Include/GameClient/InGameCommandButtonHelp.h"
+#include "../../Include/Common/INI/FieldParse.h"
 
 typedef InGameCommandButtonHelp::Impl Rva0056CA31;
 
@@ -936,18 +832,28 @@ static __forceinline void _Construct(_STL::pair<int const, Rva0007989CRecord> *d
 }
 }
 
-template _STL::_Rb_tree_node<_STL::pair<int const, Rva0007989CRecord> > * _STL::_Rb_tree<int, _STL::pair<int const, Rva0007989CRecord>, _STL::_Select1st<_STL::pair<int const, Rva0007989CRecord> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0007989CRecord> > >::_M_create_node(_STL::pair<int const, Rva0007989CRecord> const &);
-
 namespace _STL {
 template <> void _Construct<NarrowStr12, NarrowStr12>(NarrowStr12 *, const NarrowStr12 &);
 }
-
-template _STL::vector<NarrowStr12, _STL::allocator<NarrowStr12> >::vector(const _STL::vector<NarrowStr12, _STL::allocator<NarrowStr12> > &);
 
 namespace _STL
 {
 template <> void _Construct<basic_string<char>, basic_string<char> >(basic_string<char> *, const basic_string<char> &);
 }
+
+extern const FieldParse s_hordeModelDrawFieldTable[];
+
+class W3DModelDrawModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
+
+template _STL::_Rb_tree_node<_STL::pair<int const, Rva0007989CRecord> > * _STL::_Rb_tree<int, _STL::pair<int const, Rva0007989CRecord>, _STL::_Select1st<_STL::pair<int const, Rva0007989CRecord> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0007989CRecord> > >::_M_create_node(_STL::pair<int const, Rva0007989CRecord> const &);
+
+template _STL::vector<NarrowStr12, _STL::allocator<NarrowStr12> >::vector(const _STL::vector<NarrowStr12, _STL::allocator<NarrowStr12> > &);
 
 template void _STL::vector<_STL::basic_string<char> >::_M_insert_overflow(
 	_STL::basic_string<char> *, const _STL::basic_string<char> &, const _STL::__false_type &, unsigned int, bool);
@@ -1636,6 +1542,58 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 	m_1C.rva00078AE3(reinterpret_cast<const Rva00078AE3*>(firstValue));
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0007989C.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy_narrow_string.cpp
+
+// ??$__uninitialized_copy narrow basic_string helper at 0x00079A6E (38B); stride-12
+// copy loop through the rowed _Construct at 0x00079A41. Same recipe as
+// stlport_uninitialized_copy.cpp: vector copy ctor instantiation emits the
+// __uninitialized_copy worker out-of-line through the declared-only
+// _Construct specialization below.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_insert_overflow.cpp
+
+//
+// STLport 4.5.3 vector<basic_string<char> > growth path, dedicated TU:
+// _M_insert_overflow (retail 0x0007A307, 183B) and push_back (0x0007A773, 55B).
+// Target evidence: the retail calls read this element's matched helpers,
+// _Construct 0x00079A41, __uninitialized_fill_n 0x00079A94,
+// __uninitialized_copy 0x00079A6E and _M_clear 0x00079EF1; push_back is the
+// only caller of _M_insert_overflow. /G7 is what emits retail's imul-by-12
+// scaling (the AnimSet sibling's IMUL recipe; /G6 keeps the lea chain), and
+// /Ireference/shims/bfmealloc keeps allocate a two-argument out-of-line call
+// into the 12-byte ICF allocate at 0x00395928. _Construct is declared but not
+// defined so the copies call its matched body.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+
 // tu-skeleton: 0x000789E3 159B ??0W3DHordeModelDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
@@ -1654,7 +1612,14 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 
 // tu-skeleton: 0x000791ED 50B ?Rva000791EDCopy@@YAPAVRva00752630@@PAV1@00@Z -- matched in Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x000793E5 21B ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataParse.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataParse.cpp
+
+// ?buildFieldParse@W3DHordeModelDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000793E5
+void W3DHordeModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(s_hordeModelDrawFieldTable, 0);
+	W3DModelDrawModuleData::buildFieldParse(parse);
+}
 
 // tu-skeleton: 0x000793FA 53B ??1ShadowTypeInfo@Shadow@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp (not merged yet)
 
@@ -1682,13 +1647,6 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 
 // tu-skeleton: 0x0007983D 27B ??$find@PAVAsciiString@@PBD@_STL@@YAPAVAsciiString@@PAV1@0ABQBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_find.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0007989C.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-
 // tu-skeleton: 0x000798BE 25B ??$_Destroy@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@YAXPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp (not merged yet)
 
 // tu-skeleton: 0x00079911 116B ?rva00079911@W3DHordeModelDrawManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00079911Clear.cpp (not merged yet)
@@ -1698,14 +1656,6 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 // tu-skeleton: 0x00079A0C 53B ?rva00079A0C@Rva00079A0C@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00079A41 45B ??$_Construct@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V12@@_STL@@YAXPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_narrow_string.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy_narrow_string.cpp
-
-// ??$__uninitialized_copy narrow basic_string helper at 0x00079A6E (38B); stride-12
-// copy loop through the rowed _Construct at 0x00079A41. Same recipe as
-// stlport_uninitialized_copy.cpp: vector copy ctor instantiation emits the
-// __uninitialized_copy worker out-of-line through the declared-only
-// _Construct specialization below.
 
 // tu-skeleton: 0x00079A94 37B ??$__uninitialized_fill_n@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@IV12@@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PAV10@IABV10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n12.cpp (not merged yet)
 
@@ -1736,23 +1686,6 @@ void Rva00078ADB::rva00078ADB(Int firstValue)
 // tu-skeleton: 0x0007A263 11B ?clear@?$vector@URva00079EA1Element@@V?$allocator@URva00079EA1Element@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x0007A26E 153B ??A?$map@IV?$vector@IV?$allocator@I@_STL@@@_STL@@U?$less@I@2@V?$allocator@U?$pair@$$CBIV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@@_STL@@QAEAAV?$vector@IV?$allocator@I@_STL@@@1@ABI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_insert_overflow.cpp
-
-//
-// STLport 4.5.3 vector<basic_string<char> > growth path, dedicated TU:
-// _M_insert_overflow (retail 0x0007A307, 183B) and push_back (0x0007A773, 55B).
-// Target evidence: the retail calls read this element's matched helpers,
-// _Construct 0x00079A41, __uninitialized_fill_n 0x00079A94,
-// __uninitialized_copy 0x00079A6E and _M_clear 0x00079EF1; push_back is the
-// only caller of _M_insert_overflow. /G7 is what emits retail's imul-by-12
-// scaling (the AnimSet sibling's IMUL recipe; /G6 keeps the lea chain), and
-// /Ireference/shims/bfmealloc keeps allocate a two-argument out-of-line call
-// into the 12-byte ICF allocate at 0x00395928. _Construct is declared but not
-// defined so the copies call its matched body.
-// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
-// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
-// overload keeps the inlined code and offers the link no second copy.
 
 // tu-skeleton: 0x0007A41E 122B ?rva007A41E@W3DHordeModelDrawManager@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0007A4E6ContainerDtor.cpp (not merged yet)
 

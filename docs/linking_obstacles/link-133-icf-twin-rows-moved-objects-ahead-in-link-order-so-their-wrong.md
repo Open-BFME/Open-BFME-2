@@ -1,5 +1,7 @@
 ### LINK-133: ICF-twin rows moved objects ahead in link order, so their wrong COMDAT copies became the kept copy
 
+Update (2026-11-04, codex3): the horde TU merge guard rejected `Rva000796CBPairInit.cpp` because composition would break another unit's `allocator<const LocomotorTemplate *>::allocate` copy; that donor remains separate. Inspect the selected allocator and emitted destination copy before retrying. The parser-only merge passes the guard; [scope, index and verification evidence](../../reverse/attempt_support/horde-module-data-parser-consolidation-20261104-codex3.md).
+
 Status: Placement cause cleared by census rule `retail-truth-5` (re-baseline at `840db2d676`); 56 newly exposed units open as source repairs (below). Updated: 2026-10-29.
 
 2026-10-28 consumer recheck at `6d7a215d6b`, refreshed index `d92e7e6635`:
