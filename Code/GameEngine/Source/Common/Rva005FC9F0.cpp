@@ -5,19 +5,14 @@
 
 class Image;
 
-namespace StrategicHUD
-{
-class ArmyMemberIconMovieClip
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
+
+class StrategicHUD::ArmyMemberIconMovieClip::Impl
 {
 public:
-	class Impl
-	{
-	public:
-		void rva005FC85A(int value);
-		void SetTypeImage(const Image *image);
-	};
+	void rva005FC85A(int value);
+	void SetTypeImage(const Image *image);
 };
-}
 
 class Rva005FC9F0
 {

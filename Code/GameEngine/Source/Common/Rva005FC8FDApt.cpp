@@ -224,7 +224,9 @@ struct Rva005FC8FDInner
 	char m_name[1];
 };
 
-// The owner's observer list at +0x08 and its walk (rowed forEach 0x005FCA6D,
+// The canonical Rva00330757Member base starts at +0x08; its field00
+// begins the observer-list view used by these notification walks.
+// The owner's observer list and its walk (rowed forEach 0x005FCA6D,
 // Common/Rva005FCA00ListenerWalks.cpp, named for its address). The observer
 // slots follow WorldBuilder's StrategicInGameUI::ArmyMemberIcon::Impl
 // handlers OnArmyMemberIconMovieClipLeftClicked / RollOut / RollOver; the
@@ -250,52 +252,9 @@ private:
 	unsigned int m_index;
 };
 
-// The owner's first base: the shared one-slot vtable 0x007C6F20 (a virtual
-// dtor), restored last by the owner's dtor 0x005FCF0E, and a word at +0x04.
-// Retail's ctor stores no vptr for it (novtable here; inference).
-class __declspec(novtable) Rva007C6F20Base
-{
-public:
-	__forceinline Rva007C6F20Base() : m_04(0) {}
-	virtual ~Rva007C6F20Base();
-
-protected:
-	int m_04;
-};
-
-// WorldBuilder's Observable<StrategicHUD::ArmyMemberIconMovieClipObserver>
-// (addObserver / dispatchNotice) is the owner's second base at +0x08: the
-// observer list, built by the pinned 0x00330757 (vector plus index -1).
-template <class T> class Observable
-{
-public:
-	Observable(); // 0x00330757 (pinned)
-	~Observable();
-
-protected:
-	Rva005FCA6DList m_observers;
-};
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
 
 namespace StrategicHUD {
-class ArmyMemberIconMovieClipObserver;
-
-class ArmyMemberIconMovieClip : public Rva007C6F20Base, public Observable<ArmyMemberIconMovieClipObserver>
-{
-public:
-	class Impl;
-
-	ArmyMemberIconMovieClip(AptMovieClipFrame *frame, const AsciiString &type);
-	virtual ~ArmyMemberIconMovieClip();
-	virtual void DoUpdate();
-	virtual void notifyClicked();
-	virtual void notifyRollOut();
-	virtual void notifyRollOver();
-	void rva005FC9E0(const Image *image);
-
-private:
-	Impl *m_impl; // +0x18 (owning; reset by the rowed 0x005FCB2D)
-};
-
 // The hero flavour (WorldBuilder names the class through
 // ReferencePtr<StrategicHUD::ArmyHeroIconMovieClip>): vtable 0x0087A1D0, its
 // content clip type "ArmyHeroIcon" (retail string).
@@ -308,17 +267,17 @@ public:
 
 void StrategicHUD::ArmyMemberIconMovieClip::notifyClicked()
 {
-	m_observers.forEach(&Rva005FCA6DListener::OnArmyMemberIconMovieClipLeftClicked, this);
+	((Rva005FCA6DList *)&field00)->forEach(&Rva005FCA6DListener::OnArmyMemberIconMovieClipLeftClicked, this);
 }
 
 void StrategicHUD::ArmyMemberIconMovieClip::notifyRollOut()
 {
-	m_observers.forEach(&Rva005FCA6DListener::OnArmyMemberIconMovieClipRollOut, this);
+	((Rva005FCA6DList *)&field00)->forEach(&Rva005FCA6DListener::OnArmyMemberIconMovieClipRollOut, this);
 }
 
 void StrategicHUD::ArmyMemberIconMovieClip::notifyRollOver()
 {
-	m_observers.forEach(&Rva005FCA6DListener::OnArmyMemberIconMovieClipRollOver, this);
+	((Rva005FCA6DList *)&field00)->forEach(&Rva005FCA6DListener::OnArmyMemberIconMovieClipRollOver, this);
 }
 
 class StrategicHUD::ArmyMemberIconMovieClip::Impl

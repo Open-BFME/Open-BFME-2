@@ -1,0 +1,12 @@
+Source claims: OK (4 sources, scoped byte-verified)
+Compile: 1 of 4 TU(s) (deps-cache: 3 current)
+Funclet pins: 19 row(s) verified past a renumbered $L label
+    $L1824 (Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp): $L1824 was renumbered; verified parent EH data places $L2223 at 0x007A5F58
+    $L1864 (Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp): $L1864 was renumbered; verified parent EH data places $L2258 at 0x007A6160
+    $L1933 (Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp): $L1933 was renumbered; verified parent EH data places $L2328 at 0x007A6144
+    $L1954 (Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp): $L1954 was renumbered; verified parent EH data places $L2353 at 0x007A6186
+    $L2323 (Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp): $L2323 was renumbered; verified parent EH data places $L2441 at 0x007A60C9
+Functions: OK 60/60 matched across 4 source file(s)
+String-ref verify: OK (20 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

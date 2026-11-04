@@ -314,19 +314,15 @@ Rva005FCFE5::Rva005FCFE5(unsigned int level)
 // The constructor is called by its row name ??0Impl@ArmyMemberIconMovieClip@StrategicHUD@@
 // (Rva005FC8FDApt.cpp); this view declares only that constructor and the size.
 class AptMovieClipFrame;
-namespace StrategicHUD {
-class ArmyMemberIconMovieClip
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
+
+class StrategicHUD::ArmyMemberIconMovieClip::Impl
 {
 public:
-    class Impl
-    {
-    public:
-        Impl(ArmyMemberIconMovieClip *owner, AptMovieClipFrame *frame, const AsciiString &name);
-    private:
-        unsigned char m_storage[0x38];
-    };
+    Impl(ArmyMemberIconMovieClip *owner, AptMovieClipFrame *frame, const AsciiString &name);
+private:
+    unsigned char m_storage[0x38];
 };
-}
 
 // Target5FCEA9-5FCF0E: base word04 zero; observer storage ctor at+8;
 // vtableC7A1BC; 0x38-byte allocation and implementation ctor; holder at+18.
