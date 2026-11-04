@@ -59,3 +59,100 @@ were inspected and their split dry runs refused:
 No source, ledger, or claims changed. The next unheld shard-list candidate is
 `Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrder.cpp`; recheck its
 allocation and wind-down before its scoped planner.
+
+## Continuation: GarrisonObjectGroupOrder
+
+Allocation and planner currency passed. Plan: 15 approved rows, five donors,
+three mixed files. Merge dry run accepted no donors: both ctor donors trigger
+`C2373` vftable redefinition, Xfer lacks the class `xfer` member, and the
+`rva00546DD4` donor cannot instantiate abstract `AICommandInterface` and lacks
+its method declaration. Reconciliation is required for
+`GarrisonObjectGroupOrder`, `GroupOrder`, and `Object`; LinkGuard marked all five
+destination/provider units census-linked.
+
+All mixed files were inspected and split dry runs refused:
+
+| Mixed file | Split dry-run result |
+| --- | --- |
+| `GroupOrderClassNames.cpp` | Two carved rows match alone, but destination lacks `getClassName` and `getClassKey`. |
+| `GroupOrderClones.cpp` | Carved `0x00546CB8` matches alone, but destination lacks `rva00546CB8`. |
+| `GroupOrderDerivedDtors.cpp` | Carved `0x00546CAD` fails bytes. |
+
+No changes or claims were applied. Next unheld queue candidate:
+`Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollide.cpp`;
+recheck allocation and wind-down before proceeding.
+
+## Continuation: HordeMemberCollide
+
+Allocation and scoped planner currency passed. Plan: three approved rows, two
+donors, one mixed file. Merge dry run accepted no donors: the class view lacks
+the constructor used by the OnCollide donor (`C2511`), requiring
+`HordeMemberCollide` view reconciliation; both involved units are census-linked.
+The listed mixed file `Rva004BB68EDerived.cpp` had no rows approved for this
+destination, so its split dry run reported `blocked: no row of that file is
+approved for that TU`. Nothing was applied or claimed. Next listing candidate:
+`Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPower.cpp`.
+
+## Continuation: SiegeDeployHordeSpecialPower
+
+Allocation and planner currency passed. Plan: 17 approved rows, seven donors,
+one mixed file. Merge dry run accepted none; the destination itself fails
+LinkGuard because the merged object loses selected `DeflectSpecialPowerModuleData`
+vftable COMDAT. Other donors fail bytes, ctor declaration, missing method
+declarations, or abstract `AICommandInterface` instantiation. Class
+reconciliation is required for `Object`, `Rva00589079`,
+`SiegeDeployHordeSpecialPower`, and its module data. The mixed
+`ConstIntGetters4.cpp` proposal carves `0x004C63D8` with matching bytes, but
+LinkGuard refuses moving selected string COMDAT
+`??_C@_0BN@KBCIEECP@SiegeDeployHordeSpecialPower?$AA@` without matching
+private/weak-free context. Nothing applied. The next shard list candidate is
+`Code/GameEngine/Source/GameLogic/Object/Made002CCA37.cpp`.
+
+## Continuation: Made002CCA37
+
+Allocation and plan checks passed (three approved rows, two donors, no mixed
+files). Merge dry run accepted none: LinkGuard reports that moving
+`Made002CCA37Dot.cpp` would make the census-linked unit lose retail-selected
+`??1Made002CCA37@@UAE@XZ`. No changes or claims were applied. Next shard-list
+candidate is `Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp`.
+
+## Continuation: LevelUpUpgrade
+
+Allocation and scoped planner currency passed. Plan: four approved rows, two
+donors, one mixed file. Merge dry run accepted none: the mux-slot donor has an
+undefined `UpgradeMux` base (`C2504`) and the target class view lacks members;
+`LevelUpUpgrade` view reconciliation is required. Both units are census-linked.
+The mixed `FireWeaponWhenDeadBehaviorDerived.cpp` file had no approved rows for
+this TU, so split dry run refused with `blocked: no row of that file is approved
+for that TU`. Nothing applied. Next listing candidate:
+`Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp`.
+
+## Rejected split trial: TooltipUpgrade
+
+`TooltipUpgrade.cpp` passed the allocation check and current scoped consolidation
+planner. Its merge dry run accepted no donors because of class-view prerequisites.
+The mixed `ModuleDataBuildFieldParseChained.cpp` split dry run accepted exactly
+row `0x004B7A2E` and its owned data at `0x00C58C38`; LinkGuard judged the split
+residual and destination together. Tool application preserved the rows and
+repointed `functions.csv`, `data_rows.csv`, `data_ledger.csv`, and `tu_map.csv`,
+and updated `docs/doxygen/sources.cfg`.
+
+Trial verification: `./build.sh TooltipUpgrade.cpp` passed 3/3 rows;
+`./build.sh ModuleDataBuildFieldParseChained.cpp` passed 46/46 rows;
+`find_declared_unmatched.py` found all definitions already matched;
+`check_csv.py` passed; `data_check.py --converged` checked 11 addresses with no
+second names or unjudged rows; staged code identity checked 49 rows with zero
+new findings; staged data check reported zero findings. The ownership shadow
+scan reports B1 for a private `DelayedDeathBodyModuleData` view in
+`TooltipUpgrade.cpp`; it is outside the moved row and needs class/view owner
+reconciliation by another contributor. The commit hook rejected this copy:
+"`TooltipUpgrade.cpp`: declares its own `DelayedDeathBodyModuleData`; include
+Code/GameEngine/Include/GameLogic/Module/DelayedDeathBodyModuleData.h instead
+(or `// class-gate: allow DelayedDeathBodyModuleData <reason>` for a proved
+codegen view)". This seat cannot repair class views, so the trial source and
+ledger changes were restored and all four claims released. No split landed and
+no identity debt was retired. The two source paths were searched in active
+tools, hooks, workflows and include directives; no active path consumer was
+found. The remaining provenance comments retain original-path history.
+LinkGuard found no lost selected provider/COMDAT in the dry run. Another
+contributor must resolve the shared-header class view before retrying.

@@ -166,3 +166,27 @@ in the trial evidence linked above. Both it and `VeterancyCrateCollide.cpp`
 remain blocked on class/view or LinkGuard prerequisites; no split or merge was
 applied. The next unheld candidate was
 `Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrder.cpp`.
+That destination also had zero accepted donors and three split dry-run
+refusals; exact errors are in the linked trial evidence. Next unheld candidate:
+`Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollide.cpp`.
+That candidate's sole clean donor and mixed-file split were also blocked; see
+the trial evidence. Next unheld candidate:
+`Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPower.cpp`.
+That destination and its mixed getter split were refused by LinkGuard; details
+are in the trial evidence. Next unheld candidate:
+`Code/GameEngine/Source/GameLogic/Object/Made002CCA37.cpp`.
+That TU's only donor was refused by LinkGuard because its destructor COMDAT
+would lose the census-selected owner. Next unheld candidate:
+`Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp`.
+That TU's donor failed class/base-view compilation and its mixed file had no
+approved row for this destination. Exact evidence is in the trial note. Next
+unheld candidate: `Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp`.
+
+The `TooltipUpgrade.cpp` split trial carved code row `0x004B7A2E` and owned data
+at `0x00C58C38`; builds and LinkGuard passed, but the commit hook rejected a
+private `DelayedDeathBodyModuleData` declaration where its shared header is
+required. As class-view repair is outside this seat, the trial was restored and
+its file/RVA claims released. Nothing landed and no file reduction occurred.
+The exact gate error and verification evidence are in the linked trial note.
+Another contributor must reconcile this class view before retrying. Continue
+with another allocated TU after rechecking allocation and wind-down.
