@@ -2326,5 +2326,5 @@ void DefaultAlphaModuleInfo::LoadPostProcess() {}
 void DefaultColorModuleInfo::LoadPostProcess() {}
 void LightningDrawModuleInfo::LoadPostProcess() {}
 void DefaultUpdateModuleInfo::LoadPostProcess() {}
-void RenderObjectUpdateModuleInfo::LoadPostProcess() {}
+inline void RenderObjectUpdateModuleInfo::LoadPostProcess() {}
 }
