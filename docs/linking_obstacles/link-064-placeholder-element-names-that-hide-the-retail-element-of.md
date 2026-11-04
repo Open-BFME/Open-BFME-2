@@ -114,3 +114,5 @@ then rewrite `ProductionPrerequisite.cpp` against a BFME 2 TU-local view like
 the linked `ProductionPrerequisiteIsSatisfied_...cpp` and
 `Thing/ProductionPrerequisiteAddUnitPrereq.cpp`. Do not use the ZH `PreRTS.h`.
 No source or row changed. No clearance is claimed.
+
+**2026-11-04:** Removed the unrowed `ProductionPrerequisite::init` emitter, preserving 6/6 rows and retiring one hatch; `AsciiString::set` leaves the unresolved set, but LINKED stays 0. The supported split cannot carve the two implicit helpers (`no definition spells its name`); recover explicit PerTurnStats template definitions before moving them. [Evidence](../../reverse/attempt_support/production-prerequisite-init-20261104.md).

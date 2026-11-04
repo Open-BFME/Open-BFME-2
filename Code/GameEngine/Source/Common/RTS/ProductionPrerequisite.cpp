@@ -78,26 +78,16 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // ProductionPrerequisite::~ProductionPrerequisite: defined in ProductionPrerequisiteCtor.cpp (its row's unit).
 
 //-----------------------------------------------------------------------------
-// ?init@ProductionPrerequisite@@QAEXXZ present-unmatched
-void ProductionPrerequisite::init()
-{
-	// Taking the member address retains the matched push_back instantiation
-	// after removing the duplicate addUnitPrereq body. This scope can name
-	// the private record without changing the class's access or mangling.
-	void (std::vector<PrereqUnitRec>::*emitPushBack)(const PrereqUnitRec &) =
-		&std::vector<PrereqUnitRec>::push_back;
-	(void)emitPushBack;
-	m_prereqUnits.clear();
-	m_prereqSciences.clear();
-	
-}
-
 //=============================================================================
 // ProductionPrerequisite::resolveNames is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteResolveNames.cpp (0x004F4B6D).
 
 //-----------------------------------------------------------------------------
 Int ProductionPrerequisite::calcNumPrereqUnitsOwned(const Player *player, Int counts[MAX_PREREQ]) const
 {
+	// Taking the member address keeps the rowed vector helper instantiated.
+	void (std::vector<PrereqUnitRec>::*emitPushBack)(const PrereqUnitRec &) =
+		&std::vector<PrereqUnitRec>::push_back;
+	(void)emitPushBack;
 	const ThingTemplate *thingTemplate[MAX_PREREQ];
 	UnsignedInt cnt = m_prereqUnits.size();
 	if (cnt > MAX_PREREQ)
