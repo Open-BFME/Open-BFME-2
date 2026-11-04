@@ -16,7 +16,7 @@ struct Rva001087BBNode
     char m_unknown00[4];
     bool m_flag04;
     char m_unknown05[0x114-5];
-    Rva001087BBNode *m_next114;
+    Rva001087BBNode *m_next;
 };
 class Rva00108660ResourceManager
 {
@@ -32,25 +32,25 @@ void Rva00108660ResourceManager::rva001087BB()
 {
     Rva001087BBNode *node=m_head0C;
     m_head0C=0;
-    for(;node;node=node->m_next114) node->m_flag04=false;
+    for(;node;node=node->m_next) node->m_flag04=false;
     node=m_head04;
     m_head04=0;
-    for(;node;node=node->m_next114) node->m_flag04=false;
+    for(;node;node=node->m_next) node->m_flag04=false;
     node=m_head08;
     m_head08=0;
-    for(;node;node=node->m_next114) node->m_flag04=false;
+    for(;node;node=node->m_next) node->m_flag04=false;
 }
 void Rva00108660ResourceManager::rva001087FD()
 {
     Rva001087BBNode *node=m_head0C;
     m_head0C=0;
-    for(;node;node=node->m_next114) node->m_flag04=true;
+    for(;node;node=node->m_next) node->m_flag04=true;
     node=m_head04;
     m_head04=0;
-    for(;node;node=node->m_next114) node->m_flag04=true;
+    for(;node;node=node->m_next) node->m_flag04=true;
     node=m_head08;
     m_head08=0;
-    for(;node;node=node->m_next114) node->m_flag04=true;
+    for(;node;node=node->m_next) node->m_flag04=true;
 }
 class W3DVolumetricShadowManager;
 extern W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
