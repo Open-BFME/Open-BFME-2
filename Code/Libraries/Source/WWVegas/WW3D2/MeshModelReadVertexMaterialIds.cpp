@@ -18,26 +18,14 @@
 // Dedicated TU: marker-less meshmdlio.cpp cannot take rows (PostProcess
 // precedent). Frameless, no EH temps (no BfmeHandleCX here).
 
-class VertexMaterialClass;
-
 #include "../WWLib/ChunkLoadClass.h"
 
-class MeshMatDescClass
+#include "MeshMatDescClass.h"
+
+inline bool MeshMatDescClass::Has_Material_Data(int pass)
 {
-public:
-	bool Has_Material_Data(int pass) { return Material[pass] != 0 || MaterialArray[pass] != 0; }
-	void Set_Single_Material(VertexMaterialClass *material, int pass);
-	void Set_Material(int index, VertexMaterialClass *material, int pass);
-
-private:
-	char m_pad0[0xA8];
-	VertexMaterialClass *Material[4];
-	char m_pad1[0xE8 - 0xB8];
-	void *MaterialArray[4];
-	char m_pad2[0x118 - 0xF8];
-};
-
-typedef char MeshMatDescSizeCheck[sizeof(MeshMatDescClass) == 0x118 ? 1 : -1];
+	return Material[pass] != 0 || MaterialArray[pass] != 0;
+}
 
 class MeshLoadContextClass
 {
