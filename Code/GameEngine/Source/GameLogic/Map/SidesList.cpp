@@ -155,7 +155,7 @@ public:
 class Win32GameEngine
 {
 public:
-	virtual void * rva0005E959();
+	virtual void * createAudioManager();
 };
 
 class VideoPlayer

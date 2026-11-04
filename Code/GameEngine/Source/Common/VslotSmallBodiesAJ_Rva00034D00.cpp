@@ -65,7 +65,7 @@ public:
 class Win32GameEngine
 {
 public:
-	virtual void * rva0005E959();
+	virtual void * createAudioManager();
 };
 
 #include "../GameClient/Rva000869CF.h"

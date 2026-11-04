@@ -147,7 +147,7 @@ public:
 class Win32GameEngine
 {
 public:
-	virtual void * rva0005E959();
+	virtual void * createAudioManager();
 };
 
 #include "../GameClient/Rva000869CF.h"
@@ -405,7 +405,7 @@ public:
 };
 void * Rva00041E65::rva00041E65()
 {
-	return Win32GameEngine::rva0005E959();
+	return Win32GameEngine::createAudioManager();
 }
 
 // 0x00043F94: tail jump to Debug_Statistics::Get_Draw_Calls.

@@ -4715,3 +4715,5 @@ __ehhandler$?s4ParseFieldsRva0059D1F0@@YAXPAVINI@@PAUGen_00489270@@@Z,0x0077DE1B
 ?rva00068420@Rva00068420@@QAEXXZ,0x00068420,"Renamed to ?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ: sole caller is removeAllBibs slot 14; forwards to W3DBibBuffer::clearAllBibs as Zero Hour's method does"
 ?rva001524EE@Rva0015229CVector@@QAEXXZ,0x001524EE,"Renamed to ?clear@Rva0015229CVector@@QAEXXZ by tools/rename.py (inferred)"
 ?rva005F6306@Rva005F6306@@QAEXXZ,0x005F6306,"Renamed to ?hideLeaderRankProgress@Rva005F6306@@QAEXXZ by tools/rename.py (inferred)"
+?g_00E0322C@@3PAVFormationTranslator@@A,0x00A0322C,"Renamed to ?TheFormationTranslator@@3PAVFormationTranslator@@A by tools/rename.py (inferred)"
+?rva0005E959@Win32GameEngine@@UAEPAXXZ,0x0005E959,"Renamed to ?createAudioManager@Win32GameEngine@@UAEPAXXZ by tools/rename.py (inferred)"

@@ -95,7 +95,7 @@ enum UpdateSleepTime
 class Win32GameEngine
 {
 public:
-	virtual void * rva0005E959();
+	virtual void * createAudioManager();
 };
 #include "../../../../GameEngine/Source/GameClient/Rva000869CF.h"
 class VideoPlayer

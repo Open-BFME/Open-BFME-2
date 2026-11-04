@@ -38,7 +38,7 @@ public:
 
 class FormationTranslator;
 // g_00E0322C: matched references place it at VA 0xe0322c (retail .data initial value 0).
-FormationTranslator * g_00E0322C = 0;
+FormationTranslator * TheFormationTranslator = 0;
 
 #include <new>
 
@@ -60,5 +60,5 @@ FormationTranslator::FormationTranslator()
 		h = 0;
 	}
 	m_08 = h;
-	g_00E0322C = this;
+	TheFormationTranslator = this;
 }

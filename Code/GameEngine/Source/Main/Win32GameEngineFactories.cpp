@@ -154,7 +154,7 @@ public:
 	virtual void *rva00041D62();
 	virtual void *createThingFactory();
 	virtual void *rva00041E30();
-	virtual void *rva0005E959();
+	virtual void *createAudioManager();
 	virtual void *rva00041E6A();
 	virtual void *createGameLogic();
 	virtual void *createModuleFactory();
@@ -175,7 +175,7 @@ void *Win32GameEngine::rva00041E30()
 	return new Rva004FA1F;
 }
 
-void *Win32GameEngine::rva0005E959()
+void *Win32GameEngine::createAudioManager()
 {
 	return new MilesAudioManager;
 }
