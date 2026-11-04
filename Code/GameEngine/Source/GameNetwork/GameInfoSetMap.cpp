@@ -14,12 +14,7 @@
 
 #include "../../Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access = 0, int bufferSize = 0);
-};
-extern FileSystem *TheFileSystem;
+#include "../../Include/Common/FileSystem.h"
 
 #include "unicode_string.h"
 #include "../../Include/GameClient/MapMetaData.h"
@@ -60,7 +55,7 @@ void GameInfo::setMap(AsciiString mapName)
 			path.removeLastChar();
 			path.removeLastChar();
 			reinterpret_cast<StringBase<char> *>(&path)->concat("tga");
-			File *fp = TheFileSystem->openFile(path.str());
+			File *fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 2;
@@ -89,7 +84,7 @@ void GameInfo::setMap(AsciiString mapName)
 				}
 			}
 			reinterpret_cast<StringBase<char> *>(&newMapName)->concat("/map.ini");
-			fp = TheFileSystem->openFile(newMapName.str());
+			fp = TheFileSystem->openFile(newMapName.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 4;
@@ -98,7 +93,7 @@ void GameInfo::setMap(AsciiString mapName)
 			}
 
 			path = GetStrFileFromMap(m_mapName);
-			fp = TheFileSystem->openFile(path.str());
+			fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 8;
@@ -107,7 +102,7 @@ void GameInfo::setMap(AsciiString mapName)
 			}
 
 			path = GetSoloINIFromMap(m_mapName);
-			fp = TheFileSystem->openFile(path.str());
+			fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 16;
@@ -116,7 +111,7 @@ void GameInfo::setMap(AsciiString mapName)
 			}
 
 			path = GetAssetUsageFromMap(m_mapName);
-			fp = TheFileSystem->openFile(path.str());
+			fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 32;
@@ -125,7 +120,7 @@ void GameInfo::setMap(AsciiString mapName)
 			}
 
 			path = GetReadmeFromMap(m_mapName);
-			fp = TheFileSystem->openFile(path.str());
+			fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 64;
@@ -134,7 +129,7 @@ void GameInfo::setMap(AsciiString mapName)
 			}
 
 			path = GetArtPreviewFromMap(m_mapName);
-			fp = TheFileSystem->openFile(path.str());
+			fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 128;
@@ -143,7 +138,7 @@ void GameInfo::setMap(AsciiString mapName)
 			}
 
 			path = GetPicPreviewFromMap(m_mapName);
-			fp = TheFileSystem->openFile(path.str());
+			fp = TheFileSystem->openFile(path.str(), 0);
 			if (fp)
 			{
 				m_mapMask |= 256;
