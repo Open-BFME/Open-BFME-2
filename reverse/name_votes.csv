@@ -23658,3 +23658,10 @@ Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp
 Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C75|rva004C1C75,b4c5f730eb8aa16849dcacf9,claude-opus-5-5,claude3-20261103-234145-10,w-29a6ae2a2f9f,2026-11-03
 Code/Libraries/Source/Apt/AptValue/Rva006DF470Initialize.cpp|class||Rva006DE2C0,55b6d0fc2190b9e79cd1b3df,claude-opus-5-5,claude3-20261103-235334-4,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AC9AFCreate.cpp|function|0x003AD03B|rva003AD03B,80284ad72846ff26ff28ed3c,claude-opus-5-5,claude3-20261103-235334-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp|member|AIInner48|m_48,f868f0cc9e5d9eddb107083c,claude-opus-5-5,claude3-20261104-010234-7,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|member|Rva0029B380Elem|m_0,b4f5b76c58805be87e920598,claude-opus-5-5,claude3-20261104-010234-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|member|Rva0029B380Elem|m_4,af913aef09078db80f41fda5,claude-opus-5-5,claude3-20261104-010234-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|member|Rva0029B380Elem|m_8,a921173a6179710be10fa16e,claude-opus-5-5,claude3-20261104-010234-9,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBuildQueueDetailsMovieClip.cpp|function|0x005F6899|rva005F6899,d638b92a5d9ff25d33c00a96,claude-opus-5-5,claude3-20261104-010234-10,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0033F83DSetter.cpp|function|0x0033F83D|rva0033F83D,e6f86afac048c6a1aebc195e,claude-opus-5-5,claude3-20261104-010234-12,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateRva004906CD.cpp|member|Rva004906CDTemplate|m_108,a9e86bb33699a6e10ce6c30b,claude-opus-5-5,claude3-20261104-010234-17,w-29a6ae2a2f9f,2026-11-04
