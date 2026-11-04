@@ -27,6 +27,7 @@ public:
     }
 };
 #include "../WWLib/ChunkLoadClass.h"
+#include "MeshModelClass.h"
 class MeshMatDescClass {
 private:
     unsigned char prefix[0x78];
@@ -58,19 +59,6 @@ private:
 BfmeHandleCX MeshLoadContextClass::Peek_Texture(int index) {
     return TextureHandles[index];
 }
-class MeshModelClass {
-private:
-    char prefix[0x24];
-public:
-    int PolyCount;
-private:
-    char before_desc[0x64];
-public:
-    MeshMatDescClass *DefMatDesc;
-    int Get_Polygon_Count() const { return PolyCount; }
-protected:
-    bool read_texture_ids(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
 bool MeshModelClass::read_texture_ids(ChunkLoadClass &cload, MeshLoadContextClass *context) {
     unsigned int texid;
     int pass = context->CurPass;
