@@ -38,11 +38,10 @@
 // Author: Matthew D. Campbell, August 2002
 
 #define __PLACEMENT_VEC_NEW_INLINE
-// Retail's allocators free through the game's free wrapper at 0x00030830 (the rowed
-// Rva00030830GameFree), not the msvcrt import: the bfmealloc allocator's ::free(p) is bound to it.
+// This worker's temporary strings free through the game wrapper at 0x00030830.
+// Bind that call in the string proxy below, independently of STL include order.
 #include <stdlib.h>
 void __cdecl Rva00030830GameFree(void *);
-#define free Rva00030830GameFree
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -67,7 +66,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
-{ allocator<char>::deallocate(__p, __n); }
+{ if (__p != 0) Rva00030830GameFree(__p); }
 }
 // Keep _String_base<char>::~_String_base inline-only: no call here leaves it out
 // of line, and this TU's frameless COMDAT copy is not retail's 0x0000B3C0 body.
