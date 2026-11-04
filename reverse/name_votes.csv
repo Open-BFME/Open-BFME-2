@@ -23785,3 +23785,6 @@ Code/GameEngine/Source/Common/BfmeConv448.cpp|function|0x00483BBB|bfmeGoBEC,69a7
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|member|CommandLineSwitchPair|m_08,fa7122ee3a45969c13729e59,claude-opus-5-5,claude3-20261104-142530-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|member|CommandLineSwitchPair|m_0C,f09a546966c76430366bdd99,claude-opus-5-5,claude3-20261104-142530-2,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/BfmeConv1377.cpp|member|BfmeMsgVIR|m_bfme1c,7ddbd2bb33a33d0122be2382,claude-opus-5-5,claude3-20261104-142530-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/Object/Update/Rva00495801.cpp|member|Rva00495801W|m_slot80,50aa15899a08dfa26bbdb6cf,claude-opus-5-5,claude3-20261104-153636-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/BfmeConv671.cpp|member|BfmeSubDEA|m_bfmeColor,427ea2d189d27b390e0238f0,claude-opus-5-5,claude3-20261104-153636-5,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyDamageState.cpp|member|Rva004BDA67ObjInner|m_val61C,91ff3f1a41ac28482855e2a8,claude-opus-5-5,claude3-20261104-153636-8,w-29a6ae2a2f9f,2026-11-04
