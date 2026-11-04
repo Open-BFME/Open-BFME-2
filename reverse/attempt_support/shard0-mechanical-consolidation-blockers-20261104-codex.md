@@ -110,3 +110,51 @@ merged object loses its selected `_M_erase` COMDAT; the other STL donor fails
 bytes and `ImageCollectionFindImage.cpp` has duplicate declarations. No new
 merge or claim resulted. The three SiegeDockingBehavior RVA claims remained held
 by the Display seat in the read-only claim check.
+
+## Follow-up trials on `20cc875663d5e9397b7a4ff8e72fe853310547f5`
+
+Fifteen further allocated destinations passed `--check-tu`, used current scoped
+planner reports, and had supported dry runs. Fourteen accepted no donors; their
+first blockers were:
+
+| Destination | Dry-run blocker |
+|---|---|
+| `WW3D2/matpass.cpp` | `RefCountClass` redefinition; other constructor donors need absent class members; destructor/install donors lose rows. |
+| `GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp` | Constructor overload absent from destination class. |
+| `GameLogic/Object/Upgrade/DelayedUpgrade.cpp` | `upgradeImplementation` absent from `DelayedUpgrade`. |
+| `GameLogic/Object/Create/EvaAnnounceClientCreate.cpp` | Constructor overload, slot member and `xfer` absent from destination class. |
+| `GameLogic/Object/Behavior/BridgeTowerBehavior.cpp` | Duplicate `SubsystemInterface`, `Xfer` and `GameLogic` declarations. |
+| `W3DDevice/GameClient/Drawable/Draw/W3DLightDraw.cpp` | `DrawModule` undefined for Xfer/DoDraw donors. |
+| `GameLogic/Object/Create/GrantUpgradeCreate.cpp` | Duplicate `SubsystemInterface`; missing `Object::rva00293077`; duplicate module-data declarations. |
+| `Common/MemoryReadFile.cpp` | `StringBase` redefinition. |
+| `Fesl/gamebrowser/gamebrowserpinger.cpp` | `initPool`, `clear` and `m_0c` absent; generated module vftable redefinition. |
+| `GameLogic/Object/Create/InheritUpgradeCreate.cpp` | Constructor overload and `xfer`/`onBuildComplete` absent; undeclared generated special member. |
+| `GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp` | `doSpecialPower` and `doSpecialPowerAtLocation` absent from class. |
+| `GameLogic/Object/Body/OathbreakerBody.cpp` | `attemptDamage` absent from class. |
+| `Fesl/ariesudp.cpp` | `Rva00661650AriesUdp.cpp` fails byte verification. |
+| `GameLogic/Object/Update/DelayedDeathBody.cpp` | Constructor overload and `xfer`/`m_b100` absent from class. |
+
+The fifteenth destination, `W3DDevice/GameClient/W3DGameClient.cpp`, accepted
+`Rva004C5C6.cpp` unchanged (three rows) and rejected the font factory on duplicate
+STLport `pair`, snow factory on duplicate `createSnowManager`, `Rva0004C662Factory`
+on absent `Rva004C743::rva0004C662`, and create-drawable donor on duplicate
+`Coord3D`/`Thing`. The normal merge moved the accepted rows; the nine-row TU passed
+`./build.sh` and `find_declared_unmatched.py`. `tu_ownership.py --staged`,
+`code_identity_gate.py --staged` (shadow; zero new findings), `data_check.py
+--staged`, and `ms_header_audit.py check --staged` passed. The merge tool's LinkGuard
+kept all six census-linked source units. The new W3DGameClient object still needs a
+current census/link-batch receipt; this merge claims no new linking coverage.
+
+The tooling audit covered pending source paths: only the absorbed
+`Code/GameEngine/Source/Common/Rva004C5C6.cpp` moved into the existing approved
+W3DGameClient TU. Current source and doxygen ownership point to the TU. The old
+path remains in historical naming votes/agreement evidence and the last census's
+`reverse/link_status.csv`; these records were not rewritten. No active include,
+tool, hook, workflow or build/configuration consumer of the old path was found.
+The full outgoing-range provider/consumer check remains the publish hook's
+`link_batch_audit`; its result determines whether this new object is verified.
+
+Next: source/header owners should reconcile the tabled declaration, view, STLport
+and byte prerequisites. Recheck allocation after inputs change. Carry
+W3DGameClient into the scheduled census and review the publish hook's link audit;
+do not claim link progress from the old per-file census row.
