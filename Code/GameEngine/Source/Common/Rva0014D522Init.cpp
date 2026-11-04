@@ -3,12 +3,7 @@
 // defined in dx8wrapper.cpp (the data ledger's owner for both addresses); this
 // unit reads them rather than defining a second global at each address.
 void __cdecl rva0014D522(void *o, void *b);
-class DX8Wrapper {
-  friend void __cdecl rva0014D522(void *o, void *b);
-protected:
-  static float ZNear;
-  static float ZFar;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 class Rva0014D522Inner {
 public:
   char m_pad00[0x88];

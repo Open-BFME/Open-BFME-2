@@ -2,12 +2,7 @@
 // ?SetPosition@Rva0014D887This@@QAEXPAVRva0014D887Outer@@PAX@Z retail 0x0014D887 135 bytes. Point-light Center callback. Evidence: same Outer Inner m_fn88 +0x88 and This m_04 +0x04 as sibling Rva0014D722This; global Light_Environment at VA 0x00DEDA14; rowed countPoint 0x0013F750 findPoint 0x0013F780; stride 0x54 lea +0x3c is getPointCenter per LightEnvironmentAccessors; SSE movss xorps; REF constant at 0x0014FEFD callback.
 class LightEnvironmentClass;
 class Rva0014D887This;
-class DX8Wrapper
-{
-protected:
-	static LightEnvironmentClass *Light_Environment;
-	friend class Rva0014D887This;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 class Rva0013F6F0LightEnv
 {
 public:

@@ -13,19 +13,13 @@
 //
 // THE TABLE.  0x009ECA38 is the data ledger's DX8Wrapper::TextureStageStates
 // (protected, dx8wrapper.cpp; WW3D2 declares it unsigned [MAX_TEXTURE_STAGES][32]),
-// so a minimal view of the real class reads it through an inline accessor. The
+// so this function reads it as a friend of the canonical DX8WrapperClass.h. The
 // function's own identity is still not recovered.
 
-class DX8Wrapper
-{
-public:
-	static __forceinline unsigned Texture_Stage_State(int stage, int state) { return TextureStageStates[stage][state]; }
-protected:
-	static unsigned TextureStageStates[8][32];	// 0x009ECA38
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // shl eax,5 / add / indexed load off the texture-stage-state table.
 int __cdecl Rva00945460Lookup(int a, int b)
 {
-	return DX8Wrapper::Texture_Stage_State(a, b);
+	return DX8Wrapper::TextureStageStates[a][b];
 }

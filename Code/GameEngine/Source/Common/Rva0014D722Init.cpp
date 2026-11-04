@@ -1,13 +1,8 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // dx8wrapper.cpp's protected ?Light_Environment@DX8Wrapper@@1PAVLightEnvironmentClass@@A
-// at VA 0x00DEDA14, reached through a TU-scoped friend view.
+// at VA 0x00DEDA14, read as a friend of the canonical DX8WrapperClass.h.
 class LightEnvironmentClass;
-class DX8Wrapper
-{
-  friend class Rva0014D722This;
-protected:
-  static LightEnvironmentClass *Light_Environment;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 struct Rva0013F6F0Light {
   float m_f00;
   float m_f04;

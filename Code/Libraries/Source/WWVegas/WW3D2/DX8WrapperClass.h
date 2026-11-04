@@ -376,6 +376,15 @@ private:
     friend unsigned char Rva00131068GetByte();
     friend unsigned char Rva0006E19BGetByte();
     friend unsigned char Rva00116F70GetByte();
+    friend class Rva0014D722This;
+    friend class Rva0014D887This;
+    friend void __cdecl bfmeGoELHa(void *);
+    friend void __cdecl rva0014D522(void *, void *);
+    friend int Rva00042F67Get();
+    friend int Rva00042F6DGet();
+    friend int Rva0011009AGet();
+    friend int Rva001100A0Get();
+    friend int __cdecl Rva00945460Lookup(int, int);
 };
 
 #endif

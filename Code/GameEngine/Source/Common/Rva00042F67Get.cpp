@@ -6,14 +6,9 @@
 // load (Rva007EB810Get precedent).
 
 // dx8wrapper.cpp's protected ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A, read through a
-// TU-scoped friend view (real decoration, no alias).
+// friend of the canonical DX8WrapperClass.h (real decoration, no alias).
 struct IDirect3DDevice8;
-class DX8Wrapper
-{
-	friend int Rva00042F67Get(void);
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 int Rva00042F67Get(void)
 {

@@ -17,12 +17,7 @@ struct BfmeObjELH
 
 // The device and per-frame counters are DX8Wrapper's protected statics
 // (dx8wrapper.cpp); number_of_DX8_calls is its file-scope counter.
-class DX8Wrapper
-{
-protected:
-	static struct IDirect3DDevice8 *D3DDevice;		// retail 0x00DEDA34
-	friend void __cdecl bfmeGoELHa(void *);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern unsigned number_of_DX8_calls;		// retail 0x00DEDA98
 
 void __cdecl bfmeGoELHa(void *a)
