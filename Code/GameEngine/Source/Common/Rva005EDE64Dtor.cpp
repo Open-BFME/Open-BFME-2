@@ -38,13 +38,12 @@ public:
  AptRef(const RegionAwardBinding&regionAwardBinding):Rva00579E47(regionAwardBinding){}
  ~AptRef(){if(pointer)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)pointer);}
 };
-class AptCommandMapAdder {
-public:
- AptCommandMapAdder(); ~AptCommandMapAdder();
- void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
- __forceinline void AddRegionAwardCommand(const AsciiString&name,RegionAwardBinding desc){AddCommandMap(name,desc);}
-private:char pad[12];
-};
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddRegionAwardCommand(AptCommandMapAdder &adder, const AsciiString&name,RegionAwardBinding desc)
+{
+	adder.AddCommandMap(name,desc);
+}
 class Rva005242D7 {
 public:Rva005242D7();~Rva005242D7();
 private:char pad[12];
@@ -104,11 +103,11 @@ Rva005EDE64::Rva005EDE64(RegionAwardOwner*owner,int level,const AsciiString&name
 :m_owner(owner),m_level(level),m_name(name),m_state(0),m_players(2),m_selected(-1) {
  AsciiString prefix;
  prefix.format("_level%u.",m_level);
- m_commands.AddRegionAwardCommand(prefix+m_name+"_OnOpen",RegionAwardBinding(this,&Rva005EDE64::OnOpen));
- m_commands.AddRegionAwardCommand(prefix+m_name+"_OnClosed",RegionAwardBinding(this,&Rva005EDE64::OnClosed));
- m_commands.AddRegionAwardCommand(prefix+m_name+"_OnCancelButtonClicked",RegionAwardBinding(this,&Rva005EDE64::OnCancelButtonClicked));
- m_commands.AddRegionAwardCommand(prefix+m_name+"_OnSelectButtonClicked",RegionAwardBinding(this,&Rva005EDE64::OnSelectButtonClicked));
- m_commands.AddRegionAwardCommand(prefix+m_name+"_OnPlayerClicked",RegionAwardBinding(this,&Rva005EDE64::OnPlayerClicked));
+ AddRegionAwardCommand(m_commands, prefix+m_name+"_OnOpen",RegionAwardBinding(this,&Rva005EDE64::OnOpen));
+ AddRegionAwardCommand(m_commands, prefix+m_name+"_OnClosed",RegionAwardBinding(this,&Rva005EDE64::OnClosed));
+ AddRegionAwardCommand(m_commands, prefix+m_name+"_OnCancelButtonClicked",RegionAwardBinding(this,&Rva005EDE64::OnCancelButtonClicked));
+ AddRegionAwardCommand(m_commands, prefix+m_name+"_OnSelectButtonClicked",RegionAwardBinding(this,&Rva005EDE64::OnSelectButtonClicked));
+ AddRegionAwardCommand(m_commands, prefix+m_name+"_OnPlayerClicked",RegionAwardBinding(this,&Rva005EDE64::OnPlayerClicked));
  ((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetRegionNameString(UnicodeString::TheEmptyString);
  for(int i=0;i<6;++i)((StrategicHUD::RegionAwardMovieClip::Impl*)this)->SetRegionBonusTextString(i,UnicodeString::TheEmptyString);
  int m_playerCount=m_players.size();

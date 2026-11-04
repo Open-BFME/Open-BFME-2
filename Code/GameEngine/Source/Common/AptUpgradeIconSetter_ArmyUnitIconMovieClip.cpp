@@ -118,21 +118,12 @@ private:
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+static __forceinline void AddCommandMapBinding(AptCommandMapAdder &adder, const AsciiString &name, FunctorBinding binding)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapBinding(const AsciiString &name, FunctorBinding binding)
-	{
-		AddCommandMap(name, binding);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	adder.AddCommandMap(name, binding);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -229,8 +220,8 @@ StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip(AptMovieClipFrame *fr
 	memset(m_slot, 0, sizeof(m_slot));
 	AsciiString prefix;
 	prefix.format("_level%u.", ((const Rva005FC754PtrChaseField *)this)->get());
-	m_commandMaps.AddCommandMapBinding(prefix + *(const AsciiString *)((const Rva005FC75BAddDwordField *)this)->get() + "_OnUpgradeIconRollOver", FunctorBinding(this, &ArmyUnitIconMovieClip::OnUpgradeIconRollOver));
-	m_commandMaps.AddCommandMapBinding(prefix + *(const AsciiString *)((const Rva005FC75BAddDwordField *)this)->get() + "_OnUpgradeIconRollOut", FunctorBinding(this, &ArmyUnitIconMovieClip::OnUpgradeIconRollOut));
+	AddCommandMapBinding(m_commandMaps, prefix + *(const AsciiString *)((const Rva005FC75BAddDwordField *)this)->get() + "_OnUpgradeIconRollOver", FunctorBinding(this, &ArmyUnitIconMovieClip::OnUpgradeIconRollOver));
+	AddCommandMapBinding(m_commandMaps, prefix + *(const AsciiString *)((const Rva005FC75BAddDwordField *)this)->get() + "_OnUpgradeIconRollOut", FunctorBinding(this, &ArmyUnitIconMovieClip::OnUpgradeIconRollOut));
 }
 
 

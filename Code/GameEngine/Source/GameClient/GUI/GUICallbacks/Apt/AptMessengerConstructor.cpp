@@ -152,14 +152,7 @@ class AptExternHandler;
 class AptCustomRender;
 class AptScreenInitGadgets;
 
-class AptCommandMapAdder
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {

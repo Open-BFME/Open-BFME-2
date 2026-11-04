@@ -82,11 +82,7 @@ public:
 class AptCommandMap;
 class AptExternHandler;
 
-class AptCommandMapAdder
-{
-private:
-	unsigned char m_names[0xC];
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
 class AptExternHandlerAdder
 {
