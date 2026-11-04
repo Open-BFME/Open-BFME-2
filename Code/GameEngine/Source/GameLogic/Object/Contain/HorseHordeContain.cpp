@@ -5,36 +5,23 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include <math.h>
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
-
 class Object;
-
 class Thing;
-
 class Locomotor;
-
 class Path;
-
 float normalizeAngle(float);
-
 class Rva0008BB38FloatField {public:float get()const;};
-
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
-
 struct Rva003642DFNode;
-
-
 #include "../../../../Include/GameLogic/PathfindPath.h"
-
 // Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };
-
 class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType);void rva0045003E(int,CommandSourceType);
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
-
 class AIUpdateInterfaceHead
 {
 	public:
@@ -177,7 +164,6 @@ virtual void s21C(float);
 virtual void s220();
 char m_unrecovered04[0x1c];
 };
-
 class AIUpdateInterface : public AIUpdateInterfaceHead, public AICommandInterface
 {
 public:
@@ -185,25 +171,17 @@ int rva00260DED()const;bool isMoving()const;void setPathExtraDistance(float);
 char pad20[0x140-0x20];Path*path;char pad144[0x1dc-0x144];int movementType;char pad1e0[0x1f0-0x1e0];Locomotor*loco;
 AICommandInterface*command(){return (AICommandInterface*)((char*)this+0x20);}
 };
-
 struct LocoTemplate {char pad[0x70];int appearance;};
-
 class Locomotor {public:float getMaxSpeed(Object*)const;bool rva001E4194(Object*);char pad[4];const LocoTemplate*data;};
-
 class Rva001E46E1 {public:float rva001E4845(Object*);float rva001E46E1(Object*);};
-
 #include "../../../../Include/GameClient/View.h"
-
 #include "../../../Common/Thing/thing.h"
-
 enum KindOfType {KINDOF_0088=0x88};
-
 struct HorseModelConditionBits {unsigned words[19];
  __forceinline unsigned test(unsigned n)const{return words[n/32]&(1u<<(n%32));}
  __forceinline void set(unsigned n){words[n/32]|=1u<<(n%32);}
  __forceinline void reset(unsigned n){words[n/32]&=~(1u<<(n%32));}
 };
-
 class Object {public:
 void rva0028ACCA(int);void rva0028ACEE(int,int);void rva0028AE6D();int rva0028B511()const;bool isKindOf(KindOfType)const;
 char pad00[0x38];Coord3D pos;float angle;char pad48[0x10c-0x48];HorseModelConditionBits model;char pad158[0x198-0x158];Coord3D future;char pad1a4[2];bool futureValid;char pad1a7[0x258-0x1a7];AIUpdateInterface*ai;
@@ -215,8 +193,22 @@ __forceinline void clear11C(unsigned mask){int bit=mask==0x100?136:135;if(model.
 __forceinline void set11C(unsigned mask){int bit=mask==0x100?136:135;if(!model.test(bit)){model.set(bit);rva0028AE6D();}}
 
 };
-
 #include "../../../../Include/GameLogic/AIPathfind.h"
+// ?getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ @0x4766e8
+// (69B): cached pool-name key for HorseHordeContain. The class
+// identity comes from the pool-name string the body pushes
+// ("HorseHordeContain"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 class AI {public:char pad[0x10];Pathfinder*pathfinder;};
 
@@ -262,6 +254,8 @@ public:
 	virtual void attackTargetNow(Object *target, int select);
 };
 
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 class HorseHordeContain : public HordeContain
 {
 public:
@@ -279,6 +273,8 @@ public:
 // tu-skeleton: 0x0047664D 6B ?Rva0047664DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x00476653 87B ??1HorseHordeContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva0047680E.cpp
 
@@ -428,7 +424,15 @@ void HorseHordeContain::_horseUpdatePosition(Object *obj, const Coord3D *destina
 
 // tu-skeleton: 0x004766E3 5B ?j_004766e3@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
-// tu-skeleton: 0x004766E8 69B ?getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp
+
+// ?getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ
+NameKeyType HorseHordeContain::getModuleNameKey() const
+{
+	static NameKeyType TheHorseHordeContainPoolKey =
+		TheNameKeyGenerator->nameToKey("HorseHordeContain");
+	return TheHorseHordeContainPoolKey;
+}
 
 // tu-skeleton: 0x0047672D 28B ??_GHorseHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainDtor.cpp (not merged yet)
 
@@ -437,7 +441,3 @@ void HorseHordeContain::_horseUpdatePosition(Object *obj, const Coord3D *destina
 // tu-skeleton: 0x0047676B 163B ?rva0047676B@HorseHordeContain@@UAE_NM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva0047676B.cpp (not merged yet)
 
 // tu-skeleton: 0x00476D77 647B ?rva00476D77@HorseHordeContain@@QAEXPAVObject@@PBUCoord3D@@M_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva00476D77.cpp (not merged yet)
-
-// tu-skeleton: 0x0078B3EF 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078B3FC 10B __ehhandler$?getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp (not merged yet)

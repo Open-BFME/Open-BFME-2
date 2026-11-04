@@ -19966,8 +19966,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03684,8,.data,global,?$S2@?BG@??rva004708BC@HordeContain@@UAEPAVObject@@PBVMatrix3D@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,owned,,1,4
 0x00A0368C,4,.data,global,?$S1@?BN@??changeToFormation@HordeContain@@UAEXPBVThingTemplate@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainChangeToFormation.cpp,owned,,1,2
 0x00A03690,4,.data,global,_s_rva007B0DE0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03694,4,.data,global,?TheHorseHordeContainPoolKey@?1??getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp,owned,,1,2
-0x00A03698,4,.data,global,?$S1@?1??getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp,owned,,1,4
+0x00A03694,4,.data,global,?TheHorseHordeContainPoolKey@?1??getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,owned,,1,2
+0x00A03698,4,.data,global,?$S1@?1??getModuleNameKey@HorseHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,owned,,1,4
 0x00A0369C,4,.data,global,_s_rva007B0E24,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A036A0,4,.data,global,?TheHordeTransportContainPoolKey@?1??getModuleNameKey@HordeTransportContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp,owned,,1,2
 0x00A036A4,4,.data,global,?$S1@?1??getModuleNameKey@HordeTransportContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp,owned,,1,4

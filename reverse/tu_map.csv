@@ -36824,7 +36824,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004766C3,5,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp
 0x004766C8,27,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainXfer.cpp
 0x004766E3,5,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,C,C=0x004766C8..0x004766E8 provisional,Code/gen_small/gthunks_000_admitted.cpp
-0x004766E8,69,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp
+0x004766E8,69,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
 0x0047672D,28,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainDtor.cpp
 0x00476749,34,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva0047676B.cpp
 0x0047676B,163,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainRva0047676B.cpp
@@ -79752,8 +79752,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078B3D5,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp
 0x0078B3DD,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp
 0x0078B3E5,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp
-0x0078B3EF,13,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,P,P=0x004766E8@FuncInfo0x0093A230 provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp
-0x0078B3FC,10,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,P,P=0x004766E8@FuncInfo0x0093A230 provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainPoolKey.cpp
+0x0078B3EF,13,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,P,P=0x004766E8@FuncInfo0x0093A230 provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
+0x0078B3FC,10,code,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp,approved,P,P=0x004766E8@FuncInfo0x0093A230 provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
 0x0078B406,8,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp,approved,P,P=0x00477003@FuncInfo0x0093A254,Code/gen_small/uw_gen_012.cpp
 0x0078B40E,10,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp,approved,P,P=0x00477003@FuncInfo0x0093A254,Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainCtor.cpp
 0x0078B418,13,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp,approved,P,P=0x00477185@FuncInfo0x0093A278,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp

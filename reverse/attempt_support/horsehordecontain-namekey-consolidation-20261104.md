@@ -31,3 +31,31 @@ Verification of the declaration repair:
 Next: commit this verified prerequisite separately, then apply the accepted
 composition through `tu_skeleton.py`, verify its EH graph and path consumers,
 and retain all remaining donors and their debt.
+
+## Applied composition and audit
+
+Prerequisite commit: `7e3e2f768e`. `tu_skeleton.py --merge` then accepted only
+the seed and name-key donor, removed the donor, and repointed its three code
+rows and two data owners. SOURCE FILES decreases by one. The map change is
+three source-column repoints, with no regenerated assignments or approvals.
+
+- Normal build: 6/6 exact, including the compiler-renumbered unwind label
+  (`$L310` -> `$L4601`, proven by the parent's EH graph).
+- EH verifier: one EXACT graph, no baseline findings or missing objects.
+- Declared-unmatched check: all defined functions already matched.
+- Current-object preview: merged TU LINKS, 1,481 bytes; this incorporates the
+  donor's already-covered rows, so no linking gain is claimed.
+- The merge's link guard protects all seven census-linked input units; five
+  rejected donors retain their original source, bodies and provider bindings.
+- No source is keyed to the removed donor in code/data identity debt, header
+  queues, flag overrides or the hatch register. Two `data_ledger.csv` keys are
+  transferred, without retirement. Existing seed header debt remains queued.
+- Path-consumer audit over the pending batch: no active tool, hook, workflow,
+  source include or configuration names the donor. Ledger/map/data ownership
+  repoints are complete. The remaining source mention is provenance in the
+  merged TU. Historical attempt notes, `deleted_rows.csv` prose and the last
+  census's `link_status.csv` deliberately retain the former path.
+
+The outgoing hook/fleet publisher still owns the batch consumer audit and the
+next scheduled census owns headline confirmation. The remaining constructor,
+destructor, transfer and movement declaration conflicts are unchanged.
