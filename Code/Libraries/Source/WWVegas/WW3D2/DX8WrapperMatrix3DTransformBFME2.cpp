@@ -41,7 +41,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "../../../../../reference/shims/bfme_matrix4_rows_link/matrix4_bfme1_rows_link.h"
 #include <d3d9.h>
 struct IDirect3DDevice8;
-struct RenderStateStruct { unsigned char unused_fields[0x1EC]; Matrix4 world,view; };
+#include "RenderStateStruct.h"
 extern unsigned number_of_DX8_calls;
 #include "DX8WrapperClass.h"
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

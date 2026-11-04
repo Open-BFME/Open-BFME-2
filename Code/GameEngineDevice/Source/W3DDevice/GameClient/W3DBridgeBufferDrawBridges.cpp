@@ -120,10 +120,7 @@ struct IDirect3DDevice8
 
 extern unsigned number_of_DX8_calls;
 
-struct RenderStateStruct
-{
-	ShaderClass shader;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class IndexBufferClass;
 class VertexBufferClass;

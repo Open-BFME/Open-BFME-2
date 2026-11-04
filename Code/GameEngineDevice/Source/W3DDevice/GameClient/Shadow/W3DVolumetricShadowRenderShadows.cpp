@@ -112,11 +112,7 @@ private:
 
 // DX8Wrapper::render_state (dx8wrapper.cpp ?render_state@DX8Wrapper@@1URenderStateStruct@@A):
 // Zero Hour's RenderStateStruct starts with the shader and the material.
-struct RenderStateStruct
-{
-	ShaderClass shader;
-	VertexMaterialClass *material;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class DX8Wrapper
 {

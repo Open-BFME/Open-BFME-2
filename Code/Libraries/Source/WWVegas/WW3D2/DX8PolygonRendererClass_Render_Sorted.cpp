@@ -19,11 +19,7 @@
 // DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
 // RenderStateStruct (bfmestages/dx8wrapper.h); index_base_offset, the 16-bit
 // cache at 0x00DEE864, is its last field (+0x28C).
-struct RenderStateStruct
-{
-	unsigned char m_pad00[0x28C];
-	unsigned short index_base_offset;
-};
+#include "RenderStateStruct.h"
 
 class DX8Wrapper {
 protected:

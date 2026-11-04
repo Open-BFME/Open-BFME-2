@@ -45,7 +45,7 @@ extern VertexMaterialClass *ScreenMaterial;
 extern unsigned number_of_DX8_calls;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
-struct RenderStateStruct { ShaderClass shader; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 // The device keeps its D3D8 type name but is a Direct3D 9 device (SetRenderState, slot 57).
 struct IDirect3DDevice8;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"

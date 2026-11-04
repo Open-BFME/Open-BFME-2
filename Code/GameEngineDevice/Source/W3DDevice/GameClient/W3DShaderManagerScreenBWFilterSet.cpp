@@ -101,10 +101,7 @@ private:
 	static bool SnapshotActivated;
 };
 
-struct RenderStateStruct
-{
-	ShaderClass shader;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class DX8Wrapper
 {

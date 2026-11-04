@@ -12,14 +12,7 @@ class VertexMaterialClass;
 
 class VertexBufferClass;
 
-struct RenderStateStruct
-{
-	unsigned m_shader;
-	VertexMaterialClass *material;
-	unsigned char m_pad08[0x1EC - 8];
-	Matrix4 world;
-	Matrix4 view;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 extern unsigned number_of_DX8_calls;
 

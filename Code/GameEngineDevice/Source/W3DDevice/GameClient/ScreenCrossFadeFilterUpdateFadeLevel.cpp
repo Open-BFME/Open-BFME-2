@@ -128,7 +128,7 @@ struct BFME2TextureRef {
 };
 void BFME2Set_Texture(unsigned stage,const BFME2TextureRef &texture);
 class WW3D { public: static bool Is_Snapshot_Activated() { return SnapshotActivated; } private: static bool SnapshotActivated; };
-struct RenderStateStruct { ShaderClass shader; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 class DX8Wrapper
 {

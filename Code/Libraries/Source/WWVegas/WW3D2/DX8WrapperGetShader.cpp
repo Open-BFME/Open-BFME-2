@@ -7,10 +7,7 @@
 // upstream: GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
 #include "ShaderClass.h"
 
-struct RenderStateStruct
-{
-	ShaderClass shader;
-};
+#include "RenderStateStruct.h"
 
 #include "DX8WrapperClass.h"
 

@@ -12,13 +12,7 @@
 
 class Rva00785FD0Renderer;
 // DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
-struct RenderStateStruct
-{
-	char m_shaderToLights[0x1EC];
-	Matrix4 world;
-	Matrix4 view;
-	char m_buffers[0x290 - 0x26C];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 typedef char RendererMatrixStorageSize[sizeof(Matrix4)==64 ? 1 : -1];
 class BfmeHub982 { public: void bfmeEnd982C(); };
 

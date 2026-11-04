@@ -87,7 +87,7 @@ private:
 };
 
 extern unsigned number_of_DX8_calls;
-struct RenderStateStruct { char pad[0x1EC]; Matrix4 world, view; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 class DX8Wrapper
 {
 protected:
