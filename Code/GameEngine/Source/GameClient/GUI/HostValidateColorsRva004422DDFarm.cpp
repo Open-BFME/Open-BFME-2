@@ -59,23 +59,23 @@ typedef _Rb_tree<unsigned, pair<const unsigned, Image *>, _Select1st<pair<const 
     less<unsigned>, allocator<pair<const unsigned, Image *> > > HostImageTree;
 template <> _Rb_tree_node<pair<const unsigned, Image *> > *HostImageTree::_M_create_node(const HostImageTree::value_type &);
 }
-class ImageSubscriptMap {public:
-	__declspec(noinline) Image *&operator[](const unsigned &key)
-	{
-		ImageNameMap::iterator i = m_map.lower_bound(key);
-		if (i == m_map.end() || m_map.key_comp()(key, (*i).first))
-			i = m_map.insert(i, ImageNameMap::value_type(key, (Image *)0));
-		return (*i).second;
-	}
-	ImageNameMap m_map;};
-class AptMpGameSetup {public: void HostValidateColors();
- char pad00[0x58]; ColorSetupOwner *owner; Rva0043DA65 *game;
- char pad60[0x3c4-0x60]; _STL::vector<bool> allowed;
- char pad3d8[4]; bool special;
-};
+#include "../../../Include/GameClient/ImageSubscriptMap.h"
+// The canonical class owns the twelve-byte map storage. Keep this TU's
+// established STL operations as a view of that storage.
+inline __declspec(noinline) Image *&ImageSubscriptMap::operator[](const unsigned &key)
+{
+	ImageNameMap &map = *(ImageNameMap *)this;
+	ImageNameMap::iterator i = map.lower_bound(key);
+	if (i == map.end() || map.key_comp()(key, (*i).first))
+		i = map.insert(i, ImageNameMap::value_type(key, (Image *)0));
+	return (*i).second;
+}
+#include "../../../Include/GameClient/AptMpGameSetup.h"
+// The canonical panel leaves +0x3C4 opaque; retail constructs a bit vector
+// there. Access that storage through this TU's established STL view.
 void AptMpGameSetup::HostValidateColors() {
- if(!owner->amIHost()) return;
- GameInfo *info=(GameInfo*)game->rva0043DA65();
+ if(!((ColorSetupOwner *)field58)->amIHost()) return;
+ GameInfo *info=(GameInfo*)field5c->rva0043DA65();
  if((info == 0)) return;
  unsigned i;
  Rva0043EA9C reserved;
@@ -85,7 +85,7 @@ void AptMpGameSetup::HostValidateColors() {
   if(!slot) continue;
   int color=slot->m_color;
   if(color<0) {
-   if(!special && !slot->isObserver() && slot->m_state != 1) repair=true;
+   if(!field3dc && !slot->isObserver() && slot->m_state != 1) repair=true;
    continue;
   }
   ImageSubscriptMap *map=(ImageSubscriptMap*)&reserved;
@@ -102,20 +102,20 @@ void AptMpGameSetup::HostValidateColors() {
    if((0 == slot)) continue;
    ImageSubscriptMap *map=(ImageSubscriptMap*)&reserved;
    int color=(i ? slot->m_color : slot->m_color);
-   if(color<0 && (special || slot->isObserver() || slot->m_state==1)) continue;
+   if(color<0 && (field3dc || slot->isObserver() || slot->m_state==1)) continue;
     if((GameSlot*)(*map)[(unsigned)color]==slot) continue;
-   if(special) owner->SetColor(slot,-1);
+   if(field3dc) ((ColorSetupOwner *)field58)->SetColor(slot,-1);
    else {
     int c;
-    for(c=0;(unsigned)c<allowed.size();++c) {
+    for(c=0;(unsigned)c<((_STL::vector<bool> *)field3c4)->size();++c) {
         _ReadWriteBarrier();
      RespawnPtrMap *lookup=(RespawnPtrMap*)&reserved;
-     if(allowed[c] && lookup->find((unsigned)c)==lookup->end()) goto colorFound;
+     if((*(_STL::vector<bool> *)field3c4)[c] && lookup->find((unsigned)c)==lookup->end()) goto colorFound;
     }
     goto colorDone;
 colorFound:
     (*map)[c]=(Image*)slot;
-    owner->SetColor(slot,c);
+    ((ColorSetupOwner *)field58)->SetColor(slot,c);
 colorDone:;
    }
   }
