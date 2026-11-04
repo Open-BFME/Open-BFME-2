@@ -10,7 +10,7 @@
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../Source/Common/Rva00380200.h"
-class AsciiString;
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class PlayerTemplate;
 class Upgrade;
 class UpgradeTemplate;
@@ -251,7 +251,7 @@ public:
  unsigned char m_opaque38[0x50 - 0x38];
  NameKeyType m_playerNameKey; // init 2AFB79 stores NameKeyGenerator::nameToKey's result
  int m_playerIndex; // constructor 2B0F94/97 stores the int argument at +54
- unsigned char m_opaque58[0x5C - 0x58];
+ AsciiString m_side; // init 2AFA1D copies the template's side into it; the dtor releases it at 2B13DD
  PlayerType m_playerType; // setPlayerType 2A9A34 stores its PlayerType argument
  unsigned char m_opaque60[0x9C - 0x60];
  Upgrade *m_upgradeList; // findUpgrade 2AA031 walks the Upgrade list from here
