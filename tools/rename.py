@@ -765,10 +765,11 @@ def class_spans(symbol, word):
     return [(a, b) for a, b in spans[lead:] if symbol[a:b] == word]
 
 
-def class_sub(text, word, new):
+def class_sub(text, word, new, check=None):
     """`text` with every mangled symbol in it respelling the type fragment
     `word` as `new`; returns (text, count). Raises Unparsed for a symbol that
-    spells `word@` and cannot be tokenized."""
+    spells `word@` and cannot be tokenized. `check(symbol, respelled)` sees
+    every symbol it changes (and may raise)."""
     out, last, count = [], 0, 0
     for match in SYMBOL_TOKEN.finditer(text):
         symbol = match.group(0)
@@ -780,6 +781,8 @@ def class_sub(text, word, new):
             pieces += [symbol[prev:a], new]
             prev = b
         pieces.append(symbol[prev:])
+        if check is not None:
+            check(symbol, "".join(pieces))
         out += [text[last:match.start()], "".join(pieces)]
         last = match.end()
         count += len(spans)
@@ -791,12 +794,13 @@ class ClassToken:
     """`class_sub` with the interface of a compiled regex (`search`, `sub`,
     `subn`), for the ledger and pragma rewrites."""
 
-    def __init__(self, word):
+    def __init__(self, word, check=None):
         self.word = word
+        self.check = check
 
     def subn(self, new, text):
         try:
-            return class_sub(text, self.word, new if isinstance(new, str) else new(None))
+            return class_sub(text, self.word, new if isinstance(new, str) else new(None), self.check)
         except Unparsed as error:
             raise Refusal(f"cannot tokenize a mangled name spelling {self.word}: {error}") from None
 
@@ -804,7 +808,10 @@ class ClassToken:
         return self.subn(new, text)[0]
 
     def search(self, text):
-        return self.subn(self.word + "\0", text)[1] > 0
+        try:
+            return class_sub(text, self.word, self.word + "\0")[1] > 0
+        except Unparsed as error:
+            raise Refusal(f"cannot tokenize a mangled name spelling {self.word}: {error}") from None
 
 
 def check_new_identifier(new, kind, basis=None):
@@ -4373,7 +4380,7 @@ def rewrite_ledger(ctx, plan, rel, label, regex, replacement):
     return changed
 
 
-def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False):
+def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False, prepared=None):
     """Plan respelling one class/struct/union/enum type token everywhere: every
     mangled name it scopes or types (functions.csv names and notes, pins, data
     rows), every source, header and shim view that spells it, and the units
@@ -4384,7 +4391,9 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     if fold:
         if basis is not None:
             raise Refusal("class --fold invents no name and takes no --basis: retail's vftable is the evidence")
-        return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files)
+        return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files, prepared=prepared)
+    if prepared:
+        raise Refusal("--prepared goes with class --fold into a nested class")
     if basis is None:
         raise Refusal("--basis is required")
     old = name or ""
@@ -4611,13 +4620,58 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 # refused. The byte gate, pin_admission and pin_consistency --check
 # (commit_checks) decide as for every rename.
 
-SPECIAL_MEMBER = re.compile(r"\?\?(0|1|_G|_E)([A-Za-z_]\w*)@@")
+# A class as MSVC decorates its scope: `Icon@Impl@Page@UI@` (innermost name
+# first, each ended by `@`), then the qualified name's own terminating `@`.
+CLASS_SCOPE = r"((?:[A-Za-z_]\w*@)+)@"
+SPECIAL_MEMBER = re.compile(r"\?\?(0|1|_G|_E)" + CLASS_SCOPE)
 SPECIAL_ROLE = {"0": "constructor", "1": "destructor", "_G": "deleting destructor", "_E": "deleting destructor"}
-GLOBAL_VTABLE = re.compile(r"\?\?_7([A-Za-z_]\w*)@@6B")
-# A deleting destructor's this-adjustor thunk: `@@` then the access code of a
-# virtual adjustor thunk (G/H private, O/P protected, W/X public) and the
-# encoded displacement (a digit d is d+1; else hex digits A..P ending in `@`).
-ADJUSTOR_THUNK = re.compile(r"\?\?(?:_G|_E)[A-Za-z_]\w*@@[GHOPWX]([0-9]|[A-P]+@)")
+GLOBAL_VTABLE = re.compile(r"\?\?_7" + CLASS_SCOPE + "6B")
+# A deleting destructor's this-adjustor thunk: the class scope, then the access
+# code of a virtual adjustor thunk (G/H private, O/P protected, W/X public) and
+# the encoded displacement (a digit d is d+1; else hex digits A..P ending in `@`).
+ADJUSTOR_THUNK = re.compile(r"\?\?(?:_G|_E)(?:[A-Za-z_]\w*@)+@[GHOPWX]([0-9]|[A-P]+@)")
+
+
+def scope_class(scope):
+    """The C++ spelling of a decorated class scope: `Icon@Impl@Page@UI@` is
+    `UI::Page::Impl::Icon`."""
+    return "::".join(reversed(scope.rstrip("@").split("@")))
+
+
+def class_scope(cls):
+    """The decorated scope fragments of class `cls`, without the terminating
+    `@`s: `UI::Page::Impl::Icon` is `Icon@Impl@Page@UI`."""
+    return "@".join(reversed(cls.split("::")))
+
+
+def nested_respelling_check(old, new):
+    """check(symbol, respelled) for respelling the global class `old` as the
+    nested class `new` (`A::B::C`) in mangled names. MSVC's name table holds
+    each name fragment once, in order, and a later repeat is a back-reference
+    digit: the nested scope adds len(parts) - 1 names, so this refuses a
+    symbol that carries any name back-reference (it would point elsewhere
+    after the respelling) and a respelling that spells one of NEW's names
+    twice (cl would compress the repeat). Argument-type back-references index
+    the argument list, not the name table, and stay valid."""
+    parts = new.split("::")
+
+    def check(symbol, respelled):
+        refs = []
+        try:
+            fragments(symbol, refs=refs)
+            spans = fragments(respelled)
+        except Unparsed as error:
+            raise Refusal(f"cannot read {symbol} to respell {old} as the nested {new}: {error}") from None
+        if refs:
+            raise Refusal(f"{symbol} carries a name back-reference ({', '.join(map(str, refs))}): the nested "
+                          f"{new} adds {len(parts) - 1} name(s) to MSVC's name table, so it would no longer "
+                          "point at the name it does now")
+        names = [respelled[a:b] for a, b in spans]
+        for part in parts:
+            if names.count(part) > 1:
+                raise Refusal(f"{symbol} would become {respelled}, which spells {part} twice: cl encodes the "
+                              "repeat as a name back-reference, so that is not the name it emits")
+    return check
 
 
 def adjustor_of(name):
@@ -4674,10 +4728,10 @@ def _primary_installs(ctx, tables):
 
 
 def special_member(name):
-    """(role code, class) of a global class's constructor, destructor or
-    deleting destructor decorated name, or None."""
+    """(role code, class) of a constructor, destructor or deleting destructor
+    decorated name, or None; a nested class reads `A::B::C`."""
     match = SPECIAL_MEMBER.match(name or "")
-    return (match.group(1), match.group(2)) if match else None
+    return (match.group(1), scope_class(match.group(2))) if match else None
 
 
 def own_table(ctx, row, tables):
@@ -4808,11 +4862,11 @@ def fold_evidence(ctx, old, new):
     classes = collections.defaultdict(list)
     for symbol, where in sorted(names.items()):
         match = GLOBAL_VTABLE.match(symbol)
-        classes[match.group(1) if match else symbol].append(f"{symbol} ({where})")
+        classes[scope_class(match.group(1)) if match else symbol].append(f"{symbol} ({where})")
     if new not in classes:
         raise Refusal(f"retail vftable {va}, which {old}'s rows install as their own, is named "
                       f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv / the "
-                      f"installing rows' objects, not ??_7{new}@@6B@: nothing ties {new} to it")
+                      f"installing rows' objects, not ??_7{class_scope(new)}@@6B@: nothing ties {new} to it")
     others = sorted(set(classes) - {old, new})
     if others:
         raise Refusal(f"retail vftable {va} is also named for {', '.join(others)} "
@@ -4897,16 +4951,23 @@ def fold_evidence(ctx, old, new):
     return table, evidence
 
 
-def plan_fold(ctx, old, new, *, evidence="", max_files=25):
+def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
     """Plan `class --fold`: respell placeholder class `old` as `new`, the class
     retail's vftable already names (fold_evidence); see the section comment.
-    Raises Refusal; writes nothing."""
+    `new` may be a nested class (`A::B::C`); its units then come as
+    `prepared` C++. Raises Refusal; writes nothing."""
     old, new = old or "", new or ""
-    for word in (old, new):
+    parts = new.split("::")
+    nested = len(parts) > 1
+    for word in [old] + parts:
         if not IDENT.fullmatch(word) or word in name_metric.KEYWORDS:
-            raise Refusal(f"{word!r} is not a type identifier")
+            raise Refusal(f"{word!r} is not a type identifier" + (f" (in {new})" if nested and word != old else ""))
     if new == old:
         raise Refusal("the new name is the old name")
+    if old in parts:
+        raise Refusal(f"{old} is one of {new}'s own scope names: the fold would nest the class in itself")
+    if prepared and not nested:
+        raise Refusal("--prepared goes with a nested --into (A::B::C); a global NEW is a token rewrite")
     if not is_placeholder(old, "class"):
         raise Refusal(f"{old} is a readable name: class --fold folds only a placeholder (docs/naming.md: a "
                       "placeholder never replaces a readable name except by a `restored` revert, and choosing "
@@ -4921,7 +4982,11 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25):
     table, proof = fold_evidence(ctx, old, new)
     va = f"0x{table + IMAGE_BASE:08X}"
 
-    frag = type_fragment_re(old)
+    # A nested NEW is respelled in mangled names as its decorated scope
+    # (`C@B@A`), and only where MSVC's name table stays put (see
+    # nested_respelling_check); NEW is the C++ spelling everywhere else.
+    mangled_new = class_scope(new)
+    frag = ClassToken(old, nested_respelling_check(old, new)) if nested else type_fragment_re(old)
     token = class_token_re(old)
     rows, pins, datas = ctx.rows(), ctx.pins(), ctx.dicts(DATA_ROWS)
     names = [r["name"] for r in rows] + [p.get("name", "") for p in pins] + [d.get("name", "") for d in datas]
@@ -4974,7 +5039,7 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25):
     # Ledgers. One name, one address: a respelled row or pin may not take a
     # name another address carries; a pin respelled into the very name of a
     # row (or pin) at its own address is that alias made redundant: dropped.
-    renamed_row = {r["name"]: frag.sub(new, r["name"]) for r in rows if frag.search(r["name"])}
+    renamed_row = {r["name"]: frag.sub(mangled_new, r["name"]) for r in rows if frag.search(r["name"])}
     created = set(renamed_row.values())
     taken = {r["name"] for r in rows}
     for name, respelled in renamed_row.items():
@@ -4986,7 +5051,7 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25):
         rows_after[renamed_row.get(row["name"], row["name"])].add(_rva(row.get("target_rva")))
 
     def respell_pin(name):
-        return frag.sub(new, name) if frag.search(name) else name
+        return frag.sub(mangled_new, name) if frag.search(name) else name
     pins_after = collections.defaultdict(set)           # pin name after the fold -> addresses
     for pin in pins:
         pins_after[respell_pin(pin.get("name", ""))].add(_rva(pin.get("address")))
@@ -5019,21 +5084,21 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25):
             if respelled != name:
                 plan.renamed_pins.append((name, respelled, flds[1]))
             text = payload.decode("utf-8")
-            changed = frag.sub(new, text)                # the name and any mangled name in its notes
+            changed = frag.sub(mangled_new, text)        # the name and any mangled name in its notes
             out.append((changed.encode("utf-8") if changed != text else payload) + term)
         after = b"".join(out)
         if after != raw:
             plan.edit(ctx, SYMBOLS, after)
-    for before, after in rewrite_ledger(ctx, plan, FUNCTIONS, "functions.csv", frag, new):
+    for before, after in rewrite_ledger(ctx, plan, FUNCTIONS, "functions.csv", frag, mangled_new):
         at = _rva(before[2])
         if before[0] != after[0]:
             plan.renamed_rows.append((before[0], after[0], at))
         else:
             plan.notes_rows.append((before[0], at))
-    for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", frag, new):
+    for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", frag, mangled_new):
         plan.owner_rows.append((before[1], _rva(before[0])))
     data_index = {d.get("name"): data_rva(d) for d in datas}
-    for before, after in rewrite_ledger(ctx, plan, DATA_ROWS, "data_rows.csv", frag, new):
+    for before, after in rewrite_ledger(ctx, plan, DATA_ROWS, "data_rows.csv", frag, mangled_new):
         if before[0] != after[0]:
             if after[0] in data_index:
                 raise Refusal(f"data row {before[0]} would become {after[0]}, which already names a data row")
@@ -5050,15 +5115,30 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25):
 
     def carried(spelling):
         if "@" in spelling or spelling.startswith("?"):
-            return frag.sub(new, spelling)
-        parts = spelling.split("::")
-        return "::".join(new if i < len(parts) - 1 and p == old else p for i, p in enumerate(parts))
+            return frag.sub(mangled_new, spelling)
+        names = spelling.split("::")
+        return "::".join(new if i < len(names) - 1 and n == old else n for i, n in enumerate(names))
     carry_records(ctx, plan, carried)
 
     # Sources: OLD's views become NEW's; a unit that would then declare NEW
-    # twice, or derive NEW from itself, needs its views reconciled first.
+    # twice, or derive NEW from itself, needs its views reconciled first. A
+    # token rewrite cannot declare a nested NEW's enclosing scopes (it cannot
+    # tell a namespace from a class, nor how the unit declares them), so each
+    # unit spelling OLD comes prepared, spelling OLD nowhere; the build and
+    # commit_checks decide on its bytes as for every rename.
     headers = []
-    for rel in sorted(touched):
+    if nested:
+        prepared = dict(prepared or {})
+        missing = sorted(rel for rel in touched if rel not in prepared)
+        if missing:
+            raise Refusal(f"{', '.join(missing[:5])} spell{'s' if len(missing) == 1 else ''} {old}: a nested "
+                          f"{new} needs its enclosing scopes declared in each unit, which a token rewrite cannot "
+                          "do; pass each as --prepared REL=FILE")
+        for rel, data in sorted(prepared.items()):
+            if token.search(data.decode("utf-8", errors="surrogateescape")):
+                raise Refusal(f"prepared {rel} still spells {old}: the fold leaves no {old} behind")
+        _batch_source_edits(ctx, plan, prepared)
+    for rel in sorted(touched) if not nested else ():
         text = texts.get(rel)
         if text is None:
             data = ctx.read(rel)
@@ -5106,7 +5186,8 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25):
     dropped = {_rva(address) for _o, _n, address in plan.dropped_pins}
     plan.claims = sorted({at for _, _, at in plan.renamed_rows if at is not None} |
                          {at for _, at in plan.notes_rows if at is not None} |
-                         {at for at in dropped if at is not None}) + [f"class:{old}", f"class:{new}"]
+                         {at for at in dropped if at is not None}) + [f"class:{old}", f"class:{new}"] + \
+        sorted(f"file:{rel}" for rel in (prepared or {}))
     ledger_text = (ctx.read(DATA_LEDGER) or b"").decode("utf-8", errors="replace")
     if frag.search(ledger_text):
         plan.warnings.append(f"{DATA_LEDGER} (tool-written, protected) still spells {old} symbols; "
@@ -8226,7 +8307,11 @@ def main(argv=None):
     klass.add_argument("--fold", metavar="OLD",
                        help="fold placeholder class OLD into --into NEW, the class its retail vftable already "
                             "names (no --basis: retail is the evidence; see docs/naming.md)")
-    klass.add_argument("--into", metavar="NEW", help="with --fold: the class name OLD folds into")
+    klass.add_argument("--into", metavar="NEW", help="with --fold: the class name OLD folds into (A::B::C for a "
+                                                     "nested class)")
+    klass.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
+                       help="with --fold into a nested class: the proposed bytes of Code source REL, read from "
+                            "FILE (repeatable), for every unit spelling OLD")
     member = kinds.add_parser("member", parents=[common],
                               help="respell one non-static data member in every view and use")
     member.add_argument("--class", dest="cls", required=True, help="the class whose member it is")
@@ -8306,13 +8391,16 @@ def main(argv=None):
                       file=sys.stderr)
         return 1 if problems else 0
     to_class = args.kind == "function" and args.to_class
+    fold = args.kind == "class" and (args.fold is not None or args.into is not None)
     if args.kind == "function" and args.prepared and not to_class:
         parser.error("--prepared goes with --to-class")
+    if args.kind == "class" and args.prepared and not fold:
+        parser.error("--prepared goes with --fold")
     if to_class and (args.basis or not args.new):
         parser.error("function --to-class takes --new (the member's identifier in CLASS) and its evidence from "
                      "retail's vftable: pass no --basis")
     prepared = {}
-    for item in (args.prepared if to_class else []):
+    for item in (args.prepared if to_class or fold else []):
         rel, sep, path = item.partition("=")
         if not sep or not rel or not path:
             parser.error(f"--prepared {item!r} is not REL=FILE")
@@ -8324,7 +8412,6 @@ def main(argv=None):
     if virtual and (args.new or args.basis):
         parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
                      "pass neither --new nor --basis")
-    fold = args.kind == "class" and (args.fold is not None or args.into is not None)
     if fold:
         if args.fold is None or args.into is None:
             parser.error("class --fold OLD takes --into NEW (both)")
@@ -8348,7 +8435,7 @@ def main(argv=None):
                       max_files=args.max_files)
     if fold:
         kwargs = dict(name=args.fold, new=args.into, fold=True, evidence=args.evidence or "",
-                      max_files=args.max_files)
+                      max_files=args.max_files, prepared=prepared or None)
     elif args.kind == "function":
         try:
             kwargs.update(rva=int(args.rva, 16), old=args.old)

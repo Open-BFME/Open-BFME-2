@@ -635,3 +635,229 @@ def test_a_stale_ledger_is_read_through_the_installing_rows_objects(tmp_path, mo
 def test_live_vtable_names_needs_an_object_scan(tree):
     ctx = ctx_of(tree)
     assert rename.live_vtable_names(ctx, ctx.rows(), TABLE) == {}
+
+
+# ------------------------------------------------------------ a nested NEW
+
+# RegionDetailsStructuresPage's icon (BFME 2, LINK-181): its constructor
+# 0x005E28FE is rowed under the nested StrategicInGameUI::...::Impl::Icon, its
+# destructor 0x005E278E and deleting destructor under the placeholder
+# Rva005E278E. The destructor's first +0 store is the icon's vftable, which
+# the data ledger names ??_7Icon@Impl@Page@UI@@6B@. A token rewrite cannot
+# declare the enclosing scopes, so the units come as prepared C++.
+N_OLD = "Rva00602000"
+N_NEW = "UI::Page::Impl::Icon"
+N_SCOPE = "Icon@Impl@Page@UI"
+N_TABLE = 0x00800600
+N_CTOR, N_DTOR, N_GDTOR = 0x00601000, 0x00602000, 0x00602040
+N_STORES = {
+    N_TABLE: ([N_GDTOR, PURECALL], {0x00601010: 0, 0x00602003: 0}),
+    OTHER_TABLE: ([PURECALL], {0x00601002: 0, 0x00602030: 0}),    # the base's, stored first / restored last
+}
+
+N_FUNCTIONS = f"""name,export_rva,target_rva,target_size,source,status,notes
+??0{N_SCOPE}@@QAE@AAV123@H@Z,,0x00601000,40,Code/Game/IconCtor.cpp,matched,icon ctor
+??1{N_OLD}@@UAE@XZ,,0x00602000,40,Code/Game/IconDtor.cpp,matched,dtor
+??_G{N_OLD}@@UAEPAXI@Z,,0x00602040,28,Code/Game/IconDtor.cpp,matched,deleting dtor
+__ehhandler$??1{N_OLD}@@UAE@XZ,,0x00700000,10,Code/Game/IconDtor.cpp,matched,eh handler
+$L10,,0x00700010,8,Code/Game/IconDtor.cpp,matched,gen-funclet;parent=??1{N_OLD}@@UAE@XZ
+??0Other@@QAE@XZ,,0x00605000,20,Code/Game/Other.cpp,matched,unrelated ctor
+"""
+
+N_LEDGER = ("address,size,section,kind,name,source,status,names,defs,refs\n"
+            f"0x00800600,8,.rdata,vtable,??_7{N_SCOPE}@@6B@,,literal,,0,2\n")
+
+N_DTOR_SRC = f"""// ??1{N_OLD}@@UAE@XZ @ 0x00602000
+class Base {{ public: virtual ~Base(); }};
+class {N_OLD} : public Base
+{{
+public:
+\tvirtual ~{N_OLD}();
+}};
+{N_OLD}::~{N_OLD}() {{}}
+"""
+
+N_DTOR_PREPARED = """// ??1Icon@Impl@Page@UI@@UAE@XZ @ 0x00602000
+class Base { public: virtual ~Base(); };
+namespace UI { class Page { public: class Impl; }; }
+class UI::Page::Impl { public: class Icon; };
+class UI::Page::Impl::Icon : public Base
+{
+public:
+\tvirtual ~Icon();
+};
+UI::Page::Impl::Icon::~Icon() {}
+"""
+
+N_CTOR_SRC = """namespace UI { class Page { public: class Impl; }; }
+class UI::Page::Impl { public: class Icon; };
+class UI::Page::Impl::Icon { public: Icon(Impl &, int); virtual ~Icon(); };
+UI::Page::Impl::Icon::Icon(Impl &, int) {}
+"""
+
+
+def make_nested_tree(root, functions=N_FUNCTIONS, ledger_text=N_LEDGER):
+    files = {
+        "reverse/functions.csv": functions,
+        "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/deleted_rows.csv": "name,target_rva,reason\n",
+        "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status,evidence,model\n",
+        "reverse/data_ledger.csv": ledger_text,
+        "reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n",
+        "reverse/gate_baseline.txt": "",
+        "Code/Game/IconCtor.cpp": N_CTOR_SRC,
+        "Code/Game/IconDtor.cpp": N_DTOR_SRC,
+        "Code/Game/Other.cpp": OTHER,
+    }
+    for rel, text in files.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+    _git(root, "init", "-q")
+    _git(root, "add", "-A")
+    return root
+
+
+def n_tables():
+    return {t: (list(slots), dict(stores)) for t, (slots, stores) in N_STORES.items()}
+
+
+def n_plan(root, prepared="default", new=N_NEW, old=N_OLD):
+    if prepared == "default":
+        prepared = {"Code/Game/IconDtor.cpp": N_DTOR_PREPARED.encode("utf-8")}
+    return rename.plan_rename("class", ctx=ctx_of(root), name=old, new=new, fold=True, prepared=prepared)
+
+
+@pytest.mark.parametrize("name,expected", [
+    (f"??1{N_SCOPE}@@UAE@XZ", ("1", N_NEW)),
+    (f"??0{N_SCOPE}@@QAE@AAV123@H@Z", ("0", N_NEW)),
+    (f"??_G{N_SCOPE}@@UAEPAXI@Z", ("_G", N_NEW)),
+    (f"??1{N_OLD}@@UAE@XZ", ("1", N_OLD)),
+    ("??1?$vector@H@_STL@@QAE@XZ", None),
+    (f"?m@{N_OLD}@@QAEXXZ", None),
+])
+def test_special_member_reads_a_nested_class(name, expected):
+    assert rename.special_member(name) == expected
+
+
+def test_nested_scope_spellings_round_trip():
+    assert rename.class_scope(N_NEW) == N_SCOPE
+    assert rename.scope_class(N_SCOPE + "@") == N_NEW
+    assert rename.GLOBAL_VTABLE.match(f"??_7{N_SCOPE}@@6BBase@@@").group(1) == N_SCOPE + "@"
+    assert rename.adjustor_of(f"??_E{N_SCOPE}@@W3AEPAXI@Z") == 4
+
+
+def test_fold_into_a_nested_class(tmp_path, monkeypatch):
+    """The nested NEW is spelled as its decorated scope in every mangled name
+    (rows, the EH handler, a funclet's parent= token) and the units are the
+    prepared C++, which the build then verifies."""
+    root = make_nested_tree(tmp_path)
+    retail(monkeypatch, n_tables())
+    p = n_plan(root)
+    assert p.fold == N_TABLE
+    assert f"??_7{N_SCOPE}@@6B@ (data_ledger.csv)" in p.evidence
+    assert p.verify == ["Code/Game/IconDtor.cpp"]
+    assert f"class:{N_NEW}" in rename.claim_keys(p) and "file:Code/Game/IconDtor.cpp" in rename.claim_keys(p)
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??1{N_SCOPE}@@UAE@XZ,,0x00602000,40" in fns
+    assert f"??_G{N_SCOPE}@@UAEPAXI@Z,,0x00602040,28" in fns
+    assert f"__ehhandler$??1{N_SCOPE}@@UAE@XZ,,0x00700000" in fns
+    assert f"parent=??1{N_SCOPE}@@UAE@XZ" in fns
+    assert N_OLD not in fns
+    assert (root / "Code/Game/IconDtor.cpp").read_text() == N_DTOR_PREPARED
+    assert (root / "Code/Game/IconCtor.cpp").read_text() == N_CTOR_SRC
+    deleted = (root / "reverse/deleted_rows.csv").read_text()
+    assert f'??1{N_OLD}@@UAE@XZ,0x00602000,"Renamed to ??1{N_SCOPE}@@UAE@XZ by tools/rename.py' in deleted
+
+
+def test_nested_fold_refused_without_prepared_units(tmp_path, monkeypatch):
+    root = make_nested_tree(tmp_path)
+    retail(monkeypatch, n_tables())
+    before = snapshot(root)
+    with pytest.raises(Refusal, match=r"IconDtor.cpp spells Rva00602000: .* --prepared"):
+        n_plan(root, prepared=None)
+    assert snapshot(root) == before
+
+
+def test_nested_fold_refused_when_a_prepared_unit_still_spells_old(tmp_path, monkeypatch):
+    root = make_nested_tree(tmp_path)
+    retail(monkeypatch, n_tables())
+    with pytest.raises(Refusal, match="prepared Code/Game/IconDtor.cpp still spells Rva00602000"):
+        n_plan(root, prepared={"Code/Game/IconDtor.cpp": N_DTOR_SRC.encode("utf-8")})
+
+
+def test_prepared_needs_a_nested_new(tree, monkeypatch):
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="--prepared goes with a nested --into"):
+        plan(tree, prepared={"Code/Game/BaseCtor.cpp": BASE_CTOR.encode("utf-8")})
+
+
+@pytest.mark.parametrize("new,why", [
+    ("UI::Page::Impl::", "not a type identifier"),
+    ("UI::class::Icon", "not a type identifier"),
+    (f"UI::{N_OLD}::Icon", "own scope names"),
+])
+def test_nested_new_spelling_is_checked(tmp_path, monkeypatch, new, why):
+    root = make_nested_tree(tmp_path)
+    retail(monkeypatch, n_tables())
+    with pytest.raises(Refusal, match=why):
+        n_plan(root, new=new)
+
+
+def test_nested_fold_refuses_a_name_back_reference(tmp_path, monkeypatch):
+    # equals(const OLD &) spells its own class as the name back-reference 1:
+    # under the nested scope 1 would name Icon alone, and cl emits V1234@
+    root = make_nested_tree(tmp_path, functions=N_FUNCTIONS +
+                            f"?equals@{N_OLD}@@QBE_NABV1@@Z,,0x00602100,20,Code/Game/IconDtor.cpp,matched,method\n")
+    retail(monkeypatch, n_tables())
+    with pytest.raises(Refusal, match=r"carries a name back-reference \(1\)"):
+        n_plan(root)
+
+
+def test_nested_fold_refuses_a_respelling_cl_would_compress(tmp_path, monkeypatch):
+    # a method named Impl: ?Impl@Icon@Impl@Page@UI@@ spells Impl twice, which
+    # cl would encode as a back-reference
+    root = make_nested_tree(tmp_path, functions=N_FUNCTIONS +
+                            f"?Impl@{N_OLD}@@QAEXXZ,,0x00602200,20,Code/Game/IconDtor.cpp,matched,method\n")
+    retail(monkeypatch, n_tables())
+    with pytest.raises(Refusal, match="spells Impl twice"):
+        n_plan(root)
+
+
+def test_nested_fold_refused_when_the_vftable_is_not_named_new(tmp_path, monkeypatch):
+    root = make_nested_tree(tmp_path, ledger_text=N_LEDGER.replace(N_SCOPE, "Icon@Impl@Other@UI"))
+    retail(monkeypatch, n_tables())
+    with pytest.raises(Refusal, match=rf"not \?\?_7{N_SCOPE}@@6B@: nothing ties {N_NEW} to it"):
+        n_plan(root)
+
+
+def test_a_nested_third_class_owning_the_table_is_an_icf_fold(tmp_path, monkeypatch):
+    # a nested class's constructor installing the table as its only one is a
+    # third owner, as a global class's is (SPECIAL_MEMBER reads nested scopes)
+    root = make_nested_tree(tmp_path, functions=N_FUNCTIONS +
+                            "??0Thing@Outer@@QAE@XZ,,0x00606000,20,Code/Game/Other.cpp,matched,nested ctor\n")
+    tables = n_tables()
+    tables[N_TABLE][1][0x00606004] = 0
+    retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="also the own vftable of Outer::Thing"):
+        n_plan(root)
+
+
+def test_cli_nested_dry_run_reads_prepared_files(tmp_path, monkeypatch, capsys):
+    root = make_nested_tree(tmp_path / "tree")
+    retail(monkeypatch, n_tables())
+    prepared = tmp_path / "IconDtor.cpp"
+    prepared.write_bytes(N_DTOR_PREPARED.encode("utf-8"))
+    before = snapshot(root)
+    assert rename.main(["class", "--fold", N_OLD, "--into", N_NEW, "--prepared",
+                        f"Code/Game/IconDtor.cpp={prepared}", "--root", str(root), "--no-claim",
+                        "--no-object-scan", "--dry-run"]) == 0
+    out = capsys.readouterr().out
+    assert f"rename: class {N_OLD} -> {N_NEW} (fold)" in out
+    assert f"??1{N_SCOPE}@@UAE@XZ" in out
+    assert snapshot(root) == before
+    with pytest.raises(SystemExit):
+        rename.main(["class", "--name", N_OLD, "--new", "Icon", "--basis", "inferred", "--evidence", "x",
+                     "--prepared", f"Code/Game/IconDtor.cpp={prepared}", "--root", str(root), "--no-claim",
+                     "--dry-run"])
