@@ -1,6 +1,6 @@
-// cl: /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /EHs-c-
 
-extern "C" int sprintf(char *buffer, const char *format, ...);
+#include <stdio.h>
 
 struct Rva00891FA0Record
 {

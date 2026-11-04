@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GS
+// cl: /DNDEBUG /GS
 //
 // Open-BFME5: retail 0x007F2C10 (249 B). GameSpy rank-period attribute
 // serializer (strings TXN, key, ownerType, minRank, maxRank, periodId,
@@ -32,7 +32,7 @@ struct Rva007F2C10Msg
 	int m_tag;
 };
 
-extern "C" int __cdecl sprintf(char *buffer, const char *format, ...);
+#include <stdio.h>
 extern void *g_bfme0130A6A8;
 // g_bfme0130A6A8: matched references place it at VA 0xe0a0c4 (zero-filled .bss).
 void * g_bfme0130A6A8;

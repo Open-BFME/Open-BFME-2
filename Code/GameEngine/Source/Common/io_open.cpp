@@ -1,3 +1,4 @@
+// cl: /MD
 // Open-BFME5 conversions.
 
 struct BfmeLuaVHR;
@@ -16,7 +17,7 @@ extern "C" void lua_pushusertag(BfmeLuaVHR *L, void *u, int tag);
 extern "C" void *lua_touserdata(BfmeLuaVHR *L, int n);
 extern "C" void lua_settop(BfmeLuaVHR *L, int n);
 
-extern "C" __declspec(dllimport) void *__cdecl fopen(const char *name, const char *mode);
+#include <stdio.h>
 
 int __cdecl io_open(BfmeLuaVHR *L)
 {
