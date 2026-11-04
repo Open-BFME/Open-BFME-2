@@ -11,22 +11,13 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 // is a separate one-argument cdecl call. Both helpers have existing owners.
 // The string wrapper owns one data pointer and is destroyed on scope exit.
 #include "EAStringC.h"
-class AptCIH;
-class AptValue {
-public:
- void rva006DE870(char *) const;
- virtual void AddRef();
- virtual void Release();
- void SetString(const char *);
- bool isCIH(bool) const;
- AptCIH *c_cih(bool);
-};
-class AptCIH : public AptValue {};
+#include "AptValue.h"
+#include "AptCIHClass.h"
 class AptString : public AptValue {public:static AptString *Create();
  // AptValue::SetString's body (rowed out of line at 0x006CBF70), which the
  // string-argument call helper 0x006CCB80 inlines.
  void setStringInline(const char *text) {EAStringC temp(text); m_string=temp;}
- int m_04;EAStringC m_string;};
+ EAStringC m_string;};
 class BfmeAptValue006DCD20;
 class AptBasePtrStack {public:int count,capacity;BfmeAptValue006DCD20 **elements;void Push(BfmeAptValue006DCD20 *);BfmeAptValue006DCD20 *At(int);void rva006FE920();};
 struct AptInitParmsT;
