@@ -84,10 +84,16 @@ class Rva001EAE6FHelper {public:Rva001EAE6FHelper*clear80() throw();};
 struct Rva002B0F3CUpgradeMask {unsigned words[32];Rva002B0F3CUpgradeMask() throw(){((Rva001EAE6FHelper*)this)->clear80();}};
 // Scope the target 16-byte energy member: the older EnergyConstructorThunk
 // emits a different 20-byte ABI at808880 and cannot provide this member.
+// Retail's table 0x007FDC48 holds an empty slot, the name row and Energy's xfer row, whichever object owns this member.
+class Rva002AA3AFNamed { public: const char *name() const; };
+class Rva002B0F3CEnergy;
+class Energy : public Snapshot { friend class Rva002B0F3CEnergy; protected: virtual void xfer(Xfer *); };
 class Rva002B0F3CEnergy : public Snapshot {
 public:
  Rva002B0F3CEnergy():production(0),consumption(0),owner(0){} virtual ~Rva002B0F3CEnergy() {}
- virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
+ virtual void loadPostProcess() {}
+ __declspec(noinline) virtual const char*GetSnapshotName()const { return ((const Rva002AA3AFNamed *)this)->name(); }
+ __declspec(noinline) virtual void xfer(Xfer *x) { ((Energy *)this)->Energy::xfer(x); }
  int production,consumption;Player*owner;
 };
 class Rva004F599E : public Snapshot {public:Rva004F599E();virtual ~Rva004F599E();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);int words[42];};
