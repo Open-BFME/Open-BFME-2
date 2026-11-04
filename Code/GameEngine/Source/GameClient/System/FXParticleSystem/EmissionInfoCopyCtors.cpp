@@ -18,10 +18,12 @@ class Xfer;
 
 #include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 #include "../../../../Include/GameClient/EmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/CylindricalEmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/TerrainFireEmissionInfo.h"
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
-
-#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 
 // BFME1 donor fx_particle_system.cpp:733 is an empty DoXfer override; target
@@ -31,43 +33,20 @@ void EmissionVelocityInfo::DoXfer(Xfer &xfer)
 {
 }
 
-class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-    CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that);
-    virtual ~CylindricalEmissionVelocityInfo();
-
-private:
-    GameClientRandomVariable m_var0;
-    GameClientRandomVariable m_var1;
-};
-
 // ??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
 CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that)
     : EmissionVelocityInfo(that)
-    , m_var0(that.m_var0)
-    , m_var1(that.m_var1)
+    , m_04(that.m_04)
+    , m_10(that.m_10)
 {
 }
-
-class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-    OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &that);
-    virtual ~OrthoEmissionVelocityInfo();
-
-private:
-    GameClientRandomVariable m_var0;
-    GameClientRandomVariable m_var1;
-    GameClientRandomVariable m_var2;
-};
 
 // ??0OrthoEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
 OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &that)
     : EmissionVelocityInfo(that)
-    , m_var0(that.m_var0)
-    , m_var1(that.m_var1)
-    , m_var2(that.m_var2)
+    , m_04(that.m_04)
+    , m_10(that.m_10)
+    , m_1C(that.m_1C)
 {
 }
 
@@ -75,43 +54,20 @@ OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo(const OrthoEmissionVelocity
 // New in BFME2: no BFME1 donor. Layout from retail 0x003A6E0E (three 12-byte
 // blocks at +8/+0x14/+0x20, scalar at +0x2C) and the sibling model in
 // Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp.
-class TerrainFireEmissionInfo : public EmissionVolumeInfo
-{
-public:
-    TerrainFireEmissionInfo(const TerrainFireEmissionInfo &that);
-    virtual ~TerrainFireEmissionInfo();
-
-private:
-    GameClientRandomVariable m_var0;
-    GameClientRandomVariable m_var1;
-    GameClientRandomVariable m_var2;
-    float m_unknown2C;
-};
-
 // ??0TerrainFireEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z
 TerrainFireEmissionInfo::TerrainFireEmissionInfo(const TerrainFireEmissionInfo &that)
     : EmissionVolumeInfo(that)
-    , m_var0(that.m_var0)
-    , m_var1(that.m_var1)
-    , m_var2(that.m_var2)
-    , m_unknown2C(that.m_unknown2C)
+    , m_08(that.m_08)
+    , m_14(that.m_14)
+    , m_20(that.m_20)
+    , m_2C(that.m_2C)
 {
 }
-
-class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-    SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &that);
-    virtual ~SphericalEmissionVelocityInfo();
-
-private:
-    GameClientRandomVariable m_var0;
-};
 
 // ??0SphericalEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
 SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &that)
     : EmissionVelocityInfo(that)
-    , m_var0(that.m_var0)
+    , m_04(that.m_04)
 {
 }
 

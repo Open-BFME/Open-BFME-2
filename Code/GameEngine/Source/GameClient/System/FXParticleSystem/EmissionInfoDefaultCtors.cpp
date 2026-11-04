@@ -19,63 +19,38 @@
 
 #include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 #include "../../../../Include/GameClient/EmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/CylindricalEmissionVelocityInfo.h"
+#include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
+#include "../../../../Include/GameClient/DefaultPhysicsModuleInfo.h"
+#include "../../../../Include/GameClient/TerrainFireEmissionInfo.h"
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
 
-class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-	SphericalEmissionVelocityInfo();
-	virtual ~SphericalEmissionVelocityInfo() {}
-
-private:
-	GameClientRandomVariable m_var0;
-};
+inline SphericalEmissionVelocityInfo::~SphericalEmissionVelocityInfo() {}
 
 // ??0SphericalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ @0x3A721F
 inline SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo()
 {
-	m_var0.setRange(0.0f, 0.0f);
+	m_04.setRange(0.0f, 0.0f);
 }
-
-class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-	CylindricalEmissionVelocityInfo();
-	virtual ~CylindricalEmissionVelocityInfo();
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-};
 
 // ??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ @0x3A7489
 // (Outward folds its default body here too; pin 5263.)
 CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo()
 {
-	m_var0.setRange(0.0f, 0.0f);
-	m_var1.setRange(0.0f, 0.0f);
+	m_04.setRange(0.0f, 0.0f);
+	m_10.setRange(0.0f, 0.0f);
 }
-
-class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-	OrthoEmissionVelocityInfo();
-	virtual ~OrthoEmissionVelocityInfo();
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-	GameClientRandomVariable m_var2;
-};
 
 // ??0OrthoEmissionVelocityInfo@FXParticleSystem@@QAE@XZ @0x3A6FD0
 OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo()
 {
-	m_var0.setRange(0.0f, 0.0f);
-	m_var1.setRange(0.0f, 0.0f);
-	m_var2.setRange(0.0f, 0.0f);
+	m_04.setRange(0.0f, 0.0f);
+	m_10.setRange(0.0f, 0.0f);
+	m_1C.setRange(0.0f, 0.0f);
 }
 
 // Retail 0x3A6D5F orders the flag store before the single vtable store:
@@ -85,26 +60,13 @@ OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo()
 // declared: it resolves to the folded 0x0049B47C family and supplies the
 // unwinding behind the EH frame.
 
-class TerrainFireEmissionInfo : public EmissionVolumeInfo
-{
-public:
-	TerrainFireEmissionInfo();
-	virtual ~TerrainFireEmissionInfo();
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-	GameClientRandomVariable m_var2;
-	float m_unknown2C;
-};
-
 // ??0TerrainFireEmissionInfo@FXParticleSystem@@QAE@XZ @0x3A6D5F
 TerrainFireEmissionInfo::TerrainFireEmissionInfo()
 {
-	m_var0.setRange(0.0f, 0.0f);
-	m_var1.setRange(0.0f, 0.0f);
-	m_var2.setRange(0.0f, 0.0f);
-	m_unknown2C = 0.7f;
+	m_08.setRange(0.0f, 0.0f);
+	m_14.setRange(0.0f, 0.0f);
+	m_20.setRange(0.0f, 0.0f);
+	m_2C = 0.7f;
 }
 
 // DefaultPhysicsModuleInfo retail 0x0055EE5E, the out-of-line default the
@@ -115,42 +77,14 @@ TerrainFireEmissionInfo::TerrainFireEmissionInfo()
 // (which leaves nothing behind in the release build), the random variable
 // through its zeroing default, then assigns +0x10, zeroes the coordinate,
 // sets the range and clears the two flags.
-class DefaultPhysicsModuleInfo : public Snapshot
-{
-public:
-	DefaultPhysicsModuleInfo();
-	__declspec(noinline) virtual ~DefaultPhysicsModuleInfo();
-	// Retail vtable 0x00C1BCB0 slot 1 is the exported LoadPostProcess 0x000B3FD0.
-	virtual void LoadPostProcess();
-	virtual const char *GetSnapshotName();
-	virtual void DoXfer(Xfer &);
-
-private:
-	struct PhysicsCoord
-	{
-		PhysicsCoord() {}
-		void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
-
-		float x;
-		float y;
-		float z;
-	};
-
-	PhysicsCoord m_unknown04;
-	float m_unknown10;
-	GameClientRandomVariable m_unknown14;
-	bool m_unknown20;
-	bool m_unknown21;
-};
-
 // ??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ @0x55EE5E
 __declspec(noinline) DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo()
 {
-	m_unknown10 = 0.0f;
-	m_unknown04.zero();
-	m_unknown14.setRange(0.0f, 0.0f);
-	m_unknown20 = false;
-	m_unknown21 = false;
+	m_10 = 0.0f;
+	m_04.zero();
+	m_14.setRange(0.0f, 0.0f);
+	m_20 = false;
+	m_21 = false;
 }
 
 }

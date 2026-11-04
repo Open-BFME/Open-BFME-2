@@ -2,6 +2,8 @@
 
 **Status: Blocked on complete include inventories. Updated: 2026-10-27.**
 
+- 2026-11-04: [Emission constructor adoption](../../reverse/attempt_support/emission-info-header-adoption-20261104-codex4.md) retires nine header rows with strict receipts for both providers and 865/865 ordinary preview bytes preserved; the older-index consumer audit still lacks Common/AIBaseBuilder.cpp's current receipt, so include this cohort in the next scheduled consumer check.
+
 - 2026-11-03: [AIStatBase consolidation and AIGameTeam reconciliation scope](../../reverse/attempt_support/aistatbase-consolidation-20261103.md) preserves ordinary previews; the older-index batch audit lacks three strict receipts (first AIGameTeam), so carry this additional cohort and consumers into the next scheduled census.
 
 - **Eva/thread subset repaired (2026-10-29):**
