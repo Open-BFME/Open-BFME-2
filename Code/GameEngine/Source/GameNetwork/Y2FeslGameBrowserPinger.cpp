@@ -13,10 +13,11 @@ extern Rva007EB810Diag *Rva007EB810Get();
 
 struct Rva00803080;
 
-struct Rva007EAServiceList
+class Rva007EAServiceList
 {
+public:
+	void remove( class Rva00803080 *owner );
 	void add( Rva00803080 *owner );
-	void remove( Rva00803080 *owner );
 };
 
 // What a ping reply is written back into: the hub looks the game up by the
@@ -63,6 +64,7 @@ struct Rva007EAPingListener
 
 struct Rva007EAServiceHub
 {
+public:
 	virtual void v00();
 	virtual void v01();
 	virtual void v02();
@@ -85,19 +87,20 @@ struct Rva007EAServiceHub
 	virtual void v19();
 	virtual void v20();
 	virtual Rva007EAPingGame *find( int key );
-
-	char m_pad04[ 0x08 ];
-	Rva007EAServiceList *m_services;    // +0x0C
-	char m_pad10[ 0x0C ];
-	Rva007EAPingListener *m_listener;   // +0x1C
+	char m_pad04[0x8];
+	Rva007EAServiceList *m_services; // +0x0C
+	char m_pad10[0xC];
+	Rva007EAPingListener *m_listener; // +0x1C
 };
 
 struct Rva00803080Request
 {
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
+public:
+	static void operator delete( void *block, unsigned int size );
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
 };
 
 // DirtySock's ping reply fetch (0x00808660); see Y2Rva00807900Module.cpp.

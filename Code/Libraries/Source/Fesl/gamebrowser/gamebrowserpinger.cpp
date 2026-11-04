@@ -12,23 +12,52 @@ void Rva00808140( Rva00808140Ref *ref );
 
 struct Rva00803080Request
 {
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-
+public:
 	static void operator delete( void *block, unsigned int size );
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
 };
 
-struct Rva007EAServiceList
+class Rva007EAServiceList
 {
+public:
 	void remove( class Rva00803080 *owner );
+	void add( Rva00803080 *owner );
 };
 
+struct Rva007EAPingGame;
+struct Rva007EAPingListener;
 struct Rva007EAServiceHub
 {
-	char m_pad[0x0C];
-	Rva007EAServiceList *m_services;
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual Rva007EAPingGame *find( int key );
+	char m_pad04[0x8];
+	Rva007EAServiceList *m_services; // +0x0C
+	char m_pad10[0xC];
+	Rva007EAPingListener *m_listener; // +0x1C
 };
 
 class Rva00803080
