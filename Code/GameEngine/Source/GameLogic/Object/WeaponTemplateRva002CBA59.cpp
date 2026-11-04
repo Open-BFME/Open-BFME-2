@@ -23,19 +23,10 @@ static inline void _Construct(int *__p, const int &__val)
 { new (__p) int(__val); }
 }
 
-class WeaponTemplate
-{
-public:
-	void rva002CBA59(void *nugget);
-private:
-	char m_pad00[0x160];
-	unsigned char m_160;
-	char m_pad161[0x17c - 0x161];
-	_STL::list<int, _STL::allocator<int> > m_list;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 void WeaponTemplate::rva002CBA59(void *nugget)
 {
-	((unsigned char *)nugget)[0x124] = m_160;
-	m_list.push_back((int &)nugget);
+	((unsigned char *)nugget)[0x124] = m_field160;
+	((_STL::list<int, _STL::allocator<int> > *)&m_field17C)->push_back((int &)nugget);
 }

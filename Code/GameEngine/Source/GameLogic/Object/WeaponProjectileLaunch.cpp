@@ -135,15 +135,8 @@ class ContainModuleInterface
     virtual Flags128 getRiderFlags(const Object *rider);
 };
 
-class WeaponTemplate
-{
-  public:
-    Bool isTurretAimed() const { return m_turretAimed; }
-
-  private:
-    char m_pad000[0x16C];
-    Bool m_turretAimed; // +0x16C
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
+static __forceinline Bool weaponTemplateIsTurretAimed(const WeaponTemplate *wt) { return wt->m_field16C; }
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -263,7 +256,7 @@ class Object : public Thing
     }
 
     const Weapon *slotWeapon = launcher->getWeaponSet()->getWeaponInWeaponSlot(wslot);
-    if (slotWeapon && slotWeapon->getTemplate()->isTurretAimed() && tur != TURRET_INVALID)
+    if (slotWeapon && weaponTemplateIsTurretAimed(slotWeapon->getTemplate()) && tur != TURRET_INVALID)
     {
         // The attach transform is the pristine front and center position of the fire point
         // We can't read from the client, so we need to reproduce the actual point that

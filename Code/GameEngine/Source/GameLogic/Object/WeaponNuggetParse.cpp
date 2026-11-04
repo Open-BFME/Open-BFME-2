@@ -15,16 +15,7 @@
 
 class INI;
 
-class WeaponTemplate
-{
-public:
-	void rva002CBA59(void *nugget);
-
-	char m_gap0[0x114];
-	bool m_flag114;		// +0x114
-	char m_gap115[0x157 - 0x115];
-	bool m_flag157;		// +0x157
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 struct WeaponNuggetHead
 {
@@ -49,7 +40,7 @@ void parseDamageNugget(INI *ini, WeaponTemplate *weapon)
 	damageNugget->m_owner = weapon;
 	q4Notify002CC5E1(ini, damageNugget, 0, 0);
 	weapon->rva002CBA59(damageNugget);
-	weapon->m_flag114 = true;
+	weapon->m_field114 = true;
 }
 
 // "DamageFieldNugget": 0x002CC774, news 0x134, ctor 0x00509522, field parser 0x00509379
@@ -69,7 +60,7 @@ void parseDamageFieldNugget(INI *ini, WeaponTemplate *weapon)
 	m->m_owner = weapon;
 	q4Notify002CC774(ini, m, 0, 0);
 	weapon->rva002CBA59(m);
-	weapon->m_flag114 = true;
+	weapon->m_field114 = true;
 }
 
 // "WeaponOCLNugget": 0x002CC7DE, news 0x130, ctor 0x0050968B, field parser 0x005095AE
@@ -184,7 +175,7 @@ void parseGrabNugget(INI *ini, WeaponTemplate *weapon)
 	m->m_owner = weapon;
 	q4Notify002CC907(ini, m, 0, 0);
 	weapon->rva002CBA59(m);
-	weapon->m_flag157 = true;
+	weapon->m_field157 = true;
 }
 
 // "AttributeModifierNugget": 0x002CC64B, news 0x140, ctor 0x00508BE5, field parser 0x0050893A
@@ -337,7 +328,7 @@ void parseDOTNugget(INI *ini, WeaponTemplate *weapon)
 	m->m_owner = weapon;
 	q4Notify002CCA37(ini, m, 0, 0);
 	weapon->rva002CBA59(m);
-	weapon->m_flag114 = true;
+	weapon->m_field114 = true;
 }
 
 // "OpenGateNugget": 0x002CCAA1, news 0x12C, ctor 0x0050B374, field parser 0x0050B23B

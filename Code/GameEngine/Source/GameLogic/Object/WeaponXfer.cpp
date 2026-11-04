@@ -75,14 +75,7 @@ enum WeaponSlotType
 	WEAPON_SLOT_PRIMARY = 0
 };
 
-class WeaponTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-private:
-	char m_pad00[8];
-	AsciiString m_name;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/WeaponStore.h"
 
@@ -135,7 +128,7 @@ void Weapon::xfer(Xfer *xfer)
 {
 	Xfer::Version ver(1, 3);
 	*xfer == ver;
-	AsciiString nameTmp(m_template ? m_template->getName() : AsciiString(""));
+	AsciiString nameTmp(m_template ? *(const AsciiString *)&m_template->m_field08 : AsciiString(""));
 	*xfer == nameTmp;
 	if (xfer->IsLoading()) {
 		const WeaponTemplate *weaponTemplate = TheWeaponStore->findWeaponTemplate(nameTmp);

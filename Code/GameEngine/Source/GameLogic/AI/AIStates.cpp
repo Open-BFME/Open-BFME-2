@@ -503,16 +503,7 @@ public:
 	unsigned char get() const;
 };
 
-class WeaponTemplate
-{
-public:
-	Bool isContactWeapon() const;
-	unsigned char m_pad00[0x2C];
-	Real m_aimDelta; // +0x2C
-	Real m_aimOffset; // +0x30
-	unsigned char m_pad34[0x16B - 0x34];
-	Bool m_noVictimNeeded; // +0x16B
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -1114,7 +1105,7 @@ StateReturnType AIAttackPositionAimAtTargetState::updateInternal(Bool firstFrame
 	}
 	if (weapon)
 	{
-		Real aimOffset = weapon->getTemplate()->m_aimOffset;
+		Real aimOffset = weapon->getTemplate()->m_field30;
 		if (aimOffset > 0.0f)
 			relAngle = normalizeAngle(relAngle - aimOffset);
 	}
@@ -1290,7 +1281,7 @@ StateReturnType AIAttackFireWeaponState::onEnter()
 	}
 	obj->setStatus(OBJECT_STATUS_0D, true);
 	obj->preFireCurrentWeapon(getObservedMachineGoalObject(), getMachineGoalPosition());
-	if (weapon->getTemplate()->m_noVictimNeeded && victim)
+	if (weapon->getTemplate()->m_field16B && victim)
 		getMachine()->setGoalPosition(victim->getPosition());
 	return STATE_CONTINUE;
 }

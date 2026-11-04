@@ -291,14 +291,7 @@ public:
 	Bool rva002CAAFA(Object *victim, Coord3D *pos);
 };
 
-class WeaponTemplate
-{
-public:
-	Int getClipSizeRV() const { return m_clipSizeE4; }
-private:
-	unsigned char m_pad000[0xE4];
-	Int m_clipSizeE4; // +0xE4
-};
+#include "../../../../../Include/GameLogic/WeaponTemplate.h"
 
 #include "../../../../../Include/GameLogic/Weapon.h"
 
@@ -434,7 +427,7 @@ StateReturnType AIGiantBirdSwoopState::onEnter()
 			ai->m_flags4B8 |= 0x110;
 		else if ((victim->getTemplate()->m_kindof[0] & 0x800))
 			ai->m_flags4B8 = (ai->m_flags4B8 & ~0x100) | 0x20;
-		else if (weapon->getTemplate()->getClipSizeRV() > 1 && !victim->testStatusBit38())
+		else if (weapon->getTemplate()->getClipSize() > 1 && !victim->testStatusBit38())
 			ai->m_flags4B8 |= 8;
 
 		ai->setCurrentVictim(victim);
