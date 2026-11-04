@@ -14,20 +14,18 @@
 
 typedef int Int;
 
-// Layout fields are supported by native reset and the matched override unit.
-class WeaponTemplate
+#include "../../../Include/GameLogic/WeaponTemplate.h"
+
+// The header declares no reset/override helpers; these TU-local inlines keep
+// the donor's empty WeaponTemplate::reset and the +0x04 successor accessors.
+static __forceinline void weaponTemplateReset(WeaponTemplate *) { }
+static __forceinline bool weaponTemplateIsOverride(WeaponTemplate *wt) { return wt->m_nextTemplate != 0; }
+static __forceinline WeaponTemplate *weaponTemplateClearNext(WeaponTemplate *wt)
 {
-public:
-	virtual ~WeaponTemplate();
-
-	__declspec(dllimport) void reset( void ) { }
-
-	WeaponTemplate *friend_clearNextTemplate( void ) { WeaponTemplate *ret = m_nextTemplate; m_nextTemplate = 0; return ret; }
-	bool isOverride( void ) { return m_nextTemplate != 0; }
-
-private:
-	WeaponTemplate *m_nextTemplate;							///< this+0x04
-};
+	WeaponTemplate *ret = wt->m_nextTemplate;
+	wt->m_nextTemplate = 0;
+	return ret;
+}
 
 typedef _STL::vector<WeaponTemplate *> WeaponTemplateVector;
 
@@ -42,7 +40,7 @@ protected:
 		for (Int i = 0; i < m_weaponTemplateVector.size(); i++)
 		{
 			WeaponTemplate* wt = m_weaponTemplateVector[i];
-			wt->reset();
+			weaponTemplateReset(wt);
 		}
 	}
 
@@ -57,10 +55,10 @@ void WeaponStore::reset()
 	for (WeaponTemplateVector::iterator it = m_weaponTemplateVector.begin(); it != m_weaponTemplateVector.end(); ++it)
 	{
 		WeaponTemplate *wt = *it;
-		if (wt->isOverride())
+		if (weaponTemplateIsOverride(wt))
 		{
 			WeaponTemplate *override = wt;
-			wt = wt->friend_clearNextTemplate();
+			wt = weaponTemplateClearNext(wt);
 			// Native dispatch uses destructor flag 0 then global delete.
 			::delete override;
 			*it = wt;
