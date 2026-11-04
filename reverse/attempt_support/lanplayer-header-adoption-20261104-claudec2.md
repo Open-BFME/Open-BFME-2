@@ -15,12 +15,16 @@ Accepted (header_adopt_lane.py accept PASS, rows byte-exact):
 Not adopted:
 - `Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp`: with the canonical
   word port, `ChatWindowsLan::GetLobbyPlayers` compiles `0f b7 47 04 50`
-  (movzx + push) where retail has `ff 77 04` (push dword [edi+4]). Retail's
-  push of the raw dword fits a 16-bit third parameter of the 5-argument
-  `BfmeStringRecord005D511F` constructor (0x005D516E, rowed in
-  StringRecordInlineCopyBFME2.cpp as `...@ABVUnicodeString@@II0I@Z`). Next
-  step: retype that parameter (mangled-name change in the definer and its
-  callers 0x005D5604/0x005D5692), then adopt.
+  (movzx + push) where retail has `ff 77 04 ff 37` (push dword [edi+4];
+  push dword [edi]). The callee, the 5-argument `BfmeStringRecord005D511F`
+  constructor (0x005D516E, rowed in StringRecordInlineCopyBFME2.cpp as
+  `...@ABVUnicodeString@@II0I@Z`), stores [ebp+0xC] and [ebp+0x10] to +4/+8 as
+  dwords with no extension, so neither parameter is 16-bit. The pair of
+  pushes is the shape of an 8-byte BfmeNetAddress passed by value
+  (structural inference, not yet tried): the constructor is likely
+  `(const UnicodeString &, BfmeNetAddress, const UnicodeString &, unsigned)`.
+  Next step: retype it (mangled-name change in the definer and its callers
+  0x005D5604/0x005D5692, plus the record's +4/+8 fields), then adopt.
 - `Code/GameEngine/Source/GameNetwork/LANAPI.cpp` and `LANAPIhandlers.cpp`:
   their BfmeNetAddress view derives from the empty `Rva00248CDD` (the 0x00248CDD
   inequality test, called as `getAddress(p)->Rva00248CDD::rva00248CDD(none)`),
