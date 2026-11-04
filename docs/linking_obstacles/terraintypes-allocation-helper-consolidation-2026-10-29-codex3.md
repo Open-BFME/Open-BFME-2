@@ -18,4 +18,4 @@ current consumer receipt. Carry that consumer and the changed providers into
 the next scheduled census; no measured linking gain or full consumer closure
 is claimed. [Scoped evidence and remaining donors](../../reverse/attempt_support/terraintypes-consolidation-20261029-codex3.md).
 
-2026-11-04: the assignment's private STL declarations and VC7.1 C1001 are resolved; both changed units byte-match and predict LINKS. Next compose the assignment; TerrainType's vector-base destructor conflict and LINK-095 remain. [Repair evidence](../../reverse/attempt_support/terraintypes-stl-reconcile-20261104-codexb4.md).
+2026-11-04: the assignment's private STL declarations and VC7.1 C1001 are resolved ([repair evidence](../../reverse/attempt_support/terraintypes-stl-reconcile-20261104-codexb4.md)); supported consolidation removes its donor file, preserving 31/31 rows and local LINKS. Next reconcile TerrainType's vector-base destructor; LINK-095 remains. [Merge and audit evidence](../../reverse/attempt_support/terraintypes-assignment-merge-20261104-codexb4.md).
