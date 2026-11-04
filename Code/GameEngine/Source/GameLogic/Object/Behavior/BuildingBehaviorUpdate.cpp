@@ -54,14 +54,17 @@ extern GlobalData *TheWritableGlobalData;
 
 struct BuildingWindowList
 {
-	void *m_start;
-	void *m_finish;
-	void *m_end;
+public:
+	char *m_start; // +0x00
+	char *m_finish; // +0x04
+	char *m_end; // +0x08
 };
 
 class BuildingBehaviorModuleData
 {
 public:
+	const BuildingWindowList *getWindowList(Int index) const { return &m_windows[index]; }
+
 	void *m_vtable;
 	Int m_unused04;
 	BuildingWindowList m_windows[4];					// +0x08
@@ -98,9 +101,9 @@ UpdateSleepTime BuildingBehavior::update()
 	if (m_field21)
 	{
 		for (Int i = 0; i < 4; ++i)
-			rva0045628C(&buildingBehaviorModuleData->m_windows[i], draw, 0);
+			rva0045628C(buildingBehaviorModuleData->getWindowList(i), draw, 0);
 		if (TheWritableGlobalData->m_timeOfDay == 4)
-			rva0045628C(&buildingBehaviorModuleData->m_windows[0], draw, 1);
+			rva0045628C(buildingBehaviorModuleData->getWindowList(0), draw, 1);
 		m_field21 = false;
 		draw->updateSubObjects();
 	}
@@ -111,22 +114,22 @@ UpdateSleepTime BuildingBehavior::update()
 		for (Int i = 0; i < 4; ++i)
 		{
 			if (TheWritableGlobalData->m_timeOfDay == 4 && i == 3)
-				rva0045628C(&buildingBehaviorModuleData->m_windows[3], draw, 1);
+				rva0045628C(buildingBehaviorModuleData->getWindowList(3), draw, 1);
 			else if (i == 1 || i == 2)
-				rva0045628C(&buildingBehaviorModuleData->m_windows[i], draw, 1);
+				rva0045628C(buildingBehaviorModuleData->getWindowList(i), draw, 1);
 			else
-				rva0045628C(&buildingBehaviorModuleData->m_windows[i], draw, 0);
+				rva0045628C(buildingBehaviorModuleData->getWindowList(i), draw, 0);
 		}
-		rva0045628C(&buildingBehaviorModuleData->m_windows[1], draw, 1);
+		rva0045628C(buildingBehaviorModuleData->getWindowList(1), draw, 1);
 		draw->updateSubObjects();
 	}
 	else if (m_field20 && !obj->testStatus((ObjectStatusTypes)10))
 	{
 		m_field20 = false;
 		for (Int i = 0; i < 4; ++i)
-			rva0045628C(&buildingBehaviorModuleData->m_windows[i], draw, 0);
+			rva0045628C(buildingBehaviorModuleData->getWindowList(i), draw, 0);
 		if (TheWritableGlobalData->m_timeOfDay == 4)
-			rva0045628C(&buildingBehaviorModuleData->m_windows[0], draw, 1);
+			rva0045628C(buildingBehaviorModuleData->getWindowList(0), draw, 1);
 		draw->updateSubObjects();
 	}
 	return UPDATE_SLEEP_NONE;
