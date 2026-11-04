@@ -63,9 +63,9 @@ owners, and no donor-specific flag override or fold proof needs moving here.
 The matching 789-byte link previews before and after composition provide the
 local binding check; pre-push link-batch admission remains required.
 
-## Second pass (62b71edda5)
+## Second pass (2a99db3bb5)
 
-Two view reconciles (0c5bc58f74, bba50f553d) let `AttachUpdateModuleDataDtor.cpp`
+Two view reconciles (f3f8d0dc62, 4a69f7f346) let `AttachUpdateModuleDataDtor.cpp`
 and `Rva00491C84Calc.cpp` merge: the seed adopts Geometry.h, an Object view with
 `m_geometryInfo` (+0xA8) and the +0x250 interface, and a novtable
 `AttachUpdateModuleData : Snapshot` with a declared virtual dtor and an
