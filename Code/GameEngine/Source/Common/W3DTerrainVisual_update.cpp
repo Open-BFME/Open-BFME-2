@@ -32,15 +32,7 @@ public:
 	void rva0010082F();
 };
 
-class W3DTerrainVisual
-{
-public:
-	virtual void update();
-
-private:
-	char m_pad04[0x10];
-	Rva0010082F *m_14;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
 class Gen0003AC38
 {
@@ -52,9 +44,12 @@ class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
 // ?update@W3DTerrainVisual@@UAEXXZ
 void W3DTerrainVisual::update()
 {
-	((Rva000B3FD0 *)this)->rva000B3FD0();
-	if (m_14)
-		m_14->rva0010082F();
+	// Retail passes the secondary SubsystemInterface receiver to the empty
+	// base operation; the canonical class also accounts for that receiver's
+	// four-byte displacement when it accesses m_waterRenderObject.
+	((Rva000B3FD0 *)((char *)this + 4))->rva000B3FD0();
+	if (m_waterRenderObject)
+		((Rva0010082F *)m_waterRenderObject)->rva0010082F();
 	if ((*(Gen0003AC38 * *)&TheW3DShadowManager))
 		(*(Gen0003AC38 * *)&TheW3DShadowManager)->rva0009A338();
 }
