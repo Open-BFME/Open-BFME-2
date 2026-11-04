@@ -47,15 +47,9 @@ public:
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;	// 0x00DFE1C8
 
-class LivingWorldRegionManager
-{
-public:
-	void rva0020FB8B(LivingWorldBattle *battle);
-private:
-	char m_pad00[0x14];
-	_STL::vector<void *> m_pendingBattles;			// +0x14
-	_STL::vector<const ModuleData *> m_doneBattles;	// +0x20
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
+
+// Keep the rowed vector template identities over the canonical raw storage.
 
 // bfme link decl-only begin
 namespace _STL { template <> void vector<ModuleData const *,_STL::allocator<ModuleData const *> >::_M_clear(); }
@@ -67,14 +61,14 @@ namespace _STL { template <> void vector<ModuleData const *,_STL::allocator<Modu
 // bfme link decl-only end
 void LivingWorldRegionManager::rva0020FB8B(LivingWorldBattle *battle)
 {
-	for (unsigned int i = 0; i < m_pendingBattles.size(); ++i)
+	for (unsigned int i = 0; i < reinterpret_cast<_STL::vector<void *> *>(&field14)->size(); ++i)
 	{
-		if (((LivingWorldBattleIDView *)battle)->m_id == ((LivingWorldBattleIDView *)m_pendingBattles[i])->m_id)
+		if (((LivingWorldBattleIDView *)battle)->m_id == ((LivingWorldBattleIDView *)(*reinterpret_cast<_STL::vector<void *> *>(&field14))[i])->m_id)
 		{
 			((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(((LivingWorldBattleIDView *)battle)->m_30);
-			m_doneBattles.reserve(m_pendingBattles.size());
-			m_doneBattles.push_back((const ModuleData *)battle);
-			m_pendingBattles.erase(m_pendingBattles.begin() + i);
+			reinterpret_cast<_STL::vector<const ModuleData *> *>(&field20)->reserve(reinterpret_cast<_STL::vector<void *> *>(&field14)->size());
+			reinterpret_cast<_STL::vector<const ModuleData *> *>(&field20)->push_back((const ModuleData *)battle);
+			reinterpret_cast<_STL::vector<void *> *>(&field14)->erase(reinterpret_cast<_STL::vector<void *> *>(&field14)->begin() + i);
 			return;
 		}
 	}

@@ -28,28 +28,18 @@ public:
     int m_key34;
 };
 
-class LivingWorldRegionManager
-{
-public:
-    LivingWorldPendingBattle *rva0020E501(int key);
-    LivingWorldPendingBattle *rva0020E53D(int key);
-    LivingWorldPendingBattle *rva0020E57F(unsigned int key);
-    LivingWorldPendingBattle *rva0020E5BB(int key);
-    LivingWorldPendingBattle *rva0020E5FD(int key);
-    LivingWorldPendingBattle *rva0020E6C0();
-private:
-    unsigned char m_pad00[0x10];
-    int m_selectedKey;
-    _STL::vector<LivingWorldPendingBattle *> m_pendingBattles;
-    _STL::vector<LivingWorldPendingBattle *> m_completedBattles; // +0x20
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
+
+// Preserve this consumer's vector element type over the canonical raw storage.
+// Re-derive the view at each access: caching a vector reference changes MSVC's
+// alias analysis and hoists the loop bounds, unlike the retail bodies.
 
 LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E501(int key)
 {
-    for (unsigned int i = 0; i < m_pendingBattles.size(); ++i)
+    for (unsigned int i = 0; i < reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14)->size(); ++i)
     {
-        if (m_pendingBattles[i]->m_key30 == key)
-            return m_pendingBattles[i];
+        if ((*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i]->m_key30 == key)
+            return (*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i];
     }
     return 0;
 }
@@ -58,20 +48,20 @@ LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E501(int key)
 // level deeper: the +0x12C int of the object the battle's +0x24 word points to.
 LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E53D(int key)
 {
-    for (unsigned int i = 0; i < m_pendingBattles.size(); ++i)
+    for (unsigned int i = 0; i < reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14)->size(); ++i)
     {
-        if (reinterpret_cast<Rva0020E53DTarget *>(m_pendingBattles[i]->m_key24)->m_key12C == key)
-            return m_pendingBattles[i];
+        if (reinterpret_cast<Rva0020E53DTarget *>((*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i]->m_key24)->m_key12C == key)
+            return (*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i];
     }
     return 0;
 }
 
 LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E57F(unsigned int key)
 {
-    for (unsigned int i = 0; i < m_pendingBattles.size(); ++i)
+    for (unsigned int i = 0; i < reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14)->size(); ++i)
     {
-        if (m_pendingBattles[i]->m_key24 == key)
-            return m_pendingBattles[i];
+        if ((*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i]->m_key24 == key)
+            return (*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i];
     }
     return 0;
 }
@@ -80,10 +70,10 @@ LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E5BB(int key)
 {
     if (key == 0)
         return 0;
-    for (unsigned int i = 0; i < m_pendingBattles.size(); ++i)
+    for (unsigned int i = 0; i < reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14)->size(); ++i)
     {
-        if (m_pendingBattles[i]->m_key34 == key)
-            return m_pendingBattles[i];
+        if ((*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i]->m_key34 == key)
+            return (*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field14))[i];
     }
     return 0;
 }
@@ -92,10 +82,10 @@ LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E5FD(int key)
 {
     if (key == 0)
         return 0;
-    for (unsigned int i = 0; i < m_completedBattles.size(); ++i)
+    for (unsigned int i = 0; i < reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field20)->size(); ++i)
     {
-        if (m_completedBattles[i]->m_key34 == key)
-            return m_completedBattles[i];
+        if ((*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field20))[i]->m_key34 == key)
+            return (*reinterpret_cast<_STL::vector<LivingWorldPendingBattle *> *>(&field20))[i];
     }
     return 0;
 }
@@ -105,7 +95,7 @@ LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E5FD(int key)
 // the existing independently verified lookups prove its receiver identity.
 LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E6C0()
 {
-    int key = m_selectedKey;
+    int key = field10;
     LivingWorldPendingBattle *battle = rva0020E5BB(key);
     if (!battle)
         battle = rva0020E5FD(key);
