@@ -30,6 +30,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_FIRST = 0,
 	MODELCONDITION_COUNT = 0x24F
 };
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class ModelConditionFlags
 {
