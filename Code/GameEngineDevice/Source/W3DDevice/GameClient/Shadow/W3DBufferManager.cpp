@@ -7,7 +7,8 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 #include "Common/Debug.h"
-#include "refcount.h"
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+#define REF_PTR_RELEASE(x)		{ if (x) { x->Release_Ref(); x = NULL; } }
 #include <d3d8.h>
 #include <stddef.h>
 #define MAX_VB_SIZES 512	// BFME, not ZH's 128: releaseSlot shifts the format left by 9
@@ -49,18 +50,7 @@ private:
 	char m_storage[24];
 };
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h
-class DX8IndexBufferClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-	DX8IndexBufferClass( unsigned indexCount, UsageType usage = USAGE_DEFAULT );
-	virtual void Delete_This();
-	void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-private:
-	int NumRefs;
-	char m_storage[ 16 ];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManager.h,
 // with BFME's MAX_VB_SIZES and MAX_IB_SIZES and its own vertex buffer class.
