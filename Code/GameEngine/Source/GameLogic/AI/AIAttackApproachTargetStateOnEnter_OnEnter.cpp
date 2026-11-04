@@ -328,21 +328,7 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	UnsignedInt kindOfWord(Int i) const { return ((const UnsignedInt *)m_kindOf)[i]; }
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x14]; // +0x108
-	unsigned char m_pad11C[0x122 - 0x11C];
-	unsigned char m_122; // +0x122
-	unsigned char m_pad123[0x53C - 0x123];
-	Real m_firingArc; // +0x53C
-	unsigned char m_pad540[0x5FD - 0x540];
-	Bool m_useCrushAttack; // +0x5FD
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -382,8 +368,8 @@ public:
 		Object *container = getOutermostContainer();
 		return container && container->isKindOfImmobile();
 	}
-	Bool isKindOfImmobile() const { return getTemplate()->isKindOfImmobile(); }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfImmobile() const { return (((const unsigned char *)getTemplate()->m_kindof)[0] & 4) != 0; }
+	Bool isKindOfProjectile() const { return (((const unsigned char *)getTemplate()->m_kindof)[3] & 2) != 0; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -1041,7 +1027,7 @@ StateReturnType AIAttackSquadState::update()
 	if (!owner->testStatus(OBJECT_STATUS_41))
 	{
 		const ThingTemplate *thingTemplate = victim->getTemplate();
-		if (!(thingTemplate->m_kindOf[0x06] & 0x80) && !(thingTemplate->m_kindOf[0x13] & 0x08) && !(thingTemplate->m_kindOf[0x0B] & 0x40) &&
+		if (!(((const unsigned char *)thingTemplate->m_kindof)[0x06] & 0x80) && !(((const unsigned char *)thingTemplate->m_kindof)[0x13] & 0x08) && !(((const unsigned char *)thingTemplate->m_kindof)[0x0B] & 0x40) &&
 			victim->getControllingPlayer() == owner->getControllingPlayer())
 		{
 			ai->friend_setGoalObject(0);

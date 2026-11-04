@@ -328,21 +328,7 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	UnsignedInt kindOfWord(Int i) const { return ((const UnsignedInt *)m_kindOf)[i]; }
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x14]; // +0x108
-	unsigned char m_pad11C[0x122 - 0x11C];
-	unsigned char m_122; // +0x122
-	unsigned char m_pad123[0x53C - 0x123];
-	Real m_firingArc; // +0x53C
-	unsigned char m_pad540[0x5FD - 0x540];
-	Bool m_useCrushAttack; // +0x5FD
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -382,8 +368,8 @@ public:
 		Object *container = getOutermostContainer();
 		return container && container->isKindOfImmobile();
 	}
-	Bool isKindOfImmobile() const { return getTemplate()->isKindOfImmobile(); }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfImmobile() const { return (((const unsigned char *)getTemplate()->m_kindof)[0] & 4) != 0; }
+	Bool isKindOfProjectile() const { return (((const unsigned char *)getTemplate()->m_kindof)[3] & 2) != 0; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -1109,7 +1095,7 @@ StateReturnType AIAttackFireWeaponState::update()
 			target.x = victim->getPosition()->x;
 			target.y = victim->getPosition()->y;
 			target.z = victim->getPosition()->z;
-			if (((victim->getTemplate()->m_kindOf[7] & 0x10) || (victim->getTemplate()->m_kindOf[0x11] & 2)) &&
+			if (((((const unsigned char *)victim->getTemplate()->m_kindof)[7] & 0x10) || (((const unsigned char *)victim->getTemplate()->m_kindof)[0x11] & 2)) &&
 				(weapon->getTemplate()->isContactWeapon() || ((const Rva002C9400ByteField *)weapon->getTemplate())->get()))
 				victim->getWorldspaceBestContactPoint(&target, obj->getPosition(), "Ram", 0, 0x2a, false);
 			if (weapon->getTemplate()->m_aimOffset > 0.0f)
@@ -1392,7 +1378,7 @@ Object *AIAttackSquadState::chooseVictim()
 				continue;
 			if (!filter.allows(other))
 				continue;
-			if (!(owner->getTemplate()->kindOfWord(3) & 0x2000) && (other->getTemplate()->kindOfWord(3) & 0x2000))
+			if (!(owner->getTemplate()->m_kindof[3] & 0x2000) && (other->getTemplate()->m_kindof[3] & 0x2000))
 				continue;
 			if (!weapon->isWithinAttackRange((const Object *)owner, other, 0.0f, 1))
 				continue;
