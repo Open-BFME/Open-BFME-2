@@ -142,7 +142,6 @@ class LANGameSlot : public GameSlot
 {
 public:
 	LANGameSlot( void );
-	virtual ~LANGameSlot( void );
 
 private:
 	LANPlayer m_user;				// +0x1AC
