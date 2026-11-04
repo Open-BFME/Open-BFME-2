@@ -186,6 +186,61 @@ something it does not cover: the callers of the three PrereqUnitRec spellings.
 
 [Evidence](../../reverse/attempt_support/perturnstats-readmission-callers-20261104.md).
 
+**Banked: `Rva004EE501` as `vector<PerTurnStats>` (2026-11-04, halilkkaya-pt-o1).**
+I sized the prerequisite and did not start it. It is a reconciliation of
+several headers and many rows, larger than one seat's remaining budget.
+
+The placeholder name cannot simply take the real element. The header defines
+`Rva004EE501` before `LivingWorldScoreKeeper`, because it is the member type at
++0x28. `LivingWorldScoreKeeper::PerTurnStats` cannot be named until that class is
+complete. So the fix is the real `vector<PerTurnStats>`, and every row and view
+below has to move to it together.
+
+- **Canonical `LivingWorldScoreKeeper.h`.**
+  - `struct Rva004EE501 : _Vector_base<int>` has a forceinline default ctor and
+    an out-of-line dtor.
+  - Member `Rva004EE501 m_28` sits at +0x28.
+  - `PerTurnStats` is only forward-declared.
+  - Header consumers: LivingWorldScoreKeeper.cpp and Rva004EE15BFwd.cpp, which
+    also defines its own `PerTurnStats` body.
+- **Rows named for the placeholder, which become `vector<PerTurnStats>`
+  members.** Each needs a `rename.py` pass and a decision on inlining, because
+  STLport's vector dtor and copy ctor are inline but retail calls them out of
+  line.
+  - `??1Rva004EE501@@QAE@XZ` 0x004EE501, 63 B with EH, in
+    RvaVectorDtorFamily.cpp. That file also carries the hatch
+    `/alternatename:??1Rva004EE501Subobject@@QAE@XZ=??1Rva004EE501@@QAE@XZ`.
+  - `??0Rva004EE501@@QAE@ABV0@@Z` 0x0051ED0A, in AptTimeLine.cpp.
+  - `vector<Rva0051F7ADRecord>::operator=` 0x0051F7AD, in StlSweepR3Rva0051F7AD.cpp.
+  - `Rva004EE55EVector::reserve` 0x004EE55E, in StlVectorReserveProviderRepairs.cpp.
+  - `Rva004EE6D0::rva004EE6D0` 0x004EE6D0 and `push_back` 0x004EE9B1, in
+    Rva004EE6D0Insert.cpp.
+  - `Rva004EE540::rva004EE540` 0x004EE540, in LivingWorldScoreKeeper.cpp.
+  - `Rva004EE9E9XferVector` 0x004EE9E9 (element view `Elem003AF8C0`).
+- **Other views of the same vector or element.**
+  - AptTimeLine.cpp: `Rva004EE501 : _Vector_base<PrereqUnitRec>` (a global
+    placeholder) and `Rva004EE501Subobject` at +0x20 of `Rva00520211Element`.
+  - Private `LivingWorldScoreKeeper` or `PerTurnStats` bodies in
+    Rva004EEE38CollectTurnStats.cpp, V3PolyCopyCtors.cpp, ConstIntGetters.cpp,
+    StlportConstructCopySiblings.cpp, Rva004EE6D0Insert.cpp and
+    Rva004EE15BFwd.cpp.
+  - Rva004EEE38CollectTurnStats.cpp has the fullest `PerTurnStats` body:
+    Snapshot base, `Short m_numRegions/m_numUnits/m_numArmies`. The retail
+    name string `"LivingWorldScoreKeeper::PerTurnStats"` in ConstIntGetters.cpp
+    supports the class name.
+- **Callers with hand-declared `_STL` templates.** StlSweepR3Rva0051F7AD.cpp and
+  StlVectorReserveProviderRepairs.cpp say those stubs exist to avoid emitting a
+  second, non-retail helper family. Moving them onto real `<vector>` needs its
+  own byte and link proof.
+
+Order:
+1. Put `PerTurnStats` (from Rva004EEE38CollectTurnStats.cpp's body) and a
+   `vector<PerTurnStats>` member into the canonical header.
+2. Rename the 0x004EE501 and 0x0051ED0A rows to that vector's members and
+   drop the alternatename.
+3. Adopt the header in the callers.
+4. Run cx-o5's steps 1 and 2 as one commit, then step 3.
+
 ### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
 
 After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the
