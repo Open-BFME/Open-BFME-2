@@ -277,34 +277,24 @@ public:
 
 AptCIH *__cdecl _AptGetAnimationAtLevel(int);
 
-class AptCIH
+#include "AptCIHClass.h"
+struct AptCIHLoadBits
 {
-public:
-	virtual void destroy();
-	int m_4;
-	EAStringC m_name;
-	int m_c;
-	unsigned char pad10[0x14];
-	int m_24;
-	unsigned char pad28[0x20];
-	AptCIHParent *m_parent;
-	void *m_4c;
-	AptCIH *m_prev;
-	AptCIH *m_next;
 	int m_depth : 17;
 	unsigned m_rest58 : 15;
 	unsigned m_flags5c : 18;
 	unsigned m_kind : 2;
 	unsigned m_rest5c : 12;
-	void ClearCIH(int);
-	__forceinline void relink()
-	{
-		if (m_prev)
-			m_prev->m_next = this;
-		if (m_next)
-			m_next->m_prev = this;
-	}
 };
+static __forceinline AptCIHLoadBits &cihBits(AptCIH *cih) { return *(AptCIHLoadBits *)&cih->field58; }
+static __forceinline AptCIHParent *cihParent(AptCIH *cih) { return (AptCIHParent *)cih->field48; }
+static __forceinline void cihRelink(AptCIH *cih)
+{
+	if (cih->field50)
+		cih->field50->field54 = cih;
+	if (cih->field54)
+		cih->field54->field50 = cih;
+}
 
 class Rva006CBDE0
 {
@@ -376,7 +366,7 @@ void AptLinker::Load(const EAStringC &file, EAStringC target)
 
 	AptCIH *cih = (AptCIH *)((BfmeAptValue006DCD20 *)value)->rva006DCF60(false);
 	cih->ClearCIH(1);
-	if (cih->m_kind == 1) {
+	if (cihBits(cih).m_kind == 1) {
 		Iter it = findLink(cih);
 		Rva006D0790Ref link(*it);
 		Rva006D0280 *owner = ((Gen_00895650 *)link.ptr)->bfmeGet().m_object;
@@ -385,35 +375,35 @@ void AptLinker::Load(const EAStringC &file, EAStringC target)
 			owner->typeC = 5;
 		}
 
-		AptCIH *copy = (AptCIH *)new Rva006CBDE0(0x13, 0, (AptValue *)cih->m_parent);
-		copy->m_depth = cih->m_depth;
-		copy->m_name = cih->m_name;
-		if (cih->m_parent) {
-			copy->m_prev = cih->m_prev;
-			copy->m_next = cih->m_next;
-			cih->m_parent->getHash()->Set(&cih->m_name, (AptValue *)copy);
-			cih->m_parent->getSpriteInst()->m_displayList.bfmeProcess1279(cih);
-			copy->relink();
-			cih->destroy();
-			((BfmeSubmitter1283 *)&copy->m_parent->getSpriteInst()->m_displayList)->bfmeSubmit1283(
-				copy, copy->m_depth, 0, (int)&copy->m_name, (int)copy->m_parent, 1, -1,
-				(float *)&copy->m_24, (int)&copy->m_c, 0, 0, 0);
+		AptCIH *copy = (AptCIH *)new Rva006CBDE0(0x13, 0, (AptValue *)cih->field48);
+		cihBits(copy).m_depth = cihBits(cih).m_depth;
+		copy->field08 = cih->field08;
+		if (cih->field48) {
+			copy->field50 = cih->field50;
+			copy->field54 = cih->field54;
+			cihParent(cih)->getHash()->Set(&cih->field08, (AptValue *)copy);
+			cihParent(cih)->getSpriteInst()->m_displayList.bfmeProcess1279(cih);
+			cihRelink(copy);
+			cih->AddRef();
+			((BfmeSubmitter1283 *)&cihParent(copy)->getSpriteInst()->m_displayList)->bfmeSubmit1283(
+				copy, cihBits(copy).m_depth, 0, (int)&copy->field08, (int)copy->field48, 1, -1,
+				(float *)&copy->field24, (int)&copy->field0C, 0, 0, 0);
 			((AptValue *)cih)->setIsDefined(true);
-			copy->m_parent->release();
-			cih->m_parent = 0;
+			cihParent(copy)->release();
+			cih->field48 = 0;
 		} else {
-			copy->m_prev = cih->m_prev;
-			copy->m_next = cih->m_next;
+			copy->field50 = cih->field50;
+			copy->field54 = cih->field54;
 			bfmeUnlinkNestedBE((BfmeNestedBE *)cih);
-			copy->relink();
+			cihRelink(copy);
 		}
-		copy->destroy();
+		copy->AddRef();
 		((BfmeAptValue006DCD20 *)cih)->setGCRootCount(1);
 		cih = copy;
 	}
 
 	((BfmeAptValue006DCD20 *)cih)->setTypeAt006DBBC0(0x13);
-	cih->m_4c = 0;
+	cih->field4C = 0;
 	((AptValue *)cih)->setIsDefined(true);
 	Iter it = findLink(cih);
 	if (it == end()) {
