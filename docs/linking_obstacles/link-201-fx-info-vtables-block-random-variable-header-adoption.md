@@ -1,4 +1,4 @@
-### LINK-198: FX info vtables block random-variable header adoption
+### LINK-201: FX info vtables block random-variable header adoption
 Status: Blocked on coherent first-provider vtable contracts. Updated: 2026-11-04; inspected revision: db163cbec375.
 Evidence / affected units: [adoption and pristine-source control](../../reverse/attempt_support/gameclientrandomvariable-headers-20261104-codexb.md), index 5a13f2cd61 (2026-11-04 02:25).
 Completed: 12 GameClientRandomVariable header queue rows accepted; 638/638 function rows exact across the cohort and provider; accepted subset and provider preserve 10,831 preview bytes.
