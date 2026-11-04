@@ -235,12 +235,7 @@ public:
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID b);
 };
 
-class BuildAssistant
-{
-public:
-	void clearRemovableForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle);
-	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *playerToBuild);
-};
+#include "../../../Include/Common/BuildAssistantClass.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
