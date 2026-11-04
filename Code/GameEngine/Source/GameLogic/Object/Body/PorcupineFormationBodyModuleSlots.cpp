@@ -47,6 +47,7 @@ class Rva004C2095Contain : public Rva004C2095Slots<31>
 public:
 	virtual void *rvaSlot31() = 0;
 };
+class ThingTemplate;
 class Object
 {
 public:
@@ -54,13 +55,20 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	Object *getContainedBy() const { return m_containedBy; }
 	Rva004C2095Contain *getContain() const { return m_contain; }
+	const ThingTemplate *getTemplate() const { return m_template; }
+	bool test438Bit0() const { return (m_438 & 1) != 0; }
+	char m_pad00[0x4];
 private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_position;		// +0x38
-	unsigned char m_pad044[0x250 - 0x44];
-	Rva004C2095Contain *m_contain;	// +0x250
-	unsigned char m_pad254[0x274 - 0x254];
-	Object *m_containedBy;		// +0x274
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x30];
+	Coord3D m_position; // +0x38
+	char m_pad44[0x20C];
+	Rva004C2095Contain *m_contain; // +0x250
+	char m_pad254[0x20];
+	Object *m_containedBy; // +0x274
+	char m_pad278[0x1C0];
+	unsigned char m_438; // +0x438
+	char m_pad439[0x3];
 };
 class DamageInfo;
 struct PorcupineFormationBodyModuleData
