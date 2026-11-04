@@ -89,10 +89,10 @@ private:
 // CaveSystem::getTunnelTrackerForCaveIndex, retail 0x004275B6.
 TunnelTracker *CaveSystem::getTunnelTrackerForCaveIndex(UnsignedInt index)
 {
-	TunnelTracker *retVal = 0;
+	TunnelTracker *tracker = 0;
 	if (index < m_tunnelTrackerVector.size())
-		retVal = m_tunnelTrackerVector[index];
-	return retVal;
+		tracker = m_tunnelTrackerVector[index];
+	return tracker;
 }
 
 // CaveSystem::registerNewCave, retail 0x004276B6 (130 bytes), Zero Hour's
@@ -150,7 +150,7 @@ void CaveSystem::DoXfer(Xfer *xfer)
 		{
 			throw XferException(5, 0);
 		}
-		for (unsigned short i = 0; i < count; ++i)
+		for (unsigned short trackerIndex = 0; trackerIndex < count; ++trackerIndex)
 		{
 			tracker = new TunnelTracker;
 			xfer->operator==(reinterpret_cast<class Snapshot &>(*(tracker)));
