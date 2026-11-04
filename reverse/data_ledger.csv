@@ -4032,7 +4032,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007F3EAC,52,.rdata,string,??_C@_0DA@NEJNNPHP@Not?5likely?5to?5duplicate?5this?5nam@,,literal,,0,1
 0x007F3EE0,128,.rdata,vtable,??_7SymbioticStructuresBodyModuleData@@6B@,,literal,,0,1
 0x007F3F60,200,.rdata,vtable,??_7ActivateModuleSpecialPowerModuleData@@6B@,,literal,,0,2
-0x007F4028,128,.rdata,global,_vtbl_00BF4028,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModuleDataCtor.cpp,owned,,1,2
+0x007F4028,128,.rdata,global,_vtbl_00BF4028,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp,owned,,1,2
 0x007F40A8,256,.rdata,vtable,??_7CreateCrateDieModuleData@@6B@,,literal,,0,2
 0x007F41A8,384,.rdata,vtable,??_7SubObjectsUpgradeModuleData@@6B@,,literal,??_7SubObjectsUpgradeModuleData@@6B@;_vtbl_00BF41A8,0,2
 0x007F4328,124,.rdata,vtable,??_7TunnelContainModuleData@@6B@,,literal,??_7TunnelContainModuleData@@6B@;_vtbl_00BF4328,0,2
@@ -11514,7 +11514,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085C118,104,.rdata,string,??_C@_0GF@IKPMOEKJ@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
 0x0085C180,176,.rdata,vtable,??_7OathbreakerBody@@6BBodyModuleInterface@@@,,literal,??_7OathbreakerBody@@6BBodyModuleInterface@@@;??_7Rva004C1EF7@@6BRva004C1EF7_B2@@@,0,2
 0x0085C230,168,.rdata,vtable,??_7OathbreakerBody@@6BBehaviorModule@@@,,literal,??_7OathbreakerBody@@6BBehaviorModule@@@;??_7Rva004C1EF7@@6BRva004BF951@@@,0,2
-0x0085C2D8,64,.rdata,global,?g_00C5C2D8@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModuleDataParse.cpp,owned,,1,1
+0x0085C2D8,64,.rdata,global,?g_00C5C2D8@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp,owned,,1,1
 0x0085C318,176,.rdata,vtable,??_7PorcupineFormationBodyModule@@6BBodyModuleInterface@@@,,literal,??_7PorcupineFormationBodyModule@@6BBodyModuleInterface@@@;??_7Rva004C2016@@6BRva004C2016_B2@@@,0,2
 0x0085C3C8,92,.rdata,vtable,??_7PorcupineFormationBodyModule@@6BBehaviorModule@@@,,literal,??_7PorcupineFormationBodyModule@@6BBehaviorModule@@@;??_7Rva004C2016@@6BRva004BF951@@@,0,2
 0x0085C424,4,.rdata,vtable,??_7Rva004C227A@@6BRva004C227A_B2@@@,,literal,??_7Rva004C227A@@6BRva004C227A_B2@@@;_vtbl_00C5C424,0,2
