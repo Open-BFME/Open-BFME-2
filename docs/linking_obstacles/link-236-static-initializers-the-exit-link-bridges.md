@@ -4,8 +4,8 @@ Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halil
 `f2cec2a7f8`: report tie fix, Drawable.h constant and 84 rowed copies, bridged 969 -> 885 on the
 fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40
 rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are
-file-scope objects of the 0x0065D090 constructor, 64 registered, bridged 845 -> 781; next seat
-continues).
+file-scope objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records
+of its 0x0065D070 sibling, bridged 845 -> 719; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -68,7 +68,7 @@ places it.
 | `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3) |
 | `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
-| `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 |
+| `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 (0 after in-o4) |
 | `Rva007AD295ZeroInits.cpp` | 56 |
 | `Rva007ABC6FFrameRateInits.cpp` | 31 |
 | `Rva007ABEF3ArgCtorInits.cpp` | 16 |
@@ -221,6 +221,18 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   the record tables and the codec code (for example `findEntry` 0x00667FC0 reads 0x00DD8298, and
   0x00669410 reads 0x00DD8320). Merge them when tu_map approves those TUs. The 0x007B6190 thtr codec
   initializer sits in `Rva007AC6DDGlobalInits.cpp`.
+
+**TxnNameInits (62 rows): transaction records (halilkkaya-in-o4, 2026-11-04).**
+- *Target facts.* Entries 0x007B55E0..0x007B5DC0 are one 22-byte body, `mov eax, [type]; push
+  "Name"; push eax; mov ecx, &record; call 0x0065D070; ret`. The services run in table order acct
+  (20), blob (10), fdbk (2), rank (11), recp (4), club (11) and fsys (4). Retail's table has only two
+  other entries in that run: the acct codec object's atexit-only initializer 0x007B55D0 just before
+  Login, and a mutex object's initializer 0x007B5860 just before blob.
+- *Rowed (62).* `Rva007B55E0TxnNameInits.cpp` defines the records as
+  `Rva007B55E0TxnName g(type, "Name");` in retail's table order, `_$E1`..`_$E123`. The explicit
+  constructor-call functions, the `#pragma code_seg(".text$yc")` and the default constructor with
+  its `present-unmatched` marker are gone. The type values are `const char *` globals initialized to
+  a literal, so they are address constants and nothing folds. The file's hatch lines shrink by 62.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
