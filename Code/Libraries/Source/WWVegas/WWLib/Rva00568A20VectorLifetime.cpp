@@ -8,8 +8,7 @@ void __cdecl Rva00030830FreeAllocation(void *);
 #include <vector>
 #undef free
 #include "OpaqueRefCounted.h"
-struct BfmePoolHolder88 {char pad[0x88];OpaqueRefCounted ref;};
-class BfmePoolRef10 {public:BfmePoolHolder88 *target; ~BfmePoolRef10(){if(target)target->ref.Release_Ref();}};
+#include "../../../../GameEngine/Include/Common/BfmePoolRef10.h"
 class HostClass005C8E0A;
 class Rva00568A20 {
 public:

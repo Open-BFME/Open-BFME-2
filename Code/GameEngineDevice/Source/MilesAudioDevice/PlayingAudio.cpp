@@ -24,9 +24,7 @@ class PlayingAudioUnknown0C:public BfmeStringTailRecord156 {public:PlayingAudioU
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct BfmePoolHolder88 {char unknown00[0x88];OpaqueRefCounted ref;};
-
-class BfmePoolRef10 {public:BfmePoolRef10():ptr(0){}~BfmePoolRef10(){if(ptr)ptr->ref.Release_Ref();}private:BfmePoolHolder88 *ptr;};
+#include "../../../GameEngine/Include/Common/BfmePoolRef10.h"
 
 // Native PlayingAudio dtor releases file20 through A8A37; WorldBuilder names
 // the rowed AudioFileContainer dtor there, independent of its folded zero ctor.
