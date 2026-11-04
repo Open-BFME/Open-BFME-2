@@ -951,7 +951,7 @@ examined: **273 CONFLICTs across 146 TUs**.
 | 18 | class-key differs, ledger silent |
 | 18 | virtual slot filled two ways |
 | 18 | fields overlap |
-| 16 | no layout evidence |
+| 16 | no layout evidence (**8 of these were false**, see below) |
 | 15 | field typed differently |
 | 8 | anonymous/nested aggregate |
 | 5 | two inline bodies |
@@ -969,6 +969,29 @@ mechanical are not:
   eleven cases decided 3, left 7 undecidable because the ctor owner and the dtor
   owner disagree, and 1 unresolvable. A declspec row is a candidate for that
   check, never a decided fix, and the two rows must not be added together.
+
+**One category was partly bogus, and is now fixed.** Of the 16 rows reading
+`no file's CodeView lays X out (nothing uses it)`, **8 were not conflicts**: the
+two views spell the class identically, so nothing needs writing and the merge
+emits it once as it stands. They were refused only because `describe()` called
+`plan()`, `plan()` needs a layout, and a class that two files declare identically
+but neither file uses concretely has no CodeView record to give it.
+`describe()` now asks `spelled_alike()` first (`ad6ec1dc9a`), which compares the
+views exactly as `plan()` does and needs no layout. Identical views cannot produce
+an edit, so the change can only turn a false CONFLICT into `already shared`.
+
+Verified on the real declarations, not just in tests: `TerrainLighting`,
+`W3DDisplay`, `BfmePoolHolder`, `AptPlayerStatusObjectives`, `BehaviorModuleBase`,
+`BehaviorModuleOther` and `Rva005AE26AOwner` all report `already shared` when run
+with an empty layout provider, with **zero builds invoked** and the worktree
+untouched. The other 8 of the 16 genuinely differ and stay CONFLICT, as does a
+minified-against-formatted pair: `ws()` collapses whitespace runs but not
+whitespace presence, which is why `AptValue.cpp`'s reformat earlier the same day
+was a real landed change rather than a false positive.
+
+So the census's conflict total is about 8 lower than it reads above, and the
+`blocked-by-classes` ranking that seats pick work from was pointing at a handful
+of TUs whose named class was not blocking anything.
 
 The reason is structural and worth stating once: these conflicts are **survivors**.
 `tu_views` writes every class it can settle and refuses the rest, so the census is
