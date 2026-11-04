@@ -15,7 +15,7 @@ class PartitionData;
 class PartitionDirtyListOwner
 {
 public:
-	void prependDirtyModule( PartitionData *node );
+	void prependDirtyModule(PartitionData *node);
 };
 
 /// PartitionData stand-in: BFME makeDirty() takes no argument.
