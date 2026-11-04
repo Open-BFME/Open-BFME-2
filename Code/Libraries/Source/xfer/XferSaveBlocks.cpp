@@ -32,24 +32,24 @@ public:
  void rva0060D2E9(const char*);
  int rva0060D435(const char*);
 private:
- BfmeByteStream *volatile stream;
- bool flag; char pad9[3];
- void *positions[3];
+ BfmeByteStream *volatile m_stream;
+ bool m_flag; char pad9[3];
+ void *m_positions[3];
  char names[20]; char secondNames[16];
  unsigned int previousNames;
 };
 
 int XferSave::rva0060D435(const char *name) {
- if(!stream) return 0;
+ if(!m_stream) return 0;
  int marker=0x424c4f4b;
- if(stream->write(&marker,4)!=4) throw XferException(1,0);
- if(flag) rva0060D2E9(name);
- int position=stream->skip(0,1);
+ if(m_stream->write(&marker,4)!=4) throw XferException(1,0);
+ if(m_flag) rva0060D2E9(name);
+ int position=m_stream->skip(0,1);
  if(position==-1) throw XferException(1,0);
  name=(const char*)position;
- ((_STL::vector<const ModuleData*>*)positions)->push_back(*(const ModuleData *const*)&name);
+ ((_STL::vector<const ModuleData*>*)&m_positions)->push_back(*(const ModuleData *const*)&name);
  int placeholder=0;
- if(stream->write(&placeholder,4)!=4) throw XferException(1,0);
+ if(m_stream->write(&placeholder,4)!=4) throw XferException(1,0);
  return 0;
 }
 

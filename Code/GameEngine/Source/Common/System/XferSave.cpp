@@ -159,6 +159,8 @@ public:
 	virtual void XferEnum(void *context, const void *bytes, unsigned int count);
 	virtual void endBlock();
 	virtual Xfer &rva0060CE41(Rva0060CE41Argument &str);
+	void rva0060D2E9(const char *name);
+	int rva0060D435(const char *name);
 
 private:
 	BfmeByteStream * volatile m_stream;
