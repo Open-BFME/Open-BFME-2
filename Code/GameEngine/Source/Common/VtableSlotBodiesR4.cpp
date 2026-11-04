@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 //
 // Five slot bodies (slots 1, 4, 7, 8 and 11) shared by the four unnamed
 // vftables 0x00C04C28, 0x00C04C7C, 0x00C07F4C and 0x00C08974 (no name
@@ -16,20 +17,12 @@
 // the member is a raw +0x08 block viewed through each name. Address-named
 // owner (identity not recovered); 26 bytes each.
 
-struct BfmeE8 { int a[2]; };
-struct BfmePod8;
+#include "../../Include/Common/AreaPolygonBase.h"
 
 class Rva0030BA8C
 {
 public:
 	void rva0030BA8C(const BfmeE8 &value);
-};
-
-class AreaPolygonBase
-{
-public:
-	void deletePoint(int index);
-	void rva0030B135(const BfmePod8 *value);
 };
 
 struct Rva0030B812
