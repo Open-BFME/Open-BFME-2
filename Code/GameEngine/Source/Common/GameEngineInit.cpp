@@ -568,16 +568,7 @@ public:
 	virtual GameMessage *appendMessage(Int type);			// slot 18 (+0x48)
 };
 
-class MapMetaData
-{
-public:
-	char m_00[0x24];
-	Bool m_isMultiplayer;		// +0x24
-	char m_25[3];
-	UnsignedInt m_filesize;		// +0x28
-	UnsignedInt m_CRC;			// +0x2C
-	char m_30[0x100 - 0x30];
-};
+#include "../../Include/GameClient/MapMetaData.h"
 
 enum SlotState { SLOT_PLAYER = 6 };
 struct GameSlotConnectInfo { public: Int m_a; short m_b; };
