@@ -34,6 +34,7 @@ before `--plan` and `--merge --dry-run`. No merge or source edits were made.
 | `Code/Libraries/Source/Lua/lapi.c` | No accepted donors. Both routed record-lookup donors fail the baseline match; the three units are census-linked. |
 | `Code/Libraries/Source/WWVegas/WW3D2/dx8webbrowser.cpp` | The plan has two donors and mixed files; dry run stops at `cl flags: unterminated quoted /I include path`. This is a flag prerequisite outside the mechanical lane. |
 | `Code/GameEngine/Source/Common/BfmeB1137.cpp` | No accepted donors. Constructor donor expects `UnInstall_Materials` absent from the target class view; destructor donor defines an undeclared special member. The target and donors are census-linked; class view reconciliation is required. |
+| `Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp` | No accepted donors. The patrol donor has a self-referential `Rva0054840A::ObjectID` declaration error; the affected units are census-linked and GroupOrder/Rva00355B61 view reconciliation is required. |
 | `Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp` | No accepted donors across 17 planned donors. Compile failures include missing `Gen_008F7CD0` members, duplicate `AsciiString`/`PartitionData` views, private-member access, and undeclared `CDEArraySlot`; one donor fails bytes. All affected units are census-linked; class-view and declaration work is outside this seat. |
 
 No accepted two-donor composition was found in these allocated trials. Each
