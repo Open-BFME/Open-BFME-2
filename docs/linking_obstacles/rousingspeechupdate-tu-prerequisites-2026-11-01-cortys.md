@@ -32,6 +32,8 @@ still accepts zero donors. The two other accepted view edits were formatting
 only and are not retained.
 Clearance: pending.
 
+2026-11-04: Canonical list adoption clears the seed and behavior-destructor header prerequisites (26 strict-exact rows; ordinary preview preserves 1,241 bytes); four-donor merge remains blocked on the other class/special-member conflicts. [Repair and remaining prerequisites](../../reverse/attempt_support/rousing-speech-canonical-list-20261104-codex3/readme.md).
+
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default
 AsciiString queue trial exposes another identity boundary in this record
 family. The canonical header preserves three of five rows in

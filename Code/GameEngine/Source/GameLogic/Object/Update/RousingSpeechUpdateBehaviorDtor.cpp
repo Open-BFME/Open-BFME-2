@@ -8,9 +8,9 @@ char g_00C54FE8;
 // there would perturb it), so the class is re-declared here with the ctor
 // declared-only and only the dtor defined.
 //
-// Shape mirrors the ctor: explicit 4 vtable installs plus freelist-node
-// member at +0x88 via pinned reset plus pool-free via 0x268902 pin plus
-// implicit base-dtor tail call. Zero new pins (all callees rowed/pinned).
+// Shape mirrors the ctor: explicit 4 vtable installs plus the canonical
+// freelist-node member at +0x88. Its implicit destructor calls the existing
+// 0x268902 owner after reset, before the base-dtor tail call.
 //
 // LEVERS (probe-proven): (1) base dtor declared VIRTUAL (true UAE spelling,
 // shares vfptr so base stays at +0; non-virtual base pushes to +4 with a
@@ -30,21 +30,10 @@ public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
 private:
-	char m_pad[0x88];
+	char m_pad[0x88 - 4];
 };
 
-class Rva0029FB3BMember
-{
-public:
-	void init(void *context);
-	void reset();
-};
-
-class PoolMember
-{
-public:
-	void Rva00268902();
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 class RousingSpeechUpdate : public Rva0044EF5E
 {
@@ -62,11 +51,9 @@ private:
 // ??1RousingSpeechUpdate@@UAE@XZ @0x004ACE96
 RousingSpeechUpdate::~RousingSpeechUpdate()
 {
-	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
 	*(const void **)this = (const void *)(unsigned int)&g_00C54FE8;
 	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@"));
 	*(const void **)((char *)this + 0x10) = (const void *)(unsigned int)&g_00C54FD8;
 	*(const void **)((char *)this + 0x20) = (const void *)((unsigned int)vtbl_00C552A4);
-	member->reset();
-	((PoolMember *)member)->Rva00268902();
+	m_88.reset();
 }

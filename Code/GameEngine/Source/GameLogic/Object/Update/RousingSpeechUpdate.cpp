@@ -71,15 +71,21 @@ struct Rva004AD613Iterator
 // element into a 12-byte list node; they never dereference the word as a
 // pointer. Reuse that existing owner for these ObjectID payloads.
 class Rva002A1B6FNativeList { public: void append(void *const &value); };
-class Rva0029FB3BMember
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
+
+static inline Rva004AD613Iterator affectedBegin(const Rva0029FB3BMember &list)
 {
-public:
-	bool empty() const { return m_head->m_next == m_head; }
-	Rva004AD613Iterator begin() const { Rva004AD613Iterator it; it.m_node = m_head->m_next; return it; }
-	Rva004AD613Iterator end() const { Rva004AD613Iterator it; it.m_node = m_head; return it; }
-	void reset();
-	Rva004AD613Node *m_head;
-};
+	Rva004AD613Iterator it;
+	it.m_node = ((Rva004AD613Node *)list.m_head)->m_next;
+	return it;
+}
+
+static inline Rva004AD613Iterator affectedEnd(const Rva0029FB3BMember &list)
+{
+	Rva004AD613Iterator it;
+	it.m_node = (Rva004AD613Node *)list.m_head;
+	return it;
+}
 class Thing;
 class ModuleData;
 enum NameKeyType
@@ -477,7 +483,7 @@ void RousingSpeechUpdate::rva004ACF1D()
 {
 	if (!m_88.empty())
 	{
-		for (Rva004AD613Iterator it = m_88.begin(); it != m_88.end(); ++it)
+		for (Rva004AD613Iterator it = affectedBegin(m_88); it != affectedEnd(m_88); ++it)
 		{
 			Object *object = TheGameLogic->findObjectByID(*it);
 			if (object)
