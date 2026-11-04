@@ -23676,3 +23676,7 @@ Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp|global||g_00C43D
 Code/GameEngine/Source/Common/Rva004FD37F.cpp|function|0x004FD37F|rva004FD37F,d9838f82a02c697de909777f,claude-opus-5-5,claude3-20261104-022115-6,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva00418C33Insert.cpp|function|0x00418C33|rva00418C33,6a46e061acd3c02b844cbc87,claude-opus-5-5,claude3-20261104-022115-8,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp|global||g_00E01E04,58f9703ae87ca4205879cd16,claude-opus-5-5,claude3-20261104-022115-10,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp|member|BfmeOwnerYX|m_bfmeBYX,8e6f66a6c61cb39ceda20667,claude-opus-5-5,claude3-20261104-023505-3,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp|member|BfmeOwnerYX|m_bfmeAYX,3cf099c6bfd7d4d5ac509725,claude-opus-5-5,claude3-20261104-023505-3,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookShroudReveal.cpp|function|0x005D7E45|Rva005D7E45FindWaypoint,901a86cc45fdff947d589684,claude-opus-5-5,claude3-20261104-023505-5,w-29a6ae2a2f9f,2026-11-04
+Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|Rva0022C68CMetadataTree|count04,da9af8cd010902ec586c75e0,claude-opus-5-5,claude3-20261104-023505-5,w-29a6ae2a2f9f,2026-11-04
