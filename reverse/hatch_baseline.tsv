@@ -13589,6 +13589,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp	Set_B
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp	Set_Shader@Render2DSentenceClass@@QAEXVShaderClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp	bfmeEmitFontCharsBufferAdd@@YAXPAV?$DynamicVectorClass@PAVFontCharsBuffer@@@@PAVFontCharsBuffer@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp	bfmeEmitFontCharsBufferTeardown@@YAXPAV?$DynamicVectorClass@PAVFontCharsBuffer@@@@@Z	1
+present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp	0Rva001364F7Iter@@QAE@PAURvaNode1364F7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Get_Render_Object@RenderObjectRecyclerClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Insert_Inactive_Model@RenderObjectRecyclerClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Reset@RenderObjectRecyclerClass@@	1
@@ -13690,7 +13691,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Local
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Locale_extract_time_name	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp	OwnedBucketStorage::~OwnedBucketStorage	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0000234DVectorDeletingDtors.cpp	bfmeVectorDeleteAnchor0000234D@@YAXPAVRva0000234DElem@@PAVRva00001E13@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00136642HintInsert.cpp	0Rva001364F7Iter@@QAE@PAURvaNode1364F7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	Rva00151248String::Rva00151248String	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C262HeaderOwner::~Rva0018C262HeaderOwner	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C4A9Result::Rva0018C4A9Result	1
