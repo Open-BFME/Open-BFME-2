@@ -73,37 +73,7 @@ typedef char GameInfoMapOffset40[(offsetof(GameInfo,m_map)==0x40)?1:-1];
 
 typedef char GameInfoMapFlagOffset4D[(offsetof(GameInfo,m_flag4D)==0x4D)?1:-1];
 
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getBaseDisplayName();
-public:
-	UnicodeString rva00300D0E();
-private:
-	UnicodeString m_displayNameLabel;
-private:
-	UnicodeString m_descriptionLabel;
-private:
-	char m_pad08[0x20 - 0x08];
-private:
-	int m_playerCount;
-private:
-	char m_pad24[0x50 - 0x24];
-private:
-	AsciiString m_fileName;
-private:
-	char m_pad54[0xF8 - 0x54];
-private:
-	UnicodeString m_cachedBaseDisplayName;
-private:
-	UnicodeString m_cachedDescription;
-public:
-	UnicodeString bfme_getDisplayName(bool includePlayerCount);
-public:
-	UnicodeString getDescription();
-public:
-	UnicodeString bfme_getDescriptionFirstLine();
-};
+#include "../../../Include/GameClient/MapMetaData.h"
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp
 
@@ -121,12 +91,12 @@ UnicodeString MapMetaData::getDescription()
 		}
 
 		AsciiString label;
-		label.translate(m_descriptionLabel);
+		label.translate(m_description);
 
 		bool exists = false;
 		m_cachedDescription.set(TheGameText->fetch(label, &exists));
 		if (!exists)
-			m_cachedDescription.set(m_descriptionLabel);
+			m_cachedDescription.set(m_description);
 
 		TheGameText->reset();
 	}
@@ -140,7 +110,7 @@ UnicodeString MapMetaData::getDescription()
 
 UnicodeString MapMetaData::bfme_getBaseDisplayName()
 {
-	if (m_cachedBaseDisplayName.getLength() == 0)
+	if (m_cachedDisplayName.getLength() == 0)
 	{
 		const char *slash = ((StringBase<char> &)m_fileName).reverseFind('\\');
 		if (slash)
@@ -152,38 +122,38 @@ UnicodeString MapMetaData::bfme_getBaseDisplayName()
 		}
 
 		AsciiString label;
-		if (*m_displayNameLabel.str() == '$')
+		if (*m_displayName.str() == '$')
 		{
-			label.translate(m_displayNameLabel.str() + 1);
+			label.translate(m_displayName.str() + 1);
 		}
 		else
 		{
-			label.translate(m_displayNameLabel);
+			label.translate(m_displayName);
 		}
 
 		bool exists = false;
-		m_cachedBaseDisplayName.set(TheGameText->fetch(label, &exists));
+		m_cachedDisplayName.set(TheGameText->fetch(label, &exists));
 		if (!exists)
 		{
-			if (slash && *m_displayNameLabel.str() == '$')
+			if (slash && *m_displayName.str() == '$')
 			{
-				m_cachedBaseDisplayName.translate(slash + 1);
-				if (((StringBase<WideChar> &)m_cachedBaseDisplayName).endsWith(L".map"))
+				m_cachedDisplayName.translate(slash + 1);
+				if (((StringBase<WideChar> &)m_cachedDisplayName).endsWith(L".map"))
 				{
 					for (int i = 4; i != 0; --i)
-						((StringBase<WideChar> &)m_cachedBaseDisplayName).removeLastChar();
+						((StringBase<WideChar> &)m_cachedDisplayName).removeLastChar();
 				}
 			}
 			else
 			{
-				m_cachedBaseDisplayName.set(m_displayNameLabel);
+				m_cachedDisplayName.set(m_displayName);
 			}
 		}
 
 		TheGameText->reset();
 	}
 
-	return m_cachedBaseDisplayName;
+	return m_cachedDisplayName;
 }
 
 UnicodeString MapMetaData::rva00300D0E()
@@ -202,10 +172,10 @@ UnicodeString MapMetaData::rva00300D0E()
 UnicodeString MapMetaData::bfme_getDisplayName(bool includePlayerCount)
 {
 	UnicodeString name = bfme_getBaseDisplayName();
-	if (includePlayerCount && m_playerCount >= 2)
+	if (includePlayerCount && m_numPlayers >= 2)
 	{
 		UnicodeString suffix;
-		suffix.format(L" (%d)", m_playerCount);
+		suffix.format(L" (%d)", m_numPlayers);
 		((StringBase<WideChar> &)name).concat(suffix);
 	}
 	return name;
