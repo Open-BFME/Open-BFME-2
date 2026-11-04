@@ -216,11 +216,10 @@ void BfmeThingCDE::d_008f7ec0()
 // this body is ShroudManager::Data::KeepAsGhost in EA's own
 // shroudmanager_data.cpp). The body is the matched BFME1 donor verbatim;
 // the sibling call goes through the still-placeholder row name.
-class ShroudManager
+#include "../../Include/Common/ShroudManagerClass.h"
+
+class ShroudManager::Data
 {
-public:
-	class Data
-	{
 	public:
 		bool KeepAsGhost();
 
@@ -238,7 +237,6 @@ public:
 		int m_slots[20];
 		unsigned char m_status[20];
 	};
-};
 
 bool ShroudManager::Data::KeepAsGhost()
 {
