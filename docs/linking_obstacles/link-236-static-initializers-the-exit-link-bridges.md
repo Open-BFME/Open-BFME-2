@@ -74,12 +74,36 @@ places it.
 
 Most rows say "owning TU unrecovered". The work is attribution first, then step 3 in the owner.
 
-**HalfRateInits (425 rows).** Each row is `s = LOGICFRAMES_PER_SECOND / 2` into a TU-local static
-that nothing reads. The Zero Hour donor's `Drawable.h:279` has `const Int DRAWABLE_FRAMES_PER_FLASH =
-LOGICFRAMES_PER_SECOND / 2;`. That is a structural inference: BFME 2 made the frame rate a variable
-(`BfmeClientFramesPerSecond`), so every TU that includes the header carries this initializer. The
-fix is the header constant, with each owner TU including the header. Do not make 425 statics in the
-grab-bag.
+**HalfRateInits (425 rows): `DRAWABLE_FRAMES_PER_FLASH` (halilkkaya-in-o2, 2026-11-04).**
+- *Target facts.* 442 table entries share one 16-byte body, `mov eax, [0x00DBA4E8]; cdq; sub eax,
+  edx; sar eax, 1; mov [s], eax; ret`: 425 in `Rva007AB7F0HalfRateInits.cpp`, 16 in
+  `Rva007ABC6FFrameRateInits.cpp`, one in `Rva005AB309Tactic.cpp`. Seven copies are read.
+  `Drawable::updateDrawable` does `getFrame() % [0x00DFEB98]` (0x00275A30 `div`, `test edx, edx`),
+  and ScriptActions' flash actions do `frames / [0x00E02D9C]` (0x003BB5ED `idiv`). Those are the
+  two uses Zero Hour makes of `DRAWABLE_FRAMES_PER_FLASH` (Drawable.cpp, ScriptActions.cpp).
+- *Other half-rate constants.* Three of the read copies are other constants that share the body.
+  SpawnBehavior::update reloads `[0x00E035C8]` (Zero Hour `SPAWN_UPDATE_RATE`, SpawnBehavior.h).
+  W3DDisplay::updateAverageFPS reads `[0x00DE1B50]` (BFME 1 `START_CUMU_FRAME`, W3DDisplay.cpp).
+  ControlBar::processCommandUI reads `[0x00E05F24]`. Each of these units also has its own
+  Drawable.h copy (0x00E035C4, 0x00DE1B4C, 0x00E05E18).
+- *Header.* The canonical `GameClient/Drawable.h` now defines `const int DRAWABLE_FRAMES_PER_FLASH =
+  BfmeClientFramesPerSecond / 2;`. Every includer compiles the retail body as its own `_$E<n>`
+  over a static named `_DRAWABLE_FRAMES_PER_FLASH`.
+- *Ordinals.* The new initializer moves later ordinals by two. Two units had `object-symbol=_$E<n>`
+  cleanup rows: `UnitRevivalTracker.cpp` (4, 5 -> 6, 7) and `GameLogicDispatchDoSetRallyPoint.cpp`
+  (2, 3, 5 -> 4, 5, 7). A stale `_$E5` there still verified, because the moved cleanup has the same
+  masked bytes. Read each ordinal's relocation targets, not only its bytes.
+- *Retail .text$yc layout (target fact).* After each unit's Drawable.h copy comes an unregistered
+  26-byte `push -1; push 0; mov ecx, 0x00DA60E8; call; push; call atexit`. There are 716 such
+  copies in .text$yc, and only the first (0x007AB800) is in the table: a selectany pool whose
+  .CRT$XCU entry the linker kept once. Each copy marks one unit, which bounds unit runs in the table.
+- *.bss order (target fact).* A unit's dynamic-init statics come after its other statics, so a copy's
+  static follows its own unit's data. The draw modules show it, for example
+  `$S1@getModuleNameKey@W3DDefaultDraw` at 0x009EA308 followed by the copy at 0x009EA30C. So do
+  W3DDisplay's statics, then 0x00DE1B4C, then `START_CUMU_FRAME`.
+- *Measurement.* The header alone moves no figure (`image_report` `a0399b2d38`). The 256 copies stay
+  unidentified until a row names each one. The old report credited them by the shared rate vote
+  (bridged 937 -> 681), which was false.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.
