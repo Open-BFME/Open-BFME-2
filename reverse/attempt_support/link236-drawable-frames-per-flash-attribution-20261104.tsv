@@ -31,7 +31,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ac395	0xdebb68	?$S1@?1??getModuleNameKey@W3DLaserDraw@@UBE?AW4Nam	W3DLaserDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDraw.cpp	1	rowed in this series (round 4: guard file and class pick the unit; Drawable.h include added)
 0x7ac3bf	0xdebb74	?$S1@?1??getModuleNameKey@W3DQuadrupedDraw@@UBE?AW	W3DQuadrupedDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp	0	rowed in this series (Drawable.h include added)
 0x7ac3e9	0xdebb80	?$S1@?1??rva000CA7F6@W3DRopeDraw@@SA?AW4NameKeyTyp	W3DRopeDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDraw.cpp	1	rowed in this series
-0x7ac413	0xdebb8c	?$S1@?1??getModuleNameKey@W3DSupplyDraw@@UBE?AW4Na	W3DSupplyDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSupplyDraw.cpp	0	TU does not include Drawable.h yet
+0x7ac413	0xdebb8c	?$S1@?1??getModuleNameKey@W3DSupplyDraw@@UBE?AW4Na	W3DSupplyDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSupplyDraw.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
 0x7ac43d	0xdebb98	?$S1@?1??getModuleNameKey@W3DTruckDraw@@UBE?AW4Nam	W3DTruckDrawPoolKey.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDraw.cpp	0	rowed in this series (Drawable.h include added)
 0x7ac467	0xdebba4	?$S1@?1??getModuleNameKey@W3DTankDraw@@UBE?AW4Name	W3DTankDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp	0	rowed by in-o5 (canonical Drawable.h adopted: include after View.h (Snapshot spelling))
 0x7ac491	0xdebbb0	?g_Va00DEBBAC@@3IA	GlobalFlagClearers_DEAFxx.cpp		0	no contiguous .bss neighbour with a TU
@@ -74,7 +74,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ad97d	0xdfe1dc	?g_Va00DFE1D8@@3_NA	ReloadIniFileNotices.cpp	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7ada3c	0xdfe330	?TheBannerUI@@3PAVBannerUI@@A	BannerUI.cpp	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	0	TU does not include Drawable.h yet
 0x7adaa5	0xdfe350	?g_rva005B5C02Flag@@3EA			0	no contiguous .bss neighbour with a TU
-0x7adb01	0xdfe48c	?$S1@?3??iniParseCreateAHeroSystem@CreateAHeroMana	CreateAHero_FindBlingByUpgradeName.cpp	Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp	0	TU does not include Drawable.h yet
+0x7adb01	0xdfe48c	?$S1@?3??iniParseCreateAHeroSystem@CreateAHeroMana	CreateAHero_FindBlingByUpgradeName.cpp	Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
 0x7adb82	0xdfe4d0	?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@	AptFileTransferPopup.cpp	Code/GameEngine/Source/Common/AptFileTransferPopup.cpp	0	TU does not include Drawable.h yet
 0x7adbc1	0xdfe714	?TheGameEngine@@3PAVGameEngine@@A	WinMain.cpp	Code/GameEngine/Source/Common/GameEngine.cpp	0	TU claimed by 4 copies: neighbour data is mis-assigned somewhere
 0x7adc48	0xdfe780	?TheGameClient@@3PAVGameClient@@A	GameClient.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameRules.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
@@ -85,7 +85,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ade78	0xdfeb58	?$S1@?1??getModuleNameKey@AIUpdateInterface@@UBE?A	AIUpdateInterfacePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	6	6 fragments of the TU include Drawable.h: row one after merging
 0x7adecc	0xdfeb68	?g_Va00DFEB64@@3_NA	ReloadIniFileNotices.cpp	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7adf88	0xdfec58	?g_waypointListHead@@3PAVWaypoint@@A	TerrainLogic.cpp	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	1	only fragments of the TU include Drawable.h
-0x7adfdf	0xdfeccc	_g_Va00DFECC9	ExperienceLevelSystem.cpp	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	0	TU does not include Drawable.h yet
+0x7adfdf	0xdfeccc	_g_Va00DFECC9	ExperienceLevelSystem.cpp	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	0	rowed by in-o5 (copy heads the unit's .text$yc run; BlockParse nodes re-ordinalled to _$E3/_$E5)
 0x7ae033	0xdfecd4	?g_Va00DFECD0@@3HA	ObjectRva002E6B89.cpp		0	no contiguous .bss neighbour with a TU
 0x7ae087	0xdfedf8	?m_replayWindow@@3PAVGameWindow@@A	InGameUI.cpp	Code/GameEngine/Source/GameClient/InGameUI.cpp	23	23 fragments of the TU include Drawable.h: row one after merging
 0x7ae120	0xdfeeec	?ThePlayerList@@3PAVPlayerList@@A	PlayerList.cpp	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	0	TU does not include Drawable.h yet
@@ -184,7 +184,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b0747	0xe03388	?$S1@?1??getModuleNameKey@BloodthirstyUpdate@@UBE?	BloodthirstyUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp	0	TU does not include Drawable.h yet
 0x7b078b	0xe033b8	?g_Va00E033B4@@3IA	GlobalFlagClearers_E033xx.cpp	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b0834	0xe033dc	?$S1@?1??rva00045235E@AutoHealBehavior@@SA?AW4Name	AutoHealBehaviorPoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
-0x7b0878	0xe033e8	?$S1@?1??getModuleNameKey@WallHubBehavior@@UBE?AW4	WallHubBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp	0	TU does not include Drawable.h yet
+0x7b0878	0xe033e8	?$S1@?1??getModuleNameKey@WallHubBehavior@@UBE?AW4	WallHubBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
 0x7b08a2	0xe033f4	?$S1@?1??getModuleNameKey@GettingBuiltBehavior@@UB	GettingBuiltBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp	1	only fragments of the TU include Drawable.h
 0x7b08f6	0xe0341c	?g_Va00E03418@@3IA	GlobalFlagClearers_E034xx.cpp		0	no contiguous .bss neighbour with a TU
 0x7b0920	0xe03428	?$S1@?1??getModuleNameKey@BuildingBehavior@@UBE?AW	BuildingBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
@@ -192,7 +192,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b09a8	0xe03450	?$S1@?1??getModuleNameKey@RampageBehavior@@UBE?AW4	RampageBehaviorPoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp	1	only fragments of the TU include Drawable.h
 0x7b09ec	0xe03464	?$S1@?1??getModuleNameKey@HitReactionBehavior@@UBE	HitReactionBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehavior.cpp	0	TU does not include Drawable.h yet
 0x7b0a16	0xe03470	?$S1@?1??getModuleNameKey@ClickReactionBehavior@@U	ClickReactionBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp	0	rowed by in-o5 (canonical Drawable.h adopted: ClickReactionObjectView.h private Drawable replaced)
-0x7b0a40	0xe03484	?$S1@?8??rva00459B68@SiegeDockingBehavior@@ABEXXZ@	SiegeDockingBehaviorRefresh.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehavior.cpp	0	TU does not include Drawable.h yet
+0x7b0a40	0xe03484	?$S1@?8??rva00459B68@SiegeDockingBehavior@@ABEXXZ@	SiegeDockingBehaviorRefresh.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehavior.cpp	0	Drawable.h include added and reverted: header first turns SiegeDockingBehavior's vtable to capitalized Snapshot slots (SiegeDockingBehaviorDtor stops linking); after its view it does not compile
 0x7b0b12	0xe034bc	?$S1@?1??getModuleNameKey@AimWeaponBehavior@@UBE?A	AimWeaponBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp	1	rowed in this series
 0x7b0b3c	0xe034c8	?$S1@?1??getModuleNameKey@BezierProjectileBehavior	BezierProjectileBehavior.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp	1	rowed in this series
 0x7b0b66	0xe034d4	?$S1@?1??rva00045CF10@InstantDeathBehavior@@SA?AW4	InstantDeathBehaviorPoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
@@ -230,7 +230,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b12d4	0xe03868	?$S1@?1??getModuleNameKey@DestroyDie@@UBE?AW4NameK	DestroyDie.cpp	Code/GameEngine/Source/GameLogic/Object/Die/DestroyDie.cpp	0	rowed in this series (Drawable.h include added)
 0x7b1318	0xe03884	?$S1@?1??getModuleNameKey@RebuildHoleExposeDie@@UB	RebuildHoleExposeDie.cpp	Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDie.cpp	0	rowed by in-o5 (canonical Thing/Drawable replace the private views; Object derives from the canonical Thing)
 0x7b136c	0xe0389c	?$S1@?1??getModuleNameKey@UpgradeDie@@UBE?AW4NameK	UpgradeDie.cpp	Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDie.cpp	0	rowed by in-o5 (canonical Drawable.h adopted: include after its own class DamageInfo)
-0x7b1396	0xe038a8	?$S1@?1??getModuleNameKey@KeepObjectDie@@UBE?AW4Na	KeepObjectDie.cpp	Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp	0	TU does not include Drawable.h yet
+0x7b1396	0xe038a8	?$S1@?1??getModuleNameKey@KeepObjectDie@@UBE?AW4Na	KeepObjectDie.cpp	Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp	0	rowed by in-o5 (unit free since round 2; include after its class DamageInfo)
 0x7b13c0	0xe038bc	?$S1@?5??makeFeedbackLaser@AssistedTargetingUpdate	AssistedTargetingUpdateFeedbackLaser.cpp	Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
 0x7b13ea	0xe038d0	?$S1@?1??getModuleNameKey@BoneFXUpdate@@UBE?AW4Nam	BoneFXUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b142e	0xe038f4	?$S1@?1??getModuleNameKey@DozerAIUpdate@@UBE?AW4Na	DozerAIUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
@@ -376,7 +376,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b368e	0xe045ac	?$S1@?1??rva0050B288@Made002CCAA1@@QAEXPAXPAVObjec	Made002CCAA1.cpp	Code/GameEngine/Source/GameLogic/Object/Made002CCAA1.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7b36d2	0xe045b0	?$S1@?1??rva0050B288@Made002CCAA1@@QAEXPAXPAVObjec	Made002CCAA1.cpp	Code/GameEngine/Source/GameLogic/Object/Made002CCAA1.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7b3716	0xe045b4	?$S1@?1??rva0050B288@Made002CCAA1@@QAEXPAXPAVObjec	Made002CCAA1.cpp	Code/GameEngine/Source/GameLogic/Object/Made002CCAA1.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
-0x7b3740	0xe04600	?$S1@?1??populateBeacon@ControlBar@@QAEXPAVObject@	ControlBarBeacon.cpp	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarBeacon.cpp	0	TU does not include Drawable.h yet
+0x7b3740	0xe04600	?$S1@?1??populateBeacon@ControlBar@@QAEXPAVObject@	ControlBarBeacon.cpp	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarBeacon.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
 0x7b3832	0xe048d8	?s_instance@AptCreateAHero@@0PAV1@A			0	no contiguous .bss neighbour with a TU
 0x7b385c	0xe048e4	?g_bfmeThreadAtE048E0@@3PAVThreadRestartObj@@A	AptMainMenu.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	0	TU does not include Drawable.h yet
 0x7b3886	0xe0490c	?g_Va00A04908@@3HA	Rva00518262Enable.cpp		0	no contiguous .bss neighbour with a TU
@@ -408,7 +408,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b4698	0xe06440	?g_00E0643C@@3HA	AIFarmKillSquad.cpp	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp	0	TU does not include Drawable.h yet
 0x7b46f8	0xe06454	?g_00E06450@@3HA	AptMyHero.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b4722	0xe06470	?g_00E06468@@3HA	Rva005B0E9F.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
-0x7b47bf	0xe065a8	?$S1@?5??CollectPlayerData@AptTimeLineStats@@QAEXH	AptTimeLineStats.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp	0	TU does not include Drawable.h yet
+0x7b47bf	0xe065a8	?$S1@?5??CollectPlayerData@AptTimeLineStats@@QAEXH	AptTimeLineStats.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
 0x7b4922	0xe065e0	?$S1@?1??Rva005C7889Init@@YAXXZ@4IA	Rva005C7889Init.cpp		0	no contiguous .bss neighbour with a TU
 0x7b4a30	0xe06644	?g_00E06640@@3IA			0	no contiguous .bss neighbour with a TU
 0x7b4ef4	0xe0667c	?g_Va00E06670@@3IA	Rva007B6880Thunks.cpp	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	0	TU claimed by 17 copies: neighbour data is mis-assigned somewhere

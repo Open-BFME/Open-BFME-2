@@ -9,7 +9,8 @@ of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; halilkka
 private-view units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700, then 3
 more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`;
 halilkkaya-fix-o1: 7 round-2 includes moved below their units' Snapshot includes, restoring the
-vtables they had shifted, bridged 699 unchanged; next seat continues).
+vtables they had shifted, bridged 699 unchanged; halilkkaya-in-o5 then 7 units free since round 2,
+bridged 699 -> 692; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -69,7 +70,7 @@ places it.
 
 | Grab-bag file | Rows |
 | --- | ---: |
-| `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2, 321 after in-o5) |
+| `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2, 314 after in-o5) |
 | `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3, 88 after in-o4) |
 | `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 (0 after in-o4) |
@@ -179,6 +180,19 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     RebuildHoleExposeDie's `Object` keeps its inline `getTemplate` over the inherited
     `m_template`. W3DLightDraw takes the include after WW3D2 `rendobj.h`, whose full WWMath
     `Matrix3D` makes thing.h's `Matrix3DData.h` stand down. Its copy is `_$E2`.
+- *Units free since round 2 (round 5).* 8 guard-anchored units that round 2 found held were
+  claimable. 7 now include the header and row their copy as `_$E1`: ControlBarBeacon,
+  AptTimeLineStats, WallHubBehavior, CreateAHeroManager, KeepObjectDie (include after its `class
+  DamageInfo;`), W3DSupplyDraw and ExperienceLevelSystem. ExperienceLevelSystem's BlockParse
+  nodes move to `_$E3`/`_$E5`, as in-o4 predicted. Their rows were retracted and readmitted, read
+  by relocation target. The stale `_$E3` row still verified against the moved ExperienceLevel
+  node, because the two node bodies share masked bytes.
+  - SiegeDockingBehavior was reverted. With the header first, its vtable takes the capitalized
+    Snapshot slots, and SiegeDockingBehaviorDtor.cpp stops linking
+    (`??_7SiegeDockingBehavior@@6BObjectModule@@@` differs from the first copy). After its view,
+    which defines only `BFME_SNAPSHOT_NAME_SLOT`, the header does not compile (Coord3D). Byte
+    exactness does not catch a vtable that changes this way, so run link_check over the unit's
+    sibling files.
 - *Still refused (round 5).*
   - PlaceEventTranslator compiles with the include at every position tried, but
     `translateGameMessage` swaps two spill slots. Its FreelistPool comment records the same
