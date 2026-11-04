@@ -120,7 +120,15 @@ class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 struct NAT {void processGlobalMessage(int,const char *);	// 0x005A8ABF, rowed
  void attachSlotList(GameInfo*,int,unsigned,unsigned,bool);};
 extern NAT *TheNAT;
-struct Rva005BA3AD {bool rva005BA3AD();};struct Rva005BA31F {int rva005BA31F();};
+class PortNegotiationSchema {public:bool rva005DBA9C(bool);};
+struct Rva005BA3AD
+{
+public:
+	bool rva005BA3AD();
+	char prefix[0x28]; // +0x00
+	PortNegotiationSchema schema; // +0x28
+};
+struct Rva005BA31F {int rva005BA31F();};
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
