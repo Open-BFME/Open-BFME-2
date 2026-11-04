@@ -48,3 +48,10 @@ carried the 2026-11-02 index (`984a4cdc4d`) rather than the day's newer one — 
 refreshing per worktree, though it would not have changed this verdict. Carry this TU and
 all 38 absorbed donors into the next scheduled census. No linking, debt or census gain is
 claimed.
+
+The view reconciliation that followed it (`5dd87dfdf6`, 12 sources, 10 shared class
+spellings written into `Scripts.cpp` and its files) reported the same verdict for the same
+reason: "11 source object(s) lack current receipts; first:
+Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetUiTextBody.cpp", index
+`8661f15284`, outgoing base `14d304ffc61`. Changed declarations change objects, so these
+11 join the carry list above. All 12 sources byte-verified (109/109 rows, EH EXACT 24).
