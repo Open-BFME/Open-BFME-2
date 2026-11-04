@@ -59,7 +59,7 @@ struct Rva000B9B4ATemplatePrefix {
  unsigned char unknown508[0x5e2-0x508];
  unsigned short m_shadowType;
  unsigned char unknown5E4[9];
- unsigned char flag5ED,color5EE,flag5EF;
+ unsigned char m_shadowOverrideLODVisibility,color5EE,m_shadowIsRotatingWithObject;
 };
 struct Rva000B9B4ADrawablePrefix {
  unsigned int vptr00;
@@ -378,10 +378,10 @@ void W3DScriptedModelDraw::allocateShadows()
   info.offsetY=thingTemplate->offsetY;
   info.projectionX=thingTemplate->projectionX;
   info.projectionY=thingTemplate->projectionY;
-  info.flags[0]=thingTemplate->flag5ED;
+  info.flags[0]=thingTemplate->m_shadowOverrideLODVisibility;
   shadow58=TheW3DShadowManager->addShadow(render50,&info,0);
   if(shadow58) {
-   shadow58->shadowFlag30=thingTemplate->flag5EF;
+   shadow58->shadowFlag30=thingTemplate->m_shadowIsRotatingWithObject;
    if(thingTemplate->color5EE) shadow58->setColor(reinterpret_cast<int>(colors28.rva000B4653(0)));
    shadow58->enableShadowInvisible(fullyObscured49);
    if(reinterpret_cast<Rva000B9B4ARenderView *>(render50)->Is_Hidden() || !shadowEnabled4A)

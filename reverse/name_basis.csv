@@ -8776,3 +8776,5 @@ function,?rva0033FDEB@@YA_NPAVRva00343F8A@@PAX@Z,?cannotPossiblyAttackObject@@YA
 member,Rva002A7557In::m_val618,Rva002A7557In::m_commandPoints,inferred,agree:nl-bc095fa13e54,Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp,
 function,?rva001D8E88@ArmorTemplate@@QBEMXZ,?getFlankedPenalty@ArmorTemplate@@QBEMXZ,inferred,agree:nl-fc4518c0e8e4,Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp,0x001D8E88
 function,?Rva003BAAD6@ScriptActions@@QAEXXZ,?doStopCameraFollowUnit@ScriptActions@@QAEXXZ,inferred,agree:nl-d77dc9aee2e7,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,0x003BAAD6
+member,Rva000B9B4ATemplatePrefix::flag5ED,Rva000B9B4ATemplatePrefix::m_shadowOverrideLODVisibility,inferred,agree:nl-80eac27693f6,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000B9B4ATemplatePrefix::flag5EF,Rva000B9B4ATemplatePrefix::m_shadowIsRotatingWithObject,inferred,agree:nl-4e141ac52ecd,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
