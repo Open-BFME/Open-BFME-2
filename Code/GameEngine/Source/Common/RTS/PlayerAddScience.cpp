@@ -180,26 +180,14 @@ public:
 	unsigned char m_flag28; // +0x28
 };
 
-class Player
-{
-public:
-	bool hasScience(ScienceType science) const;
-private:
-	bool addScience(ScienceType science);
-	char m_pad00[0x54];
-	int m_index54; // +0x54
-	char m_pad58[0x2F0 - 0x58];
-	_STL::vector<ScienceType> m_sciences2F0; // +0x2F0
-	char m_pad2FC[0x32C - 0x2FC];
-	PlayerTeamNode *m_teamProtos32C; // +0x32C
-};
+#include "../../../Include/Common/Player.h"
 
 bool Player::addScience(ScienceType science)
 {
 	if (hasScience(science))
 		return false;
-	m_sciences2F0.push_back(science);
-	for (PlayerTeamNode *proto = m_teamProtos32C->m_next; proto != m_teamProtos32C; proto = proto->m_next)
+	m_sciences.push_back(science);
+	for (PlayerTeamNode *proto = m_playerTeamPrototypes->m_next; proto != m_playerTeamPrototypes; proto = proto->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = (science ? proto->m_value : proto->m_value)->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -240,6 +228,6 @@ bool Player::addScience(ScienceType science)
 		((Rva002AD661ControlBarView *)TheControlBar)->m_flag28 = 1;
 	}
 	if (TheScriptEngine != 0)
-		TheScriptEngine->notifyOfAcquiredScience(m_index54, science);
+		TheScriptEngine->notifyOfAcquiredScience(m_playerIndex, science);
 	return true;
 }

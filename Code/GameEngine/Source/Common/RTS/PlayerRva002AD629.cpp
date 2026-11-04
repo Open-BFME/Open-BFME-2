@@ -38,21 +38,13 @@ enum NameKeyType
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Player
-{
-public:
-	int rva002AD629(const AsciiString &name);
-
-private:
-	char m_pad[0x2D0];
-	_STL::map<int, int> m_2d0;			// +0x2D0
-};
+#include "../../../Include/Common/Player.h"
 
 int Player::rva002AD629(const AsciiString &name)
 {
 	int key = TheNameKeyGenerator->nameToKey(name);
-	_STL::map<int, int>::iterator it = m_2d0.find(key);
-	if (it != m_2d0.end())
+	_STL::map<int, int>::iterator it = m_productionVeterancyLevels.find(key);
+	if (it != m_productionVeterancyLevels.end())
 		return (*it).second;
 	return 0;
 }

@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// stlport
 // ?hasAnyRequiredSciences@Player@@QBE_NABV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z @0x002AB7FD (48B): Player::hasAnyRequiredSciences const any-of over ScienceVec.
 // Evidence: calls Player::hasScience @0x002AB7D5 rowed in PlayerHasScience.cpp with same this; takes ScienceVec const& proven by 0x0029FCB4 vector<ScienceType> copy ctor at 0x0054878E constructing the arg; loops begin at [eax] to end at [eax+4] and returns true on first hasScience hit; callers at 0x002A7111 and 0x0031D985 pass ScienceVec from 0x0029FCB4.
 enum ScienceType
@@ -6,22 +7,13 @@ enum ScienceType
 	SCIENCE_INVALID = -1
 };
 
+#include <vector>
+
 namespace _STL {
-	template <class _Tp> class allocator;
-	template <class _Tp, class _Alloc> class vector;
-	typedef vector<ScienceType, allocator<ScienceType> > ScienceVec;
+	typedef vector<ScienceType> ScienceVec;
 }
 
-class Player
-{
-	char m_pad[0x2F0];
-	ScienceType *m_begin;
-	ScienceType *m_end;
-	ScienceType *m_capacity;
-public:
-	bool hasScience(ScienceType t) const;
-	bool hasAnyRequiredSciences(const _STL::ScienceVec &range) const;
-};
+#include "../../../Include/Common/Player.h"
 
 // ?hasAnyRequiredSciences@Player@@QBE_NABV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z
 bool Player::hasAnyRequiredSciences(const _STL::ScienceVec &range) const

@@ -135,6 +135,11 @@ public:
  void countObjectsByThingTemplate(int, const ThingTemplate *const *, bool, int *, bool) const; // 0x002AB0C5
  Object *findClosestObjectToPosWithValidLivingWorldArmyID(const void *) const; // 0x002AB22A
  bool hasScience(ScienceType) const; // 0x002AB7D5
+ // Declared where the unit included STLport's <vector> first; Player.h itself includes no STL header.
+#ifdef _STLP_INTERNAL_VECTOR_H
+ bool hasAnyRequiredSciences(const _STL::vector<ScienceType> &) const; // 0x002AB7FD
+ void rva002AC425(const _STL::vector<int> &); // 0x002AC425
+#endif
  bool rva002AB87D(const UpgradeTemplate *) const; // 0x002AB87D
  bool rva002AB894(const Rva002AB894List &) const; // 0x002AB894
  void rva002ABAA6(); // 0x002ABAA6
@@ -269,13 +274,26 @@ public:
  unsigned char m_opaque27C[0x280 - 0x27C];
  int m_color; // becomingLocalPlayer 2AE017 passes it to RGBColor::setFromInt
  int m_nightColor; // init 2AFA9B; becomingLocalPlayer 2AE1AD picks it before +0x280
- unsigned char m_opaque288[0x2DC - 0x288];
+ unsigned char m_opaque288[0x2D0 - 0x288];
+ // STLport containers are typed where the unit included their STLport header first;
+ // elsewhere the same bytes stay opaque, so non-STLport includers compile unchanged.
+#ifdef _STLP_INTERNAL_MAP_H
+ _STL::map<int, int> m_productionVeterancyLevels; // rva002AD629 2AD643 finds a template's name key in it
+#else
+ unsigned char m_opaque2D0[0x2DC - 0x2D0];
+#endif
  AIPlayer *m_ai; // retail delegates use +0x2DC
  int m_mpStartIndex; // initFromDict 2AFEAE stores Dict::getInt(TheKey_multiplayerStartIndex)
  ResourceGatheringManager *m_resourceGatheringManager; // initFromDict 2B0546/2B055B
  TunnelTracker *m_tunnelSystem; // initFromDict 2B058A/2B059D
  Team *m_defaultTeam; // setDefaultTeam 2ABCC2 stores TeamFactory::findTeam's result
+#ifdef _STLP_INTERNAL_VECTOR_H
+ _STL::vector<ScienceType> m_sciences; // hasScience 2AB7D5 searches it, addScience 2AD692 appends to it
+ _STL::vector<ScienceType> m_sciencesDisabled; // setScienceAvailability 2AD8DA erases from it and appends to it
+ _STL::vector<ScienceType> m_sciencesHidden; // setScienceAvailability 2AD8F5/2AD924 erases from it and appends to it
+#else
  unsigned char m_opaque2F0[0x314 - 0x2F0];
+#endif
  float m_cashBountyPercent; // init 2AF836 stores 0.0f; doBountyForKill 2AB6A1 multiplies the cost by it
  unsigned char m_opaque318[0x32C - 0x318];
  PlayerTeamNode *m_playerTeamPrototypes; // ctor 2B10A6 builds the list sentinel; addTeamToList 2AE228 walks it

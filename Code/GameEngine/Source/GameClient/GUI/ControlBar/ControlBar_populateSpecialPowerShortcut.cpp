@@ -79,20 +79,7 @@ public:
     AsciiString m_beaconTemplate;
 };
 
-class Player
-{
-	unsigned char m_unreconstructed_00[0x34];
-	PlayerTemplate *m_playerTemplate;
-
-public:
-	PlayerTemplate *getPlayerTemplate() const
-	{
-		return m_playerTemplate;
-	}
-	Bool isLocalPlayer(void) const;
-	Bool hasScience(ScienceType science) const;
-	Bool hasAnyRequiredSciences(const _STL::vector<ScienceType> &) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class Rva0029FCB4 { public: _STL::vector<ScienceType> rva0029FCB4(); };
 #include "../../../../Include/Common/SpecialPower.h"
@@ -418,7 +405,7 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 			m_specialPowerShortcutButtonParents[i]->winHide(true);
 	}
 
-	PlayerTemplate *playerTemplate=player->getPlayerTemplate();
+	const PlayerTemplate *playerTemplate=player->getPlayerTemplate();
 	if ((playerTemplate ? playerTemplate : playerTemplate)->getSpecialPowerShortcutCommandSet().isEmpty())
 		return;
 	commandSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(&playerTemplate->getSpecialPowerShortcutCommandSet());
