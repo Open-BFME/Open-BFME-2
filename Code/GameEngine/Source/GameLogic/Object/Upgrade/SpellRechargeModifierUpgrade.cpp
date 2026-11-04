@@ -46,28 +46,7 @@ struct SpellRechargeModifierUpgradeModuleData
 	bool m_startsActive; // +0x124
 };
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-class UpgradeMux
-{
-public:
-	virtual bool slot0() = 0;
-	virtual void gap1() = 0; virtual void gap2() = 0; virtual void gap3() = 0; virtual void gap4() = 0;
-	virtual void gap5() = 0; virtual void gap6() = 0; virtual void gap7() = 0;
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void slot9(int a1) = 0;
-	virtual void upgradeImplementation() = 0;
-};
-
-struct UpgradeIface18 { virtual void f18(); };
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-	int m_14;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class Rva004B5DDCIface
 {
@@ -76,7 +55,7 @@ public:
 	virtual void rva004B5DDC() = 0;
 };
 
-class SpellRechargeModifierUpgrade : public UpgradeModule, public UpgradeIface18, public Rva004B5DDCIface
+class SpellRechargeModifierUpgrade : public UpgradeModule, public Rva004B5DDCIface
 {
 public:
 	virtual void upgradeImplementation();
@@ -165,7 +144,7 @@ void SpellRechargeModifierUpgrade::upgradeImplementation()
 // ?upgradeRemovalImplementation@SpellRechargeModifierUpgrade@@UAEXXZ @0x004B5E46
 void SpellRechargeModifierUpgrade::upgradeRemovalImplementation()
 {
-	if (!slot0())
+	if (!isAlreadyUpgraded())
 		return;
 	const SpellRechargeModifierUpgradeModuleData *data = (const SpellRechargeModifierUpgradeModuleData *)getModuleData();
 	Player *player = m_object->getControllingPlayer();
@@ -181,7 +160,7 @@ void SpellRechargeModifierUpgrade::rva004B5DDC()
 	if (((const SpellRechargeModifierUpgradeModuleData *)getModuleData())->m_startsActive)
 	{
 		upgradeImplementation();
-		slot9(1);
+		setUpgradeExecuted(true);
 	}
 	m_20 = true;
 }
@@ -206,7 +185,7 @@ void SpellRechargeModifierUpgrade::onCapture(Player *oldPlayer, Player *newPlaye
         ((Rva002AA0BFDwordCounter *)newPlayer)->inc();
         applyModifier(newPlayer, data);
     }
-    slot9(1);
+    setUpgradeExecuted(true);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorXferRva004B5E06.cpp
