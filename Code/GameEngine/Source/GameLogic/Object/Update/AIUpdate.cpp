@@ -272,19 +272,6 @@ will be processed when we get to the front of the pathfind queue. jba */
 //=============================================================================
 // AIUpdateInterface::setTurretTargetObject: defined in AIUpdateInterface_setTurretTargetObject.cpp (its row's unit).
 //=============================================================================
-Object* AIUpdateInterface::getTurretTargetObject( WhichTurretType tur, Bool clearDeadTargets )
-{
-	if( m_turretAI[ tur ] )
-	{
-		Object *obj;
-		Coord3D pos;
-		if( m_turretAI[ tur ]->friend_getTurretTarget( obj, pos, clearDeadTargets ) == TARGET_OBJECT )
-		{
-			return obj;
-		}
-	}
-	return NULL;
-}
 
 //=============================================================================
 // AIUpdateInterface::setTurretTargetPosition: defined in AIUpdateInterface_setTurretTargetPosition.cpp (its row's unit).
@@ -351,35 +338,6 @@ DECLARE_PERF_TIMER(AIUpdateInterface_update)
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?needToRotate@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::needToRotate(void)
-/* Returns TRUE if we need to rotate to point in our path's direcion.*/
-{
-	// Same treatment as getCurLocomotor above: read the member instead of
-	// odr-using the ZH inline, whose copy differs from the 8-copy majority
-	// (this unit's object sorts ahead of it in link order; L on 8 units).
-	if (m_waitingForPath) 
-		return TRUE; // new path will probably require rotation.
-
-	if (this->m_curLocomotor && this->m_curLocomotor->getWanderWidthFactor()>0.0f) 
-		return FALSE; // wanderers don't need to rotate.
-
-	Real deltaAngle = 0;
-	if (getPath())
-	{
-		ClosestPointOnPathInfo info;
-		CRCDEBUG_LOG(("AIUpdateInterface::needToRotate() - calling computePointOnPath() for object %d\n", getObject()->getID()));
-		getPath()->computePointOnPath(getObject(), m_locomotorSet, *getObject()->getPosition(), info);
-		deltaAngle = ThePartitionManager->getRelativeAngle2D( getObject(), &info.posOnPath );
-	}	
-
-	if (fabs(deltaAngle)>PI/30) 
-	{
-		return TRUE;
-	}
-
-	return FALSE;
-}
 
 
 //-------------------------------------------------------------------------------------------------
@@ -591,32 +549,23 @@ Bool AIUpdateInterface::isIdle() const
  */
 // AIUpdateInterface::privateAttackTeam is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026BFD9).
 
+// The Zero Hour needToRotate, privateAttackMoveToPosition and the two-argument
+// getTurretTargetObject (gone: no retail row; their Path::computePointOnPath,
+// PartitionManager::getRelativeAngle2D, setGoalPositionClipped and Zero Hour
+// TurretAI::friend_getTurretTarget callees have no BFME 2 definer) were this
+// unit's only users of the rowed header inlines OVERRIDE<LocomotorTemplate>::
+// operator-> (0x0035C95F) and Weapon::setMaxShotCount (0x00661D50); compile
+// anchors, not retail data claims, keep them emitted.
+extern const LocomotorTemplate *(OVERRIDE<LocomotorTemplate>::*const _bfmeInlineAnchorLocomotorTemplateOverride)() const =
+    &OVERRIDE<LocomotorTemplate>::operator->;
+extern void (Weapon::*const _bfmeInlineAnchorWeaponSetMaxShotCount)(Int) =
+    &Weapon::setMaxShotCount;
+
+
 //----------------------------------------------------------------------------------------
 /**
  * Attack move to the given location
  */
-// ?privateAttackMoveToPosition@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateAttackMoveToPosition( const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource )
-{
-	if (m_isAiDead || getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	setGoalPositionClipped(pos, cmdSource);
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_ATTACK_MOVE_TO );
-
-	// do this after setting it as the current state, as the max-shots-to-fire is reset in AttackState::onEnter()
-	Weapon* weapon = getObject()->getCurrentWeapon();
-	if (weapon)
-		weapon->setMaxShotCount(maxShotsToFire);
-}
 
 //----------------------------------------------------------------------------------------
 /**
