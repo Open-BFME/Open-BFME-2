@@ -19,39 +19,24 @@
 // PAUTreeHintRef00217D4CRva004F9565.cpp) are visible here: cl then knows
 // neither keeps the local reference's address and holds its pointer in EDI
 // across the calls, as retail does.
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	void *m_vtable;
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *target);
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other)
+{
+	if (this != &other) {
+		if (other.m_ptr)
+			++other.m_ptr->references;
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+		m_ptr = other.m_ptr;
+	}
+	return *this;
+}
 
-struct TreeHintRef00217D4C
-{
-	TreeHintRef00217D4C() : m_target(0) {}
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_target(other.m_target)
-	{
-		if (m_target)
-			++m_target->references;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_target)
-			ReleaseTreeHintRef00217D4C(m_target);
-	}
-	__declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other)
-	{
-		if (this != &other) {
-			if (other.m_target)
-				++other.m_target->references;
-			if (m_target)
-				ReleaseTreeHintRef00217D4C(m_target);
-			m_target = other.m_target;
-		}
-		return *this;
-	}
-	TargetRef00217D4C *m_target;
-};
 
 class Rva004FBC02
 {
@@ -91,8 +76,8 @@ TreeHintRef00217D4C Rva002B5BBA::rva002B3638()
 void Rva002B5BBA::rva002B5BBA()
 {
 	TreeHintRef00217D4C ref = rva002B3638();
-	if (ref.m_target != 0) {
-		((Rva004FBC02 *)ref.m_target)->rva004FBD3A();
+	if (ref.m_ptr != 0) {
+		((Rva004FBC02 *)ref.m_ptr)->rva004FBD3A();
 		m_current = ref;
 		m_queue.rva004F70D1(m_queue.m_begin);
 	}

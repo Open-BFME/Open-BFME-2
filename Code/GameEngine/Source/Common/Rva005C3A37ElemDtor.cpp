@@ -8,14 +8,9 @@
 // Original identities remain neutral. These layout/lifetime facts come
 // from target bytes and callback references, independent of donor names.
 #include "ascii_string.h"
-struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TargetRef00217D4C *m_ptr;
- TreeHintRef00217D4C(const TreeHintRef00217D4C &);
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
- ~TreeHintRef00217D4C() { if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C() { if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+
 struct Rva005C39DERef {
  TargetRef00217D4C *ptr;
  Rva005C39DERef():ptr(0) {}

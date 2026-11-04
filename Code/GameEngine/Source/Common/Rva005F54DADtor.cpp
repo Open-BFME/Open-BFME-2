@@ -9,17 +9,13 @@ class Rva005F566A;
 class Rva005F54DA;
 #include <new>
 
-struct TargetRef00217D4C
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	virtual void *destroy(unsigned int flags);
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *pointer;
-};
 
 #include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 #include "../../Include/Common/DelegateDesc.h"
@@ -29,10 +25,7 @@ class Rva00579E47 : public TreeHintRef00217D4C
 public:
 	Rva00579E47(const DelegateDesc &desc);
 	// ?Rva00579E47::~Rva00579E47 present-unmatched
-	__forceinline ~Rva00579E47()
-	{
-		if (pointer) ReleaseTreeHintRef00217D4C(pointer);
-	}
+	__forceinline ~Rva00579E47() {}
 };
 
 class Rva0057C22FByteChaseField

@@ -15,26 +15,14 @@
 // 0x00DFE4CC is the window manager; its byte 312 suppresses the immediate
 // transition flush. The box-type names are retail's literals.
 
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- __declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other) {if(this!=&other){if(other.m_ptr)++other.m_ptr->references;if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);m_ptr=other.m_ptr;}return *this;}
- TargetRef00217D4C *m_ptr;
- // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
- TreeHintRef00217D4C() : m_ptr(0) {}
- // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
- TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
- {
-  if (m_ptr)
-   ++m_ptr->references;
- }
- // ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched
- __forceinline ~TreeHintRef00217D4C()
- {
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
+__forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
+{
   if (m_ptr)
    ReleaseTreeHintRef00217D4C(m_ptr);
  }
-};
+inline __declspec(noinline) TreeHintRef00217D4C &TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C &other) {if(this!=&other){if(other.m_ptr)++other.m_ptr->references;if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);m_ptr=other.m_ptr;}return *this;}
+
 #include <windows.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
