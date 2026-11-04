@@ -35,34 +35,8 @@ struct XferUnknown11;
 void XferObjectID(Xfer *xfer, enum ObjectID *objectID);
 
 class Team;
-class AITactic
-{
-public:
-	virtual ~AITactic();
- Team*rva004ECECD(int);
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(void *unit, void *unused);
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-};
-
-class Rva002C589B;
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x10 - 4];
-	bool m_running; // +0x10
-	char m_pad11[0x20 - 0x11];
-	Rva002C589B *m_record; // +0x20
-	void *m_owner; // +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class Object;
 
@@ -116,8 +90,7 @@ public:DLINK_ITERATOR(){} T*current;unsigned char state[20];void advance();
 #include "../../Include/Common/TeamBFME2.h"
 class Rva002C589B {public:Object*rva002C5DA6();unsigned char pad[12];Coord3D position;};
 #include "../../Include/GameLogic/AIPathfind.h"
-class AI {public:unsigned char pad[16];Pathfinder*pathfinder;};
-extern AI*TheAI;
+#include "../../Include/GameLogic/AI.h"
 bool AITacticSiege::isWallBreached() {
  Team*team=rva004ECECD(0);
  Object*unit=0;
@@ -130,9 +103,9 @@ bool AITacticSiege::isWallBreached() {
  }
  bool result=false;
  if(unit) {
-  Object*target=m_record->rva002C5DA6();
-  Pathfinder*pathfinder=TheAI->pathfinder;
-  result=target ? pathfinder->QuickDoesPathExistToStructure(unit,&unit->position,target,0) : pathfinder->QuickDoesPathExist(unit,&unit->position,&m_record->position,0);
+  Object*target=((Rva002C589B *)m_field20)->rva002C5DA6();
+  Pathfinder*pathfinder=TheAI->pathfinder();
+  result=target ? pathfinder->QuickDoesPathExistToStructure(unit,&unit->position,target,0) : pathfinder->QuickDoesPathExist(unit,&unit->position,&((Rva002C589B *)m_field20)->position,0);
  }
  return result;
 }
@@ -156,7 +129,7 @@ struct SiegeStore {void*word0;void*word4;Rva0025BFF8*list;};
 bool AITacticSiege::findWallTarget() {
  const Coord3D*center=&rva004ECECD(0)->rva0039E8EB()->position;
  Coord3D position;position.x=center->x;position.y=center->y;
- Rva002A8AB1Record*record=TheSkirmishAIManager->rva002A8AB1(m_owner);
+ Rva002A8AB1Record*record=TheSkirmishAIManager->rva002A8AB1(m_field24);
  if(record->rva002C6ACB()) {
   SiegeStore*store=(SiegeStore*)TheSkirmishAIManager->rva002A8F24((Player*)record->rva002C6ACB());
   Rva0025BFF8*list=store->list;
