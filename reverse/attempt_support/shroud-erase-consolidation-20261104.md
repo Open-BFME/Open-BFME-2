@@ -64,3 +64,13 @@ Normal scoped builds of ToggleMountedSpecialAbilityUpdate, CritterEmitterUpdate,
 PartTheHeavensUpdate and RadiateFearUpdate pass; the native identity verdict now
 reports no problems or remaining findings for BuildingBehaviorModuleDataDtor.
 No source changes were needed for these object-cache repairs.
+
+The following push preflight exposed two publication-accounting issues after
+rebasing. The header acceptance preceded a later donor deletion in this batch;
+the final range therefore requires the permitted per-key `Debt-Retired` trailer
+for a vanished source, despite the earlier passing acceptance. Both row names
+and RVAs remain live in the destination, so tombstoning them would be incorrect.
+The follow-up commit supplies that trailer and preserves the passing adoption
+evidence. Separately, the earlier local BuildingBehavior entry is renumbered
+LINK-232 to avoid the upstream LINK-231 entry. Its content and status are kept;
+the old filename/ID has no other active path consumer.
