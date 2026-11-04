@@ -77,14 +77,7 @@ public:
 };
 extern GameWindowManager *TheWindowManager;
 
-class MultiplayerColorDefinition
-{
-public:
-	Int getColor() const { return m_color; }
-private:
-	unsigned char m_00[0x10];
-	Int m_color;	// +0x10
-};
+#include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 

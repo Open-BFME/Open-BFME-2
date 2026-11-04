@@ -506,11 +506,7 @@ private:
 class Rva0020E89C;
 // ?Rva0052C06CGet@@YAHPAVGameInfo@@@Z @0x0052C06C 92B: random unlocked untaken color via MultiplayerSettings and GameInfo.
 // Evidence: TheMultiplayerSettings +0x40 +0x38 refill, GetGameLogicRandomValue 0-A8 file, getColor +0x3C check, isColorTaken -1 loop, caller 0x0052C629, neighbours Rva0052BF33DestroyTagged.
-class MultiplayerColorDefinition {
-public:
-	unsigned char m_pad[0x3C];
-	bool m_3C;
-};
+#include "../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 class MultiplayerSettings {
 public:
 	unsigned char m_pad[0x38];
@@ -1116,7 +1112,7 @@ loop:
 	int num = *pNum;
 	int r = GetGameLogicRandomValue(0, num - 1, s_file, 168);
 	MultiplayerColorDefinition *def = TheMultiplayerSettings->getColor(r);
-	if (def->m_3C == 0)
+	if (def->m_extraFlag == 0)
 		goto set;
 	if (!game->isColorTaken(r, -1))
 		goto ok;

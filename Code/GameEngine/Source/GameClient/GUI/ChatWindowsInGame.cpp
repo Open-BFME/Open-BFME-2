@@ -127,7 +127,7 @@ class GameSpyStagingRoom { public: GameSpyGameSlot *getGameSpySlot(int); };
 
 extern GameSpyStagingRoom *TheGameSpyGame;
 
-class MultiplayerColorDefinition { public: char unknown00[0x10]; int color10; };
+#include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 #include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
@@ -400,7 +400,7 @@ bool ChatWindowsInGame::PopulatePlayerList()
         int number=slot->team1C;
         if(number>=0) team.format(TheGameText->slot17("APT:CurrentTeam",0),number);
         else team=TheGameText->fetch("APT:CurrentTeamNone",0);
-        int color=TheMultiplayerSettings->getColor(slot->color0C)->color10;
+        int color=TheMultiplayerSettings->getColor(slot->color0C)->m_color;
         int user=i;
         if(TheGameSpyGame) {
             GameSpyGameSlot *online=TheGameSpyGame->getGameSpySlot(i);

@@ -1,0 +1,13 @@
+  PASS Code/GameEngine/Source/Common/MultiplayerSettings.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeRowConstructors.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/LoadScreen_MapTransferProcessProgress.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp
+  PASS Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
+  PASS Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+  PASS Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp
+  PASS Code/GameEngine/Source/GameNetwork/GUIUtil.cpp
+  retired 12 row(s) from reverse/header_queue.tsv; commit it with the adoption

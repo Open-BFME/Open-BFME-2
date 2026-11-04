@@ -1,0 +1,14 @@
+Source claims: OK (12 sources, scoped byte-verified)
+Data rows: OK (3 row(s) byte-verified)
+Compile: 9 of 12 TU(s) (deps-cache: 3 current)
+Funclet pins: 163 row(s) verified past a renumbered $L label
+    $L1801 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp): $L1801 was renumbered; verified parent EH data places $L15604 at 0x007789D8
+    $L1802 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp): $L1802 was renumbered; verified parent EH data places $L15605 at 0x007789E3
+    $L1808 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp): $L1808 was renumbered; verified parent EH data places $L15611 at 0x00778A37
+    $L1809 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp): $L1809 was renumbered; verified parent EH data places $L15612 at 0x00778A45
+    $L1810 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp): $L1810 was renumbered; verified parent EH data places $L15613 at 0x00778A53
+STLport folds: 2 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 397/397 matched across 12 source file(s)
+String-ref verify: OK (88 literals + 6 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (9 compiler literals verified)
+Import-ref verify: OK (5 named imports verified)

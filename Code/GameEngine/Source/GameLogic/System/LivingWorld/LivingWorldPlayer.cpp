@@ -142,12 +142,8 @@ class Rva00318F42 { public: bool rva00318F42(); };
 // recovered MultiplayerColorDefinition constructor. Reference getNumColors
 // supplies the lazy-count semantics; target settings fields are38 and40.
 // The extra color triplets' original field names remain unknown.
-struct LivingWorldPlayerRGBColorView { float r,g,b; };
 
-class MultiplayerColorDefinition { public:
- char unknown00[4]; LivingWorldPlayerRGBColorView rgbAt04;
- char unknown10[0x24-0x10]; LivingWorldPlayerRGBColorView rgbAt24,rgbAt30;
-};
+#include "../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 #include "../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
@@ -212,9 +208,9 @@ private:
 	int m_playerType; // +0x44 +44, native and WB switch
 	char m_pad48[0x138];
 	int m_colorIndex; // +0x180
-	LivingWorldPlayerRGBColorView m_color184; // +0x184
-	LivingWorldPlayerRGBColorView m_color190; // +0x190
-	LivingWorldPlayerRGBColorView m_color19C; // +0x19C
+	RGBColor m_color184; // +0x184
+	RGBColor m_color190; // +0x190
+	RGBColor m_color19C; // +0x19C
 public:
 	_STL::vector<UnitRevivalEntry> m_records; // +0x1A8
 	char m_pad1B4[0x4];
@@ -702,9 +698,9 @@ void LivingWorldPlayer::SetColorIndex(Int color)
  m_colorIndex=color;
  MultiplayerColorDefinition *definition=TheMultiplayerSettings->getColor(color);
  if(definition) {
-  m_color184=definition->rgbAt24;
-  m_color190=definition->rgbAt04;
-  m_color19C=definition->rgbAt30;
+  m_color184=definition->m_rgbExtra1;
+  m_color190=definition->m_rgbValue;
+  m_color19C=definition->m_rgbExtra2;
  }
 }
 

@@ -28,15 +28,7 @@ void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool 
 
 Int GadgetComboBoxGetLength(GameWindow *comboBox);
 
-class MultiplayerColorDefinition
-{
-public:
-	AsciiString getTooltipName(void) const;
-	Int getColor() const { return m_color; }
-private:
-	unsigned char m_00[0x10];
-	Int m_color;	// +0x10
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 class MultiplayerSettings
 {
 public:

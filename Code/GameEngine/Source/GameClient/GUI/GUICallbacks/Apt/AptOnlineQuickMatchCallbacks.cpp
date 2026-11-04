@@ -18,7 +18,7 @@ void Rva00516E92Enable();
 class Image;
 class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
 extern ImageCollection *TheMappedImageCollection;
-class MultiplayerColorDefinition {public:char unknown[0x10];int color;};
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 class QuickMatchPreferences {public:int getColor();};
@@ -163,7 +163,7 @@ void AptOnline::OnlineQuickMatch::rva005BA803() {
   MultiplayerColorDefinition *color=TheMultiplayerSettings->getColor(i);
   if(color) {
    static const Image *whiteBox=TheMappedImageCollection->findImageByName(AsciiString("AptWhiteBox"));
-   int entry=((Rva003235B8*)combo)->rva003235B8(whiteBox,boxWidth,20,color->color);
+   int entry=((Rva003235B8*)combo)->rva003235B8(whiteBox,boxWidth,20,color->m_color);
    ((Rva003236A0*)combo)->rva003236A0(entry,i);
   }
  }

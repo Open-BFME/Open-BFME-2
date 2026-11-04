@@ -169,7 +169,8 @@ virtual void slot50();
 virtual bool connected(int);};extern NetworkInterface*TheNetwork;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
-class MultiplayerColorDefinition {public:char pad[0x10];int color;};class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};extern MultiplayerSettings*TheMultiplayerSettings;
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
+class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};extern MultiplayerSettings*TheMultiplayerSettings;
 #include "../../../../../Include/Common/Player.h"
 void Rva0050EE72Set(int,const AsciiString&,int,const UnicodeString&);
 class Rva0050F909:public Rva0050FAEC {public:Rva0050F909(int,const AsciiString&,int,int);virtual~Rva0050F909(){}};
@@ -185,5 +186,5 @@ Rva0050F909::Rva0050F909(int level,const AsciiString&path,int slotIndex,int stat
  }else{
   if(observer)text="GUI:PlayerObserverGone";else text="GUI:PlayerGone";
  }
- Rva0050EE72Set(level,path,3,TheGameText->fetch(text,0));m_color=TheMultiplayerSettings->getColor(slot->getApparentColor())->color;
+ Rva0050EE72Set(level,path,3,TheGameText->fetch(text,0));m_color=TheMultiplayerSettings->getColor(slot->getApparentColor())->m_color;
 }

@@ -47,7 +47,7 @@ class ColorSetupOwner {public:virtual void v00();virtual bool amIHost();};
 class MpGameSetupComboRef {public:MpGameSetupComboRef(const MpGameSetupComboRef&);~MpGameSetupComboRef();GameWindow*window;};
 class Image;
 #include "../../../Include/GameClient/Image.h"
-class MultiplayerColorDefinition {public:char pad[0x10];int color;};
+#include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings*TheMultiplayerSettings;
 extern ImageCollection*TheMappedImageCollection;
@@ -116,7 +116,7 @@ bool AptMpGameSetup::PopulateColorCombo(int index) {
   MultiplayerColorDefinition*def=TheMultiplayerSettings->getColor(c);
   if(!def||!available[c])continue;
   static const Image*colorImage=TheMappedImageCollection->findImageByName(AsciiString("AptWhiteBox"));
-  int entry=((Rva003235B8*)&combo)->rva003235B8(colorImage,20,20,def->color);
+  int entry=((Rva003235B8*)&combo)->rva003235B8(colorImage,20,20,def->m_color);
   ((Rva003236A0*)&combo)->rva003236A0(entry,c);
  }
  ((Rva00323619*)&combo)->rva00323619(Rva0043DDF8(index)*22+4);

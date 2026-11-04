@@ -218,14 +218,7 @@ void GadgetListBoxSetSelected(GameWindow *listBox, const int *selectList, int se
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
-class MultiplayerColorDefinition
-{
-public:
-	unsigned char m_pad[0x10];
-	int m_color; // +0x10
-	unsigned char m_pad14[0x3C - 0x14];
-	bool m_3c; // +0x3C (offered in mode 1)
-};
+#include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class MultiplayerSettings
 {
