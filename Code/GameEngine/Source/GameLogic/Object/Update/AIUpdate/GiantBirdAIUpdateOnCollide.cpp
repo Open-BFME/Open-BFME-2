@@ -52,29 +52,12 @@ private:
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
-#include "../../../../../Include/Common/ObjectModule.h"
-#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
-#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
-class AICommandInterface { public: virtual void aiDoCommand(); };
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
-class AIUpdateInterface : public UpdateModule, public AICommandInterface, public CollideModuleInterface
-{
-public:
-	Object *getCurrentVictim() const;
-	StateMachine *getStateMachine() const { return m_stateMachine; }
-private:
-	unsigned char m_pad28[0x30 - 0x28];
-	StateMachine *m_stateMachine; // +0x30
-	unsigned char m_pad34[0x3E4 - 0x34];
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
+	StateMachine *getStateMachine() const { return (StateMachine *)m_stateMachine; }
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 private:
 	unsigned char m_pad3E4[0x4B8 - 0x3E4];

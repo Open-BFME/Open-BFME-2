@@ -12,3 +12,5 @@ pure `AICommandInterface` slot and the `AIUpdateInterface` override. Evidence:
 files keep the parameterless view (`GiantBirdAIUpdateOnCollide.cpp`,
 `GiantBirdAIUpdateCtor.cpp`, `DozerAIUpdateConstruct.cpp`); they emit no vtable
 and already link, so they were left alone.
+
+2026-11-04: `GiantBirdAIUpdateOnCollide.cpp` now adopts canonical AI interfaces; both header-queue rows retired, 238/238 bytes still match and link prediction remains LINKS. [Evidence](../../reverse/attempt_support/giantbird-oncollide-header-20261104-codex.md).
