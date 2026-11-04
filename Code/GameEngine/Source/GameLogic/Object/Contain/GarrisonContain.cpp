@@ -259,6 +259,7 @@ class ConditionBits
 public:
     unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
     void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+    void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
 private:
     unsigned int m_words[4];
 };
@@ -571,8 +572,14 @@ struct GarrisonObjectFields
     float m_boundingCircleRadius; // +0xB8
     unsigned char m_padBC[0x10C - 0xBC];
     ConditionBits m_conditionBits; // +0x10C
-    unsigned char m_pad11C[0x380 - 0x11C];
+    unsigned char m_pad11C[0x25C - 0x11C];
+    class PhysicsBehavior *m_physics; // +0x25C
+    unsigned char m_pad260[0x274 - 0x260];
+    void *m_274; // +0x274
+    unsigned char m_pad278[0x380 - 0x278];
     unsigned int m_380; // +0x380
+    unsigned char m_pad384[0x428 - 0x384];
+    unsigned int m_safeOcclusionFrame; // +0x428
 };
 
 class Team;
@@ -694,7 +701,7 @@ public:
     virtual void c16() = 0;
     virtual void c17() = 0;
     virtual void c18() = 0;
-    virtual void c19() = 0;
+    virtual const Player *getApparentControllingPlayer(const Player *observingPlayer) const = 0;
     virtual void recalcApparentControllingPlayer() = 0;
     virtual void c21() = 0;
     virtual void onContaining(Object *obj, bool wasSelected) = 0;
@@ -748,7 +755,7 @@ public:
     virtual void c70() = 0;
     virtual void c71() = 0;
     virtual void c72() = 0;
-    virtual void c73() = 0;
+    virtual unsigned int getStealthUnitsContained() const = 0;
     virtual void c74() = 0;
     virtual void c75() = 0;
     virtual bool calcBestGarrisonPosition(Coord3D *, const Coord3D *);
@@ -812,6 +819,13 @@ public:
     void rva00478BE0();
     void rva00478FD7();
 protected:
+    void loadGarrisonPoints();
+    __forceinline const _STL::list<Object *> *getContainList()
+    {
+        Rva0046247DPair pair;
+        ((Rva0046247D *)this)->rva0046247D(pair);
+        return (const _STL::list<Object *> *)pair.m04;
+    }
     enum { GARRISON_INDEX_INVALID = -1 };
     virtual void xfer(Xfer *xfer);
     void trackTargets();

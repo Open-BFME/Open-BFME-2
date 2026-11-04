@@ -80,54 +80,36 @@ extern TeamFactory *TheTeamFactory;
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
-struct Rva0046247DPair
-{
-    void *m00;
-    const _STL::list<Object *> *m04;
-};
-class Rva0046247D
-{
-public:
-    void rva0046247D(Rva0046247DPair &p);
-};
-
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
+class ContainModuleInterface;
+class Rva0046247D { public: inline __declspec(noinline) void rva0046247D(Rva0046247DPair&result){void*base=this;result.m00=base?(ContainModuleInterface*)((char*)base+0x20):0;result.m04=(char*)base+0x54;} };
 
 class ConditionBits
 {
 public:
-    unsigned int test(int bit) const
-    {
-        return m_words[bit >> 5] & (1U << (bit & 0x1f));
-    }
-    void set(int bit)
-    {
-        m_words[bit >> 5] |= 1U << (bit & 0x1f);
-    }
+    unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
+    void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
 private:
-    unsigned int m_words[1];
+    unsigned int m_words[4];
 };
-
-class Object : public Thing
+#include "../object.h"
+struct GarrisonObjectFields
 {
-public:
-    int rva002933CD();
-    bool testStatus(ObjectStatusTypes bit) const;
-    Player *getControllingPlayer() const;
-    void setTeam(Team *team);
-    void rva0028AE6D();
-    Team *getTeam() const { return m_team; }
-    unsigned char m_pad60[0x10C - 0x60];
+    unsigned char m_pad00[0xB8];
+    float m_boundingCircleRadius; // +0xB8
+    unsigned char m_padBC[0x10C - 0xBC];
     ConditionBits m_conditionBits; // +0x10C
-    unsigned char m_pad110[0x304 - 0x110];
-    Team *m_team; // +0x304
+    unsigned char m_pad11C[0x380 - 0x11C];
+    unsigned int m_380; // +0x380
 };
 
-static __forceinline void setCondition(Object *object, int bit)
+static __forceinline void setCondition(Object *obj, int bit)
 {
-    if (object->m_conditionBits.test(bit) == 0)
+    ConditionBits *bits = &((GarrisonObjectFields *)obj)->m_conditionBits;
+    if (bits->test(bit) == 0)
     {
-        object->m_conditionBits.set(bit);
-        object->rva0028AE6D();
+        bits->set(bit);
+        obj->rva0028AE6D();
     }
 }
 
@@ -210,7 +192,7 @@ protected:
     {
         Rva0046247DPair pair;
         ((Rva0046247D *)this)->rva0046247D(pair);
-        return pair.m04;
+        return (const _STL::list<Object *> *)pair.m04;
     }
 private:
     unsigned int m_originalTeamID; // +0xFC
