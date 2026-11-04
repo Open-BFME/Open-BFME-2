@@ -69,40 +69,28 @@ class Snapshot;
 class AsciiString;
 class Thing;
 class ModuleData;
-
 #include "../../../../Include/Common/XferVersion.h"
-
 enum ObjectID
 {
 	INVALID_ID = 0
 };
-
 void XferObjectID(Xfer *xfer, ObjectID *id);
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 template<int N> class CitadelDieSlots : public CitadelDieSlots<N-1> {public:virtual void gap(char(*)[N])=0;};
-
 template<> class CitadelDieSlots<0> {};
-
 class CitadelContainedView : public CitadelDieSlots<67> {public:virtual void slot67(ContainmentList&)=0;};
-
 #include "../../../../Include/Common/ThingTemplate.h"
-
 class Object {
 public:
  void *rva0028C197() const;
  void *vptr;
  const ThingTemplate *thingTemplate;
 };
-
 class CitadelContainDieView : public CitadelDieSlots<39> {
 public:
  virtual void slot39(Object*)=0;
@@ -138,7 +126,6 @@ public:
  virtual void slot69()=0;
  virtual Rva0036AE51ListView slot70()=0;
 };
-
 //
 // CitadelSlaughterHordeContainModuleData parse-unit.
 //
@@ -150,11 +137,9 @@ public:
 // under "CitadelSlaughterHordeContain". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-
 #include "../../../../Include/Common/INI/FieldParse.h"
 
 extern const FieldParse s_citadelSlaughterFieldTable[];
-
 
  
  
@@ -240,6 +225,36 @@ protected:
 private:
 	ObjectID m_9EC; // +0x9EC, factory 0x0024C0C5 news 0x9F0
 };
+
+class Xfer;
+
+class CitadelContainDieView;
+
+// Keep the intrinsic directive after its declaration when composing this TU.
+extern "C" {
+void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+}
+
+static int s_vtable;
+
+static int s_secondary0C;
+
+static int s_secondary10;
+
+static int s_secondary20;
+
+static int s_secondary24;
+
+static int s_secondary28;
+
+static int s_secondary2C;
+
+static int s_secondary30;
+
+static int s_secondary34;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp
 
@@ -328,12 +343,6 @@ void CitadelSlaughterHordeContain::xfer(Xfer *xfer)
 		XferObjectID(xfer, &m_9EC);
 }
 
-// tu-skeleton: 0x004803B0 6B ?Rva004803B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0048059F 91B ??0CitadelSlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004805FA 6B ?Rva004805FAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainPoolKey.cpp
 
 // ?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ
@@ -344,13 +353,36 @@ NameKeyType CitadelSlaughterHordeContain::getModuleNameKey() const
 	return TheCitadelSlaughterHordeContainPoolKey;
 }
 
-// tu-skeleton: 0x004806FC 28B ??_GCitadelSlaughterHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainDtor.cpp
 
 CitadelSlaughterHordeContain::~CitadelSlaughterHordeContain()
 {
 }
+
+// tu-skeleton: 0x004803B0 6B ?Rva004803B0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainCtor.cpp
+
+// ??0CitadelSlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x48059F
+CitadelSlaughterHordeContain::CitadelSlaughterHordeContain(Thing *thing, const ModuleData *moduleData)
+	: SlaughterHordeContain(thing, moduleData)
+{
+	m_9EC = INVALID_ID;
+	_ReadWriteBarrier();
+	*reinterpret_cast<const void **>(this) = &s_vtable;
+	m_p0C = &s_secondary0C;
+	m_p10 = &s_secondary10;
+	m_p20 = &s_secondary20;
+	m_p24 = &s_secondary24;
+	m_p28 = &s_secondary28;
+	m_p2C = &s_secondary2C;
+	m_p30 = &s_secondary30;
+	m_p34 = &s_secondary34;
+}
+
+// tu-skeleton: 0x004805FA 6B ?Rva004805FAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004806FC 28B ??_GCitadelSlaughterHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0048071D 170B ?isValidContainerFor@CitadelSlaughterHordeContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainIsValidContainerFor.cpp (not merged yet)
 
