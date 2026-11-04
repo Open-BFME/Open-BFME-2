@@ -68,13 +68,10 @@ typedef char CheckMetadata256[(sizeof(MapMetaData)==256)?1:-1];
 class Rva00304DC7Record { char data[256]; };
 class Rva00304DC7Map { public: Rva00304DC7Record &operator[](const AsciiString &); };
 struct FileInfo {unsigned sizeHigh,sizeLow,timestampHigh,timestampLow;};
-class MapCache : public _STL::map<AsciiString,MapMetaData> {
-public: bool addMap(AsciiString dirName,AsciiString fname,FileInfo *info,bool official);
-private:
-    __forceinline MapMetaData &record(const AsciiString &key) {
-        return reinterpret_cast<MapMetaData &>(reinterpret_cast<Rva00304DC7Map *>(this)->operator[](key));
-    }
-};
+#include "../../Include/GameClient/MapCache.h"
+static __forceinline MapMetaData &record(MapCache *cache,const AsciiString &key) {
+    return reinterpret_cast<MapMetaData &>(reinterpret_cast<Rva00304DC7Map *>(cache)->operator[](key));
+}
 enum NameKeyType;
 class StaticNameKey {public:mutable int key;const char *name;};
 class Rva00148F5ECache {public:NameKeyType get();};
@@ -153,7 +150,7 @@ bool MapCache::addMap(AsciiString dirName,AsciiString fname,FileInfo *info,bool 
     md.m_extent.lo.x=0.0f;md.m_extent.lo.y=0.0f;
     md.m_extent.hi.x=m_mapDX*10.0f;md.m_extent.hi.y=m_mapDY*10.0f;
     md.m_extent.lo.z=0.0f;md.m_extent.hi.z=0.0f;
-    record(lowerFname)=md;
+    record(this,lowerFname)=md;
     for (WaypointMap::iterator waypoint=waypointsOf(md).begin();waypoint!=waypointsOf(md).end();++waypoint) {}
     resetMap();
     return true;
