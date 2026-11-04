@@ -22,9 +22,31 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CurseSpecialPower
+class Thing;
+class ModuleData;
+
+// The constructor owner recovers this opaque 0x88-byte intermediate base.
+// Keep its layout here so the pool-key and constructor views can share a TU.
+class Rva0044EF5E
 {
 public:
+	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+	virtual ~Rva0044EF5E();
+
+protected:
+	unsigned char m_pad0[8];
+	const void *m_p0C;
+	const void *m_p10;
+	unsigned char m_pad1[0x20 - 0x14];
+	const void *m_p20;
+	unsigned char m_pad2[0x88 - 0x24];
+};
+
+class CurseSpecialPower : public Rva0044EF5E
+{
+public:
+	CurseSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~CurseSpecialPower();
 	virtual NameKeyType getModuleNameKey() const;
 };
 
