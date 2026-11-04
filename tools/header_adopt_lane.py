@@ -2021,25 +2021,73 @@ def tracked_headers():
     return [p.decode("utf-8", "replace") for p in got.stdout.split(b"\0") if p]
 
 
+def compiler_include_target(source, spelled, quoted):
+    """Resolve a direct include in compiler search order, or leave it unproved.
+
+    This only builds the ordinary command; it never compiles into the match cache.
+    Implicit CL options can change that order, so they cannot supply this proof.
+    """
+    import build
+    try:
+        path = ROOT / source
+        command, env = build.compiler_command(path, build.obj_path(path))
+        if env.get("CL") or env.get("_CL_"):
+            return None
+        roots = [path.parent] if quoted else []
+        args = iter(command)
+        for arg in args:
+            if arg in ("/I", "-I"):
+                root = next(args, None)
+                if not root:
+                    return None
+            elif arg.startswith(("/I", "-I")) and len(arg) > 2:
+                root = arg[2:]
+            else:
+                continue
+            roots.append(root)
+        if not any(arg.lower() in ("/x", "-x") for arg in command):
+            roots.extend(root for root in env.get("INCLUDE", "").split(";") if root)
+        for root in roots:
+            raw = str(root)
+            if os.name != "nt" and re.match(r"^[a-yA-Y]:", raw):
+                return None                          # no proven host mapping for this drive
+            host = build._host_path(raw)
+            resolved = build._case_resolve(str(Path(host) / spelled)) if host else None
+            if resolved and Path(resolved).is_file():
+                return Path(resolved).resolve()
+    except (OSError, RuntimeError, ValueError, SystemExit):
+        return None
+    return None
+
+
 def includes_header(source, header):
     """Does `source` really #include `header`: a directive outside comments and `#if 0`
     branches whose spelling resolves beside the source to that file, or is a path
-    suffix of it no other tracked header shares? A basename in a comment, or a
-    same-named header elsewhere, is not it."""
+    suffix of it no other tracked header shares? An ambiguous suffix additionally
+    needs the actual compiler search order to select this header. A basename in
+    a comment, or a same-named header elsewhere, is not it."""
     text = without_disabled(COMMENTS.sub(lambda m: re.sub(r"[^\n]", " ", m.group()),
                                          (ROOT / source).read_text(encoding="latin-1")))
     header = header.replace("\\", "/")
     want = (ROOT / header).resolve()
     others = None
-    for spelled in INCLUDE.findall(text):
+    directives = re.finditer(r'^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', text, re.M)
+    for directive in directives:
+        quoted = directive.group(1) == '"'
+        spelled = directive.group(2)
         spelled = spelled.strip().replace("\\", "/")
-        if ((ROOT / source).parent / spelled).resolve() == want:
-            return True
+        beside = ((ROOT / source).parent / spelled).resolve()
+        if quoted and beside.is_file():
+            if beside == want:
+                return True
+            continue                                  # the adjacent header shadows every /I
         tail = "/" + spelled.lstrip("./")
         if ("/" + header).endswith(tail):
             if others is None:
                 others = tracked_headers()
             if not [p for p in others if ("/" + p).endswith(tail) and p != header]:
+                return True
+            if compiler_include_target(source, spelled, quoted) == want:
                 return True
     return False
 

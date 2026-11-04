@@ -401,6 +401,92 @@ def test_bulk_link_refusal_cannot_publish_only_half_a_dependency_group(dependenc
     assert (t.root / t.caller).read_bytes() == originals[t.caller]
 
 
+@pytest.fixture
+def ambiguous_include_tree(tmp_path, monkeypatch):
+    import build
+    source = "Code/Body.cpp"
+    header = "Code/GameEngine/Include/GameLogic/Module/UpdateModule.h"
+    shim = "reference/shims/other/GameLogic/Module/UpdateModule.h"
+    for relative in (header, shim):
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("class UpdateModule {};\n")
+    body = tmp_path / source
+    body.write_text('#include "GameLogic/Module/UpdateModule.h"\n')
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "tracked_headers", lambda: [header, shim])
+    monkeypatch.setattr(build, "compile_source", lambda *a, **kw: pytest.fail("include proof compiled a source"))
+    command, env = ["cl.exe", "-ICode/GameEngine/Include"], {}
+    monkeypatch.setattr(build, "compiler_command", lambda *a: (command, env))
+    return SimpleNamespace(root=tmp_path, source=source, header=header, body=body,
+                           command=command, env=env)
+
+
+@pytest.mark.parametrize("flags", [
+    ["-ICode/GameEngine/Include"], ["/ICode/GameEngine/Include"],
+    ["-I", "Code/GameEngine/Include"], ["/I", "Code/GameEngine/Include"],
+    ["-ICode/GameEngine/Include", "-Ireference/shims/other"],
+])
+def test_header_acceptance_resolves_duplicate_suffix_by_compiler_order(ambiguous_include_tree, flags):
+    t = ambiguous_include_tree
+    t.command[:] = ["cl.exe", *flags]
+    assert lane.includes_header(t.source, t.header)
+
+
+@pytest.mark.parametrize("case", ["earlier-shim", "adjacent-shim", "unsearched", "CL", "_CL_", "X"])
+def test_duplicate_header_cannot_bypass_search_order(ambiguous_include_tree, case):
+    t = ambiguous_include_tree
+    if case == "earlier-shim":
+        t.command.insert(1, "-Ireference/shims/other")
+    elif case == "adjacent-shim":
+        shadow = t.body.parent / "GameLogic/Module/UpdateModule.h"
+        shadow.parent.mkdir(parents=True)
+        shadow.write_text("class WrongUpdateModule {};\n")
+    elif case == "unsearched":
+        t.command[:] = ["cl.exe", "-Ireference/shims/other"]
+    elif case in ("CL", "_CL_"):
+        t.env[case] = "/Ireference/shims/other"
+    elif case == "X":
+        t.command[:] = ["cl.exe", "-X"]
+        t.env["INCLUDE"] = str(t.root / "Code/GameEngine/Include")
+    assert not lane.includes_header(t.source, t.header)
+
+
+def test_duplicate_header_uses_include_environment_after_explicit_roots(ambiguous_include_tree):
+    t = ambiguous_include_tree
+    t.command[:] = ["cl.exe"]
+    t.env["INCLUDE"] = str(t.root / "Code/GameEngine/Include")
+    assert lane.includes_header(t.source, t.header)
+    t.command.append("-Ireference/shims/other")
+    assert not lane.includes_header(t.source, t.header)
+
+
+def test_duplicate_header_angle_include_does_not_use_source_directory(ambiguous_include_tree):
+    t = ambiguous_include_tree
+    t.body.write_text("#include <GameLogic/Module/UpdateModule.h>\n")
+    shadow = t.body.parent / "GameLogic/Module/UpdateModule.h"
+    shadow.parent.mkdir(parents=True)
+    shadow.write_text("class WrongUpdateModule {};\n")
+    assert lane.includes_header(t.source, t.header)
+
+
+@pytest.mark.parametrize("wrapper", ["/*\n{}*/\n", "#if 0\n{}#endif\n"])
+def test_duplicate_header_still_requires_an_active_directive(ambiguous_include_tree, wrapper):
+    t = ambiguous_include_tree
+    t.body.write_text(wrapper.format(t.body.read_text()))
+    assert not lane.includes_header(t.source, t.header)
+
+
+def test_duplicate_header_refuses_unavailable_compiler_proof(ambiguous_include_tree, monkeypatch):
+    import build
+    t = ambiguous_include_tree
+    def unavailable(*args):
+        raise RuntimeError("compiler profile unavailable")
+    monkeypatch.setattr(build, "compiler_command", unavailable)
+    assert not lane.includes_header(t.source, t.header)
+
+
 @pytest.fixture(params=[("Coord2D", "Coord2DCtorView"),
                         ("Coord3D", "Coord3DCtorView"),
                         ("Coord3D", "Coord3DDerivedView"),
