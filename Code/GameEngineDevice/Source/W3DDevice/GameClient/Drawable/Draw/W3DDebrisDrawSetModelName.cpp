@@ -138,10 +138,12 @@ public:
 	Drawable *getDrawable() const { return m_drawable; }
 };
 
+class FXList;
 class DebrisDrawInterface
 {
 public:
-	virtual void setModelName(AsciiString name, Color color, ShadowType t) = 0;
+	virtual void setModelName(AsciiString name, int color, ShadowType type) = 0;
+	virtual void setAnimNames(AsciiString initial, AsciiString flying, AsciiString final, const FXList *finalFX) = 0;
 };
 
 class W3DDebrisDraw : public W3DDebrisDrawModuleBase, public DebrisDrawInterface
