@@ -48,15 +48,15 @@ public:
 
 class __single_inheritance FXShaderParameterSourceNamespaceWW3D;
 typedef void (FXShaderParameterSourceNamespaceWW3D::*BoundFXMethod)(ID3DXEffect *,D3DXHANDLE);
-struct DelegateDesc { void *m_object; BoundFXMethod m_method; };
+#include "../../../../GameEngine/Include/Common/DelegateDesc.h"
 // Builds a bound-method descriptor. Retail stores the method before the
 // object, through a register, as this helper's parameter copy does.
 template <class T>
 inline DelegateDesc MakeDesc(T *object, void (T::*method)(ID3DXEffect *, D3DXHANDLE))
 {
     DelegateDesc desc;
-    desc.m_object = object;
-    desc.m_method = method;
+    desc.field00 = object;
+    desc.field04 = *reinterpret_cast<void **>(&method);
     return desc;
 }
 // Both target constructors initialize a four-byte callback handle. This

@@ -488,14 +488,7 @@ private:
 	Rva0042D897 m_newTurnIndicator; // +0x38
 };
 
-struct DelegateDesc
-{
-	DelegateDesc(StrategicHUD::HUD::Impl *object, void (StrategicHUD::HUD::Impl::*method)(const char *))
-		: m_object(object), m_method(method) {}
-
-	StrategicHUD::HUD::Impl *m_object;
-	void (StrategicHUD::HUD::Impl::*m_method)(const char *);
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 // The one-pointer cell that owns the Impl: constructor 0x0042E71D (the owner
 // passes its level by reference; the cell passes its own address as the

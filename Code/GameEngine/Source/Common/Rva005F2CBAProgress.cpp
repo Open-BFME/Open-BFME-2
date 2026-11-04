@@ -122,14 +122,7 @@ public:
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 #include "../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc
-{
-	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
-		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
-
-	AptCommandTarget *m_object;
-	void (AptCommandTarget::*m_method)(const char *path);
-};
+#include "../../Include/Common/DelegateDesc.h"
 class AptCommandMap
 {
 public:
