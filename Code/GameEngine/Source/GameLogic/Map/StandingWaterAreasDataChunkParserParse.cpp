@@ -131,17 +131,40 @@ public:
 class Rva00308765
 {
 public:
-	void rva00308765(Int index, const AsciiString &name);
+	void rva00308765(int index, const AsciiString &value);
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07(int index);
+	char m_pad04[0x74];
+private:
+	AsciiString m_arr78[64]; // +0x78
 };
 class Rva00308139
 {
 public:
-	void rva00308139(const AsciiString &name);
+	void rva00308139(const AsciiString &s);
+	char m_pad00[0x80];
+private:
+	AsciiString m_str80; // +0x80
+	char m_pad84[0x4];
+	bool m_flag88; // +0x88
+	char m_pad89[0x3];
 };
 class Rva0030815D
 {
 public:
-	void rva0030815D(const AsciiString &name);
+	void rva0030815D(const AsciiString &s);
+	char m_pad00[0x8C];
+private:
+	AsciiString m_str8C; // +0x8C
+	char m_pad90[0xC];
+	bool m_flag9C; // +0x9C
+	char m_pad9D[0x3];
 };
 class Rva0030912A
 {

@@ -259,6 +259,7 @@ void Rva0030CA53Set(Rva004733E0 *dst, const Rva004733E0 *src);
 class Rva00308765
 {
 public:
+	void rva00308765(int index, const AsciiString &value);
 	virtual void s00();
 	virtual void s01();
 	virtual void s02();
@@ -267,10 +268,9 @@ public:
 	virtual void s05();
 	virtual void s06();
 	virtual void s07(int index);
-	void rva00308765(int index, const AsciiString &value);
+	char m_pad04[0x74];
 private:
-	char m_pad04[0x78 - 4];
-	AsciiString m_arr78[64];
+	AsciiString m_arr78[64]; // +0x78
 };
 
 #include "../../../Include/Common/DataChunkOutput.h"
@@ -343,19 +343,19 @@ public:
 	void rva003080CE();
 	unsigned char *getDepthColoringTexturePixels(int *width, int *height);
 	void rva00308A12(float position, int *red, int *green, int *blue);
-
-	char before[0x80];
-	AsciiString shaderName;
-	Rva003080AARef *shader;
+	char m_pad00[0x80];
+	AsciiString shaderName; // +0x80
+	Rva003080AARef *shader; // +0x84
+	char m_pad88[0x4];
 private:
-	char m_pad88[0x8C - 0x88];
-	AsciiString name;
-	int width, height;
-	unsigned char *pixels;
-	bool reload;
-	char m_pad9D[0xA8 - 0x9D];
-	StandingWaterPCARecord *mean;
-	StandingWaterPCARecord *channels[9];
+	AsciiString name; // +0x8C
+	int width; // +0x90
+	int height; // +0x94
+	unsigned char *pixels; // +0x98
+	bool reload; // +0x9C
+	char m_pad9D[0xB];
+	StandingWaterPCARecord *mean; // +0xA8
+	StandingWaterPCARecord *channels[9]; // +0xAC
 };
 
 class Rva00308DF0
@@ -403,11 +403,12 @@ class Rva00308139
 {
 public:
 	void rva00308139(const AsciiString &s);
-private:
 	char m_pad00[0x80];
-	AsciiString m_str80;
-	char m_pad84[4];
-	bool m_flag88;
+private:
+	AsciiString m_str80; // +0x80
+	char m_pad84[0x4];
+	bool m_flag88; // +0x88
+	char m_pad89[0x3];
 };
 
 //
@@ -419,11 +420,12 @@ class Rva0030815D
 {
 public:
 	void rva0030815D(const AsciiString &s);
+	char m_pad00[0x8C];
 private:
-	char m_pad00[0x8c];
-	AsciiString m_str8C;
-	char m_pad90[0x9c - 0x90];
-	bool m_flag9C;
+	AsciiString m_str8C; // +0x8C
+	char m_pad90[0xC];
+	bool m_flag9C; // +0x9C
+	char m_pad9D[0x3];
 };
 
 // ?rva003080C3@Rva003080C3Owner@@QAEPAURva003080AARef@@H@Z @0x003080C3 11B,
