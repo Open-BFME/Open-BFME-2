@@ -1,0 +1,7 @@
+### LINK-368: BuildableHeroListUpgrade ctor needs UpgradeModule slot providers
+Status: Blocked. Updated: 2026-11-04; inspected revision: 3fb65a79b9.
+Evidence / affected units: `Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgradeCtor.cpp` (0x004B8332, census-linked 49 B) byte-matches on the canonical `UpgradeModule.h`, but its emitted tables leave `?vslot07@UpgradeModule@@UBE_NXZ` (0x00460AE2, rowed as placeholder `Rva00460AE2ByteChase32Field::get`) and `?processUpgradeRemoval@UpgradeModule@@MAEXXZ` (fold onto 0x00460AD3) unresolved (LINKED 49 -> 0); this blocks the `BuildableHeroListUpgrade.cpp` tu-merge. [Trial](../../reverse/attempt_support/buildable-hero-ctor-canonical-upgrademodule-20261104/README.md).
+Completed: none; the explicit-store ctor stays.
+Remaining / next check: provide both names (see LINK-218, LINK-246 for the same family), then re-apply the canonical ctor, `tu_views.py` and the merge guard.
+Clearance: pending.
+Census confirmation: not claimed.
