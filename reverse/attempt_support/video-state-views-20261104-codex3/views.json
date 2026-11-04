@@ -1,0 +1,98 @@
+{
+ "tu": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp",
+ "classes": {
+  "Rva000724AE": {
+   "status": "applied",
+   "files": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp",
+    "Code/GameEngine/Source/Common/Rva000724AEClear.cpp",
+    "Code/GameEngine/Source/Common/Rva000724C7Check.cpp",
+    "Code/GameEngine/Source/Common/Rva000724D7Lock.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferAllocate.cpp"
+   ],
+   "notes": [
+    "+0x0 m_00: CodeView types differ (int, uint); Code/GameEngine/Source/Common/Rva000724AEClear.cpp's spelling kept, the byte check decides",
+    "+0x0 m_00: declared private/public; kept public",
+    "+0x4 m_04: CodeView types differ (int, uint); Code/GameEngine/Source/Common/Rva000724AEClear.cpp's spelling kept, the byte check decides",
+    "+0x4 m_04: declared private/public; kept public",
+    "+0x8 m_08: declared private/public; kept public",
+    "+0xC m_0c: declared private/public; kept public",
+    "+0x10 m_flags: CodeView types differ (int, uint); Code/GameEngine/Source/Common/Rva000724AEClear.cpp's spelling kept, the byte check decides",
+    "+0x10 m_flags: declared private/public; kept public"
+   ],
+   "renames": {
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp": {
+     "width": "m_00",
+     "height": "m_04",
+     "flags": "m_flags"
+    },
+    "Code/GameEngine/Source/Common/Rva000724C7Check.cpp": {
+     "m_10": "m_flags"
+    }
+   },
+   "fields": [
+    [
+     "0x00",
+     4,
+     "m_00",
+     "Code/GameEngine/Source/Common/Rva000724AEClear.cpp"
+    ],
+    [
+     "0x04",
+     4,
+     "m_04",
+     "Code/GameEngine/Source/Common/Rva000724AEClear.cpp"
+    ],
+    [
+     "0x08",
+     4,
+     "m_08",
+     "Code/GameEngine/Source/Common/Rva000724AEClear.cpp"
+    ],
+    [
+     "0x0C",
+     4,
+     "m_0c",
+     "Code/GameEngine/Source/Common/Rva000724AEClear.cpp"
+    ],
+    [
+     "0x10",
+     4,
+     "m_flags",
+     "Code/GameEngine/Source/Common/Rva000724AEClear.cpp"
+    ]
+   ],
+   "block": "class Rva000724AE\n{\npublic:\n\tvoid rva000724AE();\n\tbool rva000724C7();\n\tvoid *rva000724D7(int *pitchOut);\n\tbool rva000725BC(unsigned textureWidth,unsigned textureHeight,unsigned width,unsigned height,unsigned format,bool surfaceOnly);\n\tint m_00; // +0x00\n\tint m_04; // +0x04\n\tvoid *m_08; // +0x08\n\tvoid *m_0c; // +0x0C\n\tunsigned int m_flags; // +0x10 +0x10; clearing the resources leaves flags alone.\n};\n",
+   "files_changed": [
+    "Code/GameEngine/Source/Common/Rva000724AEClear.cpp",
+    "Code/GameEngine/Source/Common/Rva000724C7Check.cpp",
+    "Code/GameEngine/Source/Common/Rva000724D7Lock.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferAllocate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp"
+   ]
+  }
+ },
+ "canonical": {},
+ "applied": [
+  "Rva000724AE"
+ ],
+ "failed": {},
+ "seed": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp",
+ "files": [
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferCtorBfme.cpp",
+  "Code/GameEngine/Source/Common/Rva0007240C.cpp",
+  "Code/GameEngine/Source/Common/Rva0007243D.cpp",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferRva00072480.cpp",
+  "Code/GameEngine/Source/Common/Rva000724AEClear.cpp",
+  "Code/GameEngine/Source/Common/Rva000724C7Check.cpp",
+  "Code/GameEngine/Source/Common/Rva000724D7Lock.cpp",
+  "Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup_1Rva00739C70_QAE_XZ.cpp",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoStateAllocate.cpp",
+  "Code/GameEngine/Source/Common/Bfme5FiftySeven.cpp",
+  "Code/GameEngine/Source/Common/Disp8MaskedChaseDwordGetters.cpp",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBufferAllocate.cpp"
+ ]
+}

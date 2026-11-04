@@ -25,24 +25,27 @@ public:
 class Rva000724AE
 {
 public:
+	void rva000724AE();
+	bool rva000724C7();
 	void *rva000724D7(int *pitchOut);
-private:
-	Rva00739C70 m_00;
-	void *m_08;
-	Rva001166E0 m_0c;
-	unsigned int m_flags;
+	bool rva000725BC(unsigned textureWidth,unsigned textureHeight,unsigned width,unsigned height,unsigned format,bool surfaceOnly);
+	int m_00; // +0x00
+	int m_04; // +0x04
+	void *m_08; // +0x08
+	void *m_0c; // +0x0C
+	unsigned int m_flags; // +0x10
 };
 
 void *Rva000724AE::rva000724D7(int *pitchOut)
 {
 	void *ret = 0;
 	if (m_flags & 1)
-		m_00.cleanup();
-	Rva001166E0 *surf = &m_0c;
+		reinterpret_cast<Rva00739C70 *>(this)->cleanup();
+	Rva001166E0 *surf = reinterpret_cast<Rva001166E0 *>(&m_0c);
 	if (surf->m_surface != 0)
 	{
 		if ((m_flags & 0xc) == 0)
-			ret = surf->rva001166E0(pitchOut, 0, 0, m_00.m_00, m_00.m_04);
+			ret = surf->rva001166E0(pitchOut, 0, 0, m_00, m_04);
 		else
 			ret = ((Rva00116680 *)surf)->rva00116680(pitchOut, true);
 		m_flags |= 1;
