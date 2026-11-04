@@ -32,6 +32,7 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 
 

@@ -136,18 +136,7 @@ public:
 // The RebuildHoleBehavior +0x24 interface table 0x00C49A50: slot 0
 // startRebuildProcess (0x004835B4), slot 4 a byte setter.
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-class Drawable
-{
-public:
-	void fadeIn(UnsignedInt frames);
-};
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-	Drawable *getDrawable() const;	// 0x005508E2
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class Object : public Thing
 {
 public:
@@ -156,8 +145,6 @@ public:
 	void rva0029895A(BfmeCopyElementA *geom);	// 0x0029895A, setGeometryInfo
 
 	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return (const Coord3D *)m_pos; }
-	Real getOrientation() const { return m_orientation; }
 	ObjectID getID() const { return m_id; }
 	const AsciiString &getName() const { return m_name; }
 	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the
@@ -171,12 +158,7 @@ public:
 	Team *getTeam() const { return m_team; }
 
 private:
-	void *m_vptr;
-	const ThingTemplate *m_template;	// +0x04
-	unsigned char m_pad008[0x38 - 0x08];
-	Real m_pos[3];	// +0x38
-	Real m_orientation;	// +0x44
-	unsigned char m_pad048[0x74 - 0x48];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id;	// +0x74
 	unsigned char m_pad078[0x88 - 0x78];
 	AsciiString m_name;	// +0x88

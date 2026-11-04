@@ -257,28 +257,7 @@ class ExperienceView
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class Thing 
-{
- public:
- void getUnitDirectionVector2D(Coord3D&)const;
- const Coord3D*getPosition()const
- {
-  return &position;
-  
- }
- float getOrientation()const
- {
-  return orientation;
-  
- }
- char unknown00[4];
- ThingTemplate *tmplate;
- char unknown08[0x30];
- Coord3D position;
- float orientation;
- 
-}
-;
+#include "../../../../Include/GameClient/Drawable.h"
 
 enum SpecialPowerType {};
 
@@ -318,7 +297,7 @@ class Object: public Thing
   return (flags438&1)!=0;
   
  }
- char unknown48[0x2C];
+ char unknown60[0x14];
  int id;
  char unknown78[0x30];
  GeometryInfo geometry;
@@ -400,7 +379,7 @@ void SquishCollide::onCollide(Object *other,const Coord3D *loc,const Coord3D *no
 {
  // Note that other == null means "collide with ground"
  if(other==0 || other->destroyed())return;
- if(other->tmplate->m_kindof[3]&0x2000)return;
+ if(other->m_template->m_kindof[3]&0x2000)return;
  Object*self=getObject();
  if(self->destroyed())return;
  if(self->experience->dead)return;
@@ -431,7 +410,7 @@ void SquishCollide::onCollide(Object *other,const Coord3D *loc,const Coord3D *no
   if(to.x*dir.x+to.y*dir.y<0.0f)return;
  }
  // order matters: we want to know if IT considers ME to be an ally (a reversal of the usual situation)
- if(!other->testStatus(STATUS39) && !other->testStatus(STATUS32) && !other->isKindOf(KIND84) && !other->tmplate->m_crushAllies && other->getRelationship(getObject())!=ENEMIES)return;
+ if(!other->testStatus(STATUS39) && !other->testStatus(STATUS32) && !other->isKindOf(KIND84) && !other->m_template->m_crushAllies && other->getRelationship(getObject())!=ENEMIES)return;
  AIUpdateInterface *ai=self->ai;
  if(ai && ai->machine->getGoalObject()==other)
  {
@@ -455,14 +434,14 @@ void SquishCollide::onCollide(Object *other,const Coord3D *loc,const Coord3D *no
  if(body && !body->permitsCrushing(other))return;
  Rva00263895Member damageInfo;
  other->rva002929F9(getObject());
- if(other->tmplate->m_ramPower>0.0f)
+ if(other->m_template->m_ramPower>0.0f)
  {
   Coord3D v(*self->getPosition());
   v.sub(other->getPosition());
   v.normalize();
   damageInfo.direction=v;
-  damageInfo.magnitude=other->tmplate->m_ramPower;
-  damageInfo.unknown4C=other->tmplate->m_ramZMult;
+  damageInfo.magnitude=other->m_template->m_ramPower;
+  damageInfo.unknown4C=other->m_template->m_ramZMult;
   damageInfo.unknown44=10.0f;
   damageInfo.unknown48=1.0f;
   damageInfo.damageType=1;
@@ -471,7 +450,7 @@ void SquishCollide::onCollide(Object *other,const Coord3D *loc,const Coord3D *no
   damageInfo.amount=0.0f;
   self->attemptDamage((DamageInfo *)&damageInfo);
  }
- if(!(other->tmplate->m_kindof[3]&0x2000))
+ if(!(other->m_template->m_kindof[3]&0x2000))
  {
   Weapon *crushWeapon=other->crushWeapon;
   if(crushWeapon)crushWeapon->rva002CE6C5(other,self->getID(),self,0);
