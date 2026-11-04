@@ -26,12 +26,12 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 }
 struct Rva005E1BD5Owner;
 class Rva005E1BD5 {public:Rva005E1BD5(Rva005E1BD5Owner*,void*);virtual ~Rva005E1BD5();private:char storage[0x20];};
-struct TargetRef00217D4C {void *vtable;int refs;};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva005E1E9BElement {
  Rva005E1BD5 *ptr;
- Rva005E1E9BElement(Rva005E1BD5*p):ptr(p){if(ptr)++((TargetRef00217D4C*)ptr)->refs;}
- Rva005E1E9BElement(const Rva005E1E9BElement&other):ptr(other.ptr){if(ptr)++((TargetRef00217D4C*)ptr)->refs;}
+ Rva005E1E9BElement(Rva005E1BD5*p):ptr(p){if(ptr)++((TargetRef00217D4C*)ptr)->references;}
+ Rva005E1E9BElement(const Rva005E1E9BElement&other):ptr(other.ptr){if(ptr)++((TargetRef00217D4C*)ptr)->references;}
  // Retail has no out-of-line body: the release is inlined into the
  // element's scalar deleting dtor 0x005F8FCC.
  ~Rva005E1E9BElement(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}
@@ -39,7 +39,7 @@ struct Rva005E1E9BElement {
 // The existing STL element name is a storage view of this counted handle.
 struct RegionArmyIconRef {
  Rva005E1BD5 *ptr;
- RegionArmyIconRef(Rva005E1BD5 *p):ptr(p){if(ptr)++((TargetRef00217D4C*)ptr)->refs;}
+ RegionArmyIconRef(Rva005E1BD5 *p):ptr(p){if(ptr)++((TargetRef00217D4C*)ptr)->references;}
  ~RegionArmyIconRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}
  operator const Rva005E1E9BElement &() const { return *(const Rva005E1E9BElement*)this; }
 };

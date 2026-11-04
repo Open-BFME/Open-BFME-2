@@ -8,14 +8,7 @@
 // Evidence: array 6 size 0x14 at +0x64 like dtor Rva0052936C plus window table g_bfmeWorldRV +0xdc plus GadgetButtonGetData 0x00327D56 plus ctors 0x0056858C 0x005C3697 plus clear 0x002BED91 set 0x003F8396 plus callers 0x00529605 0x00529E08
 class GameWindow;
 void *GadgetButtonGetData(GameWindow *button);
-struct TargetRef00217D4C
-
-{
- void *m_vtbl;
- int references;
- 
-}
-;
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Rva002BED91
 
 {

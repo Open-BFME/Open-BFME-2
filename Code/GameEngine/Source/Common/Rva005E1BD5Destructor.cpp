@@ -11,8 +11,7 @@ class Rva0086E330Callback {public:
  virtual void callback0(int)=0;virtual void callback1(int)=0;virtual void callback2(int)=0;virtual void callback3(int)=0;virtual void callback4(int)=0;
  ~Rva0086E330Callback(){}
 };
-struct TargetRef00217D4C {void *vtable;int count;};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 struct DestructorHelpRef {TargetRef00217D4C *ptr;DestructorHelpRef():ptr(0){}~DestructorHelpRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}};
 class Rva005E197E {public:void rva005E197E();};
 class CreateAHeroData;

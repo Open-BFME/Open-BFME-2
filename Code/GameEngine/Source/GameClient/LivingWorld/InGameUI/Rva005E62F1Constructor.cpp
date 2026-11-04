@@ -22,8 +22,7 @@ class Rva00318C32Ret;
 class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};
 class Rva00318FBE {public:int rva00318FBE();};
 class Rva005CB84A {public:void rva005CB84A(int);};
-struct TargetRef00217D4C {void*vt;int refs;};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Ref {void*pointer;Ref():pointer(0){} ~Ref(){reinterpret_cast<Rva000AD6F4*>(this)->clear();}};
 class Rva005773DB {public:Rva005773DB(const int*);__forceinline ~Rva005773DB(){if(pointer)ReleaseTreeHintRef00217D4C(pointer);}private:TargetRef00217D4C*pointer;};
 class Rva005F23B2 {public:~Rva005F23B2();};

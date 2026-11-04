@@ -271,11 +271,10 @@ Rva005CDCC2Payload::Rva005CDCC2Payload(int scalar,
 // EH guard flags and the reused context/result stack slot are compiler output.
 // PanelFactoryResultView describes this ABI; the original smart-pointer and
 // pointed-to factory type are not asserted. No vtable or alias pin is emitted.
-struct TargetRef00217D4C { void *vtable; int refs; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class PanelFactoryResultView {
 public:
- PanelFactoryResultView(const PanelFactoryResultView &other):pointer(other.pointer) {if(pointer)++pointer->refs;}
+ PanelFactoryResultView(const PanelFactoryResultView &other):pointer(other.pointer) {if(pointer)++pointer->references;}
  ~PanelFactoryResultView(){if(pointer)ReleaseTreeHintRef00217D4C(pointer);}
 private:
  TargetRef00217D4C *pointer;

@@ -3,11 +3,7 @@
 // Allocating setter: new 12B Rva00517345 via rowed ctor at 0x00517345
 // forwarding the holder arg, store into +0, AddRef the new object at +4,
 // return this. Rowed operator new at 0x0002FDA0. Caller 0x0051755C.
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva0051732A
 {
