@@ -7,21 +7,10 @@
 // set<TreeKey00242F5E> at 0x000A7DCE; layout matches rowed TreeKey copy ctor
 // 0x000CF475 and _Construct 0x000A7876.
 
-class AsciiString;
-
-#include "ascii_string.h"
-
-
-struct TreeKey00242F5E
-{
-	unsigned int m_id;
-	AsciiString m_name;
-
-	TreeKey00242F5E(unsigned int id, AsciiString name);
-};
+#include "TreeKey00242F5E.h"
 
 TreeKey00242F5E::TreeKey00242F5E(unsigned int id, AsciiString name)
-	: m_id(id)
-	, m_name(name)
+	: field00(id)
+	, field04(name)
 {
 }

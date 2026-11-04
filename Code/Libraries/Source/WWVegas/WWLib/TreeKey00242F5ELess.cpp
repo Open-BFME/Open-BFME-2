@@ -15,17 +15,13 @@ typedef bool Bool;
 
 Bool __cdecl operator<(const AsciiString &left, const AsciiString &right);
 
-struct TreeKey00242F5E
-{
-	unsigned int m_id;
-	AsciiString m_name;
-};
+#include "TreeKey00242F5E.h"
 
 Bool __stdcall Rva000A78A3Less(const TreeKey00242F5E &lhs, const TreeKey00242F5E &rhs)
 {
-	if (lhs.m_id < rhs.m_id)
+	if (lhs.field00 < rhs.field00)
 		return true;
-	if (lhs.m_id > rhs.m_id)
+	if (lhs.field00 > rhs.field00)
 		return false;
-	return lhs.m_name < rhs.m_name;
+	return lhs.field04 < rhs.field04;
 }
