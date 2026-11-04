@@ -654,7 +654,7 @@ class Display {public:char pad[0x114];bool flag;};extern Display *TheDisplay;
 extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
 struct StartGameInfoView {char pad[0x50];unsigned seed;int u54;int scenario;};
-class MapMetaData {public:char pad[0x24];bool official;char pad25[3];unsigned size,crc;};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 void InitGameLogicRandom(unsigned);
@@ -703,11 +703,11 @@ void AptSkirmish::StartGameAfterCDCheck() {
    GameMessage *msg=TheMessageStream->append(31);
    if(msg) {msg->appendIntegerArgument(((StartGameInfoView *)(*(GameInfo * *)&TheSkirmishGameInfo))->scenario);msg->wb00EC9680(0);}
   } else {
-   bool official=true;
+   bool isSkirmish=true;
    const MapMetaData *map=TheMapCache->findMap((*(GameInfo * *)&TheSkirmishGameInfo)->getMap());
-   if(map) official=map->official;
+   if(map) isSkirmish=map->m_isMultiplayer;
    GameMessage *msg=TheMessageStream->append(30);
-   msg->appendIntegerArgument(official ? 2 : 0);
+   msg->appendIntegerArgument(isSkirmish ? 2 : 0);
    msg->appendIntegerArgument(1);msg->appendIntegerArgument(0);
   }
  }
@@ -815,6 +815,6 @@ bool AptSkirmish::InitTheGame() {
  TheSkirmishGameInfo->setMap(prefs->getPreferredMap());
  const MapMetaData *map=TheMapCache->findMap(TheSkirmishGameInfo->getMap());
  if(!map) { TheSkirmishGameInfo->setMapCRC(0);TheSkirmishGameInfo->setMapSize(0); }
- else { TheSkirmishGameInfo->setMapCRC(map->crc);TheSkirmishGameInfo->setMapSize(map->size); }
+ else { TheSkirmishGameInfo->setMapCRC(map->m_CRC);TheSkirmishGameInfo->setMapSize(map->m_filesize); }
  return true;
 }
