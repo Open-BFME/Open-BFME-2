@@ -385,6 +385,14 @@ private:
     friend int Rva0011009AGet();
     friend int Rva001100A0Get();
     friend int __cdecl Rva00945460Lookup(int, int);
+    friend void Pack_Ambient_Color(const Vector3 &);
+    friend void Pack_Ambient_Color(const Vector3 &, float);
+    friend void rva0006F0BB(bool, const Vector3 &, float, float);
+    friend void rva00120670(unsigned int, unsigned int);
+    friend void rva00120690(unsigned int, unsigned int);
+    friend void rva001206B0(unsigned int, unsigned int);
+    friend class FXShaderGeometry;
+    friend class Rva0014A710;
 };
 
 #endif

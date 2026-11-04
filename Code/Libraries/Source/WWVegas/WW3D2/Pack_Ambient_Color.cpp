@@ -28,12 +28,7 @@
 // at VA 0x00DEDA24, dx8wrapper.cpp's protected ?FogColor@DX8Wrapper@@1KA,
 // reached through a TU-scoped friend view), and the shared 255.0f scale
 // (g_00BC2900 at VA 0x00BC2900).
-class DX8Wrapper
-{
-	friend void Pack_Ambient_Color(const Vector3& color);
-protected:
-	static unsigned long FogColor;
-};
+#include "DX8WrapperClass.h"
 
 // The out-of-line Convert_Color(const Vector3&, float alpha) shape. Only
 // [ebp+8] (the colour pointer) is read; the alpha operand comes from the

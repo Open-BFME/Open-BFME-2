@@ -16,15 +16,7 @@ struct IDirect3DDevice8;
 
 class FXShaderGeometry;
 
-class DX8Wrapper
-{
-public:
-	static void Set_Vertex_Buffer(const VertexBufferClass *vb, unsigned int stream);
-	static void Set_Index_Buffer(const IndexBufferClass *ib, unsigned short index);
-protected:
-	static struct IDirect3DDevice8 *D3DDevice;
-	friend class FXShaderGeometry;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 extern unsigned int number_of_DX8_calls;
 

@@ -14,15 +14,7 @@
 // ?FogColor@DX8Wrapper@@1KA).
 #include "ShaderClass.h"
 void rva0006F0BB(bool enable, const Vector3 &color, float start, float end);
-class DX8Wrapper {
- friend void rva0006F0BB(bool enable, const Vector3 &color, float start, float end);
-protected:
- static bool FogEnable;
- static unsigned long FogColor;
-public:
- static void Set_DX8_Render_State(unsigned long state,unsigned value);
- static unsigned Convert_Color(const Vector3 &color,float alpha);
-};
+#include "DX8WrapperClass.h"
 extern float g_Va00DEDA28;
 extern float g_Va00DEDA2C;
 
