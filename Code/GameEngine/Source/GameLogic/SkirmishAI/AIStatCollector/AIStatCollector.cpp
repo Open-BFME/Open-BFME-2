@@ -297,7 +297,16 @@ public:
  ~Rva00281A76() {}
 };
 
-class Rva004DFE4F { public: int rva004DFE4F(void *key); };
+// The nested scan at 0x004DFE4F uses the same group list and callback
+// prefix as its caller below; expose that prefix before merging its owner.
+class Rva004DFE4F
+{
+public:
+ int rva004DFE4F(void *key);
+private:
+ char pad0[0x10]; Rva004DFCE6 **m_begin; Rva004DFCE6 **m_end;
+ char pad18[8]; Rva004DFE4FCallback m_callback;
+};
 
 // Native 004DFF2C..004E005E RET4: clear every group's active flag and run the
 // rowed nested scan 0x004DFE4F. No match: build a new group from virtual slot

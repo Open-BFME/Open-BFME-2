@@ -1,4 +1,7 @@
-// cl: /O1 /arch:SSE /G7 /MD
+// cl: /O1 /arch:SSE /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
+#include <vector>
+class Object;
 // Native282B26..282B9F RET4. Vector10/14 contains groups. Each group's
 // 1C/20 vector supplies candidate words; first matching candidate sets its
 // flag and increments the result. Only the first matching group calls29BD.
@@ -27,10 +30,9 @@ class Rva004DFCE6
 public:
  // The rowed 0x004DFCE6 Rva004DFCE6::rva004DFCE6(Object *, void *).
  void rva004DFCE6(class Object *object, void *callback);
- unsigned char active;
+ bool active00;
  char pad[0x1C-1];
- void **begin;
- void **end;
+ _STL::vector<Object *> objects1C;
 };
 class Rva004DFE4F
 {
@@ -48,12 +50,12 @@ int Rva004DFE4F::rva004DFE4F(void *key)
  for (; it != finish; ++it)
  {
   Rva004DFCE6 *group = *it;
-  void **lastCandidate = group->end;
-  for (void **candidate = group->begin; candidate != lastCandidate; ++candidate)
+  Object **lastCandidate = group->objects1C.end();
+  for (Object **candidate = group->objects1C.begin(); candidate != lastCandidate; ++candidate)
   {
    if (((Rva004DFAB3 *)this)->rva004DFAB3(key, *candidate))
    {
-    group->active = 1;
+    group->active00 = true;
     if (count == 0)
      group->rva004DFCE6((class Object *)key, (void *)m_callback);
     ++count;
