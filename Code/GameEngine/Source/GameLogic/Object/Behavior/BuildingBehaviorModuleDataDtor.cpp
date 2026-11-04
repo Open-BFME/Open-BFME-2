@@ -11,16 +11,30 @@
 
 #include "ascii_string.h"
 
-class BuildingWindowName
+// Retail's 12-byte entries are vector<AsciiString>: the constructor at
+// 0x00456489 uses the vector default-constructor closure (0x00256646),
+// and this destructor passes the rowed vector destructor (0x0002CC70)
+// to the EH vector destructor iterator. Match the constructor TU's view.
+namespace _STL
+{
+template <class T> class allocator
 {
 public:
-	BuildingWindowName() {}
-	~BuildingWindowName() {}
+	allocator() {}
+};
+template <class T, class A> class vector
+{
+public:
+	vector(const A &a = A());
+	~vector();
 
 private:
-	AsciiString m_name;
-	unsigned char m_pad[8];
+	T *m_start;
+	T *m_finish;
+	T *m_end;
 };
+}
+typedef _STL::vector<AsciiString, _STL::allocator<AsciiString> > BuildingWindowName;
 
 class Xfer;
 
