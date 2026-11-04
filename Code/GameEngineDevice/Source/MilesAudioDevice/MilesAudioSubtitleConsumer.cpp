@@ -36,7 +36,7 @@ virtual void slot13();
 virtual void slot14();
 virtual void slot15();
 virtual unsigned int getWidth();virtual unsigned int getHeight();};
-class SubTitleWindow {public:SubTitleWindow(GameFont *,float,float,int,int,int,int);void rva00260BBF(const StringBase<unsigned short> &,unsigned int);char at00[0x6C];};
+#include "../../../GameEngine/Include/GameClient/SubTitleWindow.h"
 struct SubtitleSettings {char at00[0x94];int m_at94;char at98[4];int m_at9C;int m_atA0;unsigned int m_atA4;};
 class MilesAudioManager {public:
  void rva00051353(const UnicodeString &text);
