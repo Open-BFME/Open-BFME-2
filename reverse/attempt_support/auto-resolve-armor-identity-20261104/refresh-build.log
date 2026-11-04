@@ -1,0 +1,15 @@
+Source claims: OK (198 sources, scoped byte-verified)
+Data rows: OK (39 row(s) byte-verified)
+Compile: 173 of 198 TU(s) (deps-cache: 25 current)
+Object store: 172 of 173 stale TU(s) restored
+Funclet pins: 658 row(s) verified past a renumbered $L label
+    $L59902 (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp): $L59902 was renumbered; verified parent EH data places $L53772 at 0x0077961B
+    uw_00775004 (Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp): $L9055 was renumbered; verified parent EH data places $L14021 at 0x00775004
+    uw_00775621 (Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp): $L10321 was renumbered; verified parent EH data places $L13892 at 0x00775621
+    $L11136 (Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp): $L11136 was renumbered; verified parent EH data places $L11090 at 0x007A779E
+    $L11137 (Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp): $L11137 was renumbered; verified parent EH data places $L11091 at 0x007A77AC
+STLport folds: 15 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 2146/2146 matched across 198 source file(s)
+String-ref verify: OK (334 literals + 48 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (115 compiler literals verified)
+Import-ref verify: OK (166 named imports verified)

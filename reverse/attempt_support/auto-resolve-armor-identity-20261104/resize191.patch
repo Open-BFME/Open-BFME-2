@@ -1,0 +1,54 @@
+--- a/Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp
+@@ -1 +1 @@
+-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
++// cl: /DNDEBUG /MD /EHsc /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+@@ -4,0 +5,8 @@
++#include <vector>
++// The native pointer buckets release storage through the malloc allocator.
++namespace _STL { template <> __declspec(dllimport) __forceinline
++_Vector_base<void *, allocator<void *> >::~_Vector_base()
++{
++    if (_M_start != 0)
++        _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start);
++} }
+@@ -7,4 +15,5 @@
+-// Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
+-// the retail copy serves the link. Plain declaration-only form (no __imp_).
+-namespace _STL {
+-template <> size_t vector<void*>::size() const;
++// Keep bucket access visible so the typed hashtable lookup inlines it.
++// Any out-of-line size call still binds to the shared retail provider.
++namespace _STL {
++template <> __declspec(dllimport) __forceinline
++size_t vector<void*>::size() const { return size_t(_M_finish - _M_start); }
+@@ -27 +36 @@
+-namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector<void *,allocator<void *> >::operator[](unsigned int n) { return *(this->_M_start + n); } }
++namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector<void *,allocator<void *> >::operator[](unsigned int n) { return *(begin() + n); } }
+@@ -29 +38,8 @@
+-namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
++namespace _STL {
++// allocator<void*> is stateless; swapping its proxy only exchanges storage.
++template <> inline void swap(_STLP_alloc_proxy<void **, void *, allocator<void *> > &left,
++                            _STLP_alloc_proxy<void **, void *, allocator<void *> > &right)
++{
++    swap(left._M_data, right._M_data);
++}
++}
+@@ -32,3 +47,0 @@
+-namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
+-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
+-namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
+@@ -37,2 +49,0 @@
+-namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
+-namespace _STL { template <> allocator<void *>::~allocator(); }
+@@ -54,3 +65,3 @@
+-// Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
+-// the kept copy serves the link. Plain declaration-only form (no __imp_).
+-namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
++// Inline bucket indexing without emitting a competing out-of-line copy.
++namespace _STL { template <> __declspec(dllimport) __forceinline
++void *const &vector<void *>::operator[](size_t n) const { return _M_start[n]; } }
+@@ -68 +79 @@
+-	unsigned int operator()(const NameKeyType &v) const;
++	unsigned int operator()(const NameKeyType &v) const { return (unsigned int)v; }

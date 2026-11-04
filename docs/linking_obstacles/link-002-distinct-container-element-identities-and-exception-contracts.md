@@ -2,6 +2,8 @@
 
 **Status: Open. Updated: 2026-10-26; inspected revision: 896af216804e1f1e34de28bd318285fbbbfcc536.**
 
+**Auto-resolve armor store (2026-11-04, inspected `c02844f60c`):** exact 47-byte lookup repair retires two identity keys; subscript retirement still needs the recursive resize shape reconciled (191 emitted bytes versus 184 native). All 13 rows, three EH parents and the 691-byte LINKS preview are preserved. [Evidence and next check](../../reverse/attempt_support/auto-resolve-armor-identity-20261104/README.md).
+
 **PortNegotiationSchema (2026-11-04, `0d2659fd79`):** standard placement-new adoption preserves all 13 seed rows, exact EH and the 649-byte LINKS preview; merging the vector donors still loses byte matches, and network donors need private-layout reconciliation. [Cleanup verification and next checks](../../reverse/attempt_support/port-negotiation-placement-new-20261104.md).
 
 **PAVectorEraseRangeFamily003AF candidate (2026-11-03, inspected `500947226b`):** the real link stops on `??0Elem003AF9E0@@QAE@ABU0@@Z` and `??4Elem003B2540@@QAEAAU0@ABU0@@Z`, and the selected `_M_insert_overflow<Elem003AF9E0>` is not retail's. The natives are already rowed under other views: copy constructor 0x0052BB9A as `Rva003A6360Record` (LivingWorldCampaign.cpp), the Elem003B2540 copy loop 0x003F325A as `Rva003F325ACopy` over `Rva003F2A11`, and overflow 0x00565FC1 as `Rva00565FC1::overflow` in the approved TU Glo012F1024Item.cpp. Next: reconcile the element identity with those owners (likely during the Glo012F1024Item merge); no source change made.

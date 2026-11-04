@@ -4,10 +4,10 @@
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <hash_map>
 #include <cstddef>
-// Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
-// the retail copy serves the link. Plain declaration-only form (no __imp_).
+// Inline bucket size without emitting a competing out-of-line copy.
 namespace _STL {
-template <> size_t vector<void*>::size() const;
+template <> __declspec(dllimport) __forceinline
+size_t vector<void*>::size() const { return size_t(_M_finish - _M_start); }
 }
 
 // map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
@@ -51,9 +51,9 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
-// Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
+// Inline bucket indexing without emitting a competing out-of-line copy.
+namespace _STL { template <> __declspec(dllimport) __forceinline
+void *const &vector<void *>::operator[](size_t n) const { return _M_start[n]; } }
 
 enum NameKeyType
 {
@@ -63,9 +63,10 @@ enum NameKeyType
 namespace rts
 {
 template <typename T> struct hash;
+// Retail's folded 47-byte _M_find hashes the integer key inline.
 template <> struct hash<NameKeyType>
 {
-	unsigned int operator()(const NameKeyType &v) const;
+	unsigned int operator()(const NameKeyType &v) const { return (unsigned int)v; }
 };
 }
 
