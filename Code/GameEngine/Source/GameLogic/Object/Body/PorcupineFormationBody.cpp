@@ -194,17 +194,15 @@ private:
 	Rva004C2095Mid *m_mid;
 };
 
+class WeaponTemplate;
 class PorcupineFormationBodyModuleData : public ActiveBodyModuleData
 {
 public:
 	PorcupineFormationBodyModuleData();
-private:
-	int m_int64;
-private:
-	int m_int68;
-private:
-	bool m_flag6C;
 public:
+	const WeaponTemplate *m_reactionWeapon;	// +0x64
+	const WeaponTemplate *m_weapon;	// +0x68
+	char m_level;			// +0x6C
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
@@ -301,9 +299,9 @@ bool __stdcall Rva004C20D5IsWithin(float dist, const Coord3D *lhs, const Coord3D
 PorcupineFormationBodyModuleData::PorcupineFormationBodyModuleData()
 	: ActiveBodyModuleData()
 {
-	m_int64 = 0;
-	m_int68 = 0;
-	m_flag6C = false;
+	m_reactionWeapon = 0;
+	m_weapon = 0;
+	m_level = 0;
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF4028);
 }
 
