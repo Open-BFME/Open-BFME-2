@@ -22,52 +22,23 @@ public:
 	virtual void Remove(void);
 };
 
-struct Rva00943C60Node
-{
-	Rva00943C60Node *prev;
-	Rva00943C60Node *next;
-	Rva00943C60Node *next_list;
-	void *object;
-	void *list;
-};
-
-template <class T>
-class RefMultiListClass
-{
-public:
-	virtual void slot00(void);
-	Rva00943C60Node head;
-	void Reset_List(void);
-};
-
-class RenderInfoClass;
-
-class SimpleSceneClass
-{
-
-protected:
-	virtual void Post_Render_Processing(RenderInfoClass &rinfo);
-
-private:
-	unsigned char before_render_list[0xa0];
-	RefMultiListClass<RenderObjClass> render_list;
-};
+#include "SimpleSceneClass.h"
 
 void SimpleSceneClass::Post_Render_Processing(RenderInfoClass &rinfo)
 {
-	RefMultiListClass<RenderObjClass> *list = &render_list;
-	Rva00943C60Node *node = render_list.head.next;
-	Rva00943C60Node *head = &list->head;
+	RefMultiListClass<RenderObjClass> *list = &ReleaseList;
+	MultiListNodeClass *node = ReleaseList.Head.Next;
+	MultiListNodeClass *head = &list->Head;
 
 	if (node != head) {
 		do {
 			RenderObjClass *object =
-				node->object != 0
+				node->Object != 0
 					? reinterpret_cast<RenderObjClass *>(
-						reinterpret_cast<char *>(node->object) - 8)
+						reinterpret_cast<char *>(node->Object) - 8)
 					: 0;
 			object->Remove();
-			node = node->next;
+			node = node->Next;
 		} while (node != head);
 	}
 
