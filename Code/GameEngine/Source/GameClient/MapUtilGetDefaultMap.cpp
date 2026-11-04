@@ -29,16 +29,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class MapMetaData
-{
-public:
-	char unknown00[0x24];
-	bool official;
-	char unknown25[0x50 - 0x25];
-	UnicodeString rva00300D0E();
-	AsciiString m_fileName;
-	char unknown54[0x100 - 0x54];
-};
+#include "../../Include/GameClient/MapMetaData.h"
 
 #include "../../Include/GameClient/MapCache.h"
 
@@ -113,7 +104,7 @@ AsciiString getDefaultMap(bool isMultiplayer)
 // counterpart of ZH/BFME1 populateMapListboxNoReset. The BFME1 source at
 // 23b143233b5a8664a3bdf8572df6d905c310a5a1 supplies the semantic guide;
 // BFME2 uses a flags argument and profile-specific RealTimeStatsPreferences.
-// Native accesses establish MapMetaData's official byte +0x24, filename
+// Native accesses establish MapMetaData's flag byte +0x24 (m_isMultiplayer), filename
 // +0x50 and 0x100-byte stride. The RVA name retains identity uncertainty.
 // Keep the real collector above this caller: its visibility separates the
 // selection-count constant from the scrolling minimum and reproduces retail.
@@ -190,7 +181,7 @@ int Rva00304744Populate(GameWindow *listbox, unsigned flags, const AsciiString &
 			int index = -1;
 			const int defaultIndex = index;
 			int imageData = defaultIndex;
-			if (numColumns > 1 && md->official) {
+			if (numColumns > 1 && md->m_isMultiplayer) {
 				int numEasy = honors->rva00537190(AsciiString(md->m_fileName.str()), 2);
 				int numMedium = honors->rva00537190(AsciiString(md->m_fileName.str()), 3);
 				int numBrutal = honors->rva00537190(AsciiString(md->m_fileName.str()), 4);
