@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DBFME_SB_CLEAR_DECL /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc /ICode/Libraries/Include
 //
 // ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z, retail 0x004051BC, 156 bytes.
 // Unlock-lane body called from 0x00405258: player-index guard at this+0x2B
@@ -48,7 +48,11 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../../Include/GameLogic/ExperienceTracker.h"
 
-#include "../GameLogic/Object/object.h"
+// The approved TU's Object view (VictorySystem.cpp); m_experienceTracker at
+// +0x264 is object.h's.
+struct VictoryObjectTemplate { char pad[0x109]; unsigned char flags109; char pad10a[9]; unsigned char flags113; };
+
+class Object { public: Player *getControllingPlayer() const; char pad0[4]; VictoryObjectTemplate *tmpl; char pad8[0x264-8]; ExperienceTracker *m_experienceTracker; char pad268[0x438-0x268]; unsigned char flags438; };
 
 struct Rva004051BCEntry
 {
