@@ -42,14 +42,28 @@ public:
 };
 
 // The texture vector dies through the rowed 0x000C9A12 (the call at 0x000C9BA8).
-class Rva000C9A12
-{
-public:
-	~Rva000C9A12();
+#include <stdlib.h>
 
-	void *m_start;
-	void *m_finish;
-	void *m_end;
+template <class T> class RefCountPtr;
+class TextureClass;
+
+template <class E> struct RvaVectorFamilyBase
+{
+	E *m_start;
+	E *m_finish;
+	E *m_endOfStorage;
+	~RvaVectorFamilyBase()
+	{
+		if (m_start)
+			free(m_start);
+	}
+};
+
+// Share the vector shell with W3DLaserDraw.cpp. Its rowed destructor destroys
+// RefCountPtr<TextureClass> elements before the storage base frees the block.
+struct Rva000C9A12 : RvaVectorFamilyBase<RefCountPtr<TextureClass> >
+{
+	~Rva000C9A12();
 };
 
 class RTS3DScene
