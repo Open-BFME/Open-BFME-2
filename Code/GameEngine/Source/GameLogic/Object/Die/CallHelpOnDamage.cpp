@@ -32,7 +32,7 @@ public:
 	~Rva003623E5Filter();
 	void applyFilter(BfmeFixedStorage0004543D storage);
 private:
-	int m_x;
+	int m_x; // +0x00
 };
 
 class UpdateModuleData

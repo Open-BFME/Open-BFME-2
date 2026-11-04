@@ -7,13 +7,15 @@
 // (Rva004bb3a7Finish.cpp). Byte-identical to, but not folded with, the
 // TerrainResourceBehaviorModuleData dtor at 0x00482275, whose
 // TerrainResourceBehaviorModuleDataDtor.cpp shape and flags this follows.
+class BfmeFixedStorage0004543D;
 class Rva003623E5Filter
 {
 public:
 	Rva003623E5Filter();
 	~Rva003623E5Filter();
+	void applyFilter(BfmeFixedStorage0004543D storage);
 private:
-	int m_x;
+	int m_x; // +0x00
 };
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Include/Common/BfmeModuleData.h"
