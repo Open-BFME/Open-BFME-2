@@ -301,12 +301,7 @@ class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
 struct Rva002C943BSrc;
 class Rva002C943B { public: void copyFrom(const Rva002C943BSrc *); };
 struct SavedWeaponState { int fields[5]; SavedWeaponState() { ((Rva002C9424 *)this)->rva002C9424(); } };
-class WeaponTemplate { public:
- char pad0[0xc]; int m_key; char pad10[0x2c-0x10]; float m_minTargetAngle; char pad30[0x58-0x30]; int m_damageType;
- char pad5C[0x78-0x5c]; int m_clipSize; char pad7C[0x10c-0x7c]; unsigned m_anti;
- char pad110[4]; bool m_damage; char pad115[0x128-0x115]; int m_autoReload;
- char pad12C[0x16b-0x12c]; bool m_autoChoose; char pad16C[0x170-0x16c]; bool m_noVictimAttack;
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 enum WeaponStatus { READY_TO_FIRE=0, OUT_OF_AMMO=1 };
 class Weapon { public:
  virtual void *nativeSlot0(unsigned)=0;
@@ -369,15 +364,15 @@ void WeaponSet::updateWeaponSet(const Object *obj)
    for(int i=5;i>=0;--i) {
      if(m_weapons[i]) { ::operator delete(m_weapons[i]->nativeSlot0(0)); m_weapons[i]=0; }
      if(set->m_weapons[i]) {
-       const WeaponTemplate *weaponTemplate=TheWeaponStore->findWeaponTemplatePrivate((NameKeyType)set->m_weapons[i]->m_key);
+       const WeaponTemplate *weaponTemplate=TheWeaponStore->findWeaponTemplatePrivate((NameKeyType)set->m_weapons[i]->m_nameKey);
        if(weaponTemplate) {
          m_weapons[i]=TheWeaponStore->allocateNewWeapon(weaponTemplate,(WeaponSlotType)i);
          m_weapons[i]->m_ownerID=obj->m_id;
          m_weapons[i]->rva002CE226(obj,saved);
-         m_filled|=1u<<i; m_anti|=m_weapons[i]->m_template->m_anti;
+         m_filled|=1u<<i; m_anti|=m_weapons[i]->m_template->m_antiMask;
          m_damage|=1u<<m_weapons[i]->m_template->m_damageType;
          if(m_weapons[i]->m_pitch) m_pitch=true;
-         if(m_weapons[i]->m_template->m_damage) m_hasDamage=true;
+         if(m_weapons[i]->m_template->m_field114) m_hasDamage=true;
        }
      }
    }
@@ -570,7 +565,7 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 			hasAWeapon = true;
 			if ((m_anti & targetAntiMask) == 0)
 				continue;
-			if (victim && weapon->m_template->m_noVictimAttack)
+			if (victim && weapon->m_template->m_field170)
 				continue;
 
 			if (source->testStatus((ObjectStatusTypes)0x25))
@@ -600,7 +595,7 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 					AIUpdateInterface *ai = source->m_ai;
 					if (!ai || !ai->m_1F0)
 					{
-						float angle = weapon->m_template->m_minTargetAngle;
+						float angle = weapon->m_template->m_aimDelta;
 						if (angle > 0.0f && pos)
 						{
 							if (fabs(source->GetRelativeAngle(pos)) > angle)
@@ -930,11 +925,11 @@ bool WeaponSet::chooseBestWeaponForTarget(const Object *obj, const Object *victi
 			Weapon *weapon = m_weapons[i];
 			if (weapon == 0)
 				continue;
-			if (weapon->getStatus() == OUT_OF_AMMO && weapon->m_template->m_autoReload != 0)
+			if (weapon->getStatus() == OUT_OF_AMMO && weapon->m_template->m_field128 != 0)
 				continue;
 			if (((const Rva002C9400ByteField *)weapon->m_template)->get())
 				continue;
-			if (weapon->m_template->m_autoChoose)
+			if (weapon->m_template->m_field16B)
 			{
 				m_curWeapon = (WeaponSlotType)i;
 				return true;
@@ -964,19 +959,19 @@ bool WeaponSet::chooseBestWeaponForTarget(const Object *obj, const Object *victi
 			continue;
 		if (!rva002C75D1(i, cmdSource))
 			continue;
-		if (weapon->m_template->m_noVictimAttack)
+		if (weapon->m_template->m_field170)
 			continue;
 
 		WeaponStatus status = weapon->getStatus();
 		if (status == OUT_OF_AMMO)
 		{
-			if (weapon->m_template->m_autoReload != 0)
+			if (weapon->m_template->m_field128 != 0)
 				continue;
-			if (weapon->m_template->m_clipSize >= 0)
+			if (weapon->m_template->m_idleAfterFiringDelay >= 0)
 				continue;
 		}
 
-		if ((weapon->m_template->m_anti & getVictimAntiMask(victim)) == 0)
+		if ((weapon->m_template->m_antiMask & getVictimAntiMask(victim)) == 0)
 			continue;
 		if (!weapon->isWithinTargetPitch(obj, victim))
 			continue;

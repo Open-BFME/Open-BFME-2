@@ -473,83 +473,23 @@ class Rva002CA9CA
 };
 
 struct TargetCoord { float x,y,z; TargetCoord() {} TargetCoord(float a,float b,float c):x(a),y(b),z(c){} TargetCoord(const Coord3D &p):x(p.x),y(p.y),z(p.z){} };
-class WeaponTemplate
+#include "../../../Include/GameLogic/WeaponTemplate.h"
+static __forceinline Bool weaponTemplateIsDamageType(const WeaponTemplate *wt, Int damageType, const Weapon *weapon)
 {
-  public:
-    Bool isDamageType(Int damageType, const Weapon *weapon) const
-    {
-        return ((Rva002CA9CA *)this)->rva002CA9CA(damageType, weapon);
-    }
-    __declspec(dllimport) __forceinline Int getProjectileCollideMask() const
-    {
-        return m_projectileCollideMask;
-    }
-
-    Bool shouldProjectileCollideWith(const Object *projectileLauncher, const Object *projectile,
-                                     const Object *thingWeCollidedWith,
-                                     ObjectID intendedVictimID) const;
-
-  public:
-    void fireWeaponTemplate(Object *, int, int, int, Object *, int, const Coord3D *, const WeaponBonus &,
-                     bool, Weapon *, int);
-    Int rva002C9322(const WeaponBonus &bonus, Real factor) const;
-    const std::vector<WeaponLinearTarget> &getLinearTargetsVector() const
-    {
-        return linearTargets;
-    }
-    Int getTimingExtra144(const WeaponBonus &) const
-    {
-        return timingExtra144;
-    }
-    float getMinimumAttackRange() const;
-    TargetCoord adjustTargetPositionOnVictim(Object *, Object *, bool);
-    Coord3D bfmeCalcScatterTargetPos(const Object *, const Object *, Coord3D);
-    char pad00[0x28];
-    Real requestAssistRange; // +0x28
-    char pad2C[0x38 - 0x2C];
-    Real scatterScalar; // +0x38
-    bool eachNugget3C, wall3D;
-    char pad3E[0x40 - 0x3E];
-    std::vector<Coord2D> scatterTargets; // +0x40
-    std::vector<WeaponLinearTarget> linearTargets; // +0x4C
-    char pad58[0x68 - 0x58];
-    float sound68;
-    char pad6C[0x75 - 0x6C];
-    bool dodge75;
-    char pad76[0x84 - 0x76];
-    float pitch84;
-    char pad88[0xA4 - 0x88];
-    FXList *fxA4;
-    char padA8[0xB4 - 0xA8];
-    FXList *fxB4;
-    char padB8[0xE0 - 0xB8];
-    WeaponBonusSet *m_extraBonus; // +0xE0
-    char padE4[0xF0 - 0xE4];
-    Int m_minDelayBetweenShots; // +0xF0
-    Int m_maxDelayBetweenShots; // +0xF4
-    char padF8[0x108 - 0xF8];
-    Int shotsPerBarrel; // +0x108
-    char pad10C[0x118 - 0x10C];
-    Int m_projectileCollideMask;
-    bool self11C;
-    char pad11D[0x120 - 0x11D];
-    char ammoDescriptor[8]; // +0x120, ObjectFilter
-    Int autoReloadMode;     // +0x128
-    char pad12C[0x130 - 0x12C];
-    bool leechRange; // +0x130
-    char pad131[0x135 - 0x131];
-    bool localFX135;
-    char pad136[0x144 - 0x136];
-    Int timingExtra144;
-    char pad148[0x14C - 0x148];
-    float infantry14C;
-    char pad150[0x154 - 0x150];
-    bool skipFirstLinear; // +0x154
-    char pad155[0x158 - 0x155];
-    float chance158, chance15C;
-    char pad160[0x17C - 0x160];
-    WeaponNuggetNode *nuggets;
-};
+    return ((Rva002CA9CA *)wt)->rva002CA9CA(damageType, weapon);
+}
+static __forceinline Int weaponTemplateCollideMask(const WeaponTemplate *wt)
+{
+    return wt->m_collideMask;
+}
+static __forceinline const std::vector<WeaponLinearTarget> &weaponTemplateLinearTargets(const WeaponTemplate *wt)
+{
+    return *(const std::vector<WeaponLinearTarget> *)wt->m_field4C;
+}
+static __forceinline Int weaponTemplateTimingExtra144(const WeaponTemplate *wt, const WeaponBonus &)
+{
+    return wt->m_field144;
+}
 
 
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
@@ -689,7 +629,7 @@ Bool WeaponTemplate::shouldProjectileCollideWith(
             return false;
 
         // never bother burning already-burned things. (srj)
-        if (isDamageType(6, projectileLauncher->getCurrentWeapon()))
+        if (weaponTemplateIsDamageType(this, 6, projectileLauncher->getCurrentWeapon()))
         {
             if (thingWeCollidedWith->testStatus(OBJECT_STATUS_BURNED))
                 return false;
@@ -734,7 +674,7 @@ Bool WeaponTemplate::shouldProjectileCollideWith(
         requiredMask |= WEAPON_COLLIDE_BFME2_400;
 
     // if any in requiredMask are present in collidemask, do the collision. (srj)
-    if ((getProjectileCollideMask() & requiredMask) == 0)
+    if ((weaponTemplateCollideMask(this) & requiredMask) == 0)
         return false;
 
     if (thingTemplate->testKindOf(1, 0x10000000) && intendedVictimID != INVALID_OBJECT_ID)
@@ -811,7 +751,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
             firePosition.y = position->y;
             firePosition.z = position->z;
         }
-        float pitch = pitch84;
+        float pitch = m_weaponRecoil;
         float heading;
         if(pitch != 0.f)
         {
@@ -819,16 +759,16 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
         }
         else
             heading=0.f;
-        FXList *fx = 0;
+        const FXList *fx = 0;
         if (victim && victim->rva0028F44C(source))
-            fx = fxB4;
+            fx = m_fieldB4;
         if (!fx)
-            fx = fxA4;
+            fx = m_fireFXs[0];
         if (TheGameLogic->getFrame() < weapon->fxUntil)
             fx = 0;
-        if (source->isLocallyControlled() || !source->rva002943B2(0) || localFX135)
+        if (source->isLocallyControlled() || !source->rva002943B2(0) || m_playFXWhenStealthed)
         {
-            float sound=sound68;
+            float sound=m_weaponSpeed;
             if (!((const Thing *)source)
                      ->getDrawable()
                      ->handleWeaponFireFX(barrel, word14, (int)fx, sound, pitch, heading,
@@ -838,7 +778,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
         }
     }
     float oldZ = position->z;
-    if (self11C)
+    if (m_damageDealtAtSelfPosition)
     {
         position = sourcePos;
         victim = 0;
@@ -851,23 +791,23 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
     target.x = aim->x;
     target.y = aim->y;
     target.z = aim->z;
-    if (self11C && source->m_ai->vslot097())
+    if (m_damageDealtAtSelfPosition && source->m_ai->vslot097())
         target.z = oldZ;
     volatile bool scatter = false;
     Pathfinder *pathfinder;
-    if (infantry14C > 0.f && victim && (victim->getTemplate()->kindByte(1) & 1) &&
-        (!wall3D || !(pathfinder=TheAI->pathfinder, pathfinder->IsPointOnWall((int)&victim->pos, false))))
+    if (m_infantryInaccuracyDist > 0.f && victim && (victim->getTemplate()->kindByte(1) & 1) &&
+        (!m_field3D || !(pathfinder=TheAI->pathfinder, pathfinder->IsPointOnWall((int)&victim->pos, false))))
         scatter = true;
     char *filename =
         "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon."
         "cpp";
-    if (chance158 < 1.f)
+    if (m_field158 < 1.f)
     {
-        float chance = chance158;
+        float chance = m_field158;
         if (GetGameLogicRandomValueReal(0, 1, filename, 0x5D1) >= chance)
             scatter = true;
     }
-    if (dodge75 && victim && victim->body254->s8C() > 0.f)
+    if (m_field75 && victim && victim->body254->s8C() > 0.f)
     {
         WeaponBody *body = victim->body254;
         float random = GetGameLogicRandomValueReal(0, 1, filename, 0x5D7);
@@ -878,9 +818,9 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
     if (!scatter && victim)
     {
         WeaponContain *contain=victim->contain250;
-        if(contain && !contain->s7C() && chance15C > 0.f)
+        if(contain && !contain->s7C() && m_field15C > 0.f)
     {
-        float chance = chance15C;
+        float chance = m_field15C;
         if (chance >= GetGameLogicRandomValueReal(0, 1, filename, 0x5E1))
         {
             useContained = true;
@@ -890,9 +830,9 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
     }
     WeaponNugget *nugget = 0;
     WeaponNuggetNode *it = 0;
-    if (eachNugget3C)
+    if (m_field3C)
     {
-        for (it = nuggets->next; it != nuggets; it = it->next)
+        for (it = ((WeaponNuggetNode *)m_field17C)->next; it != ((WeaponNuggetNode *)m_field17C); it = it->next)
         {
             nugget = it->nugget;
             if (scatter)
@@ -919,7 +859,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
                 if(inside) victim=inside;
             }
         }
-        for (it = nuggets->next; it != nuggets; it = it->next)
+        for (it = ((WeaponNuggetNode *)m_field17C)->next; it != ((WeaponNuggetNode *)m_field17C); it = it->next)
         {
             nugget = it->nugget;
             if (victim && !nugget->s30())
@@ -952,7 +892,7 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
     if (!m_template)
         return false;
     // If we are a networked weapon, tell everyone nearby they might want to get in on this shot
-    if (m_template->requestAssistRange && victimObj)
+    if (m_template->m_requestAssistRange && victimObj)
         processRequestAssistance(sourceObj, const_cast<Object *>(victimObj));
     //For weapon templates that have the leech range weapon flag set, it essentially grants
     //the weapon unlimited range for the remainder of the attack. While it's triggered here
@@ -961,9 +901,9 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
     //
     // @todo srj -- this isn't a universally true assertion! eg, FireWeaponDie lets you do this easily.
     //
-    if (m_template->leechRange)
+    if (m_template->m_leechRangeWeapon)
     {
-        setLeechUntil(std::max(m_template->getTimingExtra144(bonus), 1));
+        setLeechUntil(std::max(weaponTemplateTimingExtra144(m_template, bonus), 1));
     }
     if (getStatus() != READY_TO_FIRE)
         return false;
@@ -980,26 +920,26 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
         if (m_curBarrel >= barrelCount)
         {
             m_curBarrel = 0;
-            m_numShotsForCurBarrel = m_template->shotsPerBarrel;
+            m_numShotsForCurBarrel = m_template->m_shotsPerBarrel;
         }
         if (special)
         {
             ((Rva002CA9CA *)m_template)->rva002CAA9D((int)this, sourceObj, victimObj, bonus);
         }
-        else if (m_template->getLinearTargetsVector().size() && sourceObj)
+        else if (weaponTemplateLinearTargets(m_template).size() && sourceObj)
         {
             delay = 0;
             int whileCount = 0;
             while (!delay)
             {
-                if (whileCount++ == m_template->getLinearTargetsVector().size())
+                if (whileCount++ == weaponTemplateLinearTargets(m_template).size())
                     break;
-                Coord3D targetPos = getLinearPosition(m_template->getLinearTargetsVector(), m_linearIndex, sourceObj);
-                if (!m_template->skipFirstLinear || m_linearIndex != 0)
+                Coord3D targetPos = getLinearPosition(weaponTemplateLinearTargets(m_template), m_linearIndex, sourceObj);
+                if (!m_template->m_field154 || m_linearIndex != 0)
                     m_template->fireWeaponTemplate((Object *)sourceObj, (int)sourcePos, m_wslot, m_curBarrel,
                         (Object *)victimObj, victimID, &targetPos, bonus, ignoreRanges, this, (int)projectileID);
-                delay = m_template->getLinearTargetsVector()[m_linearIndex].delay;
-                m_linearIndex = (m_linearIndex + 1) % m_template->getLinearTargetsVector().size();
+                delay = weaponTemplateLinearTargets(m_template)[m_linearIndex].delay;
+                m_linearIndex = (m_linearIndex + 1) % weaponTemplateLinearTargets(m_template).size();
             }
         }
         else if (m_scatterTargetsUnused.size())
@@ -1014,8 +954,8 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
             int randomPick = GetGameLogicRandomValue(0, m_scatterTargetsUnused.size() - 1,
                 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp", 3261);
             int targetIndex = m_scatterTargetsUnused[randomPick];
-            float scatterTargetScalar = m_template->scatterScalar; // essentially a radius, but operates only on this scatterTarget table
-            const Coord2D &point = m_template->scatterTargets[targetIndex];
+            float scatterTargetScalar = m_template->m_scatterTargetScalar; // essentially a radius, but operates only on this scatterTarget table
+            const Coord2D &point = (*(const std::vector<Coord2D> *)m_template->m_field40)[targetIndex];
             Coord2D scatterOffset = {point.x, point.y};
             scatterOffset.x *= scatterTargetScalar;
             scatterOffset.y *= scatterTargetScalar;
@@ -1040,11 +980,11 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
         if (m_numShotsForCurBarrel <= 0)
         {
             ++m_curBarrel;
-            m_numShotsForCurBarrel = m_template->shotsPerBarrel;
+            m_numShotsForCurBarrel = m_template->m_shotsPerBarrel;
         }
         if (getRemainingAmmo(false) <= 0)
         {
-            if (!m_template->autoReloadMode)
+            if (!m_template->m_field128)
             {
                 reloadAmmo(sourceObj);
                 reloaded = true;
@@ -1053,7 +993,7 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
             {
                 if (m_status != OUT_OF_AMMO)
                     m_status = OUT_OF_AMMO;
-                if (!((const ObjectFilter *)m_template->ammoDescriptor)->isValid())
+                if (!((const ObjectFilter *)&m_template->m_field120)->isValid())
                     m_whenWeCanFireAgain = 0x7fffffff;
                 //CRCDEBUG_LOG(("Just set m_whenWeCanFireAgain to %d in Weapon::privateFireWeapon 1\n", m_whenWeCanFireAgain));
             }
@@ -1066,7 +1006,7 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
             m_whenLastReloadStarted = now;
             m_whenWeCanFireAgain = now + delay;
             //CRCDEBUG_LOG(("Just set m_whenWeCanFireAgain to %d (delay is %d) in Weapon::privateFireWeapon\n", m_whenWeCanFireAgain, delay));
-            int extra = m_template->getTimingExtra144(bonus);
+            int extra = weaponTemplateTimingExtra144(m_template, bonus);
             if (extra > 0)
                 m_frame20 = TheGameLogic->getFrame() + extra;
         }
