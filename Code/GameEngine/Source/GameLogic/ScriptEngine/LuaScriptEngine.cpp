@@ -1154,12 +1154,7 @@ struct BfmeDispatchDelayedLuaEvent
 extern "C" void _ReadWriteBarrier( void );
 extern double g_bfmeSubB3;
 #include "../../../Include/GameLogic/WeaponTemplate.h"
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &n) const;
-	void createAndFireTempWeapon(const WeaponTemplate *w, const Object *o, const struct Coord3D *p);
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 int GetClientRandomNumberReal(lua_State *state);
 int CurDrawableAllowToContinue(lua_State *state);
