@@ -12,6 +12,8 @@ Reconcile native interface slots, the complete provider views and frame
 contexts before retrying. No clearance or census gain is claimed.
 [Controls, rejected patches and remaining prerequisite](../../reverse/attempt_support/debug-console-identity-20261029-round3.md).
 
+2026-11-04: Moving the existing console frame pragma before _pch.h preserves 6/6 rows and the 958-byte link preview; the merge now rejects only DebugIOCon vtable copies. Next reconcile its native slot-2 predicate/member ABI and seven-slot provider views; identity debt and census clearance remain pending. [Evidence](../../reverse/attempt_support/debug-console-frame-context-20261104-codexb.md).
+
 Naming-review publication (2026-10-29, `b1399e7439`, base `d99d2428cb`):
 the two inferred BfmeNodeZK member renames preserve 20/20 owner rows; the push
 gate verifies 58/58 rows across three affected sources. The link audit remains
