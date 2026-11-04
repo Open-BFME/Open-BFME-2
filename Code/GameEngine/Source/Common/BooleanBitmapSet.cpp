@@ -4,7 +4,6 @@
 #pragma function(memset)
 #include <new>
 #include "../../Include/Common/BfmeAccessorMacros.h"
-
 class BooleanBitmapSet
 {
 public:
@@ -21,7 +20,6 @@ private:
 	unsigned int m_curBitDiv32;
 	unsigned int m_extra10;
 };
-
 // ?rva005310E3@Rva005310E3@@QAEHXZ, retail 0x005310E3, 30 bytes.
 // Unlock lane: sits right after 0x0053104A (ends 0x005310E3) before 0x00531113.
 // Reads dword [ecx+8] as signed count, bytes [ecx+4] [ecx+5] as flags; returns doubled sum.
@@ -37,11 +35,8 @@ private:
 	char m_pad[2];
 	int m_8;
 };
-
 BFME_DISP8_BYTE_ONE_SETTER(Rva00531113OneSetter, 0x35)
-
 BFME_DISP8_BYTE_ZERO_SETTER(Rva00531118ZeroSetter, 0x35)
-
 // BF1 9cbfb551fe Common/Rva004021B0PositiveGetter.cpp is the clean semantic donor.
 // Target 53110B..531113 RET0 followsRET4; signed dword0 greaterthan0 returnedAL
 // Original owner/purpose is unproven; retain an independent address-owned type.
@@ -50,23 +45,19 @@ class Rva0053110BFields
 public: bool isPositive() const;
 private: int field00;
 };
-
 BFME_DISP8_BYTE_GETTER(Rva0053111DByteField, 0x35)
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?setBit2@Rva0030000CFields@@QAEXXZ
 struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?matches@Rva0056AB88Fields@@QBE_NI@Z
 struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
-
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
@@ -83,7 +74,6 @@ private:
 	char m_pad9E[0xA8 - 0x9E];
 	unsigned char m_a8;
 };
-
 // Small unrowed .text bodies from the 0x0051xxxx..0x005Fxxxx (/O1) region.
 // Retail bytes establish every shape; the owning classes are not recovered,
 // so each keeps an address-derived name and a view of only the fields it
@@ -101,7 +91,6 @@ private:
 	int m_0c;
 	int m_10;
 };
-
 // ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
 class Rva0054C836
 {
@@ -111,7 +100,6 @@ private:
 	char m_pad[0x14];
 	void *m_14;
 };
-
 // ?rva005FC6EE@Rva005FC6EE@@QBE_NXZ @0x005FC6EE 9B: bit 0 of the byte at +0x34
 // of the object held at +0x18 (same shape as the rowed 0x005F273B).
 struct Rva005FC6EEFlags
@@ -119,7 +107,6 @@ struct Rva005FC6EEFlags
 	char m_pad[0x34];
 	unsigned char m_bit0 : 1;
 };
-
 class Rva005FC6EE
 {
 public:
@@ -128,7 +115,6 @@ private:
 	char m_pad[0x18];
 	Rva005FC6EEFlags *m_18;
 };
-
 // ?rva005CCBA8@Rva005CCBA8@@QAEXXZ @0x005CCBA8 8B: clear the byte at +0x20 of
 // the object held at +0x08.
 struct Rva005CCBA8Pointee
@@ -136,7 +122,6 @@ struct Rva005CCBA8Pointee
 	char m_pad[0x20];
 	unsigned char m_flag;
 };
-
 class Rva005CCBA8
 {
 public:
@@ -145,20 +130,15 @@ private:
 	char m_pad[0x08];
 	Rva005CCBA8Pointee *m_08;
 };
-
 // Vector members whose rowed grow/resize bodies the slots tail-jump to.
 template <class T>
 struct Rva00584A7DVector
 {
 	void grow(unsigned int count);
 };
-
 struct Rva00584A7DEntry;
-
 struct Rva00587057Entry;
-
 struct BfmePod60;
-
 namespace _STL
 {
 	template <class T> class allocator;
@@ -196,7 +176,6 @@ namespace _STL
 	};
 	template <class T> struct _Identity;
 }
-
 // ?rva00584A75@Rva00584A75@@UAEXI@Z @0x00584A75 8B (vftable slot at VA
 // 0x00C6FC84): grow the +0x08 vector through rowed 0x00584A3D.
 class Rva00584A75
@@ -207,7 +186,6 @@ private:
 	int m_04;
 	Rva00584A7DVector<Rva00584A7DEntry> m_08;
 };
-
 // ?rva0058704F@Rva0058704F@@UAEXI@Z @0x0058704F 8B (vftable slot at VA
 // 0x00C6FD94): grow the +0x08 vector through rowed 0x0058702C.
 class Rva0058704F
@@ -218,7 +196,6 @@ private:
 	int m_04;
 	Rva00584A7DVector<Rva00587057Entry> m_08;
 };
-
 // ?rva00588A95@Rva00588A95@@UAEXI@Z @0x00588A95 8B (vftable slot at VA
 // 0x00C6FF3C): resize the +0x08 vector through rowed 0x00588A72.
 class Rva00588A95
@@ -229,7 +206,6 @@ private:
 	int m_04;
 	_STL::vector<BfmePod60> m_08;
 };
-
 // ?rva005CFACB@Rva005CFACB@@UAEXXZ @0x005CFACB 8B (vftable slot at VA
 // 0x00C75558): forward to the rowed 0x005EA91A on the +0x0C member.
 class Rva005EA91A
@@ -237,7 +213,6 @@ class Rva005EA91A
 public:
 	void rva005EA91A();
 };
-
 class Rva005CFACB
 {
 public:
@@ -246,7 +221,6 @@ private:
 	char m_pad[0x08];
 	Rva005EA91A m_0c;
 };
-
 // ?rva00574AB3@Rva00574AB3@@UAE_NXZ @0x00574AB3 8B (vftable slot at VA
 // 0x00C3C6D0): direct (qualified) call of the rowed Rva005743C0 slot body
 // 0x005743C0 on the object held at +0x04.
@@ -255,7 +229,6 @@ class Rva005743C0
 public:
 	virtual bool rva005743C0();
 };
-
 class Rva00574AB3
 {
 public:
@@ -263,34 +236,25 @@ public:
 private:
 	Rva005743C0 *m_04;
 };
-
 // Out-of-line destructors whose only non-trivial member sits at +0, so each
 // is a bare tail jump to that member's rowed destructor. Each is reached
 // only from EH unwind funclets (0x0079xxxx..0x007Axxxx), i.e. it destroys a
 // local of its type; the owning types are unrecovered.
 class AsciiString;
-
 struct TreeHintRef0051030C;
-
 struct BfmeOpaque2148;
-
 struct SBServer;
-
 class BfmeMsg
 {
 public:
 	virtual ~BfmeMsg();
 };
-
 struct Rva0060D031Member
 {
 	~Rva0060D031Member();
 };
-
 typedef _STL::pair<const AsciiString, TreeHintRef0051030C> Rva00510D07Pair;
-
 typedef _STL::pair<const int, SBServer> Rva005E4920Pair;
-
 // ??1Rva00510D07@@QAE@XZ @0x00510D07 5B: tree member, rowed dtor 0x0051097F.
 class Rva00510D07
 {
@@ -299,7 +263,6 @@ public:
 private:
 	_STL::_Rb_tree<AsciiString, Rva00510D07Pair, _STL::_Select1st<Rva00510D07Pair>, _STL::less<AsciiString>, _STL::allocator<Rva00510D07Pair> > m_tree;
 };
-
 // ??1Rva00550634@@QAE@XZ @0x00550634 5B: BfmeMsg member, rowed dtor 0x00655780.
 class Rva00550634
 {
@@ -308,7 +271,6 @@ public:
 private:
 	BfmeMsg m_msg;
 };
-
 // ??1Rva00551983@@QAE@XZ @0x00551983 5B: deque member, rowed dtor 0x00551868.
 class Rva00551983
 {
@@ -317,7 +279,6 @@ public:
 private:
 	_STL::deque<BfmeOpaque2148> m_deque;
 };
-
 // ??1Rva005E4920@@QAE@XZ @0x005E4920 5B: tree member, rowed dtor 0x005E4670.
 class Rva005E4920
 {
@@ -326,7 +287,6 @@ public:
 private:
 	_STL::_Rb_tree<int, Rva005E4920Pair, _STL::_Select1st<Rva005E4920Pair>, _STL::less<int>, _STL::allocator<Rva005E4920Pair> > m_tree;
 };
-
 // ??1Rva0060D0AE@@QAE@XZ @0x0060D0AE 5B: member, rowed dtor 0x0060D031.
 class Rva0060D0AE
 {
@@ -335,18 +295,15 @@ public:
 private:
 	Rva0060D031Member m_member;
 };
-
 // ?rva00525E00@Rva00525E00@@QAEXPAVXfer@@@Z @0x00525E00 7B (called from
 // 0x002D64C7): forward the Xfer to the rowed 0x00525ABF on the object held
 // at +0.
 class Xfer;
-
 class Rva00525ABF
 {
 public:
 	void rva00525ABF(Xfer *xfer);
 };
-
 class Rva00525E00
 {
 public:
@@ -354,24 +311,20 @@ public:
 private:
 	Rva00525ABF *m_00;
 };
-
 // ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
 // AsciiStringPlusString::length 0x002198C8 of this object plus one.
 struct AsciiStringPlusString
 {
 	int length() const;
 };
-
 struct Rva0050EE1C : AsciiStringPlusString
 {
 	int rva0050EE1C() const;
 };
-
 // ?rva00522AFC@Rva00522AFC@@QAEAAV1@ABV1@@Z @0x00522AFC 18B: assignment of an
 // object whose only member is an AsciiString->AsciiString tree, through the
 // rowed tree operator= 0x0052274D, returning this.
 typedef _STL::pair<const AsciiString, AsciiString> Rva00522AFCPair;
-
 namespace _STL
 {
 	template <>
@@ -381,7 +334,6 @@ namespace _STL
 		_Rb_tree &operator=(const _Rb_tree &other);
 	};
 }
-
 class Rva00522AFC
 {
 public:
@@ -389,21 +341,17 @@ public:
 private:
 	_STL::_Rb_tree<AsciiString, Rva00522AFCPair, _STL::_Select1st<Rva00522AFCPair>, _STL::less<AsciiString>, _STL::allocator<Rva00522AFCPair> > m_tree;
 };
-
 // ?Rva0051C3AB@@YAXAAUBfmeE12@@0@Z @0x0051C3AB 5B: swap two 12-byte records
 // through the rowed _STL::swap<BfmeE12> 0x004219CD (a tail jump).
 struct BfmeE12;
-
 namespace _STL
 {
 	template <class T> void swap(T &a, T &b);
 }
-
 // ?rva005206FE@Rva005206FE@@QAEXPAURva005205DAElement@@IABU2@@Z @0x005206FE
 // 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert
 // 0x005205DA (a tail jump with the arguments forwarded).
 struct Rva005205DAElement;
-
 namespace _STL
 {
 	template <>
@@ -413,7 +361,6 @@ namespace _STL
 		void _M_fill_insert(Rva005205DAElement *position, unsigned int count, const Rva005205DAElement &value);
 	};
 }
-
 class Rva005206FE
 {
 public:
@@ -421,7 +368,6 @@ public:
 private:
 	_STL::vector<Rva005205DAElement> m_vector;
 };
-
 // ?rva00531C54@Rva00531C54@@QAEXXZ @0x00531C54 6B: clear the 16-bit field at +2.
 class Rva00531C54
 {
@@ -431,7 +377,6 @@ private:
 	unsigned short m_00;
 	unsigned short m_02;
 };
-
 // ?rva0053B8F1@Rva0053B8F1@@QBE_NXZ @0x0053B8F1 7B: the flag byte at +0x106.
 class Rva0053B8F1
 {
@@ -441,7 +386,6 @@ private:
 	char m_pad[0x106];
 	bool m_106;
 };
-
 // ?rva0056864A@Rva0056864A@@QBEEXZ @0x0056864A 7B: high nibble of the byte at +0x47.
 class Rva0056864A
 {
@@ -452,7 +396,6 @@ private:
 	unsigned char m_lo : 4;
 	unsigned char m_hi : 4;
 };
-
 // ?rva005778D1@Rva005778D1@@QBEHXZ @0x005778D1 9B and
 // ?rva005778DA@Rva005778D1@@QAEPAXXZ @0x005778DA 9B: through the object held
 // at +0x40 to its first-word pointee, read its +4 word / take its +8 address.
@@ -462,12 +405,10 @@ struct Rva005778D1Record
 	int m_04;
 	char m_08[4];
 };
-
 struct Rva005778D1Holder
 {
 	Rva005778D1Record *m_00;
 };
-
 class Rva005778D1
 {
 public:
@@ -477,7 +418,6 @@ private:
 	char m_pad[0x40];
 	Rva005778D1Holder *m_40;
 };
-
 // ?rva00564B12@Rva00564B12@@QAEAAVRva005045DBTree@@ABV2@@Z @0x00564B12 8B:
 // assign the +0x0C tree through the rowed Rva005045DBTree::assign 0x005045DB.
 class Rva005045DBTree
@@ -487,7 +427,6 @@ public:
 	Rva005045DBTree &self();
 	int storage[3];
 };
-
 class Rva00564B12
 {
 public:
@@ -496,7 +435,6 @@ private:
 	char m_pad[0x0c];
 	Rva005045DBTree m_0c;
 };
-
 // ?rva005CCB54@Rva005CCB54@@QBEEXZ @0x005CCB54 7B: the byte at +0x23 of the
 // object held at +0x08.
 struct Rva005CCB54Pointee
@@ -504,7 +442,6 @@ struct Rva005CCB54Pointee
 	char m_pad[0x23];
 	unsigned char m_23;
 };
-
 class Rva005CCB54
 {
 public:
@@ -513,7 +450,6 @@ private:
 	char m_pad[0x08];
 	Rva005CCB54Pointee *m_08;
 };
-
 // ?rva005CDD20@Rva005CDD20@@QAEXXZ @0x005CDD20 5B: clear the +0x24 word.
 class Rva005CDD20
 {
@@ -523,7 +459,6 @@ private:
 	char m_pad[0x24];
 	int m_24;
 };
-
 // ?rva005E2D46@Rva005E2D46@@QBEHXZ @0x005E2D46 5B: the +0x08 word plus one.
 class Rva005E2D46
 {
@@ -533,7 +468,6 @@ private:
 	char m_pad[0x08];
 	int m_08;
 };
-
 // ?rva005FF1F8@Rva005FF1F8@@QBEHXZ @0x005FF1F8 15B: element count of the
 // 8-byte-element vector at +0x30 of the object held at +0x04 (same shape as
 // the rowed Rva005F8427::rva005F8408).
@@ -541,20 +475,17 @@ struct Rva005FF1F8Element
 {
 	int m_words[2];
 };
-
 struct Rva005FF1F8Vector
 {
 	Rva005FF1F8Element *m_begin;
 	Rva005FF1F8Element *m_end;
 	int size() const { return m_end - m_begin; }
 };
-
 struct Rva005FF1F8Owner
 {
 	char m_pad[0x30];
 	Rva005FF1F8Vector m_vec;
 };
-
 class Rva005FF1F8
 {
 public:
@@ -563,7 +494,6 @@ private:
 	char m_pad[4];
 	Rva005FF1F8Owner *m_04;
 };
-
 // ?rva005E88E4@Rva005E88E4@@QAEXXZ @0x005E88E4 10B: the rowed 0x005F884D on
 // the +0x04 member of the object held at +0.
 class Rva005F884D
@@ -571,13 +501,11 @@ class Rva005F884D
 public:
 	void rva005F884D();
 };
-
 struct Rva005E88E4Pointee
 {
 	int m_00;
 	Rva005F884D m_04;
 };
-
 class Rva005E88E4
 {
 public:
@@ -585,7 +513,6 @@ public:
 private:
 	Rva005E88E4Pointee *m_00;
 };
-
 // ?rva005E358A@Rva005E358A@@QAEXXZ @0x005E358A 5B and
 // ?rva005EB8D1@Rva005EB8D1@@QAEXXZ @0x005EB8D1 5B: tail jumps to the rowed
 // 0x005F1B51 / 0x0022999F on the member at +0.
@@ -594,13 +521,11 @@ class Rva005F1B51
 public:
 	void rva005F1B51();
 };
-
 class Rva00226883
 {
 public:
 	void rva0022999F();
 };
-
 class Rva005E358A
 {
 public:
@@ -608,7 +533,6 @@ public:
 private:
 	Rva005F1B51 m_00;
 };
-
 class Rva005EB8D1
 {
 public:
@@ -616,7 +540,6 @@ public:
 private:
 	Rva00226883 m_00;
 };
-
 // By-value iterator/pair wrappers over a rowed lookup on the member at +0:
 // the hidden return slot is passed straight through (or filled from eax)
 // and returned.
@@ -628,13 +551,11 @@ class Rva005533BC
 public:
 	void *rva005533BC(const void *key);
 };
-
 struct Rva005538BAIterator
 {
 	Rva005538BAIterator(void *node) : m_node(node) {}
 	void *m_node;
 };
-
 class Rva005538BA
 {
 public:
@@ -642,24 +563,20 @@ public:
 private:
 	Rva005533BC m_00;
 };
-
 // ?rva00601457@Rva00601457@@QAE?AURva006013B7Pair@@ABURva00600F9CElement@@@Z
 // @0x00601457 20B: forward to the rowed 0x006013B7.
 struct Rva00600F9CElement;
-
 struct Rva006013B7Pair
 {
 	Rva006013B7Pair(const Rva006013B7Pair &other);
 	void *m_first;
 	bool m_second;
 };
-
 class Rva0060126D
 {
 public:
 	Rva006013B7Pair rva006013B7(const Rva00600F9CElement &element);
 };
-
 class Rva00601457
 {
 public:
@@ -667,7 +584,6 @@ public:
 private:
 	Rva0060126D m_00;
 };
-
 // ?rva0060CC71@Rva0060CC71@@QAE?AURva0060CAEAIterator@@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z
 // @0x0060CC71 20B: forward to the rowed 0x0060CB61.
 namespace _STL
@@ -675,21 +591,17 @@ namespace _STL
 	template <class C> class char_traits;
 	template <class C, class T, class A> class basic_string;
 }
-
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > Rva0060CC71String;
-
 struct Rva0060CAEAIterator
 {
 	Rva0060CAEAIterator(const Rva0060CAEAIterator &other);
 	void *m_node;
 };
-
 class Rva0060CAEA
 {
 public:
 	Rva0060CAEAIterator rva0060CB61(const Rva0060CC71String &key);
 };
-
 class Rva0060CC71
 {
 public:
@@ -697,19 +609,12 @@ public:
 private:
 	Rva0060CAEA m_00;
 };
-
 struct Rva0054107FRecord;
-
 class Rva0054103E;
-
 struct Rva00565865Element;
-
 template void _STL::vector<Rva0054107FRecord>::clear();
-
 template void _STL::vector<Rva0054103E>::clear();
-
 template void _STL::vector<Rva00565865Element>::clear();
-
 // ?rva00600396@Rva00600396@@QAEHXZ @0x00600396 15B: the rowed 0x003F468D on
 // the object held at +0x14 with the +0x18 and +0x1C words.
 class Rva003F468D
@@ -717,7 +622,6 @@ class Rva003F468D
 public:
 	int rva003F468D(int a, int b);
 };
-
 class Rva00600396
 {
 public:
@@ -728,18 +632,13 @@ private:
 	int m_18;
 	int m_1c;
 };
-
 // Queue-style wrappers over a deque held at +0: each is a bare tail jump to
 // the rowed deque<T>::pop_front / push_back of the same instantiation. The
 // owning adaptor types are unrecovered, so each keeps an address name.
 class PingRequest;
-
 class BuddyRequest;
-
 struct BfmeOpaqueOwnedRecord1432;
-
 struct BfmeOpaqueOwnedRecord1408;
-
 // ?rva0054FF12@Rva0054FF12@@QAEXXZ @0x0054FF12 5B: deque<PingRequest>::pop_front.
 class Rva0054FF12
 {
@@ -748,7 +647,6 @@ public:
 private:
 	_STL::deque<PingRequest> m_queue;
 };
-
 // ?rva00550C81@Rva00550C81@@QAEXXZ @0x00550C81 5B: deque<BuddyRequest>::pop_front.
 class Rva00550C81
 {
@@ -757,7 +655,6 @@ public:
 private:
 	_STL::deque<BuddyRequest> m_queue;
 };
-
 // ?rva00550C86@Rva00550C86@@QAEXXZ @0x00550C86 5B: deque<BfmeOpaque2148>::pop_front.
 class Rva00550C86
 {
@@ -766,7 +663,6 @@ public:
 private:
 	_STL::deque<BfmeOpaque2148> m_queue;
 };
-
 // ?rva00551B1E@Rva00551B1E@@QAEXABVBuddyRequest@@@Z @0x00551B1E 5B: deque<BuddyRequest>::push_back.
 class Rva00551B1E
 {
@@ -775,7 +671,6 @@ public:
 private:
 	_STL::deque<BuddyRequest> m_queue;
 };
-
 // ?rva00551B23@Rva00551B23@@QAEXABUBfmeOpaque2148@@@Z @0x00551B23 5B: deque<BfmeOpaque2148>::push_back.
 class Rva00551B23
 {
@@ -784,7 +679,6 @@ public:
 private:
 	_STL::deque<BfmeOpaque2148> m_queue;
 };
-
 // ?rva00557B46@Rva00557B46@@QAEXXZ @0x00557B46 5B: deque<BfmeOpaqueOwnedRecord1432>::pop_front.
 class Rva00557B46
 {
@@ -793,7 +687,6 @@ public:
 private:
 	_STL::deque<BfmeOpaqueOwnedRecord1432> m_queue;
 };
-
 // ?rva00557BA2@Rva00557BA2@@QAEXXZ @0x00557BA2 5B: deque<BfmeOpaqueOwnedRecord1408>::pop_front.
 class Rva00557BA2
 {
@@ -802,7 +695,6 @@ public:
 private:
 	_STL::deque<BfmeOpaqueOwnedRecord1408> m_queue;
 };
-
 // ?rva00559131@Rva00559131@@QAEXABUBfmeOpaqueOwnedRecord1432@@@Z @0x00559131 5B: deque<BfmeOpaqueOwnedRecord1432>::push_back.
 class Rva00559131
 {
@@ -811,7 +703,6 @@ public:
 private:
 	_STL::deque<BfmeOpaqueOwnedRecord1432> m_queue;
 };
-
 // ?rva00559136@Rva00559136@@QAEXABUBfmeOpaqueOwnedRecord1408@@@Z @0x00559136 5B: deque<BfmeOpaqueOwnedRecord1408>::push_back.
 class Rva00559136
 {
@@ -820,18 +711,13 @@ public:
 private:
 	_STL::deque<BfmeOpaqueOwnedRecord1408> m_queue;
 };
-
 // cdecl destroy helpers: ecx = the argument, then a tail jump to the rowed
 // destructor (or reset member) of the pointee.
 // Bare tail jumps to a rowed member of the object at +0.
 class Rva0038201D { public: void rva003828B6(); };
-
 class Rva0038204A { public: void rva003828DF(); };
-
 class Rva00382077 { public: void rva00382908(); };
-
 class Rva005532D6 { public: void rva005532D6(); };
-
 // ?rva0055381C@Rva0055381C@@QAEXXZ @0x0055381C 5B: Rva0038201D::rva003828B6 on the member at +0.
 class Rva0055381C
 {
@@ -840,7 +726,6 @@ public:
 private:
 	Rva0038201D m_00;
 };
-
 // ?rva00553821@Rva00553821@@QAEXXZ @0x00553821 5B: Rva0038204A::rva003828DF on the member at +0.
 class Rva00553821
 {
@@ -849,7 +734,6 @@ public:
 private:
 	Rva0038204A m_00;
 };
-
 // ?rva00553826@Rva00553826@@QAEXXZ @0x00553826 5B: Rva00382077::rva00382908 on the member at +0.
 class Rva00553826
 {
@@ -858,7 +742,6 @@ public:
 private:
 	Rva00382077 m_00;
 };
-
 // ?rva0055382B@Rva0055382B@@QAEXXZ @0x0055382B 5B: Rva005532D6::rva005532D6 on the member at +0.
 class Rva0055382B
 {
@@ -867,15 +750,10 @@ public:
 private:
 	Rva005532D6 m_00;
 };
-
 class Gen_0054EC50 { public: bool bfmeDiffers(const Gen_0054EC50 &other) const; };
-
 class Gen_0054EC80 { public: bool bfmeDiffers(const Gen_0054EC80 &other) const; };
-
 class Rva0056FA50 { public: bool rva0056FA50(const Rva0056FA50 &other) const; };
-
 class Rva0056FA72 { public: bool rva0056FA72(const Rva0056FA72 &other) const; };
-
 // ?rva0056FCC7@Rva0056FCC7@@QBE_NABVGen_0054EC50@@@Z @0x0056FCC7 5B: Gen_0054EC50::bfmeDiffers on the member at +0.
 class Rva0056FCC7
 {
@@ -884,7 +762,6 @@ public:
 private:
 	Gen_0054EC50 m_00;
 };
-
 // ?rva0056FCCC@Rva0056FCCC@@QBE_NABVGen_0054EC80@@@Z @0x0056FCCC 5B: Gen_0054EC80::bfmeDiffers on the member at +0.
 class Rva0056FCCC
 {
@@ -893,7 +770,6 @@ public:
 private:
 	Gen_0054EC80 m_00;
 };
-
 // ?rva0056FCD1@Rva0056FCD1@@QBE_NABVRva0056FA50@@@Z @0x0056FCD1 5B: Rva0056FA50::rva0056FA50 on the member at +0.
 class Rva0056FCD1
 {
@@ -902,7 +778,6 @@ public:
 private:
 	Rva0056FA50 m_00;
 };
-
 // ?rva0056FCD6@Rva0056FCD6@@QBE_NABVRva0056FA72@@@Z @0x0056FCD6 5B: Rva0056FA72::rva0056FA72 on the member at +0.
 class Rva0056FCD6
 {
@@ -911,11 +786,9 @@ public:
 private:
 	Rva0056FA72 m_00;
 };
-
 // ?rva005709CC@Rva005709CC@@QAE_NXZ @0x005709CC 5B: the rowed
 // AptOnlineLogin::rva005706D4 0x005706D4 on the member at +0.
 class AptOnlineLogin { public: bool rva005706D4(); };
-
 class Rva005709CC
 {
 public:
@@ -923,13 +796,10 @@ public:
 private:
 	AptOnlineLogin m_00;
 };
-
 // ?rva005693CF@Rva005693CF@@QAEXXZ @0x005693CF 5B: clear the key tree at +0
 // through the rowed _Rb_tree::clear 0x0056926C.
 struct Rva00568FE4Key;
-
 struct Rva00568FE4Less;
-
 class Rva005693CF
 {
 public:
@@ -937,14 +807,12 @@ public:
 private:
 	_STL::_Rb_tree<Rva00568FE4Key, Rva00568FE4Key, _STL::_Identity<Rva00568FE4Key>, Rva00568FE4Less, _STL::allocator<Rva00568FE4Key> > m_tree;
 };
-
 // ??1Rva00534765@@QAE@XZ @0x00534765 5B: member-only dtor, rowed 0x0053470B.
 class Rva00534641
 {
 public:
 	~Rva00534641();
 };
-
 class Rva00534765
 {
 public:
@@ -952,7 +820,6 @@ public:
 private:
 	Rva00534641 m_00;
 };
-
 // ?rva00531EB8@Rva00531EB8@@QAEXXZ @0x00531EB8 4B: advance the +0 pointer by one word.
 class Rva00531EB8
 {
@@ -961,14 +828,11 @@ public:
 private:
 	int *m_cur;
 };
-
 // ?rva00586FBB@Rva00586FBB@@QAEXPAVRva00585B16@@IABV2@@Z @0x00586FBB 5B and
 // ?rva005880B8@Rva005880B8@@QAEXPAURva00587375@@IABU2@@Z @0x005880B8 5B:
 // fill-insert into the vector at +0 through the rowed _M_fill_insert.
 class Rva00585B16;
-
 struct Rva00587375;
-
 class Rva00586FBB
 {
 public:
@@ -976,7 +840,6 @@ public:
 private:
 	_STL::vector<Rva00585B16> m_vector;
 };
-
 class Rva005880B8
 {
 public:
@@ -984,7 +847,6 @@ public:
 private:
 	_STL::vector<Rva00587375> m_vector;
 };
-
 // ?rva005F600D@Rva005F600D@@QAEXH@Z @0x005F600D 7B and
 // ?rva005F6014@Rva005F600D@@QAEXH@Z @0x005F6014 7B: clear / set the +0x35
 // flag byte; the word argument is unused.
@@ -997,16 +859,10 @@ private:
 	char m_pad[0x35];
 	bool m_35;
 };
-
-// StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabsUnloaded @0x005F8F80 12B and
-// OnEnemyTabsUnloaded @0x005F8F8B 11B (bound to "_OnAllyTabsUnloaded" /
-// "_OnEnemyTabsUnloaded" by the Impl constructor 0x005FA3B1, after the rowed
-// OnAllyTabsLoaded/OnEnemyTabsLoaded): clear the owned handle at +0x2C /
-// +0x3C through the rowed Rva000AD6F4::clear 0x000AD6F4; the command
-// argument is unused.
 #include "../../Include/Common/Rva000AD6F4.h"
-
 #include "../../Include/GameClient/BattlePromptMovieClip.h"
+#pragma function(memset)
+
 namespace StrategicHUD
 {
 }
@@ -1237,6 +1093,22 @@ private:
 	unsigned int m_04;
 };
 
+class Rva00531196
+{
+public:
+	void rva00531196(unsigned int *cell);
+	unsigned int m_val;
+};
+
+// ---- from Code/GameEngine/Source/Common/BooleanBitmapSet.cpp
+
+// StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabsUnloaded @0x005F8F80 12B and
+// OnEnemyTabsUnloaded @0x005F8F8B 11B (bound to "_OnAllyTabsUnloaded" /
+// "_OnEnemyTabsUnloaded" by the Impl constructor 0x005FA3B1, after the rowed
+// OnAllyTabsLoaded/OnEnemyTabsLoaded): clear the owned handle at +0x2C /
+// +0x3C through the rowed Rva000AD6F4::clear 0x000AD6F4; the command
+// argument is unused.
+
 // 00564B0A is the +0C receiver accessor through the already rowed self()
 // provider at 0047A6A9. Native565402 and WB12CAB90 independently establish
 // that provider's borrow role; the original owner of this unused outline
@@ -1399,4 +1271,27 @@ void Rva00531041::rva00531041()
 
 // tu-skeleton: 0x0053117F 23B ?rva0053117F@Rva00531132@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva00531132.cpp (not merged yet)
 
-// tu-skeleton: 0x00531196 159B ?rva00531196@Rva00531196@@QAEXPAI@Z -- matched in Code/GameEngine/Source/Common/Rva00531196Finish.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00531196Finish.cpp
+
+// ?rva00531196@Rva00531196@@QAEXPAI@Z @ 0x00531196 (159B): __thiscall.
+// Zeroes 4 bytes then inserts seven bit-fields of m_val from the packed dword
+// p[3]: masks 7, 0x1f8, 0x7e00, 0x8000, 0x10000, 0x60000, 0x80000 taken from
+// p[3]>>0, >>1, >>1, and byte extractions at >>17/>>18/>>22. Each field uses
+// the (m_val & ~mask) | (value & mask) insert idiom, which MSVC 7.1 lowers to
+// the xor-into-memory form at retail. Caller 0x005329C8; owner unknown, so an
+// honest address-derived name.
+
+void Rva00531196::rva00531196(unsigned int *cell)
+{
+	memset((void *)this, 0, 4);
+	m_val = (m_val & ~7u) | (cell[3] & 7u);
+	m_val = (m_val & ~0x1f8u) | ((cell[3] >> 1) & 0x1f8u);
+	m_val = (m_val & ~0x7e00u) | ((cell[3] >> 1) & 0x7e00u);
+	unsigned char c1 = (unsigned char)(cell[3] >> 17);
+	m_val = (m_val & ~0x8000u) | ((c1 << 15) & 0x8000u);
+	unsigned char c2 = (unsigned char)(cell[3] >> 18);
+	m_val = (m_val & ~0x10000u) | ((c2 << 16) & 0x10000u);
+	m_val = (m_val & ~0x60000u) | ((cell[3] >> 2) & 0x60000u);
+	unsigned char bridge = (unsigned char)(cell[3] >> 22);
+	m_val = (m_val & ~0x80000u) | ((bridge << 19) & 0x80000u);
+}

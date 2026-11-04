@@ -1889,8 +1889,8 @@ param,Rva002EBA88::rva002EBA88::a6,Rva002EBA88::rva002EBA88::context,inferred,ag
 param,Rva002EBA88::rva002EBA88::a2,Rva002EBA88::rva002EBA88::arena,inferred,agree:nl-3dfc2a6a7754,Code/GameEngine/Source/GameLogic/AI/Rva002EBA88.cpp,0x002EBA88
 param,Rva002EBA88::rva002EBA88::a3,Rva002EBA88::rva002EBA88::size,inferred,agree:nl-d73d8e33a0df,Code/GameEngine/Source/GameLogic/AI/Rva002EBA88.cpp,0x002EBA88
 local,Rva00222B19AptCall::s,Rva00222B19AptCall::target,inferred,agree:nl-890afc3bebdc,Code/GameEngine/Source/GameClient/Rva00222B19AptCallLevel.cpp,0x00222B19
-param,Rva00531196::rva00531196::p,Rva00531196::rva00531196::cell,inferred,agree:nl-bcfba0442cd0,Code/GameEngine/Source/Common/Rva00531196Finish.cpp,0x00531196
-local,Rva00531196::rva00531196::c3,Rva00531196::rva00531196::bridge,inferred,agree:nl-accabac59340,Code/GameEngine/Source/Common/Rva00531196Finish.cpp,0x00531196
+param,Rva00531196::rva00531196::p,Rva00531196::rva00531196::cell,inferred,agree:nl-bcfba0442cd0,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,0x00531196
+local,Rva00531196::rva00531196::c3,Rva00531196::rva00531196::bridge,inferred,agree:nl-accabac59340,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,0x00531196
 local,Rva0045D7E0Notify::p2,Rva0045D7E0Notify::fxList,inferred,agree:nl-92452c3960e7,Code/GameEngine/Source/GameLogic/Object/Rva0045D7E0Notify.cpp,0x0045D7E0
 local,Rva0045D7E0Notify::p3,Rva0045D7E0Notify::weaponTemplate,inferred,agree:nl-cf10de627735,Code/GameEngine/Source/GameLogic/Object/Rva0045D7E0Notify.cpp,0x0045D7E0
 param,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::a1,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::side,inferred,agree:nl-168508c2d975,Code/GameEngine/Source/Common/LivingWorldAutoResolveBattle_enumerateReinforcementUnits.cpp,0x004F76EA
