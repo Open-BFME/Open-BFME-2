@@ -35,6 +35,52 @@ call the PerTurnStats copy constructor 0x004EE1A9, and their approved TU is
 LivingWorldScoreKeeper.cpp.
 [Handoff](../../reverse/attempt_support/real-link-codex-efb5fcbb60-20261104/README.md).
 
+### Two blocked names: Rva003C2F40Owner dtor and ProductionPrerequisite freeBytes (2026-11-04, halilkkaya-cx-o5)
+
+The real link at `f6d845ecd4` (run 41835972123: 32 unresolved and 1
+duplicate, before Codex's batch landed) still reports these two names in
+this slice. Neither has a supported fix today. No source changed.
+
+- **`??1Rva003C2F40Owner@@UAE@XZ`.** All of the following belong to one
+  retail class, which uses table 0x00BFE408:
+  - the default ctor 0x002BAE57 (`Rva003C2F40Owner`);
+  - the (unsigned, char) ctor 0x003FD64D (`BfmeRectVNI`);
+  - slot 0, the deleting dtor 0x002BAE8F, rowed `??_GRva002BAEAB@@QAEPAXI@Z`.
+    It calls dtor 0x002BAEAB (`??1Rva002BAEAB@@QAE@XZ`, 53 B; it calls tree
+    dtor 0x002B80CE and Snapshot dtor 0x0049B47C, and stores no vptr);
+  - slot 2, the name getter 0x002BAE89 (`Rva002BAE89Named`).
+
+  `rename.py class --fold` refuses every order:
+  - Owner→Rva002BAEAB: the table is not named `??_7Rva002BAEAB`.
+  - Rva002BAEAB→Owner: Rva002BAEAB installs no table.
+  - Owner→BfmeRectVNI: slot 0 holds a third class.
+
+  This is recorded as a false reject in `re_attempts.log`. Once a fold
+  that accepts a dtor-only placeholder whose deleting dtor sits in slot 0
+  lands, `function --virtual` (QAE→UAE) on 0x002BAE8F/0x002BAEAB gives the
+  constructor TU its provider.
+- **ProductionPrerequisite.cpp `?freeBytes@AsciiString@@AAEXXZ`.** I tried
+  a scratch-only compile under `build/scratch_cx5` that stops the
+  instantiation of the local `vector<PrereqUnitRec>::_M_insert_overflow`
+  (to bind push_back to the rowed 0x004F5165) and explicitly instantiates
+  the two helpers.
+  - MSVC 7.1 refuses it with C2248, because the ZH header keeps
+    `PrereqUnitRec` private.
+  - With access forced in scratch, the ZH `releaseBuffer`/`freeBytes`,
+    `~AsciiString` and `??_GPrereqUnitRec` COMDATs are still emitted. That
+    route therefore cannot remove the name.
+
+  The prerequisite is unchanged: readmit 0x004EE1E2/0x004EE20B (both call
+  0x004EE1A9, the PerTurnStats copy constructor) as PerTurnStats
+  instantiations in the approved `LivingWorldScoreKeeper.cpp`. Then
+  ProductionPrerequisite.cpp can take the canonical BFME 2 string.
+
+  The readmission has to carry two rows with it:
+  - 0x004EE233 (`_M_allocate_and_copy`). It calls 0x004EE1E2 by the
+    PrereqUnitRec spelling, which `symbols.csv` also pins to 0x004F5097.
+  - The PerTurnStats allocator name at the shared 12-byte allocate
+    0x00395928.
+
 ### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
 
 After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the
