@@ -26,12 +26,12 @@ public:
 void __cdecl rva007B6B19();
 void __cdecl rva007B6B23();
 
-extern unsigned g_Va00DE1D00;
-extern unsigned g_Va00DE1D60;
 // Owned here: the two 0x60-byte GeometryInfo statics this unit constructs (zero-filled .data;
 // their initialisers below fill them).
-unsigned int g_Va00DE1D00;
-unsigned int g_Va00DE1D60;
+// Retail's object extends 96 bytes; the mangled name stays the one its other users declare.
+extern "C" unsigned int __identifier("?g_Va00DE1D00@@3IA")[24];
+// Retail's object extends 96 bytes; the mangled name stays the one its other users declare.
+extern "C" unsigned int __identifier("?g_Va00DE1D60@@3IA")[24];
 
 struct Rva007ABD4BGeometryInits
 {
@@ -41,12 +41,12 @@ struct Rva007ABD4BGeometryInits
 
 void __cdecl Rva007ABD4BGeometryInits::rva007ABD4B()
 {
-	( (GeometryInfo *)&g_Va00DE1D00 )->GeometryInfo::GeometryInfo( GEOMETRY_SPHERE, true, 30.0f, 30.0f, 30.0f );
+	( (GeometryInfo *)__identifier("?g_Va00DE1D00@@3IA") )->GeometryInfo::GeometryInfo( GEOMETRY_SPHERE, true, 30.0f, 30.0f, 30.0f );
 	atexit( rva007B6B19 );
 }
 
 void __cdecl Rva007ABD4BGeometryInits::rva007ABD79()
 {
-	( (GeometryInfo *)&g_Va00DE1D60 )->GeometryInfo::GeometryInfo( GEOMETRY_SPHERE, true, 5.0f, 5.0f, 5.0f );
+	( (GeometryInfo *)__identifier("?g_Va00DE1D60@@3IA") )->GeometryInfo::GeometryInfo( GEOMETRY_SPHERE, true, 5.0f, 5.0f, 5.0f );
 	atexit( rva007B6B23 );
 }
