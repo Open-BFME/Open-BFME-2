@@ -1446,16 +1446,7 @@ typedef _STL::map<unsigned char, short> StatsShortMap;
 typedef _STL::map<unsigned char, float> StatsFloatMap;
 class XferStub;
 #include "../../../Include/GameNetwork/Rva00553E47StatsCore.h"
-class Rva0038454E : public Rva00553E47StatsCore {
-public:
-    virtual void reset();
-    virtual void rva00555109(XferStub *);
-    virtual void rva0055524B(const Rva0038454E *);
-    ~Rva0038454E();
-    StatsFloatMap m_maps154[8];
-    StatsShortMap m_maps1b4[2];
-    StatsFloatMap m_maps1cc[5];
-};
+#include "../../../Include/GameNetwork/Rva0038454E.h"
 typedef char StatsCore154[sizeof(Rva00553E47StatsCore)==0x154 ? 1 : -1];
 typedef char Strategic208[sizeof(Rva0038454E)==0x208 ? 1 : -1];
 
