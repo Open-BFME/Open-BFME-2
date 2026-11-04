@@ -5,7 +5,9 @@
 // factory, then issuing "debug.io stringbuf add". Evidence: vtable store
 // 0x0083ABB8 for 4-byte cmd object kept in g_00E030C8, AddCommands at slot
 // 0x84 with "game", AddIOFactory at slot 0x80 with "stringbuf" plus factory
-// 0x00419BCD, Command at slot 0x8C, single caller 0x002301F1.
+// 0x00419BCD, Command at slot 0x8C, single caller 0x002301F1. The command
+// and IO objects are local views, so both are cast to the canonical
+// DebugCmdInterface / DebugIOInterface factory parameter types.
 // ?Rva00419BCDCreate@@YAPAXXZ, retail 0x00419BCD, 45 bytes. Stringbuf IO
 // singleton factory kept in g_00E030C4, 12-byte object with byte+4 and
 // dword+8 zeroed.
@@ -13,46 +15,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Debug
-{
-public:
-	virtual void _M_slot_00();
-	virtual void _M_slot_04();
-	virtual void _M_slot_08();
-	virtual void _M_slot_0c();
-	virtual void _M_slot_10();
-	virtual void _M_slot_14();
-	virtual void _M_slot_18();
-	virtual void _M_slot_1c();
-	virtual void _M_slot_20();
-	virtual void _M_slot_24();
-	virtual void _M_slot_28();
-	virtual void _M_slot_2c();
-	virtual void _M_slot_30();
-	virtual void _M_slot_34();
-	virtual void _M_slot_38();
-	virtual void _M_slot_3c();
-	virtual void _M_slot_40();
-	virtual void _M_slot_44();
-	virtual void _M_slot_48();
-	virtual void _M_slot_4c();
-	virtual void _M_slot_50();
-	virtual void _M_slot_54();
-	virtual void _M_slot_58();
-	virtual void _M_slot_5c();
-	virtual void _M_slot_60();
-	virtual void _M_slot_64();
-	virtual void _M_slot_68();
-	virtual void _M_slot_6c();
-	virtual void _M_slot_70();
-	virtual void _M_slot_74();
-	virtual void _M_slot_78();
-	virtual void _M_slot_7c();
-	virtual bool _M_slot_80(const char *a, const char *b, void *(__cdecl *func)());
-	virtual bool _M_slot_84(const char *a, void *b);
-	virtual void _M_slot_88();
-	virtual void Command(const char *cmd);
-};
+#include "debug.h"
 
 extern Debug *theDebug;
 extern void *g_00E030C4;
@@ -101,7 +64,8 @@ void __cdecl Rva00419BFAInit()
 		return;
 	Rva00419BFA_Cmd *p = new Rva00419BFA_Cmd;
 	g_00E030C8 = (Rva00419A99Item *)(void *)p;
-	theDebug->_M_slot_84("game", p);
-	theDebug->_M_slot_80("stringbuf", "internal string buffer", Rva00419BCDCreate);
+	theDebug->AddCommands("game", reinterpret_cast<DebugCmdInterface *>(p));
+	theDebug->AddIOFactory("stringbuf", "internal string buffer",
+		reinterpret_cast<DebugIOInterface *(*)()>(Rva00419BCDCreate));
 	theDebug->Command("debug.io stringbuf add");
 }

@@ -179,39 +179,7 @@ struct Rva0021DB35
     CreateAHeroFileEntry *m_end;
     CreateAHeroFileEntry *m_capacity;
 };
-class Debug
-{
-public:
-	static bool SkipNext(bool skip);
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual Debug &slot38(const char *text);
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C(int report);
-	virtual void slot50();
-	virtual void slot54();
-	virtual void slot58();
-	virtual void slot5C();
-	virtual void slot60();
-	virtual void slot64();
-	virtual void slot68();
-	virtual Debug &slot6C(int first, int second, int third);
-};
+#include "debug.h"
 
 extern Debug *theDebug;
 
@@ -333,8 +301,8 @@ CreateAHeroManager::CreateAHeroManager()
 {
     if (g_Va00DFE348) {
         _bfme_debugRecordCallsite(1);
-        theDebug->slot60();
-        theDebug->slot6C(0,0,0).slot38("Instance of CreateAHeroManager already exists!!").slot4C(1);
+        theDebug->SkipNext();
+        (theDebug->CrashBegin(0, 0, 0) << "Instance of CreateAHeroManager already exists!!").CrashDone(1);
     }
     g_Va00DFE348 = (int)this;
 }
