@@ -28,7 +28,17 @@ The planned merge and respell are blocked on three counts:
   exists and holds rows of another TU (split it first)". The foreign row is
   0x002B3A9C `AttackOrders::GetMaxHeroLeaderRank`, which the map proposes
   for `AttackOrders.cpp` by name. A TU-approval decision must come first.
-- The dry run lists `adopt_first`: `Rva002BAEAB.cpp` needs `WindModuleInfo`.
+- The dry run lists `adopt_first`: `Rva002BAEAB.cpp` needs `WindModuleInfo`. That queue row
+  (`header_queue.tsv`, still naming the pre-fold `??1Rva002BAEAB`) pairs the unit with the wrong
+  class:
+  - the unit's 12-byte `FXParticleSystem::WindModuleInfo` member only stands in for the Snapshot
+    base;
+  - it is there to bind the ICF-shared destructor 0x0049B47C;
+  - canonical `WindModuleInfo.h` is 0x48 bytes, so adopting it would move `m_0C`.
+  
+  `header_adopt_lane.py adopt` also fails at compile: it writes the include inside
+  `namespace FXParticleSystem`, so `::Snapshot` is not found. The row leaves with the unit once the
+  merge and respell absorb it.
 - No tool can move the rows and respell them in one step. One TU cannot hold
   both donors' views: the constructor needs the Snapshot base, and the QAE
   rows need the composition view with a non-virtual destructor. `??_G` is
