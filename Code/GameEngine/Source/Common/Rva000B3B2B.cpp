@@ -1,10 +1,8 @@
 // cl: /DNDEBUG /MD
 // ?rva000B3B2B@Rva000B3B2B@@QAEXPAVRva000B3B2BArg@@@Z @0x000B3B2B 125B
 // Unlock lane: null-checked o plus m_110 plus m_12c; v44 slot 0xb0 (5 args)
-// vs v45 slot 0xb4 (3 args); ratio m_90/m_94 subtracted from g_Va00BBB8D8.
+// vs v45 slot 0xb4 (3 args); ratio m_90/m_94 subtracted from 1.0f.
 // Evidence: same +0x110/+0x12c as Rva000B3A68; caller 0x000C7BC4.
-extern float g_Va00BBB8D8;
-
 class Rva000B3B2BArg
 {
 public:
@@ -81,7 +79,7 @@ void Rva000B3B2B::rva000B3B2B(Rva000B3B2BArg *o)
 		return;
 	int v12c = m_12c;
 	if (v12c != 0) {
-		float complement = g_Va00BBB8D8 - m_90 / m_94;
+		float complement = 1.0f - m_90 / m_94;
 		o->v44(v110, m_114, v12c, m_130, complement);
 	} else {
 		o->v45(v110, m_114, 0);
