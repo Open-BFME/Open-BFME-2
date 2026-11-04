@@ -1,6 +1,6 @@
 char g_00BE2870;
 
-// cl: /Oy- /DNDEBUG /MD /GX- /Oi- /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /DNDEBUG /MD /GX- /Oi- /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // ?friend_parseRankDefinition@RankInfoStore@@SAXPAVINI@@@Z,
