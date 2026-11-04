@@ -45,7 +45,6 @@ extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned ch
 class NetCommandRef;
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 #include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
-
 inline void NetCommandMsg::setID(unsigned short id)
 {
 	m_id = id;
@@ -140,7 +139,6 @@ enum GameMessageArgumentDataType
 #pragma comment(linker, "/alternatename:?j_0001bbd5@@YAXXZ=?isAckStage1Repeat@NetPacket@@IAE_NPAVNetCommandRef@@@Z")
 #pragma comment(linker, "/alternatename:?j_00004935@@YAXXZ=?isAckStage1Repeat@NetPacket@@IAE_NPAVNetCommandRef@@@Z")
 #pragma comment(linker, "/alternatename:?j_00046e89@@YAXXZ=?isAckBothRepeat@NetPacket@@IAE_NPAVNetCommandRef@@@Z")
-
 union GameMessageArgumentType
 {
 	Int integer;
@@ -159,11 +157,8 @@ union GameMessageArgumentType
 	Int ints[4];
 	char bytes[16];
 };
-
 #include "../../Include/Common/MessageStream.h"
-
 #include "../../Include/GameNetwork/NetGameCommandMsg.h"
-
 // GameMessageParser and its argument-type nodes, rowed under their address
 // names (RvaSmallVtableCtors.cpp): a run's type at +8 and count at +0xC, the
 // next node at +4; the parser's first node at +4 and its run count at +0xC.
@@ -178,7 +173,6 @@ public:
 	GameMessageArgumentDataType m_type;
 	Int m_argCount;
 };
-
 class Rva0054D54A
 {
 public:
@@ -191,7 +185,6 @@ public:
 	Rva0054D593 *m_last;
 	Int m_argTypeCount;
 };
-
 // The parser's addArgType, rowed under its address name on the class view
 // RvaSmallVtableCtors.cpp gives it (same object; the type and count travel
 // as pointer-sized values).
@@ -200,35 +193,28 @@ class Rva0054D5D3
 public:
 	void rva0054D5D3(void *type, void *argCount);
 };
-
 // readGameMessageArgumentFromPacket, rowed with four parameters; BFME's
 // reader also passes the message type, which the body never reads.
 void Rva00590D19Add(Int type, NetGameCommandMsg *msg, const void *data, Int *readOffset, Int msgType);
-
 // AsciiString getter at +0x20 (rowed under its address name).
 class Rva002D9BC1AsciiField
 {
 public:
 	AsciiString get() const;
 };
-
 // +0x20 word getter and +0x24 byte getter (rowed under their address names).
 class Rva004D5973WordField
 {
 public:
 	UnsignedShort get() const;
 };
-
 class Rva001DCD01ByteField
 {
 public:
 	UnsignedByte get() const;
 };
-
 #include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
-
 #include "../../Include/GameNetwork/NetFrameCommandMsg.h"
-
 struct NetPacketAddress
 {
 	NetPacketAddress() { ip = 0; port = 0; }
@@ -236,12 +222,10 @@ struct NetPacketAddress
 	UnsignedInt ip;
 	UnsignedShort port;
 };
-
 struct TransportMessageHeader
 {
 	UnsignedInt crc;
 };
-
 struct TransportMessage
 {
 	TransportMessageHeader header;
@@ -250,70 +234,39 @@ struct TransportMessage
 	UnsignedInt addr;
 	UnsignedShort port;
 };
-
 // Variable-size arms of GetBufferSizeNeededForCommand, rowed as free size
 // helpers under their address names.
 struct Rva00591062Host;
-
 int __cdecl Rva00590F47Get(const Rva004D6119 *obj);
-
 int __cdecl Rva00590F76Get(const Rva004D6119 *obj);
-
 int Rva00590FD4Get(CDDrive *p);
-
 int Rva0059100AGet(CDDrive *p);
-
 int Rva00591036Get(CDDrive *p);
-
 int Rva00591062Get(Rva00591062Host *p);
-
 int Rva00590FA5Get(const Rva0023E928 *obj);
-
 // FillBufferWithCommand's serializers rowed in their own units under address names.
 void FillBufferWithFrameCommand(char *buffer, NetCommandRef *msg);
-
 void Rva0058C96CWrite(char *buffer, NetCommandRef *msg);
-
 void Rva0058CA1BWrite(char *buffer, NetCommandRef *msg);
-
 void Rva0058CB27Write(char *buffer, NetCommandRef *msg);
-
 void Rva005910B4Write(char *buffer, NetCommandRef *msg);
-
 void Rva0058CBD9Write(char *buffer, NetCommandRef *msg);
-
 void Rva0058CCF2Write(char *buffer, NetCommandRef *msg);
-
 void Rva0058CD6AWrite(char *buffer, NetCommandRef *msg);
-
 void Rva0058CE23Write(char *buffer, NetCommandRef *msg);
-
 void Rva0058D041Write(UnsignedByte *buffer, NetCommandRef *msg);
-
 void Rva0058CEC5Write(char *buffer, NetCommandRef *msg);
-
 void Rva0058CF83Write(char *buffer, NetCommandRef *msg);
-
 // Readers rowed as free functions under their address names.
 class Rva004D64F5;
-
 class Rva004D65DC;
-
 class Rva004D6208;
-
 class Rva004D62A9;
-
 Rva004D64F5 *Rva00592496Read(Int data, UnsignedInt *readOffset);
-
 Rva004D65DC *Rva00592520Read(Int data, UnsignedInt *readOffset);
-
 Rva004D6208 *Rva005922FBRead(Int data, UnsignedInt *readOffset);
-
 Rva004D62A9 *Rva005923C5Read(Int data, UnsignedInt *readOffset);
-
-// The rowed constructor at 0x0058B06A initializes a 0x10-byte list.
 #include "../../Include/GameNetwork/NetCommandListClass.h"
-
 class NetPacket
 {
 	class AckRepeatReceiver
@@ -485,7 +438,6 @@ public:
 	UnsignedByte m_lastCommandType;
 	UnsignedByte m_lastRelay;
 };
-
 // Message classes the static readers construct, sized from their rowed ctors.
 class Rva004D57AE : public NetCommandMsg
 {
@@ -495,7 +447,6 @@ public:
 private:
 	UnsignedInt m_playerIndex; // +0x1C: NetCommandMsg is 0x1C bytes
 };
-
 class NetAckBothCommandMsg
 {
 public:
@@ -519,7 +470,6 @@ public:
 	unsigned int m_20;
 	unsigned int m_24;
 };
-
 class NetAckStage1CommandMsg
 {
 public:
@@ -541,7 +491,6 @@ public:
 	unsigned int m_20;
 	unsigned int m_24;
 };
-
 class NetAckStage2CommandMsg
 {
 public:
@@ -563,7 +512,6 @@ public:
 	unsigned int m_20;
 	unsigned int m_24;
 };
-
 class Rva004CEEE8
 {
 public:
@@ -571,7 +519,6 @@ public:
 private:
 	char m_pad[0x3C];
 };
-
 class NetKeepAliveCommandMsg
 {
 public:
@@ -579,7 +526,6 @@ public:
 private:
 	char m_pad[0x1C];
 };
-
 class NetDisconnectKeepAliveCommandMsg
 {
 public:
@@ -587,7 +533,6 @@ public:
 private:
 	char m_pad[0x1C];
 };
-
 class Rva004D580E
 {
 public:
@@ -595,7 +540,6 @@ public:
 private:
 	char m_pad[0x24];
 };
-
 class NetDisconnectPlayerCommandMsg
 {
 	char m_pad[0x28];
@@ -604,7 +548,6 @@ public:
 	void setDisconnectSlot(UnsignedByte slot);
 	void setDisconnectFrame(UnsignedInt frame);
 };
-
 // Type-13 and type-14 messages (ZH's NetDisconnectChatCommandMsg and
 // NetChatCommandMsg). rva004D6187 is ZH's setText(UnicodeString), rowed with a
 // StringBase<unsigned short> parameter whose copy ctor is private here.
@@ -616,7 +559,6 @@ public:
 private:
 	char m_pad[0x20];
 };
-
 class Rva004D6134
 {
 public:
@@ -624,7 +566,6 @@ public:
 private:
 	char m_pad[0x24];
 };
-
 class Rva004D582B
 {
 public:
@@ -632,7 +573,6 @@ public:
 private:
 	char m_pad[0x20];
 };
-
 class Rva004D5795
 {
 public:
@@ -640,7 +580,6 @@ public:
 private:
 	char m_pad[0x20];
 };
-
 class Rva004D598E
 {
 public:
@@ -648,7 +587,6 @@ public:
 private:
 	char m_pad[0x24];
 };
-
 class Rva004D59D1
 {
 public:
@@ -656,7 +594,6 @@ public:
 private:
 	char m_pad[0x24];
 };
-
 class Rva004D5A10
 {
 public:
@@ -664,7 +601,6 @@ public:
 private:
 	char m_pad[0x24];
 };
-
 class Rva004D5A30
 {
 public:
@@ -672,7 +608,6 @@ public:
 private:
 	char m_pad[0x24];
 };
-
 class Rva004D59B8
 {
 public:
@@ -680,37 +615,29 @@ public:
 private:
 	char m_pad[0x20];
 };
-
 // Setters the readers call through casts of the constructed message.
 class Rva004D59ACWordSlot
 {
 public:
 	void set(unsigned short value);
 };
-
 class Rva004D576CByteSlot
 {
 public:
 	void set(unsigned char value);
 };
-
 class BFMENetRouterFallbackCommandMsg : public NetCommandMsg
 {
 public:
 	void setPlayerOrder(const int *players);
 	Int m_playerOrder[8]; // +0x1C, per the BFME1 donor
 };
-
 // BFME 1 clean donor 9e3be919b10ae956e3c8a13995e0d62f2be1d016,
 // NetPacket_ConstructBigCommandPacketList.cpp; BFME 2 adds timestamp timing.
 enum NetCommandType { NETCOMMANDTYPE_ZERO = 0 };
-
 extern Bool DoesCommandRequireACommandID(NetCommandType type);
-
 extern UnsignedShort GenerateNextCommandID();
-
 typedef _STL::list<NetPacket *> NetPacketList;
-
 //
 // ?Rva0058CCF2Write@@YAXPADPAVNetCommandRef@@@Z @0x0058CCF2 (120B).
 // Tagged NetCommand serializer: T<type>R<relay>S<timestamp>P<player>C<id>D.
@@ -718,20 +645,17 @@ typedef _STL::list<NetPacket *> NetPacketList;
 // (timestamp +4 player +0xc id +0x10 type +0x14) plus NetCommandRef
 // (msg +0 relay +0xc) plus import 0x006291A8; callers unclaimed.
 void __cdecl ji_006291a8();
-
 struct Rva00591062Host
 {
 	char m_pad[0x1C];
 	AsciiString m_s1C; // +0x1C
 	AsciiString m_s20; // +0x20
 };
-
 class NetFileCommandMsg : public NetCommandMsg
 {
 public:
 	void setFileData(unsigned char *data, unsigned int len);
 };
-
 class Rva004D6208 : public NetFileCommandMsg
 {
 public:
@@ -742,7 +666,6 @@ private:
 	unsigned char *m_data20;
 	int m_24;
 };
-
 class Rva004D62A9 : public NetCommandMsg
 {
 public:
@@ -753,19 +676,16 @@ private:
 	UnsignedShort m_20;
 	bool m_22;
 };
-
 class Rva004D5978WordSlot
 {
 public:
 	void set(unsigned short value);
 };
-
 class Rva004D5984ByteSlot
 {
 public:
 	void set(unsigned char value);
 };
-
 class Rva004D64F5
 {
 public:
@@ -774,13 +694,11 @@ public:
 private:
 	char m_pad[0x20];
 };
-
 class NetProgressCommandMsg : public NetCommandMsg
 {
 public:
 	unsigned char getPercentage();
 };
-
 class Rva004D5767WordField
 {
 public:
@@ -788,7 +706,6 @@ public:
 	char m_lead[0x1c];
 	unsigned short m_value;
 };
-
 class NetCommandRef
 {
 public:
@@ -802,18 +719,13 @@ public:
 	UnsignedByte m_relay;
 	UnsignedInt m_timeLastSent;
 };
-
 extern void j_00046e89(void);
-
 extern void j_00004935(void);
-
 extern void j_0001bbd5(void);
-
 struct TriInt
 {
 	int a, b, c;
 };
-
 class Rva004D65DC : public Rva004D64F5
 {
 public:
@@ -822,7 +734,6 @@ public:
 private:
 	char m_pad[0x04];
 };
-
 // Small GameEngine bodies from .text gaps no Ghidra function covers (second
 // batch; see GapBodiesGE01.cpp). Retail bytes establish every shape; owning
 // classes are not recovered, so each keeps an address-derived name and a view
@@ -835,32 +746,19 @@ private:
 // virtual slot 12; 0x005E7037 (18B): parse this from INI with the field
 // table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../Include/Common/INI/FieldParse.h"
-
 #include "../../Include/Common/INI/INI.h"
-
 class Rva004E0625
 {
 public:
 	int rva004E0625() const;								// 0x004E0625
 };
-
-// --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
-// rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
-// (virtual slot 21).
 #include "../../Include/Common/Player.h"
-
 class PlayerList;
-
 extern PlayerList *ThePlayerList;
-
 #include "../../Include/GameClient/View.h"
-
 extern View *TheTacticalView;
-
 // --- 0x00570405 / 0x0057041B / 0x00570455 / 0x00570469: this-returning
 // forwarders of a referenced value to the class's rowed setters.
 class Rva0056FCDB
@@ -869,7 +767,6 @@ public:
 	void rva0056FCDB(short value);							// 0x0056FCDB
 	Rva0056FCDB *rva00570405(const short &value);
 };
-
 class Rva0056FAA5
 {
 public:
@@ -880,7 +777,6 @@ public:
 	Rva0056FAA5 *rva00570455(const int &value);
 	Rva0056FAA5 *rva00570469(const short &value);
 };
-
 // --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
 // +0x04 cleared, +0x08 = 1.0f.
 template <class T> struct GapClassVector
@@ -891,18 +787,13 @@ template <class T> struct GapClassVector
 	unsigned int size() const { return (unsigned int)(m_end - m_begin); }
 	T &operator[](unsigned int i) { return m_begin[i]; }
 };
-
-// --- 0x0021A18B (42B): bounds-checked dispatch into the +0x14C table of
-// 32-byte CreateAHero classes (rowed 0x00219D3B), else 0.
 #include "../../Include/GameLogic/CreateAHeroManager.h"
-
 // --- 0x002C902A (43B): five zero floats, then FLT_MAX at +0x14.
 struct Rva0058C475Arg
 {
 	char m_pad[0x28];
 	int m_28;
 };
-
 //
 // Six constant-return bodies found by tools/vtable_gaps.py: each is an
 // UNNAMED slot of a vtable-shaped run that also carries named slots, so the
@@ -930,9 +821,7 @@ struct Rva0058C475Arg
 // fold shared with unrelated classes. Keep the opaque owner for those
 // consumers; the original name and const qualification remain unknown.
 class WinInstanceData;
-
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
 // The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
@@ -948,6 +837,19 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 0 establishes native stack cleanup only.
 class Rva0058C484 {public: int rva0058C484();};
+
+extern "C" void *__cdecl memcpy(void *, const void *, unsigned int) throw();
+
+// ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+
+// The rowed constructor at 0x0058B06A initializes a 0x10-byte list.
+
+// --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
+// rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
+// (virtual slot 21).
+
+// --- 0x0021A18B (42B): bounds-checked dispatch into the +0x14C table of
+// 32-byte CreateAHero classes (rowed 0x00219D3B), else 0.
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 
@@ -6444,7 +6346,80 @@ int Rva0058C484::rva0058C484() {return 28;}
 
 // tu-skeleton: 0x0058CD6A 185B ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp (not merged yet)
 
-// tu-skeleton: 0x0058E0E2 299B ?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z -- matched in Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp
+
+// Reader algorithm adapted from Open-BFME-1 GameNetwork/NetPacket.cpp,
+// donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// Existing wrapper reader at 0x0058E0E2, 299 bytes.
+// Target allocation is 0x38 bytes; the canonical wrapper contract records
+// its constructor and setter offsets. The donor supplied the reader algorithm.
+
+NetCommandMsg * NetPacket::readWrapperMessage(UnsignedByte *data, Int &readOffset) {
+	NetWrapperCommandMsg *wrapperMessage = new NetWrapperCommandMsg;
+
+	// get the wrapped command ID
+	UnsignedShort wrappedCommandID = 0;
+	memcpy(&wrappedCommandID, data + readOffset, sizeof(wrappedCommandID));
+	wrapperMessage->setWrappedCommandID(wrappedCommandID);
+	readOffset += sizeof(wrappedCommandID);
+
+	// get the chunk number.
+	UnsignedInt chunkNumber = 0;
+	memcpy(&chunkNumber, data + readOffset, sizeof(chunkNumber));
+	wrapperMessage->setChunkNumber(chunkNumber);
+	readOffset += sizeof(chunkNumber);
+
+	// get the number of chunks
+	UnsignedInt numChunks = 0;
+	memcpy(&numChunks, data + readOffset, sizeof(numChunks));
+	wrapperMessage->setNumChunks(numChunks);
+	readOffset += sizeof(numChunks);
+
+	// get the total data length
+	UnsignedInt totalDataLength = 0;
+	memcpy(&totalDataLength, data + readOffset, sizeof(totalDataLength));
+	wrapperMessage->setTotalDataLength(totalDataLength);
+	readOffset += sizeof(totalDataLength);
+
+	// get the data length for this chunk
+	UnsignedInt dataLength = 0;
+	memcpy(&dataLength, data + readOffset, sizeof(dataLength));
+	readOffset += sizeof(dataLength);
+
+	UnsignedInt dataOffset = 0;
+	memcpy(&dataOffset, data + readOffset, sizeof(dataOffset));
+	wrapperMessage->setDataOffset(dataOffset);
+	readOffset += sizeof(dataOffset);
+
+	wrapperMessage->setData(data + readOffset, dataLength);
+	readOffset += dataLength;
+
+	return wrapperMessage;
+}
 
 // tu-skeleton: 0x00590F13 52B ?rva00590F13@Rva004D62A9@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004D65F9Set.cpp (not merged yet)
 

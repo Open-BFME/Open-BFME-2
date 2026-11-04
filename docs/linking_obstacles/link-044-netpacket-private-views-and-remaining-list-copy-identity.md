@@ -42,3 +42,4 @@
   in the ordinary trial. No downstream Luna landing is claimed.
 - **Census confirmation:** pending; the batch does not change census history.
 - **2026-11-04 prerequisite:** [canonical wrapper reader](../../reverse/attempt_support/netpacket-wrapper-reader-20261104-codex.md) clears NetPacketO1's donor-header/BaseType dependency and one EH mismatch (299-byte parent and EH EXACT); retry its ordinary composition, retaining the serializer and Unicode-helper blockers.
+- **2026-11-04 merge:** [wrapper reader consolidation](../../reverse/attempt_support/netpacket-wrapper-merge-20261104-codex.md) absorbs NetPacketO1 into its approved TU (210/210 rows, 67/67 EH EXACT; unchanged code/data providers); next work is the remaining serializer views and Unicode-helper boundary, with census confirmation pending.

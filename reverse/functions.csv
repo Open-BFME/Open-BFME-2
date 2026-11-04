@@ -31886,7 +31886,7 @@ _GetThisFrameReconPtr,,0x001B6330,11,Code/Libraries/Source/VP6/PbAccessors.cpp,m
 ?playerHasAdvancedAFrame@DisconnectManager@@QAEXHI@Z,,0x004D3BB5,34,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?rva00507943@DamageNugget@@UAE_NPBXH@Z,,0x00507943,21,Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507991.cpp,matched,slot 2 of vtable 0x00864048 and eleven more nugget vtables (ICF): base slot-2 test 0x0050774A as bool
 ?rva0050797D@DamageNugget@@UAEXPAX0@Z,,0x0050797D,20,Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507991.cpp,matched,slot 3 of vtables 0x00864048/0x00864C38/0x008650B8: slot 4 with second arg +0x38
-?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z,,0x0058E0E2,299,Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z,,0x0058E0E2,299,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?ObjectDispatchEvent@@YAHPAUlua_State@@@Z,,0x0033594A,279,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp,matched,BFME1 donor LuaScriptBindingsLuaA.cpp at /O1; unique masked placement
 ??_GSubsystemLegend@@UAEPAXI@Z,,0x001B4D63,28,Code/GameEngine/Source/Common/SubsystemLegend.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00BD7678; calls pinned dtor 0x001B4D16
 ??_GRva001E2747@@UAEPAXI@Z,,0x001E2952,28,Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00BDD970; calls pinned dtor 0x001E27C6
