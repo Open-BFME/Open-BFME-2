@@ -235,8 +235,6 @@ address_global	Code/GameEngine/Source/Common/Rva003FEE43.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/Rva003FEECB.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/Rva003FEF80.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva003FF02EPowerCap.cpp	g_Va007C9260	3
-address_global	Code/GameEngine/Source/Common/Rva00404D70Init.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngine/Source/Common/Rva00404D70Init.cpp	g_Va00BC2428	3
 address_global	Code/GameEngine/Source/Common/Rva004121B2HashMapInits.cpp	g_Va00E02FF8	2
 address_global	Code/GameEngine/Source/Common/Rva004121B2HashMapInits.cpp	g_Va00E0300C	2
 address_global	Code/GameEngine/Source/Common/Rva0041355DParse.cpp	g_Va00BBB8D8	4
@@ -725,6 +723,8 @@ address_global	Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp	g_Rva0030A120Count	3
 address_global	Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp	g_Rva0081C5C0Begin	2
 address_global	Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp	g_Rva0081C5C0End	2
+address_global	Code/GameEngine/Source/Common/VictorySystem.cpp	g_Va00BBB8D8	2
+address_global	Code/GameEngine/Source/Common/VictorySystem.cpp	g_Va00BC2428	3
 address_global	Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp	g_Va00E0660C	2
 address_global	Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp	g_Va00DC908C	3
 address_global	Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp	g_Va00A04908	2
