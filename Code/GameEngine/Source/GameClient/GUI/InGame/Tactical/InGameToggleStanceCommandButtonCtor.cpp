@@ -47,7 +47,14 @@ class Rva0086CE84Observer {public:
 };
 class Rva00005C357FPtrChaseField {public:int get()const;};
 class StanceMenuFactory {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void *getMenu();};
-class CommandButton {public:int getStance(int);const AsciiString &rva0035B1E9()const;const Image *rva0035B19E()const;char pad[0x234];_STL::vector<int> stances;};
+#include "../../../../../Include/GameClient/CommandButton.h"
+
+// CommandButton's canonical range at +0x234 is the same three-word storage
+// the native stance-button constructor reads as a vector<int>.
+static const _STL::vector<int> &stanceChoices(const CommandButton *button)
+{
+ return *reinterpret_cast<const _STL::vector<int> *>(&button->m_stancesBegin);
+}
 struct Rva005681CE { Rva005681CE(unsigned); ~Rva005681CE(); void *start,*finish,*limit; };
 class Rva00200667 : public _STL::list<int> {public:~Rva00200667();};
 Rva00200667 *Rva005680F9GetInstances();
@@ -66,7 +73,14 @@ class Object;
 extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Listener;
 struct Rva005A0B4CList {void append(Rva002BA8F1Listener *);};
-class StancesBehavior {public:int rva0045ED4B()const;char pad[0x20];Rva005A0B4CList observers;};
+#include "../../../../../Include/GameLogic/StancesBehavior.h"
+
+// The native constructor registers on the listener storage at module +0x20.
+// Its original container type is unknown; retain the existing append view.
+static Rva005A0B4CList *stanceObservers(StancesBehavior *behavior)
+{
+ return reinterpret_cast<Rva005A0B4CList *>(reinterpret_cast<char *>(behavior) + 0x20);
+}
 class Rva0035B424 {public:void rva0035B424(int);};
 #include "../../../../../Include/GameClient/Drawable.h"
 typedef _STL::list<Drawable *> DrawableList;
@@ -87,7 +101,7 @@ class StanceUISelectionView {public:
  virtual const DrawableList *selection();
 };
 __declspec(noinline) static int StanceToButtonSlot(CommandButton *button,int stance){
- int count=button->stances.size();for(int i=0;i<count;++i)if(button->getStance(i)==stance)return i;return -1;
+ int count=stanceChoices(button).size();for(int i=0;i<count;++i)if(button->getStance(i)==stance)return i;return -1;
 }
 class InGameToggleStanceCommandButton {public:class Impl:public Rva0086CE84Observer {public:
  Impl(Rva00005C357FPtrChaseField *,StanceMenuFactory *,GameWindow *);
@@ -98,7 +112,7 @@ class InGameToggleStanceCommandButton {public:class Impl:public Rva0086CE84Obser
 };};
 class Object {friend class InGameToggleStanceCommandButton::Impl;protected:Module *findModule(NameKeyType)const;};
 InGameToggleStanceCommandButton::Impl::Impl(Rva00005C357FPtrChaseField *owner,StanceMenuFactory *factory,GameWindow *window)
- :listPosition(Rva005680F9GetInstances()->insert(Rva005680F9GetInstances()->end(),reinterpret_cast<int>(this))),owner08(owner),factory0C(factory),window10(window),button14(static_cast<CommandButton *>(GadgetButtonGetData(window))),behavior18(0),hotKeys(button14->stances.size())
+ :listPosition(Rva005680F9GetInstances()->insert(Rva005680F9GetInstances()->end(),reinterpret_cast<int>(this))),owner08(owner),factory0C(factory),window10(window),button14(static_cast<CommandButton *>(GadgetButtonGetData(window))),behavior18(0),hotKeys(stanceChoices(button14).size())
 {
  if(TheHotKeyManager){
   AsciiString hotkey=TheHotKeyManager->searchHotKey(button14->rva0035B1E9());
@@ -106,24 +120,24 @@ InGameToggleStanceCommandButton::Impl::Impl(Rva00005C357FPtrChaseField *owner,St
  }
  int stance=0;
  static NameKeyType key=TheNameKeyGenerator->nameToKey("StancesBehavior");
- int id=owner08->get();
- if(id){
-  Object *object=TheGameLogic->findObjectByID((ObjectID)id);
+ int objectId=owner08->get();
+ if(objectId){
+  Object *object=TheGameLogic->findObjectByID((ObjectID)objectId);
   if(object){
    behavior18=reinterpret_cast<StancesBehavior *>(object->findModule(key));
-   if(behavior18){stance=behavior18->rva0045ED4B();behavior18->observers.append(reinterpret_cast<Rva002BA8F1Listener *>(this));}
+   if(behavior18){stance=behavior18->rva0045ED4B();stanceObservers(behavior18)->append(reinterpret_cast<Rva002BA8F1Listener *>(this));}
   }
  }else{
   const DrawableList *selected=reinterpret_cast<StanceUISelectionView *>(TheInGameUI)->selection();
   DrawableList::const_iterator end=selected->end();
-  for(DrawableList::const_iterator it=selected->begin();it!=end;++it){
-   Object *object=(*it)->m_object;if(!object)continue;
+  for(DrawableList::const_iterator selectedDrawable=selected->begin();selectedDrawable!=end;++selectedDrawable){
+   Object *object=(*selectedDrawable)->m_object;if(!object)continue;
    behavior18=reinterpret_cast<StancesBehavior *>(object->findModule(key));
-   if(behavior18){stance=behavior18->rva0045ED4B();behavior18->observers.append(reinterpret_cast<Rva002BA8F1Listener *>(this));break;}
+   if(behavior18){stance=behavior18->rva0045ED4B();stanceObservers(behavior18)->append(reinterpret_cast<Rva002BA8F1Listener *>(this));break;}
   }
  }
- int slot=StanceToButtonSlot(button14,stance);
- if(slot>=0)reinterpret_cast<Rva0035B424 *>(button14)->rva0035B424(slot);
+ int stanceButtonSlot=StanceToButtonSlot(button14,stance);
+ if(stanceButtonSlot>=0)reinterpret_cast<Rva0035B424 *>(button14)->rva0035B424(stanceButtonSlot);
  GadgetButtonSetEnabledImage_Rva002C0433(window10,button14->rva0035B19E());
  rva00567DA6();
 }
