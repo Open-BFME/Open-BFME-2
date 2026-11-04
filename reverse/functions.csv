@@ -21769,7 +21769,7 @@ _FilterBlockBil_8_wmt,,0x001D7C80,204,Code/Libraries/Source/VP6/FilterBlockBil8W
 ?removeObject@AIStatBase@@QAE_NPAX@Z,,0x0025BF8C,59,Code/GameEngine/Source/Common/Rva0025BF8CHeroRemover.cpp,matched,Hero vector find erase via rowed find erase
 ??0Rva005961D6@@QAE@XZ,,0x005961D6,79,Code/GameEngine/Source/Common/AIStatBase.cpp,matched,Derived ctor via base plus elements plus vector
 ??0Rva00596069@@QAE@XZ,,0x00596057,18,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp,matched,Rva00596069 ctor via base plus vtable
-??0Rva005965A5@@QAE@XZ,,0x005965A5,33,Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp,matched,Derived ctor via base plus vector
+??0Rva005965A5@@QAE@XZ,,0x005965A5,33,Code/GameEngine/Source/Common/AIStructureStats.cpp,matched,Derived ctor via base plus vector
 ??0AIEconomyStats@@QAE@H@Z,,0x00596366,35,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp,matched,Rva00596389 ctor via base plus ints
 ?Rva00596095Get@@YGHPAX@Z,,0x00596095,44,Code/GameEngine/Source/Common/Rva00596095Bits.cpp,matched,Bit predicate via three status bytes
 ??0Rva002D22CA@@QAE@XZ,,0x002D22AC,30,Code/GameEngine/Source/Common/System/FunctionLexicon.cpp,matched,vtable 0x00802A20 names Rva002D22CA ctor; base 12B via Dtor.cpp; unblocks 0x4CA3A; loop keeps lea-xor order
@@ -32024,7 +32024,7 @@ _GetThisFrameReconPtr,,0x001B6330,11,Code/Libraries/Source/VP6/PbAccessors.cpp,m
 ??_GRva00575125@@UAEPAXI@Z,,0x00574E6A,28,Code/GameEngine/Source/Common/Rva00575125Ctor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C6E4C4; calls pinned dtor 0x00574C6E
 ??_GRva0057605D@@UAEPAXI@Z,,0x005760B1,28,Code/GameEngine/Source/Common/Rva0057605DCtor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C6E6A0; calls pinned dtor 0x00575E9C
 ??_GRva005961D6@@UAEPAXI@Z,,0x005962CB,28,Code/GameEngine/Source/Common/AIStatBase.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C70A4C; calls pinned dtor 0x00596225
-??_GRva005965A5@@UAEPAXI@Z,,0x00596619,28,Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C70A54; calls pinned dtor 0x005965C6
+??_GRva005965A5@@UAEPAXI@Z,,0x00596619,28,Code/GameEngine/Source/Common/AIStructureStats.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C70A54; calls pinned dtor 0x005965C6
 ??_GRva005970ED@@UAEPAXI@Z,,0x00597315,28,Code/GameEngine/Source/Common/Rva005970EDCtor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C70B88; calls pinned dtor 0x00597147
 ??_GRva0059A85C@@UAEPAXI@Z,,0x0059A47D,28,Code/GameEngine/Source/Common/Rva0059A85CCtor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C70DE4; calls pinned dtor 0x0059A40D
 ??_GRva005C9B76@@UAEPAXI@Z,,0x005C9CC2,28,Code/GameEngine/Source/GameLogic/Object/Rva005C9B76Ctor.cpp,matched,scalar deleting dtor; vftable slot 0 of 0x00C74B9C; calls pinned dtor 0x005C9B9C

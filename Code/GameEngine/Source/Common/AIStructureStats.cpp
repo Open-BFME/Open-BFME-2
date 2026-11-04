@@ -60,7 +60,13 @@ private:
 
 // tu-skeleton: 0x00596548 93B ?UnRegister@AIStructureStats@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/Rva0025BF8CHeroRemover.cpp (not merged yet)
 
-// tu-skeleton: 0x005965A5 33B ??0Rva005965A5@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp
+
+Rva005965A5::Rva005965A5() : Rva0025BFE3(), m_sciences()
+{
+}
+
+// ---- from Code/GameEngine/Source/Common/AIStructureStats.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva005965A5Dtor.cpp
 
@@ -89,7 +95,5 @@ void bfmeAnchorRva005965A5Dtor(Rva005965A5 *instance)
 {
 	instance->Rva005965A5::~Rva005965A5();
 }
-
-// tu-skeleton: 0x00596619 28B ??_GRva005965A5@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00596635 72B ?Register@AIStructureStats@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0025C061Push.cpp (not merged yet)
