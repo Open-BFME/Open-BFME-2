@@ -112,3 +112,15 @@ def test_global_names_blanks_a_continued_directive_in_a_crlf_file():
     code = "#define DECLARE(x) \\\r\n    int hiddenGlobal;\r\nint realGlobal;\r\n"
     assert list(names.global_names(code)) == ["realGlobal"]
     assert list(names.global_names(code.replace("\r\n", "\n"))) == ["realGlobal"]
+
+
+@pytest.mark.parametrize("newline", ["\n", "\r\n"])
+def test_strip_keeps_the_continuation_of_a_comment_inside_a_define(newline):
+    # GameMemory.h's GCMP_FIND opens a `/* \` comment inside the continued macro body; blanking its
+    # backslash ended the directive there and left the body's closing brace as a stray `}` in the code
+    code = newline.join(["#define POOL(x) \\", "{ \\", "    /* \\", "    note \\", "    */ \\",
+                         "    int hiddenGlobal; \\", "}", "int realGlobal;", ""])
+    stripped = names.strip(code)
+    assert len(stripped) == len(code) and "note" not in stripped
+    assert list(names.global_names(stripped)) == ["realGlobal"]
+    assert names.PREPROCESSOR.sub("", stripped).count("}") == 0

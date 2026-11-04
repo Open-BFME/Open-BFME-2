@@ -86,7 +86,10 @@ def weak(kind, name):
 
 
 def strip(text):
-    return NONCODE.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
+    # cl splices backslash-newlines before it removes comments, so a block comment inside a continued
+    # #define (`/* \` ... `*/ \`) leaves the directive continued; keep each line-ending backslash (and
+    # its CR) when blanking, or PREPROCESSOR stops at the comment and the macro's tail reads as code.
+    return NONCODE.sub(lambda m: re.sub(r"(\\\r?(?=\n))|[^\n]", lambda c: c.group(1) or " ", m.group(0)), text)
 
 
 def close(code, brace):
