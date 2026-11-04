@@ -22,15 +22,7 @@ public:
 
 #include "BfmeAptValue006DCD20.h"
 
-class AptCIH
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	void *rva006E1090() const;
-	void rva006E1F00(int);
-	void rva006E2D60();
-};
+#include "AptCIHClass.h"
 
 class Rva006E3C80
 {
@@ -75,7 +67,7 @@ void AptAnimationPoolData::_tickNewInsts()
 					m_arr[i]->rva006E2D60();
 			}
 		}
-		m_arr[i]->v1();
+		m_arr[i]->Release();
 	}
 	m_count = 0;
 }

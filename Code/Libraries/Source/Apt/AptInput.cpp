@@ -23,35 +23,10 @@ class AptValue;
 
 class Rva006E1E30;
 
-class BfmeAptValue006DCD20
-{
-public:
-	int isString() const;
-	bool isUndefined() const;
-	void *rva006E04A0() const;
-	int isScriptFunction() const;
-	BfmeAptValue006DCD20 *rva006DCEE0();
-	void setGCRootCount(unsigned int);
-	bool isCIH(bool) const;
-	int rva006DCC60(bool) const;
-	BfmeAptValue006DCD20 *rva006DCF60(bool);
-	BfmeAptValue006DCD20 *checkedString();
-	int rva006E02B0() const;
-	virtual void vtableSlot0();
-	virtual void vtableSlot1();
-};
+#include "BfmeAptValue006DCD20.h"
 
-class AptCIH : public BfmeAptValue006DCD20
-{
-public:
-	bool rva006CFCD0()const;
-	void *rva006E1170()const;
-	int rva006E1F90(int);
-	bool queueClipEvents(int,int,int);
-	void factorySetProperty(int,float,bool);
-	void *rva006E1090() const; // rowed, 0x006E1090
-	void rva006E1F00(int value); // address-derived, 0x006E1F00
-};
+#include "AptValue.h"
+#include "AptCIHClass.h"
 
 struct AptNativeHash;
 
@@ -875,7 +850,7 @@ void AptAnimationPoolData::ProcessButtonState()
     if (pool->rva006E3710((Rva006E3710Node *)value))
         value = 0;
     else if (value)
-        value->vtableSlot0();
+        value->AddRef();
 
     if (m70) {
         if (current && !current->isUndefined()) {
@@ -897,10 +872,10 @@ void AptAnimationPoolData::ProcessButtonState()
             rva006FA100(current, 2);
         }
         if (current)
-            current->vtableSlot1();
+            current->Release();
         current = value;
         if (value) {
-            value->vtableSlot0();
+            value->AddRef();
             if (!value->isUndefined()) {
                 current->rva006E1F00(2);
                 rva006FA100(value, 1);
@@ -909,7 +884,7 @@ void AptAnimationPoolData::ProcessButtonState()
     }
 
     if (value)
-        value->vtableSlot1();
+        value->Release();
 }
 
 // ?rva006FAF80@AptAnimationPoolData@@QAEXPAVAptCIH@@HH@Z @0x006FAF80 386B.
@@ -945,9 +920,9 @@ void AptAnimationPoolData::HandleAutoNav(AptCIH *candidate, int eventCode,
         rva006FA100(current, 2);
         rva006FA100(candidate, 1);
         if (current)
-            current->vtableSlot1();
+            current->Release();
         current = candidate;
-        candidate->vtableSlot0();
+        candidate->AddRef();
         return;
 
     case 0:

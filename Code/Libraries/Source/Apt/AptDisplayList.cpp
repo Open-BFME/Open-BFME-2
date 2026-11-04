@@ -153,25 +153,8 @@ public:
 	bool get() const;
 };
 
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-	virtual void unused2();
-	virtual void unused3();
-	virtual void unused4();
-	virtual void unused5();
-	virtual void unused6();
-	virtual void unused7();
-	virtual void unused8();
-	virtual void unused9();
-	virtual void unused10();
-	virtual void unused11();
-	virtual void unused12();
-	virtual void unused13();
-	void setGCMark(bool value);
-};
+#include "AptValue.h"
+#include "AptCIHClass.h"
 
 class AptDisplayListState
 {
@@ -191,7 +174,7 @@ void AptDisplayListState::DisplayListItem(void *arg)
 	do {
 		if (!((const Rva006DBB40ShrAndField *)node)->get()) {
 			((AptValue *)node)->setGCMark(true);
-			((AptValue *)node)->unused13();
+			((AptValue *)node)->vslot13();
 		}
 		node = node->m_next;
 	} while (node != 0);
@@ -259,17 +242,13 @@ public:
 };
 
 class AsciiString;
-class AptNativeHash
+#include "AptNativeHash.h"
+
+struct AptNativeHash::Entry
 {
-public:
-	struct Entry
-	{
-		EAStringC *keyView() { return (EAStringC *)this; }
-		void *m_key;
-		BfmeAptValue006DCD20 *m_value;
-	};
-	AsciiString *rva0070AA40();
-	Entry *rva0070AAA0(Entry *entry);
+	EAStringC *keyView() { return (EAStringC *)this; }
+	void *m_key;
+	BfmeAptValue006DCD20 *m_value;
 };
 
 struct Rva006F8220CIH;
@@ -378,12 +357,6 @@ int BfmeQuery1279::rva006F6CE0() const
 // A textual volatile read pins that initial copy; the outer positive guard
 // preserves retail's common null-return tail. The predicate's caller tests
 // AL even though its established ledger spelling returns int.
-class AptCIH
-{
-public:
-    void *rva006E1020() const;
-    void rva006E2EE0();
-};
 
 class Rva006F7E00
 {

@@ -7,3 +7,4 @@ Remaining / next check: reconcile AptScriptFunction.h's private AptValue with th
 Clearance: donor header debt only; no merge, source-file reduction or census gain claimed.
 Evidence: [scoped checks and rejected merge](../../reverse/attempt_support/apt-script-gc-donor-20261103-codex3/README.md).
 Publication recovery: [upstream ID collision and correction](../../reverse/attempt_support/preparation-recovery-publication-20261104-codex3.md).
+2026-11-04: the same shared-root conflict also blocks AptMiscObjects.cpp's AptCIH adoption; four other consumers now pass nine header acceptances and preserve their link previews ([evidence](../../reverse/attempt_support/aptcih-header-adoption-20261104.md)).
