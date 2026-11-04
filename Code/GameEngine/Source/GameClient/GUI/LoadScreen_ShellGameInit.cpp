@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
 // platformsdk
+// stlport
 // ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z @0x00356541 455B: Zero Hour's
 // ShellGameLoadScreen::init (LoadScreen.cpp), vslot 2 of vtable 0x00814E74
 // (class of ??1Rva00355DC5@@UAE@XZ, so the class keeps its address name).
@@ -32,11 +33,7 @@ extern GameWindowManager *TheWindowManager;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 
 class GameWindowTransitionsHandler
