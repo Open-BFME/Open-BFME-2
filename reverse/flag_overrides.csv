@@ -138,8 +138,6 @@ Code/GameEngine/Source/Common/Open2Records.cpp,,6,1,region default loses rows
 Code/GameEngine/Source/Common/ParseAlphaNumericBitMask_Thunk.cpp,-Od,1,1,region default does not compile
 Code/GameEngine/Source/Common/PartitionSolver.cpp,-G7 -arch:SSE,3,2,region default loses rows
 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/RTS/Rva00739AF0Siblings.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva0073CE30.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp,-O2,1,1,region default loses rows
@@ -275,6 +273,7 @@ Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp,,1,1,region default
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp,,4,4,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp,-O1,1,1,region default loses rows
+Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,-O2,2,2,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,-G7 -arch:SSE,9,3,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp,-G7 -arch:SSE,2,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AngleFXInfoVectorInsertOverflow.cpp,,3,2,region default loses rows

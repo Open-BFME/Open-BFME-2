@@ -545,8 +545,8 @@ file,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenCampaignReviewDestructor
 function,?bfmeDistanceSquared@Gen_000E5A50@@QBEMPBVBfmeVec3EJ@@@Z,?Get3DCenterDistanceSquared@Gen_000E5A50@@QBEMPBVBfmeVec3EJ@@@Z,canonical:wb,"WB 0xAE3E10 asserts Object::Get3DCenterDistanceSquared (Object.h:1623); same squared-distance of this position vs argument Coord3D, float return, ret 4",Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp,0x001E435D
 function,?rva00180274@Gen_dtor_00970f60@@UAEXXZ,?Load@Gen_dtor_00970f60@@UAEXXZ,canonical:wb,"WB 0xA42D80 asserts MeshAsset::Factory::Load (meshasset.cpp:71); same name copy, .w3d extension, GetGameFilePart, ChunkLoadClass, new MeshClass, Load_W3D, release on failure",Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp,0x00180274
 param,ArmySummarySystem::ComputePlayerEarnedSpellPoints::a,ArmySummarySystem::ComputePlayerEarnedSpellPoints::player,inferred,agree:nl-123122fe8894,Code/GameEngine/Source/Common/ArmySummarySystem_ComputePlayerEarnedSpellPoints.cpp,0x0040CA61
-param,Rva00739BE0::rva00739BE0::f,Rva00739BE0::rva00739BE0::radius,inferred,agree:nl-08575566d52a,Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp,0x00739BE0
-param,Rva00739A30::rva00739A30::f,Rva00739A30::rva00739A30::radius,inferred,agree:nl-f6265e8dfa6f,Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp,0x00739A30
+param,Rva00739BE0::rva00739BE0::f,Rva00739BE0::rva00739BE0::radius,inferred,agree:nl-08575566d52a,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,0x00739BE0
+param,Rva00739A30::rva00739A30::f,Rva00739A30::rva00739A30::radius,inferred,agree:nl-f6265e8dfa6f,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,0x00739A30
 member,Rva000F0AB2Node::m_next68,Rva000F0AB2Node::m_next,inferred,agree:nl-7ec4c8ac620f,Code/GameEngine/Source/Common/Rva000F0AB2Cleanup.cpp,
 param,add::r,add::other,inferred,agree:nl-24c48ef2c715,Code/GameEngine/Source/Common/Rva0028E8D4Rva0028E8D4.cpp,
 param,sub::r,sub::other,inferred,agree:nl-79bf37851c1d,Code/GameEngine/Source/Common/Rva0028E8D4Rva0028E8D4.cpp,
@@ -1867,8 +1867,8 @@ param,TeamFactory::initTeamForTacticalAI::a3,TeamFactory::initTeamForTacticalAI:
 param,TeamFactory::initTeamForTacticalAI::a4,TeamFactory::initTeamForTacticalAI::tacticID,inferred,agree:nl-1699832f9a7a,Code/GameEngine/Source/Common/RTS/TeamFactory_initTeamForTacticalAI.cpp,0x003A2FD4
 param,StrategicHUD::FormatCPString::a,StrategicHUD::FormatCPString::commandPoints,inferred,agree:nl-efdaa4dd4f81,Code/GameEngine/Source/Common/StrategicHUD_FormatCPString.cpp,0x005FD53E
 param,StrategicHUD::FormatCPString::b,StrategicHUD::FormatCPString::maxCommandPoints,inferred,agree:nl-a3a189cbf256,Code/GameEngine/Source/Common/StrategicHUD_FormatCPString.cpp,0x005FD53E
-param,Rva00739BE0::rva00739BE0::p,Rva00739BE0::rva00739BE0::position,inferred,agree:nl-355f559eca72,Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp,0x00739BE0
-param,Rva00739A30::rva00739A30::p,Rva00739A30::rva00739A30::position,inferred,agree:nl-484156249d60,Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp,0x00739A30
+param,Rva00739BE0::rva00739BE0::p,Rva00739BE0::rva00739BE0::position,inferred,agree:nl-355f559eca72,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,0x00739BE0
+param,Rva00739A30::rva00739A30::p,Rva00739A30::rva00739A30::position,inferred,agree:nl-484156249d60,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,0x00739A30
 local,Rva002EDE5B::tmp18,Rva002EDE5B::worldPos,inferred,agree:nl-0c983dfb41ff,Code/GameEngine/Source/Common/Rva002E8C23.cpp,0x002EDE5B
 local,EA::Allocator::GeneralAllocator::realloc::s,EA::Allocator::GeneralAllocator::realloc::src,inferred,agree:nl-b8c308b3b050,Code/GameEngine/Source/Common/Rva000347A0Realloc.cpp,0x000347A0
 function,?rva000465CE@W3DDisplay@@QAEXPAVRva000465CEBuffer@@MMMMH@Z,?queueImage@W3DDisplay@@QAEXPAVRva000465CEBuffer@@MMMMH@Z,canonical:wb,wb lead 0x000465CE: WB 0x9738A0 asserts W3DDisplay::queueImage; score=7; via=vtable,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x000465CE
@@ -4613,7 +4613,7 @@ local,MeshModelClass::get_deformed_vertices::tm1,MeshModelClass::get_deformed_ve
 local,MeshModelClass::get_deformed_vertices::r,MeshModelClass::get_deformed_vertices::row,inferred,agree:nl-4dc15e0e78c9,Code/Libraries/Source/WWVegas/WW3D2/Rva0016BF40DeformedVertices.cpp,0x0016BF40
 param,Rva000A8B31::rva000A8B31::a,Rva000A8B31::rva000A8B31::m_StartPosition,inferred,agree:nl-524cc95b14b2,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,0x000A8B31
 local,~Rva000AD6F4::p,~Rva000AD6F4::m_objectToDelete,inferred,agree:nl-86725f34fa82,Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp,
-param,fast_round::f,fast_round::number,inferred,agree:nl-bc503137d8cd,Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp,
+param,fast_round::f,fast_round::number,inferred,agree:nl-bc503137d8cd,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,
 local,Rva0040DAA0::findByName::t,Rva0040DAA0::findByName::m_namedObjects,inferred,agree:nl-9b25e1ea50d6,Code/GameEngine/Source/Common/Rva0040DAA0Finish.cpp,0x0040DAA0
 local,Rva004D839A::rva004D839A::c,Rva004D839A::rva004D839A::m_turretData,inferred,agree:nl-6dadd80cd476,Code/GameEngine/Source/Common/Rva004D839ARva004D839A.cpp,0x004D839A
 param,PortNegotiationSchema::setPingStats::b,PortNegotiationSchema::setPingStats::m_pingsSent,inferred,agree:nl-64457d06803e,Code/GameEngine/Source/Common/Rva005DBEEB.cpp,0x005DBE95

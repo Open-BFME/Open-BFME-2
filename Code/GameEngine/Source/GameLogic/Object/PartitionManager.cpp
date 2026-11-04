@@ -1,7 +1,12 @@
-// cl: /Ireference/shims/aiupdatelayout /Ireference/shims/bfme_geometryinfo_ctor_link /Ireference/shims/bfme_moduleinfo_decl /Ireference/shims/bfme_pathfinder_get_cell_link /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /O2 /Ireference/shims/aiupdatelayout /Ireference/shims/bfme_geometryinfo_ctor_link /Ireference/shims/bfme_moduleinfo_decl /Ireference/shims/bfme_pathfinder_get_cell_link /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/Libraries/Include
 // stlport
 // TU Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define friend_updateCellsTouched() friend_updateCellsTouched(); void bfmeZhInline_friend_updateCellsTouched()
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <math.h>
+#undef _CRTIMP
+#define _CRTIMP
 #pragma optimize("s", on)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #pragma optimize("", on)
@@ -53,12 +58,14 @@ template void allocator<HorzLine>::deallocate(HorzLine *, unsigned int) const;
 //#include "GameClient/InGameUI.h"	// for debugHints
 
 
+
 #include "Common/PlayerList.h"
 #endif
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 
 #endif
@@ -68,12 +75,14 @@ template void allocator<HorzLine>::deallocate(HorzLine *, unsigned int) const;
 // nothing
 
 
+
 #else
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+
 
 
 #endif
@@ -85,9 +94,11 @@ template void allocator<HorzLine>::deallocate(HorzLine *, unsigned int) const;
 //-----------------------------------------------------------------------------
 
 
+
 #endif
 #ifdef FASTER_GCO
 //-----------------------------------------------------------------------------
+
 
 
 #endif
@@ -96,6 +107,17 @@ template void allocator<HorzLine>::deallocate(HorzLine *, unsigned int) const;
 #pragma intrinsic(_ReadWriteBarrier)
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 #include <new>
+// PartitionManager world-to-cell X converter, retail 0x008F7480, 44 bytes.
+// Twin of the Y converter at 0x008F74B0: both floor a world coordinate
+// relative to an origin and scaled by the cell-size reciprocal, then
+// truncate with a bare fistp. Same floor-import plus __asm truncation
+// idiom as the matched TaintManagerImpl helpers in Bfme5SeventySix.cpp; the
+// X half reads the origin at +0x04, the Y half the origin at +0x08, and
+// both share the scale at +0x20 with the converted bounds-checked cell
+// lookup ?bfmeAt@Gen_008F7CD0@@QBEPAVBfmeCellFD@@HH@Z at 0x008F7CD0.
+
+typedef float Real;
+#pragma intrinsic(_ReadWriteBarrier)
 
 // The map utility unit supplies the retail vector-growth body.
 namespace _STL {
@@ -118,88 +140,117 @@ template <> inline void vector<ICoord2D>::push_back(const ICoord2D &value)
 namespace _STL { template <> void _Bvector_base<allocator<bool> >::_M_deallocate(); }
 
 
+
 namespace _STL { template <> _Bvector_base<allocator<bool> >::~_Bvector_base(); }
+
 
 
 namespace _STL { template <> vector<bool, allocator<bool> >::~vector(); }
 
 
+
 namespace _STL { template <> _Bit_reference vector<bool, allocator<bool> >::operator[](unsigned int); }
+
 
 
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> & _Bit_iter<_Bit_reference, _Bit_reference *>::operator++(); }
 
 
+
 namespace _STL { template <> bool bitset<45>::_Unchecked_test(unsigned int) const; }
+
 
 
 namespace _STL { template <> unsigned int * allocator<unsigned int>::allocate(unsigned int, void const *) const; }
 
 
+
 namespace _STL { template <> void vector<bool, allocator<bool> >::resize(unsigned int, bool); }
+
 
 
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> & _Bit_iter<_Bit_reference, _Bit_reference *>::operator+=(int); }
 
 
+
 namespace _STL { template <> int _Bit_iter<bool, bool const *>::operator-(_Bit_iter<bool, bool const *> const &) const; }
+
 
 
 namespace _STL { template <> bool bitset<13>::_Unchecked_test(unsigned int) const; }
 
 
+
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *>::_Bit_iter(unsigned int *, unsigned int); }
+
 
 
 namespace _STL { template <> _Bit_iter<bool, bool const *>::_Bit_iter(unsigned int *, unsigned int); }
 
 
+
 namespace _STL { template <> void allocator<unsigned int>::deallocate(unsigned int *, unsigned int) const; }
+
 
 
 namespace _STL { template <> unsigned char * __copy_ptrs<unsigned char *, unsigned char *>(unsigned char *, unsigned char *, unsigned char *, __true_type); }
 
 
+
 namespace _STL { template <> int _Bit_iter<_Bit_reference, _Bit_reference *>::operator-(_Bit_iter<_Bit_reference, _Bit_reference *> const &) const; }
+
 
 
 namespace _STL { template <> __false_type _BothPtrType<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >::_Ret(); }
 
 
+
 namespace _STL { template <> bool bitset<13>::test(unsigned int) const; }
+
 
 
 namespace _STL { template <> ICoord2D * _STLP_alloc_proxy<ICoord2D *, ICoord2D, allocator<ICoord2D> >::allocate(unsigned int); }
 
 
+
 namespace _STL { template <> void _STLP_alloc_proxy<unsigned int *, unsigned int, allocator<unsigned int> >::deallocate(unsigned int *, unsigned int); }
+
 
 
 namespace _STL { template <> unsigned int * _STLP_alloc_proxy<unsigned int *, unsigned int, allocator<unsigned int> >::allocate(unsigned int); }
 
 
+
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> __copy_aux<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >(_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, __false_type); }
+
 
 
 namespace _STL { template <> bitset<116> & bitset<116>::_Unchecked_set(unsigned int); }
 
 
+
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
+
 
 
 namespace _STL { template <> bitset<116> & bitset<116>::set(unsigned int); }
 
 
+
 namespace _STL { template <> bool bitset<45>::test(unsigned int) const; }
+
 
 
 template <> BitFlags<116>::BitFlags(BitFlags<116>::BogusInitType, int);
 
 
+
 namespace _STL { template <> vector<bool, allocator<bool> >::vector(allocator<bool> const &); }
 
 
+
 namespace _STL { template <> unsigned char * vector<unsigned char, allocator<unsigned char> >::erase(unsigned char *, unsigned char *); }
+
 
 
 // bfme link decl-only end
@@ -215,7 +266,9 @@ namespace _STL { template <> unsigned char * vector<unsigned char, allocator<uns
 static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
 
 
+
 static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+
 
 
 static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
@@ -225,13 +278,17 @@ static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(
 	long s_countInClosestObjects = 0;
 
 
+
 	long s_countInClosestObjectsThisFrame = 0;
+
 
 
 	Int64 s_timeInClosestObjects = 0;
 
 
+
 	Int64 s_timeInClosestObjectsThisFrame = 0;
+
 
 
 	UnsignedInt s_gcoPerfFrame = 0xffffffff;
@@ -642,6 +699,7 @@ static Real ringSpacing = 5.0f;
 
 
 
+
 static Int checkTerrainExtreme(PartitionCell* cell, void* userData)
 {
 	TerrainExtremeData* data = (TerrainExtremeData*)userData;
@@ -686,9 +744,6 @@ static Int checkTerrainExtreme(PartitionCell* cell, void* userData)
 // but this function only returns its address.
 class BfmeCellFD;
 
-// The partition cell grid: origins +4/+8, cell-size reciprocal +0x20 and
-// row-major 0xA8-byte cells (bfmeAt); one view for the whole TU.
-class BfmeCellFD;
 struct FloatRect0073CE30;
 
 class Gen_008F7CD0
@@ -701,6 +756,7 @@ public:
 	int bfmeCellExtent8F74E0(float value) const;
 	void rva0073CC60(FloatRect0073CE30 *rect, int extra, unsigned int mask);
 	void rva0073CE30(FloatRect0073CE30 *rect, int extra, unsigned int mask);
+	void rva0073CE90(int x, int y, int radius, int counter, int amount, int mask);
 
 	char m_pad00[4];				// +0x00
 	float m_originX;				// +0x04
@@ -862,20 +918,227 @@ struct CDEArraySlot
 	void *nextNode;
 };
 
+class CDEProvider;
+
+class CDELinkNode;
+
+// The CDE coverage record set (WorldBuilder: ShroudManager::Data): +0 owner
+// grid, +4/+8 providers, +0xC..+0x18 links, +0x1C/+0x20 coverage array and
+// count, then the 20-wide value/slot/status arrays and the reveal state.
 class BfmeThingCDE
 {
 public:
+	BfmeThingCDE(void *what, void *owner, void *head);
+	void bfmeDtorCDE();
+	void bfmeGoCDE();
+	void d_008f7990();
+	bool DoRectFill(float x, float y, float halfX, float halfY, float angle);
+	void d_008f7ec0();
 	void initializeArray(int count);
 
+private:
+	bool rva0073A9B0(float centerX, float centerY, float radius);
+
+public:
 	void *m_owner;
-	void *m_ptr4;
-	void *m_ptr8;
-	void *m_link0;
-	void *m_link1;
-	void *m_prev;
-	void *m_next;
+	CDEProvider *m_ptr4;
+	CDEProvider *m_ptr8;
+	CDELinkNode *m_link0;
+	CDELinkNode *m_link1;
+	CDELinkNode *m_prev;
+	CDELinkNode *m_next;
 	void *m_array;
 	int m_count;
+	int m_values[20];
+	int m_slots[20];
+	unsigned char m_status[20];
+	int m_cellX; // +D8
+	int m_cellY; // +DC
+	int m_revealRadii[3]; // +E0
+	unsigned m_revealMask; // +EC
+	float m_rotation; // +F0
+	int m_changeRadii[3]; // +F4
+	int m_changeMasks[3]; // +100
+	int m_changeAmounts[3]; // +10C
+	unsigned char m_flag118; // +118
+};
+
+struct Pair00739BE0
+{
+	float x;
+	float y;
+};
+
+class Rva00739BE0;
+
+class ShroudManagerImpl
+{
+	friend class Rva00739BE0;
+ friend class Rva00739A30;
+private:
+	void UndoShroudReveal(int x1, int x2, void *arr, float rotation, int mask);
+ void DoShroudReveal(int x1, int x2, void *arr, float rotation, int mask);
+public:
+	float m_pad00;
+	float m_originX;
+	float m_originY;
+	char m_pad0C[20];
+	float m_scale;
+};
+
+class Rva00739BE0
+{
+public:
+	void rva00739BE0(Pair00739BE0 *position, float radius, int mask);
+private:
+	char m_pad00[16];
+	ShroudManagerImpl *m_gen10;
+};
+
+// Native739A30..739AE3 thiscall179B RET0C. The rowed
+// ScriptEngine::doNamedMapReveal3577DA calls this with a waypoint location
+// and radius through TheShroudManager; undo calls the existing739BE0.
+// Both wrappers independently consume impl+4/+8 origins and +20 scale.
+// Native callee73CAF0 is a complete362B RET14 routine: it consumes two
+// cell coordinates, three integer radii, a float rotation and player mask.
+// It is called with zero rotation here; its original method name remains
+// unknown. Unlike the undo sibling it dispatches the native reveal walker.
+// BFME1 donor1399ad37 Common/RTS/ShroudManagerImpl008FBA40.cpp supplies
+// a related world-to-cell semantic guide; target receiver+10 comes from
+// retail, not BFME1's different manager layout. The existing FISTP helper
+// preserves the native x87 conversion instead of introducing CRT _ftol.
+class Rva00739A30
+{
+public:
+ void rva00739A30(Pair00739BE0 *position, float radius, int mask);
+private:
+ char m_pad00[16];
+ ShroudManagerImpl *m_gen10;
+};
+
+struct FloatRect0073CE30
+{
+	float x1;
+	float y1;
+	float x2;
+	float y2;
+};
+
+class Rva00739AF0
+{
+public:
+	void rva00739AF0(FloatRect0073CE30 *world, int extra, unsigned int mask);
+private:
+	char m_pad00[16];
+	Gen_008F7CD0 *m_gen10;
+};
+
+class Rva00739CA0
+{
+public:
+	void rva00739CA0(FloatRect0073CE30 *world, int extra, unsigned int mask);
+private:
+	char m_pad00[16];
+	Gen_008F7CD0 *m_gen10;
+};
+
+// ?rva00739D90@Rva00739D90@@QAEXPBUBfmePointFC@@MHHH@Z 171B @0x00739D90:
+// sibling of rowed ?bfmeApplyCircleWorld@BfmeTaintManager@@ 0x006C0AB0
+// (170B). Same ceil/floor world-to-cell shape, but the grid sits at +0x10
+// with originX@+4 originY@+8 scale@+0x20 (the Gen_008F7CD0 layout, not
+// BfmeTaintManager's cellSizeInv/region), and the paint call targets the
+// address-derived Gen_008F7CD0 apply entry at 0x0073CE90. Its signed amount
+// is a full integer, established by the complete provider and undo caller.
+// Evidence: body
+// bytes match the template instruction for instruction except the field
+// offsets, the scale member and the final E8 displacement.
+extern "C" __declspec(dllimport) double __cdecl floor(double value);
+
+extern "C" __declspec(dllimport) double __cdecl ceil(double value);
+
+struct BfmePointFC
+{
+	float x;
+	float y;
+};
+
+class Rva00739D90
+{
+public:
+	void rva00739D90(const BfmePointFC *point, float radius, int counter, int amount, int mode);
+private:
+	char m_pad00[0x10];
+	Gen_008F7CD0 *m_grid;
+};
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Native 0073A860..0073A8FB (155B) circle walker and
+// 0073A9B0..0073AABA (266B) caller from the existing BfmeThingCDE family.
+// Source lead: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/GameLogic/Object/PartitionData_doSmallFill.cpp.
+// The donor calls this algorithm doSmallFill; the target's original name
+// remains unresolved. Target updateCellsTouched at 0073AD90 calls this body,
+// whose +0 grid and +1C/+20 coverage array/count agree with rowed CDE siblings.
+// Retail proves origin +4/+8, scale +20, dimensions +24/+28, cells +2C,
+// 0xA8-byte cells and 0x10-byte coverage records. The donor cells are 0x68.
+// The caller reserves exactly 12 argument bytes for grid/current/end and
+// the rowed span updater at 0073A650 consumes only those three words.
+// This corrects the old four-word BfmeArgXO declaration without renaming
+// either rowed callee or claiming the donor's class identity as target fact.
+
+class Gen_008F7CD0;
+
+class BfmeCoiSmallFill;
+
+struct BfmeArgXO
+{
+    Gen_008F7CD0 *m_grid;
+    BfmeCoiSmallFill *m_first;
+    BfmeCoiSmallFill *m_next;
+};
+
+class BfmeShroudVRC
+{
+public:
+	char bfmeUpdateVRC(int x, int y, int radius);
+
+	Gen_008F7CD0 *m_grid;
+	BfmeCoiSmallFill *m_first;
+	BfmeCoiSmallFill *m_next;
+};
+
+class BfmeCellFD
+{
+public:
+	BfmeCoiSmallFill *m_first;
+	int m_data[41];
+};
+
+class BfmeCoiSmallFill
+{
+public:
+	BfmeCellFD *m_cell;
+	void *m_module;
+	BfmeCellFD *m_prev;
+	BfmeCoiSmallFill *m_next;
+
+	__forceinline bool addCoverage(BfmeCellFD *cell)
+	{
+		m_cell = cell;
+		BfmeCoiSmallFill *next = cell->m_first;
+		m_next = next;
+		if (next != 0)
+			next->m_prev = (BfmeCellFD *)&m_next;
+		m_prev = (BfmeCellFD *)cell;
+		cell->m_first = this;
+		return true;
+	}
+};
+
+class BfmeOwnerCDE
+{
+public:
+	void bfmeOneCDE(void *what);
 };
 
 // tu-skeleton: 0x00739740 8B ?setRegion@PartitionManager@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
@@ -910,15 +1173,68 @@ public:
 
 // tu-skeleton: 0x00739830 8B ?rva00739830@Rva00739830@@QBEHPBUBfmePointFD@@HI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp (not merged yet)
 
-// tu-skeleton: 0x00739840 44B ?bfmeCellX@Gen_008F7CD0@@QBEHM@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1570.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeConv1570.cpp
 
-// tu-skeleton: 0x00739870 44B ?bfmeCellY@Gen_008F7CD0@@QBEHM@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1572.cpp (not merged yet)
+__forceinline Real bfmeFloatFloorFD(Real value)
+{
+	return (Real)floor((double)value);
+}
 
-// tu-skeleton: 0x007398A0 41B ?bfmeCellExtent8F74E0@Gen_008F7CD0@@QBEHM@Z -- matched in Code/GameEngine/Source/Common/Bfme5CeilCellExtent.cpp (not merged yet)
+__forceinline long bfmeFloatToLongFD(Real value)
+{
+	long result;
+	__asm
+	{
+		fld [value]
+		fistp [result]
+	}
+	return result;
+}
+
+// ?bfmeCellX@Gen_008F7CD0@@QBEHM@Z
+int Gen_008F7CD0::bfmeCellX(Real value) const
+{
+	return bfmeFloatToLongFD(bfmeFloatFloorFD(
+		(value - m_originX) * m_scale));
+}
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1572.cpp
+
+// ?bfmeCellY@Gen_008F7CD0@@QBEHM@Z
+int Gen_008F7CD0::bfmeCellY(Real value) const
+{
+	return bfmeFloatToLongFD(bfmeFloatFloorFD(
+		(value - m_originY) * m_scale));
+}
+
+// ---- from Code/GameEngine/Source/Common/Bfme5CeilCellExtent.cpp
+
+__forceinline long bfmeCeilFloatToLong(Real value)
+{
+	long result;
+	__asm
+	{
+		fld [value]
+		fistp [result]
+	}
+	return result;
+}
+
+int Gen_008F7CD0::bfmeCellExtent8F74E0(Real value) const
+{
+	return bfmeCeilFloatToLong((Real)ceil((double)(value * m_scale)));
+}
 
 // tu-skeleton: 0x007398D0 143B ??0Open2Store8F75D0@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
 
 // tu-skeleton: 0x00739960 8B ??_EOpen2Store8F75D0@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+
+// Retail's floor/ceil calls in this unit go through msvcr71's imports
+// (call [__imp__floor], FF 15), as in TerrainLogic.cpp: math.h is read once,
+// first, with the CRT's dllimport spelling; everything after keeps the
+// static spelling.
 
 // ---- from Code/GameEngine/Source/Common/SubsystemNameGetters5.cpp
 
@@ -931,35 +1247,20 @@ public:
 // behind a shared pair (slot 1 is 0xA9E440), closed by 0x5B5384.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x00739980 115B ??1Open2Store8F75D0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
 
-// tu-skeleton: 0x00739A00 46B ?bfmeDescribe@Gen_008F7650@@QAEXPAVBfmeFlagTarget@@@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
 
-// tu-skeleton: 0x00739A30 179B ?rva00739A30@Rva00739A30@@QAEXPAUPair00739BE0@@MH@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp (not merged yet)
 
-// tu-skeleton: 0x00739AF0 229B ?rva00739AF0@Rva00739AF0@@QAEXPAUFloatRect0073CE30@@HI@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739AF0Siblings.cpp (not merged yet)
 
-// tu-skeleton: 0x00739BE0 179B ?rva00739BE0@Rva00739BE0@@QAEXPAUPair00739BE0@@MH@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp (not merged yet)
 
-// tu-skeleton: 0x00739CA0 229B ?rva00739CA0@Rva00739CA0@@QAEXPAUFloatRect0073CE30@@HI@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp (not merged yet)
 
-// tu-skeleton: 0x00739D90 171B ?rva00739D90@Rva00739D90@@QAEXPBUBfmePointFC@@MHHH@Z -- matched in Code/GameEngine/Source/Common/Rva00739D90Siblings.cpp (not merged yet)
 
-// tu-skeleton: 0x00739E40 30B ??_GOpen2Store8F75D0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
 
-// tu-skeleton: 0x00739E60 227B ??0BfmeThingCDE@@QAE@PAX00@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00739F50 133B ?d_008f7990@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00739FE0 188B ?KeepAsGhost@Data@ShroudManager@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A0A0 29B ?bfmeUnlink@Gen_008F7AC0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A0C0 28B ?EverSeenByPlayer@Data@ShroudManager@@QAEDH@Z -- matched in Code/GameEngine/Source/Common/Rva008F7B00Get.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A0E0 16B ?maybePrepend@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionData_maybePrepend.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A0F0 27B ?makeDirty@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/S3GuardedVirtualArgs.cpp
 
@@ -1009,8 +1310,6 @@ void Gen_008F7BE0::unlink(void)
 		m_next->m_previousLink = m_previousLink;
 	*m_previousLink = m_next;
 }
-
-// tu-skeleton: 0x0073A1C0 4B ?get@Rva0073A1C0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 
@@ -2437,8 +2736,6 @@ static void hLineRemoveValue(Int startX, Int endX, Int y, void *threatValueParms
 	}
 }
 
-// tu-skeleton: 0x0073A2A0 135B ?rva0073A2A0@Gen_008F7CD0@@QAEXPAPAVBfmeCellFD@@0HHH@Z -- matched in Code/GameEngine/Source/Common/BfmeCellAt.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp
 
 bool Gen_008F7D90::insert(BfmeLink8F7D90 *item, BfmeLink8F7D90 *head)
@@ -2451,8 +2748,6 @@ bool Gen_008F7D90::insert(BfmeLink8F7D90 *item, BfmeLink8F7D90 *head)
 	head->m_first = item;
 	return true;
 }
-
-// tu-skeleton: 0x0073A360 15B ?clear@Rva0073A360@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp
 
@@ -2481,19 +2776,302 @@ void BfmeThingCDE::initializeArray(int count)
 	}
 }
 
+// tu-skeleton: 0x00739980 115B ??1Open2Store8F75D0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739A00 46B ?bfmeDescribe@Gen_008F7650@@QAEXPAVBfmeFlagTarget@@@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp
+
+// ?rva00739BE0@Rva00739BE0@@QAEXPAUPair00739BE0@@MH@Z @0x00739BE0 179B
+// Evidence: world-to-cell via ceil then 2x floor with Gen originX@+4 originY@+8 scale@+0x20 and rowed Gen wrapper shape; callers at 0x00357955 0x003BB942 pass (ptr float mask) with this=TheShroudManager PartitionManager; callee pinned 0x0073CCC0 ShroudManagerImpl; siblings 0x00739AF0 0x00739CA0 same Gen layout.
+
+static __forceinline float fast_floor(float f)
+{
+	return (float)floor((double)f);
+}
+
+static __forceinline float fast_ceil(float f)
+{
+	return (float)ceil((double)f);
+}
+
+static __forceinline long fast_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+
+void Rva00739BE0::rva00739BE0(Pair00739BE0 *position, float radius, int mask)
+{
+	int ic = fast_round(fast_ceil(radius * m_gen10->m_scale));
+	int arr[3];
+	arr[2] = ic;
+	arr[1] = ic;
+	arr[0] = ic;
+	int iy = fast_round(fast_floor((position->y - m_gen10->m_originY) * m_gen10->m_scale));
+	int ix = fast_round(fast_floor((position->x - m_gen10->m_originX) * m_gen10->m_scale));
+	m_gen10->UndoShroudReveal(ix, iy, arr, 0.0f, mask);
+}
+
+void Rva00739A30::rva00739A30(Pair00739BE0 *position, float radius, int mask)
+{
+	int ic = fast_round(fast_ceil(radius * m_gen10->m_scale));
+	int arr[3];
+	arr[2] = ic;
+	arr[1] = ic;
+	arr[0] = ic;
+	int iy = fast_round(fast_floor((position->y - m_gen10->m_originY) * m_gen10->m_scale));
+	int ix = fast_round(fast_floor((position->x - m_gen10->m_originX) * m_gen10->m_scale));
+	m_gen10->DoShroudReveal(ix, iy, arr, 0.0f, mask);
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/Rva00739AF0Siblings.cpp
+
+// ?rva00739AF0@Rva00739AF0@@QAEXPAUFloatRect0073CE30@@HI@Z 229B @0x00739AF0:
+// byte-for-byte sibling of the rowed 0x00739CA0 body except for the final
+// rowed-callee displacement, which targets the address-derived updater at
+// 0x0073CC60 instead of 0x0073CE30. Same world-to-cell floor/round shape,
+// same Gen layout (originX@+4 originY@+8 scale@+0x20) and same caller Gen*
+// at +0x10. Evidence: identical 229-byte body except the E8 displacement.
+
+void Rva00739AF0::rva00739AF0(FloatRect0073CE30 *world, int extra, unsigned int mask)
+{
+	FloatRect0073CE30 cell;
+	int ix1 = fast_round(fast_floor((world->x1 - m_gen10->m_originX) * m_gen10->m_scale));
+	cell.x1 = (float)ix1;
+	int ix2 = fast_round(fast_floor((world->x2 - m_gen10->m_originX) * m_gen10->m_scale));
+	cell.x2 = (float)ix2;
+	int iy1 = fast_round(fast_floor((world->y1 - m_gen10->m_originY) * m_gen10->m_scale));
+	cell.y1 = (float)iy1;
+	int iy2 = fast_round(fast_floor((world->y2 - m_gen10->m_originY) * m_gen10->m_scale));
+	cell.y2 = (float)iy2;
+	m_gen10->rva0073CC60(&cell, extra, mask);
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp
+
+// ?rva00739CA0@Rva00739CA0@@QAEXPAUFloatRect0073CE30@@HI@Z 229B @0x00739CA0: world-to-cell rect via floor then rowed Gen wrapper 0x0073CE30. Computes cell floats as (float)(int)floor((double)((world-origin)*scale)) with Gen originX@+4 originY@+8 scale@+0x20 then calls gen->rva0073CE30 with extra mask passthrough. Layout caller Gen* at +0x10. Evidence: 4x floor plus fistp/fild plus rowed 0x0073CE30 plus callers at 0x00357926 0x003C01A0.
+
+void Rva00739CA0::rva00739CA0(FloatRect0073CE30 *world, int extra, unsigned int mask)
+{
+	FloatRect0073CE30 cell;
+	int ix1 = fast_round(fast_floor((world->x1 - m_gen10->m_originX) * m_gen10->m_scale));
+	cell.x1 = (float)ix1;
+	int ix2 = fast_round(fast_floor((world->x2 - m_gen10->m_originX) * m_gen10->m_scale));
+	cell.x2 = (float)ix2;
+	int iy1 = fast_round(fast_floor((world->y1 - m_gen10->m_originY) * m_gen10->m_scale));
+	cell.y1 = (float)iy1;
+	int iy2 = fast_round(fast_floor((world->y2 - m_gen10->m_originY) * m_gen10->m_scale));
+	cell.y2 = (float)iy2;
+	m_gen10->rva0073CE30(&cell, extra, mask);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00739D90Siblings.cpp
+
+__forceinline float bfmeFloatFloorFC(float value)
+{
+	return (float)floor((double)value);
+}
+
+__forceinline float bfmeFloatCeilFC(float value)
+{
+	return (float)ceil((double)value);
+}
+
+__forceinline long bfmeFloatToLongFC(float value)
+{
+	long result;
+	__asm
+	{
+		fld [value]
+		fistp [result]
+	}
+	return result;
+}
+
+void Rva00739D90::rva00739D90(const BfmePointFC *point, float radius, int counter, int amount, int mode)
+{
+	int cellRadius = bfmeFloatToLongFC(bfmeFloatCeilFC(radius * m_grid->m_scale));
+	int y = bfmeFloatToLongFC(bfmeFloatFloorFC((point->y - m_grid->m_originY) * m_grid->m_scale));
+	int x = bfmeFloatToLongFC(bfmeFloatFloorFC((point->x - m_grid->m_originX) * m_grid->m_scale));
+	m_grid->rva0073CE90(x, y, cellRadius, counter, amount, mode);
+}
+
+// tu-skeleton: 0x00739E40 30B ??_GOpen2Store8F75D0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Open2Twins006.cpp (not merged yet)
+
+// tu-skeleton: 0x00739E60 227B ??0BfmeThingCDE@@QAE@PAX00@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00739F50 133B ?d_008f7990@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00739FE0 188B ?KeepAsGhost@Data@ShroudManager@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0A0 29B ?bfmeUnlink@Gen_008F7AC0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0C0 28B ?EverSeenByPlayer@Data@ShroudManager@@QAEDH@Z -- matched in Code/GameEngine/Source/Common/Rva008F7B00Get.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0E0 16B ?maybePrepend@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionData_maybePrepend.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A0F0 27B ?makeDirty@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A1C0 4B ?get@Rva0073A1C0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A2A0 135B ?rva0073A2A0@Gen_008F7CD0@@QAEXPAPAVBfmeCellFD@@0HHH@Z -- matched in Code/GameEngine/Source/Common/BfmeCellAt.cpp (not merged yet)
+
+// tu-skeleton: 0x0073A360 15B ?clear@Rva0073A360@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
+
 // tu-skeleton: 0x0073A460 57B ?d_008f7ec0@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0073A4A0 421B ?DoRectFill@BfmeThingCDE@@QAE_NMMMMM@Z -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A650 115B ?bfmeUpdateVRC@BfmeShroudVRC@@QAEDHHH@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp
+
+bool __cdecl bfmeCallXO(int cellX, int cellY, int cellRadius, BfmeArgXO arg)
+{
+	int touched = 0;
+	int currentRadius = cellRadius;
+	int error = 2;
+	error -= currentRadius * 2;
+	int left = cellX;
+	int right = cellX;
+
+	for (;;)
+	{
+		if (error + currentRadius > 0)
+		{
+			if (currentRadius == 0 && cellRadius == 1)
+			{
+				++touched;
+				++right;
+				--left;
+			}
+
+			if (!reinterpret_cast<BfmeShroudVRC *>(&arg)->bfmeUpdateVRC(
+				left, right, cellY + currentRadius))
+				return false;
+
+			if (currentRadius == 0)
+				return true;
+
+			if (!reinterpret_cast<BfmeShroudVRC *>(&arg)->bfmeUpdateVRC(
+				left, right, cellY - currentRadius))
+				return false;
+
+			--currentRadius;
+			error += 1 - currentRadius * 2;
+		}
+
+		if (touched > error)
+		{
+			++touched;
+			++right;
+			--left;
+			error += touched * 2 + 1;
+		}
+	}
+}
+
+__forceinline Real bfmeFloatFloorSmallFill(Real value)
+{
+	return (Real)floor((double)value);
+}
+
+__forceinline Real bfmeFloatCeilSmallFill(Real value)
+{
+	return (Real)ceil((double)value);
+}
+
+// As in the already matched ShroudManagerImpl008FBA40.cpp, retail rounds
+// through a float slot then converts with the current x87 control word.
+// Keep the donor's two-instruction REAL_TO_INT helper: an ordinary cast uses
+// compiler conversion machinery with a different rounding/stack shape.
+__forceinline int bfmeFloatToIntSmallFill(Real value)
+{
+	int result;
+	__asm
+	{
+		fld [value]
+		fistp [result]
+	}
+	return result;
+}
+
+__forceinline BfmeCellFD *bfmeCellAtSmallFill(Gen_008F7CD0 *grid, int x, int y)
+{
+	if (x < 0 || x >= grid->m_bfmeWidth || y < 0 || y >= grid->m_bfmeHeight)
+		return 0;
+	return &grid->m_bfmeCells[y * grid->m_bfmeWidth + x];
+}
+
+bool BfmeThingCDE::rva0073A9B0(Real centerX, Real centerY, Real radius)
+{
+	int cellCenterX = bfmeFloatToIntSmallFill(bfmeFloatFloorSmallFill(
+		(centerX - ((Gen_008F7CD0 *)m_owner)->m_originX) * ((Gen_008F7CD0 *)m_owner)->m_scale));
+	int cellCenterY = bfmeFloatToIntSmallFill(bfmeFloatFloorSmallFill(
+		(centerY - ((Gen_008F7CD0 *)m_owner)->m_originY) * ((Gen_008F7CD0 *)m_owner)->m_scale));
+	int cellRadius = bfmeFloatToIntSmallFill(bfmeFloatCeilSmallFill(
+		radius * ((Gen_008F7CD0 *)m_owner)->m_scale));
+
+	--cellRadius;
+	if (cellRadius < 1)
+	{
+		BfmeCellFD *cell = bfmeCellAtSmallFill((Gen_008F7CD0 *)m_owner, cellCenterX, cellCenterY);
+		if (cell != 0)
+		{
+			BfmeCoiSmallFill *coi = (BfmeCoiSmallFill *)m_array;
+			coi->addCoverage(cell);
+		}
+		return true;
+	}
+	else
+	{
+		BfmeArgXO range;
+		range.m_grid = (Gen_008F7CD0 *)m_owner;
+		range.m_first = (BfmeCoiSmallFill *)m_array;
+		range.m_next = (BfmeCoiSmallFill *)m_array + m_count;
+		if (!bfmeCallXO(cellCenterX, cellCenterY, cellRadius, range))
+		{
+			_ReadWriteBarrier();
+			return false;
+		}
+		return true;
+	}
+}
+
+template<class T> inline volatile T &__vref(T &x) { return *(volatile T *)&x; }
+
+// ?bfmeUpdateVRC@BfmeShroudVRC@@QAEDHHH@Z @0x0073A650 (115 B): the span updater
+// bfmeCallXO calls for each row of the circle. The grid's row-range helper
+// 0x0073A2A0 returns the first and last cell of the span; each cell is then
+// chained to the next free coverage record, failing when the records run out.
+// Codegen: a compiler barrier follows the range fetch and the first cell is
+// read through a volatile view (retail re-reads it for the first comparison).
+char BfmeShroudVRC::bfmeUpdateVRC(int firstX, int lastX, int y)
+{
+	BfmeCellFD *first;
+	BfmeCellFD *last;
+	m_grid->rva0073A2A0(&first, &last, firstX, lastX, y);
+	BfmeCellFD *cell = first;
+	BfmeCellFD *end = last;
+	_ReadWriteBarrier();
+	if (__vref(cell) != end)
+	{
+		do
+		{
+			if (m_first >= m_next)
+				return false;
+			(m_first++)->addCoverage(cell++);
+		} while (cell != end);
+	}
+	return true;
+}
 
 // tu-skeleton: 0x0073A6D0 392B ?getShroudedStatus@PartitionData@@QAE?AW4ObjectShroudStatus@@H@Z -- matched in Code/GameEngine/Source/Common/PartitionDataShroudStatus.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A860 155B ?bfmeCallXO@@YA_NHHHUBfmeArgXO@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp (not merged yet)
-
 // tu-skeleton: 0x0073A900 170B ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0073A9B0 266B ?rva0073A9B0@BfmeThingCDE@@AAE_NMMM@Z -- matched in Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp (not merged yet)
 
 // tu-skeleton: 0x0073AAC0 30B ??_GRva0073A900Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
 
@@ -2501,7 +3079,18 @@ void BfmeThingCDE::initializeArray(int count)
 
 // tu-skeleton: 0x0073AD90 1158B ?UpdateCellsTouched@Data@ShroudManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp (not merged yet)
 
-// tu-skeleton: 0x0073B220 38B ?bfmeGoCDE@BfmeThingCDE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv583.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeConv583.cpp
+
+void BfmeThingCDE::bfmeGoCDE()
+{
+	if (m_ptr4 != 0)
+	{
+		((BfmeOwnerCDE *)m_owner)->bfmeOneCDE(m_ptr4);
+		return;
+	}
+	bfmeDtorCDE();
+	::operator delete(this);
+}
 
 // tu-skeleton: 0x0073B250 37B ?friend_updateCellsTouched@PartitionData@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/PartitionData_friendUpdateCellsTouched.cpp (not merged yet)
 
