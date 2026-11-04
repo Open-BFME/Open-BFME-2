@@ -117,15 +117,7 @@ public:
 	Int m_750;			// +0x750
 };
 
-class PlayerList
-{
-public:
-	// Local implementation name keeps this +0x10 view out of unrelated COMDAT copies.
-	Player *uiUpdateLocalPlayer() { return m_local; }
-
-	char m_pad00[0x10];
-	Player *m_local;		// +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 #include "../GameLogic/Object/object.h"
 
@@ -446,7 +438,7 @@ void InGameUI::update()
 
 	if (m_53c)
 	{
-		Player *player = ThePlayerList->uiUpdateLocalPlayer();
+		Player *player = ThePlayerList->getLocalPlayer();
 		if (player == 0 || player->m_750)
 		{
 			setGUICommand(0);
@@ -467,7 +459,7 @@ void InGameUI::update()
 			if (draw && draw->getObject())
 			{
 				CellShroudStatus ss = draw->getObject()->getShroudStatusForPlayer(
-					ThePlayerList ? ThePlayerList->uiUpdateLocalPlayer()->getPlayerIndex() : 0);
+					ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0);
 				if (ss == 3 || ss == 4)
 					TheInGameUI->deselectDrawable(draw);
 			}

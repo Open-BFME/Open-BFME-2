@@ -24,14 +24,7 @@ class Object;
 
 #include "../object.h"
 
-class PlayerList
-{
-public:
-	Player *announceLocalPlayer() { return m_local; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -135,11 +128,11 @@ void EvaAnnounceClientCreate::clientUpdate()
 		draw->m_114 |= 0x80;
 	int event;
 	Player *ctl = obj->getControllingPlayer();
-	if (ctl == ThePlayerList->announceLocalPlayer())
+	if (ctl == ThePlayerList->getLocalPlayer())
 		event = evaAnnounceClientCreateModuleData->m_10;
 	else
 	{
-		switch (ThePlayerList->announceLocalPlayer()->getRelationship(obj))
+		switch (ThePlayerList->getLocalPlayer()->getRelationship(obj))
 		{
 		case ENEMIES:
 		case NEUTRAL:

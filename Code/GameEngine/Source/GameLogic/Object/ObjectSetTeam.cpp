@@ -67,12 +67,7 @@ public:
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	char m_pad0[0x18];
-	Player *m_neutral;		// +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/PartitionData.h"
@@ -278,7 +273,7 @@ void Object::setTeam(Team *team)
 	// In order to prevent spawning useful units for a player after he dies, we
 	// just assign objects to the neutral player if we try to misbehave.
 	if (team && !((BfmeMemberRV *)team->getControllingPlayer())->bfmeAskRV())
-		team = ThePlayerList->m_neutral->m_defaultTeam;
+		team = ThePlayerList->m_players[0]->m_defaultTeam;
 
 	setTemporaryTeam(team);
 	if (m_team)

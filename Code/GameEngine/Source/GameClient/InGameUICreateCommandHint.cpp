@@ -30,7 +30,8 @@ class GameMessage {public:char pad10[0x10];int type;const GameMessageArgumentTyp
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class Player {public:char pad54[0x54];int index;char pad58[0x6f8];int value750;bool hasRadar() const;};
-class PlayerList {public:char pad10[0x10];Player *local;};
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Radar {public:char pad10[0x10];bool hidden,forced;char pad12[0x1430-0x12];GameWindow *window;int isRadarWindow(GameWindow *);};
 extern Radar *TheRadar;
@@ -289,7 +290,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
  int messageType=msg->type;
  if (draw && (messageType==0xa7 || messageType==0xc0)) {
   const Object *obj=draw->getObject();
-  int localPlayerIndex=ThePlayerList?ThePlayerList->local->index:0;
+  int localPlayerIndex=ThePlayerList?ThePlayerList->m_local->index:0;
   CellShroudStatus ss=!obj?(CellShroudStatus)0:obj->getShroudStatusForPlayer(localPlayerIndex);
   if(ss==4)messageType=0xb3;
  }
@@ -316,7 +317,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
   if(messageType==0xb3 || messageType==0xb4) {
    const DList *list=getAllSelectedDrawables();
    if(list) {
-    int value=ThePlayerList->local->value750;
+    int value=ThePlayerList->m_local->value750;
     Rva002A1B6FNativeList ids;
     DNode *end=list->head;
     for(DNode *i=end->next;i!=end;i=i->next){ObjectID id=(ObjectID)i->value->getObject()->id;ids.push_back(*(void *const *)&id);}
@@ -336,7 +337,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
    else {
     Radar *radar=TheRadar;
     if((unsigned char)radar->isRadarWindow(window) && !radar->forced &&
-       (radar->hidden || !ThePlayerList->local->hasRadar()))
+       (radar->hidden || !ThePlayerList->m_local->hasRadar()))
      CURSOR(2);
     else CURSOR(5);
    }

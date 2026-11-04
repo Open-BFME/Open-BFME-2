@@ -59,7 +59,8 @@ template <> _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<Asci
 
 class Team;enum Relationship{ENEMIES,NEUTRAL,ALLIES};
 #include "../../../../../../GameEngine/Include/Common/Player.h"
-class PlayerList{char prefix[16];public:Player *local;};extern PlayerList *ThePlayerList;
+#include "../../../../../../GameEngine/Include/Common/PlayerList.h"
+extern PlayerList *ThePlayerList;
 struct Rva000B5FE6Template {char prefix[0x64];AsciiString name;char prefix68[0x108-0x68];unsigned flags[19];char gap[0x632-0x154];bool special632;};
 class Weapon;enum WeaponSlotType {WS0};
 class Object{public:Weapon*getCurrentWeapon(WeaponSlotType*);__forceinline const Rva000B5FE6Template*getTemplate()const{return definition;}char prefix[4];Rva000B5FE6Template *definition;char pad8[0x304-8];Team *team;char pad308[0x437-0x308];unsigned char state437,state438;bool isLocallyControlled()const;};
@@ -691,7 +692,7 @@ void W3DScriptedModelDraw::rva000B5FE6(){
  if(render->flags()&4){
   unsigned f=4;
   if((t->flags[2]&0x4000000)||(t->flags[0]&0x400)||(t->flags[5]&0x1000))f|=0x80;
-  if(o){Team *team=o->team; Player *player=ThePlayerList->local;Relationship r=player->getRelationship(team);
+  if(o){Team *team=o->team; Player *player=ThePlayerList->m_local;Relationship r=player->getRelationship(team);
    bool local=o->isLocallyControlled(); if(local)f|=0x100;
    if(!local && r==ENEMIES && !(o->definition->flags[1]&0x10000000))f|=0x10;
   }

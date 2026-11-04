@@ -398,16 +398,7 @@ private:
 	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
 };
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(Int mask);
-	Player *getEachPlayerFromMask(Int &mask);
-	Player *getNeutralPlayer() const { return m_neutralPlayer; }
-private:
-	unsigned char m_pad[0x18];
-	Player *m_neutralPlayer; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

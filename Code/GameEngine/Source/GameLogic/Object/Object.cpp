@@ -700,18 +700,7 @@ public:
     int get() const;
 };
 
-class PlayerList
-{
-public:
-	Player *getNeutralPlayer() const { return m_neutralPlayer; }
-	Player *getLocalPlayer() const { return m_localPlayer; }
-
-private:
-	unsigned char m_pad00[ 0x10 ];
-	Player *m_localPlayer; // +0x10
-	unsigned char m_pad14[ 0x18 - 0x10 - 4 ];
-	Player *m_neutralPlayer; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

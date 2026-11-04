@@ -68,7 +68,10 @@ struct Rva002A8AB1Record
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 typedef bool Bool;
-#include "subsystem_interface.h"
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 // Bind allocator<ObjectID>::deallocate to the kept retail copy.
 namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t) const; }
 // Bind to the kept retail copy instead of emitting this unit's own.
@@ -142,12 +145,7 @@ public:
     unsigned char side58[0x2ec-0x58];
     Team *defaultTeam2ec;
 };
-class PlayerList {
-public:
-    Player *getNthPlayer(int);
-    unsigned char prefix00[0x14];
-    int playerCount14;
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 

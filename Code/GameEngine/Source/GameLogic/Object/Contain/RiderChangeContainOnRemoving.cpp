@@ -89,20 +89,7 @@ extern MessageStream *TheMessageStream;
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() { return m_local; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getLocalPlayer copy loses to the first-in-order copy
-	// (no retail address); the call below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	Player *bfme_local_player() { return m_local; }
-private:
-	char m_pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
@@ -281,7 +268,7 @@ void RiderChangeContain::onRemoving(Object *rider)
 		Drawable *riderDraw = rider->getDrawable();
 		if (containDraw && riderDraw)
 		{
-			if (bike->getControllingPlayer() == ThePlayerList->bfme_local_player() && containDraw->isSelected())
+			if (bike->getControllingPlayer() == ThePlayerList->getLocalPlayer() && containDraw->isSelected())
 			{
 				GameMessage *teamMsg = TheMessageStream->appendMessage(0x3E9);
 				teamMsg->appendBooleanArgument(false);

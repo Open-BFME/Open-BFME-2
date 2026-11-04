@@ -49,14 +49,7 @@ public:
 };
 
 // ThePlayerList: +0x10 is the local player.
-class PlayerList
-{
-public:
-	Player *portraitLocalPlayer() { return m_local; }
-
-	char m_pad[0x10];
-	Player *m_local;
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class CreateAHeroData
@@ -120,7 +113,7 @@ const Image *Object::getObjectSelectedPortraitImage()
 	{
 		Rva00373EC6 *module = rva0028F4BC();
 		if (module && module->m_3C != 0 && !((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0()
-			&& ThePlayerList->portraitLocalPlayer()->getRelationship(getTeam()) == ENEMIES)
+			&& ThePlayerList->getLocalPlayer()->getRelationship(getTeam()) == ENEMIES)
 		{
 			ThingTemplate *thingTemplate = module->m_3C;
 			if (thingTemplate)

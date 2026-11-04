@@ -37,12 +37,7 @@ extern Radar *TheRadar;
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	unsigned char m_pad[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -202,8 +197,8 @@ void InGameUI::handleRadiusCursor()
 	Coord3D pos;
 
 	bool radarOn = TheRadar->m_radarForceOn ||
-		(!TheRadar->m_hidden && ThePlayerList->m_localPlayer &&
-			ThePlayerList->m_localPlayer->hasRadar());
+		(!TheRadar->m_hidden && ThePlayerList->m_local &&
+			ThePlayerList->m_local->hasRadar());
 
 	if (!radarOn || !TheRadar->screenPixelToWorld(mousePos, &pos))
 	{
@@ -211,7 +206,7 @@ void InGameUI::handleRadiusCursor()
 
 		if (TheShroudManager && ThePlayerList)
 		{
-			int playerIndex = ThePlayerList->m_localPlayer->m_playerIndex;
+			int playerIndex = ThePlayerList->m_local->m_playerIndex;
 			if (TheShroudManager->getShroudStatusForPlayer(playerIndex, &pos) != CELLSHROUD_CLEAR)
 				((TacticalView *)TheTacticalView)->screenToTerrain(mousePos, &pos, true);
 		}

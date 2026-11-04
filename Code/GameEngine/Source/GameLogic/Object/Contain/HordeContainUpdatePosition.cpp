@@ -326,11 +326,7 @@ class Object {
 };
 enum Relationship { RELATIONSHIP_ZERO = 0 };
 #include "../../../../Include/Common/Player.h"
-class PlayerList {
-  public:
-    char pad[0x10];
-    Player *local;
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 enum EvaEventID { EVA_EVENT_15 = 15 };
@@ -600,7 +596,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
                 ((StealthUpdate *)stealth)->markAsDetected(0, 1, 0, true);
             Object *eventTarget = TheGameLogic->findObjectByID((ObjectID)eventObject);
             if (eventTarget && eventTarget->isLocallyControlled() &&
-                ThePlayerList->local->getRelationship(obj) == 0)
+                ThePlayerList->m_local->getRelationship(obj) == 0)
                 TheEva->reportEvaEvent(EVA_EVENT_15, &eventTarget->pos, 0);
         } else if (falling) {
             if (drawable)

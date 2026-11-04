@@ -115,10 +115,7 @@ class Player {public:
     char beforeIndex[0x54];int index;
     char beforeTeam[0x2EC-0x58];Team *team;
 };
-class PlayerList {public:
-    Player *getNthPlayer(int);
-    char beforeCount[0x14];int count;
-};
+#include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 extern PartitionManager *TheShroudManager;
 class Rva005D8223 {public:
@@ -129,7 +126,7 @@ class Rva005D8223 {public:
 bool Rva005D8223::shouldActivate(Object *caster)
 {
     Player *enemy=0;
-    int count=ThePlayerList->count;
+    int count=ThePlayerList->m_playerCount;
     for(int i=0;i<count;++i) {
         if(!enemy) {
             Player *player=ThePlayerList->getNthPlayer(i);

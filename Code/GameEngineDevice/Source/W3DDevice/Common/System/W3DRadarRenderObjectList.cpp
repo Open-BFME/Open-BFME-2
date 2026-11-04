@@ -72,7 +72,7 @@ public:
 
 class ThingTemplate;
 #include "../../../../../GameEngine/Include/Common/Player.h"
-class PlayerList { public: Player *radarLocalPlayer() { return m_local; } char m_pad00[0x10]; Player *m_local; };
+#include "../../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Rva002A7DD0 { public: bool rva002A7DD0(); };
 class Rva00373EC6 { public: char m_pad00[0x3c]; const ThingTemplate *m_template; };
@@ -262,7 +262,7 @@ static Bool rva0004E704(Object *object, Color *color)
 		Rva00373EC6 *disguise = object->rva0028F4BC();
 		if (disguise == 0 || disguise->m_template == 0)
 		{
-			if (object->getControllingPlayer() != ThePlayerList->radarLocalPlayer() &&
+			if (object->getControllingPlayer() != ThePlayerList->getLocalPlayer() &&
 				!(UnsignedByte)object->rva002933CD() && !object->testStatus(OBJECT_STATUS_BFME_17))
 				return false;
 
@@ -374,7 +374,7 @@ void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot 
 	W3DRadarResetSurface surfaceLevel = const_cast<CursorTextureSlot *>(texture)->Get_Surface_Level();
 	SurfaceClass *surface = reinterpret_cast<SurfaceClass *>(&surfaceLevel);
 
-	Player *player = ThePlayerList->radarLocalPlayer();
+	Player *player = ThePlayerList->getLocalPlayer();
 	Int playerIndex = 0;
 	if (player)
 		playerIndex = player->getPlayerIndex();
@@ -393,7 +393,7 @@ void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot 
 			continue;
 		Bool drawFootprint = obj->getTemplate()->m_11c_bit29;
 		if (!drawRadius && reinterpret_cast<Rva0028E58E *>(obj)->rva0028E58E() == 4 &&
-			obj->getControllingPlayer() != ThePlayerList->radarLocalPlayer() &&
+			obj->getControllingPlayer() != ThePlayerList->getLocalPlayer() &&
 			reinterpret_cast<Rva002A7DD0 *>(ThePlayerList)->rva002A7DD0())
 			continue;
 
@@ -405,7 +405,7 @@ void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot 
 
 		const ThingTemplate *thingTemplate = obj->getTemplate();
 		Rva00373EC6 *disguise = obj->rva0028F4BC();
-		if (disguise && disguise->m_template && obj->getControllingPlayer() != ThePlayerList->radarLocalPlayer())
+		if (disguise && disguise->m_template && obj->getControllingPlayer() != ThePlayerList->getLocalPlayer())
 			thingTemplate = disguise->m_template;
 
 		if (thingTemplate->m_110_bit26)

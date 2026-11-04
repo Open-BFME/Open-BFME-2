@@ -10,12 +10,7 @@ class Overridable;
 class RadiusDecalTemplate;
 class Shadow;
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../Include/Common/Player.h"
@@ -125,13 +120,13 @@ void InGameUI::rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int i
 			int commandType = *(int *)((char *)m_238 + 0x14);
 			if (commandType == 0x20)
 			{
-				if (ThePlayerList && ThePlayerList->m_localPlayer)
-					obj = ThePlayerList->m_localPlayer->findNaturalCommandCenter();
+				if (ThePlayerList && ThePlayerList->m_local)
+					obj = ThePlayerList->m_local->findNaturalCommandCenter();
 			}
 			else if (commandType == 0x26)
 			{
-				if (ThePlayerList && ThePlayerList->m_localPlayer)
-					obj = ThePlayerList->m_localPlayer->rva002AC629();
+				if (ThePlayerList && ThePlayerList->m_local)
+					obj = ThePlayerList->m_local->rva002AC629();
 			}
 		}
 		if (!obj)

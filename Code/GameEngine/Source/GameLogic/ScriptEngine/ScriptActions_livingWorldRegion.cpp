@@ -140,11 +140,11 @@ private:
 extern ThingFactory *TheThingFactory;
 
 class Player;
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#ifndef BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NAME_SLOT
+#endif
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // ExperienceLevelSystem.cpp's handle: list and iterator, passed by value.
