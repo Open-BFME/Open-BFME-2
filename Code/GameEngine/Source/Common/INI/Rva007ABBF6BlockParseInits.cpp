@@ -49,7 +49,6 @@ void parsePlayerAITypeDefinition(INI *);
 void parseArmySummaryDescriptionDefinition(INI *);
 void parseInGameNotificationBoxDefinition(INI *);
 void parseFireLogicSystemDefinition(INI *);
-void parseExperienceScalarTableDefinition(INI *);
 void parseSkirmishAIDataDefinition(INI *);
 void parseAIDozerAssignmentDefinition(INI *);
 void parseLivingWorldBuildingDefinition(INI *);
@@ -129,7 +128,6 @@ public:
 	static void friend_parseEmotionNugget(INI *);
 };
 #include "../../../Include/GameClient/Eva.h"
-#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 #include "../../../Include/GameClient/FXListStore.h"
 #include "../../../Include/GameClient/FontLibrary.h"
 #include "../../../Include/Common/GlobalData.h"
@@ -284,8 +282,6 @@ BlockParse theStrategicHUDBlockParse = { 0, "StrategicHUD", StrategicHUD::ParseS
 BlockParse theInGameNotificationBoxBlockParse = { 0, "InGameNotificationBox", parseInGameNotificationBoxDefinition };	// VA 0x00DBA19C "InGameNotificationBox", parse 0x0022232E
 extern BlockParse theAptButtonTooltipMapBlockParse;	// VA 0x00DBA1CC "AptButtonTooltipMap", parse 0x00224DFF
 BlockParse theFireLogicSystemBlockParse = { 0, "FireLogicSystem", parseFireLogicSystemDefinition };	// VA 0x00DBB758 "FireLogicSystem", parse 0x002859A8
-BlockParse theExperienceLevelBlockParse = { 0, "ExperienceLevel", ExperienceLevelStore::friend_parseExperienceLevelDefinition };	// VA 0x00DBB88C "ExperienceLevel", parse 0x0028A294
-BlockParse theExperienceScalarTableBlockParse = { 0, "ExperienceScalarTable", parseExperienceScalarTableDefinition };	// VA 0x00DBB898 "ExperienceScalarTable", parse 0x00289265
 BlockParse theAIDozerAssignmentBlockParse = { 0, "AIDozerAssignment", parseAIDozerAssignmentDefinition };	// VA 0x00DBBC1C "AIDozerAssignment", parse 0x002A92F2
 BlockParse theSkirmishAIDataBlockParse = { 0, "SkirmishAIData", parseSkirmishAIDataDefinition };	// VA 0x00DBBC28 "SkirmishAIData", parse 0x002A8A31
 BlockParse theLivingWorldBuildingBlockParse = { 0, "LivingWorldBuilding", parseLivingWorldBuildingDefinition };	// VA 0x00DBD078 "LivingWorldBuilding", parse 0x002E048C
@@ -377,8 +373,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007ADB6D();
 	static void rva007ADB92();
 	static void rva007ADFCA();
-	static void rva007ADFEF();
-	static void rva007AE004();
 	static void rva007AE15A();
 	static void rva007AE16F();
 	static void rva007AE489();
@@ -528,10 +522,6 @@ BLOCK_PARSE_INIT( rva007ADB6D, theInGameNotificationBoxBlockParse )
 BLOCK_PARSE_INIT( rva007ADB92, theAptButtonTooltipMapBlockParse )
 // ?rva007ADFCA@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADFCA (21B): "FireLogicSystem"
 BLOCK_PARSE_INIT( rva007ADFCA, theFireLogicSystemBlockParse )
-// ?rva007ADFEF@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADFEF (21B): "ExperienceLevel"
-BLOCK_PARSE_INIT( rva007ADFEF, theExperienceLevelBlockParse )
-// ?rva007AE004@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE004 (21B): "ExperienceScalarTable"
-BLOCK_PARSE_INIT( rva007AE004, theExperienceScalarTableBlockParse )
 // ?rva007AE15A@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE15A (21B): "AIDozerAssignment"
 BLOCK_PARSE_INIT( rva007AE15A, theAIDozerAssignmentBlockParse )
 // ?rva007AE16F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE16F (21B): "SkirmishAIData"

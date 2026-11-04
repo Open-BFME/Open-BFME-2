@@ -5,7 +5,7 @@ Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halil
 fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40
 rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are
 file-scope objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records
-of its 0x0065D070 sibling, bridged 845 -> 719; next seat continues).
+of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -66,10 +66,10 @@ places it.
 | Grab-bag file | Rows |
 | --- | ---: |
 | `Rva007AB7F0HalfRateInits.cpp` | 425 (341 after in-o2) |
-| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3) |
+| `INI/Rva007ABBF6BlockParseInits.cpp` | 130 (90 after in-o3, 88 after in-o4) |
 | `StaticTagInitializers.cpp` | 63 (0 after in-o4) |
 | `GameNetwork/Rva007B55E0TxnNameInits.cpp` | 62 (0 after in-o4) |
-| `Rva007AD295ZeroInits.cpp` | 56 |
+| `Rva007AD295ZeroInits.cpp` | 56 (attribution notes below) |
 | `Rva007ABC6FFrameRateInits.cpp` | 31 |
 | `Rva007ABEF3ArgCtorInits.cpp` | 16 |
 | `Rva007ABBB3CtorInits.cpp` | 13 |
@@ -190,6 +190,16 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   Bridge (INITerrainBridge.cpp is approved but missing), CommandSet, ControlBarScheme,
   ControlBarResizer, CrateData, WindowTransition and DamageFX. ScriptEngine.cpp is held by another
   seat. The rest (about 85) follow the same steps once a node's unit is clear.
+- *Rowed by in-o4 (2).* ExperienceLevelSystem.cpp now defines ExperienceLevel and
+  ExperienceScalarTable as `_$E1` and `_$E3`. Both callbacks are approved to that TU in tu_map.
+  Retail's table runs 0x007ADFDF (a Drawable.h copy whose static 0x00DFECCC follows the unit's own
+  0x00DFECC8/0x00DFECC9), then 0x007ADFEF and 0x007AE004, then the unit's pool-init marker. The
+  Drawable.h copy is held by in-o2's lane. Once the unit includes Drawable.h, these two become
+  `_$E3` and `_$E5`. link_check must take the unit together with the grab-bag. Taken alone, it sees
+  the census grab-bag's copies of the nodes as duplicates.
+- *Next leads.* Use a unit's own Drawable.h copy as the anchor. Each copy is followed in `.text$yc`
+  by that unit's other initializers and then its pool-init marker. The handoff TSV names each
+  copy's unit, so any grab-bag entry between a copy and the next marker belongs to that unit.
 - *Hazard.* A unit that later takes Drawable.h, or adds a dynamic initializer before these nodes,
   moves their ordinals. Read each `_$E<n>`'s relocation target (its node) again.
 
@@ -233,6 +243,25 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   constructor-call functions, the `#pragma code_seg(".text$yc")` and the default constructor with
   its `present-unmatched` marker are gone. The type values are `const char *` globals initialized to
   a literal, so they are address constants and nothing folds. The file's hatch lines shrink by 62.
+
+**ZeroInits (56 rows): per-unit header objects (halilkkaya-in-o4, 2026-11-04, not rowed).**
+- *Target facts.* The body is `push 4; push 0; push &s; call memset; add esp, 0xC; ret`. The copies
+  come in runs of five, with consecutive statics, plus one single copy (0x007B3162). Each run of five
+  directly follows a unit's Drawable.h copy in `.text$yc`, and its statics directly follow that
+  copy's static in `.bss`. For example, 0x007B0CA7 (static 0x00E03604) is followed by 0x007B0CB7..
+  0x007B0CFF (0x00E03608..0x00E03618) and then the pool-init marker 0x007B0D11.
+- *Units.* The handoff TSV attributes the copies before the runs to these units: Locomotor,
+  StealthUpdate, UnitRevivalTracker, FadeAndDieOrnamentUpdate, AptMpGameSetup,
+  SiegeDockingBehavior, GiantBirdSlowDeathBehavior and SquishCollide, plus the FrameRate copies
+  0x007ADD08 and 0x007ADEF6. Most of these units do not compile with the canonical Drawable.h yet,
+  or they are claimed.
+- *What it is (inference).* There are five 4-byte objects per includer, each with a memset default
+  constructor. That suggests five internal-linkage `BitFlags<n <= 32>`-style objects from one header.
+  One more run, 0x007AEDE7..0x007AEE2F in `Rva007ADC9CMaskInits.cpp` (statics 0x00E01EC0..0x00E01ED0),
+  is read and written: the GiantBirdAIUpdate constructor 0x0036B717 ORs flag bits into all five, and
+  the giant-bird states read them. The header is not identified yet.
+- *Next.* Identify the header from the giant-bird AI sources. Then each run moves with its unit's
+  Drawable.h copy, in the same lane as HalfRate.
 
 **How to attribute a TU.**
 - Neighbouring entries in retail's table that are already registered by a known object bound the run.

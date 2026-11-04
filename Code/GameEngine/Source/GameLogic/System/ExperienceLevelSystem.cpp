@@ -1369,3 +1369,29 @@ void Rva00289371HashTable::deleteNode(Node *node)
 // tu-skeleton: 0x0077426E 8B Unwind@00b7426e -- matched in Code/GameEngine/Source/GameLogic/System/ExperienceLevelStoreAddExperienceLevel.cpp (not merged yet)
 
 // tu-skeleton: 0x00774276 10B __ehhandler$?AddExperienceLevel@ExperienceLevelStore@@QAEXPAXPBUBfmePod264@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ExperienceLevelStoreAddExperienceLevel.cpp (not merged yet)
+
+// INI block registrations (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this unit's
+// entries 0x007ADFDF (its Drawable.h copy, whose static 0x00DFECCC follows
+// this unit's 0x00DFECC8/0x00DFECC9), 0x007ADFEF and 0x007AE004 (nodes
+// 0x00DBB88C and 0x00DBB898 in definition order), then its pool-init marker.
+void parseExperienceScalarTableDefinition( INI *ini );
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theExperienceLevelBlockParse( "ExperienceLevel", ExperienceLevelStore::friend_parseExperienceLevelDefinition );
+BlockParse theExperienceScalarTableBlockParse( "ExperienceScalarTable", parseExperienceScalarTableDefinition );
