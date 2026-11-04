@@ -15,23 +15,12 @@ private:
 	unsigned char m_pad[0xC];
 };
 
-class UpgradeMux
-{
-	friend class UpgradeModule;
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
-private:
-	bool m_upgradeExecuted;
-};
-
-class UpgradeModule : public BehaviorModule
+class UpgradeModule : public BehaviorModule, public UpgradeMux
 {
 protected:
 	virtual void xfer(Xfer *xfer);
-
-private:
-	UpgradeMux m_mux10;
 };
 
 #include "../../../../Include/Common/Rva001EAE6FHelper.h"
@@ -144,7 +133,7 @@ void UpgradeModule::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	BehaviorModule::xfer(xfer);
-	m_mux10.UpgradeMux::upgradeMuxXfer(xfer);
+	UpgradeMux::upgradeMuxXfer(xfer);
 }
 
 bool Rva004CE2B0::rva004CE2B0(Rva00406F9C *mask)

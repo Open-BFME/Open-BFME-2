@@ -21,34 +21,7 @@
 // Retail's attemptUpgrade pops one dword (ret 4) and forwards it unchanged,
 // so BFME2 passes the mask by reference, not by value as ZH does.
 
-template <int NUMBITS> class BitFlags
-{
-private:
-	unsigned int m_bits[NUMBITS / 32];
-};
-
-typedef BitFlags<128> UpgradeMaskType;
-
-class UpgradeMux
-{
-public:
-	void giveSelfUpgrade();
-
-	virtual bool isAlreadyUpgraded() const;
-	virtual bool attemptUpgrade(const UpgradeMaskType &keyMask);
-	virtual bool wouldUpgrade(const UpgradeMaskType &keyMask) const;
-	virtual void slot03();
-	virtual void slot04();
-	virtual void forceRefreshUpgrade();
-	virtual void postUpgradeCheck();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void upgradeImplementation();
-
-private:
-	bool m_upgradeExecuted; // +4
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 // ?isAlreadyUpgraded@UpgradeMux@@UBE_NXZ @0x00098CBC
 bool UpgradeMux::isAlreadyUpgraded() const
@@ -71,7 +44,7 @@ void UpgradeMux::postUpgradeCheck()
 }
 
 // ?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z @0x004CE27C
-bool UpgradeMux::attemptUpgrade(const UpgradeMaskType &keyMask)
+bool UpgradeMux::attemptUpgrade(const BitFlags<128> &keyMask)
 {
 	if (wouldUpgrade(keyMask))
 	{
