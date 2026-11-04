@@ -25,14 +25,7 @@ private:
 	char _t[0x18];
 };
 
-class DX8IndexBufferClass : public RefCountClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-	DX8IndexBufferClass(Uint count, UsageType u);
-private:
-	char _t[0x10];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 class TextureBaseClass
 {

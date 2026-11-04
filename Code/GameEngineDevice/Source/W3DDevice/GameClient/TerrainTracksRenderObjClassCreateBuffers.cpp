@@ -17,14 +17,7 @@ typedef unsigned char Bool;
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
-class DX8IndexBufferClass : public RefCountClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-	DX8IndexBufferClass(Uint count, UsageType u);
-private:
-	char _t[0x10];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 class BfmeDynamicNativeVB : public RefCountClass
 {
 public:

@@ -19,14 +19,7 @@ public:
 private:
 	char _t[0x18];
 };
-class DX8IndexBufferClass : public RefCountClass
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0, USAGE_DYNAMIC = 1 };
-	DX8IndexBufferClass(Uint count, UsageType u);
-private:
-	char _t[0x10];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class W3DProjectedShadowManager
