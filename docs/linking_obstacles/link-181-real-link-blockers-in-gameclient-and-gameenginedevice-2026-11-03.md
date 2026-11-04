@@ -285,3 +285,5 @@ W3DTerrainVisual's.
   containers in both the constructor and destructor views, together with their EH funclets.
 
 **Row 0x001EC981 re-identified (2026-11-04).** Done as this entry's fix proposed, plus the real terrain pair it left open; evidence and remaining census check in LINK-090. Not done: rehoming 0x001EC98E, 0x001EC99B, 0x001EC9AC's address-named classes.
+
+2026-11-04: the W3DGameClient newDrawable and createGameDisplay (0x0008FCAE) items are resolved pending census; see LINK-179's 2026-11-04 line.

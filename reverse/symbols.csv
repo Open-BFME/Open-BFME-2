@@ -1684,7 +1684,6 @@ name,address,notes
 ??0VideoBuffer@@QAE@H@Z,0x00689140,callee of 0W3DVideoBuffer (0x000726B0) at the site its BFME1 donor calls it; may be an ICF alias
 ??0W3DAnimationInfo@@QAE@ABV0@@Z,0x0004254E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0W3DBuffDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CEDE1,(Thing*;ModuleData*) ctor called by W3DBuffDraw::friend_newModuleInstance (0x00064C5C); class from the ModuleFactory registration literal
-??0W3DDisplay@@QAE@XZ,0x00104EBF,callee of ?createGameDisplay@W3DGameClient@@MAEPAVDisplay@@XZ at retail 0x0008FCD7 read from its REL32 displacement; W3DDisplay constructor body unrowed
 ??0W3DLaserDrawModuleData@@QAE@XZ,0x000C9A6F,frameless ctor with E16 vector at +0x2C plus member construct at +0x4C and laser field inits; Laser factory at 0x64962 news 0x74 and calls it
 ??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CEEC0,(Thing*;ModuleData*) ctor called by W3DPropDraw::friend_newModuleInstance (0x00064CE5); class from the ModuleFactory registration literal
 ??0W3DRadarResetSurface@@QAE@IIII@Z,0x001165D0,address from the retail call in getBackBufferSurface006e; the body there is held as SurfaceClass(unsigned; unsigned; WW3DFormat; D3DPOOL) and this unit models the same holder under another name
@@ -5856,7 +5855,6 @@ name,address,notes
 ?negative_sign@?$moneypunct@G$00@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA70,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
 ?negative_sign@?$moneypunct@G$0A@@_STL@@QBE?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@XZ,0x0000EA70,STLport wide moneypunct getter; retail money_get<wchar_t>::do_get(string_type) calls this address; ICF-folded with the narrow getter
 ?newBenchProfile@RetailGameLODManager@?1??parseBenchProfile@INI@@SAXPAV3@@Z@QAEPAUBenchProfile@@XZ,0x0020200D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?newDrawable@BFMEThingFactory@@QAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@H@Z,0x002CF21B,read from the REL32 at 0x0004C805 in the placed W3DGameClient::createRayEffectByTemplate (0x0004C7F0) - Zero Hour's TheThingFactory->newDrawable call; body rowed as ?rva002CF21B@Rva002CF21B (null template returns 0 then TheGameClient slot 0x70)
 ?note@Rva00056BFESub@@QAEXH@Z,0x00056BFE,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
 ?note@Rva00212858Sub@@QAEXH@Z,0x00212858,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
 ?note@Rva0053F1ECSub@@QAEXH@Z,0x0053F1EC,opaque alias of the rowed Armor hashtable resize at the same address; identity unproven

@@ -44,3 +44,5 @@ repoints the split tool applied to `functions.csv`, `tu_map.csv` and the doxygen
 list. No linking, debt or census gain is claimed.
 
 2026-11-04: canonical factory adoption now reaches object generation; five rows stay exact, but refuted display factory8FCAE allocates DC instead of D8 with the canonical base. Reverted; paired display identity/TU correction is the next prerequisite. [Trial and restored checks](../../reverse/attempt_support/w3d-gameclient-factory-adoption-20261104/README.md).
+
+2026-11-04 (later): resolved pending census. 0x0008FCAE is respelled `Rva008FCA3::rva0008FCAE` (`new Rva00104DB0`), the anchor stops emitting ZH's createGameDisplay, the banked canonical ThingFactory patch applies, and pins 104EBF/BFMEThingFactory go. 6/6 exact; the preview has no unresolved or wrong-selected names, only the index-stale setFrameRate duplicate. Next census must cover this unit and VtableSlotBodiesR3F.cpp. [Evidence](../../reverse/attempt_support/w3d-gameclient-display-reidentify-20261104/README.md).
