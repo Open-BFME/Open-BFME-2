@@ -14,21 +14,7 @@
 // proves the shape). Their bodies live in MixFileInfoBufferUnlink.cpp, which
 // rows ?bfmeUnlink. Rowed releaseInto supersedes the bare pin at 0x0052DD41.
 
-class MixFileInfoBuffer
-{
-public:
-	MixFileInfoBuffer();
-	void releaseInto(void *head);
-
-private:
-	void bfmeUnlink(void) throw();
-	void bfmeLinkInto(MixFileInfoBuffer **head) throw();
-	friend void Rva0052DBCDInit(void);
-
-	char m_bfmeHead[0x34];
-	MixFileInfoBuffer *m_bfmeNext; // +0x34
-	MixFileInfoBuffer **m_bfmePrevNext; // +0x38
-};
+#include "../../Include/Common/MixFileInfoBuffer.h"
 extern int TheMixFileInfoCount;
 // TheMixFileInfoCount: VA 0xe049d4 (zero-filled .bss).
 int TheMixFileInfoCount;
@@ -41,21 +27,21 @@ extern int TheMixFileInfoPool;
 
 MixFileInfoBuffer::MixFileInfoBuffer()
 {
-	m_bfmeNext = 0;
-	m_bfmePrevNext = 0;
+	field34 = 0;
+	field38 = 0;
 }
 
 // ?bfmeLinkInto@MixFileInfoBuffer@@AAEXPAPAV1@@Z @0x52DBA4
 void MixFileInfoBuffer::bfmeLinkInto(MixFileInfoBuffer **head) throw()
 {
-	if (m_bfmePrevNext)
+	if (field38)
 		bfmeUnlink();
 
-	m_bfmePrevNext = head;
-	m_bfmeNext = *head;
+	field38 = head;
+	field34 = *head;
 
-	if (m_bfmeNext)
-		m_bfmeNext->m_bfmePrevNext = &m_bfmeNext;
+	if (field34)
+		field34->field38 = &field34;
 
 	*head = this;
 }
@@ -63,7 +49,7 @@ void MixFileInfoBuffer::bfmeLinkInto(MixFileInfoBuffer **head) throw()
 // ?releaseInto@MixFileInfoBuffer@@QAEXPAX@Z @0x52DD41
 void MixFileInfoBuffer::releaseInto(void *head)
 {
-	if (m_bfmePrevNext)
+	if (field38)
 		bfmeUnlink();
 
 	bfmeLinkInto((MixFileInfoBuffer **)head);

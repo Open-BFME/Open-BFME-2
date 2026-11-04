@@ -108,12 +108,7 @@ typedef int Int;
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 
-class MixFileInfoBuffer
-{
-public:
-	char m_pad[0x14];
-	void *m_arr[16];
-};
+#include "../../../Include/Common/MixFileInfoBuffer.h"
 
 struct In002E6BA1
 {
@@ -341,8 +336,8 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 		node->m_0C = cell;
 		node->m_08 = m_08;
 		node->m_04 = ((Outer00 *)m_00)->m_14;
-		node->m_00 = ((MixFileInfoBuffer *)cell->m_info)->m_arr[m_04];
-		((MixFileInfoBuffer *)cell->m_info)->m_arr[m_04] = node;
+		node->m_00 = ((MixFileInfoBuffer *)cell->m_info)->field14[m_04];
+		((MixFileInfoBuffer *)cell->m_info)->field14[m_04] = node;
 		((Outer00 *)m_00)->m_14 = cell;
 	}
 	return 0;

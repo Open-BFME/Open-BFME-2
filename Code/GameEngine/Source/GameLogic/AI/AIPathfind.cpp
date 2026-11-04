@@ -625,24 +625,7 @@ void Rva0052DBCDInit(void);
 // there; this unit reads it as the buffer-list head pointer).
 extern int TheMixFileInfoPool;
 class Rva002E6BA1;
-class MixFileInfoBuffer
-{
-private:
-	friend class Rva002E6BA1;
-public:
-	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
-private:
-	void bfmeUnlink();
-public:
-	int x; // +0x00
-	int y; // +0x04
-	char m_pad08[0x4];
-	Int m_0C; // +0x0C
-	unsigned short m_totalCost; // +0x10
-	unsigned short m_costSoFar; // +0x12
-	char m_pad14[0x18];
-	unsigned int m_flags; // +0x2C
-};
+#include "../../../Include/Common/MixFileInfoBuffer.h"
 class Rva002E8B9B
 {
 public:

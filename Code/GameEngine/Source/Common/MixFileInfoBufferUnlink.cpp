@@ -4,40 +4,28 @@
 // buffer through its backlink (+0x38) and next (+0x34) fields, zeroing both.
 // Split from MixFileInfoBuffer_releaseInto.cpp, which must keep the helpers
 // declared-only (same-TU definitions let the compiler trust ecx across the
-// call; retail homes this in esi). The sibling ?bfmeLinkInto definition rides
-// along present-unmatched; its row lives in the releaseInto TU. Donor:
+// call; retail homes this in esi). The sibling ?bfmeLinkInto definition and
+// its row live in MixFileInfoBuffer.cpp. Donor:
 // Open-BFME-1 Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
 // with the link fields shifted +8.
 
-class MixFileInfoBuffer
-{
-public:
-	void releaseInto(void *head);
-
-private:
-	__declspec(noinline) void bfmeUnlink(void);
-	__declspec(noinline) void bfmeLinkInto(MixFileInfoBuffer **head);
-
-	char m_bfmeHead[0x34];
-	MixFileInfoBuffer *m_bfmeNext; // +0x34
-	MixFileInfoBuffer **m_bfmePrevNext; // +0x38
-};
+#include "../../Include/Common/MixFileInfoBuffer.h"
 
 extern int TheMixFileInfoCount;
 
 // ?bfmeUnlink@MixFileInfoBuffer@@AAEXXZ @0x2E6BE2
-void MixFileInfoBuffer::bfmeUnlink(void)
+void MixFileInfoBuffer::bfmeUnlink(void) throw()
 {
-	if (m_bfmePrevNext)
+	if (field38)
 	{
-		*m_bfmePrevNext = m_bfmeNext;
+		*field38 = field34;
 
-		if (m_bfmeNext)
-			m_bfmeNext->m_bfmePrevNext = m_bfmePrevNext;
+		if (field34)
+			field34->field38 = field38;
 
-		m_bfmePrevNext = 0;
-		m_bfmeNext = 0;
+		field38 = 0;
+		field34 = 0;
 	}
 }
 
-// MixFileInfoBuffer::bfmeLinkInto: defined in MixFileInfoBuffer_releaseInto.cpp (its row's unit).
+// MixFileInfoBuffer::bfmeLinkInto: defined in MixFileInfoBuffer.cpp (its row's unit).

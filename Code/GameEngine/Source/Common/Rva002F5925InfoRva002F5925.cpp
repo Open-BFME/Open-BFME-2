@@ -19,24 +19,7 @@ struct In002E6BA1
 };
 
 class Rva002E6BA1;
-class MixFileInfoBuffer
-{
-private:
-	friend class Rva002E6BA1;
-public:
-	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
-private:
-	void bfmeUnlink();
-public:
-	int x; // +0x00
-	int y; // +0x04
-	char m_pad08[0x4];
-	Int m_0C; // +0x0C
-	unsigned short m_totalCost; // +0x10
-	unsigned short m_costSoFar; // +0x12
-	char m_pad14[0x18];
-	unsigned int m_flags; // +0x2C
-};
+#include "../../Include/Common/MixFileInfoBuffer.h"
 
 extern int TheMixFileInfoPool;
 void Rva0052DBCDInit(void);
@@ -66,9 +49,9 @@ public:
  Bool getBit23()const{return ((m_flags>>23)&1)!=0;}
  Int getLayer() const { return (m_flags >> 4) & 0x3F; }
 	Bool getBit21() const { return ((m_flags >> 21) & 1) != 0; }
-	int getCostSoFar() const { return m_info->m_costSoFar; }
-	void setCostSoFar(unsigned short cost) { m_info->m_costSoFar = cost; }
-	void setTotalCost(unsigned short cost) { m_info->m_totalCost = cost; }
+	int getCostSoFar() const { return m_info->field12; }
+	void setCostSoFar(unsigned short cost) { m_info->field12 = cost; }
+	void setTotalCost(unsigned short cost) { m_info->field10 = cost; }
 	__forceinline void allocateInfo(In002E6BA1 *coord)
 	{
 		if (!m_info)
@@ -212,7 +195,7 @@ int Rva002F5925Info::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
 {
  if(PathfinderSearchCellsVisited>TheWritableGlobalData->m_maxCellsToExamineTowardsGoal)return 1;
  ++PathfinderSearchCellsVisited;
- if(range>0){int dx=x-cellView(goal)->m_info->x;int dy=y-cellView(goal)->m_info->y;if((dx*dx+dy*dy)*100<range*range)return 1;}
+ if(range>0){int dx=x-cellView(goal)->m_info->field00;int dy=y-cellView(goal)->m_info->field04;if((dx*dx+dy*dy)*100<range*range)return 1;}
  Coord3D point;point.x=(float)(x*10);point.y=(float)(y*10);
  if(TheTriggerManager->isBurning(point))return 1;
  Pathfinder *localPathfinder=pathfinder;
