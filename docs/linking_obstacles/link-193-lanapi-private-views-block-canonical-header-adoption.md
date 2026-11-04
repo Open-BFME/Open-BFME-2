@@ -6,3 +6,5 @@ Evidence: [cohort diagnostics and accepted scope](../../reverse/attempt_support/
 Clearance: OnNameChange adoption only; broader class scope remains open. Census confirmation: awaiting; no headline gain claimed.
 
 2026-11-04: LANGameInfoParseGameOptionsString.cpp adopts LANAPI.h with the native low-byte AmIHost check; 7/7 rows and EH remain exact, acceptance retires one header row, ordinary preview LINKS 607 -> 607 B. Six newly tried callers still need view/declaration reconciliation: [evidence](../../reverse/attempt_support/lan-options-header-20261104-codexb5.md).
+
+2026-11-04: LANPlayer_copy.cpp and LANGameInfo.cpp adopt LANPlayerClass.h and BfmeNetAddress.h (rows exact, 5 header rows retired); LANAPI.cpp, LANAPIhandlers.cpp and ChatWindowsLan.cpp still wait on BfmeNetAddress's base/constructors and a word-port record constructor: [evidence](../../reverse/attempt_support/lanplayer-header-adoption-20261104-claudec2.md).
