@@ -263,3 +263,42 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
   - 0x0046A9AB has 5 rel32 callers. One is this operator[], at 0x004D2957.
   - The `<ushort,AsciiString>` name at 0x00156680 is therefore unproven. That identity decision still
     comes before the ICF twin rows.
+
+#### Seat halilkkaya-lk25 follow-up (2026-11-04, real link 41841709801 at `9c227365cd`)
+
+- **LockWeaponCreate.cpp (2): not attempted.** It hits the same blocker as `CreateModuleXfer.cpp`
+  (`81c3965951`). This unit defines the constructor, so `--to-class onBuildComplete` needs every
+  emitted table to match 0x00C592FC/0x00C592EC. That needs the full canonical
+  CreateModule/BehaviorModule vtable class, starting with BehaviorModule.h's base xfer. The sibling
+  ctor units carry the same placeholder name getters (ConstIntGetters4.cpp). Recorded in
+  re_attempts.log.
+- **ConnectionManager.cpp (2): new evidence on 0x00156680's identity; no source change.**
+  - Why the two bodies did not fold: 0x00156680 is in a 16-byte-aligned, int3-padded run, the
+    WW3D2 font code. 0x0046A9AB is unpadded /O1 code. The 39 bytes are identical, so the
+    sections' different alignment is the likely reason ICF kept both.
+  - Its neighbours are FontCharsClass's map, not an AsciiString map:
+    - the ledger spells `_M_find` 0x001559C0 and `find` 0x00156F80 as `<ushort,AsciiString>`;
+    - `_M_find` is called by `FontCharsClass::Get_Char_Data` 0x00158520 (and by the unreferenced
+      `find`);
+    - Get_Char_Data reads the node's value at +0x14 as a `FontCharsClassCharDataStruct const *`
+      and tests it against 0 and -1;
+    - so that tree is FontCharsClass's ushort -> char-data map at this+0x450.
+  - Conclusion: the `<ushort,AsciiString>` spellings of 0x001559C0, 0x00156F80 and the
+    unreferenced 0x00156680 are this TU's anchor placeholders. That is a structural inference.
+    The exact value spelling is unproven: const or not, and struct or class
+    (FontCharsClassGetCharData.cpp aliases both).
+  - The same run holds the whole family under mixed spellings, all rowed in ConnectionManager.cpp:
+    `<ushort,int>` operator[] 0x00157DD0 (its one caller is `FontCharsClass::Store_Thai_GDI_Glyph`
+    0x00157FF0), `_M_insert`/`insert_unique` 0x00157130/0x001571E0/0x00157520, `map::insert`
+    0x00157AD0, and `<ushort,AsciiString>` `lower_bound` 0x001574F0, `_M_lower_bound` 0x00156680,
+    `find` 0x00156F80 and `_M_find` 0x001559C0. Several of them have no caller at all, so this run
+    keeps unreferenced instantiations. BFME 1's view (donor lead only,
+    `FontCharsClass_Get_Char_Data_BFME.cpp`) holds `const FontCharsClassCharDataStruct *` values.
+  - Next, in this order:
+    1. Prove the value type from the map's insert/subscript in the FontCharsClass store path.
+    2. Rename that family.
+    3. Add `_M_lower_bound<ushort,AsciiString>` as an ICF twin at 0x0046A9AB
+       (`fold-proof=`).
+    4. Let operator[] reach it through plain STLport and drop the `Rva0046A9ABMapLowerBound` pin.
+  - The insert half stays blocked on 0x0016E310
+    (`reverse/attempt_support/connectionmanager-filecommandmap-chain-20261103/README.md`).
