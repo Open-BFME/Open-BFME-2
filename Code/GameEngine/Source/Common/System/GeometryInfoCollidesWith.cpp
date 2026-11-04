@@ -49,8 +49,20 @@ struct GeometryContactVector {
 // The rowed 006BE220 consumer copies through that returned address.
 // This neutral pointer-return ABI view reconciles provider and consumer;
 // pointer return versus hidden aggregate return in the original source is unproved.
-struct Rva0087E900Coord { float x,y,z; };
-struct Rva0087E900Shape { char pad[0x10]; Rva0087E900Coord offset; };
+struct Rva0087E900Coord
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
+struct Rva0087E900Shape
+{
+public:
+	void rva006BE220(const Rva0087E900Coord *position, float angle, Rva0087E900Coord *dest);
+	char m_pad00[0x10];
+	Rva0087E900Coord offset; // +0x10
+};
 extern "C" double __cdecl sin(double angle);
 extern "C" double __cdecl cos(double angle);
 Rva0087E900Coord *Rva0087E900(Rva0087E900Coord *out,
