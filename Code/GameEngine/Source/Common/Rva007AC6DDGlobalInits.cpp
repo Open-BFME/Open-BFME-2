@@ -421,27 +421,6 @@ void rva007AE614()
 	atexit(rva007B7A9B);
 }
 
-// ?rva007B6800@@YAXXZ @0x007B6800 15B: Vector3Randomizer::Randomizer (VA
-// 0x00E1D070, v3_rnd.cpp) built as Random3Class(0, 0) through the pinned
-// ctor 0x006200B0 (ICF-folded with a hashtable iterator ctor); no cleanup.
-class Random3Class
-{
-public:
-	Random3Class(unsigned int seed1 = 0, unsigned int seed2 = 0);
-};
-void rva007B6800();
-class Vector3Randomizer
-{
-	friend void rva007B6800();
-protected:
-	static Random3Class Randomizer;
-};
-
-void rva007B6800()
-{
-	new (&Vector3Randomizer::Randomizer) Random3Class(0, 0);
-}
-
 // ?rva007B3E9E@@YAXXZ @0x007B3E9E 11B and ?rva007B3EA9@@YAXXZ @0x007B3EA9 11B:
 // a second unit's copies of the DefaultModuleKey<6>/DefaultModuleName<6>
 // VALUE initializers (FXParticleSystemDefaults.cpp rows the first copies at

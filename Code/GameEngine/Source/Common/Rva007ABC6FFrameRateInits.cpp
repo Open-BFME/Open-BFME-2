@@ -49,7 +49,6 @@ extern int g_00E063E0;
 int g_00E063E0 = 0;	// owned here; retail .data starts it at 0
 extern int g_00E063E8;
 int g_00E063E8 = 0;	// owned here; retail .data starts it at 0
-extern int TheW3DFrameLengthInMsec;
 extern int g_Va00DFE18C;
 extern int BfmeSlavedUpdateIntervalFrames;
 extern unsigned g_00E063CC;
@@ -74,7 +73,6 @@ static int s_rva007B1328;
 struct Rva007ABC6FFrameRateInits
 {
 	static void rva007ABC6F();
-	static void rva007AC08C();
 	static void rva007AD7F3();
 	static void rva007ADD08();
 	static void rva007ADD72();
@@ -93,10 +91,8 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007B07F5();
 	static void rva007B08B2();
 	static void rva007B0BA0();
-	static void rva007B0C0F();
 	static void rva007B1122();
 	static void rva007B1328();
-	static void rva007B15B2();
 	static void rva007B1A27();
 	static void rva007B3B50();
 	static void rva007B3FCA();
@@ -110,12 +106,6 @@ struct Rva007ABC6FFrameRateInits
 void Rva007ABC6FFrameRateInits::rva007ABC6F()
 {
 	g_00DE1B50 = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007AC08C@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AC08C (18B): global at VA 0x00DE204C, named as the TU that reads it names it
-void Rva007ABC6FFrameRateInits::rva007AC08C()
-{
-	TheW3DFrameLengthInMsec = 1000 / BfmeClientFramesPerSecond;
 }
 
 // ?rva007AD7F3@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AD7F3 (14B): global at VA 0x00DFE18C, named as the TU that reads it names it
@@ -226,12 +216,6 @@ void Rva007ABC6FFrameRateInits::rva007B0BA0()
 	s_rva007B0BA0 = BfmeLogicFramesPerSecond / 4;
 }
 
-// ?rva007B0C0F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B0C0F (16B): global at VA 0x00E035C8, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007B0C0F()
-{
-	g_00E035C8 = BfmeLogicFramesPerSecond / 2;
-}
-
 // ?rva007B1122@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B1122 (16B): TU-local static at VA 0x00E037D0, never read in .text
 void Rva007ABC6FFrameRateInits::rva007B1122()
 {
@@ -242,12 +226,6 @@ void Rva007ABC6FFrameRateInits::rva007B1122()
 void Rva007ABC6FFrameRateInits::rva007B1328()
 {
 	s_rva007B1328 = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007B15B2@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B15B2 (11B): global at VA 0x00E03994, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007B15B2()
-{
-	g_00E03994 = BfmeLogicFramesPerSecond;
 }
 
 // ?rva007B1A27@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B1A27 (17B): global at VA 0x00E03BBC, named as the TU that reads it names it
