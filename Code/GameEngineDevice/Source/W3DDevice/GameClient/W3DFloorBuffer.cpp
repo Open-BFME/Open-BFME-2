@@ -89,21 +89,9 @@ public:
 	void *buffer;
 	BfmeDynamicNativeVB(unsigned a, unsigned short b, unsigned c, unsigned d);
 };
-class DX8IndexBufferClass
-{
-public:
-	enum UsageType
-	{
-		USAGE_DEFAULT = 0,
-		USAGE_DYNAMIC = 1
-	};
-	virtual void DeleteThis();
-	virtual ~DX8IndexBufferClass();
-	int m_references;
-	char m_pad08[0x18 - 8];
-	void Release_Ref() { if (--m_references == 0) DeleteThis(); }
-	DX8IndexBufferClass(unsigned index_count, UsageType usage);
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 // The Xfer virtual declaration follows the already verified E5725 provider.
 // Only Version is stored here; the geometry types are reference parameters.
 class Xfer;
@@ -265,29 +253,7 @@ private:
 	AssetReference m_asset;
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
-
-namespace FXShader {
-class RenderingMethod : public RefCountClass
-{
-public:
-	virtual void slot1();
-	virtual bool Begin(int *passCount, int flags);	// slot 2
-	virtual void Begin_Pass(int pass);	// slot 3
-	virtual void slot4();
-	virtual void End_Pass(void);	// slot 5
-	virtual void End(void);	// slot 6
-};
-}
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderingMethod.h"
 
 typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
 
@@ -598,21 +564,6 @@ public:
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 
 	void *m_handle;
-};
-
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(IndexBufferClass *index_buffer, int flags);
-		~WriteLockClass();
-
-		IndexBufferClass *m_buffer; // +0
-		void *m_vertices; // +4
-		BFMEDX8DeviceLock m_deviceLock; // +8
-	};
 };
 
 class VertexBufferClass
@@ -1523,7 +1474,7 @@ void Rva000E58BE::rva000E58BE()
 	IndexBufferClass::WriteLockClass indexLock(m_indexBuffer, 0x2000);
 	VertexBufferClass::WriteLockClass vertexLock(m_vertexBuffer, 0x2000);
 	void *vertexData = vertexLock.m_vertices;
-	void *indexData = indexLock.m_vertices;
+	void *indexData = indexLock.Get_Index_Array();
 	for (Rva000E58BEListNode *node = m_listHead->m_next; node != m_listHead; node = node->m_next)
 		node->m_owner->rva000E585F(indexData, vertexData, &m_count10, &m_countC);
 }
