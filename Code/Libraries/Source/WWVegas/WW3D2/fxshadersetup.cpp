@@ -349,7 +349,12 @@ public:
 #include "BfmeResetTextureRef.h"
 
 // Reference holder for the shader asset (placeholder-named in the ledger).
-class Rva001514B2 { public: void *rva001514B2(int, int); };
+class Rva001514B2
+{
+public:
+	void *rva001514B2(int, int);
+	char m_pad00[0x18];
+};
 
 class Rva0015148D
 {

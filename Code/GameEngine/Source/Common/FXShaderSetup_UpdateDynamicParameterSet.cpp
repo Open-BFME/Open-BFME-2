@@ -21,9 +21,8 @@ public:
 class Rva001514B2
 {
 public:
-	void *rva001514B2(int a, int b);
-private:
-	char m_pad[0x18];
+	void *rva001514B2(int, int);
+	char m_pad00[0x18];
 };
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
