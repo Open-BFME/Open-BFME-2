@@ -822,24 +822,25 @@ void CreateObjectDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x00485B9C 28B ??0Rva00485B9C@@QAE@HABH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
-// tu-skeleton: 0x00485D88 82B ??0CreateObjectDieModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataCtor.cpp (not merged yet)
+// Snapshot's destructor is an inline virtual in BFME 2 (0x0049B47C is its
+// folded out-of-line copy): the CreateObjectDieModuleData destructor
+// 0x00485DDA ends by restoring Snapshot's table 0x00BBB554 in place.
+inline Snapshot::~Snapshot() {}
 
-// tu-skeleton: 0x00485DDA 63B ??1CreateObjectDieModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataDtor.cpp (not merged yet)
+// 0x00485D88: DebrisPortionOfSelf's string is cleared in the body, after
+// the members are built (UpgradeRequired at +0x40 is a vector<AsciiString>).
+CreateObjectDieModuleData::CreateObjectDieModuleData()
+	: m_ocl(NULL)
+{
+	m_debrisPortionOfSelf.clear();
+}
 
-// tu-skeleton: 0x00485E19 55B ??0CreateObjectDieIfEldestKindofModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataCtor.cpp (not merged yet)
+// The destructors 0x00485DDA and 0x00485E88 are compiler-generated: neither
+// stores its own table on entry, which a declared destructor does.
 
-// tu-skeleton: 0x00485E88 59B ??1CreateObjectDieIfEldestKindofModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BFE7 8B $L4826 -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BFEF 11B Unwind@00b8bfef -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataCtor.cpp (not merged yet)
+// 0x00485E19
+CreateObjectDieIfEldestKindofModuleData::CreateObjectDieIfEldestKindofModuleData()
+{
+}
 
 // tu-skeleton: 0x0078BFFA 11B uw_0078bffa -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C005 10B __ehhandler$??0CreateObjectDieModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C00F 8B Unwind@00b8c00f -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C017 11B Unwind@00b8c017 -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C022 10B __ehhandler$??1CreateObjectDieModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieModuleDataDtor.cpp (not merged yet)
