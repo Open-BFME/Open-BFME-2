@@ -11,3 +11,7 @@ Normal verification passes22/22 remaining ThingTemplate rows after retraction (2
 ## Native dependency admission
 
 Plain insertion admission correctly refused its unbound Value node-builder callee and restored the append. Rather than add pins, admit the already-proved compiler bodies in dependency order through add_match with explicit existing ICF owners: typed construct358CA0/45B, node358DA0/34B, then plain insertion358E9F/148B. These first two carry complete body and relocation/EH equivalence and add no unique coverage. The45-byte construct now passes normal46/46 source verification using the existing Rva00358CA0Construct owner; its independently verified EH graph is exact. No Code, alias or pin is added. Each body is banked in its own commit before continuing; publish only the complete restored batch.
+
+## Completed final admission
+
+After separate45B/34B dependency commits, plain add_match accepts the148B insertion in approved HotKey.cpp. The final batch restores coverage with one insertion owner, synchronizes one map source cell and retires one redundant pin through hatch_counters; Record binding remains. Normal72/72, strict frozen, nine HotKey EH graphs and final guard pass. Preview predicts+147 linking bytes; official census unchanged. See [outgoing audit](outgoing-audit.md).

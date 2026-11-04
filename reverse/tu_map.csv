@@ -27121,7 +27121,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00358DFD,41,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358E26,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358E26,68,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358E6A,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358E6A,53,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358E9F,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
-0x00358E9F,148,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358F33,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp
+0x00358E9F,148,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358F33,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358F33,17,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358F44,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 0x00358F44,56,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358F7C,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp
 0x00358F7C,41,code,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp,approved,C,C=0x00358CCD..0x00358FA5,Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
