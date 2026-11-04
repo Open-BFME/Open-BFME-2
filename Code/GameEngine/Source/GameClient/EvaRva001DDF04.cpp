@@ -83,14 +83,7 @@ struct Arg001DCDAF
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *evaLocalPlayer() { return m_local; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local;				// +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 struct EvaWorldMapPlayer
@@ -200,7 +193,7 @@ void Eva::rva001DDF04()
 			else
 			{
 				inLivingWorld = 0;
-				localPlayerRTS = ThePlayerList->evaLocalPlayer();
+				localPlayerRTS = ThePlayerList->getLocalPlayer();
 				if (localPlayerRTS == 0)
 					return;
 				side = localPlayerRTS->m_side;

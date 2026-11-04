@@ -146,15 +146,7 @@ public:
 	void preTeamDestroy(int team);
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-	int getPlayerCount() const { return m_playerCount; }
-private:
-	char m_00[0x14];
-	int m_playerCount;
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/Common/TeamFactory.h"

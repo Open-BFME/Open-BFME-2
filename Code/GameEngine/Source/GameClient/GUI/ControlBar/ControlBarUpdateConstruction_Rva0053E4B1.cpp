@@ -74,7 +74,7 @@ public:
 	RVA0053EB81_VIRTUAL(pad52) RVA0053EB81_VIRTUAL(pad53)
 	virtual bool rva0053EB81SlotD8();
 	RVA0053EB81_VIRTUAL(pad55)
-	virtual int rva0053EB81SlotE0();
+	virtual class Player *rva0053EB81SlotE0();
 	RVA0053EB81_VIRTUAL(pad57) RVA0053EB81_VIRTUAL(pad58) RVA0053EB81_VIRTUAL(pad59) RVA0053EB81_VIRTUAL(pad60)
 	RVA0053EB81_VIRTUAL(pad61) RVA0053EB81_VIRTUAL(pad62) RVA0053EB81_VIRTUAL(pad63) RVA0053EB81_VIRTUAL(pad64)
 	RVA0053EB81_VIRTUAL(pad65) RVA0053EB81_VIRTUAL(pad66) RVA0053EB81_VIRTUAL(pad67) virtual void constructionIterate(void (__cdecl *)(Object *, void *), void *, int);
@@ -194,16 +194,7 @@ private:
 
 class Player;
 
-class PlayerList
-{
-public:
-	unsigned char m_pad00[0x10];
-	union
-	{
-		int m_10;
-		Player *m_localPlayer;
-	};
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -282,7 +273,7 @@ void ControlBar::updateContextContestedStructureInventory()
 		return;
 	}
 
-	int localPlayer = ThePlayerList->m_10;
+	Player *localPlayer = ThePlayerList->m_local;
 	if (!subject->rva0053EB81SlotD8() || subject->rva0053EB81SlotE0() != localPlayer)
 		return rva0031D230();
 	if (m_80 != subject->rva0053EB81Slot12C())

@@ -233,14 +233,7 @@ class TeamPrototype;
 struct RetailPlayerRelationMap;
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getNeutralPlayer() const { return m_neutralPlayer; }
-private:
-	unsigned char m_pad00[0x18];
-	Player *m_neutralPlayer; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/Common/ThingFactory.h"

@@ -224,16 +224,7 @@ private:
 
 class Player;
 
-class PlayerList
-{
-public:
-	unsigned char m_pad00[0x10];
-	union
-	{
-		int m_10;
-		Player *m_localPlayer;
-	};
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -401,7 +392,7 @@ void ControlBar::updateConstructionTextDisplay(Object *obj)
 void ControlBar::updateContextStructureInventory()
 {
 	Object *object = m_6c->m_fc;
-	Player *localPlayer = ThePlayerList->m_localPlayer;
+	Player *localPlayer = ThePlayerList->m_local;
 	if (!object->isLocallyControlled() &&
 		localPlayer->getRelationship(object->getTeam()) != (Relationship)1)
 	{

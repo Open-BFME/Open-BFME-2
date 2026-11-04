@@ -39,7 +39,8 @@ class RenderInfoClass {public:RenderInfoClass(CameraClass&);~RenderInfoClass();c
 class RenderContext {public:CameraClass*camera;};
 class Player;class Object {public:Player*getControllingPlayer()const;Object*rva002931F5(bool);};
 #include "../../Include/Common/Player.h"
-class PlayerList {public:char prefix[16];Player*local;};extern PlayerList*ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
+extern PlayerList*ThePlayerList;
 class Rva000E07F4Obj {public:char prefix[4];void*inner;};
 struct DrawableView {char prefix[0xFC];Rva000E07F4Obj*object;};
 struct SelectionNode {SelectionNode*next,*prev;DrawableView*drawable;};
@@ -186,7 +187,7 @@ void Rva000E0856::render(RenderContext*ctx){
   unsigned selected=TheInGameUI->slot93();
   if(selected){DrawableView*drawableView=TheGameClient->lookup(selected);
    if(drawableView){Rva000E07F4Obj*o=drawableView->object;
-    if(o&&((((unsigned char*)o->inner)[0x10D]&0x80)==0) ){Player*local=ThePlayerList->local;if(((Object*)o)->getControllingPlayer()==local){
+    if(o&&((((unsigned char*)o->inner)[0x10D]&0x80)==0) ){Player*local=ThePlayerList->m_local;if(((Object*)o)->getControllingPlayer()==local){
      Object*adjusted=((Object*)o)->rva002931F5(false);if(adjusted)o=(Rva000E07F4Obj*)adjusted;
      ((Rva000E0123*)this)->rva000E0123(3.0f);((Rva000E0123*)this)->rva000E00C0(1.0f);((Rva000E07F4Host*)this)->rva000E0584(o);((Rva000E0123*)this)->rva000E0123(1.5f);
     }}
@@ -197,7 +198,7 @@ void Rva000E0856::render(RenderContext*ctx){
   terrainLineOpacity=0.8f;
   SelectionNode*i;SelectionList*selected=TheInGameUI->slot73();
   for(i=selected->head->next;i!=selected->head;i=i->next){Rva000E07F4Obj*o=i->drawable->object;((Rva000E0123*)this)->rva000E00C0(1.0f);rva000E07F4(o,(Rva000E07F4Host*)this);}
-  if(mode==2){Player*local=ThePlayerList->local;if(local){((Rva000E0123*)this)->rva000E00C0(0.4f);local->iterateObjects((int(*)(Object*,void*))rva000E07F4,this);}}
+  if(mode==2){Player*local=ThePlayerList->m_local;if(local){((Rva000E0123*)this)->rva000E00C0(0.4f);local->iterateObjects((int(*)(Object*,void*))rva000E07F4,this);}}
  }
  info=0;
 }

@@ -135,14 +135,7 @@ private:
 	ScoreKeeper m_scoreKeeper;          // +0x3BC
 };
 
-class PlayerList
-{
-public:
-	// Matched callers read the local player at +0x10 directly; do not emit
-	// a shared getter from this partial target layout.
-	unsigned char m_pad00[ 0x10 ];
-	Player *m_localPlayer;              // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -297,7 +290,7 @@ void StatsCollector::collectUnitCountStats()
 // +0x10 and player index at +0x14).
 void StatsCollector::collectMsgStats(const GameMessage *msg)
 {
-	if( ThePlayerList->m_localPlayer->getPlayerIndex() != msg->getPlayerIndex() )
+	if( ThePlayerList->m_local->getPlayerIndex() != msg->getPlayerIndex() )
 		return;
 
 	switch( msg->getType() )
@@ -338,7 +331,7 @@ void StatsCollector::endScrollTime()
 // 0x0039B73F (buildings, +0x78).
 void StatsCollector::collectScoreKeeperStats()
 {
-	Player *player = ThePlayerList->m_localPlayer;
+	Player *player = ThePlayerList->m_local;
 	if( player )
 	{
 		ScoreKeeper *scoreKeeper = player->getScoreKeeper();
@@ -438,7 +431,7 @@ void StatsCollector::writeStatInfo()
 	if( !fILE )
 		return;
 
-	Player *player = ThePlayerList->m_localPlayer;
+	Player *player = ThePlayerList->m_local;
 	fprintf( fILE, "%d\t", m_timeCount );
 	fprintf( fILE, "%.1f\t", TheDisplay ? TheDisplay->getAverageFPS() : 0.0f );
 	fprintf( fILE, "%.1f\t", TheGameEngine ? TheGameEngine->getInstantFPS() : 0.0f );
@@ -457,7 +450,7 @@ void StatsCollector::writeStatInfo()
 	fprintf( fILE, "%d\t", m_enemiesKilled );
 	fprintf( fILE, "%d\t", m_neutralsKilled );
 
-	player = ThePlayerList->m_localPlayer;
+	player = ThePlayerList->m_local;
 	if( player )
 	{
 		ScoreKeeper *scoreKeeper = player->getScoreKeeper();
@@ -496,7 +489,7 @@ void StatsCollector::writeInitialFileInfo()
     struct tm *newTime=localtime(&aclock);
     fprintf(fILE, "Date:\t%s", asctime(newTime));
     fprintf(fILE, "Map:\t%s\n", TheWritableGlobalData->m_mapName.str());
-    fprintf(fILE, "Side:\t%s\n", ThePlayerList->m_localPlayer->getSideText());
+    fprintf(fILE, "Side:\t%s\n", ThePlayerList->m_local->getSideText());
     fprintf(fILE, "---------------------------------------------------\n\n");
     fprintf(fILE, "Time*\t");
     fprintf(fILE, "Instant_Average_FPS\t");

@@ -36,6 +36,9 @@
 // 2 Ints(0x08) = 0x20 total.
 //
 #define __PLACEMENT_VEC_NEW_INLINE
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
 #include <map>		// before PreRTS.h so STLport node_alloc is used (not NEWALLOC)
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -102,13 +105,7 @@ class TeamFactory;
 
 // getNeutralPlayer is inlined at 0x000F81D3 as a read of this+0x14.
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/PlayerList.h
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType nk);
-	Player *m_pad[5];
-	Player *m_neutral;	// +0x14
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // The two AsciiStrings the key is built from sit at +0x10 and +0x14.

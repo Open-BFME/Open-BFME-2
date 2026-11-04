@@ -36,15 +36,7 @@ enum Relationship
 {
 	Rel_Zero = 0
 };
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-private:
-	char m_pad00[0x14];
-public:
-	int m_count14;
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../Include/Common/Player.h"
 #include "../../Include/Common/TeamBFME2.h"
@@ -54,7 +46,7 @@ void __stdcall Rva004381C4Iterate(const Object *obj);
 
 void __stdcall Rva004381C4Iterate(const Object *obj)
 {
-	int n = ThePlayerList004381C4->m_count14;
+	int n = ThePlayerList004381C4->m_playerCount;
 	for (int i = 0; i < n; ++i)
 	{
 		Player *player = ThePlayerList004381C4->getNthPlayer(i);

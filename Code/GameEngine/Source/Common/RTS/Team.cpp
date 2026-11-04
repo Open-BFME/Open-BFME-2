@@ -1148,27 +1148,7 @@ struct Rva003A0CD1
  
  
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-public:
-	Player *getNeutralPlayer() { return m_players[0]; }
-public:
-	Player *bfme_getNeutralPlayer_3c6a8() { return m_players[0]; }
-private:
-	unsigned char m_pad00[0x18];
-private:
-	Player *m_players[1];
-public:
-	int rva002A7D30();
-public:
-	Player *getEachPlayerFromMask(int &mask);
-public:
-	Player *getNthPlayer(int index);
-public:
-	void rva002A7AFE(void *team);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class TeamPrototype:public Snapshot {
 public:
@@ -2405,7 +2385,7 @@ void TeamFactory::initTeam(const AsciiString &name, const AsciiString &owner, bo
 		return;
 	Player *pOwner = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(owner));
 	if (!pOwner)
-		pOwner = ThePlayerList->bfme_getNeutralPlayer_3c6a8();
+		pOwner = ThePlayerList->getNeutralPlayer();
 	TeamPrototype *tp = new TeamPrototype(this, owner, name, pOwner, isSingleton, dict, ++m_uniqueTeamPrototypeID);
 	if (isSingleton)
 		createInactiveTeam(tp->getOwnerName(), tp->getName());

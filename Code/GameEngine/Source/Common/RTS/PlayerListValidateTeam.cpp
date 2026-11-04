@@ -107,16 +107,7 @@ private:
 
 class MapObject;
 
-class PlayerList
-{
-public:
-	Player *getNeutralPlayer() const { return m_players[0]; }
-	Team *validateTeam(AsciiString owner, MapObject *mapObject);
-private:
-	char m_pad00[0x14];
-	Int m_playerCount;	// +0x14
-	Player *m_players[1];	// +0x18; only the first slot is observed here
-};
+#include "../../../Include/Common/PlayerList.h"
 
 Team *PlayerList::validateTeam(AsciiString owner, MapObject *mapObject)
 {

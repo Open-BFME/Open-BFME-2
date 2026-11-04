@@ -16,7 +16,10 @@
 // The selection is Zero Hour's STLport std::list<Drawable *> (DrawableList).
 // stlport
 typedef bool Bool;
-#include "subsystem_interface.h"
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "ascii_string.h"
 #include <list>
 
@@ -41,12 +44,7 @@ public:
 
 #include "../../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	char unknown00[0x10]; // +0x00
-	Player *local; // +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 class Image;
 #include "../../../../Include/Common/ThingTemplate.h"
@@ -526,7 +524,7 @@ void ControlBar::rva0031D230()
 			if (contain && contain->getContainMax() > 0)
 			{
 				switchToContext(4, draw);
-				Player *localPlayer = ThePlayerList->local;
+				Player *localPlayer = ThePlayerList->m_local;
 				if (contain && contain->vfD8() && contain->vfE0() == localPlayer)
 				{
 					switchToContext(3, draw);
@@ -535,7 +533,7 @@ void ControlBar::rva0031D230()
 				const Player *otherPlayer = contain->getApparentControllingPlayer(localPlayer);
 				if (!otherPlayer)
 					otherPlayer = obj->getControllingPlayer();
-				Player *player = ThePlayerList->local;
+				Player *player = ThePlayerList->m_local;
 				bool playersKnown = player && otherPlayer;
 				if (!playersKnown)
 				{
@@ -628,7 +626,7 @@ void ControlBar::rva0031D230()
 				//a commandset defined. If we do, then trust that the commandset will
 				//handle it!
 
-				Player *localPlayer = ThePlayerList->local;
+				Player *localPlayer = ThePlayerList->m_local;
 
 				// we cannot select objects that are controlled by our enemies
 				Relationship relationship = localPlayer->getRelationship(obj->m_team);

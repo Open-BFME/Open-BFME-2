@@ -17,11 +17,7 @@ public:
 #include "../../../Include/GameClient/ControlBar.h"
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../Include/GameClient/Eva.h"
-class PlayerList {
-public:
-    char unknown00[0x10];
-    Player *localPlayer;
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 extern ControlBar *TheControlBar;
 extern Eva *TheEva;
@@ -36,7 +32,7 @@ bool Rva002A9FA0::rva002A9FA0(int level)
     int oldPoints = points;
     bool changed = ((Rva00380200 *)this)->Rva00380200::rva0038037C(level);
     if (changed && TheControlBar) {
-        if ((Player *)((char *)this - 8) == ThePlayerList->localPlayer && TheEva)
+        if ((Player *)((char *)this - 8) == ThePlayerList->m_local && TheEva)
             TheEva->reportEvaEvent((EvaEventID)2, 0, 0);
         const Player *player = (const Player *)((const char *)this - 8);
         TheControlBar->rva0031B5A3(player);

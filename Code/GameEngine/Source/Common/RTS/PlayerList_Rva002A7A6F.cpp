@@ -33,16 +33,7 @@ private:
 	unsigned int m_unknown3AC; // +0x3AC
 };
 
-class PlayerList
-{
-public:
-	Player *Rva002A7A6F(Int key);
-
-private:
-	unsigned char m_pad[0x14];
-	Int m_playerCount; // +0x14
-	Player *m_players[1]; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 
 // ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z
 Player *PlayerList::Rva002A7A6F(Int key)

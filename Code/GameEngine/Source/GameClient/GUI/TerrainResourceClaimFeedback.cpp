@@ -95,14 +95,7 @@ public:
 	char m_pad[0x54];
 	int m_index;
 };
-class PlayerList
-{
-public:
-	// Native claimant update inlines this local +0x10 player-list view.
-	Player *claimantLocalPlayer() { return m_local; }
-	char m_pad[0x10];
-	Player *m_local;
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 struct ClaimedDecal
@@ -144,7 +137,7 @@ inline bool Coord3D::operator==(const Coord3D &r)
 void TerrainResourceClaimFeedback::Impl::updateClaimedDecalForClaimant(ClaimedDecalList *pending, ObjectID id, Real radius)
 {
 	Object *obj = TheGameLogic->findObjectByID(id);
-	Player *local = ThePlayerList->claimantLocalPlayer();
+	Player *local = ThePlayerList->getLocalPlayer();
 	if (obj->getShroudStatusForPlayer(local ? local->m_index : 0) > CELLSHROUD_SHROUDED)
 		obj = 0;
 	ClaimedDecalMap::iterator it = m_claimedDecalMap.find(id);

@@ -178,15 +178,7 @@ public:
 };
 
 // ThePlayerList (0x009FEEE8): the local player at +0x10.
-class PlayerList
-{
-public:
-	Player *spellStoreLocalPlayer() { return m_local; }
-
-private:
-	unsigned char m_pad000[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -445,7 +437,7 @@ void AptSpellStore::rva0043C9FD()
 {
 	if (m_2a2)
 		return;
-	Player *player = ThePlayerList->spellStoreLocalPlayer();
+	Player *player = ThePlayerList->getLocalPlayer();
 	if (!player)
 		return;
 	const CommandSet *set = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->GetPurchaseScienceCommandSet(player);
@@ -663,7 +655,7 @@ void AptSpellStore::rva0043CD3C()
 		m_2a4 = mode;
 		return;
 	}
-	Player *player = ThePlayerList->spellStoreLocalPlayer();
+	Player *player = ThePlayerList->getLocalPlayer();
 	bool selected = m_hovered >= 0;
 	if (selected != m_358)
 	{

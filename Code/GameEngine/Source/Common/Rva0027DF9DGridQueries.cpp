@@ -681,12 +681,7 @@ public:
 	Team *m_2EC; // +0x2EC +0x2EC
 };
 
-class PlayerList
-{
-public:
-	char m_pad00[0x18];
-	Player *m_18;		// +0x18
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 enum ObjectID; class ThingFactory
@@ -714,7 +709,7 @@ Object *TerrainLogic::rva00283D70(const Coord3D *pos)
 		if (thingTemplate) {
 			CreateMask mask;
 			memset(&mask, 0, sizeof(mask));
-			Team *team = ThePlayerList->m_18->m_2EC;
+			Team *team = ThePlayerList->m_players[0]->m_2EC;
 			obj = TheThingFactory->newObject(thingTemplate, team, &mask, (ObjectID)0);
 			obj->teleportTo(reinterpret_cast<const Coord3D *>(rec), false);
 		}

@@ -96,12 +96,7 @@ public:
 #include "../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_10;		// +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 struct Rva00DFDC30
@@ -119,7 +114,7 @@ Object *Drawable::rva00272AD5()
 {
 	Rva0026119DFilter alive;
 	Rva002611DDFilter second;
-	Rva0026137EFilter player(ThePlayerList->m_10, true);
+	Rva0026137EFilter player(ThePlayerList->m_local, true);
 	Rva0027231F kinds(*(BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 0x7a, 0x9e));
 	Rva00261790 near((Arg00261790 *)this, true);
 	kinds.link(&alive)->link(&second)->link(&player)->link(&near);
