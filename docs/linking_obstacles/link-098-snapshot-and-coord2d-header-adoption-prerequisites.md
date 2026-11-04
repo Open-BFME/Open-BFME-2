@@ -1,5 +1,7 @@
 ### LINK-098: Snapshot and Coord2D header adoption prerequisites
 
+2026-11-04: three ArmySummary scalar consumers adopt its canonical header (10 matched rows, ordinary LINKS 1,336 -> 1,336 bytes; three owning-tool header retirements). Rva002B2AFDSelect remains blocked because ArmySummary selects Snapshot before LivingWorldBattle requires its capitalized/reference-transfer surface; reconcile the shared override surface before retrying. [Evidence and restored trial](../../reverse/attempt_support/army-summary-header-20261104-codexb4.md).
+
 2026-11-04: the published 07:28 index at `a62ac1c10b` resolves the animation provider-preview prerequisite; owning acceptance and staged debt verification now retire both animation rows, preserving 20 byte-matched rows and 2,834 census-linked bytes in ordinary preview. Rva00062B17Init's historical-identity boundary remains open. [Retirement evidence](../../reverse/attempt_support/coord2d-animation-debt-20261104-codex4.md).
 
 2026-11-04: six-unit Coord2D animation source adoption preserves 89 rows with AI and seven ordinary LINKS previews (8,065 bytes); AI's header row retires, but the two animation rows remain because the debt check omits the debt-free setAnimData provider from its preview. Next: retire after the scheduled census includes the coordinated providers or a separate checker repair; Rva00062B17Init remains open. [Evidence and false rejection](../../reverse/attempt_support/coord2d-animation-header-20261104-codexb.md).

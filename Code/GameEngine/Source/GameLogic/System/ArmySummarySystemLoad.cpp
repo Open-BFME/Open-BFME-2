@@ -106,13 +106,7 @@ struct Rva0040F87EArmy { char pad00[0x20]; int m_id; };
 
 class Rva003F3F83 { public: int rva003F3F83(); };
 
-class ArmySummary
-{
-public:
-	void Load(bool a, bool first, int id);
-	char pad00[0x2c];
-	int m_2C;
-};
+#include "../../../Include/GameLogic/ArmySummary.h"
 struct Rva0040F87EUnit { char pad00[0x78]; ArmySummary *m_summary; };
 
 struct _Rva0040CA61Arg;
@@ -181,8 +175,8 @@ void ArmySummarySystem::rva0040F87E()
 	if (battleID == 0) {
 		for (unsigned int i = 0; i < m_summaryIDs.size(); ++i) {
 			ArmySummary *summary = static_cast<ArmySummary *>(rva0040D008(m_summaryIDs[i]));
-			if (summary && summary->m_2C != 1)
-				summary->m_2C = 0;
+			if (summary && summary->field2C != 1)
+				summary->field2C = 0;
 		}
 		return;
 	}

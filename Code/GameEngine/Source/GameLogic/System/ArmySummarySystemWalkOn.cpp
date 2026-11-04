@@ -10,16 +10,7 @@
 //    to 1. Its name is unknown.
 #include <vector>
 
-class ArmySummary
-{
-public:
-	char m_pad00[0x14];
-	bool m_walkOn;			// +0x14
-	char m_pad15[0x1C - 0x15];
-	int m_armyID;			// +0x1C
-	char m_pad20[0x2C - 0x20];
-	int m_2C;				// +0x2C
-};
+#include "../../../Include/GameLogic/ArmySummary.h"
 
 class ArmySummarySystem
 {
@@ -37,8 +28,8 @@ int ArmySummarySystem::GetArmyIDOfFirstWalkOnArmy()
 	for (unsigned int i = 0; i < m_armyIDs.size(); ++i)
 	{
 		ArmySummary *summary = (ArmySummary *)rva0040D008(m_armyIDs[i]);
-		if (summary && summary->m_walkOn)
-			return summary->m_armyID;
+		if (summary && summary->field14)
+			return summary->field1C;
 	}
 	return 0;
 }
@@ -49,6 +40,6 @@ void ArmySummarySystem::rva0040D2C3()
 	{
 		ArmySummary *summary = (ArmySummary *)rva0040D008(m_armyIDs[i]);
 		if (summary)
-			summary->m_2C = 1;
+			summary->field2C = 1;
 	}
 }

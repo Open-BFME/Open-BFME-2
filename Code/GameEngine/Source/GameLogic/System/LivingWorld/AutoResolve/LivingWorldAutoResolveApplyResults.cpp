@@ -29,7 +29,7 @@ class Rva004F6093Holder {public:
  ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
 };
 struct Rva004E0790Inner;
-class ArmySummary {public: int AddArmyEntry(const Rva004F6093Holder&); void rva0040DED9(); char unknown00[0x2C]; int flag2C;};
+#include "../../../../../Include/GameLogic/ArmySummary.h"
 struct Rva0040DD3ARef {void *value;};
 class Rva002E34A9 {public:void rva002E34A9(const Rva0040DD3ARef&,int);};
 class Rva002E2903Player;
@@ -83,7 +83,7 @@ void LivingWorldAutoResolveBattle::applyResults() {
   std::map<int,ArmySummary*>::iterator end=GetPlayer(i).summaries.end();
   for(;it!=end && it->first<=threshold7C;++it) {
    ArmySummary *summary=it->second;
-   summary->flag2C=4;
+   summary->field2C=4;
    summary->rva0040DED9();
   }
  }
