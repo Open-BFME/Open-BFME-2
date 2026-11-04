@@ -1,0 +1,3 @@
+### LINK-332: Win32Mouse consolidation needs canonical Mouse providers
+Status: Blocked. Updated: 2026-11-04; inspected `68f4e2294d`.
+Shared string declarations and the position donor's canonical Mouse/includes preserve 14 native/EH rows and one data row; local prediction preserves 1155 authored linked bytes. Full seed Mouse adoption still exposes nine unresolved virtual names and is reverted; native merge accepts zero donors. Next resolve those provider identities, adopt Mouse in the seed, then reconcile Win32Mouse declarations. [Evidence and exact names](../../reverse/attempt_support/win32mouse-prerequisites-20261104-codex3.md). No census or full-game clearance claimed.
