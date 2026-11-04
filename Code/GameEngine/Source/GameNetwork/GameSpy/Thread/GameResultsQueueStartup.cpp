@@ -72,6 +72,7 @@ private:
 // The request and response records (assignments 0x0041A7F7, 0x0041A820).
 #include "BfmeNarrowRecord0041A5D2.h"
 #include "BfmeNarrowRecord0041A617.h"
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 struct BfmePod28;
 struct BfmePod16;
 
@@ -127,24 +128,16 @@ private:
 	MutexClass::LockClass *m_ptr;
 };
 
-// The 0x54-byte worker thread (Rva00419CFBConstructor.cpp) on ThreadClass:
-// slot 0 the virtual dtor, slot 1 Execute.
-class ThreadClass
-{
-public:
-	virtual ~ThreadClass();
-	virtual void Execute();
-	void Stop();			// 0x006105F0
-	bool Is_Running();
-
-private:
-	char m_storage[0x54 - 4];
-};
-
+// The 0x54-byte worker thread (Rva00419CFBConstructor.cpp) on the 0x50-byte
+// ThreadClass, holding the queue's thread mutex at +0x50.
 class Rva00419CFB : public ThreadClass
 {
 public:
 	Rva00419CFB(void *lock);	// 0x00419CFB
+	void Thread_Function();
+
+private:
+	void *m_lock;
 };
 
 // The record each placeholder-named queue holds: the destructor frees the
