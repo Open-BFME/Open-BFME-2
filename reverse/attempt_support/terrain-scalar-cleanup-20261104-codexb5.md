@@ -23,3 +23,25 @@ No pin, alias, ledger ownership or protected debt is changed. This is a
 prerequisite repair, with no measured linking gain or completed header adoption
 claimed. Recheck the supported merger for the remaining private-layout conflict
 and preserve the generated cleanup's independent parent/callee prerequisites.
+
+## Follow-up boundary
+
+Repair commit `eeed84bdd4` was handed to the runner's fleet publisher. The
+supported merger rebuilt current approvals in memory (44 approved rows), but
+accepted no donor and rejected `TerrainType.cpp` with a compile diagnostic
+whose detail was empty. It still lists TerrainType adoption in both sources
+as a prerequisite. `tu_views.py --dry-run --class TerrainType --no-merge-check`
+explicitly routes the registered class to its canonical header and writes
+nothing. The Common consolidation planner was refreshed and its currency
+check passed before this trial. No source path, ledger row or debt key moved.
+
+Strict current preparation also byte-verifies all 31 destination rows. The
+ordinary commit hook passes seven EXACT EH graphs and reports one shadow
+identity finding: the constructor's existing AsciiString::clear binding at
+0x00036410. That finding is not cleared by this repair.
+
+The scoped outgoing consumer audit exits 2, INCONCLUSIVE: census index
+`f12552d0a7` predates outgoing base `d29d7b6f7b`, and affected consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Carry that consumer and TerrainTypes into the next scheduled census;
+consumer preservation beyond the local destination preview is unverified.
