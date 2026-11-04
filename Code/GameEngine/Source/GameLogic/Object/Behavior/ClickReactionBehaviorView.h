@@ -14,38 +14,7 @@ public:
 	virtual void rva004596F9();
 };
 
-class PB_DeepBase
-{
-public:
-	virtual ~PB_DeepBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-class PB_Iface1
-{
-public:
-	virtual void slot();
-};
-
-class PB_Iface2
-{
-public:
-	virtual void slot();
-};
-
-class UpdateModule : public PB_DeepBase, public PB_Iface1, public PB_Iface2
-{
-public:
-	UpdateModule(Thing *, const ModuleData *);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-private:
-	unsigned int m_f14;
-	int m_f18;
-	int m_f1c;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 enum NameKeyType
 {

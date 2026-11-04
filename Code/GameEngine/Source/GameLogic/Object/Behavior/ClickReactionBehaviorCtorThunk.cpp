@@ -37,13 +37,13 @@ public:
     ClickReactionBehavior(Thing *, const ModuleData *);
 
 private:
-    unsigned int m_f24;
-    unsigned int m_f28;
+    int m_clicks; // +0x24, shared reaction/xfer view
+    int m_cooldown; // +0x28, shared reaction/xfer view
 };
 
 // ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
 ClickReactionBehavior::ClickReactionBehavior(Thing *thing, const ModuleData *moduleData)
-    : UpdateModule(thing, moduleData), m_f24(0), m_f28(0)
+    : UpdateModule(thing, moduleData), m_clicks(0), m_cooldown(0)
 {
     setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
 }
