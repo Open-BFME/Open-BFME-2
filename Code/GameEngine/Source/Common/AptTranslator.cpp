@@ -9,12 +9,6 @@
 // 0x0030F936 (twice). Precedents Rva005FA91C 0x005FA91C (/O1 /MD, slot 0x48
 // createMessage) and Rva005D1F45 (appendType slot 0x48). timeGetTime via IAT
 // winmm.dll uses dllimport. Callers 0x00432AA2/0x00432AC5 become ready.
-class GameMessage
-{
-public:
-	void appendPixelArgument(const struct ICoord2D &v);
-	void appendIntegerArgument(int v);
-};
 #include <windows.h>
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "ascii_string.h"
@@ -64,16 +58,7 @@ extern int g_Va00E032C8;
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class MessageStream
-{
-public:
-	virtual void _d00(); virtual void _d01(); virtual void _d02(); virtual void _d03();
-	virtual void _d04(); virtual void _d05(); virtual void _d06(); virtual void _d07();
-	virtual void _d08(); virtual void _d09(); virtual void _d10(); virtual void _d11();
-	virtual void _d12(); virtual void _d13(); virtual void _d14(); virtual void _d15();
-	virtual void _d16(); virtual void _d17();
-	virtual GameMessage *createMessage(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 
 extern class MessageStream *TheMessageStream;
 
@@ -468,8 +453,8 @@ void __stdcall Rva004328D8Emit(Rva004328D8Payload *p)
 	if (p->m_flag14 & 1)
 		return;
 	p->m_flag14 |= 1;
-	TheMessageStream->createMessage(0xC3);
-	GameMessage *msg = TheMessageStream->createMessage(p->m_type);
+	TheMessageStream->appendMessage((GameMessage::Type)0xC3);
+	GameMessage *msg = TheMessageStream->appendMessage((GameMessage::Type)p->m_type);
 	msg->appendPixelArgument(p->m_pixel);
 	msg->appendIntegerArgument(p->m_0C);
 	msg->appendIntegerArgument((int)timeGetTime());
