@@ -723,13 +723,31 @@ table toward compact declarations. Match the head and brace as one unit across
 newlines, and track brace depth so a nested class is not taken for a
 namespace-scope one.
 
+A third row is mostly not a backlog either, and the correction matters because
+the line above it first read the other way. **Two inline bodies of one method is
+not a `tu_views` refusal when the bodies agree.** `merge_fn` compares them
+already and only refuses a genuine difference:
+
+    if ma.body and mb.body and ws(code_text(ma.body)) != ws(code_text(mb.body)):
+        raise Refused(f"{cls}::{ma.name}: two different inline bodies ...")
+
+Of the 164 non-canonical pairs in that row, 97 are whitespace-equal and so
+already accepted, 62 have genuinely different token streams, and 5 are refused
+on spacing alone, because `ws` collapses runs of whitespace but does not
+tokenise: `~Foo(){}` against `~Foo() {}`, or
+`operator()(unsigned int a,unsigned int b)const{return a<b;}` against the same
+body spaced out. A tokenising comparison would accept those 5 and nothing else,
+which is not worth changing a verifier for; it is recorded here so the next seat
+does not read 164 as work.
+
 Where this leaves the mechanical lanes: the class key is finished at 14
 decidable pairs of 100, because 56 are ties with no ledger spelling and 30 are
 names the ledger spells both `U` and `V`, which means two types share the name.
-`declspec` is nearly finished the same way. The weight has moved to base arity
-(367, and 150 of those are the header lane's) and to the two inline-body rows,
-where a class is declared with a body in one file and defined out of line in
-another; neither is a spelling fix.
+`declspec` is nearly finished the same way. What is left that is real and not
+already handled is base arity (367, of which 150 are the header lane's and most
+of the rest need a complete base type, so they depend on it too), the 62 genuine
+inline-body differences, and the 44 pairs where one view defines a method inline
+and another defines it out of line. None of those is a spelling fix.
 
 ### Bulk merges refuse at the top of the queue on linking, not contention (2026-11-03)
 
