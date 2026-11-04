@@ -65,20 +65,12 @@ public:
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
-class Player
-{
-public:
-	bool rva002AC4D4(int *index);
-
-private:
-	unsigned char m_pad[0x58];
-	AsciiString m_58;
-};
+#include "../../../Include/Common/Player.h"
 
 bool Player::rva002AC4D4(int *index)
 {
 	int count = TheSidesList->getNumSkirmishSides();
-	AsciiString side = m_58;
+	AsciiString side = m_side;
 	for (int i = 0; i < count; i++) {
 		SidesInfo *info = TheSidesList->getSkirmishSideInfo(i);
 		Dict *dict = (Dict *)info;

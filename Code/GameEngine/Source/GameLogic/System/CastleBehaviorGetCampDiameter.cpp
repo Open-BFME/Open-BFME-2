@@ -22,12 +22,7 @@
 
 typedef float Real;
 
-class Player
-{
-public:
-	unsigned char m_pad00[0x58];
-	AsciiString m_side; // +0x58
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva00395D77
 {

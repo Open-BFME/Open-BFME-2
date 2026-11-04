@@ -81,13 +81,7 @@ struct Arg001DCDAF
 	unsigned char m_pad2e[0x30 - 0x2e];
 };
 
-class Player
-{
-public:
-	unsigned char m_pad00[0x54];
-	Int m_playerIndex;				// +0x54
-	AsciiString m_side;				// +0x58
-};
+#include "../../Include/Common/Player.h"
 
 class PlayerList
 {

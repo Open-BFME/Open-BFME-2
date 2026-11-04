@@ -33,12 +33,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, L>& a,
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Player
-{
-public:
-    char m_pad00[0x58];
-    AsciiString m_name58;
-};
+#include "../../../../Include/Common/Player.h"
 struct NameAmount00396A5C { AsciiString m_name; unsigned int m_amount; };
 typedef _STL::map<int,NameAmount00396A5C> NameAmountMap;
 class Rva00396A5C
@@ -52,7 +47,7 @@ private:
 int Rva00396A5C::rva00396A5C(Player *player)
 {
     if (player) {
-        AsciiString name(player->m_name58);
+        AsciiString name(player->m_side);
         int key = TheNameKeyGenerator->nameToKey(name);
         NameAmountMap::iterator it = m_map68.find(key);
         if (it != m_map68.end()) {

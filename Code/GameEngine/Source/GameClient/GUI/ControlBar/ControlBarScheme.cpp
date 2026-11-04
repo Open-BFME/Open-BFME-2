@@ -48,13 +48,7 @@ struct Bfme939Helper : public RecorderClass
 {
 };
  extern RecorderClass *TheRecorder;
-class Player
-{
-private:
-	char m_pad[0x58];
-public:
-	AsciiString m_side;
-};
+#include "../../../../Include/Common/Player.h"
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 // ?Rva0031FA40Create@@YAXPAVINI@@PAX@Z @0x0031FA40 78B factory.
 // Retail new Rva0031F7AB 0x1C, initFromINI with table 0x0080D720, store to [out+8].

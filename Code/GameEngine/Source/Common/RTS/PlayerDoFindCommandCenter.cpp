@@ -33,13 +33,7 @@ private:
 	unsigned char m_kindOf10A;			// KINDOF_COMMANDCENTER is bit 0x02
 };
 
-class Player
-{
-private:
-	char m_pad[0x58];
-public:
-	AsciiString m_side;					// +0x58
-};
+#include "../../../Include/Common/Player.h"
 
 class Object
 {
