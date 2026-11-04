@@ -57,18 +57,381 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
 class __declspec(novtable) TRB_Iface3 { public: virtual void slot3(); };
-
 class __declspec(novtable) TRB_Iface4 { public: virtual void slot4(); };
+class TerrainResourceModuleDataBase
+{
+public:
+	TerrainResourceModuleDataBase() {}
+	virtual ~TerrainResourceModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+
+private:
+	unsigned char m_pad[8 - 4];
+};
+class UpgradeTemplate;
+class BfmeTab1026;
+class Rva003623E5Member
+{
+public:
+	Rva003623E5Member();
+
+	unsigned int m_data; // +0, 4-aligned: retail pads +0x16/+0x17 before +0x18
+};
+class TerrainResourceBehaviorModuleData : public TerrainResourceModuleDataBase
+{
+public:
+	TerrainResourceBehaviorModuleData();
+	virtual ~TerrainResourceBehaviorModuleData();
+	BfmeTab1026 *upgradeMustBePresent() const { return (BfmeTab1026 *)&m_upgradeMustBePresent; }
+
+	float m_radius; // +8
+	int m_maxIncome; // +0xC
+	int m_incomeInterval; // +0x10
+	bool m_highPriority; // +0x14
+	bool m_visible; // +0x15
+	Rva003623E5Member m_upgradeMustBePresent; // +0x18
+	const UpgradeTemplate *m_upgrade; // +0x1C
+	float m_upgradeBonusPercent; // +0x20
+};
+class GameLogic;
+extern GameLogic *TheGameLogic;
+struct Rva0035A238Argument;
+class Rva0035A238
+{
+public:
+	void rva0035A238(Rva0035A238Argument *argument, float value, bool flag, bool front);
+	void rva0035A14F(Rva0035A238Argument *argument);
+};
+struct Rva00482172LogicView
+{
+	char unknown00[0x170];
+	Rva0035A238 *manager;
+};
+struct Rva00482172Data
+{
+	char unknown00[8];
+	float value;
+	char unknown0C[8];
+	bool front;
+	bool flag;
+};
+class Rva00482172
+{
+public:
+	void rva00482172();
+private:
+	char unknown00[4];
+	bool initialized;
+	bool state;
+};
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry, batch
+// AD: each calls an unrowed (Ghidra-listed, larger) function, pinned in
+// reverse/symbols.csv under an address-derived name with the arguments and
+// return its call sites and ret show. As in VslotSmallBodiesA-AC, classes
+// and methods are address-derived unless the ledger already names them,
+// and model only what each body touches. Meanings are not recovered.
+
+typedef int Int;
+typedef float Real;
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_1C = 0x1C
+};
+enum KindOfType
+{
+	KINDOF_INVALID = -1
+};
+class GeometryInfo
+{
+public:
+	float getMaxHeightAbovePosition() const;
+};
+class Player;
+struct Coord3D;
+class ExperienceTracker;
+class Object
+{
+public:
+	void setStatus(ObjectStatusTypes status, bool set);
+	bool rva0029493F(Object *victim, int mode);
+	bool isKindOf(KindOfType t) const;
+	bool testStatus(ObjectStatusTypes bit) const;
+	Player *getControllingPlayer() const;
+	bool rva0028C15E(Int type, Real *value, Int a, Int b);
+	char m_pad00[0x38];
+	Coord3D m_pos; // +0x38 +0x38
+	char m_pad44[0x64];
+	GeometryInfo m_geometryInfo; // +0xA8 +0xA8
+	char m_padA9[0x1BB];
+	ExperienceTracker *m_experienceTracker; // +0x264 +0x264
+};
+// 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
+// 0x00288CFA accepts the argument's +0x264 word.
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
+// Slot 1 (allow) of partition filter vftable 0x00C5A99C.
+// 0x0026156C: filter slot1 of native vftable C600A0. Its caller preserves
+// Object::rva0029493F's AL result; the older void/int view dropped that ABI fact.
+// The source Object at+8 and mode at+C match the notifier's native filter.
+// 0x00349D02 (AI state tables): the pinned 0x003497E6 result, setting or
+// clearing status 0x1C on the owner as it is -1.
+// 0x00359729: HotKeyManager::translate (0x00359556, rowed in
+// MessageStream/HotKey.cpp) of the manager at VA 0x00E01E28 with the
+// argument, 0 without the manager.
+class GameMessage;
+enum GameMessageDisposition
+{
+	KEEP_MESSAGE,
+	DESTROY_MESSAGE
+};
+#include "../../../../Include/GameClient/HotKeyManager.h"
+extern HotKeyManager *TheHotKeyManager;
+// 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
+// at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified
+// in ParticleSystemManagerGetShaderSetup.cpp (1F4002 and 1F40AF).
+struct IDirect3DVertexDeclaration9;
+class DX8IndexBufferClass;
+namespace FXParticleSystem {
+#include "../../../../Include/GameClient/ParticleSys.h"
+}
+extern class ParticleSystemManager *TheParticleSystemManager;
+// 0x003C35F7: the pinned 0x003C35AA with both arguments and true.
+// 0x0040E0C5: for the argument's +0x78 object in state 4 (+0x2C), the
+// pinned 0x0040DF77 then the rowed 0x0040E02B; answers true.
+// 0x00414B89 and 0x00415122: the pinned 0x00414B0A resp. 0x0041505B on
+// every 0x30-byte entry of the [+0x10, +0x14) range.
+// 0x00482134 and 0x00482152 (the latter through an interface at +0x20):
+// the pinned 0x0035A292 of TheGameLogic's +0x170 object with the +0x08 word
+// and the +0x04 object's +0x08 Real.
+class Rva0035A292
+{
+public:
+	void rva0035A292(Int a, Real b);
+};
+struct Rva00482134Logic
+{
+	char m_pad00[0x170];
+	Rva0035A292 *m_170;
+};
+struct Rva00482134Data
+{
+	Int m_00;
+	Int m_04;
+	Real m_08;
+};
+class Rva00482134
+{
+public:
+	void rva00482134();
+private:
+	Int m_00;
+	Rva00482134Data *m_04;
+	Int m_08;
+};
+class Rva00482152Primary
+{
+public:
+	virtual void primarySlot();
+protected:
+	Rva00482134Data *m_04;
+	Int m_08;
+	char m_pad0C[0x14];
+};
+class Rva00482152Iface
+{
+public:
+	virtual void rva00482152(Int unused) = 0;
+};
+class Rva00482152 : public Rva00482152Primary, public Rva00482152Iface
+{
+public:
+	void rva00482152(Int unused);
+};
+// 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both
+// arguments then the pinned 0x004CDDBA(1); resp. only the latter while
+// +0x08 is set.
+// 0x004EF2FA (interface at +0x04): the pinned 0x004EEE38 of the complete
+// object with the first argument.
+// 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *player);
+};
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
+ParticleSystem *Make001FCBD7(void);
+class Rva003AFF06SystemPtr
+{
+public:
+	operator ParticleSystem *(void) const
+	{
+		return m_target;
+	}
+
+	ParticleSystem *operator->(void) const
+	{
+		ParticleSystem *target = *(ParticleSystem *const volatile *)&m_target;
+		if (!target)
+			target = Make001FCBD7();
+		return target;
+	}
+
+private:
+	ParticleSystem *m_target;
+};
+class Rva003AFF06
+{
+public:
+	virtual void rva003AFF06(void *a, void *b);
+
+private:
+	Rva003AFF06SystemPtr m_system;				///< +0x4
+};
+typedef bool Bool;
+typedef int Color;
+class Rva0039B7AD;
+struct TerrainResourceLogicView
+{
+	char unknown00[0x170];
+	Rva0035A238 *manager;							// +0x170
+	Rva0035A238 *getManager() const { return manager; }
+};
+class ObjectFilter
+{
+public:
+	Bool isValid() const;
+};
+struct TerrainResourceIntVector
+{
+	Int *m_start;
+	Int *m_finish;
+	Int *m_endOfStorage;
+	Int size() const { return m_finish - m_start; }
+	const Int &operator[](Int i) const { return m_start[i]; }
+};
+struct TerrainResourcePlayerData
+{
+	char unknown000[0x1C8];
+	ObjectFilter m_filter;							// +0x1C8
+	char unknown1C9[0x1CC - 0x1C9];
+	TerrainResourceIntVector m_percents;			// +0x1CC
+	ObjectFilter *getFilter() { return &m_filter; }
+};
+class Rva003B0D7C
+{
+public:
+	void rva003B0D7C(Int amount, Rva0039B7AD *stats, Bool flag);
+};
+class Player
+{
+public:
+	Bool rva002AB87D(const UpgradeTemplate *upgrade) const;
+	Bool rva002AB2D9(BfmeTab1026 *tab, Bool flag) const;
+	Int iterateObjects(Int (*func)(Object *obj, void *userData), void *userData) const;
+	char unknown000[0x34];
+	TerrainResourcePlayerData *m_data;				// +0x34
+	TerrainResourcePlayerData *getData() const { return m_data; }
+	char unknown038[0x90 - 0x38];
+	Rva003B0D7C m_money;							// +0x90
+	char unknown091[0x280 - 0x91];
+	Color m_color;									// +0x280
+	char unknown284[0x3BC - 0x284];
+	char m_stats[4];								// +0x3BC
+};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
+// 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
+// ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
+// resolves to the rowed body instead of the unrowed ExperienceTracker
+// spelling (U on this unit).
+class Rva0039ADF3
+{
+public:
+	bool rva0039AE04() const;
+};
+class GameTextInterface
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16();
+	virtual const UnicodeString *fetch(const char *label, Bool *exists);	// slot 17 (+0x44)
+};
+extern GameTextInterface *TheGameText;
+#include "../../../../Include/GameClient/InGameUI.h"
+//
+// ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
+// 0x0048209B, 125 bytes. Behavior-side ctor (rowed instance factory
+// 0x24C26C with this pinned 2-arg ctor as its sole raw caller at
+// 0x24C293).
+//
+// Shape follows the SlaveWatcherBehavior precedent over the same rowed
+// UpdateModule base 0x253390: EH prologue via /GX plus the declared-only
+// base dtor, a two-phase +0x20/+0x24 slot pair via sourced-before
+// address-take, the setWakeFrame arg pushes hoisted above the stores (no
+// intervening call), the three derived vtable installs, immediate false
+// and true bytes at +0x28/+0x29, one float zero at +0x2C via an xmm0-homed
+// fzero local (/arch:SSE emits retail xorps+movss), and the setWakeFrame
+// tail (protected IAEX Object-uint spelling resolves via the existing pin
+// at 0x44DF71). Row supersedes the ctor pin.
+
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@")[];
+  // folded vftable 0x00C42B60 (3 classes), the name FakePathfindPortalBehaviourDtor.cpp emits
+extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
+  // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
+
+extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@")[];
+  // vftable 0x00C493E8
+extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@")[];
+  // vftable 0x00C493F8
+extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@")[];
+  // vftable 0x00C493FC
+// The retail table at RVA 0x00849408: 13 slots, each a rowed code owner (the next
+// word is not a code address or starts another ledger datum).
+extern "C" {
+void __identifier("??_GRva00481F82@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@TerrainResourceBehavior@@MAEXXZ")();
+void __identifier("?name@Rva00481FA9Named@@QBEPBDXZ")();
+void __identifier("?xfer@TerrainResourceBehavior@@MAEXPAVXfer@@@Z")();
+void __identifier("?getModuleNameKey@TerrainResourceBehavior@@UBE?AW4NameKeyType@@XZ")();
+void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
+void __identifier("?rva00482134@Rva00482134@@QAEXXZ")();
+void __identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z")();
+void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
+void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
+}
+extern "C" const void *const vtbl_00C49408[13] = {
+	(const void *)&__identifier("??_GRva00481F82@@UAEPAXI@Z"), // slot 0 0x00482118
+	(const void *)&__identifier("?loadPostProcess@TerrainResourceBehavior@@MAEXXZ"), // slot 1 0x0048223D
+	(const void *)&__identifier("?name@Rva00481FA9Named@@QBEPBDXZ"), // slot 2 0x00481FA9
+	(const void *)&__identifier("?xfer@TerrainResourceBehavior@@MAEXPAVXfer@@@Z"), // slot 3 0x004821CB
+	(const void *)&__identifier("?getModuleNameKey@TerrainResourceBehavior@@UBE?AW4NameKeyType@@XZ"), // slot 4 0x00481FBD
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 5 0x000B3FD0
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 6 0x000B3FD0
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 7 0x000B3FD0
+	(const void *)&__identifier("?rva00482134@Rva00482134@@QAEXXZ"), // slot 8 0x00482134
+	(const void *)&__identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z"), // slot 9 0x0050B238
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10 0x000D43D0
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11 0x000D43D0
+	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
+};
+extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+
+extern InGameUI *TheInGameUI;
+
+struct TerrainResourceCountData
+{
+	Rva2225E0Filter *filter;
+	Int count;
+};
 
 class __declspec(novtable) TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
 {
@@ -94,244 +457,7 @@ private:
 	float m_incomeScale; // +0x2C
 };
 
-class TerrainResourceModuleDataBase
-{
-public:
-	TerrainResourceModuleDataBase() {}
-	virtual ~TerrainResourceModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
-
-private:
-	unsigned char m_pad[8 - 4];
-};
-
-class UpgradeTemplate;
-
-class BfmeTab1026;
-
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-
-	unsigned int m_data; // +0, 4-aligned: retail pads +0x16/+0x17 before +0x18
-};
-
-class TerrainResourceBehaviorModuleData : public TerrainResourceModuleDataBase
-{
-public:
-	TerrainResourceBehaviorModuleData();
-	virtual ~TerrainResourceBehaviorModuleData();
-	BfmeTab1026 *upgradeMustBePresent() const { return (BfmeTab1026 *)&m_upgradeMustBePresent; }
-
-	float m_radius; // +8
-	int m_maxIncome; // +0xC
-	int m_incomeInterval; // +0x10
-	bool m_highPriority; // +0x14
-	bool m_visible; // +0x15
-	Rva003623E5Member m_upgradeMustBePresent; // +0x18
-	const UpgradeTemplate *m_upgrade; // +0x1C
-	float m_upgradeBonusPercent; // +0x20
-};
-
-class GameLogic;
-
-extern GameLogic *TheGameLogic;
-
-struct Rva0035A238Argument;
-
-class Rva0035A238
-{
-public:
-	void rva0035A238(Rva0035A238Argument *argument, float value, bool flag, bool front);
-	void rva0035A14F(Rva0035A238Argument *argument);
-};
-
-struct Rva00482172LogicView
-{
-	char unknown00[0x170];
-	Rva0035A238 *manager;
-};
-
-struct Rva00482172Data
-{
-	char unknown00[8];
-	float value;
-	char unknown0C[8];
-	bool front;
-	bool flag;
-};
-
-class Rva00482172
-{
-public:
-	void rva00482172();
-private:
-	char unknown00[4];
-	bool initialized;
-	bool state;
-};
-
-//
-// Small vtable-slot bodies with no ledger owner and no Ghidra entry, batch
-// AD: each calls an unrowed (Ghidra-listed, larger) function, pinned in
-// reverse/symbols.csv under an address-derived name with the arguments and
-// return its call sites and ret show. As in VslotSmallBodiesA-AC, classes
-// and methods are address-derived unless the ledger already names them,
-// and model only what each body touches. Meanings are not recovered.
-
-typedef int Int;
-
-typedef float Real;
-
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_1C = 0x1C
-};
-
-enum KindOfType
-{
-	KINDOF_INVALID = -1
-};
-
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
-
-class Player;
-
-struct Coord3D;
-
-class ExperienceTracker;
-
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-	bool rva0029493F(Object *victim, int mode);
-	bool isKindOf(KindOfType t) const;
-	bool testStatus(ObjectStatusTypes bit) const;
-	Player *getControllingPlayer() const;
-	bool rva0028C15E(Int type, Real *value, Int a, Int b);
-	char m_pad00[0x38];
-	Coord3D m_pos; // +0x38 +0x38
-	char m_pad44[0x64];
-	GeometryInfo m_geometryInfo; // +0xA8 +0xA8
-	char m_padA9[0x1BB];
-	ExperienceTracker *m_experienceTracker; // +0x264 +0x264
-};
-
-// 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
-// 0x00288CFA accepts the argument's +0x264 word.
-class ExperienceLevelSystem;
-
-extern ExperienceLevelSystem *TheExperienceLevelSystem;
-
-// Slot 1 (allow) of partition filter vftable 0x00C5A99C.
-// 0x0026156C: filter slot1 of native vftable C600A0. Its caller preserves
-// Object::rva0029493F's AL result; the older void/int view dropped that ABI fact.
-// The source Object at+8 and mode at+C match the notifier's native filter.
-// 0x00349D02 (AI state tables): the pinned 0x003497E6 result, setting or
-// clearing status 0x1C on the owner as it is -1.
-// 0x00359729: HotKeyManager::translate (0x00359556, rowed in
-// MessageStream/HotKey.cpp) of the manager at VA 0x00E01E28 with the
-// argument, 0 without the manager.
-class GameMessage;
-
-enum GameMessageDisposition
-{
-	KEEP_MESSAGE,
-	DESTROY_MESSAGE
-};
-
-#include "../../../../Include/GameClient/HotKeyManager.h"
-
-extern HotKeyManager *TheHotKeyManager;
-
-// 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
-// at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified
-// in ParticleSystemManagerGetShaderSetup.cpp (1F4002 and 1F40AF).
-struct IDirect3DVertexDeclaration9;
-
-class DX8IndexBufferClass;
-
-namespace FXParticleSystem {
-#include "../../../../Include/GameClient/ParticleSys.h"
-}
-
-extern class ParticleSystemManager *TheParticleSystemManager;
-
-// 0x003C35F7: the pinned 0x003C35AA with both arguments and true.
-// 0x0040E0C5: for the argument's +0x78 object in state 4 (+0x2C), the
-// pinned 0x0040DF77 then the rowed 0x0040E02B; answers true.
-// 0x00414B89 and 0x00415122: the pinned 0x00414B0A resp. 0x0041505B on
-// every 0x30-byte entry of the [+0x10, +0x14) range.
-// 0x00482134 and 0x00482152 (the latter through an interface at +0x20):
-// the pinned 0x0035A292 of TheGameLogic's +0x170 object with the +0x08 word
-// and the +0x04 object's +0x08 Real.
-class Rva0035A292
-{
-public:
-	void rva0035A292(Int a, Real b);
-};
-
-struct Rva00482134Logic
-{
-	char m_pad00[0x170];
-	Rva0035A292 *m_170;
-};
-
-struct Rva00482134Data
-{
-	Int m_00;
-	Int m_04;
-	Real m_08;
-};
-
-class Rva00482134
-{
-public:
-	void rva00482134();
-private:
-	Int m_00;
-	Rva00482134Data *m_04;
-	Int m_08;
-};
-
-class Rva00482152Primary
-{
-public:
-	virtual void primarySlot();
-protected:
-	Rva00482134Data *m_04;
-	Int m_08;
-	char m_pad0C[0x14];
-};
-
-class Rva00482152Iface
-{
-public:
-	virtual void rva00482152(Int unused) = 0;
-};
-
-class Rva00482152 : public Rva00482152Primary, public Rva00482152Iface
-{
-public:
-	void rva00482152(Int unused);
-};
-
-// 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both
-// arguments then the pinned 0x004CDDBA(1); resp. only the latter while
-// +0x08 is set.
-// 0x004EF2FA (interface at +0x04): the pinned 0x004EEE38 of the complete
-// object with the first argument.
-// 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp
 
 // 0x003AFF06 (28B): a vtable slot that forwards both of its arguments to the
 // ParticleSystem member at 0x001F9BA4 (unrowed, pinned) through the system
@@ -340,133 +466,6 @@ public:
 // null-system factory 0x001FCBD7 and re-reads +0x4 (volatile read), as the
 // sibling ParticleSystem::destroy (0x001F462C) does. Class and method names
 // are address-derived; the meaning is not recovered.
-#include "../../../../Include/GameClient/ParticleSystemClass.h"
-
-ParticleSystem *Make001FCBD7(void);
-
-class Rva003AFF06SystemPtr
-{
-public:
-	operator ParticleSystem *(void) const
-	{
-		return m_target;
-	}
-
-	ParticleSystem *operator->(void) const
-	{
-		ParticleSystem *target = *(ParticleSystem *const volatile *)&m_target;
-		if (!target)
-			target = Make001FCBD7();
-		return target;
-	}
-
-private:
-	ParticleSystem *m_target;
-};
-
-class Rva003AFF06
-{
-public:
-	virtual void rva003AFF06(void *a, void *b);
-
-private:
-	Rva003AFF06SystemPtr m_system;				///< +0x4
-};
-
-typedef bool Bool;
-
-typedef int Color;
-
-class Rva0039B7AD;
-
-struct TerrainResourceLogicView
-{
-	char unknown00[0x170];
-	Rva0035A238 *manager;							// +0x170
-	Rva0035A238 *getManager() const { return manager; }
-};
-
-class ObjectFilter
-{
-public:
-	Bool isValid() const;
-};
-
-struct TerrainResourceIntVector
-{
-	Int *m_start;
-	Int *m_finish;
-	Int *m_endOfStorage;
-	Int size() const { return m_finish - m_start; }
-	const Int &operator[](Int i) const { return m_start[i]; }
-};
-
-struct TerrainResourcePlayerData
-{
-	char unknown000[0x1C8];
-	ObjectFilter m_filter;							// +0x1C8
-	char unknown1C9[0x1CC - 0x1C9];
-	TerrainResourceIntVector m_percents;			// +0x1CC
-	ObjectFilter *getFilter() { return &m_filter; }
-};
-
-class Rva003B0D7C
-{
-public:
-	void rva003B0D7C(Int amount, Rva0039B7AD *stats, Bool flag);
-};
-
-class Player
-{
-public:
-	Bool rva002AB87D(const UpgradeTemplate *upgrade) const;
-	Bool rva002AB2D9(BfmeTab1026 *tab, Bool flag) const;
-	Int iterateObjects(Int (*func)(Object *obj, void *userData), void *userData) const;
-	char unknown000[0x34];
-	TerrainResourcePlayerData *m_data;				// +0x34
-	TerrainResourcePlayerData *getData() const { return m_data; }
-	char unknown038[0x90 - 0x38];
-	Rva003B0D7C m_money;							// +0x90
-	char unknown091[0x280 - 0x91];
-	Color m_color;									// +0x280
-	char unknown284[0x3BC - 0x284];
-	char m_stats[4];								// +0x3BC
-};
-
-#include "../../../../Include/GameLogic/ExperienceTracker.h"
-
-// 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
-// ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
-// resolves to the rowed body instead of the unrowed ExperienceTracker
-// spelling (U on this unit).
-class Rva0039ADF3
-{
-public:
-	bool rva0039AE04() const;
-};
-
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *fetch(const char *label, Bool *exists);	// slot 17 (+0x44)
-};
-
-extern GameTextInterface *TheGameText;
-
-#include "../../../../Include/GameClient/InGameUI.h"
-
-extern InGameUI *TheInGameUI;
-
-struct TerrainResourceCountData
-{
-	Rva2225E0Filter *filter;
-	Int count;
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp
 
@@ -691,12 +690,6 @@ UpdateSleepTime TerrainResourceBehavior::update()
 	return (UpdateSleepTime)terrainResourceBehaviorModuleData->m_incomeInterval;
 }
 
-// tu-skeleton: 0x0048208A 17B ?buildFieldParse@TerrainResourceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0048209B 125B ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00482118 28B ??_GRva00481F82@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00589079Derived.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorXfer.cpp
 
 void TerrainResourceBehavior::xfer(Xfer *xfer)
@@ -725,8 +718,32 @@ void TerrainResourceBehavior::loadPostProcess()
 	}
 }
 
+// tu-skeleton: 0x0048208A 17B ?buildFieldParse@TerrainResourceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorCtor.cpp
+
+// ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x0048209B
+TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	float fzero = 0.0f;
+	int *slot20 = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x20);
+	int *slot24 = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x24);
+	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot24 = (int)((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
+	*reinterpret_cast<const void **>(this) = (const void *)((unsigned int)vtbl_00C49408);
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x0C) = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x20) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x24) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@"));
+	m_registered = false;
+	m_sleepAfterRegister = true;
+	m_incomeScale = fzero;
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+}
+
+// tu-skeleton: 0x00482118 28B ??_GRva00481F82@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00589079Derived.cpp (not merged yet)
+
 // tu-skeleton: 0x00482275 48B ??1TerrainResourceBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BB78 8B uw_0078bb78 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BB80 10B __ehhandler$??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehaviorCtor.cpp (not merged yet)
