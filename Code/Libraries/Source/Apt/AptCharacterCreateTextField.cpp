@@ -18,7 +18,22 @@ public:
 };
 #include "BfmeAptValue006DCD20.h"
 #include "AptBasePtrStack.h"
-struct AptActionInterpreter {AptBasePtrStack stack;};
+class BfmeAptValue006DCD20;
+class AptValue;
+class EAStringC;
+struct AptActionInterpreter
+{
+private:
+	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
+public:
+	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
+	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
+	void loadVariables(AptValue *,AptValue *,const EAStringC *);
+private:
+	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
+public:
+	AptBasePtrStack stack; // +0x00
+};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 class Rva006DB160
@@ -43,7 +58,14 @@ class BfmeSubmitter1283
 public:
 	void *bfmeSubmit1283(AptCIH *a1, int a2, int a3, int a4, int a5, int a6, int a7, float *a8, int a9, int a10, int a11, int a12);
 };
-class Rva006E9A40List {public:unsigned short count,capacity;AptCIH **items;void add(AptCIH*);};
+class Rva006E9A40List
+{
+public:
+	void add(AptCIH*);
+	unsigned short count; // +0x00
+	unsigned short capacity; // +0x02
+	AptCIH **items; // +0x04
+};
 class Rva006E34D0 {public:char prefix[0x20];Rva006E9A40List first,second;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern unsigned char g_00E1771C;
