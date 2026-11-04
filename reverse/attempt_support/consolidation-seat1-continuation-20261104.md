@@ -43,3 +43,6 @@ remain in `consolidation-seat1-tail-20261104.md`.
 
 Additional probes from the current shard reassessment are recorded in
 `consolidation-seat1-reassessment-20261104.md`.
+
+Current-shard allocator probes and exact compile/LinkGuard blockers are recorded
+in `consolidation-seat1-current-probes-20261104.md`.
