@@ -118,7 +118,7 @@ struct LivingWorldLODManagerView
 	int m_staticLevel;
 };
 
-class GameMessage { public: void appendBooleanArgument(bool value); };
+#include "../../../Include/Common/MessageStream.h"
 class MessageStream;
 extern class MessageStream *TheMessageStream;
 class LivingWorldMessageStreamView

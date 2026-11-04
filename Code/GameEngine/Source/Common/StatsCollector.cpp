@@ -146,17 +146,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class GameMessage
-{
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-	Int getType() const { return m_messageType; }
-
-private:
-	unsigned char m_pad00[ 0x10 ];
-	Int m_messageType;              // +0x10
-	Int m_playerIndex;              // +0x14
-};
+#include "../../Include/Common/MessageStream.h"
 
 class Object
 {

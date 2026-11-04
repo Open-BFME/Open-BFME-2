@@ -670,7 +670,7 @@ namespace _STL {
 #include "../../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo;
 class PickAndPlayInfo { public: PickAndPlayInfo(); char pad[8]; Drawable *drawTarget; char tail[24]; };
-class GameMessage { public: enum Type { MSG_NONE=0 }; };
+#include "../../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *,GameMessage::Type,PickAndPlayInfo *);
 // WB1207EF0 and native caller prove this member ABI; provider corrected and byte-verified.
 struct Rva0049DF81Input;
