@@ -2786,10 +2786,10 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavi
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?getReconstructedBuildingID@RebuildHoleBehaviorInterface@@UAE?AW4ObjectID@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?getSpawnerID@RebuildHoleBehaviorInterface@@UAE?AW4ObjectID@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?onDie@DieModuleInterface@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp	?setReplenishing@SpawnBehaviorFourthBase@@UAEX_N@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp	?slot00@SpawnBehaviorFourthBase@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp	?slot04@SpawnBehaviorFourthBase@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp	?slot08@SpawnBehaviorFourthBase@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?setReplenishing@SpawnBehaviorFourthBase@@UAEX_N@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?slot00@SpawnBehaviorFourthBase@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?slot04@SpawnBehaviorFourthBase@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?slot08@SpawnBehaviorFourthBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ	1

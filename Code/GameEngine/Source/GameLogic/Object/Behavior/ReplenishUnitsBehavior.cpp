@@ -30,18 +30,11 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
 class Thing;
 class ModuleData;
 class Object;
 class Xfer;
 class ReplenishUnitsBehaviorModuleData;
-// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2, as
-// ReplenishUnitsBehaviorDtor.cpp's canonical view emits it).
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
@@ -77,14 +70,9 @@ class Snapshot;
 #include "../../../../Include/Common/StateMachine.h"
 #include "../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
-
 #include "../../../../Include/Common/XferVersion.h"
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-
 class UpgradeMux
 {
 public:
@@ -98,36 +86,12 @@ protected:
 private:
 	bool m_upgradeExecuted;
 };
-
-class ReplenishUnitsBehavior : public UpdateModule, public UpgradeMux
-{
-public:
-	ReplenishUnitsBehavior(Thing *thing, const ModuleData *moduleData);
-	virtual ~ReplenishUnitsBehavior();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-	void rva004842DD(Object *target);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	const ReplenishUnitsBehaviorModuleData *getReplenishUnitsBehaviorModuleData() const
-	{
-		return (const ReplenishUnitsBehaviorModuleData *)m_moduleData;
-	}
-};
-
 namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
-
 extern int BfmeLogicFramesPerSecond;
-
 #include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
-
 class FXList;
-
 // A 128-bit ObjectStatusMaskType; 0x0023DA79 clears it and sets one bit.
 struct ObjectStatusMask
 {
@@ -135,7 +99,6 @@ struct ObjectStatusMask
 	bool test(int bit) const { return (m_bits[bit >> 5] >> (bit & 31)) & 1; }
 	unsigned m_bits[4];
 };
-
 class __declspec(novtable) ReplenishUnitsBehaviorModuleData
 {
 public:
@@ -154,13 +117,9 @@ private:
 	bool m_138;			// +0x138
 	bool m_139;			// +0x139 replenish horde members only
 };
-
 typedef int Int;
-
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
-
 class Player;
-
 class Rva000421C8
 {
 public:
@@ -171,14 +130,12 @@ public:
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
-
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
 };
-
 // vftable 0x00BF91BC, allow 0x002611BF.
 class Rva002611BFFilter : public Rva000421C8
 {
@@ -187,7 +144,6 @@ public:
 	virtual bool allow(Object *obj);
 	const Object *m_obj;
 };
-
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C
 // relationship flags, +0x10 whether a hit allows.
 class Rva00260EB1Filter : public Rva000421C8
@@ -201,7 +157,6 @@ public:
 	int m_flags;
 	bool m_match;
 };
-
 // vftable 0x00BF8FE4, allow 0x0026109D; the out-of-line ctor 0x00261058.
 class Rva00261058 : public Rva000421C8
 {
@@ -211,7 +166,6 @@ public:
 	Player *m_player;
 	bool m_flag;
 };
-
 // vftable 0x00BFAD04, allow 0x00260E2A, slot 2 0x00260E1E: +0x08 a player.
 class Rva00260E2AFilter : public Rva000421C8
 {
@@ -221,7 +175,6 @@ public:
 	virtual int getPlayerMask();
 	Player *m_player;
 };
-
 // vftable 0x00C49F14, allow 0x00260F77: +0x08 what to compare, +0x0C
 // whether a hit allows.
 class Rva00260F77Filter : public Rva000421C8
@@ -234,25 +187,21 @@ public:
 	void *m_what;
 	bool m_match;
 };
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_RVA0048438A_50 = 0x32
 };
-
 // The same 16-byte mask under its rowed names: 0x0023DA79 is rowed on
 // Rva0023DA79 and the filter ctor 0x003685CF takes BfmeObject872Header.
 class BfmeObject872Header
 {
 	unsigned int m_words[4];
 };
-
 class Rva0023DA79 : public BfmeObject872Header
 {
 public:
 	Rva0023DA79 *rva0023DA79(int base, int bit) throw();	// 0x0023DA79
 };
-
 // vftable 0x00C17968; the out-of-line ctor 0x003685CF: status must / must not.
 class Rva003685CF : public Rva000421C8
 {
@@ -262,20 +211,38 @@ public:
 	ObjectStatusMask m_must;
 	ObjectStatusMask m_mustNot;
 };
-
 class FXList
 {
 public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
 };
-
 class DetachableRiderUpdate
 {
 public:
 	void rva004AE8FA();	// 0x004AE8FA
 };
-
 #include "../../../Common/PartitionRangeQueryCallView.h"
+class BehaviorModuleBase
+{
+public:
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+#pragma comment(linker, "/alternatename:?slot00@SpawnBehaviorFourthBase@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
+#pragma comment(linker, "/alternatename:?slot08@SpawnBehaviorFourthBase@@UAEXXZ=?wouldUpgrade@UpgradeMux@@UBE_NABV?$BitFlags@$0IA@@@@Z")
+#pragma comment(linker, "/alternatename:?setReplenishing@SpawnBehaviorFourthBase@@UAEX_N@Z=?resetUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z")
+#pragma comment(linker, "/alternatename:?slot04@SpawnBehaviorFourthBase@@UAEXXZ=?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z")
 
 extern PartitionManager *ThePartitionManager;
 
@@ -336,7 +303,52 @@ protected:
 
 BFME_LITERAL_NAME_GETTER(Rva00484181Named, "ReplenishUnitsBehavior")
 
-// tu-skeleton: 0x00484161 32B ??1ReplenishUnitsBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp (not merged yet)
+class SpawnBehaviorFourthBase
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void setReplenishing(bool enabled);
+};
+
+class ReplenishUnitsBehavior : public UpdateModule, public UpgradeMux
+{
+public:
+	ReplenishUnitsBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~ReplenishUnitsBehavior();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva004842DD(Object *target);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	const ReplenishUnitsBehaviorModuleData *getReplenishUnitsBehaviorModuleData() const
+	{
+		return (const ReplenishUnitsBehaviorModuleData *)m_moduleData;
+	}
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp
+
+ReplenishUnitsBehavior::~ReplenishUnitsBehavior()
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp
+
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2, as
+// ReplenishUnitsBehaviorDtor.cpp's canonical view emits it).
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters2.cpp
 
@@ -476,7 +488,5 @@ void ReplenishUnitsBehavior::xfer(Xfer *xfer)
 	UpdateModule::xfer(xfer);
 	UpgradeMux::upgradeMuxXfer(xfer);
 }
-
-// tu-skeleton: 0x004842C1 28B ??_GReplenishUnitsBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BD23 8B uw_0078bd23 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
