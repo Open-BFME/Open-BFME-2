@@ -8,7 +8,6 @@
 // follows 24 bytes later, matching the BFME1 seed order.
 typedef int Int;
 typedef unsigned int UnsignedInt;
-typedef void FILE;
 
 extern "C" UnsignedInt theGameClientSeed[6];
 
