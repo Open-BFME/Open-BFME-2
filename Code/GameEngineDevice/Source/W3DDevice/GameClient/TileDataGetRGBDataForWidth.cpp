@@ -16,33 +16,9 @@ typedef unsigned char UnsignedByte;
 extern "C" void __cdecl Rva001117E3Downsample(
 	unsigned short *source, Int width, unsigned short *destination);
 
-class RefCountClass
-{
-public:
-	__declspec(dllimport) __forceinline RefCountClass() : m_refs(1) {}
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass() {}
-private:
-	int m_refs;
-};
-
-class TileData : public RefCountClass
-{
-public:
-	TileData();
-	virtual ~TileData();
-	UnsignedByte m_tileData[0x2000];
-	UnsignedByte m_tileDataMip32[0x800];
-	UnsignedByte m_tileDataMip16[0x200];
-	UnsignedByte m_tileDataMip8[0x80];
-	UnsignedByte m_tileDataMip4[0x20];
-	UnsignedByte m_tileDataMip2[0x8];
-	UnsignedByte m_tileDataMip1[0x4];
-	int m_2AB4;
-	UnsignedByte *getRGBDataForWidth(Int width);
-	void updateMips();
-};
+#include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
+// RefCountClass's base teardown is inline here, as in TileData.cpp.
+inline RefCountClass::~RefCountClass() {}
 
 #define TILE_PIXEL_EXTENT_MIP1 32
 #define TILE_PIXEL_EXTENT_MIP2 16
