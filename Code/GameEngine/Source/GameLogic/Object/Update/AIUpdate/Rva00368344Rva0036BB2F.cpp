@@ -61,6 +61,8 @@ public:
 	int m_numLinks; // 0x4C
 };
 
+// Slot 2 of the retail tables is the class-name getter.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../object.h"
 
 class AIStateMachine
@@ -75,15 +77,7 @@ public:
 	Rva0035149F &rva00351759(const Rva0035149F &path); // 0x00351759
 };
 
-class StateMachine
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4();
-	virtual void s5();
-	virtual void s6(); virtual void s7();
-	virtual void s8(int state);
-	void setGoalPosition(const Coord3D *pos, float range); // 0x004D745C
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 struct Rva0036BB2FSpeed
 {
@@ -135,7 +129,7 @@ void Rva00368344::rva0036BB2F(const Waypoint *way, bool flag, int cmdSource)
 			break;
 		}
 	}
-	m_machine->s5();
+	m_machine->clear();
 	unsigned int n = (unsigned int)path.size();
 	if (n > 0)
 	{
@@ -145,5 +139,5 @@ void Rva00368344::rva0036BB2F(const Waypoint *way, bool flag, int cmdSource)
 	}
 	((Rva00351759 *)m_machine)->rva00351759(*(const Rva0035149F *)&path);
 	((AIStateMachine *)this)->setGoalWaypoint((const Waypoint *)cmdSource);
-	m_machine->s8(0x3F7 + (flag ? 1 : 0));
+	m_machine->setState(0x3F7 + (flag ? 1 : 0));
 }

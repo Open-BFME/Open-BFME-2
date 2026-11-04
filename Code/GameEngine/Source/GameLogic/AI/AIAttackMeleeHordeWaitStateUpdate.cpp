@@ -16,12 +16,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_WriteBarrier)
 #pragma intrinsic(_ReadWriteBarrier)
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -85,14 +80,7 @@ public:
 	Provider250 *m_provider250; // +0x250
 };
 
-class StateMachine
-{
-public:
-	Bool isGoalObjectDestroyed() const;
-	Object *getGoalObject();
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
@@ -100,21 +88,6 @@ extern int BfmeLogicFramesPerSecond;
 extern GameLogic *TheGameLogic;
 Bool rva00344EB2Gate(Object *a, Thing *b);
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(int status);
-	virtual StateReturnType update();
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-	unsigned m_hash; // +0x1C
-};
 
 class AIAttackMeleeHordeWaitState : public State
 {

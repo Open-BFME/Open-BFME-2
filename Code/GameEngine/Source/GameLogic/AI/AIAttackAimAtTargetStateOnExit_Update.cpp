@@ -15,16 +15,7 @@
 // Layout: m_canTurnInPlace +0x21, m_setLocomotor +0x22, AI +0x258.
 typedef bool Bool;
 typedef float Real;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_IS_AIMING_WEAPON = 25,
@@ -136,36 +127,7 @@ private:
 	unsigned char m_pad25C[0x274 - 0x25C];
 	Rva00351788RangeOwner *m_rangeOwner; // +0x274
 };
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	// Keep the inlined goal address without a competing standalone class-view copy.
-	__declspec(dllimport) __forceinline const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	const Coord3D *getMachineGoalPosition() const { return m_machine->getGoalPosition(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIAttackAimAtTargetState : public State
 {
 public:
@@ -173,7 +135,6 @@ public:
 	virtual StateReturnType update();
 	StateReturnType updateInternal(Bool flag);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Bool m_isAttackingObject; // +0x20
 	Bool m_canTurnInPlace; // +0x21
 	Bool m_setLocomotor; // +0x22
@@ -195,7 +156,7 @@ StateReturnType AIAttackAimAtTargetState::update()
 	Object *source = getMachineOwner();
 	Weapon *weapon = source->getCurrentWeapon();
 	Object *victim = getMachineGoalObject();
-	const Coord3D *goalPos = getMachineGoalPosition();
+	const Coord3D *goalPos = getMachine()->getGoalPosition();
 	AIUpdateInterface *sourceAI = source->getAI();
 	AIUpdateInterface *victimAI = victim ? victim->getAI() : 0;
 	Rva001E3F08 *curLoco = sourceAI->getCurLocomotor();
@@ -231,7 +192,7 @@ StateReturnType AIAttackAimAtTargetState::update()
 		if (m_isAttackingObject)
 			sourceAI->setTurretTargetObject(tur, victim, m_isForceAttacking);
 		else
-			sourceAI->setTurretTargetPosition(tur, getMachineGoalPosition());
+			sourceAI->setTurretTargetPosition(tur, getMachine()->getGoalPosition());
 	}
 	else
 	{

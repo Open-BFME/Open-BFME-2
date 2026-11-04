@@ -19,6 +19,8 @@ public:
     AsciiString m_name;
 };
 
+// Slot 2 of the retail tables is the class-name getter.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../Include/GameLogic/Weapon.h"
 
 #include "../Object/object.h"
@@ -29,13 +31,7 @@ public:
     bool get() const;
 };
 
-class StateMachine
-{
-public:
-    Object *getGoalObject();
-    char m_unrecovered00[0x14];
-    Object *m_owner;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class AIAttackState
 {

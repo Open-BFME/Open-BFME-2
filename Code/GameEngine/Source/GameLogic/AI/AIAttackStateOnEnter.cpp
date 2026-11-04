@@ -16,7 +16,7 @@ enum WeaponSlotType {};
 enum MoodMatrixAction {};
 enum Relationship {};
 enum ObjectStatusTypes {};
-enum StateReturnType { CONTINUE=0, SUCCESS=-1, FAILURE=-2 };
+#include "../../../Include/Common/StateMachineClass.h"
 class Object; class Team; class Player;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct AttackThingTemplateView { char pad[0x108]; unsigned char kinds[0x20]; };
@@ -49,27 +49,7 @@ class Rva002C9400ByteField { public: unsigned char get() const; };
 class Rva002C940EByteField { public: unsigned char get() const; };
 class Rva0028B7B5CmpBoolField { public: bool get() const; };
 struct CurrentStateIDView { char pad[4]; unsigned id; };
-class StateMachine {
-public:
- virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();
- virtual void slot04();virtual void slot05();virtual void slot06();
- virtual StateReturnType initDefaultState();
- virtual void slot08();virtual void slot09();virtual void slot10();virtual void slot11();
- virtual void slot12();virtual void slot13();virtual void setGoalObject(const Object*);
- void setGoalPosition(const Coord3D*);
- Object *getGoalObject();
- unsigned getCurrentStateID() const { return currentState ? currentState->id : 999999; }
- // LINK: same-body helper under a TU-unique name (identical inlined bytes).
- // This TU's copy loses (first-copy, 9-vs-5 split with no retail truth); the
- // onEnter call below inlines it but still emits the loser COMDAT. Rebinding
- // there emits only this unique (trivially kept) copy. The r3 triple-lock
- // (rowed-inline + flags + provider split) does not block this path: the
- // inline shape is preserved byte-identically and no flags change. No flags
- // touched.
- unsigned bfme_current_state() const { return currentState ? currentState->id : 999999; }
- CurrentStateIDView *currentState; char pad08[0xC]; Object *owner;
- char pad18[0xC]; Coord3D goal;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AttackExitConditionsInterface { public: virtual bool shouldExit(const StateMachine*) const; };
 struct AttackControllingPlayerView { char pad[0x5C]; unsigned type; };
 class AIAttackState {
@@ -86,16 +66,16 @@ public:
 protected: void createAttackMachine(Object*);
 };
 StateReturnType AIAttackState::onEnter() {
- Object *source=machine->owner;
+ Object *source=machine->m_owner;
  Object *victim=machine->getGoalObject();
- if(!source) return FAILURE;
+ if(!source) return STATE_FAILURE;
  AIUpdateInterface *ai=source->ai;
- if(!(ai->getMoodMatrixActionAdjustment((MoodMatrixAction)2)&1)) return SUCCESS;
- if(parameters && parameters->shouldExit(getMachine())) return SUCCESS;
- if(source->isOutOfAmmo() && !(source->m_template->kinds[3]&2)) return FAILURE;
- if(!rva003413B2()) return FAILURE;
+ if(!(ai->getMoodMatrixActionAdjustment((MoodMatrixAction)2)&1)) return STATE_SUCCESS;
+ if(parameters && parameters->shouldExit(getMachine())) return STATE_SUCCESS;
+ if(source->isOutOfAmmo() && !(source->m_template->kinds[3]&2)) return STATE_FAILURE;
+ if(!rva003413B2()) return STATE_FAILURE;
  Weapon *weapon=const_cast<Weapon*>(source->getCurrentWeapon(0));
- if(!weapon) return FAILURE;
+ if(!weapon) return STATE_FAILURE;
  flag48=reinterpret_cast<const Rva002C9400ByteField*>(weapon->m_template)->get();
  unsigned char melee=0;
  if(attackingObject && victim) {
@@ -114,11 +94,11 @@ StateReturnType AIAttackState::onEnter() {
  else machineType=attackingObject?3:4;
  createAttackMachine(source);
  StateMachine *attack=attackMachine;
- if(!attack) return FAILURE;
+ if(!attack) return STATE_FAILURE;
  flag49=false;
  if(attackingObject) {
   if(!victim || (victim->status438&1) || victim->testStatus((ObjectStatusTypes)50)) {
-   ai->notifyVictimIsDead();return FAILURE;
+   ai->notifyVictimIsDead();return STATE_FAILURE;
   }
   objectID44=victim->id;
   victimTeam=victim->team;
@@ -126,8 +106,8 @@ StateReturnType AIAttackState::onEnter() {
   victimPos=victim->position;
   flag49=source->getRelationship(victim)==0;
  } else {
-  attack->setGoalPosition(&machine->goal);
-  victimPos=machine->goal;
+  attack->setGoalPosition(&machine->m_goalPosition);
+  victimPos=machine->m_goalPosition;
  }
  source->setStatus((ObjectStatusTypes)22,true);
  weapon->m_maxShotCount=0x7FFFFFFF;
@@ -136,8 +116,8 @@ StateReturnType AIAttackState::onEnter() {
   lockedWeapon=source->getCurrentWeapon(0)->m_template->name;
  else lockedWeapon.clear();
  StateReturnType ret=attackMachine->initDefaultState();
- if(ret==CONTINUE) {
-  if(attackMachine->bfme_current_state()==228) {
+ if(ret==STATE_CONTINUE) {
+  if(attackMachine->getCurrentStateID()==228) {
    if(reinterpret_cast<const unsigned char*>(source->conditions)[4]&0x20) {source->conditions[1]&=~0x20;source->rva0028AE6D();}
    if(reinterpret_cast<const unsigned char*>(source->conditions)[4]&0x40) {source->conditions[1]&=~0x40;source->rva0028AE6D();}
    if(reinterpret_cast<const unsigned char*>(source->conditions)[4]&0x80) {source->conditions[1]&=~0x80;source->rva0028AE6D();}

@@ -20,10 +20,7 @@ enum ObjectID
 {
 	INVALID_ID = 0
 };
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
+#include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_26 = 0x26
@@ -42,38 +39,18 @@ private:
 	unsigned char m_pad78[0x258 - 0x78];
 	class AIUpdateInterface *m_ai; // +0x258
 };
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual StateReturnType initDefaultState();
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's copy loses (first-copy); the wrapper below inlines it
-	// but still emits the loser COMDAT. Rebinding there emits only this
-	// unique (trivially kept) copy. No flags touched.
-	const Coord3D *bfme_goal_position() const { return &m_goalPosition; }
-protected:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIUpdateInterface
 {
 public:
 	const Coord3D *getGoalPosition() const { return m_stateMachine->getGoalPosition(); }
 	Object *getGoalObject() { return m_stateMachine->getGoalObject(); }
 	// LINK: same-body helpers under TU-unique names (identical inlined
-	// bytes, chained to the unique StateMachine helper above). This TU's
+	// bytes, chained to StateMachine::getGoalPosition). This TU's
 	// copies lose (first-copy); the two calls below inline them but still emit
 	// loser COMDATs. Rebinding there emits only unique (trivially kept)
 	// copies. No flags touched.
-	const Coord3D *bfme_ai_goal_position() const { return m_stateMachine->bfme_goal_position(); }
+	const Coord3D *bfme_ai_goal_position() const { return m_stateMachine->getGoalPosition(); }
 	Object *bfme_ai_goal_object() { return m_stateMachine->getGoalObject(); }
 private:
 	unsigned char m_pad00[0x30];
@@ -86,29 +63,14 @@ public:
 	void setTargetPositionToGuard(const Coord3D *pos) { m_positionToGuard = *pos; }
 	void setNemesisID(ObjectID id) { m_nemesisToAttack = id; }
 private:
-	unsigned char m_pad30[0x3C - 0x30];
 	Coord3D m_positionToGuard; // +0x3C
 	ObjectID m_nemesisToAttack; // +0x48
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
 };
 class AIGuardRetaliateState : public State
 {
 public:
 	virtual StateReturnType onEnter();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	AIGuardRetaliateMachine *m_guardRetaliateMachine; // +0x20
 };
 

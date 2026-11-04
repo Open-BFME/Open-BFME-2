@@ -30,15 +30,8 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-enum StateReturnType
-{
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
 enum LocomotorSetType
 {
@@ -152,43 +145,8 @@ private:
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getGoalPosition copy loses to the first-in-order copy
-	// (no retail address); the wrapper below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	const Coord3D *bfme_goal_position() const { return &m_goalPosition; }
-protected:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	const Coord3D *getMachineGoalPosition() const { return m_machine->bfme_goal_position(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -198,7 +156,6 @@ public:
 	virtual StateReturnType update();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustsDestination; // +0x48
@@ -267,7 +224,7 @@ StateReturnType AIMoveAndTightenState::onEnter()
 	m_okToRepathTimes = 1;
 	m_checkForPath = true;
 	obj->rva0028AD32();
-	m_goalPosition = *getMachineGoalPosition();
+	m_goalPosition = *getMachine()->getGoalPosition();
 	ai->requestApproachPath(&m_goalPosition);
 	return AIInternalMoveToState::onEnter();
 }

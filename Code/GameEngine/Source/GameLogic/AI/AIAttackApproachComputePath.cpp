@@ -102,12 +102,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 enum WhichTurretType
 {
 	TURRET_INVALID = -1
@@ -497,71 +492,8 @@ enum
 	INVALID_STATE_ID = 999999
 };
 
-class StateMachine : public StateMachineSlots<4>
-{
-public:
-	virtual StateReturnType updateStateMachine(); // slot 4
-	virtual void slot05();
-	virtual void slot06();
-	virtual StateReturnType initDefaultState(); // slot 7
-	virtual StateReturnType setState(UnsignedInt newStateID); // slot 8
-	virtual StateMachine *slot09(); // returns a new attack sub-machine (AIAttackSquadState::onEnter)
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void setGoalObject(const Object *obj);
-	Bool isGoalObjectDestroyed() const;
-	UnsignedInt getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
-	inline Bool isInAttackState() const;
-	void setGoalPosition(const Coord3D *pos);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-private:
-	StateIdView *m_currentState; // +0x04
-	unsigned char m_pad08[0x14 - 0x08];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x20 - 0x18];
-public:
-	Int m_goalObjectID; // +0x20
-private:
-	Coord3D m_goalPosition; // +0x24
-	unsigned char m_pad30[0x38 - 0x30];
-public:
-	Bool m_locked; // +0x38 (ZH lock()/unlock() without the debug owner string)
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void slot05();
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	const Coord3D *getMachineGoalPosition() const { return m_machine->locomotorGoalPosition(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -571,7 +503,6 @@ public:
 protected:
 	virtual Bool computePath();
 	void setAdjustsDestination(Bool adjusts) { m_adjustsDestination = adjusts; }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustsDestination; // +0x48
@@ -1016,7 +947,7 @@ __declspec(noinline) inline StateReturnType AIAttackApproachTargetState::onEnter
 	{
 		if (!weapon || !weapon->getTemplate()->m_16b)
 			return STATE_FAILURE;
-		if (weapon->isWithinAttackRange(source, (void *)getMachineGoalPosition(), 0.0f, 1))
+		if (weapon->isWithinAttackRange(source, (void *)getMachine()->getGoalPosition(), 0.0f, 1))
 			return STATE_SUCCESS;
 		if (!rva00343FB0(source))
 			return STATE_FAILURE;
@@ -1043,7 +974,7 @@ __declspec(noinline) inline StateReturnType AIAttackApproachTargetState::onEnter
 		if (m_isAttackingObject)
 			ai->setTurretTargetObject(tur, victim, m_isForceAttacking);
 		else
-			ai->setTurretTargetPosition(tur, getMachineGoalPosition());
+			ai->setTurretTargetPosition(tur, getMachine()->getGoalPosition());
 	}
 
 	if (computePath() == false)
@@ -1322,7 +1253,7 @@ Bool AIAttackApproachTargetState::computePath()
   m_waitingForPath=ai->isWaitingForPath();m_stopIfInRange=false;return true;
  }
  critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 20");
- setAdjustsDestination(true);m_stopIfInRange=false;m_goalPosition=*getMachineGoalPosition();
+ setAdjustsDestination(true);m_stopIfInRange=false;m_goalPosition=*getMachine()->getGoalPosition();
  if(!forceRepath)return true;
  ai->requestAttackPath(INVALID_OBJECT_ID,&m_goalPosition);m_waitingForPath=ai->isWaitingForPath();return true;
 }

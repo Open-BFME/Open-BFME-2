@@ -9,16 +9,12 @@
 // the Object's +38 position. Original member name unknown.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
+// Slot 2 of the retail tables is the class-name getter.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../object.h"
 class Waypoint;
 class AIStateMachine { public: void setGoalWaypoint(const Waypoint *p); };
-class StateMachine
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4();
-	virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(int v);
-	void setGoalPosition(const Coord3D *pos);
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 class Rva00368344
 {
 public:
@@ -40,12 +36,12 @@ void Rva00368344::rva00368E95(const Coord3D *pos, const Waypoint *wp, bool extra
 		return;
 	m_angle = obj->GetRelativeAngle(pos);
 	m_angle += obj->getOrientation();
-	m_machine->s5();
+	m_machine->clear();
 	m_machine->setGoalPosition(obj->getPosition());
 	((AIStateMachine *)this)->setGoalWaypoint(wp);
 	if (extra)
-		m_machine->s8(0x3FF);
+		m_machine->setState(0x3FF);
 	else
-		m_machine->s8(0x3FC);
+		m_machine->setState(0x3FC);
 	m_done = 2;
 }

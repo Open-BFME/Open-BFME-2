@@ -15,10 +15,8 @@
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 // 0x002907A1 (pinned as isMobile) is the row ?isMobile@Object@@QBE_NXZ (Rva002907A1Finish.cpp).
 class Object {public:bool isMobile() const;const Coord3D*getPosition()const{return &position;}private:char prefix[0x38];Coord3D position;};
-enum StateID {BFME_AI_ATTACK_MOVE_TO=0x21};
-class StateMachine {
-public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void clear();virtual void s6();virtual void s7();virtual void setState(StateID);virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void setGoalObject(const Object*);
-};
+enum {BFME_AI_ATTACK_MOVE_TO=0x21};
+#include "../../../../Include/Common/StateMachineClass.h"
 struct Rva001E4147Twelve;
 class Rva001E4147{public:void rva001E4147(Rva001E4147Twelve*);};
 class AIUpdateInterface {

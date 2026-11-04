@@ -68,15 +68,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-// The state base: only its virtual table matters to these bodies.
-class State
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 enum ObjectID
 {
@@ -85,27 +77,19 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
-class StateMachine
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
 
 class AIInternalMoveToState : public State
 {
 protected:
 	virtual void xfer( Xfer *xfer );
-	char m_unrecovered04[ 0x4C - 0x04 ];
+	char m_pad20[0x4C - 0x20];
 };
 
 class AIIdleState : public State
 {
 protected:
 	virtual void xfer( Xfer *xfer );
-	char m_unrecovered04[0x20 - 0x04]; unsigned short m_20, m_22; bool m_24, m_25; char m_unrecovered26[0x2C - 0x26];
+	unsigned short m_20, m_22; bool m_24, m_25; char m_unrecovered26[0x2C - 0x26];
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -141,7 +125,7 @@ class AIAttackAimAtTargetState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x21 - 0x04 ];
+	char m_pad20[0x21 - 0x20];
 	Bool m_canTurnInPlace;																										///< 0x21
 	Bool m_setLocomotor;																											///< 0x22
 	Bool m_bfmeFlag23;																												///< 0x23
@@ -153,7 +137,6 @@ class AIExitState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	ObjectID m_entryToClear;																									///< 0x20
 	Bool m_bfmeFlag24;																												///< 0x24
 };
@@ -181,7 +164,6 @@ class AIUncontrollableCower : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	Bool m_bfmeFlag20;																												///< 0x20
 };
 
@@ -190,7 +172,6 @@ class AIAttackMeleeHordeWaitState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	UnsignedInt m_bfmeValue20;																								///< 0x20
 };
 
@@ -199,7 +180,6 @@ class AIAttackMeleeHordeWaitPathState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	UnsignedInt m_bfmeValue20;																								///< 0x20
 	Int m_bfmeValue24;																												///< 0x24
 };
@@ -242,7 +222,6 @@ class AIAttackPositionAimAtTargetState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	Bool m_bfmeFlag20;																												///< 0x20
 	Bool m_bfmeFlag21;																												///< 0x21
 };
@@ -252,7 +231,6 @@ class AIHordeExitState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	Bool m_bfmeFlag20;																												///< 0x20
 };
 
@@ -261,7 +239,6 @@ class AIRampageState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	Bool m_bfmeFlag20;																												///< 0x20
 	UnsignedInt m_bfmeValue24;																								///< 0x24
 	UnsignedInt m_bfmeValue28;																								///< 0x28
@@ -295,21 +272,11 @@ private:
 	char m_unrecovered04[ 0x3C - 0x04 ];																				///< to 0x3C bytes (operator new size)
 };
 
-struct StateMachineOwnerView
-{
-	char m_unrecovered00[ 0x14 ];
-	Object *m_owner;																													///< 0x14
-};
-
 class AIMoveOntoWallState : public State
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	Object *getMachineOwner() const { return m_machine->m_owner; }
-	char m_unrecovered04[ 0x18 - 0x04 ];
-	StateMachineOwnerView *m_machine;																						///< 0x18
-	char m_unrecovered1C[ 0x20 - 0x1C ];
 	Rva0033FC0A *m_wallMachine;																								///< 0x20
 };
 
@@ -318,10 +285,6 @@ class AIHarvestState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	Object *getMachineOwner() const { return m_machine->m_owner; }
-	char m_unrecovered04[ 0x18 - 0x04 ];
-	StateMachineOwnerView *m_machine;																						///< 0x18
-	char m_unrecovered1C[ 0x20 - 0x1C ];
 	Rva00544C51 *m_harvestMachine;																						///< 0x20
 	Bool m_bfmeFlag24;																												///< 0x24
 };
@@ -344,7 +307,6 @@ class AIGiantBirdFollowThruState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	Bool m_bfmeFlag20;																												///< 0x20
 	Int m_bfmeValue24;																												///< 0x24
 };
@@ -354,7 +316,7 @@ class GiantBirdGuardOuterState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x24 - 0x04 ];
+	char m_pad20[0x24 - 0x20];
 	Int m_bfmeValue24;																												///< 0x24
 	Coord3DBase m_bfmePosition28;																							///< 0x28
 	float m_bfmeReal34;																												///< 0x34
@@ -366,7 +328,6 @@ class AIGiantBirdSwoopState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	UnsignedInt m_bfmeRaw20;																									///< 0x20, 4 raw bytes
 	Coord3DBase m_bfmePosition24;																							///< 0x24
 	Bool m_bfmeFlag30;																												///< 0x30
@@ -379,7 +340,6 @@ class AIGiantBirdAttack : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
 	UnsignedInt m_bfmeRaw20;																									///< 0x20, 4 raw bytes
 };
 
@@ -397,7 +357,7 @@ class GiantBirdGuardReturnState : public State
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x24 - 0x04 ];
+	char m_pad20[0x24 - 0x20];
 	UnsignedInt m_bfmeValue24;																								///< 0x24
 	Coord3DBase m_bfmePosition28;																							///< 0x28
 };

@@ -8,10 +8,7 @@
 // Evidence: named lane pin AICowerState::onExit, vslot slot 5, donor BFME1
 // Rva001745B0AICowerState_onExit (identity only, BFME2 body differs), caller
 // 0x00347F3E AIUncontrollableCower::onExit, prev/next AI state TUs.
-enum StateExitType
-{
-	STATE_EXIT_NORMAL = 0
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -35,30 +32,8 @@ public:
 	virtual void slot104(int arg) = 0;
 };
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class Object
 {
