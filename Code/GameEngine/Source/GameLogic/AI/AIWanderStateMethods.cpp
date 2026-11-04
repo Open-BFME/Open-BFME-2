@@ -35,8 +35,10 @@
 // returns AIPanicState; Zero Hour's bodies on the same layout, with
 // MODELCONDITION_PANICKING at bit 2*32+13 (Object +0x114 mask 0x2000) and
 // BFME 2's "CritterDesync: ComputePath40" log before computePath.
+#include <stddef.h>
+#include <math.h>
+
 typedef bool Bool;
-#define NULL 0
 enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13,
@@ -56,10 +58,7 @@ public:
 private:
 	unsigned int m_words[19];
 };
-struct FprintfTarget
-{
-	char m_pad[4];
-};
+struct FprintfTarget;
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
@@ -76,7 +75,6 @@ enum LocomotorSetType
 #define PATHFIND_CELL_SIZE 10
 #define PATHFIND_CELL_SIZE_F 10.0f
 
-extern "C" __declspec(dllimport) double __cdecl floor(double);
 static __forceinline Real fast_float_floor(Real f)
 {
 	return (Real)floor((double)f);

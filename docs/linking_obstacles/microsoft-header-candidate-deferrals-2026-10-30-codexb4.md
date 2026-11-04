@@ -13,3 +13,5 @@ recover the bytes. Its 15 original rows verify and its queue row remains.
 [Attempt and prerequisite](../../reverse/attempt_support/wall-upgrade-string-header-20261030-codexb4.md).
 
 2026-11-04: `AIFollowWaypointPathStateOnEnter.cpp` has the same game-helper collision; removed its local NULL macro and partial receiver layout, retaining the helper declaration pending shared logger identity. [Callee evidence and passing byte checks](../../reverse/attempt_support/follow-waypoint-header-20261104-codex4.md).
+
+2026-11-04: `AIWanderStateMethods.cpp` has the same game-helper collision; replaced local NULL/floor definitions with headers and the partial receiver layout with a forward declaration; all six rows remain exact, while shared logger identity remains prerequisite. [Callee evidence and checks](../../reverse/attempt_support/wander-state-headers-20261104-codexb5.md).
