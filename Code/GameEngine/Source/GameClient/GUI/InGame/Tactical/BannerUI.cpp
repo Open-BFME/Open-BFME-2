@@ -404,6 +404,7 @@ enum ScienceType {};
 class Rva002E2903Player;
 
 #include "../../../../../Include/GameLogic/LivingWorldBattle.h"
+#include "../../../../../Include/GameClient/Drawable.h"
 
 // The 0x0020E6B7 forwarder's ledger row is the Rva003F468D-returning twin
 // (owner Rva002B2DAD.cpp); declare that exact signature and cast the result.

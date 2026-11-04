@@ -87,6 +87,7 @@ AttributeModifierStore *TheAttributeModifierStore = 0;
  // Native singleton at RVA 0x009FE1D4.
 int Rva00404715Get();
 #include "../../Include/Common/INI/INI.h"
+#include "../../Include/GameClient/Drawable.h"
 #include <string.h>
 class Object;
 class Rva0040327B
