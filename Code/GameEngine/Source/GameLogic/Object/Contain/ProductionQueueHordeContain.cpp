@@ -46,7 +46,6 @@ public:
 #include <vector>
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class GarrisonContain : public OpenContain
 {
 public:
@@ -57,18 +56,14 @@ private:
 	Coord3D m_garrisonPoint[120];
 	unsigned char m_tail[0x9E0 - 0x9C4];
 };
-
 class ProductionQueueHordeContain : public GarrisonContain
 {
 public:
 	virtual ~ProductionQueueHordeContain();
 	virtual NameKeyType getModuleNameKey() const;
 };
-
 #include "../../../../Include/Common/INI/INI.h"
-
 void iniParseObjectFilter(INI*,void*,void*,const void*);
-
 class Rva00360D26Member
 {
 public:
@@ -77,21 +72,15 @@ public:
 private:
 	unsigned handle; // +0x00
 };
-
 struct Rva004816F4Entry {Rva00360D26Member filter;AsciiString name;~Rva004816F4Entry();};
-
 typedef char EntrySizeIsEight[sizeof(Rva004816F4Entry)==8?1:-1];
-
 class Rva004816F4Vector {public:void push_back(const Rva004816F4Entry&);};
-
 struct Rva0048130E
 {
 	~Rva0048130E();
 	Rva0048130E(const Rva0048130E &);
 };
-
 template void _STL::_Construct<Rva0048130E, Rva0048130E>(Rva0048130E *, const Rva0048130E &);
-
 // vector<int>/char destruction otherwise instantiates per-TU allocator
 // deallocate COMDATs (one byte shape per TU flags); explicit
 // dllimport+forceinline specializations take those calls inline so this
@@ -107,12 +96,43 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../../../Include/Common/INI/FieldParse.h"
+//
+// Six constant-return bodies found by tools/vtable_gaps.py: each is an
+// UNNAMED slot of a vtable-shaped run that also carries named slots, so the
+// only evidence that reaches them is the vtable -- they have no direct caller
+// to name them and no Zero Hour counterpart to port.
+//
+// Identity is therefore not recoverable. Each keeps an address-derived class
+// name: AGENTS.md allows an opaque address-token name (it is self-labelling and
+// counted by progress.py) and prohibits a plausible guessed class, which no
+// gate can see. The class exists to give the body the retail __thiscall
+// convention -- `ret N` cleans the arguments, which a free __cdecl spelling
+// would not reproduce. The opaque classes have no virtual members. The later
+// GameWindow fold uses its observed virtual list without emitting a table here.
+//
+// Retail bodies:
+//   0x0050B5C6   3B   b0 01 c3              mov al,1 ; ret
+//   0x0050B5F1   5B   32 c0 c2 08 00        xor al,al ; ret 8
+//   0x005CB9FF   5B   32 c0 c2 04 00        xor al,al ; ret 4
+//   0x006C8770   5B   32 c0 c2 0c 00        xor al,al ; ret 0xc
+//   0x005748AD   5B   33 c0 c2 0c 00        xor eax,eax ; ret 0xc
+//   0x005748B2   5B   33 c0 c2 08 00        xor eax,eax ; ret 8
+
+class Rva0050B5C6
+{
+public:
+	bool rva0050B5C6();
+};
+// Retail GameWindow's installed table at RVA 0080BBCC has eleven slots.
+// Slot 10 selects this same three-byte constant body (0050B5C6), an ICF
+// fold shared with unrelated classes. Keep the opaque owner for those
+// consumers; the original name and const qualification remain unknown.
+class WinInstanceData;
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // Rowed parse proc (retail 0x004816F4).
 
@@ -145,6 +165,19 @@ private:
 public:
 	static void iniParseTemplateContainer(INI *ini, void *instance, void *store, const void *userData);
 };
+
+// The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
+
+
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 12 establishes native stack cleanup only.
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 24 establishes native stack cleanup only.
+class Rva00481279 {public: bool rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6);};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp
 
@@ -245,13 +278,9 @@ void ProductionQueueHordeContainModuleData::buildFieldParse(MultiIniFieldParse &
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 
-// tu-skeleton: 0x00481273 6B ?name@ProductionQueueHordeContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x00481279 5B ?rva00481279@Rva00481279@@QAE_NHHHHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
 
-// tu-skeleton: 0x0048127E 54B ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004812B4 5B ?j_004812b4@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp
 
@@ -262,6 +291,24 @@ NameKeyType ProductionQueueHordeContain::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("ProductionQueueHordeContain");
 	return TheProductionQueueHordeContainPoolKey;
 }
+
+// tu-skeleton: 0x00481273 6B ?name@ProductionQueueHordeContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
+
+bool Rva00481279::rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6) {return false;}
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 12 establishes native stack cleanup only.
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 4 establishes native stack cleanup only.
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 0 establishes native stack cleanup only.
+
+// tu-skeleton: 0x0048127E 54B ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004812B4 5B ?j_004812b4@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
 // tu-skeleton: 0x0048130E 53B ??1Rva0048130E@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
 
@@ -296,6 +343,10 @@ NameKeyType ProductionQueueHordeContain::getModuleNameKey() const
 // tu-skeleton: 0x0048179A 28B ??_GProductionQueueHordeContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004817B6 62B ??1ProductionQueueHordeContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078BA91 8B $L336 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078BA99 10B __ehhandler$??1Rva0048130E@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0048130EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BABB 8B $L15727 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 

@@ -98,8 +98,6 @@ bool Rva0041BA5C::rva0041BA5C(int unusedArgument1, int unusedArgument2, int unus
 
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 24 establishes native stack cleanup only.
-class Rva00481279 {public: bool rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6);};
-bool Rva00481279::rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6) {return false;}
 
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 12 establishes native stack cleanup only.
