@@ -1,4 +1,5 @@
 // cl: /O1 /Oy- /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
+// stlport
 //
 // Native 0x005B8116..0x005B87ED, RET8, including the 24-entry jump table.
 // WB01582480, callers and the matched Rva005C1BDEView::call establish the
@@ -174,7 +175,7 @@ void Rva005B8EBB::rva005B87ED(void *opaque,unsigned *total){
 
 // ABI-only returned-record views. Sizes independently proved in the
 // PersistentStorageThread provider; names retained from its owned types.
-class Rva003844D7 { unsigned storage[0x190/4]; public: Rva003844D7(const Rva003844D7 &); ~Rva003844D7(); };
+#include "../../Include/GameNetwork/Rva003844D7.h"
 class Rva00385333 { unsigned storage[0x1A8/4]; public: Rva00385333(const Rva00385333 &); ~Rva00385333(); };
 class Rva0038454E {unsigned storage[0x208/4];public:Rva0038454E(const Rva0038454E&);~Rva0038454E();};
 class PSPlayerAllStats { unsigned storage[0x548/4]; public:

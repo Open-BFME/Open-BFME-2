@@ -1,12 +1,10 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /O1 /arch:SSE /G7
+// stlport
 // ?rva00387479@Rva00386374@@UAEXUGen_uw_00385371@@@Z 0x00387479 55B
 // Evidence: vtable slot 38 of 0x00819500 class Rva00386374; calls PSPlayerAllStats operator= 0x3874B0 and Gen_uw dtor 0x385371; by-value 0x548 param ret 0x548.
 typedef int Int;
 
-struct Rva003844D7
-{
-	char m_pad[0x190];
-};
+#include "../../../Include/GameNetwork/Rva003844D7.h"
 
 struct Rva0038454E
 {
