@@ -233,17 +233,10 @@ public:
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 // A hero as 0x0043DD34 and 0x0044149C read it.
-class CreateAHeroData
-{
-public:
-	unsigned char m_pad00[0x0C];
-	int m_0c; // +0x0C
-	int m_10; // +0x10
-	unsigned char m_pad14[0x48 - 0x14];
-	bool m_48; // +0x48
- __forceinline int getClassKey() const {return m_0c;}
- __forceinline int getSubclassKey() const {return m_10;}
-};
+#include "../../../Include/GameLogic/CreateAHeroData.h"
+// The class and subclass keys as PopulateHeroCombo reads them (inline getters).
+static __forceinline int getClassKey(const CreateAHeroData *hero) {return hero->m_0c;}
+static __forceinline int getSubclassKey(const CreateAHeroData *hero) {return hero->m_10;}
 
 // The display name at +0x08 of a CreateAHeroData (0x0043F8B3 shows it).
 struct CreateAHeroName
@@ -987,7 +980,7 @@ void AptMpGameSetup::PopulateHeroCombo(int index)
   for(int i=count-1;i>=0;--i) {
    CreateAHeroData *cur=heroes->rva0040A32F(i);
    if(!cur) continue;
-   Rva00219F8EMask *mask=(Rva00219F8EMask*)TheCreateAHeroManager->GetFactionMaskType(cur->getClassKey(),cur->getSubclassKey());
+   Rva00219F8EMask *mask=(Rva00219F8EMask*)TheCreateAHeroManager->GetFactionMaskType(getClassKey(cur),getSubclassKey(cur));
    bool enabled=side==-1 || mask->test(side);
    int tint=enabled ? def->getColor() : AptLobbyDisabledHeroColor;
    UnicodeString name(((CreateAHeroName*)cur)->m_name);

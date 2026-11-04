@@ -65,16 +65,7 @@ struct BfmeVector0022C55B : _STL::_Vector_base<BfmeSaveVectorEntry, std::allocat
 // Complete339-byte copy and206-byte destructor confirm the Snapshot base,
 // owning members and0x140-byte extent. Preserve declarations while their
 // own field reconstruction remains separate from this element copy.
-class CreateAHeroData : public Rva0022CE19SnapshotBase {
-    unsigned char fields[0x13C];
-public:
-    CreateAHeroData(const CreateAHeroData &);
-    virtual ~CreateAHeroData();
-    virtual const char *typeName() const;
-    virtual void xfer(Xfer *);
-protected:
-    virtual void loadPostProcess();
-};
+#include "../../../../Include/GameLogic/CreateAHeroData.h"
 #include "../../../../Include/GameNetwork/GameInfo.h"
 struct BfmeSaveBlock4 { unsigned int values[4]; };
 struct BfmeSaveBlock10 { unsigned int values[10]; };

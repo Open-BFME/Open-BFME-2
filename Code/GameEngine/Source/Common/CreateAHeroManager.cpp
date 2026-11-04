@@ -168,17 +168,7 @@ public:
 	const UnicodeString *m_right;
 };
 
-class CreateAHeroData
-{
-public:
-	CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
-	virtual ~CreateAHeroData();
-	bool rva00408A55();
-	bool rva004099CA(AsciiString *filename, bool mode);
-	char m_storage04[0x130];
-	unsigned int m_crc;
-	unsigned char m_pad138[8];
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 struct BfmePod216 { int a[54]; };
 
@@ -518,7 +508,7 @@ void CreateAHeroManager::LoadMyHeroList()
                 ((Rva00423A68 *)&m_tree174)->rva00423A68((const ModuleData *)hero);
                 if (system && !m_systemHeroCRC) {
                     ++m_158;
-                    crc += hero->m_crc;
+                    crc += hero->field134;
                     crc = (crc << 1) | (crc >> 31);
                 }
             } else {

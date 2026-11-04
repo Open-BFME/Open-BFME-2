@@ -211,12 +211,7 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 class ModuleData;
-class CreateAHeroData
-{
-public:
-	char m_pad[0xC];
-	int m_flag0C;
-};
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 class Rva001FFA5A
 {
 public:
@@ -645,7 +640,7 @@ void Rva001FFA5A::rva001FFA5A(CreateAHeroData *val)
 	if (val == 0)
 		return;
 	m_vec18.push_back(*(const ModuleData **)&val);
-	val->m_flag0C = 1;
+	val->m_0c = 1;
 	CreateAHeroData **end = m_vec0C.end();
 	CreateAHeroData **found = _STL::find(m_vec0C.begin(), end, val);
 	if (found != end)

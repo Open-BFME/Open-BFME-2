@@ -297,15 +297,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // A hero as 0x0043DD34 and 0x0044149C read it.
-class CreateAHeroData
-{
-public:
-	unsigned char m_pad00[0x0C];
-	int m_0c; // +0x0C
-	int m_10; // +0x10
-	unsigned char m_pad14[0x48 - 0x14];
-	bool m_48; // +0x48
-};
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 
 // The display name at +0x08 of a CreateAHeroData (0x0043F8B3 shows it).
 struct CreateAHeroName
