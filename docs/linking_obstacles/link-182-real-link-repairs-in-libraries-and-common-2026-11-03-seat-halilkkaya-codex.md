@@ -81,6 +81,41 @@ this slice. Neither has a supported fix today. No source changed.
   - The PerTurnStats allocator name at the shared 12-byte allocate
     0x00395928.
 
+  **Scratch feasibility (compiled only under `build/scratch_cx5`).** The
+  probe used the TU's own `// cl:` line plus the region defaults
+  `tools/flag_defaults.py` gives it (/O1 /G7 /arch:SSE). The view was a
+  12-byte `LivingWorldScoreKeeper::PerTurnStats` whose copy ctor is
+  declared `throw()` (without `throw()` the helpers come out 38/37 B). With
+  relocations masked, every PerTurnStats instantiation below equals retail:
+
+  | Instantiation | Retail | Size | Calls |
+  |---|---|---|---|
+  | `__uninitialized_copy` | 0x004EE1E2 | 41 B | REL32 to `??0PerTurnStats@LivingWorldScoreKeeper@@QAE@ABV01@@Z`, 0x004EE1A9 |
+  | `__uninitialized_fill_n` | 0x004EE20B | 40 B | same |
+  | STLport `vector<PerTurnStats>::_M_allocate_and_copy<PerTurnStats*>` | 0x004EE233 | 45 B | `allocator<PerTurnStats>::allocate`, then the copy helper |
+  | `allocator<PerTurnStats>::allocate` (emitted) | 0x00395928 | 28 B | — (an ICF-alias candidate) |
+  | implicit `_Construct<PerTurnStats>` (emitted) | 0x004EE1D0 | 18 B | — |
+
+  One trap: that implicit `_Construct` is a SELECT_ANY COMDAT, and
+  `StlportConstructCopySiblings.cpp` defines the same name as an explicit
+  specialization, which is NODUPLICATES. Linking both gives LNK2005, so
+  0x004EE1D0 must move into this TU with the others.
+
+  Plan, in order:
+  1. Retraction commit: the three PrereqUnitRec spellings (0x004EE1E2,
+     0x004EE20B, 0x004EE233). The last one empties
+     `Thing/Rva004EE233AllocateCopy.cpp`.
+  2. Readmit all four rows under PerTurnStats in `LivingWorldScoreKeeper.cpp`,
+     the approved TU. That includes moving 0x004EE1D0 there and dropping
+     its explicit specialization. Add an `--icf-owner` alias at 0x00395928.
+     Check the alias's callee `?allocate@?$allocator@D@_STL@@SAPADIPBX@Z`,
+     which has no ledger row or pin.
+  3. Switch ProductionPrerequisite.cpp to the canonical string
+     (`/FIzh_ascii.h`).
+
+  LivingWorldScoreKeeper.cpp LINKS today (3,347 B), so run base/tip
+  `link_check` around every step.
+
 ### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
 
 After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the
