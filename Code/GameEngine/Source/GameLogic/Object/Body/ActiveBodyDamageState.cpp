@@ -20,7 +20,7 @@ struct Rva004BDA67M04
 struct Rva004BDA67ObjInner
 {
 	char m_pad[0x61C];
-	int m_val61C;
+	int m_commandPointBonus;
 };
 
 class Object
@@ -61,7 +61,7 @@ void Rva004BDA67::rva004BDA67()
 	if (moduleData->m_flag50 != 0)
 		obj->rva0028DA28();
 	Rva004BDA67ObjInner *inner = *(Rva004BDA67ObjInner **)((char *)obj + 4);
-	if (inner->m_val61C > 0)
+	if (inner->m_commandPointBonus > 0)
 		obj->rva0028DAB9();
 	((Rva00298E6A *)obj)->rva00298E6A();
 }

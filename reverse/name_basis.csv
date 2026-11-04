@@ -8786,3 +8786,6 @@ member,Rva002A7588Mid::m_i618,Rva002A7588Mid::m_commandPoints,inferred,agree:nl-
 member,MapPreviewTextureAssetFactory::m_30,MapPreviewTextureAssetFactory::m_mipLevelCount,inferred,agree:nl-2be7649cbc40,Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp,
 member,CommandLineSwitchPair::m_08,CommandLineSwitchPair::m_buildNum,inferred,agree:nl-56911bb9aa3e,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,
 member,CommandLineSwitchPair::m_0C,CommandLineSwitchPair::m_localBuildNum,inferred,agree:nl-de1d647c7d7e,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,
+member,Rva00495801W::m_slot80,Rva00495801W::m_weaponSlot,inferred,agree:nl-c20368aa1c81,Code/GameEngine/Source/GameLogic/Object/Update/Rva00495801.cpp,
+member,BfmeSubDEA::m_bfmeColor,BfmeSubDEA::m_color,inferred,agree:nl-8f46ff5f38ab,Code/GameEngine/Source/Common/BfmeConv671.cpp,
+member,Rva004BDA67ObjInner::m_val61C,Rva004BDA67ObjInner::m_commandPointBonus,inferred,agree:nl-9bea48484bf1,Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyDamageState.cpp,

@@ -48,7 +48,7 @@ public:
 struct Rva00495801W
 {
 	unsigned char m_pad00[0x80];
-	WeaponSlotType m_slot80; // +0x80
+	WeaponSlotType m_weaponSlot; // +0x80
 };
 class Rva00495801
 {
@@ -66,6 +66,6 @@ int Rva00495801::rva00495801(Rva00495801Arg *arg)
 	if (arg->rva00495801Pred())
 		arg->m_ai20.aiHunt(CMD_FROM_AI);
 	Rva00495801W *w = m_p24;
-	obj->setWeaponLock(w->m_slot80, LOCKED_TEMPORARILY);
+	obj->setWeaponLock(w->m_weaponSlot, LOCKED_TEMPORARILY);
 	return 1;
 }

@@ -1,7 +1,7 @@
 struct BfmeSubDEA
 {
 	unsigned char m_bfmeHead[0x5c];
-	unsigned int m_bfmeColor;
+	unsigned int m_color;
 };
 
 class BfmeThingDEA
@@ -14,6 +14,6 @@ unsigned int bfmeGoDEA(BfmeThingDEA *a)
 {
 	BfmeSubDEA *s = a->bfmeFindDEA();
 	if (s != 0)
-		return s->m_bfmeColor;
+		return s->m_color;
 	return 0x00FFFFFF;
 }
