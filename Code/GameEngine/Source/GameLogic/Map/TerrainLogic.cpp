@@ -376,8 +376,9 @@ public:
 struct Rva0027EA49
 {
 	~Rva0027EA49();
+	Rva0027EA49 &operator=(const Rva0027EA49 &);
 	int m_00;
-	TargetRef00217D4C *m_04;
+	TreeHintRef00217D4C m_04;
 };
 template void _STL::_Destroy<Rva0027EA49 *>(Rva0027EA49 *, Rva0027EA49 *);
 // vector dtor (retail 0x002830D5): byte-identical explicit member
