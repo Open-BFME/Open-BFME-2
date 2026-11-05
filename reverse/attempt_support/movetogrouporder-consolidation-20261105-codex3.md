@@ -52,3 +52,11 @@ The existing `AIUpdateInterface` header is used by the merged body; its
 acceptance command passed during verification. Its queue-row retirement is
 kept in a follow-up commit through `header_adopt_lane.py accept`. ArmorTemplate
 header reconciliation and the four mixed donors remain outside this merge.
+
+Publication correction: acceptance passed again after the merge and removed
+the transferred queue row, but the runner's outgoing-range preflight refused
+that retirement: the original donor no longer exists and the destination key
+no longer survives to demonstrate the transfer. A follow-up restores the
+destination's queue row, preserving the merge's explicit debt transfer. No
+header-debt reduction is claimed by this batch. The header acceptance itself
+passed; retirement remains for a later batch whose base contains the merge.
