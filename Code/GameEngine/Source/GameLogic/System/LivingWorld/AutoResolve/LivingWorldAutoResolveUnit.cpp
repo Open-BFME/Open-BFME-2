@@ -17,12 +17,12 @@
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class ThingTemplate;class ArmySummary;
-class ArmySummaryEntry {public: ArmySummaryEntry(const ArmySummaryEntry &); char opaque[0xAC]; TargetRef00217D4C reference; char rest[0xC8-0xB4];};
+#include "../../../../../Include/Common/ArmySummaryEntry.h"
 struct Rva0040DC56Element {ArmySummaryEntry *entry;};
 class Rva004F6093Holder {
 public:
  __declspec(noinline) Rva004F6093Holder(ArmySummaryEntry *);
- ~Rva004F6093Holder(){if(entry)ReleaseTreeHintRef00217D4C(&entry->reference);}
+ ~Rva004F6093Holder(){if(entry)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(entry)));}
  ArmySummaryEntry *entry;
 };
 class LivingWorldAutoResolveUnit;
@@ -64,5 +64,5 @@ LivingWorldAutoResolveUnit::LivingWorldAutoResolveUnit(const Rva0040DC56Element 
 // its entry/count writes. It is rehomed from Rva002B2F0CSet.cpp with the
 // same whole body; this is the same real name, not an alias.
 inline Rva004F6093Holder::Rva004F6093Holder(ArmySummaryEntry *armySummaryEntry):entry(armySummaryEntry) {
- if(armySummaryEntry) ++armySummaryEntry->reference.references;
+ if(armySummaryEntry) ++armySummaryEntry->Rva0007DF07::m_04;
 }

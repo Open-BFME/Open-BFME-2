@@ -20,21 +20,15 @@ class Object {public:char bytes00[0x74];ObjectID id;};
 struct LoadedObjectNode{LoadedObjectNode*next,*prev;Object*value;};
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-class ArmySummaryEntry {
-public:Object*rva0040C495(Player*,int);
- char bytes00[4];AsciiString templateName;
- char bytes08[0x90-8];int count;
- char bytes94[0xAC-0x94];TargetRef00217D4C ref;
- char bytesB4[0xC5-0xB4];bool flagged;char bytesC6[2];
-};
+#include "../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {
 public:
  ArmySummaryEntry*value;
  __forceinline Rva004F6093Holder():value(0){}
- __declspec(noinline) inline Rva004F6093Holder(const Rva004F6093Holder&x):value(x.value){if(value)++value->ref.references;}
+ __declspec(noinline) inline Rva004F6093Holder(const Rva004F6093Holder&x):value(x.value){if(value)++value->Rva0007DF07::m_04;}
  __forceinline ArmySummaryEntry*operator->()const{return value;}
- __forceinline Rva004F6093Holder(ArmySummaryEntry*armySummaryEntry):value(armySummaryEntry){if(value)++value->ref.references;}
- __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
+ __forceinline Rva004F6093Holder(ArmySummaryEntry*armySummaryEntry):value(armySummaryEntry){if(value)++value->Rva0007DF07::m_04;}
+ __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
 class FreelistProxyHead {public:void setup(const void*,void*);};
@@ -103,10 +97,10 @@ ObjectID ArmySummary::SpawnOneDelayedCarryoverUnit(ObjectTypes*filter)
  for(_STL::vector<ObjectID>::iterator i=pending.begin();i!=last;){
   ArmySummaryEntryRef value=GetEntry((int)*i);
   ArmySummaryEntry*held=value.holder.value;
-  if(held && filter->isInSet(held->templateName)){
+  if(held && filter->isInSet(held->m_name)){
    pending.erase(i);
    LoadedObjectList spawned;
-   const int count=held->count; ObjectID result=INVALID_OBJECT_ID;
+   const int count=held->m_90; ObjectID result=INVALID_OBJECT_ID;
    LoadArmyEntry((Rva0040E534Input*)&value,count,&spawned,0);
    if(!spawned.empty() && spawned.front())result=spawned.front()->id;
    return result;

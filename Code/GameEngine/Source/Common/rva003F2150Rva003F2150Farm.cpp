@@ -268,21 +268,11 @@ public:
 // 0x0007DEEF on +0xAC), to the record (rowed 0x003F7BB4). Names by address.
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
-class ArmySummaryEntry
-{
-public:
-	ArmySummaryEntry();
-	unsigned char m_pad00[4];
-	AsciiString m_name;			// +0x04
-	unsigned char m_pad08[0xAC - 0x08];
-	void *m_refVtbl;			// +0xAC
-	Int m_references;			// +0xB0
-	unsigned char m_padB4[0xC8 - 0xB4];
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 struct Rva003F7B22Element
 {
-	Rva003F7B22Element(ArmySummaryEntry *entry) : m_entry(entry) { if (m_entry) ++m_entry->m_references; }
-	~Rva003F7B22Element() { if (m_entry) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)&m_entry->m_refVtbl); }
+	Rva003F7B22Element(ArmySummaryEntry *entry) : m_entry(entry) { if (m_entry) ++m_entry->Rva0007DF07::m_04; }
+	~Rva003F7B22Element() { if (m_entry) ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(m_entry))); }
 	ArmySummaryEntry *m_entry;
 };
 class Rva003F7BB4

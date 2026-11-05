@@ -5,13 +5,13 @@
 // Rva-address names retain uncertainty about original private operation names.
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class ArmySummaryEntry { public: char pad00[0xAC]; TargetRef00217D4C ref; int padB4; int targetB8; };
+#include "../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {
 public:
  ArmySummaryEntry *entry;
  Rva004F6093Holder() : entry(0) {}
  Rva004F6093Holder(const Rva004F6093Holder &);
- ~Rva004F6093Holder() { if(entry)ReleaseTreeHintRef00217D4C(&entry->ref); }
+ ~Rva004F6093Holder() { if(entry)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(entry))); }
 };
 struct ArmySummaryEntryRef { Rva004F6093Holder holder; };
 #include "../../Include/GameLogic/ArmySummary.h"
@@ -24,9 +24,9 @@ public:
 static __declspec(noinline) void MoveArmyMember(LivingWorldArmy *source,int key,LivingWorldArmy *target) {
  ArmySummaryEntryRef entry=source->summary78->GetEntry(key);
  if(entry.holder.entry) {
-  if(entry.holder.entry->targetB8) {
-   if(entry.holder.entry->targetB8==target->owner20)entry.holder.entry->targetB8=0;
-  } else entry.holder.entry->targetB8=source->owner20;
+  if(entry.holder.entry->m_b8) {
+   if(entry.holder.entry->m_b8==target->owner20)entry.holder.entry->m_b8=0;
+  } else entry.holder.entry->m_b8=source->owner20;
   target->rva00319EF9(source,key);
  }
 }

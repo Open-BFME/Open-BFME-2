@@ -13,19 +13,13 @@ class Object;
 template<class T>class Rva001EB984PoolAllocator {};
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-class ArmySummaryEntry {
-public:ArmySummaryEntry();Object*rva0040C495(Player*,int);
- char bytes00[4];AsciiString templateName;
- char bytes08[0x90-8];int count;
- char bytes94[0xAC-0x94];TargetRef00217D4C ref;
- char bytesB4[0xC5-0xB4];bool flagged;char bytesC6[2];
-};
+#include "../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {
 public:
  ArmySummaryEntry*value;
  __forceinline ArmySummaryEntry*operator->()const{return value;}
- __forceinline Rva004F6093Holder(ArmySummaryEntry*armySummaryEntry):value(armySummaryEntry){if(value)++value->ref.references;}
- __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
+ __forceinline Rva004F6093Holder(ArmySummaryEntry*armySummaryEntry):value(armySummaryEntry){if(value)++value->Rva0007DF07::m_04;}
+ __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
 namespace _STL {
@@ -148,8 +142,8 @@ void ArmySummary::Load(bool battle,bool first,int overrideID)
  int budget=1000000;
  for(int pass=0;pass<2;++pass){
   for(unsigned index=0;index<saved.size();++index){
-   if(saved[index].value->flagged && !includeFlagged)continue;
-   const ThingTemplate*definition=TheThingFactory->findTemplate(saved[index].value->templateName);
+   if(saved[index].value->m_c5 && !includeFlagged)continue;
+   const ThingTemplate*definition=TheThingFactory->findTemplate(saved[index].value->m_name);
    if(!definition)continue;
    unsigned firstKind=(definition->m_kindof[2]>>26)&1;
    if(firstKind!=(pass==0))continue;
@@ -157,9 +151,9 @@ void ArmySummary::Load(bool battle,bool first,int overrideID)
    postpone=false;
    while(!postpone && current!=end){if(current->compare(definition->m_nameString)==0)postpone=true;++current;}
    if(postpone){self->delayed.push_back(*(const NameKeyType*)&saved[index].key);continue;}
-   int count=saved[index].value->count;
+   int count=saved[index].value->m_90;
    if(definition->m_commandPoints>0 && pass>0)count=budget/definition->m_commandPoints;
-   if(count>saved[index].value->count)count=saved[index].value->count;
+   if(count>saved[index].value->m_90)count=saved[index].value->m_90;
    if(count>0){budget-=count*definition->m_commandPoints;
     self->LoadArmyEntry((Rva0040E534Input*)&saved[index].value,count,&loaded,0);
    }
@@ -169,8 +163,8 @@ void ArmySummary::Load(bool battle,bool first,int overrideID)
   PlayerTemplate*playerTemplate=player->tmplate;
   for(unsigned index=0;index<playerTemplate->startingUnits.size();++index){
    Rva004F6093Holder entry(new ArmySummaryEntry);
-   entry->templateName=playerTemplate->startingUnits[index];
-   entry->count=1;
+   entry->m_name=playerTemplate->startingUnits[index];
+   entry->m_90=1;
    self->LoadArmyEntry((Rva0040E534Input*)&entry,1,&loaded,overrideID);
   }
  }

@@ -24,3 +24,5 @@ All diagnostics are preserved in the retained-accessor packet shadow-findings.js
 The15-source LINKS preview does not establish global identity cleanliness.
 
 2026-11-05: `Rva0040C351Ctor.cpp` adopts the unchanged canonical header after removing its unused constructor view and stale vtable declaration; six functions/two tables pass, the full object is identical except its timestamp, preview retains LINKS865, and owning acceptance retires one of the fifteen remaining header rows (fourteen remain). [Evidence](../../reverse/attempt_support/army-entry-method-header-20261105-codex3.json).
+
+2026-11-05: eight secondary-base consumers adopt the unchanged canonical header; 47/47 rows and all 138 external providers/payloads preserved, owning cohort acceptance retires eight header debts (six remain), preview 8/8 LINKS retains 4,081 bytes. [Evidence and remaining scope](../../reverse/attempt_support/army-entry-secondary-base-20261105-codexb2.json).

@@ -10,14 +10,15 @@
 #include "ascii_string.h"
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-class ArmySummaryEntry {public: char bytes00[4];AsciiString name;char bytes08[0xAC-8];TargetRef00217D4C ref;};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {public:
  ArmySummaryEntry*value;
  Rva004F6093Holder(const Rva004F6093Holder&);
  Rva004F6093Holder&operator=(const Rva004F6093Holder&);
- __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
+ __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}
 };
-struct ArmySummaryEntryRef {ArmySummaryEntry*value;__forceinline ~ArmySummaryEntryRef(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}};
+struct ArmySummaryEntryRef {ArmySummaryEntry*value;__forceinline ~ArmySummaryEntryRef(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}};
 struct HeroEntryKey {char opaque[4];};
 class AttackOrdersMember;
 class Rva00318FC6;
@@ -37,7 +38,6 @@ class ArmySummary {public:__forceinline int entryCount()const{return records.siz
 struct SummaryHolder {ArmySummary*value;__forceinline ArmySummary*Get()const{return value;}};
 class Rva002BC1DAUnit {public:char pad00[0x18];AsciiString name;char pad1C[0x78-0x1C];SummaryHolder summary;};
 struct Rva002BC1DAArmy {char bytes[0x38];};
-#include "../../../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F4DCA {public:int rva003F4DCA(int,int);};
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"
@@ -83,7 +83,7 @@ ArmySummaryEntryRef Rva00319028::rva00319028(int kind,int maxCP){
 ArmySummaryEntryRef AttackOrdersMember::rva0031996D(const HeroEntryKey&key){
  for(int i=(int)summary.Get()->records.size()-1;i>=0;--i){
   ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary.Get())->get(i);
-  if(entry->name.compare(*(const AsciiString*)&key)==0){
+  if(entry->m_name.compare(*(const AsciiString*)&key)==0){
    int id=((Rva0040CC0EIndexedField*)summary.Get())->get(i);
    return summary.Get()->GetEntry(id);
   }
@@ -102,7 +102,7 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
   ArmySummary*summary=(ArmySummary*)battle->rva003F4921(side,player,i);
   for(int j=0;j<(int)summary->records.size();++j){
    ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary)->get(j);
-   AsciiString*name=&entry->name;
+   AsciiString*name=&entry->m_name;
    int lost=((Rva0040DB0ERegistry*)summary)->rva0040DB0E(*name)-((Rva00319924*)other)->count(*name);
    int available=((Rva00319924*)unit)->count(*name);
    if(lost>0&&available>0){
@@ -150,13 +150,13 @@ void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,Livin
   ArmySummary*summary=(ArmySummary*)battle->rva003F4921(side,player,i);
   for(int j=0;j<(int)summary->records.size();++j){
    ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary)->get(j);
-   AsciiString*name=&entry->name;
+   AsciiString*name=&entry->m_name;
    int kind=TheThingFactory->findTemplate(*name)->m_autoResolveUnitType;
    int cp=((Rva0037DCA5*)entry)->GetCommandPointSize();
    bool found=false;
    Rva0040DC56Element*it;
    for(it=remaining.begin();it!=remaining.end();++it){
-    if(it->Get()->name.compare(*name)==0){
+    if(it->Get()->m_name.compare(*name)==0){
      found=true;
      ((Rva002B6066*)&remaining)->rva002B6066(it);
      break;
