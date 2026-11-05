@@ -8,9 +8,6 @@
 // (whose vtable named Zero Hour's crc/xfer/loadPostProcess) and the two
 // object-victim line-of-sight overloads matched no retail body, no other object
 // referenced them, and they made 24 references no object defines.
-// Retail imports only _strcmpi (stub 0x00629A2A calls msvcr71's); BFME2's
-// stricmp spelling resolves there, not to the _stricmp alias.
-#define stricmp _strcmpi
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -42,6 +39,7 @@
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include <string.h>
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -238,7 +236,8 @@ Bool WeaponTemplate::isContactWeapon() const
 //-------------------------------------------------------------------------------------------------
 const WeaponTemplate *WeaponStore::findWeaponTemplate( AsciiString name ) const 
 { 
-	if (stricmp(name.str(), "None") == 0)
+	// Retail's comparison stub imports msvcr71's _strcmpi.
+	if (_strcmpi(name.str(), "None") == 0)
 		return NULL;
 	const WeaponTemplate * wt = findWeaponTemplatePrivate( TheNameKeyGenerator->nameToKey( name ) );
 	DEBUG_ASSERTCRASH(wt != NULL, ("Weapon %s not found!\n",name.str()));
