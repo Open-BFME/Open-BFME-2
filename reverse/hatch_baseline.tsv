@@ -971,6 +971,7 @@ address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase_
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp	g_Va00E04490	2
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookArmyBreaker.cpp	g_Va00E06670	2
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp	g_Va00E06654	2
+address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp	g_Va00E063D4	2
 address_global	Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp	g_Va00E05F74	2
 address_global	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	g_Va00DFECC8	5
 address_global	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	g_Va00DFECC9	4

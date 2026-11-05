@@ -289,8 +289,9 @@ struct Rva00506C82Arg
 };
 #include "../../../../Include/GameNetwork/GameInfo.h"
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
-// Owned here (its only reader); retail .data zero-initializes it (VA 0x00E063D4, BSS tail).
-AsciiString g_00E063D4;
+// The "CreateAHero" AsciiString at RVA 0x00A063D4; Rva007AB85CAtexitInits.cpp owns and
+// constructs it, this TU reads it through its AsciiString view.
+extern unsigned g_Va00E063D4;
 class Rva00598CBC
 {
 public:
@@ -497,7 +498,7 @@ int AIUnitBuilder::rva00598192(const AsciiString &key)
 // ---- from Code/GameEngine/Source/Common/Rva00598CBC.cpp
 
 // ?rva00598CBC@Rva00598CBC@@QAEXXZ @0x00598CBC 65B via vector-assign plus slot-gated push_back
-// Evidence: chain from 0x00598007; caller 0x004EBFC2; vector at +0x4C like Rva00598B2A; m_30 at +0x30 like AIUnitBuilder; rowed vector assign 0x000BDB46 and push_back 0x0002DBE6 and Find 0x00506C82; global g_00E063D4
+// Evidence: chain from 0x00598007; caller 0x004EBFC2; vector at +0x4C like Rva00598B2A; m_30 at +0x30 like AIUnitBuilder; rowed vector assign 0x000BDB46 and push_back 0x0002DBE6 and Find 0x00506C82; global g_Va00E063D4
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 
@@ -508,7 +509,7 @@ void Rva00598CBC::rva00598CBC()
 	m_vec = src;
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_30);
 	if (slot && slot->m_field50 != 0) {
-		m_vec.push_back(g_00E063D4);
+		m_vec.push_back(*(const AsciiString *)&g_Va00E063D4);
 	}
 }
 
