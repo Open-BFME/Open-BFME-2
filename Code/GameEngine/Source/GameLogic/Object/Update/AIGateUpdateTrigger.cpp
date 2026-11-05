@@ -33,7 +33,18 @@ class PolygonPointCalls {public:virtual void slot0();virtual void addBoundaryPoi
 class Rva002E3766Holder {public:void set(int,int);};
 extern int Rva00A03D80;
 enum Relationship { RELATION_0,RELATION_1,RELATION_2 };
-class Object {public:Relationship getRelationship(const Object *) const;char pad[0x38];float px,py,pz,angle;};
+class Player;
+class Object
+{
+public:
+	Relationship getRelationship(const Object *) const;
+	Player *getControllingPlayer() const;
+	char m_pad00[0x38];
+	float px; // +0x38
+	float py; // +0x3C
+	float pz; // +0x40
+	float angle; // +0x44
+};
 
 struct AIGateUpdateModuleData {char pad[8];float width,height;};
 class AIGateUpdate {public:
