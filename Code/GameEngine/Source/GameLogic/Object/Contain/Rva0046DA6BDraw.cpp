@@ -10,7 +10,7 @@ class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()co
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
 #include "GameLogicObjectLookupView.h"
 extern GameLogic*TheGameLogic;
-struct Rva0046247DPair {void*a;void*b;};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class ContainView {public:virtual void d0();
 virtual void d1();
 virtual void d2();
@@ -87,9 +87,9 @@ class Rva0046DA6B {public:void rva0046DA6B(int,float,float,Rva2225E0Filter*);pri
 void Rva0046DA6B::rva0046DA6B(int flags,float a,float b,Rva2225E0Filter*filter){
  Rva0046247DPair items;
  reinterpret_cast<ContainView*>(reinterpret_cast<char*>(this)-0xFC)->items(items);
- Node*node=(*static_cast<Node**>(items.b))->next;
+ Node*node=(*static_cast<Node**>(items.m04))->next;
  Object*owner=*reinterpret_cast<Object**>(reinterpret_cast<char*>(this)-0x114);
- for(;node!=*static_cast<Node**>(items.b);node=node->next){
+ for(;node!=*static_cast<Node**>(items.m04);node=node->next){
   Object*object=node->object;
   if(filter&&!filter->accepts(object,owner->getControllingPlayer()))continue;
   Drawable*drawable=object->getDrawable();

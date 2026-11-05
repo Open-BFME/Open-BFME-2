@@ -81,7 +81,7 @@ class Rva0046E7C2 { public: void rva0046E7C2(); };
 class Rva0046AB7D { public: void rva0046AB7D(); };
 struct UpdateListNode { UpdateListNode *next,*prev; Object *object; };
 struct UpdateList { UpdateListNode *head; };
-struct Rva0046247DPair { void *lock; UpdateList *list; };
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D { public: void rva0046247D(Rva0046247DPair &); };
 class HordeContain {
 public:
@@ -142,7 +142,7 @@ int Rva0046FC1B::update()
             owner->setLayer(layer);
             Rva0046247DPair items;
             ((Rva0046247D *)(self-0x10))->rva0046247D(items);
-            for (UpdateListNode *node=items.list->head->next; node!=items.list->head; node=node->next) {
+            for (UpdateListNode *node=((UpdateList *)items.m04)->head->next; node!=((UpdateList *)items.m04)->head; node=node->next) {
                 Object *member = node->object;
                 member->setLayer((*(Pathfinder **)((char *)TheAI+0x10))->rva002ED236(member, member->position));
             }

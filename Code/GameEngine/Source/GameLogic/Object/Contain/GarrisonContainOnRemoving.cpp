@@ -69,11 +69,7 @@ enum DeathType
 class Object;
 class Team;
 
-struct Rva0046247DPair
-{
-    void *m00;
-    const _STL::list<Object *> *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 // Retail builds it through the rowed initializer Rva00263895Member
 // (Rva00263895Init.cpp); the inline forwarder binds the call there.
@@ -409,7 +405,7 @@ void GarrisonContain::onRemoving(Object *obj)
         {
             Rva0046247DPair members;
             contain->slot108(members);
-            for (_STL::list<Object *>::const_iterator it = members.m04->begin(); it != members.m04->end(); ++it)
+            for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)members.m04)->begin(); it != ((const _STL::list<Object *> *)members.m04)->end(); ++it)
             {
                 Object *member = *it;
                 if (member->rva0029091E(0x14))

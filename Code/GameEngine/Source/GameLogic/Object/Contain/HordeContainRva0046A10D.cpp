@@ -63,11 +63,7 @@ struct HordeMemberList
 {
     Rva0046A10DListNode *sentinel;
 };
-struct Rva0046247DPair
-{
-    void *m00;
-    HordeMemberList *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D
 {
 public:
@@ -77,7 +73,7 @@ __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &resul
 {
 	void *base = this;
 	char *field = (char *)base + 0x20;
-	result.m00 = base ? field : 0;
+	result.m00 = (ContainModuleInterface *)(base ? field : 0);
 	result.m04 = (HordeMemberList *)((char *)base + 0x54);
 }
 class TransportContain
@@ -145,8 +141,8 @@ void HordeContain::rva0046A10D()
     original.z = owner->m_position.z;
     Rva0046247DPair pair;
     ((Rva0046247D *)this)->rva0046247D(pair);
-    for (Rva0046A10DListNode *it = pair.m04->sentinel->next;
-        it != pair.m04->sentinel; it = it->next)
+    for (Rva0046A10DListNode *it = ((HordeMemberList *)pair.m04)->sentinel->next;
+        it != ((HordeMemberList *)pair.m04)->sentinel; it = it->next)
         it->object->rva0028AD32();
     Pathfinder *pathfinder =
         *(Pathfinder **)((char *)TheAI + 0x10);
@@ -162,8 +158,8 @@ void HordeContain::rva0046A10D()
         if (delta.length() > 10.0f && delta.length() < 150.0f)
             ((Thing *)owner)->setPosition(&original);
     }
-    for (Rva0046A10DListNode *it = pair.m04->sentinel->next;
-        it != pair.m04->sentinel; it = it->next)
+    for (Rva0046A10DListNode *it = ((HordeMemberList *)pair.m04)->sentinel->next;
+        it != ((HordeMemberList *)pair.m04)->sentinel; it = it->next)
     {
         Object *member = it->object;
         float angle = 0.0f;

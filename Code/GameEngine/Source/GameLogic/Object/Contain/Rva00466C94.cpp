@@ -25,7 +25,7 @@ class DoorInterface {public:virtual void d0();virtual int reserve(void*,Object*)
 struct HealPrimary {void*vptr;HealData* data;char pad[0x30-8];DoorInterface doors;};
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1};
 class Rva004640BE {public:virtual UpdateSleepTime update();};
-struct Rva0046247DPair {void*a;void*b;};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D {public:void*rva0046247D(Rva0046247DPair&);};
 class Rva00466C04 {public:bool rva00466C04(Object*,unsigned);};
 class Rva00466C94 {public:virtual UpdateSleepTime update();private:__forceinline HealPrimary* owner(){return reinterpret_cast<HealPrimary*>(reinterpret_cast<char*>(this)-0x10);}};

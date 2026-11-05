@@ -619,11 +619,7 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
-struct Rva0046247DPair
-{
-	void *m00;
-	const _STL::list<Object *> *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 struct Rva00462D35Mapped
 {
 	Rva00462D35Mapped() : m_bits(0) {}
@@ -724,8 +720,8 @@ public:
 	{
 		void *base = this;
 		char *field = (char *)base + 0x20;
-		p.m00 = base ? field : 0;
-		p.m04 = (const _STL::list<Object *> *)((char *)base + 0x54);
+		p.m00 = (ContainModuleInterface *)(base ? field : 0);
+		p.m04 = (char *)base + 0x54;
 		return &p;
 	}
 };
@@ -1346,7 +1342,7 @@ private:
 	{
 		Rva0046247DPair p;
 		((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p);
-		return p.m04;
+		return (const _STL::list<Object *> *)p.m04;
 	}
 	const HordeContainModuleDataFields *fields() const { return (const HordeContainModuleDataFields *)m_moduleData; }
 	bool m_120; // +0x120
@@ -2062,7 +2058,7 @@ void HordeContain::instigateQuarrel(int low, int high, QuarrelPacket packetA, Qu
 	m_24C.clear();
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(slotPair);
-	int count = (int)slotPair.m04->size();
+	int count = (int)((const _STL::list<Object *> *)slotPair.m04)->size();
 	if (count < 2)
 		return;
 	float best = 10000.0f;
@@ -2071,7 +2067,7 @@ void HordeContain::instigateQuarrel(int low, int high, QuarrelPacket packetA, Qu
 	Coord3D center;
 	center.zero();
 	_STL::list<Object *>::const_iterator it;
-	for (it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *member = *it;
 		if (!member)
@@ -2082,7 +2078,7 @@ void HordeContain::instigateQuarrel(int low, int high, QuarrelPacket packetA, Qu
 		center.add(member->getPosition());
 	}
 	center.scale(1.0f / count);
-	for (it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it, ++index)
+	for (it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it, ++index)
 	{
 		Object *member = *it;
 		if (!member)
@@ -2109,7 +2105,7 @@ void HordeContain::instigateQuarrel(int low, int high, QuarrelPacket packetA, Qu
 	m_1B4 = packetB;
 	m_200 = packetA;
 	index = 1;
-	for (it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it, ++index)
+	for (it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it, ++index)
 	{
 		Object *member = *it;
 		if (!member)
@@ -2188,13 +2184,13 @@ void HordeContain::rva0046DB6D(const AsciiString &name, Rva2225E0Filter *filter,
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	_STL::list<Object *>::const_iterator it = slotPair.m04->begin();
+	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin();
 	Object *self = m_object;
 	Rva0046DB6DCategory *category = (Rva0046DB6DCategory *)TheAttributeModifierStore->GetCategoryContainer(
 		TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(name.str())));
 	if (category && category->m_index != 6)
 	{
-		for (; it != slotPair.m04->end(); ++it)
+		for (; it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 		{
 			Object *obj = *it;
 			if (!filter || filter->accepts(obj, self->getControllingPlayer()))
@@ -2220,9 +2216,9 @@ void HordeContain::rva0046DC92(const AsciiString &name, Rva2225E0Filter *filter)
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	_STL::list<Object *>::const_iterator it = slotPair.m04->begin();
+	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin();
 	Object *self = m_object;
-	for (; it != slotPair.m04->end(); ++it)
+	for (; it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (!filter || filter->accepts(obj, self->getControllingPlayer()))
@@ -2277,8 +2273,8 @@ Object *HordeContain::rva0046D27A()
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	if (!slotPair.m04->empty())
-		return slotPair.m04->front();
+	if (!((const _STL::list<Object *> *)slotPair.m04)->empty())
+		return ((const _STL::list<Object *> *)slotPair.m04)->front();
 	_STL::set<int>::iterator it = m_170.begin();
 	if (it != m_170.end())
 		return TheGameLogic->findObjectByID((ObjectID)*it);
@@ -2291,13 +2287,13 @@ Object *HordeContain::rva0046D2C3(int kind)
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		if (!(*it)->getTemplate()->isKindOf((KindOfType)kind))
 			return *it;
 	}
-	if (!slotPair.m04->empty())
-		return slotPair.m04->front();
+	if (!((const _STL::list<Object *> *)slotPair.m04)->empty())
+		return ((const _STL::list<Object *> *)slotPair.m04)->front();
 	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
 	{
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
@@ -2349,7 +2345,7 @@ void HordeContain::rva0046D384(Team *team)
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj)
@@ -2512,7 +2508,7 @@ void HordeContain::rva0046C4C0()
 	m_19C = getObject()->m_ai->rva00260DED();
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj)
@@ -2675,7 +2671,7 @@ void HordeContain::rva0046BC30()
 	float angle = m_object->GetGoalAngle();
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj->isEffectivelyDead())
@@ -2698,7 +2694,7 @@ void HordeContain::rva0046BD70()
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
@@ -2718,7 +2714,7 @@ void HordeContain::rva0046BE0E()
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
@@ -2761,7 +2757,7 @@ void HordeContain::rva0046BEAC(Object *obj)
 	}
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *member = *it;
 		if (member)
@@ -2794,7 +2790,7 @@ void HordeContain::rva0046BEAC(Object *obj)
 				}
 			}
 		}
-		for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+		for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 		{
 			Object *member = *it;
 			pos.set(member->getPosition());
@@ -2914,7 +2910,7 @@ void HordeContain::rva0046BA56(Object *source, int unused)
 {
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)((char *)this - 0x20))->rva0046247D(slotPair);
-	const _STL::list<Object *> *items = slotPair.m04;
+	const _STL::list<Object *> *items = (const _STL::list<Object *> *)slotPair.m04;
 	const _STL::list<Object *> *pin = (items ? items : items);
 	for (_STL::list<Object *>::const_iterator it = pin->begin(); it != pin->end(); ++it)
 		(*it)->defect(source, false);
@@ -2955,7 +2951,7 @@ Object *HordeContain::rva0046CB2C()
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	if (slotPair.m04->empty())
+	if (((const _STL::list<Object *> *)slotPair.m04)->empty())
 	{
 		if (m_170.size() == 0)
 			return 0;
@@ -2964,8 +2960,8 @@ Object *HordeContain::rva0046CB2C()
 			++k;
 		return TheGameLogic->findObjectByID((ObjectID)*k);
 	}
-	_STL::list<Object *>::const_iterator it = slotPair.m04->begin();
-	for (int n = GetGameLogicRandomValue(0, slotPair.m04->size() - 1, HORDECONTAIN_SOURCE_FILE, 5383); n != 0; --n)
+	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin();
+	for (int n = GetGameLogicRandomValue(0, ((const _STL::list<Object *> *)slotPair.m04)->size() - 1, HORDECONTAIN_SOURCE_FILE, 5383); n != 0; --n)
 		++it;
 	return *it;
 }
@@ -3012,7 +3008,7 @@ bool HordeContain::rva0046BB6F(int *out, unsigned int frame)
 	}
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj && obj->rva0028C264(out, 4))
@@ -3058,7 +3054,7 @@ bool HordeContain::rva0046A2A7()
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	const _STL::list<Object *> *items = slotPair.m04;
+	const _STL::list<Object *> *items = (const _STL::list<Object *> *)slotPair.m04;
 	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
 	{
 		Object *obj = *it;
@@ -3323,7 +3319,7 @@ Object *HordeContain::rva0046CC09()
 	float bestRange = 0.0f;
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (obj)
@@ -3475,10 +3471,10 @@ void HordeContain::rva004739B4()
 	{
 		Rva0046247DPair slotPair;
 		((Rva0046247D *)(UpdateModule *)this)->rva0046247D(slotPair);
-		_STL::list<Object *>::const_iterator it = slotPair.m04->begin();
-		if (m_170.size() == 0 && slotPair.m04->size() == 0)
+		_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin();
+		if (m_170.size() == 0 && ((const _STL::list<Object *> *)slotPair.m04)->size() == 0)
 			return;
-		while (it != slotPair.m04->end())
+		while (it != ((const _STL::list<Object *> *)slotPair.m04)->end())
 		{
 			Object *obj = *it;
 			if (obj)
@@ -3619,7 +3615,7 @@ void HordeContain::rva0046D1F7(_STL::list<const Object *> &out)
 	out.clear();
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 		out.push_back(*it);
 	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
 	{
@@ -4016,7 +4012,7 @@ void HordeContain::rva00472A24(const Coord3D *pos, CommandSourceType cmdSource, 
 	_STL::list<const Object *> copy;
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 		copy.push_back(*it);
 	AIGroup *group = TheAI->createGroup();
 	for (_STL::list<const Object *>::iterator o = copy.begin(); o != copy.end(); ++o)
@@ -4113,8 +4109,8 @@ void HordeContain::rva00472329(const Coord3D *pos, int)
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(slotPair);
 	const _STL::map<int, int> *keys = &fields()->m_1B8;
-	_STL::list<Object *>::const_iterator it = slotPair.m04->begin();
-	while (it != slotPair.m04->end())
+	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin();
+	while (it != ((const _STL::list<Object *> *)slotPair.m04)->end())
 	{
 		const unsigned int id = (*it)->getID();
 		if (m_17C.find(id) != m_17C.end())
@@ -4155,7 +4151,7 @@ void HordeContain::attackTargetNow(Object *target, int select)
 	Object *only = 0;
 	if (select == 1)
 		only = ((Rva0046D946 *)(UpdateModule *)this)->rva0046D946(target);
-	for (_STL::list<Object *>::const_iterator it = members.m04->begin(); it != members.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)members.m04)->begin(); it != ((const _STL::list<Object *> *)members.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (only && obj != only)
@@ -4406,7 +4402,7 @@ void HordeContain::rva0046FE99(_STL::list<Object *> &out)
 {
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 		out.push_back(*it);
 	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
 	{
@@ -4415,10 +4411,10 @@ void HordeContain::rva0046FE99(_STL::list<Object *> &out)
 			out.push_back(obj);
 	}
 	_STL::list<const Object *> copy;
-	for (_STL::list<Object *>::const_iterator c = slotPair.m04->begin(); c != slotPair.m04->end(); ++c)
+	for (_STL::list<Object *>::const_iterator c = ((const _STL::list<Object *> *)slotPair.m04)->begin(); c != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++c)
 		copy.push_back(*c);
 	{
-		void *unused = slotPair.m00;
+		ContainModuleInterface *unused = slotPair.m00;
 		slotPair.m00 = unused;
 		slotPair.m00 = NULL;
 	}
@@ -4522,7 +4518,7 @@ void HordeContain::performReform()
 	_STL::vector<Object *> members;
 	Rva0046247DPair slotPair;
 	rva0046D27ASlot70(slotPair);
-	for (_STL::list<Object *>::const_iterator it = slotPair.m04->begin(); it != slotPair.m04->end(); ++it)
+	for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin(); it != ((const _STL::list<Object *> *)slotPair.m04)->end(); ++it)
 	{
 		Object *obj = *it;
 		if (!((Rva004693AD *)(UpdateModule *)this)->rva004693AD((Rva004693ADArg *)obj))
@@ -4650,7 +4646,7 @@ void HordeContain::removeMemberFromHorde(Object *obj)
     slot41(obj,0);
     obj->setProducer(0);
     while(((UpdateModule*)this)->rva00470B21()) {}
-    const _STL::list<Object*> *items=((Rva0046247DPair*)((Rva0046247D*)(UpdateModule*)this)->rva0046247D(slotPair))->m04;
+    const _STL::list<Object*> *items=(const _STL::list<Object*> *)((Rva0046247DPair*)((Rva0046247D*)(UpdateModule*)this)->rva0046247D(slotPair))->m04;
     if(items->empty() && m_170.empty()) TheGameLogic->destroyObject(m_object);
     checkSpecialUnitDeath(obj);
 }
@@ -4764,7 +4760,7 @@ void HordeContain::rva0046BACD()
 {
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)((char *)this - 0x20))->rva0046247D(slotPair);
-	const _STL::list<Object *> *items = slotPair.m04;
+	const _STL::list<Object *> *items = (const _STL::list<Object *> *)slotPair.m04;
 	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
 		(*it)->rva0029A12B();
 	HordeContainIface20View *self = (HordeContainIface20View *)this;
@@ -4783,7 +4779,7 @@ void HordeContain::rva0046AA85()
 {
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)this)->rva0046247D(slotPair);
-	const _STL::list<Object *> *items = slotPair.m04;
+	const _STL::list<Object *> *items = (const _STL::list<Object *> *)slotPair.m04;
 	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
 		rva00469F3A(*it);
 }
@@ -4892,7 +4888,7 @@ bool HordeContain::rva00470B21()
     int bestRank = limit;
     float bestDistance = 99999.0f;
     Object *best = 0;
-    for (_STL::list<Object *>::const_iterator it = pair.m04->begin(); it != pair.m04->end(); ++it) {
+    for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)pair.m04)->begin(); it != ((const _STL::list<Object *> *)pair.m04)->end(); ++it) {
         Object *obj = *it;
         int index = m_17C[obj->getID()];
         if (index <= bestIndex) continue;
@@ -5027,7 +5023,7 @@ void HordeContain::rva00470DC1()
 {
 	Rva0046247DPair slotPair;
 	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(slotPair);
-	_STL::list<Object *>::const_iterator it = slotPair.m04->begin();
+	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)slotPair.m04)->begin();
 	Object *self = getObject();
 	TheAI->pathfinder()->AdjustLayer(self);
 	float baseAngle = self->m_orientation;
@@ -5038,7 +5034,7 @@ void HordeContain::rva00470DC1()
 	if (!data)
 		return;
 	Object *leader = TheGameLogic->findObjectByID((ObjectID)m_2B0);
-	while (it != slotPair.m04->end())
+	while (it != ((const _STL::list<Object *> *)slotPair.m04)->end())
 	{
 		Object *obj = *it;
 		it++;

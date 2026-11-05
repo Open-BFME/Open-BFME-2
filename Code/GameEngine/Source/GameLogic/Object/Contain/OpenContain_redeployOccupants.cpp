@@ -20,12 +20,7 @@ namespace _STL
 template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
-struct Rva0046247DPair
-{
-public:
-	void *a; // +0x00
-	void *b; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class Rva0046247D
 {

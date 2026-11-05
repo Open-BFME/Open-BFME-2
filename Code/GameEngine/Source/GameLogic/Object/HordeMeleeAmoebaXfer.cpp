@@ -78,7 +78,7 @@ class Object {public:
  char opaque25c[0x274-0x25c];Object *related;
 };
 struct HmaHolder {char opaque[8];Object *owner;};
-struct Rva0046247DPair {void *first;_STL::list<Object*> *second;};
+#include "../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva00587204 {public:Rva0046247DPair &rva00587204(Rva0046247DPair&);};
 class HmaDelegateView:public HmaVirtualSlots<89>{public:virtual void select(Object*);};
 bool HordeMeleeAmoeba::rva005879C8(Object *victim)
@@ -99,7 +99,7 @@ bool HordeMeleeAmoeba::rva005879C8(Object *victim)
  bool found=false;
  // Compare the public node identities directly, preserving the inlined walk
  // without emitting this TU's non-retail iterator-comparison COMDAT.
- for(_STL::list<Object*>::iterator i=pair.second->begin();i._M_node!=pair.second->end()._M_node;++i) {
+ for(_STL::list<Object*>::iterator i=((_STL::list<Object *> *)pair.m04)->begin();i._M_node!=((_STL::list<Object *> *)pair.m04)->end()._M_node;++i) {
   HmaUnitAIView *unit=(*i)->ai;
   if(!unit)continue;
   if(unit->engaged()) {

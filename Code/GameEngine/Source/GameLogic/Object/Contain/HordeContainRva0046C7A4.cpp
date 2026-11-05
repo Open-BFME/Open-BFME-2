@@ -99,11 +99,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-struct Rva0046247DPair
-{
-	void *m00;
-	const _STL::list<Object *> *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -148,7 +144,7 @@ Object *HordeContain::rva0046C7A4(bool skipStatus, const Coord3D *pos, float max
 	if (attacker)
 		weapon = attacker->getCurrentWeapon();
 
-	if (p.m04->empty())
+	if (((const _STL::list<Object *> *)p.m04)->empty())
 	{
 		if (m_170.size() == 0)
 			return 0;
@@ -217,7 +213,7 @@ Object *HordeContain::rva0046C7A4(bool skipStatus, const Coord3D *pos, float max
 	{
 		float bestDist = 99999.0f;
 		Object *best = 0;
-		for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); it++)
+		for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)p.m04)->begin(); it != ((const _STL::list<Object *> *)p.m04)->end(); it++)
 		{
 			Object *obj = *it;
 			if (!obj)
@@ -261,12 +257,12 @@ Object *HordeContain::rva0046C7A4(bool skipStatus, const Coord3D *pos, float max
 
 	if (skipStatus)
 	{
-		for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); it++)
+		for (_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)p.m04)->begin(); it != ((const _STL::list<Object *> *)p.m04)->end(); it++)
 		{
 			Object *obj = *it;
 			if (obj && !obj->testStatus(OBJECT_STATUS_HORDE_3F))
 				return obj;
 		}
 	}
-	return p.m04->front();
+	return ((const _STL::list<Object *> *)p.m04)->front();
 }

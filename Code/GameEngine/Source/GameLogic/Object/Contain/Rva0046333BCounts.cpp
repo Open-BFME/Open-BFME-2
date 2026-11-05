@@ -1,12 +1,7 @@
 // cl: /O1 /G7 /DNDEBUG /MD
 // ?rva0046333B@Rva0046333B@@QAE_NPAH00000@Z @0x0046333B 152B
 // Evidence: Native46333B..4633D3 PUSH EBP entry and RET24 prove six integer out pointers. Secondary interface20 data minus1C flag80; virtual capacity28 reserved69 current51 and established pair46247D; contained node8 object template4 flag109bit0. Address-derived purpose and types remain structural inference; prior no-boundary verdict refuted by complete retail prologue and return. Full152 verified no pins.
-struct Rva0046247DPair
-{
-public:
-	void *a; // +0x00
-	void *b; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 // row ?rva0046247D@Rva0046247D@@QAEXAAURva0046247DPair@@@Z (Rva0046247DCondPair.cpp); this caller ignores the result
 class Rva0046247D
 {
@@ -99,7 +94,7 @@ bool Rva0046333B::rva0046333B(int*a,int*b,int*c,int*d,int*e,int*f){
   Rva0046247DPair pair;
   reinterpret_cast<Rva0046247D*>(reinterpret_cast<char*>(this)-0x20)->rva0046247D(pair);
   *c=0;
-  Node**head=static_cast<Node**>(pair.b);
+  Node**head=static_cast<Node**>(pair.m04);
   for(Node*node=(*head)->next;node!=*head;node=node->next)if(node->object->type->kindof&1)++*c;
   return true;
  }

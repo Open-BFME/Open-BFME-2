@@ -32,12 +32,7 @@ template<class T, class Traits>
 static inline bool operator!=(const _List_iterator<T, Traits>&a,const _List_iterator<T, Traits>&b)
 { return a._M_node != b._M_node; }
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
-struct Rva0046247DPair
-{
-public:
-	void *a; // +0x00
-	IntList *objects; // +0x04
-};
+#include "../../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Object;
 struct Coord3D;
 class Rva00588E44Contain;
@@ -685,7 +680,7 @@ void HordeTransportContain::rva004779F9()
 {
     Rva0046247DPair outer;
     ((Rva0046247D*)this)->rva0046247D(outer);
-    for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) {
+    for (IntList::iterator i=((IntList *)outer.m04)->begin();i!=((IntList *)outer.m04)->end();++i) {
         void *outerObject;
         memcpy(&outerObject,&*i,4);
         RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A(outerObject);
@@ -981,7 +976,7 @@ void HordeTransportContain::redeployOccupants()
  RiderWordList objects;
  Rva0046247DPair outer;
  ((Rva0046247D*)this)->rva0046247D(outer);
- for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) 
+ for (IntList::iterator i=((IntList *)outer.m04)->begin();i!=((IntList *)outer.m04)->end();++i)
  {
   Object *object=(Object *)containmentFirstWord(*i);
   if (object->getTemplate()->flags & 0x20) 

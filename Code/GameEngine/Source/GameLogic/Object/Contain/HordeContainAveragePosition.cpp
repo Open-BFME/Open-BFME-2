@@ -89,11 +89,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-struct Rva0046247DPair
-{
-	void *m00;
-	const _STL::list<Object *> *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class ModuleData;
 
@@ -141,7 +137,7 @@ void HordeContain::rva0046D4BD(Coord3D *out, Coord3D *normal)
 	UnsignedInt count = 0;
 	Rva0046247DPair p;
 	rva0046D27ASlot70(p);
-	_STL::list<Object *>::const_iterator it = p.m04->begin();
+	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)p.m04)->begin();
 	Coord3D sum;
 	sum.z = 0.0f;
 	sum.y = 0.0f;
@@ -149,7 +145,7 @@ void HordeContain::rva0046D4BD(Coord3D *out, Coord3D *normal)
 	Coord3D tmp;
 	Coord3D pos;
 	Bool onTerrain = false;
-	while (it != p.m04->end())
+	while (it != ((const _STL::list<Object *> *)p.m04)->end())
 	{
 		Object *obj = *it;
 		if (obj == 0)

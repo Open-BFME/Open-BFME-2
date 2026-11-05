@@ -35,8 +35,8 @@ template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
-struct Rva0046247DPair {void *first;const _STL::list<Object *> *second;};
-class Rva0046247D {public:__declspec(noinline) void rva0046247D(Rva0046247DPair &p){void *base=this;char *field=(char *)base+0x20;p.first=base?field:0;p.second=(const _STL::list<Object *> *)((char *)base+0x54);}};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
+class Rva0046247D {public:__declspec(noinline) void rva0046247D(Rva0046247DPair &p){void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(char *)base+0x54;}};
 class HordeContain {public:bool rva004723F2(Object *,const AsciiString &);};
 struct Rva00472444Mask {unsigned int words[32];__forceinline bool test(unsigned int bit)const{return (words[bit>>5] & (1U<<(bit&31)))!=0;}};
 class Rva00472444 {public:
@@ -47,7 +47,7 @@ private:char unknown[0x150 - 4];_STL::set<int> m_ids;
 void Rva00472444::rva00472444(const Rva00472444Mask &mask,const AsciiString *name){
  Rva0046247DPair pair;
  ((Rva0046247D *)((char *)this-0x20))->rva0046247D(pair);
- _STL::list<Object *> &members=*const_cast<_STL::list<Object *> *>(pair.second);
+ _STL::list<Object *> &members=*(_STL::list<Object *> *)pair.m04;
  _STL::list<Object *>::iterator it=members.begin();
  _STL::vector<const UpgradeTemplate *> upgrades;
  for(int i=0;i<1024;++i)if(mask.test(i)){const UpgradeTemplate *upgrade=TheUpgradeCenter->rva0026EEA0(i);upgrades.push_back(upgrade);}

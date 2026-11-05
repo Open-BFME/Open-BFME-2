@@ -8,11 +8,7 @@
 // 0x00464286 (OpenContain slot 18) calls it for two outs. Prev/next are Disp frameless
 // getters with the same defaults. No donor; identity is honest-address Rva.
 // No // cl: line (defaults /O2 match the frameless 26-byte shape).
-struct Rva0046247DPair
-{
-	void *first;
-	void *second;
-};
+#include "../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D
 {
 public:
@@ -22,8 +18,8 @@ __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &resul
 {
 	void *base = this;
 	char *field = (char *)base + 0x20;
-	result.first = base ? field : 0;
-	result.second = (char *)base + 0x54;
+	result.m00 = (ContainModuleInterface *)(base ? field : 0);
+	result.m04 = (char *)base + 0x54;
 }
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

@@ -11,18 +11,13 @@
 typedef ContainmentList IntList;
 namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
 
-struct Rva0046247DPair
-{
-public:
-	void *a; // +0x00
-	IntList *objects; // +0x04
-};
+#include "../../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 // Rowed at 0x0046247D (Rva0046247DCondPair.cpp); visible and kept out of
 // line so the caller knows the pair it fills keeps no pointer to it. (The
 // sibling 0x004779F9 in HordeTransportContain.cpp needs it opaque, hence this
 // unit.)
 class Rva0046247D {public:__declspec(noinline) void rva0046247D(Rva0046247DPair &p)
-{void *base=this;char *field=(char *)base+0x20;p.a=base?field:0;p.objects=(IntList *)((char *)base+0x54);}};
+{void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(IntList *)((char *)base+0x54);}};
 class Object;
 struct Coord3D;
 class Rva00588E44Contain;
@@ -69,7 +64,7 @@ void HordeTransportContain::rva0047748E()
     ((Rva0046247D*)this)->rva0046247D(outer);
     // Compare the public node identities directly, preserving the inlined walk
     // without emitting this TU's non-retail iterator-comparison COMDAT.
-    for(IntList::iterator i=outer.objects->begin();i._M_node!=outer.objects->end()._M_node;++i) {
+    for(IntList::iterator i=((IntList *)outer.m04)->begin();i._M_node!=((IntList *)outer.m04)->end()._M_node;++i) {
         RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((void*)containmentFirstWord(*i));
         if(!contain)continue;
         Rva0036AE51ListView nested=contain->s108();

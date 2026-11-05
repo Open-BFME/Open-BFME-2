@@ -21,11 +21,7 @@ namespace _STL
 template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
-struct Rva0046247DPair
-{
-	void *first;
-	void *second;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 struct Rva004642D3PairResult
 {
@@ -84,15 +80,15 @@ void SlaughterHordeContain::rva004642D3()
 
 		void *firstWord = returned->first;
 		void *secondWord = returned->second;
-		selected.first = firstWord;
-		selected.second = secondWord;
+		selected.m00 = (ContainModuleInterface *)firstWord;
+		selected.m04 = secondWord;
 		if (resultState & 2)
 			resultState &= ~2;
 		if (resultState & 1)
 			resultState &= ~1;
 
 		Rva004642D3ListNode *head =
-			*(Rva004642D3ListNode **)selected.second;
+			*(Rva004642D3ListNode **)selected.m04;
 		if (head->next != head) {
 			IntList items =
 				((Rva0036AE51ListView *)&selected)->rva0036AE51();

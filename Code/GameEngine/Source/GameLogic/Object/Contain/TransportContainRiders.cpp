@@ -239,11 +239,7 @@ extern TerrainLogic *TheTerrainLogic;
 extern AI *TheAI;
 
 // The pair OpenContain hands its list reader (see OpenContainRva00464286.cpp).
-struct Rva0046247DPair
-{
-	void *present;
-	struct CopyValue *source;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class Rva0046247D
 {
@@ -380,7 +376,7 @@ void TransportContain::letRidersUpgradeWeaponSet()
 	((Rva0046247D *)this)->rva0046247D(riders);
 	Bool anyRiderA = FALSE;
 	Bool anyRiderB = FALSE;
-	for (IntList::iterator it = ((IntList *)riders.source)->begin(); it != ((IntList *)riders.source)->end(); ++it)
+	for (IntList::iterator it = ((IntList *)riders.m04)->begin(); it != ((IntList *)riders.m04)->end(); ++it)
 	{
 		Object *rider = (Object *)containmentFirstWord(*it);
 		if (rider->isKindOfMulti(transportContainModuleData->m_typeOneForWeaponSet, KINDOFMASK_NONE))
