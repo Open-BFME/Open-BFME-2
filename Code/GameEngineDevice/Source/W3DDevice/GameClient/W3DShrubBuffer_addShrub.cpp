@@ -35,12 +35,19 @@ struct Rva000E91CEData
 
 struct Rva000E91CEType
 {
-	void *mesh;
-	Vector3 offset;
-	SphereClass bounds;
-	const Rva000E91CEData *data;
-	unsigned char gap24[0x58 - 0x24];
-	int field58;
+public:
+	void *mesh; // +0x00
+	Vector3 offset; // +0x04
+	SphereClass bounds; // +0x10
+	const Rva000E91CEData *data; // +0x20
+	unsigned char gap24[0x44 - 0x24]; // +0x24
+	bool shadowKind; // +0x44
+	unsigned char alignment45[3]; // +0x45
+	AsciiString textureName; // +0x48
+	AsciiString modelName; // +0x4C
+	AsciiString nameC; // +0x50
+	AsciiString templateName; // +0x54
+	int field58; // +0x58
 };
 
 struct Rva000E91CETree
