@@ -6,6 +6,8 @@
 // Proven by callers 0x0021CC49/0x005B1BD1 on the 0x009FE344 global which also
 // calls CreateAHeroManager methods 0x0021A097/0x0021A1B6. Same idiv recipe as 0x00219B9E;
 // /G7 carries the imul 0x14 (IMUL law: /O1 alone strength-reduces i*20 to lea).
+#include "../../Include/GameLogic/CreateAHeroManager.h"
+
 struct Elem20 { char m_00[20]; };
 struct Vec20 {
     Elem20 *m_start;
@@ -14,16 +16,10 @@ struct Vec20 {
 };
 static __forceinline unsigned Vec20Size(const Vec20 *v) { return v->m_finish - v->m_start; }
 static __forceinline Elem20 &Vec20At(Vec20 *v, unsigned i) { return v->m_start[i]; }
-class CreateAHeroManager {
-    char m_pad[0x168];
-    Vec20 m_blingBinderList;
-public:
-    void *GetBlingBinder(unsigned int blingBinderIndex);
-};
 void *CreateAHeroManager::GetBlingBinder(unsigned int blingBinderIndex)
 {
-    unsigned int count = Vec20Size(&m_blingBinderList);
+    unsigned int count = Vec20Size((Vec20 *)field168);
     if (blingBinderIndex < count)
-        return &Vec20At(&m_blingBinderList, blingBinderIndex);
+        return &Vec20At((Vec20 *)field168, blingBinderIndex);
     return 0;
 }
