@@ -19,8 +19,11 @@
 #include "ascii_string.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
-#pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
+// memset is msvcr71's, called through its import thunk at 0x006291AE
+// rather than expanded inline: <string.h>'s memset with
+// #pragma function(memset).
+#include <string.h>
+#pragma function(memset)
 // The two "invalid index" fallback slots this unit's matched getters hand out,
 // each with its one-time-init guard byte beside it: VA 0x00DFE368 guards the
 // four-byte slot at VA 0x00DFE364 and VA 0x00DFE3E4 the one at VA 0x00DFE3E0
@@ -501,7 +504,7 @@ void *CreateAHeroClass::GetFactionMaskType(UnsignedInt subClassIndex)
 {
     if (!(*(unsigned char *)&g_00DFE368 & 1)) {
         g_00DFE368 |= 1;
-        ji_006291ae(&g_00DFE364, 0, 4);
+        memset(&g_00DFE364, 0, 4);
     }
     const CreateAHeroSubClass *subClass = rva00219B9E(subClassIndex);
     return (char *)subClass + 0x68;
@@ -513,7 +516,7 @@ void *CreateAHeroManager::GetFactionMaskType(UnsignedInt classIndex, UnsignedInt
     void *fallback = &g_00DFE3E0;
     if (!(*(unsigned char *)&g_00DFE3E4 & 1)) {
         g_00DFE3E4 |= 1;
-        ji_006291ae(fallback, 0, 4);
+        memset(fallback, 0, 4);
     }
     unsigned int count = ClassCount(&m_classes);
     if (classIndex >= count)
