@@ -193,13 +193,7 @@ public:
 	unsigned char m_pad00[0x8];
 	Rva0057DB97Group *m_08;	// +0x08
 };
-class LivingWorldLogic
-{
-public:
-	unsigned char m_pad00[0xb0];
-	Rva0020EAF6View *m_regionManager;	// +0xB0
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../../../../Include/GameLogic/LivingWorldLogic.h"
 // The holding slot each claimed region id gets (the value type is not
 // retail's int map: the destructor 0x0057CF0B is this unit's own).
 enum Rva0057DB97Slot
@@ -1240,7 +1234,7 @@ void AptMapPreview::UpdateStrategicStartSpots()
 	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
 	if (info == 0 || m_livingWorldWindow == 0 || TheLivingWorldLogic == 0)
 		return;
-	Rva0020EAF6View *manager = TheLivingWorldLogic->m_regionManager;
+	Rva0020EAF6View *manager = (Rva0020EAF6View *)TheLivingWorldLogic->fieldB0;
 	if (manager == 0 || m_livingWorldWindow->m_info == 0)
 		return;
 	Rva004FD8A8Set *startRegions = m_livingWorldWindow->m_info->m_startRegions;
@@ -1433,7 +1427,7 @@ Bool AptMapPreview::IsValidStartPosition(Int index)
 		if (index == -1)
 			return false;
 		{
-			Rva0020EAF6View *view = TheLivingWorldLogic->m_regionManager;
+			Rva0020EAF6View *view = (Rva0020EAF6View *)TheLivingWorldLogic->fieldB0;
 			if (view == 0)
 				return false;
 			Rva0020E89C *region = view->rva0020EAF6(index);
