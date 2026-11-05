@@ -17,9 +17,12 @@
 // stlport
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 namespace _STL { void __cdecl free(void *block); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseListStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <vector>
-#undef free
 
 class Rva0053FA0A {
 public:
@@ -47,7 +50,7 @@ public:
 	~Rva0033066DList()
 	{
 		if (m_begin)
-			_STL::free(m_begin);
+			releaseListStorage(m_begin);
 	}
 
 private:
@@ -56,6 +59,14 @@ private:
 	Rva0033066DListener **m_capacity;	// +0x08
 	unsigned int m_index;			// +0x0C
 };
+
+struct Rva003306B0Entry;
+namespace _STL {
+template<> inline void allocator<Rva003306B0Entry *>::deallocate(Rva003306B0Entry **__p, size_type) const
+{
+	if (__p != 0) releaseListStorage((void *)__p);
+}
+}
 
 class Rva003306B0
 {

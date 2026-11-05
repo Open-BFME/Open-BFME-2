@@ -29,9 +29,12 @@
 #include <ctype.h>
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseUrlStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <string>
-#undef free
 
 // Keep native inline cleanup without emitting the unused allocator helpers.
 namespace _STL {
@@ -39,7 +42,7 @@ template <> __declspec(dllimport) __forceinline void
 _STLP_alloc_proxy<char *, char, allocator<char> >::deallocate(char *p, size_t)
 {
     if (p != 0)
-        _STL::free((void *)p);
+        releaseUrlStorage((void *)p);
 }
 }
 #include <algorithm>

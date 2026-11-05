@@ -20,7 +20,11 @@
 // Native tree teardownBB65C frees through C++ allocator30830.
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseBoneNode(void *storage)
+{
+	_STL::free(storage);
+}
 #include <map>
 // Suppress this TU's non-retail copy of ?_M_create_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -37,8 +41,13 @@ namespace _STL { template <> pair<_Rb_tree_iterator<pair<NameKeyType const ,Pris
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 enum NameKeyType; struct PristineBoneInfo;
 namespace _STL { template <> PristineBoneInfo &map<NameKeyType, PristineBoneInfo, less<NameKeyType>, allocator<pair<const NameKeyType, PristineBoneInfo> > >::operator[](const NameKeyType &); }
-#undef free
 
+namespace _STL {
+template<> inline void allocator<_Rb_tree_node<pair<const NameKeyType, PristineBoneInfo> > >::deallocate(_Rb_tree_node<pair<const NameKeyType, PristineBoneInfo> > *__p, size_type) const
+{
+	if (__p != 0) releaseBoneNode((void *)__p);
+}
+}
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>

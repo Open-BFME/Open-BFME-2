@@ -15,7 +15,6 @@
 // A private max overload avoids an unrelated external max COMDAT.
 #include <stdlib.h>
 void Rva00030830FreeAllocation(void *);
-#define free Rva00030830FreeAllocation
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -25,7 +24,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
-#undef free
 #include "Code/Libraries/Include/Lib/BfmeE16.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *,allocator<void *> >::size()const  { return (unsigned int)(this->_M_finish - this->_M_start); } }
@@ -35,6 +33,12 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * const * 
 namespace _STL { template <> __declspec(dllimport) __forceinline void * const * vector<void *,allocator<void *> >::begin()const  { return this->_M_start; } }
 
 struct BfmeE12 { float x, y, z; };
+namespace _STL {
+template<> inline void allocator<BfmeE16>::deallocate(BfmeE16 *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+}
 // bfme link decl-only BfmeE16
 namespace _STL {
 template <> vector<BfmeE16, allocator<BfmeE16> >::~vector();

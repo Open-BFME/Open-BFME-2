@@ -4,10 +4,13 @@
 // wrapper in the twin's order (the four ORs survive to packing and merge into one byte OR afterwards),
 // and the twin's scoring statements through inline accessors.
 // stlport
-#define free bfmeUnusedCRTFree
 #include <stdlib.h>
-#undef free
-void __cdecl free(void *);
+namespace _STL { void __cdecl free(void *); }
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseCastleStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <vector>
 #include <set>
 #include <string.h>
@@ -41,9 +44,13 @@ struct Rva001408C0Target;
 // Preserve the header's inline cleanup while consuming the kept external
 // pointer-set helpers, as in the asset-worker unit using the same key type.
 namespace _STL {
+template<> inline void allocator<int>::deallocate(int *__p, size_type) const
+{
+	if (__p != 0) releaseCastleStorage((void *)__p);
+}
 template <> __declspec(dllimport) __forceinline
 void allocator<_Rb_tree_node<Rva001408C0Target *> >::deallocate(
- _Rb_tree_node<Rva001408C0Target *> *node, size_t) const { if(node) ::free(node); }
+ _Rb_tree_node<Rva001408C0Target *> *node, size_t) const { if(node) releaseCastleStorage(node); }
 template <>
 _Rb_tree_base<Rva001408C0Target *, allocator<Rva001408C0Target *> >::~_Rb_tree_base();
 template <> __declspec(dllimport) __forceinline

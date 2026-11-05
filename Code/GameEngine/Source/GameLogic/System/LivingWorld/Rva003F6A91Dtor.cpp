@@ -16,9 +16,13 @@
 // owns 0x003F6936; the sides' own type is not recovered.
 #include <stdlib.h>
 void Rva00030830FreeAllocation(void *);
-#define free Rva00030830FreeAllocation
 #include <vector>
-#undef free
+namespace _STL {
+template<> inline void allocator<void *>::deallocate(void **__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+}
 #include "Common/Snapshot.h"
 // bfme link decl-only begin
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }

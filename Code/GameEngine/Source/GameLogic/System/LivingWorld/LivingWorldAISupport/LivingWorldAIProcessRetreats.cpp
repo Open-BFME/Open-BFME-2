@@ -12,7 +12,11 @@
 // Reload begin after each iteration and form manager locals before arguments:
 // both are needed for native register allocation/scheduling, with all434B exact.
 namespace _STL {void __cdecl free(void *block) throw(...);}
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseRetreatStorage(void *storage)
+{
+	_STL::free(storage);
+}
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -22,12 +26,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-#undef free
 class ModuleData;
 namespace _STL {
-template<> __declspec(dllimport) __forceinline void allocator<int >::deallocate(int* p,size_t n) const { _STLP_ASSERT((p==0)==(n==0)) if(p!=0) _STL::free((void*)p); }
+template<> __declspec(dllimport) __forceinline void allocator<int >::deallocate(int* p,size_t n) const { _STLP_ASSERT((p==0)==(n==0)) if(p!=0) releaseRetreatStorage((void*)p); }
 template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<int*,int,allocator<int> >::deallocate(int* p,size_t n) { __stl_alloc_rebind(static_cast<allocator<int>&>(*this),(int*)0).deallocate(p,n); }
-template<> __declspec(dllimport) __forceinline void allocator<const ModuleData* >::deallocate(const ModuleData** p,size_t n) const { _STLP_ASSERT((p==0)==(n==0)) if(p!=0) _STL::free((void*)p); }
+template<> __declspec(dllimport) __forceinline void allocator<const ModuleData* >::deallocate(const ModuleData** p,size_t n) const { _STLP_ASSERT((p==0)==(n==0)) if(p!=0) releaseRetreatStorage((void*)p); }
 template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<const ModuleData**,const ModuleData*,allocator<const ModuleData*> >::deallocate(const ModuleData** p,size_t n) { __stl_alloc_rebind(static_cast<allocator<const ModuleData*>&>(*this),(const ModuleData**)0).deallocate(p,n); }
 template<> __declspec(dllimport) __forceinline void vector<const ModuleData*>::_M_clear() { _Destroy(_M_start,_M_finish); _M_end_of_storage.deallocate(_M_start,_M_end_of_storage._M_data-_M_start); }
 }

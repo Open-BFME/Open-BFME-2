@@ -27,9 +27,18 @@ namespace _STL
  void __cdecl free(void*);
  
 }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseVectorStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <vector>
-#undef free
+namespace _STL {
+template<> inline void allocator<void *>::deallocate(void **__p, size_type) const
+{
+	if (__p != 0) releaseVectorStorage((void *)__p);
+}
+}
 typedef bool Bool;
 #include "subsystem_interface.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
