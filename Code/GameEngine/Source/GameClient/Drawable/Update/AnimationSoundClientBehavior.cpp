@@ -245,6 +245,10 @@ class Rva002B224BDwordField { public: int get() const; };
 // pinned there too, but no object defines that spelling for the real link.
 class Rva0055A88BDwordField { public: int get() const; };
 
+// Drawable::getID calls retail's +0x100 getter, already rowed under this name
+// in DispDwordFieldGetters.cpp. Use that provider, as LaserUpdate does.
+class Rva0055A88BDwordField { public: int get() const; };
+
 class Rva0049B47C
 {
 public:
