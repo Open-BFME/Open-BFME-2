@@ -134,8 +134,8 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 // (0x00411084) and bucket skip (0x003F7925) keep their rowed address-derived
 // owners. Their bodies are defined here as the retail TU saw them (template
 // inlines that stay out of line): with them visible cl knows the iterator's
-// address never escapes, so the timer walk keeps it.current in eax across the
-// decrement as retail does; declared only, it reloaded it.current after the
+// address never escapes, so the timer walk keeps it.m_current in eax across the
+// decrement as retail does; declared only, it reloaded it.m_current after the
 // store through the node. The spellings follow the rowed bodies
 // (AudioFileCacheDestructor.cpp, EvaMessageName.cpp, EvaBucketAdvance.cpp).
 class Rva000411084;
@@ -151,54 +151,53 @@ public:
 	// without emitting competing vector<void *> definitions.
 	_STL::vector<NameTimerNode *> m_buckets;
 };
-class Rva000411084
+#include "../../../Include/GameClient/Rva000411084.h"
+
+// Keep the native inline bodies visible to preserve cl's alias analysis.
+__declspec(noinline) inline void *Rva000411084::next()
 {
-public:
-	__declspec(noinline) void *next()
+	void *node = *(void **)m_current;
+	if (node == 0)
+		node = advance();
+	m_current = node;
+	return this;
+}
+__declspec(noinline) inline void *Rva000411084::advance()
+{
+	struct Table
 	{
-		void *node = *(void **)current;
-		if (node == 0)
-			node = advance();
-		current = node;
-		return this;
-	}
-	__declspec(noinline) void *advance()
-	{
-		struct Table
-		{
-			void *m_unused00;
-			union {
-				void **m_beginBuckets;
-				void ** volatile m_beginBucketsVolatile;
-			};
-			void **m_endBuckets;
-			int bucketIndex(const AsciiString *name);
+		void *m_unused00;
+		union {
+			void **m_beginBuckets;
+			void ** volatile m_beginBucketsVolatile;
 		};
-		Table *table = (Table *)owner;
-		unsigned index = (unsigned)((Rva000427195 *)table)->bucketIndex((const AsciiString *)((char *)current + 4));
-		unsigned count = (unsigned)(((char *)table->m_endBuckets - (char *)table->m_beginBuckets) >> 2);
-		void *head = 0;
-		do {
-			++index;
-			if (index >= count)
-				break;
-			head = table->m_beginBucketsVolatile[index];
-		} while (head == 0);
-		return head;
-	}
-	void *current, *owner;
-};
+		void **m_endBuckets;
+		int bucketIndex(const AsciiString *name);
+	};
+	Table *table = (Table *)m_owner;
+	unsigned index = (unsigned)((Rva000427195 *)table)->bucketIndex((const AsciiString *)((char *)m_current + 4));
+	unsigned count = (unsigned)(((char *)table->m_endBuckets - (char *)table->m_beginBuckets) >> 2);
+	void *head = 0;
+	do {
+		++index;
+		if (index >= count)
+			break;
+		head = table->m_beginBucketsVolatile[index];
+	} while (head == 0);
+	return head;
+}
+
 inline void *Rva000427195::first(Rva000411084 *iter)
 {
 	for (unsigned n = 0; n < m_buckets.size(); ++n)
 		if (m_buckets[n])
 		{
-			iter->current = m_buckets[n];
-			iter->owner = this;
+			iter->m_current = m_buckets[n];
+			iter->m_owner = this;
 			return iter;
 		}
-	iter->current = 0;
-	iter->owner = this;
+	iter->m_current = 0;
+	iter->m_owner = this;
 	return iter;
 }
 class Rva001FDE3F
@@ -283,12 +282,12 @@ void Player::update()
 
 	{
 		Rva000411084 it;
-		for (m_productionSpeedTimers.first(&it); it.current; it.next())
+		for (m_productionSpeedTimers.first(&it); it.m_current; it.next())
 		{
-			NameTimerNode *node = (NameTimerNode *)it.current;
-			if (((NameTimerNode *)it.current)->m_value != 0)
+			NameTimerNode *node = (NameTimerNode *)it.m_current;
+			if (((NameTimerNode *)it.m_current)->m_value != 0)
 			{
-				((NameTimerNode *)it.current)->m_value--;
+				((NameTimerNode *)it.m_current)->m_value--;
 				// The test reads the count through the node local: through the
 				// iterator cl folds it into the dec's flags (dec; jne), retail
 				// re-reads it (dec; cmp [eax+8],0).

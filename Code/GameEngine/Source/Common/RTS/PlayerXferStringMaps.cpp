@@ -105,48 +105,41 @@ int Rva000427195::bucketIndex(const AsciiString *name)
 	unsigned count = (unsigned)(((char *)m_endBuckets - (char *)m_beginBuckets) >> 2);
 	return hash % count;
 }
-class Rva000411084
-{
-public:
-	Rva000411084() {}
-	Rva000411084 &operator=(const WVIter &other) { m_current = other._M_cur; m_owner = other._M_ht; return *this; }
-	Rva000411084(const WVIter &wVIter) : m_current(wVIter._M_cur), m_owner(wVIter._M_ht) {}
-	__declspec(noinline) void *next()					// 0x00411084
-	{
-		void *node = *(void **)m_current;
-		if (node == 0)
-			node = advance();
-		m_current = node;
-		return this;
-	}
-	__declspec(noinline) void *advance()				// 0x003F7925
-	{
-		struct Table
-		{
-			void *m_unused00;
-			union {
-				void **m_beginBuckets;
-				void ** volatile m_beginBucketsVolatile;
-			};
-			void **m_endBuckets;
-			int bucketIndex(const AsciiString *name);
-		};
-		Table *table = (Table *)m_owner;
-		unsigned index = (unsigned)((Rva000427195 *)table)->bucketIndex((const AsciiString *)((char *)m_current + 4));
-		unsigned count = (unsigned)(((char *)table->m_endBuckets - (char *)table->m_beginBuckets) >> 2);
-		void *head = 0;
-		do {
-			++index;
-			if (index >= count)
-				break;
-			head = table->m_beginBucketsVolatile[index];
-		} while (head == 0);
-		return head;
-	}
+#include "../../../Include/GameClient/Rva000411084.h"
 
-	void *m_current;
-	void *m_owner;
-};
+__declspec(noinline) inline void *Rva000411084::next()					// 0x00411084
+{
+	void *node = *(void **)m_current;
+	if (node == 0)
+		node = advance();
+	m_current = node;
+	return this;
+}
+__declspec(noinline) inline void *Rva000411084::advance()				// 0x003F7925
+{
+	struct Table
+	{
+		void *m_unused00;
+		union {
+			void **m_beginBuckets;
+			void ** volatile m_beginBucketsVolatile;
+		};
+		void **m_endBuckets;
+		int bucketIndex(const AsciiString *name);
+	};
+	Table *table = (Table *)m_owner;
+	unsigned index = (unsigned)((Rva000427195 *)table)->bucketIndex((const AsciiString *)((char *)m_current + 4));
+	unsigned count = (unsigned)(((char *)table->m_endBuckets - (char *)table->m_beginBuckets) >> 2);
+	void *head = 0;
+	do {
+		++index;
+		if (index >= count)
+			break;
+		head = table->m_beginBucketsVolatile[index];
+	} while (head == 0);
+	return head;
+}
+
 
 namespace _STL
 {
@@ -212,7 +205,12 @@ void Player::rva002AF236(Xfer *xfer, Rva001FDE3F *map)
 		float value;
 		UnsignedInt count = ((Rva002AE4C5 *)map)->m_numElements;
 		(*xfer == count);
-		Rva000411084 it = ((WVMap *)map)->begin();
+		Rva000411084 it;
+		{
+			WVIter first = ((WVMap *)map)->begin();
+			it.m_current = first._M_cur;
+			it.m_owner = first._M_ht;
+		}
 		for (; it.m_current != 0; it.next())
 		{
 			AsciiString key = ((Rva002AF236Node *)it.m_current)->m_key;
@@ -243,7 +241,12 @@ void Player::rva002AF33B(Xfer *xfer, Rva002AE4C5 *map)
 		Int value;
 		UnsignedInt count = map->m_numElements;
 		(*xfer == count);
-		Rva000411084 it = ((WVMap *)map)->begin();
+		Rva000411084 it;
+		{
+			WVIter first = ((WVMap *)map)->begin();
+			it.m_current = first._M_cur;
+			it.m_owner = first._M_ht;
+		}
 		for (; it.m_current != 0; it.next())
 		{
 			AsciiString key = ((Rva002AF33BNode *)it.m_current)->m_key;

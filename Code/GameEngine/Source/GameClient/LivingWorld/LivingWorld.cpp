@@ -179,13 +179,7 @@ class Rva003FA835;
 
 struct Rva002BFFD4Template {void *primary;AsciiString name;};
 
-class Rva000411084
-{
-public:
-	void *next();
-	void *current; // +0x00
-	void *owner; // +0x04
-};
+#include "../../../Include/GameClient/Rva000411084.h"
 
 #include "../../../Include/GameLogic/Rva000427195.h"
 
@@ -757,8 +751,8 @@ Rva002BFF5AEntry *Rva002BFF5A::rva002BFF5A(int key)
 {
     Rva000411084 it;
     table.first(&it);
-    while (it.current) {
-        Rva002BFF5ANode *node = static_cast<Rva002BFF5ANode *>(it.current);
+    while (it.m_current) {
+        Rva002BFF5ANode *node = static_cast<Rva002BFF5ANode *>(it.m_current);
         if (reinterpret_cast<const Rva002BFF5AData *>(reinterpret_cast<OVERRIDE<LocomotorTemplate> *>(&node->value->version)->operator->())->key == key)
             return node->value;
         it.next();
@@ -785,8 +779,8 @@ void Rva002BFF5A::update()
 {
  Rva000411084 it;
  table.first(&it);
- while(it.current) {
-  Rva002BFF5ANode* node=static_cast<Rva002BFF5ANode*>(it.current);
+ while(it.m_current) {
+  Rva002BFF5ANode* node=static_cast<Rva002BFF5ANode*>(it.m_current);
   if(node->value) reinterpret_cast<Rva003FA835*>(node->value)->rva003FA878();
   it.next();
  }
@@ -902,8 +896,8 @@ void *Rva005CBB0A::rva002BFDE6(void *point,void *predicate) {
  PickerEntry *best=0;
  Rva000411084 cursor;
  ((Rva000427195*)mapAC)->first(&cursor);
- while(cursor.current) {
-  PickerEntry *entry=((PickerNode*)cursor.current)->entry;
+ while(cursor.m_current) {
+  PickerEntry *entry=((PickerNode*)cursor.m_current)->entry;
   PickerDetails *details=entry->details;
   if((!details || details->slot13()) && ((PickerPredicate*)predicate)->slot1(entry) && ((Rva003FAAA1*)entry)->rva003FAAA1(point)) {
    ICoord2D projected;
@@ -1048,7 +1042,7 @@ void Rva002BFD6F::rva002BFD6F()
 void *LivingWorld::FindClickableObject(void *key)
 {
 	WindowVideoMap::iterator it = ((WindowVideoMap *)&m_AC)->begin();
-	while (((Rva000411084 *)&it)->current != 0)
+	while (((Rva000411084 *)&it)->m_current != 0)
 	{
 		Rva002BFDAEEntry *entry = reinterpret_cast<Rva002BFDAEEntry *>(it->second);
 		if (entry->m_match == key)

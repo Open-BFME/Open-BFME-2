@@ -184,14 +184,7 @@ struct Rva001F9D98Node
 	Rva001F9D98System *m_value;
 };
 
-class Rva000411084
-{
-public:
-	void *next();
-
-	Rva001F9D98Node *m_cur;
-	void *m_table;
-};
+#include "../../../../Include/GameClient/Rva000411084.h"
 
 #include "../../../../Include/GameLogic/Rva000427195.h"
 
@@ -240,8 +233,8 @@ Rva001F9D98::~Rva001F9D98()
 
 	Rva000411084 it;
 	reinterpret_cast<Rva000427195 *>(&m_systems)->first(&it);
-	for (; it.m_cur != 0; it.next())
-		::delete it.m_cur->m_value;
+	for (; it.m_current != 0; it.next())
+		::delete static_cast<Rva001F9D98Node *>(it.m_current)->m_value;
 
 	{
 		DX8ThreadLockScope lock;

@@ -43,7 +43,7 @@ struct NonNullAudioRef {
 struct ScopedMusicRef {
  OpaqueRefElement4 value;
 };
-class Rva000411084 { public: void *next(); void *current,*owner; Rva000411084(){}; Rva000411084(const Rva000411084&x):current(x.current),owner(x.owner){} };
+#include "../../../GameEngine/Include/GameClient/Rva000411084.h"
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 struct AudioEventNode { void *next; AsciiString key; const AudioEventInfo* info; };
 class AudioEventRTS { public: void rva002D9ADC(); AsciiString getFilename(); };
@@ -54,9 +54,9 @@ bool MilesAudioManager::isMusicAlreadyLoaded()const {
  ScopedMusicRef music;
  Rva000411084 it;
  { Rva000411084 first; table.first(&first); it=first; }
- while ((true) && it.current==it.current && it.current==it.current) {
-  if(!it.current)break;
-  const AudioEventInfo *audioEventInfo=((AudioEventNode*)it.current)->info;
+ while ((true) && it.m_current==it.m_current && it.m_current==it.m_current) {
+  if(!it.m_current)break;
+  const AudioEventInfo *audioEventInfo=((AudioEventNode*)it.m_current)->info;
   if(audioEventInfo) {
    NonNullAudioRef ref(audioEventInfo);
    const AudioEventInfo *info=ref.value.info;

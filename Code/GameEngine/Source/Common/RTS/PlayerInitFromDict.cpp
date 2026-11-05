@@ -74,7 +74,7 @@ struct EnergyView {int first;int production;int consumption;Player*owner;};
 struct Rva001FD42B {void*header;unsigned count;char compare[4];void rva001FD630();Rva001FD42B*rva001FD8DF(const Rva001FD42B&);};
 struct Rva001FD458 {void*header;unsigned count;char compare[4];void rva001FD659();Rva001FD458*rva001FD952(const Rva001FD458&);};
 #include "../../../Include/GameLogic/Rva000427195.h"
-class Rva000411084 {public: void*node;void*table;void*next();};
+#include "../../../Include/GameClient/Rva000411084.h"
 struct Rva002AE4C5 {int&rva002AE4C5(const AsciiString*);};
 struct Rva002AE318{void rva002AE318();};
 struct Rva002A7761 {void rva002A7761();};

@@ -6,13 +6,7 @@
 // The exact table specialization key type and mapped payload semantics remain unknown.
 
 class Rva000427195;
-class Rva000411084
-{
-public:
-	void *m_node;
-	Rva000427195 *m_table;
-	void *next();
-};
+#include "../../Include/GameClient/Rva000411084.h"
 
 class Rva000427195
 {
@@ -113,8 +107,8 @@ void Rva00213A85::rva00213A0E()
 {
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACE4();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FACE4();
 		iterator.next();
 	}
 	if (TheAudio != 0) {
@@ -123,8 +117,8 @@ void Rva00213A85::rva00213A0E()
 	Rva000411084 second;
 	m_table.first(&second);
 	iterator = second;
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACB4();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FACB4();
 		iterator.next();
 	}
 }
@@ -133,8 +127,8 @@ void Rva00213A85::rva00213A85()
 {
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACB4();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FACB4();
 		iterator.next();
 	}
 }
@@ -146,8 +140,8 @@ void Rva00213A85::rva00213AB6()
 	}
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACE4();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FACE4();
 		iterator.next();
 	}
 }
@@ -157,8 +151,8 @@ void Rva00213A85::rva00213AFC(void *value)
 	m_state_2C0 = 1;
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACE9(value);
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FACE9(value);
 		iterator.next();
 	}
 	((Rva0029B17C *)TheInGameUI)->clearMissionHelpText();
@@ -169,8 +163,8 @@ void Rva00213A85::rva00213B44()
 	HideControlBar(m_state_2C0 = 1);
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FAD2B();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FAD2B();
 		iterator.next();
 	}
 }
@@ -179,8 +173,8 @@ void Rva00213A85::rva00213B88(void *value)
 {
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FAD4A(value);
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FAD4A(value);
 		iterator.next();
 	}
 }
@@ -189,8 +183,8 @@ void Rva00213A85::rva00213BBE()
 {
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FAD9A();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FAD9A();
 		iterator.next();
 	}
 	int state = *(int *)((char *)((Rva002D3627Host *)TheLivingWorld) + 0x14);
@@ -208,8 +202,8 @@ void Rva00213A85::rva00213C30()
 {
 	Rva000411084 iterator;
 	m_table.first(&iterator);
-	while (iterator.m_node != 0) {
-		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FADA3();
+	while (iterator.m_current != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_current + 8))->rva003FADA3();
 		iterator.next();
 	}
 	((Rva00211589 *)TheLivingWorldManager)->rva002110DF(0);

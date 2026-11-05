@@ -2610,12 +2610,7 @@ struct VideoPair {
     inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
     inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
-class Rva000411084 {
-public:
-    void *next();
-    void *m_current;
-    void *m_table;
-};
+#include "../../../GameEngine/Include/GameClient/Rva000411084.h"
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 // Slot 1 of an event info's vftable hands back its name.
 class AudioEventInfoVirtuals {

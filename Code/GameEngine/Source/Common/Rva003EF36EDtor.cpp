@@ -41,42 +41,41 @@ __declspec(noinline) inline AudioCacheCursor Rva000427195::rva00427195()	// 0x00
 	return AudioCacheCursor(0, this);
 }
 
-class Rva000411084
+#include "../../Include/GameClient/Rva000411084.h"
+
+// Keep the native inline bodies visible to preserve cl's alias analysis.
+__declspec(noinline) inline void *Rva000411084::next()					// 0x00411084
 {
-public:
-	__declspec(noinline) void *next()					// 0x00411084
+	void *node = *(void **)m_current;
+	if (node == 0)
+		node = advance();
+	m_current = node;
+	return this;
+}
+__declspec(noinline) inline void *Rva000411084::advance()				// 0x003F7925
+{
+	struct Table
 	{
-		void *node = *(void **)current;
-		if (node == 0)
-			node = advance();
-		current = node;
-		return this;
-	}
-	__declspec(noinline) void *advance()				// 0x003F7925
-	{
-		struct Table
-		{
-			void *m_unused00;
-			union {
-				void **m_beginBuckets;
-				void ** volatile m_beginBucketsVolatile;
-			};
-			void **m_endBuckets;
+		void *m_unused00;
+		union {
+			void **m_beginBuckets;
+			void ** volatile m_beginBucketsVolatile;
 		};
-		Table *table = (Table *)owner;
-		unsigned index = (unsigned)((Rva000427195 *)table)->bucketIndex((const AsciiString *)((char *)current + 4));
-		unsigned count = (unsigned)(((char *)table->m_endBuckets - (char *)table->m_beginBuckets) >> 2);
-		void *head = 0;
-		do {
-			++index;
-			if (index >= count)
-				break;
-			head = table->m_beginBucketsVolatile[index];
-		} while (head == 0);
-		return head;
-	}
-	void *current, *owner;
-};
+		void **m_endBuckets;
+	};
+	Table *table = (Table *)m_owner;
+	unsigned index = (unsigned)((Rva000427195 *)table)->bucketIndex((const AsciiString *)((char *)m_current + 4));
+	unsigned count = (unsigned)(((char *)table->m_endBuckets - (char *)table->m_beginBuckets) >> 2);
+	void *head = 0;
+	do {
+		++index;
+		if (index >= count)
+			break;
+		head = table->m_beginBucketsVolatile[index];
+	} while (head == 0);
+	return head;
+}
+
 
 void Rva00030830GameFree(void*);
 struct S3RegionBucketStorage {~S3RegionBucketStorage(){if(begin)Rva00030830GameFree(begin);}void**begin;void**end;void**capacity;};

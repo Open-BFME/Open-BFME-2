@@ -681,13 +681,7 @@ class BFMERetailAsciiString;
 
 class Rva000427195;
 
-class Rva000411084
-{
-public:
-	void *m_node;
-	Rva000427195 *m_table;
-	void *next();
-};
+#include "../../../Include/GameClient/Rva000411084.h"
 
 #include "../../../Include/GameLogic/Rva000427195.h"
 
@@ -3096,8 +3090,8 @@ void _writeOutINI()
 	{
 		Rva000411084 it;
 		TheParticleSystemManager->m_templateMap.first(&it);
-		for (; it.m_node; it.next())
-			templates.push_back(((TemplateNode *)it.m_node)->m_template);
+		for (; it.m_current; it.next())
+			templates.push_back(((TemplateNode *)it.m_current)->m_template);
 	}
 
 	_STL::sort((int *)templates.begin(), (int *)templates.end(), Rva00204BB8());
