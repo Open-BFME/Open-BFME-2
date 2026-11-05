@@ -68,7 +68,17 @@ const char *FireLogicSystem::GetSnapshotName() const
 BFME_LITERAL_NAME_GETTER(Rva002AE621Named, "Command")
 BFME_LITERAL_NAME_GETTER(CarryoverUnit, "CarryoverUnit")
 BFME_LITERAL_NAME_GETTER(Rva00414307Named, "ScoredKillEvaAnnouncer")
-class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
+// Snapshot is already declared here with its const name slot; select the
+// header's non-const retail getter spelling for this one definition.
+#ifndef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_LWB_NONCONST_LOCAL
+#endif
+#include "../../Include/GameLogic/LivingWorldBuilding.h"
+#ifdef BFME_LWB_NONCONST_LOCAL
+#undef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#undef BFME_LWB_NONCONST_LOCAL
+#endif
 const char *LivingWorldBuilding::GetSnapshotName() { return "LivingWorldBuilding"; }
 BFME_LITERAL_NAME_GETTER(Rva001F37BENamed, "FXParticleInfo")
 class SequentialScript { public: virtual const char *GetSnapshotName(); };

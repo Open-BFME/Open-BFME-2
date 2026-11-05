@@ -447,37 +447,24 @@ public:
 class Rva004E06A7
 {
 public:
-	virtual void primarySlot();
 	void rva004E06A7() const;
 };
-class Rva004E06B8Iface
-{
-public:
-	virtual void BeginTurn(Int a, Int b) = 0;
-};
-class LivingWorldBuilding : public Rva004E06A7, public Rva004E06B8Iface
-{
-public:
-	void BeginTurn(Int a, Int b);
-private:
-	char m_pad08[0x24];
-	Rva005392C2 *m_2C;
-};
+#include "../../Include/GameLogic/LivingWorldBuilding.h"
 void LivingWorldBuilding::BeginTurn(Int a, Int b)
 {
 	if (!a)
 	{
-		if (m_2C)
-			m_2C->v09(true, true);
-		rva004E06A7();
+		if (field2C)
+			((Rva005392C2 *)field2C)->v09(true, true);
+		((const Rva004E06A7 *)this)->rva004E06A7();
 	}
 	if (!b)
 	{
-		Rva005392C2 *p = m_2C;
+		Rva005392C2 *p = (Rva005392C2 *)field2C;
 		if (p)
 		{
 			p->rva0052B045();
-			m_2C->rva005392C2();
+			((Rva005392C2 *)field2C)->rva005392C2();
 		}
 	}
 }

@@ -536,55 +536,7 @@ private:
 
 #include "../../Include/Common/ArmySummaryEntry.h"
 
-class LivingWorldBuilding
-{
-public:
-	void rva004E0809();
-public:
-	void rva004E0845();
-public:
-	void rva004E0860(Rva003F7BB4 *b);
-public:
-	char m_pad[0x18];
-public:
-	int m_18;
-public:
-	char m_pad1C[0x20 - 0x1C];
-public:
-	int m_20;
-public:
-	int m_24;
-public:
-	Rva004E0860Flag *m_28;
-public:
-	Rva0052B278 *m_2C;
-public:
-	Rva004E0809Elem **m_begin;
-public:
-	Rva004E0809Elem **m_end;
-public:
-	char m_pad38[4];
-public:
-	Rva004E0790 m_3c;
-public:
-	void *m_40;
-public:
-	void *m_44;
-public:
-	void *m_48;
-public:
-	char m_pad4C[0x51 - 0x4C];
-public:
-	unsigned char m_51;
-public:
-	void createGhostObject();
-public:
-	void rva004E060C(unsigned char v);
-public:
-	void createIcon();
-public:
-	void updateArmySummaryEntryRepresentation(const Rva004E0790Inner &arg);
-};
+#include "../../Include/GameLogic/LivingWorldBuilding.h"
 
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva004E06FBPtrChase32Field, 0x24, 0x13C)
 
@@ -712,8 +664,8 @@ struct Rva004E07C3
 
 void LivingWorldBuilding::rva004E060C(unsigned char v)
 {
-	((Rva0052B024 *)m_2C)->rva0052B024(v);
-	m_51 = v;
+	((Rva0052B024 *)field2C)->rva0052B024(v);
+	reinterpret_cast<unsigned char &>(field51) = v;
 }
 
 // ---- from Code/GameEngine/Source/Common/LivingWorldBuilding.cpp
@@ -805,23 +757,23 @@ void Rva004E0790::rva004E0790()
 
 void LivingWorldBuilding::rva004E0809()
 {
-	m_40 = 0;
-	m_44 = 0;
-	Rva004E0809Elem **end = m_end;
-	for (Rva004E0809Elem **p = m_begin; p != end; ++p) {
+	field40 = 0;
+	field44 = 0;
+	Rva004E0809Elem **end = (Rva004E0809Elem **)field34;
+	for (Rva004E0809Elem **p = (Rva004E0809Elem **)field30; p != end; ++p) {
 		void *a = (*p)->vf8();
 		if (a)
-			m_40 = a;
+			field40 = a;
 		void *b = (*p)->vf10();
 		if (b)
-			m_44 = b;
+			field44 = b;
 	}
 }
 
 void LivingWorldBuilding::rva004E0845()
 {
-	Rva004E0809Elem **p = m_begin;
-	Rva004E0809Elem **end = m_end;
+	Rva004E0809Elem **p = (Rva004E0809Elem **)field30;
+	Rva004E0809Elem **end = (Rva004E0809Elem **)field34;
 	for (; p != end; ++p)
 		(*p)->vf4();
 }
@@ -833,15 +785,15 @@ void LivingWorldBuilding::rva004E0845()
 // same +0x30/+0x34 as neighbours proves same class LivingWorldBuilding; callers at 0x003F2185.
 void LivingWorldBuilding::rva004E0860(Rva003F7BB4 *b)
 {
-	Rva004E0809Elem **end = m_end;
-	for (Rva004E0809Elem **p = m_begin; p != end; ++p)
+	Rva004E0809Elem **end = (Rva004E0809Elem **)field34;
+	for (Rva004E0809Elem **p = (Rva004E0809Elem **)field30; p != end; ++p)
 		(*p)->vf5(b);
-	Rva004E0790 *entryReference = &m_3c;
+	Rva004E0790 *entryReference = reinterpret_cast<Rva004E0790 *>(&field3C);
 	if (entryReference->m_ptr == 0)
 		return;
-	if (m_28->m_flag == 0)
+	if (((const Rva004E0860Flag *)field28)->m_flag == 0)
 		return;
-	if (m_24 != b->m_0)
+	if ((int)field24 != b->m_0)
 		return;
 	b->rva003F7BB4((Rva003F7B22Element &)*entryReference);
 }
@@ -1025,9 +977,10 @@ bool Rva004E0705::rva004E0A58()
 // was ?rva004E063F@Rva004E063F@@QAEXXZ
 void LivingWorldBuilding::createIcon()
 {
-	void *lookup = ((Rva0021311F *)TheLivingWorldManager)->rva0021311F((const AsciiString *)((char *)m_28 + 0x10));
-	m_2C = new Rva0052B278(lookup, this, &m_48);
-	m_2C->rva0052B003(m_20 == -1);
+	void *lookup = ((Rva0021311F *)TheLivingWorldManager)->rva0021311F((const AsciiString *)((const char *)field28 + 0x10));
+	Rva0052B278 *icon = new Rva0052B278(lookup, this, &field48);
+	field2C = icon;
+	icon->rva0052B003(field20 == -1);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004E09FBAssign.cpp
@@ -1052,14 +1005,14 @@ Rva004E0790Inner &Rva004E0790Inner::rva004E09FB(const Rva004E0790Inner &other)
 
 void LivingWorldBuilding::createGhostObject()
 {
-	if (!m_2C)
+	if (!field2C)
 		return;
-	((Rva0023D2D8DwordClearer *)m_2C)->clear();
+	((Rva0023D2D8DwordClearer *)field2C)->clear();
 	int amount;
 	memset(&amount, 0, 4);
 	amount |= 1;
-	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)m_2C, amount);
-	m_2C = 0;
+	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)field2C, amount);
+	field2C = 0;
 }
 
 // ---- from Code/GameEngine/Source/Common/LivingWorldBuilding_updateArmySummaryEntryRepresentation.cpp
@@ -1068,14 +1021,14 @@ void LivingWorldBuilding::createGhostObject()
 
 void LivingWorldBuilding::updateArmySummaryEntryRepresentation(const Rva004E0790Inner &arg)
 {
-	if (!m_3c.m_ptr) {
+	if (!field3C) {
 		ArmySummaryEntry *armySummaryEntry = new ArmySummaryEntry(*reinterpret_cast<const ArmySummaryEntry *>(&arg));
-		m_3c.rva004E08F6(reinterpret_cast<Rva004E0790Inner *>(armySummaryEntry));
+		reinterpret_cast<Rva004E0790 *>(&field3C)->rva004E08F6(reinterpret_cast<Rva004E0790Inner *>(armySummaryEntry));
 	}
 	else {
-		m_3c.m_ptr->rva004E09FB(arg);
+		field3C->rva004E09FB(arg);
 	}
-	m_3c.m_ptr->m_b4 = m_18;
+	field3C->m_b4 = field18;
 }
 
 // ---- from Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
