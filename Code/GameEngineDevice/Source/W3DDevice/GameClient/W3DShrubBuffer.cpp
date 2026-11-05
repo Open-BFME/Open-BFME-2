@@ -727,14 +727,8 @@ public:
 
 #include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name;
-	unsigned char m_pad68[0x2F0 - 0x68];
-	ModuleInfo m_drawModuleInfo;
-};
+// ThingTemplate keeps +0x2F0 (the draw-module ModuleInfo) as opaque storage; this unit reads it through a ModuleInfo view.
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 #include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
@@ -1546,7 +1540,7 @@ Int W3DShrubBuffer::rva000E8F9D(const AsciiString &asciiString, Int shadowKind, 
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(asciiString);
 	if (thingTemplate == 0)
 		return -2;
-	const ModuleData *module = thingTemplate->m_drawModuleInfo.getNthData(0);
+	const ModuleData *module = ((const ModuleInfo *)thingTemplate->m_drawModuleInfo)->getNthData(0);
 	if (module == 0)
 		return -2;
 	const Rva000E8F9DTreeDrawData *data = module->getAsW3DTreeDrawModuleData();
@@ -1554,7 +1548,7 @@ Int W3DShrubBuffer::rva000E8F9D(const AsciiString &asciiString, Int shadowKind, 
 		if (bfmeRva000387C0()) {
 			_bfme_debugRecordCallsite(1);
 			TheBfmeAwakenDebug->v60();
-			TheBfmeAwakenDebug->v6c(0, 0, 0)->slot38("Shrub ")->slot38(thingTemplate->m_name.str())
+			TheBfmeAwakenDebug->v6c(0, 0, 0)->slot38("Shrub ")->slot38(thingTemplate->getName().str())
 				->slot38(" requires a W3DTreeDrawModule.\n")->slot4C(2);
 		}
 		return -2;
@@ -1569,7 +1563,7 @@ Int W3DShrubBuffer::rva000E8F9D(const AsciiString &asciiString, Int shadowKind, 
 		}
 	}
 	if (index < 0) {
-		index = addTreeType(data->m_modelName, data->m_nameC, data, shadowKind, textureName, thingTemplate->m_name);
+		index = addTreeType(data->m_modelName, data->m_nameC, data, shadowKind, textureName, thingTemplate->getName());
 		if (index >= 0)
 			m_4fb6e = true;
 	}

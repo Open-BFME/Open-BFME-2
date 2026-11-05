@@ -760,16 +760,8 @@ public:
 
 #include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 
-class ThingTemplate
-{
-public:
-	const ModuleInfo &getModuleInfo2F0(void) const { return m_drawModuleInfo; }
-	char m_pad00[0x64];
-	AsciiString m_name; // +0x64
-	char m_pad68[0x288];
-	ModuleInfo m_drawModuleInfo; // +0x2F0
-	char m_pad2F1[0x3];
-};
+// ThingTemplate keeps +0x2F0 (the draw-module ModuleInfo) as opaque storage; this unit reads it through a ModuleInfo view.
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 #include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
@@ -2000,7 +1992,7 @@ Int W3DTreeBuffer::rva000ECDF5(const AsciiString &asciiString, Int shadowKind, c
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(asciiString);
 	if (thingTemplate == 0)
 		return -2;
-	const ModuleData *module = thingTemplate->m_drawModuleInfo.getNthData(0);
+	const ModuleData *module = ((const ModuleInfo *)thingTemplate->m_drawModuleInfo)->getNthData(0);
 	if (module == 0)
 		return -2;
 	const Rva000ECDF5TreeDrawData *data = module->getAsW3DTreeDrawModuleData();
@@ -2008,7 +2000,7 @@ Int W3DTreeBuffer::rva000ECDF5(const AsciiString &asciiString, Int shadowKind, c
 		if (bfmeRva000387C0()) {
 			_bfme_debugRecordCallsite(1);
 			TheBfmeAwakenDebug->v60();
-			TheBfmeAwakenDebug->v6c(0, 0, 0)->v38("Tree ")->v38(thingTemplate->m_name.str())
+			TheBfmeAwakenDebug->v6c(0, 0, 0)->v38("Tree ")->v38(thingTemplate->getName().str())
 				->v38(" requires a W3DTreeDrawModule.\n")->v4c(2);
 		}
 		return -2;
@@ -2572,7 +2564,7 @@ void W3DTreeBuffer::xfer(Xfer *xfer)
 				const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(((W3DTreeType *)m_types)[i].m_templateName);
 				if (thingTemplate) {
 					// A named reference keeps retail's receiver-before-argument order.
-					const ModuleInfo &moduleInfo = thingTemplate->getModuleInfo2F0();
+					const ModuleInfo &moduleInfo = *(const ModuleInfo *)thingTemplate->m_drawModuleInfo;
 					const ModuleData *moduleData = moduleInfo.getNthData(0);
 					if (moduleData)
 						((W3DTreeType *)m_types)[i].m_data = (const Rva000ECF79Data *)moduleData->getAsW3DTreeDrawModuleData();
