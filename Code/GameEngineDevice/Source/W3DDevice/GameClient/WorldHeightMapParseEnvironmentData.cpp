@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?ParseEnvironmentDataChunk@WorldHeightMap@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,
 // retail 0x000AE275..0x000AE37E (265B), cdecl, returns true.
@@ -35,33 +35,22 @@ class ChunkInputStream;
 
 #include "../../../../GameEngine/Include/Common/DataChunkInfo.h"
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void rva0006ABE7(AsciiString name, bool flag);
-	void rva0006ACBD(AsciiString name);
-
-	char m_pad0000[0x37E4];
-	Real m_37E4;	// +0x37E4
-	Real m_37E8;	// +0x37E8
-};
-
-extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#define REFCOUNT_H
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 Bool WorldHeightMap::ParseEnvironmentDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
 {
-	Real a = TheTerrainRenderObject->m_37E4;
-	Real b = TheTerrainRenderObject->m_37E8;
+	Real a = TheTerrainRenderObject->field37E4;
+	Real b = TheTerrainRenderObject->field37E8;
 	Bool flag = false;
 	if (info->version >= 3)
 	{
 		a = file.readReal();
 		b = file.readReal();
 	}
-	TheTerrainRenderObject->m_37E4 = a;
-	TheTerrainRenderObject->m_37E8 = b;
+	TheTerrainRenderObject->field37E4 = a;
+	TheTerrainRenderObject->field37E8 = b;
 	if (info->version >= 2)
 		flag = file.readByte() != 0;
 	AsciiString name = file.readAsciiString();

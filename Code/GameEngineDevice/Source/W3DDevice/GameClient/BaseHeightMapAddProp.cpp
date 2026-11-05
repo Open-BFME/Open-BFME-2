@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -29,6 +29,12 @@ typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
+// The canonical header first: its WWMath sphere.h and vector3.h serve the
+// prop buffer header (Code's SphereClass.h shares the SPHERE_H guard).
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#define REFCOUNT_H
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_DTOR
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
@@ -40,25 +46,10 @@ class GeometryInfo;
 
 #include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 
-class BaseHeightMapRenderObjClass
+static __forceinline AsciiString &terrainString(unsigned int &word)
 {
-public:
-	void addProp( Int id, Coord3D location, Real angle, Real scale, const AsciiString &modelName, Bool distanceFog );
-	Bool rva000683AC( Int id, Coord3D location, Real angle, Real scale );
-	void writeEnvironmentData( DataChunkOutput *chunk );
-private:
-	char m_unrecovered0000[ 0x37e4 ];
-	Real m_37e4;																							///< 0x37e4
-	Real m_37e8;																							///< 0x37e8
-	char m_unrecovered37ec[ 0x3820 - 0x37ec ];
-	AsciiString m_3820;																						///< 0x3820
-	char m_unrecovered3824[ 0x382c - 0x3824 ];
-	AsciiString m_382c;																						///< 0x382c
-	char m_unrecovered3830[ 0x3834 - 0x3830 ];
-	Bool m_3834;																							///< 0x3834
-	char m_unrecovered3835[ 0x3858 - 0x3835 ];
-	W3DPropBuffer *m_propBuffer;																							///< 0x3858
-};
+	return *reinterpret_cast<AsciiString *>(&word);
+}
 
 //-----------------------------------------------------------------------------
 // BaseHeightMapRenderObjClass::addProp
@@ -91,10 +82,10 @@ Bool BaseHeightMapRenderObjClass::rva000683AC(Int id, Coord3D location, Real ang
 void BaseHeightMapRenderObjClass::writeEnvironmentData(DataChunkOutput *chunk)
 {
 	chunk->openDataChunk("EnvironmentData", 3);
-	chunk->writeReal(m_37e4);
-	chunk->writeReal(m_37e8);
-	chunk->writeByte(m_3834 != 0);
-	chunk->writeAsciiString(m_382c);
-	chunk->writeAsciiString(m_3820);
+	chunk->writeReal(field37E4);
+	chunk->writeReal(field37E8);
+	chunk->writeByte(field3834 != 0);
+	chunk->writeAsciiString(terrainString(field382C));
+	chunk->writeAsciiString(terrainString(field3820));
 	chunk->closeDataChunk();
 }
