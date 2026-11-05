@@ -25,7 +25,6 @@ template<> void vector<bool>::clear();
 template<> AsciiString *vector<AsciiString>::erase(AsciiString *, AsciiString *);
 }
 
-
 class CreateAHeroHero
 {
 public:
@@ -51,11 +50,11 @@ private:
     unsigned int m_word134, m_word138, m_word13C;
 };
 
-
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
-class UpgradeTemplate { public: char opaque00[0x38]; unsigned int bit; };
-class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
+
+#include "../../../Include/Common/Upgrade.h"
+
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../Include/Common/Rva001EAE6FHelper.h"
 class Rva00406F9C { public: bool rva00406F9C(const void *); unsigned int words[32]; };
@@ -125,7 +124,7 @@ void CreateAHeroHero::InitButtonList()
         {
             Rva00406F9C mask;
             reinterpret_cast<Rva001EAE6FHelper *>(&mask)->clear80();
-            mask.words[upgrade->bit >> 5] |= 1U << (upgrade->bit & 31);
+            mask.words[static_cast<unsigned int>(upgrade->field38) >> 5] |= 1U << (static_cast<unsigned int>(upgrade->field38) & 31);
             for (InitCommandButtonView *button = TheControlBar->buttons; button; button = button->next)
             {
                 Rva00406F9C &requirements = button->mask;

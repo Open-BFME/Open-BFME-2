@@ -10,18 +10,7 @@
 #include "ascii_string.h"
 #include <new>
 
-class UpgradeTemplate
-{
-public:
-	char m_pad[0x38];
-	unsigned int m_index;
-};
-
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 
@@ -47,7 +36,7 @@ BfmeFixedStorage128 *Rva0035B513::rva0035B513(BfmeFixedStorage128 *out)
 	for (AsciiString *asciiString = m_first; asciiString != m_last; ++asciiString) {
 		const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->findUpgrade(*asciiString);
 		if (upgradeTemplate)
-			tmp[(upgradeTemplate->m_index >> 5)] |= 1u << (upgradeTemplate->m_index & 31);
+			tmp[(static_cast<unsigned int>(upgradeTemplate->field38) >> 5)] |= 1u << (static_cast<unsigned int>(upgradeTemplate->field38) & 31);
 	}
 	__assume(out != 0);
 	new (out) BfmeFixedStorage128((const BfmeFixedStorage128 &)tmp);

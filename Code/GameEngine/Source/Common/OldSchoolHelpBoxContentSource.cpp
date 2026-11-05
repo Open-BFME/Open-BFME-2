@@ -146,12 +146,7 @@ extern GameTextInterface *TheGameText;
 // Evidence: leaf free stdcall ret 0xc 3 args; loops UpgradeTemplate* array via range begin/end; +4==1 via rowed Object 0x00290D2B else +4==0 via rowed getControllingPlayer 0x0028AFA9 then rowed Player 0x002AB87D else false; flag at +0x10 selects any vs all; callers 0x0040656F.
 class Object;
 
-class UpgradeTemplate
-{
-public:
-	void *m_0;
-	int m_4;
-};
+#include "../../Include/Common/Upgrade.h"
 
 struct UpgradeRange
 {
@@ -350,7 +345,7 @@ bool OldSchoolHelpBoxContentSource::allRequiredUpgradesComplete(Object *obj, Upg
 		UpgradeTemplate *upgradeTemplate = range->m_begin[i];
 		if (!upgradeTemplate)
 			continue;
-		int v = upgradeTemplate->m_4;
+		int v = upgradeTemplate->m_type;
 		bool r;
 		if (v == 1)
 			r = obj->hasUpgrade(upgradeTemplate);

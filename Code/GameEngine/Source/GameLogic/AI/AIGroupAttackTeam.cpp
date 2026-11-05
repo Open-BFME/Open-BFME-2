@@ -59,7 +59,6 @@ namespace _STL {
  template<> void vector<ObjectID>::push_back(const ObjectID&);
 }
 
-
 enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0,
@@ -153,8 +152,9 @@ class SpawnBehaviorInterface { public:
  virtual void attack(const Coord3D*,int,CommandSourceType);
 };
 class Player;
-class UpgradeTemplate { public: unsigned int pad; int type; };
-class UpgradeCenter { public: bool rva0026F11A(Player*,const UpgradeTemplate*,Object*,bool); };
+
+#include "../../../Include/Common/Upgrade.h"
+
 extern UpgradeCenter *TheUpgradeCenter;
 class Rva0036DE89Production { public:
  virtual void v0(); virtual int canQueue(const UpgradeTemplate*); virtual void v2(); virtual void queue(const UpgradeTemplate*);
@@ -438,7 +438,7 @@ void AIGroup::queueUpgrade(const UpgradeTemplate *upgrade)
  for (std::list<Object*>::iterator i=m_memberList.begin(); i!=m_memberList.end(); ++i) {
   Object *obj=*i;
   if (!TheUpgradeCenter->rva0026F11A(obj->getControllingPlayer(),upgrade,obj,false)) continue;
-  if (upgrade->type==1) {
+  if (upgrade->m_type==1) {
    if (obj->hasUpgrade(upgrade) || !obj->affectedByUpgrade(upgrade)) continue;
   }
   Rva0036DE89Production *production=(Rva0036DE89Production*)obj->rva0028BC58(0);
