@@ -134,17 +134,11 @@ public:
 	AsciiString m_upgradeRequired; // +0x40
 };
 
-class BannerBase { public: virtual void slot0();
- Object *getObject() const { return object; }
- const BannerCarrierUpdateModuleData *data; Object *object;
-};
-
-class BannerOther { public: virtual void slot0(); };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BannerCarrierUpdate : public BannerBase, public BannerOther, public UpdateModuleInterface {
+class BannerCarrierUpdate : public UpdateModule {
 public:
+ BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData);
  virtual UpdateSleepTime update();
  void rva004973CF(); bool rva00496BD2(Object *); void rva00496E05(void *entry, bool playFX);
 public:
@@ -517,8 +511,8 @@ void Rva00496CA8::rva00496CA8(int key)
 // Native adds upgrade/status guards; Object fields and vslots are measured.
 
 UpdateSleepTime BannerCarrierUpdate::update() {
- const BannerCarrierUpdateModuleData *bannerCarrierUpdateModuleData=data;
- Object *obj=object;
+ const BannerCarrierUpdateModuleData *bannerCarrierUpdateModuleData=(const BannerCarrierUpdateModuleData *)getModuleData();
+ Object *obj=getObject();
  if(!obj) return (UpdateSleepTime)bannerCarrierUpdateModuleData->m_idleSpawnRate;
  if(!bannerCarrierUpdateModuleData->m_upgradeRequired.isEmpty()) {
   const UpgradeTemplate *up=TheUpgradeCenter->findUpgrade(bannerCarrierUpdateModuleData->m_upgradeRequired);
@@ -620,7 +614,7 @@ bool BannerCarrierUpdate::rva00496BD2(Object *obj) {
     credits->setEnabled(false);
     Object *created=bannerSpawnHorde->spawn(obj->matrix);
     if(created) {
-     const BannerCarrierUpdateModuleData *bannerSpawnConfig=data;
+     const BannerCarrierUpdateModuleData *bannerSpawnConfig=(const BannerCarrierUpdateModuleData *)getModuleData();
      created->updateShroudNow();
      const FXList *fx=bannerSpawnConfig->m_unitSpawnFX;
      if(fx) FXList::doFXObj(fx,created,0);
@@ -688,8 +682,8 @@ AsciiString BannerCarrierUpdateModuleData::rva00496DA3(const AsciiString &name) 
 // ?rva00496E05@BannerCarrierUpdate@@QAEXPAX_N@Z @0x00496E05
 void BannerCarrierUpdate::rva00496E05(void *entry, bool playFX)
 {
-	Object *obj = object;
-	const BannerCarrierUpdateModuleData *bannerCarrierUpdateModuleData = data;
+	Object *obj = getObject();
+	const BannerCarrierUpdateModuleData *bannerCarrierUpdateModuleData = (const BannerCarrierUpdateModuleData *)getModuleData();
 	const AsciiString &name = *(const AsciiString *)((char *)entry + 0x64);
 
 	BannerMorphConditionBits setFlags;
@@ -852,10 +846,10 @@ void parseBannerCarrierExpLevelDraw(INI *ini,void *instance,void *store,const vo
 
 void BannerCarrierUpdate::rva004973CF()
 {
-	Player *player = object->getControllingPlayer();
+	Player *player = getObject()->getControllingPlayer();
 	if (!player)
 		return;
-	const BannerCarrierUpdateModuleData *data = this->data;
+	const BannerCarrierUpdateModuleData *data = (const BannerCarrierUpdateModuleData *)getModuleData();
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_scanHordeDistance, 0,
 		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 109),
 			*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(&Rva00261409Filter(player, true, 2)), 1);

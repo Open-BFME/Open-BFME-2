@@ -18,3 +18,5 @@ dependencies. All eleven remaining units preview the same 2,831 authored bytes.
 Path/debt/queue checks pass; the final batch audit remains inconclusive.
 Next: reconcile the other donors' layout, declaration and compiler-setting
 conflicts, and confirm consumer selection in the next normal census.
+
+2026-11-05: canonical UpdateModule adoption clears the constructor's base/declaration conflict; its merge now previews successfully ([evidence](../../reverse/attempt_support/banner-carrier-base-chain-20261105-codex3.md)).
