@@ -502,3 +502,30 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
   Respelling that row to `?getModuleNameKey@BoneFXDamage@@UBE?AW4NameKeyType@@XZ` and moving it
   into BoneFXDamage.cpp would turn slot 4 retail-equal. `rename.py --virtual` changes only Q to U,
   so it cannot respell a static.
+- **Still blocked: `??1PB_DeepBase@@UAE@XZ` (EvacuateDamageCtorModuleFactoryBody.cpp).** No
+  source change this pass. Two references produce the name, and both need identity work first:
+  - The private view's DamageModule has an implicit destructor. The unit emits it as the only
+    `??1DamageModule@@UAE@XZ` COMDAT in the census, and it calls `~PB_DeepBase`. The ctor's unwind
+    funclet calls it (retail 0x0078F58B: `jmp 0x004B96CC`). Declaring `~DamageModule` out of line
+    needs another definer of `??1DamageModule@@UAE@XZ`, so 0x004B96CC must carry that name.
+    - `rename.py class --fold Rva004B96CC --into DamageModule` still refuses: ctor 0x004B9704
+      installs 0x00C598E4, but the dtor's first +0 store is BehaviorModule's 0x00BEEA7C. Its own +0
+      and +0xC stores are dead after the inlined `~BehaviorModule`.
+    - Relaxing that test is not enough:
+      - data_ledger.csv names 0x008598E4 only `_s_vtable`, the global that DamageModuleCtor.cpp's
+        explicit stores bind, so no object names that table `??_7DamageModule`;
+      - DamageModule is registered in canonical_classes.csv, so a fold that leaves a private
+        DamageModule view in Rva0049B47CThreeVptrDerived.cpp is refused.
+    - `add_match --replace-rva` retires only anonymous scaffolding, not `Rva004B96CC`.
+    - The likely route is one atomic change. DamageModule.cpp defines `~DamageModule` on
+      `DamageModuleClass.h` at 0x004B96CC; retail's store order is +0x10, +0, +0x0C, then
+      `jmp 0x0049B47C`, which the PrimaryP shape (an inline empty `~BehaviorModule`) reproduces.
+      It emits DamageModule's tables, and the placeholder row and its `??_G` 0x004B973B move with
+      it. A tool route for that move does not exist yet.
+  - Row 0x0002CD7B (`??1EvacuateDamage@@UAE@XZ`, this unit) is `~INIMacroTable`. Retail atexit
+    0x007B6A6E runs it on the global 0x00DDF58C that `??0INIMacroTable` builds. It calls the nocase
+    set dtor 0x0002CC38 on +0x14, then 0x0002CCC3 on +0. 0x0002CCC3 is byte-identical to the
+    rts::hash<AsciiString> table dtor 0x002236B9 except for its FuncInfo, so it is a second
+    instantiation. The rts::hash map spelling of INIMacroTable.cpp's rowed ctor does not name it,
+    and INIMacroTable.cpp's set is `less<AsciiString>`, not the nocase set the dtor destroys. The
+    row's only approved home is still unknown (tu_map: displaced).
