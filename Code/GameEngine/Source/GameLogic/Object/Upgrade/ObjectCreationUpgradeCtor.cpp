@@ -5,7 +5,7 @@
 // 0x4CE2A3) then UpdateModule base at +8 (rowed 0x253390, thing plus data),
 // then the derived stores in source order: int zero at +0x28 (and-RMW),
 // UpdateModule-subobject vtable, primary vtable, +0x14/+0x18 secondaries
-// (address-of TU-local dummies, DIR32-masked), byte zero at +0x2C. The
+// (the class's own tables, by their retail store immediates), byte zero at +0x2C. The
 // ModuleFactory registration pairs this class literal ("ObjectCreationUpgrade")
 // with the module factory 0x24FF6B (news 0x30, matching this layout) and the
 // rowed ModuleData factory 0x24FFAC; the module factory is the sole raw
@@ -15,10 +15,10 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_midVtable;
-static int s_secondary14;
-static int s_secondary18;
+extern "C" const void *const __identifier("??_7ObjectCreationUpgrade@@6BUpgradeMux@@@")[];  // vftable 0x00C57660
+extern "C" const void *const __identifier("??_7ObjectCreationUpgrade@@6BObjectModule@@@")[];  // vftable 0x00C5762C
+extern "C" const void *const __identifier("??_7ObjectCreationUpgrade@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C57570
+extern "C" const void *const __identifier("??_7ObjectCreationUpgrade@@6BUpdateModule@@@")[];  // vftable 0x00C57560
 
 // Opaque UpgradeMux base at +0; 0-arg ctor resolves to its pin.
 class UpgradeMux
@@ -63,9 +63,9 @@ ObjectCreationUpgrade::ObjectCreationUpgrade(Thing *thing, const ModuleData *mod
 	: UpgradeMux(), UpdateModule(thing, moduleData)
 {
 	m_status = 0;
-	m_updateVtable = &s_midVtable;
-	m_muxVtable = &s_vtable;
-	m_p14 = &s_secondary14;
-	m_p18 = &s_secondary18;
+	m_updateVtable = __identifier("??_7ObjectCreationUpgrade@@6BObjectModule@@@");
+	m_muxVtable = __identifier("??_7ObjectCreationUpgrade@@6BUpgradeMux@@@");
+	m_p14 = __identifier("??_7ObjectCreationUpgrade@@6BBehaviorModuleInterface@@@");
+	m_p18 = __identifier("??_7ObjectCreationUpgrade@@6BUpdateModule@@@");
 	m_flag = false;
 }

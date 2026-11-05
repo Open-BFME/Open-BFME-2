@@ -3,8 +3,8 @@
 // ??0SiegeDeployHordeSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x004C6386, 82 bytes. Frameless behavior ctor over the pinned
 // WeaponModeSpecialPowerUpdateBase base (0x58959A): re-stores the primary
-// vtable slot and the +0x0C/+0x10/+0x20/+0x24 secondary slots (address-of
-// TU-local dummies, DIR32-masked), zeroes +0x38, three float zeros at
+// vtable slot and the +0x0C/+0x10/+0x20/+0x24 secondary slots (the class's own tables,
+// by their retail store immediates), zeroes +0x38, three float zeros at
 // +0x3C/+0x40/+0x44, zeroes +0x48. The rowed instance factory 0x2521F4 is
 // the sole caller. Row supersedes the ctor pin.
 
@@ -14,11 +14,11 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
-static int s_secondary24;
+extern "C" const void *const __identifier("??_7SiegeDeployHordeSpecialPower@@6BRva00589079@@@")[];  // vftable 0x00C5DD94
+extern "C" const void *const __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S1@@@")[];  // vftable 0x00C4E998
+extern "C" const void *const __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S2@@@")[];  // vftable 0x00C5DD88
+extern "C" const void *const __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S3@@@")[];  // vftable 0x00C5DD64
+extern "C" const void *const __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S4@@@")[];  // vftable 0x00C4E900
 
 class WeaponModeSpecialPowerUpdateBase
 {
@@ -55,11 +55,11 @@ SiegeDeployHordeSpecialPower::SiegeDeployHordeSpecialPower(Thing *thing, const M
 {
 	m_38 = 0;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
-	m_p24 = &s_secondary24;
+	m_vtable = __identifier("??_7SiegeDeployHordeSpecialPower@@6BRva00589079@@@");
+	m_p0C = __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S1@@@");
+	m_p10 = __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S2@@@");
+	m_p20 = __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S3@@@");
+	m_p24 = __identifier("??_7SiegeDeployHordeSpecialPower@@6BSiegeDeployHordeSpecialPower_S4@@@");
 	m_3C = 0.0f;
 	m_40 = 0.0f;
 	m_44 = 0.0f;

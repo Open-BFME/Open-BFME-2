@@ -3,8 +3,8 @@
 // ??0CommandPointsUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B8661, 49 bytes.
 // CommandPointsUpgrade behavior ctor over the pinned UpgradeModule base
 // (0x460AEC, thing plus data): re-stores the primary vtable slot and the
-// +0x0C/+0x10/+0x18 secondary slots (address-of TU-local dummies,
-// DIR32-masked). The rowed name getter at 0x4B85FA and ModuleData triple
+// +0x0C/+0x10/+0x18 secondary slots (the class's own tables,
+// by their retail store immediates). The rowed name getter at 0x4B85FA and ModuleData triple
 // (proc 0x4B863F plus ctor 0x254891 plus factory 0x2548D2) prove the class;
 // the rowed instance factory 0x2508EE is the sole raw caller. Row supersedes
 // the ctor pin.
@@ -12,10 +12,10 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary18;
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseA@@@")[];  // vftable 0x00C590A8
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseB@@@")[];  // vftable 0x00C57328
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseC@@@")[];  // vftable 0x00C59060
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseD@@@")[];  // vftable 0x00C58790
 
 // Opaque UpgradeModule base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -46,8 +46,8 @@ private:
 CommandPointsUpgrade::CommandPointsUpgrade(Thing *thing, const ModuleData *moduleData)
 	: UpgradeModule(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p18 = &s_secondary18;
+	m_vtable = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseA@@@");
+	m_p0C = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseB@@@");
+	m_p10 = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseC@@@");
+	m_p18 = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseD@@@");
 }
