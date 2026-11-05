@@ -32,7 +32,8 @@ template <> void _Construct<BfmeStringRecord00111ACF, BfmeStringRecord00111ACF>(
 // The mutable-range uninitialized copy (0x003F62F5) and push_back (0x003F6CF9)
 // construct through 0x003F62C8, rowed as _Construct<EvaMessageInfo>, while
 // the const-range copy and fill rows here use 0x000AD77B; spell those two.
-struct EvaMessageInfo;
+// The mutable-copy helper's existing owner exposes only a 28-byte stride.
+struct EvaMessageInfo { char m_unported[28]; EvaMessageInfo(const EvaMessageInfo &); };
 namespace _STL {
 template <> void _Construct<EvaMessageInfo, EvaMessageInfo>(EvaMessageInfo *, const EvaMessageInfo &);
 template <> inline BfmeStringRecord00111ACF *
@@ -43,6 +44,30 @@ __uninitialized_copy<BfmeStringRecord00111ACF *, BfmeStringRecord00111ACF *>(Bfm
     for ( ; first != last; ++first, ++cur)
         _Construct((EvaMessageInfo *)cur, *(const EvaMessageInfo *)first);
     return cur;
+}
+// This overflow belongs to the mutable-copy chain: its single-element copy
+// calls 0x003F62C8 and its repeated copy calls 0x003F631B. The const-copy
+// fill helper emitted elsewhere in this TU instead belongs at 0x000AD7A8.
+template <> inline void vector<BfmeStringRecord00111ACF>::_M_insert_overflow(
+    pointer position, const BfmeStringRecord00111ACF &value, const __false_type &,
+    size_type count, bool atEnd)
+{
+    const size_type oldSize = size();
+    const size_type capacity = oldSize + (max)(oldSize, count);
+    pointer newStart = this->_M_end_of_storage.allocate(capacity);
+    pointer newFinish = newStart;
+    newFinish = __uninitialized_copy(this->_M_start, position, newStart, __false_type());
+    if (count == 1) {
+        _Construct((EvaMessageInfo *)newFinish, (const EvaMessageInfo &)value);
+        ++newFinish;
+    } else {
+        newFinish = (pointer)__uninitialized_fill_n((EvaMessageInfo *)newFinish,
+            count, (const EvaMessageInfo &)value, __false_type());
+    }
+    if (!atEnd)
+        newFinish = __uninitialized_copy(position, this->_M_finish, newFinish, __false_type());
+    _M_clear();
+    _M_set(newStart, newFinish, newStart + capacity);
 }
 template <> inline void vector<BfmeStringRecord00111ACF>::push_back(const BfmeStringRecord00111ACF &x)
 {
