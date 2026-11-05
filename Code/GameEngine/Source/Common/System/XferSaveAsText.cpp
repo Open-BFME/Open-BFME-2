@@ -38,35 +38,27 @@ namespace _STL { void __cdecl free(void *); }
 // names; the member meanings are target evidence from the sibling bodies.
 
 class BfmeRva00C7B388Stream;
-
 // ~_Vector_base<string> is supplied by the first unit in link order
 // (stlport_uninitialized_fill_n12.cpp); this unit's copy differs from it.
 namespace _STL { template <> _Vector_base<basic_string<char, char_traits<char>, allocator<char> >, allocator<basic_string<char, char_traits<char>, allocator<char> > > >::~_Vector_base(); }
-
 // Suppress this TU's non-retail copy of ?push_back@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$all:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void vector<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::push_back(basic_string<char,char_traits<char>,allocator<char> > const &); }
-
 // Suppress this TU's non-retail copy of ?_M_allocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void _String_base<char,allocator<char> >::_M_allocate_block(unsigned int); }
-
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_ST:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void vector<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::_M_insert_overflow(basic_string<char,char_traits<char>,allocator<char> > *,basic_string<char,char_traits<char>,allocator<char> > const &,__false_type const &,unsigned int,bool); }
-
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> basic_string<char,char_traits<char>,allocator<char> > * __uninitialized_fill_n<basic_string<char,char_traits<char>,allocator<char> > *,unsigned int,basic_string<char,char_traits<char>,allocator<char> > >(basic_string<char,char_traits<char>,allocator<char> > *,unsigned int,basic_string<char,char_traits<char>,allocator<char> > const &,__false_type const &); }
-
 // Suppress this TU's non-retail copy of ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@ABV01@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> basic_string<char,char_traits<char>,allocator<char> >::basic_string(basic_string<char,char_traits<char>,allocator<char> > const &); }
-
 // Import-inline: every _STL::max<unsigned int> use here is inlined, and this
 // unit's out-of-line copy (referenced from .debug$F alone) is not the one the link keeps.
 namespace _STL { template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned int>(const unsigned int &__a, const unsigned int &__b) { return __a < __b ? __b : __a; } }
-
 // Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
 // out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
 namespace _STL {
@@ -74,16 +66,11 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
 { allocator<char>::deallocate(__p, __n); }
 }
-
 extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *, unsigned int, const char *, va_list);
-
 #include "../../../Include/Common/File.h"
-
 #include "../../../Include/Common/XferException.h"
-
 // Clean C++ conversion of the word formatter at retail RVA 0x009D93A0.
 extern "C" void __cdecl bfmeAppend(void *stream, const char *format, ...);
-
 class Gen009D93A0
 {
 public:
@@ -93,42 +80,30 @@ private:
 	unsigned char m_pad[4];
 	bool m_pending;
 };
-
 namespace _STL
 {
 // Bind the range erase to the rowed 0x0007A7AA worker.
 typedef basic_string<char, char_traits<char>, allocator<char> > BfmeNarrowString;
 template <> BfmeNarrowString *vector<BfmeNarrowString, allocator<BfmeNarrowString> >::erase(BfmeNarrowString *first, BfmeNarrowString *last);
 }
-
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
-
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
-
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
-
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
-
 #include "../../../../Libraries/Include/Lib/Region3D.h"
-
 struct IRegion3D
 {
     ICoord3D lo;
     ICoord3D hi;
 };
-
 #include "../../../../Libraries/Include/Lib/Region2D.h"
-
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
-
 struct RealRange
 {
     float lo;
     float hi;
 };
-
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
-
 struct RGBAColorReal
 {
     float red;
@@ -136,7 +111,6 @@ struct RGBAColorReal
     float blue;
     float alpha;
 };
-
 struct RGBAColorInt
 {
     unsigned int red;
@@ -144,21 +118,8 @@ struct RGBAColorInt
     unsigned int blue;
     unsigned int alpha;
 };
-
 class Xfer;
-
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-
-// The string types are reduced to what their transfers read: a pointer to a
-// data block whose text starts eight bytes in.  ASCII and Unicode fall back to
-// the shared empty literals when the pointer is null; the pooled string reads
-// through it unchecked.
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
-#include "ascii_string.h"
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
-#include "unicode_string.h"
-
 class PooledString
 {
     struct Data { int unexamined0; int unexamined4; };
@@ -167,10 +128,6 @@ class PooledString
 public:
     const char *peek() const { return reinterpret_cast<const char *>(m_data + 1); }
 };
-// upstream layout: Code/GameEngine/Source/Common/System/Xfer.cpp (retail vtable 0x00BBB910)
-// cl builds the by-product ??_GXfer with the inline state in force where the
-// class definition ends; inline_depth(0) there makes it call ~Xfer, as the
-// ledger's ??_GXfer (0x0060C8B1) does, while bodies below still inline it.
 #pragma inline_depth(0)
 #define BFME_XFER_INLINE_CTOR
 #define BFME_XFER_INLINE_DTOR
@@ -179,8 +136,29 @@ public:
 #undef BFME_XFER_INLINE_CTOR
 inline Xfer::~Xfer() {}
 #pragma inline_depth()
-
 #include "../../../Include/Common/XferVersion.h"
+#define free _STL::free
+#undef free
+// These retail helpers live in the existing STLport provider units.
+namespace _STL {
+typedef basic_string<char, char_traits<char>, allocator<char> > BfmeTextString;
+template <> BfmeTextString::basic_string(const BfmeTextString &);
+template <> vector<BfmeTextString, allocator<BfmeTextString> >::~vector();
+template <> void vector<BfmeTextString, allocator<BfmeTextString> >::push_back(const BfmeTextString &);
+template <> _Vector_base<int, allocator<int> >::_Vector_base(const allocator<int> &) throw();
+}
+// Declared by hand: retail calls _vsnprintf through the msvcr71 import table
+// but strlen directly (its thunk at 0x00629170), which no one pair of CRT
+// headers gives under a single /MD setting.
+extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
+extern "C" unsigned int __cdecl strlen(const char *text);
+#pragma inline_depth(0)
+#define BFME_XFER_INLINE_CTOR
+#define BFME_XFER_INLINE_DTOR
+#undef BFME_XFER_INLINE_DTOR
+#undef BFME_XFER_INLINE_CTOR
+#pragma inline_depth()
+#pragma comment(linker, "/alternatename:_bfmeAppend=?Print@XferSaveAsText@@SAXPAV1@PBDZZ")
 
 class XferSaveAsText : public Xfer
 {
@@ -230,11 +208,456 @@ private:
     char *m_bfme14;
 };
 
-// tu-skeleton: 0x0060D5F2 124B ?Print@XferSaveAsText@@SAXPAV1@PBDZZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+// The text sink: only its write slot (+0x10) is called.
+class BfmeRva00C7B388Stream
+{
+public:
+    virtual void _M_slot_00();
+    virtual void _M_slot_04();
+    virtual void _M_slot_08();
+    virtual void _M_slot_0c();
+    virtual void Write(const char *text, int length);
+};
 
-// tu-skeleton: 0x0060D66E 286B ?XferRawBytes@XferSaveAsText@@UAEAAVXfer@@PAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+// 0x0060DEB1 (36B): the out-of-line int-vector base constructor at
+// 0x00211E58 zeroes the three stack words without an EH frame.
+typedef _STL::_Vector_base<int, _STL::allocator<int> > BfmeRva00C7B388BlockBase;
 
-// tu-skeleton: 0x0060D78C 52B ??8XferSaveAsText@@UAEAAVXfer@@AAVVersion@1@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+// A local view of the existing three-pointer label stack. Its element is the
+// same STLport narrow string used by the already-matched begin-block body.
+struct BfmeTextLabelStackView
+{
+    typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > Label;
+    Label *begin;
+    Label *finish;
+    Label *capacity;
+    Label *end() const { return finish; }
+    Label &back() { return *(end() - 1); }
+    __forceinline void pop()
+    {
+        --finish;
+        finish->Label::~Label();
+    }
+};
+
+// ---- from Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
+
+// A text-dumping Xfer, vtable 0x00C7B388 (constructor 0x0060DEB1, destructor
+// 0x0060DED5).  Every typed transfer prints its value with a labelled format --
+// "%i=0x%x [byte]", "version: %i", "'%s' [ascii]" -- through the variadic
+// helper at 0x0060D5F2, which either writes one indent unit per open block or
+// formats into a 1 KB buffer and hands the text to the stream at +8.  A flag at
+// +4 suppresses the indent once, after a label has been printed.  Retail keeps
+// no string naming the class; the name XferSaveAsText (renamed from the
+// address-derived BfmeRva00C7B388) is target evidence from WorldBuilder's
+// debug xfer_debug.cpp, whose ~XferSaveAsText (asserting !m_file, the stream
+// at +8, then destroying the vector at +0x0C) aligns with the destructor at
+// 0x0060DED5 and whose XferSaveAsText::XferRawBytes aligns with 0x0060D66E.
+// The method names are the base Xfer's, mapped slot by slot (the operator==
+// run is laid out in reverse declaration order, as Xfer.cpp explains).
+//
+// The base uses the shared Xfer interface; the value types below retain
+// Xfer.cpp's layouts so the transfers line up with the shipped ones.
+
+// The string types are reduced to what their transfers read: a pointer to a
+// data block whose text starts eight bytes in.  ASCII and Unicode fall back to
+// the shared empty literals when the pointer is null; the pooled string reads
+// through it unchecked.
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
+
+// upstream layout: Code/GameEngine/Source/Common/System/Xfer.cpp (retail vtable 0x00BBB910)
+// cl builds the by-product ??_GXfer with the inline state in force where the
+// class definition ends; inline_depth(0) there makes it call ~Xfer, as the
+// ledger's ??_GXfer (0x0060C8B1) does, while bodies below still inline it.
+
+// 0x0060D5F2: with no format, one indent unit per open block; otherwise the
+// formatted text, measured and handed to the stream.
+void __cdecl XferSaveAsText::Print(XferSaveAsText *self, const char *format, ...)
+{
+    if (format == 0) {
+        for (int depth = (self->m_bfme10 - self->m_bfme0C) / 12; depth != 0; --depth)
+            self->m_bfme08->Write("  ", 2);
+        return;
+    }
+    char buffer[0x400];
+    va_list args;
+    va_start(args, format);
+    _vsnprintf(buffer, sizeof(buffer), format, args);
+    self->m_bfme08->Write(buffer, strlen(buffer));
+}
+
+Xfer &XferSaveAsText::operator==(bool &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%i [bool]\n", value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(Xfer::Version &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "version: %i\n", value.m_minimum);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(char &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%i=0x%x [byte]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(unsigned char &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%i=0x%x [ubyte]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(short &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%i=0x%x [short]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(unsigned short &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%i=0x%x [ushort]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(int &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%i=0x%x [int]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(unsigned int &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%u=0x%x [uint]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(__int64 &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%I64i=0x%I64x [int64]\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(float &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%1.6f=%f\n", value, value);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(AsciiString &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "'%s' [ascii]\n", value.str());
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(UnicodeString &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%'%S' [unicode]\n", value.str());
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(PooledString &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "'%s' [pool]\n", value.peek());
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(Coord3DBase &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f,z:%1.6f [coord3d]\n", value.x, value.y, value.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(ICoord3D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i,z:%i [icoord3d]\n", value.x, value.y, value.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(Region3D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f,z:%1.6f to x:%1.6f,y:%1.6f,z:%1.6f [region3d]\n",
+        value.lo.x, value.lo.y, value.lo.z, value.hi.x, value.hi.y, value.hi.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(IRegion3D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i,z:%i to x:%i,y:%i,z:%i [iregion3d]\n",
+        value.lo.x, value.lo.y, value.lo.z, value.hi.x, value.hi.y, value.hi.z);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(Coord2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f [coord2d]\n", value.x, value.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(ICoord2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i [icoord2d]\n", value.x, value.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(Region2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%1.6f,y:%1.6f to x:%1.6f,y:%1.6f [region2d]\n",
+        value.lo.x, value.lo.y, value.hi.x, value.hi.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(IRegion2D &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "x:%i,y:%i to x:%i,y:%i [iregion2d]\n",
+        value.lo.x, value.lo.y, value.hi.x, value.hi.y);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(RealRange &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "%1.6f to %1.6f [range]\n", value.lo, value.hi);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(RGBColor &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "r:%1.3f,g:%1.3f,b:%1.3f [rgb]\n", value.red, value.green, value.blue);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(RGBAColorReal &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "r:%1.3f,g:%1.3f,b:%1.3f,a:%1.3f [rgba]\n",
+        value.red, value.green, value.blue, value.alpha);
+    m_bfme04 = false;
+    return *this;
+}
+
+Xfer &XferSaveAsText::operator==(RGBAColorInt &value)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    Print(this, "r:%i,g:%i,b:%i,a:%i [irgba]\n", value.red, value.green, value.blue, value.alpha);
+    m_bfme04 = false;
+    return *this;
+}
+
+// 0x0060DD1B 124B: vtable slot 37 (offset 0x94) of 0x00C7B388, the XferEnum
+// override. Base Xfer::XferEnum at 0x0060BBD5 is slot 37 of 0x00BBB910.
+// Prints the integer value selected by size, then " [name]", then newline.
+Xfer &XferSaveAsText::XferRawBytes(void *data, unsigned int size)
+{
+    if (size != 0) {
+        if (data == 0)
+            return *this;
+    }
+    if (m_bfme04) {
+        Print(this, "\n");
+        m_bfme04 = false;
+    }
+    if (size == 0) {
+        Print(this, (const char *)0);
+        Print(this, "--- 0 raw bytes\n");
+        return *this;
+    }
+    unsigned int off;
+    for (off = 0; off < size; off += 0x10) {
+        unsigned int col = 0;
+        Print(this, (const char *)col);
+        Print(this, "%04x", off);
+        for (col = 0; col < 0x10; ++col) {
+            if ((col & 7) == 0)
+                Print(this, " ");
+            if (col + off < size)
+                Print(this, " %02x", ((unsigned char *)data)[col + off]);
+            else
+                Print(this, "   ");
+        }
+        Print(this, "  ");
+        for (col = 0; col < 0x10; ++col) {
+            if (col + off >= size)
+                break;
+            unsigned char c = ((unsigned char *)data)[col + off];
+            int ch = (c > 0x20) ? (int)c : '.';
+            Print(this, "%c", ch);
+        }
+        Print(this, "\n");
+    }
+    return *this;
+}
+
+Xfer &XferSaveAsText::XferEnum(const char *name, void *data, unsigned int size)
+{
+    if (!m_bfme04)
+        Print(this, 0);
+    switch (size) {
+    case 1:
+        Print(this, "%i", *(unsigned char *)data);
+        break;
+    case 2:
+        Print(this, "%i", *(unsigned short *)data);
+        break;
+    case 3:
+        Print(this, "%i", *(int *)data & 0xffffff);
+        break;
+    case 4:
+        Print(this, "%i", *(int *)data);
+        break;
+    }
+    Print(this, " [%s]", name);
+    Print(this, "\n");
+    m_bfme04 = false;
+    return *this;
+}
+
+XferSaveAsText::XferSaveAsText() : m_bfme04(false), m_bfme08(0)
+{
+	BfmeRva00C7B388BlockBase &blocks = *(BfmeRva00C7B388BlockBase *)&m_bfme0C;
+	blocks.BfmeRva00C7B388BlockBase::_Vector_base(_STL::allocator<int>());
+}
+
+// 0x0060DED5 54B: dtor. Stores derived vtable 0x00C7B388, destroys the
+// narrow-string vector at +0x0C (rowed 0x000C0399), then stores base vtable
+// 0x00BBB910 with no base call (empty inline base). EH prolog arms state 0
+// around the vector call. Caller 0x0060DF0E.
+XferSaveAsText::~XferSaveAsText()
+{
+	typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
+	typedef _STL::vector<NarrowString, _STL::allocator<NarrowString> > NarrowStringVec;
+	((NarrowStringVec *)&m_bfme0C)->~NarrowStringVec();
+}
+
+// 0x0060DF27 142B: vslot 5 of 0x00C7B388. Open-block with a label: if the
+// pending-label flag is set print the newline, always print the indent,
+// print the label format with the name (empty string when null), then push a
+// copy of the name onto the narrow-string vector at +0x0C. Returns 0.
+int XferSaveAsText::rva0060DF27(const char *s)
+{
+	if (m_bfme04) {
+		Print(this, "\n");
+		m_bfme04 = false;
+	}
+	Print(this, (const char *)0);
+	const char *t = s != 0 ? s : "";
+	Print(this, "<%s>\n", t);
+	typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
+	typedef _STL::vector<NarrowString, _STL::allocator<NarrowString> > NarrowStringVec;
+	NarrowString tmp(t);
+	((NarrowStringVec *)&m_bfme0C)->push_back(tmp);
+	return 0;
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Retail 0x0060DE23..0x0060DEB1; WB 0x0165F260 names EndBlock in xfer_debug.cpp.
+// Slot 6 of vtable RVA 0x0087B388 pops the 12-byte label and prints its closing tag.
+void XferSaveAsText::EndBlock()
+{
+    typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
+    BfmeTextLabelStackView &labels = *reinterpret_cast<BfmeTextLabelStackView *>(&m_bfme0C);
+    if (m_bfme0C == m_bfme10)
+        return;
+    NarrowString tmp(labels.back());
+    labels.pop();
+    if (m_bfme04) {
+        Print(this, "\n");
+        m_bfme04 = false;
+    }
+    Print(this, (const char *)0);
+    Print(this, "</%s>\n", tmp.c_str());
+}
+
+// ---- from Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+
+// The string types are reduced to what their transfers read: a pointer to a
+// data block whose text starts eight bytes in.  ASCII and Unicode fall back to
+// the shared empty literals when the pointer is null; the pooled string reads
+// through it unchecked.
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
+
+// upstream layout: Code/GameEngine/Source/Common/System/Xfer.cpp (retail vtable 0x00BBB910)
+// cl builds the by-product ??_GXfer with the inline state in force where the
+// class definition ends; inline_depth(0) there makes it call ~Xfer, as the
+// ledger's ??_GXfer (0x0060C8B1) does, while bodies below still inline it.
 
 // ---- from Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 
@@ -738,68 +1161,6 @@ Bool Rva0060DFB5(File *input, File *output)
 	}
 }
 
-// tu-skeleton: 0x0060D7F1 52B ??8XferSaveAsText@@UAEAAVXfer@@AAD@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D825 52B ??8XferSaveAsText@@UAEAAVXfer@@AAE@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D859 51B ??8XferSaveAsText@@UAEAAVXfer@@AA_N@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D88C 51B ??8XferSaveAsText@@UAEAAVXfer@@AAH@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D8BF 56B ??8XferSaveAsText@@UAEAAVXfer@@AA_J@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D8F7 51B ??8XferSaveAsText@@UAEAAVXfer@@AAI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D92A 52B ??8XferSaveAsText@@UAEAAVXfer@@AAF@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D95E 52B ??8XferSaveAsText@@UAEAAVXfer@@AAG@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D992 61B ??8XferSaveAsText@@UAEAAVXfer@@AAM@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D9CF 53B ??8XferSaveAsText@@UAEAAVXfer@@AAVPooledString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DA04 69B ??8XferSaveAsText@@UAEAAVXfer@@AAUCoord3DBase@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DA49 55B ??8XferSaveAsText@@UAEAAVXfer@@AAUICoord3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DA80 90B ??8XferSaveAsText@@UAEAAVXfer@@AAURegion3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DADA 64B ??8XferSaveAsText@@UAEAAVXfer@@AAUIRegion3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DB1A 62B ??8XferSaveAsText@@UAEAAVXfer@@AAVCoord2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DB58 52B ??8XferSaveAsText@@UAEAAVXfer@@AAUICoord2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DB8C 76B ??8XferSaveAsText@@UAEAAVXfer@@AAURegion2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DBD8 58B ??8XferSaveAsText@@UAEAAVXfer@@AAUIRegion2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DC12 62B ??8XferSaveAsText@@UAEAAVXfer@@AAURealRange@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DC50 69B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DC95 76B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBAColorReal@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DCE1 58B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBAColorInt@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DD1B 124B ?XferEnum@XferSaveAsText@@UAEAAVXfer@@PBDPAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DD97 64B ??8XferSaveAsText@@UAEAAVXfer@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DDD7 64B ??8XferSaveAsText@@UAEAAVXfer@@AAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DE17 12B ?pop_back@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DE23 142B ?EndBlock@XferSaveAsText@@UAEXXZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DEB1 36B ??0XferSaveAsText@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DED5 54B ??1XferSaveAsText@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DF0B 28B ??_GXferSaveAsText@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DF27 142B ?rva0060DF27@XferSaveAsText@@QAEHPBD@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/Rva0060F0CECluster.cpp
 
 bool XferSaveAsText::rva0060F0CE(BfmeRva00C7B388Stream *stream)
@@ -815,6 +1176,6 @@ bool XferSaveAsText::rva0060F0CE(BfmeRva00C7B388Stream *stream)
 	return true;
 }
 
-// tu-skeleton: 0x007A6D72 8B $L2490 -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+// tu-skeleton: 0x0060DE17 12B ?pop_back@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp (not merged yet)
 
-// tu-skeleton: 0x007A6D7A 10B __ehhandler$??1XferSaveAsText@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+// tu-skeleton: 0x007A6D84 8B uw_007a6d84 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)

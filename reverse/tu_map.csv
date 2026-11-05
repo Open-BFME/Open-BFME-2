@@ -53500,41 +53500,41 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0060D565,47,code,,,-,,Code/GameEngine/Source/Common/Gen009D90D0.cpp
 0x0060D594,68,code,,,-,,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x0060D5D8,26,code,,,-,,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
-0x0060D5F2,124,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D66E,286,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D78C,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D7C0 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
+0x0060D5F2,124,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D66E,286,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D78C,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D7C0 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x0060D7C0,49,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D7F1 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
-0x0060D7F1,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D825 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D825,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D859 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D859,51,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D88C provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D88C,51,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D8BF provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D8BF,56,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D8F7 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D8F7,51,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D92A provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D92A,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D95E provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D95E,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D992 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D992,61,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D9CF provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060D9CF,53,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DA04 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DA04,69,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DA49 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DA49,55,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DA80 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DA80,90,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DADA provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DADA,64,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DB1A provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DB1A,62,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DB58 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DB58,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DB8C provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DB8C,76,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DBD8 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DBD8,58,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DC12 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DC12,62,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DC50 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DC50,69,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DC95 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DC95,76,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DCE1 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DCE1,58,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DD1B provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DD1B,124,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DD97,64,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060DD1B..0x0060DDD7 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DDD7,64,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060DD1B..0x0060DE17 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
+0x0060D7F1,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D825 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D825,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D859 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D859,51,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D88C provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D88C,51,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D8BF provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D8BF,56,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D8F7 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D8F7,51,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D92A provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D92A,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D95E provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D95E,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D992 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D992,61,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060D9CF provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060D9CF,53,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DA04 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DA04,69,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DA49 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DA49,55,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DA80 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DA80,90,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DADA provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DADA,64,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DB1A provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DB1A,62,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DB58 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DB58,52,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DB8C provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DB8C,76,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DBD8 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DBD8,58,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DC12 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DC12,62,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DC50 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DC50,69,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DC95 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DC95,76,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DCE1 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DCE1,58,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060D66E..0x0060DD1B provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DD1B,124,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DD97,64,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060DD1B..0x0060DDD7 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DDD7,64,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060DD1B..0x0060DE17 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x0060DE17,12,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060DD1B..0x0060DE23 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp
-0x0060DE23,142,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp W=Code/Libraries/Source/xfer/xfer_debug.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DEB1,36,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DED5,54,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DF0B,28,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x0060DF27,142,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
+0x0060DE23,142,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp W=Code/Libraries/Source/xfer/xfer_debug.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DEB1,36,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DED5,54,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DF0B,28,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x0060DF27,142,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x0060DFB5,4377,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,C,C=0x0060DF27..0x0060F0CE provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x0060F0CE,43,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,N,N=Code/GameEngine/Source/Common/System/XferSaveAsText.cpp provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x0060F100,19,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WWLib/widestring.cpp N=Code/Libraries/Source/WWVegas/WWLib/WideStringClass.cpp,Code/Libraries/Source/WWVegas/WWLib/registry.cpp
@@ -91128,10 +91128,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A6D56,10,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D269@FuncInfo0x0096055C,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x007A6D60,8,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D2E9@FuncInfo0x00960580,Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp
 0x007A6D68,10,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D2E9@FuncInfo0x00960580,Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp
-0x007A6D72,8,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DED5@FuncInfo0x009605A4 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
-0x007A6D7A,10,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DED5@FuncInfo0x009605A4 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
+0x007A6D72,8,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DED5@FuncInfo0x009605A4 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
+0x007A6D7A,10,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DED5@FuncInfo0x009605A4 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x007A6D84,8,code,,,-,,Code/gen_small/uw_gen_000.cpp
-0x007A6D8C,10,code,,,-,,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp
+0x007A6D8C,10,code,,,-,,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x007A6D96,8,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DFB5@FuncInfo0x00960614 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x007A6D9E,11,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DFB5@FuncInfo0x00960614 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 0x007A6DA9,8,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DFB5@FuncInfo0x00960614 provisional,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp

@@ -2330,7 +2330,6 @@ alternatename	Code/GameEngine/Source/Common/StringContainerRecordVector.cpp	?_M_
 alternatename	Code/GameEngine/Source/Common/StringVectorRecordCtorC0BEC.cpp	??0BfmeAsciiStringStorage000BDD48@@QAE@ABUBfmeAsciiStringAllocator000BDD48@@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/BfmeDataChunkParserBinding.cpp	?bfmeSlot0@BfmeParserBindingVE@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/BfmeDataChunkParserBinding.cpp	?bfmeSlot1@BfmeParserBindingVE@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp	_bfmeAppend	1
 alternatename	Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp	?construct@Rva003B31ADMember@@QAEPAV1@XZ	1
 alternatename	Code/GameEngine/Source/Common/System/BuildAssistant.cpp	??0Rva00394173Member@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	??1CollisionManager@@UAE@XZ	1
@@ -2408,6 +2407,7 @@ alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Is_Lightmap@?$RefCo
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Is_Procedural@?$RefCountPtr@VTextureClass@@@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Use_Alpha_Shader@BFME2ParticleTextureHandle@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?bfmeReset@Gen009D6E10@@QAEXPAVBfmePeer@@@Z	1
+alternatename	Code/GameEngine/Source/Common/System/XferSaveAsText.cpp	_bfmeAppend	1
 alternatename	Code/GameEngine/Source/Common/T1ReceiverSwappingThunks.cpp	?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780	1
 alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780_again	1
