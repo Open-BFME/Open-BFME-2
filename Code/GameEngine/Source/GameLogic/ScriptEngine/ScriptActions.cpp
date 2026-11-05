@@ -1247,8 +1247,9 @@ class Rva00261750Filter : public Rva000421C8
 public:
 	Rva00261750Filter(const ThingTemplate *tmpl, bool match) : m_template(tmpl), m_match(match) {}
 	virtual bool allow(Object *obj);
-	const ThingTemplate *m_template;
-	bool m_match;
+	const ThingTemplate *m_template; // +0x08
+	bool m_match; // +0x0C
+	char m_pad0D[0x3];
 };
 
 // vftable 0x00BF91BC, allow 0x002611BF.

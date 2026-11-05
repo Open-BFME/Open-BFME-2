@@ -25,10 +25,11 @@ class ThingTemplate;
 class Rva00261750Filter : public Rva000421C8
 {
 public:
-	Rva00261750Filter(const ThingTemplate *thingTemplate, bool match) : m_template(thingTemplate), m_match(match) {}
+	Rva00261750Filter(const ThingTemplate *tmpl, bool match) : m_template(tmpl), m_match(match) {}
 	virtual bool allow(Object *obj);
-	const ThingTemplate *m_template;
-	bool m_match;
+	const ThingTemplate *m_template; // +0x08
+	bool m_match; // +0x0C
+	char m_pad0D[0x3];
 };
 
 // vftable 0x00C1FDE0, allow 0x002613AF, slot 2 0x002613A3: +0x08 a player
