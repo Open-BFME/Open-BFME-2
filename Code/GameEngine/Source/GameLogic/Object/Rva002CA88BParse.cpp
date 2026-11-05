@@ -29,10 +29,20 @@ struct Parent002CA88B
 	Rva00235A21 *m_E0;
 };
 
+// The allocation above and parseWeaponBonusSet (0x002C971E) agree on
+// 22 bonus records of six floats, for a total of 0x210 bytes.
+class WeaponBonus
+{
+public:
+	float m_field[6];
+};
+
 class WeaponBonusSet
 {
 public:
+	void appendBonuses(unsigned int flags, WeaponBonus &bonus) const;
 	void parseWeaponBonusSet(INI *ini);
+	WeaponBonus m_bonus[22]; // +0x00
 };
 
 #include <new>

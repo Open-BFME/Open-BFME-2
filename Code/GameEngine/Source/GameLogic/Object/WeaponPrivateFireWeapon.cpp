@@ -257,7 +257,7 @@ private:
 class WeaponBonus
 {
   public:
-    enum Field { DAMAGE = 0, RADIUS, RANGE, RATE_OF_FIRE };
+    enum Field { DAMAGE = 0, RADIUS, RANGE, RATE_OF_FIRE, PRE_ATTACK };
     WeaponBonus()
     {
         for (int i = 0; i < 6; ++i)
@@ -270,11 +270,13 @@ class WeaponBonus
     void appendBonuses(WeaponBonus &bonus) const;
     Real m_field[6];
 };
+class INI;
 class WeaponBonusSet
 {
-  public:
-    void appendBonuses(UnsignedInt flags, WeaponBonus &bonus) const;
-    WeaponBonus m_bonus[22];
+public:
+	void appendBonuses(unsigned int flags, WeaponBonus &bonus) const;
+	void parseWeaponBonusSet(INI *ini);
+	WeaponBonus m_bonus[22]; // +0x00
 };
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

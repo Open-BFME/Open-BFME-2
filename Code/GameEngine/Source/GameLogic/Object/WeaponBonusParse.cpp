@@ -39,8 +39,9 @@ public:
 class WeaponBonusSet
 {
 public:
+	void appendBonuses(unsigned int flags, WeaponBonus &bonus) const;
 	void parseWeaponBonusSet(INI *ini);
-	WeaponBonus m_bonus[22];
+	WeaponBonus m_bonus[22]; // +0x00
 };
 // Zero Hour Weapon.h's header-static name tables; retail's copies for this
 // body are at 0x009BC6C0 and 0x009BC71C (contents read from retail).

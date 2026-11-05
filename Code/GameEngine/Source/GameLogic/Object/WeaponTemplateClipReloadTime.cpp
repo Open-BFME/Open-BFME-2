@@ -26,7 +26,7 @@ typedef float Real;
 class WeaponBonus
 {
 public:
-	enum Field { DAMAGE = 0, RADIUS, RANGE, RATE_OF_FIRE };
+	enum Field { DAMAGE = 0, RADIUS, RANGE, RATE_OF_FIRE, PRE_ATTACK };
 	Real getField(Field field) const { return m_field[field]; }
 	Real m_field[6];
 };
