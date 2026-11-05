@@ -62,7 +62,7 @@ public:
 	bool operator==(const Rva0041EFE0Element&)const;
 	char bytes[1]; // +0x00
 };
-namespace _STL { template<> struct hash<Rva0041EFE0Element> { unsigned operator()(const Rva0041EFE0Element &) const; }; }
+namespace _STL {template<> struct hash<Rva0041EFE0Element> { unsigned operator()(const Rva0041EFE0Element&) const; };}
 
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"

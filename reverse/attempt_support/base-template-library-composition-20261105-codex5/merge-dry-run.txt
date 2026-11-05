@@ -1,0 +1,11 @@
+tu: Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibrary.cpp
+approved: 32
+mixed: {'Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp': 17}
+refused: {'Code/GameEngine/Source/GameClient/GUI/parseAIBaseDefinition.cpp': '3 row(s) not approved for this TU (only approved rows move)'}
+accepted: []
+rejected: {'Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseTemplate.cpp': "compile: Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIBaseBuilder\\.BaseTemplateLibrary.62398ef8bcbb697c.tu_skeleton.cpp(26) : error C2883: '_STL::free' : function declaration conflicts with 'free' introduced by using-declaration", 'Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp': "link: Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp links at the census; the merged object would not: breaks another unit's copy of ??1?$hashtable@U?$pair@$$CBHURva0041EFE0Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0041EFE0Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0041EFE0Element@@@_STL@@@2@@_STL@@QAE@XZ", 'Code/GameEngine/Source/Common/Rva0022BD9ASubsystem.cpp': 'bytes'}
+adopt_first: {'Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp': ['ChunkInputStream', 'DataChunkInput']}
+link_guard: census-linked: Code/GameEngine/Source/Common/Rva0022BD9ASubsystem.cpp, Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseTemplate.cpp, Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibrary.cpp, Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp
+blocked: no verified merge of two or more donors
+reconcile_classes: ['BaseTemplateLibrary']
+reconcile: python3 tools/tu_views.py Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibrary.cpp --dry-run, then without --dry-run: the donors declare their own views of BaseTemplateLibrary (docs/consolidation.md, "Workflow per TU", step 4)

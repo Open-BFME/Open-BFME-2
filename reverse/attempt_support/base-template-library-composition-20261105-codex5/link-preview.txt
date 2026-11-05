@@ -1,0 +1,8 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibrary.cpp: LINKS  LINKED 114 -> 114 bytes (census 2026-11-04 22:40 at 3a95b274a2; file's own bytes 114)
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp: LINKS  LINKED 487 -> 487 bytes (census 2026-11-04 22:40 at 3a95b274a2; file's own bytes 487)
+link_check: 2 of 2 link cleanly; LINKED 601 -> 601 bytes (6.8s)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/Rva0022BD9ASubsystem.cpp: LINKS  LINKED 67 -> 67 bytes (census 2026-11-04 22:40 at 3a95b274a2; file's own bytes 67)
+link_check: 1 of 1 link cleanly; LINKED 67 -> 67 bytes (5.9s)

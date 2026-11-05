@@ -35,7 +35,10 @@ template <> __declspec(dllimport) __forceinline void *&_STL::vector<void*>::oper
 // the retail copies serve the link. Imported inline: still inlined, never emitted.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void*>::begin() { return this->_M_start; }
-template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { return this->_M_finish; }
+}
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
+{ return _M_finish; }
 }
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Imported inline: still inlined, never emitted.
