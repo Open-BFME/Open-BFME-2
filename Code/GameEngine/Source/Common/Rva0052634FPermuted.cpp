@@ -39,12 +39,7 @@ public:
     ~Rva00524436();
     char m_body[0x18];
 };
-class Rva0052413E
-{
-public:
-    ~Rva0052413E();
-    char m_body[0x0C];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva0052634F_Base
 {

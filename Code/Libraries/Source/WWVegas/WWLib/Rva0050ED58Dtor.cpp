@@ -13,13 +13,7 @@ private:
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_00;
 };
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_00;
-};
+#include "../../../../GameEngine/Include/Common/Rva0052413E.h"
 
 // The element destructor retail hands the vector iterator is the rowed
 // 8-byte forwarder 0x0050EB02 (RvaEmbeddedMemberForwarders.cpp).

@@ -96,7 +96,7 @@ namespace _STL {
  template<class T> class allocator {public:allocator(){}};
  template<class T,class A> class _Vector_base {public:_Vector_base(const A&);protected:T*first,*last,*limit;};
 }
-class Rva0052413E {public:Rva0052413E();~Rva0052413E();char data[12];};
+#include "../../../../Include/Common/Rva0052413E.h"
 class Rva005241B0 {public:Rva005241B0();~Rva005241B0();char data[12];};
 class Rva005242D7 {public:Rva005242D7();~Rva005242D7();char data[12];};
 class Rva00524265 {public:Rva00524265();~Rva00524265();private:_STL::_Vector_base<AsciiString,_STL::allocator<AsciiString> > names;};

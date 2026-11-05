@@ -12,13 +12,7 @@
 struct BfmePod20 { int first,second;float scale;int fourth;bool flag; };
 namespace _STL {template<> void fill(BfmePod20*,BfmePod20*,const BfmePod20&);}
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_bytes[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva00524349
 {
