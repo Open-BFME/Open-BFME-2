@@ -65,24 +65,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class AITarget
-{
-public:
-	void rva002C5CF7(const struct Coord3D *position, float radius, int objectId);
-	void setTarget(Object *targetObject, float radius);
-    void markApproachHazard(const Coord3D *trialPosition);
-    float checkThreatInArea(const Coord3D *trialPosition);
-private:
-    void *m_owner;
-    unsigned int m_04;
-    unsigned int m_frame;
-    Coord3D m_position;
-    char m_pad18[0x24 - 0x18];
-    ThreatFinder *m_table;
-    float m_value;
-    char m_pad2C[0x34 - 0x2C];
-    int m_id;
-};
+#include "../../Include/GameLogic/AITarget.h"
 
 // ?getEnemyThreat@Rva002C589B@@QAEMXZ @0x002C5AE6 96B via max array float plus m_28
 // Evidence: pin QAEMXZ float no args; caller 0x00505383 matched plus 0x0059A1F0; this+0 m_00 via global TheSkirmishAIManager to rowed rva002A8AB1 pin; rec+0x164 plus 0x20 bounds; elems float at +0x18 max from 0.0f; m_28 float at +0x28 max; SSE xorps movss comiss plus fld return; prev/next Rva002C589B same class
@@ -193,18 +176,18 @@ void AITarget::rva002C5CF7(const Coord3D *position, float radius, int objectId)
 {
     reinterpret_cast<Rva002C589B *>(this)->rva002C58B3();
     m_position = *position;
-    ThreatFinder *threatFinder = m_table;
-    m_id = objectId;
+    ThreatFinder *threatFinder = m_24;
+    m_34 = objectId;
     m_frame = TheGameLogic->getFrame();
     Coord3D queryPosition;
     queryPosition.x = position->x;
     queryPosition.y = position->y;
     queryPosition.z = position->z;
     threatFinder->m_position = queryPosition;
-    m_table->m_radius = radius;
-    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    ThreatInfo threatInfo = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
-    m_value = threatInfo.values[0];
+    m_24->m_radius = radius;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_24)->clear();
+    ThreatInfo threatInfo = m_24->getThreatForPlayer((Player *)m_00, 0, 0);
+    m_28 = threatInfo.values[0];
 }
 
 // Native 2C590F..2C59CE RET4. Trial position uses the same table as the
@@ -213,25 +196,25 @@ void AITarget::rva002C5CF7(const Coord3D *position, float radius, int objectId)
 void AITarget::markApproachHazard(const Coord3D *trialPosition)
 {
     struct PositionPair { Coord3D point; Coord3D oldPoint; } positions;
-    positions.oldPoint.x = m_table->m_position.x;
-    Coord3D *finderPosition = &m_table->m_position;
+    positions.oldPoint.x = m_24->m_position.x;
+    Coord3D *finderPosition = &m_24->m_position;
     positions.oldPoint.y = finderPosition->y;
     positions.oldPoint.z = finderPosition->z;
     positions.point.x = trialPosition->x;
     positions.point.y = trialPosition->y;
     positions.point.z = trialPosition->z;
     *finderPosition = positions.point;
-    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    ThreatInfo threatInfo = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
-    if (threatInfo.values[0] > m_value)
-        m_value = threatInfo.values[0];
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_24)->clear();
+    ThreatInfo threatInfo = m_24->getThreatForPlayer((Player *)m_00, 0, 0);
+    if (threatInfo.values[0] > m_28)
+        m_28 = threatInfo.values[0];
     else
     {
         positions.point.x = positions.oldPoint.x;
         positions.point.y = positions.oldPoint.y;
         positions.point.z = positions.oldPoint.z;
-        m_table->m_position = positions.point;
-        reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+        m_24->m_position = positions.point;
+        reinterpret_cast<Rva003ECB0BDwordClearer *>(m_24)->clear();
     }
 }
 
@@ -243,25 +226,25 @@ void AITarget::markApproachHazard(const Coord3D *trialPosition)
 float AITarget::checkThreatInArea(const Coord3D *trialPosition)
 {
     struct PositionPair { Coord3D oldPoint; float oldRadius; Coord3D point; } positions;
-    Coord3D *finderPosition=&m_table->m_position;
+    Coord3D *finderPosition=&m_24->m_position;
     positions.oldPoint.x=finderPosition->x;
     positions.oldPoint.y=finderPosition->y;
     positions.oldPoint.z=finderPosition->z;
-    positions.oldRadius=m_table->m_radius;
+    positions.oldRadius=m_24->m_radius;
     positions.point.x=trialPosition->x;
     positions.point.y=trialPosition->y;
     positions.point.z=trialPosition->z;
     *finderPosition=positions.point;
-    m_table->m_radius=400.0f;
-    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    ThreatInfo enemyThreat=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,0,0);
-    ThreatInfo allyThreat=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,1,0);
+    m_24->m_radius=400.0f;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_24)->clear();
+    ThreatInfo enemyThreat=((ThreatFinder *)m_24)->getThreatForPlayer((Player *)m_00,0,0);
+    ThreatInfo allyThreat=((ThreatFinder *)m_24)->getThreatForPlayer((Player *)m_00,1,0);
     positions.point.x=positions.oldPoint.x;
     positions.point.y=positions.oldPoint.y;
     positions.point.z=positions.oldPoint.z;
-    m_table->m_position=positions.point;
-    m_table->m_radius=positions.oldRadius;
-    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+    m_24->m_position=positions.point;
+    m_24->m_radius=positions.oldRadius;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_24)->clear();
     return allyThreat.values[0]>0.0f ? allyThreat.values[0]-enemyThreat.values[0] : 0.0f;
 }
 
