@@ -3,13 +3,13 @@
 // establishes buffer boundaries and align8 stack frame. ZH profile_cmd
 // has related command plumbing but no VSPerf80 runner. Original name unknown.
 // Use existing hook globals, matching FrameStart/FrameEnd providers.
-// cl: /O2 /Oi /MD /Ireference/shims/sweep 
+// cl: /O2 /Oi /MD
+// platformsdk
 #include <windows.h>
 #include "../debug/debug.h"
 #include "internal_funclevel.h"
 #include <stdio.h>
 #include <string.h>
-extern "C" __declspec(dllimport) UINT __stdcall GetSystemDirectoryA(char*,UINT);
 
 // Retail .bss VA 0x00E0C764 is initially null. External (data_rows owns the
 // byte run) so ProfileFuncLevelTracer::Shutdown can read it too; the name is
