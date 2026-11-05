@@ -669,6 +669,18 @@ refuses unless all of these hold:
   constructor whose `+0` stores all install T. Every special-member row of OLD
   and NEW agrees (none owns another table; a constructor that also installs a
   base's table must include T).
+- An OLD whose rows are only destructors and deleting destructors may own no
+  table: one that stores none (an empty destructor), or one whose stores an
+  inlined base destructor explains. When the base destructor is inline, MSVC
+  drops the class's own stores that the base's overwrite, so the destructor's
+  first `+0` store is the base's table. Each table such an OLD installs at
+  `+d` must be the one every constructor of NEW installs last there (NEW's
+  own), or the one a base constructor installs last there, where every
+  constructor of NEW calls (E8) that base constructor. T is then NEW's own
+  table: OLD's deleting destructor must sit in a slot of T, and each
+  destructor of OLD must be called by one of them. Examples: DamageModule's
+  0x004B96CC and CollideModule's 0x004BB68E (BehaviorModule's tables at `+0`
+  and `+0x0C`, the class's own at `+0x10`).
 - T's `??_7X@@6B@` names (`data_rows.csv`, the `data_ledger.csv` names that
   matched rows' relocations bind at T, and, because that ledger is a cache that
   lags new rows, the DIR32 bindings the installing rows' own objects make at T

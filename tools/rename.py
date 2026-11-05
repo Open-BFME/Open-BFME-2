@@ -4767,6 +4767,20 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 #     route, because the slot's body is NEW's either way (ICF shares it); it
 #     is recorded in the evidence and is not folded. A name on T for a class
 #     that installs no T of its own still refuses.
+#   * a destructor family whose stores an inlined base destructor explains
+#     takes the same route. When the base destructor is inline, the class's
+#     destructor stores its own tables and then the base's, and MSVC drops
+#     the stores the base's overwrite: the first +0 store is the base's own
+#     table, so the own-table rule would name the base. Such an OLD is
+#     accepted when every table one of its rows installs at +d is either the
+#     table every constructor row of NEW installs last at +d (NEW's own, at a
+#     displacement the base does not restore) or the table a base
+#     constructor row installs last at +d, where every constructor row of NEW
+#     calls (E8) that base constructor; at least one store must be the
+#     base's. 0x004B96CC (DamageModule's destructor, placeholder Rva004B96CC):
+#     +0x10 0x00BE2B78, then BehaviorModule's 0x00BEEA7C at +0 and 0x00BEE9C0
+#     at +0x0C (both installed last by ??0BehaviorModule 0x00253330, which the
+#     DamageModule constructor 0x004B9704 calls), then the tail jump.
 #   * a NEW rowed only through virtual methods (no constructor, destructor or
 #     deleting destructor row, so no object binds T under NEW's name: a
 #     multiply-derived OLD's T is `??_7OLD@@6BBase@@@`) is tied to OLD's own
@@ -5134,17 +5148,18 @@ def vtable_names_at(ctx, table, rows=()):
     return out
 
 
-def destructor_only(ctx, old, rows, tables):
+def destructor_only(ctx, old, rows, tables, *, installs_allowed=False):
     """True when placeholder class `old`'s rows are a destructor family that
     stores no vftable: every special member row is a destructor or deleting
-    destructor (at least one deleting destructor), none installs any table,
+    destructor (at least one deleting destructor), none installs any table
+    (unless `installs_allowed`: inlined_base_restores judges the stores),
     and no other ledger row is a member of `old` (EH handlers and funclets of
     those rows aside)."""
     if not rows or any(special_member(r["name"])[0] not in ("1", "_G", "_E") for r in rows):
         return False
     if not any(special_member(r["name"])[0] in ("_G", "_E") for r in rows):
         return False
-    if any(row_installs(ctx, r, tables) for r in rows):
+    if not installs_allowed and any(row_installs(ctx, r, tables) for r in rows):
         return False
     family = {r["name"] for r in rows}
     member = re.compile(r"(?:^\?\?_?[0-9A-Z]|@)" + re.escape(old) + "@@")
@@ -5158,6 +5173,65 @@ def destructor_only(ctx, old, rows, tables):
         if member.search(name):
             return False
     return True
+
+
+def inlined_base_restores(ctx, old, new, old_rows, new_rows, tables):
+    """[evidence] when placeholder `old` is a destructor family of `new` whose
+    own +0 store retail dropped under an inlined base destructor, else None.
+
+    A destructor whose base destructor is inline stores its class's tables,
+    then the base's; the optimizer drops the class's stores the base's
+    overwrite, so the body's first +0 store is the base's own table and
+    own_table names the base, not the class. That is accepted only when
+    every table each row of `old` installs at +d is either
+      - the table every constructor row of `new` installs last at +d (the
+        class's own, at a displacement the base does not restore), or
+      - the table a constructor row of a base installs last at +d, where
+        every constructor row of `new` calls (E8) that base constructor,
+    at least one store is of the second kind, and `old` is a destructor
+    family (destructor_only, stores allowed). The deleting destructor's slot
+    in `new`'s own table then ties `old` to it (the destructor-only route)."""
+    if not destructor_only(ctx, old, old_rows, tables, installs_allowed=True):
+        return None
+    ctors = [r for r in new_rows if special_member(r["name"])[0] == "0"]
+    if not ctors:
+        return None
+
+    def last_at(row):
+        out = {}
+        for _store, table, at, _proven in row_installs(ctx, row, tables):
+            out[at] = table
+        return out
+
+    new_last = [last_at(r) for r in ctors]
+    called = None
+    for row in ctors:
+        calls = retail_calls(ctx, _rva(row["target_rva"]), int(row.get("target_size") or 0))
+        called = set(calls) if called is None else called & set(calls)
+    bases = {}                                      # displacement -> {table: base constructor row}
+    for _start, _end, row in _row_spans(ctx)[1]:
+        found = special_member(row["name"])
+        if not found or found[0] != "0" or found[1] in (old, new) or _rva(row["target_rva"]) not in called:
+            continue
+        for at, table in last_at(row).items():
+            bases.setdefault(at, {}).setdefault(table, row)
+    evidence, restored = [], False
+    for row in old_rows:
+        for _store, table, at, _proven in row_installs(ctx, row, tables):
+            va = f"0x{table + IMAGE_BASE:08X}"
+            where = f"{row['name']} at 0x{_rva(row['target_rva']):08X}"
+            if all(m.get(at) == table for m in new_last):
+                evidence.append(f"{where} stores {va} at +0x{at:X}, which {new}'s constructor installs there "
+                                "last (its own)")
+                continue
+            base = bases.get(at, {}).get(table)
+            if base is None:
+                return None
+            restored = True
+            evidence.append(f"{where} stores {va} at +0x{at:X}, the table {base['name']} at "
+                            f"0x{_rva(base['target_rva']):08X} installs there, a base constructor every "
+                            f"constructor of {new} calls: an inlined base destructor's restore")
+    return evidence if restored else None
 
 
 def third_owners(ctx, table, classes, tables):
@@ -5231,8 +5305,11 @@ def fold_evidence(ctx, old, new):
     def at(row):
         return f"{row['name']} at 0x{_rva(row['target_rva']):08X}"
 
+    # A destructor family whose stores an inlined base destructor explains
+    # (inlined_base_restores) takes the destructor-only route below.
+    restores = inlined_base_restores(ctx, old, new, members[old], members[new], tables)
     owns = collections.defaultdict(list)
-    for row in members[old]:
+    for row in members[old] if restores is None else ():
         own, _stored = own_table(ctx, row, tables)
         if own is not None:
             owns[own].append(row)
@@ -5241,7 +5318,7 @@ def fold_evidence(ctx, old, new):
         no_table = (f"{old} installs no vftable retail shows as its own (through {len(members[old])} "
                     "constructor, destructor or deleting destructor row(s)): nothing in retail ties it to a "
                     "class table")
-        if not destructor_only(ctx, old, members[old], tables):
+        if restores is None and not destructor_only(ctx, old, members[old], tables):
             raise Refusal(no_table)
         # A destructor-only OLD: the table is NEW's own (see the section
         # comment); its deleting destructors' slots tie OLD to it below.
@@ -5268,8 +5345,11 @@ def fold_evidence(ctx, old, new):
             how = ("its only +0 install" if len(set(own_table(ctx, row, tables)[1])) == 1 else
                    "its last +0 store; every vftable store in it is through this")
         evidence.append(f"{at(row)} installs retail vftable {va} as its own ({how})")
+    evidence.extend(restores or ())
     for cls in (old, new):
         for row in members[cls]:
+            if cls == old and restores is not None:
+                continue                            # each store judged by inlined_base_restores
             own, stored = own_table(ctx, row, tables)
             if own is not None and own != table:
                 raise Refusal(f"{at(row)} installs 0x{own + IMAGE_BASE:08X} as its own vftable, not {va}: "
@@ -5386,8 +5466,10 @@ def fold_evidence(ctx, old, new):
                 raise Refusal(f"{at(row)} is called by no deleting destructor of {old} on {va}: nothing ties "
                               f"{old}'s destructor to the table (it may be a base's)")
             evidence.append(f"{at(row)} is called by {at(callers[0])}")
-        evidence.append(f"{old} installs no vftable (destructor-only); {va} is {new}'s own table, so its slot "
-                        f"bodies are {new}'s members")
+        evidence.append((f"{old} installs no table of its own (its stores are {new}'s own tables and an inlined "
+                         "base destructor's restore)" if restores is not None else
+                         f"{old} installs no vftable (destructor-only)") +
+                        f"; {va} is {new}'s own table, so its slot bodies are {new}'s members")
         for cls, rows in sorted(co_owners.items()):
             evidence.append(f"{va} is also installed as its own by {cls} (" + ", ".join(at(r) for r in rows) +
                             f"): overloaded constructors under two placeholders or an ICF fold; the slot "

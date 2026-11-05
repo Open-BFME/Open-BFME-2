@@ -1206,6 +1206,112 @@ def test_a_destructor_only_fold_into_a_class_with_its_own_destructor_is_refused(
         d_plan(root)
 
 
+
+# ------------------------------------------------------------ a destructor under an inlined base destructor
+#
+# DamageModule's destructor 0x004B96CC (placeholder Rva004B96CC): BehaviorModule's
+# destructor is inline, so retail's body stores DamageModule's +0x10 table, then
+# BehaviorModule's own tables at +0 and +0x0C, and the optimizer dropped
+# DamageModule's own +0/+0x0C stores. Its first +0 store names the base's table;
+# the DamageModule constructor 0x004B9704 calls ??0BehaviorModule 0x00253330, which
+# installs those tables last, and the deleting destructor 0x004B973B sits in slot 0
+# of the constructor's own table 0x00C598E4.
+R_BASE_CTOR = 0x00407000
+BASE_TABLE = 0x00800300
+IFACE_TABLE = 0x00800400
+
+
+def r_functions(extra=""):
+    return d_functions(f"??0Base@@QAE@XZ,,0x00407000,20,Code/Game/Other.cpp,matched,base ctor\n" + extra)
+
+
+def r_tables(dtor_stores=None):
+    """NEW's ctor installs IFACE at +0x10 and then TABLE at +0 (its own), the
+    base ctor installs BASE_TABLE at +0; OLD's destructor stores `dtor_stores`
+    ({store: (table, disp)}; by default IFACE at +0x10, then BASE_TABLE at +0)."""
+    tables = {
+        TABLE: ([PURECALL, D_GDTOR, PURECALL], {0x00401002: 0}),
+        IFACE_TABLE: ([PURECALL], {0x00401008: 0x10}),
+        BASE_TABLE: ([PURECALL], {0x00407002: 0}),
+    }
+    stores = {0x00402001: (IFACE_TABLE, 0x10), 0x00402003: (BASE_TABLE, 0)} if dtor_stores is None else dtor_stores
+    for store, (table, disp) in stores.items():
+        tables.setdefault(table, ([PURECALL], {}))[1][store] = disp
+    return tables
+
+
+def r_retail(monkeypatch, tables=None, calls=None):
+    calls = {D_GDTOR: {D_DTOR, 0x0002FD60}, 0x00401000: {R_BASE_CTOR}} if calls is None else calls
+    d_retail(monkeypatch, r_tables() if tables is None else tables, calls)
+
+
+def test_an_inlined_base_destructors_restore_takes_the_destructor_only_route(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, r_functions())
+    r_retail(monkeypatch)
+    p = d_plan(root)
+    assert p.fold == TABLE
+    assert (f"??1{D_OLD}@@QAE@XZ at 0x00402000 stores 0x00C00400 at +0x10, which {D_NEW}'s constructor installs "
+            "there last (its own)") in p.evidence
+    assert (f"??1{D_OLD}@@QAE@XZ at 0x00402000 stores 0x00C00300 at +0x0, the table ??0Base@@QAE@XZ at 0x00407000 "
+            f"installs there, a base constructor every constructor of {D_NEW} calls: an inlined base destructor's "
+            "restore") in p.evidence
+    assert f"??_G{D_OLD}@@QAEPAXI@Z at 0x00402010 is slot 1" in p.evidence
+    assert f"??1{D_OLD}@@QAE@XZ at 0x00402000 is called by ??_G{D_OLD}@@QAEPAXI@Z at 0x00402010" in p.evidence
+    assert f"{D_OLD} installs no table of its own" in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??1{D_NEW}@@QAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched," in fns
+    assert f"??_G{D_NEW}@@QAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched," in fns
+
+
+def test_an_inlined_base_restore_needs_news_constructor_to_call_the_base(tmp_path, monkeypatch):
+    # the base table's installer is no constructor NEW's constructor calls: the
+    # destructor's first +0 store names another class, as before
+    root = make_dtor_tree(tmp_path, r_functions())
+    r_retail(monkeypatch, calls={D_GDTOR: {D_DTOR, 0x0002FD60}})
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_an_inlined_base_restore_needs_a_base_constructor_row(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path)                 # no ??0Base row
+    r_retail(monkeypatch)
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_an_inlined_base_restore_refuses_a_store_nothing_explains(tmp_path, monkeypatch):
+    # +0x10 holds a table neither NEW's constructor nor the base installs there
+    root = make_dtor_tree(tmp_path, r_functions())
+    r_retail(monkeypatch, r_tables({0x00402001: (OTHER_TABLE, 0x10), 0x00402003: (BASE_TABLE, 0)}))
+    with pytest.raises(Refusal, match="not that class|nothing ties"):
+        d_plan(root)
+
+
+def test_an_inlined_base_restore_still_needs_the_deleting_destructor_on_the_table(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, r_functions())
+    tables = r_tables()
+    tables[TABLE] = ([PURECALL, PURECALL, PURECALL], {0x00401002: 0})
+    r_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="on no slot of retail vftable 0x00C00000"):
+        d_plan(root)
+
+
+def test_an_inlined_base_restore_still_needs_the_destructor_called_by_its_deleting_destructor(tmp_path,
+                                                                                           monkeypatch):
+    root = make_dtor_tree(tmp_path, r_functions())
+    r_retail(monkeypatch, calls={D_GDTOR: {0x00499999}, 0x00401000: {R_BASE_CTOR}})
+    with pytest.raises(Refusal, match="called by no deleting destructor"):
+        d_plan(root)
+
+
+def test_an_inlined_base_restore_needs_a_destructor_family(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, r_functions(f"?run@{D_OLD}@@QAEXXZ,,0x00402200,5,Code/Game/Dtor.cpp,matched,m\n"))
+    r_retail(monkeypatch)
+    with pytest.raises(Refusal, match="not that class|nothing ties"):
+        d_plan(root)
+
+
 # ------------------------------------------------------------ a NEW rowed only through virtual methods
 #
 # 0x00CF1648's class: its constructor 0x00740FD9, destructor and deleting
