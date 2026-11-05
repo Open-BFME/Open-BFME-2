@@ -2,6 +2,7 @@
 
 #include "../../../../GameEngine/Source/Common/debug.h"
 
+#define RGBCOLOR_VIEW_DEFAULT_CTOR
 #include "../../../Include/Lib/RGBColor.h"
 
 struct RGBAColorReal
@@ -34,6 +35,12 @@ inline void RGBColor::setFromInt(int color) throw()
     red = (float)((color >> 16) & 0xFF) * (1.0f / 255.0f);
     green = (float)((color >> 8) & 0xFF) * (1.0f / 255.0f);
     blue = (float)(color & 0xFF) * (1.0f / 255.0f);
+}
+
+// Exported (retail export 315); identical code folding puts it on the shared
+// "return this" body at 0x0047A6A9.
+RGBColor::RGBColor()
+{
 }
 
 bool operator==(const RGBColor &left, const RGBColor &right)

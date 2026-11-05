@@ -29,4 +29,6 @@ class's own unit to emit a named copy. A hand-added emit anchor is a counted hat
 definition (or an ICF row with `fold-proof=`) belongs. Confirm against the next real link: the
 six FXParticleSystem names should drop out, and the four left need class-side providers.
 
+Progress 2026-11-05: `??0RGBColor@@QAE@XZ` is defined in WWMath/color.cpp (opt-in `RGBCOLOR_VIEW_DEFAULT_CTOR`, ICF row at 0x0047A6A9); `??0IntRange`, `??0LineSegment2D` and `??1LineSegment2D` still wait on region.cpp.
+
 Census confirmation: not claimed.

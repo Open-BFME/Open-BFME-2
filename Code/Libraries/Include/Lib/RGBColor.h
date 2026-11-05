@@ -16,6 +16,12 @@ struct RGBColor {
     // to setFromInt. Select before the first include; other units keep aggregate construction.
     RGBColor(int color);
 #endif
+#ifdef RGBCOLOR_VIEW_DEFAULT_CTOR
+    // Exported empty default constructor (retail export 315), folded onto the shared
+    // "return this" body 0x0047A6A9; owner color.cpp. Select before the first include;
+    // other units keep aggregate construction.
+    RGBColor();
+#endif
 };
 
 #endif // CANONICAL_RGBCOLOR_H
