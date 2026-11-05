@@ -2,7 +2,7 @@
 Status: Cleared at the provider, pending real-link confirmation. Updated: 2026-11-05; inspected revision: `418876d965`.
 Evidence / affected units: twelve real-link blocker sources reference `?getID@Drawable@@QBE?AW4DrawableID@@XZ`; the pin maps to the matched opaque getter at `0x0055A88B`, but no object defines that spelling.
 Completed: AnimationSoundClientBehavior.cpp and eight more consumer units call the existing matched getter; the new batch preserves 304/304 matched rows and all 1,938 external definitions.
-Remaining / next check: all twelve consumers now call the matched getter; confirm they disappear from the next real-link missing-name errors.
+Remaining / next check: all twelve consumers now call the matched getter, and provider repair `85b46a09f3` defines Drawable::getID; GameClient.cpp passes bytes and its current link preview. Confirm all affected consumers disappear from the next authorized real-link missing-name errors; [GameClient verification](../../reverse/attempt_support/gameclient-drawable-id-provider-20261105-codex2.md).
 Clearance: pending real-link verification; the new eight-unit preview remains LINKS for the same 30,284 bytes and previously accepted the pin.
 Census confirmation: not claimed.
 [Repair evidence](../../reverse/attempt_support/animation-sound-drawable-id-link-20261105-codex.md).
