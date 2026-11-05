@@ -712,12 +712,13 @@ public:
 	NetCommandRef(NetCommandMsg *msg);
 	~NetCommandRef();
 	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
-	__declspec(dllimport) __forceinline UnsignedByte getRelay() const { return m_relay; }
-	NetCommandMsg *m_msg;
-	NetCommandRef *m_next;
-	NetCommandRef *m_prev;
-	UnsignedByte m_relay;
-	UnsignedInt m_timeLastSent;
+	__declspec(dllimport) __forceinline unsigned char getRelay() const { return m_relay; }
+	NetCommandMsg *m_msg; // +0x00
+	NetCommandRef *m_next; // +0x04
+	NetCommandRef *m_prev; // +0x08
+	unsigned char m_relay; // +0x0C
+	char m_pad0D[0x3];
+	unsigned int m_timeLastSent; // +0x10
 };
 extern void j_00046e89(void);
 extern void j_00004935(void);
