@@ -53,15 +53,29 @@ class AptExternHandler;
 
 class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);private:void *start,*end,*limit;};
 
-class ColorRefBase {public:virtual ~ColorRefBase();private:int refs;};
+// The primary base (retail table 0x00CF1630, whose deleting destructor is
+// 0x00740E85): its constructor keeps -1 at +4; its inline destructor's own
+// vptr store is dead and only the grandparent table 0x00C3962C remains.
+struct EmitVtableTag;
+extern "C" const void *const __identifier("??_7Rva0045EF90Base@@6B@")[];
+class Rva0074104CBase {
+public:
+ // LINK: the implicit default ctor's COMDAT loses to the first-in-order copy; the vtable
+ // emitter ctor below calls a TU-unique no-init ctor instead.
+ struct BfmeNoInitB19 {};
+ Rva0074104CBase(BfmeNoInitB19) {}
+ Rva0074104CBase() : unknown04(-1) {}
+ virtual __forceinline ~Rva0074104CBase() {*(const void**)this=__identifier("??_7Rva0045EF90Base@@6B@");}
+private: unsigned int unknown04;
+};
 
 #include "../../../../../GameEngine/Include/GameClient/Rva005248D0.h"
 
-class W3DAptComponentColorPicker:public ColorRefBase,public Rva005248D0 {
-public:virtual ~W3DAptComponentColorPicker();virtual void Init(const AsciiString&,const char*);virtual void Render(int,int,int,int);void ExternFunc(int,char*,bool);
+class W3DAptComponentColorPicker:public Rva0074104CBase,public Rva005248D0 {
+public:W3DAptComponentColorPicker();W3DAptComponentColorPicker(EmitVtableTag*);virtual ~W3DAptComponentColorPicker();virtual void Init(const AsciiString&,const char*);virtual void Render(int,int,int,int);void ExternFunc(int,char*,bool);
  // Rva005248D0's +0x10 holder (Rva005241B0) is the extern-handler adder Init registers through.
  AptExternHandlerAdder *externHandlers(){return reinterpret_cast<AptExternHandlerAdder*>(static_cast<Rva005241B0*>(this));}
-private:const Image*image;AsciiString owner;float scaleWidth,scaleHeight;unsigned color;bool sample,seek;char p76[2];int cursorX,cursorY;
+private:const Image*image;AsciiString owner;ColorFloatPoint scaleSize;unsigned color;bool sample,seek;char p76[2];int cursorX,cursorY;
 };
 
 class Display;
@@ -170,8 +184,8 @@ void W3DAptComponentColorPicker::Init(const AsciiString&name,const char*params) 
 void W3DAptComponentColorPicker::ExternFunc(int slot,char*value,bool write) {
  switch(slot){
  case 0:
-  if(write){float x=0,y=0;sscanf(value,"%f %f",&x,&y);const ColorFloatPoint*factor=reinterpret_cast<const ColorFloatPoint*>(Rva000A8F58Get());scaleWidth=x*factor->x;scaleHeight=y*factor->y;sample=true;}
-  else {float x=scaleWidth,y=scaleHeight;const ColorFloatPoint*factor=reinterpret_cast<const ColorFloatPoint*>(Rva000A8F5EGet());_snprintf(value,255,"%f %f",x*factor->x,y*factor->y);}
+  if(write){float x=0,y=0;sscanf(value,"%f %f",&x,&y);const ColorFloatPoint*factor=reinterpret_cast<const ColorFloatPoint*>(Rva000A8F58Get());scaleSize.x=x*factor->x;scaleSize.y=y*factor->y;sample=true;}
+  else {float x=scaleSize.x,y=scaleSize.y;const ColorFloatPoint*factor=reinterpret_cast<const ColorFloatPoint*>(Rva000A8F5EGet());_snprintf(value,255,"%f %f",x*factor->x,y*factor->y);}
   break;
  case 1:
   if(write){sscanf(value,"%u",&color);seek=true;}else _snprintf(value,255,"%u",color);
@@ -203,7 +217,7 @@ void W3DAptComponentColorPicker::Render(int x,int y,int width,int height) {
   format=desc.Format;
   }
   if(format!=21)return;
-  float rw=scaleWidth,rh=scaleHeight;
+  float rw=scaleSize.x,rh=scaleSize.y;
   float sx=width?((float)cursorX/(float)width)*rw:0.0f;
   float sy=height?((float)cursorY/(float)height)*rh:0.0f;
   const Region2D *uv=image->getUV();
