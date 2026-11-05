@@ -1,0 +1,3 @@
+### LINK-523: expansion-base private views and vtable composition
+Status: Open. Updated: 2026-11-05; inspected revision: `112a456a2c`.
+The constructor and method views are reconciled, and the destructor provider now declares the existing `findBestTarget` virtual slot; all 24 rows remain exact and the combined three-unit preview links. The merge guard still sees the old outside vtable in its census index; next refresh the local index and retry the approved TU merge. [Evidence and scope](../../reverse/attempt_support/expansion-base-consolidation-20261105/README.md). Census confirmation: awaiting; no runtime claim.

@@ -160,6 +160,7 @@ struct Rva005CB22A
 {
 	Rva005CB22A(void *held);
 	virtual ~Rva005CB22A();
+	void *m_held;
 };
 
 struct AITargetHeuristicExpansionBase : Rva005CB22A
@@ -171,7 +172,6 @@ struct AITargetHeuristicExpansionBase : Rva005CB22A
 	// WorldBuilder AITargetHeuristicExpansionBase::wantsToExpand (WB VA
 	// 0x01503770, strings lead score 3; one argument, ret 4).
 	bool wantsToExpand(Player *player);	// 0x00573122
-	void *m_04;
 	unsigned int m_08;	// +0x08 frames since the gate last passed
 };
 

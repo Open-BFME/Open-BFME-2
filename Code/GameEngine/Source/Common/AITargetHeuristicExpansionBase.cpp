@@ -7,6 +7,9 @@
 // Rva005CB23CDerived.cpp stores vtable 0x0086E0B8.
 // Evidence: push esi push 3 mov esi,ecx call ??0Rva005CB22A@@QAE@PAX@Z,
 // and [esi+8],0 mov [esi] vtable mov eax esi.
+class AITarget;
+class Player;
+
 struct Rva005CB22A
 {
 	Rva005CB22A(void *held);
@@ -17,8 +20,10 @@ struct AITargetHeuristicExpansionBase : Rva005CB22A
 {
 	AITargetHeuristicExpansionBase();
 	virtual ~AITargetHeuristicExpansionBase();
-	int m_field08;
+	virtual void findBestTarget(AITarget *choice, Player *player, int unused);
+	bool wantsToExpand(Player *player);
+	unsigned int m_08;
 };
-AITargetHeuristicExpansionBase::AITargetHeuristicExpansionBase() : Rva005CB22A((void *)3), m_field08(0)
+AITargetHeuristicExpansionBase::AITargetHeuristicExpansionBase() : Rva005CB22A((void *)3), m_08(0)
 {
 }

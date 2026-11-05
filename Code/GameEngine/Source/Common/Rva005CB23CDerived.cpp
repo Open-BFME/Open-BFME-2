@@ -45,10 +45,14 @@ Rva00572ED8::~Rva00572ED8()
 {
 }
 
+class AITarget;
+class Player;
+
 struct AITargetHeuristicExpansionBase : public Rva005CB23C
 {
 public:
 	virtual ~AITargetHeuristicExpansionBase();
+	virtual void findBestTarget(AITarget *choice, Player *player, int unused);
 };
 
 AITargetHeuristicExpansionBase::~AITargetHeuristicExpansionBase()
