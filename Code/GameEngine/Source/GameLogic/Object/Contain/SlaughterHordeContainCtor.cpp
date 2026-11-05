@@ -5,7 +5,7 @@
 // intermediate base (0x47A040, thing plus data): forwards both args to the
 // base, clears the int at +0x9E4, re-stores the primary vtable slot and eight
 // secondary slots at +0x0C/+0x10/+0x20/+0x24/+0x28/+0x2C/+0x30/+0x34
-// (address-of TU-local dummies, DIR32-masked), then clears the int at
+// (the class's own tables, by their retail store immediates), then clears the int at
 // +0x9E8. The and-first/and-last pair uses the AudioLoop two-barrier shape.
 // The rowed pool key at 0x4803B6 and ModuleData factory 0x24C071 prove the
 // class; the rowed instance factory 0x24C036 (news 0x9EC) is the sole raw
@@ -17,15 +17,15 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
-static int s_secondary24;
-static int s_secondary28;
-static int s_secondary2C;
-static int s_secondary30;
-static int s_secondary34;
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB0@@@")[];  // vftable 0x00C48AA0
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB1@@@")[];  // vftable 0x00C43528
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB2@@@")[];  // vftable 0x00C48A90
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB3@@@")[];  // vftable 0x00C48918
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB4@@@")[];  // vftable 0x00C46064
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB5@@@")[];  // vftable 0x00C48910
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB6@@@")[];  // vftable 0x00C463D8
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB7@@@")[];  // vftable 0x00C488E0
+extern "C" const void *const __identifier("??_7SlaughterHordeContain@@6BB8@@@")[];  // vftable 0x00C48B28
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -66,15 +66,15 @@ SlaughterHordeContain::SlaughterHordeContain(Thing *thing, const ModuleData *mod
 {
 	m_9E4 = 0;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
-	m_p24 = &s_secondary24;
-	m_p28 = &s_secondary28;
-	m_p2C = &s_secondary2C;
-	m_p30 = &s_secondary30;
-	m_p34 = &s_secondary34;
+	m_vtable = __identifier("??_7SlaughterHordeContain@@6BB0@@@");
+	m_p0C = __identifier("??_7SlaughterHordeContain@@6BB1@@@");
+	m_p10 = __identifier("??_7SlaughterHordeContain@@6BB2@@@");
+	m_p20 = __identifier("??_7SlaughterHordeContain@@6BB3@@@");
+	m_p24 = __identifier("??_7SlaughterHordeContain@@6BB4@@@");
+	m_p28 = __identifier("??_7SlaughterHordeContain@@6BB5@@@");
+	m_p2C = __identifier("??_7SlaughterHordeContain@@6BB6@@@");
+	m_p30 = __identifier("??_7SlaughterHordeContain@@6BB7@@@");
+	m_p34 = __identifier("??_7SlaughterHordeContain@@6BB8@@@");
 	_ReadWriteBarrier();
 	m_9E8 = 0;
 }

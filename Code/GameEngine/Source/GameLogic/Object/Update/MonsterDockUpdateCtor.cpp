@@ -4,7 +4,7 @@
 // MonsterDockUpdate behavior ctor over the rowed DockUpdate base (0x58A290,
 // thing plus data): zeroes +0x8C, re-stores the primary vtable slot and the
 // +0x0C/+0x10/+0x20 secondary slots, then sets the bytes at +0x88/+0x89 to
-// 1/0 (address-of TU-local dummies, DIR32-masked). The rowed name getter at
+// 1/0 (the class's own tables, by their retail store immediates). The rowed name getter at
 // 0x4A1414 proves the class; the rowed instance factory 0x24EAF1 is the sole
 // raw caller. Row supersedes the ctor pin.
 
@@ -14,10 +14,10 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_Root@@@")[];  // vftable 0x00C51D74
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_M1@@@")[];  // vftable 0x00C51B20
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_B2@@@")[];  // vftable 0x00C51D68
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_E1@@@")[];  // vftable 0x00C51D18
 
 // Rowed DockUpdate base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -52,10 +52,10 @@ MonsterDockUpdate::MonsterDockUpdate(Thing *thing, const ModuleData *moduleData)
 {
 	m_8C = 0;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
+	m_vtable = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_Root@@@");
+	m_p0C = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_M1@@@");
+	m_p10 = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_B2@@@");
+	m_p20 = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_E1@@@");
 	m_88 = 1;
 	m_89 = 0;
 }

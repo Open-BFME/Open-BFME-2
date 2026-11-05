@@ -358,8 +358,8 @@ public:
 // ??0DeployStyleAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0048E983 (112 bytes). Behavior ctor over the pinned opaque AI-update
 // base (0x26E9BD, thing plus data): installs the five behavior vtable slots
-// (+0x00/+0x0C/+0x10/+0x20/+0x24 via explicit stores of TU-local dummy
-// statics, DIR32-masked) over a 0x3E4 member (ctor 0x26AFDA, size 0xC4
+// (+0x00/+0x0C/+0x10/+0x20/+0x24 via explicit stores of the class's own
+// tables, defined by DeployStyleAIUpdateDtor.cpp) over a 0x3E4 member (ctor 0x26AFDA, size 0xC4
 // ending at 0x4A8) plus zeros at +0x4A8..0x4B8 in retail order
 // (0x4B4 before 0x4B0), then runs the pinned class helper (0x48E65B).
 // novtable keeps this partial view from emitting synthetic vtables or stores;
@@ -370,15 +370,15 @@ class Thing;
 
 class ModuleData;
 
-static int s_vtable;
+extern "C" const void *const __identifier("??_7DeployStyleAIUpdate@@6BDBaseRoot@@@")[];  // vftable 0x00C4CA00
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7DeployStyleAIUpdate@@6BDBaseM1@@@")[];  // vftable 0x00BFA3C0
 
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7DeployStyleAIUpdate@@6BDBaseB2@@@")[];  // vftable 0x00C4C9F4
 
-static int s_secondary20;
+extern "C" const void *const __identifier("??_7DeployStyleAIUpdate@@6BDBaseM3@@@")[];  // vftable 0x00C4C9F0
 
-static int s_secondary24;
+extern "C" const void *const __identifier("??_7DeployStyleAIUpdate@@6BDBaseM4@@@")[];  // vftable 0x00C52F88
 
 class __declspec(novtable) AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
 {
@@ -588,11 +588,11 @@ bool Rva0048E643::rva0048E643()
 DeployStyleAIUpdate::DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleData)
 	: AIUpdateInterface(thing, moduleData)
 {
-	*reinterpret_cast<const void **>(this) = &s_vtable;
-	reinterpret_cast<const void **>(this)[3] = &s_secondary0C;
-	reinterpret_cast<const void **>(this)[4] = &s_secondary10;
-	reinterpret_cast<const void **>(this)[8] = &s_secondary20;
-	reinterpret_cast<const void **>(this)[9] = &s_secondary24;
+	*reinterpret_cast<const void **>(this) = __identifier("??_7DeployStyleAIUpdate@@6BDBaseRoot@@@");
+	reinterpret_cast<const void **>(this)[3] = __identifier("??_7DeployStyleAIUpdate@@6BDBaseM1@@@");
+	reinterpret_cast<const void **>(this)[4] = __identifier("??_7DeployStyleAIUpdate@@6BDBaseB2@@@");
+	reinterpret_cast<const void **>(this)[8] = __identifier("??_7DeployStyleAIUpdate@@6BDBaseM3@@@");
+	reinterpret_cast<const void **>(this)[9] = __identifier("??_7DeployStyleAIUpdate@@6BDBaseM4@@@");
 	m_member3E4.initMember();
 	int zero = 0;
 	m_flag4A8 = false;
