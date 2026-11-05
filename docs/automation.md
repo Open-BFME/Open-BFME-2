@@ -9,7 +9,7 @@ original game runs under automation.
 |---|---|---|---|
 | Retail byte verification | GitHub, `byte-verification.yml` | every push to `master` | pass or fail for the commit |
 | Verification alarm | GitHub, `verification-alarm.yml` | each verification finishing; hourly tick from srv1 | Discord: red, green again, red over 12 hours, stale results |
-| Real link | GitHub, `real-link.yml` | srv1, when the last run is 6 hours old | artifact `real-link-<sha>`; one Discord line; srv1 commits `reverse/exit_link_blockers.tsv` |
+| Real link | GitHub, `real-link.yml` | srv1, when the last run is 1 hour old (6 once the game boots) | artifact `real-link-<sha>`; one Discord line; srv1 commits `reverse/exit_link_blockers.tsv` |
 | Link census | srv1, `bfme2-runner.timer` | when the last row is 110 minutes old | `reverse/link_census_history.csv`, `reverse/link_status.csv` |
 | Link census | `wings02`, `link-census.yml` (levy) | systemd on that machine; the workflow only reports health | failing at "preparation failed" since 2026-10-29 |
 | Nightly measurement | GitHub, `nightly-measure.yml` | skipped until `NIGHTLY_ENABLED` is set | image ownership receipts |

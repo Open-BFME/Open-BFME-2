@@ -627,7 +627,9 @@ AGENTS.md ("Work loop") gives the order; this is how the picker applies it.
 
 ### The default pick
 
-`python3 tools/next_work.py --claim` tries gate debt first, then the link, stub
+`python3 tools/next_work.py --claim` tries gate debt first, then the real link's
+blockers in their list's order (only while any remain, dropping a unit that changed
+since that link and that `link_check` proves links now), then the link, stub
 closure, header, TU-approval, TU-evidence, consolidation, data, code-identity,
 Microsoft-header, DirectX and STLport 4.6 queues in an order drawn by weight (link
 26, stubs 12, header 15, tu-approval 4, tu-evidence 3, consolidate 20, data 8,

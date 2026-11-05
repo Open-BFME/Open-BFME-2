@@ -40,6 +40,7 @@ def test_every_structural_tier_is_a_default_tier_with_a_share():
 def test_first_draw_shares_follow_the_weights(monkeypatch):
     monkeypatch.delenv("BFME_TIER_WEIGHTS", raising=False)
     monkeypatch.setenv("BFME_TIER_TUNING", "off")          # the priors; tools/tests/test_tier_tuning.py tunes
+    monkeypatch.setattr(rq, "exit_link_items", lambda: ([], None))
     rng = random.Random(20261025)
     firsts = collections.Counter()
     draws = 20000
@@ -51,7 +52,21 @@ def test_first_draw_shares_follow_the_weights(monkeypatch):
         assert abs(firsts[name] / draws - weight / 100) < 0.015, (name, firsts[name])
 
 
+def test_real_link_blockers_come_before_the_draw(monkeypatch):
+    monkeypatch.setenv("BFME_TIER_TUNING", "off")
+    monkeypatch.setattr(rq, "exit_link_items", lambda: ([{"source": "Code/A.cpp"}], "note"))
+    for seed in range(50):
+        order = next_work.debt_order(random.Random(seed))
+        assert order[:2] == ["repair", "link"] and sorted(order) == sorted(next_work.DEBT_TIERS)
+
+
+def test_real_link_blockers_are_served_in_list_order():
+    first, second = (dict(item("link", name), check="exit-link") for name in ("First", "Second"))
+    assert all(next_work.weighted_choice([first, second]) is first for _ in range(50))
+
+
 def test_the_environment_overrides_any_subset(monkeypatch):
+    monkeypatch.setattr(rq, "exit_link_items", lambda: ([], None))
     monkeypatch.setenv("BFME_TIER_WEIGHTS", "consolidate=7,tu-approval=0,bogus=9,link=x")
     weights = next_work.tier_weights()
     assert weights["consolidate"] == 7 and weights["tu-approval"] == 0 and "bogus" not in weights

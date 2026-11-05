@@ -1028,7 +1028,17 @@ def exit_link_items(path=None):
         lines = handle.read().splitlines()
     measured = lines[0].lstrip("# ") if lines and lines[0].startswith("#") else "a real link"
     items, rowless = [], []
+    sha = re.match(r"real link at ([0-9a-f]{40})", measured)
+    changed = (changed_since(sha.group(1)) if sha else None) or set()
+    sources = [row["source"] for row in csv.DictReader((line for line in lines if not line.startswith("#")),
+                                                       delimiter="\t")]
+    moved = [source for source in sources if source in changed and source in rows_of]
+    census = stored_census() if moved else None
+    verdicts = link_predictions(moved, census["commit"] if census else None) if moved else {}
+    fixed = [source for source in moved if verdicts.get(source, (None,))[0] is True]
     for row in csv.DictReader((line for line in lines if not line.startswith("#")), delimiter="\t"):
+        if row["source"] in fixed:      # changed since the link, and link_check proves it links now
+            continue
         owned = sorted(rows_of.get(row["source"], ()), key=lambda r: r[0])
         if not owned:
             rowless.append(row["source"])
@@ -1047,6 +1057,8 @@ def exit_link_items(path=None):
     note = f"{len(items)} unit(s) blocking the {measured}"
     if rowless:
         note += f"; {len(rowless)} with no matched row, not served: " + ", ".join(rowless[:3])
+    if fixed:
+        note += f"; {len(fixed)} changed since and proven to link, not served: " + ", ".join(fixed[:3])
     return items, note
 
 

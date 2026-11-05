@@ -1189,7 +1189,8 @@ def weighted_choice(candidates):
     """Draw one candidate with probability proportional to candidate_weight.
 
     Still random, so concurrent contributors still rarely collide — collision
-    avoidance never required a flat distribution.
+    avoidance never required a flat distribution. The real link's blockers are the
+    exception: they are served in their list's order, most missing names first.
 
     Candidates carrying a deferral (an earlier agent hit a codegen wall and
     reverted) are drawn from only when nothing untried is left, rather than
@@ -1213,6 +1214,8 @@ def weighted_choice(candidates):
     clear = [c for c in candidates if not unreproducible(c)]
     if clear:
         candidates = clear
+    if candidates[0].get("check") == "exit-link":
+        return candidates[0]
     weights = [candidate_weight(c) for c in candidates]
     cutoff = secrets.randbelow(sum(weights))
     for candidate, weight in zip(candidates, weights):
@@ -1686,15 +1689,20 @@ def print_weights(args, busy):
 
 
 def debt_order(rng=None):
-    """The queues in the order this pick tries them: repair, then every other queue of
-    DEBT_TIERS (link, data, header, identity and the structural tiers) drawn without
-    replacement by tier_weights() (a queue at weight 0 is still tried, last). Every
-    queue after the first is a fallthrough: taken when the ones before it are empty or
-    every item in them is claimed."""
+    """The queues in the order this pick tries them: repair; link next while the real link
+    names blockers (link_items then serves only those), since they stop the game building;
+    then every other queue of DEBT_TIERS (link, data, header, identity and the structural
+    tiers) drawn without replacement by tier_weights() (a queue at weight 0 is still tried,
+    last). Every queue after the first is a fallthrough: taken when the ones before it are
+    empty or every item in them is claimed."""
     rng = rng or random.SystemRandom()
     weights = tier_weights()
     left = [name for name in DEBT_TIERS[1:] if weights.get(name, 0) > 0]
     order = ["repair"]
+    import repair_queue as queues
+    if queues.exit_link_items()[0]:
+        order.append("link")
+        left = [name for name in left if name != "link"]
     while left:
         total = sum(weights[name] for name in left)
         cut = rng.uniform(0, total)

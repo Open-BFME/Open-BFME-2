@@ -3011,6 +3011,26 @@ def test_exit_link_items_serve_real_link_blockers_and_name_the_rowless(tmp_path,
     assert "real link at abc123" in note and "Code/Gone.cpp" in note
 
 
+def test_exit_link_items_drop_only_a_changed_source_proven_to_link(tmp_path, monkeypatch):
+    import repair_queue as rq
+    sha = "a" * 40
+    path = tmp_path / "blockers.tsv"
+    path.write_text(f"# real link at {sha}: tools/exit_link.py --blockers\n"
+                    "source\tmissing\tsample\n"
+                    "Code/Fixed.cpp\t1\t?a@@YAXXZ\nCode/Open.cpp\t1\t?b@@YAXXZ\nCode/Same.cpp\t1\t?c@@YAXXZ\n",
+                    encoding="utf-8")
+    row = (0x1000, "name", 16)
+    monkeypatch.setattr(rq, "rows_by_source",
+                        lambda: {"Code/Fixed.cpp": [row], "Code/Open.cpp": [row], "Code/Same.cpp": [row]})
+    monkeypatch.setattr(rq, "changed_since", lambda commit: {"Code/Fixed.cpp", "Code/Open.cpp"} if commit == sha else None)
+    monkeypatch.setattr(rq, "stored_census", lambda: {"commit": "b" * 40})
+    monkeypatch.setattr(rq, "link_predictions", lambda sources, commit: {
+        "Code/Fixed.cpp": (True, ""), "Code/Open.cpp": (None, "no verdict")})
+    items, note = rq.exit_link_items(path)
+    assert [item["source"] for item in items] == ["Code/Open.cpp", "Code/Same.cpp"]
+    assert "proven to link" in note and "Code/Fixed.cpp" in note
+
+
 def test_exit_link_items_absent_file_is_no_queue(tmp_path):
     rq, _, _ = load(tmp_path, "bfme2", LEDGER)
     assert rq.exit_link_items(tmp_path / "absent.tsv") == ([], None)

@@ -273,7 +273,8 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
    ledger errors first. If the pull touched your own area, `./build.sh` the
    affected sources and repair regressions.
 1. `python3 tools/next_work.py --claim` serves, in order: regressions and gate
-   debt (`python3 tools/repair_queue.py repair`), then link, stub-closure, header,
+   debt (`python3 tools/repair_queue.py repair`), then the real link's blockers,
+   then link, stub-closure, header,
    TU-approval, consolidation, data, code-identity, ms-headers, dx and stlport
    (STLport 4.6 file moves) queues by weight (`docs/matching.md`, "The default pick"). Check any new-match candidate against current
    covered ranges, generated/alias owners, input freshness and history. Restore
