@@ -98,3 +98,28 @@ path. Together with the three client adoptions, ten header-queue rows retire:
 `tools/check_csv.py` and `git diff --check` pass. No source-path consumer
 audit is needed: no source was moved or removed. The obstacle remains open
 for the 15 restored trials listed above.
+
+## Shadow identity follow-up from the commit hook
+
+The normal pre-commit hook passed, including all 92 edited function/EH rows,
+all five parent EH graphs EXACT, data and literal checks, and the ten debt
+retirements. Its shadow identity check reported two bindings outside its
+register in PickAndPlayUnitVoiceResponse.cpp:
+
+| Funclet | Source callee | Retail call target |
+| --- | --- | --- |
+| uw_007913f8 (0x007913F8, 11 bytes) | ??1Rva004DA149Tree@@QAE@XZ | 0x004DA2EA |
+| uw_00791416 (0x00791416, 11 bytes) | ??1Rva004D9A62@@QAE@XZ | 0x004D9F75 |
+
+Read-only retail inspection (`build.exe_image`/`read_pe_bytes`, no compile)
+confirms 0x004DA2EA is `e9 5a fe ff ff` (JMP 0x004DA149) and 0x004D9F75
+is `e9 66 fb ff ff` (JMP 0x004D9AE0). The ledger owns the destructor bodies
+at those latter addresses, while the former addresses are distinct five-byte
+forwarders. The source destructor declarations and local object types are
+unchanged by this header adoption. This does not establish a newly introduced
+regression or certify either entry-point identity.
+
+Next: reconcile these two source call identities with their retail forwarder
+owners, preserving the parent EH graphs, funclet bytes and link consumers.
+Do not hand-add pins or aliases, and do not reseed the identity baseline to
+silence the report. No code-identity debt retirement is claimed by this pass.
