@@ -6,8 +6,9 @@
 // m_flag_49 at +0x49) when m_flag_4A is set, then clears m_flag_4A.
 // Layout matches W3DVideoBufferCtorBfme.cpp: VideoBuffer prefix through +0x28,
 // one 0x14-byte state at +0x2C, pointers at +0x40/+0x44, flags at +0x48..+0x4A.
-// Retail 0x72760 takes 3 args (ret 0xC) and returns bool; it is declared here as
-// Rva00072760 to reproduce the offset-8 virtual call. No donor covers slot 12.
+// Retail 0x72760 takes 3 args (ret 0xC) and returns bool. The declarations
+// follow the native table order used by W3DVideoBufferCtorBfme.cpp: slot 0
+// precedes the destructor, allocate is slot 2, and this body is slot 12.
 
 class TextureClass;
 
@@ -36,12 +37,9 @@ class VideoBuffer
 {
 public:
     VideoBuffer(int format);
-    virtual ~VideoBuffer();
-    virtual bool allocate(unsigned int width, unsigned int height);
-    virtual bool Rva00072760(unsigned int a, unsigned int b, bool c);
-    virtual void *lock();
-    virtual void unlock();
-    virtual bool valid();
+    virtual void slot0() = 0;
+    // Nothing to tear down in this view: retail's constructor has no unwind state for this base.
+    virtual ~VideoBuffer() {}
 
 protected:
     unsigned int m_x_pos;
@@ -60,8 +58,20 @@ class W3DVideoBuffer : public VideoBuffer
 {
 public:
     W3DVideoBuffer(int format);
+    virtual void slot0();
     virtual ~W3DVideoBuffer();
+    virtual bool allocate(unsigned int width, unsigned int height, bool flag);
+    virtual void slot3();
+    virtual void slot4();
+    virtual void Rva000723FB();
+    virtual bool slot6();
+    virtual int slot7();
+    virtual bool slot8();
+    virtual int *slot9();
+    virtual int *slot10();
+    virtual void Rva00072472();
     virtual void Rva00072480();
+    void rva00072583();
 
 private:
     Rva00739C70State m_states[1];
@@ -75,7 +85,7 @@ private:
 void W3DVideoBuffer::Rva00072480()
 {
     if (m_flag_4a) {
-        Rva00072760(m_width, m_height, m_flag_49);
+        allocate(m_width, m_height, m_flag_49);
         m_flag_4a = false;
     }
 }

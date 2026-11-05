@@ -14,3 +14,5 @@ Further native identity planning,20261104-1514: both existing base/derived
 fold paths have explicit prerequisites, not uncovered bodies. The base lacks
 an own installer row; the derived provider contains two target-class views.
 No source is edited or alias added. [Handoff](../../reverse/attempt_support/video-owner-fold-prerequisites-20261104-1514.md).
+
+Next step (2026-11-05, inspected `6d190544dd`): reallocation's VideoBuffer slot conflict is reconciled (32/32 bytes exact; preview LINKS); Allocate's flattened view, lifetime providers and carried compiler flags still block the merge (0/10 accepted). [Verification](../../reverse/attempt_support/video-reallocation-native-slots-20261105.md).
