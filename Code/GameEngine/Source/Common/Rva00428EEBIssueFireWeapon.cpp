@@ -115,20 +115,8 @@ public:
 // Target override receiver and SpecialPowerTemplate ID at +0x14, as read
 // by 0x0042994D after the existing const final-override provider.
 #include "../../Include/Common/Overridable.h"
-class SpecialPowerTemplate : public Overridable { public: char pad[4]; int id; };
-class CommandButton
-{
-public:
-	char m_pad00[0x14];
-    int command;
-    char pad18[4];
-	unsigned int m_options;
-    char pad20[0x24];
-    const SpecialPowerTemplate* special;
-    char pad48[0x140];
-    AsciiString *start,*finish,*end;
-	bool isValidObjectTarget(const Drawable *source, const Drawable *target) const;
-};
+#include "../../Include/Common/SpecialPower.h"
+#include "../../Include/GameClient/CommandButton.h"
 
 class PickAndPlayInfo
 {
@@ -395,7 +383,7 @@ extern ControlBar* TheControlBar;
 // ZH location-angle argument or shortcut-selection tail.
 int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int commandType,Drawable* target,const Coord3D* pos,Object* ignoreSelObj) {
  int msgType=0;
- if(!command||!command->special)return msgType;
+ if(!command||!command->m_specialPower)return msgType;
  Drawable* sourceDraw=ignoreSelObj?ignoreSelObj->getDrawable():TheInGameUI->slot75();
  ObjectID specificSource=ignoreSelObj?ignoreSelObj->m_id:OBJECTID_NONE;
  if((command->m_options&7)&&target) {
@@ -403,7 +391,7 @@ int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int
   msgType=0x412;
   if(commandType==0) {
    GameMessage* msg=TheMessageStream->createMessage(msgType);
-   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->special->friend_getFinalOverride())->id);
+   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->m_specialPower->friend_getFinalOverride())->m_id);
    msg->appendObjectIDArgument(target->m_object->m_id);
    msg->appendIntegerArgument(command->m_options);
    msg->appendObjectIDArgument(specificSource);
@@ -413,7 +401,7 @@ int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int
    TheAudio->addAudioEvent(&ev);
    PickAndPlayInfo info;
    info.m_04=target;
-   info.m_10=(int)command->special;
+   info.m_10=(int)command->m_specialPower;
    info.m_14=*pos;
    pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
   }
@@ -421,18 +409,18 @@ int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int
   msgType=0x411;
   if(commandType==0) {
    GameMessage* msg=TheMessageStream->createMessage(msgType);
-   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->special->friend_getFinalOverride())->id);
+   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->m_specialPower->friend_getFinalOverride())->m_id);
    msg->appendLocationArgument(*pos);
    ObjectID targetID=(target&&target->m_object)?target->m_object->m_id:OBJECTID_NONE;
    msg->appendObjectIDArgument(targetID);
    msg->appendIntegerArgument(command->m_options);
    msg->appendObjectIDArgument(specificSource);
-   if(command->start!=command->finish) {
-    for(unsigned int i=0;i<(unsigned int)(command->finish-command->start);++i) {
-     const CommandButton* cb=TheControlBar->findCommandButton(command->start[i]);
-     if(cb&&cb->command==0x18&&cb->special) {
+   if(command->m_commandTriggerBegin!=command->m_commandTriggerEnd) {
+    for(unsigned int i=0;i<(unsigned int)(command->m_commandTriggerEnd-command->m_commandTriggerBegin);++i) {
+     const CommandButton* cb=TheControlBar->findCommandButton(command->m_commandTriggerBegin[i]);
+     if(cb&&cb->m_command==0x18&&cb->m_specialPower) {
       msg=TheMessageStream->createMessage(msgType);
-      msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(cb->special->friend_getFinalOverride())->id);
+      msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(cb->m_specialPower->friend_getFinalOverride())->m_id);
       msg->appendLocationArgument(*pos);
       msg->appendObjectIDArgument(targetID);
       msg->appendIntegerArgument(cb->m_options);
@@ -442,7 +430,7 @@ int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int
    }
    PickAndPlayInfo info;
    info.m_04=target;
-   info.m_10=(int)command->special;
+   info.m_10=(int)command->m_specialPower;
    info.m_14=*pos;
    pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
   }
@@ -450,13 +438,13 @@ int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int
   msgType=0x410;
   if(commandType==0) {
    GameMessage* msg=TheMessageStream->createMessage(msgType);
-   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->special->friend_getFinalOverride())->id);
+   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->m_specialPower->friend_getFinalOverride())->m_id);
    msg->appendIntegerArgument(command->m_options);
    msg->appendObjectIDArgument(specificSource);
    msg->appendObjectIDArgument(OBJECTID_NONE);
    PickAndPlayInfo info;
    info.m_04=target;
-   info.m_10=(int)command->special;
+   info.m_10=(int)command->m_specialPower;
    pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
   }
  }

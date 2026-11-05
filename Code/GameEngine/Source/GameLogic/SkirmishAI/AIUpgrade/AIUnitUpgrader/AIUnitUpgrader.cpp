@@ -37,9 +37,7 @@ extern GameLogic *TheGameLogic;
 
 class Player;
 
-class AsciiString;
-
-template<class C> class StringBase { public: void set(const StringBase &); void *data; };
+#include "ascii_string.h"
 
 class Object { public: const AsciiString *rva00290E67() const; int rva00294ADD(int); char pad[0x74]; unsigned int id; };
 
@@ -48,7 +46,7 @@ class Object { public: const AsciiString *rva00290E67() const; int rva00294ADD(i
 // object, carried in that row's unsigned parameter.
 class UpgradeTemplate { public: unsigned int calcCostToBuild(Player *,unsigned int) const; char pad[8]; StringBase<char> name; };
 
-class CommandButton { public: char pad[0x24]; UpgradeTemplate *upgrade; };
+#include "../../../../../Include/GameClient/CommandButton.h"
 
 class CommandSet { public: const CommandButton *getCommandButton(int) const; };
 
@@ -172,7 +170,7 @@ void AIUnitUpgrader::Register(Object *object, void *)
  for (int i=0;i<32;++i) {
    const CommandButton *command=commands->getCommandButton(i);
    if (!command) continue;
-   UpgradeTemplate *upgrade=command->upgrade;
+   const UpgradeTemplate *upgrade=command->getUpgradeTemplate();
    if (!upgrade) continue;
    Rva002A8AB1Record *ai=TheSkirmishAIManager->rva002A8AB1(owner);
    Rva005DAFD7 *record=new Rva005DAFD7;
