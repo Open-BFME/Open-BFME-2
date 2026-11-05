@@ -240,9 +240,6 @@ class Drawable { public:
  char unknown00[0xFC]; ObjectPositionView *parent; char unknown100[0x34A]; bool enabled;
 };
 
-// Existing rowed accessor at 0x0055A88B reads Drawable's ID at +0x100.
-// Use its compiled provider until the shared getter's identity is recovered.
-class Rva0055A88BDwordField { public: int get() const; };
 class Rva002B224BDwordField { public: int get() const; };
 // The matched +0x100 accessor owns RVA 0x0055A88B. Drawable::getID is
 // pinned there too, but no object defines that spelling for the real link.
