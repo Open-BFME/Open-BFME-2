@@ -41,6 +41,14 @@ drives it with the engine's own start-up switches, not clicks:
             named on the command line (retail 0x22D290). pass = skirmish mode,
             first frame >= the save's frame, then --min-frames more.
 
+--real-image EXE runs a linked image (exit.exe, exit.map and image_receipt.json
+together) instead of a boot_image overlay: tools/real_image.py checks it, and every
+harness address (RVA below) is placed through the map before launch, fail-closed: code
+by its functions.csv row's name and a byte comparison of the whole body (so a
+mid-function address is the row's place plus its offset), data by retail's own
+references inside such bodies. Anything unplaceable refuses the run (`image-refused`).
+A stray int3 (a stub) is a fault, and crashes are named as in boot_smoke.
+
 User data: the game keeps options, saves and replays under
 SHGetSpecialFolderPathW(CSIDL_APPDATA) + "My Battle for Middle-earth II Files"
 (one call site, retail 0x237C33). The appdata lie points that IAT slot at a
@@ -336,11 +344,12 @@ class Game:
     follows it, applies the lies at the WOW64 loader breakpoint and serves
     breakpoints (RVA -> handler(game, tid, ctx) returning True to keep it)."""
 
-    def __init__(self, game_dir, args, appdata, rva_map=None, focus_lie=True, version_lie=True):
+    def __init__(self, game_dir, args, appdata, rva_map=None, focus_lie=True, version_lie=True, int3_faults=False):
         self.game_dir, self.args, self.appdata = Path(game_dir), args, Path(appdata)
         self.rva_map = rva_map or (lambda r: r)
         boot_smoke.check_sandbox_appdata(self.appdata)
         self.want_focus, self.want_version = focus_lie, version_lie
+        self.int3_faults = int3_faults  # a real image: an int3 the harness did not plant (a stub) is a fault
         self.focus_va = None          # boot_smoke's focus lie (WM_ACTIVATEAPP arm), served by boot_smoke.focus_lie
         self.k = boot_smoke.k32()
         self.k.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
@@ -620,6 +629,17 @@ class Game:
                         va = self.stepping.pop(tid)
                         if va in self.bps:
                             self.write(va, b"\xCC", code=True)
+                    elif game and exc in INT3 and self.int3_faults and self.procs[pid][3]:
+                        status = DBG_NOT_HANDLED              # a stub (or filler) ran: the game's fault
+                        if first:
+                            res["first_chance"].append([hex(exc), hex(addr)])
+                            if "fault" not in res:
+                                res.update(fault=addr, fault_code=hex(exc), fault_where=self.where(addr),
+                                           fault_words=self.stack_words(tid))
+                        else:
+                            res.update(stopped="crash", code=hex(exc), address=res.get("fault", addr),
+                                       seconds=self.seconds())
+                            stop_after_continue = True
                     elif exc not in INT3:
                         status = DBG_NOT_HANDLED
                         if first and game:
@@ -627,8 +647,10 @@ class Game:
                                 res["first_chance"].append([hex(exc), hex(addr)])
                                 if exc == 0xC0000005 and "fault" not in res:
                                     res["fault"] = addr
+                                    res["fault_code"] = hex(exc)
                                     res["fault_where"] = self.where(addr)
                                     res["fault_stack"] = self.stack_frames(tid)
+                                    res["fault_words"] = self.stack_words(tid)
                         elif not first and game:
                             status = DBG_NOT_HANDLED
                             res.update(stopped="crash", code=hex(exc), address=res.get("fault", addr),
@@ -719,6 +741,15 @@ class Game:
             b, n = max(below)
             return f"{n}+{va - b:#x}"
         return hex(va)
+
+    def stack_words(self, tid, n=256):
+        """The dwords from tid's esp (return-address candidates, for a real image's map)."""
+        h, ctx = self._context(tid)
+        if ctx is None:
+            return []
+        self.k.CloseHandle(h)
+        stack = self.read(ctx.esp, 4 * n) or b""
+        return [struct.unpack_from("<I", stack, i)[0] for i in range(0, len(stack) - 3, 4)]
 
     def stack_frames(self, tid, n=24):
         """Return-address candidates in the image on tid's stack, as image RVAs."""
@@ -1031,7 +1062,27 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     running = other_games()
     if running:                     # a second instance never starts: say so instead of timing out
         raise SystemExit(f"game_smoke: another game.dat is running: {running}")
-    if a.retail:
+    a.ri = None
+    if a.real_image:
+        import real_image
+        try:
+            ri = real_image.load(a.real_image)
+            a.ri = ri
+            ok, rep = real_image.check(ri)
+            placed = map_addresses(ri.rva_map()) if ok else {}    # every harness address, before launching
+        except (real_image.RealImageError, SystemExit) as e:
+            ok, rep = False, {"refused": str(e)}
+        if not ok:
+            refuse_image(a, rep)
+        rep["folds"] = sorted(map(list, ri.folds))
+        a.real_report = rep
+        exe, rva_map = Path(a.real_image), ri.rva_map()
+        if a.rebase:
+            exe = real_image.rebased_copy(ri, a.rebase, OUT / "rebased.exe")
+            rep["rebased"] = {"base": hex(a.rebase), "sha256": real_image.sha256_file(exe)}
+        a.address_map = {n: [hex(ri.base + v), ours] for n, (v, ours) in placed.items()}
+        a.relayout = None
+    elif a.retail:
         exe, rva_map = boot_smoke.boot_image.build.EXE, None
     else:
         rep = json.loads((boot_smoke.OUT / f"{a.image}.json").read_text())
@@ -1050,7 +1101,9 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     # two runs of one image start the logic RNG identically (seen live: without
     # it two retail runs differ from the first CRC on).
     seed = f"-randomSeed {a.seed}" if a.seed is not None else ""
-    game = Game(gd, f"{a.args} {seed} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie)
+    game = Game(gd, f"{a.args} {seed} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie,
+                int3_faults=a.ri is not None)
+    a.started, a.t_start = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), time.time()
     for name, h in handlers:
         game.on(name, h)
     if a.coverage:
@@ -1066,6 +1119,15 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     out = {"args": game.args, "retail": a.retail, "wall_seconds": round(time.time() - t0, 1), "run": res}
     if not a.retail:
         out["addresses"], out["relayout"] = a.address_map, a.relayout
+    if a.ri is not None:
+        out["real_image"] = a.real_report
+        loaded = int(res["image_base"], 16) if res.get("image_base") else a.ri.base
+        if res.get("stopped") == "crash" or (res.get("stopped") == "exit" and res.get("fault") and res.get("exit_code")):
+            import real_image
+            out["crash"] = real_image.crash_fields(a.ri, res["address"] if res["stopped"] == "crash" else res["fault"],
+                                                   loaded, res.get("fault_words", []),
+                                                   res.get("code") or res.get("fault_code"))
+            res["crash_name"] = real_image.crash_name(out["crash"])
     if a.coverage:
         out["coverage"] = coverage_report(game.probe_units, game.covered)
     out["profile_guard"], out["profile_touched"] = profile_guard.check()
@@ -1083,11 +1145,30 @@ def crash_outcome(res):
         return "debugger-error"
     if res.get("stopped") == "profile-redirect-failed":
         return "profile-redirect-failed"
+    if res.get("crash_name"):
+        return f"crash-at-{res['crash_name']}"
     if res.get("stopped") == "crash":
         return f"crash-at-{res.get('address', 0):#x}"
     if res.get("stopped") == "exit":
         return f"exit-{res.get('exit_code', 0):#x}"
     return None
+
+
+MODES = {"skirmish": "skirmish", "record": "determinism", "determinism": "determinism", "reload": "reload",
+         "save": "reload", "load": "reload", "playback": "determinism"}
+
+
+def refuse_image(a, rep):
+    """A real image that may not run: build/game/<scenario>_real.json says why; exit 1."""
+    import real_image
+    out = {"image": "real", "outcome": "image-refused", "real_image": rep,
+           "receipt": real_image.receipt_fields("game_smoke", MODES.get(a.scenario, a.scenario), "image-refused",
+                                                real_image.summary(a.ri) if a.ri is not None else {}, None,
+                                                time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), 0)}
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / f"{a.scenario}_real.json").write_text(json.dumps(out, indent=1, default=str))
+    print(json.dumps(out, indent=1, default=str))
+    raise SystemExit(1)
 
 
 def finish(a, name, out):
@@ -1100,6 +1181,15 @@ def finish(a, name, out):
     if out["run"].get("stopped") == "debugger-error":
         out["outcome"] = "debugger-error"
     out["image"] = "retail" if a.retail else a.image
+    import real_image
+    image = (real_image.summary(a.ri) if getattr(a, "ri", None) is not None else
+             real_image.retail_summary() if a.retail else {"image_kind": "overlay", "image_commit": None})
+    if out["run"].get("image_base"):
+        image["base"] = out["run"]["image_base"]
+    scenario = getattr(a, "scenario", name)
+    out["receipt"] = real_image.receipt_fields("game_smoke", MODES.get(scenario, scenario), out["outcome"], image,
+                                               out.get("crash"), getattr(a, "started", None),
+                                               time.time() - getattr(a, "t_start", time.time()))
     if "coverage" in out:                            # the unit list goes to its own file
         cov = OUT / f"coverage_{name}_{out['image']}.json"
         cov.write_text(json.dumps(out["coverage"], indent=1))
@@ -1434,6 +1524,12 @@ def main(argv=None):
     ap.add_argument("--game-dir", type=Path, required=True)
     ap.add_argument("--appdata", type=Path, help="sandbox user-data root (default GAME_DIR/../appdata)")
     ap.add_argument("--retail", action="store_true", help="control: retail's own game.dat")
+    ap.add_argument("--real-image", type=Path, metavar="EXE",
+                    help="a linked image (exit_link's exit.exe, exit.map and image_receipt.json together): "
+                         "hash-checked, judged by real_image.check, every harness address mapped fail-closed "
+                         "through its map and byte-checked bodies; an int3 the harness did not plant is a fault")
+    ap.add_argument("--rebase", type=lambda v: int(v, 0), metavar="BASE",
+                    help="with --real-image: run a copy relocated to BASE (a second non-retail base)")
     ap.add_argument("--image", default="boot",
                     help="without --retail: the image `boot_image.py link --tag TAG` wrote (build/boot/TAG.exe)")
     ap.add_argument("--args", default="-win -xres 1024 -yres 768")
@@ -1474,6 +1570,12 @@ def main(argv=None):
     ap.add_argument("--status", type=Path, default=boot_smoke.boot_image.LINK_STATUS)
     ap.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
     a = ap.parse_args(argv)
+    if a.real_image:
+        if a.retail or a.coverage or a.scenario == "bisect":
+            raise SystemExit("game_smoke: --real-image runs the linked image alone (no --retail, --coverage, bisect)")
+        a.image = "real"
+    elif a.rebase:
+        raise SystemExit("game_smoke: --rebase needs --real-image")
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
     try:
         boot_smoke.check_sandbox_appdata(a.appdata)

@@ -60,6 +60,14 @@ is run alone)
 down to the rows that fail by themselves, and write them to
 build/boot/boot_queue.json, which tools/repair_queue.py serves (`boot-crash`).
 
+--real-image EXE runs a linked image (exit_link's exit.exe with exit.map and
+image_receipt.json beside it) instead of building one: tools/real_image.py checks the
+hashes against the receipt and judges the image in place of boot_image.image_ok
+(`image-refused` when it may not run), an int3 the harness did not plant is a fault,
+and a crash names the map symbol, the stubbed name when it is a stub (through the
+caller for a shared stub body) and the retail row. --rebase BASE runs a relocated copy.
+The outcome JSON carries a `receipt` section the game queue completes (contract.md).
+
 --relayout / --own-data build the image with tools/boot_relayout.py instead
 (units moved out of retail's order, their old ranges int3; data from our
 objects). With --relayout an int3 the debugger did not plant is a fault
@@ -1061,10 +1069,32 @@ def to_retail(addr, base, pieces_map):
 def smoke(a, rows=None, tag="boot"):
     """Build (unless --retail / --no-build), run once, classify: the outcome dict.
     `rows` (ledger rows) replaces the --overlay specs; the bisection uses it."""
+    import real_image
+    t_start, started = time.time(), time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     out = {"retail": a.retail, "base": hex(a.base), "args": a.args,
            "overlay": a.overlay if rows is None else f"{len(rows)} row(s)"}
     authored = []
-    if a.retail:
+    ri = None
+    if getattr(a, "real_image", None):
+        try:
+            ri = real_image.load(a.real_image)
+            ok, rep = real_image.check(ri)
+        except real_image.RealImageError as e:
+            ok, rep = False, {"refused": str(e)}
+        out["real_image"] = rep
+        if not ok:
+            out["outcome"] = "image-refused"
+            out["receipt"] = real_image.receipt_fields("boot_smoke", "boot", out["outcome"],
+                                                       real_image.summary(ri) if ri else {}, None, started,
+                                                       time.time() - t_start)
+            return out
+        exe, pieces_map, base = Path(a.real_image), None, ri.base
+        out["base"] = hex(ri.base)
+        if getattr(a, "rebase", None):
+            exe, base = real_image.rebased_copy(ri, a.rebase, OUT / "rebased.exe"), a.rebase
+            rep["rebased"] = {"base": hex(a.rebase), "sha256": real_image.sha256_file(exe)}
+            out["base"] = hex(a.rebase)
+    elif a.retail:
         exe, pieces_map, base = boot_image.build.EXE, None, boot_image.RETAIL_BASE
     else:
         if a.no_build:
@@ -1102,7 +1132,7 @@ def smoke(a, rows=None, tag="boot"):
     if not a.no_focus_lie and focus_rva is None:
         out["focus_lie"] = "WM_ACTIVATEAPP arm not found (no lie)"
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
-              sorted(moved) if a.probes else (), focus_rva, a.defocus, a.int3_faults or a.relayout,
+              sorted(moved) if a.probes else (), focus_rva, a.defocus, a.int3_faults or a.relayout or ri is not None,
               appdata=a.appdata)
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
@@ -1119,7 +1149,18 @@ def smoke(a, rows=None, tag="boot"):
         """The authored unit holding retail RVA `rva`, if any."""
         i = bisect.bisect_right(authored_at, (rva, 1 << 62, "")) - 1
         return authored_at[i][2] if i >= 0 and authored_at[i][0] <= rva < authored_at[i][1] else None
-    if res["outcome"] == "crash":
+    crashed = res["outcome"] == "crash" or (res["outcome"] == "exit" and res.get("fault") is not None
+                                            and res["exit_code"])
+    if ri is not None and crashed:                    # a real image: the map, the stubs, then retail's row
+        st = res.get("stack") or {}
+        exc = res.get("code") or next((c for c, x, _ in res["first_chance"] if x == res.get("fault")), None)
+        out["crash"] = real_image.crash_fields(ri, res["address"] if res["outcome"] == "crash" else res["fault"],
+                                               loaded, st.get("words", []), exc)
+        if res["outcome"] == "exit":
+            out["crash"]["handled_then_exit"] = res["exit_code"]
+        out["run"]["regs"] = st.get("regs")
+        out["outcome"] = f"crash-at-{real_image.crash_name(out['crash'])}"
+    elif res["outcome"] == "crash":
         rva = res["address"] - loaded
         if pieces_map:
             rva, piece = to_retail(res["address"], loaded, pieces_map)
@@ -1159,10 +1200,11 @@ def smoke(a, rows=None, tag="boot"):
         shot = res.get("screenshot")
         titles = [t for t, _ in res.get("windows", [])]
         eips = []
-        for e in res.get("main_eips", []):
+        for e in res.get("main_eips", []) if ri is None else ():
             rva, piece = to_retail(e, loaded, pieces_map) if pieces_map else (e - loaded, "retail")
             eips.append([hex(e), hex(rva) if rva is not None else None, ledger_row(rva) if rva is not None else None])
-        out["main_thread_samples"] = eips
+        out["main_thread_samples"] = eips if ri is None else [
+            [hex(e), ri.where(e - loaded + ri.base)["map_symbol"]] for e in res.get("main_eips", [])]
         if "Exception" in titles:                   # the game's own crash dialog
             out["outcome"] = "crash-dialog"
         else:
@@ -1178,6 +1220,11 @@ def smoke(a, rows=None, tag="boot"):
     out["profile_guard"], touched = profile_guard.check()
     if touched:
         out["outcome"] = "profile-changed"
+    image = (real_image.summary(ri) if ri is not None else real_image.retail_summary() if a.retail else
+             {"image_kind": "overlay", "image_sha256": real_image.sha256_file(exe), "image_commit": None})
+    image["base"] = hex(loaded)
+    out["receipt"] = real_image.receipt_fields("boot_smoke", "boot", out["outcome"], image, out.get("crash"),
+                                               started, time.time() - t_start)
     return out
 
 
@@ -1229,6 +1276,12 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--game-dir", type=Path, required=True)
     ap.add_argument("--retail", action="store_true", help="control: run retail's own game.dat")
+    ap.add_argument("--real-image", type=Path, metavar="EXE",
+                    help="a linked image (exit_link's exit.exe, with exit.map and image_receipt.json beside it): "
+                         "hash-checked, judged by real_image.check instead of boot_image.image_ok, crashes "
+                         "mapped through its map and stubs; an int3 the harness did not plant is a fault")
+    ap.add_argument("--rebase", type=lambda v: int(v, 0), metavar="BASE",
+                    help="with --real-image: run a copy relocated to BASE (a second non-retail base)")
     ap.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
     ap.add_argument("--timeout", type=float, default=90)
     ap.add_argument("--args", default="-win")
@@ -1257,6 +1310,10 @@ def main(argv=None):
     ap.add_argument("--int3-faults", action="store_true",
                     help="an int3 the debugger did not plant is a fault (always on with --relayout)")
     a = ap.parse_args(argv)
+    if a.real_image and (a.retail or a.overlay or a.relayout or a.own_data or a.no_build or a.bisect):
+        raise SystemExit("boot_smoke: --real-image runs the linked image alone (no --retail, overlay or relayout)")
+    if a.rebase and not a.real_image:
+        raise SystemExit("boot_smoke: --rebase needs --real-image")
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
     try:
         check_sandbox_appdata(a.appdata)
