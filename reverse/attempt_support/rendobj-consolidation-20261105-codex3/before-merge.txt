@@ -1,0 +1,8 @@
+tu: Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp
+approved: 48
+mixed: {'Code/Libraries/Source/WWVegas/WW3D2/RenderObjCollision.cpp': 1, 'Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersectSphere.cpp': 2, 'Code/Libraries/Source/WWVegas/WW3D2/RenderObjTransform.cpp': 1, 'Code/Libraries/Source/WWVegas/WW3D2/composite.cpp': 24, 'Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp': 138, 'Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp': 174, 'Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp': 7}
+refused: {}
+accepted: []
+rejected: {'Code/Libraries/Source/WWVegas/WW3D2/Filename_From_Asset_Name.cpp': 'bytes', 'Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp': 'bytes', 'Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp': 'link: Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp links at the census; the merged object would not: comdat ??_GRefCountClass@@MAEPAXI@Z (retail)', 'Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersect.cpp': 'link: Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersect.cpp links at the census; the merged object would not: duplicate ??0RayCollisionTestClass@@QAE@ABVLineSegClass@@PAUCastResultStruct@@H_N2@Z'}
+link_guard: census-linked: Code/Libraries/Source/WWVegas/WW3D2/Filename_From_Asset_Name.cpp, Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp, Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp, Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersect.cpp, Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp
+blocked: no verified merge of two or more donors
