@@ -137,38 +137,12 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const SpecialPowerTemplate *getFinalOverride() const
-	{
-		return (const SpecialPowerTemplate *)friend_getFinalOverride();
-	}
-	char m_pad00[0x18];
-	bool flag1() const { return (m_flags >> 1) & 1; }
-	bool flag2() const { return (m_flags >> 2) & 1; }
-	bool flag3() const { return (m_flags >> 3) & 1; }
-	bool flag4() const { return (m_flags >> 4) & 1; }
-	SpecialPowerType getSpecialPowerType() const { return getFinalOverride()->m_type; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getSpecialPowerType copy loses to the first-in-order copy. No flags touched.
-	SpecialPowerType bfme_getSpecialPowerType_8e24c() const { return getFinalOverride()->m_type; }
-	unsigned int m_flags;	// +0x18
-	SpecialPowerType m_type;	// +0x1C
-	char m_pad20[0x54 - 0x20];
-	float m_radiusCursorRadius;		// +0x54
-	char m_pad58[0x60 - 0x58];
-	char m_60[4];		// +0x60
-	char m_pad64[0x74 - 0x64];
-	float m_maxCastRange;		// +0x74
-	char m_78[4];		// +0x78
-	float m_forbiddenObjectRange;		// +0x7C
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
+// Zero Hour's inline SpecialPowerTemplate accessors as this unit reads them:
+// the final override's power type (+0x1C) and one bit of its flags (+0x18).
+static inline SpecialPowerType getSpecialPowerType(const SpecialPowerTemplate *spTemplate) { return spTemplate->getFO()->m_type; }
+static inline bool testFlagBit(const SpecialPowerTemplate *spTemplate, int bit) { return (spTemplate->m_flags >> bit) & 1; }
 
 class DrawableList;
 #include "../../../Include/Common/MessageStream.h"
@@ -177,12 +151,12 @@ class DrawableList;
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
 {
-	if (!sp->getFinalOverride()->flag4())
+	if (!testFlagBit(sp->getFO(), 4))
 		return true;
 	Player *player = obj->getControllingPlayer();
 	float range;
-	Object *found = ThePartitionManager->getClosestObject(pos, (range = sp->getFinalOverride()->m_forbiddenObjectRange), 1,
-		Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_78, player, true)));
+	Object *found = ThePartitionManager->getClosestObject(pos, (range = sp->getFO()->m_forbiddenObjectRange), 1,
+		Rva0026119DFilter().link(&Rva002614ECFilter(&sp->getFO()->field78, player, true)));
 	return found == 0;
 }
 
@@ -194,12 +168,12 @@ bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const
 // hit list share an inner block: retail keeps the list in the dead obj slot.
 bool ActionManager::validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
 {
-	if (sp->getFinalOverride()->flag2()) {
-		float range = sp->getFinalOverride()->m_radiusCursorRadius;
+	if (testFlagBit(sp->getFO(), 2)) {
+		float range = sp->getFO()->m_radiusCursorRadius;
 		{
 			Player *player = obj->getControllingPlayer();
 			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, range, 0,
-				Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_60, player, true)), 0);
+				Rva0026119DFilter().link(&Rva002614ECFilter(&sp->getFO()->field60, player, true)), 0);
 			if (hits.size() <= 0)
 				return false;
 		}
@@ -619,7 +593,7 @@ bool ActionManager::rva0041C79C(const Object *obj, const Object *target,
  if (!module) return false;
  if (module->getPercentReady() < 1.0f) return false;
  if ((*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1) && !((unsigned char)(captureWord(target, 0x110) >> 28) & 1)) return false;
- const ObjectFilter *filter = reinterpret_cast<const ObjectFilter *>(reinterpret_cast<const char *>(module->getSpecialPowerTemplate()->getFinalOverride()) + 0x60);
+ const ObjectFilter *filter = reinterpret_cast<const ObjectFilter *>(reinterpret_cast<const char *>(module->getSpecialPowerTemplate()->getFO()) + 0x60);
  if (filter->isValid()) {
   if (!reinterpret_cast<Rva2225E0Filter *>(const_cast<ObjectFilter *>(filter))->accepts(const_cast<Object *>(target), 0)) return false;
  } else {
@@ -787,19 +761,19 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 	if (!spTemplate)
 		return false;
 
-	if (checkSourceRequirements && !obj->hasSpecialPower(spTemplate->bfme_getSpecialPowerType_8e24c()))
+	if (checkSourceRequirements && !obj->hasSpecialPower(getSpecialPowerType(spTemplate)))
 		return false;
 
 	ActionSpecialPowerModuleView *module =
 		reinterpret_cast<ActionSpecialPowerModuleView *>(obj->getSpecialPowerModule(spTemplate));
 
 	bool capturePower = false;
-	bool isCapture = spTemplate->bfme_getSpecialPowerType_8e24c() == CAPTURE_POWER ||
-		spTemplate->bfme_getSpecialPowerType_8e24c() == 0x1a;
-	bool filterValid = reinterpret_cast<const ObjectFilter *>(spTemplate->getFinalOverride()->m_60)->isValid();
+	bool isCapture = getSpecialPowerType(spTemplate) == CAPTURE_POWER ||
+		getSpecialPowerType(spTemplate) == 0x1a;
+	bool filterValid = reinterpret_cast<const ObjectFilter *>(&spTemplate->getFO()->field60)->isValid();
 	if (filterValid) {
 		Rva2225E0Filter *filter =
-			reinterpret_cast<Rva2225E0Filter *>(const_cast<char *>(spTemplate->getFinalOverride()->m_60));
+			reinterpret_cast<Rva2225E0Filter *>(const_cast<unsigned int *>(&spTemplate->getFO()->field60));
 		if (!filter->accepts(const_cast<Object *>(target), obj->getControllingPlayer()))
 			return false;
 	}
@@ -832,7 +806,7 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 		if (isObjectShroudedForAction(obj, target, commandSource))
 			return false;
 
-		switch (spTemplate->bfme_getSpecialPowerType_8e24c()) {
+		switch (getSpecialPowerType(spTemplate)) {
 		case 39:
 		case 40: {
 			int id = *reinterpret_cast<const int *>(reinterpret_cast<const char *>(target) + 0x74);
@@ -869,9 +843,9 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 				return false;
 			bool allowed = true;
 			unsigned int kindFlags = *reinterpret_cast<const unsigned int *>(actionTemplate(target) + 0x118);
-			if ((kindFlags & 0x10) && spTemplate->bfme_getSpecialPowerType_8e24c() != 40)
+			if ((kindFlags & 0x10) && getSpecialPowerType(spTemplate) != 40)
 				allowed = false;
-			if ((kindFlags & 0x100) && spTemplate->bfme_getSpecialPowerType_8e24c() != 39)
+			if ((kindFlags & 0x100) && getSpecialPowerType(spTemplate) != 39)
 				allowed = false;
 			if (allowed && contain->allow(target, true, false))
 				return true;
@@ -1356,16 +1330,7 @@ public:
 	void *rva0031D5F8(const AsciiString *name);	// 0x0031D5F8
 };
 
-class CommandButton
-{
-public:
-	char m_pad00[0x14];
-	int m_commandType;	// +0x14
-	char m_pad18[4];
-	unsigned int m_options;	// +0x1C
-	char m_pad20[0x44 - 0x20];
-	const SpecialPowerTemplate *m_specialPower;	// +0x44
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {
@@ -1398,8 +1363,8 @@ bool BFMEActionManager::rva0041D435(const Object *obj, const Object *target, Com
 	if (commandSet) {
 		for (int i = 0; i < 32; ++i) {
 			const CommandButton *button = commandSet->getCommandButton(i);
-			if (button && button->m_commandType == 0x18 &&
-				button->m_specialPower->bfme_getSpecialPowerType_8e24c() == SPECIAL_POWER_27) {
+			if (button && button->m_command == 0x18 &&
+				getSpecialPowerType(button->m_specialPower) == SPECIAL_POWER_27) {
 				ActionSpecialPowerInterfaceView *spm = reinterpret_cast<ActionSpecialPowerInterfaceView *>(
 					obj->findSpecialPowerModuleInterface(SPECIAL_POWER_27));
 				unsigned int options = button->m_options & ~0x8000;
@@ -1417,7 +1382,7 @@ bool BFMEActionManager::rva0041D435(const Object *obj, const Object *target, Com
 // must lie strictly within the template's +0x74 radius of the center.
 bool ActionManager::rva0041CA9E(const Coord3D *pos, const Coord3D *center, const SpecialPowerTemplate *sp)
 {
-	if (!sp->getFinalOverride()->flag3())
+	if (!testFlagBit(sp->getFO(), 3))
 		return true;
 	Coord3D d;
 	d.x = pos->x;
@@ -1437,8 +1402,8 @@ bool ActionManager::rva0041CA9E(const Coord3D *pos, const Coord3D *center, const
 // second unit; a radius under 1 tests the location itself.
 bool ActionManager::rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *sp)
 {
-	if (!sp->getFinalOverride()->flag1()) {
-		int radius = (int)sp->getFinalOverride()->m_radiusCursorRadius;
+	if (!testFlagBit(sp->getFO(), 1)) {
+		int radius = (int)sp->getFO()->m_radiusCursorRadius;
 		if (radius > 0) {
 			Coord3D center;
 			center.x = pos->x;
@@ -1495,7 +1460,7 @@ bool ActionManager::rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *p
 {
 	Region3D extent;
 	TheTerrainLogic->getExtent(&extent);
-	float margin = sp->getFinalOverride()->m_radiusCursorRadius;
+	float margin = sp->getFO()->m_radiusCursorRadius;
 	extent.hi.x -= margin;
 	extent.hi.y -= margin;
 	extent.lo.x += margin;

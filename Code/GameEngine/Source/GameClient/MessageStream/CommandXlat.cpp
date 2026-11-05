@@ -47,7 +47,9 @@ union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 enum CommandEvaluateType { DO_COMMAND, DO_HINT, DO_EVALUATE };
 class AudioEventRTS { public: AudioEventRTS(const AsciiString&,int); ~AudioEventRTS(); void* m_vftable; char opaque04[0x6c]; };
-class CommandButton { public: char pad00[0x10]; int m_command; bool isContextCommand() const; int getCommandType() const { return m_command; } };
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/GameClient/CommandButton.h"
+#include "../../../Include/Common/SpecialPower.h"
 enum KindOfType { KINDOF_PLACEHOLDER };
 template<int N> class BitFlags { public: int words[7]; };
 class Thing { public: Drawable* getDrawable() const; bool isAnyKindOf(const BitFlags<69>&) const; bool isKindOf(KindOfType) const; };
@@ -471,9 +473,6 @@ class ContextUI : public ContextSlots<47> { public:
  char pad04[0x8b0-4];bool waypoint;char pad8b1[7];bool forceAttack,forceMove,preferSelection; bool getForceAttack() const {return forceAttack;}bool rotateLeft,rotateRight,zoomIn,zoomOut,extra8bf,extra8c0,extra8c1,extra8c2;bool forceAttackMode()const{return forceAttack;}
 };
 static __forceinline ContextUI* contextUI() { return (ContextUI*)TheInGameUI; }
-struct ContextButton { int getType() const {return type;} char pad[0x14];int type;int word18;unsigned options; unsigned getOptions() const {return options;}char pad20[0x24];class Overridable* special; };
-static __forceinline const ContextButton* contextButton(const CommandButton*button) { return (const ContextButton*)button; }
-class Overridable { public: const Overridable* friend_getFinalOverride() const; };
 struct ContextPower { char pad[0x14];int id;int word18;int type; };
 struct ContextObject { char pad0[0x250];void* container;int word254;void* ai;char pad25c[0xa8];Team* team;Team*getTeam() const {return team;} char pad308[0x131];bool masked; };
 static __forceinline ContextObject* contextObject(Object*unitObject) { return (ContextObject*)unitObject; }
@@ -547,7 +546,7 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
  int msgType=0;
  if(obj && obj->isLocallyControlled() && contextUI()->preferSelection)return (GameMessage::Type)msgType;
  const CommandButton*command=contextUI()->command();
- if(TheInGameUI->areSelectedObjectsControllable() || (command&&(contextButton(command)->type==32||contextButton(command)->type==38||contextButton(command)->type==31))) {
+ if(TheInGameUI->areSelectedObjectsControllable() || (command&&(command->m_command==32||command->m_command==38||command->m_command==31))) {
   GameMessage*hintMessage;
   if(contextUI()->waypoint) {
    if(type==CONTEXT_COMMAND||type==CONTEXT_EVALUATE) {if(TheTerrainLogic)msgType=issueMoveToLocationCommand(pos,draw,type);}
@@ -555,33 +554,33 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
    return (GameMessage::Type)msgType;
   }
   CanAttackResult result;
-  if(command&&(command->isContextCommand()||contextButton(command)->type==24||contextButton(command)->type==32||contextButton(command)->type==38||contextButton(command)->type==11||contextButton(command)->type==31)) {
-   if(originalObject&&contextKind(originalObject,6)&&!(contextButton(command)->getOptions()&0x10)){draw=originalDraw=0;obj=originalObject=0;}
-   if(originalObject&&(contextKind(originalObject,97)||contextKind(originalObject,136))&&!(contextButton(command)->getOptions()&0x200000)){draw=originalDraw=0;obj=originalObject=0;}
-   if(originalObject&&(contextButton(command)->getOptions()&7)) {
+  if(command&&(command->isContextCommand()||command->m_command==24||command->m_command==32||command->m_command==38||command->m_command==11||command->m_command==31)) {
+   if(originalObject&&contextKind(originalObject,6)&&!(command->getOptions()&0x10)){draw=originalDraw=0;obj=originalObject=0;}
+   if(originalObject&&(contextKind(originalObject,97)||contextKind(originalObject,136))&&!(command->getOptions()&0x200000)){draw=originalDraw=0;obj=originalObject=0;}
+   if(originalObject&&(command->getOptions()&7)) {
     switch(((ContextPlayers*)ThePlayerList)->getLocalPlayer()->getRelationship(contextObject(originalObject)->getTeam())) {
-    case CONTEXT_ALLY:if(!(contextButton(command)->getOptions()&1)){draw=originalDraw=0;obj=originalObject=0;}break;
-    case CONTEXT_ENEMY:if(!(contextButton(command)->getOptions()&2)){draw=originalDraw=0;obj=originalObject=0;}break;
-    case CONTEXT_NEUTRAL:if(!(contextButton(command)->getOptions()&4)){draw=originalDraw=0;obj=originalObject=0;}break;
+    case CONTEXT_ALLY:if(!(command->getOptions()&1)){draw=originalDraw=0;obj=originalObject=0;}break;
+    case CONTEXT_ENEMY:if(!(command->getOptions()&2)){draw=originalDraw=0;obj=originalObject=0;}break;
+    case CONTEXT_NEUTRAL:if(!(command->getOptions()&4)){draw=originalDraw=0;obj=originalObject=0;}break;
     }
    }
    bool currentlyValid=false;ObjectID objectID=obj?obj->getID():INVALID_OBJECT_ID;
-   switch(contextButton(command)->type) {
-   case 11:currentlyValid=TheInGameUI->rva0029AEF9((Rva0029AEF9Item*)command,(int)obj,(int)pos,0,contextButton(command)->getOptions(),0);break;
+   switch(command->m_command) {
+   case 11:currentlyValid=TheInGameUI->rva0029AEF9((Rva0029AEF9Item*)command,(int)obj,(int)pos,0,command->getOptions(),0);break;
    case 23:currentlyValid=TheInGameUI->canSelectedObjectsEffectivelyUseWeapon(command,obj,pos,InGameUI::CONTEXT_ANY);break;
-   case 24:currentlyValid=TheInGameUI->canSelectedObjectsDoSpecialPower(command,*(Object*const volatile*)&originalObject,pos,InGameUI::CONTEXT_ANY,contextButton(command)->getOptions(),0);if(currentlyValid){objectID=originalObject?originalObject->getID():INVALID_OBJECT_ID;obj=originalObject;draw=originalDraw;}break;
+   case 24:currentlyValid=TheInGameUI->canSelectedObjectsDoSpecialPower(command,*(Object*const volatile*)&originalObject,pos,InGameUI::CONTEXT_ANY,command->getOptions(),0);if(currentlyValid){objectID=originalObject?originalObject->getID():INVALID_OBJECT_ID;obj=originalObject;draw=originalDraw;}break;
    case 26:currentlyValid=!obj?true:TheInGameUI->canSelectedObjectsDoAction((InGameUI::ActionType)15,obj,InGameUI::CONTEXT_ANY,false);break;
    case 29:currentlyValid=TheInGameUI->canSelectedObjectsDoAction((InGameUI::ActionType)10,obj,InGameUI::CONTEXT_ANY,false);break;
    case 30:currentlyValid=TheInGameUI->canSelectedObjectsDoAction((InGameUI::ActionType)11,obj,InGameUI::CONTEXT_ANY,false);break;
    case 31:{ContextPoint position(*pos);currentlyValid=Rva0027DC65Check(&position.x);break;}
-   case 32: {Object*unit=((ContextPlayers*)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter();if(unit)currentlyValid=TheInGameUI->canSelectedObjectsDoSpecialPower(command,obj,pos,InGameUI::CONTEXT_ANY,contextButton(command)->getOptions(),unit);else currentlyValid=false;break;}
-   case 38: {Object*unit=((ContextPlayers*)ThePlayerList)->getLocalPlayer()->rva002AC629();if(unit)currentlyValid=TheInGameUI->canSelectedObjectsDoSpecialPower(command,obj,pos,InGameUI::CONTEXT_ANY,contextButton(command)->getOptions(),unit);else currentlyValid=false;break;}
+   case 32: {Object*unit=((ContextPlayers*)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter();if(unit)currentlyValid=TheInGameUI->canSelectedObjectsDoSpecialPower(command,obj,pos,InGameUI::CONTEXT_ANY,command->getOptions(),unit);else currentlyValid=false;break;}
+   case 38: {Object*unit=((ContextPlayers*)ThePlayerList)->getLocalPlayer()->rva002AC629();if(unit)currentlyValid=TheInGameUI->canSelectedObjectsDoSpecialPower(command,obj,pos,InGameUI::CONTEXT_ANY,command->getOptions(),unit);else currentlyValid=false;break;}
    case 41:currentlyValid=TheInGameUI->canSelectedObjectsDoAction((InGameUI::ActionType)19,obj,InGameUI::CONTEXT_ANY,false);break;
    case 47:currentlyValid=TheInGameUI->canSelectedObjectsDoAction((InGameUI::ActionType)20,obj,InGameUI::CONTEXT_ANY,false);break;
    }
    if(currentlyValid) {
     if(type==CONTEXT_COMMAND||type==CONTEXT_EVALUATE) {
-     switch(contextButton(command)->type) {
+     switch(command->m_command) {
      case 29:case 30:msgType=createEnterMessage(draw,type);break;
      case 41:msgType=createEvacuateMessage(draw,type);break;
      case 47:msgType=createDockMessage(draw,type);break;
@@ -603,9 +602,9 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
      const CommandButton*button=TheControlBar->findCommandButton(AsciiString("Command_SpecialAbilitySiegeDeploy"));
      if(button) {
       GameMessage*gameMessage=TheMessageStream->appendMessage((GameMessage::Type)msgType);
-      gameMessage->appendIntegerArgument(((const ContextPower*)contextButton(button)->special->friend_getFinalOverride())->id);
-      gameMessage->appendObjectIDArgument(originalObject->getID());gameMessage->appendIntegerArgument(contextButton(button)->options);gameMessage->appendObjectIDArgument(INVALID_OBJECT_ID);gameMessage->appendLocationArgument(*originalObject->getPosition());
-      PickAndPlayInfo info;info.m_drawTarget=((Thing*)originalObject)->getDrawable();info.m_specialPowerType=(int)contextButton(button)->special;info.m_position=*pos;
+      gameMessage->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(button->m_specialPower->friend_getFinalOverride())->m_id);
+      gameMessage->appendObjectIDArgument(originalObject->getID());gameMessage->appendIntegerArgument(button->m_options);gameMessage->appendObjectIDArgument(INVALID_OBJECT_ID);gameMessage->appendLocationArgument(*originalObject->getPosition());
+      PickAndPlayInfo info;info.m_drawTarget=((Thing*)originalObject)->getDrawable();info.m_specialPowerType=(int)button->m_specialPower;info.m_position=*pos;
       pickAndPlayUnitVoiceResponse((const DrawableList*)contextUI()->selected(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
      }
     }
@@ -672,8 +671,8 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
    CommandSet*set=(CommandSet*)((Rva0031D5F8*)TheControlBar)->rva0031D5F8(selected->rva00290E67());
    if(set)for(int i=0;i<32;++i) {
     const CommandButton*button=set->getCommandButton(i);
-    if(button&&contextButton(button)->type==24) {
-     int power=((const ContextPower*)contextButton(button)->special->friend_getFinalOverride())->type;
+    if(button&&button->m_command==24) {
+     int power=static_cast<const SpecialPowerTemplate*>(button->m_specialPower->friend_getFinalOverride())->m_type;
      if(type==CONTEXT_COMMAND||type==CONTEXT_EVALUATE) {if(power==26||power==29){msgType=issueSpecialPowerCommand(button,type,draw,pos,0);break;}}
      else if(power==29){msgType=0xb9;hintMessage=TheMessageStream->appendMessage((GameMessage::Type)msgType);hintMessage->appendObjectIDArgument(obj->getID());}
     }
@@ -691,7 +690,7 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
   else if(draw&&TheInGameUI->canSelectedObjectsDoAction((InGameUI::ActionType)17,obj,InGameUI::CONTEXT_ALL,false)) {
    if(type==CONTEXT_COMMAND||type==CONTEXT_EVALUATE) {
     Object*selected=contextUI()->first()->getObject();CommandSet*set=(CommandSet*)((Rva0031D5F8*)TheControlBar)->rva0031D5F8(selected->rva00290E67());
-    if(set)for(int i=0;i<32;++i){const CommandButton*button=set->getCommandButton(i);if(button&&contextButton(button)->type==24){int power=((const ContextPower*)contextButton(button)->special->friend_getFinalOverride())->type;if(power==39){msgType=issueSpecialPowerCommand(button,type,draw,pos,0);break;}}}
+    if(set)for(int i=0;i<32;++i){const CommandButton*button=set->getCommandButton(i);if(button&&button->m_command==24){int power=static_cast<const SpecialPowerTemplate*>(button->m_specialPower->friend_getFinalOverride())->m_type;if(power==39){msgType=issueSpecialPowerCommand(button,type,draw,pos,0);break;}}}
    } else {
     bool reachable=true;
     if(obj&&pos&&contextKind(obj,94)){Object*selected=contextUI()->first()->getObject();if(selected&&!((ContextAI*)TheAI)->getPathfinder()->QuickDoesPathExist(selected,selected->getPosition(),pos,0))reachable=false;}
@@ -1158,7 +1157,7 @@ GameMessageDisposition CommandTranslator::translateGameMessage(const GameMessage
  }
  case 0x3ea:case 0x402:case 0x403:case 0x404:case 0x405:case 0x406:case 0x407:case 0x408:case 0x409:case 0x40a:case 0x40b:m_teamExists=true;break;
  case 0x3ec:m_teamExists=false;break;
- case 0xa2:{bool selected=contextUI()->selectedCount()>0;if(!selected){const CommandButton*button=contextUI()->command();if(button){int commandType=contextButton(button)->type;if(commandType==32||commandType==38)selected=true;}}if(selected){Drawable*drawable=((TranslateGameClient*)TheGameClient)->find(msg->getArgument(0)->drawableID);if(drawable){if(contextUI()->forceAttackMode())evaluateForceAttack(drawable,drawable->getPosition(),DO_HINT);else evaluateContextCommand(drawable,drawable->getPosition(),CONTEXT_HINT);}}break;}
+ case 0xa2:{bool selected=contextUI()->selectedCount()>0;if(!selected){const CommandButton*button=contextUI()->command();if(button){int commandType=button->m_command;if(commandType==32||commandType==38)selected=true;}}if(selected){Drawable*drawable=((TranslateGameClient*)TheGameClient)->find(msg->getArgument(0)->drawableID);if(drawable){if(contextUI()->forceAttackMode())evaluateForceAttack(drawable,drawable->getPosition(),DO_HINT);else evaluateContextCommand(drawable,drawable->getPosition(),CONTEXT_HINT);}}break;}
  case 0xa3:{ContextPoint position(msg->getArgument(0)->location);if(contextUI()->forceAttackMode())evaluateForceAttack(0,&position,DO_HINT);else evaluateContextCommand(0,&position,CONTEXT_HINT);break;}
  case 0xe:m_mouseRightDragAnchor=msg->getArgument(0)->pixel;m_mouseRightDown=msg->getArgument(2)->integer;field2c=false;break;
  case 3:{ICoord2D current=msg->getArgument(0)->pixel;if(TheMouse->rva001EDD80((const Rva001EDD80Pair*)&m_mouseRightDragAnchor,(const Rva001EDD80Pair*)&current))field2c=true;break;}
@@ -1167,7 +1166,7 @@ GameMessageDisposition CommandTranslator::translateGameMessage(const GameMessage
  case 4:field24=msg->getArgument(2)->integer;break;
  case 0x1b:case 0x1c:{
   bool isPoint=!field2c;if(m_mouseRightUp-m_mouseRightDown<((TranslateMouseFields*)TheMouse)->clickTime)isPoint=true;
-  const CommandButton*command=contextUI()->command();int commandType=command?contextButton(command)->getType():0;
+  const CommandButton*command=contextUI()->command();int commandType=command?command->getCommandType():0;
   if(command&&commandType!=10)break;
   if(translateGlobals()->alternate&&isPoint){if(!TheTacticalView)break;Coord3D pos;((ContextView*)TheTacticalView)->screenToTerrain(&msg->getArgument(0)->pixel,&pos,0);bool controllable=TheInGameUI->areSelectedObjectsControllable();if(!controllable&&command&&(commandType==32||commandType==38))controllable=true;
    if(controllable){int pickType=Rva0030F099(contextUI()->forceAttackMode());Drawable*drawable=TheTacticalView->pickDrawable(&msg->getArgument(0)->pixelRegion.lo,contextUI()->forceAttackMode(),pickType);if(contextUI()->forceAttackMode())evaluateForceAttack(drawable,&pos,DO_COMMAND);else {int result=evaluateContextCommand(drawable,&pos,CONTEXT_COMMAND);bool special=commandType==24;_ReadWriteBarrier();if(special&&result==0xa5)contextUI()->setCommand(0);}disp=DESTROY_MESSAGE;}
@@ -1177,7 +1176,7 @@ GameMessageDisposition CommandTranslator::translateGameMessage(const GameMessage
   bool isPoint=((unsigned)translateHeight(msg->getArgument(0)->pixelRegion)<=((TranslateMouseFields*)TheMouse)->dragTolerance&&(unsigned)translateWidth(msg->getArgument(0)->pixelRegion)<=((TranslateMouseFields*)TheMouse)->dragTolerance);
   if(field28-field24<((TranslateMouseFields*)TheMouse)->clickTime)isPoint=true;
   if(!TheTacticalView)break;
-  const CommandButton*command=contextUI()->command();int commandType=command?contextButton(command)->getType():0;
+  const CommandButton*command=contextUI()->command();int commandType=command?command->getCommandType():0;
   if((!command||commandType==10)&&translateGlobals()->alternate)break;
   Coord3D pos;((ContextView*)TheTacticalView)->screenToTerrain(&msg->getArgument(0)->pixel,&pos,0);
   bool controllable=TheInGameUI->areSelectedObjectsControllable();if(!controllable&&command&&(commandType==32||commandType==38))controllable=true;
