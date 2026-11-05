@@ -227,7 +227,10 @@ protected:
 	}
 
 private:
-	_STL::list<Rva0048E16C *> m_records; // +0x20
+	// Rva0048E16C * values, held in the int spelling of the shared four-byte
+	// list instance whose rowed members (0x4EC36C, 0x23DAA5, 0x4EC395, 0x5548F)
+	// every FloodUpdate unit calls.
+	_STL::list<int> m_records; // +0x20
 	Bool m_membersCreated; // +0x24
 public:
 	virtual NameKeyType getModuleNameKey() const;
@@ -315,7 +318,7 @@ void FloodUpdate::rva0048E189()
 				Matrix3D mtx;
 				mtx.buildTransformMatrix(pos, dir);
 				obj->rva0028D412(&mtx);
-				m_records.push_back(entry);
+				m_records.push_back(reinterpret_cast<const int &>(entry));
 			}
 		}
 	}
@@ -330,9 +333,9 @@ UpdateSleepTime FloodUpdate::update()
 {
 	if (!m_membersCreated)
 		rva0048E189();
-	for (_STL::list<Rva0048E16C *>::iterator it = m_records.begin(); it != m_records.end(); ++it)
+	for (_STL::list<int>::iterator it = m_records.begin(); it != m_records.end(); ++it)
 	{
-		Rva0048E16C *record = *it;
+		Rva0048E16C *record = reinterpret_cast<Rva0048E16C *>(*it);
 		Object *obj = TheGameLogic->findObjectByID(record->m_id);
 		if (obj)
 		{
@@ -407,14 +410,14 @@ void FloodUpdate::xfer(Xfer *xfer)
 			XferObjectID(xfer, &record->m_id);
 			Rva00390911XferCoordVector(xfer, reinterpret_cast<AICommandCoordVector *>(&record->m_path));
 			*xfer == record->m_index;
-			reinterpret_cast<_STL::list<int> *>(&m_records)->push_back(reinterpret_cast<const int &>(record));
+			m_records.push_back(reinterpret_cast<const int &>(record));
 		}
 	}
 	else if (xfer->IsStoring())
 	{
-		for (_STL::list<Rva0048E16C *>::iterator it = m_records.begin(); it != m_records.end(); ++it)
+		for (_STL::list<int>::iterator it = m_records.begin(); it != m_records.end(); ++it)
 		{
-			Rva0048E16C *record = (Rva0048E16C *)*it;
+			Rva0048E16C *record = reinterpret_cast<Rva0048E16C *>(*it);
 			XferObjectID(xfer, &record->m_id);
 			Rva00390911XferCoordVector(xfer, reinterpret_cast<AICommandCoordVector *>(&record->m_path));
 			*xfer == record->m_index;
