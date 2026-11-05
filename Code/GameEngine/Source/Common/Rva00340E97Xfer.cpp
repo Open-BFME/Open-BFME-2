@@ -50,18 +50,7 @@ private:
 	char m_pad04[8];
 };
 
-class AIInternalMoveToState : public Rva0049B47C
-{
-public:
-	virtual ~AIInternalMoveToState();
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	char m_pad0C[0x40 - 0x0C];
-	unsigned int m_handle40;
-};
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00345CAB : public AIInternalMoveToState
 {
@@ -69,9 +58,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	char m_pad44[0x4A - 0x44];
-	bool m_4A;
-	char m_pad4B[0x50 - 0x4B];
+	char m_pad4C[0x50 - 0x4C];
 	int m_50;
 	Snapshot *m_ptr54;
 	unsigned int m_58;
@@ -92,7 +79,7 @@ void Rva00345CAB::xfer(Xfer *xfer)
 	*xfer == *m_ptr54;
 	*xfer == m_60;
 	XferObjectID(xfer, &m_6C);
-	*xfer == m_4A;
+	*xfer == m_tryOneMoreRepath;
 	if (version.m_minimum >= 2)
 		XferCommandSourceType(xfer, &m_50);
 }

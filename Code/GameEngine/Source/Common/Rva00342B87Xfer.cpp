@@ -27,36 +27,8 @@ class Object;
 
 class StateMachine;
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void xfer(Xfer *xfer);
-	virtual int onEnter();
-	virtual void onExit();
-	virtual int update();
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine;
-};
-
-class AIInternalMoveToState : public State
-{
-public:
-	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
-	virtual ~AIInternalMoveToState();
-	virtual void xfer(Xfer *xfer);
-	virtual int onEnter();
-	virtual void onExit();
-	virtual int update();
-protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3DBase m_goalPosition;
-	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3DBase))];
-	bool m_adjustsDestination;
-};
+#include "../../Include/Common/StateMachine.h"
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00342B87 : public AIInternalMoveToState
 {
@@ -71,5 +43,5 @@ void Rva00342B87::xfer(Xfer *xfer)
 	xfer->Version1();
 	AIInternalMoveToState::xfer(xfer);
 	*xfer == m_4C;
-	*xfer == m_goalPosition;
+	*xfer == asBase(m_goalPosition);
 }

@@ -55,40 +55,24 @@ Xfer *XferPathfindLayerEnum(Xfer *xfer, int *value);
 
 #include "../../Include/Common/StateMachine.h"
 
-class AIInternalMoveToState : public State
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	Coord3DBase m_20;
-	float m_2C;
-	int m_30;
-	Coord3DBase m_34;
-	AudioHandle m_40;
-	unsigned int m_44;
-	bool m_48;
-	bool m_49;
-	char m_pad4A;
-	bool m_4B;
-};
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 void AIInternalMoveToState::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 3);
 	*xfer == version;
-	*xfer == m_20;
-	XferPathfindLayerEnum(xfer, &m_30);
-	*xfer == m_49;
-	*xfer == m_34;
-	*xfer == m_44;
+	*xfer == asBase(m_goalPosition);
+	XferPathfindLayerEnum(xfer, &m_goalLayer);
+	*xfer == m_waitingForPath;
+	*xfer == asBase(m_pathGoalPosition);
+	*xfer == m_pathTimestamp;
 	if (version.m_minimum < 3) {
 		unsigned int dummy;
 		*xfer == dummy;
 	}
-	*xfer == m_48;
+	*xfer == m_adjustDestinations;
 	if (TheAudio != 0) {
-		TheAudio->xferAudioHandle(xfer, &m_40);
+		TheAudio->xferAudioHandle(xfer, &m_ambientPlayingHandle);
 	}
 	if (version.m_minimum >= 2) {
 		*xfer == m_4B;
