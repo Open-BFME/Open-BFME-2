@@ -3,17 +3,27 @@
 // frees the block through operator delete[] (??_V) at 0x00881EF0.
 #include <new>
 
-struct Rva943E10NodeMotion
+// The array element is retail's 0x1C-byte scene-list element: its destructor
+// is 0x00141CA0 and its vector-deleting destructor 0x00141D00, both rowed in
+// Rva00141D00VectorDeletingDtor.cpp (vtable + 0x14-byte head at +4).
+class BfmeNonRefSceneList
 {
-    unsigned char data[28];
-    ~Rva943E10NodeMotion();
+public:
+    virtual ~BfmeNonRefSceneList();
+
+private:
+    char m_pad[0x14];
 };
 
-// ??1Rva943E10NodeMotion@@QAE@XZ absent-from-retail (empty element dtor kept only
-// so the matched free() emits retail's array-delete shape)
-Rva943E10NodeMotion::~Rva943E10NodeMotion()
+class Rva00141D00
 {
-}
+public:
+    ~Rva00141D00();
+
+private:
+    int m_pad;
+    BfmeNonRefSceneList m_list;
+};
 
 class Rva943E10CompressedAnim
 {
@@ -22,7 +32,7 @@ public:
 
 private:
     unsigned char data[24];
-    Rva943E10NodeMotion *node_motion;
+    Rva00141D00 *node_motion;
 };
 
 // ?d_00943e10@@YAXXZ
