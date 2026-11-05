@@ -9,9 +9,8 @@
 // 0x28, then the +0x0C bone-index list drained through the 0x00330F7D decal
 // xfer. The 2-byte Version temp must be a real Version object: a struct of two
 // bools places it at [ebp+0x0A] (tail of the dead argument slot) instead of
-// retail's [ebp+8], while Version lands at the slot base. Layout from the
-// matched dtor TU: Rva000B19A1 intermediate carries the 8-byte pad that puts
-// the list at +0x0C.
+// retail's [ebp+8], while Version lands at the slot base. The canonical DrawModule
+// layout is 12 bytes, placing the bone-index list at +0x0C.
 #include <list>
 
 class Thing;
@@ -38,11 +37,7 @@ struct XferUnknown11;
 
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 
-class DrawModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 struct Coord3D;
 class RadiusDecal
@@ -54,17 +49,7 @@ public:
 	void rva00330F7D(Xfer *xfer);
 };
 
-class Rva000B19A1 : public DrawModule
-{
-public:
-	Rva000B19A1(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva000B19A1();
-
-private:
-	unsigned char m_pad04[8];
-};
-
-class W3DTornadoDraw : public Rva000B19A1
+class W3DTornadoDraw : public DrawModule
 {
 public:
 	W3DTornadoDraw(Thing *thing, const ModuleData *moduleData);
