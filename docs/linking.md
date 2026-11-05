@@ -246,3 +246,43 @@ linking and small dependency repairs proceed directly.
   candidates when a repair needs unrelated investigation.
 - Accumulate verified linking repairs and push them in batches rather than
   pushing each repair individually (AGENTS.md, publication).
+
+## Removed external definitions at publication
+
+`link_batch_audit.py` checks removed externals against the newest completed
+`real-link-*` artifact's `image_objects.json` and hash-bound object data before
+the census-byte comparison. It compiles nothing and creates no base worktrees
+or snapshots. Tip replacements come only from the pre-push byte-gated cohort.
+Consumers changed since the measured commit without a tip object are printed
+as UNCHECKED; stale local objects are never read for those consumers. Committed
+`/alternatename` pragmas are also scanned, and runtime/import-library providers
+use the same archives and retail-import routing as `exit_link.py`.
+
+Only proven losses refuse a push. Unknown tip providers retain their possible
+base definitions and suppress a proven-absence verdict; missing artifacts,
+objects, library evidence and unsupported directives produce named warnings.
+Compiler/header drift conservatively marks unbuilt consumers unchecked. This
+partial check does not certify a whole link or source freshness. Scheduled real
+links and their picker blockers remain the backstop. The hook retains its
+60-second cap and warns on timeout. Docs-only pushes return before artifact
+access, including when unrelated tracked files are dirty.
+
+Parsed manifest facts are cached by measured commit in the git common dir's
+`bfme-real-link-objects/`, shared across worktrees, with a 96 MiB total JSON
+size cap. Artifact metadata is refreshed every five minutes; an absent manifest
+is cached too. Downloads and expanded artifact contents are capped at 256 MiB.
+No extracted objects or per-base source trees are retained.
+
+As of the 2026-11-05 revision review, the newest completed real-link run
+42112143280 at `3973ef8ec523faca19cd08c0d9e728ce51b5383f` published scoreboard,
+result and linker diagnostics but no object manifest. Its authoritative link
+failed with 377 unresolved names and no image. The workflow currently stages
+`image_objects*` only when a real image is written. Until such an artifact is
+available this guard warns and the existing census audit continues; diagnostic
+manifests and private compiles are not substituted.
+
+Revision measurements on srv1: the no-source audit path took 12--20 ms;
+first inspection/cache of the latest real artifact took 1.97 s, and its cached
+lookup took 4.6 ms. The latest artifact has no manifest, so these are available-
+evidence timings, not a benchmark of a complete 18,000-object manifest. The
+rejected implementation's private snapshot cache was removed from `image`.

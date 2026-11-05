@@ -9,6 +9,9 @@ import collections
 import csv
 import subprocess
 import sys
+import json
+import tempfile
+import time
 from pathlib import Path
 
 import build
@@ -23,7 +26,7 @@ def git(*args):
 
 
 def changed_sources(base, tip):
-    names = git("diff", "--name-only", base, tip, "--", "Code").splitlines()
+    names = git("diff", "--no-renames", "--name-only", base, tip, "--", "Code").splitlines()
     return {name for name in names if Path(name).suffix.lower() in (".cpp", ".c", ".asm")}
 
 
@@ -136,14 +139,339 @@ def omitted_references(rows, objects):
     return found
 
 
+def definition_losses(before, after):
+    """Return (consumer, root, missing target) for newly orphaned base definitions.
+
+    Facts are COFF object_symbols tuples, keyed by object/source. Follow global
+    directives, weak defaults, chained aliases and local import bindings. A real
+    definition takes precedence over its alias. Do not require census byte credit.
+    """
+    old = set().union(*(fact[0] for fact in before.values())) if before else set()
+    defined = set().union(*(fact[0] for fact in after.values())) if after else set()
+    removed = old - defined
+    if not removed:
+        return []
+    aliases = collections.defaultdict(set)
+    for _, _, weaks, alternates, _ in after.values():
+        for alias, target in [*weaks, *alternates.items()]:
+            aliases[alias].add(target)
+
+    if any(len(targets) > 1 for targets in aliases.values()):
+        raise ValueError("conflicting weak/alternate targets")
+
+    def walk(name, seen):
+        if name in defined or name in link_census.LINKER_DEFINED or name in seen:
+            return set()
+        seen = seen | {name}
+        targets = set(aliases.get(name, ()))
+        if name.startswith(link_census.IMPORT_PREFIX):
+            targets.add(name[len(link_census.IMPORT_PREFIX):])
+        return ({name} & removed) | set().union(*(walk(t, seen) for t in targets))
+
+    # A resolvable alternate route means this reference has not been lost.
+    def resolves(name, seen):
+        if name in defined or name in link_census.LINKER_DEFINED:
+            return True
+        if name in seen:
+            return False
+        targets = set(aliases.get(name, ()))
+        if name.startswith(link_census.IMPORT_PREFIX):
+            targets.add(name[len(link_census.IMPORT_PREFIX):])
+        return any(resolves(t, seen | {name}) for t in targets)
+
+    found = []
+    for consumer, (_, refs, weaks, _, includes) in after.items():
+        for root in sorted(refs | includes | {name for name, _ in weaks}):
+            if not resolves(root, set()):
+                found.extend((consumer, root, target) for target in sorted(walk(root, set())))
+    return found
+
+
+CACHE_SCHEMA = 1
+CACHE_LIMIT = 96 * 1024 * 1024
+ARTIFACT_LIMIT = 256 * 1024 * 1024
+REPO = 'Open-BFME/Open-BFME-2'
+
+
+def cache_root():
+    common = Path(git('rev-parse', '--path-format=absolute', '--git-common-dir'))
+    root = common / 'bfme-real-link-objects'
+    root.mkdir(exist_ok=True)
+    return root
+
+
+def save_cache(path, value):
+    raw = json.dumps(value, separators=(',', ':')).encode()
+    if len(raw) > CACHE_LIMIT:
+        raise ValueError('parsed real-link manifest exceeds cache size cap')
+    # Bounded shared cache. Evict before publishing; interrupted writes cannot
+    # bless a partial summary. Metadata names the artifact and measured commit.
+    files = sorted(path.parent.glob('*.json'), key=lambda p: p.stat().st_mtime_ns)
+    total = sum(p.stat().st_size for p in files if p != path)
+    for old in files:
+        if total + len(raw) <= CACHE_LIMIT:
+            break
+        if old != path:
+            size = old.stat().st_size
+            old.unlink(missing_ok=True)
+            total -= size
+    with tempfile.NamedTemporaryFile(dir=path.parent, prefix='.pending-', suffix='.json', delete=False) as temp:
+        temp.write(raw)
+        temporary = Path(temp.name)
+    temporary.replace(path)
+
+
+def gh_api(endpoint):
+    return subprocess.run(['gh', 'api', endpoint], check=True, capture_output=True,
+                          timeout=10).stdout
+
+
+def object_source(source, provider, sources):
+    source = source.replace('\\', '/')
+    if 'Code/' in source:
+        return source[source.index('Code/'):]
+    return sources.get(provider.replace('\\', '/').rsplit('/', 1)[-1], '')
+
+
+def source_object_names(commit):
+    # Pure build.obj_path spelling, without requiring a measured source to exist
+    # in this seat. Library members remain provider-keyed, with unknown source.
+    found = {}
+    for source in git('ls-tree', '-r', '--name-only', commit, '--', 'Code').splitlines():
+        if Path(source).suffix.lower() in ('.cpp', '.c', '.asm'):
+            stem = str(Path(source).with_suffix('')).replace('\\', '/').replace('/', '_')
+            name = ''.join('^' + c.lower() if c.isupper() else c for c in stem) + '.obj'
+            found[name] = source
+    return found
+
+
+def parse_manifest_archive(raw, commit):
+    """Verify content hashes once; retain facts, never an extracted object tree."""
+    import zipfile
+    import io
+    import hashlib
+    import posixpath
+    with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+        names = archive.namelist()
+        manifests = [n for n in names if n.endswith('/image_objects.json') or n == 'image_objects.json']
+        if len(manifests) != 1:
+            return dict(schema=CACHE_SCHEMA, commit=commit, objects=[],
+                        warning='real-link artifact has no unique image_objects.json')
+        if sum(e.file_size for e in archive.infolist()) > ARTIFACT_LIMIT:
+            raise ValueError('real-link artifact exceeds expanded size cap')
+        manifest = manifests[0]
+        receipt = json.loads(archive.read(manifest + '.receipt.json'))
+        if not receipt.get('map_sha256'):
+            raise ValueError('object manifest lacks MAP receipt')
+        entries = json.loads(archive.read(manifest))
+        sources = source_object_names(commit)
+        objects = []
+        for entry in entries:
+            path = posixpath.normpath(posixpath.join(posixpath.dirname(manifest), entry['path']))
+            if path.startswith('../') or path.startswith('/'):
+                raise ValueError('object path escapes artifact')
+            data = archive.read(path)
+            if hashlib.sha256(data).hexdigest() != entry['sha256']:
+                raise ValueError('object manifest digest mismatch: ' + path)
+            if data[:4] == b'\0\0\xff\xff':
+                # Short import member: CODE defines a callable plus its IAT;
+                # DATA provides only the IAT. Match the archive's real names.
+                import struct
+                name = data[20:].split(b'\0', 1)[0].decode('latin-1')
+                kind = struct.unpack_from('<H', data, 18)[0] & 3
+                facts = ({'__imp_' + name} | ({name} if kind == 0 else set()), set(), [], {}, set())
+            else:
+                facts = link_census.object_symbols(Path(path), data)
+            objects.append(dict(source=object_source(entry.get('source', ''), entry['provider'], sources),
+                                provider=entry['provider'], facts=pack_facts(facts)))
+        counts = receipt.get('counts', {})
+        result = dict(schema=CACHE_SCHEMA, commit=commit, objects=objects, counts=counts)
+        if counts.get('providers_unresolved') or counts.get('archive_members_unresolved'):
+            result['warning'] = 'manifest has unresolved object providers: ' + str(counts)
+        return result
+
+
+def load_real_manifest():
+    """Newest completed real-link run; cache metadata briefly and facts by SHA."""
+    root = cache_root()
+    latest = root / 'latest.json'
+    if latest.exists() and time.time() - latest.stat().st_mtime < 300:
+        selected = json.loads(latest.read_text())
+    else:
+        runs = json.loads(gh_api(f'repos/{REPO}/actions/workflows/real-link.yml/runs'
+                                 '?branch=master&status=completed&per_page=1'))['workflow_runs']
+        if not runs:
+            raise ValueError('no completed real-link run')
+        run = runs[0]
+        artifacts = json.loads(gh_api(f'repos/{REPO}/actions/runs/{run["id"]}/artifacts'))['artifacts']
+        artifact = next((a for a in artifacts if a['name'] == 'real-link-' + run['head_sha']
+                         and not a['expired']), None)
+        if artifact is None:
+            raise ValueError('latest real-link run has no available artifact')
+        if artifact['size_in_bytes'] > ARTIFACT_LIMIT:
+            raise ValueError('real-link artifact exceeds download size cap')
+        selected = dict(commit=run['head_sha'], artifact=artifact['id'])
+        save_cache(latest, selected)
+    path = root / (selected['commit'] + '.json')
+    if path.exists():
+        data = json.loads(path.read_text())
+        if (data.get('schema') == CACHE_SCHEMA and data.get('commit') == selected['commit']
+                and data.get('artifact') == selected['artifact']):
+            return data
+    data = parse_manifest_archive(gh_api(f'repos/{REPO}/actions/artifacts/{selected["artifact"]}/zip'),
+                                  selected['commit'])
+    data['artifact'] = selected['artifact']
+    save_cache(path, data)
+    return data
+
+
+def pack_facts(facts):
+    defs, refs, weak, aliases, includes = facts
+    return [sorted(defs), sorted(refs), list(weak), aliases, sorted(includes)]
+
+
+def unpack_facts(facts):
+    return set(facts[0]), set(facts[1]), facts[2], facts[3], set(facts[4])
+
+
+def library_definitions(names):
+    """Use exit_link's /MD archives and its generated retail-import routing."""
+    import link_cycle
+    defined = set(link_census.LINKER_DEFINED) | set(link_cycle.ABSOLUTE)
+    for path in link_cycle.runtime_libraries():
+        defined |= link_census.library_symbols(path)
+    imported = link_census.retail_imports()
+    for name in names - defined:
+        request = name if name.startswith('__imp_') else '__imp_' + name
+        entries, missing = link_cycle.import_def_entries({request}, imported)
+        if entries and not missing:
+            defined.add(name)
+    return defined
+
+
+def source_alternates(tip):
+    """Committed directives only: unrelated dirty work cannot supply evidence.
+
+    A source directive is a cheap conservative requirement, even if its alias
+    has no observed object reference. A real definition of the alias overrides it.
+    Multiline/macro/comment spellings stay unchecked rather than proving a loss.
+    """
+    import re
+    done = subprocess.run(['git', 'grep', '-n', '-I', '-i', '-e', '/alternatename:',
+                           tip, '--', 'Code', 'reference'], cwd=link_check.ROOT,
+                          capture_output=True, text=True, timeout=5)
+    if done.returncode not in (0, 1):
+        raise ValueError('source alternatename grep failed')
+    found, unchecked = {}, []
+    pattern = re.compile(r'^\s*#\s*pragma\s+comment\s*\(\s*linker\s*,\s*"/alternatename:([^=\s"]+)=([^\s"]+)"\s*\)', re.I)
+    for line in done.stdout.splitlines():
+        _, source, number, text = line.split(':', 3)
+        match = pattern.match(text)
+        if match:
+            alias, target = match.groups()
+            found[source + ':' + number] = (set(), {alias}, [], {alias: target}, set())
+        else:
+            unchecked.append(source + ':' + number)
+    return found, unchecked
+
+
+def removed_definition_guard(base, tip, verified):
+    """Measured objects plus byte-gated tip replacements; missing proof warns."""
+    started = time.monotonic()
+    changes = changed_sources(base, tip)
+    if not changes and not verified and not changed_identities(base, tip):
+        return 0
+    manifest = load_real_manifest()
+    if manifest.get('warning') or not manifest['objects']:
+        print('definition guard: UNCHECKED: ' + manifest.get('warning', 'empty real-link manifest')
+              + ' at ' + manifest['commit'])
+        return 0
+    measured = manifest['commit']
+    if subprocess.run(['git', 'merge-base', '--is-ancestor', measured, base],
+                      cwd=link_check.ROOT, capture_output=True).returncode:
+        print('definition guard: UNCHECKED: measured commit is not an ancestor of outgoing base')
+        return 0
+    delta = set(git('diff', '--no-renames', '--name-only', measured, tip, '--',
+                    *link_census.CENSUS_INPUTS, *('tools/' + n for n in link_census.TOOL_FILES)).splitlines())
+    # Conservatively widen include/compiler drift. Only the byte gate can make
+    # such consumers current; this guard never compiles or trusts a stale .obj.
+    broad = any(not (p.startswith('reverse/') or Path(p).suffix.lower() in ('.cpp', '.c', '.asm')) for p in delta)
+    changed = {p for p in delta if Path(p).suffix.lower() in ('.cpp', '.c', '.asm')}
+    live = set(git('ls-tree', '-r', '--name-only', tip, '--', 'Code').splitlines())
+    before, after, unchecked = {}, {}, set()
+    unknown_sources = []
+    for entry in manifest['objects']:
+        source, provider = entry['source'], entry['provider']
+        key = source or provider
+        if not source:
+            unknown_sources.append(provider)
+        facts = unpack_facts(entry['facts'])
+        before[provider] = facts
+        if source and source not in live:
+            continue
+        if source in changed or (broad and source):
+            # Keep unchecked providers as possible definitions, but never use
+            # their old imports as current evidence. This cannot prove a loss.
+            unchecked.add(source)
+            after[key] = (facts[0], set(), [], {}, set())
+        else:
+            after[key] = facts if source else (facts[0], set(), [], {}, set())
+    verified = set(verified)
+    for source in sorted(verified):
+        # The hook supplies only its completed byte-gated cohort. Never consult
+        # another local object merely because it exists in build/match.
+        obj = build.obj_path(link_check.ROOT / source)
+        if not obj.is_file() or exit_link.is_placement_source(source):
+            if not exit_link.is_placement_source(source):
+                unchecked.add(source)
+            after.pop(source, None)
+            continue
+        raw = obj.read_bytes()
+        after[source] = link_census.object_symbols(obj, raw)
+        unchecked.discard(source)
+    unchecked |= (changed & live) - verified
+    directives, unparsed = source_alternates(tip)
+    after.update({'source directive ' + source: facts for source, facts in directives.items()})
+    names = set().union(*(f[0] for f in before.values())) - set().union(*(f[0] for f in after.values()))
+    names |= {name for f in after.values() for pair in [*f[2], *f[3].items()] for name in pair}
+    try:
+        supplied = library_definitions(names)
+    except (OSError, ValueError, SystemExit) as exc:
+        print(f'definition guard: UNCHECKED libraries: {exc}')
+        return 0
+    after['real-link libraries'] = (supplied, set(), [], {}, set())
+    losses = definition_losses(before, after)
+    for source in sorted(unchecked):
+        print('definition guard: UNCHECKED tip object: ' + source)
+    for provider in unknown_sources:
+        print('definition guard: UNCHECKED manifest source: ' + provider)
+    for source in unparsed:
+        print('definition guard: UNCHECKED source directive: ' + source)
+    # An unchecked changed unit could supply a replacement under a new name.
+    # Do not turn unknown provider evidence into a proven absence.
+    if unchecked and losses:
+        for consumer, root, target in losses[:20]:
+            print(f'  UNCHECKED possible loss {target}: {consumer} references {root}')
+        losses = []
+    for consumer, root, target in losses[:30]:
+        print(f'  LOST EXTERNAL {target}: {consumer} references {root}')
+    print(f'definition guard: manifest {measured[:10]}, {len(verified)} byte-gated tip units, '
+          f'{len(losses)} proven losses ({time.monotonic() - started:.3f}s)')
+    return 1 if losses else 0
+
 def audit(base, tip, verified):
     changes = changed_sources(base, tip)
     identities = changed_identities(base, tip)
     if not changes and not verified and not identities:
         print("link batch audit: no changed source objects")
         return 0
-    if git("diff", "--name-only", tip, "--", *link_census.CENSUS_INPUTS):
-        raise ValueError("working-tree compiler/identity inputs differ from the pushed commit")
+    try:
+        guard = removed_definition_guard(base, tip, verified)
+    except (OSError, ValueError, KeyError, SystemExit, subprocess.SubprocessError) as exc:
+        print(f"definition guard: UNCHECKED: {exc}")
+        guard = 0
+    if guard:
+        return guard
     if not link_check.INDEX.exists():
         print("link batch audit: INCONCLUSIVE: census index missing; fetch with link_check.py --fetch-index")
         return 2

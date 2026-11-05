@@ -10,9 +10,12 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import link_batch_audit as A
 
+REAL_DEFINITION_GUARD = A.removed_definition_guard
+
 
 @pytest.fixture(autouse=True)
 def no_real_git(monkeypatch):
+    monkeypatch.setattr(A, "removed_definition_guard", lambda *args: 0)
     monkeypatch.setattr(A, "git", lambda *args: "Code/intervening.cpp" if "c" * 40 in args else "")
 
 
@@ -275,7 +278,7 @@ def test_consumer_names_are_written_refreshed_and_retired(batch):
     assert "caller.obj" not in saved["touches"]
 
 
-@pytest.mark.parametrize("status,blocked", [(0, False), (1, True), (2, False), (124, False), (3, True)])
+@pytest.mark.parametrize("status,blocked", [(0, False), (1, True), (2, False), (124, False), (137, False), (3, True)])
 def test_push_hook_honors_audit_exit_status(status, blocked):
     bash = shutil.which("bash")
     if not bash:
@@ -290,7 +293,7 @@ def test_push_hook_honors_audit_exit_status(status, blocked):
              f'fail() {{ exit 1; }}\nshadow_cap() {{ return {status}; }}\nstage() {{ :; }}\n')
     done = subprocess.run([bash, "-c", setup + jobs + audits + block], capture_output=True, text=True)
     assert (done.returncode != 0) == blocked, done.stderr
-    if status in (2, 124):
+    if status in (2, 124, 137):
         assert "UNVERIFIED" in done.stderr
 
 
@@ -343,3 +346,284 @@ def test_a_stale_consumer_outside_the_verified_set_is_not_judged_for_omitted_ref
     assert A.audit("a" * 40, "b" * 40, []) == 2      # in scope by the change alone, stale, not verified: unverified
     assert "OMITTED" not in capsys.readouterr().out
 
+
+
+
+def symbols(defined=(), refs=(), aliases=None, weak=(), includes=()):
+    return set(defined), set(refs), list(weak), aliases or {}, set(includes)
+
+
+def test_removed_private_drawable_inline_is_refused_without_census_credit():
+    name = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    before = {'DrawableHealthBarGate.cpp': symbols([name])}
+    after = {'DrawableHealthBarGate.cpp': symbols(),
+             **{f'caller{i}.cpp': symbols(refs=[name]) for i in range(11)}}
+    assert len(A.definition_losses(before, after)) == 11
+    after['real_owner.cpp'] = symbols([name])
+    assert A.definition_losses(before, after) == []
+
+
+def test_removed_import_alternatename_target_is_refused():
+    target = '?ji_006291ae@@YAXXZ'
+    alias = '?ji_006291ae@@YAPAXPAXHI@Z'
+    before = {'imports_001.cpp': symbols([target])}
+    after = {'imports_001.cpp': symbols(),
+             'Rva00219B9EAccessor.cpp': symbols(refs=[alias], aliases={alias: target})}
+    assert A.definition_losses(before, after) == [('Rva00219B9EAccessor.cpp', alias, target)]
+    # A new provider or a real definition overriding the alias makes it safe.
+    after['typed.cpp'] = symbols([target])
+    assert A.definition_losses(before, after) == []
+    after['typed.cpp'] = symbols([alias])
+    assert A.definition_losses(before, after) == []
+
+
+def test_transitive_cross_object_directive_and_weak_default():
+    before = {'old': symbols(['target'])}
+    after = {'consumer': symbols(weak=[('weak', 'alias')]),
+             'directive': symbols(aliases={'alias': 'target'})}
+    assert A.definition_losses(before, after) == [('consumer', 'weak', 'target')]
+
+
+def test_unused_removal_and_alias_cycle_terminate():
+    before = {'old': symbols(['unused'])}
+    assert A.definition_losses(before, {'new': symbols()}) == []
+    assert A.definition_losses(before, {'new': symbols(refs=['a'], aliases={'a': 'b', 'b': 'a'})}) == []
+
+
+def test_include_and_local_import_binding():
+    before = {'old': symbols(['target'])}
+    after = {'caller': symbols(includes=['__imp_target'])}
+    assert A.definition_losses(before, after) == [('caller', '__imp_target', 'target')]
+
+
+def test_guard_refusal_precedes_missing_census(monkeypatch, tmp_path):
+    monkeypatch.setattr(A, 'changed_sources', lambda *a: {'Code/provider.cpp'})
+    monkeypatch.setattr(A, 'removed_definition_guard', lambda *a: 1)
+    monkeypatch.setattr(A.link_check, 'INDEX', tmp_path / 'missing')
+    assert A.audit('base', 'tip', []) == 1
+
+
+
+@pytest.mark.parametrize('alternate', [False, True])
+def test_real_coff_removed_definition(alternate, tmp_path):
+    """Use actual COFF symbol and directive parsing, not mocked symbol facts."""
+    import struct
+    target = '?ji_006291ae@@YAXXZ' if alternate else '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    root = '?ji_006291ae@@YAPAXPAXHI@Z' if alternate else target
+
+    def write(name, entries, directive=b''):
+        strings = bytearray(b'\0' * 4)
+        symbols = bytearray()
+        for symbol, section in entries:
+            offset = len(strings); strings.extend(symbol.encode() + b'\0')
+            symbols.extend(struct.pack('<II', 0, offset) + struct.pack('<IhHBB', 0, section, 0x20, 2, 0))
+        struct.pack_into('<I', strings, 0, len(strings))
+        # .text plus .drectve; all external definitions in .text.
+        payload = b'\xc3' + directive
+        headers = (b'.text\0\0\0' + struct.pack('<IIIIIIHHI', 0, 0, 1, 100, 0, 0, 0, 0, 0x60000020)
+                   + b'.drectve' + struct.pack('<IIIIIIHHI', 0, 0, len(directive), 101, 0, 0, 0, 0, 0x100A00))
+        header = struct.pack('<HHIIIHH', 0x14c, 2, 0, 100 + len(payload), len(entries), 0, 0)
+        path = tmp_path / name
+        path.write_bytes(header + headers + payload + symbols + strings)
+        return A.link_census.object_symbols(path)
+
+    before = {'provider': write('base.obj', [(target, 1)])}
+    after = {'provider': write('tip.obj', []),
+             'caller': write('caller.obj', [(root, 0)],
+                             (' /alternatename:' + root + '=' + target).encode() if alternate else b'')}
+    assert A.definition_losses(before, after) == [('caller', root, target)]
+    after['replacement'] = write('replacement.obj', [(target, 1)])
+    assert A.definition_losses(before, after) == []
+
+
+
+
+def test_guard_missing_evidence_warns(monkeypatch, tmp_path, capsys):
+    def refuse(*a):
+        raise ValueError('manifest unavailable')
+    monkeypatch.setattr(A, 'changed_sources', lambda *a: {'Code/provider.cpp'})
+    monkeypatch.setattr(A, 'removed_definition_guard', refuse)
+    monkeypatch.setattr(A.link_check, 'INDEX', tmp_path / 'missing')
+    assert A.audit('base', 'tip', []) == 2
+    assert 'definition guard: UNCHECKED: manifest unavailable' in capsys.readouterr().out
+
+
+@pytest.fixture
+def manifest_repo(monkeypatch, tmp_path):
+    import json
+    repo = tmp_path
+    (repo / 'Code').mkdir()
+    for name in ('provider', 'caller'):
+        (repo / 'Code' / (name + '.cpp')).write_text('// original\n')
+    subprocess.run(['git', 'init', '-q', str(repo)], check=True)
+    subprocess.run(['git', '-C', str(repo), 'config', 'user.name', 'test'], check=True)
+    subprocess.run(['git', '-C', str(repo), 'config', 'user.email', 'test@example.com'], check=True)
+    def commit():
+        subprocess.run(['git', '-C', str(repo), 'add', 'Code'], check=True)
+        subprocess.run(['git', '-C', str(repo), 'commit', '-qm', 'fixture'], check=True)
+        return subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip()
+    base = commit()
+    monkeypatch.setattr(A.link_check, 'ROOT', repo)
+    monkeypatch.setattr(A, 'git', lambda *args: subprocess.check_output(['git', '-C', str(repo), *args], text=True).strip())
+    monkeypatch.setattr(A, 'library_definitions', lambda names: set())
+    monkeypatch.setattr(A.build, 'obj_path', lambda path: repo / (path.stem + '.obj'))
+    monkeypatch.setattr(A.link_census, 'object_symbols', lambda path, raw=None: A.unpack_facts(json.loads(path.read_text())))
+    def object_(source, facts):
+        (repo / (Path(source).stem + '.obj')).write_text(json.dumps(A.pack_facts(facts)))
+    def manifest(facts):
+        result = {'commit': base, 'objects': [dict(source=s, provider=Path(s).stem + '.obj',
+                                                   facts=A.pack_facts(f)) for s, f in facts.items()]}
+        monkeypatch.setattr(A, 'load_real_manifest', lambda: result)
+        return result
+    return repo, base, commit, object_, manifest
+
+
+@pytest.mark.parametrize('alternate', [False, True])
+def test_manifest_reproduces_both_removed_providers(manifest_repo, alternate, capsys):
+    repo, base, commit, object_, manifest = manifest_repo
+    target = '?ji_006291ae@@YAXXZ' if alternate else '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    root = '?ji_006291ae@@YAPAXPAXHI@Z' if alternate else target
+    manifest({'Code/provider.cpp': symbols([target]),
+              'Code/caller.cpp': symbols(refs=[root], aliases={root: target} if alternate else {})})
+    (repo / 'Code/provider.cpp').write_text('// inline or import thunk removed\n')
+    tip = commit(); object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+    assert 'LOST EXTERNAL ' + target in capsys.readouterr().out
+
+
+def test_library_supplies_removed_definition(manifest_repo, monkeypatch):
+    repo, base, commit, object_, manifest = manifest_repo
+    manifest({'Code/provider.cpp': symbols(['_memset']), 'Code/caller.cpp': symbols(refs=['_memset'])})
+    (repo / 'Code/provider.cpp').write_text('// use /MD provider\n')
+    tip = commit(); object_('Code/provider.cpp', symbols())
+    monkeypatch.setattr(A, 'library_definitions', lambda names: {'_memset'})
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
+
+
+@pytest.mark.parametrize('merge', [False, True])
+def test_rename_and_merge_preserve_provider(manifest_repo, merge):
+    repo, base, commit, object_, manifest = manifest_repo
+    manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols(refs=['target'])})
+    (repo / 'Code/provider.cpp').unlink()
+    dest = 'Code/caller.cpp' if merge else 'Code/renamed.cpp'
+    (repo / dest).write_text('// moved definition\n')
+    tip = commit(); object_(dest, symbols(['target'], refs=[]))
+    assert A.changed_sources(base, tip) >= {'Code/provider.cpp', dest}
+    assert REAL_DEFINITION_GUARD(base, tip, [dest]) == 0
+
+
+def test_rebased_unbuilt_consumer_is_unchecked_not_stale_local_evidence(manifest_repo, capsys):
+    repo, base, commit, object_, manifest = manifest_repo
+    manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols()})
+    (repo / 'Code/caller.cpp').write_text('// new reference since manifest\n')
+    (repo / 'Code/provider.cpp').write_text('// removed provider\n')
+    tip = commit(); object_('Code/provider.cpp', symbols())
+    object_('Code/caller.cpp', symbols())  # stale local object deliberately has no import
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
+    assert 'UNCHECKED tip object: Code/caller.cpp' in capsys.readouterr().out
+
+
+def test_source_grep_finds_alternate_without_local_consumer_object(manifest_repo, capsys):
+    repo, base, commit, object_, manifest = manifest_repo
+    (repo / 'Code/caller.cpp').write_text('#pragma comment(linker, "/alternatename:alias=target")\n')
+    measured = commit()
+    record = manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols()})
+    record['commit'] = measured
+    (repo / 'Code/provider.cpp').write_text('// removed\n')
+    tip = commit(); object_('Code/provider.cpp', symbols())
+    assert not (repo / 'caller.obj').exists()
+    assert REAL_DEFINITION_GUARD(measured, tip, ['Code/provider.cpp']) == 1
+    assert 'source directive Code/caller.cpp:' in capsys.readouterr().out
+
+
+def test_docs_only_push_preserves_dirty_unrelated_file(manifest_repo, monkeypatch):
+    import time
+    repo, base, commit, object_, manifest = manifest_repo
+    (repo / 'notes.md').write_text('documentation')
+    subprocess.run(['git', '-C', str(repo), 'add', 'notes.md'], check=True)
+    subprocess.run(['git', '-C', str(repo), 'commit', '-qm', 'docs'], check=True)
+    tip = A.git('rev-parse', 'HEAD')
+    (repo / 'Code/caller.cpp').write_text('// unrelated dirty work\n')
+    monkeypatch.setattr(A, 'removed_definition_guard', lambda *a: pytest.fail('guard should not run'))
+    started = time.monotonic()
+    assert A.audit(base, tip, []) == 0
+    assert time.monotonic() - started < 1
+    assert (repo / 'Code/caller.cpp').read_text() == '// unrelated dirty work\n'
+
+
+def test_missing_tip_object_warns_without_refusing(manifest_repo, capsys):
+    repo, base, commit, object_, manifest = manifest_repo
+    manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols(refs=['target'])})
+    (repo / 'Code/provider.cpp').write_text('// changed\n'); tip = commit()
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
+    assert 'UNCHECKED tip object: Code/provider.cpp' in capsys.readouterr().out
+
+
+
+def test_exact_runtime_and_generated_import_providers(monkeypatch):
+    import link_cycle
+    original = A.library_definitions
+    monkeypatch.setattr(link_cycle, 'runtime_libraries', lambda: [Path('runtime.lib')])
+    monkeypatch.setattr(A.link_census, 'library_symbols', lambda path: {'_memset'})
+    monkeypatch.setattr(A.link_census, 'retail_imports', lambda: {'Sleep': {'kernel32.dll'}})
+    found = original({'_memset', '_Sleep@4', '__imp__Sleep@4', '?getID@Drawable@@QBE?AW4DrawableID@@XZ'})
+    assert {'_memset', '_Sleep@4', '__imp__Sleep@4'} <= found
+    assert '?getID@Drawable@@QBE?AW4DrawableID@@XZ' not in found
+
+
+def test_absent_artifact_manifest_is_warning(monkeypatch, capsys):
+    monkeypatch.setattr(A, 'changed_sources', lambda *a: {'Code/provider.cpp'})
+    monkeypatch.setattr(A, 'load_real_manifest', lambda: {'commit': 'a' * 40, 'objects': [], 'warning': 'no image_objects.json'})
+    assert REAL_DEFINITION_GUARD('base', 'tip', []) == 0
+    assert 'UNCHECKED: no image_objects.json' in capsys.readouterr().out
+
+
+def test_manifest_loader_verifies_hashes_without_extracting(monkeypatch, tmp_path):
+    import io, json, hashlib, zipfile, struct
+    name = 'target'
+    symbol = name.encode().ljust(8, b'\0') + struct.pack('<IhHBB', 0, 1, 0x20, 2, 0)
+    raw = struct.pack('<HHIIIHH', 0x14c, 1, 0, 61, 1, 0, 0)
+    raw += b'.text\0\0\0' + struct.pack('<IIIIIIHHI', 0, 0, 1, 60, 0, 0, 0, 0, 0x60000020)
+    raw += b'\xc3' + symbol + struct.pack('<I', 4)
+    def archive(digest):
+        stream = io.BytesIO()
+        with zipfile.ZipFile(stream, 'w') as z:
+            z.writestr('image/image_objects.json', json.dumps([{'path': 'image_objects-objects/a.obj',
+                'sha256': digest, 'source': 'Code/provider.cpp', 'provider': 'provider.obj'}]))
+            z.writestr('image/image_objects.json.receipt.json', json.dumps({'map_sha256': 'fixture'}))
+            z.writestr('image/image_objects-objects/a.obj', raw)
+        return stream.getvalue()
+    monkeypatch.setattr(A, 'source_object_names', lambda c: {})
+    parsed = A.parse_manifest_archive(archive(hashlib.sha256(raw).hexdigest()), 'commit')
+    assert A.unpack_facts(parsed['objects'][0]['facts'])[0] == {'target'}
+    with pytest.raises(ValueError, match='digest mismatch'):
+        A.parse_manifest_archive(archive('bad'), 'commit')
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_shared_cache_has_size_cap(monkeypatch, tmp_path):
+    monkeypatch.setattr(A, 'CACHE_LIMIT', 120)
+    for i in range(6):
+        A.save_cache(tmp_path / f'{i}.json', {'data': 'x' * 60})
+    assert sum(p.stat().st_size for p in tmp_path.iterdir()) <= 120
+
+
+def test_manifest_cache_avoids_repeat_downloads(monkeypatch, tmp_path):
+    import json
+    monkeypatch.setattr(A, 'cache_root', lambda: tmp_path)
+    calls = []
+    def api(endpoint):
+        calls.append(endpoint)
+        if 'workflows' in endpoint:
+            return json.dumps({'workflow_runs': [{'id': 1, 'head_sha': 'a' * 40}]}).encode()
+        if endpoint.endswith('/artifacts'):
+            return json.dumps({'artifacts': [{'id': 2, 'name': 'real-link-' + 'a' * 40,
+                        'expired': False, 'size_in_bytes': 12}]}).encode()
+        return b'zip fixture'
+    monkeypatch.setattr(A, 'gh_api', api)
+    monkeypatch.setattr(A, 'parse_manifest_archive', lambda raw, c: {'schema': A.CACHE_SCHEMA,
+                        'commit': c, 'objects': [], 'warning': 'manifest absent'})
+    first = A.load_real_manifest()
+    assert len(calls) == 3
+    assert A.load_real_manifest() == first
+    assert len(calls) == 3
