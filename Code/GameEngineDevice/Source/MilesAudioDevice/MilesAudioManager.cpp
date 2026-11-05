@@ -2616,11 +2616,7 @@ public:
     void *m_current;
     void *m_table;
 };
-class Rva000427195 {
-public:
-    void *first(Rva000411084 *iter);
-    void rva003A37DC(VideoPair pair);
-};
+#include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 // Slot 1 of an event info's vftable hands back its name.
 class AudioEventInfoVirtuals {
 public:

@@ -31,21 +31,15 @@ struct AudioCacheCursor
 	AudioCacheCursor(const AudioCacheCursor &audioCacheCursor) { s.first = audioCacheCursor.s.first; s.second = audioCacheCursor.s.second; }
 };
 
-class Rva000427195
+#include "../../Include/GameLogic/Rva000427195.h"
+
+__declspec(noinline) inline AudioCacheCursor Rva000427195::rva00427195()	// 0x00427195
 {
-public:
-	__declspec(noinline) AudioCacheCursor rva00427195()	// 0x00427195
-	{
-		for (unsigned n = 0; n < m_buckets.size(); ++n)
-			if (m_buckets[n])
-				return AudioCacheCursor(m_buckets[n], this);
-		return AudioCacheCursor(0, this);
-	}
-	int bucketIndex(const AsciiString *name);			// 0x00223149
-	void rva003A2A41();
-	void *m_unused00;
-	_STL::vector<void *> m_buckets;
-};
+	for (unsigned n = 0; n < (unsigned)(m_endBuckets - m_beginBuckets); ++n)
+		if (m_beginBuckets[n])
+			return AudioCacheCursor(m_beginBuckets[n], this);
+	return AudioCacheCursor(0, this);
+}
 
 class Rva000411084
 {

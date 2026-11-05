@@ -6,23 +6,11 @@
 // and 0x003F7B8E; landing this unblocks 0x003F7B59.
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	void *rva003F78A9(void *out, const AsciiString *key);
-	void *rva003F797C(void *out, const AsciiString *key);
-	void *rva003F7B0E(void *out, const AsciiString *key);
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	int m_pad0C;
-	int m_size;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 void *Rva000427195::rva003F797C(void *out, const AsciiString *key)
 {
-	rva00212858((unsigned int)(m_size + 1));
+	rva00212858(m_numElements + 1);
 	rva003F78A9(out, key);
 	return out;
 }

@@ -6,17 +6,7 @@
 // read off EvaBucketIndex/Advance siblings; landing this unblocks 0x003F797C.
 #include "ascii_string.h"
 
-class Rva000427195
-{
-public:
-	int bucketIndex(const AsciiString *name);
-	void *rva003F78A9(void *out, const AsciiString *key);
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	int m_pad0C;
-	int m_size;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
 
 struct EvaBucketNode
 {
@@ -64,7 +54,7 @@ void *Rva000427195::rva003F78A9(void *out, const AsciiString *key)
 	EvaBucketNode *fresh = (EvaBucketNode *)((Rva003F7737 *)this)->rva003F7737((const void *)key);
 	fresh->m_next = head;
 	m_beginBuckets[index] = fresh;
-	++m_size;
+	++m_numElements;
 	result->m_node = fresh;
 	result->m_owner = this;
 	result->m_inserted = 1;

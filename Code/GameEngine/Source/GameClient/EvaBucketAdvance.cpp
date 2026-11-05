@@ -16,25 +16,13 @@
 
 #include "../../Include/GameClient/Rva000411084.h"
 
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iter);
-	int bucketIndex(const AsciiString *name);
-	void *m_unused00;
-	// The begin field reads twice with different scheduling: the count
-	// computation folds it into a direct `sub ecx,[esi+4]` (single use, no
-	// homing) while the loop re-fetches it every iteration (`mov
-	// eax,[esi+4]` plus indexed `mov eax,[eax+edx*4]`), which also defeats
-	// the strength reduction that turns the index into a bump pointer.
-	// A single spelling serves only one side, so the union carries both:
-	// the plain member for count, the volatile member for the loop.
-	union {
-		void **m_beginBuckets;
-		void ** volatile m_beginBucketsVolatile;
-	};
-	void **m_endBuckets;
-};
+// The begin field reads twice with different scheduling: the count
+// computation folds it into a direct `sub ecx,[esi+4]` (single use, no
+// homing) while the loop re-fetches it every iteration (`mov eax,[esi+4]`
+// plus indexed `mov eax,[eax+edx*4]`), which also defeats the strength
+// reduction that turns the index into a bump pointer. The loop therefore
+// reads the member through a volatile view of the same field.
+#include "../../Include/GameLogic/Rva000427195.h"
 
 struct EvaMessageNameNode
 {
@@ -55,7 +43,7 @@ __declspec(noinline) inline void *Rva000411084::advance()
 		++index;
 		if (index >= count)
 			break;
-		head = table->m_beginBucketsVolatile[index];
+		head = (*(void ** volatile *)&table->m_beginBuckets)[index];
 	} while (head == 0);
 	return head;
 }

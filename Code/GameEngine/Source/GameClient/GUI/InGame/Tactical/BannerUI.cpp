@@ -590,18 +590,7 @@ namespace _STL
 template <class _T1, class _T2> struct pair;
 }
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int n);
-	int bucketIndex(const AsciiString *key);
-	_STL::pair<const AsciiString, Gen_003A8BE0> *rva00216D5C(const _STL::pair<const AsciiString, Gen_003A8BE0> &v);
-private:
-	char m_pad00[4];
-	void **m_buckets; // +4
-	char m_pad08[8];
-	int m_count; // +0x10
-};
+#include "../../../../../Include/GameLogic/Rva000427195.h"
 
 class Rva00216762
 {
@@ -1080,13 +1069,13 @@ BfmePod28 *Rva00216245::rva00216245(int key) {
 
 _STL::pair<const AsciiString, Gen_003A8BE0> *Rva000427195::rva00216D5C(const _STL::pair<const AsciiString, Gen_003A8BE0> &v)
 {
-	rva00212858(m_count + 1);
+	rva00212858(m_numElements + 1);
 	int idx = bucketIndex((const AsciiString *)&v);
-	void *old = m_buckets[idx];
+	void *old = m_beginBuckets[idx];
 	void *node = ((Rva00216762 *)this)->rva00216762(v);
 	*(void **)node = old;
-	m_buckets[idx] = node;
-	++m_count;
+	m_beginBuckets[idx] = node;
+	++m_numElements;
 	return (_STL::pair<const AsciiString, Gen_003A8BE0> *)((char *)node + 4);
 }
 
