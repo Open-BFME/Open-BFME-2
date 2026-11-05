@@ -26,97 +26,73 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/XferVersion.h"
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "GameLogicObjectLookupView.h"
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
-class Rva0055B0CC
+
+// Rva00573B23 (vftable 0x00C6E270) and its derived Rva00596CDF (vftable
+// 0x00C70AF0, installed by 0x00596C85 and 0x00596CDF), one view for every
+// body of this TU. Target facts: 0x00C70AF0 holds registerWithBuilder
+// 0x00596C7C in slot 6 and the transfer 0x00596CEA in slot 12, and the
+// transfer calls the base's slot-12 transfer 0x00573A35 directly. Slots with
+// no rowed spelling in this hierarchy stay pure, so the table this TU emits
+// names nothing the link cannot resolve; it is not retail's table.
+class Rva00573B23
 {
 public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void Slot6(void *arg1, bool arg2);
-	virtual void slot7();
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void Rva0055AED6(Xfer *xfer, void *arg2);
+	Rva00573B23();									// 0x00573A9B
+	virtual ~Rva00573B23();							// slot 0, 0x00573B23
+	virtual void vslot01() = 0;
+	virtual void vslot02() = 0;
+	virtual void vslot03() = 0;
+	virtual void vslot04() = 0;
+	virtual void vslot05() = 0;
+	virtual void registerWithBuilder(void *builder, bool flag) = 0;	// slot 6
+	virtual void vslot07() = 0;
+	virtual void vslot08() = 0;
+	virtual void vslot09() = 0;
+	virtual void vslot10() = 0;
+	virtual void vslot11() = 0;
+	virtual void Rva00573A35(Xfer *xfer, void *arg2);	// slot 12, 0x00573A35
+	float rva00573DCD(int player);					// 0x00573DCD
 protected:
-	float m_04;
-	ObjectID m_08;
-	AsciiString m_0C;
+	char m_unknown04[0x10 - 0x04];
 	unsigned int m_10;
-	int m_pad14;
-	float m_18;
-	int m_pad1C;
-	bool m_20;
-	bool m_21;
-	ObjectID m_24;
-	bool m_28;
+	char m_unknown14[0x40 - 0x14];
 };
-class Rva00573B23 : public Rva0055B0CC
+
+struct WallOrderPosition : Coord3DBase
 {
-public:
-	virtual void dslot0();
-	virtual void dslot1();
-	virtual void dslot2();
-	virtual void dslot3();
-	virtual void dslot4();
-	virtual void dslot5();
-	virtual void dslot6();
-	virtual void dslot7();
-	virtual void dslot8();
-	virtual void dslot9();
-	virtual void dslot10();
-	virtual void dslot11();
-	virtual void Rva00573A35(Xfer *xfer, void *arg2);
-private:
-	AsciiString m_2c;
-	Coord3DBase m_30;
-	float m_3c;
+    __forceinline WallOrderPosition() { x = 0.0f; y = 0.0f; z = 0.0f; }
 };
+
 class Rva00596CDF : public Rva00573B23
 {
 public:
-	virtual void eslot0();
-	virtual void eslot1();
-	virtual void eslot2();
-	virtual void eslot3();
-	virtual void eslot4();
-	virtual void eslot5();
-	virtual void eslot6();
-	virtual void eslot7();
-	virtual void eslot8();
-	virtual void eslot9();
-	virtual void eslot10();
-	virtual void eslot11();
-	virtual void Rva00596CEA(Xfer *xfer, void *arg2);
+	Rva00596CDF(unsigned int key);					// 0x00596C85
+	virtual ~Rva00596CDF();							// 0x00596CDF
+	virtual void registerWithBuilder(void *builder, bool flag);	// 0x00596C7C
+	virtual void Rva00596CEA(Xfer *xfer, void *arg2);	// 0x00596CEA
 private:
-	Coord3DBase m_40;
-	ObjectID m_4c;
-	unsigned int m_50;
-	int m_54;
-	bool m_58;
+	WallOrderPosition position40;
+	ObjectID objectID4c;
+	unsigned int key50;
+	int value54;
+	bool value58;
 };
+
 void Rva00596CDF::Rva00596CEA(Xfer *xfer, void *arg2)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	((Rva00573B23 *)this)->Rva00573B23::Rva00573A35(xfer, arg2);
-	*xfer == m_40;
-	XferObjectID(xfer, &m_4c);
-	*xfer == m_50;
-	*xfer == m_54;
-	*xfer == m_58;
-	if (xfer->IsLoading() && m_58 && m_10 == 0 && arg2 != 0) {
-		Slot6(arg2, true);
+	Rva00573B23::Rva00573A35(xfer, arg2);
+	*xfer == position40;
+	XferObjectID(xfer, &objectID4c);
+	*xfer == key50;
+	*xfer == value54;
+	*xfer == value58;
+	if (xfer->IsLoading() && value58 && m_10 == 0 && arg2 != 0) {
+		registerWithBuilder(arg2, true);
 	}
 }
