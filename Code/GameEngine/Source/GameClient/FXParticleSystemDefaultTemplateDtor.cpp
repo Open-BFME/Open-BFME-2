@@ -119,18 +119,36 @@ public:
 template <>
 class DefaultModuleTemplate<7> : public CategoryModuleTemplate<7>
 {
-public:
-    DefaultModuleTemplate<7> &operator=(const DefaultModuleTemplate<7> &that);
 };
 
-// The assignment hands straight through to the category base, the eighteen
-// bytes retail keeps next to the destructor fold.
-DefaultModuleTemplate<7> &DefaultModuleTemplate<7>::operator=(
-    const DefaultModuleTemplate<7> &that)
+// The default wrapper of category 7. Its assignment (retail export 566) and
+// the template's own (export 603) are the same eighteen bytes at 0x003A8CF1,
+// next to the destructor fold: a call into the category base's assignment.
+// DefaultModuleTemplate<7> adds no members, so its assignment is the implicit
+// one; the wrapper's assignment inlines it, and MSVC emits that implicit
+// definition beside it.
+template <int CATEGORY>
+class DefaultModuleTag
 {
-    CategoryModuleTemplate<7>::operator=(that);
+public:
+    typedef DefaultModuleTemplate<CATEGORY> TemplateType;
+};
+
+template <class TAG>
+class ConcreteModuleTemplate : public TAG::TemplateType
+{
+public:
+    ConcreteModuleTemplate<TAG> &operator=(const ConcreteModuleTemplate<TAG> &that);
+};
+
+template <class TAG>
+ConcreteModuleTemplate<TAG> &ConcreteModuleTemplate<TAG>::operator=(const ConcreteModuleTemplate<TAG> &that)
+{
+    TAG::TemplateType::operator=(that);
     return *this;
 }
+
+template class ConcreteModuleTemplate<DefaultModuleTag<7> >;
 
 // The named templates below repeat the same standalone triple-store shape,
 // one class each, for the destructors retail folds onto the same address.

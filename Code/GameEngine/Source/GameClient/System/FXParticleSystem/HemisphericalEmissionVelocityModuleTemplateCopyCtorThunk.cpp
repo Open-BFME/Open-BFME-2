@@ -11,6 +11,7 @@ class SphericalEmissionVelocityModuleTemplate
 {
 public:
 	SphericalEmissionVelocityModuleTemplate(const SphericalEmissionVelocityModuleTemplate &that);
+	SphericalEmissionVelocityModuleTemplate &operator=(const SphericalEmissionVelocityModuleTemplate &that);
 
 protected:
 	void *m_v0;
@@ -40,5 +41,44 @@ HemisphericalEmissionVelocityModuleTemplate::HemisphericalEmissionVelocityModule
 	self[1] = &__identifier("?vftable_0112B89C@@3HA");
 	self[2] = &HemisphericalEmissionVelocityModuleTemplate_csub_vtbl;
 }
+
+// Retail exports three assignments at 0x003A8EFC (18B), the call into
+// Spherical's assignment 0x003A738E and `return *this`: the Spherical wrapper's
+// (owner row, FXParticleSystemModules.cpp), Hemispherical's own (export 666) and
+// the Hemispherical wrapper's (export 570). Hemispherical adds no members, so
+// its assignment is the implicit one; the wrapper's assignment below inlines
+// it, and MSVC emits that implicit definition beside it.
+extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
+class HemisphericalEmissionVelocityModule;
+template <int CATEGORY> class DefaultParticleModule;
+
+template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+	class TEMPLATE, class DEFAULT>
+class ModuleTag
+{
+public:
+	typedef TEMPLATE TemplateType;
+};
+
+template <class TAG>
+class ConcreteModuleTemplate : public TAG::TemplateType
+{
+public:
+	ConcreteModuleTemplate<TAG> &operator=(const ConcreteModuleTemplate<TAG> &that);
+};
+
+template <class TAG>
+ConcreteModuleTemplate<TAG> &ConcreteModuleTemplate<TAG>::operator=(const ConcreteModuleTemplate<TAG> &that)
+{
+	TAG::TemplateType::operator=(that);
+	return *this;
+}
+
+typedef ModuleTag<4, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME,
+	HemisphericalEmissionVelocityModule, HemisphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> >
+	HemisphericalEmissionVelocityModuleTag;
+
+template class ConcreteModuleTemplate<HemisphericalEmissionVelocityModuleTag>;
 }
 // _HemisphericalEmissionVelocityModuleTemplate_cvtbl4: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
