@@ -42,9 +42,10 @@ private:
 };
 extern Rva00148F5ECache g_objectThreatFinderRadiusKey;
 #include "../../../../Include/Common/Dict.h"
-struct ModuleData
+#include "../../../../Include/Common/ModuleData.h"
+class ThreatFinderUpdateModuleData : public ModuleData
 {
- unsigned char m_pad000[8];
+public:
  float m_radius;
 };
 class Rva003ECE33Primary
@@ -87,6 +88,6 @@ void ThreatFinderUpdate::mapLoadPostProcess(const Dict *properties)
   if (exists)
    m_heap->m_radius = radius;
   else
-   m_heap->m_radius = m_data->m_radius;
+   m_heap->m_radius = static_cast<const ThreatFinderUpdateModuleData *>(m_data)->m_radius;
  }
 }

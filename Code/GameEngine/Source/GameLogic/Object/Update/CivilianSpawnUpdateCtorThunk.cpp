@@ -4,11 +4,10 @@ class Thing;
 class Object;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ModuleData
-{
-private:
-    unsigned char m_pad[8];
+#include "../../../../Include/Common/ModuleData.h"
 
+class CivilianSpawnUpdateModuleData : public ModuleData
+{
 public:
     unsigned int m_spawnDelay;
 };
@@ -49,8 +48,8 @@ CivilianSpawnUpdate::CivilianSpawnUpdate(Thing *thing, const ModuleData *moduleD
     : UpdateModule(thing, moduleData), m_spawnFrame(0)
 {
     m_spawnFrame = GetGameLogicRandomValue(
-        m_moduleData->m_spawnDelay / 2,
-        m_moduleData->m_spawnDelay,
+        static_cast<const CivilianSpawnUpdateModuleData *>(m_moduleData)->m_spawnDelay / 2,
+        static_cast<const CivilianSpawnUpdateModuleData *>(m_moduleData)->m_spawnDelay,
         "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CivilianSpawnUpdate.cpp",
         61);
 }

@@ -12,7 +12,9 @@
 #include <vector>
 class Object;class Thing;
 struct ElvenWoodChoice {AsciiString name;float weight;};
-class ModuleData {public:unsigned char prefix[0x7c];_STL::vector<ElvenWoodChoice> choices;};
+#include "../../../../Include/Common/ModuleData.h"
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
+class ElvenWoodSpecialPowerModuleData : public SpecialPowerModuleData {public:_STL::vector<ElvenWoodChoice> choices;};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 struct Coord3D;
@@ -40,7 +42,7 @@ extern int GetGameLogicRandomValue(int,int,char*,int);
 void ElvenWoodSpecialPower::rva004C3C36(const Coord3D *position)
 {
  AsciiString chosen;
- const ModuleData *settings=getModuleData();
+ const ElvenWoodSpecialPowerModuleData *settings=static_cast<const ElvenWoodSpecialPowerModuleData *>(getModuleData());
  int random=GetGameLogicRandomValue(0,99,(char*)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\SpecialPower\\ElvenWoodSpecialPower.cpp",237);
  int cumulative=0;
  for(unsigned i=0;i<settings->choices.size();++i) {

@@ -54,11 +54,13 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class RadarUpgradeModuleData
+#include "../../../../Include/Common/ModuleData.h"
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
+
+class RadarUpgradeModuleData : public Rva00253487Base
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
-	unsigned char m_pad[0x118];
 	bool m_isDisableProof; // +0x118
 };
 
@@ -219,13 +221,6 @@ public:
 	BitFlags<11> m_flags1C8;
 };
 
-class ModuleData
-{
-private:
-	char m_pad[0x118];
-public:
-	bool m_radar118;
-};
 
 class Secondary10
 {
@@ -323,7 +318,7 @@ void Rva004B46F9::rva004B47DB()
 		return;
 	Player *pl = obj->getControllingPlayer();
 	if (pl)
-		pl->removeRadar(data->m_radar118);
+		pl->removeRadar(static_cast<RadarUpgradeModuleData *>(data)->m_isDisableProof);
 	m_sec10.v09(0);
 }
 

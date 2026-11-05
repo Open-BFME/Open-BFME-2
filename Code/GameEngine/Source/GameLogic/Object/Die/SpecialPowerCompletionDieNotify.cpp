@@ -21,10 +21,12 @@ class AsciiString;
 
 #include "../../../../Include/Common/Player.h"
 
-class ModuleData
+#include "../../../../Include/Common/ModuleData.h"
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
+
+class SpecialPowerCompletionDieModuleData : public DestroyDieModuleData
 {
 public:
-	unsigned char m_pad[0x38];
 	Overridable *m_specialPowerTemplate;
 };
 
@@ -52,7 +54,7 @@ private:
 void SpecialPowerCompletionDie::notifyScriptEngine()
 {
 	if (m_creatorID != 0) {
-		const Overridable *overridable = m_moduleData->m_specialPowerTemplate;
+		const Overridable *overridable = static_cast<const SpecialPowerCompletionDieModuleData *>(m_moduleData)->m_specialPowerTemplate;
 		const Overridable *tmplFinal = overridable->friend_getFinalOverride();
 		const char *namePtr = (const char *)tmplFinal;
 		namePtr += 0x10;

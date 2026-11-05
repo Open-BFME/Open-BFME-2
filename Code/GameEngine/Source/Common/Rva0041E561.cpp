@@ -19,11 +19,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../Include/Common/ModuleData.h"
 
 class GameEngineDeletingBase
 {
@@ -46,16 +42,12 @@ class AITargetHeuristicBaseDefense : public ModuleData
 {
 public:
 	AITargetHeuristicBaseDefense();
-private:
-	int m_pad;
 };
 
 class Rva005734EB : public ModuleData
 {
 public:
 	Rva005734EB();
-private:
-	int m_pad;
 };
 
 class AITargetHeuristicExpansionBase : public ModuleData
@@ -63,31 +55,25 @@ class AITargetHeuristicExpansionBase : public ModuleData
 public:
 	AITargetHeuristicExpansionBase();
 private:
-	int m_pad[2];
+	int m_pad;
 };
 
 class Rva00572ED8 : public ModuleData
 {
 public:
 	Rva00572ED8();
-private:
-	int m_pad;
 };
 
 class Rva00572DE8 : public ModuleData
 {
 public:
 	Rva00572DE8();
-private:
-	int m_pad;
 };
 
 class Rva00572C6E : public ModuleData
 {
 public:
 	Rva00572C6E();
-private:
-	int m_pad;
 };
 
 void Rva0041E4A3::rva0041E561()

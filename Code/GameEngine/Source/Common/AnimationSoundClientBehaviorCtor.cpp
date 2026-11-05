@@ -43,11 +43,11 @@ public:
 };
 }
 
-class ModuleData
+#include "../../Include/Common/ModuleData.h"
+
+class AnimationSoundClientBehaviorModuleData : public ModuleData
 {
 public:
-	virtual ~ModuleData();
-	int m_unmodelled04;
 	_STL::_Rb_tree_node_base *m_header08;
 	int m_unmodelled0C;
 	int m_unmodelled10;
@@ -116,7 +116,7 @@ AnimationSoundClientBehavior::AnimationSoundClientBehavior(Thing *thing, const M
 	}
 	else
 	{
-		const ModuleData *behaviorData = m_moduleData04;
+		const AnimationSoundClientBehaviorModuleData *behaviorData = static_cast<const AnimationSoundClientBehaviorModuleData *>(m_moduleData04);
 		float maximumRange = zeroRange;
 		_STL::_Rb_tree_node_base *node = behaviorData->m_header08->_M_left;
 		if (node != behaviorData->m_header08)

@@ -66,6 +66,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct SpecialPowerCreationFrameView { char m_pad[0x40]; unsigned int m_frame; };
 
+#include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 

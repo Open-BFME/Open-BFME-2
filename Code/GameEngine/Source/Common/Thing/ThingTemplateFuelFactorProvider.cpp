@@ -62,20 +62,8 @@ extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
 // via the ThrowInfo's pmfnUnwind, preserved by keeping size 8.
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-	virtual void vf01();
-	virtual void vf02();
-	virtual void vf03();
-	virtual bool vf04() const;
-	virtual bool vf05() const;
-	virtual bool vf06() const;
-	virtual bool isBodyLike() const;
-	int m_tag;
-	float m_scale;
-};
+#include "../../../Include/Common/ModuleData.h"
+#include "../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 #include "../../../Include/Common/ModuleInfoClass.h"
 
@@ -98,7 +86,7 @@ void __cdecl rva0033B677(INI *ini, void * /*instance*/, void *store, const void 
 	if (((const char *)info->m_end - (const char *)info->m_begin) / 20 > 0) {
 		do {
 			const ModuleData *moduleData = info->getNthData(idx);
-			if (moduleData->isBodyLike())
+			if (moduleData->slot07())
 				break;
 			++idx;
 		} while (idx < ((const char *)info->m_end - (const char *)info->m_begin) / 20);
@@ -110,7 +98,7 @@ void __cdecl rva0033B677(INI *ini, void * /*instance*/, void *store, const void 
 	{
 		const ModuleData *body = info->getNthData(idx);
 		float f = ini->scanReal(ini->getNextToken(0));
-		int v = (int)(f * body->m_scale);
+		int v = (int)(f * static_cast<const ActiveBodyModuleData *>(body)->m_maxHealth);
 		if ((unsigned)v > 0xFFFF) {
 			rva002f681_fill(&exc, 3, "value out of range, expected 0..%d instead of %d", 0xFFFF, v);
 			_CxxThrowException(&exc, &__identifier("_TI1?AVINIException@@")); __assume(0);

@@ -83,6 +83,7 @@ public:
 
 extern ThingFactory *TheThingFactory;
 
+#include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 
