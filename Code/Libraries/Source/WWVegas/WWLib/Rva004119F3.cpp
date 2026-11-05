@@ -4,7 +4,7 @@ typedef int Int;
 
 class AsciiString;
 
-class Rva0074104C
+class W3DAptComponentColorPicker
 {
 public:
 	virtual void* slot00(const AsciiString* a, int b);
@@ -12,7 +12,7 @@ public:
 	void* m_04;
 };
 
-Rva0074104C* makeRva0074104C();
+W3DAptComponentColorPicker* makeRva0074104C();
 
 #include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 struct Rva00411112GlobalTable;
@@ -38,7 +38,7 @@ template <> StringBase<char>::~StringBase();
 void* Rva004119F3Get(void* a, const AsciiString* asciiString, int c)
 {
 	StringBase<char> tmp;
-	Rva0074104C* obj = makeRva0074104C();
+	W3DAptComponentColorPicker* obj = makeRva0074104C();
 	obj->slot04(asciiString, c);
 	obj->m_04 = a;
 	void* ret = ((Rva000427195*)&g_Va00E0300C)->rva004112A0(asciiString);

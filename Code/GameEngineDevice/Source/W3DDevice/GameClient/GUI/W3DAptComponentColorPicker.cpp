@@ -262,15 +262,15 @@ void W3DAptComponentColorPicker::Render(int x,int y,int width,int height) {
  }
 }
 
-// tu-skeleton: 0x00740FD9 107B ??0Rva0074104C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0074104CConstructor.cpp (not merged yet)
+// tu-skeleton: 0x00740FD9 107B ??0W3DAptComponentColorPicker@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0074104CConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00741044 8B ??_ERva0074104C@@W7AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
+// tu-skeleton: 0x00741044 8B ??_EW3DAptComponentColorPicker@@W7AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
-// tu-skeleton: 0x0074104C 79B ??1Rva0074104C@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
+// tu-skeleton: 0x0074104C 79B ??1W3DAptComponentColorPicker@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
-// tu-skeleton: 0x0074109B 53B ?makeRva0074104C@@YAPAVRva0074104C@@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
+// tu-skeleton: 0x0074109B 53B ?makeRva0074104C@@YAPAVW3DAptComponentColorPicker@@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
-// tu-skeleton: 0x007410D0 28B ??_GRva0074104C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
+// tu-skeleton: 0x007410D0 28B ??_GW3DAptComponentColorPicker@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/AptInvokeWrappers.cpp
 
@@ -300,14 +300,14 @@ int __cdecl Rva007410ECInvoke(Rva00222A8BTarget *target, void *level, const char
 
 // tu-skeleton: 0x007AB50D 8B $L1243 -- matched in Code/GameEngine/Source/Common/Rva0074104CConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x007AB515 10B __ehhandler$??0Rva0074104C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0074104CConstructor.cpp (not merged yet)
+// tu-skeleton: 0x007AB515 10B __ehhandler$??0W3DAptComponentColorPicker@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0074104CConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB51F 8B $L402 -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB527 20B uw_007ab527 -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
-// tu-skeleton: 0x007AB53B 10B __ehhandler$??1Rva0074104C@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
+// tu-skeleton: 0x007AB53B 10B __ehhandler$??1W3DAptComponentColorPicker@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB545 10B $L426 -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
 
-// tu-skeleton: 0x007AB54F 10B __ehhandler$?makeRva0074104C@@YAPAVRva0074104C@@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)
+// tu-skeleton: 0x007AB54F 10B __ehhandler$?makeRva0074104C@@YAPAVW3DAptComponentColorPicker@@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB19.cpp (not merged yet)

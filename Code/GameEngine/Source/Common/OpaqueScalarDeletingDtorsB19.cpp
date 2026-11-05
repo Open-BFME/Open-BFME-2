@@ -27,26 +27,26 @@ private: unsigned int unknown04;
 #define BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
-class Rva0074104C : public Rva0074104CBase, public Rva005248D0 {
-public: Rva0074104C(); Rva0074104C(EmitVtableTag*); virtual ~Rva0074104C();
+class W3DAptComponentColorPicker : public Rva0074104CBase, public Rva005248D0 {
+public: W3DAptComponentColorPicker(); W3DAptComponentColorPicker(EmitVtableTag*); virtual ~W3DAptComponentColorPicker();
 private:
  unsigned int unknown60;
  StringBase<char> str64;
  unsigned char unmodelled68[0x18]; // retail factory allocates 0x80 bytes; fields beyond the consumed prefix are unknown.
 };
-Rva0074104C::~Rva0074104C() {}
+W3DAptComponentColorPicker::~W3DAptComponentColorPicker() {}
 
 // Target name is address-derived. The /O1 BFME 1 Q4 niladic factory is a
 // unique 53-byte placement here; target relocations call operator new(0x80)
 // and the constructor at 0x00740FD9. The constructor's vtable references and
 // the adjacent destructor rows tie that call to this target class. The donor
 // class name and source-side identity are not carried over.
-Rva0074104C *makeRva0074104C()
+W3DAptComponentColorPicker *makeRva0074104C()
 {
-	return new Rva0074104C;
+	return new W3DAptComponentColorPicker;
 }
 
-// ?<Rva0074104C::Rva0074104C> absent-from-retail
-Rva0074104C::Rva0074104C(EmitVtableTag *) : Rva0074104CBase((Rva0074104CBase::BfmeNoInitB19()))
+// ?<W3DAptComponentColorPicker::W3DAptComponentColorPicker> absent-from-retail
+W3DAptComponentColorPicker::W3DAptComponentColorPicker(EmitVtableTag *) : Rva0074104CBase((Rva0074104CBase::BfmeNoInitB19()))
 {
 }
