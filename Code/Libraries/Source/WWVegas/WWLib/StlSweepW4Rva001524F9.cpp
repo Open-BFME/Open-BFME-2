@@ -44,11 +44,7 @@ struct Rva001524F9Element { Rva001524F9Element();Rva001524F9Element(const Rva001
 // copy/destroy/uninitialized helpers use Rva0007BB16Record; assignment
 // helpers use BfmeAssignRecord36. Keep those providers at the call boundary
 // rather than emitting another lifetime or overflow implementation.
-struct Rva0007BB16Record {
-    Rva0007BB16Record(const Rva0007BB16Record &);
-    ~Rva0007BB16Record();
-    char bytes[36];
-};
+#include "Rva0007BB16Record.h"
 struct BfmeAssignRecord36 {
     BfmeAssignRecord36 &operator=(const BfmeAssignRecord36 &);
     char bytes[36];

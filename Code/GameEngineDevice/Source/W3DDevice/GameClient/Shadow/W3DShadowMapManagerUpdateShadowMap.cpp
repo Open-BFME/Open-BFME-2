@@ -125,16 +125,7 @@ class FXShaderSetup : public RefCountClass {};
 // The existing ctor and dtor have different ledger view names. Their whole
 // bodies establish the same 36-byte parameter storage. Delegate cleanup to
 // the rowed dtor; no base relationship or new symbol alias is asserted.
-struct Rva0007BB16Record
-{
-    ~Rva0007BB16Record();
-    void *name;
-    int type;
-    void *texture;
-    float vector[4];
-    int integer;
-    bool boolean;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h"
 struct BfmeAssignRecord36
 {
     BfmeAssignRecord36(const char *name, int type);

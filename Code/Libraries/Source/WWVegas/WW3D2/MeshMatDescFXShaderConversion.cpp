@@ -132,18 +132,7 @@ public:
 class Rva0010E482 { public: int rva0010E482(int pass); };
 bool rva00199FA5(class Rva00199FA5Rec *model);
 
-struct Rva0007BB16Record
-{
-	Rva0007BB16Record(const Rva0007BB16Record &that);
-	~Rva0007BB16Record();
-	void SetName(const char *name);
-	void *name;
-	int type;
-	void *texture;
-	float vector[4];
-	int integer;
-	bool boolean;
-};
+#include "../WWLib/Rva0007BB16Record.h"
 struct BfmeAssignRecord36
 {
 	BfmeAssignRecord36(const char *name, int type);
@@ -247,9 +236,9 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 		if (useMaterialColors)
 		{
 			if (material->Get_Ambient_Color_Source() == VertexMaterialClass::MATERIAL)
-				material->Get_Ambient((Vector3 *)param.record().vector);
+				material->Get_Ambient((Vector3 *)param.storage.vector);
 			else
-				param.record().vector[0] = 1.0f, param.record().vector[1] = 1.0f, param.record().vector[2] = 1.0f;
+				param.storage.vector[0] = 1.0f, param.storage.vector[1] = 1.0f, param.storage.vector[2] = 1.0f;
 		}
 		params.push_back(param.record());
 	}
@@ -258,29 +247,29 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 		if (useMaterialColors)
 		{
 			if (material->Get_Diffuse_Color_Source() == VertexMaterialClass::MATERIAL)
-				material->Get_Diffuse((Vector3 *)param.record().vector);
+				material->Get_Diffuse((Vector3 *)param.storage.vector);
 			else
-				param.record().vector[0] = 1.0f, param.record().vector[1] = 1.0f, param.record().vector[2] = 1.0f;
+				param.storage.vector[0] = 1.0f, param.storage.vector[1] = 1.0f, param.storage.vector[2] = 1.0f;
 		}
 		params.push_back(param.record());
 	}
 	{
 		FXParameter param("ColorSpecular", 4);
 		if (useMaterialColors)
-			material->Get_Specular((Vector3 *)param.record().vector);
+			material->Get_Specular((Vector3 *)param.storage.vector);
 		params.push_back(param.record());
 	}
 	{
 		FXParameter param("Shininess", 2);
-		param.record().vector[0] = material->Get_Shininess();
+		param.storage.vector[0] = material->Get_Shininess();
 		params.push_back(param.record());
 	}
 	{
 		FXParameter param("ColorEmissive", 4);
 		if (useMaterialColors && material->Get_Emissive_Color_Source() == VertexMaterialClass::MATERIAL)
-			material->Get_Emissive((Vector3 *)param.record().vector);
+			material->Get_Emissive((Vector3 *)param.storage.vector);
 		else
-			param.record().vector[0] = 1.0f, param.record().vector[1] = 1.0f, param.record().vector[2] = 1.0f;
+			param.storage.vector[0] = 1.0f, param.storage.vector[1] = 1.0f, param.storage.vector[2] = 1.0f;
 		params.push_back(param.record());
 	}
 	{
@@ -288,9 +277,9 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 		if (shader.Get_Primary_Gradient() != 0 && material->Get_Ambient_Color_Source() == VertexMaterialClass::MATERIAL
 			&& material->Get_Diffuse_Color_Source() == VertexMaterialClass::MATERIAL
 			&& material->Get_Emissive_Color_Source() == VertexMaterialClass::MATERIAL)
-			param.record().vector[0] = material->Get_Opacity();
+			param.storage.vector[0] = material->Get_Opacity();
 		else
-			param.record().vector[0] = 1.0f;
+			param.storage.vector[0] = 1.0f;
 		params.push_back(param.record());
 	}
 
@@ -333,7 +322,7 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 	}
 	{
 		FXParameter param("DepthWriteEnable", 7);
-		param.record().boolean = shader.Get_Depth_Mask() == 1;
+		param.storage.boolean = shader.Get_Depth_Mask() == 1;
 		params.push_back(param.record());
 	}
 	if (shader.Get_Color_Mask() != 1)
@@ -380,7 +369,7 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 	{
 		secondaryBlendMode = 3;
 		FXParameter param("HouseColorEnable", 7);
-		param.record().boolean = true;
+		param.storage.boolean = true;
 		params.push_back(param.record());
 	}
 	else
@@ -394,7 +383,7 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 	if (secondaryBlendMode != -1)
 	{
 		FXParameter param("SecondaryTextureBlendMode", 6);
-		param.record().integer = secondaryBlendMode;
+		param.storage.integer = secondaryBlendMode;
 		params.push_back(param.record());
 	}
 
@@ -408,12 +397,12 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 	}
 	{
 		FXParameter param("AlphaTestEnable", 7);
-		param.record().boolean = shader.Get_Alpha_Test() != 0;
+		param.storage.boolean = shader.Get_Alpha_Test() != 0;
 		params.push_back(param.record());
 	}
 	{
 		FXParameter param("CullingEnable", 7);
-		param.record().boolean = !(model && (model->Flags & MeshGeometryClass::TWO_SIDED));
+		param.storage.boolean = !(model && (model->Flags & MeshGeometryClass::TWO_SIDED));
 		params.push_back(param.record());
 	}
 
@@ -437,7 +426,7 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 	if (blendMode != -1)
 	{
 		FXParameter param("BlendMode", 6);
-		param.record().integer = blendMode;
+		param.storage.integer = blendMode;
 		params.push_back(param.record());
 	}
 
@@ -445,7 +434,7 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 		numTextures = 0;
 	{
 		FXParameter param("NumTextures", 6);
-		param.record().integer = numTextures;
+		param.storage.integer = numTextures;
 		params.push_back(param.record());
 	}
 
@@ -463,9 +452,9 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 			AsciiString name;
 			name.format("Sampler_ClampU_ClampV_NoMip_%d", i);
 			FXParameter param(name.str(), 4);
-			param.record().vector[0] = (float)(((TextureFilterClass *)((ShroudTexture *)&texture)->getFilter())->Get_U_Addr_Mode() == 1);
-			param.record().vector[1] = (float)(((TextureFilterClass *)((ShroudTexture *)&texture)->getFilter())->Get_V_Addr_Mode() == 1);
-			param.record().vector[2] = (float)(((TextureFilterClass *)((ShroudTexture *)&texture)->getFilter())->Get_Mip_Mapping() == 0);
+			param.storage.vector[0] = (float)(((TextureFilterClass *)((ShroudTexture *)&texture)->getFilter())->Get_U_Addr_Mode() == 1);
+			param.storage.vector[1] = (float)(((TextureFilterClass *)((ShroudTexture *)&texture)->getFilter())->Get_V_Addr_Mode() == 1);
+			param.storage.vector[2] = (float)(((TextureFilterClass *)((ShroudTexture *)&texture)->getFilter())->Get_Mip_Mapping() == 0);
 			params.push_back(param.record());
 		}
 	}
