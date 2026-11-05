@@ -65,7 +65,7 @@ public:
 	virtual ~AttackObjectGroupOrder();
 	virtual void slot01();
 	virtual void slot02();
-	virtual void slot03();
+	virtual void xfer(Xfer *xfer);
 	virtual void rva0054711A(ObjectID id);
 	virtual bool Rva0054703E(int dummy);
 	virtual void slot06();

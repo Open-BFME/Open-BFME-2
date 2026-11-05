@@ -43,15 +43,30 @@ extern void __cdecl XferObjectID(Xfer *xfer, enum ObjectID *id);
 
 #include "../../../Include/GameLogic/GroupOrder.h"
 
-class AttackObjectGroupOrder : public GroupOrder
+class Object;
+
+class AttackObjectGroupOrder
 {
 public:
+	virtual ~AttackObjectGroupOrder();
+	virtual void slot01();
+	virtual void slot02();
 	virtual void xfer(Xfer *xfer);
+	virtual void rva0054711A(ObjectID id);
+	virtual bool Rva0054703E(int dummy);
+	virtual void slot06();
+	virtual void slot07();
+	virtual Coord3D* Rva00547070(int dummy);
+	virtual void slot09();
+	virtual void slot10();
+	virtual bool rva00547099(int *outID, void *out);
+	static void rva005470F8(Object *obj, void *userData);
 private:
-	enum ObjectID m_18;
-	bool m_1c;
-	char m_pad1d[3];
-	Coord3DBase m_20;
+	char m_pad04[0x18 - 4];
+	ObjectID m_targetID; // +0x18
+	bool m_b1C; // +0x1C
+	char m_pad1D[3];
+	Coord3D m_pos; // +0x20
 };
 
 void AttackObjectGroupOrder::xfer(Xfer *xfer)
@@ -59,9 +74,9 @@ void AttackObjectGroupOrder::xfer(Xfer *xfer)
 	Xfer::Version version;
 	version.m_version = 1;
 	version.m_currentVersion = 1;
-	GroupOrder::xfer(xfer);
+	reinterpret_cast<GroupOrder *>(this)->GroupOrder::xfer(xfer);
 	*xfer == version;
-	XferObjectID(xfer, &m_18);
-	*xfer == m_1c;
-	*xfer == m_20;
+	XferObjectID(xfer, &m_targetID);
+	*xfer == m_b1C;
+	*xfer == asBase(m_pos);
 }
