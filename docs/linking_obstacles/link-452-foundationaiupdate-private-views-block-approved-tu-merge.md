@@ -1,0 +1,3 @@
+### LINK-452: FoundationAIUpdate private views block the approved TU merge
+Status: Open. Updated: 2026-11-05; inspected revision: `0eb531811c`.
+Scope: FoundationAIUpdate.cpp and its Construct/Ctor/Xfer donors; the dry run accepts none. Canonical UpdateModule adoption now passes for Ctor and retires one header key (2/2 byte rows, EH EXACT, preview preserves 117/117 bytes). Remaining: reconcile FoundationAIUpdate bases, interface slot names, dependent canonical headers and declaration ordering before rerunning the merge. No source-file reduction or census gain claimed. [Repair, object comparison and remaining prerequisites](../../reverse/attempt_support/foundation-canonical-update-20261105-codex4.md).

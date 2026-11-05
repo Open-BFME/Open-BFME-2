@@ -31,24 +31,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class FoundationAIUpdate : public UpdateModule
 {
@@ -70,9 +53,9 @@ FoundationAIUpdate::FoundationAIUpdate(Thing *thing, const ModuleData *moduleDat
 	*slot20 = (int)((unsigned int)__identifier("??_7Rva005EEF2FBase0@@6B@"));
 	m_28 &= 0;
 	int one = 1;
-	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BObjectModule@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BBehaviorModuleInterface@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BUpdateModule@@@"));
+	*(const void **)this = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BObjectModule@@@"));
+	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BBehaviorModuleInterface@@@"));
+	*(const void **)((char *)this + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva00455050@@6BUpdateModule@@@"));
 	m_20 = (const void *)((unsigned int)__identifier("??_7CastleBehavior@@6BFoundationAIUpdateInterface@@@"));
 	m_24 = one;
 	m_2C = (unsigned char)one;
