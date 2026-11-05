@@ -110,21 +110,25 @@ struct InnerLink
 	Rva0081D520Owner *m_owner;
 };
 
+class Rva00524A4CInterface;
+
 class MovieWindowPlayback
 {
 public:
-	// Slot 12 of the vftable 0x00C67DFC that the ctor installs: virtual.
+	void clear();
+	void Rva00524A65(int arg);
+	float rva00524A84();
 	virtual void draw();
 
 private:
 	char m_basePad[8];
-	SlotOwner *m_0C;
+	Rva00524A4CInterface *m_ptr;
 	int m_10;
 	int m_14;
 	int m_18;
 	int m_1C;
 	int m_20;
-	unsigned char m_24;
+	unsigned char m_flags;
 	char m_pad25[3];
 	int m_28;
 	int m_2C;
@@ -134,20 +138,20 @@ private:
 };
 void MovieWindowPlayback::draw()
 {
-	if ((m_24 & 1) == 0)
+	if ((m_flags & 1) == 0)
 		return;
-	if (m_0C == 0)
+	if (m_ptr == 0)
 		return;
-	int r = m_0C->s15();
+	int r = ((SlotOwner *)m_ptr)->s15();
 	if (r == 0)
 		return;
 	if (TheDisplay != 0)
 		TheDisplay->v65(r, (float)m_10, (float)m_14, (float)m_18, (float)m_1C, m_28);
-	InnerLink *link = *(InnerLink **)((char *)m_0C + 8);
+	InnerLink *link = *(InnerLink **)((char *)m_ptr + 8);
 	Rva0081D520Owner *owner = link->m_owner;
 	if (owner == 0)
 		return;
-	owner->broadcast(m_0C->s08(), (float)m_10, (float)m_14, (float)m_18, (float)m_1C);
+	owner->broadcast(((SlotOwner *)m_ptr)->s08(), (float)m_10, (float)m_14, (float)m_18, (float)m_1C);
 }
 
 // MovieWindowPlayback::OpenMovie's complete native subtitle settings at

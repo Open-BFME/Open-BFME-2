@@ -299,16 +299,23 @@ public:
 	void clear();
 	void Rva00524A65(int arg);
 	float rva00524A84();
+	virtual void draw();
 
 private:
-	char m_pad00[0x0C];
+	char m_basePad[8];
 	Rva00524A4CInterface *m_ptr;
-	char m_pad10[0x14];
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
 	unsigned char m_flags;
 	char m_pad25[3];
 	int m_28;
 	int m_2C;
 	int m_30;
+	int m_34;
+	int m_38;
 };
 
 class XferSave
