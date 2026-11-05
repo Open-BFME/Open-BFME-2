@@ -28,10 +28,8 @@
 #include "vector3.h"
 #include "multilist.h"
 #include "VertexMaterialClass.h"
-class MaterialPassClass {
-public: virtual void Unknown0()=0;virtual void Unknown1()=0;virtual void Install_Materials() const=0;virtual void UnInstall_Materials() const=0;
- char Prefix[40];VertexMaterialClass*Material;
-};
+#include "ShaderClass.h"
+#include "MaterialPassClass.h"
 class DX8PolygonRendererClass : public MultiListObjectClass {char Prefix[40];public:int Pass;void Render(int);};
 struct RenderNode {void*Unknown;RenderNode*Next;void*Previous;DX8PolygonRendererClass*Object;};
 class TextureBaseClass{public:void Release_Ref();};
@@ -73,7 +71,6 @@ SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26)
 virtual long __stdcall GetInt(EffectHandle,int*)=0;
 };
 #undef SLOT
-class ShaderClass{public:ShaderClass(){}ShaderClass(const ShaderClass&s):bits(s.bits){}unsigned bits;};
 class MeshMatDescClass{public:int passes;char gap04[0x94];ShaderClass shader[4];char gapA8[0x10];FXShaderSetup *setup;char gapBC[0x10];void *TextureArray00;char gapD0[0x38];void *setupArray;int Get_Pass_Count()const{return passes;}ShaderClass Get_Single_Shader(int pass=0)const{return shader[pass];}bool Has_Texture_Array00()const{return TextureArray00!=0;}bool Uses_FX()const{return setup||setupArray;}FXShaderSetup *Get_FX()const{return setup;}void Set_Single_Texture(const RefCountPtr<TextureClass>&,int,int);void Set_Single_Shader(ShaderClass,int);};
 class MeshModelClass{public:virtual void Delete_This();int refs;char gap08[0x10];unsigned Flags;char gap1c[0x78];MeshMatDescClass *desc;char gap98[4];MultiListClass<DX8PolygonRendererClass> List;void Release_Ref(){refs--;if(refs==0)Delete_This();}RefCountPtr<TextureClass> Peek_Single_Texture(int,int)const;void Set_Single_Texture(const RefCountPtr<TextureClass>&tex,int pass=0,int stage=0){desc->Set_Single_Texture(tex,pass,stage);}void Set_Single_Shader(ShaderClass shader,int pass=0){desc->Set_Single_Shader(shader,pass);}int Get_Pass_Count()const{return desc->Get_Pass_Count();}ShaderClass Get_Single_Shader(int pass=0)const{return desc->Get_Single_Shader(pass);}bool Has_Texture_Array00()const{return desc->Has_Texture_Array00();}};
 // The compiler-generated vector constructor iterator (??_H) takes the
@@ -359,7 +356,7 @@ void MeshClass::RecolorHouseColor(const Rva0013101E &options,const char *exceptN
    AsciiString name;name.format("#%s#%s",original,options.rva001360EA().str());name.toLower();
    if(!Render_Obj_Exists(name.str()))TextureAsset::RegisterRecolorForHouseColorDecal(const_cast<char*>(original),const_cast<char*>(name.str()),const_cast<Rva0013101E*>(&options));
    mesh.pointer->Set_Single_Texture(TextureAsset::Get(name.str(),0,0),0,1);
-   shader.bits=(shader.bits&0xFFBFFFFF)|0x1A00000;mesh.pointer->Set_Single_Shader(shader);
+   shader.ShaderBits=(shader.ShaderBits&0xFFBFFFFF)|0x1A00000;mesh.pointer->Set_Single_Shader(shader);
   }
  }
  if(options.specialValue())recolored=true;

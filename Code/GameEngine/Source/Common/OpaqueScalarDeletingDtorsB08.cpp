@@ -113,27 +113,10 @@ Rva000416E7::Rva000416E7(EmitVtableTag *)
 // W3DShroudMaterialPassClass's vftable (0x00BC6244) is also emitted by
 // W3DScene.cpp, which constructs the class: declare the same four slots
 // (Delete_This, deleting dtor, Install_Materials, UnInstall_Materials) so
-// both units emit one vftable instead of competing copies. The bases are
-// novtable with their own tag constructors so only the derived vftable is emitted.
-// Fields are not modelled.
-struct B08ShroudPassBaseTag;
-
-class __declspec(novtable) RefCountClass
-{
-public:
-	RefCountClass(B08ShroudPassBaseTag *) {}
-	virtual void Delete_This(void);
-	virtual ~RefCountClass(void);
-};
-
-class __declspec(novtable) MaterialPassClass : public RefCountClass
-{
-public:
-	MaterialPassClass(B08ShroudPassBaseTag *tag) : RefCountClass(tag) {}
-	virtual ~MaterialPassClass(void);
-	virtual void Install_Materials(void) const;
-	virtual void UnInstall_Materials(void) const;
-};
+// both units emit one vftable instead of competing copies.
+// The canonical MaterialPassClass supplies the inherited slots and layout.
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 
 class W3DShroudMaterialPassClass : public MaterialPassClass
 {
@@ -146,7 +129,7 @@ public:
 };
 
 // ?<W3DShroudMaterialPassClass::W3DShroudMaterialPassClass> absent-from-retail
-W3DShroudMaterialPassClass::W3DShroudMaterialPassClass(EmitVtableTag *) : MaterialPassClass(0)
+W3DShroudMaterialPassClass::W3DShroudMaterialPassClass(EmitVtableTag *) : MaterialPassClass()
 {
 }
 

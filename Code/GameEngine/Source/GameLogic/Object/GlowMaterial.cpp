@@ -95,18 +95,12 @@ public:
 // Layout and constructor are independently recovered at 73F85D. Allocation
 // extent 48 and fields 38/3C/40 are also proved by native 362BD2. The +4
 // reference count is read by the existing releaseReferences body.
-class MaterialPassClass
-{
-public:
-	MaterialPassClass();
-	virtual ~MaterialPassClass();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 class Rva0073F96A : public MaterialPassClass
 {
 public:
 	Rva0073F96A(int color, float value);
 	virtual ~Rva0073F96A();
-	char m_pad04[0x34];
 	int m_key;
 	float m_value;
 	int m_flag;

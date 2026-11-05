@@ -1383,11 +1383,7 @@ namespace _STL
 	};
 }
 
-class MaterialPassClass
-{
-public:
-	TextureClass *Peek_Texture(int stage) const;			// 0x002C7469
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 
 class Rva00282794
 {
@@ -1400,7 +1396,7 @@ private:
 	_STL::_Base_bitset<32> m_284;
 	char m_pad288[0x330 - 0x288];
 	MaterialPassClass m_330;
-	char m_pad331[0x578 - 0x331];
+	char m_pad368[0x578 - 0x368];
 	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_578;
 };
 
