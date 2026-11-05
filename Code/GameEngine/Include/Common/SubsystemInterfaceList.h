@@ -8,6 +8,8 @@
 // 0x001B4E49, 0x001B4F6D and 0x001B5018 step these records by eight bytes.
 // removeSubsystem 0x001B4E82 searches the pointer vector at +0x0C; 0x001B5140
 // collects subsystem pointers into +0x18, and 0x001B4FE9 dispatches and clears it.
+// Both pointer vectors contain subsystem objects: 0x001B5140 collects their
+// pointers from +0 and +0x0C into +0x18 before 0x001B4FE9 dispatches them.
 // 0x0022E464 stores a BFMECRCWriter (constructed at 0x0022E450) at +0x24;
 // 0x0021A3E8 reads that field for INI::loadFile at 0x0021A408. getXfer exposes
 // that read; no separately rowed accessor body exists.
@@ -48,7 +50,7 @@ public:
 private:
 	std::vector<std::pair<SubsystemInterface *, void *> > m_subsystems;
 	std::vector<SubsystemInterface *> m_allSubsystems;
-	std::vector<void *> field18;
+	std::vector<SubsystemInterface *> field18;
 
 public:
 	Xfer *m_xfer;

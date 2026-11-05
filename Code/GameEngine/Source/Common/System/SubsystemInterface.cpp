@@ -232,32 +232,7 @@ private:
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class SubsystemInterfaceList
-{
-public:
-	~SubsystemInterfaceList();
-public:
-	void rva001B51C0();
-public:
-	void rva001B4FE9();
-	void rva001B5018(SubsystemInterface *subsystem);
-	unsigned char notifySubsystems();
-	void resetAll();
-private:
-	_STL::vector<BfmePod8> m_00;
-private:
-	_STL::vector<int> m_0C;
-private:
-	_STL::vector<int> m_18;
-private:
-	int m_24;
-public:
-	void postProcessLoadAll();
-public:
-	unsigned char rva001B4E21(SubsystemInterface *arg1, unsigned char *arg2);
-public:
-	SubsystemInterfaceList();
-};
+#include "../../../Include/Common/SubsystemInterfaceList.h"
 
 // ---- from Code/GameEngine/Source/Common/Rva001B4E21Get.cpp
 
@@ -404,7 +379,7 @@ void *Rva001B4F8B::rva001B4F8B(const StringBase<char> &name)
 
 SubsystemInterfaceList::SubsystemInterfaceList()
 {
-	m_24 = 0;
+	m_xfer = 0;
 }
 
 // tu-skeleton: 0x001B4FE9 47B ?rva001B4FE9@SubsystemInterfaceList@@QAEXXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B4FE9.cpp (not merged yet)
@@ -440,7 +415,8 @@ SubsystemInterfaceList::~SubsystemInterfaceList()
 void SubsystemInterfaceList::rva001B51C0()
 {
 	int step = -1;
-	for (BfmePod8 *it = m_00.end(); it != m_00.begin(); )
+	_STL::vector<BfmePod8> &entries = reinterpret_cast<_STL::vector<BfmePod8> &>(m_subsystems);
+	for (BfmePod8 *it = entries.end(); it != entries.begin(); )
 	{
 		Rva001B51C0Object *object = it[-1].m_second;
 		::operator delete(object ? object->destroy(0) : 0);
@@ -451,8 +427,8 @@ void SubsystemInterfaceList::rva001B51C0()
 		it = prev;
 		*prev = cleared;
 	}
-	m_00.erase(m_00.begin(), m_00.end());
-	m_24 = 0;
+	entries.erase(entries.begin(), entries.end());
+	m_xfer = 0;
 }
 
 // tu-skeleton: 0x001B5266 261B ?initSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@PAXPBD22PAVXfer@@VAsciiString@@@Z -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)

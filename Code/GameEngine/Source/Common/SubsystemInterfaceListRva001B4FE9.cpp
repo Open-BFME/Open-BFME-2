@@ -40,12 +40,12 @@ public:
 
 void SubsystemInterfaceList::rva001B4FE9()
 {
-	for (void **it = field18.begin(); it != field18.end(); ++it) {
+	for (SubsystemInterface **it = field18.begin(); it != field18.end(); ++it) {
 		void *obj = *it;
 		if (obj != 0)
 			((Rva001B4FE9Target *)obj)->vf8();
 	}
-	_STL::vector<void *> &v = field18;
+	_STL::vector<void *> &v = reinterpret_cast<_STL::vector<void *> &>(field18);
 	v.erase(v.begin(), v.end());
 }
 
