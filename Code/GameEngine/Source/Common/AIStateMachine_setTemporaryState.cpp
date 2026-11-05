@@ -6,25 +6,9 @@
 // onEnter slot4 returning0/nonzero and onExit slot5 with1/0. ZH carries
 // unsigned StateID and StateReturnType spelling; target preserves the
 // AI notification at owner+258 slot136 and the negative-frame sentinels.
-enum StateReturnType { STATE_CONTINUE = 0, STATE_SUCCESS = -1, STATE_FAILURE = -2 };
-class State;
-
-class StateMachine
-{
-public:
-	State *internalGetState(unsigned int id);
-};
-
-class State
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual StateReturnType v04();
-	virtual void v05(int x);
-};
+#include "../../Include/Common/StateMachine.h"
+#include "../../Include/Common/StateMachineClass.h"
+#include "../../Include/GameLogic/AIStateMachineClass.h"
 
 class BigObj
 {
@@ -78,34 +62,22 @@ public:
 extern int BfmeLogicFramesPerSecond; // ?BfmeLogicFramesPerSecond@@3HA
 extern GameLogic *TheGameLogic;
 
-class AIStateMachine
-{
-public:
-	StateReturnType setTemporaryState(unsigned int stateId, int frameLimit);
-private:
-	char m_pad00[0x14];
-	MidObj *m_14;
-	char m_pad18[0x50 - 0x18];
-	State *m_50;
-	int m_54;
-};
-
 StateReturnType AIStateMachine::setTemporaryState(unsigned int stateId, int frameLimit)
 {
 	State *requestedState = ((StateMachine *)this)->internalGetState(stateId);
-	if (m_50) {
-		m_50->v05(1);
-		m_50 = 0;
+	if (m_temporaryState) {
+		m_temporaryState->onExit(EXIT_RESET);
+		m_temporaryState = 0;
 	}
 	if (requestedState) {
-		BigObj *ownerAI = m_14->m_258;
+		BigObj *ownerAI = ((MidObj *)m_owner)->m_258;
 		if (ownerAI)
 			ownerAI->v136();
-		m_50 = requestedState;
-		StateReturnType enterResult = requestedState->v04();
+		m_temporaryState = requestedState;
+		StateReturnType enterResult = requestedState->onEnter();
 		if (enterResult) {
-			m_50->v05(0);
-			m_50 = 0;
+			m_temporaryState->onExit(EXIT_NORMAL);
+			m_temporaryState = 0;
 			return enterResult;
 		}
 		int maximumFrameLimit = BfmeLogicFramesPerSecond * 60;
@@ -118,7 +90,7 @@ StateReturnType AIStateMachine::setTemporaryState(unsigned int stateId, int fram
 			expirationFrame = -1;
 		else
 			expirationFrame = TheGameLogic->getFrame() + clampedFrameLimit;
-		m_54 = expirationFrame;
+		m_temporaryStateFramEnd = expirationFrame;
 		return STATE_CONTINUE;
 	} else {
 		return STATE_FAILURE;
