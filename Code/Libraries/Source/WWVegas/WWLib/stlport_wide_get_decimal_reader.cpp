@@ -1,11 +1,11 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // STLport 4.5.3 wide decimal integer reader. The upstream __get_decimal_integer
 // body from vendor/stlport/stl/_num_get.c: it hands a default-constructed
 // (empty) grouping string to the base-10 accumulator.
 
-extern "C" void __cdecl free(void *block) throw(...);
+#include <stdlib.h>
 
 typedef unsigned short wchar_t;
 

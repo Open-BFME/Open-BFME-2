@@ -1,11 +1,11 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // STLport 4.5.3 locale::operator==. Two impls that are the same object are
 // the same locale; otherwise the names decide, and a nameless locale is
 // never equal to anything.
 
-extern "C" void __cdecl free(void *block) throw(...);
+#include <stdlib.h>
 
 namespace _STL
 {

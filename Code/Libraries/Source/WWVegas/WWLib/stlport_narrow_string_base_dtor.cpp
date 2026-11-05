@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport46
 //
 // STLport 4.5.3 basic_string<wchar_t>::~basic_string, the out-of-line COMDAT
@@ -30,7 +30,7 @@
 //   * the destructor out of line. Inlined into a caller it is the 13-byte
 //     sequence that appears all over the readers instead.
 
-extern "C" void __cdecl free(void *block) throw(...);
+#include <stdlib.h>
 
 namespace _STL
 {

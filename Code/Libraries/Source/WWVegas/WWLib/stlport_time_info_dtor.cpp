@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // STLport 4.5.3 _Time_Info destructor, the body every time facet's destructor
@@ -15,7 +15,7 @@
 // declared with C++ linkage: as extern "C" the compiler treats it as nothrow
 // and drops the same states again.
 
-extern "C" void __cdecl free(void *block) throw(...);
+#include <stdlib.h>
 
 namespace _STL
 {

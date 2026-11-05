@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport46
 //
 // STLport basic_stringbuf<char>::~basic_stringbuf, retail 0x001F6606 (65 B).
@@ -17,7 +17,7 @@
 //   * the streambuf base declared-only, so the trailing call stays a direct
 //     E8 to the rowed 0x0001C6E0 destructor.
 
-extern "C" void __cdecl free(void *block) throw(...);
+#include <stdlib.h>
 
 namespace _STL
 {

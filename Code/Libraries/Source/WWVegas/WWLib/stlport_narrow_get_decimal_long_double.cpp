@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // STLport 4.5.3 __get_decimal_integer over a narrow string, accumulating into a
@@ -17,7 +17,7 @@
 //
 // The body itself is unchanged from the twins - a default-constructed empty
 // grouping string handed to the base-10 accumulator.
-extern "C" void __cdecl free(void *block) throw(...);
+#include <stdlib.h>
 
 namespace _STL
 {
