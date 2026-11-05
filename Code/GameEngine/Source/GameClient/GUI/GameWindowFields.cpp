@@ -11,43 +11,7 @@
 // DEBUG_LOG/assert failure arms compile out; retail keeps only the
 // bounds check (0 <= index < MAX_DRAW_DATA = 9) returning -3, else 0.
 
-class Image;
-struct GameWindowEditData;
-
-#include "../../../Include/GameClient/WinDrawData.h"
-
-struct WinInstanceData
-{
-	char m_pad0[4];
-	int m_id;
-	char m_pad8[16];
-	WinDrawData m_enabledDrawData[9];
-	WinDrawData m_disabledDrawData[9];
-	WinDrawData m_hiliteDrawData[9];
-};
-
-class GameWindow
-{
-public:
-	int winSetEnabledImage(int index, const Image *image);
-	int winSetEnabledColor(int index, int color);
-	int winSetEnabledBorderColor(int index, int color);
-	int winSetDisabledImage(int index, const Image *image);
-	int winSetDisabledColor(int index, int color);
-	int winSetDisabledBorderColor(int index, int color);
-	int winSetHiliteImage(int index, const Image *image);
-	int winSetHiliteColor(int index, int color);
-	int winSetHiliteBorderColor(int index, int color);
-	void setRva003144FD(int value);
-	int winSetWindowId(int value);
-	GameWindowEditData *winGetEditData();
-
-private:
-	char m_pad[48];
-	WinInstanceData m_instData;
-	char m_pad2[136];
-	GameWindowEditData *m_editData;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 int GameWindow::winSetEnabledImage(int index, const Image *image)
 {
@@ -136,5 +100,5 @@ int GameWindow::winSetWindowId(int value)
 // Native createWindow uses this +0x214 pointer as the four callback-name strings.
 GameWindowEditData *GameWindow::winGetEditData()
 {
-	return m_editData;
+	return (GameWindowEditData *)m_editData;
 }
