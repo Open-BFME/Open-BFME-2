@@ -34,7 +34,7 @@ struct AwardSource {int unknown0,unknown4;_STL::vector<const ModuleData*>players
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 struct AwardWorld {char unknown[0x98];const ModuleData*localPlayer;};
 namespace _STL {template<> int*rotate<int*>(int*,int*,int*);}
-class Rva000AD6F4 {public:Rva000AD6F4():ptr(0){}~Rva000AD6F4();void*ptr;};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva005D19F8Child {public:Rva005D19F8Child(Rva005D19F8*,int,int);Rva005D19F8*owner;int root,source;Rva000AD6F4 movie;_STL::vector<const ModuleData*>players;};
 Rva005D19F8Child::Rva005D19F8Child(Rva005D19F8*o,int r,int a):owner(o),root(r),source(a) {
  ((Rva0057C394*)root)->rva0057C394(AsciiString("StrategicRegionAward.swf"),TreeHintRef00217D4C(DelegateDesc(this,&StrategicInGameUI::RegionAwardDialog::Impl::OnMovieClipLoaded)));

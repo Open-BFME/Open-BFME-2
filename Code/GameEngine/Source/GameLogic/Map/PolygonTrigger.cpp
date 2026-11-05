@@ -137,12 +137,7 @@ public:
  Rva002E3E2AObject *pointer;
 };
 
-class Rva000AD6F4
-{
-public:
- Rva002E3E2AOut rva002E3E2A();
- Rva002E3E2AObject *pointer;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 // ?Rva002E36D5Find@@YAPAXH@Z, retail 0x002E36D5, 26 bytes.
 // Leaf __cdecl find-by-ID over global list at 0x00DBD0F4 (holder head at +0).
@@ -421,8 +416,8 @@ void PolygonTrigger::getBounds(IRegion2D *out)
 
 __declspec(noinline) inline Rva002E3E2AOut Rva000AD6F4::rva002E3E2A()
 {
- Rva002E3E2AOut temporary(pointer);
- pointer=0;
+ Rva002E3E2AOut temporary((Rva002E3E2AObject *)m_ptr);
+ m_ptr=0;
  return temporary;
 }
 

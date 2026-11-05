@@ -16,13 +16,7 @@ struct Rva005C39DERef {
  Rva005C39DERef():ptr(0) {}
  ~Rva005C39DERef() { if(ptr) ReleaseTreeHintRef00217D4C(ptr); }
 };
-class Rva000AD6F4 {
-public:
- void *ptr;
- Rva000AD6F4():ptr(0) {}
- ~Rva000AD6F4();
- void clear();
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva005C39DEMember {
 public:
  ~Rva005C39DEMember();
@@ -113,11 +107,11 @@ void Rva005C3A37Elem::rva005C3B3E()
  for(int i=0;i<count;++i) {
   Rva005C39DEMember &member=members[i];
   Rva005C3B3EUpdateView *output;
-  if(member.middle.ptr && member.first.ptr) {
+  if(member.middle.m_ptr && member.first.ptr) {
    output=reinterpret_cast<Rva005C3B3EUpdateView *>(member.last.ptr);
    if(!output) {
     reinterpret_cast<TreeHintRef00217D4C &>(member.last)=
-     reinterpret_cast<Rva005C39C4 *>(member.first.ptr)->rva005C39C4((int)member.middle.ptr);
+     reinterpret_cast<Rva005C39C4 *>(member.first.ptr)->rva005C39C4((int)member.middle.m_ptr);
     reinterpret_cast<Rva002BED91 *>(&member.first)->clear();
     output=reinterpret_cast<Rva005C3B3EUpdateView *>(member.last.ptr);
    }
