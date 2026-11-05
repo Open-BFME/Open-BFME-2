@@ -254,14 +254,7 @@ public:
 
 class PickAndPlayInfo;
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7DC = 0x7DC
-	};
-};
+#include "../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
@@ -496,7 +489,7 @@ void FiringTracker::speedUp()
 	{
 		_STL::list<Drawable *> list;
 		list.push_back(self->getDrawable());
-		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DC, NULL);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7DC), NULL);
 
 		self->setWeaponBonusCondition(WEAPONBONUSCONDITION_CONTINUOUS_FIRE_FAST);
 		set.set(MODELCONDITION_CONTINUOUS_FIRE_FAST);

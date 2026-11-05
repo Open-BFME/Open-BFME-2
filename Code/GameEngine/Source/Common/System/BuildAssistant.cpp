@@ -1311,14 +1311,7 @@ Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
 // thunk 0x00239BAB in the unwind funclet.
 #include "../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo;
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7DA = 0x7DA
-	};
-};
+#include "../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 // The rowed member every newly made object ends with (ZH's
@@ -1866,7 +1859,7 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 
 			_STL::list<Drawable *> list;
 			list.push_back( obj->getDrawable() );
-			pickAndPlayUnitVoiceResponse( static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DA, 0 );
+			pickAndPlayUnitVoiceResponse( static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7DA), 0 );
 		}
 
 		reinterpret_cast<Rva0028CBFD *>( obj )->rva0028CBFD();

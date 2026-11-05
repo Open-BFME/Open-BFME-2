@@ -276,11 +276,7 @@ public:
 	unsigned unknown20;
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_BFME2_0x7E9 = 0x7e9 };
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *, GameMessage::Type, PickAndPlayInfo *);
 
@@ -494,7 +490,7 @@ void BloodthirstyUpdate::sacrificeHorde(Object *victim, CommandSourceType source
 			info.target = resolved->getDrawable();
 			_STL::list<Drawable *> list;
 			list.push_back(self->getDrawable());
-			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7E9, &info);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7E9), &info);
 		}
 	}
 }

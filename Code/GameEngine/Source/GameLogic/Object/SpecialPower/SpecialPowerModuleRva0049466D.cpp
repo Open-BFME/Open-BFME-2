@@ -129,14 +129,7 @@ public:
 	unsigned int m_unmodelled_20;
 };
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7EC = 0x7EC
-	};
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
@@ -502,7 +495,7 @@ void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj,
 					info.m_drawTarget = targetObj->getDrawable();
 				if (targetPos)
 					info.m_position = *targetPos;
-				pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7EC, &info);
+				pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7EC), &info);
 			}
 		}
 	}

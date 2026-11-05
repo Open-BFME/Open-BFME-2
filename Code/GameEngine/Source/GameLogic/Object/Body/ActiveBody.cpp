@@ -539,11 +539,7 @@ public:
 };
 #include "../../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo;
-class GameMessage
-{
-public:
-	enum Type { MSG_BFME2_0x7E0 = 0x7E0 };
-};
+#include "../../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 struct BfmeDelayedLuaEvent
@@ -2295,7 +2291,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 		{
 			_STL::list<Drawable *> drawList;
 			drawList.push_back(obj->getDrawable());
-			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&drawList), GameMessage::MSG_BFME2_0x7E0, 0);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&drawList), static_cast<GameMessage::Type>(0x7E0), 0);
 		}
 
 		if (clipped || (m_currentHealth <= 0.0f && m_prevHealth > 0.0f))

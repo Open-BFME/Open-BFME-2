@@ -84,16 +84,7 @@ public:
 	unsigned int m_unmodelled_20;
 };
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_DO_ATTACK_OBJECT = 0x7E6,
-		MSG_DO_MOVETO = 0x7E7,
-		MSG_BFME2_0x7E8 = 0x7E8
-	};
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
@@ -114,7 +105,7 @@ void AIUpdateInterface::playAttackVoiceResponse(Object *victim)
 			info.m_position = *victim->getPosition();
 			info.m_air = victim->isUsingAirborneLocomotor();
 		}
-		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_DO_ATTACK_OBJECT, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7E6), &info);
 	}
 }
 
@@ -127,7 +118,7 @@ void AIUpdateInterface::playAttackVoiceResponse(const Coord3D *position)
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		info.m_position = *position;
-		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_DO_ATTACK_OBJECT, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7E6), &info);
 	}
 }
 
@@ -140,7 +131,7 @@ void AIUpdateInterface::playVoiceEnterStateAttackMove(const Coord3D *position)
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		info.m_position = *position;
-		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7E8, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7E8), &info);
 	}
 }
 
@@ -153,6 +144,6 @@ void AIUpdateInterface::playMoveVoiceResponse(const Coord3D *position)
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		info.m_position = *position;
-		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_DO_MOVETO, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7E7), &info);
 	}
 }

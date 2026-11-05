@@ -21,21 +21,7 @@
 // status 2.
 #include "../Common/GameLogicObjectLookupView.h"
 
-union GameMessageArgumentType;
-class GameMessage
-{
-public:
-	virtual void *deleteInstance(int flags);	// slot 0
-	const GameMessageArgumentType *getArgument(int argIndex) const;	// 0x0030F4EA
-	GameMessage *next() { return m_next; }
-	int getType() const { return m_type; }
-	unsigned char getArgumentCount() const { return m_argCount; }
-	GameMessage *m_next;			// +0x04
-	unsigned char m_pad08[0x10 - 0x08];
-	int m_type;				// +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	unsigned char m_argCount;		// +0x18
-};
+#include "../../Include/Common/MessageStream.h"
 
 template <int N> class Rva0025E75FSlots : public Rva0025E75FSlots<N - 1>
 {
@@ -165,7 +151,7 @@ public:
 
 static inline void deleteMessage(GameMessage *msg)
 {
-	::operator delete(msg ? msg->deleteInstance(0) : 0);
+	::delete msg;
 }
 
 void Rva0025E4CD::rva0025E75F()

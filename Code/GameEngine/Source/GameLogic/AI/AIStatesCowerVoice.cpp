@@ -81,14 +81,7 @@ class Drawable;
 
 class PickAndPlayInfo;
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7DB = 0x7DB
-	};
-};
+#include "../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
@@ -216,7 +209,7 @@ StateReturnType AICowerState::update()
 	{
 		_STL::list<Drawable *> list;
 		list.push_back(obj->getDrawable());
-		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DB, 0);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7DB), 0);
 		return STATE_SUCCESS;
 	}
 	return STATE_CONTINUE;
@@ -269,7 +262,7 @@ StateReturnType AIBackAwayState::update()
 		{
 			_STL::list<Drawable *> list;
 			list.push_back(draw);
-			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DB, 0);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7DB), 0);
 		}
 		return STATE_SUCCESS;
 	}

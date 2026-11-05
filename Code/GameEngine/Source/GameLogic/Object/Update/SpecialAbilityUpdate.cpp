@@ -110,15 +110,7 @@ public:
 	Coord3D m_position;
 	unsigned int m_unmodelled_20;
 };
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_BFME2_0x7DD = 0x7DD,
-		MSG_BFME2_0x7DE = 0x7DE
-	};
-};
+#include "../../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 // The rowed setter that stamps an audio event with its owning object.
@@ -1291,7 +1283,7 @@ void SpecialAbilityUpdate::startPacking(bool success)
 		info.m_10 = specialAbilityUpdateModuleData->m_specialPowerTemplate;
 		if (specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_type == 0x1a
 			|| specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_type == 0x1d)
-			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DD, &info);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7DD), &info);
 		else
 			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DE, &info);
 		if (player && player->isLocalPlayer())
