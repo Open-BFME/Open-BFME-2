@@ -440,16 +440,8 @@ struct Rva004CE41ECondition
 	unsigned int m_frames; // +0x04
 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad00[0x1C];
-	int m_val1C;
-	int m_val20; // +0x20, also read by the rowed 0x0044EECA predicate
-	unsigned char m_pad24[0x44 - 0x24];
-	int m_evaEvent44; // +0x44
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
 class SpecialAbilityUpdateModuleData
 {
@@ -467,7 +459,7 @@ public:
 	int m_2C; // +0x2C
 	float m_grabPassengerHealGainPercent; // +0x30
 	unsigned char m_pad34[0x38 - 0x34];
-	Overridable *m_specialPowerTemplate; // +0x38
+	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x38
 	unsigned char m_pad3C[0x48 - 0x3C];
 	AsciiString m_triggerAttributeModifier; // +0x48
 	float m_approachRange; // +0x4C
@@ -539,7 +531,7 @@ class Rva0044F633Inner
 {
 public:
 	char m_pad0[0x38];
-	Overridable *m_override38;
+	const SpecialPowerTemplate *m_override38;
 	char m_pad1[0x74 - 0x38 - 4];
 	void *m_fallback74;
 };
@@ -651,12 +643,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 extern PartitionManager *ThePartitionManager;
 
-class CommandButton
-{
-public:
-	unsigned char m_pad00[0x1C];
-	unsigned short m_options; // +0x1C
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 #include "../../../../Include/GameClient/ControlBar.h"
 
@@ -813,7 +800,7 @@ struct Rva0044EECAParam
 	unsigned char m_pad00[0x1D];
 	unsigned char m_flags1D;
 	unsigned char m_pad1E[0x44 - 0x1E];
-	Overridable *m_over44;
+	const SpecialPowerTemplate *m_over44;
 };
 
 class Rva0044EECA
@@ -1050,10 +1037,10 @@ void SpecialAbilityUpdate::rva0044EE80()
 SpecialPowerType SpecialAbilityUpdate::getSpecialPowerType() const
 {
 	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
-	Overridable *overridable = data->m_specialPowerTemplate;
+	const SpecialPowerTemplate *overridable = data->m_specialPowerTemplate;
 	if (overridable == 0)
 		return (SpecialPowerType)0;
-	return (SpecialPowerType)overridable->friend_getFinalOverride()->m_val1C;
+	return (SpecialPowerType)overridable->getFO()->m_type;
 }
 
 // ?rva0044F633@Rva0044F633@@QAEPAXXZ, retail 0x0044F633, 70 bytes.
@@ -1068,8 +1055,8 @@ void *Rva0044F633::rva0044F633()
 {
 	Rva0044F633Inner *inner = m_inner4;
 	Object *obj = TheGameLogic->findObjectByID(m_target40);
-	const Overridable *ov = inner->m_override38->friend_getFinalOverride();
-	if (ov->m_val1C == 0x27) {
+	const SpecialPowerTemplate *ov = inner->m_override38->getFO();
+	if (ov->m_type == 0x27) {
 		if (obj) {
 			unsigned char *base = obj->m_base4;
 			if ((base[0x108] & 0x40) == 0) {
@@ -1093,7 +1080,7 @@ void SpecialAbilityUpdate::endPreparation()
 	TheAudio->removeAudioEvent(m_prepSoundLoop);
 	((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, 0x5f));
 	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
-	switch (data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C)
+	switch (data->m_specialPowerTemplate->getFO()->m_type)
 	{
 	case 0x15:
 	case 0x1a:
@@ -1127,7 +1114,7 @@ void SpecialAbilityUpdate::onExit(bool cleanup, bool b)
 	SpecialPowerModuleInterface *spm = obj->getSpecialPowerModule((const SpecialPowerTemplate *)data->m_specialPowerTemplate);
 	if (spm)
 		spm->s19();
-	int type = data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C;
+	int type = data->m_specialPowerTemplate->getFO()->m_type;
 	if (type == 0x28 || type == 0x27)
 	{
 		Object *target = TheGameLogic->findObjectByID(m_targetID);
@@ -1246,7 +1233,7 @@ void SpecialAbilityUpdate::startUnpacking()
 			m_84 = specialAbilityUpdateModuleData->m_20 + TheGameLogic->getFrame();
 	}
 	Object *target = TheGameLogic->findObjectByID(m_targetID);
-	int type = specialAbilityUpdateModuleData->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C;
+	int type = specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_type;
 	if (type == 0x28)
 	{
 		if (target && (target->m_base4[0x118] & 0x10))
@@ -1313,7 +1300,7 @@ void SpecialAbilityUpdate::startPacking(bool success)
 	Drawable *draw = self->getDrawable();
 	if (draw)
 		draw->rva002723C0(m_animFrames);
-	if (specialAbilityUpdateModuleData->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C != 0x2a)
+	if (specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_type != 0x2a)
 	{
 		unsigned char *ai = self->m_ai;
 		if (ai)
@@ -1325,14 +1312,14 @@ void SpecialAbilityUpdate::startPacking(bool success)
 		list.push_back(draw);
 		PickAndPlayInfo info;
 		info.m_10 = specialAbilityUpdateModuleData->m_specialPowerTemplate;
-		if (specialAbilityUpdateModuleData->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C == 0x1a
-			|| specialAbilityUpdateModuleData->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C == 0x1d)
+		if (specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_type == 0x1a
+			|| specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_type == 0x1d)
 			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DD, &info);
 		else
 			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DE, &info);
 		if (player && player->isLocalPlayer())
 		{
-			int evaEvent = specialAbilityUpdateModuleData->m_specialPowerTemplate->friend_getFinalOverride()->m_evaEvent44;
+			int evaEvent = specialAbilityUpdateModuleData->m_specialPowerTemplate->getFO()->m_evaEventToPlayOnSuccess;
 			TheEva->reportEvaEvent((EvaEventID)evaEvent, &self->m_position, 0);
 		}
 	}
@@ -1357,9 +1344,9 @@ bool SpecialAbilityUpdate::rva00450AE9()
 		if(target) {
 			const Coord3D *targetPos=&target->m_position;
 			m_previousTarget=*targetPos;
-			Overridable *spTemplate=data->m_specialPowerTemplate;
+			const SpecialPowerTemplate *spTemplate=data->m_specialPowerTemplate;
 			bool moveToPosition=data->m_approachRange>50.0f;
-			if(spTemplate->friend_getFinalOverride()->m_val1C==0x27){
+			if(spTemplate->getFO()->m_type==0x27){
 				ApproachTargetContainer *approachTargetContainer=target->m_targetContainer;
 				if(approachTargetContainer && (approachTargetContainer->m_data[0x115]&0x20)) self->m_specialTargetID=approachTargetContainer->m_targetID;
 				else self->m_specialTargetID=m_targetID;
@@ -1386,7 +1373,7 @@ bool SpecialAbilityUpdate::rva00450AE9()
 	} else if(m_targetPos.x || m_targetPos.y || m_targetPos.z){
 		AIUpdateInterface *ai=self->getAI();
 		if(ai) {
-			int type=data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C;
+			int type=data->m_specialPowerTemplate->getFO()->m_type;
 			if(type==0x38 && ai->rvaSlot168())self->setStatus((ObjectStatusTypes)0x5B,true);
 			ai->aiMoveToPositionSA(&m_targetPos,2);
 			if(type==0x2A)m_approached=true;
@@ -1409,7 +1396,7 @@ bool SpecialAbilityUpdate::rva00450AE9()
 void SpecialAbilityUpdate::startPreparation()
 {
 	const SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData = (const SpecialAbilityUpdateModuleData *)m_moduleData;
-	Overridable *power = specialAbilityUpdateModuleData->m_specialPowerTemplate;
+	const SpecialPowerTemplate *power = specialAbilityUpdateModuleData->m_specialPowerTemplate;
 	m_prepFrames = (unsigned int)((Rva0044F633 *)this)->rva0044F633();
 	if (m_prepFrames)
 	{
@@ -1433,7 +1420,7 @@ void SpecialAbilityUpdate::startPreparation()
 			}
 		}
 	}
-	int type = power->friend_getFinalOverride()->m_val1C;
+	int type = power->getFO()->m_type;
 	if (type == 0x15)
 	{
 		Object *target = TheGameLogic->findObjectByID(m_targetID);
@@ -1502,7 +1489,7 @@ bool SpecialAbilityUpdate::handlePackingProcessing()
     m_packingState=3;
     ((SpecialPackingFinishView*)this)->finish();return true;
    }
-   if(data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C==0x1d) {
+   if(data->m_specialPowerTemplate->getFO()->m_type==0x1d) {
     ObjectID saved=m_targetID;
     Object *target=TheGameLogic->findObjectByID(saved);
     if(!target){((SpecialPackingFinishView*)this)->finish();return true;}
@@ -1618,10 +1605,10 @@ void SpecialAbilityUpdate::finishAbility()
 bool Rva0044EECA::rva0044EECA(Rva0044EECAParam *p)
 {
 	if (p != 0) {
-		Overridable *overridable = p->m_over44;
+		const SpecialPowerTemplate *overridable = p->m_over44;
 		if (overridable != 0) {
-			const Overridable *f = overridable->friend_getFinalOverride();
-			if (f->m_val1C == 0x16 && (p->m_flags1D & 2) == 0)
+			const SpecialPowerTemplate *f = overridable->getFO();
+			if (f->m_type == 0x16 && (p->m_flags1D & 2) == 0)
 				return m_val48 == 0;
 		}
 	}
@@ -1629,8 +1616,8 @@ bool Rva0044EECA::rva0044EECA(Rva0044EECAParam *p)
 	if (v != 0) {
 		if (v == 1 || v == 3) {
 			if (p != 0) {
-				const Overridable *f2 = p->m_over44->friend_getFinalOverride();
-				if (f2->m_val20 == 0)
+				const SpecialPowerTemplate *f2 = p->m_over44->getFO();
+				if (f2->m_reloadTime == 0)
 					return false;
 			}
 		}
