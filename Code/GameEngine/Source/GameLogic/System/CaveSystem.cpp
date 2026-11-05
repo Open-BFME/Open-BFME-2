@@ -44,6 +44,8 @@ struct XferUnknown11;
 #include "../../../Include/Common/XferException.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+// retail vftable VA 0x00C3C634 slot 2 is the class-name getter 0x00427603 ("CaveSystem"), not crc
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 // Pointer-vector begin/end/clear are expanded inline here; their out-of-line copies
@@ -70,9 +72,10 @@ public:
 	TunnelTracker *getTunnelTrackerForCaveIndex(UnsignedInt index);
 	void registerNewCave(Int theIndex);
 	void unregisterCave(Int theIndex);
-	virtual void crc(Xfer *xfer) {}
 	virtual void DoXfer(Xfer *xfer);
 	virtual void LoadPostProcess() {}
+protected:
+	virtual const char *GetSnapshotName() const;
 
 private:
 	_STL::vector<TunnelTracker *> m_tunnelTrackerVector;
@@ -183,7 +186,7 @@ CaveSystem::CaveSystem()
 {
 }
 
-// tu-skeleton: 0x00427603 6B ?name@Rva00427603Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x00427603 6B ?GetSnapshotName@CaveSystem@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/Rva00427611Dtor.cpp
 
