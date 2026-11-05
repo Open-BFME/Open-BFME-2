@@ -98,40 +98,25 @@ public:
 
 extern "C" void _WriteBarrier( void );
 
-class BfmeC994
+class BfmeC994 : public Rva007E86B0Base
 {
 public:
+	virtual ~BfmeC994();
 	BfmeC994( char *buffer, int capacity );
-public:
-	void *m_vft;
-public:
-	int m_field04;
-public:
-	int m_field08;
-public:
-	int m_field0c;
-public:
-	char *m_buffer;
-public:
-	int m_capacity;
-public:
-	int m_field18;
-public:
-	int m_category;
-public:
-	int m_field20;
-public:
-	int m_field24;
-public:
-	int m_field28;
-public:
-	int m_field2c;
-public:
-	char m_field30;
-public:
 	void addInt( const char *key, int value );
-public:
-	void clear();
+	void addString( const char *key, const char *value );
+
+	int m_field08;
+	int m_field0c;
+	char *m_buffer;
+	int m_capacity;
+	int m_field18;
+	int m_category;
+	int m_field20;
+	int m_field24;
+	int m_field28;
+	int m_field2c;
+	char m_field30;
 };
 
 class BfmeC994;
@@ -317,17 +302,24 @@ class Gen0080AB50
 {
 public:
 	void process( unsigned int timestamp );
+	int handle( unsigned int timestamp );
 
 	char m_pad00[ 0x04 ];
 	Rva008038F0Sender *m_sender;
-	char m_pad08[ 0x10 ];
+	char m_pad08[ 0x08 ];
+	void *m_route;
+	char m_pad14[ 0x04 ];
 	Rva00809520Entry *m_entries[ 16 ];
-	int m_pad58;
-	int m_deadline;
-	int m_pad60;
+	struct HostedLanGameView *m_game;
+	unsigned int m_deadline;
+	unsigned int m_retryTime;
 	int m_tid;
 	char m_pad68[ 0x100 ];
 	char m_status;
+	char m_pad169[ 3 ];
+	int m_pendingTid;
+	int m_joinTid;
+	char m_name[ 0x20 ];
 };
 
 // Copy a VHE message, preserving a keyed field.
@@ -897,7 +889,6 @@ void Gen0080AB50::process( unsigned int timestamp )
 	m_tid = 0;
 	m_status = 0;
 	reinterpret_cast< Gen_007e86c0 * >( &message )->m();
-	reinterpret_cast< Gen_007e86c0 * >( &summary )->m();
 }
 
 // ---- from Code/GameEngine/Source/Common/copyMessageHeader.cpp
@@ -987,7 +978,6 @@ bool Rva0080A940Owner::finish()
 		}
 	}
 
-	reinterpret_cast< Gen_007e86c0 * >( &request )->m();
 	return result > 0 ? true : false;
 }
 
@@ -1125,7 +1115,6 @@ void BfmeSinkTCA::bfmeUseTCA( void *value )
 				const volatile int *field0c = &player->m_field0c;
 				message.m_field0c = *field0c;
 				sendFeslMessage( &message, "->L", m_field10 );
-				message.clear();
 			}
 		}
 	}

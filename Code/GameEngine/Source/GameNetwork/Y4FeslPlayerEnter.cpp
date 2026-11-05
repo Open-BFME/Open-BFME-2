@@ -13,13 +13,7 @@
 // actual base and an implicit derived destructor gives the observed cleanup as
 // a normal stack-object lifetime, without an explicit pseudo-clear call.
 
-class Gen007F0130
-{
-public:
-	static void *operator new( unsigned int size );
-};
-
-class Rva007E86B0Base : public Gen007F0130
+class Rva007E86B0Base
 {
 public:
 	Rva007E86B0Base();
@@ -34,11 +28,19 @@ public:
 	virtual ~BfmeC994();
 	BfmeC994( char *buffer, int capacity );
 	void addInt( const char *key, int value );
+	void addString( const char *key, const char *value );
 
-	char m_pad08[ 0x14 ];
-	unsigned int m_category;
-	unsigned int m_field20;
-	char m_tail24[ 0x10 ];
+	int m_field08;
+	int m_field0c;
+	char *m_buffer;
+	int m_capacity;
+	int m_field18;
+	int m_category;
+	int m_field20;
+	int m_field24;
+	int m_field28;
+	int m_field2c;
+	char m_field30;
 };
 
 class Rva008038F0Sender
@@ -47,27 +49,36 @@ public:
 	void send( BfmeC994 *message );
 };
 
-struct Rva00809100Player
+struct Rva008097D0Player
 {
-	char m_pad00[ 0x10 ];
-	int m_pid;
+	char m_pad00[ 4 ];
+	int m_field04;
+	int m_field08;
+	int m_field0c;
+	int m_playerId;
+	int m_gameId;
 };
 
 class Rva00808920LanGame
 {
 public:
+	~Rva00808920LanGame();
+
 	int m_state;
 	int m_maxPlayers;
-	Rva00809100Player **m_players;
+	Rva008097D0Player **m_players;
+	char m_name[ 0x80 ];
+	char m_ugid[ 0x25 ];
+	char m_tail[ 3 ];
 };
 
-static __forceinline Rva00809100Player *Rva00809100FindPlayer(
+static __forceinline Rva008097D0Player *Rva00809100FindPlayer(
 	const Rva00808920LanGame *game, int pid )
 {
 	for( int index = 0; index < game->m_maxPlayers; ++index )
 	{
-		Rva00809100Player *player = game->m_players[ index ];
-		if( player != 0 && player->m_pid == pid )
+		Rva008097D0Player *player = game->m_players[ index ];
+		if( player != 0 && player->m_playerId == pid )
 			return player;
 	}
 	return 0;
@@ -88,7 +99,7 @@ void BfmeSinkSA::bfmeUseSA( int tid, int pid )
 {
 	char buffer[ 0x40 ];
 	BfmeC994 message( buffer, sizeof( buffer ) );
-	Rva00809100Player *player = Rva00809100FindPlayer( m_game, pid );
+	Rva008097D0Player *player = Rva00809100FindPlayer( m_game, pid );
 
 	message.m_category = 'PENT';
 	message.m_field20 = player != 0 ? 0 : 'ntfn';

@@ -1,18 +1,35 @@
-// cl: /O2 /GS
+// cl: /O2 /GX- /GS
 // Retail 0x0080AB50: advance timed requests and emit the MAGE response.
 // The argument is an unsigned timestamp; the member ABI is thiscall/ret4.
 
-class BfmeC994
+class Rva007E86B0Base
 {
 public:
+	Rva007E86B0Base();
+	virtual ~Rva007E86B0Base();
+
+	int m_field04;
+};
+
+class BfmeC994 : public Rva007E86B0Base
+{
+public:
+	virtual ~BfmeC994();
 	BfmeC994( char *buffer, int capacity );
+	void addInt( const char *key, int value );
 	void addString( const char *key, const char *value );
 
-	char m_pad00[ 0x1c ];
+	int m_field08;
+	int m_field0c;
+	char *m_buffer;
+	int m_capacity;
+	int m_field18;
 	int m_category;
-	int m_status;
-	char m_pad24[ 0x0c ];
-	char m_pad30;
+	int m_field20;
+	int m_field24;
+	int m_field28;
+	int m_field2c;
+	char m_field30;
 };
 
 class BfmeThingCIB
@@ -96,28 +113,29 @@ struct HostedLanGameView
 Rva007EB810Diag *Rva007EB810Get();
 void *Rva007F93E0( void *message, void *route, void *owner );
 
+struct Rva00809520Entry;
+class Rva008038F0Sender;
 class Gen0080AB50
 {
 public:
-	void process( unsigned int value );
+	void process( unsigned int timestamp );
 	int handle( unsigned int timestamp );
 
-	char m_pad00[ 4 ];
-	BfmeSinkSKA *m_sink;
-	char m_pad08[ 8 ];
-	void *m_field10;
-	char m_pad14[ 4 ];
-	LanGameEntryView *m_entry;
-	char m_pad1c[ 0x3c ];
-	HostedLanGameView *m_game;
-	unsigned int m_field5c;
-	unsigned int m_field60;
+	char m_pad00[ 0x04 ];
+	Rva008038F0Sender *m_sender;
+	char m_pad08[ 0x08 ];
+	void *m_route;
+	char m_pad14[ 0x04 ];
+	Rva00809520Entry *m_entries[ 16 ];
+	struct HostedLanGameView *m_game;
+	unsigned int m_deadline;
+	unsigned int m_retryTime;
 	int m_tid;
 	char m_pad68[ 0x100 ];
-	unsigned char m_status;
+	char m_status;
 	char m_pad169[ 3 ];
-	int m_pending;
-	int m_field170;
+	int m_pendingTid;
+	int m_joinTid;
 	char m_name[ 0x20 ];
 };
 
@@ -125,31 +143,34 @@ int Gen0080AB50::handle( unsigned int timestamp )
 {
 	if( m_tid != 0 )
 	{
-		if( m_status == 0 && m_field60 < timestamp )
+		if( m_status == 0 && m_retryTime < timestamp )
 		{
-			m_field60 = timestamp + 0x64;
+			m_retryTime = timestamp + 0x64;
 			m_status = (unsigned char)reinterpret_cast< Rva0080A940Owner * >( this )->finish();
 			if( m_status == 1 )
-				m_field5c = timestamp + 0x5dc;
+				m_deadline = timestamp + 0x5dc;
 		}
 
-		if( m_field5c != 0 && m_field5c < timestamp )
+		if( m_deadline != 0 && m_deadline < timestamp )
 			process( timestamp );
 	}
 
-	if( m_pending != 0 )
+	if( m_pendingTid != 0 )
 	{
-		m_sink->sendCreateGameRequest( m_pending, m_entry->m_gameId,
+		reinterpret_cast< BfmeSinkSKA * >( m_sender )->sendCreateGameRequest(
+			m_pendingTid,
+			reinterpret_cast< LanGameEntryView * >( m_entries[ 0 ] )->m_gameId,
 			m_game->m_maxPlayers, m_game->m_userGameId );
-		m_pending = 0;
+		m_pendingTid = 0;
 	}
 
-	if( m_field170 != 0 )
+	if( m_joinTid != 0 )
 	{
 		char buffer[ 0x40 ];
 		BfmeC994 message( buffer, sizeof( buffer ) );
 
-		LanGameEntryView *entry = m_entry;
+		LanGameEntryView *entry =
+			reinterpret_cast< LanGameEntryView * >( m_entries[ 0 ] );
 		if( entry == 0 )
 		{
 			Rva007EB810Get()->fail(
@@ -159,20 +180,19 @@ int Gen0080AB50::handle( unsigned int timestamp )
 		}
 		else
 		{
-			message.m_status = (int)0xC0000000;
+			message.m_field20 = (int)0xC0000000;
 			message.m_category = 0x4547414d;
 			BfmeThingCIB *cib = reinterpret_cast< BfmeThingCIB * >( &message );
-			cib->bfmeGoCIB( (int *)"TID", (void *)m_field170 );
+			cib->bfmeGoCIB( (int *)"TID", (void *)m_joinTid );
 			cib->bfmeGoCIB( (void *)"GID", (void *)entry->m_gameId );
 			cib->bfmeGoCIB( (char *)"LID", (void *)-2 );
 
 			reinterpret_cast< BfmeThingVJJ * >( entry )->bfmeGoVJJ(
 				reinterpret_cast< BfmeMsgVJJ * >( &message ) );
 			message.addString( "NAME", m_name );
-			Rva007F93E0( &message, (void *)"->L", m_field10 );
+			Rva007F93E0( &message, (void *)"->L", m_route );
 		}
-		m_field170 = 0;
-		reinterpret_cast< Gen_007e86c0 * >( &message )->m();
+		m_joinTid = 0;
 	}
 	return 0;
 }

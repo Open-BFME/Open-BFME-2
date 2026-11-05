@@ -2,10 +2,7 @@
 // Retail 0x0080A280 has no caller or proven semantic owner, so this source
 // keeps the address-derived owner and method names.
 
-extern "C" char *strstr( const char *text, const char *find );
-extern "C" __declspec( dllimport ) unsigned int __cdecl strlen(
-	const char *text );
-#pragma intrinsic( strlen )
+#include <string.h>
 
 class Rva007E86B0Base
 {
@@ -21,14 +18,20 @@ class BfmeC994 : public Rva007E86B0Base
 public:
 	virtual ~BfmeC994();
 	BfmeC994( char *buffer, int capacity );
+	void addInt( const char *key, int value );
+	void addString( const char *key, const char *value );
 
 	int m_field08;
 	int m_field0c;
-	char m_pad10[ 0x0c ];
+	char *m_buffer;
+	int m_capacity;
+	int m_field18;
 	int m_category;
 	int m_field20;
-	char m_pad24[ 0x0c ];
-	char m_tail30;
+	int m_field24;
+	int m_field28;
+	int m_field2c;
+	char m_field30;
 };
 
 class BfmeThingCIB
