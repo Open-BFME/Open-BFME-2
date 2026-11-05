@@ -6,7 +6,8 @@
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
 // that way each body below places uniquely on unclaimed game.dat .text by
 // masked whole-.text search, and ./build.sh reproduces it byte for byte:
-// ParticleSystemTemplate::parseRGBColorKeyframe 0x0055B913 (44B). Callee
+// ParticleSystemTemplate::parseRGBColorKeyframe 0x0055B913 (44B), which BFME 2
+// moved into FXParticleSystem::DefaultModuleTemplate<0> (retail export 1836). Callee
 // addresses are read off retail's call sites (reverse/symbols.csv). Only the
 // placed bodies are carried; the donor's other definitions are omitted.
 #define Matrix4x4 Matrix4  // BFME renamed it
@@ -210,7 +211,18 @@ struct BfmeParticleTransformView
 /** Parse a "color keyframe".
  * The format is "FIELD = R:r G:g B:b frame". */
 // ------------------------------------------------------------------------------------------------
-void ParticleSystemTemplate::parseRGBColorKeyframe( INI* ini, void *instance,
+namespace FXParticleSystem
+{
+template <int CATEGORY>
+class DefaultModuleTemplate
+{
+public:
+	static void parseRGBColorKeyframe( INI* ini, void *instance, void *store, const void* userData );
+};
+
+// ?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z
+template <int CATEGORY>
+void DefaultModuleTemplate<CATEGORY>::parseRGBColorKeyframe( INI* ini, void *instance,
 																													void *store, const void* /*userData*/ )
 {
 	RGBColorKeyframe *key = static_cast<RGBColorKeyframe *>(store);
@@ -218,5 +230,9 @@ void ParticleSystemTemplate::parseRGBColorKeyframe( INI* ini, void *instance,
 	INI::parseRGBColor( ini, instance, &key->color, NULL );
 	INI::parseUnsignedInt( ini, instance, &key->frame, NULL );
 }
+
+// Category 0's table (Color1..) names it; retail exports this instance.
+template void DefaultModuleTemplate<0>::parseRGBColorKeyframe( INI *, void *, void *, const void * );
+} // namespace FXParticleSystem
 
 

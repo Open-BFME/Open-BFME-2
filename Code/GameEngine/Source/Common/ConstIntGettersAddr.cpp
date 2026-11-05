@@ -67,8 +67,8 @@ void __identifier("?parseMeleeBehavior@HordeContainModuleData@@SAXPAVINI@@PAX1PB
 void __identifier("?parseOCL@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseRGBColor@INI@@SAXPAV1@PAX1PBX@Z")();
-void __identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
-void __identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseRankInfo@HordeContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseScience@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -329,14 +329,14 @@ int Rva00655114Get(void)
 
 // Retail VA 0x00C6B988: Alpha1..Alpha8 plus terminator (144B).
 extern const FieldParse s_fxpsAlphaTable[9] = {
-    { "Alpha1", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
-    { "Alpha2", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x1C },
-    { "Alpha3", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
-    { "Alpha4", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x3C },
-    { "Alpha5", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x4C },
-    { "Alpha6", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x5C },
-    { "Alpha7", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x6C },
-    { "Alpha8", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x7C },
+    { "Alpha1", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
+    { "Alpha2", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x1C },
+    { "Alpha3", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
+    { "Alpha4", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x3C },
+    { "Alpha5", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x4C },
+    { "Alpha6", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x5C },
+    { "Alpha7", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x6C },
+    { "Alpha8", (FieldParseProc)&__identifier("?parseRandomKeyframe@?$DefaultModuleTemplate@$00@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x7C },
     { 0, 0, 0, 0 },
 };
 
@@ -366,14 +366,14 @@ extern const FieldParse s_fxpsPhysicsTable[6] = {
 
 // Retail VA 0x00C6BA58: Color1..Color8 plus ColorScale plus terminator (160B).
 extern const FieldParse s_fxpsColorTable[10] = {
-    { "Color1", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
-    { "Color2", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x1C },
-    { "Color3", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
-    { "Color4", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x3C },
-    { "Color5", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x4C },
-    { "Color6", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x5C },
-    { "Color7", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x6C },
-    { "Color8", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x7C },
+    { "Color1", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
+    { "Color2", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x1C },
+    { "Color3", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
+    { "Color4", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x3C },
+    { "Color5", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x4C },
+    { "Color6", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x5C },
+    { "Color7", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x6C },
+    { "Color8", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x7C },
     { "ColorScale", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8C },
     { 0, 0, 0, 0 },
 };
