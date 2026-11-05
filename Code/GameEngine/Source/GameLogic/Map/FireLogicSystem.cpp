@@ -718,11 +718,6 @@ class Rva00286351 : public Rva002862C9
 public:
 	void rva00286351();
 };
-// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
-// accessor at 0x002862C9, copies the returned object through the rowed
-// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
-// address-derived class and accessor result view preserve the target behavior;
-// no named identity or broader layout is inferred.
 #include "../../../Include/GameLogic/Rva003ED658.h"
 class Rva00286356 : public Rva002862C9
 {
@@ -788,9 +783,32 @@ _Construct<Rva00287F76Element, Rva00287F76Element>(
 { Rva002861B0Copy(dest, &source); }
 }
 
+struct Rva0028681ARecord {  char bytes[1]; };
+
+typedef _STL::pair<const int,Rva0028681ARecord> Rva0028681APair;
+
+typedef _STL::_Rb_tree<int,Rva0028681APair,_STL::_Select1st<Rva0028681APair>,_STL::less<int>,_STL::allocator<Rva0028681APair> > Rva0028681ATree;
+
+// Retail keeps the base cleanup state until clear returns, then releases the
+// header through the game allocator wrapper at 0x00030830. Spell that call
+// explicitly so /EHsc composition cannot infer the CRT free's no-throw contract.
+void Rva00030830GameFree(void *);
+
+// Native0028691C5B tail-forwards unchanged ECX to the owned56B tree
+// destructor0028681A; original wrapper owner/name/lifetime role unknown.
+struct Rva0028691CTreeCleanupForward {void cleanup();};
+
 // tu-skeleton: 0x00285778 232B ?ResetCellToOriginalFlammability@FireLogicSystem@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00285F43 102B ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
+
+// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
+// accessor at 0x002862C9, copies the returned object through the rowed
+// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
+// address-derived class and accessor result view preserve the target behavior;
+// no named identity or broader layout is inferred.
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/FireLogicSystemParseMaterial.cpp
 
@@ -1381,11 +1399,24 @@ template class _STL::vector<Rva00287F76Element, _STL::allocator<Rva00287F76Eleme
 
 // tu-skeleton: 0x00286815 5B ?rva00286815@Rva00286815@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0028681A 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+
+template <> inline
+_STL::_Rb_tree_base<Rva0028681APair, _STL::allocator<Rva0028681APair> >::~_Rb_tree_base()
+{
+    if (_M_header._M_data != 0)
+        Rva00030830GameFree(_M_header._M_data);
+}
+
+// Emit only the owned destructor and its dependencies.
+template Rva0028681ATree::~_Rb_tree();
+
+void Rva0028691CTreeCleanupForward::cleanup() {reinterpret_cast<Rva0028681ATree*>(this)->~Rva0028681ATree();}
 
 // tu-skeleton: 0x00286852 56B ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@U?$less@W4ObjectID@@@3@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0028691C 5B ?cleanup@Rva0028691CTreeCleanupForward@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
 
 // tu-skeleton: 0x00286921 5B ??1?$map@W4ObjectID@@HU?$less@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicEnemyStructure.cpp (not merged yet)
 

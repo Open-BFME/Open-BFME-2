@@ -19486,10 +19486,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002866B5,189,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,proposed,C,C=0x0028667F..0x00286772,Code/GameEngine/Source/Common/Rva002866B5NearestPoint.cpp
 0x00286772,163,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
 0x00286815,5,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x0028681A,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
-0x0028681A,56,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x00286852,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp
+0x0028681A,56,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x00286852,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 0x00286852,56,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x0028688A,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_dtor.cpp
 0x0028688A,146,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x0028691C,Code/gen_small/fam_003_Rva0028688a.cpp
-0x0028691C,5,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x00286921,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp
+0x0028691C,5,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x00286921,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp
 0x00286921,5,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,C,C=0x00286772..0x00286926,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicEnemyStructure.cpp
 0x00286926,398,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp W=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
 0x00286AB4,528,code,Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp W=Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp
