@@ -45,17 +45,8 @@ const Int MAX_IDX = 32;
 // BoneFXUpdate::BoneFXUpdate: defined in BoneFXUpdateCtor.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
-// BFME 2's INI error object (thrown by value; ctor 0x0002F681 takes the error
-// code and a printf-style message).
-class INIException
-{
-public:
-	INIException(int errorCode, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-	char *mFailureMessage; // +0x00
-	int mErrorCode; // +0x04
-};
+// BFME 2's shared eight-byte formatted INI error object.
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 BFME_LITERAL_NAME_GETTER(Rva00487A5ENamed, "BoneFXUpdate")
 

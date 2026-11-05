@@ -1,4 +1,4 @@
-// Common/INI.h, verbatim but for BFME 2's offset of the separators (marked "BFME 2:"). Copied from
+// Common/INI.h, with BFME 2 separators and canonical field-table declarations. Copied from
 // reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -111,52 +111,8 @@ struct LookupListRec
 };
 typedef const LookupListRec *ConstLookupListRecArray;
 
-//-------------------------------------------------------------------------------------------------
-/** Parse tables for all fields of each data block are created using these */
-//-------------------------------------------------------------------------------------------------
-struct FieldParse
-{
-	const char*					token;						///< token of the field
-	INIFieldParseProc		parse;						///< the parse function
-	const void*					userData;					///< field-specific data
-	Int									offset;						///< offset to data field
-
-	inline void set(const char* t, INIFieldParseProc p, const void* u, Int o)
-	{
-		token = t;
-		parse = p;
-		userData = u;
-		offset = o;
-	}
-};
-
-//-------------------------------------------------------------------------------------------------
-class MultiIniFieldParse
-{
-private:
-	enum { MAX_MULTI_FIELDS = 16 };
-
-	const FieldParse* m_fieldParse[MAX_MULTI_FIELDS];
-	UnsignedInt				m_extraOffset[MAX_MULTI_FIELDS];
-	Int								m_count;
-
-public:
-	MultiIniFieldParse() : m_count(0) 
-	{ 
-		//Added By Sadullah Nader
-		//Initializations missing and needed
-		for(Int i = 0; i < MAX_MULTI_FIELDS; i++)
-			m_extraOffset[i] = 0;
-		//
-
-	}
-	
-	void add(const FieldParse* f, UnsignedInt e = 0);
-
-	inline Int getCount() const { return m_count; }
-	inline const FieldParse* getNthFieldParse(Int i) const { return m_fieldParse[i]; }
-	inline UnsignedInt getNthExtraOffset(Int i) const { return m_extraOffset[i]; }
-};
+// BFME 2 field tables and formatted exceptions use the canonical declarations.
+#include "../../../../Code/GameEngine/Include/Common/INI/FieldParse.h"
 
 //-------------------------------------------------------------------------------------------------
 /** Function typedef for parsing INI types blocks */
