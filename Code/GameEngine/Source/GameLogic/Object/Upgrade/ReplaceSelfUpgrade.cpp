@@ -168,28 +168,16 @@ class Rva0026F0F0 {public:void *rva0026F0F0(const void *);};
 class UpgradeCenter;
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../Common/GameLogicObjectLookupView.h"
-
 extern GameLogic *TheGameLogic;
-
 #include "../../../../Include/GameLogic/AIPathfind.h"
-
 class AI {public:char pad[0x10];Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; }};
-
 extern AI *TheAI;
-
 template<int N>class ReplaceSlots:public ReplaceSlots<N-1>{public:virtual void slot(char(*)[N]);};
-
 template<>class ReplaceSlots<0>{};
-
 #include "../../../../Include/Common/BuildAssistantClass.h"
-
 extern BuildAssistant *TheBuildAssistant;
-
 class ReplaceContain:public ReplaceSlots<18>{public:virtual void addToContain(Object *);virtual void s19();virtual void s20();virtual void s21();virtual void s22();virtual Bool isContained(unsigned);};
-
 struct ReplaceInfo {char pad[0x34];Int delay;};
-
-
 class Object : public Thing
 {
 public:
@@ -214,12 +202,54 @@ public:
 	unsigned char pad90[0x324-0x90];
 	float delay;
 };
-
 // The (init, bit1, bit2) ctor 0x0006EE7A is rowed as Rva0006EE7A; a no-member
 // view of the mask type so the temporary is built through that row.
 struct Rva0006EE7A : BfmeFixedStorage0004543D { Rva0006EE7A(Int init, Int bit1, Int bit2); };
-
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+//
+// ?xfer@ReplaceSelfUpgrade@@MAEXPAVXfer@@@Z, retail 0x004B6FF7, 44 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x00858B10 (class of rowed ctor
+// ??0ReplaceSelfUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z in
+// ReplaceSelfUpgradeCtor.cpp): Version(1,1) via Xfer slot 0x28 then base
+// UpgradeModule xfer via rowed 0x004CE3F9. Layout is the rowed ctor class
+// (UpgradeModule base 0x1C plus pointer at +0x1C not xferred). Identity is
+// slot 3 plus the UpgradeModule base call; donor is BFME1 StatusBitsUpgrade
+// and ModelConditionUpgrade xfer shape (Version plus base) verbatim.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
+// ?getModuleNameKey@ReplaceSelfUpgrade@@UBE?AW4NameKeyType@@XZ @0x4B708A
+// (69B): cached pool-name key for ReplaceSelfUpgrade. The class
+// identity comes from the pool-name string the body pushes
+// ("ReplaceSelfUpgrade"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 // The +0x1C interface: the ctor's temporary table 0x0084EF80, then 0x00858AB8.
 class Rva004B70F0Iface1C
@@ -228,6 +258,8 @@ public:
 	virtual void i1C_0();
 	virtual void rva004B70F0();
 };
+
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ReplaceSelfUpgrade : public UpgradeModule, public Rva004B70F0Iface1C
 {
@@ -243,7 +275,14 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
-// tu-skeleton: 0x004B6FF7 44B ?xfer@ReplaceSelfUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeXfer.cpp
+
+void ReplaceSelfUpgrade::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	UpgradeModule::xfer(xfer);
+}
 
 // tu-skeleton: 0x004B7023 34B ?buildFieldParse@ReplaceSelfUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
@@ -251,11 +290,21 @@ protected:
 
 // tu-skeleton: 0x004B7084 6B ?Rva004B7084Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004B708A 69B ?getModuleNameKey@ReplaceSelfUpgrade@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/Common/System/ReplaceSelfUpgradePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/ReplaceSelfUpgradePoolKey.cpp
+
+// ?getModuleNameKey@ReplaceSelfUpgrade@@UBE?AW4NameKeyType@@XZ
+NameKeyType ReplaceSelfUpgrade::getModuleNameKey() const
+{
+	static NameKeyType TheReplaceSelfUpgradePoolKey =
+		TheNameKeyGenerator->nameToKey("ReplaceSelfUpgrade");
+	return TheReplaceSelfUpgradePoolKey;
+}
 
 // tu-skeleton: 0x004B70EB 5B ??1ReplaceSelfUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B70F0 32B ?rva004B70F0@ReplaceSelfUpgrade@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeRva004B7110.cpp
 
@@ -425,7 +474,3 @@ void ReplaceSelfUpgrade::upgradeImplementation()
   }
  }
 }
-
-// tu-skeleton: 0x0078EFE7 13B $L310 -- matched in Code/GameEngine/Source/Common/System/ReplaceSelfUpgradePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EFF4 10B __ehhandler$?getModuleNameKey@ReplaceSelfUpgrade@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/Common/System/ReplaceSelfUpgradePoolKey.cpp (not merged yet)
