@@ -199,6 +199,32 @@ def test_a_split_copy_that_sorts_after_the_kept_one_breaks_no_other_unit(monkeyp
     assert C.new_variants(Path("new.obj"), ix, None, rank=order("new.obj", "a.obj", "b.obj")) == ["f"]
 
 
+@pytest.mark.parametrize("referenced", [False, True, None])
+def test_an_unreferenced_copy_may_move_before_other_copies(monkeypatch, referenced):
+    # Consolidation can move an unused inline helper before a different copy.
+    # A missing reference graph must retain the conservative legacy behavior.
+    facts(monkeypatch, "new")
+    ix = shared("a.obj", "b.obj")
+    if referenced is not None:
+        ix["references"] = {"schema": C.REFERENCES_SCHEMA, "edges": {},
+                            "referenced": {"f"} if referenced else set()}
+    expected = [] if referenced is False else ["f"]
+    assert C.new_variants(Path("new.obj"), ix, None,
+                          rank=order("new.obj", "a.obj", "b.obj")) == expected
+
+
+@pytest.mark.parametrize("owner", [False, True])
+def test_an_empty_reference_graph_does_not_excuse_wrong_selected_bodies(monkeypatch, owner):
+    facts(monkeypatch, "new", None if owner else "wrong")
+    ix = shared("a.obj", verdict="retail",
+                owners={"f": {"b.obj"}} if owner else None,
+                strong={"f": [1]} if owner else None)
+    ix["objects"].append("b.obj")
+    ix["references"] = {"schema": C.REFERENCES_SCHEMA, "edges": {}, "referenced": set()}
+    assert C.new_variants(Path("new.obj"), ix, None,
+                          rank=order("new.obj", "b.obj", "a.obj")) == ["f"]
+
+
 def test_a_wrong_copy_is_refused_only_where_the_link_would_keep_it(monkeypatch):
     # The AsciiString::compare case: a wrong copy kept for everyone re-blocks
     # every unit touching the name; one the link discards blocks only its own.

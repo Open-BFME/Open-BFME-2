@@ -763,9 +763,10 @@ def breaks_others(obj, name, digest, verdict, index, rank):
     copies = sorted(((rank[objects[i]], objects[i], d, v) for i, d, v in index["comdat"].get(name, ()) if linked(i)),
                     key=lambda copy: copy[0])
     if copies:
-        before, _ = link_census.keep_rule([(o, d, v) for _, o, d, v in copies])
+        referenced = is_referenced(index, name)
+        before, _ = link_census.keep_rule([(o, d, v) for _, o, d, v in copies], referenced)
         with_mine = sorted(copies + [(mine, obj.name, digest, verdict)], key=lambda copy: copy[0])
-        after, _ = link_census.keep_rule([(o, d, v) for _, o, d, v in with_mine])
+        after, _ = link_census.keep_rule([(o, d, v) for _, o, d, v in with_mine], referenced)
         if any(after[other] and not lost for other, lost in before.items()):
             return True
     selection = index["selection"]
