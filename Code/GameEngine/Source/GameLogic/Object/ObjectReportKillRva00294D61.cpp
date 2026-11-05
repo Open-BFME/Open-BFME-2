@@ -20,6 +20,7 @@ extern PlayerList *ThePlayerList;
 class ScoreKeeper
 {
 public:
+	void addObjectBuilt(Object *obj, int flag);
 	void addObjectLost(const Object *victim);
 	void addObjectDestroyed(const Object *victim);
 };

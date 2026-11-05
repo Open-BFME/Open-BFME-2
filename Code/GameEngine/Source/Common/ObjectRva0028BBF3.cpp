@@ -4,6 +4,7 @@ class BfmeSubBEC;
 class Rva004DF2E2
 {
 public:
+	void rva004DF3B0(void *p);
 	void rva004DF2FC(BfmeSubBEC *bec);
 };
 

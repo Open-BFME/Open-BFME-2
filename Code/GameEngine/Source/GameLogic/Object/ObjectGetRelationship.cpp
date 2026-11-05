@@ -50,6 +50,7 @@ class Rva002CA9CA
 {
 public:
 	bool rva002CA9CA(int id, const void *arg);
+	bool rva002CAD8B();
 };
 
 #include "../../../Include/GameLogic/Weapon.h"

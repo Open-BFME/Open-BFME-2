@@ -161,9 +161,17 @@ extern MessageStream *TheMessageStream;
 struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
-class Rva002D37Owner { public: void rva002D373E(int); };
+class Rva002D37Owner
+{
+public:
+	void rva002D373E(int);
+};
 struct Obj00526309;
-class Rva002D3726 { public: void rva002D3726(Obj00526309 *); };
+class Rva002D3726
+{
+public:
+	void rva002D3726(Obj00526309 *);
+};
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 template <int N>

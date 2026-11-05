@@ -159,7 +159,11 @@ class Rva002039B6Host { public: void rva002039B6(); };
 class ScriptEngine { public: void rva00356FAF(int obj); };
 extern ScriptEngine *TheScriptEngine;
 
-class Rva002D37Owner { public: void rva002D373E(int obj); };
+class Rva002D37Owner
+{
+public:
+	void rva002D373E(int);
+};
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 

@@ -28,7 +28,11 @@ class SpawnBehaviorInterface { public:
  virtual void s08();
  virtual void native24(); virtual void s28(); virtual void s2c(); virtual void native30();
 };
-class TemporarilyDefectUpdate { public: void defectNow(Object *,unsigned int); };
+class TemporarilyDefectUpdate
+{
+public:
+	void defectNow(Object *defector, unsigned int endFrame);
+};
 
 enum ObjectStatusTypes
 {

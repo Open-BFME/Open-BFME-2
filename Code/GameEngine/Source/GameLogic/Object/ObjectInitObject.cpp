@@ -99,7 +99,9 @@ public:
 class ScoreKeeper
 {
 public:
-	void addObjectBuilt(Object *obj, Int flag);
+	void addObjectBuilt(Object *obj, int flag);
+	void addObjectLost(const Object *victim);
+	void addObjectDestroyed(const Object *victim);
 };
 
 class Player
@@ -171,7 +173,7 @@ struct Obj00526309;
 class Rva002D3726
 {
 public:
-	void rva002D3726(Obj00526309 *obj);
+	void rva002D3726(Obj00526309 *);
 };
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
