@@ -15,13 +15,7 @@ typedef bool Bool;
 class ModuleData;
 class Rva00406F9C;
 template <int NUMBITS> class BitFlags;
-class ExperienceTracker
-{
-public:
-	Bool rva0039B4EC(int levels, Bool flag1, Bool flag2);
-	unsigned char m_pad00[0x24];
-	int m_level;			// +0x24
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 template <int N> class Rva004B3E15Slots : public Rva004B3E15Slots<N - 1>
 {
 public:
@@ -95,7 +89,7 @@ protected:
 };
 Bool LevelUpUpgrade::rva004CE2B0(Rva00406F9C *mask)
 {
-	if (m_object->getExperienceTracker()->m_level >= getData()->m_levelCap)
+	if (m_object->getExperienceTracker()->m_24 >= getData()->m_levelCap)
 		return false;
 	return UpgradeMux::wouldUpgrade(*(const BitFlags<128> *)mask); // the UpgradeMux base at +0x10
 }
@@ -105,7 +99,7 @@ void LevelUpUpgrade::upgradeImplementation()
 	int wanted = data->m_levels;
 	Object *object = m_object;
 	ExperienceTracker *tracker = object->getExperienceTracker();
-	int room = data->m_levelCap - tracker->m_level;
+	int room = data->m_levelCap - tracker->m_24;
 	int levels = lowerOf(wanted, room);
 	if (levels >= 1)
 		tracker->rva0039B4EC(levels, true, false);
