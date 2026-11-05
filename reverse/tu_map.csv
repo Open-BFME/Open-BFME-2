@@ -51473,8 +51473,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005E5F43,79,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E5F92 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp
 0x005E5F92,22,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E5FA8 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp
 0x005E5FA8,83,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E5FFB provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
-0x005E5FFB,186,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E60B5 provisional,Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp
-0x005E60B5,28,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E60D1 provisional,Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp
+0x005E5FFB,186,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E60B5 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
+0x005E60B5,28,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E60D1 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x005E60D1,63,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,C=0x005E5DF5..0x005E6110 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp
 0x005E6110,152,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseArmySelection.cpp C=0x005E5DF5..0x005E61A8 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x005E61A8,143,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,C,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseArmySelection.cpp C=0x005E5DF5..0x005E6237 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
@@ -89822,11 +89822,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A3A68,8,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FA8@FuncInfo0x0095BEC4 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x007A3A70,20,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FA8@FuncInfo0x0095BEC4 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x007A3A84,10,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FA8@FuncInfo0x0095BEC4 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
-0x007A3A8E,8,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp
-0x007A3A96,11,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp
+0x007A3A8E,8,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
+0x007A3A96,11,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x007A3AA1,11,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/gen_small/uw_gen_010.cpp
 0x007A3AAC,11,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/gen_small/uw_gen_010.cpp
-0x007A3AB7,10,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/GameEngine/Source/Common/Rva005E5FFBDtor.cpp
+0x007A3AB7,10,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E5FFB@FuncInfo0x0095BF00 provisional,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 0x007A3AC1,8,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E60D1@FuncInfo0x0095BF24 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp
 0x007A3AC9,10,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E60D1@FuncInfo0x0095BF24 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp
 0x007A3AD3,8,code,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,approved,P,P=0x005E626D@FuncInfo0x0095BF60 provisional,Code/gen_small/uw_gen_006.cpp
