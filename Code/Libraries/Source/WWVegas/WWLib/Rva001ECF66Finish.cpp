@@ -63,7 +63,6 @@ public:
 	Rva001ECF66(const Rva001ECF66 &src);
 };
 
-// ?rva001ECF66@Rva001ECF66@@QAE@ABV0@@Z present-unmatched
 Rva001ECF66::Rva001ECF66(const Rva001ECF66 &src)
 	: _STL::_Vector_base<GeometryShape, _STL::allocator<GeometryShape> >(
 		(unsigned int)(((BfmeRecord001ECAF9 *)src.m_finish) - ((BfmeRecord001ECAF9 *)src.m_begin)),
