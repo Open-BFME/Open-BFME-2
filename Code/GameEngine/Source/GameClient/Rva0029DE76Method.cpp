@@ -62,6 +62,7 @@ struct ObjList
 class Rva0029DE76
 {
 public:
+	bool rva0029DE76(const Coord3D *pos);
 	virtual void dummy00();
 	virtual void dummy01();
 	virtual void dummy02();
@@ -136,7 +137,6 @@ public:
 	virtual void dummy71();
 	virtual void dummy72();
 	virtual ObjList *getObjList();
-	bool rva0029DE76(const Coord3D *pos);
 };
 
 bool Rva0029DE76::rva0029DE76(const Coord3D *pos)

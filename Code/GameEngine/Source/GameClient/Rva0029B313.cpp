@@ -10,12 +10,12 @@ protected:
 class Rva0029B313
 {
 public:
-	void rva0029B313(int arg);
+	void rva0029B313(int);
+	char m_pad00[0x7F8];
 private:
-	unsigned char m_pad[0x7F8];
-	unsigned char m_7F8;
-	unsigned char m_7F9;
-	unsigned char m_pad2[2];
+	unsigned char m_7F8; // +0x7F8
+	unsigned char m_7F9; // +0x7F9
+	char m_pad7FA[0x2];
 };
 void Rva0029B313::rva0029B313(int arg)
 {

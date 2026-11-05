@@ -38,7 +38,16 @@ extern Radar *TheRadar;
 class Rva0029A224 {public:int isRadarWindow(GameWindow *);};
 #include "../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva0029B313 {public:void rva0029B313(int);};
+class Rva0029B313
+{
+public:
+	void rva0029B313(int);
+	char m_pad00[0x7F8];
+private:
+	unsigned char m_7F8; // +0x7F8
+	unsigned char m_7F9; // +0x7F9
+	char m_pad7FA[0x2];
+};
 struct DNode {DNode *next,*prev;Drawable *value;};
 struct DList {DNode *head;Drawable *front() const {return head->next->value;}};
 struct IdNode {IdNode *next,*prev;unsigned value;};
