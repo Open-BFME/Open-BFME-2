@@ -1144,40 +1144,23 @@ public:
     /* the rowed CellGrid::rva0056C065 */ __declspec(dllimport) __forceinline void rva0056C065() { ((CellGrid *)this)->rva0056C065(); }
 };
 #include "../../Include/Common/Rva00404781.h"
-class VictorySystem
-{
-public:
-    virtual void reset();	// SubsystemInterface slot 9
-    void rva00404B03();
-private:
-    // +0x00 is the SubsystemInterface vtable pointer.
-    unsigned char prefix04[0x14 - 0x04];
-    int field14;
-    unsigned char prefix18[0x78 - 0x18];
-    Rva00404781 table78;
-    unsigned char prefix120[0x12C - 0x120];
-    Rva0056C3E5 *owned[2];
-    bool flag134;
-    unsigned char prefix135[3];
-    int field138;
-    int field13C;
-};
+#include "../../Include/Common/VictorySystem.h"
 void VictorySystem::rva00404B03()
 {
     for (int i = 0; i < 2; ++i)
     {
-        if (owned[i])
+        if (m_12C[i])
         {
-            owned[i]->rva0056C065();
-            delete owned[i];
-            owned[i] = 0;
+            ((Rva0056C3E5 *)m_12C[i])->rva0056C065();
+            delete (Rva0056C3E5 *)m_12C[i];
+            m_12C[i] = 0;
         }
     }
-    field13C = 0;
-    field14 = 0;
-    field138 = 2;
-    table78.rva0040475C();
-    flag134 = false;
+    m_13C = 0;
+    m_14 = 0;
+    m_138 = 2;
+    m_78.rva0040475C();
+    m_134 = false;
 }
 // VictorySystem::reset: SubsystemInterface slot 9 of VictorySystem's table
 // 0x008388D4 (installed by the rowed VictorySystem ctor 0x004054E1); it
