@@ -609,21 +609,112 @@ def test_shared_cache_has_size_cap(monkeypatch, tmp_path):
 
 
 def test_manifest_cache_avoids_repeat_downloads(monkeypatch, tmp_path):
-    import json
     monkeypatch.setattr(A, 'cache_root', lambda: tmp_path)
+    monkeypatch.setattr(A, 'manifest_candidates', lambda: [dict(kind='real', commit='a' * 40, artifact=2)])
     calls = []
     def api(endpoint):
         calls.append(endpoint)
-        if 'workflows' in endpoint:
-            return json.dumps({'workflow_runs': [{'id': 1, 'head_sha': 'a' * 40}]}).encode()
-        if endpoint.endswith('/artifacts'):
-            return json.dumps({'artifacts': [{'id': 2, 'name': 'real-link-' + 'a' * 40,
-                        'expired': False, 'size_in_bytes': 12}]}).encode()
         return b'zip fixture'
     monkeypatch.setattr(A, 'gh_api', api)
-    monkeypatch.setattr(A, 'parse_manifest_archive', lambda raw, c: {'schema': A.CACHE_SCHEMA,
-                        'commit': c, 'objects': [], 'warning': 'manifest absent'})
+    monkeypatch.setattr(A, 'parse_manifest_archive', lambda raw, c, kind: {'schema': A.CACHE_SCHEMA,
+                        'commit': c, 'kind': kind, 'objects': [], 'warning': 'manifest absent'})
     first = A.load_real_manifest()
-    assert len(calls) == 3
+    assert len(calls) == 1
     assert A.load_real_manifest() == first
-    assert len(calls) == 3
+    assert len(calls) == 1
+
+
+def test_diagnostic_stub_definitions_never_count_as_base_providers(monkeypatch, tmp_path):
+    import io, json, hashlib, zipfile
+    commit = 'a' * 40
+    objects = []
+    contents = {}
+    for provider, symbols_ in [('provider.obj', {'real_target'}), ('diagnostic_stubs.obj', {'already_missing'})]:
+        path = tmp_path / provider
+        A.exit_link.diagnostic_stubs(symbols_, path)  # COFF fixture writer, no compiler
+        raw = path.read_bytes()
+        stored = 'image_objects-objects/' + provider
+        objects.append(dict(provider=provider, source='Code/provider.cpp' if provider == 'provider.obj' else '',
+                            path=stored.replace('/', '\\'), sha256=hashlib.sha256(raw).hexdigest()))
+        contents['image/' + stored] = raw
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, 'w') as z:
+        z.writestr('image/image_objects.json', json.dumps(objects))
+        z.writestr('image/image_objects.json.receipt.json', json.dumps({'map_sha256': 'map'}))
+        z.writestr('image/image_receipt.json', json.dumps({'kind': 'diagnostic', 'commit': commit,
+                    'map_sha256': 'map', 'stubbed': ['already_missing']}))
+        z.writestr('stubbed.tsv', 'name\ttrap_symbol\nalready_missing\talready_missing\n')
+        for name, raw in contents.items(): z.writestr(name, raw)
+    monkeypatch.setattr(A, 'source_object_names', lambda c: {})
+    manifest = A.parse_manifest_archive(stream.getvalue(), commit, 'diagnostic')
+    assert manifest['kind'] == 'diagnostic'
+    assert manifest['excluded_stub_objects'] == ['diagnostic_stubs.obj']
+    before = {e['provider']: A.unpack_facts(e['facts']) for e in manifest['objects']}
+    assert 'already_missing' not in set().union(*(f[0] for f in before.values()))
+    assert A.definition_losses(before, {'caller': symbols(refs=['already_missing'])}) == []
+    assert A.definition_losses(before, {'caller': symbols(refs=['real_target'])}) == [('caller', 'real_target', 'real_target')]
+
+
+def test_missing_real_manifest_falls_back_to_diagnostic_and_caches(monkeypatch, tmp_path):
+    monkeypatch.setattr(A, 'cache_root', lambda: tmp_path)
+    candidates = [dict(kind='real', commit='a' * 40, artifact=1),
+                  dict(kind='diagnostic', commit='b' * 40, artifact=2)]
+    monkeypatch.setattr(A, 'manifest_candidates', lambda: candidates)
+    calls = []
+    monkeypatch.setattr(A, 'gh_api', lambda endpoint: calls.append(endpoint) or b'fixture')
+    def parse(raw, commit, kind):
+        return dict(schema=A.CACHE_SCHEMA, kind=kind, commit=commit,
+                    objects=[{'provider': 'p'}] if kind == 'diagnostic' else [],
+                    **({'warning': 'no manifest'} if kind == 'real' else {}))
+    monkeypatch.setattr(A, 'parse_manifest_archive', parse)
+    result = A.load_real_manifest()
+    assert result['kind'] == 'diagnostic' and result['commit'] == 'b' * 40
+    assert result['fallback_warnings'] == ['real-link ' + 'a' * 40 + ': no manifest']
+    assert A.load_real_manifest() == result
+    assert len(calls) == 2
+
+
+def test_diagnostic_workflow_uses_artifact_source_commit_not_run_head(monkeypatch):
+    import json
+    def api(endpoint):
+        if 'workflows/real-link.yml' in endpoint:
+            return json.dumps({'workflow_runs': [{'id': 1, 'head_sha': 'a' * 40}]}).encode()
+        if 'workflows/diagnostic-link.yml' in endpoint:
+            return json.dumps({'workflow_runs': [{'id': 2, 'head_sha': 'c' * 40}]}).encode()
+        def artifact(kind, commit, ident, created):
+            return dict(id=ident, name=kind + '-link-' + commit, expired=False,
+                        size_in_bytes=1, created_at=created)
+        artifacts = ([artifact('real', 'a' * 40, 1, '2026-11-05T01:00:00Z'),
+                      artifact('diagnostic', 'a' * 40, 3, '2026-11-05T01:00:00Z')]
+                     if '/runs/1/' in endpoint else
+                     [artifact('diagnostic', 'b' * 40, 2, '2026-11-05T02:00:00Z')])
+        return json.dumps({'artifacts': artifacts}).encode()
+    monkeypatch.setattr(A, 'gh_api', api)
+    candidates = A.manifest_candidates()
+    assert [(c['kind'], c['commit']) for c in candidates] == [
+        ('real', 'a' * 40), ('diagnostic', 'b' * 40), ('diagnostic', 'a' * 40)]
+
+
+def test_diagnostic_evidence_kind_and_commit_appear_in_refusal(manifest_repo, capsys):
+    repo, base, commit, object_, manifest = manifest_repo
+    record = manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols(refs=['target'])})
+    record['kind'] = 'diagnostic'
+    (repo / 'Code/provider.cpp').write_text('// removed\n'); tip = commit(); object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+    output = capsys.readouterr().out
+    assert 'LOST EXTERNAL target:' in output
+    assert '[diagnostic-link ' + base + ']' in output
+
+
+
+def test_unrelated_alias_conflicts_do_not_hide_a_proven_loss():
+    before = {'provider': symbols(['target'])}
+    after = {'caller': symbols(refs=['target']),
+             'directives1': symbols(aliases={'unrelated': 'a'}),
+             'directives2': symbols(aliases={'unrelated': 'b'})}
+    unchecked = set()
+    assert A.definition_losses(before, after, unchecked) == [('caller', 'target', 'target')]
+    assert not unchecked
+    after['ambiguous consumer'] = symbols(refs=['unrelated'])
+    assert A.definition_losses(before, after, unchecked) == [('caller', 'target', 'target')]
+    assert unchecked == {'conflicting weak/alternate targets: unrelated'}

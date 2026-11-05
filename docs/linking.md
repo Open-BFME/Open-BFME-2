@@ -271,18 +271,37 @@ Parsed manifest facts are cached by measured commit in the git common dir's
 `bfme-real-link-objects/`, shared across worktrees, with a 96 MiB total JSON
 size cap. Artifact metadata is refreshed every five minutes; an absent manifest
 is cached too. Downloads and expanded artifact contents are capped at 256 MiB.
-No extracted objects or per-base source trees are retained.
+No extracted objects or per-base source trees are retained. Cache keys include
+artifact kind, source commit and artifact ID, so a diagnostic summary cannot
+replace a real summary under the same commit.
 
-As of the 2026-11-05 revision review, the newest completed real-link run
-42112143280 at `3973ef8ec523faca19cd08c0d9e728ce51b5383f` published scoreboard,
-result and linker diagnostics but no object manifest. Its authoritative link
-failed with 377 unresolved names and no image. The workflow currently stages
-`image_objects*` only when a real image is written. Until such an artifact is
-available this guard warns and the existing census audit continues; diagnostic
-manifests and private compiles are not substituted.
+When the real artifact has no object manifest, the guard tries diagnostic
+artifacts in newest-first order from the same real-link run and from the latest
+completed `diagnostic-link.yml` run. The dedicated workflow's artifact name
+provides the image source commit; its workflow head can name a different commit.
+The image receipt must agree with that source commit, diagnostic kind and MAP
+hash. `stubbed.tsv` must agree with the receipt's unresolved-name list. The
+`diagnostic_stubs.obj` provider is discarded entirely, and receipt/table-listed
+stub definitions are removed from all measured facts. They never count as base
+providers. Warnings, loss findings and the summary identify the artifact kind
+and full source commit. Diagnostic evidence grants no runtime or retail credit.
 
-Revision measurements on srv1: the no-source audit path took 12--20 ms;
-first inspection/cache of the latest real artifact took 1.97 s, and its cached
-lookup took 4.6 ms. The latest artifact has no manifest, so these are available-
-evidence timings, not a benchmark of a complete 18,000-object manifest. The
-rejected implementation's private snapshot cache was removed from `image`.
+An ambiguous weak/alternate route produces a named unchecked reference;
+unrelated alias conflicts do not suppress other proven losses. Existing
+manifest coverage gaps remain explicit warnings, not a claim of full coverage.
+
+Complete-manifest measurements on srv1 (2026-11-05), using diagnostic artifact
+13457532724 from run 42112143280 at
+`3973ef8ec523faca19cd08c0d9e728ce51b5383f`: 17,879 snapshotted objects, with the
+one diagnostic stub object and its 377 names excluded, leaving 17,878 objects.
+The artifact is 56.1 MB compressed / 205.1 MB expanded; parsed shared evidence
+uses 42.3 MiB. It records 2 unresolved providers and 24 unresolved archive
+members, which remain named coverage-count warnings.
+
+The first complete-manifest download, validation and cache pass took 32.1 s;
+a cached lookup took 0.73 s. The complete guard path took 34.8 s cold and 3.75 s
+cached, using an isolated empty benchmark cache and a requested tip unit absent
+from the sparse seat (the warning-only path, not an actual push). Both passes
+completed within the unchanged 60-second hook budget. Earlier no-source audit
+measurements were 12--20 ms. The rejected implementation's private snapshot
+cache was removed from `image`; neither manifest path compiles extra units.

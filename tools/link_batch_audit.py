@@ -139,7 +139,7 @@ def omitted_references(rows, objects):
     return found
 
 
-def definition_losses(before, after):
+def definition_losses(before, after, unchecked=None):
     """Return (consumer, root, missing target) for newly orphaned base definitions.
 
     Facts are COFF object_symbols tuples, keyed by object/source. Follow global
@@ -156,14 +156,13 @@ def definition_losses(before, after):
         for alias, target in [*weaks, *alternates.items()]:
             aliases[alias].add(target)
 
-    if any(len(targets) > 1 for targets in aliases.values()):
-        raise ValueError("conflicting weak/alternate targets")
-
     def walk(name, seen):
         if name in defined or name in link_census.LINKER_DEFINED or name in seen:
             return set()
         seen = seen | {name}
         targets = set(aliases.get(name, ()))
+        if len(targets) > 1:
+            raise ValueError("conflicting weak/alternate targets: " + name)
         if name.startswith(link_census.IMPORT_PREFIX):
             targets.add(name[len(link_census.IMPORT_PREFIX):])
         return ({name} & removed) | set().union(*(walk(t, seen) for t in targets))
@@ -175,6 +174,8 @@ def definition_losses(before, after):
         if name in seen:
             return False
         targets = set(aliases.get(name, ()))
+        if len(targets) > 1:
+            raise ValueError("conflicting weak/alternate targets: " + name)
         if name.startswith(link_census.IMPORT_PREFIX):
             targets.add(name[len(link_census.IMPORT_PREFIX):])
         return any(resolves(t, seen | {name}) for t in targets)
@@ -182,12 +183,16 @@ def definition_losses(before, after):
     found = []
     for consumer, (_, refs, weaks, _, includes) in after.items():
         for root in sorted(refs | includes | {name for name, _ in weaks}):
-            if not resolves(root, set()):
-                found.extend((consumer, root, target) for target in sorted(walk(root, set())))
+            try:
+                if not resolves(root, set()):
+                    found.extend((consumer, root, target) for target in sorted(walk(root, set())))
+            except ValueError as exc:
+                if unchecked is not None:
+                    unchecked.add(str(exc))
     return found
 
 
-CACHE_SCHEMA = 1
+CACHE_SCHEMA = 2
 CACHE_LIMIT = 96 * 1024 * 1024
 ARTIFACT_LIMIT = 256 * 1024 * 1024
 REPO = 'Open-BFME/Open-BFME-2'
@@ -245,7 +250,7 @@ def source_object_names(commit):
     return found
 
 
-def parse_manifest_archive(raw, commit):
+def parse_manifest_archive(raw, commit, kind='real'):
     """Verify content hashes once; retain facts, never an extracted object tree."""
     import zipfile
     import io
@@ -255,19 +260,34 @@ def parse_manifest_archive(raw, commit):
         names = archive.namelist()
         manifests = [n for n in names if n.endswith('/image_objects.json') or n == 'image_objects.json']
         if len(manifests) != 1:
-            return dict(schema=CACHE_SCHEMA, commit=commit, objects=[],
-                        warning='real-link artifact has no unique image_objects.json')
+            return dict(schema=CACHE_SCHEMA, commit=commit, kind=kind, objects=[],
+                        warning='artifact has no unique image_objects.json')
         if sum(e.file_size for e in archive.infolist()) > ARTIFACT_LIMIT:
             raise ValueError('real-link artifact exceeds expanded size cap')
         manifest = manifests[0]
         receipt = json.loads(archive.read(manifest + '.receipt.json'))
         if not receipt.get('map_sha256'):
             raise ValueError('object manifest lacks MAP receipt')
+        stubbed, excluded_stubs = set(), []
+        if kind == 'diagnostic':
+            image_receipt = json.loads(archive.read(posixpath.join(posixpath.dirname(manifest), 'image_receipt.json')))
+            if image_receipt.get('kind') != kind or image_receipt.get('commit') != commit:
+                raise ValueError('diagnostic receipt kind/commit mismatch')
+            if image_receipt.get('map_sha256') != receipt['map_sha256']:
+                raise ValueError('diagnostic receipt/manifest MAP mismatch')
+            tables = [name for name in names if name == 'stubbed.tsv' or name.endswith('/stubbed.tsv')]
+            if len(tables) != 1:
+                raise ValueError('diagnostic artifact lacks unique stubbed.tsv')
+            rows = list(csv.DictReader(io.StringIO(archive.read(tables[0]).decode('utf-8-sig')), delimiter='\t'))
+            stubbed = set(image_receipt['stubbed'])
+            if stubbed != {row['name'] for row in rows}:
+                raise ValueError('diagnostic stub table/receipt mismatch')
+            stubbed |= {row['trap_symbol'] for row in rows if row.get('trap_symbol')}
         entries = json.loads(archive.read(manifest))
         sources = source_object_names(commit)
         objects = []
         for entry in entries:
-            path = posixpath.normpath(posixpath.join(posixpath.dirname(manifest), entry['path']))
+            path = posixpath.normpath(posixpath.join(posixpath.dirname(manifest), entry['path'].replace('\\', '/')))
             if path.startswith('../') or path.startswith('/'):
                 raise ValueError('object path escapes artifact')
             data = archive.read(path)
@@ -282,47 +302,90 @@ def parse_manifest_archive(raw, commit):
                 facts = ({'__imp_' + name} | ({name} if kind == 0 else set()), set(), [], {}, set())
             else:
                 facts = link_census.object_symbols(Path(path), data)
+            provider_name = entry['provider'].replace('\\', '/').rsplit('/', 1)[-1].lower()
+            if kind == 'diagnostic' and provider_name == 'diagnostic_stubs.obj':
+                excluded_stubs.append(entry['provider'])
+                continue
+            # Receipt-listed unresolved names never count as measured providers,
+            # even if a future diagnostic writer changes its stub object name.
+            facts = (facts[0] - stubbed, *facts[1:])
             objects.append(dict(source=object_source(entry.get('source', ''), entry['provider'], sources),
                                 provider=entry['provider'], facts=pack_facts(facts)))
         counts = receipt.get('counts', {})
-        result = dict(schema=CACHE_SCHEMA, commit=commit, objects=objects, counts=counts)
+        result = dict(schema=CACHE_SCHEMA, commit=commit, kind=kind, objects=objects, counts=counts,
+                      excluded_stub_objects=excluded_stubs, excluded_stub_names=sorted(stubbed))
         if counts.get('providers_unresolved') or counts.get('archive_members_unresolved'):
-            result['warning'] = 'manifest has unresolved object providers: ' + str(counts)
+            result['coverage_warning'] = 'manifest has unresolved object providers: ' + str(counts)
         return result
 
 
-def load_real_manifest():
-    """Newest completed real-link run; cache metadata briefly and facts by SHA."""
-    root = cache_root()
-    latest = root / 'latest.json'
-    if latest.exists() and time.time() - latest.stat().st_mtime < 300:
-        selected = json.loads(latest.read_text())
-    else:
-        runs = json.loads(gh_api(f'repos/{REPO}/actions/workflows/real-link.yml/runs'
-                                 '?branch=master&status=completed&per_page=1'))['workflow_runs']
+def manifest_candidates():
+    """Prefer the latest real run, then newest diagnostics from either workflow.
+
+    The dedicated diagnostic workflow can build inputs.ref, not its head_sha;
+    its artifact name supplies the source SHA, validated against the receipt.
+    """
+    import re
+    candidates = []
+    for workflow in ('real-link.yml', 'diagnostic-link.yml'):
+        try:
+            runs = json.loads(gh_api(f'repos/{REPO}/actions/workflows/{workflow}/runs'
+                                     '?branch=master&status=completed&per_page=1'))['workflow_runs']
+        except subprocess.CalledProcessError:
+            if workflow == 'real-link.yml':
+                raise
+            continue  # Older repositories may not have the dedicated workflow.
         if not runs:
-            raise ValueError('no completed real-link run')
+            continue
         run = runs[0]
         artifacts = json.loads(gh_api(f'repos/{REPO}/actions/runs/{run["id"]}/artifacts'))['artifacts']
-        artifact = next((a for a in artifacts if a['name'] == 'real-link-' + run['head_sha']
-                         and not a['expired']), None)
-        if artifact is None:
-            raise ValueError('latest real-link run has no available artifact')
-        if artifact['size_in_bytes'] > ARTIFACT_LIMIT:
-            raise ValueError('real-link artifact exceeds download size cap')
-        selected = dict(commit=run['head_sha'], artifact=artifact['id'])
+        for artifact in artifacts:
+            match = re.fullmatch(r'(real|diagnostic)-link-([0-9a-f]{40})', artifact['name'])
+            if not match or artifact['expired']:
+                continue
+            kind, commit = match.groups()
+            if workflow == 'diagnostic-link.yml' and kind != 'diagnostic':
+                continue
+            if artifact['size_in_bytes'] > ARTIFACT_LIMIT:
+                continue
+            candidates.append(dict(kind=kind, commit=commit, artifact=artifact['id'],
+                                   created=artifact.get('created_at', run.get('created_at', ''))))
+    return sorted(candidates, key=lambda c: (c['kind'] == 'real', c['created'], c['artifact']), reverse=True)
+
+
+def load_real_manifest():
+    """Real evidence first, diagnostic fallback with all trap providers excluded."""
+    root = cache_root()
+    latest = root / 'latest.json'
+    selected = json.loads(latest.read_text()) if latest.exists() else {}
+    if (selected.get('schema') != CACHE_SCHEMA or not latest.exists()
+            or time.time() - latest.stat().st_mtime >= 300):
+        selected = dict(schema=CACHE_SCHEMA, candidates=manifest_candidates())
         save_cache(latest, selected)
-    path = root / (selected['commit'] + '.json')
-    if path.exists():
-        data = json.loads(path.read_text())
-        if (data.get('schema') == CACHE_SCHEMA and data.get('commit') == selected['commit']
-                and data.get('artifact') == selected['artifact']):
-            return data
-    data = parse_manifest_archive(gh_api(f'repos/{REPO}/actions/artifacts/{selected["artifact"]}/zip'),
-                                  selected['commit'])
-    data['artifact'] = selected['artifact']
-    save_cache(path, data)
-    return data
+    last = None
+    warnings = []
+    for candidate in selected['candidates']:
+        commit, kind, artifact = candidate['commit'], candidate['kind'], candidate['artifact']
+        path = root / (kind + '-' + commit + '.json')
+        data = json.loads(path.read_text()) if path.exists() else {}
+        if (data.get('schema') != CACHE_SCHEMA or data.get('commit') != commit
+                or data.get('kind') != kind or data.get('artifact') != artifact):
+            try:
+                data = parse_manifest_archive(gh_api(f'repos/{REPO}/actions/artifacts/{artifact}/zip'), commit, kind)
+            except (ValueError, KeyError, OSError, subprocess.SubprocessError) as exc:
+                data = dict(schema=CACHE_SCHEMA, commit=commit, kind=kind, objects=[], warning=str(exc))
+            data['artifact'] = artifact
+            save_cache(path, data)
+        last = data
+        if data.get('warning') or not data['objects']:
+            warnings.append(f"{kind}-link {commit}: " + data.get('warning', 'empty object manifest'))
+            continue
+        if warnings:
+            data = {**data, 'fallback_warnings': warnings}
+        return data
+    if last is None:
+        raise ValueError('no available real-link or diagnostic-link artifact')
+    return {**last, 'fallback_warnings': warnings}
 
 
 def pack_facts(facts):
@@ -382,14 +445,19 @@ def removed_definition_guard(base, tip, verified):
     if not changes and not verified and not changed_identities(base, tip):
         return 0
     manifest = load_real_manifest()
+    evidence = manifest.get('kind', 'real') + '-link ' + manifest['commit']
+    for warning in manifest.get('fallback_warnings', ()):
+        print('definition guard: UNCHECKED evidence: ' + warning)
+    if manifest.get('coverage_warning'):
+        print('definition guard: UNCHECKED [' + evidence + ']: ' + manifest['coverage_warning'])
     if manifest.get('warning') or not manifest['objects']:
         print('definition guard: UNCHECKED: ' + manifest.get('warning', 'empty real-link manifest')
-              + ' at ' + manifest['commit'])
+              + ' [' + evidence + ']')
         return 0
     measured = manifest['commit']
     if subprocess.run(['git', 'merge-base', '--is-ancestor', measured, base],
                       cwd=link_check.ROOT, capture_output=True).returncode:
-        print('definition guard: UNCHECKED: measured commit is not an ancestor of outgoing base')
+        print('definition guard: UNCHECKED [' + evidence + ']: measured commit is not an ancestor of outgoing base')
         return 0
     delta = set(git('diff', '--no-renames', '--name-only', measured, tip, '--',
                     *link_census.CENSUS_INPUTS, *('tools/' + n for n in link_census.TOOL_FILES)).splitlines())
@@ -437,25 +505,28 @@ def removed_definition_guard(base, tip, verified):
     try:
         supplied = library_definitions(names)
     except (OSError, ValueError, SystemExit) as exc:
-        print(f'definition guard: UNCHECKED libraries: {exc}')
+        print(f'definition guard: UNCHECKED libraries [{evidence}]: {exc}')
         return 0
     after['real-link libraries'] = (supplied, set(), [], {}, set())
-    losses = definition_losses(before, after)
+    ambiguous = set()
+    losses = definition_losses(before, after, ambiguous)
+    for warning in sorted(ambiguous):
+        print(f'definition guard: UNCHECKED [{evidence}]: {warning}')
     for source in sorted(unchecked):
-        print('definition guard: UNCHECKED tip object: ' + source)
+        print('definition guard: UNCHECKED tip object: ' + source + ' [' + evidence + ']')
     for provider in unknown_sources:
-        print('definition guard: UNCHECKED manifest source: ' + provider)
+        print('definition guard: UNCHECKED manifest source: ' + provider + ' [' + evidence + ']')
     for source in unparsed:
-        print('definition guard: UNCHECKED source directive: ' + source)
+        print('definition guard: UNCHECKED source directive: ' + source + ' [' + evidence + ']')
     # An unchecked changed unit could supply a replacement under a new name.
     # Do not turn unknown provider evidence into a proven absence.
     if unchecked and losses:
         for consumer, root, target in losses[:20]:
-            print(f'  UNCHECKED possible loss {target}: {consumer} references {root}')
+            print(f'  UNCHECKED possible loss {target}: {consumer} references {root} [{evidence}]')
         losses = []
     for consumer, root, target in losses[:30]:
-        print(f'  LOST EXTERNAL {target}: {consumer} references {root}')
-    print(f'definition guard: manifest {measured[:10]}, {len(verified)} byte-gated tip units, '
+        print(f'  LOST EXTERNAL {target}: {consumer} references {root} [{evidence}]')
+    print(f'definition guard: {evidence}, {len(verified)} byte-gated tip units, '
           f'{len(losses)} proven losses ({time.monotonic() - started:.3f}s)')
     return 1 if losses else 0
 
