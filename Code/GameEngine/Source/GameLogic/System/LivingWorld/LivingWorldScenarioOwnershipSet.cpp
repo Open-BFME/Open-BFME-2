@@ -50,12 +50,7 @@ public:
  unsigned char afterPos[0x58-0x28];
 };
 struct Rva004FAFF2 {Rva004FAFF2 &rva004FAFF2(const Rva004FAFF2 &);};
-class LivingWorldLogic {public:
- Rva002B8660Army *UseGenericSpawnArmyForPlayer(int,Rva002B8660Player *);
- LivingWorldArmy *spawnArmy(SpawnArmy *,Rva002B6A04Player *,bool);
- char unknown00[0xb0]; Rva002104B6 *regions;
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 struct OwnershipBuildingRegion {
  int word00; int *begin; int *end; int *capacity; int name;
 };
@@ -83,7 +78,7 @@ void LivingWorldScenario::OwnershipSet::spawnBuildingsInRegionsForPlayer(Rva0059
     {
         LivingWorldLogic *world = TheLivingWorldLogic;
         OwnershipBuildingRegion *entry = *it;
-        Rva002104B6 *lookup = world->regions;
+        Rva002104B6 *lookup = (Rva002104B6 *)world->fieldB0;
         void *region = lookup->rva002104B6(&entry->name);
         if (region)
         {
@@ -128,7 +123,7 @@ void LivingWorldScenario::OwnershipSet::spawnArmiesInRegionsForPlayer(Rva0059E64
  for(;it!=finish;++it) {
   LivingWorldLogic *world=TheLivingWorldLogic;
   OwnershipBuildingRegion *entry=*it;
-  Rva002104B6 *lookup=world->regions;
+  Rva002104B6 *lookup=(Rva002104B6 *)world->fieldB0;
   LivingWorldRegion *region=(LivingWorldRegion *)lookup->rva002104B6(&entry->name);
   if(region) {
    Rva003F0F13Elem spot;
