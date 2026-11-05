@@ -13,8 +13,11 @@ extern float g_secondsPerLogicFrame;
 
 struct Rva001E3F08MidA
 {
-	int m_pad00[10]; // +0x00..+0x27
+public:
+	char m_pad00[0x28];
 	float m_val28; // +0x28
+	char m_pad2C[0x28];
+	float m_val54; // +0x54
 };
 
 struct Rva001E3F08MidB

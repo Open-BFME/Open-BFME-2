@@ -15,12 +15,13 @@ struct Rva001E468FInner {
 	char m_pad[0x108];
 	unsigned char m_108;
 };
-class Rva001E468F {
+class Rva001E468F
+{
 public:
 	bool rva001E468F(Object *obj);
+	char m_pad00[0x4];
 private:
-	char m_pad0[4];
-	Rva001E468FInner *m_04;
+	Rva001E468FInner *m_04; // +0x04
 };
 
 bool Rva001E468F::rva001E468F(Object *obj)

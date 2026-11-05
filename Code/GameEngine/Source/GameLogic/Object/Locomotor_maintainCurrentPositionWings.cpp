@@ -26,7 +26,11 @@ public:
 	void rva001e7c2b(unsigned int, unsigned int, float, float);
 	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
-class Rva001E4073 { public: float rva001E4073(Object *,float *); };
+class Rva001E4073
+{
+public:
+	float rva001E4073(Object *obj, float *out);
+};
 struct WingsObjectView { char gap[0x38]; Coord3D position; float angle; float getOrientation() const { return angle; } const Coord3D *getPosition() const { return &position; } };
 struct WingsTemplateView { char gap[0x64]; float radius; };
 class Locomotor {

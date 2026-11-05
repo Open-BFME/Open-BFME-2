@@ -318,10 +318,14 @@ public:
 	virtual void s18();
 	virtual bool s19(float x, float y, float *a, float *b, unsigned char *out);
 };
+struct Rva001E468FInner;
 class Rva001E468F
 {
 public:
 	bool rva001E468F(Object *obj);
+	char m_pad00[0x4];
+private:
+	Rva001E468FInner *m_04; // +0x04
 };
 float Rva001E46E1::rva001E4845(Object *obj)
 {

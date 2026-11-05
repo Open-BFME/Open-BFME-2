@@ -81,7 +81,14 @@ static __forceinline bool hoverTestBit(unsigned int word, int bit)
 
 #include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Rva001E7C4C {public:void rva001E7C4C(Object*,unsigned,float,float);private:char pad[0x44];unsigned flags;};
+class Rva001E7C4C
+{
+public:
+	void rva001E7C4C(Object *obj, unsigned int goalPos, float onPathDistToGoal, float desiredSpeed);
+	char m_pad00[0x44];
+private:
+	unsigned flags; // +0x44
+};
 
 // ?rva001E7C4C@Rva001E7C4C@@QAEXPAVObject@@IMM@Z retail 0x001E7C4C 147B: the
 // 0x001E7053 move, then (ZH Locomotor hover guide) whether the Object stands

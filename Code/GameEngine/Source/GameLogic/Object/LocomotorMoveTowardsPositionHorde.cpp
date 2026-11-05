@@ -1036,7 +1036,11 @@ inline void Coord3D::normalize()
         z *= scale;
     }
 }
-class Rva001E434A {public:void *rva001E434A();};
+class Rva001E434A
+{
+public:
+	void *rva001E434A();
+};
 static __forceinline void rva6007Clear(Object *obj,unsigned bit)
 {
  if(obj->m_flags10C.test(bit)){obj->m_flags10C.reset(bit);obj->rva0028AE6D();}
@@ -1205,7 +1209,10 @@ static __forceinline void CoordSub(Coord3D *d, const Coord3D *s) { d->x -= s->x;
 class Rva001E7C4C
 {
 public:
-	void rva001E7C4C(Object *obj, unsigned int goalPos, Real onPathDistToGoal, Real desiredSpeed);
+	void rva001E7C4C(Object *obj, unsigned int goalPos, float onPathDistToGoal, float desiredSpeed);
+	char m_pad00[0x44];
+private:
+	unsigned flags; // +0x44
 };
 
 class Rva001E9045

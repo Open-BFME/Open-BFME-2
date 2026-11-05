@@ -20,7 +20,14 @@ inline __declspec(noinline) float Coord3D::length() const {return (float)sqrt(x*
 __forceinline const float& minRef(const float&a,const float&b){return a>b?b:a;}
 struct PointDiff:Coord3D{PointDiff(){}PointDiff(float a,float b,float c){x=a;y=b;z=c;}PointDiff(const Coord3D&r){x=r.x;y=r.y;z=r.z;}PointDiff operator-(const PointDiff&r)const{return PointDiff(x-r.x,y-r.y,z-r.z);}};
 struct MemberwisePoint:Coord3D{MemberwisePoint(){}MemberwisePoint(const Coord3D&r){x=r.x;y=r.y;z=r.z;}};
-struct ModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}};
+struct ModelFlags
+{
+public:
+	unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}
+	void set(int bit){words[bit>>5]|=1U<<(bit&31);}
+	void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}
+	unsigned words[20]; // +0x00
+};
 struct LocoHeightData {char pad[0x64];float range64;};
 enum WeaponSlotType{WEAPONSLOT0=0};enum WeaponStatus{WEAPONSTATUS0=0};
 #include "../../Include/GameLogic/Weapon.h"

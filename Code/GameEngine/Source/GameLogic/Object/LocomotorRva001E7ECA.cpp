@@ -52,7 +52,14 @@ struct LocoObjectTemplate
 }
 ;
 class Rva00373EC6;
-struct ModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};
+struct ModelFlags
+{
+public:
+	unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}
+	void set(int bit){words[bit>>5]|=1U<<(bit&31);}
+	void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}
+	unsigned words[20]; // +0x00
+};
 class Object
 {
  public:
@@ -95,24 +102,29 @@ class LocoInterface:public LocoSlots<142>
  
 }
 ;
-struct Rva001E41D3Result 
+struct Rva001E41D3Result
 {
- float x,y,z;
- 
-}
-;
+public:
+	Rva001E41D3Result() {}
+	Rva001E41D3Result(const Rva001E41D3Result &r)
+	{
+	    x = r.x; y = r.y; z = r.z;
+	}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
 class Rva001E41D3 
 {
  public:Rva001E41D3Result rva001E41D3();
  
 }
 ;
-class Rva001E434A 
+class Rva001E434A
 {
- public:void*rva001E434A();
- 
-}
-;
+public:
+	void *rva001E434A();
+};
 class Rva0028E8D4 
 {
  public:void rva0028E8D4(float*)const;

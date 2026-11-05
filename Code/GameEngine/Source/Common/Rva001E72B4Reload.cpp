@@ -154,7 +154,17 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/Common/Overridable.h"
 class LocomotorTemplate { public: LocomotorTemplate() throw(); void validate(); char storage[0x154]; };
-class Rva001E6731 { public: unsigned rva001E71FA(const int &); };
+struct Rva001E6731Head;
+class Rva001E6731
+{
+public:
+	unsigned rva001E71FA(const int &);
+	void rva001E6731();
+	~Rva001E6731();
+	Rva001E6731Head *m_00; // +0x00
+	int m_04; // +0x04
+	int m_compare; // +0x08
+};
 struct LocomotorParserView { void *vtable; Overridable *next; bool overrideFlag; char pad9[3]; int retired; AsciiString name; __forceinline void setName(const AsciiString &value) { name.setCopyInline(value); } };
 class LocomotorStore {
 public:
