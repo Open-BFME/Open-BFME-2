@@ -75,8 +75,9 @@ is the only source-path removal across the pending batch. Searched tools/,
 .githooks/, .github/, Code/, reverse/, docs/, and root build/config files for
 the donor path and basename. No active tooling, include, config, doxygen,
 header-queue, ms-header, identity-baseline, data-baseline, hatch-baseline or
-body-owner reference remains. There are no debt keys to retire in this merge;
-the prior header queue retirement used its owning accept tool. The merger
+body-owner reference remains. The prior header queue retirement used its owning accept tool; because the
+accepted source later vanishes, the net batch also needs per-key accounting
+for that vanished source (see below). The merger
 transfers both protected data-ledger path references without changing totals.
 Its cached _s_vtable/_s_secondary0C names predate canonical adoption; this path
 transfer does not claim those historical symbol facts are freshly measured.
@@ -88,3 +89,20 @@ snapshot. These are evidence, not active build path consumers. No provider was
 removed without a replacement: the constructor's exact definition now resides
 in the approved destination. The link preview verifies the factory consumer.
 No matching coverage, census headline, image ownership or runtime gain claimed.
+
+## Outgoing header-debt accounting
+
+The first publication check refused the net bundle: its base still names the
+constructor's BehaviorModule header-queue key, while the final source is gone.
+The successful pre-merge adoption verdict cannot judge a vanished source.
+The constructor row remains live at the same symbol/RVA in WargBehavior.cpp;
+a deleted_rows tombstone would therefore be false. There is also no pending
+header debt to transfer: the canonical header has been adopted and accepted.
+
+Rechecked the final TU through header_adopt_lane.py accept --class
+BehaviorModule. Account for the vanished source with the explicitly supported
+per-key Debt-Retired trailer (repair_queue.py _removed_source_accounted), citing
+its verified adoption and its exact constructor row's move into the approved
+TU. No register line, verifier rule, source body or published commit is changed
+by this follow-up. This is the vanished-source exception in AGENTS.md, not a
+Verifier-Change retirement. Prior byte, link, and source-path audits still apply.
