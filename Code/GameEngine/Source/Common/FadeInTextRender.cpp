@@ -16,11 +16,20 @@ class Anim2D;
 
 class GameFont;
 
+class Text004721F0;
+
+struct ICoord2D;
+
+// Retail vftable 0x00C70A70: slot 0 deleting dtor, slot 1 LoadAssets, slot 2
+// the text draw at 0x00596908, then two ICF-folded getters this view does not
+// declare yet: slot 3 returns +0x4C (0x002A98A7), slot 4 +0x2C (0x005C4ACD).
+// The base table 0x00C70A5C holds the dtor and four __purecall slots.
 struct FadeInTextRender : Rva0059675ABase
 {
     FadeInTextRender();
     virtual ~FadeInTextRender();
     virtual void LoadAssets();
+    virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame);
     void bfmeExtend(int left, int top, int right, int bottom);
 
     GameFont* font;

@@ -20,6 +20,8 @@ struct Rva0059675AInner
 {
 	virtual void *slot0(int flag);
 };
+class Text004721F0;
+struct ICoord2D;
 struct FadeInTextRender : Rva0059675ABase
 {
 	char m_pad04[0x18];
@@ -28,6 +30,7 @@ struct FadeInTextRender : Rva0059675ABase
 	StringBase<char> m_24;
 	virtual ~FadeInTextRender();
 	virtual void LoadAssets();
+	virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame); // vftable 0x00C70A70 slot 2
 };
 Rva0059675ABase::~Rva0059675ABase()
 {

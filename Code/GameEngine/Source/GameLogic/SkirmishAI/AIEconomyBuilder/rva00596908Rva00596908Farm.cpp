@@ -1,7 +1,7 @@
 // FadeInTextRender rendering, native 0x00596908..0x00596AE9.
 // BFME 1 cee35b7d8 FadeInTextRenderDraw004721F0 is the semantic guide;
 // target-specific bounds, frame phases and cloud animation are described below.
-// LoadAssets belongs to Rva0059675AInitialize.cpp; this unit only needs
+// LoadAssets belongs to FadeInTextRender.cpp; this unit only needs
 // its virtual declaration, not a second definition of the asset loader.
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
 extern "C" void _ReadWriteBarrier(void);
@@ -39,12 +39,7 @@ class Anim2DCallView { public:
  void setAlpha(float a) { m_alpha = a; }
 };
 
-class Display;extern Display *TheDisplay;
-class GameFont;class FontLibrary {public:GameFont*getFont(const AsciiString*,float,bool);};extern FontLibrary*TheFontLibrary;
-class Anim2DTemplate;class Anim2DCollection;extern Anim2DCollection*TheAnim2DCollection;
-// The collection's template lookup is rowed under its address class.
-struct Rva002D752DNode;class Rva002D752D {public:Rva002D752DNode*rva002D752D(const StringBase<char>&);};
-static inline const StringBase<char>&fadeTextBase(const AsciiString&asciiString){return *(const StringBase<char>*)&asciiString;}
+class Anim2DTemplate;class Anim2DCollection;
 class Anim2D
 {
 public:
@@ -54,14 +49,41 @@ public:
 	void draw(int,int,int,int);
 	char m_pad00[0x34];
 };
-// Slot 1 of FadeInTextRender's vftable 0x00C70A70 (slot 0 is its deleting
-// destructor), as WB's LoadAssets is slot 1 of its table: virtual.
-struct FadeInTextRender {public:
- virtual ~FadeInTextRender();virtual void LoadAssets();virtual void rva00596908(Text004721F0*,const ICoord2D*,unsigned);
- void bfmeExtend(int,int,int,int); // grow the +8..+0x14 bounds (0x0059668D)
- GameFont*font;int minX,minY,maxX,maxY;unsigned effectColor;Anim2D*anim;float oldScale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;
+
+class Rva0059675ABase
+{
+public:
+    virtual ~Rva0059675ABase();
 };
-// LoadAssets is supplied by Rva0059675AInitialize.cpp at 0x005967B3.
+
+class GameFont;
+
+// Slot 2 of FadeInTextRender's vftable 0x00C70A70 (slot 0 is its deleting
+// destructor, slot 1 LoadAssets, as WB's LoadAssets is slot 1 of its table).
+struct FadeInTextRender : Rva0059675ABase
+{
+    FadeInTextRender();
+    virtual ~FadeInTextRender();
+    virtual void LoadAssets();
+    virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame);
+    void bfmeExtend(int left, int top, int right, int bottom); // grow the +8..+0x14 bounds (0x0059668D)
+
+    GameFont* font;
+    int m_bfmeLeft;
+    int m_bfmeTop;
+    int m_bfmeRight;
+    int m_bfmeBottom;
+    unsigned effectColor;
+    Anim2D* anim;
+    float scale;
+    AsciiString fontName;
+    unsigned color;
+    int delay;
+    unsigned fontSize;
+    unsigned starts[3], ends[3];
+    int width, height;
+};
+// LoadAssets is supplied by FadeInTextRender.cpp at 0x005967B3.
 // Keep its virtual declaration; this draw unit must not emit a second owner.
 
 // Native596908..596AE9 is FadeInTextRender tableC70A70 slot2. BF1 cee35b7d8
