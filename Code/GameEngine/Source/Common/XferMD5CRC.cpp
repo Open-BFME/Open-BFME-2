@@ -14,6 +14,8 @@ void __cdecl MD5Final(unsigned char digest[16], MD5_CTX *context);
 void __cdecl MD5Init(MD5_CTX *context);
 void __cdecl MD5Update(MD5_CTX *context, unsigned char *input, unsigned int inputLen);
 }
+class Xfer;
+
 class XferSave
 {
 public:
@@ -26,6 +28,7 @@ public:
 	char m_pad[0x40 - 4];
 public:
 	int rva0060D435(const char *name);
+	unsigned char Open(Xfer *stream, int version, bool flag);
 };
 #include <string.h>
 #pragma function(memset)
