@@ -56,9 +56,7 @@
 #include "GameLogic/Module/UpdateModule.h"
 #include "GameLogic/Module/UpgradeModule.h"
 
-// Retail imports no _stricmp; its case-insensitive CRT compare is _strcmpi
-// (see reverse/attempt_support/import-bindings-link-20261021).
-#define stricmp _strcmpi
+#include <string.h>
 
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
@@ -288,7 +286,7 @@ Bool UpgradeMuxData::isTriggeredBy(const std::string &upgrade) const
 	for( it = m_triggerUpgradeNames.begin(); it != m_triggerUpgradeNames.end();	++it)
 	{
 		AsciiString trigger = *it;
-		if (stricmp(trigger.str(), upgrade.c_str()) == 0)
+		if (_strcmpi(trigger.str(), upgrade.c_str()) == 0)
 		{
 			return TRUE;
 		}

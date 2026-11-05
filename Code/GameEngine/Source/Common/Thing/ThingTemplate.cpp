@@ -4,9 +4,7 @@
 // (GameEngine/Source/Common/Thing/ThingTemplate.cpp); this unit had no counterpart under Code/.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
-// Retail imports only _strcmpi (stub 0x00629A2A calls msvcr71's); BFME2's
-// stricmp spelling resolves there, not to the _stricmp alias.
-#define stricmp _strcmpi
+#include <string.h>
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <stl/_algobase.h>
 namespace _STL {
@@ -337,7 +335,7 @@ void parseArbitraryFXIntoMap( INI* ini, void *instance, void* /* store */, const
 	const char* name = (const char*)userData;
 	const char* token = ini->getNextToken();
 	const FXList* fxl = TheFXListStore->findFXList(token);	// could be null!
-	DEBUG_ASSERTCRASH(fxl != NULL || stricmp(token, "None") == 0, ("FXList %s not found!\n",token));
+	DEBUG_ASSERTCRASH(fxl != NULL || _strcmpi(token, "None") == 0, ("FXList %s not found!\n",token));
 	mapFX->insert(std::make_pair(AsciiString(name), fxl));	
 }
 
