@@ -107,29 +107,7 @@ struct Rva00296749IntVector
  int *m_finish;
  int *m_endOfStorage;
 };
-class CommandButton
-{
-public:
- const ThingTemplate *rva0035B570() const;
- int getStance(int index);
- char m_pad00[0x10];
- AsciiString m_name10;
- int m_command14;
- char m_pad18[4];
- unsigned int m_options1C;
- char m_pad20[4];
- const void *m_upgrade24;
- char m_pad28[0x44 - 0x28];
- const SpecialPowerTemplate *m_power44;
- char m_pad48[0x80 - 0x48];
- WeaponSlotType m_weaponSlot80;
- char m_pad84[0xA0 - 0x84];
- int m_maxShotsA0;
- char m_padA4[0xC0 - 0xA4];
- int m_C0;
- char m_padC4[0x234 - 0xC4];
- Rva00296749IntVector m_stances234;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 // Views for Object::doCommandButton (0x00296749). Offsets are retail facts
 // read from that body; slot names stay neutral where WB gives none.
 enum NameKeyType { NAMEKEY_INVALID = 0 };
@@ -2551,16 +2529,16 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 	if (!commandButton)
 		return;
 
-	switch (commandButton->m_command14)
+	switch (commandButton->m_command)
 	{
 	case 24:
 	case 38:
-		if (commandButton->m_power44)
+		if (commandButton->m_specialPower)
 		{
-			unsigned int options = commandButton->m_options1C | 0x40000;
+			unsigned int options = commandButton->m_options | 0x40000;
 			if (flags)
 				options |= 0x20000000;
-			doSpecialPower(commandButton->m_power44, options, cmdSource == 1);
+			doSpecialPower(commandButton->m_specialPower, options, cmdSource == 1);
 		}
 		break;
 
@@ -2570,13 +2548,13 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 		break;
 
 	case 27:
-		setWeaponLock(commandButton->m_weaponSlot80, (WeaponLockType)2);
+		setWeaponLock(commandButton->getWeaponSlot(), (WeaponLockType)2);
 		break;
 
 	case 49:
 	{
 		int value = 0;
-		unsigned int options = commandButton->m_options1C;
+		unsigned int options = commandButton->m_options;
 		if (options & 0x2000)
 			value = 1;
 		else if (options & 0x4000)
@@ -2630,7 +2608,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 
 	case 23:
 		rva0028C24C();
-		setWeaponLock(commandButton->m_weaponSlot80, (WeaponLockType)1);
+		setWeaponLock(commandButton->getWeaponSlot(), (WeaponLockType)1);
 		if (ai)
 			ai->m_commands20.aiAttackPosition(&m_pos38, 1, (CommandSourceType)cmdSource);
 		break;
@@ -2640,7 +2618,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 	case 8:
 		if (rva00294ADD((int)commandButton) == 0)
 		{
-			const void *upgrade = commandButton->m_upgrade24;
+			const void *upgrade = commandButton->m_upgradeTemplate;
 			((Rva00296749Production *)rva0028BC58(0))->queueUpgrade(upgrade);
 		}
 		break;
@@ -2659,7 +2637,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 	case 46:
 	{
 		Rva00296749Production *pu = (Rva00296749Production *)rva0028BC58(0);
-		int quantity = commandButton->m_C0;
+		int quantity = commandButton->fieldC0;
 		if (pu && quantity != -1)
 			pu->queueCreateUnit(0, quantity, pu->requestUniqueUnitID(-1, 0, AsciiString::TheEmptyString, 0));
 		break;
@@ -2765,7 +2743,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 
 	case 17:
 		TheInGameUI->slot47(0);
-		if (!(commandButton->m_options1C & 0x20))
+		if (!(commandButton->m_options & 0x20))
 		{
 			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), (GameMessage::Type)0x41E, 0);
 			TheMessageStream->appendMessage((GameMessage::Type)0x41E);
@@ -2774,7 +2752,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 
 	case 40:
 		TheInGameUI->slot47(0);
-		if (!(commandButton->m_options1C & 0x20))
+		if (!(commandButton->m_options & 0x20))
 		{
 			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), (GameMessage::Type)0x455, 0);
 			TheMessageStream->appendMessage((GameMessage::Type)0x455);
@@ -2814,14 +2792,14 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 		StancesBehavior *stances = (StancesBehavior *)findModule(Rva0045EE2CGet());
 		if (stances)
 		{
-			if (commandButton->m_stances234.size() < 1)
+			if (((const Rva00296749IntVector *)&commandButton->m_stancesBegin)->size() < 1)
 			{
 				if (_bfme_debugReportingEnabled())
 				{
 					_bfme_debugRecordCallsite(1);
 					theDebug->slot60();
 					(theDebug->slot6C(0, 0, 0) << "No stance specified for CommandButton: "
-						<< *(const StringBase<char> *)&commandButton->m_name10).slot4C(2);
+						<< *(const StringBase<char> *)&commandButton->m_name).slot4C(2);
 				}
 			}
 			int stance = const_cast<CommandButton *>(commandButton)->getStance(0);
@@ -2832,7 +2810,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 					_bfme_debugRecordCallsite(1);
 					theDebug->slot60();
 					(theDebug->slot6C(0, 0, 0) << "Invalid stance specified form CommandButton: "
-						<< *(const StringBase<char> *)&commandButton->m_name10).slot4C(2);
+						<< *(const StringBase<char> *)&commandButton->m_name).slot4C(2);
 				}
 			}
 			stances->changeStance(stance);
@@ -2855,21 +2833,21 @@ void Object::doCommandButtonAtPosition(const CommandButton *button, const Coord3
  Rva00297149AI *ai = m_commandAI258;
  if (!button)
   return;
- switch (button->m_command14)
+ switch (button->m_command)
  {
  case 24:
  case 38:
-  if (button->m_power44)
+  if (button->m_specialPower)
   {
-   unsigned int options = button->m_options1C | 0x40000;
+   unsigned int options = button->m_options | 0x40000;
    if ((unsigned char)flag)
     options |= 0x20000000;
-   doSpecialPowerAtLocation(button->m_power44, position, options, source == 1);
+   doSpecialPowerAtLocation(button->m_specialPower, position, options, source == 1);
   }
   break;
  case 10:
   if (ai)
-   ((Rva00295A0FCommands *)&ai->m_commands20)->Rva00295A0FCommand((void *)position, button->m_maxShotsA0, source);
+   ((Rva00295A0FCommands *)&ai->m_commands20)->Rva00295A0FCommand((void *)position, button->m_maxShotsToFire, source);
   break;
  case 14:
   if (ai)
@@ -2880,7 +2858,7 @@ void Object::doCommandButtonAtPosition(const CommandButton *button, const Coord3
   break;
  case 23:
   rva0028C24C();
-  setWeaponLock(button->m_weaponSlot80, (WeaponLockType)1);
+  setWeaponLock(button->getWeaponSlot(), (WeaponLockType)1);
   if (ai)
    ai->m_commands20.aiAttackPosition(position, 1, (CommandSourceType)source);
   break;
@@ -2908,24 +2886,24 @@ skip1:
 	Rva00297149AI *ai = m_commandAI258;
 	if (commandButton == 0)
 		return;
-	switch (commandButton->m_command14) {
+	switch (commandButton->m_command) {
 	case 14:
 		if (ai != 0)
 			ai->m_commands20.aiIdle((CommandSourceType)cmdSource);
 		break;
 	case 23:
 		rva0028C24C();
-		setWeaponLock(commandButton->m_weaponSlot80, (WeaponLockType)1);
+		setWeaponLock(commandButton->getWeaponSlot(), (WeaponLockType)1);
 		ai->m_commands20.rva0026C2D9(target, 1, (CommandSourceType)cmdSource);
 		break;
 	case 24:
 	case 38: {
-		if (commandButton->m_power44 == 0)
+		if (commandButton->m_specialPower == 0)
 			break;
-		unsigned int options = commandButton->m_options1C | 0x40000;
+		unsigned int options = commandButton->m_options | 0x40000;
 		if (*(char *)&flags != 0)
 			options |= 0x20000000;
-		doSpecialPowerAtObject(commandButton->m_power44, target, options, cmdSource == 1);
+		doSpecialPowerAtObject(commandButton->m_specialPower, target, options, cmdSource == 1);
 		break;
 	}
 	case 29:

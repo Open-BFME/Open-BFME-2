@@ -8,16 +8,19 @@
 // Keep the existing Rva receiver/method name for its already-matched caller.
 class Image;
 class GameWindow;
-class CommandButton {public:int getStance(int);const Image *rva0035B19E()const;
- char pad[0x234];_STL::vector<int> stances;
-};
+#include "../../../../../Include/GameClient/CommandButton.h"
+// The button's stance list (+0x234), raw storage in the canonical header.
+static inline const _STL::vector<int> &stanceList(const CommandButton *button)
+{
+	return *reinterpret_cast<const _STL::vector<int> *>(&button->m_stancesBegin);
+}
 class Rva0035B424 {public:void rva0035B424(int);};
 class Rva0057C22FByteChaseField {public:unsigned char get()const;};
 class Rva005C39AA {public:void rva005C39AA();};
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
 // ?StanceToButtonSlot@@YAHPAVCommandButton@@H@Z present-unmatched
 __declspec(noinline) static int StanceToButtonSlot(CommandButton *button,int stance) {
- int count=button->stances.size();
+ int count=stanceList(button).size();
  for(int i=0;i<count;++i)if(button->getStance(i)==stance)return i;
  return -1;
 }

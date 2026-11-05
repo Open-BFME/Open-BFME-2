@@ -23,13 +23,12 @@
 #include <vector>
 #include "ascii_string.h"
 
-class CommandButton
+#include "../../../../../Include/GameClient/CommandButton.h"
+// The button's stance list (+0x234), raw storage in the canonical header.
+static inline const _STL::vector<int> &stanceList(const CommandButton *button)
 {
-public:
-	int getStance(int index);
-	char m_pad00[0x234];
-	_STL::vector<int> stances; // +0x234
-};
+	return *reinterpret_cast<const _STL::vector<int> *>(&button->m_stancesBegin);
+}
 
 class Rva0035B232
 {
@@ -103,7 +102,7 @@ void InGameToggleStanceCommandButton::Impl::rva00567DA6()
 {
 	if (!TheHotKeyManager)
 		return;
-	int count = (int)m_button14->stances.size();
+	int count = (int)stanceList(m_button14).size();
 	for (int i = 0; i < count; ++i)
 	{
 		StanceHotKeyRecord &key = m_hotKeys[i];
