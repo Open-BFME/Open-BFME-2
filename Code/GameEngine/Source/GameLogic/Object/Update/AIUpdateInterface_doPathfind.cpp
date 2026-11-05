@@ -12,6 +12,12 @@
 // All globals/callees are existing owned definitions or existing checked pins.
 // Short-circuit approach validation and cached adjust receiver reproduce native
 // control flow and register scheduling; trace arguments retain the x87 ABI.
+// Retail binds fprintf to the direct game logging wrapper at 0x002CEC42.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -43,8 +49,7 @@ enum KindOfType
 };
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+extern "C" FILE *theLogicRandomLogFile;
 extern GameLogic *TheGameLogic;
 
 #define CRITTER_TRACE(s) \
