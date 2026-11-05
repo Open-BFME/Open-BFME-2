@@ -55,7 +55,7 @@ F2_BODY = b"\x33\xC0\xC3".ljust(0x10, b"\xCC")
 MISS_BODY = b"\xB8\x01\x00\x00\x00\xC3".ljust(0x10, b"\xCC")
 
 
-def build(tamper=None, call_to=None, stub_shared=True, drop_reloc=False, dup_name=False):
+def build(tamper=None, call_to=None, stub_shared=True, drop_reloc=False, dup_name=False, copy_rel=False):
     """A retail side (F1 0x1000, F2 0x1020, MISS 0x1040, MISS2 0x1050, a copy of F2 at 0x1060; globals 0x5000,
     0x5008) and an image at IB laid out differently (F2 0x2000, F1 0x2100, the missing
     functions as int3 stubs at 0x2200, globals 0x8000, 0x8010), with its map."""
@@ -65,6 +65,8 @@ def build(tamper=None, call_to=None, stub_shared=True, drop_reloc=False, dup_nam
                           code=((0x1000, 0x1000),))
     target = {"f2": 0x2000, "f3": 0x2300}[call_to or "f2"]
     i1, isites = f1_body(IB, 0x8000, 0x8010, 0x2100, target, 0x2200)
+    if copy_rel:                                       # retail's call operand, unchanged, in the moved body
+        i1 = i1[:9] + r1[9:13] + i1[13:]
     if tamper is not None:
         i1 = i1[:tamper] + bytes([i1[tamper] ^ 0xFF]) + i1[tamper + 1:]
     stub = b"\xCC" * 0x10
@@ -113,7 +115,7 @@ class AddressMap(unittest.TestCase):
 
     def test_call_to_another_function_refuses(self):
         img = build(call_to="f3")                                     # f3: a different body
-        with self.assertRaisesRegex(ri.RealImageError, "rel32"):
+        with self.assertRaisesRegex(ri.RealImageError, "branch at"):
             img.map_code(0x1000)
 
     def test_missing_relocation_refuses(self):
@@ -143,6 +145,59 @@ class AddressMap(unittest.TestCase):
         img.retail.img.blobs[0x1000] = bytes(f1)
         self.assertEqual(img.map_code(0x1000), IB + 0x2100)
         self.assertEqual(img.folds, {("?f2copy@@YAXXZ", F2)})
+
+
+def build_refs(values):
+    """Retail functions ?r<k>@@YAXXZ at 0x1000 + 0x10k, each `mov eax, [0x5000]; ret`; the
+    image's copies at 0x2000 + 0x10k read values[k] (an image VA) instead."""
+    names = [f"?r{k}@@YAXXZ" for k in range(len(values))]
+    body = lambda v: (b"\xA1" + struct.pack("<I", v) + b"\xC3").ljust(0x10, b"\xCC")
+    retail = FakeSections(RB, {0x1000: b"".join(body(RB + 0x5000) for _ in values), 0x5000: bytes(0x20)},
+                          code=((0x1000, 0x1000),))
+    image = FakeSections(IB, {0x2000: b"".join(body(v) for v in values), 0x8000: bytes(0x20)},
+                         relocs={0x2000 + 0x10 * k + 1 for k in range(len(values))}, code=((0x2000, 0x1000),))
+    m = ri.MapFile("\n".join([" Preferred load address is 10000000"] + [
+        f" 0001:{0x1000 + 0x10 * k:08x}       {n:<26} {IB + 0x2000 + 0x10 * k:08x} f   a.obj" for k, n in enumerate(names)]))
+    rows = ri.Rows(rows=[(0x1000 + 0x10 * k, 0x10, n, "Code/A.cpp") for k, n in enumerate(names)])
+    return ri.RealImage("exit.exe", {"stubbed": []}, m, image=image,
+                        retail=ri.Retail(retail, sites={0x1000 + 0x10 * k + 1 for k in range(len(values))}), rows=rows)
+
+
+class ReviewFindings(unittest.TestCase):
+    """Codex's review of the first real-image path (2026-11-05), each through real code."""
+
+    def test_unchanged_branch_operand_into_the_wrong_place_is_refused(self):     # finding 1
+        img = build(copy_rel=True)                    # bytes equal retail's, so the call lands at +0x20
+        with self.assertRaisesRegex(ri.RealImageError, "branch at"):
+            img.map_code(0x1000)
+        self.assertEqual(build().map_code(0x1000), IB + 0x2100)
+
+    def test_every_reference_votes(self):                                      # finding 2
+        self.assertEqual(build_refs([IB + 0x8000] * 9).map_data(0x5000), IB + 0x8000)
+        with self.assertRaisesRegex(ri.RealImageError, "2 different addresses"):
+            build_refs([IB + 0x8000] * 8 + [IB + 0x8010]).map_data(0x5000)
+
+    def test_ambiguous_crash_names_no_alias(self):                             # finding 3
+        w = build().where(IB + 0x2200)
+        self.assertIsNone(w["map_symbol"])
+        self.assertIsNone(w["stubbed_name"])
+        self.assertIsNone(w["retail_rva"])
+        self.assertEqual(sorted(w["retail_rva_candidates"]), ["0x1040", "0x1050"])
+        self.assertEqual(ri.crash_name(w), hex(IB + 0x2200))
+
+    def test_caller_must_match_retail_before_its_offset_is_used(self):         # finding 3
+        w = build(tamper=1).where(IB + 0x2200, IB + 0x2100 + 25)
+        self.assertIsNone(w["stubbed_name"])
+        self.assertIn("differs from retail", w["stubbed_by"])
+        self.assertIsNone(w["retail_rva"])
+
+    def test_relocated_code_address_must_reach_the_same_function(self):
+        img = build()
+        f1 = bytearray(img.retail.img.blobs[0x1000])  # retail's first dword now points at F2 (code)
+        struct.pack_into("<I", f1, 4, RB + 0x1020)
+        img.retail.img.blobs[0x1000] = bytes(f1)
+        with self.assertRaisesRegex(ri.RealImageError, "code address"):
+            img.map_code(0x1000)                      # the image's dword still points at data
 
 
 class Crashes(unittest.TestCase):

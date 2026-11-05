@@ -974,6 +974,8 @@ def skirmish_tick(a, samples, want_mode, hook=None):
         modes = game.res.setdefault("modes", [])
         if not modes or modes[-1][1] != mode:
             modes.append((game.seconds(), mode, frame))
+        if mode == want_mode and frame is not None:
+            a.reached = max(getattr(a, "reached", None) or 0, frame)     # finish() judges --until-frame
         if until is not None:
             if mode == want_mode and frame is not None and frame >= until and \
                     (hook is None or any(f >= until for f, _ in hook.crcs)):
@@ -1171,7 +1173,26 @@ def refuse_image(a, rep):
     raise SystemExit(1)
 
 
+def short_of_frame(a, crcs=None):
+    """With --until-frame N, why a run is short of it (the logic never reached N, or with
+    CRCs none was taken at or past N), else None."""
+    until = getattr(a, "until_frame", None)
+    if until is None:
+        return None
+    reached = getattr(a, "reached", None)
+    if reached is None or reached < until:
+        return f"the logic reached frame {reached}, short of --until-frame {until}"
+    if crcs is not None and not any(f >= until for f, _ in crcs):
+        return f"no CRC at or past --until-frame {until} (last {crcs[-1][0] if crcs else None})"
+    return None
+
+
 def finish(a, name, out):
+    short = short_of_frame(a, out.get("crcs") if name in ("record", "determinism", "determinism_perturbed") else None)
+    if short:
+        out["until_frame"] = short
+        if out["outcome"] == "pass":
+            out["outcome"] = "short-of-frame"
     if out["run"].get("stopped") == "profile-redirect-failed":
         out["outcome"] = "profile-redirect-failed"
     if out["profile_touched"]:

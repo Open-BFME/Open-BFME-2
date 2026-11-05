@@ -372,6 +372,37 @@ class UntilFrame(unittest.TestCase):
         hook.crcs.append((5000, 2))
         self.assertEqual(tick(g), "done")
 
+    def test_tick_records_the_frame_reached(self):
+        a, g = self.opts(5000), self.Clock([10, 4990])
+        tick = gs.skirmish_tick(a, [], SKIRMISH)
+        tick(g), tick(g)
+        self.assertEqual(a.reached, 4990)
+
+    def finished(self, name, reached, crcs, outcome="pass"):
+        import tempfile
+        from types import SimpleNamespace
+        from unittest import mock
+        a = SimpleNamespace(retail=True, image="boot", until_frame=5000, reached=reached, scenario=name)
+        out = {"run": {}, "profile_touched": False, "guard": {}, "outcome": outcome, "crcs": crcs}
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(gs, "OUT", Path(d)), \
+                mock.patch("builtins.print"):
+            rc = gs.finish(a, name, out)
+        return rc, out["outcome"]
+
+    def test_a_pass_short_of_the_frame_fails(self):                 # review finding 6
+        crcs = [(f, f) for f in range(25, 201, 25)]
+        self.assertEqual(self.finished("record", 200, crcs), (1, "short-of-frame"))
+        self.assertEqual(self.finished("skirmish", 4990, None), (1, "short-of-frame"))
+        self.assertEqual(self.finished("determinism", None, None), (1, "short-of-frame"))
+
+    def test_the_frame_without_its_crc_fails(self):
+        crcs = [(f, f) for f in range(25, 4976, 25)]
+        self.assertEqual(self.finished("record", 5003, crcs), (1, "short-of-frame"))
+        self.assertEqual(self.finished("record", 5003, crcs + [(5000, 1)]), (0, "pass"))
+
+    def test_a_failure_keeps_its_own_outcome(self):
+        self.assertEqual(self.finished("determinism", 200, [(25, 1)], "desync"), (1, "desync"))
+
     def test_without_it_seconds_still_rule(self):
         g = self.Clock([10, 20])
         tick = gs.skirmish_tick(self.opts(None), [], SKIRMISH)

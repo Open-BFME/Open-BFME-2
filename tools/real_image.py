@@ -14,9 +14,11 @@ imports the harness lies through, `real` means nothing stubbed).
 
 Addresses are mapped fail-closed; there is no fall-back to retail's RVA.
 - Code: the functions.csv row holding the retail RVA, found by its name in the map, and
-  its whole body compared with retail's: equal bytes, the same relocated dwords, and every
-  other difference a rel32 call/jump operand whose target is, on both sides, the same
-  named function at the same offset. A mid-function address is the row's image address
+  its whole body compared with retail's, decoded (capstone): the same relocated dwords,
+  every relative branch and every relocated code address reaching the same place on both
+  sides (the same offset inside the body, else the same named function at the same
+  offset), whether its bytes changed or not, and every other byte equal. Decoding stops at
+  a relocated table that follows the code; past it only relocated dwords may differ. A mid-function address is the row's image address
   plus its offset, accepted only after that comparison.
 - Data: retail's DIR32 references to the address, inside rows whose bodies compare
   equal as above; each gives the image's address from the same relocated dword in the
@@ -240,10 +242,6 @@ class Retail:
 
 
 # --------------------------------------------------------------------------- the mapper
-REL32_1 = {0xE8, 0xE9}                          # call / jmp rel32
-REL32_2 = set(range(0x80, 0x90))                # 0F 8x: jcc rel32
-
-
 class RealImage:
     """A loaded, hash-checked real image with its map, and the retail side to map from."""
 
@@ -292,31 +290,41 @@ class RealImage:
             if rsites != isites:
                 return (f"relocated dwords differ: retail-only {sorted(hex(x) for x in rsites - isites)[:4]}, "
                         f"image-only {sorted(hex(x) for x in isites - rsites)[:4]}")
-        masked = {o + k for o in rsites for k in range(4)}
-        o = 0
-        while o < size:
-            if r[o] == i[o] or o in masked:
-                o += 1
-                continue
-            p = self._rel32_field(r, o)
-            if p is None:
-                return f"byte +{o:#x} differs ({r[o]:02x} / {i[o]:02x}) outside any relocation or rel32 operand"
-            why = self._same_target(start + p + 4 + struct.unpack_from("<i", r, p)[0],
-                                    irva + p + 4 + struct.unpack_from("<i", i, p)[0], depth)
-            if why:
-                return f"rel32 at +{p:#x}: {why}"
-            o = p + 4
+        try:
+            decoded, data_from = decode(start, r, rsites)
+        except ImportError:
+            return "capstone is needed to decode the body"
+        if data_from < size and data_from not in rsites and any(b not in (0xCC, 0x00) for b in r[data_from:]):
+            return f"+{data_from:#x} neither decodes nor starts a relocated table"
+        allowed = set()
+        for o, n, rel in decoded:                     # every relative target, changed bytes or not
+            if rel:
+                p, k = rel
+                fmt = "<i" if k == 4 else "<b"
+                why = self._same_place(row, irva, start + o + n + struct.unpack_from(fmt, r, p)[0],
+                                       irva + o + n + struct.unpack_from(fmt, i, p)[0], depth)
+                if why:
+                    return f"branch at +{o:#x}: {why}"
+                allowed.update(range(p, p + k))
+        for o in sorted(rsites):                      # every relocated address of code (jump tables too)
+            rt = struct.unpack_from("<I", r, o)[0] - RETAIL_BASE
+            if self.retail.img.code(rt):
+                why = self._same_place(row, irva, rt, struct.unpack_from("<I", i, o)[0] - self.base, depth)
+                if why:
+                    return f"code address at +{o:#x}: {why}"
+            allowed.update(range(o, o + 4))
+        for o in range(size):
+            if r[o] != i[o] and o not in allowed:
+                return f"byte +{o:#x} differs ({r[o]:02x} / {i[o]:02x}) outside any relocation or branch operand"
         return None
 
-    @staticmethod
-    def _rel32_field(r, o):
-        """Start of the rel32 operand of a call/jmp/jcc that covers offset o, else None."""
-        for p in range(o, o - 4, -1):
-            if p >= 1 and r[p - 1] in REL32_1 and p + 4 <= len(r):
-                return p
-            if p >= 2 and r[p - 2] == 0x0F and r[p - 1] in REL32_2 and p + 4 <= len(r):
-                return p
-        return None
+    def _same_place(self, row, irva, rt, it, depth):
+        """None if retail target RVA rt (from inside `row`) and image target RVA it are the
+        same place: the same offset inside this body, else the same named function."""
+        start, size = row[0], row[1]
+        if start <= rt < start + size:
+            return None if it - irva == rt - start else f"internal target +{rt - start:#x} lands at +{it - irva:#x}"
+        return self._same_target(rt, it, depth)
 
     def _same_target(self, rt, it, depth):
         """None if retail target RVA rt and image target RVA it are the same named
@@ -360,13 +368,11 @@ class RealImage:
             raise RealImageError(f"{rva:#x}: {'; '.join(why) if not found else f'{len(found)} different places'}")
         return found.pop()
 
-    def map_data(self, rva, limit=8):
+    def map_data(self, rva):
         """Image VA of retail data RVA rva from retail's DIR32 references to it inside
-        rows whose bodies compare equal; every such reference must agree."""
+        rows whose bodies compare equal; every such reference is read, and all must agree."""
         votes, why = {}, []
-        for site in self.retail.referring(rva)[:4 * limit]:
-            if len(votes.get("ok", ())) >= limit:
-                break
+        for site in self.retail.referring(rva):
             for row in self.rows.holding(site):
                 try:
                     iva = self.image_of_name(row[2], row[3])
@@ -407,8 +413,10 @@ class RealImage:
 
     # crashes ------------------------------------------------------------------
     def where(self, va, return_va=None):
-        """The contract's crash fields for image VA va (at the preferred base):
-        map_symbol, stubbed_name, retail_rva, plus how they were found."""
+        """The contract's crash fields for image VA va (at the preferred base): map_symbol,
+        stubbed_name, retail_rva, plus how they were found. Nothing is chosen among
+        aliases: several names at the symbol leave map_symbol null (names_at_symbol lists
+        them), and retail_rva is set only when every candidate row gives the same RVA."""
         out = {"address_image": hex(va), "return_address_image": hex(return_va) if return_va else None,
                "map_symbol": None, "stubbed_name": None, "retail_rva": None}
         sym, off = self.map.holding(va)
@@ -416,25 +424,34 @@ class RealImage:
             out["note"] = "outside the image's code"
             return out
         names = self.map.names_at(sym)
-        out["map_symbol"], out["offset"] = names[0], hex(off)
-        if len(names) > 1:
+        out["offset"] = hex(off)
+        if len(names) == 1:
+            out["map_symbol"] = names[0]
+        else:
             out["names_at_symbol"] = names[:8]
         stubs = [n for n in names if n in self.stubbed]
-        if len(stubs) == 1:
+        if len(stubs) == 1 and len(names) == 1:
             out["stubbed_name"], out["stubbed_by"] = stubs[0], "map symbol"
-        elif stubs or any("stub" in s[2].lower() for s in self.map.by_name.get(names[0], [])):
+        elif stubs or any("stub" in s[2].lower() for n in names for s in self.map.by_name.get(n, [])):
             out["stubbed_name"], out["stubbed_by"] = self.stub_from_caller(sym, return_va)
-        for name in ([out["stubbed_name"]] if out["stubbed_name"] else []) + names:
-            rows = self.rows.by_name.get(name, [])
-            if len(rows) == 1 and (out["stubbed_name"] == name or off < rows[0][1]):
-                out["retail_rva"] = hex(rows[0][0] + (0 if out["stubbed_name"] == name else off))
-                out["retail_row"] = name
-                break
+        if out["stubbed_name"]:
+            cands = {(r[0], out["stubbed_name"]) for r in self.rows.by_name.get(out["stubbed_name"], [])}
+        else:
+            cands = {(r[0] + off, n) for n in names for r in self.rows.by_name.get(n, [])}
+            if any(off >= r[1] for n in names for r in self.rows.by_name.get(n, [])):
+                cands.add((None, "beyond a row"))
+        if len({c[0] for c in cands}) == 1 and None not in {c[0] for c in cands}:
+            out["retail_rva"] = hex(next(iter(cands))[0])
+            out["retail_row"] = sorted(c[1] for c in cands)[0] if len(cands) == 1 else sorted(c[1] for c in cands)
+        elif cands:
+            out["retail_rva_candidates"] = sorted({hex(c[0]) for c in cands if c[0] is not None})[:8]
         return out
 
     def stub_from_caller(self, stub_va, return_va):
         """(stubbed name, how) for a stub entered by `call rel32` returning to return_va:
-        retail's own call at the caller's matching offset names the missing function."""
+        retail's own call at the caller's matching offset names the missing function. The
+        caller's image body must compare equal to its retail row first (so the offset means
+        the same instruction), and every such caller row must name the same stubbed function."""
         if not return_va:
             return None, "no return address"
         try:
@@ -444,18 +461,51 @@ class RealImage:
         except RealImageError:
             return None, "the return address lies outside the image"
         csym, coff = self.map.holding(return_va)
+        found, why = set(), []
         for name in self.map.names_at(csym):
-            for start, size, _, _ in self.rows.by_name.get(name, []):
+            for row in self.rows.by_name.get(name, []):
+                start, size = row[0], row[1]
+                bad = self.verify_body(row, csym)
+                if bad:
+                    why.append(f"caller {name} differs from retail: {bad}")
+                    continue
                 ret = start + coff
                 if coff > size or self.retail.read(ret - 5, 1) != b"\xE8":
+                    why.append(f"retail {name}+{coff - 5:#x} is not a call")
                     continue
                 target = ret + struct.unpack("<i", self.retail.read(ret - 4, 4))[0]
                 called = [r[2] for r in self.rows.holding(target) if r[0] == target]
                 hit = [n for n in called if n in self.stubbed]
                 if len(hit) == 1:
-                    return hit[0], f"caller {name}+{coff:#x}: retail calls {target:#x}"
-                return None, f"caller {name}+{coff:#x}: retail calls {called[:2] or hex(target)}, not one stubbed name"
-        return None, "the caller has no retail row"
+                    found.add((hit[0], f"caller {name}+{coff:#x}: retail calls {target:#x}"))
+                else:
+                    why.append(f"caller {name}+{coff:#x}: retail calls {called[:2] or hex(target)}, not one stubbed name")
+        if len({f[0] for f in found}) == 1:
+            return next(iter(found))
+        return None, "; ".join(why[:3]) or (f"{len(found)} different stubbed names" if found else "the caller has no retail row")
+
+
+def decode(start, r, rsites):
+    """Retail body r at RVA start, decoded linearly: ([(offset, size, (operand offset,
+    operand size) of a relative branch or None)], offset where the data begins). Decoding
+    stops at an instruction holding a relocated dword that is not its operand (MSVC puts
+    switch tables after the code) or at bytes that do not decode."""
+    import capstone
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    out, end = [], 0
+    for ins in md.disasm(r, start):
+        o = ins.address - start
+        if o != end or o + ins.size > len(r):
+            break
+        ops = {o + ins.disp_offset if ins.disp_size == 4 and ins.disp_offset else -1,
+               o + ins.imm_offset if ins.imm_size == 4 and ins.imm_offset else -1}
+        if any(x in rsites and x not in ops for x in range(o - 3, o + ins.size)):
+            break                                     # a relocated dword overlaps it, not as an operand
+        rel = (o + ins.imm_offset, ins.imm_size) if ins.group(capstone.CS_GRP_BRANCH_RELATIVE) else None
+        out.append((o, ins.size, rel))
+        end = o + ins.size
+    return out, end
 
 
 # --------------------------------------------------------------------------- runs
@@ -482,7 +532,7 @@ def crash_fields(ri, address, loaded, words, exception):
                 ret = ri.base + rva
             if len(frames) < 12:
                 sym, off = ri.map.holding(ri.base + rva)
-                frames.append([hex(ri.base + rva), f"{ri.map.names_at(sym)[0]}+{off:#x}" if sym else None])
+                frames.append([hex(ri.base + rva), f"{'|'.join(ri.map.names_at(sym))}+{off:#x}" if sym else None])
     out = {"exception": exception} | ri.where(address - loaded + ri.base, ret)
     out["stack_frames"] = frames
     if loaded != ri.base:
@@ -491,7 +541,8 @@ def crash_fields(ri, address, loaded, words, exception):
 
 
 def crash_name(crash):
-    """What a crash outcome is called: the stubbed name, else the map symbol, else the address."""
+    """What a crash outcome is called: the stubbed name, else the map symbol (null when the
+    address has several names), else the address."""
     return crash.get("stubbed_name") or crash.get("map_symbol") or crash.get("address_image")
 
 
