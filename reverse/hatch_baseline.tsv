@@ -12889,7 +12889,7 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Dra
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	loadPostProcess@W3DRopeDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp	Rva00115DA7::rva00115DA7	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp	W3DGadgetVerticalSliderDraw	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryLoadFontData.cpp	the	1
+present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp	the	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp	storeLightingOverbright	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
