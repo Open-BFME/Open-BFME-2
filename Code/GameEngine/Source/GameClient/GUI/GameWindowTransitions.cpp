@@ -298,28 +298,7 @@ public:
 	virtual void unk28();
 };
 
-class Display
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void unk30();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual int unk40();
-	virtual int unk44();
-};
+#include "../../../Include/GameClient/Display.h"
 
 extern GameWindowManager *TheWindowManager;
 
@@ -327,7 +306,6 @@ class GameWindowTransitionsHandler;
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-extern Display *TheDisplay;
 
 void __cdecl setFPMode();
 
@@ -601,7 +579,7 @@ void GameWindowTransitionsHandler::rva001DC07E()
 		TheWindowManager->unk28();
 		if (TheTransitionHandler->isFinished())
 			continue;
-		TheDisplay->unk30();
+		TheDisplay->vslot12();
 		setFPMode();
 		Sleep(m_64);
 	}
@@ -915,8 +893,8 @@ void GameWindowTransitionsHandler::setGroup(AsciiString groupName, Bool immidiat
 	BfmeTransitionsLock lock(&m_lock);
 	m_54 = 0;
 	m_58 = 0;
-	m_5C = TheDisplay->unk40();
-	m_60 = TheDisplay->unk44();
+	m_5C = TheDisplay->getWidth();
+	m_60 = TheDisplay->getHeight();
 	if(groupName.isEmpty() && immidiate)
 	{
 		if(m_currentGroup)
@@ -981,8 +959,8 @@ void GameWindowTransitionsHandler::reverse( AsciiString groupName )
 	BfmeTransitionsLock lock(&m_lock);
 	m_54 = 0;
 	m_58 = 0;
-	m_5C = TheDisplay->unk40();
-	m_60 = TheDisplay->unk44();
+	m_5C = TheDisplay->getWidth();
+	m_60 = TheDisplay->getHeight();
 	TransitionGroup *transitionGroup = findGroup(groupName);
 	if(!transitionGroup)
 		return;
