@@ -23,6 +23,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
+#include <stdlib.h>
 #include "unicode_string.h"
 #include "ascii_string.h"
 #define g_Rva00E02EEC (*(LANGameInfo * *)&TheGameInfo)
@@ -79,8 +80,6 @@ struct RGBColor;
 extern Mouse *TheMouse;
 
 void *bfmeGo925A(BfmeKeyLC *comboBox);
-
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 
 enum SlotState
 {
@@ -176,12 +175,6 @@ void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
 void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
 
 int Rva0043DDF8(int count);
-
-extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
-
-extern "C" int __cdecl strcmp(const char *left, const char *right);
-
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 class Image;
 
@@ -387,8 +380,6 @@ public:
 #include "../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
-
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
 // Rva00511730Save.cpp's text entry helper.
 void Rva00511730(int value);
