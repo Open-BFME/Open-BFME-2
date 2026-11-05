@@ -154,12 +154,7 @@ struct LocoStealthView
  
 }
 ;
-class TerrainLogic
-{
- public:PathfindLayerEnum getHighestLayerForDestination(const Coord3D*,bool);
- 
-}
-;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;
 class LocoTerrainView:public LocoSlots<6>
 {

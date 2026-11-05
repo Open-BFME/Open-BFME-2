@@ -93,13 +93,7 @@ public:
 
 class Object { public: int rva0028B511() const; char prefix00[8]; Matrix3D transform; };
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
-class TerrainLogic {
-public:
- virtual void v0() const; virtual void v1() const; virtual void v2() const;
- virtual void v3() const; virtual void v4() const; virtual void v5() const;
- virtual float getGroundHeight(float,float,Coord3D *normal=0) const;
- virtual float getLayerHeight(float,float,int,Coord3D *normal=0,unsigned char clip=true) const;
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class TerrainTracksRenderObjClassSystem {
 public: char prefix00[0x1C];int m_maxTankTrackEdges; void ReAcquireResources();
@@ -358,7 +352,7 @@ void Rva00084206Track::addCapEdgeToTrack(float x, float y)
 
 	if (owner && (objectLayer = owner->m_object->rva0028B511()) != 1)
 	{
-		eHeight = 0.25f + TheTerrainLogic->getLayerHeight(x, y, objectLayer, &vZTmp);
+		eHeight = 0.25f + TheTerrainLogic->getLayerHeight(x, y, (PathfindLayerEnum)objectLayer, &vZTmp);
 	}
 	else
 	{
@@ -473,7 +467,7 @@ void Rva00084206Track::addEdgeToTrack(float x, float y)
 	{
 		int objectLayer;
 		if (owner && (objectLayer = owner->m_object->rva0028B511()) != 1)
-			lastAnchor = Vector3(x, y, TheTerrainLogic->getLayerHeight(x, y, objectLayer) + 0.25f);
+			lastAnchor = Vector3(x, y, TheTerrainLogic->getLayerHeight(x, y, (PathfindLayerEnum)objectLayer) + 0.25f);
 		else
 			lastAnchor = Vector3(x, y, TheTerrainLogic->getGroundHeight(x, y));
 

@@ -36,7 +36,8 @@ class DrawableLocoInfo{public:virtual ~DrawableLocoInfo(){}DrawableLocoInfo();fl
 #include "../../Include/GameLogic/LocomotorTemplate.h"
 class Locomotor{public:void*vp;const LocomotorTemplate*data;float getAccelPitchLimit()const{return data->m_accelerationPitchLimit;}float getPitchStiffness()const{return data->m_pitchStiffness;}float getRollStiffness()const{return data->m_rollStiffness;}float getPitchDamping()const{return data->m_pitchDamping;}float getRollDamping()const{return data->m_rollDamping;}float getUniformAxialDamping()const{return data->m_uniformAxialDamping;}};
 class Object{public:char pad[0x25C];void*physics;Int rva0028B511()const;};
-class TerrainLogic{public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual float getLayerHeight(float,float,int,Coord3D*,bool);};extern TerrainLogic*TheTerrainLogic;
+#include "../../Include/GameLogic/TerrainLogic.h"
+extern TerrainLogic*TheTerrainLogic;
 class BfmeFootDraw{public:
 virtual void slot0();
 virtual void slot1();
@@ -203,7 +204,7 @@ points[2].z=pos->z;
 }
 Real*heights=&scratch.lo.x;
 
-for(Int i=0;i<4;++i){if(i==0||points[i].x!=points[i-1].x||points[i].y!=points[i-1].y)heights[i]=TheTerrainLogic->getLayerHeight(points[i].x,points[i].y,obj->rva0028B511(),0,true);
+for(Int i=0;i<4;++i){if(i==0||points[i].x!=points[i-1].x||points[i].y!=points[i-1].y)heights[i]=TheTerrainLogic->getLayerHeight(points[i].x,points[i].y,(PathfindLayerEnum)obj->rva0028B511(),0,true);
 else heights[i]=heights[i-1];
 }
 Real front=(heights[0]+heights[1])/2,back=(heights[2]+heights[3])/2;

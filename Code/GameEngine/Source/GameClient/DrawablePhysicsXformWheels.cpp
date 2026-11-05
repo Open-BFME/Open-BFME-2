@@ -120,12 +120,7 @@ private:
 	void *m_physics;			// +0x25C
 };
 
-class TerrainLogic
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6();
-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip);	// slot 7
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #include "../Common/Thing/thing.h"
@@ -166,7 +161,7 @@ void Drawable::calcPhysicsXformWheels(const Locomotor *locomotor, PhysicsXformIn
 	Real groundPitch = 0.0f;
 	Real groundRoll = 0.0f;
 	calcPitchRoll(obj, (void *)locomotor, (void *)pos, (void *)dir, (Int)&groundPitch, (Int)&groundRoll);
-	Real hheight = TheTerrainLogic->getLayerHeight(pos->x, pos->y, obj->rva0028B511(), 0, true);
+	Real hheight = TheTerrainLogic->getLayerHeight(pos->x, pos->y, (PathfindLayerEnum)obj->rva0028B511(), 0, true);
 
 	Bool airborne = obj->isSignificantlyAboveTerrain();
 

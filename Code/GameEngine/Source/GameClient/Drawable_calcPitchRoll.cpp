@@ -66,12 +66,7 @@ private:
 	Real m_boxMinorRadius;			// +0xD0
 };
 
-class TerrainLogic
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6();
-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip);	// slot 7
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #include "../../Include/GameClient/Drawable.h"
@@ -118,7 +113,7 @@ Bool Drawable::calcPitchRoll(void *objArg, void *locomotorArg, void *posArg, voi
 		Real heights[3];
 		for (Int i = 0; i < 3; ++i)
 		{
-			heights[i] = TheTerrainLogic->getLayerHeight(corners[i].x, corners[i].y, obj->rva0028B511(), 0, true);
+			heights[i] = TheTerrainLogic->getLayerHeight(corners[i].x, corners[i].y, (PathfindLayerEnum)obj->rva0028B511(), 0, true);
 			if (fabs(heights[i] - obj->getPosition()->z) > (length + width) * 0.5f)
 				tooSteep = true;
 		}
@@ -149,7 +144,7 @@ Bool Drawable::calcPitchRoll(void *objArg, void *locomotorArg, void *posArg, voi
 	normal.x = 0;
 	normal.y = 0;
 	normal.z = 1.0f;
-	TheTerrainLogic->getLayerHeight(pos->x, pos->y, obj->rva0028B511(), &normal, true);
+	TheTerrainLogic->getLayerHeight(pos->x, pos->y, (PathfindLayerEnum)obj->rva0028B511(), &normal, true);
 	Real s = normal.x * dir->x + normal.y * dir->y;
 	*pitch = ASin(s);
 	s = normal.x * perp.x + normal.y * perp.y;
