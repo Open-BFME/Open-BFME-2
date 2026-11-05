@@ -6,6 +6,8 @@ Remaining / next check: next automated real link must stop listing this unit; in
 Clearance: local object-reference repair only; full real-link confirmation pending.
 Census confirmation: not claimed; the 2026-11-05 05:17 preview already accepted the old spelling.
 
+2026-11-05: removed the duplicate getter class declaration introduced by overlapping repairs fb2936dc85/fd3cf1a982; compilation is restored, 31 function rows plus one data row verify and the preview remains LINKS; [regression repair evidence](../../reverse/attempt_support/animation-sound-duplicate-getter-20261105-codex3.md). Await automated real-link confirmation as above.
+
 2026-11-05: the same object-reference repair is locally verified for InGameUICreateMouseoverHint.cpp and InGameUIXfer.cpp (32 rows; both previews LINKS); [retail call evidence and verification](../../reverse/attempt_support/ingameui-getid-link-20261105-codex3.md). Await the next real link for these two units; other callers remain.
 
 2026-11-05: W3DTerrainVisualAddFactionBibDrawable.cpp and ModelConditionAudioLoopClientBehaviorUpdate.cpp now bind the same existing getter (9 rows exact; both previews LINKS); [retail calls and object-reference verification](../../reverse/attempt_support/bib-audioloop-getid-link-20261105-codex3.md). Await automated real-link confirmation for these two units; other callers remain.
