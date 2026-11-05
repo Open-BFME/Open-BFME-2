@@ -93,14 +93,14 @@ public:
 };
 
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *object);
-	LivingWorldBuilding *m_building;
-	LivingWorldBuilding *get() const { return m_building; }
-};
+#include "../../../../Include/Common/Rva00575674.h"
 #include "../../../../Include/Common/Rva000AD6F4.h"
+
+// Keep the typed holder access local to this consumer.
+static inline LivingWorldBuilding *GetBuildPlotBuilding(const Rva00575674 &holder)
+{
+	return (LivingWorldBuilding *)holder.m_ptr;
+}
 
 struct BuildPlotIconView
 {
@@ -129,7 +129,7 @@ public:
 	int m_buildFrames;
 	bool m_hidden;
 	int getRegionID() const { if (m_region) return ((BuildPlotRegionView *)m_region)->m_id; return -1; }
-	int getBuildingID() const { if (m_building.get()) return m_building.get()->m_id; return 0; }
+	int getBuildingID() const { if (m_building.m_ptr) return ((LivingWorldBuilding *)m_building.m_ptr)->m_id; return 0; }
 };
 
 void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
@@ -155,12 +155,12 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 				((Rva0059E647Factory *)TheLivingWorldBuildingTemplateStore)->Lookup((int *)&templateName);
 			if (buildingTemplate) {
 				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, buildingTemplate, buildingId));
-				(*xfer == *reinterpret_cast<Snapshot *>(m_building.get()));
+				(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
 			} else {
 				buildingTemplate = (const Rva003F1BD3TemplateView *)
 					((LivingWorldBuildingTemplateStore *)TheLivingWorldBuildingTemplateStore)->getEmergencyBackupTemplateForBadLoads();
 				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, buildingTemplate, buildingId));
-				(*xfer == *reinterpret_cast<Snapshot *>(m_building.get()));
+				(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
 				((Rva000AD6F4 *)&m_building)->clear();
 				m_buildFrames = 0;
 				m_hidden = false;
@@ -175,10 +175,10 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 		Rva003EFE82Get((Rva003EFE82Obj *)xfer, &regionId);
 		int buildingId = getBuildingID();
 		Rva004E075FGet((Rva004E075FObj *)xfer, (int)&buildingId);
-		if (m_building.m_building && buildingId != 0) {
-			AsciiString templateName(*m_building.m_building->m_template);
+		if (m_building.m_ptr && buildingId != 0) {
+			AsciiString templateName(*((LivingWorldBuilding *)m_building.m_ptr)->m_template);
 			(*xfer == templateName);
-			(*xfer == *reinterpret_cast<Snapshot *>(m_building.get()));
+			(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
 		}
 		if (!xfer->IsCRC()) {
 			AsciiString iconName(m_icon ? *m_icon->m_template : AsciiString::TheEmptyString);

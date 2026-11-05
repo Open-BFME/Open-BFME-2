@@ -10,7 +10,7 @@
 // A real local static generates retail guard, atexit cleanup and EH state; no
 // hand-coded guard global or callback pin is needed. All providers are owned.
 class Object { public: virtual void *destroy(int); virtual void slot04(); virtual void slot08(); };
-class Rva00575674 {public: void rva00575674(Object*); Object *ptr;};
+#include "../../../Include/Common/Rva00575674.h"
 #include "../../../Include/Common/Rva000AD6F4.h"
 class Rva00224CDC {public: Rva00224CDC(); char data[0x20];};
 class AptTooltipHolder {

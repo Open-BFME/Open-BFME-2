@@ -70,17 +70,7 @@ class Rva004E0B60;
 
 #include "../../../../Include/Common/Rva000AD6F4.h"
 
-class Rva00575674
-{
-public:
-    Rva00575674() : m_icon(0) {}
-    ~Rva00575674() { ((Rva000AD6F4 *)this)->clear(); }
-    void rva00575674(Object *object);
-    LivingWorldBuildPlotIcon *get() const { return m_icon; }
-    bool isBound() const { return m_icon != 0; }
-private:
-    LivingWorldBuildPlotIcon *m_icon;
-};
+#include "../../../../Include/Common/Rva00575674.h"
 
 class LivingWorldBuildPlot : public Snapshot, public Rva00330757Member,
                             public LivingWorldPhaseObserver
@@ -302,21 +292,21 @@ void LivingWorldBuildPlot::CreateIcon(const AsciiString &iconName)
     if (livingWorldBuildPlotIconTemplate)
     {
         m_icon.rva00575674((Object *)new LivingWorldBuildPlotIcon(livingWorldBuildPlotIconTemplate, this, m_position));
-        m_icon.get()->slot20(m_building.isBound(), true);
+        ((LivingWorldBuildPlotIcon *)m_icon.m_ptr)->slot20(m_building.m_ptr != 0, true);
     }
 }
 
 void Rva003F1C56Plot::rva004FC33E(const Rva003F1BD3TemplateView *templ)
 {
-    if (m_building.isBound())
+    if (m_building.m_ptr)
         return;
     m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position,
         templ, ((Rva002B315BBumpCounter *)TheLivingWorldLogic)->bump()));
-    bool pending = ((Rva004E0705 *)m_building.get())->rva004E0A58();
+    bool pending = ((Rva004E0705 *)m_building.m_ptr)->rva004E0A58();
     m_buildFrames = templ->m_buildFrames;
     m_hidden = true;
-    if (m_icon.get())
-        m_icon.get()->slot24(pending, true);
+    if (m_icon.m_ptr)
+        ((LivingWorldBuildPlotIcon *)m_icon.m_ptr)->slot24(pending, true);
     m_listeners.forEach((void (Rva004FC320Listener::*)(void *))
         (void (Rva001FF3A9::*)(const TreeHintRef00217D4C &))&Rva001FF3A9::rva001FF3A9, this);
 }
@@ -324,15 +314,15 @@ void Rva003F1C56Plot::rva004FC33E(const Rva003F1BD3TemplateView *templ)
 // WorldBuilder 0x01311A50; native 0x004FC3DC..0x004FC470 RET4.
 void LivingWorldBuildPlot::ConstructBuildingImmediately(const Rva003F1BD3TemplateView *templ)
 {
-    if (m_building.isBound())
+    if (m_building.m_ptr)
         return;
     m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position,
         templ, ((Rva002B315BBumpCounter *)TheLivingWorldLogic)->bump()));
-    ((Rva004E0B60 *)m_building.get())->rva004E0CB6();
+    ((Rva004E0B60 *)m_building.m_ptr)->rva004E0CB6();
     m_buildFrames = 0;
     m_hidden = false;
-    if (m_icon.get())
-        m_icon.get()->slot24(false, true);
+    if (m_icon.m_ptr)
+        ((LivingWorldBuildPlotIcon *)m_icon.m_ptr)->slot24(false, true);
     ((Rva004FC320List *)((char *)this + 8))->forEach(
         (void (Rva004FC320Listener::*)(void *))(void (Rva001FF3A9::*)(const TreeHintRef00217D4C &))&Rva001FF3A9::rva001FF3A9, this);
 }
