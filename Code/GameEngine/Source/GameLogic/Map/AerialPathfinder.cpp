@@ -22,12 +22,7 @@ struct Rva00375AF7Entry { PolygonTrigger *volatile shape; volatile float height;
 
 struct Rva00375AF7State { ICoord3D point; int padding; float height; float highest; };
 
-class TerrainLogic {
-public:
- virtual void slot0();virtual void slot1();virtual void slot2();
- virtual void slot3();virtual void slot4();virtual void slot5();
- virtual float heightAt(float x,float y,void *normal);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
@@ -84,7 +79,7 @@ float AerialPathfinder::getNoFlyZoneHeight(float x,volatile float y)
 
 float AerialPathfinder::rva00375B7A(float x,float y)
 {
- float height=TheTerrainLogic->heightAt(x,y,0);
+ float height=TheTerrainLogic->getGroundHeight(x,y,0);
  float local=getNoFlyZoneHeight(x,y);
  if(local>height) height=local;
  float limit=reinterpret_cast<Rva00375B7AAI *>(TheAI)->cap->height;
