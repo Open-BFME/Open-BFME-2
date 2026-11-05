@@ -2046,29 +2046,42 @@ def merge(tu, dry_run=False, log=print, claim=True):
         return report
     inputs = merge_plan_inputs(sk, don, mixed, refused)
 
-    def run():
-        plan = load_merge_plan(canonical, state, inputs)
-        if plan and plan.get("tu_file") == tu:
-            reused = reuse_merge_plan(tu, don, report, plan, dry_run)
-            if reused is not None:
-                return reused
-        result = _merge(tu, sk, don, report, dry_run)
-        saved = result.pop("_plan", None)
-        if dry_run and saved and not result.get("blocked"):
-            save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
-        return result
-
+    plan = load_merge_plan(canonical, state, inputs)
+    if plan and plan.get("tu_file") != tu:
+        plan = None
+    scope = don
+    if plan:
+        accepted = plan.get("accepted")
+        if (isinstance(accepted, list) and accepted
+                and all(isinstance(f, str) for f in accepted)
+                and len(accepted) == len(set(accepted)) and set(accepted) <= set(don)
+                and (tu not in don or tu in accepted)):
+            scope = {f: don[f] for f in accepted}
     if claim and not dry_run:
-        held = claim_scope(tu, don)
+        held = claim_scope(tu, scope)
         if held:
-            claims.release(claim_keys(tu, don))     # the part of the scope we did win goes back
+            claims.release(claim_keys(tu, scope))     # the part of the scope we did win goes back
             report["blocked"] = held_message(held)
             return report
-        report = run()
-        if "blocked" in report:   # nothing was written: give the scope back
+    if plan:
+        reused = reuse_merge_plan(tu, don, report, plan, dry_run)
+        if reused is not None:
+            return view_hint(reused, tu, don)
+    # A saved plan can fail its fresh byte, link or carry checks. Searching for
+    # another cohort may touch rejected donors, so claim them before widening.
+    if claim and not dry_run and scope != don:
+        held = claim_scope(tu, don)
+        if held:
             claims.release(claim_keys(tu, don))
-        return view_hint(report, tu, don)
-    return view_hint(run(), tu, don)
+            report["blocked"] = held_message(held)
+            return report
+    result = _merge(tu, sk, don, report, dry_run)
+    saved = result.pop("_plan", None)
+    if dry_run and saved and not result.get("blocked"):
+        save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
+    if claim and not dry_run and "blocked" in result:   # nothing was written
+        claims.release(claim_keys(tu, don))
+    return view_hint(result, tu, don)
 
 
 def view_hint(report, tu, don):

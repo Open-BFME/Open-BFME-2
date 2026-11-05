@@ -111,3 +111,8 @@ caller naming-and-ABI cohort; no FILE*, CRT-mode or macro substitution is valid.
 held fold addresses from rejected donors. Next: repair saved-plan claim scope
 with accepted-cohort and fallback-claim tests before retrying the normal merge.
 [Plan, refusal and verification](../../reverse/attempt_support/aipathfind-plan-claims-20261105/README.md).
+
+The saved-plan claim scope is repaired with accepted-cohort, contention and
+fallback coverage (342 tests pass, one existing open-escape fixture skipped).
+Next: regenerate a current-tree dry plan and retry the normal merge.
+[Tool repair and checks](../../reverse/attempt_support/aipathfind-plan-claims-20261105/repair.md).

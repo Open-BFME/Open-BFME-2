@@ -70,6 +70,86 @@ class SavedMergePlanTests(unittest.TestCase):
             self.assertIsNone(T.load_merge_plan("Code/T.cpp", "tree-b", "inputs-a"))
             self.assertIsNone(T.load_merge_plan("Code/T.cpp", "tree-a", "inputs-b"))
 
+    @contextlib.contextmanager
+    def saved_cohort(self):
+        donors = {"Code/T.cpp": [], "Code/A.cpp": [], "Code/Rejected.cpp": []}
+        plan = {"tu_file": "Code/T.cpp", "accepted": ["Code/T.cpp", "Code/A.cpp"]}
+        with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)), \
+                patch.object(T, "merge_plan_state", return_value="same-tree"), \
+                patch.object(T, "skeleton", return_value=[]), \
+                patch.object(T, "donors", return_value=(donors, {}, {})), \
+                patch.object(T, "header_queue_rows", return_value={}), \
+                patch.object(T, "load_merge_plan", return_value=plan), \
+                patch.object(T.claims, "release") as release, \
+                patch.object(T, "_merge") as search:
+            yield donors, plan, release, search
+
+    def test_saved_cohort_does_not_claim_rejected_donors(self):
+        with self.saved_cohort() as (donors, plan, release, search):
+            def claim(tu, scope):
+                return ["file:Code/Rejected.cpp"] if "Code/Rejected.cpp" in scope else []
+
+            def reuse(tu, scope, report, saved, dry_run):
+                self.assertEqual(claimed.call_count, 1)
+                self.assertEqual(scope, donors)  # link checks retain the full input closure
+                return dict(report, accepted=saved["accepted"], plan_reused=True)
+
+            with patch.object(T, "claim_scope", side_effect=claim) as claimed, \
+                    patch.object(T, "reuse_merge_plan", side_effect=reuse):
+                result = T.merge("Code/T.cpp")
+            self.assertTrue(result["plan_reused"])
+            self.assertEqual(set(claimed.call_args.args[1]), set(plan["accepted"]))
+            search.assert_not_called()
+            release.assert_not_called()
+
+    def test_held_accepted_donor_blocks_before_plan_checks(self):
+        with self.saved_cohort() as (donors, plan, release, search), \
+                patch.object(T, "claim_scope", return_value=["file:Code/A.cpp"]), \
+                patch.object(T, "reuse_merge_plan") as reuse:
+            result = T.merge("Code/T.cpp")
+            self.assertIn("Code/A.cpp", result["blocked"])
+            reuse.assert_not_called()
+            search.assert_not_called()
+            accepted = {f: donors[f] for f in plan["accepted"]}
+            release.assert_called_once_with(T.claim_keys("Code/T.cpp", accepted))
+
+    def test_failed_plan_cannot_search_until_full_scope_is_claimed(self):
+        for held in ([], ["file:Code/Rejected.cpp"]):
+            with self.subTest(held=held), self.saved_cohort() as (donors, plan, release, search), \
+                    patch.object(T, "claim_scope", side_effect=[[], held]) as claimed, \
+                    patch.object(T, "reuse_merge_plan", return_value=None):
+                def fallback(tu, sk, scope, report, dry_run):
+                    self.assertEqual(claimed.call_count, 2)
+                    self.assertEqual(claimed.call_args.args[1], donors)
+                    return dict(report, accepted=plan["accepted"])
+
+                search.side_effect = fallback
+                result = T.merge("Code/T.cpp")
+                self.assertEqual(set(claimed.call_args_list[0].args[1]), set(plan["accepted"]))
+                self.assertEqual(claimed.call_args_list[1].args[1], donors)
+                if held:
+                    self.assertIn("Code/Rejected.cpp", result["blocked"])
+                    search.assert_not_called()
+                    release.assert_called_once_with(T.claim_keys("Code/T.cpp", donors))
+                else:
+                    self.assertNotIn("blocked", result)
+                    search.assert_called_once()
+                    release.assert_not_called()
+
+    def test_malformed_saved_cohort_requires_full_claim_scope(self):
+        for accepted in ([], ["Code/T.cpp", "Code/Unknown.cpp"],
+                         ["Code/T.cpp", "Code/T.cpp"], ["Code/T.cpp", None], ["Code/A.cpp"]):
+            with self.subTest(accepted=accepted), self.saved_cohort() as (donors, plan, release, search), \
+                    patch.object(T, "claim_scope", return_value=["file:Code/Rejected.cpp"]) as claimed, \
+                    patch.object(T, "reuse_merge_plan") as reuse:
+                plan["accepted"] = accepted
+                result = T.merge("Code/T.cpp")
+                self.assertIn("blocked", result)
+                claimed.assert_called_once_with("Code/T.cpp", donors)
+                reuse.assert_not_called()
+                search.assert_not_called()
+                release.assert_called_once_with(T.claim_keys("Code/T.cpp", donors))
+
     def test_reused_plan_still_verifies_bytes_link_and_carry_before_apply(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)):
             source = Path(folder) / "Code/A.cpp"
