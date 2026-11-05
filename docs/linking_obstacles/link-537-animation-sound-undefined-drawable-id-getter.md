@@ -5,3 +5,5 @@ Completed: AnimationSoundClientBehavior.cpp calls the existing matched getter at
 Remaining / next check: next automated real link must stop listing this unit; independently claim other callers of the same missing name before repairing them. Provider identity recovery remains separate.
 Clearance: local object-reference repair only; full real-link confirmation pending.
 Census confirmation: not claimed; the 2026-11-05 05:17 preview already accepted the old spelling.
+
+2026-11-05: the same object-reference repair is locally verified for InGameUICreateMouseoverHint.cpp and InGameUIXfer.cpp (32 rows; both previews LINKS); [retail call evidence and verification](../../reverse/attempt_support/ingameui-getid-link-20261105-codex3.md). Await the next real link for these two units; other callers remain.
