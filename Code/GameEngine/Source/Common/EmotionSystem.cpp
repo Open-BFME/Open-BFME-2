@@ -23,14 +23,26 @@ class Rva004DC9EDEntry
 public:
 	~Rva004DC9EDEntry();
 };
+class BfmeEmotionName;
+class EmotionNugget;
+class ModuleData;
+class MultiplayerColorDefinition;
+enum ObjectID;
+
+// Nugget templates at +0x0C, +0x18 and the scary-object ids at +0x24
+// (RegisterScaryObject 0x004265D9 appends ObjectIDs there; clear calls the
+// ObjectID erase 0x00532803).
 class EmotionSystem : public SubsystemInterface
 {
 public:
 	EmotionSystem();
+	EmotionNugget *findNugget(const BfmeEmotionName &name);
+	void AddEmotionNuggetTemplate(MultiplayerColorDefinition *def);
+	void rva00426572();
 private:
-	_STL::vector<BfmeE16> m_vec0C;
+	_STL::vector<const ModuleData *> m_vec0C;
 	_STL::vector<BfmeE16> m_vec18;
-	_STL::vector<BfmeE16> m_vec24;
+	_STL::vector<ObjectID> m_vec24;
 };
 
 class Rva0042643D : public SubsystemInterface

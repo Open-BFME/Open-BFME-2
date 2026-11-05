@@ -19,22 +19,24 @@ class BfmeEmotionName;
 class EmotionNugget;
 class ModuleData;
 
-struct Rva005334A4Element;
-namespace _STL {
-template <> Rva005334A4Element *vector<Rva005334A4Element, allocator<Rva005334A4Element> >::erase(Rva005334A4Element *, Rva005334A4Element *);
-}
+enum ObjectID;
+#include "../../../Libraries/Include/Lib/BfmeE16.h"
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class EmotionSystem
+// The constructor's view (EmotionSystem.cpp): nugget templates at +0x0C,
+// +0x18 and the scary-object ids at +0x24 (RegisterScaryObject 0x004265D9
+// appends ObjectIDs there; clear calls the ObjectID erase 0x00532803).
+class EmotionSystem : public SubsystemInterface
 {
 public:
+	EmotionSystem();
 	EmotionNugget *findNugget(const BfmeEmotionName &name);
 	void AddEmotionNuggetTemplate(MultiplayerColorDefinition *def);
 	void rva00426572();
 private:
-	char m_pad[0xC];
 	_STL::vector<const ModuleData *> m_vec0C;
-	char m_pad18[0xC];
-	_STL::vector<Rva005334A4Element> m_vec24;
+	_STL::vector<BfmeE16> m_vec18;
+	_STL::vector<ObjectID> m_vec24;
 };
 
 // ?rva00426572@EmotionSystem@@QAEXXZ @0x00426572 (14B)
