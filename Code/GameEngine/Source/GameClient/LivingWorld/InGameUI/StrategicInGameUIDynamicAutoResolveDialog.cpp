@@ -261,35 +261,8 @@ public:
 	bool m_44; // +0x44
 };
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
 extern MessageStream *TheMessageStream;
 
 class Rva005EA33D
@@ -442,7 +415,7 @@ void StrategicInGameUI::DynamicAutoResolveDialog::Impl::MovieClip::OnSkipButtonC
 {
 	if (!m_impl->m_state->vslot7())
 		return;
-	GameMessage *msg = TheMessageStream->appendType(0x6BE);
+	GameMessage *msg = TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x6BE));
 	msg->appendIntegerArgument(m_impl->m_battle->m_id);
 	m_impl->rva005EA136();
 }

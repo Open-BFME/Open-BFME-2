@@ -37,35 +37,8 @@ public:
 	char m_pad00[0x18];
 	AsciiString m_label; // +0x18
 };
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
 extern MessageStream *TheMessageStream;
 
 struct Rva005E92B1Owner
@@ -104,7 +77,7 @@ private:
 
 void StrategicInGameUI::BuildBuildingButton::OnLeftClicked()
 {
-	GameMessage *msg = TheMessageStream->appendType(0x6AA);
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_LW_BUILD_BUILDING);
 	msg->appendIntegerArgument(m_region->m_owner->m_id);
 	msg->appendIntegerArgument(m_region->m_id);
 	msg->appendIntegerArgument(m_choice->m_id);

@@ -8,34 +8,7 @@
 extern InGameUI *TheInGameUI;
 #include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
-class GameMessage
-{
-public:
-	void appendBooleanArgument(bool v);
-};
-class MessageStream
-{
-public:
-	virtual void m00();
-	virtual void m01();
-	virtual void m02();
-	virtual void m03();
-	virtual void m04();
-	virtual void m05();
-	virtual void m06();
-	virtual void m07();
-	virtual void m08();
-	virtual void m09();
-	virtual void m10();
-	virtual void m11();
-	virtual void m12();
-	virtual void m13();
-	virtual void m14();
-	virtual void m15();
-	virtual void m16();
-	virtual void m17();
-	virtual GameMessage *m18(int v);
-};
+#include "../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
@@ -55,7 +28,7 @@ void Rva003BBAD3Set()
 {
 	TheInGameUI->setInputEnabled(false);
 	TheMouse->setVisibility(false);
-	GameMessage *gameMessage = TheMessageStream->m18(0x3ec);
+	GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_DESTROY_SELECTED_GROUP);
 	gameMessage->appendBooleanArgument(true);
 	TheInGameUI->deselectAllDrawables();
 	((char *)TheInGameUI)[0x8b0] = 0;
@@ -76,7 +49,7 @@ void Rva003BBAD3::rva003BBAD3()
 {
 	TheInGameUI->setInputEnabled(false);
 	TheMouse->setVisibility(false);
-	GameMessage *gameMessage = TheMessageStream->m18(0x3ec);
+	GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_DESTROY_SELECTED_GROUP);
 	gameMessage->appendBooleanArgument(true);
 	TheInGameUI->deselectAllDrawables();
 	((char *)TheInGameUI)[0x8b0] = 0;

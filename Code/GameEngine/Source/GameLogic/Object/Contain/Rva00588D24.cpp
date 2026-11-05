@@ -80,20 +80,7 @@ enum ObjectStatusTypes
 class Player;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class GameMessage
-{
-public:
-	void appendObjectIDArgument(ObjectID id);
-};
-class MessageStream
-{
-public:
-	SLOT08(v00,v01,v02,v03,v04,v05,v06,v07)
-	SLOT08(v08,v09,v10,v11,v12,v13,v14,v15)
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
+#include "../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -112,7 +99,7 @@ void Rva0047A040Base9E0::rva00588D99(Object *obj)
 		Player *local = ThePlayerList->m_local;
 		Player *ctrl = obj->getControllingPlayer();
 		if (ctrl == local) {
-			GameMessage *msg = TheMessageStream->appendType(0x3ED);
+			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_REMOVE_FROM_SELECTED_GROUP);
 			ObjectLayout *objectLayout = (ObjectLayout *)obj;
 			msg->appendObjectIDArgument(objectLayout->m_id);
 			TheInGameUI->deselectDrawable(drawable);

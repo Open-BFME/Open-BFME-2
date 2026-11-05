@@ -43,48 +43,8 @@ union GameMessageArgumentType
 
 class Drawable;
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		TYPE_40E = 0x40E,
-		TYPE_41A = 0x41A,
-		TYPE_41E = 0x41E,
-		TYPE_41F = 0x41F,
-		TYPE_455 = 0x455
-	};
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-	void appendIntegerArgument(int v);
-	void appendObjectIDArgument(ObjectID id);
-	void appendLocationArgument(const Coord3D &pos);
-	char m_pad[0x10];
-	int m_type;
-};
+#include "../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *createMessage(int type);
-};
 
 extern MessageStream *TheMessageStream;
 
@@ -338,7 +298,7 @@ static int doFireWeaponCommand(const CommandButton *command, ICoord2D *mouse)
 	{
 		Coord3D world;
 		((TacticalView *)TheTacticalView)->screenToTerrain(mouse, &world, false);
-		GameMessage *msg = TheMessageStream->createMessage(0x40E);
+		GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON_AT_LOCATION);
 		msg->appendIntegerArgument(command->m_weaponSlot);
 		msg->appendLocationArgument(world);
 		msg->appendIntegerArgument(command->m_maxShotsToFire);
@@ -356,7 +316,7 @@ static int doFireWeaponCommand(const CommandButton *command, ICoord2D *mouse)
 		Object *target = Rva00431012PickObject(mouse, (Rva0035AFE4 *)command, pickType);
 		if (target)
 		{
-			GameMessage *msg = TheMessageStream->createMessage(0x40F);
+			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON_AT_OBJECT);
 			msg->appendIntegerArgument(command->m_weaponSlot);
 			msg->appendObjectIDArgument(target->m_id);
 			msg->appendIntegerArgument(command->m_maxShotsToFire);
@@ -364,7 +324,7 @@ static int doFireWeaponCommand(const CommandButton *command, ICoord2D *mouse)
 	}
 	else
 	{
-		GameMessage *msg = TheMessageStream->createMessage(0x40D);
+		GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON);
 		msg->appendIntegerArgument(command->m_weaponSlot);
 		msg->appendIntegerArgument(command->m_maxShotsToFire);
 	}
@@ -485,7 +445,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 		PickAndPlayInfo info;
 		int slot = command->m_weaponSlot;
 		info.m_weaponSlot = &slot;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_40E, (PickAndPlayInfo *)&info);
+		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DO_WEAPON_AT_LOCATION, (PickAndPlayInfo *)&info);
 		break;
 	}
 	case 0x18:
@@ -497,11 +457,11 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 		{
 			Coord3D world;
 			((TacticalView *)TheTacticalView)->screenToTerrain(&mouse, &world, false);
-			GameMessage *gameMessage = TheMessageStream->createMessage(0x455);
+			GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_CREW_EVACUATE);
 			gameMessage->appendLocationArgument(world);
 			PickAndPlayInfo info;
 			info.m_14 = world;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_455, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_CREW_EVACUATE, (PickAndPlayInfo *)&info);
 			status = 1;
 		}
 		break;
@@ -510,11 +470,11 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 		{
 			Coord3D world;
 			((TacticalView *)TheTacticalView)->screenToTerrain(&mouse, &world, false);
-			GameMessage *gameMessage = TheMessageStream->createMessage(0x41E);
+			GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_EVACUATE);
 			gameMessage->appendLocationArgument(world);
 			PickAndPlayInfo info;
 			info.m_14 = world;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_41E, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_EVACUATE, (PickAndPlayInfo *)&info);
 			status = 1;
 		}
 		break;
@@ -523,11 +483,11 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 		{
 			Coord3D world;
 			((TacticalView *)TheTacticalView)->screenToTerrain(&mouse, &world, false);
-			GameMessage *gameMessage = TheMessageStream->createMessage(0x41F);
+			GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_EVACUATE_CONTESTERS);
 			gameMessage->appendLocationArgument(world);
 			PickAndPlayInfo info;
 			info.m_14 = world;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_41F, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_EVACUATE_CONTESTERS, (PickAndPlayInfo *)&info);
 			status = 1;
 		}
 		break;
@@ -552,7 +512,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	case 0x35:
 	{
 		PickAndPlayInfo info;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_41A, (PickAndPlayInfo *)&info);
+		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DOZER_CONSTRUCT, (PickAndPlayInfo *)&info);
 		break;
 	}
 	}

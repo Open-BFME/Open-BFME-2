@@ -246,36 +246,8 @@ void Drawable::rva002796B8()
 
 #include "../Common/Thing/thing.h"
 
-class GameMessage
-{
-public:
-	void appendBooleanArgument(bool arg);
-	void appendObjectIDArgument(ObjectID arg);
-};
+#include "../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
 
 class InGameUI167View
 {
@@ -367,7 +339,7 @@ bool Rva00498CB1Owner::invoke()
 	if (player && local && player == local)
 	{
 		((InGameUI167View *)TheInGameUI)->w68();
-		GameMessage *msg = TheMessageStream->appendType(0x3EA);
+		GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP_NO_SOUND);
 		msg->appendBooleanArgument(true);
 		msg->appendObjectIDArgument(m_objectID);
 		Drawable *draw = ((Thing *)obj)->getDrawable();

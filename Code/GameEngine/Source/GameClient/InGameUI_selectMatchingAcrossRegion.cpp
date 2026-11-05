@@ -170,17 +170,7 @@ extern View *TheTacticalView;
 #include "../../Include/GameClient/GameClientClass.h"
 #include "../../Include/GameClient/Drawable.h"
 extern GameClient *TheGameClient;
-class GameMessage { public:
- enum Type {CREATE_GROUP=0x3ea};
- void appendBooleanArgument(bool);
- void appendObjectIDArgument(ObjectID);
-};
-class MessageStream { public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17)
-#undef V
- virtual GameMessage *appendMessage(GameMessage::Type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
  const _STL::list<Drawable*> *selected=getAllSelectedDrawables();
@@ -233,7 +223,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
   setDisplayedMaxWarning(false);
  }
  if(newSelectionCount>0) {
-  GameMessage *teamMsg=TheMessageStream->appendMessage(GameMessage::CREATE_GROUP);
+  GameMessage *teamMsg=TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP_NO_SOUND);
   teamMsg->appendBooleanArgument(false);
   for(_STL::list<Drawable*>::const_iterator it=data.selected.begin();it!=data.selected.end();++it) {
    const Drawable *draw=*it;

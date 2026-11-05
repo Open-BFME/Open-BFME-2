@@ -35,28 +35,8 @@ public:
 };
 #define C2R(v) static_cast<C2&>(v)
 class PickAndPlayInfo {public:PickAndPlayInfo();bool air;void *target;void *weapon;int special;unsigned unknown10;Coord3D position;int unknown20;};
-class GameMessage {public:enum Type{MSG_FORMATION=0x464};void appendLocationArgument(const Coord3D &);void appendRealArgument(float);void appendIntegerArgument(int);void appendBooleanArgument(bool);};
+#include "../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *,GameMessage::Type,PickAndPlayInfo *);
-class MessageStream {public:
-virtual void slot0();
-virtual void slot1();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-virtual void slot7();
-virtual void slot8();
-virtual void slot9();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual GameMessage *createMessage(int);};
 extern MessageStream *TheMessageStream;
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
@@ -174,11 +154,11 @@ bool InGameUI::rva0029DB61() {
   bool armed=false;
   const CommandButton *button=TheInGameUI->getPending();
   if(button && button->command==10)armed=true;
-  GameMessage *msg=TheMessageStream->createMessage(0x464);
+  GameMessage *msg=TheMessageStream->appendMessage(GameMessage::MSG_DO_MOVETO_FORMATION);
   Coord3D p;p.x=position.x;p.y=position.y;p.z=position.z;
   msg->appendLocationArgument(p);msg->appendRealArgument(angle);msg->appendIntegerArgument(formation);msg->appendBooleanArgument(armed);
   PickAndPlayInfo info;info.position=position;
-  pickAndPlayUnitVoiceResponse(getAllSelectedDrawables(),GameMessage::MSG_FORMATION,&info);
+  pickAndPlayUnitVoiceResponse(getAllSelectedDrawables(),GameMessage::MSG_DO_MOVETO_FORMATION,&info);
   result=true;TheFormationAssistant->active=true;
  }
  resetPlacement(false);return result;

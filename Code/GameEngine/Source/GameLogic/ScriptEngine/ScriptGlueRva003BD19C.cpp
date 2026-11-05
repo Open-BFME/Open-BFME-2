@@ -27,36 +27,8 @@ extern PlayerList *ThePlayerList;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class GameMessage
-{
-public:
-	void appendBooleanArgument(bool arg);
-	void appendObjectIDArgument(ObjectID id);
-};
+#include "../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
 extern class MessageStream *TheMessageStream;
 
 #include "../../../Include/GameClient/InGameUI.h"
@@ -77,7 +49,7 @@ void ScriptActions::Rva003BD19CSet(void *p, Parameter *param)
 		if (pl != 0) {
 			if (pl == ThePlayerList->m_local) {
 				TheInGameUI->deselectAllDrawables();
-				GameMessage *msg = TheMessageStream->appendType(0x3E9);
+				GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP);
 				msg->appendBooleanArgument(true);
 				msg->appendObjectIDArgument(obj->m_id);
 				TheInGameUI->selectDrawable(obj->getDrawable());

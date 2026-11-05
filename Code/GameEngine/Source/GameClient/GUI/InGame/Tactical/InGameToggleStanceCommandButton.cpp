@@ -24,14 +24,7 @@ __declspec(noinline) static int StanceToButtonSlot(CommandButton *button,int sta
  for(int i=0;i<count;++i)if(button->getStance(i)==stance)return i;
  return -1;
 }
-class GameMessage {public:enum Type {STANCE_VOICE=0x7E3};void appendIntegerArgument(int);};
-class MessageStream {public:
- virtual void v0();virtual void v1();virtual void v2();virtual void v3();
- virtual void v4();virtual void v5();virtual void v6();virtual void v7();
- virtual void v8();virtual void v9();virtual void v10();virtual void v11();
- virtual void v12();virtual void v13();virtual void v14();virtual void v15();
- virtual void v16();virtual void v17();virtual GameMessage *createMessage(int);
-};
+#include "../../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 class DrawableList;
 class PickAndPlayInfo {public:PickAndPlayInfo();char pad[0x20];CommandButton *button;};
@@ -58,14 +51,14 @@ class Rva00525E55 {public:void SetStance(int);char pad[0xC];StanceOwnerView *own
 void Rva00525E55::SetStance(int stance) {
  reinterpret_cast<Rva0035B424 *>(button)->rva0035B424(StanceToButtonSlot(button,stance));
  GadgetButtonSetEnabledImage_Rva002C0433(window,button->rva0035B19E());
- GameMessage *message=TheMessageStream->createMessage(0x468);
+ GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_CHANGE_STANCE);
  message->appendIntegerArgument(stance);
  void *menu=owner->currentMenu();
  if(menu && reinterpret_cast<Rva0057C22FByteChaseField *>(menu)->get())reinterpret_cast<Rva005C39AA *>(menu)->rva005C39AA();
  const DrawableList *selected=reinterpret_cast<StanceUISelectionView *>(TheInGameUI)->selection();
  PickAndPlayInfo info;
  info.button=button;
- pickAndPlayUnitVoiceResponse(selected,GameMessage::STANCE_VOICE,&info);
+ pickAndPlayUnitVoiceResponse(selected,static_cast<GameMessage::Type>(0x7E3),&info);
 }
 
 // Native567B10..567B42 50B. WB1431290 and the established pin identify

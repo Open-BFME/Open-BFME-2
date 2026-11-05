@@ -83,24 +83,8 @@ union GameMessageArgumentType
 	IRegion2D pixelRegion;
 };
 
-class GameMessage
-{
-public:
-	enum Type { MSG_RVA469 = 0x469 };	// unnamed BFME 2 message, also posted by 0x002D2F32 and 0x002D37BD
-	const GameMessageArgumentType *getArgument( int argIndex ) const;
-	void appendIntegerArgument( int arg );
-};
+#include "../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-#define V(n) virtual void r##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17)
-#undef V
-	virtual GameMessage *appendMessage( GameMessage::Type type );	// slot 18
-};
 
 extern class MessageStream *TheMessageStream;
 
@@ -362,7 +346,7 @@ void InGameUI::setInputEnabled( bool enabled, bool *gate )
 		m_modes[9] = false;
 		m_modes[10] = false;
 
-		GameMessage *msg = TheMessageStream->appendMessage( GameMessage::MSG_RVA469 );
+		GameMessage *msg = TheMessageStream->appendMessage( GameMessage::MSG_CHANGE_ORDERMODE );
 		msg->appendIntegerArgument( 0 );
 		msg->appendIntegerArgument( 1 );
 	}

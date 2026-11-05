@@ -140,10 +140,8 @@ class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 void InitGameLogicRandom(unsigned);
-class GameMessage { public: void appendIntegerArgument(int); };
-class MessageStream { public:
-virtual void v00();virtual void v04();virtual void v08();virtual void v0C();virtual void v10();virtual void v14();virtual void v18();virtual void v1C();virtual void v20();virtual void v24();virtual void v28();virtual void v2C();virtual void v30();virtual void v34();virtual void v38();virtual void v3C();virtual void v40();virtual void v44();virtual GameMessage *append(int);
-}; extern MessageStream *TheMessageStream;
+#include "../../../Include/Common/MessageStream.h"
+extern MessageStream *TheMessageStream;
 class Rva0049CB86LeaField { public:void *get()const; };
 struct RvaPair001D9F62; namespace _STL { template<class T> class allocator; template<class T, class A> class vector; }
 // 0x001D96EC is rowed as AudioEventInfo::getSoundsVector.
@@ -170,7 +168,7 @@ void Rva0021237E::rva0021246D(Rva0021246DInput *input)
  ((AsciiString*)((char*)TheWritableGlobalData+0xAC0))->format(&map);
  if(!TheGameInfo || !((Rva00210C66CmpBoolField*)TheGameLogic)->get())
   { if((*(GameInfo **)&TheSkirmishGameInfo)) InitGameLogicRandom(timeGetTime()); else InitGameLogicRandom(0); }
- GameMessage *message=TheMessageStream->append(30);
+ GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_NEW_GAME);
  TheGameLogic->rva0023CD9E(true,1,false);
  TheGameLogic->rva0023CD9E(false,1,false);
  ((Rva0023DC8E*)TheGameLogic)->rva0023DC8E(*(const AsciiString*)((Rva0049CB86LeaField*)input)->get());

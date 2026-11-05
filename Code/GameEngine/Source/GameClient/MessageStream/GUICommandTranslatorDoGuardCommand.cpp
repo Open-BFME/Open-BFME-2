@@ -18,42 +18,8 @@ enum ObjectID
 	OBJECTID_NONE = 0
 };
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		TYPE_433 = 0x433,
-		TYPE_434 = 0x434
-	};
-	void appendIntegerArgument(int v);
-	void appendObjectIDArgument(ObjectID id);
-	void appendLocationArgument(const Coord3D &pos);
-};
+#include "../../../Include/Common/MessageStream.h"
 
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *createMessage(int type);
-};
 
 extern MessageStream *TheMessageStream;
 
@@ -301,12 +267,12 @@ int __cdecl doGuardCommand(void *command, int guardMode, ICoord2D *mouse)
 		Object *target = Rva00431012PickObject(mouse, (Rva0035AFE4 *)cmd, 4);
 		if (target)
 		{
-			msg = TheMessageStream->createMessage(0x434);
+			msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_GUARD_OBJECT);
 			msg->appendObjectIDArgument(target->m_id);
 			msg->appendIntegerArgument(guardMode);
 			PickAndPlayInfo info;
 			info.m_drawTarget = target->getDrawable();
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_434, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DO_GUARD_OBJECT, (PickAndPlayInfo *)&info);
 		}
 	}
 
@@ -324,12 +290,12 @@ int __cdecl doGuardCommand(void *command, int guardMode, ICoord2D *mouse)
 				return 1;
 			world = draw->m_object->m_position;
 		}
-		msg = TheMessageStream->createMessage(0x433);
+		msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_GUARD_POSITION);
 		msg->appendLocationArgument(world);
 		msg->appendIntegerArgument(guardMode);
 		PickAndPlayInfo info;
 		info.m_14 = world;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::TYPE_433, (PickAndPlayInfo *)&info);
+		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DO_GUARD_POSITION, (PickAndPlayInfo *)&info);
 	}
 	return 1;
 }
