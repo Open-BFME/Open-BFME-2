@@ -656,7 +656,10 @@ template Rva00215FEFElement * _STL::__copy<Rva00215FEFElement *, Rva00215FEFElem
 
 // 0x002161A5 forwards (first, last, result) here with a random_access_iterator_tag and a
 // null distance pointer: the __false_type __copy_ptrs dispatcher over this 28-byte element.
-template Rva00215FEFElement * _STL::__copy_ptrs<Rva00215FEFElement *, Rva00215FEFElement *>(Rva00215FEFElement *, Rva00215FEFElement *, Rva00215FEFElement *, _STL::__false_type const &);
+template <> inline __declspec(noinline) Rva00215FEFElement *_STL::__copy_ptrs<Rva00215FEFElement *, Rva00215FEFElement *>(Rva00215FEFElement *first, Rva00215FEFElement *last, Rva00215FEFElement *result, const _STL::__false_type &tag)
+{
+	return _STL::__copy(first, last, result, _STL::random_access_iterator_tag(), (int *)0);
+}
 
 class Rva00216094Base
 {
@@ -676,12 +679,20 @@ namespace _STL {
 template<class It,class T> It __find(It first,It last,T val,const random_access_iterator_tag &);
 }
 
-// Retail reaches the 29-byte forwarder 0x002161A5, whose tag travels by const reference.
-namespace _STL {
-template <> BfmePod28 *__copy_ptrs<BfmePod28 *, BfmePod28 *>(BfmePod28 *first, BfmePod28 *last, BfmePod28 *result, const __false_type &tag);
+// Retail reaches the rowed 29-byte dispatcher at 0x002161A5.
+template <> inline __declspec(noinline)
+_STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::iterator _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::erase(iterator position)
+{
+	if (position + 1 != end())
+	{
+		typedef Rva00215FEFElement *(*CopyFunction)(Rva00215FEFElement *, Rva00215FEFElement *, Rva00215FEFElement *, const _STL::__false_type &);
+		static_cast<CopyFunction>(&_STL::__copy_ptrs<Rva00215FEFElement *, Rva00215FEFElement *>)(
+			(Rva00215FEFElement *)(position + 1), (Rva00215FEFElement *)_M_finish, (Rva00215FEFElement *)position, _STL::__false_type());
+	}
+	--_M_finish;
+	_STL::_Destroy(_M_finish);
+	return position;
 }
-
-template BfmePod28 *_STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::erase(BfmePod28 *pos);
 
 class Rva00215EA4BannerState { public: static const char *GetStateString(int state); };
 

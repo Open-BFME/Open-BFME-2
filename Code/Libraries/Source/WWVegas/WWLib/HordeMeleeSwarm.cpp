@@ -664,18 +664,19 @@ Bool HordeMeleeSwarm::findMeleeAttackPosition(Object *obj, Coord3D *result, Obje
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005842F7Finish.cpp
 
-// ??$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z present-unmatched
-template <> __declspec(noinline) BfmePod28 *_STL::__copy_ptrs<BfmePod28 *, BfmePod28 *>(BfmePod28 *first, BfmePod28 *last, BfmePod28 *result, const _STL::__false_type &tag)
+template <> inline __declspec(noinline) Rva00215FEFElement *_STL::__copy_ptrs<Rva00215FEFElement *, Rva00215FEFElement *>(Rva00215FEFElement *first, Rva00215FEFElement *last, Rva00215FEFElement *result, const _STL::__false_type &tag)
 {
-	return (BfmePod28 *)_STL::__copy((Rva00215FEFElement *)first, (Rva00215FEFElement *)last, (Rva00215FEFElement *)result, _STL::random_access_iterator_tag(), (int *)0);
+	return _STL::__copy(first, last, result, _STL::random_access_iterator_tag(), (int *)0);
 }
 
 template <> __declspec(noinline)
 _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::iterator _STL::vector<BfmePod28, _STL::allocator<BfmePod28> >::erase(iterator first, iterator last)
 {
-	typedef iterator (*CopyFunction)(iterator, iterator, iterator, const _STL::__false_type &);
-	iterator result = static_cast<CopyFunction>(&_STL::__copy_ptrs<iterator, iterator>)(
-		last, _M_finish, first, _STL::__false_type());
+	// The 29-byte dispatcher at 0x002161A5 already has a verified owner in
+	// BannerUI.cpp. Use its element view instead of a second helper identity.
+	typedef Rva00215FEFElement *(*CopyFunction)(Rva00215FEFElement *, Rva00215FEFElement *, Rva00215FEFElement *, const _STL::__false_type &);
+	iterator result = (iterator)static_cast<CopyFunction>(&_STL::__copy_ptrs<Rva00215FEFElement *, Rva00215FEFElement *>)(
+		(Rva00215FEFElement *)last, (Rva00215FEFElement *)_M_finish, (Rva00215FEFElement *)first, _STL::__false_type());
 	_M_finish = result;
 	return first;
 }

@@ -5771,7 +5771,6 @@ pin	reverse/symbols.csv	0x00215949	1
 pin	reverse/symbols.csv	0x00215EA4	1
 pin	reverse/symbols.csv	0x00215F38	1
 pin	reverse/symbols.csv	0x00216094	2
-pin	reverse/symbols.csv	0x002161A5	1
 pin	reverse/symbols.csv	0x00216787	1
 pin	reverse/symbols.csv	0x00217031	1
 pin	reverse/symbols.csv	0x002171F2	1
@@ -13663,7 +13662,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	GetSymbo
 present_unmatched	Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP	Rva00885980Class::d_00885980	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp	bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp	bfmeEmitBadAllocDestructor@@YAXPAVbad_alloc@std@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp	$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/INIClassShutdown.cpp	verbatim	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp	anchorDeleteLightPoint@@YAXPAVLightPoint@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Locale_extract_collate_name	1
