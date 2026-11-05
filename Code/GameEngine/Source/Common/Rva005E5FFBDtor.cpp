@@ -16,8 +16,9 @@ public:
 	~Rva005F23B2();
 	char storage[24]; // +0x00
 };
-class Rva000AD6F4 {public:void clear();char storage[8];};
-struct Rva005E5FOwnedSlot {Rva000AD6F4 holder;~Rva005E5FOwnedSlot(){holder.clear();}};
+#include "../../Include/Common/Rva000AD6F4.h"
+// The holder owns four bytes; the enclosing slots are eight bytes apart.
+struct Rva005E5FOwnedSlot {Rva000AD6F4 holder;char padding[4];~Rva005E5FOwnedSlot(){}};
 class Rva005E5FFB :public Rva005E5FObserver {public:
  ~Rva005E5FFB();
  char prefix4[12];void *owner10;int word14;Rva005E5FObserverOwner *owner18;
