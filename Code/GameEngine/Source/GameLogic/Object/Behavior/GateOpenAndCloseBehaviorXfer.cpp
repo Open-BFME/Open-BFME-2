@@ -76,7 +76,7 @@ class UpdateModuleInterface { public: virtual void updateSlot(); };
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 public:
-	void xfer(Xfer *xfer);
+	protected: virtual void xfer(Xfer *xfer);
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface

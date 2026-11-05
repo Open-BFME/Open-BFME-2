@@ -2736,7 +2736,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	?resize@KeyToBuc
 alternatename	Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp	?TheDefaultArmorTemplateName@@3VAsciiString@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorModuleDataCtor.cpp	??0AutoAbilityQueryEntry@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleXfer.cpp	?xfer@BehaviorModule@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp	?push_back@BridgeBehaviorObjectIDList@@QAEXABW4ObjectID@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp	?slot@BB_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp	?slot@BB_Iface2@@UAEXXZ	1

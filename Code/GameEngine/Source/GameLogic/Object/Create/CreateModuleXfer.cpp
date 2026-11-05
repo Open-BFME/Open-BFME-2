@@ -36,7 +36,7 @@ class BehaviorModule
 {
 public:
 	virtual void behaviorModuleAnchor();
-	void xfer(Xfer *xfer);
+	protected: virtual void xfer(Xfer *xfer);
 
 private:
 	unsigned char m_data[8];

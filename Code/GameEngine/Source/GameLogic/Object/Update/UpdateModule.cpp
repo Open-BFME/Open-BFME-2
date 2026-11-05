@@ -51,7 +51,7 @@ class BehaviorModule
 {
 public:
 	virtual ~BehaviorModule();
-	void xfer(Xfer *xfer);
+	protected: virtual void xfer(Xfer *xfer);
 };
 
 class UpdateModule : public BehaviorModule

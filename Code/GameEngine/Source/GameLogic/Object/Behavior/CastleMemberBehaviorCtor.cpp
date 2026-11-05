@@ -31,7 +31,7 @@ class BehaviorModule
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~BehaviorModule();
-	void xfer(Xfer*);
+	protected: virtual void xfer(Xfer*);
 
 protected:
 	Thing *m_owner;

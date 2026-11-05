@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD /GX
 // stlport
 //
-// ?xfer@BehaviorModule@@QAEXPAVXfer@@@Z retail 0x004C9C7D
+// ?xfer@BehaviorModule@@MAEXPAVXfer@@@Z retail 0x004C9C7D
 // 24 bytes. BehaviorModule base xfer used by the UpdateModule xfer chain
 // (UpdateModule::xfer rowed over its pin; row supersedes that pin here).
 //
@@ -11,10 +11,10 @@
 // Version1 on the stream, then the ObjectModule base xfer (pinned).
 // Version1 resolves via its row.
 
-// The shared headers declare these members with the access/virtual spelling
-// retail's vftables reference; the ledger row keeps the spelling this TU
-// compiled to. Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:?xfer@BehaviorModule@@MAEXPAVXfer@@@Z=?xfer@BehaviorModule@@QAEXPAVXfer@@@Z")
+// Retail table 0x00BEEA7C (BehaviorModule's) holds this body at slot 3: a
+// protected virtual, as the module headers declare it. ObjectModule's view
+// carries the Snapshot vptr at +0 (virtual destructor), so the base call
+// keeps `this`.
 class Snapshot;
 class AsciiString;
 class UnicodeString;
@@ -37,16 +37,17 @@ struct XferUnknown11;
 class ObjectModule
 {
 public:
+	virtual ~ObjectModule();
 	void xfer(Xfer *xfer);
 };
 
 class BehaviorModule : public ObjectModule
 {
-public:
-	void xfer(Xfer *xfer);
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
-// ?xfer@BehaviorModule@@QAEXPAVXfer@@@Z @0x004C9C7D
+// ?xfer@BehaviorModule@@MAEXPAVXfer@@@Z @0x004C9C7D
 void BehaviorModule::xfer(Xfer *xfer)
 {
 	xfer->Version1();

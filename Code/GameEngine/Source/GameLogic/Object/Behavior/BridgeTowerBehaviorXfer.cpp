@@ -61,7 +61,7 @@ class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	void xfer(Xfer *xfer);
+	protected: virtual void xfer(Xfer *xfer);
 };
 
 class BridgeTowerBehavior : public BehaviorModule

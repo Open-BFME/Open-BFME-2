@@ -42,7 +42,7 @@ class BehaviorModule : public ObjectModule, public BehaviorIface
 {
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	void xfer(Xfer *xfer);
+	protected: virtual void xfer(Xfer *xfer);
 };
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"

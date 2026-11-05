@@ -223,7 +223,7 @@ void FireWeaponWhenDeadBehavior::loadPostProcess()
 	((StringBase<unsigned short>*)((char*)this + 0x20))->validate();
 }
 
-extern "C" void __identifier("?xfer@BehaviorModule@@QAEXPAVXfer@@@Z")();
+extern "C" void __identifier("?xfer@BehaviorModule@@MAEXPAVXfer@@@Z")();
 
 void FireWeaponWhenDeadBehavior::xfer(Xfer *xfer)
 {
@@ -239,7 +239,7 @@ void FireWeaponWhenDeadBehavior::xfer(Xfer *xfer)
             void (ObjectModule::*method)(Xfer *);
         } transfer;
         typedef char SameMemberWidth[sizeof(transfer.address) == sizeof(transfer.method) ? 1 : -1];
-        transfer.address = &__identifier("?xfer@BehaviorModule@@QAEXPAVXfer@@@Z");
+        transfer.address = &__identifier("?xfer@BehaviorModule@@MAEXPAVXfer@@@Z");
         (static_cast<ObjectModule *>(this)->*transfer.method)(xfer);
     }
 	((UpgradeMux *)((char *)this + 0x20))->UpgradeMux::upgradeMuxXfer(xfer);

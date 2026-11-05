@@ -32,8 +32,8 @@ class Object;
 
 class BehaviorModule
 {
-public:
-	void xfer(Xfer *xfer);
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 enum ObjectID
@@ -43,7 +43,7 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-class Rva00493009
+class Rva00493009 : public BehaviorModule
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -71,7 +71,7 @@ void Rva00493009::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 3);
 	*xfer == version;
-	((BehaviorModule *)this)->xfer(xfer);
+	BehaviorModule::xfer(xfer);
 	if (version.m_minimum >= 2) {
 		*xfer == m_14;
 	}

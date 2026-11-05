@@ -21,9 +21,15 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 
+// The placeholder stands for a fold of several modules' xfer overrides (no
+// one class), so it is no BehaviorModule here: it is the base's friend and
+// calls the protected virtual base xfer qualified (direct call, same this).
+class Rva004CE56D;
+
 class BehaviorModule {
-public:
-	void xfer(Xfer *xfer);
+	friend class Rva004CE56D;
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 class Rva004CE56D {
@@ -34,5 +40,5 @@ public:
 void Rva004CE56D::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	((BehaviorModule *)this)->xfer(xfer);
+	((BehaviorModule *)this)->BehaviorModule::xfer(xfer);
 }
