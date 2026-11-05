@@ -280,38 +280,14 @@ public:
 	__declspec(noinline) inline _STL::vector<ScienceType> rva0029FCB4();
 };
 
-class CommandButton
-{
-public:
-	const ThingTemplate *rva0035B570() const;
-	const AsciiString &rva0035B26F() const;
-	const AsciiString &rva0035B1E9() const;
+#include "../../../../Include/GameClient/CommandButton.h"
 
-	char m_pad00[0x14];
-	int m_commandType;              // +0x14
-	char m_pad18[4];
-	unsigned int m_options;         // +0x1C
-	char m_pad20[4];
-	const UpgradeTemplate *m_upgrade; // +0x24
-	UpgradeRange m_requiredUpgrades;  // +0x28
-	char m_pad30[4];
-	bool m_requireAll;              // +0x34
-	char m_pad35[0x44 - 0x35];
-	Rva0029FCB4 *m_createAHero;     // +0x44
-	char m_pad48[0x70 - 0x48];
-	AsciiString m_alreadyUpgradedLabel;   // +0x70
-	AsciiString m_conflictingLabel;       // +0x74
-	AsciiString m_lacksPrereqLabel;       // +0x78
-	char m_pad7C[0xA4 - 0x7C];
-	_STL::vector<ScienceType> m_sciences; // +0xA4
-	char m_padB0[0xC0 - 0xB0];
-	int m_revivalIndex;             // +0xC0
-	const _STL::vector<ScienceType> &getScienceVec() const { return m_sciences; }
-	int getCommandType() const { return m_commandType; }
-	bool getRequireAll() const { return m_requireAll; }
-	unsigned int getOptions() const { return m_options; }
-	const UpgradeTemplate *getUpgradeTemplate() const { return m_upgrade; }
-};
+// The needed-upgrade mode flag (+0x34) for the +0x28 list; retail reads it
+// through an inline accessor, spilling the bool before the call.
+static inline bool getNeededUpgradeAny(const CommandButton *button)
+{
+	return button->m_neededUpgradeAny;
+}
 
 class Rva0056D3FD
 {
@@ -369,11 +345,11 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 		const UpgradeTemplate *upgrade = m_commandButton->getUpgradeTemplate();
 		ScienceType science = SCIENCE_INVALID;
 
-		if (m_commandButton->m_sciences.size() > 1)
+		if (m_commandButton->getScienceVec().size() > 1)
 		{
-			for (int i = 0; i < m_commandButton->m_sciences.size(); ++i)
+			for (int i = 0; i < m_commandButton->getScienceVec().size(); ++i)
 			{
-				science = m_commandButton->m_sciences[i];
+				science = m_commandButton->getScienceVec()[i];
 
 				if (m_commandButton->getCommandType() != 0x19)
 				{
@@ -383,7 +359,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 						//it means we are looking at a command button that can USE the science. This
 						//means we want to get the description for the previous science -- the one
 						//we can use, not purchase!
-						science = m_commandButton->m_sciences[i - 1];
+						science = m_commandButton->getScienceVec()[i - 1];
 					}
 
 					//Now that we got the science for the button that executes the science, we need
@@ -400,11 +376,11 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 				}
 			}
 		}
-		else if (m_commandButton->m_sciences.size() == 1)
+		else if (m_commandButton->getScienceVec().size() == 1)
 		{
-			science = m_commandButton->m_sciences[0];
+			science = m_commandButton->getScienceVec()[0];
 		}
-		int type = m_commandButton->m_commandType;
+		int type = m_commandButton->m_command;
 		bool isUnitBuild = type == 6 || type == 7 || type == 8;
 
 		if ((type == 0x33 || type == 0x3B) && obj)
@@ -434,7 +410,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 		description.clear();
 
 		Rva0029FCB4 *hero;
-		if (localPlayer && m_commandButton->getCommandType() == 0x26 && (hero = m_commandButton->m_createAHero))
+		if (localPlayer && m_commandButton->getCommandType() == 0x26 && (hero = (Rva0029FCB4 *)m_commandButton->getSpecialPowerTemplate()))
 		{
 			const _STL::vector<ScienceType> &sciences = hero->rva0029FCB4();
 			if (!sciences.empty())
@@ -536,7 +512,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 			if (!hasUpgrade && obj)
 			{
 				if ((m_commandButton->getOptions() & 0x40) && !obj->hasUpgrade(upgrade)
-					&& !allRequiredUpgradesComplete(obj, &m_commandButton->m_requiredUpgrades, m_commandButton->getRequireAll()))
+					&& !allRequiredUpgradesComplete(obj, (UpgradeRange *)&m_commandButton->m_neededBegin, getNeededUpgradeAny(m_commandButton)))
 				{
 					lacksPrereq = true;
 				}
@@ -571,22 +547,22 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 
 			if (lacksPrereq)
 			{
-				if (!m_commandButton->m_lacksPrereqLabel.isEmpty())
-					description = TheGameText->fetch(m_commandButton->m_lacksPrereqLabel, 0);
+				if (!m_commandButton->m_lacksPrerequisiteLabel.isEmpty())
+					description = TheGameText->fetch(m_commandButton->m_lacksPrerequisiteLabel, 0);
 				else
 					description = TheGameText->fetch("TOOLTIP:LacksPrerequisiteUpgradeDefault", 0);
 			}
 			else if (canUpgrade && !hasUpgrade)
 			{
-				if (!m_commandButton->m_conflictingLabel.isEmpty())
-					description = TheGameText->fetch(m_commandButton->m_conflictingLabel, 0);
+				if (!m_commandButton->getConflictingLabel().isEmpty())
+					description = TheGameText->fetch(m_commandButton->getConflictingLabel(), 0);
 				else
 					description = TheGameText->fetch("TOOLTIP:HasConflictingUpgradeDefault", 0);
 			}
 			else if (hasUpgrade && (isType6 || isType7 || isType8))
 			{
-				if (!m_commandButton->m_alreadyUpgradedLabel.isEmpty())
-					description = TheGameText->fetch(m_commandButton->m_alreadyUpgradedLabel, 0);
+				if (!m_commandButton->getPurchasedLabel().isEmpty())
+					description = TheGameText->fetch(m_commandButton->getPurchasedLabel(), 0);
 				else
 					description = TheGameText->fetch("TOOLTIP:AlreadyUpgradedDefault", 0);
 			}
@@ -604,7 +580,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 		}
 		else if (m_commandButton->getCommandType() == 0x2E)
 		{
-			int index = m_commandButton->m_revivalIndex;
+			int index = m_commandButton->fieldC0;
 			Rva0037E421 *revival = (Rva0037E421 *)((char *)player + 0x738);
 			UnitRevivalEntry *entry = (UnitRevivalEntry *)revival->rva0037E421(index);
 			const ThingTemplate *revivalThing = entry ? (const ThingTemplate *)entry->getThingTemplate() : 0;
