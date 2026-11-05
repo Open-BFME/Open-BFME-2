@@ -15,3 +15,8 @@ unproved. Full outgoing consumer selection is not inferred from this preview;
 carry this provider and affected consumers into the next scheduled census.
 Census, real-link and runtime clearance: not claimed.
 [Exact object and owning-acceptance evidence](../../reverse/attempt_support/lighting-shared-headers-20261105/readme.md).
+
+Outgoing audit at2f27fc9c7d after rebase onto742bc117a2f returns2 INCONCLUSIVE:
+older index and missing current0CreateAHeroManager21FE49.cpp consumer receipt.
+The two owning header acceptances remain scoped results; complete current
+consumer selection is still unverified and carried to the next census.

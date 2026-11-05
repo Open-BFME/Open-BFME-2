@@ -50,3 +50,16 @@ separate work. Full current consumer selection is not proved by this scope;
 carry the source and affected consumers into the next scheduled census.
 
 Lighting family: t=12 model=gpt-6 lane=R budget=30m.
+
+## Outgoing consumer audit
+
+Rebase onto742bc117a2f84b694a3b8da4b15d3ce038e63503 succeeds. Neither the
+owned source, either frozen shared header, nor AGENTS.md changes upstream.
+Preparation pins the committed reference; check_csv passes at99474 rows and
+the range header-dependency check returns0. No source path moves occurred.
+
+At code tip2f27fc9c7dec38218e1a116c4e10b232fbbff995 the outgoing audit
+returns2 INCONCLUSIVE: indexc95fcfcfcd predates the base and affected consumer
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. This is not a
+clean global selection verdict. Carry the lighting source and all affected
+consumers into the next scheduled census. No maintainer-only runner is started.
