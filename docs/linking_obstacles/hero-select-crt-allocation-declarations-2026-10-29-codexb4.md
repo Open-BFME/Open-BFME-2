@@ -22,3 +22,6 @@ receipt. Carry that consumer and this provider into the next scheduled census;
 the clean ordinary preview and unchanged object facts establish only the
 scoped result above. Rebased verification again passes all 31 rows and LINKS
 4,872 -> 4,872 bytes.
+
+
+2026-11-05 follow-up: The token-identical outer InGameHeroSelectInterface view cannot be adopted alone in three further units. The header also supplies the nested Impl already defined by those units. All trials were restored. [Native trial and prerequisite](../../reverse/attempt_support/header-composition-prerequisites-up-to-hundred-each-20261105-1425.md).
