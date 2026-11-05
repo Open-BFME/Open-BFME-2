@@ -3,7 +3,13 @@
 
 #include <string.h>
 
-extern "C" void *realloc(void *, unsigned);
+// Retail calls the game realloc wrapper at RVA 0x0003E4B0 directly.
+// Use the CRT declaration without importing MSVCR71's realloc instead.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdlib.h>
+#pragma pop_macro("_CRTIMP")
 
 class DebugIOInterface
 {
