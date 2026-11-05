@@ -1960,7 +1960,6 @@ enum PlayerType
 	PLAYER_COMPUTER
 };
 
-class ParticleSystem { public: Bool isSaveable() const; };
 class Player
 {
 public:
@@ -1971,7 +1970,7 @@ public:
 	Bool isLocalPlayer() const;
 	// The flag after ZH's m_canBuildUnits/m_canBuildBase (+0x338/+0x339),
 	// where ZH keeps m_observer.
-	/* the rowed ParticleSystem::isSaveable */ __declspec(dllimport) __forceinline Bool rva002AA223() const { return ((const ParticleSystem *)this)->isSaveable(); }
+	Bool isPlayerObserver() const;	// 0x002AA223
 	void onStructureCreated(Object *builder, Object *structure);
 	void onStructureConstructionComplete(Object *builder, Object *structure, Bool isRebuild);
 private:
@@ -2040,7 +2039,7 @@ void DozerAIUpdate::createPhantomStructure(const ThingTemplate *what, Player *ow
 	// only the builder's own side (or, where ZH keeps it, an observer) sees
 	// the phantom; everyone else gets it hidden
 	Object *me = getObject();
-	if (!me->getControllingPlayer()->isLocalPlayer() && !me->getControllingPlayer()->rva002AA223())
+	if (!me->getControllingPlayer()->isLocalPlayer() && !me->getControllingPlayer()->isPlayerObserver())
 		obj->getDrawable()->setDrawableHidden(true);
 	else
 		((Rva002A1111 *)TheInGameUI)->rva002A1111(obj->getID());

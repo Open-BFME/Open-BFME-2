@@ -20,7 +20,6 @@ typedef unsigned int UnsignedInt;
 class PlayerTemplate;
 class Team;
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
-class ParticleSystem { public: bool isSaveable() const; };	// 0x002AA223 (rowed under this name)
 #include <string.h>
 
 // The 28-byte by-value kind filter retail copies through the rowed copy
@@ -45,6 +44,7 @@ class Rva002AA22AByteField { public: unsigned char get() const; };	// 0x002AA22A
 class Player {
 public:
  Bool isLocalPlayer() const;
+ bool isPlayerObserver() const;	// 0x002AA223
  Bool rva002AB295(BfmeFixedStorage0004543D mask, Bool flag) const;
  Bool rva002AB2D9(BfmeTab1026 *tab, Bool flag) const;
  Bool rva002AB341(BfmeFixedStorage0004543D mask, BfmeFixedStorage0004543D exclude) const;
@@ -153,7 +153,7 @@ static Bool areAllies(const Player *player, const Player *p2)
 // A player that may win: present and not flagged by 0x002AA223.
 static __forceinline Bool isEligiblePlayer(Player *player)
 {
-	return player && !((const ParticleSystem *)player)->isSaveable();
+	return player && !player->isPlayerObserver();
 }
 
 // VictoryConditions::hasAchievedVictory, retail 0x0041FEEB (131 bytes),
@@ -440,7 +440,7 @@ Bool VictoryConditions::isLocalAlliedDefeat()
 Bool VictoryConditions::rva00420017(Player *player)
 {
  const PlayerTemplate *civilian = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionCivilian"));
- if (player && player != ThePlayerList->neutralPlayer && player->playerTemplate && player->playerTemplate != civilian && !((const ParticleSystem *)player)->isSaveable()) {
+ if (player && player != ThePlayerList->neutralPlayer && player->playerTemplate && player->playerTemplate != civilian && !player->isPlayerObserver()) {
   m_players[m_cachedPlayerCount] = player;
   if (m_players[m_cachedPlayerCount]->isLocalPlayer()) m_localSlotNum=m_cachedPlayerCount;
   ++m_cachedPlayerCount;
