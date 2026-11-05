@@ -41,9 +41,6 @@ enum CommandSourceType
 	CMD_FROM_AI
 };
 #include "matrix3d.h"
-#define VM10(p) \
-	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
-	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
 
 typedef bool Bool;
 
@@ -79,40 +76,13 @@ public:
 	virtual void setForceWantingState(Bool v);																// slot 11 -> offset 0x2C
 };
 
-class AIUpdateInterfaceBase
-{
-public:
-	VM10(v0_)
-	VM10(v1_)
-	VM10(v2_)
-	VM10(v3_)
-	VM10(v4_)
-	VM10(v5_)
-	VM10(v6_)
-	VM10(v7_)
-	VM10(v8_)
-	virtual void v9_0(); virtual void v9_1(); virtual void v9_2(); virtual void v9_3(); virtual void v9_4();
-	virtual SupplyTruckAIInterface *getSupplyTruckAIInterface();												// slot 95 -> offset 0x17C
-private:
-	char m_unrecovered04[0x20 - 0x04];
-};
-
 // The rowed wrapper at 0x0047971C takes the exit path by reference; its
 // placeholder class is this vector of points.
 class Rva0035149F : public _STL::vector<Coord3D>
 {
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const void *parms) = 0;
-	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface : public AIUpdateInterfaceBase, public AICommandInterface
-{
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object : public Thing
 {
@@ -357,7 +327,7 @@ void SupplyCenterProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDo
 			ai->rva0047971C( exitPath, creationObject, CMD_FROM_AI );
 
 			// Here is the special bit for this exit style, force wanting on SupplyTruck types
-			SupplyTruckAIInterface* supplyTruckAI = ai->getSupplyTruckAIInterface();
+			SupplyTruckAIInterface* supplyTruckAI = (SupplyTruckAIInterface *)ai->vslot095();
 
 			if( supplyTruckAI )
 				supplyTruckAI->setForceWantingState(true);

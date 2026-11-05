@@ -22,28 +22,14 @@ enum WeaponLockType
 	LOCKED_TEMPORARILY = 1,
 	LOCKED_PERMANENTLY = 2
 };
-class AICommandInterface
-{
-public:
-	void aiHunt(CommandSourceType cmdSource);
-};
 #include "../object.h"
-template <int N> class Rva00495801Slots : public Rva00495801Slots<N - 1>
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+// The argument is the object's AIUpdateInterface: slot 110 (+0x1B8) is isIdle
+// and aiHunt runs on its AICommandInterface base at +0x20. The placeholder
+// type keeps the function's ledger name, which a caller in
+// Rva004958AEUpdate.cpp spells.
+class Rva00495801Arg : public AIUpdateInterface
 {
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Rva00495801Slots<0>
-{
-};
-class Rva00495801Arg : public Rva00495801Slots<110>
-{
-public:
-	virtual bool rva00495801Pred();
-private:
-	unsigned char m_pad04[0x20 - 0x04];
-public:
-	AICommandInterface m_ai20; // +0x20
 };
 struct Rva00495801W
 {
@@ -63,8 +49,8 @@ private:
 int Rva00495801::rva00495801(Rva00495801Arg *arg)
 {
 	Object *obj = m_obj08;
-	if (arg->rva00495801Pred())
-		arg->m_ai20.aiHunt(CMD_FROM_AI);
+	if (arg->isIdle())
+		arg->aiHunt(CMD_FROM_AI);
 	Rva00495801W *w = m_p24;
 	obj->setWeaponLock(w->m_weaponSlot, LOCKED_TEMPORARILY);
 	return 1;

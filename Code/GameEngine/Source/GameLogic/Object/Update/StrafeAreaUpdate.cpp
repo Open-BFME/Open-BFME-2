@@ -36,11 +36,7 @@ class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 enum CommandSourceType {CMD_FROM_AI=2};
-class AICommandInterface {public:void aiMoveToPosition(const Coord3D *,CommandSourceType);};
-template<int N> class StrafeAISlots:public StrafeAISlots<N-1> {public:virtual void gap(char (*)[N])=0;};
-template<> class StrafeAISlots<0> {};
 class AIUpdateInterface;
-class AIUpdateInterface:public StrafeAISlots<98> {public:virtual AIUpdateInterface *rvaSlot98()=0;char pad[0x1C];AICommandInterface commands;};
 class Thing {public:void setOrientation(float);};
 class Object:public Thing {public:char pad[0x258];AIUpdateInterface *ai;};
 struct StrafeAreaUpdateModuleData {char pad[0x1C];unsigned word1C;};
@@ -55,6 +51,7 @@ struct StrafeDirection {float x,y,z;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 
 class Rva003A4CAE : public UpdateModule
@@ -139,13 +136,13 @@ bool StrafeAreaUpdate::rva003A4F21(const Coord3D *from,const Coord3D *to) {
  const StrafeAreaUpdateModuleData *strafeAreaUpdateModuleData=data;
  AIUpdateInterface *ai=object->ai;
  if(!ai) return false;
- AIUpdateInterface *aircraft=ai->rvaSlot98();
+ AIUpdateInterface *aircraft=(AIUpdateInterface *)ai->vslot098();
  if(!aircraft) return false;
  target=*to;start=*from;word38=strafeAreaUpdateModuleData->word1C;state=0;started=false;
  StrafeDirection direction(target);direction.sub(start);
  float angle=atan2(direction.y,direction.x);
  object->setOrientation(angle);
- aircraft->commands.aiMoveToPosition(&target,CMD_FROM_AI);
+ aircraft->aiMoveToPosition(&target,CMD_FROM_AI);
  return true;
 }
 

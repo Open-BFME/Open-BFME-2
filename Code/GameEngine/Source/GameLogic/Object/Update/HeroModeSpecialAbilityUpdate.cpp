@@ -62,17 +62,7 @@ enum ModelConditionFlagType
 	MODELCOND_DC = 0xDC
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType src);
-};
-
-struct Rva00492329AIHolder
-{
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commands; // +0x20
-};
+class AIUpdateInterface;
 
 class Object
 {
@@ -82,7 +72,7 @@ public:
 	bool addAttributeModifierToPool(const AsciiString &name, int v);
 
 	unsigned char m_pad00[0x258];
-	Rva00492329AIHolder *m_ai; // +0x258
+	AIUpdateInterface *m_ai; // +0x258
 };
 
 class Rva00492179ModuleData
@@ -96,6 +86,7 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00492179 : public SpecialAbilityUpdate
 {
@@ -159,7 +150,7 @@ HeroModeSpecialAbilityUpdateModuleData::HeroModeSpecialAbilityUpdateModuleData()
 // pinned 0x0045108D) for the Rva00492179 class (ctor 0x00492179, vtable
 // 0x0084DEF8). Target evidence: base slot call first, then the module
 // data at +4 (AsciiString +0xC8, int +0xCC, bools +0xD0/+0xD1) and the
-// object at +8 (AI holder +0x258 with its command interface at +0x20).
+// object at +8 (AIUpdateInterface +0x258, whose command interface base sits at +0x20).
 // The WorldBuilder twin (0x011E3630) spells the tail as two if/else arms
 // that each test and set one model condition (0xBA or 0xDC); retail's cl
 // merges the arms into one call pair with the condition in EBX.
@@ -171,9 +162,9 @@ void Rva00492179::triggerAbilityEffect()
 	Object *object = m_object;
 	if (data->m_idleAI)
 	{
-		Rva00492329AIHolder *ai = object->m_ai;
+		AIUpdateInterface *ai = object->m_ai;
 		if (ai != 0)
-			ai->m_commands.aiIdle(CMD_FROM_AI);
+			ai->aiIdle(CMD_FROM_AI);
 	}
 	if (!((const StringBase<char> &)data->m_attributeModifier).isEmpty())
 	{

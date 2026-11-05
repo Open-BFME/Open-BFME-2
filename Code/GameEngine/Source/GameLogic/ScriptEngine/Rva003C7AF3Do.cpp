@@ -14,7 +14,6 @@
 class Parameter;
 class Object;
 class Waypoint;
-class AICommandInterface;
 
 enum CommandSourceType
 {
@@ -52,25 +51,13 @@ public:
 extern ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;
 
-class AICommandInterface
-{
-public:
-	void aiAttackMoveToPositionAmphibious(const Coord3D *pos, CommandSourceType src);
-};
-
 class Rva00295A0FCommands
 {
 public:
 	void Rva00295A0FCommand(void *pos, int a, int b);
 };
 
-class AIUpdateInterface
-{
-public:
-	void rva0026295E();
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The ledger row at 0x0028ECDB is Rva0028ECDBHost::rva0028ECDB(void *).
 class Rva0028ECDBHost
@@ -115,8 +102,8 @@ void ScriptActions::Rva003C7AF3Do(Parameter *parameter, int id)
 		obj->m_31C = xbits;
 		xy[1] = y;
 		obj->m_320 = *(int *)&xy[1];
-		ai->m_commands.aiAttackMoveToPositionAmphibious(&pos, (CommandSourceType)1);
+		ai->aiAttackMoveToPositionAmphibious(&pos, (CommandSourceType)1);
 	} else {
-		((Rva00295A0FCommands *)&ai->m_commands)->Rva00295A0FCommand(&pos, 0x7FFFFFFF, 1);
+		((Rva00295A0FCommands *)(AICommandInterface *)ai)->Rva00295A0FCommand(&pos, 0x7FFFFFFF, 1);
 	}
 }

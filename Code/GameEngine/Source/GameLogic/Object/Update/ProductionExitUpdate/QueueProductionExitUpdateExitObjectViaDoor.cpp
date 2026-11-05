@@ -181,41 +181,10 @@ private:
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
 
-class AIUpdateInterfaceBase
-{
-public:
-	VM10(v0_)
-	VM10(v1_)
-	VM10(v2_)
-	VM10(v3_)
-	VM10(v4_)
-	VM10(v5_)
-	VM10(v6_)
-	VM10(v7_)
-	VM10(v8_)
-	virtual Bool vslot90() const;																						// slot 90 -> offset 0x168
-private:
-	char m_unrecovered04[0x20 - 0x04];
-};
-
 // The rowed wrapper at 0x0047971C takes the exit path by reference; its
 // placeholder class is this vector of points.
 class Rva0035149F : public _STL::vector<Coord3D>
 {
-};
-
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const void *parms) = 0;
-	void aiIdle(CommandSourceType cmdSource);
-	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
-};
-
-class LocomotorSet
-{
-private:
-	char m_unrecovered00[0x04];
 };
 
 // The 0x00262FEB one-store setter is ICF-shared with the rowed
@@ -226,16 +195,7 @@ public:
 	virtual void Set_Burst_Size(unsigned int value);
 };
 
-class AIUpdateInterface : public AIUpdateInterfaceBase, public AICommandInterface
-{
-public:
-	__declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const { return m_locomotorSet; }
-	ObjectID getIgnoredObstacleID() const;
-	__declspec(dllimport) __forceinline void rva00262FEB(Int id) { ((ParticleEmitterDefClass *)this)->ParticleEmitterDefClass::Set_Burst_Size(id); }
-private:
-	char m_unrecovered24[0x1CC - 0x24];
-	LocomotorSet m_locomotorSet;																							///< 0x1CC
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 // HordeContain's interface at +0x11C (vftable 0x00C44C58).
 #include "../../../../../Include/GameLogic/Module/HordeContainInterface.h"
@@ -386,7 +346,7 @@ void QueueProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDoorType 
 		createPoint.z = loc.Z;
 
 		AIUpdateInterface *ai = newObj->getAIUpdateInterface();
-		Bool raised = ai && ai->vslot90();
+		Bool raised = ai && ai->vslot090();
 		if( raised )
 			createPoint.z += 250.0f;
 
@@ -475,9 +435,9 @@ void QueueProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDoorType 
 				ai->rva0047971C( exitPath, NULL, CMD_FROM_AI );
 				ObjectID ignored = ai->getIgnoredObstacleID();
 				if( hordeObj )
-					ai->rva00262FEB( hordeObj->getID() );
+					((ParticleEmitterDefClass *)ai)->ParticleEmitterDefClass::Set_Burst_Size( hordeObj->getID() );
 				TheAI->pathfinder()->MoveAlliesAwayFromDestination( newObj, newObj->getPosition(), &tmp );
-				ai->rva00262FEB( ignored );
+				((ParticleEmitterDefClass *)ai)->ParticleEmitterDefClass::Set_Burst_Size( ignored );
 			}
 		}
 

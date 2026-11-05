@@ -17,8 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 extern GameLogic *TheGameLogic;
 enum CommandSourceType{COMMANDSOURCE_SCRIPT=2};
-class AICommandInterface{public:void aiIdle(CommandSourceType);};
-struct TeleportAI{char pad[0x20];AICommandInterface commands;};
+class AIUpdateInterface;
 class Player;
 struct TeleportThingTemplate{char pad[0x115];unsigned char kind115;};
 enum ObjectStatusTypes{STATUS_UNK=-1};
@@ -38,9 +37,10 @@ public:
 	ObjectID id; // +0x74
 	ObjectID storedByID; // +0x78
 	char m_pad7C[0x1DC];
-	TeleportAI *ai; // +0x258
+	AIUpdateInterface *ai; // +0x258
 };
 #include "../../../Common/Thing/thing.h"
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
@@ -248,8 +248,6 @@ struct Coord3D;
 
 struct TeleportThingTemplate;
 
-struct TeleportAI;
-
 class Rva004CD4DCItem
 {
 public:
@@ -423,7 +421,7 @@ void TeleportToCasterSpecialPower::teleportList(const _STL::vector<ObjectID>*ids
    float orientation=object->orientation;options.startAngle=angle;Coord3D position;
    if(PartitionManager::findPositionAround(center,&options,&position)){double dx=(double)position.x-center->x;float dy=(float)((double)position.y-center->y);orientation=atan2f(dy,(float)dx);}
    else position=*center;
-   if(object->ai)object->ai->commands.aiIdle(COMMANDSOURCE_SCRIPT);
+   if(object->ai)object->ai->aiIdle(COMMANDSOURCE_SCRIPT);
    ((Thing*)object)->setOrientation(orientation);object->teleportTo(&position,false);
    rva004CD4DC(object);
   }

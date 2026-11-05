@@ -144,67 +144,13 @@ struct DefaultExitTransform
 	}
 };
 
-#define VM10(p) \
-	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
-	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
-
-class AIUpdateInterfaceBase
-{
-public:
-	VM10(v0_)
-	VM10(v1_)
-	VM10(v2_)
-	VM10(v3_)
-	VM10(v4_)
-	VM10(v5_)
-	VM10(v6_)
-	VM10(v7_)
-	VM10(v8_)
-	VM10(v9_)
-	VM10(v10_)
-	VM10(v11_)
-	VM10(v12_)
-	virtual void v130();
-	virtual void v131();
-	virtual void v132();
-	virtual void v133();
-	virtual void v134();
-	virtual void v135();
-	virtual void v136();
-	virtual Bool isDoingGroundMovement() const;			// slot 137 -> offset 0x224
-private:
-	char m_unrecovered04[0x20 - 0x04];
-};
-
 // The rowed wrapper at 0x0047971C takes the exit path by reference; its
 // placeholder class is this vector of points.
 class Rva0035149F : public _STL::vector<Coord3D>
 {
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const void *parms) = 0;
-	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
-};
-
-class LocomotorSet
-{
-private:
-	char m_unrecovered00[0x04];
-};
-
-class AIUpdateInterface : public AIUpdateInterfaceBase, public AICommandInterface
-{
-public:
-	// Retail inlines these and has no out-of-line copies; other units' views
-	// emit them first in link order, so dllimport keeps these inline-only.
-	__declspec(dllimport) const LocomotorSet &getLocomotorSet() const { return m_locomotorSet; }
-private:
-	char m_unrecovered24[0x1CC - 0x24];
-	LocomotorSet m_locomotorSet;																							///< 0x1CC
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object : public Thing
 {
