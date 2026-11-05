@@ -67,3 +67,10 @@ and Coord3D collision reconciled, and canonical WinInstanceData text fields;
 `GameWindow_winSetText.cpp` needs its canonical GameWindow method declarations
 and UnicodeString ABI reconciled. The merge refuses both at compilation.
 Other mixed-source candidates require separate approved splits/adoptions.
+
+Publication accounting: the outgoing bundle's net header-debt check sees Fields
+already absent after the merge, so it cannot rerun acceptance on the old path.
+The prerequisite's owning-lane acceptance and full dependent-source verification
+precede that deletion; all twelve rows now verify in the approved TU. A follow-up
+per-key `Debt-Retired: GameWindow <old source> ...` trailer records this vanished
+source case, as allowed by the debt rules. No ledger row is deleted or tombstoned.
