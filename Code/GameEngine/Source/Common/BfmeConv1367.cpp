@@ -1,3 +1,4 @@
+// cl: /MD
 // Open-BFME5 conversions.
 
 struct BfmeLuaVHR;
@@ -11,7 +12,7 @@ extern "C" void __cdecl lua_pushusertag(BfmeLuaVHR *L, void *u, int tag);
 // BFME1 declares these as bfmeRemoveVHR/bfmeRenameVHS; retail game.dat
 // reaches the real CRT imports (msvcr71!remove @0xBBA3FC,
 // msvcr71!rename @0xBBA718), so declare the true import names here.
-extern "C" __declspec(dllimport) int __cdecl remove(const char *path);
+#include <stdio.h>
 
 int __cdecl bfmeGoVHR(BfmeLuaVHR *luaState)
 {
@@ -26,7 +27,6 @@ int __cdecl bfmeGoVHR(BfmeLuaVHR *luaState)
 	return 3;
 }
 
-extern "C" __declspec(dllimport) int __cdecl rename(const char *from, const char *to);
 
 int __cdecl osRename(BfmeLuaVHR *luaState)
 {

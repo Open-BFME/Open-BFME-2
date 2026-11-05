@@ -1,4 +1,4 @@
-// cl: -GR- -EHsc-
+// cl: /MD -GR- -EHsc-
 // ?OnMyPowerRollOver@Manager@AptCreateAHero@@QAEXPAD@Z @0x005B5B39 89B: digit-string slot apply.
 // Null-guarded string must start with a digit (imported isdigit) and atoi
 // to 1..10 (imported atoi, minus one); a value already current returns,
@@ -6,8 +6,8 @@
 // and the (K, K, pointer) triple runs through the rowed cdecl callee before
 // stamping +0x24. K recomposed as in the 0x5B5AC3 unit (runtime constant).
 // Targets from retail REL32; imports declared dllimport explicitly.
-extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *s);
+#include <ctype.h>
+#include <stdlib.h>
 
 enum Rva005B5B39Const
 {

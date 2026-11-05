@@ -1,4 +1,4 @@
-// cl: /GX /ICode/Libraries/Include
+// cl: /MD /GX /ICode/Libraries/Include
 
 // ?bfmeResetGrid@BfmeTaintManager@@UAEXXZ
 //
@@ -11,8 +11,7 @@
 
 typedef float Real;
 
-extern "C" __declspec(dllimport) double __cdecl floor(double value);
-extern "C" __declspec(dllimport) double __cdecl ceil(double value);
+#include <math.h>
 
 __forceinline Real bfmeFloatFloorFC(Real value)
 {
@@ -79,7 +78,7 @@ typedef void (__cdecl *BfmeCellVisitorFC)(int x, int y,
 // MSVC 7.1 folds `delete []` onto the scalar ??3@YAXPAX@Z unless the array
 // form is declared where it can see it; retail calls ??_V@YAXPAX@Z here
 // (rowed, mem_ops.cpp).
-void operator delete[]( void *block );
+#include <new>
 
 
 // Retail calls an empty grid method here that /OPT:ICF folded onto a shared

@@ -1,3 +1,4 @@
+// cl: /MD
 // Two byte-identical 55-byte rows at 0x0083F2F0 and 0x0083F330: allocate room
 // for N four-byte elements, and if the allocation succeeded copy the source
 // range into it.
@@ -31,8 +32,8 @@
 // Retail slots are msvcr71 imports (import-ref verified: malloc + memmove);
 // the BFME1 donor's u2_import_0135944C / u2_import_0135945C aliases for the
 // same slots fail the check here (U2AllocatedRangeCopy8.cpp precedent).
-extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int bytes);
-extern "C" __declspec(dllimport) void *__cdecl memmove(void *dst, const void *src, unsigned int bytes);
+#include <stdlib.h>
+#include <string.h>
 
 // Only the first of the donor's two identical twins is defined here: both
 // fold to the single BFME2 body at 0x0001C120, so one function owns the row
