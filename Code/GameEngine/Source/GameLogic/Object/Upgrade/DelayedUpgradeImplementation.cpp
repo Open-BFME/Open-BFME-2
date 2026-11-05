@@ -26,45 +26,15 @@ public:
 template <> class Rva004B3CC2Slots<0>
 {
 };
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 #include "../object.h"
+struct UpgradeMaskType : Rva001EAE6FHelper
+{
+};
 struct DelayedUpgradeModuleData
 {
 	unsigned char m_pad00[0x118];
 	int m_delay;				// +0x118
-};
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
-class UpgradeMuxIface
-{
-public:
-	virtual Bool isAlreadyUpgraded() const = 0;
-	virtual void m01() = 0;
-	virtual void m02() = 0;
-	virtual void m03() = 0;
-	virtual void m04() = 0;
-	virtual void m05() = 0;
-	virtual void m06() = 0;
-	virtual void m07() = 0;
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-	virtual void getUpgradeActivationMasks(Rva001EAE6FHelper *activation, Rva001EAE6FHelper *conflicting) = 0;
-};
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
 };
 class DelayedUpgrade : public UpgradeModule
 {
@@ -75,11 +45,11 @@ void DelayedUpgrade::upgradeImplementation()
 {
 	int delay = ((const DelayedUpgradeModuleData *)m_moduleData)->m_delay;
 	Object *obj = m_object;
-	Rva001EAE6FHelper activation;
-	Rva001EAE6FHelper conflicting;
+	UpgradeMaskType activation;
+	UpgradeMaskType conflicting;
 	activation.clear80();
 	conflicting.clear80();
-	getUpgradeActivationMasks(&activation, &conflicting);
+	getUpgradeActivationMasks(activation, conflicting);
 	for (BehaviorModule **module = obj->getBehaviorModules(); *module; ++module)
 	{
 		Rva004B3CC2Upgrade *upgrade = static_cast<Rva004B3CC2Upgrade *>(static_cast<BehaviorModuleInterface &>(**module).slot21());
