@@ -1,4 +1,5 @@
 ### LINK-291: NetworkInterface adoption in W3D display needs StringBase reconciliation
-Status: Blocked for `W3DDisplay.cpp`; two statistics consumers cleared by byte and link-preservation previews. Updated: 2026-11-04; inspected revision: `5199deee0b`.
+Status: Resolved 2026-11-05 for `W3DDisplay.cpp` (scope: this unit's NetworkInterface header row); the two statistics consumers were cleared 2026-11-04. Inspected revision: `cc8d73e950`.
 Evidence / completed / next check: [scoped adoption and verification evidence](../../reverse/attempt_support/networkinterface-w3d-stats-20261104.md). `W3DDisplayGatherDebugStats.cpp` and `W3DDisplayGatherNetworkStats.cpp` adopt the existing header and retire two header-queue rows; reconcile `W3DDisplay.cpp`'s private `StringBase<T>` and the 0x000481AA / 0x0075D142 return-value EH contract before retrying its header adoption.
 Census confirmation: awaiting the next scheduled measurement; no real-link or headline gain claimed.
+Resolution: slot 34 (0x000481AA) now takes and returns the canonical `AsciiString` (its inline dtor expands releaseBuffer 0x36410 on ordinary exits; the unwind funclets and 0x0075D142 call ~AsciiString 0x0048BA39), so the private `StringBase<T>` view is gone; 33/33 unit rows byte-exact, `link_check` LINKS 4,734 B unchanged, `header_adopt_lane.py accept` PASS.

@@ -87,31 +87,10 @@ public:
 	int m_detailVariant;		// +0x1774
 };
 extern GameLODManager *TheGameLODManager;
-template <typename T> class StringBase
-{
-	void releaseBuffer();
-	void *m_data;
-
-public:
-	StringBase() : m_data(0) {}
-	StringBase(const StringBase<T> &other);
-	void set(const StringBase<T> &src);
-	void set(const T *str);
-	void clear()
-	{
-		releaseBuffer();
-	}
-	void concat(const StringBase<T> &str);
-private:
-	friend class W3DDisplay;
-	~StringBase() { releaseBuffer(); }
-};
-// Retail ordinary teardown calls releaseBuffer36410; return-value
-// cleanup75D142 calls the five-byte private StringBase destructor48BA39.
-// Keeping that destructor inline permits the worker call at ordinary
-// exits while giving the EH return-value callback its actual wrapper.
-// The friend grants access only for this address-named by-value ABI
-// view; the original method return type remains unproven.
+// Slot 34 takes and returns AsciiString by value: retail ordinary teardown expands the
+// inline destructor (releaseBuffer 0x36410) and the EH cleanups call the out-of-line
+// ~AsciiString 0x48BA39.
+#include "../../../../GameEngine/Include/GameNetwork/NetworkInterfaceClass.h"
 
 class Display
 {
@@ -135,7 +114,7 @@ public:
 	virtual void slot23(); virtual void slot24(); virtual void slot25(); virtual void slot26();
 	virtual void slot27(); virtual void slot28(); virtual void slot29(); virtual void slot30();
 	virtual void slot31(); virtual void slot32(); virtual void slot33();
-	virtual StringBase<char> rva000481AA(const StringBase<char> &name);	// slot 34
+	virtual AsciiString rva000481AA(const AsciiString &name);	// slot 34
 	virtual void slot35();
 	virtual unsigned char *getView();	// slot 36
 	virtual void slot37();
@@ -187,7 +166,7 @@ class W3DDisplay : public Display
 {
 public:
 	virtual Bool setDisplayMode(UnsignedInt xres, UnsignedInt yres, UnsignedInt bitdepth, Bool windowed);
-	virtual StringBase<char> rva000481AA(const StringBase<char> &name);
+	virtual AsciiString rva000481AA(const AsciiString &name);
 	virtual VideoBuffer *createVideoBuffer(Bool allowAlpha);
 	virtual void createLightPulse(const Coord3D *position, const RGBColor *color, Real innerRadius, Real attenuationWidth, UnsignedInt increaseTime, UnsignedInt decayTime);
 	virtual void drawImage(Image *image, Real x0, Real y0, Real x1, Real y1, Int color);
@@ -262,78 +241,6 @@ struct PlayerLeaveStatus
 #define TERRAIN ((unsigned char *)TheTerrainRenderObject)
 #define LIVINGWORLD ((unsigned char *)TheLivingWorld)
 #define WINDOWMODE (*(int *)((char *)TheWindowManager + 0x3c))
-
-// The slots used here are independently named by the BFME Network vtable at
-// 0x0111A968: isPacketRouter (+0x8c), getFramesBehindPacketRouter (+0xcc),
-// and getPlayerLatestFrame (+0xd8).  The intervening slots are deliberately
-// unnamed ABI padding, not semantic wrappers.
-class NetworkInterface
-{
-public:
-	virtual void slot00(void) = 0;
-	virtual void slot04(void) = 0;
-	virtual void slot08(void) = 0;
-	virtual void slot0c(void) = 0;
-	virtual void slot10(void) = 0;
-	virtual void slot14(void) = 0;
-	virtual void slot18(void) = 0;
-	virtual void slot1c(void) = 0;
-	virtual void slot20(void) = 0;
-	virtual void slot24(void) = 0;
-	virtual void slot28(void) = 0;
-	virtual void slot2c(void) = 0;
-	virtual void slot30(void) = 0;
-	virtual void slot34(void) = 0;
-	virtual void slot38(void) = 0;
-	virtual void slot3c(void) = 0;
-	virtual void slot40(void) = 0;
-	virtual void slot44(void) = 0;
-	virtual void slot48(void) = 0;
-	virtual void slot4c(void) = 0;
-	virtual void slot50(void) = 0;
-	virtual void slot54(void) = 0;
-	virtual void slot58(void) = 0;
-	virtual void slot5c(void) = 0;
-	virtual void slot60(void) = 0;
-	virtual void slot64(void) = 0;
-	virtual void slot68(void) = 0;
-	virtual void slot6c(void) = 0;
-	virtual void slot70(void) = 0;
-	virtual void slot74(void) = 0;
-	virtual void slot78(void) = 0;
-	virtual void slot7c(void) = 0;
-	virtual void slot80(void) = 0;
-	virtual void slot84(void) = 0;
-	virtual void slot88(void) = 0;
-	virtual void slot8c(void) = 0;
-	virtual void slot90(void) = 0;
-	virtual void slot94(void) = 0;
-	virtual void slot98(void) = 0;
-	virtual void slot9c(void) = 0;
-	virtual void slota0(void) = 0;
-	virtual void slota4(void) = 0;
-	virtual void slota8(void) = 0;
-	virtual bool isPacketRouter(void) = 0;
-	virtual void slotb0(void) = 0;
-	virtual void slotb4(void) = 0;
-	virtual void slotb8(void) = 0;
-	virtual void slotbc(void) = 0;
-	virtual void slotc0(void) = 0;
-	virtual void slotc4(void) = 0;
-	virtual void slotc8(void) = 0;
-	virtual void slotcc(void) = 0;
-	virtual void slotd0(void) = 0;
-	virtual void slotd4(void) = 0;
-	virtual void slotd8(void) = 0;
-	virtual void slotdc(void) = 0;
-	virtual void slote0(void) = 0;
-	virtual void slote4(void) = 0;
-	virtual void slote8(void) = 0;
-	virtual int getFramesBehindPacketRouter(void) = 0;
-	virtual void slotf0(void) = 0;
-	virtual void slotf4(void) = 0;
-	virtual int getPlayerLatestFrame(int playerIndex) = 0;
-};
 
 extern NetworkInterface *TheNetwork;
 
@@ -1154,33 +1061,33 @@ void W3DDisplay::rva00045213(char *image, unsigned int rowBytes)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000481AA.cpp
 
-// ?rva000481AA@W3DDisplay@@UAE?AV?$StringBase@D@@ABV2@@Z, retail 0x000481AA (194 bytes, EH,
+// ?rva000481AA@W3DDisplay@@UAE?AVAsciiString@@ABV2@@Z, retail 0x000481AA (194 bytes, EH,
 // RET 8), W3DDisplay vtable 0x007C3C80 slot 34. Returns the given name with a variant suffix
 // ("L" for mode 0, "M" for mode 1, none for 2/3; the mode is +0x1774 of
 // TheGameLODManager) when the rowed 0x0021F3E0 accepts that variant, else the name unchanged. The
 // two return statements give the construct-on-return flag retail keeps in its frame.
 
-StringBase<char> W3DDisplay::rva000481AA(const StringBase<char> &name)
+AsciiString W3DDisplay::rva000481AA(const AsciiString &name)
 {
-	StringBase<char> suffix;
-	StringBase<char> full;
+	AsciiString suffix;
+	AsciiString full;
 	switch (TheGameLODManager->m_detailVariant)
 	{
 	case 0:
-		suffix.set("L");
+		suffix = "L";
 		break;
 	case 1:
-		suffix.set("M");
+		suffix = "M";
 		break;
 	case 2:
 	case 3:
-		suffix.clear();
+		((StringBase<char> *)&suffix)->clear();
 		break;
 	default:
 		break;
 	}
-	full.set(name);
-	full.concat(suffix);
+	full = name;
+	full += suffix;
 	if (bfmeGo1025F((BfmeR1025 *)&full))
 		return full;
 	return name;
@@ -1216,10 +1123,10 @@ void W3DDisplay::rva000438CB()
 			{
 				color = 0xffc8a0e1;
 			}
-			else if (TheNetwork->isPacketRouter())
+			else if (TheNetwork->slot43())
 			{
 				int currentFrame = TheGameLogic->getFrame();
-				frame = TheNetwork->getPlayerLatestFrame(playerIndex);
+				frame = TheNetwork->slot62(playerIndex);
 				frame += 10 - currentFrame;
 				switch (frame)
 				{
@@ -1264,9 +1171,9 @@ void W3DDisplay::rva000438CB()
 		{
 			if (i == 8)
 			{
-				if (TheNetwork != 0 && !TheNetwork->isPacketRouter())
+				if (TheNetwork != 0 && !TheNetwork->slot43())
 				{
-					switch (TheNetwork->getFramesBehindPacketRouter())
+					switch (TheNetwork->slot59())
 					{
 					case 1: color = 0xffffffa0; break;
 					case 2: color = 0xffa0ffa0; break;
@@ -1308,7 +1215,7 @@ void W3DDisplay::rva000438CB()
 			}
 			else if (i == 7)
 			{
-				if (TheNetwork != 0 && TheNetwork->isPacketRouter())
+				if (TheNetwork != 0 && TheNetwork->slot43())
 					color = 0xffc8c8ff;
 				else
 					color = 0xffffc8c8;
