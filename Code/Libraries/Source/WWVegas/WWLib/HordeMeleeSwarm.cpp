@@ -165,8 +165,6 @@ class HordeMeleeSwarm : public Rva005D6FCC
 public:
 	HordeMeleeSwarm(void *held);
 	virtual ~HordeMeleeSwarm();
-	virtual void setUnitRotating(int i);
-	virtual void setUnitArrived(int i);
 	void setUnitNeedsNewAttackPos(int unused, int i);
 	bool isUnitMoving(int i);
 	bool isUnitRotating(int i);
