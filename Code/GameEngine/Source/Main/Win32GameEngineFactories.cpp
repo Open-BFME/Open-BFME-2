@@ -103,13 +103,7 @@ private:
 	char m_unmodelled_10[0x2A8 - 0x10];
 };
 
-class W3DTerrainLogic
-{
-public:
-	W3DTerrainLogic();
-private:
-	char m_unmodelled[0x1924];
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 // Slot 14 of its vtable 0x00BC25E0 (0x00041FCF) is another factory of the
 // same shape: new 0x1924 bytes and the constructor 0x00062A7E (pinned).
