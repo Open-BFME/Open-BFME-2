@@ -1,5 +1,7 @@
 ### Module base chain: canonical headers block the most TU merges (2026-10-28)
 
+2026-11-05: InstantDeathBehavior parser-vector views now reconcile; the two-parser merge passes bytes/EH but is restored after an ownership refusal on an existing OCL ICF fold. [LINK-422 and next check](link-422-instantdeath-parser-merge-icf-owner-transfer.md).
+
 2026-11-05: Three client consumers now adopt AIUpdateInterface; seven existing AI adoptions reverified, ten header rows retired, and 12,939 client preview-linked bytes preserved; two voice cleanup-wrapper identity findings remain for follow-up. [Receipts and remaining cohort prerequisites](../../reverse/attempt_support/aiupdate-client-header-adoption-20261105-codex3.md).
 
 2026-11-04: AIUpdateInterface adopted in two AI consumers; eight existing adoptions reverified, ten header rows retired, 5,269 preview-linked bytes preserved. [Cohort receipts and remaining prerequisites](../../reverse/attempt_support/aiupdate-header-cohort-20261104-codexb4.md).
