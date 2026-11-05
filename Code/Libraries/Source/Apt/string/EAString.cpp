@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /D_CRTIMP= /EHsc
 //
 // One body carried from Open-BFME-1's game/Libraries/Source/Apt/string/
 // EAString.cpp (BFME 1 RVA 0x0089EFE0), whose bytes reappear in game.dat at
@@ -20,10 +20,9 @@ public:
 // ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f was reviewed for this family;
 // this formatting body is reconstructed from BFME 2, not carried from it.
 #include <stdarg.h>
-extern "C" int __cdecl memcmp(const void *,const void *,unsigned int);
+#include <string.h>
+#include <stdio.h>
 #pragma intrinsic(memcmp)
-extern "C" unsigned int __cdecl strlen(const char *);
-extern "C" int __cdecl _vsnprintf(char *,unsigned int,const char *,va_list);
 extern "C" void __cdecl __debugbreak(void);
 #pragma intrinsic(strlen,__debugbreak)
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);

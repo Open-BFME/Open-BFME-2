@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /O2 /MD /D_CRTIMP= /EHsc
 // Source guide31ceb5bf2d6e4f60 AptMiscObjects.cpp (later APT); WB177BA90
 // independently names Key lookup. Its native word dispatch proves the callbacks.
 // Listener set is independently witnessed at animation+18 (Mouse uses+20).
@@ -30,7 +30,7 @@ extern const int Rva008A5250KeyTable[20] = {
 	-1, 37, 39, 36, 35, 45, 46, -1, 8, -1,
 	-1, -1, -1, 13, 38, 40, 33, 34, 9, 27
 };
-extern "C" int __cdecl toupper(int);
+#include <ctype.h>
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();

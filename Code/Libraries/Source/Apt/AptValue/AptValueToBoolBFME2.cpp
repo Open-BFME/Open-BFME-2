@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /O2 /MD /D_CRTIMP= /EHsc
 // Semantic lead: audit public-material/230e7c503b5dbf7e-AptValue.cpp,
 // AptValue::toBool, with original-era AptValue const-bool declaration.
 // Target 006DD550..006DD6B2 independently establishes signed type bits at +4,
@@ -18,7 +18,7 @@ public:
 class Rva00723490FloatField { public: float get() const; };
 #include "../BfmeAptValue006DCD20.h"
 int Rva006CD220Get();
-extern "C" long __cdecl strtol(const char *, char **, int);
+#include <stdlib.h>
 extern "C" double Rva006CD070Atof(const char *);
 extern AptValue *gpUndefinedValue;
 

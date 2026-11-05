@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /D_CRTIMP= /EHsc
 //
 // EAStringC UTF-8 case-folding workers on the 0x006D6100 row, next to the
 // rowed EAStringC::Mid bodies (EAStringCMid.cpp) and the UTF-8 cursor workers
@@ -14,8 +14,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-extern "C" int __cdecl tolower(int c);
-extern "C" int __cdecl toupper(int c);
+#include <ctype.h>
 
 const char *__cdecl rva006d4280(const char *pBuffer, int *pUnicode);
 void __cdecl rva006d4dc0(char *pBuffer, int codepoint);

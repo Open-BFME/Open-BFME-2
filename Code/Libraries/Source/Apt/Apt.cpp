@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /O2 /MD /D_CRTIMP= /EHsc
 
 class Rva006DB160 {public:void *allocBlock(int);};
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
@@ -255,8 +255,8 @@ void Rva006E6E20Collect();
 // Existing playback-word providers are retained; the pointer reference views
 // reflect native cursor arithmetic and do not introduce duplicate storage.
 #define tickAssert(good,test,file,line) do {if(!(good)){g_bfmeAptAssertAtE17734(test,file,line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}} while(0)
-extern "C" unsigned strlen(const char *);
-extern "C" int sprintf(char *,const char *,...);
+#include <string.h>
+#include <stdio.h>
 struct Rva00891FA0Record {int value,kind;};
 extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *,int);
 extern "C" void (__cdecl *Rva00891FA0SendText)(const char *);

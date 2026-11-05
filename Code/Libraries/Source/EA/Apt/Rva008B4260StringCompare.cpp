@@ -1,6 +1,6 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /D_CRTIMP= /EHsc
 // RVA 0x008B4260: compare two payload pointers, then their text after the header.
-extern "C" int __cdecl _strcmpi(const char *left, const char *right);
+#include <string.h>
 
 struct Rva008B4260StringRef
 {

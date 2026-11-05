@@ -1,13 +1,12 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_CRTIMP=
 // EA Apt comparisons reconstructed from target operations using the existing
 // EAStringCFind layout. Original identities/const signatures: Godfather QA PDB.
 // Target stores a representation pointer at +0 and characters at rep+8.
 // Original target source family: Apt/string/EAString.cpp (nearby Find assert).
 // No confirmed callers for these retained bodies; reachability is unproven.
 // Evidence: reverse/godfather_disk_evidence.json, eastring_comparisons.
-extern "C" int __cdecl strcmp(const char *,const char *);
+#include <string.h>
 #pragma intrinsic(strcmp)
-extern "C" int __cdecl _strcmpi(const char *,const char *);
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();

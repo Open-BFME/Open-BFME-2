@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_CRTIMP=
 // ?ChangeBuffer@EAStringC@@AAEXIIIW4CBPushZero@1@I@Z, retail 0x006D4AA0 (336B,
 // abuts Assign at 0x006D4BF0). BFME2 rewrite of the BFME1 EAStringCMid.cpp
 // donor: two range asserts (EAString.cpp lines 0x7DD/0x7DE) plus Reserve,
@@ -7,8 +7,7 @@
 // memmove rides the 0x00629506 import thunk; memcpy is intrinsic (rep movs).
 // Called by rowed Assign 0x006D6250.
 
-extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
-extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
+#include <string.h>
 
 #pragma intrinsic(memcpy)
 

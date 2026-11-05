@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP=
 // APT0.19.03 Xbox final donor PDB GUID 729627e9-b922-4d59-9b50-e116a2834635 age24.
 // Donor PDB types 0x15C9E/0x155E5/0x3604 provide pool/member/type names.
 // Retail independently establishes count+0x10, list+0x14, entry stride28,
@@ -9,7 +9,7 @@
 // Caller6CC880 clears the same pool via6E35A0 at6CC8B9.
 // The class name is donor-supported; no full 172-byte donor pool layout is
 // transferred. AptCIH declares only the virtual interface used by these bodies.
-extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
+#include <string.h>
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
