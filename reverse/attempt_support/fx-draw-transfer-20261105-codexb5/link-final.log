@@ -1,0 +1,8 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/FXParticleSystem.cpp: LINKS  LINKED 5,650 -> 5,650 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 5,650)
+Code/GameEngine/Source/Common/System/Xfer.cpp: LINKS  LINKED 2,210 -> 2,210 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 2,210)
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 176)
+  comdat      ??_7DefaultDrawModuleInfo@FXParticleSystem@@6B@  (first: differs from the first copy in link order (no retail address))
+link_check: 2 of 3 link cleanly; LINKED 7,860 -> 7,860 bytes (4.8s)

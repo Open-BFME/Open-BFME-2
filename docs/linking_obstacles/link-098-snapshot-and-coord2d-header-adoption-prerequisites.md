@@ -1,5 +1,7 @@
 ### LINK-098: Snapshot and Coord2D header adoption prerequisites
 
+2026-11-05: four exported draw-info DoXfer providers now verify as complete Version1-only ICF twins; ordinary previews preserve 7,860 linked bytes. Next: reconcile their post-load slot and the RenderObjectDraw/LifeEvent transfer signatures before removing the private Snapshot base; both queue rows remain. [Evidence](../../reverse/attempt_support/fx-draw-transfer-20261105-codexb5/README.md).
+
 2026-11-04: retail alpha/color DoXfer exports replace both placeholder identities, all three caller sources are reconciled, constructor views declare native slot 3, and those two FX info views use canonical Snapshot; 403 rows and two EXACT EH graphs pass, with eight ordinary LINKS preserving 6,385 bytes. Next: reconcile the six remaining macro-declared info views before removing the private base; both Snapshot queue rows remain. [Evidence](../../reverse/attempt_support/fx-alpha-color-export-20261104-codexb/README.md).
 
 2026-11-04: three ArmySummary scalar consumers adopt its canonical header (10 matched rows, ordinary LINKS 1,336 -> 1,336 bytes; three owning-tool header retirements). Rva002B2AFDSelect remains blocked because ArmySummary selects Snapshot before LivingWorldBattle requires its capitalized/reference-transfer surface; reconcile the shared override surface before retrying. [Evidence and restored trial](../../reverse/attempt_support/army-summary-header-20261104-codexb4.md).

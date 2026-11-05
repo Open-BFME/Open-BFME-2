@@ -59,6 +59,8 @@
 
 **DefaultDraw table follow-up (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `T1Base005F3750Ctor.cpp` still disagrees with the first `DefaultDrawModuleInfo` table in `FXParticleSystem.cpp`. The native table at RVA 0081BAC0 has four slots (003A7ABD, 000B3FD0, 003A6127 and 00306A9B); the current first emitter has three slots, and T1's four-slot copy puts its name getter in slot 1 instead of slot 2. `build/c136-common2/provider-details.log` records the raw retail words and both COFF relocation lists. Matching the first emitter's shorter table would retain a non-retail contract, so no such trial was made. Next: reconcile the actual Snapshot interface and all emitting views, retaining every row, then recheck the family. The T1 destructor identity prerequisite remains separate under LINK-004. Clearance and census confirmation remain pending.
 
+2026-11-05: four draw-info first emitters now have their exported, byte-verified transfer slot; T1's DefaultDraw COMDAT disagreement remains (ordinary preview 0 -> 0). Next: reconcile the post-load slot and other emitting views. [Evidence](../../reverse/attempt_support/fx-draw-transfer-20261105-codexb5/README.md).
+
 
 **FX info post-load provider prerequisite (2026-10-30, base `a5c01ba2ba`):**
 DefaultAlphaModuleInfo and DefaultColorModuleInfo now define their exported

@@ -54,7 +54,20 @@ const UpgradeTemplate *UpgradeCenter::rva001DB0A8() const
 	return m_0C;
 }
 
-class Xfer;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+struct IRegion2D;
+class RealRange;
+struct RGBAColorReal;
+struct RGBAColorInt;
+#include "../../Include/Common/BfmeXfer.h"
 class INI;
 
 #include "../../Include/GameClient/GpuDrawModuleInfo.h"
@@ -659,7 +672,23 @@ const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
 
 // The four draw-module info classes carry nothing but their own vtable: both
 // constructors install it and the copy constructor ignores its argument.
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME : public Snapshot                                                                       {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               virtual ~NAME();                                                                                    virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                                                                                                        NAME::NAME(const NAME &that) {}                                                                                                                                                                       const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+// Retail exports 1160/1163/1172/1175 share the Version1-only transfer
+// at 0x00306A9B. Each member below emits the complete body and Version1
+// call relocation already verified in the existing Xfer.cpp provider.
+#define FX_VTABLE_ONLY_INFO(NAME) \
+class NAME : public Snapshot \
+{ \
+public: \
+    NAME(); \
+    NAME(const NAME &that); \
+    virtual ~NAME(); \
+    virtual void v1() = 0; \
+    virtual const char *GetSnapshotName(); \
+    virtual void DoXfer(::Xfer &); \
+}; \
+NAME::NAME(const NAME &that) {} \
+const char *NAME::GetSnapshotName() { return #NAME; } \
+void NAME::DoXfer(::Xfer &xfer) { xfer.Version1(); }
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 FX_VTABLE_ONLY_INFO(StreakDrawModuleInfo)
