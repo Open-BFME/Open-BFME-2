@@ -55,10 +55,12 @@ class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int
 
 class ColorRefBase {public:virtual ~ColorRefBase();private:int refs;};
 
-class Rva005248D0 {public:virtual ~Rva005248D0();protected:char p0C[0xC];AptExternHandlerAdder externHandlers;char rest[0x3C];};
+#include "../../../../../GameEngine/Include/GameClient/Rva005248D0.h"
 
 class W3DAptComponentColorPicker:public ColorRefBase,public Rva005248D0 {
 public:virtual ~W3DAptComponentColorPicker();virtual void Init(const AsciiString&,const char*);virtual void Render(int,int,int,int);void ExternFunc(int,char*,bool);
+ // Rva005248D0's +0x10 holder (Rva005241B0) is the extern-handler adder Init registers through.
+ AptExternHandlerAdder *externHandlers(){return reinterpret_cast<AptExternHandlerAdder*>(static_cast<Rva005241B0*>(this));}
 private:const Image*image;AsciiString owner;float scaleWidth,scaleHeight;unsigned color;bool sample,seek;char p76[2];int cursorX,cursorY;
 };
 
@@ -160,9 +162,9 @@ void W3DAptComponentColorPicker::Init(const AsciiString&name,const char*params) 
  if(!image)return;
  cursorX=image->m_imageSize.x;cursorY=image->m_imageSize.y;
  AsciiString callbackName(name);reinterpret_cast<StringBase<char> *>(&callbackName)->concat("Cursor");
- externHandlers.AddExternHandler(callbackName,0,MakeBinding(reinterpret_cast<FunctorMethod>(&W3DAptComponentColorPicker::ExternFunc),reinterpret_cast<FunctorTarget*>(this)));
+ externHandlers()->AddExternHandler(callbackName,0,MakeBinding(reinterpret_cast<FunctorMethod>(&W3DAptComponentColorPicker::ExternFunc),reinterpret_cast<FunctorTarget*>(this)));
  callbackName=name;reinterpret_cast<StringBase<char> *>(&callbackName)->concat("Color");
- externHandlers.AddExternHandler(callbackName,1,MakeBinding(reinterpret_cast<FunctorMethod>(&W3DAptComponentColorPicker::ExternFunc),reinterpret_cast<FunctorTarget*>(this)));
+ externHandlers()->AddExternHandler(callbackName,1,MakeBinding(reinterpret_cast<FunctorMethod>(&W3DAptComponentColorPicker::ExternFunc),reinterpret_cast<FunctorTarget*>(this)));
 }
 
 void W3DAptComponentColorPicker::ExternFunc(int slot,char*value,bool write) {
