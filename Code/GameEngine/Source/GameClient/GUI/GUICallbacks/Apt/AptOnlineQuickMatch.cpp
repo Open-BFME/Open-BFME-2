@@ -629,12 +629,6 @@ protected:
 };
 #include "../../../../../Include/Common/UserPreferences.h"
 #include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
-class OnlineQuickMatchWindowRef {
-public:
-    ~OnlineQuickMatchWindowRef();
-private:
-    GameWindow *m_window;
-};
 class AptOnline
 {
 public:
@@ -658,7 +652,7 @@ public:
         QuickMatchPreferences m_prefs; // +0x64
         bool m_78, m_simple, m_foundMovie;
         unsigned int m_gadgets; // +0x7C
-        OnlineQuickMatchWindowRef m_color; // +0x80
+        Rva00323674 m_color; // +0x80
         GameWindow *m_numPlayers, *m_side, *m_connectionSpeed, *m_ladder;
         const Image *m_selectedImage, *m_unselectedImage;
         int m_9C;

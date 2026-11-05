@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /vmg /vmm /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// stlport
 //
 // ??0OnlineQuickMatch@AptOnline@@QAE@PAV1@@Z, retail 0x005BAB7E..0x005BAECA
 // (844 bytes, EH, ret 4); pinned until now as ??0Rva005BAB7E@@QAE@PAVAptOnline@@@Z.
@@ -27,9 +28,16 @@
 #include "ascii_string.h"
 
 class GameWindow;
-class Image;
-
+class Rva00323674
+{
+public:
+	int rva00323674() const;
+	Rva00323674(GameWindow *window);
+	~Rva00323674();
+	GameWindow *m_window; // +0x00
+};
 class AptOnline;
+class Image;
 #include "../../../../../Include/GameClient/Rva005248D0.h"
 class Rva0056DC4C:public Rva005248D0 {
 public:
@@ -39,95 +47,54 @@ protected:
     AptOnline *m_owner; // +0x58
     int unknown5c;
 };
+#include "../../../../../Include/Common/UserPreferences.h"
+#include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
+class AptOnline
+{
+public:
+    void rva00516F08();
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
+    class OnlineQuickMatch : public Rva0056DC4C
+    {
+    public:
+        OnlineQuickMatch(AptOnline *shell);
+        virtual ~OnlineQuickMatch();
+        void StartSimple(const char *unused);
+        void PlayGame(const char *unused);
+        void OnFoundMovieDone(const char *unused);
+        void WidenSearch(const char *unused);
+        void Cancel(const char *unused);
+        void InitGadgets(const char *name, void *argument, GameWindow *window);
+        int rva005BAECA(int window, int msg, unsigned char key, int flags);
 
-private:
-	unsigned char m_unmodelled[0x10];
+    private:
+        int m_state; // +0x60
+        QuickMatchPreferences m_prefs; // +0x64
+        bool m_78, m_simple, m_foundMovie;
+        unsigned int m_gadgets; // +0x7C
+        Rva00323674 m_color; // +0x80
+        GameWindow *m_numPlayers, *m_side, *m_connectionSpeed, *m_ladder;
+        const Image *m_selectedImage, *m_unselectedImage;
+        int m_9C;
+    };
 };
-
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-public:
-	virtual ~QuickMatchPreferences();
-public:
-	void setLastLadder(const AsciiString &address, unsigned short port);
-public:
-	void setNumPlayers(int value);
-public:
-	void setMaxPing(int value);
-public:
-	void setSide(int value);
-public:
-	void setColor(int value);
-public:
-	int getNumPlayers();
-	int getMaxPing();
-	int getSide();
-};
-
-class Rva00323674
-{
-public:
-	int rva00323674() const;
-	Rva00323674(GameWindow *window);
-	~Rva00323674();
-	GameWindow *m_window; // +0x00
-};
-
-class __multiple_inheritance FunctorTarget;
-typedef void (FunctorTarget::*FunctorMethod)();
-struct FunctorBinding
-{
-	FunctorBinding(FunctorMethod functorMethod, FunctorTarget *functorTarget) : target(functorTarget), method(functorMethod) {}
-	FunctorTarget *target;
-	unsigned pad;
-	FunctorMethod method;
-};
-class FunctorWrapperHead
-{
-public:
-	void *vt;
-	int count;
-};
-struct Rva0057BC63FunctorHolder
-{
-public:
-	Rva0057BC63FunctorHolder(const FunctorBinding &);
-	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : ptr(other.ptr)
-	{
-		if (ptr) ++ptr->count;
-	}
-	FunctorWrapperHead *ptr;
-};
-struct TargetRef00217D4C;
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class __multiple_inheritance FunctorTarget;
+typedef void(FunctorTarget::*FunctorMethod)(int);
+#include "../../../../../Include/GameClient/FunctorBinding.h"
+struct Rva0057BC63FunctorHolder {Rva0057BC63FunctorHolder(const FunctorBinding &);Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &o):ptr(o.ptr){if(ptr)++ptr->references;}TargetRef00217D4C *ptr;~Rva0057BC63FunctorHolder(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}};
 template <class T> class AptRef : public Rva0057BC63FunctorHolder
 {
 public:
 	AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
-	~AptRef()
-	{
-		if (ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);
-	}
 };
 class AptCommandMap;
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
-extern ImageCollection *TheMappedImageCollection;
+#include "../../../../../Include/GameClient/Image.h"
 
 class MapMetaData;
 #include "../../../../../Include/GameClient/MapCache.h"
@@ -150,46 +117,6 @@ public:
 };
 struct NAT;
 extern NAT *TheNAT;	// 0x00E063F8, data row in NATProcessGlobalMessage.cpp
-
-class AptOnline
-{
-public:
-	void rva00516F08();
-	class OnlineQuickMatch;
-};
-
-class AptOnline::OnlineQuickMatch : public Rva0056DC4C
-{
-public:
-	OnlineQuickMatch(AptOnline *shell);
-	virtual ~OnlineQuickMatch();
-
-	void StartSimple(const char *unused);
-	void PlayGame(const char *unused);
-	void OnFoundMovieDone(const char *unused);
-	void WidenSearch(const char *unused);
-	void Cancel(const char *unused);
-	void InitGadgets(const char *name, void *argument, GameWindow *window);
-
-private:
-	AptOnline *shell() { return m_owner; }
-	AptCommandMapAdder *commandMaps() { return (AptCommandMapAdder *)((char *)this + 4); }
-
-	int m_state; // +0x60
-	QuickMatchPreferences m_prefs; // +0x64
-	bool m_78;
-	bool m_simple; // +0x79
-	bool m_foundMovie; // +0x7A
-	unsigned int m_gadgets; // +0x7C
-	Rva00323674 m_color; // +0x80
-	GameWindow *m_numPlayers; // +0x84
-	GameWindow *m_side; // +0x88
-	GameWindow *m_connectionSpeed; // +0x8C
-	GameWindow *m_ladder; // +0x90
-	const Image *m_selectedImage; // +0x94
-	const Image *m_unselectedImage; // +0x98
-	int m_9C;
-};
 
 // The functor binding keeps the multiple-inheritance member pointer form
 // ({function, 0}); the callbacks are widened through this view.
@@ -220,37 +147,37 @@ AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
 			m_unselectedImage = TheMappedImageCollection->findImageByName(name);
 		}
 		{
-			FunctorMethod method = reinterpret_cast<FunctorMethod>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::PlayGame));
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::PlayGame));
 			AsciiString name("AptOnline::OnlineQuickMatch::PlayGame");
-			commandMaps()->AddCommandMap(name,
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
 				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		{
-			FunctorMethod method = reinterpret_cast<FunctorMethod>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::Cancel));
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::Cancel));
 			AsciiString name("AptOnline::OnlineQuickMatch::Cancel");
-			commandMaps()->AddCommandMap(name,
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
 				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		{
-			FunctorMethod method = reinterpret_cast<FunctorMethod>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::WidenSearch));
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::WidenSearch));
 			AsciiString name("AptOnline::OnlineQuickMatch::WidenSearch");
-			commandMaps()->AddCommandMap(name,
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
 				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		{
-			FunctorMethod method = reinterpret_cast<FunctorMethod>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::StartSimple));
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::StartSimple));
 			AsciiString name("AptOnline::OnlineQuickMatch::StartSimple");
-			commandMaps()->AddCommandMap(name,
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
 				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		{
-			FunctorMethod method = reinterpret_cast<FunctorMethod>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::OnFoundMovieDone));
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::OnFoundMovieDone));
 			AsciiString name("AptOnline::OnlineQuickMatch::OnFoundMovieDone");
-			commandMaps()->AddCommandMap(name,
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
 				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		{
-			FunctorMethod method = reinterpret_cast<FunctorMethod>(static_cast<QuickMatchInitGadgets>(&AptOnline::OnlineQuickMatch::InitGadgets));
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchInitGadgets>(&AptOnline::OnlineQuickMatch::InitGadgets));
 			AsciiString name("AptOnlineQuickMatch::InitGadgets");
 			_bfme_setAptScreenRef(name,
 				AptRef<AptScreenInitGadgets>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
@@ -263,6 +190,6 @@ AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
 		}
 		if (TheGameSpyInfo)
 			TheGameSpyInfo->leaveStagingRoom();
-		shell()->rva00516F08();
+		m_owner->rva00516F08();
 	}
 }
