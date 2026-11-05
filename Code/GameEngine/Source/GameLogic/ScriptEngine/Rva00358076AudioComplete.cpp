@@ -69,21 +69,12 @@ public:
 class AudioManager;
 extern AudioManager *TheAudio;
 
-class ScriptEngine
-{
-public:
-	bool rva00357F5E(const AsciiString &s, bool remove);
-	bool rva00358076(const AsciiString &s, bool remove);
-private:
-	char m_pad[0x1A258];
-	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > m_list1A258;
-	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > m_list1A25C;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 bool ScriptEngine::rva00358076(const AsciiString &asciiString, bool remove)
 {
 	unsigned long crc = Rva003ECA13Get(asciiString);
-	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > &lst = m_list1A25C;
+	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > &lst = m_testingAudio;
 	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> >::iterator it;
 	for (it = lst.begin(); it != lst.end(); ++it) {
 		if (it->m_templateID == crc)
@@ -120,7 +111,7 @@ bool ScriptEngine::rva00358076(const AsciiString &asciiString, bool remove)
 bool ScriptEngine::rva00357F5E(const AsciiString &asciiString, bool remove)
 {
 	unsigned long crc = Rva003ECA13Get(asciiString);
-	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > &lst = m_list1A258;
+	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > &lst = m_testingSpeech;
 	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> >::iterator it;
 	for (it = lst.begin(); it != lst.end(); ++it) {
 		if (it->m_templateID == crc)

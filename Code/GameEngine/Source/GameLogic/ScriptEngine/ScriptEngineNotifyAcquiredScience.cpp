@@ -31,15 +31,7 @@ namespace _STL
 	};
 }
 
-class ScriptEngine
-{
-public:
-	void notifyOfAcquiredScience(int playerIndex, ScienceType science);
-
-private:
-	char m_pad[0x1A3A8];
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_acquiredSciences[20]; // +0x1A3A8
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::notifyOfAcquiredScience(int playerIndex, ScienceType science)
 {

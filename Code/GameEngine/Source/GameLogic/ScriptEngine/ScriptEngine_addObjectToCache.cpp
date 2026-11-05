@@ -50,18 +50,7 @@ struct Rva0020A227Element
 	Rva0020A227Element() : obj(0) {}
 };
 
-extern class ScriptEngine *TheScriptEngine;
-
-class ScriptEngine
-{
-public:
-	void addObjectToCache(Object *pNewObject, const AsciiString &name);
-	void AppendDebugMessage(const AsciiString &strToAdd, bool mustAdd);
-
-private:
-	char m_pad[0x1A120];
-	_STL::vector<Rva0020A227Element> m_vec1A120;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::addObjectToCache(Object *pNewObject, const AsciiString &name)
 {
@@ -75,7 +64,7 @@ void ScriptEngine::addObjectToCache(Object *pNewObject, const AsciiString &name)
 		((StringBase<char> *)&objName)->set(*(StringBase<char> *)&name);
 		flag = true;
 	}
-	for (Rva0020A227Element *it = m_vec1A120.begin(); it != m_vec1A120.end(); ++it) {
+	for (Rva0020A227Element *it = m_namedObjects.begin(); it != m_namedObjects.end(); ++it) {
 		if (((StringBase<char> *)&it->key)->compare(*(StringBase<char> *)&objName) == 0) {
 			Object *cur = it->obj;
 			if (cur == 0) {
@@ -98,5 +87,5 @@ void ScriptEngine::addObjectToCache(Object *pNewObject, const AsciiString &name)
 	Rva0020A227Element tmp;
 	((StringBase<char> *)&tmp.key)->set(*(const StringBase<char> *)&objName);
 	tmp.obj = pNewObject;
-	m_vec1A120.push_back(tmp);
+	m_namedObjects.push_back(tmp);
 }

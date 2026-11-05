@@ -30,9 +30,15 @@
 // Q = public, U = public virtual), plus the members views call that have no
 // row yet (marked "unrowed"). Addresses are target RVAs.
 //
-// Data: only the profiling tail is named (ScriptEngine_init.cpp reads it);
-// +0x10..+0x1A4E0 stays opaque until the member types (counter/flag maps,
-// action/condition template arrays, per-player lists) have shared headers.
+// Data: typed where the ctor 0x00208343, the dtor 0x0020A2B0 or a rowed access
+// fixes offset and size and Zero Hour names a member of that meaning; the rest
+// stays opaque until its member types have shared headers. Typed members are
+// public because Zero Hour's inline accessors for them have no ledger rows.
+// Vector members are typed only under STLport's <vector> (12 bytes); a unit
+// that reads the compiler's own <vector> keeps the same bytes opaque. List
+// members are typed where the unit read STLport's <list> first, as in Player.h.
+// The class ends at +0x1A4F8; retail's ctor also zeroes a double at +0x1A4F8
+// (Zero Hour's m_curUpdateTime) and GameEngine::init allocates 0x1A500.
 // Units whose private view names other fields stay queued in
 // reverse/header_queue.tsv.
 #ifndef CANONICAL_SCRIPTENGINE_H
@@ -58,6 +64,7 @@ class AsciiString;
 class AssetList;
 struct AssetLoadMode;
 class AttackPriorityInfo;
+struct BfmeSpecialPowerTimer8;
 struct BfmeStringRecord00204A30;
 class Condition;
 class ConditionTemplate;
@@ -68,6 +75,7 @@ class Parameter;
 class Player;
 class PolygonTrigger;
 struct Rva003412E0Node;
+struct Rva0020A227Element;
 class Rva003558C0Arr;
 class Rva00355950Arr;
 class Script;
@@ -249,12 +257,92 @@ protected:
 	bool evaluateCondition(Condition *pCondition);		// 0x002096E2
 	void executeActions(ScriptAction *pActionHead, void *, void *);	// 0x0020C5C7
 
+public:
+	// setFade 0x00203777 stores these values at +0x1A138.
+	enum TFade { FADE_NONE, FADE_SUBTRACT, FADE_ADD, FADE_SATURATE, FADE_MULTIPLY };
+
+#ifdef _STLP_INTERNAL_VECTOR_H
+	VecSequentialScriptPtr m_sequentialScripts;			// +0x10: ctor 0x0020836B, setSequentialTimer 0x00203FDB
+#else
+	unsigned char m_opaque10[0x1C - 0x10];				// +0x10
+#endif
 private:
-	unsigned char m_opaque10[0x1A4E0 - 0x10];			// +0x10, see the header comment
+	unsigned char m_opaque1C[0x1A110 - 0x1C];			// +0x1C: templates, counter/flag maps, attack priorities
+public:
+	Team *m_callingTeam;								// +0x1A110: 0x002051E8, getTeamNamed 0x00358510
+	Object *m_callingObject;							// +0x1A114: 0x00356FCA
+	Team *m_conditionTeam;								// +0x1A118: 0x002051F6, 0x0020CAE0
+	Object *m_conditionObject;							// +0x1A11C: 0x00356FBD, 0x0020CAE9
+#ifdef _STLP_INTERNAL_VECTOR_H
+	std::vector<Rva0020A227Element> m_namedObjects;		// +0x1A120: ctor 0x0020847A, addObjectToCache 0x0020A669
+#else
+	unsigned char m_opaque120[0x1A12C - 0x1A120];		// +0x1A120
+#endif
+private:
+	unsigned char m_opaque12C[0x1A130 - 0x1A12C];		// +0x1A12C
+public:
+	Player *m_currentPlayer;							// +0x1A130: getCurrentPlayer 0x00205CA1
+private:
+	unsigned char m_opaque134[0x1A138 - 0x1A134];		// +0x1A134
+public:
+	TFade m_fade;										// +0x1A138: setFade 0x0020378C, updateFades 0x0020376E
+private:
+	unsigned char m_opaque13C[0x1A15C - 0x1A13C];		// +0x1A13C: fade flag, fade values and frame counts
+public:
+	unsigned int m_frameObjectCountChanged;				// +0x1A15C: ctor 0x00208509
+private:
+	unsigned char m_opaque160[0x1A258 - 0x1A160];		// +0x1A160: object counts, completed-video list
+public:
+#ifdef _STLP_INTERNAL_LIST_H
+	std::list<BfmeSpecialPowerTimer8> m_testingSpeech;	// +0x1A258: ctor 0x0020853B, rva00357F5E 0x00357F7B
+	std::list<BfmeSpecialPowerTimer8> m_testingAudio;	// +0x1A25C: ctor 0x0020854E, rva00358076 0x00358093
+#else
+	unsigned char m_opaque258[0x1A260 - 0x1A258];		// +0x1A258
+#endif
+private:
+	unsigned char m_opaque260[0x1A268 - 0x1A260];		// +0x1A260: interaction lists
+public:
+	// The ctor builds 20 of each array (0x00208584..0x002085F0).
+#ifdef _STLP_INTERNAL_LIST_H
+	std::list<BfmeSpecialPowerTimer8> m_triggeredSpecialPowers[20];	// +0x1A268: rva00357E7B 0x00357E9C, rva003571B8 0x003571CC
+	std::list<BfmeSpecialPowerTimer8> m_midwaySpecialPowers[20];	// +0x1A2B8: rva00357EAD 0x00357ECE, rva0035721A 0x0035722E
+	std::list<BfmeSpecialPowerTimer8> m_finishedSpecialPowers[20];	// +0x1A308: rva00357EDF 0x00357F00, rva0035727C 0x00357290
+	std::list<BfmeSpecialPowerTimer8> m_completedUpgrades[20];		// +0x1A358: rva00357F11 0x00357F32, rva003572DE 0x003572F2
+#else
+	unsigned char m_opaque268[0x1A3A8 - 0x1A268];		// +0x1A268
+#endif
+#ifdef _STLP_INTERNAL_VECTOR_H
+	std::vector<ScienceType> m_acquiredSciences[20];	// +0x1A3A8: notifyOfAcquiredScience 0x00357F4F, rva00357A03 0x00357A0A
+#else
+	unsigned char m_opaque3A8[0x1A498 - 0x1A3A8];		// +0x1A3A8
+#endif
+private:
+	unsigned char m_opaque498[0x1A49C - 0x1A498];		// +0x1A498: topple list
+public:
+#ifdef _STLP_INTERNAL_VECTOR_H
+	std::vector<BfmeStringRecord00204A30> m_namedReveals;	// +0x1A49C: ctor 0x0020861B, doNamedMapReveal 0x003577EC
+#else
+	unsigned char m_opaque49C[0x1A4A8 - 0x1A49C];		// +0x1A49C
+#endif
+private:
+	unsigned char m_opaque4A8[0x1A4C8 - 0x1A4A8];		// +0x1A4A8: breeze info, game difficulty
+public:
+#ifdef _STLP_INTERNAL_VECTOR_H
+	std::vector<ObjectTypes *> m_allObjectTypeLists;	// +0x1A4C8: ctor 0x0020862A, getObjectTypes 0x00357655
+#else
+	unsigned char m_opaque4C8[0x1A4D4 - 0x1A4C8];		// +0x1A4C8
+#endif
+private:
+	unsigned char m_opaque4D4[0x1A4D5 - 0x1A4D4];		// +0x1A4D4
+public:
+	Bool m_objectsShouldReceiveDifficultyBonus;			// +0x1A4D5: ctor 0x0020866B stores 1
+	Bool m_ChooseVictimAlwaysUsesNormal;				// +0x1A4D6: ctor 0x0020864E, Rva003BCC6ESet 0x003BCC78
+private:
+	unsigned char m_opaque4D7[0x1A4E0 - 0x1A4D7];		// +0x1A4D7
 	double m_numFrames;									// +0x1A4E0
 	double m_totalUpdateTime;							// +0x1A4E8
 	double m_maxUpdateTime;								// +0x1A4F0
-};													// sizeof 0x1A500 (8-byte aligned)
+};													// ends at +0x1A4F8, see the header comment
 
 extern ScriptEngine *TheScriptEngine;					// 0x009FE16C
 

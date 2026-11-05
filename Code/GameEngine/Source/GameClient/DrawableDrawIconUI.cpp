@@ -103,15 +103,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class ScriptEngine
-{
-public:
-	Int getFade() const { return m_fade; }
-private:
-	unsigned char m_pad00[0x1A138];
-	Int m_fade;					// +0x1A138
-};
-extern ScriptEngine *TheScriptEngine;
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
@@ -144,7 +136,7 @@ private:
 
 void Drawable::drawIconUI()
 {
-	if (TheGameLogic->getDrawIconUI() && TheScriptEngine->getFade() == 0)
+	if (TheGameLogic->getDrawIconUI() && TheScriptEngine->m_fade == ScriptEngine::FADE_NONE)
 	{
 		Object *obj = bfme_drawable_object();
 		if (!obj)

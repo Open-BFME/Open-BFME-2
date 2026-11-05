@@ -30,20 +30,7 @@ public:
 	SequentialScript *m_nextScriptInSequence; // +0x28
 };
 
-class ScriptEngine
-{
-protected:
-	typedef std::vector<SequentialScript *> VecSequentialScriptPtr;
-	typedef VecSequentialScriptPtr::iterator VecSequentialScriptPtrIt;
-
-	void removeObjectTypes(ObjectTypes *typesToRemove);
-	VecSequentialScriptPtrIt cleanupSequentialScript(VecSequentialScriptPtrIt it, bool cleanDanglers, bool removeEntry);
-
-	char m_pre[0x10];
-	VecSequentialScriptPtr m_sequentialScripts;       // +0x10
-	char m_body[0x1A4C8 - 0x1C];
-	std::vector<ObjectTypes *> m_allObjectTypeLists;  // +0x1A4C8
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::removeObjectTypes(ObjectTypes *typesToRemove)
 {

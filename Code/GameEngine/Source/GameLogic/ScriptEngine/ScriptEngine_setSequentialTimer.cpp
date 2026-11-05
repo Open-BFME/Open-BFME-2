@@ -9,8 +9,6 @@
 // m_framesToWait at +0x20 with m_nextScriptInSequence at +0x28.
 #include <vector>
 
-typedef int ObjectID;
-
 class Team;
 
 class Object
@@ -36,19 +34,7 @@ public:
 	SequentialScript *m_nextScriptInSequence; // +0x28
 };
 
-class ScriptEngine
-{
-protected:
-	typedef std::vector<SequentialScript *> VecSequentialScriptPtr;
-	typedef VecSequentialScriptPtr::iterator VecSequentialScriptPtrIt;
-
-	char m_pre[0x10];
-	VecSequentialScriptPtr m_sequentialScripts; // +0x10
-
-public:
-	void setSequentialTimer(Object *obj, int frameCount);
-	void setSequentialTimer(Team *team, int frameCount);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 // ScriptEngine.cpp's singleton (Zero Hour: `ScriptEngine *TheScriptEngine = NULL;`).
 // Matched references in 31 units place it at VA 0x00DFE16C, zero-filled .bss.

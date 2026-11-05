@@ -32,15 +32,7 @@ enum { PLAYER_HUMAN = 0 };
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	Player *getSkirmishEnemyPlayer();
-
-private:
-	unsigned char m_pad00[0x1A130];
-	Player *m_currentPlayer; // +0x1A130
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 Player *ScriptEngine::getSkirmishEnemyPlayer()
 {

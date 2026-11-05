@@ -12,19 +12,12 @@ unsigned long __cdecl Rva003ECA13Get(const AsciiString &s);
 
 #include "../../Common/BfmeSpecialPowerTimer8.h"
 
-class ScriptEngine
-{
-public:
-	void rva00357F11(int playerIndex, const AsciiString &s, int val);
-private:
-	char m_pad[0x1A358];
-	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > m_lists1A358[20];
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva00357F11(int playerIndex, const AsciiString &asciiString, int val)
 {
 	BfmeSpecialPowerTimer8 timer;
 	timer.m_templateID = Rva003ECA13Get(asciiString);
 	timer.m_readyFrame = (unsigned int)val;
-	m_lists1A358[playerIndex].push_back(timer);
+	m_completedUpgrades[playerIndex].push_back(timer);
 }

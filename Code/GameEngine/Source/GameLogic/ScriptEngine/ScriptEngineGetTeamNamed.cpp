@@ -105,18 +105,7 @@ public:
     TeamState status; // +0x5D (target)
 };
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString name, Bool createIfMissing);
-    void AppendDebugMessage(const AsciiString &message, Bool forcePause);
-
-private:
-    unsigned char pad_0000[0x1A110];
-    Team *callingTeam; // +0x1A110 (target)
-    unsigned char pad_1A114[4];
-    Team *conditionTeam; // +0x1A118 (target)
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 // The TeamFactory singleton; its lookup/create entry points below keep
 // address-derived owner names until their identities are recovered.
@@ -128,41 +117,41 @@ extern AsciiString Rva0032B389Join(const AsciiString &, const AsciiString &);
 Team *ScriptEngine::getTeamNamed(AsciiString name, Bool createIfMissing)
 {
     if (name.compare("<This Team>") == 0) {
-        if (callingTeam)
-            return callingTeam;
-        return conditionTeam;
+        if (m_callingTeam)
+            return m_callingTeam;
+        return m_conditionTeam;
     }
 
     AsciiString normalized = ((Rva002046C0Owner *)this)->resolveName(name);
 
     const AsciiString *emptyName = &AsciiString::TheEmptyString;
-    if (callingTeam) {
-        TeamPrototypeNames *prototype = callingTeam->prototype;
+    if (m_callingTeam) {
+        TeamPrototypeNames *prototype = m_callingTeam->prototype;
         const AsciiString *primary = emptyName;
         if (prototype)
             primary = &prototype->primaryName;
         if (primary->compare(normalized) == 0) {
-            prototype = callingTeam->prototype;
+            prototype = m_callingTeam->prototype;
             const AsciiString *alternate = emptyName;
             if (prototype)
                 alternate = &prototype->alternateName;
             if (alternate->compare(name) == 0)
-                return callingTeam;
+                return m_callingTeam;
         }
     }
 
-    if (conditionTeam) {
-        TeamPrototypeNames *prototype = conditionTeam->prototype;
+    if (m_conditionTeam) {
+        TeamPrototypeNames *prototype = m_conditionTeam->prototype;
         const AsciiString *primary = emptyName;
         if (prototype)
             primary = &prototype->primaryName;
         if (primary->compare(normalized) == 0) {
-            prototype = conditionTeam->prototype;
+            prototype = m_conditionTeam->prototype;
             const AsciiString *alternate = emptyName;
             if (prototype)
                 alternate = &prototype->alternateName;
             if (alternate->compare(name) == 0)
-                return conditionTeam;
+                return m_conditionTeam;
         }
     }
 

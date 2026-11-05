@@ -22,23 +22,11 @@ namespace _STL { template <> __declspec(dllimport) __forceinline const unsigned 
 
 #include "../../../Include/GameLogic/ObjectTypesClass.h"
 
-class ScriptEngine
-{
-public:
-	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
- void doObjectTypeListMaintenance(const AsciiString &,const AsciiString &,bool);
-
-protected:
- void removeObjectTypes(ObjectTypes *);
-
-private:
-	char m_pad[0x1A4C8];
-	_STL::vector<ObjectTypes *> m_lists; // +0x1A4C8
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 ObjectTypes *ScriptEngine::getObjectTypes(const AsciiString &objectTypeList)
 {
-	for (ObjectTypes **it = m_lists.begin(); it != m_lists.end(); ++it) {
+	for (ObjectTypes **it = m_allObjectTypeLists.begin(); it != m_allObjectTypeLists.end(); ++it) {
 		if (*it == 0)
 			continue;
 		void *nameField = ((Rva005C4AD1LeaField *)*it)->get();
@@ -56,7 +44,7 @@ void ScriptEngine::doObjectTypeListMaintenance(const AsciiString &list,const Asc
  ObjectTypes *current = getObjectTypes(list);
  if(!current) {
   ObjectTypes *newVec = new ObjectTypes(list);
-  m_lists.push_back(newVec);
+  m_allObjectTypeLists.push_back(newVec);
   current = newVec;
  }
  if(add) current->addObjectType(type);

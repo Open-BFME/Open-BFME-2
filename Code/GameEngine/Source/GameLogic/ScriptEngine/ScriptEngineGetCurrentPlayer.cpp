@@ -15,18 +15,7 @@ typedef bool Bool;
 #include "ascii_string.h"
 
 
-class Player;
-
-class ScriptEngine
-{
-public:
-	Player *getCurrentPlayer();
-	void AppendDebugMessage(const AsciiString &strToAdd, Bool forcePause);
-
-private:
-	char m_pad00[0x1A130];
-	Player *m_currentPlayer; // +0x1A130
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 Player *ScriptEngine::getCurrentPlayer()
 {

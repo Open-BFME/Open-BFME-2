@@ -153,13 +153,7 @@ public:
 	Bool rva002034E9();
 };
 
-class ScriptEngine
-{
-public:
-	char m_pad[0x1A4D5];
-	Bool m_objectsShouldReceiveDifficultyBonus;
-};
-extern ScriptEngine *TheScriptEngine;
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Rva002039B6Host
 {

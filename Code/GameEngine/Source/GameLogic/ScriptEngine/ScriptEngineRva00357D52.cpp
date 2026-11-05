@@ -28,20 +28,13 @@ namespace _STL
 template <> BfmeStringRecord00204A30 *vector<BfmeStringRecord00204A30, allocator<BfmeStringRecord00204A30> >::erase(BfmeStringRecord00204A30 *pos);
 }
 
-class ScriptEngine
-{
-public:
-    void rva00357D52(const AsciiString &name);
-private:
-    char m_pad[0x1A49C];
-    _STL::vector<BfmeStringRecord00204A30> m_vec1A49C;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva00357D52(const AsciiString &name)
 {
     unsigned long crc = Rva003ECA13Get(name);
-    _STL::vector<BfmeStringRecord00204A30> &vec = m_vec1A49C;
-    for (BfmeStringRecord00204A30 *it = vec.begin(); it != m_vec1A49C.end(); ++it) {
+    _STL::vector<BfmeStringRecord00204A30> &vec = m_namedReveals;
+    for (BfmeStringRecord00204A30 *it = vec.begin(); it != m_namedReveals.end(); ++it) {
         if (it->word0 == crc) {
             vec.erase(it);
             break;

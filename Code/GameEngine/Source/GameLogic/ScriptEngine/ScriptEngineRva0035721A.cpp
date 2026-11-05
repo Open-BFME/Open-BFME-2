@@ -22,31 +22,18 @@ void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<i
 class AsciiString;
 unsigned long __cdecl Rva003ECA13Get(const AsciiString &s);
 
-struct Rva0035721AEntry
-{
-	int m_key;
-	int m_val;
-};
-
-class ScriptEngine
-{
-public:
-	bool rva0035721A(int playerIndex, const AsciiString &s, bool remove, int val);
-
-private:
-	char m_pad[0x1A2B8];
-	_STL::list<Rva0035721AEntry, _STL::allocator<Rva0035721AEntry> > m_lists[20]; // +0x1A2B8
-};
+#include "../../Common/BfmeSpecialPowerTimer8.h"
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 bool ScriptEngine::rva0035721A(int playerIndex, const AsciiString &asciiString, bool remove, int val)
 {
 	if (playerIndex < 0 || playerIndex >= 20)
 		return false;
-	_STL::list<Rva0035721AEntry, _STL::allocator<Rva0035721AEntry> > &lst = m_lists[playerIndex];
+	_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > &lst = m_midwaySpecialPowers[playerIndex];
 	unsigned long crc = Rva003ECA13Get(asciiString);
-	for (_STL::list<Rva0035721AEntry, _STL::allocator<Rva0035721AEntry> >::iterator it = lst.begin(); it._M_node != lst.end()._M_node; ++it)
+	for (_STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> >::iterator it = lst.begin(); it._M_node != lst.end()._M_node; ++it)
 	{
-		if (it->m_key == (int)crc && (val == 0 || val == it->m_val))
+		if (it->m_templateID == crc && (val == 0 || val == it->m_readyFrame))
 		{
 			if (remove)
 				(( _STL::list<int, _STL::allocator<int> > *)&lst)->erase(( _STL::list<int, _STL::allocator<int> >::iterator &)it);
