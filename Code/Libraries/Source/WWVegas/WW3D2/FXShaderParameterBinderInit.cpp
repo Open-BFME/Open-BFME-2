@@ -1,5 +1,6 @@
 // cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
+// platformsdk
 //
 // ?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z @ 0x00153F08 (336
 // bytes), called from the binder ctor 0x00154058. Target evidence: the
@@ -14,9 +15,15 @@
 // parameter as the record's current handle, and 0x00190F8E then binds the
 // standard semantics. Interface slots are d3dx9effect.h's ID3DXEffect order.
 
-#define strchr _stlport_hides_strchr
-#define strncpy _stlport_hides_strncpy
-#define _strcmpi _stlport_hides_strcmpi
+// These three CRT calls reach the IAT in retail. Keep the CRT declarations
+// imported while the rest of this TU retains its static-CRT producer flags.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
+#define NOMINMAX
+#include <windows.h>
 #include "../../../../../vendor/stlport/stl/_algobase.h"
 #include "../../../../../vendor/stlport/stl/_uninitialized.h"
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
@@ -28,15 +35,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-#undef strchr
-#undef strncpy
-#undef _strcmpi
-
-extern "C" {
-__declspec(dllimport) char *__cdecl strchr(const char *s, int c);
-__declspec(dllimport) char *__cdecl strncpy(char *d, const char *s, unsigned int n);
-__declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
-}
 
 #include "../../Apt/AptRefTarget.h"
 
@@ -102,7 +100,6 @@ private:
 	char m_storage[sizeof(Rva0015334F)];
 };
 
-typedef long HRESULT;
 
 struct D3DXEFFECT_DESC
 {
