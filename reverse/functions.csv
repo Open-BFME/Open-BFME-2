@@ -31370,7 +31370,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ?rva007B6E9A@@YAXXZ,,0x007B6E9A,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Freelist pool clear thunk at 0x007B6E9A
 ?rva007B6EA4@@YAXXZ,,0x007B6EA4,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Freelist pool clear thunk at 0x007B6EA4
 ?Rva00118AC0@@YAXXZ,,0x00118AC0,138,Code/Libraries/Source/WWVegas/WW3D2/Rva00118AC0Finish.cpp,matched,stencil-gate unlock Clear; predecrement form reproduces retail sub eax 1; siblings Rva00118A90/BA0; /G7 SSE
-??0Rva0035D74A@@QAE@XZ,,0x0035D789,72,Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp,matched,derived ctor with explicit vtable store pinned by novtable plus first-member pointer write
+??0Rva0035D74A@@QAE@XZ,,0x0035D789,72,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,derived ctor with explicit vtable store pinned by novtable plus first-member pointer write
 ??0Rva0035E00F@@QAE@XZ,,0x0035E206,86,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,derived ctor; novtable plus a split eax run plus an early m_14 reload reproduce retail store order
 ??0ProgressIndicator@@QAE@XZ,,0x00355C60,23,Code/GameEngine/Source/Common/ProgressIndicator.cpp,matched,ctor stores vtable links head g_00E01E1C
 ??1Rva001F4D22@@UAE@XZ,,0x001F4D22,11,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,virtual dtor tail-jmps to base Rva001F4C67

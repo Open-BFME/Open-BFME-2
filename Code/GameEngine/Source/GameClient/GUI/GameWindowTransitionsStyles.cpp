@@ -447,7 +447,7 @@ public:
 	virtual void create();
 };
 // The transition the 0x0035D7ED factory news (0x38 bytes): its constructor
-// 0x0035D789 (Rva0035D74AFinish.cpp) calls the transition base 0x001DBAA4
+// 0x0035D789 (below) calls the transition base 0x001DBAA4
 // and installs the existing vtable explicitly, so the class is novtable here
 // too; this is the constructor donor's view, shared for TU recovery.
 class __declspec(novtable) Rva0035D74A : public Rva001DBAA4
@@ -644,6 +644,9 @@ public:
 // (ledger g_flag2) was set, clearing it (vtable 0x00BC4858 slot 5).
 extern Bool g_flag2;
 #include "../../../Include/Common/StateMachine.h"
+#pragma comment(linker, "/alternatename:_vtbl_00C16574=??_7MainMenuMediumScaleUpTransition@@6B@")
+#pragma comment(linker, "/alternatename:_vtbl_00C16530=??_7Rva0035D74A@@6B@")
+
 // ??0MainMenuMediumScaleUpTransition@@QAE@XZ
 //
 // ??0MainMenuMediumScaleUpTransition@@QAE@XZ @0x0035DE55 80B: derived ctor calling base
@@ -653,7 +656,6 @@ extern Bool g_flag2;
 // (the rowed destructor 0x0035DCF9 and vslots 0x0035DD08/0x0035DD9C share
 // it), then the base +4 takes +0x14, +0xC clears and +9 is set.
 extern "C" const void *const vtbl_00C16574[];
-#pragma comment(linker, "/alternatename:_vtbl_00C16574=??_7MainMenuMediumScaleUpTransition@@6B@")
 
 	// 0x003508C5
 
@@ -802,6 +804,25 @@ public:
     GameWindow *m_growWin;		// +0x44
 };
 
+// ??0Rva0035D74A@@QAE@XZ
+//
+// ??0Rva0035D74A@@QAE@XZ @0x0035D789 (72B):
+// Ctor calls rowed base 0x001DBAA4 then stores derived vtable, zeroes six
+// ints at +0x10..+0x24, sets +0x30 to -1 via or, +0x34 to 0, re-zeroes base
+// +0x0C, two floats at +0x28/+0x2C to 0.0f via xorps/movss, base +9 to 1 and
+// base +4 to 0x16. Caller 0x0035D80F. Evidence: unlock lane, all callees
+// rowed, prev/next dtors prove class, vtable store implicit.
+//
+// Two levers place the vtable store, which /O1 otherwise sinks into the
+// constant-store group at +0x1F:
+//   __declspec(novtable) stops the compiler emitting its own vptr store, so
+//     the explicit one is the only one; its alias names the existing vtable
+//     proven at retail VA 0x00C16530, so it also follows the linked table;
+//   writing the FIRST member (+0x10) through a pointer pins the whole store
+//     run behind that one node and the vtable store lands at slot 3, right
+//     after xor eax,eax exactly as retail does.
+extern "C" const void *const vtbl_00C16530[];
+
 // tu-skeleton: 0x0035D4E6 44B ?update@ReverseSoundTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D512 14B ?rva0035D512@Rva0035D512@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
@@ -809,6 +830,8 @@ public:
 // tu-skeleton: 0x0035D520 28B ??_GRva0035D47B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D53C 15B ??1ScoreScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
@@ -1998,33 +2021,19 @@ void Rva0035D781Self::rva0035F49E() { slot2(0x0A); }
 // A rowed cdecl first callee that takes nothing (it reads only globals):
 // `this` stays in esi across it exactly as for a member call.
 
-// tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
-// tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
 
-// tu-skeleton: 0x0035D74A 19B ??1Rva0035D74A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035D75D 36B ?update@ControlBarArrowTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
-// tu-skeleton: 0x0035D789 72B ??0Rva0035D74A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp (not merged yet)
 
-// tu-skeleton: 0x0035D7D1 28B ??_GRva0035D74A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035D83E 230B ?init@ControlBarArrowTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DA01 15B ??1Rva0035DA01@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DA10 143B ?update@MainMenuSmallScaleDownTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DB86 28B ??_GRva0035DA01@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DCF9 15B ??1MainMenuMediumScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DD08 148B ?update@MainMenuMediumScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DD9C 33B ?Rva0035DD9C@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DDBD 152B ?draw@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp
 
@@ -2054,6 +2063,56 @@ MainMenuMediumScaleUpTransition::MainMenuMediumScaleUpTransition()
 	m_win = 0;
 	m_isForward = true;
 }
+
+// tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D74A 19B ??1Rva0035D74A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D75D 36B ?update@ControlBarArrowTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp
+
+  // ??_7Rva0035D74A@@6B@
+
+Rva0035D74A::Rva0035D74A()
+{
+	*(unsigned int *)this = ((unsigned int)vtbl_00C16530);
+	int *p30 = &m_30;
+	int *p10 = &m_10;
+	*p10 = 0;
+	m_14 = 0;
+	m_18 = 0;
+	m_1c = 0;
+	m_20 = 0;
+	m_24 = 0;
+	*p30 = -1;
+	m_34 = 0;
+	m_win = 0;
+	m_28 = 0.0f;
+	m_2c = 0.0f;
+	m_isForward = true;
+	m_frameLength = 0x16;
+}
+
+// tu-skeleton: 0x0035D7D1 28B ??_GRva0035D74A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D83E 230B ?init@ControlBarArrowTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DA01 15B ??1Rva0035DA01@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DA10 143B ?update@MainMenuSmallScaleDownTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DB86 28B ??_GRva0035DA01@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DCF9 15B ??1MainMenuMediumScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DD08 148B ?update@MainMenuMediumScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DD9C 33B ?Rva0035DD9C@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035DDBD 152B ?draw@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
 // tu-skeleton: 0x0035E00F 15B ??1Rva0035E00F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
