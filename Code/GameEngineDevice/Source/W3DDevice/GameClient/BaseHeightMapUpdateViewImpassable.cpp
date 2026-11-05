@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?updateViewImpassableAreas@BaseHeightMapRenderObjClass@@QAEXH...@Z, retail
 // 0x0006DBB2..0x0006DC8E (220 bytes, RET 0x14). Zero Hour's
@@ -17,6 +17,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <math.h>
+// always.h defines array placement-new itself.
+#define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 // bfme link decl-only begin
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
@@ -32,35 +34,25 @@ namespace _STL
 template<> vector<bool, allocator<bool> >::reference vector<bool, allocator<bool> >::operator[](size_t n);
 }
 
-class BaseHeightMapExtent
-{
-public:
-	char m_pad00[8];
-	Int m_xExtent;
-	Int m_yExtent;
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void updateViewImpassableAreas(Bool partial, Int minX, Int maxX, Int minY, Int maxY);
-	Bool evaluateAsVisibleCliff(Int xIndex, Int yIndex, Real valuesGreaterThanRad);
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
 
-private:
-	char m_pad00[0x379C];
-	Real m_curImpassableSlope;			// +0x379C
-	char m_pad37A0[0x37C0 - 0x37A0];
-	BaseHeightMapExtent *m_map;			// +0x37C0
-	char m_pad37C4[0x37EC - 0x37C4];
-	_STL::vector<bool> m_showAsVisibleCliff;	// +0x37EC
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// The header keeps the cliff-visibility vector<bool> at +0x37EC as raw storage.
+static __forceinline _STL::vector<bool> &visibleCliffBits(BaseHeightMapRenderObjClass *self)
+{
+	return *reinterpret_cast<_STL::vector<bool> *>(self->unknown37EC);
+}
 
 void BaseHeightMapRenderObjClass::updateViewImpassableAreas(Bool partial, Int minX, Int maxX, Int minY, Int maxY)
 {
-	Int xSize = m_map->m_xExtent;
-	Int ySize = m_map->m_yExtent;
-	if (m_showAsVisibleCliff.size() != xSize * ySize) {
-		m_showAsVisibleCliff.resize(xSize * ySize);
+	Int xSize = m_map->getXExtent();
+	Int ySize = m_map->getYExtent();
+	if (visibleCliffBits(this).size() != xSize * ySize) {
+		visibleCliffBits(this).resize(xSize * ySize);
 	}
 
 	if (!partial) {
@@ -74,7 +66,7 @@ void BaseHeightMapRenderObjClass::updateViewImpassableAreas(Bool partial, Int mi
 	Real tanImpassableRad = tan(m_curImpassableSlope * 0.017453292f);
 	for (Int j = minY; j < maxY; ++j) {
 		for (Int i = minX; i < maxX; ++i) {
-			m_showAsVisibleCliff[i + j * xSize] = evaluateAsVisibleCliff(i, j, tanImpassableRad);
+			visibleCliffBits(this)[i + j * xSize] = evaluateAsVisibleCliff(i, j, tanImpassableRad);
 		}
 	}
 }
