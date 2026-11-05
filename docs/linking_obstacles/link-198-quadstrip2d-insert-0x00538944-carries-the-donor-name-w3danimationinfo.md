@@ -5,3 +5,5 @@ Completed: none kept. An ICF-twin provider in `stlport_vector_float4_469c61.cpp`
 Remaining / next check: decide the element's name (docs/naming.md; the readable donor spelling cannot be folded into the placeholder by `rename.py class --fold`), respell the three rows onto it, then `link_check` the insert unit, `QuadStrip2D.cpp` and `W3DModelDraw.cpp`.
 Clearance: pending.
 Census confirmation: not claimed.
+
+2026-11-05: [Consolidation prerequisite trial](../../reverse/attempt_support/quadstrip-merge-noinline-20261105.md) rejects the insert donor on bytes even with explicit noinline copy declarations; all 19 separate rows pass, edits reverted. Do not retry that isolated knob before identity/provider reconciliation.
