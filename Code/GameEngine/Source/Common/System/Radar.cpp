@@ -308,7 +308,6 @@ struct Rva002D76C6Owner
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
-
 class BfmeTerrainHeightView
 {
 public:
@@ -320,9 +319,7 @@ public:
 	virtual void unused5();
 	virtual float getGroundHeight(float x, float y, Coord3D *normal = NULL);
 };
-
 extern TerrainLogic *TheTerrainLogic;
-
 class ClientFrameSubsystem
 {
 public:
@@ -336,9 +333,7 @@ public:
 	virtual int v28(); virtual int v29(); virtual int v30();
 	virtual int getFrame();
 };
-
 float BfmeRadarEventFadeFraction=0.5f;
-
 class RadarEventRef
 {
 public:
@@ -348,9 +343,7 @@ public:
 private:
 	int m_refCount; // +0x04
 };
-
 extern GameLogic *TheGameLogic;
-
 //
 // ?rva002D7AE0@@YAXHHH@Z @0x002D7AE0 56B and ?rva002D7B18@@YAXHHH@Z
 // @0x002D7B18 56B: twin notification posts (cdecl, 3 int args, void).
@@ -387,9 +380,7 @@ public:
 	virtual void v78();
 	virtual void v79(int a, int b, int c);
 };
-
 extern Display *TheDisplay;
-
 class Radar : public Snapshot
 {
 public:
@@ -454,20 +445,16 @@ private:
 	char m_pad145D[0x1460 - 0x145D];
 	unsigned int m_queueTerrainRefreshFrame;
 };
-
 enum
 {
 	RADAR_CELL_WIDTH = 128,
 	RADAR_CELL_HEIGHT = 128
 };
-
 #include "../../../Include/Common/XferException.h"
-
 // Native 2D85D7..2D87B9 (482 bytes), WB1109E60 Radar::DoXfer.
 // ZH event transfer spine; target version 1/3, 64 events and tail field slots.
 // Native slots 70/44 transfer four floats and the 16-byte integer draw rect.
 void XferRadarEventType(Xfer*,int*);
-
 // Retail reads the color selector at +0x280 from argument one. Its identity
 // is not established here; only this accessed offset is target evidence.
 struct Rva002D893BColorSource
@@ -475,18 +462,12 @@ struct Rva002D893BColorSource
 	char m_pad[0x280];
 	int m_color;
 };
-
 extern void GameGetColorComponents(int color, unsigned char *a, unsigned char *b,
 	unsigned char *c, unsigned char *d);
-
 class InGameUI;
-
 extern InGameUI *TheInGameUI;
-
 class AudioManager;
-
 extern AudioManager *TheAudio;
-
 class RadarInfiltrationUI
 {
 public:
@@ -507,14 +488,12 @@ public:
     virtual void slot14();
     virtual void __cdecl message(AsciiString label, ...);
 };
-
 struct RadarInfiltrationMiscAudio
 {
     OpaqueRefElement4 harvesterSound;    // +0x00, the under-attack event's harvester case
     OpaqueRefElement4 underAttackSound;  // +0x04, its unit, structure and default cases
     OpaqueRefElement4 sound;
 };
-
 class RadarInfiltrationAudio
 {
 public:
@@ -598,39 +577,23 @@ public:
     virtual void slot77();
     virtual const RadarInfiltrationMiscAudio *getMiscAudio();
 };
-
 class Rva0033F15DDwordSlot
 {
 public:
     void set(int value);
 };
-
 struct RadarInfiltrationPlayer
 {
     char opaque00[0x54];
     int index;
 };
-
-// Zero Hour Radar::tryUnderAttackEvent is the semantic guide. Target
-// 002D8B9D..002D8DC7 (WB 11096E0 twin): after tryEvent(3, position) succeeds
-// it refreshes the control bar (0x0031AEC9), then picks the message and sound
-// from the object's template kind bits 8/9 (unit, with bit 16 the harvester
-// case), 7 and 37 (structure), else the generic message, and plays the sound
-// for the local player. Retail tests every kind bit as its own byte test;
-// the early-return spelling of the test keeps MSVC from merging bits 8 and 9.
 #include "../../../Include/GameClient/ControlBar.h"
-
 extern ControlBar *TheControlBar;
-
 struct RadarAttackTemplate {char opaque[0x108];unsigned char kind[16];};
-
 struct RadarAttackObject {void *vtable;const RadarAttackTemplate *objectTemplate;};
-
 struct RadarAttackPlayerList {char opaque[0x10];RadarInfiltrationPlayer *localPlayer;};
-
 struct RadarAttackRef : OpaqueRefElement4 {
 };
-
 // One of the BFME 1 zeroing-constructor family:
 //
 //     mov eax,ecx / xor ecx,ecx / <four or five member stores> / ret
@@ -660,12 +623,10 @@ struct RadarAttackRef : OpaqueRefElement4 {
 // address.
 
 extern int R2Data01088838;
-
 // R2Data01088838: retail stores 0x00C035D0 (12585936) at this DIR32 site. That
 // VA lies past the last loaded section of the image, so it is recorded as the
 // literal retail carries rather than as a resolvable pin.
 int R2Data01088838 = 12585936;
-
 // ??0Rva00106B40@@QAE@XZ
 // retail 0x002D7667, 21 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/R2ZeroingConstructors.cpp
@@ -682,22 +643,18 @@ public:
 	int m_at0C;
 	Rva00106B40();
 };
-
 class Rva00270260
 {
 public:
 	bool rva00270260();
 };
-
 class Drawable : public Rva00270260
 {
 public:
 	char m_padToType[0x164];
 	int m_type;
 };
-
 #include "../Thing/thing.h"
-
 //
 // ??0Rva002D76A6@@QAE@XZ @0x002D76A6 (17B).
 // Ctor stores vtable 0x0087506C then zeroes dwords at +0x04 and +0x08.
@@ -714,7 +671,6 @@ private:
 	int m_04;
 	int m_08;
 };
-
 // ?DeleteReference@RadarMarker@@QAEXXZ, retail 0x002D76BB, 11 bytes.
 //
 // WB11076B0 explicitly names RadarMarker::DeleteReference and asserts
@@ -736,9 +692,7 @@ public:
 	int m_ref08;
 	void DeleteReference();
 };
-
 extern Radar *TheRadar;
-
 struct Rva002D7FAENode
 {
 	void *m_00;
@@ -746,7 +700,6 @@ struct Rva002D7FAENode
 	Rva002D7FAENode *m_08;
 	int m_0c;
 };
-
 class Rva002D7FAEOwner
 {
 public:
@@ -756,24 +709,11 @@ private:
 	char m_pad[0x14];
 	Rva002D7FAENode *m_14;
 };
-
 int __cdecl rva002D7BFD(int x);
-
-// BFME 1 ba7ddda7 Rva00107A50RadarColor.cpp supplies the RGB/HSV saturation
-// semantic guide. Target 2D7BFD..2D7CC6 proves all 201 bytes: four unpacked
-// floats, RGB/HSV temporaries, 1.6 saturation scale clamped to 1, then byte
-// channel casts and ARGB packing. Direct float-to-byte casts preserve native
-// x87 truncation under /arch:SSE; an intermediate int changes that codegen.
-// The local RGB/HSV pair keeps target stack offsets; it is scratch storage,
-// not a claimed persistent target class layout. Original helper name unknown.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-
 void Rva002D2ACAGet(int,float*,float*,float*,float*);
-
 void RGB_To_HSV(Vector3&,const Vector3&);
-
 void HSV_To_RGB(Vector3&,const Vector3&);
-
 // 0x00131CF2 and 0x00151415 (texture tables): true when the +0x14 object's
 // +0x08 (resp. +0x04) is set, else the rowed 0x00130FCE on this object.
 // 0x0057B97C: 1 when the +0x34 object exists and the rowed 0x005D4E6F
@@ -781,7 +721,6 @@ void HSV_To_RGB(Vector3&,const Vector3&);
 // 0x003FF312: false while +0x10 is clear, else the rowed GameSlot
 // 0x003FF145 of the +0x18 slot for the +0x38 address.
 struct BfmeNetAddress;
-
 // 0x0023DAF7: the rowed 0x0023C7F5 with both arguments on the +0x08
 // member.
 // 0x005FEEC7 and 0x005FEEE6 (adjacent slots of table VA 0x00C7A454): each
@@ -794,21 +733,15 @@ class Gen_003bcb40
 public:
 	void m(Int index);
 };
-
 // 0x005C4352 and 0x005C4553 (tables VA 0x00C745E0/0x00C746D8): field-parse
 // builders: the shared empty base slot 0x0047A69C (alias-pinned here as a
 // buildFieldParse), then the pinned MultiIniFieldParse::add of the table at
 // VA 0x00C74540 (resp. 0x00C74630) with offset 0.
 struct FieldParse;
-
 #include "../../../Include/Common/INI/FieldParse.h"
-
 extern const FieldParse g_rva005C4352FieldParse[];
-
 extern const FieldParse g_rva005C4553FieldParse[];
-
 extern const FieldParse g_rva005C47A8FieldParse[];
-
 // 0x00576FFE (table VA 0x00C6E8F0): the dword the rowed getter 0x0042D697
 // reads through the object the rowed getter 0x00328A83 (alias-pinned with
 // its pointer result) reaches from the +0x08 object's +0x04 member.
@@ -823,12 +756,10 @@ class Rva00251C24Slots : public Rva00251C24Slots<N - 1>
 public:
 	virtual void gap(char (*)[N]);
 };
-
 template <>
 class Rva00251C24Slots<0>
 {
 };
-
 template <int SLOT, int SIZE>
 class Rva00251C24Primary : public Rva00251C24Slots<SLOT>
 {
@@ -837,20 +768,15 @@ public:
 private:
 	char m_pad04[SIZE - 4];
 };
-
 namespace FXParticleSystem
 {
 }
-
 class INI;
-
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_25 = 0x25
 };
-
 class Object
 {
 public:
@@ -904,8 +830,12 @@ public:
 public:
 	bool testStatus(ObjectStatusTypes status) const;
 };
-
 #include "../../../Include/GameLogic/Waypoint.h"
+class Coord2D;
+class ICoord2D;
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
+typedef int Color;
+void XferObjectID( Xfer *xfer, ObjectID *value );
 
 extern Waypoint *g_waypointListHead;
 
@@ -920,9 +850,28 @@ class LANAPI;
 
 extern LANAPI *TheLAN;
 
+// tu-skeleton: 0x002D75E5 130B ?deleteListResources@Radar@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/Radar_deleteListResources.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/Radar.cpp
+
+// Zero Hour Radar::tryUnderAttackEvent is the semantic guide. Target
+// 002D8B9D..002D8DC7 (WB 11096E0 twin): after tryEvent(3, position) succeeds
+// it refreshes the control bar (0x0031AEC9), then picks the message and sound
+// from the object's template kind bits 8/9 (unit, with bit 16 the harvester
+// case), 7 and 37 (structure), else the generic message, and plays the sound
+// for the local player. Retail tests every kind bit as its own byte test;
+// the early-return spelling of the test keeps MSVC from merging bits 8 and 9.
+
+// BFME 1 ba7ddda7 Rva00107A50RadarColor.cpp supplies the RGB/HSV saturation
+// semantic guide. Target 2D7BFD..2D7CC6 proves all 201 bytes: four unpacked
+// floats, RGB/HSV temporaries, 1.6 saturation scale clamped to 1, then byte
+// channel casts and ARGB packing. Direct float-to-byte casts preserve native
+// x87 truncation under /arch:SSE; an intermediate int changes that codegen.
+// The local RGB/HSV pair keeps target stack offsets; it is scratch storage,
+// not a claimed persistent target class layout. Original helper name unknown.
+
 // The constructor installs Snapshot table VA 0x00C0DA88 at +0x0C.
 // Its name slot holds this getter.
-// tu-skeleton: 0x002D75E5 130B ?deleteListResources@Radar@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/Radar_deleteListResources.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/Radar.cpp
 
@@ -1857,7 +1806,44 @@ const char *RadarObject::GetSnapshotName() const
 
 // tu-skeleton: 0x002D8888 28B ??_GRadar@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/RadarDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x002D8DC7 156B ?xfer@RadarObject@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/RadarObjectXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/RadarObjectXfer.cpp
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void RadarObject::xfer( Xfer *xfer )
+{
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+
+	// object id
+	ObjectID objectID = m_object ? m_object->getID() : INVALID_OBJECT_ID;
+	XferObjectID( xfer, &objectID );
+	if( xfer->IsLoading() )
+	{
+
+		// find the object and save
+		m_object = TheGameLogic->findObjectByID( objectID );
+		if( m_object == 0 )
+			throw XferException( 5, 0 );
+
+		// tell the object we now have some radar data
+		m_object->friend_setRadarData( this );
+
+	}  // end if
+
+	// color
+	*xfer == m_color;
+
+}
+
+  // end xfer
 
 // tu-skeleton: 0x007779D5 8B Unwind@00b779d5 -- matched in Code/GameEngine/Source/Common/System/RadarDtor.cpp (not merged yet)
 
