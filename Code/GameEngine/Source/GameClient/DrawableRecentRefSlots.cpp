@@ -9,11 +9,8 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-struct OpaqueRefElement4
-{
-	void *m_ref;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
+#include "../../Include/GameClient/Drawable.h"
 
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -26,28 +23,27 @@ struct DrawableRecentRef
 
 enum { DRAWABLE_RECENT_REF_SLOTS = 3 };
 
-class Drawable
+// Retail field view for the three pairs inside Drawable's opaque region.
+struct DrawableRecentRefStorage
 {
-public:
-	void rva002766F8(const OpaqueRefElement4 &ref);
-private:
 	unsigned char m_pad000[0x38C];
-	DrawableRecentRef m_recentRefs[DRAWABLE_RECENT_REF_SLOTS]; // +0x38C
+	DrawableRecentRef m_recentRefs[DRAWABLE_RECENT_REF_SLOTS];
 };
 
 void Drawable::rva002766F8(const OpaqueRefElement4 &ref)
 {
+	DrawableRecentRefStorage *storage = reinterpret_cast<DrawableRecentRefStorage *>(this);
 	Int slot = -1;
 	for (Int i = 0; i < DRAWABLE_RECENT_REF_SLOTS; ++i)
 	{
-		if (m_recentRefs[i].m_ref.m_ref == ref.m_ref)
+		if (storage->m_recentRefs[i].m_ref.referent == ref.referent)
 		{
 			slot = i;
 			break;
 		}
-		if (slot == -1 || m_recentRefs[i].m_frame < m_recentRefs[slot].m_frame)
+		if (slot == -1 || storage->m_recentRefs[i].m_frame < storage->m_recentRefs[slot].m_frame)
 			slot = i;
 	}
-	m_recentRefs[slot].m_ref = ref;
-	m_recentRefs[slot].m_frame = TheGameLogic->getFrame();
+	storage->m_recentRefs[slot].m_ref = ref;
+	storage->m_recentRefs[slot].m_frame = TheGameLogic->getFrame();
 }
