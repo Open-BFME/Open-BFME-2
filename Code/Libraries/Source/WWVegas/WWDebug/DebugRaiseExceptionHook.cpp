@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHs-c- /Oy-
+// platformsdk
 //
 // C++-throw reporting through an import hook, retail 0x0003E1C0 (hook,
 // 160 bytes) and 0x0003E260 (installer, 249 bytes). BFME 1 carries both
@@ -19,96 +20,11 @@
 // The saved pointer is called caller-cleaned (retail adds esp after it),
 // so its type is spelled without __stdcall as in the original source.
 
-typedef unsigned long DWORD;
-typedef void *HMODULE;
-
-struct EXCEPTION_RECORD
-{
-	DWORD ExceptionCode;
-	DWORD ExceptionFlags;
-	EXCEPTION_RECORD *ExceptionRecord;
-	void *ExceptionAddress;
-	DWORD NumberParameters;
-	DWORD ExceptionInformation[15];
-};
-
-struct CONTEXT
-{
-	DWORD ContextFlags;
-	DWORD Dr[6];
-	unsigned char FloatSave[112];
-	DWORD SegGs, SegFs, SegEs, SegDs;
-	DWORD Edi, Esi, Ebx, Edx, Ecx, Eax;
-	DWORD Ebp, Eip, SegCs, EFlags, Esp, SegSs;
-	unsigned char ExtendedRegisters[512];
-};
-
-struct _EXCEPTION_POINTERS
-{
-	EXCEPTION_RECORD *ExceptionRecord;
-	CONTEXT *ContextRecord;
-};
-
-struct MEMORY_BASIC_INFORMATION
-{
-	void *BaseAddress;
-	void *AllocationBase;
-	DWORD AllocationProtect;
-	DWORD RegionSize;
-	DWORD State;
-	DWORD Protect;
-	DWORD Type;
-};
-
-struct IMAGE_DOS_HEADER
-{
-	unsigned short e_magic;
-	unsigned short e_pad[29];
-	long e_lfanew;
-};
-
-struct IMAGE_DATA_DIRECTORY
-{
-	DWORD VirtualAddress;
-	DWORD Size;
-};
-
-struct IMAGE_NT_HEADERS
-{
-	DWORD Signature;
-	unsigned char FileHeader[20];
-	unsigned char OptionalHeaderFields[96];
-	IMAGE_DATA_DIRECTORY DataDirectory[16];
-};
-
-struct IMAGE_IMPORT_DESCRIPTOR
-{
-	DWORD OriginalFirstThunk;
-	DWORD TimeDateStamp;
-	DWORD ForwarderChain;
-	DWORD Name;
-	DWORD FirstThunk;
-};
-
-struct IMAGE_THUNK_DATA
-{
-	DWORD Function;
-};
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <string.h>
 
 #define MakePtr(cast, ptr, addValue) (cast)((DWORD)(ptr) + (DWORD)(addValue))
-
-extern "C"
-{
-	__declspec(dllimport) HMODULE __stdcall LoadLibraryA(const char *fileName);
-	__declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, const char *procName);
-	__declspec(dllimport) HMODULE __stdcall GetModuleHandleA(const char *moduleName);
-	__declspec(dllimport) int __stdcall IsBadReadPtr(const void *ptr, unsigned int size);
-	__declspec(dllimport) DWORD __stdcall VirtualQuery(const void *address,
-		MEMORY_BASIC_INFORMATION *buffer, DWORD length);
-	__declspec(dllimport) int __stdcall VirtualProtect(void *address, DWORD size,
-		DWORD newProtect, DWORD *oldProtect);
-	void *memset(void *dest, int value, unsigned int count);
-}
 
 class DebugExceptionhandler
 {
@@ -175,16 +91,16 @@ bool InstallRaiseExceptionHook()
 		return false;
 
 	IMAGE_IMPORT_DESCRIPTOR *importDesc = MakePtr(IMAGE_IMPORT_DESCRIPTOR *, dosHeader,
-		ntHeader->DataDirectory[1].VirtualAddress);
+		ntHeader->OptionalHeader.DataDirectory[1].VirtualAddress);
 	if (importDesc == (IMAGE_IMPORT_DESCRIPTOR *)ntHeader)
 		return false;
 
 	for (; importDesc->Name; importDesc++)
 	{
 		IMAGE_THUNK_DATA *thunk = MakePtr(IMAGE_THUNK_DATA *, dosHeader, importDesc->FirstThunk);
-		for (; thunk->Function; thunk++)
+		for (; thunk->u1.Function; thunk++)
 		{
-			if (thunk->Function == raiseException)
+			if (thunk->u1.Function == raiseException)
 			{
 				g_originalRaiseException = (RaiseExceptionProc)raiseException;
 				MEMORY_BASIC_INFORMATION info;
@@ -193,7 +109,7 @@ bool InstallRaiseExceptionHook()
 				DWORD protect = (info.Protect & ~0x22) | 4;
 				DWORD oldProtect;
 				VirtualProtect(thunk, 4, protect, &oldProtect);
-				thunk->Function = (DWORD)RaiseExceptionHook;
+				thunk->u1.Function = (DWORD)RaiseExceptionHook;
 				VirtualProtect(thunk, 4, oldProtect, &protect);
 				return true;
 			}
