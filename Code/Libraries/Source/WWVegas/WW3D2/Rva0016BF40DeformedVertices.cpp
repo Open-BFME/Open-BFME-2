@@ -64,7 +64,7 @@ public:
 private:
  char fields00[0x14];BfmeSkinPivot *Pivot;
 };
-template<class T> struct BfmeSkinBuffer {T *Get_Array() {return Array;} char fields00[0xc];T *Array;};
+template<class T> struct ShareBufferClass {T *Get_Array() {return Array;} char fields00[0xc];T *Array;};
 // The two blend members BFME 2's Matrix3D carries and the shared WWMath header lacks, as a layout-identical view.
 struct Matrix3DBlend : public Matrix3D {
  __forceinline void blendVector3Array(const Vector3 *in,const Matrix3D &secondTransform,const Vector3 *secondPositions,Vector3 *out,int count) const {
@@ -88,29 +88,23 @@ struct Matrix3DBlend : public Matrix3D {
   }
  }
 };
-class MeshModelClass {
-public:
- void get_deformed_vertices(Vector3 *,const HTreeClass *);
- void get_deformed_vertices(Vector3 *,Vector3 *,const HTreeClass *);
- int Get_Vertex_Count() const {return VertexCount;}
-private:
- char fields00[0x28];int VertexCount;int fields2C;
- BfmeSkinBuffer<Vector3> *Vertex[2],*VertexNorm[2];
- char fields40[0x10];BfmeSkinBuffer<unsigned short> *VertexBoneLink,*VertexBoneRuns;
-};
+// The canonical geometry stores the two position buffers at +0x30/+0x34
+// and the normal buffers at +0x38/+0x3C; index those adjacent pointer pairs
+// in the existing stream loop. slot54 is the measured bone/run buffer.
+#include "MeshModelClass.h"
 // Destination pointers MUST point to arrays large enough to hold all vertices
 void MeshModelClass::get_deformed_vertices(Vector3 *dst_vert,Vector3 *dst_norm,const HTreeClass *htree) {
- if(VertexBoneRuns==0||VertexBoneLink==0||htree==0)return;
+ if(slot54==0||VertexBoneLink==0||htree==0)return;
  int streams=1;
- if(Vertex[1]!=0)streams=2;
+ if(slot34!=0)streams=2;
  Vector3 *src_vert[2];
  Vector3 *src_norm[2];
  int i;
  for(i=0;i<streams;i++) {
-  if(Vertex[i]!=0)src_vert[i]=Vertex[i]->Get_Array();else src_vert[i]=0;
-  if(VertexNorm[i]!=0)src_norm[i]=VertexNorm[i]->Get_Array();else src_norm[i]=0;
+  if((&Vertex)[i]!=0)src_vert[i]=(&Vertex)[i]->Get_Array();else src_vert[i]=0;
+  if((&VertexNorm)[i]!=0)src_norm[i]=(&VertexNorm)[i]->Get_Array();else src_norm[i]=0;
  }
- unsigned short *runs=VertexBoneRuns->Get_Array();
+ unsigned short *runs=slot54->Get_Array();
  unsigned short *bonelink=VertexBoneLink->Get_Array();
  Rva00129510Inc();
  int vertex_count=Get_Vertex_Count();

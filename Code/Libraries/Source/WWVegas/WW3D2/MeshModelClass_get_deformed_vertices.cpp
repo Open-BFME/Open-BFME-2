@@ -68,25 +68,19 @@ private:
  char Name[16];int NumPivots;PivotClass *Pivot;
 };
 template<class T> class ShareBufferClass {public:T *Get_Array() {return Array;} private:char fields00[0xc];T *Array;};
-class MeshModelClass {
-public:
- void get_deformed_vertices(Vector3 *,const HTreeClass *);
- void get_deformed_vertices(Vector3 *,Vector3 *,const HTreeClass *);
- int Get_Vertex_Count() const {return VertexCount;}
-private:
- char fields00[0x28];int VertexCount;int fields2C;
- ShareBufferClass<Vector3> *Vertex[2],*VertexNorm[2];
- char fields40[0x10];ShareBufferClass<unsigned short> *VertexBoneLink,*VertexRuns;
-};
+// The canonical geometry stores the two position buffers at +0x30/+0x34
+// and the normal buffers at +0x38/+0x3C; index those adjacent pointer pairs
+// in the existing stream loop. slot54 is the measured bone/run buffer.
+#include "MeshModelClass.h"
 // Destination pointers MUST point to arrays large enough to hold all vertices
 void MeshModelClass::get_deformed_vertices(Vector3 *dst_vert,const HTreeClass *htree) {
- if(VertexRuns==0||VertexBoneLink==0||htree==0)return;
+ if(slot54==0||VertexBoneLink==0||htree==0)return;
  int streams=1;
- if(Vertex[1])streams=2;
+ if(slot34)streams=2;
  int i;
  Vector3 *src[2];
- for(i=0;i<streams;++i) {if(Vertex[i])src[i]=Vertex[i]->Get_Array();else src[i]=0;}
- unsigned short *runs=VertexRuns->Get_Array();
+ for(i=0;i<streams;++i) {if((&Vertex)[i])src[i]=(&Vertex)[i]->Get_Array();else src[i]=0;}
+ unsigned short *runs=slot54->Get_Array();
  unsigned short *bonelinks=VertexBoneLink->Get_Array();
  Rva00129510Inc();
  int vi=Get_Vertex_Count();
