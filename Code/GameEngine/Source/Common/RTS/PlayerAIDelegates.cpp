@@ -56,6 +56,7 @@ class SkirmishAI
 {
 public:
 	void onUnitCreated(Object *object, Object *other);
+	bool isAPartialBrain();
 };
 
 #include "../../../Include/GameLogic/AIPlayerClass.h"

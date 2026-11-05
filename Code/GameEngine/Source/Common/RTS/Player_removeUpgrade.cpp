@@ -49,13 +49,13 @@ private:
 };
 
 
-class UpgradeMaskType
+struct UpgradeMaskType
 {
 public:
 	void clear(unsigned int bit) { m_bits[bit >> 5] &= ~(1 << (bit & 0x1F)); }
-
+	void set(unsigned int bit) { m_bits[bit >> 5] |= 1 << (bit & 0x1F); }
 private:
-	unsigned int m_bits[0x20];
+	unsigned int m_bits[0x20]; // +0x00
 };
 
 enum

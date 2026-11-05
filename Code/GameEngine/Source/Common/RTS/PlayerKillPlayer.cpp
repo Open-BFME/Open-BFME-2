@@ -38,9 +38,12 @@ class Player {
 struct Rva002A8AB1Record;
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
-class SkirmishAI {
-  public:
-    bool isAPartialBrain();
+class Object;
+class SkirmishAI
+{
+public:
+	void onUnitCreated(Object *object, Object *other);
+	bool isAPartialBrain();
 };
 #include "../../../Include/Common/MemoryPoolObject.h"
 template<class T> class DLINK_ITERATOR;
@@ -58,7 +61,6 @@ template <class T> class DLINK_ITERATOR {
             p = (p->*next)();
     }
 };
-class Object;
 template<> class DLINK_ITERATOR<Object> {
  Object *p;
  unsigned char state[20];

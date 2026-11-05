@@ -24,6 +24,7 @@ class Rva0035516C
 {
 public:
 	void rva003551EA(NameKeyType key) const;
+	bool rva003551B5(NameKeyType key) const;
 };
 
 // Bind the native VA 0x00E01E18 slot to its existing subsystem owner;

@@ -59,6 +59,7 @@ class ArmorTemplate;
 class Rva0035516C
 {
 public:
+	void rva003551EA(NameKeyType key) const;
 	bool rva003551B5(NameKeyType key) const;
 };
 class AiOrdersManager;

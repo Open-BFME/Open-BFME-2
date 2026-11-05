@@ -61,22 +61,25 @@ public:
 
 struct Rva2AE9B8AI
 {
-	char pad[32];
-	AICommandInterface commands;
+public:
+	char m_pad00[0x20];
+	AICommandInterface commands; // +0x20
 };
 
 struct Rva2AE9B8Template
 {
-	char pad[0x108];
-	unsigned kinds;
+public:
+	char m_pad00[0x108];
+	unsigned kinds; // +0x108
 };
 
 struct Rva2AE9B8Object
 {
-	void *vt;
-	Rva2AE9B8Template *type;
-	char pad[0x258 - 8];
-	Rva2AE9B8AI *ai;
+public:
+	void *vt; // +0x00
+	Rva2AE9B8Template *type; // +0x04
+	char m_pad08[0x250];
+	Rva2AE9B8AI *ai; // +0x258
 };
 
 class Object
@@ -127,8 +130,10 @@ private:
 
 struct Rva2AE9B8Prototype
 {
-	char pad[0x334];
-	Team *head;
+public:
+	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList);}
+	char m_pad00[0x334];
+	Team *head; // +0x334
 };
 
 class Player

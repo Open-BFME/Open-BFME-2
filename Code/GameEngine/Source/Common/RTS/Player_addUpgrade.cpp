@@ -49,14 +49,13 @@ private:
 // The rowed list find's node type is the Upgrade above.
 
 
-class UpgradeMaskType
+struct UpgradeMaskType
 {
 public:
-	void set(unsigned int bit) { m_bits[bit >> 5] |= 1 << (bit & 0x1F); }
 	void clear(unsigned int bit) { m_bits[bit >> 5] &= ~(1 << (bit & 0x1F)); }
-
+	void set(unsigned int bit) { m_bits[bit >> 5] |= 1 << (bit & 0x1F); }
 private:
-	unsigned int m_bits[0x20];
+	unsigned int m_bits[0x20]; // +0x00
 };
 
 class Player
