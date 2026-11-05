@@ -27,10 +27,7 @@ class Rva001F3C43Slot {
 public:
     void set(const Rva001F3C43Arg *arg);
 };
-class ParticleSystem : public Rva001F3C43Slot {
-public:
-    void destroy();
-};
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make001FCBD7();
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
@@ -50,7 +47,7 @@ protected:
 void W3DTankTruckDraw::tossEmitters()
 {
     if (m_dust.m_system) {
-        m_dust.get()->set(0);
+        reinterpret_cast<Rva001F3C43Slot *>(m_dust.get())->set(0);
         m_dust.get()->destroy();
         if (m_dust.m_system) {
             reinterpret_cast<RvaSmartPtr12 *>(&m_dust)->rva0004CBC0();
@@ -58,7 +55,7 @@ void W3DTankTruckDraw::tossEmitters()
         }
     }
     if (m_dirt.m_system) {
-        m_dirt.get()->set(0);
+        reinterpret_cast<Rva001F3C43Slot *>(m_dirt.get())->set(0);
         m_dirt.get()->destroy();
         if (m_dirt.m_system) {
             reinterpret_cast<RvaSmartPtr12 *>(&m_dirt)->rva0004CBC0();
@@ -66,7 +63,7 @@ void W3DTankTruckDraw::tossEmitters()
         }
     }
     if (m_power.m_system) {
-        m_power.get()->set(0);
+        reinterpret_cast<Rva001F3C43Slot *>(m_power.get())->set(0);
         m_power.get()->destroy();
         if (m_power.m_system) {
             reinterpret_cast<RvaSmartPtr12 *>(&m_power)->rva0004CBC0();

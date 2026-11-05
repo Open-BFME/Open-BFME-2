@@ -39,3 +39,5 @@ premise no longer holds at this master. Next step: a canonical
 `Include/GameClient/ParticleSys.h` (ZH path) carrying `ParticleSystem` and
 the FXParticleSystem nested types, adopted by the seed and the donors, plus
 a shared declaration for the manager's system list.
+
+2026-11-05 consumer follow-up: W3DTankTruckDrawTossEmitters.cpp adopts the canonical ParticleSystem header with explicit setter-view casts; 2/2 rows exact, acceptance retires one header row, preview preserves 356/356 linked bytes. Remaining eight served consumers and verification: [evidence](../../reverse/attempt_support/particle-system-emitter-header-20261105-codex3.md). ParticleSys.cpp consolidation remains open.
