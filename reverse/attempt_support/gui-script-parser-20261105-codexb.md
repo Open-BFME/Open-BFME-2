@@ -51,3 +51,46 @@ object bytes and relocation names identical. Normal builds pass 35/35 rows.
 The fresh merge dry run accepts the seed and both parser donors (35 rows) and
 passes its census-based link guard. Applying requires committed donor changes
 before git rm; its partial path repoints were restored before this prerequisite.
+
+Final composition at parent 9149f9d545: tu_skeleton --merge accepts the seed,
+parseHeaderTemplate and parseText, retaining 35 rows and deleting two source
+files. Only the two source columns in the approved TU map change; no map is
+regenerated into the commit. Both RVAs retain one ledger owner and their sizes.
+No matching or census gain is claimed. The normal merged build passes 35/35,
+29 literals, two empty-string refs, five imports and six verified funclet pins;
+find_declared_unmatched and check_csv pass. Data shadow/converged checks report
+zero findings. The merged unit preview is LINKS, 2,956 -> 3,070 bytes against
+c95fcfcfcd (2026-11-05 05:17), now including the two absorbed rows; combined
+coverage remains 3,070 bytes. The unreferenced GameWindow* _Construct register
+allocation diagnostic remains. The merge guard checks the original 16 census-
+linked donor units and their affected consumers without a proven loss. The
+mandatory outgoing-batch audit and census confirmation remain the publisher's
+and scheduled census's checks; these previews do not prove whole-image closure.
+
+Consolidation audit across b4c9b2d8a8..9149f9d545 plus this merge: these are the
+only outgoing source deletions/path moves. Combined old-path and basename
+searches cover tools, hooks, workflows, sources, build/config, documentation and
+reverse registries. tu_skeleton repoints functions.csv, tu_map.csv source
+columns and doxygen sources.cfg; the Doxygen parser-group file now names the
+surviving TU once. Remaining old-path mentions are tool-emitted provenance
+comments and the historical link_status census (intentionally retained).
+No removed donor occurs in body_owners, active debt/header/MS-header registers
+or fold-proof inputs. Header/MS-header reports were refreshed by tu_skeleton;
+no key is retired or dropped. The seed's strcpy alternatename and existing
+WindowLayoutInfo marker remain, and hatch totals are unchanged. No global,
+class or pin identity changes. Object-byte/relocation comparison before merging
+proved both selected parser definitions identical; the final matched build
+and link guard verify their selected providers after composition. The known
+const Object-list iterator divergence remains separate shadow work. A fresh
+GUI consolidation planner snapshot passes its freshness check after the merge.
+
+Remaining 13 rejected donors: canonical SubsystemInterface adoption (and the
+seed's FontLibrary/GameText/NameKeyGenerator declarations) precedes font,
+tooltip-text, name, WinClass, callbacks, createGadget and WindowLayoutInfoLoad;
+DrawData has a different duplicate legacy parseDrawData body; setWindowText
+has a GWS_PUSH_BUTTON enum conflict; Rva0031763ACtorDtorAssign needs its actual
+class/list layout. The mixed parseLayoutBlock source is not moved. Required
+header adoptions reported by the merge planner remain createGadget: GameWindow,
+GameWindowManager, ListboxData; setWindowText: GameTextInterface, GameWindow,
+GameWindowManager; WindowLayoutInfoLoad: GameWindowManager. Reconcile and
+verify these prerequisites in their own commits before another guarded merge.

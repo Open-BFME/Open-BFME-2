@@ -47,6 +47,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 namespace NativeScriptCrt {
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
@@ -88,6 +89,13 @@ struct GameWindowParse
 #include "GameWindowManagerRecordView.h"
 #include "WindowScriptCreateRecord.h"
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+#include <string.h>
+#include "ascii_string.h"
+#include <assert.h>
+#define DEBUG_LOG(x) ((void)0)
+#define MAX_TEXT_LABEL 128
+class AsciiString;
+
 // platformsdk
 //
 // ?parseTooltip@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315BA3, 82 bytes.
@@ -112,8 +120,11 @@ struct GameWindowParse
 //   names and calls [eax+4]).
 
 typedef int Int;
+
 typedef bool Bool;
+
 typedef unsigned short wchar_t;
+
 class UnicodeString;
 
 WindowScriptCreateRecord g_windowScriptCreateRecord;
@@ -148,9 +159,12 @@ GameWindow *createGadget(char *, void *, GadgetCreateView *, GameWindow *);
 #pragma inline_depth( 0 )
 AsciiString g_systemCallbackName;
 
+
 AsciiString g_inputCallbackName;
 
+
 AsciiString g_tooltipCallbackName;
+
 
 // Expose the original fourth string at native RVA A01314, preserving order.
 AsciiString g_drawCallbackName;
@@ -634,6 +648,14 @@ class Rva0031763A {public:
 };
 
 static const void *s_parseTooltipAnchor = (const void *)parseTooltip;
+
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+}
+
+class WinInstanceData;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 
@@ -2648,11 +2670,37 @@ Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *da
 
 // tu-skeleton: 0x00315BF5 218B ?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
 
-// tu-skeleton: 0x00315CCF 46B ?parseHeaderTemplate@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp
 
 // tu-skeleton: 0x00315CFD 112B ?parseTooltipText@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp (not merged yet)
 
-// tu-skeleton: 0x00315D6D 68B ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp
+
+// platformsdk
+//
+// ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315D6D, 68 bytes.
+// Dedicated TU.
+//
+// Battle for Middle-earth reference
+// (reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,
+// parseText): quote-scan, strtok value, length check, label store. BFME2
+// stores the label through AsciiString::set (retail calls the matched
+// narrow row at 0x55F5 on instData+0x188); the BFME1 ancestor assigns a
+// char* directly.
+// BFME2 facts (all retail-measured):
+// - strlen rides a plain extern decl (E8 to the 0x629170 slot); /Oi-
+//   keeps it out-of-line (initDelayFilter precedent).
+// - strtok rides the msvcr71 import at 0xBBA5EC (dllimport decl; the
+//   single site emits the direct indirect call like retail).
+// - stringSeps "\n\r\t\"" lives at 0xC0C2B8.
+// - The length guard compares against 0x80 (MAX_TEXT_LABEL, 128,
+//   retail-measured; no in-tree define exists).
+// - StringBase::set is the matched narrow row at 0x55F5 (public QAEXPBD).
+// - Identity: the .data dispatch table at 0x9BE198 pairs 'TEXT'
+//   with 0x715D6D (entries are name@+0/fn@+4; the walker at 0x31701C
+//   compares names and calls [eax+4]).
+
+// Retail-measured (no in-tree define exists).
 
 // tu-skeleton: 0x00315DB1 1089B ?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
 
@@ -2755,3 +2803,7 @@ Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *da
 // tu-skeleton: 0x0077A693 10B $L4759 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A69D 10B __ehhandler$?winCreateLayout@GameWindowManager@@UAEPAVWindowLayout@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
+
+static const void *s_parseHeaderTemplateAnchor = (const void *)parseHeaderTemplate;
+
+static const void *s_parseTextAnchor = (const void *)parseText;

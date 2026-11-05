@@ -192,9 +192,9 @@
 /// \brief The FONT field parser, parseFont().
 
 
-/// \file GUI/GameWindowManagerScript_parseHeaderTemplate.cpp
+/// \file GUI/GameWindowManagerScript.cpp
 /// \ingroup grp_w1012_gui_wnd_script_parsers
-/// \brief The HEADERTEMPLATE field parser, parseHeaderTemplate().
+/// \brief Window-script parsing, including parseHeaderTemplate() and parseText().
 
 
 /// \file GUI/GameWindowManagerScript_parseImageOffset.cpp
@@ -242,11 +242,6 @@
 /// \file GUI/GameWindowManagerScript_parseTabControlData.cpp
 /// \ingroup grp_w1012_gui_wnd_script_parsers
 /// \brief The TABCONTROLDATA field parser, parseTabControlData().
-
-
-/// \file GUI/GameWindowManagerScript_parseText.cpp
-/// \ingroup grp_w1012_gui_wnd_script_parsers
-/// \brief The TEXT field parser, parseText().
 
 
 /// \file GUI/GameWindowManagerScript_parseTextColor.cpp
