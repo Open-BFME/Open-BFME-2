@@ -1748,7 +1748,6 @@ alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp	??1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp	??1Rva003ABC21@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp	??1Rva00203EBA@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp	??1Rva0020D9EC@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp	??1Rva00214405@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp	??1Rva00224A90@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??0Rva002C5EF0@@QAE@ABVCoord3DBase@@MI@Z	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??1Rva0026F445@@UAE@XZ	1
@@ -5749,8 +5748,6 @@ pin	reverse/symbols.csv	0x002138E5	1
 pin	reverse/symbols.csv	0x0021397C	2
 pin	reverse/symbols.csv	0x00213E11	2
 pin	reverse/symbols.csv	0x00213E3B	1
-pin	reverse/symbols.csv	0x00214405	1
-pin	reverse/symbols.csv	0x002146B8	1
 pin	reverse/symbols.csv	0x00214ADC	1
 pin	reverse/symbols.csv	0x00214B09	3
 pin	reverse/symbols.csv	0x002154BE	2

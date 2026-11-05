@@ -21,7 +21,6 @@
 //   0x0020E6DF  0x0020E205  0x00BE4334#1
 //   0x00210C17  0x00210B38  0x00BE4358#0
 //   0x00211121  0x0021113D  0x00BE5118#0
-//   0x002146B8  0x00214405  0x00BE5234#0
 //   0x00216DA0  0x00216BF5  0x00BE59E4#0
 //   0x002201B9  0x0021FFEE  0x00BE648C#0
 //   0x00224F50  0x00224A90  0x00BE6E80#0
@@ -139,20 +138,6 @@ Rva0021113D::Rva0021113D(EmitVtableTag *)
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-// The complete destructor uses SubsystemInterface at +0 and Snapshot at +0xC.
-class Rva00214405 : public SubsystemInterface, public Snapshot
-{
-public:
-	Rva00214405(EmitVtableTag *);
-public:
-	virtual ~Rva00214405();
-};
-
-// ?<Rva00214405::Rva00214405> absent-from-retail
-Rva00214405::Rva00214405(EmitVtableTag *)
-{
-}
-
 class Rva00216BF5
 {
 public:
@@ -249,5 +234,4 @@ Rva0023FD06::Rva0023FD06(EmitVtableTag *)
 // Complete destructors the deleting destructors above call, by retail target.
 #pragma comment(linker, "/alternatename:??1Rva00203EBA@@UAE@XZ=??1FunctorNotSet@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva0020D9EC@@UAE@XZ=??1Rva0020DXXX@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva00214405@@UAE@XZ=??1LivingWorldManager@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva00224A90@@UAE@XZ=??1AptPlayer@@UAE@XZ")
