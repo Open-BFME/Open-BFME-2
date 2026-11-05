@@ -3734,10 +3734,9 @@ def to_class_evidence(ctx, rva, cls, sources):
     return table, index, slots, installers, proof
 
 
-def compiled_vtables(ctx, rel, current=True):
-    """{`??_7...` symbol: [slot target names]} that the object of ledger source
-    `rel` defines; None when it has no object (or, with `current`, none
-    compiled from the present text)."""
+def _source_object(ctx, rel, current=True):
+    """The object of ledger source `rel`, or None when it has none (or, with
+    `current`, none compiled from the present text)."""
     import build
     import name_dependents
     rows = [r for r in ctx.rows() if r.get("source") == rel]
@@ -3748,6 +3747,32 @@ def compiled_vtables(ctx, rel, current=True):
             continue
         if current and not name_dependents.compiled_from(path, digest):
             continue
+        return path
+    return None
+
+
+def external_vtables(ctx, rel, current=True):
+    """{`??_7...` symbol} that the object of ledger source `rel` references
+    without defining (a constructor storing the real table another unit
+    emits); None when it has no object (as compiled_vtables)."""
+    import build
+    path = _source_object(ctx, rel, current)
+    if path is None:
+        return None
+    symbols = build.read_object_symbols(path.read_bytes())
+    defined = {s.get("name") for s in symbols if s.get("section", 0) > 0}
+    return {s.get("name") for s in symbols
+            if (s.get("name") or "").startswith("??_7") and s.get("section", 0) == 0
+            and s.get("storage") == 2 and s.get("name") not in defined}
+
+
+def compiled_vtables(ctx, rel, current=True):
+    """{`??_7...` symbol: [slot target names]} that the object of ledger source
+    `rel` defines; None when it has no object (or, with `current`, none
+    compiled from the present text)."""
+    import build
+    path = _source_object(ctx, rel, current)
+    if path is not None:
         out = {}
         for symbol in build.read_object_symbols(path.read_bytes()):
             name = symbol.get("name") or ""
@@ -3807,6 +3832,12 @@ def same_slot_body(ctx, ours, theirs):
     return hop_theirs == ours or hop_ours == theirs or (hop_ours is not None and hop_ours == hop_theirs)
 
 
+def _vtable_class(symbol):
+    """The class a `??_7Class@@6B...` symbol names, else None."""
+    match = VTABLE_NAME.match(symbol or "")
+    return match.group(1) if match else None
+
+
 def to_class_slot_problems(ctx, check, *, current=True):
     """Why the vftable `check['cls']`'s installer units compile does not name
     `check['new']` in retail's slot `check['slot']`: [] when every installer
@@ -3814,7 +3845,10 @@ def to_class_slot_problems(ctx, check, *, current=True):
     (planning); otherwise a missing object is a problem (after ./build.sh).
     Another slot agrees when its name's address is retail's word; it clashes
     unless both reach one body through a single `jmp rel32` (same_slot_body),
-    which neither agrees nor clashes."""
+    which neither agrees nor clashes. An installer whose object defines no
+    `??_7` of the class but references one (it stores the table another unit
+    emits) compiles no copy to judge and is passed over; after ./build.sh
+    at least one installer must still compile a matching table."""
     cls, slot, new, retail = check["cls"], check["slot"], check["new"], check["retail"]
     address = {}
     for row in ctx.rows():
@@ -3825,13 +3859,18 @@ def to_class_slot_problems(ctx, check, *, current=True):
         at = _rva(pin.get("address"))
         if at is not None:
             address.setdefault(pin.get("name", ""), at)
-    problems = []
+    problems, proved, referencing = [], 0, []
     for rel in check["sources"]:
         tables = compiled_vtables(ctx, rel, current=current)
         if tables is None:
             if not current:
                 problems.append(f"{rel} has no object to read {cls}'s vftable from")
             continue
+        if cls not in {_vtable_class(symbol) for symbol in tables}:
+            external = external_vtables(ctx, rel, current=current) or set()
+            if cls in {_vtable_class(symbol) for symbol in external}:
+                referencing.append(rel)
+                continue
         verdicts = []
         for symbol, names in sorted(tables.items()):
             match = VTABLE_NAME.match(symbol)
@@ -3848,6 +3887,7 @@ def to_class_slot_problems(ctx, check, *, current=True):
             problems.append(f"{rel} compiles no {cls} vftable that matches retail table "
                             f"0x{check['table'] + IMAGE_BASE:08X} ({seen or 'no ??_7' + cls + ' at all'})")
             continue
+        proved += 1
         for symbol, names, _agree, _clash in matching:
             spelled = names[slot] if slot < len(names) else "(no such slot)"
             if spelled != new:
@@ -3855,6 +3895,8 @@ def to_class_slot_problems(ctx, check, *, current=True):
                 problems.append(f"{rel}'s {symbol} slot {slot} names {spelled}, not {new}" +
                                 (f" (it sits in slot {where[0]}: the declared virtual order differs from retail's)"
                                  if where else ""))
+    if referencing and not proved and not problems and not current:
+        problems.append(f"no installer of {cls} compiles its vftable ({', '.join(referencing)} only reference it)")
     return problems
 
 

@@ -636,7 +636,10 @@ spelling); convention, return type and parameters are kept. It takes no
   `jmp rel32` on either side (retail 0x00497805, `jmp 0x0058B03E`, is the
   ICF-folded empty `loadPostProcess` override of the UpdateModule family,
   which a view inheriting UpdateModule's slot calls too); a chain of jumps or
-  a jump to another body still refuses. It is checked on
+  a jump to another body still refuses. An installer unit that only
+  references the class's `??_7` (a constructor storing the table another
+  unit emits) compiles no copy and is passed over; one installer must still
+  compile a matching table. It is checked on
   the current objects when planning and on the rebuilt ones after ./build.sh.
 
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under

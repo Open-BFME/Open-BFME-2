@@ -101,6 +101,7 @@ def retail(monkeypatch, tables, compiled=None, jumps=None):
     built = {"Code/Game/Widget.cpp": COMPILED} if compiled is None else compiled
     monkeypatch.setattr(rename, "compiled_vtables", lambda ctx, rel, current=True: built.get(rel))
     monkeypatch.setattr(rename, "retail_jump", lambda ctx, rva: (jumps or {}).get(rva))
+    monkeypatch.setattr(rename, "external_vtables", lambda ctx, rel, current=True: set())
 
 
 def ctx_of(root):
@@ -289,6 +290,58 @@ def test_retail_jump_reads_one_bounded_e9(monkeypatch):
     assert rename.retail_jump(Ctx, 0x1020) is None
     assert rename.retail_jump(Ctx, 0x1030) is None
     assert rename.retail_jump(Ctx, 0x0FFF) is None                   # outside .text
+
+
+# An installer unit that stores the real table through an external reference
+# (BloodthirstyUpdateCtor.cpp: extern ??_7BloodthirstyUpdate@@6BObjectModule@@@)
+# defines no copy of it; the Dtor unit's copy is the one judged.
+CTOR_UNIT = "Code/Game/WidgetCtor.cpp"
+
+
+def slot_check(sources):
+    return {"cls": "Widget", "table": TABLE, "slot": 1, "new": NEW,
+            "retail": [0x00403040, 0x00401000, 0x00404000], "sources": sources}
+
+
+def objects(monkeypatch, compiled, external):
+    monkeypatch.setattr(rename, "compiled_vtables", lambda ctx, rel, current=True: compiled.get(rel))
+    monkeypatch.setattr(rename, "external_vtables", lambda ctx, rel, current=True: external.get(rel))
+    monkeypatch.setattr(rename, "retail_jump", lambda ctx, rva: None)
+
+
+@pytest.mark.parametrize("current", [True, False])
+def test_an_installer_referencing_the_table_another_unit_defines_is_passed_over(tree, monkeypatch, current):
+    objects(monkeypatch, {"Code/Game/Widget.cpp": COMPILED, CTOR_UNIT: {}},
+            {"Code/Game/Widget.cpp": set(), CTOR_UNIT: {"??_7Widget@@6B@"}})
+    problems = rename.to_class_slot_problems(ctx_of(tree), slot_check(["Code/Game/Widget.cpp", CTOR_UNIT]),
+                                             current=current)
+    assert problems == []
+
+
+def test_an_installer_with_no_table_at_all_still_refuses(tree, monkeypatch):
+    # a dummy-vptr constructor (`&s_vtable`) neither defines nor references ??_7Widget
+    objects(monkeypatch, {"Code/Game/Widget.cpp": COMPILED, CTOR_UNIT: {}},
+            {"Code/Game/Widget.cpp": set(), CTOR_UNIT: {"??_7Other@@6B@"}})
+    problems = rename.to_class_slot_problems(ctx_of(tree), slot_check(["Code/Game/Widget.cpp", CTOR_UNIT]),
+                                             current=False)
+    assert problems == [f"{CTOR_UNIT} compiles no Widget vftable that matches retail table 0x00C00000 "
+                        "(no ??_7Widget at all)"]
+
+
+def test_only_referencing_installers_prove_nothing_after_the_build(tree, monkeypatch):
+    objects(monkeypatch, {CTOR_UNIT: {}}, {CTOR_UNIT: {"??_7Widget@@6B@"}})
+    assert rename.to_class_slot_problems(ctx_of(tree), slot_check([CTOR_UNIT]), current=True) == []
+    problems = rename.to_class_slot_problems(ctx_of(tree), slot_check([CTOR_UNIT]), current=False)
+    assert problems == [f"no installer of Widget compiles its vftable ({CTOR_UNIT} only reference it)"]
+
+
+def test_a_referencing_installer_does_not_excuse_a_wrong_copy(tree, monkeypatch):
+    objects(monkeypatch, {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, STOP, NEW]}, CTOR_UNIT: {}},
+            {"Code/Game/Widget.cpp": set(), CTOR_UNIT: {"??_7Widget@@6B@"}})
+    problems = rename.to_class_slot_problems(ctx_of(tree), slot_check(["Code/Game/Widget.cpp", CTOR_UNIT]),
+                                             current=False)
+    assert problems == [f"Code/Game/Widget.cpp's ??_7Widget@@6B@ slot 1 names {STOP}, not {NEW} "
+                        "(it sits in slot 2: the declared virtual order differs from retail's)"]
 
 
 def test_refuses_a_readable_source_class(tree, monkeypatch):
