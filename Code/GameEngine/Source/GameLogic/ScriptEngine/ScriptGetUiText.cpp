@@ -8,16 +8,7 @@
 // @3B54DC; no parser or pool declaration is needed for this UI body.
 #include "ascii_string.h"
 typedef int Int;
-class Condition {
-public:
-    AsciiString getUiText();
-    Condition *getNext() const { return m_next; }
-    char m_prefix[0x3C];
-    Condition *m_next;
-    char m_middle[0xC];
-    bool m_flag4C;
-    bool m_flag4D;
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 class OrCondition {
 public:
     Condition *getFirstAndCondition() const { return m_first; }
@@ -58,8 +49,8 @@ AsciiString Script::getUiText(void)
 			} else {
 				((StringBase<char> *)&uiText)->concat("    ");
 			}
-			if (!pCond->m_flag4C) ((StringBase<char> *)&uiText)->concat(" (DISABLED) ");
-			if (pCond->m_flag4D) ((StringBase<char> *)&uiText)->concat(" NOT ");
+			if (!pCond->isEnabled()) ((StringBase<char> *)&uiText)->concat(" (DISABLED) ");
+			if (pCond->isInverted()) ((StringBase<char> *)&uiText)->concat(" NOT ");
 			appendUiText(uiText, pCond->getUiText());
 			((StringBase<char> *)&uiText)->concat("\r\n");
 			pCond = pCond->getNext();

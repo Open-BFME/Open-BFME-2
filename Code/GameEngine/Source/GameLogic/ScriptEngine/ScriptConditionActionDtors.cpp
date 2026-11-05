@@ -23,17 +23,7 @@ public:
 	~Rva000B9AAA();
 };
 
-class Condition
-{
-protected:
-	virtual ~Condition();
-
-private:
-	int m_conditionType;		// +0x04
-	int m_numParms;				// +0x08
-	Rva000B9AAA *m_parms[12];	// +0x0C
-	Condition *m_nextAndCondition;	// +0x3C
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 Condition::~Condition()
 {
@@ -41,14 +31,14 @@ Condition::~Condition()
 	for (i = 0; i < m_numParms; i++)
 	{
 		if (m_parms[i])
-			delete m_parms[i];
+			delete (Rva000B9AAA *)m_parms[i];
 		m_parms[i] = 0;
 	}
-	Condition *cur = m_nextAndCondition;
+	Condition *cur = m_nextCondition;
 	while (cur)
 	{
-		Condition *next = cur->m_nextAndCondition;
-		cur->m_nextAndCondition = 0;
+		Condition *next = cur->m_nextCondition;
+		cur->m_nextCondition = 0;
 		::delete cur;
 		cur = next;
 	}

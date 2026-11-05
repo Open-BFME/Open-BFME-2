@@ -10,9 +10,9 @@
 //   through DataChunkOutput::writeInt (retail 0x3B4314-0x3B432B), absent in
 //   BFME1 (160 bytes vs 183).
 // Field offsets from the retail body: m_conditionType at +4, m_numParms at
-// +8, m_parms array at +0x0C (12 pointers, MAX_PARMS), m_nextAndCondition at
-// +0x3C, extra bytes at +0x4C/+0x4D (Condition : MemoryPoolObject, vtable
-// at +0). ConditionTemplate carries m_internalNameKey at +0x10 (vtable +
+// +8, m_parms array at +0x0C (12 pointers, MAX_PARMS), m_nextCondition at
+// +0x3C, extra bytes at +0x4C/+0x4D (canonical GameLogic/ScriptCondition.h,
+// vtable at +0). ConditionTemplate carries m_internalNameKey at +0x10 (vtable +
 // three AsciiString slots), read at retail 0x3B42CA.
 // Callees openDataChunk/closeDataChunk/writeInt/writeNameKey (DataChunkOutput),
 // WriteParameter (Parameter), getConditionTemplate (ScriptEngine) and
@@ -83,24 +83,8 @@ extern ScriptEngine *TheScriptEngine;
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
 enum { K_SCRIPT_CONDITION_DATA_VERSION_6 = 6 };
-enum { MAX_CONDITION_PARMS = 12 };
 
-class Condition : public MemoryPoolObject
-{
-public:
-	static void WriteConditionDataChunk(DataChunkOutput &chunkWriter, Condition *pCondition);
-	Condition *getNext(void) { return m_nextAndCondition; }
-
-	int m_conditionType;
-	int m_numParms;
-	Parameter *m_parms[MAX_CONDITION_PARMS];
-	Condition *m_nextAndCondition;
-	int m_hasWarnings;
-	int m_customData;
-	unsigned int m_customFrame;
-	unsigned char m_extraFlagA;
-	unsigned char m_extraFlagB;
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 void Condition::WriteConditionDataChunk(DataChunkOutput &chunkWriter, Condition *pCondition)
 {
@@ -118,8 +102,8 @@ void Condition::WriteConditionDataChunk(DataChunkOutput &chunkWriter, Condition 
 		for (parmIndex = 0; parmIndex < pCondition->m_numParms; parmIndex++) {
 			pCondition->m_parms[parmIndex]->WriteParameter(chunkWriter);
 		}
-		chunkWriter.writeInt(pCondition->m_extraFlagA);
-		chunkWriter.writeInt(pCondition->m_extraFlagB);
+		chunkWriter.writeInt(pCondition->m_flag4C);
+		chunkWriter.writeInt(pCondition->m_b4D);
 		chunkWriter.closeDataChunk();
 		pCondition = pCondition->getNext();
 	}

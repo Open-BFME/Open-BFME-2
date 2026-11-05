@@ -30,18 +30,7 @@ private:
 	Parameter *m_parms[12];
 };
 
-class Condition
-{
-public:
-	Int getNumParameters() const { return m_numParms; }
-	Condition *getNext() const { return m_next; }
-private:
-	void *m_vtable;
-	Int m_condType;
-	Int m_numParms;
-	Parameter *m_parms[12];
-	Condition *m_next;
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 class OrCondition
 {
