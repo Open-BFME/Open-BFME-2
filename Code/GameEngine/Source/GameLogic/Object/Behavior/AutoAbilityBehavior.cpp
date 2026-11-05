@@ -49,25 +49,24 @@ enum GUICommandType
 	GUI_COMMAND_SPECIAL_POWER_BFME = 0x18
 };
 
-class Overridable
-{
-public:
-	inline Overridable *friend_getFinalOverride() { if(m_nextOverride)return m_nextOverride->friend_getFinalOverride();return this; }
-__declspec(noinline) inline const Overridable *friend_getFinalOverride() const { if(m_nextOverride)return m_nextOverride->friend_getFinalOverride(); return this; }
-private:
-	unsigned char m_pad00[4]; Overridable *m_nextOverride; unsigned char m_pad08[8];
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
-class SpecialPowerTemplate : public Overridable
+// Retail keeps Zero Hour's override walks visible here (as in
+// SpecialPowerStoreFind.cpp): the mutable walk inlines, the const walk stays a
+// call to its 0x00288609 owner.
+inline Overridable *Overridable::friend_getFinalOverride()
 {
-public:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	const AsciiString &getName() const { return getFO()->m_name; }
-	Int getSpecialPowerType() const { return getFO()->m_type; }
-	AsciiString m_name; // +0x10
-	unsigned char m_pad14[0x1C - 0x14];
-	Int m_type; // +0x1C
-};
+	if (m_nextOverride)
+		return m_nextOverride->friend_getFinalOverride();
+	return this;
+}
+__declspec(noinline) inline const Overridable *Overridable::friend_getFinalOverride() const
+{
+	if (m_nextOverride)
+		return m_nextOverride->friend_getFinalOverride();
+	return this;
+}
 
 class SpecialPowerStore
 {
@@ -77,17 +76,7 @@ public:
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class CommandButton
-{
-public:
-	GUICommandType getCommandType() const { return m_command; }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-private:
-	unsigned char m_pad00[0x14];
-	GUICommandType m_command; // +0x14
-	unsigned char m_pad18[0x44 - 0x18];
-	const SpecialPowerTemplate *m_specialPower; // +0x44
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {

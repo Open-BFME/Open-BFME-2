@@ -195,13 +195,11 @@ public:
 	virtual Bool canProduce(const ThingTemplate *tt);
 };
 
-class Overridable { public: const Overridable *friend_getFinalOverride() const; };
-class SpecialPowerTemplate : public Overridable {
-public:
-	Int getSpecialPowerType() const { return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_type; }
-	char m_pad000[0x1c];
-	Int m_type;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
+// The final override's power type (+0x1C), read inline as Zero Hour's
+// SpecialPowerTemplate::getSpecialPowerType does.
+static inline Int getSpecialPowerType(const SpecialPowerTemplate *spTemplate) { return spTemplate->getFO()->m_type; }
 
 class SpecialPowerModuleInterface {
 public:
@@ -374,41 +372,9 @@ public:
 	Int m_750;
 };
 
-class CommandButton {
-public:
-	const ThingTemplate *rva0035B570() const;
-	Int getCommandType() const { return m_commandType; }
-	UnsignedInt commandOptions() const { return m_options; }
-	const UpgradeTemplate *getUpgradeTemplate() const { return m_upgrade; }
-	BfmeFixedStorage0004543D getCastleKindOf() const { return m_castleKindOf; }
-	char m_pad000[0x14];
-	Int m_commandType;
-	char m_pad018[0x1c - 0x18];
-	UnsignedInt m_options;
-	char m_pad020[0x24 - 0x20];
-	const UpgradeTemplate *m_upgrade;
-	const UpgradeTemplate **m_upgradesBegin;
-	const UpgradeTemplate **m_upgradesEnd;
-	const UpgradeTemplate **m_upgradesCap;
-	Bool m_requireAllUpgrades;
-	char m_pad035[0x44 - 0x35];
-	const SpecialPowerTemplate *m_specialPower;
-	char m_pad048[0x80 - 0x48];
-	WeaponSlotType m_weaponSlot;
-	char m_pad084[0xc0 - 0x84];
-	Int m_heroIndex;
-	char m_pad0c4[0x101 - 0xc4];
-	Bool m_hideIfCantBuild;
-	char m_pad102[0x106 - 0x102];
-	Bool m_specialPowerEnabled;
-	char m_pad107[0x108 - 0x107];
-	Int m_requiredLevel;
-	char m_pad10c[0x110 - 0x10c];
-	BfmeFixedStorage0004543D m_castleKindOf;
-	char m_pad12c[0x188 - 0x12c];
-	AsciiString *m_chainBegin;
-	AsciiString *m_chainEnd;
-};
+#include "../../../../Include/GameClient/CommandButton.h"
+// The button's AffectsKindOf mask (+0x110), copied out by value.
+static inline BfmeFixedStorage0004543D getAffectsKindOf(const CommandButton *command) { return *(const BfmeFixedStorage0004543D *)command->m_affectsKindOf; }
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 class BuildAssistant {
@@ -482,17 +448,17 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		return COMMAND_HIDDEN;
 
 	Bool flagged = obj->m_modelConditions.commandTest(0xd6);
-	if (((command->commandOptions() & 0x4000000) && !flagged) || ((command->commandOptions() & 0x8000000) && flagged))
+	if (((command->getOptions() & 0x4000000) && !flagged) || ((command->getOptions() & 0x8000000) && flagged))
 		return COMMAND_RESTRICTED;
 
-	if (command->commandOptions() & 0x40000000)
+	if (command->getOptions() & 0x40000000)
 	{
 		AIUpdateInterface *ai = obj->getAI();
 		if (ai && ai->rva00262BA9())
 			return COMMAND_RESTRICTED;
 	}
 
-	if (command->m_commandType != 0x18 && rva0053BA87(command, obj) == COMMAND_HIDDEN)
+	if (command->m_command != 0x18 && rva0053BA87(command, obj) == COMMAND_HIDDEN)
 		return COMMAND_RESTRICTED;
 
 	if (obj->m_singleUseCommandUsed)
@@ -501,7 +467,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 	ExperienceTracker *expTracker = obj->m_experience;
 	if (expTracker == 0)
 		return COMMAND_HIDDEN;
-	Int level = command->m_requiredLevel;
+	Int level = command->m_requireLevel;
 	if (level > 0 && expTracker->getVeterancyLevel() < level)
 		return COMMAND_HIDDEN;
 
@@ -521,13 +487,13 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		}
 	}
 
-	if (command->commandOptions() & 0x40)
+	if (command->getOptions() & 0x40)
 	{
-		Bool requireAll = command->m_requireAllUpgrades;
+		Bool requireAll = command->m_neededUpgradeAny;
 		Bool result = requireAll != 0;
-		for (UnsignedInt i = 0; i < (UnsignedInt)(command->m_upgradesEnd - command->m_upgradesBegin); ++i)
+		for (UnsignedInt i = 0; i < (UnsignedInt)(command->m_neededEnd - command->m_neededBegin); ++i)
 		{
-			const UpgradeTemplate *upgrade = command->m_upgradesBegin[i];
+			const UpgradeTemplate *upgrade = command->m_neededBegin[i];
 			if (upgrade)
 			{
 				if (upgrade->m_upgradeType == 0)
@@ -575,7 +541,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			return COMMAND_RESTRICTED;
 	}
 
-	if (command->commandOptions() & 0x800)
+	if (command->getOptions() & 0x800)
 	{
 		Module *member = CastleBehavior::rva000395708(obj);
 		if (member)
@@ -588,7 +554,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			{
 				CommandCastleKindFilter filter;
 				filter.matched = false;
-				filter.mask = command->getCastleKindOf();
+				filter.mask = getAffectsKindOf(command);
 				((Rva003974CE *)castleBehavior)->apply((Int (__cdecl *)(Object *, Int))Rva0053B946, (Int)&filter);
 				if (!filter.matched)
 					return COMMAND_HIDDEN;
@@ -597,7 +563,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 	}
 
 	ProductionUpdateInterface *pu = (ProductionUpdateInterface *)obj->rva0028BC58(0);
-	if (pu && pu->firstProduction() && (command->commandOptions() & 0x10000))
+	if (pu && pu->firstProduction() && (command->getOptions() & 0x10000))
 		return COMMAND_RESTRICTED;
 
 	Bool queueMaxed = pu ? (pu->getProductionCount() == 20) : false;
@@ -629,7 +595,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			if (!owner->allowedToBuild(command->rva0035B570()))
 				return COMMAND_NOT_ALLOWED;
 			if (!owner->canBuild(command->rva0035B570()))
-				return command->m_hideIfCantBuild ? COMMAND_HIDDEN : COMMAND_RESTRICTED;
+				return command->m_radial ? COMMAND_HIDDEN : COMMAND_RESTRICTED;
 			if (!owner->rva002AA00C((ThingTemplate *)command->rva0035B570(), queued))
 				return COMMAND_CANT_AFFORD;
 			break;
@@ -660,7 +626,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			if (!player->allowedToBuild(command->rva0035B570()))
 				return COMMAND_NOT_ALLOWED;
 			if (!player->canBuild(command->rva0035B570()))
-				return command->m_hideIfCantBuild ? COMMAND_HIDDEN : COMMAND_RESTRICTED;
+				return command->m_radial ? COMMAND_HIDDEN : COMMAND_RESTRICTED;
 			if (!player->rva002AA00C((ThingTemplate *)command->rva0035B570(), 0))
 				return COMMAND_CANT_AFFORD;
 			break;
@@ -795,7 +761,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			if (obj->m_438 & 1)
 				return COMMAND_RESTRICTED;
 			Player *owner = obj->getControllingPlayer();
-			Int index = command->m_heroIndex;
+			Int index = command->fieldC0;
 			if (owner == 0 || index == -1)
 				return COMMAND_RESTRICTED;
 			const ThingTemplate *hero = (const ThingTemplate *)((Rva0037E421 *)owner->m_heroes)->rva0037E7A5(index);
@@ -829,11 +795,11 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 
 		case 6:
 		{
-			if (command->m_upgrade == 0)
+			if (command->m_upgradeTemplate == 0)
 				return COMMAND_HIDDEN;
-			if (player->rva002AB87D(command->m_upgrade) == true || player->rva002AA8EF(command->m_upgrade) == true)
+			if (player->rva002AB87D(command->m_upgradeTemplate) == true || player->rva002AA8EF(command->m_upgradeTemplate) == true)
 				return COMMAND_DONE;
-			if (!TheUpgradeCenter->canAfford(player, command->m_upgrade, obj))
+			if (!TheUpgradeCenter->canAfford(player, command->m_upgradeTemplate, obj))
 				return COMMAND_CANT_AFFORD;
 			if (queueMaxed)
 				return COMMAND_CANT_AFFORD;
@@ -842,7 +808,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 
 		case 7:
 		{
-			if (command->m_upgrade == 0)
+			if (command->m_upgradeTemplate == 0)
 				return COMMAND_HIDDEN;
 			if (obj->commandKindOfMask(0x96) && obj->m_module254->getState() == 3)
 				return COMMAND_RESTRICTED;
@@ -856,13 +822,13 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			}
 			if (pu == 0)
 				return COMMAND_RESTRICTED;
-			if (obj->hasUpgrade(command->m_upgrade) == true || pu->isUpgradeInQueue(command->getUpgradeTemplate()) == true)
+			if (obj->hasUpgrade(command->m_upgradeTemplate) == true || pu->isUpgradeInQueue(command->getUpgradeTemplate()) == true)
 				return COMMAND_DONE;
 			if (queueMaxed)
 				return COMMAND_RESTRICTED;
-			if (!obj->affectedByUpgrade(command->m_upgrade))
+			if (!obj->affectedByUpgrade(command->m_upgradeTemplate))
 				return COMMAND_RESTRICTED;
-			if (!TheUpgradeCenter->canAfford(player, command->m_upgrade, obj))
+			if (!TheUpgradeCenter->canAfford(player, command->m_upgradeTemplate, obj))
 				return COMMAND_CANT_AFFORD;
 			break;
 		}
@@ -880,11 +846,11 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 				if (member)
 				{
 					Object *castle = TheGameLogic->findObjectByID(((CastleMemberView *)member)->m_castleID);
-					if (castle && castle->hasUpgrade(command->m_upgrade))
+					if (castle && castle->hasUpgrade(command->m_upgradeTemplate))
 						return COMMAND_DONE;
 				}
 			}
-			if (!TheUpgradeCenter->canAfford(player, command->m_upgrade, obj))
+			if (!TheUpgradeCenter->canAfford(player, command->m_upgradeTemplate, obj))
 				return COMMAND_CANT_AFFORD;
 			break;
 		}
@@ -894,7 +860,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			if (obj->getAI() == 0)
 				return COMMAND_RESTRICTED;
 			UnsignedInt now;
-			Weapon *weapon = obj->m_weaponSet.getWeaponInWeaponSlot(command->m_weaponSlot);
+			Weapon *weapon = obj->m_weaponSet.getWeaponInWeaponSlot(command->getWeaponSlot());
 			now = TheGameLogic->getFrame();
 			if (weapon && weapon->m_template->m_maxClipReloadTime == 0 && !weapon->rva002C96D8())
 				return COMMAND_AVAILABLE;
@@ -964,7 +930,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		case 0x26:
 		{
 			const SpecialPowerTemplate *spt = command->m_specialPower;
-			if (!command->m_specialPowerEnabled)
+			if (!command->m_showButton)
 				return COMMAND_HIDDEN;
 			if (spt == 0)
 				return COMMAND_HIDDEN;
@@ -995,7 +961,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			if (((const Rva00331682Holder *)obj->m_disabledPowers)->test((const char *)spt + 0x64))
 				return COMMAND_RESTRICTED;
 			SpecialPowerModuleInterface *spm = obj->getSpecialPowerModule(spt);
-			void *module = obj->findSpecialAbilityUpdate((SpecialPowerType)(spt->getSpecialPowerType()));
+			void *module = obj->findSpecialAbilityUpdate((SpecialPowerType)(getSpecialPowerType(spt)));
 			if (module)
 			{
 				const AsciiString *chainName = (const AsciiString *)((Rva0044E642AddImm32Field *)module)->get();
@@ -1006,18 +972,18 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 					{
 						spt = chainedCommand->m_specialPower;
 						spm = obj->getSpecialPowerModule(spt);
-						module = obj->findSpecialAbilityUpdate((SpecialPowerType)(spt->getSpecialPowerType()));
+						module = obj->findSpecialAbilityUpdate((SpecialPowerType)(getSpecialPowerType(spt)));
 					}
 				}
 			}
 			if (spm == 0)
 			{
 				Bool found = false;
-				if (command->m_chainBegin != command->m_chainEnd)
+				if (command->m_commandTriggerBegin != command->m_commandTriggerEnd)
 				{
-					for (UnsignedInt i = 0; i < (UnsignedInt)(command->m_chainEnd - command->m_chainBegin); ++i)
+					for (UnsignedInt i = 0; i < (UnsignedInt)(command->m_commandTriggerEnd - command->m_commandTriggerBegin); ++i)
 					{
-						const CommandButton *other = TheControlBar->findCommandButton(command->m_chainBegin[i]);
+						const CommandButton *other = TheControlBar->findCommandButton(command->m_commandTriggerBegin[i]);
 						if (other && other->getCommandType() == 0x18)
 						{
 							const SpecialPowerTemplate *otherSpt = other->m_specialPower;
@@ -1056,11 +1022,11 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 				}
 				else
 				{
-					if (spm->getSpecialPowerTemplate()->getSpecialPowerType() == 0x24)
+					if (getSpecialPowerType(spm->getSpecialPowerTemplate()) == 0x24)
 					{
 						static NameKeyType key = TheNameKeyGenerator->nameToKey("BattlePlanUpdate");
 						Module *battlePlan = obj->findModule(key);
-						if (battlePlan && (command->commandOptions() & ((BattlePlanInterface *)((char *)battlePlan + 0x20))->getValidCommandMask()))
+						if (battlePlan && (command->getOptions() & ((BattlePlanInterface *)((char *)battlePlan + 0x20))->getValidCommandMask()))
 							return COMMAND_ACTIVE;
 					}
 				}
@@ -1090,7 +1056,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 
 		case 0x1b:
 		{
-			Weapon *weapon = obj->m_weaponSet.getWeaponInWeaponSlot(command->m_weaponSlot);
+			Weapon *weapon = obj->m_weaponSet.getWeaponInWeaponSlot(command->getWeaponSlot());
 			if (weapon)
 			{
 				const DrawableList *list = TheInGameUI->getAllSelectedDrawables();
@@ -1119,7 +1085,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		}
 		case 0xe:
 		{
-			if (!(command->commandOptions() & 0x2000))
+			if (!(command->getOptions() & 0x2000))
 				return COMMAND_AVAILABLE;
 			static NameKeyType key = TheNameKeyGenerator->nameToKey("BattlePlanUpdate");
 			BattlePlanUpdate *battlePlan = (BattlePlanUpdate *)obj->findModule(key);

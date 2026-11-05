@@ -57,39 +57,13 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
+#include "../../../../Include/GameClient/CommandButton.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	Int getSpecialPowerType() const { return getFinal()->m_type; }
-	Real getViewObjectRange() const { return getFinal()->m_viewObjectRange; }
-private:
-	const SpecialPowerTemplate *getFinal() const
-	{
-		return (const SpecialPowerTemplate *)friend_getFinalOverride();
-	}
-	unsigned char m_pad00[0x1C];
-	Int m_type;				// +0x1C
-	unsigned char m_pad20[0x50 - 0x20];
-	Real m_viewObjectRange;			// +0x50
-};
-
-class CommandButton
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-private:
-	unsigned char m_pad00[0x10];
-	AsciiString m_name;				// +0x10
-	unsigned char m_pad14[0x44 - 0x14];
-	const SpecialPowerTemplate *m_specialPower;	// +0x44
-};
+// The final override's power type (+0x1C), read inline as Zero Hour's
+// SpecialPowerTemplate::getSpecialPowerType does.
+static inline Int getSpecialPowerType(const SpecialPowerTemplate *spTemplate) { return spTemplate->getFO()->m_type; }
 
 class SpecialPowerModuleInterface;
 
@@ -490,11 +464,11 @@ Object *CommandButtonHuntUpdate::scanClosestTarget()
 	if (!spTemplate)
 		return 0;
 
-	Bool isCaptureBuilding = spTemplate->getSpecialPowerType() == SPECIAL_INFANTRY_CAPTURE_BUILDING;
+	Bool isCaptureBuilding = getSpecialPowerType(spTemplate) == SPECIAL_INFANTRY_CAPTURE_BUILDING;
 	Bool isPlaceExplosive = false;
-	if (spTemplate->getSpecialPowerType() == SPECIAL_TIMED_CHARGES)
+	if (getSpecialPowerType(spTemplate) == SPECIAL_TIMED_CHARGES)
 		isPlaceExplosive = true;
-	if (spTemplate->getSpecialPowerType() == SPECIAL_TANKHUNTER_TNT_ATTACK)
+	if (getSpecialPowerType(spTemplate) == SPECIAL_TANKHUNTER_TNT_ATTACK)
 		isPlaceExplosive = true;
 
 	Rva0026119DFilter aliveFilter;
