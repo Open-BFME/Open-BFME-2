@@ -10,37 +10,24 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 
-class Rva006C1F60
-{
-public:
-	void rva006C1EB0(float scale, unsigned int mn, unsigned int mx);
-private:
-	unsigned char m_pad0[0x4e4];
-	Rva00030DD0Lock *m_lock;
-	unsigned char m_pad1[0x514 - 0x4e4 - 4];
-	int m_flags;
-	unsigned char m_pad2[0x534 - 0x514 - 4];
-	float m_scale;
-	unsigned int m_min;
-	unsigned int m_max;
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 void Rva006C1F60::rva006C1EB0(float scale, unsigned int mn, unsigned int mx)
 {
-	Rva00030DD0Lock *lock = m_lock;
+	Rva00030DD0Lock *lock = m_pLock;
 	if (lock != 0)
 		Rva00030DD0AddRef(lock);
-	m_scale = scale;
-	m_min = mn;
-	m_max = mx;
-	if (m_scale < 0.0f)
-		m_scale = 0.0f;
-	if (m_scale > 8.0f)
-		m_scale = 8.0f;
-	if (m_min > m_max)
-		m_min = m_max;
-	if (m_scale == 0.0f || m_max == 0)
-		m_flags &= ~0x800;
+	m_534 = scale;
+	m_538 = mn;
+	m_53C = mx;
+	if (m_534 < 0.0f)
+		m_534 = 0.0f;
+	if (m_534 > 8.0f)
+		m_534 = 8.0f;
+	if (m_538 > m_53C)
+		m_538 = m_53C;
+	if (m_534 == 0.0f || m_53C == 0)
+		m_514 &= ~0x800;
 	if (lock != 0)
 		Rva00030DF0Release(lock);
 }

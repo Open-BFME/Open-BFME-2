@@ -50,14 +50,7 @@ private:
 // (ValidateAddress-like) in memory_pool.cpp; this class derives from that base
 // so the inherited call keeps the base's own decorated name, and the guard takes
 // the base's lock at +0x4E4.
-#include "../../Include/Common/GeneralAllocator.h"
-
-class Rva006C1F60 : public EA::Allocator::GeneralAllocator
-{
-public:
-	bool rva006C1E20(const void *block, int addressType);
-	int rva006C1DC0(unsigned int block);
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 bool Rva006C1F60::rva006C1E20(const void *block, int addressType)
 {

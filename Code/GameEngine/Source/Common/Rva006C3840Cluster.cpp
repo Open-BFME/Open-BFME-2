@@ -32,25 +32,11 @@ private:
 	Rva00030DD0Lock *m_lock;
 };
 
-class Rva006C1F60
-{
-public:
-	void rva006C3840(int arg1, int arg2);
-	void rva006C33D0(int a, int b);
-
-private:
-	unsigned char m_pad0[0x4E4];
-	Rva00030DD0Lock *m_lock;                               // +0x4E4
-	unsigned char m_pad1[0x530 - 0x4E4 - 4];
-	int m_530;                                             // +0x530
-	unsigned char m_pad2[0x540 - 0x530 - 4];
-	int m_540;                                             // +0x540
-	int m_544;                                             // +0x544
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 void Rva006C1F60::rva006C3840(int arg1, int arg2)
 {
-	Rva00034C90Lock guard(m_lock);
+	Rva00034C90Lock guard(m_pLock);
 	if (m_540 != arg1) {
 		rva006C33D0(0, 0);
 		m_540 = arg1;

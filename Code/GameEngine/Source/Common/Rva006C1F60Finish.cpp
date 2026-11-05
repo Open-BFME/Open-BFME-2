@@ -9,36 +9,20 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 extern "C" int __cdecl __ftol2(float f);
-class Rva006C1F60
-{
-public:
-	int rva006C1F60(unsigned int v);
-	int rva006C1DC0(unsigned int block);
-	void *rva00033ED0(unsigned int size, int flags);
-	void rva006C33D0(int a, int b);
-private:
-	unsigned char m_pad0[0x4e4];
-	Rva00030DD0Lock *m_lock;
-	unsigned char m_pad1[0x514 - 0x4e4 - 4];
-	int m_flags;
-	unsigned char m_pad2[0x534 - 0x514 - 4];
-	float m_scale;
-	unsigned int m_min;
-	unsigned int m_max;
-};
+#include "../../Include/Common/Rva006C1F60.h"
 int Rva006C1F60::rva006C1F60(unsigned int v)
 {
-	Rva00030DD0Lock *lock = m_lock;
+	Rva00030DD0Lock *lock = m_pLock;
 	if (lock != 0)
 		Rva00030DD0AddRef(lock);
 	unsigned int result = 0;
-	if ((m_flags & 0x800) != 0) {
-		float f = (float)v * m_scale;
+	if ((m_514 & 0x800) != 0) {
+		float f = (float)v * m_534;
 		result = (unsigned int)(int)f;
-		if (result < m_min)
-			result = m_min;
-		if (result > m_max)
-			result = m_max;
+		if (result < m_538)
+			result = m_538;
+		if (result > m_53C)
+			result = m_53C;
 	}
 	if (lock != 0)
 		Rva00030DF0Release(lock);
@@ -346,7 +330,7 @@ edit:
 // Callers explicitly preserve its low-byte result as native does.
 struct Rva006C1DC0Node { unsigned int key; void *value; Rva006C1DC0Node *next; };
 int Rva006C1F60::rva006C1DC0(unsigned int block) {
- if(!*(bool *)((char *)this+0x680)||*(int *)((char *)this+0x530))goto success;
+ if(!m_680||m_530)goto success;
  {Rva006C1DC0Node **buckets=*(Rva006C1DC0Node ***)((char *)this+0x684);
  if(buckets){Rva006C1DC0Node *node=buckets[(block>>3)%*(unsigned int *)((char *)this+0x68C)];
  while(node){if(node->key==block)goto success;node=node->next;}}
