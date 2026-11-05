@@ -4,13 +4,14 @@
 class Rva004BA1C8;
 Rva004BA1C8 *Rva004BA324CopyRange(Rva004BA1C8 *first, Rva004BA1C8 *last, Rva004BA1C8 *result, int dummy);
 void Rva004BA341DestroyRange(Rva004BA1C8 *first, Rva004BA1C8 *last);
-class Rva004BA399Vector {
+class Rva004BA399Vector
+{
 public:
 	Rva004BA1C8 *EraseRange(Rva004BA1C8 *first, Rva004BA1C8 *last);
 private:
-	int m_00;
-	Rva004BA1C8 *m_finish;
-	int m_08;
+	Rva004BA1C8 *m_first; // +0x00
+	Rva004BA1C8 *m_finish; // +0x04
+	int m_end; // +0x08
 };
 Rva004BA1C8 *Rva004BA399Vector::EraseRange(Rva004BA1C8 *first, Rva004BA1C8 *last)
 {
