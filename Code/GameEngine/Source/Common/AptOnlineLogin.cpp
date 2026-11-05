@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // ??1AptOnlineLogin@@UAE@XZ @0x0056E79E 171B
 // AptOnlineLogin's destructor: WorldBuilder names it (AptOnlineLogin.cpp:215
 // s_instance assert) and retail closes the screen through the same
@@ -26,13 +27,7 @@ inline Rva0056DC6B::~Rva0056DC6B()
 {
 }
 
-class GameSpyLoginPreferences
-{
-public:
-	virtual ~GameSpyLoginPreferences();
-private:
-	char m_pad[0x74];
-};
+#include "../../Include/GameClient/GameSpyLoginPreferences.h"
 
 #include "../../Include/GameClient/GameWindowManager.h"
 
@@ -69,8 +64,9 @@ class AptOnlineLogin : public Rva0056DC6B
 public:
 	virtual ~AptOnlineLogin();
 private:
-	GameSpyLoginPreferences m_login;
-	AsciiString m_name;
+	GameSpyLoginPreferences m_login; // +0x60, 0x44 bytes
+	char m_padA4[0xD8 - 0xA4];
+	AsciiString m_name; // +0xD8
 };
 
 AptOnlineLogin::~AptOnlineLogin()

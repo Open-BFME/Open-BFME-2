@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // ??1Rva0057F2DE@@UAE@XZ @0x0057F2DE 111B
 // Evidence: unlock lane, vtable 0x00C6F584 at [this], member dtor GameSpyLoginPreferences 0x005CAB59 at +0x58 (0x44 bytes), ReleaseTreeHintRef 0x0007DEEF on +0x9C ptr, releaseBuffer D 0x00036410 at +0xAC and G 0x00036E70 at +0xB0, base dtor pin 0x005248D0; callers 0x0043DAE0/11 0x0057F51C/28 0x004421E1/211.
 #include "ascii_string.h"
@@ -6,15 +7,7 @@
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
-class GameSpyLoginPreferences
-{
-public:
-	GameSpyLoginPreferences();
-	virtual ~GameSpyLoginPreferences();
-	AsciiString rva005C9FC4();
-private:
-	char m_pad[0x44 - 4];
-};
+#include "../../Include/GameClient/GameSpyLoginPreferences.h"
 
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(struct TargetRef00217D4C *p);
