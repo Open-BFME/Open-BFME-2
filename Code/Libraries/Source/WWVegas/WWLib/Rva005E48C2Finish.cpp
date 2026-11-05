@@ -29,16 +29,9 @@
 #include <algorithm>
 #include <functional>
 
-struct Rva005E4300Context;
-class Rva005E4300Cmp
-{
-public:
- char operator()(int a, int b) const;
-private:
- Rva005E4300Context *m_context;
-};
+#include "Rva005E4300Cmp.h"
 
-void bfmeEmitAdjustHeapGreater(int *first, int *last)
+void bfmeEmitAdjustHeapGreater(int *first, int *last, Rva005E4300Cmp comp)
 {
-	_STL::make_heap(first, last, Rva005E4300Cmp());
+	_STL::make_heap(first, last, comp);
 }
