@@ -158,7 +158,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp
 Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgradeImplementation.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B7167Dtor.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBaseTemplate.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand	3: reference/shims/bfmealloc/stl/_algobase.h:51 stl/_pair.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:55 stl/_iterator_base.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:573 stl/_algobase.c(unknown)		free:unverified
-Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIRoamingDefenseTacticRoam.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIProcessRetreats.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand			free:unverified

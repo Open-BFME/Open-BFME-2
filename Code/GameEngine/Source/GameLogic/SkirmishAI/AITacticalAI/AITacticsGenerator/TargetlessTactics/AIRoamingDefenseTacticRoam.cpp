@@ -15,12 +15,22 @@
 // stlport
 #include <stdlib.h>
 namespace _STL {void __cdecl free(void *); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseRoamStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <vector>
-#undef free
 // Import-inline: this unit's bfmealloc _Vector_base<Object*> dtor copy is not retail's
 // EH-framed body (0x001F1609); its uses here are all inlined, so none is emitted.
 class Object;
+// The native vector release calls GameMemory's _STL::free wrapper.
+namespace _STL {
+template<> inline void allocator<Object *>::deallocate(Object **__p, size_type) const
+{
+	if (__p != 0) releaseRoamStorage((void *)__p);
+}
+}
 namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
 
 #include <functional>
