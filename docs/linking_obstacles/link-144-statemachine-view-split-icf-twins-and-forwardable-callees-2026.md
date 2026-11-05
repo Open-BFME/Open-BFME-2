@@ -17,3 +17,4 @@ Remaining / next check:
 Clearance: the four completed units, per-unit previews only.
 Census confirmation: awaiting.
 - 2026-11-03 prerequisite: StateMachineDtor.cpp and StateMachineXfer.cpp adopt canonical State; 7/7 rows exact, EH exact, preview preserves 706/706 B; private StateMachine/map-lifetime and seed transition declarations still block consolidation. [Evidence](../../reverse/attempt_support/statemachine-state-adoption-20261103-codexb4.md).
+- 2026-11-05: five more StateMachine consumers adopt the canonical header (including BackAwayAndCower); five header-debt rows retired, 23/23 rows exact and preview preserves 4,558 B. AttackPosition adoption restored after link loss; compare its derived vtable/provider bindings before retrying. Wider reconciliation remains open. [Evidence](../../reverse/attempt_support/statemachine-cohort-adoption-20261105-codexb3.md).

@@ -182,16 +182,7 @@ public:
 	virtual float getMaxHealth() const;           // +0x6C
 };
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-
-	char m_pad00[0x24];
-	Coord3D m_goalPosition;         // +0x24
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 class AIUpdateInterface
 {
@@ -514,9 +505,9 @@ void Object::xfer(Xfer *xfer)
 			XferObjectID(xfer, &goalID);
 
 			Coord3D goalPos;
-			if (ai->getStateMachine()->locomotorGoalPosition())
+			if (&ai->getStateMachine()->m_goalPosition)
 			{
-				const Coord3D *gp = ai->getStateMachine()->locomotorGoalPosition();
+				const Coord3D *gp = &ai->getStateMachine()->m_goalPosition;
 				goalPos.x = gp->x;
 				goalPos.y = gp->y;
 				goalPos.z = gp->z;

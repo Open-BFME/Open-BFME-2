@@ -16,14 +16,7 @@ class Object;
 class State;
 struct StateConditionInfo;
 
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
-	virtual void setGoalObject(const Object *obj);
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 
 // Rowed 0x0034301B as AIBackAwayState::AIBackAwayState (AIStateRva0034005DCtor.cpp).
@@ -55,9 +48,8 @@ public:
 // ??1BackAwayAndCowerStateMachine@@UAE@XZ @0x003402D0 11B: stores vtable
 // 0x00811FE8 and tail-calls ~StateMachine 0x004D759C; its deleting
 // destructor 0x0034457C (slot 0) is emitted with this unit's vtable. Defined
-// beside the constructor so the unit's one vtable copy (slot 1 the virtual
-// setGoalObject) is the only copy; the dtor-only family view in
-// Rva004D759CDerived.cpp would lay out a shorter one.
+// beside the constructor; the canonical StateMachine base supplies the
+// complete retail slot list, including setGoalObject at slot 14.
 BackAwayAndCowerStateMachine::~BackAwayAndCowerStateMachine()
 {
 }

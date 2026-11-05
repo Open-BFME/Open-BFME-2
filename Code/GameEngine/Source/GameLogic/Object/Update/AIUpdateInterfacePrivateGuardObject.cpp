@@ -34,7 +34,7 @@ enum GuardTargetType
 	GUARDTARGET_NONE = 4
 };
 
-enum StateID
+enum
 {
 	BFME_AI_GUARD = 0x10
 };
@@ -63,19 +63,7 @@ public:
 	UnsignedInt m_id;
 };
 
-class StateMachine
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void clear();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void setState(StateID state);
-};
+#include "../../../../Include/Common/StateMachineClass.h"
 
 template<int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>

@@ -31,8 +31,8 @@ struct Rva003642DFResult { Rva003642DFResult();Rva003642DFNode*node;Coord3D posi
 class Rva00363D20 {public:double rva00363D20();};
 class Rva0008BB38FloatField;
 #include "../../../../Include/GameLogic/PathfindPath.h"
-// Keep this local +0x24 view distinct from the +0x28 getGoalPosition COMDAT.
-class StateMachine {public:char pad[0x24];Coord3D goal;const Coord3D*locomotorGoalPosition()const{return &goal;} };
+// Read the canonical +0x24 goal field directly; older getter copies use +0x28.
+#include "../../../../Include/Common/StateMachineClass.h"
 class AIUpdateInterface {public:
 #define SLOT(n) virtual void slot##n();
 #define TEN(n) SLOT(n##0) SLOT(n##1) SLOT(n##2) SLOT(n##3) SLOT(n##4) SLOT(n##5) SLOT(n##6) SLOT(n##7) SLOT(n##8) SLOT(n##9)
@@ -57,7 +57,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
   if(!path)return 100.0f;
   if(!loco)break;
   if(isCloseEnoughDist3D(loco)||(owner->templ->m_kindof[0] & 0x2000000U)){
-   const Object *obj=owner;PathNode *last=path->m_pathTail;const Coord3D *p=machine->locomotorGoalPosition();
+   const Object *obj=owner;PathNode *last=path->m_pathTail;const Coord3D *p=&machine->m_goalPosition;
    goalPos.x=p->x;goalPos.y=p->y;goalPos.z=p->z;
    if(last)goalPos=last->m_pos;
    return (float)sqrt(((const Gen_000E5A50*)obj)->Get3DCenterDistanceSquared((const BfmeVec3EJ*)&goalPos));
