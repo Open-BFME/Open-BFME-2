@@ -271,14 +271,6 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-struct TransportAddress
-{
-	TransportAddress() : m_ip(0), m_port(0) {}
-
-	unsigned int m_ip;
-	unsigned short m_port;
-};
-
 class LANAPI;
 
  extern LANAPI *TheLAN;
@@ -477,56 +469,15 @@ void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
 // 0x0044DB54 (81 bytes) and 0x0044D986 (290 bytes) are unrowed and pinned.
 #include "../../../../../Include/Common/GameModePreferences.h"
 
-class UnicodeString;
+// TheLAN as the canonical LANAPI: it befriends AptLanLobby for the protected
+// ValidateGameInfo and the native slot 58 that has no callable identity yet.
+#include "../../../../../Include/GameNetwork/LANAPI.h"
 
-class TransportAddress;
-
-class GameWindow;
-
-class LANAPI
+// The free tooltip callback reaches the protected ValidateGameInfo through
+// this access view; the call is the same direct call on TheLAN.
+struct LanLobbyTooltipLANAccess : public LANAPI
 {
-	friend class AptLanLobby;
-	friend void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *data, unsigned int mouse);
-public:
-	LANAPI();
-	virtual void v00();
-	virtual void init();
-	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
-	virtual void v06(); virtual void v07(); virtual void v08();
-	virtual void reset();
-	virtual void update();
-	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
-	virtual void RequestLocations();
-	virtual void v16(LANGameInfo *game, TransportAddress *address);
-	virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void RequestHasMap();
-	virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26();
-	virtual void v27(UnicodeString text, int value);
-	virtual void v28();
-	virtual void RequestSetName(UnicodeString name);
-	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
-	virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
-	virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
-	virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
-	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
-	virtual void v50();
-	virtual LANGameInfo *v51();
-	virtual void v52();
-	virtual bool SetLocalIP(unsigned int ip);
-	virtual bool AmIHost();
-	virtual void v55();
-	virtual LANGameInfo *GetMyGame();
-	virtual void v57();
-	virtual void v58();
-
-	unsigned char m_pad04[0x10 - 0x04];
-	LANGameInfo *m_games;
-	unsigned char m_pad14[0x5D - 0x14];
-	unsigned char m_isInLANMenu; // +0x5D
-	unsigned char m_pad5e[0x60 - 0x5E];
-protected:
-	bool ValidateGameInfo(LANGameInfo *game);
+	using LANAPI::ValidateGameInfo;
 };
 
 //
@@ -1158,7 +1109,7 @@ bool AptLanLobby::InitTheLan()
 		}
 
 		TheLAN->init();
-		TheLAN->m_isInLANMenu = 1;
+		TheLAN->m_unused5D = 1;
 		if (TheLAN->SetLocalIP(ip) == false)
 			m_socketError = 1;
 
@@ -1178,7 +1129,7 @@ bool AptLanLobby::InitTheLan()
 
 		TheLAN->RequestSetName(defaultName);
 		TheLAN->RequestLocations();
-		TheLAN->v58();
+		TheLAN->_bfme_lan58();
 		Rva00437421();
 		return true;
 	}
@@ -1225,13 +1176,13 @@ int AptLanLobby::OnUpdateData()
 			break;
 		case 1:
 			if (reinterpret_cast<Rva00580172 *>(&m_668)->rva00580172() && TheLAN)
-				rva00445E3E(TheLAN->v51());
+				rva00445E3E(TheLAN->GetGameList());
 			break;
 		case 2:
 			rva00446386(false);
 			m_6a4 = 3;
 			Rva005118F3Show(1, true);
-			TheLAN->v27(UnicodeString((const unsigned short *)L""), 0);
+			TheLAN->RequestGameCreate(UnicodeString((const unsigned short *)L""), false);
 			break;
 		case 5:
 			if (m_panel.OnHostStartGame(true))
@@ -1266,8 +1217,8 @@ int AptLanLobby::OnUpdateData()
 			{
 				m_6a4 = 8;
 				Rva005118F3Show(1, true);
-				TransportAddress address;
-				TheLAN->v16(game, &address);
+				BfmeNetAddress address = { 0, 0 };
+				TheLAN->RequestGameJoin(game, address);
 			}
 			break;
 		}
@@ -1551,7 +1502,7 @@ bool AptLanLobby::rva004467AC()
 	{
 		TheMapCache->updateCache();
 		LANGameInfo *game = TheLAN->GetMyGame();
-		if (TheLAN->AmIHost())
+		if ((unsigned char)TheLAN->AmIHost())
 		{
 			bool restored = ((AptMpGameSetup *)&m_panel)->InitGameInfoFromSaveGame(game);
 			game->rva003FF1A7(m_304);
@@ -1657,7 +1608,7 @@ void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned 
 		return;
 	}
 	LANGameInfo *game = (LANGameInfo *)GadgetListBoxGetItemData(window, row, 3);
-	if (!TheLAN->ValidateGameInfo(game))
+	if (!static_cast<LanLobbyTooltipLANAccess *>(TheLAN)->ValidateGameInfo(game))
 		game = 0;
 	if (game == 0)
 	{
