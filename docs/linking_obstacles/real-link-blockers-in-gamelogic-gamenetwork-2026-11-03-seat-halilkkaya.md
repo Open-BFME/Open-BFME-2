@@ -533,3 +533,41 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
     instantiation. The rts::hash map spelling of INIMacroTable.cpp's rowed ctor does not name it,
     and INIMacroTable.cpp's set is `less<AsciiString>`, not the nocase set the dtor destroys. The
     row's only approved home is still unknown (tu_map: displaced).
+
+#### Seat halilkkaya-lk33 follow-up (2026-11-05): `??1PB_DeepBase@@UAE@XZ`, tool route
+
+- **Still blocked: `??1PB_DeepBase@@UAE@XZ`.** The name did not resolve this pass. One fold
+  obstacle is cleared. Measurements and the ordered plan are in
+  [damagemodule-dtor-identity-20261105-lk33.md](../../reverse/attempt_support/damagemodule-dtor-identity-20261105-lk33.md).
+- **Cleared: the fold's own-table refusal for 0x004B96CC.**
+  - `rename.py class --fold` now accepts a destructor family whose stores an inlined base destructor
+    explains (`inlined_base_restores`, tests, Verifier-Change).
+  - With DamageModuleCtor.cpp emitting `??_7DamageModule@@6BObjectModule@@@`,
+    `fold_evidence(Rva004B96CC, DamageModule)` passes:
+    - ctor 0x004B9704 owns 0x00C598E4;
+    - the dtor's +0x10 store is the ctor's own;
+    - its +0/+0x0C stores are ??0BehaviorModule 0x00253330's tables, and that ctor is called by
+      0x004B9704;
+    - `??_G` 0x004B973B is slot 0 and calls 0x004B96CC.
+  - Remaining refusal: DamageModule is registered, and three units declare Rva004B96CC.
+- **Coupling (new obstacle).** EvacuateDamageCtorModuleFactoryBody.cpp's implicit
+  `??1DamageModule@@UAE@XZ` COMDAT (it calls `~PB_DeepBase`) is the tree's only definer of that
+  name. Any unit that starts calling it gets link_check's `selected` blocker. Measured on
+  DamageModuleCtor.cpp: on canonical DamageModuleClass.h it is byte-exact, but its `??_E` calls
+  `~DamageModule`, so LINKS 49 B -> does not link. That change was reverted. Consumers of
+  `??1Rva004B96CC` can therefore not migrate one at a time.
+- **Order left:**
+  1. Re-identify row 0x0002CD7B as INIMacroTable's destructor. It calls the nocase-set dtor
+     0x0002CC38 at +0x14 and the second hashtable instantiation 0x0002CCC3. INIMacroTable.cpp's
+     member types must agree, and the row has no approved TU yet.
+  2. rename.py fold into a registered class with every spelling unit `--prepared` (tests drafted in
+     the handoff).
+  3. One atomic change:
+     - DamageModuleCtor.cpp on canonical DamageModuleClass.h;
+     - the fold of Rva004B96CC into DamageModule, with these units prepared on the canonical header:
+       the definer Rva0049B47CThreeVptrDerived.cpp, Rva004B96CCDerived.cpp,
+       HordeTransportContainDamageCtor.cpp, TailJumpWrappers5B.cpp, TransitionDamageFXDtor.cpp and
+       EvacuateDamage.cpp;
+     - the pin `??1DamageModule@@UAE@XZ` is dropped.
+  4. EvacuateDamageCtorModuleFactoryBody.cpp declares `~DamageModule` out of line. That removes
+     `~PB_DeepBase`, and the unit can then merge into EvacuateDamage.cpp.

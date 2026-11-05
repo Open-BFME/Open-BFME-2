@@ -111,6 +111,20 @@ the unit links. But the built object's vptr points at a zero int.
 - The table survey cannot see this, because it judges `??_7` copies, not installers.
 - Fix: write the constructor against the class view that emits the real table (often the class's
   TU seed), then re-run the survey and link_check.
+- DamageModule (lk33, 2026-11-05; trial reverted, not landed):
+  - DamageModuleCtor.cpp on canonical DamageModuleClass.h is byte-exact (1/1). It emits the real
+    tables:
+    - 0x00C598E4: 10/12 retail-equal;
+    - 0x00C597F8: 43/47;
+    - 0x00BE2B78: 3/3.
+
+    No slot is wrong. The rest are unrowed inline bodies and the canonical header's `??_E` in slot 0.
+    Before, the unit emitted none, and the survey at f0f6176eead keeps no `??_7DamageModule` table
+    anywhere.
+  - Refused by link_check: LINKS 49 B -> does not link. The `??_E` calls `??1DamageModule@@UAE@XZ`,
+    whose only definer is the wrong COMDAT in EvacuateDamageCtorModuleFactoryBody.cpp.
+  - It lands only with the `~DamageModule` identity fold. See the GameLogic real-link entry and
+    [damagemodule-dtor-identity-20261105-lk33.md](../../reverse/attempt_support/damagemodule-dtor-identity-20261105-lk33.md).
 - Separately, 154 retail table addresses are reached from matched code through a non-`??_7`
   symbol: address-named globals such as `?g_00C50868@@3QBQBXB` and `?vftable_0112B89C@@3HA`
   (`name_globals.load_index()` against retail-installed tables). Whether each is aliased to the
