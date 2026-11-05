@@ -240,16 +240,7 @@ NameKeyType Rva0045EE2CGet();
 
 extern GameLogic *TheGameLogic;
 
-struct TAiData
-{
-	unsigned char m_pad00[0x3C];
-	UnsignedInt m_guardChaseUnitFrames; // +0x3C
-	UnsignedInt m_guardEnemyScanRate; // +0x40
-	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-	unsigned char m_pad48[0x67 - 0x48];
-	Bool m_67;
-	Bool m_68;
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 class Rva002FFFCA
 {
@@ -776,9 +767,9 @@ Bool AIGuardMachine::lookForInnerTarget()
 	}
 
 	UnsignedInt flags = 2;
-	if (TheAI->m_aiData->m_67 && (owner->getTemplate()->m_kindof[KINDOF_BIT_59 >> 5] & (1U << (KINDOF_BIT_59 & 0x1f))))
+	if (TheAI->m_aiData->m_attackUsesLineOfSight && (owner->getTemplate()->m_kindof[KINDOF_BIT_59 >> 5] & (1U << (KINDOF_BIT_59 & 0x1f))))
 		flags = 3;
-	if (TheAI->m_aiData->m_68)
+	if (TheAI->m_aiData->m_attackIgnoreInsignificantBuildings)
 		flags |= 4;
 	if (owner->getAI()->m_04->m_1c != 0)
 		flags |= 8;

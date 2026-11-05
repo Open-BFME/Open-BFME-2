@@ -297,7 +297,7 @@ public:
 };
 class Rva002C9B80Owner;
 #include "../../../Include/GameLogic/AIPathfind.h"
-struct TAiData { char pad0[0x54]; float distanceModifier; char pad58[0xF0 - 0x58]; float friendlyFireRatio; };
+#include "../../../Include/GameLogic/TAiData.h"
 class AI { public: char pad0[0x10]; Pathfinder *pathfinder; char pad14[4]; TAiData *data; };
 extern AI *TheAI;
 
@@ -454,7 +454,7 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 				priority = data.priority;
 		}
 		float dist = (float)sqrt(me->rva002636F6(pos, enemy, enemy->getPosition()));
-		float weightedDistance = dist / TheAI->data->distanceModifier;
+		float weightedDistance = dist / TheAI->data->m_attackPriorityDistanceModifier;
 		float effective = priority + 100.0f - weightedDistance;
 		if ((qualifiers & 0x80)
 			&& (enemy->getControllingPlayer()->getPlayerName().compare("PlyrCreeps") == 0 || (enemy->tmpl->m_kindof[5] & 0x4000U)))
@@ -486,7 +486,7 @@ void *Rva002FFFCA::rva002FF07B(Object *me, const Coord3D *pos, float range, unsi
 				}
 				if (alliedHealth + otherHealth < 1.0f)
 					continue;
-				if (alliedHealth / (alliedHealth + otherHealth) >= ((AI *)this)->data->friendlyFireRatio)
+				if (alliedHealth / (alliedHealth + otherHealth) >= ((AI *)this)->data->m_artilleryMaxFriendlyFire)
 					continue;
 			}
 		}

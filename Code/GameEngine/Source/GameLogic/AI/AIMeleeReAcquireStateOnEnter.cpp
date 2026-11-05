@@ -119,11 +119,7 @@ enum WeaponSlotType
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-struct TAiData
-{
-	char m_pad00[0x94];
-	float m_meleeAcquireRadius;	// +0x94
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
@@ -196,7 +192,7 @@ StateReturnType AIMeleeReAcquireState::onEnter()
 		pos.y = owner->getPosition()->y;
 		pos.z = owner->getPosition()->z;
 		Rva002618A2 kinds;
-		target = ThePartitionManager->getClosestObject(&pos, TheAI->getAiData()->m_meleeAcquireRadius * 2.0f, 1,
+		target = ThePartitionManager->getClosestObject(&pos, TheAI->getAiData()->m_meleeApproachDist * 2.0f, 1,
 			Rva0004584D(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 				*(const BfmeFixedStorage0004543D *)kinds.rva002618A2(0, 0x59, 0x82, 0x36))
 				.link(&Rva00341C54Filter(owner, weapon))->link(&PartitionFilterRejectBuildings(owner))

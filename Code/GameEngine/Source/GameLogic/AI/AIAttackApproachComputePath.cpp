@@ -166,18 +166,7 @@ extern int BfmeLogicFramesPerSecond;
 
 extern GameLogic *TheGameLogic;
 
-class TAiData
-{
-public:
-	unsigned char m_pad00[0x4C];
-	Real m_alertRangeModifier; // +0x4C
-	Real m_aggressiveRangeModifier; // +0x50
-	unsigned char m_pad54[0x8C - 0x54];
-	Bool m_aiCrushesInfantry; // +0x8C
-	unsigned char m_pad8D[0x94 - 0x8D];
-	Real m_94; // +0x94 (the squish retarget range)
- unsigned char m_pad098[0xD4-0x98];Real m_clearanceD4;
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 class LocomotorSet;
 class Rva002C9B80Owner;
@@ -1175,7 +1164,7 @@ static Bool rva00344749(Coord3D *destination, Object *obj)
   if(TheAI->pathfinder()->QuickDoesPathExist(obj,obj->getPosition(),&candidate,0)){found=true;break;}
  }
  if(!found)return false;
- Real clearance=TheAI->getAiData()->m_clearanceD4+obj->m_geometryRadiusB8;
+ Real clearance=TheAI->getAiData()->m_castleSiegeStandBackDistance+obj->m_geometryRadiusB8;
  direction.normalize();
  direction.scale(clearance);
  candidate.sub(&direction);

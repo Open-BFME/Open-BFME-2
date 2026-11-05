@@ -87,12 +87,7 @@ private:
 class AttackPriorityInfo;
 class PartitionFilter;
 
-struct TAiData
-{
-	char m_pad0[0x6C];
-	Real m_minDistanceForGroup;	// +0x6C
-	Real m_groupEnemyScanRange;	// +0x70
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
@@ -243,7 +238,7 @@ Bool AIGroup::computeGroundPath(const Coord3D *pos, CommandSourceType cmdSource)
 		obj = vehicle;
 	if (obj == NULL)
 		return false;
-	if (TheAI->findClosestEnemy(obj, TheAI->getAiData()->m_groupEnemyScanRange, 0xE4, NULL, NULL, 0))
+	if (TheAI->findClosestEnemy(obj, TheAI->getAiData()->m_distanceRequiresGroup, 0xE4, NULL, NULL, 0))
 		return false;
 
 	rva0036CE87();

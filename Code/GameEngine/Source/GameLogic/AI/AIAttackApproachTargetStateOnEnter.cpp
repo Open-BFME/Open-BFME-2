@@ -172,17 +172,7 @@ extern int BfmeLogicFramesPerSecond;
 
 extern GameLogic *TheGameLogic;
 
-class TAiData
-{
-public:
-	unsigned char m_pad00[0x4C];
-	Real m_alertRangeModifier; // +0x4C
-	Real m_aggressiveRangeModifier; // +0x50
-	unsigned char m_pad54[0x8C - 0x54];
-	Bool m_aiCrushesInfantry; // +0x8C
-	unsigned char m_pad8D[0x94 - 0x8D];
-	Real m_94; // +0x94 (the squish retarget range)
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 class Rva002C9B80Owner;
 
@@ -1453,7 +1443,7 @@ StateReturnType AIAttackMeleeSquishState::rva0034D98B()
 		{
 			m_64 = false;
 			const AttackPriorityInfo *info = ai->m_attackInfo;
-			Object *enemy = TheAI->findClosestEnemy(obj, TheAI->getAiData()->m_94, 2, info, 0, 0);
+			Object *enemy = TheAI->findClosestEnemy(obj, TheAI->getAiData()->m_meleeApproachDist, 2, info, 0, 0);
 			if (enemy && obj->rva0029493F(enemy, 2))
 			{
 				getMachine()->setGoalObject(enemy);
