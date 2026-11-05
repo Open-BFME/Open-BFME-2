@@ -50,13 +50,6 @@ ColorMapTree::_Link_type ColorMapTree::_M_create_node(const ColorMapValue &value
 	return node;
 }
 
-// The eraser and tree destructor are retail's bodies in their own units
-// (0x380EB1, 0x38103F: the real value type tears down an AsciiString);
-// declared only so this unit's padded value type does not emit a second,
-// wrong copy of either.
-template <> void ColorMapTree::_M_erase(ColorMapTree::_Link_type);
-template <> ColorMapTree::~_Rb_tree();
-
 template ColorMapTree::iterator ColorMapTree::insert_unique(ColorMapTree::iterator, const ColorMapValue &);
 template void ColorMapTree::clear();
 template _STL::_Rb_tree_base<ColorMapValue, _STL::allocator<ColorMapValue> >::_Rb_tree_base(const _STL::allocator<ColorMapValue> &);
