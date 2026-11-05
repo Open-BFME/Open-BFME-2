@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
@@ -13,13 +14,13 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-// Retail inlines vector<unsigned>'s accessors everywhere and has no
+// Retail inlines the object-ID vector's accessors everywhere and has no
 // out-of-line copies; another unit's copies are first in link order, so
 // dllimport keeps this unit's inline-only.
 namespace _STL {
-template <> __declspec(dllimport) __forceinline unsigned *vector<unsigned>::begin() { return this->_M_start; }
-template <> __declspec(dllimport) __forceinline unsigned *vector<unsigned>::end() { return this->_M_finish; }
-template <> __declspec(dllimport) __forceinline unsigned &vector<unsigned>::front() { return *begin(); }
+template <> __declspec(dllimport) __forceinline ObjectID *vector<ObjectID>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline ObjectID *vector<ObjectID>::end() { return this->_M_finish; }
+template <> __declspec(dllimport) __forceinline ObjectID &vector<ObjectID>::front() { return *begin(); }
 }
 bool Rva00354EB9(const Coord3D *,const Coord3D *);
 enum NameKeyType { NK_NONE=0 };
@@ -42,9 +43,8 @@ class ObjectOrderQueue { public:
     unsigned unknown0;
     _STL::list<NameKeyType> orders;
 };
-class GroupOrder { public: virtual void slot0(); _STL::vector<unsigned> objects; int id; };
+class GroupOrder { public: virtual void slot0(); _STL::vector<ObjectID> objects; int id; };
 struct ObjectPatrolView { char pad[0x38]; Coord3D position; char pad44[0x74-0x44]; unsigned id; };
-#include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../../Include/GameLogic/AiOrdersManager.h"
 // Callsites and rowed queue/contains providers establish this target's
@@ -80,8 +80,8 @@ void *AiOrdersManager::rva0035538C(const Coord3D &destination,int enabled,const 
 }
 // adapters; no armor identity is inferred for the returned order/queue.
 void *AiOrdersManager::rva00355472(const Coord3D &destination,int mode,GroupOrder *members) {
-    unsigned *end=members->objects.end();
-    for(unsigned *i=members->objects.begin();i!=end;++i) {
+    ObjectID *end=members->objects.end();
+    for(ObjectID *i=members->objects.begin();i!=end;++i) {
         unsigned id=*i;
         ObjectPatrolView *obj=(ObjectPatrolView*)TheGameLogic->findObjectByID((ObjectID)id);
         if(obj && Rva00354EB9(&obj->position,&destination)) {

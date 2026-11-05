@@ -1,0 +1,13 @@
+tu: Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp
+approved: 14
+mixed: {}
+refused: {}
+accepted: ['Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp', 'Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp']
+rejected: {}
+adopt_first: {'Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp': ['NameKeyGenerator']}
+link_guard: census-linked: Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp, Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp
+flags: ['/EHsc', '/MD', '/DNDEBUG', '/D_STLP_USE_STATIC_LIB', '/D_CRTIMP=', '/D_STLP_USE_MALLOC', '/D_STLP_NO_EXCEPTIONS']
+rows: 17
+carried: {'reverse/hatch_baseline.tsv': 'hatch_counters --update'}
+trailer: Verifier-Change: tu_skeleton --merge carried the protected-register keys of 1 absorbed donor(s) to Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp (transfer; totals kept)
+// cl: /EHsc /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS

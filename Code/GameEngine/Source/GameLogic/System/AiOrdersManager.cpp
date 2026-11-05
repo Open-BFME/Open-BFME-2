@@ -34,7 +34,8 @@ struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
 
-enum ObjectID { INVALID_ID=0 };
+// Share ObjectID with the patrol donor before the queue declarations use it.
+#include "../../Common/GameLogicObjectLookupView.h"
 
 namespace rts { template<class T> struct hash { size_t operator()(const T& x) const { return (size_t)x; } }; }
 
@@ -146,17 +147,14 @@ public:
 private: unsigned char m_pad[0x2C - sizeof(GroupOrder)];
 };
 
-class AiOrdersManager {
-public: void addOrderToObjectQueues(int,GroupOrder*);
-    void registerOrder(int,GroupOrder*);
-    int cloneOrderForPatrol(int);
-    void rva00355664(const Coord3D&, int, GroupOrder*);
-    void *rva00355472(const Coord3D&, int, GroupOrder*);
-    void rva00355201(int, void*, GroupOrder*);
-    void rva003558D6(int, Rva0036E346*, int, const Coord3D&, float, bool);
-    void rva00355949(int, Rva0036E346*, const Coord3D&, bool, bool);
-    void rva003559B5(int, Rva0036E346*, int);
-private: unsigned char opaque[0x10]; ObjectLookupMap orders; QueueMap queues;
+#include "../../../Include/GameLogic/AiOrdersManager.h"
+
+// The canonical class keeps these two 0x14-byte maps opaque. Native accesses
+// establish their +0x10/+0x24 offsets; retain the existing provider views.
+struct AiOrdersManagerMaps {
+    unsigned char prefix[0x10];
+    ObjectLookupMap orders;
+    QueueMap queues;
 };
 
 // Existing counter provider: GroupOrder.cpp owns this data symbol.
@@ -303,7 +301,7 @@ Xfer *Rva0035568FXfer(Xfer *xfer, void *mapStorage)
 		if (map->m_count != 0) {
 			throw XferException(4, "Map must be empty on load");
 		}
-		Rva0035511BPair item = { INVALID_ID, 0 };
+		Rva0035511BPair item = { INVALID_OBJECT_ID, 0 };
 		while (count != 0) {
 			--count;
 			Rva0035511BXfer(xfer, &item);
@@ -342,11 +340,11 @@ void AiOrdersManager::addOrderToObjectQueues(int mode,GroupOrder* order) {
     }
     for (_STL::vector<ObjectID>::iterator i=order->objects.begin(); i!=order->objects.end(); ++i) {
         ObjectID id=*i;
-        QueueMap::iterator queue=queues.find(id);
-        if (queue==queues.end()) {
+        QueueMap::iterator queue=((AiOrdersManagerMaps*)this)->queues.find(id);
+        if (queue==((AiOrdersManagerMaps*)this)->queues.end()) {
             Rva0054840A* value=new Rva0054840A(id);
             NameKeyGenerator::KeyToBucketMap::value_type pair={ (int)id,value };
-            NameKeyGenerator::KeyToBucketMap::insert_result result=reinterpret_cast<NameKeyGenerator::KeyToBucketMap*>(&queues)->insert(pair);
+            NameKeyGenerator::KeyToBucketMap::insert_result result=reinterpret_cast<NameKeyGenerator::KeyToBucketMap*>(&((AiOrdersManagerMaps*)this)->queues)->insert(pair);
             struct ResultView { QueueMap::iterator first; bool inserted; };
             queue = reinterpret_cast<ResultView*>(&result)->first;
         }
@@ -358,7 +356,7 @@ void AiOrdersManager::addOrderToObjectQueues(int mode,GroupOrder* order) {
 void AiOrdersManager::registerOrder(int mode,GroupOrder* order) {
     if (order) {
         int id=order->id;
-        *reinterpret_cast<GroupOrder**>(orders.findSlot(&id))=order;
+        *reinterpret_cast<GroupOrder**>(((AiOrdersManagerMaps*)this)->orders.findSlot(&id))=order;
         addOrderToObjectQueues(mode,order);
     }
 }
@@ -375,7 +373,7 @@ int AiOrdersManager::cloneOrderForPatrol(int id) {
                     result=clone->id;
                     order->unknown14=result;
                     int cloneId=clone->id;
-                    *reinterpret_cast<GroupOrder**>(orders.findSlot(&cloneId))=clone;
+                    *reinterpret_cast<GroupOrder**>(((AiOrdersManagerMaps*)this)->orders.findSlot(&cloneId))=clone;
                 }
             }
         }
