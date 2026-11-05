@@ -1,3 +1,4 @@
+// stlport46
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // ??0Rva0010461F@@QAE@XZ retail 0x0010461F..0x00104723 (260 bytes EH).
 // Constructor of the 0x88-byte object the factory 0x0008F32C creates and
@@ -33,13 +34,7 @@
 #define COORD2D_VIEW_DTOR
 #include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
 
-#include "../../../../GameEngine/Include/GameClient/ImageClass.h"
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../../GameEngine/Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 

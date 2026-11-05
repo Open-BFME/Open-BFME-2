@@ -1,3 +1,4 @@
+// stlport46
 // cl: /O1 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Zero Hour W3DControlBar.cpp's control-bar draw callbacks, BFME 2 build.
 // Each address is named by its entry in the window draw-callback lexicon.
@@ -94,12 +95,6 @@ class WinInstanceData;
 class VideoBuffer;
 class Image;
 struct IRegion2D;
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
 
 #include "../../../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
@@ -280,7 +275,7 @@ public:
 
 #include "../../../../../../Libraries/Include/Lib/IRegion2D.h"
 
-#include "../../../../../../GameEngine/Include/GameClient/ImageClass.h"
+#include "../../../../../../GameEngine/Include/GameClient/Image.h"
 
 class ControlBarSchemeManager
 {

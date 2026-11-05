@@ -1,3 +1,4 @@
+// stlport46
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // platformsdk
 // getButtonTextColors 0x000A4999 (92B), drawButtonText 0x000A49F5 (248B),
@@ -50,23 +51,7 @@ class VideoBuffer;
 
 #include "../../../../../../Libraries/Include/Lib/IRegion2D.h"
 
-// Only the image size is read here, at +0x24 and +0x28.
-class Image
-{
-public:
-	Int getImageWidth( void ) const { return m_width; }
-	Int getImageHeight( void ) const { return m_height; }
-
-	unsigned char m_unreconstructed00[ 0x24 ];
-	Int m_width;                                           // +0x24
-	Int m_height;                                          // +0x28
-};
-
-class ImageCollection
-{
-public:
-	const Image *findImageByName( const AsciiString &name );
-};
+#include "../../../../../../GameEngine/Include/GameClient/Image.h"
 
 // BFME DisplayString slots: setText +0x04, getTextLength +0x0C, setFont +0x18,
 // getFont +0x1C, setWordWrap +0x20, setWordWrapCentered +0x24, setTextColor
