@@ -29,16 +29,7 @@ struct Rva003B8BAAElem
 	void *m_ptr20;
 };
 
-class LivingWorldCampaignManager
-{
-	char m_pad[0x10];
-	int m_index10;
-	Rva003B8BAAElem **m_array14;
-public:
-	void *rva003B8BAA();
-	bool rva003B8B85();
-	void *GetCampaign(int index);
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 struct Rva00DFEF10Global
 {
@@ -51,7 +42,7 @@ void *LivingWorldCampaignManager::rva003B8BAA()
 {
 	if (TheRva00DFEF10->m_flagB4 == 0)
 		return 0;
-	Rva003B8BAAElem *elem = m_array14[m_index10];
+	Rva003B8BAAElem *elem = (Rva003B8BAAElem *)field14[field10];
 	return elem->m_ptr20;
 }
 
@@ -63,7 +54,7 @@ bool LivingWorldCampaignManager::rva003B8B85()
 {
 	if (TheRva00DFEF10->m_flagB4 == 0)
 		return false;
-	Rva003B8BAAElem *elem = m_array14[m_index10];
+	Rva003B8BAAElem *elem = (Rva003B8BAAElem *)field14[field10];
 	return elem->m_ptr20 != 0;
 }
 
@@ -72,7 +63,7 @@ bool LivingWorldCampaignManager::rva003B8B85()
 // mov eax,[eax+ecx*4]; ret 4. Callers at 0x00522434 0x0056DB3B 0x0057D286.
 void *LivingWorldCampaignManager::GetCampaign(int index)
 {
-	return m_array14[index];
+	return field14[index];
 }
 
 // Campaign index lookup 0x003B8BC8..003B8BF9, RET4,49B. Target

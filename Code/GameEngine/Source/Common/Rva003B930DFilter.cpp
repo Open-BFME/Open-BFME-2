@@ -35,20 +35,15 @@ public:
 	int rva003B8B2A();
 };
 
-class LivingWorldCampaignManager
-{
-	char m_pad[0x14];
-	_STL::vector<Rva003B8B2A *> m_vec14;
-public:
-	void rva003B930D(_STL::vector<long> *out);
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 void LivingWorldCampaignManager::rva003B930D(_STL::vector<long> *out)
 {
-	out->reserve(m_vec14.size());
-	for (long i = 0; i < m_vec14.size(); ++i)
+	// The canonical header keeps the vector storage untyped at +0x14.
+	out->reserve((*reinterpret_cast<_STL::vector<Rva003B8B2A *> *>(&field14)).size());
+	for (long i = 0; i < (*reinterpret_cast<_STL::vector<Rva003B8B2A *> *>(&field14)).size(); ++i)
 	{
-		Rva003B8B2A *elem = m_vec14[i];
+		Rva003B8B2A *elem = (*reinterpret_cast<_STL::vector<Rva003B8B2A *> *>(&field14))[i];
 		if ((unsigned char)elem->rva003B8B2A())
 			out->push_back(i);
 	}

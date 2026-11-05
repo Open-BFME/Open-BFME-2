@@ -10,13 +10,7 @@ struct Rva002B47B1Elem
 	char m_pad[0x40];
 	int m_startingMoney;
 };
-class LivingWorldCampaignManager
-{
-public:
-	char m_pad[0x10];
-	int m_index10;
-	Rva002B47B1Elem **m_array14;
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 // TheCampaignManager (0x00E02D6C): matched references place it at VA 0xe02d6c (retail .data initial value 0).
 class Rva00E02D6C;
 Rva00E02D6C *TheCampaignManager = 0;
@@ -25,5 +19,5 @@ Rva00E02D6C *TheCampaignManager = 0;
 int LivingWorldLogic::getStartingMoney()
 {
 	LivingWorldCampaignManager *campaignManager = ((LivingWorldCampaignManager *)TheCampaignManager);
-	return campaignManager->m_array14[campaignManager->m_index10]->m_startingMoney;
+	return ((Rva002B47B1Elem *)campaignManager->field14[campaignManager->field10])->m_startingMoney;
 }

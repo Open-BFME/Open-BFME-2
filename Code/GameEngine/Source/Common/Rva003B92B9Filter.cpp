@@ -38,20 +38,15 @@ template<> void vector<const ModuleData *>::reserve(unsigned int);
 }
 class ModuleData;
 
-class LivingWorldCampaignManager
-{
-	char m_pad[0x14];
-	_STL::vector<const ModuleData *> m_vec14;
-public:
-	void rva003B92B9(_STL::vector<const ModuleData *> *out);
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 void LivingWorldCampaignManager::rva003B92B9(_STL::vector<const ModuleData *> *out)
 {
-	out->reserve(m_vec14.size());
-	for (unsigned int i = 0; i < m_vec14.size(); ++i)
+	// The canonical header keeps the vector storage untyped at +0x14.
+	out->reserve((*reinterpret_cast<_STL::vector<const ModuleData *> *>(&field14)).size());
+	for (unsigned int i = 0; i < (*reinterpret_cast<_STL::vector<const ModuleData *> *>(&field14)).size(); ++i)
 	{
-		const ModuleData * &slot = m_vec14[i];
+		const ModuleData * &slot = (*reinterpret_cast<_STL::vector<const ModuleData *> *>(&field14))[i];
 		if ((unsigned char)((Rva003B8B2A *)slot)->rva003B8B2A())
 			out->push_back(slot);
 	}
