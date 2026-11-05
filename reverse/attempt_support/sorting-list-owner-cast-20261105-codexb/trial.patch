@@ -1,0 +1,46 @@
+diff --git a/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp b/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp
+index f5c18b1468..1302acbbf1 100644
+--- a/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp
++++ b/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp
+@@ -154,8 +154,12 @@ public:
+ 	~SortingNodeStruct();
+ };
+ 
+-static DLListClass<SortingNodeStruct> sorted_list;
+-static DLListClass<SortingNodeStruct> clean_list;
++// Existing data owners hold each list's vptr at its retail base address.
++// Access the native vptr/head/tail layout through the existing list view.
++extern void *g_00DB6200;
++extern void *g_00DB620C;
++#define sorted_list (*(DLListClass<SortingNodeStruct> *)&g_00DB6200)
++#define clean_list (*(DLListClass<SortingNodeStruct> *)&g_00DB620C)
+ extern "C" { unsigned total_sorting_vertices; }
+ 
+ static SortingNodeStruct* Get_Sorting_Struct()
+@@ -297,20 +301,22 @@ static void Apply_Render_State(RenderStateStruct& render_state)
+ void SortingRendererClass::Deinit()
+ {
+ 	SortingNodeStruct *head = NULL;
++	DLListClass<SortingNodeStruct> &sortedList = sorted_list;
++	DLListClass<SortingNodeStruct> &cleanList = clean_list;
+ 
+ 	//
+ 	//	Flush the sorted list
+ 	//
+-	while ((head = sorted_list.Head ()) != NULL) {
+-		sorted_list.Remove_Head ();
++	while ((head = sortedList.Head ()) != NULL) {
++		sortedList.Remove_Head ();
+ 		delete head;
+ 	}
+ 
+ 	//
+ 	//	Flush the clean list
+ 	//
+-	while ((head = clean_list.Head ()) != NULL) {
+-		clean_list.Remove_Head ();
++	while ((head = cleanList.Head ()) != NULL) {
++		cleanList.Remove_Head ();
+ 		delete head;
+ 	}
+ 

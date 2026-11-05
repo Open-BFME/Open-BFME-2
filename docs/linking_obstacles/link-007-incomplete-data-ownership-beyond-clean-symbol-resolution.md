@@ -177,6 +177,7 @@
   INCONCLUSIVE: Eva.cpp and WWLib/thread.cpp lack reusable receipts, and
   strict bounded preparation refuses their untraceable include roots.
   Carry both additional consumers into the next normal census too.
+  Update 2026-11-05: [existing-vptr owner casts](../../reverse/attempt_support/sorting-list-owner-cast-20261105-codexb/README.md) retain 10/11 bodies but fail Deinit even with local references; restored 11/11 plus five data rows. Full list backing and visibility still need reconciliation.
 
 - **DetachableRiderBody local-static index repair (2026-10-27, `408c38abc0`):**
   [The current-owner check](../../reverse/attempt_support/detachable-rider-poolkey-data-retirement-20261027-codexb4.md)
