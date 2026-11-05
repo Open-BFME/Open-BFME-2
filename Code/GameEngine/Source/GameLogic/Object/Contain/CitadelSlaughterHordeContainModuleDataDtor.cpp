@@ -34,13 +34,14 @@ private:
 	int m_x;
 };
 
+class MultiIniFieldParse;
 class SlaughterHordeContainModuleData
 {
 public:
+	SlaughterHordeContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	virtual ~SlaughterHordeContainModuleData();
-
-private:
-	unsigned char m_pad[0xEC - 4];
+	char m_pad04[0xE8];
 };
 
 class __declspec(novtable) CitadelSlaughterHordeContainModuleData : public SlaughterHordeContainModuleData

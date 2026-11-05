@@ -150,12 +150,9 @@ class SlaughterHordeContainModuleData
 {
 public:
 	SlaughterHordeContainModuleData();
-public:
-	virtual ~SlaughterHordeContainModuleData();
-private:
-	unsigned char m_pad[0xEC - 4];
-public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	virtual ~SlaughterHordeContainModuleData();
+	char m_pad04[0xE8];
 };
 
 class CitadelSlaughterHordeContainModuleData : public SlaughterHordeContainModuleData
