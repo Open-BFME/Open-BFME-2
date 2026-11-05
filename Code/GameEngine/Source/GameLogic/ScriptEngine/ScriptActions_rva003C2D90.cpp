@@ -14,6 +14,7 @@
 class Rva002A7461
 {
 public:
+	int rva002A7548(int x);
 	int rva002A7461();
 };
 

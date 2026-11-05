@@ -26,8 +26,8 @@ extern PlayerList *ThePlayerList;
 class Rva002ABFA0
 {
 public:
+	void rva002ACEDF(void *p);
 	void rva002ABFA0(void *p);
-	void rva002ACEDF(void *p);	// row ?rva002ACEDF@Rva002ABFA0 (Rva002ABFA0Remove.cpp)
 };
 
 void ScriptActions::Rva003BD062Set(void *p, const AsciiString *asciiString, bool flag)

@@ -276,7 +276,8 @@ extern ScriptEngine *TheScriptEngine;
 
 struct CreateMask
 {
-	unsigned char m_data[0x10];
+public:
+	unsigned char m_data[0x10]; // +0x00
 };
 
 enum ObjectID; class ThingFactory

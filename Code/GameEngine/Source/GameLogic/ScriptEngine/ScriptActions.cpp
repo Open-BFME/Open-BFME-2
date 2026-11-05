@@ -95,6 +95,7 @@ class Rva002ABFA0
 {
 public:
 	void rva002ACEDF(void *p);
+	void rva002ABFA0(void *p);
 };
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

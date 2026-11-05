@@ -33,10 +33,12 @@ public:
 	void rva002A9DEC(int val);
 };
 
+class StringBase;
 class Rva002A9F17
 {
 public:
 	void rva002A9F35(const void *val);
+	void rva002A9F17(const StringBase<char> *name);
 };
 
 void ScriptActions::Rva003BB233Set(const AsciiString &name, int val)

@@ -35,7 +35,12 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 typedef unsigned int UnsignedInt;
 
 // Existing retail-compatible storage providers carry two 32-bit words.
-struct BfmeE8 { int a,b; };
+struct BfmeE8
+{
+public:
+	int a; // +0x00
+	int b; // +0x04
+};
 // Keep the shared push provider 0x00539A2E: declared only, so this unit
 // emits neither push_back nor its overflow (the decl-only overflow alone
 // left a push_back copy that is not retail's body).

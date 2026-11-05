@@ -10,6 +10,8 @@ public:
 
 class RadarWindowOverrideSource
 {
+public:
+	void rva002D3615(bool value);
 };
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;

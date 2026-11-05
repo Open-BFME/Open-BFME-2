@@ -23,7 +23,12 @@ extern "C" void _ReadWriteBarrier();
 enum SolutionType { PREFER_FAST_SOLUTION = 0 };
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-struct BfmeE8 { int a, b; };
+struct BfmeE8
+{
+public:
+	int a; // +0x00
+	int b; // +0x04
+};
 
 #include <vector>
 // bfme link decl-only begin
@@ -203,7 +208,11 @@ private:
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-struct CreateMask { unsigned int m_bits[4]; };
+struct CreateMask
+{
+public:
+	unsigned char m_data[0x10]; // +0x00
+};
 
 enum ObjectID; class ThingFactory
 {
