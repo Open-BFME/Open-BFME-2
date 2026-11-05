@@ -1291,25 +1291,7 @@ public:
 	char m_pad41[0x3];
 	int m_bfmeActionTail; // +0x44
 };
-class Condition
-{
-public:
-	enum ConditionType { NUM_ITEMS = 0xCA };
-
-	Condition(ConditionType type);
-	virtual ~Condition();
-
-	int getNumParameters() const { return m_numParms; }
-
-	ConditionType m_actionType;
-	int m_numParms;
-	Parameter *m_parms[12];
-	Condition *m_nextAction;
-	bool m_hasWarnings;
-	int m_bfmeActionTail;
- int m_tail44, m_tail48;
-	
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 class ConditionTemplate
 {
 public:
@@ -3743,7 +3725,9 @@ int EvaluateCondition(lua_State *state)
 	}
 
 	bool result = ((ScriptConditionsInterface *)TheScriptConditions)->evaluateCondition(action);
-	::delete action;
+	// Condition's destructor is protected; the ScriptAction view shares its
+	// slot-0 virtual destructor, so the global ::delete emits the same call.
+	::delete reinterpret_cast<ScriptAction *>(action);
 	bfmeGo1039E(state, result ? 1 : 0);
 	return 1;
 }

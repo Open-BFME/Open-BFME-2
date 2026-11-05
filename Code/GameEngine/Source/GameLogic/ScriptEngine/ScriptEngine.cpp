@@ -27,38 +27,7 @@ struct ScriptFlagKeyNode
 	unsigned long m_key;
 };
 #include "../../../Include/GameLogic/ScriptParameter.h"
-class Condition
-{
-public:
-	enum ConditionType
-	{
-		CONDITION_FALSE = 0,
-		COUNTER,
-		FLAG,
-		CONDITION_TRUE,
-		TIMER_EXPIRED
-	};
-
-	Parameter *getParameter(int ndx)
-	{
-		if (ndx >= 0 && ndx < m_numParms)
-			return m_parms[ndx];
-		return 0;
-	}
-	ConditionType getConditionType() const { return m_conditionType; }
-	int rva003B275A();	// 0x003B275A, the condition template's mode mask
-	Condition *getNext() const { return m_nextAndCondition; }
-	bool isEnabled() const { return m_enabled; }
-
-private:
-	char m_unknown[4];
-	ConditionType m_conditionType;	// +0x04
-	int m_numParms;
-	Parameter *m_parms[12];
-	Condition *m_nextAndCondition;	// +0x3C
-	char m_unknown40[0x4C - 0x40];
-	bool m_enabled;		// +0x4C, Script::getUiText shows " (DISABLED) " when clear
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 class OrCondition
 {
 public:

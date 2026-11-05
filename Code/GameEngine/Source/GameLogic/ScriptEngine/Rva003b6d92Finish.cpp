@@ -168,59 +168,7 @@ void ScriptAction::setActionType(ScriptActionType type)
 	}
 }
 
-#include "../../../Include/Common/MemoryPoolObject.h"
-
-class Condition : public MemoryPoolObject
-{
-public:
-	virtual ~Condition();
-
-	enum ConditionType
-	{
-		CONDITION_FALSE = 0,
-		SKIRMISH_SPECIAL_POWER_READY = 0x55,
-		NUM_ITEMS = 0xca
-	};
-
-	Condition() throw();
-
-	void setConditionType(ConditionType type);
-
-	static Bool __cdecl ParseConditionDataChunk(DataChunkInput &file,
-		DataChunkInfo *info, void *userData);
-
-	__forceinline ConditionType getConditionType() const
-	{
-		return m_conditionType;
-	}
-
-	__forceinline Condition *getNext() const
-	{
-		return m_nextAndCondition;
-	}
-
-	__forceinline Int getNumParameters() const
-	{
-		return m_numParms;
-	}
-
-	__forceinline void setNextCondition(Condition *condition)
-	{
-		m_nextAndCondition = condition;
-	}
-
-private:
-	ConditionType m_conditionType;
-	Int m_numParms;
-	Parameter *m_parms[12];
-	Condition *m_nextAndCondition;
-	Int m_hasWarnings;
-	Int m_customData;
-	unsigned int m_customFrame;
-	Bool m_flag4C;
-	Bool m_flag4D;
-	char m_pad[2];
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 class OrCondition
 {
@@ -463,7 +411,7 @@ static int ParameterChangesVer2[] =
 	7, 17, 18, 41, 40, 42, 43, -1
 };
 
-Bool __cdecl Condition::ParseConditionDataChunk(DataChunkInput &file,
+bool Condition::ParseConditionDataChunk(DataChunkInput &file,
 	DataChunkInfo *info, void *userData)
 {
 	Condition *pCondition = new Condition;
@@ -507,12 +455,12 @@ Bool __cdecl Condition::ParseConditionDataChunk(DataChunkInput &file,
 	if (info->version >= 5)
 	{
 		pCondition->m_flag4C = file.readInt() != 0;
-		pCondition->m_flag4D = file.readInt() != 0;
+		pCondition->m_b4D = file.readInt() != 0;
 	}
 	else
 	{
 		pCondition->m_flag4C = true;
-		pCondition->m_flag4D = false;
+		pCondition->m_b4D = false;
 	}
 	if (!match)
 	{

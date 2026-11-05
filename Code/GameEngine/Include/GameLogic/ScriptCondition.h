@@ -1,4 +1,4 @@
-// Target facts: RVAs use image base 0x00400000. Constructors 0x003B26DF/0x003B5AC7 and destructor 0x003B4230 store VA 0x00C1F3F8 at +0. Its sole slot is the protected scalar deleting destructor 0x003B4A78, which calls 0x003B4230; the next word, VA 0x00C1F3FC, is ScriptAction's table (constructors 0x003B2804/0x003B5413, deleting destructor 0x003B53F7). Condition has no pool getter slot. Allocations at 0x003B5B16 and 0x003B6D9A pass 0x50 to global new, then call the typed/default constructors.
+// Target facts: RVAs use image base 0x00400000. Constructors 0x003B26DF/0x003B5AC7 and destructor 0x003B4230 store VA 0x00C1F3F8 at +0. Its sole slot is the protected scalar deleting destructor 0x003B4A78, which calls 0x003B4230; the next word, VA 0x00C1F3FC, is ScriptAction's table (constructors 0x003B2804/0x003B5413, deleting destructor 0x003B53F7). Condition has no pool getter slot. Allocations at 0x003B5B16 and 0x003B6D9A pass 0x50 to global new, then call the typed/default constructors; the parser 0x003B6D92 keeps no unwind state around its default construction, so that constructor is declared throw().
 // Target facts: the constructors write dwords +4/+8/+0x3C/+0x40/+0x44/+0x48 and bytes +0x4C=1/+0x4D=0, and clear twelve pointers at +0x0C. Destructor 0x003B4230 traverses +0x3C and deletes parameters from +0x0C using count +8. Writer 0x003B428C serializes type +4, count +8 and both tail bytes; duplicate 0x003B5B07 copies the tail bytes and recursively duplicates +0x3C. Rowed out-of-line methods are setConditionType 0x003B4A94, rva003B275A 0x003B275A, getUiStrings 0x003B39B2, getUiText 0x003B5BA4, WriteConditionDataChunk 0x003B428C and ParseConditionDataChunk 0x003B6D92. Parser 0x003B6D92 bounds condition types by 0xCA. Retail 0x003B6B29/0x003B6B3C tests the tail bytes to display disabled/NOT text; 0x002097C4 tests +0x4C before evaluation, 0x003EC8DF tests +0x4D to invert its result, and 0x003EA9B6 reads type +4 for the dispatcher.
 // Donor facts: Zero Hour GeneralsMD GameLogic/Scripts.h names ConditionType values 0..4 and 0x55, the type/count/parameter/next fields, warning/custom-data/custom-frame fields and their accessors. The two BFME2 tail bytes retain neutral names; no Zero Hour pool inheritance or pool slot is imported.
 
@@ -28,7 +28,7 @@ public:
         NUM_ITEMS = 0xCA
     };
 
-    Condition();
+    Condition() throw();
     Condition(ConditionType type);
     Condition *duplicate() const;
     void setConditionType(ConditionType type);

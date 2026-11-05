@@ -148,29 +148,7 @@ class Rva00261C89
 public:
 	Bool rva00261C89(); // 0x00261C89
 };
-class Condition
-{
-public:
-	bool isInverted() const { return m_inverted; }
-	Parameter *getParameter(int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
-	int getCustomData() const { return m_customData; }
-	void setCustomData(int val) { m_customData = val; }
-	unsigned int getCustomFrame() const { return m_customFrame; }
-	void setCustomFrame(unsigned int frame) { m_customFrame = frame; }
-	int getType() const { return m_type; }
-	int getNumParameters() const { return m_numParms; }
-	char m_pad00[0x4];
-private:
-	int m_type; // +0x04
-	int m_numParms; // +0x08
-	Parameter *m_parms[13]; // +0x0C
-	char m_pad40[0x4];
-	int m_customData; // +0x44
-	unsigned int m_customFrame; // +0x48
-	char m_pad4C[0x1];
-	bool m_inverted; // +0x4D
-	char m_pad4E[0x2];
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 // Distance-count callback data; its constructor (0x003E5563) zeroes the
 // position, threshold and count and sets the cap to 0x7ffffffe.
 class Rva003E5563
