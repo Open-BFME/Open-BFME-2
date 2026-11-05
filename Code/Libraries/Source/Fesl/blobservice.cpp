@@ -21,14 +21,7 @@ public:
 	char bfmeGoUPB( void *a, char *b, void *c );
 };
 
-struct Rva007EB810Diag
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void __cdecl assertValue( void *value, const char *message );
-	virtual void fail( const char *expr, const char *file, int line );
-};
+#include "../../../GameEngine/Include/GameNetwork/Rva007EB810Diag.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
@@ -348,7 +341,7 @@ bool BlobService::fetchContent( char *destination, unsigned int length )
 	if( content == 0 )
 	{
 		Rva007EB810Diag *diag = Rva007EB810Get();
-		diag->assertValue( content, "--- out of memory\n" );
+		diag->log( (unsigned int)content, "--- out of memory\n" );
 		Rva007EB810Get()->fail(
 			"false",
 			"\\views\\feslbuild_main\\jabba\\fesl\\source\\blobservice.cpp",
