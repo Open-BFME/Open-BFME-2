@@ -1,4 +1,6 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// platformsdk
+// dxsdk
 // Link view first: Vector4(x,y,z,w) stays inline without emitting an SSE
 // copy that competes with retail's integer-move owner (0x006D8A30).
 #include "../../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
@@ -11,9 +13,7 @@
 // WB UpdateWorldSpaceVertices is a callgraph lead, so retain the neutral
 // method identity already pinned by the matched caller.
 #include "matrix4.h"
-struct D3DXVECTOR3;
-struct D3DXMATRIX;
-typedef unsigned int UINT;
+#include <d3dx9math.h>
 
 struct BfmeShadowShareBuffer
 {
@@ -88,11 +88,8 @@ public:
 	__declspec(noinline) void Get_Deformed_Vertices(Vector3 *dst);
 };
 
-// Native import thunk62AF6E names D3DXVec3TransformCoordArray (@24).
-extern "C" D3DXVECTOR3 * __stdcall D3DXVec3TransformCoordArray(
- D3DXVECTOR3 *dst, UINT dstStride,
- const D3DXVECTOR3 *src, UINT srcStride,
- const D3DXMATRIX *matrix, UINT count);
+// Native import thunk62AF6E names D3DXVec3TransformCoordArray (@24);
+// <d3dx9math.h> declares it.
 
 struct Rva00107E76Elem
 {
