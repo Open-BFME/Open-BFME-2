@@ -52,7 +52,14 @@ extern ActionManager *TheActionManager;
 #include <list>
 // list<Drawable *> nodes come from the freelist pool at VA 0x00DBA5E0 (pop
 // 0x002393E2), as in the rowed _List_base ctor 0x00239BB0.
-class FreelistPool { public: void *pop(); };
+class FreelistPool
+{
+public:
+	void *pop();
+	int m_00; // +0x00
+	void *m_04; // +0x04
+	void *m_head; // +0x08
+};
 extern FreelistPool g_freelistPool00DBA5E0;
 // bfme link decl-only begin
 namespace _STL

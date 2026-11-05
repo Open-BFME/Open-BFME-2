@@ -12,7 +12,14 @@ class Drawable;
 namespace _STL { template <> void allocator<_List_node<Drawable *> >::deallocate(_List_node<Drawable *> *,unsigned int) const; }
 // Retail erase(iterator) relinks the node onto the freelist pool head inline
 // (pool at VA 0x00DBA5E0, head at +0x08; retail 0x0029DFE9).
-class FreelistPool { public: void *pop(); int m_00; void *m_04; void *m_head; };
+class FreelistPool
+{
+public:
+	void *pop();
+	int m_00; // +0x00
+	void *m_04; // +0x04
+	void *m_head; // +0x08
+};
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <> list<Drawable *>::iterator list<Drawable *>::erase(iterator __position)
