@@ -40,17 +40,7 @@ public:
 	bool rva00270260();
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-	unsigned char m_pad000[0xFC];
-	Object *m_FC; // +0xFC
-	unsigned char m_pad100[0x114 - 0x100];
-	unsigned char m_114; // +0x114
-	unsigned char m_pad115[0x440 - 0x115];
-	bool m_440; // +0x440
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
@@ -119,13 +109,13 @@ void EvaAnnounceClientCreate::clientUpdate()
 	Drawable *draw = m_drawable;
 	const EvaAnnounceClientCreateModuleData *evaAnnounceClientCreateModuleData = m_moduleData;
 	m_10 = 0;
-	if (evaAnnounceClientCreateModuleData->m_onlyIfVisible && (draw->m_440 || ((Rva00270260 *)draw)->rva00270260()))
+	if (evaAnnounceClientCreateModuleData->m_onlyIfVisible && (draw->field_440 || ((Rva00270260 *)draw)->rva00270260()))
 		return;
-	Object *obj = draw->m_FC;
+	Object *obj = draw->getObject();
 	if (obj == 0)
 		return;
 	if (evaAnnounceClientCreateModuleData->m_countAsFirstSightedAnnoucement)
-		draw->m_114 |= 0x80;
+		draw->m_status = (DrawableStatus)(draw->m_status | 0x80);
 	int event;
 	Player *ctl = obj->getControllingPlayer();
 	if (ctl == ThePlayerList->getLocalPlayer())
