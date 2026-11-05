@@ -44,8 +44,10 @@ public:
 
     PooledString();
     PooledString(const char *text);
+    PooledString(const PooledString &that);
 
     PooledString &operator=(const char *text);
+    PooledString &operator=(const PooledString &that);
     PooledString &operator=(const AsciiString &that);
 
     void clear();
@@ -58,6 +60,9 @@ public:
     int compareNoCase(const char *str) const;
     int compareNoCase(const PooledString &that) const;
     int compareNoCase(const AsciiString &that) const;
+
+    unsigned int getId() const;
+    bool isEqual(const PooledString &that) const;
 
     int getLength() const;
     bool isEmpty() const;
@@ -80,6 +85,33 @@ PooledString::PooledString(const char *text)
 {
     m_entry = 0;
     setString(text);
+}
+
+// Retail exports the plain copy pair, the id accessor and the identity test,
+// and /OPT:ICF folded each onto an identical body elsewhere: the copy ctor and
+// copy assignment onto 0x0027EA56, getId onto 0x00421795 and isEqual onto
+// 0x001F4325. A pooled string is one entry pointer, so all four only move or
+// compare that pointer.
+PooledString::PooledString(const PooledString &that)
+{
+    m_entry = that.m_entry;
+}
+
+PooledString &PooledString::operator=(const PooledString &that)
+{
+    m_entry = that.m_entry;
+
+    return *this;
+}
+
+unsigned int PooledString::getId() const
+{
+    return (unsigned int)m_entry;
+}
+
+bool PooledString::isEqual(const PooledString &that) const
+{
+    return m_entry == that.m_entry;
 }
 
 // AsciiString is only ever read through its buffer pointer here, so this unit
