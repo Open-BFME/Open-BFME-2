@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include/Common /GX /MD /DNDEBUG
 //
 // ??0W3DLightDrawModuleData@@QAE@XZ, retail 0x000CFB3E, 107 bytes.
 // Frameless SSE ModuleData ctor: installs the vtable 0x00BCD820, inlines the
@@ -13,13 +13,13 @@
 // Radius (44), Intensity (48), FlickerAmplitude/FlickerFrequency (52/56),
 // PulseAmplitude/PulseFrequency (60/64) and AttachToBoneInAnotherModule (68);
 // the 20.0f/1.0f reads hit the shared literal pool (13+ retail users each).
-// Donor reference: BFME1 W3DLightDrawModuleDataConstructor.cpp (init-list
-// +0x44, chained triples descending, Radius then Intensity, trailing
-// scalars ascending). Recipe: the opaque-base plus explicit-vtable idiom of
-// the landed W3DSupplyDrawModuleDataCtor TU (vtable spelled as the first
-// member init, which is what puts its store ahead of the +0x44 init).
+// The ModuleData base is novtable: its empty constructor leaves the derived
+// vptr store first, as in retail. Use the same polymorphic layout as the
+// destructor in W3DLightDraw.cpp rather than a separate explicit-vptr view.
 
-extern "C" const void *const __identifier("??_7W3DLightDrawModuleData@@6B@")[];  // vftable 0x00BCD820
+#include "BfmeModuleData.h"
+
+class MultiIniFieldParse;
 
 struct LightColorRGB
 {
@@ -30,30 +30,32 @@ struct LightColorRGB
 
 #include "ascii_string.h"
 
-class W3DLightDrawModuleData
+class W3DLightDrawModuleData : public ModuleData
 {
 public:
 	W3DLightDrawModuleData();
-
+	virtual ~W3DLightDrawModuleData();
 private:
-	const void *m_vtable; // +0x00
-	unsigned char m_pad04[4]; // +0x04
-	LightColorRGB m_ambientColor; // +0x08 Ambient
-	LightColorRGB m_diffuseColor; // +0x14 Diffuse
-	LightColorRGB m_specularColor; // +0x20 Specular
-	float m_radius; // +0x2C Radius
-	float m_intensity; // +0x30 Intensity
-	float m_flickerAmplitude; // +0x34 FlickerAmplitude
-	float m_flickerFrequency; // +0x38 FlickerFrequency
-	float m_pulseAmplitude; // +0x3C PulseAmplitude
-	float m_pulseFrequency; // +0x40 PulseFrequency
-	AsciiString m_attachToBone; // +0x44 AttachToBoneInAnotherModule
+	unsigned char m_pad04[4];
+public:
+	LightColorRGB m_ambientColor;
+	LightColorRGB m_diffuseColor;
+	LightColorRGB m_specularColor;
+	float m_radius;
+	float m_intensity;
+	float m_flickerAmplitude;
+	float m_flickerFrequency;
+	float m_pulseAmplitude;
+	float m_pulseFrequency;
+private:
+	AsciiString m_attachToBone;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 // ??0W3DLightDrawModuleData@@QAE@XZ
 W3DLightDrawModuleData::W3DLightDrawModuleData()
-	: m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7W3DLightDrawModuleData@@6B@"))))
-	, m_attachToBone()
+	: m_attachToBone()
 {
 	m_ambientColor.m_red = m_ambientColor.m_green = m_ambientColor.m_blue = 0.0f;
 	m_diffuseColor.m_red = m_diffuseColor.m_green = m_diffuseColor.m_blue = 0.0f;

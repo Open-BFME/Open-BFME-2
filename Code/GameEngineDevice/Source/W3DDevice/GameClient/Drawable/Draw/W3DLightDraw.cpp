@@ -143,6 +143,7 @@ public:
 class W3DLightDrawModuleData : public ModuleData
 {
 public:
+	W3DLightDrawModuleData();
 	virtual ~W3DLightDrawModuleData();
 private:
 	unsigned char m_pad04[4];
