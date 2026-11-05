@@ -20,3 +20,4 @@ Next: reconcile the other donors' layout, declaration and compiler-setting
 conflicts, and confirm consumer selection in the next normal census.
 
 2026-11-05: canonical UpdateModule adoption clears the constructor's base/declaration conflict; its merge now previews successfully ([evidence](../../reverse/attempt_support/banner-carrier-base-chain-20261105-codex3.md)).
+2026-11-05: constructor merged into the approved TU (one fewer source); 47 rows, data/EH and provider union preserved, 3,315 bytes still preview LINKS; mixed donors and normal census confirmation remain ([audit](../../reverse/attempt_support/banner-carrier-constructor-merge-20261105-codex3.md)).

@@ -14614,7 +14614,7 @@ _MMX_idct1,,0x001D45F0,88,Code/Libraries/Source/VP6/AverageBlockMmx.cpp,matched,
 ??0HordeNotifyTargetsOfImminentProbableCrushingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00253D88,42,Code/GameEngine/Source/GameLogic/Object/Update/HordeNotifyTargetsOfImminentProbableCrushingUpdateCtor.cpp,matched,
 ??0InstantDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0045CF55,42,Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp,matched,
 ??0HeroDie@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C2324,42,Code/GameEngine/Source/GameLogic/Object/Die/HeroDie.cpp,matched,
-??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00496A98,42,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdateCtor.cpp,matched,
+??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00496A98,42,Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp,matched,
 ??0InvisibilitySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C23A4,42,Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPowerCtor.cpp,matched,
 ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00078A82,68,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp,matched,Factory-evidenced behavior ctor over pinned W3DScriptedModelDraw base 0xC0DD8; three zeroed members at +0x2E8 plus explicit vtable stores plus global counter
 ??0CashHackSpecialPowerModuleData@@QAE@XZ,,0x004C2889,56,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPowerModuleDataCtor.cpp,matched,news 0x8C plus rowed proc 0x4C2955 plus poolkey 0x4C266F plus table 0xC5C724 identity

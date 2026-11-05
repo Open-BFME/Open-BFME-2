@@ -41,46 +41,27 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-
 typedef unsigned int UnsignedInt;
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
-
 enum KindOfType { KINDOF_DUMMY=0 };
-
 enum ObjectStatusTypes { STATUS_DUMMY=0 };
-
 class UpgradeTemplate;
-
 #include "../../../../Include/Common/Upgrade.h"
-
 extern UpgradeCenter *TheUpgradeCenter;
-
 extern GameLogic *TheGameLogic;
-
 class Gen_0028EF10 { public: bool rva004B0FA0(); };
-
 template<int N> class BannerSlots : public BannerSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
-
 template<> class BannerSlots<0> {};
-
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-
 class BannerContainResult : public BannerSlots<36> { public: virtual bool testRefresh(int *,unsigned)=0; };
-
 class BannerContain : public BannerSlots<31> { public: virtual BannerContainResult *getHorde()=0; };
-
 class Player;
-
 class Module;
-
 struct ObjectInner04;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class Object { public:
  bool isKindOf(KindOfType) const;
  bool testStatus(ObjectStatusTypes) const; // 0x0004E536
@@ -102,13 +83,9 @@ class Object { public:
 protected:
  Module *findModule(NameKeyType key) const;
 };
-
 struct BfmeMorphCondition;
-
 struct BfmeExpLevelDraw;
-
 class FXList;
-
 // Field identity is retail's own INI table at 0x00C4F9E8; the +0x18/+0x24 element
 // classes keep the names the ledger's vector destructor rows carry.
 class BannerCarrierUpdateModuleData : public Snapshot
@@ -133,18 +110,7 @@ public:
 	float m_scanHordeDistance; // +0x3C
 	AsciiString m_upgradeRequired; // +0x40
 };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-class BannerCarrierUpdate : public UpdateModule {
-public:
- BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData);
- virtual UpdateSleepTime update();
- void rva004973CF(); bool rva00496BD2(Object *); void rva00496E05(void *entry, bool playFX);
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 class Rva0042526Member
 {
 public:
@@ -152,7 +118,6 @@ public:
 private:
 	unsigned char m_pad[0x4C];
 };
-
 class Rva00496ADE
 {
 public:
@@ -162,7 +127,6 @@ public:
 	Rva0042526Member modelState; // +0x08
 	AsciiString locomotor; // +0x54
 };
-
 // ?rva00496CA8@Rva00496CA8@@QAEXH@Z
 // partial score=0.99 date=2026-10-02
 // ?rva00496CA8@Rva00496CA8@@QAEXH@Z, retail 0x00496CA8 155B. Unlock: outer vector
@@ -173,31 +137,25 @@ public:
 // Row for rva002724FD declares int second param but retail passes byte as unsigned char: mov cl with /G7 no-xor shape.
 
 class AsciiString;
-
 #include "../../../../Include/GameClient/Drawable.h"
-
 #include "../../../Common/Thing/thing.h"
-
 struct Rva00496CA8SubB
 {
 	char m_ascii00[4];
 	unsigned char m_byte04;
 };
-
 struct Rva00496CA8SubA
 {
 	int m_key00;
 	Rva00496CA8SubB **m_begin04;
 	Rva00496CA8SubB **m_end08;
 };
-
 struct Rva00496CA8Holder04
 {
 	char m_pad00[0x24];
 	Rva00496CA8SubA **m_begin24;
 	Rva00496CA8SubA **m_end28;
 };
-
 class Rva00496CA8
 {
 public:
@@ -207,7 +165,6 @@ private:
 	Rva00496CA8Holder04 *m_p04;
 	Thing *m_thing08;
 };
-
 class Rva00496A63
 {
 public:
@@ -218,11 +175,8 @@ private:
 	unsigned char m_pad04[0x54 - 4];
 	AsciiString m_second; // +0x54
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Rva00496F30
 {
 public:
@@ -231,7 +185,6 @@ private:
 	int m_00; // +0x00
 	_STL::vector<StringBase<char> *> m_vec; // +0x04
 };
-
 // The +4 member is spelled with its StringBase<char> pointers, not
 // vector<void *>: retail's unwind action jumps to the 14-byte
 // free-first-pointer body 0x0007FAB3, not vector<void *>'s /Od destructor
@@ -240,7 +193,6 @@ namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() { return _M_start; }
 template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
 }
-
 // Partial storage view: native 496BB8 adjusts the receiver by +0x10.
 // The original derived/interface identities remain unrecovered.
 class Rva00496B48ModuleView : public Module
@@ -249,24 +201,18 @@ public:
     char m_pad08[0x10 - 0x08];
     ModuleInner m_10;
 };
-
 struct ObjectInner04
 {
 	char m_pad00[0x116];
 	unsigned char m_116;
 };
-
 class Gen_0028EF10;
-
 class BannerContain;
-
 class AIUpdateInterface;
-
 struct ObjectHack : public Object
 {
 	static Module *find(const Object *object, NameKeyType k) { return ((ObjectHack *)object)->findModule(k); }
 };
-
 class Rva00496B48
 {
 public:
@@ -275,40 +221,30 @@ public:
 private:
 	Object *m_obj08; // +0x08
 };
-
 class Object;
-
 class Rva00496B48;
-
 class BannerSpawnHorde:public BannerSlots<95> {
 public: virtual unsigned cap()=0; virtual void slot96()=0;virtual void slot97()=0;
  virtual unsigned count()=0;virtual Object *spawn(void *)=0;
 };
-
 class W3DBridge { public: void setEnabled(bool); char pad00[0x110];bool enabled; };
-
 class Player { public: char pad00[0x3BC];W3DBridge credits; };
-
 class FXList
 {
 public:
 	static void doFXObj(const FXList *,const Object *,const Object *); // 0x000B2235
 };
-
 struct Rva0028F59A
 {
 	unsigned m_bits[19];
 	Rva0028F59A(int unused, int bit) throw();
 };
-
 #include "../../../../Include/Common/WeaponTemplateSetHead.h"
-
 struct Rva00496D43Elem : public AsciiString
 {
 	char m_pad04[4];
 	WeaponTemplateSetHead m_set08;
 };
-
 class Rva00496D43
 {
 public:
@@ -318,29 +254,22 @@ private:
 	Rva00496D43Elem **m_begin18; // +0x18
 	Rva00496D43Elem **m_end1C; // +0x1C
 };
-
 struct BfmeMorphCondition {AsciiString name;unsigned at04;unsigned conditions[19];AsciiString locomotor;};
-
 // A 19-word model-condition mask; the zeroing constructor is the mask
 // form, the bare words are what the set lookup fills in place.
 struct BannerMorphConditionBits
 {
 	int m_bits[19];
 };
-
 struct BannerMorphConditionMask : public BannerMorphConditionBits
 {
 	BannerMorphConditionMask() throw() { memset(m_bits, 0, sizeof(m_bits)); }
 	void set(unsigned int bit) { m_bits[bit >> 5] |= 1 << (bit & 0x1F); }
 };
-
 // The module data's set lookup (rowed under this receiver spelling).
 struct Rva00496D43Elem;
-
 extern "C" int rva002bcab_scanIndex(const char *token, const char *const *nameList, bool *found, bool doThrow) throw();
-
 extern const char *TheLocomotorSetNames[];
-
 static const unsigned int s_morphConditions[81] =
 {
 	214, 194, 195, 196, 197, 198, 184, 185, 186, 187, 188, 458,
@@ -351,28 +280,19 @@ static const unsigned int s_morphConditions[81] =
 	507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518,
 	519, 520, 521, 522, 523, 524, 525, 526, 527
 };
-
 extern int BfmeLogicFramesPerSecond;
-
 #include "../../../../Include/Common/INI/INI.h"
-
 class ModuleData;
-
 class Rva000B664E { public: void rva0033394D(AsciiString);unsigned words[19]; };
-
 // ExpLevelDraw (retail 0x004972A9, 293 B; table C4FA3C): "Level" integer, then
 // repeated "SubObject" show-flag/name pairs appended to the entry's own
 // pointer vector. A native redundant re-read of the parser's token pointer
 // survives after the sub-object test; the self-compare of ini->m_sepsColon in that
 // branch condition reproduces it (tautology carrier, zero bytes).
 class Rva004BA1B2 { public: Rva004BA1B2() throw();int level;unsigned vec[3]; };
-
 struct BannerExpDraw { AsciiString subObject;bool show; };
-
 bool rva004969E7(const char *);
-
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags, +0x0C whether a hit allows.
 class Rva00261409Filter : public Rva000421C8
@@ -386,10 +306,7 @@ public:
 	bool m_match;
 	int m_flags;
 };
-
-// A KindOfMaskType as the mask filters copy it (0x0004543D).
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-
 // vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
 // first mask and none of the second.
 class Rva0004584D : public Rva000421C8
@@ -400,14 +317,57 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
-
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
-
 template <int N> class BitFlags;
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 #include "../../../Common/PartitionRangeQueryCallView.h"
+//
+// ??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00496A98,
+// 42 bytes. Behavior-side ctor completing the BannerCarrierUpdate file-unit
+// (poolkey rowed at 0x496A1E, behavior instance factory rowed at 0x24E173
+// news 0x34 with this ctor as sole raw caller).
+//
+// Shape: frameless single-base ctor over the rowed UpdateModule base
+// 0x253390 with three explicit vtable stores at +0/+0xC/+0x10 via byte-wise
+// pointer casts (StopSpecialPower precedent: explicit stores, no virtuals
+// declared anywhere so no vtable is emitted here; all three immediates are
+// DIR32-masked in comparison). Zero new pins (base resolves via the
+// rowed UpdateModule spelling).
+
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
+  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
+
+extern "C" const void *const __identifier("??_7Rva004969FF@@6BRva004969FF_B2@@@")[];
+  // vftable 0x00C4F82C
+// The retail table at RVA 0x0084F838: 13 slots, each a rowed code owner (the next
+// word is not a code address or starts another ledger datum).
+extern "C" {
+void __identifier("??_GRva004969FF@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@Rva00497805@@MAEXXZ")();
+void __identifier("?name@Rva00496A18Named@@QBEPBDXZ")();
+void __identifier("?xfer@Rva0047F94C@@QAEXPAVXfer@@@Z")();
+void __identifier("?getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ")();
+void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
+void __identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z")();
+void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
+void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
+}
+extern "C" const void *const vtbl_00C4F838[13] = {
+	(const void *)&__identifier("??_GRva004969FF@@UAEPAXI@Z"), // slot 0 0x00496AC2
+	(const void *)&__identifier("?loadPostProcess@Rva00497805@@MAEXXZ"), // slot 1 0x00497805
+	(const void *)&__identifier("?name@Rva00496A18Named@@QBEPBDXZ"), // slot 2 0x00496A18
+	(const void *)&__identifier("?xfer@Rva0047F94C@@QAEXPAVXfer@@@Z"), // slot 3 0x0047F94C
+	(const void *)&__identifier("?getModuleNameKey@BannerCarrierUpdate@@UBE?AW4NameKeyType@@XZ"), // slot 4 0x00496A1E
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 5 0x000B3FD0
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 6 0x000B3FD0
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 7 0x000B3FD0
+	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 8 0x000B3FD0
+	(const void *)&__identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z"), // slot 9 0x0050B238
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10 0x000D43D0
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11 0x000D43D0
+	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
+};
+class Thing;
 
 extern PartitionManager *ThePartitionManager;
 
@@ -433,6 +393,19 @@ public:
 	virtual unsigned rva004973CFSlot98() = 0;
 	virtual Object *rva004973CFSlot99(void *what) = 0;
 };
+
+class BannerCarrierUpdate : public UpdateModule {
+public:
+ BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData);
+ virtual UpdateSleepTime update();
+ void rva004973CF(); bool rva00496BD2(Object *); void rva00496E05(void *entry, bool playFX);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp
+
+// A KindOfMaskType as the mask filters copy it (0x0004543D).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp
 
@@ -541,10 +514,6 @@ UpdateSleepTime BannerCarrierUpdate::update() {
  rva00496BD2(obj);
  return (UpdateSleepTime)bannerCarrierUpdateModuleData->m_idleSpawnRate;
 }
-
-// tu-skeleton: 0x00496A98 42B ??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00496AC2 28B ??_GRva004969FF@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdateModuleDataDtor.cpp
 
@@ -875,5 +844,18 @@ void BannerCarrierUpdate::rva004973CF()
 		}
 	}
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdateCtor.cpp
+
+// ??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00496A98
+BannerCarrierUpdate::BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData) :
+	UpdateModule(thing, moduleData)
+{
+	*(unsigned int *)this = ((unsigned int)vtbl_00C4F838);
+	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004969FF@@6BRva004969FF_B2@@@"));
+}
+
+// tu-skeleton: 0x00496AC2 28B ??_GRva004969FF@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x004976CA 17B ?buildFieldParse@BannerCarrierUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
