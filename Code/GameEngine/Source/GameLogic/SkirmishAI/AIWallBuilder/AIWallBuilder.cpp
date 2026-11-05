@@ -181,8 +181,8 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // The 0x4C-byte wall: built here and by the library Xfer's throwaway wall,
 // destroyed through the rowed virtual 0x004EB5E9.
-class Rva004EB583 {
-public:Rva004EB583(int value);virtual ~Rva004EB583();
+class Rva004EB5E9 {
+public:Rva004EB5E9(int value);virtual ~Rva004EB5E9();
 private:unsigned char m_pad04[0x4C - 0x04];
 };
 
@@ -230,13 +230,6 @@ struct Rva004E99B1Rec
 {
 	char m_pad[0x44];
 	void *m_44;
-};
-
-class __declspec(novtable) Rva004EB5E9 : public Rva004EB583
-{
-public:
-	Rva004EB5E9(int value) : Rva004EB583(value) {}
-	virtual ~Rva004EB5E9();
 };
 
 void **rva004E99D6(void **first, void **last, const void *key);
@@ -364,7 +357,7 @@ void AIWallBuilder::loadWallLibrary()
             void **found=rva004E99D6(g_00E04484.begin,g_00E04484.end,&key);
             const ModuleData *wall;
             if(found==g_00E04484.end) {
-                wall=reinterpret_cast<const ModuleData *>(new Rva004EB583(key));
+                wall=reinterpret_cast<const ModuleData *>(new Rva004EB5E9(key));
                 reinterpret_cast<_STL::vector<const ModuleData *> &>(g_00E04484).push_back(wall);
             }else wall=reinterpret_cast<const ModuleData *>(*found);
             Rva00596CDF *node=new Rva00596CDF(reinterpret_cast<Rva0030D4F2 *>(obj)->rva0030D50C());

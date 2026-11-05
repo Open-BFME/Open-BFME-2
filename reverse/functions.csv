@@ -26737,7 +26737,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva001F5423@Rva001F553F@@QAEMXZ,,0x001F5423,34,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,twin of 0x001F5401 float at plus2C or zero
 ?rva00405684@Rva00404D70@@QAEPAUBfmeStringRecord00404BF3@@ABVAsciiString@@@Z,,0x00405684,105,Code/GameEngine/Source/Common/VictorySystem.cpp,matched,find-or-create via rowed find ctor push_back releaseBuffer returns last
 ?init@VictorySystem@@UAEXXZ,,0x004055F2,146,Code/GameEngine/Source/Common/VictorySystem.cpp,matched,chain calls 0x00404BC5 ctor Default push_back floats via globals vector at +0x120
-??0Rva004EB583@@QAE@H@Z,,0x004EB583,102,Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp,matched,unlock ctor vtable 3x BfmeE16 vectors id from counter
+??0Rva004EB5E9@@QAE@H@Z,,0x004EB583,102,Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp,matched,unlock ctor vtable 3x BfmeE16 vectors id from counter
 ?rva006E1020@AptCIH@@QBEPAXXZ,,0x006E1020,103,Code/Libraries/Source/Apt/AptCIH.cpp,matched,unlock morph-inst accessor type 0x11 via rowed getters
 ?rva006E1100@AptCIH@@QBEPAXXZ,,0x006E1100,103,Code/Libraries/Source/Apt/AptCIH.cpp,matched,unlock shape-inst accessor type 0x0C via rowed getters
 ?rva006E1170@AptCIH@@QBEPAXXZ,,0x006E1170,51,Code/Libraries/Source/Apt/AptCIH.cpp,matched,unlock char-inst accessor via rowed isCharacterInst

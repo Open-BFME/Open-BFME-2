@@ -397,7 +397,9 @@ private:
 };
 
 class Rva004EB5E9 {
-public: virtual ~Rva004EB5E9();
+public:
+ Rva004EB5E9(int value);
+ virtual ~Rva004EB5E9();
 private:
  int count;
  _STL::vector<Cleanup4EB5E9 *> owned8;
@@ -978,7 +980,7 @@ void AIWall::DoXfer(Xfer *xfer,bool detachOwner) {
 
 // tu-skeleton: 0x004EB549 58B ??$sort_heap@PAPAURva004EBE74Item@@URva004EBE74Cmp@@@_STL@@YAXPAPAURva004EBE74Item@@0URva004EBE74Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva004ebe74.cpp (not merged yet)
 
-// tu-skeleton: 0x004EB583 102B ??0Rva004EB583@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp (not merged yet)
+// tu-skeleton: 0x004EB583 102B ??0Rva004EB5E9@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x004EB6DD 68B ??$__final_insertion_sort@PAPAURva004EBE74Item@@URva004EBE74Cmp@@@_STL@@YAXPAPAURva004EBE74Item@@0URva004EBE74Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva004ebe74.cpp (not merged yet)
 
