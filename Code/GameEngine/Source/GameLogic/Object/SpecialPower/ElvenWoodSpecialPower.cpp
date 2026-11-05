@@ -384,14 +384,7 @@ private:
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class Rva00493009
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad04[0x34 - 4];
-};
+#include "../../../../Include/GameLogic/Rva00493009.h"
 
 class Rva004C447D : public Rva00493009
 {
