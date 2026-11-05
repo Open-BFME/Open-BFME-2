@@ -79,7 +79,7 @@ public:
 // 0x00239AF4 on the normal path and with the list<Drawable *> destructor
 // thunk 0x00239BAB in the unwind funclet.
 #include "../../../../Include/GameClient/DrawableList.h"
-class GameMessage {public:enum Type{COMPLETED=0x7e2};};
+#include "../../../../Include/Common/MessageStream.h"
 class PickAndPlayInfo;
 bool pickAndPlayUnitVoiceResponse(const DrawableList *,GameMessage::Type,PickAndPlayInfo *);
 class ControlBar;
@@ -127,7 +127,7 @@ void GettingBuiltBehavior::rva00454B5C()
    if(!flag33 && TheGameLogic->getFrame()>=5){
      _STL::list<Drawable *> list;
      list.push_back(obj->getDrawable());
-     pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list),GameMessage::COMPLETED,0);
+     pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list),static_cast<GameMessage::Type>(0x7E2),0);
    }
    timer=data->timer;flag33=true;flag36=false;flag3d=false;
    *((bool *)((char *)TheControlBar+0x28))=true;

@@ -91,7 +91,7 @@ public:
     bool air; Drawable *drawTarget; void *weaponSlot; int specialPowerType;
     unsigned int unknown10; Coord3D position; const Rva0045A8C2Options *commandOptions;
 };
-class GameMessage { public: enum Type { Rva7E3 = 0x7E3 }; };
+#include "../../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *, GameMessage::Type, PickAndPlayInfo *);
 struct Rva0045A8C2Options { char pad[0x1c]; unsigned int options; };
 void AutoAbilityBehavior::rva0045A8C2(Object *source, Object *target, const Rva0045A8C2Options *options)
@@ -106,6 +106,6 @@ void AutoAbilityBehavior::rva0045A8C2(Object *source, Object *target, const Rva0
         _STL::list<Drawable *> list;
         Drawable *drawable = source->getDrawable();
         list.push_back(drawable);
-        pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::Rva7E3, &info);
+        pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), static_cast<GameMessage::Type>(0x7E3), &info);
     }
 }

@@ -14,59 +14,7 @@
 // sets the disposition before falling into the command hints and so keeps
 // its own case-table entry.
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_MOUSEOVER_DRAWABLE_HINT = 0xA2,
-		MSG_MOUSEOVER_LOCATION_HINT = 0xA3,
-		MSG_COMMAND_HINT_A4 = 0xA4,
-		MSG_COMMAND_HINT_A5 = 0xA5,
-		MSG_AREA_SELECTION_HINT = 0xA6,
-		MSG_COMMAND_HINT_A7 = 0xA7,
-		MSG_COMMAND_HINT_A8 = 0xA8,
-		MSG_COMMAND_HINT_A9 = 0xA9,
-		MSG_COMMAND_HINT_AA = 0xAA,
-		MSG_COMMAND_HINT_AB = 0xAB,
-		MSG_COMMAND_HINT_AC = 0xAC,
-		MSG_COMMAND_HINT_AD = 0xAD,
-		MSG_COMMAND_HINT_AE = 0xAE,
-		MSG_COMMAND_HINT_AF = 0xAF,
-		MSG_COMMAND_HINT_B0 = 0xB0,
-		MSG_COMMAND_HINT_B1 = 0xB1,
-		MSG_COMMAND_HINT_B2 = 0xB2,
-		MSG_COMMAND_HINT_B3 = 0xB3,
-		MSG_COMMAND_HINT_B4 = 0xB4,
-		MSG_COMMAND_HINT_B5 = 0xB5,
-		MSG_COMMAND_HINT_B6 = 0xB6,
-		MSG_COMMAND_HINT_B8 = 0xB8,
-		MSG_COMMAND_HINT_B9 = 0xB9,
-		MSG_DEFECTOR_HINT = 0xBB,
-		MSG_COMMAND_HINT_BC = 0xBC,
-		MSG_COMMAND_HINT_BD = 0xBD,
-		MSG_COMMAND_HINT_BE = 0xBE,
-		MSG_COMMAND_HINT_BF = 0xBF,
-		MSG_COMMAND_HINT_C0 = 0xC0,
-		MSG_COMMAND_HINT_C1 = 0xC1,
-		MSG_COMMAND_HINT_C2 = 0xC2,
-		MSG_AREA_SELECTION = 0x424,
-		MSG_DO_ATTACK_OBJECT = 0x425,
-		MSG_DO_FORCE_ATTACK_GROUND = 0x426,
-		MSG_DO_FORCE_ATTACK_OBJECT = 0x427,
-		MSG_ENTER = 0x42C,
-		MSG_DO_MOVETO = 0x42F,
-		MSG_DO_ATTACKMOVETO = 0x430,
-		MSG_DO_FORCEMOVETO = 0x431,
-		MSG_COMMAND_HINT_7D6 = 0x7D6,
-		MSG_COMMAND_HINT_7D7 = 0x7D7,
-		MSG_COMMAND_HINT_7D8 = 0x7D8
-	};
-	Type getType() const { return m_type; }
-private:
-	unsigned char m_00[0x10];
-	Type m_type;	// +0x10
-};
+#include "../../../Include/Common/MessageStream.h"
 
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -104,36 +52,36 @@ GameMessageDisposition HintSpyTranslator::translateGameMessage(const GameMessage
 			break;
 		case GameMessage::MSG_DEFECTOR_HINT:
 			disp = DESTROY_MESSAGE;
-		case GameMessage::MSG_COMMAND_HINT_A4:
-		case GameMessage::MSG_COMMAND_HINT_A5:
-		case GameMessage::MSG_COMMAND_HINT_A7:
-		case GameMessage::MSG_COMMAND_HINT_A8:
-		case GameMessage::MSG_COMMAND_HINT_A9:
-		case GameMessage::MSG_COMMAND_HINT_AA:
-		case GameMessage::MSG_COMMAND_HINT_AB:
-		case GameMessage::MSG_COMMAND_HINT_AC:
-		case GameMessage::MSG_COMMAND_HINT_AD:
-		case GameMessage::MSG_COMMAND_HINT_AE:
-		case GameMessage::MSG_COMMAND_HINT_AF:
-		case GameMessage::MSG_COMMAND_HINT_B0:
-		case GameMessage::MSG_COMMAND_HINT_B1:
-		case GameMessage::MSG_COMMAND_HINT_B2:
-		case GameMessage::MSG_COMMAND_HINT_B3:
-		case GameMessage::MSG_COMMAND_HINT_B4:
-		case GameMessage::MSG_COMMAND_HINT_B5:
-		case GameMessage::MSG_COMMAND_HINT_B6:
-		case GameMessage::MSG_COMMAND_HINT_B8:
-		case GameMessage::MSG_COMMAND_HINT_B9:
-		case GameMessage::MSG_COMMAND_HINT_BC:
-		case GameMessage::MSG_COMMAND_HINT_BD:
-		case GameMessage::MSG_COMMAND_HINT_BE:
-		case GameMessage::MSG_COMMAND_HINT_BF:
-		case GameMessage::MSG_COMMAND_HINT_C0:
-		case GameMessage::MSG_COMMAND_HINT_C1:
-		case GameMessage::MSG_COMMAND_HINT_C2:
-		case GameMessage::MSG_COMMAND_HINT_7D6:
-		case GameMessage::MSG_COMMAND_HINT_7D7:
-		case GameMessage::MSG_COMMAND_HINT_7D8:
+		case GameMessage::MSG_VALID_GUICOMMAND_HINT:
+		case GameMessage::MSG_INVALID_GUICOMMAND_HINT:
+		case GameMessage::MSG_DO_ATTACK_OBJECT_HINT:
+		case static_cast<GameMessage::Type>(0xA8):
+		case GameMessage::MSG_DO_FORCE_ATTACK_OBJECT_HINT:
+		case GameMessage::MSG_DO_FORCE_ATTACK_GROUND_HINT:
+		case GameMessage::MSG_GET_REPAIRED_HINT:
+		case GameMessage::MSG_GET_HEALED_HINT:
+		case GameMessage::MSG_DO_REPAIR_HINT:
+		case GameMessage::MSG_RESUME_CONSTRUCTION_HINT:
+		case GameMessage::MSG_ENTER_HINT:
+		case GameMessage::MSG_CONTEST_HINT:
+		case GameMessage::MSG_DOCK_HINT:
+		case GameMessage::MSG_HARVEST_HINT:
+		case GameMessage::MSG_DO_MOVETO_HINT:
+		case GameMessage::MSG_DO_ATTACKMOVETO_HINT:
+		case GameMessage::MSG_ADD_WAYPOINT_HINT:
+		case GameMessage::MSG_HIJACK_HINT:
+		case GameMessage::MSG_CONVERT_TO_CARBOMB_HINT:
+		case GameMessage::MSG_CAPTUREBUILDING_HINT:
+		case GameMessage::MSG_SET_RALLY_POINT_HINT:
+		case static_cast<GameMessage::Type>(0xBD):
+		case GameMessage::MSG_DO_SALVAGE_HINT:
+		case GameMessage::MSG_DO_INVALID_HINT:
+		case GameMessage::MSG_DO_ATTACK_OBJECT_AFTER_MOVING_HINT:
+		case GameMessage::MSG_TYPE_193:
+		case GameMessage::MSG_TYPE_194:
+		case GameMessage::MSG_GIVE_UPGRADE_HINT:
+		case GameMessage::MSG_JOIN_HORDE_HINT:
+		case GameMessage::MSG_CAN_GRAB_HINT:
 			TheInGameUI->createCommandHint(msg);
 			disp = DESTROY_MESSAGE;
 			break;
@@ -151,8 +99,8 @@ GameMessageDisposition HintSpyTranslator::translateGameMessage(const GameMessage
 		case GameMessage::MSG_DO_ATTACK_OBJECT:
 			TheInGameUI->createAttackHint(msg);
 			break;
-		case GameMessage::MSG_DO_FORCE_ATTACK_GROUND:
 		case GameMessage::MSG_DO_FORCE_ATTACK_OBJECT:
+		case GameMessage::MSG_DO_FORCE_ATTACK_GROUND:
 			TheInGameUI->createForceAttackHint(msg);
 			break;
 		case GameMessage::MSG_ENTER:

@@ -250,26 +250,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_IDLE_70 = 0x70
-	};
-	void appendIntegerArgument(int arg);
-};
-
-class MessageStream
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *appendMessage(GameMessage::Type type);
-};
+#include "../../../Include/Common/MessageStream.h"
 
 extern class MessageStream *TheMessageStream;
 
@@ -561,7 +542,7 @@ void GameWindowTransitionsHandler::update()
 		m_currentGroup = 0;
 	if (m_unk51 && !m_currentGroup && !m_pendingGroup)
 	{
-		TheMessageStream->appendMessage(GameMessage::MSG_IDLE_70);
+		TheMessageStream->appendMessage(GameMessage::MSG_META_OPTIONS);
 		m_unk51 = false;
 	}
 }
