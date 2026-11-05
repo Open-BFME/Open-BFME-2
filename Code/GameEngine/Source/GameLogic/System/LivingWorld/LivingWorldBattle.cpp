@@ -36,7 +36,7 @@ class Rva003190A5 { public: bool query() const; };
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct Rva002B488EResult { char pad00[0x54]; int playerID; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class LivingWorldLogic; extern LivingWorldLogic* TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 class Rva003F468D { public: int rva003F4DAE(int); };
 struct Rva003F4E07Player { char pad00[0x14];int id; };
 struct Rva003F4E07Record { char pad00[0x30];int playerID; };
@@ -370,7 +370,6 @@ class ModuleData;
 class Rva002B8A9F {public:void rva002B8A9F(ModuleData*);};
 struct RetreatSettings {char opaque00[0x58];int rounds58;};
 struct RetreatCampaign {char opaque00[8];RetreatSettings *settings08;};
-class LivingWorldLogic {public:void rva002BCCFB(LivingWorldBattle *,int,int);char opaque00[0xB0];RetreatCampaign *campaignB0;};
 void LivingWorldBattle::RetreatArmiesForPlayer(void *player) {
  Rva003F498AOuter *side=rva003F4634(player);
  if(!side)return;
@@ -378,7 +377,7 @@ void LivingWorldBattle::RetreatArmiesForPlayer(void *player) {
  if(!entry)return;
  PlayerStorage players;
  RetreatSlots slots(new Rva002B2508[rva003F459A()]);
- reinterpret_cast<LivingWorldLogic *>(TheLivingWorldLogic)->rva002BCCFB(this,(int)&players,(int)&slots);
+ TheLivingWorldLogic->rva002BCCFB(this,(int)&players,(int)&slots);
  for(unsigned i=0;i<players.size();++i) {
   int id=reinterpret_cast<Rva003F4E07Player *>(player)->id;
   Rva002BBB96Element &record=players[i];
@@ -387,10 +386,10 @@ void LivingWorldBattle::RetreatArmiesForPlayer(void *player) {
  LivingWorldAutoResolveBattle battle(players);
  // Refresh the settings pointer each round, as retail does. Keeping this
  // pointer live gives VC7 the retail EDI induction variable.
- RetreatSettings *settings=reinterpret_cast<LivingWorldLogic *>(TheLivingWorldLogic)->campaignB0->settings08;
+ RetreatSettings *settings=((RetreatCampaign *)TheLivingWorldLogic->fieldB0)->settings08;
  for(int i=0;i<settings->rounds58;++i) {
   reinterpret_cast<Rva004FA10FOwner *>(&battle)->rva004FA10F();
-  settings=reinterpret_cast<LivingWorldLogic *>(TheLivingWorldLogic)->campaignB0->settings08;
+  settings=((RetreatCampaign *)TheLivingWorldLogic->fieldB0)->settings08;
  }
  battle.applyResults();
  for(int i=int(entry->m_armies.size())-1;i>=0;--i) {

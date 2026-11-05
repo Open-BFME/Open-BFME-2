@@ -37,7 +37,7 @@ struct Rva002B488EResult;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002B6C9F {public: bool rva002B8019(int,int,int);};
 class Rva003F287F; class Rva004E0632;
-class LivingWorldLogic {public: void GetNumUpgradeableTroopsInRegionForPlayer(Rva003F287F*,int,int*,int*); const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry*,LivingWorldArmy*,Rva003F287F*); char prefix[0xf4]; int flagF4;};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva00318F42 {public: bool rva00318F42();};
 class Rva005E1008 {public: void rva005E0E99(bool);};
@@ -49,7 +49,7 @@ extern MessageStream *TheMessageStream;
 // WorldBuilder StrategicInGameUI::CanCancelMove, WB VA 0x0162A1C0 (callgraph lead, score 2.0).
 namespace StrategicInGameUI {
 static bool CanCancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
- if(!TheLivingWorldLogic || TheLivingWorldLogic->flagF4 || !reinterpret_cast<Rva002B280C*>(TheLivingWorldLogic)->rva002B280C(reinterpret_cast<Arg54*>(army)))return false;
+ if(!TheLivingWorldLogic || TheLivingWorldLogic->fieldF4 || !reinterpret_cast<Rva002B280C*>(TheLivingWorldLogic)->rva002B280C(reinterpret_cast<Arg54*>(army)))return false;
  if(selection->members.size()) {
   Rva0040CB3AIndexedField *summary=army->summary;
   SelectedMemberSet::iterator end=selection->members.end();
@@ -97,7 +97,7 @@ bool CanDisbandArmyMember(LivingWorldArmy*,int);
 // WorldBuilder StrategicInGameUI::ShouldEnableButton, WB VA 0x0162B7B0 (callgraph lead, score 3.0).
 namespace StrategicInGameUI {
 static bool ShouldEnableButton(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
- if(!TheLivingWorldLogic || TheLivingWorldLogic->flagF4 || !selection->members.size())return false;
+ if(!TheLivingWorldLogic || TheLivingWorldLogic->fieldF4 || !selection->members.size())return false;
  Rva0040CB3AIndexedField *summary=army->summary;
  SelectedMemberSet::iterator it=selection->members.begin();
  bool state=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it))->m_c4;
