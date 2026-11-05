@@ -54,17 +54,7 @@ struct Rva0005BDD2ListHead
 	void *m_next;
 };
 
-class MilesAudioManager
-{
-public:
-	float rva00059AD0(void *event, int a);
-	float rva0005A9F8(void *ref, int a, int b);
-	bool isPlayingLowerPriority(AudioEventRTS *event);
-private:
-	char m_pad00[0xa40];
-	Rva0005BDD2ListHead *m_a40;
-	Rva0005BDD2ListHead *m_a44;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
 {
@@ -72,7 +62,7 @@ bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
 	key1.a = event->m_eventInfo->m_44;
 	key1.b = rva00059AD0(event, 1);
 	bool positional = event->isPositionalAudio();
-	Rva0005BDD2ListHead **headAddr = positional ? &m_a44 : &m_a40;
+	Rva0005BDD2ListHead **headAddr = positional ? reinterpret_cast<Rva0005BDD2ListHead **>(m_A44) : reinterpret_cast<Rva0005BDD2ListHead **>(m_A40);
 	Rva0005BDD2Node *node = (Rva0005BDD2Node *)(*(Rva0005BDD2ListHead **)headAddr)->m_next;
 	if (node == (Rva0005BDD2Node *)*headAddr)
 		return false;
