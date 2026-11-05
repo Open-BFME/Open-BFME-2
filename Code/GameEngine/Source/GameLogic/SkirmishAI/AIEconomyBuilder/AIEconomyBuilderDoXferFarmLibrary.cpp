@@ -17,8 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <new>
 class Xfer;
 class Rva00596F18 {public:Rva00596F18(void *);virtual ~Rva00596F18();private:unsigned char opaque04[0x74-4];};
-struct AIEconomyFarmLibraryStorage {Rva00596F18 **first,**finish,**end;};
-class AIEconomyBuilder {public:static AIEconomyFarmLibraryStorage m_farmList;static void DoXferFarmLibrary(Xfer *);};
+#include "AIEconomyBuilderFarmLibrary.h"
 class ModuleData;
 namespace _STL {}
 class FarmLibraryXferHead {public:virtual void slot0();virtual bool IsLoading() const;};
@@ -34,8 +33,8 @@ void AIEconomyBuilder::DoXferFarmLibrary(Xfer *xfer) {
  io->transferUnsigned(count);
  if(io->IsLoading()) {
   for(unsigned i=0;i<count;++i) {
-   Rva00596F18 *farm=new Rva00596F18(0);
-   reinterpret_cast<_STL::vector<const ModuleData*> *>(&m_farmList)->push_back(reinterpret_cast<const ModuleData *const &>(farm));
+   const ModuleData *farm=reinterpret_cast<const ModuleData *>(new Rva00596F18(0));
+   reinterpret_cast<_STL::vector<const ModuleData*> *>(&m_farmList)->push_back(farm);
   }
  }
  Rva00596F18 **last=m_farmList.finish;

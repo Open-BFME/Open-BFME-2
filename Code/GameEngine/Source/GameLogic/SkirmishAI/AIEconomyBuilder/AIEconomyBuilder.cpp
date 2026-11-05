@@ -28,7 +28,6 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 class ModuleData;
-namespace _STL { template<> void vector<const ModuleData*>::push_back(const ModuleData *const&); }
 void *Rva004EA124Find(void *);
 struct EconomyFarmView { unsigned char unknown0[0x10]; unsigned int kind; unsigned char unknown14[0x5c]; unsigned int id; };
 #include "AIEconomyBuilderFarmLibrary.h"

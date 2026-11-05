@@ -19,6 +19,7 @@ class AsciiString;
 class AIEconomyBuilder {
 public:
  static AIEconomyFarmLibraryStorage m_farmList;
+ static void DoXferFarmLibrary(Xfer *);
  AsciiString getFarmTemplateName();
  bool needMoreFarms(int *priority);
  void DoXfer(Xfer *);
