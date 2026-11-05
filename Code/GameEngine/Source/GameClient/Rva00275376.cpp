@@ -19,11 +19,9 @@ struct Coord3D;
 
 class Rva00271C8A
 {
-  public:
-    void rva00271C8A(const int *a, const int *b);
-
-  private:
-    int m_vals[19];
+public:
+	void rva00271C8A(const int *,const int *);
+	int m_bits[19]; // +0x00
 };
 
 struct Slot00Holder

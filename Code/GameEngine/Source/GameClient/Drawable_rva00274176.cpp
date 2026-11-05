@@ -10,8 +10,8 @@
 class Rva00271C8A
 {
 public:
-	void rva00271C8A(const int *a, const int *b);
-	int m_bits[19];
+	void rva00271C8A(const int *,const int *);
+	int m_bits[19]; // +0x00
 };
 
 class BfmeDrawableClientIface

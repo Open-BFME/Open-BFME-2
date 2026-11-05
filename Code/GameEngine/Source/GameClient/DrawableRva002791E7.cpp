@@ -12,7 +12,8 @@
 class Rva00271C8A
 {
 public:
-	void rva00271C8A(const int *clear, const int *set);
+	void rva00271C8A(const int *,const int *);
+	int m_bits[19]; // +0x00
 };
 
 class Rva00263546

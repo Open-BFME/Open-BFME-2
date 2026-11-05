@@ -23,7 +23,12 @@ static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
 }
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Rva00271C8A { public: void rva00271C8A(const int *, const int *); };
+class Rva00271C8A
+{
+public:
+	void rva00271C8A(const int *,const int *);
+	int m_bits[19]; // +0x00
+};
 class Rva002722AA { public: void *get() const; };
 class Rva002722BD { public: void *get() const; };
 class Rva0028E8D4 { public: void rva0028E8D4(float *) const; };

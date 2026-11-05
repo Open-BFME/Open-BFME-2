@@ -34,7 +34,12 @@ class Object:public Thing {public:Object *rva002931F5(bool);
  const Matrix3D *getTransformMatrix() const {return reinterpret_cast<const Matrix3D *>(reinterpret_cast<const char *>(this)+8);}
  char pad60[0x438-0x60];unsigned char status438;
 };
-class Rva00271C8A {public:void rva00271C8A(const int *,const int *);};
+class Rva00271C8A
+{
+public:
+	void rva00271C8A(const int *,const int *);
+	int m_bits[19]; // +0x00
+};
 class Rva00271A80 {
 public:
 	void rva00271A80(float x);
