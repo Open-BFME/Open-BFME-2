@@ -163,7 +163,7 @@ template<int N> class BitFlags { public: unsigned int bits[7]; };
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeFixedStorage0004543D { public: char bits[28]; };
 struct Rva0006EE7A { Rva0006EE7A(int, int, int) throw(); char bits[28]; };
-struct Rva00045411BitSet { Rva00045411BitSet(int, int) throw(); char bits[28]; };
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva0004584D : public Rva000421C8
 {
 public:

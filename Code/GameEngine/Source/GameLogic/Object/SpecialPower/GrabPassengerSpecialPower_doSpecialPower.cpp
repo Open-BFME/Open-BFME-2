@@ -85,11 +85,7 @@ struct ObjectStatusMaskNone : public ObjectStatusMask
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 // Rowed constructors, same 28-byte mask: 0x00045411 (one bit), 0x0006EE7A (two).
-struct Rva00045411BitSet
-{
-	unsigned int bits[7];
-	Rva00045411BitSet(int reserved, int bit) throw();
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 struct Rva0006EE7A
 {
 	unsigned int bits[7];

@@ -26,7 +26,7 @@ class Object { public: char prefix[4]; TemplateView *type; char pad8[0x38-8]; Co
 template<int N> class BitFlags { public: unsigned int bits[7]; struct BfmeNoInitFortress {}; BitFlags() { memset(bits,0,sizeof(bits)); } BitFlags(BfmeNoInitFortress) {} void bfmeZeroFortress() { memset(bits,0,sizeof(bits)); } void set(unsigned i) { bits[i/32]|=1UL<<(i%32); } };
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeFixedStorage0004543D { char bytes[28]; public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw(); };
-class Rva00045411BitSet { char bytes[28]; public: Rva00045411BitSet(int,int); };
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 class PartitionFilterRejectByKindOf:public Rva000421C8 {
  BfmeFixedStorage0004543D a,b;

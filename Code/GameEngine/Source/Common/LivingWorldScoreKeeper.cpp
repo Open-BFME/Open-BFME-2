@@ -252,7 +252,7 @@ public:
 private:
 	unsigned m_words[7];
 };
-struct Rva00045411BitSet { unsigned m_words[7]; };
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Xfer0051FFF5;
 void Rva004EE9E9(Xfer0051FFF5 *xfer, void *data);
 void Rva0040E269(Xfer0051FFF5 *xfer, void *data);
