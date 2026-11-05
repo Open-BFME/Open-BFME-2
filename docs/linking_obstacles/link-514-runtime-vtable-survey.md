@@ -90,6 +90,12 @@ Rejected and left for header work:
   The fix is to give the scaffold class the same base view as its family unit, so every copy is
   identical. The scaffold's ModuleData inline-virtual COMDATs then join every copy of that header,
   so check all their definers with link_check.
+  Done in 4d44fb30c14 and 273e5d13f1f: six tables, the five SpecialPower ModuleData classes and
+  GeometryUpgradeModuleData, went from 1 to 31 slots (30 equal retail). Each scaffold copy is
+  digest-identical to its family copy, and link_check A/B over every co-definer is unchanged.
+  Only five kept short tables had a full-length copy elsewhere. The other scaffold tables' family
+  units are short too (e.g. every ContainModuleData copy is one slot), so those need the family
+  header first.
 
 **Remaining / next check.** A table moves to retail only through its class family's own view:
 adopt the canonical class header (`header_adopt_lane.py`), or declare the family's override where
