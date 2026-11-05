@@ -23468,7 +23468,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??0Rva005B266D@@QAE@H@Z,,0x005B266D,34,Code/GameEngine/Source/Common/Rva005B266DCtor.cpp,matched,leaf thiscall ctor for 28-byte value called from 0x005B4695
 ??$__uninitialized_fill_n@PAURva00423A4A@@IU1@@_STL@@YAPAURva00423A4A@@PAU1@IABU1@ABU__false_type@0@@Z,,0x0042449C,37,Code/Libraries/Source/WWVegas/WWLib/Rva00423A4AFillN.cpp,matched,chain fill_n via rowed Construct stride 0xC unblocks 0x004246EE
 ??1Rva00596CDF@@UAE@XZ,,0x00596CDF,11,Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp,matched,derived dtor tail-jmp base 0x00573B23
-?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z,,0x00596CEA,147,Code/GameEngine/Source/Common/Rva00596CEAXfer.cpp,matched,Version11 base first plus members plus IsLoading tail
+?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z,,0x00596CEA,147,Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp,matched,Version11 base first plus members plus IsLoading tail
 ?Rva0023D614Set@@YAXPAV?$StringBase@D@@@Z,,0x0023D614,77,Code/GameEngine/Source/GameLogic/System/GameLogic.cpp,matched,unlock StillImage_Film random clamp sprintf set
 ??0Rva002C752F@@QAE@XZ,,0x0033A888,81,Code/GameEngine/Source/GameLogic/Object/WeaponSetRva0033A888.cpp,matched,ctor via base reset plus 3x vector-ctor plus clear 0x2C752F caller 0x33D362
 ?rva002B8106@Rva002B8106@@QAEXABUBfmeStringRecord002B4DC1@@@Z,,0x002B8106,26,Code/Libraries/Source/WWVegas/WWLib/stlport_list_002b4dc1_insert.cpp,matched,Rva002B8106 list append thunk via end insert to rowed 0x002B70DC

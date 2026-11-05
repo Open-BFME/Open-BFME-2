@@ -25,7 +25,6 @@ public:
 };
 extern GameLogic *TheGameLogic;
 #include <new>
-
 class Rva004D9A3C
 {
 public:
@@ -33,7 +32,6 @@ public:
 private:
     char m_unrecovered00[0x1C];
 };
-
 // Same quote-record layout as the matched constructor and destructor.
 class Rva0039205C
 {
@@ -67,10 +65,8 @@ public:
     int m_20;
     int m_24;
 };
-
 // Preserve the native unwind wrapper separately from normal-path cleanup.
 struct WallQuoteResult : Rva0039205C {};
-
 class BuildAssistant
 {
 public:
@@ -87,19 +83,14 @@ public:
                            const Coord3D *startPosition,
                            const Coord3D &endPosition, bool option);
 };
-
 class Rva00A027B8;
-
 class BuildAssistant;
-
 extern BuildAssistant *TheBuildAssistant;
-
 class Rva0055ADD8
 {
 public:
     int failBuild(int ignored);
 };
-
 class AIBuildableStructure
 {
 public:
@@ -117,7 +108,6 @@ protected:
     ObjectID m_producedObjectID;
     char m_unrecovered28[0x4C - 0x28];
 };
-
 class AIBuildableWallSegment : public AIBuildableStructure
 {
 public:
@@ -129,7 +119,6 @@ private:
     char m_unrecovered50[4];
     int m_totalCost;
 };
-
  
  
  
@@ -165,12 +154,10 @@ protected:
 	unsigned int m_10;
 	char m_unknown14[0x40 - 0x14];
 };
-
 struct WallOrderPosition : Coord3DBase
 {
     __forceinline WallOrderPosition() { x = 0.0f; y = 0.0f; z = 0.0f; }
 };
-
 class Rva00596CDF : public Rva00573B23
 {
 public:
@@ -185,7 +172,6 @@ private:
 	int value54;
 	bool value58;
 };
-
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch J. As in VslotSmallBodiesA-I, each class and method
@@ -194,9 +180,7 @@ private:
 // that reference it. Meanings are not recovered.
 
 typedef int Int;
-
 typedef bool Bool;
-
 // slot at VA 0x00BCEEA8: raises five flag bytes deep inside the object.
 // slots 3 and 5 of the vtable at VA 0x00BCF7FC (slot 0 is the rowed
 // ??_GRva00104DB0Base): the first adds the extents of the rectangle given by
@@ -204,8 +188,36 @@ typedef bool Bool;
 // sentence's font from the argument's +0x14 (rowed
 // Render2DSentenceClass::Set_Font); both raise the +0xD5/+0xD4 dirty bytes.
 class FontCharsClass;
-
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
+// ?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z @0x00596CEA 147B
+// Xfer slot 12 (0x30) of Rva00596CDF (vtable 0x00870AF0, derived of Rva00573B23):
+// Version(1,1), base Rva00573B23::Rva00573A35 first, Coord +0x40 via 0x60,
+// ObjectID +0x4c via XferObjectID, uint +0x50 via 0x78, int +0x54 via 0x7c,
+// bool +0x58 via 0x90, then IsLoading tail: m_58!=0 m_10==0 arg2!=0 calls
+// Slot6(arg2,1) via slot 0x18. Chain from 0x00573A35. Unblocks 0x004EB092.
+// Evidence: call [eax+28] bytes 1,1; call 0x573A35; virtuals 0x60 XferObjectID
+// 0x78 0x7c 0x90; call [eax+4] test je xor cmp je cmp jne cmp je call [eax+18].
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+struct Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+#include "ascii_string.h"
 
 // slots at VA 0x00BC70FC and 0x00BC70EC: erase from the pointer vector at
 // +0x40 (resp. +0x4C) the first element whose object has +0x40 equal to the
@@ -256,6 +268,8 @@ class StrategicInGameUI::PlanningPhaseBuildingSelection {public: virtual Int rva
 // 0x00596cbe: vtable-backed integer predicate; only the accessed word
 // and the native ABI are known. Original owner and field meaning are unknown.
 class Rva00596CBE {public: Int rva00596CBE(); private: char m_prefix[0x4C]; Int m_word;};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIBuildableWallSegment.cpp
 
@@ -375,10 +389,25 @@ Rva00596CDF::Rva00596CDF(unsigned int key)
 
 void *Rva00596CC7::rva00596CC7(Rva00596CC7Buffer *output) {output->first=first; output->second=second; output->third=third; return output;}
 
-// tu-skeleton: 0x00596C7C 9B ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp
 
 Int Rva00596CBE::rva00596CBE() {return m_word == 0;}
 
-// tu-skeleton: 0x00596CEA 147B ?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596CEAXfer.cpp (not merged yet)
+// tu-skeleton: 0x00596C7C 9B ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00596CEAXfer.cpp
+
+void Rva00596CDF::Rva00596CEA(Xfer *xfer, void *arg2)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	Rva00573B23::Rva00573A35(xfer, arg2);
+	*xfer == position40;
+	XferObjectID(xfer, &objectID4c);
+	*xfer == key50;
+	*xfer == value54;
+	*xfer == value58;
+	if (xfer->IsLoading() && value58 && m_10 == 0 && arg2 != 0) {
+		registerWithBuilder(arg2, true);
+	}
+}
