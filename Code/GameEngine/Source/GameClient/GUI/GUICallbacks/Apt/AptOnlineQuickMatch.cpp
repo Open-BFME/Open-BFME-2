@@ -479,13 +479,7 @@ public:
 };
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int, int, char *, int);
-class OptionPreferences {
-public:
-  OptionPreferences();
-  virtual ~OptionPreferences();
-  char p[0x10];
-  int getFirewallBehavior();
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 #include "../../../../../Include/GameNetwork/LadderPref.h"
 
 // Retail constructs the temporary recent-ladder record in place.
@@ -642,36 +636,8 @@ protected:
     AptOnline *m_owner; // +0x58
     int unknown5c;
 };
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-
-private:
-	unsigned char m_unmodelled[0x10];
-};
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-public:
-	virtual ~QuickMatchPreferences();
-public:
-	void setLastLadder(const AsciiString &address, unsigned short port);
-public:
-	void setNumPlayers(int value);
-public:
-	void setMaxPing(int value);
-public:
-	void setSide(int value);
-public:
-	void setColor(int value);
-public:
-	int getNumPlayers();
-	int getMaxPing();
-	int getSide();
-};
+#include "../../../../../Include/Common/UserPreferences.h"
+#include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
 class OnlineQuickMatchWindowRef {
 public:
     ~OnlineQuickMatchWindowRef();
