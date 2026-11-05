@@ -89,6 +89,16 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<B
 
 // 24-byte element; layout owner NarrowStringRecord00427F75Helpers.cpp.
 struct BfmeNarrowRecord00427F75 { char m_pad[24]; public: BfmeNarrowRecord00427F75(const BfmeNarrowRecord00427F75 &); ~BfmeNarrowRecord00427F75(); };
+// Retail _M_clear at 0x004282EF destroys version records through 0x002385E6.
+// The generic range loop calls this footprint's different destructor, 0x0022CCEF.
+void __cdecl destroyVersionRecords(void *first, void *last);
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void _Destroy<BfmeNarrowRecord00427F75 *>(
+    BfmeNarrowRecord00427F75 *first, BfmeNarrowRecord00427F75 *last)
+{
+    destroyVersionRecords(first, last);
+}
+}
 // 128-byte element; layout owner stlport_pod_vector_bodies.cpp.
 struct BfmePod128 { char m_pad[128]; public: BfmePod128(const BfmePod128 &); ~BfmePod128(); };
 // 216-byte element CreateAHeroManager::CreateAHeroSubClass; layout owner
@@ -259,6 +269,9 @@ template void _STL::vector<BfmeNarrowRecord00427F75>::_M_insert_overflow(
     BfmeNarrowRecord00427F75 *, const BfmeNarrowRecord00427F75 &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x004282EF.
 template void _STL::vector<BfmeNarrowRecord00427F75>::_M_clear();
+// Keep the separately rowed range helper for this footprint's own destructor.
+template void _STL::__destroy_aux<BfmeNarrowRecord00427F75 *>(
+    BfmeNarrowRecord00427F75 *, BfmeNarrowRecord00427F75 *, const _STL::__false_type &);
 // Retail 0x004F8F61.
 template void _STL::vector<Rva004F6352>::_M_insert_overflow(
     Rva004F6352 *, const Rva004F6352 &, const _STL::__false_type &, unsigned int, bool);
