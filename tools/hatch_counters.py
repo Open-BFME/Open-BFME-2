@@ -332,7 +332,8 @@ def parse(text):
 
 
 MODE = re.compile(r"^# mode: (shadow|enforce)[ \t]*$", re.MULTILINE)
-STATE = {"mode": "enforce", "respellable": frozenset(), "ledger_spec": "HEAD:", "ledger_respell": None}
+STATE = {"mode": "enforce", "respellable": frozenset(), "ledger_spec": "HEAD:", "ledger_respell": None,
+         "ledger_hidden": None}
 CI_MODE = re.compile(r"^# mode:(.*)$", re.MULTILINE)
 
 
@@ -396,16 +397,61 @@ def ledger_respellings():
             entry = at.setdefault(address, ["", set()])
             entry[1].add(row.get("name", ""))
             entry[0] = row.get("name", "")
-        out = collections.defaultdict(set)
-        for owner_name, names in at.values():
+        out, hidden = collections.defaultdict(set), set()
+        for address, (owner_name, names) in at.items():
             owner = _ledger_ident(owner_name)
             if not ADDR_GLOBAL.fullmatch(owner):
                 continue
             for alias in {_ledger_ident(n) for n in names if n.strip()}:
-                if alias != owner and ADDR_GLOBAL.fullmatch(alias):
+                if alias == owner:
+                    continue
+                if ADDR_GLOBAL.fullmatch(alias):
                     out[owner].add(alias)
+                elif _spells_address(alias, address):
+                    out[owner].add(alias)          # rule 10b: an address name the scan misses
+                    hidden.add(alias)
         STATE["ledger_respell"] = {k: frozenset(v) for k, v in out.items()}
+        STATE["ledger_hidden"] = frozenset(hidden)
     return STATE["ledger_respell"]
+
+
+def _spells_address(alias, address):
+    """Rule 10b: ALIAS is a C identifier `g_...` spelling ADDRESS (an RVA) or its VA in 8 hex
+    digits, an address name ADDR_GLOBAL does not count (`g_00DC85C4`, no Va/Rva/DAT)."""
+    if not re.fullmatch(r"g_\w+", alias):
+        return False
+    low = alias.lower()
+    return ("%08x" % address) in low or ("%08x" % (address + 0x400000)) in low
+
+
+def hidden_alias_supply(paths, old_texts, new_texts):
+    """Rule 10b: {("address_global", path, alias): n} for the ledger aliases ADDR_GLOBAL misses
+    (`g_00DC85C4` at the address whose owner is g_Va00DC85C4Names) that PATH's OLD text spells n
+    more times than its NEW text. The scan never counted them, so the register holds no line to
+    spend; each occurrence the change removes explains one owner occurrence in the same file
+    (register_growth's rule 10 link), once, as a counted alias would. OLD_TEXTS/NEW_TEXTS map
+    each path to its text (None: absent). Comments do not count, as in scan()."""
+    ledger_respellings()
+    hidden = STATE.get("ledger_hidden") or frozenset()
+    out = {}
+    if not hidden:
+        return out
+    pattern = re.compile(r"(?<![A-Za-z0-9_])(%s)(?![A-Za-z0-9_])"
+                         % "|".join(re.escape(a) for a in sorted(hidden)))
+
+    def count(text):
+        got = collections.Counter()
+        for line in (text or "").splitlines():
+            code = _strip_comment(line)
+            if "g_" in code and not code.lstrip().startswith("#"):   # an /alternatename line is
+                got.update(m.group(1) for m in pattern.finditer(code))  # its own hatch, spent there
+        return got
+    for path in paths:
+        before, after = count(old_texts.get(path)), count(new_texts.get(path))
+        for alias, n in before.items():
+            if n > after.get(alias, 0):
+                out[("address_global", path, alias)] = n - after.get(alias, 0)
+    return out
 
 
 INHERITED = " [already in HEAD]"   # a finding HEAD's own file and register carry too
@@ -758,6 +804,9 @@ def _check_staged(hard):
     # growth of the register itself
     grown = register_growth(b0, b1)
     if grown:
+        b0 = _with_hidden_supply(b0, grown, "HEAD:", ":")
+        grown = register_growth(b0, b1)
+    if grown:
         stamped = [k for k in b1 if b1[k] > b0.get(k, 0) and allow1.get(k)]
         blobs = index_blob_ids(sorted({k[1] for k in stamped}))
         admitted = {k for k in stamped if allow1[k] == blobs.get(k[1])}
@@ -784,6 +833,35 @@ def _check_staged(hard):
                                   "'Verifier-Change: hatch-freeze-lift %s <reason>' lands"
                                   % (hatch, t1[hatch], ref[hatch], hatch))
     return errors, warnings
+
+
+def _with_hidden_supply(old, grown, old_spec, new_spec):
+    """OLD plus rule 10b's supply for the files of GROWN address_global keys whose token is a
+    ledger owner: the hidden aliases each file's OLD_SPEC blob spells more often than its
+    NEW_SPEC blob (None: the work tree). OLD itself is not changed."""
+    respell = ledger_respellings()
+    paths = sorted({k[1] for k in grown if k[0] == "address_global" and k[2] in respell})
+    if not paths:
+        return old
+    blobs = read_blobs([old_spec + p for p in paths])
+    old_texts = {p: blobs[old_spec + p] for p in paths}
+    if new_spec is None:
+        new_texts = {}
+        for p in paths:
+            try:
+                new_texts[p] = (ROOT / p).read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                new_texts[p] = None
+    else:
+        blobs = read_blobs([new_spec + p for p in paths])
+        new_texts = {p: blobs[new_spec + p] for p in paths}
+    supply = hidden_alias_supply(paths, old_texts, new_texts)
+    if not supply:
+        return old
+    out = dict(old)
+    for key, n in supply.items():
+        out[key] = out.get(key, 0) + n
+    return out
 
 
 def _adds_occurrences(paths):
@@ -827,6 +905,9 @@ def update(allow_paths=(), reason=None):
     set_respellable(["HEAD:"])
     allow_paths = {p.replace("\\", "/") for p in allow_paths}
     grown = register_growth(old, new)
+    if grown:
+        old = _with_hidden_supply(old, grown, "HEAD:", None)
+        grown = register_growth(old, new)
     refused = [k for k in grown if k[1] not in allow_paths]
     if refused:
         for k in refused[:40]:

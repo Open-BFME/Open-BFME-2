@@ -774,6 +774,58 @@ def test_a_ledger_alias_rebound_to_its_owner_passes_and_nothing_else_does(repo):
     assert "address_global +1" in staged(repo).stderr
 
 
+HIDDEN_LEDGER = ("address,size,section,kind,name,source,status,names,defs,refs\n"
+                 "0x00A09FA4,4,.data,global,?g_Va00E09FA4@@3HA,Code/x.cpp,provisional,"
+                 "?g_00E09FA4@@3HA;?g_Va00E09FA4@@3HA;?g_Other@@3HA,1,2\n")
+
+
+def test_rule_10b_hidden_aliases_spell_their_own_address_only(monkeypatch):
+    # an alias the scan misses (no Va/Rva/DAT) still respells to its owner when it spells the
+    # address (RVA or VA); a plain name at the same address does not
+    assert hc._spells_address("g_00E09FA4", 0x00A09FA4) and hc._spells_address("g_00a09fa4x", 0x00A09FA4)
+    assert not hc._spells_address("g_Other", 0x00A09FA4)
+    assert not hc._spells_address("g_00E09FA8", 0x00A09FA4)
+    assert not hc._spells_address("x_00E09FA4", 0x00A09FA4)
+    monkeypatch.setattr(hc, "read_blobs", lambda specs: {s: HIDDEN_LEDGER if s.endswith(hc.DATA_LEDGER)
+                                                         else None for s in specs})
+    monkeypatch.setitem(hc.STATE, "ledger_respell", None)
+    assert hc.ledger_respellings() == {"g_Va00E09FA4": frozenset({"g_00E09FA4"})}
+    old = {"A": "extern int g_00E09FA4;\nvoid f() { g_00E09FA4 = 1; } // g_00E09FA4\n"
+                "#pragma comment(linker, \"/alternatename:?g_00E09FA4@@3HA=?g_Va00E09FA4@@3HA\")\n",
+           "B": "int g_Other;\n"}
+    new = {"A": "extern int g_Va00E09FA4;\nvoid f() { g_Va00E09FA4 = 1; }\n", "B": "int g_Va00E09FA4;\n"}
+    # two code occurrences: the comment and the /alternatename line (its own hatch) give nothing
+    assert hc.hidden_alias_supply(["A", "B"], old, new) == {("address_global", "A", "g_00E09FA4"): 2}
+    assert hc.hidden_alias_supply(["A"], old, old) == {}
+
+
+def test_a_hidden_ledger_alias_rebound_to_its_owner_passes_and_nothing_else_does(repo):
+    # re_attempts false-reject: g_00DC85C4 -> g_Va00DC85C4Names was refused as a new token
+    src, ledger = repo.lay["src"], repo.lay["rev"] + "/data_ledger.csv"
+    alias = SOURCE.replace("g_Va00A1B2C3", "g_00E09FA4")
+    repo.write(src, alias)
+    repo.write(ledger, HIDDEN_LEDGER)
+    assert repo.tool("--update").returncode == 0                       # the scan never counted it
+    repo.commit("alias spelling", when=T0 - DAY)
+    owner = alias.replace("g_00E09FA4", "g_Va00E09FA4")
+    repo.write(src, owner)
+    assert repo.tool("--update").returncode == 0
+    assert "address_global\t%s\tg_Va00E09FA4\t2" % src in repo.read(repo.lay["base"])
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 0 and "raised by hand" not in got.stderr, got.stderr
+    repo.git("reset", "-q", "--hard", "HEAD")
+    repo.write(src, owner + "int g_Va00E09FA4b;\n")              # one more than the alias supplied
+    assert repo.tool("--update").returncode != 0
+    repo.git("checkout", "-q", "--", ".")
+    plain = alias.replace("g_00E09FA4", "g_Other")                    # a plain alias supplies nothing
+    repo.write(src, plain)
+    assert repo.tool("--update").returncode == 0
+    repo.commit("plain alias", when=T0 - DAY)
+    repo.write(src, plain.replace("g_Other", "g_Va00E09FA4"))
+    assert repo.tool("--update").returncode != 0
+
+
 def test_enforce_takes_a_respelled_alias_at_the_same_count(repo):
     # a rename respells the token; the file's count of the hatch is what may not rise
     _code_identity(repo, "enforce")
