@@ -77,15 +77,9 @@ private:
 #include "../../../../GameEngine/Include/Common/Overridable.h"
 
 // m_kindof: BFME 2 tests the kind-of mask at +0x108 as bytes (bit 47 is
-// +0x10D bit 7), with no override walk from Object.
-class ThingTemplate
-{
-public:
-	Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
-
-	unsigned char m_unreconstructed_000[0x108];
-	unsigned char m_kindof[12];
-};
+// +0x10D bit 7), with no override walk from Object; the canonical header keeps
+// it as words, so Object's inline tests read it through a byte view.
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 // Rva0016F770Path is the ledger's address-derived name for the goal-path
 // lookup at 0x0016F770 reached through AIUpdateInterface+0x30 (ZH:
@@ -125,12 +119,12 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline Bool isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
+	__forceinline Bool isKindOf(KindOfType t) const { return (((const unsigned char *)m_template->m_kindof)[t >> 3] & (1 << (t & 7))) != 0; }
 	// LINK: same-body helper under a TU-unique name (identical inlined
 	// bytes). This TU's isKindOf copy is not retail's; the call below inlines
 	// it but still emits the loser COMDAT. Rebinding there emits only this
 	// unique (trivially kept) copy. No flags touched, no layout claim.
-	__forceinline Bool bfme_is_kind_of(KindOfType t) const { return (m_template->m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
+	__forceinline Bool bfme_is_kind_of(KindOfType t) const { return (((const unsigned char *)m_template->m_kindof)[t >> 3] & (1 << (t & 7))) != 0; }
 	const Coord3D *getPosition() const { return &m_cachedPos; }
 	AIUpdateInterface *getAI() { return m_ai; }
 
