@@ -4,5 +4,6 @@ Evidence / affected units: `Code/GameEngine/Source/GameLogic/Object/Upgrade/Buil
 Completed: none; the explicit-store ctor stays.
 Remaining / next check: provide both names (see LINK-218, LINK-246 for the same family), then re-apply the canonical ctor, `tu_views.py` and the merge guard.
 Progress 2026-11-05: `UpgradeModule::vslot07` and `processUpgradeRemoval` now have fold rows in `VslotSmallBodiesU.cpp`. Not re-checked on the canonical ctor; remaining: re-apply after a census records them. `?crc@UpgradeModule` was listed in the merged TU only, and still needs `BFME_SNAPSHOT_NAME_SLOT`.
-Clearance: pending.
+Progress 2026-11-05: with the providers in census 2026-11-05 15:19, the canonical ctor plus BFME_SNAPSHOT_NAME_SLOT in the seed passed the merge link guard and merged into BuildableHeroListUpgrade.cpp (4/4). Not confirmed by a later census or the real link.
+Clearance: pending (awaiting census confirmation).
 Census confirmation: not claimed.
