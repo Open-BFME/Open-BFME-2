@@ -17,30 +17,7 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-private:
-	bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~UpgradeModule();
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 enum NameKeyType
 {
@@ -63,6 +40,8 @@ public:
 protected:
 	// retail slot 3: the rowed ?xfer@ArmorUpgrade@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
+	virtual void upgradeRemovalImplementation();
+	virtual void upgradeImplementation();
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgrade.cpp
