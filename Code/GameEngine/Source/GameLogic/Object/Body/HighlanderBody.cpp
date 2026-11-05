@@ -11,6 +11,7 @@ class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BodyModule.h
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
+#include "../../../../Include/GameLogic/Damage.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ActiveBody.h
 class ActiveBody : public BehaviorModule, public BodyModuleInterface
@@ -20,6 +21,8 @@ public:
 	virtual ~ActiveBody();
 	// Native primary table C5B440 slot 8 uses the existing ActiveBody owner.
 	virtual void onDelete();
+	// Body-interface slot 0 (0x004BFE07).
+	virtual void attemptDamage( DamageInfo *damageInfo );
 };
 
 // ?getModuleNameKey@HighlanderBody@@UBE?AW4NameKeyType@@XZ @0x004C07CA
@@ -49,6 +52,8 @@ public:
 	virtual ~HighlanderBody();
 	// Retail primary-vtable slot 4.
 	virtual NameKeyType getModuleNameKey() const;
+	// Body-interface table 0x00C5B390 slot 0.
+	virtual void attemptDamage( DamageInfo *damageInfo );
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp
