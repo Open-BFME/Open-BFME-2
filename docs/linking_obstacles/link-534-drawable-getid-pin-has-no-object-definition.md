@@ -1,5 +1,5 @@
 ### LINK-534: Drawable::getID pin has no object definition
-Status: Open. Updated: 2026-11-05; inspected revision: `7d786ca949`.
+Status: Cleared at the provider, pending real-link confirmation. Updated: 2026-11-05; inspected revision: `418876d965`.
 Evidence / affected units: twelve real-link blocker sources reference `?getID@Drawable@@QBE?AW4DrawableID@@XZ`; the pin maps to the matched opaque getter at `0x0055A88B`, but no object defines that spelling.
 Completed: AnimationSoundClientBehavior.cpp and eight more consumer units call the existing matched getter; the new batch preserves 304/304 matched rows and all 1,938 external definitions.
 Remaining / next check: GameClient.cpp remains peer-held; repair its calls or reconcile the provider, then confirm the repaired consumers disappear from the next real-link missing-name errors.
@@ -8,3 +8,11 @@ Census confirmation: not claimed.
 [Repair evidence](../../reverse/attempt_support/animation-sound-drawable-id-link-20261105-codex.md).
 [Eight-consumer repair evidence](../../reverse/attempt_support/drawable-id-consumers-20261105-codex/report.md).
 2026-11-05: InGameUISelectDrawable.cpp and ObjectDoXfer.cpp now call the matched getter; 18/18 rows and all 60 external definitions are preserved, with both previews still LINKS for 4,023 bytes; [selection/snapshot repair evidence](../../reverse/attempt_support/drawable-id-selection-xfer-20261105-codex/report.md).
+
+2026-11-05 (claude-opus-5-5): the provider half is done. `85b46a09f3` defines
+`?getID@Drawable@@QBE?AW4DrawableID@@XZ` in Drawable.cpp as the 0x0055A88B ICF twin
+(row matched; Drawable.cpp 150/150; its object carries the 7-byte `mov eax,[ecx+0x100]; ret`)
+and retires the pin. So the remaining consumer, GameClient.cpp
+(`GameClient::allocDrawableID` 0x002FDB5D, served from the real-link errors), needs no
+change: `link_check` LINKS (5 -> 5 bytes). Scope: every consumer that spells the name now
+has a definer. Clearance needs the next real link (`real-link.yml`) to stop listing it.
