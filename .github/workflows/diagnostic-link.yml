@@ -40,6 +40,8 @@ jobs:
           repository: Open-BFME/Open-BFME-2
           ref: master
           fetch-depth: 0
+          # Keep commit ancestry for validation without all historical file blobs.
+          filter: blob:none
           submodules: 'true'
           persist-credentials: false
       - name: Resolve repository ref

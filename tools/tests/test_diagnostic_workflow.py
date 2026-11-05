@@ -45,6 +45,8 @@ class Workflow(unittest.TestCase):
                         self.assertEqual(measured[field], "always()" if field == "if" else "true")
         checkouts = [s for s in STEPS if s.get("uses", "").startswith("actions/checkout@")]
         self.assertEqual(len(checkouts), 2)
+        self.assertEqual(checkouts[0]["with"]["fetch-depth"], "0")
+        self.assertEqual(checkouts[0]["with"]["filter"], "blob:none")
         for checkout in checkouts + [realsteps[0]]:
             self.assertEqual(checkout["with"]["submodules"], "true")
         self.assertEqual(WORKFLOW["concurrency"]["group"], "diagnostic-link-" + "$" + "{{ github.run_id }}")
