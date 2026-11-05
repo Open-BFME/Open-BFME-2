@@ -25,7 +25,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 class Object;
 
-enum CommandSourceType { CMD_FROM_AI=2 };
+#include "../../command_source_type.h"
 enum DamageType { DAMAGE_8=8 };
 enum DeathType { DEATH_0=0 };
 enum ObjectStatusTypes { STATUS_32=0x32 };
@@ -119,7 +119,7 @@ struct RunOffMapBehaviorModuleData {char pad00[0x10];bool m_10;AsciiString waypo
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class RunOffMapBehaviorInterface {public:virtual void triggerFlee()=0;};
 class RunOffMapBehavior:public BehaviorModule,public RunOffMapBehaviorInterface {public:
- virtual void rva00462213();virtual void triggerFlee();
+ virtual NameKeyType getModuleNameKey() const;virtual void rva00462213();virtual void triggerFlee();
 };
 void RunOffMapBehavior::rva00462213()
 {

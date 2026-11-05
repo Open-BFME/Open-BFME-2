@@ -9,10 +9,7 @@ enum AICommandType
 {
 	AICMD_DUMMY_1 = 1
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../command_source_type.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define _CRTIMP
 #undef _CRTIMP
@@ -72,7 +69,7 @@ struct AICommandParms
 class AICommandInterface
 {
 public:
-	virtual void v0(AICommandParms *parms) = 0;
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 public:
 	void aiMoveToAndDie(const Coord3D *pos, CommandSourceType src);
 public:
@@ -141,7 +138,7 @@ void AICommandInterface::aiMoveToAndDelete(const Coord3D *pos, CommandSourceType
 {
 	AICommandParms parms((AICommandType)0x38, src);
 	parms.m_pos = *pos;
-	v0(&parms);
+	aiDoCommand(&parms);
 }
 
 // ---- from Code/GameEngine/Source/Common/AICommandInterface_aiMoveToAndDie.cpp
@@ -161,7 +158,7 @@ void AICommandInterface::aiMoveToAndDie(const Coord3D *pos, CommandSourceType sr
 {
 	AICommandParms parms((AICommandType)0x41, src);
 	parms.m_pos = *pos;
-	v0(&parms);
+	aiDoCommand(&parms);
 }
 
 // tu-skeleton: 0x004621F7 28B ??_GRva00462151@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp (not merged yet)
