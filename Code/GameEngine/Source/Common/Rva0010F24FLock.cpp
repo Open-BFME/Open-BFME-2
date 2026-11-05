@@ -1,4 +1,6 @@
 // cl: /MD
+// platformsdk
+#include <windows.h>
 #include "../../Include/Common/Rva00041004Lock.h"
 // ?rva0010F24F@Rva0010F24F@@QAEXXZ @0x0010F24F 31B.
 // ?rva0010F26E@Rva0010F26E@@QAEXXZ @0x0010F26E 31B.
@@ -12,9 +14,6 @@
 // bypass byte at +0x20 from rowed Rva00041004 ctor 0x000411C1; shape follows
 // StringBaseLockGuardDtor. Honest address-derived names: identity unproven
 // beyond the guard shape.
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section);
 
 class Rva0010F24F
 {
