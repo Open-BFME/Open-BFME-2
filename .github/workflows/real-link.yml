@@ -129,7 +129,8 @@ jobs:
           from pathlib import Path
           out = Path('build/exit_link')
           receipt = out / 'image_receipt.json'
-          if receipt.exists() and json.loads(receipt.read_text())['kind'] == 'real':
+          data = json.loads(receipt.read_text()) if receipt.exists() else {}
+          if data.get('kind') == 'real' and data.get('authoritative') is True:
               (out / 'image').mkdir(exist_ok=True)
               for name in ('exit.exe', 'exit.map', 'image_receipt.json'):
                   shutil.copy2(out / name, out / 'image' / name)
@@ -159,6 +160,7 @@ jobs:
       - name: Diagnostic link
         if: always()
         continue-on-error: true
+        timeout-minutes: 60
         run: python tools/exit_link.py --diagnostic
       - name: Analyze diagnostic linked image
         if: always()

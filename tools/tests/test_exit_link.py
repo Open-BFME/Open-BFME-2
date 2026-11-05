@@ -369,7 +369,8 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
         "kind": "diagnostic" if diagnostic else "real", "commit": "a" * 40,
         "base": "0x10000000", "image_sha256": E.digest(image),
         "map_sha256": E.digest(image.with_suffix(".map")), "stubbed": names,
-        "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF"}
+        "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF",
+        "authoritative": False, "omission_proof": "not-run"}
 
 
 def test_receipt_requires_current_nonempty_map(tmp_path):
@@ -505,7 +506,7 @@ def test_unresolved_export_is_not_lost_from_errors_tsv():
     assert rows[0]["object"] == "exit.exp"
     assert rows[0]["code"] == "LNK2001"
     assert rows[0]["symbol"] == name
-    assert rows[0]["source"] == ""
+    assert rows[0]["source"] == E.EXPORT_UNOWNED
 
 def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path, monkeypatch):
     import json
@@ -517,6 +518,7 @@ def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path
     board.write_bytes(b'{"unresolved":393,"duplicates":0,"image_written":false,"authoritative":true}\n')
     before = board.read_bytes()
     monkeypatch.setattr(E, "ROOT", root)
+    monkeypatch.setattr(E.census, "ROOT", root)
     monkeypatch.setattr(E, "OUT", measured)
     monkeypatch.setattr(E.sys, "platform", "linux")
     monkeypatch.setattr(E, "object_inventory", lambda rows: ([], [], []))
@@ -536,9 +538,13 @@ def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path
     monkeypatch.setattr(E, "tool_digests", lambda: {})
     monkeypatch.setattr(E.build, "vc71_root", lambda: root)
     monkeypatch.setattr(E.build, "compiler_environment", lambda *a: {})
-    monkeypatch.setattr(E.subprocess, "run", lambda *a, **k:
-                        types.SimpleNamespace(returncode=0, stdout="", stderr=""))
+    results = iter([
+        types.SimpleNamespace(returncode=96, stdout=(
+            "fixture.obj : error LNK2001: unresolved external symbol __imp__Missing@4\n"), stderr=""),
+        types.SimpleNamespace(returncode=0, stdout="", stderr="")])
+    monkeypatch.setattr(E, "run_native", lambda *a, **k: next(results))
     monkeypatch.setattr(E, "object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "export_sources", lambda rows: {})
     monkeypatch.setattr(E.census, "classify", lambda *a: ({}, {}, {}, {}))
     monkeypatch.setattr(E, "placement_objects", lambda rows: [])
     monkeypatch.setattr(E, "published_index_meta", lambda: {})
@@ -549,6 +555,13 @@ def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path
     assert result["mode"] == "diagnostic-link"
     assert root / result["link"]["log"] == diagnostic / "link.log"
     assert (diagnostic / "link.log").is_file()
+    import csv
+    with (diagnostic / "stubbed.tsv").open() as handle:
+        stub = list(csv.DictReader(handle, delimiter="\t"))
+    assert len(stub) == 1
+    assert stub[0]["name"] == "__imp__Missing@4"
+    assert stub[0]["kind"] == "import-pointer" and stub[0]["section"] == ".text"
+    assert stub[0]["trap_symbol"] == "__imp__Missing@4"
     assert E.OUT == measured
     assert board.read_bytes() == before
     assert sorted(p.name for p in measured.iterdir()) == ["scoreboard.json"]
@@ -612,3 +625,146 @@ def test_import_archive_retains_census_provider_convention(tmp_path, monkeypatch
     assert (tmp_path / "imp_kernel32.def").read_text() == (
         "LIBRARY kernel32.dll\nEXPORTS\n  GetVersion\n  GetVersion@0 DATA\n")
     assert converted == [("imp_kernel32.lib", False)]
+
+
+def test_export_errors_reach_blockers_and_picker_without_crashing_unowned(tmp_path, monkeypatch):
+    import csv
+    import repair_queue
+    reverse = tmp_path / "reverse"
+    reverse.mkdir()
+    (reverse / "exports.csv").write_text(
+        "name,rva\n?owned@@,0x1000\n?unowned@@,0x2000\n")
+    source = "Code/Owned.cpp"
+    rows = [{"target_rva": "0x1000", "source": source}]
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E.census, "ledger", lambda: rows)
+    owners = E.export_sources(rows)
+    assert owners == {"?owned@@": source, "?unowned@@": E.EXPORT_UNOWNED}
+    parsed = E.parse_errors("exit.exp : error LNK2001: unresolved external symbol ?owned@@",
+                            exports_of=owners)
+    assert parsed[0]["source"] == source
+    errors = tmp_path / "errors.tsv"
+    # Older artifacts have empty source cells; --blockers must recover them too.
+    errors.write_text(
+        "severity\tcode\tsymbol\tobject\tsource\ttext\n"
+        "error\tLNK2001\t?owned@@\texit.exp\t\tmissing\n"
+        "error\tLNK2001\t?unowned@@\texit.exp\t\tmissing\n")
+    assert E.main(["--blockers", str(errors), "--blockers-commit", "a" * 40]) == 0
+    path = tmp_path / E.BLOCKERS
+    with path.open() as handle:
+        blocks = list(csv.DictReader((line for line in handle if not line.startswith("#")),
+                                     delimiter="\t"))
+    assert {r["source"] for r in blocks} == {source, E.EXPORT_UNOWNED}
+    assert sum(int(r["missing"]) for r in blocks) == 2
+    monkeypatch.setattr(repair_queue, "rows_by_source", lambda: {source: [(0x1000, "?owned@@", 8)]})
+    monkeypatch.setattr(repair_queue, "changed_since", lambda commit: set())
+    items, note = repair_queue.exit_link_items(path)
+    assert [item["source"] for item in items] == [source]
+    assert E.EXPORT_UNOWNED in note and "not served" in note
+
+
+def test_export_owner_uses_export_rva_and_retains_all_owners(tmp_path, monkeypatch):
+    reverse = tmp_path / "reverse"
+    reverse.mkdir()
+    (reverse / "exports.csv").write_text("name,rva,target_rva\n?alias@@,0x1000,0x2000\n")
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    owners = E.export_sources([
+        {"target_rva": "0x1000", "source": "Code/A.cpp"},
+        {"target_rva": "0x1000", "source": "Code/B.cpp"},
+        {"target_rva": "0x2000", "source": "Code/Other.cpp"}])
+    assert owners == {"?alias@@": "Code/A.cpp, Code/B.cpp"}
+
+
+@pytest.mark.parametrize("diagnostic", [False, True])
+@pytest.mark.parametrize("alter,status", [
+    ({}, "passed"),
+    ({"uncovered_funclets": [{"name": "missing"}]}, "failed"),
+    ({"outside_referrers": {"name": ["other.obj"]}}, "failed"),
+    ({"uncovered_funclets_recorded": [{"name": "hidden by measurement"}]}, "failed"),
+    ({"unproven_recorded": [{"name": "hidden by measurement"}]}, "failed"),
+    ({"measurement_note": "past a failed proof"}, "failed"),
+])
+def test_receipt_authority_cannot_erase_omission_failure(tmp_path, monkeypatch, diagnostic, alter, status):
+    import json
+    proof = {"population_problem": None, "inspection_failures": [], "uncovered_funclets": [],
+             "unproven": [], "outside_referrers": {}}
+    proof.update(alter)
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"image")
+    image.with_suffix(".map").write_bytes(b"map")
+    monkeypatch.setattr(E, "image_commit", lambda: "a" * 40)
+    E.image_receipt(image, diagnostic, [], proof=proof)
+    receipt = json.loads((tmp_path / "image_receipt.json").read_text())
+    assert receipt["omission_proof"] == status
+    assert receipt["authoritative"] is (not diagnostic and status == "passed")
+
+
+def test_empty_omission_proof_cannot_authorize_receipt():
+    assert E.omission_status({}) == "not-run"
+
+
+@pytest.mark.parametrize("kind,authority,staged", [
+    ("real", True, True), ("real", False, False), ("real", None, False),
+    ("diagnostic", True, False)])
+def test_workflow_stages_only_authoritative_real_receipts(tmp_path, monkeypatch, kind, authority, staged):
+    import json
+    import textwrap
+    text = (E.ROOT / ".github/workflows/real-link.yml").read_text()
+    step = text.split("      - name: Stage real image\n", 1)[1].split(
+        "      - name: Publish the result\n", 1)[0]
+    code = textwrap.dedent(step.split("        run: |\n", 1)[1])
+    out = tmp_path / "build/exit_link"
+    out.mkdir(parents=True)
+    for name in ("exit.exe", "exit.map"):
+        (out / name).write_bytes(name.encode())
+    receipt = {"kind": kind}
+    if authority is not None:
+        receipt["authoritative"] = authority
+    (out / "image_receipt.json").write_text(json.dumps(receipt))
+    monkeypatch.chdir(tmp_path)
+    exec(compile(code, "real-link.yml:Stage real image", "exec"), {})
+    assert (out / "image/exit.exe").exists() is staged
+
+
+def test_diagnostic_step_has_its_own_nonfatal_timeout():
+    text = (E.ROOT / ".github/workflows/real-link.yml").read_text()
+    step = text.split("      - name: Diagnostic link\n", 1)[1].split("      - name:", 1)[0]
+    assert "timeout-minutes: 60" in step
+    assert "continue-on-error: true" in step
+    assert "if: always()" in step
+
+
+def test_import_stubs_are_relocated_pointers_to_distinct_traps(tmp_path):
+    names = {"__imp__First@4", "__imp__Second@0", "_direct"}
+    path = E.diagnostic_stubs(names, tmp_path / "diagnostic_stubs.obj")
+    raw = path.read_bytes()
+    sections, symbols = E.link_cycle.parse_coff(raw)
+    by_name = {sym.name: sym for sym in symbols.values()}
+    layout = {entry["name"]: entry for entry in E.diagnostic_stub_layout(names)}
+    bodies = []
+    for name in names:
+        entry, symbol = layout[name], by_name[name]
+        assert symbol.value == entry["offset"] and symbol.sec == 1
+        assert entry["trap_symbol"] == name
+        bodies.append(entry["trap_offset"])
+        assert raw[sections[0].ptr + entry["trap_offset"]:
+                   sections[0].ptr + entry["trap_offset"] + 16] == b"\xcc" * 16
+        if name.startswith("__imp_"):
+            assert entry["kind"] == "import-pointer" and entry["section"] == ".text"
+            rel = next(rel for rel in sections[0].relocs if rel[0] == symbol.value)
+            assert symbols[rel[1]].name == name
+            assert rel[2] == E.link_cycle.DIR32
+            assert struct.unpack_from("<I", raw, sections[0].ptr + symbol.value)[0] == 4
+            assert entry["trap_offset"] == symbol.value + 4
+        else:
+            assert entry["kind"] == "trap" and entry["trap_offset"] == symbol.value
+    assert len(set(bodies)) == len(names)
+    assert len(symbols) == len(names)  # no helper aliases hiding the original IAT name
+    assert not sections[0].flags & COMDAT
+
+
+def test_import_stubs_keep_even_helper_like_requested_names(tmp_path):
+    names = {"__imp__X", "__diagnostic_trap_for___imp__X"}
+    path = E.diagnostic_stubs(names, tmp_path / "stubs.obj")
+    _sections, symbols = E.link_cycle.parse_coff(path.read_bytes())
+    assert {sym.name for sym in symbols.values()} == names

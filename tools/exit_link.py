@@ -455,13 +455,39 @@ def index_measurement(index, omitted_names, previous=None):
 
 
 # ---------------------------------------------------------------- link
-def blockers_from_errors(lines):
+EXPORT_UNOWNED = "(export unowned)"
+
+
+def export_sources(rows):
+    """Attribute retail export names to the ledger owner of their exported RVA."""
+    with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
+        exported = {row["name"]: int(row["rva"], 16) for row in csv.DictReader(handle)}
+    wanted = set(exported.values())
+    owners = collections.defaultdict(set)
+    for row in rows:
+        try:
+            rva = int(row["target_rva"], 16)
+        except (KeyError, TypeError, ValueError):
+            continue
+        if rva in wanted and row.get("source"):
+            owners[rva].add(row["source"])
+    return {name: ", ".join(sorted(owners[rva])) or EXPORT_UNOWNED
+            for name, rva in exported.items()}
+
+
+def blockers_from_errors(lines, exports_of=None):
     """[(source, missing names, sample)] from errors.tsv rows, most missing first."""
     missing = collections.defaultdict(set)
+    exports_of = exports_of or {}
     for row in csv.DictReader(lines, delimiter="\t"):
-        if row["code"] not in ("LNK2001", "LNK2019") or not row["source"]:
+        if row["code"] not in ("LNK2001", "LNK2019"):
             continue
-        for source in row["source"].split(", "):
+        source = row.get("source", "")
+        if row.get("object", "").lower().endswith(".exp") and (not source or source == EXPORT_UNOWNED):
+            source = exports_of.get(row["symbol"], EXPORT_UNOWNED)
+        if not source:
+            continue
+        for source in source.split(", "):
             path = source.replace(chr(92), "/")
             at = path.find("/Code/")
             missing[path[at + 1:] if at >= 0 else path].add(row["symbol"])
@@ -472,8 +498,8 @@ def blockers_from_errors(lines):
 def write_blockers(errors, commit):
     """reverse/exit_link_blockers.tsv: what the fleet's link tier serves first."""
     with open(errors, encoding="utf-8", errors="replace", newline="") as handle:
-        blockers = blockers_from_errors(handle)
-    with open(build.ROOT / BLOCKERS, "w", encoding="utf-8", newline="\n") as out:
+        blockers = blockers_from_errors(handle, export_sources(census.ledger()))
+    with open(ROOT / BLOCKERS, "w", encoding="utf-8", newline="\n") as out:
         out.write(f"# real link at {commit}: tools/exit_link.py --blockers\n")
         out.write("source\tmissing\tsample\n")
         for source, count, sample in blockers:
@@ -593,21 +619,45 @@ def resource_object(outdir):
     return obj
 
 
+def diagnostic_stub_layout(names):
+    """Keep an IAT pointer immediately before its trap, under the same map name."""
+    layout, cursor = [], 0
+    for name in sorted(set(names)):
+        imported = name.startswith("__imp_")
+        layout.append({"name": name, "offset": cursor,
+                       "kind": "import-pointer" if imported else "trap", "section": ".text",
+                       "trap_symbol": name, "trap_offset": cursor + 4 if imported else cursor})
+        cursor += 32 if imported else 16
+    return layout
+
+
 def diagnostic_stubs(names, path):
-    """One non-COMDAT trap body per name; /OPT:NOICF prevents folding."""
+    """Distinct traps; __imp_ values point four bytes forward into their own trap."""
+    layout = diagnostic_stub_layout(names)
+    imports = [entry for entry in layout if entry["kind"] == "import-pointer"]
+    if len(imports) > 0xFFFF:
+        raise ValueError("too many diagnostic import-pointer relocations")
     strings, symbols = bytearray(4), bytearray()
-    for index, name in enumerate(sorted(names)):
+    size = sum(32 if entry["kind"] == "import-pointer" else 16 for entry in layout)
+    body, relocs = bytearray(b"\xcc" * size), bytearray()
+    for index, entry in enumerate(layout):
+        name, imported = entry["name"], entry["kind"] == "import-pointer"
         raw = name.encode("latin-1")
         field = raw.ljust(8, b"\0") if len(raw) <= 8 else struct.pack("<II", 0, len(strings))
         if len(raw) > 8:
             strings.extend(raw + b"\0")
-        symbols += field + struct.pack("<IhHBB", index * 16, 1, 0x20, 2, 0)
+        symbols += field + struct.pack("<IhHBB", entry["offset"], 1, 0 if imported else 0x20, 2, 0)
+        if imported:
+            # COFF DIR32 adds this addend to the symbol VA and emits a PE base relocation.
+            struct.pack_into("<I", body, entry["offset"], 4)
+            relocs += struct.pack("<IIH", entry["offset"], index, link_cycle.DIR32)
     strings[:4] = struct.pack("<I", len(strings))
-    body = b"\xcc" * (16 * len(names))
-    header = struct.pack("<HHIIIHH", 0x14C, 1, 0, 60 + len(body), len(names), 0, 0)
+    header = struct.pack("<HHIIIHH", 0x14C, 1, 0, 60 + len(body) + len(relocs),
+                         len(layout), 0, 0)
     section = b".text".ljust(8, b"\0") + struct.pack(
-        "<IIIIIIHHI", 0, 0, len(body), 60, 0, 0, 0, 0, 0x60500020)
-    path.write_bytes(header + section + body + symbols + strings)
+        "<IIIIIIHHI", 0, 0, len(body), 60 if body else 0,
+        60 + len(body) if relocs else 0, 0, len(imports), 0, 0x60500020)
+    path.write_bytes(header + section + body + relocs + symbols + strings)
     return path
 
 
@@ -616,7 +666,20 @@ def image_commit():
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
-def image_receipt(image, diagnostic, stubbed):
+def omission_status(proof):
+    """A measurement cannot erase the failed proof recorded by the workflow."""
+    required = {"population_problem", "inspection_failures", "uncovered_funclets",
+                "unproven", "outside_referrers"}
+    if proof is None or not required <= proof.keys():
+        return "not-run"
+    failed = any(proof.get(key) for key in (
+        "population_problem", "inspection_failures", "uncovered_funclets", "unproven",
+        "outside_referrers", "uncovered_funclets_recorded", "unproven_recorded",
+        "measurement_note"))
+    return "failed" if failed else "passed"
+
+
+def image_receipt(image, diagnostic, stubbed, proof=None):
     """Only an image and its fresh map can receive a receipt."""
     if stubbed and not diagnostic:
         raise ValueError("a real image cannot contain diagnostic stubs")
@@ -629,7 +692,9 @@ def image_receipt(image, diagnostic, stubbed):
         raise RuntimeError("image exists without a nonempty map")
     with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
         exports = sum(1 for _ in csv.DictReader(handle))
+    status = omission_status(proof)
     receipt.write_text(json.dumps({
+        "authoritative": not diagnostic and status == "passed", "omission_proof": status,
         "kind": "diagnostic" if diagnostic else "real", "commit": image_commit(),
         "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
         "stubbed": sorted(stubbed), "exports_requested": exports, "rsrc": True,
@@ -669,9 +734,10 @@ UNRESOLVED = census.UNRESOLVED
 DUPLICATE = census.DUPLICATE
 
 
-def parse_errors(log, sources_of=None):
+def parse_errors(log, sources_of=None, exports_of=None):
     """Every linker error/warning with its referrer's source, in log order."""
     sources_of = sources_of or {}
+    exports_of = exports_of or {}
     errors = []
     for line in log.splitlines():
         found = ERROR_LINE.match(line)
@@ -688,6 +754,8 @@ def parse_errors(log, sources_of=None):
         duplicate = DUPLICATE.match(line)
         if duplicate:
             entry["symbol"] = duplicate.group(2) or duplicate.group(3)
+        if entry["object"].lower().endswith(".exp") and entry["symbol"]:
+            entry["source"] = exports_of.get(entry["symbol"], EXPORT_UNOWNED)
         errors.append(entry)
     return errors
 
@@ -917,9 +985,13 @@ def run_link(rows, diagnostic=False):
     manifest = snapshot_image_objects(rsp, image)
     if diagnostic:
         with (OUT / "stubbed.tsv").open("w", encoding="utf-8") as handle:
-            handle.write("name\toffset\n")
-            for index, name in enumerate(sorted(stubbed)):
-                handle.write(f"{name}\t0x{index * 16:X}\n")
+            writer = csv.DictWriter(handle, fieldnames=[
+                "name", "offset", "kind", "section", "trap_symbol", "trap_offset"],
+                delimiter="\t", lineterminator="\n")
+            writer.writeheader()
+            for entry in diagnostic_stub_layout(stubbed):
+                writer.writerow({**entry, "offset": f"0x{entry['offset']:X}",
+                                 "trap_offset": f"0x{entry['trap_offset']:X}"})
     log = result.stdout + result.stderr
     (OUT / "link.log").write_text(log, encoding="utf-8")
     code = result.returncode
@@ -931,13 +1003,13 @@ def run_link(rows, diagnostic=False):
     if census.census_state(present) != state or tool_digests() != tools:
         raise SystemExit("exit_link: the tree or this mode's tools changed during the link; nothing recorded")
     sources_of = object_sources(rows)
-    errors = parse_errors(log, sources_of)
+    errors = parse_errors(log, sources_of, export_sources(rows))
     classes, detail, duplicate_classes, duplicates = census.classify(log, rows)
     omitted = set(placement_objects(rows))
     exclusive = set(proof["exclusive_names"])
     still_wanted = sorted(name for name in detail if name in exclusive)
     image_written = image.exists()
-    image_receipt(image, diagnostic, stubbed)
+    image_receipt(image, diagnostic, stubbed, proof=proof)
     record = {
         "mode": "diagnostic-link" if diagnostic else "exit-link",
         "records": False,
