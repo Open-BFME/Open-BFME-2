@@ -2,6 +2,10 @@
 
 Status: Cleared for the three-unit current-object preview at `5eb11e1e87` (2026-11-05); earlier snapshot repair plus shared INIException adoption pass, 9/9 rows exact; census/real-link confirmation pending. [Evidence](../../reverse/attempt_support/bonefxdamage-iniexception-20261105-codexb5.md).
 
+Status: Cleared for the original Snapshot-contract mismatch in a current-object preview, 2026-11-05; awaiting census confirmation. The repair landed in `a0e226ee89` and its prerequisites; this pass adopts canonical INIException and verifies BoneFXDamage plus its two current providers all LINKS. Evidence and remaining pool-key cleanup: [2026-11-05 verification](../../reverse/attempt_support/bonefxdamage-iniexception-20261105-codex3.md).
+
+Historical investigation (retained):
+
 2026-10-29 recheck at `bd9c9a4d73`, current index `85f6b7f40c`
 (2026-10-29 15:08): ordinary preview still reports the three unresolved
 DamageModule snapshot methods and the constructor-copy conflict (U3/L1).
