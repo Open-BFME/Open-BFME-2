@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp: LINKS  LINKED 306 -> 306 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 306)
+Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp: LINKS  LINKED 62 -> 62 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 62)
+Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp: LINKS  LINKED 154 -> 154 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 154)
+link_check: 3 of 3 link cleanly; LINKED 522 -> 522 bytes (5.8s)

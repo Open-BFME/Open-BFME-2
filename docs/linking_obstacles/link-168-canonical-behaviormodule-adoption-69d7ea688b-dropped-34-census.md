@@ -366,3 +366,5 @@ virtual destructor, see the Debug entry; class:Debug held), W3DPropDraw (32-slot
 `??_7DrawModule@@6B@` vs the 1-slot copies of eight other units).
 Census confirmation: awaiting.
 2026-11-05: AIGateUpdate seed now selects BFME2's Snapshot name slot before ObjectModule; seed/ctor/dtor retain 522 preview bytes and owning acceptance retires three stale UpdateModule queue rows. Destructor merge still needs primary-vtable parity; constructor/trigger views still differ. [Checks and next prerequisite](../../reverse/attempt_support/aigate-update-snapshot-20261105-codexb5/README.md).
+
+2026-11-05: AIGateUpdate constructor/destructor now declare the retail slot-4 name key and share the seed field view; 5/5 rows and 522 preview bytes preserved. Dry run accepts the three-source merge; trigger remains separate. [Prerequisite evidence](../../reverse/attempt_support/aigate-update-views-20261105-codexb5/README.md).

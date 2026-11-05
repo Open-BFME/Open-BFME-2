@@ -1,0 +1,14 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp
+approved: 20
+mixed: {'Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp': 1, 'Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp': 80}
+refused: {}
+accepted: ['Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp', 'Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp', 'Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp']
+rejected: {'Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp': "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.AIGateUpdate.e73ae65df073a4a2.tu_skeleton.cpp(385) : error C2065: 'data' : undeclared identifier | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.AIGateUpdate.e73ae65df073a4a2.tu_skeleton.cpp(386) : error C2039: 'width' : is not a member of 'AIGateUpd"}
+adopt_first: {'Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp': ['PolygonTrigger']}
+link_guard: census-linked: Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp, Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp, Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp, Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp
+flags: ['/DNDEBUG', '/MD', '/EHsc', '/I.', '/Ireference/shims/bfme2_ascii']
+rows: 12
+carried: {'reverse/hatch_baseline.tsv': 'hatch_counters --update'}
+trailer: Verifier-Change: tu_skeleton --merge carried the protected-register keys of 2 absorbed donor(s) to Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp (transfer; totals kept)
+reconcile_classes: ['AIGateUpdate', 'AIGateUpdateModuleData', 'Object']
+reconcile: python3 tools/tu_views.py Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp --dry-run, then without --dry-run: the donors declare their own views of AIGateUpdate, AIGateUpdateModuleData, Object (docs/consolidation.md, "Workflow per TU", step 4)

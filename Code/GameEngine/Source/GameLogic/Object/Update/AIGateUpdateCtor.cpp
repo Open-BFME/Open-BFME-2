@@ -6,11 +6,12 @@
 // two secondary installs. Base-class layout mirrors UpdateModuleCtor.cpp
 // exactly (MI chain plus wake/index members) so the derived stores land;
 // the secondary installs at +0xC/+0x10 come from that chain. The members
-// have no identified purpose yet, hence reserved names. Recipe:
+// use the seed TU's field view. Recipe:
 // DestroyEnvironmentUpdateCtor.cpp minus the GameLogic tail.
 
 class Thing;
 class ModuleData;
+class GateOpener;
 
 class BehaviorModuleBase
 {
@@ -36,26 +37,27 @@ class AIGateUpdate : public UpdateModule
 public:
 	AIGateUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~AIGateUpdate();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 
 private:
-	unsigned int m_reserved20;
-	unsigned int m_reserved24;
-	unsigned int m_reserved28;
-	unsigned int m_reserved2C;
-	unsigned char m_reserved30;
-	unsigned char m_reserved31;
+	GateOpener *m_opener;
+	unsigned m_24;
+	int count28;
+	int count2C;
+	bool loaded;
+	unsigned char enabled;
 };
 
 // ??0AIGateUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
 AIGateUpdate::AIGateUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData),
-	  m_reserved20(0),
-	  m_reserved24(0),
-	  m_reserved28(0),
-	  m_reserved2C(0),
-	  m_reserved30(0),
-	  m_reserved31(0)
+	  m_opener(0),
+	  m_24(0),
+	  count28(0),
+	  count2C(0),
+	  loaded(false),
+	  enabled(0)
 {
 }
 

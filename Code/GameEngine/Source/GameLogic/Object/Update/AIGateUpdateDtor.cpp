@@ -30,16 +30,18 @@ public:
 };
 
 class GameLogic;
+class GateOpener;
 extern GameLogic *TheGameLogic;
 
 class AIGateUpdate : public UpdateModule
 {
 public:
 	virtual ~AIGateUpdate();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 private:
-	int m_20;
-	int m_24;
+	GateOpener *m_opener;
+	unsigned m_24;
 };
 
 AIGateUpdate::~AIGateUpdate()
