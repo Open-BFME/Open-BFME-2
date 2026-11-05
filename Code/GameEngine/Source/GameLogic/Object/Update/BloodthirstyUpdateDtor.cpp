@@ -57,6 +57,7 @@ public:
 	// retail slot 4: the rowed ?getModuleNameKey@BloodthirstyUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
 protected:
+	virtual const char *GetSnapshotName() const;
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
 };

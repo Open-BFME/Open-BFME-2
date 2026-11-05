@@ -306,12 +306,16 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual ~BloodthirstyUpdate();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 };
 
 class BloodthirstyTrailing { public: virtual void trailingSlot(); };
 
-BFME_LITERAL_NAME_GETTER(Rva0044E000Named, "BloodthirstyUpdate")
+const char *BloodthirstyUpdate::GetSnapshotName() const
+{
+	return "BloodthirstyUpdate";
+}
 
 // tu-skeleton: 0x0044DFE0 32B ??1BloodthirstyUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
 

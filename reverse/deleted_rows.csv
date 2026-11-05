@@ -5157,3 +5157,4 @@ _$E1,0x007ADA4C,"Retracted for readmission as _$E3 in BannerUI.cpp: the unit now
 ??0Rva004EB583@@QAE@H@Z,0x004EB583,"Renamed to ??0Rva004EB5E9@@QAE@H@Z by tools/rename.py (fold: retail vftable 0x00C62928)"
 ??1Rva004B8C3E@@UAE@XZ,0x004B8C3E,"Renamed to ??1LockWeaponCreate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C592FC)"
 ??_GRva004B8C3E@@UAEPAXI@Z,0x004B8CAD,"Renamed to ??_GLockWeaponCreate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C592FC)"
+?name@Rva0044E000Named@@QBEPBDXZ,0x0044E000,"Renamed to ?GetSnapshotName@BloodthirstyUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C3F0B4 slot 2)"
