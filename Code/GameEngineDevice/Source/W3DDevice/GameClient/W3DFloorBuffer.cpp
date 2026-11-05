@@ -553,18 +553,7 @@ struct Rva000E57FFNode
 // Rva000E585F.cpp and Rva000E59D3Dtor.cpp; Thread_Lock/Assert rows from
 // BfmeDX8ThreadLock.cpp. Honest address name: caller 0x000E5AAD is unclaimed.
 
-void BFME_DX8_Thread_Lock();
-
-bool BFME_DX8_Thread_Assert();
-
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-
-	void *m_handle;
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 class VertexBufferClass
 {

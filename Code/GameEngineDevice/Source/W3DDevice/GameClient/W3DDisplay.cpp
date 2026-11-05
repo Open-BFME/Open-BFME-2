@@ -38,20 +38,7 @@ class W3DDisplaySubView;
 // providers at 0x0011F520 / 0x00120F50.
 void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);
-class BFMEDX8DeviceLock
-{
-public:
-	// Keep the inline lock without emitting a competing constructor copy.
-	__declspec(dllimport) __forceinline BFMEDX8DeviceLock(void)
-	{
-		BFME_DX8_Thread_Lock();
-	}
-
-	~BFMEDX8DeviceLock(void)
-	{
-		BFME_DX8_Thread_Assert();
-	}
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class WW3D
 {
