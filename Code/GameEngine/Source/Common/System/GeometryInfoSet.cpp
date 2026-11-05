@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /O2 /DNDEBUG /MD /GX- /Ob2
+// cl: /O2 /DNDEBUG /MD /GX- /Ob2
 // ?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z retail 0x006BFF50 223 bytes.
 // GeometryInfo five-argument extent setter: stores isSmall at +4, ensures the
 // 0x24-byte shape vector at +0x2C holds one element through the rowed
