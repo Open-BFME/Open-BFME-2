@@ -208,17 +208,7 @@ struct WorldHeightMapView
 	Int m_drawHeight;	// +0x120EC
 };
 
-class BaseHeightMapRenderObjClass : public RenderObjClass
-{
-public:
-	virtual void adjustTerrainLOD(Int adj);
-
-private:
-	char m_padC4[0x37C0 - 0xC4];
-	WorldHeightMapView *m_map;	// +0x37C0
-	char m_pad37C4[0x3878 - 0x37C4];
-	Rva000731AE *m_shroud;	// +0x3878
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 void BaseHeightMapRenderObjClass::adjustTerrainLOD(Int adj)
 {
@@ -233,7 +223,7 @@ void BaseHeightMapRenderObjClass::adjustTerrainLOD(Int adj)
 	if (m_map == 0)
 		return;
 	if (m_shroud)
-		m_shroud->rva000731AE();
+		((Rva000731AE *)m_shroud)->rva000731AE();
 
 	Rva000E3B41 *newROBJ = (Rva000E3B41 *)g_bfmeTaintModeView;
 	if (newROBJ == 0)
@@ -252,7 +242,8 @@ void BaseHeightMapRenderObjClass::adjustTerrainLOD(Int adj)
 	}
 
 	if (newROBJ) {
-		newROBJ->initHeightData(m_map->m_drawWidth, m_map->m_drawHeight, m_map, 0);
+		newROBJ->initHeightData(((WorldHeightMapView *)m_map)->m_drawWidth,
+			((WorldHeightMapView *)m_map)->m_drawHeight, m_map, 0);
 		TheTerrainRenderObject = (BaseHeightMapRenderObjClass *)newROBJ;
 		newROBJ->m_roadBuffer->loadRoads();
 	}

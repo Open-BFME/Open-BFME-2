@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /Ireference/shims/bfme2_ascii /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z @0x0006ACBD 173B
 // BaseHeightMapRenderObjClass texture reload via rowed StringBase set at
@@ -83,21 +83,7 @@ __forceinline const char *GetStr0006ACBD(const AsciiString &asciiString)
 	return header ? header + 8 : "";
 }
 
-class BaseHeightMapRenderObjClass
-{
-private:
-	char m_pad[0x381C];
-	ShroudTexture m_381C;
-	AsciiString m_3820;
-	AsciiString m_3824;
-	ShroudTexture m_3828;
-	AsciiString m_382C;
-	AsciiString m_3830;
-	bool m_3834;
-public:
-	void rva0006ACBD(AsciiString name);
-	void rva0006ABE7(AsciiString name, bool flag);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 // ?rva0006ABE7@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@_N@Z @0x0006ABE7 214B
 // The second texture slot after rva0006ACBD's: holder +3828, current name
@@ -109,25 +95,25 @@ public:
 void BaseHeightMapRenderObjClass::rva0006ABE7(AsciiString name, bool flag)
 {
 	if (name.isEmpty())
-		((StringBase<char> &)name).set((StringBase<char> &)m_3830);
-	((BfmeResetTextureRef *)&m_3828)->clear();
-	m_3834 = flag;
-	((StringBase<char> &)m_382C).set((StringBase<char> &)name);
-	m_3828.m_tex = TextureAsset::Get(GetStr0006ACBD(m_382C), 0, 0);
-	m_3828.getFilter()->Set_Min_Filter(2);
-	m_3828.getFilter()->Set_Mag_Filter(2);
-	m_3828.getFilter()->Set_U_Addr_Mode(0);
-	m_3828.getFilter()->Set_V_Addr_Mode(0);
+		((StringBase<char> &)name).set((StringBase<char> &)field3830);
+	((BfmeResetTextureRef *)&field3828)->clear();
+	field3834 = flag;
+	((StringBase<char> &)field382C).set((StringBase<char> &)name);
+	((ShroudTexture *)&field3828)->m_tex = TextureAsset::Get(GetStr0006ACBD((AsciiString &)field382C), 0, 0);
+	((ShroudTexture *)&field3828)->getFilter()->Set_Min_Filter(2);
+	((ShroudTexture *)&field3828)->getFilter()->Set_Mag_Filter(2);
+	((ShroudTexture *)&field3828)->getFilter()->Set_U_Addr_Mode(0);
+	((ShroudTexture *)&field3828)->getFilter()->Set_V_Addr_Mode(0);
 }
 
 void BaseHeightMapRenderObjClass::rva0006ACBD(AsciiString name)
 {
 	if (name.isEmpty())
-		((StringBase<char> &)(StringBase<char> &)name).set((StringBase<char> &)m_3824);
-	((StringBase<char> &)m_3820).set((StringBase<char> &)name);
-	const char *textureName = GetStr0006ACBD(m_3820);
-	m_381C.m_tex = TextureAsset::Get(textureName, 0, 0);
-	m_381C.getFilter()->_M_clear_nothrow(1);
+		((StringBase<char> &)(StringBase<char> &)name).set((StringBase<char> &)field3824);
+	((StringBase<char> &)field3820).set((StringBase<char> &)name);
+	const char *textureName = GetStr0006ACBD((AsciiString &)field3820);
+	((ShroudTexture *)&field381C)->m_tex = TextureAsset::Get(textureName, 0, 0);
+	((ShroudTexture *)&field381C)->getFilter()->_M_clear_nothrow(1);
 }
 
 // Target 0x0006D470..0x0006D52A RET4, 186B; body is a texture-name
