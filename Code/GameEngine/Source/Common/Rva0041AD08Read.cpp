@@ -212,16 +212,7 @@ extern GameLogic *TheGameLogic;
 extern GlobalData*TheWritableGlobalData;
 class GameClient {public:char prefix[0x2C];int drawableCounter;};
 extern GameClient*TheGameClient;
-class GameInfo {
-public:
- GameInfo();virtual~GameInfo();
- virtual void slot04();virtual void slot08();virtual void slot0C();
- virtual void slot10();virtual void slot14();virtual void slot18();
- virtual void slot1C();virtual void slot20();virtual void slot24();
- virtual void reset();
- void init();void clearSlotList();
- char prefix[0xDC-4];
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo:public GameInfo {
 public:SkirmishGameInfo();virtual~SkirmishGameInfo();
  char rest[0xE3C-sizeof(GameInfo)];

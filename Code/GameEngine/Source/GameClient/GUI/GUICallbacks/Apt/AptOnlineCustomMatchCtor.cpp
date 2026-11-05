@@ -108,11 +108,7 @@ private:
 	unsigned char m_pad04[0x488 - 0x46C - 4];
 };
 
-class GameInfo
-{
-public:
-	void rva003FF1A7(int);
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
 class GameSpyStagingRoom : public GameInfo
 {
@@ -122,7 +118,7 @@ public:
 		m_FF8 = 0;
 		m_FF4 = false;
 	}
-	unsigned char m_pad000[0xFF4];
+	unsigned char m_pad0DC[0xFF4 - 0xDC];
 	bool m_FF4;
 	int m_FF8;
 };

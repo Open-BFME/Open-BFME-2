@@ -1372,16 +1372,7 @@ public:
 	virtual void slot20();
 	virtual Bool canBuild(LivingWorldBuildingNuggetSpawnArmy *nugget, Int token);	// +0x24
 };
-class GameSlot
-{
-public:
-bool isHuman()const;
-	void *GetPlayerData() { return m_hasData ? (void *)m_playerData : 0; }
-	unsigned char m_pad00[0x60];
-	unsigned char m_hasData;
-	unsigned char m_pad61[3];
-	unsigned char m_playerData[1];
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 class Rva0040CB2CIndexedField
 {
 public:
@@ -1409,7 +1400,7 @@ Bool LivingWorldLogic::canBuildUnit(LivingWorldBuildingNuggetSpawnArmy *nugget, 
 	if (player == 0)
 		return false;
 	GameSlot *slot = ((LivingWorldPlayer *)player)->rva002E06B8();
-	if (slot != 0 && slot->GetPlayerData() == 0)
+	if (slot != 0 && (slot->m_field60 ? slot->m_field64 : 0) == 0)
 	{
 		SpawnArmy spawn(0);
 		if (!((Rva002B3325BuildInterface *)((char *)nugget + 0x0c))->build(token, &spawn))
@@ -3554,7 +3545,7 @@ enum NameKeyType { DISPATCH_KEY_INVALID=-1 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class GameInfo;extern GameInfo *TheGameInfo;
 struct DispatcherGameInfo {char pad00[0x80];int preference;};
-class GameInfo {public:GameSlot*getSlot(int);};
+
 struct DispatcherGameLogic {char pad00[0x38];int frame;char pad3c[8];bool field44;char pad45[0x114-0x45];int field114;};
 extern MessageStream *TheMessageStream;
 struct DispatcherSlot {char pad00[0x34];AsciiString name;char pad38[0x4c-0x38];int id;};

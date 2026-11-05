@@ -41,45 +41,7 @@ template <> struct less<AsciiString>
 
 extern MapCache *TheMapCache;
 
-class GameSlot
-{
-public:
-	Bool isHuman() const { return m_state == 6; }
-	void *m_vtable;
-	Int m_state;
-	Bool m_isAccepted;
-	Bool m_hasMap;
-};
-
-class GameInfo
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual Int getLocalSlotNum() const = 0;
-	GameSlot *getSlot(Int slotNum);
-	void setMapCRC(UnsignedInt mapCRC);
-	void rva0033F898(Int mask);
-private:
-	char m_pad0C[0x0C];
-	Bool m_inGame;
-	char m_pad11[0x2F];
-	AsciiString m_mapName;
-	UnsignedInt m_mapCRC;
-	UnsignedInt m_mapSize;
-	Int m_mapMask;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 void GameInfo::setMapCRC(UnsignedInt mapCRC)
 {
@@ -92,15 +54,15 @@ void GameInfo::setMapCRC(UnsignedInt mapCRC)
 		_STL::map<AsciiString, MapMetaData>::iterator it = TheMapCache->find(lowerMap);
 		if (it == TheMapCache->end()) {
 			GameSlot *slot = getSlot(getLocalSlotNum());
-			if (slot->isHuman())
+			if (slot->getState() == 6)
 				slot->m_hasMap = false;
 		} else if (m_mapCRC != it->second.m_CRC) {
 			GameSlot *slot = getSlot(getLocalSlotNum());
-			if (slot->isHuman())
+			if (slot->getState() == 6)
 				slot->m_hasMap = false;
 		} else {
 			GameSlot *slot = getSlot(getLocalSlotNum());
-			if (slot->isHuman())
+			if (slot->getState() == 6)
 				slot->m_hasMap = true;
 		}
 	}

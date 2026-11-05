@@ -104,11 +104,10 @@ int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int=-1,bool=tru
 enum SlotState {SLOT_OPEN,SLOT_CLOSED,SLOT_AI2,SLOT_AI3,SLOT_AI4,SLOT_AI5,SLOT_PLAYER};
 struct IPAndPort{unsigned ip;unsigned short port;IPAndPort(unsigned i,unsigned short p):port(p),ip(i){}};
 struct GameSlotConnectInfo{unsigned ip;unsigned short port;GameSlotConnectInfo():ip(0),port(0){}GameSlotConnectInfo(unsigned i,unsigned short p):port(p),ip(i){}};
-class GameSlot {public:char at00[0xc];int color;char at10[0xc];int team;char at20[0x20];int nat;bool isHuman()const;void setState(SlotState,UnicodeString=UnicodeString::TheEmptyString,const GameSlotConnectInfo* = &GameSlotConnectInfo());void setPlayerTemplate(int);};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 struct Rva004FDCE1AsciiField {AsciiString get()const;};
 struct SlotFields {char pad[0x1ac];int profile;};
-class GameInfo {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)virtual void clear();virtual void startGame(int);V(12)virtual int localSlot();char pad04[0xd];bool inProgress;int getSlotNum(AsciiString)const;void enterGame();void setSeed(int);void setMap(AsciiString);};
-class GameSpyGameSlot:public GameSlot {public:char at44[0x18c];int rva1d0,rva1d4;};class GameSpyStagingRoom:public GameInfo {public:GameSpyGameSlot *getGameSpySlot(int);void launchGame();};
+class GameSpyGameSlot:public GameSlot {public:char at1AC[0x1D0 - 0x1AC];int rva1d0,rva1d4;};class GameSpyStagingRoom:public GameInfo {public:GameSpyGameSlot *getGameSpySlot(int);void launchGame();};
 extern GameSpyStagingRoom *TheGameSpyGame;
 class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 // Bind the existing NAT datum; retain this unit's access view at use sites.
@@ -145,7 +144,7 @@ struct AptOnlineQuickMatch {char prefix[0x60];int state;char at64[0x16];bool mat
 #undef V
 void AptOnlineQuickMatch::rva005BB5F6(){
  HandleBuddyResponses();HandlePersistentStorageResponses();
- if(TheGameSpyGame&&TheGameSpyGame->inProgress){
+ if(TheGameSpyGame&&TheGameSpyGame->m_inProgress){
   if(TheGameSpyInfo->isDisconnectedAfterGameStart(0))return;
   int allowed=TheGameSpyInfo->getMaxMessagesPerUpdate();bool important=false;PeerResponse r;
   while(allowed--&&!important&&TheGameSpyPeerMessageQueue->getResponse(r)){
@@ -358,7 +357,7 @@ class Rva003821E2 {public:void assign(UnicodeString);};class Rva004FDD36AsciiFie
 class MpGameRules { public: static void GetDefaults(int,void*); };void SendStatsToOtherPlayers(GameInfo*);
 class Rva005A734B{public:char storage[0x974];Rva005A734B();};
 void AptOnlineQuickMatch::OnMatched(PeerResponse &resp){
- TheGameSpyGame->clear();TheGameSpyGame->enterGame();TheGameSpyGame->setSeed(resp.payload_572.words[3]);
+ TheGameSpyGame->reset();TheGameSpyGame->enterGame();TheGameSpyGame->setSeed(resp.payload_572.words[3]);
  {GameSpyStagingRoom *game=TheGameSpyGame;int m=mode;*(bool*)((char*)game+0xff4)=true;*(int*)((char*)game+0xff8)=m;}
  int rules[10];memset(rules,0xff,sizeof(rules));MpGameRules::GetDefaults(0,rules);rules[0]=0;rules[2]=0;memcpy((char*)TheGameSpyGame+0x60,rules,sizeof(rules));
  int numPlayers=0;for(int i=0;i<8;++i)if(!resp.unknown_88[i].empty())++numPlayers;
@@ -366,19 +365,19 @@ void AptOnlineQuickMatch::OnMatched(PeerResponse &resp){
  for(_STL::list<AsciiString>::const_iterator it=maps.begin();it!=maps.end();++it){AsciiString map=*it;map.toLower();const MapMetaData *md=TheMapCache->findMap(map);if(md&&md->m_numPlayers==numPlayers){TheGameSpyGame->setMap(*it);if(resp.payload_572.words[2]--==0)break;}}
  int numPerTeam=numPlayers/2;if(!numPerTeam)numPerTeam=1;
  for(int i=0;i<8;++i){GameSpyGameSlot *slot=TheGameSpyGame->getGameSpySlot(i);
-  if(resp.unknown_88[i].empty())slot->setState(SLOT_CLOSED);else{
+  if(resp.unknown_88[i].empty())slot->setState(SLOT_CLOSED,UnicodeString::TheEmptyString,&GameSlotConnectInfo());else{
    AsciiString aName=resp.unknown_88[i].c_str();char baseName[256]="";strncpy(baseName,resp.unknown_88[i].c_str(),255);
    PlayerInfo player;player.name=resp.unknown_88[i].c_str();player.baseName=baseName;TheGameSpyInfo->updatePlayerInfo(player,AsciiString::TheEmptyString);
    UnicodeString uName;uName.translate(baseName);IPAndPort connect(resp.qmStatus.IP[i],resp.qmStatus.ports[i]);
-   slot->setState(SLOT_PLAYER,uName,(const GameSlotConnectInfo*)&connect);slot->color=resp.payload_572.words[24+i];slot->setPlayerTemplate(resp.payload_572.words[16+i]);slot->nat=resp.payload_572.words[32+i];((Rva004FDD36AsciiField*)slot)->setClan("");slot->team=i/numPerTeam;
+   slot->setState(SLOT_PLAYER,uName,(const GameSlotConnectInfo*)&connect);slot->m_color=resp.payload_572.words[24+i];slot->setPlayerTemplate(resp.payload_572.words[16+i]);slot->m_field40=resp.payload_572.words[32+i];((Rva004FDD36AsciiField*)slot)->setClan("");slot->m_teamNumber=i/numPerTeam;
    switch(numPerTeam){case 1:slot->rva1d0=resp.payload_572.words[40+i];slot->rva1d4=-1;break;case 2:slot->rva1d0=-1;slot->rva1d4=resp.payload_572.words[40+i];break;default:slot->rva1d0=-1;slot->rva1d4=-1;}
    if(i==0)((Rva003821E2*)TheGameSpyGame)->assign(uName);
   }
  }
  SendStatsToOtherPlayers(TheGameSpyGame);matched=true;
  if(TheNAT){operator delete(((Rva005A6D47 *)TheNAT)->destroy(0));TheNAT=0;}
- if(TheGameSpyGame->localSlot()>=0){TheNAT=(NAT*)new Rva005A734B;GameSlotConnectInfo address;address.ip=TheGameSpyInfo->getInternalIP();address.port=TheGameSpyInfo->getInternalPort();*(unsigned*)((char*)TheGameSpyGame+0x38)=address.ip;*(unsigned*)((char*)TheGameSpyGame+0x3c)=*(const volatile unsigned*)&address.port;
- unsigned &transportIP=*(unsigned*)((char*)TheGameSpyGame+0x38);((NAT*)TheNAT)->attachSlotList(TheGameSpyGame,TheGameSpyGame->localSlot(),transportIP,30000,TheGameSpyGame->localSlot()==0);}
+ if(TheGameSpyGame->getLocalSlotNum()>=0){TheNAT=(NAT*)new Rva005A734B;GameSlotConnectInfo address;address.ip=TheGameSpyInfo->getInternalIP();address.port=TheGameSpyInfo->getInternalPort();*(unsigned*)((char*)TheGameSpyGame+0x38)=address.ip;*(unsigned*)((char*)TheGameSpyGame+0x3c)=*(const volatile unsigned*)&address.port;
+ unsigned &transportIP=*(unsigned*)((char*)TheGameSpyGame+0x38);((NAT*)TheNAT)->attachSlotList(TheGameSpyGame,TheGameSpyGame->getLocalSlotNum(),transportIP,30000,TheGameSpyGame->getLocalSlotNum()==0);}
 }
 
 // Post-include free redeclare drops dllimport for the metadata vector's

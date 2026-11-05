@@ -69,12 +69,7 @@ extern Version *TheVersion;
 #include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-class GameInfo
-{
-public:
-	virtual ~GameInfo();
-	AsciiString getMap() const;
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 bool ParseAsciiStringToGameInfo(GameInfo *game, AsciiString options, bool includeSlots);
 
 class Rva0037BB53 : public GameInfo
@@ -83,7 +78,7 @@ public:
 	Rva0037BB53();
 	virtual ~Rva0037BB53();
 private:
-	unsigned char m_pad004[0xE3C - 4];
+	unsigned char m_pad0DC[0xE3C - 0xDC];
 };
 
 class Rva0037B5DF

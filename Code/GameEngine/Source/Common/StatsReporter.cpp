@@ -173,11 +173,11 @@ virtual void v24();
 virtual bool quit(int);
 };
 
-class GameSlot {public:virtual void reset();bool isOccupied()const;bool isAI()const;bool isHuman()const;bool disconnected()const;char beforeName[0x30];AsciiString name;char gap38[0xc];unsigned stamp;unsigned getStamp()const{return stamp;}};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameSpyGameSlot:public GameSlot {public:char gap48[0x18];bool hasHero;char gap61[3];};
+class GameSpyGameSlot:public GameSlot {};
 
-class GameInfo {public:GameSlot*getSlot(int);const GameSlot*getConstSlot(int)const;};
+
 
 #include "../../Include/Common/PlayerTemplate.h"
 
@@ -313,7 +313,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  unsigned otherMaximum=0,maximum=0;bool disconnected=false;
  bool noData=reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->result==1||reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->result==0;bool otherHuman=false;
  for(int i=0;i<8;++i){const GameSlot*slot=TheGameInfo->getConstSlot(i);if(slot->isOccupied()&&i!=local&&!slot->isAI())otherHuman=true;
- if(slot->isOccupied())maximum=maxRef(maximum,slot->getStamp());if(slot->isHuman()&&i!=local)otherMaximum=maxRef(otherMaximum,slot->getStamp());}
+ if(slot->isOccupied())maximum=maxRef(maximum,slot->lastFrameInGame());if(slot->isHuman()&&i!=local)otherMaximum=maxRef(otherMaximum,slot->lastFrameInGame());}
  for(int i=0;i<8;++i){const GameSlot*slot=TheGameInfo->getConstSlot(i);if(slot->isOccupied()&&slot->disconnected()){disconnected=true;break;}}
  if(!otherHuman)return;
  bool report=false;if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedDefeat()||reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory())report=true;
@@ -322,7 +322,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  if(TheGameSpyGame->getMode()!=1){float bound=TheWritableGlobalData?TheWritableGlobalData->m_secondsBeforeBaseCheckActive*BfmeLogicFramesPerSecond:25.0f;if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->elapsed()<bound+BfmeLogicFramesPerSecond)return;}
  bool canReportPackets=TheGameSpyGame->getFF4();bool reportPacket=false;
  if(canReportPackets){if(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->getDesync())goto report_packet;else if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory()&&!noData){
- for(int i=0;i<8;++i){AsciiString name;name=TheGameInfo->getSlot(i)->name;if(!name.isEmpty()){Player*p=ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));if(p){GameSlot*slot=reinterpret_cast<GameInfo*>(TheGameSpyGame)->getSlot(i);if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->hasWon(p)&&!slot->disconnected()){if(TheGameSpyGame->localSlot()==i)reportPacket=true;break;}}}}
+ for(int i=0;i<8;++i){AsciiString name;name=TheGameInfo->getSlot(i)->m_field34;if(!name.isEmpty()){Player*p=ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));if(p){GameSlot*slot=reinterpret_cast<GameInfo*>(TheGameSpyGame)->getSlot(i);if(reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->hasWon(p)&&!slot->disconnected()){if(TheGameSpyGame->localSlot()==i)reportPacket=true;break;}}}}
  }}
  if(reportPacket){
  report_packet:;
@@ -334,11 +334,11 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  if(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync)++core->m_140;else if(noData)++core->m_13c;else if(win){
  ++core->m_maps04_0[(unsigned char)faction];core->m_14a=0;core->m_maps04_3[(unsigned char)faction]=0;++core->m_146;++core->m_maps04_2[(unsigned char)faction];core->m_148=maxRef(core->m_146,core->m_148);
  word(core->m_maps04_5[(unsigned char)faction])=maxRef(word(core->m_maps04_5[(unsigned char)faction]),word(core->m_maps04_2[(unsigned char)faction]));
- if(mode==2){Rva0021937DTarget*hero=localSlot->hasHero?reinterpret_cast<Rva0021937DTarget*>(reinterpret_cast<char*>(localSlot)+0x64):0;if(hero)reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva002193D9(hero);}
+ if(mode==2){Rva0021937DTarget*hero=localSlot->m_field60?reinterpret_cast<Rva0021937DTarget*>(reinterpret_cast<char*>(localSlot)+0x64):0;if(hero)reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva002193D9(hero);}
  }else{
  ++core->m_maps04_1[(unsigned char)faction];++core->m_14a;++core->m_maps04_3[(unsigned char)faction];core->m_146=0;core->m_maps04_2[(unsigned char)faction]=0;core->m_14c=maxRef(core->m_14a,core->m_14c);
  word(core->m_maps04_4[(unsigned char)faction])=maxRef(word(core->m_maps04_4[(unsigned char)faction]),word(core->m_maps04_3[(unsigned char)faction]));
- if(mode==2){Rva0021937DTarget*hero=localSlot->hasHero?reinterpret_cast<Rva0021937DTarget*>(reinterpret_cast<char*>(localSlot)+0x64):0;if(hero)reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva00219407(hero);}
+ if(mode==2){Rva0021937DTarget*hero=localSlot->m_field60?reinterpret_cast<Rva0021937DTarget*>(reinterpret_cast<char*>(localSlot)+0x64):0;if(hero)reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva00219407(hero);}
  }
  if(TheGameSpyGame&&!noData&&mode==1){if(TheGameSpyGame->ladder==1){++tournament.m_190;tournament.m_text19C="1v1";if(g_009C0758>0)tournament.m_194=tournament.m_194>0?minRef(g_009C0758,tournament.m_194):g_009C0758;}
  else if(TheGameSpyGame->ladder==2){++tournament.m_192;tournament.m_text19C="2v2";if(g_009C075C>0)tournament.m_198=tournament.m_198>0?minRef(g_009C075C,tournament.m_198):g_009C075C;}}

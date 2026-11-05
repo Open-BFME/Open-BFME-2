@@ -10,15 +10,7 @@
 // GUI region -- and it appears in no vtable, so it is not an override and
 // nothing names it.
 
-#include "StringInline.h"
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameInfo.h
-class GameInfo
-{
-public:
-	void setMap(AsciiString mapName);
-	void setMapForwarder(AsciiString name);
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 // ?setMapForwarder@GameInfo@@QAEXVAsciiString@@@Z
 void GameInfo::setMapForwarder(AsciiString name)
