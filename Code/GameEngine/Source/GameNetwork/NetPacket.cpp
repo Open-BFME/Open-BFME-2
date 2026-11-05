@@ -842,6 +842,8 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int) throw();
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 
+// ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+
 // The rowed constructor at 0x0058B06A initializes a 0x10-byte list.
 
 // --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
@@ -6342,10 +6344,6 @@ int Rva0058C480() { return 0x1A; }
 
 int Rva0058C484::rva0058C484() {return 28;}
 
-// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
-
-// tu-skeleton: 0x0058CD6A 185B ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp
 
 // Reader algorithm adapted from Open-BFME-1 GameNetwork/NetPacket.cpp,
@@ -6419,6 +6417,69 @@ NetCommandMsg * NetPacket::readWrapperMessage(UnsignedByte *data, Int &readOffse
 	readOffset += dataLength;
 
 	return wrapperMessage;
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp
+
+// Dispatch type 3 and the reader at 0x0058DCEB identify this as the frame
+// message; the three payload dwords are not wrapper data fields.
+
+void __cdecl FillBufferWithFrameCommand(char *dst, NetCommandRef *ref)
+{
+	NetFrameCommandMsg *msg = (NetFrameCommandMsg *)ref->m_msg;
+	dst[0] = 'T';
+	dst[1] = (char)msg->m_commandType;
+	dst[2] = 'R';
+	unsigned char relay = ref->m_relay;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 3, &relay, 1);
+	dst[4] = 'P';
+	dst[5] = (char)msg->m_playerID;
+	dst[6] = 'S';
+	unsigned int ts = msg->m_timestamp;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 7, &ts, 4);
+	dst[0xb] = 'F';
+	unsigned int fr = msg->m_executionFrame;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0xc, &fr, 4);
+	dst[0x10] = 'C';
+	unsigned short id = msg->m_id;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x11, &id, 2);
+	dst[0x13] = 'D';
+	unsigned int w0 = msg->m_frame;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x14, &w0, 4);
+	unsigned int w1 = msg->m_playerFrame;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x18, &w1, 4);
+	unsigned int w2 = msg->m_commandCount;
+	dst += 0x1c;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, &w2, 4);
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp
+
+void __cdecl Rva0058CD6AWrite(char *dst, NetCommandRef *ref)
+{
+	NetHeroCommandMsg *msg = (NetHeroCommandMsg *)ref->m_msg;
+	dst[0] = 'T';
+	dst[1] = (char)msg->m_commandType;
+	dst[2] = 'R';
+	dst[3] = (char)ref->m_relay;
+	dst[4] = 'S';
+	unsigned int ts = msg->m_timestamp;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 5, &ts, 4);
+	dst[9] = 'P';
+	dst[0xa] = (char)msg->m_playerID;
+	dst[0xb] = 'C';
+	unsigned short id = msg->m_id;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0xc, &id, 2);
+	dst[0xe] = 'D';
+	unsigned int u1c = msg->m_1c;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0xf, &u1c, 4);
+	unsigned short u20 = msg->m_20;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x13, &u20, 2);
+	u1c = msg->m_28;
+	dst += 0x15;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, &u1c, 4);
+	dst += 4;
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, msg->m_24, (int)msg->m_28);
 }
 
 // tu-skeleton: 0x00590F13 52B ?rva00590F13@Rva004D62A9@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004D65F9Set.cpp (not merged yet)
