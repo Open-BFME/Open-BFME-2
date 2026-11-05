@@ -43,16 +43,10 @@ struct Rva001FA04BParticleModule {
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
  virtual void slot4();virtual void slot5();virtual void slot6();virtual int getCount();
 };
-class ParticleSystem {
-public:
- char pad00[0xa4];Rva001FA04BParticleModule *countA4;
- unsigned padA8;float costAC;
- char padB0[0x198-0xb0];FXParticleSystem::ParticleSystemTemplate *template198;
- FXParticleSystem::ParticleSystemTemplate *getTemplate() const{return template198;}
- int getParticleCount() const{return countA4->getCount();}
- float getCost() const{return costAC;}
-};
-ParticleSystem *Make001FCBD7();
+#include "../../../Include/GameClient/ParticleSystemClass.h"
+static inline FXParticleSystem::ParticleSystemTemplate *getTemplate(const ParticleSystem *system) { return (FXParticleSystem::ParticleSystemTemplate *)system->m_template; }
+static inline int getParticleCount(const ParticleSystem *system) { return ((Rva001FA04BParticleModule *)system->m_A4)->getCount(); }
+static inline float getCost(const ParticleSystem *system) { return system->m_AC; }
 #include "../../../Include/Common/RvaSmartPtr12.h"
 class Rva0004CCFF {public:void *destroyDelete(unsigned int);};
 namespace _STL {static __forceinline void _Destroy(RvaSmartPtr12 *p){((Rva0004CCFF *)p)->destroyDelete(0);}}
@@ -91,19 +85,19 @@ void ParticleSystemDebugDisplay(DebugDisplayInterface *display, void *, _iobuf *
  _STL::map<AsciiString,int>::iterator countIt;
 
  for(ParticleDebugList::iterator it=list.begin();it!=list.end();++it) {
-  AsciiString templateName=(*it)->getTemplate()->getName();
+  AsciiString templateName=getTemplate((*it).operator->())->getName();
   mapIt=templateMap.find(templateName);
   if(mapIt==templateMap.end()) {
    templateMap.insert(_STL::make_pair(templateName,1));
-   templateMapParticleCount.insert(_STL::make_pair(templateName,(*it)->getParticleCount()));
-   if(timing()) templateMapCost.insert(_STL::make_pair(templateName,(*it)->getCost()));
+   templateMapParticleCount.insert(_STL::make_pair(templateName,getParticleCount((*it).operator->())));
+   if(timing()) templateMapCost.insert(_STL::make_pair(templateName,getCost((*it).operator->())));
   } else {
    ++mapIt->second;
    countIt=templateMapParticleCount.find(templateName);
-   if(countIt!=templateMapParticleCount.end()) countIt->second+=(*it)->getParticleCount();
+   if(countIt!=templateMapParticleCount.end()) countIt->second+=getParticleCount((*it).operator->());
    if(timing()) {
     costIt=templateMapCost.find(templateName);
-    if(costIt!=templateMapCost.end()) costIt->second+=(*it)->getCost();
+    if(costIt!=templateMapCost.end()) costIt->second+=getCost((*it).operator->());
    }
   }
  }

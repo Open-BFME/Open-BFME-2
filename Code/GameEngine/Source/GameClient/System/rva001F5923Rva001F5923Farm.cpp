@@ -65,7 +65,7 @@ class GameClient{public:
 virtual unsigned getFrame()const;
  char pad4[0xc8-4];bool flagC8;
 };extern GameClient *TheGameClient;
-class ParticleSystem{public:virtual ~ParticleSystem();virtual void slot4();virtual void slot8();virtual void slotC();virtual bool update(int);char pad4[0x98-4];int flag98;};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 class RvaSmartPtr12{public:RvaSmartPtr12():ptr(0),prev(0),next(0){};RvaSmartPtr12 &operator=(const RvaSmartPtr12&);void rva0004CBC0()throw();~RvaSmartPtr12(){if(ptr)rva0004CBC0();}ParticleSystem *ptr;void *prev,*next;};
 class Rva001F5923{public:void rva001F5923();char pad0[0x4c];_STL::list<RvaSmartPtr12> systems;char pad50[0x60-0x50];float elapsed;int playerIndex;char pad68[0x74-0x68];unsigned lastFrame;};
 void Rva001F5923::rva001F5923(){
@@ -78,7 +78,7 @@ void Rva001F5923::rva001F5923(){
  bool paused=TheGameClient->flagC8 && !TheGameLogic->getFlag125();
  for(_STL::list<RvaSmartPtr12>::iterator i=systems.begin();i!=systems.end();){
   sys=*i;
-  if(sys.ptr){if(sys.ptr->flag98 || paused){if(!sys.ptr->update(playerIndex)){++i;::delete sys.ptr;}else ++i;}else ++i;}
+  if(sys.ptr){if(sys.ptr->m_98 || paused){if(!sys.ptr->update(playerIndex)){++i;::delete sys.ptr;}else ++i;}else ++i;}
  }
  if(TheWritableGlobalData->field09C2){QueryPerformanceCounter(&after);elapsed=(after.QuadPart-before.QuadPart)*1000.0f/frequency.QuadPart;}
 }
