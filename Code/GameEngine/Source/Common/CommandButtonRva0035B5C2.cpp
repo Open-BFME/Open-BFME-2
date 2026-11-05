@@ -74,71 +74,50 @@ struct Rva0035B5C2PointerRange
 	void **capacity;
 	unsigned int size() const { return (unsigned int)(end - begin); }
 };
-
-class CommandButton
-{
-public:
-	void rva0035B5C2(Object *object, bool value);
-    const ThingTemplate *rva0035B570() const;
-
-private:
-	unsigned char m_pad00[0x14];
-	int m_stance;
-	unsigned char m_pad18[4];
-	unsigned int m_flags;
-	unsigned char m_pad20[0x64];
-	int m_value84;
-	int m_value88;
-	int m_value8C;
-	unsigned char m_objectFilter[4];
-	unsigned char m_pad94[0x58];
-	Rva0035B5C2PointerRange m_required;
-	int m_padF8;
-	int m_cachedAvailability;
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 void CommandButton::rva0035B5C2(Object *object, bool value)
 {
 	if (object == 0)
 		return;
-	if (m_required.size() < 2)
+	if (((const Rva0035B5C2PointerRange *)&m_imagesBegin)->size() < 2)
 	{
-		m_cachedAvailability = 0;
+		fieldFC = 0;
 		return;
 	}
-	if (m_flags & 0x01000000)
+	if (m_options & 0x01000000)
 	{
 		Rva0028B7AELeaGetter *getter = (Rva0028B7AELeaGetter *)object;
 		Rva00331682Holder *holder = (Rva00331682Holder *)getter->get();
-		m_cachedAvailability = holder->test(m_objectFilter) != value;
+		fieldFC = holder->test(m_flagsUsedForToggle) != value;
 		return;
 	}
-	if (m_flags & 0x02000000)
+	if (m_options & 0x02000000)
 	{
 		Object *target = object->rva002931F5(false);
 		if (target)
 		{
 			Rva0035B5C2RenderData *data = (Rva0035B5C2RenderData *)target->rva0028C197();
 			if (data)
-				m_cachedAvailability = data->matches() == value;
+				fieldFC = data->matches() == value;
 		}
 		return;
 	}
-	if (m_flags & 0x00800000)
+	if (m_options & 0x00800000)
 	{
-		if (m_stance != 0x23)
+		if (m_command != 0x23)
 		{
-			if (m_stance == 0x30)
-				m_cachedAvailability = object->testStatus(STATUS_0035B5C2) == value;
+			if (m_command == 0x30)
+				fieldFC = object->testStatus(STATUS_0035B5C2) == value;
 		}
 		else
 		{
 			if (object->isKindOf(KIND_0035B5C2_A))
-				m_cachedAvailability = m_value88;
+				fieldFC = m_weaponSlotToggle2;
 			else if (object->isKindOf(KIND_0035B5C2_B))
-				m_cachedAvailability = m_value8C;
+				fieldFC = m_weaponSlotToggle3;
 			else
-				m_cachedAvailability = m_value84;
+				fieldFC = m_weaponSlotToggle1;
 		}
 	}
 }

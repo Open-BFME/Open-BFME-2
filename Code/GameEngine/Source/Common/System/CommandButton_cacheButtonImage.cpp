@@ -37,17 +37,7 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
-class CommandButton
-{
-public:
-	void cacheButtonImage();
-private:
-	char m_pad00[0xB4];
-	AsciiString *m_b4begin;
-	AsciiString *m_b8end;
-	char m_padBC[0xEC - 0xBC];
-	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_ec;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> void vector<ModuleData const *,_STL::allocator<ModuleData const *> >::_M_clear(); }
@@ -61,13 +51,13 @@ void CommandButton::cacheButtonImage()
 {
 	if (TheMappedImageCollection != 0)
 	{
-		for (AsciiString *it = m_b4begin; it != m_b8end; ++it)
+		for (AsciiString *it = m_imageNamesBegin; it != m_imageNamesEnd; ++it)
 		{
 			if (!it->isEmpty())
 			{
 				const ModuleData *found = TheMappedImageCollection->findImageByName(*it);
 				if (found != 0)
-					m_ec.push_back(found);
+					reinterpret_cast<_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *>(&m_imagesBegin)->push_back(found);
 				it->clear();
 			}
 		}

@@ -98,7 +98,7 @@ class Object {public:char unknown[0x250]; ButtonAIInterface *ai; void *rva0028BC
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
-class CommandButton {public:char unknown[0x14]; int command; char unknown18[12];void *upgrade; const ThingTemplate *rva0035B570()const;};
+#include "../../../../Include/GameClient/CommandButton.h"
 struct ButtonUserData {char unknown[0x28];bool update;};
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
@@ -119,15 +119,15 @@ void Rva00328700(GameWindow *window)
  if(!command) return;
  ButtonProductionInterface *production=(ButtonProductionInterface*)object->rva0028BC58(0);
  if(production) {
-  if(command->command==3) {
+  if(command->getCommandType()==3) {
    const ThingTemplate *thing=command->rva0035B570();
    for(ProductionEntry *entry=production->first();entry;entry=production->next(entry)) {
     if(entry->getProductionObject() && thing->isEquivalentTo(entry->thing)) {
      Rva003284B9(window,((Rva0049CBDA*)entry)->rva0049CBDA(),0x80ffffff); return;
     }
    }
-  } else if(command->command==6 || command->command==7 || command->command==8) {
-   void *upgrade=command->upgrade;
+  } else if(command->getCommandType()==6 || command->getCommandType()==7 || command->getCommandType()==8) {
+   const void *upgrade=command->getUpgradeTemplate();
    for(ProductionEntry *entry=production->first();entry;entry=production->next(entry)) {
     if(entry->kind==2 && upgrade==entry->upgrade) {
      Rva003284B9(window,((Rva0049CBDA*)entry)->rva0049CBDA(),0x80ffffff); return;
