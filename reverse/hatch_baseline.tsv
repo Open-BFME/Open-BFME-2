@@ -166,7 +166,6 @@ address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E03
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E03174	2
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E0319C	2
 address_global	Code/GameEngine/Source/Common/INI/INIEnvironment.cpp	g_Va00DFF494	2
-address_global	Code/GameEngine/Source/Common/INI/INIParticleSystemDefinition.cpp	g_Va00DFE014	2
 address_global	Code/GameEngine/Source/Common/INI/LivingWorldConnectionParserRva003F348F.cpp	g_Va00C36FD4	3
 address_global	Code/GameEngine/Source/Common/LivingWorldLogic.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/Common/MovieWindowPlayback.cpp	g_Va00E04938	2

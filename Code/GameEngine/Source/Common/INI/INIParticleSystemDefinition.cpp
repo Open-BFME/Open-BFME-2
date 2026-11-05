@@ -10,8 +10,8 @@
 // Donor provenance: reference/open-bfme-1 INIParticleSys.cpp at revision
 // 6583b3c1ff21db4a561285717028fdafc780b7db; its flags and headers are migrated
 // to this BFME2 TU. Retail-specific evidence: the two-entry System table at
-// RVA 0x007E1520 is copied to manager state +0x94 after helper 0x001FD06E
-// initializes state +0x04; the one-time flag is at state +0xB4. Retail also
+// RVA 0x007E1520 is copied to +0x90 of the parse table at VA 0x00DFE018 after
+// helper 0x001FD06E initializes its start; the one-time flag is at +0xB0. Retail also
 // writes an otherwise-unidentified manager byte at +0x84 when INI state is 2.
 
 #include <new>
@@ -44,7 +44,19 @@ public:
 #include "../../../Include/Common/INI/INI.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
-extern unsigned int g_Va00DFE014; // target global at VA 0x00DFE014.
+// The definition parse table this parser builds once, at retail VA 0x00DFE018
+// (0xB4 bytes up to the flag word): the 0x90 bytes helper 0x001FD06E fills,
+// the two-entry System table copied in at +0x90, then the one-time flag at
+// +0xB0 (VA 0x00DFE0C8). It is this TU's own datum, not part of the
+// Make001FCBD7 static guard word at VA 0x00DFE014 just before it. Field
+// spellings and the original name are unknown.
+struct ParticleSystemDefinitionParse
+{
+	unsigned char m_baseFields[0x90];	// +0x00, Rva001FD06EInit
+	FieldParse m_systemFields[2];		// +0x90
+	bool m_built;				// +0xB0
+};
+static ParticleSystemDefinitionParse s_definitionParse;
 extern void Rva001FD06EInit(void *state);
 
 static const FieldParse s_particleSystemFieldParse[] =
@@ -85,16 +97,15 @@ void INI::parseParticleSystemDefinition(INI *ini)
 			FXParticleSystem::ParticleSystemTemplate(name);
 	}
 
-	unsigned char *parseState = reinterpret_cast<unsigned char *>(&g_Va00DFE014);
-	if (parseState[0xB4] == 0) {
-		Rva001FD06EInit(parseState + 4);
-		memcpy(parseState + 0x94, s_particleSystemFieldParse,
+	if (!s_definitionParse.m_built) {
+		Rva001FD06EInit(&s_definitionParse);
+		memcpy(s_definitionParse.m_systemFields, s_particleSystemFieldParse,
 			sizeof(s_particleSystemFieldParse));
-		parseState[0xB4] = 1;
+		s_definitionParse.m_built = true;
 	}
 
 	ini->initFromINI(sysTemplate,
-		reinterpret_cast<const FieldParse *>(parseState + 4));
+		reinterpret_cast<const FieldParse *>(&s_definitionParse));
 	if (ini->m_loadType == 2) {
 		ParticleSystemManager *manager = TheParticleSystemManager;
 		if (manager != 0)
