@@ -88,15 +88,7 @@ private:
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
 class Rva007397D0 { public: void rva007397D0(); };
-class ControlBar
-{
-public:
-	void rva0031BAC3(Player *);
-	void setControlBarSchemeByPlayer(Player *);
-	void setObservedPlayer(Player *player) { m_observedPlayer = player; }
-	char m_pad00[0x210];
-	Player *m_observedPlayer; // +0x210
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class ClientFrameSubsystem;
 class GameClient;

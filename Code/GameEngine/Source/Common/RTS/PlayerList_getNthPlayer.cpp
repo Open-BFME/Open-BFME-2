@@ -411,15 +411,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class ControlBar
-{
-public:
-	void rva0031BAC3(Player *);
-	void setControlBarSchemeByPlayer(Player *);
-	void setObservedPlayer(Player *player) { m_observedPlayer = player; }
-	char m_pad00[0x210];
-	Player *m_observedPlayer; // +0x210
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 #include "../../../Include/GameClient/GameText.h"
@@ -495,7 +487,7 @@ void PlayerList::rva002A8306(bool forward)
 	}
 
 	player = ThePlayerList->getNthPlayer(index);
-	TheControlBar->setObservedPlayer(player);
+	TheControlBar->setObserverLookAtPlayer(player);
 
 	UnicodeString message;
 	UnicodeString unused;

@@ -14,16 +14,7 @@
 // Row spellings of the three callees: 0x00401E2F is StringBase<char>::isEmpty
 // on this, and 0x0071BE3C / 0x00805DBC are ControlBar::findCommandButton and
 // ControlBar::rva004C1B60 on the control bar.
-template <class T> class StringBase { public: bool isEmpty() const; };
-class AsciiString;
-class CommandButton;
-class GameWindow;
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-	void rva004C1B60(GameWindow *window, void *data);
-};
+#include "../../Include/GameClient/ControlBar.h"
 
 class Rva002D34FE
 {
@@ -31,8 +22,6 @@ public:
 	void rva002D34FE(int unused);
 };
 
-// N.B. pointee type at 0x00E01CFC is unproven; viewed as helper for the
-// observed thiscall shape only.
 extern ControlBar *TheControlBar;
 
 // ?rva002D34FE@Rva002D34FE@@QAEXH@Z
