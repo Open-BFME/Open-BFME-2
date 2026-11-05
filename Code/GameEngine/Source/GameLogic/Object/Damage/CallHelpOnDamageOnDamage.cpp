@@ -87,20 +87,48 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
-class CallHelpOnDamageModuleData
+class BfmeFixedStorage0004543D;
+
+class Rva003623E5Filter
 {
 public:
-	unsigned char m_pad00[0x08];
-	unsigned m_damageTypes;		// +0x08 DamageTypes
+	Rva003623E5Filter();
+	~Rva003623E5Filter();
+	void applyFilter(BfmeFixedStorage0004543D storage);
+private:
+	int m_x;
+};
+
+class UpdateModuleData
+{
+public:
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
+	virtual ~UpdateModuleData();
+private:
+	int m_gap04;
+};
+
+class MultiIniFieldParse;
+
+class CallHelpOnDamageModuleData : public UpdateModuleData
+{
+public:
+	CallHelpOnDamageModuleData();
+	virtual ~CallHelpOnDamageModuleData();
+	unsigned m_mask;			// +0x08 DamageTypes
 	float m_callRadius;		// +0x0C CallRadius
-	unsigned m_callDelay;		// +0x10 CallDelay
+	int m_callDelay;			// +0x10 CallDelay
 	bool m_moveToAttacker;		// +0x14 MoveToAttacker
-	struct { int m_value; } m_validObjects;	// +0x18 ValidObjects
+	Rva003623E5Filter m_validObjects;	// +0x18 ValidObjects
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 class CallHelpOnDamage : public DamageModule
 {
 public:
+	CallHelpOnDamage(Thing *thing, const ModuleData *moduleData);
+	virtual ~CallHelpOnDamage();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDamage(DamageInfo *damageInfo);
 private:
 	const CallHelpOnDamageModuleData *getCallHelpOnDamageModuleData() const
@@ -113,7 +141,7 @@ private:
 void CallHelpOnDamage::onDamage(DamageInfo *damageInfo)
 {
 	const CallHelpOnDamageModuleData *data = getCallHelpOnDamageModuleData();
-	if (!(data->m_damageTypes & (1 << (damageInfo->m_damageType - 1))))
+	if (!(data->m_mask & (1 << (damageInfo->m_damageType - 1))))
 		return;
 	unsigned now = TheGameLogic->getFrame();
 	if (now <= m_nextCallFrame)

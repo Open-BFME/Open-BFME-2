@@ -63,10 +63,23 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class __declspec(novtable) CallHelpOnDamage
+struct DamageInfo;
+class CallHelpOnDamageModuleData;
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
+
+class CallHelpOnDamage : public DamageModule
 {
 public:
+	CallHelpOnDamage(Thing *thing, const ModuleData *moduleData);
+	virtual ~CallHelpOnDamage();
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDamage(DamageInfo *damageInfo);
+private:
+	const CallHelpOnDamageModuleData *getCallHelpOnDamageModuleData() const
+	{
+		return (const CallHelpOnDamageModuleData *)m_moduleData;
+	}
+	unsigned m_nextCallFrame;	// +0x14
 };
 
 //
@@ -108,19 +121,13 @@ class CallHelpOnDamageModuleData : public UpdateModuleData
 {
 public:
 	CallHelpOnDamageModuleData();
-public:
 	virtual ~CallHelpOnDamageModuleData();
-private:
+	// INI-backed fields read by onDamage.
 	unsigned int m_mask;
-private:
 	float m_callRadius;
-private:
 	int m_callDelay;
-private:
 	bool m_moveToAttacker;
-private:
 	Rva003623E5Filter m_validObjects;
-public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 

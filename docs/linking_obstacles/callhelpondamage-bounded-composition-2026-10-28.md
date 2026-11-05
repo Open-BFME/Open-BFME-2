@@ -14,3 +14,5 @@ files remain separate. No census gain is claimed.
 [Checks, path audit and prerequisites](../../reverse/attempt_support/callhelp-consolidation-20261028-codex3.md).
 
 2026-11-05 recheck after shared-class-view changes: the current 23-row plan has six whole-file donors and two mixed sources; guarded dry run accepts none. The remaining constructor, name-key and Xfer declarations plus two byte failures still block composition. [Updated evidence](../../reverse/attempt_support/callhelp-consolidation-20261105-codex.md).
+
+2026-11-05 onDamage prerequisite: compatible leaf/module-data declarations preserve 16/16 exact rows and both LINKS previews (608 B); guarded dry run now accepts the onDamage donor. Next: apply and verify that merge; other donors retain separate declaration/byte prerequisites. [Checks](../../reverse/attempt_support/callhelp-ondamage-consolidation-20261105-codex3.md).
