@@ -339,13 +339,7 @@ class RadiusDecalTemplate
 ;
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-class ThingTemplate 
-{
- public:char pad[0x4A8];
- float sinkSize;
- 
-}
-;
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 struct Coord3D;
 class Drawable
 
@@ -568,7 +562,7 @@ W3DScriptedModelDraw::~W3DScriptedModelDraw()
  ((Rva000B3C61*)this)->rva000B3C61(2);
  ((Rva000B3348*)this)->rva000B3348(0);
  const ThingTemplate*thingTemplate=(m_60 ? (getDrawable()->getTemplate()) : (getDrawable()->getTemplate()));
- const float*sizePtr=&thingTemplate->sinkSize;
+ const float*sizePtr=&thingTemplate->m_removeTerrainRadius;
  if(*sizePtr>1.0f)
  {
   const Coord3D*position=getDrawable()->getPosition();
