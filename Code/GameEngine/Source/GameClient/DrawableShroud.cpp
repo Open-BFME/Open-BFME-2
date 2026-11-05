@@ -117,12 +117,23 @@ class Rva00270260
 {
 public:
 	bool rva00270260();
+	char m_pad00[0x43D];
+private:
+	bool m_43d; // +0x43D
+	bool m_43e; // +0x43E
 };
 
+struct Rva002706A8Holder;
 class Rva002706A8
 {
 public:
 	void rva002706A8();
+	char m_pad00[0xFC];
+private:
+	Rva002706A8Holder *m_fc; // +0xFC
+	char m_pad100[0x345];
+	unsigned char m_445; // +0x445
+	char m_pad446[0x2];
 };
 
 int rva00272A6A(Object *obj, void *userData);

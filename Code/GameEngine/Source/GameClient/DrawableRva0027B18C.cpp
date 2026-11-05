@@ -90,12 +90,17 @@ class Rva002D3756
 ;
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+struct Inner594;
 class Rva00271B03
 {
- public:void rva00271B03();
- 
-}
-;
+public:
+	void rva00271B03();
+private:
+	unsigned char m_pre04[4]; // +0x00
+	Inner594 *m_04; // +0x04
+	unsigned char m_mid[0x388 - 0x08]; // +0x08
+	int m_388; // +0x388
+};
 #include "../../Include/GameLogic/PartitionFilter.h"
 class Rva00271B3CFilter:public Rva000421C8
 {

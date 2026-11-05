@@ -90,8 +90,14 @@ struct Slot18Holder
 
 class Rva00270644
 {
-  public:
-    void rva00270644(float a, float b);
+public:
+	void rva00270644(float a, float b);
+	char m_pad00[0xD8];
+private:
+	float m_D8; // +0xD8
+	float m_DC; // +0xDC
+	char m_padE0[0x2A0];
+	int m_380; // +0x380
 };
 
 class Drawable

@@ -39,7 +39,15 @@ struct CaptionUIFields
     bool isBold() const { return bold; }
 };
 class Rva00274DB6AsciiField { public: AsciiString get() const; };
-class Rva00271496 { public: void rva00271496(); };
+class DisplayString;
+class Rva00271496
+{
+public:
+	void rva00271496();
+private:
+	unsigned char m_pre[0x344]; // +0x00
+	DisplayString *m_ptr; // +0x344
+};
 class Drawable
 {
 public:

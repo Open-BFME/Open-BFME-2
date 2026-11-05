@@ -18,7 +18,9 @@ public:
 
 class Rva00263546
 {
-	int m_bits[19];
+public:
+	bool rva00263546(const Rva00263546 *other) const;
+	int m_mask[19]; // +0x00
 };
 
 bool __cdecl Rva00275D9FGet(const Rva00263546 *flags);

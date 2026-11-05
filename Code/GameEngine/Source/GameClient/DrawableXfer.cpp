@@ -88,9 +88,9 @@ struct OpaqueRefElement4
 class Rva000A8C9B
 {
 public:
+	void rva000A8CE5(OpaqueRefCounted *item);
 	void clear();
-	void rva000A8CE5(OpaqueRefCounted *);
-	OpaqueRefCounted *m_ptr;
+	OpaqueRefCounted *m_ptr; // +0x00
 };
 
 #include "../../Include/Common/Rva0036CA00Str.h"

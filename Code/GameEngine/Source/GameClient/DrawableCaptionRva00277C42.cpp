@@ -33,10 +33,22 @@ public:
 	void get(Rva0087DC00Vec *out);
 };
 
+struct Rva00290EABElem;
+struct Rva00270FEEInner;
+class BfmeFloatModule;
 class Rva00270FEE
 {
 public:
 	char *rva00270FEE();
+	float rva00271008();
+	const Rva00290EABElem *rva0027103F(int idx);
+	char m_pad00[0x4];
+private:
+	char *m_04; // +0x04
+	char m_pad08[0xF4];
+	Rva00270FEEInner *m_fc; // +0xFC
+	char m_pad100[0x4C];
+	BfmeFloatModule **m_14c; // +0x14C
 };
 
 class Rva00276470Drawable

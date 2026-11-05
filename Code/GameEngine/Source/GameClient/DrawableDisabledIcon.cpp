@@ -64,14 +64,17 @@ extern Anim2DCollection *TheAnim2DCollection;
 class Rva00275F3FHost
 {
 public:
-    void rva00275F3F();
+	void rva00275F3F();
 private:
-    unsigned char unreconstructed000[0xFC];
-    DrawableDisabledObjectView *object;
-    unsigned char unreconstructed100[0x354 - 0x100];
-    Rva00270025 *iconInfo;
-    unsigned char unreconstructed358[0x460 - 0x358];
-    int screenLeft, screenTop, screenRight, screenBottom;
+	unsigned char unreconstructed000[0xFC]; // +0x00
+	DrawableDisabledObjectView *object; // +0xFC
+	unsigned char unreconstructed100[0x354 - 0x100]; // +0x100
+	Rva00270025 *iconInfo; // +0x354
+	unsigned char unreconstructed358[0x460 - 0x358]; // +0x358
+	int screenLeft; // +0x460
+	int screenTop; // +0x464
+	int screenRight; // +0x468
+	int screenBottom; // +0x46C
 };
 
 void Rva00275F3FHost::rva00275F3F()

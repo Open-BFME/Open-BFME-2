@@ -182,6 +182,7 @@ class Rva000A8C9B
 public:
 	void rva000A8CE5(OpaqueRefCounted *item);
 	void clear();
+	OpaqueRefCounted *m_ptr; // +0x00
 };
 Rva0036CA00Str Rva00274DD4();
 

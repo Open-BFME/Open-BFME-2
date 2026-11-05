@@ -44,7 +44,18 @@ public:
 class Rva002747B8
 {
 public:
-	void rva002747B8(float red, float green, float blue);
+	void rva002747B8(float a, float b, float c);
+	char m_pad00[0x1C];
+private:
+	float m_1C; // +0x1C
+	float m_20; // +0x20
+	float m_24; // +0x24
+	int m_28; // +0x28
+	int m_2C; // +0x2C
+	int m_30; // +0x30
+	int m_34; // +0x34
+	unsigned char m_38; // +0x38
+	char m_pad39[0x3];
 };
 
 class Rva0027070CGlobal
