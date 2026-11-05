@@ -68,7 +68,6 @@ extern Keyboard *TheKeyboard;
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
-class Overridable { public: const Overridable *friend_getFinalOverride() const; char unmodelled[0x14]; int id; };
 class UpgradeTemplate { public: char pad[0x38]; int id; };
 class UpgradeCenter { public:
  const UpgradeTemplate *findUpgrade(const AsciiString&) const;
@@ -304,44 +303,14 @@ public:
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct BfmeE8 { int a,b; };
-class CommandButton { public:
-const ThingTemplate *rva0035B570() const;
-bool isReady(const Object*) const;
-int getCommandType() const { return type; }
-unsigned int getOptions() const { return options; }
-const std::vector<AsciiString>& getExtraCommands() const { return extraCommands; }
-bool getAutoAbility() const { return autoAbility; }
-void setFlashCount(int n) const { flashCount=n; }
-void rva0035B5C2(Object*,bool); void rva0035B6FA(ObjectID,bool);
-const class Image *rva0035B19E() const;
- char pad000[0x14];
- int type;
- char pad018[0x4];
- unsigned int options;
- char pad020[0x4];
- const UpgradeTemplate* upgrade;
- char pad028[0x10];
- std::vector<AsciiString> upgradeNames;
- const Overridable* specialPower;
- char pad048[0x38];
- int weapon;
- char pad084[0x1C];
- int weaponFlags;
- std::vector<ScienceType> sciences;
- char pad0B0[0x10];
- int revivalID;
- int exitKey;
- char pad0C8[0x30];
- mutable int flashCount;
- char pad0FC[0x9];
- bool enabled;
- char pad106[0x6];
- bool autoAbility;
- char pad10D[0x7B];
- std::vector<AsciiString> extraCommands;
- char pad194[0x98];
- BfmeE8 context;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
+#include "../../../../Include/GameClient/CommandButton.h"
+static inline const std::vector<AsciiString> &getExtraCommands(const CommandButton *button)
+{ return *reinterpret_cast<const std::vector<AsciiString> *>(&button->m_commandTriggerBegin); }
+static inline const std::vector<AsciiString> &getBuildUpgrades(const CommandButton *button)
+{ return *reinterpret_cast<const std::vector<AsciiString> *>(&button->m_buildUpgradesBegin); }
+static inline bool getAutoAbility(const CommandButton *button) { return button->m_autoAbility; }
 enum CommandAvailability
 {
 	COMMAND_RESTRICTED = 0,
@@ -388,7 +357,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         if (context != 0) switchToContext(0,0);
         return CBC_COMMAND_NOT_USED;
     }
-    if (!commandButton->enabled) return CBC_COMMAND_NOT_USED;
+    if (!commandButton->m_isClickable) return CBC_COMMAND_NOT_USED;
     if (repeated && commandButton->getCommandType() != 3) return CBC_COMMAND_NOT_USED;
     Object *obj=0;
     if (commandButton->getCommandType() != 0x19 && commandButton->getCommandType() != 0x20 && commandButton->getCommandType() != 0x26) {
@@ -401,7 +370,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             }
         }
     }
-    bool cancellable=commandButton->getAutoAbility() || (commandButton->getOptions()&0x80000000);
+    bool cancellable=getAutoAbility(commandButton) || (commandButton->getOptions()&0x80000000);
     bool ready=true;
     if (commandButton->getCommandType()==0x17 || commandButton->getCommandType()==0x18) {
         if (obj) {
@@ -470,7 +439,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
             PickAndPlayInfo info;
             info.commandButton=commandButton;
             if (primary) pickAndPlayUnitVoiceResponse(list,(GameMessage::Type)0x7e3,&info);
-            else if (commandButton->autoAbility && obj) {
+            else if (commandButton->m_autoAbility && obj) {
                 static NameKeyType autoAbilityKey=TheNameKeyGenerator->nameToKey("AutoAbilityBehavior");
                 AutoAbilityBehavior *autoAbility=(AutoAbilityBehavior*)obj->module(autoAbilityKey);
                 if (autoAbility) {
@@ -530,14 +499,14 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 3: case 4: case 0x2e: {
         bool revival=commandButton->getCommandType()==0x2e;
         const ThingTemplate *what=revival ? 0 : commandButton->rva0035B570();
-        int revivalID=revival ? commandButton->revivalID : -1;
+        int revivalID=revival ? commandButton->fieldC0 : -1;
         if (!obj) break;
         if (!revival) { if (!what) break; } else { if (revivalID==-1) break; }
         if (!obj->rva0028BC58(0)) break;
         if (primary) {
             if (BUILD->canMakeUnit(obj,what,revivalID)==7) break;
             int upgradeID=-1;
-            for (std::vector<AsciiString>::const_iterator i=commandButton->upgradeNames.begin();i!=commandButton->upgradeNames.end();++i) {
+            for (std::vector<AsciiString>::const_iterator i=getBuildUpgrades(commandButton).begin();i!=getBuildUpgrades(commandButton).end();++i) {
                 const UpgradeTemplate *upgrade=TheUpgradeCenter->findUpgrade(*i);
                 if (upgrade) upgradeID=upgrade->id;
             }
@@ -564,7 +533,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         break;
     }
     case 6: {
-        const UpgradeTemplate *upgrade=commandButton->upgrade;
+        const UpgradeTemplate *upgrade=commandButton->m_upgradeTemplate;
         if (!obj || !upgrade) break;
         if (primary) {
             Player *payer=ThePlayerList->getLocalPlayer();
@@ -583,7 +552,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         break;
     }
     case 7: {
-        const UpgradeTemplate *upgrade=commandButton->upgrade;
+        const UpgradeTemplate *upgrade=commandButton->m_upgradeTemplate;
         if (!upgrade) break;
         if (primary) {
             bool valid=true;
@@ -615,7 +584,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         break;
     }
     case 8: {
-        const UpgradeTemplate *upgrade=commandButton->upgrade;
+        const UpgradeTemplate *upgrade=commandButton->m_upgradeTemplate;
         if (!obj || !upgrade) break;
         if (primary) {
             Player *payer=ThePlayerList->getLocalPlayer();
@@ -641,7 +610,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 0xe: APPEND_GAME_MESSAGE(0x435); break;
     case 0xf: break;
     case 0x10: {
-        int key=commandButton->exitKey;
+        int key=commandButton->fieldC4;
         ObjectID id=INVALID_OBJECT_ID;
         if (!key) break;
         for (int i=0;i<32;++i) if ((int)ControlBarInventoryEntries[i].window==key) id=(ObjectID)ControlBarInventoryEntries[i].objectID;
@@ -713,10 +682,10 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         GameMessage::Type type=(GameMessage::Type)0x43a;
         GameMessage *msg=APPEND_GAME_MESSAGE(type);
         PickAndPlayInfo info;
-        int weapon=commandButton->weapon;
+        int weapon=commandButton->m_weaponSlot;
         info.weaponSlot=&weapon;
         VOICE(type,&info);
-        msg->appendIntegerArgument(commandButton->weapon);
+        msg->appendIntegerArgument(commandButton->m_weaponSlot);
         break;
     }
     case 0x23: {
@@ -724,7 +693,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         GameMessage::Type type=(GameMessage::Type)0x43a;
         GameMessage *msg=APPEND_GAME_MESSAGE(type);
         PickAndPlayInfo info;
-        int weapon=commandButton->weapon;
+        int weapon=commandButton->m_weaponSlot;
         info.weaponSlot=&weapon;
         VOICE(type,&info);
         int current=((Rva0028B7C1DwordField*)obj)->get();
@@ -757,13 +726,13 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         if (!primary) {
             if (cancellable && obj) {
                 GameMessage *msg=APPEND_GAME_MESSAGE(0x459);
-                msg->appendIntegerArgument(commandButton->weapon);
+                msg->appendIntegerArgument(commandButton->m_weaponSlot);
                 msg->appendObjectIDArgument(obj->getID());
             }
         } else {
             GameMessage *msg=APPEND_GAME_MESSAGE(0x40d);
-            msg->appendIntegerArgument(commandButton->weapon);
-            msg->appendIntegerArgument(commandButton->weaponFlags);
+            msg->appendIntegerArgument(commandButton->m_weaponSlot);
+            msg->appendIntegerArgument(commandButton->m_maxShotsToFire);
         }
         break;
     }
@@ -771,7 +740,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         Object *center=ThePlayerList->getLocalPlayer()->findNaturalCommandCenter();
         if (!center) break;
         GameMessage *msg=APPEND_GAME_MESSAGE(0x410);
-        msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
+        msg->appendIntegerArgument(commandButton->getSpecialPowerTemplate()->getID());
         msg->appendIntegerArgument(commandButton->getOptions());
         msg->appendObjectIDArgument(center->getID());
         msg->appendObjectIDArgument(INVALID_OBJECT_ID);
@@ -780,16 +749,16 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 0x26: {
         GameMessage::Type type=(GameMessage::Type)0x456;
         GameMessage *msg=APPEND_GAME_MESSAGE(type);
-        msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
+        msg->appendIntegerArgument(commandButton->getSpecialPowerTemplate()->getID());
         msg->appendIntegerArgument(commandButton->getOptions());
         msg->appendObjectIDArgument(INVALID_OBJECT_ID);
-        const std::vector<AsciiString>& extraCommands=commandButton->getExtraCommands();
+        const std::vector<AsciiString>& extraCommands=getExtraCommands(commandButton);
         if (!extraCommands.empty()) {
             for (unsigned int i=0;i<extraCommands.size();++i) {
                 const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
                 GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
-                extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
-                extraMsg->appendIntegerArgument(extra->options);
+                extraMsg->appendIntegerArgument(extra->getSpecialPowerTemplate()->getID());
+                extraMsg->appendIntegerArgument(extra->m_options);
                 extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
             }
         }
@@ -800,24 +769,24 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         if (!primary) {
             if (cancellable && obj) {
                 GameMessage *msg=APPEND_GAME_MESSAGE(0x458);
-                msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
+                msg->appendIntegerArgument(commandButton->getSpecialPowerTemplate()->getID());
                 msg->appendObjectIDArgument(obj->getID());
             }
         } else {
             GameMessage::Type type=(GameMessage::Type)0x410;
             GameMessage *msg=APPEND_GAME_MESSAGE(type);
-            msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
+            msg->appendIntegerArgument(commandButton->getSpecialPowerTemplate()->getID());
             msg->appendIntegerArgument(commandButton->getOptions());
             msg->appendObjectIDArgument(INVALID_OBJECT_ID);
             msg->appendObjectIDArgument(INVALID_OBJECT_ID);
-            const std::vector<AsciiString>& extraCommands=commandButton->getExtraCommands();
+            const std::vector<AsciiString>& extraCommands=getExtraCommands(commandButton);
         if (!extraCommands.empty()) {
                 for (unsigned int i=0;i<extraCommands.size();++i) {
                     const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
-                    if (extra && extra->type==0x18) {
+                    if (extra && extra->m_command==0x18) {
                         GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
-                        extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
-                        extraMsg->appendIntegerArgument(extra->options);
+                        extraMsg->appendIntegerArgument(extra->getSpecialPowerTemplate()->getID());
+                        extraMsg->appendIntegerArgument(extra->m_options);
                         extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
                         extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
                     }
@@ -829,8 +798,8 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
     case 0x19: {
         if (!player) break;
         ScienceType science=SCIENCE_INVALID;
-        for (unsigned int i=0;i<commandButton->sciences.size();++i) {
-            science=commandButton->sciences[i];
+        for (unsigned int i=0;i<commandButton->getScienceVec().size();++i) {
+            science=commandButton->getScienceVec()[i];
             if (!player->hasScience(science) && TheScienceStore->playerHasPrereqsForScience((Rva0043D3A8*)((char*)player+4),science)) {
                 int points=player->sciencePoints;
                 if (TheScienceStore->getSciencePurchaseCost(science)<=points) break;
@@ -841,14 +810,14 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         msg->appendIntegerArgument(player->playerIndex);
         msg->appendIntegerArgument(science);
         dirty=true;
-        const std::vector<AsciiString>& extraCommands=commandButton->getExtraCommands();
+        const std::vector<AsciiString>& extraCommands=getExtraCommands(commandButton);
         if (!extraCommands.empty()) {
             GameMessage::Type type=(GameMessage::Type)0x456;
             for (unsigned int i=0;i<extraCommands.size();++i) {
                 const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
                 GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
-                extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
-                extraMsg->appendIntegerArgument(extra->options);
+                extraMsg->appendIntegerArgument(extra->getSpecialPowerTemplate()->getID());
+                extraMsg->appendIntegerArgument(extra->m_options);
                 extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
             }
         }
@@ -902,23 +871,23 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         if (!primary) {
             if (!cancellable || !obj) break;
             GameMessage *msg=APPEND_GAME_MESSAGE(0x458);
-            msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
+            msg->appendIntegerArgument(commandButton->getSpecialPowerTemplate()->getID());
             msg->appendObjectIDArgument(obj->getID());
         } else {
             GameMessage::Type type=(GameMessage::Type)0x410;
             GameMessage *msg=APPEND_GAME_MESSAGE(type);
-            msg->appendIntegerArgument(commandButton->specialPower->friend_getFinalOverride()->id);
+            msg->appendIntegerArgument(commandButton->getSpecialPowerTemplate()->getID());
             msg->appendIntegerArgument(commandButton->getOptions());
             msg->appendObjectIDArgument(INVALID_OBJECT_ID);
             msg->appendObjectIDArgument(obj ? obj->getID() : INVALID_OBJECT_ID);
-            const std::vector<AsciiString>& extraCommands=commandButton->getExtraCommands();
+            const std::vector<AsciiString>& extraCommands=getExtraCommands(commandButton);
         if (!extraCommands.empty()) {
                 for (unsigned int i=0;i<extraCommands.size();++i) {
                     const CommandButton *extra=TheControlBar->findCommandButton(extraCommands[i]);
-                    if (extra && extra->type==0x18) {
+                    if (extra && extra->m_command==0x18) {
                         GameMessage *extraMsg=APPEND_GAME_MESSAGE(type);
-                        extraMsg->appendIntegerArgument(extra->specialPower->friend_getFinalOverride()->id);
-                        extraMsg->appendIntegerArgument(extra->options);
+                        extraMsg->appendIntegerArgument(extra->getSpecialPowerTemplate()->getID());
+                        extraMsg->appendIntegerArgument(extra->m_options);
                         extraMsg->appendObjectIDArgument(INVALID_OBJECT_ID);
                         extraMsg->appendObjectIDArgument(obj ? obj->getID() : INVALID_OBJECT_ID);
                     }
@@ -937,7 +906,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
         break;
     case 0x27: APPEND_GAME_MESSAGE(0x454); break;
     case 0x37:
-        contextStack.push_back(commandButton->context);
+        contextStack.push_back(*reinterpret_cast<const BfmeE8 *>(&commandButton->m_commandRangeStart));
         switchToContext(context,selectedDrawable);
         break;
     case 0x38:
