@@ -11,19 +11,32 @@
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
+class Thing;
+class ModuleData;
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class FadeAndDieOrnamentUpdate
+struct OrnamentData
+{
+	OrnamentData *init() throw();
+	unsigned char m_pad[0x28];
+};
+
+// novtable: the ctor installs retail's three tables itself.
+class __declspec(novtable) FadeAndDieOrnamentUpdate : public UpdateModule
 {
 public:
+	FadeAndDieOrnamentUpdate(Thing *thing, const ModuleData *moduleData);
+
 	virtual NameKeyType getModuleNameKey() const;
+
+private:
+	int m_20;
+	float m_24;
+	OrnamentData m_28;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdatePoolKey.cpp

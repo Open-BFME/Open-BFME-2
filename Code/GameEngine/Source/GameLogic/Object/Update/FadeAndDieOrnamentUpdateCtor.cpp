@@ -46,23 +46,8 @@ extern "C" const void *const vtbl_00C1AF60[13] = {
 
 class Thing;
 class ModuleData;
-class Object;
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 struct OrnamentData
 {
@@ -76,10 +61,14 @@ struct FadeAndDieOrnamentUpdateModuleData
 	OrnamentData m_28;
 };
 
-class FadeAndDieOrnamentUpdate : public UpdateModule
+// novtable: the ctor installs retail's three tables itself (below), so the
+// compiler must not store its own between the base call and init().
+class __declspec(novtable) FadeAndDieOrnamentUpdate : public UpdateModule
 {
 public:
 	FadeAndDieOrnamentUpdate(Thing *thing, const ModuleData *moduleData);
+
+	virtual NameKeyType getModuleNameKey() const;
 
 private:
 	int m_20;
@@ -92,11 +81,11 @@ FadeAndDieOrnamentUpdate::FadeAndDieOrnamentUpdate(Thing *thing, const ModuleDat
 	: UpdateModule(thing, moduleData)
 {
 	float fzero = 0.0f;
-	m_vtable = (const void *)((unsigned int)vtbl_00C1AF60);
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva003A4322@@6BRva003A4322_B2@@@"));
+	*(unsigned int *)this = ((unsigned int)vtbl_00C1AF60);
+	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva003A4322@@6BRva003A4322_B2@@@"));
 	m_28.init();
-	const FadeAndDieOrnamentUpdateModuleData *data = (const FadeAndDieOrnamentUpdateModuleData *)m_moduleData;
+	const FadeAndDieOrnamentUpdateModuleData *data = (const FadeAndDieOrnamentUpdateModuleData *)getModuleData();
 	m_20 &= 0;
 	m_24 = fzero;
 	m_28 = data->m_28;
