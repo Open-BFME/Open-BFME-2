@@ -13,18 +13,8 @@ public:
 	void *rva0031D5F8(const AsciiString *);
 };
 
-class CommandButton
-{
-public:
-	char m_pad[0x1C];
-	unsigned char m_flag1C;
-};
-
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int) const;
-};
+#include "../../Include/GameClient/CommandButton.h"
+#include "../../Include/GameClient/CommandSet.h"
 
 class Rva002917E8
 {
@@ -42,7 +32,7 @@ bool Rva002917E8::rva002917E8(void)
 	if (cmdSet) {
 		for (int i = 0; i < 0x20; ++i) {
 			const CommandButton *btn = cmdSet->getCommandButton(i);
-			if (btn && (btn->m_flag1C & 0x10))
+			if (btn && (btn->getOptions() & 0x10))
 				return true;
 		}
 	}

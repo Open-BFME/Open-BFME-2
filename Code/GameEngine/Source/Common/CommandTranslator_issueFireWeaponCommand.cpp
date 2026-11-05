@@ -86,19 +86,7 @@ public:
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/Common/SpecialPower.h"
 
-class CommandButton
-{
-public:
-	char m_pad00[0x1C];
-	unsigned int m_options;
-	char m_pad20[0x44 - 0x20];
-	const SpecialPowerTemplate *m_over44;
-	char m_pad48[0x80 - 0x48];
-	int m_weapon80;
-	char m_pad84[0xA0 - 0x84];
-	int m_maxShotsA0;
-	bool isValidObjectTarget(const Drawable *source, const Drawable *target) const;
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 class PickAndPlayInfo
 {
@@ -134,7 +122,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 	if (!command)
 		return msgType;
 
-	if ((command->m_options & 7) != 0)
+	if ((command->getOptions() & 7) != 0)
 	{
 		if (!target || !target->m_object)
 			return msgType;
@@ -142,22 +130,22 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 		if (!command->isValidObjectTarget(TheInGameUI->slot75(), target))
 			return msgType;
 
-		if ((command->m_options & 0x1000) != 0)
+		if ((command->getOptions() & 0x1000) != 0)
 		{
 			msgType = GameMessage::MSG_40E;
 			if (commandType == DO_COMMAND)
 			{
 				GameMessage *msg = TheMessageStream->createMessage(0x40E);
-				msg->appendIntegerArgument(command->m_weapon80);
+				msg->appendIntegerArgument(command->getWeaponSlot());
 				msg->appendLocationArgument(*pos);
-				msg->appendIntegerArgument(command->m_maxShotsA0);
+				msg->appendIntegerArgument(command->getMaxShotsToFire());
 				ObjectID targetID = (target && target->m_object) ? target->m_object->m_id : OBJECTID_NONE;
 				msg->appendObjectIDArgument(targetID);
 
 				PickAndPlayInfo info;
 				info.m_14 = *pos;
 				info.m_04 = target;
-				int slot = command->m_weapon80;
+				int slot = command->getWeaponSlot();
 				info.m_0C = &slot;
 				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40E, (PickAndPlayInfo *)&info);
 			}
@@ -168,35 +156,35 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 			if (commandType == DO_COMMAND)
 			{
 				GameMessage *msg = TheMessageStream->createMessage(0x40F);
-				msg->appendIntegerArgument(command->m_weapon80);
+				msg->appendIntegerArgument(command->getWeaponSlot());
 				ObjectID targetID = (target && target->m_object) ? target->m_object->m_id : OBJECTID_NONE;
 				msg->appendObjectIDArgument(targetID);
-				msg->appendIntegerArgument(command->m_maxShotsA0);
+				msg->appendIntegerArgument(command->getMaxShotsToFire());
 
 				PickAndPlayInfo info;
 				info.m_04 = target;
-				int slot = command->m_weapon80;
+				int slot = command->getWeaponSlot();
 				info.m_0C = &slot;
 				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40F, (PickAndPlayInfo *)&info);
 			}
 		}
 	}
-	else if ((command->m_options & 0x20) != 0)
+	else if ((command->getOptions() & 0x20) != 0)
 	{
 		msgType = GameMessage::MSG_40E;
 		if (commandType == DO_COMMAND)
 		{
 			GameMessage *msg = TheMessageStream->createMessage(0x40E);
-			msg->appendIntegerArgument(command->m_weapon80);
+			msg->appendIntegerArgument(command->getWeaponSlot());
 			msg->appendLocationArgument(*pos);
-			msg->appendIntegerArgument(command->m_maxShotsA0);
+			msg->appendIntegerArgument(command->getMaxShotsToFire());
 			ObjectID targetID = (target && target->m_object) ? target->m_object->m_id : OBJECTID_NONE;
 			msg->appendObjectIDArgument(targetID);
 
 			PickAndPlayInfo info;
 			info.m_14 = *pos;
 			info.m_04 = target;
-			int slot = command->m_weapon80;
+			int slot = command->getWeaponSlot();
 			info.m_0C = &slot;
 			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40E, (PickAndPlayInfo *)&info);
 		}
@@ -207,13 +195,13 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 		if (commandType == DO_COMMAND)
 		{
 			GameMessage *msg = TheMessageStream->createMessage(0x40D);
-			msg->appendIntegerArgument(command->m_over44->getID());
+			msg->appendIntegerArgument(command->getSpecialPowerTemplate()->getID());
 
 			PickAndPlayInfo info;
 			info.m_04 = target;
 			if (pos)
 				info.m_14 = *pos;
-			int slot = command->m_weapon80;
+			int slot = command->getWeaponSlot();
 			info.m_0C = &slot;
 			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40D, (PickAndPlayInfo *)&info);
 		}

@@ -8,12 +8,7 @@ enum SpecialPowerType {};
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/Common/SpecialPower.h"
 
-class CommandButton
-{
-public:
-	char m_pad[0x44];
-	SpecialPowerTemplate *m_ov;
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 class SpecialAbilityUpdate;
 #include "../GameLogic/Object/object.h"
@@ -175,7 +170,7 @@ int Rva00495840::rva00495840(Arg *arg)
 	Object *obj = m_obj;
 	if (arg->s110() == 0)
 		return holder->m_val;
-	SpecialPowerTemplate *ov = m_btn->m_ov;
+	const SpecialPowerTemplate *ov = m_btn->getSpecialPowerTemplate();
 	if (ov != 0) {
 		void *found = obj->findSpecialAbilityUpdate(ov->getFO()->m_type);
 		if (found == 0)
