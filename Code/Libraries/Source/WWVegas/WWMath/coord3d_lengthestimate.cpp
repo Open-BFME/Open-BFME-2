@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// Coord3D::GetLengthEstimate at 0x00003ACE.
+// Coord3D::GetLengthEstimate and Coord3D::lengthEstimate at 0x00003ACE.
 //
 // Retail inlines the 2D estimate three times - once for the comparison and
 // once inside each arm - which is what the fifteen fabs calls in the body are:
@@ -17,9 +17,12 @@
 
 #include <math.h>
 
-#include "../../../Include/Lib/Coord3DBase.h"
+// The companion view, not Coord3D.h (it takes that guard, so it
+// precedes Coord3DBase.h): it also declares lengthEstimate, which retail
+// exports alongside GetLengthEstimate.
+#include "../../../Include/Lib/Coord3DCtorView.h"
 
-#include "../../../Include/Lib/Coord3D.h"
+#include "../../../Include/Lib/Coord3DBase.h"
 
 static const float length_estimate_factor = 0.25f;
 
@@ -28,6 +31,16 @@ static const float length_estimate_factor = 0.25f;
                        : (float)(fabs(y) + length_estimate_factor * fabs(x)))
 
 float Coord3D::GetLengthEstimate() const
+{
+    if (ESTIMATE_2D > fabs(z)) {
+        return (float)(ESTIMATE_2D + length_estimate_factor * fabs(z));
+    }
+    return (float)(fabs(z) + length_estimate_factor * ESTIMATE_2D);
+}
+
+// Zero Hour's lower-case API carries the same estimate. Retail exports it at 0x00003ACE too:
+// /OPT:ICF folded the identical body onto GetLengthEstimate's.
+float Coord3D::lengthEstimate() const
 {
     if (ESTIMATE_2D > fabs(z)) {
         return (float)(ESTIMATE_2D + length_estimate_factor * fabs(z));

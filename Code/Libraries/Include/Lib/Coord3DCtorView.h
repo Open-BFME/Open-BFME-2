@@ -74,6 +74,8 @@ struct Coord3D {
     void set(const struct Coord3DBase *p);
     bool equals(const struct Coord3DBase &that) const;
     float GetLengthEstimate() const;
+    // Zero Hour's spelling of the same estimate; retail exports both names at 0x00003ACE (ICF fold).
+    float lengthEstimate() const;
 };
 
 #endif // CANONICAL_COORD3D_H
