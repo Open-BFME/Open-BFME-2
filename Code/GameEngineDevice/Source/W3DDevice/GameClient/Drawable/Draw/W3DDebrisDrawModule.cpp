@@ -202,6 +202,7 @@ public:
 	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx, const Real primarySpeed, const Coord3D *secondary );
 };
 
+#include "../../../../../../GameEngine/Source/Common/Thing/thing.h"
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 inline Bool Thing::isAboveTerrain( void ) const { return getHeightAboveTerrain() > 0.0f; }
 

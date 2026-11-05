@@ -400,6 +400,7 @@ class ThingTemplate
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 class Object

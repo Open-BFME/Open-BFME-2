@@ -73,6 +73,7 @@ private:
 // is not retail's (0x0004C91A builds Vector4 rows first) and held the link.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 

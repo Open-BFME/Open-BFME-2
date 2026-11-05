@@ -162,6 +162,7 @@ public:
  virtual bool allow(Object *);
  BfmeFixedStorage0004543D m_accept,m_reject;
 };
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Rva0026F0F0 {public:void *rva0026F0F0(const void *);};
 class UpgradeCenter;

@@ -5,6 +5,7 @@
 #include "ascii_string.h"
 
 class Object;
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/DrawableBFME2.h"
 #include "../../../Include/GameLogic/ScriptParameter.h"
 class Rva00358752Opaque

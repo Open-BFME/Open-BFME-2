@@ -33,6 +33,7 @@ static __forceinline void initLaunchTransform(Matrix3D &m) {m.Row[0].X=1.0f;m.Ro
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"

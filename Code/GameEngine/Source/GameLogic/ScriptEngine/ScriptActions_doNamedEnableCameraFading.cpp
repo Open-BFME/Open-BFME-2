@@ -9,6 +9,7 @@
 // Layout from callers plus sibling doNamedEnableStealth; ret 8 stdcall with
 // Parameter plus void. Global g_Va009FE16C used by 14 TUs.
 class Parameter;
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/DrawableBFME2.h"
 #include "../Object/object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

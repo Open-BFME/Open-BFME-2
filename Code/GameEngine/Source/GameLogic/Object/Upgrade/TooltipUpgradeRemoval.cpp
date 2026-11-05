@@ -10,6 +10,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 class ModuleData;
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 #include "../object.h"
 #include "../../../../Include/GameClient/ControlBar.h"
