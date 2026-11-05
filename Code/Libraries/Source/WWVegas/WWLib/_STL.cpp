@@ -84,6 +84,7 @@ template <> __forceinline void __malloc_alloc<0>::deallocate(void *p, size_t) { 
 #include <limits>
 #include <new>
 #include <algorithm>
+#include <fstream>
 
 // bfme link decl-only begin
 namespace _STL { template <> istreambuf_iterator<unsigned short, char_traits<unsigned short> > num_get<unsigned short, istreambuf_iterator<unsigned short, char_traits<unsigned short> > >::do_get(istreambuf_iterator<unsigned short, char_traits<unsigned short> >, istreambuf_iterator<unsigned short, char_traits<unsigned short> >, ios_base &, int &, float &) const; }
@@ -605,6 +606,72 @@ void __cdecl __string_to_float(const string &v, long double &val)
 
 }
 
+// bfme link decl-only begin
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::_M_input_error(); }
+
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::_M_underflow_aux(); }
+
+namespace _STL { template <> basic_filebuf<char, char_traits<char> > * basic_filebuf<char, char_traits<char> >::open(char const *, int); }
+
+// overflow is stlport_narrow_filebuf_overflow.cpp's retail body (0x00015AB0);
+// this /Ob0 copy differs and calls pptr and _FILE_O_next out of line, and
+// this unit is first in link order for both, so their out-of-line copies
+// beat every inlined-shape copy in the stream units.
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::overflow(int); }
+
+namespace _STL { template <> bool equal<char *, char *, _Eq_traits<char_traits<char> > >(char *, char *, char *, _Eq_traits<char_traits<char> >); }
+
+namespace _STL { template <> basic_filebuf<char, char_traits<char> >::basic_filebuf(); }
+
+namespace _STL { template <> fpos<int>::fpos(long); }
+
+namespace _STL { template <> basic_filebuf<char, char_traits<char> >::~basic_filebuf(); }
+
+namespace _STL { template <> bool _Eq_traits<char_traits<char> >::operator()(char const &, char const &) const; }
+
+namespace _STL { template <> bool basic_filebuf<char, char_traits<char> >::_M_allocate_buffers(); }
+
+namespace _STL { template <> void basic_filebuf<char, char_traits<char> >::_M_exit_putback_mode(); }
+
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::_M_output_error(); }
+
+namespace _STL { template <> bool basic_filebuf<char, char_traits<char> >::_M_seek_init(bool); }
+
+namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::_M_seek_return(long, int); }
+
+namespace _STL { template <> void basic_filebuf<char, char_traits<char> >::_M_setup_codecvt(locale const &); }
+
+namespace _STL { template <> bool basic_filebuf<char, char_traits<char> >::_M_switch_to_input_mode(); }
+
+namespace _STL { template <> bool basic_filebuf<char, char_traits<char> >::_M_switch_to_output_mode(); }
+
+namespace _STL { template <> bool basic_filebuf<char, char_traits<char> >::_M_unshift(); }
+
+namespace _STL { template <> basic_filebuf<char, char_traits<char> > * basic_filebuf<char, char_traits<char> >::close(); }
+
+namespace _STL { template <> bool basic_filebuf<char, char_traits<char> >::is_open() const; }
+
+namespace _STL { template <> basic_filebuf<char, char_traits<char> > * basic_filebuf<char, char_traits<char> >::open(int, int); }
+
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::pbackfail(int); }
+
+namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::seekoff(long, int, int); }
+
+namespace _STL { template <> fpos<int> basic_filebuf<char, char_traits<char> >::seekpos(fpos<int>, int); }
+
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::showmanyc(); }
+
+namespace _STL { template <> int basic_filebuf<char, char_traits<char> >::sync(); }
+
+// bfme link decl-only end
+
+// Native allocation owner 0x00013F10 (189 bytes) supplies this helper.
+// BFME 1 FilebufInstantiations at f98983a7d3 likewise defers allocation.
+// The generic emitted copy differs from the complete retail body.
+namespace _STL {
+template <> bool basic_filebuf<char, char_traits<char> >::_M_allocate_buffers(char *, streamsize);
+}
+
 // tu-skeleton: 0x00013300 27B ?_FILE_I_set@_STL@@YAXPAU_iobuf@@PAD11@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_stringbuf.cpp (not merged yet)
 
 // tu-skeleton: 0x00013320 60B ??0?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@IAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp (not merged yet)
@@ -626,6 +693,8 @@ void __cdecl __string_to_float(const string &v, long double &val)
 // tu-skeleton: 0x00013400 11B ?is_open@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@QBE_NXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp (not merged yet)
 
 // tu-skeleton: 0x00013410 15B ??1?$basic_istream@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_fstream.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/_STL.cpp
 
@@ -1363,7 +1432,16 @@ void __cdecl _Initialize_get_float(
 
 // tu-skeleton: 0x00013D20 102B ?showmanyc@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp (not merged yet)
 
-// tu-skeleton: 0x00013D90 10B ?underflow@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_underflow.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf_underflow.cpp
+
+// stlport46
+//
+// The narrow twin of stlport_wide_filebuf_underflow.cpp - same instantiation as
+// stlport_narrow_filebuf.cpp built without inline expansion, because retail's
+// underflow is a plain forwarder to _Underflow::_M_doit and cl folds _M_doit
+// into it at the default level.
+
+template class _STL::basic_filebuf<char, _STL::char_traits<char> >;
 
 // tu-skeleton: 0x00013DA0 232B ?pbackfail@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAEHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp (not merged yet)
 
@@ -1526,16 +1604,6 @@ void __cdecl _Initialize_get_float(
 // tu-skeleton: 0x00018130 17B ?sgetc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
 // tu-skeleton: 0x00018170 14B ??$_M_get_ostreambuf@DV?$char_traits@D@_STL@@@_STL@@YAPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@0@AAV?$basic_ostream@DV?$char_traits@D@_STL@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_ostreambuf_iterator.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp
-
-// stlport46
-//
-// STLport 4.5.3 __get_fdigit and __get_fdigit_or_sep for wide input. Both fold
-// a locale digit back to its ASCII form so the buffer handed to strtod is
-// plain; the separator variant answers first and otherwise inlines the digit
-// lookup whole. find over a const wchar_t* range folds onto the non-const
-// instantiation already landed at 0x00010F60.
 
 // tu-skeleton: 0x000182C0 55B ??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp (not merged yet)
 
@@ -1739,19 +1807,6 @@ void __cdecl _Initialize_get_float(
 
 // tu-skeleton: 0x0001AE40 360B ?_Stl_string_to_long_double@_STL@@YAOPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_double.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp
-
-// stlport46
-
-// STLport 4.5.3 __string_to_float, all three overloads. Each is one call to
-// _Stl_string_to_double and one store of the right width. c_str() rather than
-// the member directly is what makes MSVC 7.1 reuse eax for the dereference the
-// way retail does; reading _M_start through the reference costs a second
-// register and shifts every one after it. The long double overload goes to a
-// different converter - 0x0001AE40 rather than 0x0001ACE0 - which is the only
-// thing separating it from the double one, since MSVC 7.1 stores both as
-// eight bytes.
-
 // tu-skeleton: 0x0001B010 25B ?_Stl_is_nan_or_inf@_STL@@YA_NN@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp (not merged yet)
 
 // tu-skeleton: 0x0001B030 40B ?_Stl_is_inf@_STL@@YA_NN@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_float_format.cpp (not merged yet)
@@ -1845,5 +1900,176 @@ void __cdecl _Initialize_get_float(
 // tu-skeleton: 0x0075C3B0 8B uw_0075c3b0 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0075C3B8 10B __ehhandler$??1?$messages@D@_STL@@MAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_messages_dtors.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_wide_get_fdigit.cpp
+
+// stlport46
+//
+// STLport 4.5.3 __get_fdigit and __get_fdigit_or_sep for wide input. Both fold
+// a locale digit back to its ASCII form so the buffer handed to strtod is
+// plain; the separator variant answers first and otherwise inlines the digit
+// lookup whole. find over a const wchar_t* range folds onto the non-const
+// instantiation already landed at 0x00010F60.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_string_to_float.cpp
+
+// stlport46
+
+// STLport 4.5.3 __string_to_float, all three overloads. Each is one call to
+// _Stl_string_to_double and one store of the right width. c_str() rather than
+// the member directly is what makes MSVC 7.1 reuse eax for the dereference the
+// way retail does; reading _M_start through the reference costs a second
+// register and shifts every one after it. The long double overload goes to a
+// different converter - 0x0001AE40 rather than 0x0001ACE0 - which is the only
+// thing separating it from the double one, since MSVC 7.1 stores both as
+// eight bytes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 _STLP_END_NAMESPACE
