@@ -296,7 +296,7 @@ def read_source(source):
 
 
 def header_comment_splice(text):
-    """Find continued line comments while skipping literals and block comments."""
+    """Find line-comment splices that change which physical text is code."""
     # Translation phase 2 precedes comment recognition, including when a splice
     # forms the two slashes. Keep offsets so the diagnostic names the real line.
     logical, offsets = [], []
@@ -317,7 +317,14 @@ def header_comment_splice(text):
             end = text.find("\n", i)
             end = n if end < 0 else end
             original_end = offsets[end] if end < n else len(original)
-            if SPLICE.search(original, offsets[i], original_end):
+            splices = list(SPLICE.finditer(original, offsets[i], original_end))
+            # A chain of independently commented physical lines has the same
+            # visible tokens before and after splicing (STLport uses this for
+            # commented-out #if conditions). Every continuation must already
+            # start a line comment; a splice forming // itself remains unsafe.
+            if splices and (not original.startswith("//", offsets[i]) or any(
+                    not re.match(r"[ \t]*//", original[splice.end():])
+                    for splice in splices)):
                 return offsets[i]
             i = end + 1
         elif text.startswith("/*", i):

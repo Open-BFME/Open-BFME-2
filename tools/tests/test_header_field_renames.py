@@ -528,6 +528,35 @@ def test_r4c_header_continuations(tmp_path, monkeypatch):
     assert "trigraph" in lane.include_problem("u.cpp", '#include "h.h"\n')
 
 
+@pytest.mark.parametrize("newline", ["\n", "\r\n"])
+def test_header_continued_comments_already_comment_every_physical_line(tmp_path, monkeypatch, newline):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    # STLport's stl_dec_vms.h comments out a multi-line preprocessor condition.
+    body = newline.join([
+        "// #if !defined(NEW_IOSTREAMS) " + "\\",
+        "  // && !defined(REDEFINE_STD) " + "\\",
+        "\t// && !defined(OTHER)",
+        "class Object;",
+        "",
+    ])
+    (tmp_path / "h.h").write_bytes(body.encode())
+    assert lane.header_comment_splice(body) is None
+    assert lane.include_problem("u.cpp", '#include "h.h"\n') is None
+
+
+@pytest.mark.parametrize("body", [
+    "// comment\\\n// second\\\n#define m_flags hidden\n",
+    "// comment\\\n/* not an independent line comment */ int hidden;\n",
+    "/\\\n/ comment\\\n// second\n",
+    "// comment\\\n// second\\\n/\\\n/ hidden\n",
+])
+def test_header_comment_chain_still_refuses_changed_visible_tokens(tmp_path, monkeypatch, body):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "h.h").write_text(body)
+    assert lane.header_comment_splice(body) == 0
+    assert "continued line comment" in lane.include_problem("u.cpp", '#include "h.h"\n')
+
+
 def test_r4b_guard_and_unrelated_conditional_do_not_hide_hierarchy():
     header = "#ifndef GUARD\n#define GUARD\n#if 0\nint unrelated;\n#endif\nclass Object { int x; };\n#endif\n"
     assert lane.conditional_hierarchy([("h", header)], {"Object"}, {"m_status"}) is None
