@@ -85,14 +85,7 @@ public:
 // ?rva0058BAA7@Connection@@QAEXPAUInitAddrs@@ABVUnicodeString@@H@Z @0x0058BAA7 181B Connection init with address block plus name plus id new NetCommandList plus latencies; evidence: StringBase wide set 0x00037150 NetCommandList new 0x10 ctor 0x0058B06A reset 0x0058B283x2 rep stosd 0xC8 frameGrouping 0x344; callers 0x004D1703 0x004D175B
 struct InitAddrs { unsigned int a; unsigned int b; };
 typedef bool Bool;
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	unsigned int getOriginalFrame() const { return m_originalFrame; }
-
-private:
-	unsigned int m_originalFrame;
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 #include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
@@ -446,7 +439,7 @@ UnsignedInt Connection::doSend(Bool throttle)
 						UnsignedInt timestamp = cmd->getTimestamp();
 						UnsignedInt frame;
 						if (cmd->getNetCommandType() == 3)
-							frame = ((NetFrameCommandMsg *)cmd)->getOriginalFrame();
+							frame = ((NetFrameCommandMsg *)cmd)->getFrame();
 						else
 							frame = cmd->getExecutionFrame();
 
