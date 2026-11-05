@@ -49,14 +49,17 @@ private:
 };
 
 // bfme link decl-only/import-inline begin: stop this unit emitting non-retail STL copies
-namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<_List_node<basic_string<char,char_traits<char>,allocator<char> > > >::deallocate(_List_node<basic_string<char,char_traits<char>,allocator<char> > > * __a0, unsigned int __a1) const { if (__a0 != 0) ::free((void*)__a0); } }
-namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<_List_node<basic_string<char,char_traits<char>,allocator<char> > > *,_List_node<basic_string<char,char_traits<char>,allocator<char> > >,allocator<_List_node<basic_string<char,char_traits<char>,allocator<char> > > > >::deallocate(_List_node<basic_string<char,char_traits<char>,allocator<char> > > * __a0, unsigned int __a1) { __stl_alloc_rebind(static_cast<allocator<_List_node<basic_string<char,char_traits<char>,allocator<char> > > >&>(*this), (_List_node<basic_string<char,char_traits<char>,allocator<char> > >*)0).deallocate(__a0, __a1); } }
-namespace _STL { template <> __declspec(dllimport) __forceinline void _String_base<char,allocator<char> >::_M_deallocate_block() { _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start); } }
-namespace _STL { template <> __declspec(dllimport) __forceinline _String_base<char,allocator<char> >::~_String_base() { _M_deallocate_block(); } }
+namespace _STL { template <> _String_base<char,_STL::allocator<char> >::~_String_base(); }
+namespace _STL { template <> basic_string<char,_STL::char_traits<char>,_STL::allocator<char> >::~basic_string(); }
+namespace _STL { template <> void _String_base<char,_STL::allocator<char> >::_M_deallocate_block(); }
+namespace _STL { template <> void _STLP_alloc_proxy<_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > *,_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > >,_STL::allocator<_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > > >::deallocate(_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > *,unsigned int); }
+namespace _STL { template <> void allocator<_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > >::deallocate(_STL::_List_node<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > *,unsigned int) const; }
+namespace _STL { template <> void _List_base<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> >,_STL::allocator<_STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > > >::clear(); }
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
-namespace _STL { template <> basic_string<char,char_traits<char>,allocator<char> >::~basic_string(); }
 // bfme link decl-only/import-inline end
+// The row _Destroy<string> (retail's list<string> clear helper) is emitted here.
+template void _STL::_Destroy(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > *);
 void W3DHordeModelDrawManager::rva00079911()
 {
 	for (void **it = m_vec1.begin(); it != m_vec1.end(); ++it) {

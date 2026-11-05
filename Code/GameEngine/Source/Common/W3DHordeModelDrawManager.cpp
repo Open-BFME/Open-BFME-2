@@ -556,6 +556,10 @@ public:
 	HordeGroupNode *header;
 public:
 	int count;
+	char m_compare; // +0x08 the map's empty key compare
+	_STL::list<_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > > m_list; // +0x0C
+	_STL::vector<void *> m_vec1; // +0x10
+	_STL::vector<void *> m_vec2; // +0x1C
 public:
 	bool rva0007894E(Rva0007894EOuter *);
 public:
