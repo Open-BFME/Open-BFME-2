@@ -19,3 +19,5 @@ Carry this consumer and the two-unit cleanup scope into the next scheduled censu
 [Evidence and verification scope](../../reverse/attempt_support/connection-ack-cleanup-20261029-codexb4.md).
 
 2026-11-04: The two-file Connection.cpp/ack composition is cleared (22/22 rows); broader class/header work and the next-census consumer audit remain. [Evidence](../../reverse/attempt_support/connection-ack-consolidation-20261104.md).
+
+2026-11-05: NetCommandList's private-vfptr prerequisite is cleared in Connection.cpp and two ConnectionManager consumers: 25/25 rows and all 58 external COMDATs/bindings are retained; owning acceptance retires three header rows, ordinary previews preserve 2,057 bytes. The unchanged relay consumer still needs node traversal and destruction-access reconciliation. [Evidence](../../reverse/attempt_support/netcommandlist-header-20261105-codex4.md).

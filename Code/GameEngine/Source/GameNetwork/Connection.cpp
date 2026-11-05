@@ -29,21 +29,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 class NetCommandRef;
 class NetCommandMsg;
-class NetCommandList
-{
-public:
-	NetCommandList();
-	NetCommandRef *getFirstMessage() { return m_first; }
-	void removeMessage(NetCommandRef *msg);
-	void reset();
-	NetCommandRef *addMessage(NetCommandMsg *msg);
-	// The vfptr occupies +0x00.
-	virtual ~NetCommandList();
-	NetCommandRef *m_first; // +0x04 +0x04
-private:
-	NetCommandRef *m_last; // +0x08 +0x08
-	NetCommandRef *m_lastMessageInserted; // +0x0C +0x0C
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 typedef unsigned short UnsignedShort;
 typedef float Real;
 struct NetPacketAddress

@@ -53,11 +53,7 @@ struct NetCommandListNode
 	UnsignedByte m_relay;
 };
 
-struct NetCommandList
-{
-	void *m_vptr;
-	NetCommandListNode *m_head;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class ConnectionManager
 {
@@ -98,7 +94,7 @@ void ConnectionManager::resendPendingCommands()
 {
 	if (m_list12124 != 0)
 	{
-		for (NetCommandListNode *node = m_list12124->m_head; node != 0; node = node->m_next)
+		for (NetCommandListNode *node = reinterpret_cast<NetCommandListNode *>(m_list12124->m_first); node != 0; node = node->m_next)
 			sendLocalCommand(node->m_msg, node->m_relay);
 	}
 }

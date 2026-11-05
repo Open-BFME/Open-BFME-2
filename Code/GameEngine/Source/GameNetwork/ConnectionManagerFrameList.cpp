@@ -5,18 +5,7 @@
 // at vtable +0x60 before the loop. The slot's semantic name is unproven.
 // Existing recovered list and FrameDataManager bodies establish all callees.
 
-class NetCommandList
-{
-public:
-	NetCommandList();
-	void reset();
-	void appendList(NetCommandList *);
-private:
-	void *m_vtable;
-	void *m_first;
-	void *m_last;
-	void *m_lastMessageInserted;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
