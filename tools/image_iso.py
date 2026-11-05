@@ -5,14 +5,18 @@ Called by image_report.py --image IMAGE. No compilation or execution.
 An optional --objects JSON is a list of {path, sha256, source}; paths are
 relative to that manifest. MAP object basenames must uniquely select an entry.
 Objects are evidence for extents, never substitutes for the linked bytes.
+write_object_manifest(rsp, mapfile, out, cwd=link_worktree) writes immutable
+content-named snapshots and a MAP-bound manifest for --objects.
 The Wave 0 receipt format is unchanged. Exit 1 means defects OR incomplete
 analysis, 2 invalid inputs. This is not a G2 census or a runtime receipt.
 """
 import argparse
+import bisect
 import collections
 import csv
 import hashlib
 import json
+import os
 import re
 import struct
 from pathlib import Path
@@ -68,7 +72,7 @@ class Image:
 
 
 def read_map(path, base):
-    """Include static symbols; compiler-local names are object-qualified."""
+    """Read publics and statics; Correspondence qualifies repeated/local names."""
     out = []
     for line in Path(path).read_text(encoding="latin-1").splitlines():
         f = line.split()
@@ -84,39 +88,60 @@ def read_map(path, base):
 
 
 def object_name(value):
-    return value.replace("\\", "/").rsplit("/", 1)[-1]
+    return value.replace("\\", "/").rsplit("/", 1)[-1].rsplit(":", 1)[-1]
 
 
-def attach_objects(publics, manifest):
+def source_key(value):
+    return value.replace("\\", "/").removeprefix("./")
+
+
+def attach_objects(publics, manifest, mapfile=None):
     """Only unambiguous exact MAP provider plus symbol selects an extent."""
     counts = collections.Counter()
     if manifest is None:
         counts["manifest_absent"] = 1
         return counts
+    receipt = manifest.with_suffix(manifest.suffix + ".receipt.json")
+    if receipt.exists() and mapfile is not None:
+        if json.loads(receipt.read_text())["map_sha256"] != digest(mapfile):
+            raise ValueError("manifest MAP hash mismatch")
+    else:
+        counts["manifest_not_bound_to_map"] = 1
     entries = json.loads(manifest.read_text())
     by_name = collections.defaultdict(list)
     for entry in entries:
         path = manifest.parent / entry["path"]
         if digest(path) != entry["sha256"]:
             raise ValueError("object hash mismatch: " + str(path))
-        by_name[object_name(str(path))].append((path, entry))
+        by_name[entry.get("provider", object_name(str(path)))].append((path, entry))
     parsed = {}
     for public in publics:
-        choices = by_name.get(object_name(public["object"]), [])
+        choices = by_name.get(public["object"], by_name.get(object_name(public["object"]), []))
         if len(choices) != 1:
             counts["provider_unresolved"] += 1
             continue
         path, entry = choices[0]
         if path not in parsed:
             raw = path.read_bytes()
-            sections, symbols = link_cycle.parse_coff(raw)
+            try:
+                sections, symbols = link_cycle.parse_coff(raw)
+            except (ValueError, struct.error, IndexError):
+                parsed[path] = {}
+                counts["coff_objects_unanalyzed"] += 1
+                continue
             definitions = collections.defaultdict(list)
+            starts = collections.defaultdict(set)
+            for sym in symbols.values():
+                if sym.sec > 0:
+                    starts[sym.sec].add(sym.value)
+            starts = {sec: sorted(values) for sec, values in starts.items()}
             for sym in symbols.values():
                 if sym.sec <= 0:
                     continue
                 sec = sections[sym.sec - 1]
-                end = min((s.value for s in symbols.values()
-                           if s.sec == sym.sec and s.value > sym.value), default=sec.size)
+                values = starts[sym.sec]
+                following = bisect.bisect_right(values, sym.value)
+                end = values[following] if following < len(values) else sec.size
                 definitions[sym.name].append(end - sym.value)
             parsed[path] = definitions
         lengths = set(parsed[path].get(public["name"], []))
@@ -128,23 +153,181 @@ def attach_objects(publics, manifest):
     return counts
 
 
+
+def response_inputs(response, cwd):
+    """Read explicit object/archive inputs, recursively, using link's cwd.
+    Z: is Wine's Unix root. Other drive mappings must be supplied as Unix paths.
+    No compiler, linker, archive writer or shared match-cache mutation.
+    """
+    seen, inputs = set(), []
+    def unix_path(value):
+        value = value.strip('"').replace("\\", "/")
+        if value[:3].lower() == "z:/":
+            return Path("/" + value[3:])
+        if re.match(r"^[A-Za-z]:", value):
+            raise ValueError("unsupported Wine drive in response: " + value)
+        return (cwd / value).resolve()
+    def visit(path):
+        path = path.resolve()
+        if path in seen:
+            raise ValueError("recursive response file: " + str(path))
+        seen.add(path)
+        raw = path.read_bytes()
+        text = raw.decode("utf-16") if raw.startswith((b"\xff\xfe", b"\xfe\xff")) else raw.decode("utf-8-sig")
+        for token in re.findall(r'(?:[^\s"]|"[^"]*")+', text):
+            if token.startswith("@"):
+                visit(unix_path(token[1:]))
+            else:
+                value = token.replace('"', "")
+                if value.lower().startswith(("/defaultlib:", "-defaultlib:")):
+                    value = value.split(":", 1)[1].strip('"')
+                elif re.match(r"^[-/][A-Za-z][A-Za-z0-9_]*:", value):
+                    continue
+                if value.lower().endswith((".obj", ".lib")):
+                    inputs.append(unix_path(value))
+        seen.remove(path)
+    visit(Path(response))
+    return list(dict.fromkeys(inputs))
+
+
+def write_object_manifest(response, mapfile, out, *, cwd=None):
+    """Snapshot explicit RSP objects and MAP-selected library members.
+    Call immediately after linking, before objects can change:
+      write_object_manifest(rsp, mapfile, out, cwd=link_worktree)
+    Writes out (JSON list accepted by --objects), out.receipt.json and private
+    objects/. Sidecar source path is accepted only when its object MD5 agrees.
+    Unknown source stays empty; local-name mapping then fails closed.
+    Implicit/default search-path libraries absent from RSP are counted unresolved.
+    """
+    import coffar
+    response, mapfile, out = Path(response), Path(mapfile), Path(out)
+    cwd = Path(cwd or Path.cwd()).resolve()
+    response_hash, map_hash = digest(response), digest(mapfile)
+    text = mapfile.read_text(encoding="latin-1")
+    match = re.search(r"Preferred load address is\s+([0-9a-fA-F]+)", text)
+    if not match:
+        raise ValueError("MAP has no preferred load address")
+    publics = read_map(mapfile, int(match[1], 16))
+    inputs = response_inputs(response, cwd)
+    by_basename = collections.defaultdict(list)
+    for path in inputs:
+        by_basename[object_name(str(path))].append(path)
+    entries, counts = [], collections.Counter()
+    snapshot = out.parent / (out.stem + "-objects")
+    snapshot.mkdir(parents=True, exist_ok=True)
+    archives = {}
+    for provider in sorted({p["object"] for p in publics}):
+        member_name = object_name(provider)
+        archive_name = provider.replace("\\", "/")
+        # A drive colon is not an archive/member separator.
+        if re.match(r"^[A-Za-z]:/", archive_name):
+            archive_name = archive_name[2:]
+        library, colon, member = archive_name.partition(":")
+        library = library.rsplit("/", 1)[-1]
+        is_member = bool(colon)
+        if is_member:
+            choices = by_basename.get(library, []) or by_basename.get(library + ".lib", [])
+        else:
+            choices = by_basename.get(member_name, [])
+        if len(choices) != 1:
+            counts["providers_unresolved"] += 1
+            continue
+        path = choices[0]
+        source = ""
+        if is_member:
+            if path not in archives:
+                archives[path] = coffar.read_archive(path)
+            candidates = [raw for name, raw in archives[path] if object_name(name) == object_name(member)]
+            if len(candidates) != 1:
+                counts["archive_members_unresolved"] += 1
+                continue
+            raw = candidates[0]
+        else:
+            raw = path.read_bytes()
+            sidecar = path.with_suffix(".deps.json")
+            if sidecar.exists():
+                deps = json.loads(sidecar.read_text())
+                if deps.get("object") == hashlib.md5(raw).hexdigest():
+                    source = deps.get("path", "")
+        target = snapshot / (hashlib.sha256(provider.encode() + raw).hexdigest() + ".obj")
+        target.write_bytes(raw)
+        entries.append(dict(path=os.path.relpath(target, out.parent),
+                            sha256=hashlib.sha256(raw).hexdigest(),
+                            source=source, provider=provider))
+        counts["objects_snapshotted"] += 1
+        counts["objects_source_unknown"] += not bool(source)
+    if digest(response) != response_hash or digest(mapfile) != map_hash:
+        raise ValueError("response/MAP changed during snapshot")
+    out.write_text(json.dumps(entries, indent=2) + "\n")
+    metadata = dict(response=str(response), response_sha256=response_hash,
+                    map_sha256=map_hash, counts=dict(counts),
+                    limitation="Snapshot immediately after linking; cannot prove earlier linker consumption.")
+    out.with_suffix(out.suffix + ".receipt.json").write_text(json.dumps(metadata, indent=2) + "\n")
+    return metadata
+
+
 class Correspondence:
     """Interior offsets require a COFF extent, not a gap to the next ledger name."""
-    def __init__(self, publics, addresses):
+    def __init__(self, publics, addresses, qualified=None):
         self.exact = collections.defaultdict(set)
         self.spans = []
         self.proven_folds = set()
+        self.ambiguous = set()
+        self.targets = {}
+        locations = collections.defaultdict(set)
         for p in publics:
-            targets = addresses.get(p["name"], set())
+            locations[p["name"]].add(p["rva"])
+        for p in publics:
+            repeated = len(locations[p["name"]]) > 1
+            local = bool(re.fullmatch(r"_?\$E\d+", p["name"]))
+            # Source must come from the hash-verified manifest, not a MAP guess.
+            key = (p["name"], source_key(p.get("source", "")))
+            if repeated or local:
+                targets = (qualified or {}).get(key, set()) if key[1] else set()
+                if not targets:
+                    self.ambiguous.add(p["rva"])
+            else:
+                targets = addresses.get(p["name"], set())
+            self.targets[id(p)] = set(targets)
             self.exact[p["rva"]].update(targets)
-            if p["extent"] and len(targets) == 1:
-                self.spans.append((p["rva"], p["extent"], next(iter(targets))))
+            if p["extent"]:
+                if not targets and (repeated or local):
+                    self.spans.append((p["rva"], p["extent"], None))
+                elif len(targets) == 1:
+                    self.spans.append((p["rva"], p["extent"], next(iter(targets))))
+        # Sweep once; disjoint intervals make each query one binary search.
+        events = collections.defaultdict(collections.Counter)
+        for start, size, target in self.spans:
+            if size <= 1:
+                continue
+            delta = None if target is None else target - start
+            events[start + 1][delta] += 1
+            events[start + size][delta] -= 1
+        self.interval_starts, self.intervals = [], []
+        active = collections.Counter()
+        positions = sorted(events)
+        for index, position in enumerate(positions):
+            active.update(events[position])
+            active = +active
+            if active and index + 1 < len(positions):
+                self.interval_starts.append(position)
+                self.intervals.append((positions[index + 1], tuple(active)))
+
+    def targets_for(self, public):
+        return self.targets.get(id(public), set())
 
     def candidates(self, rva):
-        exact = self.exact.get(rva, set())
-        interior = {target + rva - start for start, size, target in self.spans
-                    if start < rva < start + size}
-        return exact | interior
+        if rva in self.ambiguous:
+            return set()
+        hits = set(self.exact.get(rva, ()))
+        index = bisect.bisect_right(self.interval_starts, rva) - 1
+        if index >= 0:
+            end, deltas = self.intervals[index]
+            if rva < end:
+                if None in deltas:
+                    return set()
+                hits.update(rva + delta for delta in deltas)
+        return hits
 
     def prove_folds(self, retail, sizes):
         # Whole retail row bytes must be identical, including address operands.
@@ -166,20 +349,26 @@ class Correspondence:
 
 
 class Checker:
-    def __init__(self, ours, retail, publics, addresses):
+    def __init__(self, ours, retail, publics, addresses, qualified=None):
         self.ours, self.retail, self.publics = ours, retail, publics
         self.addresses = addresses
-        self.mapping = Correspondence(publics, addresses)
+        self.mapping = Correspondence(publics, addresses, qualified)
         self.counts = collections.Counter({key: 0 for key in (
             "pointers_equal", "wrong_pointers", "pointers_unchecked", "globals_compared",
             "globals_extent_unanalyzed", "globals_retail_extent_unanalyzed",
             "vtable_slots_equal", "vtable_slots_wrong", "vtable_slots_unanalyzed",
             "no_object_retail_nonzero", "storage_undersized", "storage_split",
             "storage_unanalyzed", "initializers_unanalyzed")})
+        self.counts["ambiguous_map_locations"] = len(self.mapping.ambiguous)
         self.defects = []
         self.by_name = collections.defaultdict(list)
         for p in publics:
             self.by_name[p["name"]].append(p)
+        self.by_retail = collections.defaultdict(list)
+        for p in publics:
+            for target in self.mapping.targets_for(p):
+                self.by_retail[target].append(p)
+        self.retail_addresses = sorted(self.by_retail)
 
     def defect(self, family, rva, p, evidence):
         self.counts[family] += 1
@@ -187,8 +376,9 @@ class Checker:
                                  name=p.get("name", ""), object=p.get("object", ""),
                                  source=p.get("source", ""), evidence=evidence))
 
-    def winner(self, names):
-        found = [p for n in names for p in self.by_name.get(n, [])]
+    def winner(self, names, retail_rva=None):
+        found = [p for n in names for p in self.by_name.get(n, [])
+                 if retail_rva is None or retail_rva in self.mapping.targets_for(p)]
         locations = {p["rva"] for p in found}
         if len(locations) == 1:
             return max(found, key=lambda p: p["extent"] or 0)
@@ -276,9 +466,14 @@ class Checker:
         a, b = actual - self.ours.base, expected - self.retail.base
         af, bf = self.forwarder(self.ours, a), self.forwarder(self.retail, b)
         if af or bf:
-            if not af or not bf or af[1] != bf[1]:
-                return False if af and bf else None
-            a, b = af[0], bf[0]
+            at, adjust_a = af if af else (a, 0)
+            bt, adjust_b = bf if bf else (b, 0)
+            mapped = self.mapping.resolve(at, bt)
+            if mapped is None:
+                return None
+            if mapped != bt or adjust_a != adjust_b:
+                return False
+            a, b = at, bt
         mapped = self.mapping.resolve(a, b)
         if mapped is None:
             return None
@@ -293,9 +488,13 @@ class Checker:
         for row in rows:
             rva, size = int(row["address"], 16), int(row["size"] or 0)
             names = {row["name"], *(row.get("names") or "").split(";")} - {""}
-            p = self.winner(names)
+            kind = row["kind"]
+            self.counts[kind + "_ledger_entries"] += 1
+            if kind not in ("vtable", "global", "string", "wstring", "float"):
+                self.counts[kind + "_unanalyzed"] += 1
+                continue
+            p = self.winner(names, rva)
             retail = self.retail.read(rva, size)
-            self.counts[row["kind"] + "_ledger_entries"] += 1
             if p is None:
                 family = "mapping_ambiguous" if any(self.by_name.get(n) for n in names) else "no_object_retail_nonzero"
                 if retail and any(retail) or family == "mapping_ambiguous":
@@ -331,6 +530,11 @@ class Checker:
             if ours is None:
                 self.counts["globals_bytes_unanalyzed"] += 1
                 continue
+            if kind in ("string", "wstring", "float"):
+                self.counts[kind + "_compared"] += 1
+                if ours != retail:
+                    self.defect(kind + "_contents", rva, p, f"Bytes differ over retail ledger extent {size}")
+                continue
             masked = set()
             for offset in range(size - 3):
                 ar, br = p["rva"] + offset, rva + offset
@@ -353,6 +557,11 @@ class Checker:
             self.counts["globals_compared"] += 1
             if differing:
                 self.defect("global_contents", rva, p, f"{len(differing)} non-pointer bytes differ over retail extent {size}; first +{differing[0]}")
+
+        for kind in ("global", "string", "wstring", "float"):
+            self.counts[kind + "_unanalyzed"] = (
+                self.counts[kind + "_ledger_entries"] -
+                self.counts["globals_compared" if kind == "global" else kind + "_compared"])
 
     def initializers(self):
         expected, actual = self.retail.initializers(), self.ours.initializers()
@@ -379,7 +588,7 @@ class Checker:
         """Evidence is a proven base+offset store/access, never a ledger gap."""
         for e in evidence:
             self.counts["storage_accesses_proven"] += 1
-            p = self.winner({e["name"]})
+            p = self.winner({e["name"]}, e["rva"])
             if p is None or p["extent"] is None:
                 self.counts["storage_unanalyzed"] += 1
                 continue
@@ -387,11 +596,12 @@ class Checker:
             if end > p["extent"]:
                 self.defect("storage_undersized", e["rva"], p,
                             f"{e['evidence']}; access ends +{end}, winning extent {p['extent']}")
-            for q in self.publics:
-                targets = self.addresses.get(q["name"], set())
-                for target in targets:
-                    offset = target - e["rva"]
-                    if 0 < offset < end and q["rva"] != p["rva"] + offset:
+            first = bisect.bisect_right(self.retail_addresses, e["rva"])
+            last = bisect.bisect_left(self.retail_addresses, e["rva"] + end)
+            for target in self.retail_addresses[first:last]:
+                offset = target - e["rva"]
+                for q in self.by_retail[target]:
+                    if q["rva"] != p["rva"] + offset:
                         self.defect("storage_split", target, q,
                                     f"{e['evidence']}; field of {e['name']} +{offset} at separate linked address")
 
@@ -470,15 +680,18 @@ def main(argv=None):
     if receipt["kind"] == "real" and receipt["stubbed"]:
         parser.error("real receipt has stubs")
     publics = read_map(args.map, ours.base)
-    object_counts = attach_objects(publics, args.objects)
+    object_counts = attach_objects(publics, args.objects, args.map)
     with (build.ROOT / "reverse/data_ledger.csv").open(newline="") as f:
-        rows = [r for r in csv.DictReader(f) if r["kind"] in ("vtable", "global")]
+        rows = list(csv.DictReader(f))
     addresses = collections.defaultdict(set)
     sizes = {}
+    qualified = collections.defaultdict(set)
     names = {p["name"] for p in publics}
     for row in rows:
         for name in {row["name"], *(row.get("names") or "").split(";")} - {""}:
             addresses[name].add(int(row["address"], 16))
+            if row.get("source"):
+                qualified[(name, source_key(row["source"]))].add(int(row["address"], 16))
     # Stream the code ledger; retain only symbols present in this MAP.
     with (build.ROOT / "reverse/functions.csv").open(newline="") as f:
         for row in csv.DictReader(f):
@@ -492,7 +705,10 @@ def main(argv=None):
             addresses[symbol].add(rva)
             addresses[row["name"]].add(rva)
             sizes[rva] = size
-    checker = Checker(ours, retail, publics, addresses)
+            if row.get("source"):
+                for name in (symbol, row["name"]):
+                    qualified[(name, source_key(row["source"]))].add(rva)
+    checker = Checker(ours, retail, publics, addresses, qualified)
     checker.ledger(rows, sizes)
     checker.initializers()
     evidence = storage_evidence(retail, rows)
