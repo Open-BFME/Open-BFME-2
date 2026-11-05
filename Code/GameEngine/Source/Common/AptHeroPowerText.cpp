@@ -395,23 +395,15 @@ Rva00582FC1::~Rva00582FC1()
 
 // ?processProgress@AptLoadScreen@@UAEXHH@Z @0x0043A15D 99B: SetBarTo on the panel's
 // Apt owner (+0x8C) with the slot's id from the table at +0xB0 and the
-// percentage, both formatted by sprintf "%d".
-class AptLoadScreen
-{
-public:
-	virtual void processProgress(int playerSlot, int completionPercent);
-private:
-	char m_pad04[0x8C - 4];
-	void *m_owner;				// +0x8C
-	char m_pad90[0x20];
-	int m_ids[1];				// +0xB0
-};
+// percentage, both formatted by sprintf "%d". The canonical header keeps the
+// owner handle as field8C and the id table as fieldB0.
+#include "../../Include/GameClient/AptLoadScreen.h"
 
 void AptLoadScreen::processProgress(int playerSlot, int completionPercent)
 {
 	char idText[64];
 	char percentText[64];
-	sprintf(idText, "%d", m_ids[playerSlot]);
+	sprintf(idText, "%d", fieldB0[playerSlot]);
 	sprintf(percentText, "%d", completionPercent);
-	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_owner, "SetBarTo", 2, idText, percentText, 0, 0, 0);
+	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(field8C, "SetBarTo", 2, idText, percentText, 0, 0, 0);
 }
