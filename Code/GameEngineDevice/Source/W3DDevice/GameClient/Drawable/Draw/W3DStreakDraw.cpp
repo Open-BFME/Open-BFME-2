@@ -120,16 +120,6 @@ public:
 };
 class RTS3DScene : public BfmeStreakVtable {};
 class W3DDisplay { public: static RTS3DScene *m_3DScene; };
-class W3DStreakDraw : public DrawModule
-{
-public:
-	W3DStreakDraw(Thing *thing, const ModuleData *moduleData);
-	virtual ~W3DStreakDraw();
-
-private:
-	Rva001684D6 *m_streak;
-	RefCountPtr<TextureClass> m_texture;
-};
 class CameraMarker {
 public:
 	CameraMarker *m_next;
@@ -196,6 +186,10 @@ struct W3DStreakWeatherVec
 };
 #include "../../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
 #include "Common/Snapshot.h"
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
+#include "../../../../../../GameEngine/Include/Common/SidesList.h"
 
 class FXList
 {
@@ -242,6 +236,26 @@ typedef _STL::pair<const unsigned int, AsciiString> UnsignedAsciiPair;
 // The genuine pair copy folds onto CF475; TreeKeyA7876 keeps its own identity.
 typedef _STL::pair<int, AsciiString> MutableAsciiPair;
 
+class Rva00168690
+{
+public:
+	void rva00168690(const Vector3 &v, float f);
+	void rva001686BA(int index);
+};
+
+class Rva001680A6
+{
+public:
+	void rva001680A6(int index, void *src, float f);
+	void rva001680ED(int index, void *dst, float *out);
+};
+
+class Rva00167F15FloatField
+{
+public:
+	void set(float newValue);
+};
+
 class W3DStreakDrawModuleData : public Snapshot
 {
 public:
@@ -267,6 +281,24 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class W3DStreakDraw : public DrawModule
+{
+public:
+	W3DStreakDraw(Thing *thing, const ModuleData *moduleData);
+public:
+	virtual ~W3DStreakDraw();
+private:
+	Rva001684D6 *m_streak;
+private:
+	RefCountPtr<TextureClass> m_texture;
+public:
+	void rva000D0091();
+public:
+	void rva000D0459(void *a, void *b, void *c);
+public:
+	void rva000D0461(void *a);
+};
+
 // tu-skeleton: 0x000CFF4C 51B ?Rva000CFF4C@W3DStreakDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawRva000CFF4C.cpp (not merged yet)
 
 // tu-skeleton: 0x000CFFD3 115B ??1W3DStreakDraw@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
@@ -275,7 +307,113 @@ public:
 
 // tu-skeleton: 0x000D004C 69B ?getModuleNameKey@W3DStreakDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DStreakDrawPoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x000D0091 534B ?rva000D0091@W3DStreakDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp
+
+// ?rva000D0091@W3DStreakDraw@@QAEXXZ @0x000D0091 534B
+// W3DStreakDraw streak body. Reference: BFME1
+// reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp
+// (streakBody0077D6B0). Same shape: null-guarded streak, rope position,
+// count-driven Add/Get/Set/Delete point flow with length/segment pruning,
+// then color/opacity tail. BFME2 differences measured from retail: tail uses
+// Drawable::rva00272C9E(0) opacity with Additive-gated color scaling and the
+// Rva00167EF8 vector plus Rva00167F15FloatField opacity stores; callees are
+// the rowed BFME2 names.
+
+void W3DStreakDraw::rva000D0091()
+{
+	const W3DStreakDrawModuleData *data = (const W3DStreakDrawModuleData *)m_moduleData;
+	if (m_streak == 0)
+		return;
+	const Vector3 *position = (const Vector3 *)((Drawable *)m_drawable)->getPosition();
+	Vector3 point;
+	float pointWidth;
+	if (((SidesList *)m_streak)->getNumSkirmishSides() == 0)
+	{
+		((Rva00168690 *)m_streak)->rva00168690(*position, 0.0f);
+	}
+	else
+	{
+		if (((SidesList *)m_streak)->getNumSkirmishSides() == 1)
+		{
+			((Rva001680A6 *)m_streak)->rva001680ED(0, &point, &pointWidth);
+			float deltaX = position->X - point.X;
+			float deltaY = position->Y - point.Y;
+			float deltaZ = position->Z - point.Z;
+			float square = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
+			float distance;
+			__asm
+			{
+				fld square
+				fsqrt
+				fstp distance
+			}
+			pointWidth = distance + pointWidth;
+			((Rva00168690 *)m_streak)->rva00168690(*position, pointWidth);
+		}
+		else
+		{
+			((Rva001680A6 *)m_streak)->rva001680ED(((SidesList *)m_streak)->getNumSkirmishSides() - 2, &point, &pointWidth);
+			float deltaX = position->X - point.X;
+			float deltaY = position->Y - point.Y;
+			float deltaZ = position->Z - point.Z;
+			float square = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
+			float distance;
+			__asm
+			{
+				fld square
+				fsqrt
+				fstp distance
+			}
+			pointWidth = distance + pointWidth;
+			((Rva001680A6 *)m_streak)->rva001680A6(((SidesList *)m_streak)->getNumSkirmishSides() - 1, (void *)position, pointWidth);
+			float limit = data->m_length / (float)(unsigned int)data->m_numSegments;
+			if (limit < distance)
+				((Rva00168690 *)m_streak)->rva00168690(*position, pointWidth);
+			while (((SidesList *)m_streak)->getNumSkirmishSides() >= 2)
+			{
+				float pruneWidth;
+				((Rva001680A6 *)m_streak)->rva001680ED(1, &point, &pruneWidth);
+				if (!(pointWidth - data->m_length > pruneWidth))
+					break;
+				((Rva00168690 *)m_streak)->rva001686BA(0);
+			}
+		}
+	}
+	pointWidth = ((Drawable *)m_drawable)->rva00272C9E(0);
+	if (data->m_additive)
+	{
+		point.X = pointWidth * data->m_color[0];
+		point.Y = pointWidth * data->m_color[1];
+		point.Z = pointWidth * data->m_color[2];
+		((Rva00167EF8 *)m_streak)->rva00167EF8((Rva00167EF8Rec &)point);
+		((Rva00167F15FloatField *)m_streak)->set(1.0f);
+	}
+	else
+	{
+		point.X = data->m_color[0];
+		point.Y = data->m_color[1];
+		point.Z = data->m_color[2];
+		((Rva00167EF8 *)m_streak)->rva00167EF8((Rva00167EF8Rec &)point);
+		((Rva00167F15FloatField *)m_streak)->set(pointWidth);
+	}
+}
+
+// ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z @0x000D0459 8B and
+// ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z @0x000D0461 8B, right after the
+// class's scalar deleting destructor: slots 38 (three stack arguments) and 11
+// (one) of the W3DStreakDraw vtable. Both ignore their arguments and rebuild
+// the streak through the body above. Address-named; argument types unknown.
+void W3DStreakDraw::rva000D0459(void *, void *, void *)
+{
+	rva000D0091();
+}
+
+void W3DStreakDraw::rva000D0461(void *)
+{
+	rva000D0091();
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp
 
@@ -396,16 +534,6 @@ void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
     new (dest) TreeKey00242F5E(source);
 }
 
-// tu-skeleton: 0x000D043D 28B ??_GW3DStreakDraw@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0459 8B ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0461 8B ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
-
-// tu-skeleton: 0x000D04E1 63B ??1W3DStreakWeatherVec@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0520 92B ??0W3DStreakDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor2.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp
 
 //
@@ -428,6 +556,12 @@ void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
 W3DStreakDrawModuleData::~W3DStreakDrawModuleData()
 {
 }
+
+// tu-skeleton: 0x000D043D 28B ??_GW3DStreakDraw@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D04E1 63B ??1W3DStreakWeatherVec@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0520 92B ??0W3DStreakDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor2.cpp (not merged yet)
 
 // tu-skeleton: 0x000D06C6 96B ?Rva000D06C6Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
 

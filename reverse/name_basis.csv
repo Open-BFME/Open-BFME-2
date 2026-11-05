@@ -5458,9 +5458,9 @@ param,ParserWrap::a2,ParserWrap::buffer,inferred,agree:nl-099205bd3726,Code/Game
 param,ParserWrap::a3,ParserWrap::bufferSize,inferred,agree:nl-297f9e7b01d9,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_LoadXML.cpp,
 local,Rva003F71D4Metric::v00::d,Rva003F71D4Metric::v00::delta,inferred,agree:nl-b83749aa309e,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp,0x003F71D4
 local,Rva003F71D4Metric::v01::d,Rva003F71D4Metric::v01::delta,inferred,agree:nl-10cb87c3d470,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp,0x003F71D4
-local,W3DStreakDraw::rva000D0091::x,W3DStreakDraw::rva000D0091::deltaX,inferred,agree:nl-e64b1a440402,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp,0x000D0091
-local,W3DStreakDraw::rva000D0091::y,W3DStreakDraw::rva000D0091::deltaY,inferred,agree:nl-29ec4ac43b14,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp,0x000D0091
-local,W3DStreakDraw::rva000D0091::z,W3DStreakDraw::rva000D0091::deltaZ,inferred,agree:nl-5ca569ff4f78,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp,0x000D0091
+local,W3DStreakDraw::rva000D0091::x,W3DStreakDraw::rva000D0091::deltaX,inferred,agree:nl-e64b1a440402,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp,0x000D0091
+local,W3DStreakDraw::rva000D0091::y,W3DStreakDraw::rva000D0091::deltaY,inferred,agree:nl-29ec4ac43b14,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp,0x000D0091
+local,W3DStreakDraw::rva000D0091::z,W3DStreakDraw::rva000D0091::deltaZ,inferred,agree:nl-5ca569ff4f78,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp,0x000D0091
 local,Rva000D3A17::~Rva000D3A17::p,Rva000D3A17::~Rva000D3A17::resource,inferred,agree:nl-182de14c0133,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp,0x000D3996
 local,Rva001118ECResampleRgb555::c,Rva001118ECResampleRgb555::channel,inferred,agree:nl-8dbb97f7cc5e,Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp,0x001118EC
 param,W3DTerrainBackground::rva00113C07::x,W3DTerrainBackground::rva00113C07::xOffset,inferred,agree:nl-bc0c95ca077d,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundRva00113C07.cpp,0x00113C07
