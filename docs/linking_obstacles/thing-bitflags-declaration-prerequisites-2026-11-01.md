@@ -30,3 +30,5 @@ Twenty-one more Thing consumers pass owning acceptance and retire their queue ke
 2026-11-05: PlayerBattlePlanBonuses adopts Thing with its Object prefix adjusted to the canonical 0x60 base; the already-adopted WoTR tactic also passes acceptance, retiring two queue keys and preserving 1,046 census-linked bytes in preview. [Scope and checks](../../reverse/attempt_support/thing-battleplan-header-20261105-codexb4.md).
 
 Five further Thing consumers pass owning acceptance and retire their queue keys, including the hero-camera position view; the overlapping battle-plan and tactic adoptions are retained from upstream, and eighteen other trials remain unchanged. [Scope and verification](../../reverse/attempt_support/thing-header-adoption-20261105-codex.md).
+
+2026-11-05: Seven contain/bone-transform consumers adopt canonical Thing and retire seven queue keys; 24/24 rows match, seven link previews preserve 4,794 bytes, and the 26,379-object audit finds no lost dependency. [Scope and provider evidence](../../reverse/attempt_support/thing-contain-header-20261105-codex2.md).

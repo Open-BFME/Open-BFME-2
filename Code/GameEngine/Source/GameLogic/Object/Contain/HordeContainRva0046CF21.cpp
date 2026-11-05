@@ -68,17 +68,10 @@ public:
 	AsciiString get() const;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	void setTransformMatrix(const Matrix3D *mx);
-	const ThingTemplate *getTemplate() const { return m_template; }
+#include "../../../Common/Thing/thing.h"
 
-	void *m_vtbl;	// +0x00
-	const ThingTemplate *m_template;	// +0x04
-	char m_transform[0x30];	// +0x08
-};
+static inline const ThingTemplate *containThingTemplate(const Thing *thing) { return thing->m_template; }
+
 
 class Object : public Thing
 {
@@ -92,7 +85,7 @@ public:
 	int rva0028B511() const;
 	void setLayer(PathfindLayerEnum layer);
 
-	char pad038[0x78 - 0x38];
+	char pad060[0x78 - 0x60];
 	ObjectID m_producerID;	// +0x78
 	char pad07C[0x304 - 0x7C];
 	Team *m_team;	// +0x304
@@ -254,7 +247,7 @@ void HordeContain::rva0046CF21()
 		ExitInterface *exitInterface = producer->getObjectExitInterface();
 		if (exitInterface)
 		{
-			ExitDoorType door = exitInterface->reserveDoorForExit(newObj->getTemplate(), newObj);
+			ExitDoorType door = exitInterface->reserveDoorForExit(containThingTemplate(newObj), newObj);
 			if (door != -1)
 			{
 				exitInterface->exitObjectViaDoor(newObj, door);
@@ -264,7 +257,7 @@ void HordeContain::rva0046CF21()
 	}
 	if (!exited)
 	{
-		newObj->setTransformMatrix((const Matrix3D *)obj->m_transform);
+		newObj->setTransformMatrix(&obj->m_transform);
 		newObj->setLayer((PathfindLayerEnum)obj->rva0028B511());
 	}
 

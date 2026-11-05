@@ -37,10 +37,8 @@ namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_t
 namespace _STL { template <> pair<_Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::iterator, bool> _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::insert_unique(const pair<const int, int> &); }
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 struct Rva00477BA2Vector;
-class Matrix3D {public:__forceinline Matrix3D(){} inline Rva00477BA2Vector Get_X_Vector() const; Vector4 rows[3];};
 struct Rva00477BA2Vector {float x,y,z; Rva00477BA2Vector(float xx,float yy,float zz):x(xx),y(yy),z(zz){} void operator*=(float n){x*=n;y*=n;z*=n;} };
-inline Rva00477BA2Vector Matrix3D::Get_X_Vector() const {return Rva00477BA2Vector(rows[0].X,rows[1].X,rows[2].X);}
-class Thing {public:void setTransformMatrix(const Matrix3D*);};
+#include "../../../../Common/Thing/thing.h"
 enum DamageType{DAMAGE=8}; enum DeathType{DEATH=0};
 class Rva003909FAObj
 {
@@ -57,9 +55,8 @@ class Object: public Thing {public:
  int getMultiLogicalBonePosition(const char*,int,Coord3D*,Matrix3D*,bool,int)const;
  bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*)const;
  void rva0028AE6D(); void kill(DamageType,DeathType);
- const Matrix3D*getTransformMatrix()const{return &matrix;}
- char pad0[8]; Matrix3D matrix; Coord3D position; float orientation;
- char pad48[0x74-0x48]; int id;
+ const Matrix3D*getTransformMatrix()const{return &m_transform;}
+ char pad60[0x74-0x60]; int id;
  char pad78[0x10C-0x78]; Rva00477BA2Flags flags;
  char pad158[0x25C-0x158]; PhysicsBehavior*physics;
 };
@@ -181,7 +178,7 @@ void HordeTransportContain::rva00477BA2(OldContain*old,Object*object){
  PhysicsBehavior*physics=object->physics;
  if(physics){
   const Matrix3D*matrix3D=object->getTransformMatrix();
-  Rva00477BA2Vector direction(matrix3D->rows[0].X,matrix3D->rows[1].X,matrix3D->rows[2].X);
+  Rva00477BA2Vector direction(matrix3D->Row[0].X,matrix3D->Row[1].X,matrix3D->Row[2].X);
   direction.z=1.0f;
   float magnitude=(float)GetGameLogicRandomValue(3,8,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\HordeContain\\HordeTransportContain.cpp",702);
   direction*=magnitude;

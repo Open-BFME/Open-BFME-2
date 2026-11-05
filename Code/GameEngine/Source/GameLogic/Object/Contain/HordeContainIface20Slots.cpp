@@ -60,11 +60,7 @@ public:
  unsigned char m_pad000[0x43C];
  unsigned char m_43C;
 };
-class Thing
-{
-public:
- Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class Rva00469E03Template
 {
 public:
@@ -96,9 +92,7 @@ public:
  void rva0028AE6D();
  void rva0029130C(int mode);
  Object *rva002931F5(bool flag);
- unsigned char m_pad000[4];
- const Rva00469E03Template *m_template;
- unsigned char m_pad008[0x10C - 8];
+ unsigned char m_pad060[0x10C - 0x60];
  Rva00469E03Bits m_conditions;
  unsigned char m_pad15C[0x250 - 0x15C];
  ContainModuleInterface *m_contain; // +0x250
@@ -203,7 +197,7 @@ bool HordeContain::rva00469602()
 void HordeContain::onRemoving(Object *object)
 {
  OpenContain::onRemoving(object);
- if ((object->m_template->m_109 & 8) || (object->m_template->m_113 & 0x24))
+ if ((((const Rva00469E03Template *)object->m_template)->m_109 & 8) || (((const Rva00469E03Template *)object->m_template)->m_113 & 0x24))
   object->setStatus(static_cast<ObjectStatusTypes>(0x26), false);
  const unsigned int *conditions = object->m_conditions.word(7);
  if (*conditions & 0x40000000U)

@@ -140,19 +140,10 @@ public:
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 
-class Thing
-{
-public:
-    const ThingTemplate *getTemplate() const { return m_template; }
-    void setPosition(const Coord3D *pos);
-    const Coord3D *getPosition() const { return &m_pos; }
-    const Matrix3D *getTransformMatrix() const { return &m_transform; }
-private:
-    void *m_vtable;
-    const ThingTemplate *m_template; // +0x04
-    Matrix3D m_transform; // +0x08
-    Coord3D m_pos; // +0x38
-};
+#include "../../../Common/Thing/thing.h"
+
+static inline const ThingTemplate *containThingTemplate(const Thing *thing) { return thing->m_template; }
+
 
 class ConditionBits
 {
@@ -180,7 +171,7 @@ public:
     BodyModuleInterface *getBodyModule() const { return m_body; }
     PhysicsBehavior *getPhysics() const { return m_physics; }
     __declspec(dllimport) __forceinline void setSafeOcclusionFrame(unsigned int frame) { m_safeOcclusionFrame = frame; }
-    unsigned char m_pad48[0x10C - 0x44];
+    unsigned char m_pad60[0x10C - 0x60];
     ConditionBits m_conditionBits; // +0x10C
     unsigned char m_pad11C[0x254 - 0x11C];
     BodyModuleInterface *m_body; // +0x254
@@ -350,7 +341,7 @@ void GarrisonContain::onRemoving(Object *obj)
         m_hideGarrisonedStateFromNonallies = false;
     }
 
-    obj->setSafeOcclusionFrame(TheGameLogic->getFrame() + (obj->getTemplate()->m_occlusionDelay));
+    obj->setSafeOcclusionFrame(TheGameLogic->getFrame() + (containThingTemplate(obj)->m_occlusionDelay));
 
     recalcApparentControllingPlayer();
 
@@ -382,7 +373,7 @@ void GarrisonContain::onRemoving(Object *obj)
                 force.z = dir.z;
                 ((Rva003909FAObj *)physics)->consume(&force, 0, 0);
             }
-            if (((obj->getTemplate()->m_kindof[2] & (1U << 26)) != 0))
+            if (((containThingTemplate(obj)->m_kindof[2] & (1U << 26)) != 0))
             {
                 DamageInfo info;
                 info.m_damageType = DAMAGE_UNRESISTABLE;

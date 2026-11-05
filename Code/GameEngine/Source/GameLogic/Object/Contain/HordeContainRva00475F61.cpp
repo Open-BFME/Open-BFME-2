@@ -75,16 +75,8 @@ class Rva0046E6EA { public: bool rva0046E6EA(Rva0046E6EAObject *,const Rva0046E6
 #define COORD3D_INLINE_ASSIGN
 #include "Lib/Coord3DInline.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-class Thing {
-public:
-    const Coord3D *getUnitDirectionVector2D() const;
-    void setPosition(const Coord3D *);
-    void setTransformMatrix(const Matrix3D *);
-    void *vtbl;
-    const ThingTemplate *m_template;
-    float m_transform[12];
-    Coord3D m_position;
-};
+#include "../../../Common/Thing/thing.h"
+
 enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
 enum WeaponSetType { WEAPONSET_NONE=0 };
 enum CommandSourceType { CMD_NONE=0 };
@@ -98,7 +90,7 @@ public:
     void bfmeTransferReplacementState(Object *);
     void *rva0028C197() const;
     void setWeaponSetFlag(WeaponSetType);
-    char pad44[0x74-0x44];
+    char pad60[0x74-0x60];
     ObjectID m_id;
     char pad78[0xB8-0x78];
     float m_b8;
@@ -617,7 +609,7 @@ void Rva00475F61Iface::rva00475F61(_STL::vector<Object *> &out)
     out.erase(out.begin(),out.end());
     slot122();
     Object *self=getObject();
-    Matrix3D transform(*(const Matrix3D *)self->m_transform);
+    Matrix3D transform(self->m_transform);
     _STL::vector<PooledMemberList> groups;
     groups.erase(groups.begin(),groups.end());
     MemberList members;
@@ -669,7 +661,7 @@ void Rva00475F61Iface::rva00475F61(_STL::vector<Object *> &out)
         if(replacement) {
             if(self->testStatus((ObjectStatusTypes)0x3E)) self->bfmeTransferReplacementState(replacement);
             Coord3D pos;
-            pos=getObject()->m_position;
+            pos=getObject()->m_cachedPos;
             pos.add(&offset);
             offset.scale(-1.0f);
             ((Rva0046E6EA *)((char *)this-0x11C))->rva0046E6EA((Rva0046E6EAObject *)replacement,

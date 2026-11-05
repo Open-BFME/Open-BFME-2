@@ -15,16 +15,13 @@ public:
 	void setSelectable(bool selectable);
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	unsigned char m_pad[0x74];
-	int m_74; // +0x74 ID
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
+public:
+	unsigned char m_pad60[0x74 - 0x60];
+	int m_74; // +0x74 ID
 };
 
 class BfmeThingDSU
