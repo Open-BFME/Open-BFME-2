@@ -446,11 +446,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 class StructureToppleUpdate : public UpdateModule, public DieModuleInterface
 {

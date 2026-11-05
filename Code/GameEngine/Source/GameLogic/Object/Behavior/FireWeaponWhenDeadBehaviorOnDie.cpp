@@ -98,11 +98,7 @@ extern WeaponStore *TheWeaponStore;
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 // The +0x2C damage record; its assignment is rowed at 0x003427DD.
 class Rva003427DD

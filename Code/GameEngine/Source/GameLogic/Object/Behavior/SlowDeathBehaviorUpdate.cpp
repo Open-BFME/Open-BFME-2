@@ -443,11 +443,7 @@ private:
 };
 
 class DamageInfo;
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 class SlowDeathBehaviorInterface
 {
 public:

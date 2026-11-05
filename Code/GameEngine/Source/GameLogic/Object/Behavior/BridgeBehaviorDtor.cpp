@@ -55,12 +55,7 @@ public:
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
 };
 
-class DieModuleInterface
-{
-public:
-	// ZH GameLogic/Module/DieModule.h: onDie takes the damage info.
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 class PoolMember
 {

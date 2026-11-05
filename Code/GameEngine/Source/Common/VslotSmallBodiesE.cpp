@@ -91,11 +91,7 @@ enum SleepyUpdatePhase;
 
 #include "../../Include/GameLogic/Module/UpgradeMux.h"
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
+#include "../../Include/GameLogic/Module/DieModuleInterface.h"
 
 // The +0x2C damage record; its ctor is rowed at 0x00263895.
 class Rva00263895Member
