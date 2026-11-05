@@ -140,19 +140,7 @@ struct Rva003AFA0BVector
 	Real z;
 };
 
-class ParticleSystem
-{
-public:
-	unsigned rva001F3C6B();
- Rva003AFA0BVector rva001F54C5(const Rva003AFA0BVector *pos);
-	const GameClientRandomVariable &getLifetime() const { return *(const GameClientRandomVariable *)m_lifetime; }
-private:
-	unsigned char m_pad00[0xc];
- int type0C;
- unsigned char gap10[4];
-	unsigned char m_lifetime[0x14];		// +0x14
-};
-ParticleSystem *Make001FCBD7();
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 class Rva001F553F
 {
@@ -288,7 +276,7 @@ void Rva003B0401::rva003B0869(Int unused, Int count)
 					continue;
 
 				Rva003AFA0BVector velocity = m_system->rva001F54C5((const Rva003AFA0BVector *)&pos);
-				UnsignedInt lifetime = (UnsignedInt)m_system->getLifetime().getValue();
+				UnsignedInt lifetime = (UnsignedInt)m_system->m_lifetime.getValue();
 				Int slot = m_freeSlots.top();
 				m_freeSlots.pop();
 
@@ -376,4 +364,4 @@ void GPUParticleSystemStorageModule::rva003B07B8(){
 // Storage ctor3B0454 invokes this on its particle-system handle. Type8
 // selects the TriggerManager +90 count; the count meaning remains unproven.
 // Reuse the home global owner instead of the old conflicting data aliases.
-unsigned ParticleSystem::rva001F3C6B(){ unsigned result=128; if(type0C==8&&TheTriggerManager){unsigned n=3*TheTriggerManager->count90;if(n>0){if(n>2048)n=2048;result=n;}}return result;}
+unsigned int ParticleSystem::rva001F3C6B(){ unsigned result=128; if((Int)m_particleType==8&&TheTriggerManager){unsigned n=3*TheTriggerManager->count90;if(n>0){if(n>2048)n=2048;result=n;}}return result;}
