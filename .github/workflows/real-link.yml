@@ -106,6 +106,39 @@ jobs:
       - name: Compare the objects with retail
         continue-on-error: true
         run: python tools/exit_link.py --image-report
+      - name: Analyze real linked image
+        if: always()
+        continue-on-error: true
+        shell: python
+        run: |
+          import subprocess
+          import sys
+          from pathlib import Path
+          out = Path('build/exit_link')
+          if (out / 'exit.exe').exists():
+              subprocess.run([sys.executable, 'tools/image_report.py',
+                              '--image', str(out / 'exit.exe'), '--map', str(out / 'exit.map'),
+                              '--objects', str(out / 'image_objects.json'),
+                              '--out', str(out / 'linked_report')], check=True)
+      - name: Stage real image
+        if: always()
+        shell: python
+        run: |
+          import json
+          import shutil
+          from pathlib import Path
+          out = Path('build/exit_link')
+          receipt = out / 'image_receipt.json'
+          if receipt.exists() and json.loads(receipt.read_text())['kind'] == 'real':
+              (out / 'image').mkdir(exist_ok=True)
+              for name in ('exit.exe', 'exit.map', 'image_receipt.json'):
+                  shutil.copy2(out / name, out / 'image' / name)
+              for path in out.glob('image_objects*'):
+                  target = out / 'image' / path.name
+                  if path.is_dir():
+                      shutil.copytree(path, target, dirs_exist_ok=True)
+                  else:
+                      shutil.copy2(path, target)
       - name: Publish the result
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -120,6 +153,60 @@ jobs:
             build/exit_link/link.log
             build/exit_link/run.log
             build/exit_link/image_report.json
+            build/exit_link/image/
+            build/exit_link/linked_report/
+
+      - name: Diagnostic link
+        if: always()
+        continue-on-error: true
+        run: python tools/exit_link.py --diagnostic
+      - name: Analyze diagnostic linked image
+        if: always()
+        continue-on-error: true
+        shell: python
+        run: |
+          import subprocess
+          import sys
+          from pathlib import Path
+          out = Path('build/diagnostic_link')
+          if (out / 'exit.exe').exists():
+              subprocess.run([sys.executable, 'tools/image_report.py',
+                              '--image', str(out / 'exit.exe'), '--map', str(out / 'exit.map'),
+                              '--objects', str(out / 'image_objects.json'),
+                              '--out', str(out / 'linked_report')], check=True)
+      - name: Stage diagnostic image
+        if: always()
+        continue-on-error: true
+        shell: python
+        run: |
+          import json
+          import shutil
+          from pathlib import Path
+          out = Path('build/diagnostic_link')
+          receipt = out / 'image_receipt.json'
+          if receipt.exists() and json.loads(receipt.read_text())['kind'] == 'diagnostic':
+              (out / 'image').mkdir(exist_ok=True)
+              for name in ('exit.exe', 'exit.map', 'image_receipt.json'):
+                  shutil.copy2(out / name, out / 'image' / name)
+              for path in out.glob('image_objects*'):
+                  target = out / 'image' / path.name
+                  if path.is_dir():
+                      shutil.copytree(path, target, dirs_exist_ok=True)
+                  else:
+                      shutil.copy2(path, target)
+      - name: Publish diagnostic result
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: diagnostic-link-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            build/diagnostic_link/image/
+            build/diagnostic_link/stubbed.tsv
+            build/diagnostic_link/link.log
+            build/diagnostic_link/linked_report/
 
   report:
     needs: measure

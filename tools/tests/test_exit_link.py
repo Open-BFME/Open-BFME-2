@@ -324,3 +324,138 @@ def test_blockers_from_errors_group_missing_names_by_repo_source():
              "error\tLNK2005\t?d@@YAXXZ\tz.obj\tCode/Z.cpp\tt",
              "error\tLNK2019\t?c@@YAXXZ\tn.obj\t\tt"]
     assert module.blockers_from_errors(lines) == [("Code/X.cpp", 2, "?a@@YAXXZ"), ("Code/Y.cpp", 1, "?a@@YAXXZ")]
+
+
+def test_runnable_link_options():
+    options = E.link_arguments(E.ROOT / "build/exit_link/exit.exe",
+                               E.ROOT / "build/exit_link/exit.rsp")
+    assert "/FIXED:NO" in options
+    assert "/OPT:NOICF" in options
+    assert "/MAP:build/exit_link/exit.map" in options
+    assert not any(arg.upper().startswith("/FORCE") for arg in options)
+
+
+def test_every_export_is_a_linker_root(tmp_path):
+    import csv
+    rows = list(csv.DictReader((E.ROOT / "reverse/exports.csv").open()))
+    text = E.export_definition(tmp_path / "retail.def").read_text()
+    assert len(rows) == 1964
+    assert len(text.splitlines()) == len(rows) + 1
+    for row in rows:
+        assert f'{row["name"]} @{row["ordinal"]}' in text
+
+
+def test_diagnostic_traps_have_distinct_offsets(tmp_path):
+    path = E.diagnostic_stubs({"_a", "?long_decorated_name@@", "_b"}, tmp_path / "stubs.obj")
+    data = path.read_bytes()
+    table = struct.unpack_from("<I", data, 8)[0]
+    offsets = [struct.unpack_from("<I", data, table + i * 18 + 8)[0] for i in range(3)]
+    assert offsets == [0, 16, 32]
+    assert data[60:108] == b"\xcc" * 48
+    assert not struct.unpack_from("<I", data, 56)[0] & COMDAT
+
+
+@pytest.mark.parametrize("diagnostic", [False, True])
+def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
+    import json
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"image")
+    image.with_suffix(".map").write_bytes(b"map")
+    monkeypatch.setattr(E.census, "head", lambda: "a" * 40)
+    names = ["_missing"] if diagnostic else []
+    E.image_receipt(image, diagnostic, names)
+    receipt = json.loads((tmp_path / "image_receipt.json").read_text())
+    assert receipt == {
+        "kind": "diagnostic" if diagnostic else "real", "commit": "a" * 40,
+        "base": "0x10000000", "image_sha256": E.digest(image),
+        "map_sha256": E.digest(image.with_suffix(".map")), "stubbed": names,
+        "exports_requested": 1964, "rsrc": True, "fixed_no": True}
+
+
+def test_receipt_requires_current_nonempty_map(tmp_path):
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"image")
+    with pytest.raises(RuntimeError, match="map"):
+        E.image_receipt(image, False, [])
+
+
+def test_diagnostic_cannot_write_measured_outputs(tmp_path, monkeypatch):
+    import json
+    measured = tmp_path / "exit_link"
+    measured.mkdir()
+    board = measured / "scoreboard.json"
+    board.write_text(json.dumps(
+        {"unresolved": 19, "duplicates": 0, "image_written": False, "authoritative": True}))
+    before = board.read_bytes()
+    monkeypatch.setattr(E, "OUT", measured)
+    def run(rows, diagnostic=False):
+        assert diagnostic is True
+        assert E.OUT == tmp_path / "diagnostic_link"
+        E.OUT.mkdir()
+        for name in ("result.json", "errors.tsv", "exit.exe", "exit.map", "image_receipt.json"):
+            (E.OUT / name).write_text("diagnostic")
+        return 0
+    monkeypatch.setattr(E, "run_link", run)
+    assert E.main(["--diagnostic"]) == 0
+    assert E.OUT == measured
+    assert board.read_bytes() == before
+    assert sorted(p.name for p in measured.iterdir()) == ["scoreboard.json"]
+
+
+def test_diagnostic_restores_output_scope_on_refusal(tmp_path, monkeypatch):
+    monkeypatch.setattr(E, "OUT", tmp_path / "exit_link")
+    def refuse(*args, **kwargs):
+        raise SystemExit("refused")
+    monkeypatch.setattr(E, "run_link", refuse)
+    with pytest.raises(SystemExit):
+        E.run_diagnostic([])
+    assert E.OUT == tmp_path / "exit_link"
+
+
+def test_workflow_diagnostic_is_separate_and_nonfatal():
+    text = (E.ROOT / ".github/workflows/real-link.yml").read_text()
+    measured, diagnostic = text.split("      - name: Diagnostic link\n")
+    diagnostic = diagnostic.split("\n  report:")[0]
+    assert "scoreboard.json" in measured
+    assert "scoreboard.json" not in diagnostic
+    assert "name: diagnostic-link-" in diagnostic
+    assert diagnostic.count("continue-on-error: true") == 4
+    assert "image_receipt.json" in diagnostic
+
+
+def test_real_receipt_refuses_stubs(tmp_path):
+    with pytest.raises(ValueError, match="stubs"):
+        E.image_receipt(tmp_path / "exit.exe", False, ["_missing"])
+
+
+def test_direct_diagnostic_refuses_measured_directory(monkeypatch):
+    monkeypatch.setattr(E.sys, "platform", "linux")
+    with pytest.raises(SystemExit, match="isolated"):
+        E.run_link([], diagnostic=True)
+
+
+def test_manifest_failure_does_not_change_link_result(tmp_path, monkeypatch):
+    import types
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"image")
+    def fail(*args, **kwargs):
+        raise ValueError("fixture snapshot failure")
+    monkeypatch.setitem(sys.modules, "image_iso", types.SimpleNamespace(write_object_manifest=fail))
+    assert E.snapshot_image_objects(tmp_path / "exit.rsp", image) == {
+        "error": "ValueError: fixture snapshot failure"}
+
+
+def test_manifest_uses_final_response_and_map(tmp_path, monkeypatch):
+    import types
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"image")
+    monkeypatch.setattr(E, "OUT", tmp_path)
+    called = []
+    def snapshot(*args, **kwargs):
+        called.append((args, kwargs))
+        return {"objects": 1}
+    monkeypatch.setitem(sys.modules, "image_iso", types.SimpleNamespace(write_object_manifest=snapshot))
+    rsp = tmp_path / "exit.rsp"
+    assert E.snapshot_image_objects(rsp, image) == {"objects": 1}
+    assert called == [((rsp, image.with_suffix(".map"), tmp_path / "image_objects.json"),
+                       {"cwd": E.build.ROOT})]

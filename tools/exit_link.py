@@ -50,6 +50,7 @@ commit.
   python3 tools/exit_link.py --plan --index      # also cross-check the published census index
   python3 tools/exit_link.py --eh-proof          # eh_verify --all on the current objects
   python3 tools/exit_link.py --link              # sandbox or hosted runner: read-only proof + exit link
+  python3 tools/exit_link.py --diagnostic        # isolated int3-stub image, never credit
   python3 tools/exit_link.py --report            # summarise the last run
 
 The production entry point is `python3 tools/link_cycle.py --exit-link ...`,
@@ -58,6 +59,9 @@ Outputs live in `build/exit_link/`: result.json, errors.tsv, link.log (the raw
 linker output), exit.rsp and the generated import libraries. Nothing here is
 authoritative for LINKING or recovery credit; only the census records those.
 """
+# Both modes request a map, relocations, all retail exports and resources.
+# --diagnostic alone adds distinct trap bodies and permits uncovered omitted
+# funclets (retained in its proof report). Its outputs never enter exit_link/.
 import argparse
 import collections
 import csv
@@ -130,7 +134,9 @@ def digest(path):
 
 
 def tool_digests():
-    return {name: digest(ROOT / "tools" / name) for name in TOOL_FILES}
+    return {**{name: digest(ROOT / "tools" / name) for name in TOOL_FILES},
+            "reverse/exports.csv": digest(ROOT / "reverse/exports.csv"),
+            "retail": digest(build.EXE)}
 
 
 # ---------------------------------------------------------------- COFF proof
@@ -477,18 +483,136 @@ def link_arguments(image, rsp):
     """The exit link's options: no /FORCE, no scaffold, a non-retail base."""
     return ["/NOLOGO", "/NODEFAULTLIB", "/INCREMENTAL:NO", "/MACHINE:X86",
             "/SUBSYSTEM:WINDOWS", f"/ENTRY:{ENTRY}", f"/BASE:0x{BASE:X}",
-            f"/OUT:{census._arg(image)}", f"@{census._arg(rsp)}"]
+            f"/OUT:{census._arg(image)}", f"/MAP:{census._arg(image.with_suffix('.map'))}",
+            "/FIXED:NO", "/OPT:NOICF", f"@{census._arg(rsp)}"]
 
 
 def link_command(inputs, image, outdir):
     """The exit link's argv, with the objects in a response file."""
     rsp = Path(outdir) / "exit.rsp"
     rsp.write_text("\n".join(f'"{census._arg(path)}"' for path in inputs) + "\n", encoding="utf-8")
+    exports = export_definition(Path(outdir) / "retail.def")
+    resource = resource_object(Path(outdir))
+    with rsp.open("a", encoding="utf-8") as handle:
+        handle.write(f'/DEF:"{census._arg(exports)}"\n"{census._arg(resource)}"\n')
     root = build.vc71_root()
     command = [str(root / "Vc7" / "bin" / "link.exe"), *link_arguments(image, rsp)]
     if sys.platform != "win32":
         command.insert(0, "wine")
     return command, rsp
+
+
+def export_definition(path):
+    """Keep every retail export, including data; exports are linker roots."""
+    with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    path.write_text("EXPORTS\n" + "".join(
+        f'  {row["name"]} @{row["ordinal"]}' +
+        (" DATA" if row["kind"] == "data" else "") + "\n" for row in rows),
+        encoding="utf-8")
+    return path
+
+
+def resource_object(outdir):
+    """Extract retail resource leaves into Win32 .res, converted by VC7.1."""
+    import pefile
+    pe = pefile.PE(str(build.EXE))
+    def ident(entry):
+        if entry.name is not None:
+            return str(entry.name).encode("utf-16le") + b"\0\0"
+        return struct.pack("<HH", 0xFFFF, entry.id)
+    def align(data):
+        return data + b"\0" * (-len(data) % 4)
+    blob = struct.pack("<IIHHHHIHHII", 0, 32, 0xFFFF, 0, 0xFFFF, 0, 0, 0, 0, 0, 0)
+    for typ in pe.DIRECTORY_ENTRY_RESOURCE.entries:
+        for name in typ.directory.entries:
+            for lang in name.directory.entries:
+                leaf = lang.data.struct
+                data = pe.get_data(leaf.OffsetToData, leaf.Size)
+                if len(data) != leaf.Size:
+                    raise ValueError("truncated retail resource")
+                header = align(ident(typ) + ident(name))
+                header += struct.pack("<IHHII", 0, 0x1030, lang.id, 0, 0)
+                blob += struct.pack("<II", len(data), 8 + len(header)) + header + align(data)
+    pe.close()
+    res, obj = outdir / "retail.res", outdir / "retail_resources.obj"
+    res.write_bytes(blob)
+    census.fresh_outputs(obj)
+    root = build.vc71_root()
+    command = [str(root / "Vc7/bin/cvtres.exe"), "/NOLOGO", "/MACHINE:IX86",
+               f"/OUT:{census._arg(obj)}", census._arg(res)]
+    if sys.platform != "win32":
+        command.insert(0, "wine")
+    subprocess.run(command, cwd=ROOT, env=build.compiler_environment(root), check=True,
+                   capture_output=True)
+    if not obj.is_file():
+        raise RuntimeError("cvtres did not write a resource object")
+    return obj
+
+
+def diagnostic_stubs(names, path):
+    """One non-COMDAT trap body per name; /OPT:NOICF prevents folding."""
+    strings, symbols = bytearray(4), bytearray()
+    for index, name in enumerate(sorted(names)):
+        raw = name.encode("latin-1")
+        field = raw.ljust(8, b"\0") if len(raw) <= 8 else struct.pack("<II", 0, len(strings))
+        if len(raw) > 8:
+            strings.extend(raw + b"\0")
+        symbols += field + struct.pack("<IhHBB", index * 16, 1, 0x20, 2, 0)
+    strings[:4] = struct.pack("<I", len(strings))
+    body = b"\xcc" * (16 * len(names))
+    header = struct.pack("<HHIIIHH", 0x14C, 1, 0, 60 + len(body), len(names), 0, 0)
+    section = b".text".ljust(8, b"\0") + struct.pack(
+        "<IIIIIIHHI", 0, 0, len(body), 60, 0, 0, 0, 0, 0x60500020)
+    path.write_bytes(header + section + body + symbols + strings)
+    return path
+
+
+def image_receipt(image, diagnostic, stubbed):
+    """Only an image and its fresh map can receive a receipt."""
+    if stubbed and not diagnostic:
+        raise ValueError("a real image cannot contain diagnostic stubs")
+    receipt = image.parent / "image_receipt.json"
+    receipt.unlink(missing_ok=True)
+    if not image.exists():
+        return
+    mapfile = image.with_suffix(".map")
+    if not mapfile.exists() or not mapfile.stat().st_size:
+        raise RuntimeError("image exists without a nonempty map")
+    with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
+        exports = sum(1 for _ in csv.DictReader(handle))
+    receipt.write_text(json.dumps({
+        "kind": "diagnostic" if diagnostic else "real", "commit": census.head(),
+        "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
+        "stubbed": sorted(stubbed), "exports_requested": exports, "rsrc": True,
+        "fixed_no": True,
+    }, indent=1) + "\n", encoding="utf-8")
+
+
+
+def snapshot_image_objects(rsp, image):
+    """Capture winning inputs immediately; report failure without changing measurement."""
+    if not image.exists():
+        return None
+    try:
+        import image_iso
+        return image_iso.write_object_manifest(
+            rsp, image.with_suffix(".map"), OUT / "image_objects.json", cwd=build.ROOT)
+    except Exception as exc:
+        message = f"{type(exc).__name__}: {exc}"
+        print(f"exit_link: object manifest failed: {message}", file=sys.stderr)
+        return {"error": message}
+
+
+def run_diagnostic(rows):
+    """Isolate every output, even refusals, from measured files and scoreboard."""
+    global OUT
+    measured_out = OUT
+    OUT = measured_out.parent / "diagnostic_link"
+    try:
+        return run_link(rows, diagnostic=True)
+    finally:
+        OUT = measured_out
 
 
 ERROR_LINE = re.compile(r"^(?P<object>\S+\.obj|LINK) : (?:fatal )?(?P<severity>error|warning) "
@@ -652,11 +776,16 @@ def check_data_rows():
                          f"e.g. {stale[0].relative_to(ROOT)}; prepare with python3 tools/link_census.py --build (or ./build.sh)")
 
 
-def run_link(rows):
+def run_link(rows, diagnostic=False):
     if sys.platform.startswith("win") and not os.environ.get("GITHUB_ACTIONS"):
         raise SystemExit("exit_link: --link runs on a sandbox (Wine + MSVC 7.1) or a hosted runner only; "
                          "use --plan on this PC")
+    if diagnostic and OUT.name != "diagnostic_link":
+        raise SystemExit("exit_link: diagnostic output must be isolated")
     OUT.mkdir(parents=True, exist_ok=True)
+    census.fresh_outputs(*(OUT / name for name in (
+        "exit.exe", "exit.map", "image_receipt.json", "result.json", "errors.tsv", "link.log", "stubbed.tsv",
+        "image_objects.json", "image_objects.json.receipt.json")))
     expected, present, missing = object_inventory(rows)
     if missing:
         raise SystemExit(f"exit_link: {len(missing):,} object(s) are missing, e.g. "
@@ -674,11 +803,14 @@ def run_link(rows):
     if proof["inspection_failures"]:
         raise SystemExit(f"exit_link: {len(proof['inspection_failures'])} kept object(s) could not be "
                          f"inspected, e.g. {proof['inspection_failures'][0]['object']}; nothing linked")
-    if proof["uncovered_funclets"]:
+    if proof["uncovered_funclets"] and not diagnostic:
         names = ", ".join(entry["name"] for entry in proof["uncovered_funclets"][:8])
         raise SystemExit(f"exit_link: {len(proof['uncovered_funclets'])} omitted funclet(s) are not "
                          f"emitted by any EXACT kept parent ({names}); the omission is not proved")
-    if proof["unproven"] or proof["outside_referrers"]:
+    uncovered = {entry["name"] for entry in proof["uncovered_funclets"]}
+    unproven = [entry for entry in proof["unproven"]
+                if not diagnostic or entry.get("name") not in uncovered]
+    if unproven or proof["outside_referrers"]:
         raise SystemExit(f"exit_link: omission is not proved ({len(proof['unproven'])} unproven funclet(s), "
                          f"{len(proof['outside_referrers'])} name(s) referenced outside); nothing linked")
     eh = eh_proof(rows)
@@ -689,11 +821,37 @@ def run_link(rows):
     image = OUT / "exit.exe"
     command, rsp = link_command(inputs, image, OUT)
     state, tools = census.census_state(present), tool_digests()
-    census.fresh_outputs(image)
+    census.fresh_outputs(image, image.with_suffix(".map"), OUT / "image_receipt.json",
+                         OUT / "result.json", OUT / "errors.tsv")
     started = time.time()
     result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, errors="replace",
                             env=build.compiler_environment(build.vc71_root()))
+    stubbed = set()
+    if diagnostic:
+        stub_in_response = False
+        while result.returncode:
+            text = result.stdout + result.stderr
+            wanted = {m.group(1) or m.group(2) for m in UNRESOLVED.finditer(text)}
+            fresh = wanted - stubbed
+            if not fresh:
+                break
+            stubbed.update(fresh)
+            stub = diagnostic_stubs(stubbed, OUT / "diagnostic_stubs.obj")
+            if not stub_in_response:
+                with rsp.open("a", encoding="utf-8") as handle:
+                    handle.write(f'"{census._arg(stub)}"\n')
+                stub_in_response = True
+            census.fresh_outputs(image, image.with_suffix(".map"))
+            result = subprocess.run(command, cwd=ROOT,
+                                    capture_output=True, text=True, errors="replace",
+                                    env=build.compiler_environment(build.vc71_root()))
     seconds = time.time() - started
+    manifest = snapshot_image_objects(rsp, image)
+    if diagnostic:
+        with (OUT / "stubbed.tsv").open("w", encoding="utf-8") as handle:
+            handle.write("name\toffset\n")
+            for index, name in enumerate(sorted(stubbed)):
+                handle.write(f"{name}\t0x{index * 16:X}\n")
     log = result.stdout + result.stderr
     (OUT / "link.log").write_text(log, encoding="utf-8")
     code = result.returncode
@@ -711,15 +869,16 @@ def run_link(rows):
     exclusive = set(proof["exclusive_names"])
     still_wanted = sorted(name for name in detail if name in exclusive)
     image_written = image.exists()
+    image_receipt(image, diagnostic, stubbed)
     record = {
-        "mode": "exit-link",
+        "mode": "diagnostic-link" if diagnostic else "exit-link",
         "records": False,
         "when": census.utc_now(),
         "commit": census.head(),
         "base": f"0x{BASE:X}",
         "entry": ENTRY,
         "force": False,
-        "stubs": False,
+        "stubs": diagnostic,
         "aliases": False,
         "fillers": False,
         "tools": tool_digests(),
@@ -733,6 +892,7 @@ def run_link(rows):
             "missing": [str(path.relative_to(ROOT)) for path in missing],
         },
         "omission_proof": proof,
+        "image_objects": manifest,
         "eh_proof": eh,
         "link": {
             "seconds": round(seconds, 1),
@@ -773,7 +933,7 @@ def run_link(rows):
           f"{len(errors):,} error/warning line(s); {len(still_wanted)} name(s) still wanted from an "
           "omitted object")
     print(f"exit_link: {OUT.relative_to(ROOT).as_posix()}/result.json")
-    return 0
+    return int(code != 0 or not image_written) if diagnostic else 0
 
 
 # ---------------------------------------------------------------- plan/report
@@ -869,6 +1029,7 @@ def main(argv=None):
                       help="dry run: the omitted population, its proof and the index's prediction; no link")
     mode.add_argument("--eh-proof", action="store_true", help="run eh_verify --all and report")
     mode.add_argument("--link", action="store_true", help="sandbox or hosted runner only: read-only proof and exit link")
+    mode.add_argument("--diagnostic", action="store_true", help="separate trap-stub image; never a measurement")
     mode.add_argument("--report", action="store_true", help="summarise build/exit_link/result.json")
     parser.add_argument("--blockers-commit", default="", help="the commit --blockers' errors.tsv measured")
     mode.add_argument("--blockers", metavar="ERRORS_TSV",
@@ -902,7 +1063,7 @@ def main(argv=None):
             print(f"  FAIL {entry['name']} {entry['target_rva']} ({entry['source']}): "
                   f"{entry['verdict']} -- {entry['detail']}")
         return 1 if result["unproven"] or result["missing_objects"] else 0
-    return run_link(rows)
+    return run_diagnostic(rows) if args.diagnostic else run_link(rows)
 
 
 if __name__ == "__main__":
