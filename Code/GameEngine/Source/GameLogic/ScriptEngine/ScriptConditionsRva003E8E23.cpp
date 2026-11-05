@@ -98,17 +98,7 @@ public:
 
 #include "Common/Snapshot.h"
 
-class Parameter
-{
-public:
-	Int getInt() const { return m_int; }
-	const AsciiString *getString() const { return (const AsciiString *)m_string; }
-private:
-	unsigned char m_beforeInt[8];
-	Int m_int; // +0x08
-	float m_real; // +0x0C
-	unsigned char m_string[4]; // +0x10 (AsciiString)
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
@@ -207,16 +197,16 @@ __declspec(noinline) inline ObjectTypesTemp::ObjectTypesTemp() : m_types(0)
 
 Bool ScriptConditions::rva003E8E23(Parameter *playerParm, Parameter *typeParm, Parameter *comparisonParm, Parameter *rankParm)
 {
-	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(*playerParm->getString(), 0));
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->getString(), 0));
 	if (!player)
 		return false;
 	const ThingTemplate *thingTemplate = 0;
-	ObjectTypes *types = TheScriptEngine->getObjectTypes(*typeParm->getString());
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(typeParm->getString());
 	ObjectTypesTemp typesTemp;
 	if (types)
 		Script_objectTypesFromParam(typeParm, typesTemp.m_types);
 	else
-		thingTemplate = TheThingFactory->findTemplate(*typeParm->getString());
+		thingTemplate = TheThingFactory->findTemplate(typeParm->getString());
 	PlayerTeamNode *head = player->getPlayerTeams();
 	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
 	{

@@ -4,7 +4,7 @@
 #ifndef CANONICAL_SCRIPTPARAMETER_H
 #define CANONICAL_SCRIPTPARAMETER_H
 
-class AsciiString;
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 struct Coord3D;
 class DataChunkInput;
 class DataChunkOutput;

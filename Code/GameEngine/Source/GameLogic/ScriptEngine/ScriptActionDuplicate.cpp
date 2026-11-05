@@ -5,6 +5,7 @@ typedef bool Bool;
 typedef int Int;
 
 #include "../../../Include/GameLogic/ScriptAction.h"
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Rva0034FE00
 {

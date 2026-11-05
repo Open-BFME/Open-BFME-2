@@ -10,9 +10,7 @@ typedef int Int;
 
 enum { MAX_PARMS = 12 };
 
-class Parameter
-{
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ScriptAction
 {

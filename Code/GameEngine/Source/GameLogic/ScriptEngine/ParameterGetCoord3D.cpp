@@ -6,18 +6,7 @@
 // Donor ZH Scripts.cpp Parameter::getCoord3D with DEBUG_ASSERTCRASH compiled
 // out (/DNDEBUG). /arch:SSE for xorps/movss zeroing.
 
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-
-class Parameter
-{
-public:
-	void getCoord3D(Coord3D *pLoc) const;
-
-private:
-	int m_paramType; // +0x00, COORD3D is 0x10
-	char m_pad[0x10]; // +0x04
-	Coord3D m_coord; // +0x14
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 void Parameter::getCoord3D(Coord3D *pLoc) const
 {

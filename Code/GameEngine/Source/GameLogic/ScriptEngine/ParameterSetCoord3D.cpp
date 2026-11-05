@@ -6,18 +6,7 @@
 // Donor ZH Scripts.cpp Parameter::setCoord3D with DEBUG_ASSERTCRASH compiled
 // out (/DNDEBUG). Caller at 0x003B5D0F.
 
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-
-class Parameter
-{
-protected:
-	void setCoord3D(const Coord3D *pLoc);
-
-private:
-	int m_paramType; // +0x00, COORD3D is 0x10
-	char m_pad[0x10]; // +0x04
-	Coord3D m_coord; // +0x14
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 void Parameter::setCoord3D(const Coord3D *pLoc)
 {

@@ -11,6 +11,7 @@
 // address, ctor 0x003B5AC7 path).
 
 #include "../../../Include/GameLogic/ScriptAction.h"
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 // The canonical in-class accessor is implicitly inline (select-any like
 // every other TU's copy); taking its address keeps the body emitted here.
