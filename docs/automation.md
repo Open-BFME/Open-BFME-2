@@ -84,5 +84,17 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
 - Do not load a save made with the local slot as observer, the default `save` setup: retail throws in
   `CHUNK_TeamFactory`, returns 3 and quits, then crashes at 0x538ADD in a static destructor on the way
   out. That crash and the one at 0x66386D with AI came from that setup, not from Wine.
-- The harness cannot judge our own build until the real link produces an image, and it needs a
-  `pieces_map` to read one laid out differently from retail.
+- Our own build runs with `--real-image build/exit_link/exit.exe` on either harness
+  (`tools/real_image.py`, contract in `build/drift_review/swarm/contract.md`). The image, its map
+  and `image_receipt.json` must agree by hash; `real_image.py check EXE --addresses` shows the
+  check and where every harness address lands. An address is placed only through a byte-checked
+  body, never by retail's RVA, so a body that differs refuses the run (`image-refused`). The image
+  must import `SHGetSpecialFolderPathW`, `GetVersion` and `GetVersionExA` by name: the appdata and
+  version lies patch those import slots.
+- Only srv1's game queue runs the game (owner's approval, 2026-11-04): the `bfme2-game-queue`
+  user unit, `~/bfme2-ops/swarm/game-queue/bin/game-queue.py`. It boots each new real-link image
+  artifact, runs queued jobs one at a time from a `git archive` of the job's harness SHA, and
+  writes one receipt per run to `~/bfme2-ops/swarm/receipts/`. A harness SHA not on `master` is
+  marked `harness-unlanded`. During a run the prefix has no `Z:` drive, only the game, Python, the
+  checkout, the job's files and the sandbox appdata, on a private Xvfb. That isolation is weak (the
+  same user and network) until the owner adds a restricted user.
