@@ -31,3 +31,5 @@ The final preview retains LINKS for 2,341 authored bytes; the refreshed
 outgoing audit has the same older-index and six-receipt limitations above.
 
 2026-11-03: main TU now uses the parser's canonical fourteen-slot base header; 66 rows, 12 data rows and nine EH graphs verify, and the scoped preview retains LINKS (3,045 bytes); the Rva0040AF1D inheritance conflict remains the next parser prerequisite. [Evidence](../../reverse/attempt_support/award-main-base-header-20261103-codexb.md).
+
+2026-11-05: integer binary-search's private-template conflict is cleared with shared STL headers and aligned `/Oi`; both units verify and retain LINKS. Supported merge apply stopped on other workers' shared RVA claims before editing; retry when available, then address the remaining donor prerequisites. Full-batch audit remains inconclusive. [Evidence](../../reverse/attempt_support/award-binary-search-composition-20261105-codexb5.md).
