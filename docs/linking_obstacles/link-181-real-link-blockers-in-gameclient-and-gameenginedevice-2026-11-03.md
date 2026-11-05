@@ -449,6 +449,7 @@ W3DTerrainVisual's.
   trial-verified: 1/1 bytes, and retail 0x00C07E54's slot order, with only this name left unresolved.
   SubsystemNameGetters.cpp is held by yasinschroeder-claudeb2 (`class:LivingWorldBuilding`).
   [Handoff](../../reverse/attempt_support/drawablemodule-getsnapshotname-to-class-20261105-lk29.md).
+  Landed 2026-11-05 (claudeb2) as planned: link_check names no unresolved symbol for the unit; real link to confirm.
 - **`?ji_006291ae@@YAPAXPAXHI@Z`:** resolved by `b4c9b2d8a8` (Ancalgonn). `811358bb29` removed the body,
   which `Rva00219B9EAccessor.cpp` still reaches through `/alternatename`.
 - **LivingWorldManagerCtor.cpp `??1Rva0022B12DSubsystem@@UAE@XZ`: first prerequisite done.** Slot 0 of

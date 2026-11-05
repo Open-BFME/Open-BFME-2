@@ -35,21 +35,7 @@ public:
 	virtual Drawable *asDrawableMeth(); // slot 0x10 (BFME1 name, position from retail)
 };
 
-#include "../../../../Include/Common/Module.h"
-
-class DrawableModule : public Module
-{
-public:
-	DrawableModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~DrawableModule();
-public:
-	virtual void onCapture(Player *oldOwner, Player *newOwner) {}
-	virtual void onDisabledEdge(Bool nowDisabled) {}
-
-private:
-	Drawable *m_drawable; // +4
-};
+#include "../../../../Include/Common/DrawableModule.h"
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 

@@ -16,6 +16,7 @@
 #include "../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../Include/Common/ModuleData.h"
+#include "../../Include/Common/DrawableModule.h"
 
 const char *ModuleData::GetSnapshotName() const
 {
@@ -104,5 +105,8 @@ BFME_LITERAL_NAME_GETTER(Rva0022CEF1Named, "SaveGameInfo")
 BFME_LITERAL_NAME_GETTER(GateProxyBehavior, "GateProxyBehavior")
 BFME_LITERAL_NAME_GETTER(SpawnedModelConditionCreate, "SpawnedModelConditionCreate")
 BFME_LITERAL_NAME_GETTER(Rva00251C76Named, "SpecialPowerTimerRefreshSpecialPower")
-BFME_LITERAL_NAME_GETTER(Rva00252B84Named, "DrawableModule")
+const char *DrawableModule::GetSnapshotName() const
+{
+	return "DrawableModule";
+}
 BFME_LITERAL_NAME_GETTER(UpgradeSoundSelectorClientBehavior, "UpgradeSoundSelectorClientBehavior")

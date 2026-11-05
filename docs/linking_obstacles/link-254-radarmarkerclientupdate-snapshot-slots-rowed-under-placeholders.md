@@ -1,5 +1,5 @@
 ### LINK-254: RadarMarkerClientUpdate Snapshot slots rowed under placeholders
-Status: Open. Updated: 2026-11-04; inspected revision: 91a4f16d0e.
+Status: Open. Updated: 2026-11-05; inspected revision: 91a4f16d0e.
 Evidence / affected units: RadarMarkerClientUpdateCtor.cpp (0x004C9BCD) and
 RadarMarkerClientUpdateDtor.cpp (0x004C9C38) model their vptr stores with private, non-polymorphic
 views so they emit no vtable. Written against RadarMarkerClientUpdate.cpp's real classes, both
@@ -14,9 +14,9 @@ Completed: none landed; the trial edits were reverted. The TU-side edits that ma
 match: a zeroing default constructor on Rva004C9B8F, an inline `virtual ~Rva00362EC7() {}` (its
 row 0x00362EE3 is emitted by the destructor donor today) and a declared ~RadarMarkerClientUpdate.
 Remaining / next check: give slot 2 of both tables (and slot 3) their virtual names: declare
-RadarMarkerClientUpdate::GetSnapshotName and move 0x004C9BED into it, and name 0x00252B84 for
-Rva00362EC7 or DrawableModule (`rename.py function --to-class` covers the placeholder-class row;
-the free-function placeholder 0x004C9BED has no tool mode yet). Then rewrite both donors and run
+RadarMarkerClientUpdate::GetSnapshotName and move 0x004C9BED into it (0x00252B84 is done: rowed
+`?GetSnapshotName@DrawableModule@@MBEPBDXZ` since 2026-11-05, claudeb2; the free-function
+placeholder 0x004C9BED has no tool mode yet). Then rewrite both donors and run
 `tu_skeleton.py --merge Code/GameEngine/Source/GameLogic/Object/Update/RadarMarkerClientUpdate.cpp`.
 MarkerTypeUpdateModuleDataCtor.cpp (0x004C9C98) is a separate case: its _ReadWriteBarrier keeps
 the vptr store ahead of the +0x08 zero store, which every compiler-generated spelling reorders.
