@@ -12,7 +12,11 @@ enum WeaponSlotType {WEAPON_FIRST=0};
 class Object;class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
-class Rva002C9400ByteField {public:unsigned char get()const;};
+class Rva002C9400ByteField
+{
+public:
+	unsigned char get()const;
+};
 class Weapon {public:bool isWithinAttackRange(const Object*,const Object*,float,int)const;char pad[4];const Rva002C9400ByteField*data;};
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

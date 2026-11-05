@@ -35,7 +35,17 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 // Native create_node 0x002FE8AA allocates 0x10: eight link bytes plus
 // eight data bytes; its copy worker is rowed at 0x002FE87D.
-struct Rva002FFC74Record { Rva002FFC74Record(); Rva002FFC74Record(const Rva002FFC74Record&); ~Rva002FFC74Record(); Rva002FFC74Record&operator=(const Rva002FFC74Record&); char bytes[8]; bool operator==(const Rva002FFC74Record&) const; bool operator<(const Rva002FFC74Record&) const; };
+struct Rva002FFC74Record
+{
+public:
+	Rva002FFC74Record();
+	Rva002FFC74Record(const Rva002FFC74Record&);
+	~Rva002FFC74Record();
+	Rva002FFC74Record&operator=(const Rva002FFC74Record&);
+	bool operator==(const Rva002FFC74Record&) const;
+	bool operator<(const Rva002FFC74Record&) const;
+	unsigned char bytes[8]; // +0x00
+};
 void __cdecl Rva002FE87DConstruct(void *destination, const void *source);
 namespace _STL {
 template <> __declspec(dllimport) __forceinline

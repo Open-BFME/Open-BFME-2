@@ -105,11 +105,11 @@ class Rva00260FD0Filter : public Rva000421C8
 {
 public:
 	Rva00260FD0Filter(const Object *obj, int attackType, int commandSource)
-		: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
+	: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
 	virtual bool allow(Object *obj);
-	const Object *m_obj;
-	int m_attackType;
-	int m_source;
+	const Object *m_obj; // +0x08
+	int m_attackType; // +0x0C
+	int m_source; // +0x10
 };
 
 // vftable 0x00C07184, allow 0x00261723: +0x08 the polygon trigger (Zero

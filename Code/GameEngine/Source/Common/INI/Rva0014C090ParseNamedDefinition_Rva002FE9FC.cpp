@@ -46,7 +46,7 @@ public:
 class Rva0014C090
 {
 public:
-	static void parseDefinition( INI *ini, void *instance, void *store, const void *userData );
+	static void parseDefinition(INI *ini, void *instance, void *store, const void *userData);
 };
 
 // ?parseDefinition@Rva0014C090@@SAXPAVINI@@PAX1PBX@Z

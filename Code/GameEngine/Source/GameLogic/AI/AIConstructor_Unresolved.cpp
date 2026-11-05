@@ -257,7 +257,17 @@ class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiStr
 
 class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};
 class Rva0014A470{public:Rva0014A470&operator=(const Rva0014A470&);};
-struct Rva002FFC74Record{unsigned char bytes[8];};
+struct Rva002FFC74Record
+{
+public:
+	Rva002FFC74Record();
+	Rva002FFC74Record(const Rva002FFC74Record&);
+	~Rva002FFC74Record();
+	Rva002FFC74Record&operator=(const Rva002FFC74Record&);
+	bool operator==(const Rva002FFC74Record&) const;
+	bool operator<(const Rva002FFC74Record&) const;
+	unsigned char bytes[8]; // +0x00
+};
 // The named-list copy calls the separately rowed assignment at 0x002FFC74.
 // Its opaque record declaration cannot supply the element's nontrivial
 // assignment or cleanup. Reuse the exact provider instead of emitting a POD copy.
@@ -327,7 +337,11 @@ extern const FieldParse s_aiDataFieldParseTable[];
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../Include/Common/INI/FieldParse.h"
 // The skirmish build-list parser the SkirmishBuildList token runs (rowed 0x002FE9FC).
-class Rva0014C090 { public: static void parseDefinition(INI *ini, void *instance, void *store, const void *userData); };
+class Rva0014C090
+{
+public:
+	static void parseDefinition(INI *ini, void *instance, void *store, const void *userData);
+};
 
 // The AIData block's fields, retail VA 0x00C06650 (74 records and the null
 // terminator, 0x4B0 bytes): tokens, parsers and TAiData offsets read from retail.

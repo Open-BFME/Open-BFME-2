@@ -153,11 +153,11 @@ class Rva00260FD0Filter : public Rva000421C8
 {
 public:
 	Rva00260FD0Filter(const Object *obj, int attackType, int commandSource)
-		: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
+	: m_obj(obj), m_attackType(attackType), m_source(commandSource) {}
 	virtual bool allow(Object *obj);
-	const Object *m_obj;
-	int m_attackType;
-	int m_source;
+	const Object *m_obj; // +0x08
+	int m_attackType; // +0x0C
+	int m_source; // +0x10
 };
 
 // vftable 0x00C07160, allow 0x00261246: two flags (ZH's
@@ -167,8 +167,9 @@ class Rva00261246Filter : public Rva000421C8
 public:
 	Rva00261246Filter(bool allowNonBuildings, bool allowInsignificant) : m_a(allowNonBuildings), m_b(allowInsignificant) {}
 	virtual bool allow(Object *obj);
-	bool m_a;
-	bool m_b;
+	bool m_a; // +0x08
+	bool m_b; // +0x09
+	char m_pad0A[0x2];
 };
 
 // vftable 0x00C0716C, allow 0x00261353: +0x08 a player index (ZH's
@@ -335,8 +336,7 @@ int AI::rva002FEEAD(Object *me, float range, unsigned int qualifiers)
 class Rva002FFFCA
 {
 public:
-	void *rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned int qualifiers,
-		int info, int optionalFilter, int bfmeArg);
+	void *rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned int qualifiers, int info, int optionalFilter, int bfmeArg);
 };
 
 Object *AI::findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
