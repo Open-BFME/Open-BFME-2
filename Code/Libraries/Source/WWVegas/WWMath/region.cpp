@@ -100,6 +100,11 @@ void RealRange::combine(RealRange &that)
 
 struct IntRange
 {
+    IntRange();
+    IntRange(int min, int max);
+
+    IntRange &operator=(const IntRange &that);
+
     void combine(IntRange &that);
 
     int min;
@@ -122,6 +127,9 @@ void IntRange::combine(IntRange &that)
 // This copy reproduces that body and is rowed with it as an ICF alias.
 struct LineSegment2D
 {
+    LineSegment2D();
+    ~LineSegment2D();
+    LineSegment2D(const LineSegment2D &that) throw();
     LineSegment2D(const Coord2D &start, const Coord2D &end);
 
     Coord2D m_start;
@@ -393,12 +401,51 @@ RealRange &RealRange::operator=(const RealRange &that)
     return *this;
 }
 
+// IntRange's pair is RealRange's over integers; retail exports both and
+// /OPT:ICF folds each onto the float twin's (or ICoord2D's) body.
+IntRange::IntRange()
+{
+}
+
+IntRange::IntRange(int min, int max)
+{
+    this->min = min;
+    this->max = max;
+}
+
+IntRange &IntRange::operator=(const IntRange &that)
+{
+    min = that.min;
+    max = that.max;
+
+    return *this;
+}
+
+// LineSegment2D's special members are Region2D's over the same two Coord2D
+// fields; retail exports them at Region2D's folded bodies.
+LineSegment2D::LineSegment2D()
+{
+}
+
+// Select-any: a unit whose Coord2D carries a destructor emits this one too.
+inline LineSegment2D::~LineSegment2D()
+{
+}
+
 Region2D::Region2D(const Region2D &that) throw()
 {
     lo.x = that.lo.x;
     lo.y = that.lo.y;
     hi.x = that.hi.x;
     hi.y = that.hi.y;
+}
+
+LineSegment2D::LineSegment2D(const LineSegment2D &that) throw()
+{
+    m_start.x = that.m_start.x;
+    m_start.y = that.m_start.y;
+    m_end.x = that.m_end.x;
+    m_end.y = that.m_end.y;
 }
 
 // The generated assignments, forced out by naming them. Each is a movsd run
@@ -420,8 +467,11 @@ IRegion3DAssign g_iregion3dAssign = &IRegion3D::operator=;
 // keeps this unit's copies for the rows; it is not retail code.
 #pragma inline_depth(0)
 // ?_bfmeRegion3DInlineAnchor absent-from-retail
-void _bfmeRegion3DInlineAnchor(Region3D *r, Region2D *q, Coord3D *c)
+void _bfmeRegion3DInlineAnchor(Region3D *r, Region2D *q, Coord3D *c, LineSegment2D *s)
 {
+    LineSegment2D &(LineSegment2D::*assign)(const LineSegment2D &) = &LineSegment2D::operator=;
+    (s->*assign)(*s);
+    s->LineSegment2D::~LineSegment2D();
     r->Region3D::Region3D();
     q->Region2D::Region2D();
     r->Region3D::Region3D(*r);
