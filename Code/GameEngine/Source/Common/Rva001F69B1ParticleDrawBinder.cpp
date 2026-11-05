@@ -167,26 +167,14 @@ static inline const RGBColor *rva001F53BC(const ParticleSystem *system) { return
 // +0x1C4, a word of the untyped +0x1AC member.
 static inline Rva001F6C54Draw *drawInfo1C4(const ParticleSystem *system) { return (Rva001F6C54Draw *)system->m_1AC[6]; }
 
-class RvaSmartPtr12
+#include "../../Include/Common/RvaSmartPtr12.h"
+
+// Preserve the native inline null-guard cleanup.
+__forceinline RvaSmartPtr12::~RvaSmartPtr12() throw()
 {
-	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
-
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	__forceinline ~RvaSmartPtr12()
-	{
-		if (m_system)
-			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
-	}
-	operator bool() const { return m_system != 0; }
-	ParticleSystem *operator->() const { return m_system ? m_system : Make001FCBD7(); }
-
-private:
-	ParticleSystem *m_system;
-	void *m_previous;
-	void *m_next;
-};
+    if (field00)
+        rva0004CBC0();
+}
 
 class Rva001F6C54SmartField
 {

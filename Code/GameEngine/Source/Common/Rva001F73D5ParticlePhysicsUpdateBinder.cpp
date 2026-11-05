@@ -125,26 +125,14 @@ static inline void rva001F52CC(ParticleSystem *system, Vec2001F52CC *out) { ((Rv
 // Native Size callback reads upper30 then lower2C: the bounds of the +0x28 random variable.
 static inline void getSize(const ParticleSystem *system, float &lower, float &upper) { upper=system->m_28.m_high; lower=system->m_28.m_low; }
 
-class RvaSmartPtr12
+#include "../../Include/Common/RvaSmartPtr12.h"
+
+// Preserve the native inline null-guard cleanup.
+__forceinline RvaSmartPtr12::~RvaSmartPtr12() throw()
 {
-	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
-
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	__forceinline ~RvaSmartPtr12()
-	{
-		if (m_system)
-			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
-	}
-	operator bool() const { return m_system != 0; }
-	ParticleSystem *operator->() const { return m_system ? m_system : Make001FCBD7(); }
-
-private:
-	ParticleSystem *m_system;
-	void *m_previous;
-	void *m_next;
-};
+    if (field00)
+        rva0004CBC0();
+}
 
 class Rva001F6C54SmartField
 {
