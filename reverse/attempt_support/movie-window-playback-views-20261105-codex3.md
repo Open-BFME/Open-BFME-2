@@ -34,3 +34,31 @@ fragment (10 rows), with the same compiler flags as the seed. The remaining
 three fragments still fail: constructor and destructor compile, update bytes.
 The saved verified composition can now remove one source file through
 `tu_skeleton.py --merge`; no map regeneration or manual file move is needed.
+
+Applied composition and publication audit (2026-11-05):
+
+- Refreshed the Common consolidation planner after the view repair and passed
+  its freshness check. `tu_skeleton.py --merge` then absorbed only the draw
+  fragment into the approved, provisional Common TU; one source file removed.
+  Constructor/destructor compile conflicts and update byte mismatch remain.
+- A fresh destination `./build.sh` passes 10/10 code rows, all seven data rows,
+  the parent-EH funclet check and the named import check. Declared-unmatched,
+  CSV integrity and staged whitespace checks pass. Destination link preview is
+  LINKS with 540 bytes, equal to the two input previews combined. The supported
+  merge's census-aware guard checked the five linked input units and accepted
+  the composition; no new census or real-link measurement is claimed.
+- The tool repointed one function, seven data owners, the TU map's source
+  column, one name-basis source and Display's header-queue key. Existing seed
+  header keys remain. There were no donor entries in the data/identity debt or
+  Microsoft-header registers, and no hatch total changed. Display debt was
+  transferred, not retired; ownership shadow still reports its inherited
+  private view. No alias, pin or fold proof was removed.
+- Audited the pending range from origin/master `8e3f34d07c` through the view
+  repair `7d2f39fda5` plus this composition. Earlier pending commits have no
+  source-path moves. Searching the absorbed basename across tracked consumers
+  finds no active tool, hook, workflow, include or build/configuration consumer.
+  Remaining mentions are the merged source's provenance comment, the historical
+  name-basis rename, attempt evidence and the census-generated link-status row.
+  Those historical references remain intentional. Ledger owners and header
+  adoption commands now resolve to the destination; refreshed compilation and
+  link previews use its current source.
