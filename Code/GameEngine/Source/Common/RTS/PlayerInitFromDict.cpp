@@ -89,7 +89,12 @@ struct LogicModeView{char gap[0x114];int mode;};
 struct LivingWorldModeView{char gap[0xB4];bool mode;};
 struct GlobalCashView{char gap[0xBB8];int cash;};
 struct GameCashView{char gap[0x70];int cash;};
-struct ReadyTimer {int power;int ready;};
+struct ReadyTimer
+{
+public:
+	int power; // +0x00
+	int ready; // +0x04
+};
 struct ProductionCostModifier {void*filter;float*first;float*last;float*end;unsigned object;bool all;__forceinline ~ProductionCostModifier(){if(first)free(first);}};
 namespace _STL {
 template<> vector<void*>::iterator vector<void*>::erase(iterator,iterator);
@@ -223,8 +228,21 @@ class SidesList {public:char pad[0x7c0];int skirmishCount;SidesInfo skirmishSide
  SidesInfo*getSkirmishSideInfo(int);SidesInfo*getSideInfo(int);
 };
 extern SidesList*TheSidesList;
-class PlayerTemplateStore{public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};extern PlayerTemplateStore*ThePlayerTemplateStore;
-class Rva002A9ACC {public:void rva002A9ACC(const Dict*);};
+class PlayerTemplateStore
+{
+public:
+	const PlayerTemplate*findPlayerTemplate(NameKeyType)const;
+};
+extern PlayerTemplateStore*ThePlayerTemplateStore;
+class Rva002A9ACC
+{
+public:
+	void rva002A9ACC(const Dict*);
+	char m_pad00[0x280];
+private:
+	int m_color1; // +0x280
+	int m_color2; // +0x284
+};
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef {const AsciiString *string;};
 struct Rva002226E5TextPlusString {Rva002226E5TextPlusString(){}Rva000B3F84Pair left;AsciiStringRef right;operator AsciiString();};

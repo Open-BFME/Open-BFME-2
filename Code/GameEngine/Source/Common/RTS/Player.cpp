@@ -516,7 +516,12 @@ void PlayerRelationMap::loadPostProcess( void )
 // as a reference to the map so the address of m_map is still formed at the
 // call, which is what keeps the retail lea out of the empty() test.
 struct RetailTeamRelationMap { void *m_baseVtbl; TeamRelationMapType m_map; };
-struct RetailPlayerRelationMap { void *m_baseVtbl; PlayerRelationMapType m_map; };
+struct RetailPlayerRelationMap
+{
+public:
+	void *m_vtbl; // +0x00
+	PlayerRelationMapType m_map; // +0x04
+};
 
 // m_teamRelations is at Player+0x290 and m_playerRelations at +0x28c, where
 // this tree has +0x1a8 and +0x1a4. Re-read at every use rather than hoisted

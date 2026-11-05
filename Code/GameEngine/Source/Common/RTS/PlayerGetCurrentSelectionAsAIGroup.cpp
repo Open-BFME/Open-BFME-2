@@ -4,10 +4,12 @@
 // Donor: BFME1 Player.cpp getCurrentSelectionAsAIGroup (m_currentSelection at +0x67C calling bfmeForward) plus ZH variant calling aiGroupFromSquad. BFME2 repairs: selection at +0x730 as Gen_0018BC70 calling bfmeVisitAll; AIGroup passed as BfmeVisitorBF visitor.
 class BfmeVisitorBF;
 class AIGroup;
+class BfmeVecAK;
 class Gen_0018BC70
 {
 public:
 	void bfmeVisitAll(BfmeVisitorBF *visitor);
+	BfmeVecAK *bfmeCompact(bool restart);
 };
 class Player
 {

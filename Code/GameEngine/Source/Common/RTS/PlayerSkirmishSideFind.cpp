@@ -60,7 +60,7 @@ public:
 class PlayerTemplateStore
 {
 public:
-	const PlayerTemplate *findPlayerTemplate(NameKeyType key) const;
+	const PlayerTemplate*findPlayerTemplate(NameKeyType)const;
 };
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;

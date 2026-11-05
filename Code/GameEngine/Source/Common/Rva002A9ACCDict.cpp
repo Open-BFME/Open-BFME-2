@@ -32,11 +32,11 @@ extern const StaticNameKey TheKey_playerNightColor;
 class Rva002A9ACC
 {
 public:
-	void rva002A9ACC(const Dict *dict);
+	void rva002A9ACC(const Dict*);
+	char m_pad00[0x280];
 private:
-	unsigned char m_pad[0x280];
-	int m_color1;
-	int m_color2;
+	int m_color1; // +0x280
+	int m_color2; // +0x284
 };
 
 void Rva002A9ACC::rva002A9ACC(const Dict *dict)

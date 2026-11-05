@@ -156,7 +156,12 @@ public:
 struct BfmeVectorRecord002AF478 { ~BfmeVectorRecord002AF478(); char bytes[36]; };
 namespace _STL { template <> vector<BfmeVectorRecord002AF478>::~vector(); }
 class ScoreKeeper {public:ScoreKeeper();virtual ~ScoreKeeper();private:unsigned words[0x330/4];};
-struct ReadyTimer {int power,ready;};
+struct ReadyTimer
+{
+public:
+	int power; // +0x00
+	int ready; // +0x04
+};
 struct ProductionCostModifier;
 // The native constructor 0x0037F27B initializes this twenty-byte member,
 // whose unwind cleanup is the existing nonvirtual 0x002B0B8E wrapper.

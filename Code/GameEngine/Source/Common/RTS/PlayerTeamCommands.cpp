@@ -52,10 +52,11 @@ public:
 
 struct BfmeResultA
 {
-	void *m_value;
+public:
 	BfmeResultA();
-	BfmeResultA(const BfmeResultA &that);
+	BfmeResultA(const BfmeResultA&);
 	~BfmeResultA();
+	void *m_value; // +0x00
 };
 
 class BfmeResultForwardB

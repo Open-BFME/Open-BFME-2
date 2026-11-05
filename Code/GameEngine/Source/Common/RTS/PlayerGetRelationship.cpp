@@ -36,8 +36,9 @@ typedef std::hash_map<int, Relationship, std::hash<int>, std::equal_to<int> > Pl
 
 struct RetailPlayerRelationMap
 {
-	void *m_vtbl;
-	PlayerRelationMapType m_map;
+public:
+	void *m_vtbl; // +0x00
+	PlayerRelationMapType m_map; // +0x04
 };
 
 class Team;

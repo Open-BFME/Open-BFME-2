@@ -38,9 +38,11 @@ private:
 	Object **m_finish;
 };
 
+class BfmeVisitorBF;
 class Gen_0018BC70
 {
 public:
+	void bfmeVisitAll(BfmeVisitorBF *visitor);
 	BfmeVecAK *bfmeCompact(bool restart);
 };
 
