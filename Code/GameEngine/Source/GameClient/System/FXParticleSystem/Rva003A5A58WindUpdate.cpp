@@ -108,23 +108,14 @@ struct Rva003A5A58WindInfo
 	Real m_turbulenceScale;	// +0x60
 };
 
-class ParticleSystem
-{
-public:
-	int getWindKind() { return reinterpret_cast<Rva001F53F0 *>(this)->rva001F53F0(); }
-	Real getAngle() { return reinterpret_cast<Rva001F553F *>(this)->rva001F53CE(); }
-	Real getStrength() { return reinterpret_cast<Rva001F553F *>(this)->rva001F5401(); }
-	Real getRadius() { return reinterpret_cast<Rva001F553F *>(this)->rva001F5423(); }
-	void getPosition(Coord3D *out) { reinterpret_cast<Rva001F385A *>(this)->rva001F385A(out); }
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
-	char m_pad000[0xB0];
-	int m_attachedDrawable;	// +0xB0
-	ObjectID m_attachedObject;	// +0xB4
-	char m_pad0B8[0x1C8 - 0xB8];
-	Rva003A5A58WindInfo *m_windInfo;	// +0x1C8
-};
-
-ParticleSystem *Make001FCBD7();
+static inline int getWindKind(ParticleSystem *system) { return reinterpret_cast<Rva001F53F0 *>(system)->rva001F53F0(); }
+static inline Real getAngle(ParticleSystem *system) { return reinterpret_cast<Rva001F553F *>(system)->rva001F53CE(); }
+static inline Real getStrength(ParticleSystem *system) { return reinterpret_cast<Rva001F553F *>(system)->rva001F5401(); }
+static inline Real getRadius(ParticleSystem *system) { return reinterpret_cast<Rva001F553F *>(system)->rva001F5423(); }
+static inline void getPosition(ParticleSystem *system, Coord3D *out) { reinterpret_cast<Rva001F385A *>(system)->rva001F385A(out); }
+static inline Rva003A5A58WindInfo *getWindInfo(ParticleSystem *system) { return (Rva003A5A58WindInfo *)system->m_1AC[7]; }	// +0x1C8
 
 class RvaSmartPtr12
 {
@@ -177,12 +168,12 @@ private:
 void Rva003A5A58::rva003A5A58()
 {
 	RvaSmartPtr12 system(m_particle->m_system);
-	if (system->getWindKind() != 1)
+	if (getWindKind(system.operator->()) != 1)
 	{
-		Real angle = system->getAngle();
+		Real angle = getAngle(system.operator->());
 		Coord3D center;
-		system->getPosition(&center);
-		ObjectID objectID = system->m_attachedObject;
+		getPosition(system.operator->(), &center);
+		ObjectID objectID = (ObjectID)system->m_attachedToObjectID;
 		if (objectID)
 		{
 			Object *obj = TheGameLogic->findObjectByID(objectID);
@@ -195,7 +186,7 @@ void Rva003A5A58::rva003A5A58()
 		}
 		else
 		{
-			int drawableID = system->m_attachedDrawable;
+			int drawableID = system->m_attachedToDrawableID;
 			if (drawableID)
 			{
 				Drawable *draw = TheGameClient->findDrawableByID(drawableID);
@@ -215,17 +206,17 @@ void Rva003A5A58::rva003A5A58()
 		delta.z = m_particle->m_pos.z - center.z;
 		Real distSqr = delta.x * delta.x + delta.y * delta.y + delta.z * delta.z;
 
-		Real radius = system->getRadius();
+		Real radius = getRadius(system.operator->());
 		if (radius * radius > distSqr)
 		{
-			Real strength = system->getStrength() * m_strength;
-			Real innerRadius = system->getRadius();
+			Real strength = getStrength(system.operator->()) * m_strength;
+			Real innerRadius = getRadius(system.operator->());
 			if (innerRadius * innerRadius < distSqr)
 				strength = (1.0f - (sqrt(distSqr) - innerRadius) / (radius - innerRadius)) * strength;
 			m_particle->m_pos.x += Cos(angle) * strength;
 			m_particle->m_pos.y += Sin(angle) * strength;
 
-			Rva003A5A58WindInfo *info = system->m_windInfo;
+			Rva003A5A58WindInfo *info = getWindInfo(system.operator->());
 			if (info && info->m_turbulence > 0.0f)
 			{
 				Real wobbleAngle = m_particle->m_pos.z * info->m_turbulenceScale + (Real)m_particle->m_age;

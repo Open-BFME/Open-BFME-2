@@ -113,20 +113,7 @@ public:
 	int get() const;
 };
 
-class ParticleSystem
-{
-public:
-	char m_pad00[8];
-	Int m_shaderType; // +0x08
-	Int m_drawType; // +0x0C
-	AsciiString m_textureName; // +0x10
-	char m_pad14[0x80-0x14];
- bool m_billboard;
- char m_pad81[0x88-0x81];
- char m_renderPayload[0xA4-0x88];
-	StreakParticleStorage *m_storage; // +0xA4
-};
-extern ParticleSystem *Make001FCBD7(void);
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 struct StreakBox
 {
@@ -154,7 +141,7 @@ public:
 	virtual Int doParticles(RenderInfoClass &rinfo, void *bounds, Int *particleCount);
 
 private:
-	__forceinline int getDepth()const {return getSystem()->m_drawType==4?6:0;}
+	__forceinline int getDepth()const {return (Int)getSystem()->m_particleType==4?6:0;}
  ParticleSystem *getSystem() const
 	{
 		return m_system == 0 ? Make001FCBD7() : m_system;
@@ -183,7 +170,7 @@ template<> Int DefaultModule<6>::doParticles(RenderInfoClass &rinfo, void *bound
 		StreakParticle *p = 0;
 
 	if (!(unsigned char)((Rva0004CABDSevenEight *)getSystem())->get())
-		p = getSystem()->m_storage->getFirstParticle();
+		p = ((StreakParticleStorage *)getSystem()->m_A4)->getFirstParticle();
 	{
 		for (; p != 0; p = p->m_next)
 		{
@@ -224,12 +211,12 @@ template<> Int DefaultModule<6>::doParticles(RenderInfoClass &rinfo, void *bound
 
 
  if(count>0) {
-  BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->m_textureName.str(),0,0);
+  BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->m_particleTypeName.str(),0,0);
   if(g_00E06098!=0) {
    g_00E06098->Set_Texture((TextureClass*)&texture);
    g_00E06098->Set_Flag(PointGroupClass::TRANSFORM,true);
    ShaderClass shader=ShaderClass::_PresetAdditiveSpriteShader;
-   switch(getSystem()->m_shaderType) {
+   switch((Int)getSystem()->m_shaderType) {
     case 2: shader=*reinterpret_cast<const ShaderClass *>(&BfmeParticleType2ShaderBits);break;
     case 3: shader=ShaderClass::_PresetAlphaSpriteShader;break;
     case 4: shader=ShaderClass::_PresetATestSpriteShader;break;
@@ -241,10 +228,10 @@ template<> Int DefaultModule<6>::doParticles(RenderInfoClass &rinfo, void *bound
    g_00E06098->Set_Shader(shader);
    g_00E06098->Set_Point_Mode(PointGroupClass::QUADS);
    g_00E06098->Set_Arrays(g_00E065C8,g_00E065CC,0,g_00E065D0,g_00E065D4,0,count,0.0f,0.0f,0.0f,0.0f);
-   ((Rva00179100*)g_00E06098)->SetFlag(!getSystem()->m_billboard);
-   if(getSystem()->m_drawType==4)
-    g_00E06098->RenderVolumeParticle(rinfo,getDepth(),getSystem()->m_renderPayload);
-   else g_00E06098->Render(rinfo,(int)getSystem()->m_renderPayload);
+   ((Rva00179100*)g_00E06098)->SetFlag(!getSystem()->m_80);
+   if((Int)getSystem()->m_particleType==4)
+    g_00E06098->RenderVolumeParticle(rinfo,getDepth(),&getSystem()->m_uv);
+   else g_00E06098->Render(rinfo,(int)&getSystem()->m_uv);
   }
  }
  return count;
