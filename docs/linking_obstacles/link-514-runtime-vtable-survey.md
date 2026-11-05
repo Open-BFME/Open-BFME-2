@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open (partly repaired). Updated: 2026-11-05; inspected revision: e5e17e246f (census index c95fcfcfcd).
+Status: Open (partly repaired). Updated: 2026-11-06; inspected revision: e5e17e246f, getter and installer passes at be366d041e (census index c95fcfcfcd).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -95,6 +95,39 @@ placeholder class (`RvaXXXXXXXXNamed`), 64 off a readable class (`?name@DockUpda
 - Held at the time (skipped): SubsystemNameGetters.cpp (class claims of yasinschroeder-claude),
   and SubsystemNameGetters2/4.cpp and ModuleNameGetters3.cpp (lk28).
 
+**Walls 3 and 4 repaired (2026-11-05/06, seat halilkkaya-rt-o3).** Two `rename.py --to-class`
+slot-check fixes (Verifier-Change, regression tests in `tools/tests/test_rename_to_class.py`):
+- Wall 3: another slot no longer clashes when its ledger address and retail's word reach one body
+  through a single `jmp rel32` on either side (`same_slot_body`); a chain or a jump to another
+  body still refuses (rename.py c7666dba81c).
+- An installer unit that only references the class's `??_7` (an extern store, as
+  BloodthirstyUpdateCtor.cpp) is passed over; one installer must still compile a matching table
+  after ./build.sh (re_attempts 0x0044E000).
+- Wall 4 for PartTheHeavensUpdate: its ctor now stores the real tables (below).
+
+Moves landed through it: AIGateUpdate, PoisonedBehavior, FireWeaponUpdate, CritterEmitterUpdate,
+RadiateFearUpdate, DetachableRiderUpdate, BloodthirstyUpdate and PartTheHeavensUpdate. Each
+`??_7X@@6BObjectModule@@@` gains slot 2 (wrong -> eq). PartTheHeavensUpdate is now 13/13 OK;
+the others keep slot 1 `unknown`, because 0x00497805 is a shared fold the survey cannot judge.
+Survey: eq 24,195 -> 24,201 over the first six at the old base, with no other table changing.
+Linked bytes unchanged in every unit (CritterEmitterUpdate.cpp already did not link before:
+`??_7CritterEmitterUpdateModuleData@@6B@` first-copy mismatch).
+
+Still walled (scan of the 77 UpdateModule-family getter tables, `0x00497805` in slot 1):
+- ClickReactionBehavior (0x00459573): unblocked, but its class is held by yasinschroeder-codexb5.
+- SpecialAbilityUpdate (0x0044F099): slots 3/4 are rowed real overrides too, but it is a canonical
+  class (`SpecialAbilityUpdate.h`): define the getter through that header, not a private copy.
+- Slot 3 `xfer` under a placeholder (Wall 2): LifetimeUpdate, BuildingBehavior,
+  CivilianSpawnUpdate, ShareExperienceBehavior, DelayedWeaponSetUpgradeUpdate,
+  SpecialEnemySenseUpdate, SpawnUnitBehavior and WeaponModeSpecialPowerUpdateBase. Declare both
+  overrides in the view, then move the xfer and getter rows in one commit.
+- About 30 Die/Upgrade/Collide/Body tables still hold `__purecall` in slots 1 and 3 (Wall 2).
+- About 33 classes whose only installer is a dummy-vptr ctor or emits no table (Wall 4), e.g.
+  StrafeAreaUpdate, HeightDieUpdate, OCLUpdate, RadarUpdate, ToppleUpdate.
+- BattlePlanUpdate: slot 8 is `onDelete@Module` where retail names 0x004984CC (rowed as
+  `?cleanUp@SpectreGunshipUpdate@@QAEXXZ`, an identity question). DemoTrapUpdate and
+  EntEnragedUpdate: Rva0024A797Derived.cpp emits one-slot copies of their tables.
+
 **New obstacle: constructors that install a TU-local dummy as the vptr (found by rt-o2).** 71
 matched constructor rows in 71 units, listed in
 [dummy-vptr-ctors-20261105.tsv](../../reverse/attempt_support/dummy-vptr-ctors-20261105.tsv)
@@ -125,6 +158,19 @@ the unit links. But the built object's vptr points at a zero int.
     whose only definer is the wrong COMDAT in EvacuateDamageCtorModuleFactoryBody.cpp.
   - It lands only with the `~DamageModule` identity fold. See the GameLogic real-link entry and
     [damagemodule-dtor-identity-20261105-lk33.md](../../reverse/attempt_support/damagemodule-dtor-identity-20261105-lk33.md).
+- Done (seat halilkkaya-rt-o3): PartTheHeavensUpdate, AISpecialPowerUpdate,
+  GiveOrRestoreUpgradeSpecialPower, DoCommandUpgrade and AllowBannerSpawnUpgrade. Where one unit
+  (the class's dtor unit) defines every table the ctor installs, the ctor stores them by exact
+  mangled name (extern `__identifier`, the BloodthirstyUpdateCtor.cpp pattern). Codegen is
+  unchanged; each DIR32 now targets the real table. Map each displacement to its table through
+  the retail store immediate and the kept copy at that VA, never by member name alone.
+  Verified: bytes exact, scoped DIR32 OK, link_check LINKS on the ctor and the definer.
+- Same pattern, next (every store maps to a single definer's table; script:
+  displacement -> immediate -> kept `??_7` at that VA): RadarMarkerClientUpdate,
+  TerrainResourceClientBehavior, ShipSlowDeathBehavior, Horse/ProductionQueue/SlaughterHordeContain,
+  SiegeDeployHordeSpecialPower, DeployStyleAIUpdate, MonsterDockUpdate and CommandPointsUpgrade.
+  Many of their kept tables are placeholder-shaped and short, so fix the class views too. The
+  other ~55 have no kept table at a stored VA: their tables need a class view first.
 - Separately, 154 retail table addresses are reached from matched code through a non-`??_7`
   symbol: address-named globals such as `?g_00C50868@@3QBQBXB` and `?vftable_0112B89C@@3HA`
   (`name_globals.load_index()` against retail-installed tables). Whether each is aliased to the
