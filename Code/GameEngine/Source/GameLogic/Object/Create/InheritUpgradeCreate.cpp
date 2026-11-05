@@ -14,9 +14,7 @@ class Object;
 class ModuleData;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-
 class Rva002614ECFilter : public Rva000421C8
 {
 public:
@@ -27,21 +25,15 @@ public:
 	Player *m_player;
 	bool m_match;
 };
-
 extern PartitionManager *ThePartitionManager;
-
 class UpgradeTemplate;
-
 #include "../../../../Include/Common/Upgrade.h"
-
 extern UpgradeCenter *TheUpgradeCenter;
-
 class Rva002AA292
 {
 public:
 	bool rva002AA292(const int *mask) const;
 };
-
 class Object
 {
 public:
@@ -52,7 +44,6 @@ public:
 	char m_pad044[0x284 - 0x44];
 	int m_upgradeMask[32];	// +0x284
 };
-
 struct InheritUpgradeCreateData
 {
 	char m_pad00[0x08];
@@ -60,18 +51,15 @@ struct InheritUpgradeCreateData
 	unsigned int m_mask[32];	// +0x0C
 	char m_pad8C[0x4];
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class Rva003623E5Filter
 {
 public:
 	~Rva003623E5Filter();
 };
-
 class __declspec(novtable) InheritUpgradeCreateModuleData : public Snapshot
 {
 public:
@@ -81,16 +69,60 @@ private:
 	unsigned char m_pad04[0x8C - 4]; // +0x04..+0x8B (Radius, Upgrade helper, POD, no dtors)
 	Rva003623E5Filter m_objectFilter; // +0x8C
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Thing;
 class Xfer;
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
+enum NameKeyType;
+static int s_vtable;
+static int s_secondary0C;
+static int s_secondary10;
+//
+// ?xfer@InheritUpgradeCreate@@MAEXPAVXfer@@@Z, retail 0x004B94E3, 37 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x008596F4 (class of rowed ctor
+// ??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z in
+// InheritUpgradeCreateCtor.cpp): base CreateModule xfer via rowed 0x4B8D4E
+// then Version(1,1) via Xfer slot 0x28. Recipe is the InvisibilityUpdateXfer
+// slot-3 pattern with base first then Version.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
+//
+// InheritUpgradeCreate::onBuildComplete, retail 0x004B96A9 (27 bytes): slot 1
+// of the class's +0x10 create-module interface vftable 0x00C596E4 (the
+// matched ctor's), so `this` is that subobject. The Zero Hour shape: nothing
+// unless shouldDoOnBuildComplete (slot 3, the byte at +0x14 / interface +4),
+// then that flag is cleared and the class's create work 0x004B959C runs on the
+// primary this (tail call; pinned by address on this call site, the body the
+// +0x10 slot-2 thunk 0x004B96C4 also reaches).
+typedef bool Bool;
+class ModuleBase
+{
+public:
+	virtual ~ModuleBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
 
 class __declspec(novtable) InheritUpgradeCreate : public CreateModule
 {
@@ -104,11 +136,22 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
-// tu-skeleton: 0x004B9428 42B ??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateCtor.cpp
+
+// ??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4B9428
+InheritUpgradeCreate::InheritUpgradeCreate(Thing *thing, const ModuleData *moduleData)
+	: CreateModule(thing, moduleData)
+{
+	*(const void **)this = &s_vtable;
+	*(const void **)((char *)this + 0x0C) = &s_secondary0C;
+	*(const void **)((char *)this + 0x10) = &s_secondary10;
+}
 
 // tu-skeleton: 0x004B9452 6B ?Rva004B9452Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004B9458 25B ??1Rva004B9458@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/InheritUpgradeCreatePoolKey.cpp
 
@@ -119,14 +162,6 @@ NameKeyType InheritUpgradeCreate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("InheritUpgradeCreate");
 	return TheInheritUpgradeCreatePoolKey;
 }
-
-// tu-skeleton: 0x004B94B6 17B ?buildFieldParse@InheritUpgradeCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B94C7 28B ??_GRva004B9458@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004B94E3 37B ?xfer@InheritUpgradeCreate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004B9508 69B ??0InheritUpgradeCreateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InheritUpgradeCreateModuleDataCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp
 
@@ -182,4 +217,27 @@ void InheritUpgradeCreate::rva004B959C()
 	}
 }
 
-// tu-skeleton: 0x004B96A9 27B ?onBuildComplete@InheritUpgradeCreate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateOnBuildComplete.cpp (not merged yet)
+// tu-skeleton: 0x004B94B6 17B ?buildFieldParse@InheritUpgradeCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004B94C7 28B ??_GRva004B9458@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateXfer.cpp
+
+void InheritUpgradeCreate::xfer(Xfer *xfer)
+{
+	CreateModule::xfer(xfer);
+	Xfer::Version version(1, 1);
+	*xfer == version;
+}
+
+// tu-skeleton: 0x004B9508 69B ??0InheritUpgradeCreateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InheritUpgradeCreateModuleDataCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateOnBuildComplete.cpp
+
+void InheritUpgradeCreate::onBuildComplete()
+{
+	if (!shouldDoOnBuildComplete())
+		return;
+	m_needToRunOnBuildComplete = false;
+	rva004B959C();
+}
