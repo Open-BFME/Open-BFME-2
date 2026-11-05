@@ -2,7 +2,7 @@
 // ?xfer@TeamPrototype@@MAEXPAVXfer@@@Z @0x003A3E74 473B: slot 3 of vtable 0x0081AE94 (class of ??1TeamPrototype). Evidence: donor BFME1 Team.cpp xfer plus TeamPrototypeInstanceWalks xfer plus rowed getNthPlayer 0x002A7A29 plus pins 0x0039F761 0x003A3DBE plus disp8 getter 0x005C4AF5.
 // Slot 3 is TeamPrototype::xfer, retyped protected (MAE) from retail IsLightCRC early-out and Version(1,2) plus int player index plus Ascii plus bool plus Snapshot plus ushort count plus bool plus floats plus version-gated bools plus uint plus team save/load walks.
 #include "ascii_string.h"
-#include "Common/Snapshot.h"
+#include "../../../Include/Common/Team.h"
 
 class AsciiString;
 class UnicodeString;
@@ -65,59 +65,16 @@ public:
 	OBJCLASS* cur() const { return m_cur; }
 };
 
-class Script;
-class TeamTemplateInfo : public Snapshot
-{
-public:
-	virtual ~TeamTemplateInfo();
-protected:
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-private:
-	unsigned char m_data[0x318 - 0x12C - 4];
-};
-
 class TeamFactory;
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class TeamPrototype : public Snapshot
+// The iterator's concrete ABI belongs to this TU; the shared declaration
+// leaves it incomplete for consumers with other iterator implementations.
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
-public:
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
-	{
-		return DLINK_ITERATOR<Team>(m_teamInstanceListHead, &Team::dlink_next_TeamInstanceList);
-	}
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	TeamFactory *m_factory;
-	Player *m_owningPlayer;
-	unsigned int m_id;
-	AsciiString m_name;
-	AsciiString m_ownerName;
-	int m_flags;
-	bool m_productionConditionAlwaysFalse;
-	unsigned char m_pad1D[3];
-	AsciiString m_productionConditionName;
-	Script *m_productionConditionScript;
-	bool m_retrievedGenericScripts;
-	unsigned char m_pad29[3];
-	Script *m_genericScriptsToRun[32];
-	AsciiString m_genericScriptNames[32];
-	TeamTemplateInfo m_teamTemplate;
-	AsciiString m_attackPriorityName;
-	bool m_31C;
-	bool m_31D;
-	bool m_31E;
-	unsigned int m_320;
-	bool m_324;
-	float m_328;
-	float m_32C;
-	float m_330;
-	Team *m_teamInstanceListHead;
-};
+	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
 
 void TeamPrototype::xfer(Xfer *xfer)
 {
@@ -131,23 +88,23 @@ void TeamPrototype::xfer(Xfer *xfer)
 		owningPlayerIndex = m_owningPlayer->getPlayerIndex();
 	*xfer == owningPlayerIndex;
 	m_owningPlayer = ThePlayerList->getNthPlayer(owningPlayerIndex);
-	*xfer == m_attackPriorityName;
+	*xfer == *(AsciiString *)m_opaque318;
 	*xfer == m_productionConditionAlwaysFalse;
-	*xfer == (Snapshot &)m_teamTemplate;
+	*xfer == *(Snapshot *)m_opaque12C;
 	unsigned short teamInstanceCount = 0;
 	for (DLINK_ITERATOR<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		teamInstanceCount++;
 	*xfer == teamInstanceCount;
-	*xfer == m_324;
-	*xfer == m_328;
-	*xfer == m_32C;
-	*xfer == m_330;
+	*xfer == m_field324;
+	*xfer == m_coordinate328[0];
+	*xfer == m_coordinate328[1];
+	*xfer == m_coordinate328[2];
 	if (version.m_minimum >= 2)
 	{
-		*xfer == m_31C;
-		*xfer == m_31D;
-		*xfer == m_31E;
-		*xfer == m_320;
+		*xfer == m_field31C;
+		*xfer == m_field31D;
+		*xfer == m_field31E;
+		*xfer == m_frame320;
 	}
 	if (xfer->IsStoring())
 	{

@@ -143,9 +143,12 @@ private: T *current; GetNextFunc next;
 template<> void DLINK_ITERATOR<Object>::advance();
 class Rva002C6607Base0 {}; class Rva002C6607Base1 {};
 #include "../../Include/Common/TeamBFME2.h"
-class TeamPrototype { public: char pad[0x334]; Team *head;
- DLINK_ITERATOR<Team> iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(head,&Team::dlink_next_TeamInstanceList);}
-};
+#include "../../Include/Common/Team.h"
+
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
+{
+	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
 struct Rva002C6607PlayerView { char pad[0x2ec]; Team *excluded; char gap[0x3c]; _STL::list<TeamPrototype *> prototypes; };
 class GameLogic; extern GameLogic *TheGameLogic;
 struct Rva002C6607LogicView { char pad[0x40]; unsigned frame; };

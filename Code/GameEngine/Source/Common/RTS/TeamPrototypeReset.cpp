@@ -28,61 +28,31 @@ struct RetailPlayerRelationMap;
 #include "../GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class TeamPrototype
-{
-public:
-	void rva003A0CD1();
-	void addToLists();
-	void rva003A2C0D(Player *owner, const AsciiString &ownerName, bool singleton, Dict *dict);
+#include "../../../Include/Common/Team.h"
 
-	void *m_vft; // +0x00
-	void *m_factory; // +0x04
-	Player *m_owningPlayer; // +0x08
-	unsigned int m_id; // +0x0c
-	AsciiString m_name; // +0x10
-	AsciiString m_ownerName; // +0x14
-	int m_flags; // +0x18
-	unsigned char m_1c; // +0x1c
-	char m_pad1d[3]; // +0x1d
-	AsciiString m_20; // +0x20
-	void *m_productionConditionScript; // +0x24
-	unsigned char m_28; // +0x28
-	char m_pad29[3]; // +0x29
-	char m_pad2c[0x12c - 0x2c]; // +0x2c..0x12b (generic scripts/names preserved)
-	TeamTemplateInfo m_teamTemplate; // +0x12c
-	AsciiString m_attackPriorityName; // +0x318
-	unsigned char m_31c; // +0x31c
-	unsigned char m_31d; // +0x31d
-	unsigned char m_31e; // +0x31e
-	char m_pad31f; // +0x31f
-	unsigned int m_320; // +0x320
-	unsigned char m_324; // +0x324
-	char m_pad325[3]; // +0x325
-	float m_328; // +0x328
-	float m_32c; // +0x32c
-	float m_330; // +0x330
-};
+// The shared layout keeps string and template storage opaque; use the same
+// retail member types at their proven offsets without a second prototype view.
 
 void TeamPrototype::rva003A2C0D(Player *owner, const AsciiString &ownerName, bool singleton, Dict *dict)
 {
 	rva003A0CD1();
-	m_name.setCopyInline(owner->m_playerName);
-	m_ownerName.setCopyInline(ownerName);
-	m_1c = 0;
+	((AsciiString *)m_opaque10)->setCopyInline(owner->m_playerName);
+	((AsciiString *)m_opaque14)->setCopyInline(ownerName);
+	m_productionConditionAlwaysFalse = 0;
 	m_productionConditionScript = 0;
-	m_28 = 0;
-	m_31c = 0;
-	m_31d = 0;
-	m_31e = 0;
+	m_retrievedGenericScripts = 0;
+	m_field31C = 0;
+	m_field31D = 0;
+	m_field31E = 0;
 	m_owningPlayer = owner;
 	m_flags = singleton ? 1 : 0;
 	unsigned int tmp320 = TheGameLogic->getFrame();
-	m_324 = 0;
-	m_320 = tmp320;
-	float *zeroBase = &m_328;
+	m_field324 = 0;
+	m_frame320 = tmp320;
+	float *zeroBase = m_coordinate328;
 	zeroBase[0] = 0.0f;
 	zeroBase[1] = 0.0f;
 	zeroBase[2] = 0.0f;
-	m_teamTemplate.loadFromDict(dict);
+	((TeamTemplateInfo *)m_opaque12C)->loadFromDict(dict);
 	addToLists();
 }
