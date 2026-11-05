@@ -67,17 +67,7 @@ class Mouse {
 extern Mouse* TheMouse;
 class Rva001EEC4B { public: void rva001EEC4B(); };
 
-class GameWindow { public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual bool RvaInputPredicate();
- UnsignedInt winGetStatus(); GameWindow* winGetParent();
-
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 class WindowManager { public:
  virtual void slot00();
  virtual void slot01();
@@ -463,7 +453,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
  if (io && TheWindowManager)
   window=TheWindowManager->getWindowUnderCursor(io->pos.x,io->pos.y);
  while(window) {
-  if(window->RvaInputPredicate()) break;
+  if(window->vslot6()) break;
   if(!(window->winGetStatus()&0x10000) && !(window->winGetStatus()&0x200)) {underWindow=true;break;}
   window=window->winGetParent();
  }

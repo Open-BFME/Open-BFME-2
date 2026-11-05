@@ -27,30 +27,7 @@ public:
 	virtual void onChildPosition(int curX, int curY, int newX, int newY);
 };
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
-class GameWindow
-{
-public:
-	virtual void slot0();
-	virtual void slot4();
-	virtual void slot8();
-	virtual Int draw(void *instanceData);
-
-	UnsignedInt winGetStyle();
-	__declspec(noinline) void winDrawBorder();
-
-private:
-	friend class GameWindowManager;
-
-	GameWindowChild *m_positionSink;
-	UnsignedInt m_status;
-	unsigned char m_pad0c[0x24];
-	unsigned char m_instData[0x1c8];
-	GameWindow *m_next;
-	GameWindow *m_prev;
-	GameWindow *m_parent;
-	GameWindow *m_child;
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
 #include "../../../Include/GameClient/GameWindowManager.h"
@@ -65,8 +42,8 @@ Int GameWindowManager::drawWindow(GameWindow *window)
 	{
 		if (!(window->m_status & WIN_STATUS_SEE_THRU))
 		{
-			if (window->draw(window->m_instData) != 1 && window->m_positionSink)
-				window->m_positionSink->draw(window, window->m_instData);
+			if (window->draw(&window->m_instData) != 1 && window->m_positionSink)
+				window->m_positionSink->draw(window, &window->m_instData);
 		}
 
 		if (window->winGetStyle() & GWS_SCROLL_LISTBOX)

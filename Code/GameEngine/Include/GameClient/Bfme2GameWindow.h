@@ -16,6 +16,7 @@ class Gadget210;
 class Rva0031468C;
 enum WindowMsgHandledType;
 typedef WindowMsgHandledType (__cdecl *GameWindowNativeInputFunc)(GameWindow *, unsigned int, unsigned int, unsigned int);
+typedef WindowMsgHandledType (__cdecl *GameWindowNativeSystemFunc)(GameWindow *, unsigned int, unsigned int, unsigned int);
 typedef void (__cdecl *GameWindowNativeDrawFunc)(GameWindow *, WinInstanceData *);
 typedef void (__cdecl *GameWindowNativeTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
 class GameWindow
@@ -123,7 +124,7 @@ public:
 public:
 	GameWindowNativeInputFunc m_inputFunc;
 public:
-	void *m_system;
+	GameWindowNativeSystemFunc m_system;
 public:
 	GameWindowNativeDrawFunc m_drawFunc;
 public:
