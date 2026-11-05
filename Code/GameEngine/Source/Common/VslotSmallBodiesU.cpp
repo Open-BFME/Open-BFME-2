@@ -82,6 +82,7 @@ public:
 	char m_pad100[0x10C - 0x100];
 	bool m_requiresAllTriggers; // +0x10C, INI RequiresAllTriggers
 	bool m_requiresAllConflictingTriggers; // +0x10D, INI RequiresAllConflictingTriggers
+	bool m_vslot07Flag; // +0x10E, read by UpgradeModule slot 7; its INI key is not established
 };
 struct Rva00452460Data
 {
@@ -126,6 +127,16 @@ void UpgradeModule::getUpgradeActivationMasks(UpgradeMaskType &activation, Upgra
 	((const Rva00452460Data *)m_moduleData)->m_upgradeMuxData.getUpgradeActivationMasksRV(activation, conflicting);
 }
 void UpgradeModule::performUpgradeFX()
+{
+	((const Rva00452460Data *)m_moduleData)->m_upgradeMuxData.performUpgradeFX(m_object);
+}
+// Slot 7 of ??_7UpgradeModule@@6BUpgradeMux@@@ is 0x00460AE2; its original name is unknown.
+bool UpgradeModule::vslot07() const
+{
+	return ((const Rva00452460Data *)m_moduleData)->m_upgradeMuxData.m_vslot07Flag;
+}
+// Slot 15 of ??_7UpgradeModule@@6BUpgradeMux@@@ holds performUpgradeFX's body 0x00460AD3.
+void UpgradeModule::processUpgradeRemoval()
 {
 	((const Rva00452460Data *)m_moduleData)->m_upgradeMuxData.performUpgradeFX(m_object);
 }

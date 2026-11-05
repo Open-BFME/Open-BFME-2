@@ -250,3 +250,10 @@ bool UpgradeMux::isSubObjectsUpgrade()
 {
 	return false;
 }
+
+// ?vslot07@UpgradeMux@@UBE_NXZ: slot 7 of UpgradeMux's own vtable 0xC5FF10 is 0x0047A699,
+// the image's shared false return; UpgradeModule overrides it. Original name unknown.
+bool UpgradeMux::vslot07() const
+{
+	return false;
+}
