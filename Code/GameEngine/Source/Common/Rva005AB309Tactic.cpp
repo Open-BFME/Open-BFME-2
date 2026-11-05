@@ -149,40 +149,8 @@ class Player;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual void initializeTeamTemplate();
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	Team *rva004ECECD(int index);
-	unsigned char rva004ED169();
-	void teamGarrisonObject(int index, Object *target);
-	void rva004ED372(const Coord3D *point);
-	void end(bool a, bool b);
-	void NotifyTeamCreated(Team *team);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x10 - 4];
-	bool m_running;			// +0x10
-	char m_pad11[0x24 - 0x11];
-	Player *m_owner;		// +0x24
-	char m_pad28[4];		// +0x28
-	AsciiString m_name;		// +0x2c
-	unsigned int m_30;		// +0x30
-	char m_pad34[0x58 - 0x34];
-};
+#include "../../Include/Common/AITactic.h"
+#include "../../Include/Common/AITacticOffensive.h"
 
 class AIReturnTheRingTactic : public AITacticOffensive
 {
@@ -215,7 +183,7 @@ static inline Rva002A8AB1Record *aiData(Player *owner)
 
 bool AIReturnTheRingTactic::canRun(void *)
 {
-	if (!aiData(m_owner)->rva002C7196(AIReturnTheRingTactic_IsRunning)
+	if (!aiData((Player *)m_field24)->rva002C7196(AIReturnTheRingTactic_IsRunning)
 		&& findRingBearer())
 		return true;
 	return false;
@@ -224,7 +192,7 @@ bool AIReturnTheRingTactic::canRun(void *)
 void AIReturnTheRingTactic::cleanUp()
 {
 	if (m_created)
-		aiData(m_owner)->rva002C717E(AIReturnTheRingTactic_IsRunning, 0);
+		aiData((Player *)m_field24)->rva002C717E(AIReturnTheRingTactic_IsRunning, 0);
 }
 
 void AIReturnTheRingTactic::xfer(Xfer *xfer)
@@ -241,7 +209,7 @@ void AIReturnTheRingTactic::xfer(Xfer *xfer)
 
 Object *AIReturnTheRingTactic::findClosestFortress()
 {
-	Rva005AB309Holder *holder = (Rva005AB309Holder *)TheSkirmishAIManager->rva002A8F24(m_owner);
+	Rva005AB309Holder *holder = (Rva005AB309Holder *)TheSkirmishAIManager->rva002A8F24((Player *)m_field24);
 	Rva005C4AD1LeaField *field = holder->m_08;
 	Coord3D center;
 	float best = 0.0f;
@@ -283,7 +251,7 @@ void AIReturnTheRingTactic::moveToFortress()
 		m_target = obj->getID();
 		rva004ED372(obj->getPosition());
 	} else {
-		Rva004EBF4B *record = (Rva004EBF4B *)TheSkirmishAIManager->rva002A8AB1(m_owner);
+		Rva004EBF4B *record = (Rva004EBF4B *)TheSkirmishAIManager->rva002A8AB1(m_field24);
 		rva004ED372(&record->rva004EBF4B());
 	}
 }
@@ -293,10 +261,10 @@ bool AIReturnTheRingTactic::buildReturnTeam()
 	Object *obj = TheGameLogic->findObjectByID(m_holder);
 	if (obj && !(obj->m_438 & 1)) {
 		AsciiString name;
-		unsigned int id = m_30;
-		name.format("%s_%s_%u_%u", g_009BC1B8[0], m_name.str(), id, 0);
-		unsigned int tag = m_30;
-		Player *owner = m_owner;
+		unsigned int id = m_field30;
+		name.format("%s_%s_%u_%u", g_009BC1B8[0], m_field2C.str(), id, 0);
+		unsigned int tag = m_field30;
+		Player *owner = (Player *)m_field24;
 		Rva003A2FD4Proto *proto = TheTeamFactory->initTeamForTacticalAI(name, (char *)owner + 0x4c, -1, tag);
 		if (proto) {
 			proto->m_31c = false;
@@ -317,7 +285,7 @@ bool AIReturnTheRingTactic::buildReturnTeam()
 
 void AIReturnTheRingTactic::update()
 {
-	if (m_running && rva004ED169()) {
+	if (m_field10 && rva004ED169()) {
 		if (m_reached)
 			end(0, 0);
 		else if (garrisonFortress())

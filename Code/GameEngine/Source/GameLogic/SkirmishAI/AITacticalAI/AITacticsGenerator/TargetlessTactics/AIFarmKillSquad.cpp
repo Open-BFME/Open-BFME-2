@@ -151,34 +151,8 @@ struct Rva005ACCE4Team
 	Rva005ACCE4Flags m_flags;	// +0x2FC
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *unit);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(void *unit, int count);
-	virtual void v4();
-	virtual void xfer(Xfer *xfer);
-	virtual void run();
-	virtual void update();
-	virtual void v8();
-	virtual AITactic *create();
-	Team *rva004ECECD(int index);
-	bool rva005ACDA9();
-	unsigned char rva004ED169();
-	void teamAttackObject(int a, Object *target);
-	void end(bool a, bool b);
-};
-
-class AITacticOffensive : public AITactic
-{
-public:
-	virtual ~AITacticOffensive();
-	char m_pad04[0x24 - 4];
-	void *m_owner;			// +0x24
-	char m_pad28[0x58 - 0x28];
-};
+#include "../../../../../../Include/Common/AITactic.h"
+#include "../../../../../../Include/Common/AITacticOffensive.h"
 
 class AIFarmKillSquad : public AITacticOffensive
 {
@@ -255,7 +229,7 @@ public:
 
 bool AIFarmKillSquad::canRun(void *)
 {
-	void *owner = m_owner;
+	void *owner = m_field24;
 	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(owner);
 	if (!m_farm && record->m_16C <= 0)
 		return false;
@@ -268,7 +242,7 @@ bool AIFarmKillSquad::canRun(void *)
 
 void AIFarmKillSquad::cleanUp()
 {
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	record->rva002C717E(AIFarmKillSquad_IsRunning, 0);
 	record->rva002C717E(AIFarmKillSquad_FrameNextRun, TheGameLogic->getFrame()
 		+ GetGameLogicRandomValue(g_00E06438, g_00E0643C,
@@ -306,14 +280,14 @@ bool AIFarmKillSquad::initializeTeamTemplate(void *unit, int count)
 	flags->m_10 |= 0x20;
 	flags->m_00 |= 0x800;
 	team->m_21C = 30;
-	if (TheSkirmishAIManager->rva002A8AB1(m_owner)->m_16C == 0)
+	if (TheSkirmishAIManager->rva002A8AB1(m_field24)->m_16C == 0)
 		team->m_2D4 = 1;
 	else
 		team->m_2D4 = 2;
 	team->m_2D0 = GetGameLogicRandomValue(team->m_2D4, 3,
 		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\TargetlessTactics\\AIFarmKillSquad.cpp",
 		371);
-	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	record->rva002C717E(AIFarmKillSquad_IsRunning, 1);
 	return true;
 }
@@ -363,7 +337,7 @@ void AIFarmKillSquad::update()
 		return;
 	}
 	if (getFarmFinder()) {
-		void *player = TheSkirmishAIManager->rva002A8AB1(m_owner)->rva002C6ACB();
+		void *player = TheSkirmishAIManager->rva002A8AB1(m_field24)->rva002C6ACB();
 		if (player) {
 			Object *target = 0;
 			Object *farm = findFarmTarget(player);

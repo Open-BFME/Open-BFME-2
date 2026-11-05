@@ -43,31 +43,21 @@ struct Rva005DCB32Unit
 	int m_2D0;			// +0x2D0
 };
 
-class AITactic
-{
-public:
-	virtual ~AITactic();
-	virtual bool canRun(void *request);
-	virtual void cleanUp();
-	virtual bool initializeTeamTemplate(void *unit, int count);
-};
+#include "../../../../../Include/Common/AITactic.h"
 
 class AITacticDefensive : public AITactic
 {
 public:
 	virtual bool initializeTeamTemplate(void *unit, int count);
-	char m_pad04[0x20 - 4];
-	Rva005DCB32Slot *m_slot;	// +0x20
-	void *m_owner;			// +0x24
 };
 
 bool AITacticDefensive::initializeTeamTemplate(void *unit, int count)
 {
 	if (AITactic::initializeTeamTemplate(unit, count)) {
 		Rva005DCB32Unit *target = (Rva005DCB32Unit *)unit;
-		Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
+		Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_field24);
 		Rva005DCB32Chances *chances = record->m_chances;
-		int index = m_slot->m_index;
+		int index = ((Rva005DCB32Slot *)m_field20)->m_index;
 		if (!(GetGameLogicRandomValueReal(0.0f, 1.0f, AITACTICDEFENSIVE_FILE, 43) >= chances->m_chance[index]))
 			target->m_2D0 = 2;
 		target->m_21C = 0x28;
