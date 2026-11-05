@@ -556,6 +556,7 @@
   consumer into the next census. No census gain or debt retirement is claimed.
 - **Science intrinsic-order prerequisite (2026-11-03):** [Evidence and remaining prerequisites](../../reverse/attempt_support/science-intrinsic-order-consolidation-20261103-codexb4.md): the seed now composes byte-exactly with unchanged standalone object facts; reconcile the destructor donor's fourteen-slot virtual contract and selected vtable providers next. Parser class views and STL byte failures still block consolidation.
 - **Science tree inlining prerequisite (2026-11-05):** [Evidence](../../reverse/attempt_support/science-tree-inline-prerequisite-20261105-codex4.md): explicit out-of-line helper instantiations replace the tree donor's `/Ob0`; the byte and link checks pass, and the supported merge trial now accepts this donor. Parser fields, the destructor vtable and the other STL donor remain blocked.
+- **Science parser store-header prerequisite (2026-11-05):** [Evidence](../../reverse/attempt_support/science-parser-store-header-20261105-codexb.md): canonical ScienceStore adoption retires one header key; both rows and the field table remain exact, preview LINKS 392 -> 392 bytes. Composition now reaches Overridable's missing setReloadState; INI adoption, destructor vtable and the other STL donor remain prerequisites.
 - **Keyboard declaration prerequisites (2026-10-26):**
   [the shared receiver repair](../../reverse/attempt_support/consolidation-keyboard-resync-prerequisite-20261026-codex.md)
   first made the seed and 166-byte resync donor compose (13 existing rows).

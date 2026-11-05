@@ -115,8 +115,6 @@ public:
 	bool m_grantable;
 };
 
-typedef Rva001FFE93 ScienceInfo;
-
 // ??0Rva001FFE93@@QAE@XZ, retail 0x001FFE39..0x001FFE77 (62B).
 Rva001FFE93::Rva001FFE93() :
 	m_science(SCIENCE_INVALID),
@@ -156,16 +154,7 @@ private:
 };
 
 
-class ScienceStore
-{
-public:
-	static void friend_parseScienceDefinition(INI *ini);
-private:
-	char m_unmodelled00[0x0C];
-	_STL::vector<const ModuleData *> m_sciences;
-};
-
-extern ScienceStore *TheScienceStore;
+#include "../../../Include/Common/ScienceStore.h"
 void iniParseScienceVectorVector(INI *, void *, void *, const void *);
 // Native RVA 7E2650: the six fields and null terminator used at 200071.
 extern const FieldParse TheScienceInfoFieldParse[] = {
@@ -187,28 +176,32 @@ void ScienceStore::friend_parseScienceDefinition(INI *ini)
 
 	if (TheScienceStore)
 	{
-		ScienceInfo *info = 0;
-		for (const ModuleData **it = TheScienceStore->m_sciences.begin(); it != TheScienceStore->m_sciences.end(); ++it)
+		// The canonical header keeps the vector's three storage pointers neutral.
+		// Retain this caller's established STL element spelling and providers.
+		typedef _STL::vector<const ModuleData *> ScienceVector;
+		Rva001FFE93 *info = 0;
+		for (const ModuleData **it = reinterpret_cast<ScienceVector *>(&TheScienceStore->field0c)->begin();
+			it != reinterpret_cast<ScienceVector *>(&TheScienceStore->field0c)->end(); ++it)
 		{
-			if (((ScienceInfo *)*it)->m_science == st)
+			if (((Rva001FFE93 *)*it)->m_science == st)
 			{
-				info = (ScienceInfo *)*it;
+				info = (Rva001FFE93 *)*it;
 				break;
 			}
 		}
 
 		if (ini->getLoadType() == INI_LOAD_CREATE_OVERRIDES)
 		{
-			ScienceInfo *newInfo = new ScienceInfo;
+			Rva001FFE93 *newInfo = new Rva001FFE93;
 			if (info == 0)
 			{
 				info = newInfo;
 				info->markAsOverride();
-				TheScienceStore->m_sciences.push_back(*(const ModuleData **)&info);
+				reinterpret_cast<ScienceVector *>(&TheScienceStore->field0c)->push_back(*(const ModuleData **)&info);
 			}
 			else
 			{
-				info = (ScienceInfo *)info->friend_getFinalOverride();
+				info = (Rva001FFE93 *)info->friend_getFinalOverride();
 				*(Rva001FFEE9 *)newInfo = *(Rva001FFEE9 *)info;
 				info->setNextOverride(newInfo);
 				newInfo->markAsOverride();
@@ -220,8 +213,8 @@ void ScienceStore::friend_parseScienceDefinition(INI *ini)
 			if (ini->getLoadType() == INI_LOAD_RELOAD)
 			{
 				((Rva001FFA5A *)TheScienceStore)->rva001FFA5A((CreateAHeroData *)info);
-				info = new ScienceInfo;
-				TheScienceStore->m_sciences.push_back(*(const ModuleData **)&info);
+				info = new Rva001FFE93;
+				reinterpret_cast<ScienceVector *>(&TheScienceStore->field0c)->push_back(*(const ModuleData **)&info);
 				info->setReloadState(0);
 			}
 			else
@@ -231,8 +224,8 @@ void ScienceStore::friend_parseScienceDefinition(INI *ini)
 		}
 		else
 		{
-			info = new ScienceInfo;
-			TheScienceStore->m_sciences.push_back(*(const ModuleData **)&info);
+			info = new Rva001FFE93;
+			reinterpret_cast<ScienceVector *>(&TheScienceStore->field0c)->push_back(*(const ModuleData **)&info);
 		}
 
 		ini->initFromINI(info, TheScienceInfoFieldParse);
