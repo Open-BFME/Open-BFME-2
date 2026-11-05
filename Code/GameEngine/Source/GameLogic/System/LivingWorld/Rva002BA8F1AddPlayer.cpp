@@ -73,13 +73,11 @@ public:
 };
 // Name: WorldBuilder twin 0x00D8BB70 is LivingWorldLogic::AddPlayer (LivingWorldLogic.cpp,
 // asserts 6210..6266), matched by call graph; it agrees with the bfme12x-dll lead above.
-class LivingWorldLogic : public Rva002BA8F1Logic {
-public:
-    void AddPlayer(Rva002BA8F1Input *, bool, int, Rva002BA8F1Slot *);
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 void LivingWorldLogic::AddPlayer(Rva002BA8F1Input *input, bool local, int kind, Rva002BA8F1Slot *slot)
 {
-    if (find(input->at08, 0)) return;
+    Rva002BA8F1Logic *logic = (Rva002BA8F1Logic *)this;
+    if (logic->find(input->at08, 0)) return;
     void *first = TheLivingWorldPlayerTemplateStore->find(input->at0C);
     if (!first) return;
     void *second = 0;
@@ -92,14 +90,14 @@ void LivingWorldLogic::AddPlayer(Rva002BA8F1Input *input, bool local, int kind, 
     Rva002000D7Config *config = (*(Rva002000D7Store **)&TheRankInfoStore)->get(1);
     if (config) player->setAt1C4(config->at34);
     ((LivingWorldPlayer *)player)->SetColorIndex(input->at18);
-    players.push_back(player);
-    if (local) setLocal(player);
+    logic->players.push_back(player);
+    if (local) logic->setLocal(player);
     if (input->at24) player->state2();
     else if (kind == 0) player->state0();
     else player->state1();
     if (second) ((Rva002E0648Owner *)player)->rva002E0648(second);
     if (((Va00DFE78CState *)TheGameLogic)->at114 != 3) ((LivingWorldPlayer *)player)->InitBuildableHeroes();
-    player->listeners.append(this);
+    player->listeners.append((Rva002BA8F1Listener *)(LivingWorldLogicVslots18 *)this);
 }
 
 // TheLivingWorldAITemplateStore: matched references place it at VA 0xe03140 (zero-filled .bss).

@@ -2,12 +2,7 @@
 // ?rva002BED10@Rva002BED10@@QAEXXZ @0x002BED10 89B unlock 2 ready.
 // Evidence: 7 callers; rowed HideControlBar 0x00402960; TheLivingWorldLogic TheGameLogic TheLivingWorldManager externs; rowed clear 0x0023D2D8 via GameLogic+0 clearer member; pin-only 0x0021427A; virtuals +0x28 +0x4c +0x1c +0x18 tail; prev Rva002BECCDCalls next InlineDtor.
 void HideControlBar(bool b);
-class LivingWorldLogic
-{
-public:
-	virtual void v0();
-	virtual void v1();
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0023D2D8DwordClearer
 {
@@ -47,7 +42,7 @@ void Rva002BED10::rva002BED10()
 	HideControlBar(true);
 	if (TheLivingWorldLogic)
 	{
-		TheLivingWorldLogic->v1();
+		TheLivingWorldLogic->init();
 		if (TheGameLogic)
 			((GameLogicFieldView *)TheGameLogic)->m_clear.clear();
 	}

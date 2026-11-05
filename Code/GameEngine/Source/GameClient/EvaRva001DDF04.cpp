@@ -94,12 +94,7 @@ struct EvaWorldMapPlayer
 	const AsciiString *m_side;			// +0x40
 };
 
-class LivingWorldLogic
-{
-public:
-	unsigned char m_pad00[0x98];
-	EvaWorldMapPlayer *m_localPlayer;		// +0x98
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 extern GameLogic *TheGameLogic;
@@ -185,7 +180,7 @@ void Eva::rva001DDF04()
 			if (TheGameLogic->rva001DCD1C())
 			{
 				inLivingWorld = 1;
-				localPlayerWorldMap = TheLivingWorldLogic->m_localPlayer;
+				localPlayerWorldMap = (EvaWorldMapPlayer *)TheLivingWorldLogic->field98;
 				if (localPlayerWorldMap == 0)
 					return;
 				side = *localPlayerWorldMap->m_side;
