@@ -137,8 +137,6 @@ RenderObjClass * __cdecl Create_Render_Obj(const char *);
 // byte-identical to the BFME1 donor at open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp.
 // Vtable 0x007D6C70 slot 3; members mirror ZH layout: version +4, name +0x58.
 
-extern "C" char * __cdecl strdup(const char *);
-
 // Kernel32 string import (sweep/winbase_shim.h idiom, kept TU-local so this
 // self-contained unit needs no include chain): retail calls the IAT slot
 // directly.
