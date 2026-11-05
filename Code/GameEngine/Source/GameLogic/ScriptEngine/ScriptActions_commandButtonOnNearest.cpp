@@ -115,14 +115,14 @@ struct Coord3D;
 
 #include "../Object/object.h"
 
-class CommandButton
+#include "../../../Include/GameClient/CommandButton.h"
+
+// Option bit 5 read through a bool-returning inline: retail tests the shifted
+// value (shr eax,5; test al,1), not the byte mask a direct `& 0x20` produces.
+static inline bool needsTargetPosition(const CommandButton *button)
 {
-public:
-	bool isReady(const Object *obj) const;	// 0x0035B069
-	bool rva003BDCCA() const { return (m_options >> 5) & 1; }
-	char m_pad00[0x1C];
-	unsigned int m_options;	// +0x1C
-};
+	return (button->getOptions() >> 5) & 1;
+}
 
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
@@ -161,7 +161,7 @@ void ScriptActions::rva003BD905(const AsciiString &unitName, const AsciiString &
 	mask.set(89);
 	mask.set(54);
 	mask.set(130);
-	if (button->rva003BDCCA()) {
+	if (needsTargetPosition(button)) {
 		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
 			Rva00261409Filter(obj->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -213,7 +213,7 @@ void ScriptActions::rva003BDC65(const AsciiString &unitName, const AsciiString &
 		return;
 	if (!obj->rva002922D9(button))
 		return;
-	if (button->rva003BDCCA()) {
+	if (needsTargetPosition(button)) {
 		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
 			Rva00261409Filter(obj->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, kindofBit),
