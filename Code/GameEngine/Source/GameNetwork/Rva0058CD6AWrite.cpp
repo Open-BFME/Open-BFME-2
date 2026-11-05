@@ -8,36 +8,43 @@
 // from pointer +0x24 with size +0x28.
 void __cdecl ji_006291a8();
 
-class NetWrapperCommandMsg
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+
+// Same data-carrying message reconstructed by NetPacket's 0x0058E20D reader;
+// this is the TU's NetHeroCommandMsg view, not NetWrapperCommandMsg.
+class NetHeroCommandMsg : public NetCommandMsg
 {
 public:
-	void *m_vptr;
-	unsigned int m_timestamp;
-	unsigned int m_executionFrame;
-	unsigned int m_playerID;
-	unsigned short m_id;
-	char m_pad12[2];
-	int m_commandType;
-	int m_referenceCount;
-	unsigned int m_unk1c;
-	unsigned short m_unk20;
-	char m_pad22[2];
-	unsigned char *m_data;
-	unsigned int m_dataLength;
+	NetHeroCommandMsg();
+	void setData(unsigned char *data, unsigned int len);
+	unsigned int get1c() { return m_1c; }
+	unsigned short get20() { return m_20; }
+	unsigned char *getData() { return m_24; }
+	unsigned int getDataLength() { return m_28; }
+	unsigned int m_1c;
+	unsigned short m_20;
+	unsigned char *m_24;
+	unsigned int m_28;
 };
 
 class NetCommandRef
 {
 public:
-	NetWrapperCommandMsg *m_msg;
+	NetCommandRef(NetCommandMsg *msg);
+	~NetCommandRef();
+	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
+	__declspec(dllimport) __forceinline unsigned char getRelay() const { return m_relay; }
+	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
 	unsigned char m_relay;
+	unsigned int m_timeLastSent;
 };
 
 void __cdecl Rva0058CD6AWrite(char *dst, NetCommandRef *ref)
 {
-	NetWrapperCommandMsg *msg = ref->m_msg;
+	NetHeroCommandMsg *msg = (NetHeroCommandMsg *)ref->m_msg;
 	dst[0] = 'T';
 	dst[1] = (char)msg->m_commandType;
 	dst[2] = 'R';
@@ -51,13 +58,13 @@ void __cdecl Rva0058CD6AWrite(char *dst, NetCommandRef *ref)
 	unsigned short id = msg->m_id;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0xc, &id, 2);
 	dst[0xe] = 'D';
-	unsigned int u1c = msg->m_unk1c;
+	unsigned int u1c = msg->m_1c;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0xf, &u1c, 4);
-	unsigned short u20 = msg->m_unk20;
+	unsigned short u20 = msg->m_20;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x13, &u20, 2);
-	u1c = msg->m_dataLength;
+	u1c = msg->m_28;
 	dst += 0x15;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, &u1c, 4);
 	dst += 4;
-	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, msg->m_data, (int)msg->m_dataLength);
+	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, msg->m_24, (int)msg->m_28);
 }

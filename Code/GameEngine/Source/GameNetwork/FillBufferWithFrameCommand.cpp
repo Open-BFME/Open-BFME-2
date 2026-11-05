@@ -7,34 +7,28 @@
 // tail dwords at msg +0x1c +0x20 +0x24.
 void __cdecl ji_006291a8();
 
-class NetWrapperCommandMsg
-{
-public:
-	void *m_vptr;
-	unsigned int m_timestamp;
-	unsigned int m_executionFrame;
-	unsigned int m_playerID;
-	unsigned short m_id;
-	char m_pad12[2];
-	int m_commandType;
-	int m_referenceCount;
-	unsigned int m_w0;
-	unsigned int m_w1;
-	unsigned int m_w2;
-};
+// Dispatch type 3 and the reader at 0x0058DCEB identify this as the frame
+// message; the three payload dwords are not wrapper data fields.
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 
 class NetCommandRef
 {
 public:
-	NetWrapperCommandMsg *m_msg;
+	NetCommandRef(NetCommandMsg *msg);
+	~NetCommandRef();
+	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
+	__declspec(dllimport) __forceinline unsigned char getRelay() const { return m_relay; }
+	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
 	unsigned char m_relay;
+	unsigned int m_timeLastSent;
 };
 
 void __cdecl FillBufferWithFrameCommand(char *dst, NetCommandRef *ref)
 {
-	NetWrapperCommandMsg *msg = ref->m_msg;
+	NetFrameCommandMsg *msg = (NetFrameCommandMsg *)ref->m_msg;
 	dst[0] = 'T';
 	dst[1] = (char)msg->m_commandType;
 	dst[2] = 'R';
@@ -52,11 +46,11 @@ void __cdecl FillBufferWithFrameCommand(char *dst, NetCommandRef *ref)
 	unsigned short id = msg->m_id;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x11, &id, 2);
 	dst[0x13] = 'D';
-	unsigned int w0 = msg->m_w0;
+	unsigned int w0 = msg->m_frame;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x14, &w0, 4);
-	unsigned int w1 = msg->m_w1;
+	unsigned int w1 = msg->m_playerFrame;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst + 0x18, &w1, 4);
-	unsigned int w2 = msg->m_w2;
+	unsigned int w2 = msg->m_commandCount;
 	dst += 0x1c;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, &w2, 4);
 }
