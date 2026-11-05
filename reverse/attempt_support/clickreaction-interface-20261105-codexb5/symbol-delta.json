@@ -1,0 +1,18 @@
+{
+  "main": {
+    "definitions_removed": [],
+    "definitions_added": [],
+    "references_removed": [],
+    "references_added": [],
+    "aliases_unchanged": true
+  },
+  "CtorThunk": {
+    "definitions_removed": [],
+    "definitions_added": [],
+    "references_removed": [],
+    "references_added": [
+      "?rva004596F9@ClickReactionBehavior@@UAEXXZ"
+    ],
+    "aliases_unchanged": true
+  }
+}

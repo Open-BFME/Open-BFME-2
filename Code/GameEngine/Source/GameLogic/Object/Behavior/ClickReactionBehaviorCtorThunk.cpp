@@ -24,28 +24,7 @@ public:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class ClickReactionBehaviorIface
-{
-public:
-    virtual void slot();
-};
-
-class ClickReactionBehavior : public UpdateModule,
-    public ClickReactionBehaviorIface
-{
-public:
-    ClickReactionBehavior(Thing *, const ModuleData *);
-
-private:
-    int m_clicks; // +0x24, shared reaction/xfer view
-    int m_cooldown; // +0x28, shared reaction/xfer view
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	// retail vftable slot: the rowed override
-	virtual void xfer(Xfer *);
-};
+#include "ClickReactionBehaviorView.h"
 
 // ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
 ClickReactionBehavior::ClickReactionBehavior(Thing *thing, const ModuleData *moduleData)
