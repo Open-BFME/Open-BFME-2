@@ -110,13 +110,8 @@ class SpecialTrailing { public: virtual void trailingSlot(); };
 
 extern GameLogic *TheGameLogic;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad00[0x1C];
-	int m_val1C;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 class TextureClass;
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 enum WeaponSlotType
@@ -137,7 +132,7 @@ public:
 struct ModuleDataFull
 {
 	char m_pad00[0x38];
-	Overridable *m_override38;
+	const SpecialPowerTemplate *m_specialPowerTemplate38;
 };
 class SpecialAbilityUpdate : public UpdateModule, public SpecialTrailing
 {
@@ -232,7 +227,7 @@ void SpecialAbilityUpdate::validateSpecialObjects()
 void SpecialAbilityUpdate::killSpecialObjects()
 {
 	const ModuleDataFull *md = (const ModuleDataFull *)m_moduleData;
-	Overridable *holder = md->m_override38;
+	const SpecialPowerTemplate *holder = md->m_specialPowerTemplate38;
 	int zero = 0;
 	for (ListInt::iterator it = m_64.begin(); it != m_64.end(); ++it) {
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)*it);
@@ -241,8 +236,7 @@ void SpecialAbilityUpdate::killSpecialObjects()
 	}
 	m_64.clear();
 	m_68 = zero;
-	const Overridable *ov = holder->friend_getFinalOverride();
-	if (ov->m_val1C != 0x15)
+	if (holder->getFO()->m_type != (SpecialPowerType)0x15)
 		return;
 	Object *object = m_object;
 	if (object->m_pass330.Peek_Texture(zero) == 0)

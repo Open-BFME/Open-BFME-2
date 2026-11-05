@@ -66,18 +66,12 @@ protected:
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
-class Overridable
-{
-public:
-	Overridable *friend_getFinalOverride();
-	void *m_vtbl;
-	Overridable *m_nextOverride;
-};
+#include "../../../../GameEngine/Include/Common/Overridable.h"
 
 class WeatherSetting : public Overridable
 {
 public:
-	char m_pad08[0x3C];
+	char m_pad10[0x34];
 	bool m_usePointSprites;	// +0x44
 	bool m_snowEnabled;		// +0x45
 };
@@ -137,8 +131,8 @@ public:
 	{
 		if (!weatherSetting)
 			return 0;
-		if (weatherSetting->m_nextOverride)
-			return (const WeatherSetting *)weatherSetting->m_nextOverride->friend_getFinalOverride();
+		if (weatherSetting->getNextOverride())
+			return (const WeatherSetting *)((WeatherSetting *)weatherSetting)->friend_getNextOverride()->friend_getFinalOverride();
 		return weatherSetting;
 	}
 	static unsigned long FtoDW(float f) { return *((unsigned long *)&f); }

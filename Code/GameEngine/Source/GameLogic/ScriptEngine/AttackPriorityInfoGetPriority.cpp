@@ -21,22 +21,15 @@ typedef int Int;
 typedef float Real;
 typedef bool Bool;
 
-class Overridable
-{
-public:
-	Overridable *friend_getFinalOverride();
-
-	void *m_vtable;
-	Overridable *m_nextOverride;
-};
+#include "../../../Include/Common/Overridable.h"
 
 class ThingTemplate : public Overridable
 {
 public:
 	const ThingTemplate *getFinalOverride() const
 	{
-		if (m_nextOverride)
-			return (const ThingTemplate *)m_nextOverride->friend_getFinalOverride();
+		if (getNextOverride())
+			return (const ThingTemplate *)((ThingTemplate *)this)->friend_getNextOverride()->friend_getFinalOverride();
 		return this;
 	}
 };

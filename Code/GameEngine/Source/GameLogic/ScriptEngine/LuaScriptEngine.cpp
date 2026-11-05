@@ -124,20 +124,10 @@ enum SpecialPowerType
 {
 	SPECIAL_POWER_TYPE_UNKNOWN = 0
 };
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-private:
-	void *m_vptr;
-public:
-	Overridable *m_nextOverride;
-	unsigned char m_isAllocated;
-};
+#include "../../../Include/Common/Overridable.h"
 class SpecialPowerTemplate : public Overridable
 {
 public:
-	char m_pad0C[0x10 - 0x0C];
 	void *m_name10;
 	char m_pad14[0x1C - 0x14];
 	SpecialPowerType m_type1C;

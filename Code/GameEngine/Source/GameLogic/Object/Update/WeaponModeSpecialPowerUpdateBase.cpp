@@ -12,19 +12,8 @@ struct VirtBase
 	virtual void vf(void *a, int b, int c, int d, int e);
 };
 #include "ascii_string.h"
-class Overridable
-{
-public:
-	virtual void overridableAnchor();
-	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad04[0x10 - 0x04];
-	AsciiString m_name;
-	unsigned char m_pad14[0x20 - 0x14];
-	int m_reloadTime;
-	unsigned char m_pad24[0x59 - 0x24];
-	unsigned char m_sharedNSync;
-};
-class SpecialPowerTemplate;
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 class Player;
 #include "../object.h"
 class Rva002AC6B1PlayerTimers
@@ -81,7 +70,7 @@ struct VirtPrimary
 	virtual void f3();
 	virtual void f4();
 	virtual void f5();
-	virtual const Overridable *f6() const;
+	virtual const SpecialPowerTemplate *f6() const;
 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -142,7 +131,7 @@ public:
 struct Rva005892F6Target
 {
 	char m_pad00[8];
-	Overridable *m_8;
+	const SpecialPowerTemplate *m_8;
 };
 
 class Rva005892F6
@@ -168,7 +157,7 @@ private:
 struct Rva00494A97ModuleData
 {
 	unsigned char m_pad00[8];
-	const Overridable *m_08;
+	const SpecialPowerTemplate *m_08;
 	Rva002390CB m_0C;
 };
 
@@ -211,7 +200,6 @@ public:
 
 class Rva002AA0B1FloatField {public:float get() const;};
 
-struct RechargeTemplateView {char prefix[0x20];unsigned int duration;char pad[0x59-0x24];bool shared;};
 
 struct RechargeModuleDataView {char prefix[8];const SpecialPowerTemplate *power;};
 
@@ -292,15 +280,12 @@ void WeaponModeSpecialPowerUpdateBase::rva005891DB(int loc, int angle, int comma
 
 int WeaponModeSpecialPowerUpdateBase::rva005893AD()
 {
-	const Overridable *ov = ((const VirtPrimary *)this)->f6();
-	const Overridable *fin = ov->friend_getFinalOverride();
-	if (fin->m_sharedNSync != 0) {
+	if (((const VirtPrimary *)this)->f6()->isSharedNSync()) {
 		Object *outer = *(Object **)((char *)this - 0x1c);
 		if (outer != 0) {
 			Player *player = outer->getControllingPlayer();
 			if (player != 0) {
-				const Overridable *overridable = ((const VirtPrimary *)this)->f6();
-				return (int)((Rva002AC6B1PlayerTimers *)player)->getOrStart((const SpecialPowerTemplate *)overridable);
+				return (int)((Rva002AC6B1PlayerTimers *)player)->getOrStart(((const VirtPrimary *)this)->f6());
 			}
 		}
 	}
@@ -338,8 +323,7 @@ bool WeaponModeSpecialPowerUpdateBase::rva00589297()
 		Player *player = outer->getControllingPlayer();
 		if (player != 0) {
 			const SpecialPowerTemplate *specialPowerTemplate = *(const SpecialPowerTemplate **)((char *)p2 + 8);
-			const Overridable *fin = ((const Overridable *)specialPowerTemplate)->friend_getFinalOverride();
-			if (fin->m_sharedNSync != 0) {
+			if (specialPowerTemplate->isSharedNSync()) {
 				unsigned int frame = (unsigned int)TheGameLogic->getFrame();
 				unsigned int ready = ((Rva002AC6B1PlayerTimers *)player)->getOrStart(specialPowerTemplate);
 				return frame >= ready;
@@ -368,7 +352,7 @@ float Rva005892F6::rva005892F6()
 		Player *player = obj->getControllingPlayer();
 		if (player != 0)
 		{
-			if (target->m_8->friend_getFinalOverride()->m_sharedNSync != 0)
+			if (target->m_8->isSharedNSync())
 			{
 				const SpecialPowerTemplate *specialPowerTemplate = slot6();
 				frame = (int)reinterpret_cast<Rva002AC6B1PlayerTimers *>(player)->getOrStart(specialPowerTemplate);
@@ -377,7 +361,8 @@ float Rva005892F6::rva005892F6()
 	}
 	GameLogic *gl = TheGameLogic;
 	const float numer = (float)(unsigned int)(frame - gl->getFrame());
-	const float denom = (float)(unsigned int)target->m_8->friend_getFinalOverride()->m_reloadTime;
+	// Spelled with the explicit cast: getReloadTime() and getFO() schedule the frame load after the reload read.
+	const float denom = (float)((const SpecialPowerTemplate *)target->m_8->friend_getFinalOverride())->m_reloadTime;
 	return 1.0f - numer / denom;
 }
 
@@ -395,7 +380,7 @@ float Rva005892F6::rva005892F6()
 
 AsciiString Rva00494A97::rva00589414() const
 {
-	return m_moduleData->m_08->friend_getFinalOverride()->m_name;
+	return m_moduleData->m_08->getName();
 }
 
 Rva002390CB Rva00494A97::rva00589560() const
@@ -419,13 +404,13 @@ void Rva005890A6::rva0058943A(float percent) {
  Player *player=obj->getControllingPlayer();
  if(!player)return;
  const SpecialPowerTemplate *original=data->power;
- if(((const RechargeTemplateView *)((const Overridable *)original)->friend_getFinalOverride())->shared) {
+ if(original->isSharedNSync()) {
   ((Rva002AC6B1PlayerTimers *)player)->resetOrStart(original);
  } else {
   float modifier=1.0f;
   obj->rva0028C15E(12,&modifier,0,1);
   float factor=1.0f+((const Rva002AA0B1FloatField *)player)->get();
-  unsigned int duration=(unsigned int)(((const RechargeTemplateView *)((const Overridable *)powerTemplate())->friend_getFinalOverride())->duration*factor*modifier);
+  unsigned int duration=(unsigned int)(powerTemplate()->getReloadTime()*factor*modifier);
   if(percent<1.0f) {
    float current=progress();
    if(current==0.0f)return;

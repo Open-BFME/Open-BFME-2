@@ -83,16 +83,11 @@ public:
  void Set_Reflected_Projection_Matrix(const Matrix4 &);
  const Matrix3D &Get_Transform() const { Validate_Transform();return transform; }
 };
-class Overridable {
-public:
- void *vtable;
- Overridable *next;
- Overridable *friend_getFinalOverride();
-};
+#include "../../../../../GameEngine/Include/Common/Overridable.h"
 // recursively ask if there is a next override, and if not, return this.
 static __forceinline Overridable *finalSetting(Overridable *setting) {
  if(!setting)return 0;
- if(setting->next)return setting->next->friend_getFinalOverride();
+ if(setting->friend_getNextOverride())return setting->friend_getNextOverride()->friend_getFinalOverride();
  return setting;
 }
 class WaterTransparencySetting;

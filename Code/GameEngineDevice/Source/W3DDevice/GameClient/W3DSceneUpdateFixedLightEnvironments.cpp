@@ -114,22 +114,11 @@ extern int LODTextureReduction;
 // out-of-line COMDAT (retail 0x001E35DF, pinned). Spelling Render through these
 // two inline levels gives retail its two temporaries per weather read (the inner
 // result spilled, the outer one a register phi with the null arm's zero).
-class Overridable
-{
-public:
-	virtual ~Overridable();
-	const Overridable *getFinalOverride(void) const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
-	Overridable *m_nextOverride; // +4
-};
+#include "../../../../GameEngine/Include/Common/Overridable.h"
 class WeatherSetting : public Overridable
 {
 public:
-	char m_pad08[0x8C - 8];
+	char m_pad10[0x8C - 0x10];
 	Real m_fogColorR, m_fogColorG, m_fogColorB;		// +0x8C
 	bool m_fogEnabled;					// +0x98
 	Real m_fogStart;					// +0x9C

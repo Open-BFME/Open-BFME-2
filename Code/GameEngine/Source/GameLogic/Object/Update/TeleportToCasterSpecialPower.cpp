@@ -104,22 +104,9 @@ public:
 	void *rva0044E633();
 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-
 // The +0x60 object filter is read through the final override (Zero Hour SpecialPower.h getFO() idiom).
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const void *getObjectFilter() const { return &getFO()->m_objectFilter; }
-private:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	char m_pad00[0x60];
-	int m_objectFilter;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
 // What 0x0044E633 returns: slot 6 is the special power template.
 class TeleportPowerModule
@@ -481,7 +468,7 @@ void TeleportToCasterSpecialPower::triggerAbilityEffect()
 		teleportList((const _STL::vector<ObjectID> *)&stored->m_vecBeg, &targetPosition);
 		((Rva004CDA35 *)stored)->rva004CDA35();
 	} else {
-		const void *what = ((TeleportPowerModule *)((Rva0044E633 *)this)->rva0044E633())->getSpecialPowerTemplate()->getObjectFilter();
+		const void *what = &((TeleportPowerModule *)((Rva0044E633 *)this)->rva0044E633())->getSpecialPowerTemplate()->getFO()->field60;
 		Rva0023DA79 statusMask;
 		BfmeWideResult result = ThePartitionManager->iterateObjectsInRange(&targetPosition, moduleData->radius, 0,
 			Rva002614DFFilter(object).link(Rva0026119DFilter().link(PartitionFilterRejectByKindOf(*(const BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 7, 0x86), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(

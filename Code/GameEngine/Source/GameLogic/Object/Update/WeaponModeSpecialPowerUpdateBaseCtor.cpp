@@ -34,20 +34,14 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class Overridable
-{
-public:
-	virtual void overridableAnchor();
-	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad04[0x55];
-	unsigned char m_hasOverride;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
 class ModuleData
 {
 public:
 	unsigned char m_pad00[8];
-	const Overridable *m_overridable;
+	const SpecialPowerTemplate *m_specialPowerTemplate;
 	unsigned char m_pad0C[8];
 	unsigned char m_startsPaused;
 };
@@ -86,7 +80,7 @@ WeaponModeSpecialPowerUpdateBase::WeaponModeSpecialPowerUpdateBase(
 	m_pausedCount = 0;
 	m_pausedOnFrame = 0;
 	m_pausedPercent = 0.0f;
-	if (m_moduleData->m_overridable->friend_getFinalOverride()->m_hasOverride == 0)
+	if (!m_moduleData->m_specialPowerTemplate->isSharedNSync())
 	{
 		rva0058943A(1.0f);
 	}
