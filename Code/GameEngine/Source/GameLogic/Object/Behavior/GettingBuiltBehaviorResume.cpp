@@ -49,9 +49,7 @@ class ThingTemplate;
 struct CreateMask { unsigned int bits[4]; };
 enum ObjectID; class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID); };
 extern ThingFactory *TheThingFactory;
-struct GettingBuiltBehaviorModuleData {
- unsigned char pad[0x14]; AsciiString builder; AsciiString alternateBuilder; bool alternate;
-};
+#include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 class GettingBuiltBehaviorSecondary {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
@@ -62,14 +60,14 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
 {
  const GettingBuiltBehaviorModuleData *data = *(const GettingBuiltBehaviorModuleData **)((char *)this-0x1c);
  Object *object = *(Object **)((char *)this-0x18);
- if (data->builder.isEmpty()) { rva00453652(instant); return; }
+ if (data->m_workerName.isEmpty()) { rva00453652(instant); return; }
  Player *player = object->getControllingPlayer();
  if (!player) return;
  if (!object->getControllingPlayer()->rva002AA245()) return;
  const ThingTemplate *thingTemplate;
- if (data->alternate && object->getControllingPlayer()->part->alternate)
-   thingTemplate = TheThingFactory->findTemplate(data->alternateBuilder);
- else thingTemplate = TheThingFactory->findTemplate(data->builder);
+ if (data->m_testFaction && object->getControllingPlayer()->part->alternate)
+   thingTemplate = TheThingFactory->findTemplate(data->m_evilWorkerName);
+ else thingTemplate = TheThingFactory->findTemplate(data->m_workerName);
  if (!thingTemplate) return;
  CreateMask mask;
  memset(&mask,0,sizeof(mask));

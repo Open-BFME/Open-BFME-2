@@ -191,12 +191,13 @@ enum NameKeyType
 static const int GETTING_BUILT_CONDITION_A = 2 * 32 + 4;
 static const int GETTING_BUILT_CONDITION_B = 2 * 32 + 5;
 // The Ghidra boundary at 0x0045346D is 52B. Its first stack argument is
-// treated as a byte view whose +0x14 member is a StringBase<char>: retail
-// checks that string with the rowed isEmpty body at 0x00001E2F, looks it up
+// treated as a byte view whose +0x14 member is the canonical AsciiString:
+// retail checks that string with the rowed StringBase<char>::isEmpty body
+// at 0x00001E2F, looks it up
 // through the rowed factory helper at 0x002D06CA on the global at VA
 // 0x00DFF000, then calls the existing donor-derived pin at 0x0033CF34 with
 // the lookup result in ECX and the other two stack arguments. The nearby
-// module-data layout has a StringBase<char> at +0x14; treating this argument
+// module-data layout has its worker name at +0x14; treating this argument
 // as that record is a structural inference. The function's owner and meaning
 // remain unresolved, so its name is address-derived.
 class AsciiString;
@@ -314,17 +315,7 @@ extern const FieldParse g_00C402A0[] = {
 };
 
 
-struct GettingBuiltBehaviorModuleData
-{
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	unsigned char m_pad00[0x14];
-	StringBase<char> m_workerName; // +0x14
-	unsigned char m_pad18[0x20 - 0x18];
-	float m_spawnTimer; // +0x20
-	float m_24; // +0x24
-	unsigned char m_pad28[0x30 - 0x28];
-	float m_30[1]; // +0x30, indexed by the Object +0x254 state
-};
+#include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 
 // The retail element type.  Only its SIZE reaches the emitted code -- the
 // node divide -- so a forward declaration would instantiate the same way;
@@ -471,7 +462,7 @@ void GettingBuiltBehavior::mapLoadPostProcess(const Dict *)
 // BfmeLogicFramesPerSecond (logic frames), at least 1.
 void GettingBuiltBehavior::rva00454430()
 {
-	float frames = (float)BfmeLogicFramesPerSecond * data()->m_24;
+	float frames = (float)BfmeLogicFramesPerSecond * data()->m_rebuildTimeSeconds;
 	m_2C = (unsigned int)rva00454430Max(frames, 1.0f);
 }
 
@@ -685,7 +676,8 @@ float GettingBuiltBehavior::rva0045342F(Object *obj)
 {
 	float value = (float)m_object->m_template->rva0033A69A((Player *)obj, 0, -1);
 	Rva0045342FBody *body = m_object->m_254;
-	return value * data()->m_30[body->rva0045342FSlot8()];
+	// Retail indexes the four contiguous percentages at +0x30..+0x3C.
+	return value * (&data()->m_percentOfBuildCostToRebuildPristine)[body->rva0045342FSlot8()];
 }
 
 // ?rva0045346D@@YAXPBXHH@Z
@@ -694,7 +686,7 @@ void __cdecl rva0045346D(const void *arg1, int arg2, int arg3)
 	const GettingBuiltBehaviorModuleData *data = (const GettingBuiltBehaviorModuleData *)arg1;
 	if (!data->m_workerName.isEmpty())
 	{
-		void *found = (void *)TheThingFactory->findTemplate(*((const AsciiString *)&data->m_workerName));
+		void *found = (void *)TheThingFactory->findTemplate(data->m_workerName);
 		if (found)
 			((ThingTemplate *)found)->GetAssetList(arg2, arg3);
 	}
