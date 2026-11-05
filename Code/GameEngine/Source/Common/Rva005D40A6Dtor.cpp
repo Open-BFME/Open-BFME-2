@@ -44,15 +44,7 @@ class DisplayString { public:
 struct ChecklistFontDesc { AsciiString name; int size; bool bold; };
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
-class BfmeAptWindowManager { public:
- virtual void slot00(); virtual void slot04(); virtual void slot08();
- virtual void slot0C(); virtual void slot10(); virtual void slot14();
- virtual void slot18(); virtual void slot1C(); virtual void slot20();
- virtual void slot24(); virtual void slot28(); virtual void slot2C();
- virtual void slot30(); virtual void slot34(); virtual void slot38();
- virtual const FloatPair &getScale(); virtual const FloatPair &getInverseScale();
- char pad04[0x318-4]; int suppressClick318;
-};
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../Include/GameClient/DisplayStringManager.h"
@@ -174,13 +166,13 @@ Rva005D40A6::Rva005D40A6(int level,const AsciiString &name,const ChecklistFontDe
   AptRef<AptCommandMap>(MakeBinding(reinterpret_cast<FunctorMethod>(&Rva005D40A6::OnRollOut),reinterpret_cast<FunctorTarget *>(this))));
  m_24=TheDisplayStringManager->newDisplayString();
  try {
-  const FloatPair &scale=g_bfmeAptWindowManager->getScale();
+  const FloatPair &scale=*(const FloatPair *)g_bfmeAptWindowManager->vslot15();
   float maxScale=scale.x<scale.y?scale.x:scale.y;
   GameFont *font=TheFontLibrary->getFont(&fontDesc.name,fontDesc.size*maxScale,fontDesc.bold);
   m_24->setColor(m_color2C,0); m_24->setFont(font);
  } catch(...) { TheDisplayStringManager->freeDisplayString(m_24); throw; }
 }
-void Rva005D40A6::OnClicked(const char *) { if(!g_bfmeAptWindowManager->suppressClick318) rva000B3FD0Slot08(); }
+void Rva005D40A6::OnClicked(const char *) { if(!g_bfmeAptWindowManager->field318) rva000B3FD0Slot08(); }
 void Rva005D40A6::OnRollOver(const char *) { rva000B3FD0Slot0C(); }
 void Rva005D40A6::OnRollOut(const char *) { rva000B3FD0Slot10(); }
 void Rva005D40A6::rva0047A69C(float) {}
@@ -227,7 +219,7 @@ static __declspec(noinline) bool RetrieveTextWidth(const AsciiString &path,int l
  }
  bool result=false;
  if(ready) {
-  const FloatPair &scale=g_bfmeAptWindowManager->getScale();
+  const FloatPair &scale=*(const FloatPair *)g_bfmeAptWindowManager->vslot15();
   float v=static_cast<float>(atof(value.str()));
   *output=checklistRound(static_cast<float>(floor(v*scale.x+0.5f))); result=true;
  }
@@ -245,7 +237,7 @@ static __declspec(noinline) bool RetrieveHeight(const AsciiString &path,int leve
  }
  bool result=false;
  if(ready) {
-  const FloatPair &scale=g_bfmeAptWindowManager->getScale();
+  const FloatPair &scale=*(const FloatPair *)g_bfmeAptWindowManager->vslot15();
   float v=static_cast<float>(atof(value.str())); *output=scale.y*v; result=true;
  }
  return result;
@@ -255,7 +247,7 @@ int __cdecl Rva00527925Fire(void *,void *,const char *,const char *,const float 
 void Rva005D40A6::UpdateHeight() {
  struct { int width; float value; int height; } local;
  m_24->getSize(&local.width,&local.height);
- local.value=local.height*g_bfmeAptWindowManager->getInverseScale().y;
+ local.value=local.height*((const FloatPair *)g_bfmeAptWindowManager->vslot16())->y;
  Rva00527925Fire(g_bfmeAptWindowManager,reinterpret_cast<void *>(m_04),m_08.str(),"SetHeight",&local.value);
  if(StrategicHUD::RetrieveHeight(m_08,m_04,&local.value)) {
   flag5=true;
@@ -289,7 +281,7 @@ void Rva005D40A6::Update() {
   flag3=true;
  }
  if(!flag4) {
-  const FloatPair &inverse=g_bfmeAptWindowManager->getInverseScale();
+  const FloatPair &inverse=*(const FloatPair *)g_bfmeAptWindowManager->vslot16();
   float value=m_float38*inverse.y;
   Rva00527925Fire(g_bfmeAptWindowManager,reinterpret_cast<void *>(m_04),m_08.str(),"SetY",&value);
   flag4=true;

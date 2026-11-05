@@ -17,14 +17,7 @@ extern "C" __declspec(dllimport) int __cdecl isdigit(int);
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class BfmeAptWindowManager
-{
-public:
-    // Borrowed manager prefix: native OnClicked reads this32-bit word.
-    char m_pad000[0x318];
-    int m_word318;
-	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
@@ -180,7 +173,7 @@ void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnUnitIconRollOut(const
 // gates owner virtual slot01. Owner interface name remains unknown.
 void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnClicked(const char *)
 {
-    if (!g_bfmeAptWindowManager->m_word318) m_parent00->slot01();
+    if (!g_bfmeAptWindowManager->field318) m_parent00->slot01();
 }
 
 // Native constructor005FF675 binds _OnRollOver/_OnRollOut to the existing

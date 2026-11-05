@@ -82,8 +82,7 @@ static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const
 {
 	adder.AddCommandMap(name, &desc);
 }
-class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);
- char m_pad000[0x312]; bool m_flag312;};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva0054CFB8Target {
@@ -200,7 +199,7 @@ void Rva0054CFB8Target::method(int kind, const UnicodeString &title,
  m_previous14 = 2;
  m_29 = false;
  m_long28 = message.getLength() > 0x100;
- if (g_bfmeAptWindowManager && !g_bfmeAptWindowManager->m_flag312)
+ if (g_bfmeAptWindowManager && !g_bfmeAptWindowManager->field312)
   rva0054CA4A();
 }
 
@@ -302,7 +301,7 @@ void Rva0054C99AImpl::rva0054C99A(int arg) {
     m_callback20=TreeHintRef00217D4C();
    }
   }
-  if(g_bfmeAptWindowManager && !g_bfmeAptWindowManager->m_flag312)rva0054CA4A();
+  if(g_bfmeAptWindowManager && !g_bfmeAptWindowManager->field312)rva0054CA4A();
  }
 }
 
