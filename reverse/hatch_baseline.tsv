@@ -5295,14 +5295,14 @@ pin	reverse/symbols.csv	0x0016A0C0	1
 pin	reverse/symbols.csv	0x0016A6B0	1
 pin	reverse/symbols.csv	0x0016B3F0	1
 pin	reverse/symbols.csv	0x0016CB50	1
-pin	reverse/symbols.csv	0x0016CC30	1
+pin	reverse/symbols.csv	0x0016CC30	2	allow=5fc53a9ac9fe06cb82b9cf743f79df0f0fe446bf
 pin	reverse/symbols.csv	0x0016CC80	2
 pin	reverse/symbols.csv	0x0016CE00	1
 pin	reverse/symbols.csv	0x0016D610	1
 pin	reverse/symbols.csv	0x0016D710	1
 pin	reverse/symbols.csv	0x0016D790	1
 pin	reverse/symbols.csv	0x0016DAA0	1
-pin	reverse/symbols.csv	0x0016DD70	1
+pin	reverse/symbols.csv	0x0016DD70	2	allow=5fc53a9ac9fe06cb82b9cf743f79df0f0fe446bf
 pin	reverse/symbols.csv	0x0016DE70	1
 pin	reverse/symbols.csv	0x0016DE80	1
 pin	reverse/symbols.csv	0x0016DF60	1
