@@ -37,28 +37,6 @@ public:
 	bool rva00270260();				// 0x00270260
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;		// 0x002763E6
-	void drawIconUI();				// 0x00278DFE
-	Bool isDrawableEffectivelyHidden()
-	{
-		return reinterpret_cast<Rva00270260 *>(this)->rva00270260();
-	}
-	Object *getObject() { return m_object; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getObject copy loses to the first-in-order copy (no
-	// retail address); the call below inlines it but still emits the loser
-	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
-	// No flags touched.
-	Object *bfme_object() { return m_object; }
-
-private:
-	unsigned char m_pad00[0xFC];
-	Object *m_object;				// +0xFC
-};
-
 #include "../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
@@ -66,6 +44,10 @@ private:
 #include "../../../../GameEngine/Include/GameClient/View.h"
 
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
+
+// Keep View after Player and before Drawable: Snapshot must retain the
+// lowercase slot spelling used by View (getFXPitch is at +0x1B0).
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class DebugLineDrawer
 {
@@ -121,10 +103,10 @@ static void drawTerrainNormal(Drawable *draw, void *userData)
 void drawablePostDraw(Drawable *draw, void *userData)
 {
 	Real FXPitch = TheTacticalView->getFXPitch();
-	if (draw->isDrawableEffectivelyHidden() || FXPitch < 0.0f)
+	if (reinterpret_cast<Rva00270260 *>(draw)->rva00270260() || FXPitch < 0.0f)
 		return;
 
-	Object *obj = draw->bfme_object();
+	Object *obj = draw->m_object;
 	Int localPlayerIndex = ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0;
 	CellShroudStatus ss = (!obj) ? OBJECTSHROUD_CLEAR : obj->getShroudStatusForPlayer(localPlayerIndex);
 	if (ss > OBJECTSHROUD_PARTIAL_CLEAR)
