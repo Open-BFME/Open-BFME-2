@@ -22,28 +22,31 @@ static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
 
-// Opaque BehaviorModule base; ctor resolves to its row. The explicit
-// m_vtable member stands in for the inherited vptr so body order is source
-// order.
+// Opaque BehaviorModule base; ctor resolves to its row. Its virtual
+// destructor gives the classes their real vptr at +0. CastleMemberBehavior is
+// novtable: its ctor stores the three tables by hand, after the field
+// stores, so body order is source order (retail's order).
 class BehaviorModule
 {
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~BehaviorModule();
 	void xfer(Xfer*);
 
 protected:
-	const void *m_vtable;
 	Thing *m_owner;
 	int m_pad08;
 	const void *m_p0C;
 	const void *m_p10;
 };
 
-class CastleMemberBehavior : public BehaviorModule
+class __declspec(novtable) CastleMemberBehavior : public BehaviorModule
 {
 public:
 	CastleMemberBehavior(Thing *thing, const ModuleData *moduleData);
-	void xfer(Xfer*);
+
+protected:
+	virtual void xfer(Xfer*);
 
 private:
 	int m_14;
@@ -66,7 +69,7 @@ CastleMemberBehavior::CastleMemberBehavior(Thing *thing, const ModuleData *modul
 	m_1C = 0;
 	m_24 = 0;
 	m_25 = 0;
-	m_vtable = &s_vtable;
+	*(const void **)this = &s_vtable;
 	m_p0C = &s_secondary0C;
 	m_p10 = &s_secondary10;
 	m_20 = 1;

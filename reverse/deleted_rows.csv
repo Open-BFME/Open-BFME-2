@@ -5141,3 +5141,4 @@ _$E1,0x007ADA4C,"Retracted for readmission as _$E3 in BannerUI.cpp: the unit now
 ?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z,0x00361594,"Renamed to ?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z: return type corrected to the pointer the erase caller keeps (mov edi eax at 0x00361640); the pinned twin and its /alternatename are gone"
 ?name@Rva00252B84Named@@QBEPBDXZ,0x00252B84,"Renamed to ?GetSnapshotName@DrawableModule@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C07E54 slot 2)"
 ?doCommand@DeployStyleAIUpdate@@QAEXPBUAICommandParms@@_N@Z,0x0048EA0F,"Renamed to ?doCommand@DeployStyleAIUpdate@@UAEXPBUAICommandParms@@_N@Z by tools/rename.py (virtual: retail vtable slot)"
+?xfer@CastleMemberBehavior@@QAEXPAVXfer@@@Z,0x003957C6,"Renamed to ?xfer@CastleMemberBehavior@@MAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"
