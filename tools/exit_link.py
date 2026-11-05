@@ -624,7 +624,7 @@ def run_diagnostic(rows):
         OUT = measured_out
 
 
-ERROR_LINE = re.compile(r"^(?P<object>\S+\.obj|LINK) : (?:fatal )?(?P<severity>error|warning) "
+ERROR_LINE = re.compile(r"^(?P<object>\S+\.(?:obj|exp)|LINK) : (?:fatal )?(?P<severity>error|warning) "
                         r"(?P<code>LNK\d+): (?P<text>.*)$")
 UNRESOLVED = census.UNRESOLVED
 DUPLICATE = census.DUPLICATE

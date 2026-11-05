@@ -493,3 +493,14 @@ def test_exception_list_is_an_absolute_zero_coff_symbol(tmp_path):
 def test_image_commit_is_a_full_git_object_id():
     import re
     assert re.fullmatch(r"[0-9a-f]{40}", E.image_commit())
+
+
+def test_unresolved_export_is_not_lost_from_errors_tsv():
+    name = "?_Allocate@MemoryPool@@YAPAXIW4AllocType@1@I@Z"
+    rows = E.parse_errors(
+        'exit.exp : error LNK2001: unresolved external symbol "MemoryPool::_Allocate" (' + name + ')')
+    assert len(rows) == 1
+    assert rows[0]["object"] == "exit.exp"
+    assert rows[0]["code"] == "LNK2001"
+    assert rows[0]["symbol"] == name
+    assert rows[0]["source"] == ""
