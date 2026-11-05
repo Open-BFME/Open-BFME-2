@@ -31,13 +31,13 @@ public:
 	virtual void f2();
 };
 
-class Rva004B8C3E : public Rva004B8CDE, public MiBase1, public Rva004B8C3E_B2
+class LockWeaponCreate : public Rva004B8CDE, public MiBase1, public Rva004B8C3E_B2
 {
 public:
-	virtual ~Rva004B8C3E();
+	virtual ~LockWeaponCreate();
 };
 
-Rva004B8C3E::~Rva004B8C3E()
+LockWeaponCreate::~LockWeaponCreate()
 {
 }
 
