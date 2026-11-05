@@ -7,7 +7,7 @@
 // the primary base (vptr 0x00CF1630, then 0x00CF1648 as the final vptr)
 // keeps -1 at +4, the Apt window half (0x002D2C34) sits at +8 under vptr
 // 0x00CF1644, and the tail +0x60..+0x7C is cleared (floats at +0x68/+0x6C).
-// The tail's types are not known beyond their sizes.
+// The tail follows W3DAptComponentColorPicker.cpp's view (Init, ExternFunc, Render).
 #include "ascii_string.h"
 
 class Rva0074104CBase
@@ -21,11 +21,8 @@ private:
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
-struct Float2
-{
-	float x, y;
-	__forceinline Float2() : x(0.0f), y(0.0f) {}
-};
+class Image;
+struct ColorFloatPoint {float x,y;ColorFloatPoint(float a=0,float b=0):x(a),y(b){}};
 
 class W3DAptComponentColorPicker : public Rva0074104CBase, public Rva005248D0
 {
@@ -33,17 +30,16 @@ public:
 	W3DAptComponentColorPicker();
 	virtual ~W3DAptComponentColorPicker();
 private:
-	unsigned int unknown60;
-	AsciiString str64;
-	Float2 pair68;
-	unsigned int unknown70;
-	bool flag74;
-	bool flag75;
-	unsigned int unknown78;
-	unsigned int unknown7C;
+	const Image *image;
+	AsciiString owner;
+	ColorFloatPoint scaleSize;
+	unsigned color;
+	bool sample, seek;
+	char p76[2];
+	int cursorX, cursorY;
 };
 
 W3DAptComponentColorPicker::W3DAptComponentColorPicker()
-	: unknown60(0), unknown70(0), flag74(false), flag75(false), unknown78(0), unknown7C(0)
+	: image(0), color(0), sample(false), seek(false), cursorX(0), cursorY(0)
 {
 }
