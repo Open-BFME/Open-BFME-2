@@ -61,12 +61,7 @@ public:
     Rva0020E89C *rva0020EAF6(int id);
 };
 
-class LivingWorldLogic
-{
-public:
-    char m_pad000[0xB0];
-    Rva0020EAF6View *m_regionManager;
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 // 28-byte BattleSide element; rowed transfer 0x003F6672.
@@ -126,7 +121,7 @@ void LivingWorldBattle::DoXfer(Xfer &xfer)
     {
         int regionID;
         Rva003EFE82Get((Rva003EFE82Obj *)&xfer, &regionID);
-        m_region = TheLivingWorldLogic->m_regionManager->rva0020EAF6(regionID);
+        m_region = ((Rva0020EAF6View *)TheLivingWorldLogic->fieldB0)->rva0020EAF6(regionID);
     }
     else
     {

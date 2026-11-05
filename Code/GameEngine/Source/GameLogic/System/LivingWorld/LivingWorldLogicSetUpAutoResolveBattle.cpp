@@ -75,10 +75,7 @@ class GameSlot {public:void setTeamNumber(int teamNumber);};
 struct SetupSimulation44 {Rva003805BB object;const void*templateValues;char gap08[0x14-8];int team;char gap18[0x2C-0x18];};
 struct SimulationHeader {SetupSimulation44 *begin,*end,*capacity;};
 typedef _STL::vector<SetupSimulation44> SetupSimulationVector;
-class LivingWorldLogic {public:
- void SetUpAutoResolveBattle(const _STL::vector<SetupPlayer*>*,SetupPlayer*,const _STL::vector<SetupArmy*>*,void*,OutputVector*,SetupSimulationVector*);
- char gap00[0xB0];Rva0020EB4EOuter*regionBonuses;
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 static __forceinline void Scale(float factor,float &value){const float &original=value;value=original*factor;}
 static __forceinline void ScaleX(float &value,float factor){value=value*factor;}
 void LivingWorldLogic::SetUpAutoResolveBattle(const _STL::vector<SetupPlayer*>*players,SetupPlayer*sidePlayer,const _STL::vector<SetupArmy*>*armies,void*context,OutputVector*out,SetupSimulationVector*simulation)
@@ -100,7 +97,7 @@ void LivingWorldLogic::SetUpAutoResolveBattle(const _STL::vector<SetupPlayer*>*p
    }
   }
   Rva002BB7AA bonus((int)context,(int)player);
-  regionBonuses->rva0020EB4E(&bonus);
+  ((Rva0020EB4EOuter *)fieldB0)->rva0020EB4E(&bonus);
   ((Rva003F7478*)&bonus)->rva003F7465(player->weaponPercent*0.01f+1.0f);
   ((Rva003F7478*)&bonus)->rva003F7478(player->armorPercent*0.01f+1.0f);
   ((Rva003F74A0*)&bonus)->rva003F74A0(player->experiencePercent*0.01f+1.0f);

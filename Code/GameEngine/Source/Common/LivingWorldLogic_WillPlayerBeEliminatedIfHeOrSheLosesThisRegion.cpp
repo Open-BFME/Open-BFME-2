@@ -29,20 +29,13 @@ public:
 	int m_12C;
 };
 
-class LivingWorldLogic
-{
-public:
-	bool WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int id, int want);
-private:
-	char m_pad[0xB0];
-	Rva002104B6 *m_b0;
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 bool LivingWorldLogic::WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int id, int want)
 {
 	Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->find(id, 0);
 	if (p != 0) {
-		Rva002B5CFBField *t = (Rva002B5CFBField *)m_b0->rva002104B6((void *)((char *)p + 0x2C));
+		Rva002B5CFBField *t = (Rva002B5CFBField *)((Rva002104B6 *)fieldB0)->rva002104B6((void *)((char *)p + 0x2C));
 		if (t != 0) {
 			if (t->m_12C == want)
 				return true;
